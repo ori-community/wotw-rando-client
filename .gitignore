@@ -2,3 +2,5 @@
 *.vs
 *.tlog
 *.runtimeconfig.*
+*.assets.json
+*.dgspec.json
