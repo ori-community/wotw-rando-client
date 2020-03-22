@@ -1,0 +1,11 @@
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\obj\Debug\RandoMainDLL.csprojAssemblyReference.cache
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\bin\Debug\RandoMainDLL.dll
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\bin\Debug\RandoMainDLL.pdb
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\obj\Debug\RandoMainDLL.dll
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\obj\Debug\RandoMainDLL.pdb
+C:\moon\RandoMainDLL.dll
+C:\moon\RandoMainDLL.pdb
+C:\Users\WorstMirari\Documents\GitHub\OriWotWRandomizer\RandoMainDLL\obj\Debug\RandoMainDLL.csprojAssemblyReference.cache
+C:\Users\WorstMirari\Documents\GitHub\OriWotWRandomizer\RandoMainDLL\obj\Debug\RandoMainDLL.dll
+C:\Users\WorstMirari\Documents\GitHub\OriWotWRandomizer\RandoMainDLL\obj\Debug\RandoMainDLL.pdb
+C:\Users\moon\RandoMainDLL.dll

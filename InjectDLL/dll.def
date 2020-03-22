@@ -1,0 +1,3 @@
+LIBRARY Dll
+EXPORTS
+NullExport @1

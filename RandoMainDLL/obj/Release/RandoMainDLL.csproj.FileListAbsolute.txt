@@ -1,0 +1,5 @@
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\bin\Release\RandoMainDLL.dll
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\bin\Release\RandoMainDLL.pdb
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\obj\Release\RandoMainDLL.csprojAssemblyReference.cache
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\obj\Release\RandoMainDLL.dll
+C:\Users\WorstMirari\Downloads\Dll\RandoMainDLL\obj\Release\RandoMainDLL.pdb

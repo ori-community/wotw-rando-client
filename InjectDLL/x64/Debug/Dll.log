@@ -1,0 +1,12 @@
+﻿D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(459,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Dll.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  pch.cpp
+  dllmain.cpp
+  PEModule.cpp
+  Generating Code...
+     Creating library C:\moon\InjectDLL.lib and object C:\moon\InjectDLL.exp
+InjectDLL.exp : warning LNK4070: /OUT:Dll.dll directive in .EXP differs from output filename 'C:\moon\InjectDLL.dll'; ignoring directive
+detours.lib(detours.obj) : warning LNK4099: PDB 'detours.pdb' was not found with 'detours.lib(detours.obj)' or at 'C:\moon\detours.pdb'; linking object as if no debug info
+detours.lib(modules.obj) : warning LNK4099: PDB 'detours.pdb' was not found with 'detours.lib(modules.obj)' or at 'C:\moon\detours.pdb'; linking object as if no debug info
+detours.lib(disasm.obj) : warning LNK4099: PDB 'detours.pdb' was not found with 'detours.lib(disasm.obj)' or at 'C:\moon\detours.pdb'; linking object as if no debug info
+detours.lib(creatwth.obj) : warning LNK4099: PDB 'detours.pdb' was not found with 'detours.lib(creatwth.obj)' or at 'C:\moon\detours.pdb'; linking object as if no debug info
+  Dll.vcxproj -> C:\moon\InjectDLL.dll
