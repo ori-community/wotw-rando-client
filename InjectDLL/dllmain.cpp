@@ -181,6 +181,8 @@ void MainThread() {
     log("attached");
     PEModule lib(_T("C:\\moon\\RandoMainDLL.dll"));
     if (lib.call<bool>("Initialize"))
+    {
+        Sleep(5000);
         while (!shutdown) {
             try {
                 int update = lib.call<int>("Update");
@@ -198,8 +200,9 @@ void MainThread() {
                 logfile << "got message " << error << std::endl;
                 logfile.close();
             }
-            Sleep(1000);
+            Sleep(5000);
         }
+    }
     else
         log("Failed to initialize :C");
 }

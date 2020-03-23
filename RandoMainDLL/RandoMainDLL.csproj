@@ -73,6 +73,7 @@
     <Compile Include="IL2Cpp\MetadataClass.cs" />
     <Compile Include="IL2Cpp\PE.cs" />
     <Compile Include="IL2Cpp\PlusSearch.cs" />
+    <Compile Include="Memory\InventoryItem.cs" />
     <Compile Include="Memory\Ability.cs" />
     <Compile Include="Memory\AreaType.cs" />
     <Compile Include="Memory\GameState.cs" />

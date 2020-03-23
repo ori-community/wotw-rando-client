@@ -1,7 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 namespace RandoMainDLL.Memory {
     public enum ShardType : byte {
-        Overcharge,
+        Overcharge = 1,
         TripleJump,
         Wingclip,
         Bounty,
@@ -47,7 +48,23 @@ namespace RandoMainDLL.Memory {
         public byte EquipOnStart;
         [FieldOffset(12)]
         public int Index;
+        public byte[] ToBytes()
+        {
+            byte[] retval = new byte[16];
+            retval[0] = (byte)Type;
+            retval[8] = IsNew;
+            retval[9] = Gained;
+            retval[10] = EquipOnStart;
 
+            byte[] levelBytes = BitConverter.GetBytes(Level);
+            byte[] indexBytes = BitConverter.GetBytes(Index);
+            for (var i = 0; i < 4; i++)
+            {
+                retval[4 + i] = levelBytes[i];
+                retval[12 + i] = indexBytes[i];
+            }
+            return retval;
+        }
         public override string ToString() {
             return $"{Type} = {Gained != 0}+{Level}";
         }

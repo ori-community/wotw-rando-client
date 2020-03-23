@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Collections.Generic;
 namespace RandoMainDLL.Memory {
     public enum AbilityType : byte {
         Bash = 0,
@@ -35,7 +37,16 @@ namespace RandoMainDLL.Memory {
         public byte HasAbility;
         [FieldOffset(4)]
         public int AbilityLevel;
-
+        public byte[] ToBytes()
+        {
+            byte[] retval = new byte[8];
+            retval[0] = (byte)Type;
+            retval[1] = HasAbility;
+            byte[] levelBytes = BitConverter.GetBytes(AbilityLevel);
+            for (var i = 0; i < 4; i++)
+                retval[4 + i] = levelBytes[i];
+            return retval;
+        }
         public override string ToString() {
             return $"{Type} = {HasAbility != 0}+{AbilityLevel}";
         }

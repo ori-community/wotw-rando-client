@@ -4,3 +4,9 @@
 *.runtimeconfig.*
 *.assets.json
 *.dgspec.json
+*FileListAbsolute.txt
+*.pdb
+*.idb
+*.obj
+*.pch
+InjectDLL.log

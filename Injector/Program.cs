@@ -81,7 +81,7 @@ namespace Injector
         static void Main(string[] args)
         {
             System.Diagnostics.Process.Start(SteamPath, "-applaunch 1057090");
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 25; i++) {
                 if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") != 0)
                     break;
                 System.Threading.Thread.Sleep(1000);
