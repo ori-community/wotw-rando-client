@@ -3,174 +3,411 @@
 #include "detours.h"
 #include "PEModule.h"
 #include "common.h"
+
+#include <string>
 #include <iostream>
 #include <unordered_map>
 #include <fstream>
 
 
-#define OFFSET 0x8C29B0 // VC
-#define SEIN_PICKUP_PROCESSOR_ON_COLLECTED_MAX_HEALTH_HALF_CONTAINER_PICKUP 0x5D5950
+#define PTR(type, name, add) \
+	type name; \
+	type get_##name##Pointer(){ return (type) ((uint64_t)GetModuleHandleA("GameAssembly.dll") + add); }
+#define INIT(name) name  = get_##name##Pointer();
+#define ATTACH(name) DetourAttach(&(PVOID&)name, name##Intercept);
+#define DETACH(name) DetourDetach(&(PVOID&)name, name##Intercept);
+
+#define LOCK(value) if(lock) {return value;}
+
+#define OFFSET_BASE 0x180000000
+
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_MAX_HEALTH_HALF_CONTAINER_PICKUP 0x5D5950
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_MAX_ENERGY_HALF_CONTAINER_PICKUP 0x5D3DD0
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_SHARD_PICKUP 0x5D6400
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_KEYSTONE 0x5D5360
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_ORE 0x5D4470
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_SHARD_SLOTS 0x5D3440
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_QUEST_ITEM 0x5D30B0
+#define SEIN_PICKUP_PROCESSOR_ON_COLLECT_EXP_ORB 0x5D4EE0
+#define SEIN_PICKUP_PROCESSOR_PERFORM_SEQUENCE 0x5D2310
 #define SEIN_LEVEL_SET_PARTIAL_HEALTH_CONTAINERS 0x4943A0
+#define SEIN_LEVEL_GET_PARTIAL_HEALTH_CONTAINERS 0x4942E0
 #define SEIN_LEVEL_GET_PARTIAL_ENERGY_CONTAINERS 0x494470
 #define SEIN_LEVEL_SET_PARTIAL_ENERGY_CONTAINERS 0x494530
+#define SEIN_LEVEL_SET_EXPERIENCE 0x494080
+//@EIKO: 0x4947A0 if you'd rather noop GainExperience while locked
+
+#define ACTIVATE_PEDESTAL 0x13C2BD0
+#define WRITE_DESIRED_STATES 0xB3A320
+#define ABILITY_PEDESTAL_APPLY 0x13C4200
+#define CHANGE_STATE 0x13C24E0
+
 #define SEIN_HEALTH_CONTROLLER_SET_MAX_BASE 0x1230150
 #define SEIN_ENERGY_SET_BASE_MAX_ENERGY 0xDEA1F0
+#define SEIN_LEVEL_SET_ORE 0x494210
+#define SEIN_INVENTORY_SET_KEYSTONES 0x487220
+#define PLAYER_SPIRIT_SHARDS_ADD_GLOBAL_SHARD_SLOT 0xA0ADE0
+
+#define PLAYER_SPIRIT_SHARDS_ADD_SHARD 0xA0AF60
+#define PLAYER_SPIRIT_SHARDS_GET_UBER_STATE_SHARD 0xA09500
+#define SUB_182C8D3A0 (0x2C8D3A0)
+
+
+#define PLAYER_UBER_STATE_INVENTORY_GRANT_QUEST_ITEM 0x13B1660
+#define PLAYER_QUEST_ITEMS_ADD_ITEM 0xA08FC0
+
 #define SEIN_ENERGY_UPDATE 0xDEBA50
 
 
-typedef int(*_INTFUNC)();
-typedef void(*INT_CONSUMER)(__int64);
-typedef void(*PICKUP_FUN)(__int64, __int64);
-typedef int(*GET_INT_FUN)(__int64);
-typedef void(*SET_INT_FUN)(__int64, int);
-typedef void(*SET_FLOAT_FUN)(__int64, float);
+typedef int (*_INTFUNC)();
+
+typedef void (*MEMBER_FUNCTION)(__int64 thisPtr);
+typedef void (*PICKUP_FUN)(__int64 thisPtr, __int64 pickupPtr);
+typedef int (*GET_INT_FUN)(__int64 thisPtr);
+typedef __int64 (*GET_PTR_FUN)(__int64 thisPtr);
+typedef void (*SET_INT_FUN)(__int64 thisPtr, int value);
+typedef __int64 (*SET_AND_RETURN_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
+typedef void (*SET_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
+typedef __int64 (*ADD_SHARD_SIG)(__int64 thisPtr, unsigned __int8 value);
+typedef __int64 (*SUB_182C8D3A0_DICT_SIG)(__int64 thisPtr, unsigned __int8 value, __int64 something);
+typedef void (*SET_FLOAT_FUN)(__int64 thisPtr, float value);
 
 // this stuff should probably be in a header file lol
-SET_INT_FUN setBaseMaxEnergy;
-SET_INT_FUN setBaseMaxHealth;
-SET_INT_FUN setPartialHealthContainers;
-SET_INT_FUN setPartialEnergyContainers;
-SET_INT_FUN ogSetPartialEnergyContainers;
-GET_INT_FUN getPartialEnergyContainers;
-INT_CONSUMER energyCtor;
-PICKUP_FUN hPointer;
+PTR(SET_INT_FUN, setOre, SEIN_LEVEL_SET_ORE)
+PTR(SET_INT_FUN, setKeystone, SEIN_INVENTORY_SET_KEYSTONES)
+PTR(MEMBER_FUNCTION, addShardSlot, PLAYER_SPIRIT_SHARDS_ADD_GLOBAL_SHARD_SLOT)
+PTR(SET_ENUM_FUN, uberAddQuestItem, PLAYER_UBER_STATE_INVENTORY_GRANT_QUEST_ITEM)
+PTR(SET_ENUM_FUN, addQuestItem, PLAYER_QUEST_ITEMS_ADD_ITEM)
+PTR(ADD_SHARD_SIG, addShard, PLAYER_SPIRIT_SHARDS_ADD_SHARD)
+PTR(SUB_182C8D3A0_DICT_SIG, sub_182c8d3a0, SUB_182C8D3A0)
+
+PTR(GET_PTR_FUN, playerSpiritShardsGetUberStateShards, PLAYER_SPIRIT_SHARDS_GET_UBER_STATE_SHARD)
+
+PTR(MEMBER_FUNCTION, activateAbilityPedestal, ACTIVATE_PEDESTAL)
+PTR(MEMBER_FUNCTION, writeDesiredStates, WRITE_DESIRED_STATES)
+//PTR(SET_ENUM_FUN, changeState, CHANGE_STATE)
+
+PTR(SET_INT_FUN, setBaseMaxHealth, SEIN_HEALTH_CONTROLLER_SET_MAX_BASE)
+PTR(SET_INT_FUN, setPartialHealthContainers, SEIN_LEVEL_SET_PARTIAL_HEALTH_CONTAINERS)
+PTR(GET_INT_FUN, getPartialHealthContainers, SEIN_LEVEL_GET_PARTIAL_HEALTH_CONTAINERS)
+
+PTR(SET_INT_FUN, setBaseMaxEnergy, SEIN_ENERGY_SET_BASE_MAX_ENERGY)
+PTR(SET_INT_FUN, setExperience, SEIN_LEVEL_SET_EXPERIENCE)
+PTR(SET_INT_FUN, setPartialEnergyContainers, SEIN_LEVEL_SET_PARTIAL_ENERGY_CONTAINERS)
+PTR(GET_INT_FUN, getPartialEnergyContainers, SEIN_LEVEL_GET_PARTIAL_ENERGY_CONTAINERS)
+
+PTR(PICKUP_FUN, onCollectHealthHalfCell, SEIN_PICKUP_PROCESSOR_ON_COLLECT_MAX_HEALTH_HALF_CONTAINER_PICKUP)
+PTR(PICKUP_FUN, onCollectEnergyHalfCell, SEIN_PICKUP_PROCESSOR_ON_COLLECT_MAX_ENERGY_HALF_CONTAINER_PICKUP)
+PTR(PICKUP_FUN, onCollectSpiritShard, SEIN_PICKUP_PROCESSOR_ON_COLLECT_SHARD_PICKUP)
+PTR(PICKUP_FUN, onCollectOre, SEIN_PICKUP_PROCESSOR_ON_COLLECT_ORE)
+PTR(PICKUP_FUN, onCollectSpiritShardSlot, SEIN_PICKUP_PROCESSOR_ON_COLLECT_SHARD_SLOTS)
+PTR(PICKUP_FUN, onCollectKeystone, SEIN_PICKUP_PROCESSOR_ON_COLLECT_KEYSTONE)
+PTR(PICKUP_FUN, onCollectQuestItem, SEIN_PICKUP_PROCESSOR_ON_COLLECT_QUEST_ITEM)
+PTR(PICKUP_FUN, onCollectExpOrb, SEIN_PICKUP_PROCESSOR_ON_COLLECT_EXP_ORB)
+
+
+PTR(PICKUP_FUN, getAbilityPedestal, ABILITY_PEDESTAL_APPLY)
+
 __int64 lastSeinEnergy;
 __int64 lastHealthController;
-
-using namespace InjectDLL;
-
-// ok so the basic idea here is to get rid of the get...Pointer functions and replace them with these
-// Binding structures. Unfortunately it's late at night so that will have to wait
-template <typename T>
-struct Binding {
-    int    address;
-    T      originalFunc;
-    T      boundFunc;
-};
 
 
 bool lock = false;
 std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
-
 std::ofstream logfile;
 
-void log(std::string message) {
-    logfile.open(logFilePath, std::ios_base::app);
-    logfile << message << std::endl;
-    logfile.close();
-}
-
-
-SET_INT_FUN getSetBaseMaxEnergyPointer()
+void log(std::string message)
 {
-    return (SET_INT_FUN)((uint64_t)GetModuleHandleA("GameAssembly.dll") + SEIN_ENERGY_SET_BASE_MAX_ENERGY);
+	std::ofstream logfile;
+	logfile.open(logFilePath, std::ios_base::app);
+	logfile << message << std::endl;
+	logfile.close();
 }
 
-INT_CONSUMER getEnergyCtorPointer()
+void uberAddQuestItemIntercept(__int64 thisPtr, char item)
 {
-    return (INT_CONSUMER)((uint64_t)GetModuleHandleA("GameAssembly.dll") + SEIN_ENERGY_UPDATE);
+	log("Quest item intercepted2");
+	LOCK()
+		log("Quest item allowed2");
+	uberAddQuestItem(thisPtr, item);
 }
 
-SET_INT_FUN getSetBaseMaxHealthPointer()
+
+void addQuestItemIntercept(__int64 thisPtr, char item)
 {
-    return (SET_INT_FUN)((uint64_t)GetModuleHandleA("GameAssembly.dll") + SEIN_HEALTH_CONTROLLER_SET_MAX_BASE);
+	log("Quest item intercepted");
+	LOCK()
+		addQuestItem(thisPtr, item);
 }
 
-
-
-SET_INT_FUN getSetPartialEnergyContainers()
+__int64 addShardIntercept(__int64 thisPtr, unsigned __int8 enumValue)
 {
-    return (SET_INT_FUN)((uint64_t)GetModuleHandleA("GameAssembly.dll") + SEIN_LEVEL_SET_PARTIAL_ENERGY_CONTAINERS);
+	if (lock)
+	{
+		__int64 result = addShard(thisPtr, enumValue);
+		if (result)
+		{
+			//Rollback if shard was new
+			*(bool*)(result + 24) = false;
+			*(bool*)(result + 25) = false;
+		}
+		return result;
+	}
+	return addShard(thisPtr, enumValue);
 }
 
-GET_INT_FUN getGetPartialEnergyContainers()
+void addShardSlotIntercept(__int64 thisPtr)
 {
-    return (GET_INT_FUN)((uint64_t)GetModuleHandleA("GameAssembly.dll") + SEIN_LEVEL_GET_PARTIAL_ENERGY_CONTAINERS);
+	LOCK()
+		addShardSlot(thisPtr);
 }
 
-SET_INT_FUN getSetPartialHealthContainers()
+void setOreIntercept(__int64 thisPtr, int partials)
 {
-    return (SET_INT_FUN)((uint64_t)GetModuleHandleA("GameAssembly.dll") + SEIN_LEVEL_SET_PARTIAL_HEALTH_CONTAINERS);
+	LOCK()
+		setOre(thisPtr, partials);
 }
 
-PICKUP_FUN getHPointer() {
-    return (PICKUP_FUN)((uint64_t)GetModuleHandleA("GameAssembly.dll") + SEIN_PICKUP_PROCESSOR_ON_COLLECTED_MAX_HEALTH_HALF_CONTAINER_PICKUP);
-}
-
-void setBaseMaxHealthIntercept(__int64 thisPtr, int health)
+void setKeystoneIntercept(__int64 thisPtr, int partials)
 {
-    lastHealthController = thisPtr;
-    if (lock)
-        return;
-
-    setBaseMaxHealth(thisPtr, health);
+	LOCK()
+		setOre(thisPtr, partials);
 }
+
 void setPartialEnergyContainersIntercept(__int64 thisPtr, int partials)
 {
-    setPartialEnergyContainers(thisPtr, partials);    
+	LOCK()
+		setPartialEnergyContainers(thisPtr, partials);
 }
 
-void setBaseMaxEnergyIntercept(__int64 thisPtr, int energy)
+int getPartialEnergyContainersIntercept(__int64 thisPtr)
 {
-    lastSeinEnergy = thisPtr;
-    if (lock)
-        return;
+	LOCK(1)
+		return getPartialEnergyContainers(thisPtr);
+}
 
-    setBaseMaxEnergy(thisPtr, energy);
-}
-void energyCtorIntercept(__int64 thisPtr)
-{
-    if (lastSeinEnergy != thisPtr)
-    {
-        lastSeinEnergy = thisPtr;
-    }
-    energyCtor(thisPtr);
-}
 void setPartialHealthContainersIntercept(__int64 thisPtr, int partials)
 {
-    if(lock)
-    {
-        lock = false;
-        log("intercepted health setter");
-        ogSetPartialEnergyContainers(lastSeinEnergy, getPartialEnergyContainers(lastSeinEnergy) + 1);
-        lock = true;
-        return;    	
-    }
-	
-    setPartialHealthContainers(thisPtr, partials);
+	LOCK()
+		setPartialHealthContainers(thisPtr, partials);
 }
 
-void findPickupIntercept(__int64 thisPointer, __int64 pickupPointer)
+
+int getPartialHealthContainersIntercept(__int64 thisPtr)
 {
-    lock = true;
-    hPointer(thisPointer, pickupPointer);
-    lock = false;
+	LOCK(1)
+		return getPartialHealthContainers(thisPtr);
+}
+
+void setBaseMaxHealthIntercept(__int64 thisPtr, int val)
+{
+	LOCK()
+		setBaseMaxHealth(thisPtr, val);
+}
+
+void setExperienceIntercept(__int64 thisPtr, int val)
+{
+	LOCK()
+		setExperience(thisPtr, val);
+}
+
+void setBaseMaxEnergyIntercept(__int64 thisPtr, int val)
+{
+	LOCK()
+		setBaseMaxEnergy(thisPtr, val);
+}
+
+void onCollectHealthHalfCellIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+	lock = true;
+	onCollectHealthHalfCell(thisPointer, pickupPointer);
+	lock = false;
+}
+
+void onCollectEnergyHalfCellIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+	lock = true;
+	onCollectEnergyHalfCell(thisPointer, pickupPointer);
+	lock = false;
+}
+
+void onCollectSpiritShardIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+	lock = true;
+	onCollectSpiritShard(thisPointer, pickupPointer);
+	lock = false;
+}
+
+void onCollectSpiritShardSlotIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+	lock = true;
+	onCollectSpiritShardSlot(thisPointer, pickupPointer);
+	lock = false;
+}
+
+void onCollectOreIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+	lock = true;
+	onCollectOre(thisPointer, pickupPointer);
+	lock = false;
+}
+
+void onCollectKeystoneIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+	lock = true;
+	onCollectKeystone(thisPointer, pickupPointer);
+	lock = false;
+}
+
+void writeDesiredStatesIntercept(__int64 thisPtr)
+{
+	log("Caught write desired state (oh no)");
+	return;
+}
+
+
+void activateAbilityPedestalIntercept(__int64 thisPointer)
+{
+	lock = true;
+	activateAbilityPedestal(thisPointer);
+	lock = false;
+}
+
+void onCollectExpOrbIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+
+	char messageBoxType = *(char*)(pickupPointer + 0xA8);
+	//int amount = *(char*)(pickupPointer + 0xAC);
+
+	if (messageBoxType)
+	{
+		lock = true;
+	}
+	//log("MBox: " + std::to_string(messageBoxType));	
+	//log("Amount: " + std::to_string(amount));	
+	onCollectExpOrb(thisPointer, pickupPointer);
+	lock = false;
+}
+void getAbilityPedestalIntercept(__int64 thisPointer, __int64 statePointer) {
+	log("Xem pls ;_;");
+	return;
+}
+
+
+void onCollectQuestItemIntercept(__int64 thisPointer, __int64 pickupPointer)
+{
+	lock = true;
+	log("Foo: " + std::to_string(*(char*)(pickupPointer + 72)));
+	onCollectQuestItem(thisPointer, pickupPointer);
+	log("Var: " + std::to_string(*(char*)(pickupPointer + 72)));
+	lock = false;
 }
 
 void initPointers()
 {
-    setPartialHealthContainers = getSetPartialHealthContainers();
-    setPartialEnergyContainers = getSetPartialEnergyContainers();
-    ogSetPartialEnergyContainers = getSetPartialEnergyContainers();
-    getPartialEnergyContainers = getGetPartialEnergyContainers();
-	
-	setBaseMaxHealth = getSetBaseMaxHealthPointer();
-	setBaseMaxEnergy = getSetBaseMaxEnergyPointer();
+	INIT(getPartialEnergyContainers)
+	INIT(setPartialEnergyContainers)
 
-    energyCtor = getEnergyCtorPointer();
+	INIT(getPartialHealthContainers)
+	INIT(setPartialHealthContainers)
+	INIT(setExperience)
 
-    hPointer = getHPointer();
+	INIT(playerSpiritShardsGetUberStateShards)
+	INIT(sub_182c8d3a0)
+
+	INIT(uberAddQuestItem)
+	INIT(activateAbilityPedestal)
+	INIT(writeDesiredStates)
+	INIT(getAbilityPedestal)
+//	INIT(changeState)
+
+		setBaseMaxEnergy = get_setBaseMaxEnergyPointer();
+	setBaseMaxHealth = get_setBaseMaxHealthPointer();
+	setOre = get_setOrePointer();
+	addShardSlot = get_addShardSlotPointer();
+	addShard = get_addShardPointer();
+	addQuestItem = get_addQuestItemPointer();
+	setKeystone = get_setKeystonePointer();
+
+	onCollectHealthHalfCell = get_onCollectHealthHalfCellPointer();
+	onCollectEnergyHalfCell = get_onCollectEnergyHalfCellPointer();
+	onCollectSpiritShard = get_onCollectSpiritShardPointer();
+	onCollectSpiritShardSlot = get_onCollectSpiritShardSlotPointer();
+	onCollectOre = get_onCollectOrePointer();
+	onCollectQuestItem = get_onCollectQuestItemPointer();
+	INIT(onCollectExpOrb)
+		onCollectKeystone = get_onCollectKeystonePointer();
+
+	//hacky hack hack
+	auto start = (__int64)GetModuleHandleA("GameAssembly.dll") + 0x5D3227;
+	unsigned long dwOldProt = 0;
+	VirtualProtect((LPVOID)start, 6, PAGE_EXECUTE_READWRITE, &dwOldProt);
+	log("unprotected");
+	for (int i = 0; i <= 5; i++)
+	{
+		log("Pre: " + std::to_string(*(unsigned __int8*)(start + i)));
+		*(unsigned __int8*)(start + i) = 0x90;
+		log("Post: " + std::to_string(*(unsigned __int8*)(start + i)));
+	}
 }
 
-void detourIt()
+void attachAll()
 {
-    DetourAttach(&(PVOID&)hPointer, findPickupIntercept);
-    DetourAttach(&(PVOID&)energyCtor, energyCtorIntercept); 
-    DetourAttach(&(PVOID&)setPartialHealthContainers, setPartialHealthContainersIntercept); 
-    DetourAttach(&(PVOID&)setPartialEnergyContainers, setPartialEnergyContainersIntercept); 
-    DetourAttach(&(PVOID&)setBaseMaxHealth , setBaseMaxHealthIntercept);
-    DetourAttach(&(PVOID&)setBaseMaxEnergy , setBaseMaxEnergyIntercept);
+		ATTACH(uberAddQuestItem)
+		ATTACH(onCollectHealthHalfCell)
+		ATTACH(onCollectEnergyHalfCell)
+		ATTACH(onCollectOre)
+		ATTACH(onCollectSpiritShard)
+		ATTACH(onCollectSpiritShardSlot)
+		ATTACH(onCollectQuestItem)
+		ATTACH(onCollectExpOrb)
+		ATTACH(onCollectKeystone)
+		ATTACH(setExperience)
+		ATTACH(setBaseMaxHealth)
+		ATTACH(setBaseMaxEnergy)
+		ATTACH(setOre)
+		ATTACH(setKeystone)
+		ATTACH(addShardSlot)
+		ATTACH(addShard)
+		ATTACH(addQuestItem)
+		ATTACH(setPartialHealthContainers)
+		ATTACH(setPartialEnergyContainers)
+		ATTACH(getPartialHealthContainers)
+		ATTACH(getPartialEnergyContainers)
+		ATTACH(activateAbilityPedestal)
+		ATTACH(writeDesiredStates)
+		ATTACH(getAbilityPedestal)
+//		ATTACH(changeState)
 }
+
+void detachAll() {
+		DETACH(uberAddQuestItem)
+		DETACH(onCollectHealthHalfCell)
+		DETACH(onCollectEnergyHalfCell)
+		DETACH(onCollectOre)
+		DETACH(onCollectSpiritShard)
+		DETACH(onCollectSpiritShardSlot)
+		DETACH(onCollectQuestItem)
+		DETACH(onCollectExpOrb)
+		DETACH(onCollectKeystone)
+		DETACH(setExperience)
+		DETACH(setBaseMaxHealth)
+		DETACH(setBaseMaxEnergy)
+		DETACH(setOre)
+		DETACH(setKeystone)
+		DETACH(addShardSlot)
+		DETACH(addShard)
+		DETACH(addQuestItem)
+		DETACH(setPartialHealthContainers)
+		DETACH(setPartialEnergyContainers)
+		DETACH(getPartialHealthContainers)
+		DETACH(getPartialEnergyContainers)
+		DETACH(activateAbilityPedestal)
+		DETACH(writeDesiredStates)
+		DETACH(getAbilityPedestal)
+//		DETACH(changeState)
+}
+
 bool attached = false;
 bool shutdown = false;
 
@@ -179,28 +416,27 @@ void MainThread() {
         return;
     attached = true;
     log("attached");
-    PEModule lib(_T("C:\\moon\\RandoMainDLL.dll"));
+	InjectDLL::PEModule lib(_T("C:\\moon\\RandoMainDLL.dll"));
     if (lib.call<bool>("Initialize"))
     {
         Sleep(5000);
         while (!shutdown) {
             try {
                 int update = lib.call<int>("Update");
-                logfile.open(logFilePath, std::ios_base::app);
-                if (update < 0) {
-                    logfile << "still loading: " << update << std::endl;
+                if (update > 0) {
+                    logfile.open(logFilePath, std::ios_base::app);
+                    logfile << "got resp: " << update << std::endl;
+                    logfile.close();
+                    if(update == 3)
+                        Sleep(1000);
                 }
-                else {
-                    logfile << "keystones: " << update << std::endl;
-                }
-                logfile.close();
             }
             catch (int error) {
                 logfile.open(logFilePath, std::ios_base::app);
-                logfile << "got message " << error << std::endl;
+                logfile << "got error code " << error << std::endl;
                 logfile.close();
             }
-            Sleep(5000);
+            Sleep(100);
         }
     }
     else
@@ -216,40 +452,34 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
     {
     case DLL_PROCESS_ATTACH:
         CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, 0, 0, 0);
-        log("inject start");
+        log("init");
         initPointers();
     	
         DetourRestoreAfterWith();
         DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread());        
 
-        detourIt();
-        DetourTransactionCommit();
-        log("inject complete");
+        attachAll();
+		log("inject commit: " + std::to_string(DetourTransactionCommit()));
 
         break;
     case DLL_PROCESS_DETACH:
+        shutdown = true;
         DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread());
-        log("detach start");
 
-        DetourDetach(&(PVOID&)hPointer, findPickupIntercept); 
-        DetourDetach(&(PVOID&)energyCtor, energyCtorIntercept);
-        DetourDetach(&(PVOID&)setPartialHealthContainers, setPartialHealthContainersIntercept);
-        DetourDetach(&(PVOID&)setPartialEnergyContainers, setPartialEnergyContainersIntercept);
-        DetourDetach(&(PVOID&)setBaseMaxHealth, setBaseMaxHealthIntercept);
-        DetourDetach(&(PVOID&)setBaseMaxEnergy, setBaseMaxEnergyIntercept);
+		detachAll();
     	
-        log("detach complete");
-        DetourTransactionCommit();
-        break;
+		log("detatch commit: " + std::to_string(DetourTransactionCommit()));
+		break;
     default:
-        std::ifstream f("C:\\moon\\inject.flag");
-        if (!f.good() && !shutdown) {
-            shutdown = true;
-            log("Shutdown time");
-            FreeLibraryAndExitThread(GetModuleHandleA("Dll.dll"), 0);
-        }
+        break;
+        //std::ifstream f("C:\\moon\\inject.flag");
+        //if (!f.good() && !shutdown) {
+        //    shutdown = true;
+        //    log("Shutdown time");
+        //    FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
+        //}
 
     }
     return TRUE;

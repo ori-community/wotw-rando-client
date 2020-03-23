@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SeedManager.cs" />
+    <Compile Include="Pickup.cs" />
+    <Compile Include="StateListener.cs" />
     <Compile Include="IL2Cpp\BinaryStream.cs" />
     <Compile Include="IL2Cpp\Il2CppClass.cs" />
     <Compile Include="IL2Cpp\Il2CppData.cs" />

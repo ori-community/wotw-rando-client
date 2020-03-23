@@ -57,6 +57,14 @@ namespace RandoMainDLL.Memory {
             new FindIl2Cpp(AutoDeref.Single, "__mainWisp.GameController.FixedUpdate", 0x1c8),
             new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "80780A007538488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000FF0033C9", 0x2a)
         );
+        private static ProgramPointer CheatsHandler = new ProgramPointer("GameAssembly.dll",
+            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.CheatsHandler.Awake", 0x7a),
+            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C8938488B0D????????F6812701000002740E83B9D8000000007505E8", 0x14)
+        );
+        private static ProgramPointer DebugControls = new ProgramPointer("GameAssembly.dll",
+            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.AdvancedDebugMenuPage.DebugControlsSetter", 0x8e)
+        );
+
         public Process Program { get; set; }
         public bool IsHooked { get; set; }
         public DateTime LastHooked { get; set; }
@@ -84,6 +92,25 @@ namespace RandoMainDLL.Memory {
         public string Patches() {
             return "NoPause: " + (!noPausePatched.HasValue ? "No Value" : noPausePatched.ToString()) + " FPS: " + (!targetFrameRatePatched.HasValue ? "No Value" : targetFrameRatePatched.ToString());
         }
+        public bool DebugEnabled()
+        {
+            return CheatsHandler.Read<bool>(Program, 0xb8, 0x8);
+        }
+        public void EnableDebug(bool enable)
+        {
+            DebugControls.Write<bool>(Program, enable, 0xb8, 0x8);
+            CheatsHandler.Write<bool>(Program, enable, 0xb8, 0x0, 0x20);
+            CheatsHandler.Write<short>(Program, enable ? (short)0x0101 : (short)0x0, 0xb8, 0x8);
+        }
+        public bool IsLoadingGame() {
+            //GameController.FreezeFixedUpdate || GameController.Instance.m_isLoadingGame
+            return GameController.Read<bool>(Program, 0xb8, 0xa) || GameController.Read<bool>(Program, 0xb8, 0x0, 0x103) ;
+        }
+        public Vector2 Position()
+        {
+            //Characters.Sein.PlatformBehaviour.PlatformMovement.m_prevPosition
+            return Characters.Read<Vector2>(Program, 0xb8, 0x10, 0x98, 0x18, 0xd0);
+        }
         public void PatchNoPause(bool patch) {
             if (!noPausePatched.HasValue || patch != noPausePatched.Value) {
                 if (NoPausePatch.GetPointer(Program) == IntPtr.Zero) { return; }
@@ -110,6 +137,11 @@ namespace RandoMainDLL.Memory {
                 targetFrameRatePatched = patch;
             }
         }
+        public bool IsActive() {
+            //PlayerUberStateGroup.Instance.PlayerUberState.m_isActive
+            return PlayerUberStateGroup.Read<bool>(Program, 0xb8, 0x0, 0x18, 0x4C);
+        }
+
         public Stats PlayerStats {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Stats
             get { return PlayerUberStateGroup.Read<Stats>(Program, 0xb8, 0x0, 0x18, 0x30, 0x28, 0x10); }
@@ -158,10 +190,6 @@ namespace RandoMainDLL.Memory {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_ore
             get { return PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x34); }
             set { PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x34); }
-        }
-        public Vector2 Position() {
-            //Characters.Sein.PlatformBehaviour.PlatformMovement.m_prevPosition
-            return Characters.Read<Vector2>(Program, 0xb8, 0x10, 0x98, 0x18, 0xd0);
         }
         public string CurrentScene() {
             //Scenes.Manager.m_currentScene.Scene

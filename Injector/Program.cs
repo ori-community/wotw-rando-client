@@ -12,7 +12,6 @@ namespace Injector
 
         private static readonly IntPtr StaticZero = (IntPtr)0;
         public static String DllPath = "C:\\moon\\InjectDLL.dll";
-        public static String FlagPath = "C:\\moon\\inject.flag";
         public static String ExeName = "oriwotw"; // doesn't work with dotexe
         public static String SteamPath = "C:\\Program Files (x86)\\Steam\\Steam.exe";
         public static void Log(string message) // doing it like this so we can change it later
@@ -80,15 +79,17 @@ namespace Injector
 
         static void Main(string[] args)
         {
+            if(args.Length > 0)
+            {
+
+            }
             System.Diagnostics.Process.Start(SteamPath, "-applaunch 1057090");
             for (var i = 0; i < 25; i++) {
                 if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") != 0)
                     break;
                 System.Threading.Thread.Sleep(1000);
-                Log("waiting...");
+                Log("waiting for the game to start...");
             }
-            if(!File.Exists(FlagPath))
-                File.Create(FlagPath).Close();
             Log("Injecting...");
             try
             {
@@ -98,9 +99,8 @@ namespace Injector
             {
                 Log("Error:  " + e.Message);
             }
-            Log("press any key to detatch and exit");
+            Log("press any key to exit");
             Console.ReadKey();
-            File.Delete(FlagPath);
             System.Diagnostics.Process.GetProcessesByName("oriwotw").FirstOrDefault()?.Kill();
         }
     }

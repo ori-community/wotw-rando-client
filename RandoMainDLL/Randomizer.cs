@@ -15,75 +15,59 @@ namespace RandoMainDLL
                 return false;
 
             Memory.PatchNoPause(true);
-
             return true;
         }
         [DllExport]
-        public static int Update()
-        {
-                try
-                {
-                if (!Memory.IsHooked)
-                {
+        public static int Update() {
+            try {
+                if (!Memory.IsHooked) {
                     Memory.HookProcess();
-                    return -2;
+                    return 1;
                 }
-                if (Memory.GameState() == GameState.Game)
-                    {
+                if (Memory.GameState() == GameState.Game) {
+                    StateListener.Update(Memory);
+                    if (!DoneInitial) {
                         UberStateInits();
-                        /*  some proof of concept stuff
-                        Memory.Keystones += 1;
-                        Memory.Ore += 1;
-                        Memory.Experience += 1;
-                        Memory.SetAbility(AbilityType.SpiritEdge);
-                        // DOESN'T WORK!! Memory.SetBound(EquipmentType.Weapon_Sword);
-                        Memory.SetAbility(AbilityType.Launch);
-                        Memory.GetUberStates();
-                        UberStateDefaults.builderProjectSpiritWell.Value.Byte = 3;
-                        Memory.WriteUberState(UberStateDefaults.builderProjectSpiritWell);
-                        Memory.FakeHalfEnergy();
-                        Memory.FakeHalfHealth();
-
-                        foreach (var abtype in (AbilityType[])Enum.GetValues(typeof(AbilityType)))
-                                                Memory.SetAbility(abtype);
-                                            //                    Memory.SetInvItem(EquipmentType.Spell_ChargeJump);
-                        foreach(var shardtype in (ShardType[]) Enum.GetValues(typeof(ShardType)))
-                            Memory.SetShard(shardtype);
-                        Memory.SetShard(ShardType.Wingclip);
-                        Memory.SetShard(ShardType.Resilience);
-                        Memory.SetShard(ShardType.Quickshot);
-                        Memory.SetShard(ShardType.Splinter);
-                        Memory.SetShard(ShardType.Magnet);
-                        Memory.SetShard(ShardType.Deflector);
-                        */
-
+                        return 2;
+                    }
                     return -1;
+                } 
+                if(Memory.GameState() == GameState.Prologue) {
+                    if(DoneInitial)
+                        Log("new file detected");
+                    DoneInitial = false;
+                    return 0;
                 }
+                return 3;
 
             }
             catch (Exception e)
             {
-                System.IO.File.AppendAllText("C:\\moon\\cs_log.txt", "Error: " + e.Message + "\n" + e.StackTrace);
+                Log("Error: " + e.Message + "\n" + e.StackTrace);
             }
 
-            return -1;
+            return 4;
+        }
+        public static void Log(string message)
+        {
+            System.IO.File.AppendAllText("C:\\moon\\cs_log.txt", message+"\n");
         }
         public static void UberStateInits()
         {
-            Memory.GetUberStates();
-            DoneInitial = (Memory.HasAbility(AbilityType.SpiritEdge) && UberStateDefaults.builderProjectSpiritWell.Value.Byte == 3);
-            if(!DoneInitial)
+            if(!Memory.IsLoadingGame())
             {
                 Memory.SetAbility(AbilityType.SpiritEdge);
                 // probably disable this soon but it's good for testing;
-                Memory.SetAbility(AbilityType.Launch);
+                UberStateDefaults.savePedestalInkwaterMarsh.Value.Byte = 1;
                 UberStateDefaults.builderProjectSpiritWell.Value.Byte = 3;
+                Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);
                 Memory.WriteUberState(UberStateDefaults.builderProjectSpiritWell);
+                DoneInitial = true;
             }
         }
         public static bool DoneInitial = false;
         [DllExport]
-        public static void FoundPickup(int x, int y, int z)
+        public static void FoundPickup(int kind, int code)
         {
 
         }
