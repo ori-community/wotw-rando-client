@@ -699,6 +699,9 @@ namespace RandoMainDLL.Memory {
             //GameWorld.CurrentArea.Area.WorldMapAreaUniqueID
             return GameWorld.Read<AreaType>(Program, 0xb8, 0x0, 0x30, 0x10, 0x20);
         }
+        public ulong GameControllerInstancePointer() {
+            return GameController.Read<ulong>(Program, 0xb8, 0x0);
+        }
         public double ElapsedTime() {
             //GameController.Instance.Timer.CurrentTime
             return GameController.Read<double>(Program, 0xb8, 0x0, 0x28, 0x20);

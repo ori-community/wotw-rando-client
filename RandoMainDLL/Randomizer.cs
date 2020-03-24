@@ -10,13 +10,24 @@ namespace RandoMainDLL
         [DllExport]
         public static bool Initialize()
         {
-            Memory = new MemoryManager();
-            if (!Memory.HookProcess())
-                return false;
+            try {
+                SeedManager.ReadSeed();
+                Memory = new MemoryManager();
+                if (!Memory.HookProcess())
+                    return false;
 
-            Memory.PatchNoPause(true);
-            return true;
+                Memory.PatchNoPause(true);
+                return true;
+            } catch (Exception e) {
+                Log($"init error: {e.Message}\n{e.StackTrace}");
+                return true;
+            }
         }
+        [DllExport]
+        public static ulong GetGCP() {
+            return Memory.GameControllerInstancePointer();
+        }
+
         [DllExport]
         public static int Update() {
             try {
@@ -25,12 +36,12 @@ namespace RandoMainDLL
                     return 1;
                 }
                 if (Memory.GameState() == GameState.Game) {
-                    StateListener.Update(Memory);
+                    StateListener.Update();
                     if (!DoneInitial) {
                         UberStateInits();
-                        return 2;
+                        return -1;
                     }
-                    return -1;
+                    return -2;
                 } 
                 if(Memory.GameState() == GameState.Prologue) {
                     if(DoneInitial)
@@ -38,7 +49,7 @@ namespace RandoMainDLL
                     DoneInitial = false;
                     return 0;
                 }
-                return 3;
+                return -1;
 
             }
             catch (Exception e)
@@ -57,7 +68,6 @@ namespace RandoMainDLL
             if(!Memory.IsLoadingGame())
             {
                 Memory.SetAbility(AbilityType.SpiritEdge);
-                // probably disable this soon but it's good for testing;
                 UberStateDefaults.savePedestalInkwaterMarsh.Value.Byte = 1;
                 UberStateDefaults.builderProjectSpiritWell.Value.Byte = 3;
                 Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);

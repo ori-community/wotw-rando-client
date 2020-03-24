@@ -9,7 +9,8 @@ namespace RandoMainDLL
     public static class StateListener
     {
         public static Dictionary<long, UberState> UberStates = new Dictionary<long, UberState>();
-        public static void Update(MemoryManager memory) {
+        public static void Update() {
+            var memory = Randomizer.Memory;
             Dictionary<long, UberState> uberStates = memory.GetUberStates();
             foreach (KeyValuePair<long, UberState> pair in uberStates) {
                 long key = pair.Key;
@@ -21,7 +22,8 @@ namespace RandoMainDLL
                     UberValue value = state.Value;
                     UberValue oldValue = oldState.Value;
                     if (value.Int != oldValue.Int) {
-                        Randomizer.Log($"{state.GroupName}.{state.Name}: {oldValue.Int}->{value.Int}");
+                        Randomizer.Log($"{state.GroupName}.{state.Name} ({state.GroupID},{state.ID}): {oldValue.Int}->{value.Int}");
+                        SeedManager.OnUberState(state);
 /*                        if (value.Int > 0)
                         {
                             Randomizer.Log($"{state.GroupName}.{state.Name}: {oldValue.Int}->{value.Int}");

@@ -37,6 +37,8 @@
 #define SEIN_LEVEL_SET_EXPERIENCE 0x494080
 //@EIKO: 0x4947A0 if you'd rather noop GainExperience while locked
 
+#define CREATE_CHECKPOINT 0x5C06C0
+
 #define ACTIVATE_PEDESTAL 0x13C2BD0
 #define WRITE_DESIRED_STATES 0xB3A320
 #define ABILITY_PEDESTAL_APPLY 0x13C4200
@@ -85,6 +87,7 @@ PTR(GET_PTR_FUN, playerSpiritShardsGetUberStateShards, PLAYER_SPIRIT_SHARDS_GET_
 
 PTR(MEMBER_FUNCTION, activateAbilityPedestal, ACTIVATE_PEDESTAL)
 PTR(MEMBER_FUNCTION, writeDesiredStates, WRITE_DESIRED_STATES)
+PTR(MEMBER_FUNCTION, createCheckpoint, CREATE_CHECKPOINT)
 //PTR(SET_ENUM_FUN, changeState, CHANGE_STATE)
 
 PTR(SET_INT_FUN, setBaseMaxHealth, SEIN_HEALTH_CONTROLLER_SET_MAX_BASE)
@@ -111,6 +114,7 @@ PTR(PICKUP_FUN, getAbilityPedestal, ABILITY_PEDESTAL_APPLY)
 __int64 lastSeinEnergy;
 __int64 lastHealthController;
 
+void* gameControllerInstancePointer = NULL;
 
 bool lock = false;
 std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
@@ -293,6 +297,13 @@ void getAbilityPedestalIntercept(__int64 thisPointer, __int64 statePointer) {
 	return;
 }
 
+void createCheckpointIntercept(__int64 thisPointer) {
+	logfile.open(logFilePath, std::ios_base::app);
+	logfile << "got ptr!!: " << thisPointer << std::endl;
+	logfile.close();
+	createCheckpoint(thisPointer);
+
+}
 
 void onCollectQuestItemIntercept(__int64 thisPointer, __int64 pickupPointer)
 {
@@ -319,7 +330,9 @@ void initPointers()
 	INIT(activateAbilityPedestal)
 	INIT(writeDesiredStates)
 	INIT(getAbilityPedestal)
-//	INIT(changeState)
+	INIT(onCollectExpOrb)
+	INIT(createCheckpoint)
+		//	INIT(changeState)
 
 		setBaseMaxEnergy = get_setBaseMaxEnergyPointer();
 	setBaseMaxHealth = get_setBaseMaxHealthPointer();
@@ -335,8 +348,8 @@ void initPointers()
 	onCollectSpiritShardSlot = get_onCollectSpiritShardSlotPointer();
 	onCollectOre = get_onCollectOrePointer();
 	onCollectQuestItem = get_onCollectQuestItemPointer();
-	INIT(onCollectExpOrb)
-		onCollectKeystone = get_onCollectKeystonePointer();
+	onCollectKeystone = get_onCollectKeystonePointer();
+
 
 	//hacky hack hack
 	auto start = (__int64)GetModuleHandleA("GameAssembly.dll") + 0x5D3227;
@@ -377,6 +390,7 @@ void attachAll()
 		ATTACH(activateAbilityPedestal)
 		ATTACH(writeDesiredStates)
 		ATTACH(getAbilityPedestal)
+		ATTACH(createCheckpoint)
 //		ATTACH(changeState)
 }
 
@@ -430,13 +444,22 @@ void MainThread() {
                     if(update == 3)
                         Sleep(1000);
                 }
-            }
+				else if (update < 0) {
+					//figure this out xem pls? <3
+
+
+					//gameControllerInstancePointer = (void*) lib.call<__int64>("GetGCP");
+					//logfile.open(logFilePath, std::ios_base::app);
+					//logfile << "got GCP: " << gameControllerInstancePointer  << std::endl;
+					//logfile.close();
+				}
+			}
             catch (int error) {
                 logfile.open(logFilePath, std::ios_base::app);
                 logfile << "got error code " << error << std::endl;
                 logfile.close();
             }
-            Sleep(100);
+            Sleep(1000);
         }
     }
     else

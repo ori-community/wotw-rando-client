@@ -68,6 +68,26 @@ namespace RandoMainDLL.Memory {
         public static UberState savePedestalWindtornRuinsB = new UberState() { Name = "savePedestalUberState", ID = 4928, GroupName = "windtornRuinsGroup", GroupID = 10289, Type = UberStateType.SavePedestalUberState };
         public static UberState builderProjectSpiritWell = new UberState() { Name = "builderProjectSpiritWell", ID = 16825, GroupName = "hubUberStateGroup", GroupID = 42178, Type = UberStateType.SerializedByteUberState };
     }
+    public class UberId {
+        public int ID;
+        public int GroupID;
+        public UberId(int _GroupID, int _ID) {
+            GroupID = _GroupID;
+            ID = _ID;
+        }
+        public override int GetHashCode() {
+            return ID.GetHashCode() + GroupID.GetHashCode();
+        }
+        public override bool Equals(object obj) {
+            return Equals(obj as UberId);
+        }
+        public bool Equals(UberId obj) {
+            return (ID == obj.ID) && (GroupID == obj.GroupID);
+        }
+        public override string ToString() {
+            return $"({GroupID}, {ID})";
+        }
+    }
     public class UberState {
         public UberStateType Type;
         public int ID;
@@ -76,6 +96,7 @@ namespace RandoMainDLL.Memory {
         public string GroupName;
         public UberValue Value;
 
+        public UberId GetUberId() { return new UberId(GroupID, ID);  }
         public UberState Clone() {
             return new UberState() { Type = Type, ID = ID, Name = Name, GroupID = GroupID, GroupName = GroupName, Value = Value };
         }
