@@ -17,6 +17,7 @@ namespace RandoMainDLL {
                     Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}");
                 }
             }
+            Randomizer.Log("Seed loaded!");
         }
 
         public static bool OnUberState(UberState state) {
