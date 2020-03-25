@@ -77,6 +77,7 @@ namespace RandoMainDLL {
                 switch (signal) {
                     case "reload":
                         SeedManager.ReadSeed();
+                        Randomizer.Log("Seed loaded");
                         break;
                     case "dev":
                         Randomizer.Dev = !Randomizer.Dev;

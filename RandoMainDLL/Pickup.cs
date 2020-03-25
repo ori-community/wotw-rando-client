@@ -61,7 +61,7 @@ namespace RandoMainDLL {
         public override void Grant() {
             Randomizer.Memory.Experience += amount;
         }
-        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Geo", "Experience", "Gil", "GP", "Dollars", "Pounds Sterling", "BTC", "Euros", "Credits" };
+        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Geo", "Experience", "Gil", "GP", "Dollars", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny"};
         public override string ToString() {
             return $"{amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
         }
