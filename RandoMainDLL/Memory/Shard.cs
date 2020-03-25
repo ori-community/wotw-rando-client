@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace RandoMainDLL.Memory {
     public enum ShardType : byte {
@@ -33,6 +34,44 @@ namespace RandoMainDLL.Memory {
         Deflector,
         Fracture = 46,
         Arcing
+    }
+    public static class ShardN {
+        private static Dictionary<ShardType, String> mapping = new Dictionary<ShardType, string>() {
+            { ShardType.Overcharge, "Overcharge"},
+            { ShardType.TripleJump, "Triple Jump"},
+            { ShardType.Wingclip, "Wingclip"},
+            { ShardType.Bounty, "Bounty"},
+            { ShardType.Swap, "Swap"},
+            { ShardType.Magnet, "Magnet"},
+            { ShardType.Splinter, "Splinter"},
+            { ShardType.Reckless, "Reckless"},
+            { ShardType.Quickshot, "Quickshot"},
+            { ShardType.Resilience, "Resilience"},
+            { ShardType.LightHarvest, "Spirit Light Harvest"},
+            { ShardType.Vitality, "Bonus Health"},
+            { ShardType.LifeHarvest, "Life Harvest"},
+            { ShardType.EnergyHarvest, "Energy Harvest"},
+            { ShardType.Energy, "Bonus Energy"},
+            { ShardType.LifePact, "Life Pact"},
+            { ShardType.LastStand, "Last Stand"},
+            { ShardType.Secret, "Sense"},
+            { ShardType.UltraBash, "Ultra Bash"},
+            { ShardType.UltraGrapple, "Ultra Grapple"},
+            { ShardType.Overflow, "Overflow"},
+            { ShardType.Thorn, "Thorn"},
+            { ShardType.Catalyst, "Catalyst"},
+            { ShardType.Turmoil, "Turmoil"},
+            { ShardType.Sticky, "Sticky"},
+            { ShardType.Finesse, "Finesse"},
+            { ShardType.SpiritSurge, "Spirit Surge"},
+            { ShardType.Lifeforce, "Lifeforce"},
+            { ShardType.Deflector, "Deflector"},
+            { ShardType.Fracture, "Fracture"},
+            { ShardType.Arcing, "Arcing"},
+        };
+        public static string ame(ShardType st) {
+            return mapping.ContainsKey(st) ? mapping[st] : $"Unknown Shard {st}";
+        }
     }
     [StructLayout(LayoutKind.Explicit, Size = 16, Pack = 1)]
     public struct Shard {

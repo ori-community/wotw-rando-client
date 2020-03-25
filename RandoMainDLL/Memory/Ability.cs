@@ -29,6 +29,38 @@ namespace RandoMainDLL.Memory {
         DamageUpgrade1 = 120,
         DamageUpgrade2
     }
+    public static class AbilityN {
+        private static Dictionary<AbilityType, String> mapping = new Dictionary<AbilityType, string>(){
+            { AbilityType.Bash, "Bash"},
+            { AbilityType.WallJump, "Wall Jump"},
+            { AbilityType.DoubleJump, "Doubl eJump"},
+            { AbilityType.Launch, "Launch"},
+            { AbilityType.Feather, "Feather"},
+            { AbilityType.WaterBreath, "Water Breath"},
+            { AbilityType.LightBurst, "Light Burst"},
+            { AbilityType.Grapple, "Grapple"},
+            { AbilityType.Flash, "Flash"},
+            { AbilityType.Spike, "Spike"},
+            { AbilityType.Regenerate, "Regenerate"},
+            { AbilityType.SpiritArc, "Bow"},
+            { AbilityType.SpiritSmash, "Hammer"},
+            { AbilityType.Torch, "Torch"},
+            { AbilityType.SpiritEdge, "Sword"},
+            { AbilityType.Burrow, "Burrow"},
+            { AbilityType.Dash, "Dash"},
+            { AbilityType.WaterDash, "Water Dash"},
+            { AbilityType.SpiritStar, "Shuriken"},
+            { AbilityType.Seir, "Seir"},
+            { AbilityType.Blaze, "Blaze"},
+            { AbilityType.Sentry, "Sentry"},
+            { AbilityType.Flap, "Flap"},
+            { AbilityType.DamageUpgrade1, "damage up"},
+            { AbilityType.DamageUpgrade2, "DAMAGE UP"},
+    };
+        public static string ame(AbilityType at) {
+            return mapping.ContainsKey(at) ? mapping[at] : $"Unknown Ability {at}";
+        }
+    }
     [StructLayout(LayoutKind.Explicit, Size = 8, Pack = 1)]
     public struct Ability {
         [FieldOffset(0)]

@@ -19,12 +19,14 @@ namespace RandoMainDLL {
             }
         }
 
-        public static void OnUberState(UberState state) {
+        public static bool OnUberState(UberState state) {
             var id = state.GetUberId();
-            if (pickupMap.ContainsKey(id)) {
-                Randomizer.Log($"found {id}, granting pickup");
-                pickupMap[id].Grant();
+            if (pickupMap.TryGetValue(id, out Pickup p)) {
+                AHK.Print(p.ToString());
+                p.Grant();
+                return true;
             }
+            return false;
         }
         public static Pickup BuildPickup(PickupType type, String pickupData) {
             switch(type) {

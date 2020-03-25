@@ -13,9 +13,9 @@
 #define PTR(type, name, add) \
 	type name; \
 	type get_##name##Pointer(){ return (type) ((uint64_t)GetModuleHandleA("GameAssembly.dll") + add); }
-#define INIT(name) name  = get_##name##Pointer();
-#define ATTACH(name) DetourAttach(&(PVOID&)name, name##Intercept);
-#define DETACH(name) DetourDetach(&(PVOID&)name, name##Intercept);
+#define INIT(name) name  = get_##name##Pointer()
+#define ATTACH(name) DetourAttach(&(PVOID&)name, name##Intercept)
+#define DETACH(name) DetourDetach(&(PVOID&)name, name##Intercept)
 
 #define LOCK(value) if(lock) {return value;}
 
@@ -37,6 +37,7 @@
 #define SEIN_LEVEL_SET_EXPERIENCE 0x494080
 //@EIKO: 0x4947A0 if you'd rather noop GainExperience while locked
 
+#define FIXED_UPDATE 0x5BE620
 #define CREATE_CHECKPOINT 0x5C06C0
 
 #define ACTIVATE_PEDESTAL 0x13C2BD0
@@ -88,6 +89,7 @@ PTR(GET_PTR_FUN, playerSpiritShardsGetUberStateShards, PLAYER_SPIRIT_SHARDS_GET_
 PTR(MEMBER_FUNCTION, activateAbilityPedestal, ACTIVATE_PEDESTAL)
 PTR(MEMBER_FUNCTION, writeDesiredStates, WRITE_DESIRED_STATES)
 PTR(MEMBER_FUNCTION, createCheckpoint, CREATE_CHECKPOINT)
+PTR(MEMBER_FUNCTION, fixedUpdate, FIXED_UPDATE)
 //PTR(SET_ENUM_FUN, changeState, CHANGE_STATE)
 
 PTR(SET_INT_FUN, setBaseMaxHealth, SEIN_HEALTH_CONTROLLER_SET_MAX_BASE)
@@ -117,6 +119,7 @@ __int64 lastHealthController;
 void* gameControllerInstancePointer = NULL;
 
 bool lock = false;
+InjectDLL::PEModule* CSharpLib = NULL;
 std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
 std::ofstream logfile;
 
@@ -127,6 +130,7 @@ void log(std::string message)
 	logfile << message << std::endl;
 	logfile.close();
 }
+
 
 void uberAddQuestItemIntercept(__int64 thisPtr, char item)
 {
@@ -211,8 +215,10 @@ void setBaseMaxHealthIntercept(__int64 thisPtr, int val)
 
 void setExperienceIntercept(__int64 thisPtr, int val)
 {
+
 	LOCK()
 		setExperience(thisPtr, val);
+
 }
 
 void setBaseMaxEnergyIntercept(__int64 thisPtr, int val)
@@ -297,12 +303,30 @@ void getAbilityPedestalIntercept(__int64 thisPointer, __int64 statePointer) {
 	return;
 }
 
-void createCheckpointIntercept(__int64 thisPointer) {
-	logfile.open(logFilePath, std::ios_base::app);
-	logfile << "got ptr!!: " << thisPointer << std::endl;
-	logfile.close();
-	createCheckpoint(thisPointer);
+void fixedUpdateIntercept(__int64 thisPointer) {
+	fixedUpdate(thisPointer);
+	if (gameControllerInstancePointer != (void*)thisPointer) {
+		logfile.open(logFilePath, std::ios_base::app);
+		logfile << "got GameController.Instance pointer: " << thisPointer << std::endl;
+		logfile.close();
+		gameControllerInstancePointer = (void*)thisPointer;
+	}
+	try {
+		int update = CSharpLib->call<int>("Update");
+		if (update == 1) {
+			log("Checkpoint requested by c# code");
+			createCheckpoint((__int64)gameControllerInstancePointer);
+		}
+	}
+	catch (int error) {
+		logfile.open(logFilePath, std::ios_base::app);
+		logfile << "got error code " << error << std::endl;
+		logfile.close();
+	}
+}
 
+void createCheckpointIntercept(__int64 thisPointer) {
+	createCheckpoint(thisPointer);
 }
 
 void onCollectQuestItemIntercept(__int64 thisPointer, __int64 pickupPointer)
@@ -316,40 +340,40 @@ void onCollectQuestItemIntercept(__int64 thisPointer, __int64 pickupPointer)
 
 void initPointers()
 {
-	INIT(getPartialEnergyContainers)
-	INIT(setPartialEnergyContainers)
+	INIT(getPartialEnergyContainers);
+	INIT(setPartialEnergyContainers);
 
-	INIT(getPartialHealthContainers)
-	INIT(setPartialHealthContainers)
-	INIT(setExperience)
+	INIT(getPartialHealthContainers);
+	INIT(setPartialHealthContainers);
 
-	INIT(playerSpiritShardsGetUberStateShards)
-	INIT(sub_182c8d3a0)
+	INIT(setExperience);
 
-	INIT(uberAddQuestItem)
-	INIT(activateAbilityPedestal)
-	INIT(writeDesiredStates)
-	INIT(getAbilityPedestal)
-	INIT(onCollectExpOrb)
-	INIT(createCheckpoint)
-		//	INIT(changeState)
+	INIT(playerSpiritShardsGetUberStateShards);
+	INIT(sub_182c8d3a0);
 
-		setBaseMaxEnergy = get_setBaseMaxEnergyPointer();
-	setBaseMaxHealth = get_setBaseMaxHealthPointer();
-	setOre = get_setOrePointer();
-	addShardSlot = get_addShardSlotPointer();
-	addShard = get_addShardPointer();
-	addQuestItem = get_addQuestItemPointer();
-	setKeystone = get_setKeystonePointer();
+	INIT(uberAddQuestItem);
+	INIT(activateAbilityPedestal);
+	INIT(writeDesiredStates);
+	INIT(getAbilityPedestal);
+	INIT(onCollectExpOrb);
+	INIT(createCheckpoint);
+	INIT(fixedUpdate);
+	//	INIT(changeState)
 
-	onCollectHealthHalfCell = get_onCollectHealthHalfCellPointer();
-	onCollectEnergyHalfCell = get_onCollectEnergyHalfCellPointer();
-	onCollectSpiritShard = get_onCollectSpiritShardPointer();
-	onCollectSpiritShardSlot = get_onCollectSpiritShardSlotPointer();
-	onCollectOre = get_onCollectOrePointer();
-	onCollectQuestItem = get_onCollectQuestItemPointer();
-	onCollectKeystone = get_onCollectKeystonePointer();
-
+	INIT(setBaseMaxEnergy);
+	INIT(setBaseMaxHealth);
+	INIT(setOre);
+	INIT(addShardSlot);
+	INIT(addShard);
+	INIT(addQuestItem);
+	INIT(setKeystone);
+	INIT(onCollectHealthHalfCell);
+	INIT(onCollectEnergyHalfCell);
+	INIT(onCollectSpiritShard);
+	INIT(onCollectSpiritShardSlot);
+	INIT(onCollectOre);
+	INIT(onCollectQuestItem);
+	INIT(onCollectKeystone);
 
 	//hacky hack hack
 	auto start = (__int64)GetModuleHandleA("GameAssembly.dll") + 0x5D3227;
@@ -366,104 +390,80 @@ void initPointers()
 
 void attachAll()
 {
-		ATTACH(uberAddQuestItem)
-		ATTACH(onCollectHealthHalfCell)
-		ATTACH(onCollectEnergyHalfCell)
-		ATTACH(onCollectOre)
-		ATTACH(onCollectSpiritShard)
-		ATTACH(onCollectSpiritShardSlot)
-		ATTACH(onCollectQuestItem)
-		ATTACH(onCollectExpOrb)
-		ATTACH(onCollectKeystone)
-		ATTACH(setExperience)
-		ATTACH(setBaseMaxHealth)
-		ATTACH(setBaseMaxEnergy)
-		ATTACH(setOre)
-		ATTACH(setKeystone)
-		ATTACH(addShardSlot)
-		ATTACH(addShard)
-		ATTACH(addQuestItem)
-		ATTACH(setPartialHealthContainers)
-		ATTACH(setPartialEnergyContainers)
-		ATTACH(getPartialHealthContainers)
-		ATTACH(getPartialEnergyContainers)
-		ATTACH(activateAbilityPedestal)
-		ATTACH(writeDesiredStates)
-		ATTACH(getAbilityPedestal)
-		ATTACH(createCheckpoint)
-//		ATTACH(changeState)
+	ATTACH(uberAddQuestItem);
+	ATTACH(onCollectHealthHalfCell);
+	ATTACH(onCollectEnergyHalfCell);
+	ATTACH(onCollectOre);
+	ATTACH(onCollectSpiritShard);
+	ATTACH(onCollectSpiritShardSlot);
+	ATTACH(onCollectQuestItem);
+	ATTACH(onCollectExpOrb);
+	ATTACH(onCollectKeystone);
+	ATTACH(setExperience);
+	ATTACH(setBaseMaxHealth);
+	ATTACH(setBaseMaxEnergy);
+	ATTACH(setOre);
+	ATTACH(setKeystone);
+	ATTACH(addShardSlot);
+	ATTACH(addShard);
+	ATTACH(addQuestItem);
+	ATTACH(setPartialHealthContainers);
+	ATTACH(setPartialEnergyContainers);
+	ATTACH(getPartialHealthContainers);
+	ATTACH(getPartialEnergyContainers);
+	ATTACH(activateAbilityPedestal);
+	ATTACH(writeDesiredStates);
+	ATTACH(getAbilityPedestal);
+	ATTACH(createCheckpoint);
+	ATTACH(fixedUpdate);
+	//		ATTACH(changeState);
 }
 
 void detachAll() {
-		DETACH(uberAddQuestItem)
-		DETACH(onCollectHealthHalfCell)
-		DETACH(onCollectEnergyHalfCell)
-		DETACH(onCollectOre)
-		DETACH(onCollectSpiritShard)
-		DETACH(onCollectSpiritShardSlot)
-		DETACH(onCollectQuestItem)
-		DETACH(onCollectExpOrb)
-		DETACH(onCollectKeystone)
-		DETACH(setExperience)
-		DETACH(setBaseMaxHealth)
-		DETACH(setBaseMaxEnergy)
-		DETACH(setOre)
-		DETACH(setKeystone)
-		DETACH(addShardSlot)
-		DETACH(addShard)
-		DETACH(addQuestItem)
-		DETACH(setPartialHealthContainers)
-		DETACH(setPartialEnergyContainers)
-		DETACH(getPartialHealthContainers)
-		DETACH(getPartialEnergyContainers)
-		DETACH(activateAbilityPedestal)
-		DETACH(writeDesiredStates)
-		DETACH(getAbilityPedestal)
-//		DETACH(changeState)
+	DETACH(uberAddQuestItem);
+	DETACH(onCollectHealthHalfCell);
+	DETACH(onCollectEnergyHalfCell);
+	DETACH(onCollectOre);
+	DETACH(onCollectSpiritShard);
+	DETACH(onCollectSpiritShardSlot);
+	DETACH(onCollectQuestItem);
+	DETACH(onCollectExpOrb);
+	DETACH(onCollectKeystone);
+	DETACH(setExperience);
+	DETACH(setBaseMaxHealth);
+	DETACH(setBaseMaxEnergy);
+	DETACH(setOre);
+	DETACH(setKeystone);
+	DETACH(addShardSlot);
+	DETACH(addShard);
+	DETACH(addQuestItem);
+	DETACH(setPartialHealthContainers);
+	DETACH(setPartialEnergyContainers);
+	DETACH(getPartialHealthContainers);
+	DETACH(getPartialEnergyContainers);
+	DETACH(activateAbilityPedestal);
+	DETACH(writeDesiredStates);
+	DETACH(getAbilityPedestal);
+	DETACH(fixedUpdate);
+	//		DETACH(changeState);
 }
 
 bool attached = false;
 bool shutdown = false;
-
 void MainThread() {
     if (attached)
         return;
     attached = true;
     log("attached");
-	InjectDLL::PEModule lib(_T("C:\\moon\\RandoMainDLL.dll"));
-    if (lib.call<bool>("Initialize"))
-    {
-        Sleep(5000);
-        while (!shutdown) {
-            try {
-                int update = lib.call<int>("Update");
-                if (update > 0) {
-                    logfile.open(logFilePath, std::ios_base::app);
-                    logfile << "got resp: " << update << std::endl;
-                    logfile.close();
-                    if(update == 3)
-                        Sleep(1000);
-                }
-				else if (update < 0) {
-					//figure this out xem pls? <3
-
-
-					//gameControllerInstancePointer = (void*) lib.call<__int64>("GetGCP");
-					//logfile.open(logFilePath, std::ios_base::app);
-					//logfile << "got GCP: " << gameControllerInstancePointer  << std::endl;
-					//logfile.close();
-				}
-			}
-            catch (int error) {
-                logfile.open(logFilePath, std::ios_base::app);
-                logfile << "got error code " << error << std::endl;
-                logfile.close();
-            }
-            Sleep(1000);
-        }
-    }
-    else
-        log("Failed to initialize :C");
+	CSharpLib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
+    if (CSharpLib->call<bool>("Initialize")) {
+		log("c# init complete");
+		return;
+    } else {
+		log("Failed to initialize, shutting down");
+		shutdown = true;
+		FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
+	}
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
@@ -488,6 +488,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
         break;
     case DLL_PROCESS_DETACH:
         shutdown = true;
+		delete CSharpLib;
         DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread());
 

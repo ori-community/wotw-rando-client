@@ -1,16 +1,25 @@
 ﻿using System;
 using System.IO;
 using RandoMainDLL.Memory;
-
 namespace RandoMainDLL
 {
     public static class Randomizer
     {
+        public static string PickupLog = "C:\\moon\\rando.PICKUPS";
+        public static string SeedFile = "C:\\moon\\wotw.rando";
+        public static string LogFile = "C:\\moon\\cs_log.txt";
         public static MemoryManager Memory;
         [DllExport]
         public static bool Initialize()
         {
             try {
+                foreach(var fileName in new String[] { LogFile, PickupLog, SeedFile }) {
+                    if(!File.Exists(fileName)) {
+                        File.WriteAllText(fileName, "");
+                        Log($"Wrote blank {fileName} (normal for first-time init)");
+                    }
+                }
+                AHK.Init();
                 SeedManager.ReadSeed();
                 Memory = new MemoryManager();
                 if (!Memory.HookProcess())
@@ -23,25 +32,22 @@ namespace RandoMainDLL
                 return true;
             }
         }
-        [DllExport]
-        public static ulong GetGCP() {
-            return Memory.GameControllerInstancePointer();
-        }
 
         [DllExport]
         public static int Update() {
             try {
                 if (!Memory.IsHooked) {
                     Memory.HookProcess();
-                    return 1;
+                    return -3;
                 }
+                AHK.Tick();
                 if (Memory.GameState() == GameState.Game) {
-                    StateListener.Update();
+                    bool grantedItem = StateListener.Update();
                     if (!DoneInitial) {
                         UberStateInits();
                         return -1;
                     }
-                    return -2;
+                    return grantedItem  ? 1 : -2;
                 } 
                 if(Memory.GameState() == GameState.Prologue) {
                     if(DoneInitial)
@@ -54,14 +60,16 @@ namespace RandoMainDLL
             }
             catch (Exception e)
             {
-                Log("Error: " + e.Message + "\n" + e.StackTrace);
+                Log($"Update error: {e.Message}\n{e.StackTrace}");
             }
 
             return 4;
         }
-        public static void Log(string message)
-        {
-            System.IO.File.AppendAllText("C:\\moon\\cs_log.txt", message+"\n");
+        public static bool Dev = false;
+        public static void Log(string message, bool printIfDev = true) {
+            File.AppendAllText(LogFile, message+"\n");
+            if(Dev && printIfDev) 
+                AHK.Print(message);
         }
         public static void UberStateInits()
         {
@@ -77,7 +85,7 @@ namespace RandoMainDLL
         }
         public static bool DoneInitial = false;
         [DllExport]
-        public static void FoundPickup(int kind, int code)
+        public static void OnTree(int code)
         {
 
         }

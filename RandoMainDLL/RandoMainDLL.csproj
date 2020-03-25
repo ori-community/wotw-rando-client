@@ -48,6 +48,10 @@
     <DllExportPatches>0</DllExportPatches>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoHotkey.Interop">
+      <HintPath>..\AutoHotkey.Interop.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="DllExport, PublicKeyToken=8337224c9ad9e356">
       <HintPath>$(SolutionDir)packages\DllExport.1.7.0\gcache\$(DllExportMetaXBase)\$(DllExportNamespace)\$(DllExportMetaLibName)</HintPath>
       <Private>False</Private>
@@ -63,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AHK.cs" />
     <Compile Include="SeedManager.cs" />
     <Compile Include="Pickup.cs" />
     <Compile Include="StateListener.cs" />
