@@ -11,7 +11,7 @@
 #include <fstream>
 #include <utility>
 
-enum Flags{Save, Ore};
+enum Flags { Save, Ore };
 
 
 //--------------------------Common Function Types--------------------------
@@ -19,6 +19,7 @@ typedef int (*_INTFUNC)();
 
 typedef void (*MEMBER_FUNCTION)(__int64 thisPtr);
 typedef void (*PICKUP_FUN)(__int64 thisPtr, __int64 pickupPtr);
+typedef bool (*SUB_1813A7AA0_SIG)(__int64 ptr1, __int64 ptr2);
 typedef int (*GET_INT_FUN)(__int64 thisPtr);
 typedef __int64 (*GET_PTR_FUN)(__int64 thisPtr);
 typedef void (*SET_INT_FUN)(__int64 thisPtr, int value);
@@ -84,6 +85,17 @@ struct intercept
 
 #define OFFSET_BASE 0x180000000
 BINDING(0x5C06C0, MEMBER_FUNCTION, createCheckpoint) //GameController::createCheckpoint
+
+bool invertTreeActivationStates = true;;
+INTERCEPT(0x13A7AA0, SUB_1813A7AA0_SIG, bool, sub1813A7AA0, (__int64 mappingPtr, __int64 uberState){
+          //RVA: 13A7AA0. Called from PlayerStateMap.Mapping::Matches
+
+          bool result = sub1813A7AA0(mappingPtr, uberState);
+          log("intercepted 13A7AA0 with for " + std::to_string(mappingPtr) + " and " + std::to_string(uberState) + " result: " + std
+	          ::to_string(result));
+          result = invertTreeActivationStates ^ result;
+          return result;
+          })
 
 INTERCEPT(0x5D5950, PICKUP_FUN, void, onCollectHealthHalfCell, (__int64 thisPointer, __int64 pickupPointer){
           //SeinPickupProcessor::onCollectHealthHalfCell
@@ -159,46 +171,46 @@ INTERCEPT(0xDEA1F0, SET_INT_FUN, void, setBaseMaxEnergy, (__int64 thisPtr, int v
           setBaseMaxEnergy(thisPtr, val);
           })
 INTERCEPT(0x4943A0, SET_INT_FUN, void, setPartialHealthContainers, (__int64 thisPtr, int amount){
-	//SeinLevel::setPartialHealthContainers
-	lastSeinLevel = thisPtr;
-	LOCK()
-	setPartialHealthContainers(thisPtr, amount);
-})
+          //SeinLevel::setPartialHealthContainers
+          lastSeinLevel = thisPtr;
+          LOCK()
+          setPartialHealthContainers(thisPtr, amount);
+          })
 
 INTERCEPT(0x4942E0, GET_INT_FUN, int, getPartialHealthContainers, (__int64 thisPtr){
-	//SeinLevel::getPartialHealthContainers
-	lastSeinLevel = thisPtr;
-	LOCK(1)
-	return getPartialHealthContainers(thisPtr);
-})
+          //SeinLevel::getPartialHealthContainers
+          lastSeinLevel = thisPtr;
+          LOCK(1)
+          return getPartialHealthContainers(thisPtr);
+          })
 
 INTERCEPT(0x494530, SET_INT_FUN, void, setPartialEnergyContainers, (__int64 thisPtr, int amount){
-	//SeinLevel::setPartialEnergyContainers
-	lastSeinLevel = thisPtr;
-	LOCK()
-	setPartialEnergyContainers(thisPtr, amount);
-})
+          //SeinLevel::setPartialEnergyContainers
+          lastSeinLevel = thisPtr;
+          LOCK()
+          setPartialEnergyContainers(thisPtr, amount);
+          })
 
 INTERCEPT(0x494470, GET_INT_FUN, int, getPartialEnergyContainers, (__int64 thisPtr){
-	//SeinLevel::getPartialEnergyContainers
-	lastSeinLevel = thisPtr;
-	LOCK(1)
-	return getPartialEnergyContainers(thisPtr);
-})
+          //SeinLevel::getPartialEnergyContainers
+          lastSeinLevel = thisPtr;
+          LOCK(1)
+          return getPartialEnergyContainers(thisPtr);
+          })
 
 INTERCEPT(0x494210, SET_INT_FUN, void, setOre, (__int64 thisPtr, int amount){
-    //SeinLevel::setOre
-	lastSeinLevel = thisPtr;
-	LOCK()
-    setOre(thisPtr, amount);
-})
+          //SeinLevel::setOre
+          lastSeinLevel = thisPtr;
+          LOCK()
+          setOre(thisPtr, amount);
+          })
 
 INTERCEPT(0x494080, SET_INT_FUN, void, setExperience, (__int64 thisPtr, int amount){
-    //SeinLevel::setExperience
-	lastSeinLevel = thisPtr;
-	LOCK()
-	setExperience(thisPtr, amount);
-})
+          //SeinLevel::setExperience
+          lastSeinLevel = thisPtr;
+          LOCK()
+          setExperience(thisPtr, amount);
+          })
 
 INTERCEPT(0x487220, SET_INT_FUN, void, setKeystones, (__int64 thisPtr, int partials){
           //SeinInventory::setKeystones
@@ -217,58 +229,58 @@ INTERCEPT(0x5D4EE0, PICKUP_FUN, void, onCollectExpOrb, (__int64 thisPointer, __i
           lock = false;
           })
 INTERCEPT(0x1272580, MEMBER_FUNCTION, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr) {
-//			  __int64* pdwvtable = (__int64*)thisPtr;
-//			  pdwvtable[0x2f] = (__int64)myFunc;
+          //			  __int64* pdwvtable = (__int64*)thisPtr;
+          //			  pdwvtable[0x2f] = (__int64)myFunc;
 
-			  getAbilityOnConditionFixedUpdate(thisPtr);
+          getAbilityOnConditionFixedUpdate(thisPtr);
 
-			  if (lastDesiredState != *(__int64*)(thisPtr + 0x18)) {
-				  foundTreeFulfilled = false;
-				  lastDesiredState = *(__int64*)(thisPtr + 0x18);
-				  BYTE* desiredAbility = (BYTE*)(lastDesiredState + 0x18);
-//				  auto condPtr = *(__int64*)(thisPtr + 0x20);
-//				  BYTE* condAbility = (BYTE*)(condPtr + 0x18);
-				  LOG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int)desiredAbility);
-//				  LOG("DesiredState ability " << (int)*desiredAbility);
-			  }
-})
+          if (lastDesiredState != *(__int64*)(thisPtr + 0x18)) {
+          foundTreeFulfilled = false;
+          lastDesiredState = *(__int64*)(thisPtr + 0x18);
+          BYTE* desiredAbility = (BYTE*)(lastDesiredState + 0x18);
+          //				  auto condPtr = *(__int64*)(thisPtr + 0x20);
+          //				  BYTE* condAbility = (BYTE*)(condPtr + 0x18);
+          LOG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int)desiredAbility);
+          //				  LOG("DesiredState ability " << (int)*desiredAbility);
+          }
+          })
 
 INTERCEPT(0x12726A0, MEMBER_FUNCTION, void, getAbilityOnConditionAssign, (__int64 thisPtr) {
-	LOG("GAOC.ASS: intercepted and ignored ");
-	foundTreeFulfilled = true;
-})
+          LOG("GAOC.ASS: intercepted and ignored ");
+          foundTreeFulfilled = true;
+          })
 
 INTERCEPT(0xB3A220, VALIDATOR, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr) {
-			  if (lastDesiredState == thisPtr)
-				  return foundTreeFulfilled;
-			  return abilityStateFulfilled(thisPtr, contextPtr);
-})
+          if (lastDesiredState == thisPtr)
+          return foundTreeFulfilled;
+          return abilityStateFulfilled(thisPtr, contextPtr);
+          })
 
 INTERCEPT(0x5BE620, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer){
-	fixedUpdate1(thisPointer);
-	if (gameControllerInstancePointer != (void*)thisPointer) {
-		logfile.open(logFilePath, std::ios_base::app);
-		logfile << "got GameController.Instance pointer: " << thisPointer << std::endl;
-		logfile.close();
-		gameControllerInstancePointer = (void*)thisPointer;
-	}
-	try {
-		int update = CSharpLib->call<int>("Update");
+          fixedUpdate1(thisPointer);
+          if (gameControllerInstancePointer != (void*)thisPointer) {
+          logfile.open(logFilePath, std::ios_base::app);
+          logfile << "got GameController.Instance pointer: " << thisPointer << std::endl;
+          logfile.close();
+          gameControllerInstancePointer = (void*)thisPointer;
+          }
+          try {
+          int update = CSharpLib->call<int>("Update");
 
-		if (CSharpLib->call<bool>("CheckFlag", 0)) {
-			log("Checkpoint requested by c# code");
-			createCheckpoint((__int64)gameControllerInstancePointer);
-		}
-		if (lastSeinLevel != NULL && CSharpLib->call<bool>("CheckFlag", 1)) {
-			log("Ore update required");
-			setOre(lastSeinLevel, CSharpLib->call<int>("OreCount"));
-		}
-	}
-	catch (int error)
-	{
-		LOG("got error code " << error);
-	}
-})
+          if (CSharpLib->call<bool>("CheckFlag", 0)) {
+          log("Checkpoint requested by c# code");
+          createCheckpoint((__int64)gameControllerInstancePointer);
+          }
+          if (lastSeinLevel != NULL && CSharpLib->call<bool>("CheckFlag", 1)) {
+          log("Ore update required");
+          setOre(lastSeinLevel, CSharpLib->call<int>("OreCount"));
+          }
+          }
+          catch (int error)
+          {
+          LOG("got error code " << error);
+          }
+          })
 
 //-------------------------------------------------------Attaching---------------------------------------------------
 
@@ -289,16 +301,15 @@ void initAll()
 
 void attachAll()
 {
-    auto foo = &(PVOID&)fixedUpdate1;
-    log("supposed: " + std::to_string((__int64)foo));
+	auto foo = &(PVOID&)fixedUpdate1;
 
-	intercept*next = lastIntercept;
+	intercept* next = lastIntercept;
 	while (next)
 	{
 		intercept current = *next;
 		if (current.interceptPointer)
 		{
-			log("attaching: " + current.name + " @ " + std::to_string((__int64)current.originalPointer) +" | " + std::to_string((__int64)*current.originalPointer) + " -> " + std::
+			log("attaching: " + current.name + " @ " + std::to_string((__int64)current.originalPointer) + " -> " + std::
 				to_string((__int64)current.interceptPointer));
 			auto result = DetourAttach(current.originalPointer, current.interceptPointer);
 			log("result: " + std::to_string(result));
