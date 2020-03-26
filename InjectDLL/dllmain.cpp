@@ -17,11 +17,13 @@ enum Flags { Save, Ore };
 //--------------------------Common Function Types--------------------------
 typedef int (*_INTFUNC)();
 
+typedef void (*UNUSED)(); //If you don't ever wanna call the function (e.g. while no-opping it), you don't need to know its signature. 
 typedef void (*MEMBER_FUNCTION)(__int64 thisPtr);
 typedef void (*PICKUP_FUN)(__int64 thisPtr, __int64 pickupPtr);
 typedef bool (*SUB_1813A7AA0_SIG)(__int64 ptr1, __int64 ptr2);
 typedef int (*GET_INT_FUN)(__int64 thisPtr);
 typedef __int64 (*GET_PTR_FUN)(__int64 thisPtr);
+typedef bool (*GET_BOOL_FUN)(__int64 thisPtr);
 typedef void (*SET_INT_FUN)(__int64 thisPtr, int value);
 typedef __int64 (*SET_AND_RETURN_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
 typedef void (*SET_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
@@ -86,7 +88,31 @@ struct intercept
 #define OFFSET_BASE 0x180000000
 BINDING(0x5C06C0, MEMBER_FUNCTION, createCheckpoint) //GameController::createCheckpoint
 
-bool invertTreeActivationStates = true;;
+INTERCEPT(0x13DC220, UNUSED, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 c){
+	//MessageControllerB::ShowAbilityMessage
+    return 0;
+})
+
+INTERCEPT(0x13DC770, UNUSED, __int64, showShardMessage, (__int64 a, __int64 b, char c){
+	//MessageControllerB::ShowShardMessage
+    return 0;
+})
+INTERCEPT(0x13E02D0, UNUSED, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b){
+	//MessageControllerB::ShowSpiritTreeTextMessage
+    return 0;
+})
+
+INTERCEPT(0x5D2310, UNUSED, void, performPickupSequence, (__int64 thisPtr, __int64 info){
+	//SeinPickupProcessor::PerformPickupSequence
+    //noping this removes all pickup animations
+})
+
+INTERCEPT(0x13DC460, UNUSED, bool , anyAbilityPickupStoryMessagesVisible, (__int64 thisPtr) {
+	//MessageControllerB::get_AnyAbilityPickupStoryMessagesVisible
+    return 0;
+})
+
+bool invertTreeActivationStates = true;
 INTERCEPT(0x13A7AA0, SUB_1813A7AA0_SIG, bool, sub1813A7AA0, (__int64 mappingPtr, __int64 uberState){
           //RVA: 13A7AA0. Called from PlayerStateMap.Mapping::Matches
 
