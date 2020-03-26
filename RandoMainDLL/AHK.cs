@@ -28,8 +28,13 @@ namespace RandoMainDLL {
             SetTimer, FadePickup,-3000
 	        Return
         }
+        BuildLogOverlay()
+        {
+            
+        }
         PickupMessage(message, frames) 
         {
+            global oldText
             GuiControlGet, oldText, Pickup:, PickupText
             GuiControl, Pickup:Text, PickupText, %message%
             Gui Pickup:Show, NoActivate

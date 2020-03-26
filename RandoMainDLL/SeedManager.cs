@@ -20,14 +20,13 @@ namespace RandoMainDLL {
             Randomizer.Log("Seed loaded!");
         }
 
-        public static bool OnUberState(UberState state) {
+        public static void OnUberState(UberState state) {
             var id = state.GetUberId();
             if (pickupMap.TryGetValue(id, out Pickup p)) {
                 AHK.Print(p.ToString());
                 p.Grant();
-                return true;
+                Randomizer.PleaseSave = true;
             }
-            return false;
         }
         public static Pickup BuildPickup(PickupType type, String pickupData) {
             switch(type) {

@@ -9,8 +9,7 @@ namespace RandoMainDLL
     public static class StateListener
     {
         public static Dictionary<long, UberState> UberStates = new Dictionary<long, UberState>();
-        public static bool Update() {
-            bool grantedPickup = false;
+        public static void Update() {
             var memory = Randomizer.Memory;
             Dictionary<long, UberState> uberStates = memory.GetUberStates();
             foreach (KeyValuePair<long, UberState> pair in uberStates) {
@@ -18,20 +17,23 @@ namespace RandoMainDLL
                 UberState state = pair.Value;
                 if (state.GroupName == "statsUberStateGroup" || (state.GroupName == "achievementsGroup" && state.Name == "spiritLightGainedCounter"))
                     continue;
-                UberState oldState = null;
-                if (UberStates.TryGetValue(key, out oldState)) {
+                if (UberStates.TryGetValue(key, out UberState oldState)) {
                     UberValue value = state.Value;
                     UberValue oldValue = oldState.Value;
                     if (value.Int != oldValue.Int) {
-                        grantedPickup = SeedManager.OnUberState(state) || grantedPickup;
-                        Randomizer.Log($"{state.GroupName}.{state.Name} ({state.GroupID},{state.ID}): {oldValue.Int}->{value.Int}", false);
+                        SeedManager.OnUberState(state);
+                        var pos = Randomizer.Memory.Position();
+                        if (!Randomizer.PleaseSave && value.Int > 0) 
+                            Randomizer.Log($"Potential pickup: {state.GroupName}.{state.Name} ({state.GroupID},{state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) {value.Int}");
+                        else
+                            Randomizer.Log($"State change {state.GroupName}.{state.Name} ({state.GroupID},{state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}): {oldValue.Int}->{value.Int}", false);
+
                         UberStates[key].Value = state.Value;
                     }
                 } else {
                     UberStates[key] = state.Clone();
                 }
             }
-            return grantedPickup;
 
         }
     }

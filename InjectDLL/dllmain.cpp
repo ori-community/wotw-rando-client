@@ -11,6 +11,8 @@
 #include <fstream>
 #include <utility>
 
+enum Flags{Save, Ore};
+
 
 //--------------------------Common Function Types--------------------------
 typedef int (*_INTFUNC)();
@@ -25,11 +27,15 @@ typedef void (*SET_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
 typedef __int64 (*ADD_SHARD_SIG)(__int64 thisPtr, unsigned __int8 value);
 typedef __int64 (*SUB_182C8D3A0_DICT_SIG)(__int64 thisPtr, unsigned __int8 value, __int64 something);
 typedef void (*SET_FLOAT_FUN)(__int64 thisPtr, float value);
+typedef bool (*VALIDATOR)(__int64 thisPtr, __int64 contextPtr);
 
 
 //---------------------------------------------------Globals-----------------------------------------------------
 bool lock = false;
-__int64 lastSeinEnergy;
+bool foundTreeFulfilled = false;
+
+__int64 lastDesiredState;
+__int64 lastSeinLevel;
 __int64 lastHealthController;
 
 void* gameControllerInstancePointer = NULL;
@@ -37,6 +43,11 @@ void* gameControllerInstancePointer = NULL;
 InjectDLL::PEModule* CSharpLib = NULL;
 std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
 std::ofstream logfile;
+
+#define LOG(message) \
+	logfile.open(logFilePath, std::ios_base::app); \
+	logfile << message << std::endl; \
+	logfile.close();
 
 //-------------------------------------------Magic Convenience Macro----------------------------------------------
 
@@ -148,40 +159,46 @@ INTERCEPT(0xDEA1F0, SET_INT_FUN, void, setBaseMaxEnergy, (__int64 thisPtr, int v
           setBaseMaxEnergy(thisPtr, val);
           })
 INTERCEPT(0x4943A0, SET_INT_FUN, void, setPartialHealthContainers, (__int64 thisPtr, int amount){
-          //SeinLevel::setPartialHealthContainers
-          LOCK()
-          setPartialHealthContainers(thisPtr, amount);
-          })
+	//SeinLevel::setPartialHealthContainers
+	lastSeinLevel = thisPtr;
+	LOCK()
+	setPartialHealthContainers(thisPtr, amount);
+})
 
 INTERCEPT(0x4942E0, GET_INT_FUN, int, getPartialHealthContainers, (__int64 thisPtr){
-          //SeinLevel::getPartialHealthContainers
-          LOCK(1)
-          return getPartialHealthContainers(thisPtr);
-          })
+	//SeinLevel::getPartialHealthContainers
+	lastSeinLevel = thisPtr;
+	LOCK(1)
+	return getPartialHealthContainers(thisPtr);
+})
 
 INTERCEPT(0x494530, SET_INT_FUN, void, setPartialEnergyContainers, (__int64 thisPtr, int amount){
-          //SeinLevel::setPartialEnergyContainers
-          LOCK()
-          setPartialEnergyContainers(thisPtr, amount);
-          })
+	//SeinLevel::setPartialEnergyContainers
+	lastSeinLevel = thisPtr;
+	LOCK()
+	setPartialEnergyContainers(thisPtr, amount);
+})
 
 INTERCEPT(0x494470, GET_INT_FUN, int, getPartialEnergyContainers, (__int64 thisPtr){
-          //SeinLevel::getPartialEnergyContainers
-          LOCK(1)
-          return getPartialEnergyContainers(thisPtr);
-          })
+	//SeinLevel::getPartialEnergyContainers
+	lastSeinLevel = thisPtr;
+	LOCK(1)
+	return getPartialEnergyContainers(thisPtr);
+})
 
 INTERCEPT(0x494210, SET_INT_FUN, void, setOre, (__int64 thisPtr, int amount){
-          //SeinLevel::setOre
-          LOCK()
-          setOre(thisPtr, amount);
-          })
+    //SeinLevel::setOre
+	lastSeinLevel = thisPtr;
+	LOCK()
+    setOre(thisPtr, amount);
+})
 
 INTERCEPT(0x494080, SET_INT_FUN, void, setExperience, (__int64 thisPtr, int amount){
-          //SeinLevel::setExperience
-          LOCK()
-          setExperience(thisPtr, amount);
-          })
+    //SeinLevel::setExperience
+	lastSeinLevel = thisPtr;
+	LOCK()
+	setExperience(thisPtr, amount);
+})
 
 INTERCEPT(0x487220, SET_INT_FUN, void, setKeystones, (__int64 thisPtr, int partials){
           //SeinInventory::setKeystones
@@ -199,32 +216,59 @@ INTERCEPT(0x5D4EE0, PICKUP_FUN, void, onCollectExpOrb, (__int64 thisPointer, __i
           onCollectExpOrb(thisPointer, pickupPointer);
           lock = false;
           })
+INTERCEPT(0x1272580, MEMBER_FUNCTION, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr) {
+//			  __int64* pdwvtable = (__int64*)thisPtr;
+//			  pdwvtable[0x2f] = (__int64)myFunc;
+
+			  getAbilityOnConditionFixedUpdate(thisPtr);
+
+			  if (lastDesiredState != *(__int64*)(thisPtr + 0x18)) {
+				  foundTreeFulfilled = false;
+				  lastDesiredState = *(__int64*)(thisPtr + 0x18);
+				  BYTE* desiredAbility = (BYTE*)(lastDesiredState + 0x18);
+//				  auto condPtr = *(__int64*)(thisPtr + 0x20);
+//				  BYTE* condAbility = (BYTE*)(condPtr + 0x18);
+				  LOG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int)desiredAbility);
+//				  LOG("DesiredState ability " << (int)*desiredAbility);
+			  }
+})
+
+INTERCEPT(0x12726A0, MEMBER_FUNCTION, void, getAbilityOnConditionAssign, (__int64 thisPtr) {
+	LOG("GAOC.ASS: intercepted and ignored ");
+	foundTreeFulfilled = true;
+})
+
+INTERCEPT(0xB3A220, VALIDATOR, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr) {
+			  if (lastDesiredState == thisPtr)
+				  return foundTreeFulfilled;
+			  return abilityStateFulfilled(thisPtr, contextPtr);
+})
 
 INTERCEPT(0x5BE620, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer){
-          fixedUpdate1(thisPointer);
-          if (gameControllerInstancePointer != (void*)thisPointer)
-          {
-          logfile.open(logFilePath, std::ios_base::app);
-          logfile << "got GameController.Instance pointer: " << thisPointer << std::endl;
-          logfile.close();
-          gameControllerInstancePointer = (void*)thisPointer;
-          }
-          try
-          {
-          int update = CSharpLib->call<int>("Update");
-          if (update == 1)
-          {
-          log("Checkpoint requested by c# code");
-          createCheckpoint((__int64)gameControllerInstancePointer);
-          }
-          }
-          catch (int error)
-          {
-          logfile.open(logFilePath, std::ios_base::app);
-          logfile << "got error code " << error << std::endl;
-          logfile.close();
-          }
-          })
+	fixedUpdate1(thisPointer);
+	if (gameControllerInstancePointer != (void*)thisPointer) {
+		logfile.open(logFilePath, std::ios_base::app);
+		logfile << "got GameController.Instance pointer: " << thisPointer << std::endl;
+		logfile.close();
+		gameControllerInstancePointer = (void*)thisPointer;
+	}
+	try {
+		int update = CSharpLib->call<int>("Update");
+
+		if (CSharpLib->call<bool>("CheckFlag", 0)) {
+			log("Checkpoint requested by c# code");
+			createCheckpoint((__int64)gameControllerInstancePointer);
+		}
+		if (lastSeinLevel != NULL && CSharpLib->call<bool>("CheckFlag", 1)) {
+			log("Ore update required");
+			setOre(lastSeinLevel, CSharpLib->call<int>("OreCount"));
+		}
+	}
+	catch (int error)
+	{
+		LOG("got error code " << error);
+	}
+})
 
 //-------------------------------------------------------Attaching---------------------------------------------------
 
@@ -274,7 +318,6 @@ void detachAll()
 		next = current.prev;
 	}
 }
-
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
 

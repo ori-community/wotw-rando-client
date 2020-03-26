@@ -67,6 +67,9 @@ namespace RandoMainDLL.Memory {
         public static UberState savePedestalWindtornRuinsA = new UberState() { Name = "savePedestalUberState", ID = 41398, GroupName = "windsweptWastesGroupDescriptor", GroupID = 20120, Type = UberStateType.SavePedestalUberState };
         public static UberState savePedestalWindtornRuinsB = new UberState() { Name = "savePedestalUberState", ID = 4928, GroupName = "windtornRuinsGroup", GroupID = 10289, Type = UberStateType.SavePedestalUberState };
         public static UberState builderProjectSpiritWell = new UberState() { Name = "builderProjectSpiritWell", ID = 16825, GroupName = "hubUberStateGroup", GroupID = 42178, Type = UberStateType.SerializedByteUberState };
+        public static UberState eyesPlacedIntoStatue = new UberState() { Name = "eyesPlacedIntoStatue", ID = 1038, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedByteUberState };
+        public static UberState entranceStatueOpened = new UberState() { Name = "entranceStatueOpened", ID = 64003, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState };
+        public static UberState risingPedestals = new UberState() { Name = "risingPedestals", ID = 54318, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState };
     }
     public class UberId {
         public int ID;

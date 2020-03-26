@@ -16,7 +16,8 @@ namespace RandoMainDLL {
     public enum ResourceType : byte {
         Health,
         Energy,
-        Ore
+        Ore,
+        Keystone
     }
     public abstract class Pickup {
         public abstract PickupType Type();
@@ -61,7 +62,7 @@ namespace RandoMainDLL {
         public override void Grant() {
             Randomizer.Memory.Experience += amount;
         }
-        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Geo", "Experience", "Gil", "GP", "Dollars", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny"};
+        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Gallon", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos"};
         public override string ToString() {
             return $"{amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
         }
@@ -85,6 +86,10 @@ namespace RandoMainDLL {
                     break;
                 case ResourceType.Ore:
                     Randomizer.Memory.Ore += 1;
+                    Randomizer.OreFound = true;
+                    break;
+                case ResourceType.Keystone:
+                    Randomizer.Memory.Keystones += 1;
                     break;
             }
         }
@@ -96,6 +101,8 @@ namespace RandoMainDLL {
                     return "Half-Energy Cell";
                 case ResourceType.Ore:
                     return "Gorlek Ore";
+                case ResourceType.Keystone:
+                    return "Keystone";
                 default:
                     return $"Unknown resource type {type}";
             }

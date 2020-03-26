@@ -42,12 +42,12 @@ namespace RandoMainDLL
                 }
                 AHK.Tick();
                 if (Memory.GameState() == GameState.Game) {
-                    bool grantedItem = StateListener.Update();
+                    StateListener.Update();
                     if (!DoneInitial) {
                         UberStateInits();
                         return -1;
                     }
-                    return grantedItem  ? 1 : -2;
+                    return -2;
                 } 
                 if(Memory.GameState() == GameState.Prologue) {
                     if(DoneInitial)
@@ -78,13 +78,50 @@ namespace RandoMainDLL
                 Memory.SetAbility(AbilityType.SpiritEdge);
                 UberStateDefaults.savePedestalInkwaterMarsh.Value.Byte = 1;
                 UberStateDefaults.builderProjectSpiritWell.Value.Byte = 3;
+                UberStateDefaults.eyesPlacedIntoStatue.Value.Byte = 3;
+                UberStateDefaults.entranceStatueOpened.Value.Bool = true;
+                UberStateDefaults.risingPedestals.Value.Bool = true;
                 Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);
                 Memory.WriteUberState(UberStateDefaults.builderProjectSpiritWell);
+                Memory.WriteUberState(UberStateDefaults.eyesPlacedIntoStatue);
+                Memory.WriteUberState(UberStateDefaults.entranceStatueOpened);
+                Memory.WriteUberState(UberStateDefaults.risingPedestals);
                 DoneInitial = true;
             }
         }
         public static bool DoneInitial = false;
+
+        // interop flag system (reserve the right at any time to change this to a dict)
+        public static bool OreFound = false;
+        public static bool PleaseSave = false;
+
+        public enum FlagCode: int {
+            Save = 0,
+            Ore = 1,
+        }
         [DllExport]
+        public static int OreCount() { return Memory.Ore;  }
+
+        [DllExport]
+        public static bool CheckFlag(FlagCode flag) {
+            switch(flag) {
+                case FlagCode.Ore:
+                    if (OreFound) {
+                        OreFound = false;
+                        return true;
+                    }
+                    return false;
+                case FlagCode.Save:
+                    if (PleaseSave) {
+                        PleaseSave = false;
+                        return true;
+                    }
+                    return false;
+                default:
+                    Randomizer.Log($"Unknown Flag code {flag}");
+                    return false;
+            }
+        }
         public static void OnTree(int code)
         {
 

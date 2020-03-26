@@ -33,7 +33,7 @@ namespace RandoMainDLL.Memory {
         private static Dictionary<AbilityType, String> mapping = new Dictionary<AbilityType, string>(){
             { AbilityType.Bash, "Bash"},
             { AbilityType.WallJump, "Wall Jump"},
-            { AbilityType.DoubleJump, "Doubl eJump"},
+            { AbilityType.DoubleJump, "Double Jump"},
             { AbilityType.Launch, "Launch"},
             { AbilityType.Feather, "Feather"},
             { AbilityType.WaterBreath, "Water Breath"},
