@@ -1,4 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
+
+#pragma comment(lib, "detours.lib")
+
 #include "pch.h"
 #include "detours.h"
 #include "PEModule.h"
