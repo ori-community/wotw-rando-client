@@ -8,6 +8,7 @@ SetWorkingDir, %A_ScriptDir%	; start where we at
 ; exitapp  
 
 ; filecreatedir silent fails if it exists, so
+INSTALL_DIR := "C:\moon\"
 FileCreateDir %INSTALL_DIR%
 
 batch=
@@ -45,13 +46,11 @@ If(not FileExist(INSTALL_DIR . "\WotwRando.exe")) {
 	Run, *RunAs cmd.exe "%INSTALL_DIR%associateFileTypes.bat",
 
 	Msgbox 4, Ori WOTW Randomizer Installer, Installation complete! Launch Game Now?
-	FileCreateDir %INSTALL_DIR%
 	IfMsgBox No
 	{
 		Msgbox Exiting without launching game
 		ExitApp
 	}
-
 }
 ; -----------run C:\moon version of self, if that's not us (and we're compiled), and then Exit
 
