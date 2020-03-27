@@ -9,4 +9,6 @@
 *.idb
 *.obj
 *.pch
+*/bin/*
+*/obj/*
 InjectDLL.log

@@ -6,7 +6,7 @@ namespace RandoMainDLL {
     public static class SeedManager {
         public static Dictionary<UberId, Pickup> pickupMap = new Dictionary<UberId, Pickup>();
         public static void ReadSeed() {
-            foreach (var line in File.ReadLines("C:\\moon\\wotw.seed")) {
+            foreach (var line in File.ReadLines("C:\\moon\\.currentseed")) {
                 try {
                     var frags = line.Split('|');
                     var uberId = new UberId(int.Parse(frags[0]), int.Parse(frags[1]));
@@ -17,7 +17,7 @@ namespace RandoMainDLL {
                     Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}");
                 }
             }
-            Randomizer.Log("Seed loaded!");
+            Randomizer.Log($"Seed {File.ReadAllText("C:\\moon\\.currentseedname")} loaded!");
         }
 
         public static void OnUberState(UberState state) {

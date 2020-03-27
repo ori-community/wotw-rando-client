@@ -73,6 +73,7 @@ namespace Injector
         }
 
         static void Main(string[] args) {
+            try { 
             if (args.Length > 0) {
                 DevMode = args[0] == "dev";
                 DllPath = args.Length > 1 ? args[1] : DllPath;
@@ -81,7 +82,7 @@ namespace Injector
                 ExeArgs = args.Length > 4 ? args[4] : ExeArgs;
             }
             if (DevMode && NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") == 0)
-                System.Diagnostics.Process.Start(ExePath, ExeArgs);
+                Process.Start(ExePath, ExeArgs);
             for (var i = 0; i < 25; i++) {
                 if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") != 0)
                     break;
@@ -113,7 +114,12 @@ namespace Injector
                 Log("Error:  " + e.Message);
                 Thread.Sleep(5000);
             }
-       }
+
+            } catch (Exception e) {
+                Log("Error:  " + e.Message);
+                Thread.Sleep(5000);
+            }
+        }
         public static void ListenForOri() {
             while(Process.GetProcessesByName(ExeName).Length > 0) {
                 Thread.Sleep(500);
