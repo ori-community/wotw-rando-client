@@ -1,8 +1,8 @@
+#include "pch.h"
 // dllmain.cpp : Defines the entry point for the DLL application.
 
 #pragma comment(lib, "detours.lib")
 
-#include "pch.h"
 #include "detours.h"
 #include "PEModule.h"
 #include "common.h"
@@ -20,7 +20,8 @@ enum Flags { Save, Ore };
 //--------------------------Common Function Types--------------------------
 typedef int (*_INTFUNC)();
 
-typedef void (*UNUSED)(); //If you don't ever wanna call the function (e.g. while no-opping it), you don't need to know its signature. 
+typedef void (*UNUSED)();
+//If you don't ever wanna call the function (e.g. while no-opping it), you don't need to know its signature. 
 typedef void (*MEMBER_FUNCTION)(__int64 thisPtr);
 typedef void (*PICKUP_FUN)(__int64 thisPtr, __int64 pickupPtr);
 typedef bool (*SUB_1813A7AA0_SIG)(__int64 ptr1, __int64 ptr2);
@@ -34,6 +35,7 @@ typedef __int64 (*ADD_SHARD_SIG)(__int64 thisPtr, unsigned __int8 value);
 typedef __int64 (*SUB_182C8D3A0_DICT_SIG)(__int64 thisPtr, unsigned __int8 value, __int64 something);
 typedef void (*SET_FLOAT_FUN)(__int64 thisPtr, float value);
 typedef bool (*VALIDATOR)(__int64 thisPtr, __int64 contextPtr);
+typedef __int64 (*MAPPING_FUN)(__int64 thisPtr, __int64 keyPtr);
 
 
 //---------------------------------------------------Globals-----------------------------------------------------
@@ -92,36 +94,53 @@ struct intercept
 #define OFFSET_BASE 0x180000000
 BINDING(0x5C06C0, MEMBER_FUNCTION, createCheckpoint) //GameController::createCheckpoint
 
+BINDING(0x6CD3E0, SET_AND_RETURN_ENUM_FUN, getAreaFromId) //GameWorld::GetArea
+BINDING(0x6CB6B0, MAPPING_FUN, getRuntimeArea) //GameWorld::FindRuntimeArea
+BINDING(0x1310650, MEMBER_FUNCTION, discoverAllAreas) //RuntimeGameWorldArea::DiscoverAllAreas
+
+__int64 gameWorldInstance;
+INTERCEPT(0x6CB7F0, MEMBER_FUNCTION, void, gameWorldAwake, (__int64 thisPtr){
+          if(gameWorldInstance != thisPtr)
+          {
+          log("Found GameWorld instance!");
+          gameWorldInstance = thisPtr;
+          }
+          gameWorldAwake(thisPtr);
+          })
+
+//INTERCEPT(0x130D570, GET_BOOL_FUN, bool, isAreaDiscovered, (__int64 thisPtr) { return true; })
+
 INTERCEPT(0x13DC220, UNUSED, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 c){
-	//MessageControllerB::ShowAbilityMessage
-    return 0;
-})
+          //MessageControllerB::ShowAbilityMessage
+          return 0;
+          })
 
 INTERCEPT(0x13DC770, UNUSED, __int64, showShardMessage, (__int64 a, __int64 b, char c){
-	//MessageControllerB::ShowShardMessage
-    return 0;
-})
+          //MessageControllerB::ShowShardMessage
+          return 0;
+          })
 INTERCEPT(0x13E02D0, UNUSED, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b){
-	//MessageControllerB::ShowSpiritTreeTextMessage
-    return 0;
-})
+          //MessageControllerB::ShowSpiritTreeTextMessage
+          return 0;
+          })
 
 INTERCEPT(0x5D2310, UNUSED, void, performPickupSequence, (__int64 thisPtr, __int64 info){
-	//SeinPickupProcessor::PerformPickupSequence
-    //noping this removes all pickup animations
-})
+          //SeinPickupProcessor::PerformPickupSequence
+          //noping this removes all pickup animations
+          })
 
-INTERCEPT(0x13DC460, UNUSED, bool , anyAbilityPickupStoryMessagesVisible, (__int64 thisPtr) {
-	//MessageControllerB::get_AnyAbilityPickupStoryMessagesVisible
-    return 0;
-})
+INTERCEPT(0x13DC460, UNUSED, bool, anyAbilityPickupStoryMessagesVisible, (__int64 thisPtr) {
+          //MessageControllerB::get_AnyAbilityPickupStoryMessagesVisible
+          return 0;
+          })
 
 bool invertTreeActivationStates = true;
 INTERCEPT(0x13A7AA0, SUB_1813A7AA0_SIG, bool, sub1813A7AA0, (__int64 mappingPtr, __int64 uberState){
           //RVA: 13A7AA0. Called from PlayerStateMap.Mapping::Matches
 
           bool result = sub1813A7AA0(mappingPtr, uberState);
-          log("intercepted 13A7AA0 with for " + std::to_string(mappingPtr) + " and " + std::to_string(uberState) + " result: " + std
+          log("intercepted 13A7AA0 with for " + std::to_string(mappingPtr) + " and " + std::to_string(uberState) +
+	          " result: " + std
 	          ::to_string(result));
           result = CSharpLib->call<bool>("DoInvertTree", foundTree) ^ result;
           return result;
@@ -312,6 +331,34 @@ INTERCEPT(0x5BE620, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer){
           LOG("got error code " << error);
           }
           })
+
+//---------------------------------------------------Actual Functions------------------------------------------------
+
+void discoverEverything()
+{
+	if (gameWorldInstance)
+	{
+		for (unsigned __int8 i = 0; i <= 15; i++)
+		{
+			auto area = getAreaFromId(gameWorldInstance, i);
+			if (!area)
+			{
+				//Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
+				continue;
+			}
+			auto runtimeArea = getRuntimeArea(gameWorldInstance, area);
+			if (!runtimeArea)
+			{
+				continue;
+			}
+			discoverAllAreas(runtimeArea);
+		}
+	}
+	else
+	{
+		log("Tried to discover all, but haven't found the GameWorld Instance yet :(");
+	}
+}
 
 //-------------------------------------------------------Attaching---------------------------------------------------
 
