@@ -6,18 +6,22 @@ namespace RandoMainDLL {
     public static class SeedManager {
         public static Dictionary<UberId, Pickup> pickupMap = new Dictionary<UberId, Pickup>();
         public static void ReadSeed() {
-            foreach (var line in File.ReadLines("C:\\moon\\.currentseed")) {
-                try {
-                    var frags = line.Split('|');
-                    var uberId = new UberId(int.Parse(frags[0]), int.Parse(frags[1]));
-                    var pickupType = (PickupType)byte.Parse(frags[2]);
-//                    Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
-                    pickupMap[uberId] = BuildPickup(pickupType, frags[3]);
-                } catch(Exception e) {
-                    Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}");
+            var seedName = File.ReadAllText(Randomizer.SeedNameFile);
+            if(seedName.Trim() != "") { 
+                foreach (var line in File.ReadLines(Randomizer.SeedFile)) {
+                    try {
+                        var frags = line.Split('|');
+                        var uberId = new UberId(int.Parse(frags[0]), int.Parse(frags[1]));
+                        var pickupType = (PickupType)byte.Parse(frags[2]);
+    //                    Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
+                        pickupMap[uberId] = BuildPickup(pickupType, frags[3]);
+                    } catch(Exception e) {
+                        Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}");
+                    }
                 }
-            }
-            Randomizer.Log($"Seed {File.ReadAllText("C:\\moon\\.currentseedname")} loaded!");
+                AHK.Print($"Seed {seedName} loaded", 240);
+            } else 
+                AHK.Print($"No seed loaded; Download a .wotwr file and double-click it to load one", 300);
         }
 
         public static void OnUberState(UberState state) {

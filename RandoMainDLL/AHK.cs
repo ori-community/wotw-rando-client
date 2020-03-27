@@ -9,7 +9,7 @@ namespace RandoMainDLL {
         static string Program = @"
         PickupGUIHWD := """"
         signal := """"
-        oldText := ""<3""
+        oldText := """"
         BuildPickupGUI()
         {
 	        global PickupGUIHWD, PickupText
@@ -20,7 +20,7 @@ namespace RandoMainDLL {
 	        WinSet, Style,  -0xC40000
 	        WinSet, TransColor, 010101
 	        Gui, Pickup:Font,s30, Comic Sans MS
-	        Text := PickupGUIHWD . ""Good Luck On Your Rando""
+	        Text := PickupGUIHWD . ""<3""
 	        Gui, Pickup:Add, Text,C00FFFF Center VPickupText,%Text% 
 	        pickupSpot := A_ScreenHeight / 20
 	        Gui, Pickup:Show, XCenter y%pickupSpot% NoActivate hide
@@ -82,7 +82,6 @@ namespace RandoMainDLL {
                 switch (signal) {
                     case "reload":
                         SeedManager.ReadSeed();
-                        Randomizer.Log("Seed loaded");
                         break;
                     case "dev":
                         Randomizer.Dev = !Randomizer.Dev;

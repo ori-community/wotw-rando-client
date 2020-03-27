@@ -6,14 +6,15 @@ namespace RandoMainDLL
     public static class Randomizer
     {
         public static string PickupLog = "C:\\moon\\rando.PICKUPS";
-        public static string SeedFile = "C:\\moon\\wotw.rando";
+        public static string SeedFile = "C:\\moon\\.currentseed";
+        public static string SeedNameFile = "C:\\moon\\.currentseedname";
         public static string LogFile = "C:\\moon\\cs_log.txt";
         public static MemoryManager Memory;
         [DllExport]
         public static bool Initialize()
         {
             try {
-                foreach(var fileName in new String[] { LogFile, PickupLog, SeedFile }) {
+                foreach(var fileName in new String[] { LogFile, PickupLog, SeedFile, SeedNameFile }) {
                     if(!File.Exists(fileName)) {
                         File.WriteAllText(fileName, "");
                         Log($"Wrote blank {fileName} (normal for first-time init)");
@@ -67,10 +68,21 @@ namespace RandoMainDLL
         }
         public static bool Dev = false;
         public static void Log(string message, bool printIfDev = true) {
+            if (LastMessage == message && message.Length > 30) {
+                repeats++;
+                if (repeats > 180) {
+                    repeats = 0;
+                    File.AppendAllText(LogFile, "suppressed repeats x180");
+                    return;
+                }
+            }
+            LastMessage = message;
             File.AppendAllText(LogFile, message+"\n");
             if(Dev && printIfDev) 
                 AHK.Print(message);
         }
+        public static string LastMessage = "";
+        public static int repeats = 0;
         public static void UberStateInits()
         {
             if(!Memory.IsLoadingGame())
