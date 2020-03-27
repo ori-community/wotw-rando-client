@@ -38,6 +38,7 @@ typedef bool (*VALIDATOR)(__int64 thisPtr, __int64 contextPtr);
 
 //---------------------------------------------------Globals-----------------------------------------------------
 bool lock = false;
+char foundTree = 0;
 bool foundTreeFulfilled = false;
 
 __int64 lastDesiredState;
@@ -122,7 +123,7 @@ INTERCEPT(0x13A7AA0, SUB_1813A7AA0_SIG, bool, sub1813A7AA0, (__int64 mappingPtr,
           bool result = sub1813A7AA0(mappingPtr, uberState);
           log("intercepted 13A7AA0 with for " + std::to_string(mappingPtr) + " and " + std::to_string(uberState) + " result: " + std
 	          ::to_string(result));
-          result = invertTreeActivationStates ^ result;
+          result = CSharpLib->call<bool>("DoInvertTree", foundTree) ^ result;
           return result;
           })
 
@@ -267,6 +268,7 @@ INTERCEPT(0x1272580, MEMBER_FUNCTION, void, getAbilityOnConditionFixedUpdate, (_
           foundTreeFulfilled = false;
           lastDesiredState = *(__int64*)(thisPtr + 0x18);
           BYTE* desiredAbility = (BYTE*)(lastDesiredState + 0x18);
+          foundTree = *desiredAbility;
           //				  auto condPtr = *(__int64*)(thisPtr + 0x20);
           //				  BYTE* condAbility = (BYTE*)(condPtr + 0x18);
           LOG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int)desiredAbility);
@@ -417,11 +419,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, 0, 0, 0);
-		log("init");
+        log("init start");
+        CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, 0, 0, 0);
 		initAll();
 		initMemoryHacks();
-
 		DetourRestoreAfterWith();
 		DetourTransactionBegin();
 		DetourUpdateThread(GetCurrentThread());

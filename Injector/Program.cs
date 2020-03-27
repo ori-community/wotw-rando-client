@@ -108,7 +108,7 @@ namespace Injector
                     Log("press any key to exit");
                     Console.ReadKey();
                     Process.GetProcessesByName(ExeName).FirstOrDefault()?.Kill();
-                    Environment.Exit(Environment.ExitCode);
+                    Environment.Exit(0);
                 }
             } catch (Exception e) {
                 Log("Error:  " + e.Message);
@@ -126,7 +126,7 @@ namespace Injector
             }
             Log("Ori stopped running. Exiting in 4s...");
             Thread.Sleep(4000);
-            Environment.Exit(Environment.ExitCode);
+            Environment.Exit(0);
         }
     }
 }

@@ -3,17 +3,24 @@
 #NoEnv 							; don't populate environment variables automatically
 SetWorkingDir, %A_ScriptDir%	; start where we at
 
+; --- uncomment lines below to rebuild testing ver
 ; Run, "C:\Users\WorstMirari\Documents\GitHub\OriWotwRandomizerClient\WotwRando.ahk" %1%
-; exitapp  --- enable to rebuild testing ver
+; exitapp  
 
- 
-INSTALL_DIR :="C:\moon\"
+; filecreatedir silent fails if it exists, so
 FileCreateDir %INSTALL_DIR%
+
+batch=
+(
+assoc .wotwr=WotwRando
+ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
+)
+
 
 If(not FileExist(INSTALL_DIR . "\WotwRando.exe")) {
 	; installation code
 	Msgbox 4, Ori WOTW Randomizer Installer, Press Yes to install the WOTW Randomizer into %INSTALL_DIR%
-	FileCreateDir %INSTALL_DIR%
+
 	IfMsgBox No
 	{
 		Msgbox Exiting without installing
@@ -23,23 +30,20 @@ If(not FileExist(INSTALL_DIR . "\WotwRando.exe")) {
 	FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll
 	FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll
 	FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe
+	FileInstall, C:\moon\VC_redist.x64.exe, %INSTALL_DIR%VC_redist.x64.exe
 	FileInstall, VERSION, %INSTALL_DIR%VERSION
 	If(A_IsCompiled)
 		FileCopy, %A_ScriptFullPath%, %INSTALL_DIR%WotwRando.exe
 	Else
 		FileCopy C:\moon\WotwRando.exe, %INSTALL_DIR%WotwRando.exe
 
+	; install the vs c++ redistributable
+	RunWait, *RunAs %INSTALL_DIR%VC_redist.x64.exe /install /quiet /norestart
 	; set filetype assocation
-batch=
-(
-assoc .wotwr=WotwRando
-ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
-)
+	FileDelete, %INSTALL_DIR%associateFileTypes.bat
+	FileAppend, %batch%, %INSTALL_DIR%associateFileTypes.bat
+	Run, *RunAs cmd.exe "%INSTALL_DIR%associateFileTypes.bat",
 
-
-	FileAppend, %batch%, %INSTALL_DIR%\temp.bat
-	Run, *RunAs %INSTALL_DIR%\temp.bat
-	FileDelete, %INSTALL_DIR%\temp.bat
 	Msgbox 4, Ori WOTW Randomizer Installer, Installation complete! Launch Game Now?
 	FileCreateDir %INSTALL_DIR%
 	IfMsgBox No
@@ -49,12 +53,12 @@ ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 	}
 
 }
-; -----------run C:\moon of self, if that's not us (and we're compiled), and then Exit
+; -----------run C:\moon version of self, if that's not us (and we're compiled), and then Exit
 
 If(A_ScriptFullPath != INSTALL_DIR . "WotwRando.exe" ) {
 	if(A_IsCompiled)
 	{
-		Run, %INSTALL_DIR%WotwRando.exe
+		Run *RunAs %INSTALL_DIR%WotwRando.exe
 		ExitApp
 	}
 }
@@ -105,7 +109,7 @@ if(argc > 0)  {
 	FileCopy, %1%, %INSTALL_DIR%\.currentseed, 1
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
-		Run, %INSTALL_DIR%\Injector.exe,,Hide
+		Run, *RunAs %INSTALL_DIR%\Injector.exe,,Hide
 		SplashTextOn,,, Launching Rando with Seed %FileName%
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 1500
@@ -120,7 +124,7 @@ if(argc > 0)  {
 	IfWinNotExist, OriAndTheWilloftheWisps 
 	{
 		SplashTextOn,,, Launching Rando with current seed
-		Run, %INSTALL_DIR%\Injector.exe,,Hide
+		Run, *RunAs %INSTALL_DIR%\Injector.exe,,Hide
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 1500
 		SplashTextOff
@@ -148,11 +152,9 @@ Download(url, save, msg = 0x1100, sleep = 250) {
 	_dlprocess:
 	FileGetSize, current, %save%, K
 	Process, Exist
-	PostMessage, msg, current * 1024, 32 * 1024 * 1024, , ahk_pid %ErrorLevel%
+	PostMessage, msg, current * 1024, 46 * 1024 * 1024, , ahk_pid %ErrorLevel%
 	Exit
 }
-
-
 
 
 

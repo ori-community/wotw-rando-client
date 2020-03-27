@@ -21,12 +21,13 @@ namespace RandoMainDLL
                     UberValue value = state.Value;
                     UberValue oldValue = oldState.Value;
                     if (value.Int != oldValue.Int) {
-                        SeedManager.OnUberState(state);
                         var pos = Randomizer.Memory.Position();
-                        if (!Randomizer.PleaseSave && value.Int > 0) 
-                            Randomizer.Log($"Potential pickup: {state.GroupName}.{state.Name} ({state.GroupID},{state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) {value.Int}");
-                        else
-                            Randomizer.Log($"State change {state.GroupName}.{state.Name} ({state.GroupID},{state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}): {oldValue.Int}->{value.Int}", false);
+                        if(value.Int > 0) {
+                            SeedManager.OnUberState(state);
+                            if (!Randomizer.PleaseSave )
+                                Randomizer.Log($"Potential pickup: {state.GroupName}.{state.Name} ({state.GroupID}, {state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) {value.Int}");
+                        } else
+                            Randomizer.Log($"State change {state.GroupName}.{state.Name} ({state.GroupID}, {state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}): {oldValue.Int}->{value.Int}", false);
 
                         UberStates[key].Value = state.Value;
                     }

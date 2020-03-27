@@ -10,9 +10,10 @@ namespace RandoMainDLL {
         PickupGUIHWD := """"
         signal := """"
         oldText := """"
+	    pickupSpot := A_ScreenHeight / 20
         BuildPickupGUI()
         {
-	        global PickupGUIHWD, PickupText
+	        global PickupGUIHWD, PickupText, pickupSpot
 	        Gui, Pickup:New, -SysMenu +LastFound +ToolWindow 
 	        Gui, Pickup:Color, 010101
 	        WinSet, Exstyle, 0x20
@@ -20,10 +21,9 @@ namespace RandoMainDLL {
 	        WinSet, Style,  -0xC40000
 	        WinSet, TransColor, 010101
 	        Gui, Pickup:Font,s30, Comic Sans MS
-	        Text := PickupGUIHWD . ""<3""
-	        Gui, Pickup:Add, Text,C00FFFF Center VPickupText,%Text% 
-	        pickupSpot := A_ScreenHeight / 20
-	        Gui, Pickup:Show, XCenter y%pickupSpot% NoActivate hide
+	        Text :=  ""<3""
+	        Gui, Pickup:Add, Text,CFFFFFF Center VPickupText,%Text% 
+	        Gui, Pickup:Show, XCenter y%pickupSpot% NoActivate, hide
 	        Gui, Pickup:+HwndPickupGUIHWD
             SetTimer, FadePickup,-3000
 	        Return
@@ -34,15 +34,17 @@ namespace RandoMainDLL {
         }
         PickupMessage(message, frames) 
         {
-            global oldText
+            global oldText, pickupSpot
             GuiControlGet, oldText, Pickup:, PickupText
             GuiControl, Pickup:Text, PickupText, %message%
-            Gui Pickup:Show, NoActivate
+            width := strlen(message) * 30
+            GuiControl, Pickup:Move, PickupText, w%width%
+            Gui Pickup:Show, AutoSize XCenter y%pickupSpot% NoActivate 
             SetTimer, FadePickup,-%frames%
         }
         Tick() 
         {
-            global signal
+            global signal, pickupSpot
             IfWinNotActive, OriAndTheWilloftheWisps 
             {
                 Gui, Pickup:-AlwaysOnTop 
@@ -59,10 +61,13 @@ namespace RandoMainDLL {
         #IfWinActive, OriAndTheWilloftheWisps
         !j::signal := ""dev""
         !t::
-        Gui Pickup:Show, NoActivate
+        Gui Pickup:Show, AutoSize XCenter y%pickupSpot% NoActivate
         KeyWait, T, T2 ; change the hold functionality to something cooler later!
         if(ErrorLevel) {
             GuiControl, Pickup:Text, PickupText, %oldText%
+            width := strlen(oldText) * 30
+            GuiControl, Pickup:Move, PickupText, w%width%
+            Gui Pickup:Show, AutoSize XCenter y%pickupSpot% NoActivate 
             SetTimer, FadePickup,-4000
         } else {
             SetTimer, FadePickup,-3000

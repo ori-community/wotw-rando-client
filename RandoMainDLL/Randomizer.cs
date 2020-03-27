@@ -68,13 +68,13 @@ namespace RandoMainDLL
         }
         public static bool Dev = false;
         public static void Log(string message, bool printIfDev = true) {
-            if (LastMessage == message && message.Length > 30) {
+            if (LastMessage == message && message.Length > 60) {
                 repeats++;
                 if (repeats > 180) {
                     repeats = 0;
-                    File.AppendAllText(LogFile, "suppressed repeats x180");
-                    return;
+                    File.AppendAllText(LogFile, "suppressed repeats x180\n");
                 }
+                return;
             }
             LastMessage = message;
             File.AppendAllText(LogFile, message+"\n");
@@ -93,11 +93,13 @@ namespace RandoMainDLL
                 UberStateDefaults.eyesPlacedIntoStatue.Value.Byte = 3;
                 UberStateDefaults.entranceStatueOpened.Value.Bool = true;
                 UberStateDefaults.risingPedestals.Value.Bool = true;
+                UberStateDefaults.mokiTorchPlayed.Value.Bool = true;
                 Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);
                 Memory.WriteUberState(UberStateDefaults.builderProjectSpiritWell);
                 Memory.WriteUberState(UberStateDefaults.eyesPlacedIntoStatue);
                 Memory.WriteUberState(UberStateDefaults.entranceStatueOpened);
                 Memory.WriteUberState(UberStateDefaults.risingPedestals);
+                Memory.WriteUberState(UberStateDefaults.mokiTorchPlayed);
                 DoneInitial = true;
             }
         }
@@ -134,9 +136,14 @@ namespace RandoMainDLL
                     return false;
             }
         }
-        public static void OnTree(int code)
+        public static bool TreeCollected(AbilityType ability)
         {
+            return true;
+        }
 
+        [DllExport]
+        public static bool DoInvertTree(AbilityType ability) {
+            return TreeCollected(ability) ^ Memory.HasAbility(ability);
         }
     }
 }

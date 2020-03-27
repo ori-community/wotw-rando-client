@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
     <PackageIcon>WotwRando.ico</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://www.github.com/sparkle-preference/OriWotwRandomizerClient</RepositoryUrl>
+    <StartupObject>Injector.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -14,6 +15,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>bin</OutputPath>
+    <DefineConstants />
   </PropertyGroup>
 
   <ItemGroup>
