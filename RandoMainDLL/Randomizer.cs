@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using RandoMainDLL.Memory;
+using System.Collections.Generic;
 namespace RandoMainDLL
 {
     public static class Randomizer
@@ -89,24 +90,35 @@ namespace RandoMainDLL
             {
                 Memory.SetAbility(AbilityType.SpiritEdge);
                 UberStateDefaults.savePedestalInkwaterMarsh.Value.Byte = 1;
-                UberStateDefaults.builderProjectSpiritWell.Value.Byte = 3;
-                UberStateDefaults.eyesPlacedIntoStatue.Value.Byte = 3;
-                UberStateDefaults.entranceStatueOpened.Value.Bool = true;
-                UberStateDefaults.risingPedestals.Value.Bool = true;
-                UberStateDefaults.mokiTorchPlayed.Value.Bool = true;
-                UberStateDefaults.mapSecretsRevealed.Value.Bool = true;
                 Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);
-                Memory.WriteUberState(UberStateDefaults.builderProjectSpiritWell);
-                Memory.WriteUberState(UberStateDefaults.eyesPlacedIntoStatue);
-                Memory.WriteUberState(UberStateDefaults.entranceStatueOpened);
-                Memory.WriteUberState(UberStateDefaults.risingPedestals);
-                Memory.WriteUberState(UberStateDefaults.mokiTorchPlayed);
-                Memory.WriteUberState(UberStateDefaults.mapSecretsRevealed);
+                foreach (UberState s in DefaultUberStates) { Memory.WriteUberState(s); }
+                foreach (UberState s in KeystoneDoors) { Memory.WriteUberState(s); }
                 BlackSheepWall = true;
                 DoneInitial = true;
             }
         }
         public static bool DoneInitial = false;
+        public static List<UberState> DefaultUberStates = new List<UberState>() {
+            new UberState() { Name = "builderProjectSpiritWell", ID = 16825, GroupName = "hubUberStateGroup", GroupID = 42178, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)3) },
+            new UberState() { Name = "eyesPlacedIntoStatue", ID = 1038, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)3) },
+            new UberState() { Name = "entranceStatueOpened", ID = 64003, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "risingPedestals", ID = 54318, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "mokiTorchPlayed", ID = 3621, GroupName = "inkwaterMarshStateGroup", GroupID = 9593, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "mapSecretsRevealed", ID = 35534, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+        };
+        public static List<UberState> KeystoneDoors = new List<UberState>() {
+            new UberState() {Name = "e3DesertG_clone0_KeystoneDoor", ID = 28786, GroupName = "windsweptWastesGroupDescriptor",  GroupID = 20120, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true)},
+            new UberState() { Name = "swampTorchIntroductionADoorWithTwoSlotsBooleanDescriptor", ID = 42309, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "swampNightcrawlerCavernADoorWithTwoSlotsBooleanDescriptor", ID = 47445, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "doorWithTwoSlots", ID = 59990, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "mouldwoodDepthsGDoorWithTwoSlotsOpened", ID = 10758, GroupName = "mouldwoodDepthsGroup", GroupID = 18793, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "keystoneGate", ID = 47621, GroupName = "lumaPoolsStateGroup", GroupID = 5377, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "doorWithFourSlots", ID = 4290, GroupName = "baursReachGroup", GroupID = 28895, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "keystoneGate", ID = 49900, GroupName = "baursReachGroup", GroupID = 28895, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "doorWithFourSlots", ID = 3171, GroupName = "moulwoodDepthsGroup", GroupID = 18793, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "doorState", ID = 21500, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "mouldwoodDepthsHDoorWithFourSlotsOpened", ID = 41544, GroupName = "mouldwoodDepthsGroup", GroupID = 18793, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+        };
 
         // interop flag system (reserve the right at any time to change this to a dict)
         public static bool OreFound = false;

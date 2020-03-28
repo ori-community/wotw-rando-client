@@ -28,11 +28,11 @@ namespace RandoMainDLL {
         WindsweptWastesB,
         WindtornRuinsA,
         WillowsEnd,
-        builderProjectSpiritWell,
         LumaPoolsB,
         WindtornRuinsB,
         WillowsEndShriek,
-        InkwaterMarsh
+        builderProjectSpiritWell,
+        InkwaterMarsh,
     }
     public enum ResourceType : byte {
         Health,
@@ -63,7 +63,6 @@ namespace RandoMainDLL {
             { TeleporterType.WindtornRuinsA, UberStateDefaults.savePedestalWindtornRuinsA },
             { TeleporterType.WillowsEnd, UberStateDefaults.savePedestalWillowsEnd },
             { TeleporterType.WindtornRuinsB, UberStateDefaults.savePedestalWindtornRuinsB },
-            { TeleporterType.builderProjectSpiritWell, UberStateDefaults.builderProjectSpiritWell },
             { TeleporterType.LumaPoolsB, UberStateDefaults.savePedestalLumaPoolsB },
             { TeleporterType.WillowsEndShriek, UberStateDefaults.savePedestalWillowsEndShriek },
             { TeleporterType.InkwaterMarsh, UberStateDefaults.savePedestalInkwaterMarsh },
@@ -82,7 +81,6 @@ namespace RandoMainDLL {
             { TeleporterType.WindsweptWastesB,  "Windswept Wastes (West)" },
             { TeleporterType.WindtornRuinsA,  "Windtorn Ruins (Outer)" },
             { TeleporterType.WillowsEnd,  "Willows End (" },
-            { TeleporterType.builderProjectSpiritWell,  "Wellspring Glades" },
             { TeleporterType.LumaPoolsB,  "Luma Pools (West)" },
             { TeleporterType.WindtornRuinsB,  "Windtorn Ruins (Inner)" },
             { TeleporterType.WillowsEndShriek,  "Spirit Willow" },

@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Collections.Generic;
 namespace RandoMainDLL.Memory {
     public enum UberStateType {
         BooleanUberState,
@@ -66,12 +67,7 @@ namespace RandoMainDLL.Memory {
         public static UberState savePedestalWindsweptWastesB = new UberState() { Name = "savePedestal", ID = 26601, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SavePedestalUberState };
         public static UberState savePedestalWindtornRuinsA = new UberState() { Name = "savePedestalUberState", ID = 41398, GroupName = "windsweptWastesGroupDescriptor", GroupID = 20120, Type = UberStateType.SavePedestalUberState };
         public static UberState savePedestalWindtornRuinsB = new UberState() { Name = "savePedestalUberState", ID = 4928, GroupName = "windtornRuinsGroup", GroupID = 10289, Type = UberStateType.SavePedestalUberState };
-        public static UberState builderProjectSpiritWell = new UberState() { Name = "builderProjectSpiritWell", ID = 16825, GroupName = "hubUberStateGroup", GroupID = 42178, Type = UberStateType.SerializedByteUberState };
-        public static UberState eyesPlacedIntoStatue = new UberState() { Name = "eyesPlacedIntoStatue", ID = 1038, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedByteUberState };
-        public static UberState entranceStatueOpened = new UberState() { Name = "entranceStatueOpened", ID = 64003, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState };
-        public static UberState risingPedestals = new UberState() { Name = "risingPedestals", ID = 54318, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState };
-        public static UberState mokiTorchPlayed = new UberState() { Name = "mokiTorchPlayed", ID = 3621, GroupName = "inkwaterMarshStateGroup", GroupID = 9593, Type = UberStateType.SerializedBooleanUberState };
-        public static UberState mapSecretsRevealed = new UberState() { Name = "mapSecretsRevealed", ID = 35534, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedBooleanUberState };
+
     }
     public class UberId {
         public int ID;
@@ -147,6 +143,30 @@ namespace RandoMainDLL.Memory {
     }
     [StructLayout(LayoutKind.Explicit, Size = 4, Pack = 1)]
     public struct UberValue {
+        public UberValue(float f) {
+            Byte = 0;
+            Bool = false;
+            Int = 0;
+            Float = f;
+        }
+        public UberValue(int i) {
+            Byte = 0;
+            Bool = false;
+            Float = 0;
+            Int = i;
+        }
+        public UberValue(byte b) {
+            Float = 0;
+            Bool = false;
+            Int = 0;
+            Byte = b;
+        }
+        public UberValue(bool b) {
+            Float = 0;
+            Int = 0;
+            Byte = 0;
+            Bool = b;
+        }
         [FieldOffset(0)]
         public float Float;
         [FieldOffset(0)]
