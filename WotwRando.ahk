@@ -15,6 +15,16 @@ INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
 WOTWREXE := INSTALL_DIR . "WotwRando.exe"
+NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
+If(FileExist(NEWWOTWR)) {
+	if(A_ScriptName == "WotwRando.new.exe") {
+		FileCopy, %NEWWOTWR%, %WOTWREXE%
+		Run *RunAs %WOTWREXE% %1% %2% %3% %4%
+		ExitApp
+	}
+	FileDelete, %NEWWOTWR%
+}
+
 FILE_SIZE := 48
 batch=
 (
@@ -111,29 +121,26 @@ Try {
 
 	if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
 	{
+		SplashTextOff
 		Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%?
 		IfMsgBox, Yes 
 		{
-			FileDelete, INSTALL_DIR . "\WotwRando.exe"
 			message = 0x1100
 			Progress, M h80 w500, , .
 			OnMessage(message, "SetCounter")
-			Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/WotwRando.exe", INSTALL_DIR . "\WotwRando.exe", message, 50)
+			Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, message, 50)
 			FileDelete, %INSTALL_DIR%VERSION
 			FileAppend, %latest%, %INSTALL_DIR%VERSION
 			Progress, Off
 			SplashTextOn,,,, Update Complete! Restarting...
 			Sleep, 2000
 			SplashTextOff
-			if(A_IsCompiled)
-			{
-				Run, %WOTWREXE%
-				ExitApp
-			}
+			Run, %NEWWOTWR%
+			ExitApp
 		} 
 	}
 }  catch e {
-    msgbox Update check failed! Press ok to launch anyways`n Error:%e%
+    msgbox Update check failed! Press ok to launch anyways`n Error    reload
 }
 SplashTextOff
 argc = %0%
@@ -187,7 +194,7 @@ Download(url, save, msg = 0x1100, sleep = 250) {
 	_dlprocess:
 	FileGetSize, current, %save%, K
 	Process, Exist
-	PostMessage, msg, current * 1024, %FILE_SIZE% * 1024 * 1024, , ahk_pid %ErrorLevel%
+	PostMessage, msg, current * 1024, 48 * 1024 * 1024, , ahk_pid %ErrorLevel%
 	Exit
 }
 
