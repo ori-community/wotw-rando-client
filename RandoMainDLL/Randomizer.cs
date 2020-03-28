@@ -94,12 +94,15 @@ namespace RandoMainDLL
                 UberStateDefaults.entranceStatueOpened.Value.Bool = true;
                 UberStateDefaults.risingPedestals.Value.Bool = true;
                 UberStateDefaults.mokiTorchPlayed.Value.Bool = true;
+                UberStateDefaults.mapSecretsRevealed.Value.Bool = true;
                 Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);
                 Memory.WriteUberState(UberStateDefaults.builderProjectSpiritWell);
                 Memory.WriteUberState(UberStateDefaults.eyesPlacedIntoStatue);
                 Memory.WriteUberState(UberStateDefaults.entranceStatueOpened);
                 Memory.WriteUberState(UberStateDefaults.risingPedestals);
                 Memory.WriteUberState(UberStateDefaults.mokiTorchPlayed);
+                Memory.WriteUberState(UberStateDefaults.mapSecretsRevealed);
+                BlackSheepWall = true;
                 DoneInitial = true;
             }
         }
@@ -108,10 +111,11 @@ namespace RandoMainDLL
         // interop flag system (reserve the right at any time to change this to a dict)
         public static bool OreFound = false;
         public static bool PleaseSave = false;
-
+        public static bool BlackSheepWall = false;
         public enum FlagCode: int {
             Save = 0,
             Ore = 1,
+            UnlockMap = 2,
         }
         [DllExport]
         public static int OreCount() { return Memory.Ore;  }
@@ -131,6 +135,12 @@ namespace RandoMainDLL
                         return true;
                     }
                     return false;
+                case FlagCode.UnlockMap:
+                    if (BlackSheepWall) {
+                        BlackSheepWall = false;
+                        return true;
+                    }
+                    return false;
                 default:
                     Randomizer.Log($"Unknown Flag code {flag}");
                     return false;
@@ -139,6 +149,11 @@ namespace RandoMainDLL
         public static bool TreeCollected(AbilityType ability)
         {
             return true;
+        }
+
+        [DllExport]
+        public static UInt64 GetShardSlotPtr() {
+            return Memory.ShardSlotPtr();
         }
 
         [DllExport]

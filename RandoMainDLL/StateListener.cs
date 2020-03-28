@@ -24,7 +24,7 @@ namespace RandoMainDLL
                         var pos = Randomizer.Memory.Position();
                         if(value.Int > 0) {
                             SeedManager.OnUberState(state);
-                            if (!Randomizer.PleaseSave )
+                            if (!Randomizer.PleaseSave)
                                 Randomizer.Log($"Potential pickup: {state.GroupName}.{state.Name} ({state.GroupID}, {state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) {value.Int}");
                         } else
                             Randomizer.Log($"State change {state.GroupName}.{state.Name} ({state.GroupID}, {state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}): {oldValue.Int}->{value.Int}", false);

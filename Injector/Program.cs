@@ -10,8 +10,9 @@ namespace Injector
     class Program {
 
         private static readonly IntPtr StaticZero = (IntPtr)0;
-        public static String DllPath = "C:\\moon\\InjectDLL.dll";
-        public static String ahkPath = "C:\\moon\\AutoHotkey.Interop.dll";
+        public static String InstallRoot = "C:\\moon\\";
+        public static String DllPath { get { return $"{InstallRoot}InjectDLL.dll"; } }
+        public static String ahkPath { get { return $"{InstallRoot}AutoHotkey.Interop.dll"; } }
         public static String ExeName = "oriwotw";
         public static String ExePath = "C:\\Program Files (x86)\\Steam\\Steam.exe";
         public static String ExeArgs = "-applaunch 1057090";
@@ -73,50 +74,50 @@ namespace Injector
         }
 
         static void Main(string[] args) {
-            try { 
-            if (args.Length > 0) {
-                DevMode = args[0] == "dev";
-                DllPath = args.Length > 1 ? args[1] : DllPath;
-                ahkPath = args.Length > 2 ? args[2] : ahkPath;
-                ExePath = args.Length > 3 ? args[3] : ExePath;
-                ExeArgs = args.Length > 4 ? args[4] : ExeArgs;
-            }
-            if (DevMode && NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") == 0)
-                Process.Start(ExePath, ExeArgs);
-            for (var i = 0; i < 25; i++) {
-                if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") != 0)
-                    break;
-                Thread.Sleep(1000);
-                Log("waiting for the game to start...");
-            }
-            Log("Injecting...");
-
             try {
-                Process proc = Process.GetProcessesByName(ExeName).FirstOrDefault();
-                if (proc == null) {
-                    Log("proc not found, can't do shit???");
-                    Thread.Sleep(2000);
-                    return;
+                if (args.Length > 0) {
+                    DevMode = args[0] != "false";
+                    ExePath = args.Length > 1 ? args[1] : ExePath;
+                    InstallRoot = args.Length > 2 ? args[2] : InstallRoot;
+                    ExeArgs = args.Length > 3 ? String.Join(" ", args.Skip(3)) : ExeArgs;
                 }
-                string oriAHKPath = proc.MainModule.FileName.Replace("oriwotw.exe", "") + "AutoHotkey.Interop.dll";
-                if (!File.Exists(oriAHKPath))
-                    File.Copy(ahkPath, oriAHKPath);
-                Inject(proc);
-                if(DevMode) {
-                    Thread t = new Thread(new ThreadStart(ListenForOri));
-                    t.Start();
-                    Log("press any key to exit");
-                    Console.ReadKey();
-                    Process.GetProcessesByName(ExeName).FirstOrDefault()?.Kill();
-                    Environment.Exit(0);
+                if(DevMode)
+                    Console.WriteLine($"{String.Join(" ", args)} -> {DevMode} {ExePath}");
+                if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") == 0)
+                    Process.Start(ExePath, ExeArgs);
+                for (var i = 0; i < 30; i++) {
+                    if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") != 0)
+                        break;
+                    Thread.Sleep(1000);
+                    Log("waiting for the game to start...");
                 }
-            } catch (Exception e) {
-                Log("Error:  " + e.Message);
-                Thread.Sleep(5000);
-            }
+                Log("Injecting...");
 
+                try {
+                    Process proc = Process.GetProcessesByName(ExeName).FirstOrDefault();
+                    if (proc == null) {
+                        Log("proc not found, can't do shit???");
+                        Thread.Sleep(2000);
+                        return;
+                    }
+                    string oriAHKPath = proc.MainModule.FileName.Replace("oriwotw.exe", "") + "AutoHotkey.Interop.dll";
+                    if (!File.Exists(oriAHKPath))
+                        File.Copy(ahkPath, oriAHKPath);
+                    Inject(proc);
+                    if(DevMode) {
+                        Thread t = new Thread(new ThreadStart(ListenForOri));
+                        t.Start();
+                        Log("press any key to exit");
+                        Console.ReadKey();
+                        Process.GetProcessesByName(ExeName).FirstOrDefault()?.Kill();
+                        Environment.Exit(0);
+                    }
+                } catch (Exception e) {
+                    Log($"Error:  {e.Message} at {e.TargetSite}/{e.Source} \n{e.StackTrace}");
+                    Thread.Sleep(5000);
+                }
             } catch (Exception e) {
-                Log("Error:  " + e.Message);
+                Log($"Error:  {e.Message} at {e.TargetSite}/{e.Source} \n{e.StackTrace}");
                 Thread.Sleep(5000);
             }
         }

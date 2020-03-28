@@ -23,9 +23,9 @@ namespace RandoMainDLL {
 	        Gui, Pickup:Font,s30, Comic Sans MS
 	        Text :=  ""<3""
 	        Gui, Pickup:Add, Text,CFFFFFF Center VPickupText,%Text% 
-	        Gui, Pickup:Show, XCenter y%pickupSpot% NoActivate, hide
+	        Gui, Pickup:Show, XCenter y%pickupSpot% NoActivate
 	        Gui, Pickup:+HwndPickupGUIHWD
-            SetTimer, FadePickup,-3000
+            Gui, Pickup:Hide
 	        Return
         }
         BuildLogOverlay()

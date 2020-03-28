@@ -8,17 +8,27 @@ SetWorkingDir, %A_ScriptDir%	; start where we at
 ; exitapp  
 
 ; filecreatedir silent fails if it exists, so
-INSTALL_DIR := "C:\moon\"
-FileCreateDir %INSTALL_DIR%
 
+; script variables
+INSTALL_DIR := "C:\moon\"
+INI_FILE := INSTALL_DIR . "settings.ini"
+VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
+INJECTOR := INSTALL_DIR . "Injector.exe"
+WOTWREXE := INSTALL_DIR . "WotwRando.exe"
+FILE_SIZE := 48
 batch=
 (
 assoc .wotwr=WotwRando
 ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
+; default settings (overwritten by ini values)
+SteamPath := "C:\\Program Files (x86)\\Steam\\Steam.exe"
+dev := "false"
 
-If(not FileExist(INSTALL_DIR . "\WotwRando.exe")) {
+FileCreateDir %INSTALL_DIR%
+
+If(not FileExist(WOTWREXE)) {
 	; installation code
 	Msgbox 4, Ori WOTW Randomizer Installer, Press Yes to install the WOTW Randomizer into %INSTALL_DIR%
 
@@ -27,23 +37,36 @@ If(not FileExist(INSTALL_DIR . "\WotwRando.exe")) {
 		Msgbox Exiting without installing
 		ExitApp
 	}
-	FileInstall, C:\moon\AutoHotkey.Interop.dll, %INSTALL_DIR%AutoHotkey.Interop.dll
-	FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll
-	FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll
-	FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe
-	FileInstall, C:\moon\VC_redist.x64.exe, %INSTALL_DIR%VC_redist.x64.exe
-	FileInstall, VERSION, %INSTALL_DIR%VERSION
+	if(not FileExist(SteamPath)) {
+		Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. Locate manually?
+		IfMsgBox No
+		{
+			Msgbox Exiting; install incomplete
+			ExitApp
+		}
+		FileSelectFile, SteamPath, 1, Steam.exe, Please Select Steam File, *.exe
+	}
+	IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
+	IniWrite, %dev%, %INI_FILE%, Flags, Dev
+
+	FileInstall, C:\moon\AutoHotkey.Interop.dll, %INSTALL_DIR%AutoHotkey.Interop.dll, 1
+	FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
+	FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
+	FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
+	FileInstall, redis\VC_redist.x64.exe, %VCR_FILE%, 1
+	FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 	If(A_IsCompiled)
-		FileCopy, %A_ScriptFullPath%, %INSTALL_DIR%WotwRando.exe
+		FileCopy, %A_ScriptFullPath%, %WOTWREXE%
 	Else
-		FileCopy C:\moon\WotwRando.exe, %INSTALL_DIR%WotwRando.exe
+		FileCopy C:\moon\WotwRando.exe, %WOTWREXE%
 
 	; install the vs c++ redistributable
-	RunWait, *RunAs %INSTALL_DIR%VC_redist.x64.exe /install /quiet /norestart
+	RunWait, *RunAs %VCR_FILE% /install /quiet /norestart
+	FileDelete, %VCR_FILE%
 	; set filetype assocation
 	FileDelete, %INSTALL_DIR%associateFileTypes.bat
 	FileAppend, %batch%, %INSTALL_DIR%associateFileTypes.bat
-	Run, *RunAs cmd.exe "%INSTALL_DIR%associateFileTypes.bat",
+	Run, *RunAs "%INSTALL_DIR%associateFileTypes.bat",
 
 	Msgbox 4, Ori WOTW Randomizer Installer, Installation complete! Launch Game Now?
 	IfMsgBox No
@@ -51,55 +74,68 @@ If(not FileExist(INSTALL_DIR . "\WotwRando.exe")) {
 		Msgbox Exiting without launching game
 		ExitApp
 	}
+} else {
+	; get flag values
+	IniRead, SteamPath, %INI_FILE%, Paths, Steam, %SteamPath%
+	IniRead, dev, %INI_FILE%, Flags, Dev, %dev%
 }
+if(dev == "false")
+	maybehide := "Hide"
 ; -----------run C:\moon version of self, if that's not us (and we're compiled), and then Exit
 
 If(A_ScriptFullPath != INSTALL_DIR . "WotwRando.exe" ) {
 	if(A_IsCompiled)
 	{
-		Run *RunAs %INSTALL_DIR%WotwRando.exe
+		Run *RunAs %WOTWREXE% %1% %2% %3% %4%
 		ExitApp
 	}
 }
 
 ; ---------- check for updates ---------------
+SplashTextOn,,,Checking for updates...
+Try {
+	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+	whr.Open("GET", "https://api.github.com/repos/sparkle-preference/OriWotwRandomizerClient/releases/latest", false)
+	whr.Send() ; first
 
-whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-whr.Open("GET", "https://api.github.com/repos/sparkle-preference/OriWotwRandomizerClient/releases/latest", false)
-whr.Send()
+	RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
+	tag := tag.1
+	SplashTextOn,,,Checking release %tag%
 
-RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
-tag := tag.1
-whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
-whr.Send()
+	whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
+	whr.Send() ; second
 
-latest := whr.ResponseText
-FileRead, MY_VER, %INSTALL_DIR%VERSION
+	latest := whr.ResponseText
+	FileRead, MY_VER, %INSTALL_DIR%VERSION
 
 
-if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
-{
-	Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%?
-	IfMsgBox, Yes 
+	if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
 	{
-		FileDelete, INSTALL_DIR . "\WotwRando.exe"
-		message = 0x1100
-		Progress, M h80 w500, , .
-		OnMessage(message, "SetCounter")
-		Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/WotwRando.exe", INSTALL_DIR . "\WotwRando.exe", message, 50)
-		FileDelete, %INSTALL_DIR%VERSION
-		FileAppend, %latest%, %INSTALL_DIR%VERSION
-		Progress, Off
-		SplashTextOn,,, Update Complete! Restarting...
-		Sleep, 2000
-		SplashTextOff
-		if(A_IsCompiled)
+		Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%?
+		IfMsgBox, Yes 
 		{
-			Run, %INSTALL_DIR%WotwRando.exe
-			ExitApp
-		}
-	} 
+			FileDelete, INSTALL_DIR . "\WotwRando.exe"
+			message = 0x1100
+			Progress, M h80 w500, , .
+			OnMessage(message, "SetCounter")
+			Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/WotwRando.exe", INSTALL_DIR . "\WotwRando.exe", message, 50)
+			FileDelete, %INSTALL_DIR%VERSION
+			FileAppend, %latest%, %INSTALL_DIR%VERSION
+			Progress, Off
+			SplashTextOn,,,, Update Complete! Restarting...
+			Sleep, 2000
+			SplashTextOff
+			if(A_IsCompiled)
+			{
+				Run, %WOTWREXE%
+				ExitApp
+			}
+		} 
+	}
+}  catch e {
+    msgbox Update check failed! Press ok to launch anyways`n Error:%e%
 }
+SplashTextOff
 argc = %0%
 if(argc > 0)  {
 	FileDelete, %INSTALL_DIR%\.currentseedname
@@ -108,10 +144,10 @@ if(argc > 0)  {
 	FileCopy, %1%, %INSTALL_DIR%\.currentseed, 1
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
-		Run, *RunAs %INSTALL_DIR%\Injector.exe,,Hide
+		Run, *RunAs %INSTALL_DIR%\Injector.exe %dev% "%SteamPath%",,%maybehide%
 		SplashTextOn,,, Launching Rando with Seed %FileName%
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
-		Sleep 1500
+		Sleep 3000
 		SplashTextOff
 	} else {
 		WinActivate, OriAndTheWilloftheWisps
@@ -122,10 +158,10 @@ if(argc > 0)  {
 }  else {
 	IfWinNotExist, OriAndTheWilloftheWisps 
 	{
-		SplashTextOn,,, Launching Rando with current seed
-		Run, *RunAs %INSTALL_DIR%\Injector.exe,,Hide
+		SplashTextOn,400,, Launching Rando with current seed
+		Run, *RunAs %INSTALL_DIR%\Injector.exe %dev% "%SteamPath%",,%maybehide%
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
-		Sleep 1500
+		Sleep 3000
 		SplashTextOff
 	} else {
 		WinActivate, OriAndTheWilloftheWisps
@@ -151,7 +187,7 @@ Download(url, save, msg = 0x1100, sleep = 250) {
 	_dlprocess:
 	FileGetSize, current, %save%, K
 	Process, Exist
-	PostMessage, msg, current * 1024, 46 * 1024 * 1024, , ahk_pid %ErrorLevel%
+	PostMessage, msg, current * 1024, %FILE_SIZE% * 1024 * 1024, , ahk_pid %ErrorLevel%
 	Exit
 }
 

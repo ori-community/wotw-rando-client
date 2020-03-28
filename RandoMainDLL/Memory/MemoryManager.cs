@@ -141,6 +141,16 @@ namespace RandoMainDLL.Memory {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_isActive
             return PlayerUberStateGroup.Read<bool>(Program, 0xb8, 0x0, 0x18, 0x4C);
         }
+        //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards.m_shardsList
+        public int Shards {
+            get { return PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x28); }
+            set { PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x28); }
+        }
+        public UInt64 ShardSlotPtr() {
+            Shards = 9;
+            //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards
+            return PlayerUberStateGroup.Read<UInt64>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20);
+        }
 
         public Stats PlayerStats {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Stats
@@ -620,11 +630,11 @@ namespace RandoMainDLL.Memory {
         {
             return; // this function stubbed out because it crashes and i have no idea why. seems like it should work!!!
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_bindings
-            IntPtr items = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x18);
+/*            IntPtr items = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x18);
             var invItem = new InventoryItem { Type = type, Unlocked = 1 };
             //.Items [0] <-
             Program.Write(items, invItem.ToBytes(), 0x10, 0x20);
-
+*/
         }
 
 

@@ -46,7 +46,7 @@ bool foundTreeFulfilled = false;
 __int64 lastDesiredState;
 __int64 lastSeinLevel;
 __int64 lastHealthController;
-
+__int64 lastSeinPickupProcessor;
 void* gameControllerInstancePointer = NULL;
 
 InjectDLL::PEModule* CSharpLib = NULL;
@@ -100,91 +100,97 @@ BINDING(0x1310650, MEMBER_FUNCTION, discoverAllAreas) //RuntimeGameWorldArea::Di
 
 __int64 gameWorldInstance;
 INTERCEPT(0x6CB7F0, MEMBER_FUNCTION, void, gameWorldAwake, (__int64 thisPtr){
-          if(gameWorldInstance != thisPtr)
-          {
-          log("Found GameWorld instance!");
-          gameWorldInstance = thisPtr;
-          }
-          gameWorldAwake(thisPtr);
-          })
+    if(gameWorldInstance != thisPtr) {
+        log("Found GameWorld instance!");
+        gameWorldInstance = thisPtr;
+    }
+    gameWorldAwake(thisPtr);
+});
 
 //INTERCEPT(0x130D570, GET_BOOL_FUN, bool, isAreaDiscovered, (__int64 thisPtr) { return true; })
 
 INTERCEPT(0x13DC220, UNUSED, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 c){
-          //MessageControllerB::ShowAbilityMessage
-          return 0;
-          })
+    //MessageControllerB::ShowAbilityMessage
+    return 0;
+});
 
 INTERCEPT(0x13DC770, UNUSED, __int64, showShardMessage, (__int64 a, __int64 b, char c){
           //MessageControllerB::ShowShardMessage
           return 0;
-          })
+});
 INTERCEPT(0x13E02D0, UNUSED, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b){
           //MessageControllerB::ShowSpiritTreeTextMessage
           return 0;
-          })
+          });
 
 INTERCEPT(0x5D2310, UNUSED, void, performPickupSequence, (__int64 thisPtr, __int64 info){
           //SeinPickupProcessor::PerformPickupSequence
           //noping this removes all pickup animations
-          })
+          });
 
 INTERCEPT(0x13DC460, UNUSED, bool, anyAbilityPickupStoryMessagesVisible, (__int64 thisPtr) {
           //MessageControllerB::get_AnyAbilityPickupStoryMessagesVisible
           return 0;
-          })
+          });
 
 bool invertTreeActivationStates = true;
 INTERCEPT(0x13A7AA0, SUB_1813A7AA0_SIG, bool, sub1813A7AA0, (__int64 mappingPtr, __int64 uberState){
           //RVA: 13A7AA0. Called from PlayerStateMap.Mapping::Matches
 
           bool result = sub1813A7AA0(mappingPtr, uberState);
-          log("intercepted 13A7AA0 with for " + std::to_string(mappingPtr) + " and " + std::to_string(uberState) +
-	          " result: " + std
-	          ::to_string(result));
+          //log("intercepted 13A7AA0 with for " + std::to_string(mappingPtr) + " and " + std::to_string(uberState) +
+	         // " result: " + std
+	         // ::to_string(result));
           result = CSharpLib->call<bool>("DoInvertTree", foundTree) ^ result;
           return result;
-          })
+          });
 
 INTERCEPT(0x5D5950, PICKUP_FUN, void, onCollectHealthHalfCell, (__int64 thisPointer, __int64 pickupPointer){
           //SeinPickupProcessor::onCollectHealthHalfCell
-          lock = true;
+              lock = true;
           onCollectHealthHalfCell(thisPointer, pickupPointer);
           lock = false;
-          })
+          });
 
-INTERCEPT(0x5D3DD0, PICKUP_FUN, void, onCollectEnergyHalfCell, (__int64 thisPointer, __int64 pickupPointer)
-          {
-          //SeinPickupProcessor::onCollectEnergyHalfCell
-          lock = true;
-          onCollectEnergyHalfCell(thisPointer, pickupPointer);
-          lock = false;
-          })
+INTERCEPT(0x5D3DD0, PICKUP_FUN, void, onCollectEnergyHalfCell, (__int64 thisPointer, __int64 pickupPointer){
+              //SeinPickupProcessor::onCollectEnergyHalfCell
+              lock = true;
+              onCollectEnergyHalfCell(thisPointer, pickupPointer);
+              lock = false;
+          });
 
-INTERCEPT(0x5D6400, PICKUP_FUN, void, onCollectSpiritShard, (__int64 thisPointer, __int64 pickupPointer){
-          //SeinPickupProcessor::onCollectSpiritShard
-          lock = true;
-          onCollectSpiritShard(thisPointer, pickupPointer);
-          lock = false;
-          })
+INTERCEPT(0x5D6400, PICKUP_FUN, void, onCollectSpiritShard, (__int64 thisPointer, __int64 pickupPointer) {
+              //SeinPickupProcessor::onCollectSpiritShard
+              lock = true;
+              onCollectSpiritShard(thisPointer, pickupPointer);
+              lock = false;
+          });
+
+
+//INTERCEPT(0x13B6800, SET_INT_FUN, void, onSetShardSlotCount, (__int64 thisPointer, int setTo) {
+//    lastSeinPickupProcessor = thisPointer;
+//    LOG("collected shard upgrade. pickup pointer" << "");
+//
+//});
 
 INTERCEPT(0x5D3440, PICKUP_FUN, void, onCollectSpiritShardSlot, (__int64 thisPointer, __int64 pickupPointer){
+          //SeinPickupProcessor::OnCollectedShardSlotUpgrade
           lock = true;
           onCollectSpiritShardSlot(thisPointer, pickupPointer);
           lock = false;
-          })
+          });
 
 INTERCEPT(0x5D4470, PICKUP_FUN, void, onCollectOre, (__int64 thisPointer, __int64 pickupPointer){
           lock = true;
           onCollectOre(thisPointer, pickupPointer);
           lock = false;
-          })
+          });
 
 INTERCEPT(0x5D5360, PICKUP_FUN, void, onCollectKeystone, (__int64 thisPointer, __int64 pickupPointer){
-          lock = true;
+              lock = true;
           onCollectKeystone(thisPointer, pickupPointer);
           lock = false;
-          })
+          });
 
 INTERCEPT(0xA0AF60, ADD_SHARD_SIG, __int64, addShard, (__int64 thisPtr, unsigned __int8 enumValue){
           //PlayerSpiritShards::AddShard
@@ -200,72 +206,73 @@ INTERCEPT(0xA0AF60, ADD_SHARD_SIG, __int64, addShard, (__int64 thisPtr, unsigned
           return result;
           }
           return addShard(thisPtr, enumValue);
-          })
-INTERCEPT(0xA0ADE0, MEMBER_FUNCTION, void, addGlobalShardSlot, (__int64 thisPtr, unsigned __int8 enumValue){
+          });
+
+INTERCEPT(0xA0ADE0, MEMBER_FUNCTION, void, addGlobalShardSlot, (__int64 thisPtr){
           //PlayerSpiritShards::AddGlobalShardSlot
           LOCK()
           addGlobalShardSlot(thisPtr);
-          })
+          });
 
 INTERCEPT(0x1230150, SET_INT_FUN, void, setBaseMaxHealth, (__int64 thisPtr, int val){
           //SeinHealthController::SetBaseMaxHealth (?)
           LOCK()
           setBaseMaxHealth(thisPtr, val);
-          })
+          });
 
 INTERCEPT(0xDEA1F0, SET_INT_FUN, void, setBaseMaxEnergy, (__int64 thisPtr, int val)
           {
           //SeinEnergy::SetBaseMaxEnergy (?)
           LOCK()
           setBaseMaxEnergy(thisPtr, val);
-          })
+          });
 INTERCEPT(0x4943A0, SET_INT_FUN, void, setPartialHealthContainers, (__int64 thisPtr, int amount){
           //SeinLevel::setPartialHealthContainers
           lastSeinLevel = thisPtr;
           LOCK()
           setPartialHealthContainers(thisPtr, amount);
-          })
+          });
 
 INTERCEPT(0x4942E0, GET_INT_FUN, int, getPartialHealthContainers, (__int64 thisPtr){
           //SeinLevel::getPartialHealthContainers
           lastSeinLevel = thisPtr;
           LOCK(1)
           return getPartialHealthContainers(thisPtr);
-          })
+          });
 
 INTERCEPT(0x494530, SET_INT_FUN, void, setPartialEnergyContainers, (__int64 thisPtr, int amount){
           //SeinLevel::setPartialEnergyContainers
           lastSeinLevel = thisPtr;
           LOCK()
           setPartialEnergyContainers(thisPtr, amount);
-          })
+          });
 
 INTERCEPT(0x494470, GET_INT_FUN, int, getPartialEnergyContainers, (__int64 thisPtr){
           //SeinLevel::getPartialEnergyContainers
           lastSeinLevel = thisPtr;
           LOCK(1)
           return getPartialEnergyContainers(thisPtr);
-          })
+          });
 
 INTERCEPT(0x494210, SET_INT_FUN, void, setOre, (__int64 thisPtr, int amount){
           //SeinLevel::setOre
           lastSeinLevel = thisPtr;
           LOCK()
           setOre(thisPtr, amount);
-          })
+          });
 
 INTERCEPT(0x494080, SET_INT_FUN, void, setExperience, (__int64 thisPtr, int amount){
           //SeinLevel::setExperience
           lastSeinLevel = thisPtr;
           LOCK()
           setExperience(thisPtr, amount);
-          })
+          });
 
 INTERCEPT(0x487220, SET_INT_FUN, void, setKeystones, (__int64 thisPtr, int partials){
           //SeinInventory::setKeystones
           LOCK()
           setKeystones(thisPtr, partials);
-          })
+          });
 
 INTERCEPT(0x5D4EE0, PICKUP_FUN, void, onCollectExpOrb, (__int64 thisPointer, __int64 pickupPointer){
           //SeinPickupProcessor::onCollectExpOrb
@@ -276,7 +283,8 @@ INTERCEPT(0x5D4EE0, PICKUP_FUN, void, onCollectExpOrb, (__int64 thisPointer, __i
           }
           onCollectExpOrb(thisPointer, pickupPointer);
           lock = false;
-          })
+          });
+
 INTERCEPT(0x1272580, MEMBER_FUNCTION, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr) {
           //			  __int64* pdwvtable = (__int64*)thisPtr;
           //			  pdwvtable[0x2f] = (__int64)myFunc;
@@ -293,46 +301,58 @@ INTERCEPT(0x1272580, MEMBER_FUNCTION, void, getAbilityOnConditionFixedUpdate, (_
           LOG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int)desiredAbility);
           //				  LOG("DesiredState ability " << (int)*desiredAbility);
           }
-          })
+          });
 
 INTERCEPT(0x12726A0, MEMBER_FUNCTION, void, getAbilityOnConditionAssign, (__int64 thisPtr) {
           LOG("GAOC.ASS: intercepted and ignored ");
           foundTreeFulfilled = true;
-          })
+          });
 
 INTERCEPT(0xB3A220, VALIDATOR, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr) {
           if (lastDesiredState == thisPtr)
-          return foundTreeFulfilled;
+              return foundTreeFulfilled;
           return abilityStateFulfilled(thisPtr, contextPtr);
-          })
+          });;
 
-INTERCEPT(0x5BE620, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer){
-          fixedUpdate1(thisPointer);
-          if (gameControllerInstancePointer != (void*)thisPointer) {
-          logfile.open(logFilePath, std::ios_base::app);
-          logfile << "got GameController.Instance pointer: " << thisPointer << std::endl;
-          logfile.close();
-          gameControllerInstancePointer = (void*)thisPointer;
-          }
-          try {
-          int update = CSharpLib->call<int>("Update");
-
-          if (CSharpLib->call<bool>("CheckFlag", 0)) {
-          log("Checkpoint requested by c# code");
-          createCheckpoint((__int64)gameControllerInstancePointer);
-          }
-          if (lastSeinLevel != NULL && CSharpLib->call<bool>("CheckFlag", 1)) {
-          log("Ore update required");
-          setOre(lastSeinLevel, CSharpLib->call<int>("OreCount"));
-          }
-          }
-          catch (int error)
-          {
-          LOG("got error code " << error);
-          }
-          })
+INTERCEPT(0x5BE620, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer) {
+    fixedUpdate1(thisPointer);
+    onFixedUpdate(thisPointer);
+});
 
 //---------------------------------------------------Actual Functions------------------------------------------------
+
+void onFixedUpdate(__int64 thisPointer)
+{
+    if (gameControllerInstancePointer != (void*)thisPointer) {
+        LOG("got GameController.Instance pointer: " << thisPointer);
+        gameControllerInstancePointer = (void*)thisPointer;
+    }
+    try {
+        int update = CSharpLib->call<int>("Update");
+
+        if (CSharpLib->call<bool>("CheckFlag", 0)) {
+            log("Checkpoint requested by c# code");
+            createCheckpoint((__int64)gameControllerInstancePointer);
+        }
+        if (lastSeinLevel != NULL && CSharpLib->call<bool>("CheckFlag", 1)) {
+            log("Ore update required");
+            setOre(lastSeinLevel, CSharpLib->call<int>("OreCount"));
+        }
+        if (gameWorldInstance != NULL && CSharpLib->call<bool>("CheckFlag", 2)) {
+            log("Map revealed");
+            discoverEverything();
+        }
+//        if (lastSeinPickupProcessor != NULL && CSharpLib->call<bool>("CheckFlag", 3)) {
+//            log("Adding shard slot");
+////            onCollectSpiritShardSlot();
+//
+//        }
+    }
+    catch (int error)
+    {
+        LOG("got error code " << error);
+    }
+}
 
 void discoverEverything()
 {

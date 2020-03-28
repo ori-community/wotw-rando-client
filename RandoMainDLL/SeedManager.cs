@@ -19,9 +19,9 @@ namespace RandoMainDLL {
                         Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}");
                     }
                 }
-                AHK.Print($"Seed {seedName} loaded", 240);
+                AHK.Print($"Seed {seedName} loaded", 300);
             } else 
-                AHK.Print($"No seed loaded; Download a .wotwr file and double-click it to load one", 300);
+                AHK.Print($"No seed loaded; Download a .wotwr file and double-click it to load one", 360);
         }
 
         public static void OnUberState(UberState state) {
