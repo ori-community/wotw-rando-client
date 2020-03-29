@@ -26,7 +26,7 @@ trait SpiritLightItem extends Item {
 case class SpiritLight(amount: Int)  extends SpiritLightItem
 
 trait Resource extends Item  {
-	val itemType = 3
+	val itemType = 1
 	def resourceType: Int
 	def code = s"${itemType}|${resourceType}"
 }
@@ -262,6 +262,9 @@ object SeedGenerator extends App {
 		case r"Ore \(([0-9]*)${count}\)" => OreRequirement(count.toInt)
 		case "Wisps" => Heart
 		case "Free" => Free
+		case s if s.contains('|') => {
+			Any(s.split('|').map(ReqParse _):_*)
+		}
 		case s => {
 			println(s"Wot's an ${s}"); Free
 		}
@@ -312,6 +315,7 @@ object SeedGenerator extends App {
 		Skill.names.keys.foreach((s: Int) => itemPool(Skill(s)) = 1)
 
 		var locs = itemLocs.toSeq
+		while(locs.size > itemPool.count) itemPool.add(SpiritLight(Random.between(50,250)))
 		val playerState = new Inv()
 		val file = new File(s"seed_${n}.wotwr")
 		val bw = new BufferedWriter(new FileWriter(file))
@@ -346,6 +350,7 @@ object SeedGenerator extends App {
 				}
 			}
 		}
+		print(playerState)
 
 		bw.close()
 	}
