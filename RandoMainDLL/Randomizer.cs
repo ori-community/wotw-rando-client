@@ -69,6 +69,8 @@ namespace RandoMainDLL
         }
         public static bool Dev = false;
         public static void Log(string message, bool printIfDev = true) {
+            if (AHK.IniFlag("MuteCSLogs"))
+                return;
             if (LastMessage == message && message.Length > 60) {
                 repeats++;
                 if (repeats > 180) {
@@ -168,6 +170,10 @@ namespace RandoMainDLL
             return Memory.ShardSlotPtr();
         }
 
+        [DllExport]
+        public static bool InjectLogEnabled() {
+            return !AHK.IniFlag("MuteInjectLogs");
+        }
         [DllExport]
         public static bool DoInvertTree(AbilityType ability) {
             return TreeCollected(ability) ^ Memory.HasAbility(ability);

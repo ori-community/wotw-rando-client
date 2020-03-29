@@ -16,14 +16,10 @@ VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
 WOTWREXE := INSTALL_DIR . "WotwRando.exe"
 NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
-If(FileExist(NEWWOTWR)) {
-	if(A_ScriptName == "WotwRando.new.exe") {
-		FileCopy, %NEWWOTWR%, %WOTWREXE%
-		Run *RunAs %WOTWREXE% %1% %2% %3% %4%
-		ExitApp
-	}
-	FileDelete, %NEWWOTWR%
-}
+DELETEME := INSTALL_DIR . ".deleteme"
+
+FileCreateDir %INSTALL_DIR%
+
 
 FILE_SIZE := 48
 batch=
@@ -32,13 +28,23 @@ assoc .wotwr=WotwRando
 ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
-; default settings (overwritten by ini values)
-SteamPath := "C:\\Program Files (x86)\\Steam\\Steam.exe"
-dev := "false"
 
-FileCreateDir %INSTALL_DIR%
-
-If(not FileExist(WOTWREXE)) {
+if(FileExist(WOTWREXE)) {
+	if(A_ScriptName == "WotwRando.new.exe") {
+		; we're updating if the file already exists
+		gosub, WriteIniDefaults
+		gosub, ExtractFiles
+		FileCopy, %A_ScriptFullPath%, %WOTWREXE%, 1
+		Run *RunAs %WOTWREXE% %1% %2% %3% %4%
+		FileDelete, %DELETEME%
+		FileAppend, %A_ScriptFullPath%, %DELETEME%
+		ExitApp
+	} else if(FileExist(INSTALL_DIR . ".deleteme")) {
+		FileRead, TPath, %DELETEME%
+		FileDelete, %TPath%
+		FileDelete, %DELETEME%
+	}
+} else {
 	; installation code
 	Msgbox 4, Ori WOTW Randomizer Installer, Press Yes to install the WOTW Randomizer into %INSTALL_DIR%
 
@@ -56,20 +62,12 @@ If(not FileExist(WOTWREXE)) {
 		}
 		FileSelectFile, SteamPath, 1, Steam.exe, Please Select Steam File, *.exe
 	}
-	IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
-	IniWrite, %dev%, %INI_FILE%, Flags, Dev
 
-	FileInstall, C:\moon\AutoHotkey.Interop.dll, %INSTALL_DIR%AutoHotkey.Interop.dll, 1
-	FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
-	FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
-	FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
+	SplashTextOn,,,Installing, please wait...
+	gosub, WriteIniDefaults
+	gosub, ExtractFiles
+
 	FileInstall, redis\VC_redist.x64.exe, %VCR_FILE%, 1
-	FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
-	If(A_IsCompiled)
-		FileCopy, %A_ScriptFullPath%, %WOTWREXE%
-	Else
-		FileCopy C:\moon\WotwRando.exe, %WOTWREXE%
-
 	; install the vs c++ redistributable
 	RunWait, *RunAs %VCR_FILE% /install /quiet /norestart
 	FileDelete, %VCR_FILE%
@@ -77,6 +75,7 @@ If(not FileExist(WOTWREXE)) {
 	FileDelete, %INSTALL_DIR%associateFileTypes.bat
 	FileAppend, %batch%, %INSTALL_DIR%associateFileTypes.bat
 	Run, *RunAs "%INSTALL_DIR%associateFileTypes.bat",
+	SplashTextOff
 
 	Msgbox 4, Ori WOTW Randomizer Installer, Installation complete! Launch Game Now?
 	IfMsgBox No
@@ -84,12 +83,9 @@ If(not FileExist(WOTWREXE)) {
 		Msgbox Exiting without launching game
 		ExitApp
 	}
-} else {
-	; get flag values
-	IniRead, SteamPath, %INI_FILE%, Paths, Steam, %SteamPath%
-	IniRead, dev, %INI_FILE%, Flags, Dev, %dev%
-	IniRead, skipUpdate, %INI_FILE%, Flags, SkipUpdate, 0
 }
+gosub, ReadIniVals
+
 if(dev == "false")
 	maybehide := "Hide"
 ; -----------run C:\moon version of self, if that's not us (and we're compiled), and then Exit
@@ -103,7 +99,7 @@ If(A_ScriptFullPath != INSTALL_DIR . "WotwRando.exe" ) {
 }
 
 ; ---------- check for updates ---------------
-if(skipUpdate != 0)
+if(skipUpdate == "false")
 {
 	SplashTextOn,,,Checking for updates...
 	Try {
@@ -132,13 +128,11 @@ if(skipUpdate != 0)
 				Progress, M h80 w500, , .
 				OnMessage(message, "SetCounter")
 				Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, message, 50)
-				FileDelete, %INSTALL_DIR%VERSION
-				FileAppend, %latest%, %INSTALL_DIR%VERSION
 				Progress, Off
 				SplashTextOn,,,, Update Complete! Restarting...
 				Sleep, 2000
 				SplashTextOff
-				Run, %NEWWOTWR%
+				Run, *RunAs %NEWWOTWR% %1% %2% %3% %4%
 				ExitApp
 			} 
 		}
@@ -185,6 +179,40 @@ if(argc > 0)  {
 	}
 }
 ExitApp
+
+ReadIniVals:
+IniRead, SkipUpdate, %INI_FILE%, Flags, SkipUpdate, false
+IniRead, MuteInjectLogs, %INI_FILE%, Flags, MuteInjectLogs, false
+IniRead, MuteCSLogs, %INI_FILE%, Flags, MuteCSLogs, false
+IniRead, dev, %INI_FILE%, Flags, Dev, false
+IniRead, SteamPath, %INI_FILE%, Paths, Steam, C:\\Program Files (x86)\\Steam\\Steam.exe
+return
+
+
+
+
+
+WriteIniDefaults:
+gosub ReadIniVals ; populate the ini values to avoid overwriting
+IniWrite, %SteamPath%, %INI_FILE%, Paths, SteamPath
+IniWrite, %Dev%, %INI_FILE%, Flags, Dev
+IniWrite, %MuteInjectLogs%, %INI_FILE%, Flags, MuteInjectLogs
+IniWrite, %MuteCSLogs%, %INI_FILE%, Flags, MuteCSLogs
+IniWrite, %SkipUpdate%, %INI_FILE%, Flags, SkipUpdate
+return
+
+ExtractFiles:
+FileInstall, C:\moon\AutoHotkey.Interop.dll, %INSTALL_DIR%AutoHotkey.Interop.dll, 1
+FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
+FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
+FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
+FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
+If(A_IsCompiled)
+	FileCopy, %A_ScriptFullPath%, %WOTWREXE%
+Else
+	FileCopy C:\moon\WotwRando.exe, %WOTWREXE%
+return
+
 
 SetCounter(wParam, lParam) {
 	global url
