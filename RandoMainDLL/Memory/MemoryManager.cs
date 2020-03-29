@@ -810,6 +810,7 @@ namespace RandoMainDLL.Memory {
             {AbilityType.Seir, EquipmentType.Spell_GoldenSein},
             {AbilityType.Blaze, EquipmentType.Spell_Blaze},
             {AbilityType.Flap, EquipmentType.Ability_FeatherFlap},
+            {AbilityType.Sentry, EquipmentType.Spell_Turret },
             {AbilityType.DamageUpgrade1, EquipmentType.AutoAbility_DamageUpgradeA},
             {AbilityType.DamageUpgrade2, EquipmentType.AutoAbility_DamageUpgradeB},
     };
