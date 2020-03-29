@@ -207,7 +207,7 @@ The Wellspring, Resource, Ore, waterMillStateGroupDescriptor, 37858, gorlekOreB,
 The Wellspring, Resource, Ore, wellspringGroupDescriptor, 53632, orePickupA, 21124, -761, -4094, Water, Grapple
 The Wellspring, Resource, Ore, wellspringGroupDescriptor, 53632, orePickupB, 25556, -738, -4018, DoubleJump, Grapple
 The Wellspring, Shard, LifeHarvest, pickupsGroup, 23987, vitalityLuckShardPickup, 53934, -998, -4030, DoubleJump, Bash
-The Wellspring, Shard, Thorn, pickupsGroup, 23987, counterstrikeShardPickup, 23987, -1376, -3995, DoubleJump, Bash
+The Wellspring, Shard, Thorn, pickupsGroup, 23987, counterstrikeShardPickup, 31426, -1376, -3995, DoubleJump, Bash
 The Wellspring, Shard, UltraGrapple, pickupsGroup, 23987, ultraLeashShardPickup, 12104, -799, -3913, DoubleJump, Grapple, Dash
 The Wellspring, SpiritLight, Large, waterMillStateGroupDescriptor, 37858, expOrb, 64086, -1237, -3741, DoubleJump, Bash, Grapple, Dash
 The Wellspring, SpiritLight, Large, waterMillStateGroupDescriptor, 37858, xpOrbA, 33063, -1223, -3907, DoubleJump, Bash, Grapple
