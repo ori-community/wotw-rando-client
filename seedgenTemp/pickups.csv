@@ -20,7 +20,7 @@ Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 25989,
 Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, healthContainer, 61304, -432, -4503, Smash
 Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 29892, -810, -4334, Water
 Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyArenaComplete, 35598, -327, -4564, Smash
-Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2369, -382, -4337, Free
+Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2869, -382, -4337, Free
 Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399, DoubleJump
 Inkwater Marsh, Shard, Magnet, pickupsGroup, 23987, spiritMagnetShardPickup, 20915, -239, -4441, Dash|DoubleJump|Launch
 Inkwater Marsh, Shard, Reckless, pickupsGroup, 23987, recklessShardPickup, 9864, -499, -4411, Free
@@ -32,6 +32,7 @@ Inkwater Marsh, SpiritLight, Medium, inkwaterMarshStateGroup, 9593, expOrbA, 525
 Inkwater Marsh, SpiritLight, Medium, swampStateGroup, 21786, largeExpA, 10413, -343, -4357, DoubleJump
 Inkwater Marsh, SpiritLight, Medium, swampStateGroup, 21786, mediumExpA, 23154, -837, -4315, Water
 Inkwater Marsh, SpiritLight, Medium, swampStateGroup, 21786, mediumExpA, 50255, -641, -4223, DoubleJump, Bow, Bash, Dash
+Inkwater Marsh, SpiritLight, Large, swampStateGroup, 21786, largeExpA, 21727, -1015, -4269, DoubleJump, Bash
 Inkwater Marsh, SpiritLight, Small, howlsOriginGroup, 24922, smallExpA, 32076, -1001, -4451, DoubleJump, Bash
 Inkwater Marsh, SpiritLight, Small, inkwaterMarshStateGroup, 9593, expOrb, 17818, -507, -4537, Free
 Inkwater Marsh, SpiritLight, Small, inkwaterMarshStateGroup, 9593, expOrb, 59344, -492, -4260, DoubleJump
