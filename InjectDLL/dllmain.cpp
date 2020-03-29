@@ -54,9 +54,11 @@ std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need
 std::ofstream logfile;
 
 #define LOG(message) \
-	logfile.open(logFilePath, std::ios_base::app); \
-	logfile << message << std::endl; \
-	logfile.close();
+    if (CSharpLib == NULL || CSharpLib->call<bool>("InjectLogEnabled")) { \
+	    logfile.open(logFilePath, std::ios_base::app); \
+	    logfile << message << std::endl; \
+	    logfile.close(); \
+    }
 
 //-------------------------------------------Magic Convenience Macro----------------------------------------------
 
@@ -432,10 +434,12 @@ void detachAll()
 
 void log(std::string message)
 {
-	std::ofstream logfile;
-	logfile.open(logFilePath, std::ios_base::app);
-	logfile << message << std::endl;
-	logfile.close();
+    if (CSharpLib == NULL || CSharpLib->call<bool>("InjectLogEnabled")) {
+        std::ofstream logfile;
+        logfile.open(logFilePath, std::ios_base::app);
+        logfile << message << std::endl;
+        logfile.close();
+    }
 }
 
 void initMemoryHacks()

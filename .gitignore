@@ -12,3 +12,7 @@
 */bin/*
 */obj/*
 InjectDLL.log
+seedgenTemp/out
+seedgenTemp/seeds
+.idea*
+*.iml

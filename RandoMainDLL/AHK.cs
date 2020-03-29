@@ -42,6 +42,11 @@ namespace RandoMainDLL {
             Gui Pickup:Show, AutoSize XCenter y%pickupSpot% NoActivate 
             SetTimer, FadePickup,-%frames%
         }
+        IniRead(Section, Key, default := """", iniPath := ""C:/moon/settings.ini"")
+        {
+            IniRead, out, %iniPath%, %Section%, %Key%, %default%
+            return out
+        }
         Tick() 
         {
             global signal, pickupSpot
@@ -76,9 +81,20 @@ namespace RandoMainDLL {
         !l::signal := ""reload""
         ";
         public static AutoHotkeyEngine Engine = AutoHotkeyEngine.Instance;
+        public static bool Ready = false;
         public static void Init() {
             Engine.ExecRaw(Program);
             Engine.ExecFunction("BuildPickupGUI");
+            Ready = true;
+            if(IniFlag("dev")) {
+                Randomizer.Dev = true;
+            }
+        }
+        private static HashSet<String> Falsey = new HashSet<String>() { "false", "False", "no", "", "0" };
+        public static bool IniFlag(string Flag) {
+            if (!Ready)
+                return false;
+            return !Falsey.Contains(Engine.ExecFunction("IniRead", "Flags", Flag));
         }
 
         public static void Tick() {
