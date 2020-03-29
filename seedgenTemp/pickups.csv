@@ -1,7 +1,7 @@
 Inkwater Marsh, Keystone, Eyestone, swampStateGroup, 21786, keyStoneA, 27433, -461, -4195, DoubleJump, Bow
 Inkwater Marsh, Keystone, Eyestone, swampStateGroup, 21786, keyStoneB, 37225, -394, -4188, DoubleJump, Bow
-Inkwater Marsh, Keystone, Keystone, swampStateGroup, 21786, keyStone, 22068, -439, -4462, DoubleJump
-Inkwater Marsh, Keystone, Keystone, swampStateGroup, 21786, laserPuzzleSolved, 2852, -400, -4568, DoubleJump
+Inkwater Marsh, Keystone, Keystone, swampStateGroup, 21786, keyStone, 22068, -439, -4462, DoubleJump|Dash
+Inkwater Marsh, Keystone, Keystone, swampStateGroup, 21786, laserPuzzleSolved, 2852, -400, -4568, DoubleJump|Dash
 Inkwater Marsh, Keystone, Keystone, swampStateGroup, 21786, swampWalljumpChallengeBKeystoneBCollected, 64677, -852, -4404, Free
 Inkwater Marsh, Quest, Fang, questUberStateGroup, 14019, braveMokiItemCollected, 27539, -221, -4406, DoubleJump
 Inkwater Marsh, Resource, Energy, inkwaterMarshStateGroup, 9593, halfEnergyCellA, 27562, -473, -4340, DoubleJump
@@ -9,40 +9,40 @@ Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, energyHalfCell, 17920,
 Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, energyHalfCellA, 10295, -422, -4273, DoubleJump
 Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, halfEnergyCellA, 61706, -233, -4385, DoubleJump, Dash
 Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, halfEnergyCellA, 7152, -667, -4330, Bash
-Inkwater Marsh, Resource, Life, swampStateGroup, 21786, gorlekOreA, 2046, -569, -4454, DoubleJump
-Inkwater Marsh, Resource, Life, swampStateGroup, 21786, halfHealthCellA, 28908, -332, -4439, Free
-Inkwater Marsh, Resource, Life, swampStateGroup, 21786, healthContainerA, 25761, -718, -4278, Grapple, DoubleJump
+Inkwater Marsh, Resource, Life, inkwaterMarshStateGroup, 9593, healthContainer, 61304, -569, -4454, DoubleJump|Dash
+Inkwater Marsh, Resource, Life, swampStateGroup, 21786, halfHealthCellA, 28908, -332, -4439, DoubleJump|Dash
+Inkwater Marsh, Resource, Life, swampStateGroup, 21786, healthContainerA, 25761, -718, -4278, Grapple, DoubleJump|Dash|Glide
 Inkwater Marsh, Resource, Life, swampStateGroup, 21786, healthContainerA, 60210, -958, -4313, Free
 Inkwater Marsh, Resource, Life, swampStateGroup, 21786, lifeCellA, 20194, -437, -4381, Smash
-Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 20382, -935, -4357, DoubleJump, Burrow, Dash
-Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 23858, -858, -4423, DoubleJump
+Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 20382, -935, -4357, DoubleJump, Dash, Burrow
+Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 23858, -858, -4423, DoubleJump|Dash
 Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 25989, -501, -4340, Free
-Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, healthContainer, 61304, -432, -4503, Smash
+Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 2046, -432, -4503, DoubleJump|Dash, Smash
 Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 29892, -810, -4334, Water
 Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyArenaComplete, 35598, -327, -4564, Smash
 Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2869, -382, -4337, Free
-Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399, DoubleJump
-Inkwater Marsh, Shard, Magnet, pickupsGroup, 23987, spiritMagnetShardPickup, 20915, -239, -4441, Dash|DoubleJump|Launch
-Inkwater Marsh, Shard, Reckless, pickupsGroup, 23987, recklessShardPickup, 9864, -499, -4411, Free
+Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399, DoubleJump|Dash
+Inkwater Marsh, Shard, Magnet, pickupsGroup, 23987, spiritMagnetShardPickup, 20915, -239, -4441, DoubleJump|Dash
+Inkwater Marsh, Shard, Reckless, pickupsGroup, 23987, recklessShardPickup, 9864, -499, -4411, DoubleJump|Dash
 Inkwater Marsh, Shard, Resilience, pickupsGroup, 23987, barrierShardPickup, 59173, -790, -4335, Free
-Inkwater Marsh, Shard, Sticky, pickupsGroup, 23987, glueShardPickup, 27134, -547, -4530, DoubleJump
+Inkwater Marsh, Shard, Sticky, pickupsGroup, 23987, glueShardPickup, 27134, -547, -4530, DoubleJump|Dash
 Inkwater Marsh, SpiritLight, Large, lagoonStateGroup, 945, largeExpC, 10833, -801, -4186, DoubleJump, Bow, Bash, Dash
-Inkwater Marsh, SpiritLight, Medium, howlsOriginGroup, 24922, largeExpA, 62138, -979, -4510, DoubleJump, Bash, Dash, WaterDash
+Inkwater Marsh, SpiritLight, Medium, howlsOriginGroup, 24922, largeExpA, 62138, -979, -4510, Bash, Dash, Water, WaterDash 
 Inkwater Marsh, SpiritLight, Medium, inkwaterMarshStateGroup, 9593, expOrbA, 5253, -527, -4354, DoubleJump
 Inkwater Marsh, SpiritLight, Medium, swampStateGroup, 21786, largeExpA, 10413, -343, -4357, DoubleJump
 Inkwater Marsh, SpiritLight, Medium, swampStateGroup, 21786, mediumExpA, 23154, -837, -4315, Water
 Inkwater Marsh, SpiritLight, Medium, swampStateGroup, 21786, mediumExpA, 50255, -641, -4223, DoubleJump, Bow, Bash, Dash
 Inkwater Marsh, SpiritLight, Large, swampStateGroup, 21786, largeExpA, 21727, -1015, -4269, DoubleJump, Bash
 Inkwater Marsh, SpiritLight, Small, howlsOriginGroup, 24922, smallExpA, 32076, -1001, -4451, DoubleJump, Bash
-Inkwater Marsh, SpiritLight, Small, inkwaterMarshStateGroup, 9593, expOrb, 17818, -507, -4537, Free
+Inkwater Marsh, SpiritLight, Small, inkwaterMarshStateGroup, 9593, expOrb, 17818, -507, -4537, DoubleJump|Dash
 Inkwater Marsh, SpiritLight, Small, inkwaterMarshStateGroup, 9593, expOrb, 59344, -492, -4260, DoubleJump
 Inkwater Marsh, SpiritLight, Small, inkwaterMarshStateGroup, 9593, xpOrb, 42047, -783, -4452, Free
 Inkwater Marsh, SpiritLight, Small, inkwaterMarshStateGroup, 9593, xpOrbA, 5929, -656, -4342, Free
 Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, expOrb, 59513, -755, -4423, Free
 Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, smallExpA, 49485, -764, -4313, Free
-Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, xpOrbA, 6987, -739, -4324, DoubleJump
-Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, xpOrbB, 43668, -433, -4420, Free
-Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, xpOrbC, 16206, -389, -4503, Free
+Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, xpOrbA, 6987, -739, -4324, DoubleJump|Dash|Glide
+Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, xpOrbB, 43668, -433, -4420, DoubleJump|Dash
+Inkwater Marsh, SpiritLight, Small, swampStateGroup, 21786, xpOrbC, 16206, -389, -4503, DoubleJump|Dash
 Kwolok's Hollow, Resource, Energy, _petrifiedForestGroup, 58674, energyContainerA, 9583, 331, -4192, Water, Launch, DoubleJump, Bash
 Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 23772, 46, -4237, DoubleJump, Bash
 Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 8518, -238, -4301, DoubleJump, Bow
