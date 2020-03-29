@@ -291,7 +291,7 @@ object SeedGenerator extends App {
 		pickups.filter(_.category != "Quest")
 	}
 
-	def run(n: Int = 0): Unit = {
+	def run(n: Int = 0, outputFolder: String = ""): Unit = {
 		// Creating a file
 		val itemPool = new Inv(
 			Health() -> 24,
@@ -317,7 +317,11 @@ object SeedGenerator extends App {
 		var locs = itemLocs.toSeq
 		while(locs.size > itemPool.count) itemPool.add(SpiritLight(Random.between(50,250)))
 		val playerState = new Inv()
-		val file = new File(s"seed_${n}.wotwr")
+		val dirPath = if(outputFolder != "") s"seeds/${outputFolder}" else "seeds"
+		val dir = new File(dirPath)
+		if(! dir.exists())
+			dir.mkdirs()
+		val file = new File(s"${dirPath}/seed_${n}.wotwr")
 		val bw = new BufferedWriter(new FileWriter(file))
 
 		def randItem = itemPool.popRand().map({ a => playerState.add(a); a }).getOrElse(SpiritLight(Random.between(25, 225)))
