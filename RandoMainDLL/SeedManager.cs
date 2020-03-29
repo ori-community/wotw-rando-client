@@ -7,7 +7,8 @@ namespace RandoMainDLL {
         public static Dictionary<UberId, Pickup> pickupMap = new Dictionary<UberId, Pickup>();
         public static void ReadSeed() {
             var seedName = File.ReadAllText(Randomizer.SeedNameFile);
-            if(seedName.Trim() != "") { 
+            if(seedName.Trim() != "") {
+                pickupMap.Clear();
                 foreach (var line in File.ReadLines(Randomizer.SeedFile)) {
                     try {
                         var frags = line.Split('|');
@@ -42,6 +43,8 @@ namespace RandoMainDLL {
                     return new Cash(int.Parse(pickupData));
                 case PickupType.Resource:
                     return new Resource((ResourceType)byte.Parse(pickupData));
+                case PickupType.Teleporter:
+                    return new Teleporter((TeleporterType)byte.Parse(pickupData));
                 default:
                     throw new NotImplementedException("I'm vewy sowwy but that featuwe is not yet impwemented");
             }

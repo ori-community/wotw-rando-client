@@ -31,8 +31,8 @@ namespace RandoMainDLL {
         LumaPoolsB,
         WindtornRuinsB,
         WillowsEndShriek,
-        builderProjectSpiritWell,
         InkwaterMarsh,
+        builderProjectSpiritWell,
     }
     public enum ResourceType : byte {
         Health,
@@ -70,7 +70,7 @@ namespace RandoMainDLL {
         public static Dictionary<TeleporterType, String> TeleporterNames = new Dictionary<TeleporterType, String>() {
             { TeleporterType.MidnightBurrows,  "Midnight Burrows" },
             { TeleporterType.HowlsDen,  "Howls Den" },
-            { TeleporterType.LumaPoolsA,  "Luma Pools West" },
+            { TeleporterType.LumaPoolsA,  "Luma Pools (East)" },
             { TeleporterType.Wellspring,  "Wellspring" },
             { TeleporterType.BaursReach,  "Baur's Reach" },
             { TeleporterType.KwoloksHollow,  "Kwoloks Hollow" },
@@ -80,7 +80,7 @@ namespace RandoMainDLL {
             { TeleporterType.WindsweptWastesA,  "Windswept Wastes (East)" },
             { TeleporterType.WindsweptWastesB,  "Windswept Wastes (West)" },
             { TeleporterType.WindtornRuinsA,  "Windtorn Ruins (Outer)" },
-            { TeleporterType.WillowsEnd,  "Willows End (" },
+            { TeleporterType.WillowsEnd,  "Willows End" },
             { TeleporterType.LumaPoolsB,  "Luma Pools (West)" },
             { TeleporterType.WindtornRuinsB,  "Windtorn Ruins (Inner)" },
             { TeleporterType.WillowsEndShriek,  "Spirit Willow" },
@@ -93,7 +93,7 @@ namespace RandoMainDLL {
             Randomizer.Memory.WriteUberState(Teleporter.TeleporterStates[type]);
         }
         public override string ToString() {
-            return $"{TeleporterNames[type]} Teleporter";
+            return $"Teleporter: {TeleporterNames[type]}";
         }
     }
     public class Ability : Pickup {

@@ -88,6 +88,7 @@ If(not FileExist(WOTWREXE)) {
 	; get flag values
 	IniRead, SteamPath, %INI_FILE%, Paths, Steam, %SteamPath%
 	IniRead, dev, %INI_FILE%, Flags, Dev, %dev%
+	IniRead, skipUpdate, %INI_FILE%, Flags, SkipUpdate, 0
 }
 if(dev == "false")
 	maybehide := "Hide"
@@ -102,49 +103,56 @@ If(A_ScriptFullPath != INSTALL_DIR . "WotwRando.exe" ) {
 }
 
 ; ---------- check for updates ---------------
-SplashTextOn,,,Checking for updates...
-Try {
-	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-	whr.Open("GET", "https://api.github.com/repos/sparkle-preference/OriWotwRandomizerClient/releases/latest", false)
-	whr.Send() ; first
+if(skipUpdate != 0)
+{
+	SplashTextOn,,,Checking for updates...
+	Try {
+		whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+		whr.Open("GET", "https://api.github.com/repos/sparkle-preference/OriWotwRandomizerClient/releases/latest", false)
+		whr.Send() ; first
 
-	RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
-	tag := tag.1
-	SplashTextOn,,,Checking release %tag%
+		RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
+		tag := tag.1
+		SplashTextOn,,,Checking release %tag%
 
-	whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
-	whr.Send() ; second
+		whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
+		whr.Send() ; second
 
-	latest := whr.ResponseText
-	FileRead, MY_VER, %INSTALL_DIR%VERSION
+		latest := whr.ResponseText
+		FileRead, MY_VER, %INSTALL_DIR%VERSION
 
 
-	if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
-	{
-		SplashTextOff
-		Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%?
-		IfMsgBox, Yes 
+		if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
 		{
-			message = 0x1100
-			Progress, M h80 w500, , .
-			OnMessage(message, "SetCounter")
-			Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, message, 50)
-			FileDelete, %INSTALL_DIR%VERSION
-			FileAppend, %latest%, %INSTALL_DIR%VERSION
-			Progress, Off
-			SplashTextOn,,,, Update Complete! Restarting...
-			Sleep, 2000
 			SplashTextOff
-			Run, %NEWWOTWR%
-			ExitApp
-		} 
+			Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%?
+			IfMsgBox, Yes 
+			{
+				message = 0x1100
+				Progress, M h80 w500, , .
+				OnMessage(message, "SetCounter")
+				Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, message, 50)
+				FileDelete, %INSTALL_DIR%VERSION
+				FileAppend, %latest%, %INSTALL_DIR%VERSION
+				Progress, Off
+				SplashTextOn,,,, Update Complete! Restarting...
+				Sleep, 2000
+				SplashTextOff
+				Run, %NEWWOTWR%
+				ExitApp
+			} 
+		}
+	}  catch e {
+		errorMsg := "Error: " e.Message
+	    msgbox Update check failed! Press ok to launch anyways`n%errorMsg%
 	}
-}  catch e {
-    msgbox Update check failed! Press ok to launch anyways`n Error    reload
+	SplashTextOff
 }
-SplashTextOff
+
 argc = %0%
 if(argc > 0)  {
+	; if a seedfile was provided as an argument (presumably by doubleclicking),
+	; load it in and launch/highlight the game
 	FileDelete, %INSTALL_DIR%\.currentseedname
 	SplitPath, 1, FileName
 	FileAppend, %FileName%, %INSTALL_DIR%\.currentseedname
