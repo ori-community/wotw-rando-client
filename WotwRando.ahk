@@ -53,7 +53,7 @@ if(FileExist(WOTWREXE)) {
 		Msgbox Exiting without installing
 		ExitApp
 	}
-	if(not FileExist(SteamPath)) {
+	if(not FileExist("C:\\Program Files (x86)\\Steam\\Steam.exe")) {
 		Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. Locate manually?
 		IfMsgBox No
 		{
@@ -194,7 +194,7 @@ return
 
 WriteIniDefaults:
 gosub ReadIniVals ; populate the ini values to avoid overwriting
-IniWrite, %SteamPath%, %INI_FILE%, Paths, SteamPath
+IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
 IniWrite, %Dev%, %INI_FILE%, Flags, Dev
 IniWrite, %MuteInjectLogs%, %INI_FILE%, Flags, MuteInjectLogs
 IniWrite, %MuteCSLogs%, %INI_FILE%, Flags, MuteCSLogs
