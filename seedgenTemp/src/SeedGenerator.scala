@@ -104,7 +104,7 @@ object Shard { 	val names: Map[Int, String] = Map(
 	40 -> "Finesse",
 	41 -> "SpiritSurge",
 	43 -> "Lifeforce",
-	42 -> "Deflector",
+	44 -> "Deflector",
 	46 -> "Fracture",
 	47 -> "Arcing",
 ) }
@@ -247,7 +247,7 @@ object SeedGenerator extends App {
 	def ReqParse(req: String): Requirement = req match {
 		case "DoubleJump" => DoubleJump
 		case "Bow" => Bow
-		case "Flap" => Flap
+		case "Flap" => All(Flap, Glide)
 		case "Grapple" => Grapple
 		case "Glide" => Glide
 		case "Launch" => Launch
@@ -291,7 +291,7 @@ object SeedGenerator extends App {
 		pickups.filter(_.category != "Quest")
 	}
 
-	def run(n: Int = 0, outputFolder: String = ""): Unit = {
+	def run(n: Int = 0, name_base: String = "seed", outputFolder: String = ""): Unit = {
 		// Creating a file
 		val itemPool = new Inv(
 			Health() -> 24,
@@ -321,7 +321,7 @@ object SeedGenerator extends App {
 		val dir = new File(dirPath)
 		if(! dir.exists())
 			dir.mkdirs()
-		val file = new File(s"${dirPath}/seed_${n}.wotwr")
+		val file = new File(s"${dirPath}/${name_base}_${n}.wotwr")
 		val bw = new BufferedWriter(new FileWriter(file))
 
 		def randItem = itemPool.popRand().map({ a => playerState.add(a); a }).getOrElse(SpiritLight(Random.between(25, 225)))
@@ -354,8 +354,6 @@ object SeedGenerator extends App {
 				}
 			}
 		}
-		print(playerState)
-
 		bw.close()
 	}
 }

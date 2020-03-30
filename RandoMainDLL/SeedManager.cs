@@ -46,7 +46,7 @@ namespace RandoMainDLL {
                 case PickupType.Teleporter:
                     return new Teleporter((TeleporterType)byte.Parse(pickupData));
                 default:
-                    throw new NotImplementedException("I'm vewy sowwy but that featuwe is not yet impwemented");
+                    throw new NotImplementedException("Unknown Pickup");
             }
         }
     }

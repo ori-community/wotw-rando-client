@@ -23,10 +23,11 @@ Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 29892, -810, 
 Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyArenaComplete, 35598, -327, -4564, Smash, Regenerate
 Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2869, -382, -4337, Regenerate
 Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399, DoubleJump|Dash, Regenerate
-Inkwater Marsh, Shard, Magnet, pickupsGroup, 23987, spiritMagnetShardPickup, 20915, -239, -4441, DoubleJump|Dash
+Inkwater Marsh, Shard, Magnet, swampStateGroup, 21786, spiritShardA, 63545, -239, -4441, DoubleJump|Dash
 Inkwater Marsh, Shard, Reckless, pickupsGroup, 23987, recklessShardPickup, 9864, -499, -4411, DoubleJump|Dash
 Inkwater Marsh, Shard, Resilience, pickupsGroup, 23987, barrierShardPickup, 59173, -790, -4335, Free
 Inkwater Marsh, Shard, Sticky, pickupsGroup, 23987, glueShardPickup, 27134, -547, -4530, DoubleJump|Dash
+Inkwater Marsh, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapInkwaterMarsh,18767, -589,-4348, Free
 Inkwater Marsh, SpiritLight, Large, lagoonStateGroup, 945, largeExpC, 10833, -801, -4186, DoubleJump, Bow, Bash, Dash
 Inkwater Marsh, SpiritLight, Medium, howlsOriginGroup, 24922, largeExpA, 62138, -979, -4510, Bash, Dash, Water, WaterDash 
 Inkwater Marsh, SpiritLight, Large, swampStateGroup, 21786, largeExpA, 21727, -1015, -4269, DoubleJump, Bash
@@ -51,6 +52,7 @@ Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfContain
 Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, halfHealthCell, 2463, -121, -4269, DoubleJump, Bow, Dash
 Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, healthHalfCell, 58598, 83, -4263, DoubleJump, Bash
 Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, healthHalfCell, 61897, -254, -4225, Free
+Kwolok's Hollow, Resource, Life, bashIntroductionA__clone1Group, 13428, healthContainerA, 59730, 83, -4264, DoubleJump, Bash
 Kwolok's Hollow, Resource, Ore, kwolokGroupDescriptor, 937, gromOreA, 10729, -97, -4190, DoubleJump, Bash
 Kwolok's Hollow, Resource, Ore, kwoloksCavernThroneRoomGroup, 46462, gorlekOreA, 37897, 243, -4224, DoubleJump, Bash, Water
 Kwolok's Hollow, Shard, Quickshot, pickupsGroup, 23987, frenzyShardPickup, 61017, -310, -4326, DoubleJump, Bow, Dash
@@ -70,6 +72,7 @@ Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlac
 Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, xpOrbA, 13413, -85, -4209, DoubleJump, Dash, Bash
 Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, xpOrbB, 5568, -55, -4201, DoubleJump, Bash
 Kwolok's Hollow, SpiritLight, Small, kwoloksCavernThroneRoomGroup, 46462, smallExpA, 20780, 161, -4245, DoubleJump, Bash, Water
+Kwolok's Hollow, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapKwoloksHollow, 3638, -146, -4321, Bow, DoubleJump, Dash
 Baur's Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 22382, -232, -3869, Flap, DoubleJump, Bash
 Baur's Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025, Flap, DoubleJump, Bash, Grenade, Glide
 Baur's Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneB, 1053, -248, -3891, Flap, DoubleJump, Bash
@@ -92,7 +95,7 @@ Baur's Reach, SpiritLight, Large, baursReachGroup, 28895, largeXPOrbA, 45337, -5
 Baur's Reach, SpiritLight, Large, baursReachGroup, 28895, xpOrbB, 38049, -282, -4013, Flap, DoubleJump, Bash
 Baur's Reach, SpiritLight, Large, baursReachGroup, 28895, xpOrbC, 53283, -112, -3950, Flap, DoubleJump, Bash, Grenade, Glide, Dash
 Baur's Reach, SpiritLight, Large, hubUberStateGroup, 42178, mediumExpB, 40609, -194, -4043, Flap, DoubleJump, Bash, Grenade, Glide
-Baur's Reach, SpiritLight, Medium, baursReachGroup, 28895, mediumExpA, 32414, -423, -3876, Flap, DoubleJump, Bash, Dash, Burrow
+Baur's Reach, SpiritLight, Medium, winterForestGroupDescriptor, 28287, mediumExpA, 32414, -423, -3876, Flap, DoubleJump, Bash, Dash, Burrow
 Baur's Reach, SpiritLight, Medium, baursReachGroup, 28895, mediumExpOrb, 22761, -39, -4018, Flap, DoubleJump, Bash, Grenade, Glide
 Baur's Reach, SpiritLight, Medium, baursReachGroup, 28895, xpOrbB, 40089, -194, -3854, Flap, DoubleJump, Bash, Glide
 Baur's Reach, SpiritLight, Medium, baursReachGroup, 28895, xpOrbC, 40242, -239, -3921, Flap, DoubleJump, Bash, Water
@@ -107,6 +110,7 @@ Baur's Reach, SpiritLight, Small, baursReachGroup, 28895, smallXPOrbB, 35045, -2
 Baur's Reach, SpiritLight, Small, baursReachGroup, 28895, xpOrbA, 38143, -337, -3999, Flap, DoubleJump, Bash
 Baur's Reach, SpiritLight, Small, baursReachGroup, 28895, xpOrbB, 46711, -72, -3951, Flap, DoubleJump, Bash, Grenade, Glide
 Baur's Reach, SpiritLight, Small, baursReachGroup, 28895, xpOrbE, 45066, -331, -4051, Flap, DoubleJump, Bash, Burrow, Dash
+Baur's Reach, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapBaursReach, 29604, -275,-3996, DoubleJump, Dash, Grenade
 Luma Pools, Keystone, Keystone, lumaPoolsStateGroup, 5377, keystoneA, 35091, -1548, -4081, Water, Bash, Flap, DoubleJump
 Luma Pools, Keystone, Keystone, lumaPoolsStateGroup, 5377, keystoneB, 16426, -1538, -40748, Water, Bash, Flap, DoubleJump
 Luma Pools, Keystone, Keystone, lumaPoolsStateGroup, 5377, keystoneC, 46926, -1576, -4126, Water, Bash, Flap, DoubleJump
@@ -142,12 +146,14 @@ Luma Pools, SpiritLight, Medium, lumaPoolsStateGroup, 5377, xpOrbC, 17396, -1214
 Luma Pools, SpiritLight, Medium, lumaPoolsStateGroup, 5377, xpOrbD, 13832, -1176, -4178, Water, Bash, WaterDash
 Luma Pools, SpiritLight, Small, lumaPoolsStateGroup, 5377, mediumExpOrbPlaceholderC, 33110, -1568, -4063, Water, Bash, Flap, DoubleJump, Dash
 Luma Pools, SpiritLight, Small, lumaPoolsStateGroup, 5377, xpOrbA, 25391, -1650, -4160, Water, Bash, Flap, DoubleJump, WaterDash, Launch
+Luma Pools, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapLumaPools, 1557, -1391,-4167, Water, Bash, DoubleJump, WaterDash
 Midnight Burrows, Keystone, Keystone, howlsOriginGroup, 24922, keystoneA, 34250, -725, -4520, DoubleJump, Dash
 Midnight Burrows, Keystone, Keystone, howlsOriginGroup, 24922, keystoneA, 47244, -597, -4548, DoubleJump, Bash
 Midnight Burrows, Keystone, Keystone, howlsOriginGroup, 24922, keystoneA, 60358, -800, -4580, DoubleJump
 Midnight Burrows, Keystone, Keystone, howlsOriginGroup, 24922, keystoneB, 33535, -704, -4609, DoubleJump, Bash, Dash
 Midnight Burrows, Quest, Tablet, questUberStateGroup, 14019, howlsOriginTreasureCollected, 52747, -848, -4530, DoubleJump, Bash
 Midnight Burrows, Shard, Deflector, howlsOriginGroup, 24922, spiritShard, 46311, -773, -4528, DoubleJump, Dash
+Midnight Burrows, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapHowlsOrigin, 45538, -870,-4555, DoubleJump
 Mouldwood Depths, Keystone, Keystone, mouldwoodDepthsGroup, 18793, keystone, 1914, 317, -4454, Glide, DoubleJump, Grapple
 Mouldwood Depths, Keystone, Keystone, mouldwoodDepthsGroup, 18793, keystoneA, 58148, 146, -4426, Glide, Grapple
 Mouldwood Depths, Keystone, Keystone, mouldwoodDepthsGroup, 18793, mouldwoodDepthsHKeystoneACollected, 53953, 498, -4463, Glide, DoubleJump, Grapple, Bow
@@ -168,6 +174,7 @@ Mouldwood Depths, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, expOrbC, 237
 Mouldwood Depths, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, mediumExpA, 19004, 171, -4358, Glide
 Mouldwood Depths, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, XPOrbA, 18395, 567, -4443, Glide, DoubleJump, Grapple, Bash, Flash
 Mouldwood Depths, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, xpOrbC, 15396, 146, -4375, Glide, DoubleJump, Bash
+Mouldwood Depths, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapMouldwoodDepths, 48423, 682,-4576, Bash, Grapple, DoubleJump, Glide
 Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneA, 42531, 886, -4123, Water, Grapple, Dash, DoubleJump, Bow
 Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneB, 19769, 908, -4120, Water, Grapple, Dash, DoubleJump, Bow
 Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneC, 11736, 641, -4166, Water, Grapple, Dash, DoubleJump
@@ -227,6 +234,7 @@ The Wellspring, SpiritLight, Medium, wellspringGroupDescriptor, 53632, mediumExp
 The Wellspring, SpiritLight, Medium, wellspringGroupDescriptor, 53632, mediumExpOrbPlaceholderG, 6500, -898, -4071, DoubleJump, Bash
 The Wellspring, SpiritLight, Small, waterMillStateGroupDescriptor, 37858, smallExpA, 45906, -1247, -3928, DoubleJump, Bash
 The Wellspring, SpiritLight, Small, waterMillStateGroupDescriptor, 37858, smallExpOrb, 2797, -1317, -3665, DoubleJump, Bash, Grapple, Dash
+The Wellspring, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapWellspring, 1590, -1190, -3861, Grapple
 Wellspring Glades, Quest, Acorn, questUberStateGroup, 14019, darkCaveQuestItemCollected, 2782, -10, -4551, Water, DoubleJump, Flash, Ore (30)
 Wellspring Glades, Resource, Energy, hubUberStateGroup, 42178, energyCellA, 52786, -116, -4540, Launch, DoubleJump, Ore (18)
 Wellspring Glades, Resource, Energy, kwolokGroupDescriptor, 937, energyContainerA, 17761, -690, -4115, DoubleJump, Bash, Water
@@ -264,6 +272,7 @@ Willow's End, SpiritLight, Large, corruptedPeakGroup, 36153, expOrbA, 23902, 434
 Willow's End, SpiritLight, Large, corruptedPeakGroup, 36153, expOrbB, 3662, 540, -3655, Launch, DoubleJump, Bash, Grapple
 Willow's End, SpiritLight, Large, willowsEndGroup, 16155, expOrbA, 49381, 470, -3915, Launch
 Willow's End, SpiritLight, Large, willowsEndGroup, 16155, xpOrbA, 55446, 654, -3780, Launch, DoubleJump, Bash
+Willow's End, Shop, LumoZoneMap, npcStateGroup, 48248, hasMapWillowsEnd, 4045, 474,-3859, Free
 Windswept Wastes, Keystone, Keystone, desertAGroup, 7228, keystoneAUberState, 20282, 1877, -3844, Grapple, DoubleJump, Burrow, Dash
 Windswept Wastes, Keystone, Keystone, desertAGroup, 7228, keystoneBUberStateGroup, 62117, 1823, -3769, Grapple, DoubleJump, Burrow, Dash
 Windswept Wastes, Quest, Seed, questUberStateGroup, 14019, gardenerSeedFlowersCollected, 20601, 1996, -3651, Grapple, DoubleJump, Burrow, Dash
@@ -298,4 +307,5 @@ Windswept Wastes, SpiritLight, Medium, windsweptWastesGroupDescriptor, 20120, xp
 Windswept Wastes, SpiritLight, Medium, windsweptWastesGroupDescriptor, 20120,expOrbD, 48829, 1809, -3883, Grapple, DoubleJump, Burrow, Dash
 Windswept Wastes, SpiritLight, Small, desertAGroup, 7228, xpOrbB, 54275, 2006, -3724, Grapple, DoubleJump, Burrow, Dash, Bash
 Windswept Wastes, SpiritLight, Small, windsweptWastesGroupDescriptor, 20120, xpOrbA, 57133, 1765, -3921, Grapple, DoubleJump
+Windswept Wastes, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapWindsweptWastes, 61146, 1647,-3899, Grapple, Burrow
 Windtorn Ruins, Resource, Energy, windtornRuinsGroup, 10289, energyHalfCell, 44555, 2054, -4050, Wisps, Burrow, Dash, DoubleJump, Grapple
