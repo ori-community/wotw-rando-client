@@ -200,16 +200,16 @@ case class TeleReq(teleCode: Int) extends Requirement {
 object AreaReq {
 	def apply(areaName: String): Requirement = areaName match {
 				case "Inkwater Marsh" => Free
-				case "Kwolok's Hollow" => All(DoubleJump)
-				case "Wellspring Glades" => Any(WellspringTP, Voice)
-				case "Windswept Wastes" => Any(WindsweptEastTP, All(Voice, Glide, Grapple))
+				case "Kwolok's Hollow" => Any(DoubleJump, Dash)
+				case "Wellspring Glades" => Any(All(WellspringTP, DoubleJump, Dash), Voice)
+				case "Windswept Wastes" => Any(WindsweptEastTP, All(Water, Bow, Glide))
 				case "The Wellspring" => Any(WellspringTP, Voice)
 				case "Willow's End" => Any(WillowsEndTP, All(Launch, Heart))
 				case "Silent Woods" => Any(SilentWoodsTP, Water)
-				case "Mouldwood Depths" => Any(MouldwoodTP, All(Water, Glide))
-				case "Midnight Burrows" => Any(Water, BurrowsTP)
+				case "Mouldwood Depths" => All(Voice, Glide)
+				case "Midnight Burrows" => Any(All(DoubleJump, Dash, Bash), BurrowsTP)
 				case "Luma Pools" => All(Water, Glide)
-				case "Baur's Reach" => Any(All(BaursReachTP, Grenade, Glide), All(Water, Glide, Flap))
+				case "Baur's Reach" => All(Voice, Glide, Flap)
 				case "Windtorn Ruins" => Heart
 				case s => {println(s"Where's ${s}") ; Free  }
 		}
@@ -225,7 +225,7 @@ object MouldwoodTP extends TeleReq(6)
 object BurrowsTP extends TeleReq(0)
 object Water extends All(Grapple, Voice)
 
-object Voice extends All(Grapple, All(DoubleJump, Dash, Bash, Any(KwoloksTP, Bow, WellspringTP)))
+object Voice extends All(DoubleJump, Bash, Dash, Any(KwoloksTP, Bow))
 object Memory extends All(Voice, Glide, Grenade)
 object Strength extends All(Voice, Glide, WaterDash)
 object Eyes extends All(Voice, Glide, Flash)
@@ -247,7 +247,7 @@ object SeedGenerator extends App {
 	def ReqParse(req: String): Requirement = req match {
 		case "DoubleJump" => DoubleJump
 		case "Bow" => Bow
-		case "Flap" => Flap
+		case "Flap" => All(Flap, Glide)
 		case "Grapple" => Grapple
 		case "Glide" => Glide
 		case "Launch" => Launch
