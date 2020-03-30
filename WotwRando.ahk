@@ -53,7 +53,8 @@ if(FileExist(WOTWREXE)) {
 		Msgbox Exiting without installing
 		ExitApp
 	}
-	if(not FileExist("C:\\Program Files (x86)\\Steam\\Steam.exe")) {
+	gosub, WriteIniDefaults
+	if(not FileExist(SteamPath)) {
 		Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. Locate manually?
 		IfMsgBox No
 		{
@@ -61,16 +62,17 @@ if(FileExist(WOTWREXE)) {
 			ExitApp
 		}
 		FileSelectFile, SteamPath, 1, Steam.exe, Please Select Steam File, *.exe
+		IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
 	}
 
 	SplashTextOn,,,Installing, please wait...
-	gosub, WriteIniDefaults
 	gosub, ExtractFiles
-
-	FileInstall, redis\VC_redist.x64.exe, %VCR_FILE%, 1
-	; install the vs c++ redistributable
-	RunWait, *RunAs %VCR_FILE% /install /quiet /norestart
-	FileDelete, %VCR_FILE%
+	if(A_IsCompiled) {
+		FileInstall, redis\VC_redist.x64.exe, %VCR_FILE%, 1
+		; install the vs c++ redistributable
+		RunWait, *RunAs %VCR_FILE% /install /quiet /norestart
+		FileDelete, %VCR_FILE%		
+	}
 	; set filetype assocation
 	FileDelete, %INSTALL_DIR%associateFileTypes.bat
 	FileAppend, %batch%, %INSTALL_DIR%associateFileTypes.bat
@@ -185,12 +187,8 @@ IniRead, SkipUpdate, %INI_FILE%, Flags, SkipUpdate, false
 IniRead, MuteInjectLogs, %INI_FILE%, Flags, MuteInjectLogs, false
 IniRead, MuteCSLogs, %INI_FILE%, Flags, MuteCSLogs, false
 IniRead, dev, %INI_FILE%, Flags, Dev, false
-IniRead, SteamPath, %INI_FILE%, Paths, Steam, C:\\Program Files (x86)\\Steam\\Steam.exe
+IniRead, SteamPath, %INI_FILE%, Paths, Steam, E:\Program Files (x86)\Steam\Steam.exe
 return
-
-
-
-
 
 WriteIniDefaults:
 gosub ReadIniVals ; populate the ini values to avoid overwriting

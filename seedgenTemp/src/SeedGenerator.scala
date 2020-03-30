@@ -173,6 +173,7 @@ case class SkillReq(skillCode: Int) extends Requirement {
 	def meetWith(inv: Inv) = if(inv has Skill(skillCode)) new Inv() else new Inv(Skill(skillCode) -> 1)
 	def fulfilledBy(inv: Inv): Boolean = inv has Skill(skillCode)
 }
+object Regen extends SkillReq(77)
 object Bow extends SkillReq(97)
 object DoubleJump extends SkillReq(5)
 object Flap 		extends SkillReq(118)
@@ -251,13 +252,14 @@ object SeedGenerator extends App {
 		case "Grapple" => Grapple
 		case "Glide" => Glide
 		case "Launch" => Launch
-		case "Burrow" => Burrow
+		case "Burrow" => All(Burrow, Dash)
 		case "Dash" => Dash
 		case "Smash" => Smash
 		case "Grenade" => Grenade
 		case "WaterDash" => WaterDash
 		case "Flash" => Flash
 		case "Bash" => Bash
+		case "Regenerate" => Regen
 		case "Water" => Water
 		case r"Ore \(([0-9]*)${count}\)" => OreRequirement(count.toInt)
 		case "Wisps" => Heart
@@ -288,7 +290,7 @@ object SeedGenerator extends App {
 			}
 		}.toSeq
 		pickupsFile.close()
-		pickups.filter(_.category != "Quest")
+		pickups.filter(loc => loc.category != "Quest" && loc.value != "ShardSlot")
 	}
 
 	def run(n: Int = 0, name_base: String = "seed", outputFolder: String = ""): Unit = {

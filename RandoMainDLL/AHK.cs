@@ -8,12 +8,11 @@ namespace RandoMainDLL {
     public static class AHK {
         static string Program = @"
         PickupGUIHWD := """"
-        signal := """"
+        signal := ""none""
         oldText := """"
-	    pickupSpot := A_ScreenHeight / 20
         BuildPickupGUI()
         {
-	        global PickupGUIHWD, PickupText, pickupSpot
+	        global PickupGUIHWD, PickupText
 	        Gui, Pickup:New, -SysMenu +LastFound +ToolWindow 
 	        Gui, Pickup:Color, 010101
 	        WinSet, Exstyle, 0x20
@@ -23,24 +22,35 @@ namespace RandoMainDLL {
 	        Gui, Pickup:Font,s30, Comic Sans MS
 	        Text :=  ""<3""
 	        Gui, Pickup:Add, Text,CFFFFFF Center VPickupText,%Text% 
-	        Gui, Pickup:Show, XCenter y%pickupSpot% NoActivate
+	        Gui, Pickup:Show, XCenter NoActivate Hide
 	        Gui, Pickup:+HwndPickupGUIHWD
-            Gui, Pickup:Hide
 	        Return
         }
-        BuildLogOverlay()
+        ShowPickup()
         {
-            
+            global pickupGUIHWD
+            DetectHiddenWindows, On
+            Gui Pickup:Show, AutoSize NoActivate Hide
+            WinGetPos, , , GuiWidth, GuiHeight, ahk_id %PickupGUIHWD%
+            DetectHiddenWindows, Off
+            WinGetPos, OriX, OriY, OriW, OriH, OriAndTheWilloftheWisps
+            ; X position; X + Width/2 - W/2
+            GuiX := OriX + OriW/2 - GuiWidth/2
+            GuiY := OriY + OriH/20 
+            Gui Pickup:Show, NoActivate Y%GuiY% X%GuiX%
         }
-        PickupMessage(message, frames) 
+        PickupMessage(message, ms) 
         {
-            global oldText, pickupSpot
-            GuiControlGet, oldText, Pickup:, PickupText
+            SetTimer, FadePickup,-%ms%
+            global oldText, PickupGUIHWD
+            GuiControlGet, maybeOldText, Pickup:, PickupText
+            if(message != maybeOldText) {
+                oldText := maybeOldText
+            }
             GuiControl, Pickup:Text, PickupText, %message%
             width := strlen(message) * 30
             GuiControl, Pickup:Move, PickupText, w%width%
-            Gui Pickup:Show, AutoSize XCenter y%pickupSpot% NoActivate 
-            SetTimer, FadePickup,-%frames%
+            ShowPickup()
         }
         IniRead(Section, Key, default := """", iniPath := ""C:/moon/settings.ini"")
         {
@@ -49,7 +59,7 @@ namespace RandoMainDLL {
         }
         Tick() 
         {
-            global signal, pickupSpot
+            global signal
             IfWinNotActive, OriAndTheWilloftheWisps 
             {
                 Gui, Pickup:-AlwaysOnTop 
@@ -58,27 +68,27 @@ namespace RandoMainDLL {
             }
             return signal
         }
-            FadePickup:
+        FadePickup:
         Gui Pickup:Hide
         return	
 
         !/::signal := ""exitapp""
         #IfWinActive, OriAndTheWilloftheWisps
         !j::signal := ""dev""
+        !l::signal := ""reload""
         !t::
-        Gui Pickup:Show, AutoSize XCenter y%pickupSpot% NoActivate
-        KeyWait, T, T2 ; change the hold functionality to something cooler later!
+        ShowPickup()
+        KeyWait, T, T2 ; change the hold functionality to something cooler later?
         if(ErrorLevel) {
             GuiControl, Pickup:Text, PickupText, %oldText%
             width := strlen(oldText) * 30
             GuiControl, Pickup:Move, PickupText, w%width%
-            Gui Pickup:Show, AutoSize XCenter y%pickupSpot% NoActivate 
+            ShowPickup()
             SetTimer, FadePickup,-4000
         } else {
             SetTimer, FadePickup,-3000
         }
         return
-        !l::signal := ""reload""
         ";
         public static AutoHotkeyEngine Engine = AutoHotkeyEngine.Instance;
         public static bool Ready = false;
@@ -90,7 +100,7 @@ namespace RandoMainDLL {
                 Randomizer.Dev = true;
             }
         }
-        private static HashSet<String> Falsey = new HashSet<String>() { "false", "False", "no", "", "0" };
+        private static HashSet<String> Falsey = new HashSet<String>() { "false", "False", "no", "", "0", null };
         public static bool IniFlag(string Flag) {
             if (!Ready)
                 return false;
@@ -99,10 +109,14 @@ namespace RandoMainDLL {
 
         public static void Tick() {
             var signal = Engine.ExecFunction("Tick");
-            if(signal != null && signal.Length > 1) {
+            if(signal != null && signal != "none") {
+                Engine.SetVar("signal", "none");
                 switch (signal) {
                     case "reload":
-                        SeedManager.ReadSeed();
+                        if(FramesTillUnlockReload == 0) {
+                            SeedManager.ReadSeed();
+                            FramesTillUnlockReload = 60;
+                        }
                         break;
                     case "dev":
                         Randomizer.Dev = !Randomizer.Dev;
@@ -115,16 +129,16 @@ namespace RandoMainDLL {
                         Randomizer.Log($"Recieved unknown signal {signal}");
                         break;
                 }
-                Engine.SetVar("signal", "");
             }
-            if (FramesTillNextSend > 0) { 
+            FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
+                if (FramesTillNextSend > 0) { 
                 FramesTillNextSend--;
             } else {
                 if (MessageQueue.Count > 0) {
                     Current = MessageQueue.Dequeue();
                     FramesTillNextSend = Current.Frames();
                     Engine.ExecFunction("PickupMessage", Current.Text(), (Current.Frames() * 50 / 3).ToString());
-                    Randomizer.Log($"Sending {Current.Text()} for {Current.Frames()}", false);
+                    Randomizer.Log($"Sending {Current.Text()} for {Current.Frames()} ({MessageQueue.Count} remaining in queue)", false);
                 } else {
                     Current = null;
                 }
@@ -132,6 +146,7 @@ namespace RandoMainDLL {
         }
         //        public static bool SendMessage
         public static Message Current = null;
+        public static int FramesTillUnlockReload = 0;
         public static Queue<Message> MessageQueue = new Queue<Message>();
         public static int FramesTillNextSend = 0;
         public interface Message {

@@ -104,6 +104,10 @@ namespace RandoMainDLL {
             type = ability;
         }
         public override void Grant() {
+            if (type == AbilityType.SpiritArc)
+                StateListener.RemoveBowOnDismount = false;
+            if (type == AbilityType.Flap)
+                StateListener.RemoveFlapOnDismount = false;
             Randomizer.Memory.SetAbility(type);
         }
         public override string ToString() {
