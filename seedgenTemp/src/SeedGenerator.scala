@@ -292,6 +292,21 @@ object SeedGenerator extends App {
 		pickupsFile.close()
 		pickups.filter(loc => loc.category != "Quest" && loc.value != "ShardSlot")
 	}
+	case class Distro(sl: Int = 0, hc: Int= 0, ec: Int= 0, ore: Int= 0, sks: Int = 0)
+	var areas: mutable.Map[String, Distro] = mutable.Map()
+	def incAreas(item: Item, location: SeedGenerator.ItemLocation): Unit = {
+		if(areas == null)
+			areas = mutable.Map()
+		val cur = SeedGenerator.areas.getOrElse(location.zone, Distro())
+		item match {
+			case _: SpiritLight => SeedGenerator.areas(location.zone) = Distro(cur.sl + 1, cur.hc, cur.ec, cur.ore, cur.sks)
+			case _: Health => SeedGenerator.areas(location.zone) = Distro(cur.sl, cur.hc + 1, cur.ec, cur.ore, cur.sks)
+			case _: Energy => SeedGenerator.areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec + 1, cur.ore, cur.sks)
+			case _: Ore => SeedGenerator.areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec, cur.ore + 1, cur.sks)
+			case _: Skill => SeedGenerator.areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec, cur.ore + 1, cur.sks + 1)
+			case _ => None
+		}
+	}
 
 	def run(n: Int = 0, name_base: String = "seed", outputFolder: String = ""): Unit = {
 		// Creating a file
@@ -316,7 +331,7 @@ object SeedGenerator extends App {
 		Shard.names.keys.foreach((s: Int) => itemPool(Shard(s)) = 1)
 		Skill.names.keys.foreach((s: Int) => itemPool(Skill(s)) = 1)
 
-		var locs = itemLocs.toSeq
+		var locs = itemLocs
 		while(locs.size > itemPool.count) itemPool.add(SpiritLight(Random.between(50,250)))
 		val playerState = new Inv()
 		val dirPath = if(outputFolder != "") s"seeds/${outputFolder}" else "seeds"
@@ -325,9 +340,29 @@ object SeedGenerator extends App {
 			dir.mkdirs()
 		val file = new File(s"${dirPath}/${name_base}_${n}.wotwr")
 		val bw = new BufferedWriter(new FileWriter(file))
+		var balanceAreas = Seq[ItemLocation]()
+		var balanceItems = Seq[Item]()
+		def assign(item: Item, loc: ItemLocation): Unit = item match {
+			case _:Skill => assignNow(item, loc)
+			case _:Ore => assignNow(item, loc)
+			case _  => assignLater(item, loc)
 
+		}
+		def assignLater(item: Item, loc: ItemLocation): Unit = {
+			balanceAreas = balanceAreas ++ Seq(loc)
+			balanceItems = balanceItems ++ Seq(item)
+		}
+		def itsLater: Unit = {
+			for {
+				(item, area) <- Random.shuffle(balanceItems) zip Random.shuffle(balanceAreas)
+			} assignNow(item, area)
+		}
+
+		def assignNow(item: Item, loc: SeedGenerator.ItemLocation): Unit = {
+			incAreas(item, loc)
+			bw.write(s"${loc.code}|${item.code}\n")
+		}
 		def randItem = itemPool.popRand().map({ a => playerState.add(a); a }).getOrElse(SpiritLight(Random.between(25, 225)))
-
 		while (locs.nonEmpty) {
 			var reachables = locs.filter(_.reqs fulfilledBy playerState)
 			if (reachables.isEmpty) {
@@ -341,7 +376,7 @@ object SeedGenerator extends App {
 						val loc = maybeRand(reachables).get
 						locs = locs.filterNot(_ == loc)
 						reachables = reachables.filterNot(_ == loc)
-						bw.write(s"${loc.code}|${item.code}\n")
+						assign(item, loc)
 					})
 					case None => {
 						println(s"Aaaa: ${locs.map(_.reqs.meetWith(playerState))}")
@@ -352,10 +387,11 @@ object SeedGenerator extends App {
 				case Some(loc: ItemLocation) => {
 					locs = locs.filterNot(_ == loc)
 					reachables = reachables.filterNot(_ == loc)
-					bw.write(s"${loc.code}|${randItem.code}\n")
+					assign(randItem, loc)
 				}
 			}
 		}
+		itsLater
 		bw.close()
 	}
 }
