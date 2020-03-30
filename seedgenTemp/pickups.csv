@@ -20,7 +20,7 @@ Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 23858,
 Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 25989, -501, -4340, Free
 Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 2046, -432, -4503, DoubleJump|Dash, Smash
 Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 29892, -810, -4334, Water
-Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyArenaComplete, 35598, -327, -4564, Smash, Regenerate
+Inkwater Marsh, Resource, ShardSlot, howlsOriginGroup, 24922, shrineArena, 45011, -314, -4570, Smash, Regenerate
 Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2869, -382, -4337, Regenerate
 Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399, DoubleJump|Dash, Regenerate
 Inkwater Marsh, Shard, Magnet, swampStateGroup, 21786, spiritShardA, 63545, -239, -4441, DoubleJump|Dash
