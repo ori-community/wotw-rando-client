@@ -20,9 +20,9 @@ Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 23858,
 Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 25989, -501, -4340, Free
 Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 2046, -432, -4503, DoubleJump|Dash, Smash
 Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 29892, -810, -4334, Water
-Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyArenaComplete, 35598, -327, -4564, Smash
-Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2869, -382, -4337, Free
-Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399, DoubleJump|Dash
+Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyArenaComplete, 35598, -327, -4564, Smash, Regenerate
+Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2869, -382, -4337, Regenerate
+Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399, DoubleJump|Dash, Regenerate
 Inkwater Marsh, Shard, Magnet, pickupsGroup, 23987, spiritMagnetShardPickup, 20915, -239, -4441, DoubleJump|Dash
 Inkwater Marsh, Shard, Reckless, pickupsGroup, 23987, recklessShardPickup, 9864, -499, -4411, DoubleJump|Dash
 Inkwater Marsh, Shard, Resilience, pickupsGroup, 23987, barrierShardPickup, 59173, -790, -4335, Free
@@ -159,7 +159,7 @@ Mouldwood Depths, Resource, Life, mouldwoodDepthsGroup, 18793, healthCellA, 6269
 Mouldwood Depths, Resource, Life, mouldwoodDepthsGroup, 18793, healthCellB, 42235, 531, -4452, Glide, DoubleJump, Grapple, Bow
 Mouldwood Depths, Resource, Ore, mouldwoodDepthsGroup, 18793, orePickupA, 35351, 185, -4380, Glide, DoubleJump, Grapple
 Mouldwood Depths, Resource, Ore, mouldwoodDepthsGroup, 18793, orePickupA, 836, 436, -4507, Glide, DoubleJump, Grapple, Bash, Flash
-Mouldwood Depths, Resource, ShardSlot, mouldwoodDepthsGroup, 18793, shrineEnemies, 12512, 212, -4510, Glide, DoubleJump, Grapple, Bash, Flash, Water
+Mouldwood Depths, Resource, ShardSlot, mouldwoodDepthsGroup, 18793, shrineEnemies, 12512, 212, -4510, Glide, DoubleJump, Grapple, Bash, Flash, Water, Regenerate
 Mouldwood Depths, Shard, SpiritSurge, pickupsGroup, 23987, spiritPowerShardPickup, 986, 564, -4571, Glide, DoubleJump, Grapple, Bow, Bash
 Mouldwood Depths, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, expOrbA, 29979, 481, -4381, Glide, DoubleJump, Grapple
 Mouldwood Depths, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, expOrbB, 2881, 387, -4523, Glide, DoubleJump, Grapple, Bow
@@ -178,7 +178,7 @@ Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 20713, 10
 Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 26274, 988, -4172, Water, Grapple, Dash, DoubleJump, Bow
 Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 28710, 411, -4174, Water, Grapple, Dash, DoubleJump, Dash, Glide
 Silent Woods, Resource, Ore, corruptedPeakGroup, 36153, gorlekOreA, 3013, 1305, -3732, Water, Grapple, Dash, DoubleJump, Burrow, Launch
-Silent Woods, Resource, ShardSlot, _petrifiedForestGroup, 58674, enemyRoom, 56043, 1361, -4064, Water, Grapple, Dash, DoubleJump, Bow, Glide
+Silent Woods, Resource, ShardSlot, _petrifiedForestGroup, 58674, enemyRoom, 56043, 1361, -4064, Water, Grapple, Dash, DoubleJump, Bow, Glide, Regenerate
 Silent Woods, Shard, Overflow, pickupsGroup, 23987, recycleShardPickup, 25183, 827, -3939, Water, Grapple, Dash, DoubleJump, Bow, Glide, Bash, Burrow
 Silent Woods, SpiritLight, Large, corruptedPeakGroup, 36153, expOrb, 36521, 1382, -3767, Water, Grapple, Dash, DoubleJump, Burrow, Launch
 Silent Woods, SpiritLight, Large, corruptedPeakGroup, 36153, xpOrbB, 12077, 1331, -3798, Water, Grapple, Dash, DoubleJump, Burrow, Launch
@@ -237,7 +237,7 @@ Wellspring Glades, Resource, Ore, hubUberStateGroup, 42178, gorlekOreA, 23125, -
 Wellspring Glades, Resource, Ore, hubUberStateGroup, 42178, gorlekOreB, 27110, -418, -4104, Launch, DoubleJump
 Wellspring Glades, Resource, Ore, kwolokGroupDescriptor, 937, orePickup, 6703, -690, -4098, DoubleJump, Bash, Grapple
 Wellspring Glades, Resource, Ore, kwolokGroupDescriptor, 937, orePickupB, 11846, -560, -4063, DoubleJump, Bash
-Wellspring Glades, Resource, ShardSlot, wellspringGladesGroup, 44310, shardSlotUpgrade, 9902, -636, -4018, DoubleJump, Bash, Grapple
+Wellspring Glades, Resource, ShardSlot, wellspringGladesGroup, 44310, shardSlotUpgrade, 9902, -636, -4018, DoubleJump, Bash, Grapple, Regenerate
 Wellspring Glades, Shard, Arcing, pickupsGroup, 23987, chainLightningPickup, 23015, -325, -4135, Launch, Ore (24)
 Wellspring Glades, Shard, Bounty, pickupsGroup, 23987, focusShardPickup, 14014, -247, -4106, Launch, DoubleJump
 Wellspring Glades, SpiritLight, Medium, hubUberStateGroup, 42178, hutAExpOrb, 51468, -161, -4521, Water
