@@ -342,8 +342,10 @@ object SeedGenerator extends App {
 		val bw = new BufferedWriter(new FileWriter(file))
 		var balanceAreas = Seq[ItemLocation]()
 		var balanceItems = Seq[Item]()
+
 		def assign(item: Item, loc: ItemLocation): Unit = item match {
 			case _:Skill => assignNow(item, loc)
+			case _:Teleporter => assignNow(item, loc)
 			case _:Ore => assignNow(item, loc)
 			case _  => assignLater(item, loc)
 
