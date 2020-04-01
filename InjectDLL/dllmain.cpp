@@ -13,6 +13,9 @@
 #include <unordered_map>
 #include <fstream>
 #include <utility>
+#include <chrono>
+#include <ctime>
+
 
 enum Flags { Save, Ore };
 
@@ -40,23 +43,33 @@ typedef __int64 (*MAPPING_FUN)(__int64 thisPtr, __int64 keyPtr);
 
 //---------------------------------------------------Globals-----------------------------------------------------
 bool lock = false;
-char foundTree = 0;
-bool foundTreeFulfilled = false;
+char foundTree = -1;
+char priorFoundTree = -1;
 
-__int64 lastDesiredState;
+__int64 lastDesiredState = NULL;
+__int64 priorDesiredState = NULL;
 __int64 lastSeinLevel;
 __int64 lastHealthController;
 __int64 lastSeinPickupProcessor;
 void* gameControllerInstancePointer = NULL;
 
+bool debug = false;
+bool info = true;
+
 InjectDLL::PEModule* CSharpLib = NULL;
 std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
 std::ofstream logfile;
+#define DEBUG(message) \
+    if (debug) { \
+	    logfile.open(logFilePath, std::ios_base::app); \
+	    logfile << "[" << pretty_time()  << "] (DEBUG): " << message << std::endl; \
+	    logfile.close(); \
+    }
 
 #define LOG(message) \
-    if (CSharpLib == NULL || CSharpLib->call<bool>("InjectLogEnabled")) { \
+    if (info) { \
 	    logfile.open(logFilePath, std::ios_base::app); \
-	    logfile << message << std::endl; \
+	    logfile << "[" << pretty_time() << "] (INFO): " << message << std::endl; \
 	    logfile.close(); \
     }
 
@@ -288,32 +301,45 @@ INTERCEPT(0x5D4EE0, PICKUP_FUN, void, onCollectExpOrb, (__int64 thisPointer, __i
           });
 
 INTERCEPT(0x1272580, MEMBER_FUNCTION, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr) {
-          //			  __int64* pdwvtable = (__int64*)thisPtr;
-          //			  pdwvtable[0x2f] = (__int64)myFunc;
-
           getAbilityOnConditionFixedUpdate(thisPtr);
-
+          // BAD PROBLEMS DESERVE BAD SOLUTIONS
           if (lastDesiredState != *(__int64*)(thisPtr + 0x18)) {
-          foundTreeFulfilled = false;
-          lastDesiredState = *(__int64*)(thisPtr + 0x18);
-          BYTE* desiredAbility = (BYTE*)(lastDesiredState + 0x18);
-          foundTree = *desiredAbility;
-          //				  auto condPtr = *(__int64*)(thisPtr + 0x20);
-          //				  BYTE* condAbility = (BYTE*)(condPtr + 0x18);
-          LOG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int)desiredAbility);
-          //				  LOG("DesiredState ability " << (int)*desiredAbility);
+                  if (lastDesiredState != NULL && priorDesiredState != *(__int64*)(thisPtr + 0x18)) {
+                      priorDesiredState = *(__int64*)(thisPtr + 0x18);
+                      BYTE* desiredAbility = (BYTE*)(priorDesiredState + 0x18);
+                      priorFoundTree = *desiredAbility;
+                      DEBUG("GAOC.FU: got " << priorDesiredState << " for address 2 of condition (1 was " << lastDesiredState<< "), wants " << (int)desiredAbility);
+                  }
+                  else {
+                      lastDesiredState = *(__int64*)(thisPtr + 0x18);
+                      BYTE* desiredAbility = (BYTE*)(lastDesiredState + 0x18);
+                      foundTree = *desiredAbility;
+                      //				  auto condPtr = *(__int64*)(thisPtr + 0x20);
+                      //				  BYTE* condAbility = (BYTE*)(condPtr + 0x18);
+                      DEBUG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int)desiredAbility);
+                      //				  LOG("DesiredState ability " << (int)*desiredAbility);
+                  }
           }
+
           });
 
 INTERCEPT(0x12726A0, MEMBER_FUNCTION, void, getAbilityOnConditionAssign, (__int64 thisPtr) {
-          LOG("GAOC.ASS: intercepted and ignored ");
-          foundTreeFulfilled = true;
-          });
+          DEBUG("GAOC.ASS: intercepted and ignored ");
+          if (CSharpLib != NULL)
+              CSharpLib->call<void>("OnTree", foundTree);
+          else
+              LOG("GAOC.ASS: ????UNHOOKED???");
+});
 
 INTERCEPT(0xB3A220, VALIDATOR, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr) {
-          if (lastDesiredState == thisPtr)
-              return foundTreeFulfilled;
-          return abilityStateFulfilled(thisPtr, contextPtr);
+    if (lastDesiredState == thisPtr && foundTree != -1)
+        return CSharpLib->call<bool>("TreeFulfilled", foundTree);
+    else if (priorDesiredState == thisPtr && priorFoundTree != -1)
+        return CSharpLib->call<bool>("TreeFulfilled", priorFoundTree);
+    else
+        return true;
+          // man this should really never happen?
+          LOG("ASF: HOW COULD THIS HAPPEN TO MEEEEE, I'M TRACKING BOTH TREEEES");
           });;
 
 INTERCEPT(0x5BE620, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer) {
@@ -434,12 +460,7 @@ void detachAll()
 
 void log(std::string message)
 {
-    if (CSharpLib == NULL || CSharpLib->call<bool>("InjectLogEnabled")) {
-        std::ofstream logfile;
-        logfile.open(logFilePath, std::ios_base::app);
-        logfile << message << std::endl;
-        logfile.close();
-    }
+    LOG(message);
 }
 
 void initMemoryHacks()
@@ -466,12 +487,19 @@ void MainThread()
 	if (attached)
 		return;
 	attached = true;
-	log("attached");
+	log("attached (last log b4 suppress, if set)");
 	CSharpLib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
 	if (CSharpLib->call<bool>("Initialize"))
 	{
-		log("c# init complete");
-		return;
+        try {
+            debug = CSharpLib->call<bool>("InjectDebugEnabled");
+            info = CSharpLib->call<bool>("InjectLogEnabled");
+            log("c# init complete");
+            return;
+        }
+        catch (int err) {
+            log("yikes");
+        }
 	}
 	else
 	{
@@ -522,6 +550,52 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		//}
 	}
 	return TRUE;
+}
+
+
+// strftime format
+#define LOGGER_PRETTY_TIME_FORMAT "%Y-%m-%d %H:%M:%S"
+
+// printf format
+#define LOGGER_PRETTY_MS_FORMAT ".%03d"
+
+
+// convert current time to milliseconds since unix epoch
+template <typename T>
+static int to_ms(const std::chrono::time_point<T>& tp)
+{
+    using namespace std::chrono;
+
+    auto dur = tp.time_since_epoch();
+    return static_cast<int>(duration_cast<milliseconds>(dur).count());
+}
+
+
+// format it in two parts: main part with date and time and part with milliseconds
+static std::string pretty_time()
+{
+    auto tp = std::chrono::system_clock::now();
+    std::time_t current_time = std::chrono::system_clock::to_time_t(tp);
+
+    std::tm time_info;
+    localtime_s(&time_info, &current_time);
+
+    char buffer[128];
+
+    int string_size = strftime(
+        buffer, sizeof(buffer),
+        LOGGER_PRETTY_TIME_FORMAT,
+        &time_info
+    );
+
+    int ms = to_ms(tp) % 1000;
+
+    string_size += std::snprintf(
+        buffer + string_size, sizeof(buffer) - string_size,
+        LOGGER_PRETTY_MS_FORMAT, ms
+    );
+
+    return std::string(buffer, buffer + string_size);
 }
 
 extern "C" __declspec(dllexport)VOID NullExport(VOID)

@@ -14,6 +14,7 @@ namespace RandoMainDLL
         [DllExport]
         public static bool Initialize()
         {
+            Log("derp?");
             try {
                 foreach(var fileName in new String[] { LogFile, PickupLog, SeedFile, SeedNameFile }) {
                     if(!File.Exists(fileName)) {
@@ -21,6 +22,7 @@ namespace RandoMainDLL
                         Log($"Wrote blank {fileName} (normal for first-time init)");
                     }
                 }
+
                 AHK.Init();
                 SeedManager.ReadSeed();
                 Memory = new MemoryManager();
@@ -69,9 +71,9 @@ namespace RandoMainDLL
         }
         public static bool Dev = false;
         public static void Log(string message, bool printIfDev = true) {
-            if (AHK.IniFlag("MuteCSLogs"))
+/*            if (AHK.IniFlag("MuteCSLogs"))
                 return;
-            if (LastMessage == message && message.Length > 60) {
+*/            if (LastMessage == message && message.Length > 60) {
                 repeats++;
                 if (repeats > 180) {
                     repeats = 0;
@@ -161,9 +163,54 @@ namespace RandoMainDLL
                     return false;
             }
         }
+
+        public static bool MSBFget(int offset) {
+            return (Memory.Mapstones >> offset) % 2 == 1;
+        }
+
+        public static void MSBFset(int offset, bool setTo = true) {
+            if(MSBFget(offset) == setTo)
+                return;
+            Memory.Mapstones ^= (1 << offset);
+        }
+        public static Dictionary<AbilityType, int> BitForAbility = new Dictionary<AbilityType, int>() {
+            { AbilityType.Bash, 0 },
+            { AbilityType.DoubleJump, 1 },
+            { AbilityType.Launch, 2 },
+            { AbilityType.WaterBreath, 3 },
+            { AbilityType.LightBurst, 4 },
+            { AbilityType.Grapple, 5 },
+            { AbilityType.Flash, 6 },
+            { AbilityType.Regenerate, 7 },
+            { AbilityType.SpiritArc, 8 },
+            { AbilityType.SpiritEdge, 9 },
+            { AbilityType.Burrow, 10 },
+            { AbilityType.Dash, 11 },
+            { AbilityType.WaterDash, 12 },
+            { AbilityType.DamageUpgrade1, 13 },
+        };
+
         public static bool TreeCollected(AbilityType ability)
         {
-            return true;
+            if(!BitForAbility.ContainsKey(ability)) {
+                if((byte)ability != 255)
+                    Log($"No bit for ability {ability} found, pretend we have that tree...");
+                return true;
+            }
+            return MSBFget(BitForAbility[ability]);
+        }
+
+        [DllExport]
+        public static bool TreeFulfilled(AbilityType ability) { return TreeCollected(ability);  }
+
+        [DllExport]
+        public static void OnTree(AbilityType ability) {
+            if (!BitForAbility.ContainsKey(ability)) {
+                Log($"No bit for ability {ability} found, ignoring OnFound notification from cpp");
+                return;
+            }
+            MSBFset(BitForAbility[ability]);
+            SeedManager.OnTree(ability);
         }
 
         [DllExport]
@@ -174,6 +221,10 @@ namespace RandoMainDLL
         [DllExport]
         public static bool InjectLogEnabled() {
             return !AHK.IniFlag("MuteInjectLogs");
+        }
+        [DllExport]
+        public static bool InjectDebugEnabled() {
+            return AHK.IniFlag("DebugInjectLogs");
         }
         [DllExport]
         public static bool DoInvertTree(AbilityType ability) {
