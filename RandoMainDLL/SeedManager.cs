@@ -34,7 +34,7 @@ namespace RandoMainDLL {
                 p.Grant();
                 Randomizer.PleaseSave = true;
             } else {
-                Randomizer.Log($"Tree {ability} not found in seed with {fakeId}. Get a seed from seedpack 10 or later.");
+                Randomizer.Log($"Tree {ability} not found in seed. Get a seed from seedpack 8 or later.");
             }
 
         }
