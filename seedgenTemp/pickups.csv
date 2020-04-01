@@ -49,36 +49,36 @@ Inkwater Marsh, Ability, SpiritEdge, treesDontWorry, 0, SpiritEdge, 100, DoubleJ
 Inkwater Marsh, Ability, Regenerate, treesDontWorry, 0, Regenerate, 77, Free
 Inkwater Marsh, Ability, DoubleJump, treesDontWorry, 0, DoubleJump, 5, DoubleJump|Dash
 Inkwater Marsh, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 120, DoubleJump|Dash, Bash
-Kwolok's Hollow, Resource, Energy, _petrifiedForestGroup, 58674, energyContainerA, 9583, 331, -4192, Water, Launch, DoubleJump, Bash
-Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 23772, 46, -4237, DoubleJump, Bash
-Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 8518, -238, -4301, DoubleJump, Bow
-Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfContainer, 24175, -177, -4353, DoubleJump, Bow, Dash, Water
-Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, halfHealthCell, 2463, -121, -4269, DoubleJump, Bow, Dash
+Kwolok's Hollow, Resource, Energy, _petrifiedForestGroup, 58674, energyContainerA, 9583, 331, -4192, Bash, SwimDash, Water
+Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 23772, 46, -4237, DoubleJump|Dash, Bash
+Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 8518, -238, -4301, DoubleJump|Dash, Bow
+Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfContainer, 24175, -177, -4353, DoubleJump|Dash, Bow, Water
+Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, halfHealthCell, 2463, -121, -4269, DoubleJump|Dash, Bow
 Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, healthHalfCell, 58598, 83, -4263, DoubleJump, Bash
-Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, healthHalfCell, 61897, -254, -4225, Free
-Kwolok's Hollow, Resource, Life, bashIntroductionA__clone1Group, 13428, healthContainerA, 59730, 83, -4264, DoubleJump, Bash
-Kwolok's Hollow, Resource, Ore, kwolokGroupDescriptor, 937, gromOreA, 10729, -97, -4190, DoubleJump, Bash
-Kwolok's Hollow, Resource, Ore, kwoloksCavernThroneRoomGroup, 46462, gorlekOreA, 37897, 243, -4224, DoubleJump, Bash, Water
-Kwolok's Hollow, Shard, Quickshot, pickupsGroup, 23987, frenzyShardPickup, 61017, -310, -4326, DoubleJump, Bow, Dash
-Kwolok's Hollow, Shard, Splinter, pickupsGroup, 23987, splinterShardPickup, 62973, 216, -4308, DoubleJump, Bash
-Kwolok's Hollow, SpiritLight, Medium, _petrifiedForestGroup, 58674, expOrbA, 20983, 289, -4196, DoubleJump, Bash
-Kwolok's Hollow, SpiritLight, Medium, kwolokGroupDescriptor, 937, mediumExpA, 45987, 9, -4197, DoubleJump, Bash
+Kwolok's Hollow, Resource, Life, kwolokGroupDescriptor, 937, healthHalfCell, 61897, -254, -4225, DoubleJump|Dash
+Kwolok's Hollow, Resource, Life, bashIntroductionA__clone1Group, 13428, healthContainerA, 59730, 83, -4264, Bash
+Kwolok's Hollow, Resource, Ore, kwolokGroupDescriptor, 937, gromOreA, 10729, -97, -4190, DoubleJump|Dash, Bash
+Kwolok's Hollow, Resource, Ore, kwoloksCavernThroneRoomGroup, 46462, gorlekOreA, 37897, 243, -4224, Bash, Water
+Kwolok's Hollow, Shard, Quickshot, pickupsGroup, 23987, frenzyShardPickup, 61017, -310, -4326, Bow, Dash
+Kwolok's Hollow, Shard, Splinter, pickupsGroup, 23987, splinterShardPickup, 62973, 216, -4308, Bash
+Kwolok's Hollow, SpiritLight, Medium, _petrifiedForestGroup, 58674, expOrbA, 20983, 289, -4196, Bash
+Kwolok's Hollow, SpiritLight, Medium, kwolokGroupDescriptor, 937, mediumExpA, 45987, 9, -4197, Bash
 Kwolok's Hollow, SpiritLight, Medium, kwolokGroupDescriptor, 937, mediumExpB, 30182, -31, -4302, DoubleJump, Bash
-Kwolok's Hollow, SpiritLight, Medium, kwolokGroupDescriptor, 937, mediumExpC, 19529, 57, -4189, DoubleJump, Bash
-Kwolok's Hollow, SpiritLight, Medium, kwolokGroupDescriptor, 937, xpOrbA, 50176, -37, -4453, DoubleJump, Bow, Dash
+Kwolok's Hollow, SpiritLight, Medium, kwolokGroupDescriptor, 937, mediumExpC, 19529, 57, -4189, Bash
+Kwolok's Hollow, SpiritLight, Medium, kwolokGroupDescriptor, 937, xpOrbA, 50176, -37, -4453, Bow, Dash
 Kwolok's Hollow, SpiritLight, Medium, kwoloksCavernThroneRoomGroup, 46462, largeExpA, 29054, 113, -4229, DoubleJump, Bash, Water, Launch
-Kwolok's Hollow, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, mediumExpB, 42980, 131, -4272, DoubleJump, Bash, Glide, Launch
-Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 16163, -357, -4294, DoubleJump, Bow
-Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 2538, -296, -4293, DoubleJump, Bow
+Kwolok's Hollow, SpiritLight, Medium, mouldwoodDepthsGroup, 18793, mediumExpB, 42980, 131, -4272, Bash, Glide, Launch
+Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 16163, -357, -4294, DoubleJump|Dash, Bow
+Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 2538, -296, -4293, DoubleJump|Dash, Bow
 Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 37926, 11, -4401, DoubleJump, Bow, Dash
 Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlaceholderA, 48192, -82, -4370, DoubleJump, Bow, Dash
 Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, smallExpOrbPlaceholderC, 61744, -99, -4408, DoubleJump, Bow, Dash
 Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, xpOrbA, 13413, -85, -4209, DoubleJump, Dash, Bash
-Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, xpOrbB, 5568, -55, -4201, DoubleJump, Bash
+Kwolok's Hollow, SpiritLight, Small, kwolokGroupDescriptor, 937, xpOrbB, 5568, -55, -4201, DoubleJump|Dash, Bash
 Kwolok's Hollow, SpiritLight, Small, kwoloksCavernThroneRoomGroup, 46462, smallExpA, 20780, 161, -4245, DoubleJump, Bash, Water
-Kwolok's Hollow, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapKwoloksHollow, 3638, -146, -4321, Bow, DoubleJump, Dash
+Kwolok's Hollow, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapKwoloksHollow, 3638, -146, -4321, DoubleJump, Bow, Dash
 Kwolok's Hollow, Ability, Dash, treesDontWorry, 0, Dash, 102, DoubleJump|Dash, Bow
-Kwolok's Hollow, Ability, Bash, treesDontWorry, 0, Bash, 0, DoubleJump, Dash, Bow
+Kwolok's Hollow, Ability, Bash, treesDontWorry, 0, Bash, 0, Free
 Baur's Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 22382, -232, -3869, Flap, DoubleJump, Bash
 Baur's Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025, Flap, DoubleJump, Bash, Grenade, Glide
 Baur's Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneB, 1053, -248, -3891, Flap, DoubleJump, Bash
