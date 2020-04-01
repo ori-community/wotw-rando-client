@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using RandoMainDLL.Memory;
 namespace RandoMainDLL
 {
-    public static class StateListener
-    {
+    public static class StateListener {
         public static Dictionary<long, UberState> UberStates = new Dictionary<long, UberState>();
         public static void Update() {
             var memory = Randomizer.Memory;
@@ -21,14 +20,14 @@ namespace RandoMainDLL
                     UberValue value = state.Value;
                     UberValue oldValue = oldState.Value;
                     if (value.Int != oldValue.Int) {
-                        if(state.Name == "playerOnTandemUberState") {
+                        if (state.Name == "playerOnTandemUberState") {
                             OnKuState(value.Bool);
                         }
                         var pos = Randomizer.Memory.Position();
-                        if(value.Int > 0) {
+                        if (value.Int > 0) {
                             SeedManager.OnUberState(state);
                             if (!Randomizer.PleaseSave)
-                                Randomizer.Log($"Potential pickup: {state.GroupName}.{state.Name} ({state.GroupID}, {state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) {value.Int}");
+                                Randomizer.Log($"Potential pickup: {state.GroupName}.{state.Name} ({state.GroupID}, {state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) {value.Int}", false);
                         } else
                             Randomizer.Log($"State change {state.GroupName}.{state.Name} ({state.GroupID}, {state.ID}) at ({Math.Round(pos.X)},{Math.Round(pos.Y)}): {oldValue.Int}->{value.Int}", false);
 
@@ -41,7 +40,7 @@ namespace RandoMainDLL
 
         }
         public static void OnKuState(bool isMounted) {
-            if(isMounted) {
+            if (isMounted) {
                 Randomizer.Memory.SetAbility(AbilityType.SpiritArc);
             } else {
                 if (RemoveBowOnDismount)
@@ -49,9 +48,12 @@ namespace RandoMainDLL
                 if (RemoveFlapOnDismount)
                     Randomizer.Memory.SetAbility(AbilityType.Flap, false);
             }
-
         }
-        public static bool RemoveBowOnDismount = true;
+        public static bool RemoveBowOnDismount {
+            get { return Randomizer.MSBFget(14); }
+            set { Randomizer.MSBFset(14); }
+        }
+
         public static bool RemoveFlapOnDismount = true;
     }
 }
