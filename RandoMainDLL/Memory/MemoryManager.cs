@@ -191,6 +191,11 @@ namespace RandoMainDLL.Memory {
             get { return PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x28); }
             set { PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x28); }
         }
+        public int Mapstones {
+            //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_experience
+            get { return PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x2C); }
+            set { PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x2C); }
+        }
         public int Experience {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_experience
             get { return PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x30); }

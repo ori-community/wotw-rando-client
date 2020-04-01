@@ -4,6 +4,9 @@ using System.IO;
 using RandoMainDLL.Memory;
 namespace RandoMainDLL {
     public static class SeedManager {
+        public enum FakeUberGroups: int {
+            TREE = 0
+        }
         public static Dictionary<UberId, Pickup> pickupMap = new Dictionary<UberId, Pickup>();
         public static void ReadSeed() {
             var seedName = File.ReadAllText(Randomizer.SeedNameFile);
@@ -17,14 +20,24 @@ namespace RandoMainDLL {
     //                    Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
                         pickupMap[uberId] = BuildPickup(pickupType, frags[3]);
                     } catch(Exception e) {
-                        Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}");
+                        Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
                     }
                 }
                 AHK.Print($"Seed {seedName} loaded", 300);
             } else 
                 AHK.Print($"No seed loaded; Download a .wotwr file and double-click it to load one", 360);
         }
+        public static void OnTree(AbilityType ability) {
+            UberId fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
+            if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
+                AHK.Print(p.ToString());
+                p.Grant();
+                Randomizer.PleaseSave = true;
+            } else {
+                Randomizer.Log($"Tree {ability} not found in seed with {fakeId}. Get a seed from seedpack 10 or later.");
+            }
 
+        }
         public static void OnUberState(UberState state) {
             var id = state.GetUberId();
             if (pickupMap.TryGetValue(id, out Pickup p)) {
