@@ -343,22 +343,21 @@ object SeedGenerator extends App {
 		var balanceAreas = Seq[ItemLocation]()
 		var balanceItems = Seq[Item]()
 
-		def assign(item: Item, loc: ItemLocation): Unit = item match {
-			case _:Skill => assignNow(item, loc)
-			case _:Teleporter => assignNow(item, loc)
-			case _:Ore => assignNow(item, loc)
-			case _  => assignLater(item, loc)
-
+		def assign(item: Item, loc: ItemLocation): Unit = {
+			item match {
+				case _:Skill => assignNow(item, loc)
+				case _:Teleporter => assignNow(item, loc)
+				case _  => assignLater(item, loc)
+			}
 		}
 		def assignLater(item: Item, loc: ItemLocation): Unit = {
 			balanceAreas = balanceAreas ++ Seq(loc)
 			balanceItems = balanceItems ++ Seq(item)
 		}
-		def itsLater: Unit = {
-			for {
+		def itsLater: Unit = for {
 				(item, area) <- Random.shuffle(balanceItems) zip Random.shuffle(balanceAreas)
 			} assignNow(item, area)
-		}
+
 
 		def assignNow(item: Item, loc: SeedGenerator.ItemLocation): Unit = {
 			incAreas(item, loc)
