@@ -201,7 +201,7 @@ case class TeleReq(teleCode: Int) extends Requirement {
 object AreaReq {
 	def apply(areaName: String): Requirement = areaName match {
 				case "Inkwater Marsh" => Free
-				case "Kwolok's Hollow" => Any(DoubleJump, Dash)
+				case "Kwolok's Hollow" => Any(All(Any(DoubleJump, Dash), Bow), KwoloksTP)
 				case "Wellspring Glades" => Any(All(WellspringTP, DoubleJump, Dash), Voice)
 				case "Windswept Wastes" => Any(WindsweptEastTP, All(Water, Bow, Glide))
 				case "The Wellspring" => Any(WellspringTP, Voice)
