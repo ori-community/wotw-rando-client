@@ -118,8 +118,6 @@ if(skipUpdate == "false")
 
 		latest := whr.ResponseText
 		FileRead, MY_VER, %INSTALL_DIR%VERSION
-
-
 		if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
 		{
 			SplashTextOff
