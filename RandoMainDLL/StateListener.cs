@@ -20,9 +20,7 @@ namespace RandoMainDLL
                     UberValue value = state.Value;
                     UberValue oldValue = oldState.Value;
                     if (value.Int != oldValue.Int) {
-                        if (state.Name == "playerOnTandemUberState") {
-                            OnKuState(value.Bool);
-                        }
+
                         var pos = Randomizer.Memory.Position();
                         if (value.Int > 0) {
                             SeedManager.OnUberState(state);
@@ -39,21 +37,5 @@ namespace RandoMainDLL
             }
 
         }
-        public static void OnKuState(bool isMounted) {
-            if (isMounted) {
-                Randomizer.Memory.SetAbility(AbilityType.SpiritArc);
-            } else {
-                if (RemoveBowOnDismount)
-                    Randomizer.Memory.SetAbility(AbilityType.SpiritArc, false);
-                if (RemoveFlapOnDismount)
-                    Randomizer.Memory.SetAbility(AbilityType.Flap, false);
-            }
-        }
-        public static bool RemoveBowOnDismount {
-            get { return Randomizer.MSBFget(14); }
-            set { Randomizer.MSBFset(14); }
-        }
-
-        public static bool RemoveFlapOnDismount = true;
     }
 }

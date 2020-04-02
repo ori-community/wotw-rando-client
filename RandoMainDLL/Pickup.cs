@@ -104,10 +104,6 @@ namespace RandoMainDLL {
             type = ability;
         }
         public override void Grant() {
-            if (type == AbilityType.SpiritArc)
-                StateListener.RemoveBowOnDismount = false;
-            if (type == AbilityType.Flap)
-                StateListener.RemoveFlapOnDismount = false;
             Randomizer.Memory.SetAbility(type);
         }
         public override string ToString() {
@@ -138,7 +134,7 @@ namespace RandoMainDLL {
         public override void Grant() {
             Randomizer.Memory.Experience += amount;
         }
-        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Gallon", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod"};
+        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Gallon", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks"};
         public override string ToString() {
             return $"{amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
         }

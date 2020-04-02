@@ -354,21 +354,18 @@ object SeedGenerator extends App {
 			balanceAreas = balanceAreas ++ Seq(loc)
 			balanceItems = balanceItems ++ Seq(item)
 		}
-		def itsLater: Unit = for {
-				(item, area) <- Random.shuffle(balanceItems) zip Random.shuffle(balanceAreas)
-			} assignNow(item, area)
-
+		def itsLater = for { (item, area) <- Random.shuffle(balanceItems) zip Random.shuffle(balanceAreas) } assignNow(item, area)
 
 		def assignNow(item: Item, loc: SeedGenerator.ItemLocation): Unit = {
 			incAreas(item, loc)
 			bw.write(s"${loc.code}|${item.code}\n")
 		}
+
 		def randItem = itemPool.popRand().map({ a => playerState.add(a); a }).getOrElse(SpiritLight(Random.between(25, 225)))
 		while (locs.nonEmpty) {
 			var reachables = locs.filter(_.reqs fulfilledBy playerState)
-			if (reachables.isEmpty) {
+			if (reachables.isEmpty)
 				return
-			}
 			if (reachables.size < 5 && reachables.size < locs.size) {
 				maybeRand(locs.map(_.reqs.meetWith(playerState)).filter(_.count < reachables.size)) match {
 					case Some(items) => items.foreach({ case (item: Item, count: Int) =>
