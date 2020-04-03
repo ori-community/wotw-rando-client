@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RegisterForComInterop>false</RegisterForComInterop>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RegisterForComInterop>false</RegisterForComInterop>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <DllExportIdent>5A6FFEC8-3B6A-40D0-8A2A-10F9044ABB82</DllExportIdent>
@@ -68,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AHK.cs" />
+    <Compile Include="Memory\MessageDescriptor.cs" />
     <Compile Include="SeedManager.cs" />
     <Compile Include="Pickup.cs" />
     <Compile Include="StateListener.cs" />
