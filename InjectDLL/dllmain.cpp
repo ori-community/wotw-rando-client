@@ -9,6 +9,7 @@
 #include "dllmain.h"
 
 #include <string>
+#include <functional>
 #include <iostream>
 #include <unordered_map>
 #include <fstream>
@@ -22,29 +23,34 @@ enum Flags { Save, Ore };
 
 //--------------------------Common Function Types--------------------------
 typedef int (*_INTFUNC)();
+typedef void (*UNUSED)(); //If you don't ever wanna call the function (e.g. while no-opping it), you don't need to know its signature.
 
-typedef void (*UNUSED)();
-//If you don't ever wanna call the function (e.g. while no-opping it), you don't need to know its signature. 
 typedef void (*MEMBER_FUNCTION)(__int64 thisPtr);
-typedef void (*PICKUP_FUN)(__int64 thisPtr, __int64 pickupPtr);
-typedef bool (*SUB_1813A7AA0_SIG)(__int64 ptr1, __int64 ptr2);
 typedef int (*GET_INT_FUN)(__int64 thisPtr);
-typedef __int64 (*GET_PTR_FUN)(__int64 thisPtr);
-typedef bool (*GET_BOOL_FUN)(__int64 thisPtr);
 typedef void (*SET_INT_FUN)(__int64 thisPtr, int value);
-typedef __int64 (*SET_AND_RETURN_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
-typedef void (*SET_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
-typedef __int64 (*ADD_SHARD_SIG)(__int64 thisPtr, unsigned __int8 value);
-typedef __int64 (*SUB_182C8D3A0_DICT_SIG)(__int64 thisPtr, unsigned __int8 value, __int64 something);
 typedef void (*SET_FLOAT_FUN)(__int64 thisPtr, float value);
+typedef unsigned __int8 (*GET_ENUM_FUN)(__int64 thisPtr); //*most* enums are 1byte. Notable exception: EquipmentType
+typedef void (*SET_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
+typedef __int64 (*GET_PTR_FUN)(__int64 thisPtr);
+typedef void (*PICKUP_FUN)(__int64 thisPtr, __int64 pickupPtr);
+typedef bool (*GET_BOOL_FUN)(__int64 thisPtr);
+
+typedef int (*SCALE_INT_FUN)(__int64 thisPtr, int value);
 typedef bool (*VALIDATOR)(__int64 thisPtr, __int64 contextPtr);
 typedef __int64 (*MAPPING_FUN)(__int64 thisPtr, __int64 keyPtr);
 
+typedef __int64 (*SET_AND_RETURN_ENUM_FUN)(__int64 thisPtr, unsigned __int8 value);
+typedef __int64 (*ADD_SHARD_SIG)(__int64 thisPtr, unsigned __int8 value);
+typedef __int64 (*SUB_182C8D3A0_DICT_SIG)(__int64 thisPtr, unsigned __int8 value, __int64 something);
+typedef __int64 (*ADDSPELLTOINV)(__int64 thisPtr, unsigned int equipmentType, bool adding);
+typedef bool (*HAS_SHARD)(__int64 thisPtr, unsigned __int8 shardType);
 
 //---------------------------------------------------Globals-----------------------------------------------------
-bool lock = false;
+bool lock = false; //TODO: split into vars with reasonable name
+bool weaponmasterPurchaseInProgress = false;
 char foundTree = -1;
 char priorFoundTree = -1;
+bool foundTreeFulfilled = false;
 
 __int64 lastDesiredState = NULL;
 __int64 priorDesiredState = NULL;
@@ -99,6 +105,9 @@ struct intercept
 	type name; \
 	returnType name##Intercept __VA_ARGS__ \
 	intercept binding_##name (address, &(PVOID&) name, name##Intercept, #name);
+#define BINDING2(address, returnType, name, ...) \
+	returnType (*name)(__VA_ARGS__); \
+	intercept binding_##name (address, &(PVOID&) name, 0, #name);
 #define BINDING(address, type, name) \
 	type name; \
 	intercept binding_##name (address, &(PVOID&) name, 0, #name);
@@ -149,13 +158,10 @@ INTERCEPT(0x13DC460, UNUSED, bool, anyAbilityPickupStoryMessagesVisible, (__int6
           });
 
 bool invertTreeActivationStates = true;
-INTERCEPT(0x13A7AA0, SUB_1813A7AA0_SIG, bool, sub1813A7AA0, (__int64 mappingPtr, __int64 uberState){
+INTERCEPT(0x13A7AA0, VALIDATOR, bool, sub1813A7AA0, (__int64 mappingPtr, __int64 uberState){
           //RVA: 13A7AA0. Called from PlayerStateMap.Mapping::Matches
 
           bool result = sub1813A7AA0(mappingPtr, uberState);
-          //log("intercepted 13A7AA0 with for " + std::to_string(mappingPtr) + " and " + std::to_string(uberState) +
-	         // " result: " + std
-	         // ::to_string(result));
           result = CSharpLib->call<bool>("DoInvertTree", foundTree) ^ result;
           return result;
           });
@@ -180,13 +186,6 @@ INTERCEPT(0x5D6400, PICKUP_FUN, void, onCollectSpiritShard, (__int64 thisPointer
               onCollectSpiritShard(thisPointer, pickupPointer);
               lock = false;
           });
-
-
-//INTERCEPT(0x13B6800, SET_INT_FUN, void, onSetShardSlotCount, (__int64 thisPointer, int setTo) {
-//    lastSeinPickupProcessor = thisPointer;
-//    LOG("collected shard upgrade. pickup pointer" << "");
-//
-//});
 
 INTERCEPT(0x5D3440, PICKUP_FUN, void, onCollectSpiritShardSlot, (__int64 thisPointer, __int64 pickupPointer){
           //SeinPickupProcessor::OnCollectedShardSlotUpgrade
@@ -347,6 +346,245 @@ INTERCEPT(0x5BE620, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer) {
     onFixedUpdate(thisPointer);
 });
 
+BINDING(0xFC30B0, GET_PTR_FUN, getSelectedShard)//SpiritShardsShopScreen::get_SelectedSpiritShard
+INTERCEPT(0xFC61D0, GET_BOOL_FUN, bool, canShardPurchase, (__int64 spiritShardShopScreen){
+    //SpiritShardsShopScreen::CanPurchase
+    auto result = canShardPurchase(spiritShardShopScreen);
+    return result;
+})
+
+
+BINDING(0xFC4210, MEMBER_FUNCTION, SpiritShardsShopScreen_UpdateContextCanvasShards)
+BINDING2(0x13B8BB0, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, __int64)
+INTERCEPT(0xFC65B0, MEMBER_FUNCTION, void, completeShardPurchase, (__int64 spiritShardShopScreen){
+    //SpiritShardsShopScreen::CompletePurchase
+
+    completeShardPurchase(spiritShardShopScreen);
+
+    auto shard = getSelectedShard(spiritShardShopScreen);
+	//save shard new/purchased state
+    bool first = *(bool*)(shard + 24);
+    bool second = *(bool*)(shard + 25);
+
+    auto shardType = *(unsigned __int8*)(shard + 0x10);
+    log("Completed purchase: " + std::to_string(shardType)); //TODO: @Eiko This is onPurchase for the shard shop, you can use the shardType
+
+	//rollback purchase if necessary
+    *(bool*)(shard + 24) = first;
+    *(bool*)(shard + 25) = second;
+
+    PlayerUberStateShards_Shard_RunSetDirtyCallback(shard);
+    SpiritShardsShopScreen_UpdateContextCanvasShards(spiritShardShopScreen);
+})
+
+
+INTERCEPT(0x13B84C0, GET_BOOL_FUN, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (__int64 shard){
+
+    auto shardType = *(unsigned __int8*)(shard + 0x10);
+    return true;
+})
+INTERCEPT(0x1104C60, GET_BOOL_FUN, bool, PlayerUberStateShards_Shard_Get_GAINED, (__int64 shard){
+
+    auto shardType = *(unsigned __int8*)(shard + 0x10);
+    return true;
+})
+
+BINDING2(0x1BBA0F0, __int64, List_getItem, __int64 list, int index)
+BINDING2(0x4ACE40, __int64, List_getCount, __int64 list)
+void forEachIndexed(__int64 list, std::function<void(__int64, int)> fun)
+{
+    if (!list)
+        return;
+
+	int size = List_getCount(list);
+    for (int i = 0; i < size; i++)
+    {
+        fun(List_getItem(list, i), i);
+    }
+}
+
+void initShardDescription(unsigned __int8 shard, __int64 spiritShardDescription)
+{
+    //Set purchase cost (normal):
+    *(int*)(spiritShardDescription + 0x38) = 10;//1337 * 2; //TODO: @Eiko - Call c# here, maybe even cache it/Do a "was inited" thing?
+
+    auto upgradableAbilityList = *(__int64*)(spiritShardDescription + 0x40);
+    forEachIndexed(upgradableAbilityList, [shard](__int64 upgradableAbilityLevel, int index)-> void {
+    	if(upgradableAbilityLevel)
+    	{
+            //Set upgrade cost (normal):
+            *(int*)(upgradableAbilityLevel + 0x18) = 10;// 1337 * 2;
+            //TODO: @Eiko: Get this from c# too
+        }
+    });
+}
+
+INTERCEPT(0x18BE940, SUB_182C8D3A0_DICT_SIG, __int64, enumDictGetValue, (__int64 dict, unsigned __int8 enumKey, __int64 impl) {
+    //EnumDictionary::GetValue
+    __int64 value = enumDictGetValue(dict, enumKey, impl);
+
+	//Method$EnumDictionary_SpiritShardType__SpiritShardDescription__GetValue__
+    if (impl == *(__int64*)(0x43D3D70 + (__int64)GetModuleHandleA("GameAssembly.dll")))
+    {
+    	if(value)
+			initShardDescription(enumKey, value);
+	}
+    return value;
+})
+
+//PlayerUberStateShards.Shard::GetCostForLevel - For whenever we want random upgrade costs
+INTERCEPT(0x13B7D90, SCALE_INT_FUN, int, getCostForLevel, (__int64 shardPointer, int level){
+    //TODO: @Eiko - Call c# here
+    return getCostForLevel(shardPointer, level);
+})
+
+INTERCEPT(0xA09600, HAS_SHARD, bool, PlayerSpiritShards_HasShard, (__int64 spiritShards, unsigned __int8 shardType){
+
+    if (isInShopScreen())
+    {
+        return false;
+        //TODO: @Eiko - Call C# using shardType, return true if the player has *purchased* the slot before
+    }
+    return PlayerSpiritShards_HasShard(spiritShards, shardType);
+})
+
+BINDING(0x828EE0, GET_BOOL_FUN, WeaponmasterItem_get_IsLocked)
+BINDING(0x3E7B40, GET_BOOL_FUN, WeaponmasterItem_get_IsVisible)
+BINDING(0x8292F0, GET_BOOL_FUN, WeaponmasterItem_get_IsAffordable)
+
+char getWeaponMasterAbilityItem(__int64 weaponmasterItem)
+{
+    return  *(char*)((*(__int64*)(weaponmasterItem + 0x10)) + 0x39);;
+}
+
+int purchases = 0;
+bool hasBeenPurchasedBefore(char abilityType)
+{
+    return purchases > 0;//TODO: @Eiko - Call C# using abilityType, return true if the player has *purchased* the slot before
+}
+
+bool purchasable(__int64 weaponmasterItem)
+{
+    char abilityType = getWeaponMasterAbilityItem(weaponmasterItem);
+    return !hasBeenPurchasedBefore(abilityType) && !WeaponmasterItem_get_IsLocked(weaponmasterItem) &&
+	    WeaponmasterItem_get_IsVisible(weaponmasterItem) && WeaponmasterItem_get_IsAffordable(weaponmasterItem);
+
+}
+
+INTERCEPT(0x829290, GET_BOOL_FUN, bool, WeaponmasterItem_get_IsOwned, (__int64 item){
+    if(isInShopScreen())
+    {
+        return hasBeenPurchasedBefore(getWeaponMasterAbilityItem(item));
+    }
+    return WeaponmasterItem_get_IsOwned(item);
+})
+
+INTERCEPT(0x829E60, SCALE_INT_FUN, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int level){
+    char abilitlyType = getWeaponMasterAbilityItem(item);
+	//TODO: @Eiko - you know what to do
+    return 25;
+})
+
+
+typedef bool (*TRYPURCHASE) (__int64, __int64, __int64, __int64);
+INTERCEPT(0x8294D0, TRYPURCHASE, bool, WeaponmasterItem_TryPurchase, (__int64 pThis, __int64 hint, __int64 sounds, __int64 hints) {
+    if (purchasable(pThis))
+        return true;
+
+    WeaponmasterItem_TryPurchase(pThis, hint, sounds, hints);
+    return false;
+})
+
+
+INTERCEPT(0xF51C30, ADDSPELLTOINV, __int64, SpellInventory_AddNewSpellToInventory, (__int64 inv, unsigned int equipmentType, bool add) {
+    if (weaponmasterPurchaseInProgress)
+        return 0;
+
+    __int64 result = SpellInventory_AddNewSpellToInventory(inv, equipmentType, add);
+    return result;
+})
+
+INTERCEPT(0x1A788D0, SET_ENUM_FUN, void, SerializedByteUberState_SetValue, (__int64 state, unsigned char value) {
+    if (weaponmasterPurchaseInProgress)
+        return;
+
+    SerializedByteUberState_SetValue(state, value);
+})
+
+INTERCEPT(0x829900, PICKUP_FUN, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 context){
+    weaponmasterPurchaseInProgress = 1;
+    WeaponmasterItem_DoPurchase(item, context);
+    weaponmasterPurchaseInProgress = 0;
+
+    auto abilityType = getWeaponMasterAbilityItem(item);
+    log("Purchased" + std::to_string(abilityType)); //TODO: @Eiko - yeeeaah, it's that time again
+    purchases++;
+})
+
+BINDING2(0x1C41890, __int64, String_GetCharArray, __int64)
+BINDING2(0x2071CF0, int, Array_get_Count, __int64)
+BINDING2(0x2072C00, __int64, Array_GetValue, __int64, int index)
+void printCSString(__int64 str){
+	if(str)
+	{
+
+        __int64 chars = String_GetCharArray(str);
+		if(chars)
+		{
+            auto size = Array_get_Count(chars);
+            auto str = new char[size];
+            for(int i = 0; i < size; i++)
+            {
+                auto charStructPointer = Array_GetValue(chars, i);
+                str[i] = *(char*)(charStructPointer + 0x10);
+            }
+            log(str);
+
+		}
+	}
+}
+
+BINDING2(0x8FC900, bool, SeinCharacter_get_Active, __int64) //Also used by stuff like IsActive, or get_IsShopOpen. It's a magical binding
+BINDING2(0x82A0B0, __int64, WeaponmasterScreen_get_Instance, __int64)
+bool isInShopScreen()
+{
+	//TODO maybe cache some of these
+    __int64 Class_SpiritShardsShopScreen = *(__int64*)(0x43C8648 + (__int64)GetModuleHandleA("GameAssembly.dll"));
+    __int64 weaponmasterScreen = WeaponmasterScreen_get_Instance(0);
+    if (weaponmasterScreen && SeinCharacter_get_Active(weaponmasterScreen))
+        return true;
+
+    if(Class_SpiritShardsShopScreen)
+    {
+        __int64 instance = **(__int64**)(Class_SpiritShardsShopScreen + 184);
+        if (instance && SeinCharacter_get_Active(instance))
+            return true;
+    }
+
+    return false;
+}
+
+struct MessageDescriptor
+{
+    __int64 message;
+    char emotion;
+    __int64 sound;
+    __int64 event;
+};
+typedef __int64 (*MESSAGE_SIG)(__int64, __int64, char);
+INTERCEPT(0x10DEFF0, MESSAGE_SIG , __int64, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language) {
+    auto result = (MessageDescriptor*) TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
+
+	if(result && isInShopScreen())
+	{
+        __int64 newString = CSharpLib->call<__int64>("replaceString", result -> message);
+        if (newString)
+        {
+            result->message = newString;
+        }
+	}
+    return (__int64) result;
+})
 //---------------------------------------------------Actual Functions------------------------------------------------
 
 void onFixedUpdate(__int64 thisPointer)

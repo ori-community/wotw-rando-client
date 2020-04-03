@@ -76,8 +76,12 @@ namespace RandoMainDLL.Memory {
             WinAPI.ReadProcessMemory(targetProcess.Handle, address + last, buffer, numBytes, out bytesRead);
             return buffer;
         }
+        public static byte[] stringHeader;
         public static string ReadString(this Process targetProcess, IntPtr address) {
             if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
+
+            if (stringHeader == null)
+                stringHeader = Read(targetProcess, address, 16);
 
             int length = Read<int>(targetProcess, address, 0x10);
             if (length < 0 || length > 2048) { return string.Empty; }

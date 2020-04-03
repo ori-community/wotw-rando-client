@@ -2,6 +2,10 @@
 using System.IO;
 using RandoMainDLL.Memory;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+
 namespace RandoMainDLL
 {
     public static class Randomizer
@@ -250,5 +254,44 @@ namespace RandoMainDLL
         public static bool DoInvertTree(AbilityType ability) {
             return TreeCollected(ability) ^ Memory.HasAbility(ability);
         }
+
+        [DllExport]
+        public static ulong replaceString(IntPtr str)
+        {
+            var strr = MemoryReader.ReadString(Memory.Program, str);
+            //Log("Recieved from c++: " + strr);
+            if (strr.Contains("a")) {
+                return (ulong) getIl2cppStringPointer("UwU");
+            }
+            return 0;
+        }
+
+        private static Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
+        static IntPtr getIl2cppStringPointer(string str)
+        {
+            if (!stringAddresses.ContainsKey(str))
+            {
+                var chars = str.ToCharArray();
+                int size = Encoding.Unicode.GetByteCount(chars);
+                byte[] bytes = Encoding.Unicode.GetBytes(chars);
+
+                IntPtr ptr = Marshal.AllocHGlobal(0x14 + size);
+                for (int i = 0; i < MemoryReader.stringHeader.Length; i++)
+                {
+                    Marshal.WriteByte(ptr, i, MemoryReader.stringHeader[i]);
+                }
+
+                Marshal.WriteInt64(ptr, 0x10, str.Length);
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    Marshal.WriteByte(ptr, 0x14 + i, bytes[i]);
+                }
+
+                stringAddresses[str] = ptr;
+            }
+
+            return stringAddresses[str];
+        }
+
     }
 }
