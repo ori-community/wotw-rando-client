@@ -357,14 +357,12 @@ INTERCEPT(0xFC61D0, GET_BOOL_FUN, bool, canShardPurchase, (__int64 spiritShardSh
 BINDING(0xFC4210, MEMBER_FUNCTION, SpiritShardsShopScreen_UpdateContextCanvasShards)
 BINDING2(0x13B8BB0, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, __int64)
 INTERCEPT(0xFC65B0, MEMBER_FUNCTION, void, completeShardPurchase, (__int64 spiritShardShopScreen){
-    //SpiritShardsShopScreen::CompletePurchase
-
-    completeShardPurchase(spiritShardShopScreen);
-
+    //save shard new/purchased state
     auto shard = getSelectedShard(spiritShardShopScreen);
-	//save shard new/purchased state
     bool first = *(bool*)(shard + 24);
     bool second = *(bool*)(shard + 25);
+
+    completeShardPurchase(spiritShardShopScreen);
 
     auto shardType = *(unsigned __int8*)(shard + 0x10);
     log("Completed purchase: " + std::to_string(shardType)); //TODO: @Eiko This is onPurchase for the shard shop, you can use the shardType
