@@ -417,11 +417,6 @@ INTERCEPT(0x13B84C0, GET_BOOL_FUN, bool, PlayerUberStateShards_Shard_Get_Purchas
     auto shardType = *(unsigned __int8*)(shard + 0x10);
     return true;
 })
-INTERCEPT(0x1104C60, GET_BOOL_FUN, bool, PlayerUberStateShards_Shard_Get_GAINED, (__int64 shard){
-
-    auto shardType = *(unsigned __int8*)(shard + 0x10);
-    return true;
-})
 
 #pragma warning(disable: 4244)
 BINDING2(0x1BBA0F0, __int64, List_getItem, __int64 list, int index)
