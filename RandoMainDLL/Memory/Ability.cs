@@ -27,7 +27,8 @@ namespace RandoMainDLL.Memory {
         Sentry,
         Flap = 118,
         DamageUpgrade1 = 120,
-        DamageUpgrade2
+        DamageUpgrade2,
+        NONE = 255
     }
     public static class AbilityN {
         private static Dictionary<AbilityType, String> mapping = new Dictionary<AbilityType, string>(){
