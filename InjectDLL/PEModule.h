@@ -3,7 +3,8 @@
 // Distributed under the MIT License
 
 #pragma once
-
+#include <string>
+#include "common.h"
 namespace InjectDLL
 {
     class PEModule
@@ -19,7 +20,14 @@ namespace InjectDLL
         inline Tret call(LPCSTR lpProcName, TArgs... args)
         {
             typedef Tret(*vargs)(TArgs...);
-            return ((vargs)getProc(lpProcName))(args...);
+            try {
+                return ((vargs)getProc(lpProcName))(args...);
+            }
+            catch (int errCode) {
+                error("error calling " + std::string(lpProcName) + ": caught error " + std::to_string(errCode));
+                return static_cast<Tret>(NULL);
+            }
+
         }
 
         explicit PEModule(const TCHAR* pemodule);

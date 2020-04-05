@@ -12,7 +12,7 @@ namespace Injector
         private static readonly IntPtr StaticZero = (IntPtr)0;
         public static String InstallRoot = "C:\\moon\\";
         public static String DllPath { get { return $"{InstallRoot}InjectDLL.dll"; } }
-        public static String ahkPath { get { return $"{InstallRoot}AutoHotkey.Interop.dll"; } }
+        public static String libDir { get { return $"{InstallRoot}lib"; } }
         public static String ExeName = "oriwotw";
         public static String ExePath = "C:\\Program Files (x86)\\Steam\\Steam.exe";
         public static String ExeArgs = "-applaunch 1057090";
@@ -100,9 +100,13 @@ namespace Injector
                         Thread.Sleep(2000);
                         return;
                     }
-                    string oriAHKPath = proc.MainModule.FileName.Replace("oriwotw.exe", "") + "AutoHotkey.Interop.dll";
-                    if (!File.Exists(oriAHKPath))
-                        File.Copy(ahkPath, oriAHKPath);
+                    foreach(string fileName in Directory.EnumerateFiles(libDir)) {
+                        string resourcePath = proc.MainModule.FileName.Replace("oriwotw.exe", "") + fileName.Replace($"{libDir}\\","");
+                        if (!File.Exists(resourcePath)) {
+                            File.Copy(fileName, resourcePath);
+                            Log($"Installed {fileName} into {resourcePath}");
+                        }
+                    }
                     Inject(proc);
                     if(DevMode) {
                         Thread t = new Thread(new ThreadStart(ListenForOri));

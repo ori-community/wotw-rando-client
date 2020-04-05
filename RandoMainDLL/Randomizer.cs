@@ -2,25 +2,22 @@
 using System.IO;
 using RandoMainDLL.Memory;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace RandoMainDLL
 {
     public static class Randomizer
     {
-        public static string PickupLog = "C:\\moon\\rando.PICKUPS";
-        public static string SeedFile = "C:\\moon\\.currentseed";
-        public static string SeedNameFile = "C:\\moon\\.currentseedname";
-        public static string LogFile = "C:\\moon\\cs_log.txt";
+        public static string SeedFile = @"C:\moon\.currentseed";
+        public static string SeedNameFile = @"C:\moon\.currentseedname";
+        public static string LogFile = @"C:\moon\cs_log.txt";
+        public static string SaveFolder = @"C:\moon\saves";
         public static MemoryManager Memory;
         [DllExport]
         public static bool Initialize()
         {
-            Log("derp?");
             try {
-                foreach(var fileName in new String[] { LogFile, PickupLog, SeedFile, SeedNameFile }) {
+                if(!Directory.Exists(SaveFolder)) Directory.CreateDirectory(SaveFolder);
+                foreach(var fileName in new String[] { LogFile, SeedFile, SeedNameFile }) {
                     if(!File.Exists(fileName)) {
                         File.WriteAllText(fileName, "");
                         Log($"Wrote blank {fileName} (normal for first-time init)");
@@ -28,7 +25,7 @@ namespace RandoMainDLL
                 }
 
                 AHK.Init();
-                SeedManager.ReadSeed();
+                SeedController.ReadSeed();
                 Memory = new MemoryManager();
                 if (!Memory.HookProcess())
                     return false;
@@ -49,35 +46,32 @@ namespace RandoMainDLL
                     return -3;
                 }
                 AHK.Tick();
-                if (Memory.GameState() == GameState.Game) {
-                    StateListener.Update();
-                    if (!DoneInitial) {
+                    if (Memory.GameState() == GameState.TitleScreen) {
+                        StateListener.Ready = false;
+                    } else if (Memory.GameState() == GameState.Game) {
+                        StateListener.Update(PerformNewGameInit);
+                    if (PerformNewGameInit) {
                         UberStateInits();
                         return -1;
                     }
                     return -2;
                 } 
-                if(Memory.GameState() == GameState.Prologue) {
-                    if(DoneInitial)
-                        Log("new file detected");
-                    DoneInitial = false;
-                    return 0;
-                }
                 return -1;
-
             }
             catch (Exception e)
             {
                 Log($"Update error: {e.Message}\n{e.StackTrace}");
             }
-
             return 4;
         }
         public static bool Dev = false;
+        public static void Error(string caller, Exception e) {
+            Log($"{caller}: {e.Message}\n{e.StackTrace}");
+        }
         public static void Log(string message, bool printIfDev = true) {
-/*            if (AHK.IniFlag("MuteCSLogs"))
+            if (AHK.IniFlag("MuteCSLogs"))
                 return;
-*/            if (LastMessage == message && message.Length > 60) {
+            if (LastMessage == message && message.Length > 60) {
                 repeats++;
                 if (repeats > 180) {
                     repeats = 0;
@@ -103,10 +97,10 @@ namespace RandoMainDLL
                 foreach (UberState s in KeystoneDoors) { Memory.WriteUberState(s); }
                 foreach (UberState s in Kuberstates) { Memory.WriteUberState(s); }
                 BlackSheepWall = true;
-                DoneInitial = true;
+                PerformNewGameInit = false;
             }
         }
-        public static bool DoneInitial = false;
+        public static bool PerformNewGameInit = false;
         public static List<UberState> DefaultUberStates = new List<UberState>() {
             new UberState() { Name = "builderProjectSpiritWell", ID = 16825, GroupName = "hubUberStateGroup", GroupID = 42178, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)3) },
             new UberState() { Name = "eyesPlacedIntoStatue", ID = 1038, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)3) },
@@ -188,53 +182,14 @@ namespace RandoMainDLL
             }
         }
 
-        public static bool MSBFget(int offset) {
-            return (Memory.Mapstones >> offset) % 2 == 1;
-        }
-
-        public static void MSBFset(int offset, bool setTo = true) {
-            if(MSBFget(offset) == setTo)
-                return;
-            Memory.Mapstones ^= (1 << offset);
-        }
-        public static Dictionary<AbilityType, int> BitForAbility = new Dictionary<AbilityType, int>() {
-            { AbilityType.Bash, 0 },
-            { AbilityType.DoubleJump, 1 },
-            { AbilityType.Launch, 2 },
-            { AbilityType.WaterBreath, 3 },
-            { AbilityType.LightBurst, 4 },
-            { AbilityType.Grapple, 5 },
-            { AbilityType.Flash, 6 },
-            { AbilityType.Regenerate, 7 },
-            { AbilityType.SpiritArc, 8 },
-            { AbilityType.SpiritEdge, 9 },
-            { AbilityType.Burrow, 10 },
-            { AbilityType.Dash, 11 },
-            { AbilityType.WaterDash, 12 },
-            { AbilityType.DamageUpgrade2, 13 },
-        };
-
-        public static bool TreeCollected(AbilityType ability)
-        {
-            if(!BitForAbility.ContainsKey(ability)) {
-//                if((byte)ability != 255)
-//                    Log($"No bit for ability {ability} found, pretend we have that tree...");
-                return true;
-            }
-            return MSBFget(BitForAbility[ability]);
-        }
 
         [DllExport]
-        public static bool TreeFulfilled(AbilityType ability) { return TreeCollected(ability);  }
+        public static bool TreeFulfilled(AbilityType ability) { return SaveController.Data.TreesActivated.Contains(ability);  }
 
         [DllExport]
         public static void OnTree(AbilityType ability) {
-            if (!BitForAbility.ContainsKey(ability)) {
-                Log($"No bit for ability {ability} found, ignoring OnFound notification from cpp");
-                return;
-            }
-            MSBFset(BitForAbility[ability]);
-            SeedManager.OnTree(ability);
+            SaveController.Data.TreesActivated.Add(ability);
+            SeedController.OnTree(ability);
         }
 
         [DllExport]
@@ -252,45 +207,7 @@ namespace RandoMainDLL
         }
         [DllExport]
         public static bool DoInvertTree(AbilityType ability) {
-            return TreeCollected(ability) ^ Memory.HasAbility(ability);
-        }
-
-        [DllExport]
-        public static ulong replaceString(IntPtr str)
-        {
-            var strr = MemoryReader.ReadString(Memory.Program, str);
-            //Log("Recieved from c++: " + strr);
-            if (strr.Contains("a")) {
-                return (ulong) getIl2cppStringPointer("UwU");
-            }
-            return 0;
-        }
-
-        private static Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
-        static IntPtr getIl2cppStringPointer(string str)
-        {
-            if (!stringAddresses.ContainsKey(str))
-            {
-                var chars = str.ToCharArray();
-                int size = Encoding.Unicode.GetByteCount(chars);
-                byte[] bytes = Encoding.Unicode.GetBytes(chars);
-
-                IntPtr ptr = Marshal.AllocHGlobal(0x14 + size);
-                for (int i = 0; i < MemoryReader.stringHeader.Length; i++)
-                {
-                    Marshal.WriteByte(ptr, i, MemoryReader.stringHeader[i]);
-                }
-
-                Marshal.WriteInt64(ptr, 0x10, str.Length);
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    Marshal.WriteByte(ptr, 0x14 + i, bytes[i]);
-                }
-
-                stringAddresses[str] = ptr;
-            }
-
-            return stringAddresses[str];
+            return SaveController.Data.TreesActivated.Contains(ability) ^ Memory.HasAbility(ability);
         }
 
     }

@@ -50,7 +50,7 @@ Inkwater Marsh, Ability, Regenerate, treesDontWorry, 0, Regenerate, 77, -539, -4
 Inkwater Marsh, Ability, DoubleJump, treesDontWorry, 0, DoubleJump, 5, -555, -4551, DoubleJump|Dash
 Inkwater Marsh, Ability, SpiritArc, treesDontWorry, 0, SpiritArc, 97, -457, -4267, DoubleJump|Dash
 Inkwater Marsh, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 120, -840, -4488, DoubleJump|Dash, Bash
-Kwolok's Hollow, Resource, Energy, _petrifiedForestGroup, 58674, energyContainerA, 9583, 331, -4192, Bash, SwimDash, Water
+Kwolok's Hollow, Resource, Energy, _petrifiedForestGroup, 58674, energyContainerA, 9583, 331, -4192, Bash, WaterDash, Water
 Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 23772, 46, -4237, DoubleJump|Dash, Bash
 Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 8518, -238, -4301, DoubleJump|Dash, Bow
 Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfContainer, 24175, -177, -4353, DoubleJump|Dash, Bow, Water
@@ -323,3 +323,17 @@ Windswept Wastes, SpiritLight, 50, windsweptWastesGroupDescriptor, 20120, xpOrbA
 Windswept Wastes, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapWindsweptWastes, 61146, 1647,-3899, Grapple, Burrow
 Windswept Wastes, Ability, Burrow, treesDontWorry, 0, Grapple, 101, 1583, -3930, Grapple, DoubleJump
 Windtorn Ruins, Resource, Energy, windtornRuinsGroup, 10289, energyHalfCell, 44555, 2054, -4050, Wisps, Burrow, Dash, DoubleJump, Grapple
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Overcharge, 1, 0, 0, Free
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, TripleJump, 2, 0, 0, Free
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Wingclip, 3, 0, 0, Free
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Swap, 5, 0, 0, Free
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, LightHarvest, 19, 0, 0, Free
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Vitality, 22, 0, 0, Free
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Energy, 26, 0, 0, Free
+Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Finesse, 40, 0, 0, Free
+Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, WaterBreath, 23, 0, 0, Free
+Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Spike, 74, 0, 0, Free
+Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritSmash, 98, 0, 0, Free
+Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritStar, 106, 0, 0, Free
+Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Blaze, 115, 0, 0, Free
+Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Sentry, 116, 0, 0, Free

@@ -11,6 +11,7 @@ SetWorkingDir, %A_ScriptDir%	; start where we at
 
 ; script variables
 INSTALL_DIR := "C:\moon\"
+LIB_DIR := INSTLAL_DIR . "lib\"
 INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
@@ -19,7 +20,7 @@ NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
 DELETEME := INSTALL_DIR . ".deleteme"
 
 FileCreateDir %INSTALL_DIR%
-
+FileCreateDir, %LIB_DIR%
 
 FILE_SIZE := 48
 batch=
@@ -153,7 +154,7 @@ if(argc > 0)  {
 	FileCopy, %1%, %INSTALL_DIR%\.currentseed, 1
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
-		Run, *RunAs %INSTALL_DIR%\Injector.exe %dev% "%SteamPath%",,%maybehide%
+		Run, *RunAs %INJECTOR% %dev% "%SteamPath%",,%maybehide%
 		SplashTextOn,,, Launching Rando with Seed %FileName%
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 3000
@@ -168,7 +169,7 @@ if(argc > 0)  {
 	IfWinNotExist, OriAndTheWilloftheWisps 
 	{
 		SplashTextOn,400,, Launching Rando with current seed
-		Run, *RunAs %INSTALL_DIR%\Injector.exe %dev% "%SteamPath%",,%maybehide%
+		Run, *RunAs %INJECTOR% %dev% "%SteamPath%",,%maybehide%
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 3000
 		SplashTextOff
@@ -198,7 +199,9 @@ IniWrite, %SkipUpdate%, %INI_FILE%, Flags, SkipUpdate
 return
 
 ExtractFiles:
-FileInstall, C:\moon\AutoHotkey.Interop.dll, %INSTALL_DIR%AutoHotkey.Interop.dll, 1
+
+FileInstall, C:\moon\lib\AutoHotkey.Interop.dll, %LIB_DIR%AutoHotkey.Interop.dll, 1
+FileInstall, C:\moon\lib\Newtonsoft.Json.dll, %LIB_DIR%Newtonsoft.Json.dll, 1
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
