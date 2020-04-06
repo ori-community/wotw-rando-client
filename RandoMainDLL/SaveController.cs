@@ -17,6 +17,10 @@ namespace RandoMainDLL {
             public HashSet<ShardType> TwillenSold;
             public SaveData(int slot) {
                 Slot = slot;
+                TreesActivated = new HashSet<AbilityType>();
+                OpherSold = new HashSet<AbilityType>();
+                OpherUpgraded = new Dictionary<AbilityType, int>();
+                TwillenSold = new HashSet<ShardType>();
             }
 
             [JsonConstructor]
@@ -50,10 +54,10 @@ namespace RandoMainDLL {
                         copyFrom = serializer.Deserialize<SaveData>(reader);
                     }
                 }
-                this.TreesActivated = copyFrom.TreesActivated == null ? new HashSet<AbilityType>() : new HashSet<AbilityType>(copyFrom.TreesActivated);
-                this.OpherSold = copyFrom.OpherSold == null ? new HashSet<AbilityType>() : new HashSet<AbilityType>(copyFrom.OpherSold);
-                this.OpherUpgraded = copyFrom.OpherUpgraded == null ? new Dictionary<AbilityType, int>() : new Dictionary<AbilityType, int>(copyFrom.OpherUpgraded);
-                this.TwillenSold = copyFrom.TwillenSold == null ? new HashSet<ShardType>() : new HashSet<ShardType>(copyFrom.TwillenSold);
+                this.TreesActivated = new HashSet<AbilityType>(copyFrom.TreesActivated);
+                this.OpherSold = new HashSet<AbilityType>(copyFrom.OpherSold);
+                this.OpherUpgraded = new Dictionary<AbilityType, int>(copyFrom.OpherUpgraded);
+                this.TwillenSold = new HashSet<ShardType>(copyFrom.TwillenSold);
             }
         }
 
