@@ -11,7 +11,7 @@ SetWorkingDir, %A_ScriptDir%	; start where we at
 
 ; script variables
 INSTALL_DIR := "C:\moon\"
-LIB_DIR := INSTLAL_DIR . "lib\"
+LIB_DIR  := INSTALL_DIR . "lib\"
 INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
