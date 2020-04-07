@@ -66,7 +66,7 @@ namespace RandoMainDLL {
 
         [DllExport]
         public static void NewGame(int slot) {
-            Randomizer.Log($"NewGame {slot}");
+            Randomizer.Log($"Writing New Game into {slot}", false);
             Randomizer.PerformNewGameInit = true;
             CurrentSlot = slot;
             Data = new SaveData(slot);
