@@ -149,7 +149,7 @@ BINDING(9829632, MEMBER_FUNCTION, discoverAllAreas) //RuntimeGameWorldArea$$Disc
 __int64 gameWorldInstance;
 INTERCEPT(7720864, MEMBER_FUNCTION, void, GameWorld__Awake, (__int64 thisPtr){
     if(gameWorldInstance != thisPtr) {
-        log("Found GameWorld instance!");
+        debug("Found GameWorld instance!");
         gameWorldInstance = thisPtr;
     }
     GameWorld__Awake(thisPtr);
@@ -384,7 +384,7 @@ INTERCEPT(16532768, VALIDATOR, bool, abilityStateFulfilled, (__int64 thisPtr, __
         return abilityStateFulfilled(thisPtr, contextPtr);
  });
 
-INTERCEPT(13536400, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer) {
+INTERCEPT(4850384, MEMBER_FUNCTION, void, fixedUpdate1, (__int64 thisPointer) {
 	//GameController$$FixedUpdate
     fixedUpdate1(thisPointer);
     onFixedUpdate(thisPointer);
