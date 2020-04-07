@@ -88,6 +88,7 @@ namespace RandoMainDLL {
             {"Spike", AbilityType.Spike },
             {"Blaze", AbilityType.Blaze},
             {"Water Breath", AbilityType.WaterBreath},
+            {"Teleport", AbilityType.TeleportSpell},
         };
 
         public static Dictionary<String, AbilityType> OpherWeaponDetail = new Dictionary<String, AbilityType> {
