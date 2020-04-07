@@ -21,6 +21,7 @@ namespace RandoMainDLL.Memory {
         Burrow,
         Dash,
         WaterDash = 104,
+        TeleportSpell = 105,
         SpiritStar = 106,
         Seir = 108,
         Blaze = 115,
