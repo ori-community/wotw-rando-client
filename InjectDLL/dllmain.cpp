@@ -521,6 +521,8 @@ bool hasBeenPurchasedBefore(__int64 weaponMasterItem)
     char requiredType = getWeaponMasterAbilityItemRequired(weaponMasterItem);
     if ((int)grantedType != -1)
         return CSharpLib->call<bool, char>("OpherBoughtWeapon", grantedType);
+    if ((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
+        return CSharpLib->call<bool, char>("OpherBoughtWeapon", 105);
     return CSharpLib->call<bool, char>("OpherBoughtUpgrade", requiredType);
     //TODO: @Eiko - Call C# using abilityType, return true if the player has *purchased* the slot before
 }
@@ -547,8 +549,11 @@ INTERCEPT(6916464, SCALE_INT_FUN, int, WeaponmasterItem_GetCostForLevel, (__int6
     {
         char abilityType = getWeaponMasterAbilityItemGranted(item);
         //TODO: @Eiko - you know what to do
-        if ((int)abilityType == -1)
+        if ((int)abilityType == -1); {
+            if((int)getWeaponMasterAbilityItemRequired(item) == -1) // fast travel; 255, 255 -> 105, 0
+                return CSharpLib->call<int, char>("OpherWeaponCost", 105);
             return WeaponmasterItem_GetCostForLevel(item, level);
+        }
         return CSharpLib->call<int, char>("OpherWeaponCost", abilityType);
     }
     return WeaponmasterItem_GetCostForLevel(item, level);
@@ -592,8 +597,13 @@ INTERCEPT(6915088, PICKUP_FUN, void, WeaponmasterItem_DoPurchase, (__int64 item,
     auto abilityType = getWeaponMasterAbilityItemGranted(item);
     if((int)abilityType != -1)
         CSharpLib->call<void, char>("OpherBuyWeapon", abilityType);
-    else 
-        CSharpLib->call<void, char>("OpherBuyUpgrade", getWeaponMasterAbilityItemRequired(item));
+    else {
+        char requiredType = getWeaponMasterAbilityItemRequired(item);
+        if((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
+            CSharpLib->call<void, char>("OpherBuyWeapon", 105);
+        else
+            CSharpLib->call<void, char>("OpherBuyUpgrade", requiredType);
+    }
 })
 
 typedef void(*SAVETOFILE)(__int64, __int64, __int64, __int64);

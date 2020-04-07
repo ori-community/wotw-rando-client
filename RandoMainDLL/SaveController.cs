@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using RandoMainDLL.Memory;
@@ -66,7 +63,7 @@ namespace RandoMainDLL {
 
         [DllExport]
         public static void NewGame(int slot) {
-            Randomizer.Log($"Writing New Game into {slot}", false);
+            Randomizer.Log($"Creating new rando save in slot {slot}", false);
             Randomizer.PerformNewGameInit = true;
             CurrentSlot = slot;
             Data = new SaveData(slot);
