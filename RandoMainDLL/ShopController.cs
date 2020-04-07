@@ -15,7 +15,7 @@ namespace RandoMainDLL {
                 return (ulong)getIl2cppStringPointer(shopStr);
             } else if (!Strings.Contains(strr)) {
                 if(Randomizer.Dev)
-                    Randomizer.Log("New String: " + strr, false);
+                    Randomizer.Log($"New String: |{strr}|", false);
                 Strings.Add(strr);
             }
             return 0;
@@ -88,7 +88,7 @@ namespace RandoMainDLL {
             {"Spike", AbilityType.Spike },
             {"Blaze", AbilityType.Blaze},
             {"Water Breath", AbilityType.WaterBreath},
-            {"Teleport", AbilityType.TeleportSpell},
+            {"Fast Travel", AbilityType.TeleportSpell},
         };
 
         public static Dictionary<String, AbilityType> OpherWeaponDetail = new Dictionary<String, AbilityType> {
@@ -97,7 +97,8 @@ namespace RandoMainDLL {
             { "Spawn a spirit orb that attacks for you", AbilityType.Sentry},
             {"Throw a star that returns to you", AbilityType.SpiritStar},
             {"Set nearby enemies on fire", AbilityType.Blaze},
-            {"Breathe under water", AbilityType.WaterBreath }
+            {"Breathe under water", AbilityType.WaterBreath },
+            {"Select Spirit Wells on the map and #warp# to them #from anywhere#.", AbilityType.TeleportSpell }
         };
 
         public static Dictionary<String, ShardType> TwillenShardNames = new Dictionary<String, ShardType> {
@@ -152,29 +153,31 @@ namespace RandoMainDLL {
         public static void OpherBuyWeapon(AbilityType slot) {
             Sellable item = SeedController.OpherWeapon(slot);
             if (SaveController.Data.OpherSold.Contains(slot)) {
-                Randomizer.Log($"OBW: not enough money or slot already sold ");
+                Randomizer.Log($"OBW: not enough money or slot already sold");
                 return;
             }
             SaveController.Data.OpherSold.Add(slot);
+            Randomizer.Log($"sold {item} from {slot} for ${item.DefaultCost()}", false);
             item.Grant();
+            Randomizer.PleaseSave = true;
             return;
         }
         [DllExport]
         public static void OpherBuyUpgrade(AbilityType slot) {
             SaveController.Data.OpherUpgraded.Add(slot, 1);
         }
+
         [DllExport]
         public static bool OpherBoughtUpgrade(AbilityType slot) {
-            int cnt = 0;
-            SaveController.Data.OpherUpgraded.TryGetValue(slot, out cnt);
+            SaveController.Data.OpherUpgraded.TryGetValue(slot, out int cnt);
             return cnt > 0;
         }
         [DllExport]
         public static bool OpherBoughtWeapon(AbilityType granted) {
-            return SaveController.Data.OpherSold.Contains(granted);
+            return SaveController.Data.OpherSold.Contains(granted); 
         }
 
-        [DllExport]
+    [DllExport]
         public static void TwillenBuyShard(ShardType slot) {
             Sellable item = SeedController.TwillenShard(slot);
             if (SaveController.Data.TwillenSold.Contains(slot)) {
@@ -182,6 +185,7 @@ namespace RandoMainDLL {
                 return;
             }
             SaveController.Data.TwillenSold.Add(slot);
+            Randomizer.PleaseSave = true;
             item.Grant();
             return;
         }
