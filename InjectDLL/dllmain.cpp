@@ -549,7 +549,7 @@ INTERCEPT(6916464, SCALE_INT_FUN, int, WeaponmasterItem_GetCostForLevel, (__int6
     {
         char abilityType = getWeaponMasterAbilityItemGranted(item);
         //TODO: @Eiko - you know what to do
-        if ((int)abilityType == -1); {
+        if ((int)abilityType == -1) {
             if((int)getWeaponMasterAbilityItemRequired(item) == -1) // fast travel; 255, 255 -> 105, 0
                 return CSharpLib->call<int, char>("OpherWeaponCost", 105);
             return WeaponmasterItem_GetCostForLevel(item, level);
