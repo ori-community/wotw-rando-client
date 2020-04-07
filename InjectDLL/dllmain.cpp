@@ -670,12 +670,11 @@ bool isInShopScreen()
 }
 
 typedef __int64 (*MESSAGE_SIG)(__int64, __int64, char);
-INTERCEPT(17083744, MESSAGE_SIG , __int64, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language) {
-    //TranslatedMessageProvider.MessageItem$$Message
-    auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
-
+INTERCEPT(17084160, MESSAGE_SIG , __int64, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language) {
+    //TranslatedMessageProvider.MessageItem$$GetDescriptor
+    auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);    
     if(result && isInShopScreen())
-    {        
+        {        
         __int64 newString = CSharpLib->call<__int64>("ShopStringRepl", *(__int64*)result);
         if (newString)
         {
