@@ -133,6 +133,8 @@ namespace RandoMainDLL {
             "I've always loved these",
             "Popular among the Moki",
             "A crowd favorite",
+            "Seems kind of useless",
+            "I guess someone could use this?",
             "I found this nearby",
             "Traded for this from a Moki",
             "Grom said he's never\nseen one of these",
@@ -147,6 +149,11 @@ namespace RandoMainDLL {
             "Hot item!",
             "Found this in the Midnight Burrows",
             "Fresh out of Nibel!",
+            "I have no idea where this came from",
+            "Not really sure what this is for",
+            "You can use this, right?",
+            "Selling this one at a loss",
+            "Caveat emptor!",
         };
 
         [DllExport]
