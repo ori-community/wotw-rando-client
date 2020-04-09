@@ -7,27 +7,42 @@ namespace RandoMainDLL {
         public enum FakeUberGroups : int {
             TREE = 0,
             OPHER_WEAPON = 1,
-            TWILLEN_SHARD = 2
+            TWILLEN_SHARD = 2,
+            GAME_CONDITION = 3
         }
+        public enum GameCondition: byte {
+            GAME_START = 0
+        }
+
+        public static Pickup GameStartPickup {
+            get {
+                var uberId = new UberId((int)FakeUberGroups.GAME_CONDITION, (int)GameCondition.GAME_START);
+                return pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty;
+            }
+        }
+
         public static Dictionary<UberId, Pickup> pickupMap = new Dictionary<UberId, Pickup>();
         public static void ReadSeed() {
-            var seedName = File.ReadAllText(Randomizer.SeedNameFile);
+            string seedName = File.ReadAllText(Randomizer.SeedNameFile);
             if (seedName.Trim() != "") {
                 pickupMap.Clear();
-                foreach (var line in File.ReadLines(Randomizer.SeedFile)) {
+                string line = "";
+                foreach (string rawLine in File.ReadLines(Randomizer.SeedFile)) {
                     try {
+                        line = rawLine.Split(new string[]{ "//" }, StringSplitOptions.None)[0].Trim();
                         var frags = line.Split('|');
                         var uberId = new UberId(int.Parse(frags[0]), int.Parse(frags[1]));
                         var pickupType = (PickupType)byte.Parse(frags[2]);
                         //                    Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
-                        pickupMap[uberId] = BuildPickup(pickupType, frags[3]);
+                        // insert crazed laughter here
+                        pickupMap[uberId] = (pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty).Concat(BuildPickup(pickupType, frags[3]));
                     } catch (Exception e) {
                         Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
                     }
                 }
-                AHK.Print($"Seed {seedName} loaded", 300);
+                AHK.Print($"v{Randomizer.VERSION} - Seed {seedName} loaded", 300);
             } else
-                AHK.Print($"No seed loaded; Download a .wotwr file and double-click it to load one", 360);
+                AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file and double-click it to load one", 360);
         }
         public static Sellable OpherWeapon(AbilityType ability) {
             UberId fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
@@ -48,17 +63,15 @@ namespace RandoMainDLL {
         public static void OnTree(AbilityType ability) {
             UberId fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
             if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
-                AHK.Print(p.ToString());
                 p.Grant();
                 Randomizer.PleaseSave = true;
             } else {
-                Randomizer.Log($"Tree {ability} not found in seed. Get a seed from seedpack 10 or later.");
+                Randomizer.Log($"Tree {ability} not found in seed!");
             }
         }
         public static void OnUberState(UberState state) {
             var id = state.GetUberId();
             if (pickupMap.TryGetValue(id, out Pickup p)) {
-                AHK.Print(p.ToString());
                 p.Grant();
                 Randomizer.PleaseSave = true;
             }
@@ -75,8 +88,24 @@ namespace RandoMainDLL {
                     return new Resource((ResourceType)byte.Parse(pickupData));
                 case PickupType.Teleporter:
                     return new Teleporter((TeleporterType)byte.Parse(pickupData));
+                case PickupType.Message:
+                    var messageParts = pickupData.Split(new string[] { @"`("}, StringSplitOptions.RemoveEmptyEntries);
+                    int frames = 240;
+                    bool squelch = false;
+                    if (messageParts.Length > 1) {
+                        var cmdsRaw = messageParts[1].TrimEnd(')');
+                        foreach (string cmd in cmdsRaw.Split(',')) {
+                            if (cmd.StartsWith("f=")) {
+                                int.TryParse(cmd.Replace("f=", ""), out frames);
+                                continue;
+                            }
+                            if (cmd == "mute")
+                                squelch = true;
+                        }
+                    }
+                    return new Message(messageParts[0], frames, squelch);
                 default:
-                    throw new NotImplementedException("Unknown Pickup");
+                    return new Message($"Unknown pickup ${pickupData}!!!");
             }
         }
     }
