@@ -4,67 +4,54 @@ using System.Diagnostics;
 namespace RandoMainDLL.Memory {
     public partial class MemoryManager {
         private static ProgramPointer Characters = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.Characters.SetCurrentCharacter", 0x15c),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "488B80B80000004C8B40084D85C0743D488B15????????B90C000000E8????????488BF84885DB743C488B4B304885C9742D33D2E8????????4885C0741B48897818488B5C24504883C4405FC3", -0x4)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.Characters.SetCurrentCharacter", 0x15c),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B80B80000004C8B40084D85C0743D488B15????????B90C000000E8????????488BF84885DB743C488B4B304885C9742D33D2E8????????4885C0741B48897818488B5C24504883C4405FC3", -0x4));
         private static ProgramPointer GameWorld = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0xa7),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "4C8BDC55565741544155415641574883EC5049C743A8FEFFFFFF49895B104C8BE933ED", 0xa7)
-        );
+            new FindIl2Cpp(PointerVersion.V2, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0x79),
+            new FindPointerSignature(PointerVersion.V2, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B80000004C8931498B4E28498B46204885C00F84????????4885C90F84????????4C8B05????????8B5018E8????????458BFD418BD5498B4E204885C9", 0x14),
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0xa7),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "4C8BDC55565741544155415641574883EC5049C743A8FEFFFFFF49895B104C8BE933ED", 0xa7));
         private static ProgramPointer PlayerUberStateGroup = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.Seinlevel.get_PartialHealthContainers", 0x68),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "488B05????????488B88B8000000488B014885C0742C488B48184885C9741D33D2E8????????4885C07423488B40184885C074148B40384883C448C3", 0x3)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.Seinlevel.get_PartialHealthContainers", 0x68),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B05????????488B88B8000000488B014885C0742C488B48184885C9741D33D2E8????????4885C07423488B40184885C074148B40384883C448C3", 0x3));
         private static ProgramPointer TitleScreenManager = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.TitleScreenManager.Awake", 0x97),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000488928488B05", 0x35)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.TitleScreenManager.Awake", 0x97),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000488928488B05", 0x35));
         private static ProgramPointer GameStateMachine = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.GameStateMachine.get_Instance", 0x6f),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????488B83B8000000488B004885C00F85C6000000488BCBE8????????488B43604885C074278B08E8", 0x14)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameStateMachine.get_Instance", 0x6f),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????488B83B8000000488B004885C00F85C6000000488BCBE8????????488B43604885C074278B08E8", 0x14));
         private static ProgramPointer GameController = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.GameController.Initialize", 0xc3),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "014C8975288B04244883EC20488D4C24308B0148894D20C785C0000000FFFFFFFF488B05????????F6802701000002741883B8D800000000750F488BC8", 0x45)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameController.Initialize", 0xc3),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "014C8975288B04244883EC20488D4C24308B0148894D20C785C0000000FFFFFFFF488B05????????F6802701000002741883B8D800000000750F488BC8", 0x45));
         private static ProgramPointer ScenesManager = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.ScenesManager.Awake", 0x76),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488931488B1D????????488BCBE8????????488B43604885C074278B08E8????????483B05????????7517", 0x14)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.ScenesManager.Awake", 0x76),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488931488B1D????????488BCBE8????????488B43604885C074278B08E8????????483B05????????7517", 0x14));
         private static ProgramPointer UberStateController = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__uberSerialization.UberStateController.get_Instance", 0x90),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????F6832701000002741883BBD800000000750F488BCBE8????????488B1D????????488B83B800000048837828000F85", 0x35)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__uberSerialization.UberStateController.get_Instance", 0x90),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????F6832701000002741883BBD800000000750F488BCBE8????????488B1D????????488B83B800000048837828000F85", 0x35));
         private static ProgramPointer UberStateCollection = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__uberSerialization.UberStateCollection.GetGroup", 0x73),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B0D????????F6812701000002740E83B9D8000000007505E8????????33C9E8????????4885C07469488B58384885DB745A", 0x14)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__uberSerialization.UberStateCollection.GetGroup", 0x73),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B0D????????F6812701000002740E83B9D8000000007505E8????????33C9E8????????4885C07469488B58384885DB745A", 0x14));
         private static ProgramPointer DifficultyController = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.ConfirmChangingDifficulty.Perform", 0xdf),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488B094885C974694533C08B5320E8????????488B05????????4885C07518", 0x14)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.ConfirmChangingDifficulty.Perform", 0xdf),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488B094885C974694533C08B5320E8????????488B05????????4885C07518", 0x14));
         private static ProgramPointer NoPausePatch = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.None, "__mainWisp.GameController.OnApplicationFocus", 0x1b),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.None, "4C8BDC565741564883EC5049C743C8FEFFFFFF49895B1049896B18??????488BF14533F6443835????????754B488B05????????4C6380C0000000488B05????????418B8C00????????418B9400????????4D8973D04D8973D84D8973E04D8D43D0E8????????9033C9FF15????????90C605????????0180BE????????000F85????????4084ED0F85????????33C9E8????????4885C00F84????????33D2488BC8E8????????84C07561", 0x1b)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.None, "__mainWisp.GameController.OnApplicationFocus", 0x1b),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.None, "4C8BDC565741564883EC5049C743C8FEFFFFFF49895B1049896B18??????488BF14533F6443835????????754B488B05????????4C6380C0000000488B05????????418B8C00????????418B9400????????4D8973D04D8973D84D8973E04D8D43D0E8????????9033C9FF15????????90C605????????0180BE????????000F85????????4084ED0F85????????33C9E8????????4885C00F84????????33D2488BC8E8????????84C07561", 0x1b));
         private static ProgramPointer TargetFrameRatePatch = new ProgramPointer("UnityPlayer.dll",
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.None, "660F6EC30F5BC0F30F5EC8EB??8BDE??????????660F6EC80F5BC90F57C00F297424300F2FC1720A", 0xf)
-        );
+            new FindPointerSignature(PointerVersion.All, AutoDeref.None, "660F6EC30F5BC0F30F5EC8????8BDE??????????660F6EC80F5BC90F57C00F297424300F2FC1720A", 0xb));
         private static ProgramPointer VSyncPatch = new ProgramPointer("UnityPlayer.dll",
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.None, "E8????????4863484C488B4030488D148948C1E2058B4402684883C428C3", -0x4)
-        );
+            new FindPointerSignature(PointerVersion.All, AutoDeref.None, "E8????????4863484C488B4030488D148948C1E2058B4402684883C428C3", -0x4));
         private static ProgramPointer FrameCounter = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.GameController.FixedUpdate", 0x1c8),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "80780A007538488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000FF0033C9", 0x2a)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameController.FixedUpdate", 0x1c8),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "80780A007538488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000FF0033C9", 0x2a));
         private static ProgramPointer CheatsHandler = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.CheatsHandler.Awake", 0x7a),
-            new FindPointerSignature(PointerVersion.V1, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C8938488B0D????????F6812701000002740E83B9D8000000007505E8", 0x14)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.CheatsHandler.Awake", 0x7a),
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C8938488B0D????????F6812701000002740E83B9D8000000007505E8", 0x14));
         private static ProgramPointer DebugControls = new ProgramPointer("GameAssembly.dll",
-            new FindIl2Cpp(AutoDeref.Single, "__mainWisp.AdvancedDebugMenuPage.DebugControlsSetter", 0x8e)
-        );
+            new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.AdvancedDebugMenuPage.DebugControlsSetter", 0x8e));
 
+        public static PointerVersion Version { get; set; }
         public Process Program { get; set; }
         public bool IsHooked { get; set; }
         public DateTime LastHooked { get; set; }
@@ -94,7 +81,7 @@ namespace RandoMainDLL.Memory {
         }
         public bool DebugEnabled()
         {
-            return CheatsHandler.Read<bool>(Program, 0xb8, 0x8);
+            return CheatsHandler.Read<bool>(Program, 0xb8, 0x0, 0x20);
         }
         public void EnableDebug(bool enable)
         {
@@ -102,14 +89,28 @@ namespace RandoMainDLL.Memory {
             CheatsHandler.Write<bool>(Program, enable, 0xb8, 0x0, 0x20);
             CheatsHandler.Write<short>(Program, enable ? (short)0x0101 : (short)0x0, 0xb8, 0x8);
         }
+        public Screen TitleScreen() {
+            //TitleScreenManager.Instance.m_currentScreen
+            return (Screen)TitleScreenManager.Read<int>(Program, 0xb8, 0x0, 0xb8);
+        }
         public bool IsLoadingGame() {
+            //int m_isLoadingGame = FindIl2CppOffset.GetOffset(Program, "__mainWisp.GameController.m_isLoadingGame");
+            int m_isLoadingGame = Version == PointerVersion.All ? 0x103 : 0x10b;
             //GameController.FreezeFixedUpdate || GameController.Instance.m_isLoadingGame
-            return GameController.Read<bool>(Program, 0xb8, 0xa) || GameController.Read<bool>(Program, 0xb8, 0x0, 0x103) ;
+            if (GameController.Read<bool>(Program, 0xb8, 0xa) || GameController.Read<bool>(Program, 0xb8, 0x0, m_isLoadingGame)) {
+                return true;
+            }
+            string scene = CurrentScene();
+            return GameState() == Memory.GameState.Game && (scene == "wotwTitleScreen" || scene == "kuFlyAway");
         }
         public Vector2 Position()
         {
             //Characters.Sein.PlatformBehaviour.PlatformMovement.m_prevPosition
             return Characters.Read<Vector2>(Program, 0xb8, 0x10, 0x98, 0x18, 0xd0);
+        }
+        public GameState GameState() {
+            //GameStateMachine.m_instance.CurrentState
+            return (GameState)GameStateMachine.Read<int>(Program, 0xb8, 0x0, 0x10);
         }
         public void PatchNoPause(bool patch) {
             if (!noPausePatched.HasValue || patch != noPausePatched.Value) {
@@ -208,7 +209,9 @@ namespace RandoMainDLL.Memory {
         }
         public string CurrentScene() {
             //Scenes.Manager.m_currentScene.Scene
-            return ScenesManager.Read(Program, 0xb8, 0x0, 0x180, 0x10, 0x0);
+            //int m_currentScene = FindIl2CppOffset.GetOffset(Program, "__mainWisp.ScenesManager.m_currentScene");
+            int m_currentScene = Version == PointerVersion.All ? 0x180 : 0x190;
+            return ScenesManager.Read(Program, 0xb8, 0x0, m_currentScene, 0x10, 0x0);
         }
         private static Dictionary<long, UberState> uberIDLookup = null;
         private void PopulateUberStates() {
@@ -725,14 +728,6 @@ namespace RandoMainDLL.Memory {
             //Characters.Sein.PlatformBehaviour.Mortality.DamageReciever.m_died
             return Characters.Read<bool>(Program, 0xb8, 0x10, 0x88, 0x10, 0xe4);
         }
-        public GameState GameState() {
-            //GameStateMachine.m_instance.CurrentState
-            return (GameState)GameStateMachine.Read<int>(Program, 0xb8, 0x0, 0x10);
-        }
-        public Screen TitleScreen() {
-            //TitleScreenManager.Instance.m_currentScreen
-            return (Screen)TitleScreenManager.Read<int>(Program, 0xb8, 0x0, 0xb8);
-        }
         public bool HookProcess() {
             try
             {
@@ -759,6 +754,14 @@ namespace RandoMainDLL.Memory {
                     if (Program != null && !Program.HasExited)
                     {
                         MemoryReader.Update64Bit(Program);
+                        FindIl2Cpp.InitializeIl2Cpp(Program);
+                        Module64 module = Program.Module64("GameAssembly.dll");
+                        MemoryManager.Version = PointerVersion.All;
+                        if (module != null) {
+                            switch (module.MemorySize) {
+                                case 77447168: MemoryManager.Version = PointerVersion.V2; break;
+                            }
+                        }
                         uberIDLookup = null;
                         noPausePatched = null;
                         targetFrameRatePatched = null;

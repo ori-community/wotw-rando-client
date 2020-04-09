@@ -7,7 +7,7 @@
     <PackageIconUrl />
     <RepositoryUrl>https://www.github.com/sparkle-preference/OriWotwRandomizerClient</RepositoryUrl>
     <StartupObject></StartupObject>
-    <ApplicationIcon>C:\Users\WorstMirari\Documents\GitHub\OriWotwRandomizerClient\WotwRando.ico</ApplicationIcon>
+    <ApplicationIcon>../WotwRando.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 

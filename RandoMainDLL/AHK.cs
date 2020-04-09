@@ -52,9 +52,9 @@ namespace RandoMainDLL {
             GuiControl, Pickup:Move, PickupText, w%width%
             ShowPickup()
         }
-        IniRead(Section, Key, default := """", iniPath := ""C:/moon/settings.ini"")
+        IniRead(Section, Key, iniPath := ""C:/moon/settings.ini"")
         {
-            IniRead, out, %iniPath%, %Section%, %Key%, %default%
+            IniRead, out, %iniPath%, %Section%, %Key%
             return out
         }
         Tick() 
@@ -95,18 +95,19 @@ namespace RandoMainDLL {
         public static void Init() {
             Engine.ExecRaw(Program);
             Engine.ExecFunction("BuildPickupGUI");
+            if (System.IO.File.Exists("C:\\moon\\rando_binds.ahk"))
+                Engine.LoadFile("C:\\moon\\rando_binds.ahk");
             Ready = true;
             if(IniFlag("dev")) {
                 Randomizer.Dev = true;
             }
         }
-        private static HashSet<String> Falsey = new HashSet<String>() { "false", "False", "no", "", "0", null };
+        private static HashSet<String> Falsey = new HashSet<String>() { "false", "False", "no", "", "0", "ERROR", null };
         public static bool IniFlag(string Flag) {
             if (!Ready)
                 return false;
             return !Falsey.Contains(Engine.ExecFunction("IniRead", "Flags", Flag));
         }
-
         public static void Tick() {
             var signal = Engine.ExecFunction("Tick");
             if(signal != null && signal != "none") {
@@ -114,7 +115,7 @@ namespace RandoMainDLL {
                 switch (signal) {
                     case "reload":
                         if(FramesTillUnlockReload == 0) {
-                            SeedManager.ReadSeed();
+                            SeedController.ReadSeed();
                             FramesTillUnlockReload = 60;
                         }
                         break;
@@ -138,7 +139,8 @@ namespace RandoMainDLL {
                     Current = MessageQueue.Dequeue();
                     FramesTillNextSend = Current.Frames();
                     Engine.ExecFunction("PickupMessage", Current.Text(), (Current.Frames() * 50 / 3).ToString());
-                    Randomizer.Log($"Sending {Current.Text()} for {Current.Frames()} ({MessageQueue.Count} remaining in queue)", false);
+                    if(IniFlag("LogOnPrint"))
+                        Randomizer.Log($"Sending {Current.Text()} for {Current.Frames()} ({MessageQueue.Count} remaining in queue)", false);
                 } else {
                     Current = null;
                 }

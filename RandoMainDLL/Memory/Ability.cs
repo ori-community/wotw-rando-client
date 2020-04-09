@@ -21,13 +21,15 @@ namespace RandoMainDLL.Memory {
         Burrow,
         Dash,
         WaterDash = 104,
+        TeleportSpell = 105,
         SpiritStar = 106,
         Seir = 108,
         Blaze = 115,
         Sentry,
         Flap = 118,
         DamageUpgrade1 = 120,
-        DamageUpgrade2
+        DamageUpgrade2,
+        NONE = 255
     }
     public static class AbilityN {
         private static Dictionary<AbilityType, String> mapping = new Dictionary<AbilityType, string>(){
