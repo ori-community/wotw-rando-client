@@ -5,53 +5,53 @@ namespace RandoMainDLL.Memory {
     public partial class MemoryManager {
         private static ProgramPointer Characters = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.Characters.SetCurrentCharacter", 0x15c),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B80B80000004C8B40084D85C0743D488B15????????B90C000000E8????????488BF84885DB743C488B4B304885C9742D33D2E8????????4885C0741B48897818488B5C24504883C4405FC3", -0x4));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B80B80000004C8B40084D85C0743D488B15????????B90C000000E8????????488BF84885DB743C488B4B304885C9742D33D2E8????????4885C0741B48897818488B5C24504883C4405FC3", -0x4, 0x0));
         private static ProgramPointer GameWorld = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.V2, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0x79),
-            new FindPointerSignature(PointerVersion.V2, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B80000004C8931498B4E28498B46204885C00F84????????4885C90F84????????4C8B05????????8B5018E8????????458BFD418BD5498B4E204885C9", 0x14),
+            new FindPointerSignature(PointerVersion.V2, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B80000004C8931498B4E28498B46204885C00F84????????4885C90F84????????4C8B05????????8B5018E8????????458BFD418BD5498B4E204885C9", 0x14, 0x0),
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0xa7),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "4C8BDC55565741544155415641574883EC5049C743A8FEFFFFFF49895B104C8BE933ED", 0xa7));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "4C8BDC55565741544155415641574883EC5049C743A8FEFFFFFF49895B104C8BE933ED", 0xa7, 0x0));
         private static ProgramPointer PlayerUberStateGroup = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.Seinlevel.get_PartialHealthContainers", 0x68),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B05????????488B88B8000000488B014885C0742C488B48184885C9741D33D2E8????????4885C07423488B40184885C074148B40384883C448C3", 0x3));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B05????????488B88B8000000488B014885C0742C488B48184885C9741D33D2E8????????4885C07423488B40184885C074148B40384883C448C3", 0x3, 0x0));
         private static ProgramPointer TitleScreenManager = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.TitleScreenManager.Awake", 0x97),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000488928488B05", 0x35));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000488928488B05", 0x35, 0x0));
         private static ProgramPointer GameStateMachine = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameStateMachine.get_Instance", 0x6f),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????488B83B8000000488B004885C00F85C6000000488BCBE8????????488B43604885C074278B08E8", 0x14));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????488B83B8000000488B004885C00F85C6000000488BCBE8????????488B43604885C074278B08E8", 0x14, 0x0));
         private static ProgramPointer GameController = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameController.Initialize", 0xc3),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "014C8975288B04244883EC20488D4C24308B0148894D20C785C0000000FFFFFFFF488B05????????F6802701000002741883B8D800000000750F488BC8", 0x45));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "014C8975288B04244883EC20488D4C24308B0148894D20C785C0000000FFFFFFFF488B05????????F6802701000002741883B8D800000000750F488BC8", 0x45, 0x0));
         private static ProgramPointer ScenesManager = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.ScenesManager.Awake", 0x76),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488931488B1D????????488BCBE8????????488B43604885C074278B08E8????????483B05????????7517", 0x14));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488931488B1D????????488BCBE8????????488B43604885C074278B08E8????????483B05????????7517", 0x14, 0x0));
         private static ProgramPointer UberStateController = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__uberSerialization.UberStateController.get_Instance", 0x90),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????F6832701000002741883BBD800000000750F488BCBE8????????488B1D????????488B83B800000048837828000F85", 0x35));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????F6832701000002741883BBD800000000750F488BCBE8????????488B1D????????488B83B800000048837828000F85", 0x35, 0x0));
         private static ProgramPointer UberStateCollection = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__uberSerialization.UberStateCollection.GetGroup", 0x73),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B0D????????F6812701000002740E83B9D8000000007505E8????????33C9E8????????4885C07469488B58384885DB745A", 0x14));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B0D????????F6812701000002740E83B9D8000000007505E8????????33C9E8????????4885C07469488B58384885DB745A", 0x14, 0x0));
         private static ProgramPointer DifficultyController = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.ConfirmChangingDifficulty.Perform", 0xdf),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488B094885C974694533C08B5320E8????????488B05????????4885C07518", 0x14));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488B094885C974694533C08B5320E8????????488B05????????4885C07518", 0x14, 0x0));
         private static ProgramPointer NoPausePatch = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.None, "__mainWisp.GameController.OnApplicationFocus", 0x1b),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.None, "4C8BDC565741564883EC5049C743C8FEFFFFFF49895B1049896B18??????488BF14533F6443835????????754B488B05????????4C6380C0000000488B05????????418B8C00????????418B9400????????4D8973D04D8973D84D8973E04D8D43D0E8????????9033C9FF15????????90C605????????0180BE????????000F85????????4084ED0F85????????33C9E8????????4885C00F84????????33D2488BC8E8????????84C07561", 0x1b));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.None, "4C8BDC565741564883EC5049C743C8FEFFFFFF49895B1049896B18??????488BF14533F6443835????????754B488B05????????4C6380C0000000488B05????????418B8C00????????418B9400????????4D8973D04D8973D84D8973E04D8D43D0E8????????9033C9FF15????????90C605????????0180BE????????000F85????????4084ED0F85????????33C9E8????????4885C00F84????????33D2488BC8E8????????84C07561", 0x1b, 0x0));
         private static ProgramPointer TargetFrameRatePatch = new ProgramPointer("UnityPlayer.dll",
             new FindPointerSignature(PointerVersion.All, AutoDeref.None, "660F6EC30F5BC0F30F5EC8????8BDE??????????660F6EC80F5BC90F57C00F297424300F2FC1720A", 0xb));
         private static ProgramPointer VSyncPatch = new ProgramPointer("UnityPlayer.dll",
             new FindPointerSignature(PointerVersion.All, AutoDeref.None, "E8????????4863484C488B4030488D148948C1E2058B4402684883C428C3", -0x4));
         private static ProgramPointer FrameCounter = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameController.FixedUpdate", 0x1c8),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "80780A007538488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000FF0033C9", 0x2a));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "80780A007538488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000FF0033C9", 0x2a, 0x0));
         private static ProgramPointer CheatsHandler = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.CheatsHandler.Awake", 0x7a),
-            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C8938488B0D????????F6812701000002740E83B9D8000000007505E8", 0x14));
+            new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C8938488B0D????????F6812701000002740E83B9D8000000007505E8", 0x14, 0x0));
         private static ProgramPointer DebugControls = new ProgramPointer("GameAssembly.dll",
             new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.AdvancedDebugMenuPage.DebugControlsSetter", 0x8e));
+        public static PointerVersion Version { get; set; } = PointerVersion.All;
 
-        public static PointerVersion Version { get; set; }
         public Process Program { get; set; }
         public bool IsHooked { get; set; }
         public DateTime LastHooked { get; set; }
@@ -217,7 +217,7 @@ namespace RandoMainDLL.Memory {
         private void PopulateUberStates() {
             uberIDLookup = new Dictionary<long, UberState>();
             //UberStateCollection.Instance.m_descriptorsArray
-            IntPtr descriptors = (IntPtr)UberStateCollection.Read<ulong>(Program, 0xb8, 0x10, 0x20);
+            IntPtr descriptors = UberStateCollection.Read<IntPtr>(Program, 0xb8, 0x10, 0x20);
             //.Count
             int descriptorsCount = Program.Read<int>(descriptors, 0x18);
             byte[] data = Program.Read(descriptors + 0x20, descriptorsCount * 0x8);
@@ -244,7 +244,7 @@ namespace RandoMainDLL.Memory {
                 //.m_descriptorsArray[i].ID.m_id
                 int id = Program.Read<int>(descriptor, 0x18, 0x10);
                 //.m_descriptorsArray[i].Name
-                IntPtr namePtr = (IntPtr)Program.Read<ulong>(descriptor, 0x10, 0x48);
+                IntPtr namePtr = Program.Read<IntPtr>(descriptor, 0x10, 0x48);
                 string name = string.Empty;
                 if (namePtr != IntPtr.Zero) {
                     name = Program.ReadAscii(namePtr);
@@ -255,7 +255,7 @@ namespace RandoMainDLL.Memory {
                 //.m_descriptorsArray[i].Group.ID.m_id
                 int groupID = Program.Read<int>(descriptor, groupOffset, 0x18, 0x10);
                 //.m_descriptorsArray[i].Group.Name
-                namePtr = (IntPtr)Program.Read<ulong>(descriptor, groupOffset, 0x10, 0x48);
+                namePtr = Program.Read<IntPtr>(descriptor, groupOffset, 0x10, 0x48);
                 string groupName = string.Empty;
                 if (namePtr != IntPtr.Zero) {
                     groupName = Program.ReadAscii(namePtr);
@@ -277,11 +277,11 @@ namespace RandoMainDLL.Memory {
         }
         public void UpdateUberState(UberState uberState = null) {
             //UbserStateController.m_currentStateValueStore.m_groupMap
-            IntPtr groups = (IntPtr)UberStateController.Read<ulong>(Program, 0xb8, 0x40, 0x18);
+            IntPtr groups = UberStateController.Read<IntPtr>(Program, 0xb8, 0x40, 0x18);
             //.Count
             int groupCount = Program.Read<int>(groups, 0x20);
             //.Values
-            groups = (IntPtr)Program.Read<ulong>(groups, 0x18);
+            groups = Program.Read<IntPtr>(groups, 0x18);
             byte[] groupsData = Program.Read(groups + 0x20, groupCount * 0x18);
 
             bool updateAll = uberState == null;
@@ -298,7 +298,7 @@ namespace RandoMainDLL.Memory {
                 //.Values[i].m_objectStateMap.Count
                 int mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (updateAll || uberState.IsObjectType)) {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++) {
                         //.Values[i].m_objectStateMap.Keys[j]
@@ -321,7 +321,7 @@ namespace RandoMainDLL.Memory {
                 //.Values[i].m_boolStateMap.Count
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (updateAll || uberState.IsBoolType)) {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++) {
                         //.Values[i].m_boolStateMap.Keys[j]
@@ -340,7 +340,7 @@ namespace RandoMainDLL.Memory {
                 //.Values[i].m_floatStateMap.Count
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (updateAll || uberState.IsFloatType)) {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++) {
                         //.Values[i].m_floatStateMap.Keys[j]
@@ -359,7 +359,7 @@ namespace RandoMainDLL.Memory {
                 //.Values[i].m_intStateMap.Count
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (updateAll || uberState.IsIntType)) {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++) {
                         //.Values[i].m_intStateMap.Keys[j]
@@ -378,7 +378,7 @@ namespace RandoMainDLL.Memory {
                 //.Values[i].m_byteStateMap.Count
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (updateAll || uberState.IsByteType)) {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++) {
                         //.Values[i].m_byteStateMap.Keys[j]
@@ -396,11 +396,11 @@ namespace RandoMainDLL.Memory {
         public void WriteUberState(UberState uberState)
         {
             //UbserStateController.m_currentStateValueStore.m_groupMap
-            IntPtr groups = (IntPtr)UberStateController.Read<ulong>(Program, 0xb8, 0x40, 0x18);
+            IntPtr groups = UberStateController.Read<IntPtr>(Program, 0xb8, 0x40, 0x18);
             //.Count
             int groupCount = Program.Read<int>(groups, 0x20);
             //.Values
-            groups = (IntPtr)Program.Read<ulong>(groups, 0x18);
+            groups = Program.Read<IntPtr>(groups, 0x18);
             byte[] groupsData = Program.Read(groups + 0x20, groupCount * 0x18);
             for (int i = 0; i < groupCount; i++)
             {
@@ -417,7 +417,7 @@ namespace RandoMainDLL.Memory {
                 int mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (uberState.IsObjectType))
                 {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++)
                     {
@@ -443,7 +443,7 @@ namespace RandoMainDLL.Memory {
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (uberState.IsBoolType))
                 {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++)
                     {
@@ -462,7 +462,7 @@ namespace RandoMainDLL.Memory {
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (uberState.IsFloatType))
                 {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++)
                     {
@@ -481,7 +481,7 @@ namespace RandoMainDLL.Memory {
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (uberState.IsIntType))
                 {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++)
                     {
@@ -500,7 +500,7 @@ namespace RandoMainDLL.Memory {
                 mapCount = Program.Read<int>(map, 0x20);
                 if (mapCount > 0 && (uberState.IsByteType))
                 {
-                    map = (IntPtr)Program.Read<ulong>(map, 0x18);
+                    map = Program.Read<IntPtr>(map, 0x18);
                     byte[] data = Program.Read(map + 0x20, mapCount * 0x18);
                     for (int j = 0; j < mapCount; j++)
                     {
@@ -518,11 +518,11 @@ namespace RandoMainDLL.Memory {
         }
         public bool HasAbility(AbilityType type) {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Abilities.m_abilitiesList
-            IntPtr abilities = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
+            IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
             //.Count
             int count = Program.Read<int>(abilities, 0x18);
             //.Items
-            abilities = (IntPtr)Program.Read<ulong>(abilities, 0x10);
+            abilities = Program.Read<IntPtr>(abilities, 0x10);
             byte[] data = Program.Read(abilities + 0x20, count * 0x8);
             for (int i = 0; i < count; i++) {
                 //.Items[i]
@@ -535,11 +535,11 @@ namespace RandoMainDLL.Memory {
         }
         public void SetAbility(AbilityType type, bool setTo = true)
         {
-            IntPtr abilities = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
+            IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
             //.Count
             int count = Program.Read<int>(abilities, 0x18);
             //.Items
-            abilities = (IntPtr)Program.Read<ulong>(abilities, 0x10);
+            abilities = Program.Read<IntPtr>(abilities, 0x10);
             byte[] data = Program.Read(abilities + 0x20, count * 0x8);
             for (int i = 0; i < count; i++)
             {
@@ -558,11 +558,11 @@ namespace RandoMainDLL.Memory {
         public Dictionary<AbilityType, Ability> PlayerAbilities() {
             Dictionary<AbilityType, Ability> currentAbilities = new Dictionary<AbilityType, Ability>();
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Abilities.m_abilitiesList
-            IntPtr abilities = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
+            IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
             //.Count
             int count = Program.Read<int>(abilities, 0x18);
             //.Items
-            abilities = (IntPtr)Program.Read<ulong>(abilities, 0x10);
+            abilities = Program.Read<IntPtr>(abilities, 0x10);
             byte[] data = Program.Read(abilities + 0x20, count * 0x8);
             for (int i = 0; i < count; i++) {
                 //.Items[i]
@@ -575,11 +575,11 @@ namespace RandoMainDLL.Memory {
         }
         public bool HasShard(ShardType type) {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards.m_shardsList
-            IntPtr shards = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
+            IntPtr shards = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
             //.Count
             int count = Program.Read<int>(shards, 0x18);
             //.Items
-            shards = (IntPtr)Program.Read<ulong>(shards, 0x10);
+            shards = Program.Read<IntPtr>(shards, 0x10);
             byte[] data = Program.Read(shards + 0x20, count * 0x8);
             for (int i = 0; i < count; i++) {
                 //.Items[i]
@@ -593,11 +593,11 @@ namespace RandoMainDLL.Memory {
         public bool HasInvItem(EquipmentType type)
         {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_inventory
-            IntPtr items = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
+            IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
             //.Count
             int count = Program.Read<int>(items, 0x18);
             //.Items
-            items = (IntPtr)Program.Read<ulong>(items, 0x10);
+            items = Program.Read<IntPtr>(items, 0x10);
             byte[] data = Program.Read(items + 0x20, count * 0x8);
             for (int i = 0; i < count; i++)
             {
@@ -615,11 +615,11 @@ namespace RandoMainDLL.Memory {
         public void SetInvItem(EquipmentType type, bool setTo = true)
         {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_inventory
-            IntPtr items = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
+            IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
             //.Count
             int count = Program.Read<int>(items, 0x18);
             //.Items
-            items = (IntPtr)Program.Read<ulong>(items, 0x10);
+            items = Program.Read<IntPtr>(items, 0x10);
             byte[] data = Program.Read(items + 0x20, count * 0x8);
             for (int i = 0; i < count; i++)
             {
@@ -638,7 +638,7 @@ namespace RandoMainDLL.Memory {
         {
             return; // this function stubbed out because it crashes and i have no idea why. seems like it should work!!!
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_bindings
-/*            IntPtr items = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x18);
+/*            IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x18);
             var invItem = new InventoryItem { Type = type, Unlocked = 1 };
             //.Items [0] <-
             Program.Write(items, invItem.ToBytes(), 0x10, 0x20);
@@ -649,11 +649,11 @@ namespace RandoMainDLL.Memory {
     public void SetShard(ShardType type, bool setTo = true)
         {
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards.m_shardsList
-            IntPtr shards = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
+            IntPtr shards = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
             //.Count
             int count = Program.Read<int>(shards, 0x18);
             //.Items
-            shards = (IntPtr)Program.Read<ulong>(shards, 0x10);
+            shards = Program.Read<IntPtr>(shards, 0x10);
             byte[] data = Program.Read(shards + 0x20, count * 0x8);
             for (int i = 0; i < count; i++)
             {
@@ -672,11 +672,11 @@ namespace RandoMainDLL.Memory {
         public Dictionary<ShardType, Shard> PlayerShards() {
             Dictionary<ShardType, Shard> currentShards = new Dictionary<ShardType, Shard>();
             //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards.m_shardsList
-            IntPtr shards = (IntPtr)PlayerUberStateGroup.Read<ulong>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
+            IntPtr shards = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
             //.Count
             int count = Program.Read<int>(shards, 0x18);
             //.Items
-            shards = (IntPtr)Program.Read<ulong>(shards, 0x10);
+            shards = Program.Read<IntPtr>(shards, 0x10);
             byte[] data = Program.Read(shards + 0x20, count * 0x8);
             for (int i = 0; i < count; i++) {
                 //.Items[i]
@@ -691,11 +691,11 @@ namespace RandoMainDLL.Memory {
         public float MapCompletion(AreaType areaType = AreaType.None) {
             float totalCompletion = 0;
             //GameWorld.RuntimeAreas
-            IntPtr areas = (IntPtr)GameWorld.Read<ulong>(Program, 0xb8, 0x0, 0x28);
+            IntPtr areas = GameWorld.Read<IntPtr>(Program, 0xb8, 0x0, 0x28);
             //.Count
             int count = Program.Read<int>(areas, 0x18);
             //.Items
-            areas = (IntPtr)Program.Read<ulong>(areas, 0x10);
+            areas = Program.Read<IntPtr>(areas, 0x10);
             byte[] data = Program.Read(areas + 0x20, count * 0x8);
             for (int i = 0; i < count; i++) {
                 IntPtr area = (IntPtr)BitConverter.ToUInt64(data, i * 0x8);
@@ -735,7 +735,6 @@ namespace RandoMainDLL.Memory {
                 if (!IsHooked && DateTime.Now > LastHooked.AddSeconds(1))
                 {
                     LastHooked = DateTime.Now;
-                    ClearPointers();
                     Process[] processes = Process.GetProcessesByName("OriWotW");
                     Program = processes != null && processes.Length > 0 ? processes[0] : null;
 
@@ -776,21 +775,7 @@ namespace RandoMainDLL.Memory {
                 return false;
             }
         }
-        private void ClearPointers() {
-            Characters.ClearPointer();
-            GameWorld.ClearPointer();
-            PlayerUberStateGroup.ClearPointer();
-            TitleScreenManager.ClearPointer();
-            GameStateMachine.ClearPointer();
-            GameController.ClearPointer();
-            ScenesManager.ClearPointer();
-            UberStateController.ClearPointer();
-            UberStateCollection.ClearPointer();
-            DifficultyController.ClearPointer();
-            NoPausePatch.ClearPointer();
-            TargetFrameRatePatch.ClearPointer();
-            VSyncPatch.ClearPointer();
-        }
+
         public void Dispose() {
             if (Program != null) {
                 Program.Dispose();

@@ -11,6 +11,10 @@ namespace RandoMainDLL
         public static string SeedNameFile = @"C:\moon\.currentseedname";
         public static string LogFile = @"C:\moon\cs_log.txt";
         public static string SaveFolder = @"C:\moon\saves";
+        public static string VersionFile = @"C:\moon\VERSION";
+        public static string VERSION {
+            get { return File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0"; }
+        }
         public static MemoryManager Memory;
         [DllExport]
         public static bool Initialize()
@@ -50,7 +54,7 @@ namespace RandoMainDLL
                         StateListener.Ready = false;
                     } else if (Memory.GameState() == GameState.Game) {
                         StateListener.Update(PerformNewGameInit);
-                    if (PerformNewGameInit) {
+                    if (!Memory.IsLoadingGame() && PerformNewGameInit) {
                         UberStateInits();
                         return -1;
                     }
@@ -87,19 +91,20 @@ namespace RandoMainDLL
         public static string LastMessage = "";
         public static int repeats = 0;
         public static void UberStateInits()
-        {
-            if(!Memory.IsLoadingGame())
-            {
-                Log("New Game Init", false);
-                Memory.SetAbility(AbilityType.SpiritEdge);
-                UberStateDefaults.savePedestalInkwaterMarsh.Value.Byte = 1;
-                Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);
-                foreach (UberState s in DefaultUberStates) { Memory.WriteUberState(s); }
-                foreach (UberState s in KeystoneDoors) { Memory.WriteUberState(s); }
-                foreach (UberState s in Kuberstates) { Memory.WriteUberState(s); }
-                BlackSheepWall = true;
-                PerformNewGameInit = false;
-            } 
+        { 
+            Log("New Game Init", false);
+            SeedController.ReadSeed();
+            Memory.SetAbility(AbilityType.SpiritEdge);
+            UberStateDefaults.savePedestalInkwaterMarsh.Value.Byte = 1;
+            Memory.WriteUberState(UberStateDefaults.savePedestalInkwaterMarsh);
+            foreach (UberState s in DefaultUberStates) { Memory.WriteUberState(s); }
+            foreach (UberState s in KeystoneDoors) { Memory.WriteUberState(s); }
+            foreach (UberState s in Kuberstates) { Memory.WriteUberState(s); }
+            if (SeedController.GameStartPickup.NonEmpty())
+                InputUnlockCallback = () => { SeedController.GameStartPickup.Grant(); };
+            BlackSheepWall = true;
+            PleaseSave = true;
+            PerformNewGameInit = false;
         }
         public static bool PerformNewGameInit = false;
         public static List<UberState> DefaultUberStates = new List<UberState>() {
@@ -122,10 +127,10 @@ namespace RandoMainDLL
             new UberState() { Name = "narratorLineShownHowl", ID = 10677, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
             new UberState() { Name = "featherVignettePlayed", ID = 36965, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
             new UberState() { Name = "petrifiedOwlStalkSequenceCompleted", ID = 7636, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
-            new UberState() { Name = "winterForestWispQuestUberState", ID = 8973, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
-            new UberState() { Name = "lagoonWispQuestUberState", ID = 35087, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
-            new UberState() { Name = "desertWispQuestUberState", ID = 35399, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
-            new UberState() { Name = "mouldwoodDepthsWispQuestUberState", ID = 45931, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+            new UberState() { Name = "winterForestWispQuestUberState", ID = 8973, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(1) },
+            new UberState() { Name = "lagoonWispQuestUberState", ID = 35087, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(1) },
+            new UberState() { Name = "desertWispQuestUberState", ID = 35399, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(1) },
+            new UberState() { Name = "mouldwoodDepthsWispQuestUberState", ID = 45931, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(1) },
             new UberState() { Name = "petrifiedForestNewTransitionOriVignettePlayed", ID = 46980, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
             new UberState() { Name = "petrifiedForestNewTransitionKuVignettePlayed", ID = 44798, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedIntUberState, Value = new UberValue(2) },
             new UberState() { Name = "lastGlobalEvent", ID = 54675, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(2)  },
@@ -150,10 +155,14 @@ namespace RandoMainDLL
         public static bool OreFound = false;
         public static bool PleaseSave = false;
         public static bool BlackSheepWall = false;
+
+        public delegate void Callback();
+        public static Callback InputUnlockCallback;
         public enum FlagCode: int {
             Save = 0,
             Ore = 1,
             UnlockMap = 2,
+            InputLockListener = 3,
         }
         [DllExport]
         public static int OreCount() { return Memory.Ore;  }
@@ -179,12 +188,19 @@ namespace RandoMainDLL
                         return true;
                     }
                     return false;
+                case FlagCode.InputLockListener:
+                    return Memory.GameState() == GameState.Game && InputUnlockCallback != null;
                 default:
                     Randomizer.Log($"Unknown Flag code {flag}");
                     return false;
             }
         }
 
+        [DllExport]
+        public static void OnInputUnlock() {
+            InputUnlockCallback?.Invoke();
+            InputUnlockCallback = null;
+        }
 
         [DllExport]
         public static bool TreeFulfilled(AbilityType ability) { return SaveController.Data.TreesActivated.Contains(ability);  }
