@@ -11,8 +11,11 @@ namespace RandoMainDLL {
         Ability,
         Shard,
         QuestItem,
-        Teleporter
+        Teleporter,
+        Message,
+        Multi,
     }
+
 
     public enum TeleporterType : byte {
         MidnightBurrows,
@@ -42,8 +45,59 @@ namespace RandoMainDLL {
         ShardSlot
     }
     public abstract class Pickup {
+        public int Frames = 240;
+        public virtual bool NonEmpty() { return false; }
         public abstract PickupType Type();
-        public abstract void Grant();
+        public virtual void Grant(bool squelch = false) { if (!squelch) AHK.Print(ToString(), Frames);  }
+
+        public Pickup Concat(Pickup other) {
+            var children = new List<Pickup>();
+            if (this is Multi)
+                children.AddRange((this as Multi).Children);
+            else
+                children.Add(this);
+            if (other is Multi)
+                children.AddRange((other as Multi).Children);
+            else
+                children.Add(other);
+            // this can only really happen if one of these was Multi.Empty
+            if (children.Count == 1) 
+                return children[0];
+            return new Multi(children);
+        }
+    }
+
+    public class Multi : Pickup {
+        public override bool NonEmpty() { return Children.Count > 0; }
+        public List<Pickup> Children;
+        public Multi(List<Pickup> children) { Children = children; }
+        public override PickupType Type() { return PickupType.Multi; }
+        public override void Grant(bool squelch = false) { 
+            foreach (var Child in Children) 
+                Child.Grant(true);
+            if (Children.Exists(p => (p is Message) && (p as Message).Squelch))
+                Children.Find(p => (p is Message) && (p as Message).Squelch).Grant(false);
+            else
+                base.Grant(squelch);
+        }
+        public override string ToString() {
+            return String.Join(", ", Children.Select(c => c.ToString()));
+        }
+        // I'll write scala code in c# i don't care!!!!
+        public static Multi Empty { get { return new Multi(new List<Pickup>()); } }
+    }
+
+    public class Message : Pickup {
+        public String Msg;
+        public bool Squelch = false;
+
+        public Message(string msg, int frames = 240, bool squelch = false) { Msg = msg; Frames = frames; Squelch = squelch;  }
+        public override PickupType Type() { return PickupType.Message; }
+        public override void Grant(bool squelch = false) { 
+            if(!squelch)
+                AHK.Print(Msg, Frames); 
+        }
+        public override string ToString() { return Msg; }
     }
 
     public abstract class Sellable : Pickup {
@@ -92,7 +146,8 @@ namespace RandoMainDLL {
         };
         public TeleporterType type;
         public Teleporter(TeleporterType _type) { type = _type; }
-        public override void Grant() {
+        public override void Grant(bool squelch = false) {
+            base.Grant(squelch);
             Teleporter.TeleporterStates[type].Value.Byte = 1;
             Randomizer.Memory.WriteUberState(Teleporter.TeleporterStates[type]);
         }
@@ -113,7 +168,8 @@ namespace RandoMainDLL {
         public Ability(AbilityType ability) {
             type = ability;
         }
-        public override void Grant() {
+        public override void Grant(bool squelch = false) {
+            base.Grant(squelch);
             Randomizer.Memory.SetAbility(type);
         }
         public override string ToString() {
@@ -126,7 +182,8 @@ namespace RandoMainDLL {
         public Shard(ShardType shard) {
             type = shard;
         }
-        public override void Grant() {
+        public override void Grant(bool squelch = false) {
+            base.Grant(squelch);
             Randomizer.Memory.SetShard(type);
         }
         public override int DefaultCost() {
@@ -144,7 +201,8 @@ namespace RandoMainDLL {
         public Cash(int money) {
             amount = money;
         }
-        public override void Grant() {
+        public override void Grant(bool squelch = false) {
+            base.Grant(squelch);
             Randomizer.Memory.Experience += amount;
         }
         private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks"};
@@ -176,8 +234,9 @@ namespace RandoMainDLL {
             }
         }
 
-        public override void Grant() {
-            switch(type) {
+        public override void Grant(bool squelch = false) {
+            base.Grant(squelch);
+            switch (type) {
                 case ResourceType.Health:
                     Randomizer.Memory.FakeHalfHealth();
                     break;

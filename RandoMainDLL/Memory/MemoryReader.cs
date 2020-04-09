@@ -18,6 +18,7 @@ namespace RandoMainDLL.Memory {
 
             unsafe {
                 int size = sizeof(T);
+                if (typeof(T) == typeof(IntPtr)) { size = is64Bit ? 8 : 4; }
                 byte[] buffer = Read(targetProcess, address + last, size);
                 fixed (byte* ptr = buffer) {
                     return *(T*)ptr;
@@ -43,16 +44,14 @@ namespace RandoMainDLL.Memory {
             WinAPI.ReadProcessMemory(targetProcess.Handle, address + last, buffer, numBytes, out bytesRead);
             return buffer;
         }
-
         public static byte[] stringHeader;
         public static string ReadString(this Process targetProcess, IntPtr address) {
-            if (stringHeader == null)
-                stringHeader = Read(targetProcess, address, 16);
             if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
-
-            int length = Read<int>(targetProcess, address, 0x10);
+            if (stringHeader == null)
+                stringHeader = Read(targetProcess, address, is64Bit ? 0x10 : 0x8);
+            int length = Read<int>(targetProcess, address, is64Bit ? 0x10 : 0x8);
             if (length < 0 || length > 2048) { return string.Empty; }
-            return Encoding.Unicode.GetString(Read(targetProcess, address + 0x14, 2 * length));
+            return Encoding.Unicode.GetString(Read(targetProcess, address + (is64Bit ? 0x14 : 0xc), 2 * length));
         }
         public static string ReadString(this Process targetProcess, IntPtr address, params int[] offsets) {
             if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
@@ -208,25 +207,27 @@ namespace RandoMainDLL.Memory {
                 return list.ToArray();
             }
         }
-        private static class WinAPI {
-            [DllImport("kernel32.dll", SetLastError = true)]
-            public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
-            [DllImport("kernel32.dll", SetLastError = true)]
-            public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesWritten);
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool IsWow64Process(IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] out bool wow64Process);
-            [DllImport("psapi.dll", SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool EnumProcessModulesEx(IntPtr hProcess, [Out] IntPtr[] lphModule, uint cb, out uint lpcbNeeded, uint dwFilterFlag);
-            [DllImport("psapi.dll", SetLastError = true)]
-            public static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, uint nSize);
-            [DllImport("psapi.dll")]
-            public static extern uint GetModuleBaseName(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, uint nSize);
-            [DllImport("psapi.dll", SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool GetModuleInformation(IntPtr hProcess, IntPtr hModule, out ModuleInfo lpmodinfo, uint cb);
-        }
+    }
+    internal static class WinAPI {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesWritten);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWow64Process(IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] out bool wow64Process);
+        [DllImport("psapi.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumProcessModulesEx(IntPtr hProcess, [Out] IntPtr[] lphModule, uint cb, out uint lpcbNeeded, uint dwFilterFlag);
+        [DllImport("psapi.dll", SetLastError = true)]
+        public static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, uint nSize);
+        [DllImport("psapi.dll")]
+        public static extern uint GetModuleBaseName(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, uint nSize);
+        [DllImport("psapi.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetModuleInformation(IntPtr hProcess, IntPtr hModule, out ModuleInfo lpmodinfo, uint cb);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemInfo lpBuffer, int dwLength);
     }
     public class Module64 {
         public IntPtr BaseAddress { get; set; }
@@ -259,21 +260,23 @@ namespace RandoMainDLL.Memory {
         }
     }
     public class MemorySearcher {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] buffer, uint size, int lpNumberOfBytesRead);
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MemInfo lpBuffer, int dwLength);
-
-        public List<MemInfo> memoryInfo;
+        private const int BUFFER_SIZE = 2097152;
+        private List<MemInfo> memoryInfo = new List<MemInfo>();
+        private byte[] buffer = new byte[BUFFER_SIZE];
         public Func<MemInfo, bool> MemoryFilter = delegate (MemInfo info) {
             return (info.State & 0x1000) != 0 && (info.Protect & 0x100) == 0;
         };
 
-        public byte[] ReadMemory(Process process, int index) {
+        public int ReadMemory(Process process, int index, int startIndex, out int bytesRead) {
             MemInfo info = memoryInfo[index];
-            byte[] buff = new byte[(uint)info.RegionSize];
-            ReadProcessMemory(process.Handle, info.BaseAddress, buff, (uint)info.RegionSize, 0);
-            return buff;
+            int returnIndex = -1;
+            int amountToRead = (int)((uint)info.RegionSize - (uint)startIndex);
+            if (amountToRead > BUFFER_SIZE) {
+                returnIndex = startIndex + BUFFER_SIZE;
+                amountToRead = BUFFER_SIZE;
+            }
+            WinAPI.ReadProcessMemory(process.Handle, info.BaseAddress + startIndex, buffer, amountToRead, out bytesRead);
+            return returnIndex;
         }
         public IntPtr FindSignature(Process process, string signature) {
             byte[] pattern;
@@ -282,15 +285,24 @@ namespace RandoMainDLL.Memory {
             GetMemoryInfo(process.Handle);
             int[] offsets = GetCharacterOffsets(pattern, mask);
 
-            for (int i = 0; i < memoryInfo.Count; i++) {
-                byte[] buff = ReadMemory(process, i);
-                MemInfo info = memoryInfo[i];
 
-                int result = ScanMemory(buff, pattern, mask, offsets);
-                if (result != int.MinValue) {
-                    return info.BaseAddress + result;
-                }
+            for (int i = 0; i < memoryInfo.Count; i++) {
+                MemInfo info = memoryInfo[i];
+                int index = 0;
+                do {
+                    int previousIndex = index;
+                    int bytesRead;
+                    index = ReadMemory(process, i, index, out bytesRead);
+
+                    int result = ScanMemory(buffer, bytesRead, pattern, mask, offsets);
+                    if (result != int.MinValue) {
+                        return info.BaseAddress + result + previousIndex;
+                    }
+
+                    if (index > 0) { index -= pattern.Length - 1; }
+                } while (index > 0);
             }
+
             return IntPtr.Zero;
         }
         public List<IntPtr> FindSignatures(Process process, string signature) {
@@ -302,21 +314,46 @@ namespace RandoMainDLL.Memory {
 
             List<IntPtr> pointers = new List<IntPtr>();
             for (int i = 0; i < memoryInfo.Count; i++) {
-                byte[] buff = ReadMemory(process, i);
                 MemInfo info = memoryInfo[i];
+                int index = 0;
+                do {
+                    int previousIndex = index;
+                    int bytesRead;
+                    index = ReadMemory(process, i, index, out bytesRead);
+                    info.BaseAddress += previousIndex;
+                    ScanMemory(pointers, info, buffer, bytesRead, pattern, mask, offsets);
+                    info.BaseAddress -= previousIndex;
 
-                ScanMemory(pointers, info, buff, pattern, mask, offsets);
+                    if (index > 0) { index -= pattern.Length - 1; }
+                } while (index > 0);
             }
             return pointers;
         }
-        public void GetMemoryInfo(IntPtr pHandle) {
-            if (memoryInfo != null) { return; }
+        public bool VerifySignature(Process process, IntPtr pointer, string signature) {
+            byte[] pattern;
+            bool[] mask;
+            GetSignature(signature, out pattern, out mask);
+            int[] offsets = GetCharacterOffsets(pattern, mask);
 
-            memoryInfo = new List<MemInfo>();
+            MemInfo memInfoStart = default(MemInfo);
+            MemInfo memInfoEnd = default(MemInfo);
+            if (WinAPI.VirtualQueryEx(process.Handle, pointer, out memInfoStart, Marshal.SizeOf(memInfoStart)) == 0 ||
+                WinAPI.VirtualQueryEx(process.Handle, pointer + pattern.Length, out memInfoEnd, Marshal.SizeOf(memInfoStart)) == 0 ||
+                memInfoStart.BaseAddress != memInfoEnd.BaseAddress || !MemoryFilter(memInfoStart)) {
+                return false;
+            }
+
+            byte[] buff = new byte[pattern.Length];
+            int bytesRead;
+            WinAPI.ReadProcessMemory(process.Handle, pointer, buff, buff.Length, out bytesRead);
+            return ScanMemory(buff, buff.Length, pattern, mask, offsets) == 0;
+        }
+        public void GetMemoryInfo(IntPtr pHandle) {
+            memoryInfo.Clear();
             IntPtr current = (IntPtr)65536;
             while (true) {
                 MemInfo memInfo = new MemInfo();
-                int dump = VirtualQueryEx(pHandle, current, out memInfo, Marshal.SizeOf(memInfo));
+                int dump = WinAPI.VirtualQueryEx(pHandle, current, out memInfo, Marshal.SizeOf(memInfo));
                 if (dump == 0) { break; }
 
                 long regionSize = (long)memInfo.RegionSize;
@@ -335,10 +372,10 @@ namespace RandoMainDLL.Memory {
                 current = memInfo.BaseAddress + (int)regionSize;
             }
         }
-        private int ScanMemory(byte[] data, byte[] search, bool[] mask, int[] offsets) {
+        private int ScanMemory(byte[] data, int dataLength, byte[] search, bool[] mask, int[] offsets) {
             int current = 0;
             int end = search.Length - 1;
-            while (current <= data.Length - search.Length) {
+            while (current <= dataLength - search.Length) {
                 for (int i = end; data[current + i] == search[i] || mask[i]; i--) {
                     if (i == 0) {
                         return current;
@@ -349,10 +386,10 @@ namespace RandoMainDLL.Memory {
             }
             return int.MinValue;
         }
-        private void ScanMemory(List<IntPtr> pointers, MemInfo info, byte[] data, byte[] search, bool[] mask, int[] offsets) {
+        private void ScanMemory(List<IntPtr> pointers, MemInfo info, byte[] data, int dataLength, byte[] search, bool[] mask, int[] offsets) {
             int current = 0;
             int end = search.Length - 1;
-            while (current <= data.Length - search.Length) {
+            while (current <= dataLength - search.Length) {
                 for (int i = end; data[current + i] == search[i] || mask[i]; i--) {
                     if (i == 0) {
                         pointers.Add(info.BaseAddress + current);

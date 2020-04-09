@@ -186,7 +186,7 @@ IniRead, SkipUpdate, %INI_FILE%, Flags, SkipUpdate, false
 IniRead, MuteInjectLogs, %INI_FILE%, Flags, MuteInjectLogs, false
 IniRead, MuteCSLogs, %INI_FILE%, Flags, MuteCSLogs, false
 IniRead, dev, %INI_FILE%, Flags, Dev, false
-IniRead, SteamPath, %INI_FILE%, Paths, Steam, E:\Program Files (x86)\Steam\Steam.exe
+IniRead, SteamPath, %INI_FILE%, Paths, Steam, C:\Program Files (x86)\Steam\steam.exe
 return
 
 WriteIniDefaults:
