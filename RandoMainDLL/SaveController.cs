@@ -64,7 +64,8 @@ namespace RandoMainDLL {
         [DllExport]
         public static void NewGame(int slot) {
             Randomizer.Log($"Creating new rando save in slot {slot}", false);
-            Randomizer.PerformNewGameInit = true;
+            SeedController.ReadSeed();
+            UberStateController.NeedsNewGameInit = true;
             CurrentSlot = slot;
             Data = new SaveData(slot);
             Data.Save();
@@ -73,6 +74,10 @@ namespace RandoMainDLL {
         public static void OnLoad(int slot) {
             try {
                 if (slot != CurrentSlot) {
+                    if (Randomizer.InputUnlockCallback != null) {
+                        AHK.Print("Warning: Callback overwritten on slot change!", 240);
+                        Randomizer.InputUnlockCallback = null;
+                    }
                     // slot swap
                     CurrentSlot = slot;
                     Data = new SaveData(slot);
@@ -91,6 +96,10 @@ namespace RandoMainDLL {
                 CurrentSlot = slot;
                 Data = new SaveData(slot);
                 Data.Load();
+                if(Randomizer.InputUnlockCallback != null) {
+                    AHK.Print("Warning: Callback overwritten on slot change!", 240);
+                    Randomizer.InputUnlockCallback = null;
+                }
                 return;
             }
             Data.Save();

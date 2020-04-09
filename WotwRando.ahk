@@ -183,19 +183,23 @@ ExitApp
 
 ReadIniVals:
 IniRead, SkipUpdate, %INI_FILE%, Flags, SkipUpdate, false
+IniRead, SteamPath, %INI_FILE%, Paths, Steam, C:\Program Files (x86)\Steam\steam.exe
+IniRead, Dev, %INI_FILE%, Flags, Dev, false
 IniRead, MuteInjectLogs, %INI_FILE%, Flags, MuteInjectLogs, false
 IniRead, MuteCSLogs, %INI_FILE%, Flags, MuteCSLogs, false
-IniRead, dev, %INI_FILE%, Flags, Dev, false
-IniRead, SteamPath, %INI_FILE%, Paths, Steam, C:\Program Files (x86)\Steam\steam.exe
+IniRead, ShowShortCutscenes, %INI_FILE%, Flags, ShowShortCutscenes, false
+IniRead, ShowLongCutscenes, %INI_FILE%, Flags, ShowLongCutscenes, false
 return
 
 WriteIniDefaults:
 gosub ReadIniVals ; populate the ini values to avoid overwriting
+IniWrite, %SkipUpdate%, %INI_FILE%, Flags, SkipUpdate
 IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
 IniWrite, %Dev%, %INI_FILE%, Flags, Dev
 IniWrite, %MuteInjectLogs%, %INI_FILE%, Flags, MuteInjectLogs
 IniWrite, %MuteCSLogs%, %INI_FILE%, Flags, MuteCSLogs
-IniWrite, %SkipUpdate%, %INI_FILE%, Flags, SkipUpdate
+IniWrite, %ShowShortCutscenes%, %INI_FILE%, Flags, ShowShortCutscenes
+IniWrite, %ShowLongCutscenes%, %INI_FILE%, Flags, ShowLongCutscenes
 return
 
 ExtractFiles:

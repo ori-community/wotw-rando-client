@@ -49,7 +49,7 @@ Inkwater Marsh, Ability, SpiritEdge, treesDontWorry, 0, SpiritEdge, 100, -296, -
 Inkwater Marsh, Ability, Regenerate, treesDontWorry, 0, Regenerate, 77, -539, -4406, Free
 Inkwater Marsh, Ability, DoubleJump, treesDontWorry, 0, DoubleJump, 5, -555, -4551, DoubleJump|Dash
 Inkwater Marsh, Ability, SpiritArc, treesDontWorry, 0, SpiritArc, 97, -457, -4267, DoubleJump|Dash
-Inkwater Marsh, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 120, -840, -4488, DoubleJump|Dash, Bash
+Inkwater Marsh, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 121, -840, -4488, DoubleJump|Dash, Bash
 Kwolok's Hollow, Resource, Energy, _petrifiedForestGroup, 58674, energyContainerA, 9583, 331, -4192, Bash, WaterDash, Water
 Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 23772, 46, -4237, DoubleJump|Dash, Bash
 Kwolok's Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfCell, 8518, -238, -4301, DoubleJump|Dash, Bow
