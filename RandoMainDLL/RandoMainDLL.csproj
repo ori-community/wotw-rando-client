@@ -83,7 +83,6 @@
     <Compile Include="Memory\MessageDescriptor.cs" />
     <Compile Include="SeedController.cs" />
     <Compile Include="Pickup.cs" />
-    <Compile Include="StateListener.cs" />
     <Compile Include="IL2Cpp\BinaryStream.cs" />
     <Compile Include="IL2Cpp\Il2CppClass.cs" />
     <Compile Include="IL2Cpp\Il2CppData.cs" />
@@ -109,6 +108,7 @@
     <Compile Include="Memory\Vector4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Randomizer.cs" />
+    <Compile Include="UberStateController.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DllExport">

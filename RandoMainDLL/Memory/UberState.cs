@@ -126,6 +126,21 @@ namespace RandoMainDLL.Memory {
                 return Type == UberStateType.SerializedByteUberState;
             }
         }
+        public string FmtVal() {
+            switch (Type) {
+                case UberStateType.SavePedestalUberState:
+                case UberStateType.SerializedBooleanUberState:
+                    return $"{Value.Bool}";
+                case UberStateType.SerializedByteUberState:
+                    return $"{Value.Byte}";
+                case UberStateType.SerializedIntUberState:
+                    return $"{Value.Int}";
+                case UberStateType.SerializedFloatUberState:
+                    return $"{Value.Float}";
+            }
+            return $"{Type}-{Value}";
+
+        }
         public override string ToString() {
             switch (Type) {
                 case UberStateType.SavePedestalUberState:
