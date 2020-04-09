@@ -694,7 +694,20 @@ INTERCEPT(17084160, MESSAGE_SIG , __int64, TranslatedMessageProvider_MessageItem
     return (__int64) result;
 })
 
+// GameController::get_InputLocked
+BINDING(0x499890, GET_BOOL_FUN, getInputLocked);
+// GameController::get_LockInput
+BINDING(0x4999F0, GET_BOOL_FUN, getLockInput);
+// GameControler::get_IsSuspended
+BINDING(0x499B40, GET_BOOL_FUN, getIsSuspended);
+// GameControler::get_SecondaryMapAndInventoryCanBeOpened
+BINDING(0x499400, GET_BOOL_FUN, getSecondaryMenusAccessable);
 //---------------------------------------------------Actual Functions------------------------------------------------
+bool playerCanMove(__int64 gcip) {
+    // TODO: figure out which of these are superflous
+    DEBUG("gIL: " << getInputLocked(gcip) << ", gLI: " << getLockInput(gcip) << ", gIS: " << getIsSuspended(gcip) << ", gSMA: " << getSecondaryMenusAccessable(gcip));
+    return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
+}
 
 void onFixedUpdate(__int64 thisPointer)
 {
@@ -705,9 +718,8 @@ void onFixedUpdate(__int64 thisPointer)
     try {
         int update = CSharpLib->call<int>("Update");
 
-        if (CSharpLib->call<bool>("CheckFlag", 0)) {
-            DEBUG("Checkpoint requested by c# code");
-            createCheckpoint((__int64)gameControllerInstancePointer);
+        if (CSharpLib->call<bool>("CheckFlag", 3) && playerCanMove((__int64)gameControllerInstancePointer)) {
+            CSharpLib->call<void>("OnInputUnlock");
         }
         if (lastSeinLevel != NULL && CSharpLib->call<bool>("CheckFlag", 1)) {
             DEBUG("Ore update required");
@@ -716,6 +728,10 @@ void onFixedUpdate(__int64 thisPointer)
         if (gameWorldInstance != NULL && CSharpLib->call<bool>("CheckFlag", 2)) {
             DEBUG("Map revealed");
             discoverEverything();
+        }
+        if (CSharpLib->call<bool>("CheckFlag", 0)) {
+            DEBUG("Checkpoint requested by c# code");
+            createCheckpoint((__int64)gameControllerInstancePointer);
         }
     }
     catch (int error)

@@ -48,13 +48,6 @@ namespace RandoMainDLL.Memory {
             GetPointer(program);
             program.Write(Pointer, value, offsets);
         }
-        public void ClearPointer() {
-            Pointer = IntPtr.Zero;
-            lastTry = DateTime.Now.AddSeconds(1);
-            for (int i = 0; i < Finders.Length; i++) {
-                Finders[i].Reset();
-            }
-        }
         public IntPtr GetPointer(Process program) {
             if (program == null) {
                 Pointer = IntPtr.Zero;
@@ -85,17 +78,9 @@ namespace RandoMainDLL.Memory {
         public static IntPtr DerefPointer(Process program, IntPtr pointer, AutoDeref autoDeref) {
             if (pointer != IntPtr.Zero) {
                 if (autoDeref != AutoDeref.None) {
-                    if (MemoryReader.is64Bit) {
-                        pointer = (IntPtr)program.Read<ulong>(pointer);
-                    } else {
-                        pointer = (IntPtr)program.Read<uint>(pointer);
-                    }
+                    pointer = program.Read<IntPtr>(pointer);
                     if (autoDeref == AutoDeref.Double) {
-                        if (MemoryReader.is64Bit) {
-                            pointer = (IntPtr)program.Read<ulong>(pointer);
-                        } else {
-                            pointer = (IntPtr)program.Read<uint>(pointer);
-                        }
+                        pointer = program.Read<IntPtr>(pointer);
                     }
                 }
             }
@@ -112,7 +97,6 @@ namespace RandoMainDLL.Memory {
     public interface IFindPointer {
         IntPtr FindPointer(Process program, string asmName);
         bool FoundBaseAddress();
-        void Reset();
         PointerVersion Version { get; }
     }
     public class FindIl2CppOffset {
@@ -120,14 +104,11 @@ namespace RandoMainDLL.Memory {
         private static Dictionary<string, int> offsets = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
         public static int GetOffset(Process program, string fullname) {
-            bool isInitialized = true;
-            if (FindIl2Cpp.Decompiler == null || lastPID != program.Id) {
+            if (lastPID != program.Id) {
                 lastPID = program.Id;
                 offsets.Clear();
-
-                isInitialized = FindIl2Cpp.InitializeIl2Cpp(program);
             }
-            if (!isInitialized) { return 0; }
+            if (FindIl2Cpp.Decompiler == null) { return 0; }
 
             int offset;
             if (offsets.TryGetValue(fullname, out offset)) {
@@ -140,8 +121,6 @@ namespace RandoMainDLL.Memory {
     }
     //Will only work for version 24.1 PE files. Structures need changed per version in the Il2Cpp files
     public class FindIl2Cpp : IFindPointer {
-        private static object SyncLock = new object();
-        private static int lastPID;
         public static Il2CppDecompiler Decompiler;
         public PointerVersion Version { get; private set; }
         private AutoDeref AutoDeref;
@@ -159,29 +138,22 @@ namespace RandoMainDLL.Memory {
             return BasePtr != IntPtr.Zero;
         }
         public static bool InitializeIl2Cpp(Process program) {
-            if (Decompiler == null || lastPID != program.Id) {
-                lock (SyncLock) {
-                    if (Decompiler != null && lastPID == program.Id) { return true; }
-                    lastPID = program.Id;
+            string programPath = Path.GetDirectoryName(program.MainModule.FileName);
+            string metaFile = Path.Combine(programPath, @"oriwotw_Data\il2cpp_data\Metadata\global-metadata.dat");
+            string ilFile = Path.Combine(programPath, @"GameAssembly.dll");
+            if (!File.Exists(metaFile) || !File.Exists(ilFile)) { return false; }
 
-                    string programPath = Path.GetDirectoryName(program.MainModule.FileName);
-                    string metaFile = Path.Combine(programPath, @"oriwotw_Data\il2cpp_data\Metadata\global-metadata.dat");
-                    string ilFile = Path.Combine(programPath, @"GameAssembly.dll");
-                    if (!File.Exists(metaFile) || !File.Exists(ilFile)) { return false; }
-
-                    byte[] metaDataBytes = File.ReadAllBytes(metaFile);
-                    byte[] il2CppBytes = File.ReadAllBytes(ilFile);
-                    Metadata metaData;
-                    Il2CppData il2Cpp;
-                    Il2CppReader.Init(il2CppBytes, metaDataBytes, out metaData, out il2Cpp);
-                    Il2CppExecutor executor = new Il2CppExecutor(metaData, il2Cpp);
-                    Decompiler = new Il2CppDecompiler(executor);
-                }
-            }
+            byte[] metaDataBytes = File.ReadAllBytes(metaFile);
+            byte[] il2CppBytes = File.ReadAllBytes(ilFile);
+            Metadata metaData;
+            Il2CppData il2Cpp;
+            Il2CppReader.Init(il2CppBytes, metaDataBytes, out metaData, out il2Cpp);
+            Il2CppExecutor executor = new Il2CppExecutor(metaData, il2Cpp);
+            Decompiler = new Il2CppDecompiler(executor);
             return true;
         }
         public IntPtr FindPointer(Process program, string asmName) {
-            if (!InitializeIl2Cpp(program)) { return IntPtr.Zero; }
+            if (Decompiler == null) { return IntPtr.Zero; }
             return ProgramPointer.DerefPointer(program, GetPointer(program, asmName), AutoDeref);
         }
         private IntPtr GetPointer(Process program, string asmName) {
@@ -201,24 +173,25 @@ namespace RandoMainDLL.Memory {
             }
             return BasePtr + offset;
         }
-        public void Reset() {
-            BasePtr = IntPtr.Zero;
-        }
     }
     public class FindPointerSignature : IFindPointer {
         private int lastPID;
         public PointerVersion Version { get; private set; }
         private AutoDeref AutoDeref;
         private string Signature;
-        private int Offset;
         private IntPtr BasePtr;
+        private MemorySearcher Searcher;
+        private DateTime LastVerified;
+        private int[] Relative;
 
-        public FindPointerSignature(PointerVersion version, AutoDeref autoDeref, string signature, int offset) {
+        public FindPointerSignature(PointerVersion version, AutoDeref autoDeref, string signature, params int[] relative) {
             Version = version;
             AutoDeref = autoDeref;
             Signature = signature;
-            Offset = offset;
             BasePtr = IntPtr.Zero;
+            Searcher = new MemorySearcher();
+            LastVerified = DateTime.MaxValue;
+            Relative = relative;
         }
 
         public bool FoundBaseAddress() {
@@ -234,17 +207,24 @@ namespace RandoMainDLL.Memory {
             }
 
             if (BasePtr != IntPtr.Zero) {
-                int offset = 0;
-                if (AutoDeref != AutoDeref.None) {
-                    offset = program.Read<int>(BasePtr + Offset) + 4;
+                DateTime now = DateTime.Now;
+                if (now > LastVerified) {
+                    bool isValid = Searcher.VerifySignature(program, BasePtr, Signature);
+                    LastVerified = now.AddSeconds(5);
+                    if (!isValid) {
+                        BasePtr = IntPtr.Zero;
+                    }
                 }
-                return BasePtr + Offset + offset;
+
+                if (BasePtr != IntPtr.Zero) {
+                    int offset = CalculateRelative(program);
+                    return BasePtr + offset;
+                }
             }
 
-            MemorySearcher Searcher = new MemorySearcher();
             if (string.IsNullOrEmpty(asmName)) {
                 Searcher.MemoryFilter = delegate (MemInfo info) {
-                    return (info.State & 0x1000) != 0 && (info.Protect & 0x20) != 0 && (info.Protect & 0x100) == 0;
+                    return (info.State & 0x1000) != 0 && (info.Protect & 0x40) != 0 && (info.Protect & 0x100) == 0;
                 };
             } else {
                 Tuple<IntPtr, IntPtr> range = ProgramPointer.GetAddressRange(program, asmName);
@@ -256,16 +236,22 @@ namespace RandoMainDLL.Memory {
             IntPtr ptr = Searcher.FindSignature(program, Signature);
             if (ptr != IntPtr.Zero) {
                 BasePtr = ptr;
-                int offset = 0;
-                if (AutoDeref != AutoDeref.None) {
-                    offset = program.Read<int>(BasePtr + Offset) + 4;
-                }
-                return BasePtr + Offset + offset;
+                LastVerified = DateTime.Now.AddSeconds(5);
+                int offset = CalculateRelative(program);
+                return BasePtr + offset;
             }
             return IntPtr.Zero;
         }
-        public void Reset() {
-            BasePtr = IntPtr.Zero;
+        private int CalculateRelative(Process program) {
+            int maxIndex = Relative.Length - 1;
+            if (Relative == null || maxIndex < 0) { return 0; }
+
+            int offset = 0;
+            for (int i = 0; i < maxIndex; i++) {
+                offset += Relative[i];
+                offset += program.Read<int>(BasePtr + offset) + 4;
+            }
+            return offset + Relative[maxIndex];
         }
     }
     public class FindOffset : IFindPointer {
@@ -294,14 +280,7 @@ namespace RandoMainDLL.Memory {
                 }
             }
 
-            if (MemoryReader.is64Bit) {
-                return (IntPtr)program.Read<ulong>(BasePtr, Offsets);
-            } else {
-                return (IntPtr)program.Read<uint>(BasePtr, Offsets);
-            }
-        }
-        public void Reset() {
-            BasePtr = IntPtr.Zero;
+            return program.Read<IntPtr>(BasePtr, Offsets);
         }
     }
 }
