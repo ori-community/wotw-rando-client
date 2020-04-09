@@ -46,7 +46,11 @@ namespace RandoMainDLL {
         public abstract void Grant();
     }
 
-    public class Teleporter : Pickup {
+    public abstract class Sellable : Pickup {
+        public abstract int DefaultCost();
+    }
+
+    public class Teleporter : Sellable {
         public override PickupType Type() { return PickupType.Teleporter; }
         public static Dictionary<TeleporterType, UberState> TeleporterStates = new Dictionary<TeleporterType, UberState>() {
             { TeleporterType.MidnightBurrows, UberStateDefaults.savePedestalMidnightBurrows },
@@ -75,10 +79,10 @@ namespace RandoMainDLL {
             { TeleporterType.BaursReach,  "Baur's Reach" },
             { TeleporterType.KwoloksHollow,  "Kwoloks Hollow" },
             { TeleporterType.Mouldwood,  "Mouldwood Depths" },
-            { TeleporterType.SilentWoodsA,  "Silent Woods (East)" },
-            { TeleporterType.SilentWoodsB,  "Silent Woods (West)" },
-            { TeleporterType.WindsweptWastesA,  "Windswept Wastes (East)" },
-            { TeleporterType.WindsweptWastesB,  "Windswept Wastes (West)" },
+            { TeleporterType.SilentWoodsA,  "Silent Woods (West)" },
+            { TeleporterType.SilentWoodsB,  "Silent Woods (East)" },
+            { TeleporterType.WindsweptWastesA,  "Windswept Wastes (West)" },
+            { TeleporterType.WindsweptWastesB,  "Windswept Wastes (East)" },
             { TeleporterType.WindtornRuinsA,  "Windtorn Ruins (Outer)" },
             { TeleporterType.WillowsEnd,  "Willows End" },
             { TeleporterType.LumaPoolsB,  "Luma Pools (West)" },
@@ -95,11 +99,17 @@ namespace RandoMainDLL {
         public override string ToString() {
             return $"Teleporter: {TeleporterNames[type]}";
         }
+        public override int DefaultCost() {
+            return 250;
+        }
     }
-    public class Ability : Pickup {
+    public class Ability : Sellable {
         public override PickupType Type() { return PickupType.Ability; }
         public AbilityType type;
-
+        public override int DefaultCost() {
+            if (type == AbilityType.Blaze) return 420; // :3
+            return 500;
+        }
         public Ability(AbilityType ability) {
             type = ability;
         }
@@ -110,7 +120,7 @@ namespace RandoMainDLL {
             return AbilityN.ame(type);
         }
     }
-    public class Shard : Pickup {
+    public class Shard : Sellable {
         public override PickupType Type() { return PickupType.Shard; }
         public ShardType type;
         public Shard(ShardType shard) {
@@ -118,6 +128,9 @@ namespace RandoMainDLL {
         }
         public override void Grant() {
             Randomizer.Memory.SetShard(type);
+        }
+        public override int DefaultCost() {
+            return 300;
         }
         public override string ToString() {
             return ShardN.ame(type);
@@ -134,18 +147,33 @@ namespace RandoMainDLL {
         public override void Grant() {
             Randomizer.Memory.Experience += amount;
         }
-        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Gallon", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks"};
+        private static List<String> MoneyNames = new List<String>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks"};
         public override string ToString() {
             return $"{amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
         }
     }
 
-    public class Resource : Pickup {
+    public class Resource : Sellable {
         public override PickupType Type() { return PickupType.Resource; }
         public ResourceType type;
 
         public Resource(ResourceType resource) {
             type = resource;
+        }
+        public override int DefaultCost() {
+            switch (type) {
+                case ResourceType.Health:
+                    return 200;
+                case ResourceType.Energy:
+                    return 150;
+                case ResourceType.Ore:
+                case ResourceType.Keystone:
+                    return 100;
+                case ResourceType.ShardSlot:
+                    return 400;
+                default:
+                    return 0;
+            }
         }
 
         public override void Grant() {

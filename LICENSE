@@ -2,6 +2,20 @@ MIT License
 
 Copyright (c) 2020 Eiko
 
+This project uses the following software, 
+also licensed under the MIT License:
+
+https://github.com/JamesNK/Newtonsoft.Json/
+Copyright (c) 2007 James Newton-King 
+
+https://github.com/3F/DllExport/
+Copyright (c) 2009-2015  Robert Giesecke
+Copyright (c) 2016-2020  Denis Kuzmin < x-3F@outlook.com > GitHub/3F
+
+https://github.com/microsoft/Detours/
+Copyright (c) Microsoft Corporation
+
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights

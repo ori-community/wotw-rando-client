@@ -16,6 +16,8 @@ trait Item {
 	def name: String
 	def code: String
 }
+trait Sellable extends Item
+
 trait SpiritLightItem extends Item {
 	val itemType: Int = 0
 	def amount: Int
@@ -25,7 +27,7 @@ trait SpiritLightItem extends Item {
 
 case class SpiritLight(amount: Int)  extends SpiritLightItem
 
-trait Resource extends Item  {
+trait Resource extends Item with Sellable  {
 	val itemType = 1
 	def resourceType: Int
 	def code = s"${itemType}|${resourceType}"
@@ -37,7 +39,7 @@ case class Ore(resourceType: Int = 2, name: String = "Gorlek Ore") extends Resou
 case class Keystone(resourceType: Int = 3, name: String = "Keystone") extends Resource
 case class ShardSlot(resourceType: Int = 4, name: String = "Shard Slot") extends Resource
 
-case class Skill(skillId: Int) extends Item {
+case class Skill(skillId: Int) extends Item with Sellable {
 	val itemType: Int = 2
 	def code = s"$itemType|${this.skillId}"
 	def name: String = Skill.names.getOrElse(this.skillId, s"Unknown skill ${this.skillId}")
@@ -70,7 +72,7 @@ object Skill { 	val names: Map[Int, String] = Map(
 	121 -> "DamageUpgrade2"
 )}
 
-case class Shard(shardId: Int) extends Item {
+case class Shard(shardId: Int) extends Item with Sellable {
 	val itemType: Int = 3
 	def code = s"$itemType|${this.shardId}"
 	def name: String = Shard.names.getOrElse(this.shardId, s"Unknown shard ${this.shardId}")
@@ -109,7 +111,7 @@ object Shard { 	val names: Map[Int, String] = Map(
 	47 -> "Arcing",
 ) }
 
-case class Teleporter(teleporterId: Int) extends Item {
+case class Teleporter(teleporterId: Int) extends Item with Sellable {
 	val itemType: Int = 5
 	def code = s"$itemType|${this.teleporterId}"
 	def name: String = Teleporter.names.getOrElse(this.teleporterId, s"Unknown shard ${this.teleporterId}")
@@ -140,7 +142,7 @@ class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
 
 	override def apply(item: Item) = this.getOrElse(item, 0)
 	def set(item: Item, count: Int) = this(item) = count
-	def asSeq = this.keys.flatMap(k => (0 until this(k)).map(_=>k)).toSeq
+	def asSeq = this.keys.toSeq.flatMap(k => (0 until this(k)).map(_=>k))
 	def count = this.foldLeft(0)(_ + _._2)
 	def has(item: Item, count: Int = 1) = this.getOrElse(item, 0) >= count
 	def take(item: Item, count: Int = 1) = {
@@ -156,6 +158,17 @@ class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
 			Some(i)
 		}
 		case _ => None
+	}
+	def popSellable(): Option[Sellable] = {
+			val sellables = this.asSeq.flatMap({
+				case i: Sellable => Some(i)
+				case _ => None
+			})
+			if(sellables.isEmpty)
+				return None
+			val i = sellables(Random.nextInt(sellables.size))
+			this.take(i)
+			Some(i)
 	}
 	def merge(other: Inv) = {
 		other.foreach({case (i: Item, count: Int) => this.set(i, Math.max(this(i), other(i)))})
@@ -283,11 +296,12 @@ object SeedGenerator extends App {
 		val pickupReg = """^([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*), (.*)""".r
 		val pickupsFile = Source.fromFile("pickups.csv")
 		val pickups = pickupsFile.getLines.flatMap {
+			case pickupReg(_, 				_, 			_, 			_, 		_, 			_, 	_, 	_, _,	"Unreachable") => None
 			case pickupReg(zone, category, value, uberGN, ugid, uberN, uid, x, y, reqs) =>
 				Some(ItemLocation(category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs))
-			case line: String => {
-				println(s"Couldn't parse line: $line"); None
-			}
+			case line: String =>
+				println(s"Couldn't parse line: $line")
+				None
 		}.toSeq
 		pickupsFile.close()
 		pickups.filter(loc => loc.category != "Quest" && loc.value != "ShardSlot")
@@ -332,7 +346,7 @@ object SeedGenerator extends App {
 		Skill.names.keys.foreach((s: Int) => itemPool(Skill(s)) = 1)
 
 		var locs = itemLocs
-		while(locs.size > itemPool.count) itemPool.add(SpiritLight(Random.between(50,250)))
+		while(locs.size > itemPool.count) itemPool.add(SpiritLight(Random.between(50, 150)))
 		val playerState = new Inv()
 		val dirPath = if(outputFolder != "") s"seeds/${outputFolder}" else "seeds"
 		val dir = new File(dirPath)
@@ -342,14 +356,17 @@ object SeedGenerator extends App {
 		val bw = new BufferedWriter(new FileWriter(file))
 		var balanceAreas = Seq[ItemLocation]()
 		var balanceItems = Seq[Item]()
+		var totalSpiritLight = 0
 
-		def assign(item: Item, loc: ItemLocation): Unit = {
-			item match {
+		def assign(item: Item, loc: ItemLocation): Unit = item match {
 				case _:Skill => assignNow(item, loc)
 				case _:Teleporter => assignNow(item, loc)
+				case SpiritLight(count) =>
+					totalSpiritLight += count
+					assignLater(item, loc)
 				case _  => assignLater(item, loc)
 			}
-		}
+
 		def assignLater(item: Item, loc: ItemLocation): Unit = {
 			balanceAreas = balanceAreas ++ Seq(loc)
 			balanceItems = balanceItems ++ Seq(item)
@@ -361,27 +378,68 @@ object SeedGenerator extends App {
 			bw.write(s"${loc.code}|${item.code}\n")
 		}
 
-		def randItem = itemPool.popRand().map({ a => playerState.add(a); a }).getOrElse(SpiritLight(Random.between(25, 225)))
+		def randItem = itemPool.popRand().map({ a => playerState.add(a); a }).getOrElse({
+			println("Had to pull extra spirit light")
+			SpiritLight(Random.between(50, 200))
+		})
+		def randShop = itemPool.popSellable().map({ a => playerState.add(a); a }).getOrElse({
+			val stolen = balanceItems.collectFirst({case i: Sellable => i})
+			stolen match {
+				case Some(s: Sellable) =>
+					balanceItems = balanceItems.filterNot(_ == s) ++ Seq(randItem)
+					if(balanceItems.size < balanceAreas.size)
+						balanceItems = balanceItems ++ (0 until balanceAreas.size - balanceItems.size).map(_ => s)
+					if(balanceItems.size != balanceAreas.size)
+						println(s"${file.getName}: balance mismatch!!! took $s from balanceItems (size ${balanceItems.size} vs BalanceAreas size: ${balanceAreas.size}")
+					s
+				case None =>
+					println(s"${file.getName}: Had to pull extra sellable! items: ${itemPool.filter({case (_, c: Int) => c > 0})} locs: $locs")
+					Health()
+			}
+		})
 		while (locs.nonEmpty) {
 			var reachables = locs.filter(_.reqs fulfilledBy playerState)
-			if (reachables.isEmpty)
+			if (reachables.isEmpty) {
+				println(s"${file.getName}: Empty reachable! items: ${itemPool.filter({case (_, c: Int) => c > 0})} locs: $locs")
+				bw.close()
+				file.delete()
 				return
+			}
 			if (reachables.size < 5 && reachables.size < locs.size) {
 				maybeRand(locs.map(_.reqs.meetWith(playerState)).filter(_.count < reachables.size)) match {
-					case Some(items) => items.foreach({ case (item: Item, count: Int) =>
-						playerState.add(item, count)
-						itemPool.take(item, count)
-						val loc = maybeRand(reachables).get
-						locs = locs.filterNot(_ == loc)
-						reachables = reachables.filterNot(_ == loc)
-						assign(item, loc)
+					case Some(items) => items.foreach({
+						case (item: Sellable, 1) if reachables.exists((i: ItemLocation) => i.category == "Shop") =>
+								val loc = maybeRand(reachables.filter(_.category == "Shop")).get
+								playerState.add(item, 1)
+								itemPool.take(item, 1)
+								locs = locs.filterNot(_ == loc)
+								reachables = reachables.filterNot(_ == loc)
+								assign(item, loc)
+						case (item, 1) if reachables.exists((i: ItemLocation) => i.category != "Shop") =>
+								playerState.add(item, 1)
+								itemPool.take(item, 1)
+								val loc = maybeRand(reachables.filter(_.category != "Shop")).get
+								locs = locs.filterNot(_ == loc)
+								reachables = reachables.filterNot(_ == loc)
+								assign(item, loc)
+						case (i: Item, 1) =>
+							println(s"${file.getName()}: $i couldn't be placed in  ${reachables.map(_.category)}, deleting...")
+							bw.close()
+							file.delete()
+							return
+
+						case (_: Item, 0) =>
 					})
-					case None => {
+					case None =>
 						println(s"Aaaa: ${locs.map(_.reqs.meetWith(playerState))}")
-					}
 				}
 			}
 			maybeRand(reachables) match {
+				case Some(loc: ItemLocation) if loc.category == "Shop" =>
+					locs = locs.filterNot(_ == loc)
+					reachables = reachables.filterNot(_ == loc)
+
+					assignNow(randShop, loc)
 				case Some(loc: ItemLocation) => {
 					locs = locs.filterNot(_ == loc)
 					reachables = reachables.filterNot(_ == loc)
@@ -390,6 +448,9 @@ object SeedGenerator extends App {
 			}
 		}
 		itsLater
+		if(outputFolder.isBlank) {
+			println(totalSpiritLight)
+		}
 		bw.close()
 	}
 }

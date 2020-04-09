@@ -10,50 +10,17 @@ namespace RandoMainDLL.Memory {
         public static void Update64Bit(Process program) {
             is64Bit = program.Is64Bit();
         }
-        public static T Read<T>(this Process targetProcess, IntPtr address, params int[] offsets) where T : struct {
+        public static T Read<T>(this Process targetProcess, IntPtr address, params int[] offsets) where T : unmanaged {
             if (targetProcess == null || address == IntPtr.Zero) { return default(T); }
 
             int last = OffsetAddress(targetProcess, ref address, offsets);
             if (address == IntPtr.Zero) { return default(T); }
 
-            Type type = typeof(T);
-            type = (type.IsEnum ? Enum.GetUnderlyingType(type) : type);
-
-            int count = (type == typeof(bool)) ? 1 : Marshal.SizeOf(type);
-            byte[] buffer = Read(targetProcess, address + last, count);
-
-            object obj = ResolveToType(buffer, type);
-            return (T)((object)obj);
-        }
-        private static object ResolveToType(byte[] bytes, Type type) {
-            if (type == typeof(int)) {
-                return BitConverter.ToInt32(bytes, 0);
-            } else if (type == typeof(uint)) {
-                return BitConverter.ToUInt32(bytes, 0);
-            } else if (type == typeof(float)) {
-                return BitConverter.ToSingle(bytes, 0);
-            } else if (type == typeof(double)) {
-                return BitConverter.ToDouble(bytes, 0);
-            } else if (type == typeof(byte)) {
-                return bytes[0];
-            } else if (type == typeof(sbyte)) {
-                return (sbyte)bytes[0];
-            } else if (type == typeof(bool)) {
-                return bytes != null && bytes[0] > 0;
-            } else if (type == typeof(short)) {
-                return BitConverter.ToInt16(bytes, 0);
-            } else if (type == typeof(ushort)) {
-                return BitConverter.ToUInt16(bytes, 0);
-            } else if (type == typeof(long)) {
-                return BitConverter.ToInt64(bytes, 0);
-            } else if (type == typeof(ulong)) {
-                return BitConverter.ToUInt64(bytes, 0);
-            } else {
-                GCHandle gCHandle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
-                try {
-                    return Marshal.PtrToStructure(gCHandle.AddrOfPinnedObject(), type);
-                } finally {
-                    gCHandle.Free();
+            unsafe {
+                int size = sizeof(T);
+                byte[] buffer = Read(targetProcess, address + last, size);
+                fixed (byte* ptr = buffer) {
+                    return *(T*)ptr;
                 }
             }
         }
@@ -76,7 +43,11 @@ namespace RandoMainDLL.Memory {
             WinAPI.ReadProcessMemory(targetProcess.Handle, address + last, buffer, numBytes, out bytesRead);
             return buffer;
         }
+
+        public static byte[] stringHeader;
         public static string ReadString(this Process targetProcess, IntPtr address) {
+            if (stringHeader == null)
+                stringHeader = Read(targetProcess, address, 16);
             if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
 
             int length = Read<int>(targetProcess, address, 0x10);
@@ -131,37 +102,19 @@ namespace RandoMainDLL.Memory {
 
             return ReadAscii(targetProcess, address + last);
         }
-        public static void Write<T>(this Process targetProcess, IntPtr address, T value, params int[] offsets) where T : struct {
+        public static void Write<T>(this Process targetProcess, IntPtr address, T value, params int[] offsets) where T : unmanaged {
             if (targetProcess == null) { return; }
 
             int last = OffsetAddress(targetProcess, ref address, offsets);
             if (address == IntPtr.Zero) { return; }
 
-            byte[] buffer = null;
-            if (typeof(T) == typeof(bool)) {
-                buffer = BitConverter.GetBytes(Convert.ToBoolean(value));
-            } else if (typeof(T) == typeof(byte)) {
-                buffer = BitConverter.GetBytes(Convert.ToByte(value));
-            } else if (typeof(T) == typeof(sbyte)) {
-                buffer = BitConverter.GetBytes(Convert.ToSByte(value));
-            } else if (typeof(T) == typeof(int)) {
-                buffer = BitConverter.GetBytes(Convert.ToInt32(value));
-            } else if (typeof(T) == typeof(uint)) {
-                buffer = BitConverter.GetBytes(Convert.ToUInt32(value));
-            } else if (typeof(T) == typeof(short)) {
-                buffer = BitConverter.GetBytes(Convert.ToInt16(value));
-            } else if (typeof(T) == typeof(ushort)) {
-                buffer = BitConverter.GetBytes(Convert.ToUInt16(value));
-            } else if (typeof(T) == typeof(long)) {
-                buffer = BitConverter.GetBytes(Convert.ToInt64(value));
-            } else if (typeof(T) == typeof(ulong)) {
-                buffer = BitConverter.GetBytes(Convert.ToUInt64(value));
-            } else if (typeof(T) == typeof(float)) {
-                buffer = BitConverter.GetBytes(Convert.ToSingle(value));
-            } else if (typeof(T) == typeof(double)) {
-                buffer = BitConverter.GetBytes(Convert.ToDouble(value));
+            byte[] buffer;
+            unsafe {
+                buffer = new byte[sizeof(T)];
+                fixed (byte* bufferPtr = buffer) {
+                    Buffer.MemoryCopy(&value, bufferPtr, sizeof(T), sizeof(T));
+                }
             }
-
             int bytesWritten;
             WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, buffer, buffer.Length, out bytesWritten);
         }
@@ -198,49 +151,62 @@ namespace RandoMainDLL.Memory {
             Module64[] modules = p.Modules64();
             return modules == null || modules.Length == 0 ? null : modules[0];
         }
-
+        public static Module64 Module64(this Process p, string moduleName) {
+            Module64[] modules = p.Modules64();
+            if (modules != null) {
+                for (int i = 0; i < modules.Length; i++) {
+                    Module64 module = modules[i];
+                    if (module.Name.Equals(moduleName, StringComparison.OrdinalIgnoreCase)) {
+                        return module;
+                    }
+                }
+            }
+            return null;
+        }
         public static Module64[] Modules64(this Process p) {
-            if (ModuleCache.Count > 100) { ModuleCache.Clear(); }
+            lock (ModuleCache) {
+                if (ModuleCache.Count > 100) { ModuleCache.Clear(); }
 
-            IntPtr[] buffer = new IntPtr[1024];
-            uint cb = (uint)(IntPtr.Size * buffer.Length);
-            uint totalModules;
-            if (!WinAPI.EnumProcessModulesEx(p.Handle, buffer, cb, out totalModules, 3u)) {
-                return null;
-            }
-            uint moduleSize = totalModules / (uint)IntPtr.Size;
-            int key = p.StartTime.GetHashCode() + p.Id + (int)moduleSize;
-            if (ModuleCache.ContainsKey(key)) { return ModuleCache[key]; }
+                IntPtr[] buffer = new IntPtr[1024];
+                uint cb = (uint)(IntPtr.Size * buffer.Length);
+                uint totalModules;
+                if (!WinAPI.EnumProcessModulesEx(p.Handle, buffer, cb, out totalModules, 3u)) {
+                    return null;
+                }
+                uint moduleSize = totalModules / (uint)IntPtr.Size;
+                int key = p.StartTime.GetHashCode() + p.Id + (int)moduleSize;
+                if (ModuleCache.ContainsKey(key)) { return ModuleCache[key]; }
 
-            List<Module64> list = new List<Module64>();
-            StringBuilder stringBuilder = new StringBuilder(260);
-            int count = 0;
-            while ((long)count < (long)((ulong)moduleSize)) {
-                stringBuilder.Clear();
-                if (WinAPI.GetModuleFileNameEx(p.Handle, buffer[count], stringBuilder, (uint)stringBuilder.Capacity) == 0u) {
-                    return list.ToArray();
+                List<Module64> list = new List<Module64>();
+                StringBuilder stringBuilder = new StringBuilder(260);
+                int count = 0;
+                while ((long)count < (long)((ulong)moduleSize)) {
+                    stringBuilder.Clear();
+                    if (WinAPI.GetModuleFileNameEx(p.Handle, buffer[count], stringBuilder, (uint)stringBuilder.Capacity) == 0u) {
+                        return list.ToArray();
+                    }
+                    string fileName = stringBuilder.ToString();
+                    stringBuilder.Clear();
+                    if (WinAPI.GetModuleBaseName(p.Handle, buffer[count], stringBuilder, (uint)stringBuilder.Capacity) == 0u) {
+                        return list.ToArray();
+                    }
+                    string moduleName = stringBuilder.ToString();
+                    ModuleInfo modInfo = default(ModuleInfo);
+                    if (!WinAPI.GetModuleInformation(p.Handle, buffer[count], out modInfo, (uint)Marshal.SizeOf(modInfo))) {
+                        return list.ToArray();
+                    }
+                    list.Add(new Module64 {
+                        FileName = fileName,
+                        BaseAddress = modInfo.BaseAddress,
+                        MemorySize = (int)modInfo.ModuleSize,
+                        EntryPointAddress = modInfo.EntryPoint,
+                        Name = moduleName
+                    });
+                    count++;
                 }
-                string fileName = stringBuilder.ToString();
-                stringBuilder.Clear();
-                if (WinAPI.GetModuleBaseName(p.Handle, buffer[count], stringBuilder, (uint)stringBuilder.Capacity) == 0u) {
-                    return list.ToArray();
-                }
-                string moduleName = stringBuilder.ToString();
-                ModuleInfo modInfo = default(ModuleInfo);
-                if (!WinAPI.GetModuleInformation(p.Handle, buffer[count], out modInfo, (uint)Marshal.SizeOf(modInfo))) {
-                    return list.ToArray();
-                }
-                list.Add(new Module64 {
-                    FileName = fileName,
-                    BaseAddress = modInfo.BaseAddress,
-                    MemorySize = (int)modInfo.ModuleSize,
-                    EntryPointAddress = modInfo.EntryPoint,
-                    Name = moduleName
-                });
-                count++;
+                ModuleCache.Add(key, list.ToArray());
+                return list.ToArray();
             }
-            ModuleCache.Add(key, list.ToArray());
-            return list.ToArray();
         }
         private static class WinAPI {
             [DllImport("kernel32.dll", SetLastError = true)]
