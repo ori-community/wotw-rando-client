@@ -97,6 +97,7 @@ Baur's Reach, Resource, Ore, baursReachGroup, 28895, orePlaceholder, 47529, -346
 Baur's Reach, Shard, Catalyst, pickupsGroup, 23987, hollowEnergyShardPickup, 897, -90, -4097, Flap, DoubleJump, Bash, Grenade, Glide, Water
 Baur's Reach, Shard, Fracture, pickupsGroup, 23987, fractureShardPickup, 36359, -81, -4001, Flap, DoubleJump, Bash, Grenade, Glide, Water
 Baur's Reach, Shard, Lifeforce, pickupsGroup, 23987, untouchableShardPickup, 19630, -400, -3861, Flap, DoubleJump, Bash, Dash, Burrow
+Baur's Reach, SpiritLight, 200, baursReachGroup, 28895, xpOrbB, 46404, 71, -3731, Flap, DoubleJump, Bash, Grenade, Glide
 Baur's Reach, SpiritLight, 200, baursReachGroup, 28895, largeExpOrb, 2129, -172, -3928, Flap, DoubleJump, Bash, Water, Grenade
 Baur's Reach, SpiritLight, 200, baursReachGroup, 28895, largeXPOrbA, 45337, -500, -3970, Flap, DoubleJump, Bash, Grapple, Grenade
 Baur's Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbB, 38049, -282, -4013, Flap, DoubleJump, Bash
@@ -185,34 +186,34 @@ Mouldwood Depths, SpiritLight, 200, mouldwoodDepthsGroup, 18793, XPOrbA, 18395, 
 Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGroup, 18793, xpOrbC, 15396, 146, -4375, Glide, DoubleJump, Bash
 Mouldwood Depths, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapMouldwoodDepths, 48423, 682,-4576, Bash, Grapple, DoubleJump, Glide
 Mouldwood Depths, Ability, Flash, treesDontWorry, 0, Flash, 62, 776, -4541, Glide, DoubleJump, Grapple, Bow, Bash
-Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneA, 42531, 886, -4123, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneB, 19769, 908, -4120, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneC, 11736, 641, -4166, Water, Grapple, Dash, DoubleJump
-Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneC, 43033, 956, -4148, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneD, 40073, 690, -4189, Water, Grapple, Dash, DoubleJump
-Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneD, 780, 929, -4185, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 20713, 1011, -4070, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 26274, 988, -4172, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 28710, 411, -4174, Water, Grapple, Dash, DoubleJump, Dash, Glide
-Silent Woods, Resource, Ore, corruptedPeakGroup, 36153, gorlekOreA, 3013, 1305, -3732, Water, Grapple, Dash, DoubleJump, Burrow, Launch
-Silent Woods, Resource, ShardSlot, _petrifiedForestGroup, 58674, enemyRoom, 56043, 1361, -4064, Water, Grapple, Dash, DoubleJump, Bow, Glide, Regenerate
-Silent Woods, Shard, Overflow, pickupsGroup, 23987, recycleShardPickup, 25183, 827, -3939, Water, Grapple, Dash, DoubleJump, Bow, Glide, Bash, Burrow
-Silent Woods, SpiritLight, 200, corruptedPeakGroup, 36153, expOrb, 36521, 1382, -3767, Water, Grapple, Dash, DoubleJump, Burrow, Launch
-Silent Woods, SpiritLight, 200, corruptedPeakGroup, 36153, xpOrbB, 12077, 1331, -3798, Water, Grapple, Dash, DoubleJump, Burrow, Launch
-Silent Woods, SpiritLight, 200, _petrifiedForestGroup, 58674, expOrb, 64484, 1464, -4008, Water, Grapple, Dash, DoubleJump, Bow, Glide, Burrow
-Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbA, 32647, 1406, -4065, Water, Grapple, Dash, DoubleJump, Bow, Glide
-Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbA, 64057, 968, -4124, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbC, 30908, 968, -4142, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbD, 59714, 1069, -4099, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, mediumPickupC, 54516, 936, -4044, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, CollecitbleXPB, 59691, 628, -4156, Water, Grapple, Dash, DoubleJump
-Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, CollectibleXpA, 8487, 514, -4185, Water, Grapple, Dash
-Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, expOrbA, 23186, 941, -4185, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, expOrbC, 42158, 948, -4210, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, expOrbD, 33893, 951, -4168, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, smallPickupA, 17974, 904, -4075, Water, Grapple, Dash, DoubleJump, Bow
-Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, xpOrbA, 22472, 485, -4165, Water, Grapple, Dash, DoubleJump, Flap
-Silent Woods, Ability, Launch, treesDontWorry, 0, Launch, 8, 1363, -3815, DoubleJump|Dash, Glide, Grapple, Burrow, Wisps
+Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneA, 42531, 886, -4123, Glide, Flap
+Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneB, 19769, 908, -4120, Glide, Flap
+Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneC, 11736, 641, -4166, DoubleJump
+Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneC, 43033, 956, -4148, Glide, Flap
+Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneD, 40073, 690, -4189, DoubleJump|Dash|Glide
+Silent Woods, Keystone, Keystone, _petrifiedForestGroup, 58674, keyStoneD, 780, 929, -4185, Glide, Flap
+Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 20713, 1011, -4070, Glide, Flap
+Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 26274, 988, -4172, Glide, Flap
+Silent Woods, Resource, Ore, _petrifiedForestGroup, 58674, gorlekOreA, 28710, 411, -4174, DoubleJump|Dash, Glide
+Silent Woods, Resource, Ore, corruptedPeakGroup, 36153, gorlekOreA, 3013, 1305, -3732, Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+Silent Woods, Resource, ShardSlot, _petrifiedForestGroup, 58674, enemyRoom, 56043, 1361, -4064, Glide, Flap, DoubleJump, Regenerate
+Silent Woods, Shard, Overflow, pickupsGroup, 23987, recycleShardPickup, 25183, 827, -3939, Glide, Flap, DoubleJump, Bash, Grapple, Burrow
+Silent Woods, SpiritLight, 200, corruptedPeakGroup, 36153, expOrb, 36521, 1382, -3767, Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+Silent Woods, SpiritLight, 200, corruptedPeakGroup, 36153, xpOrbB, 12077, 1331, -3798, Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+Silent Woods, SpiritLight, 200, _petrifiedForestGroup, 58674, expOrb, 64484, 1464, -4008, Glide, Flap, DoubleJump, Grapple, Burrow
+Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbA, 32647, 1406, -4065, Glide, Flap, DoubleJump
+Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbA, 64057, 968, -4124, Glide, Flap, Bash
+Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbC, 30908, 968, -4142, Glide, Flap
+Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbD, 59714, 1069, -4099, Glide, Flap
+Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, mediumPickupC, 54516, 936, -4044, Glide, Flap, DoubleJump
+Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, CollecitbleXPB, 59691, 628, -4156, Free
+Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, CollectibleXpA, 8487, 514, -4185, DoubleJump|Dash|Glide
+Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, expOrbA, 23186, 941, -4185, Glide, Flap, DoubleJump|Dash
+Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, expOrbC, 42158, 948, -4210, Glide, Flap
+Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, expOrbD, 33893, 951, -4168, Glide, Flap
+Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, smallPickupA, 17974, 904, -4075, Glide, Flap
+Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, xpOrbA, 22472, 485, -4165, Flap
+Silent Woods, Ability, Launch, treesDontWorry, 0, Launch, 8, 1363, -3815, Glide, Flap, DoubleJump, Grapple, Burrow, Wisps
 The Wellspring, Quest, Needle, wellspringGroupDescriptor, 53632, questItemCompass, 41227, -1186, -3697, DoubleJump, Bash, Grapple, Dash
 The Wellspring, Quest, Seed, questUberStateGroup, 14019, gardenerSeedGrappleCollected, 24142, -1185, -3669, DoubleJump, Bash, Grapple, Dash
 The Wellspring, Resource, Energy, waterMillStateGroupDescriptor, 37858, energyVessel, 57552, -1109, -3865, DoubleJump, Bash, Dash, Grapple
