@@ -243,7 +243,7 @@ object AreaReq {
 				case "Luma Pools" => Water and Glide
 				case "Baur's Reach" => Voice and Glide and Flap
 				case "Windtorn Ruins" => Heart
-				case "Opher" => WellspringTP or (DoubleJump and Bash and Dash and Grapple)
+				case "Opher" => DoubleJump and Dash and (WellspringTP or (Bash and Grapple))
 				case s => {println(s"Where's ${s}") ; Free  }
 		}
 }
