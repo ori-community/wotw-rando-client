@@ -42,7 +42,7 @@ case class ShardSlot(resourceType: Int = 4, name: String = "Shard Slot") extends
 case class Skill(skillId: Int) extends Item with Sellable {
 	val itemType: Int = 2
 	def code = s"$itemType|${this.skillId}"
-	def name: String = Skill.names.getOrElse(this.skillId, s"Unknown skill ${this.skillId}")
+	def name: String = s"Skill ${Skill.names.getOrElse(this.skillId, s"Unknown (${this.skillId})")}"
 }
 object Skill { 	val names: Map[Int, String] = Map(
 	0 -> "Bash",
@@ -75,7 +75,7 @@ object Skill { 	val names: Map[Int, String] = Map(
 case class Shard(shardId: Int) extends Item with Sellable {
 	val itemType: Int = 3
 	def code = s"$itemType|${this.shardId}"
-	def name: String = Shard.names.getOrElse(this.shardId, s"Unknown shard ${this.shardId}")
+	def name: String = s"Shard ${Shard.names.getOrElse(this.shardId, s"Unknown (${this.shardId})")}"
 }
 object Shard { 	val names: Map[Int, String] = Map(
 	1 -> "Overcharge",
@@ -114,7 +114,7 @@ object Shard { 	val names: Map[Int, String] = Map(
 case class Teleporter(teleporterId: Int) extends Item with Sellable {
 	val itemType: Int = 5
 	def code = s"$itemType|${this.teleporterId}"
-	def name: String = Teleporter.names.getOrElse(this.teleporterId, s"Unknown shard ${this.teleporterId}")
+	def name: String = s"Teleporter ${Teleporter.names.getOrElse(this.teleporterId, s"Unknown (${this.teleporterId})")}"
 }
 object Teleporter { 	val names: Map[Int, String] = Map(
 	0 -> "Midnight Burrows",
@@ -178,6 +178,8 @@ class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
 trait Requirement {
 	def fulfilledBy(inv: Inv): Boolean
 	def meetWith(inv: Inv): Inv
+	def and(that: Requirement): Requirement = All(this, that)
+	def or(that: Requirement): Requirement = Any(this, that)
 }
 
 case object Free extends Requirement { def fulfilledBy(inv: Inv) = true; def meetWith(inv: Inv) = new Inv()}
@@ -210,24 +212,6 @@ case class TeleReq(teleCode: Int) extends Requirement {
 	def meetWith(inv: Inv): Inv = if(inv has Teleporter(teleCode)) new Inv() else new Inv(Teleporter(teleCode) -> 1)
 	def fulfilledBy(inv: Inv): Boolean = inv has Teleporter(teleCode)
 }
-
-object AreaReq {
-	def apply(areaName: String): Requirement = areaName match {
-				case "Inkwater Marsh" => Free
-				case "Kwolok's Hollow" => Any(All(Any(DoubleJump, Dash), Bow), KwoloksTP)
-				case "Wellspring Glades" => Any(All(WellspringTP, DoubleJump, Dash), Voice)
-				case "Windswept Wastes" => Any(WindsweptEastTP, All(Water, Bow, Glide))
-				case "The Wellspring" => Any(WellspringTP, Voice)
-				case "Willow's End" => Any(WillowsEndTP, All(Launch, Heart))
-				case "Silent Woods" => Any(SilentWoodsTP, Water)
-				case "Mouldwood Depths" => All(Voice, Glide)
-				case "Midnight Burrows" => Any(All(DoubleJump, Dash, Bash), BurrowsTP)
-				case "Luma Pools" => All(Water, Glide)
-				case "Baur's Reach" => All(Voice, Glide, Flap)
-				case "Windtorn Ruins" => Heart
-				case s => {println(s"Where's ${s}") ; Free  }
-		}
-}
 object WellspringTP extends TeleReq(3)
 //object LumaEastTP extends TeleReq(2)
 object KwoloksTP extends TeleReq(5)
@@ -237,13 +221,32 @@ object SilentWoodsTP extends TeleReq(7)
 object WindsweptEastTP extends TeleReq(9)
 object MouldwoodTP extends TeleReq(6)
 object BurrowsTP extends TeleReq(0)
-object Water extends All(Grapple, Voice)
 
-object Voice extends All(DoubleJump, Bash, Dash, Any(KwoloksTP, Bow))
+object Voice extends All(Bash, Dash, DoubleJump or KwoloksTP)
 object Memory extends All(Voice, Glide, Grenade)
 object Strength extends All(Voice, Glide, WaterDash)
 object Eyes extends All(Voice, Glide, Flash)
 object Heart extends All(Memory, Strength, Eyes, Burrow)
+object Water extends All(Grapple, Voice)
+
+object AreaReq {
+	def apply(areaName: String): Requirement = areaName match {
+				case "Inkwater Marsh" => Free
+				case "Kwolok's Hollow" => KwoloksTP or (Bow and (DoubleJump or Dash))
+				case "Wellspring Glades" => DoubleJump and Dash and (WellspringTP or Bash)
+				case "Windswept Wastes" => WindsweptEastTP or (Water and Bow and Glide)
+				case "The Wellspring" => WellspringTP or Voice
+				case "Willow's End" => WillowsEndTP or (Launch and Heart)
+				case "Silent Woods" => SilentWoodsTP or Water
+				case "Mouldwood Depths" => Voice and Glide
+				case "Midnight Burrows" => BurrowsTP or (DoubleJump and Dash and Bash)
+				case "Luma Pools" => Water and Glide
+				case "Baur's Reach" => Voice and Glide and Flap
+				case "Windtorn Ruins" => Heart
+				case "Opher" => DoubleJump and Dash and (WellspringTP or (Bash and Grapple))
+				case s => {println(s"Where's ${s}") ; Free  }
+		}
+}
 
 case class Any(reqs: Requirement*) extends Requirement {
 	def fulfilledBy(inv: Inv): Boolean = reqs.exists(_.fulfilledBy(inv))
@@ -261,11 +264,11 @@ object SeedGenerator extends App {
 	def ReqParse(req: String): Requirement = req match {
 		case "DoubleJump" => DoubleJump
 		case "Bow" => Bow
-		case "Flap" => All(Flap, Glide)
+		case "Flap" => Flap and Glide
 		case "Grapple" => Grapple
 		case "Glide" => Glide
 		case "Launch" => Launch
-		case "Burrow" => All(Burrow, Dash)
+		case "Burrow" => Burrow and Dash
 		case "Dash" => Dash
 		case "Smash" => Smash
 		case "Grenade" => Grenade
@@ -288,6 +291,12 @@ object SeedGenerator extends App {
 	case class ItemLocation(category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: Int, x: Int, y: Int, rawReqs: String) {
 		val reqs = All(All(rawReqs.split(",").map(s => ReqParse(s.trim)): _*), AreaReq(zone))
 		val code = s"$uberGroupId|$uberId"
+		def info: String = uberGroupId match {
+			case 0 => s"$uberName Tree (${x},${y}) ${zone}"
+			case 1 => s"$uberName Shop (Opher)"
+			case 2 => s" $uberName Shop (Twillen)"
+			case _ => s"${uberName}[${uberId}] at (${x},${y}) ${zone}"
+		}
 	}
 
 	def maybeRand[T](source: Seq[T]) = if(source.size == 0) None else Some(source(Random.nextInt(source.size)))
@@ -373,9 +382,15 @@ object SeedGenerator extends App {
 		}
 		def itsLater = for { (item, area) <- Random.shuffle(balanceItems) zip Random.shuffle(balanceAreas) } assignNow(item, area)
 
+		def write(item: Item, loc: ItemLocation): Unit = {
+			val data = s"${loc.code}|${item.code}"
+			val padding = " " * (20 - data.size)
+			bw.write(s"$data$padding// ${item.name} from ${loc.info} \n")
+		}
+
 		def assignNow(item: Item, loc: SeedGenerator.ItemLocation): Unit = {
 			incAreas(item, loc)
-			bw.write(s"${loc.code}|${item.code}\n")
+			write(item, loc)
 		}
 
 		def randItem = itemPool.popRand().map({ a => playerState.add(a); a }).getOrElse({
