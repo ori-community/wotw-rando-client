@@ -9,9 +9,8 @@ namespace RandoMainDLL {
     public static string LogFile = @"C:\moon\cs_log.txt";
     public static string SaveFolder = @"C:\moon\saves";
     public static string VersionFile = @"C:\moon\VERSION";
-    public static string VERSION {
-      get { return File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0"; }
-    }
+    public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
+    private static string _version;
     public static MemoryManager Memory;
 
     [DllExport]

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RandoMainDLL.Memory {
   public static class MemoryReader {
-    private static Dictionary<int, Module64[]> ModuleCache = new Dictionary<int, Module64[]>();
+    private static readonly Dictionary<int, Module64[]> ModuleCache = new Dictionary<int, Module64[]>();
     public static bool is64Bit;
     public static byte[] stringHeader;
 
@@ -273,8 +273,8 @@ namespace RandoMainDLL.Memory {
 
   public class MemorySearcher {
     private const int BUFFER_SIZE = 2097152;
-    private List<MemInfo> memoryInfo = new List<MemInfo>();
-    private byte[] buffer = new byte[BUFFER_SIZE];
+    private readonly List<MemInfo> memoryInfo = new List<MemInfo>();
+    private readonly byte[] buffer = new byte[BUFFER_SIZE];
     public Func<MemInfo, bool> MemoryFilter = delegate (MemInfo info) {
       return (info.State & 0x1000) != 0 && (info.Protect & 0x100) == 0;
     };

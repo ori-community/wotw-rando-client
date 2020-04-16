@@ -8,52 +8,52 @@ namespace RandoMainDLL.Memory {
       LastHooked = DateTime.MinValue;
     }
 
-    private static ProgramPointer Characters = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer Characters = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.Characters.SetCurrentCharacter", 0x15c),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B80B80000004C8B40084D85C0743D488B15????????B90C000000E8????????488BF84885DB743C488B4B304885C9742D33D2E8????????4885C0741B48897818488B5C24504883C4405FC3", -0x4, 0x0));
-    private static ProgramPointer GameWorld = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer GameWorld = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.V2, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0x79),
       new FindPointerSignature(PointerVersion.V2, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B80000004C8931498B4E28498B46204885C00F84????????4885C90F84????????4C8B05????????8B5018E8????????458BFD418BD5498B4E204885C9", 0x14, 0x0),
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0xa7),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "4C8BDC55565741544155415641574883EC5049C743A8FEFFFFFF49895B104C8BE933ED", 0xa7, 0x0));
-    private static ProgramPointer PlayerUberStateGroup = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer PlayerUberStateGroup = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.Seinlevel.get_PartialHealthContainers", 0x68),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B05????????488B88B8000000488B014885C0742C488B48184885C9741D33D2E8????????4885C07423488B40184885C074148B40384883C448C3", 0x3, 0x0));
-    private static ProgramPointer TitleScreenManager = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer TitleScreenManager = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.TitleScreenManager.Awake", 0x97),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000488928488B05", 0x35, 0x0));
-    private static ProgramPointer GameStateMachine = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer GameStateMachine = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameStateMachine.get_Instance", 0x6f),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????488B83B8000000488B004885C00F85C6000000488BCBE8????????488B43604885C074278B08E8", 0x14, 0x0));
-    private static ProgramPointer GameController = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer GameController = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameController.Initialize", 0xc3),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "014C8975288B04244883EC20488D4C24308B0148894D20C785C0000000FFFFFFFF488B05????????F6802701000002741883B8D800000000750F488BC8", 0x45, 0x0));
-    private static ProgramPointer ScenesManager = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer ScenesManager = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.ScenesManager.Awake", 0x76),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488931488B1D????????488BCBE8????????488B43604885C074278B08E8????????483B05????????7517", 0x14, 0x0));
-    private static ProgramPointer UberStateController = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer UberStateController = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__uberSerialization.UberStateController.get_Instance", 0x90),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B1D????????F6832701000002741883BBD800000000750F488BCBE8????????488B1D????????488B83B800000048837828000F85", 0x35, 0x0));
-    private static ProgramPointer UberStateCollection = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer UberStateCollection = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__uberSerialization.UberStateCollection.GetGroup", 0x73),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B0D????????F6812701000002740E83B9D8000000007505E8????????33C9E8????????4885C07469488B58384885DB745A", 0x14, 0x0));
-    private static ProgramPointer DifficultyController = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer DifficultyController = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.ConfirmChangingDifficulty.Perform", 0xdf),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B8000000488B094885C974694533C08B5320E8????????488B05????????4885C07518", 0x14, 0x0));
-    private static ProgramPointer NoPausePatch = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer NoPausePatch = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.None, "__mainWisp.GameController.OnApplicationFocus", 0x1b),
       new FindPointerSignature(PointerVersion.All, AutoDeref.None, "4C8BDC565741564883EC5049C743C8FEFFFFFF49895B1049896B18??????488BF14533F6443835????????754B488B05????????4C6380C0000000488B05????????418B8C00????????418B9400????????4D8973D04D8973D84D8973E04D8D43D0E8????????9033C9FF15????????90C605????????0180BE????????000F85????????4084ED0F85????????33C9E8????????4885C00F84????????33D2488BC8E8????????84C07561", 0x1b, 0x0));
-    private static ProgramPointer TargetFrameRatePatch = new ProgramPointer("UnityPlayer.dll",
+    private static readonly ProgramPointer TargetFrameRatePatch = new ProgramPointer("UnityPlayer.dll",
       new FindPointerSignature(PointerVersion.All, AutoDeref.None, "660F6EC30F5BC0F30F5EC8????8BDE??????????660F6EC80F5BC90F57C00F297424300F2FC1720A", 0xb));
-    private static ProgramPointer VSyncPatch = new ProgramPointer("UnityPlayer.dll",
+    private static readonly ProgramPointer VSyncPatch = new ProgramPointer("UnityPlayer.dll",
       new FindPointerSignature(PointerVersion.All, AutoDeref.None, "E8????????4863484C488B4030488D148948C1E2058B4402684883C428C3", -0x4));
-    private static ProgramPointer FrameCounter = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer FrameCounter = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameController.FixedUpdate", 0x1c8),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "80780A007538488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000FF0033C9", 0x2a, 0x0));
-    private static ProgramPointer CheatsHandler = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer CheatsHandler = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.CheatsHandler.Awake", 0x7a),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C8938488B0D????????F6812701000002740E83B9D8000000007505E8", 0x14, 0x0));
-    private static ProgramPointer DebugControls = new ProgramPointer("GameAssembly.dll",
+    private static readonly ProgramPointer DebugControls = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.AdvancedDebugMenuPage.DebugControlsSetter", 0x8e));
     public static PointerVersion Version { get; set; } = PointerVersion.All;
 
@@ -766,7 +766,7 @@ namespace RandoMainDLL.Memory {
 
     public void Dispose() => Program?.Dispose();
 
-    private Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
+    private readonly Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
       {AbilityType.Bash, EquipmentType.Ability_Bash },
       {AbilityType.DoubleJump, EquipmentType.Ability_DoubleJump },
       {AbilityType.Launch, EquipmentType.Spell_ChargeJump },

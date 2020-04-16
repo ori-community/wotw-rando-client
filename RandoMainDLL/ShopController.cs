@@ -23,7 +23,7 @@ namespace RandoMainDLL {
       return 0;
     }
 
-    private static Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
+    private static readonly Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
 
     static IntPtr getIl2cppStringPointer(string str) {
       if (!stringAddresses.ContainsKey(str)) {

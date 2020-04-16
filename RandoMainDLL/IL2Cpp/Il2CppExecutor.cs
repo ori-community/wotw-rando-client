@@ -4,27 +4,27 @@ namespace RandoMainDLL.Il2Cpp {
     public Metadata metadata;
     public Il2CppData il2Cpp;
     private Dictionary<Il2CppGenericInst, string> GenericInstParamsCache = new Dictionary<Il2CppGenericInst, string>();
-    private static readonly Dictionary<int, string> TypeString = new Dictionary<int, string>
-    {
-            {1,"void"},
-            {2,"bool"},
-            {3,"char"},
-            {4,"sbyte"},
-            {5,"byte"},
-            {6,"short"},
-            {7,"ushort"},
-            {8,"int"},
-            {9,"uint"},
-            {10,"long"},
-            {11,"ulong"},
-            {12,"float"},
-            {13,"double"},
-            {14,"string"},
-            {22,"TypedReference"},
-            {24,"IntPtr"},
-            {25,"UIntPtr"},
-            {28,"object"},
-        };
+
+    private static readonly Dictionary<int, string> TypeString = new Dictionary<int, string> {
+      {1,"void"},
+      {2,"bool"},
+      {3,"char"},
+      {4,"sbyte"},
+      {5,"byte"},
+      {6,"short"},
+      {7,"ushort"},
+      {8,"int"},
+      {9,"uint"},
+      {10,"long"},
+      {11,"ulong"},
+      {12,"float"},
+      {13,"double"},
+      {14,"string"},
+      {22,"TypedReference"},
+      {24,"IntPtr"},
+      {25,"UIntPtr"},
+      {28,"object"},
+    };
 
     public Il2CppExecutor(Metadata metadata, Il2CppData il2Cpp) {
       this.metadata = metadata;
