@@ -16,3 +16,4 @@ seedgenTemp/out
 seedgenTemp/seeds
 .idea*
 *.iml
+/Debug
