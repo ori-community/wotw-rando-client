@@ -302,14 +302,15 @@ object SeedGenerator extends App {
 	def maybeRand[T](source: Seq[T]) = if(source.size == 0) None else Some(source(Random.nextInt(source.size)))
 
 	def itemLocs: Seq[ItemLocation] = {
-		val pickupReg = """^([^,]*), ?^([^,]*), ?^([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*), (.*)""".r
+		val pickupReg = """^([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*), (.*)""".r
 		val pickupsFile = Source.fromFile("pickups.csv")
 		val pickups = pickupsFile.getLines.flatMap {
 			case s if s.trim == "" => None
 			case s if s.trim.startsWith("--") => None
 			case s if s.contains("Unreachable") => None
 			case pickupReg(area, name, zone, category, value, uberGN, ugid, uberN, uid, x, y, reqs) =>
-				println(s"{x: $x, y: $y, name: '${uberGN}[$ugid].${uberN}[$uid]'},")
+//				val loc = ItemLocation(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs)
+				println(s"{x: $x, y: $y, name: '$area.$name', ugid: $ugid, uid: $uid},")
 				Some(ItemLocation(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs))
 			case line: String =>
 				println(s"Couldn't parse line: $line")
