@@ -591,19 +591,21 @@ INTERCEPT(27683456, SET_ENUM_FUN, void, SerializedByteUberState_SetValue, (__int
 INTERCEPT(6915088, PICKUP_FUN, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 context){
 	//Weaponmasteritem$$DoPurchase
     weaponmasterPurchaseInProgress = 1;
-    WeaponmasterItem_DoPurchase(item, context);
-    weaponmasterPurchaseInProgress = 0;
-
     auto abilityType = getWeaponMasterAbilityItemGranted(item);
-    if((int)abilityType != -1)
+    if ((int)abilityType != -1) 
         CSharpLib->call<void, char>("OpherBuyWeapon", abilityType);
     else {
         char requiredType = getWeaponMasterAbilityItemRequired(item);
         if((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
             CSharpLib->call<void, char>("OpherBuyWeapon", 105);
-        else
+        else {
+            weaponmasterPurchaseInProgress = 0;
             CSharpLib->call<void, char>("OpherBuyUpgrade", requiredType);
+        }
     }
+    WeaponmasterItem_DoPurchase(item, context);
+    weaponmasterPurchaseInProgress = 0;
+
 })
 
 typedef void(*SAVETOFILE)(__int64, __int64, __int64, __int64);
