@@ -1,67 +1,48 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace RandoMainDLL.Memory {
   public enum AbilityType : byte {
     Bash = 0,
+    [Description("Wall Jump")]
     WallJump = 3,
+    [Description("Double Jump")]
     DoubleJump = 5,
     Launch = 8,
     Feather = 14,
+    [Description("Water Breath")]
     WaterBreath = 23,
+    [Description("Light Burst")]
     LightBurst = 51,
     Grapple = 57,
     Flash = 62,
     Spike = 74,
     Regenerate = 77,
+    [Description("Bow")]
     SpiritArc = 97,
+    [Description("Hammer")]
     SpiritSmash,
     Torch,
+    [Description("Sword")]
     SpiritEdge,
     Burrow,
     Dash,
+    [Description("Water Dash")]
     WaterDash = 104,
+    [Description("Teleport")]
     TeleportSpell = 105,
+    [Description("Shuriken")]
     SpiritStar = 106,
     Seir = 108,
     Blaze = 115,
     Sentry,
     Flap = 118,
+    [Description("Damage Up 1")]
     DamageUpgrade1 = 120,
+    [Description("Damage Up 2")]
     DamageUpgrade2,
     NONE = 255
-  }
-
-  public static class AbilityN {
-    private static Dictionary<AbilityType, string> mapping = new Dictionary<AbilityType, string>(){
-      { AbilityType.Bash, "Bash"},
-      { AbilityType.WallJump, "Wall Jump"},
-      { AbilityType.DoubleJump, "Double Jump"},
-      { AbilityType.Launch, "Launch"},
-      { AbilityType.Feather, "Feather"},
-      { AbilityType.WaterBreath, "Water Breath"},
-      { AbilityType.LightBurst, "Light Burst"},
-      { AbilityType.Grapple, "Grapple"},
-      { AbilityType.Flash, "Flash"},
-      { AbilityType.Spike, "Spike"},
-      { AbilityType.Regenerate, "Regenerate"},
-      { AbilityType.SpiritArc, "Bow"},
-      { AbilityType.SpiritSmash, "Hammer"},
-      { AbilityType.Torch, "Torch"},
-      { AbilityType.SpiritEdge, "Sword"},
-      { AbilityType.Burrow, "Burrow"},
-      { AbilityType.Dash, "Dash"},
-      { AbilityType.WaterDash, "Water Dash"},
-      { AbilityType.SpiritStar, "Shuriken"},
-      { AbilityType.Seir, "Seir"},
-      { AbilityType.Blaze, "Blaze"},
-      { AbilityType.Sentry, "Sentry"},
-      { AbilityType.Flap, "Flap"},
-      { AbilityType.DamageUpgrade1, "damage up"},
-      { AbilityType.DamageUpgrade2, "DAMAGE UP"},
-    };
-    public static string ame(AbilityType at) => mapping.ContainsKey(at) ? mapping[at] : $"Unknown Ability {at}";
   }
 
   [StructLayout(LayoutKind.Explicit, Size = 8, Pack = 1)]

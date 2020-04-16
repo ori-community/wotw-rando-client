@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace RandoMainDLL.Memory {
+
   [StructLayout(LayoutKind.Explicit, Size = 32, Pack = 1)]
   struct MessageDescriptor {
     [FieldOffset(0)] private string Message;

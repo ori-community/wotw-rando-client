@@ -115,7 +115,7 @@ namespace RandoMainDLL.Memory {
 
   public class FindIl2CppOffset {
     private static int lastPID;
-    private static Dictionary<string, int> offsets = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+    private static readonly Dictionary<string, int> offsets = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
     public static int GetOffset(Process program, string fullname) {
       if (lastPID != program.Id) {
@@ -146,9 +146,9 @@ namespace RandoMainDLL.Memory {
     public static Il2CppDecompiler Decompiler;
 
     public PointerVersion Version { get; private set; }
-    private AutoDeref AutoDeref;
-    private string FullName;
-    private int Offset;
+    private readonly AutoDeref AutoDeref;
+    private readonly string FullName;
+    private readonly int Offset;
     private IntPtr BasePtr;
 
     public bool FoundBaseAddress() => BasePtr != IntPtr.Zero;
@@ -195,12 +195,12 @@ namespace RandoMainDLL.Memory {
   public class FindPointerSignature : IFindPointer {
     private int lastPID;
     public PointerVersion Version { get; private set; }
-    private AutoDeref AutoDeref;
-    private string Signature;
+    private readonly AutoDeref AutoDeref;
+    private readonly string Signature;
     private IntPtr BasePtr;
-    private MemorySearcher Searcher;
+    private readonly MemorySearcher Searcher;
     private DateTime LastVerified;
-    private int[] Relative;
+    private readonly int[] Relative;
 
     public FindPointerSignature(PointerVersion version, AutoDeref autoDeref, string signature, params int[] relative) {
       Version = version;
@@ -280,7 +280,7 @@ namespace RandoMainDLL.Memory {
 
     public PointerVersion Version { get; private set; }
     private int lastPID;
-    private int[] Offsets;
+    private readonly int[] Offsets;
     private IntPtr BasePtr;
 
     public bool FoundBaseAddress() => BasePtr != IntPtr.Zero;

@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+
 namespace RandoMainDLL.Il2Cpp {
   [AttributeUsage(AttributeTargets.Field)]
-  public class VersionAttribute : Attribute {
+  public sealed class VersionAttribute : Attribute {
     public float Min { get; set; } = 0;
     public float Max { get; set; } = 99;
   }
+
   [AttributeUsage(AttributeTargets.Field)]
-  public class ArrayLengthAttribute : Attribute {
+  public sealed class ArrayLengthAttribute : Attribute {
     public int Length { get; set; }
   }
+
   public class BinaryStream : IDisposable {
     public float Version;
     public bool Is32Bit;
-    private Stream stream;
-    private BinaryReader reader;
+    private readonly Stream stream;
+    private readonly BinaryReader reader;
 
     public BinaryStream(Stream input) {
       stream = input;
@@ -41,10 +44,12 @@ namespace RandoMainDLL.Il2Cpp {
       get => (ulong)stream.Position;
       set => stream.Position = (long)value;
     }
+
     public T ReadClass<T>(ulong addr) where T : struct {
       Position = addr;
       return ReadClass<T>();
     }
+
     public T ReadClass<T>() where T : new() {
       byte[] bytes = reader.ReadBytes(Marshal.SizeOf(typeof(T)));
 
@@ -54,6 +59,7 @@ namespace RandoMainDLL.Il2Cpp {
 
       return theStructure;
     }
+
     public T[] ReadClassArray<T>(long count) where T : struct {
       var t = new T[count];
       for (var i = 0; i < count; i++) {
@@ -61,6 +67,7 @@ namespace RandoMainDLL.Il2Cpp {
       }
       return t;
     }
+
     public T[] ReadClassArray<T>(ulong addr, long count) where T : struct {
       Position = addr;
       return ReadClassArray<T>(count);

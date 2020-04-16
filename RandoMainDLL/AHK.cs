@@ -4,7 +4,7 @@ using AutoHotkey.Interop;
 
 namespace RandoMainDLL {
   public static class AHK {
-    static string Program = @"
+    private static readonly string Program = @"
       PickupGUIHWD := """"
       signal := ""none""
       oldText := """"
@@ -43,7 +43,7 @@ namespace RandoMainDLL {
         global oldText, PickupGUIHWD
         GuiControlGet, maybeOldText, Pickup:, PickupText
         if(message != maybeOldText) {
-            oldText := maybeOldText
+          oldText := maybeOldText
         }
         GuiControl, Pickup:Text, PickupText, %message%
         width := strlen(message) * 30
@@ -60,9 +60,9 @@ namespace RandoMainDLL {
         global signal
         IfWinNotActive, OriAndTheWilloftheWisps 
         {
-            Gui, Pickup:-AlwaysOnTop 
+          Gui, Pickup:-AlwaysOnTop
         } else {
-            Gui, Pickup:+AlwaysOnTop
+          Gui, Pickup:+AlwaysOnTop
         }
         return signal
       }
@@ -104,7 +104,7 @@ namespace RandoMainDLL {
       }
     }
 
-    private static HashSet<string> Falsey = new HashSet<string>() { "false", "False", "no", "", "0", "ERROR", null };
+    private static readonly HashSet<string> Falsey = new HashSet<string>() { "false", "False", "no", "", "0", "ERROR", null };
 
     public static bool IniFlag(string Flag) {
       if (!Ready) {
@@ -144,10 +144,10 @@ namespace RandoMainDLL {
       else {
         if (MessageQueue.Count > 0) {
           Current = MessageQueue.Dequeue();
-          FramesTillNextSend = Current.Frames();
-          Engine.ExecFunction("PickupMessage", Current.Text(), (Current.Frames() * 50 / 3).ToString());
+          FramesTillNextSend = Current.Frames;
+          Engine.ExecFunction("PickupMessage", Current.Text, (Current.Frames* 50 / 3).ToString());
           if (IniFlag("LogOnPrint")) {
-            Randomizer.Log($"Sending {Current.Text()} for {Current.Frames()} ({MessageQueue.Count} remaining in queue)", false);
+            Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
           }
         }
         else {
@@ -158,27 +158,26 @@ namespace RandoMainDLL {
 
     // public static bool SendMessage
     public static IMessage Current = null;
-    public static int FramesTillUnlockReload = 0;
     public static Queue<IMessage> MessageQueue = new Queue<IMessage>();
+    public static int FramesTillUnlockReload = 0;
     public static int FramesTillNextSend = 0;
 
     public static void Print(string message, int frames = 180) => SendPlainText(new PlainText(message, frames));
     public static void SendPlainText(PlainText p) => MessageQueue.Enqueue(p);
 
     public interface IMessage {
-      string Text();
-      int Frames();
+      string Text { get; }
+      int Frames { get; }
     };
 
     public class PlainText : IMessage {
-      string _text;
-      int _frames;
       public PlainText(string text, int frames = 180) {
-        _text = text;
-        _frames = frames;
+        Text = text;
+        Frames = frames;
       }
-      public string Text() => _text;
-      public int Frames() => _frames;
+
+      public string Text { get; }
+      public int Frames { get; }
     }
   }
 }

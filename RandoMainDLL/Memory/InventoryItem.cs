@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-
 namespace RandoMainDLL.Memory {
   public enum EquipmentType : int {
     None = 0,

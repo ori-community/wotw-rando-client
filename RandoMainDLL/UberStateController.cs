@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
+
 namespace RandoMainDLL {
   public static class UberStateController {
     public static Dictionary<long, UberState> UberStates = new Dictionary<long, UberState>();
@@ -58,7 +59,9 @@ namespace RandoMainDLL {
 
       return false;
     }
+    
     public static bool Ready = false;
+
     public static void NewGameInit() {
       var memory = Randomizer.Memory;
       if (!memory.IsLoadingGame()) {
@@ -147,7 +150,7 @@ namespace RandoMainDLL {
     };
 
     public static List<UberState> KeystoneDoors = new List<UberState>() {
-      new UberState() {Name = "e3DesertG_clone0_KeystoneDoor", ID = 28786, GroupName = "windsweptWastesGroupDescriptor",  GroupID = 20120, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true)},
+      new UberState() { Name = "e3DesertG_clone0_KeystoneDoor", ID = 28786, GroupName = "windsweptWastesGroupDescriptor",  GroupID = 20120, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true)},
       new UberState() { Name = "swampTorchIntroductionADoorWithTwoSlotsBooleanDescriptor", ID = 42309, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "swampNightcrawlerCavernADoorWithTwoSlotsBooleanDescriptor", ID = 47445, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "doorWithTwoSlots", ID = 59990, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },

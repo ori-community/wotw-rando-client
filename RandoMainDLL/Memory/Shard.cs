@@ -1,78 +1,71 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace RandoMainDLL.Memory {
   public enum ShardType : byte {
+    [Description("Overcharge")]
     Overcharge = 1,
+    [Description("Triple Jump")]
     TripleJump,
+    [Description("Wingclip")]
     Wingclip,
+    [Description("Bounty")]
     Bounty,
+    [Description("Swap")]
     Swap,
+    [Description("Magnet")]
     Magnet = 8,
+    [Description("Splinter")]
     Splinter,
+    [Description("Reckless")]
     Reckless = 13,
+    [Description("Quickshot")]
     Quickshot,
+    [Description("Resilience")]
     Resilience = 18,
+    [Description("Spirit Light Harvest")]
     LightHarvest,
+    [Description("Bonus Health")]
     Vitality = 22,
+    [Description("Life Harvest")]
     LifeHarvest,
+    [Description("Energy Harvest")]
     EnergyHarvest = 25,
+    [Description("Bonus Energy")]
     Energy,
+    [Description("Life Pact")]
     LifePact,
+    [Description("Last Stand")]
     LastStand,
+    [Description("Sense")]
     Secret = 30,
+    [Description("Ultra Bash")]
     UltraBash = 32,
+    [Description("Ultra Grapple")]
     UltraGrapple,
+    [Description("Overflow")]
     Overflow,
+    [Description("Thorn")]
     Thorn,
+    [Description("Catalyst")]
     Catalyst,
+    [Description("Turmoil")]
     Turmoil = 38,
+    [Description("Sticky")]
     Sticky,
+    [Description("Finesse")]
     Finesse,
+    [Description("Spirit Surge")]
     SpiritSurge,
+    [Description("Lifeforce")]
     Lifeforce = 43,
+    [Description("Deflector")]
     Deflector,
+    [Description("Fracture")]
     Fracture = 46,
+    [Description("Arcing")]
     Arcing
-  }
-
-  public static class ShardN {
-    private static Dictionary<ShardType, string> mapping = new Dictionary<ShardType, string>() {
-      { ShardType.Overcharge, "Overcharge"},
-      { ShardType.TripleJump, "Triple Jump"},
-      { ShardType.Wingclip, "Wingclip"},
-      { ShardType.Bounty, "Bounty"},
-      { ShardType.Swap, "Swap"},
-      { ShardType.Magnet, "Magnet"},
-      { ShardType.Splinter, "Splinter"},
-      { ShardType.Reckless, "Reckless"},
-      { ShardType.Quickshot, "Quickshot"},
-      { ShardType.Resilience, "Resilience"},
-      { ShardType.LightHarvest, "Spirit Light Harvest"},
-      { ShardType.Vitality, "Bonus Health"},
-      { ShardType.LifeHarvest, "Life Harvest"},
-      { ShardType.EnergyHarvest, "Energy Harvest"},
-      { ShardType.Energy, "Bonus Energy"},
-      { ShardType.LifePact, "Life Pact"},
-      { ShardType.LastStand, "Last Stand"},
-      { ShardType.Secret, "Sense"},
-      { ShardType.UltraBash, "Ultra Bash"},
-      { ShardType.UltraGrapple, "Ultra Grapple"},
-      { ShardType.Overflow, "Overflow"},
-      { ShardType.Thorn, "Thorn"},
-      { ShardType.Catalyst, "Catalyst"},
-      { ShardType.Turmoil, "Turmoil"},
-      { ShardType.Sticky, "Sticky"},
-      { ShardType.Finesse, "Finesse"},
-      { ShardType.SpiritSurge, "Spirit Surge"},
-      { ShardType.Lifeforce, "Lifeforce"},
-      { ShardType.Deflector, "Deflector"},
-      { ShardType.Fracture, "Fracture"},
-      { ShardType.Arcing, "Arcing"},
-    };
-
-    public static string ame(ShardType st) => mapping.ContainsKey(st) ? mapping[st] : $"Unknown Shard {st}";
   }
 
   [StructLayout(LayoutKind.Explicit, Size = 16, Pack = 1)]
@@ -89,7 +82,6 @@ namespace RandoMainDLL.Memory {
     public byte EquipOnStart;
     [FieldOffset(12)]
     public int Index;
-
     public byte[] ToBytes() {
       byte[] retval = new byte[16];
       retval[0] = (byte)Type;
@@ -105,6 +97,7 @@ namespace RandoMainDLL.Memory {
       }
       return retval;
     }
+
     public override string ToString() => $"{Type} = {Gained != 0}+{Level}";
   }
 }
