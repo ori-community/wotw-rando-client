@@ -1,0 +1,802 @@
+area Spawn:
+  # (-800, -4320) spawn location / inkwater well 
+  pickup Spawn.RockHC: free
+  pickup Spawn.FirstPickupEX: free
+  pickup Spawn.ResilienceShard: free
+  pickup Spawn.PreLupoEX: free
+  pickup Spawn.CaveKS: free
+  pickup Spawn.LeftTokkEX: free
+  pickup Spawn.FightRoomEX: free
+  pickup Spawn.LupoMap: free
+  pickup Spawn.RegenTree: free
+  pickup Spawn.GrappleHC: free
+    base: Grapple, DoubleJump OR Dash OR Glide
+  pickup Spawn.BridgeEX:
+    base: DoubleJump OR Dash OR Glide
+  pickup Spawn.ResilienceOre:
+    base: Water
+  pickup Spawn.BashEC:
+    base: Bash
+  pickup Spawn.LeverEC:
+    base: 
+      Grapple, DoubleJump, Bash
+      Launch, Bash
+  pickup Spawn.CaveOre:
+    base: DoubleJump OR Dash
+  pickup Spawn.LongSwimEX:
+    base: Water
+
+  conn HowlsDen:
+    base: DoubleJump OR Dash OR Launch
+
+  conn HollowEntry: free # actually: weapon
+
+  # teleporter connections
+  conn RightHollow:
+    base: HollowTP
+  conn BurrowsMain:
+    base: BurrowsTP
+  conn Glades:
+    base: GladesTP
+  conn UpperWellspring:
+    base: WellspringTP
+  conn WestLuma:
+    base: WestLumaTP # note: not currently an item
+
+area LumaBurrowsPath:
+  # (-973, -4403) the fight 'arena'
+  pickup LumaBurrowsPath.Ore:
+    base: DoubleJump, Dash, Burrow
+  pickup LumaBurrowsPath.LifepactShard:
+    base: Regenerate, DoubleJump OR Dash
+  pickup LumaBurrowsPath.LedgeEX:
+    base: DoubleJump, Bash
+  pickup LumaBurrowsPath.UnderwaterEX:
+    base: Bash, Dash, Water, WaterDash
+  pickup LumaBurrowsPath.DamageTree:
+    base: Bash, DoubleJump OR Dash
+
+area BurrowsMain:
+  # (-4582, -945) The burrows teleporter
+  pickup BurrowsMain.LeftKS:
+    base: DoubleJump
+  pickup BurrowsMain.RightKS:
+    base: DoubleJump, Bash
+  pickup BurrowsMain.UpperKS:
+    base: DoubleJump, Dash
+  pickup BurrowsMain.LowerKS:
+    base: DoubleJump, Bash, Dash
+  pickup BurrowsMain.LupoMap:
+    base: DoubleJump
+  pickup BurrowsMain.DeflectorShard:
+    base: DoubleJump, Dash
+  pickup BurrowsMain.TabletQI:
+    base: DoubleJump, Bash
+
+area HowlsDen:
+  # (-510, -4396) The ledge on the right side of the regenerate tree
+  pickup HowlsDen.RecklessShard:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.FangEC:
+    base: DoubleJump, Dash
+  pickup HowlsDen.FangQI:
+    base: DoubleJump
+  pickup HowlsDen.UpperEX:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.RightHC:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.LeftHC:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.DoorskipKS:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.MagnetShard:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.SwordTree:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.BoneOre:
+    base: Smash, DoubleJump OR Dash
+  pickup HowlsDen.LowerEX:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.LaserKS:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.CombatShrine:
+    base: Smash, Regenerate
+  pickup HowlsDen.DoubleJumpEX:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.StickyShard:
+    base: DoubleJump OR Dash
+  pickup HowlsDen.DoubleJumpTree:
+    base: DoubleJump OR Dash
+
+area InkwaterTrial:
+  # (-558, -4318) Ledge on the right wall past the breaking log
+  pickup InkwaterTrial.LeftEX:
+    base: DoubleJump
+  pickup InkwaterTrial.Ore: free
+  pickup InkwaterTrial.HiddenEC:
+    base: DoubleJump
+  pickup InkwaterTrial.StompHC:
+    base: Smash
+  pickup InkwaterTrial.RightEX:
+    base: DoubleJump
+  pickup InkwaterTrial.CombatShrine:
+    base: Regenerate
+
+area HollowEntry:
+  # (-598, -4293) Standing next to Opher, looking at the Millstone
+  pickup HollowEntry.OpherEX:
+    base: DoubleJump
+  pickup HollowEntry.LeftEyestone:
+    base: DoubleJump, Bow
+  pickup HollowEntry.RightEyestone:
+    base: DoubleJump, Bow
+  pickup HollowEntry.BowEC:
+    base: Launch
+  pickup HollowEntry.BowTree:
+    base: DoubleJump OR Dash
+  pickup HollowEntry.CrusherHC:
+    base: DoubleJump OR Dash
+  pickup HollowEntry.CeilingEX:
+    base: DoubleJump, Bow, Bash, Dash
+  pickup HollowEntry.LumaPathEC:
+    base: Bash, Dash, Glide, DoubleJump
+  pickup HollowEntry.LumaPathEX:
+    base: DoubleJump, Bow, Bash, Dash
+
+# TODO: state descriptor and transitions for the drained water
+
+area HollowDrain:
+  # (-244, -4276) First bit of land on the way to the 2nd drain lever
+  pickup HollowDrain.LeftEX:
+    base: Bow, DoubleJump OR Dash
+  pickup HollowDrain.RockPuzzleEX:
+    base: Bow, DoubleJump OR Dash
+  pickup HollowDrain.HiddenEC:
+    base: Bow, Water, DoubleJump OR Dash
+  pickup HollowDrain.QuickshotShard:
+    base: Bow, Dash
+  pickup HollowDrain.SwimEC:
+    base: Bow, Water, DoubleJump OR Dash
+  pickup HollowDrain.LupoMap:
+    base: DoubleJump, Bow, Dash
+  pickup HollowDrain.TrialHC:
+    base: Bow, DoubleJump OR Dash
+
+area DashArea:
+  # (-100, -4420) To the left of the lever door
+  pickup DashArea.ClimbEX:
+    base: DoubleJump, Bow, Dash
+  pickup DashArea.LeftEX:
+    base: DoubleJump, Bow, Dash
+  pickup DashArea.RightEX:
+    base: DoubleJump, Bow, Dash
+  pickup DashArea.CrusherEX:
+    base: Bow, Dash
+  pickup DashArea.DashTree:
+    base: Bow, DoubleJump OR Dash
+
+area RightHollow:
+  # (-152, -4236) The Hollow teleporter
+  pickup RightHollow.BashTree: free
+  pickup RightHollow.GladesApproachOre:
+    base: Bash, DoubleJump OR Dash
+  pickup RightHollow.HornBeetleFightEX:
+    base: DoubleJump, Dash, Bash
+  pickup RightHollow.SpikeLanternEX:
+    base: Bash, DoubleJump OR Dash
+  pickup RightHollow.SecretRoofEX:
+    base: Bash
+  pickup RightHollow.MortarEX:
+    base: Bash
+  pickup RightHollow.BashEC:
+    base: Bash, DoubleJump OR Dash
+  pickup RightHollow.BashHC:
+    base: Bash
+  pickup RightHollow.BashEX:
+    base: DoubleJump, Bash
+  pickup RightHollow.RightThroneEX:
+    base: Bash
+  pickup RightHollow.SilentSwimEC:
+    base: Bash, WaterDash, Water
+  pickup RightHollow.SplinterShard:
+    base: Bash
+  pickup RightHollow.ThroneSwimOre:
+    base: Bash, Water
+  pickup RightHollow.ThroneSwimLeftEX:
+    base: DoubleJump, Bash, Water, WaterDash
+  pickup RightHollow.ThroneSwimRightEX:
+    base: DoubleJump, Bash, Water
+  pickup RightHollow.DepthsExteriorEX:
+    base: Bash, Glide, Launch
+
+area Glades:
+  # (-306, -4154) The Glades teleporter
+  pickup Glades.AcornQI:
+    base: Water, DoubleJump, Flash, Ore=30
+  pickup Glades.HoleHutEC:
+    base: Launch, DoubleJump, Ore=18
+  pickup Glades.AboveGromHC:
+    base: Launch, DoubleJump
+  pickup Glades.LowerLeftHC:
+    base: Water, Dash, Burrow
+  pickup Glades.UpperOre:
+    base: Smash, DoubleJump
+  pickup Glades.LowerOre:
+    base: Launch, DoubleJump
+  pickup Glades.ArcingShard:
+    base: Launch, Ore (24)
+  pickup Glades.BountyShard:
+    base: Launch, DoubleJump
+  pickup Glades.LupoSoupEX:
+    base: Water
+  pickup Glades.BraveMokiHutEX:
+    base: Launch, DoubleJump, Ore=30
+  pickup Glades.MotayHutEX:
+    base: DoubleJump, Glide, Ore=12
+  pickup Glades.HoleHutEX:
+    base: Launch, Ore=18
+  pickup Glades.FruitHammockEX:
+    base: Launch, DoubleJump
+  pickup Glades.LupoSwimMiddleEX:
+    base: Water, Dash, WaterDash
+  pickup Glades.CaveBurrowEX:
+    base: Dash, Burrow, DoubleJump, Ore=24
+  pickup Glades.BigHammockEX:
+    base: Flap, Glide, DoubleJump
+  pickup Glades.KeyMokiHutEX:
+    base: Unreachable
+  pickup Glades.UpdraftTableEX:
+    base: Launch, DoubleJump
+  pickup Glades.AboveCaveEX:
+    base: Ore=24
+  pickup Glades.LupoSwimLeftEX:
+    base: Water, Dash, WaterDash, Ore=24
+  pickup Glades.UpdraftCeilingEX:
+    base: Flap, Glide, DoubleJump
+  pickup Glades.LeafPileEX:
+    base: Launch, DoubleJump, Dash, Flap
+
+area WellspringApproach:
+  # (-540, -4110) The right edge of the first pool past glades
+  pickup WellspringApproach.GrappleEX:
+    base: DoubleJump, Bash, Grapple
+  pickup WellspringApproach.AbovePlantEX:
+    base: DoubleJump, Bash
+  pickup WellspringApproach.LowerPoolEX:
+    base: DoubleJump, Bash, Water
+  pickup WellspringApproach.UpperPoolEX:
+    base: DoubleJump, Bash, Water
+  pickup WellspringApproach.SwimEC:
+    base: DoubleJump, Bash, Water
+  pickup WellspringApproach.LeftOre:
+    base: DoubleJump, Bash, Grapple
+  pickup WellspringApproach.RightOre:
+    base: DoubleJump, Bash
+  pickup WellspringApproach.ShrineHC:
+    base: DoubleJump, Bash, Dash
+  pickup WellspringApproach.CombatShrine:
+    base: DoubleJump, Bash, Grapple, Regenerate
+
+area WellspringExterior:
+  # (-763, -4701) Where the "We remember this place" voice dialog plays
+  pickup WellspringExterior.RightWallOre:
+    base: DoubleJump, Grapple
+  pickup WellspringExterior.RightWallEC:
+    base: DoubleJump, Grapple
+  pickup WellspringExterior.RightWallEX:
+    base: DoubleJump, Grapple
+  pickup WellspringExterior.TrialOre:
+    base: DoubleJump, Grapple
+  pickup WellspringExterior.UltraGrappleShard:
+    base: DoubleJump, Grapple, Dash
+  pickup WellspringExterior.HiddenHC:
+    base: DoubleJump, Grapple, Dash
+  pickup WellspringExterior.EntranceRoofEX:
+    base: DoubleJump, Grapple, Dash
+  pickup WellspringExterior.WheelEX:
+    base: DoubleJump, Bash
+  pickup WellspringExterior.BasementEC:
+    base: DoubleJump, Bash, Water
+  pickup WellspringExterior.LifeHarvestShard:
+    base: DoubleJump, Bash
+  pickup WellspringExterior.SwimEX:
+    base: Water
+  pickup WellspringExterior.SwimOre:
+    base: Water, Grapple
+
+area LowerWellspring:
+  # (-1294, -3956) Just inside the lower entrance
+  pickup LowerWellspring.ThornShard:
+    base: DoubleJump, Bash
+  pickup LowerWellspring.ThornEX:
+    base: DoubleJump, Bash, Dash, Grapple
+  pickup LowerWellspring.ThreeWheelsEX:
+    base: DoubleJump, Bash
+  pickup LowerWellspring.WaterSwitchEX:
+    base: DoubleJump, Bash, Water, WaterDash, Dash
+  pickup LowerWellspring.DrainHC:
+    base: DoubleJump, Bash, Dash
+  pickup LowerWellspring.DrainEX:
+    base: DoubleJump, Bash, Dash
+  pickup LowerWellspring.LaserOre:
+    base: DoubleJump, Bash, Dash
+  pickup LowerWellspring.GrappleEC:
+    base: DoubleJump, Bash, Dash, Grapple
+  pickup LowerWellspring.LupoEX:
+    base: DoubleJump, Bash, Dash
+  pickup LowerWellspring.LupoMap:
+    base: Grapple
+  pickup LowerWellspring.WheelEX:
+    base: DoubleJump, Bash, Grapple
+  pickup LowerWellspring.GrappleTreeEX:
+    base: DoubleJump, Bash, Grapple, Dash
+  pickup LowerWellspring.GrappleTree:
+    base: DoubleJump, Dash, Bash
+
+area MiddleWellspring:
+  # (-1181, -3735) Just inside the entrance
+  pickup MiddleWellspring.LeftEX:
+    base: DoubleJump, Bash, Grapple, Dash
+  pickup MiddleWellspring.RotateRoomEX:
+    base: DoubleJump, Bash, Grapple, Dash
+  pickup MiddleWellspring.RotateRoomOre:
+    base: DoubleJump, Bash, Grapple, Dash
+  pickup MiddleWellspring.NeedleQI:
+    base: DoubleJump, Bash, Grapple, Dash
+
+area UpperWellspring:
+  # (-1306, -3680) The Wellspring teleporter
+  pickup UpperWellspring.EntranceEX:
+    base: DoubleJump, Bash, Grapple, Dash
+  pickup UpperWellspring.AboveTpEX:
+    base: DoubleJump, Bash, Grapple, Dash
+  pickup UpperWellspring.SeedQI:
+    base: DoubleJump, Bash, Grapple, Dash
+  pickup UpperWellspring.SwimOre:
+    base: DoubleJump, Bash, Grapple, Dash, Water
+  pickup UpperWellspring.EscapeRevisitEX:
+    base: DoubleJump, Bash, Grapple, Dash
+
+area LumaApproach:
+  # (-965, -4162) On top of the giant wheel
+  pickup LumaApproach.CurrentEX:
+    base: Water, Bash, WaterDash
+  pickup LumaApproach.AboveWheelEX:
+    base: Water, Bash, DoubleJump
+  pickup LumaApproach.MillPathHC:
+    base: Water, Bash, WaterDash, Grapple 
+  pickup LumaApproach.MillPathEC:
+    base: Water, Bash
+  pickup LumaApproach.MillPathEX:
+    base: Water, Bash
+  pickup LumaApproach.BurrowsPathEX:
+    base: DoubleJump, Bash
+
+# TODO: probably need a state for the first door in Luma 
+
+area LumaEntry:
+  # (-1296, -4142) Where Tokk stands
+  pickup LumaEntry.RightOre:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup LumaEntry.MiddleOre:
+    base: Water, Bash, Flap, Grapple
+  pickup LumaEntry.LupoOre:
+    base: Water, Bash, Flap, DoubleJump
+  pickup LumaEntry.SwimCrushEX:
+    base: Water, Bash, WaterDash
+  pickup LumaEntry.CurrentEX:
+    base: Water, Bash, WaterDash
+  pickup LumaEntry.RoofEX:
+    base: Water, Bash, Smash, DoubleJump
+  pickup LumaEntry.UltraBashShard:
+    base: Water, Bash, Flap, DoubleJump
+
+area CentralLuma:
+  # (-1407, -4139) left of the fight room
+  pickup CentralLuma.FightRoomHC:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Glide
+  pickup CentralLuma.LupoEX:
+    base: Water, Bash, Flap, DoubleJump
+  pickup CentralLuma.LupoMap:
+    base: Water, Bash, DoubleJump, WaterDash
+  pickup CentralLuma.SwimCrushEX:
+    base: Water, Bash, Flap, DoubleJump
+  pickup CentralLuma.EnergyHarvestShard:
+    base: Water, Bash, Flap, DoubleJump, WaterDash
+  pickup CentralLuma.SeedQI:
+    base: Water, Bash, Flap, DoubleJump
+  pickup CentralLuma.LowerKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup CentralLuma.UpperLeftKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup CentralLuma.UpperMidKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup CentralLuma.UpperRightKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup CentralLuma.FishPoolEX:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup CentralLuma.FishPoolOre:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup CentralLuma.BubblesEC:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup CentralLuma.LeftBubblesEX:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup CentralLuma.RightBubblesEX:
+    base: Water, Bash, Flap, DoubleJump, Dash
+
+area SwimTreeArea:
+  # (-1430, -4082) the swim tree
+  pickup SwimTreeArea.SwimDashTree:
+    base: DoubleJump, Dash, Bash, Grapple, Flap
+  pickup SwimTreeArea.CurrentEX:
+    base: Water, Bash, Flap, DoubleJump, WaterDash
+  pickup SwimTreeArea.RoofEX:
+    base: Water, Bash, Flap, DoubleJump, WaterDash
+  pickup SwimTreeArea.WaterfallEC:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+  pickup SwimTreeArea.PurpleWallHC:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+  pickup SwimTreeArea.AboveTpEX:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+
+area WestLuma:
+  # (-1652, -4170) the west Luma TP
+  pickup WestLuma.BurrowEX:
+    base: Water, Bash, Flap, DoubleJump, Burrow, WaterDash
+  pickup WestLuma.BurrowOre:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Burrow
+  pickup WestLuma.TpEX:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Launch
+  pickup WestLuma.ChaseStartEX:
+    base: Water, Bash, Flap, DoubleJump, WaterDash
+
+area WoodsEntry:
+  # (421, -4206) At Shriek Cutscene after the swim
+  pickup WoodsEntry.MudPitEX:
+    base: DoubleJump OR Dash OR Glide
+  pickup WoodsEntry.LedgeOre:
+    base: Glide, DoubleJump OR Dash
+  pickup WoodsEntry.LeafPileEX:
+    base: Flap
+  pickup WoodsEntry.TpEX: free
+  pickup WoodsEntry.LowerKS:
+    base: DoubleJump OR Dash OR Glide
+  pickup WoodsEntry.UpperKS:
+    base: DoubleJump
+
+area KuSection:
+  # (819, -4191) Where you find Ku
+  pickup KuSection.RightKS:
+    base: Glide, Flap
+  pickup KuSection.UpperKS:
+    base: Glide, Flap
+  pickup KuSection.LeftKS:
+    base: Glide, Flap
+  pickup KuSection.LowerKS:
+    base: Glide, Flap
+  pickup KuSection.BehindWallOre:
+    base: Glide, Flap
+  pickup KuSection.LowerLeafPileEX:
+    base: Glide, Flap
+  pickup KuSection.MiddleLeafPileEX:
+    base: Glide, Flap
+  pickup KuSection.UpperLeafPileEX:
+    base: Glide, Flap
+  pickup KuSection.YellowWallEX:
+    base: Glide, Flap
+  pickup KuSection.HiddenOre:
+    base: Glide, Flap
+  pickup KuSection.HiddenEX:
+    base: Glide, Flap, DoubleJump
+  pickup KuSection.BelowKeystonesEX:
+    base: Glide, Flap, DoubleJump OR Dash
+  pickup KuSection.BehindDoorRoofEX:
+    base: Glide, Flap, Bash
+  pickup KuSection.PetrifiedHowlEX:
+    base: Glide, Flap
+  pickup KuSection.OverflowShard:
+    base: Glide, Flap, DoubleJump, Bash, Grapple, Burrow
+  pickup KuSection.CombatShrine:
+    base: Glide, Flap, DoubleJump, Regenerate
+  pickup KuSection.ShrineEX:
+    base: Glide, Flap, DoubleJump
+  pickup KuSection.FeedingGroundsEX:
+    base: Glide, Flap, DoubleJump, Grapple, Burrow
+
+#- TODO: BearSneeze state(?)
+area ReachEntry:
+  # (-448, -4030) At Baur (after making him Sneeze)
+  pickup ReachEntry.SoupEX:
+    base: Flap, DoubleJump, Bash, Glide
+  pickup ReachEntry.SnapPlantEX:
+    base: Flap, DoubleJump, Bash
+  pickup ReachEntry.TonguePlantEX:
+    base: Flap, DoubleJump, Bash
+  pickup ReachEntry.IcefallOre:
+    base: Flap, DoubleJump, Bash, Grapple, Grenade
+  pickup ReachEntry.IcefallEX:
+    base: Flap, DoubleJump, Bash, Grapple, Grenade
+#- TODO: Lever Door State
+
+area CentralReach:
+  # (-347, -4011) After the lever door
+  pickup CentralReach.AboveDoorEX:
+    base: Flap, DoubleJump, Bash
+  pickup CentralReach.HiddenOre:
+    base: Flap, DoubleJump, Bash, Dash
+  pickup CentralReach.Lupo:
+    base: DoubleJump, Dash, Grenade
+  pickup CentralReach.IceEX:
+    base: Flap, DoubleJump, Bash, Grenade
+  pickup CentralReach.BurrowEX:
+    base: Flap, DoubleJump, Bash, Burrow, Dash
+  pickup CentralReach.BreakWallEX:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup CentralReach.SnapPlantEX:
+    base: Flap, DoubleJump, Bash, Dash
+  pickup CentralReach.TonguePlantEX:
+    base: Flap, DoubleJump, Bash
+
+area UpperReach:
+  # (-301, -3920) At Tokk
+  pickup UpperReach.LifeForceShard:
+    base: Flap, DoubleJump, Bash, Dash, Burrow
+  pickup UpperReach.LifeForceEX:
+    base: Flap, DoubleJump, Bash, Dash, Burrow
+  pickup UpperReach.LowerKS:
+    base: Flap, DoubleJump, Bash
+  pickup UpperReach.UpperKS:
+    base: Flap, DoubleJump, Bash, Glide
+  pickup UpperReach.MiddleLeftKS:
+    base: Flap, DoubleJump, Bash
+  pickup UpperReach.MiddleRightKS:
+    base: Flap, DoubleJump, Bash, Glide
+  pickup UpperReach.SoupOre:
+    base: Flap, DoubleJump, Bash, Glide
+  pickup UpperReach.SwingPoleEX:
+    base: Flap, DoubleJump, Bash, Glide
+  pickup UpperReach.SwimEX:
+    base: Flap, DoubleJump, Bash, Water
+  pickup UpperReach.LightBurstTree:
+    base: Flap, DoubleJump, Bash, Water
+  pickup UpperReach.TreeOre:
+    base: Flap, DoubleJump, Bash, Water, Grenade
+  pickup UpperReach.WellEX:
+    base: Flap, DoubleJump, Bash, Water
+  pickup UpperReach.SeedQI:
+    base: Flap, DoubleJump, Bash, Water, Grenade
+  pickup UpperReach.HiddenEX:
+    base: Flap, DoubleJump, Bash, Water, Grenade
+
+area ReachEast:
+  # (-205, -4043) After lighting the lantern at first wind canal
+  pickup ReachEast.LeftWindBottomEX:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachEast.LeftWindTopEX:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachEast.SnowballHC:
+    base: Flap, DoubleJump, Bash, Grenade, Glide, Dash, Burrow
+  pickup ReachEast.LeftRoofEX:
+    base: Flap, DoubleJump, Bash, Grenade, Glide, Dash
+  pickup ReachEast.RightRoofEX:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachEast.FractureShard:
+    base: Flap, DoubleJump, Bash, Grenade, Glide, Water
+  pickup ReachEast.EscapeRevisitEX:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+
+area ReachTrial:
+  # (70, -4044) At trial start
+  pickup ReachTrial.RightKS:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachTrial.UpperLeftKS:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachTrial.MiddleLeftKS:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachTrial.BottomLeftKS:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachTrial.HiddenEX:
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  pickup ReachTrial.CatalystShard:
+    base: Flap, DoubleJump, Bash, Grenade, Glide, Water
+
+area DepthsEntry:
+  # (161, -4340) the first bit of standable ground below the door
+  pickup DepthsEntry.SpikesEX:
+    base: Glide
+  pickup DepthsEntry.HiddenRoofEX:
+    base: Glide, DoubleJump, Bash
+  pickup DepthsEntry.HiddenRoofOre:
+    base: Glide, DoubleJump, Grapple
+  pickup DepthsEntry.RightKS:
+    base: Glide, DoubleJump, Grapple
+  pickup DepthsEntry.LeftKS:
+    base: Glide, Grapple
+  pickup DepthsEntry.SwimEC:
+    base: Glide, Flash, Water
+
+  conn CentralDepths.TeleporterRoom:
+    Glide, DoubleJump, Bash, Dash
+  conn CentralDepths.KeystoneRoom:
+    Glide, DoubleJump, Bash, Dash, Flash
+
+area CentralDepths.TeleporterRoom:
+  # (520, -4366) The depths spirit well
+  pickup CentralDepths.TeleporterEX: free
+
+
+area CentralDepths.KeystoneRoom:
+  # (465, -4483) The firefly egg to the right of the keystone door
+  pickup CentralDepths.LeftKS:
+    base: Glide, DoubleJump, Grapple, Bow
+  pickup CentralDepths.RightKS:
+    base: Glide, DoubleJump, Grapple, Bow
+  pickup CentralDepths.SeedQI:
+    base: Glide, DoubleJump, Grapple, Bash, Flash
+  pickup CentralDepths.RoofEX:
+    base: Glide, DoubleJump, Grapple, Bash, Flash
+  pickup CentralDepths.KSAreaHC:
+    base: Glide, DoubleJump, Grapple, Bow
+
+  conn LowerDepths: free # for now
+
+area LowerDepths:
+  # (428, -4474) The firefly egg to the left of the 2nd keystone door
+  pickup LowerDepths.RaceStartHC:
+    base: Glide, DoubleJump, Grapple, Bash, Flash
+  pickup LowerDepths.BelowDoorOre:
+    base: Glide, DoubleJump, Grapple, Bash, Flash
+  pickup LowerDepths.SpiritSurgeShard:
+    base: Glide, DoubleJump, Grapple, Bow, Bash
+  pickup LowerDepths.DepthsShrine:
+    base: Glide, DoubleJump, Grapple, Bash, Flash, Water, Regenerate
+  pickup LowerDepths.SwimEC:
+    base: Glide, DoubleJump, Grapple, Bash, Flash, Water
+  pickup LowerDepths.LupoMap:
+    base: Bash, Grapple, DoubleJump, Glide
+  pickup LowerDepths.LeftEX:
+    base: Glide, DoubleJump, Grapple, Bow
+  pickup LowerDepths.RightEX:
+    base: Glide, DoubleJump, Grapple, Bash
+  pickup LowerDepths.FlashTree:
+    base: Glide, DoubleJump, Grapple, Bow, Bash
+
+area BurrowTreeApproach:
+  # (1461, -3996) At the Western Wastes TP
+  pickup BurrowTreeApproach.TPOre:
+    base: Burrow, Dash
+  pickup BurrowTreeApproach.PurpleWallEX:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup BurrowTreeApproach.SunsetViewEX:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.SandBridgeOre:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.MuncherTunnelEC:
+    base: Grapple, Burrow, Dash
+  pickup BurrowTreeApproach.SandPotHC:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup BurrowTreeApproach.SandPotEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup BurrowTreeApproach.MuncherPitEX:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.MinesEntranceEX:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.MinesEntranceHC:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.LastStandShard:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.AboveLastStandEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup BurrowTreeApproach.MuncherClimbEX:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.SkeetoHiveEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup BurrowTreeApproach.LupoMap:
+    base: Grapple, Burrow
+  pickup BurrowTreeApproach.BurrowTree:
+    base: Grapple, DoubleJump
+  pickup BurrowTreeApproach.BurrowTreeEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+
+area CentralWastes:
+  # (1993, -3900) At the Eastern Wastes TP
+  pickup CentralWastes.TreeConEC:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.TreeConEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.TreeConHiddenEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.TreeConHC:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.TpOre:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.LowerKS:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.UpperKS:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.TurmoilShard:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup CentralWastes.KSDoorEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.LedgeEC:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup CentralWastes.MissileSpawnEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.PurpleWallEX:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup CentralWastes.PurpleWallHC:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+
+area RuinsApproach:
+  # (2039, -3750) Before the Spinning Lasers
+  pickup RuinsApproach.RoofEX:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup RuinsApproach.SpinLasersRightEX:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup RuinsApproach.SpinLasersMiddleEX:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup RuinsApproach.SpinLasersLowerEX:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup RuinsApproach.SeedQI:
+    base: Grapple, DoubleJump, Burrow, Dash
+  pickup RuinsApproach.WallOre:
+    base: Grapple, DoubleJump, Burrow, Dash, Bash
+
+area WindtornRuins:
+  # (2131, -3983) At the Ruins TP
+  pickup WindtornRuins.EscapeRevisitEC:
+    base: Wisps, Burrow, Dash, DoubleJump, Grapple
+
+area WeepingRidge:
+  # (1191, -3716) After the portal at the top of Elevator
+  pickup WeepingRidge.Ore:
+    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+  pickup WeepingRidge.LaunchTree:
+    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps
+  pickup WeepingRidge.SpikeClimbEX:
+    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+  pickup WeepingRidge.PortalEX:
+    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+
+area WillowEntry:
+  # (497, -3950) Inside the door from Weeping Ridge
+  pickup WillowEntry.SpikesOre:
+    base: Launch, DoubleJump
+  pickup WillowEntry.RoofEX:
+    base: Launch
+  pickup WillowEntry.PoisonfallHC:
+    base: Launch, DoubleJump, Dash
+
+area WillowMain:
+  # (420, -4834) The Lower Willows TP
+  pickup WillowMain.LupoMap: free
+  pickup WillowMain.WindSpinOre:
+    base: Launch, DoubleJump, Bash, Glide
+  pickup WillowMain.RedirectEX:
+    base: Launch, DoubleJump, Bash
+  pickup WillowMain.UpperLeftEX:
+    base: Launch, DoubleJump, Bash, Grapple
+  pickup WillowMain.UpperRightEX:
+    base: Launch, DoubleJump, Bash, Grapple
+
+area TwillenShop:
+  pickup TwillenShop.Overcharge: free
+  pickup TwillenShop.TripleJump:
+    base: Bash
+  pickup TwillenShop.Wingclip: free
+  pickup TwillenShop.Swap: free
+  pickup TwillenShop.LightHarvest:
+    base: Bash
+  pickup TwillenShop.Vitality: free
+  pickup TwillenShop.Energy: free
+  pickup TwillenShop.Finesse: free
+
+area OpherShop:
+  pickup OpherShop.WaterBreath:
+    base: Water
+  pickup OpherShop.Spike: free
+  pickup OpherShop.SpiritSmash: free
+  pickup OpherShop.Teleport: free
+  pickup OpherShop.SpiritStar: free
+  pickup OpherShop.Blaze: free
+  pickup OpherShop.Sentry: free
