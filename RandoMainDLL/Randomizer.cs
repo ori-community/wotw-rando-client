@@ -6,6 +6,7 @@ namespace RandoMainDLL {
   public static class Randomizer {
     public static string SeedFile = @"C:\moon\.currentseed";
     public static string SeedNameFile = @"C:\moon\.currentseedname";
+    public static string MessageLog = @"C:\moon\.messagelog";
     public static string LogFile = @"C:\moon\cs_log.txt";
     public static string SaveFolder = @"C:\moon\saves";
     public static string VersionFile = @"C:\moon\VERSION";
@@ -20,7 +21,7 @@ namespace RandoMainDLL {
           Directory.CreateDirectory(SaveFolder);
         }
 
-        foreach (var fileName in new string[] { LogFile, SeedFile, SeedNameFile }) {
+        foreach (var fileName in new string[] { LogFile, SeedFile, SeedNameFile, MessageLog }) {
           if (!File.Exists(fileName)) {
             File.WriteAllText(fileName, "");
             Log($"Wrote blank {fileName} (normal for first-time init)");
@@ -88,7 +89,7 @@ namespace RandoMainDLL {
       LastMessage = message;
       File.AppendAllText(LogFile, message + "\n");
       if (Dev && printIfDev) {
-        AHK.Print(message);
+        AHK.Print(message, 180, false);
       }
     }
 
