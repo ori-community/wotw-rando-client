@@ -53,8 +53,8 @@ namespace RandoMainDLL.Il2Cpp {
     public T ReadClass<T>() where T : new() {
       byte[] bytes = reader.ReadBytes(Marshal.SizeOf(typeof(T)));
 
-      GCHandle handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
-      T theStructure = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
+      var handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
+      var theStructure = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
       handle.Free();
 
       return theStructure;

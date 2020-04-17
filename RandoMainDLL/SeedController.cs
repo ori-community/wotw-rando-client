@@ -52,7 +52,7 @@ namespace RandoMainDLL {
     }
 
     public static Sellable OpherWeapon(AbilityType ability) {
-      UberId fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
+      var fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
       if (pickupMap.TryGetValue(fakeId, out Pickup p) && p is Sellable) {
         return p as Sellable;
       }
@@ -61,7 +61,7 @@ namespace RandoMainDLL {
     }
 
     public static Sellable TwillenShard(ShardType shard) {
-      UberId fakeId = new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)shard);
+      var fakeId = new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)shard);
       if (pickupMap.TryGetValue(fakeId, out Pickup p) && p is Sellable) {
         return p as Sellable;
       }
@@ -70,7 +70,7 @@ namespace RandoMainDLL {
     }
 
     public static void OnTree(AbilityType ability) {
-      UberId fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
+      var fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
       if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
         p.Grant();
         Randomizer.PleaseSave = true;

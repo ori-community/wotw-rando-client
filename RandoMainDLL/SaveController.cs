@@ -38,19 +38,19 @@ namespace RandoMainDLL {
           File.Delete(Filename);
         }
 
-        using (StreamWriter sw = new StreamWriter(Filename))
+        using (var sw = new StreamWriter(Filename))
         using (JsonWriter writer = new JsonTextWriter(sw)) {
-          JsonSerializer serializer = new JsonSerializer();
+          var serializer = new JsonSerializer();
           serializer.Serialize(writer, this);
         }
       }
 
       public void Load() {
-        SaveData copyFrom = new SaveData(-1);
+        var copyFrom = new SaveData(-1);
         if (File.Exists(Filename)) {
-          using (StreamReader sr = new StreamReader(Filename))
+          using (var sr = new StreamReader(Filename))
           using (JsonReader reader = new JsonTextReader(sr)) {
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
             copyFrom = serializer.Deserialize<SaveData>(reader);
           }
         }

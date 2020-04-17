@@ -48,7 +48,7 @@ namespace RandoMainDLL.Memory {
 
     public void Write<T>(Process program, T value, params int[] offsets) where T : unmanaged {
       GetPointer(program);
-      program.Write<T>(Pointer, value, offsets);
+      program.Write(Pointer, value, offsets);
     }
 
     public void Write(Process program, byte[] value, params int[] offsets) {
@@ -162,7 +162,7 @@ namespace RandoMainDLL.Memory {
       byte[] metaDataBytes = File.ReadAllBytes(metaFile);
       byte[] il2CppBytes = File.ReadAllBytes(ilFile);
       Il2CppReader.Init(il2CppBytes, metaDataBytes, out Metadata metaData, out Il2CppData il2Cpp);
-      Il2CppExecutor executor = new Il2CppExecutor(metaData, il2Cpp);
+      var executor = new Il2CppExecutor(metaData, il2Cpp);
       Decompiler = new Il2CppDecompiler(executor);
       return true;
     }

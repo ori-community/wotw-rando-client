@@ -145,7 +145,7 @@ namespace RandoMainDLL {
         if (MessageQueue.Count > 0) {
           Current = MessageQueue.Dequeue();
           FramesTillNextSend = Current.Frames;
-          Engine.ExecFunction("PickupMessage", Current.Text, (Current.Frames* 50 / 3).ToString());
+          Engine.ExecFunction("PickupMessage", Current.Text, (Current.Frames * 50 / 3).ToString());
           if (IniFlag("LogOnPrint")) {
             Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
           }

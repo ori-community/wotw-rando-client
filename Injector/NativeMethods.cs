@@ -20,14 +20,14 @@ namespace Injector {
 
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern IntPtr VirtualAllocEx(IntPtr HProcess, IntPtr LpAddress, IntPtr DwSize,
-        uint FlAllocationType, uint FlProtect);
+      uint FlAllocationType, uint FlProtect);
 
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern int WriteProcessMemory(IntPtr HProcess, IntPtr LpBaseAddress, byte[] Buffer, int Size,
-        int LpNumberOfBytesWritten);
+      int LpNumberOfBytesWritten);
 
     [DllImport("kernel32.dll", SetLastError = true)]
     internal static extern IntPtr CreateRemoteThread(IntPtr HProcess, IntPtr LpThreadAttribute, IntPtr DwStackSize,
-        IntPtr LpStartAddress, IntPtr LpParameter, uint DwCreationFlags, IntPtr LpThreadId);
+      IntPtr LpStartAddress, IntPtr LpParameter, uint DwCreationFlags, IntPtr LpThreadId);
   }
 }

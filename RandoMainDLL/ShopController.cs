@@ -90,45 +90,45 @@ namespace RandoMainDLL {
     };
 
     public static Dictionary<string, AbilityType> OpherWeaponNames = new Dictionary<string, AbilityType> {
-      {"Sentry", AbilityType.Sentry},
-      {"Spirit Smash", AbilityType.SpiritSmash},
-      {"Spirit Star", AbilityType.SpiritStar},
-      {"Spike", AbilityType.Spike },
-      {"Blaze", AbilityType.Blaze},
-      {"Water Breath", AbilityType.WaterBreath},
-      {"Fast Travel", AbilityType.TeleportSpell},
+      { "Sentry", AbilityType.Sentry },
+      { "Spirit Smash", AbilityType.SpiritSmash },
+      { "Spirit Star", AbilityType.SpiritStar },
+      { "Spike", AbilityType.Spike },
+      { "Blaze", AbilityType.Blaze },
+      { "Water Breath", AbilityType.WaterBreath },
+      { "Fast Travel", AbilityType.TeleportSpell },
     };
 
     public static Dictionary<string, AbilityType> OpherWeaponDetail = new Dictionary<string, AbilityType> {
-      { "Pound foes with a strong, sweeping blow", AbilityType.SpiritSmash},
-      { @"Throw a powerful spear of light.\nUses a large amount of Energy", AbilityType.Spike},
-      { "Spawn a spirit orb that attacks for you", AbilityType.Sentry},
-      {"Throw a star that returns to you", AbilityType.SpiritStar},
-      {"Set nearby enemies on fire", AbilityType.Blaze},
-      {"Breathe under water", AbilityType.WaterBreath },
-      {"Select Spirit Wells on the map and #warp# to them #from anywhere#.", AbilityType.TeleportSpell }
+      { "Pound foes with a strong, sweeping blow", AbilityType.SpiritSmash },
+      { @"Throw a powerful spear of light.\nUses a large amount of Energy", AbilityType.Spike },
+      { "Spawn a spirit orb that attacks for you", AbilityType.Sentry },
+      { "Throw a star that returns to you", AbilityType.SpiritStar },
+      { "Set nearby enemies on fire", AbilityType.Blaze },
+      { "Breathe under water", AbilityType.WaterBreath },
+      { "Select Spirit Wells on the map and #warp# to them #from anywhere#.", AbilityType.TeleportSpell }
     };
 
     public static Dictionary<string, ShardType> TwillenShardNames = new Dictionary<string, ShardType> {
-      {"Energy", ShardType.Energy},
-      {"Vitality", ShardType.Vitality},
-      {"Overcharge", ShardType.Overcharge},
-      {"Wingclip", ShardType.Wingclip},
-      {"Triple Jump", ShardType.TripleJump},
-      {"Finesse", ShardType.Finesse},
-      {"Swap", ShardType.Swap},
-      {"Light Harvest", ShardType.LightHarvest},
+      { "Energy", ShardType.Energy },
+      { "Vitality", ShardType.Vitality },
+      { "Overcharge", ShardType.Overcharge },
+      { "Wingclip", ShardType.Wingclip },
+      { "Triple Jump", ShardType.TripleJump },
+      { "Finesse", ShardType.Finesse },
+      { "Swap", ShardType.Swap },
+      { "Light Harvest", ShardType.LightHarvest },
     };
 
     public static Dictionary<string, ShardType> TwillenShardDetail = new Dictionary<string, ShardType> {
-      {"Gain 1 additional Energy cell", ShardType.Energy },
-      {"Gain 1 additional Life cell", ShardType.Vitality },
-      {"Reduce Energy costs by 50% and increase damage taken by 100%", ShardType.Overcharge },
-      {"Deal bonus damage to flying enemies", ShardType.Wingclip},
-      {"Jump twice mid-air before landing", ShardType.TripleJump},
-      {"10% chance to deal 50% bonus damage", ShardType.Finesse},
-      {"Swap maximum Life and Energy", ShardType.Swap },
-      {"Enemies drop 2 extra Spirit Light orbs", ShardType.LightHarvest },
+      { "Gain 1 additional Energy cell", ShardType.Energy },
+      { "Gain 1 additional Life cell", ShardType.Vitality },
+      { "Reduce Energy costs by 50% and increase damage taken by 100%", ShardType.Overcharge },
+      { "Deal bonus damage to flying enemies", ShardType.Wingclip},
+      { "Jump twice mid-air before landing", ShardType.TripleJump},
+      { "10% chance to deal 50% bonus damage", ShardType.Finesse},
+      { "Swap maximum Life and Energy", ShardType.Swap },
+      { "Enemies drop 2 extra Spirit Light orbs", ShardType.LightHarvest },
     };
 
     public static Dictionary<AbilityType, string> OpherWeaponChatter = new Dictionary<AbilityType, string>();
