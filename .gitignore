@@ -11,6 +11,7 @@
 *.pch
 */bin/*
 */obj/*
+*/x64/*
 InjectDLL.log
 seedgenTemp/out
 seedgenTemp/seeds
