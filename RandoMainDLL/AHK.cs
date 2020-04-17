@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using AutoHotkey.Interop;
 
 namespace RandoMainDLL {
@@ -162,8 +163,12 @@ namespace RandoMainDLL {
     public static int FramesTillUnlockReload = 0;
     public static int FramesTillNextSend = 0;
 
-    public static void Print(string message, int frames = 180) => SendPlainText(new PlainText(message, frames));
-    public static void SendPlainText(PlainText p) => MessageQueue.Enqueue(p);
+    public static void Print(string message, int frames = 180, bool toMessageLog = true) => SendPlainText(new PlainText(message, frames), toMessageLog);
+    public static void SendPlainText(PlainText p, bool logMessage = true) {
+      if(logMessage)
+        File.AppendAllText(Randomizer.MessageLog, $"{p.Text}\n");
+      MessageQueue.Enqueue(p);
+    }
 
     public interface IMessage {
       string Text { get; }

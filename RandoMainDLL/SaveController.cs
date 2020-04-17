@@ -66,7 +66,8 @@ namespace RandoMainDLL {
 
     [DllExport]
     public static void NewGame(int slot) {
-      Randomizer.Log($"Creating new rando save in slot {slot}", false);
+      // overwrite the message log TODO: save a backup maybe?
+      File.WriteAllText(Randomizer.MessageLog, "");
       SeedController.ReadSeed();
       UberStateController.NeedsNewGameInit = true;
       CurrentSlot = slot;

@@ -605,7 +605,6 @@ INTERCEPT(6915088, PICKUP_FUN, void, WeaponmasterItem_DoPurchase, (__int64 item,
     }
     WeaponmasterItem_DoPurchase(item, context);
     weaponmasterPurchaseInProgress = 0;
-
 })
 
 typedef void(*SAVETOFILE)(__int64, __int64, __int64, __int64);
