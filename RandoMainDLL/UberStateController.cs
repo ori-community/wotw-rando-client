@@ -5,6 +5,7 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   public static class UberStateController {
     public static Dictionary<long, UberState> UberStates = new Dictionary<long, UberState>();
+    
     public static void Update() {
       var memory = Randomizer.Memory;
       Dictionary<long, UberState> uberStates = memory.GetUberStates();
@@ -50,17 +51,16 @@ namespace RandoMainDLL {
         NewGameInit();
       }
     }
+    
     private static bool ShouldRevert(UberState state) {
-      //            if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
-      //                return true;
+      // if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
+      //   return true;
       if (state.Name == "findKuQuest" && state.Value.Int < 4) {
         return true;
       }
 
       return false;
     }
-    
-    public static bool Ready = false;
 
     public static void NewGameInit() {
       var memory = Randomizer.Memory;
@@ -89,6 +89,8 @@ namespace RandoMainDLL {
         NeedsNewGameInit = false;
       }
     }
+
+    public static bool Ready = false;
 
     public static bool NeedsNewGameInit = false;
 

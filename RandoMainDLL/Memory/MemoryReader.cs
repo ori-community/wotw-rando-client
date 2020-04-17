@@ -32,7 +32,7 @@ namespace RandoMainDLL.Memory {
       byte[] buffer = new byte[numBytes];
       if (targetProcess == null || address == IntPtr.Zero) { return buffer; }
 
-      WinAPI.ReadProcessMemory(targetProcess.Handle, address, buffer, numBytes, out var bytesRead);
+      WinAPI.ReadProcessMemory(targetProcess.Handle, address, buffer, numBytes, out _);
       return buffer;
     }
 
@@ -43,7 +43,7 @@ namespace RandoMainDLL.Memory {
       int last = OffsetAddress(targetProcess, ref address, offsets);
       if (address == IntPtr.Zero) { return buffer; }
 
-      WinAPI.ReadProcessMemory(targetProcess.Handle, address + last, buffer, numBytes, out var bytesRead);
+      WinAPI.ReadProcessMemory(targetProcess.Handle, address + last, buffer, numBytes, out _);
       return buffer;
     }
 
@@ -70,7 +70,7 @@ namespace RandoMainDLL.Memory {
     public static string ReadAscii(this Process targetProcess, IntPtr address) {
       if (targetProcess == null || address == IntPtr.Zero) { return string.Empty; }
 
-      StringBuilder sb = new StringBuilder();
+      var sb = new StringBuilder();
       byte[] data = new byte[128];
       int bytesRead;
       int offset = 0;
@@ -132,13 +132,13 @@ namespace RandoMainDLL.Memory {
       int last = OffsetAddress(targetProcess, ref address, offsets);
       if (address == IntPtr.Zero) { return; }
 
-      WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, value, value.Length, out var bytesWritten);
+      WinAPI.WriteProcessMemory(targetProcess.Handle, address + last, value, value.Length, out _);
     }
 
     private static int OffsetAddress(this Process targetProcess, ref IntPtr address, params int[] offsets) {
       byte[] buffer = new byte[is64Bit ? 8 : 4];
       for (int i = 0; i < offsets.Length - 1; i++) {
-        WinAPI.ReadProcessMemory(targetProcess.Handle, address + offsets[i], buffer, buffer.Length, out var bytesRead);
+        WinAPI.ReadProcessMemory(targetProcess.Handle, address + offsets[i], buffer, buffer.Length, out _);
         if (is64Bit) {
           address = (IntPtr)BitConverter.ToUInt64(buffer, 0);
         }
@@ -187,8 +187,8 @@ namespace RandoMainDLL.Memory {
         int key = p.StartTime.GetHashCode() + p.Id + (int)moduleSize;
         if (ModuleCache.ContainsKey(key)) { return ModuleCache[key]; }
 
-        List<Module64> list = new List<Module64>();
-        StringBuilder stringBuilder = new StringBuilder(260);
+        var list = new List<Module64>();
+        var stringBuilder = new StringBuilder(260);
         int count = 0;
         while ((long)count < (long)((ulong)moduleSize)) {
           stringBuilder.Clear();
@@ -321,7 +321,7 @@ namespace RandoMainDLL.Memory {
       GetMemoryInfo(process.Handle);
       int[] offsets = GetCharacterOffsets(pattern, mask);
 
-      List<IntPtr> pointers = new List<IntPtr>();
+      var pointers = new List<IntPtr>();
       for (int i = 0; i < memoryInfo.Count; i++) {
         MemInfo info = memoryInfo[i];
         int index = 0;
@@ -350,15 +350,15 @@ namespace RandoMainDLL.Memory {
       }
 
       byte[] buff = new byte[pattern.Length];
-      WinAPI.ReadProcessMemory(process.Handle, pointer, buff, buff.Length, out var bytesRead);
+      WinAPI.ReadProcessMemory(process.Handle, pointer, buff, buff.Length, out _);
       return ScanMemory(buff, buff.Length, pattern, mask, offsets) == 0;
     }
 
     public void GetMemoryInfo(IntPtr pHandle) {
       memoryInfo.Clear();
-      IntPtr current = (IntPtr)65536;
+      var current = (IntPtr)65536;
       while (true) {
-        MemInfo memInfo = new MemInfo();
+        var memInfo = new MemInfo();
         int dump = WinAPI.VirtualQueryEx(pHandle, current, out memInfo, Marshal.SizeOf(memInfo));
         if (dump == 0) { break; }
 

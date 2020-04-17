@@ -9,8 +9,8 @@ namespace Injector {
   class Program {
     private static readonly IntPtr StaticZero = (IntPtr)0;
     public static string InstallRoot = "C:\\moon\\";
-    public static string DllPath { get { return $"{InstallRoot}InjectDLL.dll"; } }
-    public static string libDir { get { return $"{InstallRoot}lib"; } }
+    public static string DllPath => $"{InstallRoot}InjectDLL.dll";
+    public static string LibDir => $"{InstallRoot}lib";
     public static string ExeName = "oriwotw";
     public static string ExePath = "C:\\Program Files (x86)\\Steam\\Steam.exe";
     public static string ExeArgs = "-applaunch 1057090";
@@ -21,7 +21,7 @@ namespace Injector {
         Console.WriteLine(message);
       }
     }
-    
+
     public static void Inject(Process process) {
       if (!File.Exists(DllPath)) {
         Log("Dll path not found");
@@ -105,8 +105,8 @@ namespace Injector {
             Thread.Sleep(2000);
             return;
           }
-          foreach (string fileName in Directory.EnumerateFiles(libDir)) {
-            string resourcePath = proc.MainModule.FileName.Replace("oriwotw.exe", "") + fileName.Replace($"{libDir}\\", "");
+          foreach (string fileName in Directory.EnumerateFiles(LibDir)) {
+            string resourcePath = proc.MainModule.FileName.Replace("oriwotw.exe", "") + fileName.Replace($"{LibDir}\\", "");
             if (!File.Exists(resourcePath)) {
               File.Copy(fileName, resourcePath);
               Log($"Installed {fileName} into {resourcePath}");
@@ -114,7 +114,7 @@ namespace Injector {
           }
           Inject(proc);
           if (DevMode) {
-            Thread t = new Thread(new ThreadStart(ListenForOri));
+            var t = new Thread(new ThreadStart(ListenForOri));
             t.Start();
             Log("press any key to exit");
             Console.ReadKey();
@@ -132,7 +132,7 @@ namespace Injector {
         Thread.Sleep(5000);
       }
     }
-    
+
     public static void ListenForOri() {
       while (Process.GetProcessesByName(ExeName).Length > 0) {
         Thread.Sleep(500);

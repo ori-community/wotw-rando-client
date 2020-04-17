@@ -167,7 +167,7 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
-    
+
     public static Dictionary<TeleporterType, UberState> TeleporterStates = new Dictionary<TeleporterType, UberState>() {
       { TeleporterType.MidnightBurrows, UberStateDefaults.savePedestalMidnightBurrows },
       { TeleporterType.HowlsDen, UberStateDefaults.savePedestalHowlsDen },

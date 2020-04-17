@@ -84,9 +84,9 @@ namespace RandoMainDLL.Memory {
     public bool DebugEnabled() => CheatsHandler.Read<bool>(Program, 0xb8, 0x0, 0x20);
 
     public void EnableDebug(bool enable) {
-      DebugControls.Write<bool>(Program, enable, 0xb8, 0x8);
-      CheatsHandler.Write<bool>(Program, enable, 0xb8, 0x0, 0x20);
-      CheatsHandler.Write<short>(Program, enable ? (short)0x0101 : (short)0x0, 0xb8, 0x8);
+      DebugControls.Write(Program, enable, 0xb8, 0x8);
+      CheatsHandler.Write(Program, enable, 0xb8, 0x0, 0x20);
+      CheatsHandler.Write(Program, enable ? (short)0x0101 : (short)0x0, 0xb8, 0x8);
     }
 
     // TitleScreenManager.Instance.m_currentScreen
@@ -141,11 +141,11 @@ namespace RandoMainDLL.Memory {
 
     // PlayerUberStateGroup.Instance.PlayerUberState.m_isActive
     public bool IsActive() => PlayerUberStateGroup.Read<bool>(Program, 0xb8, 0x0, 0x18, 0x4C);
-    
+
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards.m_shardsList
     public int Shards {
       get => PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x28);
-      set => PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x28);
+      set => PlayerUberStateGroup.Write(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x28);
     }
 
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards
@@ -186,29 +186,29 @@ namespace RandoMainDLL.Memory {
       stats.Energy = stats.MaxEnergy;
       PlayerStats = stats;
     }
-    
+
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_keystones
     public int Keystones {
       get => PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x28);
-      set => PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x28);
+      set => PlayerUberStateGroup.Write(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x28);
     }
 
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_experience
     public int Mapstones {
       get => PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x2C);
-      set => PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x2C);
+      set => PlayerUberStateGroup.Write(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x2C);
     }
 
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_experience
     public int Experience {
       get => PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x30);
-      set => PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x30);
+      set => PlayerUberStateGroup.Write(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x30);
     }
 
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_ore
     public int Ore {
       get => PlayerUberStateGroup.Read<int>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x34);
-      set => PlayerUberStateGroup.Write<int>(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x34);
+      set => PlayerUberStateGroup.Write(Program, value, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x34);
     }
 
     // Scenes.Manager.m_currentScene.Scene
@@ -217,9 +217,9 @@ namespace RandoMainDLL.Memory {
       int m_currentScene = Version == PointerVersion.All ? 0x180 : 0x190;
       return ScenesManager.Read(Program, 0xb8, 0x0, m_currentScene, 0x10, 0x0);
     }
-    
+
     private static Dictionary<long, UberState> uberIDLookup = null;
-    
+
     private void PopulateUberStates() {
       uberIDLookup = new Dictionary<long, UberState>();
       //UberStateCollection.Instance.m_descriptorsArray
@@ -229,10 +229,10 @@ namespace RandoMainDLL.Memory {
       byte[] data = Program.Read(descriptors + 0x20, descriptorsCount * 0x8);
       for (int i = 0; i < descriptorsCount; i++) {
         //.m_descriptorsArray[i]
-        IntPtr descriptor = (IntPtr)BitConverter.ToUInt64(data, i * 0x8);
+        var descriptor = (IntPtr)BitConverter.ToUInt64(data, i * 0x8);
 
         UberStateType type = UberStateType.SerializedBooleanUberState;
-        Enum.TryParse<UberStateType>(Program.ReadAscii(descriptor, 0x0, 0x10, 0x0), out type);
+        Enum.TryParse(Program.ReadAscii(descriptor, 0x0, 0x10, 0x0), out type);
 
         int groupOffset = 0x38;
         switch (type) {
@@ -270,7 +270,7 @@ namespace RandoMainDLL.Memory {
         else {
           groupName = Program.ReadAscii(descriptor, groupOffset, 0x10, 0x50);
         }
-        UberState uberState = new UberState() { Type = type, ID = id, Name = name, GroupID = groupID, GroupName = groupName };
+        var uberState = new UberState() { Type = type, ID = id, Name = name, GroupID = groupID, GroupName = groupName };
         uberIDLookup.Add(((long)groupID << 32) | (long)id, uberState);
       }
     }
@@ -283,7 +283,7 @@ namespace RandoMainDLL.Memory {
       UpdateUberState();
       return uberIDLookup;
     }
-    
+
     public void UpdateUberState(UberState uberState = null) {
       //UbserStateController.m_currentStateValueStore.m_groupMap
       IntPtr groups = UberStateController.Read<IntPtr>(Program, 0xb8, 0x40, 0x18);
@@ -296,14 +296,14 @@ namespace RandoMainDLL.Memory {
       bool updateAll = uberState == null;
       for (int i = 0; i < groupCount; i++) {
         //.Values[i].m_id.m_id
-        IntPtr group = (IntPtr)BitConverter.ToUInt64(groupsData, 0x10 + (i * 0x18));
+        var group = (IntPtr)BitConverter.ToUInt64(groupsData, 0x10 + (i * 0x18));
         byte[] groupData = Program.Read(group + 0x18, 48);
         long groupID = Program.Read<int>((IntPtr)BitConverter.ToUInt64(groupData, 0), 0x10);
 
         if (!updateAll && groupID != uberState.GroupID) { continue; }
 
         //.Values[i].m_objectStateMap
-        IntPtr map = (IntPtr)BitConverter.ToUInt64(groupData, 8);
+        var map = (IntPtr)BitConverter.ToUInt64(groupData, 8);
         //.Values[i].m_objectStateMap.Count
         int mapCount = Program.Read<int>(map, 0x20);
         if (mapCount > 0 && (updateAll || uberState.IsObjectType)) {
@@ -403,7 +403,7 @@ namespace RandoMainDLL.Memory {
         }
       }
     }
-    
+
     public void WriteUberState(UberState uberState) {
       //UbserStateController.m_currentStateValueStore.m_groupMap
       IntPtr groups = UberStateController.Read<IntPtr>(Program, 0xb8, 0x40, 0x18);
@@ -414,14 +414,14 @@ namespace RandoMainDLL.Memory {
       byte[] groupsData = Program.Read(groups + 0x20, groupCount * 0x18);
       for (int i = 0; i < groupCount; i++) {
         //.Values[i].m_id.m_id
-        IntPtr group = (IntPtr)BitConverter.ToUInt64(groupsData, 0x10 + (i * 0x18));
+        var group = (IntPtr)BitConverter.ToUInt64(groupsData, 0x10 + (i * 0x18));
         byte[] groupData = Program.Read(group + 0x18, 48);
         long groupID = Program.Read<int>((IntPtr)BitConverter.ToUInt64(groupData, 0), 0x10);
 
         if (groupID != uberState.GroupID) { continue; }
 
         //.Values[i].m_objectStateMap
-        IntPtr map = (IntPtr)BitConverter.ToUInt64(groupData, 8);
+        var map = (IntPtr)BitConverter.ToUInt64(groupData, 8);
         //.Values[i].m_objectStateMap.Count
         int mapCount = Program.Read<int>(map, 0x20);
         if (mapCount > 0 && (uberState.IsObjectType)) {
@@ -434,7 +434,7 @@ namespace RandoMainDLL.Memory {
             if (id != uberState.ID) { continue; }
             if (uberState.Type == UberStateType.SavePedestalUberState) {
               // uberState.Value.Byte = Program.Read<byte>((IntPtr)BitConverter.ToUInt64(data, 0x10 + (j * 0x18)), 0x11);
-              Program.Write<byte>((IntPtr)BitConverter.ToUInt64(data, 0x10 + (j * 0x18)), uberState.Value.Byte, 0x11);
+              Program.Write((IntPtr)BitConverter.ToUInt64(data, 0x10 + (j * 0x18)), uberState.Value.Byte, 0x11);
             }
             else {
               //playerUberStateDescriptor
@@ -455,7 +455,7 @@ namespace RandoMainDLL.Memory {
 
             if (id != uberState.ID) { continue; }
             //                        uberState.Value.Bool = data[0x10 + (j * 0x18)] != 0;
-            Program.Write<byte>(map + 0x20, uberState.Value.Byte, 0x10 + (j * 0x18));
+            Program.Write(map + 0x20, uberState.Value.Byte, 0x10 + (j * 0x18));
           }
         }
 
@@ -472,7 +472,7 @@ namespace RandoMainDLL.Memory {
 
             if (id != uberState.ID) { continue; }
             //  uberState.Value.Float = BitConverter.ToSingle(data, 0x10 + (j * 0x18));
-            Program.Write<float>(map + 0x20, uberState.Value.Float, 0x10 + (j * 0x18));
+            Program.Write(map + 0x20, uberState.Value.Float, 0x10 + (j * 0x18));
           }
         }
 
@@ -489,7 +489,7 @@ namespace RandoMainDLL.Memory {
 
             if (id != uberState.ID) { continue; }
             //   uberState.Value.Int = BitConverter.ToInt32(data, 0x10 + (j * 0x18));
-            Program.Write<Int32>(map + 0x20, uberState.Value.Int, 0x10 + (j * 0x18));
+            Program.Write(map + 0x20, uberState.Value.Int, 0x10 + (j * 0x18));
           }
         }
 
@@ -507,13 +507,13 @@ namespace RandoMainDLL.Memory {
             if (id != uberState.ID) { continue; }
 
             // uberState.Value.Byte = data[0x10 + (j * 0x18)];
-            Program.Write<byte>(map + 0x20, uberState.Value.Byte, 0x10 + (j * 0x18));
+            Program.Write(map + 0x20, uberState.Value.Byte, 0x10 + (j * 0x18));
 
           }
         }
       }
     }
-    
+
     public bool HasAbility(AbilityType type) {
       //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Abilities.m_abilitiesList
       IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
@@ -531,7 +531,7 @@ namespace RandoMainDLL.Memory {
       }
       return false;
     }
-    
+
     public void SetAbility(AbilityType type, bool setTo = true) {
       IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
       //.Count
@@ -553,7 +553,7 @@ namespace RandoMainDLL.Memory {
         }
       }
     }
-    
+
     public Dictionary<AbilityType, Ability> PlayerAbilities() {
       var currentAbilities = new Dictionary<AbilityType, Ability>();
       //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Abilities.m_abilitiesList
@@ -590,7 +590,7 @@ namespace RandoMainDLL.Memory {
       }
       return false;
     }
-    
+
     public bool HasInvItem(EquipmentType type) {
       //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_inventory
       IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
@@ -610,7 +610,7 @@ namespace RandoMainDLL.Memory {
       }
       return false;
     }
-    
+
     public void SetInvItem(EquipmentType type, bool setTo = true) {
       //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_inventory
       IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
@@ -630,7 +630,7 @@ namespace RandoMainDLL.Memory {
       }
       return;
     }
-    
+
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_bindings
     public void SetBound(EquipmentType type) {
       return; // this function stubbed out because it crashes and i have no idea why. seems like it should work!!!
@@ -664,7 +664,7 @@ namespace RandoMainDLL.Memory {
     }
 
     public Dictionary<ShardType, Shard> PlayerShards() {
-      Dictionary<ShardType, Shard> currentShards = new Dictionary<ShardType, Shard>();
+      var currentShards = new Dictionary<ShardType, Shard>();
       //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards.m_shardsList
       IntPtr shards = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
       //.Count
@@ -693,7 +693,7 @@ namespace RandoMainDLL.Memory {
       areas = Program.Read<IntPtr>(areas, 0x10);
       byte[] data = Program.Read(areas + 0x20, count * 0x8);
       for (int i = 0; i < count; i++) {
-        IntPtr area = (IntPtr)BitConverter.ToUInt64(data, i * 0x8);
+        var area = (IntPtr)BitConverter.ToUInt64(data, i * 0x8);
         if (areaType != AreaType.None) {
           //.Items[i].Area.WorldMapAreaUniqueID
           AreaType type = Program.Read<AreaType>(area, 0x10, 0x20);
@@ -712,15 +712,15 @@ namespace RandoMainDLL.Memory {
 
     // GameWorld.CurrentArea.Area.WorldMapAreaUniqueID
     public AreaType PlayerArea() => GameWorld.Read<AreaType>(Program, 0xb8, 0x0, 0x30, 0x10, 0x20);
-    
+
     public ulong GameControllerInstancePointer() => GameController.Read<ulong>(Program, 0xb8, 0x0);
-    
+
     // GameController.Instance.Timer.CurrentTime
     public double ElapsedTime() => GameController.Read<double>(Program, 0xb8, 0x0, 0x28, 0x20);
-    
+
     // Characters.Sein.PlatformBehaviour.Mortality.DamageReciever.m_died
     public bool Dead() => Characters.Read<bool>(Program, 0xb8, 0x10, 0x88, 0x10, 0xe4);
-    
+
     public bool HookProcess() {
       try {
         IsHooked = Program != null && !Program.HasExited;
@@ -767,29 +767,29 @@ namespace RandoMainDLL.Memory {
     public void Dispose() => Program?.Dispose();
 
     private readonly Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
-      {AbilityType.Bash, EquipmentType.Ability_Bash },
-      {AbilityType.DoubleJump, EquipmentType.Ability_DoubleJump },
-      {AbilityType.Launch, EquipmentType.Spell_ChargeJump },
-      {AbilityType.Feather, EquipmentType.AutoAbility_Glide },
-      {AbilityType.WaterBreath, EquipmentType.AutoAbility_WaterBreath},
-      {AbilityType.LightBurst, EquipmentType.Spell_StickyMine},
-      {AbilityType.Grapple, EquipmentType.Ability_Leash },
-      {AbilityType.Flash, EquipmentType.Spell_Glow },
-      {AbilityType.Spike, EquipmentType.Spell_Spear },
-      {AbilityType.Regenerate, EquipmentType.Spell_Meditate },
-      {AbilityType.SpiritArc, EquipmentType.Weapon_Bow },
-      {AbilityType.SpiritSmash, EquipmentType.Weapon_Hammer},
-      {AbilityType.SpiritEdge, EquipmentType.Weapon_Sword },
-      {AbilityType.Burrow, EquipmentType.Ability_Digging },
-      {AbilityType.Dash, EquipmentType.AutoAbility_Dash },
-      {AbilityType.WaterDash, EquipmentType.AutoAbility_WaterDash},
-      {AbilityType.SpiritStar, EquipmentType.Spell_Chakram},
-      {AbilityType.Seir, EquipmentType.Spell_GoldenSein},
-      {AbilityType.Blaze, EquipmentType.Spell_Blaze},
-      {AbilityType.Flap, EquipmentType.Ability_FeatherFlap},
-      {AbilityType.Sentry, EquipmentType.Spell_Turret },
-      {AbilityType.DamageUpgrade1, EquipmentType.AutoAbility_DamageUpgradeA},
-      {AbilityType.DamageUpgrade2, EquipmentType.AutoAbility_DamageUpgradeB},
+      { AbilityType.Bash, EquipmentType.Ability_Bash },
+      { AbilityType.DoubleJump, EquipmentType.Ability_DoubleJump },
+      { AbilityType.Launch, EquipmentType.Spell_ChargeJump },
+      { AbilityType.Feather, EquipmentType.AutoAbility_Glide },
+      { AbilityType.WaterBreath, EquipmentType.AutoAbility_WaterBreath},
+      { AbilityType.LightBurst, EquipmentType.Spell_StickyMine},
+      { AbilityType.Grapple, EquipmentType.Ability_Leash },
+      { AbilityType.Flash, EquipmentType.Spell_Glow },
+      { AbilityType.Spike, EquipmentType.Spell_Spear },
+      { AbilityType.Regenerate, EquipmentType.Spell_Meditate },
+      { AbilityType.SpiritArc, EquipmentType.Weapon_Bow },
+      { AbilityType.SpiritSmash, EquipmentType.Weapon_Hammer},
+      { AbilityType.SpiritEdge, EquipmentType.Weapon_Sword },
+      { AbilityType.Burrow, EquipmentType.Ability_Digging },
+      { AbilityType.Dash, EquipmentType.AutoAbility_Dash },
+      { AbilityType.WaterDash, EquipmentType.AutoAbility_WaterDash},
+      { AbilityType.SpiritStar, EquipmentType.Spell_Chakram},
+      { AbilityType.Seir, EquipmentType.Spell_GoldenSein},
+      { AbilityType.Blaze, EquipmentType.Spell_Blaze},
+      { AbilityType.Flap, EquipmentType.Ability_FeatherFlap},
+      { AbilityType.Sentry, EquipmentType.Spell_Turret },
+      { AbilityType.DamageUpgrade1, EquipmentType.AutoAbility_DamageUpgradeA},
+      { AbilityType.DamageUpgrade2, EquipmentType.AutoAbility_DamageUpgradeB},
     };
   }
 }
