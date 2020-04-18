@@ -55,6 +55,7 @@
     <None Include="dll.def">
       <Filter>Source Files</Filter>
     </None>
+    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\detours.lib" />
