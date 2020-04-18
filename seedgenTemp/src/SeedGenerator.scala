@@ -288,7 +288,7 @@ object SeedGenerator extends App {
 		}
 	}
 
-	case class ItemLocation(category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: Int, x: Int, y: Int, rawReqs: String) {
+	case class ItemLocation(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: Int, x: Int, y: Int, rawReqs: String) {
 		val reqs = All(All(rawReqs.split(",").map(s => ReqParse(s.trim)): _*), AreaReq(zone))
 		val code = s"$uberGroupId|$uberId"
 		def info: String = uberGroupId match {
@@ -302,12 +302,16 @@ object SeedGenerator extends App {
 	def maybeRand[T](source: Seq[T]) = if(source.size == 0) None else Some(source(Random.nextInt(source.size)))
 
 	def itemLocs: Seq[ItemLocation] = {
-		val pickupReg = """^([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*), (.*)""".r
+		val pickupReg = """^([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*), (.*)""".r
 		val pickupsFile = Source.fromFile("pickups.csv")
 		val pickups = pickupsFile.getLines.flatMap {
-			case pickupReg(_, 				_, 			_, 			_, 		_, 			_, 	_, 	_, _,	"Unreachable") => None
-			case pickupReg(zone, category, value, uberGN, ugid, uberN, uid, x, y, reqs) =>
-				Some(ItemLocation(category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs))
+			case s if s.trim == "" => None
+			case s if s.trim.startsWith("--") => None
+			case s if s.contains("Unreachable") => None
+			case pickupReg(area, name, zone, category, value, uberGN, ugid, uberN, uid, x, y, reqs) =>
+//				val loc = ItemLocation(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs)
+				println(s"{x: $x, y: $y, name: '$area.$name', ugid: $ugid, uid: $uid},")
+				Some(ItemLocation(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs))
 			case line: String =>
 				println(s"Couldn't parse line: $line")
 				None

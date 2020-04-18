@@ -185,6 +185,7 @@
     <ClCompile Include="PEModule.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="dll.def" />
   </ItemGroup>
   <ItemGroup>
