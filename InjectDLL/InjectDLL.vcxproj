@@ -76,10 +76,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\inc;$(ProjectDir)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\inc;$(ProjectDir);$(SourceDir)</IncludePath>
     <LibraryPath>$(MSBuildProjectDirectory)\lib;$(LibraryPath)</LibraryPath>
     <OutDir>C:\moon\</OutDir>
-    <SourcePath>$(SourcePath)</SourcePath>
+    <SourcePath>$(SourceDir); $(SourceDir)\features; $(SourceDir)\fixes; $(SourceDir)\plugins</SourcePath>
     <ReferencePath>$(VC_ReferencesPath_x64);</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -87,9 +87,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\inc</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\inc;$(ProjectDir);$(SourceDir)</IncludePath>
     <LibraryPath>$(MSBuildProjectDirectory)\lib;$(LibraryPath)</LibraryPath>
     <OutDir>C:\moon\</OutDir>
+    <SourcePath>$(SourceDir); $(SourceDir)\features; $(SourceDir)\fixes; $(SourceDir)\plugins</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -200,7 +201,6 @@
     <ClCompile Include="src\pickups\healthCellInterception.cpp" />
     <ClCompile Include="src\pickups\keystoneInterception.cpp" />
     <ClCompile Include="src\pickups\oreInterception.cpp" />
-    <ClCompile Include="src\pickups\questInterception.cpp" />
     <ClCompile Include="src\pickups\shops.cpp" />
     <ClCompile Include="src\pickups\spiritShardInterception.cpp" />
   </ItemGroup>
