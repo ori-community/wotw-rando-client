@@ -198,50 +198,50 @@ area EastHollow:  # (-152, -4236) The Hollow teleporter
   pickup EastHollow.DepthsExteriorEX:
     base: Bash, Glide, Launch
 
-area Glades:  # (-306, -4154) The Glades teleporter
-  pickup Glades.AcornQI:
+area GladesHub:  # (-306, -4154) The Glades teleporter
+  pickup GladesHub.AcornQI:
     base: Water, DoubleJump, Flash, Ore=30
-  pickup Glades.HoleHutEC:
+  pickup GladesHub.HoleHutEC:
     base: Launch, DoubleJump, Ore=18
-  pickup Glades.AboveGromHC:
+  pickup GladesHub.AboveGromHC:
     base: Launch, DoubleJump
-  pickup Glades.LowerLeftHC:
+  pickup GladesHub.LowerLeftHC:
     base: Water, Dash, Burrow
-  pickup Glades.UpperOre:
+  pickup GladesHub.UpperOre:
     base: Smash, DoubleJump
-  pickup Glades.LowerOre:
+  pickup GladesHub.LowerOre:
     base: Launch, DoubleJump
-  pickup Glades.ArcingShard:
+  pickup GladesHub.ArcingShard:
     base: Launch, Ore (24)
-  pickup Glades.BountyShard:
+  pickup GladesHub.BountyShard:
     base: Launch, DoubleJump
-  pickup Glades.LupoSoupEX:
+  pickup GladesHub.LupoSoupEX:
     base: Water
-  pickup Glades.BraveMokiHutEX:
+  pickup GladesHub.BraveMokiHutEX:
     base: Launch, DoubleJump, Ore=30
-  pickup Glades.MotayHutEX:
+  pickup GladesHub.MotayHutEX:
     base: DoubleJump, Glide, Ore=12
-  pickup Glades.HoleHutEX:
+  pickup GladesHub.HoleHutEX:
     base: Launch, Ore=18
-  pickup Glades.FruitHammockEX:
+  pickup GladesHub.FruitHammockEX:
     base: Launch, DoubleJump
-  pickup Glades.LupoSwimMiddleEX:
+  pickup GladesHub.LupoSwimMiddleEX:
     base: Water, Dash, WaterDash
-  pickup Glades.CaveBurrowEX:
+  pickup GladesHub.CaveBurrowEX:
     base: Dash, Burrow, DoubleJump, Ore=24
-  pickup Glades.BigHammockEX:
+  pickup GladesHub.BigHammockEX:
     base: Flap, Glide, DoubleJump
-  pickup Glades.KeyMokiHutEX:
+  pickup GladesHub.KeyMokiHutEX:
     base: Unreachable
-  pickup Glades.UpdraftTableEX:
+  pickup GladesHub.UpdraftTableEX:
     base: Launch, DoubleJump
-  pickup Glades.AboveCaveEX:
+  pickup GladesHub.AboveCaveEX:
     base: Ore=24
-  pickup Glades.LupoSwimLeftEX:
+  pickup GladesHub.LupoSwimLeftEX:
     base: Water, Dash, WaterDash, Ore=24
-  pickup Glades.UpdraftCeilingEX:
+  pickup GladesHub.UpdraftCeilingEX:
     base: Flap, Glide, DoubleJump
-  pickup Glades.LeafPileEX:
+  pickup GladesHub.LeafPileEX:
     base: Launch, DoubleJump, Dash, Flap
 
 area WestGlades:  # (-540, -4110) The right edge of the first pool past glades
@@ -290,54 +290,54 @@ area WellspringExterior:  # (-763, -4701) Where the "We remember this place" voi
   pickup WellspringExterior.SwimOre:
     base: Water, Grapple
 
-area LowerWellspring:  # (-1294, -3956) Just inside the lower entrance
-  pickup LowerWellspring.ThornShard:
+area WellspringInterior.LowerWellspring:  # (-1294, -3956) Just inside the lower entrance
+  pickup WellspringInterior.ThornShard:
     base: DoubleJump, Bash
-  pickup LowerWellspring.ThornEX:
+  pickup WellspringInterior.ThornEX:
     base: DoubleJump, Bash, Dash, Grapple
-  pickup LowerWellspring.ThreeWheelsEX:
+  pickup WellspringInterior.ThreeWheelsEX:
     base: DoubleJump, Bash
-  pickup LowerWellspring.WaterSwitchEX:
+  pickup WellspringInterior.WaterSwitchEX:
     base: DoubleJump, Bash, Water, WaterDash, Dash
-  pickup LowerWellspring.DrainHC:
+  pickup WellspringInterior.DrainHC:
     base: DoubleJump, Bash, Dash
-  pickup LowerWellspring.DrainEX:
+  pickup WellspringInterior.DrainEX:
     base: DoubleJump, Bash, Dash
-  pickup LowerWellspring.LaserOre:
+  pickup WellspringInterior.LaserOre:
     base: DoubleJump, Bash, Dash
-  pickup LowerWellspring.GrappleEC:
+  pickup WellspringInterior.LeverEC:
     base: DoubleJump, Bash, Dash, Grapple
-  pickup LowerWellspring.LupoEX:
+  pickup WellspringInterior.LupoEX:
     base: DoubleJump, Bash, Dash
-  pickup LowerWellspring.LupoMap:
+  pickup WellspringInterior.LupoMap:
     base: Grapple
-  pickup LowerWellspring.WheelEX:
+  pickup WellspringInterior.ShortcutWheelEX:
     base: DoubleJump, Bash, Grapple
-  pickup LowerWellspring.GrappleTreeEX:
+  pickup WellspringInterior.GrappleTreeEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup LowerWellspring.GrappleTree:
+  pickup WellspringInterior.GrappleTree:
     base: DoubleJump, Dash, Bash
 
-area MiddleWellspring:  # (-1181, -3735) Just inside the entrance
-  pickup MiddleWellspring.LeftEX:
+area WellspringInterior.MiddleWellspring:  # (-1181, -3735) Just inside the entrance
+  pickup WellspringInterior.AboveSpinArenaEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup MiddleWellspring.RotateRoomEX:
+  pickup WellspringInterior.RotateRoomEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup MiddleWellspring.RotateRoomOre:
+  pickup WellspringInterior.RotateRoomOre:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup MiddleWellspring.NeedleQI:
+  pickup WellspringInterior.NeedleQI:
     base: DoubleJump, Bash, Grapple, Dash
 
-area UpperWellspring:  # (-1306, -3680) The Wellspring teleporter
-  pickup UpperWellspring.EntranceEX:
+area WellspringInterior.UpperWellspring:  # (-1306, -3680) The Wellspring teleporter
+  pickup WellspringInterior.LibraryEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup UpperWellspring.AboveTpEX:
+  pickup WellspringInterior.AboveTpEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup UpperWellspring.SeedQI:
+  pickup WellspringInterior.SeedQI:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup UpperWellspring.SwimOre:
+  pickup WellspringInterior.SwimOre:
     base: DoubleJump, Bash, Grapple, Dash, Water
-  pickup UpperWellspring.EscapeRevisitEX:
+  pickup WellspringInterior.EscapeRevisitEX:
     base: DoubleJump, Bash, Grapple, Dash
 
 area PoolsApproach:  # (-965, -4162) On top of the giant wheel
@@ -356,66 +356,66 @@ area PoolsApproach:  # (-965, -4162) On top of the giant wheel
 
 # TODO: probably need a state for the first door in Pools 
 
-area PoolsEntry:  # (-1296, -4142) Where Tokk stands
-  pickup PoolsEntry.RightOre:
+area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
+  pickup EastPools.RightOre:
     base: Water, Bash, Flap, DoubleJump, Dash
-  pickup PoolsEntry.MiddleOre:
-    base: Water, Bash, Flap, Grapple
-  pickup PoolsEntry.LupoOre:
-    base: Water, Bash, Flap, DoubleJump
-  pickup PoolsEntry.SwimCrushEX:
+  pickup EastPools.TwoCrushersEX:
     base: Water, Bash, WaterDash
-  pickup PoolsEntry.CurrentEX:
+  pickup EastPools.CurrentEX:
     base: Water, Bash, WaterDash
-  pickup PoolsEntry.RoofEX:
+  pickup EastPools.BelowLeverEX:
     base: Water, Bash, Smash, DoubleJump
-  pickup PoolsEntry.UltraBashShard:
-    base: Water, Bash, Flap, DoubleJump
 
-area CentralPools:  # (-1407, -4139) left of the fight room
-  pickup CentralPools.FightRoomHC:
+area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
+  pickup EastPools.AboveDoorOre:
+    base: Water, Bash, Flap, Grapple
+  pickup EastPools.PurpleWallHC:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+  pickup EastPools.AboveTpEX:
+    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+  pickup EastPools.LupoOre:
+    base: Water, Bash, Flap, DoubleJump
+  pickup EastPools.UltraBashShard:
+    base: Water, Bash, Flap, DoubleJump
+  pickup EastPools.FightRoomHC:
     base: Water, Bash, Flap, DoubleJump, WaterDash, Glide
-  pickup CentralPools.LupoEX:
+  pickup EastPools.EnergyHarvestShard:
+    base: Water, Bash, Flap, DoubleJump, WaterDash
+  pickup EastPools.LupoEX:
     base: Water, Bash, Flap, DoubleJump
-  pickup CentralPools.LupoMap:
+  pickup EastPools.LupoMap:
     base: Water, Bash, DoubleJump, WaterDash
-  pickup CentralPools.SwimCrushEX:
+  pickup EastPools.BehindCrusherEX:
     base: Water, Bash, Flap, DoubleJump
-  pickup CentralPools.EnergyHarvestShard:
-    base: Water, Bash, Flap, DoubleJump, WaterDash
-  pickup CentralPools.SeedQI:
+  pickup EastPools.SeedQI:
     base: Water, Bash, Flap, DoubleJump
-  pickup CentralPools.LowerKS:
-    base: Water, Bash, Flap, DoubleJump
-  pickup CentralPools.UpperLeftKS:
-    base: Water, Bash, Flap, DoubleJump
-  pickup CentralPools.UpperMidKS:
-    base: Water, Bash, Flap, DoubleJump
-  pickup CentralPools.UpperRightKS:
-    base: Water, Bash, Flap, DoubleJump
-  pickup CentralPools.FishPoolEX:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup CentralPools.FishPoolOre:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup CentralPools.BubblesEC:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup CentralPools.LeftBubblesEX:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup CentralPools.RightBubblesEX:
-    base: Water, Bash, Flap, DoubleJump, Dash
 
-area SwimTreeArea:  # (-1430, -4082) the swim tree
-  pickup SwimTreeArea.SwimDashTree:
+area UpperPools:  # (-1526, -4112) the ledge on top of Kwolok's room
+  pickup UpperPools.LowerKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup UpperPools.UpperLeftKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup UpperPools.UpperMidKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup UpperPools.UpperRightKS:
+    base: Water, Bash, Flap, DoubleJump
+  pickup UpperPools.FishPoolEX:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup UpperPools.FishPoolOre:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup UpperPools.BubblesEC:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup UpperPools.LeftBubblesEX:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup UpperPools.RightBubblesEX:
+    base: Water, Bash, Flap, DoubleJump, Dash
+  pickup UpperPools.SwimDashTree:
     base: DoubleJump, Dash, Bash, Grapple, Flap
-  pickup SwimTreeArea.CurrentEX:
+  pickup UpperPools.CurrentEX:
     base: Water, Bash, Flap, DoubleJump, WaterDash
-  pickup SwimTreeArea.RoofEX:
+  pickup UpperPools.RoofEX:
     base: Water, Bash, Flap, DoubleJump, WaterDash
-  pickup SwimTreeArea.WaterfallEC:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
-  pickup SwimTreeArea.PurpleWallHC:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
-  pickup SwimTreeArea.AboveTpEX:
+  pickup UpperPools.WaterfallEC:
     base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
 
 area WestPools:  # (-1652, -4170) the west Pools TP
@@ -425,7 +425,7 @@ area WestPools:  # (-1652, -4170) the west Pools TP
     base: Water, Bash, Flap, DoubleJump, WaterDash, Burrow
   pickup WestPools.TpEX:
     base: Water, Bash, Flap, DoubleJump, WaterDash, Launch
-  pickup WestPools.ChaseStartEX:
+  pickup WestPools.EscapeRevisitEX:
     base: Water, Bash, Flap, DoubleJump, WaterDash
 
 area WoodsEntry:  # (421, -4206) At Shriek Cutscene after the swim
