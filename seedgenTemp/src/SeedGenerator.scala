@@ -3,290 +3,344 @@ import java.io._
 import scala.collection.mutable
 import scala.io.Source
 import scala.util.Random
-object  Holder {
+object SeedGenerator extends App {
 	//  just some neat little sugar for regexes, dw about it
 	implicit class RegexOps(sc: StringContext) {
 		def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
 	}
-}
-import Holder._
 
-trait Item {
-	def itemType: Int
-	def name: String
-	def code: String
-}
-trait Sellable extends Item
-
-trait SpiritLightItem extends Item {
-	val itemType: Int = 0
-	def amount: Int
-	def name = s"${amount} Spirit Light"
-	def code = s"${itemType}|${amount}"
-}
-
-case class SpiritLight(amount: Int)  extends SpiritLightItem
-
-trait Resource extends Item with Sellable  {
-	val itemType = 1
-	def resourceType: Int
-	def code = s"${itemType}|${resourceType}"
-}
-
-case class Health(resourceType: Int = 0, name: String = "Half-Health Cell") extends Resource
-case class Energy(resourceType: Int = 1, name: String = "Half-Energy Cell") extends Resource
-case class Ore(resourceType: Int = 2, name: String = "Gorlek Ore") extends Resource
-case class Keystone(resourceType: Int = 3, name: String = "Keystone") extends Resource
-case class ShardSlot(resourceType: Int = 4, name: String = "Shard Slot") extends Resource
-
-case class Skill(skillId: Int) extends Item with Sellable {
-	val itemType: Int = 2
-	def code = s"$itemType|${this.skillId}"
-	def name: String = s"Skill ${Skill.names.getOrElse(this.skillId, s"Unknown (${this.skillId})")}"
-}
-object Skill { 	val names: Map[Int, String] = Map(
-	0 -> "Bash",
-	//		3 -> "WallJump",
-	5 -> "DoubleJump",
-	8 -> "Launch",
-	14 -> "Feather",
-	23 -> "WaterBreath",
-	51 -> "LightBurst",
-	57 -> "Grapple",
-	62 -> "Flash",
-	74 -> "Spike",
-	77 -> "Regenerate",
-	97 -> "SpiritArc",
-	98 -> "SpiritSmash",
-	//		99 -> "Torch",
-	//		100 -> "SpiritEdge",
-	101 -> "Burrow",
-	102 -> "Dash",
-	104 -> "WaterDash",
-	106 -> "SpiritStar",
-	108 -> "Seir",
-	115 -> "Blaze",
-	116 -> "Sentry",
-	118 -> "Flap",
-	120 -> "DamageUpgrade1",
-	121 -> "DamageUpgrade2"
-)}
-
-case class Shard(shardId: Int) extends Item with Sellable {
-	val itemType: Int = 3
-	def code = s"$itemType|${this.shardId}"
-	def name: String = s"Shard ${Shard.names.getOrElse(this.shardId, s"Unknown (${this.shardId})")}"
-}
-object Shard { 	val names: Map[Int, String] = Map(
-	1 -> "Overcharge",
-	2 -> "TripleJump",
-	3 -> "Wingclip",
-	4 -> "Bounty",
-	5 -> "Swap",
-	8 -> "Magnet",
-	9 -> "Splinter",
-	13 -> "Reckless",
-	14 -> "Quickshot",
-	18 -> "Resilience",
-	19 -> "LightHarvest",
-	22 -> "Vitality",
-	23 -> "LifeHarvest",
-	25 -> "EnergyHarvest",
-	26 -> "Energy",
-	27 -> "LifePact",
-	28 -> "LastStand",
-	30 -> "Secret",
-	32 -> "UltraBash",
-	33 -> "UltraGrapple",
-	34 -> "Overflow",
-	35 -> "Thorn",
-	36 -> "Catalyst",
-	38 -> "Turmoil",
-	39 -> "Sticky",
-	40 -> "Finesse",
-	41 -> "SpiritSurge",
-	43 -> "Lifeforce",
-	44 -> "Deflector",
-	46 -> "Fracture",
-	47 -> "Arcing",
-) }
-
-case class Teleporter(teleporterId: Int) extends Item with Sellable {
-	val itemType: Int = 5
-	def code = s"$itemType|${this.teleporterId}"
-	def name: String = s"Teleporter ${Teleporter.names.getOrElse(this.teleporterId, s"Unknown (${this.teleporterId})")}"
-}
-object Teleporter { 	val names: Map[Int, String] = Map(
-	0 -> "Midnight Burrows",
-	1 -> "Howls Den",
-//	2 -> "Luma Pools (East)",
-	3 -> "Wellspring",
-	4 -> "Baur's Reach",
-	5 -> "Kwoloks Hollow",
-	6 -> "Mouldwood Depths",
-	7 -> "Silent Woods (East)",
-	8 -> "Silent Woods (West)",
-	9 -> "Windswept Wastes (East)",
-	10 -> "Windswept Wastes (West)",
-	11 -> "Windtorn Ruins (Outer)",
-	12 -> "Willows End",
-	13 -> "Luma Pools (West)",
-	14 -> "Windtorn Ruins (Inner)",
-	15 -> "Spirit Willow",
-	16 -> "Inkwater Marsh",
-)
-}
-
-class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
-	items.foreach({case (i: Item, count: Int) => this.set(i, count) })
-
-	override def apply(item: Item) = this.getOrElse(item, 0)
-	def set(item: Item, count: Int) = this(item) = count
-	def asSeq = this.keys.toSeq.flatMap(k => (0 until this(k)).map(_=>k))
-	def count = this.foldLeft(0)(_ + _._2)
-	def has(item: Item, count: Int = 1) = this.getOrElse(item, 0) >= count
-	def take(item: Item, count: Int = 1) = {
-		if(!this.has(item, count))
-			println(s"Error: taking ${count} of ${item} from ${this}, which doesn't have that many")
-		this.set(item, Math.max(0, this (item) - count))
+	trait Item {
+		def itemType: Int
+		def name: String
+		def code: String
 	}
-	def add(item: Item, count: Int = 1) = this (item) = this.getOrElse(item, 0) + count
-	def popRand(): Option[Item] = this.asSeq match {
-		case s: Seq[Item] if(s.size > 0) => {
-			val i = s(Random.nextInt(s.size))
-			this.take(i)
-			Some(i)
+	trait Sellable extends Item
+
+	trait SpiritLightItem extends Item {
+		val itemType: Int = 0
+		def amount: Int
+		def name = s"${amount} Spirit Light"
+		def code = s"${itemType}|${amount}"
+	}
+
+	case class SpiritLight(amount: Int)  extends SpiritLightItem
+
+	trait Resource extends Item with Sellable  {
+		val itemType = 1
+		def resourceType: Int
+		def code = s"${itemType}|${resourceType}"
+	}
+
+	case class Health(resourceType: Int = 0, name: String = "Half-Health Cell") extends Resource
+	case class Energy(resourceType: Int = 1, name: String = "Half-Energy Cell") extends Resource
+	case class Ore(resourceType: Int = 2, name: String = "Gorlek Ore") extends Resource
+	case class Keystone(resourceType: Int = 3, name: String = "Keystone") extends Resource
+	case class ShardSlot(resourceType: Int = 4, name: String = "Shard Slot") extends Resource
+
+	case class Skill(skillId: Int) extends Item with Sellable {
+		val itemType: Int = 2
+		def code = s"$itemType|${this.skillId}"
+		def name: String = s"Skill ${Skill.names.getOrElse(this.skillId, s"Unknown (${this.skillId})")}"
+	}
+	object Skill { 	val names: Map[Int, String] = Map(
+		0 -> "Bash",
+		//		3 -> "WallJump",
+		5 -> "DoubleJump",
+		8 -> "Launch",
+		14 -> "Feather",
+		23 -> "WaterBreath",
+		51 -> "LightBurst",
+		57 -> "Grapple",
+		62 -> "Flash",
+		74 -> "Spike",
+		77 -> "Regenerate",
+		97 -> "SpiritArc",
+		98 -> "SpiritSmash",
+		//		99 -> "Torch",
+		//		100 -> "SpiritEdge",
+		101 -> "Burrow",
+		102 -> "Dash",
+		104 -> "WaterDash",
+		106 -> "SpiritStar",
+		108 -> "Seir",
+		115 -> "Blaze",
+		116 -> "Sentry",
+		118 -> "Flap",
+		120 -> "DamageUpgrade1",
+		121 -> "DamageUpgrade2"
+	)}
+
+	case class Shard(shardId: Int) extends Item with Sellable {
+		val itemType: Int = 3
+		def code = s"$itemType|${this.shardId}"
+		def name: String = s"Shard ${Shard.names.getOrElse(this.shardId, s"Unknown (${this.shardId})")}"
+	}
+	object Shard { 	val names: Map[Int, String] = Map(
+		1 -> "Overcharge",
+		2 -> "TripleJump",
+		3 -> "Wingclip",
+		4 -> "Bounty",
+		5 -> "Swap",
+		8 -> "Magnet",
+		9 -> "Splinter",
+		13 -> "Reckless",
+		14 -> "Quickshot",
+		18 -> "Resilience",
+		19 -> "LightHarvest",
+		22 -> "Vitality",
+		23 -> "LifeHarvest",
+		25 -> "EnergyHarvest",
+		26 -> "Energy",
+		27 -> "LifePact",
+		28 -> "LastStand",
+		30 -> "Secret",
+		32 -> "UltraBash",
+		33 -> "UltraGrapple",
+		34 -> "Overflow",
+		35 -> "Thorn",
+		36 -> "Catalyst",
+		38 -> "Turmoil",
+		39 -> "Sticky",
+		40 -> "Finesse",
+		41 -> "SpiritSurge",
+		43 -> "Lifeforce",
+		44 -> "Deflector",
+		46 -> "Fracture",
+		47 -> "Arcing",
+	) }
+
+	case class Teleporter(teleporterId: Int) extends Item with Sellable {
+		val itemType: Int = 5
+		def code = s"$itemType|${this.teleporterId}"
+		def name: String = s"Teleporter ${Teleporter.names.getOrElse(this.teleporterId, s"Unknown (${this.teleporterId})")}"
+	}
+	object Teleporter { 	val names: Map[Int, String] = Map(
+		0 -> "Midnight Burrows",
+		1 -> "Howls Den",
+	//	2 -> "Luma Pools (East)",
+		3 -> "Wellspring",
+		4 -> "Baur's Reach",
+		5 -> "Kwoloks Hollow",
+		6 -> "Mouldwood Depths",
+		7 -> "Silent Woods (West)",
+		8 -> "Silent Woods (East)",
+		9 -> "Windswept Wastes (West)",
+		10 -> "Windswept Wastes (East)",
+		11 -> "Windtorn Ruins (Outer)",
+		12 -> "Willows End",
+		13 -> "Luma Pools (West)",
+		14 -> "Windtorn Ruins (Inner)",
+		15 -> "Spirit Willow",
+		16 -> "Inkwater Marsh",
+	)
+	}
+
+	class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
+		
+		items.foreach({case (i: Item, count: Int) => this.set(i, count) })
+
+		override def apply(item: Item) = this.getOrElse(item, 0)
+		def set(item: Item, count: Int) = this(item) = count
+		def asSeq = this.keys.toSeq.flatMap(k => (0 until this(k)).map(_=>k))
+		def count = this.foldLeft(0)(_ + _._2)
+		def has(item: Item, count: Int = 1) = this.getOrElse(item, 0) >= count
+		def take(item: Item, count: Int = 1) = {
+			if(!this.has(item, count))
+				println(s"Error: taking ${count} of ${item} from ${this}, which doesn't have that many")
+			this.set(item, Math.max(0, this (item) - count))
 		}
-		case _ => None
+		def add(item: Item, count: Int = 1) = this (item) = this.getOrElse(item, 0) + count
+		def popRand(): Option[Item] = this.asSeq match {
+			case s: Seq[Item] if(s.size > 0) => {
+				val i = s(Random.nextInt(s.size))
+				this.take(i)
+				Some(i)
+			}
+			case _ => None
+		}
+		def popSellable(): Option[Sellable] = {
+				val sellables = this.asSeq.flatMap({
+					case i: Sellable => Some(i)
+					case _ => None
+				})
+				if(sellables.isEmpty)
+					return None
+				val i = sellables(Random.nextInt(sellables.size))
+				this.take(i)
+				Some(i)
+		}
+		def reqMerge(other: Inv) = {
+			other.foreach({case (i: Item, count: Int) => this.set(i, Math.max(count, other(i)))})
+		}
 	}
-	def popSellable(): Option[Sellable] = {
-			val sellables = this.asSeq.flatMap({
-				case i: Sellable => Some(i)
-				case _ => None
+	object Unobtainium extends Item {
+		override def itemType: Int = -1
+		override def name: String = "Unobtainium"
+		override def code: String = "ERROR|ERROR"
+	}
+	object Inv {
+		def Empty: Inv = new Inv()
+	}
+
+	trait Requirement {
+		def metBy(inv: Inv): Boolean
+		def cost: Double = 1  // 1/weight, more or less
+		def cheapestFulfilment(inv: Inv = Inv.Empty): Inv
+		def fulfilmentsByCost(inv: Inv = Inv.Empty): Map[Double, Inv] = Map(cost -> cheapestFulfilment(inv))
+		def and(that: Requirement): Requirement = All(this, that)
+		def or(that: Requirement): Requirement = Any(this, that)
+	}
+
+	case object Free extends Requirement {
+		def metBy(inv: Inv) = true
+		def cheapestFulfilment(inv: Inv) = new Inv()
+		override val cost = 0
+	}
+
+	case object Unreachable extends Requirement {
+		def metBy(inv: Inv) = false
+		def cheapestFulfilment(inv: Inv) = new Inv(Unobtainium -> 1)
+		override val cost = Double.PositiveInfinity
+	}
+
+	case class SkillReq(skillCode: Int) extends Requirement {
+		def cheapestFulfilment(inv: Inv) = if(inv has Skill(skillCode)) new Inv() else new Inv(Skill(skillCode) -> 1)
+		def metBy(inv: Inv): Boolean = inv has Skill(skillCode)
+		override val cost = 5
+	}
+	object Regen extends SkillReq(77)
+	object Bow extends SkillReq(97)
+	object DoubleJump extends SkillReq(5)
+	object Flap 		extends SkillReq(118)
+	object Grapple		extends SkillReq(57)
+	object Glide 		extends SkillReq(14)
+	object Launch 		extends SkillReq(8)
+	object Burrow 		extends SkillReq(101)
+	object Dash 		extends SkillReq(102)
+	object Smash 		extends SkillReq(98)
+	object Grenade 	extends SkillReq(51)
+	object WaterDash 	extends SkillReq(104)
+	object Flash 		extends SkillReq(62)
+	object Bash 		extends SkillReq(0)
+
+	case class OreRequirement(oreCount: Int) extends Requirement {
+		def cheapestFulfilment(inv: Inv) = new Inv(Ore() -> Math.max(0, oreCount - inv(Ore())))
+		def metBy(inv: Inv): Boolean = inv(Ore()) >= oreCount
+		override val cost = oreCount.toFloat / 10.0
+	}
+
+	case class TeleReq(teleCode: Int) extends Requirement {
+		def cheapestFulfilment(inv: Inv): Inv = if(inv has Teleporter(teleCode)) new Inv() else new Inv(Teleporter(teleCode) -> 1)
+		def metBy(inv: Inv): Boolean = inv has Teleporter(teleCode)
+		override val cost = 3
+	}
+
+	object WellspringTP extends TeleReq(3)
+	//object LumaEastTP extends TeleReq(2)
+	object KwoloksTP extends TeleReq(5)
+	object WillowsEndTP extends TeleReq(12)
+	object BaursReachTP extends TeleReq(4)
+	object SilentWoodsTP extends TeleReq(7)
+	object WindsweptEastTP extends TeleReq(9)
+	object MouldwoodTP extends TeleReq(6)
+	object BurrowsTP extends TeleReq(0)
+
+	object Voice extends All(Bash, Dash, DoubleJump or KwoloksTP)
+	object Memory extends All(Voice, Glide, Grenade)
+	object Strength extends All(Voice, Glide, WaterDash)
+	object Eyes extends All(Voice, Glide, Flash)
+	object Heart extends All(Memory, Strength, Eyes, Burrow)
+	object Water extends All(Grapple, Voice)
+
+	object AreaReq {
+		def apply(areaName: String): Requirement = areaName match {
+					case "Inkwater Marsh" => Free
+					case "Kwoloks Hollow" => KwoloksTP or (Bow and (DoubleJump or Dash))
+					case "Wellspring Glades" => DoubleJump and Dash and (WellspringTP or Bash)
+					case "Windswept Wastes" => WindsweptEastTP or (Water and Bow and Glide)
+					case "The Wellspring" => WellspringTP or Voice
+					case "Willows End" => WillowsEndTP or (Launch and Heart)
+					case "Silent Woods" => SilentWoodsTP or Water
+					case "Mouldwood Depths" => Voice and Glide
+					case "Midnight Burrows" => BurrowsTP or (DoubleJump and Dash and Bash)
+					case "Luma Pools" => Water and Glide
+					case "Baurs Reach" => Voice and Glide and Flap
+					case "Windtorn Ruins" => Heart
+					case "Opher" => DoubleJump and Dash and (WellspringTP or (Bash and Grapple))
+					case s => {println(s"Where's ${s}") ; Free  }
+			}
+	}
+
+	case class Any(reqsRaw: Requirement*) extends Requirement {
+		val reqs: Seq[Requirement] = reqsRaw.filter(_.cost < Double.PositiveInfinity)
+		override def cost = reqs.map(_.cost).min
+		override def metBy(inv: Inv): Boolean = reqs.exists(_.metBy(inv))
+		override def cheapestFulfilment(inv: Inv): Inv = fulfilmentsByCost(inv).minBy(_._1)._2
+		override def fulfilmentsByCost(inv: Inv): Map[Double, Inv] = reqs.flatMap(_.fulfilmentsByCost(inv)).toMap
+	}
+	case class All(reqs: Requirement*) extends Requirement {
+		def metBy(inv: Inv): Boolean = reqs.forall(_.metBy(inv))
+		override def fulfilmentsByCost(inv: Inv): Map[Double, Inv] = {
+			val mergedInv = Inv.Empty
+			var cost: Double = 0
+			mergedInv.reqMerge(inv)
+			val (orReqs: Seq[Any], others) = reqs.partition(_.isInstanceOf[Any])
+			others.foreach((req: Requirement) => {
+				mergedInv reqMerge req.cheapestFulfilment(mergedInv)
+				cost += req.cost
 			})
-			if(sellables.isEmpty)
-				return None
-			val i = sellables(Random.nextInt(sellables.size))
-			this.take(i)
-			Some(i)
-	}
-	def merge(other: Inv) = {
-		other.foreach({case (i: Item, count: Int) => this.set(i, Math.max(this(i), other(i)))})
-	}
-}
+			if(orReqs.isEmpty)
+				Map(mergedInv -> cost)
+			else {
+				for {
+					orReq <- orReqs
+					(cost, ful) <- orReq.fulfilmentsByCost()
+				} yield {
+					
 
-trait Requirement {
-	def fulfilledBy(inv: Inv): Boolean
-	def meetWith(inv: Inv): Inv
-	def and(that: Requirement): Requirement = All(this, that)
-	def or(that: Requirement): Requirement = Any(this, that)
-}
+				}
 
-case object Free extends Requirement { def fulfilledBy(inv: Inv) = true; def meetWith(inv: Inv) = new Inv()}
 
-case class SkillReq(skillCode: Int) extends Requirement {
-	def meetWith(inv: Inv) = if(inv has Skill(skillCode)) new Inv() else new Inv(Skill(skillCode) -> 1)
-	def fulfilledBy(inv: Inv): Boolean = inv has Skill(skillCode)
-}
-object Regen extends SkillReq(77)
-object Bow extends SkillReq(97)
-object DoubleJump extends SkillReq(5)
-object Flap 		extends SkillReq(118)
-object Grapple		extends SkillReq(57)
-object Glide 		extends SkillReq(14)
-object Launch 		extends SkillReq(8)
-object Burrow 		extends SkillReq(101)
-object Dash 		extends SkillReq(102)
-object Smash 		extends SkillReq(98)
-object Grenade 	extends SkillReq(51)
-object WaterDash 	extends SkillReq(104)
-object Flash 		extends SkillReq(62)
-object Bash 		extends SkillReq(0)
 
-case class OreRequirement(oreCount: Int) extends Requirement {
-	def meetWith(inv: Inv) = new Inv(Ore() -> Math.max(0, oreCount - inv(Ore())))
-	def fulfilledBy(inv: Inv): Boolean = inv(Ore()) >= oreCount
-}
-
-case class TeleReq(teleCode: Int) extends Requirement {
-	def meetWith(inv: Inv): Inv = if(inv has Teleporter(teleCode)) new Inv() else new Inv(Teleporter(teleCode) -> 1)
-	def fulfilledBy(inv: Inv): Boolean = inv has Teleporter(teleCode)
-}
-object WellspringTP extends TeleReq(3)
-//object LumaEastTP extends TeleReq(2)
-object KwoloksTP extends TeleReq(5)
-object WillowsEndTP extends TeleReq(12)
-object BaursReachTP extends TeleReq(4)
-object SilentWoodsTP extends TeleReq(7)
-object WindsweptEastTP extends TeleReq(9)
-object MouldwoodTP extends TeleReq(6)
-object BurrowsTP extends TeleReq(0)
-
-object Voice extends All(Bash, Dash, DoubleJump or KwoloksTP)
-object Memory extends All(Voice, Glide, Grenade)
-object Strength extends All(Voice, Glide, WaterDash)
-object Eyes extends All(Voice, Glide, Flash)
-object Heart extends All(Memory, Strength, Eyes, Burrow)
-object Water extends All(Grapple, Voice)
-
-object AreaReq {
-	def apply(areaName: String): Requirement = areaName match {
-				case "Inkwater Marsh" => Free
-				case "Kwolok's Hollow" => KwoloksTP or (Bow and (DoubleJump or Dash))
-				case "Wellspring Glades" => DoubleJump and Dash and (WellspringTP or Bash)
-				case "Windswept Wastes" => WindsweptEastTP or (Water and Bow and Glide)
-				case "The Wellspring" => WellspringTP or Voice
-				case "Willow's End" => WillowsEndTP or (Launch and Heart)
-				case "Silent Woods" => SilentWoodsTP or Water
-				case "Mouldwood Depths" => Voice and Glide
-				case "Midnight Burrows" => BurrowsTP or (DoubleJump and Dash and Bash)
-				case "Luma Pools" => Water and Glide
-				case "Baur's Reach" => Voice and Glide and Flap
-				case "Windtorn Ruins" => Heart
-				case "Opher" => DoubleJump and Dash and (WellspringTP or (Bash and Grapple))
-				case s => {println(s"Where's ${s}") ; Free  }
-		}
-}
-
-case class Any(reqs: Requirement*) extends Requirement {
-	def fulfilledBy(inv: Inv): Boolean = reqs.exists(_.fulfilledBy(inv))
-	def meetWith(inv: Inv) = reqs.minBy(_.meetWith(inv).count).meetWith(inv)
-}
-case class All(reqs: Requirement*) extends Requirement {
-	def fulfilledBy(inv: Inv): Boolean = reqs.forall(_.fulfilledBy(inv))
-	def meetWith(inv: Inv) = {
-		val mergedInv = new Inv()
-		reqs.foreach(mergedInv merge _.meetWith(inv))
-		mergedInv
-	}
-}
-object SeedGenerator extends App {
-	def ReqParse(req: String): Requirement = req match {
-		case "DoubleJump" => DoubleJump
-		case "Bow" => Bow
-		case "Flap" => Flap and Glide
-		case "Grapple" => Grapple
-		case "Glide" => Glide
-		case "Launch" => Launch
-		case "Burrow" => Burrow and Dash
-		case "Dash" => Dash
-		case "Smash" => Smash
-		case "Grenade" => Grenade
-		case "WaterDash" => WaterDash
-		case "Flash" => Flash
-		case "Bash" => Bash
-		case "Regenerate" => Regen
-		case "Water" => Water
-		case r"Ore \(([0-9]*)${count}\)" => OreRequirement(count.toInt)
-		case "Wisps" => Heart
-		case "Free" => Free
-		case s if s.contains('|') => {
-			Any(s.split('|').map(ReqParse _):_*)
-		}
-		case s => {
-			println(s"Wot's an ${s}"); Free
+				mergedInv
+			}
 		}
 	}
+	trait Node
+	class Area extends Node {
+
+	}
+	trait Connection {
+		def target: Node
+		def paths: Seq[Requirement]
+	}
+	class Location(name: String)
+		def ReqParse(req: String): Requirement = req match {
+			case "DoubleJump" => DoubleJump
+			case "Bow" => Bow
+			case "Flap" => Flap and Glide
+			case "Grapple" => Grapple
+			case "Glide" => Glide
+			case "Launch" => Launch
+			case "Burrow" => Burrow and Dash
+			case "Dash" => Dash
+			case "Smash" => Smash
+			case "Grenade" => Grenade
+			case "WaterDash" => WaterDash
+			case "Flash" => Flash
+			case "Bash" => Bash
+			case "Regenerate" => Regen
+			case "Water" => Water
+			case r"Ore=\([0-9]*${count}\)" => OreRequirement(count.toInt)
+			case "Wisps" => Heart
+			case r"[fF]ree" => Free
+			case s if s.contains('|') => {
+				Any(s.split('|').map(ReqParse _):_*)
+			}
+			case s => {
+				println(s"Wot's an ${s}"); Free
+			}
+		}
 
 	case class ItemLocation(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: Int, x: Int, y: Int, rawReqs: String) {
 		val reqs = All(All(rawReqs.split(",").map(s => ReqParse(s.trim)): _*), AreaReq(zone))
@@ -304,13 +358,14 @@ object SeedGenerator extends App {
 	def itemLocs: Seq[ItemLocation] = {
 		val pickupReg = """^([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*), (.*)""".r
 		val pickupsFile = Source.fromFile("pickups.csv")
+		val empty = new Inv()
 		val pickups = pickupsFile.getLines.flatMap {
 			case s if s.trim == "" => None
-			case s if s.trim.startsWith("--") => None
-			case s if s.contains("Unreachable") => None
+			case s if s.trim.startsWith("--") =>
+				None
 			case pickupReg(area, name, zone, category, value, uberGN, ugid, uberN, uid, x, y, reqs) =>
-//				val loc = ItemLocation(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs)
-				println(s"{x: $x, y: $y, name: '$area.$name', ugid: $ugid, uid: $uid},")
+//				println(s"{x: $x, y: $y, name: '$area.$name', ugid: $ugid, uid: $uid},")
+				println(s"$area.$name, $zone, $category, $value, $uberGN, $ugid, $uberN, $uid, $x, $y")
 				Some(ItemLocation(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt, reqs))
 			case line: String =>
 				println(s"Couldn't parse line: $line")
@@ -417,7 +472,7 @@ object SeedGenerator extends App {
 			}
 		})
 		while (locs.nonEmpty) {
-			var reachables = locs.filter(_.reqs fulfilledBy playerState)
+			var reachables = locs.filter(_.reqs metBy playerState)
 			if (reachables.isEmpty) {
 				println(s"${file.getName}: Empty reachable! items: ${itemPool.filter({case (_, c: Int) => c > 0})} locs: $locs")
 				bw.close()
@@ -425,7 +480,7 @@ object SeedGenerator extends App {
 				return
 			}
 			if (reachables.size < 5 && reachables.size < locs.size) {
-				maybeRand(locs.map(_.reqs.meetWith(playerState)).filter(_.count < reachables.size)) match {
+				maybeRand(locs.map(_.reqs.cheapestFulfilment(playerState)).filter(_.count < reachables.size)) match {
 					case Some(items) => items.foreach({
 						case (item: Sellable, 1) if reachables.exists((i: ItemLocation) => i.category == "Shop") =>
 								val loc = maybeRand(reachables.filter(_.category == "Shop")).get
@@ -450,7 +505,7 @@ object SeedGenerator extends App {
 						case (_: Item, 0) =>
 					})
 					case None =>
-						println(s"Aaaa: ${locs.map(_.reqs.meetWith(playerState))}")
+						println(s"Aaaa: ${locs.map(_.reqs.cheapestFulfilment(playerState))}")
 				}
 			}
 			maybeRand(reachables) match {
