@@ -19,3 +19,4 @@ seedgenTemp/seeds
 *.iml
 /Debug
 /obj
+/.vsold/
