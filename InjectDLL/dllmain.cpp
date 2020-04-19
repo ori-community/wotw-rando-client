@@ -19,7 +19,7 @@
 #include <ctime>
 
 #include "interceptionMacros.h"
-#include "oreInterception.h"
+#include "src/pickups/oreInterception.h"
 
 enum Flags{ Save, Ore };
 
