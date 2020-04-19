@@ -198,50 +198,50 @@ area EastHollow:  # (-152, -4236) The Hollow teleporter
   pickup EastHollow.DepthsExteriorEX:
     base: Bash, Glide, Launch
 
-area GladesHub:  # (-306, -4154) The Glades teleporter
-  pickup GladesHub.AcornQI:
+area GladesTown:  # (-306, -4154) The Glades teleporter
+  pickup GladesTown.AcornQI:
     base: Water, DoubleJump, Flash, Ore=30
-  pickup GladesHub.HoleHutEC:
+  pickup GladesTown.HoleHutEC:
     base: Launch, DoubleJump, Ore=18
-  pickup GladesHub.AboveGromHC:
+  pickup GladesTown.AboveGromHC:
     base: Launch, DoubleJump
-  pickup GladesHub.LowerLeftHC:
+  pickup GladesTown.LowerLeftHC:
     base: Water, Dash, Burrow
-  pickup GladesHub.UpperOre:
+  pickup GladesTown.UpperOre:
     base: Smash, DoubleJump
-  pickup GladesHub.LowerOre:
+  pickup GladesTown.LowerOre:
     base: Launch, DoubleJump
-  pickup GladesHub.ArcingShard:
+  pickup GladesTown.ArcingShard:
     base: Launch, Ore (24)
-  pickup GladesHub.BountyShard:
+  pickup GladesTown.BountyShard:
     base: Launch, DoubleJump
-  pickup GladesHub.LupoSoupEX:
+  pickup GladesTown.LupoSoupEX:
     base: Water
-  pickup GladesHub.BraveMokiHutEX:
+  pickup GladesTown.BraveMokiHutEX:
     base: Launch, DoubleJump, Ore=30
-  pickup GladesHub.MotayHutEX:
+  pickup GladesTown.MotayHutEX:
     base: DoubleJump, Glide, Ore=12
-  pickup GladesHub.HoleHutEX:
+  pickup GladesTown.HoleHutEX:
     base: Launch, Ore=18
-  pickup GladesHub.FruitHammockEX:
+  pickup GladesTown.FruitHammockEX:
     base: Launch, DoubleJump
-  pickup GladesHub.LupoSwimMiddleEX:
+  pickup GladesTown.LupoSwimMiddleEX:
     base: Water, Dash, WaterDash
-  pickup GladesHub.CaveBurrowEX:
+  pickup GladesTown.CaveBurrowEX:
     base: Dash, Burrow, DoubleJump, Ore=24
-  pickup GladesHub.BigHammockEX:
+  pickup GladesTown.BigHammockEX:
     base: Flap, Glide, DoubleJump
-  pickup GladesHub.KeyMokiHutEX:
+  pickup GladesTown.KeyMokiHutEX:
     base: Unreachable
-  pickup GladesHub.UpdraftTableEX:
+  pickup GladesTown.UpdraftTableEX:
     base: Launch, DoubleJump
-  pickup GladesHub.AboveCaveEX:
+  pickup GladesTown.AboveCaveEX:
     base: Ore=24
-  pickup GladesHub.LupoSwimLeftEX:
+  pickup GladesTown.LupoSwimLeftEX:
     base: Water, Dash, WaterDash, Ore=24
-  pickup GladesHub.UpdraftCeilingEX:
+  pickup GladesTown.UpdraftCeilingEX:
     base: Flap, Glide, DoubleJump
-  pickup GladesHub.LeafPileEX:
+  pickup GladesTown.LeafPileEX:
     base: Launch, DoubleJump, Dash, Flap
 
 area WestGlades:  # (-540, -4110) The right edge of the first pool past glades
