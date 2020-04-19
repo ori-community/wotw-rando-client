@@ -76,9 +76,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\inc</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\inc;$(ProjectDir)</IncludePath>
     <LibraryPath>$(MSBuildProjectDirectory)\lib;$(LibraryPath)</LibraryPath>
     <OutDir>C:\moon\</OutDir>
+    <SourcePath>$(SourcePath)</SourcePath>
+    <ReferencePath>$(VC_ReferencesPath_x64);</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -112,7 +114,8 @@
       <PreprocessorDefinitions>_DEBUG;DLL_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\OriDev\Detours-4.0.1\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\src\pickups;</AdditionalIncludeDirectories>
+      <AdditionalOptions>/experimental:preprocessor %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -170,12 +173,18 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="inc\detours.h" />
     <ClInclude Include="inc\detver.h" />
+    <ClInclude Include="inc\il2cpp.h" />
     <ClInclude Include="inc\syelog.h" />
+    <ClInclude Include="interception.h" />
+    <ClInclude Include="interceptionMacros.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PEModule.h" />
+    <ClInclude Include="src\fixes\dashFixes.h" />
+    <ClInclude Include="src\pickups\oreInterception.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="interception.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -183,9 +192,21 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PEModule.cpp" />
+    <ClCompile Include="src\features\messages.cpp" />
+    <ClCompile Include="src\fixes\dashFixes.cpp" />
+    <ClCompile Include="src\fixes\FlapFix.cpp" />
+    <ClCompile Include="src\pickups\energyCellInterception.cpp" />
+    <ClCompile Include="src\pickups\experiencePickups.cpp" />
+    <ClCompile Include="src\pickups\healthCellInterception.cpp" />
+    <ClCompile Include="src\pickups\keystoneInterception.cpp" />
+    <ClCompile Include="src\pickups\oreInterception.cpp" />
+    <ClCompile Include="src\pickups\questInterception.cpp" />
+    <ClCompile Include="src\pickups\shops.cpp" />
+    <ClCompile Include="src\pickups\spiritShardInterception.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="cpp.hint" />
     <None Include="dll.def" />
   </ItemGroup>
   <ItemGroup>
