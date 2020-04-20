@@ -92,9 +92,6 @@
     <ClCompile Include="src\features\messages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\pickups\questInterception.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\fixes\FlapFix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

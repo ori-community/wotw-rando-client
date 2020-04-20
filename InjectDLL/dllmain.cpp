@@ -19,7 +19,7 @@
 #include <ctime>
 
 #include "interceptionMacros.h"
-#include "oreInterception.h"
+#include "src/pickups/oreInterception.h"
 #include "src/fixes/dashFixes.h"
 
 //---------------------------------------------------Globals-----------------------------------------------------
@@ -148,8 +148,8 @@ INTERCEPT(4850384, void, fixedUpdate1, (__int64 thisPointer), {
 BINDING(5743408, int, getSaveSlot, ())//SaveSlotsManager$$get_CurrentSlotIndex
 INTERCEPT(6674272, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 	//NewGameAction$$Perform
-	CSharpLib->call<void, int>("NewGame", getSaveSlot());    
-	newGamePerform(thisPtr, ctxPtr);    
+	CSharpLib->call<void, int>("NewGame", getSaveSlot());
+	newGamePerform(thisPtr, ctxPtr);
 		  });
 
 
