@@ -100,6 +100,7 @@ namespace RandoMainDLL {
     public static bool OreFound = false;
     public static bool PleaseSave = false;
     public static bool BlackSheepWall = false;
+    public static bool DashUpdate = false;
 
     public delegate void Callback();
     public static Callback InputUnlockCallback;
@@ -109,6 +110,7 @@ namespace RandoMainDLL {
       Ore = 1,
       UnlockMap = 2,
       InputLockListener = 3,
+      DashUpdate = 4
     }
 
     [DllExport]
@@ -137,6 +139,12 @@ namespace RandoMainDLL {
           return false;
         case FlagCode.InputLockListener:
           return Memory.GameState == GameState.Game && InputUnlockCallback != null;
+        case FlagCode.DashUpdate:
+          if (DashUpdate) {
+            DashUpdate = false;
+            return true;
+          }
+          return false;
         default:
           Log($"Unknown Flag code {flag}");
           return false;

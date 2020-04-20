@@ -20,8 +20,7 @@
 
 #include "interceptionMacros.h"
 #include "oreInterception.h"
-
-enum Flags{ Save, Ore };
+#include "src/fixes/dashFixes.h"
 
 //---------------------------------------------------Globals-----------------------------------------------------
 char foundTree = -1;
@@ -147,11 +146,10 @@ INTERCEPT(4850384, void, fixedUpdate1, (__int64 thisPointer), {
 	onFixedUpdate(thisPointer);
 		  });
 BINDING(5743408, int, getSaveSlot, ())//SaveSlotsManager$$get_CurrentSlotIndex
-
 INTERCEPT(6674272, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 	//NewGameAction$$Perform
-	CSharpLib->call<void, int>("NewGame", getSaveSlot());
-	newGamePerform(thisPtr, ctxPtr);
+	CSharpLib->call<void, int>("NewGame", getSaveSlot());    
+	newGamePerform(thisPtr, ctxPtr);    
 		  });
 
 
@@ -207,6 +205,11 @@ void onFixedUpdate(__int64 thisPointer){
 		if(CSharpLib->call<bool>("CheckFlag", 3) && playerCanMove((__int64) gameControllerInstancePointer)) {
 			CSharpLib->call<void>("OnInputUnlock");
 		}
+        if(CSharpLib->call<bool>("CheckFlag", 4))
+        {
+            debug("C# -> hasRealDash=1");
+            hasRealDash = true;
+        }
 		if(CSharpLib->call<bool>("CheckFlag", 1)) {
 			DEBUG("Ore update required");
 			SeinLevel__set_Ore(get_characters()->m_sein->Level, CSharpLib->call<int>("OreCount"));

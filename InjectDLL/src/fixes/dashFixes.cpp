@@ -26,26 +26,36 @@ BINDING(16542592, bool, Moon_uberSerializationWisp_PlayerUberStateAbilities__Has
 INTERCEPT(16542224, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, uint8_t ability, bool value), {
 	if(ability == DashNew) {
 		hasRealDash = value;
-		log("uberstate, setting hasRealDash: " + std::to_string(hasRealDash));
+		debug("uberstate, setting hasRealDash: " + std::to_string(hasRealDash));
 	}
 	Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, ability, value);
 	if(ability == WaterDash || ability == Digging || ability == DashNew) {
+        debug("there be updateDashState here");
 		updateDashState(this_ptr);
 	}
 })
 
 void updateDashState(Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr){
 	if(!Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DashNew) && (Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, Digging) || Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, WaterDash)))	{
+        debug("Updating dash state to true");
 		Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, DashNew, true);
 	} else if(Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DashNew) && !Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, Digging) && !Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, WaterDash) && !hasRealDash) {
-		Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, DashNew, true);
+        debug("Updating dash state to false");
+		Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, DashNew, false);
 	}
 }
 
 INTERCEPT(0xFC7320, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__Save, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, UberStateArchive_o* archive, Moon_uberSerializationWisp_PlayerUberStateAbilities_o* abilities), {
-	debug("saving dash as: " + std::to_string(hasRealDash));
-	Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, DashNew, hasRealDash);
-	
+
+    if(Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DashNew) && !hasRealDash)
+    {
+        debug("saving dash as: 0");
+        Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, DashNew, hasRealDash);
+        Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(abilities, DashNew, hasRealDash);
+    }else
+    {
+        debug("saving dash as: 1");
+    }
 	Moon_uberSerializationWisp_PlayerUberStateAbilities__Save(this_ptr, archive, abilities);
 	updateDashState(this_ptr);
 })
