@@ -20,3 +20,5 @@ seedgenTemp/seeds
 /Debug
 /obj
 /.vsold/
+SeedGen/project*
+SeedGen/target*
