@@ -3,8 +3,7 @@
 
 # requirement macros. must go at the top of the file!
 requirement EnemyObstacle:
-  base: Sword OR Hammer OR Bow OR Spear OR Shuriken OR Sentry OR Grenade OR Blaze OR Bash OR Launch
-
+  base: Sword OR Hammer OR Bash OR Launch
 
 area MarshSpawn.Main:  # (-800, -4320) spawn location / inkwater well
   pickup MarshSpawn.RockHC: free
@@ -70,11 +69,13 @@ area MarshSpawn.PoolsBurrowsPath:  # (-973, -4403) the fight 'arena'
     base: Bash, DoubleJump OR Dash
 
 area MidnightBurrows:
+  # MidnightBurrows.Lever: tracks the ability to reach the burrows lever
   state MidnightBurrows.Lever:
     base: Bash, DoubleJump OR Dash OR Glide
+
   pickup MidnightBurrows.LeftKS:
     base: DoubleJump OR Dash OR Glide OR Launch
-    advanced, damage=15: free
+    advanced: Damage=15
   pickup MidnightBurrows.RightKS:
     base:
       MidnightBurrows.Lever, DoubleJump OR Dash OR Glide
@@ -84,25 +85,25 @@ area MidnightBurrows:
       EnemyObstacle:
         Glide
         DoubleJump, Dash
-        damage=15: DoubleJump OR Dash
+        Damage=15, DoubleJump OR Dash
       Launch
   pickup MidnightBurrows.LowerKS:
     base:
       DoubleJump, Dash, Bash
       Bash, Glide
-      Bash, Grenade, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
   pickup MidnightBurrows.LupoMap:
     base:
       DoubleJump OR Dash OR Glide
-      Bash, Grenade
+      Bash, Grenade=1
       Launch
     advanced: Bash
   pickup MidnightBurrows.DeflectorShard:
     base:
       Launch
-      Glide, MidnightBurrows.Lever
-      DoubleJump, Dash, MidnightBurrows.Lever
+      MidnightBurrows.Lever, Glide
+      MidnightBurrows.Lever, DoubleJump, Dash
     advanced: MidnightBurrows.Lever, DoubleJump OR Dash
   pickup MidnightBurrows.TabletQI:
     base:

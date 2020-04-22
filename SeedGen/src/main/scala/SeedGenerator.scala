@@ -354,6 +354,7 @@ package SeedGenerator {
       def metBy(state: GameState): Boolean = state.inv(Ore()) >= oreCount
       def remaining(state: GameState) = Seq(GameState(new Inv(Ore() -> Math.max(0, oreCount - state.inv(Ore()))), Seq()))
     }
+
     case class EnergyReq(oreCount: Int) extends Requirement {
       def metBy(state: GameState): Boolean = state.inv(Energy()) >= oreCount
       def remaining(state: GameState) = Seq(GameState(new Inv(Energy() -> Math.max(0, oreCount - state.inv(Energy()))), Seq()))

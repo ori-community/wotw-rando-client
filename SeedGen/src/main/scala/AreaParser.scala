@@ -95,7 +95,7 @@ package AreaParser {
             if(t.successful)
               println(s"$name.apply; consumed $first at $pos, got ${t.get}")
             else
-              println(s"$name.apply failed; unconsumed token(s) $first at $pos, next: : ${if(!in.atEnd) in.rest.first} -> $t")
+              println(s"$name.apply failed; unconsumed token(s) $first at $pos ${if(!in.atEnd && !in.rest.atEnd) s", next: ${in.rest.first}" else " END"} -> $t")
           }
           t
         }
@@ -122,10 +122,12 @@ package AreaParser {
       val endl = rep1(comment.? ~> NEWLINE)
       val indent = comment.? ~> INDENT
       val dedent = comment.? ~> DEDENT
-      val blanks = rep(dedent ~ indent | endl | comment)
+      val blanks = rep(dedent ~ indent | NEWLINE | comment)
       def requirements: Parser[Requirement] =  "req" !!! {
         val free: Parser[Requirement] =  FREE ^^^ Free
-        def skillReq: Parser[Requirement] = accept("skillName", {
+        def grenadeReq: Parser[Requirement] = IDENTIFIER("Grenade") ~> assign ^^ { case ASSIGN(cnt) => All(SkillReq(51), EnergyReq(cnt))}
+        def sentryReq: Parser[Requirement] = IDENTIFIER("Sentry") ~> assign ^^ { case ASSIGN(cnt) => All(SkillReq(116), EnergyReq(cnt))}
+        def skillReq: Parser[Requirement] = grenadeReq | sentryReq | accept("skillName", {
           case IDENTIFIER("Bash") => SkillReq(0)
           case IDENTIFIER("DoubleJump") => SkillReq(5)
           //   case IDENTIFIER("Torch") => SkillReq(99)
@@ -161,8 +163,9 @@ package AreaParser {
         })
         def oreReq: Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
         def energyReq: Parser[Requirement] = IDENTIFIER("Energy") ~> assign ^^ { case ASSIGN(cnt) => EnergyReq(cnt)}
+        def damageReq: Parser[Requirement] = IDENTIFIER("Damage") ~> assign ^^ { case ASSIGN(cnt) => HealthReq(cnt)}
         def stateReq: Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
-        val simpleReq = skillReq | energyReq | oreReq | tpReq | stateReq
+        val simpleReq = skillReq | damageReq | energyReq | oreReq | tpReq | stateReq
         val orReq: Parser[Requirement] = rep1sep(simpleReq, OR) ^^ { case s => Any(s:_*) }
         val reqRHS: Parser[Requirement] = "reqRHS" !!! rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => All(head :+ last:_*) }
         def diffReq: Parser[Requirement] = "diffReq" !!! accept("diff", {
@@ -170,8 +173,7 @@ package AreaParser {
           case IDENTIFIER("advanced") => StateReq("advanced")
         })
         def lhsSimpleReq = diffReq | damageReq | stateReq
-        def damageReq: Parser[Requirement] = IDENTIFIER("damage") ~> assign ^^ { case ASSIGN(cnt) => HealthReq(cnt)}
-        val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ ({ case reqs => All(reqs:_*)}))
+       val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => All(reqs:_*)})
         val reqLine = "reqLine" !!! (reqLHS ~ (free | reqRHS) ^^ {case lhs ~ rhs => lhs and rhs})
         val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl) ^^ { case rhss => Any(rhss:_*) }
                                                                                             // i don't like this but i'm so tired
@@ -182,7 +184,7 @@ package AreaParser {
       val pickup =  "pickup node" !!! (PICKUP ~> identifier <~ COLON) ~ requirements ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, ItemNode), reqs) }
       val state  =  "state node" !!! (STATE ~> identifier <~ COLON) ~ requirements ^^ { case IDENTIFIER(name) ~ reqs => Connection(WorldStateNode(name), reqs) }
       val conn = "conn node" !!! (CONNECTION ~> identifier <~ COLON) ~ requirements ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, AreaNode), reqs) }
-      val area = "area node" !!! (AREA ~> identifier <~ COLON <~ indent) ~ repsep(state | pickup | conn, blanks) <~ dedent ^^ { case IDENTIFIER(name) ~ conns => Area(name, conns) }
+      val area = "area node" !!! (AREA ~> identifier <~ COLON <~ indent <~ blanks.?) ~ repsep(state | pickup | conn, blanks) <~ dedent ^^ { case IDENTIFIER(name) ~ conns => Area(name, conns) }
       val areas = "areas" !!! rep(endl) ~> repsep(area, blanks)
       val reqMacro  =  "reqMacro" !!! (REQUIREMENT ~> identifier <~ COLON) ~ requirements ^^ { case IDENTIFIER(name) ~ reqs => (name, reqs) }
       val macros = "macros" !!! repsep(reqMacro, blanks) ^^ { case macros => Map(macros:_*)}
