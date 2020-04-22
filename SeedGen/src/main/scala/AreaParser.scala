@@ -1,6 +1,6 @@
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.Positional
-import SeedGenerator.SeedGenerator.{Area, Requirement, SkillReq, HealthReq, OreRequirement, StateReq, WorldStateNode, locDataByName,
+import SeedGenerator.SeedGenerator.{Area, Requirement, SkillReq, HealthReq, OreReq, StateReq, WorldStateNode, locDataByName, EnergyReq,
                                     ItemLoc, AreaNode, ItemNode, StateNode, TeleReq, All, Any, Free, SeedGenState, Connection, Placeholder}
 package AreaParser {
 
@@ -159,9 +159,10 @@ package AreaParser {
           case IDENTIFIER("HollowTP") => TeleReq(5)
           case IDENTIFIER("DepthsTP") => TeleReq(6)
         })
-        def oreReq: Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreRequirement(cnt)}
+        def oreReq: Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
+        def energyReq: Parser[Requirement] = IDENTIFIER("Energy") ~> assign ^^ { case ASSIGN(cnt) => EnergyReq(cnt)}
         def stateReq: Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
-        val simpleReq = skillReq | oreReq | tpReq | stateReq
+        val simpleReq = skillReq | energyReq | oreReq | tpReq | stateReq
         val orReq: Parser[Requirement] = rep1sep(simpleReq, OR) ^^ { case s => Any(s:_*) }
         val reqRHS: Parser[Requirement] = "reqRHS" !!! rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => All(head :+ last:_*) }
         def diffReq: Parser[Requirement] = "diffReq" !!! accept("diff", {
