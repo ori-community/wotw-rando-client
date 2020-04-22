@@ -350,17 +350,21 @@ package SeedGenerator {
     object Flash extends SkillReq(62)
     object Bash extends SkillReq(0)
 
-    case class OreRequirement(oreCount: Int) extends Requirement {
+    case class OreReq(oreCount: Int) extends Requirement {
       def metBy(state: GameState): Boolean = state.inv(Ore()) >= oreCount
       def remaining(state: GameState) = Seq(GameState(new Inv(Ore() -> Math.max(0, oreCount - state.inv(Ore()))), Seq()))
+    }
+    case class EnergyReq(oreCount: Int) extends Requirement {
+      def metBy(state: GameState): Boolean = state.inv(Energy()) >= oreCount
+      def remaining(state: GameState) = Seq(GameState(new Inv(Energy() -> Math.max(0, oreCount - state.inv(Energy()))), Seq()))
     }
 
     case class HealthReq(damage: Int) extends Requirement {
       def metBy(state: GameState): Boolean = state.inv(Health()) * 10 >= damage
       def remaining(state: GameState) = Seq(GameState(new Inv(Health() -> Math.max(0, Math.ceil((damage * 10 - state.inv(Health()))/10).intValue())), Seq()))
     }
-    
-    
+
+
     case class TeleReq(teleCode: Int) extends Requirement {
       def metBy(state: GameState): Boolean = state.inv has Teleporter(teleCode)
       def remaining(state: GameState) = Seq(if (metBy(state)) GameState.Empty else GameState.mk(Teleporter(teleCode)))
@@ -507,7 +511,7 @@ package SeedGenerator {
       case "Flash" => Flash
       case "Bash" => Bash
       case "Regenerate" => Regen
-      case r"Ore=\([0-9]*${count}\)" => OreRequirement(count.toInt)
+      case r"Ore=\([0-9]*${count}\)" => OreReq(count.toInt)
       case r"[fF]ree" => Free
       case s if s.contains('|') => {
         Any(s.split('|').map(ReqParse _): _*)
