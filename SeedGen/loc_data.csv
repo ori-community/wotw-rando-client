@@ -54,8 +54,8 @@ MarshPastOpher.RightEyestone, Inkwater Marsh, Resource, Eyestone, swampStateGrou
 MarshPastOpher.BowEC, Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, energyHalfCellA, 10295, -422, -4273
 MarshPastOpher.BowTree, Inkwater Marsh, Ability, SpiritArc, treesDontWorry, 0, SpiritArc, 97, -457, -4267
 MarshPastOpher.CeilingEX, Inkwater Marsh, SpiritLight, 100, swampStateGroup, 21786, mediumExpA, 50255, -641, -4223
-MarshPastOpher.LumaPathEC, Inkwater Marsh, Resource, Energy, inkwaterMarshStateGroup, 9593, energyContainer, 26457, -664, -4187
-MarshPastOpher.LumaPathEX, Inkwater Marsh, SpiritLight, 200, lagoonStateGroup, 945, largeExpC, 10833, -801, -4186
+MarshPastOpher.PoolsPathEC, Inkwater Marsh, Resource, Energy, inkwaterMarshStateGroup, 9593, energyContainer, 26457, -664, -4187
+MarshPastOpher.PoolsPathEX, Inkwater Marsh, SpiritLight, 200, lagoonStateGroup, 945, largeExpC, 10833, -801, -4186
 WestHollow.CrusherHC, Kwoloks Hollow, Resource, Life, kwolokGroupDescriptor, 937, healthHalfCell, 61897, -254, -4225
 WestHollow.FarLeftEX, Kwoloks Hollow, SpiritLight, 50, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 16163, -357, -4294
 WestHollow.RockPuzzleEX, Kwoloks Hollow, SpiritLight, 50, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 2538, -296, -4293
@@ -284,7 +284,7 @@ LowerWastes.MuncherPitEX, Windswept Wastes, SpiritLight, 100, windsweptWastesGro
 LowerWastes.MinesEntranceEX, Windswept Wastes, SpiritLight, 200, windsweptWastesGroupDescriptor, 20120, expOrb, 224, 1887, -3973
 LowerWastes.MinesEntranceHC, Windswept Wastes, Resource, Life, windsweptWastesGroupDescriptor, 20120, healthContainer, 12941, 1860, -4022
 LowerWastes.LastStandShard, Windswept Wastes, Shard, LastStand, pickupsGroup, 23987, lastResortShardPickup, 50364, 1833, -3936
-LowerWastes.AboveLastStandEX, Windswept Wastes, SpiritLight, 200, windsweptWastesGroupDescriptor, 20120, expOrbB, 33275, 1839, -3907
+LowerWastes.LastStandEX, Windswept Wastes, SpiritLight, 200, windsweptWastesGroupDescriptor, 20120, expOrbB, 33275, 1839, -3907
 LowerWastes.MuncherClimbEX, Windswept Wastes, SpiritLight, 50, windsweptWastesGroupDescriptor, 20120, xpOrbA, 57133, 1765, -3921
 LowerWastes.SkeetoHiveEX, Windswept Wastes, SpiritLight, 100, windsweptWastesGroupDescriptor, 20120, xpOrbA, 8910, 1642, -3944
 LowerWastes.LupoMap, Windswept Wastes, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapWindsweptWastes, 61146, 1647, -3899
