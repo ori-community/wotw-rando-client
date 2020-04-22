@@ -1,5 +1,11 @@
 # Areas.wotw: defines logic paths for the wotw randomizer
 
+
+# requirement macros. must go at the top of the file!
+requirement EnemyObstacle:
+  base: Sword OR Hammer OR Bow OR Spear OR Shuriken OR Sentry OR Grenade OR Blaze OR Bash OR Launch
+
+
 area MarshSpawn.Main:  # (-800, -4320) spawn location / inkwater well
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
@@ -43,12 +49,13 @@ area MarshSpawn.Main:  # (-800, -4320) spawn location / inkwater well
     base: HollowTP
   conn MidnightBurrows:
     base: BurrowsTP
-  conn Glades:
-    base: GladesTP
   conn UpperWellspring:
     base: WellspringTP
-  conn WestPools:
-    base: WestPoolsTP # note: not currently an item
+# these aren't in the pool yet
+#  conn Glades:
+#    base: GladesTP
+#  conn WestPools:
+#    base: WestPoolsTP 
 
 area MarshSpawn.PoolsBurrowsPath:  # (-973, -4403) the fight 'arena'
   pickup MarshSpawn.BurrowOre:
@@ -62,21 +69,45 @@ area MarshSpawn.PoolsBurrowsPath:  # (-973, -4403) the fight 'arena'
   pickup MidnightBurrows.DamageTree:
     base: Bash, DoubleJump OR Dash
 
-area MidnightBurrows:  # (-4582, -945) The burrows teleporter
+area MidnightBurrows:
+  state MidnightBurrows.Lever:
+    base: Bash, DoubleJump OR Dash OR Glide
   pickup MidnightBurrows.LeftKS:
-    base: DoubleJump
+    base: DoubleJump OR Dash OR Glide OR Launch
+    advanced, damage=15: free
   pickup MidnightBurrows.RightKS:
-    base: DoubleJump, Bash
+    base:
+      MidnightBurrows.Lever, DoubleJump OR Dash OR Glide
+      Launch
   pickup MidnightBurrows.UpperKS:
-    base: DoubleJump, Dash
+    base:
+      EnemyObstacle:
+        Glide
+        DoubleJump, Dash
+        damage=15: DoubleJump OR Dash
+      Launch
   pickup MidnightBurrows.LowerKS:
-    base: DoubleJump, Bash, Dash
+    base:
+      DoubleJump, Dash, Bash
+      Bash, Glide
+      Bash, Grenade, DoubleJump OR Dash OR Glide
+      Launch
   pickup MidnightBurrows.LupoMap:
-    base: DoubleJump
+    base:
+      DoubleJump OR Dash OR Glide
+      Bash, Grenade
+      Launch
+    advanced: Bash
   pickup MidnightBurrows.DeflectorShard:
-    base: DoubleJump, Dash
+    base:
+      Launch
+      Glide, MidnightBurrows.Lever
+      DoubleJump, Dash, MidnightBurrows.Lever
+    advanced: MidnightBurrows.Lever, DoubleJump OR Dash
   pickup MidnightBurrows.TabletQI:
-    base: DoubleJump, Bash
+    base:
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
 
 area HowlsDen:  # (-510, -4396) The ledge on the right side of the regenerate tree
   pickup HowlsDen.UpperEX:
@@ -92,13 +123,13 @@ area HowlsDen:  # (-510, -4396) The ledge on the right side of the regenerate tr
   pickup HowlsDen.SwordTree:
     base: DoubleJump OR Dash
   pickup HowlsDen.BoneOre:
-    base: Smash, DoubleJump OR Dash
+    base: Hammer, DoubleJump OR Dash
   pickup HowlsDen.LowerEX:
     base: DoubleJump OR Dash
   pickup HowlsDen.LaserKS:
     base: DoubleJump OR Dash
   pickup HowlsDen.CombatShrine:
-    base: Smash, Regenerate
+    base: Hammer, Regenerate
   pickup HowlsDen.DoubleJumpEX:
     base: DoubleJump OR Dash
   pickup HowlsDen.StickyShard:
@@ -113,7 +144,7 @@ area MarshPastOpher:  # (-598, -4293) Standing next to Opher, looking at the Mil
   pickup MarshPastOpher.TrialEC:
     base: DoubleJump
   pickup MarshPastOpher.TrialHC:
-    base: Smash
+    base: Hammer
   pickup MarshPastOpher.TrialRightEX:
     base: DoubleJump
   pickup MarshPastOpher.CombatShrine:
@@ -210,7 +241,7 @@ area GladesTown:  # (-306, -4154) The Glades teleporter
   pickup GladesTown.LowerLeftHC:
     base: Water, Dash, Burrow
   pickup GladesTown.UpperOre:
-    base: Smash, DoubleJump
+    base: Hammer, DoubleJump
   pickup GladesTown.LowerOre:
     base: Launch, DoubleJump
   pickup GladesTown.ArcingShard:
@@ -366,7 +397,7 @@ area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
   pickup EastPools.CurrentEX:
     base: Water, Bash, WaterDash
   pickup EastPools.BelowLeverEX:
-    base: Water, Bash, Smash, DoubleJump
+    base: Water, Bash, Hammer, DoubleJump
 
 area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
   pickup EastPools.AboveDoorOre:
@@ -578,7 +609,7 @@ area UpperDepths.Entry:  # (161, -4340) the first bit of standable ground below 
     base: Glide
   pickup UpperDepths.EntryRoofEX:
     base: Glide, DoubleJump, Bash
-  pickup UpperDepths.EntryRoofOre:
+  pickup UpperDepths.EntryOre:
     base: Glide, DoubleJump, Grapple
   pickup UpperDepths.RightEntryKS:
     base: Glide, DoubleJump, Grapple

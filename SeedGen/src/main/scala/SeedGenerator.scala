@@ -100,7 +100,7 @@ package SeedGenerator {
         97 -> "SpiritArc",
         98 -> "SpiritSmash",
         //		99 -> "Torch",
-        //		100 -> "SpiritEdge",
+        100 -> "SpiritEdge",
         101 -> "Burrow",
         102 -> "Dash",
         104 -> "WaterDash",
@@ -466,7 +466,7 @@ package SeedGenerator {
     case class ItemLoc(name: String, data: LocData) extends Node { override val kind = ItemNode }
 
     object ItemLoc {
-      def mk(name: String): Option[ItemLoc] = locDataByName.get(name).map(ItemLoc(name, _))
+      def mk(name: String, src: Map[String, LocData]=locDataByName): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
         .orElse({
           println(s"pickup $name not found in loc_data.csv!"); None
         })
@@ -483,7 +483,6 @@ package SeedGenerator {
       val lever = WorldStateNode("Blah.Switch")
       val leverArea = Area("Blah", Seq(Connection(lever, Launch)))
       val SpawnArea = Area("Spawn", Seq(
-        Connection(ItemLoc.mk("MarshSpawn.BridgeEX").get, StateReq("Blah.Switch")),
         Connection(leverArea, DoubleJump)
       ))
       val areasByName: mutable.HashMap[String, Node] = mutable.HashMap()
