@@ -4,6 +4,8 @@
 # requirement macros. must go at the top of the file!
 requirement EnemyObstacle:
   base: Sword OR Hammer OR Bash OR Launch
+requirement Water:
+  base: Grapple, DoubleJump, Bash, Dash, KwoloksTP OR Bow
 
 area MarshSpawn.Main:  # (-800, -4320) spawn location / inkwater well
   pickup MarshSpawn.RockHC: free
@@ -298,80 +300,81 @@ area WestGlades:  # (-540, -4110) The right edge of the first pool past glades
   pickup WestGlades.CombatShrine:
     base: DoubleJump, Bash, Grapple, Regenerate
 
-area WellspringExterior:  # (-763, -4701) Where the "We remember this place" voice dialog plays
-  pickup WellspringExterior.RightWallOre:
+area OuterWellspring:  # (-763, -4701) Where the "We remember this place" voice dialog plays
+  pickup OuterWellspring.RightWallOre:
     base: DoubleJump, Grapple
-  pickup WellspringExterior.RightWallEC:
+  pickup OuterWellspring.RightWallEC:
     base: DoubleJump, Grapple
-  pickup WellspringExterior.RightWallEX:
+  pickup OuterWellspring.RightWallEX:
     base: DoubleJump, Grapple
-  pickup WellspringExterior.TrialOre:
+  pickup OuterWellspring.TrialOre:
+  pickup OuterWellspring.TrialOre:
     base: DoubleJump, Grapple
-  pickup WellspringExterior.UltraGrappleShard:
+  pickup OuterWellspring.UltraGrappleShard:
     base: DoubleJump, Grapple, Dash
-  pickup WellspringExterior.HiddenHC:
+  pickup OuterWellspring.HiddenHC:
     base: DoubleJump, Grapple, Dash
-  pickup WellspringExterior.EntranceRoofEX:
+  pickup OuterWellspring.EntranceRoofEX:
     base: DoubleJump, Grapple, Dash
-  pickup WellspringExterior.WheelEX:
+  pickup OuterWellspring.WheelEX:
     base: DoubleJump, Bash
-  pickup WellspringExterior.BasementEC:
+  pickup OuterWellspring.BasementEC:
     base: DoubleJump, Bash, Water
-  pickup WellspringExterior.LifeHarvestShard:
+  pickup OuterWellspring.LifeHarvestShard:
     base: DoubleJump, Bash
-  pickup WellspringExterior.SwimEX:
+  pickup OuterWellspring.SwimEX:
     base: Water
-  pickup WellspringExterior.SwimOre:
+  pickup OuterWellspring.SwimOre:
     base: Water, Grapple
 
-area WellspringInterior.LowerWellspring:  # (-1294, -3956) Just inside the lower entrance
-  pickup WellspringInterior.ThornShard:
+area InnerWellspring.LowerWellspring:  # (-1294, -3956) Just inside the lower entrance
+  pickup InnerWellspring.ThornShard:
     base: DoubleJump, Bash
-  pickup WellspringInterior.ThornEX:
+  pickup InnerWellspring.ThornEX:
     base: DoubleJump, Bash, Dash, Grapple
-  pickup WellspringInterior.ThreeWheelsEX:
+  pickup InnerWellspring.ThreeWheelsEX:
     base: DoubleJump, Bash
-  pickup WellspringInterior.WaterSwitchEX:
+  pickup InnerWellspring.WaterSwitchEX:
     base: DoubleJump, Bash, Water, WaterDash, Dash
-  pickup WellspringInterior.DrainHC:
+  pickup InnerWellspring.DrainHC:
     base: DoubleJump, Bash, Dash
-  pickup WellspringInterior.DrainEX:
+  pickup InnerWellspring.DrainEX:
     base: DoubleJump, Bash, Dash
-  pickup WellspringInterior.LaserOre:
+  pickup InnerWellspring.LaserOre:
     base: DoubleJump, Bash, Dash
-  pickup WellspringInterior.LeverEC:
+  pickup InnerWellspring.LeverEC:
     base: DoubleJump, Bash, Dash, Grapple
-  pickup WellspringInterior.LupoEX:
+  pickup InnerWellspring.LupoEX:
     base: DoubleJump, Bash, Dash
-  pickup WellspringInterior.LupoMap:
+  pickup InnerWellspring.LupoMap:
     base: Grapple
-  pickup WellspringInterior.ShortcutWheelEX:
+  pickup InnerWellspring.ShortcutWheelEX:
     base: DoubleJump, Bash, Grapple
-  pickup WellspringInterior.GrappleTreeEX:
+  pickup InnerWellspring.GrappleTreeEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup WellspringInterior.GrappleTree:
+  pickup InnerWellspring.GrappleTree:
     base: DoubleJump, Dash, Bash
 
-area WellspringInterior.MiddleWellspring:  # (-1181, -3735) Just inside the entrance
-  pickup WellspringInterior.AboveSpinArenaEX:
+area InnerWellspring.MiddleWellspring:  # (-1181, -3735) Just inside the entrance
+  pickup InnerWellspring.AboveSpinArenaEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup WellspringInterior.RotateRoomEX:
+  pickup InnerWellspring.RotateRoomEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup WellspringInterior.RotateRoomOre:
+  pickup InnerWellspring.RotateRoomOre:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup WellspringInterior.NeedleQI:
+  pickup InnerWellspring.NeedleQI:
     base: DoubleJump, Bash, Grapple, Dash
 
-area WellspringInterior.UpperWellspring:  # (-1306, -3680) The Wellspring teleporter
-  pickup WellspringInterior.LibraryEX:
+area InnerWellspring.UpperWellspring:  # (-1306, -3680) The Wellspring teleporter
+  pickup InnerWellspring.LibraryEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup WellspringInterior.AboveTpEX:
+  pickup InnerWellspring.AboveTpEX:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup WellspringInterior.SeedQI:
+  pickup InnerWellspring.SeedQI:
     base: DoubleJump, Bash, Grapple, Dash
-  pickup WellspringInterior.SwimOre:
+  pickup InnerWellspring.SwimOre:
     base: DoubleJump, Bash, Grapple, Dash, Water
-  pickup WellspringInterior.EscapeRevisitEX:
+  pickup InnerWellspring.EscapeRevisitEX:
     base: DoubleJump, Bash, Grapple, Dash
 
 area PoolsApproach:  # (-965, -4162) On top of the giant wheel
