@@ -6,6 +6,7 @@ import scala.collection.mutable
 import scala.io.Source
 import scala.util.Random
 package SeedGenerator {
+
   object SeedGenerator {
 
     //  just some neat little sugar for regexes, dw about it
@@ -206,21 +207,31 @@ package SeedGenerator {
 
     case class SeedGenState(name: String) extends FlagState // will become a series of case objects later
 
-    case class GameState(inv: Inv, flags: Seq[FlagState] = Seq(), reached: Seq[Node] = Seq()) {
+    case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
       def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
+
+      def canEqual(that: Any): Boolean = that.isInstanceOf[GameState]
+      override def equals(state: Any): Boolean = {
+        state match {
+          case other: GameState => other.flags == flags &&
+            other.reached == reached &&
+            other.inv == inv
+          case _ => false
+        }
+      }
 
       override def toString = s"GameState($inv, flags: ${
         flags.map(_.name).mkString("[", ", ", "]") // stealth newline
-      }, nodes: ${reached.map(_.name).mkString("[", ", ", "]")}"
+      }, nodes: ${reached.map(_.name).mkString("[", ", ", "]")})"
     }
 
     object GameState {
-      def Empty: GameState = GameState(Inv.Empty, Seq())
+      def Empty: GameState = GameState(Inv.Empty)
 
       def mk(params: Either[Item, Either[FlagState, Node]]*): GameState = GameState(
         Inv.mk(params.collect({ case Left(item) => item }): _*),
-        params.collect { case Right(Left(flag)) => flag },
-        params.collect { case Right(Right(node)) => node }
+        params.collect { case Right(Left(flag)) => flag }.toSet,
+        params.collect { case Right(Right(node)) => node }.toSet
       )
     }
 
@@ -238,7 +249,7 @@ package SeedGenerator {
       def set(item: Item, count: Int): Unit = this (item) = count
       override def apply(item: Item): Int = this.getOrElse(item, 0)
       override def toString = s"Inv: (${
-        items.filter(_._2 > 0).map({
+        filter(_._2 > 0).map({
           case (item, 1) => s"$item"
           case (item, c) => s"$c ${item}"
         }).mkString(", ")
@@ -306,8 +317,8 @@ package SeedGenerator {
         .minByOption(_.inv.cost)
         .getOrElse(GameState.Empty)
 
-      def and(that: Requirement): Requirement = All(this, that)
-      def or(that: Requirement): Requirement = Any(this, that)
+      def and(that: Requirement): Requirement = AllReqs(this, that)
+      def or(that: Requirement): Requirement = AnyReq(this, that)
     }
 
 
@@ -324,7 +335,7 @@ package SeedGenerator {
       override def or(that: Requirement): Requirement = Free
     }
 
-    case object Unreachable extends Requirement {
+    case object Invalid extends Requirement {
       def metBy(state: GameState) = false
       def remaining(state: GameState) = Seq(GameState.mk(Unobtainium))
     }
@@ -352,17 +363,17 @@ package SeedGenerator {
 
     case class OreReq(oreCount: Int) extends Requirement {
       def metBy(state: GameState): Boolean = state.inv(Ore()) >= oreCount
-      def remaining(state: GameState) = Seq(GameState(new Inv(Ore() -> Math.max(0, oreCount - state.inv(Ore()))), Seq()))
+      def remaining(state: GameState) = Seq(GameState(new Inv(Ore() -> Math.max(0, oreCount - state.inv(Ore())))))
     }
 
     case class EnergyReq(oreCount: Int) extends Requirement {
       def metBy(state: GameState): Boolean = state.inv(Energy()) >= oreCount
-      def remaining(state: GameState) = Seq(GameState(new Inv(Energy() -> Math.max(0, oreCount - state.inv(Energy()))), Seq()))
+      def remaining(state: GameState) = Seq(GameState(new Inv(Energy() -> Math.max(0, oreCount - state.inv(Energy())))))
     }
 
     case class HealthReq(damage: Int) extends Requirement {
       def metBy(state: GameState): Boolean = state.inv(Health()) * 10 >= damage
-      def remaining(state: GameState) = Seq(GameState(new Inv(Health() -> Math.max(0, Math.ceil((damage * 10 - state.inv(Health()))/10).intValue())), Seq()))
+      def remaining(state: GameState) = Seq(GameState(new Inv(Health() -> Math.max(0, Math.ceil((damage * 10 - state.inv(Health()))/10).intValue()))))
     }
 
 
@@ -372,33 +383,49 @@ package SeedGenerator {
     }
 
 
-    class Any(reqsRaw: Requirement*) extends Requirement {
-      val reqs: Seq[Requirement] = reqsRaw.filter(_.cheapestRemaining().inv.cost < Double.PositiveInfinity)
+    class AnyReq(reqsRaw: Requirement*) extends Requirement {
+      val reqs: Seq[Requirement] = reqsRaw.filter(_.cheapestRemaining().inv.cost < Double.PositiveInfinity).toSet.toSeq
       if (reqs.length < reqsRaw.length) reqsRaw.foreach({ case r if reqs.contains(r) => printf(s"Excluding $r") })
+      override def or(that: Requirement): Requirement = that match {
+        case r: AnyReq => AnyReq(r.reqs ++ reqs :_*)
+        case r => AnyReq(reqs :+ r :_*)
+      }
+      override def and(that: Requirement): Requirement = that match {
+        case r: AnyReq if r.reqs.toSet == reqs.toSet => r
+        case r => AllReqs(this, r)
+      }
       override def toString: String = s"(${reqs.mkString(" || ")})"
       override def metBy(state: GameState): Boolean = reqs.exists(_.metBy(state))
       def remaining(state: GameState): Seq[GameState] = reqs flatMap (_ remaining state)
    }
-    object Any {
+    object AnyReq {
       def apply(reqsRaw: Requirement*) = reqsRaw match {
         case Seq(req) => req
         case reqs if reqs.contains(Free) => Free
-        case reqs => new Any(reqs:_*)
+        case reqs if reqs.exists(_.isInstanceOf[AnyReq]) => {
+          val (anys: Seq[AnyReq], others) = reqs.partition(_.isInstanceOf[AnyReq])
+          new AnyReq(anys.flatMap(_.reqs) ++ others:_*)
+        }
+        case reqs => new AnyReq(reqs:_*)
       }
     }
 
-    class All(val reqs: Requirement*) extends Requirement {
+    class AllReqs(val reqs: Requirement*) extends Requirement {
       override def and(that: Requirement): Requirement = that match {
-        case r: All => All(r.reqs ++ reqs :_*)
-        case r => All(reqs :+ r :_*)
+        case r: AllReqs => AllReqs(r.reqs ++ reqs :_*)
+        case r => AllReqs(reqs :+ r :_*)
       }
+      override def or (other: Requirement): Requirement = other match {
+        case r:AllReqs if r.reqs.toSet == reqs.toSet => r
+        case req => AnyReq(req, this)
+     }
       override def toString: String = s"(${reqs.mkString(" && ")})"
       def metBy(state: GameState): Boolean = reqs.forall(_.metBy(state))
       def remaining(state: GameState): Seq[GameState] = {
         if (metBy(state))
           return Seq(GameState.Empty)
         var mergedInv = GameState.Empty + state
-        val (orReqs: Seq[Any], others) = reqs.partition(_.isInstanceOf[Any])
+        val (orReqs: Seq[AnyReq], others) = reqs.partition(_.isInstanceOf[AnyReq])
         others.foreach(req => {
           mergedInv = mergedInv + req.cheapestRemaining(mergedInv)
         })
@@ -409,11 +436,15 @@ package SeedGenerator {
           Seq(greedy)
       }
     }
-    object All {
+    object AllReqs {
       def apply(reqsRaw: Requirement*): Requirement = reqsRaw.filterNot(_ == Free) match {
         case Nil => Free
         case Seq(req) => req
-        case reqs => new All(reqs:_*)
+        case reqs if reqs.exists(_.isInstanceOf[AllReqs]) => {
+          val (alls: Seq[AllReqs], others) = reqs.partition(_.isInstanceOf[AllReqs])
+          new AllReqs(alls.flatMap(_.reqs) ++ others:_*)
+        }
+        case reqs => new AllReqs(reqs:_*)
       }
     }
 
@@ -495,32 +526,85 @@ package SeedGenerator {
       //			println(s"$cleanedLine ---- $comment")
     }
 
-    class Location(name: String)
+    import AreaParser.AreaParser
+    object Areas {
+      def data = {
+        if(_areas.isEmpty)
+          populate()
+        _areas
+      }
+      def paths  = {
+        if(_quickReach.isEmpty)
+          populate()
+        _quickReach
+      }
 
-    def ReqParse(req: String): Requirement = req match {
-      case "DoubleJump" => DoubleJump
-      case "Bow" => Bow
-      case "Flap" => Flap and Glide
-      case "Grapple" => Grapple
-      case "Glide" => Glide
-      case "Launch" => Launch
-      case "Burrow" => Burrow and Dash
-      case "Dash" => Dash
-      case "Smash" => Smash
-      case "Grenade" => Grenade
-      case "WaterDash" => WaterDash
-      case "Flash" => Flash
-      case "Bash" => Bash
-      case "Regenerate" => Regen
-      case r"Ore=\([0-9]*${count}\)" => OreReq(count.toInt)
-      case r"[fF]ree" => Free
-      case s if s.contains('|') => {
-        Any(s.split('|').map(ReqParse _): _*)
+      var _areas: Map[String, Area] = Map()
+      var _quickReach: Map[String, Requirement] = Map()
+      def populate() = {
+        AreaParser.run() match {
+          case Right(value) =>
+            _areas = value
+            buildQuickReachReqs()
+          case Left(error) =>
+            println(error)
+            false
+        }
       }
-      case s => {
-        println(s"Wot's an ${s}");
-        Free
+      def buildQuickReachReqs() = {
+        _quickReach = quickReachRecursive(spawn, macros.conns.map(c => c.target.name -> c.req).toMap + ("MarshSpawn.Main" -> Free))
+        true
       }
+
+      def quickReachRecursive(target: Area, current: Map[String, Requirement] = Map(), forLater: Set[String] = Set()) : Map[String, Requirement] = {
+        def currentWith(name: String, req: Requirement) = {
+          current.get(name) match {
+            case Some(existingReq) => current + (name -> (req or existingReq))
+            case None => current + (name -> req)
+          }
+        }
+        val reqToHere = current(target.name)
+        target.conns.flatMap({
+          case Connection(Placeholder(name, AreaNode), req)  => data.get(name) match {
+            case Some(targetArea) => quickReachRecursive(targetArea, currentWith(name, reqToHere and req)).toSeq
+            case None             => println(s"Warning: no data found for area $name")
+                                      Seq(target.name -> (reqToHere and req))
+          }
+          case Connection(target, req)                       => Seq(target.name -> (reqToHere and req))
+        }).groupMapReduce(_._1)(_._2)((r1,r2) => r1 or r2)
+      }
+
+      def spawn: Area = data("MarshSpawn.Main")
+      def macros: Area = data("Virtual.Macros")
+    }
+
+    case class ItemPlacement(item: Item, loc: ItemLoc) {
+      val code = loc.data.code
+      def write: String = {
+        val data = s"${loc.data.code}|${item.code}"
+        val padding = " " * (25 - data.size)
+        s"$data$padding// ${item.name} from ${loc.data.info}"
+      }
+    }
+
+    class PlacementGroup(inState: GameState, unplacedItems: Inv=getItemPool(), prev: Seq[PlacementGroup] = Seq()) {
+      val newState = Areas.spawn.reached(inState)
+      val locs = (newState.reached -- inState.reached).collect({case n: ItemLoc => n})
+      val codes = locs.map(_.data.code)
+      var _fullWeight = 0d
+      def acc(weight: Double): Double = { _fullWeight += 1/weight; _fullWeight }
+      val possiblePaths = Areas.paths
+        .withFilter(kv => !newState.reached.exists(_.name == kv._1) )
+        .map({case (name, req) =>  name -> req.cheapestRemaining(newState)})
+        .filter({case (_, state) =>  state.inv.count <= locs.size &&
+                                                        state.flags.isEmpty &&
+                                                        state.inv.forall(kv => unplacedItems.has(kv._1, kv._2))
+        })
+        .groupMapReduce(_._2.inv)(kv => Seq(kv._1))((n1, n2) => n1 ++ n2)
+        .toSeq.sortBy(_._1.cost).map({case (items, _) => (acc(items.cost), items)})
+
+      val limit = Random.nextDouble() * _fullWeight
+      val chosenPath =  possiblePaths.dropWhile(_._1 < limit).headOption.orElse(possiblePaths.lastOption).map(_._2)
     }
 
 
@@ -543,29 +627,30 @@ package SeedGenerator {
         case _ => None
       }
     }
+    def getItemPool() = new Inv(
+      Health() -> 24,
+      Energy() -> 24,
+      Ore() -> 39,
+      ShardSlot() -> 5,
+      Teleporter(0) -> 1,
+      Teleporter(1) -> 1,
+      Teleporter(3) -> 1,
+      Teleporter(4) -> 1,
+      Teleporter(5) -> 1,
+      Teleporter(6) -> 1,
+      Teleporter(7) -> 1,
+      Teleporter(8) -> 1,
+      Teleporter(9) -> 1,
+      Teleporter(10) -> 1,
+      Teleporter(11) -> 1,
+      Teleporter(12) -> 1,
+    ) + Inv.mk(Shard.names.keys.map(Shard(_)).toSeq:_*) +
+      Inv.mk(Skill.names.keys.filter(_ != "SpiritEdge").map(Skill(_)).toSeq:_*)
+
 
     def run(n: Int = 0, name_base: String = "seed", outputFolder: String = ""): Unit = {
       // Creating a file
-      val itemPool = new Inv(
-        Health() -> 24,
-        Energy() -> 24,
-        Ore() -> 39,
-        ShardSlot() -> 5,
-        Teleporter(0) -> 1,
-        Teleporter(1) -> 1,
-        Teleporter(3) -> 1,
-        Teleporter(4) -> 1,
-        Teleporter(5) -> 1,
-        Teleporter(6) -> 1,
-        Teleporter(7) -> 1,
-        Teleporter(8) -> 1,
-        Teleporter(9) -> 1,
-        Teleporter(10) -> 1,
-        Teleporter(11) -> 1,
-        Teleporter(12) -> 1,
-      )
-      Shard.names.keys.foreach((s: Int) => itemPool(Shard(s)) = 1)
-      Skill.names.keys.foreach((s: Int) => itemPool(Skill(s)) = 1)
+      val itemPool = getItemPool()
 
       var locs = itemLocs
       while (locs.size > itemPool.count) itemPool.add(SpiritLight(Random.between(50, 150)))

@@ -1,14 +1,14 @@
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.Positional
 import SeedGenerator.SeedGenerator.{Area, Requirement, SkillReq, HealthReq, OreReq, StateReq, WorldStateNode, locDataByName, EnergyReq,
-                                    ItemLoc, AreaNode, ItemNode, StateNode, TeleReq, All, Any, Free, SeedGenState, Connection, Placeholder}
+                                    ItemLoc, AreaNode, ItemNode, StateNode, TeleReq, AllReqs, AnyReq, Free, SeedGenState, Connection, Placeholder}
 package AreaParser {
 
   import scala.io.Source
   import scala.util.parsing.input.{NoPosition, Position, Reader}
 
   object AreaParser {
-    val debug = true
+    var debug = true
 
     trait ParseError
     case class LexerError(msg: String) extends ParseError
@@ -125,8 +125,8 @@ package AreaParser {
       val blanks = rep(dedent ~ indent | NEWLINE | comment)
       def requirements: Parser[Requirement] =  "req" !!! {
         val free: Parser[Requirement] =  FREE ^^^ Free
-        def grenadeReq: Parser[Requirement] = IDENTIFIER("Grenade") ~> assign ^^ { case ASSIGN(cnt) => All(SkillReq(51), EnergyReq(cnt))}
-        def sentryReq: Parser[Requirement] = IDENTIFIER("Sentry") ~> assign ^^ { case ASSIGN(cnt) => All(SkillReq(116), EnergyReq(cnt))}
+        def grenadeReq: Parser[Requirement] = IDENTIFIER("Grenade") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(51), EnergyReq(cnt))}
+        def sentryReq: Parser[Requirement] = IDENTIFIER("Sentry") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(116), EnergyReq(cnt))}
         def skillReq: Parser[Requirement] = grenadeReq | sentryReq | accept("skillName", {
           case IDENTIFIER("Bash") => SkillReq(0)
           case IDENTIFIER("DoubleJump") => SkillReq(5)
@@ -166,19 +166,18 @@ package AreaParser {
         def damageReq: Parser[Requirement] = IDENTIFIER("Damage") ~> assign ^^ { case ASSIGN(cnt) => HealthReq(cnt)}
         def stateReq: Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
         val simpleReq = skillReq | damageReq | energyReq | oreReq | tpReq | stateReq
-        val orReq: Parser[Requirement] = rep1sep(simpleReq, OR) ^^ { case s => Any(s:_*) }
-        val reqRHS: Parser[Requirement] = "reqRHS" !!! rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => All(head :+ last:_*) }
+        val orReq: Parser[Requirement] = rep1sep(simpleReq, OR) ^^ { case s => AnyReq(s:_*) }
+        val reqRHS: Parser[Requirement] = "reqRHS" !!! rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => AllReqs(head :+ last:_*) }
         def diffReq: Parser[Requirement] = "diffReq" !!! accept("diff", {
           case IDENTIFIER("base") => Free
           case IDENTIFIER("advanced") => StateReq("advanced")
         })
-        def lhsSimpleReq = diffReq | damageReq | stateReq
-       val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => All(reqs:_*)})
+        def lhsSimpleReq = diffReq | damageReq | skillReq | stateReq
+       val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => AllReqs(reqs:_*)})
         val reqLine = "reqLine" !!! (reqLHS ~ (free | reqRHS) ^^ {case lhs ~ rhs => lhs and rhs})
-        val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl) ^^ { case rhss => Any(rhss:_*) }
-                                                                                            // i don't like this but i'm so tired
-        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent) ~ rep1sep(reqBlock | rhsBlock, endl.?) <~ dedent ^^ { case lhs ~ rhss => Any(rhss.map(All(lhs, _)):_*) }
-        val reqLines = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.?) ^^ { case lines => Any(lines:_*)}
+        val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl) ^^ { case rhss => AnyReq(rhss:_*) }
+        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent) ~ rep1sep(reqBlock | rhsBlock, endl.?) <~ dedent ^^ { case lhs ~ rhss => AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
+        val reqLines = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.?) ^^ { case lines => AnyReq(lines:_*)}
         free | (indent ~> reqLines <~ dedent)
       }
       val pickup =  "pickup node" !!! (PICKUP ~> identifier <~ COLON) ~ requirements ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, ItemNode), reqs) }
@@ -191,8 +190,8 @@ package AreaParser {
       val file ="file" !!!  phrase(blanks ~> macros ~ areas <~ blanks) ^^ { case reqMacs ~ areas => validator(reqMacs, areas)}
 
       // do macro substitution, validate areas and states
-      def validator(macros: Map[String, Requirement], areas: Seq[Area]): Seq[Area] = {
-        val stateNodes = areas.flatMap(_.conns.filter(_.target.kind == StateNode).map(r => r.target.name))
+      def validator(macros: Map[String, Requirement], areas: Seq[Area]) = {
+        val stateNodes = areas.flatMap(_.conns.withFilter(_.target.kind == StateNode).map(r => r.target.name))
         val stateReqs = areas.flatMap(_.conns.flatMap(_.req.cheapestRemaining().flags))
         val unusedStateReqs = stateReqs.filterNot(st => macros.contains(st.name) || stateNodes.contains(st.name)).toSet
         val locDataSrc = locDataByName
@@ -202,10 +201,12 @@ package AreaParser {
         if(unusedMacros.nonEmpty)
           println(s"unused macros: $unusedMacros")
         val macroArea = Area("Virtual.Macros", macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq)
-        macroArea +: areas.map(area => Area(area.name, area.conns.flatMap({
+        val withFixedItems = areas.map(area => Area(area.name, area.conns.flatMap({
           case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name, locDataSrc).map(Connection(_, reqs))
           case c => Some(c)
         })))
+
+        (macroArea +: withFixedItems).map(a => a.name -> a).toMap
       }
 
       def runP[T](tokens: Seq[AreasToken], p: Parser[T]) = {
@@ -235,7 +236,8 @@ package AreaParser {
       }
     }
     def printTokens(t: Seq[AreasToken]) = t.foreach({case AreaParser.INDENT => print("\nINDENT ") ; case AreaParser.DEDENT => print("\nDEDENT ") ; case AreaParser.NEWLINE => println(""); case t => print(s"$t ") })
-    def run(sourcefile: String = "areas.wotw") = {
+    def run(sourcefile: String = "areas.wotw", print: Boolean = false) = {
+      debug = print
       run2(Source.fromFile(sourcefile).mkString)
     }
   }
