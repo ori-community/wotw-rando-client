@@ -308,7 +308,6 @@ area OuterWellspring:  # (-763, -4701) Where the "We remember this place" voice 
   pickup OuterWellspring.RightWallEX:
     base: DoubleJump, Grapple
   pickup OuterWellspring.TrialOre:
-  pickup OuterWellspring.TrialOre:
     base: DoubleJump, Grapple
   pickup OuterWellspring.UltraGrappleShard:
     base: DoubleJump, Grapple, Dash
