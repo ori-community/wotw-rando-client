@@ -13,8 +13,8 @@
 */obj/*
 */x64/*
 InjectDLL.log
-seedgenTemp/out
-seedgenTemp/seeds
+SeedGen/out
+SeedGen/seeds
 .idea*
 *.iml
 /Debug
