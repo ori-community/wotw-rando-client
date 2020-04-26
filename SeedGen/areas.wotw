@@ -1,62 +1,103 @@
 # Areas.wotw: defines logic paths for the wotw randomizer
 
-
 # requirement macros. must go at the top of the file!
+requirement Weapon:
+  base: Sword OR Hammer
+
 requirement EnemyObstacle:
   base: Sword OR Hammer OR Bash OR Launch
-requirement Water:
-  base: Grapple, DoubleJump, Bash, Dash, KwoloksTP OR Bow
 
-area MarshSpawn.Main:  # (-800, -4320) spawn location / inkwater well
+requirement Water:
+  base: Grapple, DoubleJump, Bash, Dash, HollowTP OR Bow
+
+area MarshSpawn.Main:                 # (-800, -4320) spawn location / inkwater well
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
-  pickup MarshSpawn.ResilienceShard: free
   pickup MarshSpawn.PreLupoEX: free
   pickup MarshSpawn.LupoMap: free
   pickup MarshSpawn.RegenTree: free
-  pickup MarshSpawn.CaveKS: free
-  pickup MarshSpawn.LeftTokkEX: free
-  pickup MarshSpawn.FightRoomEX: free
   pickup MarshSpawn.GrappleHC:
-    base: Grapple, DoubleJump OR Dash OR Glide
+    base:     Grapple, DoubleJump OR Dash OR Glide OR Launch
+    advanced: Grapple, Sword          # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
   pickup MarshSpawn.BridgeEX:
-    base: DoubleJump OR Dash OR Glide
+    base:
+      DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1                 # Grenade bash straight up from below
+    advanced: free                    # lure and sword pogo off of hopping enemy
+  pickup MarshSpawn.ResilienceShard:
+    base: Weapon
   pickup MarshSpawn.ResilienceOre:
-    base: Water
+    base: Weapon, Water
   pickup MarshSpawn.BashEC:
-    base: Bash
+    base: Bash OR Launch
   pickup MarshSpawn.LeverEC:
     base:
       Grapple, DoubleJump, Bash
       Launch, Bash
-  pickup MarshSpawn.CaveOre:
-    base: DoubleJump OR Dash
+      Grapple, Launch
+    advanced:
+      Launch                          # Single jump and a launch can reach the ledge offscreen.
+      Bash                            # Lure the Jumper, then bash off him
   pickup MarshSpawn.LongSwimEX:
     base: Water
-  pickup MarshSpawn.RecklessShard:
-    base: DoubleJump OR Dash
-  pickup MarshSpawn.FangEC:
-    base: DoubleJump, Dash
-  pickup MarshSpawn.FangQI:
-    base: DoubleJump
-
-  conn HowlsDen:
-    base: DoubleJump OR Dash OR Launch
-
-  conn HollowEntry: free # actually: weapon
-
+  pickup MarshSpawn.CaveKS:
+    base: Weapon
+  pickup MarshSpawn.LeftTokkEX:
+    base: Weapon
+  pickup MarshSpawn.FightRoomEX:
+    base: Weapon
+  pickup MarshSpawn.CaveOre:
+    base:
+      Weapon, DoubleJump OR Launch
+      Weapon, Bash, Grenade=1         # bash off the slime to get to the ledge, then grenade bash up
+    advanced:
+      Weapon, Bash, Damage=10         # Use the slime to get over to the ledge, then take a dboost to lure a shot over
+  conn MarshPastOpher:
+    base: Weapon
+  conn MarshSpawn.PoolsBurrowsPath:
+    base:
+      Weapon, DoubleJump OR Dash OR Launch
+    advanced:
+      Sword, Glide
+  conn MarshSpawn.AboveDen:
+    base:
+      DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
+    advanced: Sword                   # Sword upslash to make it to wall above thorns
   # teleporter connections
+  # TODO: add other tp conns
   conn EastHollow:
     base: HollowTP
   conn MidnightBurrows:
     base: BurrowsTP
-  conn UpperWellspring:
+  conn InnerWellspring.TeleporterArea:
     base: WellspringTP
-# these aren't in the pool yet
-#  conn Glades:
-#    base: GladesTP
-#  conn WestPools:
-#    base: WestPoolsTP 
+  conn LowerWastes:
+    base: WestWastesTP
+  conn UpperWastes:
+    base: EastWastesTP
+  conn WillowsEnd.TPandAbove:
+    base: WillowTP
+
+area MarshSpawn.AboveDen:             # (-510, -4396) The ledge on the right side of the regenerate tree
+  pickup MarshSpawn.RecklessShard: free
+  pickup MarshSpawn.FangQI:
+    base:
+      DoubleJump OR Launch
+      Bash, Dash                      # Bash off the enemy to get to the vine, then jump&dash right
+    advanced:
+      Bash, Damage=10                 # Bash off the enemy to get to the vine, then jump right. Dboost the last gap.
+      Bash, Grenade                   # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
+      Sword                           # Sword upslash to reach wall before vine. Jump plus sword side combo to reach vine. Sword upslash across the gap.
+  pickup MarshSpawn.FangEC:
+    base:
+      DoubleJump, Dash                # Stick to the ceiling
+      Launch
+    advanced:
+      Bash, Grenade=1, Dash           # Bash up off the enemy and Dash to the fang. Grenade+bash up from the fang
+      Bash, Grenade=1, Sword          # As above, but sword upslash to cross the last gap
+      Bash, Grenade=1, Damage=10      # As above, but take a dboost on the last gap
+  conn HowlsDen: free
 
 area MarshSpawn.PoolsBurrowsPath:  # (-973, -4403) the fight 'arena'
   pickup MarshSpawn.BurrowOre:
@@ -131,8 +172,8 @@ area HowlsDen:  # (-510, -4396) The ledge on the right side of the regenerate tr
     base: DoubleJump OR Dash
   pickup HowlsDen.LaserKS:
     base: DoubleJump OR Dash
-  pickup HowlsDen.CombatShrine:
-    base: Hammer, Regenerate
+  # pickup HowlsDen.CombatShrine:
+  #  base: Hammer, Regenerate
   pickup HowlsDen.DoubleJumpEX:
     base: DoubleJump OR Dash
   pickup HowlsDen.StickyShard:
@@ -150,8 +191,8 @@ area MarshPastOpher:  # (-598, -4293) Standing next to Opher, looking at the Mil
     base: Hammer
   pickup MarshPastOpher.TrialRightEX:
     base: DoubleJump
-  pickup MarshPastOpher.CombatShrine:
-    base: Regenerate
+  # pickup MarshPastOpher.CombatShrine:
+  #  base: Regenerate
   pickup MarshPastOpher.SwingPoleEX:
     base: DoubleJump
   pickup MarshPastOpher.LeftEyestone:
@@ -170,10 +211,11 @@ area MarshPastOpher:  # (-598, -4293) Standing next to Opher, looking at the Mil
     base: DoubleJump, Bow, Bash, Dash
   pickup WestHollow.CrusherHC:
     base: DoubleJump OR Dash
-
+  conn WestHollow.HollowDrain:  # TODO: deleteme
+    base: DoubleJump OR Dash
 # TODO: state descriptor and transitions for the drained water
 
-area WestHollow.HollowDrain:  # (-244, -4276) First bit of land on the way to the 2nd drain lever
+area WestHollow.HollowDrain:  # (-244, -427m6) First bit of land on the way to the 2nd drain lever
   pickup WestHollow.FarLeftEX:
     base: Bow, DoubleJump OR Dash
   pickup WestHollow.RockPuzzleEX:
@@ -188,6 +230,10 @@ area WestHollow.HollowDrain:  # (-244, -4276) First bit of land on the way to th
     base: DoubleJump, Bow, Dash
   pickup WestHollow.TrialHC:
     base: Bow, DoubleJump OR Dash
+  conn WestHollow.DashArea:  # TODO: deleteme
+    base: Bow, DoubleJump OR Dash
+  conn EastHollow:  # TODO: deleteme
+    base: Bow, DoubleJump, Dash
 
 area WestHollow.DashArea:  # (-100, -4420) To the left of the lever door
   pickup WestHollow.BelowLupoEX:
@@ -233,6 +279,12 @@ area EastHollow:  # (-152, -4236) The Hollow teleporter
     base: DoubleJump, Bash, Water
   pickup EastHollow.DepthsExteriorEX:
     base: Bash, Glide, Launch
+  conn GladesTown: # TODO: deleteme
+    base: Bash, DoubleJump
+  conn WoodsEntry: # TODO: deleteme
+    base: Water, Bash, DoubleJump
+  conn UpperDepths.Entry: # TODO: deleteme
+    base: Bash, Glide
 
 area GladesTown:  # (-306, -4154) The Glades teleporter
   pickup GladesTown.AcornQI:
@@ -267,8 +319,9 @@ area GladesTown:  # (-306, -4154) The Glades teleporter
     base: Dash, Burrow, DoubleJump, Ore=24
   pickup GladesTown.BigHammockEX:
     base: Flap, Glide, DoubleJump
-  pickup GladesTown.KeyMokiHutEX:
-    base: Unreachable
+  #  can't exactly leave this here lol
+  #  pickup GladesTown.KeyMokiHutEX:
+  #    base: Unreachable
   pickup GladesTown.UpdraftTableEX:
     base: Launch, DoubleJump
   pickup GladesTown.AboveCaveEX:
@@ -279,6 +332,10 @@ area GladesTown:  # (-306, -4154) The Glades teleporter
     base: Flap, Glide, DoubleJump
   pickup GladesTown.LeafPileEX:
     base: Launch, DoubleJump, Dash, Flap
+  conn WestGlades:  # TODO: deleteme
+    base: DoubleJump, Bash
+  conn OpherShop: free # TODO: deleteme
+  conn TwillenShop: free # TODO: deleteme
 
 area WestGlades:  # (-540, -4110) The right edge of the first pool past glades
   pickup WestGlades.GrappleEX:
@@ -297,8 +354,12 @@ area WestGlades:  # (-540, -4110) The right edge of the first pool past glades
     base: DoubleJump, Bash
   pickup WestGlades.ShrineHC:
     base: DoubleJump, Bash, Dash
-  pickup WestGlades.CombatShrine:
-    base: DoubleJump, Bash, Grapple, Regenerate
+  # pickup WestGlades.CombatShrine:
+  #  base: DoubleJump, Bash, Grapple, Regenerate
+  conn OuterWellspring:  # TODO: deleteme
+    base: DoubleJump, Dash, Bash
+  conn LowerReach.Entry: # TODO: deleteme
+    base: DoubleJump, Flap
 
 area OuterWellspring:  # (-763, -4701) Where the "We remember this place" voice dialog plays
   pickup OuterWellspring.RightWallOre:
@@ -325,6 +386,10 @@ area OuterWellspring:  # (-763, -4701) Where the "We remember this place" voice 
     base: Water
   pickup OuterWellspring.SwimOre:
     base: Water, Grapple
+  conn InnerWellspring.LowerWellspring: # TODO: deleteme
+    base: DoubleJump, Dash, Bash
+  conn PoolsApproach:                   # TODO: deleteme
+    base: DoubleJump, Water, Bash
 
 area InnerWellspring.LowerWellspring:  # (-1294, -3956) Just inside the lower entrance
   pickup InnerWellspring.ThornShard:
@@ -353,8 +418,10 @@ area InnerWellspring.LowerWellspring:  # (-1294, -3956) Just inside the lower en
     base: DoubleJump, Bash, Grapple, Dash
   pickup InnerWellspring.GrappleTree:
     base: DoubleJump, Dash, Bash
+  conn InnerWellspring.MiddleWellspring: # TODO: deleteme
+    base: DoubleJump, Dash, Bash, Grapple
 
-area InnerWellspring.MiddleWellspring:  # (-1181, -3735) Just inside the entrance
+area InnerWellspring.MiddleWellspring:   # (-1181, -3735) Just inside the entrance
   pickup InnerWellspring.AboveSpinArenaEX:
     base: DoubleJump, Bash, Grapple, Dash
   pickup InnerWellspring.RotateRoomEX:
@@ -363,8 +430,10 @@ area InnerWellspring.MiddleWellspring:  # (-1181, -3735) Just inside the entranc
     base: DoubleJump, Bash, Grapple, Dash
   pickup InnerWellspring.NeedleQI:
     base: DoubleJump, Bash, Grapple, Dash
+  conn InnerWellspring.TeleporterArea:   # TODO: deleteme
+    base: DoubleJump, Dash, Bash, Grapple
 
-area InnerWellspring.UpperWellspring:  # (-1306, -3680) The Wellspring teleporter
+area InnerWellspring.TeleporterArea:     # (-1306, -3680) The Wellspring teleporter
   pickup InnerWellspring.LibraryEX:
     base: DoubleJump, Bash, Grapple, Dash
   pickup InnerWellspring.AboveTpEX:
@@ -375,6 +444,7 @@ area InnerWellspring.UpperWellspring:  # (-1306, -3680) The Wellspring teleporte
     base: DoubleJump, Bash, Grapple, Dash, Water
   pickup InnerWellspring.EscapeRevisitEX:
     base: DoubleJump, Bash, Grapple, Dash
+  conn OuterWellspring: free # TODO: deleteme
 
 area PoolsApproach:  # (-965, -4162) On top of the giant wheel
   pickup PoolsApproach.CurrentEX:
@@ -389,9 +459,10 @@ area PoolsApproach:  # (-965, -4162) On top of the giant wheel
     base: Water, Bash
   pickup PoolsApproach.BurrowsPathEX:
     base: DoubleJump, Bash
+  conn EastPools.Entry: # TODO: deleteme
+    base: Glide, DoubleJump
 
 # TODO: probably need a state for the first door in Pools
-
 area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
   pickup EastPools.RightOre:
     base: Water, Bash, Flap, DoubleJump, Dash
@@ -401,6 +472,8 @@ area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
     base: Water, Bash, WaterDash
   pickup EastPools.BelowLeverEX:
     base: Water, Bash, Hammer, DoubleJump
+  conn EastPools.TPArea: # TODO: deleteme
+    base: Water, Bash, DoubleJump
 
 area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
   pickup EastPools.AboveDoorOre:
@@ -425,6 +498,8 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
     base: Water, Bash, Flap, DoubleJump
   pickup EastPools.SeedQI:
     base: Water, Bash, Flap, DoubleJump
+  conn UpperPools: # TODO: deleteme
+    base: Water, Bash, DoubleJump
 
 area UpperPools:  # (-1526, -4112) the ledge on top of Kwolok's room
   pickup UpperPools.LowerKS:
@@ -453,6 +528,8 @@ area UpperPools:  # (-1526, -4112) the ledge on top of Kwolok's room
     base: Water, Bash, Flap, DoubleJump, WaterDash
   pickup UpperPools.WaterfallEC:
     base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+  conn WestPools: #TODO: deleteme
+    base: Water, Bash, DoubleJump, WaterDash
 
 area WestPools:  # (-1652, -4170) the west Pools TP
   pickup WestPools.BurrowEX:
@@ -476,7 +553,8 @@ area WoodsEntry:  # (421, -4206) At Shriek Cutscene after the swim
     base: DoubleJump OR Dash OR Glide
   pickup WoodsEntry.UpperKS:
     base: DoubleJump
-
+  conn WoodsMain: # TODO: deleteme
+    base: DoubleJump, Glide
 area WoodsMain:  # (819, -4191) Where you find Ku
   pickup WoodsMain.RightKS:
     base: Glide, Flap
@@ -508,12 +586,14 @@ area WoodsMain:  # (819, -4191) Where you find Ku
     base: Glide, Flap
   pickup WoodsMain.OverflowShard:
     base: Glide, Flap, DoubleJump, Bash, Grapple, Burrow
-  pickup WoodsMain.CombatShrine:
-    base: Glide, Flap, DoubleJump, Regenerate
+  # pickup WoodsMain.CombatShrine:
+  #  base: Glide, Flap, DoubleJump, Regenerate
   pickup WoodsMain.ShrineEX:
     base: Glide, Flap, DoubleJump
   pickup WoodsMain.FeedingGroundsEX:
     base: Glide, Flap, DoubleJump, Grapple, Burrow
+  conn LowerWastes: # TODO: deleteme
+    base: Glide, DoubleJump, Grapple, Bash, Dash
 
 #- TODO: BearSneeze state(?)
 area LowerReach.Entry:  # (-448, -4030) At Baur (after making him Sneeze)
@@ -527,6 +607,8 @@ area LowerReach.Entry:  # (-448, -4030) At Baur (after making him Sneeze)
     base: Flap, DoubleJump, Bash, Grapple, Grenade
   pickup LowerReach.IcefallEX:
     base: Flap, DoubleJump, Bash, Grapple, Grenade
+  conn LowerReach.Central:  # TODO: deleteme
+    base: Flap, DoubleJump, Bash
 #- TODO: Lever Door State
 
 area LowerReach.Central:  # (-347, -4011) After the lever door
@@ -544,6 +626,12 @@ area LowerReach.Central:  # (-347, -4011) After the lever door
     base: Flap, DoubleJump, Bash, Dash
   pickup LowerReach.BelowLupoEX:
     base: Flap, DoubleJump, Bash
+  conn LowerReach.East: # TODO: deleteme
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  conn LowerReach.Trial: # TODO: deleteme
+    base: Flap, DoubleJump, Bash, Grenade, Glide
+  conn UpperReach: # TODO: deleteme
+    base: Flap, DoubleJump, Bash, Grenade, Glide
 
 area LowerReach.East:  # (-205, -4043) At the lantern locking the wind channel
   pickup LowerReach.BreakWallEX:
@@ -620,7 +708,6 @@ area UpperDepths.Entry:  # (161, -4340) the first bit of standable ground below 
     base: Glide, Grapple
   pickup UpperDepths.SwimEC:
     base: Glide, Flash, Water
-
   conn UpperDepths.TeleporterRoom:
     base: Glide, DoubleJump, Bash, Dash
   conn UpperDepths.KeystoneRoom:
@@ -662,7 +749,6 @@ area LowerDepths:  # (428, -4474) The firefly egg to the left of the 2nd keyston
     base: Glide, DoubleJump, Grapple, Bash
   pickup LowerDepths.FlashTree:
     base: Glide, DoubleJump, Grapple, Bow, Bash
-
 area LowerWastes:  # (1461, -3996) At the Western Wastes TP
   pickup LowerWastes.WestTPOre:
     base: Burrow, Dash
@@ -708,6 +794,10 @@ area LowerWastes:  # (1461, -3996) At the Western Wastes TP
     base: Grapple, DoubleJump, Burrow, Dash
   pickup LowerWastes.EastTpOre:
     base: Grapple, DoubleJump, Burrow, Dash
+  conn UpperWastes: # TODO: deleteme
+    base: Grapple, DoubleJump, Burrow, Dash
+  conn WeepingRidge: # TODO: deleteme
+    base: Grapple, DoubleJump, Burrow, Dash, Wisps, Glide
 
 area UpperWastes:  # (1993, -3900) At the Eastern Wastes TP
   pickup UpperWastes.LowerKS:
@@ -738,6 +828,8 @@ area UpperWastes:  # (1993, -3900) At the Eastern Wastes TP
     base: Grapple, DoubleJump, Burrow, Dash
   pickup UpperWastes.WallOre:
     base: Grapple, DoubleJump, Burrow, Dash, Bash
+  pickup WindtornRuins.EscapeRevisitEC: # TODO: deleteme
+    base: Wisps, Burrow, Dash, DoubleJump, Grapple
 
 area WindtornRuins:  # (2131, -3983) At the Ruins TP
   pickup WindtornRuins.EscapeRevisitEC:
@@ -760,6 +852,8 @@ area WillowsEnd.Entry:  # (497, -3950) Inside the door from Weeping Ridge
     base: Launch
   pickup WillowsEnd.PoisonfallHC:
     base: Launch, DoubleJump, Dash
+  conn WillowsEnd.TPandAbove: # TODO: deleteme
+    base: Launch, DoubleJump, Glide
 
 area WillowsEnd.TPandAbove:  # (420, -4834) The Lower Willows TP
   pickup WillowsEnd.LupoMap: free
@@ -771,6 +865,9 @@ area WillowsEnd.TPandAbove:  # (420, -4834) The Lower Willows TP
     base: Launch, DoubleJump, Bash, Grapple
   pickup WillowsEnd.UpperRightEX:
     base: Launch, DoubleJump, Bash, Grapple
+  conn WillowsEnd.Entry: # TODO: deleteme
+    base: Launch
+
 
 area TwillenShop:
   pickup TwillenShop.Overcharge: free
