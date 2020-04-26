@@ -1,14 +1,16 @@
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.Positional
-import SeedGenerator.SeedGenerator.{Area, Requirement, SkillReq, HealthReq, OreReq, StateReq, WorldStateNode, locDataByName, EnergyReq,
-                                    ItemLoc, AreaNode, ItemNode, StateNode, TeleReq, AllReqs, AnyReq, Free, SeedGenState, Connection, Placeholder}
+import scala.language.reflectiveCalls
+import SeedGenerator.{Area, Requirement, SkillReq, HealthReq, OreReq, StateReq, WorldStateNode, EnergyReq,
+                    ItemLoc, AreaNode, ItemNode, StateNode, TeleReq, AllReqs, AnyReq, Free, Connection, Placeholder}
+import scala.io.Source
+import scala.util.parsing.input.{NoPosition, Position, Reader}
 package AreaParser {
 
-  import scala.io.Source
-  import scala.util.parsing.input.{NoPosition, Position, Reader}
 
   object AreaParser {
     var debug = true
+
 
     trait ParseError
     case class LexerError(msg: String) extends ParseError
@@ -73,16 +75,18 @@ package AreaParser {
           // producing a DEDENT for each pop
           case INDENTATION(spaces) if spaces < indents.head =>
             val (dropped, kept) = indents.partition(_ > spaces)
-//            println(s"$spaces, deindent by $dropped (this: ${curr})")
+          // println(s"$spaces, deindent by $dropped (this: ${curr})")
             ( kept, out ::: (dropped map (_ => DEDENT))
             )
           case INDENTATION(spaces) if spaces == indents.head => (indents, out :+ NEWLINE)
+          // comments are removed
+          case COMMENT(_) => (indents, out)
           // other tokens are ignored
           case token =>  (indents, out :+ token)
         }
       }
 
-      private def procIndent(tokens: List[AreasToken]): List[AreasToken] = tokens.foldLeft((List(0), List[AreasToken]()))(foldme(_, _))._2
+      private def procIndent(tokens: List[AreasToken]) = tokens.foldLeft((List(0), List[AreasToken]()))(foldme(_, _))._2
     }
 
     trait DebugParsers extends Parsers {
@@ -119,10 +123,10 @@ package AreaParser {
       private def assign: Parser[ASSIGN] = { accept("assign", { case ass @ ASSIGN(int) => ass }) }
       private def comment: Parser[Unit] = { accept("comment", { case COMMENT(_) =>  }) }
 
-      val endl = rep1(comment.? ~> NEWLINE)
-      val indent = comment.? ~> INDENT
-      val dedent = comment.? ~> DEDENT
-      val blanks = rep(dedent ~ indent | NEWLINE | comment)
+      val endl = NEWLINE
+      val indent = INDENT
+      val dedent = DEDENT
+      val blanks = rep(dedent ~ indent | NEWLINE)
       def requirements: Parser[Requirement] =  "req" !!! {
         val free: Parser[Requirement] =  FREE ^^^ Free
         def grenadeReq: Parser[Requirement] = IDENTIFIER("Grenade") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(51), EnergyReq(cnt))}
@@ -159,6 +163,9 @@ package AreaParser {
           case IDENTIFIER("ReachTP") => TeleReq(2)
           case IDENTIFIER("WellspringTP") => TeleReq(3)
           case IDENTIFIER("HollowTP") => TeleReq(5)
+          case IDENTIFIER("WestWastesTP") => TeleReq(9)
+          case IDENTIFIER("EastWastesTP") => TeleReq(10)
+          case IDENTIFIER("WillowTP") => TeleReq(12)
           case IDENTIFIER("DepthsTP") => TeleReq(6)
         })
         def oreReq: Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
@@ -173,8 +180,8 @@ package AreaParser {
           case IDENTIFIER("advanced") => StateReq("advanced")
         })
         def lhsSimpleReq = diffReq | damageReq | skillReq | stateReq
-       val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => AllReqs(reqs:_*)})
-        val reqLine = "reqLine" !!! (reqLHS ~ (free | reqRHS) ^^ {case lhs ~ rhs => lhs and rhs})
+        val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => AllReqs(reqs:_*)})
+        val reqLine = "reqLine" !!! (reqLHS ~ (free | reqRHS)  ^^ {case lhs ~ rhs => lhs and rhs})
         val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl) ^^ { case rhss => AnyReq(rhss:_*) }
         def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent) ~ rep1sep(reqBlock | rhsBlock, endl.?) <~ dedent ^^ { case lhs ~ rhss => AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
         val reqLines = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.?) ^^ { case lines => AnyReq(lines:_*)}
@@ -194,7 +201,6 @@ package AreaParser {
         val stateNodes = areas.flatMap(_.conns.withFilter(_.target.kind == StateNode).map(r => r.target.name))
         val stateReqs = areas.flatMap(_.conns.flatMap(_.req.cheapestRemaining().flags))
         val unusedStateReqs = stateReqs.filterNot(st => macros.contains(st.name) || stateNodes.contains(st.name)).toSet
-        val locDataSrc = locDataByName
         if(unusedStateReqs.nonEmpty)
           println(s"non-referenced state reqs: $unusedStateReqs")
         val unusedMacros = macros.filterNot(mc => stateReqs.map(st => st.name).contains(mc._1)).toSet
@@ -202,7 +208,7 @@ package AreaParser {
           println(s"unused macros: $unusedMacros")
         val macroArea = Area("Virtual.Macros", macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq)
         val withFixedItems = areas.map(area => Area(area.name, area.conns.flatMap({
-          case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name, locDataSrc).map(Connection(_, reqs))
+          case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name).map(Connection(_, reqs))
           case c => Some(c)
         })))
 
