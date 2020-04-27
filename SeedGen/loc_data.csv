@@ -59,7 +59,7 @@ MarshPastOpher.PoolsPathEX, Inkwater Marsh, SpiritLight, 200, lagoonStateGroup, 
 WestHollow.CrusherHC, Kwoloks Hollow, Resource, Life, kwolokGroupDescriptor, 937, healthHalfCell, 61897, -254, -4225
 WestHollow.FarLeftEX, Kwoloks Hollow, SpiritLight, 50, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 16163, -357, -4294
 WestHollow.RockPuzzleEX, Kwoloks Hollow, SpiritLight, 50, kwolokGroupDescriptor, 937, smallExpOrbPlaceholder, 2538, -296, -4293
-WestHollow.HiddenEC, Kwoloks Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfContainer, 24175, -177, -4353
+WestHollow.HiddenEC, Kwoloks Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfContainer, 8518, -177, -4353
 WestHollow.QuickshotShard, Kwoloks Hollow, Shard, Quickshot, pickupsGroup, 23987, frenzyShardPickup, 61017, -310, -4326
 WestHollow.SwimEC, Kwoloks Hollow, Resource, Energy, kwolokGroupDescriptor, 937, energyHalfContainer, 24175, -177, -4353
 WestHollow.LupoMap, Kwoloks Hollow, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapKwoloksHollow, 3638, -146, -4321
