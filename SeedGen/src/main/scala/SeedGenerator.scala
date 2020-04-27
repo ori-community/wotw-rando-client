@@ -183,10 +183,9 @@ package SeedGenerator {
     val code = s"$uberGroupId|$uberId"
 
     def info: String = uberGroupId match {
-      case 0 => s"$uberName Tree (${x},${y}) ${zone}"
-      case 1 => s"$uberName Shop (Opher)"
-      case 2 => s" $uberName Shop (Twillen)"
-      case _ => s"${uberName}[${uberId}] at (${x},${y}) ${zone}"
+      case 1 => s"$area.$name (Shop) (Opher)"
+      case 2 => s" $area.$name (Shop) (Twillen)"
+      case _ => s"$area.$name  (${x},${y}) ${zone}"
     }
   }
   object LocData {
@@ -299,7 +298,7 @@ package SeedGenerator {
       val reqToHere = p.mappings(target.name)
       target.conns.map({
         case Connection(t, _) if p.edges.contains(target.name -> t.name) =>
-          println(s"Skipping repeat connection ${target.name} -> ${t.name}")
+//          println(s"Skipping repeat connection ${target.name} -> ${t.name}")
           QRParams()
         case Connection(Placeholder(name, AreaNode), req)  => areas.get(name) match {
           case Some(targetArea) => quickReachRecursive(targetArea, paramsWith(name, reqToHere and req))
@@ -337,13 +336,10 @@ package SeedGenerator {
     def mk(inState: GameState, i:Int=0)(implicit r: Random, pool: Inv) = Try {
       implicit val flagCosts: Map[FlagState, Double] = inState.flags.map(_ -> 0d).toMap ++
         Nodes.macros.conns.map(cn => WorldState(cn.target.name) -> cn.req.cheapestRemaining(inState).cost(Map()))
-      println(s"$i: $inState,\npool $pool")
       val reachable: Set[Node] = Nodes.paths.collect({
         case (name, req) if req.metBy(inState) && Nodes.items.contains(name) => Nodes.items(name)
       }).toSet
       val locs = r.shuffle((reachable -- inState.reached).collect({ case n: ItemLoc => n }))
-      println(s"${inState.reached.size} old reached: ${inState.reached.map(_.name)}")
-      println(s"${locs.size} new locs: ${locs.map(_.name)}")
       var _fullWeight = 0d
 
       def acc(st: GameState): Double = {
@@ -354,7 +350,7 @@ package SeedGenerator {
 
       if(locs.isEmpty) {
         if(Nodes.paths.collect({ case (str, loc) if !loc.metBy(inState) => str -> loc }).isEmpty)
-          throw GeneratorError("successful gen")
+          throw GeneratorError("successful gen") // good code here! not bad code. nope.
         println(Nodes.paths.collect({ case (str, loc) if !loc.metBy(inState) => str -> loc }))
         throw GeneratorError("no new locs")
       }
@@ -370,13 +366,13 @@ package SeedGenerator {
         .groupMapReduce(_._2)(kv => Seq(kv._1))((n1, n2) => n1 ++ n2)
         .toSeq.sortBy(_._1.cost).collect({
         case (items, met) if items.inv.nonEmpty && met.size > 1  => /*println(s"${items}->${met.size} $met");*/ (acc(items), items)
-        case (items, met)=> println(s"${items}->${met.size} $met"); (0d, items)
+        case (items, met)=> /*println(s"${items}->${met.size} $met")*/; (0d, items)
       })
       if(possiblePaths.isEmpty)
         throw GeneratorError(s"No possible paths???")
       val limit = r.nextDouble() * _fullWeight
       val chosenPath = possiblePaths.dropWhile(_._1 < limit).headOption.getOrElse(possiblePaths.last)._2.inv
-      println(chosenPath)
+//      println(chosenPath)
       val (shopLocs, nonShopLocs) = locs.partition(_.data.category == "Shop")
       val chosenItems = chosenPath.asSeq.map(item => {
         if (!pool.take(item))
@@ -413,8 +409,8 @@ package SeedGenerator {
       })
     def applyFlags(state: GameState) = {
       val newMacros = Nodes.macros.conns.withFilter(_.req.metBy(state)).map(cn => WorldState(cn.target.name)).filter(!state.flags.contains(_))
-      if(newMacros.nonEmpty)
-        println(s"new macros: $newMacros")
+/*      if(newMacros.nonEmpty)
+        println(s"new macros: $newMacros")*/
       state.withParams(newMacros.map(flagToPart(_)):_*)
     }
   }
