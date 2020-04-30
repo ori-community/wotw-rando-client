@@ -89,9 +89,9 @@ area MarshSpawn.Main:                  # (-800, -4320) spawn location / inkwater
     base: HollowTP
   conn MidnightBurrows:
     base: BurrowsTP
-  conn LowerWastes:
+  conn LowerWastes.WestTP:
     base: WestWastesTP
-  conn UpperWastes:
+  conn UpperWastes.EastTP:
     base: EastWastesTP
   conn WillowsEnd.TPandAbove:
     base: WillowTP
@@ -1600,91 +1600,429 @@ area LowerDepths:  # (428, -4474) The firefly egg to the left of the 2nd keyston
   pickup LowerDepths.FlashTree:
     base: Glide, DoubleJump, Grapple, Bow, Bash
 
-area LowerWastes:  # (1461, -3996) At the Western Wastes TP
+area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
   pickup LowerWastes.WestTPOre:
-    base: Burrow, Dash
-  pickup LowerWastes.PurpleWallEX:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
+    base: Burrow
+
+  conn LowerWastes.SunsetView:
+    base:
+      DoubleJump, Grapple
+      Bash, Grenade=1, DoubleJump OR Dash
+      Launch
+
+area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
+  pickup LowerWastes.TrialStart:
+    base: Burrow
   pickup LowerWastes.SunsetViewEX:
-    base: Grapple, DoubleJump
+    base: free
+  pickup LowerWastes.PurpleWallEX:
+    base: Burrow, Bash
+
+  conn LowerWastes.WestTP:
+    base: DoubleJump OR Dash OR Glide OR Launch
+  conn LowerWastes.Shovel:
+    base:  # I think this is fine without EnemyObstacle?
+      Grapple, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1 # Does require double jump to the grenade, and then double jump after bash to clear grapple section
+      Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
+
+area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
   pickup LowerWastes.SandBridgeOre:
-    base: Grapple, DoubleJump
+    base: free
+  pickup LowerWastes.ShovelQuest:
+    base: Burrow
+
+  conn LowerWastes.SunsetView:
+    base: EnemyObstacle
+  conn LowerWastes.TreeArea:
+    base: Burrow
+  conn LowerWastes.LeftSandPot:
+    base, EnemyObstacle:
+      Hammer OR DoubleJump OR Burrow OR Launch
+      Bash, Grenade=1
+
+area LowerWastes.LeftSandPot:  # (1725, -3989) At autosave to the left of Sand Pot
   pickup LowerWastes.MuncherTunnelEC:
-    base: Grapple, Burrow, Dash
+    base: Burrow
   pickup LowerWastes.SandPotHC:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base:
+      Burrow  # should be fine for base? It mostly works holding left with somewhat proper timing
+      Launch
+  pickup LowerWastes.SandPotEX:  # Duplicated pickup as paths differ.
+    base:
+      Burrow, Dash, Grapple, DoubleJump OR Glide
+      Burrow, Bash, Grenade=1
+      Burrow, Launch
+
+  conn LowerWastes.Shovel:
+    base:
+      DoubleJump
+      Launch
+      EnemyObstacle, Bash, Grenade=1
+  conn LowerWastes.RightSandPot:  # the coals will deal damage in a future patch apparently
+    base:
+      Dash
+      Launch
+      Bash, Grenade=1
+
+area LowerWastes.RightSandPot:  # (1758,-3986) At autosave to the right of Sand Pot
   pickup LowerWastes.SandPotEX:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base:
+      Burrow, Grapple, Dash, DoubleJump OR Glide
+      Burrow, Grapple, DoubleJump, Glide
+      Burrow, Bash, Grenade=1
+
+  conn LowerWastes.LeftSandPot:
+    base:
+      Dash
+      Bash, Grenade=1
+      Launch
+
+  conn LowerWastes.WoodenBridge:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash OR Glide
+      Launch
+
+area LowerWastes.WoodenBridge:  # (1794, -3977) Directly above MuncherPitEX
   pickup LowerWastes.MuncherPitEX:
-    base: Grapple, DoubleJump
-  pickup LowerWastes.MinesEntranceEX:
-    base: Grapple, DoubleJump
+    base:
+      DoubleJump  # Slightly precise to land on the sand sphere. Can always add glide
+      Burrow, Glide  # Might be a little _too_ precise. I guess this is among the intended strats tho?
+      Launch  # Still slightly precise.
+
+  conn LowerWastes.RightSandPot:
+    base:
+      Grapple
+      DoubleJump, Dash OR Glide
+      Launch
+
+  conn LowerWastes.LeverArea:
+    base:
+      DoubleJump
+      Burrow
+      Launch
+
+area LowerWastes.LeverArea:  # (1838, -3959) At the arrow sign below the lever
+  # So you may ask why this isn't part of WoodenBridge. It doesn't actually have to do with the lever, but more with the MinesEntrance area below and in particular the Health Cell. Effectively, without this area, that Health Cell would have pickup paths in three areas including EastTP and that's kinda bad.
+  # This still probably wouldn't have been the choice if not for another reason: You can go through the Ruins back exit to here without a Weapon, and then have to Burrow through the ceiling, which requires this subarea to be represented without major dumb
+  state LowerWastes.SandPlatformLever:
+    base:
+      DoubleJump
+      Burrow  # Requires a vertical burrow through a vertical sand platform
+      Bash, Grenade=2
+      Bash, Grenade=1, Dash
+      Launch
+
   pickup LowerWastes.MinesEntranceHC:
-    base: Grapple, DoubleJump
+    base: free
   pickup LowerWastes.LastStandShard:
-    base: Grapple, DoubleJump
+    base:  # for the puzzle, it is considered base solvable with one of doublejump, dash or burrow.
+      Bash, Grenade=1, DoubleJump
+      Launch, DoubleJump OR Dash OR Burrow
+      LowerWastes.SandPlatformLever, DoubleJump, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
   pickup LowerWastes.LastStandEX:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base:
+      Burrow, DoubleJump, Bash, Grenade=1
+      Burrow, DoubleJump, LowerWastes.SandPlatformLever  # Requires a vertical burrow through a vertical sand platform
+      Burrow, Launch
   pickup LowerWastes.MuncherClimbEX:
-    base: Grapple, DoubleJump
+    base:
+      DoubleJump, Grapple, Bash, Grenade=1
+      LowerWastes.SandPlatformLever, DoubleJump, Grapple, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
+      Grapple, Launch
+
+  conn LowerWastes.WoodenBridge:
+    base: free
+  conn LowerWastes.TreeArea:
+    base:
+      DoubleJump, Grapple, Bash, Grenade=1
+      Grapple, Launch
+      LowerWastes.SandPlatformLever, DoubleJump, Grapple, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
+      LowerWastes.SandPlatformLever, Grapple, Dash, Glide, Burrow  # This path is fun. Glide is just to make it base safe
+  conn LowerWastes.MinesEntrace:
+    base: EnemyObstacle, DoubleJump OR Dash OR Glide OR Grapple OR Launch
+  conn LowerWastes.EastTP:
+    base: Burrow
+
+area LowerWastes.MinesEntrance:  # (1921, -4001) To the left of the lower breakable wall
+  pickup LowerWastes.MinesEntranceEX:
+    base, EnemyObstacle:
+      Grapple
+      Bash, Grenade=1, DoubleJump OR Dash  # Very much not a mandatory grenade... This is only important if the Ruins Wall is broken, and then only if you don't use the enemies
+      Launch
+  pickup LowerWastes.MinesEntranceHC:
+    base, EnemyObstacle:
+      Grapple  # Use both Grapple points
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Launch
+
+  conn LowerWastes.WoodenBridge:
+    base, Weapon:
+      DoubleJump, Grapple
+      Launch, DoubleJump OR Dash OR Grapple
+  conn LowerWastes.LeverArea:
+    base: Launch, Burrow, DoubleJump OR Grapple  # Realizing you can go up and not destroy the wall is kinda nontrivial if you don't see it, so only a Launch path in base
+  conn WindtornRuins.LowerRuins:
+    base: WindtornRuins.LowerEntrance, Burrow
+
+area LowerWastes.TreeArea:  # (1715, -3935) The ledge right of SkeetoHive
   pickup LowerWastes.SkeetoHiveEX:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
   pickup LowerWastes.LupoMap:
-    base: Grapple, Burrow
+    base:
+      Burrow
+      Bash, Grenade=4  # literally never going to get used but you can do it
+      Launch
   pickup LowerWastes.BurrowTree:
-    base: Grapple, DoubleJump
+    base:
+      DoubleJump
+      Burrow
+      Bash, Grenade=2  # literally never going to get used but you can do it
+      Launch
   pickup LowerWastes.BurrowTreeEX:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base: Burrow
+  pickup LowerWastes.TrialEnd:
+    base:
+      Burrow, DoubleJump OR Dash OR Glide # glide path unverified
+      Burrow, Bash, Grenade=1
+      DoubleJump, Bash, Grenade=2
+      Dash, Bash, Grenade=4  # yes, good
+      Launch
+
+  conn LowerWastes.Shovel:
+    base: Burrow
+  conn LowerWastes.UpperPath:
+    base:
+      Burrow, DoubleJump OR Launch
+      Burrow, Bash, Grenade=1  # literally never going to get used but you can do it
+      Burrow, Bash # unverified. Have to use a skeeto.
+  conn LowerWastes.LeverArea:
+    base:
+      Grapple, Launch
+      Grapple, DoubleJump, Dash  # still sort of tight
+
+area LowerWastes.UpperPath:  # (1728, -3906) Middle of the sand to the left of UpperPath Pole
   pickup LowerWastes.UpperPathEC:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base:
+      Burrow, DoubleJump OR Dash OR Launch
+      Burrow, Bash, Grenade=1
   pickup LowerWastes.UpperPathEX:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base:
+      Burrow, DoubleJump OR Dash OR Launch
+      Burrow, Bash, Grenade=1, Glide  # this is absolutely a necessary path
   pickup LowerWastes.UpperPathHiddenEX:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base: Burrow, DoubleJump OR Dash OR Launch
+
+  conn LowerWastes.TreeArea:
+    base: Burrow
+  conn UpperWastes.EastTP:
+    base:
+      Burrow, DoubleJump OR Dash OR Launch
+      Burrow, Bash, Grenade=1
+
+area UpperWastes.EastTP: # ((1992, -3902) Location of the east teleporter
+  pickup LowerWastes.EastTPOre:
+    base:
+      Weapon OR Grenade=1:  # no one will notice
+        Burrow OR Launch
+        DoubleJump, Bash, Grenade=1
+        Bash, Grenade=3  # it had to be done
   pickup LowerWastes.UpperPathHC:
-    base: Grapple, DoubleJump, Burrow, Dash
-  pickup LowerWastes.EastTpOre:
-    base: Grapple, DoubleJump, Burrow, Dash
-  conn UpperWastes: # TODO: deleteme
-    base: Grapple, DoubleJump, Burrow, Dash
-  conn WeepingRidge: # TODO: deleteme
-    base: Grapple, DoubleJump, Burrow, Dash, Wisps, Glide
+    base: Burrow
+  conn LowerWastes.LeverArea:
+    base: Burrow
+  conn LowerWastes.UpperPath:
+    base: Burrow, DoubleJump OR Dash OR Launch
+  conn UpperWastes.KSDoor:
+    base: Burrow, DoubleJump OR Dash OR Launch  # Dash is maybe probably base?
 
-area UpperWastes:  # (1993, -3900) At the Eastern Wastes TP
+area UpperWastes.KSDoor:  # (1900, -3831) Autosave underneath keystone door
   pickup UpperWastes.LowerKS:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base:
+      Burrow, DoubleJump OR Dash OR Glide
+      Launch, DoubleJump OR Dash OR Glide
   pickup UpperWastes.UpperKS:
-    base: Grapple, DoubleJump, Burrow, Dash
+    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
   pickup UpperWastes.TurmoilShard:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
+    base:  # this area seems a bit hard, not sure what intended is like.
+      Bash, Burrow, DoubleJump, Dash  # intended way?
+      Bash, Burrow, Launch
   pickup UpperWastes.KSDoorEX:
-    base: Grapple, DoubleJump, Burrow, Dash
-  pickup UpperWastes.LedgeEC:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
-  pickup UpperWastes.MissileSpawnEX:
-    base: Grapple, DoubleJump, Burrow, Dash
-  pickup UpperWastes.PurpleWallEX:
-    base: Grapple, DoubleJump, Burrow, Dash
-  pickup UpperWastes.PurpleWallHC:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
-  pickup UpperWastes.RoofEX:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
-  pickup UpperWastes.SpinLasersRightEX:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
-  pickup UpperWastes.SpinLasersMiddleEX:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
-  pickup UpperWastes.SpinLasersLowerEX:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
-  pickup UpperWastes.SeedQI:
-    base: Grapple, DoubleJump, Burrow, Dash
-  pickup UpperWastes.WallOre:
-    base: Grapple, DoubleJump, Burrow, Dash, Bash
-  pickup WindtornRuins.EscapeRevisitEC: # TODO: deleteme
-    base: Wisps, Burrow, Dash, DoubleJump, Grapple
+    base:
+      Burrow, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch
 
-area WindtornRuins:  # (2131, -3983) At the Ruins TP
+  conn UpperWastes.EastTP:
+    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
+  conn UpperWastes.MissilePuzzleLeft:
+    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
+
+area UpperWastes.MissilePuzzleLeft:  # (1937, -3793) Immediately to the right of the sand after the keystone door
+  # don't really need a state for purple wall, it can be broken from either side
+  state UpperWastes.MissilePuzzleLever:  # for now, this state also means that both purple walls blocking the lever have been broken. If ways to pull the lever without breaking them are found, paths using this may have to change
+    base: Bash, Burrow
+
+  pickup UpperWastes.LedgeEC:
+    base:
+      Bash, Burrow, DoubleJump OR Dash
+      Launch
+  pickup UpperWastes.MissileSpawnEX:
+    base: Burrow
+  pickup UpperWastes.PurpleWallEX:
+    base: Weapon, Burrow  # Putting Weapon here rather than EnemyObstacle because Launch really doesnt help you with this Gorlek.
+  pickup UpperWastes.KSDoorEX:
+    base: Burrow
+  pickup UpperWastes.PurpleWallHC:
+    base: Burrow, UpperWastes.MissilePuzzleLever
+
+  conn UpperWastes.KSDoor:
+    base: Burrow
+  conn UpperWastes.MissilePuzzleRight:
+    base: UpperWastes.MissilePuzzleLever, Burrow
+
+area UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right of lever gate, underneath a laser.
+  pickup UpperWastes.PurpleWallEX:
+    base: Burrow
+  pickup UpperWastes.RoofEX:
+    base:
+      Burrow, DoubleJump, Bash, Grenade=1, Glide  # glide for the lasers
+      Burrow, DoubleJump, Dash  # you can retry the burrow with DoubleJump, so I think this is fine
+      Burrow, Launch
+
+  conn UpperWastes.MissilePuzzleLeft:
+    base: UpperWastes.MissilePuzzleLever, Burrow
+  conn UpperWastes.RuinsApproach:  # this covers all connections to the pickups in the spinning lasers
+    base:
+      Burrow, Bash, DoubleJump, Dash OR Glide  # dash or glide to make the lasers better
+      Burrow, DoubleJump, Dash  # you can retry the burrow with DoubleJump, so I think this is fine
+      Burrow, Launch
+
+area UpperWastes.NorthTP: # (2043, -3578) North Wastes teleporter
+  # feels redundant but I like having the TP in a separate area to Ruins Approach, especially if we do anything with windtorn escape.
+  conn UpperWastes.RuinsApproach:
+    base: free
+
+area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
+  pickup UpperWastes.SpinLasersRightEX:
+    base: Burrow
+  pickup UpperWastes.SpinLasersMiddleEX:
+    base: Burrow
+  pickup UpperWastes.SpinLasersLowerEX:
+    base: Burrow
+  pickup UpperWastes.RoofEX:
+    base:
+      Burrow, DoubleJump, Bash, Grenade=1
+      Burrow, DoubleJump, Dash OR Glide
+      Burrow, Launch
+    advanced:
+      Dash, Bash  # seemed kinda difficult to get past the spikes without doublejump
+  pickup UpperWastes.SeedQI:
+    base:
+      Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
+      Burrow, Launch  # maybe Glide? I think this is fine tho
+      Bash, Launch
+  pickup UpperWastes.WallOre:
+    base:
+      Burrow, Bash, DoubleJump, Dash OR Glide
+      Burrow, Bash, Dash, Glide  # Slightly tight getting across to the sand pit but pretty easily doable. Semi precise angle on the burrow but with glide its easy to reattempt
+      Bash, Launch, DoubleJump OR Dash OR Glide OR Burrow
+      Burrow, Launch, DoubleJump OR Glide
+
+  conn UpperWastes.MissilePuzzleRight:
+    base: Burrow, DoubleJump OR Launch
+  conn WindtornRuins.UpperRuinsDoor:
+    base, Wisps:
+      Bash, Launch
+      Burrow, Launch, DoubleJump OR Glide  # djump or glide lets you reattempt
+      Burrow, Bash, DoubleJump, Dash OR Glide
+      Burrow, Bash, Dash, Glide  # Slightly tight getting across to the sand pit but pretty easily doable. Semi precise angle on the burrow but with glide its easy to reattempt
+
+area WindtornRuins.UpperRuinsDoor:  # (2200, -3828) Just inside the door.
+  state WindtornRuins.RuinsLever:
+    base: Burrow, Weapon
+  state WindtornRuins.HeartBarrier:  # These are paths to go to the teleporter and break the heart. But they can't originate from the teleporter because after you broke the heart, you can't go to the teleporter again, which makes these paths not viable as connections to the teleporter. These paths are just about breaking the heart, so it doesn't matter if the paths can lock you out if you already have broken the heart, because then you have already broken the heart.
+    base, WindtornRuins.RuinsLever, Weapon:
+      Burrow, DoubleJump OR Dash OR Glide OR Launch
+      Burrow, Bash, Grenade=1
+
+  pickup UpperWastes.SeedQI:
+    base: free
+  pickup UpperWastes.WallOre:
+    base:
+      Bash, Grenade=1, Glide
+      Launch, DoubleJump OR Glide
+
+  conn UpperWastes.RuinsApproach:  # you don't really need anything, but the freefall is awkward and the area home is on top of a wall... These are more realistic cases than the complete list of possibilities
+    base: Bash OR Glide OR Burrow OR Launch
+  conn WindtornRuins.RuinsTP:  # connection FROM entrance TO tp at ANY TIME
+    # this accounts for both situations of having broken the heart or not
+    base, WindtornRuins.RuinsLever:
+      Burrow, Dash, DoubleJump
+      Burrow, DoubleJump, Glide
+      Burrow, Bash, Grenade=1, Glide
+      Burrow, Launch
+  conn WindtornRuins.LowerRuins:  # connection FROM entrance TO lower AFTER escape
+    # if you completed the escape, there's a gap in the floor that you have to cross
+    base, WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
+      Burrow, Dash
+      Burrow, DoubleJump
+      Burrow, Launch
+      Burrow, Bash, Grenade=1
+
+area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
+  state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
+    base: Weapon
+
+  conn WindtornRuins.RuinsEscape:  # connection FROM tp TO escape
+    # the gap after completing the escape locks you out of these paths, but it doesn't matter because they're only relevant for completing the uncompleted escape
+    base: WindtornRuins.HeartBarrier
+  conn WindtornRuins.LowerRuins:  # connection FROM tp TO lower ruins AFTER escape
+    # if you completed the escape, there's a gap in the floor that you have to cross
+    base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
+      DoubleJump OR Dash OR Glide OR Burrow OR Launch
+      Bash, Grenade=1  # yes, this needs a bashgrenade path
+  conn WindtornRuins.UpperRuinsDoor:
+    base, WindtornRuins.RuinsLever:
+      # these account for both situations of having broken the heart or not
+      Burrow, Bash, Grenade=1, DoubleJump OR Dash
+      Burrow, Glide, DoubleJump OR Dash
+      Burrow, Launch
+      # these make you able to break the Heart and the use the resulting terrain
+      Weapon, Burrow, Bash, Grenade=1
+      Weapon, Glide
+
+area WindtornRuins.RuinsEscape:  # (2015, -4027) Where the escape starts (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
+  state WindtornRuins.EscapeComplete:  # Skills needed to complete the escape. Might turn into a pickup later.
+    base, WindtornRuins.HeartBarrier:
+      Burrow, Dash, Grapple, DoubleJump OR Glide
+      Burrow, DoubleJump, Glide, Grapple  # I think this is fine?
+      Burrow, DoubleJump, Launch, Dash OR Glide
+      Burrow, Grapple, Launch, Glide
+
+area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
+  # requires escape to be done
+  state WindtornRuins.LowerEntrance: # State for lower entrance to be open
+    base: Burrow, Weapon
+
   pickup WindtornRuins.EscapeRevisitEC:
-    base: Wisps, Burrow, Dash, DoubleJump, Grapple
+    base: WindtornRuins.EscapeComplete, Burrow
+  # pickup WindtornRuins.AncientMapPedestal:
+  #   base: free  # At least, this will be free if it ever becomes a pickup.
+  conn RuinsEscape:
+    base: free  # walk over the invisible sandworm
+  conn WindtornRuins.RuinsTP:
+    base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
+      Burrow, Dash, DoubleJump
+      Burrow, DoubleJump, Glide
+      Burrow, Bash, Glide, Grenade=2
+      Launch
+  # connection to upper should be redundant with the conn to tp?
+
+  conn LowerWastes.MinesEntranceLower:
+    base: Burrow, Weapon
 
 area WeepingRidge:  # (1191, -3716) After the portal at the top of Elevator
   pickup WeepingRidge.Ore:

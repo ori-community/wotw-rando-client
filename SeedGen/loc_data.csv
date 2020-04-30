@@ -296,7 +296,7 @@ LowerWastes.UpperPathEC, Windswept Wastes, Resource, Energy, windsweptWastesGrou
 LowerWastes.UpperPathEX, Windswept Wastes, SpiritLight, 100, windsweptWastesGroupDescriptor, 20120, expOrbD, 48829, 1809, -3883
 LowerWastes.UpperPathHiddenEX, Windswept Wastes, SpiritLight, 200, windsweptWastesGroupDescriptor, 20120, expOrbE, 17798, 1862, -3874
 LowerWastes.UpperPathHC, Windswept Wastes, Resource, Life, windsweptWastesGroupDescriptor, 20120, halfLifeCell, 59046, 1853, -3909
-LowerWastes.EastTpOre, Windswept Wastes, Resource, Ore, windsweptWastesGroupDescriptor, 20120, gorlekOreB, 40245, 1930, -3879
+LowerWastes.EastTPOre, Windswept Wastes, Resource, Ore, windsweptWastesGroupDescriptor, 20120, gorlekOreB, 40245, 1930, -3879
 UpperWastes.LowerKS, Windswept Wastes, Resource, Keystone, desertAGroup, 7228, keystoneAUberState, 20282, 1877, -3844
 UpperWastes.UpperKS, Windswept Wastes, Resource, Keystone, desertAGroup, 7228, keystoneBUberStateGroup, 62117, 1823, -3769
 UpperWastes.TurmoilShard, Windswept Wastes, Shard, Turmoil, pickupsGroup, 23987, aggressorShardPickup, 48605, 1779, -3783
