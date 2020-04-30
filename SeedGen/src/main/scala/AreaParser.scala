@@ -8,10 +8,6 @@ import scala.util.parsing.input.{NoPosition, Position, Reader}
 package AreaParser {
 
 
-  object AreaParser {
-    var debug = true
-
-
     trait ParseError
     case class LexerError(msg: String) extends ParseError
     case class ParserError(msg: String) extends ParseError
@@ -95,7 +91,7 @@ package AreaParser {
           val first = if(!in.atEnd) in.first else "END"
           val pos = in.pos
           val t = parser.apply(in)
-          if(debug) {
+          if(DebugParsers.debug) {
             if(t.successful)
               println(s"$name.apply; consumed $first at $pos, got ${t.get}")
             else
@@ -104,6 +100,9 @@ package AreaParser {
           t
         }
       }
+    }
+    object DebugParsers {
+      var debug = true
     }
 
     object AreasBuilder extends DebugParsers {
@@ -174,7 +173,7 @@ package AreaParser {
         def stateReq: Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
         val simpleReq = skillReq | damageReq | energyReq | oreReq | tpReq | stateReq
         val orReq: Parser[Requirement] = rep1sep(simpleReq, OR) ^^ { case s => AnyReq(s:_*) }
-        val reqRHS: Parser[Requirement] = "reqRHS" !!! rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => AllReqs(head :+ last:_*) }
+        val reqRHS: Parser[Requirement] = "reqRHS" !!! (rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => AllReqs(head :+ last:_*) }) | free
         def diffReq: Parser[Requirement] = "diffReq" !!! accept("diff", {
           case IDENTIFIER("base") => Free
           case IDENTIFIER("advanced") => StateReq("advanced")
@@ -223,28 +222,27 @@ package AreaParser {
         }
       }
       def runReq(tokens: Seq[AreasToken]) = runP(tokens, requirements)
-    }
-
-
-    def run2(in: String) = {
-      AreasLexer(in) match {
-        case Left(error) => Left(error)
-        case Right(tokens) => AreasBuilder.runP(tokens, AreasBuilder.file) match {
+      def run2(in: String) = {
+        AreasLexer(in) match {
           case Left(error) => Left(error)
-          case Right(req) => Right(req)
+          case Right(tokens) => AreasBuilder.runP(tokens, AreasBuilder.file) match {
+            case Left(error) => Left(error)
+            case Right(req) => Right(req)
+          }
         }
       }
-    }
-    def tokens(sourcefile: String = "areas.wotw") = {
-      AreasLexer(Source.fromFile(sourcefile).mkString) match {
-        case Left(_) => Seq()
-        case Right(tokens) => tokens
+      def tokens(sourcefile: String = "areas.wotw") = {
+        AreasLexer(Source.fromFile(sourcefile).mkString) match {
+          case Left(_) => Seq()
+          case Right(tokens) => tokens
+        }
+      }
+      def printTokens(t: Seq[AreasToken]) = t.foreach({case AreaParser.INDENT => print("\nINDENT ") ; case AreaParser.DEDENT => print("\nDEDENT ") ; case AreaParser.NEWLINE => println(""); case t => print(s"$t ") })
+      def run(sourcefile: String = "areas.wotw", print: Boolean = false) = {
+        DebugParsers.debug = print
+        run2(Source.fromFile(sourcefile).mkString)
       }
     }
-    def printTokens(t: Seq[AreasToken]) = t.foreach({case AreaParser.INDENT => print("\nINDENT ") ; case AreaParser.DEDENT => print("\nDEDENT ") ; case AreaParser.NEWLINE => println(""); case t => print(s"$t ") })
-    def run(sourcefile: String = "areas.wotw", print: Boolean = false) = {
-      debug = print
-      run2(Source.fromFile(sourcefile).mkString)
-    }
+
+
   }
-}

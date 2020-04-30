@@ -3,7 +3,6 @@ import scala.collection.mutable
 import scala.io.Source
 import scala.util.Random
 import scala.util.Try
-import AreaParser.AreaParser
 package SeedGenerator {
 
   //  these are fine
@@ -262,8 +261,8 @@ package SeedGenerator {
     var _areas: Map[String, Area] = Map()
     var _items: Map[String, ItemLoc] = Map()
     var _quickReach: Map[String, Requirement] = Map()
-    def populate() = {
-      AreaParser.run() match {
+    def populate(debug: Boolean = false) = {
+      AreaParser.AreasBuilder.run(print = debug) match {
         case Right(value) =>
           _areas = value
           _items = _areas.flatMap(_._2.conns.collect({case Connection(t: ItemLoc, _) => t.name -> t}))
