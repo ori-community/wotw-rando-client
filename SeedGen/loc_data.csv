@@ -262,8 +262,9 @@ UpperDepths.TeleporterEX, Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGro
 UpperDepths.LeftHealthKS, Mouldwood Depths, Resource, Keystone, mouldwoodDepthsGroup, 18793, mouldwoodDepthsHKeystoneACollected, 53953, 498, -4463
 UpperDepths.RightHealthKS, Mouldwood Depths, Resource, Keystone, mouldwoodDepthsGroup, 18793, mouldwoodDepthsHKeystoneBCollected, 23986, 524, -4465
 UpperDepths.SeedQI, Mouldwood Depths, Quest, Seed, questUberStateGroup, 14019, gardenerSeedBashCollected, 8192, 488, -4431
-UpperDepths.CenterRoofEX, Mouldwood Depths, SpiritLight, 200, mouldwoodDepthsGroup, 18793, XPOrbA, 18395, 567, -4443
+UpperDepths.BossPathEX, Mouldwood Depths, SpiritLight, 200, mouldwoodDepthsGroup, 18793, XPOrbA, 18395, 567, -4443
 UpperDepths.KeystoneHC, Mouldwood Depths, Resource, Life, mouldwoodDepthsGroup, 18793, healthCellB, 42235, 531, -4452
+LowerDepths.HiveEX, Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGroup, 18793, expOrbB, 6573, 426, -4385
 LowerDepths.RaceStartHC, Mouldwood Depths, Resource, Life, mouldwoodDepthsGroup, 18793, healthCellA, 62694, 496, -4499
 LowerDepths.BelowDoorOre, Mouldwood Depths, Resource, Ore, mouldwoodDepthsGroup, 18793, orePickupA, 836, 436, -4507
 LowerDepths.SpiritSurgeShard, Mouldwood Depths, Shard, SpiritSurge, pickupsGroup, 23987, spiritPowerShardPickup, 986, 564, -4571
@@ -271,7 +272,7 @@ LowerDepths.DepthsShrine, Mouldwood Depths, Resource, ShardSlot, mouldwoodDepths
 LowerDepths.SwimEC, Mouldwood Depths, Resource, Energy, mouldwoodDepthsGroup, 18793, energyContainerA, 28175, 324, -4535
 LowerDepths.LupoMap, Mouldwood Depths, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapMouldwoodDepths, 48423, 682, -4576
 LowerDepths.LeftEX, Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGroup, 18793, expOrbB, 2881, 387, -4523
-LowerDepths.RightEX, Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGroup, 18793, expOrbB, 6573, 425, -4385
+LowerDepths.RightEX, Mouldwood Depths, SpiritLight, 200, mouldwoodDepthsGroup, 18793, expOrbC, 23799, 799, -4512
 LowerDepths.FlashTree, Mouldwood Depths, Ability, Flash, treesDontWorry, 0, Flash, 62, 776, -4541
 LowerWastes.WestTPOre, Windswept Wastes, Resource, Ore, desertAGroup, 7228, gorlekOre, 54494, 1503, -4007
 LowerWastes.PurpleWallEX, Windswept Wastes, SpiritLight, 100, desertAGroup, 7228, collectableADesertA, 56821, 1535, -3997
