@@ -7,6 +7,13 @@ requirement Weapon:
 requirement EnemyObstacle:
   base: Sword OR Hammer OR Bash OR Launch
 
+requirement Combat:
+  base:
+    Regenerate, Damage=20, Sword OR Hammer
+  advanced:
+    Sword OR Hammer
+    Launch
+
 requirement Water:
   base: Grapple, DoubleJump, Bash, Dash, HollowTP OR Bow
 
@@ -270,7 +277,7 @@ area MarshPastOpher:  # (-598, -4293) Standing next to Opher, looking at the Mil
       Bash, Grenade=2
     advanced: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
 
-  conn MarshPastOpher.PoolsPath:
+  conn MarshPastOpher.PoolsPathEast:
     base:
       DoubleJump, Bow, Bash, Launch
     advanced:
@@ -294,20 +301,50 @@ area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with 
     base: free  
   conn WestHollow.HollowDrain:
     base: free
-  
-area MarshPastOpher.PoolsPath:   # (-650, -4243)  On the wood sticking out of the ledge at the top left of the large room with Opher
+# begin pools path needs validation area?
+area MarshPastOpher.PoolsPathEast:  # (-650, -4243)  On the wood sticking out of the ledge at the top left of the large room with Opher
   pickup MarshPastOpher.CeilingEX:
-    base: 
+    base:
       Bash, DoubleJump, Dash
       Launch
-    advanced: Bash, Dash              # Pretty precise to do without damage
-  pickup MarshPastOpher.PoolsPathEC:
-    base: Bash, DoubleJump, Dash OR Launch
-    advanced: Bash, Glide
-  pickup MarshPastOpher.PoolsPathEX:
-    base: Hammer, Bash, DoubleJump, Dash OR Launch
-    advanced: 
+    advanced:
+      Bash, Dash              # Pretty precise to do without damage
+  conn MarshPastOpher.PoolsPathWest:
+    base:  # you're meant to Bash the enemies casually on this path, so it's required here as well. Breaking the floor with a projectile has been base in other locations. Might be worth discussing again at some point...
+      Bash, DoubleJump OR Launch
+      Bash, Grenade=1, Dash
+      Bash, Grenade=2, Glide
+    advanced:
       Hammer, Bash                    # Fairly precise air combos needed
+      Hammer, Sword, Bash             # Fairly precise air combos needed
+
+area MarshPastOpher.PoolsPathWest:  # (-802, -4186)  Right on top of MarshPastOpher.PoolsPathEX
+  pickup MarshPastOpher.PoolsPathEX: free
+  pickup MarshPastOpher.PoolsPathEC:
+    base:
+      DoubleJump, Bash, Dash OR Glide
+      DoubleJump, Bash, Grenade=1  # maybe not obvious?
+      Launch, DoubleJump OR Dash OR Bash OR Glide
+  pickup PoolsApproach.MillPathHC:
+    base, PoolsApproach.MarshWallBroken:
+      Water, DoubleJump, Launch
+      Water, WaterDash, DoubleJump, Dash
+    advanced, PoolsApproach.MarshWallBroken:
+      Water, WaterDash, Sword OR Hammer   # Air combos to reach wall jump
+      Water, Launch
+
+  conn MarshPastOpher.PoolsPathEast:
+    base, Weapon:
+      DoubleJump, Bash, Dash OR Glide OR Grenade=1
+      Bash, Grenade=1, Dash, Glide
+      Launch, Damage=10, DoubleJump OR Dash OR Glide  # damage not mandatory
+      Launch, Bash
+  conn PoolsApproach.RightOfWheel:
+    base, PoolsApproach.MarshWallBroken:
+      Water, Grapple, DoubleJump OR Dash OR Launch
+      Water, DoubleJump, Dash, Glide, Launch
+    advanced: Water, Grapple, Sword OR Hammer
+# end pools path needs validation area?
 
 area WestHollow.HollowDrain:  # (-244, -4276) First bit of land on the way to the 2nd drain lever
   pickup WestHollow.FarLeftEX:
@@ -380,81 +417,236 @@ area EastHollow:  # (-152, -4236) The Hollow teleporter
   conn UpperDepths.Entry: # TODO: deleteme
     base: Bash, Glide
 
-area GladesTown:  # (-306, -4154) The Glades teleporter
-  pickup GladesTown.AcornQI:
-    base: Water, DoubleJump, Flash, Ore=30
-  pickup GladesTown.HoleHutEC:
-    base: Launch, DoubleJump, Ore=18
-  pickup GladesTown.AboveGromHC:
-    base: Launch, DoubleJump
-  pickup GladesTown.LowerLeftHC:
-    base: Water, Dash, Burrow
-  pickup GladesTown.UpperOre:
-    base: Hammer, DoubleJump
-  pickup GladesTown.LowerOre:
-    base: Launch, DoubleJump
-  pickup GladesTown.ArcingShard:
-    base: Launch, Ore=24
-  pickup GladesTown.BountyShard:
-    base: Launch, DoubleJump
-  pickup GladesTown.LupoSoupEX:
-    base: Water
-  pickup GladesTown.BraveMokiHutEX:
-    base: Launch, DoubleJump, Ore=30
-  pickup GladesTown.MotayHutEX:
-    base: DoubleJump, Glide, Ore=12
-  pickup GladesTown.HoleHutEX:
-    base: Launch, Ore=18
-  pickup GladesTown.FruitHammockEX:
-    base: Launch, DoubleJump
-  pickup GladesTown.LupoSwimMiddleEX:
-    base: Water, Dash, WaterDash
-  pickup GladesTown.CaveBurrowEX:
-    base: Dash, Burrow, DoubleJump, Ore=24
-  pickup GladesTown.BigHammockEX:
-    base: Flap, Glide, DoubleJump
-  #  can't exactly leave this here lol
-  #  pickup GladesTown.KeyMokiHutEX:
-  #    base: Unreachable
-  pickup GladesTown.UpdraftTableEX:
-    base: Launch, DoubleJump
+# begin glades needs-validation region
+area GladesTown:  # (-306, -4154) The glades teleporter
+  state GladesTown.BuildHuts:
+    base: Ore=15
+  state GladesTown.RoofsOverHeads:
+    base: Ore=21, GladesTown.BuildHuts
+  state GladesTown.OnwardsAndUpwards:
+    base: Ore=29, GladesTown.RoofsOverHeads
+  state GladesTown.ClearThorns:
+    base: Ore=23
+  state GladesTown.CaveEntrance:
+    base: Ore=29, GladesTown.ClearThorns
+
   pickup GladesTown.AboveCaveEX:
-    base: Ore=24
-  pickup GladesTown.LupoSwimLeftEX:
-    base: Water, Dash, WaterDash, Ore=24
+    base: GladesTown.ClearThorns
+  pickup GladesTown.CaveBurrowEX:
+    base: GladesTown.ClearThorns, Burrow, DoubleJump OR Launch
+  pickup GladesTown.AcornQI:
+    base:
+      GladesTown.CaveEntrance, Flash:
+        Water, Glide
+        Damage=10, Water, DoubleJump
+        Bash, Grenade=1
+        Launch
+    advanced: GladesTown.CaveEntrance, Flash, Water, Dash
   pickup GladesTown.UpdraftCeilingEX:
-    base: Flap, Glide, DoubleJump
+    base:
+      Flap, Glide
+      Bash, Grenade=1, DoubleJump
+      Launch
+    advanced: Bash, Grenade=2
+  pickup GladesTown.BigHammockEX:
+    base:
+      Flap, Glide, DoubleJump
+      Flap, Glide, Bash, Grenade=1
+      Launch
+  pickup GladesTown.HoleHutEX:
+    base:
+      GladesTown.RoofsOverHeads:
+        Flap, Glide, DoubleJump
+        Flap, Glide, Bash, Grenade=2
+        Launch
+    advanced: GladesTown.RoofsOverHeads, Bash, Grenade=4
+  pickup GladesTown.HoleHutEC:
+    base:
+      GladesTown.RoofsOverHeads:
+        Flap, Glide, DoubleJump
+        Flap, Glide, Bash, Grenade=2
+        Launch
+    advanced: GladesTown.RoofsOverHeads, Bash, Grenade=4
   pickup GladesTown.LeafPileEX:
-    base: Launch, DoubleJump, Dash, Flap
-  conn WestGlades:  # TODO: deleteme
-    base: DoubleJump, Bash
-  conn OpherShop: free # TODO: deleteme
-  conn TwillenShop: free # TODO: deleteme
+    base:
+      Flap, Launch, DoubleJump OR Dash OR Glide  # Can go either to the right wall or through the semisolid branch
+  pickup GladesTown.AboveTpEX:
+    base:
+      Launch  # probably base?
+    advanced:
+      Bash, Grenade=2, Dash, DoubleJump
+  pickup GladesTown.BountyShard:
+    base:
+      Launch  # probably base?
+    advanced:
+      Bash, Grenade=3, Dash, DoubleJump
+  pickup GladesTown.MotayHutEX:
+    base:
+      GladesTown.BuildHuts:
+        DoubleJump, Glide
+        Bash, Grenade=2
+        Launch
+  pickup GladesTown.ArcingShard:
+    base:
+      GladesTown.ClearThorns:
+        Launch
+        Bash, Grenade=1  # probably base?
+  pickup GladesTown.BraveMokiHutEX:
+    base: GladesTown.OnwardsAndUpwards, Launch
+    advanced: GladesTown.OnwardsAndUpwards, DoubleJump, Bash, Grenade=1
+  pickup GladesTown.FruitHammockEX:
+    base:
+      Launch, DoubleJump OR Dash OR Glide
+      GladesTown.BuildHuts:
+        Launch  # probably base?
+        DoubleJump, Bash, Grenade=2  # probably base?
+  pickup GladesTown.AboveGromHC:
+    base:
+      Launch, DoubleJump OR Dash OR Glide
+      GladesTown.BuildHuts:
+        Launch  # probably base?
+        DoubleJump, Bash, Grenade=2  # probably base?
+  pickup GladesTown.LupoSoupEX:
+    base: Water OR Burrow
+  pickup GladesTown.BottomRightHC:
+    base: Water, Burrow
+  pickup GladesTown.LupoSwimMiddleEX:
+    base: Water, WaterDash OR Launch
+  pickup GladesTown.LupoSwimLeftEX:
+    base: GladesTown.ClearThorns, Water, WaterDash OR Launch
+  pickup GladesTown.LowerOre:
+    base:
+      Hammer, DoubleJump OR Launch OR Dash OR Glide
+      Hammer, Bash, Grenade=1
+      Hammer, Damage=10
+  pickup GladesTown.KeyMokiHutEX:
+    base: Unreachable
+  pickup GladesTown.DamageTree:
+    base: Unreachable
 
-area WestGlades:  # (-540, -4110) The right edge of the first pool past glades
+  conn GladesTown.West:
+    base:
+      DoubleJump OR Launch
+      Bash, Grenade=1
+  conn TwillenShop: free
+# not sure what to do about opher, I think he's still moving around the world map
+# some connection to Hollow tbd depending on areas there
+
+area GladesTown.West:  # (-410, -4142) At Motay
+  pickup GladesTown.UpperOre:
+    base:
+      Bash, Grenade=1, Launch
+      Launch, DoubleJump  # different ways to solve this, should be fine...
+      GladesTown.BuildHuts:  # use the platforms created by the huts
+        DoubleJump, Bash, Grenade=2
+        Bash, Grenade=3
+        Launch
+  pickup GladesTown.LowerOre:
+    base:
+      Hammer, DoubleJump OR Launch OR Dash OR Glide
+      Hammer, Bash, Grenade=1
+      Hammer, Damage=10
+  # I think all other paths would be redundant with the connection to tp?
+
+  conn TwillenShop:
+    base: free
+  conn WestGlades.Lower:
+    base, EnemyObstacle:
+      Bash, DoubleJump OR Dash
+      DoubleJump, Dash, Glide  # this path is too nice to not be base... right?
+      Launch
+  conn GladesTown:
+    base:
+      GladesTown.ClearThorns OR DoubleJump OR Launch
+      Bash, Grenade=1
+
+area WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past glades
   pickup WestGlades.GrappleEX:
-    base: DoubleJump, Bash, Grapple
+    base:
+      Grapple OR Launch
+      Bash, Grenade=1
   pickup WestGlades.AbovePlantEX:
-    base: DoubleJump, Bash
+    base:
+      Bash, DoubleJump, Dash OR Glide
+      Bash, Dash, Glide
+      Water, Bash
+      Launch
   pickup WestGlades.LowerPoolEX:
-    base: DoubleJump, Bash, Water
-  pickup WestGlades.UpperPoolEX:
-    base: DoubleJump, Bash, Water
+    base: Water
   pickup WestGlades.SwimEC:
-    base: DoubleJump, Bash, Water
+    base: Water
   pickup WestGlades.LeftOre:
-    base: DoubleJump, Bash, Grapple
-  pickup WestGlades.RightOre:
-    base: DoubleJump, Bash
-  pickup WestGlades.ShrineHC:
-    base: DoubleJump, Bash, Dash
-  # pickup WestGlades.CombatShrine:
-  #  base: DoubleJump, Bash, Grapple, Regenerate
-  conn OuterWellspring:  # TODO: deleteme
-    base: DoubleJump, Dash, Bash
-  conn LowerReach.Entry: # TODO: deleteme
-    base: DoubleJump, Flap
+    base:
+      Grapple, Bash, DoubleJump, Dash OR Glide
+      Grapple, Bash, Dash, Glide
+      Grapple, Launch
+      EnemyObstacle, Grapple, DoubleJump, Dash OR Glide
+      Water, Grapple, DoubleJump
+      Water, Grapple, WaterDash, Dash OR Glide
 
+  conn WestGlades.Upper:
+    base:
+      DoubleJump, Bash, Water OR Dash OR Glide OR Grenade=1
+      Launch
+  conn GladesTown.West:
+    base:
+      Bash, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash, Glide
+      Launch
+
+area WestGlades.Upper:  # (-628, -4056) At the waypoint
+  state LowerReach.BearSneezed:
+    base: Flap
+
+  pickup WestGlades.LeftOre:
+    base: Grapple, DoubleJump OR Dash OR Glide OR Launch
+  pickup WestGlades.UpperPoolEX:
+    base: Water
+
+  conn WestGlades.Lower:
+    base:
+      EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
+      Water, DoubleJump OR Dash OR Bash OR Glide OR Launch OR Damage=10  # damage not mandatory
+  conn LowerReach.Entry:
+    base: LowerReach.BearSneezed
+  conn WestGlades.MillApproach:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      Bash
+      Water, WaterDash
+      Launch
+area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening up to Wellspring
+  pickup WestGlades.CombatShrine:
+    base, Weapon, Regenerate:
+      Grapple, Bash, DoubleJump OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch, DoubleJump OR Grapple
+  pickup WestGlades.ShrineHC:
+    base:
+      Grapple, DoubleJump, Dash OR Glide
+      DoubleJump, Bash, Grenade=2
+      Launch, DoubleJump OR Grapple
+
+  conn WestGlades.Upper:
+    base:
+      Bash, DoubleJump OR Dash OR Glide OR Grenade=1
+      Grapple, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash, Glide
+      Launch
+  conn OuterWellspring:
+    base:
+      DoubleJump, Grapple
+      DoubleJump, Dash OR Glide
+      Dash, Glide
+      Launch
+      Water
+  conn PoolsApproach.RightOfWheel: # this makes more sense here than at OuterWellspring
+    base, EnemyObstacle, Damage=20:  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement. Damage just because it's basically impossible not to run into the enemies. Should be more like 40 damage tbh
+      Water, DoubleJump, Dash, Grapple, Glide
+      Water, WaterDash, Grapple, DoubleJump OR Dash OR Glide
+      Water, Launch, Grapple
+      Water, Launch, DoubleJump, Dash
+# end glades needs-validation region
 area OuterWellspring:  # (-763, -4701) Where the "We remember this place" voice dialog plays
   pickup OuterWellspring.RightWallOre:
     base: DoubleJump, Grapple
@@ -482,8 +674,6 @@ area OuterWellspring:  # (-763, -4701) Where the "We remember this place" voice 
     base: Water, Grapple
   conn InnerWellspring.LowerWellspring: # TODO: deleteme
     base: DoubleJump, Dash, Bash
-  conn PoolsApproach:                   # TODO: deleteme
-    base: DoubleJump, Water, Bash
 
 area InnerWellspring.LowerWellspring:  # (-1294, -3956) Just inside the lower entrance
   pickup InnerWellspring.ThornShard:
@@ -539,101 +729,354 @@ area InnerWellspring.TeleporterArea:     # (-1306, -3680) The Wellspring telepor
   pickup InnerWellspring.EscapeRevisitEX:
     base: DoubleJump, Bash, Grapple, Dash
   conn OuterWellspring: free # TODO: deleteme
+  conn OpherShop: free      # TODO: deleteme
 
-area PoolsApproach:  # (-965, -4162) On top of the giant wheel
-  pickup PoolsApproach.CurrentEX:
-    base: Water, Bash, WaterDash
+# begin pools needs validation area
+area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the static wheel
+  state PoolsApproach.MarshWallBroken:
+    base, Weapon:
+      Water, DoubleJump, WaterDash, Grapple  # maybe not obvious?
+      Water, Grapple, Launch
   pickup PoolsApproach.AboveWheelEX:
-    base: Water, Bash, DoubleJump
-  pickup PoolsApproach.MillPathHC:
-    base: Water, Bash, WaterDash, Grapple
-  pickup PoolsApproach.MillPathEC:
-    base: Water, Bash
-  pickup PoolsApproach.MillPathEX:
-    base: Water, Bash
-  pickup PoolsApproach.BurrowsPathEX:
-    base: DoubleJump, Bash
-  conn EastPools.Entry: # TODO: deleteme
-    base: Glide, DoubleJump
+    base:
+      # grenadebash doesn't work as well when the wheel spins
+      PoolsApproach.WheelFreed, DoubleJump
+      Launch
+  pickup PoolsApproach.MillPathHC:  # paths from wellspring tbd
+    base:
+      Water, DoubleJump, Dash, WaterDash, Grapple
+      Water, DoubleJump, Grapple, Launch
+    advanced:
+      Water, WaterDash, DoubleJump, Grapple
+      Water, Grapple, Launch
+  pickup PoolsApproach.MillPathEC:  # paths from wellspring tbd
+    base: Water, Bash, WaterDash OR Damage=10  # damage not mandatory
+  pickup PoolsApproach.MillPathEX:  # paths from wellspring tbd
+    base:
+      Water, Bash, DoubleJump, Dash, Grapple, Damage=10  # damage not mandatory
+      Water, Bash, DoubleJump, Grapple, Glide, WaterDash OR Damage=10  # damage not mandatory
+      Water, Bash, DoubleJump, Dash, WaterDash
+      Water, Bash, Launch, WaterDash OR Damage=10  # damage not mandatory
+    advanced:
+      Water, Bash, DoubleJump, WaterDash
+  conn MarshPastOpher.PoolsPathWest:
+    base, PoolsApproach.MarshWallBroken:
+      Water, DoubleJump, WaterDash, Grapple  # maybe not obvious?
+      Water, Grapple, Launch
+    advanced:
+      PoolsApproach.MarshWallBroken, Water, WaterDash, Grapple, Dash OR Sword
+  # this replaces all MarshPastOpher pickup paths in this area
+  conn PoolsApproach.LeftOfWheel:
+    base:
+      PoolsApproach.WheelFreed OR DoubleJump OR Grapple OR Launch
+      Bash, Grenade=1
+  conn EastPools.Entry:
+    base:
+      # grenadebash doesn't work as well when the wheel spins
+      Glide, Launch
+      Bash, Grenade=1, Launch, DoubleJump OR Dash
+      DoubleJump, Dash, Launch, Damage=20  # damage not mandatory
+      PoolsApproach.WheelFreed, DoubleJump, Glide
+    advanced:
+      Launch, Dash  # advanced? definitions tbd
+  conn MarshPastOpher:
+    base, Weapon:
+      Water, DoubleJump, Bash, Grapple, WaterDash, Dash OR Glide
+      Water, DoubleJump, Bash, Grenade=1, Grapple, WaterDash  # maybe not obvious?
+      Water, Grapple, Launch, Damage=10, DoubleJump OR Dash OR Glide  # damage not mandatory
+      Water, Grapple, Launch, Bash
+  conn OuterWellspring:
+    base:
+      Water, Bash, DoubleJump, Grapple, Damage=10, Dash OR Glide  # damage not mandatory
+      Water, Bash, WaterDash, DoubleJump, Grapple, Dash OR Glide OR Damage=15  # damage not mandatory
+      Water, Bash, WaterDash, Grapple, Grenade=2, Dash OR Glide
+      Water, Bash, Launch, WaterDash, DoubleJump OR Dash OR Grapple OR Glide
+      Water, Bash, Launch, Damage=10, DoubleJump OR Dash OR Grapple OR Glide  # damage not mandatory
+    advanced:
+      Water, Bash, Dash, Glide, Grapple, Grenade=2, Damage=10  # damage not mandatory
+      Water, Bash, Grenade=1, Launch, Damage=10  # damage not mandatory
 
-# TODO: probably need a state for the first door in Pools
+area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the static wheel
+  state PoolsApproach.WheelFreed:
+    base: Water, Bash
+
+  pickup PoolsApproach.CurrentEX:
+    base: Water, WaterDash
+  pickup PoolsApproach.BurrowsPathEX:
+    base:
+      Water, DoubleJump, Dash, WaterDash, Damage=10
+      Water, Glide, WaterDash, DoubleJump OR Dash OR Damage=10
+      Water, Bash, WaterDash, DoubleJump OR Glide
+      Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide OR Damage=10
+    advanced:
+      Water, Dash, Glide, WaterDash
+
+  conn PoolsApproach.RightOfWheel:
+    base:
+      # grenadebash doesn't work when the wheel spins
+      PoolsApproach.WheelFreed, Water
+      DoubleJump OR Launch
+  conn EastPools.Entry:
+    base: Water, Launch
+    advanced: Water, DoubleJump, WaterDash, Damage=20
+
 area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
+  state EastPools.EntryLever:
+    base, EnemyObstacle:
+      DoubleJump, Dash OR Glide OR Damage=20
+      Dash, Glide  # decided to remove dash, damage=20 because of trouble with the bubble
+      Launch
+  state EastPools.BelowTokkBubbleFree:
+    base:
+      EastPools.EntryLever, Water, Bash
+    advanced, EastPools.EntryLever:
+      Water, WaterDash
+      Water, Bow OR Grenade=1 # Bow=1 not currently a thing
+
   pickup EastPools.RightOre:
-    base: Water, Bash, Flap, DoubleJump, Dash
+    base:
+      DoubleJump, Grapple, Flap, Dash OR Glide  # kinda weird, but I guess this is the casual way?
+      Launch, DoubleJump OR Grapple
+      Bash, Grenade=1, Launch
+    advanced:
+      Dash, Grapple, Glide, Flap
+      Launch  # maybe base?
   pickup EastPools.TwoCrushersEX:
-    base: Water, Bash, WaterDash
+    base: Water, WaterDash
   pickup EastPools.CurrentEX:
-    base: Water, Bash, WaterDash
+    base: Water, WaterDash
   pickup EastPools.BelowLeverEX:
-    base: Water, Bash, Hammer, DoubleJump
-  conn EastPools.TPArea: # TODO: deleteme
-    base: Water, Bash, DoubleJump
+    base:  # kinda dangerous with the spikes? but damage seemed mostly avoidable
+      DoubleJump, Bash, Grenade=1
+      Hammer  # double jump makes it easier
+      Launch
+  pickup EastPools.AboveDoorOre:
+    base, EastPools.EntryLever:  # other paths would be redundant with the paths coming from tokk
+      Bash, Grenade=2
+      Bash, Grenade=1, DoubleJump OR Grapple
+
+  conn EastPools.TPArea:
+    base, EastPools.EntryLever:
+      EastPools.BelowTokkBubbleFree, EnemyObstacle, Grapple, Flap, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1  # bashgrenade above
+      Bash, Grenade=2, Dash OR Glide  # bashgrenade above
+      EnemyObstacle, Bash, Grenade=2, EastPools.BelowTokkBubbleFree OR Water  # bashgrenade below
+      Launch
+  conn PoolsApproach.LeftOfWheel:
+    base:
+      Water
+      Bash, Grenade=1, Glide
+      Glide, Launch
+      DoubleJump, Dash, Launch
+      Bash, Grenade=1, Launch, DoubleJump OR Dash
 
 area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
+  state EastPools.BelowTokkBubbleFree:
+    base:
+      Water, Bash
+    advanced:
+      Water, WaterDash
+      Water, Bow OR Grenade=1 # Bow=1 not a thing yet
+  state EastPools.LowerWaterDrained:
+    base:
+      Water
+  # There are two Arenas here: you get one if you enter without WaterDash and another if you enter with it.
+  # This path is assuming the worse case of getting the strictly harder WaterDash arena, but doesn't list WaterDash
+  # explicitly because you don't need it unless you have it.
+  # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
+  # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
+  state EastPools.FightArenas:
+    base:
+      EastPools.LowerWaterDrained, Weapon, Water, Bash
   pickup EastPools.AboveDoorOre:
-    base: Water, Bash, Flap, Grapple
-  pickup EastPools.PurpleWallHC:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+    base:
+      EastPools.BelowTokkBubbleFree, Grapple, Flap, DoubleJump OR Dash
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      Bash, Grenade=2
+      Launch
   pickup EastPools.AboveTpEX:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
+    base:  # these need water to not be softlockable with the player draining the upper water
+      Water, DoubleJump, Bash, Grenade=2
+      Water, DoubleJump, Grapple, Bash, Grenade=1
+      Water, Launch
+  pickup EastPools.PurpleWallHC:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, Bash, Grenade=3, DoubleJump
+      Water, WaterDash, Bash, Grenade=2, DoubleJump, Grapple
+      Water, WaterDash, Bash, Launch
   pickup EastPools.LupoOre:
-    base: Water, Bash, Flap, DoubleJump
+    base: Water
   pickup EastPools.UltraBashShard:
-    base: Water, Bash, Flap, DoubleJump
+    base: EastPools.LowerWaterDrained, Water, Bash
   pickup EastPools.FightRoomHC:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Glide
+    base, EastPools.FightArenas, WaterDash:  # The HC only gets unlocked if you finish the alternate WaterDash arena; FightArenas doesn't have WaterDash as requirement included for reasons explained above, so it's needed here
+      DoubleJump, Dash OR Grapple
+      Bash, Grenade=1
+      Launch
   pickup EastPools.EnergyHarvestShard:
-    base: Water, Bash, Flap, DoubleJump, WaterDash
+    base, EastPools.FightArenas:
+      Water, WaterDash, DoubleJump
+      Bash, Grenade=1
+      Launch
   pickup EastPools.LupoEX:
-    base: Water, Bash, Flap, DoubleJump
+    base: EastPools.FightArenas, Water, Bash
   pickup EastPools.LupoMap:
-    base: Water, Bash, DoubleJump, WaterDash
+    base: EastPools.FightArenas, Water, Bash
   pickup EastPools.BehindCrusherEX:
-    base: Water, Bash, Flap, DoubleJump
+    base: EastPools.FightArenas, Water
   pickup EastPools.SeedQI:
-    base: Water, Bash, Flap, DoubleJump
-  conn UpperPools: # TODO: deleteme
-    base: Water, Bash, DoubleJump
+    base, EastPools.FightArenas:
+      Water, Bash, WaterDash OR Launch
+      Water, Bash, DoubleJump, Dash OR Glide
+      Water, Bash, Dash, Glide
+      Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
 
-area UpperPools:  # (-1526, -4112) the ledge on top of Kwolok's room
+  conn EastPools.Entry:
+    base, EastPools.EntryLever, EnemyObstacle:
+      DoubleJump OR Dash OR Glide OR Launch  # go above
+      Bash, Grenade=1  # go above
+      Grapple  # go below
+  conn WestPools:
+    base: EastPools.FightArenas, Water, Bash, WaterDash, DoubleJump OR Dash OR Glide OR Launch
+  conn UpperPools.KeystoneRoom:
+    base, EastPools.FightArenas, EnemyObstacle:
+      Water, Bash, DoubleJump, Dash OR Glide
+      Water, Bash, Launch
+
+area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper left keystones
+  state UpperPools.KeystoneRoomBubbleFree:
+    base:
+      Water, WaterDash
+      Water, Bash
+    advanced: Bow OR Grenade=1
+
   pickup UpperPools.LowerKS:
-    base: Water, Bash, Flap, DoubleJump
+    base:
+      Water, DoubleJump, Bash
+      Water, WaterDash OR Launch
   pickup UpperPools.UpperLeftKS:
-    base: Water, Bash, Flap, DoubleJump
+    base:
+      Bash, Grenade=1
+      UpperPools.KeystoneRoomBubbleFree, DoubleJump, Flap
+      Launch
   pickup UpperPools.UpperMidKS:
-    base: Water, Bash, Flap, DoubleJump
+    base:
+      DoubleJump, Bash, Grenade=1
+      Bash, Grenade=2, DoubleJump OR Dash OR Glide
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch
   pickup UpperPools.UpperRightKS:
-    base: Water, Bash, Flap, DoubleJump
-  pickup UpperPools.FishPoolEX:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup UpperPools.FishPoolOre:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup UpperPools.BubblesEC:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup UpperPools.LeftBubblesEX:
-    base: Water, Bash, Flap, DoubleJump, Dash
-  pickup UpperPools.RightBubblesEX:
-    base: Water, Bash, Flap, DoubleJump, Dash
+    base:
+      Bash, Grenade=1, Water OR DoubleJump OR Dash OR Glide
+      Grapple, DoubleJump OR Glide OR Dash
+      Water, WaterDash, DoubleJump
+      Launch
+
+  conn UpperPools.BubbleSpamRoom:
+    base:
+      Flap, DoubleJump, Dash, Grapple  # intended I think
+      DoubleJump, Bash, Grenade=3
+      DoubleJump, Grapple, Bash, Grenade=1
+      Launch
+  conn UpperPools.TreeArea:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      Water, Grapple, Bash, Grenade=1
+      Bash, Grenade=2, Water OR DoubleJump OR Dash OR Glide
+      Bash, Grenade=3
+      Launch
+  conn WestPools:
+    base:
+      Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
+area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
+  state UpperPools.UpperWaterDrained:
+    base:
+      Water, WaterDash, Grapple, DoubleJump OR Launch
+      Water, WaterDash, Launch, DoubleJump, Dash OR Glide
   pickup UpperPools.SwimDashTree:
-    base: DoubleJump, Dash, Bash, Grapple, Flap
+    base: free
   pickup UpperPools.CurrentEX:
-    base: Water, Bash, Flap, DoubleJump, WaterDash
+    base: Water, WaterDash
   pickup UpperPools.RoofEX:
-    base: Water, Bash, Flap, DoubleJump, WaterDash
+    base:
+      Water, WaterDash, Flap, DoubleJump OR Dash
+      Water, WaterDash, Launch
+    advanced: Launch  # use the small bubbles
   pickup UpperPools.WaterfallEC:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Grapple
-  conn WestPools: #TODO: deleteme
-    base: Water, Bash, DoubleJump, WaterDash
+    base:
+      Water, WaterDash, DoubleJump, Dash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Launch
+    advanced:  # these are maybe probably not base
+      Water, WaterDash, Grapple, DoubleJump OR Dash
+      Water, WaterDash, Grapple, Bash, Grenade=1
+  pickup EastPools.PurpleWallHC:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, DoubleJump, Dash, Bash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Bash, Launch
+  pickup EastPools.AboveTpEX:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, DoubleJump, Dash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Launch
+
+  conn UpperPools.KeystoneRoom:
+    base: Water OR DoubleJump OR Dash OR Glide OR Launch  # don't really need anything, but eh
+  conn WestPools:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, DoubleJump, Dash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Launch
+
+area UpperPools.BubbleSpamRoom:  # (-1585, -4052) To the right of where all the bubbles rise
+  pickup UpperPools.FishPoolEX:
+    base: Water, Bash OR WaterDash OR Damage=10  # just in case someone's troubled by the fish
+  pickup UpperPools.FishPoolOre:
+    base:
+      DoubleJump, Bash, Dash OR Glide
+      Bash, Grenade=1
+      Launch
+  pickup UpperPools.LeftBubblesEX:  # Beautiful autosave placement right there
+    base: Water
+  pickup UpperPools.RightBubblesEX:
+    base:
+      Water, Bash, DoubleJump OR Launch
+      Water, WaterDash
+    advanced: Water, Grenade=1
+  pickup UpperPools.BubblesEC:
+    base:
+      DoubleJump, Dash OR Glide
+      Launch, DoubleJump OR Dash OR Glide
+
+  conn UpperPools.KeystoneRoom:
+    base: Water OR DoubleJump OR Dash OR Glide OR Launch
+  conn UpperPools.TreeArea:
+    base: free
 
 area WestPools:  # (-1652, -4170) the west Pools TP
-  pickup WestPools.BurrowEX:
-    base: Water, Bash, Flap, DoubleJump, Burrow, WaterDash
-  pickup WestPools.BurrowOre:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Burrow
+  state WestPools.KwolokDefeated:
+    base: Weapon, Water, WaterDash, Bash, DoubleJump, Damage=80, Dash OR Launch
+
   pickup WestPools.TpEX:
-    base: Water, Bash, Flap, DoubleJump, WaterDash, Launch
+    base:
+      Water, WaterDash, DoubleJump, Dash  # hard on keyboard, but I guess this is intended, and no other ability would even help
+      Launch
+  pickup WestPools.BurrowEX:
+    base: Water, Burrow
+  pickup WestPools.BurrowOre:
+    base: WestPools.KwolokDefeated, EnemyObstacle, Water, WaterDash, Burrow
   pickup WestPools.EscapeRevisitEX:
-    base: Water, Bash, Flap, DoubleJump, WaterDash
+    base: WestPools.KwolokDefeated, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
+  pickup UpperPools.LowerKS:
+    base: WestPools.KwolokDefeated, EnemyObstacle, Water, WaterDash
+  conn UpperPools.KeystoneRoom:
+    base, EnemyObstacle:
+      Water, WaterDash, Bash, DoubleJump, Dash OR Glide
+      Water, WaterDash, Bash, Launch
+      WestPools.KwolokDefeated, Water, WaterDash, DoubleJump
+      WestPools.KwolokDefeated, Water, WaterDash, Bash, Grenade=1, Dash
+# end pools needs validation area
 
 area WoodsEntry:  # (421, -4206) At Shriek Cutscene after the swim
   pickup WoodsEntry.MudPitEX:
@@ -689,105 +1132,416 @@ area WoodsMain:  # (819, -4191) Where you find Ku
   conn LowerWastes: # TODO: deleteme
     base: Glide, DoubleJump, Grapple, Bash, Dash
 
-#- TODO: BearSneeze state(?)
-area LowerReach.Entry:  # (-448, -4030) At Baur (after making him Sneeze)
+area LowerReach.Entry:  # (-395, -4026) Behind Baur
+  # basically the entirety of this area is not validated, because almost all the original paths were either impossible or not base with the given skillset
+  state LowerReach.BearSneezed:
+    base: Flap
+  state LowerReach.BearBridgeBroken:
+    base, LowerReach.BearSneezed:  # the game behaves weird when dropping the rock on Baur, so not making that base
+      DoubleJump, Launch  # Can't rely on the sleeping bear to be there, same goes for a lot of Launch paths coming up
+      Bash, DoubleJump OR Launch
+      Dash, Bash, Glide
+      Dash, Bash, Grenade=1
+      Bash, Glide, Grenade=2  # most of these skills are to get past the frozen plant and are removed in the path below
+      LowerReach.LowerFurnace, Bash, Grenade=1
+    advanced:
+      LowerReach.BearSneezed, Launch
+  state LowerReach.LowerFurnace:
+    base, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
+      Bash, Flap
+      Grenade=1
+  state LowerReach.LeftFurnace:
+    base, EnemyObstacle, Grenade=1:  # Grenade to light the furnace
+      # this is kinda weird, these paths make you go up to the Icefall, and then you would do a Grenadebash if you killed all the enemies. No one's gonna kill all the enemies though, the player will realistically just Bash off them. This is just so that regardless of player actions, these are still valid base paths
+      DoubleJump, Bash, Grenade=1
+      Dash, Bash, Grenade=1, Glide
+      Bash, Grenade=3, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
+      LowerReach.LowerFurnace, Bash, Grenade=2
+      # these get past the Icefall with Grapple instead of Grenadebash
+      DoubleJump, Bash, Grapple
+      Dash, Bash, Grapple, Glide
+      Bash, Grenade=2, Grapple, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
+      LowerReach.LowerFurnace, Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide  # extra abilities to get off the grapple point
+      # and yeah, Launch
+      Launch, DoubleJump OR Bash
+  state LowerReach.Lever:
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch, DoubleJump OR Bash
+      LowerReach.LowerFurnace, DoubleJump, Bash
+    advanced:  # One of the grenades hit the ceiling sometimes, so I didn't want those to be base. They might need less skills for advanced. Also these probably won't work if you heated the furnace and there might have to be a state for cooling the furnace
+      Dash, Bash, Glide, Grenade=2
+      Dash, Bash, Grenade=3
+
   pickup LowerReach.BelowBaurEX:
-    base: Flap, DoubleJump, Bash, Glide
+    base, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
+      DoubleJump, Dash, Bash, Flap
+      Bash, Grenade=1
+      Launch
   pickup LowerReach.AboveBaurLowerEX:
-    base: Flap, DoubleJump, Bash
+    base:  # Using the mortar shooting from offscreen might be one of the intended strats? Wasn't considered for these paths
+      Grenade=1 OR LowerReach.LowerFurnace:  # these use a grenadebash if they can't use the unfrozen plant
+        DoubleJump, Bash
+        Dash, Bash, Glide  # not sure about this path's difficulty when the LowerFurnace is hot, might need state for cooling it
+      Bash, Grenade=2  # same as above, also this could maybe go in the above group? If you try to make the jump off the plant, you won't make it, but it will reliably trigger the mortar to shoot at you and makes it easy to catch. Decided against it because the player might not try that jump from eyesight
+      Launch, DoubleJump OR Bash
   pickup LowerReach.AboveBaurUpperEX:
-    base: Flap, DoubleJump, Bash
+    base:  # same about the mortar as above
+      Launch, DoubleJump OR Bash  # not entirely sure about base
+      LowerReach.LowerFurnace, DoubleJump, Bash
   pickup LowerReach.IcefallOre:
-    base: Flap, DoubleJump, Bash, Grapple, Grenade
+    base, LowerReach.LeftFurnace, EnemyObstacle:  # EnemyObstacle alone isn't really enough here, with the Furnace lit it's hard to get past the enemies even with a weapon. The paths consider more tools to help.
+      DoubleJump, Bash, Grapple
+      Dash, Bash, Glide, Grapple
+      Bash, Grenade=2, Grapple, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
+      LowerReach.LowerFurnace, Bash, Grenade=1, Grapple
+      DoubleJump, Grapple, Launch, Damage=10  # Grapple past the enemies and probably get hit by them
+      DoubleJump, Water, Launch  # Swim past the enemies
+      Launch, Bash
   pickup LowerReach.IcefallEX:
-    base: Flap, DoubleJump, Bash, Grapple, Grenade
-  conn LowerReach.Central:  # TODO: deleteme
-    base: Flap, DoubleJump, Bash
-#- TODO: Lever Door State
+    base, LowerReach.LeftFurnace, EnemyObstacle:  # Here you have to deal with the enemies a lot less, so further tools are not considered
+      Launch, DoubleJump OR Bash
+      DoubleJump, Bash, Water OR Grapple  # The last in case you killed all the skeetos (*surely* no one's gonna kill all the skeetos *and* the fish)
+
+  pickup WestGlades.UpperPoolEX:
+    base, LowerReach.BearSneezed: Water
+  pickup WestGlades.RightOre:
+    base, LowerReach.BearSneezed:
+      Dash, DoubleJump OR Glide
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
+  pickup WestGlades.LeftOre:
+    base, LowerReach.BearSneezed: Grapple, DoubleJump OR Glide OR Launch
+  pickup WestGlades.AbovePlantEX:
+    base, LowerReach.BearSneezed: Bash, Damage=10  # this is the only relevant path rn because all other options get you to the WestGlades home and then to the pickup from there
+  pickup WestGlades.CombatShrine:
+    base, Weapon, Regenerate:
+      Grapple, DoubleJump OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch, DoubleJump OR Bash OR Grapple
+  pickup WestGlades.ShrineHC:
+    base:
+      Grapple, DoubleJump, Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch, DoubleJump OR Bash OR Grapple
+
+  conn LowerReach.Central:
+    base, LowerReach.Lever:
+      DoubleJump, Bash
+      Dash, Bash, Glide
+      Bash, Grenade=1, Dash OR Glide
+      Launch, DoubleJump OR Bash
+  conn WestGlades.Upper:
+    base, LowerReach.BearSneezed:
+      EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
+      Bash, Damage=10  # this is "you fall into the water and Bash out because you don't know the geometry blindly"
+      Water
+  conn OuterWellspring:
+    base, LowerReach.BearSneezed:
+      Grapple, DoubleJump
+      Grapple, Dash, Glide
+      DoubleJump, Bash, Dash OR Glide
+      Dash, Bash, Glide
+      Bash, Grenade=2
+      Launch
+      Water, Bash
+      Water, Grapple, DoubleJump OR Dash OR Glide
 
 area LowerReach.Central:  # (-347, -4011) After the lever door
-  pickup LowerReach.AboveDoorEX:
-    base: Flap, DoubleJump, Bash
-  pickup LowerReach.HiddenOre:
-    base: Flap, DoubleJump, Bash, Dash
-  pickup LowerReach.Lupo:
-    base: DoubleJump, Dash, Grenade
-  pickup LowerReach.MeltIceEX:
-    base: Flap, DoubleJump, Bash, Grenade
-  pickup LowerReach.BurrowEX:
-    base: Flap, DoubleJump, Bash, Burrow, Dash
-  pickup LowerReach.TPLeftEX:
-    base: Flap, DoubleJump, Bash, Dash
-  pickup LowerReach.BelowLupoEX:
-    base: Flap, DoubleJump, Bash
-  conn LowerReach.East: # TODO: deleteme
-    base: Flap, DoubleJump, Bash, Grenade, Glide
-  conn LowerReach.Trial: # TODO: deleteme
-    base: Flap, DoubleJump, Bash, Grenade, Glide
-  conn UpperReach: # TODO: deleteme
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+  state LowerReach.TPIceMelted:  # all not validated (added this state)
+    base:
+      LowerReach.CentralFurnace:
+        DoubleJump, Dash, Bash, Grenade=1
+        Bash, Grenade=2
+      Grenade=1, Launch
 
-area LowerReach.East:  # (-205, -4043) At the lantern locking the wind channel
+  pickup LowerReach.AboveDoorEX:
+    base:
+      LowerReach.CentralFurnace:
+        DoubleJump, Dash, Bash OR Hammer  # not validated
+        Bash, Grenade=1  # not validated
+      Launch
+  pickup LowerReach.Lupo:
+    base:
+      Launch
+      DoubleJump, Dash
+      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide  # not validated
+  pickup LowerReach.TPLeftEX:
+    base:
+      Launch
+      LowerReach.CentralFurnace:
+        DoubleJump, Dash
+        Bash, Grenade=1, DoubleJump OR Dash OR Glide  # not validated
+  pickup LowerReach.HiddenOre:
+    base:
+      Launch
+      LowerReach.CentralFurnace:
+        DoubleJump, Dash, Bash
+        DoubleJump, Bash, Grenade=1  # not validated
+
+  conn LowerReach.Entry:
+    base: LowerReach.Lever, DoubleJump OR Dash OR Launch
+  conn LowerReach.Lower:  # wtf reach logic
+    base: free
+  conn LowerReach.Teleporter:  # all not validated (added this area)
+    base, LowerReach.TPIceMelted:
+      Launch
+      LowerReach.CentralFurnace:
+        DoubleJump, Dash, Bash
+        Bash, Grenade=1
+  conn UpperReach.KeystoneRoom:
+    base:
+      Launch
+      LowerReach.CentralFurnace, DoubleJump, Dash, Bash
+
+area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
+  state LowerReach.CentralFurnace:
+    base, EnemyObstacle:
+      Grenade=1
+      DoubleJump, Dash, Bash, Flap
+  state LowerReach.WindChannelLantern:
+    base: EnemyObstacle, Grenade=1
+
+  pickup LowerReach.MeltIceEX:
+    base: Grenade=1
+  pickup LowerReach.BurrowEX:
+    base: Burrow, DoubleJump OR Dash OR Glide OR Launch  # not validated
+  pickup LowerReach.BelowLupoEX:
+    base:
+      DoubleJump, Bash, Grenade=1  # not validated
+      Launch
+      LowerReach.CentralFurnace, DoubleJump OR Dash  # not validated
   pickup LowerReach.BreakWallEX:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base: Weapon  # This is probably fine with the enemies? If Weapon changes, this might have to change too
   pickup LowerReach.WindBottomEX:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base: LowerReach.WindChannelLantern, Glide
   pickup LowerReach.WindHiddenEX:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base: LowerReach.WindChannelLantern, Glide
+
+  conn LowerReach.Central:  # not validated
+    base:
+      DoubleJump, Bash, Flap OR Grenade=1
+      DoubleJump, Burrow
+      Launch
+  conn LowerReach.East:
+    base, LowerReach.WindChannelLantern:
+      DoubleJump, Dash, Bash, Grenade=2, Glide
+      Glide, Launch
+
+area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
+  # none validated
+  state LowerReach.TPIceMelted:
+    base: Grenade=1
+
+  # with the state of subareas this shouldn't need any extra pickup paths? It will probably need them in non-base pathsets
+
+  conn LowerReach.Lower:
+    base: LowerReach.TPIceMelted
+  conn LowerReach.Central:
+    base: LowerReach.TPIceMelted, DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer
+  conn UpperReach.KeystoneRoom:
+    base, LowerReach.TPIceMelted:
+      DoubleJump, Dash, Bash
+      Launch
+  conn LowerReach.East:
+    base, LowerReach.TeleporterLantern:
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Launch
+
+area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
+  state UpperReach.HeatFurnace:
+    base:
+      Grenade=1  # this makes grenadebash paths meaningless
+      Flap, Bash, DoubleJump OR Launch
+  state UpperReach.CoolFurnace:  # need this because the player might have to refreeze the waterfall
+    base: Flap
+
+  pickup UpperReach.LifeForceShard:
+    base:
+      Bash, Grenade=1, Burrow, DoubleJump, Dash  # Just one of djump / dash is maybe too precise for base
+      Bash, Grenade=1, Burrow, Glide
+      Burrow, Launch
+  pickup UpperReach.LifeForceEX:
+    base:
+      Bash, Grenade=1, Burrow, DoubleJump, Dash
+      Bash, Grenade=1, Burrow, Glide
+      Burrow, Launch
+  pickup UpperReach.LowerKS:
+    base:
+      Launch
+      UpperReach.HeatFurnace:
+        DoubleJump
+        Bash, Grenade=1
+  pickup UpperReach.MiddleLeftKS:
+    base:
+      Launch, DoubleJump OR Dash OR Glide
+      UpperReach.HeatFurnace:
+        DoubleJump, Bash, Grapple OR Glide
+        Dash, Bash, Grenade=1, Glide  # not validated
+  pickup UpperReach.UpperKS:  # not validated (reworked the furnace states)
+    base:
+      DoubleJump, Bash, Grenade=1  # go past the hidden ore
+      Launch
+      UpperReach.CoolFurnace, DoubleJump, Bash  # use the icefall
+      UpperReach.HeatFurnace:
+        DoubleJump, Bash, Grapple  # grenadebash at the waterfall would be redundant with the path going past the hidden ore that doesn't rely on furnace state
+        DoubleJump, Bash, Glide  # using the tongue plant
+  pickup UpperReach.MiddleRightKS:  # not validated (reworked the furnace states)
+    base, UpperReach.HeatFurnace:
+      Bash, Glide, DoubleJump OR Grenade=1  # use the tongue plant
+      DoubleJump, Bash, Grenade=1  # go past the hidden ore
+      DoubleJump, Grapple
+      Bash, Grenade=2, Dash  # bashgrenade at the waterfall
+      Water, Bash, Grenade=1, Dash  # also bashgrenade at waterfall
+      Water, Bash, Grenade=2  # still bashgrenade at waterfall
+      Launch
+  pickup UpperReach.SoupOre:  # not validated (reworked the furnace states)
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch
+      UpperReach.CoolFurnace:
+        DoubleJump
+        Bash, Grenade=1
+      UpperReach.HeatFurnace:
+        Bash, Glide, DoubleJump OR Grenade=1  # use the tongue plant
+        DoubleJump, Grapple
+        Bash, Grenade=2, Dash  # bashgrenade at the waterfall
+        Water, Bash, Grenade=1, Dash  # also bashgrenade at waterfall
+        Water, Bash, Grenade=2  # still bashgrenade at waterfall
+  pickup UpperReach.SwingPoleEX:  # not validated (reworked the furnace states)
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch
+      UpperReach.CoolFurnace:
+        DoubleJump
+        Bash, Grenade=1
+      UpperReach.HeatFurnace:
+        Bash, Glide, DoubleJump OR Grenade=1  # use the tongue plant
+        DoubleJump, Grapple
+        Bash, Grenade=2, Dash  # bashgrenade at the waterfall
+        Water, Bash, Grenade=1, Dash  # also bashgrenade at waterfall
+        Water, Bash, Grenade=2  # still bashgrenade at waterfall
+  pickup UpperReach.SwimEX:
+    base:
+      UpperReach.HeatFurnace, Water, EnemyObstacle OR DoubleJump
+
+  conn UpperReach.TreeRoom:  # not validated (added this area)
+    base, UpperReach.HeatFurnace, EnemyObstacle:
+      DoubleJump, Dash OR Grapple
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      Launch
+      Water
+  conn LowerReach.Central:
+    base: EnemyObstacle, DoubleJump
+  conn LowerReach.East:
+    base: Grenade=1, LowerReach.TeleporterLantern  # One grenade to break the ice wall
+  conn LowerReach.Central:
+    base: EnemyObstacle, DoubleJump, Bash
+  conn LowerReach.East:
+    base: LowerReach.TeleporterLantern, Grenade=1  # One Grenade to break the ice wall
+
+area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
+  pickup UpperReach.LightBurstTree:
+    base: free
+  pickup UpperReach.TreeOre:  # not validated
+    base:
+      DoubleJump, Bash, Grenade=1, Dash OR Glide
+      Dash, Bash, Grenade=1, Glide
+      Launch, DoubleJump OR Dash OR Glide
+  pickup UpperReach.WellEX:
+    base: free
+  pickup UpperReach.SeedQI:
+    base: Grenade=1
+  pickup UpperReach.HiddenEX:
+    base: Grenade=1
+
+  conn UpperReach.KeystoneRoom:  # not validated
+    base, UpperReach.HeatFurnace:
+      DoubleJump, Grapple
+      DoubleJump, Dash
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Water
+
+area LowerReach.East:  # (-192, -3955) Right of the Lantern opening the Tp room
+  state LowerReach.TeleporterLantern:
+    base: Grenade=1
+  state LowerReach.RolledSnowball:
+    base: EnemyObstacle, Grenade=1
+  state LowerReach.PastSnowballLantern:
+    base, LowerReach.RolledSnowball:
+      DoubleJump, Bash, Grenade=2, Glide OR Dash  # not validated
+      Grenade=1, Launch
+  state LowerReach.HeatEastFurnace:  # not validated, this is required for the underwater pickup
+    base, LowerReach.RolledSnowball:
+      Grenade=1, Launch
+      DoubleJump, Bash, Grenade=3, Dash OR Glide
+  state LowerReach.CoolEastFurnace:  # not validated, the intentional path is to cool this furnace
+    base, LowerReach.RolledSnowball:
+      Flap, Launch
+      Flap, DoubleJump, Bash, Grenade=2, Dash OR Glide
+  state LowerReach.ArenaBeaten:  # not validated
+    base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, Weapon, Regenerate:
+      Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
+      LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
+  state LowerReach.WispCollected:  # not validated, can be turned into wisp pickup later
+    base:
+      LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, LowerReach.ArenaBeaten:
+        Glide, Bash, Launch
+        LowerReach.CoolEastFurnace, DoubleJump, Dash, Bash, Grenade=6, Grapple, Glide
   pickup LowerReach.SnowballHC:
-    base: Flap, DoubleJump, Bash, Grenade, Glide, Dash, Burrow
+    base: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Damage=20
   pickup LowerReach.RoofLeftEX:
-    base: Flap, DoubleJump, Bash, Grenade, Glide, Dash
+    base:
+      LowerReach.CoolEastFurnace, DoubleJump, Dash, Bash, Grenade=1  # blame moon
+      DoubleJump, Launch, Dash OR Glide
+      Bash, Grenade=1, Launch  # not validated
   pickup LowerReach.RoofRightEX:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base:
+      LowerReach.CoolEastFurnace, Grenade=2, Bash
+      Launch
   pickup LowerReach.FractureShard:
-    base: Flap, DoubleJump, Bash, Grenade, Glide, Water
-  pickup LowerReach.EscapeRevisitEX:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base, LowerReach.HeatEastFurnace:
+      Water, Launch
+      Water, DoubleJump, Bash, Grenade=1, Dash OR Glide  # not validated
+
+  # connections not validated
+  conn LowerReach.Teleporter:
+    base, LowerReach.TeleporterLantern:
+      DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1
+  conn LowerReach.Lower:
+    base: EnemyObstacle, Glide
+  conn LowerReach.Trial:
+    base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, LowerReach.ArenaBeaten:
+      Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
+      LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
 area LowerReach.Trial:  # (70, -4044) At trial start
   pickup LowerReach.RightKS:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base:
+      Glide
+      DoubleJump, Dash, Bash, Grenade=1  # not validated
+      Launch, DoubleJump OR Damage=20  # not validated
   pickup LowerReach.UpperLeftKS:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base: Glide
   pickup LowerReach.MiddleLeftKS:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base: Glide
   pickup LowerReach.BottomLeftKS:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base: Glide
   pickup LowerReach.TrialEX:
-    base: Flap, DoubleJump, Bash, Grenade, Glide
+    base: Glide
   pickup LowerReach.CatalystShard:
-    base: Flap, DoubleJump, Bash, Grenade, Glide, Water
-
-area UpperReach:  # (-301, -3920) At Tokk
-  pickup UpperReach.LifeForceShard:
-    base: Flap, DoubleJump, Bash, Dash, Burrow
-  pickup UpperReach.LifeForceEX:
-    base: Flap, DoubleJump, Bash, Dash, Burrow
-  pickup UpperReach.LowerKS:
-    base: Flap, DoubleJump, Bash
-  pickup UpperReach.UpperKS:
-    base: Flap, DoubleJump, Bash, Glide
-  pickup UpperReach.MiddleLeftKS:
-    base: Flap, DoubleJump, Bash
-  pickup UpperReach.MiddleRightKS:
-    base: Flap, DoubleJump, Bash, Glide
-  pickup UpperReach.SoupOre:
-    base: Flap, DoubleJump, Bash, Glide
-  pickup UpperReach.SwingPoleEX:
-    base: Flap, DoubleJump, Bash, Glide
-  pickup UpperReach.SwimEX:
-    base: Flap, DoubleJump, Bash, Water
-  pickup UpperReach.LightBurstTree:
-    base: Flap, DoubleJump, Bash, Water
-  pickup UpperReach.TreeOre:
-    base: Flap, DoubleJump, Bash, Water, Grenade
-  pickup UpperReach.WellEX:
-    base: Flap, DoubleJump, Bash, Water
-  pickup UpperReach.SeedQI:
-    base: Flap, DoubleJump, Bash, Water, Grenade
-  pickup UpperReach.HiddenEX:
-    base: Flap, DoubleJump, Bash, Water, Grenade
+    base:
+      Water, Flap, Bash, Glide
+      Water, Glide, Grenade=1
+  pickup LowerReach.EscapeRevisitEX:  # not validated
+    base, LowerReach.ArenaBeaten, LowerReach.WispCollected:
+      Bash, Grenade=5, Glide, DoubleJump
+      Bash, Grenade=4, Glide, Grapple
+      Bash, Glide, Launch
+  # I really don't feel like writing connections to LowerReach.East now which would be both complicated and most likely redundant with ArenaBeaten...
+  conn GladesTown:
+    base: Glide
 
 area UpperDepths.Entry:  # (161, -4340) the first bit of standable ground below the door
   pickup UpperDepths.EntrySpikesEX:

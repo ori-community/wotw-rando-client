@@ -181,10 +181,10 @@ package AreaParser {
         def lhsSimpleReq = diffReq | damageReq | skillReq | stateReq
         val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => AllReqs(reqs:_*)})
         val reqLine = "reqLine" !!! (reqLHS ~ (free | reqRHS)  ^^ {case lhs ~ rhs => lhs and rhs})
-        val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl) ^^ { case rhss => AnyReq(rhss:_*) }
-        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent) ~ rep1sep(reqBlock | rhsBlock, endl.?) <~ dedent ^^ { case lhs ~ rhss => AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
-        val reqLines = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.?) ^^ { case lines => AnyReq(lines:_*)}
-        free | (indent ~> reqLines <~ dedent)
+        val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ { case rhss => AnyReq(rhss:_*) }
+        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss => AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
+        val reqLines = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ { case lines => AnyReq(lines:_*)}
+        free | (indent ~> blanks.? ~> reqLines <~ dedent)
       }
       val pickup =  "pickup node" !!! (PICKUP ~> identifier <~ COLON) ~ requirements ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, ItemNode), reqs) }
       val state  =  "state node" !!! (STATE ~> identifier <~ COLON) ~ requirements ^^ { case IDENTIFIER(name) ~ reqs => Connection(WorldStateNode(name), reqs) }
