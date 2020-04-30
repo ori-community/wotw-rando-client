@@ -266,7 +266,10 @@ package SeedGenerator {
         case Right(value) =>
           _areas = value
           _items = _areas.flatMap(_._2.conns.collect({case Connection(t: ItemLoc, _) => t.name -> t}))
-          buildQuickReachReqs()
+          println("quick start")
+          val ret = buildQuickReachReqs()
+            println("populate finished")
+          ret
         case Left(error) =>
           println(error)
           false
