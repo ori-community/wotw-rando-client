@@ -63,16 +63,17 @@ INTERCEPT(16292720, void, completeShardPurchase, (__int64 spiritShardShopScreen)
 
 	completeShardPurchase(spiritShardShopScreen);
 
-	auto shardType = *(unsigned __int8*) (shard + 0x10);
-	CSharpLib->call<void, char>("TwillenBuyShard", shardType);
-
-	//rollback purchase if necessary
+	// rollback vanilla purchase 
 	*(bool*) (shard + 24) = first;
 	*(bool*) (shard + 25) = second;
 
+    // do the rando purchase /after/ rollback, xem ;3
+    auto shardType = *(unsigned __int8*)(shard + 0x10);
+    CSharpLib->call<void, char>("TwillenBuyShard", shardType);
+
 	PlayerUberStateShards_Shard_RunSetDirtyCallback(shard);
 	SpiritShardsShopScreen_UpdateContextCanvasShards(spiritShardShopScreen);
-		  });
+});
 
 
 INTERCEPT(16603632, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (__int64 shard), {
@@ -110,28 +111,27 @@ void initShardDescription(unsigned __int8 shard, __int64 spiritShardDescription)
 			// *(int*)(upgradableAbilityLevel + 0x18) = 10;// 1337 * 2;
 			//TODO: @Eiko: Get this from c# too
 		}
-				   });
+    });
 }
 
 INTERCEPT(25127984, __int64, enumDictGetValue, (__int64 dict, unsigned __int8 enumKey, __int64 impl), {
 	//EnumDictionary<ENUMTYPE, VALUETYPE>$$GetValue
 	__int64 value = enumDictGetValue(dict, enumKey, impl);
 
-//Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
-//Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
-if(impl == *(__int64*) resolve_rva(71244680))
-{
-if(value)
-	initShardDescription(enumKey, value);
-}
-return value;
+    //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
+    //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
+    if(impl == *(__int64*) resolve_rva(71244680))
+    {
+    if(value)
+	    initShardDescription(enumKey, value);
+    }
+    return value;
 });
 
 INTERCEPT(16601792, int, getCostForLevel, (__int64 shardPointer, int level), {
 	//Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$GetCostForLevel - For whenever we want random upgrade costs
-	//TODO: @Eiko - Call c# here
 	return getCostForLevel(shardPointer, level);
-		  });
+});
 
 INTERCEPT(19980688, bool, PlayerSpiritShards_HasShard, (__int64 spiritShards, unsigned __int8 shardType), {
 	//PlayerSpiritShards$$HasShard
@@ -141,7 +141,7 @@ INTERCEPT(19980688, bool, PlayerSpiritShards_HasShard, (__int64 spiritShards, un
 		//TODO: @Eiko - Call C# using shardType, return true if the player has *purchased* the slot before
 	}
 	return PlayerSpiritShards_HasShard(spiritShards, shardType);
-		  });
+});
 
 
 char getWeaponMasterAbilityItemGranted(__int64 weaponmasterItem){
@@ -161,7 +161,6 @@ bool hasBeenPurchasedBefore(__int64 weaponMasterItem){
 	if((int) requiredType == -1) // fast travel; 255, 255 -> 105, 0
 		return CSharpLib->call<bool, char>("OpherBoughtWeapon", 105);
 	return CSharpLib->call<bool, char>("OpherBoughtUpgrade", requiredType);
-	//TODO: @Eiko - Call C# using abilityType, return true if the player has *purchased* the slot before
 }
 
 bool purchasable(__int64 weaponmasterItem){
@@ -177,7 +176,7 @@ INTERCEPT(6913440, bool, WeaponmasterItem_get_IsOwned, (__int64 item), {
 		return hasBeenPurchasedBefore(item);
 	}
 	return WeaponmasterItem_get_IsOwned(item);
-		  });
+});
 
 INTERCEPT(6916464, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int level), {
 	//WeaponmasterItem$$GetCostForLevel
@@ -193,7 +192,7 @@ INTERCEPT(6916464, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int lev
 		return CSharpLib->call<int, char>("OpherWeaponCost", abilityType);
 	}
 	return WeaponmasterItem_GetCostForLevel(item, level);
-		  });
+});
 
 
 INTERCEPT(6914016, bool, WeaponmasterItem_TryPurchase, (__int64 pThis, __int64 hint, __int64 sounds, __int64 hints), {
@@ -203,7 +202,7 @@ INTERCEPT(6914016, bool, WeaponmasterItem_TryPurchase, (__int64 pThis, __int64 h
 
 	WeaponmasterItem_TryPurchase(pThis, hint, sounds, hints);
 	return false;
-		  });
+});
 
 
 INTERCEPT(10561648, __int64, SpellInventory_AddNewSpellToInventory, (__int64 inv, unsigned int equipmentType, bool add), {
@@ -213,22 +212,19 @@ INTERCEPT(10561648, __int64, SpellInventory_AddNewSpellToInventory, (__int64 inv
 
 	__int64 result = SpellInventory_AddNewSpellToInventory(inv, equipmentType, add);
 	return result;
-		  });
+});
 
 INTERCEPT(27683456, void, SerializedByteUberState_SetValue, (__int64 state, unsigned char value), {
 	//Moon.SerializedByteUberState$$set_Value
-	if(weaponmasterPurchaseInProgress)
+    if(weaponmasterPurchaseInProgress)
 		return;
-
+  
 	SerializedByteUberState_SetValue(state, value);
 });
 
 INTERCEPT(6915088, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 context), {
 	//Weaponmasteritem$$DoPurchase
 	weaponmasterPurchaseInProgress = true;
-	WeaponmasterItem_DoPurchase(item, context);
-	weaponmasterPurchaseInProgress = false;
-
 	auto abilityType = getWeaponMasterAbilityItemGranted(item);
 	if((int) abilityType != -1)
 		CSharpLib->call<void, char>("OpherBuyWeapon", abilityType);
@@ -236,7 +232,11 @@ INTERCEPT(6915088, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 con
 		char requiredType = getWeaponMasterAbilityItemRequired(item);
 		if((int) requiredType == -1) // fast travel; 255, 255 -> 105, 0
 			CSharpLib->call<void, char>("OpherBuyWeapon", 105);
-		else
-			CSharpLib->call<void, char>("OpherBuyUpgrade", requiredType);
+        else {
+            CSharpLib->call<void, char>("OpherBuyUpgrade", requiredType);
+            weaponmasterPurchaseInProgress = false; // so upgrade buying isn't no-opped
+        }
 	}
+    WeaponmasterItem_DoPurchase(item, context);
+    weaponmasterPurchaseInProgress = false;
 })

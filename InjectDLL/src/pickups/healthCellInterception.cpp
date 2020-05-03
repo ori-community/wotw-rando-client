@@ -15,11 +15,10 @@ INTERCEPT(15878400, void, SeinHealthController__set_BaseMaxHealth, (SeinHealthCo
 	SeinHealthController__set_BaseMaxHealth(this_ptr, value);
 });
 
-INTERCEPT(15877184, void, SeinHealthController__set_Amount, (__int64 thisPtr, float value), {
+INTERCEPT(15877184, void, SeinHealthController__set_Amount, (SeinHealthController_o* this_ptr, float value), {
 	if(is_collecting_health_cell)
 		return;
-	
-	SeinHealthController__set_Amount(thisPtr, value);
+	SeinHealthController__set_Amount(this_ptr, value);
 });
 
 INTERCEPT(8380608, void, SeinLevel__set_PartialHealthContainers, (SeinLevel_o* this_ptr, int32_t value), {

@@ -37,6 +37,12 @@ namespace RandoMainDLL {
             var uberId = new UberId(int.Parse(frags[0]), int.Parse(frags[1]));
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
+
+            if (uberId.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Length > 4)
+              ShopController.SetCostMod((AbilityType)uberId.ID, float.Parse(frags[4]));
+            else if (uberId.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Length > 4)
+              ShopController.SetCostMod((ShardType)uberId.ID, float.Parse(frags[4]));
+
             // insert crazed laughter here
             pickupMap[uberId] = (pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty).Concat(BuildPickup(pickupType, frags[3]));
           }

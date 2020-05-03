@@ -27,15 +27,11 @@ namespace RandoMainDLL {
             }
             var pos = Randomizer.Memory.Position();
             if (Ready) {
-              if (value.Int > 0) {
+              if (value.Int > 0) 
                 SeedController.OnUberState(state);
-                if (!Randomizer.PleaseSave) {
-                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldState.FmtVal()}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
-                }
-              }
-              else {
+              if (value.Int == 0 || !Randomizer.PleaseSave)
                 Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldState.FmtVal()}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
-              }
+
             }
             UberStates[key].Value = state.Value;
           }
