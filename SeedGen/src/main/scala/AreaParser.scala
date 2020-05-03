@@ -159,13 +159,20 @@ package AreaParser {
         })
         def tpReq: Parser[Requirement] = accept("teleporterName", {
           case IDENTIFIER("BurrowsTP") => TeleReq(0)
+          case IDENTIFIER("DenTP") => TeleReq(1)
           case IDENTIFIER("WellspringTP") => TeleReq(3)
           case IDENTIFIER("ReachTP") => TeleReq(4)
           case IDENTIFIER("HollowTP") => TeleReq(5)
           case IDENTIFIER("DepthsTP") => TeleReq(6)
+          case IDENTIFIER("WestWoodsTP") => TeleReq(7)
           case IDENTIFIER("WestWastesTP") => TeleReq(9)
           case IDENTIFIER("EastWastesTP") => TeleReq(10)
+          case IDENTIFIER("OuterRuinsTP") => TeleReq(11)
           case IDENTIFIER("WillowTP") => TeleReq(12)
+          case IDENTIFIER("WestPoolsTP") => TeleReq(13)
+          case IDENTIFIER("InnerRuinsTP") => TeleReq(14)
+          case IDENTIFIER("GladesTP") => TeleReq(17)
+          // fake news but dw
         })
         def oreReq: Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
         def energyReq: Parser[Requirement] = IDENTIFIER("Energy") ~> assign ^^ { case ASSIGN(cnt) => EnergyReq(cnt)}

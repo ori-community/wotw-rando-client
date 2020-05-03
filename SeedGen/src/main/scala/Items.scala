@@ -148,7 +148,7 @@ package SeedGenerator {
       15 -> "Shriek",
       16 -> "Marsh",
     )
-    val poolItems = names.keys.withFilter(!Seq(2, 13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq
+    val poolItems = names.keys.withFilter(!Seq(2, 13, 15, 16).contains(_)).map(Teleporter(_)).toSeq
   }
 
   // fake inventory items
@@ -250,6 +250,20 @@ package SeedGenerator {
       new Inv((other.keys ++ keys).toSeq.map({ (i: Item) => (i, Math.max(this (i), other(i))) }): _*)
     }
   }
+  object Regen extends Skill(77)
+  object Bow extends Skill(97)
+  object DoubleJump extends Skill(5)
+  object Flap extends Skill(118)
+  object Grapple extends Skill(57)
+  object Glide extends Skill(14)
+  object Launch extends Skill(8)
+  object Burrow extends Skill(101)
+  object Dash extends Skill(102)
+  object Smash extends Skill(98)
+  object Grenade extends Skill(51)
+  object WaterDash extends Skill(104)
+  object Flash extends Skill(62)
+  object Bash extends Skill(0)
 
   object Inv {
     def Empty: Inv = new Inv()

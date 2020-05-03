@@ -54,20 +54,7 @@ package SeedGenerator {
     override def toString = s"${Skill.names.getOrElse(skillCode, s"Unknown Skill $skillCode")}"
   }
 
-  object Regen extends Skill(77)
-  object Bow extends Skill(97)
-  object DoubleJump extends Skill(5)
-  object Flap extends Skill(118)
-  object Grapple extends Skill(57)
-  object Glide extends Skill(14)
-  object Launch extends Skill(8)
-  object Burrow extends Skill(101)
-  object Dash extends Skill(102)
-  object Smash extends Skill(98)
-  object Grenade extends Skill(51)
-  object WaterDash extends Skill(104)
-  object Flash extends Skill(62)
-  object Bash extends Skill(0)
+
 
   case class OreReq(oreCount: Int) extends Requirement {
     def metBy(state: GameState): Boolean = state.inv(Ore()) >= oreCount
@@ -394,8 +381,8 @@ package SeedGenerator {
               pool.popRand
           if (maybeItem.isEmpty)
             {
-              println(s"$n, $m, ${pool.toSeq}, ${Nodes.items.values.filterNot(loc => reachable.exists(_.name == loc.name))}")
-              throw GeneratorError(s"Failed to get random item from ${pool}")
+              println(s"$n, $m, ${pool.toSeq.filter(_._2 > 0)}, ${Nodes.items.values.filterNot(loc => reachable.exists(_.name == loc.name))}")
+              throw GeneratorError(s"Failed to get random item from ${pool.toSeq.filter(_._2 > 0)}")
             }
           maybeItem.get
         })
@@ -482,7 +469,7 @@ object Tracking {
   }
 }
 object ItemPool {
-  lazy val ITEM_COUNT: Int = 338
+  lazy val ITEM_COUNT: Int = 340
   def build(size: Int = ITEM_COUNT)(implicit r: Random) = {
     val pool = new Inv(Health() -> 24, Energy() -> 24, Ore() -> 39, ShardSlot() -> 5) +
       Inv.mk(Shard.poolItems:_*) + Inv.mk(Skill.poolItems:_*) + Inv.mk(Teleporter.poolItems:_*)
