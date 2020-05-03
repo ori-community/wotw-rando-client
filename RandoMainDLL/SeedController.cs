@@ -33,6 +33,7 @@ namespace RandoMainDLL {
         foreach (string rawLine in File.ReadLines(Randomizer.SeedFile)) {
           try {
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
+            if (line == "") continue;
             var frags = line.Split('|');
             var uberId = new UberId(int.Parse(frags[0]), int.Parse(frags[1]));
             var pickupType = (PickupType)byte.Parse(frags[2]);

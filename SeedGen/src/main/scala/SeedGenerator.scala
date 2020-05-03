@@ -259,8 +259,8 @@ package SeedGenerator {
       _items
     }
 
-    def getReachable(inv: Inv): Set[Node] = {
-      var oldFlags = Set[FlagState]()
+    def getReachable(inv: Inv, flags: Set[FlagState]= Set()): Set[Node] = {
+      var oldFlags = flags
       var state = spawn.reached(GameState(inv), areas)
       while(oldFlags != state.flags) {
         val newFlags = state.flags -- oldFlags
@@ -311,7 +311,6 @@ package SeedGenerator {
     override val data = s"${loc.data.code}|${item.code}|${multi/100f}"
   }
 
-
   case class GeneratorError(message: String) extends Error {
     override def toString: String = s"GeneratorError: $message"
   }
@@ -325,7 +324,7 @@ package SeedGenerator {
   object PlacementGroup {
     def mk(inState: GameState, i:Int=0)(implicit r: Random, pool: Inv) = Try {
       implicit val flagCosts: Map[FlagState, Double] = inState.flags.map(_ -> 0d).toMap
-      val reachable = Nodes.getReachable(inState.inv)
+      val reachable = Nodes.getReachable(inState.inv, inState.flags)
       val locs = r.shuffle((reachable -- inState.reached).collect({ case n: ItemLoc => n }))
       var _fullWeight = 0d
 
@@ -429,12 +428,15 @@ package SeedGenerator {
 
   object Runner {
     val setSeed = r.setSeed _
-    val DEFAULT_INV = GameState.mk(Skill(100), WorldState("Weapon"), WorldState("EnemyObstacle"))
-    def apply() = {
+    val DEFAULT_INV = GameState.mk(Skill(100))
+    def mkSeed(advanced: Boolean = false) = {
       implicit val pool = ItemPool.build()
-      recurse()
+      if(advanced)
+        recurse(Seq(), GameState.mk(Skill(100), WorldState("advanced")))
+      else
+        recurse()
     }
-    def recurse(grps: Seq[PlacementGroup] = Seq())(implicit pool: Inv): (Seq[PlacementGroup], Option[GeneratorError]) = {
+    def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): (Seq[PlacementGroup], Option[GeneratorError]) = {
       grps.lastOption.map(_.next()).getOrElse({
         PlacementGroup.mk(DEFAULT_INV)
       }) match {
@@ -443,20 +445,50 @@ package SeedGenerator {
         case Left(error) =>(grps, Some(error))
       }
     }
-    def run(n: Int = 0, name_base: String = "seed", outputFolder: String = ""): Unit = {
-      // Creating a file
-      val dirPath = if (outputFolder != "") s"seeds/${outputFolder}" else "seeds"
+    def getSeedOpt(advanced: Boolean = false): Option[String] = {
+      val (grps, err) = mkSeed()
+      err match {
+        case Some(e)  => println(s"$e"); None
+        case None     => Some(grps.map(plcmnts => plcmnts.write).mkString("\n"))
+      }
+    }
+    def forceGetSeed(advanced: Boolean = false, retries: Int = 10): String = {
+      if(retries == 0)
+        throw GeneratorError("Ran out of retries on forceGetSeed")
+      getSeedOpt(advanced) match {
+        case Some(seed) => seed
+        case None       => forceGetSeed(advanced, retries-1)
+      }
+    }
+    def apply(advanced: Boolean = false): Unit = {
+      val file = new File(s"seeds/seed_0.wotwr")
+      val bw = new BufferedWriter(new FileWriter(file))
+      bw.write(forceGetSeed(advanced))
+      bw.close()
+    }
+
+    def mk(pack: Int, count: Int = 100): Unit = {
+      val name_base = s"${pack}"
+      val dirPath =  s"seeds/seed_pack_$pack"
       val dir = new File(dirPath)
       if (!dir.exists())
         dir.mkdirs()
-      val file = new File(s"${dirPath}/${name_base}_${n}.wotwr")
-      val bw = new BufferedWriter(new FileWriter(file))
-      val (grps, err) = apply()
-      err.map(e => println(s"$n: $e"))
-      grps.map(plcmnts => bw.write(plcmnts.write+"\n"))
-      bw.close()
+      for (n <- 1 until count) {
+        val file = new File(s"${dirPath}/${name_base}_${n}_base.wotwr")
+        val bw = new BufferedWriter(new FileWriter(file))
+        bw.write(forceGetSeed())
+        bw.close()
+      }
+      for (n <- count until (count + count/2)) {
+        val file = new File(s"${dirPath}/${name_base}_${n}_advanced.wotwr")
+        val bw = new BufferedWriter(new FileWriter(file))
+        bw.write(forceGetSeed(true))
+        bw.close()
+      }
+
     }
-}
+
+  }
 
   case class Distro(sl: Int = 0, hc: Int = 0, ec: Int = 0, ore: Int = 0, sks: Int = 0)
 

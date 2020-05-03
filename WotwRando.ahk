@@ -165,7 +165,7 @@ if(argc > 0)  {
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
 		Run, *RunAs %INJECTOR% %dev% "%SteamPath%",,%maybehide%
-		SplashTextOn,,, Launching Rando with Seed %FileName%
+		SplashTextOn,550,, Launching Rando with Seed %FileName%
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 3000
 		SplashTextOff
