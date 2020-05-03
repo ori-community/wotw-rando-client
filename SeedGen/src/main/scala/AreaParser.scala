@@ -2,7 +2,7 @@ import scala.util.parsing.combinator._
 import scala.util.parsing.input.Positional
 import scala.language.reflectiveCalls
 import SeedGenerator.{Area, Requirement, SkillReq, HealthReq, OreReq, StateReq, WorldStateNode, EnergyReq,
-                    ItemLoc, AreaNode, ItemNode, StateNode, TeleReq, AllReqs, AnyReq, Free, Connection, Placeholder}
+                    Invalid, AreaNode, ItemNode, StateNode, TeleReq, AllReqs, AnyReq, Free, Connection, Placeholder}
 import scala.io.Source
 import scala.util.parsing.input.{NoPosition, Position, Reader}
 package AreaParser {
@@ -159,19 +159,20 @@ package AreaParser {
         })
         def tpReq: Parser[Requirement] = accept("teleporterName", {
           case IDENTIFIER("BurrowsTP") => TeleReq(0)
-          case IDENTIFIER("ReachTP") => TeleReq(2)
           case IDENTIFIER("WellspringTP") => TeleReq(3)
+          case IDENTIFIER("ReachTP") => TeleReq(4)
           case IDENTIFIER("HollowTP") => TeleReq(5)
+          case IDENTIFIER("DepthsTP") => TeleReq(6)
           case IDENTIFIER("WestWastesTP") => TeleReq(9)
           case IDENTIFIER("EastWastesTP") => TeleReq(10)
           case IDENTIFIER("WillowTP") => TeleReq(12)
-          case IDENTIFIER("DepthsTP") => TeleReq(6)
         })
         def oreReq: Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
         def energyReq: Parser[Requirement] = IDENTIFIER("Energy") ~> assign ^^ { case ASSIGN(cnt) => EnergyReq(cnt)}
         def damageReq: Parser[Requirement] = IDENTIFIER("Damage") ~> assign ^^ { case ASSIGN(cnt) => HealthReq(cnt)}
+        def unreachable: Parser[Requirement] = IDENTIFIER("Unreachable") ^^^ Invalid
         def stateReq: Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
-        val simpleReq = skillReq | damageReq | energyReq | oreReq | tpReq | stateReq
+        val simpleReq = skillReq | damageReq | energyReq | oreReq | tpReq | unreachable | stateReq
         val orReq: Parser[Requirement] = rep1sep(simpleReq, OR) ^^ { case s => AnyReq(s:_*) }
         val reqRHS: Parser[Requirement] = "reqRHS" !!! (rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => AllReqs(head :+ last:_*) }) | free
         def diffReq: Parser[Requirement] = "diffReq" !!! accept("diff", {
@@ -205,13 +206,12 @@ package AreaParser {
         val unusedMacros = macros.filterNot(mc => stateReqs.map(st => st.name).contains(mc._1)).toSet
         if(unusedMacros.nonEmpty)
           println(s"unused macros: $unusedMacros")
-        val macroArea = Area("Virtual.Macros", macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq)
-        val withFixedItems = areas.map(area => Area(area.name, area.conns.flatMap({
-          case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name).map(Connection(_, reqs))
-          case c => Some(c)
-        })))
-
-        (macroArea +: withFixedItems).map(a => a.name -> a).toMap
+        val macroConns = macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq
+        areas.map({
+          // is there a less messy way to do this substitution? probably. do i care? fuck no
+          case Area(Area.SPAWN, conns) => Area.SPAWN -> Area(Area.SPAWN, conns ++ macroConns)
+          case area => area.name -> area
+        }).toMap
       }
 
       def runP[T](tokens: Seq[AreasToken], p: Parser[T]) = {
