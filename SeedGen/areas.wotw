@@ -633,6 +633,12 @@ area WestGlades.Upper:  # (-628, -4056) At the waypoint
     base: Grapple, DoubleJump OR Dash OR Glide OR Launch
   pickup WestGlades.UpperPoolEX:
     base: Water
+  pickup WestGlades.RightOre:
+    base:
+      Bash, DoubleJump OR Dash
+      Glide, DoubleJump OR Dash
+      DoubleJump, Dash
+      Launch
 
   conn WestGlades.Lower:
     base:
