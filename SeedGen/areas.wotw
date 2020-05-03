@@ -129,6 +129,10 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: WillowTP
 
 area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, burrows and marsh
+  pickup MarshSpawn.CaveOre:
+    base:
+      DoubleJump OR Launch
+      Bash, Grenade=1
   pickup MarshSpawn.CaveKS: free  # all other pickups in the cave require a weapon; and with a weapon you can go around instead
   pickup MarshSpawn.BurrowOre:
     base, EnemyObstacle: 
