@@ -164,6 +164,15 @@ namespace RandoMainDLL {
       "Caveat emptor!",
     };
 
+    private static Dictionary<AbilityType, float> weaponCostMods = new Dictionary<AbilityType, float>();
+    private static Dictionary<ShardType, float> shardCostMods = new Dictionary<ShardType, float>();
+
+    public static void SetCostMod(AbilityType type, float multi) => weaponCostMods[type] = multi;
+    public static void SetCostMod(ShardType type, float multi) => shardCostMods[type] = multi;
+
+    public static float GetCostMod(AbilityType type) => weaponCostMods.ContainsKey(type) ? weaponCostMods[type] : 0f;
+    public static float GetCostMod(ShardType type) => shardCostMods.ContainsKey(type) ? shardCostMods[type] : 0f;
+
     [DllExport]
     public static void OpherBuyWeapon(AbilityType slot) {
       Sellable item = SeedController.OpherWeapon(slot);
@@ -187,8 +196,6 @@ namespace RandoMainDLL {
       return cnt > 0;
     }
 
-    [DllExport]
-    public static bool OpherBoughtWeapon(AbilityType granted) => SaveController.Data.OpherSold.Contains(granted);
 
     [DllExport]
     public static void TwillenBuyShard(ShardType slot) {
@@ -202,14 +209,16 @@ namespace RandoMainDLL {
       item.Grant();
       return;
     }
+    [DllExport]
+    public static bool OpherBoughtWeapon(AbilityType granted) => SaveController.Data.OpherSold.Contains(granted);
 
     [DllExport]
     public static bool TwillenBoughtShard(ShardType shard) => SaveController.Data.TwillenSold.Contains(shard);
 
     [DllExport]
-    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).DefaultCost();
+    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(GetCostMod(shard));
 
     [DllExport]
-    public static int OpherWeaponCost(AbilityType ability) => SeedController.OpherWeapon(ability).DefaultCost();
+    public static int OpherWeaponCost(AbilityType ability) => SeedController.OpherWeapon(ability).CostWithMod(GetCostMod(ability));
   }
 }

@@ -123,6 +123,7 @@ namespace RandoMainDLL {
           case "reload":
             if (FramesTillUnlockReload == 0) {
               SeedController.ReadSeed();
+              Randomizer.Memory.OnInit();
               FramesTillUnlockReload = 60;
             }
             break;

@@ -22,6 +22,9 @@ DELETEME := INSTALL_DIR . ".deleteme"
 FileCreateDir %INSTALL_DIR%
 FileCreateDir, %LIB_DIR%
 
+FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
+FileRead, MY_VER, %INSTALL_DIR%.VERSION
+
 FILE_SIZE := 48
 batch=
 (
@@ -29,9 +32,16 @@ assoc .wotwr=WotwRando
 ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
-
-if(FileExist(WOTWREXE)) {
-	if(A_ScriptName == "WotwRando.new.exe") {
+if(FileExist(INSTALL_DIR . "VERSION")) {
+	FileRead, INSTALL_VER, %INSTALL_DIR%VERSION
+	if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and  semver_compare(MY_VER, INSTALL_VER) == 1)) {
+		; some people will do this, so...
+		if(A_ScriptFullPath == WOTWREXE)
+		{
+			FileCopy,%A_ScriptFullPath%, %NEWWOTWR%
+			Run, *RunAs %NEWWOTWR% %1% %2% %3% %4%
+			ExitApp
+		}
 		; we're updating if the file already exists
 		gosub, WriteIniDefaults
 		gosub, ExtractFiles
@@ -45,6 +55,7 @@ if(FileExist(WOTWREXE)) {
 		FileDelete, %TPath%
 		FileDelete, %DELETEME%
 	}
+FileDelete, %INSTALL_DIR%.VERSION
 } else {
 	; installation code
 	Msgbox 4, Ori WOTW Randomizer Installer, Press Yes to install the WOTW Randomizer into %INSTALL_DIR%
@@ -118,7 +129,6 @@ if(skipUpdate == "false")
 		whr.Send() ; second
 
 		latest := whr.ResponseText
-		FileRead, MY_VER, %INSTALL_DIR%VERSION
 		if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
 		{
 			SplashTextOff

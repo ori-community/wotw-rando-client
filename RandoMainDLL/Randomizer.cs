@@ -163,6 +163,8 @@ namespace RandoMainDLL {
     [DllExport]
     public static void OnTree(AbilityType ability) {
       SaveController.Data.TreesActivated.Add(ability);
+      Memory.FillEnergy();
+      Memory.FillHealth();
       SeedController.OnTree(ability);
     }
 

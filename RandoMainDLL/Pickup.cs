@@ -158,6 +158,8 @@ namespace RandoMainDLL {
 
   public abstract class Sellable : Pickup {
     public abstract int DefaultCost();
+    public virtual float ModEffectiveness() => 1.0f;
+    public virtual int CostWithMod(float mod) => Convert.ToInt32(DefaultCost() * (1f + mod * ModEffectiveness()));
   }
 
   public class Teleporter : Sellable {
@@ -209,13 +211,9 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
 
-    public override int DefaultCost() {
-      if (type == AbilityType.Blaze) {
-        return 420; // :3
-      }
+    public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
+    public override float ModEffectiveness() => (type == AbilityType.Blaze) ? 0f : 1f;
 
-      return 500;
-    }
     public override void Grant(bool squelch = false) {
       base.Grant(squelch);
       Randomizer.Memory.SetAbility(type);

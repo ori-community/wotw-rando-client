@@ -295,20 +295,28 @@ package SeedGenerator {
     def spawn: Area = areas("MarshSpawn.Main")
   }
 
-  case class ItemPlacement(item: Item, loc: ItemLoc) {
-    val code = loc.data.code
+  trait Placement {
+    def loc: ItemLoc
+    def item: Item
+    def code = loc.data.code
+    def data = s"${loc.data.code}|${item.code}"
     def write: String = {
-      val data = s"${loc.data.code}|${item.code}"
       val padding = " " * (25 - data.size)
       s"$data$padding// ${item.name} from ${loc.data.info}"
     }
   }
+  case class ItemPlacement(item: Item, loc: ItemLoc) extends Placement
+
+  case class ShopPlacement(item: Sellable, loc: ItemLoc, multi: Int) extends Placement {
+    override val data = s"${loc.data.code}|${item.code}|${multi/100f}"
+  }
+
 
   case class GeneratorError(message: String) extends Error {
     override def toString: String = s"GeneratorError: $message"
   }
 
-  case class PlacementGroup(outState: GameState, placements: Seq[ItemPlacement], i: Int)(implicit r: Random, pool: Inv) {
+  case class PlacementGroup(outState: GameState, placements: Seq[Placement], i: Int)(implicit r: Random, pool: Inv) {
     def write: String = /*(" " * 25) + s"// $i, prog: ${prog.toString.replace("Inv: ","")}\n" + */placements.map(_.write).mkString("\n")
     def next() = {
       PlacementGroup.mk(outState, i + 1)
@@ -401,7 +409,7 @@ package SeedGenerator {
       val (shopIter, nonShopIter) = (shopLocs.iterator, nonShopLocs.iterator)
 
       val placements = r.shuffle(placedItems).map({
-          case s: Sellable if shopIter.hasNext => ItemPlacement(s, shopIter.next())
+          case s: Sellable if shopIter.hasNext => ShopPlacement(s, shopIter.next(), r.between(-30, 20))
           case p if nonShopIter.hasNext => ItemPlacement(p, nonShopIter.next())
           case i => throw GeneratorError(s"Placement of $i failed; one of the iterators ran out! ${shopIter.toSeq}  ${nonShopIter.toSeq}" +
             s". Was placing $placedItems into ${locs.map(_.name)}")
@@ -450,154 +458,31 @@ package SeedGenerator {
     }
 }
 
-case class Distro(sl: Int = 0, hc: Int = 0, ec: Int = 0, ore: Int = 0, sks: Int = 0)
+  case class Distro(sl: Int = 0, hc: Int = 0, ec: Int = 0, ore: Int = 0, sks: Int = 0)
 
-object Tracking {
-  var areas: mutable.Map[String, Distro] = mutable.Map()
-  def incAreas(item: Item, location: LocData): Unit = {
-    if (areas == null)
-      areas = mutable.Map()
-    val cur = areas.getOrElse(location.zone, Distro())
-    item match {
-      case _: SpiritLight => areas(location.zone) = Distro(cur.sl + 1, cur.hc, cur.ec, cur.ore, cur.sks)
-      case _: Health => areas(location.zone) = Distro(cur.sl, cur.hc + 1, cur.ec, cur.ore, cur.sks)
-      case _: Energy => areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec + 1, cur.ore, cur.sks)
-      case _: Ore => areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec, cur.ore + 1, cur.sks)
-      case _: Skill => areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec, cur.ore + 1, cur.sks + 1)
-      case _ => None
+  object Tracking {
+    var areas: mutable.Map[String, Distro] = mutable.Map()
+    def incAreas(item: Item, location: LocData): Unit = {
+      if (areas == null)
+        areas = mutable.Map()
+      val cur = areas.getOrElse(location.zone, Distro())
+      item match {
+        case _: SpiritLight => areas(location.zone) = Distro(cur.sl + 1, cur.hc, cur.ec, cur.ore, cur.sks)
+        case _: Health => areas(location.zone) = Distro(cur.sl, cur.hc + 1, cur.ec, cur.ore, cur.sks)
+        case _: Energy => areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec + 1, cur.ore, cur.sks)
+        case _: Ore => areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec, cur.ore + 1, cur.sks)
+        case _: Skill => areas(location.zone) = Distro(cur.sl, cur.hc, cur.ec, cur.ore + 1, cur.sks + 1)
+        case _ => None
+      }
     }
   }
-}
-object ItemPool {
-  lazy val ITEM_COUNT: Int = 340
-  def build(size: Int = ITEM_COUNT)(implicit r: Random) = {
-    val pool = new Inv(Health() -> 24, Energy() -> 24, Ore() -> 39, ShardSlot() -> 5) +
-      Inv.mk(Shard.poolItems:_*) + Inv.mk(Skill.poolItems:_*) + Inv.mk(Teleporter.poolItems:_*)
-    while(pool.count < size) pool.add(SpiritLight(r.between(50, 150)))
-    pool
+  object ItemPool {
+    lazy val ITEM_COUNT: Int = 340
+    def build(size: Int = ITEM_COUNT)(implicit r: Random) = {
+      val pool = new Inv(Health() -> 24, Energy() -> 24, Ore() -> 39, ShardSlot() -> 5) +
+        Inv.mk(Shard.poolItems:_*) + Inv.mk(Skill.poolItems:_*) + Inv.mk(Teleporter.poolItems:_*)
+      while(pool.count < size) pool.add(SpiritLight(r.between(50, 150)))
+      pool
+    }
   }
-}
-
-
-
-/*    def run(n: Int = 0, name_base: String = "seed", outputFolder: String = ""): Unit = {
-      // Creating a file
-      val itemPool = getItemPool()
-
-      var locs = itemLocs
-      while (locs.size > itemPool.count) itemPool.add(SpiritLight(Random.between(50, 150)))
-      val playerState = GameState.Empty
-      val dirPath = if (outputFolder != "") s"seeds/${outputFolder}" else "seeds"
-      val dir = new File(dirPath)
-      if (!dir.exists())
-        dir.mkdirs()
-      val file = new File(s"${dirPath}/${name_base}_${n}.wotwr")
-      val bw = new BufferedWriter(new FileWriter(file))
-      var balanceAreas = Seq[LocData]()
-      var balanceItems = Seq[Item]()
-      var totalSpiritLight = 0
-
-      def assign(item: Item, loc: LocData): Unit = item match {
-        case _: Skill => assignNow(item, loc)
-        case _: Teleporter => assignNow(item, loc)
-        case SpiritLight(count) =>
-          totalSpiritLight += count
-          assignLater(item, loc)
-        case _ => assignLater(item, loc)
-      }
-
-      def assignLater(item: Item, loc: LocData): Unit = {
-        balanceAreas = balanceAreas ++ Seq(loc)
-        balanceItems = balanceItems ++ Seq(item)
-      }
-
-      def itsLater = for {(item, area) <- Random.shuffle(balanceItems) zip Random.shuffle(balanceAreas)} assignNow(item, area)
-
-      def write(item: Item, loc: LocData): Unit = {
-        val data = s"${loc.code}|${item.code}"
-        val padding = " " * (20 - data.size)
-        bw.write(s"$data$padding// ${item.name} from ${loc.info} \n")
-      }
-
-      def assignNow(item: Item, loc: LocData): Unit = {
-        incAreas(item, loc)
-        write(item, loc)
-      }
-
-      def randItem = itemPool.popRand().map({ a => playerState.inv.add(a); a }).getOrElse({
-        println("Had to pull extra spirit light")
-        SpiritLight(Random.between(50, 200))
-      })
-
-      def randShop = itemPool.popSellable().map({ a => playerState.inv.add(a); a }).getOrElse({
-        val stolen = balanceItems.collectFirst({ case i: Sellable => i })
-        stolen match {
-          case Some(s: Sellable) =>
-            balanceItems = balanceItems.filterNot(_ == s) ++ Seq(randItem)
-            if (balanceItems.size < balanceAreas.size)
-              balanceItems = balanceItems ++ (0 until balanceAreas.size - balanceItems.size).map(_ => s)
-            if (balanceItems.size != balanceAreas.size)
-              println(s"${file.getName}: balance mismatch!!! took $s from balanceItems (size ${balanceItems.size} vs BalanceAreas size: ${balanceAreas.size}")
-            s
-          case None =>
-            println(s"${file.getName}: Had to pull extra sellable! items: ${itemPool.filter({ case (_, c: Int) => c > 0 })} locs: $locs")
-            Health()
-        }
-      })
-          while (locs.nonEmpty) {
-          var reachables = locs.filter(_.reqs metBy playerState)
-          if (reachables.isEmpty) {
-            println(s"${file.getName}: Empty reachable! items: ${itemPool.filter({case (_, c: Int) => c > 0})} locs: $locs")
-            bw.close()
-            file.delete()
-            return
-          }
-          if (reachables.size < 5 && reachables.size < locs.size) {
-            maybeRand(locs.map(_.reqs.cheapestRemaining(playerState)).filter(_.count < reachables.size)) match {
-              case Some(items) => items.foreach({
-                case (item: Sellable, 1) if reachables.exists((i: LocData) => i.category == "Shop") =>
-                    val loc = maybeRand(reachables.filter(_.category == "Shop")).get
-                    playerState.add(item, 1)
-                    itemPool.take(item, 1)
-                    locs = locs.filterNot(_ == loc)
-                    reachables = reachables.filterNot(_ == loc)
-                    assign(item, loc)
-                case (item, 1) if reachables.exists((i: LocData) => i.category != "Shop") =>
-                    playerState.add(item, 1)
-                    itemPool.take(item, 1)
-                    val loc = maybeRand(reachables.filter(_.category != "Shop")).get
-                    locs = locs.filterNot(_ == loc)
-                    reachables = reachables.filterNot(_ == loc)
-                    assign(item, loc)
-                case (i: Item, 1) =>
-                  println(s"${file.getName()}: $i couldn't be placed in  ${reachables.map(_.category)}, deleting...")
-                  bw.close()
-                  file.delete()
-                  return
-
-                case (_: Item, 0) =>
-              })
-              case None =>
-                println(s"Aaaa: ${locs.map(_.reqs.cheapestRemaining(playerState))}")
-            }
-          }
-          maybeRand(reachables) match {
-            case Some(loc: LocData) if loc.category == "Shop" =>
-              locs = locs.filterNot(_ == loc)
-              reachables = reachables.filterNot(_ == loc)
-
-              assignNow(randShop, loc)
-            case Some(loc: LocData) => {
-              locs = locs.filterNot(_ == loc)
-              reachables = reachables.filterNot(_ == loc)
-              assign(randItem, loc)
-            }
-          }
-        }
-        itsLater
-        if(outputFolder.isBlank) {
-          println(totalSpiritLight)
-        }
-      bw.close()
-    }*/
 }

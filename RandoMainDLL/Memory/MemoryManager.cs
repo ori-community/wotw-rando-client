@@ -173,19 +173,37 @@ namespace RandoMainDLL.Memory {
       }
     }
 
-    public void FakeHalfHealth() {
-      Stats stats = PlayerStats;
-      stats.MaxHealth += 5;
-      stats.Health = stats.MaxHealth;
-      PlayerStats = stats;
+    // dumb little helper since this stuff is private
+    public void OnInit() {
+      // no-op when not testing V:
     }
-
     public void FakeHalfEnergy() {
       Stats stats = PlayerStats;
       stats.MaxEnergy += 0.5f;
-      stats.Energy = stats.MaxEnergy;
+      PlayerStats = stats;
+      FillEnergy();
+    }
+
+    public void FakeHalfHealth() {
+      Stats stats = PlayerStats;
+      stats.MaxHealth += 5;
+      PlayerStats = stats;
+      FillHealth();
+    }
+    public void FillHealth() {
+      Stats stats = PlayerStats;
+      stats.Health = stats.MaxHealth + MaxHealthBonus;
       PlayerStats = stats;
     }
+    public void FillEnergy() {
+      Stats stats = PlayerStats;
+      stats.Energy = stats.MaxEnergy + MaxEnergyBonus;
+      PlayerStats = stats;
+    }
+    // Characters.Sein.Mortality.Health.m_maxHealthBonus
+    public float MaxHealthBonus { get => Characters.Read<float>(Program, 0xb8, 0x10, 0x88, 0x18, 0x68); }
+    // Characters.Sein.Energy.m_maxEnergyBonus
+    public float MaxEnergyBonus { get => Characters.Read<float>(Program, 0xb8, 0x10, 0x80, 0x54); }
 
     // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_keystones
     public int Keystones {
