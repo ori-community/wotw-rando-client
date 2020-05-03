@@ -235,7 +235,17 @@ package SeedGenerator {
       take(i)
       Some(i)
     }
-
+    def popProbableProgression(implicit r: Random): Option[Item] = {
+      val probableProgression = asSeq.collect({
+        case Skill(num) if !Set(106, 108, 120, 121, 115).contains(num) => Skill(num)
+        case Teleporter(num) if Set(0, 3, 4, 5, 6, 9, 10, 12).contains(num) => Teleporter(num)
+      })
+      if (probableProgression.isEmpty)
+        return popRand
+      val i = probableProgression(r.nextInt(probableProgression.size))
+      take(i)
+      Some(i)
+    }
     def +(other: Inv): Inv = {
       new Inv((other.keys ++ keys).toSeq.map({ (i: Item) => (i, Math.max(this (i), other(i))) }): _*)
     }

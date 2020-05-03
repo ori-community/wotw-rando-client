@@ -85,13 +85,15 @@ area MarshSpawn.Main:                  # (-800, -4320) spawn location / inkwater
     base: Weapon
   # teleporter connections
   # TODO: add the rest of these
+  conn LowerReach.Teleporter:
+    base: ReachTP
   conn EastHollow:
     base: HollowTP
   conn MidnightBurrows:
     base: BurrowsTP
   conn LowerWastes.WestTP:
     base: WestWastesTP
-  conn UpperWastes.EastTP:
+  conn LowerWastes.EastTP:
     base: EastWastesTP
   conn WillowsEnd.TPandAbove:
     base: WillowTP
@@ -1129,7 +1131,7 @@ area WoodsMain:  # (819, -4191) Where you find Ku
     base: Glide, Flap, DoubleJump
   pickup WoodsMain.FeedingGroundsEX:
     base: Glide, Flap, DoubleJump, Grapple, Burrow
-  conn LowerWastes: # TODO: deleteme
+  conn LowerWastes.WestTP: # TODO: deleteme?
     base: Glide, DoubleJump, Grapple, Bash, Dash
 
 area LowerReach.Entry:  # (-395, -4026) Behind Baur
@@ -1609,7 +1611,8 @@ area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
       DoubleJump, Grapple
       Bash, Grenade=1, DoubleJump OR Dash
       Launch
-
+  conn WeepingRidge: # TODO: deleteme
+    base: Launch, Wisps, Bash, Glide, Dash, DoubleJump
 area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
   pickup LowerWastes.TrialStart:
     base: Burrow
@@ -1741,7 +1744,7 @@ area LowerWastes.LeverArea:  # (1838, -3959) At the arrow sign below the lever
       Grapple, Launch
       LowerWastes.SandPlatformLever, DoubleJump, Grapple, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
       LowerWastes.SandPlatformLever, Grapple, Dash, Glide, Burrow  # This path is fun. Glide is just to make it base safe
-  conn LowerWastes.MinesEntrace:
+  conn LowerWastes.MinesEntrance:
     base: EnemyObstacle, DoubleJump OR Dash OR Glide OR Grapple OR Launch
   conn LowerWastes.EastTP:
     base: Burrow
@@ -1817,12 +1820,12 @@ area LowerWastes.UpperPath:  # (1728, -3906) Middle of the sand to the left of U
 
   conn LowerWastes.TreeArea:
     base: Burrow
-  conn UpperWastes.EastTP:
+  conn LowerWastes.EastTP:
     base:
       Burrow, DoubleJump OR Dash OR Launch
       Burrow, Bash, Grenade=1
 
-area UpperWastes.EastTP: # ((1992, -3902) Location of the east teleporter
+area LowerWastes.EastTP: # ((1992, -3902) Location of the east teleporter
   pickup LowerWastes.EastTPOre:
     base:
       Weapon OR Grenade=1:  # no one will notice
@@ -1855,7 +1858,7 @@ area UpperWastes.KSDoor:  # (1900, -3831) Autosave underneath keystone door
       DoubleJump, Bash, Grenade=1
       Launch
 
-  conn UpperWastes.EastTP:
+  conn LowerWastes.EastTP:
     base: Burrow, DoubleJump OR Dash OR Glide OR Launch
   conn UpperWastes.MissilePuzzleLeft:
     base: Burrow, DoubleJump OR Dash OR Glide OR Launch
@@ -2011,7 +2014,7 @@ area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
     base: WindtornRuins.EscapeComplete, Burrow
   # pickup WindtornRuins.AncientMapPedestal:
   #   base: free  # At least, this will be free if it ever becomes a pickup.
-  conn RuinsEscape:
+  conn WindtornRuins.RuinsEscape:
     base: free  # walk over the invisible sandworm
   conn WindtornRuins.RuinsTP:
     base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
@@ -2021,7 +2024,7 @@ area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
       Launch
   # connection to upper should be redundant with the conn to tp?
 
-  conn LowerWastes.MinesEntranceLower:
+  conn LowerWastes.MinesEntrance:
     base: Burrow, Weapon
 
 area WeepingRidge:  # (1191, -3716) After the portal at the top of Elevator
