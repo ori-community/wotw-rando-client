@@ -46,12 +46,12 @@
     <PlatformTarget>x64</PlatformTarget>
     <DllExportOrdinalsBase>1</DllExportOrdinalsBase>
     <DllExportGenExpLib>false</DllExportGenExpLib>
-    <DllExportOurILAsm>false</DllExportOurILAsm>
+    <DllExportOurILAsm>true</DllExportOurILAsm>
     <DllExportSysObjRebase>false</DllExportSysObjRebase>
     <DllExportLeaveIntermediateFiles>false</DllExportLeaveIntermediateFiles>
     <DllExportTimeout>30000</DllExportTimeout>
     <DllExportPeCheck>3</DllExportPeCheck>
-    <DllExportPatches>0</DllExportPatches>
+    <DllExportPatches>1</DllExportPatches>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoHotkey.Interop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AHK.cs" />
+    <Compile Include="RVAFinder.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="ShopController.cs" />
     <Compile Include="SaveController.cs" />
@@ -117,8 +118,20 @@
       <Visible>false</Visible>
       <Wz>1</Wz>
     </PackageReference>
+    <PackageReference Include="ilmerge">
+      <Version>3.0.29</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+  </ItemGroup>
+  <Target Name="Merging" BeforeTargets="DLLExportMod">
+    <Copy SourceFiles="$(DllExportMetaLibFullPath)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+    <!-- the ILMergePath property points to the location of ILMerge.exe console application -->
+    <Exec Command="$(ILMergeConsolePath) /zeroPeKind /ndebug /out:$(TargetFileName) $(TargetFileName) lib\AutoHotkey.Interop.dll lib\Newtonsoft.Json.dll" WorkingDirectory="$(TargetDir)" ContinueOnError="true" />
+    <Delete Files="$(TargetDir)$(DllExportMetaLibName)" ContinueOnError="true" />
+  </Target>
   <ImportGroup Label=".NET DllExport">
     <Import Project="$(SolutionDir)packages\DllExport.1.7.0\tools\net.r_eg.DllExport.targets" Condition="Exists($([MSBuild]::Escape('$(SolutionDir)packages\DllExport.1.7.0\tools\net.r_eg.DllExport.targets')))" Label="8337224c9ad9e356" />
   </ImportGroup>

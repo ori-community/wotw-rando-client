@@ -30,6 +30,7 @@ namespace RandoMainDLL {
 
         AHK.Init();
         SeedController.ReadSeed();
+        RVAFinder.Init();
         Memory = new MemoryManager();
         if (!Memory.HookProcess()) {
           return false;
@@ -46,6 +47,7 @@ namespace RandoMainDLL {
 
     [DllExport]
     public static int Update() {
+      RVAFinder.Update();
       try {
         if (!Memory.IsHooked) {
           Memory.HookProcess();

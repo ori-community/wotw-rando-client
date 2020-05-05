@@ -10,10 +10,10 @@ namespace Injector {
     private static readonly IntPtr StaticZero = (IntPtr)0;
     public static string InstallRoot = "C:\\moon\\";
     public static string DllPath => $"{InstallRoot}InjectDLL.dll";
-    public static string LibDir => $"{InstallRoot}lib";
-    public static string ExeName = "oriwotw";
-    public static string ExePath = "C:\\Program Files (x86)\\Steam\\Steam.exe";
-    public static string ExeArgs = "-applaunch 1057090";
+    public static bool WinStore = false;
+    public static string ExeName => WinStore ? "oriandthewillofthewisps-pc" : "oriwotw";
+    public static string WinTitle => "OriAndTheWilloftheWisps";
+
     public static bool DevMode = true;
 
     public static void Log(string message) { // doing it like this so we can change it later
@@ -71,25 +71,20 @@ namespace Injector {
       NativeMethods.CloseHandle(Window);
       return;
     }
+    static int GetOriWindow() => NativeMethods.FindWindow(null, WinTitle);
 
     static void Main(string[] args) {
       try {
         if (args.Length > 0) {
           DevMode = args[0] != "false";
-          ExePath = args.Length > 1 ? args[1] : ExePath;
-          InstallRoot = args.Length > 2 ? args[2] : InstallRoot;
-          ExeArgs = args.Length > 3 ? string.Join(" ", args.Skip(3)) : ExeArgs;
+          WinStore = (args.Length > 1) && args[1] != "false";
         }
         if (DevMode) {
-          Console.WriteLine($"{string.Join(" ", args)} -> {DevMode} {ExePath}");
-        }
-
-        if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") == 0) {
-          Process.Start(ExePath, ExeArgs);
+          Console.WriteLine($"{string.Join(" ", args)} -> {DevMode} {WinStore}");
         }
 
         for (var i = 0; i < 30; i++) {
-          if (NativeMethods.FindWindow(null, "OriAndTheWillOfTheWisps") != 0) {
+          if (GetOriWindow() != 0) {
             break;
           }
 
@@ -104,13 +99,6 @@ namespace Injector {
             Log("proc not found, can't do shit???");
             Thread.Sleep(2000);
             return;
-          }
-          foreach (string fileName in Directory.EnumerateFiles(LibDir)) {
-            string resourcePath = proc.MainModule.FileName.Replace("oriwotw.exe", "") + fileName.Replace($"{LibDir}\\", "");
-            if (!File.Exists(resourcePath)) {
-              File.Copy(fileName, resourcePath);
-              Log($"Installed {fileName} into {resourcePath}");
-            }
           }
           Inject(proc);
           if (DevMode) {
