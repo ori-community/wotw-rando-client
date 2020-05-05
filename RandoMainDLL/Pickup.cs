@@ -14,6 +14,13 @@ namespace RandoMainDLL {
     Teleporter,
     Message,
     Multi,
+    UberState,
+    WorldEvent
+  }
+
+  public enum WorldEventType : byte {
+    [Description("Clean Water")]
+    Water
   }
 
   public enum TeleporterType : byte {
@@ -70,7 +77,7 @@ namespace RandoMainDLL {
 
   public abstract class Pickup {
     public int Frames = 240;
-    public virtual bool NonEmpty() => false;
+    public virtual bool NonEmpty() => true;
     public abstract PickupType Type { get; }
 
     public virtual void Grant(bool squelch = false) {
@@ -78,7 +85,6 @@ namespace RandoMainDLL {
         AHK.Print(ToString(), Frames);
       }
     }
-
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
       if (this is Multi multi) {
@@ -105,15 +111,23 @@ namespace RandoMainDLL {
     public abstract override string ToString();
   }
 
+  public class UberStatePickup : Pickup {
+    public readonly UberState State;
+    public override PickupType Type => PickupType.UberState;
+    public UberStatePickup(UberState state) => State = state;
+    public override void Grant(bool squelch = false) {
+      Randomizer.Memory.WriteUberState(State);
+    }
+    public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
+  }
+
   public class Multi : Pickup {
     public Multi(List<Pickup> children) {
       Children = children;
     }
 
     public static Multi Empty => new Multi(new List<Pickup>());
-
     public List<Pickup> Children;
-
     public override PickupType Type => PickupType.Multi;
 
     public override bool NonEmpty() => Children.Count > 0;
@@ -163,9 +177,8 @@ namespace RandoMainDLL {
   }
 
   public class Teleporter : Sellable {
-    public Teleporter(TeleporterType teleporter) {
-      type = teleporter;
-    }
+    public Teleporter(TeleporterType teleporter) => type = teleporter;
+    
 
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
@@ -204,9 +217,7 @@ namespace RandoMainDLL {
   }
 
   public class Ability : Sellable {
-    public Ability(AbilityType ability) {
-      type = ability;
-    }
+    public Ability(AbilityType ability) => type = ability;
 
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
@@ -223,9 +234,7 @@ namespace RandoMainDLL {
   }
 
   public class Shard : Sellable {
-    public Shard(ShardType shard) {
-      type = shard;
-    }
+    public Shard(ShardType shard) => type = shard;
 
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
@@ -240,27 +249,43 @@ namespace RandoMainDLL {
   }
 
   public class Cash : Pickup {
-    public Cash(int amount) {
-      this.amount = amount;
-    }
+    public Cash(int amount) => Amount = amount;
 
     public override PickupType Type => PickupType.SpiritLight;
-    public readonly int amount;
+    public readonly int Amount;
 
     public override void Grant(bool squelch = false) {
       base.Grant(squelch);
-      Randomizer.Memory.Experience += amount;
+      Randomizer.Memory.Experience += Amount;
     }
 
     private static readonly List<string> MoneyNames = new List<string>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks" };
 
-    public override string ToString() => $"{amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
+    public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
+  }
+  public class WorldEvent : Sellable {
+    public WorldEvent(WorldEventType ev) => type = ev;
+
+    public override PickupType Type => PickupType.WorldEvent;
+    public readonly WorldEventType type;
+
+    public override int DefaultCost() => 400;
+
+    public override void Grant(bool squelch = false) {
+      base.Grant(squelch);
+      switch (type) {
+        case WorldEventType.Water:
+          Randomizer.Memory.WriteUberState(new UberState() { Name = "cleanseWellspringQuestUberState", ID = 34641, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedIntUberState, Value = new UberValue((int)4) });
+          Randomizer.Memory.WriteUberState(new UberState() { Name = "finishedWatermillEscape", ID = 12379, GroupName = "waterMillStateGroupDescriptor", GroupID = 37858, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) });
+          break;
+      }
+    }
+
+    public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
   }
 
   public class Resource : Sellable {
-    public Resource(ResourceType resource) {
-      type = resource;
-    }
+    public Resource(ResourceType resource) => type = resource;
 
     public override PickupType Type => PickupType.Resource;
     public readonly ResourceType type;
@@ -305,4 +330,5 @@ namespace RandoMainDLL {
 
     public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
   }
+
 }

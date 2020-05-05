@@ -74,7 +74,7 @@ namespace RandoMainDLL {
         dumpRVAs[method.Signature] = method.Address;
       }
     }
-    //[DllExport] 
+    [DllExport] 
     public static UInt64 rvaLookup(string sig, bool fromDump = false) {
       if (fromDump) {
         if (dumpRVAs.Count == 0) {
