@@ -11,7 +11,6 @@ SetWorkingDir, %A_ScriptDir%	; start where we at
 
 ; script variables
 INSTALL_DIR := "C:\moon\"
-LIB_DIR  := INSTALL_DIR . "lib\"
 INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
@@ -20,7 +19,6 @@ NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
 DELETEME := INSTALL_DIR . ".deleteme"
 
 FileCreateDir %INSTALL_DIR%
-FileCreateDir, %LIB_DIR%
 
 FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
 FileRead, MY_VER, %INSTALL_DIR%.VERSION
@@ -55,26 +53,28 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 		FileDelete, %TPath%
 		FileDelete, %DELETEME%
 	}
-FileDelete, %INSTALL_DIR%.VERSION
+	FileDelete, %INSTALL_DIR%.VERSION
 } else {
 	; installation code
-	Msgbox 4, Ori WOTW Randomizer Installer, Press Yes to install the WOTW Randomizer into %INSTALL_DIR%
-
+	Msgbox 4, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR% ?
 	IfMsgBox No
 	{
 		Msgbox Exiting without installing
 		ExitApp
 	}
 	gosub, WriteIniDefaults
-	if(not FileExist(SteamPath)) {
-		Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. Locate manually?
-		IfMsgBox No
+	winStoreOri:=ComObjCreate("WScript.Shell").Exec("powershell -command  foreach ($app in get-AppxPackage) { if($app.Name -eq 'Microsoft.Patagonia') { echo yes } } ").StdOut.ReadAll()
+	if(InStr(winStoreOri, "yes")) {
+		Msgbox 4, Ori WOTW Randomizer Installer, Windows Store version of WotW found. `nInstall Wotw Rando for windows store?
+		IfMsgBox Yes
 		{
-			Msgbox Exiting; install incomplete
-			ExitApp
+			WinStore := "true"
+			IniWrite, %WinStore%, %INI_FILE%, Flags, UseWinStore
+		} else {
+			GoSub, CheckSteamPath
 		}
-		FileSelectFile, SteamPath, 1, Steam.exe, Please Select Steam File, *.exe
-		IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
+	} else {
+		GoSub, CheckSteamPath
 	}
 
 	SplashTextOn,,,Installing, please wait...
@@ -90,6 +90,7 @@ FileDelete, %INSTALL_DIR%.VERSION
 	FileAppend, %batch%, %INSTALL_DIR%associateFileTypes.bat
 	Run, *RunAs "%INSTALL_DIR%associateFileTypes.bat",
 	SplashTextOff
+	FileDelete, %INSTALL_DIR%.VERSION
 
 	Msgbox 4, Ori WOTW Randomizer Installer, Installation complete! Launch Game Now?
 	IfMsgBox No
@@ -179,7 +180,7 @@ if(argc > 0)  {
 	IfWinNotExist, OriAndTheWilloftheWisps 
 	{
 		SplashTextOn,400,, Launching Rando with current seed
-		Run, *RunAs %INJECTOR% %dev% "%SteamPath%",,%maybehide%
+		GoSub, LaunchGame
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 3000
 		SplashTextOff
@@ -191,6 +192,27 @@ if(argc > 0)  {
 }
 ExitApp
 
+CheckSteamPath:
+if(not FileExist(SteamPath)) {
+		Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. `nLocate manually?
+		IfMsgBox No
+	{
+		Msgbox Exiting; install incomplete
+		ExitApp
+	}
+	FileSelectFile, SteamPath, 1, Steam.exe, Please Select Steam File, *.exe
+	IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
+}
+return
+LaunchGame:
+if(WinStore == "false") 
+	Run, *RunAs %SteamPath% -applaunch 1057090
+else 
+	Run, *RunAs shell:AppsFolder\Microsoft.Patagonia_8wekyb3d8bbwe!App
+
+Run, *RunAs %INJECTOR% %dev% %WinStore%,,%maybehide%
+return
+
 ReadIniVals:
 IniRead, SkipUpdate, %INI_FILE%, Flags, SkipUpdate, false
 IniRead, SteamPath, %INI_FILE%, Paths, Steam, C:\Program Files (x86)\Steam\steam.exe
@@ -199,12 +221,14 @@ IniRead, MuteInjectLogs, %INI_FILE%, Flags, MuteInjectLogs, false
 IniRead, MuteCSLogs, %INI_FILE%, Flags, MuteCSLogs, false
 IniRead, ShowShortCutscenes, %INI_FILE%, Flags, ShowShortCutscenes, false
 IniRead, ShowLongCutscenes, %INI_FILE%, Flags, ShowLongCutscenes, false
+IniRead, WinStore, %INI_FILE%, Flags, UseWinStore, false
 return
 
 WriteIniDefaults:
 gosub ReadIniVals ; populate the ini values to avoid overwriting
-IniWrite, %SkipUpdate%, %INI_FILE%, Flags, SkipUpdate
 IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
+IniWrite, %WinStore%, %INI_FILE%, Flags, UseWinStore
+IniWrite, %SkipUpdate%, %INI_FILE%, Flags, SkipUpdate
 IniWrite, %Dev%, %INI_FILE%, Flags, Dev
 IniWrite, %MuteInjectLogs%, %INI_FILE%, Flags, MuteInjectLogs
 IniWrite, %MuteCSLogs%, %INI_FILE%, Flags, MuteCSLogs
@@ -214,8 +238,6 @@ return
 
 ExtractFiles:
 
-FileInstall, C:\moon\lib\AutoHotkey.Interop.dll, %LIB_DIR%AutoHotkey.Interop.dll, 1
-FileInstall, C:\moon\lib\Newtonsoft.Json.dll, %LIB_DIR%Newtonsoft.Json.dll, 1
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
