@@ -73,7 +73,6 @@ namespace RandoMainDLL {
         if (!AHK.IniFlag("ShowLongCutscenes")) {
           foreach (UberState s in LongCutscenes) { memory.WriteUberState(s); }
         }
-
         if (SeedController.GameStartPickup.NonEmpty()) {
           Randomizer.InputUnlockCallback = () => {
             SeedController.GameStartPickup.Grant();

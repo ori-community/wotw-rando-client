@@ -124,6 +124,8 @@ namespace RandoMainDLL {
             }
           }
           return new Message(messageParts[0], frames, squelch);
+        case PickupType.WorldEvent:
+          return new WorldEvent((WorldEventType)byte.Parse(pickupData));
         default:
           return new Message($"Unknown pickup ${pickupData}!!!");
       }

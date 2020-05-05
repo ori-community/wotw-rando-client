@@ -512,7 +512,7 @@ package SeedGenerator {
     lazy val ITEM_COUNT: Int = 340
     def build(size: Int = ITEM_COUNT)(implicit r: Random) = {
       val pool = new Inv(Health() -> 24, Energy() -> 24, Ore() -> 39, ShardSlot() -> 5) +
-        Inv.mk(Shard.poolItems:_*) + Inv.mk(Skill.poolItems:_*) + Inv.mk(Teleporter.poolItems:_*)
+        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)
       while(pool.count < size) pool.add(SpiritLight(r.between(50, 150)))
       pool
     }

@@ -40,13 +40,28 @@ package SeedGenerator {
   }
   case class Keystone(resourceType: Int = 3, name: String = "Keystone") extends Resource
   case class ShardSlot(resourceType: Int = 4, name: String = "Shard Slot") extends Resource
+
+  case class WorldEvent(eventId: Int) extends Item with Sellable {
+    val itemType: Int = 9
+    def code = s"$itemType|$eventId"
+    def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event ${eventId}")}"
+    override val cost = 5
+  }
+
+object WorldEvent {
+  val names: Map[Int, String] = Map(
+    0 -> "Water"
+  )
+  val poolItems = names.keys.map(WorldEvent(_)).toSeq
+}
+object Water extends WorldEvent(0)
+
   case class Skill(skillId: Int) extends Item with Sellable {
     val itemType: Int = 2
     def code = s"$itemType|${skillId}"
     def name: String = s"Skill ${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
     override val cost = 5
   }
-
   object Skill {
     val names: Map[Int, String] = Map(
       0 -> "Bash",
@@ -161,7 +176,8 @@ package SeedGenerator {
   case class WorldState(name: String) extends FlagState
   case class SeedGenState(name: String) extends FlagState // will become a series of case objects later
 
-  case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
+  case class GameState(inv: Inv, _flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
+    val flags = if(inv.has(Water)) _flags + WorldState("Water") else _flags
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def cost(implicit flagCosts: Map[FlagState, Double] = Map()) =  inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
     def canEqual(that: Any): Boolean = that.isInstanceOf[GameState]
