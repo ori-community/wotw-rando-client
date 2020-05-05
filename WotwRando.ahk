@@ -165,8 +165,8 @@ if(argc > 0)  {
 	FileCopy, %1%, %INSTALL_DIR%\.currentseed, 1
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
-		Run, *RunAs %INJECTOR% %dev% "%SteamPath%",,%maybehide%
 		SplashTextOn,550,, Launching Rando with Seed %FileName%
+		GoSub, LaunchGame
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 3000
 		SplashTextOff
