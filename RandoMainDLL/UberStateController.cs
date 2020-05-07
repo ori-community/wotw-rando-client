@@ -40,12 +40,10 @@ namespace RandoMainDLL {
           UberStates[key] = state.Clone();
         }
       }
-      if (!NeedsNewGameInit) {
-        Ready = true;
-      }
-      else {
+      if (NeedsNewGameInit) 
         NewGameInit();
-      }
+      else 
+        Ready = true;
     }
     
     private static bool ShouldRevert(UberState state) {

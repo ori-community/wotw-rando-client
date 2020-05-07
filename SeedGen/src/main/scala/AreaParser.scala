@@ -130,7 +130,7 @@ package AreaParser {
         val free: Parser[Requirement] =  FREE ^^^ Free
         def grenadeReq: Parser[Requirement] = IDENTIFIER("Grenade") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(51), EnergyReq(cnt))}
         def sentryReq: Parser[Requirement] = IDENTIFIER("Sentry") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(116), EnergyReq(cnt))}
-        def skillReq: Parser[Requirement] = grenadeReq | sentryReq | accept("skillName", {
+        def skillReq: Parser[Requirement] = grenadeReq | sentryReq |  accept("skillName", {
           case IDENTIFIER("Bash") => SkillReq(0)
           case IDENTIFIER("DoubleJump") => SkillReq(5)
           //   case IDENTIFIER("Torch") => SkillReq(99)
@@ -179,18 +179,18 @@ package AreaParser {
         def damageReq: Parser[Requirement] = IDENTIFIER("Damage") ~> assign ^^ { case ASSIGN(cnt) => HealthReq(cnt)}
         def unreachable: Parser[Requirement] = IDENTIFIER("Unreachable") ^^^ Invalid
         def stateReq: Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
-        val simpleReq = skillReq | damageReq | energyReq | oreReq | tpReq | unreachable | stateReq
-        val orReq: Parser[Requirement] = rep1sep(simpleReq, OR) ^^ { case s => AnyReq(s:_*) }
+        val simpleReq = (skillReq | damageReq | energyReq | oreReq | tpReq | unreachable | stateReq) <~ guard(not(COLON))
+        val orReq: Parser[Requirement] = "orReq" !!! (simpleReq <~ OR) ~ rep1sep(simpleReq, OR) ^^ { case first ~  rest => AnyReq(first :: rest:_*) }
         val reqRHS: Parser[Requirement] = "reqRHS" !!! (rep(simpleReq <~ COMMA) ~ (orReq | simpleReq) ^^ { case head ~ last => AllReqs(head :+ last:_*) }) | free
         def diffReq: Parser[Requirement] = "diffReq" !!! accept("diff", {
           case IDENTIFIER("base") => Free
           case IDENTIFIER("advanced") => StateReq("advanced")
         })
         def lhsSimpleReq = diffReq | damageReq | skillReq | stateReq
-        val reqLHS = "reqLHS" !!! (repsep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => AllReqs(reqs:_*)})
+        val reqLHS = "reqLHS" !!! (rep1sep(lhsSimpleReq, COMMA) <~ COLON ^^ { case reqs => AllReqs(reqs:_*)})
         val reqLine = "reqLine" !!! (reqLHS ~ (free | reqRHS)  ^^ {case lhs ~ rhs => lhs and rhs})
         val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ { case rhss => AnyReq(rhss:_*) }
-        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss => AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
+        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss =>  AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
         val reqLines = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ { case lines => AnyReq(lines:_*)}
         free | (indent ~> blanks.? ~> reqLines <~ dedent)
       }
