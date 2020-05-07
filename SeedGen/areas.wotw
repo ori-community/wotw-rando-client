@@ -125,7 +125,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: OuterRuinsTP
   conn WindtornRuins.RuinsTP:
     base: InnerRuinsTP
-  conn WillowsEnd.TPandAbove:
+  conn WillowsEnd.InnerTP:
     base: WillowTP
 
 area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, burrows and marsh
@@ -170,11 +170,11 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
       Launch
   pickup MidnightBurrows.UpperKS:
     base:
+      Launch
       EnemyObstacle:
         Glide
         DoubleJump, Dash
         Damage=15, DoubleJump OR Dash
-      Launch
 
   pickup MidnightBurrows.LowerKS:
     base:
@@ -516,8 +516,10 @@ area GladesTown:  # (-306, -4153) The glades teleporter
         Launch
         Bash, Grenade=1  # probably base?
   pickup GladesTown.BraveMokiHutEX:
-    base: GladesTown.OnwardsAndUpwards, Launch
-    advanced: GladesTown.OnwardsAndUpwards, DoubleJump, Bash, Grenade=1
+    base: 
+      GladesTown.OnwardsAndUpwards, Launch
+    advanced: 
+      GladesTown.OnwardsAndUpwards, DoubleJump, Bash, Grenade=1
   pickup GladesTown.FruitHammockEX:
     base:
       Launch, DoubleJump OR Dash OR Glide
@@ -1219,9 +1221,11 @@ area LowerReach.Entry:  # (-395, -4026) Behind Baur
       Launch
   pickup LowerReach.AboveBaurLowerEX:
     base:  # Using the mortar shooting from offscreen might be one of the intended strats? Wasn't considered for these paths
-      Grenade=1 OR LowerReach.LowerFurnace:  # these use a grenadebash if they can't use the unfrozen plant
+      LowerReach.LowerFurnace:  # these use a grenadebash if they can't use the unfrozen plant
         DoubleJump, Bash
         Dash, Bash, Glide  # not sure about this path's difficulty when the LowerFurnace is hot, might need state for cooling it
+      Bash, Grenade=1, DoubleJump
+      Bash, Grenade=1, Dash, Glide
       Bash, Grenade=2  # same as above, also this could maybe go in the above group? If you try to make the jump off the plant, you won't make it, but it will reliably trigger the mortar to shoot at you and makes it easy to catch. Decided against it because the player might not try that jump from eyesight
       Launch, DoubleJump OR Bash
   pickup LowerReach.AboveBaurUpperEX:
@@ -1826,7 +1830,7 @@ area LowerWastes.UpperPath:  # (1728, -3906) Middle of the sand to the left of U
 area LowerWastes.EastTP: # ((1992, -3902) Location of the east teleporter
   pickup LowerWastes.EastTPOre:
     base:
-      Weapon OR Grenade=1:  # no one will notice
+      Weapon:
         Burrow OR Launch
         DoubleJump, Bash, Grenade=1
         Bash, Grenade=3  # it had to be done
@@ -2035,28 +2039,116 @@ area WeepingRidge:  # (1191, -3716) After the portal at the top of Elevator
   pickup WeepingRidge.PortalEX:
     base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
 
-area WillowsEnd.Entry:  # (497, -3950) Inside the door from Weeping Ridge
-  pickup WillowsEnd.SpikesOre:
-    base: Launch, DoubleJump
-  pickup WillowsEnd.EntryEX:
-    base: Launch
-  pickup WillowsEnd.PoisonfallHC:
-    base: Launch, DoubleJump, Dash
-  conn WillowsEnd.TPandAbove: # TODO: deleteme
-    base: Launch, DoubleJump, Glide
+# BEGIN unvalidated willow's end region
 
-area WillowsEnd.TPandAbove:  # (420, -4834) The Lower Willows TP
-  pickup WillowsEnd.LupoMap: free
-  pickup WillowsEnd.WindSpinOre:
-    base: Launch, DoubleJump, Bash, Glide
+area WillowsEnd.Entry:  # (495, -3950) At the lower door
+  state WillowsEnd.TrapHeart:
+    base:
+      Weapon, Launch, DoubleJump, Dash, Bow OR Grenade=2  # ranged weapon to kill mines
+
+  state WillowsEnd.GrappleWheelsHeart:
+    base, Weapon:
+      Grapple, Launch, DoubleJump, Dash
+      Grapple, Launch, Glide
+
+  pickup WillowsEnd.SpikesOre:
+    base:
+      Launch, Dash OR Glide
+  pickup WillowsEnd.EntryEX:
+    base:
+      DoubleJump, Bash, Grenade=2
+      Launch
+  pickup WillowsEnd.PoisonfallHC:
+    base:
+      Grapple, Launch, DoubleJump, Dash
+      Grapple, Launch, Glide
+      WillowsEnd.GrappleWheelsHeart, DoubleJump, Bash, Grenade=2, Dash OR Glide
+      WillowsEnd.GrappleWheelsHeart, Launch
+
+  conn WillowsEnd.InnerTP:
+    base:
+      Launch, Bash, DoubleJump OR Dash OR Glide  # mine in the way, but I think it's managable
+  # this next conn is extra-unvalidated
+  conn WeepingRidge:
+    base:
+      Glide OR DoubleJump OR Launch  # any air movement will get you here, I think?
+
+area WillowsEnd.InnerTP:  # (421, -3864) The teleporter inside
+  pickup WillowsEnd.LupoMap:
+    base:
+      DoubleJump OR Dash OR Launch OR Grenade=1 OR Bow OR Spear OR Shuriken OR Blaze  # mine in the way
+
+  conn WillowsEnd.Entry:
+    base:
+      Weapon  # open the portal shortcut
+      DoubleJump, Dash
+      Glide OR Launch
+  conn WillowsEnd.East:
+    base:
+      DoubleJump, Bash, Grenade=1, Dash OR Glide
+      Launch, DoubleJump OR Dash
+
+area WillowsEnd.East:  # (547, -3804) To the left of the redirect puzzle
+  state WillowsEnd.RedirectHeart:
+    base: Weapon, DoubleJump, Bash, Launch
+
   pickup WillowsEnd.RedirectEX:
-    base: Launch, DoubleJump, Bash
+    base:
+      Weapon, Bash, Launch, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1, Launch
+
+  conn WillowsEnd.InnerTP:
+    base:
+      EnemyObstacle, Glide
+      Bash, DoubleJump, Dash
+      Launch, DoubleJump OR Dash OR Bash
+  conn WillowsEnd.Upper:
+    base: Bash, Launch  # some other paths would be possible, but with how far back the last checkpoint is...
+
+area WillowsEnd.West:  # (445, -3839) To the left of the one-way above Lupo
+  state WillowsEnd.SpinLasersHeart:
+    base: Weapon, Launch, DoubleJump OR Dash OR Glide
+  state WillowsEnd.GlideHeart:
+    base: Weapon, DoubleJump, Glide, Launch  # technically easy dboost without djump, but you already take so much damage in this place...
+
+  pickup WillowsEnd.WindSpinOre:
+    base: DoubleJump, Glide, Launch
+
+  conn WillowsEnd.InnerTP:
+    base: Weapon
+  conn WillowsEnd.Upper:
+    base, Weapon:
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Launch
+
+area WillowsEnd.Upper:  # (515, -3745) At the upper door
+  state WillowsEnd.ElementalDefeated:
+    base: Combat, Bash, Launch, DoubleJump OR Glide
+  state WillowsEnd.BurrowHeart:
+    base, Weapon:
+      Burrow, DoubleJump, Dash, Bash, Grapple, Glide
+      Burrow, Bash, Grapple, Launch, DoubleJump OR Glide
+  state WillowsEnd.SpinPortalsHeart:
+    base, Weapon:
+      Bash, Grapple, Launch, DoubleJump, Dash
+      Bash, Grapple, Launch, Glide
+
   pickup WillowsEnd.UpperLeftEX:
-    base: Launch, DoubleJump, Bash, Grapple
+    base: Grapple, Launch, DoubleJump OR Dash OR Glide
   pickup WillowsEnd.UpperRightEX:
-    base: Launch, DoubleJump, Bash, Grapple
-  conn WillowsEnd.Entry: # TODO: deleteme
+    base:
+      Bash, Grapple, Launch, DoubleJump, Dash
+      Bash, Grapple, Launch, Glide
+
+  conn WillowsEnd.East:
+    base: EnemyObstacle, DoubleJump OR Dash OR Bash OR Glide OR Launch
+  conn WillowsEnd.West:
     base: Launch
+
+area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
+  conn WillowsEnd.Upper: free
+
+# END unvalidated willow's end region
 
 area TwillenShop:
   pickup TwillenShop.Overcharge: free
