@@ -255,7 +255,7 @@ object Water extends WorldEvent(0)
       val probableProgression = asSeq.collect({
         case Skill(num) if !Set(106, 108, 120, 121, 115).contains(num) => Skill(num)
         case Teleporter(num) if Set(0, 3, 4, 5, 6, 9, 10, 12).contains(num) => Teleporter(num)
-      })
+      }) ++: Seq(Ore(), Health()).filter(has(_))
       if (probableProgression.isEmpty)
         return popRand
       val i = probableProgression(r.nextInt(probableProgression.size))

@@ -101,7 +101,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: BurrowsTP
   conn HowlsDen.Lower:
     base: DenTP
-  conn EastHollow:
+  conn EastHollow.Teleporter:
     base: HollowTP
   conn GladesTown.Main:
     base: GladesTP
@@ -324,7 +324,13 @@ area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with 
     base:
       Bow, DoubleJump, Dash, Bash, Glide
       Bow, Bash, Launch
-  conn WestHollow.HollowDrain: free
+  conn WestHollow.HollowDrainUpper:
+    base:
+      DoubleJump, Bow OR Dash OR Glide
+      Dash, Glide
+      Launch
+    advanced:
+      Bash, Glide  # bashglide off a slime
 
 # begin pools path needs validation area?
 area MarshPastOpher.PoolsPathEast:  # (-649, -4243)  On the wood sticking out of the ledge at the top left of the large room with Opher
@@ -376,79 +382,213 @@ area MarshPastOpher.PoolsPathWest:  # (-802, -4186)  Right on top of MarshPastOp
     advanced: Water, Grapple, Sword OR Hammer
 # end pools path needs validation area?
 
-area WestHollow.HollowDrain:  # (-244, -4276) First bit of land on the way to the 2nd drain lever
+area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye door
+  state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
+    base:
+      Bow, DoubleJump OR Damage=10  # damage not mandatory, but it's easy to clip the spikes on the pole
+      Dash, DoubleJump  # Makes you Dash past a falling slime
+      Launch
+    advanced:
+      DoubleJump, Damage=10  # One damage boost on the spikes
+  state WestHollow.LowerDrainLeverPulled:  # Lever that drains the second section of the hollow
+    base, WestHollow.UpperDrainLeverPulled, EnemyObstacle: 
+      Bow, DoubleJump OR Dash OR Launch
+    advanced, WestHollow.UpperDrainLeverPulled:
+      Bow, Bash, Grenade=1  # Involves bashing off a mosquito 
+      Bow, Bash, Damage=20  # Involves bashing off a mosquito
+  
+  pickup WestHollow.CrusherHC:
+    base:
+      WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Launch OR Bow
+      Bash, Grenade=1
+    advanced:
+      Damage=10 #dboost through poison water
   pickup WestHollow.FarLeftEX:
-    base: Bow, DoubleJump OR Dash
+    base, WestHollow.LowerDrainLeverPulled: 
+      DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
+    advanced, WestHollow.LowerDrainLeverPulled:
+      Bow, Bash, Grenade=2
   pickup WestHollow.RockPuzzleEX:
-    base: Bow, DoubleJump OR Dash
+    base: WestHollow.LowerDrainLeverPulled
+    advanced, WestHollow.UpperDrainLeverPulled: 
+      Damage=100
   pickup WestHollow.HiddenEC:
-    base: Bow, Water, DoubleJump OR Dash
+    base, WestHollow.LowerDrainLeverPulled: 
+      Weapon
+  
+  conn MarshPastOpher.BowArea:
+    base:  # there's a dropping slime in the way here, not sure if damage on some paths might be a good thing?
+      DoubleJump OR Launch
+      Bash, Grenade=1, Dash OR Glide
+  conn WestHollow.HollowDrainLower:
+    base: WestHollow.LowerDrainLeverPulled
+  conn EastHollow.Teleporter: free  # as long as the purple eye door starts open
+
+area WestHollow.HollowDrainLower:  # (-209, -4333) Next to the jumppad left of Lupo
+  state WestHollow.DoorLever:  # The door blocking Dash area
+    base, Weapon:
+      DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
+  
   pickup WestHollow.QuickshotShard:
-    base: Bow, Dash
+    base: WestHollow.LowerDrainLeverPulled, EnemyObstacle, DoubleJump, Bow, Dash OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water. DoubleJump is for lenience on the bowshot
   pickup WestHollow.SwimEC:
-    base: Bow, Water, DoubleJump OR Dash
+    base: Water
   pickup WestHollow.LupoMap:
-    base: DoubleJump, Bow, Dash
+    base:  # All the path options here include a way to get past the enemy
+      DoubleJump, Dash
+      Bash, Grenade=1
+      Launch
   pickup WestHollow.TrialHC:
-    base: Bow, DoubleJump OR Dash
-  conn WestHollow.DashArea:  # TODO: deleteme
-    base: Bow, DoubleJump OR Dash
-  conn EastHollow:  # TODO: deleteme
-    base: Bow, DoubleJump, Dash
-
-area WestHollow.DashArea:  # (-100, -4420) To the left of the lever door
+    base: WestHollow.LowerDrainLeverPulled, EnemyObstacle, DoubleJump OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water. Other skill options would work, but between having to do an easy damage boost and making it harder to deal with the enemies it might not be fit for base
   pickup WestHollow.BelowLupoEX:
-    base: DoubleJump, Bow, Dash
-  pickup WestHollow.AboveDashEX:
-    base: DoubleJump, Bow, Dash
-  pickup WestHollow.DashRightEX:
-    base: DoubleJump, Bow, Dash
-  pickup WestHollow.CrusherEX:
-    base: Bow, Dash
-  pickup WestHollow.DashTree:
-    base: Bow, DoubleJump OR Dash
+    base:  # All the path options here include a way to get past the enemy
+      DoubleJump, Dash
+      Launch
+  
+  # no backwards connection. If oob logic forces changes here, it'll need more than just the connection back anyway
+  conn WestHollow.DashArea:
+    base: WestHollow.DoorLever, EnemyObstacle OR DoubleJump
 
-area EastHollow:  # (-152, -4236) The Hollow teleporter
-  pickup EastHollow.BashTree: free
+area WestHollow.DashArea:  # (-88, -4423) To the right of the lever door
+  pickup WestHollow.DashTree: free
+  pickup WestHollow.CrusherEX:
+    base: Dash
+    advanced: Launch
+  pickup WestHollow.DashRightEX:
+    base:
+      DoubleJump, Dash
+      Launch
+  pickup WestHollow.AboveDashEX:
+    base:  # there's some funny Bashgrenade paths here, but better no fun in base
+      DoubleJump, Dash
+      Launch
+  
+  conn WestHollow.HollowDrainLower:
+    base, WestHollow.DoorLever, EnemyObstacle:
+      DoubleJump, Dash
+      DoubleJump, Bash, Grenade=2, Glide
+      Bash, Grenade=3, DoubleJump OR Dash
+      Launch
+
+area EastHollow.Teleporter:  # (-150, -4237) the teleporter
+  state EastHollow.BeetleDefeated:
+    base: 
+      Combat, Dash  # It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught
+    advanced:
+      Combat
+  conn WestHollow.HollowDrainUpper: free  # as long as the purple eye door starts open TODO
+  conn EastHollow.AboveBash:
+    base: 
+      EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
+
+area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
+  state EastHollow.BeetleDefeated:
+    base: 
+      Combat, Dash  # It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught
+  state EastHollow.MouldwoodLever:
+    base: 
+      Bash, DoubleJump OR Dash OR Glide OR Launch
+  state GladesTown.EntryWallBroken:
+    base: 
+      Bash, DoubleJump OR Launch
+  
   pickup EastHollow.GladesApproachOre:
-    base: Bash, DoubleJump OR Dash
+    base: 
+      EastHollow.BeetleDefeated, EastHollow.Voice, Bash, DoubleJump OR Dash OR Glide OR Launch
   pickup EastHollow.HornBeetleFightEX:
-    base: DoubleJump, Dash, Bash
+    base, EastHollow.BeetleDefeated:
+      DoubleJump, Dash, Bash
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Launch
   pickup EastHollow.SpikeLanternEX:
-    base: Bash, DoubleJump OR Dash
+    base: 
+      DoubleJump, Bash  # there's a couple small awkward things adding up if you do this without Double Jump
   pickup EastHollow.SecretRoofEX:
-    base: Bash
+    base:
+      Bash OR Launch
+      Grapple, DoubleJump, Dash OR Glide
   pickup EastHollow.MortarEX:
-    base: Bash
+    base: Bash OR Launch  # Bash only needs some slight creativity, but there are many ways to solve it
   pickup EastHollow.BashEC:
-    base: Bash, DoubleJump OR Dash
-  pickup EastHollow.BashHC:
-    base: Bash
+    base: 
+      Bash, DoubleJump, Dash
+      Bash, Grenade=1
+      Launch
+  pickup EastHollow.BashTree:
+    base:
+      EnemyObstacle, DoubleJump OR Dash
+      Glide OR Launch
   pickup EastHollow.BashEX:
-    base: DoubleJump, Bash
+    base: 
+      DoubleJump, Bash
+      Launch
+  
+  conn EastHollow.Teleporter:
+    base, EastHollow.BeetleDefeated:
+      DoubleJump, Dash
+      Bash, DoubleJump OR Dash OR Grenade=1
+      Glide OR Launch
+  conn GladesTown.Main:
+    base: Bash, DoubleJump OR Launch
+  conn EastHollow.AboveDepths:
+    base: EastHollow.MouldwoodLever, EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
+  conn EastHollow.Kwolok:
+    base:
+      Bash, DoubleJump OR Dash OR Glide OR Launch
+      Launch, DoubleJump, Dash OR Glide
+      Launch, Dash, Glide
+
+area EastHollow.Kwolok:  # (154, -4205) Between Ku and Kwolok
+  state EastHollow.Voice: free
+
   pickup EastHollow.RightThroneEX:
-    base: Bash
+    base: Bash OR Launch
   pickup EastHollow.SilentSwimEC:
-    base: Bash, WaterDash, Water
-  pickup EastHollow.SplinterShard:
-    base: Bash
+    base: Water, WaterDash OR Launch
   pickup EastHollow.ThroneSwimOre:
-    base: Bash, Water
+    base: Water, Bash OR Damage=10  # enemy in the way
   pickup EastHollow.ThroneSwimLeftEX:
-    base: DoubleJump, Bash, Water, WaterDash
+    base: Water, WaterDash OR Launch
   pickup EastHollow.ThroneSwimRightEX:
-    base: DoubleJump, Bash, Water
+    base: Water
+  
+  conn EastHollow.AboveBash:
+    base:  # since the ability culprit is right at the start, these should account for paths to the pickups on the way
+      Bash, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash OR Glide
+      Dash, Glide, Damage=10  # damage not mandatory
+      Launch
+  conn WoodsEntry:  # area details to be determined, this gets you to the shriek cutscene
+    base: 
+      Water, Bash, Launch
+      Water, Bash, Grapple, DoubleJump, Dash OR Glide
+      Water, Bash, Grapple, Dash, Glide
+
+area EastHollow.AboveDepths:  # (50, -4302) To the right of the lever door blocking Depths access
+  pickup EastHollow.BashHC:
+    base: Bash OR Launch
+  pickup EastHollow.SplinterShard:
+    base: Bash OR Launch  # Other abilities can get there, but these can also get you out again
   pickup EastHollow.DepthsExteriorEX:
-    base: Bash, Glide, Launch
-  conn GladesTown: # TODO: deleteme
-    base: Bash, DoubleJump
-  conn WoodsEntry: # TODO: deleteme
-    base: Water, Bash, DoubleJump
-  conn UpperDepths.Entry: # TODO: deleteme
-    base: Bash, Glide
+    base: Glide, Launch  # ...what even is intended here?
+  pickup EastHollow.BashTree:
+    base: EastHollow.MouldwoodLever, EnemyObstacle
+  pickup EastHollow.BashEX:
+    base, EastHollow.MouldwoodLever: 
+      DoubleJump, Bash
+      Launch
+  
+  conn EastHollow.AboveBash:
+    base, EastHollow.MouldwoodLever:
+      DoubleJump, Bash
+      Launch, DoubleJump OR Dash OR Bash OR Glide
+  conn UpperDepths.Entry:  # area details to be determined, will probably stay true
+    base: Glide
 
 # begin glades needs-validation region
-area GladesTown:  # (-306, -4153) The glades teleporter
+area GladesTown.Main:  # (-306, -4153) The glades teleporter
   state GladesTown.BuildHuts:
     base: Ore=15
   state GladesTown.RoofsOverHeads:
@@ -588,7 +728,7 @@ area GladesTown.West:  # (-410, -4141) At Motay
       Bash, DoubleJump OR Dash
       DoubleJump, Dash, Glide  # this path is too nice to not be base... right?
       Launch
-  conn GladesTown:
+  conn GladesTown.Main:
     base:
       GladesTown.ClearThorns OR DoubleJump OR Launch
       Bash, Grenade=1
@@ -1544,7 +1684,7 @@ area LowerReach.Trial:  # (70, -4044) At trial start
       Bash, Grenade=4, Glide, Grapple
       Bash, Glide, Launch
   # I really don't feel like writing connections to LowerReach.East now which would be both complicated and most likely redundant with ArenaBeaten...
-  conn GladesTown:
+  conn GladesTown.Main:
     base: Glide
 
 area UpperDepths.Entry:  # (161, -4340) the first bit of standable ground below the door
@@ -2154,24 +2294,25 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
 
 area TwillenShop:
   pickup TwillenShop.Overcharge: free
-  pickup TwillenShop.TripleJump:
-    base: Bash
   pickup TwillenShop.Wingclip: free
   pickup TwillenShop.Swap: free
-  pickup TwillenShop.LightHarvest:
-    base: Bash
   pickup TwillenShop.Vitality: free
   pickup TwillenShop.Energy: free
   pickup TwillenShop.Finesse: free
+  pickup TwillenShop.TripleJump:
+    base: GladesTown.EntryWallBroken
+  pickup TwillenShop.LightHarvest:
+    base: GladesTown.EntryWallBroken
 
 area OpherShop:
-  pickup OpherShop.WaterBreath:
-    base: Water
   pickup OpherShop.Spike: free
   pickup OpherShop.SpiritSmash: free
-  pickup OpherShop.Teleport: free
   pickup OpherShop.SpiritStar: free
   pickup OpherShop.Blaze: free
   pickup OpherShop.Sentry: free
+  pickup OpherShop.Teleport:
+    base: GladesTown.EntryWallBroken
+  pickup OpherShop.WaterBreath:
+    base: Water, EastHollow.Voice # what this actually needs is water + the ability to talk to kwolok
 
 # do not delete the newline at the end of the file
