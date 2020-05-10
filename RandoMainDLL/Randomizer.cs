@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -114,6 +116,20 @@ namespace RandoMainDLL {
       InputLockListener = 3,
       DashUpdate = 4
     }
+
+    //TODO: @Eiko put these where you want them :) duration is in seconds, this returns the pointer to the messageBox
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static IntPtr displayHint(IntPtr hint, float duration);
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void clearLastHint();
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void clearMessageBox(IntPtr messageBox);
+      
+   [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static IntPtr getCurrentHint();
+
 
     [DllExport]
     public static int OreCount() => Memory.Ore;

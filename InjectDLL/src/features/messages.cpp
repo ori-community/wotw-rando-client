@@ -50,12 +50,14 @@ INTERCEPT(20846752, bool, anyAbilityPickupStoryMessagesVisible, (__int64 thisPtr
 	return 0;
 		  });
 
+bool stringHeaderCached = false;
 INTERCEPT(17084160, __int64, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language), {
 	//TranslatedMessageProvider.MessageItem$$GetDescriptor
 		auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
-		if(result && isInShopScreen())
+		if(!stringHeaderCached || (result && isInShopScreen()))
 			{
 			__int64 newString = CSharpLib->call<__int64>("ShopStringRepl", *(__int64*) result);
+            stringHeaderCached = true;
 			if(newString)
 			{
 				*(__int64*) result = newString;
@@ -63,3 +65,41 @@ INTERCEPT(17084160, __int64, TranslatedMessageProvider_MessageItem_Message, (__i
 		}
 		return (__int64) result;
 					});
+
+Game_UI_c* getGameController(){
+    return *(Game_UI_c**) resolve_rva(71319816);
+}
+
+BINDING(20850720, MessageBox_o*, MessageControllerB__ShowHintSmallMessage, (MessageControllerB_o* this_ptr, MessageDescriptor_o descriptor, UnityEngine_Vector3_o position, float duration))
+BINDING(7464640, UnityEngine_Vector3_o, OnScreenPositions__get_TopCenter, ())
+BINDING(20824416, void,  MessageBox__HideMessageScreenImmediately, (MessageBox_o* this_ptr, int32_t action))
+
+MessageBox_o* lastHint = nullptr;
+System_String_o* lastMessage = nullptr;
+
+extern "C" __declspec(dllexport)
+void clearMessageBox(MessageBox_o* messageBox) {
+    if(messageBox){
+        MessageBox__HideMessageScreenImmediately(messageBox, 0);
+    }
+}
+
+extern "C" __declspec(dllexport)
+void clearLastHint(){
+    clearMessageBox(lastHint);
+}
+
+extern "C" __declspec(dllexport)
+MessageBox_o * displayHint(System_String_o * hint, float duration){
+    clearLastHint();
+
+    auto messageController = getGameController()->static_fields->MessageController;
+    lastHint = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, OnScreenPositions__get_TopCenter(), duration);
+    lastMessage = hint;
+    return lastHint;
+}
+
+extern "C" __declspec(dllexport)
+System_String_o* getCurrentHint(){
+    return lastMessage;
+}

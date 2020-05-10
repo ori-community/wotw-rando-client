@@ -77,12 +77,16 @@ namespace RandoMainDLL {
 
   public abstract class Pickup {
     public int Frames = 240;
+    public int seconds = 30;
     public virtual bool NonEmpty() => true;
     public abstract PickupType Type { get; }
 
     public virtual void Grant(bool squelch = false) {
       if (!squelch) {
-        AHK.Print(ToString(), Frames);
+        String text = ToString();
+        //AHK.Print(text, Frames);
+        IntPtr pointer = ShopController.getIl2cppStringPointer(text);
+        Randomizer.displayHint(pointer, seconds);
       }
     }
     public Pickup Concat(Pickup other) {

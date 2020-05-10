@@ -25,7 +25,7 @@ namespace RandoMainDLL {
 
     private static readonly Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
 
-    static IntPtr getIl2cppStringPointer(string str) {
+    public static IntPtr getIl2cppStringPointer(string str) {
       if (!stringAddresses.ContainsKey(str)) {
         var chars = str.ToCharArray();
         int size = Encoding.Unicode.GetByteCount(chars);
