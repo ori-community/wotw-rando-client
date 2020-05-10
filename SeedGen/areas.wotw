@@ -26,7 +26,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
   pickup MarshSpawn.GrappleHC:
     base:
       Grapple, DoubleJump OR Launch
-    advanced: 
+    advanced:
       Grapple, Sword                   # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
       Grapple, Dash OR Glide
   pickup MarshSpawn.BridgeEX:
@@ -35,7 +35,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
       Bash, Grenade=1                  # Grenade bash straight up from below
     advanced:
       free                             # lure and sword pogo off of hopping enemy
-  pickup MarshSpawn.ResilienceShard: 
+  pickup MarshSpawn.ResilienceShard:
     base: Weapon
   pickup MarshSpawn.ResilienceOre:
     base: Weapon, Water
@@ -43,11 +43,11 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: Bash OR Launch
   pickup MarshSpawn.LeverEC:
     base:
-      Grapple, DoubleJump Bash
+      Grapple, DoubleJump, Bash
       Launch, Bash
       Grapple, Launch
       Bash, Grenade=1, DoubleJump
-    advanced: 
+    advanced:
       Launch                          # Single jump and a launch can reach the ledge offscreen.
       Bash                            # Lure the Jumper, then bash off him
   pickup MarshSpawn.LongSwimEX:
@@ -62,19 +62,19 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base, EnemyObstacle:
       Water, Burrow, DoubleJump OR Glide OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-  pickup MarshSpawn.RecklessShard: 
+  pickup MarshSpawn.RecklessShard:
     base, Weapon:
       DoubleJump OR Dash OR Launch  # Dash somewhat on the border of base
       Bash, Grenade=1
   pickup MarshSpawn.LifepactShard:
-    base, Combat: 
+    base, Combat:
       Water, Burrow, DoubleJump OR Glide OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
   pickup PoolsApproach.BurrowsPathEX:
     base:
       DoubleJump, Bash, Damage=10
       Bash, Launch
-  
+
   conn MarshSpawn.PoolsBurrowsPath:
     base:
       Weapon, DoubleJump OR Dash OR Launch
@@ -95,7 +95,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base:
       Water, DoubleJump, Bash, Damage=10
       Water, Bash, Launch
-  
+
   # teleporter connections
   conn MidnightBurrows:
     base: BurrowsTP
@@ -135,7 +135,7 @@ area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, b
       Bash, Grenade=1
   pickup MarshSpawn.CaveKS: free  # all other pickups in the cave require a weapon; and with a weapon you can go around instead
   pickup MarshSpawn.BurrowOre:
-    base, EnemyObstacle: 
+    base, EnemyObstacle:
       Burrow, DoubleJump, Dash OR Glide
       Burrow, Launch
     advanced:
@@ -150,7 +150,7 @@ area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, b
     base:
       Bash, DoubleJump, Glide
       Bash, Launch
-  
+
   conn MidnightBurrows:
     base: Bash, DoubleJump OR Dash OR Launch
 
@@ -160,7 +160,7 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
     base: Bash, DoubleJump OR Dash OR Glide
 
   pickup MidnightBurrows.LeftKS:
-    base: 
+    base:
       DoubleJump OR Dash OR Glide OR Launch
     advanced:
       Damage=15
@@ -194,7 +194,7 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
       Launch
       MidnightBurrows.Lever, Glide
       MidnightBurrows.Lever, DoubleJump, Dash
-    advanced: 
+    advanced:
       MidnightBurrows.Lever, DoubleJump OR Dash
   pickup MidnightBurrows.TabletQI:
     base:
@@ -206,18 +206,18 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
     base:
       DoubleJump OR Launch
       Bash, Dash                      # Bash off the enemy to get to the vine, then jump&dash right
-    advanced: 
+    advanced:
       Bash, Damage=10                 # Bash off the enemy to get to the vine, then jump right. Dboost the last gap.
       Bash, Grenade                   # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
   pickup MarshSpawn.FangEC:
     base:
       DoubleJump, Dash                # Stick to the ceiling
       Launch
-    advanced: 
+    advanced:
       Bash, Grenade=1, Dash           # Bash up off the enemy and Dash to the fang. Grenade+bash up from the fang
       Bash, Grenade=1, Sword          # As above, but sword upslash to cross the last gap
       Bash, Grenade=1, Damage=10      # As above, but take a dboost on the last gap
-  pickup MarshSpawn.RecklessShard: 
+  pickup MarshSpawn.RecklessShard:
     base:
       Weapon, DoubleJump OR Launch
       Weapon, Bash, Grenade=1
@@ -240,7 +240,7 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
       Sword OR Hammer
       Bash, Grenade=1
       Glide
-  
+
   conn HowlsDen.Lower:
     base: Weapon
 
@@ -253,7 +253,7 @@ area HowlsDen.Lower:  # (-328, -4535) At the teleporter
     base:
       DoubleJump OR Dash OR Launch
       Bash, Grenade=1
-    advanced: 
+    advanced:
       Sword OR Hammer         # Can reach lever with air combos
   # if someone manages to lower the platform, they'll manage to get over the gap as well. That's how it works in the base game, that's how it'll work here
   pickup HowlsDen.DoubleJumpTree:
@@ -263,7 +263,7 @@ area HowlsDen.Lower:  # (-328, -4535) At the teleporter
     advanced:
       Bash                              # Bash off of rolling enemy
   pickup HowlsDen.StickyShard:
-    base: 
+    base:
       DoubleJump OR Dash OR Launch
       Glide, Bash, Grenade=1
     advanced:
@@ -283,29 +283,29 @@ area MarshPastOpher.MillView:  # (-594, -4292) Standing next to Opher, looking a
     base: Hammer
     advanced: Weapon                        # Lure stomp
   pickup MarshPastOpher.TrialRightEX:
-    base: 
+    base:
       Weapon, DoubleJump OR Bash OR Launch
     advanced: Sword                         # Pogo off of enemy
   pickup MarshPastOpher.CombatShrine:
     base: Weapon, Combat
     advanced: Weapon, Combat
   pickup MarshPastOpher.SwingPoleEX:
-    base: 
+    base:
       Damage=10, DoubleJump OR Dash OR Glide OR Launch  # damage not mandatory
       Damage=10, Bash, Grenade=1  # damage not mandatory
     advanced:
       Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide      #It's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
-    
+
   conn MarshPastOpher.BowArea:
     base:
       DoubleJump OR Dash OR Launch OR Glide
       Bash, Grenade=2
     advanced: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
-  
+
 area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with bow tree.
   pickup MarshPastOpher.BowEC: free
   pickup MarshPastOpher.BowTree: free
-  pickup WestHollow.CrusherHC: free  
+  pickup WestHollow.CrusherHC: free
   pickup MarshPastOpher.LeftEyestone:
     base:
       Bow, DoubleJump OR Dash OR Launch
@@ -314,7 +314,7 @@ area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with 
     base:
       Bow, DoubleJump OR Dash OR Launch
       Bow, Bash, Grenade=1
-  
+
   conn MarshPastOpher.MillView:
     base:
       DoubleJump OR Dash OR Launch
@@ -337,7 +337,7 @@ area MarshPastOpher.PoolsPathEast:  # (-649, -4243)  On the wood sticking out of
   pickup MarshPastOpher.PoolsPathEC:
     base: Bash, DoubleJump, Dash OR Launch
     advanced: Bash, Glide
-  
+
   conn MarshPastOpher.PoolsPathWest:
     base:  # you're meant to Bash the enemies casually on this path, so it's required here as well. Breaking the floor with a projectile has been base in other locations. Might be worth discussing again at some point...
       Bash, DoubleJump OR Launch
@@ -516,9 +516,9 @@ area GladesTown:  # (-306, -4153) The glades teleporter
         Launch
         Bash, Grenade=1  # probably base?
   pickup GladesTown.BraveMokiHutEX:
-    base: 
+    base:
       GladesTown.OnwardsAndUpwards, Launch
-    advanced: 
+    advanced:
       GladesTown.OnwardsAndUpwards, DoubleJump, Bash, Grenade=1
   pickup GladesTown.FruitHammockEX:
     base:
@@ -777,7 +777,7 @@ area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the 
     base, Weapon:
       Water, DoubleJump, WaterDash, Grapple  # maybe not obvious?
       Water, Grapple, Launch
-  
+
   pickup PoolsApproach.AboveWheelEX:
     base:
       # grenadebash doesn't work as well when the wheel spins
@@ -800,7 +800,7 @@ area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the 
       Water, Bash, Launch, WaterDash OR Damage=10  # damage not mandatory
     advanced:
       Water, Bash, DoubleJump, WaterDash
-  
+
   conn MarshPastOpher.PoolsPathWest:
     base, PoolsApproach.MarshWallBroken:
       Water, DoubleJump, WaterDash, Grapple  # maybe not obvious?
@@ -1030,7 +1030,7 @@ area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
   state UpperPools.UpperWaterDrained:
     base:
       Water, WaterDash, Grapple, DoubleJump OR Launch
-      Water, WaterDash, Launch, DoubleJump, Dash OR Glide  
+      Water, WaterDash, Launch, DoubleJump, Dash OR Glide
   pickup UpperPools.SwimDashTree: free
   pickup UpperPools.CurrentEX:
     base: Water, WaterDash
@@ -1109,7 +1109,7 @@ area WestPools:  # (-1652, -4170) the west Pools TP
     base: WestPools.KwolokDefeated, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
   pickup UpperPools.LowerKS:
     base: WestPools.KwolokDefeated, EnemyObstacle, Water, WaterDash
-  pickup EastPools.SeedQI: 
+  pickup EastPools.SeedQI:
     base: Water, WaterDash
   conn UpperPools.KeystoneRoom:
     base, EnemyObstacle:
@@ -1948,13 +1948,12 @@ area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top 
 area WindtornRuins.UpperRuinsDoor:  # (2200, -3828) Just inside the door.
   state WindtornRuins.RuinsLever:
     base: Burrow, Weapon
-  state WindtornRuins.HeartBarrier:  # These are paths to go to the teleporter and break the heart. But they can't originate from the teleporter because after you broke the heart, you can't go to the teleporter again, which makes these paths not viable as connections to the teleporter. These paths are just about breaking the heart, so it doesn't matter if the paths can lock you out if you already have broken the heart, because then you have already broken the heart.
+  state WindtornRuins.HeartBarrier:  # These are paths to go to the teleporter and break the heart. But they can't originate from the teleporter area because after you broke the heart, you can't go to the teleporter again, which makes these paths not viable as connections to the teleporter. These paths are just about breaking the heart, so it doesn't matter if the paths can lock you out of the teleporter if you already have broken the heart, because then you have already broken the heart.
     base, WindtornRuins.RuinsLever, Weapon:
       Burrow, DoubleJump OR Dash OR Glide OR Launch
       Burrow, Bash, Grenade=1
 
-  pickup UpperWastes.SeedQI:
-    base: free
+  pickup UpperWastes.SeedQI: free
   pickup UpperWastes.WallOre:
     base:
       Bash, Grenade=1, Glide
@@ -1969,23 +1968,23 @@ area WindtornRuins.UpperRuinsDoor:  # (2200, -3828) Just inside the door.
       Burrow, DoubleJump, Glide
       Burrow, Bash, Grenade=1, Glide
       Burrow, Launch
+  conn WindtornRuins.Escape:  # connection FROM entrance TO escape to support future paths of breaking the heart without reaching the teleporter
+    base: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, Burrow
   conn WindtornRuins.LowerRuins:  # connection FROM entrance TO lower AFTER escape
-    # if you completed the escape, there's a gap in the floor that you have to cross
-    base, WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
-      Burrow, Dash
-      Burrow, DoubleJump
-      Burrow, Launch
-      Burrow, Bash, Grenade=1
+    # if you completed the escape, there's a gap in the floor that you have to cross, but Burrow alone is enough to do so
+    # Since Burrow solves this connection, it accounts for all paths to the escape revisit pickup
+    base: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete, Burrow
 
 area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
   state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
     base: Weapon
 
-  conn WindtornRuins.RuinsEscape:  # connection FROM tp TO escape
+  conn WindtornRuins.Escape:  # connection FROM tp TO escape
     # the gap after completing the escape locks you out of these paths, but it doesn't matter because they're only relevant for completing the uncompleted escape
     base: WindtornRuins.HeartBarrier
   conn WindtornRuins.LowerRuins:  # connection FROM tp TO lower ruins AFTER escape
     # if you completed the escape, there's a gap in the floor that you have to cross
+    # Since Burrow solves this connection, it accounts for all paths to the escape revisit pickup
     base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
       DoubleJump OR Dash OR Glide OR Burrow OR Launch
       Bash, Grenade=1  # yes, this needs a bashgrenade path
@@ -1995,12 +1994,16 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
       Burrow, Bash, Grenade=1, DoubleJump OR Dash
       Burrow, Glide, DoubleJump OR Dash
       Burrow, Launch
-      # these make you able to break the Heart and the use the resulting terrain
+      # these make you able to break the Heart and then use the resulting terrain
       Weapon, Burrow, Bash, Grenade=1
       Weapon, Glide
 
-area WindtornRuins.RuinsEscape:  # (2015, -4027) Where the escape starts (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
-  state WindtornRuins.EscapeComplete:  # Skills needed to complete the escape. Might turn into a pickup later.
+area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts 
+  # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
+  # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
+  # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here 
+  # can softlock after achieving the EscapeComplete state, so this area is only safe as long as it does nothing else than handling that state.
+  state WindtornRuins.EscapeComplete:  # Skills needed to complete the escape. Might have to add a pickup later
     base, WindtornRuins.HeartBarrier:
       Burrow, Dash, Grapple, DoubleJump OR Glide
       Burrow, DoubleJump, Glide, Grapple  # I think this is fine?
@@ -2009,15 +2012,14 @@ area WindtornRuins.RuinsEscape:  # (2015, -4027) Where the escape starts (yes, t
 
 area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
   # requires escape to be done
-  state WindtornRuins.LowerEntrance: # State for lower entrance to be open
+  state WindtornRuins.LowerEntrance: # State for back entrance to be open
     base: Burrow, Weapon
 
   pickup WindtornRuins.EscapeRevisitEC:
     base: WindtornRuins.EscapeComplete, Burrow
   # pickup WindtornRuins.AncientMapPedestal:
   #   base: free  # At least, this will be free if it ever becomes a pickup.
-  conn WindtornRuins.RuinsEscape:
-    base: free  # walk over the invisible sandworm
+  conn WindtornRuins.Escape: free  # walk over the invisible sandworm
   conn WindtornRuins.RuinsTP:
     base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
       Burrow, Dash, DoubleJump
