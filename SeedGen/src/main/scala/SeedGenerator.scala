@@ -367,7 +367,7 @@ package SeedGenerator {
       val RETRIES = 30
       def getItems(n: Int = RETRIES): Seq[Item] = {
         if(n < 0) {
-          println(s"$n, 0, ${pool.toSeq.filter(_._2 > 0)}, ${Nodes.items.values.filterNot(loc => reachable.exists(_.name == loc.name))}")
+          println(s"$n, 0, ${pool.toSeq.filter(i => i._1.itemType != 0 && i._2 > 0)}, ${Nodes.items.values.filterNot(loc => reachable.exists(_.name == loc.name))}")
           throw GeneratorError("Game over :C")
         }
         val fudgeFactor = Math.min(locs.size, n match {
