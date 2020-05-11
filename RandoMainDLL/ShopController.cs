@@ -183,7 +183,7 @@ namespace RandoMainDLL {
       SaveController.Data.OpherSold.Add(slot);
       Randomizer.Log($"sold {item} from {slot} for ${item.DefaultCost()}", false);
       item.Grant();
-      Randomizer.PleaseSave = true;
+      InterOp.save();
       return;
     }
 
@@ -205,7 +205,7 @@ namespace RandoMainDLL {
         return;
       }
       SaveController.Data.TwillenSold.Add(slot);
-      Randomizer.PleaseSave = true;
+      InterOp.save();
       item.Grant();
       return;
     }

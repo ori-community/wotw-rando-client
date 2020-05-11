@@ -77,16 +77,12 @@ namespace RandoMainDLL {
 
   public abstract class Pickup {
     public int Frames = 240;
-    public int seconds = 30;
     public virtual bool NonEmpty() => true;
     public abstract PickupType Type { get; }
 
     public virtual void Grant(bool squelch = false) {
       if (!squelch) {
-        String text = ToString();
-        //AHK.Print(text, Frames);
-        IntPtr pointer = ShopController.getIl2cppStringPointer(text);
-        Randomizer.displayHint(pointer, seconds);
+        AHK.Print(ToString(), Frames);
       }
     }
     public Pickup Concat(Pickup other) {
@@ -320,8 +316,7 @@ namespace RandoMainDLL {
           Randomizer.Memory.FakeHalfEnergy();
           break;
         case ResourceType.Ore:
-          Randomizer.Memory.Ore++;
-          Randomizer.OreFound = true;
+          InterOp.setOre(++Randomizer.Memory.Ore);
           break;
         case ResourceType.Keystone:
           Randomizer.Memory.Keystones++;

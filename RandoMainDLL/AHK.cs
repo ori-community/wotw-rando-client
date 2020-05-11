@@ -6,52 +6,8 @@ using AutoHotkey.Interop;
 namespace RandoMainDLL {
   public static class AHK {
     private static readonly string Program = @"
-      PickupGUIHWD := """"
       signal := ""none""
-      oldText := """"
-      BuildPickupGUI()
-      {
-	      global PickupGUIHWD, PickupText
-	      Gui, Pickup:New, -SysMenu +LastFound +ToolWindow 
-	      Gui, Pickup:Color, 010101
-	      WinSet, Exstyle, 0x20
-          WinSet, Exstyle, 0x80
-	      WinSet, Style,  -0xC40000
-	      WinSet, TransColor, 010101
-	      Gui, Pickup:Font,s30, Comic Sans MS
-	      Text :=  ""<3""
-	      Gui, Pickup:Add, Text,CFFFFFF Center VPickupText,%Text% 
-	      Gui, Pickup:Show, XCenter NoActivate Hide
-	      Gui, Pickup:+HwndPickupGUIHWD
-	      Return
-      }
-      ShowPickup()
-      {
-        global pickupGUIHWD
-        DetectHiddenWindows, On
-        Gui Pickup:Show, AutoSize NoActivate Hide
-        WinGetPos, , , GuiWidth, GuiHeight, ahk_id %PickupGUIHWD%
-        DetectHiddenWindows, Off
-        WinGetPos, OriX, OriY, OriW, OriH, OriAndTheWilloftheWisps
-        ; X position; X + Width/2 - W/2
-        GuiX := OriX + OriW/2 - GuiWidth/2
-        GuiY := OriY + OriH/20 
-        Gui Pickup:Show, NoActivate Y%GuiY% X%GuiX%
-      }
-      PickupMessage(message, ms) 
-      {
-        SetTimer, FadePickup,-%ms%
-        global oldText, PickupGUIHWD
-        GuiControlGet, maybeOldText, Pickup:, PickupText
-        if(message != maybeOldText) {
-          oldText := maybeOldText
-        }
-        GuiControl, Pickup:Text, PickupText, %message%
-        width := strlen(message) * 30
-        GuiControl, Pickup:Move, PickupText, w%width%
-        ShowPickup()
-      }
-      IniRead(Section, Key, iniPath := ""C:/moon/settings.ini"")
+      DoIniRead(Section, Key, iniPath := ""C:/moon/settings.ini"")
       {
         IniRead, out, %iniPath%, %Section%, %Key%
         return out
@@ -59,43 +15,22 @@ namespace RandoMainDLL {
       Tick() 
       {
         global signal
-        IfWinNotActive, OriAndTheWilloftheWisps 
-        {
-          Gui, Pickup:-AlwaysOnTop
-        } else {
-          Gui, Pickup:+AlwaysOnTop
-        }
         return signal
       }
-      FadePickup:
-      Gui Pickup:Hide
       return	
 
       !/::signal := ""exitapp""
       #IfWinActive, OriAndTheWilloftheWisps
       !j::signal := ""dev""
       !l::signal := ""reload""
-      !t::
-      ShowPickup()
-      KeyWait, T, T2 ; change the hold functionality to something cooler later?
-      if(ErrorLevel) {
-        GuiControl, Pickup:Text, PickupText, %oldText%
-        width := strlen(oldText) * 30
-        GuiControl, Pickup:Move, PickupText, w%width%
-        ShowPickup()
-        SetTimer, FadePickup,-4000
-      } else {
-        SetTimer, FadePickup,-3000
-      }
-      return
+      !t::signal := ""resendLast""
       ";
     public static AutoHotkeyEngine Engine = AutoHotkeyEngine.Instance;
     public static bool Ready = false;
 
     public static void Init() {
       Engine.ExecRaw(Program);
-      Engine.ExecFunction("BuildPickupGUI");
-      if (System.IO.File.Exists("C:\\moon\\rando_binds.ahk")) {
+      if (File.Exists("C:\\moon\\rando_binds.ahk")) {
         Engine.LoadFile("C:\\moon\\rando_binds.ahk");
       }
 
@@ -112,7 +47,7 @@ namespace RandoMainDLL {
         return false;
       }
 
-      return !Falsey.Contains(Engine.ExecFunction("IniRead", "Flags", Flag));
+      return !Falsey.Contains(Engine.ExecFunction("DoIniRead", "Flags", Flag));
     }
 
     public static void Tick() {
@@ -126,6 +61,10 @@ namespace RandoMainDLL {
               Randomizer.Memory.OnInit();
               FramesTillUnlockReload = 60;
             }
+            break;
+          case "resendLast":
+            if(Last != null)
+              MessageQueue.Enqueue(Last);
             break;
           case "dev":
             Randomizer.Dev = !Randomizer.Dev;
@@ -144,13 +83,18 @@ namespace RandoMainDLL {
         FramesTillNextSend--;
       }
       else {
-        if (MessageQueue.Count > 0) {
-          Current = MessageQueue.Dequeue();
+        if (CanPrint) {
+          Current = MessageQueue.Peek();
+          Last = Current;
           FramesTillNextSend = Current.Frames;
-          Engine.ExecFunction("PickupMessage", Current.Text, (Current.Frames * 50 / 3).ToString());
-          if (IniFlag("LogOnPrint")) {
-            Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
-          }
+          try {
+            InterOp.displayHint(ShopController.getIl2cppStringPointer(Current.Text), Current.Frames / 60f);
+            if (IniFlag("LogOnPrint")) {
+              Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
+            }
+            MessageQueue.Dequeue();
+          } catch (Exception e) { Randomizer.Error("AHK.sendMsg", e, false); }
+
         }
         else {
           Current = null;
@@ -158,8 +102,10 @@ namespace RandoMainDLL {
       }
     }
 
+    public static bool CanPrint { get => MessageQueue.Count > 0 && Memory.MemoryReader.stringHeader != null && InterOp.hintsReady(); }
     // public static bool SendMessage
     public static IMessage Current = null;
+    public static IMessage Last = null;
     public static Queue<IMessage> MessageQueue = new Queue<IMessage>();
     public static int FramesTillUnlockReload = 0;
     public static int FramesTillNextSend = 0;

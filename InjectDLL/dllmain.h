@@ -2,7 +2,6 @@
 #include "PEModule.h"
 
 void onFixedUpdate(__int64 thisPointer);
-void discoverEverything();
 static std::string pretty_time();
 bool isInShopScreen();
 extern InjectDLL::PEModule* CSharpLib;

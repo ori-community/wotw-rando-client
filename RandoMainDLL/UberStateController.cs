@@ -27,9 +27,11 @@ namespace RandoMainDLL {
             }
             var pos = Randomizer.Memory.Position();
             if (Ready) {
+              bool found = false;
               if (value.Int > 0) 
-                SeedController.OnUberState(state);
-              if (value.Int == 0 || !Randomizer.PleaseSave)
+                found = SeedController.OnUberState(state);
+
+              if (value.Int == 0 || !found)
                 Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldState.FmtVal()}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
 
             }
@@ -74,11 +76,11 @@ namespace RandoMainDLL {
         if (SeedController.GameStartPickup.NonEmpty()) {
           Randomizer.InputUnlockCallback = () => {
             SeedController.GameStartPickup.Grant();
-            Randomizer.PleaseSave = true;
+            InterOp.save();
           };
         }
 
-        Randomizer.BlackSheepWall = true;
+        InterOp.discoverEverything();
         NeedsNewGameInit = false;
       }
     }

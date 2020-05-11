@@ -34,7 +34,7 @@ void* gameControllerInstancePointer = NULL;
 bool debug_enabled = false;
 bool info_enabled = true;
 bool error_enabled = true;
-
+bool input_lock_callback = false;
 const std::set<char> treeAbilities{0, 5, 8, 23, 51, 57, 62, 77, 97, 100, 101, 102, 104, 121};
 
 bool isTree(char tree){
@@ -77,13 +77,18 @@ BINDING(0x75CE60, __int64, getRuntimeArea, (__int64, __int64)) //GameWorld$$Find
 BINDING(9829632, void, discoverAllAreas, (__int64)) //RuntimeGameWorldArea$$DiscoverAllAreas
 
 __int64 gameWorldInstance = 0;
+
+bool foundGameWorld() {
+    return gameWorldInstance != 0;
+}
+
 INTERCEPT(7720864, void, GameWorld__Awake, (__int64 thisPtr), {
 	if(gameWorldInstance != thisPtr) {
 		debug("Found GameWorld instance!");
 		gameWorldInstance = thisPtr;
 	}
 	GameWorld__Awake(thisPtr);
-		  });
+});
 
 
 INTERCEPT(0xFC4D50, bool, sub180FC4D50, (__int64 mappingPtr, __int64 uberState), {
@@ -184,11 +189,6 @@ BINDING(0x499B40, bool, getIsSuspended, (__int64));
 BINDING(0x499400, bool, getSecondaryMenusAccessable, (__int64));
 
 //---------------------------------------------------Actual Functions------------------------------------------------
-bool playerCanMove(__int64 gcip){
-	// TODO: figure out which of these are superflous
-	DEBUG("gIL: " << getInputLocked(gcip) << ", gLI: " << getLockInput(gcip) << ", gIS: " << getIsSuspended(gcip) << ", gSMA: " << getSecondaryMenusAccessable(gcip));
-	return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
-}
 
 Game_Characters_StaticFields* get_characters(){
 	return (*(Game_Characters_c**) resolve_rva(71033680))->static_fields;
@@ -200,38 +200,48 @@ void onFixedUpdate(__int64 thisPointer){
 		gameControllerInstancePointer = (void*) thisPointer;
 	}
 	try {
-		int update = CSharpLib->call<int>("Update");
-
-		if(CSharpLib->call<bool>("CheckFlag", 3) && playerCanMove((__int64) gameControllerInstancePointer)) {
-			CSharpLib->call<void>("OnInputUnlock");
-		}
-        if(CSharpLib->call<bool>("CheckFlag", 4))
-        {
-            debug("C# -> hasRealDash=1");
-            hasRealDash = true;
-        }
-		if(CSharpLib->call<bool>("CheckFlag", 1)) {
-			DEBUG("Ore update required");
-			SeinLevel__set_Ore(get_characters()->m_sein->Level, CSharpLib->call<int>("OreCount"));
-		}
-		if(gameWorldInstance != NULL && CSharpLib->call<bool>("CheckFlag", 2)) {
-			DEBUG("Map revealed");
-			discoverEverything();
-		}
-		if(CSharpLib->call<bool>("CheckFlag", 0)) {
-			DEBUG("Checkpoint requested by c# code");
-			createCheckpoint((__int64) gameControllerInstancePointer);
-		}
+		CSharpLib->call<int>("Update");
 	} catch(int error)
 	{
 		LOG("got error code " << error);
 	}
 }
 
-void discoverEverything(){
+extern "C" __declspec(dllexport)
+void setOre(int oreCount) {
+    SeinLevel__set_Ore(get_characters()->m_sein->Level, oreCount);
+}
+
+extern "C" __declspec(dllexport)
+bool playerCanMove() {
+    if (gameControllerInstancePointer == NULL)
+        return false; // can't move if the game controller doesn't exist
+    // TODO: figure out which of these are superflous
+    __int64 gcip = (__int64)gameControllerInstancePointer;
+    DEBUG("gIL: " << getInputLocked(gcip) << ", gLI: " << getLockInput(gcip) << ", gIS: " << getIsSuspended(gcip) << ", gSMA: " << getSecondaryMenusAccessable(gcip));
+    return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
+}
+
+extern "C" __declspec(dllexport)
+void foundDash() {
+    hasRealDash = true;
+}
+
+extern "C" __declspec(dllexport)
+void save() {
+    if (gameControllerInstancePointer == NULL) {
+        LOG("no pointer to game controller: can't save!");
+        return;        
+    }
+    DEBUG("Checkpoint requested by c# code");
+    createCheckpoint((__int64)gameControllerInstancePointer);
+}
+
+extern "C" __declspec(dllexport)
+bool discoverEverything(){
 	if(gameWorldInstance)
 	{
-		for(unsigned __int8 i = 0; i <= 15; i++)
+        for(unsigned __int8 i = 0; i <= 15; i++)
 		{
 			auto area = getAreaFromId(gameWorldInstance, i);
 			if(!area)
@@ -246,9 +256,11 @@ void discoverEverything(){
 			}
 			discoverAllAreas(runtimeArea);
 		}
-	} else
-	{
+        DEBUG("Map revealed");
+        return true;
+    } else {
 		log("Tried to discover all, but haven't found the GameWorld Instance yet :(");
+        return false;
 	}
 }
 
