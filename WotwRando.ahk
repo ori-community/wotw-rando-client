@@ -2,14 +2,9 @@
 ; Installer / patcher / launcher for the ori and the will of the wisps randomizer
 #NoEnv 							; don't populate environment variables automatically
 SetWorkingDir, %A_ScriptDir%	; start where we at
+SetTitleMatchMode, 3 			; require a full match of window name
 
-; --- uncomment lines below to rebuild testing ver
-; Run, "C:\Users\WorstMirari\Documents\GitHub\OriWotwRandomizerClient\WotwRando.ahk" %1%
-; exitapp  
-
-; filecreatedir silent fails if it exists, so
-
-; script variables
+; script variables (mostly file paths)
 INSTALL_DIR := "C:\moon\"
 INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
@@ -18,37 +13,52 @@ WOTWREXE := INSTALL_DIR . "WotwRando.exe"
 NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
 DELETEME := INSTALL_DIR . ".deleteme"
 
-FileCreateDir %INSTALL_DIR%
+; this is just for the download bar; the exe is currently basically always 48 MB
 
-FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
-FileRead, MY_VER, %INSTALL_DIR%.VERSION
+FILE_SIZE := 48  
 
-FILE_SIZE := 48
+; this is how you write multiline strings in AHK. it's terrible. 
+; this specifically is just the 2-line batchfile for  
+; associating .wotwr files with WotwRando.exe
 batch=
 (
 assoc .wotwr=WotwRando
 ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
+
+; filecreatedir silent fails if it exists, so we won't bother checking if it's already there
+FileCreateDir %INSTALL_DIR%
+
+; get the version number of the existing exe first thing
+FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
+FileRead, MY_VER, %INSTALL_DIR%.VERSION
+
+; check for an existing installation by seeing if
+; there's a VERSION file in the install directory
 if(FileExist(INSTALL_DIR . "VERSION")) {
 	FileRead, INSTALL_VER, %INSTALL_DIR%VERSION
+	; check if this exe is a newer version from the one installed
 	if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and  semver_compare(MY_VER, INSTALL_VER) == 1)) {
-		; some people will do this, so...
-		if(A_ScriptFullPath == WOTWREXE)
-		{
-			FileCopy,%A_ScriptFullPath%, %NEWWOTWR%
-			Run, *RunAs %NEWWOTWR% %1% %2% %3% %4%
-			ExitApp
-		}
-		; we're updating if the file already exists
+		; update; write ini defaults, extract new versions of files
 		gosub, WriteIniDefaults
 		gosub, ExtractFiles
-		FileCopy, %A_ScriptFullPath%, %WOTWREXE%, 1
-		Run *RunAs %WOTWREXE% %1% %2% %3% %4%
-		FileDelete, %DELETEME%
-		FileAppend, %A_ScriptFullPath%, %DELETEME%
-		ExitApp
-	} else if(FileExist(INSTALL_DIR . ".deleteme")) {
+		; sometimes people manually update by overwriting the exe at the
+		; canonical path. if that happens, none of the below is necessary
+		if(A_ScriptFullPath != WOTWREXE) {
+			; but if they don't, we have to clean up. 
+			; copy this file into the canonical path
+			FileCopy, %A_ScriptFullPath%, %WOTWREXE%, 1
+			; spawn a new thread running from the canonical path
+			Run *RunAs %WOTWREXE% %1% %2% %3% %4%
+			; mark this version of the file for deletion, then exit
+			FileDelete, %DELETEME%
+			FileAppend, %A_ScriptFullPath%, %DELETEME%			
+			ExitApp
+		}
+	} else if(FileExist(DELETEME)) {
+		; this branch triggers right after a successful update 
+		; and deletes the update-source exe
 		FileRead, TPath, %DELETEME%
 		FileDelete, %TPath%
 		FileDelete, %DELETEME%
@@ -103,15 +113,6 @@ gosub, ReadIniVals
 
 if(dev == "false")
 	maybehide := "Hide"
-; -----------run C:\moon version of self, if that's not us (and we're compiled), and then Exit
-
-If(A_ScriptFullPath != INSTALL_DIR . "WotwRando.exe" ) {
-	if(A_IsCompiled)
-	{
-		Run *RunAs %WOTWREXE% %1% %2% %3% %4%
-		ExitApp
-	}
-}
 
 ; ---------- check for updates ---------------
 if(skipUpdate == "false")
@@ -165,7 +166,7 @@ if(argc > 0)  {
 	FileCopy, %1%, %INSTALL_DIR%\.currentseed, 1
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
-		SplashTextOn,550,, Launching Rando with Seed %FileName%
+		SplashTextOn,400,, Launching Rando with Seed %FileName%
 		GoSub, LaunchGame
 		WinWaitActive, OriAndTheWilloftheWisps,, 5
 		Sleep 3000
@@ -173,7 +174,7 @@ if(argc > 0)  {
 	} else {
 		WinActivate, OriAndTheWilloftheWisps
 		WinWaitActive, OriAndTheWilloftheWisps
-		SendInput, !l
+		SendRaw, !l
 	}
 
 }  else {
@@ -187,7 +188,7 @@ if(argc > 0)  {
 	} else {
 		WinActivate, OriAndTheWilloftheWisps
 		WinWaitActive, OriAndTheWilloftheWisps
-		SendInput, !l
+		SendRaw, !l
 	}
 }
 ExitApp

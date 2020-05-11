@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using RandoMainDLL.Memory;
 
@@ -40,9 +41,9 @@ namespace RandoMainDLL {
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
             if (uberId.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Length > 4)
-              ShopController.SetCostMod((AbilityType)uberId.ID, float.Parse(frags[4]));
+              ShopController.SetCostMod((AbilityType)uberId.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
             else if (uberId.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Length > 4)
-              ShopController.SetCostMod((ShardType)uberId.ID, float.Parse(frags[4]));
+              ShopController.SetCostMod((ShardType)uberId.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
 
             // insert crazed laughter here
             pickupMap[uberId] = (pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty).Concat(BuildPickup(pickupType, frags[3]));
