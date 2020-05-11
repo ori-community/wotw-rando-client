@@ -181,7 +181,7 @@ namespace RandoMainDLL {
         return;
       }
       SaveController.Data.OpherSold.Add(slot);
-      Randomizer.Log($"sold {item} from {slot} for ${item.DefaultCost()}", false);
+      Randomizer.Log($"sold {item} from {slot} for ${SeedController.OpherWeapon(slot).CostWithMod(GetCostMod(slot))}", false);
       item.Grant();
       InterOp.save();
       return;
@@ -204,6 +204,7 @@ namespace RandoMainDLL {
         Randomizer.Log($"TBS: not enough money or slot already sold ");
         return;
       }
+      Randomizer.Log($"sold {item} from {slot} for ${SeedController.TwillenShard(slot).CostWithMod(GetCostMod(slot))}", false);
       SaveController.Data.TwillenSold.Add(slot);
       InterOp.save();
       item.Grant();
