@@ -552,7 +552,7 @@ namespace RandoMainDLL.Memory {
 
     public void SetAbility(AbilityType type, bool setTo = true) {
       if (type == AbilityType.Dash && setTo)
-        Randomizer.DashUpdate = true;
+        InterOp.foundDash();
 
       IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
       //.Count

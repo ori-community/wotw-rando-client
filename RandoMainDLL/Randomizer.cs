@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -39,6 +37,7 @@ namespace RandoMainDLL {
         }
 
         Memory.PatchNoPause(true);
+        Log("init complete", false);
         return true;
       }
       catch (Exception e) {
@@ -48,132 +47,53 @@ namespace RandoMainDLL {
     }
 
     [DllExport]
-    public static int Update() {
-      RVAFinder.Update();
+    public static void Update() {
       try {
+        RVAFinder.Update();
         if (!Memory.IsHooked) {
           Memory.HookProcess();
-          return 2;
         }
-        AHK.Tick();
+
         if (Memory.GameState == GameState.TitleScreen) {
           UberStateController.Ready = false;
-        }
-        else if (Memory.GameState == GameState.Game) {
+        } else if (Memory.GameState == GameState.Game) {
           UberStateController.Update();
-          return -2;
+          if (InputUnlockCallback != null && InterOp.playerCanMove()) 
+              OnInputUnlock();
         }
-        return -1;
+        AHK.Tick();
       }
       catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }
-      return 4;
     }
 
     public static bool Dev = false;
 
-    public static void Error(string caller, Exception e) {
-      Log($"{caller}: {e.Message}\n{e.StackTrace}");
+    public static void Error(string caller, Exception e, bool printIfDev = true) {
+      Log($"{caller}: {e.Message}\n{e.StackTrace}", printIfDev, "ERROR");
     }
 
-    public static void Log(string message, bool printIfDev = true) {
+    public static void Log(string message, bool printIfDev = true, string level = "INFO") {
       if (AHK.IniFlag("MuteCSLogs")) {
         return;
       }
-
-      if (LastMessage == message && message.Length > 60) {
-        repeats++;
-        if (repeats > 180) {
-          repeats = 0;
-          File.AppendAllText(LogFile, "suppressed repeats x180\n");
-        }
-        return;
-      }
-      LastMessage = message;
-      File.AppendAllText(LogFile, message + "\n");
+      File.AppendAllText(LogFile, $"{DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff]")} ({level}): {message}\n");
       if (Dev && printIfDev) {
         AHK.Print(message, 180, false);
       }
     }
 
-    public static string LastMessage = "";
-    public static int repeats = 0;
-
-    // interop flag system (reserve the right at any time to change this to a dict)
-    public static bool OreFound = false;
-    public static bool PleaseSave = false;
-    public static bool BlackSheepWall = false;
-    public static bool DashUpdate = false;
 
     public delegate void Callback();
     public static Callback InputUnlockCallback;
-
-    public enum FlagCode : int {
-      Save = 0,
-      Ore = 1,
-      UnlockMap = 2,
-      InputLockListener = 3,
-      DashUpdate = 4
-    }
-
-    //TODO: @Eiko put these where you want them :) duration is in seconds, this returns the pointer to the messageBox
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr displayHint(IntPtr hint, float duration);
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clearLastHint();
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clearMessageBox(IntPtr messageBox);
-      
-   [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr getCurrentHint();
-
-
-    [DllExport]
-    public static int OreCount() => Memory.Ore;
-
-    [DllExport]
-    public static bool CheckFlag(FlagCode flag) {
-      switch (flag) {
-        case FlagCode.Ore:
-          if (OreFound) {
-            OreFound = false;
-            return true;
-          }
-          return false;
-        case FlagCode.Save:
-          if (PleaseSave) {
-            PleaseSave = false;
-            return true;
-          }
-          return false;
-        case FlagCode.UnlockMap:
-          if (BlackSheepWall) {
-            BlackSheepWall = false;
-            return true;
-          }
-          return false;
-        case FlagCode.InputLockListener:
-          return Memory.GameState == GameState.Game && InputUnlockCallback != null;
-        case FlagCode.DashUpdate:
-          if (DashUpdate) {
-            DashUpdate = false;
-            return true;
-          }
-          return false;
-        default:
-          Log($"Unknown Flag code {flag}");
-          return false;
-      }
-    }
-
-    [DllExport]
     public static void OnInputUnlock() {
       InputUnlockCallback?.Invoke();
       InputUnlockCallback = null;
     }
+
+    [DllExport]
+    public static int OreCount() => Memory.Ore;
 
     [DllExport]
     public static bool TreeFulfilled(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability);

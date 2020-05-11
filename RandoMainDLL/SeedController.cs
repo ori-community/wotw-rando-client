@@ -80,19 +80,21 @@ namespace RandoMainDLL {
       var fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
       if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
         p.Grant();
-        Randomizer.PleaseSave = true;
+        InterOp.save();
       }
       else {
         Randomizer.Log($"Tree {ability} not found in seed!");
       }
     }
 
-    public static void OnUberState(UberState state) {
+    public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
       if (pickupMap.TryGetValue(id, out Pickup p)) {
         p.Grant();
-        Randomizer.PleaseSave = true;
+        InterOp.save();
+        return true;
       }
+      return false;
     }
 
     public static Pickup BuildPickup(PickupType type, string pickupData) {

@@ -89,7 +89,7 @@ namespace RandoMainDLL {
         }
         Data.Load();
       }
-      catch (Exception e) { Randomizer.Error("OnLoad", e); }
+      catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
 
     [DllExport]

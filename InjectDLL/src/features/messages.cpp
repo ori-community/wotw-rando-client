@@ -79,9 +79,12 @@ System_String_o* lastMessage = nullptr;
 
 extern "C" __declspec(dllexport)
 void clearMessageBox(MessageBox_o* messageBox) {
-    if(messageBox){
-        MessageBox__HideMessageScreenImmediately(messageBox, 0);
-    }
+    if (messageBox) 
+        try {
+            MessageBox__HideMessageScreenImmediately(messageBox, 0);
+        } catch (...) {
+            debug("Couldn't clear message box, this is fine");
+        }
 }
 
 extern "C" __declspec(dllexport)
@@ -90,9 +93,13 @@ void clearLastHint(){
 }
 
 extern "C" __declspec(dllexport)
+bool hintsReady() {
+    return stringHeaderCached;
+}
+
+extern "C" __declspec(dllexport)
 MessageBox_o * displayHint(System_String_o * hint, float duration){
     clearLastHint();
-
     auto messageController = getGameController()->static_fields->MessageController;
     lastHint = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, OnScreenPositions__get_TopCenter(), duration);
     lastMessage = hint;
