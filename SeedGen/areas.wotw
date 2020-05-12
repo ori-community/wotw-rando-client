@@ -9,11 +9,10 @@ requirement EnemyObstacle:
 
 requirement Combat:
   base:
-    Regenerate, Damage=20, Sword OR Hammer
+    Regenerate, Danger=35, Sword OR Hammer  # at least 2 health cells
   advanced:
     Sword OR Hammer
     Launch
-
 requirement Water:
   base: Grapple, DoubleJump, Bash, Dash, HollowTP OR Bow
 
@@ -1794,7 +1793,7 @@ area UpperDepths.SecondKSRoom:  # (542, -4466) The firefly egg in the second key
       Weapon, DoubleJump, Dash, Glide
       DepthsLight, DoubleJump, Dash OR Glide
       Launch, Weapon OR DepthsLight
-  pickup UpperDepths.CenterRoofEX:
+  pickup UpperDepths.BossPathEX:
     base:
       DepthsLight, DoubleJump, Dash
       DepthsLight, DoubleJump, Bash, Grenade=1
@@ -1845,7 +1844,7 @@ area UpperDepths.Central:  # (428, -4474) The firefly egg to the left of the sec
       DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
 
 area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
-  pickup LowerDepths.DepthsShrine:
+  pickup LowerDepths.CombatShrine:
     base, Combat:
       DepthsLight, Water, Bash, DoubleJump OR Launch
       DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
