@@ -25,10 +25,12 @@ package SeedGenerator {
     def cheapestRemaining(state: GameState = GameState.Empty): GameState = remaining(state)
       .minByOption(_.cost)
       .getOrElse(GameState.Empty)
-
+    def afterMet(state: GameState): GameState = state
     def and(that: Requirement): Requirement = AllReqs(this, that)
     def or(that: Requirement): Requirement = AnyReq(this, that)
   }
+
+  trait Consumer extends Requirement
 
   case class StateReq(flag: String) extends Requirement {
     def metBy(state: GameState): Boolean = state.flags.contains(WorldState(flag))
@@ -54,23 +56,42 @@ package SeedGenerator {
     override def toString = s"${Skill.names.getOrElse(skillCode, s"Unknown Skill $skillCode")}"
   }
 
-
-
-  case class OreReq(oreCount: Int) extends Requirement {
+  case class OreReq(oreCount: Int) extends Requirement with Consumer {
     def metBy(state: GameState): Boolean = state.inv(Ore()) >= oreCount
+    override def afterMet(state: GameState) = state.without(Ore(), oreCount)
     def remaining(state: GameState) = Seq(GameState(new Inv(Ore() -> Math.max(0, oreCount - state.inv(Ore())))))
   }
 
-  case class EnergyReq(count: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv(Energy()) >= count
-    def remaining(state: GameState) = Seq(GameState(new Inv(Energy() -> Math.max(0, count - state.inv(Energy())))))
+  case class EnergyReq(count: Int) extends Requirement with Consumer {
+    def energy(state: GameState) = state.inv(Energy())/2f
+    def metBy(state: GameState): Boolean = energy(state) >= count
+    override def afterMet(state: GameState) = state.without(Energy(), count*2)
+    def remaining(state: GameState) = Seq(GameState(new Inv(Energy() -> Math.max(0, 2*(count) - state.inv(Energy())))))
+    override def and(that: Requirement): Requirement = that match {
+      case EnergyReq(c) => EnergyReq(c+count)
+      case r => AllReqs(this, r)
+    }
+  }
+  case class DangerReq(damage: Int) extends Requirement {
+    def health(state: GameState) = state.inv(Health()) * 5
+    def metBy(state: GameState): Boolean = health(state) > damage
+    def remaining(state: GameState) = Seq(GameState(new Inv(Health() -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
+    override def and(that: Requirement): Requirement = that match {
+      case DangerReq(d) => DangerReq(d+damage)
+      case r => AllReqs(this, r)
+    }
   }
 
-  case class HealthReq(damage: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv(Health()) * 10 >= damage
-    def remaining(state: GameState) = Seq(GameState(new Inv(Health() -> Math.max(0, Math.ceil((damage * 10 - state.inv(Health()))/10).intValue()))))
+  case class DamageReq(damage: Int) extends Requirement with Consumer {
+    def health(state: GameState) = state.inv(Health()) * 5
+    def metBy(state: GameState): Boolean = health(state) > damage
+    override def afterMet(state: GameState) = state.without(Health(), Math.ceil(damage/5f).intValue())
+    def remaining(state: GameState) = Seq(GameState(new Inv(Health() -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
+    override def and(that: Requirement): Requirement = that match {
+      case DamageReq(d) => DamageReq(d+damage)
+      case r => AllReqs(this, r)
+    }
   }
-
 
   case class TeleReq(teleCode: Int) extends Requirement {
     def metBy(state: GameState): Boolean = state.inv has Teleporter(teleCode)
@@ -94,6 +115,23 @@ package SeedGenerator {
     }
     override def toString: String = s"(${reqs.mkString(" || ")})"
     override def metBy(state: GameState): Boolean = reqs.exists(_.metBy(state))
+    override def afterMet(state: GameState) = {
+      val (consumers, others) = reqs.filter(_.metBy(state)).partitionMap({
+        case cons: Consumer => Left(cons)
+        case r              => Right(r)
+      })
+      if(others.nonEmpty)
+        state
+      else
+        consumers match {
+          case Seq(consumer) => consumer.afterMet(state)
+          case head :: rest =>
+            println(s"WARNING: AnyReq.afterMet with multiple child consumers: $consumers. Taking head, ignoring rest")
+            head.afterMet(state)
+          case Nil =>
+            throw GeneratorError(s"invalid state; $this ${metBy(state)} $others, $consumers, ${state.inv}")
+        }
+    }
     def remaining(state: GameState): Seq[GameState] = reqs flatMap (_ remaining state)
   }
 
@@ -112,6 +150,7 @@ package SeedGenerator {
           })
           new AnyReq(anys.flatMap(_.reqs) ++ others: _*)
         }
+        case reqs if reqs.exists(_.isInstanceOf[Consumer]) => new AnyReq(reqs:_*) with Consumer
         case reqs => new AnyReq(reqs: _*)
       }
     }
@@ -131,7 +170,13 @@ package SeedGenerator {
       case req => AnyReq(req, this)
    }
     override def toString: String = s"(${reqs.mkString(" && ")})"
-    def metBy(state: GameState): Boolean = reqs.forall(_.metBy(state))
+    def metMaybe(state: GameState) = reqs.foldLeft[Option[GameState]](Some(state))((st, req) => st.filter(req.metBy(_)).map(req.afterMet(_)))
+    def metBy(state: GameState): Boolean = metMaybe(state).nonEmpty
+    override def afterMet(state: GameState) = {
+      if(metMaybe(state).isEmpty)
+        println(s"about to crash: $state, $reqs, ${metBy(state)}")
+      metMaybe(state).get
+    }
     def remaining(state: GameState): Seq[GameState] = {
       if (metBy(state))
         return Seq(GameState.Empty)
@@ -162,6 +207,7 @@ package SeedGenerator {
         new AllReqs(alls.flatMap(_.reqs) ++ others:_*)
       }
       case reqs if reqs.exists(_ == Invalid) => Invalid
+      case reqs if reqs.exists(_.isInstanceOf[Consumer]) => new AllReqs(reqs:_*) with Consumer
       case reqs => new AllReqs(reqs:_*)
     }
   }
@@ -317,7 +363,7 @@ package SeedGenerator {
 
   case class PlacementGroup(outState: GameState, placements: Seq[Placement], i: Int)(implicit r: Random, pool: Inv) {
     def write: String = /*(" " * 25) + s"// $i, prog: ${prog.toString.replace("Inv: ","")}\n" + */placements.map(_.write).mkString("\n")
-    def next() = {
+    def next(): Either[GeneratorError, PlacementGroup] = {
       PlacementGroup.mk(outState, i + 1)
     }
   }
@@ -394,8 +440,9 @@ package SeedGenerator {
           maybeItem.get
         })
         val newReached = Nodes.getReachable(inState.inv + Inv.mk(items:_*))
+        //println(s"$n, $items, ${newReached.size} $newReached")
         if(newReached.size > reachable.size + (if(n > 15) 1 else 0) || newReached.size == Nodes.items.size) {
-//          println(s"${newReached.size - reachable.size} new locs. Took ${RETRIES-n} tries. pool: ${pool.count}/${ItemPool.ITEM_COUNT} placed: ${inState.reached.collect({case i: ItemLoc => i}).size + locs.size}/${ItemPool.ITEM_COUNT} ")
+          //println(s"${newReached.size - reachable.size} new locs. Took ${RETRIES-n} tries. pool: ${pool.count}/${ItemPool.ITEM_COUNT} placed: ${inState.reached.collect({case i: ItemLoc => i}).size + locs.size}/${ItemPool.ITEM_COUNT} ")
           items
         } else {
           items.foreach(pool.add(_)) // put em back :upside_clown:
@@ -428,11 +475,11 @@ package SeedGenerator {
 
   object Runner {
     val setSeed = r.setSeed _
-    val DEFAULT_INV = GameState.mk(Skill(100))
+    val DEFAULT_INV = GameState(new Inv(Health() -> 6, Energy() -> 6, Sword -> 1))
     def mkSeed(advanced: Boolean = false) = {
       implicit val pool = ItemPool.build()
       if(advanced)
-        recurse(Seq(), GameState.mk(Skill(100), WorldState("advanced")))
+        recurse(Seq(), DEFAULT_INV.withParams(WorldState("advanced")))
       else
         recurse()
     }

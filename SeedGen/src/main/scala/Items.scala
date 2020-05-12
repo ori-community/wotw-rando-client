@@ -179,6 +179,7 @@ object Water extends WorldEvent(0)
   case class GameState(inv: Inv, _flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
     val flags = if(inv.has(Water)) _flags + WorldState("Water") else _flags
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
+    def without(item: Item, count: Int): GameState = GameState(inv.without(item, count), flags, reached)
     def cost(implicit flagCosts: Map[FlagState, Double] = Map()) =  inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
     def canEqual(that: Any): Boolean = that.isInstanceOf[GameState]
     override def equals(state: Any): Boolean = {
@@ -233,6 +234,15 @@ object Water extends WorldEvent(0)
       set(item, Math.max(0, this (item) - count))
       true
     }
+    def without(item: Item, count: Int): Inv = {
+      if (!has(item, count)) {
+        println(s"Error building ${this} without ${count} of ${item}")
+      }
+      new Inv(keys.toSeq.map({
+        case i if i == item => i -> (this(i)-count)
+        case i => i -> this(i)
+      }):_*)
+    }
 
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
     def popRand(implicit r: Random): Option[Item] = asSeq match {
@@ -273,6 +283,7 @@ object Water extends WorldEvent(0)
   object Grapple extends Skill(57)
   object Glide extends Skill(14)
   object Launch extends Skill(8)
+  object Sword extends Skill(100)
   object Burrow extends Skill(101)
   object Dash extends Skill(102)
   object Smash extends Skill(98)

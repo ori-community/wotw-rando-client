@@ -2182,6 +2182,9 @@ area WeepingRidge:  # (1191, -3716) After the portal at the top of Elevator
     base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
 
 # BEGIN unvalidated willow's end region
+region WillowsEnd:
+  base:
+    Danger=60, Regenerate # need at least 6 health and Regen to do ANYTHING in willow
 
 area WillowsEnd.Entry:  # (495, -3950) At the lower door
   state WillowsEnd.TrapHeart:
@@ -2289,6 +2292,7 @@ area WillowsEnd.Upper:  # (515, -3745) At the upper door
 
 area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
   conn WillowsEnd.Upper: free
+
 
 # END unvalidated willow's end region
 
