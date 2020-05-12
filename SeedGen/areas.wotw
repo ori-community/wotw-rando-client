@@ -17,6 +17,10 @@ requirement Combat:
 requirement Water:
   base: Grapple, DoubleJump, Bash, Dash, HollowTP OR Bow
 
+requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
+  base: UpperDepths.MoraDefeated OR Flash
+  advanced: Bow
+
 area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater well
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
@@ -113,7 +117,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
   #  base: EastWoodsTP
   conn LowerReach.Teleporter:
     base: ReachTP
-  conn UpperDepths.TeleporterRoom:
+  conn UpperDepths.Teleporter:
     base: DepthsTP
   conn WestPools:
     base: WestPoolsTP
@@ -157,48 +161,44 @@ area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, b
 area MidnightBurrows:  # (-945, -4581) At the teleporter
   # MidnightBurrows.Lever: tracks the ability to reach the burrows lever
   state MidnightBurrows.Lever:
-    base: Bash, DoubleJump OR Dash OR Glide
+    base: DoubleJump, Bash
 
   pickup MidnightBurrows.LeftKS:
-    base:
+    base: 
       DoubleJump OR Dash OR Glide OR Launch
     advanced:
       Damage=15
   pickup MidnightBurrows.RightKS:
     base:
-      MidnightBurrows.Lever, DoubleJump OR Dash OR Glide
+      MidnightBurrows.Lever, DoubleJump
       Launch
   pickup MidnightBurrows.UpperKS:
     base:
+      MidnightBurrows.Lever, EnemyObstacle, DoubleJump, Glide
+      MidnightBurrows.Lever, EnemyObstacle, DoubleJump, Dash, Damage=15
       Launch
-      EnemyObstacle:
-        Glide
-        DoubleJump, Dash
-        Damage=15, DoubleJump OR Dash
 
   pickup MidnightBurrows.LowerKS:
     base:
       DoubleJump, Dash, Bash
-      Bash, Glide
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1
       Launch
   pickup MidnightBurrows.LupoMap:
     base:
-      DoubleJump OR Dash OR Glide
+      DoubleJump
       Bash, Grenade=1
       Launch
     advanced:
       Bash
   pickup MidnightBurrows.DeflectorShard:
     base:
-      Launch
-      MidnightBurrows.Lever, Glide
       MidnightBurrows.Lever, DoubleJump, Dash
-    advanced:
+      Launch
+    advanced: 
       MidnightBurrows.Lever, DoubleJump OR Dash
   pickup MidnightBurrows.TabletQI:
     base:
-      Bash, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash
       Launch
 
 area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
@@ -1687,62 +1687,217 @@ area LowerReach.Trial:  # (70, -4044) At trial start
   conn GladesTown.Main:
     base: Glide
 
-area UpperDepths.Entry:  # (161, -4340) the first bit of standable ground below the door
+area UpperDepths.Entry:  # (161, -4340) The little standable ground below the entrance
   pickup UpperDepths.EntrySpikesEX:
     base: Glide
   pickup UpperDepths.EntryRoofEX:
-    base: Glide, DoubleJump, Bash
+    base:
+      Glide, Bash, DoubleJump OR Dash
+      Glide, DoubleJump, Dash, Grapple
+      Glide, Launch
   pickup UpperDepths.EntryOre:
-    base: Glide, DoubleJump, Grapple
+    base:
+      Weapon, Glide, Grapple, DoubleJump OR Dash
+      Glide, Bash, DoubleJump OR Grapple
+      Glide, Launch
+  
+  conn UpperDepths.FirstKSRoom:
+    base: EnemyObstacle, Glide
+
+area UpperDepths.FirstKSRoom:  # (245, -4417) Below the first firefly egg
+  state UpperDepths.LightPuzzle:  # breaking the corruption blocking the light
+    base, Weapon:
+      DoubleJump, Bash, Grapple
+      Bash, Launch
+  
+  pickup UpperDepths.EntryRoofEX:
+    base, EnemyObstacle:
+      Grapple, DoubleJump, Bash
+      Grapple, DoubleJump, Dash
+      Launch, DoubleJump OR Grapple
+  pickup UpperDepths.EntryOre: #
+    base, EnemyObstacle:
+      Grapple, DoubleJump
+      Launch, DoubleJump OR Grapple
   pickup UpperDepths.RightEntryKS:
-    base: Glide, DoubleJump, Grapple
+    base, Weapon:
+      Grapple, DoubleJump
+      Launch, DoubleJump OR Dash OR Glide OR Grapple
   pickup UpperDepths.LeftEntryKS:
-    base: Glide, Grapple
+    base:
+      Weapon, Grapple, DoubleJump OR Dash
+      Weapon, Launch
+      EnemyObstacle, DepthsLight
   pickup UpperDepths.SwimEC:
-    base: Glide, Flash, Water
-  conn UpperDepths.TeleporterRoom:
-    base: Glide, DoubleJump, Bash, Dash
-  conn UpperDepths.KeystoneRoom:
-    base: Glide, DoubleJump, Bash, Dash, Flash
+    base: EnemyObstacle, DepthsLight, Water
+  
+  conn UpperDepths.Entry:
+    base, EnemyObstacle:
+      Glide, Grapple, DoubleJump
+      Glide, Launch, DoubleJump OR Grapple
+  conn UpperDepths.BelowHive:
+    base, UpperDepths.LightPuzzle OR DepthsLight:
+      Bash, DoubleJump, Grapple
+      Bash, Grenade=1, Grapple
+      Launch
 
-area UpperDepths.TeleporterRoom:  # (520, -4366) The depths spirit well
-  pickup UpperDepths.TeleporterEX: free
+area UpperDepths.BelowHive:  # (447, -4410) Below the Hive, on top of the tunnel leading downwards
+  pickup UpperDepths.HiveEX:
+    base: Bash OR Launch
+  # there will be paths to RightEntryKS here, but paths that aren't redundant with the FirstKSRoom connection can't get out again, which I didn't want for base.
+  
+  conn UpperDepths.FirstKSRoom:
+    base, UpperDepths.LightPuzzle OR DepthsLight:
+      DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grapple
+  conn UpperDepths.Teleporter:
+    base: Grapple OR Launch
+  conn UpperDepths.SecondKSRoom:
+    base: DepthsLight, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+  conn UpperDepths.Central:
+    base: DepthsLight  # a bit scary...
 
-area UpperDepths.KeystoneRoom:  # (465, -4483) The firefly egg to the right of the keystone door
+area UpperDepths.Teleporter:  # (513, -4361) The spirit well
+  pickup UpperDepths.TeleporterEX: free  # just a few steps away in the darkness
+  
+  conn UpperDepths.BelowHive:
+    base:
+      Bow OR Spear
+      Weapon, Launch
+      DepthsLight
+  conn UpperDepths.Central:
+    base:
+      Bow, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+      Spear, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+      Weapon, Launch
+  conn UpperDepths.SecondKSRoom:
+    base:
+      Bow, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+      Spear, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+      Weapon, Launch
+
+area UpperDepths.SecondKSRoom:  # (542, -4466) The firefly egg in the second keystone room
+  state UpperDepths.MoraDefeated:
+    base, Combat, Damage=80:
+      DepthsLight, DoubleJump, Dash, Bash, Grapple
+      DepthsLight, Bash, Grapple, Launch
+  
+  pickup UpperDepths.RightHealthKS: free
   pickup UpperDepths.LeftHealthKS:
-    base: Glide, DoubleJump, Grapple, Bow
-  pickup UpperDepths.RightHealthKS:
-    base: Glide, DoubleJump, Grapple, Bow
-  pickup UpperDepths.SeedQI:
-    base: Glide, DoubleJump, Grapple, Bash, Flash
-  pickup UpperDepths.BossPathEX:
-    base: Glide, DoubleJump, Grapple, Bash, Flash
+    base: 
+      Weapon, DoubleJump, Dash OR Glide
+      DepthsLight, DoubleJump, Dash OR Glide
+      DepthsLight, DoubleJump, Bash, Grenade=1
+      Launch, Weapon OR DepthsLight
   pickup UpperDepths.KeystoneHC:
-    base: Glide, DoubleJump, Grapple, Bow
+    base:
+      Weapon, DoubleJump, Dash, Glide
+      DepthsLight, DoubleJump, Dash OR Glide
+      Launch, Weapon OR DepthsLight
+  pickup UpperDepths.CenterRoofEX:
+    base:
+      DepthsLight, DoubleJump, Dash
+      DepthsLight, DoubleJump, Bash, Grenade=1
+      DepthsLight, Launch
+  pickup UpperDepths.SeedQI:
+    base:
+      DepthsLight, DoubleJump, Dash, Grapple
+      Weapon, DepthsLight, DoubleJump, Dash, Bash, Grenade=1
+      DepthsLight, Launch
 
-  conn LowerDepths: free # for now
+  conn UpperDepths.Central:
+    base:  # these cross the keystone door
+      Weapon, DoubleJump, Dash OR Glide
+      Weapon, Launch
+      DepthsLight
+  # conn UpperDepths.BelowHive might be necessary when adding keystone doors
+  conn UpperDepths.Teleporter:
+    base, Weapon:
+      DepthsLight, DoubleJump, Dash, Grapple
+      DepthsLight, Launch
 
-area LowerDepths:  # (428, -4474) The firefly egg to the left of the 2nd keystone door
-  pickup LowerDepths.RaceStartHC:
-    base: Glide, DoubleJump, Grapple, Bash, Flash
+area UpperDepths.Central:  # (428, -4474) The firefly egg to the left of the second keystone door
   pickup LowerDepths.BelowDoorOre:
-    base: Glide, DoubleJump, Grapple, Bash, Flash
-  pickup LowerDepths.SpiritSurgeShard:
-    base: Glide, DoubleJump, Grapple, Bow, Bash
-  pickup LowerDepths.SwimEC:
-    base: Glide, DoubleJump, Grapple, Bash, Flash, Water
-  pickup LowerDepths.LupoMap:
-    base: Bash, Grapple, DoubleJump, Glide
+    base: DepthsLight  # It's hidden in a dark area, not hard to reach.
   pickup LowerDepths.LeftEX:
-    base: Glide, DoubleJump, Grapple, Bow
+    base: 
+      Weapon, DoubleJump OR Dash OR Glide OR Launch
+      DepthsLight, DoubleJump OR Dash OR Glide OR Launch
+  
+  conn UpperDepths.BelowHive:
+    base, Weapon OR DepthsLight:
+      DoubleJump, Grapple
+      Launch
+  conn UpperDepths.SecondKSRoom: free  # crosses the keystone door
+  conn LowerDepths.West:
+    base:
+      Weapon, Dash, DoubleJump OR Glide
+      DepthsLight, DoubleJump, Dash
+      DepthsLight, Glide
+      Launch, Weapon OR DepthsLight
+  conn LowerDepths.Central:
+    base:  # some of the Weapon paths are a bit treacherous...
+      Weapon, DoubleJump, Dash, Bash OR Glide
+      Weapon, Launch, DoubleJump OR Glide
+      DepthsLight, DoubleJump, Dash, Bash OR Glide
+      DepthsLight, Bash, Glide
+      DepthsLight, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
+
+area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
+  pickup LowerDepths.DepthsShrine:
+    base, Combat:
+      DepthsLight, Water, Bash, DoubleJump OR Launch
+      DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
+  pickup LowerDepths.SwimEC:
+    base: DepthsLight, Water
+  # backwards paths would be redundant currently
+
+area LowerDepths.Central:  # (482, -4536) Below where the trial starts
+  pickup LowerDepths.RaceStartHC:
+    base:
+      DoubleJump, Grapple, Dash OR DepthsLight
+      Launch
+  
+  conn LowerDepths.East:
+    base:
+      Bash, DoubleJump, Dash OR Glide
+      Launch, DoubleJump OR Dash OR Bash OR Glide
+  # back to uppercentral would be redundant currently
+
+area LowerDepths.East:  # (570, -4549) The lit up room on the trial path
+  pickup LowerDepths.SpiritSurgeShard:
+    base:
+      DoubleJump, Grapple, Dash OR Glide
+      Launch, DoubleJump OR Dash OR Grapple OR Glide
+  pickup LowerDepths.LupoMap:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch, DoubleJump, Dash
+      Launch, Glide
+      DepthsLight, Glide
+      DepthsLight, Launch, DoubleJump OR Dash
   pickup LowerDepths.RightEX:
-    base: Glide, DoubleJump, Grapple, Bash
-  pickup LowerDepths.HiveEX:
-    base: Glide, DoubleJump, Grapple, Bash, Flash
+    base:
+      Weapon, Launch, Bash, DoubleJump, Dash
+      Weapon, Launch, Bash, Glide
+      Weapon, Launch, Grapple, DoubleJump OR Dash OR Bash OR Glide
+      DepthsLight, Bash, Grapple, DoubleJump OR Dash OR Glide
+      DepthsLight, Launch, Bash OR Grapple
   pickup LowerDepths.FlashTree:
-    base: Glide, DoubleJump, Grapple, Bow, Bash
-  pickup LowerDepths.CombatShrine:
-    base: Glide, DoubleJump, Grapple, Bash, Flash, Water, Combat
+    base:
+      Weapon, DoubleJump, Bash, Grapple, Dash OR Glide
+      Weapon, Launch, Bash, DoubleJump, Dash
+      Weapon, Launch, Bash, Glide
+      Weapon, Launch, Grapple, DoubleJump OR Dash OR Bash OR Glide
+      DepthsLight, Bash, Grapple, DoubleJump OR Dash OR Glide
+      DepthsLight, Launch, Bash OR Grapple
+  
+  conn UpperDepths.SecondKSRoom:
+    base, Weapon:
+      DepthsLight, DoubleJump, Bash, Grapple
+      DepthsLight, Launch
+  # back to lowercentral would be redundant currently
 
 area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
   pickup LowerWastes.WestTPOre:
