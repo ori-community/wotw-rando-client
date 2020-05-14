@@ -55,9 +55,8 @@ namespace RandoMainDLL {
       {ZoneType.Pools,  new UberState() { Name = "hasMapLumaPools", ID = 1557, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
       {ZoneType.Depths,  new UberState() { Name = "hasMapMouldwoodDepths", ID = 4842, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
       {ZoneType.Wastes,  new UberState() { Name = "hasMapWindsweptWastes", ID = 6114, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
-      {ZoneType.Willow,  new UberState() { Name = "hasMapWillowsEnd", ID = 404, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
+      {ZoneType.Willow,  new UberState() { Name = "hasMapWillowsEnd", ID = 4045, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
     };
-
     // might change later?
     public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is WorldEvent);
 
