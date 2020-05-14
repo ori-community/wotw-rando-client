@@ -4,14 +4,32 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class UberStateController {
-    public static Dictionary<long, UberState> UberStates = new Dictionary<long, UberState>();
-    
+    public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
+    public static UberValue? CurrentValue(this UberState state) => state.GetUberId().GetValue();
+    public static UberState State(this UberId id) {
+      UberStates.TryGetValue(id, out UberState s);
+      return s;
+    }
+
+    public static UberValue? GetValue(this UberId id) {
+      if (UberStates.TryGetValue(id, out UberState curr)) {
+        return curr.Value;
+      }
+      return null;
+    }
+    public static bool Write(this UberState state) => state.Write(state.Value);
+
+      public static bool Write(this UberState state, UberValue value) {
+      state.Value = value;
+      Randomizer.Memory.WriteUberState(state);
+      return true;
+    }
     public static void Update() {
       var memory = Randomizer.Memory;
       Dictionary<long, UberState> uberStates = memory.GetUberStates();
       foreach (KeyValuePair<long, UberState> pair in uberStates) {
-        long key = pair.Key;
         UberState state = pair.Value;
+        UberId key = state.GetUberId();
         if (state.GroupName == "statsUberStateGroup" || (state.GroupName == "achievementsGroup" && state.Name == "spiritLightGainedCounter")) {
           continue;
         }
@@ -25,6 +43,7 @@ namespace RandoMainDLL {
               memory.WriteUberState(oldState);
               continue;
             }
+            HandleSpecial(state);
             var pos = Randomizer.Memory.Position();
             if (Ready) {
               bool found = false;
@@ -47,16 +66,16 @@ namespace RandoMainDLL {
       else 
         Ready = true;
     }
-    
-    private static bool ShouldRevert(UberState state) {
       // if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
       //   return true;
-      if (state.Name == "findKuQuest" && state.Value.Int < 4) {
-        return true;
-      }
-
-      return false;
+    private static void HandleSpecial(UberState state) {
+      if(state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
+        // lumaPoolsStateGroup.arenaByteStateSerialized
+        new UberId(5377, 1373).State().Write(state.Value);
     }
+    private static bool ShouldRevert(UberState state) => !NeedsNewGameInit && Ready &&
+      (state.Name == "cleanseWellspringQuestUberState" && SaveController.Data.WorldEvents.Contains(WorldEventType.Water) && state.Value.Int < 4 ) ||
+      (state.Name == "findKuQuest" && state.Value.Int < 4);
 
     public static void NewGameInit() {
       var memory = Randomizer.Memory;

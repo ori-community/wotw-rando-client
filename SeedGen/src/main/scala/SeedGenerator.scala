@@ -236,7 +236,7 @@ package SeedGenerator {
           None
       }.toSeq
       pickupsFile.close()
-      pickups //.filter(loc => loc.category != "Quest" && loc.value != "ShardSlot")
+      pickups.filter(_.value != "LupoZoneMap") //.filter(loc => loc.category != "Quest" && loc.value != "ShardSlot")
     }
     lazy val byName = all.map(data => (s"${data.area}.${data.name}") -> data).toMap
   }
@@ -284,7 +284,9 @@ package SeedGenerator {
   object ItemLoc {
     def mk(name: String, src: Map[String, LocData]=LocData.byName): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
       .orElse({
-        println(s"pickup $name not found in loc_data.csv!"); None
+        if(!name.endsWith("LupoMap"))
+          println(s"pickup $name not found in loc_data.csv!")
+        None
       })
   }
 

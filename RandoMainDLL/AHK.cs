@@ -23,7 +23,8 @@ namespace RandoMainDLL {
       #IfWinActive, OriAndTheWilloftheWisps
       !j::signal := ""dev""
       !l::signal := ""reload""
-      !t::signal := ""resendLast""
+      !t::signal := ""lastPickup""
+      !p::signal := ""hintMessage""
       ";
     public static AutoHotkeyEngine Engine = AutoHotkeyEngine.Instance;
     public static bool Ready = false;
@@ -62,9 +63,12 @@ namespace RandoMainDLL {
               FramesTillUnlockReload = 60;
             }
             break;
-          case "resendLast":
-            if(Last != null)
-              MessageQueue.Enqueue(Last);
+          case "lastPickup":
+            FramesTillNextSend /= 2;
+            MessageQueue.Enqueue(Last);
+            break;
+          case "hintMessage":
+            HintsController.ShowHintMessage();
             break;
           case "dev":
             Randomizer.Dev = !Randomizer.Dev;
@@ -85,7 +89,6 @@ namespace RandoMainDLL {
       else {
         if (CanPrint) {
           Current = MessageQueue.Peek();
-          Last = Current;
           FramesTillNextSend = Current.Frames;
           try {
             InterOp.displayHint(ShopController.getIl2cppStringPointer(Current.Text), Current.Frames / 60f);
@@ -105,31 +108,42 @@ namespace RandoMainDLL {
     public static bool CanPrint { get => MessageQueue.Count > 0 && Memory.MemoryReader.stringHeader != null && InterOp.hintsReady(); }
     // public static bool SendMessage
     public static IMessage Current = null;
-    public static IMessage Last = null;
+    public static IMessage Last = new PlainText("*Good Luck! <3*");
     public static Queue<IMessage> MessageQueue = new Queue<IMessage>();
     public static int FramesTillUnlockReload = 0;
     public static int FramesTillNextSend = 0;
 
+    public static void OnNewGame() {
+      Last = new PlainText("*Good Luck! <3*");
+    }
+    public static void Pickup(string message, int frames = 180) {
+      FramesTillNextSend /= 3;
+      var msg = new PlainText(message, frames);
+      SendPlainText(msg);
+      Last = msg;
+    }
     public static void Print(string message, int frames = 180, bool toMessageLog = true) => SendPlainText(new PlainText(message, frames), toMessageLog);
     public static void SendPlainText(PlainText p, bool logMessage = true) {
-      if(logMessage)
+      FramesTillNextSend /= 2;
+      if (logMessage)
         File.AppendAllText(Randomizer.MessageLog, $"{p.Text}\n");
       MessageQueue.Enqueue(p);
     }
 
-    public interface IMessage {
-      string Text { get; }
-      int Frames { get; }
-    };
-
-    public class PlainText : IMessage {
-      public PlainText(string text, int frames = 180) {
-        Text = text;
-        Frames = frames;
-      }
-
-      public string Text { get; }
-      public int Frames { get; }
-    }
   }
+  public interface IMessage {
+    string Text { get; }
+    int Frames { get; }
+  };
+
+  public class PlainText : IMessage {
+    public PlainText(string text, int frames = 180) {
+      Text = text;
+      Frames = frames;
+    }
+
+    public string Text { get; }
+    public int Frames { get; }
+  }
+
 }
