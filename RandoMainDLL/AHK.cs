@@ -25,6 +25,11 @@ namespace RandoMainDLL {
       !l::signal := ""reload""
       !t::signal := ""lastPickup""
       !p::signal := ""hintMessage""
+      !^1::signal := ""test1""
+      !^2::signal := ""test2""
+      !^3::signal := ""test3""
+      !^4::signal := ""test4""
+      !^5::signal := ""test5""
       ";
     public static AutoHotkeyEngine Engine = AutoHotkeyEngine.Instance;
     public static bool Ready = false;
@@ -77,6 +82,18 @@ namespace RandoMainDLL {
           case "exitapp":
             Environment.Exit(Environment.ExitCode);
             break;
+          case "test1":
+            InterOp.magicFunction();
+            break;
+          case "test2":
+            break;
+          case "test3":
+            break;
+          case "test4":
+            break;
+          case "test5":
+            break;
+
           default:
             Randomizer.Log($"Recieved unknown signal {signal}");
             break;

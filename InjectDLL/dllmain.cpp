@@ -82,6 +82,11 @@ bool foundGameWorld() {
     return gameWorldInstance != 0;
 }
 
+BINDING(27709360, void, Moon_UberStateController__ApplyAll, (int32_t context))
+
+extern "C" __declspec(dllexport)
+void magicFunction() { Moon_UberStateController__ApplyAll(1); }
+
 INTERCEPT(7720864, void, GameWorld__Awake, (__int64 thisPtr), {
 	if(gameWorldInstance != thisPtr) {
 		debug("Found GameWorld instance!");

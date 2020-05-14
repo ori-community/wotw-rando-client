@@ -187,7 +187,7 @@ namespace RandoMainDLL {
       SaveController.Data.OpherSold.Add(slot);
       Randomizer.Log($"sold {item} from {slot} for ${SeedController.OpherWeapon(slot).CostWithMod(GetCostMod(slot))}", false);
       item.Grant();
-      InterOp.save();
+      InterOp.magicFunction();
       return;
     }
 
@@ -210,7 +210,7 @@ namespace RandoMainDLL {
       }
       Randomizer.Log($"sold {item} from {slot} for ${SeedController.TwillenShard(slot).CostWithMod(GetCostMod(slot))}", false);
       SaveController.Data.TwillenSold.Add(slot);
-      InterOp.save();
+      InterOp.magicFunction();
       item.Grant();
       return;
     }
