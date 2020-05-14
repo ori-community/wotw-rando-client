@@ -220,7 +220,7 @@ LowerReach.IcefallOre, Baurs Reach, Resource, Ore, baursReachGroup, 28895, gorle
 LowerReach.IcefallEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, largeXPOrbA, 45337, -500, -3970
 LowerReach.AboveDoorEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbA, 38143, -337, -3999
 LowerReach.HiddenOre, Baurs Reach, Resource, Ore, baursReachGroup, 28895, orePlaceholder, 47529, -346, -3947
-LowerReach.Lupo, Baurs Reach, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapBaursReach, 29604, -275, -3996
+LowerReach.LupoMap, Baurs Reach, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapBaursReach, 29604, -275, -3996
 LowerReach.MeltIceEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbF, 4301, -350, -4039
 LowerReach.BurrowEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbE, 45066, -331, -4051
 LowerReach.TPLeftEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, , 36231, -340, -3984
