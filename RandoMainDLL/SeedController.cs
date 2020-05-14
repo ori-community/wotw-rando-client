@@ -85,7 +85,7 @@ namespace RandoMainDLL {
       var fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
       if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
         p.Grant();
-        InterOp.save();
+        InterOp.magicFunction();
       }
       else {
         Randomizer.Log($"Tree {ability} not found in seed!");
@@ -97,7 +97,7 @@ namespace RandoMainDLL {
       bool granted = pickupMap.TryGetValue(id, out Pickup p);
       if (granted) {
         p.Grant();
-        InterOp.save();
+        InterOp.magicFunction();
         SaveController.Data.FoundCount++;
       }
       if (HintsController.LupoZoneIds.Contains(id))

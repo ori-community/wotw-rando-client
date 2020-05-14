@@ -30,6 +30,9 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static bool playerCanMove();
 
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void magicFunction();
+
     static class ExportedFuncDoNotCall {
       // calling any of these from c# will instantly trigger a crash
       // In fact, loading a function onto the stack that calls one
