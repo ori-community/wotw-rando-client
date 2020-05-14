@@ -13,8 +13,6 @@ requirement Combat:
   advanced:
     Sword OR Hammer
     Launch
-requirement Water:
-  base: Grapple, DoubleJump, Bash, Dash, HollowTP OR Bow
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
   base: UpperDepths.MoraDefeated OR Flash
@@ -245,7 +243,9 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
 
 area HowlsDen.Lower:  # (-328, -4535) At the teleporter
   pickup HowlsDen.LowerEX:
-    base: Weapon
+    base, Weapon:
+      DoubleJump OR Launch
+      Bash, Grenade=1
   pickup HowlsDen.CombatShrine:
     base: Combat, Hammer
   pickup HowlsDen.LaserKS:
@@ -1408,7 +1408,7 @@ area LowerReach.Central:  # (-347, -4011) After the lever door
         DoubleJump, Dash, Bash OR Hammer  # not validated
         Bash, Grenade=1  # not validated
       Launch
-  pickup LowerReach.Lupo:
+  pickup LowerReach.LupoMap:
     base:
       Launch
       DoubleJump, Dash

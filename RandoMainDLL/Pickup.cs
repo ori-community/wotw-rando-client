@@ -306,8 +306,8 @@ namespace RandoMainDLL {
       SaveController.Data.WorldEvents.Add(type);
       switch (type) {
         case WorldEventType.Water:
-          //          new UberId(37858, 10720)
-          UberStateDefaults.watermillEscapeState.Write(new UberValue(1));
+          // marks the escape as complete if you get clean water
+          UberStateDefaults.watermillEscapeState.Write(new UberValue(2));
           UberStateDefaults.cleanseWellspringQuestUberState.Write(new UberValue(4));
           UberStateDefaults.finishedWatermillEscape.Write(new UberValue(true));
           break;
