@@ -9,30 +9,42 @@ namespace RandoMainDLL {
     public class SaveData {
       public SaveData(int slot) {
         Slot = slot;
-        TreesActivated = new HashSet<AbilityType>();
-        OpherSold = new HashSet<AbilityType>();
-        OpherUpgraded = new Dictionary<AbilityType, int>();
-        TwillenSold = new HashSet<ShardType>();
+        // should make it possible to load seeds that tracked this the old way and have it work?
+        if (UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().GetValue().GetValueOrDefault(new UberValue(0)).Int > 3)
+          // TODO: delete this once everyone's been patched (let's say June?)
+          WorldEvents.Add(WorldEventType.Water);
       }
 
       [JsonConstructor]
-      public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell, Dictionary<AbilityType, int> opherUpgrade, HashSet<ShardType> shardSlots) {
+      public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell,
+        Dictionary<AbilityType, int> opherUpgrade, HashSet<ShardType> shardSlots,
+        HashSet<WorldEventType> worldEvents, int count = 0) {
         Slot = slot;
         TreesActivated = trees;
         OpherSold = opherSell;
         OpherUpgraded = opherUpgrade;
         TwillenSold = shardSlots;
+        if(worldEvents == null) {
+          worldEvents = new HashSet<WorldEventType>();
+          if (UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().GetValue().GetValueOrDefault(new UberValue(0)).Int > 3)
+            // TODO: delete this once everyone's been patched (let's say June?)
+            worldEvents.Add(WorldEventType.Water);
+        }
+        WorldEvents = worldEvents;
+        FoundCount = count;
       }
 
       public int Slot;
-      public HashSet<AbilityType> TreesActivated;
-      public HashSet<AbilityType> OpherSold;
-      public Dictionary<AbilityType, int> OpherUpgraded;
-      public HashSet<ShardType> TwillenSold;
+      public HashSet<AbilityType> TreesActivated = new HashSet<AbilityType>();
+      public HashSet<AbilityType> OpherSold = new HashSet<AbilityType>();
+      public Dictionary<AbilityType, int> OpherUpgraded = new Dictionary<AbilityType, int>();
+      public HashSet<ShardType> TwillenSold = new HashSet<ShardType>();
+      public HashSet<WorldEventType> WorldEvents = new HashSet<WorldEventType>();
+      public int FoundCount = 0;
 
       [JsonIgnore]
       public string Filename => $"{Randomizer.SaveFolder}\\randosave_{Slot}.json";
-
+      public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}";
       public void Save() {
         if (File.Exists(Filename)) {
           File.Delete(Filename);
@@ -51,6 +63,7 @@ namespace RandoMainDLL {
           using (var sr = new StreamReader(Filename))
           using (JsonReader reader = new JsonTextReader(sr)) {
             var serializer = new JsonSerializer();
+            serializer.DefaultValueHandling = DefaultValueHandling.Populate;
             copyFrom = serializer.Deserialize<SaveData>(reader);
           }
         }
@@ -58,6 +71,8 @@ namespace RandoMainDLL {
         OpherSold = new HashSet<AbilityType>(copyFrom.OpherSold);
         OpherUpgraded = new Dictionary<AbilityType, int>(copyFrom.OpherUpgraded);
         TwillenSold = new HashSet<ShardType>(copyFrom.TwillenSold);
+        WorldEvents = new HashSet<WorldEventType>(copyFrom.WorldEvents);
+        FoundCount = copyFrom.FoundCount;
       }
     }
 
@@ -68,8 +83,7 @@ namespace RandoMainDLL {
     public static void NewGame(int slot) {
       // overwrite the message log TODO: save a backup maybe?
       File.WriteAllText(Randomizer.MessageLog, "");
-      SeedController.ReadSeed();
-      UberStateController.NeedsNewGameInit = true;
+      Randomizer.OnNewGame();
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();

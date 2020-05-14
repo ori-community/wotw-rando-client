@@ -78,9 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AHK.cs" />
+    <Compile Include="LocData.cs" />
     <Compile Include="InterOp.cs" />
     <Compile Include="RVAFinder.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="HintsController.cs" />
     <Compile Include="ShopController.cs" />
     <Compile Include="SaveController.cs" />
     <Compile Include="Memory\MessageDescriptor.cs" />

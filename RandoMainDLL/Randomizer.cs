@@ -12,9 +12,14 @@ namespace RandoMainDLL {
     public static string VersionFile = @"C:\moon\VERSION";
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version; // Opening a txt file every time we want to access this property? Nah.
+                                    // Look it was a temporary thing - Eiko
     public static MemoryManager Memory;
 
-    [DllExport]
+    public static void OnNewGame() {
+      SeedController.ReadSeed();
+      UberStateController.NeedsNewGameInit = true;
+      AHK.OnNewGame();
+    }
     public static bool Initialize() {
       try {
         if (!Directory.Exists(SaveFolder)) {
@@ -46,7 +51,6 @@ namespace RandoMainDLL {
       }
     }
 
-    [DllExport]
     public static void Update() {
       try {
         RVAFinder.Update();
@@ -56,10 +60,11 @@ namespace RandoMainDLL {
 
         if (Memory.GameState == GameState.TitleScreen) {
           UberStateController.Ready = false;
-        } else if (Memory.GameState == GameState.Game) {
+        }
+        else if (Memory.GameState == GameState.Game) {
           UberStateController.Update();
-          if (InputUnlockCallback != null && InterOp.playerCanMove()) 
-              OnInputUnlock();
+          if (InputUnlockCallback != null && InterOp.playerCanMove())
+            OnInputUnlock();
         }
         AHK.Tick();
       }
@@ -91,31 +96,6 @@ namespace RandoMainDLL {
       InputUnlockCallback?.Invoke();
       InputUnlockCallback = null;
     }
-
-    [DllExport]
-    public static int OreCount() => Memory.Ore;
-
-    [DllExport]
-    public static bool TreeFulfilled(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability);
-
-    [DllExport]
-    public static void OnTree(AbilityType ability) {
-      SaveController.Data.TreesActivated.Add(ability);
-      Memory.FillEnergy();
-      Memory.FillHealth();
-      SeedController.OnTree(ability);
-    }
-
-    [DllExport]
-    public static ulong GetShardSlotPtr() => Memory.ShardSlotPtr();
-
-    [DllExport]
-    public static bool InjectLogEnabled() => !AHK.IniFlag("MuteInjectLogs");
-
-    [DllExport]
-    public static bool InjectDebugEnabled() => AHK.IniFlag("DebugInjectLogs");
-
-    [DllExport]
-    public static bool DoInvertTree(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability) ^ Memory.HasAbility(ability);
   }
+
 }

@@ -30,6 +30,7 @@ namespace RandoMainDLL {
       string seedName = File.ReadAllText(Randomizer.SeedNameFile);
       if (seedName.Trim() != "") {
         pickupMap.Clear();
+        HintsController.Reset();
         string line = "";
         foreach (string rawLine in File.ReadLines(Randomizer.SeedFile)) {
           try {
@@ -45,8 +46,11 @@ namespace RandoMainDLL {
             else if (uberId.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Length > 4)
               ShopController.SetCostMod((ShardType)uberId.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
 
+            var pickup = BuildPickup(pickupType, frags[3]);
+            if (pickup.IsHintItem())
+              HintsController.AddHint(uberId.LocData().Zone, pickup as Checkable);
             // insert crazed laughter here
-            pickupMap[uberId] = (pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty).Concat(BuildPickup(pickupType, frags[3]));
+            pickupMap[uberId] = (pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty).Concat(pickup);
           }
           catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
@@ -90,12 +94,15 @@ namespace RandoMainDLL {
 
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
-      if (pickupMap.TryGetValue(id, out Pickup p)) {
+      bool granted = pickupMap.TryGetValue(id, out Pickup p);
+      if (granted) {
         p.Grant();
         InterOp.save();
-        return true;
+        SaveController.Data.FoundCount++;
       }
-      return false;
+      if (HintsController.LupoZoneIds.Contains(id))
+        HintsController.ShowHintMessage(true);
+      return granted;
     }
 
     public static Pickup BuildPickup(PickupType type, string pickupData) {
@@ -130,8 +137,14 @@ namespace RandoMainDLL {
         case PickupType.WorldEvent:
           return new WorldEvent((WorldEventType)byte.Parse(pickupData));
         default:
+          Randomizer.Log($"Error on seed parse: unknown pickup ${pickupData}!!!", false);
           return new Message($"Unknown pickup ${pickupData}!!!");
       }
+    }
+    public static int Current { get => SaveController.Data.FoundCount; }
+    public static int Total { get => pickupMap.Count; }
+    public static string Progress {
+      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
     }
   }
 }

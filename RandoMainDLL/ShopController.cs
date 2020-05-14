@@ -162,6 +162,10 @@ namespace RandoMainDLL {
       "You can use this, right?",
       "Selling this one at a loss",
       "Caveat emptor!",
+      "Heh",
+      "Look...",
+      "Don't worry about it",
+      "I used to give out\ncoupons for these",
     };
 
     private static Dictionary<AbilityType, float> weaponCostMods = new Dictionary<AbilityType, float>();

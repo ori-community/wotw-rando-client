@@ -82,7 +82,7 @@ namespace RandoMainDLL {
 
     public virtual void Grant(bool squelch = false) {
       if (!squelch) {
-        AHK.Print(ToString(), Frames);
+        AHK.Pickup(ToString(), Frames);
       }
     }
     public Pickup Concat(Pickup other) {
@@ -163,26 +163,37 @@ namespace RandoMainDLL {
 
     public override void Grant(bool squelch = false) {
       if (!squelch) {
-        AHK.Print(Msg, Frames);
+        AHK.Pickup(Msg, Frames);
       }
     }
 
     public override string ToString() => Msg;
   }
 
+  public interface Checkable {
+      Pickup me { get; }
+
+      bool Has();
+  }
   public abstract class Sellable : Pickup {
     public abstract int DefaultCost();
     public virtual float ModEffectiveness() => 1.0f;
     public virtual int CostWithMod(float mod) => Convert.ToInt32(DefaultCost() * (1f + mod * ModEffectiveness()));
   }
 
-  public class Teleporter : Sellable {
+  public class Teleporter : Sellable, Checkable {
     public Teleporter(TeleporterType teleporter) => type = teleporter;
-    
+
+    public Pickup me { get => this; }
 
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
 
+    public bool Has() {
+      if (TeleporterStates.TryGetValue(type, out UberState state))
+        return state.CurrentValue().GetValueOrDefault(new UberValue(false)).Bool;
+      return false;
+    }
     public static Dictionary<TeleporterType, UberState> TeleporterStates = new Dictionary<TeleporterType, UberState>() {
       { TeleporterType.MidnightBurrows, UberStateDefaults.savePedestalMidnightBurrows },
       { TeleporterType.HowlsDen, UberStateDefaults.savePedestalHowlsDen },
@@ -216,12 +227,20 @@ namespace RandoMainDLL {
     }
   }
 
-  public class Ability : Sellable {
+  public class Ability : Sellable, Checkable {
+    public Pickup me { get => this; }
     public Ability(AbilityType ability) => type = ability;
 
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
-
+    public bool Has() {
+      try {
+        return Randomizer.Memory.HasAbility(type);
+      } catch(Exception e) {
+        Randomizer.Error("Ability.Has", e);
+        return false;
+      }
+    }
     public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
     public override float ModEffectiveness() => (type == AbilityType.Blaze) ? 0f : 1f;
 
@@ -230,22 +249,31 @@ namespace RandoMainDLL {
       Randomizer.Memory.SetAbility(type);
     }
 
-    public override string ToString() => type.GetDescription() ?? $"Unknown Ability {type}";
+    public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown Ability {type}";
   }
 
-  public class Shard : Sellable {
+  public class Shard : Sellable, Checkable {
+    public Pickup me { get => this; }
     public Shard(ShardType shard) => type = shard;
 
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
-
+    public bool Has() {
+      try {
+        return Randomizer.Memory.HasShard(type);
+      }
+      catch (Exception e) {
+        Randomizer.Error("Ability.Has", e);
+        return false;
+      }
+    }
     public override void Grant(bool squelch = false) {
       base.Grant(squelch);
       Randomizer.Memory.SetShard(type);
     }
 
     public override int DefaultCost() => 300;
-    public override string ToString() => type.GetDescription() ?? $"Unknown Shard {type}";
+    public override string ToString() => $"${type.GetDescription()}$" ?? $"Unknown Shard {type}";
   }
 
   public class Cash : Pickup {
@@ -263,25 +291,30 @@ namespace RandoMainDLL {
 
     public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
   }
-  public class WorldEvent : Sellable {
+  public class WorldEvent : Sellable, Checkable {
+    public Pickup me { get => this; }
     public WorldEvent(WorldEventType ev) => type = ev;
 
     public override PickupType Type => PickupType.WorldEvent;
     public readonly WorldEventType type;
 
     public override int DefaultCost() => 400;
+    public bool Has() => SaveController.Data.WorldEvents.Contains(type);
 
-    public override void Grant(bool squelch = false) {
+  public override void Grant(bool squelch = false) {
       base.Grant(squelch);
+      SaveController.Data.WorldEvents.Add(type);
       switch (type) {
         case WorldEventType.Water:
-          Randomizer.Memory.WriteUberState(new UberState() { Name = "cleanseWellspringQuestUberState", ID = 34641, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedIntUberState, Value = new UberValue((int)4) });
-          Randomizer.Memory.WriteUberState(new UberState() { Name = "finishedWatermillEscape", ID = 12379, GroupName = "waterMillStateGroupDescriptor", GroupID = 37858, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) });
+          //          new UberId(37858, 10720)
+          UberStateDefaults.watermillEscapeState.Write(new UberValue(1));
+          UberStateDefaults.cleanseWellspringQuestUberState.Write(new UberValue(4));
+          UberStateDefaults.finishedWatermillEscape.Write(new UberValue(true));
           break;
       }
     }
 
-    public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
+    public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
   }
 
   public class Resource : Sellable {
