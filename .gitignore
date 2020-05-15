@@ -22,3 +22,4 @@ SeedGen/seeds
 /.vsold/
 SeedGen/project*
 SeedGen/target*
+Web/*
