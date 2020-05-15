@@ -429,9 +429,9 @@ package SeedGenerator {
           val maybeItem = // this is valid scala so technically i've done nothing wrong
             if (m < shopLocs.size + fudgeFactor) {
               if(n < 15)
-                pool.popProbableProgression.orElse(pool.popSellable)
+                pool.popProbableProgression(inState.reached.size > 80).orElse(pool.popSellable(inState.reached.size > 80))
               else
-                pool.popSellable
+                pool.popSellable(inState.reached.size > 80)
             } else
               pool.popRand
           if (maybeItem.isEmpty)
