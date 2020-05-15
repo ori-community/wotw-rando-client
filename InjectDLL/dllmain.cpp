@@ -69,12 +69,12 @@ std::ofstream logfile;
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
-BINDING(4858752, void, createCheckpoint, (__int64))
+BINDING(10056256, void, createCheckpoint, (__int64))
 //GameController$$createCheckpoint
 ;
-BINDING(7728048, __int64, getAreaFromId, (__int64, unsigned __int8)) //GameWorld$$GetArea
-BINDING(7720544, __int64, getRuntimeArea, (__int64, __int64)) //GameWorld$$FindRuntimeArea
-BINDING(9829632, void, discoverAllAreas, (__int64)) //RuntimeGameWorldArea$$DiscoverAllAreas
+BINDING(4091744, __int64, getAreaFromId, (__int64, unsigned __int8)) //GameWorld$$GetArea
+BINDING(4084240, __int64, getRuntimeArea, (__int64, __int64)) //GameWorld$$FindRuntimeArea
+BINDING(12643712, void, discoverAllAreas, (__int64)) //RuntimeGameWorldArea$$DiscoverAllAreas
 
 __int64 gameWorldInstance = 0;
 
@@ -82,12 +82,12 @@ bool foundGameWorld() {
     return gameWorldInstance != 0;
 }
 
-BINDING(27709360, void, Moon_UberStateController__ApplyAll, (int32_t context))
+BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context))
 
 extern "C" __declspec(dllexport)
 void magicFunction() { Moon_UberStateController__ApplyAll(1); }
 
-INTERCEPT(7720864, void, GameWorld__Awake, (__int64 thisPtr), {
+INTERCEPT(4084560, void, GameWorld__Awake, (__int64 thisPtr), {
 	if(gameWorldInstance != thisPtr) {
 		debug("Found GameWorld instance!");
 		gameWorldInstance = thisPtr;
@@ -96,21 +96,21 @@ INTERCEPT(7720864, void, GameWorld__Awake, (__int64 thisPtr), {
 });
 
 
-INTERCEPT(0xFC4D50, bool, sub180FC4D50, (__int64 mappingPtr, __int64 uberState), {
+INTERCEPT(0x1105510, bool, sub180FC4D50, (__int64 mappingPtr, __int64 uberState), {
 	//RVA: 13A7AA0. Called from PlayerStateMap.Mapping::Matches
 	// TODO: it's unclear how exactly we should fix this
 	bool result = sub180FC4D50(mappingPtr, uberState);
 	if(isTree(foundTree))
 		result = CSharpLib->call<bool, BYTE>("DoInvertTree", foundTree) ^ result;
 	return result;
-		  });
+});
 
 
 // stop complaining about LOCK not having enough parameters
 #pragma warning(disable: 4003)
 
 
-INTERCEPT(14547728, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr), {
+INTERCEPT(10404080, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr), {
 	//GetAbilityOnCondition$$FixedUpdate
 	getAbilityOnConditionFixedUpdate(thisPtr);
 // BAD PROBLEMS DESERVE BAD SOLUTIONS
@@ -133,14 +133,14 @@ if(lastDesiredState != *(__int64*) (thisPtr + 0x18)) {
 
 		  });
 
-INTERCEPT(14548016, void, getAbilityOnConditionAssign, (__int64 thisPtr), {
+INTERCEPT(10404368, void, getAbilityOnConditionAssign, (__int64 thisPtr), {
 	//GetAbilityOnCondition$$AssignAbility
 	DEBUG("GAOC.ASS: intercepted and ignored ");
 	if(isTree(foundTree))
 		CSharpLib->call<void>("OnTree", foundTree);
 		  });
 
-INTERCEPT(16532768, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr), {
+INTERCEPT(17845472, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr), {
 	//Moon.uberSerializationWisp.DesiredPlayerAbilityState$$IsFulfilled
 	if(lastDesiredState == thisPtr && isTree(foundTree))
 		return CSharpLib->call<bool>("TreeFulfilled", foundTree);
@@ -150,13 +150,13 @@ INTERCEPT(16532768, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 conte
 		return abilityStateFulfilled(thisPtr, contextPtr);
 		  });
 
-INTERCEPT(4850384, void, fixedUpdate1, (__int64 thisPointer), {
+INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPointer), {
 	//GameController$$FixedUpdate
 	fixedUpdate1(thisPointer);
 	onFixedUpdate(thisPointer);
 		  });
-BINDING(5743408, int, getSaveSlot, ())//SaveSlotsManager$$get_CurrentSlotIndex
-INTERCEPT(6674272, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
+BINDING(8332848, int, getSaveSlot, ())//SaveSlotsManager$$get_CurrentSlotIndex
+INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 	//NewGameAction$$Perform
 	CSharpLib->call<void, int>("NewGame", getSaveSlot());
 	newGamePerform(thisPtr, ctxPtr);
@@ -164,19 +164,19 @@ INTERCEPT(6674272, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 
 
 
-INTERCEPT(5648192, void, saveToFile, (__int64 thisPtr, __int64 slotIndex, __int64 backupIndex, __int64 bytesPtr), {
+INTERCEPT(8237360, void, saveToFile, (__int64 thisPtr, __int64 slotIndex, __int64 backupIndex, __int64 bytesPtr), {
 	//SaveGameController$$SaveToFile
 	CSharpLib->call<void, __int64>("OnSave", slotIndex);
 	saveToFile(thisPtr, slotIndex, backupIndex, bytesPtr);
 		  });
 
-INTERCEPT(5663040, void, onFinishedLoading, (__int64 thisPtr), {
+INTERCEPT(8252224, void, onFinishedLoading, (__int64 thisPtr), {
 	//SaveGameController$$OnFinishedLoading
 	CSharpLib->call<void, int>("OnLoad", getSaveSlot());
 	onFinishedLoading(thisPtr);
 		  });
 
-INTERCEPT(5660688, void, restoreCheckpoint, (__int64 thisPtr, __int64 actionPtr), {
+INTERCEPT(8249872, void, restoreCheckpoint, (__int64 thisPtr, __int64 actionPtr), {
 	//SaveGameController$$RestoreCheckpoint
 	CSharpLib->call<void, int>("OnLoad", getSaveSlot());
 	restoreCheckpoint(thisPtr, actionPtr);
@@ -185,13 +185,13 @@ INTERCEPT(5660688, void, restoreCheckpoint, (__int64 thisPtr, __int64 actionPtr)
 
 
 // GameController$get_InputLocked
-BINDING(4823184, bool, getInputLocked, (__int64));
+BINDING(10012848, bool, getInputLocked, (__int64));
 // GameController$$get_LockInput
-BINDING(4823536, bool, getLockInput, (__int64));
+BINDING(10013200, bool, getLockInput, (__int64));
 // GameController$$get_IsSuspended
-BINDING(4823872, bool, getIsSuspended, (__int64));
+BINDING(10013520, bool, getIsSuspended, (__int64));
 // GameController$$get_SecondaryMapAndInventoryCanBeOpened
-BINDING(4822016, bool, getSecondaryMenusAccessable, (__int64));
+BINDING(10011696, bool, getSecondaryMenusAccessable, (__int64));
 
 //---------------------------------------------------Actual Functions------------------------------------------------
 

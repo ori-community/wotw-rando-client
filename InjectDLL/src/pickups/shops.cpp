@@ -6,13 +6,13 @@
 #include "dllmain.h"
 
 
-BINDING(9324720, bool, SeinCharacter_get_Active, (__int64)) //SeinCharacter$$get_Active - Also used by stuff like IsActive, or get_IsShopOpen. It's a magical binding
-BINDING(6917056, __int64, WeaponmasterScreen_get_Instance, (__int64)) //WeaponmasterScreen$$get_Instance
-BINDING(4823760, bool, GameController_get_GameInTitleScreen, (GameController_o*)) //GameController$$get_GameInTitleScreen
+BINDING(9970752, bool, SeinCharacter_get_Active, (__int64)) //SeinCharacter$$get_Active - Also used by stuff like IsActive, or get_IsShopOpen. It's a magical binding
+BINDING(5047120, __int64, WeaponmasterScreen_get_Instance, (__int64)) //WeaponmasterScreen$$get_Instance
+BINDING(10013424, bool, GameController_get_GameInTitleScreen, (GameController_o*)) //GameController$$get_GameInTitleScreen
 
-BINDING(6912496, bool, WeaponmasterItem_get_IsLocked, (__int64))       //WeaponmasterItem$$get_IsLocked
-BINDING(4110288, bool, WeaponmasterItem_get_IsVisible, (__int64))      //WeaponmasterItem$$get_IsVisible
-BINDING(6913536, bool, WeaponmasterItem_get_IsAffordable, (__int64))   //WeaponmasterItem$$get_IsAffordable
+BINDING(5042560, bool, WeaponmasterItem_get_IsLocked, (__int64))       //WeaponmasterItem$$get_IsLocked
+BINDING(4151120, bool, WeaponmasterItem_get_IsVisible, (__int64))      //WeaponmasterItem$$get_IsVisible
+BINDING(5043600, bool, WeaponmasterItem_get_IsAffordable, (__int64))   //WeaponmasterItem$$get_IsAffordable
 
 bool weaponmasterPurchaseInProgress = false;
 const std::set<char> twillenShards{1, 2, 3, 5, 19, 22, 26, 40};
@@ -43,18 +43,18 @@ bool isInShopScreen(){
 	return false;
 };
 
-BINDING(16279328, __int64, getSelectedShard, (__int64 spiritShardShopScreen))//SpiritShardsShopScreen$$get_SelectedSpiritShard
-INTERCEPT(16291632, bool, canShardPurchase, (__int64 spiritShardShopScreen), {
+BINDING(14042272, __int64, getSelectedShard, (__int64 spiritShardShopScreen))//SpiritShardsShopScreen$$get_SelectedSpiritShard
+INTERCEPT(14054576, bool, canShardPurchase, (__int64 spiritShardShopScreen), {
 	//SpiritShardsShopScreen$$CanPurchase
 	auto result = canShardPurchase(spiritShardShopScreen);
 	return result;
 });
 
 
-BINDING(16283632, void, SpiritShardsShopScreen_UpdateContextCanvasShards, (__int64))//SpiritShardsShopScreen$$UpdateContextCanvasShards
-BINDING(16605408, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, (__int64))//Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$RunSetDirtyCallback
+BINDING(14046576, void, SpiritShardsShopScreen_UpdateContextCanvasShards, (__int64))//SpiritShardsShopScreen$$UpdateContextCanvasShards
+BINDING(17918112, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, (__int64))//Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$RunSetDirtyCallback
 
-INTERCEPT(16292720, void, completeShardPurchase, (__int64 spiritShardShopScreen), {
+INTERCEPT(14055664, void, completeShardPurchase, (__int64 spiritShardShopScreen), {
 	//SpiritShardsShopScreen$$CompletePurchase
 	//save shard new/purchased state
 	auto shard = getSelectedShard(spiritShardShopScreen);
@@ -76,15 +76,15 @@ INTERCEPT(16292720, void, completeShardPurchase, (__int64 spiritShardShopScreen)
 });
 
 
-INTERCEPT(16603632, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (__int64 shard), {
+INTERCEPT(17916336, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (__int64 shard), {
 	//Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$get_PurchasableInShop
 	auto shardType = *(unsigned __int8*) (shard + 0x10);
 	return true;
 		  });
 
 #pragma warning(disable: 4244)
-BINDING(45884192, __int64, List_getItem, (__int64 list, int index)) //System.Collections.Generic.List<T>$$get_Item
-BINDING(4287296, __int64, List_getCount, (__int64 list)) //System.Collections.Generic.List<T>$$get_Count
+BINDING(46026576, __int64, List_getItem, (__int64 list, int index)) //System.Collections.Generic.List<T>$$get_Item
+BINDING(6113952, __int64, List_getCount, (__int64 list)) //System.Collections.Generic.List<T>$$get_Count
 void forEachIndexed(__int64 list, std::function<void(__int64, int)> fun){
 	if(!list)
 		return;
@@ -114,7 +114,7 @@ void initShardDescription(unsigned __int8 shard, __int64 spiritShardDescription)
     });
 }
 
-INTERCEPT(25127984, __int64, enumDictGetValue, (__int64 dict, unsigned __int8 enumKey, __int64 impl), {
+INTERCEPT(31416864, __int64, enumDictGetValue, (__int64 dict, unsigned __int8 enumKey, __int64 impl), {
 	//EnumDictionary<ENUMTYPE, VALUETYPE>$$GetValue
 	__int64 value = enumDictGetValue(dict, enumKey, impl);
 
@@ -128,12 +128,12 @@ INTERCEPT(25127984, __int64, enumDictGetValue, (__int64 dict, unsigned __int8 en
     return value;
 });
 
-INTERCEPT(16601792, int, getCostForLevel, (__int64 shardPointer, int level), {
+INTERCEPT(17914496, int, getCostForLevel, (__int64 shardPointer, int level), {
 	//Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$GetCostForLevel - For whenever we want random upgrade costs
 	return getCostForLevel(shardPointer, level);
 });
 
-INTERCEPT(19980688, bool, PlayerSpiritShards_HasShard, (__int64 spiritShards, unsigned __int8 shardType), {
+INTERCEPT(17706592, bool, PlayerSpiritShards_HasShard, (__int64 spiritShards, unsigned __int8 shardType), {
 	//PlayerSpiritShards$$HasShard
 	if(isInShopScreen() && isTwillenShard(shardType))
 	{
@@ -169,7 +169,7 @@ bool purchasable(__int64 weaponmasterItem){
 
 }
 
-INTERCEPT(6913440, bool, WeaponmasterItem_get_IsOwned, (__int64 item), {
+INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (__int64 item), {
 	//WeaponmasterItem$$get_IsOwned
 	if(isInShopScreen())
 	{
@@ -178,7 +178,7 @@ INTERCEPT(6913440, bool, WeaponmasterItem_get_IsOwned, (__int64 item), {
 	return WeaponmasterItem_get_IsOwned(item);
 });
 
-INTERCEPT(6916464, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int level), {
+INTERCEPT(5046528, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int level), {
 	//WeaponmasterItem$$GetCostForLevel
 	if(isInShopScreen())
 	{
@@ -195,7 +195,7 @@ INTERCEPT(6916464, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int lev
 });
 
 
-INTERCEPT(6914016, bool, WeaponmasterItem_TryPurchase, (__int64 pThis, __int64 hint, __int64 sounds, __int64 hints), {
+INTERCEPT(5044080, bool, WeaponmasterItem_TryPurchase, (__int64 pThis, __int64 hint, __int64 sounds, __int64 hints), {
 	//WeaponmasterItem$$TryPurchase
 	if(purchasable(pThis))
 		return true;
@@ -205,7 +205,7 @@ INTERCEPT(6914016, bool, WeaponmasterItem_TryPurchase, (__int64 pThis, __int64 h
 });
 
 
-INTERCEPT(10561648, __int64, SpellInventory_AddNewSpellToInventory, (__int64 inv, unsigned int equipmentType, bool add), {
+INTERCEPT(11448960, __int64, SpellInventory_AddNewSpellToInventory, (__int64 inv, unsigned int equipmentType, bool add), {
 	//SpellInventory$$AddNewSpellToInventory
 	if(weaponmasterPurchaseInProgress)
 		return 0;
@@ -214,7 +214,7 @@ INTERCEPT(10561648, __int64, SpellInventory_AddNewSpellToInventory, (__int64 inv
 	return result;
 });
 
-INTERCEPT(27683456, void, SerializedByteUberState_SetValue, (__int64 state, unsigned char value), {
+INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (__int64 state, unsigned char value), {
 	//Moon.SerializedByteUberState$$set_Value
     if(weaponmasterPurchaseInProgress)
 		return;
@@ -222,7 +222,7 @@ INTERCEPT(27683456, void, SerializedByteUberState_SetValue, (__int64 state, unsi
 	SerializedByteUberState_SetValue(state, value);
 });
 
-INTERCEPT(6915088, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 context), {
+INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 context), {
 	//Weaponmasteritem$$DoPurchase
 	weaponmasterPurchaseInProgress = true;
 	auto abilityType = getWeaponMasterAbilityItemGranted(item);
