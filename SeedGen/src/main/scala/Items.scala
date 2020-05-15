@@ -253,17 +253,21 @@ object Water extends WorldEvent(0)
       }
       case _ => None
     }
-    def popSellable(implicit r: Random): Option[Sellable] = {
-      val sellables = asSeq.collect({case i: Sellable => i})
+    def popSellable(tooEarlyForLaunch: Boolean)(implicit r: Random): Option[Sellable] = {
+      val sellables = asSeq.collect({
+        case Launch if tooEarlyForLaunch => None
+        case i: Sellable => Some(i)
+      }).flatten
       if (sellables.isEmpty)
         return None
       val i = sellables(r.nextInt(sellables.size))
       take(i)
       Some(i)
     }
-    def popProbableProgression(implicit r: Random): Option[Item] = {
+    def popProbableProgression(tooEarlyForLaunch: Boolean)(implicit r: Random): Option[Item] = {
+      val skipSkills = Set(106, 108, 120, 121, 115) ++ (if(tooEarlyForLaunch) Set(8) else Set())
       val probableProgression = asSeq.collect({
-        case Skill(num) if !Set(106, 108, 120, 121, 115).contains(num) => Skill(num)
+        case Skill(num) if !skipSkills.contains(num) => Skill(num)
         case Teleporter(num) if Set(0, 3, 4, 5, 6, 9, 10, 12).contains(num) => Teleporter(num)
       }) ++: Seq(Ore(), Health()).filter(has(_))
       if (probableProgression.isEmpty)
