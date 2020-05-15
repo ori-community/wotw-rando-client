@@ -4,9 +4,10 @@ using System.IO;
 using System.Collections.Generic;
 
 namespace RVAUpdater {
-    class Program {
+    class RVAUpdate {
         static Dictionary<String, UInt64> dumpRVAs = new Dictionary<string, ulong>();
         static Dictionary<UInt64, UInt64> RvaUpdateMap = new Dictionary<UInt64, UInt64>();
+        static string rootDir = @"C:\Users\WorstMirari\Documents\GitHub\OriWotwRandomizerClient\InjectDLL";
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
             var oldDump = RVAFinder.getFullDump(RVAFinder.oldDumpFile);
@@ -20,16 +21,18 @@ namespace RVAUpdater {
                 if(dumpRVAs.ContainsKey(method.Signature))
                     RvaUpdateMap[dumpRVAs[method.Signature]] = method.Address;
             Console.WriteLine("Finished reading new dump");
-
-            var target = args.Length > 0 ? args[0] : @"C:\moon\dllmain.cpp";
-            var text = File.ReadAllText(target);
-            foreach (var RVAPair in RvaUpdateMap) {
-                if (text.Contains($"{RVAPair.Key}")) {
-                    text = text.Replace($"{RVAPair.Key}", $"{RVAPair.Value}");
-                    Console.WriteLine($"{RVAPair.Key} => {RVAPair.Value}");
+            foreach (var target in Directory.GetFiles(rootDir, "*.cpp", SearchOption.AllDirectories)) {
+                var text = File.ReadAllText(target);
+                Console.WriteLine($"{target} begin");
+                foreach (var RVAPair in RvaUpdateMap) {
+                    if (text.Contains($"{RVAPair.Key}")) {
+                        text = text.Replace($"{RVAPair.Key}", $"{RVAPair.Value}");
+                        Console.WriteLine($"{RVAPair.Key} => {RVAPair.Value}");
+                    }
                 }
+                File.WriteAllText($"{target}", text);
+                Console.WriteLine($"{target} end");
             }
-            File.WriteAllText($"{target}.swap", text);
 
         }
         public static class RVAFinder {
