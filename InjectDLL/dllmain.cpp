@@ -69,11 +69,11 @@ std::ofstream logfile;
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
-BINDING(0x4A2380, void, createCheckpoint, (__int64))
+BINDING(4858752, void, createCheckpoint, (__int64))
 //GameController$$createCheckpoint
 ;
-BINDING(0x75EBB0, __int64, getAreaFromId, (__int64, unsigned __int8)) //GameWorld$$GetArea
-BINDING(0x75CE60, __int64, getRuntimeArea, (__int64, __int64)) //GameWorld$$FindRuntimeArea
+BINDING(7728048, __int64, getAreaFromId, (__int64, unsigned __int8)) //GameWorld$$GetArea
+BINDING(7720544, __int64, getRuntimeArea, (__int64, __int64)) //GameWorld$$FindRuntimeArea
 BINDING(9829632, void, discoverAllAreas, (__int64)) //RuntimeGameWorldArea$$DiscoverAllAreas
 
 __int64 gameWorldInstance = 0;
@@ -184,14 +184,14 @@ INTERCEPT(5660688, void, restoreCheckpoint, (__int64 thisPtr, __int64 actionPtr)
 
 
 
-// GameController::get_InputLocked
-BINDING(0x499890, bool, getInputLocked, (__int64));
-// GameController::get_LockInput
-BINDING(0x4999F0, bool, getLockInput, (__int64));
-// GameControler::get_IsSuspended
-BINDING(0x499B40, bool, getIsSuspended, (__int64));
-// GameControler::get_SecondaryMapAndInventoryCanBeOpened
-BINDING(0x499400, bool, getSecondaryMenusAccessable, (__int64));
+// GameController$get_InputLocked
+BINDING(4823184, bool, getInputLocked, (__int64));
+// GameController$$get_LockInput
+BINDING(4823536, bool, getLockInput, (__int64));
+// GameController$$get_IsSuspended
+BINDING(4823872, bool, getIsSuspended, (__int64));
+// GameController$$get_SecondaryMapAndInventoryCanBeOpened
+BINDING(4822016, bool, getSecondaryMenusAccessable, (__int64));
 
 //---------------------------------------------------Actual Functions------------------------------------------------
 

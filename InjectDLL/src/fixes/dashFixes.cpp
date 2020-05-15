@@ -8,7 +8,7 @@ bool hasRealDash = false;
 BINDING(8518912, bool, SeinDashNew__ShouldDig, (SeinDashNew_o* this_ptr))
 BINDING(8520128, bool, SeinDashNew__ShouldSwim, (SeinDashNew_o* this_ptr))
 BINDING(10912384, bool, SeinCharacter__HasAbility, (SeinCharacter_o* this_ptr, uint8_t abilityType))
-INTERCEPT(0x81CB00, bool, SeinDashNew__get_CanDash, (SeinDashNew_o* this_ptr), {
+INTERCEPT(8506112, bool, SeinDashNew__get_CanDash, (SeinDashNew_o* this_ptr), {
 	auto result = SeinDashNew__get_CanDash(this_ptr);
 	if(!hasRealDash)
 		result = result & (SeinDashNew__ShouldDig(this_ptr) || SeinDashNew__ShouldSwim(this_ptr));
@@ -45,7 +45,7 @@ void updateDashState(Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this
 	}
 }
 
-INTERCEPT(0xFC7320, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__Save, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, UberStateArchive_o* archive, Moon_uberSerializationWisp_PlayerUberStateAbilities_o* abilities), {
+INTERCEPT(16544544, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__Save, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, UberStateArchive_o* archive, Moon_uberSerializationWisp_PlayerUberStateAbilities_o* abilities), {
 
     if(Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DashNew) && !hasRealDash)
     {
@@ -67,14 +67,14 @@ INTERCEPT(16545264, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__L
 	updateDashState(this_ptr);
 })
 
-INTERCEPT(0xAEE780, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t ability, bool value), {
+INTERCEPT(11462528, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t ability, bool value), {
 	GeneralDebugMenuPage__SetAbility(this_ptr, ability, value);
 	if(ability == DashNew) {
 		hasRealDash = value;
 		debug("debug menu, setting hasRealDash: " + std::to_string(hasRealDash));
 	}
 })
-INTERCEPT(0xAEE860, bool, GeneralDebugMenuPage__GetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t abilityType), {
+INTERCEPT(11462752, bool, GeneralDebugMenuPage__GetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t abilityType), {
 	if(abilityType == DashNew)
 		return hasRealDash;
 
