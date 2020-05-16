@@ -8,3 +8,4 @@ extern InjectDLL::PEModule* CSharpLib;
 void log(std::string message);
 void error(std::string message);
 void debug(std::string message);
+Game_Characters_StaticFields* get_characters();

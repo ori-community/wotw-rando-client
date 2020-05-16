@@ -83,9 +83,16 @@ bool foundGameWorld() {
 }
 
 BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context))
+BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o* thisPtr))
+BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o* thisPtr, UnityEngine_Vector3_o value))
 
 extern "C" __declspec(dllexport)
-void magicFunction() { Moon_UberStateController__ApplyAll(1); }
+void magicFunction() {
+    auto sein = get_characters()->m_sein;
+    auto pos = SeinCharacter__get_Position(sein);
+    Moon_UberStateController__ApplyAll(1); 
+    SeinCharacter__set_Position(sein, pos);
+}
 
 INTERCEPT(4084560, void, GameWorld__Awake, (__int64 thisPtr), {
 	if(gameWorldInstance != thisPtr) {
