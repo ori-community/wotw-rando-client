@@ -12,6 +12,8 @@ namespace RandoMainDLL.Memory {
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.Characters.SetCurrentCharacter", 0x15c),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "488B80B80000004C8B40084D85C0743D488B15????????B90C000000E8????????488BF84885DB743C488B4B304885C9742D33D2E8????????4885C0741B48897818488B5C24504883C4405FC3", -0x4, 0x0));
     private static readonly ProgramPointer GameWorld = new ProgramPointer("GameAssembly.dll",
+      new FindIl2Cpp(PointerVersion.V3, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0x79),
+      new FindPointerSignature(PointerVersion.V3, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B80000004C8931498B4E28498B46204885C00F84????????4885C90F84????????4C8B05????????8B5018E8????????458BFD418BD5498B4E204885C9", 0x14, 0x0),
       new FindIl2Cpp(PointerVersion.V2, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0x79),
       new FindPointerSignature(PointerVersion.V2, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????488B88B80000004C8931498B4E28498B46204885C00F84????????4885C90F84????????4C8B05????????8B5018E8????????458BFD418BD5498B4E204885C9", 0x14, 0x0),
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameWorld.Awake", 0xa7),
@@ -51,8 +53,10 @@ namespace RandoMainDLL.Memory {
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.GameController.FixedUpdate", 0x1c8),
       new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "80780A007538488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B8000000FF0033C9", 0x2a, 0x0));
     private static readonly ProgramPointer CheatsHandler = new ProgramPointer("GameAssembly.dll",
+      new FindIl2Cpp(PointerVersion.V3, AutoDeref.Single, "__mainWisp.CheatsHandler.Awake", 0x7e),
+      new FindPointerSignature(PointerVersion.V3, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C89??488B0D", 0x14, 0x0),
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.CheatsHandler.Awake", 0x7a),
-      new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C8938488B0D????????F6812701000002740E83B9D8000000007505E8", 0x14, 0x0));
+      new FindPointerSignature(PointerVersion.All, AutoDeref.Single, "9033C9FF15????????90C605????????01488B05????????F6802701000002741883B8D800000000750F488BC8E8????????488B05????????488B80B80000004C89??488B0D", 0x14, 0x0));
     private static readonly ProgramPointer DebugControls = new ProgramPointer("GameAssembly.dll",
       new FindIl2Cpp(PointerVersion.All, AutoDeref.Single, "__mainWisp.AdvancedDebugMenuPage.DebugControlsSetter", 0x8e));
     public static PointerVersion Version { get; set; } = PointerVersion.All;
@@ -768,6 +772,7 @@ namespace RandoMainDLL.Memory {
             if (module != null) {
               switch (module.MemorySize) {
                 case 77447168: Version = PointerVersion.V2; break;
+                case 77844480: Version = PointerVersion.V3; break;
               }
             }
             uberIDLookup = null;
