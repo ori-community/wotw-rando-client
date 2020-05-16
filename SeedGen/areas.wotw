@@ -1690,12 +1690,12 @@ area UpperDepths.Entry:  # (161, -4340) The little standable ground below the en
   pickup UpperDepths.EntrySpikesEX:
     base: Glide
   pickup UpperDepths.EntryRoofEX:
-    base:
+    base, EnemyObstacle:
       Glide, Bash, DoubleJump OR Dash
       Glide, DoubleJump, Dash, Grapple
       Glide, Launch
   pickup UpperDepths.EntryOre:
-    base:
+    base, EnemyObstacle:
       Weapon, Glide, Grapple, DoubleJump OR Dash
       Glide, Bash, DoubleJump OR Grapple
       Glide, Launch
@@ -1743,7 +1743,8 @@ area UpperDepths.FirstKSRoom:  # (245, -4417) Below the first firefly egg
 area UpperDepths.BelowHive:  # (447, -4410) Below the Hive, on top of the tunnel leading downwards
   pickup UpperDepths.HiveEX:
     base: Bash OR Launch
-  # there will be paths to RightEntryKS here, but paths that aren't redundant with the FirstKSRoom connection can't get out again, which I didn't want for base.
+  pickup UpperDepths.RightEntryKS:
+    base: DepthsLight, Launch
   
   conn UpperDepths.FirstKSRoom:
     base, UpperDepths.LightPuzzle OR DepthsLight:
@@ -1764,24 +1765,20 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
       Bow OR Spear
       Weapon, Launch
       DepthsLight
-  conn UpperDepths.Central:
-    base:
-      Bow, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
-      Spear, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
-      Weapon, Launch
   conn UpperDepths.SecondKSRoom:
     base:
       Bow, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
       Spear, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
       Weapon, Launch
 
-area UpperDepths.SecondKSRoom:  # (542, -4466) The firefly egg in the second keystone room
+area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of the second keystone door
   state UpperDepths.MoraDefeated:
     base, Combat, Damage=80:
       DepthsLight, DoubleJump, Dash, Bash, Grapple
       DepthsLight, Bash, Grapple, Launch
   
-  pickup UpperDepths.RightHealthKS: free
+  pickup UpperDepths.RightHealthKS:
+    base: Weapon OR DepthsLight
   pickup UpperDepths.LeftHealthKS:
     base: 
       Weapon, DoubleJump, Dash OR Glide
@@ -1804,11 +1801,7 @@ area UpperDepths.SecondKSRoom:  # (542, -4466) The firefly egg in the second key
       Weapon, DepthsLight, DoubleJump, Dash, Bash, Grenade=1
       DepthsLight, Launch
 
-  conn UpperDepths.Central:
-    base:  # these cross the keystone door
-      Weapon, DoubleJump, Dash OR Glide
-      Weapon, Launch
-      DepthsLight
+  conn UpperDepths.Central: free # crosses the keystone door
   # conn UpperDepths.BelowHive might be necessary when adding keystone doors
   conn UpperDepths.Teleporter:
     base, Weapon:
