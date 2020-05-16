@@ -67,7 +67,7 @@ INTERCEPT(15446864, __int64, TranslatedMessageProvider_MessageItem_Message, (__i
                     });
 
 Game_UI_c* getGameController(){
-    return *(Game_UI_c**) resolve_rva(71319816);
+    return *(Game_UI_c**) resolve_rva(71714856);
 }
 
 BINDING(13847344, MessageBox_o*, MessageControllerB__ShowHintSmallMessage, (MessageControllerB_o* this_ptr, MessageDescriptor_o descriptor, UnityEngine_Vector3_o position, float duration))
@@ -79,9 +79,9 @@ BINDING(13820848, void, MessageBox__HideMessageScreenImmediately, (MessageBox_o*
 BINDING(13821184, void, MessageBox__HideMessageScreen, (MessageBox_o* this_ptr, int32_t action))
 
 
-BINDING(0x262170, uint32_t, il2cpp_gc_new_weakref, (Il2CppObject* obj, bool track_resurrection))
-BINDING(0x262190, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
-BINDING(0x2621B0, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
+BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, bool track_resurrection))
+BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
+BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
 
 
 extern "C" __declspec(dllexport)
@@ -109,17 +109,25 @@ extern "C" __declspec(dllexport)
 bool hintsReady(){
     return stringHeaderCached;
 }
+
+
 extern "C" __declspec(dllexport)
 MessageBox_o * displayHint(System_String_o * hint, float duration){
-    clearLastHint();
-
-    const auto messageController = getGameController()->static_fields->MessageController;
-    const auto box = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, OnScreenPositions__get_TopCenter(), duration);
-    lastHandle = il2cpp_gc_new_weakref((Il2CppObject*) box, true);
+    try {
+        clearLastHint();
+        const auto messageController = getGameController()->static_fields->MessageController;
+        const auto box = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, OnScreenPositions__get_TopCenter(), duration);
+        lastHandle = il2cpp_gchandle_new_weakref((Il2CppObject*) box, true);
 
     lastMessage = hint;
     return box;
-}
+    }
+    catch (...) {
+        debug("Error caught by display hint. This might not be fine?");
+        return NULL;
+    }
+
+    }
 
 extern "C" __declspec(dllexport)
 System_String_o * getCurrentHint(){

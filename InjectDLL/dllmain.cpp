@@ -196,7 +196,7 @@ BINDING(10011696, bool, getSecondaryMenusAccessable, (__int64));
 //---------------------------------------------------Actual Functions------------------------------------------------
 
 Game_Characters_StaticFields* get_characters(){
-	return (*(Game_Characters_c**) resolve_rva(71033680))->static_fields;
+	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
 }
 
 void onFixedUpdate(__int64 thisPointer){
