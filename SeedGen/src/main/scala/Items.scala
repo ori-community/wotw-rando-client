@@ -90,7 +90,7 @@ object Water extends WorldEvent(0)
       120 -> "DamageUpgrade1",
       121 -> "DamageUpgrade2"
     )
-    val poolItems = names.keys.withFilter(!Seq(3, 99, 100).contains(_)).map(Skill(_)).toSeq
+    val poolItems = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq
   }
 
   case class Shard(shardId: Int) extends Item with Sellable {
