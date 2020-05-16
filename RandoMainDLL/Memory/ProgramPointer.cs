@@ -7,7 +7,8 @@ using RandoMainDLL.Il2Cpp;
 namespace RandoMainDLL.Memory {
   public enum PointerVersion {
     All,
-    V2
+    V2,
+    V3
   }
 
   public enum AutoDeref {
