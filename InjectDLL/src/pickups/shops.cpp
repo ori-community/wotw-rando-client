@@ -22,7 +22,7 @@ bool isTwillenShard(char shard){
 
 
 bool isInShopScreen(){
-	const GameController_c* Class_GameController = *(GameController_c**) resolve_rva(71446040);
+	const GameController_c* Class_GameController = *(GameController_c**) resolve_rva(71838776);
 	if(!Class_GameController)
 		return false;
 	const auto  gameController = Class_GameController->static_fields->Instance;
@@ -33,7 +33,7 @@ bool isInShopScreen(){
 	if(weaponmasterScreen && SeinCharacter_get_Active(weaponmasterScreen))
 		return true;
 
-	const SpiritShardsShopScreen_c* Class_SpiritShardsShopScreen = *(SpiritShardsShopScreen_c**) resolve_rva(71198024);
+	const SpiritShardsShopScreen_c* Class_SpiritShardsShopScreen = *(SpiritShardsShopScreen_c**) resolve_rva(71589120);
 	if(Class_SpiritShardsShopScreen)
 	{
 		const auto spiritShardsShopScreen = Class_SpiritShardsShopScreen->static_fields->Instance;
@@ -120,7 +120,7 @@ INTERCEPT(31416864, __int64, enumDictGetValue, (__int64 dict, unsigned __int8 en
 
     //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
     //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
-    if(impl == *(__int64*) resolve_rva(71244680))
+    if(impl == *(__int64*) resolve_rva(71639080))
     {
     if(value)
 	    initShardDescription(enumKey, value);

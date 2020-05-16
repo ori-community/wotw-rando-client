@@ -42,6 +42,10 @@ namespace RandoMainDLL {
         }
 
         Memory.PatchNoPause(true);
+        if(AHK.IniFlag("DisableDebugControls")) {
+          Memory.EnableDebug(false);
+            Log("disabled debug controls", false);
+        }
         Log("init complete", false);
         return true;
       }
