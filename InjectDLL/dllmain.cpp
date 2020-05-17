@@ -243,6 +243,9 @@ void foundDash() {
 }
 
 extern "C" __declspec(dllexport)
+bool haveRealDash() { return hasRealDash; }
+
+extern "C" __declspec(dllexport)
 void save() {
     if (gameControllerInstancePointer == NULL) {
         LOG("no pointer to game controller: can't save!");

@@ -235,6 +235,8 @@ namespace RandoMainDLL {
     public readonly AbilityType type;
     public bool Has() {
       try {
+        if(type == AbilityType.Dash) 
+          return InterOp.haveRealDash();
         return Randomizer.Memory.HasAbility(type);
       } catch(Exception e) {
         Randomizer.Error("Ability.Has", e);

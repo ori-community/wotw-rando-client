@@ -25,6 +25,8 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void foundDash();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static bool haveRealDash();
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void setOre(int amount);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
