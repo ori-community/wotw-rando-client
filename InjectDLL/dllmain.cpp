@@ -25,10 +25,12 @@
 //---------------------------------------------------Globals-----------------------------------------------------
 char foundTree = -1;
 char priorFoundTree = -1;
-bool foundTreeFulfilled = false;
+char priorPriorFoundTree = -1;
 
 __int64 lastDesiredState = NULL;
 __int64 priorDesiredState = NULL;
+__int64 priorPriorDesiredState = NULL;
+
 void* gameControllerInstancePointer = NULL;
 
 bool debug_enabled = false;
@@ -82,16 +84,19 @@ bool foundGameWorld() {
     return gameWorldInstance != 0;
 }
 
-BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context))
-BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o* thisPtr))
-BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o* thisPtr, UnityEngine_Vector3_o value))
+BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
+BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o* thisPtr));
+BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o* thisPtr, UnityEngine_Vector3_o value));
+
+
+UnityEngine_Vector3_o lastPos;
+__int8 setToLastPos = 0;
 
 extern "C" __declspec(dllexport)
 void magicFunction() {
-    auto sein = get_characters()->m_sein;
-    auto pos = SeinCharacter__get_Position(sein);
-    Moon_UberStateController__ApplyAll(1); 
-    SeinCharacter__set_Position(sein, pos);
+    lastPos = SeinCharacter__get_Position(get_characters()->m_sein);
+    setToLastPos = 3;
+    Moon_UberStateController__ApplyAll(1);
 }
 
 INTERCEPT(4084560, void, GameWorld__Awake, (__int64 thisPtr), {
@@ -120,32 +125,26 @@ INTERCEPT(0x1105510, bool, sub180FC4D50, (__int64 mappingPtr, __int64 uberState)
 INTERCEPT(10404080, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr), {
 	//GetAbilityOnCondition$$FixedUpdate
 	getAbilityOnConditionFixedUpdate(thisPtr);
-// BAD PROBLEMS DESERVE BAD SOLUTIONS
-if(lastDesiredState != *(__int64*) (thisPtr + 0x18)) {
-		if(lastDesiredState != NULL && priorDesiredState != *(__int64*) (thisPtr + 0x18)) {
-			priorDesiredState = *(__int64*) (thisPtr + 0x18);
-			BYTE* desiredAbility = (BYTE*) (priorDesiredState + 0x18);
-			priorFoundTree = *desiredAbility;
-			DEBUG("GAOC.FU: got " << priorDesiredState << " for address 2 of condition (1 was " << lastDesiredState << "), wants " << (int) *desiredAbility);
-		} else {
-			lastDesiredState = *(__int64*) (thisPtr + 0x18);
-			BYTE* desiredAbility = (BYTE*) (lastDesiredState + 0x18);
-			foundTree = *desiredAbility;
-			//				  auto condPtr = *(__int64*)(thisPtr + 0x20);
-			//				  BYTE* condAbility = (BYTE*)(condPtr + 0x18);
-			DEBUG("GAOC.FU: got " << lastDesiredState << " for address of condition, wants " << (int) *desiredAbility);
-			//				  LOG("DesiredState ability " << (int)*desiredAbility);
-		}
-}
-
-		  });
+    __int64 currDesiredState = *(__int64*)(thisPtr + 0x18);
+    if (currDesiredState == lastDesiredState || currDesiredState == priorDesiredState || currDesiredState == priorPriorDesiredState)
+        return;
+    BYTE* desiredAbility = (BYTE*)(currDesiredState + 0x18);
+    DEBUG("GAOC.FU: got " << (int)*desiredAbility << " for ability desired by condition (already had: " << (int) foundTree << ", " << (int)priorFoundTree << ", " << (int) priorPriorFoundTree << ")" );
+    // BAD PROBLEMS DESERVE BAD SOLUTIONS
+    priorPriorDesiredState = priorDesiredState;
+    priorDesiredState = lastDesiredState;
+    lastDesiredState = currDesiredState;
+    priorPriorFoundTree = priorFoundTree;
+    priorFoundTree = foundTree;
+    foundTree = *desiredAbility;
+});
 
 INTERCEPT(10404368, void, getAbilityOnConditionAssign, (__int64 thisPtr), {
 	//GetAbilityOnCondition$$AssignAbility
 	DEBUG("GAOC.ASS: intercepted and ignored ");
 	if(isTree(foundTree))
 		CSharpLib->call<void>("OnTree", foundTree);
-		  });
+});
 
 INTERCEPT(17845472, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr), {
 	//Moon.uberSerializationWisp.DesiredPlayerAbilityState$$IsFulfilled
@@ -155,19 +154,19 @@ INTERCEPT(17845472, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 conte
 		return CSharpLib->call<bool>("TreeFulfilled", priorFoundTree);
 	else
 		return abilityStateFulfilled(thisPtr, contextPtr);
-		  });
+});
 
 INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPointer), {
 	//GameController$$FixedUpdate
 	fixedUpdate1(thisPointer);
 	onFixedUpdate(thisPointer);
-		  });
-BINDING(8332848, int, getSaveSlot, ())//SaveSlotsManager$$get_CurrentSlotIndex
+});
+BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
 INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 	//NewGameAction$$Perform
 	CSharpLib->call<void, int>("NewGame", getSaveSlot());
 	newGamePerform(thisPtr, ctxPtr);
-		  });
+});
 
 
 
@@ -217,6 +216,10 @@ void onFixedUpdate(__int64 thisPointer){
 	{
 		LOG("got error code " << error);
 	}
+    if (setToLastPos > 0) {
+        setToLastPos--;
+        SeinCharacter__set_Position(get_characters()->m_sein, lastPos);
+    }
 }
 
 extern "C" __declspec(dllexport)

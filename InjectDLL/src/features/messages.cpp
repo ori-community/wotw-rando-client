@@ -105,9 +105,11 @@ void clearLastHint(){
     }
 }
 
+UnityEngine_Vector3_o printPos;
 extern "C" __declspec(dllexport)
 bool hintsReady(){
-    return stringHeaderCached;
+    printPos = OnScreenPositions__get_TopCenter();
+    return printPos.y > 0 && stringHeaderCached;
 }
 
 
@@ -116,7 +118,7 @@ MessageBox_o * displayHint(System_String_o * hint, float duration){
     try {
         clearLastHint();
         const auto messageController = getGameController()->static_fields->MessageController;
-        const auto box = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, OnScreenPositions__get_TopCenter(), duration);
+        const auto box = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, printPos, duration);
         lastHandle = il2cpp_gchandle_new_weakref((Il2CppObject*) box, true);
 
     lastMessage = hint;

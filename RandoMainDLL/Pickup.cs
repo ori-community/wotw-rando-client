@@ -6,73 +6,73 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public enum PickupType : byte {
-    SpiritLight,
-    Resource,
-    Ability,
-    Shard,
-    QuestItem,
-    Teleporter,
-    Message,
-    Multi,
-    UberState,
-    WorldEvent
+    SpiritLight = 0,
+    Resource = 1,
+    Ability = 2,
+    Shard = 3,
+    QuestItem = 4,
+    Teleporter = 5,
+    Message = 6,
+    Multi = 7,
+    UberState = 8,
+    WorldEvent = 9
   }
 
   public enum WorldEventType : byte {
     [Description("Clean Water")]
-    Water
+    Water = 0
   }
 
   public enum TeleporterType : byte {
     [Description("Midnight Burrows")]
-    MidnightBurrows,
+    MidnightBurrows = 0,
     [Description("Howl's Den")]
-    HowlsDen,
+    HowlsDen = 1,
     [Description("Luma Pools (East)")]
-    LumaPoolsA,
+    LumaPoolsA = 2,
     [Description("Wellspring")]
-    Wellspring,
+    Wellspring = 3,
     [Description("Baur's Reach")]
-    BaursReach,
+    BaursReach = 4,
     [Description("Kwolok's Hollow")]
-    KwoloksHollow,
+    KwoloksHollow = 5,
     [Description("Mouldwood Depths")]
-    Mouldwood,
+    Mouldwood = 6,
     [Description("Silent Woods (West)")]
-    SilentWoodsA,
+    SilentWoodsA = 7,
     [Description("Silent Woods (East)")]
-    SilentWoodsB,
+    SilentWoodsB = 8,
     [Description("Windswept Wastes (West)")]
-    WindsweptWastesA,
+    WindsweptWastesA = 9,
     [Description("Windswept Wastes (East)")]
-    WindsweptWastesB,
+    WindsweptWastesB = 10,
     [Description("Windtorn Ruins (Outer)")]
-    WindtornRuinsA,
+    WindtornRuinsA = 11,
     [Description("Willow's End")]
-    WillowsEnd,
+    WillowsEnd = 12,
     [Description("Luma Pools (West)")]
-    LumaPoolsB,
+    LumaPoolsB = 13,
     [Description("Windtorn Ruins (Inner)")]
-    WindtornRuinsB,
+    WindtornRuinsB = 14,
     [Description("Spirit Willow")]
-    WillowsEndShriek,
+    WillowsEndShriek = 15,
     [Description("Inkwater Marsh")]
-    InkwaterMarsh,
+    InkwaterMarsh = 16,
     [Description("Wellspring Glades")]
-    builderProjectSpiritWell,
+    builderProjectSpiritWell = 17, // note: not currently supported
   }
 
   public enum ResourceType : byte {
     [Description("Half-Health Cell")]
-    Health,
+    Health = 0,
     [Description("Half-Energy Cell")]
-    Energy,
+    Energy = 1,
     [Description("Gorlek Ore")]
-    Ore,
+    Ore = 2,
     [Description("Keystone")]
-    Keystone,
+    Keystone = 3,
     [Description("Shard Slot")]
-    ShardSlot
+    ShardSlot = 4
   }
 
   public abstract class Pickup {
@@ -100,7 +100,7 @@ namespace RandoMainDLL {
       else {
         children.Add(other);
       }
-      // this can only really happen if one of these was Multi.Empty
+      // this can only really happen if one of these was Multi.Empty, but we do concat on empties, soooo
       if (children.Count == 1) {
         return children[0];
       }
@@ -146,7 +146,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public override string ToString() => string.Join(", ", Children.Select(c => c.ToString()));
+    public override string ToString() => string.Join("\n", Children.Select(c => c.ToString()));
   }
 
   public class Message : Pickup {

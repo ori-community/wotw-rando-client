@@ -29,7 +29,9 @@ namespace RandoMainDLL {
     [Description("Windtorn Ruins")]
     Ruins,
     [Description("Willow's End")]
-    Willow
+    Willow,
+    [Description("Unknown")]
+    Void
   }
   public static class HintsController {
       public static Dictionary<AreaType, ZoneType> AreaToZone = new Dictionary<AreaType, ZoneType>() {

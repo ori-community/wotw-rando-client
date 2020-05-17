@@ -44,7 +44,6 @@ namespace RandoMainDLL {
         Memory.PatchNoPause(true);
         if(AHK.IniFlag("DisableDebugControls")) {
           Memory.EnableDebug(false);
-            Log("disabled debug controls", false);
         }
         Log("init complete", false);
         return true;
@@ -81,6 +80,12 @@ namespace RandoMainDLL {
 
     public static void Error(string caller, Exception e, bool printIfDev = true) {
       Log($"{caller}: {e.Message}\n{e.StackTrace}", printIfDev, "ERROR");
+    }
+    public static void Error(string caller, string message, bool printIfDev = true) {
+      Log($"{caller}: {message}", printIfDev, "WARN");
+    }
+    public static void Warn(string caller, string message, bool printIfDev = true) {
+      Log($"{caller}: {message}", printIfDev, "WARN");
     }
 
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
