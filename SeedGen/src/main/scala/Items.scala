@@ -163,7 +163,7 @@ object Water extends WorldEvent(0)
       15 -> "Shriek",
       16 -> "Marsh",
     )
-    val poolItems = names.keys.withFilter(!Seq(2, 13, 15, 16).contains(_)).map(Teleporter(_)).toSeq
+    val poolItems = names.keys.withFilter(!Seq(2, 13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq
   }
 
   // fake inventory items

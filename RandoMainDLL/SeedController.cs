@@ -48,9 +48,8 @@ namespace RandoMainDLL {
 
             var pickup = BuildPickup(pickupType, frags[3]);
             if (pickup.IsHintItem())
-              HintsController.AddHint(uberId.LocData().Zone, pickup as Checkable);
-            // insert crazed laughter here
-            pickupMap[uberId] = (pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty).Concat(pickup);
+              HintsController.AddHint(uberId.Loc().Zone, pickup as Checkable);
+            pickupMap[uberId] = pickupMap.GetOrElse(uberId, Multi.Empty).Concat(pickup);
           }
           catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
@@ -105,18 +104,19 @@ namespace RandoMainDLL {
       return granted;
     }
 
+
     public static Pickup BuildPickup(PickupType type, string pickupData) {
       switch (type) {
         case PickupType.Ability:
-          return new Ability((AbilityType)byte.Parse(pickupData));
+          return new Ability((AbilityType)pickupData.ParseToByte());
         case PickupType.Shard:
-          return new Shard((ShardType)byte.Parse(pickupData));
+          return new Shard((ShardType)pickupData.ParseToByte());
         case PickupType.SpiritLight:
-          return new Cash(int.Parse(pickupData));
+          return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
-          return new Resource((ResourceType)byte.Parse(pickupData));
+          return new Resource((ResourceType)pickupData.ParseToByte());
         case PickupType.Teleporter:
-          return new Teleporter((TeleporterType)byte.Parse(pickupData));
+          return new Teleporter((TeleporterType)pickupData.ParseToByte());
         case PickupType.Message:
           var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.RemoveEmptyEntries);
           int frames = 240;
@@ -135,9 +135,50 @@ namespace RandoMainDLL {
           }
           return new Message(messageParts[0], frames, squelch);
         case PickupType.WorldEvent:
-          return new WorldEvent((WorldEventType)byte.Parse(pickupData));
+          return new WorldEvent((WorldEventType)pickupData.ParseToByte());
+        case PickupType.UberState:
+          var stateParts = pickupData.Split(',');
+          if(stateParts.Length != 4) {
+            Randomizer.Log($"malformed Uberstate specifier ${pickupData}", false);
+            return new Message($"Invalid UberState ${pickupData}!");
+          }
+          var uberId = new UberId(
+              stateParts[0].ParseToInt("BuildPickup.UberGroupId"),
+              stateParts[1].ParseToInt("BuildPickup.UberId")
+            );
+          UberValue val = new UberValue();
+          UberStateType stateType;
+          switch(stateParts[2].Trim().ToLower()) {
+            case "bool":
+              val.Bool = stateParts[3].ParseToBool("BuildPickup.UberValue<Bool>");
+              stateType = UberStateType.SerializedBooleanUberState;
+              break;
+            case "byte":
+              val.Byte = stateParts[3].ParseToByte("BuildPickup.UberValue<Byte>");
+              stateType = UberStateType.SerializedByteUberState;
+              break;
+            case "teleporter":
+              val.Byte = stateParts[3].ParseToBool("BuildPickup.UberValue<Teleporter>") ? (byte)1 : (byte)0;
+              stateType = UberStateType.SavePedestalUberState;
+              break;
+            case "int":
+              val.Int= stateParts[3].ParseToInt("BuildPickup.UberValue<Int>");
+              stateType = UberStateType.SerializedIntUberState;
+              break;
+            case "float":
+              val.Float = stateParts[3].ParseToFloat("BuildPickup.UberValue<Float>");
+              stateType = UberStateType.SerializedFloatUberState;
+              break;
+            default:
+              Randomizer.Warn("BuildPickup", $"unknown ubervalue type {stateParts[3]}, assuming Int");
+              val.Int = stateParts[3].ParseToInt("BuildPickup.UberValue<Int>");
+              stateType = UberStateType.SerializedIntUberState;
+              break;
+          }
+          var state = new UberState() { ID = uberId.ID, GroupID = uberId.GroupID, Type = stateType, Value = val};
+          return new UberStatePickup(state);
         default:
-          Randomizer.Log($"Error on seed parse: unknown pickup ${pickupData}!!!", false);
+          Randomizer.Error("BuildPickup", $"seed parse failure: unknown pickup ${pickupData}!!!", false);
           return new Message($"Unknown pickup ${pickupData}!!!");
       }
     }

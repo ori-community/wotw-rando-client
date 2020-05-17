@@ -4,10 +4,11 @@ namespace RandoMainDLL {
   public class LocData {
     public ZoneType Zone;
     public LocData(ZoneType type) { Zone = type;  }
+    public static LocData Void = new LocData(ZoneType.Void);
 
   }
   public static class LocDataStaticHelper {
-    public static LocData LocData(this UberId uid) => All[uid];
+    public static LocData Loc(this UberId uid) => All.GetOrElse(uid, LocData.Void);
     public static Dictionary<UberId, LocData> All = new Dictionary<UberId, LocData>() {
       {new UberId(21786, 60210), new LocData(ZoneType.Marsh) },
       {new UberId(21786, 49485), new LocData(ZoneType.Marsh) },
