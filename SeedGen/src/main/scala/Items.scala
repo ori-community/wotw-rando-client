@@ -52,6 +52,7 @@ object WorldEvent {
   val names: Map[Int, String] = Map(
     0 -> "Water"
   )
+  val invNames = names.map({case (a, b) => b->a})
   val poolItems = names.keys.map(WorldEvent(_)).toSeq
 }
 object Water extends WorldEvent(0)
@@ -60,9 +61,10 @@ object Water extends WorldEvent(0)
     val itemType: Int = 2
     def code = s"$itemType|${skillId}"
     def name: String = s"Skill ${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
-    override val cost = 5
+    override val cost = Skill.costs.getOrElse(skillId, 5d)
   }
   object Skill {
+    val costs: Map[Int, Double] = Map(8 -> 20, 102->8, 0->8)
     val names: Map[Int, String] = Map(
       0 -> "Bash",
       3 -> "WallJump",
@@ -140,10 +142,11 @@ object Water extends WorldEvent(0)
     val itemType: Int = 5
     def code = s"$itemType|${teleporterId}"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown (${teleporterId})")} TP"
-    override val cost = 3
+    override val cost = Teleporter.costs.getOrElse(teleporterId, 10d)
   }
 
   object Teleporter {
+    val costs: Map[Int, Double] = Map(3 -> 15, 11->15, 4->15)
     val names: Map[Int, String] = Map(
       0 -> "Burrows",
       1 -> "Den",
@@ -180,7 +183,7 @@ object Water extends WorldEvent(0)
     val flags = if(inv.has(Water)) _flags + WorldState("Water") else _flags
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def without(item: Item, count: Int): GameState = GameState(inv.without(item, count), flags, reached)
-    def cost(implicit flagCosts: Map[FlagState, Double] = Map()) =  inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
+    def cost(implicit flagCosts: Map[FlagState, Double] = Map()): Double = inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
     def canEqual(that: Any): Boolean = that.isInstanceOf[GameState]
     override def equals(state: Any): Boolean = {
       state match {
@@ -207,15 +210,14 @@ object Water extends WorldEvent(0)
 
   // extending hashset instead of encapsulating it here was pure folly, tbh
   class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
-    items.foreach({ case (i: Item, count: Int) => set(i, count) })
+    items.collect({ case (i: Item, count: Int) if count > 0 => set(i, count) })
     def set(item: Item, count: Int): Unit = this (item) = count
     override def apply(item: Item): Int = getOrElse(item, 0)
     override def toString = s"Inv: (${
       filter(_._2 > 0).filterNot(kv => kv._1.isInstanceOf[SpiritLight] || kv._1.isInstanceOf[Shard]).map({
         case (item, 1) => s"$item"
         case (item, c) => s"$c ${item}"
-      }).mkString(", ")
-    })"
+      }).mkString(", ")})"
 
     def asSeq: Seq[Item] = keys.toSeq.flatMap(k => (0 until this (k)).map(_ => k))
     def count = foldLeft(0)(_ + _._2)
@@ -232,6 +234,8 @@ object Water extends WorldEvent(0)
         return false
       }
       set(item, Math.max(0, this (item) - count))
+      if(this(item) == 0)
+        remove(item)
       true
     }
     def without(item: Item, count: Int): Inv = {
@@ -245,18 +249,25 @@ object Water extends WorldEvent(0)
     }
 
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
-    def popRand(implicit r: Random): Option[Item] = asSeq match {
+    def popRand(placedSoFar: Int)(implicit r: Random): Option[Item] = asSeq match {
       case s: Seq[Item] if (s.size > 0) => {
-        val i = r.shuffle(s).apply(r.nextInt(s.size))
+        val (skills, tps) = getSkillsAndTPs((placedSoFar * 3) /2)
+        val i = r.shuffle(s.collect({
+          case n: Skill if skills.contains(n) => Some(n)
+          case n: Teleporter if tps.contains(n) => Some(n)
+          case n => Some(n)
+        }).flatten).apply(r.nextInt(s.size))
         take(i)
         Some(i)
       }
       case _ => None
     }
-    def popSellable(tooEarlyForLaunch: Boolean)(implicit r: Random): Option[Sellable] = {
+    def popSellable(placedSoFar: Int)(implicit r: Random): Option[Sellable] = {
+      val (skills, tps) = getSkillsAndTPs(placedSoFar)
       val sellables = asSeq.collect({
-        case Launch if tooEarlyForLaunch => None
-        case i: Sellable => Some(i)
+        case i: Skill      => if(placedSoFar > 40 && skills.contains(i)) Some(i) else None
+        case i: Teleporter => if(placedSoFar > 40 && tps.contains(i)) Some(i) else None
+        case i: Sellable   => Some(i)
       }).flatten
       if (sellables.isEmpty)
         return None
@@ -264,14 +275,28 @@ object Water extends WorldEvent(0)
       take(i)
       Some(i)
     }
-    def popProbableProgression(tooEarlyForLaunch: Boolean)(implicit r: Random): Option[Item] = {
-      val skipSkills = Set(106, 108, 120, 121, 115) ++ (if(tooEarlyForLaunch) Set(8) else Set())
+    def getSkillsAndTPs(placedSoFar: Int) = {
+      val skills = placedSoFar match {
+        case n if n < 80 => Seq(DoubleJump, Grapple, Glide, Bow, Regen, Dash, Smash)
+        case n if n < 120 => Seq(DoubleJump, Grapple, Glide, Bow, Regen, Dash, Smash, Flap, Glide, WaterDash, Grenade, Flash, Burrow)
+        case _ => Seq(DoubleJump, Grapple, Glide, Bow, Regen, Dash, Smash, Flap, Glide, WaterDash, Grenade, Flash, Burrow, Launch)
+      }
+      val teleporters = placedSoFar match {
+        case n if n < 60 => Seq(HollowTP, EastWoodsTP, BurrowsTP)
+        case n if n < 90 => Seq(HollowTP, EastWoodsTP, BurrowsTP, DepthsTP, WellspringTP)
+        case _ => Seq(HollowTP, EastWoodsTP, BurrowsTP, WellspringTP, DepthsTP, WestWoodsTP, OuterRuinsTP, WestWastesTP, EastWastesTP, WillowTP)
+      }
+      (skills, teleporters)
+    }
+    def popProbableProgression(placedSoFar: Int)(implicit r: Random): Option[Item] = {
+      val (skills, tps) = getSkillsAndTPs(placedSoFar)
       val probableProgression = asSeq.collect({
-        case Skill(num) if !skipSkills.contains(num) => Skill(num)
-        case Teleporter(num) if Set(0, 3, 4, 5, 6, 9, 10, 12).contains(num) => Teleporter(num)
+        case n if skills.contains(n) => n
+        case n if tps.contains(n) => n
+        case Water if placedSoFar > 40 => Water
       }) ++: Seq(Ore(), Health()).filter(has(_))
       if (probableProgression.isEmpty)
-        return popRand
+        return None
       val i = probableProgression(r.nextInt(probableProgression.size))
       take(i)
       Some(i)
@@ -280,6 +305,15 @@ object Water extends WorldEvent(0)
       new Inv((other.keys ++ keys).toSeq.map({ (i: Item) => (i, Math.max(this (i), other(i))) }): _*)
     }
   }
+  object Inv {
+    def Empty: Inv = new Inv()
+    def mk(items: Item*): Inv = {
+      val newInv = Empty
+      items.foreach(newInv.add(_))
+      newInv
+    }
+  }
+
   object Regen extends Skill(77)
   object Bow extends Skill(97)
   object DoubleJump extends Skill(5)
@@ -296,13 +330,23 @@ object Water extends WorldEvent(0)
   object Flash extends Skill(62)
   object Bash extends Skill(0)
 
-  object Inv {
-    def Empty: Inv = new Inv()
-    def mk(items: Item*): Inv = {
-      val newInv = Empty
-      items.foreach(newInv.add(_))
-      newInv
-    }
-  }
+  object BurrowsTP extends Teleporter(0)
+  object DenTP extends Teleporter(1)
+  object EastPoolsTP extends Teleporter(2)
+  object WellspringTP extends Teleporter(3)
+  object ReachTP extends Teleporter(4)
+  object HollowTP extends Teleporter(5)
+  object DepthsTP extends Teleporter(6)
+  object WestWoodsTP extends Teleporter(7)
+  object EastWoodsTP extends Teleporter(8)
+  object WestWastesTP extends Teleporter(9)
+  object EastWastesTP extends Teleporter(10)
+  object OuterRuinsTP extends Teleporter(11)
+  object WillowTP extends Teleporter(12)
+  object WestPoolsTP extends Teleporter(13)
+  object InnerRuinsTP extends Teleporter(14)
+  object ShriekTP extends Teleporter(15)
+  object MarshTP extends Teleporter(16)
+
 
 }
