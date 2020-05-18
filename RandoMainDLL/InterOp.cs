@@ -9,7 +9,7 @@ namespace RandoMainDLL {
     public extern static IntPtr displayHint(IntPtr hint, float duration);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clearLastHint();
+    public extern static void clearVisibleHints();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr getCurrentHint();
