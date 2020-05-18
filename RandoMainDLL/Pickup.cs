@@ -84,6 +84,8 @@ namespace RandoMainDLL {
       if (!squelch) {
         AHK.Pickup(ToString(), Frames);
       }
+      SaveController.Data.FoundCount++;
+      InterOp.magicFunction();
     }
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
@@ -141,9 +143,7 @@ namespace RandoMainDLL {
       if (child != null) {
         child.Grant(false);
       }
-      else {
-        base.Grant(squelch);
-      }
+      base.Grant(squelch);
     }
 
     public override string ToString() => string.Join("\n", Children.Select(c => c.ToString()));
