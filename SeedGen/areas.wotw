@@ -317,8 +317,8 @@ area MarshPastOpher.MillView:  # (-594, -4292) Standing next to Opher, looking a
 
   conn MarshPastOpher.BowArea:
     base:
-      DoubleJump OR Dash OR Launch OR Glide
-      Bash, Grenade=2
+      DoubleJump OR Dash OR Launch
+      Bash, Grenade=3
     advanced: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
 
 area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with bow tree.
