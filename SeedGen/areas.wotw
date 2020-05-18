@@ -14,6 +14,9 @@ requirement Combat:
     Sword OR Hammer
     Launch
 
+requirement Wisps:
+  base: UpperDepths.MoraDefeated, WestPools.KwolokDefeated, LowerReach.WispCollected, WindtornRuins.EscapeComplete
+
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
   base: UpperDepths.MoraDefeated OR Flash
   advanced: Bow
@@ -2226,7 +2229,7 @@ area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top 
   conn UpperWastes.MissilePuzzleRight:
     base: Burrow, DoubleJump OR Launch
   conn WindtornRuins.UpperRuinsDoor:
-    base, Wisps:
+    base, UpperDepths.MoraDefeated, WestPools.KwolokDefeated, LowerReach.WispCollected:
       Bash, Launch
       Burrow, Launch, DoubleJump OR Glide  # djump or glide lets you reattempt
       Burrow, Bash, DoubleJump, Dash OR Glide

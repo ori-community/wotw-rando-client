@@ -309,7 +309,7 @@ package SeedGenerator {
 
     def getReachable(inv: Inv, flags: Set[FlagState]= Set()): Set[Node] = {
       var oldFlags = flags
-      var state = spawn.reached(GameState(inv), areas)
+      var state = spawn.reached(GameState(inv, flags), areas)
       while(oldFlags != state.flags) {
         val newFlags = state.flags -- oldFlags
         oldFlags = state.flags
@@ -414,27 +414,28 @@ package SeedGenerator {
       val (shopLocs, nonShopLocs) = locs.partition(_.data.category == "Shop")
       val RETRIES = 30
       def getItems(n: Int = RETRIES): Seq[Item] = {
-        if(n < 0) {
-          println(s"$n, 0, ${pool.toSeq.filter(i => i._1.itemType != 0 && i._2 > 0)}, ${Nodes.items.values.filterNot(loc => reachable.exists(_.name == loc.name))}")
-          throw GeneratorError("Game over :C")
-        }
-        val fudgeFactor = Math.min(locs.size, n match {
-          case i if i > 20 => 0
-          case i if i > 15 => 1
-          case i if i > 10 => 2
-          case i if i > 5 => 3
-          case i => 7 - i
-        })
-        val items = (0 until locs.size).map(m => {
-          val maybeItem = // this is valid scala so technically i've done nothing wrong
-            if (m < shopLocs.size + fudgeFactor) {
-              if(n < 15)
-                pool.popProbableProgression(inState.reached.size > 80).orElse(pool.popSellable(inState.reached.size > 80))
-              else
-                pool.popSellable(inState.reached.size > 80)
-            } else
-              pool.popRand
-          if (maybeItem.isEmpty)
+            if(n < 0) {
+              println(s"$n, 0, ${pool.toSeq.filter(i => i._1.itemType != 0 && i._2 > 0)}, ${Nodes.items.values.filterNot(loc => reachable.exists(_.name == loc.name))}")
+              throw GeneratorError("Game over :C")
+            }
+          val progressionItems: Seq[Item] = Skill.poolItems ++ Teleporter.poolItems ++ WorldEvent.poolItems
+          val fudgeFactor = Math.min(locs.size, n match {
+            case i if i > 20 => 0
+            case i if i > 15 => 1
+            case i if i > 10 => 2
+            case i if i > 5 => 3
+            case i => 7 - i
+          })
+          val items = (0 until locs.size).map(m => {
+            val maybeItem = // this is valid scala so technically i've done nothing wrong
+              if (m < shopLocs.size + fudgeFactor) {
+                if(n < 15)
+                  pool.popProbableProgression(reachable.size).orElse(pool.popSellable(reachable.size))
+                else
+                  pool.popSellable(reachable.size)
+              } else
+                pool.popRand(reachable.size + i - RETRIES)
+            if (maybeItem.isEmpty)
             {
               println(s"$n, $m, ${pool.toSeq.filter(_._2 > 0)}, ${Nodes.items.values.filterNot(loc => reachable.exists(_.name == loc.name))}")
               throw GeneratorError(s"Failed to get random item from ${pool.toSeq.filter(_._2 > 0)}")
@@ -443,7 +444,7 @@ package SeedGenerator {
         })
         val newReached = Nodes.getReachable(inState.inv + Inv.mk(items:_*))
         //println(s"$n, $items, ${newReached.size} $newReached")
-        if(newReached.size > reachable.size + (if(n > 15) 1 else 0) || newReached.size == Nodes.items.size) {
+        if(newReached.size > reachable.size + (if(n > 15) 2 else 1) || newReached.size == Nodes.items.size) {
           //println(s"${newReached.size - reachable.size} new locs. Took ${RETRIES-n} tries. pool: ${pool.count}/${ItemPool.ITEM_COUNT} placed: ${inState.reached.collect({case i: ItemLoc => i}).size + locs.size}/${ItemPool.ITEM_COUNT} ")
           items
         } else {
@@ -558,7 +559,7 @@ package SeedGenerator {
     }
   }
   object ItemPool {
-    lazy val ITEM_COUNT: Int = 340
+    lazy val ITEM_COUNT: Int = Nodes.items.size
     def build(size: Int = ITEM_COUNT)(implicit r: Random) = {
       val pool = new Inv(Health() -> 24, Energy() -> 24, Ore() -> 39, ShardSlot() -> 5) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)

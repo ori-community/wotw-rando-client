@@ -153,7 +153,6 @@ package AreaParser {
         case IDENTIFIER("WaterDash") => SkillReq(104)
         case IDENTIFIER("SpiritStar") => SkillReq(106)
         case IDENTIFIER("Shuriken") => SkillReq(106)
-        case IDENTIFIER("Wisps") => SkillReq(108)
         case IDENTIFIER("Blaze") => SkillReq(115)
         case IDENTIFIER("Sentry") => SkillReq(116)
         case IDENTIFIER("Flap") => SkillReq(118)
