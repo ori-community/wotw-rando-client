@@ -69,15 +69,31 @@ INTERCEPT(15446864, __int64, TranslatedMessageProvider_MessageItem_Message, (__i
 Game_UI_c* getGameController(){
     return *(Game_UI_c**) resolve_rva(71714856);
 }
-
-BINDING(13847344, MessageBox_o*, MessageControllerB__ShowHintSmallMessage, (MessageControllerB_o* this_ptr, MessageDescriptor_o descriptor, UnityEngine_Vector3_o position, float duration))
-BINDING(5621248, UnityEngine_Vector3_o, OnScreenPositions__get_TopCenter, ())
-//MessageBox_o* lastHint = nullptr;
 System_String_o* lastMessage = nullptr;
 uint32_t lastHandle = 0;
-BINDING(13820848, void, MessageBox__HideMessageScreenImmediately, (MessageBox_o* this_ptr, int32_t action))
-BINDING(13821184, void, MessageBox__HideMessageScreen, (MessageBox_o* this_ptr, int32_t action))
+MessageBox_o* lastBox = nullptr;
 
+BINDING(13847344, MessageBox_o*, MessageControllerB__ShowHintSmallMessage, (MessageControllerB_o* this_ptr, MessageDescriptor_o descriptor, UnityEngine_Vector3_o position, float duration));
+BINDING(5621248, UnityEngine_Vector3_o, OnScreenPositions__get_TopCenter, ());
+BINDING(13836768, bool, MessageBoxVisibility__get_Visible, (MessageBoxVisibility_o* this_ptr));
+BINDING(13820848, void, MessageBox__HideMessageScreenImmediately, (MessageBox_o* this_ptr, int32_t action));
+BINDING(13821184, void, MessageBox__HideMessageScreen, (MessageBox_o* this_ptr, int32_t action));
+
+INTERCEPT(13823536, void, MessageBox__Update, (MessageBox_o* this_ptr), {
+    MessageBox__Update(this_ptr);
+    if (this_ptr != lastBox && this_ptr->Visibility && MessageBoxVisibility__get_Visible(this_ptr->Visibility)) {
+        debug("visible untracked box found; tracking");
+        lastBox = this_ptr;
+    }
+})
+
+INTERCEPT(13822720, void, MessageBox__OnDestroy, (MessageBox_o* this_ptr), {
+    MessageBox__OnDestroy(this_ptr);
+    if (lastBox == this_ptr) {
+        debug("intecepted destroy of tracked box, nulling it");
+        lastBox = nullptr;
+    }
+})
 
 BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, bool track_resurrection))
 BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
@@ -85,23 +101,17 @@ BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
 
 
 extern "C" __declspec(dllexport)
-void clearMessageBox(MessageBox_o * messageBox){
-    try {
-        MessageBox__HideMessageScreenImmediately(messageBox, 0);
-    } catch(...) {
-        debug("Couldn't clear message box, this is fine");
-    }
-}
-
-extern "C" __declspec(dllexport)
 void clearLastHint(){
-    if(lastHandle){
-        MessageBox_o* lastBox = (MessageBox_o*) il2cpp_gc_get_target(lastHandle);
-        if(lastBox)
-        {
-            clearMessageBox(lastBox);
+    try {
+        if (lastBox && lastBox->Visibility && MessageBoxVisibility__get_Visible(lastBox->Visibility))
+            MessageBox__HideMessageScreenImmediately(lastBox, 0);
+        if (lastHandle) {
+            il2cpp_gchandle_free(lastHandle);
+            lastHandle = 0;
         }
-        il2cpp_gchandle_free(lastHandle);
+    }
+    catch (...) {
+        log("Couldn't clear message box! This should not usually happen :C");
     }
 }
 
@@ -118,18 +128,16 @@ MessageBox_o * displayHint(System_String_o * hint, float duration){
     try {
         clearLastHint();
         const auto messageController = getGameController()->static_fields->MessageController;
-        const auto box = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, printPos, duration);
-        lastHandle = il2cpp_gchandle_new_weakref((Il2CppObject*) box, true);
-
-    lastMessage = hint;
-    return box;
+        lastBox = MessageControllerB__ShowHintSmallMessage(messageController, MessageDescriptor_o{hint, 0, nullptr, nullptr}, printPos, duration);
+        lastHandle = il2cpp_gchandle_new_weakref((Il2CppObject*) lastBox, true);
+        lastMessage = hint;
+    return lastBox;
     }
     catch (...) {
         debug("Error caught by display hint. This might not be fine?");
         return NULL;
     }
-
-    }
+}
 
 extern "C" __declspec(dllexport)
 System_String_o * getCurrentHint(){

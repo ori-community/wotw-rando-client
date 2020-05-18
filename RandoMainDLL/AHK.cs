@@ -63,13 +63,14 @@ namespace RandoMainDLL {
         switch (signal) {
           case "reload":
             if (FramesTillUnlockReload == 0) {
+              FramesTillNextSend = 0;
               SeedController.ReadSeed();
               Randomizer.Memory.OnInit();
               FramesTillUnlockReload = 60;
             }
             break;
           case "lastPickup":
-            FramesTillNextSend /= 2;
+            FramesTillNextSend = 1; // the only reason this isn't = 0 is that spamming this could cause major issues
             MessageQueue.Enqueue(Last);
             break;
           case "hintMessage":

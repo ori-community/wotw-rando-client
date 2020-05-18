@@ -12,9 +12,6 @@ namespace RandoMainDLL {
     public extern static void clearLastHint();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clearMessageBox(IntPtr messageBox);
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr getCurrentHint();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static bool hintsReady();
