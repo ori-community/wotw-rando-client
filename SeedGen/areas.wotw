@@ -2072,8 +2072,7 @@ area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
       Launch
 
 area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
-  pickup LowerWastes.SunsetViewEX:
-    base: free
+  pickup LowerWastes.SunsetViewEX: free
   pickup LowerWastes.PurpleWallEX:
     base: Burrow, Bash
   conn LowerWastes.WestTP:
@@ -2089,19 +2088,18 @@ area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
 area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
   state LowerWastes.QuestEerieGem:
     base: Burrow
-  pickup LowerWastes.SandBridgeOre:
-    base: free
+  pickup LowerWastes.SandBridgeOre: free
 
   conn LowerWastes.SunsetView:
     base: EnemyObstacle
   conn LowerWastes.TreeArea:
     base: Burrow
-  conn LowerWastes.LeftSandPot:
+  conn LowerWastes.SandPot:
     base, EnemyObstacle:
       Hammer OR DoubleJump OR Burrow OR Launch
       Bash, Grenade=1
 
-area LowerWastes.LeftSandPot:  # (1725, -3989) At autosave to the left of Sand Pot
+area LowerWastes.SandPot:  # (1725, -3989) At autosave to the left of Sand Pot
   pickup LowerWastes.MuncherTunnelEC:
     base: Burrow
   pickup LowerWastes.SandPotHC:
@@ -2119,45 +2117,32 @@ area LowerWastes.LeftSandPot:  # (1725, -3989) At autosave to the left of Sand P
       DoubleJump
       Launch
       EnemyObstacle, Bash, Grenade=1
-  conn LowerWastes.RightSandPot:  # the coals will deal damage in a future patch apparently
-    base:
-      Dash
-      Launch
-      Bash, Grenade=1
-
-area LowerWastes.RightSandPot:  # (1758,-3986) At autosave to the right of Sand Pot
-  pickup LowerWastes.SandPotEX:
-    base:
-      Burrow, Grapple, Dash, DoubleJump OR Glide
-      Burrow, Grapple, DoubleJump, Glide
-      Burrow, Bash, Grenade=1
-
-  conn LowerWastes.LeftSandPot:
-    base:
-      Dash
-      Bash, Grenade=1
-      Launch
-
   conn LowerWastes.WoodenBridge:
     base:
-      Grapple, DoubleJump OR Dash OR Glide
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide
-      DoubleJump, Dash OR Glide
+      Dash, DoubleJump OR Grapple
+      Dash, Bash, Grenade=1
+      Bash, Grenade=2, DoubleJump OR Glide
       Launch
 
 area LowerWastes.WoodenBridge:  # (1794, -3977) Directly above MuncherPitEX
+  pickup LowerWastes.SandPotEX:
+    base:
+      Burrow, Grapple, DoubleJump OR Glide
+      Burrow, Grapple, Bash, Grenade=1
+      Burrow, Bash, Grenade=1, DoubleJump, Dash OR Glide
+      Burrow, Launch
   pickup LowerWastes.MuncherPitEX:
     base:
       DoubleJump  # Slightly precise to land on the sand sphere. Can always add glide
       Burrow, Glide  # Might be a little _too_ precise. I guess this is among the intended strats tho?
       Launch  # Still slightly precise.
 
-  conn LowerWastes.RightSandPot:
+  conn LowerWastes.SandPot:
     base:
-      Grapple
-      DoubleJump, Dash OR Glide
+      Dash, DoubleJump OR Grapple
+      Bash, Grenade=1, Grapple
+      Bash, Grenade=1, DoubleJump, Glide
       Launch
-
   conn LowerWastes.LeverArea:
     base:
       DoubleJump
