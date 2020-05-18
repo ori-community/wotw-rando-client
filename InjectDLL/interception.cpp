@@ -20,18 +20,18 @@ void interception_init() {
 	auto current = last_intercept;
 	while(current)
 	{
-		debug("Binding: " + current->name + " (+" + std::to_string(current->offset) + ")");
+		//debug("Binding: " + current->name + " (+" + std::to_string(current->offset) + ")");
 		*current->originalPointer = (PVOID*)resolve_rva(current->offset);
 		if(current->interceptPointer)
 		{
-			debug("Intercepting: " + current->name + " @ " + std::to_string((__int64)current->originalPointer) + " -> " + std::
-				  to_string((__int64)current->interceptPointer));
+			//debug("Intercepting: " + current->name + " @ " + std::to_string((__int64)current->originalPointer) + " -> " + std::
+			//	  to_string((__int64)current->interceptPointer));
 			
 			const auto result = DetourAttach(current->originalPointer, current->interceptPointer);
 			if(result)
 				error("Error attaching " + current->name + ": " + std::to_string(result));
-			else
-				debug("Attach success");
+			//else
+			//	debug("Attach success");
 		}
 		current = current->prev;
 	}

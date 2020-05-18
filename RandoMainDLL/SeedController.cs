@@ -182,7 +182,7 @@ namespace RandoMainDLL {
           return new Message($"Unknown pickup ${pickupData}!!!");
       }
     }
-    public static int Current { get => SaveController.Data.FoundCount; }
+    public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }
     public static string Progress {
       get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
