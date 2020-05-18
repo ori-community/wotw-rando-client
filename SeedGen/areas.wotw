@@ -7,6 +7,9 @@ requirement Weapon:
 requirement EnemyObstacle:
   base: Sword OR Hammer OR Bash OR Launch
 
+requirement ShieldEnemy:  # breaking the shield or shell of an enemy
+  base: Hammer OR Launch OR Grenade=1 OR Spear
+
 requirement Combat:
   base:
     Regenerate, Danger=35, Sword OR Hammer  # at least 2 health cells
@@ -1498,18 +1501,12 @@ area LowerReach.Entry:  # (-395, -4026) Behind Baur
       Bash, Flap
       Grenade=1
   state LowerReach.LeftFurnace:
-    base, EnemyObstacle, Grenade=1:  # Grenade to light the furnace
-      # this is kinda weird, these paths make you go up to the Icefall, and then you would do a Grenadebash if you killed all the enemies. No one's gonna kill all the enemies though, the player will realistically just Bash off them. This is just so that regardless of player actions, these are still valid base paths
-      DoubleJump, Bash, Grenade=1
-      Dash, Bash, Grenade=1, Glide
-      Bash, Grenade=3, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
-      LowerReach.LowerFurnace, Bash, Grenade=2
-      # these get past the Icefall with Grapple instead of Grenadebash
-      DoubleJump, Bash, Grapple
-      Dash, Bash, Grapple, Glide
-      Bash, Grenade=2, Grapple, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
-      LowerReach.LowerFurnace, Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide  # extra abilities to get off the grapple point
-      # and yeah, Launch
+    base, Grenade=1:  # Grenade to light the furnace
+      # these paths want the player to bash off the skeetos, as is taught in other regions of the game
+      DoubleJump, Bash
+      Dash, Bash, Glide
+      Bash, Grenade=2, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
+      LowerReach.LowerFurnace, Bash, Grenade=1
       Launch, DoubleJump OR Bash
   state LowerReach.Lever:
     base:
@@ -1527,11 +1524,9 @@ area LowerReach.Entry:  # (-395, -4026) Behind Baur
       Launch
   pickup LowerReach.AboveBaurLowerEX:
     base:  # Using the mortar shooting from offscreen might be one of the intended strats? Wasn't considered for these paths
-      LowerReach.LowerFurnace:  # these use a grenadebash if they can't use the unfrozen plant
+      LowerReach.LowerFurnace OR Grenade=1:  # these use a grenadebash if they can't use the unfrozen plant
         DoubleJump, Bash
         Dash, Bash, Glide  # not sure about this path's difficulty when the LowerFurnace is hot, might need state for cooling it
-      Bash, Grenade=1, DoubleJump
-      Bash, Grenade=1, Dash, Glide
       Bash, Grenade=2  # same as above, also this could maybe go in the above group? If you try to make the jump off the plant, you won't make it, but it will reliably trigger the mortar to shoot at you and makes it easy to catch. Decided against it because the player might not try that jump from eyesight
       Launch, DoubleJump OR Bash
   pickup LowerReach.AboveBaurUpperEX:
@@ -1539,7 +1534,7 @@ area LowerReach.Entry:  # (-395, -4026) Behind Baur
       Launch, DoubleJump OR Bash  # not entirely sure about base
       LowerReach.LowerFurnace, DoubleJump, Bash
   pickup LowerReach.IcefallOre:
-    base, LowerReach.LeftFurnace, EnemyObstacle:  # EnemyObstacle alone isn't really enough here, with the Furnace lit it's hard to get past the enemies even with a weapon. The paths consider more tools to help.
+    base, LowerReach.LeftFurnace:  # EnemyObstacle alone isn't really enough here, with the Furnace lit it's hard to get past the enemies even with a weapon. The paths consider tools to help.
       DoubleJump, Bash, Grapple
       Dash, Bash, Glide, Grapple
       Bash, Grenade=2, Grapple, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
@@ -1548,9 +1543,9 @@ area LowerReach.Entry:  # (-395, -4026) Behind Baur
       DoubleJump, Water, Launch  # Swim past the enemies
       Launch, Bash
   pickup LowerReach.IcefallEX:
-    base, LowerReach.LeftFurnace, EnemyObstacle:  # Here you have to deal with the enemies a lot less, so further tools are not considered
+    base, LowerReach.LeftFurnace:  # Here you have to deal with the enemies a lot less
       Launch, DoubleJump OR Bash
-      DoubleJump, Bash, Water OR Grapple  # The last in case you killed all the skeetos (*surely* no one's gonna kill all the skeetos *and* the fish)
+      DoubleJump, Bash  # bash off the skeetos
 
   conn LowerReach.Central:
     base, LowerReach.Lever:
@@ -1562,13 +1557,6 @@ area LowerReach.Entry:  # (-395, -4026) Behind Baur
     base: LowerReach.BearSneezed
 
 area LowerReach.Central:  # (-347, -4011) After the lever door
-  state LowerReach.TPIceMelted:  # all not validated (added this state)
-    base:
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash, Grenade=1
-        Bash, Grenade=2
-      Grenade=1, Launch
-
   pickup LowerReach.AboveDoorEX:
     base:
       LowerReach.CentralFurnace:
@@ -1586,36 +1574,26 @@ area LowerReach.Central:  # (-347, -4011) After the lever door
       LowerReach.CentralFurnace:
         DoubleJump, Dash
         Bash, Grenade=1, DoubleJump OR Dash OR Glide  # not validated
-  pickup LowerReach.HiddenOre:
-    base:
-      Launch
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash
-        DoubleJump, Bash, Grenade=1  # not validated
 
   conn LowerReach.Entry:
     base: LowerReach.Lever, DoubleJump OR Dash OR Launch
   conn LowerReach.Lower: free  # wtf reach logic
-  conn LowerReach.Teleporter:  # all not validated (added this area)
-    base, LowerReach.TPIceMelted:
+  conn LowerReach.OutsideTP:  # all not validated (added this area)
+    base:
       Launch
       LowerReach.CentralFurnace:
         DoubleJump, Dash, Bash
         Bash, Grenade=1
-  conn UpperReach.KeystoneRoom:
-    base:
-      Launch
-      LowerReach.CentralFurnace, DoubleJump, Dash, Bash
 
 area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
   state LowerReach.QuestHandToHandHat:  # paths from other anchors should currently be redundant
     base: GladesTown.QuestHandToHandSoup, LowerReach.WindChannelLantern, Glide
   state LowerReach.CentralFurnace:
-    base, EnemyObstacle:
+    base, ShieldEnemy OR Bash:
       Grenade=1
       DoubleJump, Dash, Bash, Flap
   state LowerReach.WindChannelLantern:
-    base: EnemyObstacle, Grenade=1
+    base: Grenade=1, ShieldEnemy OR Bash
 
   pickup LowerReach.MeltIceEX:
     base: Grenade=1
@@ -1627,7 +1605,7 @@ area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
       Launch
       LowerReach.CentralFurnace, DoubleJump OR Dash  # not validated
   pickup LowerReach.BreakWallEX:
-    base: Weapon  # This is probably fine with the enemies? If Weapon changes, this might have to change too
+    base: Weapon, ShieldEnemy OR Bash
   pickup LowerReach.WindBottomEX:
     base: LowerReach.WindChannelLantern, Glide
   pickup LowerReach.WindHiddenEX:
@@ -1643,21 +1621,40 @@ area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
       DoubleJump, Dash, Bash, Grenade=2, Glide
       Glide, Launch
 
+area LowerReach.OutsideTP:  # (-309, -3968) To the left of the teleporter room
+  # none validated
+  state LowerReach.TPIceMelted:
+    base: Grenade=1
+
+  pickup LowerReach.AboveDoorEX:
+    base: Bash OR Hammer
+  pickup LowerReach.LupoMap:
+    base: DoubleJump OR Dash OR Glide OR Launch
+  pickup LowerReach.TPLeftEX:
+    base:
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
+  pickup LowerReach.HiddenOre:
+    base:
+      Launch
+      LowerReach.CentralFurnace, DoubleJump, Bash, Dash OR Glide OR Grenade=1
+
+  conn LowerReach.Lower: free
+  conn LowerReach.Central:
+    base: DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer
+  conn UpperReach.KeystoneRoom:
+    base:
+      DoubleJump, Dash, Bash
+      DoubleJump, Bash, Grenade=2
+      Launch
+
 area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
   # none validated
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
-  # with the state of subareas this shouldn't need any extra pickup paths? It will probably need them in non-base pathsets
-
-  conn LowerReach.Lower:
+  conn LowerReach.OutsideTP:
     base: LowerReach.TPIceMelted
-  conn LowerReach.Central:
-    base: LowerReach.TPIceMelted, DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer
-  conn UpperReach.KeystoneRoom:
-    base, LowerReach.TPIceMelted:
-      DoubleJump, Dash, Bash
-      Launch
   conn LowerReach.East:
     base, LowerReach.TeleporterLantern:
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
@@ -1737,8 +1734,7 @@ area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
         Water, Bash, Grenade=1, Dash  # also bashgrenade at waterfall
         Water, Bash, Grenade=2  # still bashgrenade at waterfall
   pickup UpperReach.SwimEX:
-    base:
-      UpperReach.HeatFurnace, Water, EnemyObstacle OR DoubleJump
+    base: UpperReach.HeatFurnace, Water, EnemyObstacle OR DoubleJump
 
   conn UpperReach.TreeRoom:  # not validated (added this area)
     base, UpperReach.HeatFurnace, EnemyObstacle:
@@ -1746,11 +1742,7 @@ area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
       Water
-  conn LowerReach.Central:
-    base: DoubleJump OR Dash OR Bash OR Glide  # Bash is maybe a bit much... not sure
-  conn LowerReach.Lower: free
-  conn LowerReach.Teleporter:
-    base: LowerReach.TPIceMelted
+  conn LowerReach.OutsideTP: free
 
 area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
   pickup UpperReach.LightBurstTree:
