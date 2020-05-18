@@ -66,7 +66,7 @@ namespace RandoMainDLL.Memory {
     public static UberState savePedestalSilentWoodsA = new UberState() { Name = "savePedestalUberState", ID = 7071, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SavePedestalUberState };
     public static UberState savePedestalSilentWoodsB = new UberState() { Name = "savePedestalA", ID = 1965, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SavePedestalUberState };
     public static UberState savePedestalWindsweptWastesA = new UberState() { Name = "savePedestalUberState", ID = 10029, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SavePedestalUberState };
-    public static UberState savePedestalWindsweptWastesB = new UberState() { Name = "savePedestal", ID = 26601, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SavePedestalUberState };
+    public static UberState savePedestalWindsweptWastesB = new UberState() { Name = "savePedestalUberState", ID = 49994, GroupName = "windsweptWastesGroupDescriptor", GroupID = 20120, Type = UberStateType.SavePedestalUberState };
     public static UberState savePedestalWindtornRuinsA = new UberState() { Name = "savePedestalUberState", ID = 41398, GroupName = "windsweptWastesGroupDescriptor", GroupID = 20120, Type = UberStateType.SavePedestalUberState };
     public static UberState savePedestalWindtornRuinsB = new UberState() { Name = "savePedestalUberState", ID = 4928, GroupName = "windtornRuinsGroup", GroupID = 10289, Type = UberStateType.SavePedestalUberState };
   }
