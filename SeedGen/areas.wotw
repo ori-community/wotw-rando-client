@@ -1578,7 +1578,7 @@ area LowerReach.Central:  # (-347, -4011) After the lever door
   conn LowerReach.Entry:
     base: LowerReach.Lever, DoubleJump OR Dash OR Launch
   conn LowerReach.Lower: free  # wtf reach logic
-  conn LowerReach.OutsideTP:  # all not validated (added this area)
+  conn LowerReach.OutsideTPRoom:  # all not validated (added this area)
     base:
       Launch
       LowerReach.CentralFurnace:
@@ -1621,7 +1621,7 @@ area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
       DoubleJump, Dash, Bash, Grenade=2, Glide
       Glide, Launch
 
-area LowerReach.OutsideTP:  # (-309, -3968) To the left of the teleporter room
+area LowerReach.OutsideTPRoom:  # (-309, -3968) To the left of the teleporter room
   # none validated
   state LowerReach.TPIceMelted:
     base: Grenade=1
@@ -1653,7 +1653,7 @@ area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the te
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
-  conn LowerReach.OutsideTP:
+  conn LowerReach.OutsideTPRoom:
     base: LowerReach.TPIceMelted
   conn LowerReach.East:
     base, LowerReach.TeleporterLantern:
@@ -1742,7 +1742,7 @@ area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
       Water
-  conn LowerReach.OutsideTP: free
+  conn LowerReach.OutsideTPRoom: free
 
 area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
   pickup UpperReach.LightBurstTree:
@@ -1823,6 +1823,8 @@ area LowerReach.Trial:  # (70, -4044) At trial start
     base, LowerReach.ArenaBeaten:
       Dash, Bash, Grenade=4, Grapple, Glide, Water OR DoubleJump
       Glide, Bash, Launch
+  state LowerReach.BearSneezed:
+    base: LowerReach.WispCollected  # the game forces Baur awake when collecting the wisp
 
   pickup LowerReach.RightKS:
     base:
