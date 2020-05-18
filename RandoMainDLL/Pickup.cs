@@ -80,12 +80,14 @@ namespace RandoMainDLL {
     public virtual bool NonEmpty() => true;
     public abstract PickupType Type { get; }
 
-    public virtual void Grant(bool squelch = false) {
+    public virtual void Grant(bool squelch = false, bool inc = true) {
       if (!squelch) {
         AHK.Pickup(ToString(), Frames);
       }
-      SaveController.Data.FoundCount++;
-      InterOp.magicFunction();
+      if(inc) {
+        SaveController.Data.FoundCount++;
+        InterOp.magicFunction();
+      }
     }
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
@@ -117,7 +119,7 @@ namespace RandoMainDLL {
     public readonly UberState State;
     public override PickupType Type => PickupType.UberState;
     public UberStatePickup(UberState state) => State = state;
-    public override void Grant(bool squelch = false) {
+    public override void Grant(bool squelch = false, bool inc = true) {
       Randomizer.Memory.WriteUberState(State);
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
@@ -134,16 +136,17 @@ namespace RandoMainDLL {
 
     public override bool NonEmpty() => Children.Count > 0;
 
-    public override void Grant(bool squelch = false) {
+    public override void Grant(bool squelch = false, bool inc = true) {
       foreach (var Child in Children) {
-        Child.Grant(true);
+        Child.Grant(true, false);
       }
 
       var child = Children.Find(p => p is Message msg && msg.Squelch);
       if (child != null) {
-        child.Grant(false);
+        child.Grant(false, true);
+      } else {
+        base.Grant(squelch, true);
       }
-      base.Grant(squelch);
     }
 
     public override string ToString() => string.Join("\n", Children.Select(c => c.ToString()));
@@ -160,12 +163,6 @@ namespace RandoMainDLL {
     public bool Squelch = false;
 
     public override PickupType Type => PickupType.Message;
-
-    public override void Grant(bool squelch = false) {
-      if (!squelch) {
-        AHK.Pickup(Msg, Frames);
-      }
-    }
 
     public override string ToString() => Msg;
   }
@@ -214,10 +211,10 @@ namespace RandoMainDLL {
       { TeleporterType.InkwaterMarsh, UberStateDefaults.savePedestalInkwaterMarsh },
     };
 
-    public override void Grant(bool squelch = false) {
-      base.Grant(squelch);
+    public override void Grant(bool squelch = false, bool inc = true) {
       TeleporterStates[type].Value.Byte = 1;
       Randomizer.Memory.WriteUberState(TeleporterStates[type]);
+      base.Grant(squelch, inc);
     }
 
     public override int DefaultCost() => 250;
@@ -246,9 +243,9 @@ namespace RandoMainDLL {
     public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
     public override float ModEffectiveness() => (type == AbilityType.Blaze) ? 0f : 1f;
 
-    public override void Grant(bool squelch = false) {
-      base.Grant(squelch);
+    public override void Grant(bool squelch = false, bool inc = true) {
       Randomizer.Memory.SetAbility(type);
+      base.Grant(squelch, inc);
     }
 
     public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown Ability {type}";
@@ -269,9 +266,9 @@ namespace RandoMainDLL {
         return false;
       }
     }
-    public override void Grant(bool squelch = false) {
-      base.Grant(squelch);
+    public override void Grant(bool squelch = false, bool inc = true) {
       Randomizer.Memory.SetShard(type);
+      base.Grant(squelch, inc);
     }
 
     public override int DefaultCost() => 300;
@@ -284,9 +281,9 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.SpiritLight;
     public readonly int Amount;
 
-    public override void Grant(bool squelch = false) {
-      base.Grant(squelch);
+    public override void Grant(bool squelch = false, bool inc = true) {
       Randomizer.Memory.Experience += Amount;
+      base.Grant(squelch, inc);
     }
 
     private static readonly List<string> MoneyNames = new List<string>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks" };
@@ -303,8 +300,7 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 400;
     public bool Has() => SaveController.Data.WorldEvents.Contains(type);
 
-  public override void Grant(bool squelch = false) {
-      base.Grant(squelch);
+  public override void Grant(bool squelch = false, bool inc = true) {
       SaveController.Data.WorldEvents.Add(type);
       switch (type) {
         case WorldEventType.Water:
@@ -314,6 +310,7 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.Write(new UberValue(true));
           break;
       }
+      base.Grant(squelch, inc);
     }
 
     public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
@@ -341,8 +338,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public override void Grant(bool squelch = false) {
-      base.Grant(squelch);
+    public override void Grant(bool squelch = false, bool inc = true) {
       switch (type) {
         case ResourceType.Health:
           Randomizer.Memory.FakeHalfHealth();
@@ -360,6 +356,7 @@ namespace RandoMainDLL {
           Randomizer.Memory.Shards++;
           break;
       }
+      base.Grant(squelch, inc);
     }
 
     public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
