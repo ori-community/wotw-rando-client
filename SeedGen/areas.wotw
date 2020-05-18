@@ -19,6 +19,9 @@ requirement DepthsLight:  # currently irrelevant since defeating mora requires f
   advanced: Bow
 
 area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater well
+  state MarshSpawn.QuestCaveTokk:  # this accounts for taking the cave keystone, then going to tokk
+    base: Weapon
+  
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
   pickup MarshSpawn.PreLupoEX: free
@@ -104,7 +107,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: DenTP
   conn EastHollow.Teleporter:
     base: HollowTP
-  conn GladesTown.Main:
+  conn GladesTown.Teleporter:
     base: GladesTP
   conn InnerWellspring.TeleporterArea:
     base: WellspringTP
@@ -130,6 +133,12 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: WillowTP
 
 area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, burrows and marsh
+  state MarshSpawn.QuestCaveTokk: free  # this accounts for taking the cave keystone, then going to tokk
+  state MidnightBurrows.TabletQI:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state MarshSpawn.QuestBurrowsTokk:
+    base: MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
+  
   pickup MarshSpawn.CaveOre:
     base:
       DoubleJump OR Launch
@@ -199,6 +208,11 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
       Launch
 
 area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
+  state MarshSpawn.FangQI:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state MarshSpawn.QuestMokkFang:
+    base: MarshSpawn.FangQI
+  
   pickup MarshSpawn.FangQI:
     base:
       DoubleJump OR Launch
@@ -270,6 +284,9 @@ area HowlsDen.Lower:  # (-328, -4535) At the teleporter
       Bash, Grenade=1
 
 area MarshPastOpher.MillView:  # (-594, -4292) Standing next to Opher, looking at the Millstone
+  state MarshPastOpher.TrialActivation:
+    base: Weapon, Grapple, Dash OR Glide OR Launch
+  
   pickup MarshPastOpher.TrialOre:
     base: Weapon
   pickup MarshPastOpher.TrialLeftEX:
@@ -425,6 +442,10 @@ area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye
   conn EastHollow.Teleporter: free  # as long as the purple eye door starts open
 
 area WestHollow.HollowDrainLower:  # (-209, -4333) Next to the jumppad left of Lupo
+  state WestHollow.TrialActivation:
+    base, EnemyObstacle:
+      DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
   state WestHollow.DoorLever:  # The door blocking Dash area
     base, Weapon:
       DoubleJump OR Dash OR Launch
@@ -483,6 +504,11 @@ area EastHollow.Teleporter:  # (-150, -4237) the teleporter
       EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
 
 area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
+  state EastHollow.QuestHandToHandMap:
+    base, EastHollow.BeetleDefeated, EastHollow.Voice:
+      Bash, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash, Glide
+      Launch
   state EastHollow.BeetleDefeated:
     base: 
       Combat, Dash  # It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught
@@ -529,7 +555,7 @@ area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
       DoubleJump, Dash
       Bash, DoubleJump OR Dash OR Grenade=1
       Glide OR Launch
-  conn GladesTown.Main:
+  conn GladesTown.Teleporter:
     base: Bash, DoubleJump OR Launch
   conn EastHollow.AboveDepths:
     base: EastHollow.MouldwoodLever, EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
@@ -587,25 +613,37 @@ area EastHollow.AboveDepths:  # (50, -4302) To the right of the lever door block
     base: Glide
 
 # begin glades needs-validation region
-area GladesTown.Main:  # (-306, -4153) The glades teleporter
+area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
+  # silent woods map quest doesn't exactly make sense
+  # last tree tbd when woods has logic
+  state GladesTown.QuestHandToHandPouch:
+    base: EastHollow.QuestHandToHandMap
+  state GladesTown.QuestHandToHandLantern:
+    base: LowerReach.QuestHandToHandHat
+  state GladesTown.AcornQI:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state GladesTown.QuestAcorn:
+    base: GladesTown.ClearThorns, GladesTown.AcornQI
+  state GladesTown.QuestFatherKey:
+    base: GladesTown.RoofsOverHeads  # continue this questline in woods when it has logic
   state GladesTown.BuildHuts:
     base: Ore=15
   state GladesTown.RoofsOverHeads:
-    base: Ore=21, GladesTown.BuildHuts
+    base: GladesTown.BuildHuts, Ore=21
   state GladesTown.OnwardsAndUpwards:
-    base: Ore=29, GladesTown.RoofsOverHeads
+    base: GladesTown.RoofsOverHeads, Ore=29
   state GladesTown.ClearThorns:
     base: Ore=23
   state GladesTown.CaveEntrance:
-    base: Ore=29, GladesTown.ClearThorns
+    base: GladesTown.ClearThorns, Ore=29
+  # decoration not accounted for
 
   pickup GladesTown.AboveCaveEX:
     base: GladesTown.ClearThorns
   pickup GladesTown.CaveBurrowEX:
     base: GladesTown.ClearThorns, Burrow, DoubleJump OR Launch
   pickup GladesTown.AcornQI:
-    base:
-      GladesTown.CaveEntrance, Flash:
+    base, GladesTown.ClearThorns, GladesTown.CaveEntrance, Flash:
         Water, Glide
         Damage=10, Water, DoubleJump
         Bash, Grenade=1
@@ -616,61 +654,39 @@ area GladesTown.Main:  # (-306, -4153) The glades teleporter
       Flap, Glide
       Bash, Grenade=1, DoubleJump
       Launch
+      TuleyShop.QuestLightcatchers, Bash, Grenade=1
+      TuleyShop.QuestBlueMoon, DoubleJump, Grapple
+      TuleyShop.QuestBlueMoon, TuleyShop.QuestLightcatchers, Bash, Grapple
+      TuleyShop.QuestSpringPlants, DoubleJump OR Dash OR Glide
+      TuleyShop.QuestSpringPlants, TuleyShop.QuestLightcatchers, Bash
     advanced: Bash, Grenade=2
-  pickup GladesTown.BigHammockEX:
-    base:
-      Flap, Glide, DoubleJump
-      Flap, Glide, Bash, Grenade=1
-      Launch
-  pickup GladesTown.HoleHutEX:
-    base:
-      GladesTown.RoofsOverHeads:
-        Flap, Glide, DoubleJump
-        Flap, Glide, Bash, Grenade=2
-        Launch
-    advanced: GladesTown.RoofsOverHeads, Bash, Grenade=4
-  pickup GladesTown.HoleHutEC:
-    base:
-      GladesTown.RoofsOverHeads:
-        Flap, Glide, DoubleJump
-        Flap, Glide, Bash, Grenade=2
-        Launch
-    advanced: GladesTown.RoofsOverHeads, Bash, Grenade=4
-  pickup GladesTown.LeafPileEX:
-    base:
-      Flap, Launch, DoubleJump OR Dash OR Glide  # Can go either to the right wall or through the semisolid branch
   pickup GladesTown.AboveTpEX:
     base:
       Launch  # probably base?
+      TuleyShop.QuestLightcatchers, Bash:
+        Grenade=1
+        DoubleJump, Flap, Glide
+        TuleyShop.QuestStickyGrass, Grapple
+        TuleyShop.QuestBlueMoon, DoubleJump, Grapple
+        TuleyShop.QuestSpringPlants, DoubleJump
     advanced:
       Bash, Grenade=2, Dash, DoubleJump
   pickup GladesTown.BountyShard:
     base:
       Launch  # probably base?
+      TuleyShop.QuestLightcatchers, Bash:
+        Grenade=1
+        DoubleJump, Flap, Glide
+        TuleyShop.QuestStickyGrass, Grapple
+        TuleyShop.QuestBlueMoon, DoubleJump, Grapple
+        TuleyShop.QuestSpringPlants, DoubleJump
     advanced:
       Bash, Grenade=3, Dash, DoubleJump
   pickup GladesTown.ArcingShard:
-    base:
-      GladesTown.ClearThorns:
-        Launch
-        Bash, Grenade=1  # probably base?
-  pickup GladesTown.BraveMokiHutEX:
-    base:
-      GladesTown.OnwardsAndUpwards, Launch
-    advanced:
-      GladesTown.OnwardsAndUpwards, DoubleJump, Bash, Grenade=1
-  pickup GladesTown.FruitHammockEX:
-    base:
-      Launch, DoubleJump OR Dash OR Glide
-      GladesTown.BuildHuts:
-        Launch  # probably base?
-        DoubleJump, Bash, Grenade=2  # probably base?
-  pickup GladesTown.AboveGromHC:
-    base:
-      Launch, DoubleJump OR Dash OR Glide
-      GladesTown.BuildHuts:
-        Launch  # probably base?
-        DoubleJump, Bash, Grenade=2  # probably base?
+    base, GladesTown.ClearThorns:
+      Bash, Grenade=1  # probably base?
+      Launch
+      TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
   pickup GladesTown.LupoSoupEX:
     base: Water OR Burrow
   pickup GladesTown.BottomRightHC:
@@ -683,42 +699,106 @@ area GladesTown.Main:  # (-306, -4153) The glades teleporter
     base:
       Hammer, DoubleJump OR Launch OR Dash OR Glide
       Hammer, Bash, Grenade=1
-      Hammer, Damage=10
   pickup GladesTown.KeyMokiHutEX:
-    base: Unreachable
+    base: Unreachable  # tbd after woods logic
   pickup GladesTown.DamageTree:
-    base: Unreachable
+    base: TuleyShop.QuestLastSeed
+
+  conn GladesTown.UpperWest:
+    base:
+      Launch, DoubleJump OR Dash OR Glide
+      TuleyShop.QuestBlueMoon, Grapple:
+        Bash, Grenade=1
+        Launch
+        TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
+  conn GladesTown.HoleHut:  # hard to tell what's redundant with ReachPath
+    base:
+      Flap, Glide, DoubleJump
+      Flap, Glide, Bash, Grenade=1
+      Launch
+      TuleyShop.QuestLightcatchers, Bash:
+        Grenade=2
+        Grenade=1, DoubleJump
+        DoubleJump, Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
+        Dash, Grenade=1, Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
+        TuleyShop.QuestSpringPlants
+      TuleyShop.QuestSpringPlants, DoubleJump
+      GladesTown.RoofsOverHeads:
+        Bash, Grenade=3
+        DoubleJump, Bash, Grenade=2
+        TuleyShop.QuestBlueMoon, Grapple, Bash, Grenade=1, DoubleJump
+        TuleyShop.QuestBlueMoon, Grapple, Bash, Grenade=2, Dash
+        TuleyShop.QuestSpringPlants, Bash, Grenade=1
+  conn GladesTown.ReachPath:
+    base:
+      Launch, DoubleJump OR Dash OR Glide  # Can go either to the right wall or through the semisolid branch
+      Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon:
+        Flap, Glide, DoubleJump OR Dash
+        Launch
+        TuleyShop.QuestLightcatchers, Bash:
+          Flap, Glide
+          DoubleJump OR Dash
+          Grenade=1, DoubleJump OR Dash OR Glide
+          TuleyShop.QuestSpringPlants, DoubleJump OR Dash OR Glide
+        TuleyShop.QuestSpringPlants, DoubleJump
+        GladesTown.RoofsOverHeads, Bash, Grenade=2, DoubleJump OR Dash
+      TuleyShop.QuestLightcatchers, TuleyShop.QuestBlueMoon, Bash, Grapple:  # this is the only case where StickyGrass or BlueMoon makes a difference since you don't need DoubleJump OR Dash at the end
+        Grenade=1
+        TuleyShop.QuestSpringPlants
 
   conn GladesTown.West:
     base:
       DoubleJump OR Launch
       Bash, Grenade=1
+      TuleyShop.QuestStickyGrass, Grapple
   conn TwillenShop: free
-# not sure what to do about opher, I think he's still moving around the world map
-# some connection to Hollow tbd depending on areas there
+  conn OpherShop:
+    base: Water, EastHollow.Voice  # what this actually needs is water + the ability to talk to kwolok
+  conn TuleyShop: 
+    base, Water:  # maybe probably?
+      DoubleJump OR Launch
+      Flap, Glide
+      Bash, Grenade=1
+      # seed paths to TuleyShop tbd if ever necessary
+  # connection to hollow currently redundant with the wall in the way
 
 area GladesTown.West:  # (-410, -4141) At Motay
+  state GladesTown.QuestHandToHandCanteen:
+    base: EastPools.QuestHandToHandSpyglass
+  state GladesTown.QuestHandToHandLantern:
+    base: LowerReach.QuestHandToHandHat
+
   pickup GladesTown.UpperOre:
     base:
       Bash, Grenade=1, Launch
       Launch, DoubleJump  # different ways to solve this, should be fine...
-      GladesTown.BuildHuts:  # use the platforms created by the huts
+      TuleyShop.QuestStickyGrass:
+        Grapple OR Launch
+        Bash, Grenade=1, DoubleJump, Dash OR Glide
+        Bash, Grenade=1, Dash, Glide
+        TuleyShop.QuestLightcatchers, Bash, DoubleJump, Dash
+        TuleyShop.QuestLightcatchers, Bash, Glide
+      GladesTown.BuildHuts:
         DoubleJump, Bash, Grenade=2
         Bash, Grenade=3
         Launch
+        TuleyShop.QuestStickyGrass:
+          DoubleJump, Bash, Grenade=1
+          TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
+        TuleyShop.QuestLightcatchers, Bash, Grenade=1
   pickup GladesTown.LowerOre:
     base:
       Hammer, DoubleJump OR Launch OR Dash OR Glide
       Hammer, Bash, Grenade=1
-      Hammer, Damage=10
   pickup GladesTown.MotayHutEX:
     base, GladesTown.BuildHuts:
       DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch
+      Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
+      TuleyShop.QuestLightcatchers, Bash
   pickup GladesTown.KeyMokiHutEX:
-    base: Unreachable
-  # I think all other paths would be redundant with the connection to tp?
+    base: Unreachable  # tbd after woods logic
 
   conn TwillenShop:
     base: free
@@ -727,10 +807,88 @@ area GladesTown.West:  # (-410, -4141) At Motay
       Bash, DoubleJump OR Dash
       DoubleJump, Dash, Glide  # this path is too nice to not be base... right?
       Launch
-  conn GladesTown.Main:
+  conn GladesTown.Teleporter:
     base:
       GladesTown.ClearThorns OR DoubleJump OR Launch
       Bash, Grenade=1
+      TuleyShop.QuestLightcatchers, Bash, Glide
+      TuleyShop.QuestBlueMoon, Grapple
+      GladesTown.BuildHuts, TuleyShop.QuestStickyGrass, Grapple, Glide
+  conn GladesTown.UpperWest:
+    base:
+      TuleyShop.QuestStickyGrass, Launch
+      TuleyShop.QuestLightcatchers, Bash:
+        DoubleJump, Dash OR Glide
+        Dash, Glide
+        Launch
+        TuleyShop.QuestStickyGrass, Grapple, DoubleJump OR Dash OR Glide
+      TuleyShop.QuestBlueMoon, Grapple, DoubleJump OR Dash OR Glide OR Launch  # extra abilities because it's harder if the huts are there
+      GladesTown.BuildHuts:
+        Bash, Grenade=3  # need an extra grenade if the lightcatcher is there
+        Bash, Grenade=1, DoubleJump, Dash OR Glide  # don't need an extra grenade because oyu can just do the lightcatcher path instead
+        Launch
+        TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
+  # all other paths should be redundant with the connection to tp
+
+area GladesTown.UpperWest:  # (-357, -4126) Where Mokk lives
+  pickup GladesTown.ArcingShard:
+    base, GladesTown.ClearThorns:
+      DoubleJump OR Dash OR Glide OR Launch
+      TuleyShop.QuestLightcatchers, Bash  # somehow I don't think this path is very relevant
+      TuleyShop.QuestBlueMoon, Grapple
+  pickup GladesTown.BraveMokiHutEX:
+    base: GladesTown.OnwardsAndUpwards, DoubleJump OR Launch
+  pickup GladesTown.FruitHammockEX:
+    base:
+      Bash, Grenade=1
+      Launch
+      DoubleJump, Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
+  pickup GladesTown.AboveGromHC:
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch
+      Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
+  # no reason for backwards connections
+
+area GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
+  pickup GladesTown.BigHammockEX: free
+  pickup GladesTown.HoleHutEX:
+    base, GladesTown.RoofsOverHeads:
+      TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
+  pickup GladesTown.HoleHutEC:
+    base, GladesTown.RoofsOverHeads:
+      TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
+  # no reason for backwards connections
+
+area GladesTown.ReachPath:  # (-176, -4100) At the soup
+  state InnerWellspring.QuestHandToHandHerbs:
+    base: Unreachable  # TEMPORARY - delete when wellspring has logic
+  state GladesTown.QuestHandToHandSoup:
+    base: InnerWellspring.QuestHandToHandHerbs
+
+  pickup GladesTown.LeafPileEX:
+    base: Flap
+  pickup LowerReach.CatalystShard:
+    base:
+      Water, Bash, Flap  # seems to be a casual strat the game suggests you to do
+      Water, Grenade=1
+  pickup GladesTown.UpdraftCeilingEX:
+    base:  # other (non-redundant) paths exist, but these have free retries, otherwise you'd have to go through entire reach to get another attempt
+      DoubleJump
+      TuleyShop.QuestLightcatchers, Bash
+  
+  conn GladesTown.HoleHut:
+    base:  # free if you know the whole branch is semisolid, but you probably don't as a base player
+      TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1
+  conn GladesTown.Teleporter: free
+  conn TuleyShop: Water  # maybe probably?
+  conn LowerReach.Trial:
+    base:
+      Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
+      Glide, Launch
 
 area WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past glades
   pickup WestGlades.GrappleEX:
@@ -996,6 +1154,7 @@ area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the st
     advanced: Water, DoubleJump, WaterDash, Damage=20
 
 area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
+  state EastPools.QuestAmulet: free
   state EastPools.EntryLever:
     base, EnemyObstacle:
       DoubleJump, Dash OR Glide OR Damage=20
@@ -1046,6 +1205,11 @@ area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
       Bash, Grenade=1, Launch, DoubleJump OR Dash
 
 area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
+  state EastPools.QuestHandToHandSpyglass:  # quest requirement: silk
+    base, LowerDepths.QuestHandToHandSilk:
+      Grapple, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch
   state EastPools.BelowTokkBubbleFree:
     base:
       Water, Bash
@@ -1165,7 +1329,10 @@ area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper lef
   conn WestPools:
     base:
       Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
+
 area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
+  state UpperPools.TrialActivation:
+    base: DoubleJump OR Grapple OR Launch
   state UpperPools.UpperWaterDrained:
     base:
       Water, WaterDash, Grapple, DoubleJump OR Launch
@@ -1441,6 +1608,8 @@ area LowerReach.Central:  # (-347, -4011) After the lever door
       LowerReach.CentralFurnace, DoubleJump, Dash, Bash
 
 area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
+  state LowerReach.QuestHandToHandHat:  # paths from other anchors should currently be redundant
+    base: GladesTown.QuestHandToHandSoup, LowerReach.WindChannelLantern, Glide
   state LowerReach.CentralFurnace:
     base, EnemyObstacle:
       Grenade=1
@@ -1606,6 +1775,7 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
       Water
 
 area LowerReach.East:  # (-192, -3955) Right of the Lantern opening the Tp room
+  # no backwards paths are considered, would currently be redundant
   state LowerReach.TeleporterLantern:
     base: Grenade=1
   state LowerReach.RolledSnowball:
@@ -1626,11 +1796,7 @@ area LowerReach.East:  # (-192, -3955) Right of the Lantern opening the Tp room
     base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, Weapon, Regenerate:
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
-  state LowerReach.WispCollected:  # not validated, can be turned into wisp pickup later
-    base:
-      LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, LowerReach.ArenaBeaten:
-        Glide, Bash, Launch
-        LowerReach.CoolEastFurnace, DoubleJump, Dash, Bash, Grenade=6, Grapple, Glide
+
   pickup LowerReach.SnowballHC:
     base: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Damage=20
   pickup LowerReach.RoofLeftEX:
@@ -1660,6 +1826,12 @@ area LowerReach.East:  # (-192, -3955) Right of the Lantern opening the Tp room
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
 area LowerReach.Trial:  # (70, -4044) At trial start
+  state LowerReach.TrialActivation: free
+  state LowerReach.WispCollected:  # not validated, can be turned into wisp pickup later
+    base, LowerReach.ArenaBeaten:
+      Dash, Bash, Grenade=4, Grapple, Glide, Water OR DoubleJump
+      Glide, Bash, Launch
+
   pickup LowerReach.RightKS:
     base:
       Glide
@@ -1673,17 +1845,13 @@ area LowerReach.Trial:  # (70, -4044) At trial start
     base: Glide
   pickup LowerReach.TrialEX:
     base: Glide
-  pickup LowerReach.CatalystShard:
-    base:
-      Water, Flap, Bash, Glide
-      Water, Glide, Grenade=1
   pickup LowerReach.EscapeRevisitEX:  # not validated
     base, LowerReach.ArenaBeaten, LowerReach.WispCollected:
       Bash, Grenade=5, Glide, DoubleJump
       Bash, Grenade=4, Glide, Grapple
       Bash, Glide, Launch
-  # I really don't feel like writing connections to LowerReach.East now which would be both complicated and most likely redundant with ArenaBeaten...
-  conn GladesTown.Main:
+  # Connections to LowerReach.East would currently be redundant with ArenaBeaten
+  conn GladesTown.ReachPath:
     base: Glide
 
 area UpperDepths.Entry:  # (161, -4340) The little standable ground below the entrance
@@ -1837,6 +2005,9 @@ area UpperDepths.Central:  # (428, -4474) The firefly egg to the left of the sec
       DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
 
 area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
+  state LowerDepths.QuestHandToHandSilk:
+    base: GladesTown.QuestHandToHandLantern
+
   pickup LowerDepths.CombatShrine:
     base, Combat:
       DepthsLight, Water, Bash, DoubleJump OR Launch
@@ -1858,6 +2029,13 @@ area LowerDepths.Central:  # (482, -4536) Below where the trial starts
   # back to uppercentral would be redundant currently
 
 area LowerDepths.East:  # (570, -4549) The lit up room on the trial path
+  state LowerDepths.TrialActivation:
+    base:
+      DoubleJump, Bash, Grenade=3
+      DoubleJump, Bash, Grenade=2, Grapple
+      DoubleJump, Dash, Bash, Grapple
+      Bash, Grapple, Glide
+      Launch
   pickup LowerDepths.SpiritSurgeShard:
     base:
       DoubleJump, Grapple, Dash OR Glide
@@ -1902,8 +2080,6 @@ area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
       Launch
 
 area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
-  pickup LowerWastes.TrialStart:
-    base: Burrow
   pickup LowerWastes.SunsetViewEX:
     base: free
   pickup LowerWastes.PurpleWallEX:
@@ -1919,10 +2095,10 @@ area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
     base: Launch, Wisps, Bash, Glide, Dash, DoubleJump
 
 area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
+  state LowerWastes.QuestEerieGem:
+    base: Burrow
   pickup LowerWastes.SandBridgeOre:
     base: free
-  pickup LowerWastes.ShovelQuest:
-    base: Burrow
 
   conn LowerWastes.SunsetView:
     base: EnemyObstacle
@@ -2060,6 +2236,20 @@ area LowerWastes.MinesEntrance:  # (1921, -4001) To the left of the lower breaka
     base: WindtornRuins.LowerEntrance, Burrow
 
 area LowerWastes.TreeArea:  # (1715, -3935) The ledge right of SkeetoHive
+  state LowerWastes.TrialActivation:
+    base:
+      Burrow, DoubleJump OR Dash OR Glide
+      Burrow, Bash, Grenade=1
+      DoubleJump, Bash, Grenade=2
+      Dash, Bash, Grenade=4  # yes, good
+      Launch
+  state LowerWastes.QuestHandToHandMapstone:
+    base, GladesTown.QuestHandToHandCanteen:
+      DoubleJump
+      Burrow
+      Bash, Grenade=2  # literally never going to get used but you can do it
+      Launch
+
   pickup LowerWastes.SkeetoHiveEX:
     base: Burrow, DoubleJump OR Dash OR Glide OR Launch
   pickup LowerWastes.LupoMap:
@@ -2075,13 +2265,6 @@ area LowerWastes.TreeArea:  # (1715, -3935) The ledge right of SkeetoHive
       Launch
   pickup LowerWastes.BurrowTreeEX:
     base: Burrow
-  pickup LowerWastes.TrialEnd:
-    base:
-      Burrow, DoubleJump OR Dash OR Glide # glide path unverified
-      Burrow, Bash, Grenade=1
-      DoubleJump, Bash, Grenade=2
-      Dash, Bash, Grenade=4  # yes, good
-      Launch
 
   conn LowerWastes.Shovel:
     base: Burrow
@@ -2299,13 +2482,13 @@ area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
 
 area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
   # requires escape to be done
+  state WindtornRuins.QuestHandToHandMapPedestal:
+    base: LowerWastes.QuestHandToHandMapstone
   state WindtornRuins.LowerEntrance: # State for back entrance to be open
     base: Burrow, Weapon
 
   pickup WindtornRuins.EscapeRevisitEC:
     base: WindtornRuins.EscapeComplete, Burrow
-  # pickup WindtornRuins.AncientMapPedestal:
-  #   base: free  # At least, this will be free if it ever becomes a pickup.
   conn WindtornRuins.Escape: free  # walk over the invisible sandworm
   conn WindtornRuins.RuinsTP:
     base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
@@ -2444,6 +2627,9 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
 # END unvalidated willow's end region
 
 area TwillenShop:
+  state GladesTown.QuestRawShard:
+    base: LowerWastes.QuestEerieGem
+
   pickup TwillenShop.Overcharge: free
   pickup TwillenShop.Wingclip: free
   pickup TwillenShop.Swap: free
@@ -2465,5 +2651,32 @@ area OpherShop:
     base: GladesTown.EntryWallBroken
   pickup OpherShop.WaterBreath:
     base: Water, EastHollow.Voice # what this actually needs is water + the ability to talk to kwolok
+
+area TuleyShop:
+  state TuleyShop.QuestSelaFlowersSeed:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state TuleyShop.QuestStickyGrassSeed:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state TuleyShop.QuestLightcatchersSeed:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state TuleyShop.QuestBlueMoonSeed:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state TuleyShop.QuestSpringPlantsSeed:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state TuleyShop.QuestLastSeed:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  
+  state TuleyShop.QuestSelaFlowers:
+    base: TuleyShop.QuestSelaFlowersSeed
+  state TuleyShop.QuestStickyGrass:
+    base: TuleyShop.QuestStickyGrassSeed
+  state TuleyShop.QuestLightcatchers:
+    base: TuleyShop.QuestLightcatchersSeed
+  state TuleyShop.QuestBlueMoon:
+    base: TuleyShop.QuestBlueMoonSeed
+  state TuleyShop.QuestSpringPlants:
+    base: TuleyShop.QuestSpringPlantsSeed
+  state TuleyShop.QuestLastSeed:
+    base: TuleyShop.QuestLastSeed
 
 # do not delete the newline at the end of the file
