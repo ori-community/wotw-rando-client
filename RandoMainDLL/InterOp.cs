@@ -60,6 +60,10 @@ namespace RandoMainDLL {
         Randomizer.Memory.FillHealth();
         SeedController.OnTree(ability);
       }
+      [DllExport]
+      public static void OnCheckpoint() {
+        UberStateController.Update();
+      }
 
       [DllExport]
       public static ulong GetShardSlotPtr() => Randomizer.Memory.ShardSlotPtr();

@@ -71,9 +71,12 @@ std::ofstream logfile;
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
-BINDING(10056256, void, createCheckpoint, (__int64))
+INTERCEPT(10056256, void, createCheckpoint, (__int64 this_ptr), {
+    CSharpLib->call<void>("OnCheckpoint");
+    createCheckpoint(this_ptr);
+});
 //GameController$$createCheckpoint
-;
+
 BINDING(4091744, __int64, getAreaFromId, (__int64, unsigned __int8)) //GameWorld$$GetArea
 BINDING(4084240, __int64, getRuntimeArea, (__int64, __int64)) //GameWorld$$FindRuntimeArea
 BINDING(12643712, void, discoverAllAreas, (__int64)) //RuntimeGameWorldArea$$DiscoverAllAreas
