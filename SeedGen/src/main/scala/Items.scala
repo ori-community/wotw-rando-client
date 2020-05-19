@@ -60,51 +60,52 @@ object Water extends WorldEvent(0)
   case class Skill(skillId: Int) extends Item with Sellable {
     val itemType: Int = 2
     def code = s"$itemType|${skillId}"
-    def name: String = s"Skill ${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
+    def name: String = s"${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
     override val cost = Skill.costs.getOrElse(skillId, 5d)
   }
   object Skill {
-    val costs: Map[Int, Double] = Map(8 -> 20, 102->8, 0->8)
+    val areaFileNames: Map[String, Int] = Map("Bash" ->0, "DoubleJump" ->5, "Torch" ->99, "Sword" ->100, "WallJump" ->3, "Launch" ->8, "Glide" ->14, "WaterBreath" ->23, "Grenade" ->51, "Grapple" ->57, "Flash" ->62, "Spike" ->74, "Spear" ->74, "Regenerate" ->77, "Bow" ->97, "Hammer" ->98, "Burrow" ->101, "Dash" ->102, "WaterDash" ->104, "SpiritStar" ->106, "Shuriken" ->106, "Blaze" ->115, "Sentry" ->116, "Flap" ->118)
+    val costs: Map[Int, Double] = Map(8 -> 15, 77 -> 4)
     val names: Map[Int, String] = Map(
       0 -> "Bash",
-      3 -> "WallJump",
-      5 -> "DoubleJump",
+      3 -> "Wall Jump",
+      5 -> "Double Jump",
       8 -> "Launch",
       14 -> "Feather",
-      23 -> "WaterBreath",
-      51 -> "LightBurst",
+      23 -> "Water Breath",
+      51 -> "Light Burst",
       57 -> "Grapple",
       62 -> "Flash",
       74 -> "Spike",
       77 -> "Regenerate",
-      97 -> "SpiritArc",
-      98 -> "SpiritSmash",
+      97 -> "Bow",
+      98 -> "Hammer",
       99 -> "Torch",
-      100 -> "SpiritEdge",
+      100 -> "Sword",
       101 -> "Burrow",
       102 -> "Dash",
-      104 -> "WaterDash",
-      106 -> "SpiritStar",
+      104 -> "Water Dash",
+      106 -> "Shuriken",
       108 -> "Seir",
       115 -> "Blaze",
       116 -> "Sentry",
       118 -> "Flap",
-      120 -> "DamageUpgrade1",
-      121 -> "DamageUpgrade2"
+      120 -> "Ancestral Light",
+      121 -> "Ancestral Light"
     )
-    val poolItems = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq
+    val poolItems: Seq[Skill] = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq
   }
 
   case class Shard(shardId: Int) extends Item with Sellable {
     val itemType: Int = 3
     def code = s"$itemType|${shardId}"
-    def name: String = s"Shard ${Shard.names.getOrElse(shardId, s"Unknown (${shardId})")}"
+    def name: String = s"${Shard.names.getOrElse(shardId, s"Unknown (${shardId})")}"
   }
 
   object Shard {
     val names: Map[Int, String] = Map(
       1 -> "Overcharge",
-      2 -> "TripleJump",
+      2 -> "Triple Jump",
       3 -> "Wingclip",
       4 -> "Bounty",
       5 -> "Swap",
@@ -113,23 +114,23 @@ object Water extends WorldEvent(0)
       13 -> "Reckless",
       14 -> "Quickshot",
       18 -> "Resilience",
-      19 -> "LightHarvest",
+      19 -> "Light Harvest",
       22 -> "Vitality",
-      23 -> "LifeHarvest",
-      25 -> "EnergyHarvest",
+      23 -> "Life Harvest",
+      25 -> "Energy Harvest",
       26 -> "Energy",
-      27 -> "LifePact",
-      28 -> "LastStand",
+      27 -> "Life Pact",
+      28 -> "Last Stand",
       30 -> "Secret",
-      32 -> "UltraBash",
-      33 -> "UltraGrapple",
+      32 -> "Ultra Bash",
+      33 -> "Ultra Grapple",
       34 -> "Overflow",
       35 -> "Thorn",
       36 -> "Catalyst",
       38 -> "Turmoil",
       39 -> "Sticky",
       40 -> "Finesse",
-      41 -> "SpiritSurge",
+      41 -> "Spirit Surge",
       43 -> "Lifeforce",
       44 -> "Deflector",
       46 -> "Fracture",
@@ -142,11 +143,12 @@ object Water extends WorldEvent(0)
     val itemType: Int = 5
     def code = s"$itemType|${teleporterId}"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown (${teleporterId})")} TP"
-    override val cost = Teleporter.costs.getOrElse(teleporterId, 10d)
+    override val cost = Teleporter.costs.getOrElse(teleporterId, 7d)
   }
 
   object Teleporter {
-    val costs: Map[Int, Double] = Map(3 -> 15, 11->15, 4->15)
+    val costs: Map[Int, Double] = Map(3 -> 12, 11->12)
+    val areaFileNames = Map("BurrowsTP" -> 0, "DenTP" -> 1, "WellspringTP" -> 3, "ReachTP" -> 4, "HollowTP" -> 5, "DepthsTP" -> 6, "WestWoodsTP" -> 7, "WestWastesTP" -> 9, "EastWastesTP" -> 10, "OuterRuinsTP" -> 11, "WillowTP" -> 12, "WestPoolsTP" -> 13, "InnerRuinsTP" -> 14, "GladesTP" -> 17)
     val names: Map[Int, String] = Map(
       0 -> "Burrows",
       1 -> "Den",
@@ -179,10 +181,10 @@ object Water extends WorldEvent(0)
   case class WorldState(name: String) extends FlagState
   case class SeedGenState(name: String) extends FlagState // will become a series of case objects later
 
-  case class GameState(inv: Inv, _flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
-    val flags = if(inv.has(Water)) _flags + WorldState("Water") else _flags
+  case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def without(item: Item, count: Int): GameState = GameState(inv.without(item, count), flags, reached)
+    def withoutCash(cash: Int): GameState = GameState(inv.withoutCash(cash), flags, reached)
     def cost(implicit flagCosts: Map[FlagState, Double] = Map()): Double = inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
     def canEqual(that: Any): Boolean = that.isInstanceOf[GameState]
     override def equals(state: Any): Boolean = {
@@ -211,6 +213,17 @@ object Water extends WorldEvent(0)
   // extending hashset instead of encapsulating it here was pure folly, tbh
   class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
     items.collect({ case (i: Item, count: Int) if count > 0 => set(i, count) })
+    def totalSpiritLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
+    def withoutCash(cash: Int) = {
+      val totalLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
+      if(totalLight < cash)
+        println("THIS SEEMS SUBOPTIMAL")
+      new Inv(keys.flatMap({
+        case _: SpiritLight => None
+        case i => Some(i -> this(i))
+      }).toSeq :+ (SpiritLight(totalLight - cash) -> 1):_*)
+    }
+
     def set(item: Item, count: Int): Unit = this (item) = count
     override def apply(item: Item): Int = getOrElse(item, 0)
     override def toString = s"Inv: (${
@@ -218,11 +231,14 @@ object Water extends WorldEvent(0)
         case (item, 1) => s"$item"
         case (item, c) => s"$c ${item}"
       }).mkString(", ")})"
-
+    def progText: String = s"${filter(_._2 > 0).map({
+        case (item, 1) => s"$item"
+        case (item, c) => s"$c ${item}"
+      }).mkString(", ")}"
     def asSeq: Seq[Item] = keys.toSeq.flatMap(k => (0 until this (k)).map(_ => k))
-    def count = foldLeft(0)(_ + _._2)
+    def count: Int = foldLeft(0)(_ + _._2)
     def cost: Double = foldLeft(0d)({ case (cost: Double, (i: Item, c: Int)) => cost + i.cost * c })
-    def has(item: Item, count: Int = 1) = getOrElse(item, 0) >= count
+    def has(item: Item, count: Int = 1): Boolean = getOrElse(item, 0) >= count
     def transfer(source: Inv, item: Item, count: Int = 1): Unit = {
       if (source.take(item, count))
         add(item, count)
@@ -242,33 +258,23 @@ object Water extends WorldEvent(0)
       if (!has(item, count)) {
         println(s"Error building ${this} without ${count} of ${item}")
       }
-      new Inv(keys.toSeq.map({
+      new Inv(keys.map({
         case i if i == item => i -> (this(i)-count)
         case i => i -> this(i)
-      }):_*)
+      }).toSeq:_*)
     }
 
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
-    def popRand(placedSoFar: Int)(implicit r: Random): Option[Item] = asSeq match {
+    def popRand(implicit r: Random): Option[Item] = asSeq match {
       case s: Seq[Item] if (s.size > 0) => {
-        val (skills, tps) = getSkillsAndTPs((placedSoFar * 3) /2)
-        val i = r.shuffle(s.collect({
-          case n: Skill if skills.contains(n) => Some(n)
-          case n: Teleporter if tps.contains(n) => Some(n)
-          case n => Some(n)
-        }).flatten).apply(r.nextInt(s.size))
+        val i = r.shuffle(s).apply(r.nextInt(s.size))
         take(i)
         Some(i)
       }
       case _ => None
     }
-    def popSellable(placedSoFar: Int)(implicit r: Random): Option[Sellable] = {
-      val (skills, tps) = getSkillsAndTPs(placedSoFar)
-      val sellables = asSeq.collect({
-        case i: Skill      => if(placedSoFar > 40 && skills.contains(i)) Some(i) else None
-        case i: Teleporter => if(placedSoFar > 40 && tps.contains(i)) Some(i) else None
-        case i: Sellable   => Some(i)
-      }).flatten
+    def popSellable(implicit r: Random): Option[Sellable] = {
+      val sellables = asSeq.collect({case i: Sellable   => Some(i)}).flatten
       if (sellables.isEmpty)
         return None
       val i = sellables(r.nextInt(sellables.size))
@@ -347,6 +353,4 @@ object Water extends WorldEvent(0)
   object InnerRuinsTP extends Teleporter(14)
   object ShriekTP extends Teleporter(15)
   object MarshTP extends Teleporter(16)
-
-
 }

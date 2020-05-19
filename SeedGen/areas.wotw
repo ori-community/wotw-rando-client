@@ -765,9 +765,8 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
       DoubleJump OR Launch
       Flap, Glide
       Bash, Grenade=1
-      # seed paths to TuleyShop tbd if ever necessary
-  # connection to hollow currently redundant with the wall in the way
-
+# seed paths to TuleyShop tbd if ever necessary
+# connection to hollow currently redundant with the wall in the way
 area GladesTown.West:  # (-410, -4141) At Motay
   state GladesTown.QuestHandToHandCanteen:
     base: EastPools.QuestHandToHandSpyglass
@@ -890,7 +889,8 @@ area GladesTown.ReachPath:  # (-176, -4100) At the soup
       TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=1
   conn GladesTown.Teleporter: free
-  conn TuleyShop: Water  # maybe probably?
+  conn TuleyShop: 
+    base: Water  # maybe probably?
   conn LowerReach.Trial:
     base:
       Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
@@ -2612,27 +2612,38 @@ area TwillenShop:
   state GladesTown.QuestRawShard:
     base: LowerWastes.QuestEerieGem
 
-  pickup TwillenShop.Overcharge: free
-  pickup TwillenShop.Wingclip: free
-  pickup TwillenShop.Swap: free
-  pickup TwillenShop.Vitality: free
-  pickup TwillenShop.Energy: free
-  pickup TwillenShop.Finesse: free
+  pickup TwillenShop.Overcharge:
+    base: SpiritLight=400
+  pickup TwillenShop.Wingclip:
+    base: SpiritLight=400
+  pickup TwillenShop.Swap:
+    base: SpiritLight=400
+  pickup TwillenShop.Vitality:
+    base: SpiritLight=400
+  pickup TwillenShop.Energy:
+    base: SpiritLight=400
+  pickup TwillenShop.Finesse:
+    base: SpiritLight=400
   pickup TwillenShop.TripleJump:
-    base: GladesTown.EntryWallBroken
+    base: GladesTown.EntryWallBroken, SpiritLight=400
   pickup TwillenShop.LightHarvest:
-    base: GladesTown.EntryWallBroken
+    base: GladesTown.EntryWallBroken, SpiritLight=400
 
 area OpherShop:
-  pickup OpherShop.Spike: free
-  pickup OpherShop.SpiritSmash: free
-  pickup OpherShop.SpiritStar: free
-  pickup OpherShop.Blaze: free
-  pickup OpherShop.Sentry: free
+  pickup OpherShop.Spike:
+    base: SpiritLight=400
+  pickup OpherShop.SpiritSmash:
+    base: SpiritLight=400
+  pickup OpherShop.SpiritStar:
+    base: SpiritLight=400
+  pickup OpherShop.Blaze:
+    base: SpiritLight=400
+  pickup OpherShop.Sentry:
+    base: SpiritLight=400
   pickup OpherShop.Teleport:
-    base: GladesTown.EntryWallBroken
+    base: GladesTown.EntryWallBroken, SpiritLight=400
   pickup OpherShop.WaterBreath:
-    base: Water, EastHollow.Voice # what this actually needs is water + the ability to talk to kwolok
+    base: Water, EastHollow.Voice, SpiritLight=400 # what this actually needs is water + the ability to talk to kwolok
 
 area TuleyShop:
   state TuleyShop.QuestSelaFlowersSeed:
@@ -2658,7 +2669,6 @@ area TuleyShop:
     base: TuleyShop.QuestBlueMoonSeed
   state TuleyShop.QuestSpringPlants:
     base: TuleyShop.QuestSpringPlantsSeed
-  state TuleyShop.QuestLastSeed:
-    base: TuleyShop.QuestLastSeed
+
 
 # do not delete the newline at the end of the file
