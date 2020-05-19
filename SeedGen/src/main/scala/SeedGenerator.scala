@@ -604,7 +604,9 @@ package SeedGenerator {
     }
   }
 
-  object Runner {
+
+
+object Runner {
     def setSeed = r.setSeed _
     val DEFAULT_INV = GameState(new Inv(Health() -> 6, Energy() -> 6, Sword -> 1))
     private def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
@@ -643,13 +645,17 @@ package SeedGenerator {
         })}").mkString("\n"))
       }
     }
-    def forceGetSeed(advanced: Boolean = false, retries: Int = 10, debug: Boolean = false): String = {
+    def forceGetSeed(advanced: Boolean = false, retries: Int = 10, debug: Boolean = false, time: Boolean = true): String = {
       if(retries == 0)
         throw GeneratorError("Ran out of retries on forceGetSeed")
-      getSeedOpt(advanced, debug) match {
+      val t0 = System.currentTimeMillis()
+      val s = getSeedOpt(advanced, debug) match {
         case Some(seed) => seed
         case None       => forceGetSeed(advanced, retries-1)
       }
+      val t1 = System.currentTimeMillis()
+      println(s"Generated seed in ${(t1-t0)/1000f}s")
+      s
     }
     def apply(advanced: Boolean = false, debug: Boolean = false): Unit = {
       val file = new File(s"seeds/seed_0.wotwr")
@@ -659,6 +665,7 @@ package SeedGenerator {
     }
 
     def mk(pack: Int, count: Int = 100): Unit = {
+      val t0 = System.currentTimeMillis()
       val name_base = s"${pack}"
       val dirPath =  s"seeds/seed_pack_$pack"
       val dir = new File(dirPath)
@@ -667,15 +674,19 @@ package SeedGenerator {
       for (n <- 1 until count) {
         val file = new File(s"${dirPath}/${name_base}_${n}_base.wotwr")
         val bw = new BufferedWriter(new FileWriter(file))
-        bw.write(forceGetSeed())
+        bw.write(forceGetSeed(time = false))
         bw.close()
       }
+      val t1 = System.currentTimeMillis()
+      println(s"Generated base seeds in ${(t1-t0)/1000f}s")
       for (n <- count until (count + count/2)) {
         val file = new File(s"${dirPath}/${name_base}_${n}_advanced.wotwr")
         val bw = new BufferedWriter(new FileWriter(file))
-        bw.write(forceGetSeed(true))
+        bw.write(forceGetSeed(true, time = false))
         bw.close()
       }
+      val t2 = System.currentTimeMillis()
+      println(s"Generated base seeds in ${(t2-t1)/1000f}s (${(t2-t0)/1000f}s total)")
     }
   }
 
