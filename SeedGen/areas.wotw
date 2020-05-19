@@ -170,6 +170,10 @@ area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, b
   conn MidnightBurrows:
     base: Bash, DoubleJump OR Dash OR Launch
 
+region MidnightBurrows:
+  base:
+    Danger=25 # kind of a no-op?
+
 area MidnightBurrows:  # (-945, -4581) At the teleporter
   # MidnightBurrows.Lever: tracks the ability to reach the burrows lever
   state MidnightBurrows.Lever:
@@ -242,7 +246,7 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
   pickup HowlsDen.UpperEX: free
   pickup HowlsDen.MagnetShard:
     base: Weapon
-  pickup HowlsDen.LowerEX:
+  pickup HowlsDen.AboveTPEX:
     base: Weapon
   pickup HowlsDen.RightHC:
     base: Weapon
@@ -250,7 +254,7 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
     base: Hammer
   pickup HowlsDen.LeftHC:
     base: Weapon, DoubleJump OR Dash OR Launch
-  pickup HowlsDen.DoorskipKS:
+  pickup HowlsDen.AboveDoorKS:
     base:
       DoubleJump OR Dash OR Launch
     advanced:
@@ -262,7 +266,7 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
     base: Weapon
 
 area HowlsDen.Lower:  # (-328, -4535) At the teleporter
-  pickup HowlsDen.LowerEX:
+  pickup HowlsDen.AboveTPEX:
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
@@ -404,6 +408,10 @@ area MarshPastOpher.PoolsPathWest:  # (-802, -4186)  Right on top of MarshPastOp
     advanced: Water, Grapple, Sword OR Hammer
 # end pools path needs validation area?
 
+region WestHollow:
+  base:
+    Danger=20
+
 area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye door
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     base:
@@ -498,6 +506,10 @@ area WestHollow.DashArea:  # (-88, -4423) To the right of the lever door
       Bash, Grenade=3, DoubleJump OR Dash
       Launch
 
+region EastHollow:
+  base:
+    Danger=20
+
 area EastHollow.Teleporter:  # (-150, -4237) the teleporter
   state EastHollow.BeetleDefeated:
     base: 
@@ -574,15 +586,15 @@ area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
 area EastHollow.Kwolok:  # (154, -4205) Between Ku and Kwolok
   state EastHollow.Voice: free
 
-  pickup EastHollow.RightThroneEX:
+  pickup EastHollow.RightKwolokEX:
     base: Bash OR Launch
   pickup EastHollow.SilentSwimEC:
     base: Water, WaterDash OR Launch
-  pickup EastHollow.ThroneSwimOre:
+  pickup EastHollow.KwolokSwimOre:
     base: Water, Bash OR Damage=10  # enemy in the way
-  pickup EastHollow.ThroneSwimLeftEX:
+  pickup EastHollow.KwolokSwimLeftEX:
     base: Water, WaterDash OR Launch
-  pickup EastHollow.ThroneSwimRightEX:
+  pickup EastHollow.KwolokSwimRightEX:
     base: Water
   
   conn EastHollow.AboveBash:
@@ -695,7 +707,7 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
       TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
   pickup GladesTown.LupoSoupEX:
     base: Water OR Burrow
-  pickup GladesTown.BottomRightHC:
+  pickup GladesTown.LupoSwimHC:
     base: Water, Burrow
   pickup GladesTown.LupoSwimMiddleEX:
     base: Water, WaterDash OR Launch
@@ -843,7 +855,7 @@ area GladesTown.UpperWest:  # (-357, -4126) Where Mokk lives
       TuleyShop.QuestBlueMoon, Grapple
   pickup GladesTown.BraveMokiHutEX:
     base: GladesTown.OnwardsAndUpwards, DoubleJump OR Launch
-  pickup GladesTown.FruitHammockEX:
+  pickup GladesTown.UpperLeftEX:
     base:
       Bash, Grenade=1
       Launch
@@ -856,7 +868,7 @@ area GladesTown.UpperWest:  # (-357, -4126) Where Mokk lives
   # no reason for backwards connections
 
 area GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
-  pickup GladesTown.BigHammockEX: free
+  pickup GladesTown.BelowHoleHutEX: free
   pickup GladesTown.HoleHutEX:
     base, GladesTown.RoofsOverHeads:
       TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Launch
@@ -893,6 +905,10 @@ area GladesTown.ReachPath:  # (-176, -4100) At the soup
     base:
       Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
       Glide, Launch
+
+region WestGlades:
+  base:
+    Danger=20
 
 area WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past glades
   pickup WestGlades.GrappleEX:
@@ -990,7 +1006,11 @@ area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening 
 # end glades needs-validation region
 
 # unvalidated wellspring region
-area OuterWellspring.EntranceDoor  # (-856, -4057) Outside the door where you enter the first room
+region OuterWellspring:
+  base:
+    Danger=25
+
+area OuterWellspring.EntranceDoor:  # (-856, -4057) Outside the door where you enter the first room
   # ommited a lot of paths and most bashgrenade paths because of how complex this place is to navigate
   state OuterWellspring.EntranceDoorOpen:
     base, Weapon:
@@ -1032,12 +1052,12 @@ area OuterWellspring.EntranceDoor  # (-856, -4057) Outside the door where you en
   pickup OuterWellspring.SwimEX:
     base: Water
   pickup OuterWellspring.SwimOre:
-    base: Water, Grapple OR WaterDash OR Launch
+    base: 
+      Water, Grapple OR WaterDash OR Launch
     advanced:
       Water, Bash, Grenade=1  # you can stand on the spinny wheel and bash-grenade this
       # Water, DoubleJump, TripleJump  # how do you write triplejump paths
       # Water, SentryJump
-
   conn InnerWellspring.EntranceDoor:
     base: OuterWellspring.EntranceDoorOpen
   conn OuterWellspring.WestDoor:
@@ -1119,8 +1139,8 @@ area OuterWellspring.EastDoor:  # (-814, -3972) Outside the door leading to the 
       DoubleJump OR Dash OR Glide OR Launch
       InnerWellspring.TopDoorOpen, OuterWellspring.WestDoorBlueMoonFree, Grapple
   conn OuterWellspring.EntranceDoor: free
-  conn WestGlades.MillApproach: Grapple OR Glide OR Launch
-
+  conn WestGlades.MillApproach: 
+    base: Grapple OR Glide OR Launch
 area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the teleporter
   state OuterWellspring.TrialActivation:
     base:
@@ -1145,6 +1165,10 @@ area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the t
   conn OuterWellspring.EastDoor: free
   conn OuterWellspring.WestDoor:
     base: EnemyObstacle, DoubleJump OR Dash OR Grapple OR Glide OR Launch
+
+region InnerWellspring:
+  base:
+    Danger=25
 
 area InnerWellspring.EntranceDoor:  # (-1294, -3953) Inside the door where you enter the first room
   state InnerWellspring.LowerCorruptions:  # the first two corruptions you see on your way
@@ -1327,6 +1351,10 @@ area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
 # end unvalidated wellspring region
 
 # begin pools needs validation area
+region PoolsApproach:
+  base:
+    Danger=25
+
 area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the static wheel
   state PoolsApproach.MarshWallBroken:
     base, Weapon:
@@ -1410,6 +1438,10 @@ area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the st
   conn EastPools.Entry:
     base: Water, Launch
     advanced: Water, DoubleJump, WaterDash, Damage=20
+
+region EastPools:
+  base:
+    Danger=40, Regenerate
 
 area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
   state EastPools.QuestAmulet: free
@@ -1595,6 +1627,10 @@ area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper lef
     base:
       Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
 
+region UpperPools:
+  base:
+    Danger=40, Regenerate
+
 area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
   state UpperPools.TrialActivation:
     base: DoubleJump OR Grapple OR Launch
@@ -1664,6 +1700,10 @@ area UpperPools.BubbleSpamRoom:  # (-1585, -4052) To the right of where all the 
   conn UpperPools.TreeArea:
     base: free
 
+region WestPools:
+  base:
+    Danger=40, Regenerate
+
 area WestPools:  # (-1652, -4170) the west Pools TP
   state WestPools.KwolokDefeated:
     base: Weapon, Water, WaterDash, Bash, DoubleJump, Damage=80, Dash OR Launch
@@ -1694,6 +1734,10 @@ area WestPools:  # (-1652, -4170) the west Pools TP
       WestPools.KwolokDefeated, Water, WaterDash, Bash, Grenade=1, Dash
 # end pools needs validation area
 
+region WoodsEntry:
+  base:
+    Danger=40, Regenerate
+
 area WoodsEntry:  # (421, -4206) At Shriek Cutscene after the swim
   pickup WoodsEntry.MudPitEX:
     base: DoubleJump OR Dash OR Glide
@@ -1708,6 +1752,11 @@ area WoodsEntry:  # (421, -4206) At Shriek Cutscene after the swim
     base: DoubleJump
   conn WoodsMain: # TODO: deleteme
     base: DoubleJump, Glide
+
+region WoodsMain:
+  base:
+    Danger=40, Regenerate
+
 area WoodsMain:  # (819, -4191) Where you find Ku
   pickup WoodsMain.RightKS:
     base: Glide, Flap
@@ -1747,6 +1796,10 @@ area WoodsMain:  # (819, -4191) Where you find Ku
     base: Glide, Flap, DoubleJump, Grapple, Burrow
   conn LowerWastes.WestTP: # TODO: deleteme?
     base: Glide, DoubleJump, Grapple, Bash, Dash
+
+region LowerReach:
+  base:
+    Danger=40, Regenerate
 
 area LowerReach.Entry:  # (-395, -4026) Behind Baur
   # basically the entirety of this area is not validated, because almost all the original paths were either impossible or not base with the given skillset
@@ -1925,6 +1978,10 @@ area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the te
     base, LowerReach.TeleporterLantern:
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
+
+region UpperReach:
+  base:
+    Danger=40, Regenerate
 
 area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
   state UpperReach.HeatFurnace:
@@ -2117,6 +2174,10 @@ area LowerReach.Trial:  # (70, -4044) At trial start
   conn GladesTown.ReachPath:
     base: Glide
 
+region UpperDepths:
+  base:
+    Danger=40, Regenerate
+
 area UpperDepths.Entry:  # (161, -4340) The little standable ground below the entrance
   pickup UpperDepths.EntrySpikesEX:
     base: Glide
@@ -2270,6 +2331,10 @@ area UpperDepths.Central:  # (428, -4474) The firefly egg to the left of the sec
       DepthsLight, Bash, Grenade=1, DoubleJump OR Dash OR Glide
       DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
 
+region LowerDepths:
+  base:
+    Danger=40, Regenerate
+
 area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
   state LowerDepths.QuestHandToHandSilk:
     base: GladesTown.QuestHandToHandLantern
@@ -2334,6 +2399,10 @@ area LowerDepths.East:  # (570, -4549) The lit up room on the trial path
       DepthsLight, DoubleJump, Bash, Grapple
       DepthsLight, Launch
   # back to lowercentral would be redundant currently
+
+region LowerWastes:
+  base:
+    Danger=50, Regenerate
 
 area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
   pickup LowerWastes.WestTPOre:
@@ -2434,7 +2503,7 @@ area LowerWastes.LeverArea:  # (1838, -3959) At the arrow sign below the lever
       Bash, Grenade=1, Dash
       Launch
 
-  pickup LowerWastes.MinesEntranceHC:
+  pickup LowerWastes.BottomRightHC:
     base: free
   pickup LowerWastes.LastStandShard:
     base:  # for the puzzle, it is considered base solvable with one of doublejump, dash or burrow.
@@ -2466,12 +2535,12 @@ area LowerWastes.LeverArea:  # (1838, -3959) At the arrow sign below the lever
     base: Burrow
 
 area LowerWastes.MinesEntrance:  # (1921, -4001) To the left of the lower breakable wall
-  pickup LowerWastes.MinesEntranceEX:
+  pickup LowerWastes.BottomRightEX:
     base, EnemyObstacle:
       Grapple
       Bash, Grenade=1, DoubleJump OR Dash  # Very much not a mandatory grenade... This is only important if the Ruins Wall is broken, and then only if you don't use the enemies
       Launch
-  pickup LowerWastes.MinesEntranceHC:
+  pickup LowerWastes.BottomRightHC:
     base, EnemyObstacle:
       Grapple  # Use both Grapple points
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
@@ -2563,6 +2632,10 @@ area LowerWastes.EastTP: # ((1992, -3902) Location of the east teleporter
     base: Burrow, DoubleJump OR Dash OR Launch
   conn UpperWastes.KSDoor:
     base: Burrow, DoubleJump OR Dash OR Launch  # Dash is maybe probably base?
+
+region UpperWastes:
+  base:
+    Danger=50, Regenerate
 
 area UpperWastes.KSDoor:  # (1900, -3831) Autosave underneath keystone door
   pickup UpperWastes.LowerKS:
@@ -2754,6 +2827,10 @@ area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
 
   conn LowerWastes.MinesEntrance:
     base: Burrow, Weapon
+
+region WeepingRidge:
+  base:
+    Danger=60, Regenerate
 
 area WeepingRidge:  # (1191, -3716) After the portal at the top of Elevator
   pickup WeepingRidge.Ore:
