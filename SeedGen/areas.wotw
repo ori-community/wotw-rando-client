@@ -115,7 +115,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: HollowTP
   conn GladesTown.Teleporter:
     base: GladesTP
-  conn InnerWellspring.TeleporterArea:
+  conn InnerWellspring.Teleporter:
     base: WellspringTP
   conn WoodsEntry:
     base: WestWoodsTP
@@ -708,7 +708,7 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
   pickup GladesTown.KeyMokiHutEX:
     base: Unreachable  # tbd after woods logic
   pickup GladesTown.DamageTree:
-    base: TuleyShop.QuestLastSeed
+    base: TuleyShop.QuestLastTree
 
   conn GladesTown.UpperWest:
     base:
@@ -868,8 +868,6 @@ area GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
   # no reason for backwards connections
 
 area GladesTown.ReachPath:  # (-176, -4100) At the soup
-  state InnerWellspring.QuestHandToHandHerbs:
-    base: Unreachable  # TEMPORARY - delete when wellspring has logic
   state GladesTown.QuestHandToHandSoup:
     base: InnerWellspring.QuestHandToHandHerbs
 
@@ -976,7 +974,7 @@ area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening 
       Grapple, DoubleJump OR Dash OR Glide
       DoubleJump, Dash, Glide
       Launch
-  conn OuterWellspring:
+  conn OuterWellspring.EntranceDoor:
     base:
       DoubleJump, Grapple
       DoubleJump, Dash OR Glide
@@ -990,89 +988,343 @@ area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening 
       Water, Launch, Grapple
       Water, Launch, DoubleJump, Dash
 # end glades needs-validation region
-area OuterWellspring:  # (-763, -4701) Where the "We remember this place" voice dialog plays
+
+# unvalidated wellspring region
+area OuterWellspring.EntranceDoor  # (-856, -4057) Outside the door where you enter the first room
+  # ommited a lot of paths and most bashgrenade paths because of how complex this place is to navigate
+  state OuterWellspring.EntranceDoorOpen:
+    base, Weapon:
+      DoubleJump, Dash OR Glide
+      Dash, Glide
+      Grapple, Bash OR Glide
+      Bash, Grenade=1
+      Launch
+
   pickup OuterWellspring.RightWallOre:
-    base: DoubleJump, Grapple
-  pickup OuterWellspring.RightWallEC:
-    base: DoubleJump, Grapple
-  pickup OuterWellspring.RightWallEX:
-    base: DoubleJump, Grapple
-  pickup OuterWellspring.TrialOre:
-    base: DoubleJump, Grapple
-  pickup OuterWellspring.UltraGrappleShard:
-    base: DoubleJump, Grapple, Dash
-  pickup OuterWellspring.HiddenHC:
-    base: DoubleJump, Grapple, Dash
+    base:
+      Grapple, DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1, Launch
   pickup OuterWellspring.EntranceRoofEX:
-    base: DoubleJump, Grapple, Dash
+    base:
+      DoubleJump, Grapple, Dash OR Glide
+      Grapple, Launch
+      OuterWellspring.LeftWallWheelFree, DoubleJump, Launch, Dash OR Glide
   pickup OuterWellspring.WheelEX:
-    base: DoubleJump, Bash
+    base: OuterWellspring.EntranceDoorOpen
   pickup OuterWellspring.BasementEC:
-    base: DoubleJump, Bash, Water
+    base:
+      Water, DoubleJump, Dash OR Glide
+      Water, Dash, Glide
+      Water, Grapple, Bash OR Glide
+      Water, Bash, Grenade=1
+      Water, Launch
+      OuterWellspring.EntranceDoorOpen  # casual strat I guess?
+    advanced:
+      Glide, Dash, Bash, Damage=20  # in advanced due to a single tick of poison water damage needed
+      DoubleJump, Bash, Damage=20  # also only one tick of water damage! 
   pickup OuterWellspring.LifeHarvestShard:
-    base: DoubleJump, Bash
+    base, Weapon:
+      DoubleJump, Bash
+      Launch
+    advanced, Weapon:
+      # SentryJump
+      Bash, Grenade=1  # this would be in Base if the camera didn’t put ori right at the top of the screen, making it hard to aim/catch the grenade
   pickup OuterWellspring.SwimEX:
     base: Water
   pickup OuterWellspring.SwimOre:
-    base: Water, Grapple
-  conn InnerWellspring.LowerWellspring: # TODO: deleteme
-    base: DoubleJump, Dash, Bash
+    base: Water, Grapple OR WaterDash OR Launch
+    advanced:
+      Water, Bash, Grenade=1  # you can stand on the spinny wheel and bash-grenade this
+      # Water, DoubleJump, TripleJump  # how do you write triplejump paths
+      # Water, SentryJump
 
-area InnerWellspring.LowerWellspring:  # (-1294, -3956) Just inside the lower entrance
+  conn InnerWellspring.EntranceDoor:
+    base: OuterWellspring.EntranceDoorOpen
+  conn OuterWellspring.WestDoor:
+    base:
+      Grapple, Glide OR Launch
+      DoubleJump, Dash, Grapple
+      # connections using the left wall wheel would be pointless
+  # east door is more demanding than west door, it didn't need any paths from here in base
+  conn WestGlades.MillApproach:
+    base:
+      DoubleJump, Dash
+      Bash, Grenade=2, DoubleJump OR Dash OR Glide
+      Launch
+      Water
+
+area OuterWellspring.WestDoor:  # (-892, -3991) Outside the door where you exit the first room
+  state OuterWellspring.LeftWallWheelFree:
+    base: Weapon, DoubleJump OR Dash OR Glide OR Grapple OR Launch
+  state OuterWellspring.WestDoorBlueMoonFree:
+    base, Weapon:
+      Grapple, DoubleJump, Dash
+      Grapple, Glide OR Launch
+      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1, Launch
+      Launch, DoubleJump OR Dash OR Glide
+
+  pickup OuterWellspring.HiddenHC:
+    base:
+      OuterWellspring.WestDoorBlueMoonFree, Grapple, DoubleJump, Dash OR Glide
+      OuterWellspring.WestDoorBlueMoonFree, Grapple, Dash, Glide
+  pickup OuterWellspring.EntranceRoofEX:
+    base: DoubleJump, Launch, Dash OR Glide
+
+  conn InnerWellspring.WestDoor:
+    base: InnerWellspring.MiddleDoorsOpen
+  conn OuterWellspring.EastDoor:
+    base:
+      Grapple, DoubleJump, Dash OR Glide
+      Launch, DoubleJump OR Dash OR Glide
+      Launch, Grapple
+  conn OuterWellspring.EntranceDoor: free
+
+area OuterWellspring.EastDoor:  # (-814, -3972) Outside the door leading to the spin puzzle
+  state InnerWellspring.NeedleQI:
+    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state OuterWellspring.QuestCompass:
+    base: InnerWellspring.NeedleQI
+  state OuterWellspring.WestDoorBlueMoonFree:
+    base, Weapon:
+      Grapple, InnerWellspring.TopDoorOpen OR DoubleJump OR Dash OR Glide
+      Grapple, Bash, Grenade=1
+      Launch
+
+  pickup OuterWellspring.RightWallOre:
+    base: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+  pickup OuterWellspring.RightWallEC:
+    base, Weapon:
+      DoubleJump, Dash
+      Glide OR Launch
+      Grapple, DoubleJump OR Dash
+  pickup OuterWellspring.RightWallEX:
+    base:
+      DoubleJump, Grapple, Dash OR Glide
+      DoubleJump, Bash, Grenade=1, Grapple
+      Launch
+  pickup OuterWellspring.TrialOre:
+    base:
+      Grapple, DoubleJump
+      Launch
+
+  conn InnerWellspring.EastDoor:
+    base: InnerWellspring.MiddleDoorsOpen
+  conn OuterWellspring.TopDoor:
+    base:
+      InnerWellspring.TopDoorOpen, Grapple OR Launch
+      Bash, Grenade=1, Launch
+  conn OuterWellspring.WestDoor:
+    base:
+      DoubleJump OR Dash OR Glide OR Launch
+      InnerWellspring.TopDoorOpen, OuterWellspring.WestDoorBlueMoonFree, Grapple
+  conn OuterWellspring.EntranceDoor: free
+  conn WestGlades.MillApproach: Grapple OR Glide OR Launch
+
+area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the teleporter
+  state OuterWellspring.TrialActivation:
+    base:
+      EnemyObstacle, DoubleJump, Grapple, Dash OR Glide
+      DoubleJump, Grapple, Bash, Grenade=1
+      Bash, Grenade=2
+      Launch
+
+  pickup OuterWellspring.UltraGrappleShard:
+    base:
+      EnemyObstacle, DoubleJump, Grapple, Dash OR Glide
+      Bash, Grenade=1
+      Launch
+  pickup OuterWellspring.HiddenHC:
+    base:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Launch, DoubleJump OR Dash OR Grapple OR Glide
+  
+  conn InnerWellspring.Teleporter:
+    base: InnerWellspring.TopDoorOpen
+  conn OuterWellspring.EastDoor: free
+  conn OuterWellspring.WestDoor:
+    base: EnemyObstacle, DoubleJump OR Dash OR Grapple OR Glide OR Launch
+
+area InnerWellspring.EntranceDoor:  # (-1294, -3953) Inside the door where you enter the first room
+  state InnerWellspring.LowerCorruptions:  # the first two corruptions you see on your way
+    base: Weapon
+
   pickup InnerWellspring.ThornShard:
-    base: DoubleJump, Bash
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch
   pickup InnerWellspring.ThornEX:
-    base: DoubleJump, Bash, Dash, Grapple
+    base:
+      Grapple, DoubleJump, Dash OR Glide
+      Launch
   pickup InnerWellspring.ThreeWheelsEX:
-    base: DoubleJump, Bash
+    base:
+      Bash, Grenade=1
+      Launch
+      InnerWellspring.LowerCorruptions
   pickup InnerWellspring.WaterSwitchEX:
-    base: DoubleJump, Bash, Water, WaterDash, Dash
+    base: Water, WaterDash
   pickup InnerWellspring.DrainHC:
-    base: DoubleJump, Bash, Dash
+    base, InnerWellspring.DrainLever:
+      Water OR DoubleJump OR Grapple OR Launch  # bit of a weird pickup
   pickup InnerWellspring.DrainEX:
-    base: DoubleJump, Bash, Dash
+    base, InnerWellspring.DrainLever:  # the skeetos just want to be bashed here
+      DoubleJump, Water OR Bash
+      Water, Bash, Grenade=2
+      Water, Dash, Bash, Grenade=1
+      Weapon, DoubleJump, Dash, Glide
+      Launch
   pickup InnerWellspring.LaserOre:
-    base: DoubleJump, Bash, Dash
-  pickup InnerWellspring.LeverEC:
-    base: DoubleJump, Bash, Dash, Grapple
-  pickup InnerWellspring.LupoEX:
-    base: DoubleJump, Bash, Dash
-  pickup InnerWellspring.LupoMap:
-    base: Grapple
+    base:
+      Weapon, DoubleJump, Dash, InnerWellspring.LowerCorruptions
+      Weapon, DoubleJump, Glide
+      EnemyObstacle, Grapple, DoubleJump, Dash
+      EnemyObstacle, Grapple, Glide
+      Launch
   pickup InnerWellspring.ShortcutWheelEX:
-    base: DoubleJump, Bash, Grapple
+    base:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Launch
+
+  conn OuterWellspring.EntranceDoor: free
+  conn InnerWellspring.BelowDrainLever:
+    base:
+      Weapon, DoubleJump, Dash, InnerWellspring.LowerCorruptions
+      Weapon, DoubleJump, Bash, Grenade=1, InnerWellspring.LowerCorruptions
+      Weapon, DoubleJump, Glide
+      Grapple OR Launch
+  conn InnerWellspring.WestDoor:
+    base:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Launch
+
+area InnerWellspring.BelowDrainLever:  # (-1148, -3895) In the first room below the drain lever
+  state InnerWellspring.UpperCorruption:  # the fourth corruption you see on your way
+    base, Weapon:
+      DoubleJump, Dash OR Glide
+      Launch
+  state InnerWellspring.DrainLever:
+    base:
+      Bash, Grenade=1
+      InnerWellspring.UpperCorruption OR Launch
+
+  pickup InnerWellspring.LaserOre:
+    base, EnemyObstacle:
+      DoubleJump, Dash
+      Glide OR Launch
+  pickup InnerWellspring.LeverEC:
+    base:
+      Bash, Grenade=2
+      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide
+      Launch
+      InnerWellspring.UpperCorruption, Bash, Grenade=1
+      InnerWellspring.UpperCorruption, Grapple, DoubleJump OR Dash OR Glide
+  pickup InnerWellspring.LupoEX:
+    base:
+      DoubleJump, Dash OR Glide
+      Launch
+
+  conn InnerWellspring.WestDoor:
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch
+      InnerWellspring.UpperCorruption
+  conn InnerWellspring.EntranceDoor:
+    base:
+      DoubleJump, Dash
+      Grapple OR Glide OR Launch
+
+area InnerWellspring.WestDoor:  # (-1251, -3889) Inside the door where you exit the first room
+  state InnerWellspring.MiddleDoorsOpen:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1, Grapple OR Launch
+
+  pickup InnerWellspring.LupoMap:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1
+      InnerWellspring.UpperCorruption
   pickup InnerWellspring.GrappleTreeEX:
-    base: DoubleJump, Bash, Grapple, Dash
+    base:
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      DoubleJump, Grapple
+      Launch
   pickup InnerWellspring.GrappleTree:
-    base: DoubleJump, Dash, Bash
-  conn InnerWellspring.MiddleWellspring: # TODO: deleteme
-    base: DoubleJump, Dash, Bash, Grapple
+    base: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+  
+  conn OuterWellspring.WestDoor:
+    base: InnerWellspring.MiddleDoorsOpen
+  conn InnerWellspring.BelowDrainLever: free
 
-area InnerWellspring.MiddleWellspring:   # (-1181, -3735) Just inside the entrance
+area InnerWellspring.EastDoor:  # (-1180, -3732) Inside the door leading to the spin puzzle
+  state InnerWellspring.QuestHandToHandHerbs:
+    base: GladesTown.QuestHandToHandPouch
+  state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
+    base: Combat, DoubleJump OR Dash OR Glide
+  state InnerWellspring.TopDoorOpen:
+    base, InnerWellspring.SpinArena, Weapon:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Grapple, Launch
+  
   pickup InnerWellspring.AboveSpinArenaEX:
-    base: DoubleJump, Bash, Grapple, Dash
+    base:
+      Grapple, DoubleJump OR Dash
+      Launch
   pickup InnerWellspring.RotateRoomEX:
-    base: DoubleJump, Bash, Grapple, Dash
+    base: InnerWellspring.SpinArena  # danger will handle it oriShrug
   pickup InnerWellspring.RotateRoomOre:
-    base: DoubleJump, Bash, Grapple, Dash
+    base, InnerWellspring.SpinArena:
+      Grapple, DoubleJump OR Dash
+      Grapple, Bash, Grenade=1, Glide
+      Launch
+      Water, DoubleJump, Dash OR Glide
   pickup InnerWellspring.NeedleQI:
-    base: DoubleJump, Bash, Grapple, Dash
-  conn InnerWellspring.TeleporterArea:   # TODO: deleteme
-    base: DoubleJump, Dash, Bash, Grapple
+    base, InnerWellspring.SpinArena, Weapon:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Grapple, Launch
+  # no reason for backwards connections
 
-area InnerWellspring.TeleporterArea:     # (-1306, -3680) The Wellspring teleporter
-  pickup InnerWellspring.LibraryEX:
-    base: DoubleJump, Bash, Grapple, Dash
-  pickup InnerWellspring.AboveTpEX:
-    base: DoubleJump, Bash, Grapple, Dash
+area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
+  state InnerWellspring.WaterEscape:
+    base:
+      Bash, Grapple, DoubleJump, Dash OR Glide
+      Bash, Grapple, Dash, Glide
+      Grapple, Launch
+
+  state InnerWellspring.QuestBlueMoonSeed:
+    base:
+      DoubleJump, Dash
+      Bash, Grenade=1
+      Launch
   pickup InnerWellspring.SeedQI:
-    base: DoubleJump, Bash, Grapple, Dash
+    base: InnerWellspring.QuestBlueMoonSeed  # TEMPORARY - delete when quests have syntax
+
+  pickup InnerWellspring.LibraryEX: free
+  pickup InnerWellspring.AboveTpEX:
+    base:
+      DoubleJump, Dash OR Glide
+      Bash, Grenade=1
+      Launch
   pickup InnerWellspring.SwimOre:
-    base: DoubleJump, Bash, Grapple, Dash, Water
+    base: Water
   pickup InnerWellspring.EscapeRevisitEX:
-    base: DoubleJump, Bash, Grapple, Dash
-  conn OuterWellspring: free # TODO: deleteme
-  conn OpherShop: free      # TODO: deleteme
+    base, Water:
+      DoubleJump, Dash, Grapple
+      DoubleJump, Dash, Bash, Grenade=1
+      Bash, Grenade=1, Grapple
+      Bash, Grenade=2
+      Launch
+
+  conn OuterWellspring.TopDoor: free
+  # Opher shop potentially unsafe. Should investigate conditions for him disappearing
+# end unvalidated wellspring region
 
 # begin pools needs validation area
 area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the static wheel
@@ -1233,6 +1485,16 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
   state EastPools.FightArenas:
     base:
       EastPools.LowerWaterDrained, Weapon, Water, Bash
+
+  state EastPools.QuestStickyGrassSeed:
+    base, EastPools.FightArenas:
+      Water, Bash, WaterDash OR Launch
+      Water, Bash, DoubleJump, Dash OR Glide
+      Water, Bash, Dash, Glide
+      Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+  pickup EastPools.SeedQI:
+    base: EastPools.QuestStickyGrassSeed  # TEMPORARY - delete when quests have syntax
+
   pickup EastPools.AboveDoorOre:
     base:
       EastPools.BelowTokkBubbleFree, Grapple, Flap, DoubleJump OR Dash
@@ -1269,12 +1531,6 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
     base: EastPools.FightArenas, Water, Bash
   pickup EastPools.BehindCrusherEX:
     base: EastPools.FightArenas, Water
-  pickup EastPools.SeedQI:
-    base, EastPools.FightArenas:
-      Water, Bash, WaterDash OR Launch
-      Water, Bash, DoubleJump, Dash OR Glide
-      Water, Bash, Dash, Glide
-      Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
 
   conn EastPools.Entry:
     base, EastPools.EntryLever, EnemyObstacle:
@@ -1294,6 +1550,11 @@ area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper lef
       Water, WaterDash
       Water, Bash
     advanced: Bow OR Grenade=1
+
+  state EastPools.QuestStickyGrassSeed:
+    base: EnemyObstacle
+  pickup EastPools.SeedQI:
+    base: EastPools.QuestStickyGrassSeed  # TEMPORARY - delete when quests have syntax
 
   pickup UpperPools.LowerKS:
     base:
@@ -1316,8 +1577,6 @@ area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper lef
       Grapple, DoubleJump OR Glide OR Dash
       Water, WaterDash, DoubleJump
       Launch
-  pickup EastPools.SeedQI:
-    base: EnemyObstacle
 
   conn UpperPools.BubbleSpamRoom:  # these go from here because it'll be better when keydoors see the light of Niwen
     base:
@@ -1409,6 +1668,11 @@ area WestPools:  # (-1652, -4170) the west Pools TP
   state WestPools.KwolokDefeated:
     base: Weapon, Water, WaterDash, Bash, DoubleJump, Damage=80, Dash OR Launch
 
+  state EastPools.QuestStickyGrassSeed:
+    base: Water, WaterDash
+  pickup EastPools.SeedQI:
+    base: EastPools.QuestStickyGrassSeed  # TEMPORARY - delete when quests have syntax
+
   pickup WestPools.TpEX:
     base:
       Water, WaterDash, DoubleJump, Dash  # hard on keyboard, but I guess this is intended, and no other ability would even help
@@ -1421,8 +1685,7 @@ area WestPools:  # (-1652, -4170) the west Pools TP
     base: WestPools.KwolokDefeated, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
   pickup UpperPools.LowerKS:
     base: WestPools.KwolokDefeated, EnemyObstacle, Water, WaterDash
-  pickup EastPools.SeedQI:
-    base: Water, WaterDash
+
   conn UpperPools.KeystoneRoom:
     base, EnemyObstacle:
       Water, WaterDash, Bash, DoubleJump, Dash OR Glide
@@ -1748,6 +2011,11 @@ area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
   conn LowerReach.OutsideTPRoom: free
 
 area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
+  state UpperReach.QuestSpringPlantsSeed:
+    base: Grenade=1
+  pickup UpperReach.SeedQI:
+    base: UpperReach.QuestSpringPlantsSeed  # TEMPORARY - delete when quests have syntax
+
   pickup UpperReach.LightBurstTree:
     base: free
   pickup UpperReach.TreeOre:  # not validated
@@ -1757,8 +2025,6 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
       Launch, DoubleJump OR Dash OR Glide
   pickup UpperReach.WellEX:
     base: free
-  pickup UpperReach.SeedQI:
-    base: Grenade=1
   pickup UpperReach.HiddenEX:
     base: Grenade=1
 
@@ -1942,6 +2208,14 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
       DepthsLight, DoubleJump, Dash, Bash, Grapple
       DepthsLight, Bash, Grapple, Launch
   
+  state UpperDepths.QuestLightcatchersSeed:
+    base:
+      DepthsLight, DoubleJump, Dash, Grapple
+      Weapon, DepthsLight, DoubleJump, Dash, Bash, Grenade=1
+      DepthsLight, Launch
+  pickup UpperDepths.SeedQI:
+    base: UpperDepths.QuestLightcatchersSeed  # TEMPORARY - delete when quests have syntax
+  
   pickup UpperDepths.RightHealthKS:
     base: Weapon OR DepthsLight
   pickup UpperDepths.LeftHealthKS:
@@ -1959,11 +2233,6 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
     base:
       DepthsLight, DoubleJump, Dash
       DepthsLight, DoubleJump, Bash, Grenade=1
-      DepthsLight, Launch
-  pickup UpperDepths.SeedQI:
-    base:
-      DepthsLight, DoubleJump, Dash, Grapple
-      Weapon, DepthsLight, DoubleJump, Dash, Bash, Grenade=1
       DepthsLight, Launch
 
   conn UpperDepths.Central: free # crosses the keystone door
@@ -2363,6 +2632,14 @@ area UpperWastes.NorthTP: # (2043, -3578) North Wastes teleporter
     base: free
 
 area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
+  state UpperWastes.QuestSelaFlowersSeed:
+    base:
+      Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
+      Burrow, Launch  # maybe Glide? I think this is fine tho
+      Bash, Launch
+  pickup UpperWastes.SeedQI:
+    base: UpperWastes.QuestSelaFlowersSeed  # TEMPORARY - delete when quests have syntax
+
   pickup UpperWastes.SpinLasersRightEX:
     base: Burrow
   pickup UpperWastes.SpinLasersMiddleEX:
@@ -2376,11 +2653,6 @@ area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top 
       Burrow, Launch
     advanced:
       Dash, Bash  # seemed kinda difficult to get past the spikes without doublejump
-  pickup UpperWastes.SeedQI:
-    base:
-      Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
-      Burrow, Launch  # maybe Glide? I think this is fine tho
-      Bash, Launch
   pickup UpperWastes.WallOre:
     base:
       Burrow, Bash, DoubleJump, Dash OR Glide
@@ -2646,29 +2918,21 @@ area OpherShop:
     base: Water, EastHollow.Voice, SpiritLight=400 # what this actually needs is water + the ability to talk to kwolok
 
 area TuleyShop:
-  state TuleyShop.QuestSelaFlowersSeed:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state TuleyShop.QuestStickyGrassSeed:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state TuleyShop.QuestLightcatchersSeed:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state TuleyShop.QuestBlueMoonSeed:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state TuleyShop.QuestSpringPlantsSeed:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state TuleyShop.QuestLastSeed:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
+  state TuleyShop.QuestLastTreeSeed:
+    base: Unreachable  # TEMPORARY - delete when woods has logic
   
   state TuleyShop.QuestSelaFlowers:
-    base: TuleyShop.QuestSelaFlowersSeed
+    base: UpperWastes.QuestSelaFlowersSeed
   state TuleyShop.QuestStickyGrass:
-    base: TuleyShop.QuestStickyGrassSeed
+    base: EastPools.QuestStickyGrassSeed
   state TuleyShop.QuestLightcatchers:
-    base: TuleyShop.QuestLightcatchersSeed
+    base: UpperDepths.QuestLightcatchersSeed
   state TuleyShop.QuestBlueMoon:
-    base: TuleyShop.QuestBlueMoonSeed
+    base: InnerWellspring.QuestBlueMoonSeed
   state TuleyShop.QuestSpringPlants:
-    base: TuleyShop.QuestSpringPlantsSeed
+    base: UpperReach.QuestSpringPlantsSeed
+  state TuleyShop.QuestLastTree:
+    base: TuleyShop.QuestLastTreeSeed
 
 
 # do not delete the newline at the end of the file
