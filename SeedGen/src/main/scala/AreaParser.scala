@@ -138,7 +138,7 @@ package AreaParser {
       def skillReq: Parser[Requirement] = grenadeReq | sentryReq |  accept("skillName", {
         case IDENTIFIER(name) if Skill.areaFileNames.get(name).nonEmpty =>
           val id = Skill.areaFileNames(name)
-          if(Skill.poolItems.exists(_.skillId == id))
+          if(id == 100 || Skill.poolItems.exists(_.skillId == id))
             SkillReq(id)
           else
             Invalid
@@ -203,6 +203,7 @@ package AreaParser {
         if(DebugParsers.debug && unusedMacros.nonEmpty)
           println(s"unused macros: $unusedMacros")
         val macroConns = macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq
+
         def getUnusableStates(areas: Seq[Area]) = {
           val reachableStateNodes = areas.flatMap(_.conns.withFilter(_.target.kind == StateNode).map(r => r.target.name))
           stateReqs(areas).filterNot(st => macros.contains(st.flag) || reachableStateNodes.contains(st.flag)).toSet
