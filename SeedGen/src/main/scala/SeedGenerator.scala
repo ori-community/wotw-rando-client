@@ -1,4 +1,5 @@
 import scala.util.parsing.input.Positional
+import scala.collection.parallel.CollectionConverters._
 import scala.collection.mutable.{Map => MMap, Set => MSet, Queue}
 import scala.io.Source
 import scala.util.Random
@@ -671,20 +672,21 @@ object Runner {
       val dir = new File(dirPath)
       if (!dir.exists())
         dir.mkdirs()
-      for (n <- 1 until count) {
+      (1 until count).par.map(n => {
         val file = new File(s"${dirPath}/${name_base}_${n}_base.wotwr")
         val bw = new BufferedWriter(new FileWriter(file))
         bw.write(forceGetSeed(time = false))
         bw.close()
-      }
+      })
       val t1 = System.currentTimeMillis()
       println(s"Generated base seeds in ${(t1-t0)/1000f}s")
-      for (n <- count until (count + count/2)) {
+
+      (count until (count + count/2)).par.map(n => {
         val file = new File(s"${dirPath}/${name_base}_${n}_advanced.wotwr")
         val bw = new BufferedWriter(new FileWriter(file))
         bw.write(forceGetSeed(true, time = false))
         bw.close()
-      }
+      })
       val t2 = System.currentTimeMillis()
       println(s"Generated base seeds in ${(t2-t1)/1000f}s (${(t2-t0)/1000f}s total)")
     }
