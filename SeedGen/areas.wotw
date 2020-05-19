@@ -12,7 +12,7 @@ requirement ShieldEnemy:  # breaking the shield or shell of an enemy
 
 requirement Combat:
   base:
-    Regenerate, Danger=35, Sword OR Hammer  # at least 2 health cells
+    Regenerate, Sword OR Hammer  # define danger when using this!
   advanced:
     Sword OR Hammer
     Launch
@@ -77,12 +77,12 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
       DoubleJump OR Dash OR Launch  # Dash somewhat on the border of base
       Bash, Grenade=1
   pickup MarshSpawn.LifepactShard:
-    base, Combat:
-      Water, Burrow, DoubleJump OR Glide OR Launch
+    base, Combat, Danger=40:  # no region danger
+      Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
   pickup PoolsApproach.BurrowsPathEX:
     base:
-      DoubleJump, Bash, Damage=10
+      DoubleJump, Bash, Glide
       Bash, Launch
 
   conn MarshSpawn.PoolsBurrowsPath:
@@ -103,7 +103,7 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: Weapon
   conn PoolsApproach.LeftOfWheel:
     base:
-      Water, DoubleJump, Bash, Damage=10
+      Water, DoubleJump, Bash, Glide
       Water, Bash, Launch
 
   # teleporter connections
@@ -157,7 +157,7 @@ area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, b
     advanced:
       Burrow, DoubleJump OR Dash
   pickup MarshSpawn.LifepactShard:
-    base: Combat, DoubleJump, Burrow
+    base: Combat, Danger=40, DoubleJump, Burrow  # no region danger
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     base: Bash, DoubleJump OR Launch
   pickup MarshSpawn.CrusherSwimEX:
@@ -191,7 +191,7 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
   pickup MidnightBurrows.UpperKS:
     base:
       MidnightBurrows.Lever, EnemyObstacle, DoubleJump, Glide
-      MidnightBurrows.Lever, EnemyObstacle, DoubleJump, Dash, Damage=15
+      MidnightBurrows.Lever, EnemyObstacle, DoubleJump, Dash, Danger=15
       Launch
 
   pickup MidnightBurrows.LowerKS:
@@ -271,7 +271,7 @@ area HowlsDen.Lower:  # (-328, -4535) At the teleporter
       DoubleJump OR Launch
       Bash, Grenade=1
   pickup HowlsDen.CombatShrine:
-    base: Combat, Hammer
+    base: Combat, Danger=35, Hammer  # no region danger
   pickup HowlsDen.LaserKS:
     base:
       DoubleJump OR Dash OR Launch
@@ -313,12 +313,11 @@ area MarshPastOpher.MillView:  # (-594, -4292) Standing next to Opher, looking a
       Weapon, DoubleJump OR Bash OR Launch
     advanced: Sword                         # Pogo off of enemy
   pickup MarshPastOpher.CombatShrine:
-    base: Weapon, Combat
-    advanced: Weapon, Combat
+    base: Combat, Danger=20  # no region danger
   pickup MarshPastOpher.SwingPoleEX:
     base:
-      Damage=10, DoubleJump OR Dash OR Glide OR Launch  # damage not mandatory
-      Damage=10, Bash, Grenade=1  # damage not mandatory
+      Danger=10, DoubleJump OR Dash OR Glide OR Launch
+      Danger=10, Bash, Grenade=1
     advanced:
       Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide      #It's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
 
@@ -344,7 +343,7 @@ area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with 
   conn MarshPastOpher.MillView:
     base:
       DoubleJump OR Dash OR Launch
-      Glide, Damage=10
+      Glide, Danger=10
       Bash, Grenade=1
   conn MarshPastOpher.PoolsPathEast:
     base:
@@ -399,7 +398,7 @@ area MarshPastOpher.PoolsPathWest:  # (-802, -4186)  Right on top of MarshPastOp
     base, Weapon:
       DoubleJump, Bash, Dash OR Glide OR Grenade=1
       Bash, Grenade=1, Dash, Glide
-      Launch, Damage=10, DoubleJump OR Dash OR Glide  # damage not mandatory
+      Launch, Danger=10, DoubleJump OR Dash OR Glide
       Launch, Bash
   conn PoolsApproach.RightOfWheel:
     base, PoolsApproach.MarshWallBroken:
@@ -415,7 +414,7 @@ region WestHollow:
 area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye door
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     base:
-      Bow, DoubleJump OR Damage=10  # damage not mandatory, but it's easy to clip the spikes on the pole
+      Bow, DoubleJump OR Danger=10  # easy to clip the spikes on the pole
       Dash, DoubleJump  # Makes you Dash past a falling slime
       Launch
     advanced:
@@ -512,8 +511,8 @@ region EastHollow:
 
 area EastHollow.Teleporter:  # (-150, -4237) the teleporter
   state EastHollow.BeetleDefeated:
-    base: 
-      Combat, Dash  # It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught
+    base:
+      Combat, Danger=15, Dash  # +20 region danger. Kinda tight, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
     advanced:
       Combat
   conn WestHollow.HollowDrainUpper: free  # as long as the purple eye door starts open TODO
@@ -528,8 +527,8 @@ area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
       DoubleJump, Dash, Glide
       Launch
   state EastHollow.BeetleDefeated:
-    base: 
-      Combat, Dash  # It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught
+    base:
+      Combat, Danger=15, Dash  # +20 region danger. Kinda tight, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
   state EastHollow.MouldwoodLever:
     base: 
       Bash, DoubleJump OR Dash OR Glide OR Launch
@@ -591,7 +590,7 @@ area EastHollow.Kwolok:  # (154, -4205) Between Ku and Kwolok
   pickup EastHollow.SilentSwimEC:
     base: Water, WaterDash OR Launch
   pickup EastHollow.KwolokSwimOre:
-    base: Water, Bash OR Damage=10  # enemy in the way
+    base: Water, Bash OR Danger=10  # enemy in the way
   pickup EastHollow.KwolokSwimLeftEX:
     base: Water, WaterDash OR Launch
   pickup EastHollow.KwolokSwimRightEX:
@@ -601,7 +600,7 @@ area EastHollow.Kwolok:  # (154, -4205) Between Ku and Kwolok
     base:  # since the ability culprit is right at the start, these should account for paths to the pickups on the way
       Bash, DoubleJump OR Dash OR Glide
       DoubleJump, Dash OR Glide
-      Dash, Glide, Damage=10  # damage not mandatory
+      Dash, Glide, Danger=10
       Launch
   conn WoodsEntry:  # area details to be determined, this gets you to the shriek cutscene
     base: 
@@ -663,7 +662,7 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
   pickup GladesTown.AcornQI:
     base, GladesTown.ClearThorns, GladesTown.CaveEntrance, Flash:
         Water, Glide
-        Damage=10, Water, DoubleJump
+        Water, DoubleJump, Dash
         Bash, Grenade=1
         Launch
     advanced: GladesTown.CaveEntrance, Flash, Water, Dash
@@ -962,7 +961,7 @@ area WestGlades.Upper:  # (-628, -4056) At the waypoint
   conn WestGlades.Lower:
     base:
       EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
-      Water, DoubleJump OR Dash OR Bash OR Glide OR Launch OR Damage=10  # damage not mandatory
+      Water, DoubleJump OR Dash OR Bash OR Glide OR Launch OR Danger=10
   conn LowerReach.Entry:
     base: LowerReach.BearSneezed
   conn WestGlades.MillApproach:
@@ -974,7 +973,7 @@ area WestGlades.Upper:  # (-628, -4056) At the waypoint
 
 area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening up to Wellspring
   pickup WestGlades.CombatShrine:
-    base, Weapon, Combat:
+    base, Combat, Danger=35:  # +20 region danger
       Grapple, Bash, DoubleJump OR Glide
       DoubleJump, Bash, Grenade=1
       Launch, DoubleJump OR Grapple
@@ -998,7 +997,7 @@ area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening 
       Launch
       Water
   conn PoolsApproach.RightOfWheel: # this makes more sense here than at OuterWellspring
-    base, EnemyObstacle, Damage=20:  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement. Damage just because it's basically impossible not to run into the enemies. Should be more like 40 damage tbh
+    base, EnemyObstacle, Danger=20:  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement. Danger just because it's basically impossible not to run into the enemies.
       Water, DoubleJump, Dash, Grapple, Glide
       Water, WaterDash, Grapple, DoubleJump OR Dash OR Glide
       Water, Launch, Grapple
@@ -1289,7 +1288,7 @@ area InnerWellspring.EastDoor:  # (-1180, -3732) Inside the door leading to the 
   state InnerWellspring.QuestHandToHandHerbs:
     base: GladesTown.QuestHandToHandPouch
   state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
-    base: Combat, DoubleJump OR Dash OR Glide
+    base: Combat, DoubleJump OR Dash OR Glide  # +25 region danger
   state InnerWellspring.TopDoorOpen:
     base, InnerWellspring.SpinArena, Weapon:
       Grapple, DoubleJump, Dash OR Glide
@@ -1374,13 +1373,13 @@ area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the 
       Water, WaterDash, DoubleJump, Grapple
       Water, Grapple, Launch
   pickup PoolsApproach.MillPathEC:  # paths from wellspring tbd
-    base: Water, Bash, WaterDash OR Damage=10  # damage not mandatory
+    base: Water, Bash, WaterDash OR Danger=10
   pickup PoolsApproach.MillPathEX:  # paths from wellspring tbd
     base:
-      Water, Bash, DoubleJump, Dash, Grapple, Damage=10  # damage not mandatory
-      Water, Bash, DoubleJump, Grapple, Glide, WaterDash OR Damage=10  # damage not mandatory
+      Water, Bash, DoubleJump, Dash, Grapple, Danger=10
+      Water, Bash, DoubleJump, Grapple, Glide, WaterDash OR Danger=10
       Water, Bash, DoubleJump, Dash, WaterDash
-      Water, Bash, Launch, WaterDash OR Damage=10  # damage not mandatory
+      Water, Bash, Launch, WaterDash OR Danger=10
     advanced:
       Water, Bash, DoubleJump, WaterDash
 
@@ -1400,20 +1399,20 @@ area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the 
       # grenadebash doesn't work as well when the wheel spins
       Glide, Launch
       Bash, Grenade=1, Launch, DoubleJump OR Dash
-      DoubleJump, Dash, Launch, Damage=20  # damage not mandatory
+      DoubleJump, Dash, Launch, Danger=20
       PoolsApproach.WheelFreed, DoubleJump, Glide
     advanced:
       Launch, Dash  # advanced? definitions tbd
   conn WestGlades.MillApproach:
     base:
-      Water, Bash, DoubleJump, Grapple, Damage=10, Dash OR Glide  # damage not mandatory
-      Water, Bash, WaterDash, DoubleJump, Grapple, Dash OR Glide OR Damage=15  # damage not mandatory
+      Water, Bash, DoubleJump, Grapple, Danger=10, Dash OR Glide
+      Water, Bash, WaterDash, DoubleJump, Grapple, Dash OR Glide OR Danger=15
       Water, Bash, WaterDash, Grapple, Grenade=2, Dash OR Glide
       Water, Bash, Launch, WaterDash, DoubleJump OR Dash OR Grapple OR Glide
-      Water, Bash, Launch, Damage=10, DoubleJump OR Dash OR Grapple OR Glide  # damage not mandatory
+      Water, Bash, Launch, Danger=10, DoubleJump OR Dash OR Grapple OR Glide
     advanced:
-      Water, Bash, Dash, Glide, Grapple, Grenade=2, Damage=10  # damage not mandatory
-      Water, Bash, Grenade=1, Launch, Damage=10  # damage not mandatory
+      Water, Bash, Dash, Glide, Grapple, Grenade=2, Danger=10
+      Water, Bash, Grenade=1, Launch, Danger=10
 
 area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the static wheel
   state PoolsApproach.WheelFreed:
@@ -1423,10 +1422,10 @@ area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the st
     base: Water, WaterDash
   pickup PoolsApproach.BurrowsPathEX:
     base:
-      Water, DoubleJump, Dash, WaterDash, Damage=10
-      Water, Glide, WaterDash, DoubleJump OR Dash OR Damage=10
+      Water, DoubleJump, Dash, WaterDash, Danger=10
+      Water, Glide, WaterDash, DoubleJump OR Dash
       Water, Bash, WaterDash, DoubleJump OR Glide
-      Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide OR Damage=10
+      Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide OR Danger=10
     advanced:
       Water, Dash, Glide, WaterDash
 
@@ -1447,8 +1446,8 @@ area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
   state EastPools.QuestAmulet: free
   state EastPools.EntryLever:
     base, EnemyObstacle:
-      DoubleJump, Dash OR Glide OR Damage=20
-      Dash, Glide  # decided to remove dash, damage=20 because of trouble with the bubble
+      DoubleJump, Dash OR Glide
+      Dash, Glide
       Launch
   state EastPools.BelowTokkBubbleFree:
     base:
@@ -1677,7 +1676,7 @@ area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
 
 area UpperPools.BubbleSpamRoom:  # (-1585, -4052) To the right of where all the bubbles rise
   pickup UpperPools.FishPoolEX:
-    base: Water, Bash OR WaterDash OR Damage=10  # just in case someone's troubled by the fish
+    base: Water, Bash OR WaterDash OR Danger=10  # just in case someone's troubled by the fish
   pickup UpperPools.FishPoolOre:
     base:
       DoubleJump, Bash, Dash OR Glide
@@ -1706,7 +1705,7 @@ region WestPools:
 
 area WestPools:  # (-1652, -4170) the west Pools TP
   state WestPools.KwolokDefeated:
-    base: Weapon, Water, WaterDash, Bash, DoubleJump, Damage=80, Dash OR Launch
+    base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=80, Dash OR Launch
 
   state EastPools.QuestStickyGrassSeed:
     base: Water, WaterDash
@@ -1789,7 +1788,7 @@ area WoodsMain:  # (819, -4191) Where you find Ku
   pickup WoodsMain.OverflowShard:
     base: Glide, Flap, DoubleJump, Bash, Grapple, Burrow
   pickup WoodsMain.CombatShrine:
-    base: Glide, Flap, DoubleJump, Combat
+    base: Glide, Flap, DoubleJump, Combat, Danger=35
   pickup WoodsMain.ShrineEX:
     base: Glide, Flap, DoubleJump
   pickup WoodsMain.FeedingGroundsEX:
@@ -1858,7 +1857,7 @@ area LowerReach.Entry:  # (-395, -4026) Behind Baur
       Dash, Bash, Glide, Grapple
       Bash, Grenade=2, Grapple, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
       LowerReach.LowerFurnace, Bash, Grenade=1, Grapple
-      DoubleJump, Grapple, Launch, Damage=10  # Grapple past the enemies and probably get hit by them
+      DoubleJump, Grapple, Launch, Danger=10  # Grapple past the enemies and probably get hit by them
       DoubleJump, Water, Launch  # Swim past the enemies
       Launch, Bash
   pickup LowerReach.IcefallEX:
@@ -2116,7 +2115,7 @@ area LowerReach.East:  # (-192, -3955) Right of the Lantern opening the Tp room
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
   pickup LowerReach.SnowballHC:
-    base: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Damage=20
+    base: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Danger=20
   pickup LowerReach.RoofLeftEX:
     base:
       LowerReach.CoolEastFurnace, DoubleJump, Dash, Bash, Grenade=1  # blame moon
@@ -2156,7 +2155,7 @@ area LowerReach.Trial:  # (70, -4044) At trial start
     base:
       Glide
       DoubleJump, Dash, Bash, Grenade=1  # not validated
-      Launch, DoubleJump OR Damage=20  # not validated
+      Launch, DoubleJump OR Danger=20  # not validated
   pickup LowerReach.UpperLeftKS:
     base: Glide
   pickup LowerReach.MiddleLeftKS:
@@ -2265,7 +2264,7 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
 
 area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of the second keystone door
   state UpperDepths.MoraDefeated:
-    base, Combat, Damage=80:
+    base, Combat, Danger=55:  # +40 region danger
       DepthsLight, DoubleJump, Dash, Bash, Grapple
       DepthsLight, Bash, Grapple, Launch
   
@@ -2340,7 +2339,7 @@ area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
     base: GladesTown.QuestHandToHandLantern
 
   pickup LowerDepths.CombatShrine:
-    base, Combat:
+    base, Combat, Danger=20:  # +40 region danger
       DepthsLight, Water, Bash, DoubleJump OR Launch
       DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
   pickup LowerDepths.SwimEC:
@@ -2929,7 +2928,7 @@ area WillowsEnd.West:  # (445, -3839) To the left of the one-way above Lupo
 
 area WillowsEnd.Upper:  # (515, -3745) At the upper door
   state WillowsEnd.ElementalDefeated:
-    base: Combat, Bash, Launch, DoubleJump OR Glide
+    base: Combat, Danger=25, DoubleJump, Bash, Launch  # +60 region danger
   state WillowsEnd.BurrowHeart:
     base, Weapon:
       Burrow, DoubleJump, Dash, Bash, Grapple, Glide
