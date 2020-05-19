@@ -12,6 +12,7 @@ package SeedGenerator {
   }
 
   trait Sellable extends Item
+  trait Important extends Item // literally just "show this in spoilers"
   trait Unplaceable extends Item {
     override val cost = Double.PositiveInfinity
     override def code: String = "ERROR|ERROR"
@@ -27,43 +28,41 @@ package SeedGenerator {
   }
 
   case class SpiritLight(amount: Int) extends SpiritLightItem
-  trait Resource extends Item with Sellable {
+  class Resource(resourceType: Int, val name: String) extends Item with Sellable {
     val itemType = 1
-    def resourceType: Int
     def code = s"${itemType}|${resourceType}"
   }
 
-  case class Health(resourceType: Int = 0, name: String = "Half-Health Cell") extends Resource
-  case class Energy(resourceType: Int = 1, name: String = "Half-Energy Cell") extends Resource
-  case class Ore(resourceType: Int = 2, name: String = "Gorlek Ore") extends Resource {
-    override val cost = 0.1f
-  }
-  case class Keystone(resourceType: Int = 3, name: String = "Keystone") extends Resource
-  case class ShardSlot(resourceType: Int = 4, name: String = "Shard Slot") extends Resource
+  case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.1f }
+  case object Energy extends Resource(1, "Half-Energy Cell")
+  case object Ore extends Resource(2, "Gorlek Ore") { override val cost = 0.1f }
+  case object Keystone extends Resource(3, "Keystone")
+  case object ShardSlot extends Resource(4, "Shard Slot")
 
-  case class WorldEvent(eventId: Int) extends Item with Sellable {
+  case class WorldEvent(eventId: Int) extends Item with Sellable with Important  {
     val itemType: Int = 9
     def code = s"$itemType|$eventId"
     def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event ${eventId}")}"
     override val cost = 5
   }
 
-object WorldEvent {
-  val names: Map[Int, String] = Map(
-    0 -> "Water"
-  )
-  val invNames = names.map({case (a, b) => b->a})
-  val poolItems = names.keys.map(WorldEvent(_)).toSeq
-}
-object Water extends WorldEvent(0)
+  object WorldEvent {
+    val names: Map[Int, String] = Map(
+      0 -> "Water"
+    )
+    val invNames = names.map({case (a, b) => b->a})
+    val poolItems = names.keys.map(WorldEvent(_)).toSeq
+  }
+  object Water extends WorldEvent(0)
 
-  case class Skill(skillId: Int) extends Item with Sellable {
+  case class Skill(skillId: Int) extends Item with Sellable with Important {
     val itemType: Int = 2
     def code = s"$itemType|${skillId}"
     def name: String = s"${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
     override val cost = Skill.costs.getOrElse(skillId, 5d)
   }
   object Skill {
+    val itemType: Int = 2
     val areaFileNames: Map[String, Int] = Map("Bash" ->0, "DoubleJump" ->5, "Torch" ->99, "Sword" ->100, "WallJump" ->3, "Launch" ->8, "Glide" ->14, "WaterBreath" ->23, "Grenade" ->51, "Grapple" ->57, "Flash" ->62, "Spike" ->74, "Spear" ->74, "Regenerate" ->77, "Bow" ->97, "Hammer" ->98, "Burrow" ->101, "Dash" ->102, "WaterDash" ->104, "SpiritStar" ->106, "Shuriken" ->106, "Blaze" ->115, "Sentry" ->116, "Flap" ->118)
     val costs: Map[Int, Double] = Map(8 -> 15, 77 -> 4, 98 -> 4)
     val names: Map[Int, String] = Map(
@@ -138,8 +137,7 @@ object Water extends WorldEvent(0)
     )
     val poolItems = names.keys.map(Shard(_)).toSeq
   }
-
-  case class Teleporter(teleporterId: Int) extends Item with Sellable {
+  case class Teleporter(teleporterId: Int) extends Item with Sellable with Important {
     val itemType: Int = 5
     def code = s"$itemType|${teleporterId}"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown (${teleporterId})")} TP"
@@ -147,6 +145,7 @@ object Water extends WorldEvent(0)
   }
 
   object Teleporter {
+    val itemType: Int = 5
     val costs: Map[Int, Double] = Map(3 -> 12, 11->12)
     val areaFileNames = Map("BurrowsTP" -> 0, "DenTP" -> 1, "WellspringTP" -> 3, "ReachTP" -> 4, "HollowTP" -> 5, "DepthsTP" -> 6, "WestWoodsTP" -> 7, "WestWastesTP" -> 9, "EastWastesTP" -> 10, "OuterRuinsTP" -> 11, "WillowTP" -> 12, "WestPoolsTP" -> 13, "InnerRuinsTP" -> 14, "GladesTP" -> 17)
     val names: Map[Int, String] = Map(
@@ -167,6 +166,7 @@ object Water extends WorldEvent(0)
       14 -> "Inner Ruins",
       15 -> "Shriek",
       16 -> "Marsh",
+      17 -> "Glades"
     )
     val poolItems = names.keys.withFilter(!Seq(2, 13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq
   }
@@ -281,34 +281,12 @@ object Water extends WorldEvent(0)
       take(i)
       Some(i)
     }
-    def getSkillsAndTPs(placedSoFar: Int) = {
-      val skills = placedSoFar match {
-        case n if n < 80 => Seq(DoubleJump, Grapple, Glide, Bow, Regen, Dash, Smash)
-        case n if n < 120 => Seq(DoubleJump, Grapple, Glide, Bow, Regen, Dash, Smash, Flap, Glide, WaterDash, Grenade, Flash, Burrow)
-        case _ => Seq(DoubleJump, Grapple, Glide, Bow, Regen, Dash, Smash, Flap, Glide, WaterDash, Grenade, Flash, Burrow, Launch)
-      }
-      val teleporters = placedSoFar match {
-        case n if n < 60 => Seq(HollowTP, EastWoodsTP, BurrowsTP)
-        case n if n < 90 => Seq(HollowTP, EastWoodsTP, BurrowsTP, DepthsTP, WellspringTP)
-        case _ => Seq(HollowTP, EastWoodsTP, BurrowsTP, WellspringTP, DepthsTP, WestWoodsTP, OuterRuinsTP, WestWastesTP, EastWastesTP, WillowTP)
-      }
-      (skills, teleporters)
-    }
-    def popProbableProgression(placedSoFar: Int)(implicit r: Random): Option[Item] = {
-      val (skills, tps) = getSkillsAndTPs(placedSoFar)
-      val probableProgression = asSeq.collect({
-        case n if skills.contains(n) => n
-        case n if tps.contains(n) => n
-        case Water if placedSoFar > 40 => Water
-      }) ++: Seq(Ore(), Health()).filter(has(_))
-      if (probableProgression.isEmpty)
-        return None
-      val i = probableProgression(r.nextInt(probableProgression.size))
-      take(i)
-      Some(i)
-    }
     def +(other: Inv): Inv = {
-      new Inv((other.keys ++ keys).toSeq.map({ (i: Item) => (i, Math.max(this (i), other(i))) }): _*)
+      new Inv((other.keys ++ keys).toSeq.map({
+        case Health => (Health, this(Health) + other(Health))
+        case Energy => (Energy, this(Energy) + other(Energy))
+        case i => (i, Math.max(this (i), other(i)))
+      }): _*)
     }
   }
   object Inv {

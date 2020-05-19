@@ -48,7 +48,7 @@ package AreaParser {
       def indentation: Parser[INDENTATION] = positioned {  "\n[ ]*".r ^^ { whitespace => INDENTATION(whitespace.replace("\n","").length) } }
       def identifier: Parser[IDENTIFIER] = positioned { "[a-zA-Z_][a-zA-Z.0-9_]*".r ^^ { str => IDENTIFIER(str) } }
       def assign: Parser[ASSIGN]   = positioned {  "= ?[1-9][0-9]*".r ^^ { str => ASSIGN(str.split("=")(1).trim().toInt) } }
-      def comment: Parser[COMMENT] = positioned { "#[^\n]*".r ^^ { str => COMMENT(str.replaceFirst("#", "").trim) } }
+      def comment: Parser[COMMENT] = positioned { "(\n[ ]*)?#[^\n]*".r ^^ { str => COMMENT(str.replaceFirst(".*#", "").trim) } }
       def area        = positioned { "area"        ^^^ AREA }
       def region      = positioned { "region"      ^^^ REGION }
       def requirement = positioned { "requirement" ^^^ REQUIREMENT }
@@ -234,7 +234,10 @@ package AreaParser {
             case (area, Some(req)) =>
               if(DebugParsers.debug)
                 println(s"adding $req to paths in ${area.name}")
-              area.name -> Area(area.name, area.conns.map(c => Connection(c.target, req and c.req)))
+              area.name -> Area(area.name, area.conns.map({
+                case Connection(target, r) if target.kind != AreaNode => Connection(target, req and r)
+                case c => c
+              }))
             case (area, None) => area.name -> area
           }).toMap
       }
