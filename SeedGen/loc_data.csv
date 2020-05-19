@@ -38,7 +38,7 @@ HowlsDen.SwordTree, Inkwater Marsh, Ability, SpiritEdge, treesDontWorry, 0, Spir
 HowlsDen.BoneOre, Inkwater Marsh, Resource, Ore, swampStateGroup, 21786, gorlekOreA, 2046, -432, -4503
 HowlsDen.LowerEX, Inkwater Marsh, SpiritLight, 50, swampStateGroup, 21786, xpOrbC, 16206, -389, -4503
 HowlsDen.LaserKS, Inkwater Marsh, Resource, Keystone, swampStateGroup, 21786, laserPuzzleSolved, 2852, -400, -4568
-HowlsDen.CombatShrine, Inkwater Marsh, Resource, ShardSlot, howlsOriginGroup, 24922, shrineArena, 45011, -314, -4570
+HowlsDen.CombatShrine, Inkwater Marsh, Resource, ShardSlot, howlsOriginGroup, 24922, shrineArena, 13993, -314, -4570
 HowlsDen.DoubleJumpEX, Inkwater Marsh, SpiritLight, 50, inkwaterMarshStateGroup, 9593, expOrb, 17818, -507, -4537
 HowlsDen.StickyShard, Inkwater Marsh, Shard, Sticky, pickupsGroup, 23987, glueShardPickup, 27134, -547, -4530
 HowlsDen.DoubleJumpTree, Inkwater Marsh, Ability, DoubleJump, treesDontWorry, 0, DoubleJump, 5, -555, -4551
@@ -47,7 +47,7 @@ MarshPastOpher.TrialOre, Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup,
 MarshPastOpher.TrialEC, Inkwater Marsh, Resource, Energy, inkwaterMarshStateGroup, 9593, halfEnergyCellA, 27562, -473, -4340
 MarshPastOpher.TrialHC, Inkwater Marsh, Resource, Life, swampStateGroup, 21786, lifeCellA, 20194, -437, -4381
 MarshPastOpher.TrialRightEX, Inkwater Marsh, SpiritLight, 100, swampStateGroup, 21786, largeExpA, 10413, -343, -4357
-MarshPastOpher.CombatShrine, Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 2869, -382, -4337
+MarshPastOpher.CombatShrine, Inkwater Marsh, Resource, ShardSlot, swampStateGroup, 21786, enemyRoom, 18109, -382, -4337
 MarshPastOpher.SwingPoleEX, Inkwater Marsh, SpiritLight, 50, inkwaterMarshStateGroup, 9593, expOrb, 59344, -492, -4260
 MarshPastOpher.LeftEyestone, Inkwater Marsh, Resource, Eyestone, swampStateGroup, 21786, keyStoneA, 27433, -461, -4195
 MarshPastOpher.RightEyestone, Inkwater Marsh, Resource, Eyestone, swampStateGroup, 21786, keyStoneB, 37225, -394, -4188
@@ -210,7 +210,7 @@ WoodsMain.BelowKeystonesEX, Silent Woods, SpiritLight, 50, _petrifiedForestGroup
 WoodsMain.BehindDoorRoofEX, Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbA, 64057, 968, -4124
 WoodsMain.PetrifiedHowlEX, Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, smallPickupA, 17974, 904, -4075
 WoodsMain.OverflowShard, Silent Woods, Shard, Overflow, pickupsGroup, 23987, recycleShardPickup, 25183, 827, -3939
-WoodsMain.CombatShrine, Silent Woods, Resource, ShardSlot, _petrifiedForestGroup, 58674, enemyRoom, 56043, 1361, -4064
+WoodsMain.CombatShrine, Silent Woods, Resource, ShardSlot, _petrifiedForestGroup, 58674, enemyRoom, 29265, 1361, -4064
 WoodsMain.ShrineEX, Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbA, 32647, 1406, -4065
 WoodsMain.FeedingGroundsEX, Silent Woods, SpiritLight, 200, _petrifiedForestGroup, 58674, expOrb, 64484, 1464, -4008
 LowerReach.BelowBaurEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, smallXPOrbA, 55384, -401, -4053
@@ -269,7 +269,7 @@ UpperDepths.HiveEX, Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGroup, 18
 LowerDepths.RaceStartHC, Mouldwood Depths, Resource, Life, mouldwoodDepthsGroup, 18793, healthCellA, 62694, 496, -4499
 LowerDepths.BelowDoorOre, Mouldwood Depths, Resource, Ore, mouldwoodDepthsGroup, 18793, orePickupA, 836, 436, -4507
 LowerDepths.SpiritSurgeShard, Mouldwood Depths, Shard, SpiritSurge, pickupsGroup, 23987, spiritPowerShardPickup, 986, 564, -4571
-LowerDepths.CombatShrine, Mouldwood Depths, Resource, ShardSlot, mouldwoodDepthsGroup, 18793, shrineEnemies, 12512, 212, -4510
+LowerDepths.CombatShrine, Mouldwood Depths, Resource, ShardSlot, mouldwoodDepthsGroup, 18793, shrineEnemies, 31937, 212, -4510
 LowerDepths.SwimEC, Mouldwood Depths, Resource, Energy, mouldwoodDepthsGroup, 18793, energyContainerA, 28175, 324, -4535
 LowerDepths.LupoMap, Mouldwood Depths, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapMouldwoodDepths, 48423, 682, -4576
 LowerDepths.LeftEX, Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGroup, 18793, expOrbB, 2881, 387, -4523
