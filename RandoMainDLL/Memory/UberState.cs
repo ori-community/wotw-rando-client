@@ -69,6 +69,7 @@ namespace RandoMainDLL.Memory {
     public static UberState savePedestalWindsweptWastesB = new UberState() { Name = "savePedestalUberState", ID = 49994, GroupName = "windsweptWastesGroupDescriptor", GroupID = 20120, Type = UberStateType.SavePedestalUberState };
     public static UberState savePedestalWindtornRuinsA = new UberState() { Name = "savePedestalUberState", ID = 41398, GroupName = "windsweptWastesGroupDescriptor", GroupID = 20120, Type = UberStateType.SavePedestalUberState };
     public static UberState savePedestalWindtornRuinsB = new UberState() { Name = "savePedestalUberState", ID = 4928, GroupName = "windtornRuinsGroup", GroupID = 10289, Type = UberStateType.SavePedestalUberState };
+    public static UberState savePedistalGladesTown = new UberState() { Name = "savePedestal", ID = 42096, GroupName = "hubUberStateGroup", GroupID = 42178, Type = UberStateType.SavePedestalUberState };
   }
 
   public class UberId {

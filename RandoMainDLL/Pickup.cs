@@ -24,42 +24,42 @@ namespace RandoMainDLL {
   }
 
   public enum TeleporterType : byte {
-    [Description("Midnight Burrows")]
-    MidnightBurrows = 0,
-    [Description("Howl's Den")]
-    HowlsDen = 1,
-    [Description("Luma Pools (East)")]
-    LumaPoolsA = 2,
+    [Description("Burrows")]
+    Burrows = 0,
+    [Description("Den")]
+    Den = 1,
+    [Description("East Pools")]
+    EastPools = 2,
     [Description("Wellspring")]
     Wellspring = 3,
-    [Description("Baur's Reach")]
-    BaursReach = 4,
-    [Description("Kwolok's Hollow")]
-    KwoloksHollow = 5,
-    [Description("Mouldwood Depths")]
-    Mouldwood = 6,
-    [Description("Silent Woods (West)")]
-    SilentWoodsA = 7,
-    [Description("Silent Woods (East)")]
-    SilentWoodsB = 8,
-    [Description("Windswept Wastes (West)")]
-    WindsweptWastesA = 9,
-    [Description("Windswept Wastes (East)")]
-    WindsweptWastesB = 10,
-    [Description("Windtorn Ruins (Outer)")]
-    WindtornRuinsA = 11,
+    [Description("Reach")]
+    Reach = 4,
+    [Description("Hollow")]
+    Hollow = 5,
+    [Description("Depths")]
+    Depths = 6,
+    [Description("West Woods")]
+    WestWoods = 7,
+    [Description("East Woods")]
+    EastWoods = 8,
+    [Description("West Wastes")]
+    WestWastes = 9,
+    [Description("East Wastes")]
+    EastWastes = 10,
+    [Description("Outer Ruins")]
+    OuterRuins = 11,
     [Description("Willow's End")]
     WillowsEnd = 12,
-    [Description("Luma Pools (West)")]
-    LumaPoolsB = 13,
-    [Description("Windtorn Ruins (Inner)")]
-    WindtornRuinsB = 14,
-    [Description("Spirit Willow")]
-    WillowsEndShriek = 15,
-    [Description("Inkwater Marsh")]
-    InkwaterMarsh = 16,
-    [Description("Wellspring Glades")]
-    builderProjectSpiritWell = 17, // note: not currently supported
+    [Description("West Pools")]
+    WestPools = 13,
+    [Description("Inner Ruins")]
+    InnerRuins = 14,
+    [Description("Shriek")]
+    Shriek = 15,
+    [Description("Marsh")]
+    Spawn = 16,
+    [Description("Glades")]
+    Glades = 17,
   }
 
   public enum ResourceType : byte {
@@ -192,23 +192,24 @@ namespace RandoMainDLL {
       return false;
     }
     public static Dictionary<TeleporterType, UberState> TeleporterStates = new Dictionary<TeleporterType, UberState>() {
-      { TeleporterType.MidnightBurrows, UberStateDefaults.savePedestalMidnightBurrows },
-      { TeleporterType.HowlsDen, UberStateDefaults.savePedestalHowlsDen },
-      { TeleporterType.LumaPoolsA, UberStateDefaults.savePedestalLumaPoolsA },
+      { TeleporterType.Burrows, UberStateDefaults.savePedestalMidnightBurrows },
+      { TeleporterType.Den, UberStateDefaults.savePedestalHowlsDen },
+      { TeleporterType.EastPools, UberStateDefaults.savePedestalLumaPoolsA },
       { TeleporterType.Wellspring, UberStateDefaults.savePedestalWellspring },
-      { TeleporterType.BaursReach, UberStateDefaults.savePedestalBaursReach },
-      { TeleporterType.KwoloksHollow, UberStateDefaults.savePedestalKwoloksHollow },
-      { TeleporterType.Mouldwood, UberStateDefaults.savePedestalMouldwood },
-      { TeleporterType.SilentWoodsA, UberStateDefaults.savePedestalSilentWoodsA },
-      { TeleporterType.SilentWoodsB, UberStateDefaults.savePedestalSilentWoodsB },
-      { TeleporterType.WindsweptWastesA, UberStateDefaults.savePedestalWindsweptWastesA },
-      { TeleporterType.WindsweptWastesB, UberStateDefaults.savePedestalWindsweptWastesB },
-      { TeleporterType.WindtornRuinsA, UberStateDefaults.savePedestalWindtornRuinsA },
+      { TeleporterType.Reach, UberStateDefaults.savePedestalBaursReach },
+      { TeleporterType.Hollow, UberStateDefaults.savePedestalKwoloksHollow },
+      { TeleporterType.Depths, UberStateDefaults.savePedestalMouldwood },
+      { TeleporterType.WestWoods, UberStateDefaults.savePedestalSilentWoodsA },
+      { TeleporterType.EastWoods, UberStateDefaults.savePedestalSilentWoodsB },
+      { TeleporterType.WestWastes, UberStateDefaults.savePedestalWindsweptWastesA },
+      { TeleporterType.EastWastes, UberStateDefaults.savePedestalWindsweptWastesB },
+      { TeleporterType.OuterRuins, UberStateDefaults.savePedestalWindtornRuinsA },
       { TeleporterType.WillowsEnd, UberStateDefaults.savePedestalWillowsEnd },
-      { TeleporterType.WindtornRuinsB, UberStateDefaults.savePedestalWindtornRuinsB },
-      { TeleporterType.LumaPoolsB, UberStateDefaults.savePedestalLumaPoolsB },
-      { TeleporterType.WillowsEndShriek, UberStateDefaults.savePedestalWillowsEndShriek },
-      { TeleporterType.InkwaterMarsh, UberStateDefaults.savePedestalInkwaterMarsh },
+      { TeleporterType.InnerRuins, UberStateDefaults.savePedestalWindtornRuinsB },
+      { TeleporterType.WestPools, UberStateDefaults.savePedestalLumaPoolsB },
+      { TeleporterType.Shriek, UberStateDefaults.savePedestalWillowsEndShriek },
+      { TeleporterType.Spawn, UberStateDefaults.savePedestalInkwaterMarsh },
+      { TeleporterType.Glades, UberStateDefaults.savePedistalGladesTown },
     };
 
     public override void Grant(bool squelch = false, bool inc = true) {
@@ -220,7 +221,7 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 250;
     public override string ToString() {
       var str = type.GetDescription();
-      return !(str is null) ? $"Teleporter: {str}" : $"Unknown Teleporter {type}";
+      return !(str is null) ? $"{str} TP" : $"Unknown Teleporter {type}";
     }
   }
 
