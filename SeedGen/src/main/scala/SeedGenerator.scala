@@ -588,6 +588,7 @@ package SeedGenerator {
             s". Was placing $chosenItems into ${locs.map(_.name)}")
         }) ++
         shopIter.map(shopLoc => ShopPlacement(pool.popSellable.get, shopLoc)).toSeq ++
+        nonShopIter.nextOption.map(itemLoc => ItemPlacement(pool.popOreOrHealth.get, itemLoc)) ++ // i hate this but i hate seeds not generating more
         nonShopIter.map(itemLoc => ItemPlacement(pool.popRand.get, itemLoc)).toSeq
       val outState = state + new GameState(Inv.Empty, Set(), reachable)
       placements.foreach(i => outState.inv.add(i.item))
@@ -659,7 +660,7 @@ object Runner {
       val dir = new File(dirPath)
       if (!dir.exists())
         dir.mkdirs()
-      (1 until count).par.map(n => {
+      (1 until count).map(n => {
         val file = new File(s"${dirPath}/${name_base}_${n}_base.wotwr")
         val bw = new BufferedWriter(new FileWriter(file))
         bw.write(forceGetSeed(time = false))
@@ -668,7 +669,7 @@ object Runner {
       val t1 = System.currentTimeMillis()
       println(s"Generated base seeds in ${(t1-t0)/1000f}s")
 
-      (count until (count + count/2)).par.map(n => {
+      (count until (count + count/2)).map(n => {
         val file = new File(s"${dirPath}/${name_base}_${n}_advanced.wotwr")
         val bw = new BufferedWriter(new FileWriter(file))
         bw.write(forceGetSeed(true, time = false))
