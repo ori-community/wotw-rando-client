@@ -267,12 +267,25 @@ package SeedGenerator {
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
     def popRand(implicit r: Random): Option[Item] = asSeq match {
       case s: Seq[Item] if (s.size > 0) => {
-        val i = r.shuffle(s).apply(r.nextInt(s.size))
+        val i = s.apply(r.nextInt(s.size))
         take(i)
         Some(i)
       }
       case _ => None
     }
+    def popOreOrHealth(implicit r: Random): Option[Item] = {
+      if(has(Ore))
+          if(has(Health) &&  r.nextBoolean()) {
+            take(Health)
+            Some(Health)
+          } else {
+            take(Ore)
+            Some(Ore)
+          }
+      else
+        popRand
+    }
+
     def popSellable(implicit r: Random): Option[Sellable] = {
       val sellables = asSeq.collect({case i: Sellable   => Some(i)}).flatten
       if (sellables.isEmpty)
