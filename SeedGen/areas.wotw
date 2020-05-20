@@ -1004,7 +1004,6 @@ area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening 
       Water, Launch, DoubleJump, Dash
 # end glades needs-validation region
 
-# unvalidated wellspring region
 region OuterWellspring:
   base:
     Danger=25
@@ -1015,13 +1014,18 @@ area OuterWellspring.EntranceDoor:  # (-856, -4057) Outside the door where you e
     base, Weapon:
       DoubleJump, Dash OR Glide
       Dash, Glide
-      Grapple, Bash OR Glide
-      Bash, Grenade=1
+      Grapple, Bash, DoubleJump OR Dash
+      Grapple, Glide
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
+  state OuterWellspring.WestDoorBlueMoonFree:
+    base, Weapon:
+      Grapple, DoubleJump, Dash
+      Grapple, Glide OR Launch
 
   pickup OuterWellspring.RightWallOre:
     base:
-      Grapple, DoubleJump OR Dash OR Glide OR Launch
+      Grapple, DoubleJump OR Glide OR Launch
       Bash, Grenade=1, Launch
   pickup OuterWellspring.EntranceRoofEX:
     base:
@@ -1034,8 +1038,9 @@ area OuterWellspring.EntranceDoor:  # (-856, -4057) Outside the door where you e
     base:
       Water, DoubleJump, Dash OR Glide
       Water, Dash, Glide
-      Water, Grapple, Bash OR Glide
-      Water, Bash, Grenade=1
+      Water, Grapple, Bash, DoubleJump OR Dash
+      Water, Grapple, Glide
+      Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Water, Launch
       OuterWellspring.EntranceDoorOpen  # casual strat I guess?
     advanced:
@@ -1051,18 +1056,18 @@ area OuterWellspring.EntranceDoor:  # (-856, -4057) Outside the door where you e
   pickup OuterWellspring.SwimEX:
     base: Water
   pickup OuterWellspring.SwimOre:
-    base: 
-      Water, Grapple OR WaterDash OR Launch
+    base: Water, Grapple OR WaterDash OR Launch
     advanced:
       Water, Bash, Grenade=1  # you can stand on the spinny wheel and bash-grenade this
       # Water, DoubleJump, TripleJump  # how do you write triplejump paths
       # Water, SentryJump
+
   conn InnerWellspring.EntranceDoor:
     base: OuterWellspring.EntranceDoorOpen
   conn OuterWellspring.WestDoor:
     base:
+      Grapple, DoubleJump, Dash
       Grapple, Glide OR Launch
-      DoubleJump, Dash, Grapple
       # connections using the left wall wheel would be pointless
   # east door is more demanding than west door, it didn't need any paths from here in base
   conn WestGlades.MillApproach:
@@ -1074,14 +1079,9 @@ area OuterWellspring.EntranceDoor:  # (-856, -4057) Outside the door where you e
 
 area OuterWellspring.WestDoor:  # (-892, -3991) Outside the door where you exit the first room
   state OuterWellspring.LeftWallWheelFree:
-    base: Weapon, DoubleJump OR Dash OR Glide OR Grapple OR Launch
+    base: Weapon, DoubleJump OR Dash OR Glide OR Launch
   state OuterWellspring.WestDoorBlueMoonFree:
-    base, Weapon:
-      Grapple, DoubleJump, Dash
-      Grapple, Glide OR Launch
-      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide
-      Bash, Grenade=1, Launch
-      Launch, DoubleJump OR Dash OR Glide
+    base: Weapon, Launch, DoubleJump OR Dash OR Glide
 
   pickup OuterWellspring.HiddenHC:
     base:
@@ -1100,10 +1100,8 @@ area OuterWellspring.WestDoor:  # (-892, -3991) Outside the door where you exit 
   conn OuterWellspring.EntranceDoor: free
 
 area OuterWellspring.EastDoor:  # (-814, -3972) Outside the door leading to the spin puzzle
-  state InnerWellspring.NeedleQI:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
   state OuterWellspring.QuestCompass:
-    base: InnerWellspring.NeedleQI
+    base: InnerWellspring.QuestNeedleItem
   state OuterWellspring.WestDoorBlueMoonFree:
     base, Weapon:
       Grapple, InnerWellspring.TopDoorOpen OR DoubleJump OR Dash OR Glide
@@ -1135,11 +1133,12 @@ area OuterWellspring.EastDoor:  # (-814, -3972) Outside the door leading to the 
       Bash, Grenade=1, Launch
   conn OuterWellspring.WestDoor:
     base:
-      DoubleJump OR Dash OR Glide OR Launch
+      DoubleJump OR Dash OR Launch
       InnerWellspring.TopDoorOpen, OuterWellspring.WestDoorBlueMoonFree, Grapple
   conn OuterWellspring.EntranceDoor: free
   conn WestGlades.MillApproach: 
     base: Grapple OR Glide OR Launch
+
 area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the teleporter
   state OuterWellspring.TrialActivation:
     base:
@@ -1154,7 +1153,7 @@ area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the t
       Bash, Grenade=1
       Launch
   pickup OuterWellspring.HiddenHC:
-    base:
+    base, EnemyObstacle:
       Grapple, DoubleJump, Dash OR Glide
       Grapple, Dash, Glide
       Launch, DoubleJump OR Dash OR Grapple OR Glide
@@ -1170,14 +1169,17 @@ region InnerWellspring:
     Danger=25
 
 area InnerWellspring.EntranceDoor:  # (-1294, -3953) Inside the door where you enter the first room
-  state InnerWellspring.LowerCorruptions:  # the first two corruptions you see on your way
-    base: Weapon
+  state InnerWellspring.ShortCutWheel:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch
 
   pickup InnerWellspring.ThornShard:
     base:
       Grapple, DoubleJump OR Dash OR Glide
       DoubleJump, Bash, Grenade=1
       Launch
+      Weapon, DoubleJump OR Dash OR Glide  # break the three wheels free
   pickup InnerWellspring.ThornEX:
     base:
       Grapple, DoubleJump, Dash OR Glide
@@ -1186,41 +1188,39 @@ area InnerWellspring.EntranceDoor:  # (-1294, -3953) Inside the door where you e
     base:
       Bash, Grenade=1
       Launch
-      InnerWellspring.LowerCorruptions
+      Weapon  # break the three wheels free
   pickup InnerWellspring.WaterSwitchEX:
     base: Water, WaterDash
   pickup InnerWellspring.DrainHC:
     base, InnerWellspring.DrainLever:
-      Water OR DoubleJump OR Grapple OR Launch  # bit of a weird pickup
+      DoubleJump OR Grapple OR Launch  # bit of a weird pickup
+      Water, Dash OR Glide
+      Water, Bash, Grenade=1
   pickup InnerWellspring.DrainEX:
     base, InnerWellspring.DrainLever:  # the skeetos just want to be bashed here
       DoubleJump, Water OR Bash
-      Water, Bash, Grenade=2
+      Water, Bash, Grenade=3
+      Water, Bash, Grenade=2, Dash OR Glide
       Water, Dash, Bash, Grenade=1
       Weapon, DoubleJump, Dash, Glide
       Launch
   pickup InnerWellspring.LaserOre:
     base:
-      Weapon, DoubleJump, Dash, InnerWellspring.LowerCorruptions
+      Weapon, DoubleJump, Dash
       Weapon, DoubleJump, Glide
       EnemyObstacle, Grapple, DoubleJump, Dash
       EnemyObstacle, Grapple, Glide
-      Launch
-  pickup InnerWellspring.ShortcutWheelEX:
-    base:
-      Grapple, DoubleJump, Dash OR Glide
-      Grapple, Dash, Glide
       Launch
 
   conn OuterWellspring.EntranceDoor: free
   conn InnerWellspring.BelowDrainLever:
     base:
-      Weapon, DoubleJump, Dash, InnerWellspring.LowerCorruptions
-      Weapon, DoubleJump, Bash, Grenade=1, InnerWellspring.LowerCorruptions
-      Weapon, DoubleJump, Glide
-      Grapple OR Launch
+      Weapon, DoubleJump, Dash OR Glide
+      Weapon, Grapple, DoubleJump OR Dash OR Glide
+      Grapple, DoubleJump, Dash OR Glide
+      Launch
   conn InnerWellspring.WestDoor:
-    base:
+    base:  # this in combination with the ShortCutWheel state accounts for all paths to the EX in the wheel
       Grapple, DoubleJump, Dash OR Glide
       Grapple, Dash, Glide
       Launch
@@ -1232,7 +1232,7 @@ area InnerWellspring.BelowDrainLever:  # (-1148, -3895) In the first room below 
       Launch
   state InnerWellspring.DrainLever:
     base:
-      Bash, Grenade=1
+      Bash, Grenade=1  # not softlockable: UpperCorruption solves this
       InnerWellspring.UpperCorruption OR Launch
 
   pickup InnerWellspring.LaserOre:
@@ -1241,8 +1241,8 @@ area InnerWellspring.BelowDrainLever:  # (-1148, -3895) In the first room below 
       Glide OR Launch
   pickup InnerWellspring.LeverEC:
     base:
-      Bash, Grenade=2
-      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide
+      Bash, Grenade=2  # not softlockable: UpperCorruption solves this
+      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide  # not softlockable: UpperCorruption solves this
       Launch
       InnerWellspring.UpperCorruption, Bash, Grenade=1
       InnerWellspring.UpperCorruption, Grapple, DoubleJump OR Dash OR Glide
@@ -1264,9 +1264,11 @@ area InnerWellspring.BelowDrainLever:  # (-1148, -3895) In the first room below 
 area InnerWellspring.WestDoor:  # (-1251, -3889) Inside the door where you exit the first room
   state InnerWellspring.MiddleDoorsOpen:
     base:
-      Grapple, DoubleJump OR Dash OR Glide OR Launch
-      Bash, Grenade=1, Grapple OR Launch
+      Grapple
+      Bash, Grenade=1, Launch
 
+  pickup InnerWellspring.ShortcutWheelEX:
+    base: InnerWellspring.ShortCutWheel
   pickup InnerWellspring.LupoMap:
     base:
       Grapple, DoubleJump OR Dash OR Glide
@@ -1274,12 +1276,15 @@ area InnerWellspring.WestDoor:  # (-1251, -3889) Inside the door where you exit 
       InnerWellspring.UpperCorruption
   pickup InnerWellspring.GrappleTreeEX:
     base:
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       DoubleJump, Grapple
+      Bash, Grenade=2
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
   pickup InnerWellspring.GrappleTree:
-    base: DoubleJump OR Dash OR Glide OR Grapple OR Launch
-  
+    base:
+      DoubleJump OR Dash OR Glide OR Grapple OR Launch
+      Bash, Grenade=1
+
   conn OuterWellspring.WestDoor:
     base: InnerWellspring.MiddleDoorsOpen
   conn InnerWellspring.BelowDrainLever: free
@@ -1288,30 +1293,36 @@ area InnerWellspring.EastDoor:  # (-1180, -3732) Inside the door leading to the 
   state InnerWellspring.QuestHandToHandHerbs:
     base: GladesTown.QuestHandToHandPouch
   state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
-    base: Combat, DoubleJump OR Dash OR Glide  # +25 region danger
+    base: Combat, DoubleJump OR Dash OR Glide OR Launch  # +25 region danger
+  state InnerWellspring.SpinPuzzleSolved:  # to prevent softlocks the pickups in the spin puzzle room unlock only after completing it
+    base, InnerWellspring.SpinArena:
+      Grapple, DoubleJump OR Dash
+      Grapple, Bash, Grenade=1
+      Launch
+      Water, DoubleJump, Dash OR Glide
   state InnerWellspring.TopDoorOpen:
-    base, InnerWellspring.SpinArena, Weapon:
+    base, InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Weapon:
       Grapple, DoubleJump, Dash OR Glide
       Grapple, Dash, Glide
       Grapple, Launch
+
+  state InnerWellspring.QuestNeedleItem:
+    base:
+      InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, InnerWellspring.TopDoorOpen, Grapple, Dash, Glide
+      InnerWellspring.TopDoorOpen, Grapple, DoubleJump OR Launch
+      InnerWellspring.TopDoorOpen, DoubleJump, Bash, Grenade=1
+      InnerWellspring.TopDoorOpen, Launch, DoubleJump
+  pickup InnerWellspring.NeedleQI:
+    base: InnerWellspring.NeedleQI  # TEMPORARY - delete when quests have syntax
   
   pickup InnerWellspring.AboveSpinArenaEX:
     base:
       Grapple, DoubleJump OR Dash
       Launch
   pickup InnerWellspring.RotateRoomEX:
-    base: InnerWellspring.SpinArena  # danger will handle it oriShrug
+    base: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
   pickup InnerWellspring.RotateRoomOre:
-    base, InnerWellspring.SpinArena:
-      Grapple, DoubleJump OR Dash
-      Grapple, Bash, Grenade=1, Glide
-      Launch
-      Water, DoubleJump, Dash OR Glide
-  pickup InnerWellspring.NeedleQI:
-    base, InnerWellspring.SpinArena, Weapon:
-      Grapple, DoubleJump, Dash OR Glide
-      Grapple, Dash, Glide
-      Grapple, Launch
+    base: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
   # no reason for backwards connections
 
 area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
@@ -1338,7 +1349,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
   pickup InnerWellspring.SwimOre:
     base: Water
   pickup InnerWellspring.EscapeRevisitEX:
-    base, Water:
+    base, InnerWellspring.WaterEscape OR Water:
       DoubleJump, Dash, Grapple
       DoubleJump, Dash, Bash, Grenade=1
       Bash, Grenade=1, Grapple
@@ -1346,8 +1357,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
       Launch
 
   conn OuterWellspring.TopDoor: free
-  # Opher shop potentially unsafe. Should investigate conditions for him disappearing
-# end unvalidated wellspring region
+  # Opher disappears from here if you complete the Watermill quest
 
 # begin pools needs validation area
 region PoolsApproach:
