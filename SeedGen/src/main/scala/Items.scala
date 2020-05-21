@@ -11,7 +11,7 @@ package SeedGenerator {
     override def toString = s"$name"
   }
 
-  trait Sellable extends Item
+  trait Buyable extends Item
   trait Important extends Item // literally just "show this in spoilers"
   trait Unplaceable extends Item {
     override val cost = Double.PositiveInfinity
@@ -28,22 +28,22 @@ package SeedGenerator {
   }
 
   case class SpiritLight(amount: Int) extends SpiritLightItem
-  class Resource(resourceType: Int, val name: String) extends Item with Sellable {
+  class Resource(resourceType: Int, val name: String) extends Item with Buyable {
     val itemType = 1
     def code = s"${itemType}|${resourceType}"
   }
 
-  case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.1f }
+  case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.2f }
   case object Energy extends Resource(1, "Half-Energy Cell")
   case object Ore extends Resource(2, "Gorlek Ore") { override val cost = 0.1f }
   case object Keystone extends Resource(3, "Keystone")
   case object ShardSlot extends Resource(4, "Shard Slot")
 
-  case class WorldEvent(eventId: Int) extends Item with Sellable with Important  {
+  case class WorldEvent(eventId: Int) extends Item with Buyable with Important  {
     val itemType: Int = 9
     def code = s"$itemType|$eventId"
     def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event ${eventId}")}"
-    override val cost = 5
+    override val cost = 7
   }
 
   object WorldEvent {
@@ -55,7 +55,7 @@ package SeedGenerator {
   }
   object Water extends WorldEvent(0)
 
-  case class Skill(skillId: Int) extends Item with Sellable with Important {
+  case class Skill(skillId: Int) extends Item with Buyable with Important {
     val itemType: Int = 2
     def code = s"$itemType|${skillId}"
     def name: String = s"${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
@@ -64,7 +64,7 @@ package SeedGenerator {
   object Skill {
     val itemType: Int = 2
     val areaFileNames: Map[String, Int] = Map("Bash" ->0, "DoubleJump" ->5, "Torch" ->99, "Sword" ->100, "WallJump" ->3, "Launch" ->8, "Glide" ->14, "WaterBreath" ->23, "Grenade" ->51, "Grapple" ->57, "Flash" ->62, "Spike" ->74, "Spear" ->74, "Regenerate" ->77, "Bow" ->97, "Hammer" ->98, "Burrow" ->101, "Dash" ->102, "WaterDash" ->104, "SpiritStar" ->106, "Shuriken" ->106, "Blaze" ->115, "Sentry" ->116, "Flap" ->118)
-    val costs: Map[Int, Double] = Map(8 -> 15, 77 -> 4, 98 -> 4)
+    val costs: Map[Int, Double] = Map(8 -> 15, 77 -> 3, 98 -> 4)
     val names: Map[Int, String] = Map(
       0 -> "Bash",
       3 -> "Wall Jump",
@@ -95,7 +95,7 @@ package SeedGenerator {
     val poolItems: Seq[Skill] = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq
   }
 
-  case class Shard(shardId: Int) extends Item with Sellable {
+  case class Shard(shardId: Int) extends Item with Buyable {
     val itemType: Int = 3
     def code = s"$itemType|${shardId}"
     def name: String = s"${Shard.names.getOrElse(shardId, s"Unknown (${shardId})")}"
@@ -137,7 +137,7 @@ package SeedGenerator {
     )
     val poolItems = names.keys.map(Shard(_)).toSeq
   }
-  case class Teleporter(teleporterId: Int) extends Item with Sellable with Important {
+  case class Teleporter(teleporterId: Int) extends Item with Buyable with Important {
     val itemType: Int = 5
     def code = s"$itemType|${teleporterId}"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown (${teleporterId})")} TP"
@@ -268,26 +268,31 @@ package SeedGenerator {
     def popRand(implicit r: Random): Option[Item] = asSeq match {
       case s: Seq[Item] if (s.size > 0) => {
         val i = s.apply(r.nextInt(s.size))
+        if(i == Launch && count > 165)
+        // if we haven't placed half the items yet,
+        // reroll launch count/500 % of the time
+            if(r.nextFloat() < count/500f)
+              return popRand
         take(i)
         Some(i)
       }
       case _ => None
     }
-    def popOreOrHealth(implicit r: Random): Option[Item] = {
+    def oreHealth(implicit r: Random): Option[Buyable] = {
       if(has(Ore))
-          if(has(Health) &&  r.nextBoolean()) {
-            take(Health)
-            Some(Health)
-          } else {
-            take(Ore)
-            Some(Ore)
-          }
+        if(has(Health) &&  r.nextBoolean()) {
+          take(Health)
+          Some(Health)
+        } else {
+          take(Ore)
+          Some(Ore)
+        }
       else
-        popRand
+        None
     }
 
-    def popSellable(implicit r: Random): Option[Sellable] = {
-      val sellables = asSeq.collect({case i: Sellable   => Some(i)}).flatten
+    def popSellable(implicit r: Random): Option[Buyable] = {
+      val sellables = asSeq.collect({case i: Buyable   => Some(i)}).flatten
       if (sellables.isEmpty)
         return None
       val i = sellables(r.nextInt(sellables.size))

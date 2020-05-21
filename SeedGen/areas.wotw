@@ -242,7 +242,8 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
     base:
       Weapon, DoubleJump OR Launch
       Weapon, Bash, Grenade=1
-  pickup HowlsDen.SwordTree: free
+  pickup HowlsDen.SwordTree:
+    base: Unreachable # temporary, but until this is fixed, i'm not ok putting real items here
   pickup HowlsDen.UpperEX: free
   pickup HowlsDen.MagnetShard:
     base: Weapon
@@ -1715,7 +1716,7 @@ region WestPools:
 
 area WestPools:  # (-1652, -4170) the west Pools TP
   state WestPools.KwolokDefeated:
-    base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=80, Dash OR Launch
+    base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=55, Dash OR Launch #+ 40 region danger
 
   state EastPools.QuestStickyGrassSeed:
     base: Water, WaterDash
