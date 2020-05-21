@@ -1314,7 +1314,7 @@ area InnerWellspring.EastDoor:  # (-1180, -3732) Inside the door leading to the 
       InnerWellspring.TopDoorOpen, DoubleJump, Bash, Grenade=1
       InnerWellspring.TopDoorOpen, Launch, DoubleJump
   pickup InnerWellspring.NeedleQI:
-    base: InnerWellspring.NeedleQI  # TEMPORARY - delete when quests have syntax
+    base: InnerWellspring.QuestNeedleItem  # TEMPORARY - delete when quests have syntax
   
   pickup InnerWellspring.AboveSpinArenaEX:
     base:
