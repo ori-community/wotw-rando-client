@@ -170,18 +170,17 @@ namespace RandoMainDLL {
     }
 
     public static Dictionary<UberId, ZoneType> LupoZoneIds = new Dictionary<UberId, ZoneType>() {
-      {new UberId(18767, 48248), ZoneType.Marsh},
-      {new UberId(45538, 48248), ZoneType.Burrows},
-      {new UberId(3638, 48248), ZoneType.Hollow},
-      {new UberId(1590, 48248), ZoneType.Wellspring},
-      {new UberId(1557, 48248), ZoneType.Pools},
-      {new UberId(48423, 48248), ZoneType.Depths},
-      {new UberId(61146, 48248), ZoneType.Wastes},
-//      {new UberId(61146, 48248), ZoneType.Ruins}, 
-      {new UberId(29604, 48248), ZoneType.Reach},
-      {new UberId(4045, 48248), ZoneType.Willow},
-      {new UberId(19396, 48248), ZoneType.Glades},
-      {new UberId(57987, 48248), ZoneType.Woods},
+      {new UberId(48248, 18767), ZoneType.Marsh},
+      {new UberId(48248, 45538), ZoneType.Burrows},
+      {new UberId(48248, 3638), ZoneType.Hollow},
+      {new UberId(48248, 1590), ZoneType.Wellspring},
+      {new UberId(48248, 1557), ZoneType.Pools},
+      {new UberId(48248, 48423), ZoneType.Depths},
+      {new UberId(48248, 61146), ZoneType.Wastes}, // ruins too but eh
+      {new UberId(48248, 29604), ZoneType.Reach},
+      {new UberId(48248, 4045), ZoneType.Willow},
+      {new UberId(48248, 19396), ZoneType.Glades},
+      {new UberId(48248, 57987), ZoneType.Woods},
     };
 
 
