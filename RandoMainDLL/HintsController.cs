@@ -61,63 +61,74 @@ namespace RandoMainDLL {
       {ZoneType.Reach,  new UberState() { Name = "hasMapBaursReach", ID = 29604, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
       {ZoneType.Willow,  new UberState() { Name = "hasMapWillowsEnd", ID = 4045, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
       {ZoneType.Glades, new UberState() { Name = "mapmakerShowMapIconEnergyUberState", ID = 19396, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
-      {ZoneType.Woods, new UberState() { Name = "mapmakerShowMapIconEnergyUberState", ID = 19396, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
+      {ZoneType.Woods, new UberState() { Name = "mapmakerShowMapIconHealthUberState", ID = 57987, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
     }; 
     // might change later?
     public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is WorldEvent);
 
     public static Dictionary<ZoneType, List<Checkable>> HintObjects = new Dictionary<ZoneType, List<Checkable>>();
-
+    public static ZoneType BurrowZone = ZoneType.Void;
+    public static ZoneType WaterDashZone = ZoneType.Void;
+    public static ZoneType LightBurstZone = ZoneType.Void;
     public static void Reset() {
       HintObjects.Clear();
     }
 
     public static void AddHint(ZoneType zone, Checkable item) {
+      if(item.me is Ability) {
+        AbilityType i = (item.me as Ability).type;
+        if (i == AbilityType.Burrow)
+          BurrowZone = zone;
+        else if (i == AbilityType.LightBurst)
+          LightBurstZone = zone;
+        else if (i == AbilityType.WaterDash)
+          WaterDashZone = zone;
+      }
       if (HintObjects.ContainsKey(zone))
         HintObjects[zone].Add(item);
       else
         HintObjects[zone] = new List<Checkable>() { item };
     }
 
-    public static void ShowHintMessage(bool justUnlocked = false) {
-      var msg = GetHintMessage(justUnlocked);
+    public static void ShowHintMessage(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
+      var zone = _zone == ZoneType.Void ? CurrentZone : _zone;
+      var msg = GetZoneHintMessage(zone, justUnlocked);
       if (justUnlocked)
         msg = $"Bought hint: {msg}";
       else
-        msg = $"{SeedController.Progress}\n{msg}";
+        msg = $"{SeedController.Progress}\n{msg}{GetKeySkillHint()}";
       AHK.SendPlainText(new PlainText(msg, 240), justUnlocked);
     }
 
-    public static string GetHintMessage(bool justUnlocked = false) {
-      var zone = CurrentZone;
-      if (!zone.HasValue) return $"Can't give hint for unknown zone (area {Randomizer.Memory.PlayerArea()})";
-      if (!justUnlocked && !HaveHintForZone) return $"{zone.Value}: 0/?? key items (Hint not unlocked)";
-      if(HintObjects.TryGetValue(zone.Value, out var items) && items.Count > 0) {
+    public static string GetZoneHintMessage(ZoneType zone, bool justUnlocked = false) {
+      if (zone == ZoneType.Void) return $"Can't give hint for unknown zone (area {Randomizer.Memory.PlayerArea()})";
+      if (!justUnlocked && !HaveHintForZone) return $"{zone}: 0/?? key items (Hint not unlocked)";
+      if(HintObjects.TryGetValue(zone, out var items) && items.Count > 0) {
         var found = new List<String>();
         foreach(var item in items) 
-          if (item.Has()) 
+          if (item.Has())
             found.Add(item.ToString());        
         if(found.Count == items.Count) 
-          return $"{zone.Value}: ${found.Count}/{items.Count} key items$\nfound: {String.Join(", ", found)}";
+          return $"{zone}: ${found.Count}/{items.Count} key items$\nfound: {String.Join(", ", found)}";
         else if (found.Count > 0)
-          return $"{zone.Value}: {found.Count}/{items.Count} key items\nfound: {String.Join(", ", found)}";
+          return $"{zone}: {found.Count}/{items.Count} key items\nfound: {String.Join(", ", found)}";
         else
-          return $"{zone.Value}: {found.Count}/{items.Count} key items";
+          return $"{zone}: {found.Count}/{items.Count} key items";
       }
-      return $"No key items in ${zone.Value}";
+      return $"No key items in ${zone}";
     }
     // the two below shouldn't be properties, but i wanted to make the one above a property too?
     // so this was a compromise, if you think about it.
-    public static ZoneType? CurrentZone  {
+    public static ZoneType CurrentZone  {
       get {
         try {
           if (AreaToZone.TryGetValue(Randomizer.Memory.PlayerArea(), out ZoneType zone)) 
             return zone;
           else
-            return null;          
+            return ZoneType.Void;          
         } catch (Exception e) { 
           Randomizer.Error("Hints.CurrentZone", e, false);
-          return null;
+          return ZoneType.Void;
         }
       }
     }
@@ -125,9 +136,9 @@ namespace RandoMainDLL {
       get {
         try {
           var zone = CurrentZone;
-          if (!zone.HasValue)
+          if (zone == ZoneType.Void)
             return false;
-          if (ZoneToState.TryGetValue(zone.Value, out UberState state)) {
+          if (ZoneToState.TryGetValue(zone, out UberState state)) {
             var value = state.CurrentValue();
             if (!value.HasValue) return false;
             return value.Value.Bool;
@@ -141,15 +152,36 @@ namespace RandoMainDLL {
         }
       }
     }
-    public static HashSet<UberId> LupoZoneIds = new HashSet<UberId>() {
-      new UberId(48248, 18767),
-      new UberId(48248, 45538),
-      new UberId(48248, 3638),
-      new UberId(48248, 1590),
-      new UberId(48248, 1557),
-      new UberId(48248, 29604),
-      new UberId(48248, 48423),
-      new UberId(48248, 61146),
+    public static UberState SkillHintState = new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
+    public static string GetKeySkillHint() {
+      var value = SkillHintState.CurrentValue();
+      if(value.HasValue && value.Value.Bool) {
+        var b = Randomizer.Memory.HasAbility(AbilityType.Burrow) ? "$" : "";
+        var w = Randomizer.Memory.HasAbility(AbilityType.WaterDash) ? "$" : "";
+        var l = Randomizer.Memory.HasAbility(AbilityType.LightBurst) ? "$" : "";
+        return $"\n{b}Burrow: {BurrowZone}{b}, {w}Water Dash: {WaterDashZone}{w}, {l}Light Burst: {LightBurstZone}{l}";
+      }
+      return "";
+    }
+    public static void OnLupoState(UberId id) {
+      if(LupoZoneIds.ContainsKey(id)) {
+        ShowHintMessage(LupoZoneIds[id], true);
+      }
+    }
+
+    public static Dictionary<UberId, ZoneType> LupoZoneIds = new Dictionary<UberId, ZoneType>() {
+      {new UberId(18767, 48248), ZoneType.Marsh},
+      {new UberId(45538, 48248), ZoneType.Burrows},
+      {new UberId(3638, 48248), ZoneType.Hollow},
+      {new UberId(1590, 48248), ZoneType.Wellspring},
+      {new UberId(1557, 48248), ZoneType.Pools},
+      {new UberId(48423, 48248), ZoneType.Depths},
+      {new UberId(61146, 48248), ZoneType.Wastes},
+//      {new UberId(61146, 48248), ZoneType.Ruins}, 
+      {new UberId(29604, 48248), ZoneType.Reach},
+      {new UberId(4045, 48248), ZoneType.Willow},
+      {new UberId(19396, 48248), ZoneType.Glades},
+      {new UberId(57987, 48248), ZoneType.Woods},
     };
 
 

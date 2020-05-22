@@ -96,8 +96,7 @@ namespace RandoMainDLL {
       if (granted) {
         p.Grant();
       }
-      if (HintsController.LupoZoneIds.Contains(id))
-        HintsController.ShowHintMessage(true);
+      HintsController.OnLupoState(id);
       return granted;
     }
 

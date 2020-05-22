@@ -40,6 +40,13 @@ bool isInShopScreen(){
 		if(spiritShardsShopScreen && SeinCharacter_get_Active((__int64) spiritShardsShopScreen))
 			return true;
 	}
+    const MapmakerScreen_c* Class_MapmakerScreen = *(MapmakerScreen_c**)resolve_rva(71472816);
+    if (Class_MapmakerScreen) {
+        const auto mapmakerScreen = Class_GameController->static_fields->Instance;
+        if (mapmakerScreen && SeinCharacter_get_Active((__int64)mapmakerScreen))
+            return true;
+    }
+
 	return false;
 };
 
@@ -213,30 +220,50 @@ INTERCEPT(11448960, __int64, SpellInventory_AddNewSpellToInventory, (__int64 inv
 	__int64 result = SpellInventory_AddNewSpellToInventory(inv, equipmentType, add);
 	return result;
 });
-
-INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (__int64 state, unsigned char value), {
-	//Moon.SerializedByteUberState$$set_Value
-    if(weaponmasterPurchaseInProgress)
-		return;
-  
-	SerializedByteUberState_SetValue(state, value);
+INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (Moon_SerializedByteUberState_o* this_ptr, unsigned char value), {
+    //Moon.SerializedByteUberState$$set_Value
+    if (weaponmasterPurchaseInProgress)
+        return;
+    SerializedByteUberState_SetValue(this_ptr, value);
 });
 
+
 INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 context), {
-	//Weaponmasteritem$$DoPurchase
-	weaponmasterPurchaseInProgress = true;
-	auto abilityType = getWeaponMasterAbilityItemGranted(item);
-	if((int) abilityType != -1)
-		CSharpLib->call<void, char>("OpherBuyWeapon", abilityType);
-	else {
-		char requiredType = getWeaponMasterAbilityItemRequired(item);
-		if((int) requiredType == -1) // fast travel; 255, 255 -> 105, 0
-			CSharpLib->call<void, char>("OpherBuyWeapon", 105);
+    //Weaponmasteritem$$DoPurchase
+    weaponmasterPurchaseInProgress = true;
+    auto abilityType = getWeaponMasterAbilityItemGranted(item);
+    if ((int)abilityType != -1)
+        CSharpLib->call<void, char>("OpherBuyWeapon", abilityType);
+    else {
+        char requiredType = getWeaponMasterAbilityItemRequired(item);
+        if ((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
+            CSharpLib->call<void, char>("OpherBuyWeapon", 105);
         else {
             CSharpLib->call<void, char>("OpherBuyUpgrade", requiredType);
             weaponmasterPurchaseInProgress = false; // so upgrade buying isn't no-opped
         }
-	}
+    }
     WeaponmasterItem_DoPurchase(item, context);
     weaponmasterPurchaseInProgress = false;
-})
+});
+
+//MapmakerScreen_o* mapMakerPtr = nullptr;
+//bool pretendHandToHandNotCompleted = false;
+
+INTERCEPT(6951632, int32_t, MapmakerItem__GetCost, (MapmakerItem_o* this_ptr), {
+    return CSharpLib->call<int, int>("LupoUpgradeCost", this_ptr->UberState->UberIDOwnerSO_m_id->m_id);
+});
+
+bool preventMapSafeguard = false;
+
+INTERCEPT(6954992, void, MapmakerScreen__Show, (MapmakerScreen_o* this_ptr), {
+    preventMapSafeguard = true;
+    MapmakerScreen__Show(this_ptr);
+    preventMapSafeguard = false;
+});
+INTERCEPT(27748336, bool, Moon_SerializedBooleanUberState__get_Value, (Moon_SerializedBooleanUberState_o* this_ptr), {
+    if (preventMapSafeguard && this_ptr->UberIDOwnerSO_m_id->m_id == 35534) {
+        return false;
+    }
+    return Moon_SerializedBooleanUberState__get_Value(this_ptr);
+});
