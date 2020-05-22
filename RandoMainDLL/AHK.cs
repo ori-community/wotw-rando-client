@@ -110,7 +110,7 @@ namespace RandoMainDLL {
           FramesTillNextSend = Current.Frames;
           try {
             InterOp.clearVisibleHints();
-            InterOp.displayHint(ShopController.getIl2cppStringPointer(Current.Text), Current.Frames / 60f);
+            InterOp.displayHint(InterOp.Util.getIl2cppStringPointer(Current.Text), Current.Frames / 60f);
             if (IniFlag("LogOnPrint")) {
               Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
             }

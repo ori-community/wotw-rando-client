@@ -1,54 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace RandoMainDLL {
   public static class ShopController {
     public static HashSet<string> Strings = new HashSet<string>();
 
-    [DllExport]
-    public static ulong ShopStringRepl(IntPtr str) {
+    public static ulong MessageSwap(IntPtr str) {
       var strr = MemoryReader.ReadString(Randomizer.Memory.Program, str);
       var shopStr = GetShopNameReplacement(strr);
       if (shopStr != strr) {
-        return (ulong)getIl2cppStringPointer(shopStr);
+        return (ulong)InterOp.Util.getIl2cppStringPointer(shopStr);
       }
       else if (!Strings.Contains(strr)) {
-        // if (Randomizer.Dev)
-        //   Randomizer.Log($"New String: |{strr}|", false);
+        if (Randomizer.Dev)
+          Randomizer.Log($"New String: |{strr}|", false);
         Strings.Add(strr);
       }
       return 0;
     }
 
-    private static readonly Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
-
-    public static IntPtr getIl2cppStringPointer(string str) {
-      if (!stringAddresses.ContainsKey(str)) {
-        var chars = str.ToCharArray();
-        int size = Encoding.Unicode.GetByteCount(chars);
-        byte[] bytes = Encoding.Unicode.GetBytes(chars);
-
-        IntPtr ptr = Marshal.AllocHGlobal(0x14 + size);
-        for (int i = 0; i < MemoryReader.stringHeader.Length; i++) {
-          Marshal.WriteByte(ptr, i, MemoryReader.stringHeader[i]);
-        }
-
-        Marshal.WriteInt64(ptr, 0x10, str.Length);
-        for (int i = 0; i < bytes.Length; i++) {
-          Marshal.WriteByte(ptr, 0x14 + i, bytes[i]);
-        }
-        stringAddresses[str] = ptr;
-      }
-
-      return stringAddresses[str];
-    }
 
     public static string GetShopNameReplacement(string orig) {
       if (RemoveStrings.Contains(orig)) {
         return " ";
+      }
+      else if(LupoReplacements.ContainsKey(orig)) {
+        return LupoReplacements[orig];
       }
       else if (OpherWeaponDetail.ContainsKey(orig)) {
         var weapon = OpherWeaponDetail[orig];
@@ -87,6 +66,15 @@ namespace RandoMainDLL {
       "Enemies drop 3 extra Spirit Light orbs",
       "Enemies drop 4 extra Spirit Light orbs",
       "20% chance to deal 50% bonus damage",
+    };
+
+    public static Dictionary<string, string> LupoReplacements = new Dictionary<string, string> {
+      {"Reveal Energy Cells", "Glades hint" },
+      {"Reveal Life Cells", "Woods hint" },
+      {"Reveal Shards", "Burrow/Water Dash/Light Burst hint" },
+      {"Show all #Energy Cells# on maps", "information on $Key Items$ in #Wellspring Glades#" },
+      {"Show all #Life Cells# on maps", "information on $Key Items$ in #Silent Woods#" },
+      {"Show all #Spirit Shards# on maps", "Will tell you what Zone $Water Dash$, $Burrow$ and $Light Burst$ are in" },
     };
 
     public static Dictionary<string, AbilityType> OpherWeaponNames = new Dictionary<string, AbilityType> {
@@ -177,8 +165,7 @@ namespace RandoMainDLL {
     public static float GetCostMod(AbilityType type) => weaponCostMods.ContainsKey(type) ? weaponCostMods[type] : 0f;
     public static float GetCostMod(ShardType type) => shardCostMods.ContainsKey(type) ? shardCostMods[type] : 0f;
 
-    [DllExport]
-    public static void OpherBuyWeapon(AbilityType slot) {
+    public static void OnBuyOpherWeapon(AbilityType slot) {
       Sellable item = SeedController.OpherWeapon(slot);
       if (SaveController.Data.OpherSold.Contains(slot)) {
         Randomizer.Log($"OBW: not enough money or slot already sold");
@@ -190,18 +177,9 @@ namespace RandoMainDLL {
       return;
     }
 
-    [DllExport]
-    public static void OpherBuyUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
+    public static void OnBuyOpherUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
 
-    [DllExport]
-    public static bool OpherBoughtUpgrade(AbilityType slot) {
-      SaveController.Data.OpherUpgraded.TryGetValue(slot, out int cnt);
-      return cnt > 0;
-    }
-
-
-    [DllExport]
-    public static void TwillenBuyShard(ShardType slot) {
+    public static void OnBuyTwillenShard(ShardType slot) {
       Sellable item = SeedController.TwillenShard(slot);
       if (SaveController.Data.TwillenSold.Contains(slot)) {
         Randomizer.Log($"TBS: not enough money or slot already sold ");
@@ -212,16 +190,22 @@ namespace RandoMainDLL {
       item.Grant();
       return;
     }
-    [DllExport]
     public static bool OpherBoughtWeapon(AbilityType granted) => SaveController.Data.OpherSold.Contains(granted);
 
-    [DllExport]
     public static bool TwillenBoughtShard(ShardType shard) => SaveController.Data.TwillenSold.Contains(shard);
 
-    [DllExport]
-    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(GetCostMod(shard));
+    public static bool OpherBoughtUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.GetOrElse(slot, 0) > 0;
 
-    [DllExport]
-    public static int OpherWeaponCost(AbilityType ability) => SeedController.OpherWeapon(ability).CostWithMod(GetCostMod(ability));
+    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(ShopController.GetCostMod(shard));
+    public static int OpherWeaponCost(AbilityType ability) => SeedController.OpherWeapon(ability).CostWithMod(ShopController.GetCostMod(ability));
+
+    private static Dictionary<int, int> lupoCosts = new Dictionary<int, int>() {
+      {19396, 200 },  // energy -> glades
+      {57987, 200 },  // health -> woods
+      {41666, 4000 }, // shards -> key item hints
+    };
+    public static int LupoUpgradeCost(int upgradeId) => lupoCosts.GetOrElse(upgradeId, 250);
+
+
   }
 }
