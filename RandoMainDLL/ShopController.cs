@@ -14,8 +14,8 @@ namespace RandoMainDLL {
         return (ulong)InterOp.Util.getIl2cppStringPointer(shopStr);
       }
       else if (!Strings.Contains(strr)) {
-        if (Randomizer.Dev)
-          Randomizer.Log($"New String: |{strr}|", false);
+/*        if (Randomizer.Dev)
+          Randomizer.Log($"New String: |{strr}|", false);*/
         Strings.Add(strr);
       }
       return 0;
