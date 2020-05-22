@@ -42,7 +42,7 @@ bool isInShopScreen(){
 	}
     const MapmakerScreen_c* Class_MapmakerScreen = *(MapmakerScreen_c**)resolve_rva(71472816);
     if (Class_MapmakerScreen) {
-        const auto mapmakerScreen = Class_GameController->static_fields->Instance;
+        const auto mapmakerScreen = Class_MapmakerScreen->static_fields->Instance;
         if (mapmakerScreen && SeinCharacter_get_Active((__int64)mapmakerScreen))
             return true;
     }
