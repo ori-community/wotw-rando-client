@@ -2884,10 +2884,6 @@ area WillowsEnd.Entry:  # (495, -3950) At the lower door
   conn WillowsEnd.InnerTP:
     base:
       Launch, Bash, DoubleJump OR Dash OR Glide  # mine in the way, but I think it's managable
-  # this next conn is extra-unvalidated
-  conn WeepingRidge:
-    base:
-      Glide OR DoubleJump OR Launch  # any air movement will get you here, I think?
 
 area WillowsEnd.InnerTP:  # (421, -3864) The teleporter inside
   pickup WillowsEnd.LupoMap:

@@ -9,10 +9,6 @@ namespace RandoMainDLL {
     public class SaveData {
       public SaveData(int slot) {
         Slot = slot;
-        // should make it possible to load seeds that tracked this the old way and have it work?
-        if (UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().GetValue().GetValueOrDefault(new UberValue(0)).Int > 3)
-          // TODO: delete this once everyone's been patched (let's say June?)
-          WorldEvents.Add(WorldEventType.Water);
       }
 
       [JsonConstructor]

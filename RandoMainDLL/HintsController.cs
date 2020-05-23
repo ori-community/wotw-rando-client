@@ -102,8 +102,9 @@ namespace RandoMainDLL {
 
     public static string GetZoneHintMessage(ZoneType zone, bool justUnlocked = false) {
       if (zone == ZoneType.Void) return $"Can't give hint for unknown zone (area {Randomizer.Memory.PlayerArea()})";
-      if (!justUnlocked && !HaveHintForZone) return $"{zone}: 0/?? key items (Hint not unlocked)";
-      if(HintObjects.TryGetValue(zone, out var items) && items.Count > 0) {
+      var items = HintObjects.GetOrElse(zone, new List<Checkable>());
+      if (!justUnlocked && !HaveHintForZone) return $"{zone}: ${items.Count}/?? key items (Hint not unlocked)";
+      if(items.Count > 0) {
         var found = new List<String>();
         foreach(var item in items) 
           if (item.Has())
