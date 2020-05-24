@@ -668,9 +668,7 @@ object Runner {
       val (grps, err) = mkSeed(advanced)(debug)
       err match {
         case Some(e)  => println(s"$e"); None
-          // TODO: remove this once sword tree fixed
-        case None     => Some(("0|100|0|100         // temp fixed pickup: 100 spirit light from sword tree because it's bugged " +
-          grps.map(plcmnts => plcmnts.write).mkString("\n")).replace("\n", "\r\n"))
+        case None     => Some(grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
       }
     }
     def seedProg(advanced: Boolean = false, debug: Boolean = false): Option[String] = {
