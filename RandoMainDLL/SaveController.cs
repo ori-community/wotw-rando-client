@@ -14,17 +14,17 @@ namespace RandoMainDLL {
       [JsonConstructor]
       public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell,
         Dictionary<AbilityType, int> opherUpgrade, HashSet<ShardType> shardSlots,
-        HashSet<WorldEventType> worldEvents, int count = 0) {
+        HashSet<QuestEventType> worldEvents, int count = 0) {
         Slot = slot;
         TreesActivated = trees;
         OpherSold = opherSell;
         OpherUpgraded = opherUpgrade;
         TwillenSold = shardSlots;
         if(worldEvents == null) {
-          worldEvents = new HashSet<WorldEventType>();
+          worldEvents = new HashSet<QuestEventType>();
           if (UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().GetValue().GetValueOrDefault(new UberValue(0)).Int > 3)
             // TODO: delete this once everyone's been patched (let's say June?)
-            worldEvents.Add(WorldEventType.Water);
+            worldEvents.Add(QuestEventType.Water);
         }
         WorldEvents = worldEvents;
         FoundCount = count;
@@ -35,7 +35,7 @@ namespace RandoMainDLL {
       public HashSet<AbilityType> OpherSold = new HashSet<AbilityType>();
       public Dictionary<AbilityType, int> OpherUpgraded = new Dictionary<AbilityType, int>();
       public HashSet<ShardType> TwillenSold = new HashSet<ShardType>();
-      public HashSet<WorldEventType> WorldEvents = new HashSet<WorldEventType>();
+      public HashSet<QuestEventType> WorldEvents = new HashSet<QuestEventType>();
       public int FoundCount = 0;
 
       [JsonIgnore]
@@ -67,7 +67,7 @@ namespace RandoMainDLL {
         OpherSold = new HashSet<AbilityType>(copyFrom.OpherSold);
         OpherUpgraded = new Dictionary<AbilityType, int>(copyFrom.OpherUpgraded);
         TwillenSold = new HashSet<ShardType>(copyFrom.TwillenSold);
-        WorldEvents = new HashSet<WorldEventType>(copyFrom.WorldEvents);
+        WorldEvents = new HashSet<QuestEventType>(copyFrom.WorldEvents);
         FoundCount = copyFrom.FoundCount;
       }
     }
