@@ -96,13 +96,13 @@ INTERCEPT(4084560, void, GameWorld__Awake, (__int64 thisPtr), {
 	}
 	GameWorld__Awake(thisPtr);
 });
-
-INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPointer), {
+INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
 	//GameController$$FixedUpdate
-	fixedUpdate1(thisPointer);
-	onFixedUpdate(thisPointer);
+	fixedUpdate1(thisPtr);
+	onFixedUpdate(thisPtr);
 });
 BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
+BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
 INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 	//NewGameAction$$Perform
 	CSharpLib->call<void, int>("NewGame", getSaveSlot());
@@ -111,23 +111,25 @@ INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 
 
 
-INTERCEPT(8237360, void, saveToFile, (__int64 thisPtr, __int64 slotIndex, __int64 backupIndex, __int64 bytesPtr), {
-	//SaveGameController$$SaveToFile
-	CSharpLib->call<void, __int64>("OnSave", slotIndex);
-	saveToFile(thisPtr, slotIndex, backupIndex, bytesPtr);
-		  });
+INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
+	CSharpLib->call<void, int, int>("OnSave", slotIndex, backupIndex);
+    SaveGameController__SaveToFile(thisPtr, slotIndex, -1, bytes);
+});
 
-INTERCEPT(8252224, void, onFinishedLoading, (__int64 thisPtr), {
-	//SaveGameController$$OnFinishedLoading
-	CSharpLib->call<void, int>("OnLoad", getSaveSlot());
-	onFinishedLoading(thisPtr);
-		  });
+INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
+    CSharpLib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
+    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
+})
 
-INTERCEPT(8249872, void, restoreCheckpoint, (__int64 thisPtr, __int64 actionPtr), {
-	//SaveGameController$$RestoreCheckpoint
-	CSharpLib->call<void, int>("OnLoad", getSaveSlot());
-	restoreCheckpoint(thisPtr, actionPtr);
-		  });
+INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
+	CSharpLib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SaveGameController__OnFinishedLoading(thisPtr);
+});
+
+INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
+    CSharpLib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SaveGameController__RestoreCheckpoint(thisPtr);
+});
 
 
 

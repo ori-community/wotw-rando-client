@@ -22,9 +22,6 @@ namespace RandoMainDLL {
         TwillenSold = shardSlots;
         if(worldEvents == null) {
           worldEvents = new HashSet<QuestEventType>();
-          if (UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().GetValue().GetValueOrDefault(new UberValue(0)).Int > 3)
-            // TODO: delete this once everyone's been patched (let's say June?)
-            worldEvents.Add(QuestEventType.Water);
         }
         WorldEvents = worldEvents;
         FoundCount = count;
@@ -40,23 +37,24 @@ namespace RandoMainDLL {
 
       [JsonIgnore]
       public string Filename => $"{Randomizer.SaveFolder}\\randosave_{Slot}.json";
+      public string fullName(int backup) => Filename + (backup != -1 ? $".{backup}.bak" : "");
       public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}";
-      public void Save() {
-        if (File.Exists(Filename)) {
-          File.Delete(Filename);
-        }
-
-        using (var sw = new StreamWriter(Filename))
-        using (JsonWriter writer = new JsonTextWriter(sw)) {
-          var serializer = new JsonSerializer();
-          serializer.Serialize(writer, this);
-        }
+      public void Save(int backup = -1) {
+        string targetFile = fullName(backup);
+        if (File.Exists(targetFile)) 
+          File.Delete(targetFile);
+        
+        using (var sw = new StreamWriter(targetFile))
+          using (JsonWriter writer = new JsonTextWriter(sw)) {
+            var serializer = new JsonSerializer();
+            serializer.Serialize(writer, this);
+          }
       }
-
-      public void Load() {
+      public void Load(int backup = -1) {
+        string targetFile = fullName(backup);
         var copyFrom = new SaveData(-1);
-        if (File.Exists(Filename)) {
-          using (var sr = new StreamReader(Filename))
+        if (File.Exists(targetFile)) {
+          using (var sr = new StreamReader(targetFile))
           using (JsonReader reader = new JsonTextReader(sr)) {
             var serializer = new JsonSerializer();
             serializer.DefaultValueHandling = DefaultValueHandling.Populate;
@@ -81,7 +79,8 @@ namespace RandoMainDLL {
       Data.Save();
     }
 
-    public static void OnLoad(int slot) {
+    public static void OnLoad(int slot, int backupSlot = -1) {
+      Randomizer.Log($"load: {slot}, {backupSlot}", false, "DEBUG");
       try {
         if (slot != CurrentSlot) {
           if (Randomizer.InputUnlockCallback != null) {
@@ -92,28 +91,30 @@ namespace RandoMainDLL {
           CurrentSlot = slot;
           Data = new SaveData(slot);
         }
-        Data.Load();
+
+        Data.Load(backupSlot);
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
 
-    public static void OnSave(int slot) {
+    public static void OnSave(int slot, int backupSlot = -1) {
+      Randomizer.Log($"save: {slot}, {backupSlot}", false, "DEBUG");
       if (slot == -1) {
-        Randomizer.Log("Error: tried to load from empty slot");
+        Randomizer.Log("Error: tried to save to empty slot");
         return;
       }
       if (slot != CurrentSlot) {
         // this is a slot swap and not a save
         CurrentSlot = slot;
         Data = new SaveData(slot);
-        Data.Load();
+        Data.Load(backupSlot);
         if (Randomizer.InputUnlockCallback != null) {
           AHK.Print("Warning: Callback overwritten on slot change!", 240);
           Randomizer.InputUnlockCallback = null;
         }
         return;
       }
-      Data.Save();
+      Data.Save(backupSlot);
     }
   }
 }
