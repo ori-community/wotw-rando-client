@@ -4,7 +4,7 @@
 #include "dllmain.h"
 #include "interceptionMacros.h"
 
-const std::set<char> treeAbilities{0, 5, 8, 23, 51, 57, 62, 77, 97, 100, 101, 102, 103, 104, 117, 121};
+const std::set<char> treeAbilities{0, 5, 8, 23, 51, 57, 62, 77, 97, 100, 101, 102, 103, 104, 117, 120, 121};
 bool isTree(char tree){
     return treeAbilities.find(tree) != treeAbilities.end();
 }
