@@ -99,6 +99,15 @@ namespace RandoMainDLL {
       [DllExport]
       public static bool InjectDebugEnabled() => AHK.IniFlag("DebugInjectLogs");
 
+      // save interops
+      [DllExport]
+      public static void NewGame(int slot) => Randomizer.OnNewGame(slot);
+      
+      [DllExport]
+      public static void OnLoad(int slot) => SaveController.OnLoad(slot);
+      [DllExport]
+      public static void OnSave(int slot) => SaveController.OnSave(slot);
+
       [DllExport]
       public static bool DoInvertTree(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability) ^ Randomizer.Memory.HasAbility(ability);
 
