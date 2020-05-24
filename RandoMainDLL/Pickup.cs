@@ -188,36 +188,36 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
-
-    public bool Has() {
-      if (TeleporterStates.TryGetValue(type, out UberState state))
-        return state.CurrentValue().GetValueOrDefault(new UberValue(false)).Bool;
-      return false;
-    }
-    public static Dictionary<TeleporterType, UberState> TeleporterStates = new Dictionary<TeleporterType, UberState>() {
-      { TeleporterType.Burrows, UberStateDefaults.savePedestalMidnightBurrows },
-      { TeleporterType.Den, UberStateDefaults.savePedestalHowlsDen },
-      { TeleporterType.EastPools, UberStateDefaults.savePedestalLumaPoolsA },
-      { TeleporterType.Wellspring, UberStateDefaults.savePedestalWellspring },
-      { TeleporterType.Reach, UberStateDefaults.savePedestalBaursReach },
-      { TeleporterType.Hollow, UberStateDefaults.savePedestalKwoloksHollow },
-      { TeleporterType.Depths, UberStateDefaults.savePedestalMouldwood },
-      { TeleporterType.WestWoods, UberStateDefaults.savePedestalSilentWoodsA },
-      { TeleporterType.EastWoods, UberStateDefaults.savePedestalSilentWoodsB },
-      { TeleporterType.WestWastes, UberStateDefaults.savePedestalWindsweptWastesA },
-      { TeleporterType.EastWastes, UberStateDefaults.savePedestalWindsweptWastesB },
-      { TeleporterType.OuterRuins, UberStateDefaults.savePedestalWindtornRuinsA },
-      { TeleporterType.WillowsEnd, UberStateDefaults.savePedestalWillowsEnd },
-      { TeleporterType.InnerRuins, UberStateDefaults.savePedestalWindtornRuinsB },
-      { TeleporterType.WestPools, UberStateDefaults.savePedestalLumaPoolsB },
-      { TeleporterType.Shriek, UberStateDefaults.savePedestalWillowsEndShriek },
-      { TeleporterType.Spawn, UberStateDefaults.savePedestalInkwaterMarsh },
-      { TeleporterType.Glades, UberStateDefaults.savePedistalGladesTown },
+    private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
+    public bool Has() =>
+      states().All((s) => s.ValueOr(new UberValue(false)).Bool);
+    //      return false;
+    public static Dictionary<TeleporterType, List<UberState>> TeleporterStates = new Dictionary<TeleporterType, List<UberState>> {
+      { TeleporterType.Burrows, new List<UberState> { UberStateDefaults.savePedestalMidnightBurrows} },
+      { TeleporterType.Den, new List<UberState> { UberStateDefaults.savePedestalHowlsDen} },
+      { TeleporterType.Wellspring, new List<UberState> { UberStateDefaults.savePedestalWellspring} },
+      { TeleporterType.Reach, new List<UberState> { UberStateDefaults.savePedestalBaursReach} },
+      { TeleporterType.Hollow, new List<UberState> { UberStateDefaults.savePedestalKwoloksHollow} },
+      { TeleporterType.Depths, new List<UberState> { UberStateDefaults.savePedestalMouldwood} },
+      { TeleporterType.WestWoods, new List<UberState> { UberStateDefaults.savePedestalSilentWoodsA} },
+      { TeleporterType.EastWoods, new List<UberState> { UberStateDefaults.savePedestalSilentWoodsB} },
+      { TeleporterType.WestWastes, new List<UberState> { UberStateDefaults.savePedestalWindsweptWastesA} },
+      { TeleporterType.EastWastes, new List<UberState> { UberStateDefaults.savePedestalWindsweptWastesB} },
+      { TeleporterType.OuterRuins, new List<UberState> { UberStateDefaults.savePedestalWindtornRuinsA} },
+      { TeleporterType.WillowsEnd, new List<UberState> { UberStateDefaults.savePedestalWillowsEnd} },
+      { TeleporterType.InnerRuins, new List<UberState> { UberStateDefaults.savePedestalWindtornRuinsB} },
+      { TeleporterType.EastPools, new List<UberState> { 
+        UberStateDefaults.savePedestalLumaPoolsA, 
+        new UberState() {Name = "waterLowered", ID = 63173, GroupName = "lumaPoolsStateGroup", GroupID = 5377, Type = UberStateType.SerializedBooleanUberState }
+      } },
+      { TeleporterType.WestPools, new List<UberState> { UberStateDefaults.savePedestalLumaPoolsB} },
+      { TeleporterType.Shriek, new List<UberState> { UberStateDefaults.savePedestalWillowsEndShriek } },
+      { TeleporterType.Spawn, new List<UberState> { UberStateDefaults.savePedestalInkwaterMarsh} },
+      { TeleporterType.Glades, new List<UberState> { UberStateDefaults.savePedistalGladesTown} },
     };
 
     public override void Grant(bool squelch = false, bool inc = true) {
-      TeleporterStates[type].Value.Byte = 1;
-      Randomizer.Memory.WriteUberState(TeleporterStates[type]);
+      states().ForEach((s) => s.Write(new UberValue(true)));
       base.Grant(squelch, inc);
     }
 
