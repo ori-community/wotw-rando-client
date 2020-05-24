@@ -64,7 +64,7 @@ namespace RandoMainDLL {
       {ZoneType.Woods, new UberState() { Name = "mapmakerShowMapIconHealthUberState", ID = 57987, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
     }; 
     // might change later?
-    public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is WorldEvent);
+    public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is QuestEvent);
 
     public static Dictionary<ZoneType, List<Checkable>> HintObjects = new Dictionary<ZoneType, List<Checkable>>();
     public static ZoneType BurrowZone = ZoneType.Void;

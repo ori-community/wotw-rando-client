@@ -130,8 +130,8 @@ namespace RandoMainDLL {
             }
           }
           return new Message(messageParts[0], frames, squelch);
-        case PickupType.WorldEvent:
-          return new WorldEvent((WorldEventType)pickupData.ParseToByte());
+        case PickupType.QuestEvent:
+          return new QuestEvent((QuestEventType)pickupData.ParseToByte());
         case PickupType.UberState:
           var stateParts = pickupData.Split(',');
           if(stateParts.Length != 4) {

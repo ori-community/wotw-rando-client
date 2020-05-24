@@ -10,15 +10,15 @@ namespace RandoMainDLL {
     Resource = 1,
     Ability = 2,
     Shard = 3,
-    QuestItem = 4,
+    SystemCommand = 4,
     Teleporter = 5,
     Message = 6,
     Multi = 7,
     UberState = 8,
-    WorldEvent = 9
+    QuestEvent = 9
   }
 
-  public enum WorldEventType : byte {
+  public enum QuestEventType : byte {
     [Description("Clean Water")]
     Water = 0
   }
@@ -291,12 +291,12 @@ namespace RandoMainDLL {
 
     public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
   }
-  public class WorldEvent : Sellable, Checkable {
+  public class QuestEvent : Sellable, Checkable {
     public Pickup me { get => this; }
-    public WorldEvent(WorldEventType ev) => type = ev;
+    public QuestEvent(QuestEventType ev) => type = ev;
 
-    public override PickupType Type => PickupType.WorldEvent;
-    public readonly WorldEventType type;
+    public override PickupType Type => PickupType.QuestEvent;
+    public readonly QuestEventType type;
 
     public override int DefaultCost() => 400;
     public bool Has() => SaveController.Data.WorldEvents.Contains(type);
@@ -304,7 +304,7 @@ namespace RandoMainDLL {
   public override void Grant(bool squelch = false, bool inc = true) {
       SaveController.Data.WorldEvents.Add(type);
       switch (type) {
-        case WorldEventType.Water:
+        case QuestEventType.Water:
           // marks the escape as complete if you get clean water
           UberStateDefaults.watermillEscapeState.Write(new UberValue(2));
           UberStateDefaults.cleanseWellspringQuestUberState.Write(new UberValue(4));

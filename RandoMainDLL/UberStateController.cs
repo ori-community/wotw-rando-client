@@ -74,7 +74,7 @@ namespace RandoMainDLL {
         new UberId(5377, 1373).State().Write(state.Value);
     }
     private static bool ShouldRevert(UberState state) => !NeedsNewGameInit && Ready &&
-      (state.Name == "cleanseWellspringQuestUberState" && SaveController.Data.WorldEvents.Contains(WorldEventType.Water) && state.Value.Int < 4 ) ||
+      (state.Name == "cleanseWellspringQuestUberState" && SaveController.Data.WorldEvents.Contains(QuestEventType.Water) && state.Value.Int < 4 ) ||
       (state.Name == "findKuQuest" && state.Value.Int < 4);
 
     public static void NewGameInit() {
