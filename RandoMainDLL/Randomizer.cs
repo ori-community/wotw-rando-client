@@ -92,13 +92,14 @@ namespace RandoMainDLL {
     }
 
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
-      if (AHK.IniFlag("MuteCSLogs")) {
+      if (AHK.IniFlag("MuteCSLogs")) 
         return;
-      }
-      File.AppendAllText(LogFile, $"{DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff]")} ({level}): {message}\n");
-      if (Dev && printIfDev) {
+      if (level == "DEBUG" && !Dev)
+        return;
+      File.AppendAllText(LogFile, $"{DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff]")} [{level}]: {message}\n");
+      if (Dev && printIfDev) 
         AHK.Print(message, 180, false);
-      }
+      
     }
 
 

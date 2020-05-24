@@ -102,11 +102,11 @@ namespace RandoMainDLL {
       // save interops
       [DllExport]
       public static void NewGame(int slot) => Randomizer.OnNewGame(slot);
-      
+
       [DllExport]
-      public static void OnLoad(int slot) => SaveController.OnLoad(slot);
+      public static void OnLoad(int slot, int backupSlot) => SaveController.OnLoad(slot, backupSlot);
       [DllExport]
-      public static void OnSave(int slot) => SaveController.OnSave(slot);
+      public static void OnSave(int slot, int backupSlot) => SaveController.OnSave(slot, backupSlot);
 
       [DllExport]
       public static bool DoInvertTree(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability) ^ Randomizer.Memory.HasAbility(ability);

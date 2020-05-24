@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
-using System.LINQ;
 using System.ComponentModel;
 
 namespace RandoMainDLL {
