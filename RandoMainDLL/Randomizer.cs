@@ -15,10 +15,13 @@ namespace RandoMainDLL {
                                     // Look it was a temporary thing - Eiko
     public static MemoryManager Memory;
 
-    public static void OnNewGame() {
+    public static void OnNewGame(int slot) {
+      // overwrite the message log TODO: save a backup maybe?
+      File.WriteAllText(Randomizer.MessageLog, "");
       SeedController.ReadSeed();
       UberStateController.NeedsNewGameInit = true;
       AHK.OnNewGame();
+      SaveController.NewGame(slot);
     }
     public static bool Initialize() {
       try {

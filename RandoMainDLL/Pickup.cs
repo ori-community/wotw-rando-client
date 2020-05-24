@@ -78,6 +78,7 @@ namespace RandoMainDLL {
   public abstract class Pickup {
     public int Frames = 240;
     public virtual bool NonEmpty() => true;
+    public virtual bool NeedsMagic() => false;
     public abstract PickupType Type { get; }
 
     public virtual void Grant(bool squelch = false, bool inc = true) {
@@ -86,22 +87,21 @@ namespace RandoMainDLL {
       }
       if(inc) {
         SaveController.Data.FoundCount++;
-        InterOp.magicFunction();
+        if(NeedsMagic())
+          InterOp.magicFunction();
       }
     }
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
       if (this is Multi multi) {
         children.AddRange(multi.Children);
-      }
-      else {
+      } else {
         children.Add(this);
       }
 
       if (other is Multi otherM) {
         children.AddRange(otherM.Children);
-      }
-      else {
+      } else {
         children.Add(other);
       }
       // this can only really happen if one of these was Multi.Empty, but we do concat on empties, soooo
@@ -118,6 +118,7 @@ namespace RandoMainDLL {
   public class UberStatePickup : Pickup {
     public readonly UberState State;
     public override PickupType Type => PickupType.UberState;
+    public override bool NeedsMagic() => true;
     public UberStatePickup(UberState state) => State = state;
     public override void Grant(bool squelch = false, bool inc = true) {
       Randomizer.Memory.WriteUberState(State);
@@ -131,21 +132,23 @@ namespace RandoMainDLL {
     }
 
     public static Multi Empty => new Multi(new List<Pickup>());
+    public override bool NeedsMagic() => Children.Any((c) => c.NeedsMagic());
+    
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
 
     public override bool NonEmpty() => Children.Count > 0;
 
     public override void Grant(bool squelch = false, bool inc = true) {
-      foreach (var Child in Children) {
-        Child.Grant(true, false);
-      }
+      Children.ForEach((c) => c.Grant(true, false));
 
       var child = Children.Find(p => p is Message msg && msg.Squelch);
       if (child != null) {
-        child.Grant(false, true);
+        // gotta do it this way so our NeedsMagic gets called
+        child.Grant(false, false); // print message, don't inc
+        base.Grant(true, true); // don't print, do inc 
       } else {
-        base.Grant(squelch, true);
+        base.Grant(false, true);
       }
     }
 
@@ -228,7 +231,7 @@ namespace RandoMainDLL {
   public class Ability : Sellable, Checkable {
     public Pickup me { get => this; }
     public Ability(AbilityType ability) => type = ability;
-
+    public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
     public bool Has() {
@@ -253,6 +256,7 @@ namespace RandoMainDLL {
   }
 
   public class Shard : Sellable, Checkable {
+    public override bool NeedsMagic() => true;
     public Pickup me { get => this; }
     public Shard(ShardType shard) => type = shard;
 
@@ -295,6 +299,7 @@ namespace RandoMainDLL {
     public Pickup me { get => this; }
     public QuestEvent(QuestEventType ev) => type = ev;
 
+    public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.QuestEvent;
     public readonly QuestEventType type;
 

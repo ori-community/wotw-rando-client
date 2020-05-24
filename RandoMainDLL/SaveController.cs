@@ -77,9 +77,6 @@ namespace RandoMainDLL {
 
     [DllExport]
     public static void NewGame(int slot) {
-      // overwrite the message log TODO: save a backup maybe?
-      File.WriteAllText(Randomizer.MessageLog, "");
-      Randomizer.OnNewGame();
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();
