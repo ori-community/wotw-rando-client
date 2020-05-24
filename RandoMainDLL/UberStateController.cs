@@ -6,6 +6,7 @@ namespace RandoMainDLL {
   public static class UberStateController {
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
     public static UberValue? CurrentValue(this UberState state) => state.GetUberId().GetValue();
+    public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().GetValue().GetValueOrDefault(value);
     public static UberState State(this UberId id) {
       UberStates.TryGetValue(id, out UberState s);
       return s;
@@ -28,37 +29,41 @@ namespace RandoMainDLL {
       var memory = Randomizer.Memory;
       Dictionary<long, UberState> uberStates = memory.GetUberStates();
       foreach (KeyValuePair<long, UberState> pair in uberStates) {
-        UberState state = pair.Value;
-        UberId key = state.GetUberId();
-        if (state.GroupName == "statsUberStateGroup" || (state.GroupName == "achievementsGroup" && state.Name == "spiritLightGainedCounter")) {
-          continue;
-        }
-
-        if (UberStates.TryGetValue(key, out UberState oldState)) {
-          UberValue value = state.Value;
-          UberValue oldValue = oldState.Value;
-          if (value.Int != oldValue.Int) {
-            if (ShouldRevert(state)) {
-              Randomizer.Log($"Reverting state change of {state.Name} from {oldState.FmtVal()} to {state.FmtVal()}", false);
-              memory.WriteUberState(oldState);
-              continue;
-            }
-            HandleSpecial(state);
-            var pos = Randomizer.Memory.Position();
-            if (Ready) {
-              bool found = false;
-              if (value.Int > 0) 
-                found = SeedController.OnUberState(state);
-
-              if (value.Int == 0 || !found)
-                Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldState.FmtVal()}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
-
-            }
-            UberStates[key].Value = state.Value;
+        try {
+          UberState state = pair.Value;
+          UberId key = state.GetUberId();
+          if (state.GroupName == "statsUberStateGroup" || (state.GroupName == "achievementsGroup" && state.Name == "spiritLightGainedCounter")) {
+            continue;
           }
-        }
-        else {
-          UberStates[key] = state.Clone();
+
+          if (UberStates.TryGetValue(key, out UberState oldState)) {
+            UberValue value = state.Value;
+            UberValue oldValue = oldState.Value;
+            if (value.Int != oldValue.Int) {
+              if (ShouldRevert(state)) {
+                Randomizer.Log($"Reverting state change of {state.Name} from {oldState.FmtVal()} to {state.FmtVal()}", false);
+                memory.WriteUberState(oldState);
+                continue;
+              }
+              HandleSpecial(state);
+              var pos = Randomizer.Memory.Position();
+              if (Ready) {
+                bool found = false;
+                if (value.Int > 0)
+                  found = SeedController.OnUberState(state);
+
+                if (value.Int == 0 || !found)
+                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldState.FmtVal()}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
+
+              }
+              UberStates[key].Value = state.Value;
+            }
+          }
+          else {
+            UberStates[key] = state.Clone();
+          }
+        } catch(Exception e) {
+          Randomizer.Error($"USC.Update {pair}", e);
         }
       }
       if (NeedsNewGameInit) 
