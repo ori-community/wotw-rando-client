@@ -203,6 +203,7 @@
     <ClCompile Include="src\pickups\oreInterception.cpp" />
     <ClCompile Include="src\pickups\shops.cpp" />
     <ClCompile Include="src\pickups\spiritShardInterception.cpp" />
+    <ClCompile Include="src\pickups\treeInterception.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

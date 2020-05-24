@@ -102,6 +102,9 @@ namespace RandoMainDLL {
       [DllExport]
       public static bool DoInvertTree(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability) ^ Randomizer.Memory.HasAbility(ability);
 
+      [DllExport]
+      public static bool IsTreeActivated(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability);
+
       // shop interops
 
       [DllExport]
