@@ -23,25 +23,12 @@
 #include "src/fixes/dashFixes.h"
 
 //---------------------------------------------------Globals-----------------------------------------------------
-char foundTree = -1;
-char priorFoundTree = -1;
-char priorPriorFoundTree = -1;
-
-__int64 lastDesiredState = NULL;
-__int64 priorDesiredState = NULL;
-__int64 priorPriorDesiredState = NULL;
-
 void* gameControllerInstancePointer = NULL;
 
 bool debug_enabled = false;
 bool info_enabled = true;
 bool error_enabled = true;
 bool input_lock_callback = false;
-const std::set<char> treeAbilities{0, 5, 8, 23, 51, 57, 62, 77, 97, 100, 101, 102, 104, 121};
-
-bool isTree(char tree){
-	return treeAbilities.find(tree) != treeAbilities.end();
-}
 
 InjectDLL::PEModule* CSharpLib = NULL;
 
@@ -108,55 +95,6 @@ INTERCEPT(4084560, void, GameWorld__Awake, (__int64 thisPtr), {
 		gameWorldInstance = thisPtr;
 	}
 	GameWorld__Awake(thisPtr);
-});
-
-
-INTERCEPT(0x1105510, bool, sub180FC4D50, (__int64 mappingPtr, __int64 uberState), {
-	//RVA: 13A7AA0. Called from PlayerStateMap.Mapping::Matches
-	// TODO: it's unclear how exactly we should fix this
-	bool result = sub180FC4D50(mappingPtr, uberState);
-	if(isTree(foundTree))
-		result = CSharpLib->call<bool, BYTE>("DoInvertTree", foundTree) ^ result;
-	return result;
-});
-
-
-// stop complaining about LOCK not having enough parameters
-#pragma warning(disable: 4003)
-
-
-INTERCEPT(10404080, void, getAbilityOnConditionFixedUpdate, (__int64 thisPtr), {
-	//GetAbilityOnCondition$$FixedUpdate
-	getAbilityOnConditionFixedUpdate(thisPtr);
-    __int64 currDesiredState = *(__int64*)(thisPtr + 0x18);
-    if (currDesiredState == lastDesiredState || currDesiredState == priorDesiredState || currDesiredState == priorPriorDesiredState)
-        return;
-    BYTE* desiredAbility = (BYTE*)(currDesiredState + 0x18);
-    DEBUG("GAOC.FU: got " << (int)*desiredAbility << " for ability desired by condition (already had: " << (int) foundTree << ", " << (int)priorFoundTree << ", " << (int) priorPriorFoundTree << ")" );
-    // BAD PROBLEMS DESERVE BAD SOLUTIONS
-    priorPriorDesiredState = priorDesiredState;
-    priorDesiredState = lastDesiredState;
-    lastDesiredState = currDesiredState;
-    priorPriorFoundTree = priorFoundTree;
-    priorFoundTree = foundTree;
-    foundTree = *desiredAbility;
-});
-
-INTERCEPT(10404368, void, getAbilityOnConditionAssign, (__int64 thisPtr), {
-	//GetAbilityOnCondition$$AssignAbility
-	DEBUG("GAOC.ASS: intercepted and ignored ");
-	if(isTree(foundTree))
-		CSharpLib->call<void>("OnTree", foundTree);
-});
-
-INTERCEPT(17845472, bool, abilityStateFulfilled, (__int64 thisPtr, __int64 contextPtr), {
-	//Moon.uberSerializationWisp.DesiredPlayerAbilityState$$IsFulfilled
-	if(lastDesiredState == thisPtr && isTree(foundTree))
-		return CSharpLib->call<bool>("TreeFulfilled", foundTree);
-	else if(priorDesiredState == thisPtr && isTree(priorFoundTree))
-		return CSharpLib->call<bool>("TreeFulfilled", priorFoundTree);
-	else
-		return abilityStateFulfilled(thisPtr, contextPtr);
 });
 
 INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPointer), {
