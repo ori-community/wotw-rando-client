@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
-using System.Text;
+using System.LINQ;
 using System.ComponentModel;
 
 namespace RandoMainDLL {
@@ -101,14 +101,11 @@ namespace RandoMainDLL {
     }
 
     public static string GetZoneHintMessage(ZoneType zone, bool justUnlocked = false) {
-      if (zone == ZoneType.Void) return $"Can't give hint for unknown zone (area {Randomizer.Memory.PlayerArea()})";
+      if (zone == ZoneType.Void) return $"no hint for Void(area {Randomizer.Memory.PlayerArea()})";
       var items = HintObjects.GetOrElse(zone, new List<Checkable>());
-      if (!justUnlocked && !HaveHintForZone) return $"{zone}: ${items.Count}/?? key items (Hint not unlocked)";
+      var found = items.FindAll(i => i.Has());
+      if (!justUnlocked && !HaveHintForZone) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
       if(items.Count > 0) {
-        var found = new List<String>();
-        foreach(var item in items) 
-          if (item.Has())
-            found.Add(item.ToString());        
         if(found.Count == items.Count) 
           return $"{zone}: ${found.Count}/{items.Count} key items$\nfound: {String.Join(", ", found)}";
         else if (found.Count > 0)
