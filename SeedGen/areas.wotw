@@ -125,6 +125,8 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: ReachTP
   conn UpperDepths.Teleporter:
     base: DepthsTP
+  conn EastPools.TPArea:
+    base: EastLumaTP
   conn WestPools:
     base: WestPoolsTP
   conn LowerWastes.WestTP:
@@ -242,8 +244,7 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
     base:
       Weapon, DoubleJump OR Launch
       Weapon, Bash, Grenade=1
-  pickup HowlsDen.SwordTree:
-    base: Unreachable # temporary, but until this is fixed, i'm not ok putting real items here
+  pickup HowlsDen.SwordTree: free
   pickup HowlsDen.UpperEX: free
   pickup HowlsDen.MagnetShard:
     base: Weapon
@@ -1518,7 +1519,7 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
       Water, Bow OR Grenade=1 # Bow=1 not a thing yet
   state EastPools.LowerWaterDrained:
     base:
-      Water
+      Water OR EastLumaTP
   # There are two Arenas here: you get one if you enter without WaterDash and another if you enter with it.
   # This path is assuming the worse case of getting the strictly harder WaterDash arena, but doesn't list WaterDash
   # explicitly because you don't need it unless you have it.

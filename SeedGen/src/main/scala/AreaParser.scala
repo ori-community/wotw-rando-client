@@ -144,7 +144,7 @@ package AreaParser {
             Invalid
       })
       def tpReq: Parser[Requirement] = accept("teleporterName", {
-        case IDENTIFIER(name) if Teleporter.areaFileNames.get(name).nonEmpty =>
+        case IDENTIFIER(name) if Teleporter.areaFileNames.contains(name) =>
           val id = Teleporter.areaFileNames(name)
           if(Teleporter.poolItems.exists(_.teleporterId == id))
             TeleReq(id)
