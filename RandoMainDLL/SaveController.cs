@@ -75,14 +75,12 @@ namespace RandoMainDLL {
     public static SaveData Data;
     public static int CurrentSlot = -1;
 
-    [DllExport]
     public static void NewGame(int slot) {
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();
     }
 
-    [DllExport]
     public static void OnLoad(int slot) {
       try {
         if (slot != CurrentSlot) {
@@ -99,7 +97,6 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
 
-    [DllExport]
     public static void OnSave(int slot) {
       if (slot == -1) {
         Randomizer.Log("Error: tried to load from empty slot");
