@@ -84,7 +84,7 @@ __int8 setToLastPos = 0;
 
 extern "C" __declspec(dllexport)
 void magicFunction() {
-    lastPos = SeinCharacter__get_Position(get_characters()->m_sein);
+    lastPos = SeinCharacter__get_Position(get_sein());
     setToLastPos = 3;
     Moon_UberStateController__ApplyAll(1);
 }
@@ -147,6 +147,15 @@ BINDING(10011696, bool, getSecondaryMenusAccessable, (__int64));
 Game_Characters_StaticFields* get_characters(){
 	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
 }
+SeinCharacter_o* get_sein(){
+    return (*(Game_Characters_c**)resolve_rva(71425184))->static_fields->m_sein;
+}
+BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o* thisPtr, int32_t binding, int32_t typ));
+
+extern "C" __declspec(dllexport)
+void bindSword() {
+    SpellInventory__UpdateBinding(get_sein()->PlayerSpells, 0, 1002);
+}
 
 void onFixedUpdate(__int64 thisPointer){
 	if(gameControllerInstancePointer != (void*) thisPointer) {
@@ -161,13 +170,13 @@ void onFixedUpdate(__int64 thisPointer){
 	}
     if (setToLastPos > 0) {
         setToLastPos--;
-        SeinCharacter__set_Position(get_characters()->m_sein, lastPos);
+        SeinCharacter__set_Position(get_sein(), lastPos);
     }
 }
 
 extern "C" __declspec(dllexport)
 void setOre(int oreCount) {
-    SeinLevel__set_Ore(get_characters()->m_sein->Level, oreCount);
+    SeinLevel__set_Ore(get_sein()->Level, oreCount);
 }
 
 extern "C" __declspec(dllexport)
