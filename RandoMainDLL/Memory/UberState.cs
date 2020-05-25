@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace RandoMainDLL.Memory {
   public enum UberStateType {
@@ -95,6 +96,23 @@ namespace RandoMainDLL.Memory {
     public string GroupName;
     public UberValue Value;
 
+    public int ValueAsInt() {
+      switch (Type) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.ByteUberState:
+        case UberStateType.SerializedByteUberState:
+          return Convert.ToInt32(Value.Byte);
+        case UberStateType.BooleanUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return Convert.ToInt32(Value.Bool);
+        case UberStateType.SerializedFloatUberState:
+          return Convert.ToInt32(Value.Float);
+        case UberStateType.IntUberState:
+        case UberStateType.SerializedIntUberState:
+        default:
+          return Value.Int;
+      }
+    }
     public UberId GetUberId() => new UberId(GroupID, ID);
     public UberState Clone() => new UberState() { Type = Type, ID = ID, Name = Name, GroupID = GroupID, GroupName = GroupName, Value = Value };
 

@@ -95,6 +95,8 @@ namespace RandoMainDLL {
       bool granted = pickupMap.TryGetValue(id, out Pickup p);
       if (granted) {
         p.Grant();
+        if (id.Loc().Type == LocType.Shard && !p.NeedsMagic()) // shard bug!
+          InterOp.magicFunction();
       }
       HintsController.OnLupoState(id);
       return granted;
