@@ -23,6 +23,10 @@ namespace RandoMainDLL {
     Water = 0
   }
 
+  public enum SysCommandType: byte {
+    Save = 0
+  }
+
   public enum TeleporterType : byte {
     [Description("Burrows")]
     Burrows = 0,
@@ -152,7 +156,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public override string ToString() => string.Join("\n", Children.Select(c => c.ToString()));
+    public override string ToString() => string.Join("\n", Children.Select(c => c.ToString()).Where(s => s.Length > 0));
   }
 
   public class Message : Pickup {
@@ -320,6 +324,20 @@ namespace RandoMainDLL {
     }
 
     public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
+  }
+
+  public class SystemCommand : Pickup {
+    public override PickupType Type => PickupType.SystemCommand;
+    public readonly SysCommandType type;
+    public SystemCommand(SysCommandType command) => type = command;
+    public override void Grant(bool squelch = false, bool inc = true) {
+      switch(type) {
+        case SysCommandType.Save:
+          InterOp.save();
+          break;
+      }
+    }
+    public override string ToString() => ""; // this is dumb as all sin tbh
   }
 
   public class Resource : Sellable {
