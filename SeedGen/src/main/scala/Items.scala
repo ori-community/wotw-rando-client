@@ -11,7 +11,7 @@ package SeedGenerator {
     override def toString = s"$name"
   }
 
-  trait Buyable extends Item
+  trait Merch extends Item
   trait Important extends Item // literally just "show this in spoilers"
   trait Unplaceable extends Item {
     override val cost = Double.PositiveInfinity
@@ -28,7 +28,7 @@ package SeedGenerator {
   }
 
   case class SpiritLight(amount: Int) extends SpiritLightItem
-  class Resource(resourceType: Int, val name: String) extends Item with Buyable {
+  class Resource(resourceType: Int, val name: String) extends Item with Merch {
     val itemType = 1
     def code = s"${itemType}|${resourceType}"
   }
@@ -39,7 +39,7 @@ package SeedGenerator {
   case object Keystone extends Resource(3, "Keystone")
   case object ShardSlot extends Resource(4, "Shard Slot")
 
-  case class WorldEvent(eventId: Int) extends Item with Buyable with Important  {
+  case class WorldEvent(eventId: Int) extends Item with Merch with Important  {
     val itemType: Int = 9
     def code = s"$itemType|$eventId"
     def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event ${eventId}")}"
@@ -55,7 +55,7 @@ package SeedGenerator {
   }
   object Water extends WorldEvent(0)
 
-  case class Skill(skillId: Int) extends Item with Buyable with Important {
+  case class Skill(skillId: Int) extends Item with Merch with Important {
     val itemType: Int = 2
     def code = s"$itemType|${skillId}"
     def name: String = s"${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
@@ -64,7 +64,7 @@ package SeedGenerator {
   object Skill {
     val itemType: Int = 2
     val areaFileNames: Map[String, Int] = Map("Bash" ->0, "DoubleJump" ->5, "Torch" ->99, "Sword" ->100, "WallJump" ->3, "Launch" ->8, "Glide" ->14, "WaterBreath" ->23, "Grenade" ->51, "Grapple" ->57, "Flash" ->62, "Spike" ->74, "Spear" ->74, "Regenerate" ->77, "Bow" ->97, "Hammer" ->98, "Burrow" ->101, "Dash" ->102, "WaterDash" ->104, "SpiritStar" ->106, "Shuriken" ->106, "Blaze" ->115, "Sentry" ->116, "Flap" ->118)
-    val costs: Map[Int, Double] = Map(8 -> 15, 77 -> 3, 98 -> 4)
+    val costs: Map[Int, Double] = Map(8 -> 16, 77 -> 3, 98 -> 4)
     val names: Map[Int, String] = Map(
       0 -> "Bash",
       3 -> "Wall Jump",
@@ -95,7 +95,7 @@ package SeedGenerator {
     val poolItems: Seq[Skill] = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq
   }
 
-  case class Shard(shardId: Int) extends Item with Buyable {
+  case class Shard(shardId: Int) extends Item with Merch {
     val itemType: Int = 3
     def code = s"$itemType|${shardId}"
     def name: String = s"${Shard.names.getOrElse(shardId, s"Unknown (${shardId})")}"
@@ -137,7 +137,7 @@ package SeedGenerator {
     )
     val poolItems = names.keys.map(Shard(_)).toSeq
   }
-  case class Teleporter(teleporterId: Int) extends Item with Buyable with Important {
+  case class Teleporter(teleporterId: Int) extends Item with Merch with Important {
     val itemType: Int = 5
     def code = s"$itemType|${teleporterId}"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown (${teleporterId})")} TP"
@@ -263,39 +263,34 @@ package SeedGenerator {
         case i => i -> this(i)
       }).toSeq:_*)
     }
-
+    var merchToPop = 16
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
-    def popRand(implicit r: Random): Option[Item] = asSeq match {
-      case s: Seq[Item] if (s.size > 0) => {
-        val i = s.apply(r.nextInt(s.size))
-        if(i == Launch && count > 165)
-        // if we haven't placed half the items yet,
-        // reroll launch count/500 % of the time
+    def popRand(implicit r: Random): Option[Item] = {
+      val s =
+        if(merchToPop > 0) {
+          val (merch, norm) = asSeq.partition(_.isInstanceOf[Merch])
+          norm ++ r.shuffle(merch).drop(merchToPop)
+        } else asSeq
+      if (s.size > 0) {
+        val i = s(r.nextInt(s.size))
+        if(i == Launch && count > 165) {
+            // if we haven't placed half the items yet,
+            // reroll launch count/500 % of the time
             if(r.nextFloat() < count/500f)
               return popRand
+        }
         take(i)
         Some(i)
-      }
-      case _ => None
-    }
-    def oreHealth(implicit r: Random): Option[Buyable] = {
-      if(has(Ore))
-        if(has(Health) &&  r.nextBoolean()) {
-          take(Health)
-          Some(Health)
-        } else {
-          take(Ore)
-          Some(Ore)
-        }
-      else
+      } else
         None
     }
 
-    def popSellable(implicit r: Random): Option[Buyable] = {
-      val sellables = asSeq.collect({case i: Buyable   => Some(i)}).flatten
-      if (sellables.isEmpty)
+    def popMerch(implicit r: Random): Option[Merch] = {
+      val merch = asSeq.collect({case i: Merch => i})
+      if (merch.isEmpty)
         return None
-      val i = sellables(r.nextInt(sellables.size))
+      val i = merch(r.nextInt(merch.size))
+      merchToPop -= 1
       take(i)
       Some(i)
     }
