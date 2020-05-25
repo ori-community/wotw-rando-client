@@ -113,6 +113,8 @@ namespace RandoMainDLL {
           return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
+        case PickupType.SystemCommand:
+          return new SystemCommand((SysCommandType)pickupData.ParseToByte());
         case PickupType.Teleporter:
           return new Teleporter((TeleporterType)pickupData.ParseToByte());
         case PickupType.Message:
