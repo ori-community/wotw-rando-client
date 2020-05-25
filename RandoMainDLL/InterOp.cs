@@ -33,7 +33,8 @@ namespace RandoMainDLL {
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void magicFunction();
-
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void bindSword();
     public static class Util {
       private static readonly Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
       public static IntPtr getIl2cppStringPointer(string str) {
