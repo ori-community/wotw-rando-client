@@ -126,17 +126,17 @@ package AreaParser {
         override def rest: Reader[AreasToken] = new AreasTokenReader(tokens.tail)
       }
 
-      private def identifier: Parser[IDENTIFIER] = { accept("identifier", { case id @ IDENTIFIER(_) => id }) }
-      private def assign: Parser[ASSIGN] = { accept("assign", { case ass @ ASSIGN(_) => ass }) }
+      def identifier: Parser[IDENTIFIER] = { accept("identifier", { case id @ IDENTIFIER(_) => id }) }
+      def assign:     Parser[ASSIGN] = { accept("assign", { case ass @ ASSIGN(_) => ass }) }
 
-      val endl: Parser[AreasToken] = NEWLINE
-      val indent: Parser[AreasToken] = INDENT
-      val dedent: Parser[AreasToken] = DEDENT
-      val blanks: Parser[Unit] = rep(dedent ~ indent | endl) ^^^ ()
-      val free: Parser[Requirement] =  FREE ^^^ Free
+      def endl:       Parser[AreasToken] = NEWLINE
+      def indent:     Parser[AreasToken] = INDENT
+      def dedent:     Parser[AreasToken] = DEDENT
+      def blanks:     Parser[Unit] = rep(dedent ~ indent | endl) ^^^ ()
+      def free:       Parser[Requirement] =  FREE ^^^ Free
       def grenadeReq: Parser[Requirement] = IDENTIFIER("Grenade") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(51), EnergyReq(cnt))}
-      def sentryReq: Parser[Requirement] = IDENTIFIER("Sentry") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(116), EnergyReq(cnt))}
-      def skillReq: Parser[Requirement] = grenadeReq | sentryReq |  accept("skillName", {
+      def sentryReq:  Parser[Requirement] = IDENTIFIER("Sentry") ~> assign ^^ { case ASSIGN(cnt) => AllReqs(SkillReq(116), EnergyReq(cnt))}
+      def skillReq:   Parser[Requirement] = grenadeReq | sentryReq |  accept("skillName", {
         case IDENTIFIER(name) if Skill.areaFileNames.get(name).nonEmpty =>
           val id = Skill.areaFileNames(name)
           if(id == 100 || Skill.poolItems.exists(_.skillId == id))
@@ -152,38 +152,38 @@ package AreaParser {
           else
             Invalid
       })
-      def oreReq: Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
-      def energyReq: Parser[Requirement] = IDENTIFIER("Energy") ~> assign ^^ { case ASSIGN(cnt) => EnergyReq(cnt)}
-      def damageReq: Parser[Requirement] = IDENTIFIER("Damage") ~> assign ^^ { case ASSIGN(cnt) => DamageReq(cnt)}
-      def cashReq: Parser[Requirement] =  IDENTIFIER("SpiritLight") ~> assign ^^ {case ASSIGN(cnt) => CashReq(cnt)}
+      def oreReq:      Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
+      def energyReq:   Parser[Requirement] = IDENTIFIER("Energy") ~> assign ^^ { case ASSIGN(cnt) => EnergyReq(cnt)}
+      def damageReq:   Parser[Requirement] = IDENTIFIER("Damage") ~> assign ^^ { case ASSIGN(cnt) => DamageReq(cnt)}
+      def cashReq:     Parser[Requirement] = IDENTIFIER("SpiritLight") ~> assign ^^ {case ASSIGN(cnt) => CashReq(cnt)}
       def unreachable: Parser[Requirement] = IDENTIFIER("Unreachable") ^^^ Invalid
-      def worldEvReq: Parser[Requirement] = IDENTIFIER("Water") ^^^ EventReq(0)
-      def stateReq: Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
-      def dangerReq: Parser[Requirement] = IDENTIFIER("Danger") ~> assign ^^ {case ASSIGN(cnt) => DangerReq(cnt)}
-      val generalReqs: Parser[Requirement] = skillReq | damageReq | dangerReq | energyReq | oreReq | cashReq | tpReq | unreachable | worldEvReq | stateReq
-      val regionReqs: Parser[Requirement] = skillReq | dangerReq | energyReq | stateReq
+      def worldEvReq:  Parser[Requirement] = IDENTIFIER("Water") ^^^ EventReq(0)
+      def stateReq:    Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
+      def dangerReq:   Parser[Requirement] = IDENTIFIER("Danger") ~> assign ^^ {case ASSIGN(cnt) => DangerReq(cnt)}
+      def generalReqs: Parser[Requirement] = skillReq | damageReq | dangerReq | energyReq | oreReq | cashReq | tpReq | unreachable | worldEvReq | stateReq
+      def regionReqs:  Parser[Requirement] = skillReq | dangerReq | energyReq | stateReq
 
       def reqSec(baseReqs: Parser[Requirement]): Parser[Requirement] =  "req" !!! {
-        val orReq: Parser[Requirement] = "orReq" !!! (baseReqs <~ OR) ~ rep1sep(baseReqs, OR) ^^ { case first ~  rest => AnyReq(first :: rest:_*) }
-        val reqRHS: Parser[Requirement] = "reqRHS" !!! (rep(baseReqs <~ COMMA) ~ (orReq | baseReqs) <~ guard(NEWLINE | dedent) ^^ { case head ~ last => AllReqs(head :+ last:_*) }) | free
-        def lhsBase: Parser[Requirement] = "lhsBase" !!! accept("diff", {
+        def orReq:    Parser[Requirement] = "orReq" !!! (baseReqs <~ OR) ~ rep1sep(baseReqs, OR) ^^ { case first ~  rest => AnyReq(first :: rest:_*) }
+        def reqRHS:   Parser[Requirement] = "reqRHS" !!! (rep(baseReqs <~ COMMA) ~ (orReq | baseReqs) <~ guard(NEWLINE | dedent) ^^ { case head ~ last => AllReqs(head :+ last:_*) }) | free
+        def lhsBase:  Parser[Requirement] = "lhsBase" !!! accept("diff", {
           case IDENTIFIER("base") => Free
           case IDENTIFIER("advanced") => if(advanced) Free else Invalid
         }) | baseReqs
-        val reqLHS = "reqLHS" !!! (rep(lhsBase <~ COMMA) ~ (orReq | lhsBase) <~ COLON ^^ { case head ~ last => AllReqs(head :+ last:_*) })
-        val reqLine = "reqLine" !!! (reqLHS ~ (free | reqRHS) <~ guard(NEWLINE | dedent)) ^^ {case lhs ~ rhs => lhs and rhs}
-        val rhsBlock = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ (rhss => AnyReq(rhss: _*))
+        def reqLHS:   Parser[Requirement] = "reqLHS" !!! (rep(lhsBase <~ COMMA) ~ (orReq | lhsBase) <~ COLON ^^ { case head ~ last => AllReqs(head :+ last:_*) })
+        def reqLine:  Parser[Requirement] = "reqLine" !!! (reqLHS ~ (free | reqRHS) <~ guard(NEWLINE | dedent)) ^^ {case lhs ~ rhs => lhs and rhs}
+        def rhsBlock: Parser[Requirement] = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ (rhss => AnyReq(rhss: _*))
         def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss =>  AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
-        val reqLines = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ (lines => AnyReq(lines: _*))
+        def reqLines: Parser[Requirement] = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ (lines => AnyReq(lines: _*))
         free | (indent ~> blanks.? ~> reqLines <~ dedent)
       }
-      val generalReqSec: Parser[Requirement] = reqSec(generalReqs)
-      val pickup: Parser[Connection] =  "pickup node" !!! (PICKUP ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, ItemNode), reqs) }
-      val state: Parser[Connection]  =  "state node" !!! (STATE ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(WorldStateNode(name), reqs) }
-      val conn: Parser[Connection] = "conn node" !!! (CONNECTION ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, AreaNode), reqs) }
-      val area: Parser[Area] = "area node" !!! (AREA ~> identifier <~ COLON <~ indent <~ blanks.?) ~ repsep(state | pickup | conn, blanks) <~ dedent ^^ { case IDENTIFIER(name) ~ conns => Area(name, conns) }
-      val region: Parser[(String, Requirement)] = "region" !!! (REGION ~> identifier <~ COLON) ~ reqSec(regionReqs) ^^ { case IDENTIFIER(name) ~ reqs => (name, reqs) }
-      val areaOrRegion: Parser[Either[Area, (String, Requirement)]] = (area | region) ^^ {
+      def generalReqSec: Parser[Requirement] = reqSec(generalReqs)
+      def pickup:        Parser[Connection] = "pickup node" !!! (PICKUP ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, ItemNode), reqs) }
+      def state:         Parser[Connection] = "state node" !!! (STATE ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(WorldStateNode(name), reqs) }
+      def conn:          Parser[Connection] = "conn node" !!! (CONNECTION ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, AreaNode), reqs) }
+      def area:          Parser[Area] = "area node" !!! (AREA ~> identifier <~ COLON <~ indent <~ blanks.?) ~ repsep(state | pickup | conn, blanks) <~ dedent ^^ { case IDENTIFIER(name) ~ conns => Area(name, conns) }
+      def region:        Parser[(String, Requirement)] = "region" !!! (REGION ~> identifier <~ COLON) ~ reqSec(regionReqs) ^^ { case IDENTIFIER(name) ~ reqs => (name, reqs) }
+      def areaOrRegion:  Parser[Either[Area, (String, Requirement)]] = (area | region) ^^ {
         case area: Area => Left(area)
         case (name: String, r: Requirement) => Right(name -> r)
       }
@@ -192,9 +192,9 @@ package AreaParser {
           val (areas, regionsRaw) = parts.partitionMap(a => a)
           (areas, regionsRaw.toMap)
         }
-      val reqMacro: Parser[(String, Requirement)] =  "reqMacro" !!! (REQUIREMENT ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => (name, reqs) }
-      val macros: Parser[Map[String, Requirement]] = "macros" !!! repsep(reqMacro, blanks) ^^ (macros => Map(macros: _*))
-      val file: Parser[Map[String, Area]] ="file" !!!  phrase(blanks ~> macros ~ areasAndRegions <~ blanks) ^^ { case reqMacs ~ areas => validator(reqMacs, areas._1, areas._2)}
+      def reqMacro: Parser[(String, Requirement)] =  "reqMacro" !!! (REQUIREMENT ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => (name, reqs) }
+      def macros:   Parser[Map[String, Requirement]] = "macros" !!! repsep(reqMacro, blanks) ^^ (macros => Map(macros: _*))
+      def file:     Parser[Map[String, Area]] ="file" !!!  phrase(blanks ~> macros ~ areasAndRegions <~ blanks) ^^ { case reqMacs ~ areas => validator(reqMacs, areas._1, areas._2)}
 
       // do macro substitution, validate areas and states
       def validator(macros: Map[String, Requirement], areas: Seq[Area], regions: Map[String, Requirement]): Map[String, Area] = {
@@ -205,12 +205,12 @@ package AreaParser {
           println(s"unused macros: $unusedMacros")
         val macroConns = macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq
 
-        def getUnusableStates(areas: Seq[Area]) = {
+        def getUnusableStates(areas: Seq[Area]): Set[StateReq] = {
           val reachableStateNodes = areas.flatMap(_.conns.withFilter(_.target.kind == StateNode).map(r => r.target.name))
           stateReqs(areas).filterNot(st => macros.contains(st.flag) || reachableStateNodes.contains(st.flag)).toSet
         }
 
-        def pruneStates(areas: Seq[Area], unused: Set[StateReq]) =
+        def pruneStates(areas: Seq[Area], unused: Set[StateReq]): Seq[Area] =
           areas.map({case Area(name, conns) => Area(name, conns.map(c => Connection(c.target, unused.foldLeft(c.req)((acc, flag) => acc.substitute(flag, Invalid)))))})
         def pruneStatesRecursive(areas: Seq[Area], unused: Set[StateReq] = Set()): Seq[Area] = {
           val newAreas = pruneStates(areas, unused)
@@ -246,14 +246,14 @@ package AreaParser {
       def runP[T](tokens: Seq[AreasToken], p: Parser[T]): Either[ParserError, T] = {
         val reader = new AreasTokenReader(tokens)
         p(reader) match {
-          case NoSuccess(msg, _) => Left(ParserError(msg))
+          case NoSuccess(msg, _)  => Left(ParserError(msg))
           case Success(result, _) => Right(result)
         }
       }
       def tokens(sourcefile: String = "areas.wotw"): Seq[AreasToken] = {
         val s = Source.fromFile(sourcefile)
         AreasLexer(s.mkString) match {
-          case Left(_) => Seq()
+          case Left(_)       => Seq()
           case Right(tokens) => tokens
         }
       }
@@ -263,10 +263,10 @@ package AreaParser {
         AreasBuilder.advanced = false
         val s = Source.fromFile(sourcefile)
         AreasLexer(s.mkString) match {
-          case Left(error) => Left(error)
+          case Left(error)   => Left(error)
           case Right(tokens) => AreasBuilder.runP(tokens, AreasBuilder.file) match {
             case Left(error) => Left(error)
-            case Right(req) => Right(req)
+            case Right(req)  => Right(req)
           }
         }
       }
