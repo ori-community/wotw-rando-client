@@ -22,7 +22,6 @@ package SeedGenerator {
 
   case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: Int, x: Int, y: Int) {
     val code = s"$uberGroupId|$uberId"
-
     def info: String = {
       val fullName = s"$area.$name"
       val withPad = fullName + " " * (35 - fullName.length)
@@ -34,7 +33,7 @@ package SeedGenerator {
     }
   }
   object LocData {
-    def all: Seq[LocData] = {
+    lazy val all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = Source.fromFile("loc_data.csv")
       val pickups = pickupsFile.getLines.flatMap {
@@ -210,11 +209,8 @@ package SeedGenerator {
         } else
           (newGood, newFlags)
       }
-      val (good, needsRefined) = paths.withFilter(_._1 match{
-          case n if reached.contains(n) => false
-          case WorldStateNode(flag) => !state.flags.contains(WorldState(flag))
-          case _ => false
-        }).map[FlagState, GameState]({case (WorldStateNode(flag), p) =>
+      val (good, needsRefined) = paths.collect[FlagState, GameState]({
+        case (WorldStateNode(flag), p)  if !reached.contains(WorldStateNode(flag)) &&  !state.flags.contains(WorldState(flag)) =>
         WorldState(flag) -> Path.filterFar(p, reached).foldLeft[Requirement](Invalid)((acc, p) => acc or p.req).cheapestRemaining(state)
       }).filterNot(_._2.inv.has(Unobtainium)).partition(_._2.flags.isEmpty)
       refineRecursive(good, needsRefined)
