@@ -328,10 +328,8 @@ package SeedGenerator {
       }
 
       val locIter = locs.iterator
-//      val (shopLocs, nonShopLocs) = locs.partition(_.data.category == "Shop") // separate the locations into shop/nonshop, since they have different placement rules and thus different item pools
-//      val (shopIter, nonShopIter) = (shopLocs.iterator, nonShopLocs.iterator) // get iterators to be fancy with C:
-//      val ratio = shopLocs.size.floatValue() / nonShopLocs.size.floatValue() // ratio of shop locations to nonshop locations. this value is usually zero
-      val reservedForProg = (1 to (locs.size match { // if random placement doesn't open something (and it often won't), we gotta place something. Reserve item slots for it so we aren't in trouble
+      val reservedForProg = (1 to (locs.size match {
+        // if random placement doesn't open something (and it often won't), we gotta place something. Reserve item slots for it so we aren't in trouble
         case n if n < 3 => n  // pick how many slots to save by how big the pool is.
         case n if n < 5 => 3  // ideally we'd like 3?
         case n if n < 10 => 4 // tweak if necessary
@@ -343,9 +341,10 @@ package SeedGenerator {
       addPlacementsToState(randPlacements, "rand: ")
       if(randPlacements.nonEmpty) {
         val (newReach, _) = Nodes.getReachable(state.inv, flags)
-        debugPrint(s"checked new reachables, got ${(newReach -- reachable).collect({ case n: ItemLoc => n }).size}")
-        if(newReach.size - reachable.size > reservedForProg.size || newReach.size == ItemPool.SIZE)
-      return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable -- reservedForProg), Inv.Empty, randPlacements, i)
+        val newCount = (newReach -- reachable).collect({ case n: ItemLoc => n }).size
+        debugPrint(s"checked new reachables, got $newCount")
+        if(newCount > reservedForProg.size || newReach.size == ItemPool.SIZE)
+          return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable -- reservedForProg), Inv.Empty, randPlacements, i)
     }
 
       def getProgressionPath(sizeLeft: Int): Inv = {
