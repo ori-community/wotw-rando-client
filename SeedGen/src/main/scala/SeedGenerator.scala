@@ -130,10 +130,10 @@ package SeedGenerator {
   }
   object Path {
     val FAR = 7
-    def filterFar(paths: Set[Path], nodes: Set[Node]): Set[Path] = paths.filter({
+    def filterFar(paths: Set[Path], nodes: Set[Node], far: Int = FAR): Set[Path] = paths.filter({
         case _: SimplePath => true
-        case ChainedPath(links) if links.size < FAR => true
-        case ChainedPath(links)  => nodes.contains(links.reverseIterator.drop(FAR-1).next().dest)
+        case ChainedPath(links) if links.size < far => true
+        case ChainedPath(links)  => nodes.contains(links.reverseIterator.drop(far-1).next().dest)
       })
   }
   case class SimplePath(source: Node, dest: Node, req: Requirement) extends Path {
@@ -199,7 +199,7 @@ package SeedGenerator {
     }
 
 
-    def stateCosts(state: GameState, reached: Set[Node]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
+    def stateCosts(state: GameState, reached: Set[Node], far: Int): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
       @scala.annotation.tailrec
       def refineRecursive(good: Map[FlagState, GameState], hasFlags: Map[FlagState, GameState]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
         val (newGood, newFlags) = (hasFlags.view.mapValues(s => s.flags.foldLeft(GameState(s.inv))((acc, flag) => acc + (if(state.flags.contains(flag)) GameState.Empty else good.getOrElse(flag, GameState.mk(flag)))))
@@ -211,7 +211,7 @@ package SeedGenerator {
       }
       val (good, needsRefined) = paths.collect[FlagState, GameState]({
         case (WorldStateNode(flag), p)  if !reached.contains(WorldStateNode(flag)) &&  !state.flags.contains(WorldState(flag)) =>
-        WorldState(flag) -> Path.filterFar(p, reached).foldLeft[Requirement](Invalid)((acc, p) => acc or p.req).cheapestRemaining(state)
+        WorldState(flag) -> Path.filterFar(p, reached, far).foldLeft[Requirement](Invalid)((acc, p) => acc or p.req).cheapestRemaining(state)
       }).filterNot(_._2.inv.has(Unobtainium)).partition(_._2.flags.isEmpty)
       refineRecursive(good, needsRefined)
     }
@@ -318,7 +318,7 @@ package SeedGenerator {
         ps.foreach(p => {state.inv.add(p.item); debugPrint(prefix + " " + p)})
       def assignRandom(itemLocs: Seq[ItemLoc]): Seq[Placement] = {
         val (shops, locs) = itemLocs.partition(_.data.category == "Shop")
-          shops.map(shop => ShopPlacement(pool.popMerch.getOrElse(throw GeneratorError("ccc?")), shop)) ++
+          shops.map(shop => ShopPlacement(pool.popMerch.getOrElse(throw GeneratorError(s"${pool.merchToPop} $itemLocs ${pool.asSeq}")), shop)) ++
           locs.map(nonShop => ItemPlacement(pool.popRand.getOrElse(throw GeneratorError(s"${pool.merchToPop} $itemLocs ${pool.asSeq}")), nonShop))
       }
       if(reachable.size == ItemPool.SIZE) {
@@ -347,10 +347,9 @@ package SeedGenerator {
           return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable -- reservedForProg), Inv.Empty, randPlacements, i)
     }
 
-      def getProgressionPath(sizeLeft: Int): Inv = {
+      def getProgressionPath(sizeLeft: Int, far: Int = 3): Inv = {
         var _fullWeight = 0d
-        val (flagRemaining, unaffordable) = Nodes.stateCosts(state, reachable)
-        //debugPrint(flagRemaining.mkString("\n"))
+        val (flagRemaining, unaffordable) = Nodes.stateCosts(state, reachable, far)
         implicit val flagCosts: Map[FlagState, Double] = flagRemaining.view.mapValues(_.cost(state.flags.map(_ -> 0d).toMap)).toMap
 
         val remaining = ItemPool.SIZE - reachable.size
@@ -372,7 +371,7 @@ package SeedGenerator {
             case (node: ItemLoc, _) => !reachable.contains(node)
             case _ => false
           })
-          .flatMap({ case (_, paths) => Path.filterFar(paths, reachable).flatMap(_.req.remaining(state)) })
+          .flatMap({ case (_, paths) => Path.filterFar(paths, reachable, far).flatMap(_.req.remaining(state)) })
           .toSet
           .map[GameState](state => GameState(state.inv) +
             state.flags.foldLeft(GameState.Empty)((acc, flag) => acc + flagRemaining.getOrElse(flag, GameState.mk(flag)))
@@ -392,6 +391,10 @@ package SeedGenerator {
             case (items, 1) => (acc(items, .1), items)
         })
         if(possiblePaths.isEmpty) {
+          if(far < 8) {
+            debugPrint(s"group $i: failed at far=$far, looking deeper")
+            return getProgressionPath(sizeLeft, far+2)
+          }
           println(s"pool: $pool")
           println(s"inv: ${state.inv}")
 
@@ -408,6 +411,7 @@ package SeedGenerator {
           (Nodes.items.values.toSet[Node] -- reachable).take(5).foreach(n => {
             println(s"${n.name}: \n\t${Nodes.paths(n).map(_.req.cheapestRemaining(state)).mkString("\n\t")}")
           })
+
           throw GeneratorError(s"No possible paths???")
         }
         val limit = r.nextDouble() * _fullWeight
@@ -429,10 +433,8 @@ package SeedGenerator {
           ItemPlacement(item, nonShop)
       })
       val restPlacements =  progPlacements ++ assignRandom(remaining)
-//      restPlacements.foreach(i => state.inv.add(i.item))
       addPlacementsToState(restPlacements, "prog: (")
       PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable), progPath, randPlacements ++ restPlacements, i)
-
     }
   }
 
