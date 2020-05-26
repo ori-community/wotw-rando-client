@@ -39,7 +39,7 @@ package SeedGenerator {
 
   case class StateReq(flag: String) extends Requirement {
     def metBy(state: GameState): Boolean = state.flags.contains(WorldState(flag))
-    def remaining(state: GameState) = Seq(if (metBy(state)) GameState.Empty else GameState.mk(WorldState(flag)))
+    def remaining(state: GameState) = Seq(if(metBy(state)) GameState.Empty else GameState.mk(WorldState(flag)))
   }
 
   case class EventReq(eventCode: Int) extends Requirement {
@@ -361,7 +361,7 @@ package SeedGenerator {
     def nodes = Set(source, dest)
   }
   object Path {
-    val FAR = 5
+    val FAR = 7
     def filterFar(paths: Set[Path], nodes: Set[Node]): Set[Path] = paths.filter({
         case _: SimplePath => true
         case ChainedPath(links) if links.size < FAR => true
@@ -432,6 +432,7 @@ package SeedGenerator {
 
 
     def stateCosts(state: GameState, reached: Set[Node]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
+      @scala.annotation.tailrec
       def refineRecursive(good: Map[FlagState, GameState], hasFlags: Map[FlagState, GameState]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
         val (newGood, newFlags) = (hasFlags.view.mapValues(s => s.flags.foldLeft(GameState(s.inv))((acc, flag) => acc + (if(state.flags.contains(flag)) GameState.Empty else good.getOrElse(flag, GameState.mk(flag)))))
           ++ good).toMap.partition(_._2.flags.isEmpty)
@@ -446,7 +447,7 @@ package SeedGenerator {
           case _ => false
         }).map[FlagState, GameState]({case (WorldStateNode(flag), p) => {
           WorldState(flag) -> Path.filterFar(p, reached).foldLeft[Requirement](Invalid)((acc, p) => acc or p.req).cheapestRemaining(state)
-        }})/*.filterNot(_._2.inv.has(Unobtainium))*/.partition(_._2.flags.isEmpty)
+        }}).filterNot(_._2.inv.has(Unobtainium)).partition(_._2.flags.isEmpty)
       refineRecursive(good, needsRefined)
     }
 
@@ -498,7 +499,7 @@ package SeedGenerator {
     override def toString: String = s"GeneratorError: $message"
   }
 
-  case class PlacementGroup(outState: GameState, prog: Inv, placements: Seq[Placement], i: Int, maybeReach: Option[(Set[Node], Set[FlagState])] = None)(implicit r: Random, pool: Inv, debug: Boolean = false) {
+  case class PlacementGroup(outState: GameState, prog: Inv, placements: Seq[Placement], i: Int)(implicit r: Random, pool: Inv, debug: Boolean = false) {
     def desc(standalone: Boolean = false): String = {
       val progText = if(prog.count > 0) s" -- Chosen: ${prog.progText}" else ""
       val keyItems = placements.map(_.item).filterNot(prog.has(_)).collect({case i: Important => i})
@@ -512,17 +513,17 @@ package SeedGenerator {
 
     def write: String = desc() + placements.map(_.write).mkString("\n")
     def tryNext(): Either[GeneratorError, PlacementGroup] = {
-      PlacementGroup.trymk(outState, i + 1, maybeReach)
+      PlacementGroup.trymk(outState, i + 1)
     }
     def next():PlacementGroup = {
-      PlacementGroup.mk(outState, i + 1, maybeReach)
+      PlacementGroup.mk(outState, i + 1)
     }
   }
   object PlacementGroup {
     def debugPrint(x: Any)(implicit debug: Boolean = false): Unit = if(debug) println(x)
-    def trymk(inState: GameState, i:Int=0, maybeReach: Option[(Set[Node], Set[FlagState])]=None)
+    def trymk(inState: GameState, i:Int=0)
              (implicit r: Random, pool: Inv, debug: Boolean = false): Either[GeneratorError, PlacementGroup] = Try {
-      mk(inState, i, maybeReach)
+      mk(inState, i)
     }.toEither.left.map(
       {
         case e: GeneratorError => e
@@ -531,13 +532,10 @@ package SeedGenerator {
           e.setStackTrace(t.getStackTrace)
           e
       })
-    def mk(inState: GameState, i:Int=0, maybeReach: Option[(Set[Node], Set[FlagState])] = None)(implicit r: Random, pool: Inv, debug: Boolean = false): PlacementGroup = {
+    def mk(inState: GameState, i:Int=0)(implicit r: Random, pool: Inv, debug: Boolean = false): PlacementGroup = {
       debugPrint(s"Starting iter: ${inState.reached.filter(_.kind == ItemNode)}")
-      val (reachable, flags) = maybeReach.getOrElse(Nodes.getReachable(inState.inv, inState.flags))
+      val (reachable, flags) = Nodes.getReachable(inState.inv, inState.flags)
       val state = inState + new GameState(Inv.Empty, flags)
-      val (flagRemaining, unaffordable) = Nodes.stateCosts(state, reachable)
-      //debugPrint(flagRemaining.mkString("\n"))
-      implicit val flagCosts: Map[FlagState, Double] = flagRemaining.view.mapValues(_.cost(state.flags.map(_ -> 0d).toMap)).toMap
 
       val locs = r.shuffle((reachable -- state.reached).collect({ case n: ItemLoc => n }).toSeq)
       val count = pool.count
@@ -579,14 +577,18 @@ package SeedGenerator {
       val randPlacements = assignRandom(locIter.toSeq)
       addPlacementsToState(randPlacements, "rand: ")
       if(randPlacements.size > 0) {
-        val (newReach, newFlags) = Nodes.getReachable(state.inv, flags)
+        val (newReach, _) = Nodes.getReachable(state.inv, flags)
         debugPrint(s"checked new reachables, got ${(newReach -- reachable).collect({ case n: ItemLoc => n }).size}")
         if(newReach.size - reachable.size > reservedForProg.size || newReach.size == ItemPool.SIZE)
-          return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable -- reservedForProg), Inv.Empty, randPlacements, i,  Some((newReach, newFlags)))
-      }
+      return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable -- reservedForProg), Inv.Empty, randPlacements, i)
+    }
 
       def getProgressionPath(sizeLeft: Int): Inv = {
         var _fullWeight = 0d
+        val (flagRemaining, unaffordable) = Nodes.stateCosts(state, reachable)
+        //debugPrint(flagRemaining.mkString("\n"))
+        implicit val flagCosts: Map[FlagState, Double] = flagRemaining.view.mapValues(_.cost(state.flags.map(_ -> 0d).toMap)).toMap
+
         val remaining = ItemPool.SIZE - reachable.size
         if(remaining == 0)
           return Inv.Empty
@@ -735,14 +737,20 @@ object Runner {
       val dir = new File(dirPath)
       if (!dir.exists())
         dir.mkdirs()
+      Nodes.populate(false, false)
+      val t1 = System.currentTimeMillis()
+      println(s"populated base paths in ${(t1-t0)/1000f}s")
       (1 until count).par.map(n => {
         val file = new File(s"${dirPath}/${name_base}_${n}_base.wotwr")
         val bw = new BufferedWriter(new FileWriter(file))
         bw.write(forceGetSeed())
         bw.close()
       })
-      val t1 = System.currentTimeMillis()
-      println(s"Generated base seeds in ${(t1-t0)/1000f}s")
+      val t2 = System.currentTimeMillis()
+      println(s"Generated base seeds in ${(t2-t1)/1000f}s (average ${(t2-t1)/(1000f*count)}, ${(t2-t0)/1000f}s total)")
+      Nodes.populate(false, false)
+      val t3 = System.currentTimeMillis()
+      println(s"populated advanced paths in ${(t3-20)/1000f}s (${(t3-t0)/1000f}s total)")
 
       (count until (count + count/2)).par.map(n => {
         val file = new File(s"${dirPath}/${name_base}_${n}_advanced.wotwr")
@@ -750,8 +758,8 @@ object Runner {
         bw.write(forceGetSeed(true))
         bw.close()
       })
-      val t2 = System.currentTimeMillis()
-      println(s"Generated advanced seeds in ${(t2-t1)/1000f}s (${(t2-t0)/1000f}s total)")
+      val t4 = System.currentTimeMillis()
+      println(s"Generated ${count/2} advanced seeds in ${(t4-t3)/1000f}s (average ${(t4-t3)/(5000f*count)},  ${(t4-t0)/1000f}s total)")
     }
   }
 
