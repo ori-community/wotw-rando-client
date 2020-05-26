@@ -14,7 +14,7 @@ package SeedGenerator {
   trait Merch extends Item
   trait Important extends Item // literally just "show this in spoilers"
   trait Unplaceable extends Item {
-    override val cost = Double.PositiveInfinity
+    override val cost: Double = Double.PositiveInfinity
     override def code: String = "ERROR|ERROR"
     val itemType: Int = -1
   }
@@ -22,15 +22,15 @@ package SeedGenerator {
   trait SpiritLightItem extends Item {
     val itemType: Int = 0
     def amount: Int
-    def name = s"${amount} Spirit Light"
-    def code = s"${itemType}|${amount}"
-    override val cost = amount / 100f
+    def name = s"$amount Spirit Light"
+    def code = s"$itemType|$amount"
+    override val cost: Double = amount / 100f
   }
 
   case class SpiritLight(amount: Int) extends SpiritLightItem
   class Resource(resourceType: Int, val name: String) extends Item with Merch {
     val itemType = 1
-    def code = s"${itemType}|${resourceType}"
+    def code = s"$itemType|$resourceType"
   }
 
   case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.2f }
@@ -42,7 +42,7 @@ package SeedGenerator {
   case class WorldEvent(eventId: Int) extends Item with Merch with Important  {
     val itemType: Int = 9
     def code = s"$itemType|$eventId"
-    def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event ${eventId}")}"
+    def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event $eventId")}"
     override val cost = 7
   }
 
@@ -50,16 +50,16 @@ package SeedGenerator {
     val names: Map[Int, String] = Map(
       0 -> "Water"
     )
-    val invNames = names.map({case (a, b) => b->a})
-    val poolItems = names.keys.map(WorldEvent(_)).toSeq
+    val invNames: Map[String, Int] = names.map({case (a, b) => b->a})
+    val poolItems: Seq[WorldEvent] = names.keys.map(WorldEvent(_)).toSeq
   }
   object Water extends WorldEvent(0)
 
   case class Skill(skillId: Int) extends Item with Merch with Important {
     val itemType: Int = 2
-    def code = s"$itemType|${skillId}"
-    def name: String = s"${Skill.names.getOrElse(skillId, s"Unknown (${skillId})")}"
-    override val cost = Skill.costs.getOrElse(skillId, 5d)
+    def code = s"$itemType|$skillId"
+    def name: String = s"${Skill.names.getOrElse(skillId, s"Unknown ($skillId)")}"
+    override val cost: Double = Skill.costs.getOrElse(skillId, 5d)
   }
   object Skill {
     val itemType: Int = 2
@@ -97,8 +97,8 @@ package SeedGenerator {
 
   case class Shard(shardId: Int) extends Item with Merch {
     val itemType: Int = 3
-    def code = s"$itemType|${shardId}"
-    def name: String = s"${Shard.names.getOrElse(shardId, s"Unknown (${shardId})")}"
+    def code = s"$itemType|$shardId"
+    def name: String = s"${Shard.names.getOrElse(shardId, s"Unknown ($shardId)")}"
   }
 
   object Shard {
@@ -135,13 +135,13 @@ package SeedGenerator {
       46 -> "Fracture",
       47 -> "Arcing",
     )
-    val poolItems = names.keys.map(Shard(_)).toSeq
+    val poolItems: Seq[Shard] = names.keys.map(Shard(_)).toSeq
   }
   case class Teleporter(teleporterId: Int) extends Item with Merch with Important {
     val itemType: Int = 5
-    def code = s"$itemType|${teleporterId}"
-    def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown (${teleporterId})")} TP"
-    override val cost = Teleporter.costs.getOrElse(teleporterId, 7d)
+    def code = s"$itemType|$teleporterId"
+    def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
+    override val cost: Double = Teleporter.costs.getOrElse(teleporterId, 7d)
   }
 
   object Teleporter {
@@ -168,13 +168,13 @@ package SeedGenerator {
       16 -> "Marsh",
       17 -> "Glades"
     )
-    val poolItems = names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq
+    val poolItems: Seq[Teleporter] = names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq
   }
 
   // fake inventory items
   object Unobtainium extends Item with Unplaceable {
     override def name: String = "Unobtainium"
-    override val cost = Double.PositiveInfinity
+    override val cost: Double = Double.PositiveInfinity
   }
   trait FlagState { def name: String }
 
@@ -195,7 +195,7 @@ package SeedGenerator {
         case _ => false
       }
     }
-    def withParams(params: Either[Item, Either[FlagState, Node]]*) = this + GameState.mk(params:_*)
+    def withParams(params: Either[Item, Either[FlagState, Node]]*): GameState = this + GameState.mk(params:_*)
     override def toString = s"GameState($inv, flags: ${
       flags.map(_.name).mkString("[", ", ", "]") // stealth newline
     }, nodes: ${reached.map(_.name).mkString("[", ", ", "]")})"
@@ -213,8 +213,8 @@ package SeedGenerator {
   // extending hashset instead of encapsulating it here was pure folly, tbh
   class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
     items.collect({ case (i: Item, count: Int) if count > 0 => set(i, count) })
-    def totalSpiritLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
-    def withoutCash(cash: Int) = {
+    def totalSpiritLight: Int = collect({case (SpiritLight(amount), i) => amount*i}).sum
+    def withoutCash(cash: Int): Inv = {
       val totalLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
       if(totalLight < cash)
         println("THIS SEEMS SUBOPTIMAL")
@@ -229,11 +229,11 @@ package SeedGenerator {
     override def toString = s"Inv: (${
       filter(_._2 > 0).filterNot(kv => kv._1.isInstanceOf[SpiritLight] || kv._1.isInstanceOf[Shard]).map({
         case (item, 1) => s"$item"
-        case (item, c) => s"$c ${item}"
+        case (item, c) => s"$c $item"
       }).mkString(", ")})"
     def progText: String = s"${filter(_._2 > 0).map({
         case (item, 1) => s"$item"
-        case (item, c) => s"$c ${item}"
+        case (item, c) => s"$c $item"
       }).mkString(", ")}"
     def asSeq: Seq[Item] = keys.toSeq.flatMap(k => (0 until this (k)).map(_ => k))
     def count: Int = foldLeft(0)(_ + _._2)
@@ -246,7 +246,7 @@ package SeedGenerator {
 
     def take(item: Item, count: Int = 1): Boolean = {
       if (!has(item, count)) {
-        println(s"Error: taking ${count} of ${item} from ${this}, which doesn't have that many")
+        println(s"Error: taking $count of $item from ${this}, which doesn't have that many")
         return false
       }
       set(item, Math.max(0, this (item) - count))
@@ -256,7 +256,7 @@ package SeedGenerator {
     }
     def without(item: Item, count: Int): Inv = {
       if (!has(item, count)) {
-        println(s"Error building ${this} without ${count} of ${item}")
+        println(s"Error building ${this} without $count of $item")
       }
       new Inv(keys.map({
         case i if i == item => i -> (this(i)-count)
@@ -271,7 +271,7 @@ package SeedGenerator {
           val (merch, norm) = asSeq.partition(_.isInstanceOf[Merch])
           norm ++ r.shuffle(merch).drop(merchToPop)
         } else asSeq
-      if (s.size > 0) {
+      if (s.nonEmpty) {
         val i = s(r.nextInt(s.size))
         if(i == Launch && count > 165) {
             // if we haven't placed half the items yet,
