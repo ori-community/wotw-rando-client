@@ -129,8 +129,7 @@ package SeedGenerator {
     def nodes = Set(source, dest)
   }
   object Path {
-    val FAR = 7
-    def filterFar(paths: Set[Path], nodes: Set[Node], far: Int = FAR): Set[Path] = paths.filter({
+    def filterFar(paths: Set[Path], nodes: Set[Node], far: Int): Set[Path] = paths.filter({
         case _: SimplePath => true
         case ChainedPath(links) if links.size < far => true
         case ChainedPath(links)  => nodes.contains(links.reverseIterator.drop(far-1).next().dest)
@@ -515,7 +514,7 @@ object Runner {
         bw.close()
       })
       val t2 = System.currentTimeMillis()
-      println(s"Generated base seeds in ${(t2-t1)/1000f}s (average ${(t2-t1)/(1000f*count)}, ${(t2-t0)/1000f}s total)")
+      println(s"Generated base seeds in ${(t2-t1)/1000f}s (average ${(t2-t1)/(1000f*count)}s, ${(t2-t0)/1000f}s total)")
       Nodes.populate()
       val t3 = System.currentTimeMillis()
       println(s"populated advanced paths in ${(t3-20)/1000f}s (${(t3-t0)/1000f}s total)")
@@ -527,7 +526,7 @@ object Runner {
         bw.close()
       })
       val t4 = System.currentTimeMillis()
-      println(s"Generated ${count/2} advanced seeds in ${(t4-t3)/1000f}s (average ${(t4-t3)/(5000f*count)},  ${(t4-t0)/1000f}s total)")
+      println(s"Generated ${count/2} advanced seeds in ${(t4-t3)/1000f}s (average ${(t4-t3)/(500f*count)}s,  ${(t4-t0)/1000f}s total)")
     }
   }
 
