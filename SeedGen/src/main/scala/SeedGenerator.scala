@@ -199,7 +199,9 @@ package SeedGenerator {
     }
 
 
-    def stateCosts(state: GameState, reached: Set[Node], far: Int): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
+    def stateCosts(items: Inv, far: Int): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
+      val (reached, flags) = getReachable(items)
+      val state = GameState(items, flags)
       @scala.annotation.tailrec
       def refineRecursive(good: Map[FlagState, GameState], hasFlags: Map[FlagState, GameState]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
         val (newGood, newFlags) = (hasFlags.view.mapValues(s => s.flags.foldLeft(GameState(s.inv))((acc, flag) => acc + (if(state.flags.contains(flag)) GameState.Empty else good.getOrElse(flag, GameState.mk(flag)))))
@@ -210,7 +212,7 @@ package SeedGenerator {
           (newGood, newFlags)
       }
       val (good, needsRefined) = paths.collect[FlagState, GameState]({
-        case (WorldStateNode(flag), p)  if !reached.contains(WorldStateNode(flag)) &&  !state.flags.contains(WorldState(flag)) =>
+        case (WorldStateNode(flag), p)  if !reached.contains(WorldStateNode(flag)) && !state.flags.contains(WorldState(flag)) =>
         WorldState(flag) -> Path.filterFar(p, reached, far).foldLeft[Requirement](Invalid)((acc, p) => acc or p.req).cheapestRemaining(state)
       }).filterNot(_._2.inv.has(Unobtainium)).partition(_._2.flags.isEmpty)
       refineRecursive(good, needsRefined)
@@ -348,7 +350,7 @@ package SeedGenerator {
 
       def getProgressionPath(sizeLeft: Int, far: Int = 3): Inv = {
         var _fullWeight = 0d
-        val (flagRemaining, unaffordable) = Nodes.stateCosts(state, reachable, far)
+        val (flagRemaining, unaffordable) = Nodes.stateCosts(state.inv, far)
         implicit val flagCosts: Map[FlagState, Double] = flagRemaining.view.mapValues(_.cost(state.flags.map(_ -> 0d).toMap)).toMap
 
         val remaining = ItemPool.SIZE - reachable.size
