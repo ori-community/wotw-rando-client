@@ -22,10 +22,6 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void save();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void foundDash();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static bool haveRealDash();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void setOre(int amount);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -103,11 +99,14 @@ namespace RandoMainDLL {
       // save interops
       [DllExport]
       public static void NewGame(int slot) => Randomizer.OnNewGame(slot);
-
       [DllExport]
       public static void OnLoad(int slot, int backupSlot) => SaveController.OnLoad(slot, backupSlot);
       [DllExport]
       public static void OnSave(int slot, int backupSlot) => SaveController.OnSave(slot, backupSlot);
+      [DllExport]
+      public static bool GetAbility(AbilityType ability) => SaveController.GetAbility(ability);
+      [DllExport]
+      public static void SetAbility(AbilityType ability) => SaveController.SetAbility(ability);
 
       [DllExport]
       public static bool DoInvertTree(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability) ^ Randomizer.Memory.HasAbility(ability);

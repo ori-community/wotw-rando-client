@@ -189,13 +189,6 @@ bool playerCanMove() {
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
 
-extern "C" __declspec(dllexport)
-void foundDash() {
-    hasRealDash = true;
-}
-
-extern "C" __declspec(dllexport)
-bool haveRealDash() { return hasRealDash; }
 
 extern "C" __declspec(dllexport)
 void save() {

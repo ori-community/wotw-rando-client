@@ -86,7 +86,7 @@ namespace RandoMainDLL {
       var memory = Randomizer.Memory;
       if (!memory.IsLoadingGame()) {
         Randomizer.Log("New Game Init", false);
-        memory.SetAbility(AbilityType.SpiritEdge);
+        SaveController.SetAbility(AbilityType.SpiritEdge);
         foreach (UberState s in DefaultUberStates) { memory.WriteUberState(s); }
         foreach (UberState s in KeystoneDoors) { memory.WriteUberState(s); }
         foreach (UberState s in Kuberstates) { memory.WriteUberState(s); }
