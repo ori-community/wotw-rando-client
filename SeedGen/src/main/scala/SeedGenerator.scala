@@ -276,6 +276,8 @@ package SeedGenerator {
       // plcmnts.placements.map(_.item).filterNot(plcmnts.prog.has(_)
     }
 
+    def done: Boolean = pool.isEmpty && Nodes.items.values.forall(outState.reached.contains)
+
     def write: String = desc() + placements.map(_.write).mkString("\n")
     def tryNext(): Either[GeneratorError, PlacementGroup] = {
       PlacementGroup.trymk(outState, i + 1)
@@ -309,11 +311,8 @@ package SeedGenerator {
         println(s"ERROR: $count + $placed != ${ItemPool.SIZE}")
       debugPrint(s"starting random placement into ${locs.size} locs,  ($placed /${ItemPool.SIZE} placed already, have itempool size $count")
 
-      if(locs.isEmpty) {
-        if(reachable.size == ItemPool.SIZE)
-          throw GeneratorError("successful gen") // good code here! not bad code. nope.
+      if(locs.isEmpty)
         throw GeneratorError(s"no new locs (${reachable.size} out of ${ItemPool.SIZE} reached)")
-      }
       def addPlacementsToState(ps: Seq[Placement], prefix: String = ""): Unit =
         ps.foreach(p => {state.inv.add(p.item); debugPrint(prefix + " " + p)})
       def assignRandom(itemLocs: Seq[ItemLoc]): Seq[Placement] = {
@@ -455,13 +454,13 @@ object Runner {
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv, debug: Boolean = false): (Seq[PlacementGroup], Option[GeneratorError]) = {
       grps.lastOption.map(_.tryNext()).getOrElse({
-        PlacementGroup.trymk(DEFAULT_INV)
-      }) match {
-        case Right(next) => recurse(grps :+ next)
-        case Left(GeneratorError("successful gen")) => (grps, None)
-        case Left(error) =>(grps, Some(error))
-      }
+      PlacementGroup.trymk(DEFAULT_INV)
+    }) match {
+      case Right(next) if next.done => (grps, None)
+      case Right(next) => recurse(grps :+ next)
+      case Left(error) =>(grps, Some(error))
     }
+}
     def getSeedOpt(advanced: Boolean = false, debug: Boolean = false): Option[String] = {
       val (grps, err) = mkSeed(advanced)(debug)
       err match {
