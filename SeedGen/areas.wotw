@@ -2425,7 +2425,7 @@ area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
       Bash, Grenade=1, DoubleJump OR Dash
       Launch
 
-area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
+area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
   pickup LowerWastes.SunsetViewEX: free
   pickup LowerWastes.PurpleWallEX:
     base: Burrow, Bash
@@ -2436,8 +2436,8 @@ area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View Autosave
       Grapple, DoubleJump OR Dash OR Glide
       DoubleJump, Bash, Grenade=1 # Does require double jump to the grenade, and then double jump after bash to clear grapple section
       Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
-  conn WeepingRidge: # TODO: deleteme
-    base: Launch, Wisps, Bash, Glide, Dash, DoubleJump
+  conn WeepingRidge.Bottom: # TODO: deleteme
+    base: Launch, Burrow, Wisps, Bash, Glide, Dash, DoubleJump
 
 area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
   state LowerWastes.QuestEerieGem:
@@ -2843,15 +2843,46 @@ region WeepingRidge:
   base:
     Danger=60, Regenerate
 
-area WeepingRidge:  # (1191, -3716) After the portal at the top of Elevator
-  pickup WeepingRidge.Ore:
-    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+area WeepingRidge.Bottom: # (1162, -3818) Just to the right of where the elevator starts
+  state WeepingRidge.ElevatorFightCompleted:
+    base: Combat, ShieldEnemy
+
+  conn WeepingRidge.LaunchArea:
+    base: WeepingRidge.ElevatorFightCompleted
+
+area WeepingRidge.LaunchArea:  # (1191, -3716) After the portal at the top of the elevator
   pickup WeepingRidge.LaunchTree:
-    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps
-  pickup WeepingRidge.SpikeClimbEX:
-    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+    base:
+      Glide, Bash OR DoubleJump OR Dash             # Glide does most of the work here
+      Launch, Glide OR Bash OR DoubleJump OR Dash
+    advanced:
+      Glide                     # this could plausibly be a base path? You just hold right
+      Launch                    # this could not. it's tricky!
+      Bash, DoubleJump, Dash    # requires bash gliding
   pickup WeepingRidge.PortalEX:
-    base: Glide, Flap, DoubleJump, Grapple, Burrow, Wisps, Launch
+    base:
+      Launch, Glide OR Bash OR DoubleJump OR Dash
+    advanced:
+      Launch
+  pickup WeepingRidge.SpikeClimbEX:
+    base:
+      Launch, Glide OR Bash OR DoubleJump OR Dash
+    advanced:
+      Launch
+  pickup WeepingRidge.Ore:
+    base:
+      Launch, Glide OR DoubleJump
+    advanced:
+      Launch
+      Bash, Glide              # fuck with the elemental until he gives you a shot to bash
+  conn WeepingRidge.Bottom:
+    base: WeepingRidge.ElevatorFightCompleted
+  conn WillowsEnd.Entry:
+    base, WeepingRidge.ElevatorFightCompleted:
+      Launch, Glide, DoubleJump OR Dash
+      Launch, DoubleJump, Dash
+    advanced:
+      WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump OR Glide OR Dash # you really only NEED one of the 3 of em
 
 # BEGIN unvalidated willow's end region
 region WillowsEnd:
@@ -2885,6 +2916,9 @@ area WillowsEnd.Entry:  # (495, -3950) At the lower door
   conn WillowsEnd.InnerTP:
     base:
       Launch, Bash, DoubleJump OR Dash OR Glide  # mine in the way, but I think it's managable
+  conn WeepingRidge.LaunchArea:
+    base:
+      WeepingRidge.ElevatorFightCompleted        # maybe this should require glide? you can just jump and you either time it right or take 20 damage, ndb either way
 
 area WillowsEnd.InnerTP:  # (421, -3864) The teleporter inside
   pickup WillowsEnd.LupoMap:
