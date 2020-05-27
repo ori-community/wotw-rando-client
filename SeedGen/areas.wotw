@@ -119,14 +119,14 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base: WellspringTP
   conn WoodsEntry.Teleporter:
     base: WestWoodsTP
-  conn WoodsMain.Teleporter
+  conn WoodsMain.Teleporter:
     base: EastWoodsTP
   conn LowerReach.Teleporter:
     base: ReachTP
   conn UpperDepths.Teleporter:
     base: DepthsTP
   conn EastPools.TPArea:
-    base: EastLumaTP
+    base: EastPoolsTP
   conn WestPools:
     base: WestPoolsTP
   conn LowerWastes.WestTP:
@@ -1518,7 +1518,7 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
       Water, Bow OR Grenade=1 # Bow=1 not a thing yet
   state EastPools.LowerWaterDrained:
     base:
-      Water OR EastLumaTP
+      Water OR EastPoolsTP
   # There are two Arenas here: you get one if you enter without WaterDash and another if you enter with it.
   # This path is assuming the worse case of getting the strictly harder WaterDash arena, but doesn't list WaterDash
   # explicitly because you don't need it unless you have it.
