@@ -112,7 +112,7 @@ namespace RandoMainDLL {
         else
           return $"{zone}: {found.Count}/{items.Count} key items";
       }
-      return $"No key items in ${zone}";
+      return $"No key items in {zone}";
     }
     // the two below shouldn't be properties, but i wanted to make the one above a property too?
     // so this was a compromise, if you think about it.
