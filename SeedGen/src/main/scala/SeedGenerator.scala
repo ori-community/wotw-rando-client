@@ -445,7 +445,6 @@ object Runner {
     def setSeed(): Long => Unit = r.setSeed
     val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1))
     private def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
-    def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
       Nodes.populate(debug, advanced)
       implicit val pool: Inv = ItemPool.build()
       recurse()
