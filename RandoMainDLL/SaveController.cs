@@ -12,17 +12,14 @@ namespace RandoMainDLL {
       }
 
       [JsonConstructor]
-      public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell,
-        Dictionary<AbilityType, int> opherUpgrade, HashSet<ShardType> shardSlots,
-        HashSet<QuestEventType> worldEvents, int count = 0) {
+      public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell, Dictionary<AbilityType, int> opherUpgrade, 
+        HashSet<ShardType> shardSlots, HashSet<QuestEventType> worldEvents, HashSet<AbilityType> skillsFound, int count = 0) {
         Slot = slot;
         TreesActivated = trees;
         OpherSold = opherSell;
         OpherUpgraded = opherUpgrade;
         TwillenSold = shardSlots;
-        if(worldEvents == null) {
-          worldEvents = new HashSet<QuestEventType>();
-        }
+        SkillsFound = skillsFound;
         WorldEvents = worldEvents;
         FoundCount = count;
       }
@@ -33,12 +30,13 @@ namespace RandoMainDLL {
       public Dictionary<AbilityType, int> OpherUpgraded = new Dictionary<AbilityType, int>();
       public HashSet<ShardType> TwillenSold = new HashSet<ShardType>();
       public HashSet<QuestEventType> WorldEvents = new HashSet<QuestEventType>();
+      public HashSet<AbilityType> SkillsFound = new HashSet<AbilityType>();
       public int FoundCount = 0;
 
       [JsonIgnore]
       public string Filename => $"{Randomizer.SaveFolder}\\randosave_{Slot}.json";
       public string fullName(int backup) => Filename + (backup != -1 ? $".{backup}.bak" : "");
-      public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}";
+      public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}\nSkills: {SkillsFound}";
       public void Save(int backup = -1) {
         string targetFile = fullName(backup);
         if (File.Exists(targetFile)) 
@@ -56,8 +54,7 @@ namespace RandoMainDLL {
         if (File.Exists(targetFile)) {
           using (var sr = new StreamReader(targetFile))
           using (JsonReader reader = new JsonTextReader(sr)) {
-            var serializer = new JsonSerializer();
-            serializer.DefaultValueHandling = DefaultValueHandling.Populate;
+            var serializer = new JsonSerializer { DefaultValueHandling = DefaultValueHandling.Populate };
             copyFrom = serializer.Deserialize<SaveData>(reader);
           }
         }
@@ -66,10 +63,18 @@ namespace RandoMainDLL {
         OpherUpgraded = new Dictionary<AbilityType, int>(copyFrom.OpherUpgraded);
         TwillenSold = new HashSet<ShardType>(copyFrom.TwillenSold);
         WorldEvents = new HashSet<QuestEventType>(copyFrom.WorldEvents);
+        SkillsFound = new HashSet<AbilityType>(copyFrom?.SkillsFound ?? new HashSet<AbilityType>());
         FoundCount = copyFrom.FoundCount;
       }
     }
-
+    public static bool GetAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
+    public static void SetAbility(AbilityType ability, bool setTo = true) {
+      if (setTo)
+        Data.SkillsFound.Add(ability);
+      else
+        Data.SkillsFound.Remove(ability);
+      Randomizer.Memory.SetAbility(ability, setTo);
+    }
     public static SaveData Data;
     public static int CurrentSlot = -1;
 
@@ -80,7 +85,6 @@ namespace RandoMainDLL {
     }
 
     public static void OnLoad(int slot, int backupSlot = -1) {
-      Randomizer.Log($"load: {slot}, {backupSlot}", false, "DEBUG");
       try {
         if (slot != CurrentSlot) {
           if (Randomizer.InputUnlockCallback != null) {
@@ -98,7 +102,6 @@ namespace RandoMainDLL {
     }
 
     public static void OnSave(int slot, int backupSlot = -1) {
-      Randomizer.Log($"save: {slot}, {backupSlot}", false, "DEBUG");
       if (slot == -1) {
         Randomizer.Log("Error: tried to save to empty slot");
         return;

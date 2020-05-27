@@ -193,9 +193,8 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
-    public bool Has() =>
-      states().All((s) => s.ValueOr(new UberValue(false)).Bool);
-    //      return false;
+    public bool Has() => states().All((s) => s.ValueOr(new UberValue(false)).Bool);
+
     public static Dictionary<TeleporterType, List<UberState>> TeleporterStates = new Dictionary<TeleporterType, List<UberState>> {
       { TeleporterType.Burrows, new List<UberState> { UberStateDefaults.savePedestalMidnightBurrows} },
       { TeleporterType.Den, new List<UberState> { UberStateDefaults.savePedestalHowlsDen} },
@@ -238,21 +237,12 @@ namespace RandoMainDLL {
     public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
-    public bool Has() {
-      try {
-        if(type == AbilityType.Dash) 
-          return InterOp.haveRealDash();
-        return Randomizer.Memory.HasAbility(type);
-      } catch(Exception e) {
-        Randomizer.Error("Ability.Has", e);
-        return false;
-      }
-    }
+    public bool Has() => SaveController.GetAbility(type);
     public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
     public override float ModEffectiveness() => (type == AbilityType.Blaze) ? 0f : 1f;
 
     public override void Grant(bool squelch = false, bool inc = true) {
-      Randomizer.Memory.SetAbility(type);
+      SaveController.SetAbility(type);
       base.Grant(squelch, inc);
     }
 
