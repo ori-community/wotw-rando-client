@@ -212,8 +212,9 @@ package SeedGenerator {
           (newGood, newFlags)
       }
       val (good, needsRefined) = paths.collect[FlagState, GameState]({
-        case (WorldStateNode(flag), p)  if !reached.contains(WorldStateNode(flag)) && !state.flags.contains(WorldState(flag)) =>
-        WorldState(flag) -> Path.filterFar(p, reached, far).foldLeft[Requirement](Invalid)((acc, p) => acc or p.req).cheapestRemaining(state)
+        case (WorldStateNode(flag), _) if reached.contains(WorldStateNode(flag)) || state.flags.contains(WorldState(flag))
+                                        => WorldState(flag) -> GameState.Empty
+        case (WorldStateNode(flag), p)  => WorldState(flag) -> Path.filterFar(p, reached, far).foldLeft[Requirement](Invalid)((acc, p) => acc or p.req).cheapestRemaining(state)
       }).filterNot(_._2.inv.has(Unobtainium)).partition(_._2.flags.isEmpty)
       refineRecursive(good, needsRefined)
     }
