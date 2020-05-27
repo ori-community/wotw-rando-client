@@ -445,6 +445,7 @@ object Runner {
     def setSeed(): Long => Unit = r.setSeed
     val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1))
     private def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
+    def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
       Nodes.populate(debug, advanced)
       implicit val pool: Inv = ItemPool.build()
       recurse()
@@ -458,7 +459,7 @@ object Runner {
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {
-      case Right(next) if next.done => (grps, None)
+      case Right(next) if next.done => (grps :+ next, None)
       case Right(next) => recurse(grps :+ next)
       case Left(error) =>(grps, Some(error))
     }
