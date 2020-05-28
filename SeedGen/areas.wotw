@@ -18,7 +18,7 @@ requirement Combat:
     Launch
 
 requirement RangedWeapon:
-  base: Grenade=3 OR Bow OR Spear
+  base: Grenade=3 OR Bow OR Spear  # 3 should be enough for any use of this
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
   base: UpperDepths.MoraDefeated OR Flash
@@ -1744,7 +1744,6 @@ area WestPools:  # (-1652, -4170) the west Pools TP
       WestPools.KwolokDefeated, Water, WaterDash, Bash, Grenade=1, Dash
 # end pools needs validation area
 
-# unvalidated woods area
 region WoodsEntry:
   base:
     Danger=40, Regenerate
@@ -1753,10 +1752,12 @@ area WoodsEntry.ShriekMeet:  # (478, -4204) The ledge to the left of where the m
   pickup WoodsEntry.MudPitEX:
     base:
       DoubleJump OR Dash OR Glide OR Launch
-      Bash, Grenade=1
+      Bash, Grenade=2
   
   conn WoodsEntry.BelowTeleporter:
-    base: RangedWeapon, Danger=10, DoubleJump OR Dash OR Glide OR Launch
+    base, RangedWeapon:
+      Danger=10, DoubleJump OR Dash OR Glide OR Launch
+      Bash, DoubleJump OR Dash OR Glide OR Launch
 
 area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
   conn WoodsEntry.ShriekMeet:
@@ -1765,7 +1766,7 @@ area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
       Launch
   conn WoodsEntry.Teleporter:
     base:
-      Grapple, DoubleJump OR Glide
+      Grapple, DoubleJump OR Dash OR Glide
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
   conn WoodsEntry.TwoKeystoneRoom:
@@ -1783,9 +1784,9 @@ area WoodsEntry.Teleporter:  # (611, -4161) At the West Woods Teleporter
     base: Flap
   pickup WoodsEntry.LedgeOre:
     base: 
-      Glide, Dash OR DoubleJump
+      Glide, DoubleJump OR Launch
       Bash, Grenade=1, Glide OR Launch
-      Launch, DoubleJump OR Dash OR Glide  # coming from below you wouldn't need assisting abilities
+      DoubleJump, Dash, Launch  # coming from below you'd just need Launch
 #    advanced:
 #      Glide, SentryJump=1
 
@@ -1801,7 +1802,7 @@ area WoodsEntry.TwoKeystoneRoom:  # (672, -4182) In front of the keystone door
 #     SentryJump=1, Glide
 
   conn WoodsMain.BelowFourKeystoneRoom:
-    base:
+    base, EnemyObstacle:
       DoubleJump, Dash
       Bash OR Glide OR Launch  # bash uses the enemy
   conn WoodsEntry.BelowTeleporter:
@@ -1815,19 +1816,20 @@ area WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile aft
   pickup WoodsMain.LowerLeafPileEX:
     base: Flap
   pickup WoodsMain.BehindWallOre:
-    base: Weapon, Bash, Grenade=2, DoubleJump  # different ways to solve
+    base: Weapon, RangedWeapon, Bash, Grenade=2, DoubleJump  # different ways to solve
     advanced: Weapon, DoubleJump, Dash  # Perform wrap-around double jumps on the far right wall under the ore
   pickup WoodsMain.BelowKeystonesEX:
-    base: Bash, Grenade=2, DoubleJump  # different ways to solve
+    base: RangedWeapon, Bash, Grenade=2, DoubleJump  # different ways to solve
   
   conn WoodsMain.FourKeystoneRoom:
-    base:
+    base, RangedWeapon:
       Flap, Glide
       Bash, Grenade=2, DoubleJump, Dash  # different ways to solve
       Launch
   conn WoodsEntry.TwoKeystoneRoom:
     base:
-      Bash, Grenade=1, Danger=10  # uses the enemy
+      Bash, Grenade=2, Danger=10  # uses the enemy
+      Bash, Grenade=1, Danger=10, DoubleJump OR Dash  # uses the enemy
       Launch, DoubleJump OR Dash OR Bash OR Glide  # bash uses the enemy
 
 area WoodsMain.FourKeystoneRoom:  # (950, -4167) The floor of the keystone room
@@ -1852,7 +1854,7 @@ area WoodsMain.GiantSkull:  # (957, -4136) Behind the four keystone room door
   pickup WoodsMain.UpperKS:
     base, Weapon:
       Glide OR Launch
-      DoubleJump, Bash, Grenade=1
+      Bash, Grenade=1, DoubleJump OR Dash
   pickup WoodsMain.LeftKS:
     base: Glide
   pickup WoodsMain.LowerKS:
@@ -1869,17 +1871,17 @@ area WoodsMain.GiantSkull:  # (957, -4136) Behind the four keystone room door
   
   conn WoodsMain.BelowHiddenOre:
     base:
-      Weapon, Glide OR Launch
-      RangedWeapon, Glide
+      Weapon, Glide
+      RangedWeapon, Glide OR Launch
   conn WoodsMain.FourKeystoneRoom: free
 
 area WoodsMain.BelowHiddenOre:  # (1038, -4100) Below and to the right of the hidden ore, close to the yellow wall
-  pickup WoodsMain.YellowWallEX:
-    base: Flap, Glide OR Launch
   pickup WoodsMain.HiddenOre:
+    base: Flap, Glide
+  pickup WoodsMain.YellowWallEX:
     base:
-      Flap, Glide
-      Glide, Launch
+      Weapon, Flap, Glide
+      RangedWeapon, Flap, Glide OR Launch
   
   conn WoodsMain.PetrifiedHowl:
     base: Glide
@@ -1887,7 +1889,7 @@ area WoodsMain.BelowHiddenOre:  # (1038, -4100) Below and to the right of the hi
     base, Weapon:
       Glide OR Launch
       DoubleJump, Dash
-      DoubleJump, Bash
+      RangedWeapon, DoubleJump, Bash
 
 area WoodsMain.PetrifiedHowl:  # (910, -4071) At silenced Howl
   pickup WoodsMain.PetrifiedHowlEX: free
@@ -1905,21 +1907,17 @@ area WoodsMain.PetrifiedHowl:  # (910, -4071) At silenced Howl
 area WoodsMain.AboveHowl:  # (916, -4046) At the semisolid above silenced Howl
   state WoodsMain.TrialActivation:
     base:
-      DoubleJump, Dash, Bash, Grapple, Glide
-      Launch, Grapple, Burrow, DoubleJump OR Dash OR Glide
-      Launch, Grapple, Bash
-      Launch, Grapple, DoubleJump, Dash, Glide
+      DoubleJump, Dash, Bash, Grapple, Glide, Burrow
+      Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
   
   pickup WoodsMain.HiddenEX: free
   pickup WoodsMain.OverflowShard:
     base:
-      DoubleJump, Bash, Grapple, Dash OR Glide
-      Launch, Grapple, Burrow, DoubleJump OR Dash OR Glide
-      Launch, Grapple, Bash
-      Launch, Grapple, DoubleJump, Dash, Glide
+      DoubleJump, Bash, Grapple, Burrow, Dash OR Glide
+      Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
   
   conn WoodsMain.Teleporter:
-    base, Weapon:
+    base, RangedWeapon:
       DoubleJump OR Launch
       Bash, Grenade=1
   conn WoodsMain.PetrifiedHowl: free
@@ -1937,16 +1935,15 @@ area WoodsMain.Teleporter:  # (1083, -4052) At the East Woods Teleporter
 
 area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding grounds
   # having the initial escape completed is a negative, not a positive. The paths going through it are the connections to Wastes.
+  # if you complete the initial escape, rocks fall and block most of the connection paths to WestTP. This is equally true for the base game though and solved by the fact that if you complete the escape, you unlock the teleporter, making these paths not softlockable
   pickup WoodsMain.CombatShrine:
-    base, Combat, RangedWeapon, Danger=40:  # danger tbd
+    base, Combat, RangedWeapon, ShieldEnemy, Bash, Danger=40:  # +40 region danger
       Glide OR Launch
       DoubleJump, Dash
-      Bash, Grenade=1, DoubleJump OR Dash
   pickup WoodsMain.ShrineEX:
     base: 
       Glide OR Launch
       DoubleJump, Dash
-      Bash, Grenade=1, DoubleJump OR Dash
   
   # connections to the east woods teleporter would be a dead end
   conn WoodsMain.AboveHowl:
@@ -1955,9 +1952,12 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
       Launch
   conn LowerWastes.WestTP:
     base:
-      Grapple, Glide, DoubleJump OR Dash OR Launch
-      # Seir
-# end unvalidated woods area
+      Grapple, Glide, DoubleJump OR Dash OR Launch  # this solves with Seir as well
+      WindtornRuins.EscapeComplete:  # these wouldn't solve without Seir
+        DoubleJump, Bash, Grenade=1, Grapple
+        Grapple, Glide
+        Burrow
+        Launch
 
 region LowerReach:
   base:
@@ -2580,8 +2580,9 @@ area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
     base: WindtornRuins.EscapeComplete, Burrow  # Seir to make it a safe path
   conn WeepingRidge.Bottom:
     base, WindtornRuins.EscapeComplete:  # Seir to make it a safe path
-      Burrow, Glide, Grapple, DoubleJump
-      Burrow, Bash, Grenade=2, Grapple
+      Burrow, DoubleJump, Glide, Grapple
+      Burrow, Bash, Grenade=1, Glide, Grapple
+      Burrow, DoubleJump, Bash, Grenade=1, Grapple
       Burrow, Launch
 
 area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
@@ -3002,7 +3003,7 @@ region WeepingRidge:
 
 area WeepingRidge.Bottom: # (1162, -3818) Just to the right of where the elevator starts
   state WeepingRidge.ElevatorFightCompleted:
-    base: Combat, ShieldEnemy
+    base: Combat, ShieldEnemy, Dash OR Bash
 
   conn WeepingRidge.LaunchArea:
     base: WeepingRidge.ElevatorFightCompleted
@@ -3010,12 +3011,11 @@ area WeepingRidge.Bottom: # (1162, -3818) Just to the right of where the elevato
 area WeepingRidge.LaunchArea:  # (1191, -3716) After the portal at the top of the elevator
   pickup WeepingRidge.LaunchTree:
     base:
-      Glide, Bash OR DoubleJump OR Dash             # Glide does most of the work here
-      Launch, Glide OR Bash OR DoubleJump OR Dash
+      Glide
+      Launch, Bash OR DoubleJump OR Dash
     advanced:
-      Glide                     # this could plausibly be a base path? You just hold right
       Launch                    # this could not. it's tricky!
-      Bash, DoubleJump, Dash    # requires bash gliding
+      Bash, DoubleJump, Dash    # requires bash gliding (validation note: it does not oriThink... maybe base even?)
   pickup WeepingRidge.PortalEX:
     base:
       Launch, Glide OR Bash OR DoubleJump OR Dash
@@ -3028,19 +3028,17 @@ area WeepingRidge.LaunchArea:  # (1191, -3716) After the portal at the top of th
       Launch
   pickup WeepingRidge.Ore:
     base:
-      Launch, Glide OR DoubleJump
+      Launch, DoubleJump OR Bash
     advanced:
       Launch
       Bash, Glide              # fuck with the elemental until he gives you a shot to bash
 
-  conn WeepingRidge.Bottom:
-    base: WeepingRidge.ElevatorFightCompleted
   conn WillowsEnd.Entry:
-    base, WeepingRidge.ElevatorFightCompleted:
-      Launch, Glide, DoubleJump OR Dash
-      Launch, DoubleJump, Dash
+    base:
+      WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump, Dash OR Glide
     advanced:
       WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump OR Glide OR Dash # you really only NEED one of the 3 of em
+  # backwards connection would be meaningless
 
 # BEGIN unvalidated willow's end region
 region WillowsEnd:
