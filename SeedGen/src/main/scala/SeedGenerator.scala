@@ -433,9 +433,8 @@ package SeedGenerator {
           pool.take(item)
           ItemPlacement(item, nonShop)
       })
-      val restPlacements =  progPlacements ++ assignRandom(remaining)
-      addPlacementsToState(restPlacements, "prog: (")
-      PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable), progPath, randPlacements ++ restPlacements, i)
+      addPlacementsToState(progPlacements, "prog: (")
+      PlacementGroup(state + new GameState(Inv.Empty, Set(), reachable -- remaining), progPath, randPlacements ++ progPlacements, i)
     }
   }
 
