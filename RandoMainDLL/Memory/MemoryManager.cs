@@ -64,6 +64,7 @@ namespace RandoMainDLL.Memory {
     public Process Program { get; set; }
     public bool IsHooked { get; set; }
     public DateTime LastHooked { get; set; }
+    private bool? debugEnabled = null;
     private bool? noPausePatched = null;
     private bool? targetFrameRatePatched = null;
 
@@ -85,12 +86,19 @@ namespace RandoMainDLL.Memory {
 
     public string Patches() => "NoPause: " + (!noPausePatched.HasValue ? "No Value" : noPausePatched.ToString()) + " FPS: " + (!targetFrameRatePatched.HasValue ? "No Value" : targetFrameRatePatched.ToString());
 
-    public bool DebugEnabled() => CheatsHandler.Read<bool>(Program, 0xb8, 0x0, 0x20);
+    public bool Debug {
+      get => CheatsHandler.Read<bool>(Program, 0xb8, 0x0, 0x20);
+      set {
+        if (!debugEnabled.HasValue || value != debugEnabled.Value) {
+          if (CheatsHandler.GetPointer(Program) == IntPtr.Zero) { return; }
 
-    public void EnableDebug(bool enable) {
-      DebugControls.Write(Program, enable, 0xb8, 0x8);
-      CheatsHandler.Write(Program, enable, 0xb8, 0x0, 0x20);
-      CheatsHandler.Write(Program, enable ? (short)0x0101 : (short)0x0, 0xb8, 0x8);
+          DebugControls.Write<bool>(Program, value, 0xb8, 0x8);
+          CheatsHandler.Write<bool>(Program, value, 0xb8, 0x0, 0x20);
+          CheatsHandler.Write<short>(Program, value ? (short)0x0101 : (short)0x0, 0xb8, 0x8);
+
+          debugEnabled = value;
+        }
+      }
     }
 
     // TitleScreenManager.Instance.m_currentScreen

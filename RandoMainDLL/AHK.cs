@@ -25,6 +25,7 @@ namespace RandoMainDLL {
       !l::signal := ""reload""
       !t::signal := ""lastPickup""
       !p::signal := ""hintMessage""
+      !^d::signal := ""toggleDebug""
       !^1::signal := ""test1""
       !^2::signal := ""test2""
       !^3::signal := ""test3""
@@ -83,7 +84,12 @@ namespace RandoMainDLL {
           case "exitapp":
             Environment.Exit(Environment.ExitCode);
             break;
+          case "toggleDebug":
+            Randomizer.Memory.Debug = !Randomizer.Memory.Debug;
+            Print($"Debug {(Randomizer.Memory.Debug ? "enabled" : "disabled")}");
+            break;
           case "test1":
+            Print("Test1 (magic)", 180, false);
             InterOp.magicFunction();
             break;
           case "test2":
