@@ -85,15 +85,18 @@ namespace RandoMainDLL {
     public virtual bool NeedsMagic() => false;
     public abstract PickupType Type { get; }
 
-    public virtual void Grant(bool squelch = false, bool inc = true) {
-      if (!squelch) {
-        AHK.Pickup(ToString(), Frames);
-      }
-      if(inc) {
-        SaveController.Data.FoundCount++;
-        if(NeedsMagic())
-          InterOp.magicFunction();
-      }
+    public virtual int DefaultCost() => 1;
+    public virtual float ModEffectiveness() => 1.0f;
+    public virtual int CostWithMod(float mod) => Convert.ToInt32(DefaultCost() * (1f + mod * ModEffectiveness()));
+
+    public virtual void Grant(bool skipBase = false) {
+      if (skipBase)
+        return;
+
+      AHK.Pickup(ToString(), Frames);
+      SaveController.Data.FoundCount++;
+      if(NeedsMagic())
+        InterOp.magicFunction();
     }
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
@@ -124,7 +127,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.UberState;
     public override bool NeedsMagic() => true;
     public UberStatePickup(UberState state) => State = state;
-    public override void Grant(bool squelch = false, bool inc = true) {
+    public override void Grant(bool skipBase = false) {
       Randomizer.Memory.WriteUberState(State);
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
@@ -136,27 +139,23 @@ namespace RandoMainDLL {
     }
 
     public static Multi Empty => new Multi(new List<Pickup>());
-    public override bool NeedsMagic() => Children.Any((c) => c.NeedsMagic());
+    public override bool NeedsMagic() => Children.Any(c => c.NeedsMagic());
     
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
 
     public override bool NonEmpty() => Children.Count > 0;
 
-    public override void Grant(bool squelch = false, bool inc = true) {
-      Children.ForEach((c) => c.Grant(true, false));
-
-      var child = Children.Find(p => p is Message msg && msg.Squelch);
-      if (child != null) {
-        // gotta do it this way so our NeedsMagic gets called
-        child.Grant(false, false); // print message, don't inc
-        base.Grant(true, true); // don't print, do inc 
-      } else {
-        base.Grant(false, true);
-      }
+    public override void Grant(bool skipBase = false) {
+      Children.ForEach((c) => c.Grant(true));
+      base.Grant(false);
     }
 
-    public override string ToString() => string.Join("\n", Children.Select(c => c.ToString()).Where(s => s.Length > 0));
+    public override string ToString() {
+      var squelching = Children.FindAll(p => p is Message msg && msg.Squelch);
+      return string.Join("\n", (squelching.Count > 0 ? squelching : Children).Select(c => c.ToString()).Where(s => s.Length > 0));
+    }
+
   }
 
   public class Message : Pickup {
@@ -174,26 +173,17 @@ namespace RandoMainDLL {
     public override string ToString() => Msg;
   }
 
-  public interface Checkable {
-      Pickup me { get; }
-
-      bool Has();
-  }
-  public abstract class Sellable : Pickup {
-    public abstract int DefaultCost();
-    public virtual float ModEffectiveness() => 1.0f;
-    public virtual int CostWithMod(float mod) => Convert.ToInt32(DefaultCost() * (1f + mod * ModEffectiveness()));
+  public abstract class Checkable : Pickup {
+      public abstract bool Has();
   }
 
-  public class Teleporter : Sellable, Checkable {
+  public class Teleporter : Checkable {
     public Teleporter(TeleporterType teleporter) => type = teleporter;
-
-    public Pickup me { get => this; }
 
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
-    public bool Has() => states().All((s) => s.ValueOr(new UberValue(false)).Bool);
+    public override bool Has() => states().All((s) => s.ValueOr(new UberValue(false)).Bool);
 
     public static Dictionary<TeleporterType, List<UberState>> TeleporterStates = new Dictionary<TeleporterType, List<UberState>> {
       { TeleporterType.Burrows, new List<UberState> { UberStateDefaults.savePedestalMidnightBurrows} },
@@ -219,9 +209,9 @@ namespace RandoMainDLL {
       { TeleporterType.Glades, new List<UberState> { UberStateDefaults.savePedistalGladesTown} },
     };
 
-    public override void Grant(bool squelch = false, bool inc = true) {
+    public override void Grant(bool skipBase = false) {
       states().ForEach((s) => s.Write(new UberValue(true)));
-      base.Grant(squelch, inc);
+      base.Grant(skipBase);
     }
 
     public override int DefaultCost() => 250;
@@ -231,32 +221,30 @@ namespace RandoMainDLL {
     }
   }
 
-  public class Ability : Sellable, Checkable {
-    public Pickup me { get => this; }
+  public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
     public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
-    public bool Has() => SaveController.GetAbility(type);
+    public override bool Has() => SaveController.GetAbility(type);
     public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
     public override float ModEffectiveness() => (type == AbilityType.Blaze) ? 0f : 1f;
 
-    public override void Grant(bool squelch = false, bool inc = true) {
+    public override void Grant(bool skipBase = false) {
       SaveController.SetAbility(type);
-      base.Grant(squelch, inc);
+      base.Grant(skipBase);
     }
 
     public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown Ability {type}";
   }
 
-  public class Shard : Sellable, Checkable {
+  public class Shard : Checkable {
     public override bool NeedsMagic() => true;
-    public Pickup me { get => this; }
     public Shard(ShardType shard) => type = shard;
 
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
-    public bool Has() {
+    public override bool Has() {
       try {
         return Randomizer.Memory.HasShard(type);
       }
@@ -265,9 +253,9 @@ namespace RandoMainDLL {
         return false;
       }
     }
-    public override void Grant(bool squelch = false, bool inc = true) {
+    public override void Grant(bool skipBase = false) {
       Randomizer.Memory.SetShard(type);
-      base.Grant(squelch, inc);
+      base.Grant(skipBase);
     }
 
     public override int DefaultCost() => 300;
@@ -280,17 +268,16 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.SpiritLight;
     public readonly int Amount;
 
-    public override void Grant(bool squelch = false, bool inc = true) {
+    public override void Grant(bool skipBase = false) {
       Randomizer.Memory.Experience += Amount;
-      base.Grant(squelch, inc);
+      base.Grant(skipBase);
     }
 
     private static readonly List<string> MoneyNames = new List<string>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks" };
 
     public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
   }
-  public class QuestEvent : Sellable, Checkable {
-    public Pickup me { get => this; }
+  public class QuestEvent : Checkable {
     public QuestEvent(QuestEventType ev) => type = ev;
 
     public override bool NeedsMagic() => true;
@@ -298,9 +285,9 @@ namespace RandoMainDLL {
     public readonly QuestEventType type;
 
     public override int DefaultCost() => 400;
-    public bool Has() => SaveController.Data.WorldEvents.Contains(type);
+    public override bool Has() => SaveController.Data.WorldEvents.Contains(type);
 
-  public override void Grant(bool squelch = false, bool inc = true) {
+  public override void Grant(bool skipBase = false) {
       SaveController.Data.WorldEvents.Add(type);
       switch (type) {
         case QuestEventType.Water:
@@ -310,7 +297,7 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.Write(new UberValue(true));
           break;
       }
-      base.Grant(squelch, inc);
+      base.Grant(skipBase);
     }
 
     public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
@@ -320,7 +307,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.SystemCommand;
     public readonly SysCommandType type;
     public SystemCommand(SysCommandType command) => type = command;
-    public override void Grant(bool squelch = false, bool inc = true) {
+    public override void Grant(bool skipBase = false) {
       switch(type) {
         case SysCommandType.Save:
           InterOp.save();
@@ -330,7 +317,7 @@ namespace RandoMainDLL {
     public override string ToString() => ""; // this is dumb as all sin tbh
   }
 
-  public class Resource : Sellable {
+  public class Resource : Pickup {
     public Resource(ResourceType resource) => type = resource;
 
     public override PickupType Type => PickupType.Resource;
@@ -348,11 +335,13 @@ namespace RandoMainDLL {
         case ResourceType.ShardSlot:
           return 400;
         default:
-          return 0;
+          return 1;
       }
     }
 
-    public override void Grant(bool squelch = false, bool inc = true) {
+    public override bool NeedsMagic() => type == ResourceType.ShardSlot;
+
+    public override void Grant(bool skipBase = false) {
       switch (type) {
         case ResourceType.Health:
           Randomizer.Memory.FakeHalfHealth();
@@ -370,7 +359,7 @@ namespace RandoMainDLL {
           Randomizer.Memory.Shards++;
           break;
       }
-      base.Grant(squelch, inc);
+      base.Grant(skipBase);
     }
 
     public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";

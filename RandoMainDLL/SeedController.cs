@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class SeedController {
-    public enum FakeUberGroups : int {
+    public enum FakeUberGroups {
       TREE = 0,
       OPHER_WEAPON = 1,
       TWILLEN_SHARD = 2,
       GAME_CONDITION = 3
     }
 
-    public enum GameCondition : byte {
+    public enum Flag {
+      [Description("NoHints")]
+      NOHINTS
+    }
+
+    public enum GameCondition {
       GAME_START = 0
     }
 
@@ -25,15 +31,22 @@ namespace RandoMainDLL {
     }
 
     public static Dictionary<UberId, Pickup> pickupMap = new Dictionary<UberId, Pickup>();
+    public static HashSet<Flag> flags= new HashSet<Flag>();
 
     public static void ReadSeed() {
       string seedName = File.ReadAllText(Randomizer.SeedNameFile);
       if (seedName.Trim() != "") {
         pickupMap.Clear();
+        flags.Clear();
         HintsController.Reset();
         string line = "";
+
         foreach (string rawLine in File.ReadLines(Randomizer.SeedFile)) {
           try {
+            if (rawLine.StartsWith("Flags: ")) {
+              ProcessFlags(rawLine);
+              continue;
+            }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
             var frags = line.Split('|');
@@ -61,20 +74,30 @@ namespace RandoMainDLL {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file and double-click it to load one", 360);
       }
     }
-
-    public static Sellable OpherWeapon(AbilityType ability) {
+    public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
+    public static void ProcessFlags(string flagline) {
+      if (flags.Count > 0)
+        Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
+      foreach(var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
+        // todo: not this
+        if(rawFlag.Trim().ToLower() == Flag.NOHINTS.GetDescription().ToLower()) {
+          flags.Add(Flag.NOHINTS);
+        }
+      } 
+    }
+    public static Pickup OpherWeapon(AbilityType ability) {
       var fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
-      if (pickupMap.TryGetValue(fakeId, out Pickup p) && p is Sellable) {
-        return p as Sellable;
+      if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
+        return p;
       }
-      Randomizer.Log($"Couldn't find a valid Sellable for {ability}...");
+      Randomizer.Log($"Couldn't find a valid Pickup for {ability}...");
       return new Resource(ResourceType.Energy);
     }
 
-    public static Sellable TwillenShard(ShardType shard) {
+    public static Pickup TwillenShard(ShardType shard) {
       var fakeId = new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)shard);
-      if (pickupMap.TryGetValue(fakeId, out Pickup p) && p is Sellable) {
-        return p as Sellable;
+      if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
+        return p;
       }
       Randomizer.Log($"Couldn't find a valid Sellable for {shard}...");
       return new Resource(ResourceType.Energy);
@@ -97,8 +120,9 @@ namespace RandoMainDLL {
         p.Grant();
         if (id.Loc().Type == LocType.Shard && !p.NeedsMagic()) // shard bug!
           InterOp.magicFunction();
+      } else {
+        HintsController.OnLupoState(id);
       }
-      HintsController.OnLupoState(id);
       return granted;
     }
 

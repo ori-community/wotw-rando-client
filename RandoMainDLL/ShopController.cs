@@ -166,7 +166,7 @@ namespace RandoMainDLL {
     public static float GetCostMod(ShardType type) => shardCostMods.ContainsKey(type) ? shardCostMods[type] : 0f;
 
     public static void OnBuyOpherWeapon(AbilityType slot) {
-      Sellable item = SeedController.OpherWeapon(slot);
+      Pickup item = SeedController.OpherWeapon(slot);
       if (SaveController.Data.OpherSold.Contains(slot)) {
         Randomizer.Log($"OBW: not enough money or slot already sold");
         return;
@@ -180,7 +180,7 @@ namespace RandoMainDLL {
     public static void OnBuyOpherUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
 
     public static void OnBuyTwillenShard(ShardType slot) {
-      Sellable item = SeedController.TwillenShard(slot);
+      Pickup item = SeedController.TwillenShard(slot);
       if (SaveController.Data.TwillenSold.Contains(slot)) {
         Randomizer.Log($"TBS: not enough money or slot already sold ");
         return;
