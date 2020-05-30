@@ -74,8 +74,8 @@ namespace RandoMainDLL {
     }
 
     public static void AddHint(ZoneType zone, Checkable item) {
-      if(item.me is Ability) {
-        AbilityType i = (item.me as Ability).type;
+      if(item is Ability) {
+        AbilityType i = (item as Ability).type;
         if (i == AbilityType.Burrow)
           BurrowZone = zone;
         else if (i == AbilityType.LightBurst)
@@ -90,8 +90,14 @@ namespace RandoMainDLL {
     }
 
     public static void ShowHintMessage(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
+      if (SeedController.HintsDisabled) {
+        if(!justUnlocked)
+          AHK.SendPlainText(new PlainText(SeedController.Progress, 240), justUnlocked);
+        return;
+      }
+
       var zone = _zone == ZoneType.Void ? CurrentZone : _zone;
-      var msg = GetZoneHintMessage(zone, justUnlocked);
+      var msg = getZoneHintMessage(zone, justUnlocked);
       if (justUnlocked)
         msg = $"Bought hint: {msg}";
       else
@@ -99,7 +105,7 @@ namespace RandoMainDLL {
       AHK.SendPlainText(new PlainText(msg, 240), justUnlocked);
     }
 
-    public static string GetZoneHintMessage(ZoneType zone, bool justUnlocked = false) {
+    private static string getZoneHintMessage(ZoneType zone, bool justUnlocked) {
       if (zone == ZoneType.Void) return $"no hint for Void(area {Randomizer.Memory.PlayerArea()})";
       var items = HintObjects.GetOrElse(zone, new List<Checkable>());
       var found = items.FindAll(i => i.Has());
