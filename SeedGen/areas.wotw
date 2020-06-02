@@ -25,6 +25,8 @@ requirement DepthsLight:  # currently irrelevant since defeating mora requires f
   advanced: Bow
 
 area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater well
+  state MarshSpawn.KeystoneDoor:
+    base: Keystones=2
   state MarshSpawn.QuestCaveTokk:  # this accounts for taking the cave keystone, then going to tokk
     base: Weapon
   
@@ -32,7 +34,6 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
   pickup MarshSpawn.FirstPickupEX: free
   pickup MarshSpawn.PreLupoEX: free
   pickup MarshSpawn.LupoMap: free
-  pickup MarshSpawn.RegenTree: free
   pickup MarshSpawn.GrappleHC:
     base:
       Grapple, DoubleJump OR Launch
@@ -72,10 +73,6 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
     base, EnemyObstacle:
       Water, Burrow, DoubleJump OR Glide OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-  pickup MarshSpawn.RecklessShard:
-    base, Weapon:
-      DoubleJump OR Dash OR Launch  # Dash somewhat on the border of base
-      Bash, Grenade=1
   pickup MarshSpawn.LifepactShard:
     base, Combat, Danger=40:  # no region danger
       Water, Burrow, DoubleJump OR Launch
@@ -93,12 +90,8 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
       Water, Burrow, Dash, Bash, Grenade=1
     advanced:
       Sword, Glide
-  conn HowlsDen.Upper:
-    base:
-      DoubleJump OR Dash OR Launch
-      Bash, Grenade=1
-    advanced:
-      Sword OR Hammer         # Use air combos to make it to wall above thorns
+  conn MarshSpawn.DenApproach:
+    base: MarshSpawn.KeystoneDoor
   conn MarshPastOpher.MillView:
     base: Weapon
   conn PoolsApproach.LeftOfWheel:
@@ -140,6 +133,20 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
   conn WillowsEnd.InnerTP:
     base: WillowTP
 
+area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tree
+  pickup MarshSpawn.RegenTree: free
+  pickup MarshSpawn.RecklessShard:
+    base, Weapon:
+      DoubleJump OR Dash OR Launch  # Dash somewhat on the border of base
+      Bash, Grenade=1
+
+  conn HowlsDen.Upper:
+    base:
+      DoubleJump OR Dash OR Launch  # Dash somewhat on the border of base
+      Bash, Grenade=1
+    advanced:
+      Sword OR Hammer         # Use air combos to make it to wall above thorns
+
 area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, burrows and marsh
   state MarshSpawn.QuestCaveTokk: free  # this accounts for taking the cave keystone, then going to tokk
   state MidnightBurrows.TabletQI:
@@ -177,7 +184,10 @@ region MidnightBurrows:
     Danger=25 # kind of a no-op?
 
 area MidnightBurrows:  # (-945, -4581) At the teleporter
-  # MidnightBurrows.Lever: tracks the ability to reach the burrows lever
+  state MidnightBurrows.KeystoneDoor:
+    base, Keystones=4:
+      DoubleJump, Bash
+      Launch
   state MidnightBurrows.Lever:
     base: DoubleJump, Bash
 
@@ -215,11 +225,13 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
     advanced: 
       MidnightBurrows.Lever, DoubleJump OR Dash
   pickup MidnightBurrows.TabletQI:
-    base:
+    base, MidnightBurrows.KeystoneDoor:
       DoubleJump, Bash
       Launch
 
 area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
+  state HowlsDen.KeystoneDoor:
+    base: Keystones=2
   state MarshSpawn.FangQI:
     base: Unreachable  # TEMPORARY - delete when quests have syntax
   state MarshSpawn.QuestMokkFang:
@@ -241,9 +253,13 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
       Bash, Grenade=1, Sword          # As above, but sword upslash to cross the last gap
       Bash, Grenade=1, Damage=10      # As above, but take a dboost on the last gap
   pickup MarshSpawn.RecklessShard:
+    base, Weapon:
+      DoubleJump OR Launch
+      Bash, Grenade=1
+  pickup MarshSpawn.RegenTree:
     base:
-      Weapon, DoubleJump OR Launch
-      Weapon, Bash, Grenade=1
+      DoubleJump OR Launch
+      Bash, Grenade=1
   pickup HowlsDen.SwordTree: free
   pickup HowlsDen.UpperEX: free
   pickup HowlsDen.MagnetShard:
@@ -255,7 +271,7 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
   pickup HowlsDen.BoneOre:
     base: Hammer
   pickup HowlsDen.LeftHC:
-    base: Weapon, DoubleJump OR Dash OR Launch
+    base: HowlsDen.KeystoneDoor, Weapon, DoubleJump OR Dash OR Launch
   pickup HowlsDen.AboveDoorKS:
     base:
       DoubleJump OR Dash OR Launch
@@ -1586,6 +1602,10 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
       Water, Bash, DoubleJump, Dash OR Glide
       Water, Bash, Launch
 
+region UpperPools:
+  base:
+    Danger=40, Regenerate
+
 area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper left keystones
   state UpperPools.KeystoneRoomBubbleFree:
     base:
@@ -1620,30 +1640,34 @@ area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper lef
       Water, WaterDash, DoubleJump
       Launch
 
-  conn UpperPools.BubbleSpamRoom:  # these go from here because it'll be better when keydoors see the light of Niwen
-    base:
-      Flap, DoubleJump, Dash, Grapple  # intended I think
-      DoubleJump, Bash, Grenade=3
-      DoubleJump, Grapple, Bash, Grenade=1
-      Launch
-  conn UpperPools.TreeArea:
+  conn UpperPools.BeforeKeystoneDoor:
     base:
       Grapple, DoubleJump OR Dash OR Glide
       Water, Grapple, Bash, Grenade=1
       Bash, Grenade=2, Water OR DoubleJump OR Dash OR Glide
       Bash, Grenade=3
       Launch
+  conn UpperPools.BubbleSpamRoom:
+    base: Flap, DoubleJump, Dash, Grapple  # seems to be intended
   conn WestPools:
-    base:
-      Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
+    base: Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
 
-region UpperPools:
-  base:
-    Danger=40, Regenerate
-
-area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
+area UpperPools.BeforeKeystoneDoor:  # (-1483, -4076) In front of the door blocking waterdash tree
+  state UpperPools.KeystoneDoor:
+    base: Keystones=4
   state UpperPools.TrialActivation:
     base: DoubleJump OR Grapple OR Launch
+  
+  conn UpperPools.TreeArea:
+    base: UpperPools.KeystoneDoor
+  conn UpperPools.KeystoneRoom:
+    base: Water OR DoubleJump OR Dash OR Glide OR Launch  # don't really need anything, but eh
+  conn UpperPools.BubbleSpamRoom:
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch
+
+area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
   state UpperPools.UpperWaterDrained:
     base:
       Water, WaterDash, Grapple, DoubleJump OR Launch
@@ -1675,10 +1699,6 @@ area UpperPools.TreeArea:  # (-1458, -4075) The ledge left of waterdash tree
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Launch
 
-  conn UpperPools.BubbleSpamRoom:
-    base: DoubleJump, Bash, Grenade=1  # all others are redundant with KeystoneRoom conn
-  conn UpperPools.KeystoneRoom:
-    base: Water OR DoubleJump OR Dash OR Glide OR Launch  # don't really need anything, but eh
   conn EastPools.TPArea:
     base, UpperPools.UpperWaterDrained:
       Water, WaterDash, DoubleJump, Dash, Grapple
@@ -1794,6 +1814,9 @@ area WoodsEntry.Teleporter:  # (611, -4161) At the West Woods Teleporter
   conn WoodsEntry.BelowTeleporter: free
 
 area WoodsEntry.TwoKeystoneRoom:  # (672, -4182) In front of the keystone door
+  state WoodsEntry.KeystoneDoor:
+    base: Keystones=2
+  
   pickup WoodsEntry.LowerKS:
     base: DoubleJump OR Dash OR Glide  # Launch is awful
   pickup WoodsEntry.UpperKS:
@@ -1802,7 +1825,7 @@ area WoodsEntry.TwoKeystoneRoom:  # (672, -4182) In front of the keystone door
 #     SentryJump=1, Glide
 
   conn WoodsMain.BelowFourKeystoneRoom:
-    base, EnemyObstacle:
+    base, WoodsEntry.KeystoneDoor, EnemyObstacle:
       DoubleJump, Dash
       Bash OR Glide OR Launch  # bash uses the enemy
   conn WoodsEntry.BelowTeleporter:
@@ -1827,7 +1850,7 @@ area WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile aft
       Bash, Grenade=2, DoubleJump, Dash  # different ways to solve
       Launch
   conn WoodsEntry.TwoKeystoneRoom:
-    base:
+    base, WoodsEntry.KeystoneDoor:
       Bash, Grenade=2, Danger=10  # uses the enemy
       Bash, Grenade=1, Danger=10, DoubleJump OR Dash  # uses the enemy
       Launch, DoubleJump OR Dash OR Bash OR Glide  # bash uses the enemy
@@ -1844,13 +1867,16 @@ area WoodsMain.FourKeystoneRoom:  # (950, -4167) The floor of the keystone room
       Glide OR Launch
       Bash, Grenade=1
 
-  conn WoodsMain.GiantSkull:
+  conn WoodsMain.BeforeKeystoneDoor:
     base:
       DoubleJump OR Glide OR Launch
       Bash, Dash OR Grenade=1
   conn WoodsMain.BelowFourKeystoneRoom: free
 
-area WoodsMain.GiantSkull:  # (957, -4136) Behind the four keystone room door
+area WoodsMain.BeforeKeystoneDoor:  # In front of the four keystone door
+  state WoodsMain.KeystoneDoor:
+    base: Keystones=4
+  
   pickup WoodsMain.UpperKS:
     base, Weapon:
       Glide OR Launch
@@ -1862,6 +1888,12 @@ area WoodsMain.GiantSkull:  # (957, -4136) Behind the four keystone room door
       Glide OR Launch
       DoubleJump, Dash
       Bash, DoubleJump OR Dash
+
+  conn WoodsMain.GiantSkull:
+    base: WoodsMain.KeystoneDoor
+  conn WoodsMain.FourKeystoneRoom: free
+
+area WoodsMain.GiantSkull:  # (957, -4136) Behind the four keystone room door
   pickup WoodsMain.UpperLeafPileEX:
     base: Flap
   pickup WoodsMain.BehindDoorRoofEX:
@@ -1873,7 +1905,8 @@ area WoodsMain.GiantSkull:  # (957, -4136) Behind the four keystone room door
     base:
       Weapon, Glide
       RangedWeapon, Glide OR Launch
-  conn WoodsMain.FourKeystoneRoom: free
+  conn WoodsMain.BeforeKeystoneDoor:
+    base: WoodsMain.KeystoneDoor
 
 area WoodsMain.BelowHiddenOre:  # (1038, -4100) Below and to the right of the hidden ore, close to the yellow wall
   pickup WoodsMain.HiddenOre:
@@ -2306,7 +2339,10 @@ area LowerReach.East:  # (-192, -3955) Right of the Lantern opening the Tp room
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
 area LowerReach.Trial:  # (70, -4044) At trial start
-  state LowerReach.TrialActivation: free
+  state LowerReach.KeystoneDoor:
+    base: Keystones=4
+  state LowerReach.TrialActivation:
+    base: LowerReach.KeystoneDoor
   state LowerReach.WispCollected:  # not validated, can be turned into wisp pickup later
     base, LowerReach.ArenaBeaten:
       Dash, Bash, Grenade=4, Grapple, Glide, Water OR DoubleJump
@@ -2358,8 +2394,13 @@ area UpperDepths.Entry:  # (161, -4340) The little standable ground below the en
     base: EnemyObstacle, Glide
 
 area UpperDepths.FirstKSRoom:  # (245, -4417) Below the first firefly egg
+  state UpperDepths.EntryKeystoneDoor:
+    base, Keystones=2:
+      DoubleJump, Grapple
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      Launch
   state UpperDepths.LightPuzzle:  # breaking the corruption blocking the light
-    base, Weapon:
+    base, UpperDepths.EntryKeystoneDoor, Weapon:
       DoubleJump, Bash, Grapple
       Bash, Launch
   
@@ -2368,7 +2409,7 @@ area UpperDepths.FirstKSRoom:  # (245, -4417) Below the first firefly egg
       Grapple, DoubleJump, Bash
       Grapple, DoubleJump, Dash
       Launch, DoubleJump OR Grapple
-  pickup UpperDepths.EntryOre: #
+  pickup UpperDepths.EntryOre:
     base, EnemyObstacle:
       Grapple, DoubleJump
       Launch, DoubleJump OR Grapple
@@ -2389,9 +2430,9 @@ area UpperDepths.FirstKSRoom:  # (245, -4417) Below the first firefly egg
       Glide, Grapple, DoubleJump
       Glide, Launch, DoubleJump OR Grapple
   conn UpperDepths.BelowHive:
-    base, UpperDepths.LightPuzzle OR DepthsLight:
+    base, UpperDepths.EntryKeystoneDoor, UpperDepths.LightPuzzle OR DepthsLight:
       Bash, DoubleJump, Grapple
-      Bash, Grenade=1, Grapple
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
 
 area UpperDepths.BelowHive:  # (447, -4410) Below the Hive, on top of the tunnel leading downwards
@@ -2401,7 +2442,7 @@ area UpperDepths.BelowHive:  # (447, -4410) Below the Hive, on top of the tunnel
     base: DepthsLight, Launch
   
   conn UpperDepths.FirstKSRoom:
-    base, UpperDepths.LightPuzzle OR DepthsLight:
+    base, UpperDepths.EntryKeystoneDoor, UpperDepths.LightPuzzle OR DepthsLight:
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grapple
   conn UpperDepths.Teleporter:
@@ -2425,6 +2466,8 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
       Weapon, Launch
 
 area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of the second keystone door
+  state UpperDepths.CentralKeystoneDoor:
+    base: Keystones=2
   state UpperDepths.MoraDefeated:
     base, Combat, Danger=55:  # +40 region danger
       DepthsLight, DoubleJump, Dash, Bash, Grapple
@@ -2457,8 +2500,10 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
       DepthsLight, DoubleJump, Bash, Grenade=1
       DepthsLight, Launch
 
-  conn UpperDepths.Central: free # crosses the keystone door
-  # conn UpperDepths.BelowHive might be necessary when adding keystone doors
+  conn UpperDepths.Central:
+    base: UpperDepths.CentralKeystoneDoor
+  conn UpperDepths.BelowHive:
+    base: DepthsLight, Launch
   conn UpperDepths.Teleporter:
     base, Weapon:
       DepthsLight, DoubleJump, Dash, Grapple
@@ -2476,7 +2521,8 @@ area UpperDepths.Central:  # (428, -4474) The firefly egg to the left of the sec
     base, Weapon OR DepthsLight:
       DoubleJump, Grapple
       Launch
-  conn UpperDepths.SecondKSRoom: free  # crosses the keystone door
+  conn UpperDepths.SecondKSRoom:
+    base: UpperDepths.CentralKeystoneDoor
   conn LowerDepths.West:
     base:
       Weapon, Dash, DoubleJump OR Glide
@@ -2799,14 +2845,19 @@ area LowerWastes.EastTP: # ((1992, -3902) Location of the east teleporter
     base: Burrow
   conn LowerWastes.UpperPath:
     base: Burrow, DoubleJump OR Dash OR Launch
-  conn UpperWastes.KSDoor:
+  conn UpperWastes.KeystoneRoom:
     base: Burrow, DoubleJump OR Dash OR Launch  # Dash is maybe probably base?
 
 region UpperWastes:
   base:
     Danger=50, Regenerate
 
-area UpperWastes.KSDoor:  # (1900, -3831) Autosave underneath keystone door
+area UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone door
+  state UpperWastes.KeystoneDoor:
+    base, Keystones=2:
+      Burrow, DoubleJump OR Dash OR Glide
+      Launch
+  
   pickup UpperWastes.LowerKS:
     base:
       Burrow, DoubleJump OR Dash OR Glide
@@ -2826,7 +2877,7 @@ area UpperWastes.KSDoor:  # (1900, -3831) Autosave underneath keystone door
   conn LowerWastes.EastTP:
     base: Burrow, DoubleJump OR Dash OR Glide OR Launch
   conn UpperWastes.MissilePuzzleLeft:
-    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
+    base: UpperWastes.KeystoneDoor, Burrow, DoubleJump OR Dash OR Glide OR Launch
 
 area UpperWastes.MissilePuzzleLeft:  # (1937, -3793) Immediately to the right of the sand after the keystone door
   # don't really need a state for purple wall, it can be broken from either side
@@ -2846,8 +2897,8 @@ area UpperWastes.MissilePuzzleLeft:  # (1937, -3793) Immediately to the right of
   pickup UpperWastes.PurpleWallHC:
     base: Burrow, UpperWastes.MissilePuzzleLever
 
-  conn UpperWastes.KSDoor:
-    base: Burrow
+  conn UpperWastes.KeystoneRoom:
+    base: UpperWastes.KeystoneDoor, Burrow
   conn UpperWastes.MissilePuzzleRight:
     base: UpperWastes.MissilePuzzleLever, Burrow
 
