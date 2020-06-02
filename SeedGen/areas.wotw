@@ -26,7 +26,7 @@ requirement DepthsLight:  # currently irrelevant since defeating mora requires f
 
 area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater well
   state MarshSpawn.KeystoneDoor:
-    base: Keystones=2
+    base: Keystone=2
   state MarshSpawn.QuestCaveTokk:  # this accounts for taking the cave keystone, then going to tokk
     base: Weapon
   
@@ -185,7 +185,7 @@ region MidnightBurrows:
 
 area MidnightBurrows:  # (-945, -4581) At the teleporter
   state MidnightBurrows.KeystoneDoor:
-    base, Keystones=4:
+    base, Keystone=4:
       DoubleJump, Bash
       Launch
   state MidnightBurrows.Lever:
@@ -231,7 +231,7 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
 
 area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
   state HowlsDen.KeystoneDoor:
-    base: Keystones=2
+    base: Keystone=2
   state MarshSpawn.FangQI:
     base: Unreachable  # TEMPORARY - delete when quests have syntax
   state MarshSpawn.QuestMokkFang:
@@ -1662,7 +1662,7 @@ area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper lef
 
 area UpperPools.BeforeKeystoneDoor:  # (-1483, -4076) In front of the door blocking waterdash tree
   state UpperPools.KeystoneDoor:
-    base: Keystones=4
+    base: Keystone=4
   state UpperPools.TrialActivation:
     base: DoubleJump OR Grapple OR Launch
   
@@ -1823,7 +1823,7 @@ area WoodsEntry.Teleporter:  # (611, -4161) At the West Woods Teleporter
 
 area WoodsEntry.TwoKeystoneRoom:  # (672, -4182) In front of the keystone door
   state WoodsEntry.KeystoneDoor:
-    base: Keystones=2
+    base: Keystone=2
   
   pickup WoodsEntry.LowerKS:
     base: DoubleJump OR Dash OR Glide  # Launch is awful
@@ -1883,7 +1883,7 @@ area WoodsMain.FourKeystoneRoom:  # (950, -4167) The floor of the keystone room
 
 area WoodsMain.BeforeKeystoneDoor:  # In front of the four keystone door
   state WoodsMain.KeystoneDoor:
-    base: Keystones=4
+    base: Keystone=4
   
   pickup WoodsMain.UpperKS:
     base, Weapon:
@@ -2348,7 +2348,7 @@ area LowerReach.East:  # (-192, -3955) Right of the Lantern opening the Tp room
 
 area LowerReach.Trial:  # (70, -4044) At trial start
   state LowerReach.KeystoneDoor:
-    base: Keystones=4
+    base: Keystone=4
   state LowerReach.TrialActivation:
     base: LowerReach.KeystoneDoor
   state LowerReach.WispCollected:  # not validated, can be turned into wisp pickup later
@@ -2403,7 +2403,7 @@ area UpperDepths.Entry:  # (161, -4340) The little standable ground below the en
 
 area UpperDepths.FirstKSRoom:  # (245, -4417) Below the first firefly egg
   state UpperDepths.EntryKeystoneDoor:
-    base, Keystones=2:
+    base, Keystone=2:
       DoubleJump, Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
@@ -2475,7 +2475,7 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
 
 area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of the second keystone door
   state UpperDepths.CentralKeystoneDoor:
-    base: Keystones=2
+    base: Keystone=2
   state UpperDepths.MoraDefeated:
     base, Combat, Danger=55:  # +40 region danger
       DepthsLight, DoubleJump, Dash, Bash, Grapple
@@ -2862,7 +2862,7 @@ region UpperWastes:
 
 area UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone door
   state UpperWastes.KeystoneDoor:
-    base, Keystones=2:
+    base, Keystone=2:
       Burrow, DoubleJump OR Dash OR Glide
       Launch
   
