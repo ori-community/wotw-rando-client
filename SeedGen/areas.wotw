@@ -1470,6 +1470,24 @@ region EastPools:
     Danger=40, Regenerate
 
 area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
+  # The first bubbles here only spawn if you have Flap!
+  
+  pickup EastPools.TwoCrushersEX:
+    base: Water, WaterDash
+  
+  conn EastPools.LeverRoom:
+    base:
+      Flap OR Launch
+      Bash, Grenade=1
+  conn PoolsApproach.LeftOfWheel:
+    base:
+      Water
+      Bash, Grenade=1, Glide
+      Glide, Launch
+      DoubleJump, Dash, Launch
+      Bash, Grenade=1, Launch, DoubleJump OR Dash
+  
+area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
   state EastPools.QuestAmulet: free
   state EastPools.EntryLever:
     base, EnemyObstacle:
@@ -1486,13 +1504,9 @@ area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
   pickup EastPools.RightOre:
     base:
       DoubleJump, Grapple, Flap, Dash OR Glide  # kinda weird, but I guess this is the casual way?
-      Launch, DoubleJump OR Grapple
-      Bash, Grenade=1, Launch
+      Launch, Grapple
     advanced:
       Dash, Grapple, Glide, Flap
-      Launch  # maybe base?
-  pickup EastPools.TwoCrushersEX:
-    base: Water, WaterDash
   pickup EastPools.CurrentEX:
     base: Water, WaterDash
   pickup EastPools.BelowLeverEX:
@@ -1512,13 +1526,7 @@ area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
       Bash, Grenade=2, Dash OR Glide  # bashgrenade above
       EnemyObstacle, Bash, Grenade=2, EastPools.BelowTokkBubbleFree OR Water  # bashgrenade below
       Launch
-  conn PoolsApproach.LeftOfWheel:
-    base:
-      Water
-      Bash, Grenade=1, Glide
-      Glide, Launch
-      DoubleJump, Dash, Launch
-      Bash, Grenade=1, Launch, DoubleJump OR Dash
+  conn EastPools.Entry: free
 
 area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
   state EastPools.QuestHandToHandSpyglass:  # quest requirement: silk
@@ -1590,7 +1598,7 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
   pickup EastPools.BehindCrusherEX:
     base: EastPools.FightArenas, Water
 
-  conn EastPools.Entry:
+  conn EastPools.LeverRoom:
     base, EastPools.EntryLever, EnemyObstacle:
       DoubleJump OR Dash OR Glide OR Launch  # go above
       Bash, Grenade=1  # go above
