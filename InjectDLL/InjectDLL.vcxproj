@@ -193,6 +193,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PEModule.cpp" />
+    <ClCompile Include="src\features\keystoneDoorFromBothSides.cpp" />
     <ClCompile Include="src\features\messages.cpp" />
     <ClCompile Include="src\fixes\dashFixes.cpp" />
     <ClCompile Include="src\fixes\FlapFix.cpp" />
