@@ -2187,6 +2187,12 @@ region UpperReach:
     Danger=40, Regenerate
 
 area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
+  state UpperReach.KeystoneDoor:  # not validated
+    base, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
+      DoubleJump, Dash OR Grapple
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      Launch
+      Water
   state UpperReach.HeatFurnace:
     base:
       Grenade=1  # this makes grenadebash paths meaningless
@@ -2263,7 +2269,7 @@ area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
     base: UpperReach.HeatFurnace, Water, EnemyObstacle OR DoubleJump
 
   conn UpperReach.TreeRoom:  # not validated (added this area)
-    base, UpperReach.HeatFurnace, EnemyObstacle:
+    base, UpperReach.KeystoneDoor, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
@@ -2289,7 +2295,7 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
     base: Grenade=1
 
   conn UpperReach.KeystoneRoom:  # not validated
-    base, UpperReach.HeatFurnace:
+    base, UpperReach.KeystoneDoor, UpperReach.HeatFurnace:
       DoubleJump, Grapple
       DoubleJump, Dash
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
