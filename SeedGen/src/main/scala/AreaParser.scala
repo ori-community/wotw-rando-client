@@ -155,12 +155,13 @@ package AreaParser {
       def oreReq:      Parser[Requirement] = IDENTIFIER("Ore") ~> assign ^^ { case ASSIGN(cnt) => OreReq(cnt)}
       def energyReq:   Parser[Requirement] = IDENTIFIER("Energy") ~> assign ^^ { case ASSIGN(cnt) => EnergyReq(cnt)}
       def damageReq:   Parser[Requirement] = IDENTIFIER("Damage") ~> assign ^^ { case ASSIGN(cnt) => DamageReq(cnt)}
+      def dangerReq:   Parser[Requirement] = IDENTIFIER("Danger") ~> assign ^^ {case ASSIGN(cnt) => DangerReq(cnt)}
+      def keystoneReq: Parser[Requirement] = IDENTIFIER("Keystone") ~> assign ^^ { case ASSIGN(cnt) => KeystoneReq(cnt)}
       def cashReq:     Parser[Requirement] = IDENTIFIER("SpiritLight") ~> assign ^^ {case ASSIGN(cnt) => CashReq(cnt)}
       def unreachable: Parser[Requirement] = IDENTIFIER("Unreachable") ^^^ Invalid
       def worldEvReq:  Parser[Requirement] = IDENTIFIER("Water") ^^^ EventReq(0)
       def stateReq:    Parser[Requirement] = accept("stateName", { case IDENTIFIER(s) => StateReq(s)})
-      def dangerReq:   Parser[Requirement] = IDENTIFIER("Danger") ~> assign ^^ {case ASSIGN(cnt) => DangerReq(cnt)}
-      def generalReqs: Parser[Requirement] = skillReq | damageReq | dangerReq | energyReq | oreReq | cashReq | tpReq | unreachable | worldEvReq | stateReq
+      def generalReqs: Parser[Requirement] = skillReq | damageReq | dangerReq | energyReq | oreReq | keystoneReq | cashReq | tpReq | unreachable | worldEvReq | stateReq
       def regionReqs:  Parser[Requirement] = skillReq | dangerReq | energyReq | stateReq
 
       def reqSec(baseReqs: Parser[Requirement]): Parser[Requirement] =  "req" !!! {

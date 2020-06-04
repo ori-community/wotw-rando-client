@@ -183,6 +183,7 @@ package SeedGenerator {
 
   case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
+    def -(other: GameState): GameState = GameState(inv - other.inv, flags -- other.flags, reached -- other.reached)
     def without(item: Item, count: Int): GameState = GameState(inv.without(item, count), flags, reached)
     def withoutCash(cash: Int): GameState = GameState(inv.withoutCash(cash), flags, reached)
     def cost(implicit flagCosts: Map[FlagState, Double] = Map()): Double = inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
@@ -239,14 +240,32 @@ package SeedGenerator {
     def count: Int = foldLeft(0)(_ + _._2)
     def cost: Double = foldLeft(0d)({ case (cost: Double, (i: Item, c: Int)) => cost + i.cost * c })
     def has(item: Item, count: Int = 1): Boolean = getOrElse(item, 0) >= count
-    def transfer(source: Inv, item: Item, count: Int = 1): Unit = {
+    def transfer(source: Inv, item: Item, count: Int = 1)(implicit r: Random): Unit = {
       if (source.take(item, count))
         add(item, count)
     }
 
-    def take(item: Item, count: Int = 1): Boolean = {
+    def take(item: Item, count: Int = 1)(implicit r: Random): Boolean = {
       if (!has(item, count)) {
-        println(s"Error: taking $count of $item from ${this}, which doesn't have that many")
+        item match {
+          case SpiritLight(amount)  if amount*count < totalSpiritLight =>
+            val spiritLights = asSeq.collect({case s: SpiritLight =>
+              remove(s)
+              s
+            })
+            val afterSLCount = Math.max(spiritLights.size - count, 0)
+            if(afterSLCount > 0) {
+
+              val average = (totalSpiritLight - amount*count) / afterSLCount
+              (0 until afterSLCount).foreach(_ => add(SpiritLight(r.between(average-50, average+50))))
+              println(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
+            }
+
+
+
+          case _ =>
+        }
+        println(s"Error: taking $count of $item from ${asSeq}, which doesn't have that many")
         return false
       }
       set(item, Math.max(0, this (item) - count))
@@ -298,9 +317,17 @@ package SeedGenerator {
       new Inv((other.keys ++ keys).toSeq.map({
         case Health => (Health, this(Health) + other(Health))
         case Energy => (Energy, this(Energy) + other(Energy))
+        case Keystone => (Keystone, this(Keystone) + other(Keystone))
         case i => (i, Math.max(this (i), other(i)))
       }): _*)
     }
+    def - (other: Inv): Inv = {
+      new Inv(keys.toSeq.flatMap({
+        case i if this(i) <= other(i)  => None
+        case i    => Some(i -> this(i))
+      }): _*)
+    }
+
   }
   object Inv {
     def Empty: Inv = new Inv()
