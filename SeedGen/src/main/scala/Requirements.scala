@@ -58,11 +58,27 @@ package SeedGenerator {
     def metBy(state: GameState): Boolean = state.inv.totalSpiritLight >= count
     override def afterMet(state: GameState): GameState = state.withoutCash(count)
     // TODO: make this work good with forced progression picking haha
-    def remaining(state: GameState): Seq[GameState] = if(metBy(state)) Seq() else Seq(GameState(new Inv(SpiritLight(count - state.inv.totalSpiritLight) -> 1)))
+    def remaining(state: GameState): Seq[GameState] = {
+      if(metBy(state))
+        Seq()
+      else {
+        val needed = count - state.inv.totalSpiritLight
+        if(needed > 174) {
+          val count = needed / 174
+          Seq(GameState(new Inv(SpiritLight(needed / count + 1) -> count)))
+        }
+        Seq(GameState(new Inv(SpiritLight(count - state.inv.totalSpiritLight) -> 1)))
+      }
+    }
     override def and(that: Requirement): Requirement = that match {
       case CashReq(c) => CashReq(c+count)
       case r => AllReqs(this, r)
     }
+  }
+
+  case class KeystoneReq(count: Int) extends Requirement {
+    def metBy(state: GameState): Boolean = state.inv(Keystone) >= count
+    def remaining(state: GameState) = Seq(GameState(new Inv(Keystone -> Math.max(0, count - state.inv(Keystone)))))
   }
 
   case class EnergyReq(count: Int) extends Requirement with Consumer {
@@ -75,6 +91,7 @@ package SeedGenerator {
       case r => AllReqs(this, r)
     }
   }
+
   case class DangerReq(damage: Int) extends Requirement with Consumer  {
     def health(state: GameState): Int = state.inv(Health) * 5
     def metBy(state: GameState): Boolean = health(state) > damage
@@ -197,11 +214,11 @@ package SeedGenerator {
       /*      others.foreach(req => {
               mergedInv = mergedInv + req.cheapestRemaining(mergedInv + state)
             })*/
-      val greedy = orReqs.foldRight(mergedInv)((req, accInv) => accInv + req.cheapestRemaining(accInv + state))
-      if (orReqs.length > 1)
+      /*val greedy = */Seq(orReqs.foldRight(mergedInv)((req, accInv) => accInv + req.cheapestRemaining(accInv + state)))
+/*      if (orReqs.length > 1)
         Seq(orReqs.flatMap(_.remaining(state)).find(sus => sus.cost < greedy.cost && orReqs.forall(_.metBy(sus))).map(_ + mergedInv).getOrElse(greedy))
       else
-        Seq(greedy)
+        Seq(greedy)*/
     }
     override def children: Seq[Requirement] = reqs.flatMap(_.children)
     override def substitute(orig: Requirement, repl: Requirement): Requirement = AllReqs(reqs.map({
