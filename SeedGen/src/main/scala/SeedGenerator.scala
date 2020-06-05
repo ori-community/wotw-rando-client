@@ -1,6 +1,6 @@
 import java.io.{BufferedWriter, File, FileWriter}
 
-import scala.collection.mutable.{Map => MMap, Set => MSet}
+import scala.collection.mutable.{Map => MMap, ListBuffer => MList}
 import scala.collection.parallel.CollectionConverters._
 import scala.io.Source
 import scala.util.{Random, Try}
@@ -340,8 +340,9 @@ package SeedGenerator {
 
       if(locs.isEmpty)
         throw GeneratorError(s"no new locs (${reachableLocs.size} out of ${ItemPool.SIZE} reached)")
-      def addPlacementsToState(ps: Seq[Placement], prefix: String = ""): Unit =
-        ps.foreach(p => {state.inv.add(p.item); /*debugPrint(prefix + " " + p)*/})
+      val placements = MList[Placement]()
+      def process(ps: Seq[Placement], prefix: String = ""): Unit =
+        ps.foreach(p => {state.inv.add(p.item); placements.prepend(p) /*;debugPrint(prefix + " " + p)*/})
       def assignRandom(itemLocs: Seq[ItemLoc]): Seq[Placement] = {
         val (shops, nonShops) = itemLocs.partition(_.data.category == "Shop")
           if(nonShops.size > pool.count - pool.merchToPop)
@@ -350,9 +351,8 @@ package SeedGenerator {
               nonShops.map(nonShop => ItemPlacement(pool.popRand.get, nonShop))
       }
       if(reachableLocs.size == ItemPool.SIZE) {
-        val randPlacements = assignRandom(locs)
-        addPlacementsToState(randPlacements, "rand: ")
-        return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs), Inv.Empty, randPlacements, i)
+        process(assignRandom(locs), "rand: ")
+        return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs), Inv.Empty, placements.toSeq, i)
       }
       val ksNeeded = Math.max(0, Nodes.keystonesRequired(reachable) - state.inv(Keystone)) match { case 2 => 0; case n => n }
       val locsOpen = locs.size - ksNeeded
@@ -362,13 +362,13 @@ package SeedGenerator {
         val (shops, nonShops) = locs.take(ksNeeded).partition(_.data.category == "Shop")
         val ksPlc = shops.map(shop => {pool.merchToPop-=1; ShopPlacement(Keystone, shop)}) ++ nonShops.map(nonShop => ItemPlacement(Keystone, nonShop))
         pool.take(Keystone, ksPlc.size)
-        addPlacementsToState(ksPlc, "KS: ")
+        process(ksPlc, "KS: ")
         if(locsOpen == 0)  {
           val (newReach, _) = Nodes.getReachable(state.inv, flags)
           val newCount = (newReach -- reachableLocs).collect({ case n: ItemLoc => n }).size
           debugPrint(s"reachables after KS, got $newCount")
           if(newCount > 0 || newReach.collect({ case n: ItemLoc => n }).size == ItemPool.SIZE)
-            return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs), Inv.Empty, ksPlc, i)
+            return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs), Inv.Empty, placements.toSeq, i)
           else
             throw GeneratorError(s"Placed $ksNeeded into exactly that many locs, but failed to find a reachable after")
         }
@@ -387,13 +387,13 @@ package SeedGenerator {
       })).map(_ => locIter.next())
       debugPrint(s"reserving ${reservedForProg.size}: $reservedForProg")
       val randPlacements = assignRandom(locIter.toSeq)
-      addPlacementsToState(randPlacements, "rand: ")
+      process(randPlacements, "rand: ")
       if(randPlacements.nonEmpty) {
         val (newReach, _) = Nodes.getReachable(state.inv, flags)
         val newCount = (newReach -- reachableLocs).collect({ case n: ItemLoc => n }).size
         debugPrint(s"checked new reachables, got $newCount")
         if(newCount > reservedForProg.size || newReach.collect({ case n: ItemLoc => n }).size == ItemPool.SIZE)
-          return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs -- reservedForProg), Inv.Empty, randPlacements, i)
+          return PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs -- reservedForProg), Inv.Empty, placements.toSeq, i)
     }
 
       def getProgressionPath(sizeLeft: Int, far: Int = 3): Inv = Timer(s"getProgPath"/*, far=$far"*/){
@@ -428,6 +428,7 @@ package SeedGenerator {
           .map[GameState](state => GameState(state.inv) +
             state.flags.map(flag => flagRemaining.getOrElse(flag, GameState.mk(flag))).fold(GameState.Empty)(_ + _)
           )
+          .distinct
         }
         val singles = possiblePathsPartial.withFilter(_.inv.count == 1).map(_.inv.head._1)
         val possiblePaths = possiblePathsPartial
@@ -470,7 +471,7 @@ package SeedGenerator {
       }
       val progPath = getProgressionPath(reservedForProg.size, if(reachableLocs.size > 50) 1 else 3)
       val (progLocs, remaining) = reservedForProg.splitAt(progPath.count)
-      val progPlacements = progPath.asSeq.zip(progLocs).map({
+      process(progPath.asSeq.zip(progLocs).map({
             // this might seem sketch but it's almost literally always impossible
             // for a progression item not to be Merch
         case (item: Merch, shop) if shop.data.category == "Shop" =>
@@ -480,9 +481,8 @@ package SeedGenerator {
         case (item, nonShop) =>
           pool.take(item)
           ItemPlacement(item, nonShop)
-      })
-      addPlacementsToState(progPlacements, "prog: ")
-      PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs -- remaining), progPath, randPlacements ++ progPlacements, i)
+      }), "prog: ")
+      PlacementGroup(state + new GameState(Inv.Empty, Set(), reachableLocs -- remaining), progPath, placements.toSeq, i)
     }
   }
 
@@ -621,7 +621,7 @@ object Runner {
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 39, ShardSlot -> 5, Keystone -> 36) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)
       while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
-      pool.merchToPop = LocData.all.count(data => data.category == "Shop")
+      pool.merchToPop = Nodes.items.values.count(_.data.category == "Shop")
       pool
     }
   }

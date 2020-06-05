@@ -16,7 +16,9 @@ namespace RandoMainDLL {
 
     public enum Flag {
       [Description("NoHints")]
-      NOHINTS
+      NOHINTS,
+      [Description("NoKSDoors")]
+      NOKEYSTONES
     }
 
     public enum GameCondition {
@@ -75,15 +77,17 @@ namespace RandoMainDLL {
       }
     }
     public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
+    public static bool KSDoorsOpen { get => flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {
       if (flags.Count > 0)
         Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
       foreach(var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
-        // todo: not this
-        if(rawFlag.Trim().ToLower() == Flag.NOHINTS.GetDescription().ToLower()) {
-          flags.Add(Flag.NOHINTS);
+        foreach(Flag flag in Enum.GetValues(typeof(Flag))) {
+          if (rawFlag.Trim().ToLower() == flag.GetDescription().ToLower()) {
+            flags.Add(flag);
+          }
         }
-      } 
+      }
     }
     public static Pickup OpherWeapon(AbilityType ability) {
       var fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);

@@ -13,7 +13,7 @@ namespace RandoMainDLL {
 
       [JsonConstructor]
       public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell, Dictionary<AbilityType, int> opherUpgrade, 
-        HashSet<ShardType> shardSlots, HashSet<QuestEventType> worldEvents, HashSet<AbilityType> skillsFound, int count = 0) {
+        HashSet<ShardType> shardSlots, HashSet<QuestEventType> worldEvents, HashSet<AbilityType> skillsFound, int count = 0, int ksBought = 0) {
         Slot = slot;
         TreesActivated = trees;
         OpherSold = opherSell;
@@ -22,6 +22,7 @@ namespace RandoMainDLL {
         SkillsFound = skillsFound;
         WorldEvents = worldEvents;
         FoundCount = count;
+        KSBought = ksBought;
       }
 
       public int Slot;
@@ -32,11 +33,12 @@ namespace RandoMainDLL {
       public HashSet<QuestEventType> WorldEvents = new HashSet<QuestEventType>();
       public HashSet<AbilityType> SkillsFound = new HashSet<AbilityType>();
       public int FoundCount = 0;
+      public int KSBought = 0;
 
       [JsonIgnore]
       public string Filename => $"{Randomizer.SaveFolder}\\randosave_{Slot}.json";
       public string fullName(int backup) => Filename + (backup != -1 ? $".{backup}.bak" : "");
-      public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}\nSkills: {SkillsFound}";
+      public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nks: {KSBought}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}\nSkills: {SkillsFound}";
       public void Save(int backup = -1) {
         string targetFile = fullName(backup);
         if (File.Exists(targetFile)) 
@@ -65,6 +67,7 @@ namespace RandoMainDLL {
         WorldEvents = new HashSet<QuestEventType>(copyFrom.WorldEvents);
         SkillsFound = new HashSet<AbilityType>(copyFrom?.SkillsFound ?? new HashSet<AbilityType>());
         FoundCount = copyFrom.FoundCount;
+        KSBought = copyFrom.KSBought;
       }
     }
     public static bool GetAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;

@@ -88,15 +88,17 @@ namespace RandoMainDLL {
         Randomizer.Log("New Game Init", false);
         SaveController.SetAbility(AbilityType.SpiritEdge);
         foreach (UberState s in DefaultUberStates) { memory.WriteUberState(s); }
-        foreach (UberState s in KeystoneDoors) { memory.WriteUberState(s); }
         foreach (UberState s in Kuberstates) { memory.WriteUberState(s); }
-        if (!AHK.IniFlag("ShowShortCutscenes")) {
-          foreach (UberState s in ShortCutscenes) { memory.WriteUberState(s); }
-        }
+        if(SeedController.KSDoorsOpen)
+          foreach (UberState s in KeystoneDoors) { memory.WriteUberState(s); }
 
-        if (!AHK.IniFlag("ShowLongCutscenes")) {
+        if (!AHK.IniFlag("ShowShortCutscenes")) 
+          foreach (UberState s in ShortCutscenes) { memory.WriteUberState(s); }
+        
+
+        if (!AHK.IniFlag("ShowLongCutscenes")) 
           foreach (UberState s in LongCutscenes) { memory.WriteUberState(s); }
-        }
+        
         if (SeedController.GameStartPickup.NonEmpty()) {
           Randomizer.InputUnlockCallback = () => {
             SeedController.GameStartPickup.Grant();

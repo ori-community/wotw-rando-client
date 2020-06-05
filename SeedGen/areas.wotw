@@ -3222,9 +3222,9 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
 area TwillenShop:
   state GladesTown.QuestRawShard:
     base: LowerWastes.QuestEerieGem
-
-  pickup TwillenShop.Overcharge:
-    base: SpiritLight=400
+# stealing this for keystones
+#  pickup TwillenShop.Overcharge:
+#    base: SpiritLight=400
   pickup TwillenShop.Wingclip:
     base: SpiritLight=400
   pickup TwillenShop.Swap:
