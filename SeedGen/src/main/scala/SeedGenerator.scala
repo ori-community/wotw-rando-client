@@ -63,6 +63,12 @@ package SeedGenerator {
       state + GameState.mk(this)
     }
     def kind: NodeType
+    def nearby(dist: Int = 3, ignore: Set[Node] = Set()): Set[Node] = {
+      if(ignore.contains(this))
+        Set()
+      else
+        Set(this)
+    }
     override def equals(that: Any): Boolean = that match {
       case n: Node => n.name == name && n.kind == kind
       case _ => false
@@ -78,6 +84,10 @@ package SeedGenerator {
         case Some(x) => println(s"Warning: $x was of unexpected type!"); state
         case None =>println(s"Warning: $name not in nodes!"); state
     }
+    override def nearby(dist: Int = 3, ignore: Set[Node] = Set()): Set[Node] = kind match {
+      case AreaNode => Nodes.areas(name).nearby(dist, ignore)
+      case _ => Set(this)
+    }
   }
 
   case class Area(name: String, _conns: Seq[Connection] = Seq()) extends Node {
@@ -91,6 +101,13 @@ package SeedGenerator {
       })
     }
     def paths: Seq[Path] = conns.filter(_.req != Invalid).map(c => SimplePath(this, c.target, c.req))
+    override def nearby(dist: Int = 3, ignore: Set[Node] = Set()): Set[Node] = dist match {
+      case 0 => Set(this)
+      case _ =>  conns.toSet.flatMap[Node](_.target match {
+        case n if ignore.contains(n) => Nil
+        case n => n.nearby(dist-1, ignore + this)
+      })
+    }
   }
   object Area {
     val SPAWN = "MarshSpawn.Main"
@@ -130,11 +147,12 @@ package SeedGenerator {
   }
   object Path {
     def filterFar(paths: Set[Path], nodes: Set[Node], far: Int): Set[Path] = {paths.filter({
-        case _: SimplePath => true
-        case ChainedPath(links) if links.size < far+1 => true
-        case ChainedPath(links)  => nodes.contains(links.reverseIterator.drop(far).next().dest)
-      })
-  }}
+      case _: SimplePath => true
+      case ChainedPath(links) if links.size < far+1 => true
+      case ChainedPath(links)  => nodes.contains(links.reverseIterator.drop(far).next().dest)
+    })}
+    def filterByTargets(paths: Set[Path], targets: Set[Node]): Set[Path] = {paths.filter(_.nodes.forall(n => targets.contains(n)))}
+  }
   case class SimplePath(source: Node, dest: Node, req: Requirement) extends Path {
     override def toString: String = s"${source.name}=>$req=>${dest.name}"
     override def substitute(orig: Requirement, repl: Requirement): Path = SimplePath(source, dest, req.substitute(orig, repl))
@@ -207,7 +225,7 @@ package SeedGenerator {
     var _paths: Map[Node, Set[Path]] = Map()
 
 
-    def getAllPathsRecursive(area: Area = spawn, pathsToHere: Set[Path] = Set()): Map[Node, Set[Path]] = {
+    def getAllPathsRecursive(area: Area = spawn, pathsToHere: Set[Path] = Set()): Map[Node, Set[Path]] = Timer("GetPaths"){
       val seen = pathsToHere.flatMap(_.nodes.map(_.name))
       def pathAcc(p: Path): Set[Path] = if(pathsToHere.nonEmpty) pathsToHere.flatMap(_ and p) else Set(p)
       area.paths.flatMap(path => path.dest.kind match {
@@ -224,7 +242,11 @@ package SeedGenerator {
       }))) keys else 0)})
     }
 
-    def stateCosts(items: Inv, reached: Set[Node], flags: Set[FlagState], far: Int): (Map[FlagState, GameState], Map[FlagState, GameState]) = Timer(s"stateCosts far=$far"){
+    def pathRemaining(state: GameState, loc: ItemLoc) = {
+
+    }
+
+    def stateCosts(items: Inv, reached: Set[Node], flags: Set[FlagState], targets: Set[Node]): (Map[FlagState, GameState], Map[FlagState, GameState]) = Timer(s"stateCosts"){
         val state = GameState(items, flags)
         @scala.annotation.tailrec
         def refineRecursive(good: Map[FlagState, GameState], hasFlags: Map[FlagState, GameState]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
@@ -235,11 +257,11 @@ package SeedGenerator {
           } else
             (newGood, newFlags)
         }
-      val (good, needsRefined) = paths.withFilter(_._1.kind == StateNode).map[FlagState, GameState]({
-        case (WorldStateNode(flag), _) if flags.contains(WorldState(flag))
-                                        => WorldState(flag) -> GameState.Empty
-        case (WorldStateNode(flag), p)  => WorldState(flag) -> AnyReq(Path.filterFar(p, reached, far).toSeq.map(_.req):_*).cheapestRemaining(state)
-      }).filterNot(_._2.inv.has(Unobtainium)).partition(_._2.flags.isEmpty)
+      val (good, needsRefined) = targets.withFilter(_.kind == StateNode).flatMap[(FlagState, GameState)]({
+        case WorldStateNode(flag) if flags.contains(WorldState(flag))
+                                        => Some(WorldState(flag) -> GameState.Empty)
+        case n: WorldStateNode  => Path.filterByTargets(paths(n), targets ++ reached).map(_.req.cheapestRemaining(state)).minByOption(_.cost).map(WorldState(n.name) -> _)
+      }).filterNot(_._2.inv.has(Unobtainium)).toMap.partition(_._2.flags.isEmpty)
       Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
     }
 
@@ -253,9 +275,9 @@ package SeedGenerator {
     def populate(debug: Boolean = false, advanced: Boolean = false): Boolean = Timer("populate"){
       if(populatedWithSetting.contains(advanced))
         return true // already done lol
-      AreaParser.AreasBuilder.run(print = debug) match {
+      Timer("parse")(AreaParser.AreasBuilder.run(print = debug)) match {
         case Right(value) =>
-          _areas = fixAreas(value)
+          _areas = Timer("FixAreas")(fixAreas(value))
           _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r != Invalid => t.name -> t }))
           _paths = getAllPathsRecursive()
           populatedWithSetting = Some(advanced)
@@ -402,7 +424,8 @@ package SeedGenerator {
           return Inv.Empty
 
         var _fullWeight = 0d
-        val (flagRemaining, unaffordableMap) = Nodes.stateCosts(state.inv, reachable, flags, Math.max(1, far - 1))
+        val targets = reachable.flatMap(_.nearby(far, ignore=reachable))
+        val (flagRemaining, unaffordableMap) = Nodes.stateCosts(state.inv, reachable, flags, targets)
         val unaffordable = unaffordableMap.keySet
         implicit val flagCosts: Map[FlagState, Double] = flagRemaining.view.mapValues(_.cost(state.flags.map(_ -> 0d).toMap)).toMap
 
@@ -412,17 +435,14 @@ package SeedGenerator {
             return 0
           }
           _fullWeight += multiplier * (1 / st.inv.cost)
-          debugPrint(s"$st->${1 / st.inv.cost} * $multiplier -> ${_fullWeight}")
+          //debugPrint(s"$st->${1 / st.inv.cost} * $multiplier -> ${_fullWeight}")
           _fullWeight
         }
 
         debugPrint(s"Looking for paths. Have $sizeLeft new locs. Need to reach $remaining more")
-        val possiblePathsPartial = Timer(s"possiblePathsPartial"/*, far=$far"*/){Nodes.paths
-          .withFilter({
-            case (node: ItemLoc, _) => !reachableLocs.contains(node)
-            case _ => false
-          })
-          .flatMap({ case (_, paths) => Timer("filterAndGetReqs")(Path.filterFar(paths, reachable, far).flatMap(_.req.remaining(state, unaffordable, sizeLeft))) })
+        val possiblePathsPartial = Timer(s"possiblePathsPartial"/*, far=$far"*/){targets
+          .collect({case node: ItemLoc => node})
+          .flatMap(n => Timer("filterAndGetReqs")(Path.filterByTargets(Nodes.paths(n), targets ++ reachable).flatMap(_.req.remaining(state, unaffordable, sizeLeft))))
           .toSeq
           .distinct
           .map[GameState](state => GameState(state.inv) +
@@ -441,11 +461,11 @@ package SeedGenerator {
             case (items, n) if n >= Math.min(3, remaining) => (acc(items), items)
             case (items, 1) => (acc(items, .1), items)
         })
-        debugPrint(s"$i, far=$far, paths partial: ${possiblePathsPartial.size}, down to ${possiblePaths.size}")
+        //println(s"$i, targets=${targets.size}, paths partial: ${possiblePathsPartial.size}, down to ${possiblePaths.size}")
         if(possiblePaths.isEmpty) {
-          if(far < 8) {
+          if(far < 5) {
             println(s"group $i: failed at far=$far, looking deeper")
-            return getProgressionPath(sizeLeft, far+2)
+            return getProgressionPath(sizeLeft, far+1)
           }
           println(s"pool: $pool")
           println(s"inv: ${state.inv}")
@@ -458,8 +478,8 @@ package SeedGenerator {
           val flagProb = possiblePathsPruned.filterNot(_.flags.forall(state.flags.contains))
           if(flagProb.nonEmpty)
             println("flags:\n" + flagProb.map(s => (s.flags, s.flags -- flags)).mkString("\n"))
-          (Nodes.items.values.toSet[Node] -- reachableLocs).take(5).foreach(n => {
-            println(s"${n.name}: \n\t${Nodes.paths(n).map(_.req.cheapestRemaining(state)).mkString("\n\t")}")
+          (Nodes.items.values.toSet[Node] -- reachableLocs).take(3).foreach(n => {
+            println(s"${n.name}: \n\t${Nodes.paths(n).take(3).map(_.req.cheapestRemaining(state)).mkString("\n\t")}")
           })
 
           throw GeneratorError(s"No possible paths???")
@@ -469,7 +489,7 @@ package SeedGenerator {
         debugPrint(s"choose $limit: $chosenPath")
         chosenPath
       }
-      val progPath = getProgressionPath(reservedForProg.size, if(reachableLocs.size > 50) 1 else 3)
+      val progPath = getProgressionPath(reservedForProg.size, if(reachableLocs.size > 50) 1 else 3  )
       val (progLocs, remaining) = reservedForProg.splitAt(progPath.count)
       process(progPath.asSeq.zip(progLocs).map({
             // this might seem sketch but it's almost literally always impossible
@@ -598,7 +618,7 @@ object Runner {
   }
 */
   object Timer {
-    var enabled = false
+    var enabled = true
     val times: MMap[String, Long] = MMap[String, Long]()
     def showTimes(): Unit = times.toSeq.sortBy(_._2).foreach(println)
     def clear(): Unit = times.clear()
@@ -618,7 +638,7 @@ object Runner {
   object ItemPool {
     lazy val SIZE: Int = Nodes.items.size
     def build(size: Int = SIZE)(implicit r: Random): Inv = {
-      val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 39, ShardSlot -> 5, Keystone -> 36) +
+      val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 39, ShardSlot -> 5, Keystone -> 32) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)
       while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
       pool.merchToPop = Nodes.items.values.count(_.data.category == "Shop")

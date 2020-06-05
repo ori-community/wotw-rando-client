@@ -248,24 +248,21 @@ package SeedGenerator {
     def take(item: Item, count: Int = 1)(implicit r: Random): Boolean = {
       if (!has(item, count)) {
         item match {
-          case SpiritLight(amount)  if amount*count < totalSpiritLight =>
-            val spiritLights = asSeq.collect({case s: SpiritLight =>
-              remove(s)
-              s
-            })
-            val afterSLCount = Math.max(spiritLights.size - count, 0)
+          case SpiritLight(amount)  =>
+            val slAmount = totalSpiritLight
+            if(amount * count > slAmount)
+              throw GeneratorError(s"Error: Tried to take ${count*amount} Spirit Light from pool with only $slAmount")
+            val spiritLights = asSeq.collect({case s: SpiritLight => val c = this(s) ; remove(s); c}).sum
+            val afterSLCount = Math.max(spiritLights - count, 0)
             if(afterSLCount > 0) {
-
-              val average = (totalSpiritLight - amount*count) / afterSLCount
+              val average = (slAmount - amount*count) / afterSLCount
               (0 until afterSLCount).foreach(_ => add(SpiritLight(r.between(average-50, average+50))))
-              println(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
+              //println(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
+              return true
             }
           case _ =>
             throw GeneratorError(s"Error: taking $count of $item from $asSeq, which doesn't have that many")
-
         }
-        println(s"Error: taking $count of $item from ${asSeq}, which doesn't have that many")
-        return false
       }
       set(item, Math.max(0, this (item) - count))
       if(this(item) == 0)
