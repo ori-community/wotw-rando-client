@@ -232,7 +232,7 @@ package SeedGenerator {
       case req => AnyReq(req, this)
     }
     override def toString: String = s"(${reqs.mkString(" && ")})"
-    def metMaybe(state: GameState): Option[GameState] = reqs.foldLeft[Option[GameState]](Some(state))((st, req) => st.filter(req.metBy).map(req.afterMet))
+    def metMaybe(state: GameState): Option[GameState] = Timer("metMaybe")(reqs.foldLeft[Option[GameState]](Some(state))((st, req) => st.filter(req.metBy).map(req.afterMet)))
     def metBy(state: GameState): Boolean = metMaybe(state).nonEmpty
     override def afterMet(state: GameState): GameState = {
       if(metMaybe(state).isEmpty)
