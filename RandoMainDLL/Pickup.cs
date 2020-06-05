@@ -127,7 +127,9 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.UberState;
     public override bool NeedsMagic() => true;
     public UberStatePickup(UberState state) => State = state;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase 
+      
+      = false) {
       Randomizer.Memory.WriteUberState(State);
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";

@@ -260,10 +260,9 @@ package SeedGenerator {
               (0 until afterSLCount).foreach(_ => add(SpiritLight(r.between(average-50, average+50))))
               println(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
             }
-
-
-
           case _ =>
+            throw GeneratorError(s"Error: taking $count of $item from $asSeq, which doesn't have that many")
+
         }
         println(s"Error: taking $count of $item from ${asSeq}, which doesn't have that many")
         return false

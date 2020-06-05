@@ -43,14 +43,17 @@ namespace RandoMainDLL {
       else if (TwillenShardDetail.ContainsKey(orig)) {
         var shard = TwillenShardDetail[orig];
         if (!TwillenShardChatter.ContainsKey(shard)) {
-          TwillenShardChatter[shard] = Chatter[new Random().Next(Chatter.Count)];
+          if(KSOverride(shard))
+            TwillenShardChatter[shard] = $"Costs more each time you buy it\\nNever logically required";
+          else
+            TwillenShardChatter[shard] = Chatter[new Random().Next(Chatter.Count)];
         }
         return TwillenShardChatter[shard];
       }
       else if (TwillenShardNames.ContainsKey(orig)) {
-        return SeedController.TwillenShard(TwillenShardNames[orig]).ToString();
+        var shard = TwillenShardNames[orig];
+        return KSOverride(shard) ? "Black Market Keystone" : SeedController.TwillenShard(shard).ToString();
       }
-
       return orig;
     }
 
@@ -179,10 +182,20 @@ namespace RandoMainDLL {
 
     public static void OnBuyOpherUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
 
+    private static bool KSOverride(ShardType s) => s == ShardType.Overcharge && !SeedController.KSDoorsOpen;
+
+    private static int KSBought { get => SaveController.Data?.KSBought ?? 0; }
     public static void OnBuyTwillenShard(ShardType slot) {
+      if (KSOverride(slot)) {
+        (new Resource(ResourceType.Keystone)).Grant();
+        SaveController.Data.KSBought++;
+        SaveController.Data.FoundCount--;
+        return;
+      }
+
       Pickup item = SeedController.TwillenShard(slot);
       if (SaveController.Data.TwillenSold.Contains(slot)) {
-        Randomizer.Log($"TBS: not enough money or slot already sold ");
+        Randomizer.Log($"TBS: slot already sold???");
         return;
       }
       Randomizer.Log($"sold {item} from {slot} for ${SeedController.TwillenShard(slot).CostWithMod(GetCostMod(slot))}", false);
@@ -196,7 +209,9 @@ namespace RandoMainDLL {
 
     public static bool OpherBoughtUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.GetOrElse(slot, 0) > 0;
 
-    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(ShopController.GetCostMod(shard));
+    public static int TwillenShardCost(ShardType shard) => KSOverride(shard) ? 
+      100 + 50 * KSBought : 
+      SeedController.TwillenShard(shard).CostWithMod(ShopController.GetCostMod(shard));
     public static int OpherWeaponCost(AbilityType ability) => SeedController.OpherWeapon(ability).CostWithMod(ShopController.GetCostMod(ability));
 
     private static Dictionary<int, int> lupoCosts = new Dictionary<int, int>() {
