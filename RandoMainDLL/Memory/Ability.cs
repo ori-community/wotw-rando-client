@@ -38,9 +38,9 @@ namespace RandoMainDLL.Memory {
     Blaze = 115,
     Sentry,
     Flap = 118,
-    [Description("Damage Up 1")]
+    [Description("Ancestral Light")]
     DamageUpgrade1 = 120,
-    [Description("Damage Up 2")]
+    [Description("Ancestral Light")]
     DamageUpgrade2,
     NONE = 255
   }
