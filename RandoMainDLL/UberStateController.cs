@@ -130,7 +130,7 @@ namespace RandoMainDLL {
       new UberState() { Name = "mokiTorchPlayed", ID = 3621, GroupName = "inkwaterMarshStateGroup", GroupID = 9593, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "mapSecretsRevealed", ID = 35534, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "leverA", ID = 50432, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
-      new UberState() { Name = "doorA", ID = 59850, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) }
+//      new UberState() { Name = "doorA", ID = 59850, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) }
     };
 
     public static List<UberState> ShortCutscenes = new List<UberState>() {
