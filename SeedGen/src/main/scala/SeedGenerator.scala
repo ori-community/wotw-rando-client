@@ -242,9 +242,6 @@ package SeedGenerator {
       }))) keys else 0)})
     }
 
-    def pathRemaining(state: GameState, loc: ItemLoc) = {
-
-    }
 
     def stateCosts(items: Inv, reached: Set[Node], flags: Set[FlagState], targets: Set[Node]): (Map[FlagState, GameState], Map[FlagState, GameState]) = Timer(s"stateCosts"){
         val state = GameState(items, flags)
@@ -369,7 +366,7 @@ package SeedGenerator {
         val (shops, nonShops) = itemLocs.partition(_.data.category == "Shop")
           if(nonShops.size > pool.count - pool.merchToPop)
             throw GeneratorError(s"Won't have enough space? ${pool.merchToPop} ${pool.count} $itemLocs ${pool.asSeq}")
-          shops.map(shop => ShopPlacement(pool.popMerch.getOrElse(throw GeneratorError(s"Shop randASS failure: ${pool.merchToPop} ${pool.count} $itemLocs ${pool.asSeq}")), shop)) ++
+          shops.map(shop => ShopPlacement(pool.popMerch().getOrElse(throw GeneratorError(s"Shop randASS failure: ${pool.merchToPop} ${pool.count} $itemLocs ${pool.asSeq}")), shop)) ++
               nonShops.map(nonShop => ItemPlacement(pool.popRand.get, nonShop))
       }
       if(reachableLocs.size == ItemPool.SIZE) {
