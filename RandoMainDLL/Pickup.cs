@@ -69,7 +69,7 @@ namespace RandoMainDLL {
   public enum ResourceType : byte {
     [Description("Health Fragment")]
     Health = 0,
-    [Description("Cell Fragment")]
+    [Description("Energy Fragment")]
     Energy = 1,
     [Description("Gorlek Ore")]
     Ore = 2,
