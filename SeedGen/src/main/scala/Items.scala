@@ -300,11 +300,14 @@ package SeedGenerator {
         None
     }
 
-    def popMerch(implicit r: Random): Option[Merch] = {
+    def popMerch(reroll: Boolean = true)(implicit r: Random): Option[Merch] = {
       val merch = asSeq.collect({case i: Merch => i})
       if (merch.isEmpty)
         return None
       val i = merch(r.nextInt(merch.size))
+      if(reroll && i == Keystone)
+        return popMerch(false)
+
       merchToPop -= 1
       take(i)
       Some(i)
