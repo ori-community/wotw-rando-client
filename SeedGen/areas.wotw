@@ -446,7 +446,14 @@ area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye
     advanced, WestHollow.UpperDrainLeverPulled:
       Bow, Bash, Grenade=1  # Involves bashing off a mosquito 
       Bow, Bash, Damage=20  # Involves bashing off a mosquito
-  
+  state WestHollow.PurpleDoorOpen:
+    base, WestHollow.UpperDrainLeverPulled:
+      Bow, DoubleJump, Dash
+      Bow, Launch
+      Bow, Bash, Grenade=1
+    advanced, WestHollow.UpperDrainLeverPulled:
+      Bow, Glide, DoubleJump OR Dash
+
   pickup WestHollow.CrusherHC:
     base:
       WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Launch OR Bow
@@ -473,7 +480,8 @@ area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye
       Bash, Grenade=1, Dash OR Glide
   conn WestHollow.HollowDrainLower:
     base: WestHollow.LowerDrainLeverPulled
-  conn EastHollow.Teleporter: free  # as long as the purple eye door starts open
+  conn EastHollow.Teleporter:
+    base: WestHollow.PurpleDoorOpen
 
 area WestHollow.HollowDrainLower:  # (-209, -4333) Next to the jumppad left of Lupo
   state WestHollow.TrialActivation:
@@ -536,7 +544,8 @@ area EastHollow.Teleporter:  # (-150, -4237) the teleporter
       Combat, Danger=15, Dash  # +20 region danger. Kinda tight, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
     advanced:
       Combat
-  conn WestHollow.HollowDrainUpper: free  # as long as the purple eye door starts open TODO
+  conn WestHollow.HollowDrainUpper:
+    base: WestHollow.PurpleDoorOpen
   conn EastHollow.AboveBash:
     base: 
       EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
