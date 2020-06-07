@@ -184,7 +184,8 @@ namespace RandoMainDLL {
 
     private static bool KSOverride(ShardType s) => s == ShardType.Overcharge && !SeedController.KSDoorsOpen;
 
-    private static int KSBought { get => SaveController.Data?.KSBought ?? 0; }
+    private static readonly int KSMAX = 8;
+    private static int KSBought { get => Math.Min(KSMAX, SaveController.Data?.KSBought ?? 0); }
     public static void OnBuyTwillenShard(ShardType slot) {
       if (KSOverride(slot)) {
         (new Resource(ResourceType.Keystone)).Grant();
