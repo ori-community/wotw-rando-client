@@ -140,12 +140,14 @@ area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tre
   pickup MarshSpawn.RegenTree: free
   pickup MarshSpawn.RecklessShard:
     base, Weapon:
-      DoubleJump OR Dash OR Launch  # Dash somewhat on the border of base
+      DoubleJump OR Launch
+      Dash, Glide
       Bash, Grenade=1
 
   conn HowlsDen.Upper:
     base:
-      DoubleJump OR Dash OR Launch  # Dash somewhat on the border of base
+      DoubleJump OR Launch
+      Dash, Glide
       Bash, Grenade=1
     advanced:
       Sword OR Hammer         # Use air combos to make it to wall above thorns
@@ -634,9 +636,9 @@ area EastHollow.Kwolok:  # (154, -4205) Between Ku and Kwolok
       Launch
   conn WoodsEntry.ShriekMeet:
     base: 
-      Water, Bash, Launch
-      Water, Bash, Grapple, DoubleJump, Dash OR Glide
-      Water, Bash, Grapple, Dash, Glide
+      Water, Launch
+      Water, Grapple, DoubleJump, Dash OR Glide
+      Water, Grapple, Dash, Glide
 
 area EastHollow.AboveDepths:  # (50, -4302) To the right of the lever door blocking Depths access
   pickup EastHollow.BashHC:
@@ -1025,12 +1027,34 @@ area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening 
       Dash, Glide
       Launch
       Water
-  conn PoolsApproach.RightOfWheel: # this makes more sense here than at OuterWellspring
+  conn PoolsApproach.MillPath:  # this makes more sense here than at OuterWellspring
     base, EnemyObstacle, Danger=20:  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement. Danger just because it's basically impossible not to run into the enemies.
       Water, DoubleJump, Dash, Grapple, Glide
       Water, WaterDash, Grapple, DoubleJump OR Dash OR Glide
       Water, Launch, Grapple
       Water, Launch, DoubleJump, Dash
+
+area PoolsApproach.MillPath:  # (-873, -4145) above the water where the three paths merge
+  pickup PoolsApproach.MillPathEX:
+    base:
+      DoubleJump, Dash, RangedWeapon OR Bash
+      DoubleJump, Grapple, Glide, RangedWeapon OR Bash
+      Launch
+  pickup PoolsApproach.MillPathEC:
+    base: Water
+  
+  conn WestGlades.MillApproach:
+    base:
+      Water, DoubleJump, Grapple, Danger=10, Dash OR Glide
+      Water, WaterDash, DoubleJump, Grapple, Dash OR Glide OR Danger=15
+      Water, WaterDash, Bash, Grapple, Grenade=2, Dash OR Glide
+      Water, Launch, WaterDash, DoubleJump OR Dash OR Grapple OR Glide
+      Water, Launch, Danger=10, DoubleJump OR Dash OR Grapple OR Glide
+    advanced:
+      Water, Bash, Dash, Glide, Grapple, Grenade=2, Danger=10
+      Water, Bash, Grenade=1, Launch, Danger=10
+  conn PoolsApproach.RightOfWheel:
+    base: EnemyObstacle, Water
 # end glades needs-validation region
 
 region OuterWellspring:
@@ -1404,23 +1428,15 @@ area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the 
       # grenadebash doesn't work as well when the wheel spins
       PoolsApproach.WheelFreed, DoubleJump
       Launch
-  pickup PoolsApproach.MillPathHC:  # paths from wellspring tbd
+  pickup PoolsApproach.MillPathHC:
     base:
       Water, DoubleJump, Dash, WaterDash, Grapple
       Water, DoubleJump, Grapple, Launch
     advanced:
       Water, WaterDash, DoubleJump, Grapple
       Water, Grapple, Launch
-  pickup PoolsApproach.MillPathEC:  # paths from wellspring tbd
+  pickup PoolsApproach.MillPathEC:
     base: Water, Bash, WaterDash OR Danger=10
-  pickup PoolsApproach.MillPathEX:  # paths from wellspring tbd
-    base:
-      Water, Bash, DoubleJump, Dash, Grapple, Danger=10
-      Water, Bash, DoubleJump, Grapple, Glide, WaterDash OR Danger=10
-      Water, Bash, DoubleJump, Dash, WaterDash
-      Water, Bash, Launch, WaterDash OR Danger=10
-    advanced:
-      Water, Bash, DoubleJump, WaterDash
 
   conn MarshPastOpher.PoolsPathWest:
     base, PoolsApproach.MarshWallBroken:
@@ -1442,16 +1458,11 @@ area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the 
       PoolsApproach.WheelFreed, DoubleJump, Glide
     advanced:
       Launch, Dash  # advanced? definitions tbd
-  conn WestGlades.MillApproach:
+  conn PoolsApproach.MillPath:
     base:
-      Water, Bash, DoubleJump, Grapple, Danger=10, Dash OR Glide
-      Water, Bash, WaterDash, DoubleJump, Grapple, Dash OR Glide OR Danger=15
-      Water, Bash, WaterDash, Grapple, Grenade=2, Dash OR Glide
-      Water, Bash, Launch, WaterDash, DoubleJump OR Dash OR Grapple OR Glide
-      Water, Bash, Launch, Danger=10, DoubleJump OR Dash OR Grapple OR Glide
-    advanced:
-      Water, Bash, Dash, Glide, Grapple, Grenade=2, Danger=10
-      Water, Bash, Grenade=1, Launch, Danger=10
+      Water, Bash, Danger=10, Grapple, DoubleJump, Dash OR Glide
+      Water, Bash, WaterDash
+      Water, Bash, Danger=10, Launch
 
 area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the static wheel
   state PoolsApproach.WheelFreed:
