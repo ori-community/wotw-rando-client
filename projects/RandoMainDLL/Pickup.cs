@@ -99,7 +99,7 @@ namespace RandoMainDLL {
         AHK.Pickup(ToString(), Frames);
       SaveController.Data.FoundCount++;
       if(NeedsMagic())
-        InterOp.magicFunction();
+        InterOp.magic_function();
     }
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
@@ -375,7 +375,7 @@ namespace RandoMainDLL {
           Randomizer.Memory.FakeHalfEnergy();
           break;
         case ResourceType.Ore:
-          InterOp.setOre(++Randomizer.Memory.Ore);
+          InterOp.set_ore(++Randomizer.Memory.Ore);
           break;
         case ResourceType.Keystone:
           Randomizer.Memory.Keystones++;

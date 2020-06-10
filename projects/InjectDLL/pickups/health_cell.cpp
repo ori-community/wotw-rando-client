@@ -2,6 +2,7 @@
 #include <interception_macros.h>
 
 bool is_collecting_health_cell = false;
+
 INTERCEPT(5820064, void, SeinPickupProcessor__OnCollectMaxHealthHalfContainerPickup, (SeinPickupProcessor_o* this_ptr, MaxHealthHalfContainerPickup_o* maxHealthContainerPickup), {
 	is_collecting_health_cell = true;
 	SeinPickupProcessor__OnCollectMaxHealthHalfContainerPickup(this_ptr, maxHealthContainerPickup);
@@ -18,6 +19,7 @@ INTERCEPT(18319328, void, SeinHealthController__set_BaseMaxHealth, (SeinHealthCo
 INTERCEPT(18318112, void, SeinHealthController__set_Amount, (SeinHealthController_o* this_ptr, float value), {
 	if(is_collecting_health_cell)
 		return;
+
 	SeinHealthController__set_Amount(this_ptr, value);
 });
 

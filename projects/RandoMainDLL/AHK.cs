@@ -90,7 +90,7 @@ namespace RandoMainDLL {
             break;
           case "test1":
             Print("Test1 (magic)", 180, false);
-            InterOp.magicFunction();
+            InterOp.magic_function();
             break;
           case "test2":
             break;
@@ -115,8 +115,8 @@ namespace RandoMainDLL {
           Current = MessageQueue.Peek();
           FramesTillNextSend = Current.Frames;
           try {
-            InterOp.clearVisibleHints();
-            InterOp.displayHint(InterOp.Util.getIl2cppStringPointer(Current.Text), Current.Frames / 60f);
+            InterOp.clear_visible_hints();
+            InterOp.display_hint(InterOp.Util.getIl2cppStringPointer(Current.Text), Current.Frames / 60f);
             if (IniFlag("LogOnPrint")) {
               Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
             }
@@ -130,7 +130,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public static bool CanPrint { get => MessageQueue.Count > 0 && Memory.MemoryReader.stringHeader != null && InterOp.hintsReady(); }
+    public static bool CanPrint { get => MessageQueue.Count > 0 && Memory.MemoryReader.stringHeader != null && InterOp.hints_ready(); }
     // public static bool SendMessage
     public static IMessage Current = null;
     public static IMessage Last = new PlainText("*Good Luck! <3*");
