@@ -3,7 +3,7 @@
 // Distributed under the MIT License
 
 #include "pch.h"
-#include "PEModule.h"
+#include "pe_module.h"
 #include "common.h"
 namespace InjectDLL
 {

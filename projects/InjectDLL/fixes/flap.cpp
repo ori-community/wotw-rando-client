@@ -1,8 +1,8 @@
 #include <pch.h>
 #include <interception.h>
-#include <interceptionMacros.h>
+#include <interception_macros.h>
 #include <common.h>
-#include <fixes/dashFixes.h>
+#include <fixes/dash.h>
 
 const uint8_t glide = 14;
 INTERCEPT(17314976, void, SeinFeatherFlap__EnterAttack, (SeinFeatherFlap_o* this_ptr), {

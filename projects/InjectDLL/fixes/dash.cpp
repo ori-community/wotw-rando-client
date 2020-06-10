@@ -1,8 +1,8 @@
 #include <pch.h>
 #include <interception.h>
-#include <interceptionMacros.h>
-#include <dllmain.h>
-#include <fixes/dashFixes.h>
+#include <interception_macros.h>
+#include <dll_main.h>
+#include <fixes/dash.h>
 
 const uint8_t WaterDash = 104;
 const uint8_t Digging = 101;

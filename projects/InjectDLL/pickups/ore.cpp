@@ -1,5 +1,5 @@
 #include <pch.h>
-#include <interceptionMacros.h>
+#include <interception_macros.h>
 
 bool is_collecting_ore = false;
 INTERCEPT(5814720, void, SeinPickupProcessor__OnCollectOrePickup, (SeinPickupProcessor_o* this_ptr, OrePickup_o* orePickup), {	

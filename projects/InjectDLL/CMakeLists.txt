@@ -8,35 +8,35 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
 	SOURCE_FILES
-	"dllmain.cpp"
+	"dll_main.cpp"
 	"interception.cpp"
 	"pch.cpp"
-	"PEModule.cpp"
-	"features/keystoneDoorFromBothSides.cpp"
+	"pe_module.cpp"
+	"features/keystone_door.cpp"
 	"features/messages.cpp"
-	"fixes/dashFixes.cpp"
-	"fixes/FlapFix.cpp"
-	"pickups/energyCellInterception.cpp"
-	"pickups/experiencePickups.cpp"
-	"pickups/healthCellInterception.cpp"
-	"pickups/keystoneInterception.cpp"
-	"pickups/oreInterception.cpp"
+	"fixes/dash.cpp"
+	"fixes/flap.cpp"
+	"pickups/energy_cell.cpp"
+	"pickups/experience.cpp"
+	"pickups/health_cell.cpp"
+	"pickups/keystone.cpp"
+	"pickups/ore.cpp"
 	"pickups/shops.cpp"
-	"pickups/spiritShardInterception.cpp"
-	"pickups/treeInterception.cpp"
+	"pickups/spirit_shard.cpp"
+	"pickups/tree.cpp"
 )
 
 set(
 	PUBLIC_HEADER_FILES
 	"common.h"
-	"dllmain.h"
+	"dll_main.h"
 	"framework.h"
 	"interception.h"
-	"interceptionMacros.h"
+	"interception_macros.h"
 	"pch.h"
-	"PEModule.h"
-	"fixes/dashFixes.h"
-	"pickups/oreInterception.h"
+	"pe_module.h"
+	"fixes/dash.h"
+	"pickups/ore.h"
 )
 
 add_library(${PROJECT_NAME}

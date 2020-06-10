@@ -1,5 +1,5 @@
 #include <pch.h>
-#include <interceptionMacros.h>
+#include <interception_macros.h>
 
 bool collecting_energy_cell = false;
 INTERCEPT(5813104, void, SeinPickupProcessor__OnCollectMaxEnergyHalfContainerPickup, (__int64 this_ptr, __int64 pickupPointer), {

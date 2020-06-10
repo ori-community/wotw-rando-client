@@ -1,5 +1,5 @@
 #include <pch.h>
-#include <interceptionMacros.h>
+#include <interception_macros.h>
 
 bool collecting_spirit_shard = false;
 INTERCEPT(5822720, void, SeinPickupProcessor__OnCollectSpiritShardPickup, (SeinPickupProcessor_o* this_ptr, SpiritShardPickup_o* spiritShardPickup), {

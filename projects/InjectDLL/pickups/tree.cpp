@@ -1,6 +1,6 @@
 #include <pch.h>
-#include <interceptionMacros.h>
-#include <dllmain.h>
+#include <interception_macros.h>
+#include <dll_main.h>
 
 #include <set>
 

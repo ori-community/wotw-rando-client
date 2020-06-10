@@ -4,9 +4,13 @@
 #pragma comment(lib, "detours.lib")
 
 #include <detours/detours.h>
-#include <PEModule.h>
+
+#include <pe_module.h>
 #include <common.h>
-#include <dllmain.h>
+#include <dll_main.h>
+#include <interception_macros.h>
+#include <pickups/ore.h>
+#include <fixes/dash.h>
 
 #include <string>
 #include <functional>
@@ -17,10 +21,6 @@
 #include <utility>
 #include <chrono>
 #include <ctime>
-
-#include <interceptionMacros.h>
-#include <pickups/oreInterception.h>
-#include <fixes/dashFixes.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 void* gameControllerInstancePointer = NULL;

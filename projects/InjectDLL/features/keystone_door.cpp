@@ -1,5 +1,5 @@
 #include <pch.h>
-#include <interceptionMacros.h>
+#include <interception_macros.h>
 
 //No it's not KeystoneDoor
 INTERCEPT(17948416, bool, MoonDoorWithSlots__get_SeinInRange, (MoonDoorWithSlots_o* this_ptr), {

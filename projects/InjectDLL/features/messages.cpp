@@ -1,6 +1,7 @@
 #include <pch.h>
-#include <interceptionMacros.h>
-#include <dllMain.h>
+#include <interception_macros.h>
+#include <dll_main.h>
+
 #include <set>
 
 std::set<MessageBox_o*> trackedBoxes;

@@ -1,5 +1,5 @@
 #include <pch.h>
-#include <interceptionMacros.h>
+#include <interception_macros.h>
 
 bool is_collecting_health_cell = false;
 INTERCEPT(5820064, void, SeinPickupProcessor__OnCollectMaxHealthHalfContainerPickup, (SeinPickupProcessor_o* this_ptr, MaxHealthHalfContainerPickup_o* maxHealthContainerPickup), {
