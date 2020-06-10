@@ -81,7 +81,7 @@ namespace RandoMainDLL {
 
   public abstract class Pickup {
     public int Frames = 240;
-    public virtual bool NonEmpty() => true;
+    public bool NonEmpty = true;
     public virtual bool NeedsMagic() => false;
     public abstract PickupType Type { get; }
 
@@ -136,6 +136,7 @@ namespace RandoMainDLL {
   public class Multi : Pickup {
     public Multi(List<Pickup> children) {
       Children = children;
+      NonEmpty = children.Count > 0;
     }
 
     public static Multi Empty => new Multi(new List<Pickup>());
@@ -144,7 +145,6 @@ namespace RandoMainDLL {
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
 
-    public override bool NonEmpty() => Children.Count > 0;
 
     public override void Grant(bool skipBase = false) {
       Children.ForEach((c) => c.Grant(true));

@@ -65,7 +65,7 @@ namespace RandoMainDLL {
         }
 
         if (Memory.GameState == GameState.TitleScreen) {
-          UberStateController.Ready = false;
+          UberStateController.SkipListenersNextUpdate = true;
         }
         else if (Memory.GameState == GameState.Game) {
           UberStateController.Update();

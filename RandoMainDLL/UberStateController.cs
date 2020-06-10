@@ -47,7 +47,7 @@ namespace RandoMainDLL {
               }
               HandleSpecial(state);
               var pos = Randomizer.Memory.Position();
-              if (Ready) {
+              if (!SkipListenersNextUpdate) {
                 bool found = false;
                 if (value.Int > 0)
                   found = SeedController.OnUberState(state);
@@ -69,7 +69,7 @@ namespace RandoMainDLL {
       if (NeedsNewGameInit) 
         NewGameInit();
       else 
-        Ready = true;
+        SkipListenersNextUpdate = false;
     }
       // if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
       //   return true;
@@ -78,7 +78,7 @@ namespace RandoMainDLL {
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
     }
-    private static bool ShouldRevert(UberState state) => !NeedsNewGameInit && Ready &&
+    private static bool ShouldRevert(UberState state) => !NeedsNewGameInit && !SkipListenersNextUpdate &&
       (state.Name == "cleanseWellspringQuestUberState" && SaveController.Data.WorldEvents.Contains(QuestEventType.Water) && state.Value.Int < 4 ) ||
       (state.Name == "findKuQuest" && state.Value.Int < 4);
 
@@ -99,7 +99,7 @@ namespace RandoMainDLL {
         if (!AHK.IniFlag("ShowLongCutscenes")) 
           foreach (UberState s in LongCutscenes) { memory.WriteUberState(s); }
         
-        if (SeedController.GameStartPickup.NonEmpty()) {
+        if (SeedController.GameStartPickup.NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
             SeedController.GameStartPickup.Grant();
             InterOp.magicFunction();
@@ -115,7 +115,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public static bool Ready = false;
+    public static bool SkipListenersNextUpdate = false;
 
     public static bool NeedsNewGameInit = false;
 

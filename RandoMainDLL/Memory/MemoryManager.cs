@@ -281,25 +281,14 @@ namespace RandoMainDLL.Memory {
         int id = Program.Read<int>(descriptor, 0x18, 0x10);
         //.m_descriptorsArray[i].Name
         IntPtr namePtr = Program.Read<IntPtr>(descriptor, 0x10, 0x48);
-        string name = string.Empty;
-        if (namePtr != IntPtr.Zero) {
-          name = Program.ReadAscii(namePtr);
-        }
-        else {
-          name = Program.ReadAscii(descriptor, 0x10, 0x50);
-        }
+        string name =  namePtr != IntPtr.Zero ? Program.ReadAscii(namePtr) : Program.ReadAscii(descriptor, 0x10, 0x50);
 
         //.m_descriptorsArray[i].Group.ID.m_id
         int groupID = Program.Read<int>(descriptor, groupOffset, 0x18, 0x10);
         //.m_descriptorsArray[i].Group.Name
         namePtr = Program.Read<IntPtr>(descriptor, groupOffset, 0x10, 0x48);
-        string groupName = string.Empty;
-        if (namePtr != IntPtr.Zero) {
-          groupName = Program.ReadAscii(namePtr);
-        }
-        else {
-          groupName = Program.ReadAscii(descriptor, groupOffset, 0x10, 0x50);
-        }
+        string groupName = namePtr != IntPtr.Zero ? Program.ReadAscii(namePtr) : Program.ReadAscii(descriptor, groupOffset, 0x10, 0x50);
+
         var uberState = new UberState() { Type = type, ID = id, Name = name, GroupID = groupID, GroupName = groupName };
         uberIDLookup.Add(((long)groupID << 32) | (long)id, uberState);
       }

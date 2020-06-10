@@ -74,14 +74,19 @@ namespace RandoMainDLL {
     }
 
     public static void AddHint(ZoneType zone, Checkable item) {
-      if(item is Ability) {
-        AbilityType i = (item as Ability).type;
-        if (i == AbilityType.Burrow)
-          BurrowZone = zone;
-        else if (i == AbilityType.LightBurst)
-          LightBurstZone = zone;
-        else if (i == AbilityType.WaterDash)
-          WaterDashZone = zone;
+      if(item is Ability abil) 
+        switch(abil.type) {
+          case AbilityType.Burrow:
+            BurrowZone = zone;
+            break;
+          case AbilityType.LightBurst:
+            LightBurstZone = zone;
+            break;
+          case AbilityType.WaterDash:
+            WaterDashZone = zone;
+            break;
+          default:
+            break;
       }
       if (HintObjects.ContainsKey(zone))
         HintObjects[zone].Add(item);
