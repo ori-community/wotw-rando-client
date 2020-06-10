@@ -2,6 +2,7 @@
 #include <interception_macros.h>
 
 bool collecting_energy_cell = false;
+
 INTERCEPT(5813104, void, SeinPickupProcessor__OnCollectMaxEnergyHalfContainerPickup, (__int64 this_ptr, __int64 pickupPointer), {
 	collecting_energy_cell = true;
 	SeinPickupProcessor__OnCollectMaxEnergyHalfContainerPickup(this_ptr, pickupPointer);
@@ -21,7 +22,6 @@ INTERCEPT(9449664, void, SeinEnergy__set_Current, (SeinEnergy_o* this_ptr, float
 	
 	SeinEnergy__set_Current(this_ptr, value);
 });
-
 
 INTERCEPT(8454368, void, SeinLevel__set_PartialEnergyContainers, (SeinLevel_o* this_ptr, int value), {
 	if(collecting_energy_cell)

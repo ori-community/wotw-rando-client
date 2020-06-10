@@ -8,29 +8,29 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   static class InterOp {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr displayHint(IntPtr hint, float duration);
+    public extern static IntPtr display_hint(IntPtr hint, float duration);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clearVisibleHints();
+    public extern static void clear_visible_hints();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr getCurrentHint();
+    public extern static IntPtr get_current_hint();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static bool hintsReady();
+    public extern static bool hints_ready();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void discoverEverything();
+    public extern static void discover_everything();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void save();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void setOre(int amount);
+    public extern static void set_ore(int amount);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static bool playerCanMove();
+    public extern static bool player_can_move();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void magicFunction();
+    public extern static void magic_function();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void bindSword();
+    public extern static void bind_sword();
     public static class Util {
       private static readonly Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
       public static IntPtr getIl2cppStringPointer(string str) {

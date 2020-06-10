@@ -20,7 +20,7 @@ bool isTwillenShard(char shard){
 }
 
 
-bool isInShopScreen(){
+bool is_in_shop_screen(){
 	const GameController_c* Class_GameController = *(GameController_c**) resolve_rva(71838776);
 	if(!Class_GameController)
 		return false;
@@ -75,7 +75,7 @@ INTERCEPT(14055664, void, completeShardPurchase, (__int64 spiritShardShopScreen)
 
     // do the rando purchase /after/ rollback, xem ;3
     auto shardType = *(unsigned __int8*)(shard + 0x10);
-    CSharpLib->call<void, char>("TwillenBuyShard", shardType);
+    csharp_lib->call<void, char>("TwillenBuyShard", shardType);
 
 	PlayerUberStateShards_Shard_RunSetDirtyCallback(shard);
 	SpiritShardsShopScreen_UpdateContextCanvasShards(spiritShardShopScreen);
@@ -107,7 +107,7 @@ void initShardDescription(unsigned __int8 shard, __int64 spiritShardDescription)
 	//Set purchase cost (normal):
 	if(!isTwillenShard(shard))
 		return;
-	*(int*) (spiritShardDescription + 0x38) = CSharpLib->call<int, char>("TwillenShardCost", shard);
+	*(int*) (spiritShardDescription + 0x38) = csharp_lib->call<int, char>("TwillenShardCost", shard);
 
 	auto upgradableAbilityList = *(__int64*) (spiritShardDescription + 0x40);
 	forEachIndexed(upgradableAbilityList, [shard](__int64 upgradableAbilityLevel, int index)-> void{
@@ -141,9 +141,9 @@ INTERCEPT(17914496, int, getCostForLevel, (__int64 shardPointer, int level), {
 
 INTERCEPT(17706592, bool, PlayerSpiritShards_HasShard, (__int64 spiritShards, unsigned __int8 shardType), {
 	//PlayerSpiritShards$$HasShard
-	if(isInShopScreen() && isTwillenShard(shardType))
+	if(is_in_shop_screen() && isTwillenShard(shardType))
 	{
-		return CSharpLib->call<bool, char>("TwillenBoughtShard", shardType);
+		return csharp_lib->call<bool, char>("TwillenBoughtShard", shardType);
 		//TODO: @Eiko - Call C# using shardType, return true if the player has *purchased* the slot before
 	}
 	return PlayerSpiritShards_HasShard(spiritShards, shardType);
@@ -163,10 +163,10 @@ bool hasBeenPurchasedBefore(__int64 weaponMasterItem){
 	char grantedType = getWeaponMasterAbilityItemGranted(weaponMasterItem);
 	char requiredType = getWeaponMasterAbilityItemRequired(weaponMasterItem);
 	if((int) grantedType != -1)
-		return CSharpLib->call<bool, char>("OpherBoughtWeapon", grantedType);
+		return csharp_lib->call<bool, char>("OpherBoughtWeapon", grantedType);
 	if((int) requiredType == -1) // fast travel; 255, 255 -> 105, 0
-		return CSharpLib->call<bool, char>("OpherBoughtWeapon", 105);
-	return CSharpLib->call<bool, char>("OpherBoughtUpgrade", requiredType);
+		return csharp_lib->call<bool, char>("OpherBoughtWeapon", 105);
+	return csharp_lib->call<bool, char>("OpherBoughtUpgrade", requiredType);
 }
 
 bool purchasable(__int64 weaponmasterItem){
@@ -177,7 +177,7 @@ bool purchasable(__int64 weaponmasterItem){
 
 INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (__int64 item), {
 	//WeaponmasterItem$$get_IsOwned
-	if(isInShopScreen())
+	if(is_in_shop_screen())
 	{
 		return hasBeenPurchasedBefore(item);
 	}
@@ -186,16 +186,16 @@ INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (__int64 item), {
 
 INTERCEPT(5046528, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int level), {
 	//WeaponmasterItem$$GetCostForLevel
-	if(isInShopScreen())
+	if(is_in_shop_screen())
 	{
 		char abilityType = getWeaponMasterAbilityItemGranted(item);
 		//TODO: @Eiko - you know what to do
 		if((int) abilityType == -1) {
 			if((int) getWeaponMasterAbilityItemRequired(item) == -1) // fast travel; 255, 255 -> 105, 0
-				return CSharpLib->call<int, char>("OpherWeaponCost", 105);
+				return csharp_lib->call<int, char>("OpherWeaponCost", 105);
 			return WeaponmasterItem_GetCostForLevel(item, level);
 		}
-		return CSharpLib->call<int, char>("OpherWeaponCost", abilityType);
+		return csharp_lib->call<int, char>("OpherWeaponCost", abilityType);
 	}
 	return WeaponmasterItem_GetCostForLevel(item, level);
 });
@@ -232,13 +232,13 @@ INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 con
     weaponmasterPurchaseInProgress = true;
     auto abilityType = getWeaponMasterAbilityItemGranted(item);
     if ((int)abilityType != -1)
-        CSharpLib->call<void, char>("OpherBuyWeapon", abilityType);
+        csharp_lib->call<void, char>("OpherBuyWeapon", abilityType);
     else {
         char requiredType = getWeaponMasterAbilityItemRequired(item);
         if ((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
-            CSharpLib->call<void, char>("OpherBuyWeapon", 105);
+            csharp_lib->call<void, char>("OpherBuyWeapon", 105);
         else {
-            CSharpLib->call<void, char>("OpherBuyUpgrade", requiredType);
+            csharp_lib->call<void, char>("OpherBuyUpgrade", requiredType);
             weaponmasterPurchaseInProgress = false; // so upgrade buying isn't no-opped
         }
     }
@@ -250,7 +250,7 @@ INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 con
 //bool pretendHandToHandNotCompleted = false;
 
 INTERCEPT(6951632, int32_t, MapmakerItem__GetCost, (MapmakerItem_o* this_ptr), {
-    return CSharpLib->call<int, int>("LupoUpgradeCost", this_ptr->UberState->UberIDOwnerSO_m_id->m_id);
+    return csharp_lib->call<int, int>("LupoUpgradeCost", this_ptr->UberState->UberIDOwnerSO_m_id->m_id);
 });
 
 bool preventMapSafeguard = false;

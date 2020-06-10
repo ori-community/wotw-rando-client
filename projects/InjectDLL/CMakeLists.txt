@@ -29,6 +29,7 @@ set(
 set(
 	PUBLIC_HEADER_FILES
 	"common.h"
+	"constants.h"
 	"dll_main.h"
 	"framework.h"
 	"interception.h"
