@@ -7,6 +7,19 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class SeedController {
+    public class UberStateCondition {
+      public UberId Id;
+      public int? Target;
+      public UberStateCondition(UberId id, int? target) {
+        Id = id;
+        Target = target;
+      }
+      public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
+      public override bool Equals(object obj) => obj is UberStateCondition other ? (Id.Equals(other.Id) && Target == other.Target) : false;
+    }
+
+    public static UberStateCondition toCond(this UberId id, int? target = null) => new UberStateCondition(id, target);
+
     public enum FakeUberGroups {
       TREE = 0,
       OPHER_WEAPON = 1,
@@ -28,11 +41,10 @@ namespace RandoMainDLL {
     public static Pickup GameStartPickup {
       get {
         var uberId = new UberId((int)FakeUberGroups.GAME_CONDITION, (int)GameCondition.GAME_START);
-        return pickupMap.ContainsKey(uberId) ? pickupMap[uberId] : Multi.Empty;
+        return pickupMap.GetOrElse(uberId.toCond(), Multi.Empty);
       }
     }
-
-    public static Dictionary<UberId, Pickup> pickupMap = new Dictionary<UberId, Pickup>();
+    public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static HashSet<Flag> flags= new HashSet<Flag>();
 
     public static void ReadSeed() {
@@ -52,7 +64,16 @@ namespace RandoMainDLL {
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
             var frags = line.Split('|');
-            var uberId = new UberId(int.Parse(frags[0]), int.Parse(frags[1]));
+            string idAndMaybeTarget = frags[1];
+            UberId uberId;
+            int? target = null;
+            if(idAndMaybeTarget.Contains("=")) {
+              var idAndTarget = idAndMaybeTarget.Split('=');
+              uberId = new UberId(int.Parse(frags[0]), int.Parse(idAndTarget[0]));
+              target = int.Parse(idAndTarget[1]);
+            } else {
+              uberId = new UberId(int.Parse(frags[0]), int.Parse(idAndMaybeTarget));
+            }
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
@@ -64,7 +85,8 @@ namespace RandoMainDLL {
             var pickup = BuildPickup(pickupType, frags[3]);
             if (pickup.IsHintItem())
               HintsController.AddHint(uberId.Loc().Zone, pickup as Checkable);
-            pickupMap[uberId] = pickupMap.GetOrElse(uberId, Multi.Empty).Concat(pickup);
+            var cond = uberId.toCond(target);
+            pickupMap[cond] = pickupMap.GetOrElse(cond, Multi.Empty).Concat(pickup);
           }
           catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
@@ -91,16 +113,16 @@ namespace RandoMainDLL {
     }
     public static Pickup OpherWeapon(AbilityType ability) {
       var fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
-      if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
+      if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         return p;
       }
       Randomizer.Log($"Couldn't find a valid Pickup for {ability}...");
-      return new Resource(ResourceType.Energy);
+      return Multi.Empty;
     }
 
     public static Pickup TwillenShard(ShardType shard) {
       var fakeId = new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)shard);
-      if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
+      if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         return p;
       }
       Randomizer.Log($"Couldn't find a valid Sellable for {shard}...");
@@ -109,7 +131,7 @@ namespace RandoMainDLL {
 
     public static void OnTree(AbilityType ability) {
       var fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
-      if (pickupMap.TryGetValue(fakeId, out Pickup p)) {
+      if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         p.Grant();
       }
       else {
@@ -119,15 +141,16 @@ namespace RandoMainDLL {
 
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
-      bool granted = pickupMap.TryGetValue(id, out Pickup p);
-      if (granted) {
+      var p = pickupMap.GetOrElse(id.toCond(), Multi.Empty).Concat(
+              pickupMap.GetOrElse(id.toCond(state.ValueAsInt()), Multi.Empty));
+      if (p.NonEmpty) {
         p.Grant();
         if (id.Loc().Type == LocType.Shard && !p.NeedsMagic()) // shard bug!
           InterOp.magicFunction();
       } else {
         HintsController.OnLupoState(id);
       }
-      return granted;
+      return p.NonEmpty;
     }
 
 
@@ -146,7 +169,7 @@ namespace RandoMainDLL {
         case PickupType.Teleporter:
           return new Teleporter((TeleporterType)pickupData.ParseToByte());
         case PickupType.Message:
-          var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.RemoveEmptyEntries);
+          var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None);
           int frames = 240;
           bool squelch = false;
           if (messageParts.Length > 1) {

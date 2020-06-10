@@ -32,9 +32,6 @@ namespace RandoMainDLL {
         try {
           UberState state = pair.Value;
           UberId key = state.GetUberId();
-          if (state.GroupName == "statsUberStateGroup" || (state.GroupName == "achievementsGroup" && state.Name == "spiritLightGainedCounter")) {
-            continue;
-          }
 
           if (UberStates.TryGetValue(key, out UberState oldState)) {
             UberValue value = state.Value;
@@ -52,9 +49,8 @@ namespace RandoMainDLL {
                 if (value.Int > 0)
                   found = SeedController.OnUberState(state);
 
-                if (value.Int == 0 || !found)
+                if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" ))
                   Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldState.FmtVal()}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
-
               }
               UberStates[key].Value = state.Value;
             }
