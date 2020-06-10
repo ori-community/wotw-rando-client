@@ -23,3 +23,5 @@ SeedGen/seeds
 SeedGen/project*
 SeedGen/target*
 Web/*
+*.user
+build/*
