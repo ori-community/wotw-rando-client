@@ -1,0 +1,3 @@
+LIBRARY InjectDLL
+EXPORTS
+NullExport @1
