@@ -69,7 +69,7 @@ namespace RandoMainDLL {
         }
         else if (Memory.GameState == GameState.Game) {
           UberStateController.Update();
-          if (InputUnlockCallback != null && InterOp.playerCanMove())
+          if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
         }
         AHK.Tick();

@@ -1,8 +1,6 @@
 #include "pch.h"
 // dllmain.cpp : Defines the entry point for the DLL application.
 
-#pragma comment(lib, "detours.lib")
-
 #include <detours/detours.h>
 
 #include <pe_module.h>
@@ -23,14 +21,14 @@
 #include <ctime>
 
 //---------------------------------------------------Globals-----------------------------------------------------
-void* gameControllerInstancePointer = NULL;
+void* game_controller_instance_ptr = NULL;
 
 bool debug_enabled = false;
 bool info_enabled = true;
 bool error_enabled = true;
 bool input_lock_callback = false;
 
-InjectDLL::PEModule* CSharpLib = NULL;
+InjectDLL::PEModule* csharp_lib = NULL;
 
 std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
 std::ofstream logfile;
@@ -59,7 +57,7 @@ std::ofstream logfile;
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
 INTERCEPT(10056256, void, createCheckpoint, (__int64 this_ptr), {
-    CSharpLib->call<void>("OnCheckpoint");
+    csharp_lib->call<void>("OnCheckpoint");
     createCheckpoint(this_ptr);
 });
 //GameController$$createCheckpoint
@@ -68,70 +66,69 @@ BINDING(4091744, __int64, getAreaFromId, (__int64, unsigned __int8)) //GameWorld
 BINDING(4084240, __int64, getRuntimeArea, (__int64, __int64)) //GameWorld$$FindRuntimeArea
 BINDING(12643712, void, discoverAllAreas, (__int64)) //RuntimeGameWorldArea$$DiscoverAllAreas
 
-__int64 gameWorldInstance = 0;
+__int64 game_world_instance = 0;
 
-bool foundGameWorld() {
-    return gameWorldInstance != 0;
+bool found_game_world() {
+    return game_world_instance != 0;
 }
 
 BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
 BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o* thisPtr));
 BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o* thisPtr, UnityEngine_Vector3_o value));
 
-
-UnityEngine_Vector3_o lastPos;
-__int8 setToLastPos = 0;
+UnityEngine_Vector3_o last_position;
+__int8 set_to_last_position = 0;
 
 extern "C" __declspec(dllexport)
-void magicFunction() {
-    lastPos = SeinCharacter__get_Position(get_sein());
-    setToLastPos = 3;
+void magic_function() {
+    last_position = SeinCharacter__get_Position(get_sein());
+    set_to_last_position = 3;
     Moon_UberStateController__ApplyAll(1);
 }
 
 INTERCEPT(4084560, void, GameWorld__Awake, (__int64 thisPtr), {
-	if(gameWorldInstance != thisPtr) {
+	if(game_world_instance != thisPtr)
+	{
 		debug("Found GameWorld instance!");
-		gameWorldInstance = thisPtr;
+		game_world_instance = thisPtr;
 	}
+
 	GameWorld__Awake(thisPtr);
 });
 INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
 	//GameController$$FixedUpdate
 	fixedUpdate1(thisPtr);
-	onFixedUpdate(thisPtr);
+	on_fixed_update(thisPtr);
 });
+
 BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
 BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
+
 INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 	//NewGameAction$$Perform
-	CSharpLib->call<void, int>("NewGame", getSaveSlot());
+	csharp_lib->call<void, int>("NewGame", getSaveSlot());
 	newGamePerform(thisPtr, ctxPtr);
 });
 
-
-
 INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
-	CSharpLib->call<void, int, int>("OnSave", slotIndex, backupIndex);
+	csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
     SaveGameController__SaveToFile(thisPtr, slotIndex, -1, bytes);
 });
 
 INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
-    CSharpLib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
+    csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
     SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
 })
 
 INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
-	CSharpLib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+	csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
     SaveGameController__OnFinishedLoading(thisPtr);
 });
 
 INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
-    CSharpLib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
     SaveGameController__RestoreCheckpoint(thisPtr);
 });
-
-
 
 // GameController$get_InputLocked
 BINDING(10012848, bool, getInputLocked, (__int64));
@@ -142,49 +139,54 @@ BINDING(10013520, bool, getIsSuspended, (__int64));
 // GameController$$get_SecondaryMapAndInventoryCanBeOpened
 BINDING(10011696, bool, getSecondaryMenusAccessable, (__int64));
 
-//---------------------------------------------------Actual Functions------------------------------------------------
-
-Game_Characters_StaticFields* get_characters(){
-	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
-}
-SeinCharacter_o* get_sein(){
-    return (*(Game_Characters_c**)resolve_rva(71425184))->static_fields->m_sein;
-}
 BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o* thisPtr, int32_t binding, int32_t typ));
 
+//---------------------------------------------------Actual Functions------------------------------------------------
+
+Game_Characters_StaticFields* get_characters()
+{
+	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
+}
+
+SeinCharacter_o* get_sein()
+{
+    return (*(Game_Characters_c**)resolve_rva(71425184))->static_fields->m_sein;
+}
+
 extern "C" __declspec(dllexport)
-void bindSword() {
+void bind_sword() {
     SpellInventory__UpdateBinding(get_sein()->PlayerSpells, 0, 1002);
 }
 
-void onFixedUpdate(__int64 thisPointer){
-	if(gameControllerInstancePointer != (void*) thisPointer) {
+void on_fixed_update(__int64 thisPointer){
+	if(game_controller_instance_ptr != (void*) thisPointer) {
 		DEBUG("got GameController.Instance pointer: " << thisPointer);
-		gameControllerInstancePointer = (void*) thisPointer;
+		game_controller_instance_ptr = (void*) thisPointer;
 	}
 	try {
-		CSharpLib->call<int>("Update");
+		csharp_lib->call<int>("Update");
 	} catch(int error)
 	{
 		LOG("got error code " << error);
 	}
-    if (setToLastPos > 0) {
-        setToLastPos--;
-        SeinCharacter__set_Position(get_sein(), lastPos);
+    if (set_to_last_position > 0) {
+        set_to_last_position--;
+        SeinCharacter__set_Position(get_sein(), last_position);
     }
 }
 
 extern "C" __declspec(dllexport)
-void setOre(int oreCount) {
+void set_ore(int oreCount) {
     SeinLevel__set_Ore(get_sein()->Level, oreCount);
 }
 
 extern "C" __declspec(dllexport)
-bool playerCanMove() {
-    if (gameControllerInstancePointer == NULL)
+bool player_can_move() {
+    if (game_controller_instance_ptr == NULL)
         return false; // can't move if the game controller doesn't exist
+
     // TODO: figure out which of these are superflous
-    __int64 gcip = (__int64)gameControllerInstancePointer;
+    __int64 gcip = (__int64)game_controller_instance_ptr;
     DEBUG("gIL: " << getInputLocked(gcip) << ", gLI: " << getLockInput(gcip) << ", gIS: " << getIsSuspended(gcip) << ", gSMA: " << getSecondaryMenusAccessable(gcip));
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
@@ -192,27 +194,27 @@ bool playerCanMove() {
 
 extern "C" __declspec(dllexport)
 void save() {
-    if (gameControllerInstancePointer == NULL) {
+    if (game_controller_instance_ptr == NULL) {
         LOG("no pointer to game controller: can't save!");
         return;        
     }
     DEBUG("Checkpoint requested by c# code");
-    createCheckpoint((__int64)gameControllerInstancePointer);
+    createCheckpoint((__int64)game_controller_instance_ptr);
 }
 
 extern "C" __declspec(dllexport)
-bool discoverEverything(){
-	if(gameWorldInstance)
+bool discover_everything(){
+	if(game_world_instance)
 	{
         for(unsigned __int8 i = 0; i <= 15; i++)
 		{
-			auto area = getAreaFromId(gameWorldInstance, i);
+			auto area = getAreaFromId(game_world_instance, i);
 			if(!area)
 			{
 				//Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
 				continue;
 			}
-			auto runtimeArea = getRuntimeArea(gameWorldInstance, area);
+			auto runtimeArea = getRuntimeArea(game_world_instance, area);
 			if(!runtimeArea)
 			{
 				continue;
@@ -229,26 +231,31 @@ bool discoverEverything(){
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
 
-void log(std::string message){
+void log(std::string message)
+{
 	LOG(message);
 }
-void error(std::string message){
+
+void error(std::string message)
+{
 	ERR(message);
 }
-void debug(std::string message){
+
+void debug(std::string message)
+{
 	DEBUG(message);
 }
 
 bool attached = false;
 bool shutdown = false;
 
-void MainThread(){
+void main_thread(){
 	log("loading c# dll...");
-	CSharpLib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
-	if(CSharpLib->call<bool>("Initialize"))
+	csharp_lib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
+	if(csharp_lib->call<bool>("Initialize"))
 	{
-		debug_enabled = CSharpLib->call<bool>("InjectDebugEnabled");
-		info_enabled = CSharpLib->call<bool>("InjectLogEnabled");
+		debug_enabled = csharp_lib->call<bool>("InjectDebugEnabled");
+		info_enabled = csharp_lib->call<bool>("InjectLogEnabled");
 		LOG("debug: " << debug_enabled << " log: " << info_enabled);
 		log("c# init complete");
 		interception_init();
@@ -261,23 +268,25 @@ void MainThread(){
 	}
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved){
+BOOL APIENTRY dll_main(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved){
 	if(DetourIsHelperProcess())
 	{
 		return TRUE;
 	}
+
 	switch(ul_reason_for_call)
 	{
 		case DLL_PROCESS_ATTACH:
-			if(!attached) {
+			if(!attached)
+			{
 				debug("init start");
-				CreateThread(0, 0, (LPTHREAD_START_ROUTINE) MainThread, 0, 0, 0);
+				CreateThread(0, 0, (LPTHREAD_START_ROUTINE) main_thread, 0, 0, 0);
 				attached = true;
 			}
 			break;
 		case DLL_PROCESS_DETACH:
 			shutdown = true;
-			delete CSharpLib;
+			delete csharp_lib;
 			DetourTransactionBegin();
 			DetourUpdateThread(GetCurrentThread());
 			interception_detach();
@@ -290,17 +299,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 	return TRUE;
 }
 
-
 // strftime format
 #define LOGGER_PRETTY_TIME_FORMAT "%Y-%m-%d %H:%M:%S"
 
 // printf format
 #define LOGGER_PRETTY_MS_FORMAT ".%03d"
 
-
 // convert current time to milliseconds since unix epoch
 template <typename T>
-static int to_ms(const std::chrono::time_point<T>& tp){
+static int to_ms(const std::chrono::time_point<T>& tp)
+{
 	using namespace std::chrono;
 
 	auto dur = tp.time_since_epoch();
@@ -309,7 +317,8 @@ static int to_ms(const std::chrono::time_point<T>& tp){
 
 // format it in two parts: main part with date and time and part with milliseconds
 #pragma warning(disable:4267)
-static std::string pretty_time(){
+static std::string pretty_time()
+{
 	auto tp = std::chrono::system_clock::now();
 	std::time_t current_time = std::chrono::system_clock::to_time_t(tp);
 
@@ -322,14 +331,14 @@ static std::string pretty_time(){
 		buffer, sizeof(buffer),
 		LOGGER_PRETTY_TIME_FORMAT,
 		&time_info
-		);
+	);
 
 	int ms = to_ms(tp) % 1000;
 
 	string_size += std::snprintf(
 		buffer + string_size, sizeof(buffer) - string_size,
 		LOGGER_PRETTY_MS_FORMAT, ms
-		);
+	);
 
 	return std::string(buffer, buffer + string_size);
 }

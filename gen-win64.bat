@@ -1,5 +1,5 @@
 @echo off
-title gen-win32
+title gen-win64
 echo Generating visual studio solution.
 mkdir build
 cd build

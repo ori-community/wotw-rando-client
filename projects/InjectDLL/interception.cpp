@@ -4,14 +4,15 @@
 #include <detours/detours.h>
 
 intercept* last_intercept = nullptr;
+__int64 game_assembly_address;
 
-__int64 gameAssemblyAddress;
 __int64 resolve_rva(__int64 rva) {
-	if(!gameAssemblyAddress)
-		gameAssemblyAddress = (__int64)GetModuleHandleA("GameAssembly.dll");
+	if(!game_assembly_address)
+		game_assembly_address = (__int64)GetModuleHandleA("GameAssembly.dll");
 
-	return gameAssemblyAddress + rva;
+	return game_assembly_address + rva;
 }
+
 void interception_init() {
 	DetourRestoreAfterWith();
 	DetourTransactionBegin();
@@ -21,18 +22,19 @@ void interception_init() {
 	while(current)
 	{
 		//debug("Binding: " + current->name + " (+" + std::to_string(current->offset) + ")");
-		*current->originalPointer = (PVOID*)resolve_rva(current->offset);
-		if(current->interceptPointer)
+		*current->original_pointer = reinterpret_cast<PVOID*>(resolve_rva(current->offset));
+		if(current->intercept_pointer)
 		{
-			debug("Intercepting: " + current->name + " @ " + std::to_string((__int64)current->originalPointer) + " -> " + std::
-				  to_string((__int64)current->interceptPointer));
+			debug("Intercepting: " + current->name + " @ " + std::to_string(reinterpret_cast<__int64>(current->original_pointer)) + " -> " + std::
+				  to_string((__int64)current->intercept_pointer));
 			
-			const auto result = DetourAttach(current->originalPointer, current->interceptPointer);
+			const auto result = DetourAttach(current->original_pointer, current->intercept_pointer);
 			if(result)
 				error("Error attaching " + current->name + ": " + std::to_string(result));
 			else
 				debug("Attach success");
 		}
+
 		current = current->prev;
 	}
 
@@ -47,8 +49,19 @@ void interception_detach() {
 	auto current = last_intercept;
 	while(current)
 	{
-		if(current->interceptPointer)
-			DetourDetach(current->originalPointer, current->interceptPointer);
+		if(current->intercept_pointer)
+			DetourDetach(current->original_pointer, current->intercept_pointer);
+
 		current = current->prev;
 	}
+}
+
+intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
+	: name(std::move(s))
+	, offset(o)
+	, original_pointer(oP)
+	, intercept_pointer(iP)
+{
+	prev = last_intercept;
+	last_intercept = this;
 }

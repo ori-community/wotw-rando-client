@@ -2,6 +2,7 @@
 #include <interception_macros.h>
 
 bool is_collecting_keystone = false;
+
 INTERCEPT(5818544, void, SeinPickupProcessor__OnCollectKeystonePickup, (SeinPickupProcessor_o* this_ptr, KeystonePickup_o* keystonePickup), {
 	is_collecting_keystone = true;
 	SeinPickupProcessor__OnCollectKeystonePickup(this_ptr, keystonePickup);

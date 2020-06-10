@@ -98,14 +98,14 @@ namespace RandoMainDLL {
         if (SeedController.GameStartPickup.NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
             SeedController.GameStartPickup.Grant();
-            InterOp.magicFunction();
+            InterOp.magic_function();
             InterOp.save();
           };
         }
 
-        InterOp.discoverEverything();
-        InterOp.magicFunction();
-        InterOp.bindSword();
+        InterOp.discover_everything();
+        InterOp.magic_function();
+        InterOp.bind_sword();
         InterOp.save();
         NeedsNewGameInit = false;
       }
