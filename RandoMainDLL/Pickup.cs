@@ -24,7 +24,10 @@ namespace RandoMainDLL {
   }
 
   public enum SysCommandType: byte {
-    Save = 0
+    Save = 0,
+    ProcUberStates = 1,
+    ProcUberStatesAndSurpress = 2,
+    SupressMagic = 3
   }
 
   public enum TeleporterType : byte {
@@ -80,7 +83,7 @@ namespace RandoMainDLL {
   }
 
   public abstract class Pickup {
-    public int Frames = 240;
+    public virtual int Frames { get => 240;  }
     public bool NonEmpty = true;
     public virtual bool NeedsMagic() => false;
     public abstract PickupType Type { get; }
@@ -92,8 +95,8 @@ namespace RandoMainDLL {
     public virtual void Grant(bool skipBase = false) {
       if (skipBase)
         return;
-
-      AHK.Pickup(ToString(), Frames);
+      if(Frames > 0)
+        AHK.Pickup(ToString(), Frames);
       SaveController.Data.FoundCount++;
       if(NeedsMagic())
         InterOp.magicFunction();
@@ -139,12 +142,21 @@ namespace RandoMainDLL {
       NonEmpty = children.Count > 0;
     }
 
+    public override int Frames { 
+      get {
+         var messages = Children.FindAll(p => p is Message msg); 
+         if (messages.Count == 0)
+          return base.Frames;
+         return messages.Max(p => p.Frames);
+      }
+    }
+ 
     public static Multi Empty => new Multi(new List<Pickup>());
-    public override bool NeedsMagic() => Children.Any(c => c.NeedsMagic());
+    public override bool NeedsMagic() => Children.Any(c => c.NeedsMagic()) && 
+      !Children.Any(c => c is SystemCommand s && s.type == SysCommandType.SupressMagic);
     
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
-
 
     public override void Grant(bool skipBase = false) {
       Children.ForEach((c) => c.Grant(true));
@@ -159,9 +171,12 @@ namespace RandoMainDLL {
   }
 
   public class Message : Pickup {
+    private int _frames;
+
+    public override int Frames { get => _frames;  }
     public Message(string msg, int frames = 240, bool squelch = false) {
       Msg = msg;
-      Frames = frames;
+      _frames = frames;
       Squelch = squelch;
     }
 
@@ -312,9 +327,19 @@ namespace RandoMainDLL {
         case SysCommandType.Save:
           InterOp.save();
           break;
+        case SysCommandType.ProcUberStates:
+          UberStateController.Update();
+          break;
+        case SysCommandType.ProcUberStatesAndSurpress:
+          UberStateController.SkipListenersNextUpdate = true;
+          UberStateController.Update();
+          InterOp.save();
+          break;
+        case SysCommandType.SupressMagic: // yeah this doesn't do anything
+          break;
       }
     }
-    public override string ToString() => ""; // this is dumb as all sin tbh
+    public override string ToString() => type.ToString(); 
   }
 
   public class Resource : Pickup {
