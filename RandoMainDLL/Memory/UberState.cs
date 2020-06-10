@@ -83,8 +83,7 @@ namespace RandoMainDLL.Memory {
     public int GroupID;
 
     public override int GetHashCode() => ID.GetHashCode() + GroupID.GetHashCode();
-    public override bool Equals(object obj) => Equals(obj as UberId);
-    public bool Equals(UberId obj) => (ID == obj.ID) && (GroupID == obj.GroupID);
+    public override bool Equals(object obj) => obj is UberId other ? (ID == other.ID && GroupID == other.GroupID) : false;
     public override string ToString() => $"({GroupID}, {ID})";
   }
 
