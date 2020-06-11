@@ -66,15 +66,12 @@ add_library(${PROJECT_NAME} SHARED
 	${MISC_FILES}
 )
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2")
 set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE FALSE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Newtonsoft.Json ${WOTWR_LIB_DIR}/Newtonsoft.Json.dll)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_AutoHotkey.Interop ${WOTWR_LIB_DIR}/AutoHotkey.Interop.dll)
-#set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_DllExport ${CMAKE_ROOT_DIRECTORY}/packages/DllExport.1.7.0/gcache/metalib/RandoMainDLL/DllExport.dll)
-#set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "ilmerge_3.0.29")
 
-target_compile_options(${PROJECT_NAME} PUBLIC "/unsafe")
+target_compile_options(${PROJECT_NAME} PUBLIC /unsafe PUBLIC /platform:x64)
 
 set(CMAKE_CSharp_FLAGS "/langversion:latest")
 
@@ -84,7 +81,7 @@ set_target_properties(
 		VERSION ${WORWR_VERSION}
 		SOVERSION ${WORWR_MAJOR_VERSION}
 		FOLDER csharp
-		VS_DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2"
+		DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2"
 )
 
 install(
