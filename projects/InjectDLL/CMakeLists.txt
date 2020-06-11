@@ -40,15 +40,20 @@ set(
 	"pickups/ore.h"
 )
 
-add_library(${PROJECT_NAME}
+set(
+	MISC_FILES
+	".editorconfig"
+)
+
+add_library(${PROJECT_NAME} SHARED
 	${SOURCE_FILES}
 	${PUBLIC_HEADER_FILES}
+	${MISC_FILES}
 )
 
 set_target_properties(
 	${PROJECT_NAME}
 	PROPERTIES
-		PUBLIC_HEADER "${PUBLIC_HEADER_FILES}"
 		VERSION ${WORWR_VERSION}
 		SOVERSION ${WORWR_MAJOR_VERSION}
 		FOLDER cpp
@@ -73,7 +78,7 @@ target_link_libraries(
 
 message(STATUS "Assigning source groups.")
 
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES}")
+set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
 
 install(
 	TARGETS ${PROJECT_NAME}
