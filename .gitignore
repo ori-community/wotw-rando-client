@@ -9,6 +9,7 @@
 *.idb
 *.obj
 *.pch
+*.csproj
 */bin/*
 */obj/*
 */x64/*
