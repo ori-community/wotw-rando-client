@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
 using AutoHotkey.Interop;
@@ -156,7 +157,7 @@ namespace RandoMainDLL {
     public static void SendPlainText(PlainText p, bool logMessage = true) {
       FramesTillNextSend /= 3;
       if (logMessage)
-        File.AppendAllText(Randomizer.MessageLog, $"{p.Text}\n");
+        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]","")}\n");
       MessageQueue.Enqueue(p);
     }
 
