@@ -30,7 +30,19 @@
       <Visible>false</Visible>
       <Wz>1</Wz>
     </PackageReference>
+    <PackageReference Include="ilmerge">
+      <Version>3.0.29</Version>
+    </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+  </ItemGroup>
+  <Target Name="Merging" BeforeTargets="DLLExportMod">
+    <Copy SourceFiles="$(DllExportMetaLibFullPath)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+    <!-- the ILMergePath property points to the location of ILMerge.exe console application -->
+    <Exec Command="$(ILMergeConsolePath) /zeroPeKind /ndebug /out:$(TargetFileName) $(TargetFileName) $(SolutionDir)..\..\ext\lib\AutoHotkey.Interop.dll $(SolutionDir)..\..\ext\lib\Newtonsoft.Json.dll" WorkingDirectory="$(TargetDir)" ContinueOnError="true" />
+    <Delete Files="$(TargetDir)$(DllExportMetaLibName)" ContinueOnError="true" />
+  </Target>
   <ImportGroup Label=".NET DllExport">
     <Import Project="$(SolutionDir)packages\DllExport.1.7.0\tools\net.r_eg.DllExport.targets" Condition="Exists($([MSBuild]::Escape('$(SolutionDir)packages\DllExport.1.7.0\tools\net.r_eg.DllExport.targets')))" Label="8337224c9ad9e356" />
   </ImportGroup>
