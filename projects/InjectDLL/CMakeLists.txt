@@ -14,6 +14,7 @@ set(
 	"pe_module.cpp"
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
+	"features/opher_everywhere.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/energy_cell.cpp"
