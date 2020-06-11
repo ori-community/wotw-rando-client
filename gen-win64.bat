@@ -16,6 +16,9 @@ cmd /c DllExport.bat -action Recover -sln-file WotWRandomizer.sln
 
 xcopy /i /y /s ..\..\packages .\packages
 
+rem Restore nuget packages added by DllExport.
+dotnet restore ./WotWRandomizer.sln
+
 cd ..
 cd ..
 pause
