@@ -98,7 +98,7 @@ namespace RandoMainDLL {
           CurrentSlot = slot;
           Data = new SaveData(slot);
         }
-
+        UberStateController.SkipListenersNextUpdate = true;
         Data.Load(backupSlot);
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
