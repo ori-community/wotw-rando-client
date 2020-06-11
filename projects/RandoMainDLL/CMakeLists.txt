@@ -74,7 +74,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_AutoHotkey.Inte
 #set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_DllExport ${CMAKE_ROOT_DIRECTORY}/packages/DllExport.1.7.0/gcache/metalib/RandoMainDLL/DllExport.dll)
 #set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "ilmerge_3.0.29")
 
-target_compile_options(${PROJECT_NAME} PUBLIC "/unsafe")
+target_compile_options(${PROJECT_NAME} PUBLIC /unsafe PUBLIC /platform:x64)
 
 set(CMAKE_CSharp_FLAGS "/langversion:latest")
 

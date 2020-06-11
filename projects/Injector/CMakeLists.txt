@@ -11,6 +11,7 @@ set(
 
 set(
 	MISC_FILES
+	".editorconfig"
 	"Properties/PublishProfiles/FolderProfile.pubxml"
 )
 
@@ -34,6 +35,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE FALSE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 
 set(CMAKE_CSharp_FLAGS "/langversion:latest")
+target_compile_options(${PROJECT_NAME} PUBLIC /platform:x64)
 
 set_target_properties(
 	${PROJECT_NAME}

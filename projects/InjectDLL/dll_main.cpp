@@ -23,7 +23,7 @@
 //---------------------------------------------------Globals-----------------------------------------------------
 void* game_controller_instance_ptr = NULL;
 
-bool debug_enabled = false;
+bool debug_enabled = true;
 bool info_enabled = true;
 bool error_enabled = true;
 bool input_lock_callback = false;
@@ -268,7 +268,7 @@ void main_thread(){
 	}
 }
 
-BOOL APIENTRY dll_main(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved){
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved){
 	if(DetourIsHelperProcess())
 	{
 		return TRUE;

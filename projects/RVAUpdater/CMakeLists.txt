@@ -28,6 +28,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Newtonsoft.Json ${WOTWR_LIB_DIR}/Newtonsoft.Json.dll)
 
 set(CMAKE_CSharp_FLAGS "/langversion:latest")
+target_compile_options(${PROJECT_NAME} PUBLIC /platform:x64)
 
 set_target_properties(
 	${PROJECT_NAME}
