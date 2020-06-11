@@ -23,7 +23,7 @@ namespace RandoMainDLL {
     Water = 0
   }
 
-  public enum SysCommandType: byte {
+  public enum SysCommandType : byte {
     Save = 0,
     ProcUberStates = 1,
     ProcUberStatesAndSurpress = 2,
@@ -83,7 +83,7 @@ namespace RandoMainDLL {
   }
 
   public abstract class Pickup {
-    public virtual int Frames { get => 240;  }
+    public virtual int Frames { get => 240; }
     public bool NonEmpty = true;
     public virtual bool NeedsMagic() => false;
     public abstract PickupType Type { get; }
@@ -95,10 +95,10 @@ namespace RandoMainDLL {
     public virtual void Grant(bool skipBase = false) {
       if (skipBase)
         return;
-      if(Frames > 0)
+      if (Frames > 0)
         AHK.Pickup(ToString(), Frames);
       SaveController.Data.FoundCount++;
-      if(NeedsMagic())
+      if (NeedsMagic())
         InterOp.magic_function();
     }
     public Pickup Concat(Pickup other) {
@@ -142,23 +142,24 @@ namespace RandoMainDLL {
       NonEmpty = children.Count > 0;
     }
 
-    public override int Frames { 
+    public override int Frames {
       get {
-         var messages = Children.FindAll(p => p is Message msg); 
-         if (messages.Count == 0)
+        var messages = Children.FindAll(p => p is Message msg);
+        if (messages.Count == 0)
           return base.Frames;
-         return messages.Max(p => p.Frames);
+        return messages.Max(p => p.Frames);
       }
     }
- 
+
     public static Multi Empty => new Multi(new List<Pickup>());
-    public override bool NeedsMagic() => Children.Any(c => c.NeedsMagic()) && 
+    public override bool NeedsMagic() => Children.Any(c => c.NeedsMagic()) &&
       !Children.Any(c => c is SystemCommand s && s.type == SysCommandType.SupressMagic);
-    
+
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
 
     public override void Grant(bool skipBase = false) {
+      if (!NonEmpty) return;
       Children.ForEach((c) => c.Grant(true));
       base.Grant(false);
     }
@@ -173,7 +174,7 @@ namespace RandoMainDLL {
   public class Message : Pickup {
     private int _frames;
 
-    public override int Frames { get => _frames;  }
+    public override int Frames { get => _frames; }
     public Message(string msg, int frames = 240, bool squelch = false) {
       Msg = msg;
       _frames = frames;
@@ -189,7 +190,7 @@ namespace RandoMainDLL {
   }
 
   public abstract class Checkable : Pickup {
-      public abstract bool Has();
+    public abstract bool Has();
   }
 
   public class Teleporter : Checkable {
@@ -214,8 +215,8 @@ namespace RandoMainDLL {
       { TeleporterType.OuterRuins, new List<UberState> { UberStateDefaults.savePedestalWindtornRuinsA} },
       { TeleporterType.WillowsEnd, new List<UberState> { UberStateDefaults.savePedestalWillowsEnd} },
       { TeleporterType.InnerRuins, new List<UberState> { UberStateDefaults.savePedestalWindtornRuinsB} },
-      { TeleporterType.EastPools, new List<UberState> { 
-        UberStateDefaults.savePedestalLumaPoolsA, 
+      { TeleporterType.EastPools, new List<UberState> {
+        UberStateDefaults.savePedestalLumaPoolsA,
         new UberState() {Name = "waterLowered", ID = 63173, GroupName = "lumaPoolsStateGroup", GroupID = 5377, Type = UberStateType.SerializedBooleanUberState }
       } },
       { TeleporterType.WestPools, new List<UberState> { UberStateDefaults.savePedestalLumaPoolsB} },
@@ -262,8 +263,7 @@ namespace RandoMainDLL {
     public override bool Has() {
       try {
         return Randomizer.Memory.HasShard(type);
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         Randomizer.Error("Ability.Has", e);
         return false;
       }
@@ -302,7 +302,7 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 400;
     public override bool Has() => SaveController.Data.WorldEvents.Contains(type);
 
-  public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false) {
       SaveController.Data.WorldEvents.Add(type);
       switch (type) {
         case QuestEventType.Water:
@@ -323,7 +323,7 @@ namespace RandoMainDLL {
     public readonly SysCommandType type;
     public SystemCommand(SysCommandType command) => type = command;
     public override void Grant(bool skipBase = false) {
-      switch(type) {
+      switch (type) {
         case SysCommandType.Save:
           InterOp.save();
           break;
@@ -339,7 +339,7 @@ namespace RandoMainDLL {
           break;
       }
     }
-    public override string ToString() => type.ToString(); 
+    public override string ToString() => type.ToString();
   }
 
   public class Resource : Pickup {

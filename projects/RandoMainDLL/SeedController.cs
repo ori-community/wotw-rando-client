@@ -6,6 +6,13 @@ using System.IO;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
+  public enum PsuedoLocs {
+    GAME_START = 0,
+    RELOAD_SEED = 1,
+    BINDING_ONE = 2,
+    BINDING_TWO = 3,
+    BINDING_THREE = 4
+  }
   public static class SeedController {
     public class UberStateCondition {
       public UberId Id;
@@ -24,7 +31,7 @@ namespace RandoMainDLL {
       TREE = 0,
       OPHER_WEAPON = 1,
       TWILLEN_SHARD = 2,
-      GAME_CONDITION = 3
+      MISC_CONTROL = 3
     }
 
     public enum Flag {
@@ -34,18 +41,11 @@ namespace RandoMainDLL {
       NOKEYSTONES
     }
 
-    public enum GameCondition {
-      GAME_START = 0
-    }
+    public static Pickup Pickup(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty);
+    public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
 
-    public static Pickup GameStartPickup {
-      get {
-        var uberId = new UberId((int)FakeUberGroups.GAME_CONDITION, (int)GameCondition.GAME_START);
-        return pickupMap.GetOrElse(uberId.toCond(), Multi.Empty);
-      }
-    }
     public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
-    public static HashSet<Flag> flags= new HashSet<Flag>();
+    public static HashSet<Flag> flags = new HashSet<Flag>();
 
     public static void ReadSeed() {
       string seedName = File.ReadAllText(Randomizer.SeedNameFile);
@@ -67,7 +67,7 @@ namespace RandoMainDLL {
             string idAndMaybeTarget = frags[1];
             UberId uberId;
             int? target = null;
-            if(idAndMaybeTarget.Contains("=")) {
+            if (idAndMaybeTarget.Contains("=")) {
               var idAndTarget = idAndMaybeTarget.Split('=');
               uberId = new UberId(int.Parse(frags[0]), int.Parse(idAndTarget[0]));
               target = int.Parse(idAndTarget[1]);
@@ -86,15 +86,13 @@ namespace RandoMainDLL {
             if (pickup.IsHintItem())
               HintsController.AddHint(uberId.Loc().Zone, pickup as Checkable);
             var cond = uberId.toCond(target);
-            pickupMap[cond] = pickupMap.GetOrElse(cond, Multi.Empty).Concat(pickup);
-          }
-          catch (Exception e) {
+            pickupMap[cond] = cond.Pickup().Concat(pickup);
+          } catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
         AHK.Print($"v{Randomizer.VERSION} - Seed {seedName} loaded", 300);
-      }
-      else {
+      } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file and double-click it to load one", 360);
       }
     }
@@ -103,8 +101,8 @@ namespace RandoMainDLL {
     public static void ProcessFlags(string flagline) {
       if (flags.Count > 0)
         Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
-      foreach(var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
-        foreach(Flag flag in Enum.GetValues(typeof(Flag))) {
+      foreach (var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
+        foreach (Flag flag in Enum.GetValues(typeof(Flag))) {
           if (rawFlag.Trim().ToLower() == flag.GetDescription().ToLower()) {
             flags.Add(flag);
           }
@@ -133,16 +131,15 @@ namespace RandoMainDLL {
       var fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
       if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         p.Grant();
-      }
-      else {
+      } else {
         Randomizer.Log($"Tree {ability} not found in seed!");
       }
     }
 
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
-      var p = pickupMap.GetOrElse(id.toCond(), Multi.Empty).Concat(
-              pickupMap.GetOrElse(id.toCond(state.ValueAsInt()), Multi.Empty));
+      var p = id.toCond().Pickup().Concat(
+              id.toCond(state.ValueAsInt()).Pickup());
       if (p.NonEmpty) {
         p.Grant();
         if (id.Loc().Type == LocType.Shard && !p.NeedsMagic()) // shard bug!
@@ -189,7 +186,7 @@ namespace RandoMainDLL {
           return new QuestEvent((QuestEventType)pickupData.ParseToByte());
         case PickupType.UberState:
           var stateParts = pickupData.Split(',');
-          if(stateParts.Length != 4) {
+          if (stateParts.Length != 4) {
             Randomizer.Log($"malformed Uberstate specifier ${pickupData}", false);
             return new Message($"Invalid UberState ${pickupData}!");
           }
@@ -199,7 +196,7 @@ namespace RandoMainDLL {
             );
           UberValue val = new UberValue();
           UberStateType stateType;
-          switch(stateParts[2].Trim().ToLower()) {
+          switch (stateParts[2].Trim().ToLower()) {
             case "bool":
               val.Bool = stateParts[3].ParseToBool("BuildPickup.UberValue<Bool>");
               stateType = UberStateType.SerializedBooleanUberState;
@@ -213,7 +210,7 @@ namespace RandoMainDLL {
               stateType = UberStateType.SavePedestalUberState;
               break;
             case "int":
-              val.Int= stateParts[3].ParseToInt("BuildPickup.UberValue<Int>");
+              val.Int = stateParts[3].ParseToInt("BuildPickup.UberValue<Int>");
               stateType = UberStateType.SerializedIntUberState;
               break;
             case "float":
@@ -226,7 +223,7 @@ namespace RandoMainDLL {
               stateType = UberStateType.SerializedIntUberState;
               break;
           }
-          var state = new UberState() { ID = uberId.ID, GroupID = uberId.GroupID, Type = stateType, Value = val};
+          var state = new UberState() { ID = uberId.ID, GroupID = uberId.GroupID, Type = stateType, Value = val };
           return new UberStatePickup(state);
         default:
           Randomizer.Error("BuildPickup", $"seed parse failure: unknown pickup ${pickupData}!!!", false);

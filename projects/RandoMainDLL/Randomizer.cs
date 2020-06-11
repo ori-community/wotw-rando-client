@@ -45,13 +45,9 @@ namespace RandoMainDLL {
         }
 
         Memory.PatchNoPause(true);
-        if(AHK.IniFlag("DisableDebugControls")) {
-          Memory.Debug = false;
-        }
         Log("init complete", false);
         return true;
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         Log($"init error: {e.Message}\n{e.StackTrace}");
         return true;
       }
@@ -65,16 +61,16 @@ namespace RandoMainDLL {
         }
 
         if (Memory.GameState == GameState.TitleScreen) {
+          if (TitleScreenCallback != null)
+            OnTitleScreen();
           UberStateController.SkipListenersNextUpdate = true;
-        }
-        else if (Memory.GameState == GameState.Game) {
+        } else if (Memory.GameState == GameState.Game) {
           UberStateController.Update();
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
         }
         AHK.Tick();
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }
     }
@@ -92,18 +88,23 @@ namespace RandoMainDLL {
     }
 
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
-      if (AHK.IniFlag("MuteCSLogs")) 
+      if (AHK.IniFlag("MuteCSLogs"))
         return;
       if (level == "DEBUG" && !Dev)
         return;
       File.AppendAllText(LogFile, $"{DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff]")} [{level}]: {message}\n");
-      if (Dev && printIfDev) 
-        AHK.Print(message, 180, false); 
+      if (Dev && printIfDev)
+        AHK.Print(message, 180, false);
     }
 
 
     public delegate void Callback();
     public static Callback InputUnlockCallback;
+    public static Callback TitleScreenCallback;
+    public static void OnTitleScreen() {
+      TitleScreenCallback?.Invoke();
+      TitleScreenCallback = null;
+    }
     public static void OnInputUnlock() {
       InputUnlockCallback?.Invoke();
       InputUnlockCallback = null;
