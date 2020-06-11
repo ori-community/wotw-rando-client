@@ -25,3 +25,5 @@ SeedGen/target*
 Web/*
 *.user
 build/*
+projects/Injector/bin/*
+projects/Injector/obj/*

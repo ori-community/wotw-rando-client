@@ -16,6 +16,11 @@ cmd /c DllExport.bat -action Recover -sln-file WotWRandomizer.sln
 
 xcopy /i /y /s ..\..\packages .\packages
 
+rem Restore nuget packages added by DllExport.
+dotnet restore ./WotWRandomizer.sln
+dotnet sln ./projects/Injector/Injector.sln remove ./projects/Injector/ALL_BUILD.vcxproj
+dotnet sln ./projects/Injector/Injector.sln remove ./projects/Injector/INSTALL.vcxproj
+
 cd ..
 cd ..
 pause

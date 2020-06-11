@@ -3,37 +3,9 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 include(CSharpUtilities)
 
-set(
-	SOURCE_FILES
-	"NativeMethods.cs"
-	"Program.cs"
-)
+configure_file(${PROJECT_DIR}/${PROJECT_NAME}.csproj.in ${PROJECT_DIR}/${PROJECT_NAME}.csproj)
 
-set(
-	MISC_FILES
-	"Properties/PublishProfiles/FolderProfile.pubxml"
-)
-
-set(
-	REFERENCES
-    "Microsoft.CSharp"
-    "System"
-    "System.Core"
-    "System.Data"
-    "System.Xml"
-    "System.Xml.Linq"
-)
-
-add_executable(${PROJECT_NAME}
-	${SOURCE_FILES}
-	${MISC_FILES}
-)
-
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2")
-set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE FALSE)
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
-
-set(CMAKE_CSharp_FLAGS "/langversion:latest")
+include_external_msproject(${PROJECT_NAME} ${PROJECT_DIR}/${PROJECT_NAME}.csproj)
 
 set_target_properties(
 	${PROJECT_NAME}
@@ -41,12 +13,8 @@ set_target_properties(
 		VERSION ${WORWR_VERSION}
 		SOVERSION ${WORWR_MAJOR_VERSION}
 		FOLDER csharp
-		VS_DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2"
 )
 
-install(
-	TARGETS ${PROJECT_NAME}
-	RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
-	LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
-	ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
+install(CODE
+	"execute_process(COMMAND dotnet publish projects/Injector/Injector.sln -p:PublishProfile=Properties/PublishProfiles/FolderProfile.pubxml)"
 )
