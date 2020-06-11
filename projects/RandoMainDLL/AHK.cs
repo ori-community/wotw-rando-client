@@ -42,9 +42,11 @@ namespace RandoMainDLL {
       }
 
       Ready = true;
-      if (IniFlag("dev")) {
+      if (AHK.IniFlag("DisableDebugControls"))
+        Randomizer.TitleScreenCallback = () => { Randomizer.Memory.Debug = false; };
+
+      if (IniFlag("dev"))
         Randomizer.Dev = true;
-      }
     }
 
     private static readonly HashSet<string> Falsey = new HashSet<string>() { "false", "False", "no", "", "0", "ERROR", null };
@@ -67,11 +69,13 @@ namespace RandoMainDLL {
               FramesTillNextSend = 0;
               SeedController.ReadSeed();
               Randomizer.Memory.OnInit();
+              if (Randomizer.Memory.GameState == Memory.GameState.Game)
+                PsuedoLocs.RELOAD_SEED.Pickup().Grant();
               FramesTillUnlockReload = 60;
             }
             break;
           case "lastPickup":
-            FramesTillNextSend = 1; // the only reason this isn't = 0 is that spamming this could cause major issues
+            FramesTillNextSend = 1; // the only reason this isn't = 0 is that spamming this could get really annoying
             MessageQueue.Enqueue(Last);
             break;
           case "hintMessage":
@@ -89,16 +93,19 @@ namespace RandoMainDLL {
             Print($"Debug {(Randomizer.Memory.Debug ? "enabled" : "disabled")}");
             break;
           case "test1":
-            Print("Test1 (magic)", 180, false);
-            InterOp.magic_function();
+            PsuedoLocs.BINDING_ONE.Pickup().Grant();
             break;
           case "test2":
+            PsuedoLocs.BINDING_TWO.Pickup().Grant();
             break;
           case "test3":
+            PsuedoLocs.BINDING_THREE.Pickup().Grant();
             break;
           case "test4":
             break;
           case "test5":
+            Print("Test5 (magic)", 180, false);
+            InterOp.magic_function();
             break;
 
           default:
@@ -109,8 +116,7 @@ namespace RandoMainDLL {
       FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
       if (FramesTillNextSend > 0) {
         FramesTillNextSend--;
-      }
-      else {
+      } else {
         if (CanPrint) {
           Current = MessageQueue.Peek();
           FramesTillNextSend = Current.Frames;
@@ -123,8 +129,7 @@ namespace RandoMainDLL {
             MessageQueue.Dequeue();
           } catch (Exception e) { Randomizer.Error("AHK.sendMsg", e, false); }
 
-        }
-        else {
+        } else {
           Current = null;
         }
       }
@@ -142,14 +147,14 @@ namespace RandoMainDLL {
       Last = new PlainText("*Good Luck! <3*");
     }
     public static void Pickup(string message, int frames = 180) {
-      FramesTillNextSend /= 3;
+      FramesTillNextSend /= 4;
       var msg = new PlainText(message, frames);
       SendPlainText(msg);
       Last = msg;
     }
     public static void Print(string message, int frames = 180, bool toMessageLog = true) => SendPlainText(new PlainText(message, frames), toMessageLog);
     public static void SendPlainText(PlainText p, bool logMessage = true) {
-      FramesTillNextSend /= 2;
+      FramesTillNextSend /= 3;
       if (logMessage)
         File.AppendAllText(Randomizer.MessageLog, $"{p.Text}\n");
       MessageQueue.Enqueue(p);

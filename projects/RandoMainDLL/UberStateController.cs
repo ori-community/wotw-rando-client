@@ -20,12 +20,17 @@ namespace RandoMainDLL {
     }
     public static bool Write(this UberState state) => state.Write(state.Value);
 
-      public static bool Write(this UberState state, UberValue value) {
+    public static bool Write(this UberState state, UberValue value) {
       state.Value = value;
       Randomizer.Memory.WriteUberState(state);
       return true;
     }
     public static void Update() {
+      if (NeedsNewGameInit)
+        NewGameInit();
+      bool SkipListners = SkipListenersNextUpdate;
+      SkipListenersNextUpdate = false;
+
       var memory = Randomizer.Memory;
       Dictionary<long, UberState> uberStates = memory.GetUberStates();
       foreach (KeyValuePair<long, UberState> pair in uberStates) {
@@ -37,45 +42,40 @@ namespace RandoMainDLL {
             UberValue value = state.Value;
             UberValue oldValue = oldState.Value;
             if (value.Int != oldValue.Int) {
+              var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
               if (ShouldRevert(state)) {
-                Randomizer.Log($"Reverting state change of {state.Name} from {oldState.FmtVal()} to {state.FmtVal()}", false);
+                Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
                 memory.WriteUberState(oldState);
                 continue;
               }
               HandleSpecial(state);
-              var pos = Randomizer.Memory.Position();
-              if (!SkipListenersNextUpdate) {
+              UberStates[key].Value = state.Value;
+              if (!SkipListners) {
+                var pos = Randomizer.Memory.Position();
                 bool found = false;
                 if (value.Int > 0)
                   found = SeedController.OnUberState(state);
-
-                if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" ))
-                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldState.FmtVal()}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
+                if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
+                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
               }
-              UberStates[key].Value = state.Value;
             }
-          }
-          else {
+          } else {
             UberStates[key] = state.Clone();
           }
-        } catch(Exception e) {
+        } catch (Exception e) {
           Randomizer.Error($"USC.Update {pair}", e);
         }
       }
-      if (NeedsNewGameInit) 
-        NewGameInit();
-      else 
-        SkipListenersNextUpdate = false;
     }
-      // if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
-      //   return true;
+    // if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
+    //   return true;
     private static void HandleSpecial(UberState state) {
-      if(state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
+      if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
     }
     private static bool ShouldRevert(UberState state) => !NeedsNewGameInit && !SkipListenersNextUpdate &&
-      (state.Name == "cleanseWellspringQuestUberState" && SaveController.Data.WorldEvents.Contains(QuestEventType.Water) && state.Value.Int < 4 ) ||
+      (state.Name == "cleanseWellspringQuestUberState" && SaveController.Data.WorldEvents.Contains(QuestEventType.Water) && state.Value.Int < 4) ||
       (state.Name == "findKuQuest" && state.Value.Int < 4);
 
     public static void NewGameInit() {
@@ -85,19 +85,19 @@ namespace RandoMainDLL {
         SaveController.SetAbility(AbilityType.SpiritEdge);
         foreach (UberState s in DefaultUberStates) { memory.WriteUberState(s); }
         foreach (UberState s in Kuberstates) { memory.WriteUberState(s); }
-        if(SeedController.KSDoorsOpen)
+        if (SeedController.KSDoorsOpen)
           foreach (UberState s in KeystoneDoors) { memory.WriteUberState(s); }
 
-        if (!AHK.IniFlag("ShowShortCutscenes")) 
+        if (!AHK.IniFlag("ShowShortCutscenes"))
           foreach (UberState s in ShortCutscenes) { memory.WriteUberState(s); }
-        
 
-        if (!AHK.IniFlag("ShowLongCutscenes")) 
+
+        if (!AHK.IniFlag("ShowLongCutscenes"))
           foreach (UberState s in LongCutscenes) { memory.WriteUberState(s); }
-        
-        if (SeedController.GameStartPickup.NonEmpty) {
+
+        if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
-            SeedController.GameStartPickup.Grant();
+            PsuedoLocs.GAME_START.Pickup().Grant();
             InterOp.magic_function();
             InterOp.save();
           };
