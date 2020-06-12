@@ -15,6 +15,7 @@ set(
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
 	"features/opher_everywhere.cpp"
+	"features/map.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/energy_cell.cpp"

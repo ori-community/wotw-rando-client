@@ -103,10 +103,12 @@ namespace RandoMainDLL {
             PsuedoLocs.BINDING_THREE.Pickup().Grant();
             break;
           case "test4":
+            Print("magic", 180, false);
+            InterOp.magic_function();
             break;
           case "test5":
-            Print("Test5 (magic)", 180, false);
-            InterOp.magic_function();
+            tpCheatToggle = !tpCheatToggle;
+            Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}");
             break;
 
           default:
@@ -160,7 +162,8 @@ namespace RandoMainDLL {
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]","")}\n");
       MessageQueue.Enqueue(p);
     }
-
+    private static bool tpCheatToggle = false;
+    public static bool TPToPickupsEnabled { get => tpCheatToggle && Randomizer.Memory.Debug; }
   }
   public interface IMessage {
     string Text { get; }
