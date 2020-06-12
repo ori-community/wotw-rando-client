@@ -61,14 +61,9 @@ namespace RandoMainDLL {
       // so don't do it.
 
       [DllExport]
-      public static bool Initialize() {
-        return Randomizer.Initialize();
-      }
+      public static bool Initialize() => Randomizer.Initialize();
       [DllExport]
-      public static void Update() {
-        Randomizer.Update();
-      }
-
+      public static void Update()  => Randomizer.Update();
 
       [DllExport]
       public static int OreCount() => Randomizer.Memory.Ore;
@@ -83,9 +78,7 @@ namespace RandoMainDLL {
         SeedController.OnTree(ability);
       }
       [DllExport]
-      public static void OnCheckpoint() {
-        UberStateController.Update();
-      }
+      public static void OnCheckpoint() => UberStateController.Update();
 
       [DllExport]
       public static ulong GetShardSlotPtr() => Randomizer.Memory.ShardSlotPtr();
@@ -98,6 +91,8 @@ namespace RandoMainDLL {
 
       [DllExport]
       public static bool TPToAnyPickup() => AHK.TPToPickupsEnabled;
+
+
       // save interops
       [DllExport]
       public static void NewGame(int slot) => Randomizer.OnNewGame(slot);
