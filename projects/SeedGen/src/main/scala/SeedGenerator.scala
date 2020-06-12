@@ -1,6 +1,8 @@
 import java.io.{BufferedWriter, File, FileWriter}
 
 import scala.collection.mutable.{Map => MMap, ListBuffer => MList}
+import scala.language.implicitConversions
+import scala.math.Ordering.Double.TotalOrdering
 import scala.collection.parallel.CollectionConverters._
 import scala.io.Source
 import scala.util.{Random, Try}
@@ -238,7 +240,7 @@ package SeedGenerator {
     def keystonesRequired(nodes: Set[Node]): Int = {
       doors.foldLeft(0)({case (acc, (name, keys))=> acc + (if(pathByName(name).exists(_._2.exists({
         case SimplePath(src, _, _) => nodes.contains(src)
-        case p: ChainedPath => nodes.contains(p.paths.last.source)
+        case ChainedPath(paths) => nodes.contains(paths.last.source)
       }))) keys else 0)})
     }
 
@@ -257,7 +259,7 @@ package SeedGenerator {
       val (good, needsRefined) = targets.withFilter(_.kind == StateNode).flatMap[(FlagState, GameState)]({
         case WorldStateNode(flag) if flags.contains(WorldState(flag))
                                         => Some(WorldState(flag) -> GameState.Empty)
-        case n: WorldStateNode  => Path.filterByTargets(paths(n), targets ++ reached).map(_.req.cheapestRemaining(state)).minByOption(_.cost).map(WorldState(n.name) -> _)
+        case n @ WorldStateNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(_.req.cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
       }).filterNot(_._2.inv.has(Unobtainium)).toMap.partition(_._2.flags.isEmpty)
       Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
     }
@@ -392,8 +394,6 @@ package SeedGenerator {
             throw GeneratorError(s"Placed $ksNeeded into exactly that many locs, but failed to find a reachable after")
         }
       }
-
-
 
       val locIter = locs.drop(ksNeeded).iterator
       val reservedForProg = (1 to (locsOpen match {
