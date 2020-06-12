@@ -30,6 +30,8 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void magic_function();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static bool toggle_cursorlock();
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void bind_sword();
     public static class Util {
       private static readonly Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();

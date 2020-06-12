@@ -27,6 +27,7 @@ namespace RandoMainDLL {
       !t::signal := ""lastPickup""
       !p::signal := ""hintMessage""
       !^d::signal := ""toggleDebug""
+      !^l::signal := ""toggleCursorLock""
       !^1::signal := ""test1""
       !^2::signal := ""test2""
       !^3::signal := ""test3""
@@ -43,8 +44,16 @@ namespace RandoMainDLL {
       }
 
       Ready = true;
-      if (AHK.IniFlag("DisableDebugControls"))
-        Randomizer.TitleScreenCallback = () => { Randomizer.Memory.Debug = false; };
+      bool cursorLock = IniFlag("CursorLock");
+      bool disableDebug = IniFlag("DisableDebugControls");
+      if (cursorLock || disableDebug) {
+        Randomizer.TitleScreenCallback = () => {
+          if(disableDebug)
+            Randomizer.Memory.Debug = false;
+          if(cursorLock)
+            InterOp.toggle_cursorlock();
+        };
+      }
 
       if (IniFlag("dev"))
         Randomizer.Dev = true;
@@ -91,7 +100,10 @@ namespace RandoMainDLL {
             break;
           case "toggleDebug":
             Randomizer.Memory.Debug = !Randomizer.Memory.Debug;
-            Print($"Debug {(Randomizer.Memory.Debug ? "enabled" : "disabled")}");
+            Print($"Debug {(Randomizer.Memory.Debug ? "enabled" : "disabled")}", toMessageLog: false);
+            break;
+          case "toggleCursorLock":
+            Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
             break;
           case "test1":
             PsuedoLocs.BINDING_ONE.Pickup().Grant();
