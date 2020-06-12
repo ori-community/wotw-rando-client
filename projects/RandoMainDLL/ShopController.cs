@@ -61,6 +61,7 @@ namespace RandoMainDLL {
       "Level {0}:",
       "Next Level",
       "Uses Energy",
+      "*Uses Energy*",
       "Upgrade for",
       "Gain 2 additional Energy cells",
       "Gain 3 additional Energy cells",
@@ -91,8 +92,8 @@ namespace RandoMainDLL {
     };
 
     public static Dictionary<string, AbilityType> OpherWeaponDetail = new Dictionary<string, AbilityType> {
-      { "Pound foes with a strong, sweeping blow", AbilityType.SpiritSmash },
-      { @"Throw a powerful spear of light.\nUses a large amount of Energy", AbilityType.Spike },
+      { @"Pound foes with a strong, sweeping blow.\nDestroys unstable ground", AbilityType.SpiritSmash },
+      { @"Throw a powerful spear of light.\nUses a large amount of Energy.\nDestroys unstable ground", AbilityType.Spike },
       { "Spawn a spirit orb that attacks for you", AbilityType.Sentry },
       { "Throw a star that returns to you", AbilityType.SpiritStar },
       { "Set nearby enemies on fire", AbilityType.Blaze },
