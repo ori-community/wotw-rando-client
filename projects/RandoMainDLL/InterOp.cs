@@ -96,6 +96,8 @@ namespace RandoMainDLL {
       [DllExport]
       public static bool InjectDebugEnabled() => AHK.IniFlag("DebugInjectLogs");
 
+      [DllExport]
+      public static bool TPToAnyPickup() => AHK.TPToPickupsEnabled;
       // save interops
       [DllExport]
       public static void NewGame(int slot) => Randomizer.OnNewGame(slot);
