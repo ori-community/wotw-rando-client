@@ -128,7 +128,16 @@ BINDING(10011696, bool, getSecondaryMenusAccessable, (__int64));
 
 BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o* thisPtr, int32_t binding, int32_t typ));
 
+BINDING(35034256, int32_t, UnityEngine_Cursor__get_lockState, ());
+BINDING(35034336, void, UnityEngine_Cursor__set_lockState, (int32_t value));
+
 //---------------------------------------------------Actual Functions------------------------------------------------
+extern "C" __declspec(dllexport)
+bool toggle_cursorlock() {
+  int32_t newState = 2 - UnityEngine_Cursor__get_lockState();
+  UnityEngine_Cursor__set_lockState(newState);
+  return newState > 0;
+}
 
 Game_Characters_StaticFields* get_characters()
 {
