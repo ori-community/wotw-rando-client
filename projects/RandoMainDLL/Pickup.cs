@@ -333,7 +333,6 @@ namespace RandoMainDLL {
         case SysCommandType.ProcUberStatesAndSurpress:
           UberStateController.SkipListenersNextUpdate = true;
           UberStateController.Update();
-          InterOp.save();
           break;
         case SysCommandType.SupressMagic: // yeah this doesn't do anything
           break;
