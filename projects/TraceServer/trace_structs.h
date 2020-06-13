@@ -1,3 +1,5 @@
+#pragma once
+
 #include <gui/imgui.h>
 #include <gui_helpers/dropdown.h>
 
@@ -33,10 +35,12 @@ struct Message
 
 struct TraceData
 {
-    TraceData(std::string const& p_name)
+    TraceData(int p_gid, int p_id, std::string const& p_name)
         : name(p_name)
+        , gid(p_gid)
+        , id(p_id)
         , show_filters(true)
-        , closed(false)
+        , open(true)
         , connected(false)
         , init(false)
         , min_level_filter(0, { 1, 2, 3, 4, 5 })
@@ -45,10 +49,12 @@ struct TraceData
         , messages()
     {}
 
+    int gid;
+    int id;
     std::string name;
     bool show_filters;
     bool auto_scroll;
-    bool closed;
+    bool open;
     bool connected;
     bool init;
 
@@ -68,6 +74,7 @@ struct TraceData
 
 struct GuiData
 {
+    int next_gid = 10;
     bool running = true;
     ImVec2 window_size = { 1280.f, 720.f };
     int prev_log_count = 0;

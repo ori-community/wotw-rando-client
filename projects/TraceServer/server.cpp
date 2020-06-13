@@ -1,10 +1,37 @@
 #include <server.h>
 #pragma comment(lib, "ws2_32.lib")
+
+#include <binary_walker.h>
 #include <ext.h>
 #include <vector>
 
 int get_read_status(ServerData& data, const SOCKET a_socket);
 void close_client(ServerData& data, ClientData& client);
+
+void send_str(ClientData& data, std::string const& str)
+{
+    auto old_size = data.buffer.size();
+    auto size = str.size() + sizeof(int);
+    data.buffer.resize(old_size + size);
+    binary::BinaryWalker walker;
+    walker.data = data.buffer.data();
+    walker.size = static_cast<int>(old_size + size);
+    walker.cursor = static_cast<int>(old_size);
+    binary::write_str_bw(walker, str);
+}
+
+bool send_str(ServerData& data, int id, std::string const& str)
+{
+    auto it = std::find_if(data.clients.begin(), data.clients.end(), [&id](ClientData const& cd) -> bool {
+        return cd.id == id;
+    });
+    
+    auto test = it != data.clients.end();
+    if (test)
+        send_str(*it, str);
+
+    return test;
+}
 
 ServerError initialize_server(ServerData& data)
 {
@@ -141,12 +168,25 @@ ServerError poll_server(ServerData& data)
                         return ServerError::SocketRecieve;
                     }
 
-                    ServerEvent evt;
-                    evt.client_id = client.id;
-                    evt.type = ServerEventType::ClientPackage;
-                    evt.size = data_size;
-                    evt.data = &data.buffer[used];
-                    data.event_handler(evt);
+
+                    binary::BinaryWalker walker;
+                    walker.cursor = 0;
+                    walker.data = &data.buffer[used];
+
+                    while (static_cast<unsigned long>(walker.cursor + 4) < used + data_size)
+                    {
+                        auto size = binary::read_bw<int>(walker);
+                        if (static_cast<unsigned long>(walker.cursor + size) > used + data_size)
+                            break;
+
+                        ServerEvent evt;
+                        evt.client_id = client.id;
+                        evt.type = ServerEventType::ClientPackage;
+                        evt.size = size;
+                        evt.data = &data.buffer[used + walker.cursor];
+                        data.event_handler(evt);
+                        walker.cursor += size;
+                    }
                 }
             }
             else if (status == SOCKET_ERROR)
@@ -166,7 +206,7 @@ ServerError poll_server(ServerData& data)
             if (client.buffer.empty())
                 continue;
 
-            result = send(client.socket, reinterpret_cast<const char*>(&data.buffer[0]), static_cast<int>(data.buffer.size()), 0);
+            result = send(client.socket, reinterpret_cast<const char*>(&client.buffer[0]), static_cast<int>(client.buffer.size()), 0);
             if (result == SOCKET_ERROR)
             {
                 data.logging_callback(format("\rclient %d send error %d\n", client.id, WSAGetLastError()));
@@ -223,8 +263,10 @@ void close_client(ServerData& data, ClientData& client)
 int get_read_status(ServerData& data, const SOCKET a_socket)
 {
     static const timeval instantSpeedPlease = { 0,0 };
-    fd_set a = { 1, {a_socket} };
-    int result = select(0, &a, 0, 0, &instantSpeedPlease);
+    fd_set read;
+    FD_ZERO(&read);
+    FD_SET(a_socket, &read);
+    int result = select(0, &read, 0, 0, &instantSpeedPlease);
     if (result == SOCKET_ERROR)
         result = WSAGetLastError();
 

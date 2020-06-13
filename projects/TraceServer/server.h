@@ -1,3 +1,5 @@
+#pragma once
+
 #include <functional>
 #include <initializer_list>
 #include <string>
@@ -80,6 +82,8 @@ enum class ServerError
     Undefined
 };
 
+void send_str(ClientData& data, std::string const& str);
+bool send_str(ServerData& data, int id, std::string const& str);
 ServerError initialize_server(ServerData& data);
 ServerError start_server(ServerData& data);
 ServerError poll_server(ServerData& data);

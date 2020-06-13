@@ -1,3 +1,5 @@
+#pragma once
+
 #include <gui/imgui.h>
 
 ImVec2 operator +(ImVec2 lhs, ImVec2 const& rhs);

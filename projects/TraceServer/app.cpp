@@ -1,3 +1,5 @@
+#include <binary_walker.h>
+#include <ext.h>
 #include <trace_structs.h>
 #include <server.h>
 #include <gui/imgui.h>
@@ -13,7 +15,7 @@
 
 void show_filter_window(TraceData& trace);
 void show_info_window(TraceData& trace);
-void show_trace_data(TraceData& trace);
+void show_trace_data(ServerData& data, TraceData& trace);
 void handle_events(GuiData& data, SDL_Event const& event);
 void init_test_data(GuiData& data);
 
@@ -65,17 +67,84 @@ int main(int, char**)
     bool show_another_window = false;
     ImVec4 clear_color = { 0.45f, 0.55f, 0.60f, 1.00f };
 
-    init_test_data(data);
+    //init_test_data(data);
 
     ServerData sd;
-    sd.port = 1490;
+    sd.port = 27015;
     sd.listen_queue_size = 10;
     sd.logging_callback = [&data](std::string const& str) {
         data.log.push_back(str);
     };
+    
+    sd.event_handler = [&data](ServerEvent const& evt) {
+        switch (evt.type)
+        {
+        case ServerEventType::ClientConnected:
+        {
+            data.log.push_back(format("new client connected: %d", evt.client_id));
+            TraceData td{ data.next_gid++, evt.client_id, format("%f", ImGui::GetTime()) };
+            td.connected = true;
+            data.traces.push_back(td);
+            break;
+        }
+        case ServerEventType::ClientDisconnected:
+        {
+            data.log.push_back(format("client disconnected: %d", evt.client_id));
+            auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+                return data.id == evt.client_id;
+            });
 
-    sd.event_handler = [](ServerEvent const& evt) {
+            if (it != data.traces.end())
+                it->connected = false;
 
+            break;
+        }
+        case ServerEventType::ClientPackage:
+        {
+            binary::BinaryWalker walker;
+            walker.cursor = 0;
+            walker.data = evt.data;
+            walker.size = evt.size;
+            auto package_type = binary::read_bw<unsigned char>(walker);
+            if (package_type == 0xFA)
+            {
+                auto str = binary::read_str_bw(walker);
+                //data.log.push_back(format("[%d] received name package '%s'", evt.client_id, str.c_str()));
+
+                auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+                    return data.id == evt.client_id;
+                });
+
+                if (it != data.traces.end())
+                    it->name = str;
+            }
+            else if (package_type == 0xF1)
+            {
+                //data.log.push_back(format("[%d] received message package", evt.client_id));
+                auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+                    return data.id == evt.client_id;
+                });
+
+                if (it != data.traces.end())
+                {
+                    Message m;
+                    m.type = static_cast<MessageType>(binary::read_bw<int>(walker));
+                    m.level = binary::read_bw<int>(walker);
+                    m.group = binary::read_str_bw(walker);
+                    m.message = binary::read_str_bw(walker);
+                    it->messages.push_back(m);
+                }
+            }
+            else
+            {
+                data.log.push_back(format("[%d] received unknown package: %d", evt.client_id, package_type));
+            }
+            break;
+        }
+        default:
+            // This should never happen
+            break;
+        }
     };
 
     initialize_server(sd);
@@ -91,6 +160,12 @@ int main(int, char**)
         }
 
         poll_server(sd);
+
+        // TODO: Add a way to reopen closed traces.
+        // Remove disconnected and closed traces.
+        for (auto it = data.traces.begin(); it != data.traces.end(); ++it)
+            if (!it->connected && !it->open)
+                it = data.traces.erase(it);
 
         ImGui_ImplOpenGL2_NewFrame();
         ImGui_ImplSDL2_NewFrame(window);
@@ -138,7 +213,7 @@ int main(int, char**)
             ImGui::EndChild();
 
             for (auto& trace : data.traces)
-                show_trace_data(trace);
+                show_trace_data(sd, trace);
 
             ImGui::End();
         }
@@ -164,19 +239,27 @@ int main(int, char**)
     return 0;
 }
 
-void show_trace_data(TraceData& trace)
+void show_trace_data(ServerData& data, TraceData& trace)
 {
+    if (!trace.open)
+        return;
+
     ImGui::SetNextWindowSizeConstraints({ 600.f, 300.f }, { 999999.f , 999999.f });
     ImGui::SetNextWindowSize({ 600.f, 300.f }, ImGuiCond_Once);
     ImGui::SetNextWindowPos({ 260.f, 60.f }, ImGuiCond_Once);
 
-    ImGui::Begin(trace.name.c_str(), &trace.closed);
+    auto name = std::string(format("%s###%d", trace.name.c_str(), trace.gid));
+    ImGui::Begin(name.c_str(), &trace.open);
 
     if (ImGui::Button("Show Filter Options"))
         trace.show_filters = !trace.show_filters;
 
     ImGui::SameLine();
     ImGui::Checkbox("Auto scroll", &trace.auto_scroll);
+
+    ImGui::SameLine();
+    if (ImGui::Button("Test"))
+        send_str(data, trace.id, "this is a test.");
 
     if (trace.show_filters)
         show_filter_window(trace);
@@ -375,7 +458,7 @@ void handle_events(GuiData& data, SDL_Event const& event)
 
 void init_test_data(GuiData& data)
 {
-    data.traces.push_back({ "test" });
+    data.traces.push_back({ data.next_gid++, 255555, "test" });
     auto& test = data.traces.back();
     test.messages.push_back({
         1,

@@ -9,6 +9,7 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
 	SOURCE_FILES
 	"app.cpp"
+	"binary_walker.cpp"
 	"ext.cpp"
 	"server.cpp"
 	"gui/imgui.cpp"
@@ -25,6 +26,7 @@ set(
 
 set(
 	PUBLIC_HEADER_FILES
+	"binary_walker.h"
 	"ext.h"
 	"server.h"
 	"trace_structs.h"

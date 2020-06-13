@@ -26,7 +26,7 @@ const char* format(const char* str, ...)
 
 const char* format(const char* str, va_list ls)
 {
-    static char buffer[256];
-    vsnprintf_s(buffer, 256, str, ls);
+    static char buffer[1024];
+    vsnprintf_s(buffer, 1024, str, ls);
     return buffer;
 }
