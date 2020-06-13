@@ -22,7 +22,7 @@ namespace Trace {
     Error
   }
 
-  public class TraceClient {
+  public class TraceClient : IDisposable {
     NetClient client;
     BinaryWalker walker;
     Thread thread;
@@ -40,6 +40,17 @@ namespace Trace {
       walker = new BinaryWalker();
       thread = new Thread(new ThreadStart(loop));
       close = new Mutex();
+    }
+
+    ~TraceClient() {
+      Dispose();
+    }
+
+    public void Dispose() {
+      if (!closed) {
+        client.Close();
+        closed = true;
+      }
     }
 
     public void Start(string name) {
