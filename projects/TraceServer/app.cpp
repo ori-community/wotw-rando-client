@@ -1,10 +1,12 @@
-#include <binary_walker.h>
 #include <ext.h>
 #include <trace_structs.h>
-#include <server.h>
 #include <gui/imgui.h>
 #include <gui/implementation/imgui_impl_opengl2.h>
 #include <gui/implementation/imgui_impl_sdl.h>
+
+#include <WinNetwork/constants.h>
+#include <WinNetwork/binary_walker.h>
+#include <WinNetwork/peer.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
@@ -15,7 +17,7 @@
 
 void show_filter_window(TraceData& trace);
 void show_info_window(TraceData& trace);
-void show_trace_data(ServerData& data, TraceData& trace);
+void show_trace_data(network::NetworkData& data, TraceData& trace);
 void handle_events(GuiData& data, SDL_Event const& event);
 void init_test_data(GuiData& data);
 
@@ -69,29 +71,29 @@ int main(int, char**)
 
     //init_test_data(data);
 
-    ServerData sd;
+    network::NetworkData sd;
     sd.port = 27015;
     sd.listen_queue_size = 10;
     sd.logging_callback = [&data](std::string const& str) {
         data.log.push_back(str);
     };
     
-    sd.event_handler = [&data](ServerEvent const& evt) {
+    sd.event_handler = [&data](network::NetworkEvent const& evt) {
         switch (evt.type)
         {
-        case ServerEventType::ClientConnected:
+        case network::NetworkEventType::Connected:
         {
-            data.log.push_back(format("new client connected: %d", evt.client_id));
-            TraceData td{ data.next_gid++, evt.client_id, format("%f", ImGui::GetTime()) };
+            data.log.push_back(format("new client connected: %d", evt.peer_id));
+            TraceData td{ data.next_gid++, evt.peer_id, format("%f", ImGui::GetTime()) };
             td.connected = true;
             data.traces.push_back(td);
             break;
         }
-        case ServerEventType::ClientDisconnected:
+        case network::NetworkEventType::Disconnected:
         {
-            data.log.push_back(format("client disconnected: %d", evt.client_id));
+            data.log.push_back(format("client disconnected: %d", evt.peer_id));
             auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
-                return data.id == evt.client_id;
+                return data.id == evt.peer_id;
             });
 
             if (it != data.traces.end())
@@ -99,45 +101,49 @@ int main(int, char**)
 
             break;
         }
-        case ServerEventType::ClientPackage:
+        case network::NetworkEventType::Package:
         {
-            binary::BinaryWalker walker;
+            network::binary::BinaryWalker walker;
             walker.cursor = 0;
             walker.data = evt.data;
             walker.size = evt.size;
-            auto package_type = binary::read_bw<unsigned char>(walker);
-            if (package_type == 0xFA)
+            auto package_type = network::binary::read_bw<network::PackageType>(walker);
+            switch (package_type)
             {
-                auto str = binary::read_str_bw(walker);
-                //data.log.push_back(format("[%d] received name package '%s'", evt.client_id, str.c_str()));
-
+            case network::PackageType::Identifier:
+            {
+                auto str = network::binary::read_str_bw(walker);
                 auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
-                    return data.id == evt.client_id;
+                    return data.id == evt.peer_id;
                 });
 
                 if (it != data.traces.end())
                     it->name = str;
+
+                break;
             }
-            else if (package_type == 0xF1)
+            case network::PackageType::TraceMessage:
             {
-                //data.log.push_back(format("[%d] received message package", evt.client_id));
                 auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
-                    return data.id == evt.client_id;
+                    return data.id == evt.peer_id;
                 });
 
                 if (it != data.traces.end())
                 {
                     Message m;
-                    m.type = static_cast<MessageType>(binary::read_bw<int>(walker));
-                    m.level = binary::read_bw<int>(walker);
-                    m.group = binary::read_str_bw(walker);
-                    m.message = binary::read_str_bw(walker);
+                    m.type = static_cast<MessageType>(network::binary::read_bw<int>(walker));
+                    m.level = network::binary::read_bw<int>(walker);
+                    m.group = network::binary::read_str_bw(walker);
+                    m.message = network::binary::read_str_bw(walker);
                     it->messages.push_back(m);
                 }
+
+                break;
             }
-            else
-            {
-                data.log.push_back(format("[%d] received unknown package: %d", evt.client_id, package_type));
+            case network::PackageType::Ping:
+            case network::PackageType::Message:
+            default:
+                break;
             }
             break;
         }
@@ -147,8 +153,8 @@ int main(int, char**)
         }
     };
 
-    initialize_server(sd);
-    start_server(sd);
+    network::initialize_peer(sd);
+    network::start_peer(sd);
 
     while (data.running)
     {
@@ -159,13 +165,17 @@ int main(int, char**)
             handle_events(data, event);
         }
 
-        poll_server(sd);
+        network::poll_peer(sd);
 
         // TODO: Add a way to reopen closed traces.
         // Remove disconnected and closed traces.
-        for (auto it = data.traces.begin(); it != data.traces.end(); ++it)
+        for (auto it = data.traces.begin(); it != data.traces.end();)
+        {
             if (!it->connected && !it->open)
                 it = data.traces.erase(it);
+            else
+                ++it;
+        }
 
         ImGui_ImplOpenGL2_NewFrame();
         ImGui_ImplSDL2_NewFrame(window);
@@ -226,7 +236,7 @@ int main(int, char**)
         SDL_GL_SwapWindow(window);
     }
 
-    shutdown_server(sd);
+    network::shutdown_peer(sd);
 
     ImGui_ImplOpenGL2_Shutdown();
     ImGui_ImplSDL2_Shutdown();
@@ -239,7 +249,7 @@ int main(int, char**)
     return 0;
 }
 
-void show_trace_data(ServerData& data, TraceData& trace)
+void show_trace_data(network::NetworkData& data, TraceData& trace)
 {
     if (!trace.open)
         return;
@@ -254,6 +264,10 @@ void show_trace_data(ServerData& data, TraceData& trace)
     if (ImGui::Button("Show Filter Options"))
         trace.show_filters = !trace.show_filters;
 
+    ImGui::SameLine();
+    ImGui::PushStyleColor(ImGuiCol_Text, trace.connected ? ImVec4{ 0, 0.8f, 0, 1 } : ImVec4{ 0.8f, 0, 0, 1 });
+    ImGui::Text(trace.connected ? "O" : "-");
+    ImGui::PopStyleColor();
     ImGui::SameLine();
     ImGui::Checkbox("Auto scroll", &trace.auto_scroll);
 
