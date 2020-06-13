@@ -16,6 +16,7 @@ set(
 	"features/messages.cpp"
 	"features/opher_everywhere.cpp"
 	"features/map.cpp"
+	"features/goal_mode_check.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/energy_cell.cpp"
