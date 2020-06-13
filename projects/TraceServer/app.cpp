@@ -3,8 +3,8 @@
 #include <trace_structs.h>
 #include <server.h>
 #include <gui/imgui.h>
-#include <gui/implementation/imgui_impl_sdl.h>
 #include <gui/implementation/imgui_impl_opengl2.h>
+#include <gui/implementation/imgui_impl_sdl.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
@@ -333,6 +333,7 @@ void show_filter_window(TraceData& trace)
     ImGui::Checkbox("show info", &trace.show_type[0]);
     ImGui::Checkbox("show warning", &trace.show_type[1]);
     ImGui::Checkbox("show error", &trace.show_type[2]);
+    ImGui::Checkbox("show debug", &trace.show_type[3]);
 
     ImGui::Dummy({ 0.f, 5.f });
     auto inner_size = ImGui::GetContentRegionAvail();

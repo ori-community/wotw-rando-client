@@ -265,7 +265,10 @@ int get_read_status(ServerData& data, const SOCKET a_socket)
     static const timeval instantSpeedPlease = { 0,0 };
     fd_set read;
     FD_ZERO(&read);
+#pragma warning(push)
+#pragma warning(disable: 6319)
     FD_SET(a_socket, &read);
+#pragma warning(pop)
     int result = select(0, &read, 0, 0, &instantSpeedPlease);
     if (result == SOCKET_ERROR)
         result = WSAGetLastError();

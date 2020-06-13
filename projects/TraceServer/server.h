@@ -46,6 +46,20 @@ struct ClientData
 
 struct ServerData
 {
+    ServerData()
+        : port(0)
+        , listen_queue_size(10)
+        , logging_callback()
+        , event_handler()
+        , errored(false)
+        , next_id(1)
+        , address()
+        , wsa_data()
+        , listen_socket()
+        , buffer()
+        , clients()
+    {}
+
     // Configuration
     int port;
     int listen_queue_size;
