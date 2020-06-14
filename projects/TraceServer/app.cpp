@@ -1,6 +1,7 @@
 #include <ext.h>
 #include <trace_structs.h>
 #include <gui/imgui.h>
+#include <gui/imgui_internal.h>
 #include <gui/implementation/imgui_impl_opengl2.h>
 #include <gui/implementation/imgui_impl_sdl.h>
 
@@ -15,11 +16,14 @@
 #include <string>
 #include <vector>
 
+void trace_show_top_bar(network::NetworkData& data, TraceData& trace);
 void show_filter_window(TraceData& trace);
 void show_info_window(TraceData& trace);
 void show_trace_data(network::NetworkData& data, TraceData& trace);
 void handle_events(GuiData& data, SDL_Event const& event);
 void init_test_data(GuiData& data);
+
+void handle_network_events(GuiData& data, network::NetworkEvent const& evt);
 
 int main(int, char**)
 {
@@ -36,7 +40,12 @@ int main(int, char**)
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-    SDL_WindowFlags window_flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+    uint32_t window_flags = static_cast<uint32_t>(
+        SDL_WindowFlags::SDL_WINDOW_OPENGL |
+        SDL_WindowFlags::SDL_WINDOW_RESIZABLE |
+        SDL_WindowFlags::SDL_WINDOW_ALLOW_HIGHDPI
+    );
+
     SDL_Window* window = SDL_CreateWindow(
         "Trace Server",
         SDL_WINDOWPOS_CENTERED,
@@ -54,12 +63,12 @@ int main(int, char**)
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO& io = ImGui::GetIO();
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
 
+    io.IniFilename = nullptr;
     ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
 
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
     ImGui_ImplOpenGL2_Init();
@@ -72,86 +81,13 @@ int main(int, char**)
     //init_test_data(data);
 
     network::NetworkData sd;
-    sd.port = 27015;
+    sd.port = 27666;
     sd.listen_queue_size = 10;
     sd.logging_callback = [&data](std::string const& str) {
         data.log.push_back(str);
     };
     
-    sd.event_handler = [&data](network::NetworkEvent const& evt) {
-        switch (evt.type)
-        {
-        case network::NetworkEventType::Connected:
-        {
-            data.log.push_back(format("new client connected: %d", evt.peer_id));
-            TraceData td{ data.next_gid++, evt.peer_id, format("%f", ImGui::GetTime()) };
-            td.connected = true;
-            data.traces.push_back(td);
-            break;
-        }
-        case network::NetworkEventType::Disconnected:
-        {
-            data.log.push_back(format("client disconnected: %d", evt.peer_id));
-            auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
-                return data.id == evt.peer_id;
-            });
-
-            if (it != data.traces.end())
-                it->connected = false;
-
-            break;
-        }
-        case network::NetworkEventType::Package:
-        {
-            network::binary::BinaryWalker walker;
-            walker.cursor = 0;
-            walker.data = evt.data;
-            walker.size = evt.size;
-            auto package_type = network::binary::read_bw<network::PackageType>(walker);
-            switch (package_type)
-            {
-            case network::PackageType::Identifier:
-            {
-                auto str = network::binary::read_str_bw(walker);
-                auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
-                    return data.id == evt.peer_id;
-                });
-
-                if (it != data.traces.end())
-                    it->name = str;
-
-                break;
-            }
-            case network::PackageType::TraceMessage:
-            {
-                auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
-                    return data.id == evt.peer_id;
-                });
-
-                if (it != data.traces.end())
-                {
-                    Message m;
-                    m.type = static_cast<MessageType>(network::binary::read_bw<int>(walker));
-                    m.level = network::binary::read_bw<int>(walker);
-                    m.group = network::binary::read_str_bw(walker);
-                    m.message = network::binary::read_str_bw(walker);
-                    it->messages.push_back(m);
-                }
-
-                break;
-            }
-            case network::PackageType::Ping:
-            case network::PackageType::Message:
-            default:
-                break;
-            }
-            break;
-        }
-        default:
-            // This should never happen
-            break;
-        }
-    };
+    sd.event_handler = [&data](network::NetworkEvent const& evt) { handle_network_events(data, evt); };
 
     network::initialize_peer(sd);
     network::start_peer(sd);
@@ -203,6 +139,7 @@ int main(int, char**)
             ImGui::Dummy({ 10.f, 100.f });
             ImGui::Dummy({ 10.f, 10.f });
             ImGui::SameLine();
+            ImGui::Text("FPS: %d", ImGui::GetFrameCount());
             ImGui::Text("Size: {%f, %f}", data.window_size.x, data.window_size.y);
 
             auto size = ImGui::GetContentRegionAvail();
@@ -258,23 +195,16 @@ void show_trace_data(network::NetworkData& data, TraceData& trace)
     ImGui::SetNextWindowSize({ 600.f, 300.f }, ImGuiCond_Once);
     ImGui::SetNextWindowPos({ 260.f, 60.f }, ImGuiCond_Once);
 
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(5.f, 0.f));
+    ImGui::PushStyleColor(ImGuiCol_MenuBarBg, { 0.05f, 0.05f, 0.05f, 1.f });
+
     auto name = std::string(format("%s###%d", trace.name.c_str(), trace.gid));
-    ImGui::Begin(name.c_str(), &trace.open);
+    ImGui::Begin(name.c_str(), &trace.open, ImGuiWindowFlags_MenuBar);
 
-    if (ImGui::Button("Show Filter Options"))
-        trace.show_filters = !trace.show_filters;
-
-    ImGui::SameLine();
-    ImGui::PushStyleColor(ImGuiCol_Text, trace.connected ? ImVec4{ 0, 0.8f, 0, 1 } : ImVec4{ 0.8f, 0, 0, 1 });
-    ImGui::Text(trace.connected ? "O" : "-");
     ImGui::PopStyleColor();
-    ImGui::SameLine();
-    ImGui::Checkbox("Auto scroll", &trace.auto_scroll);
+    ImGui::PopStyleVar();
 
-    ImGui::SameLine();
-    if (ImGui::Button("Test"))
-        send_str(data, trace.id, "this is a test.");
-
+    trace_show_top_bar(data, trace);
     if (trace.show_filters)
         show_filter_window(trace);
 
@@ -291,10 +221,66 @@ void show_trace_data(network::NetworkData& data, TraceData& trace)
     ImGui::End();
 }
 
+void trace_show_top_bar(network::NetworkData& data, TraceData& trace)
+{
+    ImGui::BeginMenuBar();
+    auto context = ImGui::GetCurrentContext();
+    auto menu_rect = context->CurrentWindow->ClipRect;
+
+    // For some reason this rectangle is off by a few pixels.
+    ImGui::PopClipRect();
+    menu_rect.Max += ImVec2{ 7.f, 0.f };
+    ImGui::PushClipRect(menu_rect.Min, menu_rect.Max, false);
+    menu_rect.Min += ImVec2{ 5.f, 0.f };
+    menu_rect.Max += ImVec2{ -5.f, -2.f };
+
+    auto border = ImGui::GetStyleColorVec4(ImGuiCol_Border);
+    ImGui::GetWindowDrawList()->AddRect(
+        menu_rect.Min,
+        menu_rect.Max,
+        ImGui::ColorConvertFloat4ToU32(border),
+        0,
+        0
+    );
+
+    if (ImGui::BeginMenu("file"))
+    {
+        // TODO: Implement export.
+        if (ImGui::MenuItem("export", nullptr, false, false))
+            ;
+
+        ImGui::EndMenu();
+    }
+
+    if (ImGui::BeginMenu("options"))
+    {
+        if (ImGui::MenuItem("show filters", nullptr, trace.show_filters))
+            trace.show_filters = !trace.show_filters;
+        if (ImGui::MenuItem("auto scroll", nullptr, trace.auto_scroll))
+            trace.auto_scroll = !trace.auto_scroll;
+
+        ImGui::EndMenu();
+    }
+
+    auto pos_y = ImGui::GetCursorPosY();
+    ImGui::SetCursorPosY(pos_y + 3.f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 0.0f, 0.0f });
+    if (ImGui::Button("send test", { 80.f, menu_rect.GetSize().y - 4.f }))
+        network::send_str(data, trace.id, "this is a test.");
+
+    ImGui::PopStyleVar();
+    ImGui::SetCursorPos({ ImGui::GetWindowWidth() - 93.f, pos_y - 1.f });
+    ImGui::PushStyleColor(ImGuiCol_Text, trace.connected ? ImVec4{ 0.f, 0.8f, 0.f, 1.f } : ImVec4{ 0.8f, 0.f, 0.f, 1.f });
+    ImGui::Text(trace.connected ? "connected" : "disconnected");
+    ImGui::PopStyleColor();
+
+    ImGui::EndMenuBar();
+}
+
 void show_filter_window(TraceData& trace)
 {
     auto size = ImGui::GetContentRegionAvail();
-    ImGui::BeginChild(1, { 140.f, size.y }, true, ImGuiWindowFlags_NoTitleBar);
+    ImGui::BeginChild(1, { 140.f, size.y - 5.f }, true, ImGuiWindowFlags_NoTitleBar);
 
     ImGui::Text("Filters");
     ImGui::Separator();
@@ -351,10 +337,17 @@ void show_filter_window(TraceData& trace)
 
     ImGui::Dummy({ 0.f, 5.f });
     auto inner_size = ImGui::GetContentRegionAvail();
-    ImGui::Text("group:");
+    ImGui::Text("group search:");
     ImGui::PushID("group");
     ImGui::PushItemWidth(inner_size.x);
     ImGui::InputText("", trace.group_filter, 64);
+    ImGui::PopItemWidth();
+    ImGui::PopID();
+
+    ImGui::Text("text search:");
+    ImGui::PushID("text");
+    ImGui::PushItemWidth(inner_size.x);
+    ImGui::InputText("", trace.text_filter, 256);
     ImGui::PopItemWidth();
     ImGui::PopID();
 
@@ -362,10 +355,35 @@ void show_filter_window(TraceData& trace)
     ImGui::SameLine();
 }
 
+bool is_in_filter(TraceData const& trace, Message const& message)
+{
+    int type = static_cast<int>(message.type);
+    if (!trace.show_type[type])
+        return false;
+
+    auto value = trace.min_level_filter.values[trace.min_level_filter.selected];
+    if (value > message.level)
+        return false;
+
+    value = trace.max_level_filter.values[trace.max_level_filter.selected];
+    if (value < message.level)
+        return false;
+
+    auto group_filter = std::string(trace.group_filter);
+    if (!group_filter.empty() && message.group.find(group_filter) == std::string::npos)
+        return false;
+
+    auto text_filter = std::string(trace.text_filter);
+    if (!text_filter.empty() && message.message.find(text_filter) == std::string::npos)
+        return false;
+
+    return true;
+}
+
 void show_info_window(TraceData& trace)
 {
     auto size = ImGui::GetContentRegionAvail();
-    ImGui::BeginChild(2, { size.x, size.y }, true, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar);
+    ImGui::BeginChild(2, { size.x, size.y - 5.f }, true, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar);
     ImGui::Columns(5);
 
     if (!trace.init)
@@ -405,19 +423,7 @@ void show_info_window(TraceData& trace)
     for (auto const& message : trace.messages)
     {
         int type = static_cast<int>(message.type);
-        if (!trace.show_type[type])
-            continue;
-
-        auto value = trace.min_level_filter.values[trace.min_level_filter.selected];
-        if (value > message.level)
-            continue;
-
-        value = trace.max_level_filter.values[trace.max_level_filter.selected];
-        if (value < message.level)
-            continue;
-
-        auto group_filter = std::string(trace.group_filter);
-        if (!group_filter.empty() && message.group.find(group_filter) == std::string::npos)
+        if (!is_in_filter(trace, message))
             continue;
 
         auto const& color = MessageTypeColors[type];
@@ -469,6 +475,85 @@ void handle_events(GuiData& data, SDL_Event const& event)
 
     if (event.type == SDL_QUIT)
         data.running = false;
+}
+
+void handle_network_events(GuiData& data, network::NetworkEvent const& evt)
+{
+    switch (evt.type)
+    {
+    case network::NetworkEventType::Connected:
+    {
+        data.log.push_back(format("new client connected: %d", evt.peer_id));
+        TraceData td{ data.next_gid++, evt.peer_id, format("%f", ImGui::GetTime()) };
+        td.connected = true;
+        data.traces.push_back(td);
+        break;
+    }
+    case network::NetworkEventType::Disconnected:
+    {
+        data.log.push_back(format("client disconnected: %d", evt.peer_id));
+        auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+            return data.id == evt.peer_id;
+        });
+
+        if (it != data.traces.end())
+            it->connected = false;
+
+        break;
+    }
+    case network::NetworkEventType::Package:
+    {
+        network::binary::BinaryWalker walker;
+        walker.cursor = 0;
+        walker.data = evt.data;
+        walker.size = evt.size;
+        auto package_type = network::binary::read_bw<network::PackageType>(walker);
+        switch (package_type)
+        {
+        case network::PackageType::Identifier:
+        {
+            auto str = network::binary::read_str_bw(walker);
+            auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+                return data.id == evt.peer_id;
+            });
+
+            if (it != data.traces.end())
+                it->name = str;
+
+            break;
+        }
+        case network::PackageType::TraceMessage:
+        {
+            auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+                return data.id == evt.peer_id;
+            });
+
+            if (it != data.traces.end())
+            {
+                Message m;
+                m.type = static_cast<MessageType>(network::binary::read_bw<int>(walker));
+                m.level = network::binary::read_bw<int>(walker);
+                m.group = network::binary::read_str_bw(walker);
+                m.message = network::binary::read_str_bw(walker);
+                it->messages.push_back(m);
+            }
+
+            break;
+        }
+        case network::PackageType::Ping:
+        case network::PackageType::Message:
+        case network::PackageType::ConfigPing:
+            break;
+        default:
+            data.log.push_back(format("unknown package : %d", package_type));
+            break;
+        }
+        break;
+    }
+    default:
+        // This should never happen
+        break;
+    }
 }
 
 void init_test_data(GuiData& data)

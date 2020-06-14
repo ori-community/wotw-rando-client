@@ -79,6 +79,7 @@ target_include_directories(
 target_link_libraries(
 	${PROJECT_NAME}
 	"${WOTWR_LIB_DIR}/detours.lib"
+	WinNetwork
 )
 
 message(STATUS "Assigning source groups.")

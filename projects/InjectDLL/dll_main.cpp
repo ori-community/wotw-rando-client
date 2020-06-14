@@ -5,6 +5,7 @@
 
 #include <pe_module.h>
 #include <common.h>
+#include <constants.h>
 #include <dll_main.h>
 #include <interception_macros.h>
 #include <pickups/ore.h>
@@ -20,38 +21,56 @@
 #include <chrono>
 #include <ctime>
 
+#include <mutex>
+
+#include <WinNetwork/binary_walker.h>
+#include <WinNetwork/peer.h>
+
 //---------------------------------------------------Globals-----------------------------------------------------
 void* game_controller_instance_ptr = NULL;
 
+bool trace_enabled = false;
+// if you are debugging and don't want the trace client to be dropped set this to false.
+bool trace_pinging_enabled = false;
 bool debug_enabled = true;
 bool info_enabled = true;
 bool error_enabled = true;
 bool input_lock_callback = false;
 
 InjectDLL::PEModule* csharp_lib = NULL;
+network::NetworkData network_data;
+int peer_id = -1;
+std::mutex network_mutex;
 
 std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
 std::ofstream logfile;
+std::mutex log_mutex;
 
 #define DEBUG(message) \
     if (debug_enabled) { \
+        log_mutex.lock(); \
 	    logfile.open(logFilePath, std::ios_base::app); \
 	    logfile << "[" << pretty_time()  << "] (DEBUG): " << message << std::endl; \
 	    logfile.close(); \
+        log_mutex.unlock(); \
     }
 
 #define LOG(message) \
     if (info_enabled) { \
+        log_mutex.lock(); \
 	    logfile.open(logFilePath, std::ios_base::app); \
 	    logfile << "[" << pretty_time() << "] (INFO): " << message << std::endl; \
 	    logfile.close(); \
+        log_mutex.unlock(); \
     }
 
 #define ERR(message) \
     if (error_enabled) { \
+        log_mutex.lock(); \
 	    logfile.open(logFilePath, std::ios_base::app); \
 	    logfile << "[" << pretty_time() << "] (ERROR): " << message << std::endl; \
 	    logfile.close(); \
+        log_mutex.unlock(); \
     }
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
@@ -203,39 +222,157 @@ void save() {
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
 
+void send_trace(MessageType type, int level, std::string const& group, std::string const& message)
+{
+    // TODO: Maybe buffer these until we connect?
+    if (peer_id < 0)
+        return;
+
+    using namespace network::binary;
+
+    constexpr int BUFFER_SIZE = 512;
+    char buffer[BUFFER_SIZE];
+
+    BinaryWalker walker;
+    walker.cursor = 0;
+    walker.data = buffer;
+    walker.size = BUFFER_SIZE;
+
+    write_bw(walker, 0);
+    write_bw(walker, network::PackageType::TraceMessage);
+    write_bw(walker, type);
+    write_bw(walker, level);
+    write_str_bw(walker, group);
+    write_str_bw(walker, message);
+    auto size = walker.cursor;
+    walker.cursor = 0;
+    write_bw(walker, size - static_cast<int>(sizeof(int)));
+
+    network_mutex.lock();
+    network::send_data(network_data, peer_id, walker.data, size);
+    network_mutex.unlock();
+}
+
 void log(std::string message)
 {
+    send_trace(MessageType::Info, 3, "test", message);
 	LOG(message);
 }
 
 void error(std::string message)
 {
+    send_trace(MessageType::Error, 3, "test", message);
 	ERR(message);
 }
 
 void debug(std::string message)
 {
+    send_trace(MessageType::Debug, 3, "test", message);
 	DEBUG(message);
 }
 
 bool attached = false;
-bool shutdown = false;
+bool shutdown_thread = false;
+
+void network_event_handler(network::NetworkEvent const& evt)
+{
+    using namespace network;
+    using namespace network::binary;
+
+    switch (evt.type)
+    {
+    case network::NetworkEventType::Package:
+    {
+        BinaryWalker walker;
+        walker.cursor = 0;
+        walker.data = evt.data;
+        walker.size = evt.size;
+
+        auto type = read_bw<PackageType>(walker);
+        switch (type)
+        {
+        case network::PackageType::Message:
+            // TODO: Do some fancy stuff here.
+            LOG("----> " + read_str_bw(walker));
+            break;
+        default:
+            break;
+        }
+        break;
+    }
+    case network::NetworkEventType::Connected:
+    {
+        peer_id = evt.peer_id;
+
+        constexpr int BUFFER_SIZE = 64;
+        char buffer[BUFFER_SIZE];
+        BinaryWalker walker;
+        walker.cursor = 0;
+        walker.data = buffer;
+        walker.size = BUFFER_SIZE;
+
+        write_bw(walker, 0);
+        write_bw(walker, PackageType::Identifier);
+        write_str_bw(walker, "Randomizer");
+        auto size = walker.cursor;
+        walker.cursor = 0;
+        write_bw(walker, size - static_cast<int>(sizeof(int)));
+
+        network_mutex.lock();
+        send_data(network_data, peer_id, walker.data, size);
+        if (!trace_pinging_enabled)
+            set_pinging(network_data, peer_id, false);
+
+        network_mutex.unlock();
+        break;
+    }
+    case network::NetworkEventType::Disconnected:
+        peer_id = -1;
+        break;
+    default:
+        break;
+    }
+}
 
 void main_thread(){
+    network_data.is_server = false;
+    network_data.ip = "localhost";
+    network_data.port = 27666;
+    network_data.logging_callback = [](std::string const& str) { LOG(str); };
+    network_data.event_handler = &network_event_handler;
+
 	log("loading c# dll...");
 	csharp_lib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
 	if(csharp_lib->call<bool>("Initialize"))
 	{
+        char arg[] = "TraceEnabled";
+        trace_enabled = csharp_lib->call<bool>("CheckIni", arg);
+        if (trace_enabled)
+        {
+            network::initialize_peer(network_data);
+            network::start_peer(network_data);
+        }
+
 		debug_enabled = csharp_lib->call<bool>("InjectDebugEnabled");
 		info_enabled = csharp_lib->call<bool>("InjectLogEnabled");
 		LOG("debug: " << debug_enabled << " log: " << info_enabled);
 		log("c# init complete");
 		interception_init();
-		return;
+
+        if (trace_enabled)
+        {
+            while (!shutdown_thread)
+                network::poll_peer(network_data);
+
+            network::shutdown_peer(network_data);
+        }
 	} else
-	{
+    {
 		log("Failed to initialize, shutting down");
-		shutdown = true;
+        shutdown_thread = true;
+        if (trace_enabled)
+            network::shutdown_peer(network_data);
+
 		FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
 	}
 }
@@ -257,7 +394,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 			}
 			break;
 		case DLL_PROCESS_DETACH:
-			shutdown = true;
+            network::shutdown_peer(network_data);
+			shutdown_thread = true;
 			delete csharp_lib;
 			DetourTransactionBegin();
 			DetourUpdateThread(GetCurrentThread());

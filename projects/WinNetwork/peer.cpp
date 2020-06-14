@@ -1,4 +1,5 @@
 #include <peer.h>
+#include <Ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
 
 #include <binary_walker.h>
@@ -8,7 +9,7 @@
 namespace network
 {
     int get_status(NetworkData& data, const SOCKET a_socket, bool read);
-    void close_client(NetworkData& data, PeerData& client);
+    void close_peer(NetworkData& data, PeerData& peer);
 
     void send_data(PeerData& data, const char* ptr, int size)
     {
@@ -55,6 +56,28 @@ namespace network
         auto test = it != data.peers.end();
         if (test)
             send_str(*it, str);
+
+        return test;
+    }
+
+    bool set_pinging(NetworkData& data, int id, bool enabled)
+    {
+        auto it = std::find_if(data.peers.begin(), data.peers.end(), [&id](PeerData const& cd) -> bool {
+            return cd.id == id;
+        });
+
+        auto test = it != data.peers.end();
+        if (test)
+        {
+            it->ping_enabled = enabled;
+
+            char packet[6];
+            reinterpret_cast<int*>(packet)[0] = 2;
+            reinterpret_cast<PackageType*>(packet)[4] = PackageType::ConfigPing;
+            reinterpret_cast<bool*>(packet)[5] = enabled;
+
+            send_data(data, id, packet, 6);
+        }
 
         return test;
     }
@@ -128,42 +151,62 @@ namespace network
         }
         else
         {
-            unsigned long raw_ip_nbo = inet_addr(data.ip.c_str());
-            if (raw_ip_nbo == INADDR_NONE)
+            addrinfo* res;
+            addrinfo hints;
+            memset(&hints, 0, sizeof(hints));
+            hints.ai_family = AF_INET;
+            hints.ai_socktype = SOCK_STREAM;
+            hints.ai_flags |= AI_CANONNAME;
+
+            int result = getaddrinfo(data.ip.c_str(), nullptr, &hints, &res);
+            if (result != 0)
             {
-                data.logging_callback(format("inet_addr() error '%s'\n", data.ip.c_str()));
-                data.errored = true;
+                data.logging_callback(format("getaddringo() error '%d'\n", result));
                 return NetworkError::AddressConversion;
             }
 
-            data.address.sin_addr.s_addr = raw_ip_nbo;
-            PeerData peer;
-            peer.id = data.next_id++;
-            peer.address = *reinterpret_cast<sockaddr*>(&data.address);
-            data.peers.push_back(peer);
-
-            NetworkEvent evt;
-            evt.peer_id = peer.id;
-            evt.type = NetworkEventType::Connected;
-            evt.size = 0;
-            evt.data = nullptr;
-            data.event_handler(evt);
-
-            int result = connect(peer.socket, &peer.address, sizeof(sockaddr_in));
-            if (result == SOCKET_ERROR)
+            while (res != nullptr)
             {
-                int err = WSAGetLastError();
-                switch (err)
+                data.address.sin_addr = ((struct sockaddr_in*)res->ai_addr)->sin_addr;
+                PeerData peer;
+                peer.socket = data.socket;
+                peer.id = data.next_id++;
+                peer.address = *reinterpret_cast<sockaddr*>(&data.address);
+
+                int result = connect(peer.socket, &peer.address, sizeof(sockaddr_in));
+                if (result == SOCKET_ERROR)
                 {
-                case WSAEISCONN:
-                    data.logging_callback("already connected!\n");
-                    break;
-                case WSAEWOULDBLOCK:
-                case WSAEALREADY:
-                    break;
-                default:
-                    data.logging_callback(format("client connect() error %d\n", err));
-                    return NetworkError::Connection;
+                    int err = WSAGetLastError();
+                    switch (err)
+                    {
+                    case WSAEISCONN:
+                        data.logging_callback("already connected!\n");
+                        res = nullptr;
+                        break;
+                    case WSAEWOULDBLOCK:
+                    case WSAEALREADY:
+                    {
+                        data.peers.push_back(peer);
+
+                        NetworkEvent evt;
+                        evt.peer_id = peer.id;
+                        peer.socket = data.socket;
+                        evt.type = NetworkEventType::Connected;
+                        evt.size = 0;
+                        evt.data = nullptr;
+                        data.event_handler(evt);
+
+                        res = nullptr;
+                        break;
+                    }
+                    default:
+                        data.logging_callback(format("peer connect() error %d\n", err));
+                        res = res->ai_next;
+                        if (res == nullptr)
+                            return NetworkError::Connection;
+
+                        break;
+                    }
                 }
             }
         }
@@ -173,9 +216,9 @@ namespace network
 
     NetworkError accept_connection(NetworkData& data)
     {
-        int client_size = sizeof(sockaddr_in);
+        int peer_size = sizeof(sockaddr_in);
         PeerData peer;
-        peer.socket = accept(data.socket, reinterpret_cast<sockaddr*>(&peer.address), &client_size);
+        peer.socket = accept(data.socket, reinterpret_cast<sockaddr*>(&peer.address), &peer_size);
         if (peer.socket == INVALID_SOCKET)
         {
             data.logging_callback(format("accept() error %d\n", WSAGetLastError()));
@@ -223,24 +266,30 @@ namespace network
                     binary::BinaryWalker walker;
                     walker.cursor = 0;
                     walker.data = &data.buffer[used];
-                    while (static_cast<unsigned long>(walker.cursor + 4) < used + data_size)
+                    walker.size = data_size;
+                    while (static_cast<unsigned long>(walker.cursor + 4) < data_size)
                     {
                         auto size = binary::read_bw<int>(walker);
-                        if (static_cast<unsigned long>(walker.cursor + size) > used + data_size)
+                        if (static_cast<unsigned long>(walker.cursor + size) > data_size)
                             break;
 
                         if (size < 1)
                             continue;
 
-                        auto type = *reinterpret_cast<PackageType*>(&data.buffer[used + walker.cursor]);
-                        if (type == PackageType::Ping)
+                        auto type = *reinterpret_cast<PackageType*>(&walker.data[walker.cursor]);
+                        if (type == PackageType::ConfigPing)
+                        {
+                            peer.ping = std::chrono::system_clock::now();
+                            peer.ping_enabled = *reinterpret_cast<bool*>(&walker.data[walker.cursor + 1]);
+                        }
+                        else if (type == PackageType::Ping)
                             peer.ping = std::chrono::system_clock::now();
 
                         NetworkEvent evt;
                         evt.peer_id = peer.id;
                         evt.type = NetworkEventType::Package;
                         evt.size = size;
-                        evt.data = &data.buffer[used + walker.cursor + 4];
+                        evt.data = &walker.data[walker.cursor];
                         data.event_handler(evt);
                         walker.cursor += size;
                     }
@@ -249,16 +298,19 @@ namespace network
             else if (status == SOCKET_ERROR)
             {
                 data.logging_callback(format("peer %d read error\n", peer.id));
-                close_client(data, peer);
+                close_peer(data, peer);
                 peer.socket = INVALID_SOCKET;
             }
 
-            auto delta = std::chrono::system_clock::now() - peer.ping;
-            if (delta > PING_WAIT_TIME)
+            if (peer.ping_enabled)
             {
-                data.logging_callback(format("peer %d timed out\n", peer.id));
-                close_client(data, peer);
-                peer.socket = INVALID_SOCKET;
+                auto delta = std::chrono::system_clock::now() - peer.ping;
+                if (delta > PING_WAIT_TIME)
+                {
+                    data.logging_callback(format("peer %d timed out\n", peer.id));
+                    close_peer(data, peer);
+                    peer.socket = INVALID_SOCKET;
+                }
             }
         }
     }
@@ -270,7 +322,7 @@ namespace network
             int status = get_status(data, peer.socket, false);
             if (status == INVALID_SOCKET)
             {
-                close_client(data, peer);
+                close_peer(data, peer);
                 peer.socket = INVALID_SOCKET;
             }
             else if (status == 1)
@@ -282,13 +334,9 @@ namespace network
                     continue;
 
                 int result = send(peer.socket, reinterpret_cast<const char*>(&peer.buffer[0]), static_cast<int>(peer.buffer.size()), 0);
-                if (result == SOCKET_ERROR)
-                {
-                    data.logging_callback(format("\rclient %d send error %d\n", peer.id, WSAGetLastError()));
-
-                    close_client(data, peer);
-                    peer.socket = INVALID_SOCKET;
-                }
+                (void*)&result;
+                //if (result == SOCKET_ERROR)
+                //    data.logging_callback(format("\rpeer %d send error %d\n", peer.id, WSAGetLastError()));
 
                 peer.buffer.clear();
             }
@@ -328,10 +376,10 @@ namespace network
             int result = get_status(data, data.socket, true);
             if (result == SOCKET_ERROR)
             {
-                for (auto& client : data.peers)
+                for (auto& peer : data.peers)
                 {
-                    close_client(data, client);
-                    client.socket = INVALID_SOCKET;
+                    close_peer(data, peer);
+                    peer.socket = INVALID_SOCKET;
                 }
 
                 data.peers.clear();
@@ -352,33 +400,42 @@ namespace network
                 reinterpret_cast<int*>(packet)[0] = 1;
                 reinterpret_cast<PackageType*>(packet)[4] = PackageType::Ping;
                 for (auto& peer : data.peers)
-                    send_data(peer, packet, 5);
+                    if (peer.ping_enabled)
+                        send_data(peer, packet, 5);
             }
 
             recieve_packets(data);
             send_packets(data);
             cleanup_peers(data);
+
+            if (!data.is_server && data.peers.empty() && data.retry_client_connect) {
+                // Retry connection.
+                // maybe initialize as well?
+                start_peer(data);
+            }
         }
 
         return output;
     }
 
-    void close_client(NetworkData& data, PeerData& client)
+    void close_peer(NetworkData& data, PeerData& peer)
     {
         if (data.errored)
             return;
 
-        int result = shutdown(client.socket, SD_BOTH);
+        int result = shutdown(peer.socket, SD_BOTH);
         if (result != 0)
         {
             data.logging_callback(format("socket shutdown() error %d\n", WSAGetLastError()));
         }
 
-        result = closesocket(client.socket);
+        result = closesocket(peer.socket);
         if (result != 0)
         {
             data.logging_callback(format("socket closesocket() error %d\n", WSAGetLastError()));
         }
+
+        peer.socket = INVALID_SOCKET;
     }
 
     int get_status(NetworkData& data, const SOCKET a_socket, bool read)
