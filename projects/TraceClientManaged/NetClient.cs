@@ -133,19 +133,20 @@ namespace Trace {
 
   public delegate void HandleMessage(string message);
 
-  internal class NetClient {
-    enum State {
+  internal class NetClient : IDisposable {
+    public enum State {
       Idle,
       Connecting,
       Connected
     }
 
     // Mirrors enum defined in WinNetwork project.
-    enum PackageType : byte {
+    public enum PackageType : byte {
       Ping = 0x01,
       Message = 0x02,
       Identifier = 0x0A,
       TraceMessage = 0x10,
+      ConfigPing = 0xF0,
     }
 
     readonly TimeSpan PING_INTERVAL = TimeSpan.FromMilliseconds(45);
@@ -155,7 +156,7 @@ namespace Trace {
 
     public string Identifier { get; set; }
     string remote = "localhost";
-    int port = 27015;
+    int port = 27666;
 
     State state;
 
@@ -166,6 +167,7 @@ namespace Trace {
     Socket socket;
     Task connectTask;
 
+    bool pingEnabled;
     DateTime lastReceivedPing;
     DateTime lastSentPing;
     Task<int> sendTask;
@@ -188,6 +190,15 @@ namespace Trace {
       outbound = new List<byte[]>();
 
       sendMutex = new Mutex();
+    }
+
+    ~NetClient() {
+      Dispose();
+    }
+
+    public void Dispose() {
+      Close();
+      sendMutex.Close();
     }
 
     public bool IsIdle() {
@@ -221,11 +232,12 @@ namespace Trace {
             if (state == State.Connected) {
               connectTask = null;
               BinaryWalker walker = new BinaryWalker();
-              walker.Put((byte)0xFA);
+              walker.Put((byte)PackageType.Identifier);
               walker.Put(Identifier);
               sendMutex.WaitOne();
               Send(walker.Buffer.ToArray());
               sendMutex.ReleaseMutex();
+              pingEnabled = true;
               lastReceivedPing = DateTime.Now;
               lastSentPing = DateTime.Now;
               Console.WriteLine("Client: Connected");
@@ -235,19 +247,22 @@ namespace Trace {
           }
           break;
         case State.Connected:
-          var time = DateTime.Now;
-          if (time - lastSentPing > PING_INTERVAL) {
-            lastSentPing = time;
-            byte[] packet = new byte[5];
-            Buffer.BlockCopy(BitConverter.GetBytes(1), 0, packet, 0, 4);
-            packet[4] = (byte)PackageType.Ping;
-            Send(packet);
+          if (pingEnabled) {
+            var time = DateTime.Now;
+            if (time - lastSentPing > PING_INTERVAL) {
+              lastSentPing = time;
+              byte[] packet = new byte[5];
+              Buffer.BlockCopy(BitConverter.GetBytes(1), 0, packet, 0, 4);
+              packet[4] = (byte)PackageType.Ping;
+              Send(packet);
+            }
           }
 
           if (sendTask != null) {
             if (sendTask.IsFaulted || sendTask.IsCanceled) {
               Console.WriteLine("Client: Error occurred while sending data.");
-              Close();
+              // We are going to retry this send.
+              sendTask = null;
             }
             else if (sendTask.IsCompleted) {
               sendTask = null;
@@ -270,8 +285,7 @@ namespace Trace {
             }
           }
           else if (recieveTask.IsFaulted || recieveTask.IsCanceled)
-            Close();
-
+            recieveTask = null;
           else if (recieveTask.IsCompleted) {
             var count = recieveTask.Result;
             BinaryWalker walker = new BinaryWalker();
@@ -288,7 +302,7 @@ namespace Trace {
             recieveTask = null;
           }
 
-          if (DateTime.Now - lastReceivedPing > PING_WAIT_TIME)
+          if (pingEnabled && (DateTime.Now - lastReceivedPing) > PING_WAIT_TIME)
             Close();
 
           break;
@@ -304,6 +318,11 @@ namespace Trace {
       if (walker.TryReadByte(out var type)) {
         switch ((PackageType)type) {
           case PackageType.Ping:
+            lastReceivedPing = DateTime.Now;
+            break;
+          case PackageType.ConfigPing:
+            walker.TryReadByte(out var enabled);
+            pingEnabled = enabled != 0;
             lastReceivedPing = DateTime.Now;
             break;
           case PackageType.Message:

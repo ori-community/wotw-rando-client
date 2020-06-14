@@ -50,6 +50,7 @@ namespace Trace {
     public void Dispose() {
       if (!closed) {
         client.Close();
+        close.Close();
         closed = true;
       }
     }
@@ -70,7 +71,7 @@ namespace Trace {
     public void Send(MessageType type, int level, string group, string message) {
       walker.Buffer.Clear();
       walker.Cursor = 0;
-      walker.Put((byte)0xF1);
+      walker.Put((byte)NetClient.PackageType.TraceMessage);
       walker.Put((int)type);
       walker.Put(level);
       walker.Put(string.Format("[{0}]", message));
@@ -82,6 +83,7 @@ namespace Trace {
       while (true) {
         close.WaitOne();
         if (closed) {
+          close.ReleaseMutex();
           client.Close();
           break;
         }
