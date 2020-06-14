@@ -21,14 +21,10 @@ namespace Injector {
 
     public static TraceClient trace;
 
-    public static int counter = 0;
-
     public static void Log(string message) { // doing it like this so we can change it later
       if (DevMode) {
-        message += " " + counter;
-        trace.Send(MessageType.Info, 3, "[Injector]", message);
+        trace.Send(MessageType.Info, 3, "Injector", message);
         Console.WriteLine("-> {0}", message);
-        ++counter;
       }
     }
 

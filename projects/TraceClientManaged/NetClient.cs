@@ -76,31 +76,58 @@ namespace Trace {
       InsertBytes(BitConverter.GetBytes(num));
     }
 
-    public string ReadString() {
-      var size = ReadInt();
-      var str = System.Text.Encoding.ASCII.GetString(bufferArray, Cursor, size);
-      return str;
+    public bool TryReadString(out string value) {
+      updateAccess(true);
+      value = "";
+
+      var output = TryReadInt(out var size);
+      if (output) {
+        if (size <= Size - Cursor)
+          value = System.Text.Encoding.ASCII.GetString(bufferArray, Cursor, size);
+        else
+          output = false;
+      }
+
+      return output;
     }
 
-    public byte ReadByte() {
+    public bool TryReadByte(out byte value) {
       updateAccess(true);
-      var value = bufferArray[Cursor];
-      ++Cursor;
-      return value;
+      value = 0;
+
+      var output = sizeof(byte) <= Size - Cursor;
+      if (output) {
+        value = bufferArray[Cursor];
+        Cursor += sizeof(byte);
+      }
+
+      return output;
     }
 
-    public int ReadInt() {
+    public bool TryReadInt(out int value) {
       updateAccess(true);
-      var value = BitConverter.ToInt32(bufferArray, Cursor);
-      Cursor += 4;
-      return value;
+      value = 0;
+
+      var output = sizeof(int) <= Size - Cursor;
+      if (output) {
+        value = BitConverter.ToInt32(bufferArray, Cursor);
+        Cursor += sizeof(int);
+      }
+
+      return output;
     }
 
-    public float ReadFloat() {
+    public bool TryReadFloat(out float value) {
       updateAccess(true);
-      var value = BitConverter.ToSingle(bufferArray, Cursor);
-      Cursor += 4;
-      return value;
+      value = 0;
+
+      var output = sizeof(float) <= Size - Cursor;
+      if (output) {
+        value = BitConverter.ToSingle(bufferArray, Cursor);
+        Cursor += sizeof(float);
+      }
+
+      return output;
     }
   }
 
@@ -112,6 +139,17 @@ namespace Trace {
       Connecting,
       Connected
     }
+
+    // Mirrors enum defined in WinNetwork project.
+    enum PackageType : byte {
+      Ping = 0x01,
+      Message = 0x02,
+      Identifier = 0x0A,
+      TraceMessage = 0x10,
+    }
+
+    readonly TimeSpan PING_INTERVAL = TimeSpan.FromMilliseconds(45);
+    readonly TimeSpan PING_WAIT_TIME = TimeSpan.FromMilliseconds(3000);
 
     public HandleMessage MessageHandler;
 
@@ -128,6 +166,8 @@ namespace Trace {
     Socket socket;
     Task connectTask;
 
+    DateTime lastReceivedPing;
+    DateTime lastSentPing;
     Task<int> sendTask;
     
     Task<int> recieveTask;
@@ -140,13 +180,12 @@ namespace Trace {
     public NetClient() {
       entry = null;
       connectTask = null;
-      //recieveTask = null;
+      recieveTask = null;
       sendTask = null;
       recieveBuffer = new byte[4096];
       state = State.Idle;
 
       outbound = new List<byte[]>();
-      //inbound = new List<byte[]>();
 
       sendMutex = new Mutex();
     }
@@ -187,19 +226,28 @@ namespace Trace {
               sendMutex.WaitOne();
               Send(walker.Buffer.ToArray());
               sendMutex.ReleaseMutex();
+              lastReceivedPing = DateTime.Now;
+              lastSentPing = DateTime.Now;
               Console.WriteLine("Client: Connected");
             }
-            else {
+            else
               Console.WriteLine("Client: Connection failed");
-            }
           }
           break;
         case State.Connected:
+          var time = DateTime.Now;
+          if (time - lastSentPing > PING_INTERVAL) {
+            lastSentPing = time;
+            byte[] packet = new byte[5];
+            Buffer.BlockCopy(BitConverter.GetBytes(1), 0, packet, 0, 4);
+            packet[4] = (byte)PackageType.Ping;
+            Send(packet);
+          }
+
           if (sendTask != null) {
             if (sendTask.IsFaulted || sendTask.IsCanceled) {
               Console.WriteLine("Client: Error occurred while sending data.");
               Close();
-              Connect();
             }
             else if (sendTask.IsCompleted) {
               sendTask = null;
@@ -221,31 +269,51 @@ namespace Trace {
               Console.WriteLine("   Error: {0}", err.Message);
             }
           }
-          else if (recieveTask.IsFaulted || recieveTask.IsCanceled) {
+          else if (recieveTask.IsFaulted || recieveTask.IsCanceled)
             Close();
-            Connect();
-          }
+
           else if (recieveTask.IsCompleted) {
-            var offset = 0;
             var count = recieveTask.Result;
             BinaryWalker walker = new BinaryWalker();
+            walker.Cursor = 0;
             walker.Buffer = new ArraySegment<byte>(recieveBuffer, 0, count).ToList();
-            while (count >= offset + 4) {
-              var size = walker.ReadInt();
-              if (walker.AvailableBytes >= size) {
-                walker.Cursor = offset;
-                MessageHandler(walker.ReadString());
-              }
+            while (walker.TryReadInt(out var size)) {
+              if (walker.Cursor + size > walker.Size)
+                break;
 
-              offset = walker.Cursor;
+              readPackage(walker.Buffer.GetRange(walker.Cursor, size));
+              walker.Cursor += size;
             }
 
             recieveTask = null;
           }
 
+          if (DateTime.Now - lastReceivedPing > PING_WAIT_TIME)
+            Close();
+
           break;
         default:
           break;
+      }
+    }
+
+    private void readPackage(List<byte> buffer) {
+      BinaryWalker walker = new BinaryWalker();
+      walker.Cursor = 0;
+      walker.Buffer = buffer;
+      if (walker.TryReadByte(out var type)) {
+        switch ((PackageType)type) {
+          case PackageType.Ping:
+            lastReceivedPing = DateTime.Now;
+            break;
+          case PackageType.Message:
+            if (walker.TryReadString(out var str))
+              MessageHandler(str);
+            break;
+          default:
+            // Unknown package.
+            break;
+        }
       }
     }
 
@@ -271,6 +339,8 @@ namespace Trace {
         ProtocolType.Tcp
       );
 
+      socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+
       try {
         destination = new IPEndPoint(address, port);
         connectTask = socket.ConnectAsync(destination);
@@ -287,7 +357,6 @@ namespace Trace {
       try {
         state = State.Connecting;
         entry = Dns.GetHostEntry(remote);
-        Console.WriteLine("Client: Resolved host entries");
         currentAddress = -1;
         Poll();
       }
