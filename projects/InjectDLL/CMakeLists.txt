@@ -17,7 +17,7 @@ set(
 	"features/opher_everywhere.cpp"
 	"features/map.cpp"
 	"features/goal_mode_check.cpp"
-	"features/sein_swim_boost_inverter.cpp"
+	"features/invert_swim.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/pickups.cpp"
@@ -44,6 +44,7 @@ set(
 	"fixes/dash.h"
 	"pickups/ore.h"
 	"pickups/pickups.h"
+	"features/invert_swim.h"
 )
 
 set(

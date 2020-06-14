@@ -10,6 +10,7 @@
 #include <interception_macros.h>
 #include <pickups/ore.h>
 #include <fixes/dash.h>
+#include <features/invert_swim.h>
 
 #include <string>
 #include <functional>
@@ -110,31 +111,37 @@ INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 	//NewGameAction$$Perform
 	csharp_lib->call<void, int>("NewGame", getSaveSlot());
 	newGamePerform(thisPtr, ctxPtr);
+  invert_swim();
 });
 
 INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
 	csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
-    SaveGameController__SaveToFile(thisPtr, slotIndex, -1, bytes);
+  SaveGameController__SaveToFile(thisPtr, slotIndex, -1, bytes);
+  invert_swim();
 });
 
 INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
-    csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
-    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
+  csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
+  SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
+  invert_swim();
 });
 
 INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SaveGameController__OnFinishedLoading(thisPtr);
+  csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+  SaveGameController__OnFinishedLoading(thisPtr);
+  invert_swim();
 });
 
 INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SaveGameController__RestoreCheckpoint(thisPtr);
+  csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+  SaveGameController__RestoreCheckpoint(thisPtr);
+  invert_swim();
 });
 
 INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SeinHealthController__OnRespawn(thisPtr);
+  csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+  SeinHealthController__OnRespawn(thisPtr);
+  invert_swim();
 });
 
 // GameController$get_InputLocked
