@@ -331,9 +331,11 @@ bool is_in_filter(TraceData const& trace, Message const& message)
 void show_info_window(TraceData& trace)
 {
     auto size = ImGui::GetContentRegionAvail();
+    // TODO: Use this to optimize list.
+    //ImGuiListClipper clipper(trace.messages.size(), 20.f);
+    //clipper.
     ImGui::BeginChild(2, { size.x, size.y - 5.f }, true, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar);
     ImGui::Columns(5);
-
     if (!trace.init)
     {
         trace.info_window = ImGui::GetWindowSize();
