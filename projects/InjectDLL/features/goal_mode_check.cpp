@@ -35,10 +35,10 @@ namespace
 }
 
 //No it's not KeystoneDoor
-INTERCEPT(17948416, void, SeinCharacter__FixedUpdate, (SeinCharacter_o* this_ptr), {
-    //auto position = SeinCharacter__get_Position(get_sein());
-    //position.x = 0.0f;
-    //position.y = 0.0f;
-    //position.z = 0.0f;
-    //SeinCharacter__set_Position(get_sein(), position);
-})
+/*INTERCEPT(17948416, void, SeinCharacter__FixedUpdate, (SeinCharacter_o* this_ptr), {
+    auto position = SeinCharacter__get_Position(get_sein());
+    position.x = 0.0f;
+    position.y = 0.0f;
+    position.z = 0.0f;
+    SeinCharacter__set_Position(get_sein(), position);
+})*/
