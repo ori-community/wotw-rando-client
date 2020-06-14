@@ -47,11 +47,6 @@ namespace
         }
     }
 
-    Game_UI_c* get_game_controller()
-    {
-        return *(Game_UI_c**)resolve_rva(71714856);
-    }
-
     // nullcheck helper
     bool is_visible(MessageBox_o* box)
     {
@@ -59,25 +54,21 @@ namespace
     }
 }
 
-INTERCEPT(13849632, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 c), {
-    //MessageControllerB$$ShowAbilityMessage
-    return 0;
- });
-
-INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c), {
-    //MessageControllerB$$ShowShardMessage
-    return 0;
-});
 
 INTERCEPT(13866448, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b), {
     //MessageControllerB$$ShowSpiritTreeTextMessage
     return 0;
 });
 
-INTERCEPT(5806192, void, performPickupSequence, (__int64 thisPtr, __int64 info), {
-    //SeinPickupProcessor$$PerformPickupSequence
-    //noping this removes all pickup animations
-});
+INTERCEPT(13849632, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 c), {
+  //MessageControllerB$$ShowAbilityMessage
+  return 0;
+  });
+
+INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c), {
+  //MessageControllerB$$ShowShardMessage
+  return 0;
+  });
 
 INTERCEPT(13843376, bool, anyAbilityPickupStoryMessagesVisible, (__int64 thisPtr), {
     //MessageControllerB$$get_AnyAbilityPickupStoryMessagesVisible
@@ -161,7 +152,7 @@ MessageBox_o * display_hint(System_String_o * hint, float duration)
     try
     {
         clear_visible_hints();
-        const auto message_controller = get_game_controller()->static_fields->MessageController;
+        const auto message_controller = get_UI()->static_fields->MessageController;
         auto last_box = MessageControllerB__ShowHintSmallMessage(message_controller, MessageDescriptor_o{hint, 0, nullptr, nullptr}, print_position, duration);
         last_box->MessageIndex = 1;
         last_handle = il2cpp_gchandle_new_weakref((Il2CppObject*) last_box, true);

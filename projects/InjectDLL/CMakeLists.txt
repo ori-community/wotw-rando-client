@@ -19,6 +19,7 @@ set(
 	"features/goal_mode_check.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
+	"pickups/pickups.cpp"
 	"pickups/energy_cell.cpp"
 	"pickups/experience.cpp"
 	"pickups/health_cell.cpp"
@@ -41,6 +42,7 @@ set(
 	"pe_module.h"
 	"fixes/dash.h"
 	"pickups/ore.h"
+	"pickups/pickups.h"
 )
 
 set(

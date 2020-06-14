@@ -285,6 +285,7 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       Randomizer.Memory.Experience += Amount;
+      InterOp.shake_spiritlight();
       base.Grant(skipBase);
     }
 
@@ -375,9 +376,11 @@ namespace RandoMainDLL {
           break;
         case ResourceType.Ore:
           InterOp.set_ore(++Randomizer.Memory.Ore);
+          InterOp.shake_ore();
           break;
         case ResourceType.Keystone:
           Randomizer.Memory.Keystones++;
+          InterOp.shake_keystone();
           break;
         case ResourceType.ShardSlot:
           Randomizer.Memory.Shards++;

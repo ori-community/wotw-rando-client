@@ -143,10 +143,12 @@ Game_Characters_StaticFields* get_characters()
 {
 	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
 }
-
+Game_UI_c* get_UI() { 
+  return (*(Game_UI_c**)resolve_rva(71714856));  // Class$Game.UI
+} 
 SeinCharacter_o* get_sein()
 {
-    return (*(Game_Characters_c**)resolve_rva(71425184))->static_fields->m_sein;
+    return get_characters()->m_sein;
 }
 
 extern "C" __declspec(dllexport)
