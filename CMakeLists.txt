@@ -39,6 +39,8 @@ message(STATUS "archive directory: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
 message(STATUS "library directory: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 message(STATUS "runtime directory: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
+set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "runtime")
+
 function(set_vc_structure root vc_files)
 	foreach(FILE ${vc_files})
 		# Get the directory of the source file
@@ -80,3 +82,15 @@ set(
 )
 
 add_subdirectory("projects")
+
+add_custom_target(
+	INSTALL_RUNTIME
+	cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
+	DEPENDS InjectDLL WinNetwork Injector RandoMainDLL TraceClientManaged
+)
+
+set_target_properties(
+	INSTALL_RUNTIME
+	PROPERTIES
+		FOLDER CMakePredefinedTargets
+)

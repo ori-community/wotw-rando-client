@@ -25,13 +25,14 @@
 
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
+#include <WinNetwork/ext.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 void* game_controller_instance_ptr = NULL;
 
 bool trace_enabled = false;
 // if you are debugging and don't want the trace client to be dropped set this to false.
-bool trace_pinging_enabled = false;
+bool trace_pinging_enabled = true;
 bool debug_enabled = true;
 bool info_enabled = true;
 bool error_enabled = true;
@@ -113,27 +114,27 @@ INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 
 INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
 	csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
-  SaveGameController__SaveToFile(thisPtr, slotIndex, -1, bytes);
+    SaveGameController__SaveToFile(thisPtr, slotIndex, -1, bytes);
 });
 
 INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
-  csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
-  SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
+    csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
+    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
 });
 
 INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
-	csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-  SaveGameController__OnFinishedLoading(thisPtr);
+    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SaveGameController__OnFinishedLoading(thisPtr);
 });
 
 INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
-  csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-  SaveGameController__RestoreCheckpoint(thisPtr);
+    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SaveGameController__RestoreCheckpoint(thisPtr);
 });
 
 INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
-  csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-  SeinHealthController__OnRespawn(thisPtr);
+    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SeinHealthController__OnRespawn(thisPtr);
 });
 
 // GameController$get_InputLocked
@@ -345,8 +346,14 @@ void main_thread(){
 	csharp_lib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
 	if(csharp_lib->call<bool>("Initialize"))
 	{
-        char arg[] = "TraceEnabled";
-        trace_enabled = csharp_lib->call<bool>("CheckIni", arg);
+        {
+            constexpr char arg1[] = "TraceEnabled";
+            trace_enabled = csharp_lib->call<bool>("CheckIni", arg1);
+
+            constexpr char arg2[] = "TracePingingDisabled";
+            trace_pinging_enabled = !csharp_lib->call<bool>("CheckIni", arg2);
+        }
+
         if (trace_enabled)
         {
             network::initialize_peer(network_data);
