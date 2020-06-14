@@ -17,7 +17,7 @@ if %errorlevel% equ 0 (
 	xcopy /i /y /s ..\..\packages .\packages
 
 	rem Restore nuget packages added by DllExport.
-	dotnet restore ./WotWRandomizer.sln
+	dotnet restore ./WotWRandomizer.sln -r win-x64
 	dotnet sln ./projects/Injector/Injector.sln remove ./projects/Injector/ALL_BUILD.vcxproj
 	dotnet sln ./projects/Injector/Injector.sln remove ./projects/Injector/INSTALL.vcxproj
 )

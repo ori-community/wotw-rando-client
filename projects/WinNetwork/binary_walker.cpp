@@ -19,7 +19,7 @@ namespace network
             if (size > walker.size - walker.cursor)
                 size = walker.size - walker.cursor;
 
-            memcpy_s(walker.data, size, buffer, size);
+            memcpy_s(walker.data + walker.cursor, size, buffer, size);
             return size;
         }
 

@@ -8,7 +8,35 @@ ImVec2 operator +(ImVec2 lhs, ImVec2 const& rhs)
     return lhs;
 }
 
+ImVec2 operator -(ImVec2 lhs, ImVec2 const& rhs)
+{
+    lhs.x -= rhs.x;
+    lhs.y -= rhs.y;
+    return lhs;
+}
+
 ImVec2 operator *(ImVec2 lhs, float const& rhs)
+{
+    lhs.x *= rhs;
+    lhs.y *= rhs;
+    return lhs;
+}
+
+ImVec2& operator +=(ImVec2& lhs, ImVec2 const& rhs)
+{
+    lhs.x += rhs.x;
+    lhs.y += rhs.y;
+    return lhs;
+}
+
+ImVec2& operator -=(ImVec2& lhs, ImVec2 const& rhs)
+{
+    lhs.x -= rhs.x;
+    lhs.y -= rhs.y;
+    return lhs;
+}
+
+ImVec2& operator *=(ImVec2& lhs, float const& rhs)
 {
     lhs.x *= rhs;
     lhs.y *= rhs;

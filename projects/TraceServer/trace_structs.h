@@ -20,7 +20,7 @@ const std::string MessageTypeNames[4] = {
     "debug",
 };
 
-enum class MessageType
+enum class MessageType : int
 {
     Info,
     Warning,
@@ -63,6 +63,7 @@ struct TraceData
         , min_level_filter(0, { 1, 2, 3, 4, 5 })
         , max_level_filter(2, { 1, 2, 3, 4, 5 })
         , group_filter{ 0 }
+        , text_filter{ 0 }
         , messages()
     {}
 
@@ -83,6 +84,7 @@ struct TraceData
     Dropdown<int> min_level_filter;
     Dropdown<int> max_level_filter;
     char group_filter[64];
+    char text_filter[256];
     bool show_type[4];
 
     // Messages
@@ -91,6 +93,7 @@ struct TraceData
 
 struct GuiData
 {
+    std::string title;
     int next_gid = 10;
     bool running = true;
     ImVec2 window_size = { 1280.f, 720.f };

@@ -91,6 +91,13 @@ namespace RandoMainDLL {
       [DllExport]
       public static ulong GetShardSlotPtr() => Randomizer.Memory.ShardSlotPtr();
 
+
+      [DllExport]
+      public static bool CheckIni(IntPtr str) {
+        var managedStr = Marshal.PtrToStringAnsi(str);
+        return AHK.IniFlag(managedStr);
+      }
+
       [DllExport]
       public static bool InjectLogEnabled() => !AHK.IniFlag("MuteInjectLogs");
 

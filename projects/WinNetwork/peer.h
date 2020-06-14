@@ -35,6 +35,7 @@ namespace network
             , socket(0)
             , address()
             , buffer()
+            , ping_enabled(true)
         {}
 
         int id;
@@ -42,6 +43,7 @@ namespace network
         sockaddr address;
         std::vector<char> buffer;
         std::chrono::system_clock::time_point ping;
+        bool ping_enabled;
     };
 
     struct NetworkData
@@ -50,6 +52,7 @@ namespace network
             : port(0)
             , listen_queue_size(10)
             , is_server(true)
+            , retry_client_connect(true)
             , logging_callback()
             , event_handler()
             , errored(false)
@@ -66,6 +69,7 @@ namespace network
         int port;
         int listen_queue_size;
         bool is_server;
+        bool retry_client_connect;
         std::function<void(std::string const&)> logging_callback;
         std::function<void(NetworkEvent const&)> event_handler;
 
@@ -101,6 +105,11 @@ namespace network
         Undefined
     };
 
+    // Enabled by default.
+    bool set_pinging(NetworkData& data, int id, bool enabled);
+
+    void send_data(PeerData& data, const char* ptr, int size);
+    bool send_data(NetworkData& data, int id, const char* ptr, int size);
     void send_str(PeerData& data, std::string const& str);
     bool send_str(NetworkData& data, int id, std::string const& str);
 
