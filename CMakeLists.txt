@@ -76,7 +76,7 @@ string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 set(
 	WOTWR_BASE_INCLUDES
-	"${CMAKE_ROOT_DIRECTORY}"
+	"${CMAKE_ROOT_DIRECTORY}/projects"
 )
 
 add_subdirectory("projects")

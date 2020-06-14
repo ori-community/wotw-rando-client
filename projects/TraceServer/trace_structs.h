@@ -6,27 +6,44 @@
 #include <string>
 #include <vector>
 
-const ImVec4 MessageTypeColors[3] = {
+const ImVec4 MessageTypeColors[4] = {
     { 1.f, 1.f, 1.f, 1.f },
     { 1.f, 1.f, 0.f, 1.f },
-    { 1.f, 0.f, 0.f, 1.f }
+    { 1.f, 0.f, 0.f, 1.f },
+    { 1.f, 0.f, 1.f, 1.f }
 };
 
-const std::string MessageTypeNames[3] = {
+const std::string MessageTypeNames[4] = {
     "info",
     "warning",
     "error",
+    "debug",
 };
 
 enum class MessageType
 {
     Info,
     Warning,
-    Error
+    Error,
+    Debug
 };
 
 struct Message
 {
+    Message()
+        : level(1)
+        , type(MessageType::Info)
+        , group()
+        , message()
+    {}
+
+    Message(int p_level, MessageType p_type, std::string const & p_group, std::string const& p_message)
+        : level(p_level)
+        , type(p_type)
+        , group(p_group)
+        , message(p_message)
+    {}
+
     int level;
     MessageType type;
     std::string group;
@@ -66,7 +83,7 @@ struct TraceData
     Dropdown<int> min_level_filter;
     Dropdown<int> max_level_filter;
     char group_filter[64];
-    bool show_type[3];
+    bool show_type[4];
 
     // Messages
     std::vector<Message> messages;

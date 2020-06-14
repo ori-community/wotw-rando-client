@@ -17,9 +17,10 @@ using System.Threading.Tasks;
 namespace Trace {
 
   public enum MessageType {
-    Info,
-    Warning,
-    Error
+    Info = 1,
+    Warning = 2,
+    Error = 3,
+    Debug = 4
   }
 
   public class TraceClient : IDisposable {
@@ -72,7 +73,7 @@ namespace Trace {
       walker.Put((byte)0xF1);
       walker.Put((int)type);
       walker.Put(level);
-      walker.Put(group);
+      walker.Put(string.Format("[{0}]", message));
       walker.Put(message);
       client.Send(walker.Buffer.ToArray());
     }

@@ -9,9 +9,7 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
 	SOURCE_FILES
 	"app.cpp"
-	"binary_walker.cpp"
 	"ext.cpp"
-	"server.cpp"
 	"gui/imgui.cpp"
 	"gui/imgui_draw.cpp"
 	"gui/imgui_widgets.cpp"
@@ -26,9 +24,7 @@ set(
 
 set(
 	PUBLIC_HEADER_FILES
-	"binary_walker.h"
 	"ext.h"
-	"server.h"
 	"trace_structs.h"
 	
 	"gui/imconfig.h"
@@ -87,6 +83,7 @@ target_link_libraries(
 	"${WOTWR_LIB_DIR}/SDL2/SDL2.lib"
 	"${WOTWR_LIB_DIR}/SDL2/SDL2main.lib"
 	"${OPENGL_LIBRARIES}"
+	WinNetwork
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

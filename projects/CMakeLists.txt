@@ -1,4 +1,6 @@
 add_subdirectory("TraceClientManaged")
+add_subdirectory("WinNetwork")
+
 add_subdirectory("InjectDLL")
 add_subdirectory("Injector")
 add_subdirectory("RandoMainDLL")
