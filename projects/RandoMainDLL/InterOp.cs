@@ -106,6 +106,8 @@ namespace RandoMainDLL {
 
       [DllExport]
       public static bool TPToAnyPickup() => AHK.TPToPickupsEnabled;
+      [DllExport]
+      public static bool InvertSwim() => AHK.IniFlag("InvertSwim");
 
 
       // save interops
