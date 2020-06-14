@@ -1,16 +1,14 @@
+#include <build.h>
 #include <ext.h>
+#include <opengl_engine.h>
+#include <vulkan_engine.h>
 #include <trace_structs.h>
 #include <gui/imgui.h>
 #include <gui/imgui_internal.h>
-#include <gui/implementation/imgui_impl_opengl2.h>
-#include <gui/implementation/imgui_impl_sdl.h>
 
 #include <WinNetwork/constants.h>
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
 
 #include <stdio.h>
 #include <string>
@@ -20,170 +18,120 @@ void trace_show_top_bar(network::NetworkData& data, TraceData& trace);
 void show_filter_window(TraceData& trace);
 void show_info_window(TraceData& trace);
 void show_trace_data(network::NetworkData& data, TraceData& trace);
-void handle_events(GuiData& data, SDL_Event const& event);
 void init_test_data(GuiData& data);
 
 void handle_network_events(GuiData& data, network::NetworkEvent const& evt);
 
+GuiData gui_data;
+network::NetworkData network_data;
+
+void initalize()
+{
+
+}
+
+void handle_events(SDL_Event const& event)
+{
+    if (event.type == SDL_WINDOWEVENT)
+    {
+        switch (event.window.event)
+        {
+        case SDL_WINDOWEVENT_RESIZED:
+            gui_data.window_size.x = static_cast<float>(event.window.data1);
+            gui_data.window_size.y = static_cast<float>(event.window.data2);
+            break;
+        default:
+            break;
+        }
+    }
+
+    if (event.type == SDL_QUIT)
+        gui_data.running = false;
+}
+
+void tick()
+{
+    network::poll_peer(network_data);
+
+    // TODO: Add a way to reopen closed traces.
+    // Remove disconnected and closed traces.
+    for (auto it = gui_data.traces.begin(); it != gui_data.traces.end();)
+    {
+        if (!it->connected && !it->open)
+            it = gui_data.traces.erase(it);
+        else
+            ++it;
+    }
+}
+
+void render()
+{
+    ImGui::Begin(
+        "Main Window",
+        nullptr,
+        ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoBringToFrontOnFocus
+    );
+
+    ImGui::SetWindowPos({ 0.f, 0.f });
+    ImGui::SetWindowSize(gui_data.window_size, ImGuiCond_Always);
+    ImGui::Dummy({ 10.f, 10.f });
+    ImGui::Dummy({ 10.f, 10.f });
+    ImGui::SameLine();
+    ImGui::Text("Trace Server");
+    ImGui::Dummy({ 20.f, 10.f });
+    ImGui::SameLine();
+    ImGui::Text("Shows windows for each application we are tracing.");
+    ImGui::Dummy({ 10.f, 100.f });
+    ImGui::Dummy({ 10.f, 10.f });
+    ImGui::SameLine();
+    ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Dummy({ 10.f, 10.f });
+    ImGui::SameLine();
+    ImGui::Text("Size: {%f, %f}", gui_data.window_size.x, gui_data.window_size.y);
+
+    auto size = ImGui::GetContentRegionAvail();
+    const float desired_size = 200.f;
+    auto offset = size.y - desired_size - 5.f;
+    if (offset < 0.f)
+        offset = 0.f;
+
+    ImGui::Dummy({ 0.f, offset });
+    ImGui::BeginChild(2, { size.x, desired_size }, true, ImGuiWindowFlags_NoTitleBar);
+    for (auto const& str : gui_data.log)
+        ImGui::Text(str.c_str());
+
+    if (gui_data.log.size() > gui_data.prev_log_count)
+        ImGui::SetScrollY(ImGui::GetScrollMaxY());
+
+    gui_data.prev_log_count = static_cast<int>(gui_data.log.size());
+    ImGui::EndChild();
+
+    for (auto& trace : gui_data.traces)
+        show_trace_data(network_data, trace);
+
+    ImGui::End();
+}
+
 int main(int, char**)
 {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0)
-    {
-        printf("Error: %s\n", SDL_GetError());
-        return -1;
-    }
-
-    GuiData data;
-
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-    uint32_t window_flags = static_cast<uint32_t>(
-        SDL_WindowFlags::SDL_WINDOW_OPENGL |
-        SDL_WindowFlags::SDL_WINDOW_RESIZABLE |
-        SDL_WindowFlags::SDL_WINDOW_ALLOW_HIGHDPI
-    );
-
-    SDL_Window* window = SDL_CreateWindow(
-        "Trace Server",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        static_cast<int>(data.window_size.x),
-        static_cast<int>(data.window_size.y),
-        window_flags
-    );
-
-    SDL_SetWindowMinimumSize(window, 720, 405);
-
-    SDL_GLContext gl_context = SDL_GL_CreateContext(window);
-    SDL_GL_MakeCurrent(window, gl_context);
-    SDL_GL_SetSwapInterval(1); // VSync
-
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
-
-    io.IniFilename = nullptr;
-    ImGui::StyleColorsDark();
-
-    ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
-    ImGui_ImplOpenGL2_Init();
-
-    io.Fonts->AddFontDefault();
-
-    bool show_another_window = false;
-    ImVec4 clear_color = { 0.45f, 0.55f, 0.60f, 1.00f };
-
-    //init_test_data(data);
-
-    network::NetworkData sd;
-    sd.port = 27666;
-    sd.listen_queue_size = 10;
-    sd.logging_callback = [&data](std::string const& str) {
-        data.log.push_back(str);
+    network_data.port = 27666;
+    network_data.listen_queue_size = 10;
+    network_data.logging_callback = [](std::string const& str) {
+        gui_data.log.push_back(str);
     };
-    
-    sd.event_handler = [&data](network::NetworkEvent const& evt) { handle_network_events(data, evt); };
 
-    network::initialize_peer(sd);
-    network::start_peer(sd);
+    network_data.event_handler = [](network::NetworkEvent const& evt) { handle_network_events(gui_data, evt); };
 
-    while (data.running)
-    {
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            ImGui_ImplSDL2_ProcessEvent(&event);
-            handle_events(data, event);
-        }
+    network::initialize_peer(network_data);
+    network::start_peer(network_data);
 
-        network::poll_peer(sd);
+    int ret = start_loop(gui_data, initalize, handle_events, tick, render);
 
-        // TODO: Add a way to reopen closed traces.
-        // Remove disconnected and closed traces.
-        for (auto it = data.traces.begin(); it != data.traces.end();)
-        {
-            if (!it->connected && !it->open)
-                it = data.traces.erase(it);
-            else
-                ++it;
-        }
-
-        ImGui_ImplOpenGL2_NewFrame();
-        ImGui_ImplSDL2_NewFrame(window);
-        ImGui::NewFrame();
-
-        {
-            ImGui::Begin(
-                "Main Window",
-                nullptr,
-                ImGuiWindowFlags_NoTitleBar |
-                ImGuiWindowFlags_NoMove |
-                ImGuiWindowFlags_NoResize |
-                ImGuiWindowFlags_NoBringToFrontOnFocus
-            );
-
-            ImGui::SetWindowPos({ 0.f, 0.f });
-            ImGui::SetWindowSize(data.window_size, ImGuiCond_Always);
-            ImGui::Dummy({ 10.f, 10.f });
-            ImGui::Dummy({ 10.f, 10.f });
-            ImGui::SameLine();
-            ImGui::Text("Trace Server");
-            ImGui::Dummy({ 20.f, 10.f });
-            ImGui::SameLine();
-            ImGui::Text("Shows windows for each application we are tracing.");
-            ImGui::Dummy({ 10.f, 100.f });
-            ImGui::Dummy({ 10.f, 10.f });
-            ImGui::SameLine();
-            ImGui::Text("FPS: %d", ImGui::GetFrameCount());
-            ImGui::Text("Size: {%f, %f}", data.window_size.x, data.window_size.y);
-
-            auto size = ImGui::GetContentRegionAvail();
-            const float desired_size = 200.f;
-            auto offset = size.y - desired_size - 5.f;
-            if (offset < 0.f)
-                offset = 0.f;
-
-            ImGui::Dummy({ 0.f, offset });
-            ImGui::BeginChild(2, { size.x, desired_size }, true, ImGuiWindowFlags_NoTitleBar);
-            for (auto const& str : data.log)
-                ImGui::Text(str.c_str());
-
-            if (data.log.size() > data.prev_log_count)
-                ImGui::SetScrollY(ImGui::GetScrollMaxY());
-
-            data.prev_log_count = static_cast<int>(data.log.size());
-            ImGui::EndChild();
-
-            for (auto& trace : data.traces)
-                show_trace_data(sd, trace);
-
-            ImGui::End();
-        }
-        
-        ImGui::Render();
-        glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-        glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-        SDL_GL_SwapWindow(window);
-    }
-
-    network::shutdown_peer(sd);
-
-    ImGui_ImplOpenGL2_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
-    ImGui::DestroyContext();
-
-    SDL_GL_DeleteContext(gl_context);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-
-    return 0;
+    network::shutdown_peer(network_data);
+    return ret;
 }
 
 void show_trace_data(network::NetworkData& data, TraceData& trace)
@@ -456,25 +404,6 @@ void show_info_window(TraceData& trace)
         ImGui::Text(message.message.c_str());
         ImGui::NextColumn();
     }
-}
-
-void handle_events(GuiData& data, SDL_Event const& event)
-{
-    if (event.type == SDL_WINDOWEVENT)
-    {
-        switch (event.window.event)
-        {
-        case SDL_WINDOWEVENT_RESIZED:
-            data.window_size.x = static_cast<float>(event.window.data1);
-            data.window_size.y = static_cast<float>(event.window.data2);
-            break;
-        default:
-            break;
-        }
-    }
-
-    if (event.type == SDL_QUIT)
-        data.running = false;
 }
 
 void handle_network_events(GuiData& data, network::NetworkEvent const& evt)

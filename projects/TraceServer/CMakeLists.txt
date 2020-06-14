@@ -5,6 +5,7 @@ message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
 
 set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
+set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(
 	SOURCE_FILES
@@ -14,8 +15,9 @@ set(
 	"gui/imgui_draw.cpp"
 	"gui/imgui_widgets.cpp"
 	
-	"gui/implementation/imgui_impl_opengl2.cpp"
 	"gui/implementation/imgui_impl_sdl.cpp"
+	"gui/implementation/imgui_impl_opengl2.cpp"
+	"gui/implementation/imgui_impl_vulkan.cpp"
 	
 	"gui/imgui_demo.cpp"
 	
@@ -25,6 +27,8 @@ set(
 set(
 	PUBLIC_HEADER_FILES
 	"ext.h"
+	"opengl_engine.h"
+	"vulkan_engine.h"
 	"trace_structs.h"
 	
 	"gui/imconfig.h"
@@ -34,8 +38,9 @@ set(
 	"gui/imstb_textedit.h"
 	"gui/imstb_truetype.h"
 	
-	"gui/implementation/imgui_impl_opengl2.h"
 	"gui/implementation/imgui_impl_sdl.h"
+	"gui/implementation/imgui_impl_opengl2.h"
+	"gui/implementation/imgui_impl_vulkan.h"
 	
 	"gui_helpers/dropdown.h"
 )
@@ -45,10 +50,31 @@ set(
 	".editorconfig"
 )
 
+set(Vulkan_FOUND FALSE)
+if (NOT USE_OPENGL)
+	find_package(Vulkan)
+	if (Vulkan_FOUND)
+		set(RENDER_INCLUDES "${Vulkan_INCLUDE_DIRS}")
+		set(RENDER_LIBRARY Vulkan::Vulkan)
+	endif()
+else()
+	message(STATUS "Skipping Vulkan search due to USE_OPENGL")
+endif()
+
+if (NOT Vulkan_FOUND)
+	find_package(OpenGL REQUIRED)
+	set(RENDER_INCLUDES "${OpenGL_INCLUDE_DIRS}")
+	set(RENDER_LIBRARY OpenGL::GL)
+endif()
+
+configure_file(${PROJECT_DIR}/build.h.in ${CONFIG_DIR}/build.h)
+
 add_executable(${PROJECT_NAME} WIN32
 	${SOURCE_FILES}
 	${PUBLIC_HEADER_FILES}
 	${MISC_FILES}
+	${PROJECT_DIR}/build.h.in
+	${CONFIG_DIR}/build.h
 )
 
 set_target_properties(
@@ -59,30 +85,31 @@ set_target_properties(
 		FOLDER cpp
 )
 
-find_package(OpenGL)
-
 target_include_directories(
 	${PROJECT_NAME}
 	PRIVATE
 		.
 		${CMAKE_CONFIG_DIRECTORY}
-		${CONFIG_DIRECTORY}
 		${CMAKE_ENGINE_DIRECTORY}
 		${WOTWR_LIB_INCLUDE_DIR}
-		${OPENGL_INCLUDE_DIRS}
+		${RENDER_INCLUDES}
+		${CONFIG_DIR}
 	SYSTEM
 		${WOTWR_BASE_INCLUDES}
 )
 
 message(STATUS "Assigning source groups.")
 
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
+set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
+
+source_group("" FILES "${CONFIG_DIR}/build.h")
+source_group("" FILES "${PROJECT_DIR}/build.h.in")
 
 target_link_libraries(
 	${PROJECT_NAME}
-	"${WOTWR_LIB_DIR}/SDL2/SDL2.lib"
-	"${WOTWR_LIB_DIR}/SDL2/SDL2main.lib"
-	"${OPENGL_LIBRARIES}"
+	${WOTWR_LIB_DIR}/SDL2/SDL2.lib
+	${WOTWR_LIB_DIR}/SDL2/SDL2main.lib
+	${RENDER_LIBRARY}
 	WinNetwork
 )
 

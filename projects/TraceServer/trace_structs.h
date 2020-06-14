@@ -93,6 +93,7 @@ struct TraceData
 
 struct GuiData
 {
+    std::string title;
     int next_gid = 10;
     bool running = true;
     ImVec2 window_size = { 1280.f, 720.f };
