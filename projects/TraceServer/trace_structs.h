@@ -4,6 +4,7 @@
 #include <gui_helpers/dropdown.h>
 
 #include <string>
+#include <array>
 #include <vector>
 
 const ImVec4 MessageTypeColors[4] = {
@@ -50,6 +51,34 @@ struct Message
     std::string message;
 };
 
+struct TraceFilters
+{
+    TraceFilters()
+        : min_level_filter(0)
+        , max_level_filter(2)
+        , group_filter{ 0 }
+        , text_filter{ 0 }
+        , show_type{ true, true, true, true }
+    {}
+
+    int min_level_filter;
+    int max_level_filter;
+    std::array<char, 64> group_filter;
+    std::array<char, 256> text_filter;
+    std::array<bool, 4> show_type;
+};
+
+bool operator !=(TraceFilters const& lhs, TraceFilters const& rhs)
+{
+    return (
+        lhs.min_level_filter != rhs.min_level_filter ||
+        lhs.max_level_filter != rhs.max_level_filter ||
+        lhs.group_filter != rhs.group_filter ||
+        lhs.text_filter != rhs.text_filter ||
+        lhs.show_type != rhs.show_type
+    );
+}
+
 struct TraceData
 {
     TraceData(int p_gid, int p_id, std::string const& p_name)
@@ -57,14 +86,15 @@ struct TraceData
         , gid(p_gid)
         , id(p_id)
         , show_filters(true)
+        , auto_scroll(true)
         , open(true)
         , connected(false)
         , init(false)
-        , min_level_filter(0, { 1, 2, 3, 4, 5 })
-        , max_level_filter(2, { 1, 2, 3, 4, 5 })
-        , group_filter{ 0 }
-        , text_filter{ 0 }
+        , filter()
+        , min_dropdown(&filter.min_level_filter, { 1, 2, 3, 4, 5 })
+        , max_dropdown(&filter.max_level_filter, { 1, 2, 3, 4, 5 })
         , messages()
+        , filtered_messages()
     {}
 
     int gid;
@@ -77,18 +107,15 @@ struct TraceData
     bool init;
 
     ImVec2 info_window;
-    float column_widths[5];
-    int prev_entry_count;
 
     // Filters
-    Dropdown<int> min_level_filter;
-    Dropdown<int> max_level_filter;
-    char group_filter[64];
-    char text_filter[256];
-    bool show_type[4];
+    TraceFilters filter;
+    Dropdown<int> min_dropdown;
+    Dropdown<int> max_dropdown;
 
     // Messages
     std::vector<Message> messages;
+    std::vector<size_t> filtered_messages;
 };
 
 struct GuiData

@@ -2,6 +2,7 @@
 
 #if !USE_VULKAN
 
+#include <trace_structs.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <gui/implementation/imgui_impl_sdl.h>
@@ -71,7 +72,7 @@ int start_loop(GuiData& data, init_callback init, event_callback handle_event, t
         while (SDL_PollEvent(&evt))
         {
             ImGui_ImplSDL2_ProcessEvent(&evt);
-            handle_event(data, evt);
+            handle_event(evt);
         }
 
         tick();
@@ -97,6 +98,8 @@ int start_loop(GuiData& data, init_callback init, event_callback handle_event, t
     SDL_GL_DeleteContext(gl_context);
     SDL_DestroyWindow(window);
     SDL_Quit();
+
+    return 0;
 }
 
 #endif
