@@ -98,6 +98,31 @@ namespace network
             return NetworkError::WSAStartup;
         }
 
+        return NetworkError::Ok;
+    }
+    
+    NetworkError initialize_socket(NetworkData& data)
+    {
+        if (data.errored)
+            return NetworkError::Undefined;
+
+        if (data.socket != INVALID_SOCKET)
+        {
+            int result = shutdown(data.socket, SD_BOTH);
+            if (result != 0)
+            {
+                data.logging_callback(format("socket shutdown() error %d\n", WSAGetLastError()));
+            }
+
+            result = closesocket(data.socket);
+            if (result != 0)
+            {
+                data.logging_callback(format("socket closesocket() error %d\n", WSAGetLastError()));
+            }
+
+            data.socket = INVALID_SOCKET;
+        }
+
         data.socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
         if (data.socket == INVALID_SOCKET)
         {
@@ -107,7 +132,7 @@ namespace network
         }
 
         unsigned long argp = 1;
-        result = setsockopt(data.socket, SOL_SOCKET, SO_REUSEADDR, (char*)&argp, sizeof(argp));
+        int result = setsockopt(data.socket, SOL_SOCKET, SO_REUSEADDR, (char*)&argp, sizeof(argp));
         if (result != 0)
         {
             data.logging_callback(format("setsockopt() error %d\n", result));
@@ -128,8 +153,9 @@ namespace network
 
     NetworkError start_peer(NetworkData& data)
     {
-        if (data.errored)
-            return NetworkError::Undefined;
+        NetworkError output = initialize_socket(data);
+        if (output != NetworkError::Ok)
+            return output;
 
         if (data.is_server)
         {
@@ -170,7 +196,6 @@ namespace network
                 data.address.sin_addr = ((struct sockaddr_in*)res->ai_addr)->sin_addr;
                 PeerData peer;
                 peer.socket = data.socket;
-                peer.id = data.next_id++;
                 peer.address = *reinterpret_cast<sockaddr*>(&data.address);
 
                 int result = connect(peer.socket, &peer.address, sizeof(sockaddr_in));
@@ -186,6 +211,9 @@ namespace network
                     case WSAEWOULDBLOCK:
                     case WSAEALREADY:
                     {
+                        peer.id = data.next_id++;
+                        peer.ping = std::chrono::system_clock::now();
+
                         data.peers.push_back(peer);
 
                         NetworkEvent evt;
@@ -425,15 +453,11 @@ namespace network
 
         int result = shutdown(peer.socket, SD_BOTH);
         if (result != 0)
-        {
             data.logging_callback(format("socket shutdown() error %d\n", WSAGetLastError()));
-        }
 
         result = closesocket(peer.socket);
         if (result != 0)
-        {
             data.logging_callback(format("socket closesocket() error %d\n", WSAGetLastError()));
-        }
 
         peer.socket = INVALID_SOCKET;
     }
