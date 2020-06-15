@@ -215,35 +215,42 @@ namespace Trace {
       sendMutex.ReleaseMutex();
     }
 
+    private void TryNextAddress() {
+      ++currentAddress;
+      if (currentAddress < entry.AddressList.Length) {
+        if (!tryAddress())
+          connectTask = null;
+      }
+      else
+        state = State.Idle;
+    }
+
     public void Poll() {
       switch (state) {
         case State.Connecting:
-          if (connectTask == null || connectTask.IsCanceled || connectTask.IsFaulted) {
-            ++currentAddress;
-            if (currentAddress < entry.AddressList.Length) {
-              if (!tryAddress())
-                connectTask = null;
-            }
-            else
-              state = State.Idle;
-          }
+          if (connectTask == null)
+            TryNextAddress();
           else if (connectTask.IsCompleted) {
-            state = (socket != null) && (destination != null) ? State.Connected : State.Idle;
-            if (state == State.Connected) {
-              connectTask = null;
-              BinaryWalker walker = new BinaryWalker();
-              walker.Put((byte)PackageType.Identifier);
-              walker.Put(Identifier);
-              sendMutex.WaitOne();
-              Send(walker.Buffer.ToArray());
-              sendMutex.ReleaseMutex();
-              pingEnabled = true;
-              lastReceivedPing = DateTime.Now;
-              lastSentPing = DateTime.Now;
-              Console.WriteLine("Client: Connected");
+            if (connectTask.IsCanceled || connectTask.IsFaulted)
+              TryNextAddress();
+            else {
+              state = (socket != null) && (destination != null) ? State.Connected : State.Idle;
+              if (state == State.Connected) {
+                connectTask = null;
+                BinaryWalker walker = new BinaryWalker();
+                walker.Put((byte)PackageType.Identifier);
+                walker.Put(Identifier);
+                sendMutex.WaitOne();
+                Send(walker.Buffer.ToArray());
+                sendMutex.ReleaseMutex();
+                pingEnabled = true;
+                lastReceivedPing = DateTime.Now;
+                lastSentPing = DateTime.Now;
+                Console.WriteLine("Client: Connected");
+              }
+              else
+                Console.WriteLine("Client: Connection failed");
             }
-            else
-              Console.WriteLine("Client: Connection failed");
           }
           break;
         case State.Connected:
