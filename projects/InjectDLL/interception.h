@@ -3,13 +3,14 @@
 #include <string>
 
 struct intercept {
-	intercept(__int64 o, PVOID* oP, PVOID iP, std::string s);
+    intercept(__int64 o, PVOID* oP, PVOID iP, std::string s);
 
-	std::string name;
-	__int64 offset;
-	PVOID* original_pointer;
-	PVOID intercept_pointer;
-	intercept* prev;
+    std::string name;
+    __int64 offset;
+    PVOID* original_pointer;
+    PVOID intercept_pointer;
+    intercept* next;
+    intercept* prev;
 };
 
 extern intercept* last_intercept;

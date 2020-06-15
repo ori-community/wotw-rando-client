@@ -1,67 +1,112 @@
-#include "pch.h"
-#include "interception.h"
-#include "common.h"
+#include <pch.h>
+#include <interception.h>
+#include <common.h>
 #include <detours/detours.h>
+#include <WinNetwork/ext.h>
 
+#include <unordered_map>
+
+intercept* first_intercept = nullptr;
 intercept* last_intercept = nullptr;
 __int64 game_assembly_address;
 
 __int64 resolve_rva(__int64 rva) {
-	if(!game_assembly_address)
-		game_assembly_address = (__int64)GetModuleHandleA("GameAssembly.dll");
+    if (!game_assembly_address)
+        game_assembly_address = reinterpret_cast<__int64>(GetModuleHandleA("GameAssembly.dll"));
 
-	return game_assembly_address + rva;
+    return game_assembly_address + rva;
 }
 
 void interception_init() {
-	DetourRestoreAfterWith();
-	DetourTransactionBegin();
-	DetourUpdateThread(GetCurrentThread());
+    DetourRestoreAfterWith();
+    DetourTransactionBegin();
+    DetourUpdateThread(GetCurrentThread());
 
-	auto current = last_intercept;
-	while(current)
-	{
-		//debug("Binding: " + current->name + " (+" + std::to_string(current->offset) + ")");
-		*current->original_pointer = reinterpret_cast<PVOID*>(resolve_rva(current->offset));
-		if(current->intercept_pointer)
-		{
-			debug("Intercepting: " + current->name + " @ " + std::to_string(reinterpret_cast<__int64>(current->original_pointer)) + " -> " + std::
-				  to_string((__int64)current->intercept_pointer));
-			
-			const auto result = DetourAttach(current->original_pointer, current->intercept_pointer);
-			if(result)
-				error("Error attaching " + current->name + ": " + std::to_string(result));
-			else
-				debug("Attach success");
-		}
+    std::unordered_map<long long, void*> intercept_cache;
+    auto current = last_intercept;
+    while (current)
+    {
+        //debug("Binding: " + current->name + " (+" + std::to_string(current->offset) + ")");
+        *current->original_pointer = reinterpret_cast<PVOID*>(resolve_rva(current->offset));
+        if (current->intercept_pointer)
+        {
+            auto it = intercept_cache.find(current->offset);
+            if (it != intercept_cache.end())
+            {
+                debug(format("Changing intercept address (%d, %d)", *current->original_pointer, it->second));
+                *current->original_pointer = it->second;
+            }
 
-		current = current->prev;
-	}
+            debug(format("Intercepting: %s (%d, %d) @ %d -> %d",
+                current->name.c_str(),
+                game_assembly_address,
+                current->offset,
+                reinterpret_cast<__int64>(*current->original_pointer),
+                reinterpret_cast<__int64>(current->intercept_pointer))
+            );
 
-	const auto result = DetourTransactionCommit();
-	if(result)
-		error("Error during inject commit: " + std::to_string(result));
-	else
-		debug("Injection completed");	
+            PDETOUR_TRAMPOLINE trampoline = nullptr;
+            void* target = nullptr;
+            void* detour = nullptr;
+            const auto result = DetourAttachEx(
+                current->original_pointer,
+                current->intercept_pointer,
+                &trampoline,
+                &target,
+                &detour
+            );
+            if (result)
+                error("Error attaching " + current->name + ": " + std::to_string(result));
+            else
+            {
+                debug(format("Attach success (%d, %d, %d)", trampoline, target, detour));
+                intercept_cache[current->offset] = detour;
+            }
+        }
+
+        current = current->prev;
+    }
+
+    const auto result = DetourTransactionCommit();
+    if (result)
+        error("Error during inject commit: " + std::to_string(result));
+    else
+        debug("Injection completed");
 }
 
 void interception_detach() {
-	auto current = last_intercept;
-	while(current)
-	{
-		if(current->intercept_pointer)
-			DetourDetach(current->original_pointer, current->intercept_pointer);
+    DetourRestoreAfterWith();
+    DetourTransactionBegin();
+    DetourUpdateThread(GetCurrentThread());
 
-		current = current->prev;
-	}
+    auto current = last_intercept;
+    while (current)
+    {
+        if (current->intercept_pointer)
+            DetourDetach(current->original_pointer, current->intercept_pointer);
+
+        current = current->prev;
+    }
+
+    const auto result = DetourTransactionCommit();
+    if (result)
+        error("Error during detach commit: " + std::to_string(result));
+    else
+        debug("Detach completed");
 }
 
 intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
-	: name(std::move(s))
-	, offset(o)
-	, original_pointer(oP)
-	, intercept_pointer(iP)
+    : name(std::move(s))
+    , offset(o)
+    , original_pointer(oP)
+    , intercept_pointer(iP)
+    , next(nullptr)
 {
-	prev = last_intercept;
-	last_intercept = this;
+    prev = last_intercept;
+    if (prev != nullptr)
+        prev->next = prev;
+
+    last_intercept = this;
+    if (first_intercept == nullptr)
+        first_intercept = this;
 }
