@@ -26,6 +26,7 @@ set(
 	"pickups/health_cell.cpp"
 	"pickups/keystone.cpp"
 	"pickups/ore.cpp"
+	"pickups/quests.cpp"
 	"pickups/shops.cpp"
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
