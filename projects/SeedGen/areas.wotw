@@ -27,9 +27,13 @@ requirement DepthsLight:  # currently irrelevant since defeating mora requires f
 area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater well
   state MarshSpawn.KeystoneDoor:
     base: Keystone=2
-  state MarshSpawn.QuestCaveTokk:  # this accounts for taking the cave keystone, then going to tokk
+
+  quest MarshSpawn.CaveKS:
     base: Weapon
-  
+  quest MarshSpawn.TheMissingKey:  # wont be a thing :(
+    base: Unreachable
+    # base: Weapon, MarshSpawn.CaveKS
+
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
   pickup MarshSpawn.PreLupoEX: free
@@ -63,8 +67,6 @@ area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater
       Bash                            # Lure the Jumper, then bash off him
   pickup MarshSpawn.LongSwimEX:
     base: Water
-  pickup MarshSpawn.CaveKS:
-    base: Weapon
   pickup MarshSpawn.LeftTokkEX:
     base: Weapon
   pickup MarshSpawn.FightRoomEX:
@@ -153,17 +155,18 @@ area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tre
       Sword OR Hammer         # Use air combos to make it to wall above thorns
 
 area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, burrows and marsh
-  state MarshSpawn.QuestCaveTokk: free  # this accounts for taking the cave keystone, then going to tokk
-  state MidnightBurrows.TabletQI:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state MarshSpawn.QuestBurrowsTokk:
+  quest MarshSpawn.CaveKS: free  # all other pickups in the cave require a weapon; and with a weapon you can go around instead
+  quest MarshSpawn.TheMissingKey:  # wont be a thing :(
+    base: Unreachable
+    # base: MarshSpawn.CaveKS
+
+  quest MarshSpawn.IntoTheBurrows:
     base: MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
-  
+    
   pickup MarshSpawn.CaveOre:
     base:
       DoubleJump OR Launch
       Bash, Grenade=1
-  pickup MarshSpawn.CaveKS: free  # all other pickups in the cave require a weapon; and with a weapon you can go around instead
   pickup MarshSpawn.BurrowOre:
     base, EnemyObstacle:
       Burrow, DoubleJump, Dash OR Glide
@@ -229,6 +232,10 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
       Launch
     advanced: 
       MidnightBurrows.Lever, DoubleJump OR Dash
+  state MidnightBurrows.TabletQICollected:
+    base, MidnightBurrows.KeystoneDoor:
+      DoubleJump, Bash
+      Launch
   pickup MidnightBurrows.TabletQI:
     base, MidnightBurrows.KeystoneDoor:
       DoubleJump, Bash
@@ -237,18 +244,17 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
 area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
   state HowlsDen.KeystoneDoor:
     base: Keystone=2
-  state MarshSpawn.FangQI:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state MarshSpawn.QuestMokkFang:
-    base: MarshSpawn.FangQI
-  
-  pickup MarshSpawn.FangQI:
+
+  quest MarshSpawn.FangQI:
     base:
       DoubleJump OR Launch
       Bash, Dash                      # Bash off the enemy to get to the vine, then jump&dash right
     advanced:
       Bash, Damage=10                 # Bash off the enemy to get to the vine, then jump right. Dboost the last gap.
-      Bash, Grenade                   # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
+      Bash, Grenade=1                   # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
+  quest MarshSpawn.ALittleBraver:
+    base: MarshSpawn.FangQI
+
   pickup MarshSpawn.FangEC:
     base:
       DoubleJump, Dash                # Stick to the ceiling
@@ -344,6 +350,7 @@ area MarshPastOpher.MillView:  # (-594, -4292) Standing next to Opher, looking a
     advanced:
       Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide      #It's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
 
+  conn OpherShop: free
   conn MarshPastOpher.BowArea:
     base:
       DoubleJump OR Dash OR Launch
@@ -379,6 +386,7 @@ area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with 
       Launch
     advanced:
       Bash, Glide  # bashglide off a slime
+  conn TwillenShop: free
 
 # begin pools path needs validation area?
 area MarshPastOpher.PoolsPathEast:  # (-649, -4243)  On the wood sticking out of the ledge at the top left of the large room with Opher
@@ -476,6 +484,11 @@ area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye
     base, WestHollow.LowerDrainLeverPulled: 
       Weapon
   
+  conn TwillenShop:
+    base:
+      Bow OR Glide OR Launch
+      DoubleJump, Dash
+      Bash, Grenade=1
   conn MarshPastOpher.BowArea:
     base:  # there's a dropping slime in the way here, not sure if damage on some paths might be a good thing?
       DoubleJump OR Launch
@@ -553,11 +566,6 @@ area EastHollow.Teleporter:  # (-150, -4237) the teleporter
       EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
 
 area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
-  state EastHollow.QuestHandToHandMap:
-    base, EastHollow.BeetleDefeated, EastHollow.Voice:
-      Bash, DoubleJump OR Dash OR Glide
-      DoubleJump, Dash, Glide
-      Launch
   state EastHollow.BeetleDefeated:
     base:
       Combat, Danger=15, Dash  # +20 region danger. Kinda tight, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
@@ -568,6 +576,12 @@ area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
     base: 
       Bash, DoubleJump OR Launch
   
+  quest EastHollow.HandToHandMap:
+    base, EastHollow.BeetleDefeated, EastHollow.Voice:
+      Bash, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash, Glide
+      Launch
+
   pickup EastHollow.GladesApproachOre:
     base: 
       EastHollow.BeetleDefeated, EastHollow.Voice, Bash, DoubleJump OR Dash OR Glide OR Launch
@@ -617,6 +631,9 @@ area EastHollow.AboveBash:  # (-9, -4232) At the breakable floor to Bash tree
 area EastHollow.Kwolok:  # (154, -4205) Between Ku and Kwolok
   state EastHollow.Voice: free
 
+  quest EastHollow.KwoloksWisdom:
+    base: EastPools.KwoloksWisdomAmulet, WestPools.KwolokDefeated
+
   pickup EastHollow.RightKwolokEX:
     base: Bash OR Launch
   pickup EastHollow.SilentSwimEC:
@@ -663,17 +680,6 @@ area EastHollow.AboveDepths:  # (50, -4302) To the right of the lever door block
 
 # begin glades needs-validation region
 area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
-  # silent woods map quest doesn't exactly make sense
-  state GladesTown.QuestHandToHandPouch:
-    base: EastHollow.QuestHandToHandMap
-  state GladesTown.QuestHandToHandLantern:
-    base: LowerReach.QuestHandToHandHat
-  state GladesTown.AcornQI:
-    base: Unreachable  # TEMPORARY - delete when quests have syntax
-  state GladesTown.QuestAcorn:
-    base: GladesTown.ClearThorns, GladesTown.AcornQI
-  state GladesTown.QuestFatherKey:
-    base: GladesTown.RoofsOverHeads
   state GladesTown.BuildHuts:
     base: Ore=15
   state GladesTown.RoofsOverHeads:
@@ -685,56 +691,68 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
   state GladesTown.CaveEntrance:
     base: GladesTown.ClearThorns, Ore=29
   # decoration not accounted for
+  state GladesTown.FamilyReunionKey:  # part of a quest, but no reward on this currently
+    base: GladesTown.RoofsOverHeads
 
-  pickup GladesTown.AboveCaveEX:
-    base: GladesTown.ClearThorns
-  pickup GladesTown.CaveBurrowEX:
-    base: GladesTown.ClearThorns, Burrow, DoubleJump OR Launch
-  pickup GladesTown.AcornQI:
+  # silent woods map quest doesn't exactly make sense
+  quest GladesTown.HandToHandPouch:
+    base: EastHollow.HandToHandMap
+  quest GladesTown.HandToHandLantern:
+    base: LowerReach.HandToHandHat
+  quest GladesTown.AcornQI:
     base, GladesTown.ClearThorns, GladesTown.CaveEntrance, Flash:
         Water, Glide
         Water, DoubleJump, Dash
         Bash, Grenade=1
         Launch
     advanced: GladesTown.CaveEntrance, Flash, Water, Dash
+  quest GladesTown.IntoTheDarkness:
+    base: GladesTown.ClearThorns, GladesTown.AcornQI
+  quest GladesTown.RebuildTheGlades:
+    base: Ore=39
+
+  pickup GladesTown.AboveCaveEX:
+    base: GladesTown.ClearThorns
+  pickup GladesTown.CaveBurrowEX:
+    base: GladesTown.ClearThorns, Burrow, DoubleJump OR Launch
   pickup GladesTown.UpdraftCeilingEX:
     base:
       Flap, Glide
       Bash, Grenade=1, DoubleJump
       Launch
-      TuleyShop.QuestLightcatchers, Bash, Grenade=1
-      TuleyShop.QuestBlueMoon, DoubleJump, Grapple
-      TuleyShop.QuestBlueMoon, TuleyShop.QuestLightcatchers, Bash, Grapple
-      TuleyShop.QuestSpringPlants, DoubleJump OR Dash OR Glide
-      TuleyShop.QuestSpringPlants, TuleyShop.QuestLightcatchers, Bash
+      TuleyShop.Lightcatchers, Bash, Grenade=1
+      TuleyShop.BlueMoon, DoubleJump, Grapple
+      TuleyShop.BlueMoon, TuleyShop.Lightcatchers, Bash, Grapple
+      TuleyShop.SpringPlants, DoubleJump OR Dash OR Glide
+      TuleyShop.SpringPlants, TuleyShop.Lightcatchers, Bash
     advanced: Bash, Grenade=2
   pickup GladesTown.AboveTpEX:
     base:
       Launch  # probably base?
-      TuleyShop.QuestLightcatchers, Bash:
+      TuleyShop.Lightcatchers, Bash:
         Grenade=1
         DoubleJump, Flap, Glide
-        TuleyShop.QuestStickyGrass, Grapple
-        TuleyShop.QuestBlueMoon, DoubleJump, Grapple
-        TuleyShop.QuestSpringPlants, DoubleJump
+        TuleyShop.StickyGrass, Grapple
+        TuleyShop.BlueMoon, DoubleJump, Grapple
+        TuleyShop.SpringPlants, DoubleJump
     advanced:
       Bash, Grenade=2, Dash, DoubleJump
   pickup GladesTown.BountyShard:
     base:
       Launch  # probably base?
-      TuleyShop.QuestLightcatchers, Bash:
+      TuleyShop.Lightcatchers, Bash:
         Grenade=1
         DoubleJump, Flap, Glide
-        TuleyShop.QuestStickyGrass, Grapple
-        TuleyShop.QuestBlueMoon, DoubleJump, Grapple
-        TuleyShop.QuestSpringPlants, DoubleJump
+        TuleyShop.StickyGrass, Grapple
+        TuleyShop.BlueMoon, DoubleJump, Grapple
+        TuleyShop.SpringPlants, DoubleJump
     advanced:
       Bash, Grenade=3, Dash, DoubleJump
   pickup GladesTown.ArcingShard:
     base, GladesTown.ClearThorns:
       Bash, Grenade=1  # probably base?
       Launch
-      TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
+      TuleyShop.Lightcatchers, Bash, DoubleJump OR Dash OR Glide
   pickup GladesTown.LupoSoupEX:
     base: Water OR Burrow
   pickup GladesTown.LupoSwimHC:
@@ -750,55 +768,55 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
   pickup GladesTown.KeyMokiHutEX:
     base: GladesTown.RoofsOverHeads, WoodsEntry.DollQI
   pickup GladesTown.DamageTree:
-    base: TuleyShop.QuestLastTree
+    base: TuleyShop.LastTree
 
   conn GladesTown.UpperWest:
     base:
       Launch, DoubleJump OR Dash OR Glide
-      TuleyShop.QuestBlueMoon, Grapple:
+      TuleyShop.BlueMoon, Grapple:
         Bash, Grenade=1
         Launch
-        TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
+        TuleyShop.Lightcatchers, Bash, DoubleJump OR Dash OR Glide
   conn GladesTown.HoleHut:  # hard to tell what's redundant with ReachPath
     base:
       Flap, Glide, DoubleJump
       Flap, Glide, Bash, Grenade=1
       Launch
-      TuleyShop.QuestLightcatchers, Bash:
+      TuleyShop.Lightcatchers, Bash:
         Grenade=2
         Grenade=1, DoubleJump
-        DoubleJump, Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
-        Dash, Grenade=1, Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
-        TuleyShop.QuestSpringPlants
-      TuleyShop.QuestSpringPlants, DoubleJump
+        DoubleJump, Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
+        Dash, Grenade=1, Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
+        TuleyShop.SpringPlants
+      TuleyShop.SpringPlants, DoubleJump
       GladesTown.RoofsOverHeads:
         Bash, Grenade=3
         DoubleJump, Bash, Grenade=2
-        TuleyShop.QuestBlueMoon, Grapple, Bash, Grenade=1, DoubleJump
-        TuleyShop.QuestBlueMoon, Grapple, Bash, Grenade=2, Dash
-        TuleyShop.QuestSpringPlants, Bash, Grenade=1
+        TuleyShop.BlueMoon, Grapple, Bash, Grenade=1, DoubleJump
+        TuleyShop.BlueMoon, Grapple, Bash, Grenade=2, Dash
+        TuleyShop.SpringPlants, Bash, Grenade=1
   conn GladesTown.ReachPath:
     base:
       Launch, DoubleJump OR Dash OR Glide  # Can go either to the right wall or through the semisolid branch
-      Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon:
+      Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon:
         Flap, Glide, DoubleJump OR Dash
         Launch
-        TuleyShop.QuestLightcatchers, Bash:
+        TuleyShop.Lightcatchers, Bash:
           Flap, Glide
           DoubleJump OR Dash
           Grenade=1, DoubleJump OR Dash OR Glide
-          TuleyShop.QuestSpringPlants, DoubleJump OR Dash OR Glide
-        TuleyShop.QuestSpringPlants, DoubleJump
+          TuleyShop.SpringPlants, DoubleJump OR Dash OR Glide
+        TuleyShop.SpringPlants, DoubleJump
         GladesTown.RoofsOverHeads, Bash, Grenade=2, DoubleJump OR Dash
-      TuleyShop.QuestLightcatchers, TuleyShop.QuestBlueMoon, Bash, Grapple:  # this is the only case where StickyGrass or BlueMoon makes a difference since you don't need DoubleJump OR Dash at the end
+      TuleyShop.Lightcatchers, TuleyShop.BlueMoon, Bash, Grapple:  # this is the only case where StickyGrass or BlueMoon makes a difference since you don't need DoubleJump OR Dash at the end
         Grenade=1
-        TuleyShop.QuestSpringPlants
+        TuleyShop.SpringPlants
 
   conn GladesTown.West:
     base:
       DoubleJump OR Launch
       Bash, Grenade=1
-      TuleyShop.QuestStickyGrass, Grapple
+      TuleyShop.StickyGrass, Grapple
   conn TwillenShop: free
   conn OpherShop:
     base: Water, EastHollow.Voice  # what this actually needs is water + the ability to talk to kwolok
@@ -810,29 +828,29 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
 # seed paths to TuleyShop tbd if ever necessary
 # connection to hollow currently redundant with the wall in the way
 area GladesTown.West:  # (-410, -4141) At Motay
-  state GladesTown.QuestHandToHandCanteen:
-    base: EastPools.QuestHandToHandSpyglass
-  state GladesTown.QuestHandToHandLantern:
-    base: LowerReach.QuestHandToHandHat
+  quest GladesTown.HandToHandCanteen:
+    base: EastPools.HandToHandSpyglass
+  quest GladesTown.HandToHandLantern:
+    base: LowerReach.HandToHandHat
 
   pickup GladesTown.UpperOre:
     base:
       Bash, Grenade=1, Launch
       Launch, DoubleJump  # different ways to solve this, should be fine...
-      TuleyShop.QuestStickyGrass:
+      TuleyShop.StickyGrass:
         Grapple OR Launch
         Bash, Grenade=1, DoubleJump, Dash OR Glide
         Bash, Grenade=1, Dash, Glide
-        TuleyShop.QuestLightcatchers, Bash, DoubleJump, Dash
-        TuleyShop.QuestLightcatchers, Bash, Glide
+        TuleyShop.Lightcatchers, Bash, DoubleJump, Dash
+        TuleyShop.Lightcatchers, Bash, Glide
       GladesTown.BuildHuts:
         DoubleJump, Bash, Grenade=2
         Bash, Grenade=3
         Launch
-        TuleyShop.QuestStickyGrass:
+        TuleyShop.StickyGrass:
           DoubleJump, Bash, Grenade=1
-          TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
-        TuleyShop.QuestLightcatchers, Bash, Grenade=1
+          TuleyShop.Lightcatchers, Bash, DoubleJump OR Dash OR Glide
+        TuleyShop.Lightcatchers, Bash, Grenade=1
   pickup GladesTown.LowerOre:
     base:
       Hammer, DoubleJump OR Launch OR Dash OR Glide
@@ -842,8 +860,8 @@ area GladesTown.West:  # (-410, -4141) At Motay
       DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch
-      Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
-      TuleyShop.QuestLightcatchers, Bash
+      Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
+      TuleyShop.Lightcatchers, Bash
   pickup GladesTown.KeyMokiHutEX:
     base: GladesTown.RoofsOverHeads, WoodsEntry.DollQI
 
@@ -858,60 +876,60 @@ area GladesTown.West:  # (-410, -4141) At Motay
     base:
       GladesTown.ClearThorns OR DoubleJump OR Launch
       Bash, Grenade=1
-      TuleyShop.QuestLightcatchers, Bash, Glide
-      TuleyShop.QuestBlueMoon, Grapple
-      GladesTown.BuildHuts, TuleyShop.QuestStickyGrass, Grapple, Glide
+      TuleyShop.Lightcatchers, Bash, Glide
+      TuleyShop.BlueMoon, Grapple
+      GladesTown.BuildHuts, TuleyShop.StickyGrass, Grapple, Glide
   conn GladesTown.UpperWest:
     base:
-      TuleyShop.QuestStickyGrass, Launch
-      TuleyShop.QuestLightcatchers, Bash:
+      TuleyShop.StickyGrass, Launch
+      TuleyShop.Lightcatchers, Bash:
         DoubleJump, Dash OR Glide
         Dash, Glide
         Launch
-        TuleyShop.QuestStickyGrass, Grapple, DoubleJump OR Dash OR Glide
-      TuleyShop.QuestBlueMoon, Grapple, DoubleJump OR Dash OR Glide OR Launch  # extra abilities because it's harder if the huts are there
+        TuleyShop.StickyGrass, Grapple, DoubleJump OR Dash OR Glide
+      TuleyShop.BlueMoon, Grapple, DoubleJump OR Dash OR Glide OR Launch  # extra abilities because it's harder if the huts are there
       GladesTown.BuildHuts:
         Bash, Grenade=3  # need an extra grenade if the lightcatcher is there
         Bash, Grenade=1, DoubleJump, Dash OR Glide  # don't need an extra grenade because oyu can just do the lightcatcher path instead
         Launch
-        TuleyShop.QuestLightcatchers, Bash, DoubleJump OR Dash OR Glide
+        TuleyShop.Lightcatchers, Bash, DoubleJump OR Dash OR Glide
   # all other paths should be redundant with the connection to tp
 
 area GladesTown.UpperWest:  # (-357, -4126) Where Mokk lives
   pickup GladesTown.ArcingShard:
     base, GladesTown.ClearThorns:
       DoubleJump OR Dash OR Glide OR Launch
-      TuleyShop.QuestLightcatchers, Bash  # somehow I don't think this path is very relevant
-      TuleyShop.QuestBlueMoon, Grapple
+      TuleyShop.Lightcatchers, Bash  # somehow I don't think this path is very relevant
+      TuleyShop.BlueMoon, Grapple
   pickup GladesTown.BraveMokiHutEX:
     base: GladesTown.OnwardsAndUpwards, DoubleJump OR Launch
   pickup GladesTown.UpperLeftEX:
     base:
       Bash, Grenade=1
       Launch
-      DoubleJump, Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
+      DoubleJump, Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
   pickup GladesTown.AboveGromHC:
     base:
       DoubleJump, Bash, Grenade=1
       Launch
-      Grapple, TuleyShop.QuestStickyGrass OR TuleyShop.QuestBlueMoon
+      Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
   # no reason for backwards connections
 
 area GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
   pickup GladesTown.BelowHoleHutEX: free
   pickup GladesTown.HoleHutEX:
     base, GladesTown.RoofsOverHeads:
-      TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Launch
+      TuleyShop.SpringPlants OR DoubleJump OR Dash OR Launch
       Bash, Grenade=1
   pickup GladesTown.HoleHutEC:
     base, GladesTown.RoofsOverHeads:
-      TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Launch
+      TuleyShop.SpringPlants OR DoubleJump OR Dash OR Launch
       Bash, Grenade=1
   # no reason for backwards connections
 
 area GladesTown.ReachPath:  # (-176, -4100) At the soup
-  state GladesTown.QuestHandToHandSoup:
-    base: InnerWellspring.QuestHandToHandHerbs
+  quest GladesTown.HandToHandSoup:
+    base: InnerWellspring.HandToHandHerbs
 
   pickup GladesTown.LeafPileEX:
     base: Flap
@@ -922,11 +940,11 @@ area GladesTown.ReachPath:  # (-176, -4100) At the soup
   pickup GladesTown.UpdraftCeilingEX:
     base:  # other (non-redundant) paths exist, but these have free retries, otherwise you'd have to go through entire reach to get another attempt
       DoubleJump
-      TuleyShop.QuestLightcatchers, Bash
+      TuleyShop.Lightcatchers, Bash
   
   conn GladesTown.HoleHut:
     base:  # free if you know the whole branch is semisolid, but you probably don't as a base player
-      TuleyShop.QuestSpringPlants OR DoubleJump OR Dash OR Glide OR Launch
+      TuleyShop.SpringPlants OR DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=1
   conn GladesTown.Teleporter: free
   conn TuleyShop: 
@@ -1153,13 +1171,14 @@ area OuterWellspring.WestDoor:  # (-892, -3991) Outside the door where you exit 
   conn OuterWellspring.EntranceDoor: free
 
 area OuterWellspring.EastDoor:  # (-814, -3972) Outside the door leading to the spin puzzle
-  state OuterWellspring.QuestCompass:
-    base: InnerWellspring.QuestNeedleItem
   state OuterWellspring.WestDoorBlueMoonFree:
     base, Weapon:
       Grapple, InnerWellspring.TopDoorOpen OR DoubleJump OR Dash OR Glide
       Grapple, Bash, Grenade=1
       Launch
+
+  quest OuterWellspring.TheLostCompass:
+    base: InnerWellspring.NeedleQI
 
   pickup OuterWellspring.RightWallOre:
     base: DoubleJump OR Dash OR Glide OR Grapple OR Launch
@@ -1343,8 +1362,6 @@ area InnerWellspring.WestDoor:  # (-1251, -3889) Inside the door where you exit 
   conn InnerWellspring.BelowDrainLever: free
 
 area InnerWellspring.EastDoor:  # (-1180, -3732) Inside the door leading to the spin puzzle
-  state InnerWellspring.QuestHandToHandHerbs:
-    base: GladesTown.QuestHandToHandPouch
   state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
     base: Combat, DoubleJump OR Dash OR Glide OR Launch  # +25 region danger
   state InnerWellspring.SpinPuzzleSolved:  # to prevent softlocks the pickups in the spin puzzle room unlock only after completing it
@@ -1359,15 +1376,15 @@ area InnerWellspring.EastDoor:  # (-1180, -3732) Inside the door leading to the 
       Grapple, Dash, Glide
       Grapple, Launch
 
-  state InnerWellspring.QuestNeedleItem:
-    base:
-      InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, InnerWellspring.TopDoorOpen, Grapple, Dash, Glide
-      InnerWellspring.TopDoorOpen, Grapple, DoubleJump OR Launch
-      InnerWellspring.TopDoorOpen, DoubleJump, Bash, Grenade=1
-      InnerWellspring.TopDoorOpen, Launch, DoubleJump
-  pickup InnerWellspring.NeedleQI:
-    base: InnerWellspring.QuestNeedleItem  # TEMPORARY - delete when quests have syntax
-  
+  quest InnerWellspring.HandToHandHerbs:
+    base: GladesTown.HandToHandPouch
+  quest InnerWellspring.NeedleQI:
+    base, InnerWellspring.TopDoorOpen:
+      InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Grapple, Dash, Glide
+      Grapple, DoubleJump OR Launch
+      DoubleJump, Bash, Grenade=1
+      Launch, DoubleJump
+
   pickup InnerWellspring.AboveSpinArenaEX:
     base:
       Grapple, DoubleJump OR Dash
@@ -1385,13 +1402,11 @@ area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
       Bash, Grapple, Dash, Glide
       Grapple, Launch
 
-  state InnerWellspring.QuestBlueMoonSeed:
+  quest InnerWellspring.BlueMoonSeed:
     base:
       DoubleJump, Dash
       Bash, Grenade=1
       Launch
-  pickup InnerWellspring.SeedQI:
-    base: InnerWellspring.QuestBlueMoonSeed  # TEMPORARY - delete when quests have syntax
 
   pickup InnerWellspring.LibraryEX: free
   pickup InnerWellspring.AboveTpEX:
@@ -1410,7 +1425,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
       Launch
 
   conn OuterWellspring.TopDoor: free
-  # Opher disappears from here if you complete the Watermill quest
+  conn OpherShop: free
 
 # begin pools needs validation area
 region PoolsApproach:
@@ -1511,7 +1526,6 @@ area EastPools.Entry:  # (-1092, -4165) At the Voice dialogue
       Bash, Grenade=1, Launch, DoubleJump OR Dash
   
 area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
-  state EastPools.QuestAmulet: free
   state EastPools.EntryLever:
     base, EnemyObstacle:
       DoubleJump, Dash OR Glide
@@ -1523,6 +1537,7 @@ area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
     advanced, EastPools.EntryLever:
       Water, WaterDash
       Water, Bow OR Grenade=1 # Bow=1 not currently a thing
+  state EastPools.KwoloksWisdomAmulet: free  # part of a quest, but no reward on this currently
 
   pickup EastPools.RightOre:
     base:
@@ -1552,11 +1567,6 @@ area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
   conn EastPools.Entry: free
 
 area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
-  state EastPools.QuestHandToHandSpyglass:  # quest requirement: silk
-    base, LowerDepths.QuestHandToHandSilk:
-      Grapple, DoubleJump OR Dash OR Glide
-      DoubleJump, Bash, Grenade=1
-      Launch
   state EastPools.BelowTokkBubbleFree:
     base:
       Water, Bash
@@ -1575,14 +1585,17 @@ area EastPools.TPArea:  # (-1296, -4142) Where Tokk stands
     base:
       EastPools.LowerWaterDrained, Weapon, Water, Bash
 
-  state EastPools.QuestStickyGrassSeed:
+  quest EastPools.HandToHandSpyglass:
+    base, LowerDepths.HandToHandSilk:
+      Grapple, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch
+  quest EastPools.GrassSeed:
     base, EastPools.FightArenas:
       Water, Bash, WaterDash OR Launch
       Water, Bash, DoubleJump, Dash OR Glide
       Water, Bash, Dash, Glide
       Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-  pickup EastPools.SeedQI:
-    base: EastPools.QuestStickyGrassSeed  # TEMPORARY - delete when quests have syntax
 
   pickup EastPools.AboveDoorOre:
     base:
@@ -1644,10 +1657,8 @@ area UpperPools.KeystoneRoom:  # (-1539, -4094) Autosave below the two upper lef
       Water, Bash
     advanced: Bow OR Grenade=1
 
-  state EastPools.QuestStickyGrassSeed:
+  quest EastPools.GrassSeed:
     base: EnemyObstacle
-  pickup EastPools.SeedQI:
-    base: EastPools.QuestStickyGrassSeed  # TEMPORARY - delete when quests have syntax
 
   pickup UpperPools.LowerKS:
     base:
@@ -1766,13 +1777,11 @@ region WestPools:
     Danger=40, Regenerate
 
 area WestPools:  # (-1652, -4170) the west Pools TP
-  state WestPools.KwolokDefeated:
+  state WestPools.KwolokDefeated:  # includes collecting the Wisp
     base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=55, Dash OR Launch #+ 40 region danger
 
-  state EastPools.QuestStickyGrassSeed:
+  quest EastPools.GrassSeed:
     base: Water, WaterDash
-  pickup EastPools.SeedQI:
-    base: EastPools.QuestStickyGrassSeed  # TEMPORARY - delete when quests have syntax
 
   pickup WestPools.TpEX:
     base:
@@ -1824,12 +1833,13 @@ area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
     base: RangedWeapon, DoubleJump OR Dash OR Glide OR Launch
 
 area WoodsEntry.Teleporter:  # (611, -4161) At the West Woods Teleporter
-  state WoodsEntry.QuestLastTreeBranch: free  # written out the steps in case they give pickups
-  state WoodsEntry.QuestLastTreeSeed:
-    base: TuleyShop.QuestLastTreeBranchRejected
-  state WoodsEntry.DollQI:  # TEMPORARY - add pickup tbd
-    base: GladesTown.QuestFatherKey
-  
+  state WoodsEntry.LastTreeBranch: free  # part of a quest, but no reward on this currently
+
+  quest WoodsEntry.DollQI:
+    base: GladesTown.FamilyReunionKey
+  quest WoodsEntry.TreeSeed:
+    base: TuleyShop.LastTreeBranchRejected
+
   pickup WoodsEntry.TpEX: free
   pickup WoodsEntry.LeafPileEX:
     base: Flap
@@ -2131,14 +2141,15 @@ area LowerReach.Central:  # (-347, -4011) After the lever door
         Bash, Grenade=1
 
 area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
-  state LowerReach.QuestHandToHandHat:  # paths from other anchors should currently be redundant
-    base: GladesTown.QuestHandToHandSoup, LowerReach.WindChannelLantern, Glide
   state LowerReach.CentralFurnace:
     base, ShieldEnemy OR Bash:
       Grenade=1
       DoubleJump, Dash, Bash, Flap
   state LowerReach.WindChannelLantern:
     base: Grenade=1, ShieldEnemy OR Bash
+
+  quest LowerReach.HandToHandHat:  # paths from other anchors should currently be redundant
+    base: GladesTown.HandToHandSoup, LowerReach.WindChannelLantern, Glide
 
   pickup LowerReach.MeltIceEX:
     base: Grenade=1
@@ -2300,10 +2311,8 @@ area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
   conn LowerReach.OutsideTPRoom: free
 
 area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
-  state UpperReach.QuestSpringPlantsSeed:
+  quest UpperReach.SpringSeed:
     base: Grenade=1
-  pickup UpperReach.SeedQI:
-    base: UpperReach.QuestSpringPlantsSeed  # TEMPORARY - delete when quests have syntax
 
   pickup UpperReach.LightBurstTree:
     base: free
@@ -2510,14 +2519,12 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
       DepthsLight, DoubleJump, Dash, Bash, Grapple
       DepthsLight, Bash, Grapple, Launch
   
-  state UpperDepths.QuestLightcatchersSeed:
+  quest UpperDepths.LightcatcherSeed:
     base:
       DepthsLight, DoubleJump, Dash, Grapple
       Weapon, DepthsLight, DoubleJump, Dash, Bash, Grenade=1
       DepthsLight, Launch
-  pickup UpperDepths.SeedQI:
-    base: UpperDepths.QuestLightcatchersSeed  # TEMPORARY - delete when quests have syntax
-  
+
   pickup UpperDepths.RightHealthKS:
     base: Weapon OR DepthsLight
   pickup UpperDepths.LeftHealthKS:
@@ -2580,8 +2587,8 @@ region LowerDepths:
     Danger=40, Regenerate
 
 area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
-  state LowerDepths.QuestHandToHandSilk:
-    base: GladesTown.QuestHandToHandLantern
+  quest LowerDepths.HandToHandSilk:
+    base: GladesTown.HandToHandLantern
 
   pickup LowerDepths.CombatShrine:
     base, Combat, Danger=20:  # +40 region danger
@@ -2681,8 +2688,9 @@ area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
       Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
 
 area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
-  state LowerWastes.QuestEerieGem:
+  quest LowerWastes.EerieGem:
     base: Burrow
+
   pickup LowerWastes.SandBridgeOre: free
 
   conn LowerWastes.SunsetView:
@@ -2815,8 +2823,9 @@ area LowerWastes.TreeArea:  # (1715, -3935) The ledge right of SkeetoHive
       DoubleJump, Bash, Grenade=2
       Dash, Bash, Grenade=4  # yes, good
       Launch
-  state LowerWastes.QuestHandToHandMapstone:
-    base, GladesTown.QuestHandToHandCanteen:
+
+  quest LowerWastes.HandToHandMapstone:
+    base, GladesTown.HandToHandCanteen:
       DoubleJump
       Burrow
       Bash, Grenade=2  # literally never going to get used but you can do it
@@ -2962,13 +2971,11 @@ area UpperWastes.NorthTP: # (2043, -3578) North Wastes teleporter
     base: free
 
 area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
-  state UpperWastes.QuestSelaFlowersSeed:
+  quest UpperWastes.FlowersSeed:
     base:
       Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
       Burrow, Launch  # maybe Glide? I think this is fine tho
       Bash, Launch
-  pickup UpperWastes.SeedQI:
-    base: UpperWastes.QuestSelaFlowersSeed  # TEMPORARY - delete when quests have syntax
 
   pickup UpperWastes.SpinLasersRightEX:
     base: Burrow
@@ -3007,7 +3014,7 @@ area WindtornRuins.UpperRuinsDoor:  # (2200, -3828) Just inside the door.
       Burrow, DoubleJump OR Dash OR Glide OR Launch
       Burrow, Bash, Grenade=1
 
-  pickup UpperWastes.SeedQI: free
+  pickup UpperWastes.FlowersSeed: free
   pickup UpperWastes.WallOre:
     base:
       Bash, Grenade=1, Glide
@@ -3066,10 +3073,11 @@ area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
 
 area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
   # requires escape to be done
-  state WindtornRuins.QuestHandToHandMapPedestal:
-    base: LowerWastes.QuestHandToHandMapstone
   state WindtornRuins.LowerEntrance: # State for back entrance to be open
     base: Burrow, Weapon
+
+  quest WindtornRuins.HandToHandComplete:
+    base: LowerWastes.HandToHandMapstone
 
   pickup WindtornRuins.EscapeRevisitEC:
     base: WindtornRuins.EscapeComplete, Burrow
@@ -3240,58 +3248,60 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
 # END unvalidated willow's end region
 
 area TwillenShop:
-  state GladesTown.QuestRawShard:
-    base: LowerWastes.QuestEerieGem
+  quest TwillenShop.ADiamondInTheRough:
+    base: LowerWastes.EerieGem
 # stealing this for keystones
 #  pickup TwillenShop.Overcharge:
-#    base: SpiritLight=400
+#    base: SpiritLight=800
   pickup TwillenShop.Wingclip:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup TwillenShop.Swap:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup TwillenShop.Vitality:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup TwillenShop.Energy:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup TwillenShop.Finesse:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup TwillenShop.TripleJump:
-    base: GladesTown.EntryWallBroken, SpiritLight=400
+    base: GladesTown.EntryWallBroken, SpiritLight=800
   pickup TwillenShop.LightHarvest:
-    base: GladesTown.EntryWallBroken, SpiritLight=400
+    base: GladesTown.EntryWallBroken, SpiritLight=800
 
 area OpherShop:
   pickup OpherShop.Spike:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup OpherShop.SpiritSmash:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup OpherShop.SpiritStar:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup OpherShop.Blaze:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup OpherShop.Sentry:
-    base: SpiritLight=400
+    base: SpiritLight=800
   pickup OpherShop.Teleport:
-    base: GladesTown.EntryWallBroken, SpiritLight=400
+    base: GladesTown.EntryWallBroken, SpiritLight=800
   pickup OpherShop.WaterBreath:
-    base: Water, EastHollow.Voice, SpiritLight=400 # what this actually needs is water + the ability to talk to kwolok
+    base: Water, EastHollow.Voice, SpiritLight=800 # what this actually needs is water + the ability to talk to kwolok
 
 area TuleyShop:
-  state TuleyShop.QuestLastTreeBranchRejected:  # written out the steps in case they give pickups
-    base: WoodsEntry.QuestLastTreeBranch
-  
-  state TuleyShop.QuestSelaFlowers:
-    base: UpperWastes.QuestSelaFlowersSeed
-  state TuleyShop.QuestStickyGrass:
-    base: EastPools.QuestStickyGrassSeed
-  state TuleyShop.QuestLightcatchers:
-    base: UpperDepths.QuestLightcatchersSeed
-  state TuleyShop.QuestBlueMoon:
-    base: InnerWellspring.QuestBlueMoonSeed
-  state TuleyShop.QuestSpringPlants:
-    base: UpperReach.QuestSpringPlantsSeed
-  state TuleyShop.QuestLastTree:
-    base: WoodsEntry.QuestLastTreeSeed
+  state TuleyShop.LastTreeBranchRejected:  # written out the steps in case they give pickups
+    base: WoodsEntry.LastTreeBranch
+  state TuleyShop.SelaFlowers:  # surprisingly, this state isn't actually used anywhere
+    base: UpperWastes.FlowersSeed
+  state TuleyShop.StickyGrass:
+    base: EastPools.GrassSeed
+  state TuleyShop.Lightcatchers:
+    base: UpperDepths.LightcatcherSeed
+  state TuleyShop.BlueMoon:
+    base: InnerWellspring.BlueMoonSeed
+  state TuleyShop.SpringPlants:
+    base: UpperReach.SpringSeed
+  state TuleyShop.LastTree:
+    base: WoodsEntry.TreeSeed
+
+  quest TuleyShop.RegrowTheGlades:
+    base: TuleyShop.SelaFlowers, TuleyShop.StickyGrass, TuleyShop.Lightcatchers, TuleyShop.BlueMoon, TuleyShop.SpringPlants, TuleyShop.LastTree
 
 
 # do not delete the newline at the end of the file
