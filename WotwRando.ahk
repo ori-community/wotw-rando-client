@@ -125,6 +125,11 @@ if(skipUpdate == "false")
 
 		RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
 		tag := tag.1
+
+		RegExMatch(whr.ResponseText, "O)""body"":""([^"",]*)""",ReleaseNotes)
+		ReleaseNotes := ReleaseNotes.1
+		ReleaseNotes := StrReplace(ReleaseNotes, "\r\n", "`r`n")
+
 		SplashTextOn,,,Checking release %tag%
 
 		whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
@@ -134,7 +139,7 @@ if(skipUpdate == "false")
 		if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
 		{
 			SplashTextOff
-			Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%?
+			Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%? `n`n %ReleaseNotes%
 			IfMsgBox, Yes 
 			{
 				message = 0x1100
