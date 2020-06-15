@@ -12,6 +12,7 @@ set(
 	"interception.cpp"
 	"pch.cpp"
 	"pe_module.cpp"
+	"features/difficulty.cpp"
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
 	"features/opher_everywhere.cpp"
