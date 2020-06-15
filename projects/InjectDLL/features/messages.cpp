@@ -70,9 +70,12 @@ INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c), {
   return 0;
   });
 
-INTERCEPT(13843376, bool, anyAbilityPickupStoryMessagesVisible, (__int64 thisPtr), {
-    //MessageControllerB$$get_AnyAbilityPickupStoryMessagesVisible
-    return 0;
+INTERCEPT(13855664, MessageBox_o*, MessageControllerB__ShowCompleteQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q), {
+  return 0;
+});
+
+INTERCEPT(13856176, MessageBox_o*, MessageControllerB__ShowUpdatedQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q), {
+  return 0;
 });
 
 INTERCEPT(15446864, __int64, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language), {
