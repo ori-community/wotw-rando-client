@@ -27,7 +27,7 @@ network::NetworkData network_data;
 
 void initalize()
 {
-
+    init_test_data(gui_data);
 }
 
 void handle_events(SDL_Event const& event)
@@ -158,14 +158,6 @@ void show_trace_data(network::NetworkData& data, TraceData& trace)
 
     show_info_window(trace);
 
-    for (int i = 0; i < 5; ++i)
-        trace.column_widths[i] = ImGui::GetColumnWidth(i);
-
-    if (trace.auto_scroll && trace.prev_entry_count < trace.messages.size())
-        ImGui::SetScrollY(ImGui::GetScrollMaxY());
-
-    trace.prev_entry_count = static_cast<int>(trace.messages.size());
-    ImGui::EndChild();
     ImGui::End();
 }
 
@@ -225,8 +217,42 @@ void trace_show_top_bar(network::NetworkData& data, TraceData& trace)
     ImGui::EndMenuBar();
 }
 
+bool is_in_filter(TraceData const& trace, Message const& message)
+{
+    int type = static_cast<int>(message.type);
+    if (!trace.filter.show_type[type])
+        return false;
+
+    auto value = trace.min_dropdown.values[trace.filter.min_level_filter];
+    if (value > message.level)
+        return false;
+
+    value = trace.max_dropdown.values[trace.filter.max_level_filter];
+    if (value < message.level)
+        return false;
+
+    auto group_filter = std::string(trace.filter.group_filter.data());
+    if (!group_filter.empty() && message.group.find(group_filter) == std::string::npos)
+        return false;
+
+    auto text_filter = std::string(trace.filter.text_filter.data());
+    if (!text_filter.empty() && message.message.find(text_filter) == std::string::npos)
+        return false;
+
+    return true;
+}
+
+void resolve_filter(TraceData& trace)
+{
+    trace.filtered_messages.clear();
+    for (auto i = 0; i < trace.messages.size(); ++i)
+        if (is_in_filter(trace, trace.messages[i]))
+            trace.filtered_messages.push_back(i);
+}
+
 void show_filter_window(TraceData& trace)
 {
+    auto old_filter = trace.filter;
     auto size = ImGui::GetContentRegionAvail();
     ImGui::BeginChild(1, { 140.f, size.y - 5.f }, true, ImGuiWindowFlags_NoTitleBar);
 
@@ -236,18 +262,18 @@ void show_filter_window(TraceData& trace)
     ImGui::Text("min level:");
     ImGui::SameLine(80.f);
     auto value = 0;
-    if (trace.min_level_filter.selected >= 0 && trace.min_level_filter.selected < trace.min_level_filter.values.size())
-        value = trace.min_level_filter.values[trace.min_level_filter.selected];
+    if (trace.filter.min_level_filter >= 0 && trace.filter.min_level_filter < trace.min_dropdown.values.size())
+        value = trace.min_dropdown.values[trace.filter.min_level_filter];
 
     if (begin_dropdown("min_level", std::to_string(value).c_str(), { 50.0f, 20.0f }))
     {
-        for (int i = 0; i < trace.min_level_filter.values.size(); ++i)
+        for (int i = 0; i < trace.min_dropdown.values.size(); ++i)
         {
-            auto const& value = trace.min_level_filter.values[i];
+            auto const& value = trace.min_dropdown.values[i];
             if (ImGui::Button(std::to_string(value).c_str(), { 30.0f, 20.0f }))
             {
-                trace.min_level_filter.selected = i;
-                trace.max_level_filter.selected = i < trace.max_level_filter.selected ? trace.max_level_filter.selected : i;
+                trace.filter.min_level_filter = i;
+                trace.filter.max_level_filter = i < trace.filter.max_level_filter ? trace.filter.max_level_filter : i;
                 ImGui::CloseCurrentPopup();
             }
         }
@@ -258,17 +284,17 @@ void show_filter_window(TraceData& trace)
     ImGui::Text("max level:");
     ImGui::SameLine(80.f);
     value = 0;
-    if (trace.max_level_filter.selected >= 0 && trace.max_level_filter.selected < trace.max_level_filter.values.size())
-        value = trace.max_level_filter.values[trace.max_level_filter.selected];
+    if (trace.filter.max_level_filter >= 0 && trace.filter.max_level_filter < trace.max_dropdown.values.size())
+        value = trace.max_dropdown.values[trace.filter.max_level_filter];
 
     if (begin_dropdown("max_level", std::to_string(value).c_str(), { 50.0f, 20.0f }))
     {
-        for (int i = trace.min_level_filter.selected; i < trace.max_level_filter.values.size(); ++i)
+        for (int i = trace.filter.min_level_filter; i < trace.max_dropdown.values.size(); ++i)
         {
-            auto const& value = trace.max_level_filter.values[i];
+            auto const& value = trace.max_dropdown.values[i];
             if (ImGui::Button(std::to_string(value).c_str(), { 30.0f, 20.0f }))
             {
-                trace.max_level_filter.selected = i;
+                trace.filter.max_level_filter = i;
                 ImGui::CloseCurrentPopup();
             }
         }
@@ -278,133 +304,98 @@ void show_filter_window(TraceData& trace)
 
     ImGui::Dummy({ 0.f, 5.f });
 
-    ImGui::Checkbox("show info", &trace.show_type[0]);
-    ImGui::Checkbox("show warning", &trace.show_type[1]);
-    ImGui::Checkbox("show error", &trace.show_type[2]);
-    ImGui::Checkbox("show debug", &trace.show_type[3]);
+    ImGui::Checkbox("show info", &trace.filter.show_type[0]);
+    ImGui::Checkbox("show warning", &trace.filter.show_type[1]);
+    ImGui::Checkbox("show error", &trace.filter.show_type[2]);
+    ImGui::Checkbox("show debug", &trace.filter.show_type[3]);
 
     ImGui::Dummy({ 0.f, 5.f });
     auto inner_size = ImGui::GetContentRegionAvail();
     ImGui::Text("group search:");
     ImGui::PushID("group");
     ImGui::PushItemWidth(inner_size.x);
-    ImGui::InputText("", trace.group_filter, 64);
+    ImGui::InputText("", trace.filter.group_filter.data(), 64);
     ImGui::PopItemWidth();
     ImGui::PopID();
 
     ImGui::Text("text search:");
     ImGui::PushID("text");
     ImGui::PushItemWidth(inner_size.x);
-    ImGui::InputText("", trace.text_filter, 256);
+    ImGui::InputText("", trace.filter.text_filter.data(), 256);
     ImGui::PopItemWidth();
     ImGui::PopID();
 
     ImGui::EndChild();
     ImGui::SameLine();
-}
 
-bool is_in_filter(TraceData const& trace, Message const& message)
-{
-    int type = static_cast<int>(message.type);
-    if (!trace.show_type[type])
-        return false;
-
-    auto value = trace.min_level_filter.values[trace.min_level_filter.selected];
-    if (value > message.level)
-        return false;
-
-    value = trace.max_level_filter.values[trace.max_level_filter.selected];
-    if (value < message.level)
-        return false;
-
-    auto group_filter = std::string(trace.group_filter);
-    if (!group_filter.empty() && message.group.find(group_filter) == std::string::npos)
-        return false;
-
-    auto text_filter = std::string(trace.text_filter);
-    if (!text_filter.empty() && message.message.find(text_filter) == std::string::npos)
-        return false;
-
-    return true;
+    if (old_filter != trace.filter)
+        resolve_filter(trace);
 }
 
 void show_info_window(TraceData& trace)
 {
     auto size = ImGui::GetContentRegionAvail();
-    // TODO: Use this to optimize list.
-    //ImGuiListClipper clipper(trace.messages.size(), 20.f);
-    //clipper.
-    ImGui::BeginChild(2, { size.x, size.y - 5.f }, true, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_HorizontalScrollbar);
-    ImGui::Columns(5);
-    if (!trace.init)
+    static ImGuiTableFlags flags =
+        ImGuiTableFlags_ScrollY |
+        ImGuiTableFlags_ScrollFreezeTopRow |
+        ImGuiTableFlags_RowBg |
+        ImGuiTableFlags_BordersOuter |
+        ImGuiTableFlags_BordersV | 
+       ImGuiTableFlags_Resizable |
+        ImGuiTableFlags_Reorderable |
+        ImGuiTableFlags_Hideable;
+
+    if (ImGui::BeginTable("##table1", 5, flags, size))
     {
-        trace.info_window = ImGui::GetWindowSize();
-        ImGui::SetColumnWidth(0, 40.0f);
-        ImGui::SetColumnWidth(1, 60.0f);
-        ImGui::SetColumnWidth(2, 50.0f);
-        ImGui::SetColumnWidth(3, 100.0f);
-        trace.init = true;
-    }
-    else
-    {
-        // We only want to resize the last column.
-        ImVec2 size = ImGui::GetWindowSize();
-        if (size.x != trace.info_window.x || size.y != trace.info_window.y)
-            for (int i = 0; i < 4; ++i)
-                ImGui::SetColumnWidth(i, trace.column_widths[i]);
-
-        trace.info_window = size;
-    }
-
-    ImGui::Text("copy");
-    ImGui::NextColumn();
-    ImGui::Text("type");
-    ImGui::NextColumn();
-    ImGui::Text("level");
-    ImGui::NextColumn();
-    ImGui::Text("group");
-    ImGui::NextColumn();
-    ImGui::Text("message");
-    ImGui::NextColumn();
-
-    ImGui::Separator();
-
-    int i = 0;
-    for (auto const& message : trace.messages)
-    {
-        int type = static_cast<int>(message.type);
-        if (!is_in_filter(trace, message))
-            continue;
-
-        auto const& color = MessageTypeColors[type];
-        auto const& type_string = MessageTypeNames[type];
-
-        ImGui::PushID(i);
-        if (ImGui::Button("", { 25.f, 15.f }))
+        ImGui::TableSetupColumn("copy", ImGuiTableColumnFlags_WidthFixed | ImGuiTableColumnFlags_NoResize, 40.f);
+        ImGui::TableSetupColumn("type", ImGuiTableColumnFlags_WidthFixed);
+        ImGui::TableSetupColumn("level", ImGuiTableColumnFlags_WidthFixed);
+        ImGui::TableSetupColumn("group", ImGuiTableColumnFlags_WidthFixed);
+        ImGui::TableSetupColumn("message", ImGuiTableColumnFlags_None);
+        ImGui::TableAutoHeaders();
+        ImGuiListClipper clipper;
+        clipper.Begin(trace.filtered_messages.size());
+        while (clipper.Step())
         {
-            auto copy = type_string;
-            copy += " : ";
-            copy += std::to_string(message.level);
-            copy += " : ";
-            copy += message.group;
-            copy += " ";
-            copy += message.message;
-            ImGui::SetClipboardText(copy.c_str());
-        }
+            for (int row = clipper.DisplayStart; row < clipper.DisplayEnd; row++)
+            {
+                ImGui::TableNextRow();
+                auto& message = trace.messages[trace.filtered_messages[row]];
+                int type = static_cast<int>(message.type);
+                auto const& color = MessageTypeColors[type];
+                auto const& type_string = MessageTypeNames[type];
 
-        ++i;
-        ImGui::PopID();
-        ImGui::NextColumn();
-        ImGui::PushStyleColor(ImGuiCol_Text, color);
-        ImGui::Text(type_string.c_str());
-        ImGui::PopStyleColor();
-        ImGui::NextColumn();
-        ImGui::Text(std::to_string(message.level).c_str());
-        ImGui::NextColumn();
-        ImGui::Text(message.group.c_str());
-        ImGui::NextColumn();
-        ImGui::Text(message.message.c_str());
-        ImGui::NextColumn();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::PushID(row);
+                if (ImGui::Button("", { 28.f, 15.f }))
+                {
+                    auto copy = type_string;
+                    copy += " : ";
+                    copy += std::to_string(message.level);
+                    copy += " : ";
+                    copy += message.group;
+                    copy += " ";
+                    copy += message.message;
+                    ImGui::SetClipboardText(copy.c_str());
+                }
+                ImGui::PopID();
+
+                ImGui::TableSetColumnIndex(1);
+                ImGui::PushStyleColor(ImGuiCol_Text, color);
+                ImGui::Text(type_string.c_str());
+                ImGui::PopStyleColor();
+
+                ImGui::TableSetColumnIndex(2);
+                ImGui::Text(std::to_string(message.level).c_str());
+                
+                ImGui::TableSetColumnIndex(3);
+                ImGui::Text(message.group.c_str());
+
+                ImGui::TableSetColumnIndex(4);
+                ImGui::Text(message.message.c_str());
+            }
+        }
+        ImGui::EndTable();
     }
 }
 
@@ -467,6 +458,12 @@ void handle_network_events(GuiData& data, network::NetworkEvent const& evt)
                 m.group = network::binary::read_str_bw(walker);
                 m.message = network::binary::read_str_bw(walker);
                 it->messages.push_back(m);
+                if (is_in_filter(*it, m))
+                {
+                    it->filtered_messages.push_back(it->messages.size() - 1);
+                    if (it->auto_scroll)
+                        ImGui::SetScrollY(ImGui::GetScrollMaxY());
+                }
             }
 
             break;
@@ -528,7 +525,7 @@ void init_test_data(GuiData& data)
         "we are the champions my friend, 111111111111111111111111111111111111111111"
         });
 
-    for (int i = 0; i < 20; ++i)
+    for (int i = 0; i < 2000; ++i)
     {
         test.messages.push_back({
             4,
@@ -537,4 +534,6 @@ void init_test_data(GuiData& data)
             "padding"
             });
     }
+
+    resolve_filter(test);
 }
