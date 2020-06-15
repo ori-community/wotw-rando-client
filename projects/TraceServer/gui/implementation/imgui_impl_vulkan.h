@@ -22,7 +22,7 @@
 
 #pragma once
 #include <build.h>
-#if USE_VULKAN == TRUE
+#if USE_VULKAN EQ TRUE
 
 #include <gui/imgui.h>      // IMGUI_IMPL_API
 #include <vulkan/vulkan.h>

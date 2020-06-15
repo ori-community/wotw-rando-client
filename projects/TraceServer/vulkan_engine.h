@@ -1,7 +1,7 @@
 #pragma once
 
 #include <build.h>
-#if USE_VULKAN == TRUE
+#if USE_VULKAN EQ TRUE
 
 #include <trace_structs.h>
 #include <SDL2/SDL.h>
