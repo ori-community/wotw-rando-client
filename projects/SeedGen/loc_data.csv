@@ -233,18 +233,18 @@ LowerReach.RoofLeftEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xp
 LowerReach.RoofRightEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbB, 46711, -72, -3951
 LowerReach.FractureShard, Baurs Reach, Shard, Fracture, pickupsGroup, 23987, fractureShardPickup, 36359, -81, -4001
 LowerReach.EscapeRevisitEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xpOrbB, 46404, 71, -3731
-LowerReach.RightKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025
-LowerReach.UpperLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneC, 10823, -84, -4025
-LowerReach.MiddleLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneB, 37444, -80, -4040
-LowerReach.BottomLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneD, 18358, -58, -4055
+LowerReach.RightKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025
+LowerReach.UpperLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneC, 10823, -84, -4025
+LowerReach.MiddleLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneB, 37444, -80, -4040
+LowerReach.BottomLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneD, 18358, -58, -4055
 LowerReach.TrialEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, mediumExpOrb, 22761, -39, -4018
 LowerReach.CatalystShard, Baurs Reach, Shard, Catalyst, pickupsGroup, 23987, hollowEnergyShardPickup, 897, -90, -4097
 UpperReach.LifeForceShard, Baurs Reach, Shard, Lifeforce, pickupsGroup, 23987, untouchableShardPickup, 19630, -400, -3861
 UpperReach.LifeForceEX, Baurs Reach, SpiritLight, 100, winterForestGroupDescriptor, 28287, mediumExpA, 32414, -423, -3876
-UpperReach.LowerKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneB, 1053, -248, -3891
-UpperReach.UpperKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneD, 50368, -207, -3843
-UpperReach.MiddleLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 22382, -232, -3869
-UpperReach.MiddleRightKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneC, 9949, -184, -3867
+UpperReach.LowerKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneB, 1053, -248, -3891
+UpperReach.UpperKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneD, 50368, -207, -3843
+UpperReach.MiddleLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneA, 22382, -232, -3869
+UpperReach.MiddleRightKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneC, 9949, -184, -3867
 UpperReach.SoupOre, Baurs Reach, Resource, Ore, baursReachGroup, 28895, gorlekOreA, 23795, -203, -3886
 UpperReach.SwingPoleEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbB, 40089, -194, -3854
 UpperReach.SwimEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbC, 40242, -239, -3921
@@ -332,10 +332,10 @@ TwillenShop.LightHarvest, Wellspring Glades, Shop, TwillenShard, twillenShopDont
 TwillenShop.Vitality, Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Vitality, 22, 0, 0
 TwillenShop.Energy, Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Energy, 26, 0, 0
 TwillenShop.Finesse, Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Finesse, 40, 0, 0
-OpherShop.WaterBreath, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, WaterBreath, 23, 0, 0
-OpherShop.Spike, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Spike, 74, 0, 0
-OpherShop.SpiritSmash, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritSmash, 98, 0, 0
-OpherShop.Teleport, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Teleport, 105, 0, 0
-OpherShop.SpiritStar, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritStar, 106, 0, 0
-OpherShop.Blaze, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Blaze, 115, 0, 0
-OpherShop.Sentry, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Sentry, 116, 0, 0
+OpherShop.WaterBreath, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, WaterBreath, 23, 0, 0
+OpherShop.Spike, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Spike, 74, 0, 0
+OpherShop.SpiritSmash, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritSmash, 98, 0, 0
+OpherShop.Teleport, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Teleport, 105, 0, 0
+OpherShop.SpiritStar, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritStar, 106, 0, 0
+OpherShop.Blaze, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Blaze, 115, 0, 0
+OpherShop.Sentry, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Sentry, 116, 0, 0

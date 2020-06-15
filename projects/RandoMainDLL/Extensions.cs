@@ -24,6 +24,13 @@ namespace RandoMainDLL {
       return ret;
     }
     public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt) => self.TryGetValue(key, out TVal ret) ? ret : alt;
+    public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt, String caller) {
+      if (self.TryGetValue(key, out TVal ret))
+        return ret;
+      Randomizer.Warn(caller, $"didn't contain {key}: using {alt}");
+      return alt;
+    }
+
     /// <summary>
     /// Gets the description of the given Enum from its Description attribute. If the attribute is missing, returns the Enum as a string. If the Enum is invalid, returns null.
     /// </summary>
