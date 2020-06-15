@@ -32,7 +32,7 @@
 
 #pragma once
 #include <build.h>
-#if USE_VULKAN != TRUE
+#if !USE_VULKAN
 
 #include <gui/imgui.h>
 #include <gui/implementation/imgui_impl_opengl2.h>

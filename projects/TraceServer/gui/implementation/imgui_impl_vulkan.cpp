@@ -47,7 +47,7 @@
 //  2016-08-27: Vulkan: Fix Vulkan example for use when a depth buffer is active.
 
 #include <build.h>
-#if USE_VULKAN == TRUE
+#if USE_VULKAN
 
 #include <gui/imgui.h>
 #include <gui/implementation/imgui_impl_vulkan.h>
