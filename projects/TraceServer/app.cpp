@@ -334,6 +334,9 @@ void show_filter_window(TraceData& trace)
 
 void show_info_window(TraceData& trace)
 {
+    if (trace.do_scroll)
+        ImGui::SetScrollY(ImGui::GetScrollMaxY());
+
     auto size = ImGui::GetContentRegionAvail();
     static ImGuiTableFlags flags =
         ImGuiTableFlags_ScrollY |
@@ -462,7 +465,7 @@ void handle_network_events(GuiData& data, network::NetworkEvent const& evt)
                 {
                     it->filtered_messages.push_back(it->messages.size() - 1);
                     if (it->auto_scroll)
-                        ImGui::SetScrollY(ImGui::GetScrollMaxY());
+                        it->do_scroll = true;
                 }
             }
 
