@@ -87,6 +87,7 @@ struct TraceData
         , id(p_id)
         , show_filters(true)
         , auto_scroll(true)
+        , do_scroll(false)
         , open(true)
         , connected(false)
         , init(false)
@@ -102,6 +103,7 @@ struct TraceData
     std::string name;
     bool show_filters;
     bool auto_scroll;
+    bool do_scroll;
     bool open;
     bool connected;
     bool init;
