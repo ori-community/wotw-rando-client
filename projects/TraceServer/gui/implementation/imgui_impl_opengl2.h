@@ -18,7 +18,7 @@
 
 #pragma once
 #include <build.h>
-#if USE_VULKAN != TRUE
+#if !USE_VULKAN
 
 #include <gui/imgui.h>      // IMGUI_IMPL_API
 
