@@ -247,6 +247,7 @@ ExtractFiles:
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
+FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
 FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
 	FileCopy, %A_ScriptFullPath%, %WOTWREXE%

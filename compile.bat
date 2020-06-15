@@ -1,1 +1,2 @@
+"C:/Program Files/AutoHotkey/Compiler/Ahk2Exe.exe" /in "C:/Users/WorstMirari/Documents/GitHub/OriWotwRandomizerClient/RandoSettings.ahk" /icon "C:/Users/WorstMirari/Documents/GitHub/OriWotwRandomizerClient/WotwRando.ico" /out "C:/moon/RandoSettings.exe"
 "C:/Program Files/AutoHotkey/Compiler/Ahk2Exe.exe" /in "C:/Users/WorstMirari/Documents/GitHub/OriWotwRandomizerClient/WotwRando.ahk" /icon "C:/Users/WorstMirari/Documents/GitHub/OriWotwRandomizerClient/WotwRando.ico" /out "C:/moon/WotwRando.exe"
