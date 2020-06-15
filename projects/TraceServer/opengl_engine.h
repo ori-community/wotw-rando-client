@@ -1,6 +1,6 @@
 #pragma once
 
-#if USE_VULKAN != TRUE
+#if !USE_VULKAN
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
