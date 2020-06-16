@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 namespace RandoMainDLL {
   public static class Extensions {
+    public static UberStateCondition toCond(this Memory.UberId id, int? target = null) => new UberStateCondition(id, target);
+    public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
     private static T Warn<T>(string badVal, string caller) where T : unmanaged {
       T def = new T();
@@ -24,6 +26,13 @@ namespace RandoMainDLL {
       return ret;
     }
     public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt) => self.TryGetValue(key, out TVal ret) ? ret : alt;
+    public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt, String caller) {
+      if (self.TryGetValue(key, out TVal ret))
+        return ret;
+      Randomizer.Warn(caller, $"didn't contain {key}: using {alt}");
+      return alt;
+    }
+
     /// <summary>
     /// Gets the description of the given Enum from its Description attribute. If the attribute is missing, returns the Enum as a string. If the Enum is invalid, returns null.
     /// </summary>

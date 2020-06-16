@@ -24,6 +24,7 @@ package AreaParser {
     case object AREA                     extends AreasToken
     case object PICKUP                   extends AreasToken
     case object STATE                    extends AreasToken
+    case object QUEST                    extends AreasToken
     case object FREE                     extends AreasToken
     case object REQUIREMENT              extends AreasToken
     case object CONNECTION               extends AreasToken
@@ -54,6 +55,7 @@ package AreaParser {
       def requirement: Parser[AreasToken] = positioned { "requirement" ^^^ REQUIREMENT }
       def pickup:      Parser[AreasToken] = positioned { "pickup"      ^^^ PICKUP }
       def state:       Parser[AreasToken] = positioned { "state"       ^^^ STATE }
+      def quest:       Parser[AreasToken] = positioned { "quest"       ^^^ QUEST }
       def free:        Parser[AreasToken] = positioned { "free"        ^^^ FREE }
       def connection:  Parser[AreasToken] = positioned { "conn"        ^^^ CONNECTION }
       def colon:       Parser[AreasToken] = positioned { ":"           ^^^ COLON }
@@ -61,7 +63,7 @@ package AreaParser {
       def or:          Parser[AreasToken] = positioned { "OR"          ^^^ OR }
 
       def tokens: Parser[Seq[AreasToken]] = {
-        phrase(rep1(comment | area | region | pickup | state | free | requirement | connection | colon |
+        phrase(rep1(comment | area | region | pickup | state | quest | free | requirement | connection | colon |
                     comma | or | assign | identifier | indentation)) ^^ { tokens => procIndent(tokens) }
       }
       private def foldme(acc: (List[Int], List[AreasToken]), curr: AreasToken): (List[Int], List[AreasToken])= {
@@ -180,9 +182,10 @@ package AreaParser {
       }
       def generalReqSec: Parser[Requirement] = reqSec(generalReqs)
       def pickup:        Parser[Connection] = "pickup node" !!! (PICKUP ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, ItemNode), reqs) }
+      def quest:         Parser[Connection] = "quest node" !!! (QUEST ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(QuestNode(name), reqs) }
       def state:         Parser[Connection] = "state node" !!! (STATE ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(WorldStateNode(name), reqs) }
       def conn:          Parser[Connection] = "conn node" !!! (CONNECTION ~> identifier <~ COLON) ~ generalReqSec ^^ { case IDENTIFIER(name) ~ reqs => Connection(Placeholder(name, AreaNode), reqs) }
-      def area:          Parser[Area] = "area node" !!! (AREA ~> identifier <~ COLON <~ indent <~ blanks.?) ~ repsep(state | pickup | conn, blanks) <~ dedent ^^ { case IDENTIFIER(name) ~ conns => Area(name, conns) }
+      def area:          Parser[Area] = "area node" !!! (AREA ~> identifier <~ COLON <~ indent <~ blanks.?) ~ repsep(state | pickup | quest | conn, blanks) <~ dedent ^^ { case IDENTIFIER(name) ~ conns => Area(name, conns) }
       def region:        Parser[(String, Requirement)] = "region" !!! (REGION ~> identifier <~ COLON) ~ reqSec(regionReqs) ^^ { case IDENTIFIER(name) ~ reqs => (name, reqs) }
       def areaOrRegion:  Parser[Either[Area, (String, Requirement)]] = (area | region) ^^ {
         case area: Area => Left(area)
@@ -206,7 +209,7 @@ package AreaParser {
           println(s"unused macros: $unusedMacros")
         val macroConns = macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq
 
-        def getUnusableStates(areas: Seq[Area]): Set[StateReq] = {
+/*        def getUnusableStates(areas: Seq[Area]): Set[StateReq] = {
           val reachableStateNodes = areas.flatMap(_.conns.withFilter(_.target.kind == StateNode).map(r => r.target.name))
           stateReqs(areas).filterNot(st => macros.contains(st.flag) || reachableStateNodes.contains(st.flag)).toSet
         }
@@ -222,13 +225,13 @@ package AreaParser {
             return pruneStatesRecursive(newAreas, newUnused)
           }
           newAreas
-        }
+        }*/
 
         // sub in macros
-        pruneStatesRecursive(areas.map({
+        areas.map({
           case Area(Area.SPAWN, conns) => Area(Area.SPAWN, conns ++ macroConns)
           case area => area
-        }))
+        })
           // find applicable regions
           .map(a => (a, regions.collectFirst({case (rName, rReq) if a.name.startsWith(rName) => rReq})))
           // apply their reqs
