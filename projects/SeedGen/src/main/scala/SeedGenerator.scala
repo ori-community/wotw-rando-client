@@ -22,7 +22,7 @@ package SeedGenerator {
   }
   import SeedGenerator.implicits._
 
-  case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: Int, x: Int, y: Int) {
+  case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
     val code = s"$uberGroupId|$uberId"
     def info: String = {
       val fullName = s"$area.$name"
@@ -36,14 +36,14 @@ package SeedGenerator {
   }
   object LocData {
     lazy val all: Seq[LocData] = {
-      val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9]*), ?([-0-9]*), ?([-0-9]*)""".r
+      val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = Source.fromFile("loc_data.csv")
       val pickups = pickupsFile.getLines.flatMap {
         case s if s.trim == "" => None
         case s if s.trim.startsWith("--") =>
           None
         case pickupReg(area, name, zone, category, value, uberGN, ugid, uberN, uid, x, y) =>
-          Some(LocData(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid.toInt, x.toInt, y.toInt))
+          Some(LocData(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid, x.toInt, y.toInt))
         case line: String =>
           println(s"Couldn't parse line: $line")
           None
@@ -56,9 +56,11 @@ package SeedGenerator {
 
   sealed trait NodeType
   case object AreaNode extends NodeType
-  case object ItemNode extends NodeType
-  case object StateNode extends NodeType
-
+  trait ItemNodeType extends NodeType
+  trait StateNodeType extends NodeType
+  case object ItemNode extends ItemNodeType
+  case object StateNode extends StateNodeType
+  case object QuestNode extends ItemNodeType with StateNodeType
   trait Node {
     def name: String
     def reached(state: GameState, nodes: Map[String,Node] = Map()): GameState = {
@@ -131,6 +133,11 @@ package SeedGenerator {
 
   case class WorldStateNode(name: String) extends Node {
     override def kind: NodeType = StateNode
+    override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = state + GameState.mk(WorldState(name), this)
+  }
+
+  case class QuestNode(name: String) extends Node {
+    override def kind: NodeType = QuestNode
     override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = state + GameState.mk(WorldState(name), this)
   }
 
@@ -232,7 +239,7 @@ package SeedGenerator {
       def pathAcc(p: Path): Set[Path] = if(pathsToHere.nonEmpty) pathsToHere.flatMap(_ and p) else Set(p)
       area.paths.flatMap(path => path.dest.kind match {
         case AreaNode if !seen.contains(path.dest.name) => _areas.get(path.dest.name).map(getAllPathsRecursive(_, pathAcc(path))).getOrElse({println("aaaaaa"); Map[Node, Set[Path]]()})
-        case StateNode if pathsToHere.nonEmpty => Map(path.dest -> pathsToHere.filter(!_.req.children.contains(StateReq(path.dest.name))).flatMap(_ and path))
+        case _: StateNodeType if pathsToHere.nonEmpty => Map(path.dest -> pathsToHere.filter(!_.req.children.contains(StateReq(path.dest.name))).flatMap(_ and path))
         case _ => Map(path.dest -> pathAcc(path))
       }).groupMapReduce(_._1)(_._2)(_ ++ _)
     }
@@ -257,9 +264,10 @@ package SeedGenerator {
             (newGood, newFlags)
         }
       val (good, needsRefined) = targets.withFilter(_.kind == StateNode).flatMap[(FlagState, GameState)]({
-        case WorldStateNode(flag) if flags.contains(WorldState(flag))
-                                        => Some(WorldState(flag) -> GameState.Empty)
+        case WorldStateNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
+        case QuestNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
         case n @ WorldStateNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(_.req.cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
+        case n @ QuestNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(_.req.cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
       }).filterNot(_._2.inv.has(Unobtainium)).toMap.partition(_._2.flags.isEmpty)
       Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
     }
@@ -267,6 +275,7 @@ package SeedGenerator {
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = areas.values.map(area => area.name -> Area(area.name, area.conns.flatMap({
       case Connection(target: Placeholder, Invalid) if target.kind == ItemNode => println(target.name); None
       case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name).map(Connection(_, reqs))
+      case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name).map(Connection(_, reqs))
       case c => Some(c)
     }))).toMap
 
@@ -347,7 +356,7 @@ package SeedGenerator {
           e
       })
     def mk(inState: GameState, i:Int=0)(implicit r: Random, pool: Inv, debug: Boolean = false): PlacementGroup = {
-      debugPrint(s"Starting iter: ${inState.reached.filter(_.kind == ItemNode)}")
+      debugPrint(s"Starting iter: ${inState.reached.filter(_.kind.isInstanceOf[ItemNodeType])}")
       val (reachable, flags) = Nodes.getReachable(inState.inv, inState.flags, itemsOnly = false)
       val reachableLocs = reachable.flatMap[Node](node => Nodes.items.get(node.name))
       val state = inState + new GameState(Inv.Empty, flags)
@@ -458,7 +467,7 @@ package SeedGenerator {
             case (items, n) if n >= Math.min(3, remaining) => (acc(items), items)
             case (items, 1) => (acc(items, .1), items)
         })
-        //println(s"$i, targets=${targets.size}, paths partial: ${possiblePathsPartial.size}, down to ${possiblePaths.size}")
+        debugPrint(s"$i, targets=${targets.size}, paths partial: ${possiblePathsPartial.size}, down to ${possiblePaths.size}")
         if(possiblePaths.isEmpty) {
           if(far < 5) {
             println(s"group $i: failed at far=$far, looking deeper")
@@ -473,8 +482,11 @@ package SeedGenerator {
             println("too big:\n" + tooBig.mkString("\n"))
           possiblePathsPruned = possiblePathsPruned.filter(_.inv.count <= sizeLeft)
           val flagProb = possiblePathsPruned.filterNot(_.flags.forall(state.flags.contains))
-          if(flagProb.nonEmpty)
+          if(flagProb.nonEmpty) {
             println("flags:\n" + flagProb.map(s => (s.flags, s.flags -- flags)).mkString("\n"))
+            println("remaining:" + flagRemaining.filter(_._2 != GameState.Empty))
+            println("unreachable:" + unaffordable)
+          }
           (Nodes.items.values.toSet[Node] -- reachableLocs).take(3).foreach(n => {
             println(s"${n.name}: \n\t${Nodes.paths(n).take(3).map(_.req.cheapestRemaining(state)).mkString("\n\t")}")
           })
@@ -635,7 +647,7 @@ object Runner {
   object ItemPool {
     lazy val SIZE: Int = Nodes.items.size
     def build(size: Int = SIZE)(implicit r: Random): Inv = {
-      val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 39, ShardSlot -> 5, Keystone -> 32) +
+      val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> 32) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)
       while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
       pool.merchToPop = Nodes.items.values.count(_.data.category == "Shop")
