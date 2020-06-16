@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 namespace RandoMainDLL {
   public static class Extensions {
+    public static UberStateCondition toCond(this Memory.UberId id, int? target = null) => new UberStateCondition(id, target);
+    public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
     private static T Warn<T>(string badVal, string caller) where T : unmanaged {
       T def = new T();
