@@ -12,18 +12,18 @@ MarshSpawn.LeverEC, Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, en
 MarshSpawn.LeftTokkEX, Inkwater Marsh, SpiritLight, 50, swampStateGroup, 21786, expOrb, 59513, -755, -4423
 MarshSpawn.FightRoomEX, Inkwater Marsh, SpiritLight, 50, inkwaterMarshStateGroup, 9593, xpOrb, 42047, -783, -4452
 MarshSpawn.CaveKS, Inkwater Marsh, Resource, Keystone, swampStateGroup, 21786, swampWalljumpChallengeBKeystoneBCollected, 64677, -852, -4404
-MarshSpawn.TheMissingKey, Inkwater Marsh, Resource, Keystone, npcsStateGroup, 48248, marshKeystoneQuest, 51645=3, -695, -4417
+MarshSpawn.TheMissingKey, Inkwater Marsh, Quest, Keystone, npcsStateGroup, 48248, marshKeystoneQuest, 51645=3, -695, -4417
 MarshSpawn.CaveOre, Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 23858, -858, -4423
 MarshSpawn.LongSwimEX, Inkwater Marsh, SpiritLight, 100, swampStateGroup, 21786, mediumExpA, 23154, -837, -4315
 MarshSpawn.BurrowOre, Inkwater Marsh, Resource, Ore, inkwaterMarshStateGroup, 9593, gorlekOreA, 20382, -935, -4357
 MarshSpawn.LifepactShard, Inkwater Marsh, Shard, LifePact, pickupsGroup, 23987, bloodPactShardPickup, 50415, -916, -4399
 MarshSpawn.BurrowsApproachLedgeEX, Inkwater Marsh, SpiritLight, 50, howlsOriginGroup, 24922, smallExpA, 32076, -1001, -4451
 MarshSpawn.CrusherSwimEX, Inkwater Marsh, SpiritLight, 200, howlsOriginGroup, 24922, largeExpA, 62138, -979, -4510
-MarshSpawn.IntoTheBurrows, Inkwater Marsh, SpiritLight, 1000, npcsStateGroup, 48248, inkwaterWellQuest, 18458=4, -932, -4494
+MarshSpawn.IntoTheBurrows, Inkwater Marsh, Quest, SL1000, npcsStateGroup, 48248, inkwaterWellQuest, 18458=4, -932, -4494
 MarshSpawn.RecklessShard, Inkwater Marsh, Shard, Reckless, pickupsGroup, 23987, recklessShardPickup, 9864, -499, -4411
 MarshSpawn.FangEC, Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, halfEnergyCellA, 61706, -233, -4385
 MarshSpawn.FangQI, Inkwater Marsh, Quest, Fang, questUberStateGroup, 14019, braveMokiItemCollected, 27539, -221, -4406
-MarshSpawn.ALittleBraver, Inkwater Marsh, Resource, Ore, questUberStateGroup, 14019, braveMokiQuest, 15983=3, -391, -4414
+MarshSpawn.ALittleBraver, Inkwater Marsh, Quest, Ore, questUberStateGroup, 14019, braveMokiQuest, 15983=3, -391, -4414
 MidnightBurrows.DamageTree, Inkwater Marsh, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 121, -840, -4488
 MidnightBurrows.LeftKS, Midnight Burrows, Resource, Keystone, howlsOriginGroup, 24922, keystoneA, 60358, -800, -4580
 MidnightBurrows.RightKS, Midnight Burrows, Resource, Keystone, howlsOriginGroup, 24922, keystoneA, 47244, -597, -4548
@@ -82,7 +82,7 @@ EastHollow.BashEC, Kwoloks Hollow, Resource, Energy, kwolokGroupDescriptor, 937,
 EastHollow.BashHC, Kwoloks Hollow, Resource, Life, bashIntroductionA__clone1Group, 13428, healthContainerA, 59730, 83, -4264
 EastHollow.BashEX, Kwoloks Hollow, SpiritLight, 100, kwolokGroupDescriptor, 937, mediumExpB, 30182, -31, -4302
 EastHollow.BashTree, Kwoloks Hollow, Ability, Bash, treesDontWorry, 0, Bash, 0, -20, -4326
-EastHollow.KwoloksWisdom, Kwoloks Hollow, Spirit Light, 500, questUberStateGroup, 14019, kwoloksWisdomQuest, 50597=4, 240, -4207
+EastHollow.KwoloksWisdom, Kwoloks Hollow, Quest, SL500, questUberStateGroup, 14019, kwoloksWisdomQuest, 50597=4, 240, -4207
 EastHollow.RightKwolokEX, Kwoloks Hollow, SpiritLight, 100, _petrifiedForestGroup, 58674, expOrbA, 20983, 289, -4196
 EastHollow.SilentSwimEC, Kwoloks Hollow, Resource, Energy, _petrifiedForestGroup, 58674, energyContainerA, 9583, 331, -4192
 EastHollow.SplinterShard, Kwoloks Hollow, Shard, Splinter, pickupsGroup, 23987, splinterShardPickup, 62973, 216, -4308
@@ -95,7 +95,7 @@ GladesTown.HandToHandLantern, Wellspring Glades, Quest, Lantern, questUberStateG
 GladesTown.HandToHandCanteen, Wellspring Glades, Quest, Canteen, questUberStateGroup, 14019, tradeSequenceQuest, 26318=9, -410, -4142
 GladesTown.HandToHandSoup, Wellspring Glades, Quest, Soup, questUberStateGroup, 14019, tradeSequenceQuest, 26318=4, -110, -4090
 GladesTown.AcornQI, Wellspring Glades, Quest, Acorn, questUberStateGroup, 14019, darkCaveQuestItemCollected, 2782, -10, -4551
-GladesTown.IntoTheDarkness, Wellspring Glades, SpiritLight, 500, questUberStateGroup, 14019, darkCaveQuest, 33776=3, -358, -4185
+GladesTown.IntoTheDarkness, Wellspring Glades, Quest, SL500, questUberStateGroup, 14019, darkCaveQuest, 33776=3, -358, -4185
 GladesTown.HoleHutEC, Wellspring Glades, Resource, Energy, hubUberStateGroup, 42178, energyCellA, 52786, -116, -4540
 GladesTown.AboveGromHC, Wellspring Glades, Resource, Life, wellspringGladesGroup, 44310, lifeVesselA, 29043, -326, -4103
 GladesTown.LupoSwimHC, Wellspring Glades, Resource, Life, wellspringGladesGroup, 44310, lifeVesselB, 17523, -161, -4192
@@ -118,7 +118,9 @@ GladesTown.LupoSwimLeftEX, Wellspring Glades, SpiritLight, 50, hubUberStateGroup
 GladesTown.UpdraftCeilingEX, Wellspring Glades, SpiritLight, 50, hubUberStateGroup, 42178, smallExpC, 63404, -240, -4130
 GladesTown.LeafPileEX, Wellspring Glades, SpiritLight, 50, hubUberStateGroup, 42178, smallExpG, 44748, -160, -4099
 GladesTown.DamageTree, Wellspring Glades, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 120, -368, -4158
-GladesTown.RebuildTheGlades, Wellspring Glades, SpiritLight, 1000, questUberStateGroup, 14019, rebuildGladesQuest, 44578=2, 240, -4207
+GladesTown.RebuildTheGlades, Wellspring Glades, Quest, SL1000, questUberStateGroup, 14019, rebuildGladesQuest, 44578=2, 240, -4207
+GladesTown.ADiamondInTheRough, Wellspring Glades, Quest, Shard, pickupsGroup, 23987, secretShardPickup, 14832, -408, -4162
+GladesTown.RegrowTheGlades, Wellspring Glades, Quest, SL1000, questUberStateGroup, 14019, regrowGladesQuest, 26394=2, 240, -4207
 WestGlades.GrappleEX, Wellspring Glades, SpiritLight, 100, wellspringGroupDescriptor, 53632, mediumExpA, 12019, -515, -4103
 WestGlades.AbovePlantEX, Wellspring Glades, SpiritLight, 100, kwolokGroupDescriptor, 937, mediumExpC, 31036, -586, -4091
 WestGlades.LowerPoolEX, Wellspring Glades, SpiritLight, 50, kwolokGroupDescriptor, 937, smallExpA, 40657, -586, -4129
@@ -140,7 +142,7 @@ OuterWellspring.BasementEC, The Wellspring, Resource, Energy, wellspringGroupDes
 OuterWellspring.LifeHarvestShard, The Wellspring, Shard, LifeHarvest, pickupsGroup, 23987, vitalityLuckShardPickup, 53934, -998, -4030
 OuterWellspring.SwimEX, The Wellspring, SpiritLight, 100, wellspringGroupDescriptor, 53632, mediumExpOrbPlaceholderC, 62356, -825, -4086
 OuterWellspring.SwimOre, The Wellspring, Resource, Ore, wellspringGroupDescriptor, 53632, orePickupA, 21124, -761, -4094
-OuterWellspring.TheLostCompass, The Wellspring, Resource, Ore, questUberStateGroup, 14019, lostCompassQuest, 20667=3, -811, -3973
+OuterWellspring.TheLostCompass, The Wellspring, Quest, Ore, questUberStateGroup, 14019, lostCompassQuest, 20667=3, -811, -3973
 InnerWellspring.ThornShard, The Wellspring, Shard, Thorn, pickupsGroup, 23987, counterstrikeShardPickup, 31426, -1376, -3995
 InnerWellspring.ThornEX, The Wellspring, SpiritLight, 100, waterMillStateGroupDescriptor, 37858, mediumExpA, 22107, -1372, -3939
 InnerWellspring.ThreeWheelsEX, The Wellspring, SpiritLight, 50, waterMillStateGroupDescriptor, 37858, smallExpA, 45906, -1247, -3928
@@ -250,18 +252,18 @@ LowerReach.RoofLeftEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xp
 LowerReach.RoofRightEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbB, 46711, -72, -3951
 LowerReach.FractureShard, Baurs Reach, Shard, Fracture, pickupsGroup, 23987, fractureShardPickup, 36359, -81, -4001
 LowerReach.EscapeRevisitEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xpOrbB, 46404, 71, -3731
-LowerReach.RightKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025
-LowerReach.UpperLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneC, 10823, -84, -4025
-LowerReach.MiddleLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneB, 37444, -80, -4040
-LowerReach.BottomLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneD, 18358, -58, -4055
+LowerReach.RightKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025
+LowerReach.UpperLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneC, 10823, -84, -4025
+LowerReach.MiddleLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneB, 37444, -80, -4040
+LowerReach.BottomLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneD, 18358, -58, -4055
 LowerReach.TrialEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, mediumExpOrb, 22761, -39, -4018
 LowerReach.CatalystShard, Baurs Reach, Shard, Catalyst, pickupsGroup, 23987, hollowEnergyShardPickup, 897, -90, -4097
 UpperReach.LifeForceShard, Baurs Reach, Shard, Lifeforce, pickupsGroup, 23987, untouchableShardPickup, 19630, -400, -3861
 UpperReach.LifeForceEX, Baurs Reach, SpiritLight, 100, winterForestGroupDescriptor, 28287, mediumExpA, 32414, -423, -3876
-UpperReach.LowerKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneB, 1053, -248, -3891
-UpperReach.UpperKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneD, 50368, -207, -3843
-UpperReach.MiddleLeftKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneA, 22382, -232, -3869
-UpperReach.MiddleRightKS, Baurs Reach, Keystone, Keystone, baursReachGroup, 28895, keystoneC, 9949, -184, -3867
+UpperReach.LowerKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneB, 1053, -248, -3891
+UpperReach.UpperKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneD, 50368, -207, -3843
+UpperReach.MiddleLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneA, 22382, -232, -3869
+UpperReach.MiddleRightKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneC, 9949, -184, -3867
 UpperReach.SoupOre, Baurs Reach, Resource, Ore, baursReachGroup, 28895, gorlekOreA, 23795, -203, -3886
 UpperReach.SwingPoleEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbB, 40089, -194, -3854
 UpperReach.SwimEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbC, 40242, -239, -3921
@@ -353,12 +355,10 @@ TwillenShop.LightHarvest, Wellspring Glades, Shop, TwillenShard, twillenShopDont
 TwillenShop.Vitality, Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Vitality, 22, 0, 0
 TwillenShop.Energy, Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Energy, 26, 0, 0
 TwillenShop.Finesse, Wellspring Glades, Shop, TwillenShard, twillenShopDontWorry, 2, Finesse, 40, 0, 0
-TwillenShop.ADiamondInTheRough, Twillen, Shop, Quest, Shard, pickupsGroup, 23987, secretShardPickup, 14832, -408, -4162
-OpherShop.WaterBreath, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, WaterBreath, 23, 0, 0
-OpherShop.Spike, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Spike, 74, 0, 0
-OpherShop.SpiritSmash, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritSmash, 98, 0, 0
-OpherShop.Teleport, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Teleport, 105, 0, 0
-OpherShop.SpiritStar, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritStar, 106, 0, 0
-OpherShop.Blaze, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Blaze, 115, 0, 0
-OpherShop.Sentry, Opher, Shop, OpherWeapon, opherShopDontWorry, 1, Sentry, 116, 0, 0
-TuleyShop.RegrowTheGlades, Wellspring Glades, SpiritLight, 1000, questUberStateGroup, 14019, regrowGladesQuest, 26394=2, 240, -4207
+OpherShop.WaterBreath, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, WaterBreath, 23, 0, 0
+OpherShop.Spike, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Spike, 74, 0, 0
+OpherShop.SpiritSmash, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritSmash, 98, 0, 0
+OpherShop.Teleport, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Teleport, 105, 0, 0
+OpherShop.SpiritStar, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, SpiritStar, 106, 0, 0
+OpherShop.Blaze, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Blaze, 115, 0, 0
+OpherShop.Sentry, Wellspring Glades, Shop, OpherWeapon, opherShopDontWorry, 1, Sentry, 116, 0, 0
