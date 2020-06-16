@@ -21,6 +21,16 @@ namespace RandoMainDLL {
         Id = id;
         Target = target;
       }
+      public UberStateCondition(int groupId, string rawTarget) {
+        if (rawTarget.Contains("=")) {
+          var idAndTarget = rawTarget.Split('=');
+          Id = new UberId(groupId, int.Parse(idAndTarget[0]));
+          Target = int.Parse(idAndTarget[1]);
+        } else {
+          Id = new UberId(groupId, int.Parse(rawTarget));
+          Target = null;
+        }
+      }
       public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
       public override bool Equals(object obj) => obj is UberStateCondition other ? (Id.Equals(other.Id) && Target == other.Target) : false;
     }
@@ -65,27 +75,18 @@ namespace RandoMainDLL {
             if (line == "") continue;
             var frags = line.Split('|');
             string idAndMaybeTarget = frags[1];
-            UberId uberId;
-            int? target = null;
-            if (idAndMaybeTarget.Contains("=")) {
-              var idAndTarget = idAndMaybeTarget.Split('=');
-              uberId = new UberId(int.Parse(frags[0]), int.Parse(idAndTarget[0]));
-              target = int.Parse(idAndTarget[1]);
-            } else {
-              uberId = new UberId(int.Parse(frags[0]), int.Parse(idAndMaybeTarget));
-            }
+            var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
-            if (uberId.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Length > 4)
-              ShopController.SetCostMod((AbilityType)uberId.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
-            else if (uberId.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Length > 4)
-              ShopController.SetCostMod((ShardType)uberId.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
+            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Length > 4)
+              ShopController.SetCostMod((AbilityType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
+            else if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Length > 4)
+              ShopController.SetCostMod((ShardType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
 
             var pickup = BuildPickup(pickupType, frags[3]);
             if (pickup.IsHintItem())
-              HintsController.AddHint(uberId.Loc().Zone, pickup as Checkable);
-            var cond = uberId.toCond(target);
+              HintsController.AddHint(cond.Id.Loc().Zone, pickup as Checkable);
             pickupMap[cond] = cond.Pickup().Concat(pickup);
           } catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
