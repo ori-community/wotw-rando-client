@@ -130,6 +130,10 @@ if(skipUpdate == "false")
 		ReleaseNotes := ReleaseNotes.1
 		ReleaseNotes := StrReplace(ReleaseNotes, "\r\n", "`r`n")
 
+		RegExMatch(whr.ResponseText, "O)""size"":([^"",]*).*""size"":([^"",]*)",DLsize) ; Please don't look at this. I needed the second match okay...
+		DLsize := DLsize.2
+		OutputDebug, %DLsize%
+
 		SplashTextOn,,,Checking release %tag%
 
 		whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
@@ -145,7 +149,7 @@ if(skipUpdate == "false")
 				message = 0x1100
 				Progress, M h80 w500, , .
 				OnMessage(message, "SetCounter")
-				Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, message, 50)
+				Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, DLsize, message, 50)
 				Progress, Off
 				SplashTextOn,,,, Update Complete! Restarting...
 				Sleep, 2000
@@ -266,7 +270,7 @@ SetCounter(wParam, lParam) {
 	Progress, %progress%, %url%, Downloading %wParam%MB of about %lParam%MB..., %progress%`% - Downloading...
 }
 
-Download(url, save, msg = 0x1100, sleep = 250) {
+Download(url, save, DLsize, msg = 0x1100, sleep = 250) {
 	SetTimer, _dlprocess, %sleep%
 	UrlDownloadToFile, %url%, %save%
 	SetTimer, _dlprocess, Off
@@ -274,7 +278,7 @@ Download(url, save, msg = 0x1100, sleep = 250) {
 	_dlprocess:
 	FileGetSize, current, %save%, K
 	Process, Exist
-	PostMessage, msg, current * 1024, 48 * 1024 * 1024, , ahk_pid %ErrorLevel%
+	PostMessage, msg, current * 1024, DLsize, , ahk_pid %ErrorLevel%
 	Exit
 }
 
