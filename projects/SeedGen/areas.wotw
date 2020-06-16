@@ -159,10 +159,10 @@ area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, b
   quest MarshSpawn.TheMissingKey:  # wont be a thing :(
     base: Unreachable
     # base: MarshSpawn.CaveKS
-
   quest MarshSpawn.IntoTheBurrows:
-    base: MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
-    
+    base:
+      MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
+
   pickup MarshSpawn.CaveOre:
     base:
       DoubleJump OR Launch
@@ -192,6 +192,11 @@ region MidnightBurrows:
     Danger=25 # kind of a no-op?
 
 area MidnightBurrows:  # (-945, -4581) At the teleporter
+  quest MidnightBurrows.TabletQI:
+    base, MidnightBurrows.KeystoneDoor:
+      DoubleJump, Bash
+      Launch
+
   state MidnightBurrows.KeystoneDoor:
     base, Keystone=4:
       DoubleJump, Bash
@@ -232,14 +237,6 @@ area MidnightBurrows:  # (-945, -4581) At the teleporter
       Launch
     advanced: 
       MidnightBurrows.Lever, DoubleJump OR Dash
-  state MidnightBurrows.TabletQICollected:
-    base, MidnightBurrows.KeystoneDoor:
-      DoubleJump, Bash
-      Launch
-  pickup MidnightBurrows.TabletQI:
-    base, MidnightBurrows.KeystoneDoor:
-      DoubleJump, Bash
-      Launch
 
 area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
   state HowlsDen.KeystoneDoor:
@@ -3248,8 +3245,6 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
 # END unvalidated willow's end region
 
 area TwillenShop:
-  quest TwillenShop.ADiamondInTheRough:
-    base: LowerWastes.EerieGem
 # stealing this for keystones
 #  pickup TwillenShop.Overcharge:
 #    base: SpiritLight=800
@@ -3267,6 +3262,8 @@ area TwillenShop:
     base: GladesTown.EntryWallBroken, SpiritLight=800
   pickup TwillenShop.LightHarvest:
     base: GladesTown.EntryWallBroken, SpiritLight=800
+  quest GladesTown.ADiamondInTheRough:
+    base: LowerWastes.EerieGem
 
 area OpherShop:
   pickup OpherShop.Spike:
@@ -3299,8 +3296,7 @@ area TuleyShop:
     base: UpperReach.SpringSeed
   state TuleyShop.LastTree:
     base: WoodsEntry.TreeSeed
-
-  quest TuleyShop.RegrowTheGlades:
+  quest GladesTown.RegrowTheGlades:
     base: TuleyShop.SelaFlowers, TuleyShop.StickyGrass, TuleyShop.Lightcatchers, TuleyShop.BlueMoon, TuleyShop.SpringPlants, TuleyShop.LastTree
 
 
