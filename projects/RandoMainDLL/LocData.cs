@@ -22,7 +22,7 @@ namespace RandoMainDLL {
     public string Name;
     public ZoneType Zone;
     public LocType Type;
-    public UberId Id;
+    public UberStateCondition Cond;
     public LocData(ZoneType zone, LocType type) { Zone = zone; Type = type; }
 
     public static Dictionary<string, ZoneType> NameToZone = new Dictionary<string, ZoneType>() {
@@ -95,22 +95,21 @@ namespace RandoMainDLL {
           Type = LocType.Unknown;
           break;
       }
-      Id = new UberId(lineParts[5].ParseToInt("LocData UGID"), lineParts[7].ParseToInt("LocData UGID"));
+      Cond = new UberStateCondition(lineParts[5].ParseToInt("LocData UGID"), lineParts[7]);
 
     }
     public static LocData Void = new LocData(ZoneType.Void, LocType.Unknown);
 
   }
-  public static class LocDataStaticHelper {
-    public static LocData Loc(this UberId uid) => All.GetOrElse(uid, LocData.Void);
+  public static class LocDataStatic {
     public static void PopulateLocData() {
       foreach(var line in File.ReadAllLines(@"C:\moon\loc_data.csv")) {
         var data = new LocData(line);
-        _all[data.Id] = data;
+        _all[data.Cond] = data;
       }
     }
-    private static Dictionary<UberId, LocData> _all = new Dictionary<UberId, LocData>();
-    public static Dictionary<UberId, LocData> All  {
+    private static Dictionary<UberStateCondition, LocData> _all = new Dictionary<UberStateCondition, LocData>();
+    public static Dictionary<UberStateCondition, LocData> All  {
       get {
         if (_all.Count == 0)
           PopulateLocData();

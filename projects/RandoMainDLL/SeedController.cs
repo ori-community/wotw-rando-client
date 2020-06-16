@@ -13,29 +13,30 @@ namespace RandoMainDLL {
     BINDING_TWO = 3,
     BINDING_THREE = 4
   }
-  public static class SeedController {
-    public class UberStateCondition {
-      public UberId Id;
-      public int? Target;
-      public UberStateCondition(UberId id, int? target) {
-        Id = id;
-        Target = target;
-      }
-      public UberStateCondition(int groupId, string rawTarget) {
-        if (rawTarget.Contains("=")) {
-          var idAndTarget = rawTarget.Split('=');
-          Id = new UberId(groupId, int.Parse(idAndTarget[0]));
-          Target = int.Parse(idAndTarget[1]);
-        } else {
-          Id = new UberId(groupId, int.Parse(rawTarget));
-          Target = null;
-        }
-      }
-      public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
-      public override bool Equals(object obj) => obj is UberStateCondition other ? (Id.Equals(other.Id) && Target == other.Target) : false;
+  public class UberStateCondition {
+    public UberId Id;
+    public int? Target;
+    public UberStateCondition(UberId id, int? target) {
+      Id = id;
+      Target = target;
     }
+    public UberStateCondition(int groupId, string rawTarget) {
+      if (rawTarget.Contains("=")) {
+        var idAndTarget = rawTarget.Split('=');
+        Id = new UberId(groupId, int.Parse(idAndTarget[0]));
+        Target = int.Parse(idAndTarget[1]);
+      }
+      else {
+        Id = new UberId(groupId, int.Parse(rawTarget));
+        Target = null;
+      }
+    }
+    public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
+    public override bool Equals(object obj) => obj is UberStateCondition other ? (Id.Equals(other.Id) && Target == other.Target) : false;
+  }
 
-    public static UberStateCondition toCond(this UberId id, int? target = null) => new UberStateCondition(id, target);
+
+  public static class SeedController {
 
     public enum FakeUberGroups {
       TREE = 0,
@@ -86,7 +87,7 @@ namespace RandoMainDLL {
 
             var pickup = BuildPickup(pickupType, frags[3]);
             if (pickup.IsHintItem())
-              HintsController.AddHint(cond.Id.Loc().Zone, pickup as Checkable);
+              HintsController.AddHint(cond.Loc().Zone, pickup as Checkable);
             pickupMap[cond] = cond.Pickup().Concat(pickup);
           } catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
@@ -143,8 +144,9 @@ namespace RandoMainDLL {
               id.toCond(state.ValueAsInt()).Pickup());
       if (p.NonEmpty) {
         p.Grant();
-        if (id.Loc().Type == LocType.Shard && !p.NeedsMagic()) // shard bug!
-          InterOp.magic_function();
+        // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
+        if (id.toCond().Loc().Type == LocType.Shard && !p.NeedsMagic()) 
+        InterOp.magic_function();
       } else {
         HintsController.OnLupoState(id);
       }
