@@ -1,3 +1,5 @@
+add_subdirectory("Common")
+add_subdirectory("GuiEngine")
 add_subdirectory("TraceClientManaged")
 add_subdirectory("WinNetwork")
 
