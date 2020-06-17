@@ -75,7 +75,9 @@ namespace RandoMainDLL {
         new UberId(5377, 1373).State().Write(state.Value);
     }
     private static bool ShouldRevert(UberState state) => !NeedsNewGameInit && !SkipListenersNextUpdate &&
-      (state.Name == "cleanseWellspringQuestUberState" && (SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false) && state.Value.Int < 4) ||
+      (state.Name == "cleanseWellspringQuestUberState" && 
+        ((SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false) && state.Value.Int < 4) ||
+        state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes")) ||
       (state.Name == "findKuQuest" && state.Value.Int < 4);
 
     public static void NewGameInit() {
