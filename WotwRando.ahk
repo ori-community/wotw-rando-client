@@ -45,7 +45,7 @@ FileRead, MY_VER, %INSTALL_DIR%.VERSION
 if(FileExist(INSTALL_DIR . "VERSION")) {
 	FileRead, INSTALL_VER, %INSTALL_DIR%VERSION
 	; check if this exe is a newer version from the one installed
-	if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and  semver_compare(MY_VER, INSTALL_VER) == 1)) {
+	if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and semver_compare(MY_VER, INSTALL_VER) == 1)) {
 		; update; write ini defaults, extract new versions of files
 		gosub, WriteIniDefaults
 		gosub, ExtractFiles
@@ -170,6 +170,7 @@ if(not FileExist(SteamPath)) {
 	IniWrite, %SteamPath%, %INI_FILE%, Paths, Steam
 }
 return
+
 LaunchGame:
 if(WinStore == "false") 
 	Run, *RunAs %SteamPath% -applaunch 1057090
@@ -233,13 +234,13 @@ Try {
 	RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
 	tag := tag.1
 
-	RegExMatch(whr.ResponseText, "O)""body"":""([^"",]*)""",ReleaseNotes)
+	RegExMatch(whr.ResponseText, "O)""body"":""(.*)""}",ReleaseNotes)
 	ReleaseNotes := ReleaseNotes.1
 	ReleaseNotes := StrReplace(ReleaseNotes, "\r\n", "`r`n")
+	ReleaseNotes := StrReplace(ReleaseNotes, "\", "") ; Remove any escape characters (such as /") so they show up normally.
 
 	RegExMatch(whr.ResponseText, "O)""size"":([^"",]*).*""size"":([^"",]*)",DLsize) ; Please don't look at this. I needed the second match okay...
 	DLsize := DLsize.2
-	OutputDebug, %DLsize%
 
 	SplashTextOn,,,Checking release %tag%
 
