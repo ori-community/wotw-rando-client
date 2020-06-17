@@ -57,16 +57,17 @@ namespace RandoMainDLL {
 
     public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static HashSet<Flag> flags = new HashSet<Flag>();
-
-    public static void ReadSeed() {
-      string seedName = File.ReadAllText(Randomizer.SeedNameFile);
-      if (seedName.Trim() != "") {
+    public static string SeedFile = "";
+    public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1+SeedFile.LastIndexOf('\\')) : SeedFile;  }
+    public static void ReadSeed(bool init=false) {
+      SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
+      if (File.Exists(SeedFile)) {
         pickupMap.Clear();
         flags.Clear();
         HintsController.Reset();
         string line = "";
 
-        foreach (string rawLine in File.ReadLines(Randomizer.SeedFile)) {
+        foreach (string rawLine in File.ReadLines(SeedFile)) {
           try {
             if (rawLine.StartsWith("Flags: ")) {
               ProcessFlags(rawLine);
@@ -93,9 +94,10 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
-        AHK.Print($"v{Randomizer.VERSION} - Seed {seedName} loaded", 300);
+        if(!init)
+          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}", 300);
       } else {
-        AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file and double-click it to load one", 360);
+        AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
     public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
