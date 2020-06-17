@@ -116,54 +116,7 @@ if(dev == "false")
 
 ; ---------- check for updates ---------------
 if(skipUpdate == "false")
-{
-	SplashTextOn,,,Checking for updates...
-	Try {
-		whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-		whr.Open("GET", "https://api.github.com/repos/sparkle-preference/OriWotwRandomizerClient/releases/latest", false)
-		whr.Send() ; first
-
-		RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
-		tag := tag.1
-
-		RegExMatch(whr.ResponseText, "O)""body"":""([^"",]*)""",ReleaseNotes)
-		ReleaseNotes := ReleaseNotes.1
-		ReleaseNotes := StrReplace(ReleaseNotes, "\r\n", "`r`n")
-
-		RegExMatch(whr.ResponseText, "O)""size"":([^"",]*).*""size"":([^"",]*)",DLsize) ; Please don't look at this. I needed the second match okay...
-		DLsize := DLsize.2
-		OutputDebug, %DLsize%
-
-		SplashTextOn,,,Checking release %tag%
-
-		whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
-		whr.Send() ; second
-
-		latest := whr.ResponseText
-		if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
-		{
-			SplashTextOff
-			Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%? `n`n %ReleaseNotes%
-			IfMsgBox, Yes 
-			{
-				message = 0x1100
-				Progress, M h80 w500, , .
-				OnMessage(message, "SetCounter")
-				Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, DLsize, message, 50)
-				Progress, Off
-				SplashTextOn,,,, Update Complete! Restarting...
-				Sleep, 2000
-				SplashTextOff
-				Run, *RunAs %NEWWOTWR% %1% %2% %3% %4%
-				ExitApp
-			} 
-		}
-	}  catch e {
-		errorMsg := "Error: " e.Message
-	    msgbox Update check failed! Press ok to launch anyways`n%errorMsg%
-	}
-	SplashTextOff
-}
+	GoSub CheckForUpdates
 
 argc = %0%
 if(argc > 0)  {
@@ -182,8 +135,6 @@ if(argc > 0)  {
 		SplashTextOff
 	} else {
 		WinActivate, OriAndTheWilloftheWisps
-		WinWaitActive, OriAndTheWilloftheWisps
-		SendRaw, !l
 	}
 
 }  else {
@@ -196,8 +147,6 @@ if(argc > 0)  {
 		SplashTextOff
 	} else {
 		WinActivate, OriAndTheWilloftheWisps
-		WinWaitActive, OriAndTheWilloftheWisps
-		SendRaw, !l
 	}
 }
 ExitApp
@@ -261,7 +210,64 @@ Else
 	FileCopy C:\moon\WotwRando.exe, %WOTWREXE%
 return
 
+CheckForUpdates:
+FileGetTime, LastModified, %INSTALL_DIR%VERSION, M
+minSinceLastCheck := A_Now
+EnvSub, minSinceLastCheck, LastModified, Minutes
+if(minSinceLastCheck < 15)  ; don't check updates more than once every 15 minutes
+	return
 
+SplashTextOn,,,Checking for updates...
+Try {
+	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+	whr.Open("GET", "https://api.github.com/repos/sparkle-preference/OriWotwRandomizerClient/releases/latest", false)
+	whr.Send() ; first
+
+	RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
+	tag := tag.1
+
+	RegExMatch(whr.ResponseText, "O)""body"":""([^"",]*)""",ReleaseNotes)
+	ReleaseNotes := ReleaseNotes.1
+	ReleaseNotes := StrReplace(ReleaseNotes, "\r\n", "`r`n")
+
+	RegExMatch(whr.ResponseText, "O)""size"":([^"",]*).*""size"":([^"",]*)",DLsize) ; Please don't look at this. I needed the second match okay...
+	DLsize := DLsize.2
+	OutputDebug, %DLsize%
+
+	SplashTextOn,,,Checking release %tag%
+
+	whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
+	whr.Send() ; second
+
+	latest := whr.ResponseText
+	if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
+	{
+		SplashTextOff
+		Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%? `n`n %ReleaseNotes%
+		IfMsgBox, Yes 
+		{
+			message = 0x1100
+			Progress, M h80 w500, , .
+			OnMessage(message, "SetCounter")
+			Download("https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/"  tag  "/WotwRando.exe", NEWWOTWR, DLsize, message, 50)
+			Progress, Off
+			SplashTextOn,,,, Update Complete! Restarting...
+			Sleep, 2000
+			SplashTextOff
+			Run, *RunAs %NEWWOTWR% %1% %2% %3% %4%
+			ExitApp
+		} 
+	}
+	if(semver_validate(latest)) {
+		FileDelete, %INSTALL_DIR%VERSION		
+		FileAppend, %latest%, %INSTALL_DIR%VERSION
+	}
+}  catch e {
+	errorMsg := "Error: " e.Message
+    msgbox Update check failed! Press ok to launch anyways`n%errorMsg%
+}
+SplashTextOff
+Return
 SetCounter(wParam, lParam) {
 	global url
 	progress := Round(wParam / lParam * 100)
