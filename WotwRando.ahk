@@ -140,6 +140,8 @@ if(argc > 0)  {
 		SplashTextOff
 	} else {
 		WinActivate, OriAndTheWilloftheWisps
+		detecthiddenwindows, on
+		controlsettext, edit1, reload, wotwRandoSecretChannel
 	}
 
 }  else {
