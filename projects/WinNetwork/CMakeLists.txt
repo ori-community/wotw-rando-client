@@ -10,7 +10,6 @@ set(
 	SOURCE_FILES
 	"binary_walker.cpp"
 	"constants.cpp"
-	"ext.cpp"
 	"peer.cpp"
 )
 
@@ -18,7 +17,6 @@ set(
 	PUBLIC_HEADER_FILES
 	"binary_walker.h"
 	"constants.h"
-	"ext.h"
 	"peer.h"
 )
 
@@ -51,6 +49,11 @@ target_include_directories(
 		${WOTWR_LIB_INCLUDE_DIR}
 	SYSTEM
 		${WOTWR_BASE_INCLUDES}
+)
+
+target_link_libraries(
+	${PROJECT_NAME}
+	Common
 )
 
 message(STATUS "Assigning source groups.")

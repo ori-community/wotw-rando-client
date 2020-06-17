@@ -3,7 +3,9 @@
 #pragma comment(lib, "ws2_32.lib")
 
 #include <binary_walker.h>
-#include <ext.h>
+
+#include <Common/ext.h>
+
 #include <vector>
 
 namespace network
@@ -110,15 +112,11 @@ namespace network
         {
             int result = shutdown(data.socket, SD_BOTH);
             if (result != 0)
-            {
                 data.logging_callback(format("socket shutdown() error %d\n", WSAGetLastError()));
-            }
 
             result = closesocket(data.socket);
             if (result != 0)
-            {
                 data.logging_callback(format("socket closesocket() error %d\n", WSAGetLastError()));
-            }
 
             data.socket = INVALID_SOCKET;
         }
