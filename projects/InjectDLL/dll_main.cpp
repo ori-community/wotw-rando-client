@@ -137,13 +137,13 @@ INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController
 });
 
 // GameController$get_InputLocked
-BINDING(10012848, bool, getInputLocked, (GameController_c* thisPtr));
+BINDING(10012848, bool, getInputLocked, (GameController_o* thisPtr));
 // GameController$$get_LockInput
-BINDING(10013200, bool, getLockInput, (GameController_c* thisPtr));
+BINDING(10013200, bool, getLockInput, (GameController_o* thisPtr));
 // GameController$$get_IsSuspended
-BINDING(10013520, bool, getIsSuspended, (GameController_c* thisPtr));
+BINDING(10013520, bool, getIsSuspended, (GameController_o* thisPtr));
 // GameController$$get_SecondaryMapAndInventoryCanBeOpened
-BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_c* thisPtr));
+BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_o* thisPtr));
 
 BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o* thisPtr, int32_t binding, int32_t typ));
 
@@ -163,6 +163,9 @@ Game_Characters_StaticFields* get_characters() {
 }
 GameController_c* get_game_controller() {
   return *(GameController_c**)resolve_rva(71838776);
+}
+GameController_o* get_game_controller_instance() {
+  return get_game_controller()->static_fields->Instance;
 }
 Game_UI_c* get_UI() {
   return (*(Game_UI_c**)resolve_rva(71714856));  // Class$Game.UI
@@ -198,7 +201,7 @@ void set_ore(int oreCount) {
 extern "C" __declspec(dllexport)
 bool player_can_move() {
     // TODO: figure out which of these are superflous
-    auto gcip = get_game_controller();
+    auto gcip = get_game_controller_instance();
     DEBUG("gIL: " << getInputLocked(gcip) << ", gLI: " << getLockInput(gcip) << ", gIS: " << getIsSuspended(gcip) << ", gSMA: " << getSecondaryMenusAccessable(gcip));
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
@@ -207,7 +210,7 @@ bool player_can_move() {
 extern "C" __declspec(dllexport)
 void save() {
     DEBUG("Save requested by c# code");
-    GameController__CreateCheckpoint(get_game_controller()->static_fields->Instance, true, false);
+    GameController__CreateCheckpoint(get_game_controller_instance(), true, false);
 }
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
