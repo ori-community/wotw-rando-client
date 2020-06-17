@@ -4,8 +4,7 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class Randomizer {
-    public static string SeedFile = @"C:\moon\.currentseed";
-    public static string SeedNameFile = @"C:\moon\.currentseedname";
+    public static string SeedPathFile = @"C:\moon\.currentseedpath";
     public static string MessageLog = @"C:\moon\.messagelog";
     public static string LogFile = @"C:\moon\cs_log.txt";
     public static string SaveFolder = @"C:\moon\saves";
@@ -25,11 +24,13 @@ namespace RandoMainDLL {
     }
     public static bool Initialize() {
       try {
-        if (!Directory.Exists(SaveFolder)) {
+        if (!Directory.Exists(SaveFolder)) 
           Directory.CreateDirectory(SaveFolder);
-        }
-
-        foreach (var fileName in new string[] { LogFile, SeedFile, SeedNameFile, MessageLog }) {
+        
+        if (!File.Exists(SeedPathFile)) 
+          File.WriteAllText(SeedPathFile, @"C:\moon\.currentseed");
+        
+        foreach (var fileName in new string[] { LogFile, MessageLog }) {
           if (!File.Exists(fileName)) {
             File.WriteAllText(fileName, "");
             Log($"Wrote blank {fileName} (normal for first-time init)");
@@ -37,7 +38,7 @@ namespace RandoMainDLL {
         }
 
         AHK.Init();
-        SeedController.ReadSeed();
+        SeedController.ReadSeed(true);
         RVAFinder.Init();
         Memory = new MemoryManager();
         if (!Memory.HookProcess()) {
