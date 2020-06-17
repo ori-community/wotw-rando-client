@@ -284,9 +284,7 @@ void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize)
 
                 ImGui::TableNextRow();
                 ImGui::TableSetColumnIndex(1);
-                ImGui::Dummy({ 0.f, height_margin });
                 ImGui::Text(option.name.c_str());
-                ImGui::Dummy({ 0.f, height_margin });
 
                 std::string id = format("###option%d", i);
                 ImGui::TableSetColumnIndex(2);
