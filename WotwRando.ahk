@@ -30,7 +30,7 @@ ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 ;restart script in admin mode
 if not A_IsAdmin
 {
-   Run *RunAs "%A_ScriptFullPath%" %1% %2% %3% %4%
+   Run *RunAs "%A_ScriptFullPath%" "%1%" "%2%" "%3%" "%4%"
    ExitApp
 }
 ; filecreatedir silent fails if it exists, so we won't bother checking if it's already there
@@ -56,7 +56,7 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 			; copy this file into the canonical path
 			FileCopy, %A_ScriptFullPath%, %WOTWREXE%, 1
 			; spawn a new thread running from the canonical path
-			Run *RunAs %WOTWREXE% %1% %2% %3% %4%
+			Run *RunAs %WOTWREXE%  "%1%" "%2%" "%3%" "%4%"
 			; mark this version of the file for deletion, then exit
 			FileDelete, %DELETEME%
 			FileAppend, %A_ScriptFullPath%, %DELETEME%			
@@ -130,7 +130,7 @@ if(argc > 0)  {
 	; load it in and launch/highlight the game
 	FileDelete, %INSTALL_DIR%\.currentseedpath
 	SplitPath, 1, FileName
-	FileAppend, %1%, %INSTALL_DIR%\.currentseedpath
+	FileAppend, "%1%", %INSTALL_DIR%\.currentseedpath
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
 		SplashTextOn,400,, Launching Rando with Seed %FileName%
@@ -261,7 +261,7 @@ Try {
 			SplashTextOn,,,, Update Complete! Restarting...
 			Sleep, 2000
 			SplashTextOff
-			Run, *RunAs %NEWWOTWR% %1% %2% %3% %4%
+			Run, *RunAs %NEWWOTWR% "%1%" "%2%" "%3%" "%4%"
 			ExitApp
 		} 
 	}
