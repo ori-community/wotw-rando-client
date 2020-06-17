@@ -269,17 +269,24 @@ void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize)
             ImGui::PushStyleColor(ImGuiCol_TableRowBg, { 0.1f, 0.1f, 0.1f, 1.0f });
             ImGui::PushStyleColor(ImGuiCol_TableRowBgAlt, { 0.3f, 0.3f, 0.3f, 1.0f });
             int i = 1;
+            std::string current_section;
             for (auto& option : extra.randomizer_settings.options)
             {
-                ImGui::TableNextRow();
-                ImGui::TableSetColumnIndex(0);
-                ImGui::Dummy({ 60.f, height_margin });
-                ImGui::Text(option.section.c_str());
-                ImGui::Dummy({ 60.f, height_margin });
+                if (option.section != current_section)
+                {
+                    ImGui::TableNextRow();
+                    ImGui::TableSetColumnIndex(0);
+                    ImGui::Dummy({ 60.f, height_margin });
+                    ImGui::Text(option.section.c_str());
+                    ImGui::Dummy({ 60.f, height_margin });
+                    current_section = option.section;
+                }
 
+                ImGui::TableNextRow();
                 ImGui::TableSetColumnIndex(1);
                 ImGui::Dummy({ 0.f, height_margin });
                 ImGui::Text(option.name.c_str());
+                ImGui::Dummy({ 0.f, height_margin });
 
                 std::string id = format("###option%d", i);
                 ImGui::TableSetColumnIndex(2);
