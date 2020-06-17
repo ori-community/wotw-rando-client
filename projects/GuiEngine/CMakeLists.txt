@@ -23,7 +23,7 @@ set(
 	"gui/imgui_demo.cpp"
 	
 	"gui_helpers/dropdown.cpp"
-	"gui_helpers/layout_planner.cpp"
+	"gui_helpers/layout.cpp"
 )
 
 set(
@@ -42,12 +42,13 @@ set(
 	"gui/implementation/imgui_impl_vulkan.h"
 	
 	"gui_helpers/dropdown.h"
-	"gui_helpers/layout_planner.h"
+	"gui_helpers/layout.h"
 )
 
 set(
 	MISC_FILES
 	".editorconfig"
+	"CMakeLists.txt"
 )
 
 set(Vulkan_FOUND FALSE)
@@ -100,7 +101,8 @@ target_include_directories(
 
 message(STATUS "Assigning source groups.")
 
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
+set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};")
+set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
 source_group("" FILES "${CONFIG_DIR}/build.h")
 source_group("" FILES "${PROJECT_DIR}/build.h.in")
