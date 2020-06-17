@@ -74,11 +74,19 @@ namespace RandoMainDLL {
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
     }
-    private static bool ShouldRevert(UberState state) => !NeedsNewGameInit && !SkipListenersNextUpdate &&
-      (state.Name == "cleanseWellspringQuestUberState" && 
-        ((SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false) && state.Value.Int < 4) ||
-        state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes")) ||
-      (state.Name == "findKuQuest" && state.Value.Int < 4);
+    private static bool ShouldRevert(UberState state) {
+      if (NeedsNewGameInit || SkipListenersNextUpdate)
+        return false;
+      if (state.Name == "cleanseWellspringQuestUberState") {
+        if ((SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false) && state.Value.Int < 4)
+          return true;
+        if (state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes"))
+          return true;
+      } else if (state.Name == "findKuQuest" && state.Value.Int < 4) {
+        return true;
+      }
+      return false;
+    }
 
     public static void NewGameInit() {
       var memory = Randomizer.Memory;
