@@ -10,16 +10,19 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 set(
 	SOURCE_FILES
 	"app.cpp"
+	"settings.cpp"
 )
 
 set(
 	PUBLIC_HEADER_FILES
+	"settings.h"
 	"trace_structs.h"
 )
 
 set(
 	MISC_FILES
 	".editorconfig"
+	"CMakeLists.txt"
 )
 
 add_executable(${PROJECT_NAME} WIN32
@@ -50,6 +53,7 @@ target_include_directories(
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
+set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
 target_link_libraries(
 	${PROJECT_NAME}
