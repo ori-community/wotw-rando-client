@@ -21,7 +21,7 @@ bool isTwillenShard(char shard){
 
 
 bool is_in_shop_screen(){
-	const GameController_c* Class_GameController = *(GameController_c**) resolve_rva(71838776);
+  const GameController_c* Class_GameController = get_game_controller();
 	if(!Class_GameController)
 		return false;
 	const auto  gameController = Class_GameController->static_fields->Instance;
