@@ -29,7 +29,6 @@
 #include <WinNetwork/ext.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
-void* game_controller_instance_ptr = NULL;
 
 bool trace_enabled = false;
 // if you are debugging and don't want the trace client to be dropped set this to false.
@@ -77,11 +76,10 @@ std::mutex log_mutex;
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
-INTERCEPT(10056256, void, createCheckpoint, (__int64 this_ptr), {
-    csharp_lib->call<void>("OnCheckpoint");
-    createCheckpoint(this_ptr);
-});
-//GameController$$createCheckpoint
+INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone), {
+  csharp_lib->call<void>("OnCheckpoint");
+  GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
+  });
 
 
 BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
@@ -115,7 +113,7 @@ INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
 
 INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
     csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
-    SaveGameController__SaveToFile(thisPtr, slotIndex, -1, bytes);
+    SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
 });
 
 INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
@@ -139,13 +137,13 @@ INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController
 });
 
 // GameController$get_InputLocked
-BINDING(10012848, bool, getInputLocked, (__int64));
+BINDING(10012848, bool, getInputLocked, (GameController_c* thisPtr));
 // GameController$$get_LockInput
-BINDING(10013200, bool, getLockInput, (__int64));
+BINDING(10013200, bool, getLockInput, (GameController_c* thisPtr));
 // GameController$$get_IsSuspended
-BINDING(10013520, bool, getIsSuspended, (__int64));
+BINDING(10013520, bool, getIsSuspended, (GameController_c* thisPtr));
 // GameController$$get_SecondaryMapAndInventoryCanBeOpened
-BINDING(10011696, bool, getSecondaryMenusAccessable, (__int64));
+BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_c* thisPtr));
 
 BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o* thisPtr, int32_t binding, int32_t typ));
 
@@ -160,11 +158,13 @@ bool toggle_cursorlock() {
   return newState > 0;
 }
 
-Game_Characters_StaticFields* get_characters()
-{
+Game_Characters_StaticFields* get_characters() {
 	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
 }
-Game_UI_c* get_UI() { 
+GameController_c* get_game_controller() {
+  return *(GameController_c**)resolve_rva(71838776);
+}
+Game_UI_c* get_UI() {
   return (*(Game_UI_c**)resolve_rva(71714856));  // Class$Game.UI
 } 
 SeinCharacter_o* get_sein()
@@ -178,10 +178,6 @@ void bind_sword() {
 }
 
 void on_fixed_update(__int64 thisPointer){
-	if(game_controller_instance_ptr != (void*) thisPointer) {
-		DEBUG("got GameController.Instance pointer: " << thisPointer);
-		game_controller_instance_ptr = (void*) thisPointer;
-	}
 	try {
 		csharp_lib->call<int>("Update");
 	} catch(int error)
@@ -201,11 +197,8 @@ void set_ore(int oreCount) {
 
 extern "C" __declspec(dllexport)
 bool player_can_move() {
-    if (game_controller_instance_ptr == NULL)
-        return false; // can't move if the game controller doesn't exist
-
     // TODO: figure out which of these are superflous
-    __int64 gcip = (__int64)game_controller_instance_ptr;
+    auto gcip = get_game_controller();
     DEBUG("gIL: " << getInputLocked(gcip) << ", gLI: " << getLockInput(gcip) << ", gIS: " << getIsSuspended(gcip) << ", gSMA: " << getSecondaryMenusAccessable(gcip));
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
@@ -213,14 +206,9 @@ bool player_can_move() {
 
 extern "C" __declspec(dllexport)
 void save() {
-    if (game_controller_instance_ptr == NULL) {
-        LOG("no pointer to game controller: can't save!");
-        return;        
-    }
-    DEBUG("Checkpoint requested by c# code");
-    createCheckpoint((__int64)game_controller_instance_ptr);
+    DEBUG("Save requested by c# code");
+    GameController__CreateCheckpoint(get_game_controller()->static_fields->Instance, true, false);
 }
-
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
 
