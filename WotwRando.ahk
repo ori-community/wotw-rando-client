@@ -3,6 +3,7 @@
 #NoEnv 							; don't populate environment variables automatically
 SetWorkingDir, %A_ScriptDir%	; start where we at
 SetTitleMatchMode, 3 			; require a full match of window name
+#SingleInstance, force
 
 ; script variables (mostly file paths)
 INSTALL_DIR := "C:\moon\"
@@ -27,6 +28,12 @@ ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
 
+;restart script in admin mode
+if not A_IsAdmin
+{
+   Run *RunAs "%A_ScriptFullPath%" %1% %2% %3% %4%
+   ExitApp
+}
 ; filecreatedir silent fails if it exists, so we won't bother checking if it's already there
 FileCreateDir %INSTALL_DIR%
 
