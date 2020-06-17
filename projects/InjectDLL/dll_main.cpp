@@ -200,9 +200,7 @@ void set_ore(int oreCount) {
 
 extern "C" __declspec(dllexport)
 bool player_can_move() {
-    // TODO: figure out which of these are superflous
     auto gcip = get_game_controller_instance();
-    DEBUG("gIL: " << getInputLocked(gcip) << ", gLI: " << getLockInput(gcip) << ", gIS: " << getIsSuspended(gcip) << ", gSMA: " << getSecondaryMenusAccessable(gcip));
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
 
