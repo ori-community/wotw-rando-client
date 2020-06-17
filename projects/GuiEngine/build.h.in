@@ -1,5 +1,7 @@
 #pragma once
 
+namespace gui_engine {
+
 #ifndef TRUE
 #define TRUE 1
 #endif
@@ -8,3 +10,5 @@
 #endif
 
 #define USE_VULKAN ${Vulkan_FOUND}
+
+}

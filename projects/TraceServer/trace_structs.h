@@ -1,7 +1,11 @@
 #pragma once
 
-#include <gui/imgui.h>
-#include <gui_helpers/dropdown.h>
+#include <settings.h>
+
+#include <GuiEngine/gui/imgui.h>
+#include <GuiEngine/gui_helpers/dropdown.h>
+
+#include <WinNetwork/peer.h>
 
 #include <string>
 #include <array>
@@ -91,6 +95,7 @@ struct TraceData
         , open(true)
         , connected(false)
         , init(false)
+        , command_line()
         , filter()
         , min_dropdown(&filter.min_level_filter, { 1, 2, 3, 4, 5 })
         , max_dropdown(&filter.max_level_filter, { 1, 2, 3, 4, 5 })
@@ -107,25 +112,28 @@ struct TraceData
     bool open;
     bool connected;
     bool init;
+    std::array<char, 128> command_line;
 
     ImVec2 info_window;
 
     // Filters
     TraceFilters filter;
-    Dropdown<int> min_dropdown;
-    Dropdown<int> max_dropdown;
+    gui_engine::Dropdown<int> min_dropdown;
+    gui_engine::Dropdown<int> max_dropdown;
 
     // Messages
     std::vector<Message> messages;
     std::vector<size_t> filtered_messages;
 };
 
-struct GuiData
+struct ExtraGuiData
 {
-    std::string title;
+    bool randomizer_settings_open = false;
+    IniSettings randomizer_settings;
+    IniSettings randomizer_settings_backup;
+    network::NetworkData network_data;
+
     int next_gid = 10;
-    bool running = true;
-    ImVec2 window_size = { 1280.f, 720.f };
     int prev_log_count = 0;
     std::vector<std::string> log;
 

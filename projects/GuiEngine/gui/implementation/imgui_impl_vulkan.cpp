@@ -49,6 +49,8 @@
 #include <build.h>
 #if USE_VULKAN
 
+#pragma warning(push, 0)
+
 #include <gui/imgui.h>
 #include <gui/implementation/imgui_impl_vulkan.h>
 #include <stdio.h>
@@ -1227,5 +1229,7 @@ void ImGui_ImplVulkanH_DestroyWindowRenderBuffers(VkDevice device, ImGui_ImplVul
     buffers->Index = 0;
     buffers->Count = 0;
 }
+
+#pragma warning(pop)
 
 #endif

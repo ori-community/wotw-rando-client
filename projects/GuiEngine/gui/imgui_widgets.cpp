@@ -29,6 +29,8 @@ Index of this file:
 
 */
 
+#pragma warning(push, 0)
+
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -10442,3 +10444,5 @@ void    ImGui::TableSettingsInstallHandler(ImGuiContext* context)
 //-------------------------------------------------------------------------
 
 #endif // #ifndef IMGUI_DISABLE
+
+#pragma warning(pop)

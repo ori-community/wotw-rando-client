@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using Trace;
+//using Trace;
 
 namespace Injector {
   class Program {
@@ -19,11 +19,11 @@ namespace Injector {
 
     public static bool DevMode = true;
 
-    public static TraceClient trace;
+//    public static TraceClient trace;
 
     public static void Log(string message) { // doing it like this so we can change it later
       if (DevMode) {
-        trace.Send(MessageType.Info, 3, "Injector", message);
+//        trace.Send(MessageType.Info, 3, "Injector", message);
         Console.WriteLine("-> {0}", message);
       }
     }
@@ -89,11 +89,11 @@ namespace Injector {
 
     static void Main(string[] args) {
       try {
-        trace = new TraceClient();
+/*        trace = new TraceClient();
         trace.MessageHandler += (string message) => {
           Console.WriteLine(message);
         };
-
+*/
         if (args.Length > 0) {
           DevMode = args[0] != "false";
           WinStore = (args.Length > 1) && args[1] != "false";
@@ -101,7 +101,7 @@ namespace Injector {
 
         if (DevMode) {
           Console.WriteLine($"{string.Join(" ", args)} -> {DevMode} {WinStore}");
-          trace.Start("Injector");
+//          trace.Start("Injector");
         }
 
         for (var i = 0; i < 30; i++) {
@@ -119,7 +119,7 @@ namespace Injector {
           if (proc == null) {
             Log("proc not found, can't do shit???");
             Thread.Sleep(2000);
-            trace.Close();
+//            trace.Close();
             return;
           }
 
@@ -142,7 +142,7 @@ namespace Injector {
         Thread.Sleep(5000);
       }
 
-      trace.Close();
+//      trace.Close();
     }
 
     public static void ListenForOri() {
@@ -151,7 +151,7 @@ namespace Injector {
       }
       Log("Ori stopped running. Exiting in 4s...");
       Thread.Sleep(4000);
-      trace.Close();
+//      trace.Close();
       Environment.Exit(0);
     }
   }

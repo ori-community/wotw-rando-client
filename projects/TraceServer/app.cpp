@@ -1,71 +1,66 @@
-#include <build.h>
-#include <ext.h>
-#include <opengl_engine.h>
-#include <vulkan_engine.h>
 #include <trace_structs.h>
-#include <gui/imgui.h>
-#include <gui/imgui_internal.h>
 
-#include <WinNetwork/constants.h>
+#include <Common/ext.h>
+
+#include <GuiEngine/engine.h>
+#include <GuiEngine/gui/imgui_internal.h>
+#include <GuiEngine/gui_helpers/dropdown.h>
+#include <GuiEngine/gui_helpers/layout.h>
+
 #include <WinNetwork/binary_walker.h>
+#include <WinNetwork/constants.h>
 #include <WinNetwork/peer.h>
 
 #include <stdio.h>
 #include <string>
 #include <vector>
 
+using namespace gui_engine;
+
+void show_home_information(GuiData& gui, ExtraGuiData& extra);
+void show_home_top_bar(ExtraGuiData& extra);
+void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize);
 void trace_show_top_bar(network::NetworkData& data, TraceData& trace);
-void show_filter_window(TraceData& trace);
-void show_info_window(TraceData& trace);
+void show_filter_window(TraceData& trace, ImVec2 const& size);
+void show_info_window(TraceData& trace, ImVec2 const& size);
 void show_trace_data(network::NetworkData& data, TraceData& trace);
 void init_test_data(GuiData& data);
 
 void handle_network_events(GuiData& data, network::NetworkEvent const& evt);
 
-GuiData gui_data;
-network::NetworkData network_data;
-
-void initalize()
+void initalize(GuiData& gui)
 {
-    init_test_data(gui_data);
+    //init_test_data(gui);
+    ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
+    extra.randomizer_settings = create_randomizer_settings();
+    load_settings_from_file(extra.randomizer_settings);
+    extra.randomizer_settings_backup = extra.randomizer_settings;
 }
 
-void handle_events(SDL_Event const& event)
+void handle_events(GuiData& gui, SDL_Event const& evt)
 {
-    if (event.type == SDL_WINDOWEVENT)
-    {
-        switch (event.window.event)
-        {
-        case SDL_WINDOWEVENT_RESIZED:
-            gui_data.window_size.x = static_cast<float>(event.window.data1);
-            gui_data.window_size.y = static_cast<float>(event.window.data2);
-            break;
-        default:
-            break;
-        }
-    }
-
-    if (event.type == SDL_QUIT)
-        gui_data.running = false;
+    if (evt.type == SDL_QUIT)
+        gui.running = false;
 }
 
-void tick()
+void tick(GuiData& gui)
 {
-    network::poll_peer(network_data);
+    ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
+    network::poll_peer(extra.network_data);
 
     // TODO: Add a way to reopen closed traces.
-    // Remove disconnected and closed traces.
-    for (auto it = gui_data.traces.begin(); it != gui_data.traces.end();)
+    for (auto it = extra.traces.begin(); it != extra.traces.end();)
     {
         if (!it->connected && !it->open)
-            it = gui_data.traces.erase(it);
+            it = extra.traces.erase(it);
         else
             ++it;
     }
 }
 
-void render()
+void render(GuiData& gui)
 {
+    ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
     ImGui::Begin(
         "Main Window",
         nullptr,
@@ -76,7 +71,85 @@ void render()
     );
 
     ImGui::SetWindowPos({ 0.f, 0.f });
-    ImGui::SetWindowSize(gui_data.window_size, ImGuiCond_Always);
+    ImGui::SetWindowSize(gui.window_size, ImGuiCond_Always);
+    if (ImGui::BeginTabBar("##tabs", ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_NoTooltip))
+    {
+        if (ImGui::BeginTabItem("Home", nullptr))
+        {
+            show_home_top_bar(extra);
+            if (extra.randomizer_settings_open)
+                show_randomizer_settings(extra, { 0.f, 0.f }, gui.window_size);
+
+            show_home_information(gui, extra);
+            ImGui::EndTabItem();
+        }
+
+        for (auto& trace : extra.traces)
+        {
+            ImGui::PushID(trace.gid);
+            if (ImGui::BeginTabItem(trace.name.c_str(), &trace.open))
+            {
+                show_trace_data(extra.network_data, trace);
+                ImGui::EndTabItem();
+            }
+
+            ImGui::PopID();
+        }
+
+        ImGui::EndTabBar();
+    }
+
+    ImGui::End();
+}
+
+int main(int, char**)
+{
+    GuiData gui;
+    ExtraGuiData extra;
+    gui.extra = &extra;
+
+    extra.network_data.port = 27666;
+    extra.network_data.listen_queue_size = 10;
+    extra.network_data.logging_callback = [&extra](std::string const& str) {
+        extra.log.push_back(str);
+    };
+
+    extra.network_data.event_handler = [&gui](network::NetworkEvent const& evt) { handle_network_events(gui, evt); };
+
+    network::initialize_peer(extra.network_data);
+    network::start_peer(extra.network_data);
+
+    int ret = start_loop(gui, initalize, handle_events, tick, render);
+
+    network::shutdown_peer(extra.network_data);
+    return ret;
+}
+
+void show_home_top_bar(ExtraGuiData& extra)
+{
+    auto size = ImGui::GetContentRegionAvail();
+    const float bar_size_y = 20.f;
+    
+    if (begin_dropdown("options", "options", { 60.f, bar_size_y }, false))
+    {
+        ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.3f, 0.3f, 0.4f });
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.4f, 0.4f, 0.4f, 0.7f });
+        if (ImGui::Button("randomizer"))
+        {
+            ImGui::CloseCurrentPopup();
+            extra.randomizer_settings_open = true;
+        }
+
+        ImGui::PopStyleColor(3);
+        end_dropdown();
+    }
+
+    ImGui::Separator();
+}
+
+void show_home_information(GuiData& gui, ExtraGuiData& extra)
+{
     ImGui::Dummy({ 10.f, 10.f });
     ImGui::Dummy({ 10.f, 10.f });
     ImGui::SameLine();
@@ -90,7 +163,7 @@ void render()
     ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
     ImGui::Dummy({ 10.f, 10.f });
     ImGui::SameLine();
-    ImGui::Text("Size: {%f, %f}", gui_data.window_size.x, gui_data.window_size.y);
+    ImGui::Text("Size: {%f, %f}", gui.window_size.x, gui.window_size.y);
 
     auto size = ImGui::GetContentRegionAvail();
     const float desired_size = 200.f;
@@ -100,121 +173,217 @@ void render()
 
     ImGui::Dummy({ 0.f, offset });
     ImGui::BeginChild(2, { size.x, desired_size }, true, ImGuiWindowFlags_NoTitleBar);
-    for (auto const& str : gui_data.log)
+    for (auto const& str : extra.log)
         ImGui::Text(str.c_str());
 
-    if (gui_data.log.size() > gui_data.prev_log_count)
+    if (extra.log.size() > extra.prev_log_count)
         ImGui::SetScrollY(ImGui::GetScrollMaxY());
 
-    gui_data.prev_log_count = static_cast<int>(gui_data.log.size());
+    extra.prev_log_count = static_cast<int>(extra.log.size());
     ImGui::EndChild();
-
-    for (auto& trace : gui_data.traces)
-        show_trace_data(network_data, trace);
-
-    ImGui::End();
 }
 
-int main(int, char**)
+void save_settings(ExtraGuiData& extra, IniSettings& settings)
 {
-    network_data.port = 27666;
-    network_data.listen_queue_size = 10;
-    network_data.logging_callback = [](std::string const& str) {
-        gui_data.log.push_back(str);
+    extra.randomizer_settings = settings;
+    extra.randomizer_settings_backup = settings;
+    save_settings_to_file(settings);
+}
+
+ImVec2 apply_layout(Layout const& l, std::string const& name, ImVec4 const& margins = { 0.f, 0.f, 0.f, 0.f })
+{
+    auto bounds = layout::get_bounds(l, name, margins);
+    ImGui::SetCursorPos(bounds.Min);
+    return bounds.GetSize();
+}
+
+void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize)
+{
+    static ImGuiWindowFlags window_flags = ImGuiWindowFlags_None;
+    constexpr float DESIRED_WIDTH = 0.4f;
+    constexpr float DESIRED_HEIGHT = 0.6f;
+    ImVec2 desired_size{
+        DESIRED_WIDTH * wsize.x,
+        DESIRED_HEIGHT * wsize.y
     };
 
-    network_data.event_handler = [](network::NetworkEvent const& evt) { handle_network_events(gui_data, evt); };
+    ImGui::SetNextWindowPos((wpos + wsize / 2) - desired_size / 2, ImGuiCond_Appearing);
+    ImGui::SetNextWindowSize(desired_size, ImGuiCond_Appearing);
+    ImGui::SetNextWindowSizeConstraints({ 240.f, 320.f }, { 99999.f, 99999.f });
+    if (ImGui::Begin("randomizer settings", nullptr, window_flags))
+    {
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 0.f, 0.f });
 
-    network::initialize_peer(network_data);
-    network::start_peer(network_data);
+        Layout l;
+        layout::begin_box_v(l);
+        layout::element(l, "settings");
+        layout::push_var<BoxVarType::MaxSize>(l, ImVec2{ 99999.f, 20.f });
+        layout::begin_box_h(l);
+        layout::pop_var<BoxVarType::MaxSize>(l);
+        layout::element(l);
+        layout::push_var<BoxVarType::MinSize>(l, ImVec2{ 60.f, 20.f });
+        layout::element(l, "save");
+        layout::pop_var<BoxVarType::MinSize>(l);
+        layout::push_var<BoxVarType::MinSize>(l, ImVec2{ 20.f, 0.f });
+        layout::element(l);
+        layout::pop_var<BoxVarType::MinSize>(l);
+        layout::push_var<BoxVarType::MinSize>(l, ImVec2{ 60.f, 20.f });
+        layout::element(l, "cancel");
+        layout::pop_var<BoxVarType::MinSize>(l);
+        layout::element(l);
+        layout::end_box(l);
+        layout::end_box(l);
 
-    int ret = start_loop(gui_data, initalize, handle_events, tick, render);
+        auto pos = ImGui::GetCursorPos();
+        ImGui::SetCursorPos(pos);
+        auto size = ImGui::GetContentRegionAvail();
+        layout::calculate_bounds(l, { pos, pos + size });
 
-    network::shutdown_peer(network_data);
-    return ret;
+        if (ImGui::Button("Save", apply_layout(l, "save")))
+        {
+            save_settings(extra, extra.randomizer_settings);
+            extra.randomizer_settings_open = false;
+        }
+
+        if (ImGui::Button("Cancel", apply_layout(l, "cancel")))
+        {
+            save_settings(extra, extra.randomizer_settings_backup);
+            extra.randomizer_settings_open = false;
+        }
+
+        static ImGuiTableFlags flags =
+            ImGuiTableFlags_ScrollY |
+            ImGuiTableFlags_ScrollX |
+            ImGuiTableFlags_ScrollFreezeTopRow |
+            ImGuiTableFlags_Borders;
+
+        constexpr float height_margin = 0.5f;
+
+        if (ImGui::BeginTable("###settings", 3, flags, apply_layout(l, "settings", { 2.f, 2.f, 2.f, 8.f })))
+        {
+            ImGui::TableSetupColumn("section", ImGuiTableColumnFlags_WidthFixed | ImGuiTableColumnFlags_NoResize);
+            ImGui::TableSetupColumn("name", ImGuiTableColumnFlags_WidthFixed | ImGuiTableColumnFlags_NoResize);
+            ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthFixed | ImGuiTableColumnFlags_NoResize);
+            ImGui::TableAutoHeaders();
+
+            ImGui::PushStyleColor(ImGuiCol_TableRowBg, { 0.1f, 0.1f, 0.1f, 1.0f });
+            ImGui::PushStyleColor(ImGuiCol_TableRowBgAlt, { 0.3f, 0.3f, 0.3f, 1.0f });
+            int i = 1;
+            std::string current_section;
+            for (auto& option : extra.randomizer_settings.options)
+            {
+                if (option.section != current_section)
+                {
+                    ImGui::TableNextRow();
+                    ImGui::TableSetColumnIndex(0);
+                    ImGui::Dummy({ 60.f, height_margin });
+                    ImGui::Text(option.section.c_str());
+                    ImGui::Dummy({ 60.f, height_margin });
+                    current_section = option.section;
+                }
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text(option.name.c_str());
+
+                std::string id = format("###option%d", i);
+                ImGui::TableSetColumnIndex(2);
+                ImGui::Dummy({ 0.f, height_margin });
+                ImGui::Dummy({ 2.f, 0.f });
+                ImGui::SameLine();
+                switch (option.type)
+                {
+                case IniVarType::Bool:
+                    ImGui::Checkbox(id.c_str(), &option.value.b);
+                    break;
+                case IniVarType::Int:
+                    ImGui::InputInt(id.c_str(), &option.value.i, 1, 10);
+                    break;
+                case IniVarType::Float:
+                    ImGui::InputFloat(id.c_str(), &option.value.f, 0.1f, 1.0f, 1);
+                    break;
+                case IniVarType::String:
+                    ImGui::PushItemWidth(option.value.s.size() * ImGui::GetFont()->FontSize / 4.f);
+                    ImGui::InputText(id.c_str(), option.value.s.data(), option.value.s.size());
+                    ImGui::PopItemWidth();
+                    break;
+                default:
+                    assert(false);
+                }
+
+                ++i;
+            }
+
+            ImGui::PopStyleColor(2);
+            ImGui::EndTable();
+        }
+
+        ImGui::PopStyleVar();
+        ImGui::End();
+    }
 }
 
 void show_trace_data(network::NetworkData& data, TraceData& trace)
 {
-    if (!trace.open)
-        return;
-
-    ImGui::SetNextWindowSizeConstraints({ 600.f, 300.f }, { 999999.f , 999999.f });
-    ImGui::SetNextWindowSize({ 600.f, 300.f }, ImGuiCond_Once);
-    ImGui::SetNextWindowPos({ 260.f, 60.f }, ImGuiCond_Once);
-
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(5.f, 0.f));
-    ImGui::PushStyleColor(ImGuiCol_MenuBarBg, { 0.05f, 0.05f, 0.05f, 1.f });
-
     auto name = std::string(format("%s###%d", trace.name.c_str(), trace.gid));
-    ImGui::Begin(name.c_str(), &trace.open, ImGuiWindowFlags_MenuBar);
 
-    ImGui::PopStyleColor();
-    ImGui::PopStyleVar();
-
+    const float INPUT_TEXT_HEIGHT = 20.f;
     trace_show_top_bar(data, trace);
+    auto size = ImGui::GetContentRegionAvail();
+    size.y -= INPUT_TEXT_HEIGHT;
     if (trace.show_filters)
-        show_filter_window(trace);
+        show_filter_window(trace, size);
 
-    show_info_window(trace);
+    size = ImGui::GetContentRegionAvail();
+    size.y -= INPUT_TEXT_HEIGHT;
+    show_info_window(trace, size);
 
-    ImGui::End();
+    size = ImGui::GetContentRegionAvail();
+    ImGui::PushItemWidth(size.x);
+    if (!trace.connected)
+    {
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.6f);
+        ImGui::InputText("##command_line", trace.command_line.data(), trace.command_line.size(), ImGuiInputTextFlags_ReadOnly);
+        ImGui::PopStyleVar();
+    }
+    else if (ImGui::InputText("##command_line", trace.command_line.data(), trace.command_line.size(), ImGuiInputTextFlags_EnterReturnsTrue))
+        send_str(data, trace.id, trace.command_line.data());
+
+
+
+    ImGui::PopItemWidth();
 }
 
 void trace_show_top_bar(network::NetworkData& data, TraceData& trace)
 {
-    ImGui::BeginMenuBar();
-    auto context = ImGui::GetCurrentContext();
-    auto menu_rect = context->CurrentWindow->ClipRect;
+    auto size = ImGui::GetContentRegionAvail();
+    const float bar_size_y = 20.f;
 
-    // For some reason this rectangle is off by a few pixels.
-    ImGui::PopClipRect();
-    menu_rect.Max += ImVec2{ 7.f, 0.f };
-    ImGui::PushClipRect(menu_rect.Min, menu_rect.Max, false);
-    menu_rect.Min += ImVec2{ 5.f, 0.f };
-    menu_rect.Max += ImVec2{ -5.f, -2.f };
-
-    auto border = ImGui::GetStyleColorVec4(ImGuiCol_Border);
-    ImGui::GetWindowDrawList()->AddRect(
-        menu_rect.Min,
-        menu_rect.Max,
-        ImGui::ColorConvertFloat4ToU32(border),
-        0,
-        0
-    );
-
-    if (ImGui::BeginMenu("file"))
+    if (begin_dropdown("file", "file", { 50.f, bar_size_y }, false))
     {
-        // TODO: Implement export.
-        if (ImGui::MenuItem("export", nullptr, false, false))
-            ;
+        ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.3f, 0.3f, 0.4f });
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.4f, 0.4f, 0.4f, 0.7f });
+        if (ImGui::Button("export"))
+            ImGui::CloseCurrentPopup();
 
-        ImGui::EndMenu();
+        ImGui::PopStyleColor(3);
+        end_dropdown();
     }
 
-    if (ImGui::BeginMenu("options"))
+    ImGui::SameLine();
+    if (begin_dropdown("options", "options", { 60.f, bar_size_y }, false))
     {
-        if (ImGui::MenuItem("show filters", nullptr, trace.show_filters))
-            trace.show_filters = !trace.show_filters;
-        if (ImGui::MenuItem("auto scroll", nullptr, trace.auto_scroll))
-            trace.auto_scroll = !trace.auto_scroll;
-
-        ImGui::EndMenu();
+        ImGui::Checkbox("show filters", &trace.show_filters);
+        ImGui::Checkbox("auto scroll", &trace.auto_scroll);
+        end_dropdown();
     }
 
-    auto pos_y = ImGui::GetCursorPosY();
-    ImGui::SetCursorPosY(pos_y + 3.f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 0.0f, 0.0f });
-    if (ImGui::Button("send test", { 80.f, menu_rect.GetSize().y - 4.f }))
-        network::send_str(data, trace.id, "this is a test.");
-
-    ImGui::PopStyleVar();
-    ImGui::SetCursorPos({ ImGui::GetWindowWidth() - 93.f, pos_y - 1.f });
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(size.x - 93.f);
     ImGui::PushStyleColor(ImGuiCol_Text, trace.connected ? ImVec4{ 0.f, 0.8f, 0.f, 1.f } : ImVec4{ 0.8f, 0.f, 0.f, 1.f });
     ImGui::Text(trace.connected ? "connected" : "disconnected");
     ImGui::PopStyleColor();
-
-    ImGui::EndMenuBar();
 }
 
 bool is_in_filter(TraceData const& trace, Message const& message)
@@ -250,11 +419,10 @@ void resolve_filter(TraceData& trace)
             trace.filtered_messages.push_back(i);
 }
 
-void show_filter_window(TraceData& trace)
+void show_filter_window(TraceData& trace, ImVec2 const& size)
 {
     auto old_filter = trace.filter;
-    auto size = ImGui::GetContentRegionAvail();
-    ImGui::BeginChild(1, { 140.f, size.y - 5.f }, true, ImGuiWindowFlags_NoTitleBar);
+    ImGui::BeginChild(1, { 140.f, size.y }, true, ImGuiWindowFlags_NoTitleBar);
 
     ImGui::Text("Filters");
     ImGui::Separator();
@@ -332,12 +500,11 @@ void show_filter_window(TraceData& trace)
         resolve_filter(trace);
 }
 
-void show_info_window(TraceData& trace)
+void show_info_window(TraceData& trace, ImVec2 const& size)
 {
     if (trace.do_scroll)
         ImGui::SetScrollY(ImGui::GetScrollMaxY());
 
-    auto size = ImGui::GetContentRegionAvail();
     static ImGuiTableFlags flags =
         ImGuiTableFlags_ScrollY |
         ImGuiTableFlags_ScrollFreezeTopRow |
@@ -402,26 +569,27 @@ void show_info_window(TraceData& trace)
     }
 }
 
-void handle_network_events(GuiData& data, network::NetworkEvent const& evt)
+void handle_network_events(GuiData& gui, network::NetworkEvent const& evt)
 {
+    ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
     switch (evt.type)
     {
     case network::NetworkEventType::Connected:
     {
-        data.log.push_back(format("new client connected: %d", evt.peer_id));
-        TraceData td{ data.next_gid++, evt.peer_id, format("%f", ImGui::GetTime()) };
+        extra.log.push_back(format("new client connected: %d", evt.peer_id));
+        TraceData td{ extra.next_gid++, evt.peer_id, format("%f", ImGui::GetTime()) };
         td.connected = true;
-        data.traces.push_back(td);
+        extra.traces.push_back(td);
         break;
     }
     case network::NetworkEventType::Disconnected:
     {
-        data.log.push_back(format("client disconnected: %d", evt.peer_id));
-        auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+        extra.log.push_back(format("client disconnected: %d", evt.peer_id));
+        auto it = std::find_if(extra.traces.begin(), extra.traces.end(), [&evt](TraceData const& data) -> bool {
             return data.id == evt.peer_id;
         });
 
-        if (it != data.traces.end())
+        if (it != extra.traces.end())
             it->connected = false;
 
         break;
@@ -438,22 +606,22 @@ void handle_network_events(GuiData& data, network::NetworkEvent const& evt)
         case network::PackageType::Identifier:
         {
             auto str = network::binary::read_str_bw(walker);
-            auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+            auto it = std::find_if(extra.traces.begin(), extra.traces.end(), [&evt](TraceData const& data) -> bool {
                 return data.id == evt.peer_id;
             });
 
-            if (it != data.traces.end())
+            if (it != extra.traces.end())
                 it->name = str;
 
             break;
         }
         case network::PackageType::TraceMessage:
         {
-            auto it = std::find_if(data.traces.begin(), data.traces.end(), [&evt](TraceData const& data) -> bool {
+            auto it = std::find_if(extra.traces.begin(), extra.traces.end(), [&evt](TraceData const& data) -> bool {
                 return data.id == evt.peer_id;
             });
 
-            if (it != data.traces.end())
+            if (it != extra.traces.end())
             {
                 Message m;
                 m.type = static_cast<MessageType>(network::binary::read_bw<int>(walker));
@@ -476,7 +644,7 @@ void handle_network_events(GuiData& data, network::NetworkEvent const& evt)
         case network::PackageType::ConfigPing:
             break;
         default:
-            data.log.push_back(format("unknown package : %d", package_type));
+            extra.log.push_back(format("unknown package : %d", package_type));
             break;
         }
         break;
@@ -487,10 +655,11 @@ void handle_network_events(GuiData& data, network::NetworkEvent const& evt)
     }
 }
 
-void init_test_data(GuiData& data)
+void init_test_data(GuiData& gui)
 {
-    data.traces.push_back({ data.next_gid++, 255555, "test" });
-    auto& test = data.traces.back();
+    ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
+    extra.traces.push_back({ extra.next_gid++, 255555, "test" });
+    auto& test = extra.traces.back();
     test.messages.push_back({
         1,
         MessageType::Info,

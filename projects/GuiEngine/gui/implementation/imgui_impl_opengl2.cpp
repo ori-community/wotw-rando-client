@@ -34,6 +34,8 @@
 #include <build.h>
 #if !USE_VULKAN
 
+#pragma warning(push, 0)
+
 #include <gui/imgui.h>
 #include <gui/implementation/imgui_impl_opengl2.h>
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
@@ -250,5 +252,7 @@ void    ImGui_ImplOpenGL2_DestroyDeviceObjects()
 {
     ImGui_ImplOpenGL2_DestroyFontsTexture();
 }
+
+#pragma warning(pop)
 
 #endif

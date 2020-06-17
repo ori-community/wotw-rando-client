@@ -65,6 +65,8 @@
 #ifndef STB_INCLUDE_STB_RECT_PACK_H
 #define STB_INCLUDE_STB_RECT_PACK_H
 
+#pragma warning(push, 0)
+
 #define STB_RECT_PACK_VERSION  1
 
 #ifdef STBRP_STATIC
@@ -594,6 +596,9 @@ STBRP_DEF int stbrp_pack_rects(stbrp_context *context, stbrp_rect *rects, int nu
    // return the all_rects_packed status
    return all_rects_packed;
 }
+
+#pragma warning(pop)
+
 #endif
 
 /*

@@ -276,6 +276,8 @@
 #ifndef INCLUDE_STB_TEXTEDIT_H
 #define INCLUDE_STB_TEXTEDIT_H
 
+#pragma warning(push, 0)
+
 ////////////////////////////////////////////////////////////////////////
 //
 //     STB_TexteditState
@@ -1371,6 +1373,8 @@ static int stb_textedit_paste(STB_TEXTEDIT_STRING *str, STB_TexteditState *state
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
+
+#pragma warning(pop)
 
 #endif//STB_TEXTEDIT_IMPLEMENTATION
 

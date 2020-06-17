@@ -7,7 +7,11 @@ using AutoHotkey.Interop;
 namespace RandoMainDLL {
   public static class AHK {
     private static readonly string Program = @"
+
       signal := ""none""
+      gui, add, edit, w50 h20 vextChannel gonSignalExt
+      gui, show, hide, wotwRandoSecretChannel
+
       DoIniRead(Section, Key, iniPath := ""C:/moon/settings.ini"")
       {
         IniRead, out, %iniPath%, %Section%, %Key%
@@ -33,6 +37,10 @@ namespace RandoMainDLL {
       !^3::signal := ""test3""
       !^4::signal := ""test4""
       !^5::signal := ""test5""
+      onSignalExt:
+      gui, submit
+      signal := extChannel
+      return
       ";
     public static AutoHotkeyEngine Engine = AutoHotkeyEngine.Instance;
     public static bool Ready = false;

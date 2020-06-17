@@ -2,7 +2,7 @@
 #include <interception.h>
 #include <common.h>
 #include <detours/detours.h>
-#include <WinNetwork/ext.h>
+#include <Common/ext.h>
 
 #include <unordered_map>
 
