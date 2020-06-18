@@ -112,7 +112,6 @@ target_link_libraries(
 	${WOTWR_LIB_DIR}/SDL2/SDL2.lib
 	${WOTWR_LIB_DIR}/SDL2/SDL2main.lib
 	${RENDER_LIBRARY}
-	WinNetwork
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -130,5 +129,6 @@ install(
 
 install(
 	FILES "${WOTWR_LIB_DIR}/SDL2/SDL2.dll"
+	COMPONENT tool
 	DESTINATION "${WOTWR_INSTALL_DIR}"
 )
