@@ -533,66 +533,6 @@ namespace RandoMainDLL.Memory {
       }
     }
 
-    public bool HasAbility(AbilityType type) {
-      //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Abilities.m_abilitiesList
-      IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
-      //.Count
-      int count = Program.Read<int>(abilities, 0x18);
-      //.Items
-      abilities = Program.Read<IntPtr>(abilities, 0x10);
-      byte[] data = Program.Read(abilities + 0x20, count * 0x8);
-      for (int i = 0; i < count; i++) {
-        //.Items[i]
-        Ability ability = Program.Read<Ability>((IntPtr)BitConverter.ToUInt64(data, i * 0x8), 0x10);
-        if (ability.Type == type) {
-          return ability.HasAbility == 1;
-        }
-      }
-      return false;
-    }
-
-    public void SetAbility(AbilityType type, bool setTo = true) {
-
-      IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
-      //.Count
-      int count = Program.Read<int>(abilities, 0x18);
-      //.Items
-      abilities = Program.Read<IntPtr>(abilities, 0x10);
-      byte[] data = Program.Read(abilities + 0x20, count * 0x8);
-      for (int i = 0; i < count; i++) {
-        //.Items[i]
-        Ability ability = Program.Read<Ability>((IntPtr)BitConverter.ToUInt64(data, i * 0x8), 0x10);
-        if (ability.Type == type) {
-          ability.HasAbility = (byte)(setTo ? 1 : 0);
-          Program.Write((IntPtr)BitConverter.ToUInt64(data, i * 0x8), ability.ToBytes(), 0x10);
-          if (AbilityToEquip.ContainsKey(type)) {
-            SetInvItem(AbilityToEquip[type], setTo);
-          }
-
-          return;
-        }
-      }
-    }
-
-    public Dictionary<AbilityType, Ability> PlayerAbilities() {
-      var currentAbilities = new Dictionary<AbilityType, Ability>();
-      //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Abilities.m_abilitiesList
-      IntPtr abilities = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x10, 0x18);
-      //.Count
-      int count = Program.Read<int>(abilities, 0x18);
-      //.Items
-      abilities = Program.Read<IntPtr>(abilities, 0x10);
-      byte[] data = Program.Read(abilities + 0x20, count * 0x8);
-      for (int i = 0; i < count; i++) {
-        //.Items[i]
-        Ability ability = Program.Read<Ability>((IntPtr)BitConverter.ToUInt64(data, i * 0x8), 0x10);
-        if (Enum.IsDefined(typeof(AbilityType), ability.Type)) {
-          currentAbilities[ability.Type] = ability;
-        }
-      }
-      return currentAbilities;
-    }
-
     public bool HasShard(ShardType type) {
       //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Shards.m_shardsList
       IntPtr shards = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x20, 0x18);
@@ -609,57 +549,6 @@ namespace RandoMainDLL.Memory {
         }
       }
       return false;
-    }
-
-    public bool HasInvItem(EquipmentType type) {
-      //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_inventory
-      IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
-      //.Count
-      int count = Program.Read<int>(items, 0x18);
-      //.Items
-      items = Program.Read<IntPtr>(items, 0x10);
-      byte[] data = Program.Read(items + 0x20, count * 0x8);
-      for (int i = 0; i < count; i++) {
-        //.Items[i]
-        InventoryItem item = Program.Read<InventoryItem>((IntPtr)BitConverter.ToUInt64(data, i * 0x8), 0x10);
-        System.IO.File.AppendAllText("C:\\moon\\cs_log.txt", "Inventory Item: " + item.ToString() + "\n");
-
-        if (item.Type == type) {
-          return item.Unlocked == 1;
-        }
-      }
-      return false;
-    }
-
-    public void SetInvItem(EquipmentType type, bool setTo = true) {
-      //PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_inventory
-      IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x10);
-      //.Count
-      int count = Program.Read<int>(items, 0x18);
-      //.Items
-      items = Program.Read<IntPtr>(items, 0x10);
-      byte[] data = Program.Read(items + 0x20, count * 0x8);
-      for (int i = 0; i < count; i++) {
-        //.Items[i]
-        InventoryItem item = Program.Read<InventoryItem>((IntPtr)BitConverter.ToUInt64(data, i * 0x8), 0x10);
-        if (item.Type == type) {
-          item.Unlocked = (byte)(setTo ? 1 : 0);
-          Program.Write((IntPtr)BitConverter.ToUInt64(data, i * 0x8), item.ToBytes(), 0x10);
-          return;
-        }
-      }
-      return;
-    }
-
-    // PlayerUberStateGroup.Instance.PlayerUberState.m_state.Inventory.m_bindings
-    public void SetBound(EquipmentType type) {
-      return; // this function stubbed out because it crashes and i have no idea why. seems like it should work!!!
-      /*
-      IntPtr items = PlayerUberStateGroup.Read<IntPtr>(Program, 0xb8, 0x0, 0x18, 0x30, 0x18, 0x18);
-      var invItem = new InventoryItem { Type = type, Unlocked = 1 };
-      // .Items [0] <-
-      Program.Write(items, invItem.ToBytes(), 0x10, 0x20);
-      */
     }
 
     public void SetShard(ShardType type, bool setTo = true) {
@@ -787,30 +676,5 @@ namespace RandoMainDLL.Memory {
 
     public void Dispose() => Program?.Dispose();
 
-    public readonly Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
-      { AbilityType.Bash, EquipmentType.Ability_Bash },
-      { AbilityType.DoubleJump, EquipmentType.Ability_DoubleJump },
-      { AbilityType.Launch, EquipmentType.Spell_ChargeJump },
-      { AbilityType.Feather, EquipmentType.AutoAbility_Glide },
-      { AbilityType.WaterBreath, EquipmentType.AutoAbility_WaterBreath},
-      { AbilityType.LightBurst, EquipmentType.Spell_StickyMine},
-      { AbilityType.Grapple, EquipmentType.Ability_Leash },
-      { AbilityType.Flash, EquipmentType.Spell_Glow },
-      { AbilityType.Spike, EquipmentType.Spell_Spear },
-      { AbilityType.Regenerate, EquipmentType.Spell_Meditate },
-      { AbilityType.SpiritArc, EquipmentType.Weapon_Bow },
-      { AbilityType.SpiritSmash, EquipmentType.Weapon_Hammer},
-      { AbilityType.SpiritEdge, EquipmentType.Weapon_Sword },
-      { AbilityType.Burrow, EquipmentType.Ability_Digging },
-      { AbilityType.Dash, EquipmentType.AutoAbility_Dash },
-      { AbilityType.WaterDash, EquipmentType.AutoAbility_WaterDash},
-      { AbilityType.SpiritStar, EquipmentType.Spell_Chakram},
-      { AbilityType.Seir, EquipmentType.Spell_GoldenSein},
-      { AbilityType.Blaze, EquipmentType.Spell_Blaze},
-      { AbilityType.Flap, EquipmentType.Ability_FeatherFlap},
-      { AbilityType.Sentry, EquipmentType.Spell_Turret },
-      { AbilityType.DamageUpgrade1, EquipmentType.AutoAbility_DamageUpgradeA},
-      { AbilityType.DamageUpgrade2, EquipmentType.AutoAbility_DamageUpgradeB},
-    };
   }
 }
