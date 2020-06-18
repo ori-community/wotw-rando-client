@@ -165,6 +165,15 @@ void set_ability(uint8_t ability,  bool value) {
       error("Failed to set ability: couldn't find reference to sein!");
 }
 
+extern "C" __declspec(dllexport)
+void set_equipment(int32_t equip, bool value) {
+  auto sein = get_sein();
+  if (sein && sein->PlayerSpells)
+    SpellInventory__AddNewSpellToInventory(sein->PlayerSpells, equip, value);
+  else
+    error("Failed to set equipment: couldn't find reference to sein!");
+}
+
 INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
 	//GameController$$FixedUpdate
 	fixedUpdate1(thisPtr);

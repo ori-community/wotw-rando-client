@@ -22,6 +22,8 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_ability(AbilityType ability, bool value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_equipment(EquipmentType ability, bool value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static bool has_ability(AbilityType ability);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -123,12 +125,12 @@ namespace RandoMainDLL {
       [DllExport]
       public static void OnSave(int slot, int backupSlot) => SaveController.OnSave(slot, backupSlot);
       [DllExport]
-      public static bool GetAbility(AbilityType ability) => SaveController.GetAbility(ability);
+      public static bool GetAbility(AbilityType ability) => SaveController.HasAbility(ability);
       [DllExport]
       public static void SetAbility(AbilityType ability) => SaveController.SetAbility(ability);
 
       [DllExport]
-      public static bool DoInvertTree(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability) ^ Randomizer.Memory.HasAbility(ability);
+      public static bool DoInvertTree(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability) ^ SaveController.HasAbility(ability);
 
       [DllExport]
       public static bool IsTreeActivated(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability);

@@ -164,9 +164,9 @@ namespace RandoMainDLL {
     public static string GetKeySkillHint() {
       var value = SkillHintState.CurrentValue();
       if(value.HasValue && value.Value.Bool) {
-        var b = Randomizer.Memory.HasAbility(AbilityType.Burrow) ? "$" : "";
-        var w = Randomizer.Memory.HasAbility(AbilityType.WaterDash) ? "$" : "";
-        var l = Randomizer.Memory.HasAbility(AbilityType.LightBurst) ? "$" : "";
+        var b = SaveController.HasAbility(AbilityType.Burrow) ? "$" : "";
+        var w = SaveController.HasAbility(AbilityType.WaterDash) ? "$" : "";
+        var l = SaveController.HasAbility(AbilityType.LightBurst) ? "$" : "";
         return $"\n{b}Burrow: {BurrowZone}{b}, {w}Water Dash: {WaterDashZone}{w}, {l}Light Burst: {LightBurstZone}{l}";
       }
       return "";

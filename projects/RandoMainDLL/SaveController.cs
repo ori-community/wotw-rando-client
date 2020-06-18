@@ -70,7 +70,7 @@ namespace RandoMainDLL {
         KSBought = copyFrom.KSBought;
       }
     }
-    public static bool GetAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
+    public static bool HasAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
     public static void SetAbility(AbilityType ability, bool setTo = true) {
       if (setTo)
         Data.SkillsFound.Add(ability);
@@ -78,9 +78,8 @@ namespace RandoMainDLL {
         Data.SkillsFound.Remove(ability);
       
       InterOp.set_ability(ability, setTo);
-      if (Randomizer.Memory.AbilityToEquip.ContainsKey(ability)) {
-        Randomizer.Memory.SetInvItem(Randomizer.Memory.AbilityToEquip[ability], setTo);
-      }
+      if (ability.Equip().HasValue)
+        InterOp.set_equipment(ability.Equip().Value, setTo);
 
     }
     public static SaveData Data;
