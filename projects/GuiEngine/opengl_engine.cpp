@@ -1,12 +1,13 @@
 #include <build.h>
 #if !USE_VULKAN
 
-namespace gui_engine {
-
 #include <engine.h>
 #include <SDL2/SDL_opengl.h>
 #include <gui/implementation/imgui_impl_sdl.h>
 #include <gui/implementation/imgui_impl_opengl2.h>
+
+namespace gui_engine {
+
 
     int start_loop(GuiData& gui, init_callback init, event_callback handle_event, tick_callback tick, render_callback render)
     {
