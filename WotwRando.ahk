@@ -27,7 +27,7 @@ assoc .wotwr=WotwRando
 ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
-;restart script in admin mode
+; restart script in admin mode if it's not already in admin mode
 if not A_IsAdmin
 {
    Run *RunAs "%A_ScriptFullPath%" "%1%" "%2%" "%3%" "%4%"
@@ -130,7 +130,7 @@ if(argc > 0)  {
 	; load it in and launch/highlight the game
 	FileDelete, %INSTALL_DIR%\.currentseedpath
 	SplitPath, 1, FileName
-	FileAppend, "%1%", %INSTALL_DIR%\.currentseedpath
+	FileAppend, %1%, %INSTALL_DIR%\.currentseedpath
 	IfWinNotExist, OriAndTheWilloftheWisps
 	{
 		SplashTextOn,400,, Launching Rando with Seed %FileName%
