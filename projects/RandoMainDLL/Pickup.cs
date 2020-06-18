@@ -239,10 +239,9 @@ namespace RandoMainDLL {
 
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
-    public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
-    public override bool Has() => SaveController.GetAbility(type);
+    public override bool Has() => SaveController.HasAbility(type);
     public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
     public override float ModEffectiveness() => (type == AbilityType.Blaze) ? 0f : 1f;
 
