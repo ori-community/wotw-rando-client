@@ -74,6 +74,29 @@ std::mutex log_mutex;
 	    logfile.close(); \
         log_mutex.unlock(); \
     }
+//---------------------------------------------------------Bindings------------------------------------------------------------
+
+// GameController$get_InputLocked
+BINDING(10012848, bool, getInputLocked, (GameController_o * thisPtr));
+// GameController$$get_LockInput
+BINDING(10013200, bool, getLockInput, (GameController_o * thisPtr));
+// GameController$$get_IsSuspended
+BINDING(10013520, bool, getIsSuspended, (GameController_o * thisPtr));
+// GameController$$get_SecondaryMapAndInventoryCanBeOpened
+BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_o * thisPtr));
+
+BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o * thisPtr, int32_t binding, int32_t typ));
+
+BINDING(35034256, int32_t, UnityEngine_Cursor__get_lockState, ());
+BINDING(35034336, void, UnityEngine_Cursor__set_lockState, (int32_t value));
+
+BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
+BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o * thisPtr));
+BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o * thisPtr, UnityEngine_Vector3_o value));
+BINDING(11448960, Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_o*, SpellInventory__AddNewSpellToInventory, (SpellInventory_o * thisPtr, int32_t type, bool adding));
+
+BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
+BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
@@ -82,10 +105,36 @@ INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * 
   GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
   });
 
+INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
+  //NewGameAction$$Perform
+  csharp_lib->call<void, int>("NewGame", getSaveSlot());
+  newGamePerform(thisPtr, ctxPtr);
+  });
 
-BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
-BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o* thisPtr));
-BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o* thisPtr, UnityEngine_Vector3_o value));
+INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
+    csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
+    SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
+  });
+
+INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
+    csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
+    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
+  });
+
+INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
+    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SaveGameController__OnFinishedLoading(thisPtr);
+  });
+
+INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
+    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SaveGameController__RestoreCheckpoint(thisPtr);
+  });
+
+INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
+    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    SeinHealthController__OnRespawn(thisPtr);
+  });
 
 UnityEngine_Vector3_o last_position;
 __int8 set_to_last_position = 0;
@@ -98,23 +147,22 @@ void magic_function() {
 }
 
 extern "C" __declspec(dllexport)
-bool hasAbility(uint8_t ability){
+bool hasAbility(uint8_t ability) {
     auto sein = get_sein();
     if(sein && sein->PlayerAbilities)
-    {
         return PlayerAbilities__HasAbility(sein->PlayerAbilities, ability);
-    }
+
+    error("Failed to check ability: couldn't find reference to sein!");
     return false;
 }
 
 extern "C" __declspec(dllexport)
-void set_ability(uint8_t ability,  bool value)
-{
+void set_ability(uint8_t ability,  bool value) {
     auto sein = get_sein();
-    if(sein && sein -> PlayerAbilities)
-    {
-        PlayerAbilities__SetAbility(sein->PlayerAbilities, ability, value);
-    }
+    if(sein && sein->PlayerAbilities)
+      PlayerAbilities__SetAbility(sein->PlayerAbilities, ability, value);
+    else
+      error("Failed to set ability: couldn't find reference to sein!");
 }
 
 INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
@@ -122,54 +170,6 @@ INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
 	fixedUpdate1(thisPtr);
 	on_fixed_update(thisPtr);
 });
-
-BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
-BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
-
-INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
-	//NewGameAction$$Perform
-	csharp_lib->call<void, int>("NewGame", getSaveSlot());
-	newGamePerform(thisPtr, ctxPtr);
-});
-
-INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
-    csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
-    SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
-});
-
-INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
-    csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
-    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
-});
-
-INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SaveGameController__OnFinishedLoading(thisPtr);
-});
-
-INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SaveGameController__RestoreCheckpoint(thisPtr);
-});
-
-INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SeinHealthController__OnRespawn(thisPtr);
-});
-
-// GameController$get_InputLocked
-BINDING(10012848, bool, getInputLocked, (GameController_o* thisPtr));
-// GameController$$get_LockInput
-BINDING(10013200, bool, getLockInput, (GameController_o* thisPtr));
-// GameController$$get_IsSuspended
-BINDING(10013520, bool, getIsSuspended, (GameController_o* thisPtr));
-// GameController$$get_SecondaryMapAndInventoryCanBeOpened
-BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_o* thisPtr));
-
-BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o* thisPtr, int32_t binding, int32_t typ));
-
-BINDING(35034256, int32_t, UnityEngine_Cursor__get_lockState, ());
-BINDING(35034336, void, UnityEngine_Cursor__set_lockState, (int32_t value));
 
 //---------------------------------------------------Actual Functions------------------------------------------------
 extern "C" __declspec(dllexport)
