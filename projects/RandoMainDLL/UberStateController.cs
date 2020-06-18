@@ -73,6 +73,20 @@ namespace RandoMainDLL {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
+      else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2)
+        Randomizer.InputUnlockCallback = () => {
+          // this is really questionable!!
+          var voiceState = new UberId(46462, 59806).State();
+          if (!(voiceState.Value.Bool)) {
+            voiceState.Write(new UberValue(true));
+            Stats stats = Randomizer.Memory.PlayerStats;
+            stats.MaxHealth += 10;
+            stats.MaxEnergy++;
+            Randomizer.Memory.PlayerStats = stats;
+            Randomizer.Memory.FillEnergy();
+            Randomizer.Memory.FillHealth();
+          }
+        };
     }
     private static bool ShouldRevert(UberState state) {
       if (NeedsNewGameInit || SkipListenersNextUpdate)
