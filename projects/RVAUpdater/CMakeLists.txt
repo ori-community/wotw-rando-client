@@ -6,6 +6,7 @@ include(CSharpUtilities)
 set(
 	SOURCE_FILES
 	"RVAUpdate.cs"
+	"CMakeLists.txt"
 )
 
 set(

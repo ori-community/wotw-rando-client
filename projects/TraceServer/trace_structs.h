@@ -1,5 +1,7 @@
 #pragma once
 
+#include <settings.h>
+
 #include <GuiEngine/gui/imgui.h>
 #include <GuiEngine/gui_helpers/dropdown.h>
 
@@ -126,6 +128,9 @@ struct TraceData
 
 struct ExtraGuiData
 {
+    bool randomizer_settings_open = false;
+    IniSettings randomizer_settings;
+    IniSettings randomizer_settings_backup;
     network::NetworkData network_data;
 
     int next_gid = 10;

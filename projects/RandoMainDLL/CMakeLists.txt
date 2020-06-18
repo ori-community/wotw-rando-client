@@ -49,6 +49,7 @@ set(
 	MISC_FILES
 	"Properties/AssemblyInfo.cs"
 	".editorconfig"
+	"CMakeLists.txt"
 )
 
 set(
