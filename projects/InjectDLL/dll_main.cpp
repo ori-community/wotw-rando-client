@@ -97,6 +97,26 @@ void magic_function() {
     Moon_UberStateController__ApplyAll(1);
 }
 
+extern "C" __declspec(dllexport)
+bool hasAbility(uint8_t ability){
+    auto sein = get_sein();
+    if(sein && sein->PlayerAbilities)
+    {
+        return PlayerAbilities__HasAbility(sein->PlayerAbilities, ability);
+    }
+    return false;
+}
+
+extern "C" __declspec(dllexport)
+void set_ability(uint8_t ability,  bool value)
+{
+    auto sein = get_sein();
+    if(sein && sein -> PlayerAbilities)
+    {
+        PlayerAbilities__SetAbility(sein->PlayerAbilities, ability, value);
+    }
+}
+
 INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
 	//GameController$$FixedUpdate
 	fixedUpdate1(thisPtr);

@@ -787,7 +787,7 @@ namespace RandoMainDLL.Memory {
 
     public void Dispose() => Program?.Dispose();
 
-    private readonly Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
+    public readonly Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
       { AbilityType.Bash, EquipmentType.Ability_Bash },
       { AbilityType.DoubleJump, EquipmentType.Ability_DoubleJump },
       { AbilityType.Launch, EquipmentType.Spell_ChargeJump },
