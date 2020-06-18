@@ -13,7 +13,7 @@ std::string format(const char* str, ...)
 
 std::string format(const char* str, va_list ls)
 {
-	size_t length = _vscprintf(str, ls);
+	size_t length = _vscprintf(str, ls) + 1;
 	std::string output;
     output.resize(length);
     _vsnprintf_s(&output[0], length, _TRUNCATE, str, ls);

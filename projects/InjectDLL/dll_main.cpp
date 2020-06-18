@@ -24,9 +24,10 @@
 
 #include <mutex>
 
+#include <Common/ext.h>
+
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
-#include <WinNetwork/ext.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 
