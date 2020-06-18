@@ -20,6 +20,11 @@ namespace RandoMainDLL {
     public extern static void shake_ore();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_ability(AbilityType ability, bool value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static bool has_ability(AbilityType ability);
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr get_current_hint();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static bool hints_ready();

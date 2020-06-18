@@ -76,7 +76,12 @@ namespace RandoMainDLL {
         Data.SkillsFound.Add(ability);
       else
         Data.SkillsFound.Remove(ability);
-      Randomizer.Memory.SetAbility(ability, setTo);
+      
+      InterOp.set_ability(ability, setTo);
+      if (Randomizer.Memory.AbilityToEquip.ContainsKey(ability)) {
+        Randomizer.Memory.SetInvItem(Randomizer.Memory.AbilityToEquip[ability], setTo);
+      }
+
     }
     public static SaveData Data;
     public static int CurrentSlot = -1;

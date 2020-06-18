@@ -36,7 +36,9 @@ namespace
 {
 	bool has_dash()
 	{
-		return csharp_lib->call<bool, uint8_t>("GetAbility", DASH_NEW);
+        auto result = csharp_lib->call<bool, uint8_t>("GetAbility", DASH_NEW);
+        debug("hasRealDash returned" + std::to_string(result));
+		return result;
 	}
 
 	void update_dash_state(Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr) {
@@ -62,7 +64,6 @@ INTERCEPT(9314752, bool, SeinDashNew__get_CanDash, (SeinDashNew_o* this_ptr), {
 	auto result = SeinDashNew__get_CanDash(this_ptr);
 	if(!has_dash())
 		result = result && (SeinDashNew__ShouldDig(this_ptr) || SeinDashNew__ShouldSwim(this_ptr));
-	
 	return result;
 })
 
