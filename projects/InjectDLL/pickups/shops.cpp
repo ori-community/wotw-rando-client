@@ -235,10 +235,10 @@ INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 con
         weaponmasterPurchaseInProgress = true;
     } else {
         char requiredType = getWeaponMasterAbilityItemRequired(item);
-        if ((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
-            csharp_lib->call<void, char>("OpherBuyWeapon", 105);
-            weaponmasterPurchaseInProgress = true;
-        else {
+        if ((int)requiredType == -1) { // fast travel; 255, 255 -> 105, 0
+          csharp_lib->call<void, char>("OpherBuyWeapon", 105);
+          weaponmasterPurchaseInProgress = true;
+        } else {
             csharp_lib->call<void, char>("OpherBuyUpgrade", requiredType);
             weaponmasterPurchaseInProgress = false; // so upgrade buying isn't no-opped
         }
