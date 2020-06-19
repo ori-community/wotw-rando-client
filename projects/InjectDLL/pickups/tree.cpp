@@ -15,8 +15,9 @@ INTERCEPT(0x1105510, bool, sub180FC4D50, (__int64 garbage, Moon_IUberState_o* ub
     //Called from PlayerStateMap.Mapping::Matches    
     bool result = sub180FC4D50(garbage, uberState);
     uint8_t ability = *(uint8_t*) (garbage + 8);    
-    if(is_tree(ability))
-        result = csharp_lib->call<bool, BYTE>("DoInvertTree", ability) ^ result;
+    if (is_tree(ability)) 
+      result = (csharp_lib->call<bool, BYTE>("IsTreeActivated", ability) ^ has_ability(ability)) ^ result;
+    
 
     return result;
 });
@@ -32,7 +33,7 @@ INTERCEPT(17845472, bool, Moon_uberSerializationWisp_DesiredPlayerAbilityState__
     //Moon.uberSerializationWisp.DesiredPlayerAbilityState$$IsFulfilled
     auto ability = this_ptr->Ability;
     if(is_tree(ability))
-        return csharp_lib->call<bool>("TreeFulfilled", ability);    
+        return csharp_lib->call<bool>("IsTreeActivated", ability);    
     else
         return Moon_uberSerializationWisp_DesiredPlayerAbilityState__IsFulfilled(this_ptr, contextPtr);
 });
