@@ -34,11 +34,8 @@ INTERCEPT(17854928, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__S
 
 namespace
 {
-	bool has_dash()
-	{
-        auto result = csharp_lib->call<bool, uint8_t>("GetAbility", DASH_NEW);
-        debug("hasRealDash returned" + std::to_string(result));
-		return result;
+	bool has_dash() {
+		return csharp_lib->call<bool, uint8_t>("GetAbility", DASH_NEW);
 	}
 
 	void update_dash_state(Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr) {
@@ -89,7 +86,7 @@ INTERCEPT(4247504, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage
 	if(ability == DASH_NEW)
 	{
         csharp_lib->call<void, uint8_t, bool>("SetAbility", DASH_NEW, value);
-        debug("debug menu, setting has_real_dash: " + std::to_string(value));
+        debug("debug menu, setting has_real_dash: " + std::to_string(value) + ", now has_dash returns: " + std::to_string(has_dash()));
 	}
 })
 

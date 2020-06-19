@@ -11,6 +11,8 @@ GameController_c* get_game_controller();
 Game_UI_c* get_UI();
 SeinCharacter_o* get_sein();
 
+bool has_ability(uint8_t ability);
+
 void log(std::string message);
 void error(std::string message);
 void debug(std::string message);
