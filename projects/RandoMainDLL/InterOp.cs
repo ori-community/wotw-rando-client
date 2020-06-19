@@ -123,6 +123,7 @@ namespace RandoMainDLL {
       [DllExport]
       public static bool GetAbility(AbilityType ability) => SaveController.HasAbility(ability);
       [DllExport]
+      public static void SetAbility(AbilityType ability, bool setTo) => SaveController.SetAbility(ability, setTo);
 
       [DllExport]
       public static bool IsTreeActivated(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability);
