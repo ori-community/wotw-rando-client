@@ -74,12 +74,12 @@ INTERCEPT(14055664, void, completeShardPurchase, (__int64 spiritShardShopScreen)
 	*(bool*) (shard + 25) = second;
 
     // do the rando purchase /after/ rollback, xem ;3
-    auto shardType = *(unsigned __int8*)(shard + 0x10);
+    auto shardType = *(unsigned __int8*)(shard + 0x10);    
     csharp_lib->call<void, char>("TwillenBuyShard", shardType);
 
 	PlayerUberStateShards_Shard_RunSetDirtyCallback(shard);
 	SpiritShardsShopScreen_UpdateContextCanvasShards(spiritShardShopScreen);
-});
+ });
 
 
 INTERCEPT(17916336, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (__int64 shard), {
@@ -189,7 +189,6 @@ INTERCEPT(5046528, int, WeaponmasterItem_GetCostForLevel, (__int64 item, int lev
 	if(is_in_shop_screen())
 	{
 		char abilityType = getWeaponMasterAbilityItemGranted(item);
-		//TODO: @Eiko - you know what to do
 		if((int) abilityType == -1) {
 			if((int) getWeaponMasterAbilityItemRequired(item) == -1) // fast travel; 255, 255 -> 105, 0
 				return csharp_lib->call<int, char>("OpherWeaponCost", 105);
@@ -229,14 +228,16 @@ INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (Moon_SerializedByte
 
 INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (__int64 item, __int64 context), {
     //Weaponmasteritem$$DoPurchase
-    weaponmasterPurchaseInProgress = true;
+    //Do the rando purchase /after/ rollback, eiko ;3
     auto abilityType = getWeaponMasterAbilityItemGranted(item);
-    if ((int)abilityType != -1)
+    if((int) abilityType != -1){
         csharp_lib->call<void, char>("OpherBuyWeapon", abilityType);
-    else {
+        weaponmasterPurchaseInProgress = true;
+    } else {
         char requiredType = getWeaponMasterAbilityItemRequired(item);
         if ((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
             csharp_lib->call<void, char>("OpherBuyWeapon", 105);
+            weaponmasterPurchaseInProgress = true;
         else {
             csharp_lib->call<void, char>("OpherBuyUpgrade", requiredType);
             weaponmasterPurchaseInProgress = false; // so upgrade buying isn't no-opped
