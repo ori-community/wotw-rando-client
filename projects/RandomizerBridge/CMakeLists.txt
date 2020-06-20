@@ -1,19 +1,22 @@
-project("Injector")
+project("RandomizerBridge")
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
 
 set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
-set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(
 	SOURCE_FILES
-	"injector.cpp"
+	"csharp_bridge.cpp"
+	"runtime_initializer.cpp"
 )
 
 set(
 	PUBLIC_HEADER_FILES
+	"csharp_bridge.h"
+    "enum_definitions.h"
+	"macros.h"
 )
 
 set(
@@ -22,10 +25,25 @@ set(
 	"CMakeLists.txt"
 )
 
-add_executable(${PROJECT_NAME}
+set(
+	REFERENCES
+	"mscorlib.dll"
+	"System"
+	"System.Core"
+)
+
+add_library(${PROJECT_NAME} SHARED
 	${SOURCE_FILES}
 	${PUBLIC_HEADER_FILES}
 	${MISC_FILES}
+)
+
+target_compile_definitions(${PROJECT_NAME}
+	PRIVATE COMPILING_BRIDGE
+)
+
+target_link_libraries(${PROJECT_NAME}
+	PUBLIC RandoMainDLL
 )
 
 set_target_properties(
@@ -33,7 +51,10 @@ set_target_properties(
 	PROPERTIES
 		VERSION ${WORWR_VERSION}
 		SOVERSION ${WORWR_MAJOR_VERSION}
-		FOLDER cpp
+		FOLDER cli
+		COMMON_LANGUAGE_RUNTIME ""
+		DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2"
+		VS_DOTNET_REFERENCES "${REFERENCES}"
 )
 
 target_include_directories(
@@ -41,6 +62,7 @@ target_include_directories(
 	PRIVATE
 		.
 		${CMAKE_CONFIG_DIRECTORY}
+		${CONFIG_DIRECTORY}
 		${CMAKE_ENGINE_DIRECTORY}
 		${WOTWR_LIB_INCLUDE_DIR}
 	SYSTEM
@@ -49,13 +71,8 @@ target_include_directories(
 
 message(STATUS "Assigning source groups.")
 
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
+set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
-
-target_link_libraries(
-	${PROJECT_NAME}
-	Common
-)
 
 install(
 	TARGETS ${PROJECT_NAME}
@@ -63,3 +80,4 @@ install(
 	LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
 	ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
 )
+

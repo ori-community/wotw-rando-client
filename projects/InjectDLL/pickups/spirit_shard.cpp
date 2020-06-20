@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <interception_macros.h>
 
 bool collecting_spirit_shard = false;

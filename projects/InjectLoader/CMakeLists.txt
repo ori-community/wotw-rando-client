@@ -1,4 +1,4 @@
-project("Injector")
+project("InjectLoader")
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
@@ -9,7 +9,7 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(
 	SOURCE_FILES
-	"injector.cpp"
+	"loader.cpp"
 )
 
 set(
@@ -22,7 +22,7 @@ set(
 	"CMakeLists.txt"
 )
 
-add_executable(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
 	${SOURCE_FILES}
 	${PUBLIC_HEADER_FILES}
 	${MISC_FILES}

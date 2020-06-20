@@ -10,11 +10,13 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 set(
 	SOURCE_FILES
 	"ext.cpp"
+	"settings.cpp"
 )
 
 set(
 	PUBLIC_HEADER_FILES
 	"ext.h"
+	"settings.h"
 )
 
 set(

@@ -1,7 +1,6 @@
 #pragma once
-#include "pe_module.h"
 
-extern InjectDLL::PEModule* csharp_lib;
+#include <macros.h>
 
 void on_fixed_update(__int64 thisPointer);
 std::string pretty_time();
@@ -11,7 +10,7 @@ GameController_c* get_game_controller();
 Game_UI_c* get_UI();
 SeinCharacter_o* get_sein();
 
-bool has_ability(uint8_t ability);
+INJECT_C_DLLEXPORT bool has_ability(uint8_t ability);
 
 void log(std::string message);
 void error(std::string message);

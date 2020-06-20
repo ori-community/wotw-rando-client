@@ -1,6 +1,7 @@
-#include <pch.h>
 #include <interception_macros.h>
 #include <dll_main.h>
+
+#include <csharp_bridge.h>
 
 #include <set>
 
@@ -78,18 +79,18 @@ INTERCEPT(13856176, MessageBox_o*, MessageControllerB__ShowUpdatedQuestMessage, 
   return 0;
 });
 
-INTERCEPT(15446864, __int64, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language), {
+INTERCEPT(15446864, int64_t, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language), {
     //TranslatedMessageProvider.MessageItem$$GetDescriptor
     auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
     if(!string_header_cached || (result && is_in_shop_screen()))
     {
-        __int64 str = csharp_lib->call<__int64>("ShopStringRepl", *reinterpret_cast<__int64*>(result));
+        auto str = csharp_bridge::shop_string_repl(*reinterpret_cast<int64_t*>(result));
         string_header_cached = true;
         if(str)
-             *reinterpret_cast<__int64*>(result) = str;
+             *reinterpret_cast<int64_t*>(result) = str;
     }
 
-    return static_cast<__int64>(result);
+    return static_cast<int64_t>(result);
 });
 
 INTERCEPT(13823536, void, MessageBox__Update, (MessageBox_o* this_ptr), {

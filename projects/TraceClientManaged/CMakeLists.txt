@@ -37,7 +37,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Newtonsoft.Json ${WOTWR_LIB_DIR}/Newtonsoft.Json.dll)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_AutoHotkey.Interop ${WOTWR_LIB_DIR}/AutoHotkey.Interop.dll)
 
-target_compile_options(${PROJECT_NAME} PUBLIC /platform:x64)
+target_compile_options(${PROJECT_NAME} PRIVATE /platform:x64)
 
 set(CMAKE_CSharp_FLAGS "/langversion:latest")
 

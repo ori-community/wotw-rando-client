@@ -1,6 +1,7 @@
-#include <pch.h>
 #include <interception_macros.h>
 #include <dll_main.h>
+
+#include <csharp_bridge.h>
 
 BINDING(4091744, GameWorldArea_o*, GameWorld__GetArea, (GameWorld_o* thisPtr, int32_t areaID)) 
 BINDING(4084240, RuntimeGameWorldArea_o*, GameWorld__FindRuntimeArea, (GameWorld_o* thisPtr, GameWorldArea_o* area));
@@ -26,7 +27,7 @@ INTERCEPT(12666400, bool, RuntimeWorldMapIcon__IsVisible, (RuntimeWorldMapIcon_o
 });
 
 INTERCEPT(12673168, bool, RuntimeWorldMapIcon__CanBeTeleportedTo, (RuntimeWorldMapIcon_o* thisPtr), {
-  return RuntimeWorldMapIcon__CanBeTeleportedTo(thisPtr) || csharp_lib->call<bool>("TPToAnyPickup");
+  return RuntimeWorldMapIcon__CanBeTeleportedTo(thisPtr) || csharp_bridge::tp_to_any_pickup();
 });
 
 extern "C" __declspec(dllexport)

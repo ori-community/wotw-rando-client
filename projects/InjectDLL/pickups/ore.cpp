@@ -1,10 +1,8 @@
-#include <pch.h>
-#include <pe_module.h>
 #include <common.h>
 #include <interception_macros.h>
 #include <pickups/pickups.h>
 
-extern InjectDLL::PEModule* csharp_lib;
+#include <csharp_bridge.h>
 
 // Taken from dump.cs
 enum class WorldMapIconType : int32_t
@@ -83,7 +81,7 @@ enum class WorldMapIconType : int32_t
 INTERCEPT(4093520, int32_t, GameWorld__GetCollectedIconTypeCount, (GameWorld_o* this_ptr, WorldMapIconType_o type), {
     auto value = GameWorld__GetCollectedIconTypeCount(this_ptr, type);
     if (type.value__ == static_cast<int32_t>(WorldMapIconType::Ore))
-        value = csharp_lib->call<int>("OreCount", type);
+        value = csharp_bridge::ore_count();
 
     return value;
 });
