@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <interception.h>
 #include <common.h>
 #include <detours/detours.h>

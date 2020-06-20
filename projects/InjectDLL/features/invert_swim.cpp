@@ -1,7 +1,8 @@
-#include <pch.h>
 #include <interception_macros.h>
 #include <dll_main.h>
 #include <features/invert_swim.h>
+
+#include <csharp_bridge.h>
 
 namespace
 {
@@ -19,7 +20,7 @@ void set_swim_params(float normal, float boost) {
 
 void invert_swim() {
     // Default boosted speed is 9.59... so we use 9.6
-    if(csharp_lib->call<bool>("InvertSwim"))
+    if(csharp_bridge::invert_swim())
         set_swim_params(9.6f, 6.f);
     else
         set_swim_params(6.f, 9.6f);

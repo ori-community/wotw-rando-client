@@ -129,7 +129,6 @@ namespace RandoMainDLL {
         }
 
         InterOp.discover_everything();
-        InterOp.magic_function();
         InterOp.bind_sword();
         InterOp.save();
         NeedsNewGameInit = false;

@@ -1,7 +1,8 @@
-#include <pch.h>
 #include <constants.h>
 #include <interception_macros.h>
 #include <dll_main.h>
+
+#include <csharp_bridge.h>
 
 namespace
 {
@@ -14,10 +15,9 @@ namespace
 INTERCEPT(0x1105510, bool, sub180FC4D50, (__int64 garbage, Moon_IUberState_o* uberState), {
     //Called from PlayerStateMap.Mapping::Matches    
     bool result = sub180FC4D50(garbage, uberState);
-    uint8_t ability = *(uint8_t*) (garbage + 8);    
-    if (is_tree(ability)) 
-      result = (csharp_lib->call<bool, BYTE>("IsTreeActivated", ability) ^ has_ability(ability)) ^ result;
-    
+    uint8_t ability = *(uint8_t*) (garbage + 8);
+    if (is_tree(ability))
+        result = (csharp_bridge::is_tree_activated(static_cast<csharp_bridge::AbilityType>(ability)) ^ has_ability(ability)) ^ result;
 
     return result;
 });
@@ -26,14 +26,14 @@ INTERCEPT(10404368, void, GetAbilityOnCondition__AssignAbility, (GetAbilityOnCon
     //GetAbilityOnCondition$$AssignAbility        
     auto ability = this_ptr->Ability->Ability;
     if(is_tree(ability))
-        csharp_lib->call<void>("OnTree", ability );
+        csharp_bridge::on_tree(static_cast<csharp_bridge::AbilityType>(ability));
 });
 
 INTERCEPT(17845472, bool, Moon_uberSerializationWisp_DesiredPlayerAbilityState__IsFulfilled, (Moon_uberSerializationWisp_DesiredPlayerAbilityState_o* this_ptr, __int64 contextPtr), {
     //Moon.uberSerializationWisp.DesiredPlayerAbilityState$$IsFulfilled
     auto ability = this_ptr->Ability;
     if(is_tree(ability))
-        return csharp_lib->call<bool>("IsTreeActivated", ability);    
+        return csharp_bridge::is_tree_activated(static_cast<csharp_bridge::AbilityType>(ability));
     else
         return Moon_uberSerializationWisp_DesiredPlayerAbilityState__IsFulfilled(this_ptr, contextPtr);
 });

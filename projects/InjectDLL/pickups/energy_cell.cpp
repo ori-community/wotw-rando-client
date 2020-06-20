@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <interception_macros.h>
 #include <pickups/pickups.h>
 

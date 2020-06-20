@@ -1,13 +1,12 @@
-#include "pch.h"
 // dllmain.cpp : Defines the entry point for the DLL application.
 
 #include <detours/detours.h>
 
-#include <pe_module.h>
 #include <common.h>
 #include <constants.h>
 #include <dll_main.h>
 #include <interception_macros.h>
+#include <macros.h>
 #include <pickups/ore.h>
 #include <fixes/dash.h>
 #include <features/invert_swim.h>
@@ -26,6 +25,8 @@
 
 #include <Common/ext.h>
 
+#include <csharp_bridge.h>
+
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
 
@@ -39,7 +40,6 @@ bool info_enabled = true;
 bool error_enabled = true;
 bool input_lock_callback = false;
 
-InjectDLL::PEModule* csharp_lib = NULL;
 network::NetworkData network_data;
 int peer_id = -1;
 std::mutex network_mutex;
@@ -101,52 +101,51 @@ BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
 INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone), {
-  csharp_lib->call<void>("OnCheckpoint");
-  GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
-  });
+    csharp_bridge::on_checkpoint();
+    GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
+});
 
 INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
-  //NewGameAction$$Perform
-  csharp_lib->call<void, int>("NewGame", getSaveSlot());
-  newGamePerform(thisPtr, ctxPtr);
-  });
+    //NewGameAction$$Perform
+    csharp_bridge::new_game(getSaveSlot());
+	newGamePerform(thisPtr, ctxPtr);
+});
 
 INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
-    csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
+    csharp_bridge::on_save(slotIndex, backupIndex);
     SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
-  });
+});
 
 INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
-    csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
+    csharp_bridge::on_save(saveSlot->Index, backupIndex);
     SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
-  });
+});
 
 INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SaveGameController__OnFinishedLoading(thisPtr);
-  });
+});
 
 INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SaveGameController__RestoreCheckpoint(thisPtr);
-  });
+});
 
 INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
+    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SeinHealthController__OnRespawn(thisPtr);
-  });
+});
 
 UnityEngine_Vector3_o last_position;
 __int8 set_to_last_position = 0;
 
-extern "C" __declspec(dllexport)
-void magic_function() {
+INJECT_C_DLLEXPORT void magic_function() {
     last_position = SeinCharacter__get_Position(get_sein());
     set_to_last_position = 3;
     Moon_UberStateController__ApplyAll(1);
 }
 
-bool has_ability(uint8_t ability) {
+INJECT_C_DLLEXPORT bool has_ability(uint8_t ability) {
     auto sein = get_sein();
     if(sein && sein->PlayerAbilities)
         return PlayerAbilities__HasAbility(sein->PlayerAbilities, ability);
@@ -154,8 +153,7 @@ bool has_ability(uint8_t ability) {
     return false;
 }
 
-extern "C" __declspec(dllexport)
-void set_ability(uint8_t ability,  bool value) {
+INJECT_C_DLLEXPORT void set_ability(uint8_t ability,  bool value) {
     auto sein = get_sein();
     if (sein && sein->PlayerAbilities) 
       PlayerAbilities__SetAbility(sein->PlayerAbilities, ability, value);
@@ -163,8 +161,7 @@ void set_ability(uint8_t ability,  bool value) {
       error("Failed to set ability: couldn't find reference to sein!");
 }
 
-extern "C" __declspec(dllexport)
-void set_equipment(int32_t equip, bool value) {
+INJECT_C_DLLEXPORT void set_equipment(int32_t equip, bool value) {
   auto sein = get_sein();
   if (sein && sein->PlayerSpells)
     SpellInventory__AddNewSpellToInventory(sein->PlayerSpells, equip, value);
@@ -179,8 +176,8 @@ INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
 });
 
 //---------------------------------------------------Actual Functions------------------------------------------------
-extern "C" __declspec(dllexport)
-bool toggle_cursorlock() {
+
+INJECT_C_DLLEXPORT bool toggle_cursorlock() {
   int32_t newState = 2 - UnityEngine_Cursor__get_lockState();
   UnityEngine_Cursor__set_lockState(newState);
   return newState > 0;
@@ -203,38 +200,36 @@ SeinCharacter_o* get_sein()
     return get_characters()->m_sein;
 }
 
-extern "C" __declspec(dllexport)
-void bind_sword() {
+INJECT_C_DLLEXPORT void bind_sword() {
     SpellInventory__UpdateBinding(get_sein()->PlayerSpells, 0, 1002);
 }
 
 void on_fixed_update(__int64 thisPointer){
-	try {
-		csharp_lib->call<int>("Update");
-	} catch(int error)
+	try
+    {
+        csharp_bridge::update();
+	}
+    catch(int error)
 	{
 		LOG("got error code " << error);
 	}
+
     if (set_to_last_position > 0) {
         set_to_last_position--;
         SeinCharacter__set_Position(get_sein(), last_position);
     }
 }
 
-extern "C" __declspec(dllexport)
-void set_ore(int oreCount) {
+INJECT_C_DLLEXPORT void set_ore(int oreCount) {
     SeinLevel__set_Ore(get_sein()->Level, oreCount);
 }
 
-extern "C" __declspec(dllexport)
-bool player_can_move() {
+INJECT_C_DLLEXPORT bool player_can_move() {
     auto gcip = get_game_controller_instance();
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
 
-
-extern "C" __declspec(dllexport)
-void save() {
+INJECT_C_DLLEXPORT void save() {
     DEBUG("Save requested by c# code");
     GameController__CreateCheckpoint(get_game_controller_instance(), true, false);
 }
@@ -353,85 +348,46 @@ void network_event_handler(network::NetworkEvent const& evt)
     }
 }
 
-void main_thread(){
-    network_data.is_server = false;
-    network_data.ip = "localhost";
-    network_data.port = 27666;
-    network_data.logging_callback = [](std::string const& str) { LOG(str); };
-    network_data.event_handler = &network_event_handler;
+extern bool bootstrap();
 
-	log("loading c# dll...");
-	csharp_lib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
-	if(csharp_lib->call<bool>("Initialize"))
-	{
-        {
-            constexpr char arg1[] = "TraceEnabled";
-            trace_enabled = csharp_lib->call<bool>("CheckIni", arg1);
-
-            constexpr char arg2[] = "TracePingingDisabled";
-            trace_pinging_enabled = !csharp_lib->call<bool>("CheckIni", arg2);
-        }
-
-        if (trace_enabled)
-        {
-            network::initialize_peer(network_data);
-            network::start_peer(network_data);
-        }
-
-		debug_enabled = csharp_lib->call<bool>("InjectDebugEnabled");
-		info_enabled = csharp_lib->call<bool>("InjectLogEnabled");
-		LOG("debug: " << debug_enabled << " log: " << info_enabled);
-		log("c# init complete");
-		interception_init();
-
-        if (trace_enabled)
-        {
-            while (!shutdown_thread)
-                network::poll_peer(network_data);
-
-            network::shutdown_peer(network_data);
-        }
-	} else
+INJECT_C_DLLEXPORT void injection_entry()
+{
+    log("init_start");
+    if (!bootstrap())
     {
-		log("Failed to initialize, shutting down");
+        log("Failed to bootstrap, shutting down");
         shutdown_thread = true;
-        if (trace_enabled)
-            network::shutdown_peer(network_data);
+        FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
+    }
 
-		FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
-	}
-}
+    trace_enabled = csharp_bridge::check_ini("TraceEnabled");
+    trace_pinging_enabled = !csharp_bridge::check_ini("TracePingingDisabled");
+    if (trace_enabled)
+    {
+        network_data.is_server = false;
+        network_data.ip = "localhost";
+        network_data.port = 27666;
+        network_data.logging_callback = [](std::string const& str) { LOG(str); };
+        network_data.event_handler = &network_event_handler;
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved){
-	if(DetourIsHelperProcess())
-	{
-		return TRUE;
-	}
+        network::initialize_peer(network_data);
+        network::start_peer(network_data);
+    }
 
-	switch(ul_reason_for_call)
-	{
-		case DLL_PROCESS_ATTACH:
-			if(!attached)
-			{
-				debug("init start");
-				CreateThread(0, 0, (LPTHREAD_START_ROUTINE) main_thread, 0, 0, 0);
-				attached = true;
-			}
-			break;
-		case DLL_PROCESS_DETACH:
-            network::shutdown_peer(network_data);
-			shutdown_thread = true;
-			delete csharp_lib;
-			DetourTransactionBegin();
-			DetourUpdateThread(GetCurrentThread());
-			interception_detach();
+    // TODO: Change these for a call to check_ini.
+    debug_enabled = csharp_bridge::inject_debug_enabled();
+    info_enabled = csharp_bridge::inject_log_enabled();
+    LOG("debug: " << debug_enabled << " log: " << info_enabled);
+    log("c# init complete");
+    interception_init();
 
-			log("detatch commit: " + std::to_string(DetourTransactionCommit()));
-			break;
-		default:
-			break;
-	}
-	return TRUE;
+    if (trace_enabled)
+    {
+        while (!shutdown_thread)
+            network::poll_peer(network_data);
+
+        network::shutdown_peer(network_data);
+    }
 }
 
 // strftime format

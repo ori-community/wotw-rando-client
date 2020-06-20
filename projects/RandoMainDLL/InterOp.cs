@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using RandoMainDLL.Memory;
+using System.Linq;
 
 namespace RandoMainDLL {
   static class InterOp {
@@ -44,6 +45,23 @@ namespace RandoMainDLL {
     public extern static bool toggle_cursorlock();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void bind_sword();
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);
+
+    private static List<GCHandle> handles;
+    public static void RegisterCSharpBindings() {
+      handles = new List<GCHandle>();
+      var infos = CppCallbacks.MethodInfos;
+      foreach (var info in infos) {
+        handles.Add(GCHandle.Alloc(info.Delegate, GCHandleType.Normal));
+        register_delegate(
+          info.CallbackName,
+          Marshal.GetFunctionPointerForDelegate(info.Delegate)
+        );
+      }
+    }
+
     public static class Util {
       private static readonly Dictionary<string, IntPtr> stringAddresses = new Dictionary<string, IntPtr>();
       public static IntPtr getIl2cppStringPointer(string str) {
@@ -66,95 +84,6 @@ namespace RandoMainDLL {
 
         return stringAddresses[str];
       }
-    }
-    private static class ExportedFuncDoNotCall {
-      // calling any of these from c# will instantly trigger a crash
-      // In fact, loading a function onto the stack that calls one
-      // of these functions will instantly trigger a crash
-      // so don't do it.
-
-      [DllExport]
-      public static bool Initialize() => Randomizer.Initialize();
-      [DllExport]
-      public static void Update()  => Randomizer.Update();
-
-      [DllExport]
-      public static int OreCount() => Randomizer.Memory.Ore;
-
-      [DllExport]
-      public static void OnTree(AbilityType ability) {
-        SaveController.Data.TreesActivated.Add(ability);
-        Randomizer.Memory.FillEnergy();
-        Randomizer.Memory.FillHealth();
-        SeedController.OnTree(ability);
-      }
-      [DllExport]
-      public static void OnCheckpoint() => UberStateController.Update();
-
-      [DllExport]
-      public static ulong GetShardSlotPtr() => Randomizer.Memory.ShardSlotPtr();
-
-
-      [DllExport]
-      public static bool CheckIni(IntPtr str) {
-        var managedStr = Marshal.PtrToStringAnsi(str);
-        return AHK.IniFlag(managedStr);
-      }
-
-      [DllExport]
-      public static bool InjectLogEnabled() => !AHK.IniFlag("MuteInjectLogs");
-
-      [DllExport]
-      public static bool InjectDebugEnabled() => AHK.IniFlag("DebugInjectLogs");
-
-      [DllExport]
-      public static bool TPToAnyPickup() => AHK.TPToPickupsEnabled;
-      [DllExport]
-      public static bool InvertSwim() => AHK.IniFlag("InvertSwim");
-
-
-      // save interops
-      [DllExport]
-      public static void NewGame(int slot) => Randomizer.OnNewGame(slot);
-      [DllExport]
-      public static void OnLoad(int slot, int backupSlot) => SaveController.OnLoad(slot, backupSlot);
-      [DllExport]
-      public static void OnSave(int slot, int backupSlot) => SaveController.OnSave(slot, backupSlot);
-      [DllExport]
-      public static bool GetAbility(AbilityType ability) => SaveController.HasAbility(ability);
-      [DllExport]
-      public static void SetAbility(AbilityType ability, bool setTo) => SaveController.SetAbility(ability, setTo);
-
-      [DllExport]
-      public static bool IsTreeActivated(AbilityType ability) => SaveController.Data.TreesActivated.Contains(ability);
-
-      // shop interops
-
-      [DllExport]
-      public static ulong ShopStringRepl(IntPtr str) => ShopController.MessageSwap(str);
-
-      [DllExport]
-      public static void OpherBuyWeapon(AbilityType slot) => ShopController.OnBuyOpherWeapon(slot);
-
-      [DllExport]
-      public static void OpherBuyUpgrade(AbilityType slot) => ShopController.OnBuyOpherUpgrade(slot);
-
-      [DllExport]
-      public static void TwillenBuyShard(ShardType slot) => ShopController.OnBuyTwillenShard(slot);
-
-      [DllExport]
-      public static bool OpherBoughtWeapon(AbilityType granted) => ShopController.OpherBoughtWeapon(granted);
-      [DllExport]
-      public static bool TwillenBoughtShard(ShardType shard) => ShopController.TwillenBoughtShard(shard);
-      [DllExport]
-      public static int TwillenShardCost(ShardType shard) => ShopController.TwillenShardCost(shard);
-      [DllExport]
-      public static int LupoUpgradeCost(int slot) => ShopController.LupoUpgradeCost(slot);
-      [DllExport]
-      public static int OpherWeaponCost(AbilityType ability) => ShopController.OpherWeaponCost(ability);
-      [DllExport]
-      public static bool OpherBoughtUpgrade(AbilityType slot) => ShopController.OpherBoughtUpgrade(slot);
-
     }
   }
 }

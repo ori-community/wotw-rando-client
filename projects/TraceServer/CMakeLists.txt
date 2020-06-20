@@ -10,12 +10,10 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 set(
 	SOURCE_FILES
 	"app.cpp"
-	"settings.cpp"
 )
 
 set(
 	PUBLIC_HEADER_FILES
-	"settings.h"
 	"trace_structs.h"
 )
 
