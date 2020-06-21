@@ -1,5 +1,6 @@
 #include <trace_structs.h>
 
+#include <Common/csv.h>
 #include <Common/ext.h>
 
 #include <GuiEngine/engine.h>
@@ -12,18 +13,25 @@
 #include <WinNetwork/peer.h>
 
 #include <stdio.h>
+#include <filesystem>
 #include <string>
 #include <vector>
 
 using namespace gui_engine;
 
+void resolve_filter(TraceData& trace);
+
 void show_home_information(GuiData& gui, ExtraGuiData& extra);
 void show_home_top_bar(ExtraGuiData& extra);
 void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize);
-void trace_show_top_bar(network::NetworkData& data, TraceData& trace);
+void trace_show_top_bar(ExtraGuiData& extra, TraceData& trace);
 void show_filter_window(TraceData& trace, ImVec2 const& size);
 void show_info_window(TraceData& trace, ImVec2 const& size);
-void show_trace_data(network::NetworkData& data, TraceData& trace);
+void show_trace_data(ExtraGuiData& extra, TraceData& trace);
+
+void show_import_dialogue(ExtraGuiData& extra);
+void show_export_dialogue(ExtraGuiData& extra, TraceData& trace);
+
 void init_test_data(GuiData& data);
 
 void handle_network_events(GuiData& data, network::NetworkEvent const& evt);
@@ -35,6 +43,10 @@ void initalize(GuiData& gui)
     extra.randomizer_settings = create_randomizer_settings();
     load_settings_from_file(extra.randomizer_settings);
     extra.randomizer_settings_backup = extra.randomizer_settings;
+
+    auto& io = ImGui::GetIO();
+    io.KeyMap[ImGuiKey_Enter] = 0;
+    io.KeyMap[ImGuiKey_Backspace] = 1;
 }
 
 void handle_events(GuiData& gui, SDL_Event const& evt)
@@ -56,8 +68,13 @@ void tick(GuiData& gui)
         else
             ++it;
     }
+
+    auto& io = ImGui::GetIO();
+    io.KeysDown[ImGui::GetKeyIndex(ImGuiKey_Enter)] = (GetKeyState(VK_RETURN) & 0x8000) != 0;
+    io.KeysDown[ImGui::GetKeyIndex(ImGuiKey_Backspace)] = (GetKeyState(VK_BACK) & 0x8000) != 0;
 }
 
+// MAIN UI LOOP
 void render(GuiData& gui)
 {
     ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
@@ -89,7 +106,7 @@ void render(GuiData& gui)
             ImGui::PushID(trace.gid);
             if (ImGui::BeginTabItem(trace.name.c_str(), &trace.open))
             {
-                show_trace_data(extra.network_data, trace);
+                show_trace_data(extra, trace);
                 ImGui::EndTabItem();
             }
 
@@ -99,13 +116,26 @@ void render(GuiData& gui)
         ImGui::EndTabBar();
     }
 
+    if (extra.import_open)
+        show_import_dialogue(extra);
+
+    for (auto& trace : extra.traces)
+        if (trace.export_open)
+            show_export_dialogue(extra, trace);
+
     ImGui::End();
 }
 
-int main(int, char**)
+std::regex csv_regex;
+std::string exe_path;
+
+int main(int argc, char** argv)
 {
+    exe_path = std::filesystem::weakly_canonical(std::filesystem::path(argv[0])).parent_path().string();
+    csv_regex = std::regex("[\\s\\S]*\\.csv$");
+
     GuiData gui;
-    ExtraGuiData extra;
+    ExtraGuiData extra(exe_path, csv_regex);
     gui.extra = &extra;
 
     extra.network_data.port = 27666;
@@ -125,11 +155,132 @@ int main(int, char**)
     return ret;
 }
 
+void import_csv(ExtraGuiData& extra, std::string const& path)
+{
+    CSV c;
+    c.path = path;
+    csv::csv_load_file(c);
+
+    std::filesystem::path actual_path(path);
+    TraceData td(
+        extra.next_gid++,
+        -1,
+        actual_path.filename().replace_extension().string(),
+        exe_path,
+        csv_regex
+    );
+
+    td.connected = false;
+    td.open = true;
+
+    if (c.headers.size() != 4)
+    {
+        extra.log.push_back("Import failed, headers wrong size.");
+        return;
+    }
+
+    std::array<std::string, 4> expected_headers = { "type", "group" , "level", "message" };
+    for (auto i = 0; i < 4; ++i)
+    {
+        if (c.headers[i] != expected_headers[i])
+        {
+            extra.log.push_back(
+                format("Import failed, header %d was wrong, expected '%s' found '%s'.",
+                    i, expected_headers[i].c_str(), c.headers[i].c_str())
+            );
+
+            return;
+        }
+    }
+
+    for (auto it = c.data.begin(); it != c.data.end(); it += 4)
+    {
+        Message m;
+        m.type = static_cast<MessageType>(std::stoi(*it));
+        m.group = *(it + 1);
+        m.level = std::stoi(*(it + 2));
+        m.message = *(it + 3);
+        td.messages.push_back(m);
+    }
+    
+    resolve_filter(td);
+    extra.traces.push_back(td);
+}
+
+void show_import_dialogue(ExtraGuiData& extra)
+{
+    ImGui::SetNextWindowSize({ 600.f, 400.f }, ImGuiCond_FirstUseEver);
+    if (ImGui::Begin("import", &extra.import_open))
+    {
+        gui_engine::file_selector::show(extra.import_file_selector);
+        if (extra.import_file_selector.state != gui_engine::FileSelectorState::Active)
+        {
+            extra.import_open = false;
+            if (extra.import_file_selector.state == FileSelectorState::Selected)
+                import_csv(extra, extra.import_file_selector.path);
+        }
+
+        ImGui::End();
+    }
+}
+
+void export_csv(ExtraGuiData& extra, TraceData& trace, std::string const& path)
+{
+    CSV c;
+    c.path = path;
+    c.headers = { "type", "group" , "level", "message" };
+
+    for (auto const& m : trace.messages)
+    {
+        c.data.push_back(std::to_string(static_cast<int>(m.type)));
+        c.data.push_back(m.group);
+        c.data.push_back(std::to_string(m.level));
+        c.data.push_back(m.message);
+    }
+
+    csv::csv_save_file(c);
+}
+
+void show_export_dialogue(ExtraGuiData& extra, TraceData& trace)
+{
+    ImGui::SetNextWindowSize({ 600.f, 400.f }, ImGuiCond_FirstUseEver);
+    if (ImGui::Begin("export", &trace.export_open))
+    {
+        gui_engine::file_selector::show(trace.export_file_selector);
+        if (trace.export_file_selector.state != gui_engine::FileSelectorState::Active)
+        {
+            trace.export_open = false;
+            if (trace.export_file_selector.state == FileSelectorState::Selected)
+                export_csv(extra, trace, trace.export_file_selector.path);
+        }
+
+        ImGui::End();
+    }
+}
+
 void show_home_top_bar(ExtraGuiData& extra)
 {
     auto size = ImGui::GetContentRegionAvail();
     const float bar_size_y = 20.f;
-    
+
+    if (begin_dropdown("file", "file", { 50.f, bar_size_y }, false))
+    {
+        ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.3f, 0.3f, 0.4f });
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.4f, 0.4f, 0.4f, 0.7f });
+
+        if (ImGui::Button("import"))
+        {
+            extra.import_open = true;
+            gui_engine::file_selector::reset(extra.import_file_selector);
+            ImGui::CloseCurrentPopup();
+        }
+
+        ImGui::PopStyleColor(3);
+        end_dropdown();
+    }
+
+    ImGui::SameLine();
     if (begin_dropdown("options", "options", { 60.f, bar_size_y }, false))
     {
         ImGui::PushStyleColor(ImGuiCol_Button, { 0.f, 0.f, 0.f, 0.f });
@@ -190,13 +341,6 @@ void save_settings(ExtraGuiData& extra, IniSettings& settings)
     save_settings_to_file(settings);
 }
 
-ImVec2 apply_layout(Layout const& l, std::string const& name, ImVec4 const& margins = { 0.f, 0.f, 0.f, 0.f })
-{
-    auto bounds = layout::get_bounds(l, name, margins);
-    ImGui::SetCursorPos(bounds.Min);
-    return bounds.GetSize();
-}
-
 void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize)
 {
     static ImGuiWindowFlags window_flags = ImGuiWindowFlags_None;
@@ -239,13 +383,13 @@ void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize)
         auto size = ImGui::GetContentRegionAvail();
         layout::calculate_bounds(l, { pos, pos + size });
 
-        if (ImGui::Button("Save", apply_layout(l, "save")))
+        if (ImGui::Button("Save", gui_engine::layout::apply_layout(l, "save")))
         {
             save_settings(extra, extra.randomizer_settings);
             extra.randomizer_settings_open = false;
         }
 
-        if (ImGui::Button("Cancel", apply_layout(l, "cancel")))
+        if (ImGui::Button("Cancel", gui_engine::layout::apply_layout(l, "cancel")))
         {
             save_settings(extra, extra.randomizer_settings_backup);
             extra.randomizer_settings_open = false;
@@ -259,7 +403,7 @@ void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize)
 
         constexpr float height_margin = 0.5f;
 
-        if (ImGui::BeginTable("###settings", 3, flags, apply_layout(l, "settings", { 2.f, 2.f, 2.f, 8.f })))
+        if (ImGui::BeginTable("###settings", 3, flags, gui_engine::layout::apply_layout(l, "settings", { 2.f, 2.f, 2.f, 8.f })))
         {
             ImGui::TableSetupColumn("section", ImGuiTableColumnFlags_WidthFixed | ImGuiTableColumnFlags_NoResize);
             ImGui::TableSetupColumn("name", ImGuiTableColumnFlags_WidthFixed | ImGuiTableColumnFlags_NoResize);
@@ -323,12 +467,12 @@ void show_randomizer_settings(ExtraGuiData& extra, ImVec2 wpos, ImVec2 wsize)
     }
 }
 
-void show_trace_data(network::NetworkData& data, TraceData& trace)
+void show_trace_data(ExtraGuiData& extra, TraceData& trace)
 {
     auto name = std::string(format("%s###%d", trace.name.c_str(), trace.gid));
 
     const float INPUT_TEXT_HEIGHT = 20.f;
-    trace_show_top_bar(data, trace);
+    trace_show_top_bar(extra, trace);
     auto size = ImGui::GetContentRegionAvail();
     size.y -= INPUT_TEXT_HEIGHT;
     if (trace.show_filters)
@@ -347,14 +491,12 @@ void show_trace_data(network::NetworkData& data, TraceData& trace)
         ImGui::PopStyleVar();
     }
     else if (ImGui::InputText("##command_line", trace.command_line.data(), trace.command_line.size(), ImGuiInputTextFlags_EnterReturnsTrue))
-        send_str(data, trace.id, trace.command_line.data());
-
-
+        send_str(extra.network_data, trace.id, trace.command_line.data());
 
     ImGui::PopItemWidth();
 }
 
-void trace_show_top_bar(network::NetworkData& data, TraceData& trace)
+void trace_show_top_bar(ExtraGuiData& extra, TraceData& trace)
 {
     auto size = ImGui::GetContentRegionAvail();
     const float bar_size_y = 20.f;
@@ -365,7 +507,18 @@ void trace_show_top_bar(network::NetworkData& data, TraceData& trace)
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.3f, 0.3f, 0.3f, 0.4f });
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.4f, 0.4f, 0.4f, 0.7f });
         if (ImGui::Button("export"))
+        {
+            trace.export_open = true;
+            gui_engine::file_selector::reset(trace.export_file_selector);
             ImGui::CloseCurrentPopup();
+        }
+
+        if (ImGui::Button("import"))
+        {
+            extra.import_open = true;
+            gui_engine::file_selector::reset(extra.import_file_selector);
+            ImGui::CloseCurrentPopup();
+        }
 
         ImGui::PopStyleColor(3);
         end_dropdown();
@@ -576,10 +729,21 @@ void handle_network_events(GuiData& gui, network::NetworkEvent const& evt)
     {
     case network::NetworkEventType::Connected:
     {
-        extra.log.push_back(format("new client connected: %d", evt.peer_id));
-        TraceData td{ extra.next_gid++, evt.peer_id, format("%f", ImGui::GetTime()) };
-        td.connected = true;
-        extra.traces.push_back(td);
+        // TODO: Check if client id already exists and reconnect if so.
+        auto it = std::find_if(extra.traces.begin(), extra.traces.end(), [&evt](TraceData const& td) -> bool {
+            return td.id == evt.peer_id;
+        });
+
+        if (it == extra.traces.end())
+        {
+            extra.log.push_back(format("new client connected: %d", evt.peer_id));
+            TraceData td{ extra.next_gid++, evt.peer_id, format("%f", ImGui::GetTime()), exe_path, csv_regex };
+            td.connected = true;
+            extra.traces.push_back(td);
+        }
+        else
+            it->connected = true;
+
         break;
     }
     case network::NetworkEventType::Disconnected:
@@ -658,7 +822,7 @@ void handle_network_events(GuiData& gui, network::NetworkEvent const& evt)
 void init_test_data(GuiData& gui)
 {
     ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
-    extra.traces.push_back({ extra.next_gid++, 255555, "test" });
+    extra.traces.push_back({ extra.next_gid++, 255555, "test", exe_path, csv_regex });
     auto& test = extra.traces.back();
     test.messages.push_back({
         1,

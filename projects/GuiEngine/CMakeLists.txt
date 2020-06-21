@@ -23,6 +23,7 @@ set(
 	"gui/imgui_demo.cpp"
 	
 	"gui_helpers/dropdown.cpp"
+	"gui_helpers/fileselector.cpp"
 	"gui_helpers/layout.cpp"
 )
 
@@ -42,6 +43,7 @@ set(
 	"gui/implementation/imgui_impl_vulkan.h"
 	
 	"gui_helpers/dropdown.h"
+	"gui_helpers/fileselector.h"
 	"gui_helpers/layout.h"
 )
 

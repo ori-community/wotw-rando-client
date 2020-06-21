@@ -59,11 +59,18 @@ namespace gui_engine {
 
         bool show_another_window = false;
         ImVec4 clear_color = { 0.45f, 0.55f, 0.60f, 1.00f };
+        gui.last_time = std::chrono::system_clock::now();
 
         init(gui);
 
         while (gui.running)
         {
+            using dtf = std::chrono::duration<float>;
+            auto time = std::chrono::high_resolution_clock::now();
+            dtf delta_time = time - gui.last_time;
+            gui.delta_time = delta_time.count();
+            io.DeltaTime = gui.delta_time;
+
             SDL_Event evt;
             while (SDL_PollEvent(&evt))
             {
