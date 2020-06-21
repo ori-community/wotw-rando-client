@@ -4,6 +4,7 @@
 
 #include <GuiEngine/gui/imgui.h>
 #include <GuiEngine/gui_helpers/dropdown.h>
+#include <GuiEngine/gui_helpers/fileselector.h>
 
 #include <WinNetwork/peer.h>
 
@@ -85,7 +86,7 @@ bool operator !=(TraceFilters const& lhs, TraceFilters const& rhs)
 
 struct TraceData
 {
-    TraceData(int p_gid, int p_id, std::string const& p_name)
+    TraceData(int p_gid, int p_id, std::string const& p_name, std::string const& export_path, std::regex regex)
         : name(p_name)
         , gid(p_gid)
         , id(p_id)
@@ -101,6 +102,8 @@ struct TraceData
         , max_dropdown(&filter.max_level_filter, { 1, 2, 3, 4, 5 })
         , messages()
         , filtered_messages()
+        , export_open(false)
+        , export_file_selector(export_path, gui_engine::FileSelectorMode::Save, regex)
     {}
 
     int gid;
@@ -124,11 +127,28 @@ struct TraceData
     // Messages
     std::vector<Message> messages;
     std::vector<size_t> filtered_messages;
+
+    // Export
+    bool export_open;
+    gui_engine::FileSelector export_file_selector;
 };
 
 struct ExtraGuiData
 {
-    bool randomizer_settings_open = false;
+    ExtraGuiData(std::string const& path, std::regex regex)
+        : randomizer_settings_open(false)
+        , randomizer_settings()
+        , randomizer_settings_backup()
+        , network_data()
+        , next_gid(10)
+        , prev_log_count(0)
+        , log()
+        , traces()
+        , import_open(false)
+        , import_file_selector(path, gui_engine::FileSelectorMode::Load , regex)
+    {}
+
+    bool randomizer_settings_open;
     IniSettings randomizer_settings;
     IniSettings randomizer_settings_backup;
     network::NetworkData network_data;
@@ -138,4 +158,8 @@ struct ExtraGuiData
     std::vector<std::string> log;
 
     std::vector<TraceData> traces;
+
+    // Import Dialogue
+    bool import_open;
+    gui_engine::FileSelector import_file_selector;
 };

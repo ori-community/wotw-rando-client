@@ -1,3 +1,5 @@
+#pragma once
+
 #include <GuiEngine/gui/imgui.h>
 #include <GuiEngine/gui/imgui_internal.h>
 
@@ -97,5 +99,8 @@ namespace gui_engine
         void clear(Layout& layout);
         ImRect calculate_bounds(Layout& layout, ImRect const& bounds);
         ImRect get_bounds(Layout const& layout, std::string const& name, ImVec4 const& margins = { 0.f, 0.f, 0.f, 0.f });
+
+
+        ImVec2 apply_layout(Layout const& l, std::string const& name, ImVec4 const& margins = { 0.f, 0.f, 0.f, 0.f });
     }
 }

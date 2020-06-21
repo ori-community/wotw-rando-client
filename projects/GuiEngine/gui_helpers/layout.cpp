@@ -353,6 +353,8 @@ namespace gui_engine
             assert(layout.max_size_stack.size() == 1);
             assert(layout.weight_stack.size() == 1);
 
+            layout.bounds.clear();
+
             update_size_members(layout, layout.boxes.front());
 
             // Initial pass: Calculate using weights and min_size until you hit max size or run out of space.
@@ -380,6 +382,13 @@ namespace gui_engine
             rect.Min += ImVec2{ margins.x, margins.y };
             rect.Max -= ImVec2{ margins.z, margins.w };
             return rect;
+        }
+
+        ImVec2 apply_layout(Layout const& l, std::string const& name, ImVec4 const& margins)
+        {
+            auto bounds = layout::get_bounds(l, name, margins);
+            ImGui::SetCursorPos(bounds.Min);
+            return bounds.GetSize();
         }
     }
 }

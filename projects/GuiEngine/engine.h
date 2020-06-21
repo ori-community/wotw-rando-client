@@ -5,6 +5,7 @@
 #pragma warning(pop)
 #include <GuiEngine/gui/imgui.h>
 
+#include <chrono>
 #include <string>
 #include <vector>
 
@@ -19,10 +20,16 @@ namespace gui_engine {
             , extra(nullptr)
         {}
 
+        // Internals
+        std::chrono::high_resolution_clock::time_point last_time;
+
+        // Externals
         bool running;
+        float delta_time;
         std::string title;
         ImVec2 window_size;
         void* extra;
+
     };
 
     using init_callback = void (*)(GuiData& gui);
