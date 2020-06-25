@@ -1,5 +1,6 @@
 #pragma once
 
+#include <constants.h>
 #include <macros.h>
 
 void on_fixed_update(__int64 thisPointer);
@@ -12,6 +13,4 @@ SeinCharacter_o* get_sein();
 
 INJECT_C_DLLEXPORT bool has_ability(uint8_t ability);
 
-void log(std::string message);
-void error(std::string message);
-void debug(std::string message);
+void trace(MessageType type, int level, std::string const& group, std::string const& message);

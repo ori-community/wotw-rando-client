@@ -32,11 +32,12 @@ void interception_init() {
             auto it = intercept_cache.find(current->offset);
             if (it != intercept_cache.end())
             {
-                debug(format("Changing intercept address (%d, %d)", *current->original_pointer, it->second));
+                trace(MessageType::Debug, 3, "initialize", format("Changing intercept address (%d, %d)", *current->original_pointer, it->second));
                 *current->original_pointer = it->second;
             }
 
-            debug(format("Intercepting: %s (%d, %d) @ %d -> %d",
+            trace(MessageType::Debug, 3, "initialize",
+                format("Intercepting: %s (%d, %d) @ %d -> %d",
                 current->name.c_str(),
                 game_assembly_address,
                 current->offset,
@@ -55,10 +56,10 @@ void interception_init() {
                 &detour
             );
             if (result)
-                error("Error attaching " + current->name + ": " + std::to_string(result));
+                trace(MessageType::Error, 3, "initialize", format("Error attaching %s : %d", current->name.c_str(), result));
             else
             {
-                debug(format("Attach success (%d, %d, %d)", trampoline, target, detour));
+                trace(MessageType::Debug, 3, "initialize", format("Attach success (%d, %d, %d)", trampoline, target, detour));
                 intercept_cache[current->offset] = detour;
             }
         }
@@ -68,9 +69,9 @@ void interception_init() {
 
     const auto result = DetourTransactionCommit();
     if (result)
-        error("Error during inject commit: " + std::to_string(result));
+        trace(MessageType::Error, 3, "initialize", format("Error during inject commit: %d", result));
     else
-        debug("Injection completed");
+        trace(MessageType::Debug, 3, "initialize", "Injection completed");
 }
 
 void interception_detach() {
@@ -89,9 +90,9 @@ void interception_detach() {
 
     const auto result = DetourTransactionCommit();
     if (result)
-        error("Error during detach commit: " + std::to_string(result));
+        trace(MessageType::Error, 3, "uninitialize", format("Error during detach commit: %d", result));
     else
-        debug("Detach completed");
+        trace(MessageType::Debug, 3, "uninitialize", "Detach completed");
 }
 
 intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)

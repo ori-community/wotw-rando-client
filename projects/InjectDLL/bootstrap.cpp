@@ -3,6 +3,8 @@
 #include <stdio.h>
 #pragma comment(lib, "mscoree.lib") 
 
+#include <common.h>
+#include <Common/ext.h>
 #include <string>
 
 namespace
@@ -11,8 +13,6 @@ namespace
     ICLRRuntimeInfo* runtime_info = nullptr;
     ICLRRuntimeHost* runtime_host = nullptr;
 }
-
-extern void log(std::string message);
 
 bool bootstrap()
 {
@@ -37,7 +37,7 @@ bool bootstrap()
     if (hr != S_OK)
         return false;
 
-    log("Randomizer return " + std::to_string(hr));
+    trace(MessageType::Info, 2, "initialize", format("Randomizer return %d", hr));
     return true;
 }
 

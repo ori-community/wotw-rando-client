@@ -42,7 +42,7 @@ namespace
                     str[i] = *reinterpret_cast<char*>(charStructPointer + 0x10);
                 }
 
-                log(str);
+                trace(MessageType::Info, 4, "csstring", str);
                 delete[] str;
             }
         }
@@ -138,7 +138,7 @@ void clear_visible_hints()
             last_handle = 0;
         }
     } catch (...) {
-        log("Couldn't clear message box! This should not usually happen :C");
+        trace(MessageType::Warning, 3, "messages", "Couldn't clear message box! This should not usually happen :C");
     }
 }
 
@@ -164,7 +164,7 @@ MessageBox_o * display_hint(System_String_o * hint, float duration)
         tracked_boxes.insert(last_box);
         return last_box;
     } catch (...) {
-        debug("Error caught by display hint. This might not be fine?");
+        trace(MessageType::Debug, 3, "messages", "Error caught by display hint. This might not be fine?");
         return nullptr;
     }
 }

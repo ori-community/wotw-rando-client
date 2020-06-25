@@ -16,7 +16,7 @@ bool found_game_world() {
 INTERCEPT(4084560, void, GameWorld__Awake, (GameWorld_o* thisPtr), {
 	if (game_world_instance != thisPtr)
 	{
-		debug("Found GameWorld instance!");
+        trace(MessageType::Debug, 5, "game", "Found GameWorld instance!");
 		game_world_instance = thisPtr;
 	}
 	GameWorld__Awake(thisPtr);
@@ -41,16 +41,19 @@ bool discover_everything() {
 				//Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
 				continue;
 			}
+
 			auto runtimeArea = GameWorld__FindRuntimeArea(game_world_instance, area);
 			if (!runtimeArea)
 				continue;
-      RuntimeGameWorldArea__DiscoverAllAreas(runtimeArea);
-    }
-		debug("Map revealed");
+
+            RuntimeGameWorldArea__DiscoverAllAreas(runtimeArea);
+        }
+
+        trace(MessageType::Debug, 5, "game", "Map revealed");
 		return true;
 	}
 	else {
-		log("Tried to discover all, but haven't found the GameWorld Instance yet :(");
+        trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
 		return false;
 	}
 }

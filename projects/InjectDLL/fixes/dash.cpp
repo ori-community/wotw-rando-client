@@ -25,7 +25,7 @@ INTERCEPT(17854928, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__S
 	case WATER_DASH:
 	case DIGGING:
 	case DASH_NEW:
-		debug("there be update_dash_state here");
+        trace(MessageType::Debug, 5, "abilities", "there be update_dash_state here");
 		update_dash_state(this_ptr);
 		break;
 	default:
@@ -44,16 +44,16 @@ namespace
 		if (!Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DASH_NEW) &&
 			(Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DIGGING) ||
 				Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, WATER_DASH)))
-		{
-			debug("Updating dash state to true");
+        {
+            trace(MessageType::Debug, 5, "abilities", "Updating dash state to true");
 			Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, DASH_NEW, true);
 		}
 		else if (Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DASH_NEW) &&
 			!Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DIGGING) &&
 			!Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, WATER_DASH) &&
 			!has_dash())
-		{
-			debug("Updating dash state to false");
+        {
+            trace(MessageType::Debug, 5, "abilities", "Updating dash state to false");
 			Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, DASH_NEW, false);
 		}
 	}
@@ -88,7 +88,8 @@ INTERCEPT(4247504, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage
 	if(ability == DASH_NEW)
 	{
         csharp_bridge::set_ability(static_cast<csharp_bridge::AbilityType>(DASH_NEW), value);
-        debug("debug menu, setting has_real_dash: " + std::to_string(value) + ", now has_dash returns: " + std::to_string(has_dash()));
+        trace(MessageType::Debug, 5, "abilities", "debug menu, setting has_real_dash: "
+            + std::to_string(value) + ", now has_dash returns: " + std::to_string(has_dash()));
 	}
 })
 
