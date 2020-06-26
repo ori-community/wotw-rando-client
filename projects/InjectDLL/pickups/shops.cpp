@@ -22,10 +22,10 @@ bool isTwillenShard(char shard){
 
 
 bool is_in_shop_screen(){
-  const GameController_c* Class_GameController = get_game_controller();
-	if(!Class_GameController)
+	if(g_game_controller_is_valid())
 		return false;
-	const auto  gameController = Class_GameController->static_fields->Instance;
+
+	const auto  gameController = g_game_controller->static_fields->Instance;
 	if(!gameController || GameController_get_GameInTitleScreen(gameController))
 		return false;
 
@@ -33,16 +33,17 @@ bool is_in_shop_screen(){
 	if(weaponmasterScreen && SeinCharacter_get_Active(weaponmasterScreen))
 		return true;
 
-	const SpiritShardsShopScreen_c* Class_SpiritShardsShopScreen = *(SpiritShardsShopScreen_c**) resolve_rva(71589120);
-	if(Class_SpiritShardsShopScreen)
+    INLINE_STATIC_CLASS(71589120, SpiritShardsShopScreen_c*, shop_screen);
+	if(shop_screen_is_valid())
 	{
-		const auto spiritShardsShopScreen = Class_SpiritShardsShopScreen->static_fields->Instance;
+		const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
 		if(spiritShardsShopScreen && SeinCharacter_get_Active((int64_t) spiritShardsShopScreen))
 			return true;
 	}
-    const MapmakerScreen_c* Class_MapmakerScreen = *(MapmakerScreen_c**)resolve_rva(71472816);
-    if (Class_MapmakerScreen) {
-        const auto mapmakerScreen = Class_MapmakerScreen->static_fields->Instance;
+
+    INLINE_STATIC_CLASS(71472816, MapmakerScreen_c*, mapmaker_screen);
+    if (shop_screen_is_valid()) {
+        const auto mapmakerScreen = mapmaker_screen->static_fields->Instance;
         if (mapmakerScreen && SeinCharacter_get_Active((int64_t)mapmakerScreen))
             return true;
     }
