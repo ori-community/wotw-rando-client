@@ -28,23 +28,23 @@ void invert_swim() {
 
 namespace
 {
-    INTERCEPT(6709008, void, NewGameAction__Perform, (__int64 thisPtr, __int64 ctxPtr), {
+    INTERCEPT(6709008, void, NewGameAction__Perform, (__int64 thisPtr, __int64 ctxPtr)) {
         NewGameAction__Perform(thisPtr, ctxPtr);
         invert_swim();
-    });
+    }
 
-    INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
+    INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr)) {
         SaveGameController__OnFinishedLoading(thisPtr);
         invert_swim();
-    });
+    }
 
-    INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
+    INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr)) {
         SaveGameController__RestoreCheckpoint(thisPtr);
         invert_swim();
-    });
+    }
 
-    INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
+    INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr)) {
         SeinHealthController__OnRespawn(thisPtr);
         invert_swim();
-    });
+    }
 }

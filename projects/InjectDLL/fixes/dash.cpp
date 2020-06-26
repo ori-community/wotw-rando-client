@@ -18,7 +18,7 @@ namespace
 	void update_dash_state(Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr);
 }
 
-INTERCEPT(17854928, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, uint8_t ability, bool value), {
+INTERCEPT(17854928, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, uint8_t ability, bool value)) {
 	Moon_uberSerializationWisp_PlayerUberStateAbilities__SetAbility(this_ptr, ability, value);
 	switch (ability)
 	{
@@ -31,7 +31,7 @@ INTERCEPT(17854928, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__S
 	default:
 		break;
 	}
-})
+}
 
 namespace
 {
@@ -59,14 +59,14 @@ namespace
 	}
 }
 
-INTERCEPT(9314752, bool, SeinDashNew__get_CanDash, (SeinDashNew_o* this_ptr), {
+INTERCEPT(9314752, bool, SeinDashNew__get_CanDash, (SeinDashNew_o* this_ptr)) {
 	auto result = SeinDashNew__get_CanDash(this_ptr);
 	if(!has_dash())
 		result = result && (SeinDashNew__ShouldDig(this_ptr) || SeinDashNew__ShouldSwim(this_ptr));
 	return result;
-})
+}
 
-INTERCEPT(17857248, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__Save, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, UberStateArchive_o* archive, Moon_uberSerializationWisp_PlayerUberStateAbilities_o* abilities), {
+INTERCEPT(17857248, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__Save, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, UberStateArchive_o* archive, Moon_uberSerializationWisp_PlayerUberStateAbilities_o* abilities)) {
     bool has_real_dash = has_dash();
     if(Moon_uberSerializationWisp_PlayerUberStateAbilities__HasAbility(this_ptr, DASH_NEW) && !has_real_dash)
     {
@@ -76,14 +76,14 @@ INTERCEPT(17857248, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__S
 
 	Moon_uberSerializationWisp_PlayerUberStateAbilities__Save(this_ptr, archive, abilities);
 	update_dash_state(this_ptr);
-})
+}
 
-INTERCEPT(17857968, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__Load, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, UberStateArchive_o* archive, int32_t storeVersion), {
+INTERCEPT(17857968, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__Load, (Moon_uberSerializationWisp_PlayerUberStateAbilities_o* this_ptr, UberStateArchive_o* archive, int32_t storeVersion)) {
 	Moon_uberSerializationWisp_PlayerUberStateAbilities__Load(this_ptr, archive, storeVersion);
 	update_dash_state(this_ptr);
-})
+}
 
-INTERCEPT(4247504, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t ability, bool value), {
+INTERCEPT(4247504, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t ability, bool value)) {
 	GeneralDebugMenuPage__SetAbility(this_ptr, ability, value);
 	if(ability == DASH_NEW)
 	{
@@ -91,11 +91,11 @@ INTERCEPT(4247504, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage
         trace(MessageType::Debug, 5, "abilities", "debug menu, setting has_real_dash: "
             + std::to_string(value) + ", now has_dash returns: " + std::to_string(has_dash()));
 	}
-})
+}
 
-INTERCEPT(4247728, bool, GeneralDebugMenuPage__GetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t abilityType), {
+INTERCEPT(4247728, bool, GeneralDebugMenuPage__GetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t abilityType)) {
 	if(abilityType == DASH_NEW)
 		return has_dash();
 
 	return GeneralDebugMenuPage__GetAbility(this_ptr, abilityType);
-})
+}
