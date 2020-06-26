@@ -19,6 +19,7 @@ set(
 	"features/map.cpp"
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"
+	"features/input_poller.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/pickups.cpp"
@@ -44,10 +45,11 @@ set(
 	"interception.h"
 	"interception_macros.h"
     "macros.h"
+	"features/invert_swim.h"
+	"features/input_poller.h"
 	"fixes/dash.h"
 	"pickups/ore.h"
 	"pickups/pickups.h"
-	"features/invert_swim.h"
 )
 
 set(

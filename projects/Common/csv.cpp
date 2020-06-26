@@ -36,6 +36,10 @@ namespace csv
         std::string line;
         while (std::getline(st, line))
         {
+            trim(line);
+            if (line.empty())
+                continue;
+
             std::stringstream ss(line);
             bool encode = false;
             bool last_unescaped_quote = false;
