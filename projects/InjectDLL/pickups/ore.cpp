@@ -78,23 +78,23 @@ enum class WorldMapIconType : int32_t
     Siira = 75
 };
 
-INTERCEPT(4093520, int32_t, GameWorld__GetCollectedIconTypeCount, (GameWorld_o* this_ptr, WorldMapIconType_o type), {
+INTERCEPT(4093520, int32_t, GameWorld__GetCollectedIconTypeCount, (GameWorld_o* this_ptr, WorldMapIconType_o type)) {
     auto value = GameWorld__GetCollectedIconTypeCount(this_ptr, type);
     if (type.value__ == static_cast<int32_t>(WorldMapIconType::Ore))
         value = csharp_bridge::ore_count();
 
     return value;
-});
+}
 
-INTERCEPT(5814720, void, SeinPickupProcessor__OnCollectOrePickup, (SeinPickupProcessor_o* this_ptr, OrePickup_o* orePickup), {	
+INTERCEPT(5814720, void, SeinPickupProcessor__OnCollectOrePickup, (SeinPickupProcessor_o* this_ptr, OrePickup_o* orePickup)) {
 	collecting_pickup = true;
 	SeinPickupProcessor__OnCollectOrePickup(this_ptr, orePickup);
     collecting_pickup = false;
-});
+}
 
-INTERCEPT(8453568, void, SeinLevel__set_Ore, (SeinLevel_o* this_ptr, int32_t value), {
+INTERCEPT(8453568, void, SeinLevel__set_Ore, (SeinLevel_o* this_ptr, int32_t value)) {
 	if(collecting_pickup)
 		return;
 
 	SeinLevel__set_Ore(this_ptr, value);
-});
+}

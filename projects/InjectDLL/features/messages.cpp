@@ -56,30 +56,30 @@ namespace
 }
 
 
-INTERCEPT(13866448, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b), {
+INTERCEPT(13866448, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b)) {
     //MessageControllerB$$ShowSpiritTreeTextMessage
     return 0;
-});
+}
 
-INTERCEPT(13849632, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 c), {
+INTERCEPT(13849632, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 c)) {
   //MessageControllerB$$ShowAbilityMessage
   return 0;
-  });
+  }
 
-INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c), {
+INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c)) {
   //MessageControllerB$$ShowShardMessage
   return 0;
-  });
+  }
 
-INTERCEPT(13855664, MessageBox_o*, MessageControllerB__ShowCompleteQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q), {
+INTERCEPT(13855664, MessageBox_o*, MessageControllerB__ShowCompleteQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q)) {
   return 0;
-});
+}
 
-INTERCEPT(13856176, MessageBox_o*, MessageControllerB__ShowUpdatedQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q), {
+INTERCEPT(13856176, MessageBox_o*, MessageControllerB__ShowUpdatedQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q)) {
   return 0;
-});
+}
 
-INTERCEPT(15446864, int64_t, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language), {
+INTERCEPT(15446864, int64_t, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language)) {
     //TranslatedMessageProvider.MessageItem$$GetDescriptor
     auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
     if(!string_header_cached || (result && is_in_shop_screen()))
@@ -91,33 +91,34 @@ INTERCEPT(15446864, int64_t, TranslatedMessageProvider_MessageItem_Message, (__i
     }
 
     return static_cast<int64_t>(result);
-});
+}
 
-INTERCEPT(13823536, void, MessageBox__Update, (MessageBox_o* this_ptr), {
+INTERCEPT(13823536, void, MessageBox__Update, (MessageBox_o* this_ptr)) {
     MessageBox__Update(this_ptr);
     if (tracked_boxes.find(this_ptr) == tracked_boxes.end() && is_visible(this_ptr))
     {
 //        debug("(index " + std::to_string(this_ptr->MessageIndex) + ") tracking visible untracked box at " + std::to_string((__int64)this_ptr));
         tracked_boxes.insert(this_ptr);
     }
-})
-INTERCEPT(6645664,void, NPCMessageBox__FixedUpdate, (NPCMessageBox_o* this_ptr), {
+}
+
+INTERCEPT(6645664,void, NPCMessageBox__FixedUpdate, (NPCMessageBox_o* this_ptr)) {
     NPCMessageBox__FixedUpdate(this_ptr);
     if (this_ptr->MessageBox != npc_box && is_visible(this_ptr->MessageBox))
     {
 //        debug("(index " + std::to_string(this_ptr->MessageBox->MessageIndex)+ ") found interactable: " + std::to_string((__int64)this_ptr->MessageBox));
         npc_box = this_ptr->MessageBox;
     }
-})
+}
 
-INTERCEPT(13822720, void, MessageBox__OnDestroy, (MessageBox_o* this_ptr), {
+INTERCEPT(13822720, void, MessageBox__OnDestroy, (MessageBox_o* this_ptr)) {
     MessageBox__OnDestroy(this_ptr);
     if (tracked_boxes.find(this_ptr) != tracked_boxes.end())
     {
 //        debug("intecepted destroy of tracked box, nulling it");
         tracked_boxes.erase(this_ptr);
     }
-})
+}
 
 extern "C" __declspec(dllexport)
 void clear_visible_hints()

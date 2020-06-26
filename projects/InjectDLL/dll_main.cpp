@@ -76,41 +76,41 @@ BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
-INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone), {
+INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
     csharp_bridge::on_checkpoint();
     GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
-});
+}
 
-INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
+INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr)) {
     //NewGameAction$$Perform
     csharp_bridge::new_game(getSaveSlot());
 	newGamePerform(thisPtr, ctxPtr);
-});
+}
 
-INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
+INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes)) {
     csharp_bridge::on_save(slotIndex, backupIndex);
     SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
-});
+}
 
-INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
+INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName)) {
     csharp_bridge::on_save(saveSlot->Index, backupIndex);
     SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
-});
+}
 
-INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
+INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr)) {
     csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SaveGameController__OnFinishedLoading(thisPtr);
-});
+}
 
-INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
+INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr)) {
     csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SaveGameController__RestoreCheckpoint(thisPtr);
-});
+}
 
-INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
+INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr)) {
     csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SeinHealthController__OnRespawn(thisPtr);
-});
+}
 
 UnityEngine_Vector3_o last_position;
 __int8 set_to_last_position = 0;
@@ -145,11 +145,11 @@ INJECT_C_DLLEXPORT void set_equipment(int32_t equip, bool value) {
       trace(MessageType::Error, 3, "abilities", "Failed to set equipment: couldn't find reference to sein!");
 }
 
-INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
+INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr)) {
 	//GameController$$FixedUpdate
 	fixedUpdate1(thisPtr);
 	on_fixed_update(thisPtr);
-});
+}
 
 //---------------------------------------------------Actual Functions------------------------------------------------
 
