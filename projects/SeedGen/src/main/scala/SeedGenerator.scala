@@ -144,7 +144,7 @@ package SeedGenerator {
   trait Path {
     def source: Node
     def dest: Node
-    def req: Requirement
+    def reqs: Seq[Requirement]
     def substitute(orig: Requirement, repl: Requirement): Path
     def and (other: Path): Option[Path] = {
         this match {
@@ -163,6 +163,7 @@ package SeedGenerator {
     def filterByTargets(paths: Set[Path], targets: Set[Node]): Set[Path] = {paths.filter(_.nodes.forall(n => targets.contains(n)))}
   }
   case class SimplePath(source: Node, dest: Node, req: Requirement) extends Path {
+    override def reqs: Seq[Requirement] = Seq(req)
     override def toString: String = s"${source.name}=>$req=>${dest.name}"
     override def substitute(orig: Requirement, repl: Requirement): Path = SimplePath(source, dest, req.substitute(orig, repl))
   }
@@ -170,8 +171,8 @@ package SeedGenerator {
     def source: Node = paths.head.source
     def dest: Node = paths.last.dest
     override def nodes: Set[Node] = (source +: paths.map(_.dest)).toSet
-    def req: Requirement = paths.foldLeft[Requirement](Free)((req, path) => req and path.req)
-    override def toString: String = paths.foldLeft(source.name)((acc, p) =>  s"$acc=>${p.req}=>${p.dest.name}")
+    override def reqs: Seq[Requirement] = paths.flatMap(_.reqs)
+    override def toString: String = paths.foldLeft(source.name)((acc, p) =>  s"$acc=>${p.reqs}=>${p.dest.name}")
     def canCompose(other: Path): Boolean = other match {
       case SimplePath(s, d, _) => s == dest && !nodes.contains(d) // must link, no loops
       case c: ChainedPath => c.source == dest && !c.paths.exists(child => nodes.contains(child.dest)) // must link, no loops
@@ -196,6 +197,11 @@ package SeedGenerator {
     def items: Map[String, ItemLoc] = {
       if (_items.isEmpty) populate()
       _items
+    }
+
+    def all: Set[Node] = {
+      if (_paths.isEmpty) populate()
+      _paths.keySet
     }
     val doors: Map[String, Int] = Map[String, Int](
       "MarshSpawn.KeystoneDoor" -> 2,
@@ -234,12 +240,11 @@ package SeedGenerator {
     var _paths: Map[Node, Set[Path]] = Map()
 
 
-    def getAllPathsRecursive(area: Area = spawn, pathsToHere: Set[Path] = Set()): Map[Node, Set[Path]] = Timer("GetPaths"){
+    def getAllPathsRecursive(area: Area = spawn, pathsToHere: Set[Path] = Set()): Map[Node, Set[Path]] = {
       val seen = pathsToHere.flatMap(_.nodes.map(_.name))
       def pathAcc(p: Path): Set[Path] = if(pathsToHere.nonEmpty) pathsToHere.flatMap(_ and p) else Set(p)
       area.paths.flatMap(path => path.dest.kind match {
         case AreaNode if !seen.contains(path.dest.name) => _areas.get(path.dest.name).map(getAllPathsRecursive(_, pathAcc(path))).getOrElse({println("aaaaaa"); Map[Node, Set[Path]]()})
-        case _: StateNodeType if pathsToHere.nonEmpty => Map(path.dest -> pathsToHere.filter(!_.req.children.contains(StateReq(path.dest.name))).flatMap(_ and path))
         case _ => Map(path.dest -> pathAcc(path))
       }).groupMapReduce(_._1)(_._2)(_ ++ _)
     }
@@ -266,8 +271,8 @@ package SeedGenerator {
       val (good, needsRefined) = targets.withFilter(_.kind == StateNode).flatMap[(FlagState, GameState)]({
         case WorldStateNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
         case QuestNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
-        case n @ WorldStateNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(_.req.cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
-        case n @ QuestNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(_.req.cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
+        case n @ WorldStateNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
+        case n @ QuestNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
       }).filterNot(_._2.inv.has(Unobtainium)).toMap.partition(_._2.flags.isEmpty)
       Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
     }
@@ -280,14 +285,19 @@ package SeedGenerator {
     }))).toMap
 
     var populatedWithSetting: Option[Boolean] = None
-    def populate(debug: Boolean = false, advanced: Boolean = false): Boolean = Timer("populate"){
+    def populate(debug: Boolean = false, advanced: Boolean = false, useNew: Boolean = true): Boolean = Timer("populate"){
       if(populatedWithSetting.contains(advanced))
         return true // already done lol
-      Timer("parse")(AreaParser.AreasBuilder.run(print = debug)) match {
+      Timer("parse"){
+        if(useNew)
+          FastParser.parseFile(advanced)
+        else
+          AreaParser.AreasBuilder.run(print = debug)
+      } match {
         case Right(value) =>
           _areas = Timer("FixAreas")(fixAreas(value))
           _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r != Invalid => t.name -> t }))
-          _paths = getAllPathsRecursive()
+          _paths = Timer("GetPaths"){getAllPathsRecursive()}
           populatedWithSetting = Some(advanced)
           true
         case Left(error) =>
@@ -304,9 +314,11 @@ package SeedGenerator {
     def code: String = loc.data.code
     def data = s"${loc.data.code}|${item.code}"
     def write: String = {
+      if(!Runner.SPOILERS)
+        return data
 //      Tracking.incAreas(item, loc.data)
-      val dataPad = " " * (20 - data.length)
-      val namePad = " " * (17 - item.name.length)
+      val dataPad = " " * (22 - data.length)
+      val namePad = " " * (18 - item.name.length)
       s"$data$dataPad//$namePad${item.name} from ${loc.data.info}"
     }
   }
@@ -322,6 +334,8 @@ package SeedGenerator {
 
   case class PlacementGroup(outState: GameState, prog: Inv, placements: Seq[Placement], i: Int)(implicit r: Random, pool: Inv, debug: Boolean = false) {
     def desc(standalone: Boolean = false): String = {
+      if(!Runner.SPOILERS)
+        return ""
       val progText = if(prog.count > 0) s" -- Chosen: ${prog.progText}" else ""
       val keyItems = placements.map(_.item).filterNot(prog.has(_)).collect({case i: Important => i})
       val keyItemsText = if(keyItems.nonEmpty) s" -- Randomly Placed: ${keyItems.mkString(", ")}" else ""
@@ -448,7 +462,7 @@ package SeedGenerator {
         debugPrint(s"Looking for paths. Have $sizeLeft new locs. Need to reach $remaining more")
         val possiblePathsPartial = Timer(s"possiblePathsPartial"/*, far=$far"*/){targets
           .collect({case node: ItemLoc => node})
-          .flatMap(n => Timer("filterAndGetReqs")(Path.filterByTargets(Nodes.paths(n), targets ++ reachable).flatMap(_.req.remaining(state, unaffordable, sizeLeft))))
+          .flatMap(n => Timer("filterAndGetReqs")(Path.filterByTargets(Nodes.paths(n), targets).flatMap(k => AllReqs(k.reqs).remaining(state, unaffordable, sizeLeft))))
           .toSeq
           .distinct
           .map[GameState](state => GameState(state.inv) +
@@ -488,7 +502,7 @@ package SeedGenerator {
             println("unreachable:" + unaffordable)
           }
           (Nodes.items.values.toSet[Node] -- reachableLocs).take(3).foreach(n => {
-            println(s"${n.name}: \n\t${Nodes.paths(n).take(3).map(_.req.cheapestRemaining(state)).mkString("\n\t")}")
+            println(s"${n.name}: \n\t${Nodes.paths(n).take(3).map(k => AllReqs(k.reqs).cheapestRemaining(state)).mkString("\n\t")}")
           })
 
           throw GeneratorError(s"No possible paths???")
@@ -518,6 +532,7 @@ package SeedGenerator {
 
 
 object Runner {
+    var SPOILERS = true
     def setSeed(n: Long): Unit = r.setSeed(n)
     val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1))
     private def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
@@ -539,7 +554,8 @@ object Runner {
       case Left(error) =>(grps, Some(error))
     }
 }
-    def getSeedOpt(advanced: Boolean = false, debug: Boolean = false): Option[String] = {
+    def getSeedOpt(advanced: Boolean = false, debug: Boolean = false, spoilers: Boolean = true): Option[String] = {
+      Runner.SPOILERS = spoilers
       val (grps, err) = mkSeed(advanced)(debug)
       err match {
         case Some(e)  => println(s"$e"); None
@@ -569,11 +585,12 @@ object Runner {
     def apply(advanced: Boolean = false, debug: Boolean = false): Unit = {
       val file = new File(s"seeds/seed_0.wotwr")
       val bw = new BufferedWriter(new FileWriter(file))
-      bw.write(forceGetSeed(advanced))
+      bw.write(forceGetSeed(advanced, debug = debug))
       bw.close()
     }
 
-    def mk(pack: Int, count: Int = 100): Unit = {
+    def mk(pack: String, count: Int = 100, spoilers: Boolean = true, includeAdvanced: Boolean = true): Unit = {
+      Runner.SPOILERS = spoilers
       val t0 = System.currentTimeMillis()
       val name_base = s"$pack"
       val dirPath =  s"seeds/seed_pack_$pack"
@@ -591,7 +608,9 @@ object Runner {
       })
       val t2 = System.currentTimeMillis()
       println(s"Generated base seeds in ${(t2-t1)/1000f}s (average ${(t2-t1)/(1000f*count)}s, ${(t2-t0)/1000f}s total)")
-      Nodes.populate()
+      if(!includeAdvanced)
+        return
+      Nodes.populate(advanced = true)
       val t3 = System.currentTimeMillis()
       println(s"populated advanced paths in ${(t3-20)/1000f}s (${(t3-t0)/1000f}s total)")
 
