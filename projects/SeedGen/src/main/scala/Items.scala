@@ -50,7 +50,7 @@ package SeedGenerator {
     val names: Map[Int, String] = Map(
       0 -> "Water"
     )
-    val invNames: Map[String, Int] = names.map({case (a, b) => b->a})
+    val areaFileNames: Map[String, Int] = names.map({case (a, b) => b->a})
     val poolItems: Seq[WorldEvent] = names.keys.map(WorldEvent(_)).toSeq
   }
   object Water extends WorldEvent(0)

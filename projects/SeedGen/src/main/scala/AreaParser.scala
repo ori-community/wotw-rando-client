@@ -167,17 +167,17 @@ package AreaParser {
       def regionReqs:  Parser[Requirement] = skillReq | dangerReq | energyReq | stateReq
 
       def reqSec(baseReqs: Parser[Requirement]): Parser[Requirement] =  "req" !!! {
-        def orReq:    Parser[Requirement] = "orReq" !!! (baseReqs <~ OR) ~ rep1sep(baseReqs, OR) ^^ { case first ~  rest => AnyReq(first :: rest:_*) }
-        def reqRHS:   Parser[Requirement] = "reqRHS" !!! (rep(baseReqs <~ COMMA) ~ (orReq | baseReqs) <~ guard(NEWLINE | dedent) ^^ { case head ~ last => AllReqs(head :+ last:_*) }) | free
+        def orReq:    Parser[Requirement] = "orReq" !!! (baseReqs <~ OR) ~ rep1sep(baseReqs, OR) ^^ { case first ~  rest => AnyReq(first :: rest) }
+        def reqRHS:   Parser[Requirement] = "reqRHS" !!! (rep(baseReqs <~ COMMA) ~ (orReq | baseReqs) <~ guard(NEWLINE | dedent) ^^ { case head ~ last => AllReqs(head :+ last) }) | free
         def lhsBase:  Parser[Requirement] = "lhsBase" !!! accept("diff", {
           case IDENTIFIER("base") => Free
           case IDENTIFIER("advanced") => if(advanced) Free else Invalid
         }) | baseReqs
-        def reqLHS:   Parser[Requirement] = "reqLHS" !!! (rep(lhsBase <~ COMMA) ~ (orReq | lhsBase) <~ COLON ^^ { case head ~ last => AllReqs(head :+ last:_*) })
+        def reqLHS:   Parser[Requirement] = "reqLHS" !!! (rep(lhsBase <~ COMMA) ~ (orReq | lhsBase) <~ COLON ^^ { case head ~ last => AllReqs(head :+ last) })
         def reqLine:  Parser[Requirement] = "reqLine" !!! (reqLHS ~ (free | reqRHS) <~ guard(NEWLINE | dedent)) ^^ {case lhs ~ rhs => lhs and rhs}
-        def rhsBlock: Parser[Requirement] = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ (rhss => AnyReq(rhss: _*))
-        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss =>  AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
-        def reqLines: Parser[Requirement] = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ (lines => AnyReq(lines: _*))
+        def rhsBlock: Parser[Requirement] = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ (rhss => AnyReq(rhss))
+        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss =>  AnyReq(rhss.map(AllReqs(lhs, _))) }
+        def reqLines: Parser[Requirement] = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ (lines => AnyReq(lines))
         free | (indent ~> blanks.? ~> reqLines <~ dedent)
       }
       def generalReqSec: Parser[Requirement] = reqSec(generalReqs)
