@@ -177,7 +177,7 @@ if(WinStore == "false")
 else 
 	Run, *RunAs shell:AppsFolder\Microsoft.Patagonia_8wekyb3d8bbwe!App
 
-Run, *RunAs %INJECTOR%,,%maybehide%
+Run, *RunAs %INJECTOR% %dev% %WinStore%,,%maybehide%
 return
 
 ReadIniVals:
@@ -207,7 +207,6 @@ ExtractFiles:
 
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
-FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
 FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
 FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
 FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
