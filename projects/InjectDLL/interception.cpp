@@ -9,14 +9,16 @@ intercept* first_intercept = nullptr;
 intercept* last_intercept = nullptr;
 __int64 game_assembly_address;
 
-__int64 resolve_rva(__int64 rva) {
+__int64 resolve_rva(__int64 rva)
+{
     if (!game_assembly_address)
         game_assembly_address = reinterpret_cast<__int64>(GetModuleHandleA("GameAssembly.dll"));
 
     return game_assembly_address + rva;
 }
 
-void interception_init() {
+void interception_init()
+{
     DetourRestoreAfterWith();
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
@@ -74,7 +76,8 @@ void interception_init() {
         trace(MessageType::Debug, 3, "initialize", "Injection completed");
 }
 
-void interception_detach() {
+void interception_detach()
+{
     DetourRestoreAfterWith();
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
