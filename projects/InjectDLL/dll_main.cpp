@@ -46,7 +46,7 @@ int peer_id = -1;
 std::mutex network_mutex;
 
 std::string csv_path = "C:\\moon\\inject_log.csv";
-bool write_to_csv = false;
+bool write_to_csv = true;
 std::ofstream csv_file;
 std::mutex csv_mutex;
 
@@ -217,7 +217,7 @@ void initialize_trace_file()
     if (!write_to_csv)
         return;
 
-    csv_file.open("");
+    csv_file.open(csv_path);
     write_to_csv = csv_file.is_open();
 }
 
@@ -351,10 +351,13 @@ extern bool bootstrap();
 
 INJECT_C_DLLEXPORT void injection_entry()
 {
+    initialize_trace_file();
+
     trace(MessageType::Info, 5, "initialize", "init_start");
     if (!bootstrap())
     {
         trace(MessageType::Info, 5, "initialize", "Failed to bootstrap, shutting down");
+        csv_file.close();
         shutdown_thread = true;
         FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
     }
@@ -390,6 +393,9 @@ INJECT_C_DLLEXPORT void injection_entry()
 
         network::shutdown_peer(network_data);
     }
+
+    if (write_to_csv)
+        csv_file.close();
 }
 
 // strftime format
