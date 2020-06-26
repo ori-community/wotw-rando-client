@@ -6,7 +6,7 @@ INTERCEPT(5818544, void, SeinPickupProcessor__OnCollectKeystonePickup, (SeinPick
     collecting_pickup = true;
     SeinPickupProcessor__OnCollectKeystonePickup(this_ptr, keystonePickup);
     collecting_pickup = false;
-    get_UI()->static_fields->SeinUI->WasLastKeystoneAnEyestone = false;
+    g_ui->static_fields->SeinUI->WasLastKeystoneAnEyestone = false;
 }
 
 INTERCEPT(8400400, void, SeinInventory__set_Keystones, (SeinInventory_o* this_ptr, int32_t value)) {

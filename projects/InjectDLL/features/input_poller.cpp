@@ -18,13 +18,14 @@ namespace {
 
     std::map<InputButton, InputData> input_data;
 
+    STATIC_CLASS(71563216, Core_Input_Cmd_c*, input_cmd);
+
     void on_fixed_update(GameController_o* this_ptr)
     {
-        auto cmd = *reinterpret_cast<Core_Input_Cmd_c**>(resolve_rva(71563216));
-        if (cmd->_2.bitflags2 & 2 != 0 && cmd->_2.cctor_finished == 0)
+        if (!input_cmd_is_valid())
             return;
 
-        auto processors = &cmd->static_fields->AnyStart;
+        auto processors = &input_cmd->static_fields->AnyStart;
         auto count = static_cast<int>(InputButton::InputButton_LAST);
         for (auto i = 0; i < count; ++i)
         {

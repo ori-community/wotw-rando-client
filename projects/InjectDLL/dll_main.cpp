@@ -159,21 +159,18 @@ INJECT_C_DLLEXPORT bool toggle_cursorlock() {
   return newState > 0;
 }
 
-Game_Characters_StaticFields* get_characters() {
-	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
+STATIC_CLASS(71425184, Game_Characters_c*, g_characters);
+STATIC_CLASS(71838776, GameController_c*, g_game_controller);
+STATIC_CLASS(71714856, Game_UI_c*, g_ui);
+
+GameController_o* get_game_controller_instance()
+{
+  return g_game_controller->static_fields->Instance;
 }
-GameController_c* get_game_controller() {
-  return *(GameController_c**)resolve_rva(71838776);
-}
-GameController_o* get_game_controller_instance() {
-  return get_game_controller()->static_fields->Instance;
-}
-Game_UI_c* get_UI() {
-  return (*(Game_UI_c**)resolve_rva(71714856));  // Class$Game.UI
-} 
+
 SeinCharacter_o* get_sein()
 {
-    return get_characters()->m_sein;
+    return g_characters->static_fields->m_sein;
 }
 
 INJECT_C_DLLEXPORT void bind_sword() {
