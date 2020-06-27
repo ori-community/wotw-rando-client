@@ -12,7 +12,16 @@ __int64 game_assembly_address;
 __int64 resolve_rva(__int64 rva)
 {
     if (!game_assembly_address)
-        game_assembly_address = reinterpret_cast<__int64>(GetModuleHandleA("GameAssembly.dll"));
+    {
+        auto handle = GetModuleHandleA("GameAssembly.dll");
+        if (handle == nullptr)
+        {
+            trace(MessageType::Error, 1, "initialize", "Failed to get handle of GameAssembly.dll");
+            return 0;
+        }
+
+        game_assembly_address = reinterpret_cast<__int64>(handle);
+    }
 
     return game_assembly_address + rva;
 }
@@ -27,14 +36,7 @@ void interception_init()
     auto current = last_intercept;
     while (current)
     {
-        if (current->type == 1)
-        {
-            trace(MessageType::Debug, 3, "initialize", format("initializing global %s", current->name.c_str()));
-            *current->original_pointer = *reinterpret_cast<PVOID**>(resolve_rva(current->offset));
-        }
-        else
-            *current->original_pointer = reinterpret_cast<PVOID*>(resolve_rva(current->offset));
-
+        *current->original_pointer = reinterpret_cast<void**>(resolve_rva(current->offset));
         if (current->intercept_pointer)
         {
             auto it = intercept_cache.find(current->offset);
@@ -104,13 +106,12 @@ void interception_detach()
         trace(MessageType::Debug, 3, "uninitialize", "Detach completed");
 }
 
-intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s, int t)
+intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
     : name(std::move(s))
     , offset(o)
     , original_pointer(oP)
     , intercept_pointer(iP)
     , next(nullptr)
-    , type(t)
 {
     prev = last_intercept;
     if (prev != nullptr)
