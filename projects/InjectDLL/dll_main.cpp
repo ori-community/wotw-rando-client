@@ -166,12 +166,12 @@ STATIC_CLASS(71714856, Game_UI_c*, g_ui);
 
 GameController_o* get_game_controller_instance()
 {
-  return g_game_controller->static_fields->Instance;
+  return (*g_game_controller)->static_fields->Instance;
 }
 
 SeinCharacter_o* get_sein()
 {
-    return g_characters->static_fields->m_sein;
+    return (*g_characters)->static_fields->m_sein;
 }
 
 INJECT_C_DLLEXPORT void bind_sword() {

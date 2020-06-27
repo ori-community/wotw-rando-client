@@ -25,7 +25,7 @@ namespace {
         if (!input_cmd_is_valid())
             return;
 
-        auto processors = &input_cmd->static_fields->AnyStart;
+        auto processors = &(*input_cmd)->static_fields->AnyStart;
         auto count = static_cast<int>(InputButton::InputButton_LAST);
         for (auto i = 0; i < count; ++i)
         {
