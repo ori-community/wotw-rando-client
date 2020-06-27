@@ -3,8 +3,9 @@
 #include <string>
 
 struct intercept {
-    intercept(__int64 o, PVOID* oP, PVOID iP, std::string s);
+    intercept(__int64 o, PVOID* oP, PVOID iP, std::string s, int t = 0);
 
+    int type;
     std::string name;
     __int64 offset;
     PVOID* original_pointer;
