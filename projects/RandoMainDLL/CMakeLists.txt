@@ -17,6 +17,7 @@ set(
 	"SaveController.cs"
 	"SeedController.cs"
 	"ShopController.cs"
+	"TrackFileController.cs"
 	"UberStateController.cs"
 	
 	"IL2Cpp/BinaryStream.cs"
