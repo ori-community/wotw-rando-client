@@ -15,15 +15,18 @@ namespace RandoMainDLL {
       public String Name;
       public String Signature;
     }
+
     public class DumpMetaMethod {
       public UInt64 Address;
       public String Name;
       public UInt64 MethodAddress;
     }
+
     public class DumpString {
       public UInt64 Address;
       public String Value;
     }
+
     public class FullDump {
       public IList<DumpMethod> ScriptMethod;
       public IList<DumpString> ScriptString;
@@ -31,9 +34,11 @@ namespace RandoMainDLL {
       public IList<DumpMetaMethod> ScriptMetadataMethod;
       public IList<UInt64> Addresses;
     }
+
     static Dictionary<String, UInt64> dumpRVAs = new Dictionary<string, ulong>();
     static Dictionary<String, UInt64> relevantRVAs = new Dictionary<string, ulong>();
     static bool needWrite = false;
+
     public static void Init() {
       try {
         if (File.Exists(targetsFile))
@@ -44,6 +49,7 @@ namespace RandoMainDLL {
           }
       } catch(Exception e) { Randomizer.Error("RVAFinder.Init", e); }
     }
+
     public static void Update() {
       try {
         if (needWrite) {
@@ -60,7 +66,6 @@ namespace RandoMainDLL {
         }
       }
       catch (Exception e) { Randomizer.Error("RVAFinder.Update", e); }
-
     }
 
     public static void populateAllRVAs() {
@@ -74,8 +79,8 @@ namespace RandoMainDLL {
         dumpRVAs[method.Signature] = method.Address;
       }
     }
-    [DllExport] 
-    public static UInt64 rvaLookup(string sig, bool fromDump = false) {
+
+    public static ulong rvaLookup(string sig, bool fromDump = false) {
       if (fromDump) {
         if (dumpRVAs.Count == 0) {
           populateAllRVAs();

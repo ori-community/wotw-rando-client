@@ -1,7 +1,8 @@
-#include <pch.h>
 #include <interception_macros.h>
 #include <dll_main.h>
 #include <features/invert_swim.h>
+
+#include <csharp_bridge.h>
 
 namespace
 {
@@ -19,7 +20,7 @@ void set_swim_params(float normal, float boost) {
 
 void invert_swim() {
     // Default boosted speed is 9.59... so we use 9.6
-    if(csharp_lib->call<bool>("InvertSwim"))
+    if(csharp_bridge::invert_swim())
         set_swim_params(9.6f, 6.f);
     else
         set_swim_params(6.f, 9.6f);
@@ -27,23 +28,23 @@ void invert_swim() {
 
 namespace
 {
-    INTERCEPT(6709008, void, NewGameAction__Perform, (__int64 thisPtr, __int64 ctxPtr), {
+    INTERCEPT(6709008, void, NewGameAction__Perform, (__int64 thisPtr, __int64 ctxPtr)) {
         NewGameAction__Perform(thisPtr, ctxPtr);
         invert_swim();
-    });
+    }
 
-    INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
+    INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr)) {
         SaveGameController__OnFinishedLoading(thisPtr);
         invert_swim();
-    });
+    }
 
-    INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
+    INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr)) {
         SaveGameController__RestoreCheckpoint(thisPtr);
         invert_swim();
-    });
+    }
 
-    INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
+    INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr)) {
         SeinHealthController__OnRespawn(thisPtr);
         invert_swim();
-    });
+    }
 }

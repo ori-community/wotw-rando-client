@@ -23,6 +23,7 @@ set(
 	"gui/imgui_demo.cpp"
 	
 	"gui_helpers/dropdown.cpp"
+	"gui_helpers/fileselector.cpp"
 	"gui_helpers/layout.cpp"
 )
 
@@ -42,6 +43,7 @@ set(
 	"gui/implementation/imgui_impl_vulkan.h"
 	
 	"gui_helpers/dropdown.h"
+	"gui_helpers/fileselector.h"
 	"gui_helpers/layout.h"
 )
 
@@ -112,7 +114,6 @@ target_link_libraries(
 	${WOTWR_LIB_DIR}/SDL2/SDL2.lib
 	${WOTWR_LIB_DIR}/SDL2/SDL2main.lib
 	${RENDER_LIBRARY}
-	WinNetwork
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -130,5 +131,6 @@ install(
 
 install(
 	FILES "${WOTWR_LIB_DIR}/SDL2/SDL2.dll"
+	COMPONENT tool
 	DESTINATION "${WOTWR_INSTALL_DIR}"
 )

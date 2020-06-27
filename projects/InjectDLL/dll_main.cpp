@@ -1,13 +1,12 @@
-#include "pch.h"
 // dllmain.cpp : Defines the entry point for the DLL application.
 
 #include <detours/detours.h>
 
-#include <pe_module.h>
 #include <common.h>
 #include <constants.h>
 #include <dll_main.h>
 #include <interception_macros.h>
+#include <macros.h>
 #include <pickups/ore.h>
 #include <fixes/dash.h>
 #include <features/invert_swim.h>
@@ -24,7 +23,10 @@
 
 #include <mutex>
 
+#include <Common/csv.h>
 #include <Common/ext.h>
+
+#include <csharp_bridge.h>
 
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
@@ -39,180 +41,216 @@ bool info_enabled = true;
 bool error_enabled = true;
 bool input_lock_callback = false;
 
-InjectDLL::PEModule* csharp_lib = NULL;
 network::NetworkData network_data;
 int peer_id = -1;
 std::mutex network_mutex;
 
-std::string logFilePath = "C:\\moon\\inject_log.txt"; // change this if you need to
-std::ofstream logfile;
-std::mutex log_mutex;
+std::string csv_path = "C:\\moon\\inject_log.csv";
+bool write_to_csv = true;
+bool flush_after_every_line = true;
+std::ofstream csv_file;
+std::mutex csv_mutex;
 
-#define DEBUG(message) \
-    if (debug_enabled) { \
-        log_mutex.lock(); \
-	    logfile.open(logFilePath, std::ios_base::app); \
-	    logfile << "[" << pretty_time()  << "] (DEBUG): " << message << std::endl; \
-	    logfile.close(); \
-        log_mutex.unlock(); \
-    }
+//---------------------------------------------------------Bindings------------------------------------------------------------
 
-#define LOG(message) \
-    if (info_enabled) { \
-        log_mutex.lock(); \
-	    logfile.open(logFilePath, std::ios_base::app); \
-	    logfile << "[" << pretty_time() << "] (INFO): " << message << std::endl; \
-	    logfile.close(); \
-        log_mutex.unlock(); \
-    }
+// GameController$get_InputLocked
+BINDING(10012848, bool, getInputLocked, (GameController_o * thisPtr));
+// GameController$$get_LockInput
+BINDING(10013200, bool, getLockInput, (GameController_o * thisPtr));
+// GameController$$get_IsSuspended
+BINDING(10013520, bool, getIsSuspended, (GameController_o * thisPtr));
+// GameController$$get_SecondaryMapAndInventoryCanBeOpened
+BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_o * thisPtr));
 
-#define ERR(message) \
-    if (error_enabled) { \
-        log_mutex.lock(); \
-	    logfile.open(logFilePath, std::ios_base::app); \
-	    logfile << "[" << pretty_time() << "] (ERROR): " << message << std::endl; \
-	    logfile.close(); \
-        log_mutex.unlock(); \
-    }
+BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o * thisPtr, int32_t binding, int32_t typ));
+
+BINDING(35034256, int32_t, UnityEngine_Cursor__get_lockState, ());
+BINDING(35034336, void, UnityEngine_Cursor__set_lockState, (int32_t value));
+
+BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
+BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o * thisPtr));
+BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o * thisPtr, UnityEngine_Vector3_o value));
+BINDING(11448960, Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_o*, SpellInventory__AddNewSpellToInventory, (SpellInventory_o * thisPtr, int32_t type, bool adding));
+
+BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
+BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
-INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone), {
-  csharp_lib->call<void>("OnCheckpoint");
-  GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
-  });
+INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
+    csharp_bridge::on_checkpoint();
+    GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
+}
 
+INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr)) {
+    //NewGameAction$$Perform
+    csharp_bridge::new_game(getSaveSlot());
+	newGamePerform(thisPtr, ctxPtr);
+}
 
-BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
-BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o* thisPtr));
-BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o* thisPtr, UnityEngine_Vector3_o value));
+INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes)) {
+    csharp_bridge::on_save(slotIndex, backupIndex);
+    SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
+}
+
+INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName)) {
+    csharp_bridge::on_save(saveSlot->Index, backupIndex);
+    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
+}
+
+INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr)) {
+    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
+    SaveGameController__OnFinishedLoading(thisPtr);
+}
+
+INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr)) {
+    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
+    SaveGameController__RestoreCheckpoint(thisPtr);
+}
+
+INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr)) {
+    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
+    SeinHealthController__OnRespawn(thisPtr);
+}
 
 UnityEngine_Vector3_o last_position;
 __int8 set_to_last_position = 0;
 
-extern "C" __declspec(dllexport)
-void magic_function() {
+INJECT_C_DLLEXPORT void magic_function() {
     last_position = SeinCharacter__get_Position(get_sein());
     set_to_last_position = 3;
     Moon_UberStateController__ApplyAll(1);
 }
 
-INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr), {
+INJECT_C_DLLEXPORT bool has_ability(uint8_t ability) {
+    auto sein = get_sein();
+    if(sein && sein->PlayerAbilities)
+        return PlayerAbilities__HasAbility(sein->PlayerAbilities, ability);
+    trace(MessageType::Error, 3, "abilities", "Failed to check ability: couldn't find reference to sein!");
+    return false;
+}
+
+INJECT_C_DLLEXPORT void set_ability(uint8_t ability,  bool value) {
+    auto sein = get_sein();
+    if (sein && sein->PlayerAbilities) 
+        PlayerAbilities__SetAbility(sein->PlayerAbilities, ability, value);
+    else
+        trace(MessageType::Error, 3, "abilities", "Failed to set ability: couldn't find reference to sein!");
+}
+
+INJECT_C_DLLEXPORT void set_equipment(int32_t equip, bool value) {
+  auto sein = get_sein();
+  if (sein && sein->PlayerSpells)
+        SpellInventory__AddNewSpellToInventory(sein->PlayerSpells, equip, value);
+  else
+      trace(MessageType::Error, 3, "abilities", "Failed to set equipment: couldn't find reference to sein!");
+}
+
+INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr)) {
 	//GameController$$FixedUpdate
 	fixedUpdate1(thisPtr);
 	on_fixed_update(thisPtr);
-});
-
-BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
-BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
-
-INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr), {
-	//NewGameAction$$Perform
-	csharp_lib->call<void, int>("NewGame", getSaveSlot());
-	newGamePerform(thisPtr, ctxPtr);
-});
-
-INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes), {
-    csharp_lib->call<void, int, int>("OnSave", slotIndex, backupIndex);
-    SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
-});
-
-INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName), {
-    csharp_lib->call<void, int, int>("OnSave", saveSlot->Index, backupIndex);
-    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
-});
-
-INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SaveGameController__OnFinishedLoading(thisPtr);
-});
-
-INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SaveGameController__RestoreCheckpoint(thisPtr);
-});
-
-INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr), {
-    csharp_lib->call<void, int, int>("OnLoad", getSaveSlot(), getBackupSlot());
-    SeinHealthController__OnRespawn(thisPtr);
-});
-
-// GameController$get_InputLocked
-BINDING(10012848, bool, getInputLocked, (GameController_o* thisPtr));
-// GameController$$get_LockInput
-BINDING(10013200, bool, getLockInput, (GameController_o* thisPtr));
-// GameController$$get_IsSuspended
-BINDING(10013520, bool, getIsSuspended, (GameController_o* thisPtr));
-// GameController$$get_SecondaryMapAndInventoryCanBeOpened
-BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_o* thisPtr));
-
-BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o* thisPtr, int32_t binding, int32_t typ));
-
-BINDING(35034256, int32_t, UnityEngine_Cursor__get_lockState, ());
-BINDING(35034336, void, UnityEngine_Cursor__set_lockState, (int32_t value));
+}
 
 //---------------------------------------------------Actual Functions------------------------------------------------
-extern "C" __declspec(dllexport)
-bool toggle_cursorlock() {
+
+INJECT_C_DLLEXPORT bool toggle_cursorlock() {
   int32_t newState = 2 - UnityEngine_Cursor__get_lockState();
   UnityEngine_Cursor__set_lockState(newState);
   return newState > 0;
 }
 
-Game_Characters_StaticFields* get_characters() {
-	return (*(Game_Characters_c**) resolve_rva(71425184))->static_fields;
-}
-GameController_c* get_game_controller() {
-  return *(GameController_c**)resolve_rva(71838776);
-}
-GameController_o* get_game_controller_instance() {
-  return get_game_controller()->static_fields->Instance;
-}
-Game_UI_c* get_UI() {
-  return (*(Game_UI_c**)resolve_rva(71714856));  // Class$Game.UI
-} 
-SeinCharacter_o* get_sein()
+STATIC_CLASS(71425184, Game_Characters_c*, g_characters);
+STATIC_CLASS(71838776, GameController_c*, g_game_controller);
+STATIC_CLASS(71714856, Game_UI_c*, g_ui);
+
+GameController_o* get_game_controller_instance()
 {
-    return get_characters()->m_sein;
+  return (*g_game_controller)->static_fields->Instance;
 }
 
-extern "C" __declspec(dllexport)
-void bind_sword() {
+SeinCharacter_o* get_sein()
+{
+    return (*g_characters)->static_fields->m_sein;
+}
+
+INJECT_C_DLLEXPORT void bind_sword() {
     SpellInventory__UpdateBinding(get_sein()->PlayerSpells, 0, 1002);
 }
 
 void on_fixed_update(__int64 thisPointer){
-	try {
-		csharp_lib->call<int>("Update");
-	} catch(int error)
-	{
-		LOG("got error code " << error);
+	try
+    {
+        csharp_bridge::update();
 	}
+    catch(int error)
+	{
+        trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
+	}
+
     if (set_to_last_position > 0) {
         set_to_last_position--;
         SeinCharacter__set_Position(get_sein(), last_position);
     }
 }
 
-extern "C" __declspec(dllexport)
-void set_ore(int oreCount) {
+INJECT_C_DLLEXPORT void set_ore(int oreCount)
+{
     SeinLevel__set_Ore(get_sein()->Level, oreCount);
 }
 
-extern "C" __declspec(dllexport)
-bool player_can_move() {
+INJECT_C_DLLEXPORT bool player_can_move()
+{
     auto gcip = get_game_controller_instance();
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
 
-
-extern "C" __declspec(dllexport)
-void save() {
-    DEBUG("Save requested by c# code");
+INJECT_C_DLLEXPORT void save()
+{
+    trace(MessageType::Info, 3, "csharp_interop", "Save requested by c# code");
     GameController__CreateCheckpoint(get_game_controller_instance(), true, false);
 }
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
+
+void initialize_trace_file()
+{
+    if (!write_to_csv)
+        return;
+
+    csv_file.open(csv_path);
+    write_to_csv = csv_file.is_open();
+}
+
+void write_trace(MessageType type, int level, std::string const& group, std::string const& message)
+{
+    if (!write_to_csv)
+        return;
+
+    if (!debug_enabled && type == MessageType::Debug)
+        return;
+
+    if (!info_enabled && type == MessageType::Info)
+        return;
+
+    std::string sanitized_group = csv::sanitize_csv_field(group);
+    std::string sanitized_message = csv::sanitize_csv_field(message);
+
+    std::string line = format(
+        "%d, [%s], %d, %s,",
+        type,
+        sanitized_group.c_str(),
+        level,
+        sanitized_message.c_str()
+    );
+
+    csv_mutex.lock();
+    if (flush_after_every_line)
+        csv_file << line << std::endl;
+    else
+        csv_file << line << "\n";
+    csv_mutex.unlock();
+}
 
 void send_trace(MessageType type, int level, std::string const& group, std::string const& message)
 {
@@ -245,22 +283,10 @@ void send_trace(MessageType type, int level, std::string const& group, std::stri
     network_mutex.unlock();
 }
 
-void log(std::string message)
+void trace(MessageType type, int level, std::string const& group, std::string const& message)
 {
-    send_trace(MessageType::Info, 3, "test", message);
-	LOG(message);
-}
-
-void error(std::string message)
-{
-    send_trace(MessageType::Error, 3, "test", message);
-	ERR(message);
-}
-
-void debug(std::string message)
-{
-    send_trace(MessageType::Debug, 3, "test", message);
-	DEBUG(message);
+    send_trace(type, level, group, message);
+    write_trace(type, level, group, message);
 }
 
 bool attached = false;
@@ -285,7 +311,6 @@ void network_event_handler(network::NetworkEvent const& evt)
         {
         case network::PackageType::Message:
             // TODO: Do some fancy stuff here.
-            LOG("----> " + read_str_bw(walker));
             break;
         default:
             break;
@@ -326,85 +351,55 @@ void network_event_handler(network::NetworkEvent const& evt)
     }
 }
 
-void main_thread(){
-    network_data.is_server = false;
-    network_data.ip = "localhost";
-    network_data.port = 27666;
-    network_data.logging_callback = [](std::string const& str) { LOG(str); };
-    network_data.event_handler = &network_event_handler;
+extern bool bootstrap();
 
-	log("loading c# dll...");
-	csharp_lib = new InjectDLL::PEModule(_T("C:\\moon\\RandoMainDLL.dll"));
-	if(csharp_lib->call<bool>("Initialize"))
-	{
-        {
-            constexpr char arg1[] = "TraceEnabled";
-            trace_enabled = csharp_lib->call<bool>("CheckIni", arg1);
+INJECT_C_DLLEXPORT void injection_entry()
+{
+    initialize_trace_file();
 
-            constexpr char arg2[] = "TracePingingDisabled";
-            trace_pinging_enabled = !csharp_lib->call<bool>("CheckIni", arg2);
-        }
-
-        if (trace_enabled)
-        {
-            network::initialize_peer(network_data);
-            network::start_peer(network_data);
-        }
-
-		debug_enabled = csharp_lib->call<bool>("InjectDebugEnabled");
-		info_enabled = csharp_lib->call<bool>("InjectLogEnabled");
-		LOG("debug: " << debug_enabled << " log: " << info_enabled);
-		log("c# init complete");
-		interception_init();
-
-        if (trace_enabled)
-        {
-            while (!shutdown_thread)
-                network::poll_peer(network_data);
-
-            network::shutdown_peer(network_data);
-        }
-	} else
+    trace(MessageType::Info, 5, "initialize", "init_start");
+    if (!bootstrap())
     {
-		log("Failed to initialize, shutting down");
+        trace(MessageType::Info, 5, "initialize", "Failed to bootstrap, shutting down");
+        csv_file.close();
         shutdown_thread = true;
-        if (trace_enabled)
-            network::shutdown_peer(network_data);
+        FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
+    }
 
-		FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
-	}
-}
+    trace_enabled = csharp_bridge::check_ini("TraceEnabled");
+    trace_pinging_enabled = !csharp_bridge::check_ini("TracePingingDisabled");
+    if (trace_enabled)
+    {
+        network_data.is_server = false;
+        network_data.ip = "localhost";
+        network_data.port = 27666;
+        network_data.logging_callback = [](std::string const& str) { trace(MessageType::Info, 4, "network", str); };
+        network_data.event_handler = &network_event_handler;
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved){
-	if(DetourIsHelperProcess())
-	{
-		return TRUE;
-	}
+        network::initialize_peer(network_data);
+        network::start_peer(network_data);
+    }
 
-	switch(ul_reason_for_call)
-	{
-		case DLL_PROCESS_ATTACH:
-			if(!attached)
-			{
-				debug("init start");
-				CreateThread(0, 0, (LPTHREAD_START_ROUTINE) main_thread, 0, 0, 0);
-				attached = true;
-			}
-			break;
-		case DLL_PROCESS_DETACH:
-            network::shutdown_peer(network_data);
-			shutdown_thread = true;
-			delete csharp_lib;
-			DetourTransactionBegin();
-			DetourUpdateThread(GetCurrentThread());
-			interception_detach();
+    // We should probably get rid of these?
+    debug_enabled = csharp_bridge::inject_debug_enabled();
+    info_enabled = csharp_bridge::inject_log_enabled();
 
-			log("detatch commit: " + std::to_string(DetourTransactionCommit()));
-			break;
-		default:
-			break;
-	}
-	return TRUE;
+    // TODO: Change these for a call to check_ini.
+    trace(MessageType::Info, 5, "initialize", format("debug: %d log: %d", debug_enabled, info_enabled));
+    //LOG("debug: " << debug_enabled << " log: " << info_enabled);
+    trace(MessageType::Info, 5, "initialize", "c# init complete");
+    interception_init();
+
+    if (trace_enabled)
+    {
+        while (!shutdown_thread)
+            network::poll_peer(network_data);
+
+        network::shutdown_peer(network_data);
+    }
+
+    if (write_to_csv)
+        csv_file.close();
 }
 
 // strftime format

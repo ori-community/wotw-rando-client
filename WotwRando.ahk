@@ -27,10 +27,10 @@ assoc .wotwr=WotwRando
 ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
-;restart script in admin mode
+; restart script in admin mode if it's not already in admin mode
 if not A_IsAdmin
 {
-   Run *RunAs "%A_ScriptFullPath%" %1% %2% %3% %4%
+   Run *RunAs "%A_ScriptFullPath%" "%1%" "%2%" "%3%" "%4%"
    ExitApp
 }
 ; filecreatedir silent fails if it exists, so we won't bother checking if it's already there
@@ -56,7 +56,7 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 			; copy this file into the canonical path
 			FileCopy, %A_ScriptFullPath%, %WOTWREXE%, 1
 			; spawn a new thread running from the canonical path
-			Run *RunAs %WOTWREXE% %1% %2% %3% %4%
+			Run *RunAs %WOTWREXE%  "%1%" "%2%" "%3%" "%4%"
 			; mark this version of the file for deletion, then exit
 			FileDelete, %DELETEME%
 			FileAppend, %A_ScriptFullPath%, %DELETEME%			
@@ -177,7 +177,7 @@ if(WinStore == "false")
 else 
 	Run, *RunAs shell:AppsFolder\Microsoft.Patagonia_8wekyb3d8bbwe!App
 
-Run, *RunAs %INJECTOR% %dev% %WinStore%,,%maybehide%
+Run, *RunAs %INJECTOR%,,%maybehide%
 return
 
 ReadIniVals:
@@ -207,6 +207,7 @@ ExtractFiles:
 
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
+FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
 FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
 FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
 FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
@@ -262,7 +263,7 @@ Try {
 			SplashTextOn,,,, Update Complete! Restarting...
 			Sleep, 2000
 			SplashTextOff
-			Run, *RunAs %NEWWOTWR% %1% %2% %3% %4%
+			Run, *RunAs %NEWWOTWR% "%1%" "%2%" "%3%" "%4%"
 			ExitApp
 		} 
 	}

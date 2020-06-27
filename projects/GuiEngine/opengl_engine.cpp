@@ -1,12 +1,13 @@
 #include <build.h>
 #if !USE_VULKAN
 
-namespace gui_engine {
-
 #include <engine.h>
 #include <SDL2/SDL_opengl.h>
 #include <gui/implementation/imgui_impl_sdl.h>
 #include <gui/implementation/imgui_impl_opengl2.h>
+
+namespace gui_engine {
+
 
     int start_loop(GuiData& gui, init_callback init, event_callback handle_event, tick_callback tick, render_callback render)
     {
@@ -58,11 +59,18 @@ namespace gui_engine {
 
         bool show_another_window = false;
         ImVec4 clear_color = { 0.45f, 0.55f, 0.60f, 1.00f };
+        gui.last_time = std::chrono::high_resolution_clock::now();
 
         init(gui);
 
         while (gui.running)
         {
+            using dtf = std::chrono::duration<float>;
+            auto time = std::chrono::high_resolution_clock::now();
+            dtf delta_time = time - gui.last_time;
+            gui.delta_time = delta_time.count();
+            io.DeltaTime = gui.delta_time;
+
             SDL_Event evt;
             while (SDL_PollEvent(&evt))
             {

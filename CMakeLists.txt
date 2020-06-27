@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.15 FATAL_ERROR)
+cmake_minimum_required (VERSION 3.17.3 FATAL_ERROR)
 
 project(temp)
 
@@ -86,9 +86,15 @@ else()
 	execute_process(COMMAND ${GIT} submodule update --init --recursive)
 endif()
 
-set(WOTWR_MAJOR_VERSION 0)
-set(WOTWR_MINOR_VERSION 0)
-set(WOTWR_PATCH_VERSION 0)
+file(READ "VERSION" ver)
+
+string(REGEX MATCH "([0-9]*).([0-9]*).([0-9]*)" _ ${ver})
+set(WOTWR_MAJOR_VERSION ${CMAKE_MATCH_1})
+set(WOTWR_MINOR_VERSION ${CMAKE_MATCH_2})
+set(WOTWR_PATCH_VERSION ${CMAKE_MATCH_3})
+
+message("-- version: ${WOTWR_MAJOR_VERSION}.${WOTWR_MINOR_VERSION}.${WOTWR_PATCH_VERSION}")
+
 set(WOTWR_VERSION ${WOTWR_MAJOR_VERSION}.${WOTWR_MINOR_VERSION}.${WOTWR_PATCH_VERSION})
 
 set(SLN_NAME WotWRandomizer)
@@ -105,7 +111,7 @@ add_subdirectory("projects")
 add_custom_target(
 	INSTALL_RUNTIME
 	cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
-	DEPENDS InjectDLL WinNetwork Injector RandoMainDLL TraceClientManaged
+	DEPENDS InjectDLL WinNetwork InjectLoader Injector RandoMainDLL TraceClientManaged
 )
 
 set_target_properties(

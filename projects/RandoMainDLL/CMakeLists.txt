@@ -6,6 +6,7 @@ include(CSharpUtilities)
 set(
 	SOURCE_FILES
 	"AHK.cs"
+	"CppCallbacks.cs"
 	"Extensions.cs"
 	"HintsController.cs"
 	"InterOp.cs"
@@ -56,10 +57,7 @@ set(
 	REFERENCES
     "Microsoft.CSharp"
     "System"
-    "System.Core"
-    "System.Data"
-    "System.Xml"
-    "System.Xml.Linq"
+	"System.Core"
 )
 
 add_library(${PROJECT_NAME} SHARED
@@ -72,7 +70,10 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Newtonsoft.Json ${WOTWR_LIB_DIR}/Newtonsoft.Json.dll)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_AutoHotkey.Interop ${WOTWR_LIB_DIR}/AutoHotkey.Interop.dll)
 
-target_compile_options(${PROJECT_NAME} PUBLIC /unsafe PUBLIC /platform:x64)
+target_compile_options(${PROJECT_NAME}
+    PRIVATE /unsafe
+    PRIVATE /platform:x64
+)
 
 set(CMAKE_CSharp_FLAGS "/langversion:latest")
 

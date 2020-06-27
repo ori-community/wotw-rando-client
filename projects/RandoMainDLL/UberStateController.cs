@@ -73,6 +73,20 @@ namespace RandoMainDLL {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
+      else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2)
+        Randomizer.InputUnlockCallback = () => {
+          // this is really questionable!!
+          var voiceState = new UberId(46462, 59806).State();
+          if (!(voiceState.Value.Bool)) {
+            voiceState.Write(new UberValue(true));
+            Stats stats = Randomizer.Memory.PlayerStats;
+            stats.MaxHealth += 10;
+            stats.MaxEnergy++;
+            Randomizer.Memory.PlayerStats = stats;
+            Randomizer.Memory.FillEnergy();
+            Randomizer.Memory.FillHealth();
+          }
+        };
     }
     private static bool ShouldRevert(UberState state) {
       if (NeedsNewGameInit || SkipListenersNextUpdate)
@@ -115,7 +129,6 @@ namespace RandoMainDLL {
         }
 
         InterOp.discover_everything();
-        InterOp.magic_function();
         InterOp.bind_sword();
         InterOp.save();
         NeedsNewGameInit = false;
@@ -184,6 +197,10 @@ namespace RandoMainDLL {
       new UberState() { Name = "luposMapQuest", ID = 24683, GroupName = "questUberStateGroup", GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(4) },
       new UberState() { Name = "talkedInHub", ID = 10337, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedIntUberState, Value = new UberValue(2) },
       new UberState() { Name = "willowsEndSeirExitCutscene", ID = 8985, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+      new UberState() { Name = "metOpherHub", ID = 56448, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+      new UberState() { Name = "gromMentionedOre", ID = 5186, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+      new UberState() { Name = "wispCutscenePlayed", ID = 58268, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+      new UberState() { Name = "playerPurchasedWeaponMasterUpgrade", ID = 20131, GroupName = "playerUberStateGroupDescriptor", GroupID = 3440, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
     };
 
     public static List<UberState> Kuberstates = new List<UberState>() {

@@ -172,6 +172,10 @@ IniSettings create_randomizer_settings()
     option.value.b = false;
     file.options.push_back(option);
 
+    option.name = "QuestFocusOnAbility3";
+    option.value.b = false;
+    file.options.push_back(option);
+
     option.name = "Dev";
     option.value.b = false;
     file.options.push_back(option);

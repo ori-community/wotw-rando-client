@@ -8,10 +8,10 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
 	SOURCE_FILES
+	"bootstrap.cpp"
+    "csharp_bridge.cpp"
 	"dll_main.cpp"
 	"interception.cpp"
-	"pch.cpp"
-	"pe_module.cpp"
 	"features/difficulty.cpp"
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
@@ -19,6 +19,7 @@ set(
 	"features/map.cpp"
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"
+	"features/input_poller.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/pickups.cpp"
@@ -37,16 +38,18 @@ set(
 	PUBLIC_HEADER_FILES
 	"common.h"
 	"constants.h"
+    "csharp_bridge.h"
 	"dll_main.h"
+    "enum_definitions.h"
 	"framework.h"
 	"interception.h"
 	"interception_macros.h"
-	"pch.h"
-	"pe_module.h"
+    "macros.h"
+	"features/invert_swim.h"
+	"features/input_poller.h"
 	"fixes/dash.h"
 	"pickups/ore.h"
 	"pickups/pickups.h"
-	"features/invert_swim.h"
 )
 
 set(
@@ -59,6 +62,10 @@ add_library(${PROJECT_NAME} SHARED
 	${SOURCE_FILES}
 	${PUBLIC_HEADER_FILES}
 	${MISC_FILES}
+)
+
+target_compile_definitions(${PROJECT_NAME}
+	PRIVATE COMPILING_INJECTDLL
 )
 
 set_target_properties(
@@ -87,10 +94,28 @@ target_link_libraries(
 	WinNetwork
 )
 
+target_precompile_headers(
+	${PROJECT_NAME}
+		PRIVATE "framework.h"
+		PRIVATE <tchar.h>
+		PRIVATE <detours/il2cpp.h>
+)
+
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
+
+message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
+
+source_group("_precompiled_headers"
+	FILES
+		${PROJECT_BINARY_DIR}/CMakeFiles/InjectDLL.dir/Debug/cmake_pch.hxx
+		${PROJECT_BINARY_DIR}/CMakeFiles/InjectDLL.dir/MinSizeRel/cmake_pch.hxx
+		${PROJECT_BINARY_DIR}/CMakeFiles/InjectDLL.dir/RelWithDebInfo/cmake_pch.hxx
+		${PROJECT_BINARY_DIR}/CMakeFiles/InjectDLL.dir/Release/cmake_pch.hxx
+		${PROJECT_BINARY_DIR}/CMakeFiles/InjectDLL.dir/cmake_pch.cxx
+)
 
 install(
 	TARGETS ${PROJECT_NAME}
@@ -98,4 +123,3 @@ install(
 	LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
 	ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
 )
-

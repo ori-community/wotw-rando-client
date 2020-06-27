@@ -70,13 +70,17 @@ namespace RandoMainDLL {
         KSBought = copyFrom.KSBought;
       }
     }
-    public static bool GetAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
+    public static bool HasAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
     public static void SetAbility(AbilityType ability, bool setTo = true) {
       if (setTo)
         Data.SkillsFound.Add(ability);
       else
         Data.SkillsFound.Remove(ability);
-      Randomizer.Memory.SetAbility(ability, setTo);
+      
+      InterOp.set_ability(ability, setTo);
+      if (ability.Equip().HasValue)
+        InterOp.set_equipment(ability.Equip().Value, setTo);
+
     }
     public static SaveData Data;
     public static int CurrentSlot = -1;

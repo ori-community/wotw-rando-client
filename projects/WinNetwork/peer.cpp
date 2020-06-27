@@ -255,6 +255,7 @@ namespace network
         peer.ping = std::chrono::system_clock::now();
         data.peers.push_back(peer);
 
+        // Change this, wait for guid from client for identification before sending this.
         NetworkEvent evt;
         evt.peer_id = peer.id;
         evt.type = NetworkEventType::Connected;

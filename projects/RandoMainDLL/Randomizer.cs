@@ -14,6 +14,14 @@ namespace RandoMainDLL {
                                     // Look it was a temporary thing - Eiko
     public static MemoryManager Memory;
 
+    public static int Bootstrap(string dllPath) {
+       if (!Initialize())
+        return 1;
+
+      InterOp.RegisterCSharpBindings();
+      return 0;
+    }
+
     public static void OnNewGame(int slot) {
       // overwrite the message log TODO: save a backup maybe?
       File.WriteAllText(Randomizer.MessageLog, "");
@@ -22,6 +30,7 @@ namespace RandoMainDLL {
       AHK.OnNewGame();
       SaveController.NewGame(slot);
     }
+
     public static bool Initialize() {
       try {
         if (!Directory.Exists(SaveFolder)) 

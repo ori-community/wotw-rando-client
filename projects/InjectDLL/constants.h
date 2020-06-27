@@ -1,4 +1,5 @@
-#include <pch.h>
+#pragma once
+
 #include <set>
 
 enum class MessageType : int

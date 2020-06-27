@@ -13,9 +13,9 @@ std::string format(const char* str, ...)
 
 std::string format(const char* str, va_list ls)
 {
-	size_t length = _vscprintf(str, ls) + 1;
+	size_t length = _vscprintf(str, ls);
 	std::string output;
     output.resize(length);
-    _vsnprintf_s(&output[0], length, _TRUNCATE, str, ls);
+    _vsnprintf_s(&output[0], length + 1, _TRUNCATE, str, ls);
 	return output;
 }

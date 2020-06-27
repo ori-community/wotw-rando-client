@@ -1,30 +1,65 @@
-project("Injector" LANGUAGES CSharp)
+project("Injector")
+string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
+
+message(STATUS "")
+message(STATUS "Project ${PROJECT_NAME}:")
+
 set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
+set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
-include(CSharpUtilities)
+set(
+	SOURCE_FILES
+	"injector.cpp"
+)
 
-configure_file(${PROJECT_DIR}/${PROJECT_NAME}.csproj.in ${PROJECT_DIR}/${PROJECT_NAME}.csproj)
+set(
+	PUBLIC_HEADER_FILES
+)
 
-include_external_msproject(${PROJECT_NAME} ${PROJECT_DIR}/${PROJECT_NAME}.csproj)
+set(
+	MISC_FILES
+	".editorconfig"
+	"CMakeLists.txt"
+)
+
+add_executable(${PROJECT_NAME}
+	${SOURCE_FILES}
+	${PUBLIC_HEADER_FILES}
+	${MISC_FILES}
+)
 
 set_target_properties(
 	${PROJECT_NAME}
 	PROPERTIES
 		VERSION ${WORWR_VERSION}
 		SOVERSION ${WORWR_MAJOR_VERSION}
-		FOLDER csharp
+		FOLDER cpp
 )
 
-# Because xcopy is stupid we need this backslash replacing hell.
-STRING(REGEX REPLACE "/" "\\\\\\\\" BUILD_DIR_BACK ${CMAKE_BUILD_DIRECTORY} )
-STRING(REGEX REPLACE "/" "\\\\\\\\" INSTALL_DIR_BACK ${WOTWR_INSTALL_DIR} )
-
-string(
-    APPEND _cmd
-    "$<IF:$<CONFIG:Debug>,"
-        "execute_process(COMMAND xcopy \"${BUILD_DIR_BACK}\\\\bin\\\\x64\\\\netcoreapp3.1\\\\*\" \"${INSTALL_DIR_BACK}\" /f /y\),"
-        "execute_process(COMMAND dotnet publish projects/Injector/Injector.sln -p:PublishProfile=Properties/PublishProfiles/FolderProfile.pubxml)"
-    ">"
+target_include_directories(
+	${PROJECT_NAME}
+	PRIVATE
+		.
+		${CMAKE_CONFIG_DIRECTORY}
+		${CMAKE_ENGINE_DIRECTORY}
+		${WOTWR_LIB_INCLUDE_DIR}
+	SYSTEM
+		${WOTWR_BASE_INCLUDES}
 )
 
-install(CODE ${_cmd})
+message(STATUS "Assigning source groups.")
+
+set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
+set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
+
+target_link_libraries(
+	${PROJECT_NAME}
+	Common
+)
+
+install(
+	TARGETS ${PROJECT_NAME}
+	RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
+	LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
+	ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
+)
