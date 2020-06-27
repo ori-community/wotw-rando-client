@@ -47,6 +47,7 @@ std::mutex network_mutex;
 
 std::string csv_path = "C:\\moon\\inject_log.csv";
 bool write_to_csv = true;
+bool flush_after_every_line = true;
 std::ofstream csv_file;
 std::mutex csv_mutex;
 
@@ -236,7 +237,7 @@ void write_trace(MessageType type, int level, std::string const& group, std::str
     std::string sanitized_message = csv::sanitize_csv_field(message);
 
     std::string line = format(
-        "%d, [%s], %d, %s,\n",
+        "%d, [%s], %d, %s,",
         type,
         sanitized_group.c_str(),
         level,
@@ -244,7 +245,10 @@ void write_trace(MessageType type, int level, std::string const& group, std::str
     );
 
     csv_mutex.lock();
-    csv_file << line;
+    if (flush_after_every_line)
+        csv_file << line << std::endl;
+    else
+        csv_file << line << "\n";
     csv_mutex.unlock();
 }
 

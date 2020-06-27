@@ -22,7 +22,7 @@ bool isTwillenShard(char shard){
 
 
 bool is_in_shop_screen(){
-	if(g_game_controller_is_valid())
+	if(!g_game_controller_is_valid())
 		return false;
 
 	const auto  gameController = g_game_controller->static_fields->Instance;

@@ -27,8 +27,14 @@ void interception_init()
     auto current = last_intercept;
     while (current)
     {
-        //debug("Binding: " + current->name + " (+" + std::to_string(current->offset) + ")");
-        *current->original_pointer = reinterpret_cast<PVOID*>(resolve_rva(current->offset));
+        if (current->type == 1)
+        {
+            trace(MessageType::Debug, 3, "initialize", format("initializing global %s", current->name.c_str()));
+            *current->original_pointer = *reinterpret_cast<PVOID**>(resolve_rva(current->offset));
+        }
+        else
+            *current->original_pointer = reinterpret_cast<PVOID*>(resolve_rva(current->offset));
+
         if (current->intercept_pointer)
         {
             auto it = intercept_cache.find(current->offset);
@@ -98,12 +104,13 @@ void interception_detach()
         trace(MessageType::Debug, 3, "uninitialize", "Detach completed");
 }
 
-intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
+intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s, int t)
     : name(std::move(s))
     , offset(o)
     , original_pointer(oP)
     , intercept_pointer(iP)
     , next(nullptr)
+    , type(t)
 {
     prev = last_intercept;
     if (prev != nullptr)
