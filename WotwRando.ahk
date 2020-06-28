@@ -125,7 +125,9 @@ if(skipUpdate == "false")
 	GoSub CheckForUpdates
 
 argc = %0%
-if(argc > 0)  {
+seedfile = %1%
+if(argc > 0 and seedfile != "")  {
+
 	; if a seedfile was provided as an argument (presumably by doubleclicking),
 	; load it in and launch/highlight the game
 	FileDelete, %INSTALL_DIR%\.currentseedpath
