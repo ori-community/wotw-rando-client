@@ -22,7 +22,6 @@ namespace RandoMainDLL {
     public static void Write() {
       if (File.Exists(trackFilePath))
         File.Delete(trackFilePath);
-      Randomizer.Log($"{(new TrackData()).skills}");
       using (var sw = new StreamWriter(trackFilePath))
         sw.Write(JsonConvert.SerializeObject(new TrackData()));
     }
