@@ -159,17 +159,17 @@ namespace RandoMainDLL {
     public static Pickup BuildPickup(PickupType type, string pickupData) {
       switch (type) {
         case PickupType.Ability:
-          return new Ability((AbilityType)pickupData.ParseToByte());
+          return Ability.Build(pickupData);
         case PickupType.Shard:
-          return new Shard((ShardType)pickupData.ParseToByte());
+          return Shard.Build(pickupData);
+        case PickupType.Teleporter:
+          return Teleporter.Build(pickupData);
         case PickupType.SpiritLight:
           return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
         case PickupType.SystemCommand:
           return new SystemCommand((SysCommandType)pickupData.ParseToByte());
-        case PickupType.Teleporter:
-          return new Teleporter((TeleporterType)pickupData.ParseToByte());
         case PickupType.Message:
           var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None);
           int frames = 240;
