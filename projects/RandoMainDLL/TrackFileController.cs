@@ -15,9 +15,7 @@ namespace RandoMainDLL {
       skills = SaveController.Data.SkillsFound.Select((AbilityType type) => type.GetDescription()).ToHashSet();
       events = SaveController.Data.WorldEvents.Select((QuestEventType type) => type.GetDescription()).ToHashSet();
     }
-
   }
-
 
     public static class TrackFileController {
     public static String trackFilePath = @"C:\moon\trackfile.json";
