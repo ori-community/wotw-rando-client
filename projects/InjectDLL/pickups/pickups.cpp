@@ -28,19 +28,28 @@ INTERCEPT(12927184, void, SeinUI__ShakeSeeds, (SeinUI_o* thisPtr)) {
 extern "C" __declspec(dllexport)
 void shake_spiritlight()
 {
-    SeinUI__ShakeSpiritLight((*g_ui)->static_fields->SeinUI);
+    if (!g_ui_is_valid() || (*g_ui)->static_fields->SeinUI == nullptr)
+        trace(MessageType::Error, 2, "game", "g_ui or SeinUI are invalid!");
+    else
+        SeinUI__ShakeSpiritLight((*g_ui)->static_fields->SeinUI);
 }
 
 extern "C" __declspec(dllexport)
 void shake_keystone()
 {
-    SeinUI__ShakeKeystones((*g_ui)->static_fields->SeinUI);
+    if (!g_ui_is_valid() || (*g_ui)->static_fields->SeinUI == nullptr)
+        trace(MessageType::Error, 2, "game", "g_ui or SeinUI are invalid!");
+    else
+        SeinUI__ShakeKeystones((*g_ui)->static_fields->SeinUI);
 }
 
 extern "C" __declspec(dllexport)
 void shake_ore()
 {
-    SeinUI__ShakeSeeds((*g_ui)->static_fields->SeinUI);
+    if (!g_ui_is_valid() || (*g_ui)->static_fields->SeinUI == nullptr)
+        trace(MessageType::Error, 2, "game", "g_ui or SeinUI are invalid!");
+    else
+        SeinUI__ShakeSeeds((*g_ui)->static_fields->SeinUI);
 }
 
 INTERCEPT(5806192, void, performPickupSequence, (SeinPickupProcessor_o* thisPtr, SeinPickupProcessor_CollectableInfo_o* info)) {
