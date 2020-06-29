@@ -578,23 +578,22 @@ region EastHollow:
 area EastHollow.Teleporter:  # (-150, -4238) the teleporter
   refill Full
 
-  state EastHollow.BeetleDefeated:
-    base:
-      Combat, Danger=15, Dash  # +20 region danger. Kinda tight, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
-    advanced:
-      Combat
+  conn BeetleFight: free
   conn WestHollow.HollowDrainUpper:
     base: WestHollow.PurpleDoorOpen
   conn EastHollow.AboveBash:
-    base: 
-      EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
+    base: EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
+
+area BeetleFight:
+  refill Full
+  state EastHollow.BeetleDefeated:
+    base: Combat, Danger=35, Dash  # Kinda tight on danger, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
+    advanced: Combat
 
 area EastHollow.AboveBash:  # (-28, -4233) At the breakable floor to Bash tree
   refill Checkpoint
 
-  state EastHollow.BeetleDefeated:
-    base:
-      Combat, Danger=15, Dash  # +20 region danger. Kinda tight, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
+  conn BeetleFight: free
   state EastHollow.MouldwoodLever:
     base: 
       Bash, DoubleJump OR Dash OR Glide OR Launch
@@ -1471,12 +1470,6 @@ area InnerWellspring.EastDoor:  # (-1190, -3733) Inside the door leading to the 
 area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
   refill Full
 
-  state InnerWellspring.WaterEscape:
-    base:
-      Bash, Grapple, DoubleJump, Dash OR Glide
-      Bash, Grapple, Dash, Glide
-      Grapple, Launch
-
   quest InnerWellspring.BlueMoonSeed:
     base:
       DoubleJump, Dash
@@ -1492,15 +1485,30 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
   pickup InnerWellspring.SwimOre:
     base: Water
   pickup InnerWellspring.EscapeRevisitEX:
-    base, InnerWellspring.WaterEscape OR Water:
+    base, InnerWellspring.EscapeComplete OR Water:
       DoubleJump, Dash, Grapple
       DoubleJump, Dash, Bash, Grenade=1
       Bash, Grenade=1, Grapple
       Bash, Grenade=2
       Launch
 
+  conn InnerWellspring.WaterEscape:
+    base:
+      DoubleJump, Dash, Grapple
+      Bash, Grenade=1, Grapple
+      Bash, Grenade=1, DoubleJump, Dash
+      Bash, Grenade=2
+      Launch
   conn OuterWellspring.TopDoor: free
   conn OpherShop: free
+
+area InnerWellspring.WaterEscape:
+  refill Full
+  state InnerWellspring.EscapeComplete:
+    base:
+      Bash, Grapple, DoubleJump, Dash OR Glide
+      Bash, Grapple, Dash, Glide
+      Grapple, Launch
 
 # begin pools needs validation area
 region PoolsApproach:
@@ -1878,9 +1886,6 @@ region WestPools:
 area WestPools:  # (-1656, -4171) the west Pools TP
   refill Full
 
-  quest WestPools.ForestsStrength:
-    base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=55, Dash OR Launch #+ 40 region danger
-
   quest EastPools.GrassSeed:
     base: Water, WaterDash
 
@@ -1897,12 +1902,19 @@ area WestPools:  # (-1656, -4171) the west Pools TP
   pickup UpperPools.LowerKS:
     base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash
 
+  conn KwolokFight:
+    base: Water, WaterDash OR DoubleJump OR Launch
   conn UpperPools.KeystoneRoom:
     base, EnemyObstacle:
       Water, WaterDash, Bash, DoubleJump, Dash OR Glide
       Water, WaterDash, Bash, Launch
       WestPools.ForestsStrength, Water, WaterDash, DoubleJump
       WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
+
+area KwolokFight:
+  refill Full
+  quest WestPools.ForestsStrength:
+    base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
 # end pools needs validation area
 
 region WoodsEntry:
@@ -2529,11 +2541,6 @@ area LowerReach.Trial:  # (64, -4046) At trial start
   state LowerReach.BearSneezed:
     base: LowerReach.ForestsMemory  # the game forces Baur awake when collecting the wisp
 
-  quest LowerReach.ForestsMemory:  # not validated, can be turned into wisp pickup later
-    base, LowerReach.ArenaBeaten:
-      Dash, Bash, Grenade=4, Grapple, Glide, Water OR DoubleJump
-      Glide, Bash, Launch
-  
   pickup LowerReach.RightKS:
     base:
       Glide
@@ -2552,9 +2559,22 @@ area LowerReach.Trial:  # (64, -4046) At trial start
       Bash, Grenade=5, Glide, DoubleJump
       Bash, Grenade=4, Glide, Grapple
       Bash, Glide, Launch
+
   # Connections to LowerReach.East would currently be redundant with ArenaBeaten
+  conn LowerReach.SnowEscape:
+    base, LowerReach.ArenaBeaten:
+      Bash, Grenade=5, Glide, DoubleJump
+      Bash, Grenade=4, Glide, Grapple
+      Bash, Glide, Launch
   conn GladesTown.ReachPath:
     base: Glide
+
+area LowerReach.SnowEscape:
+  refill Full
+  quest LowerReach.ForestsMemory:  # currently based on the requirements of getting here as well...
+    base, LowerReach.ArenaBeaten:
+      Dash, Bash, Grapple, Glide, Water OR DoubleJump
+      Bash, Glide, Launch
 
 region UpperDepths:
   base:
@@ -2664,11 +2684,7 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
 
   state UpperDepths.CentralKeystoneDoor:
     base: Keystone=2
-  
-  quest UpperDepths.ForestsEyes:
-    base, Combat, Danger=55:  # +40 region danger
-      DepthsLight, DoubleJump, Dash, Bash, Grapple
-      DepthsLight, Bash, Grapple, Launch
+
   quest UpperDepths.LightcatcherSeed:
     base:
       DepthsLight, DoubleJump, Dash, Grapple
@@ -2694,6 +2710,10 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
       DepthsLight, DoubleJump, Bash, Grenade=1
       DepthsLight, Launch
 
+  conn MoraFight:
+    base:
+      DepthsLight, DoubleJump, Grapple, Dash OR Glide
+      DepthsLight, Launch
   conn UpperDepths.Central:
     base: UpperDepths.CentralKeystoneDoor
   conn UpperDepths.BelowHive:
@@ -2702,6 +2722,13 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
     base, Weapon:
       DepthsLight, DoubleJump, Dash, Grapple
       DepthsLight, Launch
+
+area MoraFight:
+  refill Full
+  quest UpperDepths.ForestsEyes:
+    base, Combat, Danger=95:
+      DepthsLight, Bash, Grapple, DoubleJump OR Dash
+      DepthsLight, Bash, Grapple, Launch
 
 area UpperDepths.Central:  # (423, -4475) The firefly egg to the left of the second keystone door
   refill Checkpoint
@@ -3256,7 +3283,7 @@ area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
   # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here 
   # can softlock after achieving the EscapeComplete state, so this area is only safe as long as it does nothing else than handling that state.
-  quest WindtornRuins.Seir:  # Skills needed to complete the escape. Might have to add a pickup later
+  quest WindtornRuins.Seir:
     base, WindtornRuins.HeartBarrier:
       Burrow, Dash, Grapple, DoubleJump OR Glide
       Burrow, DoubleJump, Glide, Grapple  # I think this is fine?
