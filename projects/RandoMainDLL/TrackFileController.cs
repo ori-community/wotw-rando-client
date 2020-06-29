@@ -8,12 +8,17 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   public class TrackData {
     public int spiritLight;
+    public int keystones;
     public HashSet<String> skills;
     public HashSet<String> events;
+    public HashSet<String> teleporters;
     public TrackData() {
+      keystones = Randomizer.Memory.Keystones;
+
       spiritLight = Randomizer.Memory.Experience;
-      skills = SaveController.Data.SkillsFound.Select((AbilityType type) => type.GetDescription()).ToHashSet();
+      skills = SaveController.Data.SkillsFound.Select((AbilityType type) => SaveController.Data.OpherUpgraded.GetOrElse(type, 0) == 1 ? $"{type.GetDescription()}Upgraded" : type.GetDescription()).ToHashSet();
       events = SaveController.Data.WorldEvents.Select((QuestEventType type) => type.GetDescription()).ToHashSet();
+      teleporters = Teleporter.TeleporterStates.Keys.Where((TeleporterType t) => (new Teleporter(t)).Has()).Select((TeleporterType t) => t.GetDescription()).ToHashSet();
     }
   }
 
