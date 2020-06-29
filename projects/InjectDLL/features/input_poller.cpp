@@ -1,3 +1,5 @@
+#include <common.h>
+#include <constants.h>
 #include <features/input_poller.h>
 
 #include <interception_macros.h>
@@ -60,13 +62,23 @@ InputState const& get_input_state(InputButton button)
 
 void register_input_callback(InputButton button, input_callback callback)
 {
-    input_data[button].callbacks.push_back(callback);
+    auto& callbacks = input_data[button].callbacks;
+    auto it = std::find(callbacks.begin(), callbacks.end(), callback);
+    if (it == callbacks.end())
+        callbacks.push_back(callback);
+    else
+        trace(MessageType::Error, 3, "game", "registering callback multiple times.");
 }
 
-void unregister_input_callback(InputButton button, input_callback callback)
+bool unregister_input_callback(InputButton button, input_callback callback)
 {
     auto& callbacks = input_data[button].callbacks;
     auto it = std::find(callbacks.begin(), callbacks.end(), callback);
     if (it != callbacks.end())
+    {
         callbacks.erase(it);
+        return true;
+    }
+
+    return false;
 }
