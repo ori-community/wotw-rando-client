@@ -144,7 +144,6 @@ writetofile:
 Help(wParam, lParam, Msg) {
     MouseGetPos,,,, OutputVarControl
     ControlGetText, HoverText, %OutputVarControl%
-    Global TTTimeout
     IfEqual, HoverText, Cursor Lock ; Text based recognition didnt seem to work sadly.
         Help := "Locks the cursor to the game window, preventing the mouse from moving off screen."
     else IfEqual, HoverText, Invert Swim Speeds
@@ -167,19 +166,16 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, Use Windows Store
         Help := "Launch the rando using the windows store version of the game."
 
-    else {
-        if(TTTimeout == 0) {
-            TTTimeout := 1
-            SetTimer, DisableTT, -3000
-            return
-        }
-    }
+    else IfEqual, HoverText, Launch with Item Tracker
+        Help := "Automatically open the item tracker when launching the randomizer"
 
+
+    SetTimer, DisableTT, -3000
     ToolTip % Help
 }
 
 DisableTT:
-TTTImeout := 0
+ToolTip,
 return
 
 
