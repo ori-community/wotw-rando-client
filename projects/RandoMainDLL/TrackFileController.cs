@@ -41,12 +41,16 @@ namespace RandoMainDLL {
         Write();
     }
     public static void Write() {
-      Last = new TrackData();
-      if (File.Exists(trackFilePath))
-        File.Delete(trackFilePath);
-      using (var sw = new StreamWriter(trackFilePath))
-        sw.Write(JsonConvert.SerializeObject(Last));
-      IgnoreUpdateFrames = 5;
+      try {
+        Last = new TrackData();
+        if (File.Exists(trackFilePath))
+          File.Delete(trackFilePath);
+        using (var sw = new StreamWriter(trackFilePath))
+          sw.Write(JsonConvert.SerializeObject(Last));
+        IgnoreUpdateFrames = 5;
+      } catch (IOException) {
+        // that's fine
+      }
     }
   }
 }
