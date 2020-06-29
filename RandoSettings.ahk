@@ -4,20 +4,20 @@ SetWorkingDir, %A_ScriptDir%	; start where we at
 
 ; Reading the settings file and setting variables
 inipath = C:\moon\settings.ini
-TTTimeout := 0
 if not (FileExist(inipath)) {
     MsgBox, 16, Ori WotW Rando Settings editor - Error, File C:\moon\settings.ini not found!
     ExitApp, 1
 }
 
-IniRead, varSkipUpdate, %inipath%, Flags, SkipUpdate
-IniRead, varShowShortCutscenes, %inipath%, Flags, ShowShortCutscenes
-IniRead, varShowLongCutscenes, %inipath%, Flags, ShowLongCutscenes
-IniRead, varUseWinStore, %inipath%, Flags, UseWinStore
-IniRead, varCursorLock, %inipath%, Flags, CursorLock
-IniRead, varInvertSwim, %inipath%, Flags, InvertSwim
-IniRead, varDisableDebug, %inipath%, Flags, DisableDebugControls
-IniRead, varDisableQuestSnap, %inipath%, Flags, QuestFocusOnAbility3
+IniRead, varSkipUpdate, %inipath%, Flags, SkipUpdate, false
+IniRead, varLaunchTracker, %inipath%, Flags, LaunchWithTracker, false
+IniRead, varShowShortCutscenes, %inipath%, Flags, ShowShortCutscenes, false
+IniRead, varShowLongCutscenes, %inipath%, Flags, ShowLongCutscenes, false
+IniRead, varUseWinStore, %inipath%, Flags, UseWinStore, false
+IniRead, varCursorLock, %inipath%, Flags, CursorLock, false
+IniRead, varInvertSwim, %inipath%, Flags, InvertSwim, false
+IniRead, varDisableDebug, %inipath%, Flags, DisableDebugControls, false
+IniRead, varDisableQuestSnap, %inipath%, Flags, QuestFocusOnAbility3, false
 
 IniRead, varSteamPath, %inipath%, Paths, Steam
 
@@ -44,6 +44,7 @@ ahkvarInvertSwim := parseBooltoNum(varInvertSwim)
 ahkvarDisableDebug := parseBooltoNum(varDisableDebug)
 ahkvarAutoUpdate := 1-parseBooltoNum(varSkipUpdate)
 ahkvarDisableQuestSnap := parseBooltoNum(varDisableQuestSnap)
+ahkVarLaunchTracker := parseBooltoNum(varLaunchTracker)
 
 ; Adding all the buttons and text in the Window.
 
@@ -77,7 +78,10 @@ Gui, Add, Checkbox, x%col2% ys checked%ahkvarShowShortCutscenes% vahkvarShowShor
 Gui, Add, Text, x20 section, Restore Long Cutscenes
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarShowLongCutscenes% vahkvarShowLongCutscenes gwritetofile
 
-Gui, Add, Text, x20 y+30 section, Automatic Updates
+Gui, Add, Text, x20 y+30 section, Launch with Item Tracker
+Gui, Add, Checkbox, x%col2% ys checked%ahkvarLaunchTracker% vahkvarLaunchTracker gwritetofile
+
+Gui, Add, Text, x20 section, Automatic Updates
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarAutoUpdate% vahkvarAutoUpdate gwritetofile
 
 Gui, Add, Text, x20 section, Use Windows Store
@@ -124,6 +128,7 @@ writetofile:
     varInvertSwim := parseNumtoBool(ahkvarInvertSwim)
     varDisableDebug := parseNumToBool(ahkvarDisableDebug)
     varDisableQuestSnap := parseNumtoBool(ahkvarDisableQuestSnap)
+    varLaunchTracker := parseNumtoBool(ahkvarLaunchTracker)
 
     varSkipUpdate := parseNumtoBool(1-ahkvarAutoUpdate)
 
@@ -136,6 +141,7 @@ writetofile:
     IniWrite, %varInvertSwim%, %inipath%, Flags, InvertSwim
     IniWrite, %varDisableDebug%, %inipath%, Flags, DisableDebugControls
     IniWrite, %varDisableQuestSnap%, %inipath%, Flags, QuestFocusOnAbility3
+    IniWrite, %varLaunchTracker%, %inipath%, Flags, LaunchWithTracker
 
     IniWrite, %varSteamPath%, %inipath%, Paths, Steam
     return
@@ -144,7 +150,6 @@ writetofile:
 Help(wParam, lParam, Msg) {
     MouseGetPos,,,, OutputVarControl
     ControlGetText, HoverText, %OutputVarControl%
-    Global TTTimeout
     IfEqual, HoverText, Cursor Lock ; Text based recognition didnt seem to work sadly.
         Help := "Locks the cursor to the game window, preventing the mouse from moving off screen."
     else IfEqual, HoverText, Invert Swim Speeds
@@ -167,19 +172,16 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, Use Windows Store
         Help := "Launch the rando using the windows store version of the game."
 
-    else {
-        if(TTTimeout == 0) {
-            TTTimeout := 1
-            SetTimer, DisableTT, -3000
-            return
-        }
-    }
+    else IfEqual, HoverText, Launch with Item Tracker
+        Help := "Automatically open the item tracker when launching the randomizer"
 
+
+    SetTimer, DisableTT, -3000
     ToolTip % Help
 }
 
 DisableTT:
-TTTImeout := 0
+ToolTip,
 return
 
 
