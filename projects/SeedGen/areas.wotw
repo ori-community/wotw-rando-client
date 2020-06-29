@@ -2827,6 +2827,7 @@ area LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
     base:
       DoubleJump, Grapple
       Bash, Grenade=1, DoubleJump OR Dash
+      DoubleJump, Burrow
       Launch
   conn WoodsMain.FeedingGrounds:
     base: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
