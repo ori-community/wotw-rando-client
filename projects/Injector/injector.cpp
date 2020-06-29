@@ -1,5 +1,6 @@
 #include <Common/ext.h>
 
+#include <conio.h>
 #include <iostream>
 #include <stdio.h>
 #include <string>
@@ -107,7 +108,7 @@ void listen_for_ori()
 {
     while (true) {
         if (shutting_down)
-            return;
+            break;;
 
         HWND window = FindWindow(nullptr, "OriAndTheWilloftheWisps");
         if (window == 0)
@@ -172,20 +173,19 @@ int actual_main()
         return -1;
     }
 
-
     //load_dll(process_handle, load_function, base_path + dll_name);
     const char path[] = "C:\\moon\\InjectLoader.dll";
     if (load_dll(process_handle, load_function, path, sizeof(path) + 1))
     {
         std::thread thread(listen_for_ori);
         
-        logstream << "injected successfully, continue to exit Ori" << std::endl;
-        system("pause");
+        logstream << "injected successfully, press any key to exit Ori" << std::endl;
+        while (!kbhit() && !shutting_down) {}
+
         // This might be bad, if we do this while we are in
         // the middle of saving we might corrupt the save...
         TerminateProcess(process_handle, 0);
         shutting_down = true;
-        thread.join();
     }
     else
         logstream << "failed to inject" << std::endl;
@@ -198,6 +198,8 @@ int main(int, char**)
 {
     auto ret = actual_main();
     logstream << "main return was " << ret << std::endl;
-    system("pause");
+    if (ret != 0)
+        system("pause");
+
     return ret;
 }
