@@ -1366,6 +1366,7 @@ area InnerWellspring.EastDoor:  # (-1180, -3732) Inside the door leading to the 
       Grapple, DoubleJump OR Dash
       Grapple, Bash, Grenade=1
       Launch
+    advanced:
       Water, DoubleJump, Dash OR Glide
   state InnerWellspring.TopDoorOpen:
     base, InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Weapon:
