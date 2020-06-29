@@ -214,6 +214,7 @@ FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
 FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
 FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
 FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
+FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
 FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
 	FileCopy, %A_ScriptFullPath%, %WOTWREXE%
