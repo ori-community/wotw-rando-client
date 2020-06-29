@@ -205,6 +205,7 @@ WestPools.BurrowEX, Luma Pools, SpiritLight, 200, lumaPoolsStateGroup, 5377, xpO
 WestPools.BurrowOre, Luma Pools, Resource, Ore, lumaPoolsStateGroup, 5377, gorlekOreA, 65019, -1770, -4125
 WestPools.TpEX, Luma Pools, SpiritLight, 50, lumaPoolsStateGroup, 5377, xpOrbA, 25391, -1650, -4160
 WestPools.EscapeRevisitEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbA, 44122, -1654, -4143
+WestPools.ForestsStrength, Luma Pools, Wisp, Strength, lagoonStateGroup, 945, bossReward, 49747, -1928, -4066
 WoodsEntry.DollQI, Silent Woods, Quest, Doll, questUberStateGroup, 14019, familyReunionItemCollected, 57399, 441, -4119
 WoodsEntry.TreeSeed, Silent Woods, Quest, Seed, questUberStateGroup, 14019, gardenerSeedTreeCollected, 7470, 513, -4159
 WoodsEntry.MudPitEX, Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, CollectibleXpA, 8487, 514, -4185
@@ -252,6 +253,7 @@ LowerReach.RoofLeftEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xp
 LowerReach.RoofRightEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbB, 46711, -72, -3951
 LowerReach.FractureShard, Baurs Reach, Shard, Fracture, pickupsGroup, 23987, fractureShardPickup, 36359, -81, -4001
 LowerReach.EscapeRevisitEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xpOrbB, 46404, 71, -3731
+LowerReach.ForestsMemory, Baurs Reach, Wisp, Memory, baursReachGroup, 28895, wispRewardPickup, 25522, -428, -4030
 LowerReach.RightKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025
 LowerReach.UpperLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneC, 10823, -84, -4025
 LowerReach.MiddleLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneB, 37444, -80, -4040
@@ -285,6 +287,7 @@ UpperDepths.LightcatcherSeed, Mouldwood Depths, Quest, Seed, questUberStateGroup
 UpperDepths.BossPathEX, Mouldwood Depths, SpiritLight, 200, mouldwoodDepthsGroup, 18793, XPOrbA, 18395, 567, -4443
 UpperDepths.KeystoneHC, Mouldwood Depths, Resource, Life, mouldwoodDepthsGroup, 18793, healthCellB, 42235, 531, -4452
 UpperDepths.HiveEX, Mouldwood Depths, SpiritLight, 100, mouldwoodDepthsGroup, 18793, expOrbB, 6573, 425, -4385
+UpperDepths.ForestsEyes, Mouldwood Depths, Wisp, Eyes, mouldwoodDepthsGroup, 18793, bossReward, 63291, 687, -4386
 LowerDepths.RaceStartHC, Mouldwood Depths, Resource, Life, mouldwoodDepthsGroup, 18793, healthCellA, 62694, 496, -4499
 LowerDepths.BelowDoorOre, Mouldwood Depths, Resource, Ore, mouldwoodDepthsGroup, 18793, orePickupA, 836, 436, -4507
 LowerDepths.SpiritSurgeShard, Mouldwood Depths, Shard, SpiritSurge, pickupsGroup, 23987, spiritPowerShardPickup, 986, 564, -4571
@@ -334,6 +337,7 @@ UpperWastes.SpinLasersLowerEX, Windswept Wastes, SpiritLight, 100, desertAGroup,
 UpperWastes.FlowersSeed, Windswept Wastes, Quest, Seed, questUberStateGroup, 14019, gardenerSeedFlowersCollected, 20601, 1996, -3651
 UpperWastes.WallOre, Windswept Wastes, Resource, Ore, desertAGroup, 7228, gorlekOre, 8370, 1952, -3616
 WindtornRuins.EscapeRevisitEC, Windtorn Ruins, Resource, Energy, windtornRuinsGroup, 10289, energyHalfCell, 44555, 2054, -4050
+WindtornRuins.Seir, Windtorn Ruins, Wisp, Seir, windtornRuinsGroup, 10289, wispRewardPickup, 22102, 2056, -3568
 WindtornRuins.HandToHandComplete, Windtorn Ruins, Quest, Secrets, questUberStateGroup, 14019, tradeSequenceQuest, 26318=11, 1969, -4024
 WeepingRidge.Ore, Silent Woods, Resource, Ore, corruptedPeakGroup, 36153, gorlekOreA, 3013, 1305, -3732
 WeepingRidge.LaunchTree, Silent Woods, Ability, Launch, treesDontWorry, 0, Launch, 8, 1363, -3815
