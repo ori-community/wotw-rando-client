@@ -7,6 +7,7 @@ SetWorkingDir, %A_ScriptDir%
 ; TODO Decide on keeping/removing manual toggling
 
 version := "v0.1.1"
+TTTimeout := 0
 
 ; -------------------------------------
 ; Startup stuff
@@ -68,8 +69,8 @@ FileInstall, .\img\WeaponUpgrade1.png, .\img\WeaponUpgrade1.png
 FileInstall, .\img\Weaponupgrade1_unlocked.png, .\img\Weaponupgrade1_unlocked.png
 FileInstall, .\img\WeaponUpgrade2.png, .\img\WeaponUpgrade2.png
 FileInstall, .\img\WeaponUpgrade2_unlocked.png, .\img\WeaponUpgrade2_unlocked.png
+FileInstall, .\img\GorlekOre.png, .\img\GorlekOre.png
 
-TTTimeout := 0
 
 If !WatchFolder("C:\moon", "parsechanges",, 8) {
     MsgBox, 0, Error, Error starting the tracker: Call of WatchFolder() failed!
@@ -106,41 +107,41 @@ Gui, Font, s15 cwhite
 Gui, Add, Text, , Ori WotW AutoTracker
 
 first_row = y40
-Gui, Add, Picture, vDash x0 %first_row% h75 w75 gclick, .\img\Dash.png
-Gui, Add, Picture, vBash xp+80 %first_row% h75 w75 gclick, .\img\Bash.png
-Gui, Add, Picture, vBurrow xp+80 %first_row% h75 w75 gclick, .\img\Burrow.png
-Gui, Add, Picture, vlaunch xp+80 %first_row% h75 w75 gclick, .\img\Launch.png
+Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75 gclick, .\img\DoubleJump.png
+Gui, Add, Picture, vRegenerate xp+80 %first_row% h75 w75 gclick, .\img\Regen.png
+Gui, Add, Picture, vBow xp+80 %first_row% h75 w75 gclick, .\img\Bow.png
+Gui, Add, Picture, vDash xp+80 %first_row% h75 w75 gclick, .\img\Dash.png
 
 second_row = y120
-Gui, Add, Picture, vDoubleJump x0 %second_row% h75 w75 gclick, .\img\DoubleJump.png
-Gui, Add, Picture, vBow xp+80 %second_row% h75 w75 gclick, .\img\Bow.png
+Gui, Add, Picture, vBash x0 %second_row% h75 w75 gclick, .\img\Bash.png
 Gui, Add, Picture, VGrapple xp+80 %second_row% h75 w75 gclick, .\img\Grapple.png
 Gui, Add, Picture, vFeather xp+80 %second_row% h75 w75 gclick, .\img\Feather.png
+Gui, Add, Picture, vFlap xp+80 %second_row% h75 w75 gclick, .\img\Flap.png
 
 third_row = y200
 Gui, Add, Picture, vLightBurst x0 %third_row% h75 w75 gclick, .\img\LightBurst.png
-Gui, Add, Picture, vSentry xp+80 %third_row% h75 w75 gclick, .\img\Sentry.png
-Gui, Add, Picture, vRegenerate xp+80 %third_row% h75 w75 gclick, .\img\Regen.png
-Gui, Add, Picture, vFlap xp+80 %third_row% h75 w75 gclick, .\img\Flap.png
+Gui, Add, Picture, vFlash xp+80 %third_row% h75 w75 gclick, .\img\Flash.png
+Gui, Add, Picture, vWaterDash xp+80 %third_row% h75 w75 gclick, .\img\WaterDash.png
+Gui, Add, Picture, vBurrow xp+80 %third_row% h75 w75 gclick, .\img\Burrow.png
 
 fourth_row = y280
-Gui, Add, Picture, vFlash x0 %fourth_row% h75 w75 gclick, .\img\Flash.png
-Gui, Add, Picture, vWaterBreath xp+80 %fourth_row% h75 w75 gclick, .\img\WaterBreath.png
-Gui, Add, Picture, vWaterDash xp+80 %fourth_row% h75 w75 gclick, .\img\WaterDash.png
+Gui, Add, Picture, vlaunch x0 %fourth_row% h75 w75 gclick, .\img\Launch.png
+Gui, Add, Picture, vSentry xp+80 %fourth_row% h75 w75 gclick, .\img\Sentry.png
 Gui, Add, Picture, VHammer xp+80 %fourth_row% h75 w75 gclick, .\img\Hammer.png
+Gui, Add, Picture, vShuriken xp+80 %fourth_row% h75 w75 gclick, .\img\Shuriken.png
 
 fifth_row = y360
-Gui, Add, Picture, vShuriken x0 %fifth_row% h75 w75 gclick, .\img\Shuriken.png
-Gui, Add, Picture, vSpike xp+80 %fifth_row% h75 w75 gclick, .\img\Spike.png
+Gui, Add, Picture, vSpike x0 %fifth_row% h75 w75 gclick, .\img\Spike.png
 Gui, Add, Picture, vBlaze xp+80 %fifth_row% h75 w75 gclick, .\img\Blaze.png
+Gui, Add, Picture, vWaterBreath xp+80 %fifth_row% h75 w75 gclick, .\img\WaterBreath.png
 Gui, Add, Picture, vWeaponUpgrade xp+80 %fifth_row% h75 w75 gclick, .\img\WeaponUpgrade1.png
 
 sixth_row = y440
 Gui, Add, Picture, x0 %sixth_row% h75 w75, .\img\SpiritLight.png
 Gui, Add, Text, vSpiritLight x65 y465 w50, 0
 
-Gui, Add, Picture, x125 %sixth_row% h75 w75, .\img\Keystone.png
-Gui, Add, Text, vKeystones x190 y465 w50, 0
+Gui, Add, Picture, x125 %sixth_row% h75 w75, .\img\GorlekOre.png
+Gui, Add, Text, vGorlekOre x190 y465 w50, 0
 
 Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, .\img\CompleteWatermillEscape.png
 
@@ -193,31 +194,28 @@ parsechanges(Folder, Changes) {
             events := inventory.events
             spiritlight := inventory.spiritlight
             Keystones := inventory.keystones
+            GorlekOre := inventory.ore
 
             For index, skill in skills
-                if (skill == "Dash" and skillstate["Dash"] == 0) {
+                if (skill == "Double Jump" and skillstate["DoubleJump"] == 0) {
+                    GuiControl , ,DoubleJump , .\img\DoubleJump_unlocked.png
+                    skillstate["DoubleJump"] := 1
+                }
+                else if (skill == "Regenerate" and skillstate["Regenerate"] == 0) {
+                    GuiControl , ,Regenerate , .\img\Regen_unlocked.png
+                    skillstate["Regenerate"] := 1
+                }
+                else if (skill == "Bow" and skillstate["Bow"] == 0) {
+                    GuiControl , ,Bow , .\img\Bow_unlocked.png
+                    skillstate["Bow"] := 1
+                }
+                else if (skill == "Dash" and skillstate["Dash"] == 0) {
                     GuiControl , ,Dash , .\img\Dash_unlocked.png
                     skillstate["Dash"] := 1
                 }
                 else if (skill == "Bash" and skillstate["Bash"] == 0) {
                     GuiControl , ,Bash , .\img\Bash_unlocked.png
                     skillstate["Bash"] := 1
-                }
-                else if (skill == "Burrow" and skillstate["Burrow"] == 0) {
-                    GuiControl , ,Burrow , .\img\Burrow_unlocked.png
-                    skillstate["Burrow"] := 1
-                }
-                else if (skill == "Launch" and skillstate["Launch"] == 0) {
-                    GuiControl , ,Launch , .\img\Launch_unlocked.png
-                    skillstate["Launch"] := 1
-                }
-                else if (skill == "Double Jump" and skillstate["DoubleJump"] == 0) {
-                    GuiControl , ,DoubleJump , .\img\DoubleJump_unlocked.png
-                    skillstate["DoubleJump"] := 1
-                }
-                else if (skill == "Bow" and skillstate["Bow"] == 0) {
-                    GuiControl , ,Bow , .\img\Bow_unlocked.png
-                    skillstate["Bow"] := 1
                 }
                 else if (skill == "Grapple" and skillstate["Grapple"] == 0) {
                     GuiControl , ,Grapple , .\img\Grapple_unlocked.png
@@ -231,18 +229,6 @@ parsechanges(Folder, Changes) {
                     GuiControl , ,LightBurst , .\img\LightBurst_unlocked.png
                     skillstate["LightBurst"] := 1
                 }
-                else if (skill == "Sentry" and skillstate["Sentry"] == 0) {
-                    GuiControl , ,Sentry , .\img\Sentry_unlocked.png
-                    skillstate["Sentry"] := 1
-                }
-                else if (skill == "SentryUpgraded" and skillstate["Sentry"] == 1) {
-                    GuiControl , ,Sentry , .\img\Sentry_upgrade.png
-                    skillstate["Sentry"] := 2
-                }
-                else if (skill == "Regenerate" and skillstate["Regenerate"] == 0) {
-                    GuiControl , ,Regenerate , .\img\Regen_unlocked.png
-                    skillstate["Regenerate"] := 1
-                }
                 else if (skill == "Flap" and skillstate["Flap"] == 0) {
                     GuiControl , ,Flap , .\img\Flap_unlocked.png
                     skillstate["Flap"] := 1
@@ -251,14 +237,26 @@ parsechanges(Folder, Changes) {
                     GuiControl , ,Flash , .\img\Flash_unlocked.png
                     skillstate["Flash"] := 1
                 }
-                else if (skill == "Water Breath" and skillstate["WaterBreath"] == 0) { 
-                    GuiControl , ,WaterBreath , .\img\WaterBreath_unlocked.png
-                    skillstate["WaterBreath"] := 1
-                }
                 else if (skill == "Water Dash" and skillstate["WaterDash"] == 0) {
                     GuiControl , ,WaterDash , .\img\WaterDash_unlocked.png
                     skillstate["WaterDash"] := 1
                 }
+                 else if (skill == "Burrow" and skillstate["Burrow"] == 0) {
+                    GuiControl , ,Burrow , .\img\Burrow_unlocked.png
+                    skillstate["Burrow"] := 1
+                }
+                else if (skill == "Launch" and skillstate["Launch"] == 0) {
+                    GuiControl , ,Launch , .\img\Launch_unlocked.png
+                    skillstate["Launch"] := 1
+                }
+                else if (skill == "Sentry" and skillstate["Sentry"] == 0) {
+                    GuiControl , ,Sentry , .\img\Sentry_unlocked.png
+                    skillstate["Sentry"] := 1
+                }
+                else if (skill == "SentryUpgraded" and skillstate["Sentry"] == 1) {
+                    GuiControl , ,Sentry , .\img\Sentry_upgrade.png
+                    skillstate["Sentry"] := 2
+                }                
                 else if (skill == "Hammer" and skillstate["Hammer"] == 0) {
                     GuiControl , ,Hammer , .\img\Hammer_unlocked.png
                     skillstate["Hammer"] := 1
@@ -291,6 +289,10 @@ parsechanges(Folder, Changes) {
                     GuiControl , ,Blaze , .\img\Blaze_upgrade.png
                     skillstate["Blaze"] := 2
                 }
+                else if (skill == "Water Breath" and skillstate["WaterBreath"] == 0) { 
+                    GuiControl , ,WaterBreath , .\img\WaterBreath_unlocked.png
+                    skillstate["WaterBreath"] := 1
+                }
                 else if (skill == "Ancestral Light" and skillstate["WeaponUpgrade"] == 0) {
                     GuiControl , ,WeaponUpgrade1 , .\img\WeaponUpgrade1_unlocked.png
                     skillstate["WeaponUpgrade"] := 1
@@ -306,8 +308,8 @@ parsechanges(Folder, Changes) {
                 }
 
             GuiControl,, SpiritLight, % Spiritlight
-            GuiControl,, Keystones, % Keystones
-            
+            GuiControl,, GorlekOre, % GorlekOre
+
             ; Store last inventory to check against with next proc
             currentinv := jsonString
         }
@@ -315,9 +317,9 @@ parsechanges(Folder, Changes) {
 
 ; Hover text for each of the items.
 Help(wParam, lParam, Msg) {
+    Global TTTimeout
     MouseGetPos,,,, OutputVarControl
     ControlGetText, HoverText, %OutputVarControl%
-    Global TTTimeout
     IfEqual, HoverText, .\img\Bash.png
         Help := "Bash"
     else IfEqual, HoverText, .\img\Bow.png
@@ -349,7 +351,7 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, .\img\Hammer.png
         Help := "Hammer"
     else IfEqual, HoverText, .\img\Shuriken.png
-        Help := "Shuriken"
+        Help := "Shuriken | Chakra"
     else IfEqual, HoverText, .\img\Spike.png
         Help := "Spear | Spike"
     else IfEqual, HoverText, .\img\Blaze.png
@@ -360,12 +362,15 @@ Help(wParam, lParam, Msg) {
         Help := "Burrow"
     else IfEqual, HoverText, .\img\Flap.png
         Help := "Flap"
+    else IfEqual, HoverText, .\img\WeaponUpgrade1.png
+        Help := "Ancestral Light"
     else IfEqual, HoverText, .\img\SpiritLight.png
         Help := "Spirit Light"
-    else IfEqual, HoverText, .\img\Keystone.png
-        Help := "Keystones"
+    else IfEqual, HoverText, .\img\GorlekOre.png
+        Help := "Gorlek Ore"
     else IfEqual, HoverText, .\img\CompleteWatermillEscape.png
         Help := "Clean Water"
+    
     else {
         if(TTTimeout == 0) {
             TTTimeout := 1
@@ -378,9 +383,42 @@ Help(wParam, lParam, Msg) {
 }
 
 DisableTT:
-TTTImeout := 0
-return
+    TTTImeout := 0
+    ToolTip, 
+    return
+
+
+; Reset the tracker
++F5::
+    global skillstate
+    For index, value in skillstate
+        skillstate[index] := 0
+
+    GuiControl,, Dash, .\img\Dash.png
+    GuiControl,, Bash, .\img\Bash.png
+    GuiControl,, Burrow, .\img\Burrow.png
+    GuiControl,, launch, .\img\Launch.png
+    GuiControl,, DoubleJump, .\img\DoubleJump.png
+    GuiControl,, Bow, .\img\Bow.png
+    GuiControl,, Grapple, .\img\Grapple.png
+    GuiControl,, Feather, .\img\Feather.png
+    GuiControl,, LightBurst, .\img\LightBurst.png
+    GuiControl,, Sentry, .\img\Sentry.png
+    GuiControl,, Regenerate, .\img\Regen.png
+    GuiControl,, Flap, .\img\Flap.png
+    GuiControl,, Flash, .\img\Flash.png
+    GuiControl,, WaterBreath, .\img\WaterBreath.png
+    GuiControl,, WaterDash, .\img\WaterDash.png
+    GuiControl,, Hammer, .\img\Hammer.png
+    GuiControl,, Shuriken, .\img\Shuriken.png
+    GuiControl,, Spike, .\img\Spike.png
+    GuiControl,, Blaze, .\img\Blaze.png
+    GuiControl,, WeaponUpgrade, .\img\WeaponUpgrade1.png
+
+    GuiControl, Hide, CleanWater
+    GuiControl,, SpiritLight, % 0
+    GuiControl,, GorlekOre, % 0
+    return
 
 GuiClose:
     ExitApp
-
