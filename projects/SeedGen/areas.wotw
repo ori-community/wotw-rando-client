@@ -179,7 +179,7 @@ area MarshSpawn.PoolsBurrowsPath:  # (-887, -4435) the waypoint between pools, b
     base: Bash, DoubleJump OR Launch
   pickup MarshSpawn.CrusherSwimEX:
     base: Water, WaterDash, Bash, DoubleJump OR Dash OR Launch
-  pickup MidnightBurrows.DamageTree:
+  pickup MarshSpawn.DamageTree:
     base:
       Bash, DoubleJump, Glide
       Bash, Launch
