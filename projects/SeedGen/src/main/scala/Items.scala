@@ -35,7 +35,7 @@ package SeedGenerator {
 
   case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.2f }
   case object Energy extends Resource(1, "Half-Energy Cell")
-  case object Ore extends Resource(2, "Gorlek Ore") { override val cost = 0.1f }
+  case object Ore extends Resource(2, "Gorlek Ore")
   case object Keystone extends Resource(3, "Keystone")
   case object ShardSlot extends Resource(4, "Shard Slot")
 
@@ -317,6 +317,7 @@ package SeedGenerator {
         case Health => (Health, this(Health) + other(Health))
         case Energy => (Energy, this(Energy) + other(Energy))
         case Keystone => (Keystone, this(Keystone) + other(Keystone))
+        case Ore => (Ore, this(Ore) + other(Ore))
         case i => (i, Math.max(this (i), other(i)))
       }): _*)
     }
