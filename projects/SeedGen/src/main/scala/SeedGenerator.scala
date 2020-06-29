@@ -370,7 +370,7 @@ package SeedGenerator {
     }
   }
   object PlacementGroup {
-    def debugPrint(x: Any)(implicit debug: Boolean = false): Unit = if(debug) println(x)
+    def debugPrint(x: Any): Unit = UI.log(x)
     def trymk(inState: GameState, i:Int=0)
              (implicit r: Random, pool: Inv, debug: Boolean = false): Either[GeneratorError, PlacementGroup] = Try {
       Timer("pg.mk")(mk(inState, i))
@@ -596,8 +596,8 @@ object Runner {
         println(s"Generated seed in ${(t1-t0)/1000f}s")
       s
     }
-    def apply(advanced: Boolean = false, debug: Boolean = false): Unit = {
-      val file = new File(s"seeds/seed_0.wotwr")
+    def apply(advanced: Boolean = false, debug: Boolean = false, writeTo: String = "seeds/seed_0.wotwr"): Unit = {
+      val file = new File(writeTo)
       val bw = new BufferedWriter(new FileWriter(file))
       bw.write(forceGetSeed(advanced, debug = debug))
       bw.close()

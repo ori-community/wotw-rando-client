@@ -19,6 +19,8 @@ InjectDLL.log
 /Debug
 /obj
 /.vsold/
+**/target/
+projects/Web/wotw-rando-seedgen/null
 projects/SeedGen/out
 projects/SeedGen/seeds
 projects/SeedGen/project*
