@@ -1,3 +1,5 @@
+#include <common.h>
+#include <constants.h>
 #include <features/input_poller.h>
 
 #include <interception_macros.h>
