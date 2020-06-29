@@ -10,6 +10,7 @@ set(
 	SOURCE_FILES
 	"bootstrap.cpp"
     "csharp_bridge.cpp"
+	"dev_commands.cpp"
 	"dll_main.cpp"
 	"interception.cpp"
 	"features/difficulty.cpp"
@@ -39,6 +40,7 @@ set(
 	"common.h"
 	"constants.h"
     "csharp_bridge.h"
+	"dev_commands.h"
 	"dll_main.h"
     "enum_definitions.h"
 	"framework.h"
