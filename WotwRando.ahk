@@ -180,6 +180,10 @@ else
 	Run, *RunAs shell:AppsFolder\Microsoft.Patagonia_8wekyb3d8bbwe!App
 
 Run, *RunAs %INJECTOR%,,%maybehide%
+if(LaunchWithTracker != "false")
+	ifWinNotExist, ahk_exe ItemTracker.exe
+		Run, %INSTALL_DIR%ItemTracker.exe
+return
 return
 
 ReadIniVals:
@@ -191,6 +195,7 @@ IniRead, MuteCSLogs, %INI_FILE%, Flags, MuteCSLogs, false
 IniRead, ShowShortCutscenes, %INI_FILE%, Flags, ShowShortCutscenes, false
 IniRead, ShowLongCutscenes, %INI_FILE%, Flags, ShowLongCutscenes, false
 IniRead, WinStore, %INI_FILE%, Flags, UseWinStore, false
+IniRead, LaunchWithTracker, %INI_FILE%, Flags, LaunchWithTracker, false
 return
 
 WriteIniDefaults:
