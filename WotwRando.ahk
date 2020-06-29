@@ -14,9 +14,8 @@ WOTWREXE := INSTALL_DIR . "WotwRando.exe"
 NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
 DELETEME := INSTALL_DIR . ".deleteme"
 
-; this is just for the download bar; the exe is currently basically always 48 MB
-NewSetting := "Launch with Item Tracker"
-FILE_SIZE := 48
+; change this when a new setting is added
+NewSetting := ""
 
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
