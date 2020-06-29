@@ -3,8 +3,6 @@
 #include <dev_commands.h>
 #include <Common/ext.h>
 
-bool enable_goal_teleport = false;
-
 namespace
 {
     struct BoundingRect
@@ -42,6 +40,7 @@ namespace
     STATIC_CLASS(71818456, Game_UI_Cameras_c*, cameras);
     BINDING(4110512, void, GameplayCamera__MoveCameraToTargetInstantly, (GameplayCamera_o* this_ptr, bool updateTargetPosition));
 
+    bool enable_goal_teleport = false;
     bool set_camera_next_update = false;
     INTERCEPT(10977184, void, SeinCharacter__FixedUpdate, (SeinCharacter_o* this_ptr)) {
         if (enable_goal_teleport)
@@ -84,4 +83,9 @@ namespace
     }
 
     CALL_ON_INIT(add_goal_commands);
+}
+
+INJECT_C_DLLEXPORT void lock_shriek_goal(bool value)
+{
+    enable_goal_teleport = value;
 }
