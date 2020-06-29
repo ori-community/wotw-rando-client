@@ -59,7 +59,7 @@ namespace gui_engine {
 
         bool show_another_window = false;
         ImVec4 clear_color = { 0.45f, 0.55f, 0.60f, 1.00f };
-        gui.last_time = std::chrono::system_clock::now();
+        gui.last_time = std::chrono::high_resolution_clock::now();
 
         init(gui);
 

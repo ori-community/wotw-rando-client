@@ -157,7 +157,7 @@ MessageBox_o * display_hint(System_String_o * hint, float duration)
     try
     {
         clear_visible_hints();
-        const auto message_controller = g_ui->static_fields->MessageController;
+        const auto message_controller = (*g_ui)->static_fields->MessageController;
         auto last_box = MessageControllerB__ShowHintSmallMessage(message_controller, MessageDescriptor_o{hint, 0, nullptr, nullptr}, print_position, duration);
         last_box->MessageIndex = 1;
         last_handle = il2cpp_gchandle_new_weakref((Il2CppObject*) last_box, true);

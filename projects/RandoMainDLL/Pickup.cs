@@ -194,8 +194,9 @@ namespace RandoMainDLL {
   }
 
   public class Teleporter : Checkable {
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.TrimStart(new char[] { '-' }).ParseToByte());
     public Teleporter(TeleporterType teleporter) => type = teleporter;
-
+    public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
@@ -236,9 +237,21 @@ namespace RandoMainDLL {
       return !(str is null) ? $"{str} TP" : $"Unknown Teleporter {type}";
     }
   }
-
+  public class RemoveTeleporter : Pickup {
+    public RemoveTeleporter(TeleporterType ability) => type = ability;
+    public override bool NeedsMagic() => true;
+    public override PickupType Type => PickupType.Teleporter;
+    public readonly TeleporterType type;
+    private List<UberState> states() => Teleporter.TeleporterStates.GetOrElse(type, new List<UberState>());
+    public override void Grant(bool skipBase = false) {
+      states().ForEach((s) => s.Write(new UberValue(true)));
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Teleporter {type}";
+  }
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Ability((AbilityType)value.ParseToByte()) : new RemoveAbility((AbilityType)value.TrimStart(new char[]{'-'}).ParseToByte());
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
     public override bool Has() => SaveController.HasAbility(type);
@@ -253,10 +266,21 @@ namespace RandoMainDLL {
     public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown Ability {type}";
   }
 
+  public class RemoveAbility : Pickup {
+    public RemoveAbility(AbilityType ability) => type = ability;
+    public override PickupType Type => PickupType.Ability;
+    public readonly AbilityType type;
+    public override void Grant(bool skipBase = false) {
+      SaveController.SetAbility(type, false);
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Ability {type}";
+  }
+
   public class Shard : Checkable {
     public override bool NeedsMagic() => true;
     public Shard(ShardType shard) => type = shard;
-
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Shard((ShardType)value.ParseToByte()) : new RemoveShard((ShardType)value.TrimStart(new char[] { '-' }).ParseToByte());
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
     public override bool Has() {
@@ -274,6 +298,16 @@ namespace RandoMainDLL {
 
     public override int DefaultCost() => 300;
     public override string ToString() => $"${type.GetDescription()}$" ?? $"Unknown Shard {type}";
+  }
+  public class RemoveShard: Pickup {
+    public RemoveShard(ShardType shard) => type = shard;
+    public override PickupType Type => PickupType.Shard;
+    public readonly ShardType type;
+    public override void Grant(bool skipBase = false) {
+      Randomizer.Memory.SetShard(type, false);
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Shard {type}";
   }
 
   public class Cash : Pickup {
@@ -303,7 +337,7 @@ namespace RandoMainDLL {
     public override bool Has() => SaveController.Data.WorldEvents.Contains(type);
 
     public override void Grant(bool skipBase = false) {
-      SaveController.Data.WorldEvents.Add(type);
+      SaveController.SetEvent(type);
       switch (type) {
         case QuestEventType.Water:
           // marks the escape as complete if you get clean water

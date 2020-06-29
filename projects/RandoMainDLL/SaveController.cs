@@ -49,6 +49,7 @@ namespace RandoMainDLL {
             var serializer = new JsonSerializer();
             serializer.Serialize(writer, this);
           }
+        TrackFileController.Write();
       }
       public void Load(int backup = -1) {
         string targetFile = fullName(backup);
@@ -68,6 +69,7 @@ namespace RandoMainDLL {
         SkillsFound = new HashSet<AbilityType>(copyFrom?.SkillsFound ?? new HashSet<AbilityType>());
         FoundCount = copyFrom.FoundCount;
         KSBought = copyFrom.KSBought;
+        TrackFileController.Write();
       }
     }
     public static bool HasAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
@@ -81,7 +83,16 @@ namespace RandoMainDLL {
       if (ability.Equip().HasValue)
         InterOp.set_equipment(ability.Equip().Value, setTo);
 
+      TrackFileController.Write();
     }
+    public static void SetEvent(QuestEventType ev, bool setTo = true) {
+      if (setTo)
+        Data.WorldEvents.Add(ev);
+      else
+        Data.WorldEvents.Remove(ev);
+      TrackFileController.Write();
+    }
+
     public static SaveData Data;
     public static int CurrentSlot = -1;
 
