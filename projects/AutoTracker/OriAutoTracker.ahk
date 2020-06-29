@@ -6,7 +6,7 @@ SetWorkingDir, %A_ScriptDir%
 
 ; TODO Decide on keeping/removing manual toggling
 
-version := "v0.1.1"
+version := "v0.1.2"
 TTTimeout := 0
 
 ; -------------------------------------
