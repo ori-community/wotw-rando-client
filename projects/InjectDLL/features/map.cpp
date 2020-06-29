@@ -66,6 +66,7 @@ namespace {
 
     AreaMapNavigation_o* cached = nullptr;
     INTERCEPT(4840480, void, AreaMapUI__Show, (AreaMapUI_o* this_ptr)) {
+        AreaMapUI__Show(this_ptr);
         if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
         {
             cached = this_ptr->_Navigation_k__BackingField;
@@ -74,9 +75,12 @@ namespace {
     }
         
     INTERCEPT(4839760, void, AreaMapUI__Hide, (AreaMapUI_o* this_ptr)) {
+        AreaMapUI__Hide(this_ptr);
         if (cached != nullptr)
         {
-            unregister_input_callback(FOCUS_BUTTON, update_map_focus);
+            if (!unregister_input_callback(FOCUS_BUTTON, update_map_focus))
+                trace(MessageType::Error, 2, "game", "Failed to unregister map focus callback.");
+
             cached = nullptr;
         }
     }
@@ -102,6 +106,13 @@ namespace {
 
     void update_map_focus(InputState const& state)
     {
+        if (cached == nullptr)
+        {
+            unregister_input_callback(FOCUS_BUTTON, update_map_focus);
+            trace(MessageType::Error, 2, "game", "Unregistering callback now, registration order may have been bad.");
+            return;
+        }
+
         if (get_input_state(FOCUS_BUTTON).just_pressed && quest_cache != nullptr)
         {
             AreaMapNavigation__SetTarget(cached, quest_cache);

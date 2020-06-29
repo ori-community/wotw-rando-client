@@ -9,14 +9,25 @@ intercept* first_intercept = nullptr;
 intercept* last_intercept = nullptr;
 __int64 game_assembly_address;
 
-__int64 resolve_rva(__int64 rva) {
+__int64 resolve_rva(__int64 rva)
+{
     if (!game_assembly_address)
-        game_assembly_address = reinterpret_cast<__int64>(GetModuleHandleA("GameAssembly.dll"));
+    {
+        auto handle = GetModuleHandleA("GameAssembly.dll");
+        if (handle == nullptr)
+        {
+            trace(MessageType::Error, 1, "initialize", "Failed to get handle of GameAssembly.dll");
+            return 0;
+        }
+
+        game_assembly_address = reinterpret_cast<__int64>(handle);
+    }
 
     return game_assembly_address + rva;
 }
 
-void interception_init() {
+void interception_init()
+{
     DetourRestoreAfterWith();
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
@@ -25,8 +36,7 @@ void interception_init() {
     auto current = last_intercept;
     while (current)
     {
-        //debug("Binding: " + current->name + " (+" + std::to_string(current->offset) + ")");
-        *current->original_pointer = reinterpret_cast<PVOID*>(resolve_rva(current->offset));
+        *current->original_pointer = reinterpret_cast<void**>(resolve_rva(current->offset));
         if (current->intercept_pointer)
         {
             auto it = intercept_cache.find(current->offset);
@@ -74,7 +84,8 @@ void interception_init() {
         trace(MessageType::Debug, 3, "initialize", "Injection completed");
 }
 
-void interception_detach() {
+void interception_detach()
+{
     DetourRestoreAfterWith();
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());

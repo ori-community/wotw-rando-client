@@ -46,7 +46,8 @@ int peer_id = -1;
 std::mutex network_mutex;
 
 std::string csv_path = "C:\\moon\\inject_log.csv";
-bool write_to_csv = false;
+bool write_to_csv = true;
+bool flush_after_every_line = true;
 std::ofstream csv_file;
 std::mutex csv_mutex;
 
@@ -165,12 +166,12 @@ STATIC_CLASS(71714856, Game_UI_c*, g_ui);
 
 GameController_o* get_game_controller_instance()
 {
-  return g_game_controller->static_fields->Instance;
+  return (*g_game_controller)->static_fields->Instance;
 }
 
 SeinCharacter_o* get_sein()
 {
-    return g_characters->static_fields->m_sein;
+    return (*g_characters)->static_fields->m_sein;
 }
 
 INJECT_C_DLLEXPORT void bind_sword() {
@@ -217,7 +218,7 @@ void initialize_trace_file()
     if (!write_to_csv)
         return;
 
-    csv_file.open("");
+    csv_file.open(csv_path);
     write_to_csv = csv_file.is_open();
 }
 
@@ -236,7 +237,7 @@ void write_trace(MessageType type, int level, std::string const& group, std::str
     std::string sanitized_message = csv::sanitize_csv_field(message);
 
     std::string line = format(
-        "%d, [%s], %d, %s,\n",
+        "%d, [%s], %d, %s,",
         type,
         sanitized_group.c_str(),
         level,
@@ -244,7 +245,10 @@ void write_trace(MessageType type, int level, std::string const& group, std::str
     );
 
     csv_mutex.lock();
-    csv_file << line;
+    if (flush_after_every_line)
+        csv_file << line << std::endl;
+    else
+        csv_file << line << "\n";
     csv_mutex.unlock();
 }
 
@@ -351,10 +355,13 @@ extern bool bootstrap();
 
 INJECT_C_DLLEXPORT void injection_entry()
 {
+    initialize_trace_file();
+
     trace(MessageType::Info, 5, "initialize", "init_start");
     if (!bootstrap())
     {
         trace(MessageType::Info, 5, "initialize", "Failed to bootstrap, shutting down");
+        csv_file.close();
         shutdown_thread = true;
         FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
     }
@@ -390,6 +397,9 @@ INJECT_C_DLLEXPORT void injection_entry()
 
         network::shutdown_peer(network_data);
     }
+
+    if (write_to_csv)
+        csv_file.close();
 }
 
 // strftime format
