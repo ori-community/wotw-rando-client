@@ -21,7 +21,7 @@ requirement RangedWeapon:
   base: Grenade=3 OR Bow OR Spear  # 3 should be enough for any use of this
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
-  base: UpperDepths.MoraDefeated OR Flash
+  base: UpperDepths.ForestsEyes OR Flash
   advanced: Bow
 
 area MarshSpawn.Main:                  # (-798, -4310) spawn location / inkwater well
@@ -629,7 +629,7 @@ area EastHollow.Kwolok:  # (154, -4205) Between Ku and Kwolok
   state EastHollow.Voice: free
 
   quest EastHollow.KwoloksWisdom:
-    base: EastPools.KwoloksWisdomAmulet, WestPools.KwolokDefeated
+    base: EastPools.KwoloksWisdomAmulet, WestPools.ForestsStrength
 
   pickup EastHollow.RightKwolokEX:
     base: Bash OR Launch
@@ -1774,7 +1774,7 @@ region WestPools:
     Danger=40, Regenerate
 
 area WestPools:  # (-1652, -4170) the west Pools TP
-  state WestPools.KwolokDefeated:  # includes collecting the Wisp
+  quest WestPools.ForestsStrength:
     base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=55, Dash OR Launch #+ 40 region danger
 
   quest EastPools.GrassSeed:
@@ -1787,18 +1787,18 @@ area WestPools:  # (-1652, -4170) the west Pools TP
   pickup WestPools.BurrowEX:
     base: Water, Burrow
   pickup WestPools.BurrowOre:
-    base: WestPools.KwolokDefeated, EnemyObstacle, Water, WaterDash, Burrow
+    base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash, Burrow
   pickup WestPools.EscapeRevisitEX:
-    base: WestPools.KwolokDefeated, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
+    base: WestPools.ForestsStrength, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
   pickup UpperPools.LowerKS:
-    base: WestPools.KwolokDefeated, EnemyObstacle, Water, WaterDash
+    base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash
 
   conn UpperPools.KeystoneRoom:
     base, EnemyObstacle:
       Water, WaterDash, Bash, DoubleJump, Dash OR Glide
       Water, WaterDash, Bash, Launch
-      WestPools.KwolokDefeated, Water, WaterDash, DoubleJump
-      WestPools.KwolokDefeated, Water, WaterDash, Bash, Grenade=1, Dash
+      WestPools.ForestsStrength, Water, WaterDash, DoubleJump
+      WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
 # end pools needs validation area
 
 region WoodsEntry:
@@ -2024,7 +2024,7 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
   conn LowerWastes.WestTP:
     base:
       Grapple, Glide, DoubleJump OR Dash OR Launch  # this solves with Seir as well
-      WindtornRuins.EscapeComplete:  # these wouldn't solve without Seir
+      WindtornRuins.Seir:  # these wouldn't solve without Seir
         DoubleJump, Bash, Grenade=1, Grapple
         Grapple, Glide
         Burrow
@@ -2386,13 +2386,14 @@ area LowerReach.Trial:  # (70, -4044) At trial start
     base: Keystone=4
   state LowerReach.TrialActivation:
     base: LowerReach.KeystoneDoor
-  state LowerReach.WispCollected:  # not validated, can be turned into wisp pickup later
+  state LowerReach.BearSneezed:
+    base: LowerReach.ForestsMemory  # the game forces Baur awake when collecting the wisp
+
+  quest LowerReach.ForestsMemory:  # not validated, can be turned into wisp pickup later
     base, LowerReach.ArenaBeaten:
       Dash, Bash, Grenade=4, Grapple, Glide, Water OR DoubleJump
       Glide, Bash, Launch
-  state LowerReach.BearSneezed:
-    base: LowerReach.WispCollected  # the game forces Baur awake when collecting the wisp
-
+  
   pickup LowerReach.RightKS:
     base:
       Glide
@@ -2407,7 +2408,7 @@ area LowerReach.Trial:  # (70, -4044) At trial start
   pickup LowerReach.TrialEX:
     base: Glide
   pickup LowerReach.EscapeRevisitEX:  # not validated
-    base, LowerReach.ArenaBeaten, LowerReach.WispCollected:
+    base, LowerReach.ArenaBeaten, LowerReach.ForestsMemory:
       Bash, Grenade=5, Glide, DoubleJump
       Bash, Grenade=4, Glide, Grapple
       Bash, Glide, Launch
@@ -2511,11 +2512,11 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
 area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of the second keystone door
   state UpperDepths.CentralKeystoneDoor:
     base: Keystone=2
-  state UpperDepths.MoraDefeated:
+  
+  quest UpperDepths.ForestsEyes:
     base, Combat, Danger=55:  # +40 region danger
       DepthsLight, DoubleJump, Dash, Bash, Grapple
       DepthsLight, Bash, Grapple, Launch
-  
   quest UpperDepths.LightcatcherSeed:
     base:
       DepthsLight, DoubleJump, Dash, Grapple
@@ -2656,7 +2657,7 @@ area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
   pickup LowerWastes.WestTPOre:
     base: Burrow
   pickup WoodsMain.FeedingGroundsEX:
-    base: WindtornRuins.EscapeComplete, Burrow, DoubleJump OR Dash OR Glide OR Launch  # Seir to make it a safe path
+    base: WindtornRuins.Seir, Burrow, DoubleJump OR Dash OR Glide OR Launch  # Seir to make it a safe path
 
   conn LowerWastes.SunsetView:
     base:
@@ -2664,9 +2665,9 @@ area LowerWastes.WestTP:  # (1461, -3996) At the Western Wastes TP
       Bash, Grenade=1, DoubleJump OR Dash
       Launch
   conn WoodsMain.FeedingGrounds:
-    base: WindtornRuins.EscapeComplete, Burrow  # Seir to make it a safe path
+    base: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
   conn WeepingRidge.Bottom:
-    base, WindtornRuins.EscapeComplete:  # Seir to make it a safe path
+    base, WindtornRuins.Seir:  # Seir to make it a safe path
       Burrow, DoubleJump, Glide, Grapple
       Burrow, Bash, Grenade=1, Glide, Grapple
       Burrow, DoubleJump, Bash, Grenade=1, Grapple
@@ -2997,7 +2998,7 @@ area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top 
   conn UpperWastes.MissilePuzzleRight:
     base: Burrow, DoubleJump OR Launch
   conn WindtornRuins.UpperRuinsDoor:
-    base, UpperDepths.MoraDefeated, WestPools.KwolokDefeated, LowerReach.WispCollected:
+    base, UpperDepths.ForestsEyes, WestPools.ForestsStrength, LowerReach.ForestsMemory:
       Bash, Launch
       Burrow, Launch, DoubleJump OR Glide  # djump or glide lets you reattempt
       Burrow, Bash, DoubleJump, Dash OR Glide
@@ -3031,7 +3032,7 @@ area WindtornRuins.UpperRuinsDoor:  # (2200, -3828) Just inside the door.
   conn WindtornRuins.LowerRuins:  # connection FROM entrance TO lower AFTER escape
     # if you completed the escape, there's a gap in the floor that you have to cross, but Burrow alone is enough to do so
     # Since Burrow solves this connection, it accounts for all paths to the escape revisit pickup
-    base: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete, Burrow
+    base: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.Seir, Burrow
 
 area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
   state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
@@ -3043,7 +3044,7 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
   conn WindtornRuins.LowerRuins:  # connection FROM tp TO lower ruins AFTER escape
     # if you completed the escape, there's a gap in the floor that you have to cross
     # Since Burrow solves this connection, it accounts for all paths to the escape revisit pickup
-    base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
+    base, WindtornRuins.HeartBarrier, WindtornRuins.Seir:
       DoubleJump OR Dash OR Glide OR Burrow OR Launch
       Bash, Grenade=1  # yes, this needs a bashgrenade path
   conn WindtornRuins.UpperRuinsDoor:
@@ -3061,7 +3062,7 @@ area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
   # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here 
   # can softlock after achieving the EscapeComplete state, so this area is only safe as long as it does nothing else than handling that state.
-  state WindtornRuins.EscapeComplete:  # Skills needed to complete the escape. Might have to add a pickup later
+  quest WindtornRuins.Seir:  # Skills needed to complete the escape. Might have to add a pickup later
     base, WindtornRuins.HeartBarrier:
       Burrow, Dash, Grapple, DoubleJump OR Glide
       Burrow, DoubleJump, Glide, Grapple  # I think this is fine?
@@ -3077,10 +3078,10 @@ area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
     base: LowerWastes.HandToHandMapstone
 
   pickup WindtornRuins.EscapeRevisitEC:
-    base: WindtornRuins.EscapeComplete, Burrow
+    base: WindtornRuins.Seir, Burrow
   conn WindtornRuins.Escape: free  # walk over the invisible sandworm
   conn WindtornRuins.RuinsTP:
-    base, WindtornRuins.HeartBarrier, WindtornRuins.EscapeComplete:
+    base, WindtornRuins.HeartBarrier, WindtornRuins.Seir:
       Burrow, Dash, DoubleJump
       Burrow, DoubleJump, Glide
       Burrow, Bash, Glide, Grenade=2
