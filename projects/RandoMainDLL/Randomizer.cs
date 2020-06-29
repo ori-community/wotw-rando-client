@@ -78,6 +78,7 @@ namespace RandoMainDLL {
           UberStateController.Update();
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
+          TrackFileController.Update();
         }
         AHK.Tick();
       } catch (Exception e) {
