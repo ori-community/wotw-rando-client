@@ -7,7 +7,6 @@ SetWorkingDir, %A_ScriptDir%
 ; TODO Decide on keeping/removing manual toggling
 
 version := "v0.1.2"
-TTTimeout := 0
 
 ; -------------------------------------
 ; Startup stuff
@@ -318,7 +317,6 @@ parsechanges(Folder, Changes) {
 
 ; Hover text for each of the items.
 Help(wParam, lParam, Msg) {
-    Global TTTimeout
     MouseGetPos,,,, OutputVarControl
     ControlGetText, HoverText, %OutputVarControl%
     IfEqual, HoverText, .\img\Bash.png
@@ -372,19 +370,11 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, .\img\CompleteWatermillEscape.png
         Help := "Clean Water"
     
-    else {
-        if(TTTimeout == 0) {
-            TTTimeout := 1
-            SetTimer, DisableTT, -3000
-            return
-        }
-    }
-
     ToolTip % Help
+    SetTimer, DisableTT, -3000
 }
 
 DisableTT:
-    TTTImeout := 0
     ToolTip, 
     return
 

@@ -10,6 +10,7 @@ set(
 	SOURCE_FILES
 	"bootstrap.cpp"
     "csharp_bridge.cpp"
+	"dev_commands.cpp"
 	"dll_main.cpp"
 	"interception.cpp"
 	"features/difficulty.cpp"
@@ -20,6 +21,7 @@ set(
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"
 	"features/input_poller.cpp"
+	"features/no_energy.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/pickups.cpp"
@@ -39,6 +41,7 @@ set(
 	"common.h"
 	"constants.h"
     "csharp_bridge.h"
+	"dev_commands.h"
 	"dll_main.h"
     "enum_definitions.h"
 	"framework.h"

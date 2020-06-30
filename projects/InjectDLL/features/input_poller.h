@@ -68,4 +68,4 @@ using input_callback = void(*)(InputState const& state);
 
 InputState const& get_input_state(InputButton button);
 void register_input_callback(InputButton button, input_callback callback);
-void unregister_input_callback(InputButton button, input_callback callback);
+bool unregister_input_callback(InputButton button, input_callback callback);
