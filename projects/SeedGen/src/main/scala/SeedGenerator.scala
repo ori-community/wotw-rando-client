@@ -582,7 +582,7 @@ object Runner {
       val (grps, err) = mkSeed(advanced)(debug)
       err match {
         case Some(e)  => UI.log(s"$e"); None
-        case None     => Some(grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
+        case None     => Some(UI.flagLine + grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
       }
     }
     def seedProg(advanced: Boolean = false, debug: Boolean = false): Option[String] = {
