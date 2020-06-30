@@ -22,6 +22,8 @@ namespace dev
 
     void register_command(std::string const& name, dev_command command);
     bool handle_message(std::string const& message);
+
+    bool try_convert_to_bool(std::string str, bool& value);
 }
 
 #define CALL_ON_INIT(func) dev::Initialization func##_init_struct(&func)
