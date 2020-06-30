@@ -206,7 +206,7 @@ namespace dev
 
         if (std::find(false_values.begin(), false_values.end(), str) != false_values.end())
         {
-            value = true;
+            value = false;
             return true;
         }
 
