@@ -103,7 +103,7 @@ package SeedGenerator {
       if(ui.forceTrees.selected) Some("ForceTrees") else None,
       if(ui.forceQuests.selected) Some("ForceQuests") else None,
     ).flatten
-    def flagsLine: String = s"//${flags.mkString(", ")}"
+    def flagLine: String = if(flags.nonEmpty) s"Flags: ${flags.mkString(", ")}\n"else ""
     def outputFile: File = {
       val name_base = outputFolder.getPath + "/" + (if(ui.seedField.text != "") ui.seedField.text else "seed")
       var ret = new File(s"$name_base.wotwr")
