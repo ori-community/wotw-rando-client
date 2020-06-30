@@ -14,9 +14,8 @@ WOTWREXE := INSTALL_DIR . "WotwRando.exe"
 NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
 DELETEME := INSTALL_DIR . ".deleteme"
 
-; this is just for the download bar; the exe is currently basically always 48 MB
-
-FILE_SIZE := 48  
+; change this when a new setting is added
+NewSetting := ""
 
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
@@ -49,17 +48,18 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 		; update; write ini defaults, extract new versions of files
 		gosub, WriteIniDefaults
 		gosub, ExtractFiles
+		gosub, PromptSettingsChange
 		; sometimes people manually update by overwriting the exe at the
 		; canonical path. if that happens, none of the below is necessary
 		if(A_ScriptFullPath != WOTWREXE) {
 			; but if they don't, we have to clean up. 
 			; copy this file into the canonical path
 			FileCopy, %A_ScriptFullPath%, %WOTWREXE%, 1
-			; spawn a new thread running from the canonical path
-			Run *RunAs %WOTWREXE%  "%1%" "%2%" "%3%" "%4%"
 			; mark this version of the file for deletion, then exit
 			FileDelete, %DELETEME%
 			FileAppend, %A_ScriptFullPath%, %DELETEME%			
+			; spawn a new thread running from the canonical path
+			Run *RunAs %WOTWREXE%  "%1%" "%2%" "%3%" "%4%"
 			ExitApp
 		}
 	} else if(FileExist(DELETEME)) {
@@ -107,13 +107,7 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 	Run, *RunAs "%INSTALL_DIR%associateFileTypes.bat",
 	SplashTextOff
 	FileDelete, %INSTALL_DIR%.VERSION
-
-	Msgbox 4, Ori WOTW Randomizer Installer, Installation complete! Launch Game Now?
-	IfMsgBox No
-	{
-		Msgbox Exiting without launching game
-		ExitApp
-	}
+	GoSub, PromptAfterInstall
 }
 gosub, ReadIniVals
 
@@ -160,6 +154,25 @@ if(argc > 0 and seedfile != "")  {
 }
 ExitApp
 
+PromptAfterInstall:
+SetTimer, ChangeButtonNames, 25 
+Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`nLaunch the randomizer by running C:\moon\WotwRando.exe `n  or by double-clicking a .wotwr file`n`nChange settings using C:\moon\RandoSettings.exe
+IfMsgBox Cancel
+	ExitApp
+IfMsgBox No
+	RunWait, %INSTALL_DIR%RandoSettings.exe
+Return
+
+ChangeButtonNames: 
+IfWinNotExist, WOTW Rando v%MY_VER% Installer
+    return  ; Keep waiting.
+SetTimer, ChangeButtonNames, Off 
+WinActivate 
+ControlSetText, Button1, &Play Now
+ControlSetText, Button2, &Settings 
+ControlSetText, Button3, &Exit 
+return
+
 CheckSteamPath:
 if(not FileExist(SteamPath)) {
 		Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. `nLocate manually?
@@ -180,6 +193,17 @@ else
 	Run, *RunAs shell:AppsFolder\Microsoft.Patagonia_8wekyb3d8bbwe!App
 
 Run, *RunAs %INJECTOR%,,%maybehide%
+if(LaunchWithTracker != "false")
+	ifWinNotExist, ahk_exe ItemTracker.exe
+		Run, %INSTALL_DIR%ItemTracker.exe
+return
+
+PromptSettingsChange:
+if(NewSetting != "") {
+	Msgbox 4, WOTW Rando v%MY_VER%, New Setting available: %NewSetting%`nWould you like to update settings before launching?
+	IfMsgBox, No, Return
+	RunWait, %INSTALL_DIR%RandoSettings.exe
+}
 return
 
 ReadIniVals:
@@ -191,6 +215,7 @@ IniRead, MuteCSLogs, %INI_FILE%, Flags, MuteCSLogs, false
 IniRead, ShowShortCutscenes, %INI_FILE%, Flags, ShowShortCutscenes, false
 IniRead, ShowLongCutscenes, %INI_FILE%, Flags, ShowLongCutscenes, false
 IniRead, WinStore, %INI_FILE%, Flags, UseWinStore, false
+IniRead, LaunchWithTracker, %INI_FILE%, Flags, LaunchWithTracker, false
 return
 
 WriteIniDefaults:
@@ -214,6 +239,7 @@ FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
 FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
 FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
 FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
+FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
 FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
 	FileCopy, %A_ScriptFullPath%, %WOTWREXE%
