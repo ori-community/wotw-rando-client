@@ -91,9 +91,8 @@ namespace dev
                     params[token.substr(0, offset)] = token.substr(offset + 1, token.size());
             }
 
-            for (auto const& entry : entries)
-                for (auto const& command : entry.second)
-                    command(name, params);
+            for (auto const& command : it->second)
+                command(name, params);
 
             return true;
         }
@@ -177,5 +176,40 @@ namespace dev
         message_mutex.lock();
         messages.push_back(std::move(str));
         message_mutex.unlock();
+    }
+
+    namespace
+    {
+        std::vector<std::string> false_values = {
+            "false",
+            "0",
+            "f"
+        };
+
+        std::vector<std::string> true_values = {
+            "true",
+            "1",
+            "t"
+        };
+    }
+
+    bool try_convert_to_bool(std::string str, bool& value)
+    {
+        std::transform(str.begin(), str.end(), str.begin(),
+            [](auto c) { return std::tolower(c); });
+
+        if (std::find(true_values.begin(), true_values.end(), str) != true_values.end())
+        {
+            value = true;
+            return true;
+        }
+
+        if (std::find(false_values.begin(), false_values.end(), str) != false_values.end())
+        {
+            value = true;
+            return true;
+        }
+
+        return false;
     }
 }
