@@ -21,6 +21,7 @@ set(
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"
 	"features/input_poller.cpp"
+	"features/no_energy.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/pickups.cpp"
