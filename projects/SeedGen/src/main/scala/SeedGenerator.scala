@@ -37,7 +37,7 @@ package SeedGenerator {
     }
   }
   object LocData {
-    lazy val all: Seq[LocData] = {
+    def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = Source.fromFile("loc_data.csv")
       val pickups = pickupsFile.getLines.flatMap {
@@ -47,13 +47,15 @@ package SeedGenerator {
         case pickupReg(area, name, zone, category, value, uberGN, ugid, uberN, uid, x, y) =>
           Some(LocData(area, name, category, value, zone, uberGN, ugid.toInt, uberN, uid, x.toInt, y.toInt))
         case line: String =>
-          println(s"Couldn't parse line: $line")
+          UI.log(s"Couldn't parse line: $line")
           None
       }.toSeq
       pickupsFile.close()
-      pickups.filter(_.value != "LupoZoneMap") //.filter(loc => loc.category != "Quest" && loc.value != "ShardSlot")
+      if(UI.Options.hints)
+        pickups.filter(_.value != "LupoZoneMap")
+      else pickups
     }
-    lazy val byName: Map[String, LocData] = all.map(data => s"${data.area}.${data.name}" -> data).toMap
+    def byName: Map[String, LocData] = all.map(data => s"${data.area}.${data.name}" -> data).toMap
   }
 
   sealed trait NodeType
@@ -87,8 +89,8 @@ package SeedGenerator {
   case class Placeholder(name: String, kind: NodeType = AreaNode) extends Node {
     override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = nodes.get(name) match {
         case Some(n: Node) if n.kind == kind => n.reached(state, nodes)
-        case Some(x) => println(s"Warning: $x was of unexpected type!"); state
-        case None =>println(s"Warning: $name not in nodes!"); state
+        case Some(x) => UI.log(s"Warning: $x was of unexpected type!"); state
+        case None =>UI.log(s"Warning: $name not in nodes!"); state
     }
     override def nearby(dist: Int = 3, ignore: Set[Node] = Set()): Map[Node, Set[Path]] = kind match {
       case AreaNode => Nodes.areas(name).nearby(dist, ignore)
@@ -126,10 +128,10 @@ package SeedGenerator {
   }
 
   object ItemLoc {
-    def mk(name: String, src: Map[String, LocData]=LocData.byName): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
+    def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
       .orElse({
         if(!name.endsWith("LupoMap"))
-          println(s"pickup $name not found in loc_data.csv!")
+          UI.log(s"pickup $name not found in loc_data.csv!")
         None
       })
   }
@@ -257,7 +259,7 @@ package SeedGenerator {
       val seen = pathsToHere.flatMap(_.nodes.map(_.name))
       def pathAcc(p: Path): Set[Path] = if(pathsToHere.nonEmpty) pathsToHere.flatMap(_ and p) else Set(p)
       area.paths.flatMap(path => path.dest.kind match {
-        case AreaNode if !seen.contains(path.dest.name) => _areas.get(path.dest.name).map(getAllPathsRecursive(_, pathAcc(path))).getOrElse({println("aaaaaa"); Map[Node, Set[Path]]()})
+        case AreaNode if !seen.contains(path.dest.name) => _areas.get(path.dest.name).map(getAllPathsRecursive(_, pathAcc(path))).getOrElse({UI.log("aaaaaa"); Map[Node, Set[Path]]()})
         case _ => Map(path.dest -> pathAcc(path))
       }).groupMapReduce(_._1)(_._2)(_ ++ _)
     }
@@ -290,32 +292,39 @@ package SeedGenerator {
       Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
     }
 
-    def fixAreas(areas: Map[String, Area]): Map[String, Area] = areas.values.map(area => area.name -> Area(area.name, area.conns.flatMap({
-      case Connection(target: Placeholder, Invalid) if target.kind == ItemNode => println(target.name); None
-      case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name).map(Connection(_, reqs))
-      case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name).map(Connection(_, reqs))
-      case c => Some(c)
-    }))).toMap
+    def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
+      val locDataByName = LocData.byName
+      areas.values.map(area => area.name -> Area(area.name, area.conns.flatMap({
+        case Connection(target: Placeholder, Invalid) if target.kind == ItemNode => UI.log(target.name); None
+        case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name, locDataByName).map(Connection(_, reqs))
+        case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
+        case c => Some(c)
+      }))).toMap
+    }
 
-    var populatedWithSetting: Option[Boolean] = None
-    def populate(debug: Boolean = false, advanced: Boolean = false, useNew: Boolean = true): Boolean = Timer("populate"){
-      if(populatedWithSetting.contains(advanced))
+    var populatedWithSetting: Option[GenSettings] = None
+    def populate(): Boolean = {
+      if(populatedWithSetting.contains(UI.Options))
         return true // already done lol
-      Timer("parse"){
-        if(useNew)
-          FastParser.parseFile(advanced)
+      Timer("Path parsing", true) {
+        {
+        if (UI.Options.newParser)
+          FastParser.parseFile(advanced = UI.Options.unsafePaths)
         else
-          AreaParser.AreasBuilder.run(print = debug)
-      } match {
-        case Right(value) =>
-          _areas = Timer("FixAreas")(fixAreas(value))
-          _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r != Invalid => t.name -> t }))
-          _paths = Timer("GetPaths"){getAllPathsRecursive()}
-          populatedWithSetting = Some(advanced)
-          true
-        case Left(error) =>
-          println(error)
-          false
+          AreaParser.AreasBuilder.run(advanced = UI.Options.unsafePaths)
+        } match {
+            case Right(value) =>
+              _areas = Timer("FixAreas")(fixAreas(value))
+              _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r != Invalid => t.name -> t }))
+              _paths = Timer("GetPaths") {
+                getAllPathsRecursive()
+              }
+              populatedWithSetting = Some(UI.Options)
+              true
+            case Left(error) =>
+              UI.log(error)
+              false
+          }
       }
     }
     def spawn: Area = areas("MarshSpawn.Main")
@@ -327,7 +336,7 @@ package SeedGenerator {
     def code: String = loc.data.code
     def data = s"${loc.data.code}|${item.code}"
     def write: String = {
-      if(!Runner.SPOILERS)
+      if(!UI.Options.spoilers)
         return data
 //      Tracking.incAreas(item, loc.data)
       val dataPad = " " * (22 - data.length)
@@ -347,7 +356,7 @@ package SeedGenerator {
 
   case class PlacementGroup(outState: GameState, prog: Inv, placements: Seq[Placement], i: Int)(implicit r: Random, pool: Inv, debug: Boolean = false) {
     def desc(standalone: Boolean = false): String = {
-      if(!Runner.SPOILERS)
+      if(!UI.Options.spoilers)
         return ""
       val progText = if(prog.count > 0) s" -- Chosen: ${prog.progText}" else ""
       val keyItems = placements.map(_.item).filterNot(prog.has(_)).collect({case i: Important => i})
@@ -370,7 +379,7 @@ package SeedGenerator {
     }
   }
   object PlacementGroup {
-    def debugPrint(x: Any): Unit = UI.log(x)
+    def debugPrint(x: Any): Unit = UI.debug(x)
     def trymk(inState: GameState, i:Int=0)
              (implicit r: Random, pool: Inv, debug: Boolean = false): Either[GeneratorError, PlacementGroup] = Try {
       Timer("pg.mk")(mk(inState, i))
@@ -383,7 +392,6 @@ package SeedGenerator {
           e
       })
     def mk(inState: GameState, i:Int=0)(implicit r: Random, pool: Inv, debug: Boolean = false): PlacementGroup = {
-      debugPrint(s"Starting iter: ${inState.reached.filter(_.kind.isInstanceOf[ItemNodeType])}")
       val (reachable, flags) = Nodes.getReachable(inState.inv, inState.flags, itemsOnly = false)
       val reachableLocs = reachable.flatMap[Node](node => Nodes.items.get(node.name))
       val state = inState + new GameState(Inv.Empty, flags)
@@ -392,14 +400,14 @@ package SeedGenerator {
       val count = pool.count
       val placed = inState.reached.collect({ case n: ItemLoc => n }).size
       if(count+placed != ItemPool.SIZE)
-        println(s"ERROR: $count + $placed != ${ItemPool.SIZE}")
-      debugPrint(s"starting random placement into ${locs.size} locs,  ($placed /${ItemPool.SIZE} placed already, have itempool size $count")
+        UI.log(s"ERROR: $count + $placed != ${ItemPool.SIZE}")
+      debugPrint(s"group $i: have ${locs.size} locs ($placed/${ItemPool.SIZE} placed already, have itempool size $count")
 
       if(locs.isEmpty)
         throw GeneratorError(s"no new locs (${reachableLocs.size} out of ${ItemPool.SIZE} reached)")
       val placements = MList[Placement]()
       def process(ps: Seq[Placement], prefix: String = ""): Unit =
-        ps.foreach(p => {state.inv.add(p.item); placements.prepend(p) /*;debugPrint(prefix + " " + p)*/})
+        ps.foreach(p => {state.inv.add(p.item); placements.prepend(p); debugPrint(prefix + " " + p)})
       def assignRandom(itemLocs: Seq[ItemLoc]): Seq[Placement] = {
         val (shops, nonShops) = itemLocs.partition(_.data.category == "Shop")
           if(nonShops.size > pool.count - pool.merchToPop)
@@ -486,7 +494,11 @@ package SeedGenerator {
             state.flags.map(flag => flagRemaining.getOrElse(flag, GameState.mk(flag))).fold(GameState.Empty)(_ + _)
           )
           .distinct
-          .filter(s => s.flags.isEmpty && s.inv.count > 0 && s.inv.count < sizeLeft)
+          .filter(s => // a state can be valid progression IF
+            s.flags.isEmpty &&         // it has no flag reqs
+            s.inv.count > 0 &&         // and is not empty
+            s.inv.count <= sizeLeft && // but can still fit
+            s.inv.forall({case (i, c) => pool.has(i, c)})) // and doesn't need anything that isn't in the pool
         }
           .groupBy(_.inv.head._1).map(_._2.minBy(_.inv.cost))
           .map((s: GameState) => s -> (Nodes.getReachable(state.inv + s.inv, state.flags)._1 -- reachableLocs).size)
@@ -497,26 +509,26 @@ package SeedGenerator {
         debugPrint(s"$i, targets=${targets.size}, paths: ${possiblePaths.size}")
         if(possiblePaths.isEmpty) {
           if(far < 5) {
-            println(s"group $i: failed at far=$far, looking deeper")
+            UI.log(s"INFO: group $i: failed at far=$far, looking deeper")
             return getProgressionPath(sizeLeft, far+1)
           }
-          println(s"pool: $pool")
-          println(s"inv: ${state.inv}")
-          println(s"Had $sizeLeft slots")
+          UI.log(s"pool: $pool")
+          UI.log(s"inv: ${state.inv}")
+          UI.log(s"Had $sizeLeft slots")
 
 /*          var possiblePathsPruned = possiblePathsPartial.filter(s => s.inv.count == 1 || !singles.exists(s.inv.has(_)))
           val tooBig = possiblePathsPruned.filterNot(_.inv.count <= sizeLeft)
           if(tooBig.nonEmpty)
-            println("too big:\n" + tooBig.mkString("\n"))
+            UI.log("too big:\n" + tooBig.mkString("\n"))
           possiblePathsPruned = possiblePathsPruned.filter(_.inv.count <= sizeLeft)
           val flagProb = possiblePathsPruned.filterNot(_.flags.forall(state.flags.contains))
           if(flagProb.nonEmpty) {
-            println("flags:\n" + flagProb.map(s => (s.flags, s.flags -- flags)).mkString("\n"))
-            println("remaining:" + flagRemaining.filter(_._2 != GameState.Empty))
-            println("unreachable:" + unaffordable)
+            UI.log("flags:\n" + flagProb.map(s => (s.flags, s.flags -- flags)).mkString("\n"))
+            UI.log("remaining:" + flagRemaining.filter(_._2 != GameState.Empty))
+            UI.log("unreachable:" + unaffordable)
           }*/
           (Nodes.items.values.toSet[Node] -- reachableLocs).take(3).foreach(n => {
-            println(s"${n.name}: \n\t${Nodes.paths(n).take(3).map(k => AllReqs(k.reqs).cheapestRemaining(state)).mkString("\n\t")}")
+            UI.log(s"${n.name}: \n\t${Nodes.paths(n).take(3).map(k => AllReqs(k.reqs).cheapestRemaining(state)).mkString("\n\t")}")
           })
 
           throw GeneratorError(s"No possible paths???")
@@ -546,11 +558,9 @@ package SeedGenerator {
 
 
 object Runner {
-    var SPOILERS = true
     def setSeed(n: Long): Unit = r.setSeed(n)
     val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1))
     private def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
-      Nodes.populate(debug, advanced)
       implicit val pool: Inv = ItemPool.build()
       recurse()
     }
@@ -568,18 +578,17 @@ object Runner {
       case Left(error) =>(grps, Some(error))
     }
 }
-    def getSeedOpt(advanced: Boolean = false, debug: Boolean = false, spoilers: Boolean = true): Option[String] = {
-      Runner.SPOILERS = spoilers
+    def getSeedOpt(advanced: Boolean = false, debug: Boolean = false): Option[String] = {
       val (grps, err) = mkSeed(advanced)(debug)
       err match {
-        case Some(e)  => println(s"$e"); None
+        case Some(e)  => UI.log(s"$e"); None
         case None     => Some(grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
       }
     }
     def seedProg(advanced: Boolean = false, debug: Boolean = false): Option[String] = {
       val (grps, err) = mkSeed(advanced)(debug)
       err match {
-        case Some(e)  => println(s"$e"); None
+        case Some(e)  => UI.log(s"$e"); None
         case None     => Some(grps.map(grp => grp.desc(true)).mkString("\n"))
       }
     }
@@ -593,50 +602,21 @@ object Runner {
       }
       val t1 = System.currentTimeMillis()
       if(time)
-        println(s"Generated seed in ${(t1-t0)/1000f}s")
+        UI.log(s"Generated seed in ${(t1-t0)/1000f}s")
       s
     }
-    def apply(advanced: Boolean = false, debug: Boolean = false, writeTo: String = "seeds/seed_0.wotwr"): Unit = {
-      val file = new File(writeTo)
-      val bw = new BufferedWriter(new FileWriter(file))
+    def apply(advanced: Boolean = false, debug: Boolean = false, writeTo: File = new File("seeds/seed_0.wotwr")): Unit = {
+      Nodes.populate()
+
+      val bw = new BufferedWriter(new FileWriter(writeTo))
       bw.write(forceGetSeed(advanced, debug = debug))
+      UI.log(s"Wrote seed to ${writeTo.getPath}")
       bw.close()
     }
+  }
 
-    def mk(pack: String, count: Int = 100, spoilers: Boolean = true, includeAdvanced: Boolean = true): Unit = {
-      Runner.SPOILERS = spoilers
-      val t0 = System.currentTimeMillis()
-      val name_base = s"$pack"
-      val dirPath =  s"seeds/seed_pack_$pack"
-      val dir = new File(dirPath)
-      if (!dir.exists())
-        dir.mkdirs()
-      Nodes.populate()
-      val t1 = System.currentTimeMillis()
-      println(s"populated base paths in ${(t1-t0)/1000f}s")
-      (1 until count).par.foreach(n => {
-        val file = new File(s"$dirPath/${name_base}_${n}_base.wotwr")
-        val bw = new BufferedWriter(new FileWriter(file))
-        bw.write(forceGetSeed())
-        bw.close()
-      })
-      val t2 = System.currentTimeMillis()
-      println(s"Generated base seeds in ${(t2-t1)/1000f}s (average ${(t2-t1)/(1000f*count)}s, ${(t2-t0)/1000f}s total)")
-      if(!includeAdvanced)
-        return
-      Nodes.populate(advanced = true)
-      val t3 = System.currentTimeMillis()
-      println(s"populated advanced paths in ${(t3-20)/1000f}s (${(t3-t0)/1000f}s total)")
-
-      (count until (count + count/2)).par.foreach(n => {
-        val file = new File(s"$dirPath/${name_base}_${n}_advanced.wotwr")
-        val bw = new BufferedWriter(new FileWriter(file))
-        bw.write(forceGetSeed(advanced = true))
-        bw.close()
-      })
-      val t4 = System.currentTimeMillis()
-      println(s"Generated ${count/2} advanced seeds in ${(t4-t3)/1000f}s (average ${(t4-t3)/(500f*count)}s,  ${(t4-t0)/1000f}s total)")
-    }
+  object Main extends App {
+    UI.show()
   }
 
   case class Distro(sl: Int = 0, hc: Int = 0, ec: Int = 0, ore: Int = 0, sks: Int = 0)
@@ -662,7 +642,7 @@ object Runner {
   object Timer {
     var enabled = true
     val times: MMap[String, Long] = MMap[String, Long]()
-    def showTimes(): Unit = times.toSeq.sortBy(_._2).foreach(println)
+    def showTimes(): Unit = times.toSeq.sortBy(_._2).foreach(UI.log)
     def clear(): Unit = times.clear()
     def apply[R](name: String, printAfterEach: Boolean = false)(block: => R): R = {
       if(enabled) {
@@ -671,14 +651,14 @@ object Runner {
         val t1 = System.currentTimeMillis()
         times(name) = times.getOrElse(name, 0L) + (t1-t0)
         if(printAfterEach)
-          println(s"$name: " + (t1 - t0) + "ms")
+          UI.log(s"$name: " + (t1 - t0) + "ms")
         return result
       }
       block
     }
   }
   object ItemPool {
-    lazy val SIZE: Int = Nodes.items.size
+    def SIZE: Int = Nodes.items.size
     def build(size: Int = SIZE)(implicit r: Random): Inv = {
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> 32) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)

@@ -252,7 +252,7 @@ package SeedGenerator {
     def metBy(state: GameState): Boolean = metMaybe(state).nonEmpty
     override def afterMet(state: GameState): GameState = {
       if(metMaybe(state).isEmpty)
-        println(s"about to crash: $state, $reqs, ${metBy(state)}")
+        UI.log(s"about to crash: $state, $reqs, ${metBy(state)}")
       metMaybe(state).get
     }
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
