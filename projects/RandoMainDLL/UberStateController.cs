@@ -67,7 +67,6 @@ namespace RandoMainDLL {
           Randomizer.Error($"USC.Update {pair}", e);
         }
       }
-      UpdateGoal();
     }
     // if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
     //   return true;
