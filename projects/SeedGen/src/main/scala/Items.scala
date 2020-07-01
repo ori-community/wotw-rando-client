@@ -35,7 +35,7 @@ package SeedGenerator {
 
   case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.2f }
   case object Energy extends Resource(1, "Half-Energy Cell")
-  case object Ore extends Resource(2, "Gorlek Ore") { override val cost = 0.1f }
+  case object Ore extends Resource(2, "Gorlek Ore")
   case object Keystone extends Resource(3, "Keystone")
   case object ShardSlot extends Resource(4, "Shard Slot")
 
@@ -50,7 +50,7 @@ package SeedGenerator {
     val names: Map[Int, String] = Map(
       0 -> "Water"
     )
-    val invNames: Map[String, Int] = names.map({case (a, b) => b->a})
+    val areaFileNames: Map[String, Int] = names.map({case (a, b) => b->a})
     val poolItems: Seq[WorldEvent] = names.keys.map(WorldEvent(_)).toSeq
   }
   object Water extends WorldEvent(0)
@@ -168,7 +168,7 @@ package SeedGenerator {
       16 -> "Marsh",
       17 -> "Glades"
     )
-    val poolItems: Seq[Teleporter] = names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq
+    def poolItems: Seq[Teleporter] = if(UI.Options.tps) names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq else Nil
   }
 
   // fake inventory items
@@ -218,7 +218,7 @@ package SeedGenerator {
     def withoutCash(cash: Int): Inv = {
       val totalLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
       if(totalLight < cash)
-        println("THIS SEEMS SUBOPTIMAL")
+        UI.log("THIS SEEMS SUBOPTIMAL")
       new Inv(keys.flatMap({
         case _: SpiritLight => None
         case i => Some(i -> this(i))
@@ -257,7 +257,7 @@ package SeedGenerator {
             if(afterSLCount > 0) {
               val average = (slAmount - amount*count) / afterSLCount
               (0 until afterSLCount).foreach(_ => add(SpiritLight(r.between(average-50, average+50))))
-              //println(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
+              UI.debug(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
               return true
             }
           case _ =>
@@ -271,7 +271,7 @@ package SeedGenerator {
     }
     def without(item: Item, count: Int): Inv = {
       if (!has(item, count)) {
-        println(s"Error building ${this} without $count of $item")
+        UI.log(s"Error building ${this} without $count of $item")
       }
       new Inv(keys.map({
         case i if i == item => i -> (this(i)-count)
@@ -317,6 +317,7 @@ package SeedGenerator {
         case Health => (Health, this(Health) + other(Health))
         case Energy => (Energy, this(Energy) + other(Energy))
         case Keystone => (Keystone, this(Keystone) + other(Keystone))
+        case Ore => (Ore, this(Ore) + other(Ore))
         case i => (i, Math.max(this (i), other(i)))
       }): _*)
     }

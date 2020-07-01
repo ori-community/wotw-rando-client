@@ -72,13 +72,13 @@ package AreaParser {
           // if there is an increase in indentation level, we push this new level into the stack
           // and produce an INDENT
           case INDENTATION(spaces) if spaces > indents.head =>
-//            println(s"$spaces, indent (this: ${curr})")
+//            UI.log(s"$spaces, indent (this: ${curr})")
             (spaces :: indents, out :+ INDENT)
           // if there is a decrease, we pop from the stack until we have matched the new level,
           // producing a DEDENT for each pop
           case INDENTATION(spaces) if spaces < indents.head =>
             val (dropped, kept) = indents.partition(_ > spaces)
-          // println(s"$spaces, deindent by $dropped (this: ${curr})")
+          // UI.log(s"$spaces, deindent by $dropped (this: ${curr})")
             ( kept, out ::: (dropped map (_ => DEDENT)))
           case INDENTATION(spaces) if spaces == indents.head => (indents, out :+ NEWLINE)
           // comments are removed
@@ -99,9 +99,9 @@ package AreaParser {
           val t = parser.apply(in)
           if(DebugParsers.debug) {
             if(t.successful)
-              println(s"$name.apply; consumed $first at $pos, got ${t.get}")
+              UI.log(s"$name.apply; consumed $first at $pos, got ${t.get}")
             else
-              println(s"$name.apply failed; unconsumed token(s) $first at $pos ${if(!in.atEnd && !in.rest.atEnd) s", next: ${in.rest.first}" else " END"} -> $t")
+              UI.log(s"$name.apply failed; unconsumed token(s) $first at $pos ${if(!in.atEnd && !in.rest.atEnd) s", next: ${in.rest.first}" else " END"} -> $t")
           }
           t
         }
@@ -167,17 +167,17 @@ package AreaParser {
       def regionReqs:  Parser[Requirement] = skillReq | dangerReq | energyReq | stateReq
 
       def reqSec(baseReqs: Parser[Requirement]): Parser[Requirement] =  "req" !!! {
-        def orReq:    Parser[Requirement] = "orReq" !!! (baseReqs <~ OR) ~ rep1sep(baseReqs, OR) ^^ { case first ~  rest => AnyReq(first :: rest:_*) }
-        def reqRHS:   Parser[Requirement] = "reqRHS" !!! (rep(baseReqs <~ COMMA) ~ (orReq | baseReqs) <~ guard(NEWLINE | dedent) ^^ { case head ~ last => AllReqs(head :+ last:_*) }) | free
+        def orReq:    Parser[Requirement] = "orReq" !!! (baseReqs <~ OR) ~ rep1sep(baseReqs, OR) ^^ { case first ~  rest => AnyReq(first :: rest) }
+        def reqRHS:   Parser[Requirement] = "reqRHS" !!! (rep(baseReqs <~ COMMA) ~ (orReq | baseReqs) <~ guard(NEWLINE | dedent) ^^ { case head ~ last => AllReqs(head :+ last) }) | free
         def lhsBase:  Parser[Requirement] = "lhsBase" !!! accept("diff", {
           case IDENTIFIER("base") => Free
           case IDENTIFIER("advanced") => if(advanced) Free else Invalid
         }) | baseReqs
-        def reqLHS:   Parser[Requirement] = "reqLHS" !!! (rep(lhsBase <~ COMMA) ~ (orReq | lhsBase) <~ COLON ^^ { case head ~ last => AllReqs(head :+ last:_*) })
+        def reqLHS:   Parser[Requirement] = "reqLHS" !!! (rep(lhsBase <~ COMMA) ~ (orReq | lhsBase) <~ COLON ^^ { case head ~ last => AllReqs(head :+ last) })
         def reqLine:  Parser[Requirement] = "reqLine" !!! (reqLHS ~ (free | reqRHS) <~ guard(NEWLINE | dedent)) ^^ {case lhs ~ rhs => lhs and rhs}
-        def rhsBlock: Parser[Requirement] = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ (rhss => AnyReq(rhss: _*))
-        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss =>  AnyReq(rhss.map(AllReqs(lhs, _)):_*) }
-        def reqLines: Parser[Requirement] = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ (lines => AnyReq(lines: _*))
+        def rhsBlock: Parser[Requirement] = "rhsBlock" !!! rep1sep(reqLine | reqRHS, endl.+) ^^ (rhss => AnyReq(rhss))
+        def reqBlock: Parser[Requirement] = "reqBlock" !!! (reqLHS <~ indent <~ endl.*) ~ rep1sep(reqBlock | rhsBlock, endl.*) <~ dedent ^^ { case lhs ~ rhss =>  AnyReq(rhss.map(AllReqs(lhs, _))) }
+        def reqLines: Parser[Requirement] = "reqLines" !!! rep1sep(reqLine | reqBlock, endl.*) ^^ (lines => AnyReq(lines))
         free | (indent ~> blanks.? ~> reqLines <~ dedent)
       }
       def generalReqSec: Parser[Requirement] = reqSec(generalReqs)
@@ -206,7 +206,7 @@ package AreaParser {
 
         val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc._1)).toSet
         if(DebugParsers.debug && unusedMacros.nonEmpty)
-          println(s"unused macros: $unusedMacros")
+          UI.log(s"unused macros: $unusedMacros")
         val macroConns = macros.map({case (name, req) => Connection(WorldStateNode(name), req)}).toSeq
 
 /*        def getUnusableStates(areas: Seq[Area]): Set[StateReq] = {
@@ -221,7 +221,7 @@ package AreaParser {
           val newUnused = getUnusableStates(newAreas)
           if(newUnused.nonEmpty) {
             if(DebugParsers.debug)
-              println(s"need to prune: $newUnused")
+              UI.log(s"need to prune: $newUnused")
             return pruneStatesRecursive(newAreas, newUnused)
           }
           newAreas
@@ -238,7 +238,7 @@ package AreaParser {
           .map({
             case (area, Some(req)) =>
               if(DebugParsers.debug)
-                println(s"adding $req to paths in ${area.name}")
+                UI.log(s"adding $req to paths in ${area.name}")
               area.name -> Area(area.name, area.conns.map({
                 case Connection(target, r) if target.kind != AreaNode => Connection(target, req and r)
                 case c => c
@@ -261,7 +261,7 @@ package AreaParser {
           case Right(tokens) => tokens
         }
       }
-      def printTokens(t: Seq[AreasToken]): Unit = t.foreach({case AreaParser.INDENT => print("\nINDENT ") ; case AreaParser.DEDENT => print("\nDEDENT ") ; case AreaParser.NEWLINE => println(""); case t => print(s"$t ") })
+      def printTokens(t: Seq[AreasToken]): Unit = t.foreach({case AreaParser.INDENT => print("\nINDENT ") ; case AreaParser.DEDENT => print("\nDEDENT ") ; case AreaParser.NEWLINE => UI.log(""); case t => print(s"$t ") })
       def run(sourcefile: String = "areas.wotw", print: Boolean = false, advanced: Boolean = false): Either[ParseError, Map[String, Area]] = {
         DebugParsers.debug = print
         AreasBuilder.advanced = false

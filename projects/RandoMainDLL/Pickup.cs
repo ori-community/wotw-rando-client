@@ -244,7 +244,7 @@ namespace RandoMainDLL {
     public readonly TeleporterType type;
     private List<UberState> states() => Teleporter.TeleporterStates.GetOrElse(type, new List<UberState>());
     public override void Grant(bool skipBase = false) {
-      states().ForEach((s) => s.Write(new UberValue(true)));
+      states().ForEach((s) => s.Write(new UberValue(false)));
       base.Grant(skipBase);
     }
     public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Teleporter {type}";
