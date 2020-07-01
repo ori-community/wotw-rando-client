@@ -11,6 +11,11 @@ package SeedGenerator {
       .minByOption(_.cost)
       .getOrElse(GameState.mk(Unobtainium))}
     def afterMet(state: GameState): GameState = state
+    def simplifyBy(state: GameState): Requirement = this match {
+      case _: Consumer => this
+      case _ if this.metBy(state) => Free
+      case _ => this
+    }
     def and(that: Requirement): Requirement = AllReqs(this, that)
     def or(that: Requirement): Requirement = AnyReq(this, that)
     def substitute(orig: Requirement, repl: Requirement): Requirement = if(this == orig) repl else this
@@ -33,6 +38,18 @@ package SeedGenerator {
 
   trait Consumer extends Requirement
 
+  trait MultiReq extends Requirement {
+    val reqs: Seq[Requirement]
+    def builder(parts: Seq[Requirement]): Requirement
+    override def children: Seq[Requirement] = reqs.flatMap(_.children)
+    override def substitute(orig: Requirement, repl: Requirement): Requirement = builder(reqs.map({
+      case r: MultiReq => r.substitute(orig, repl)
+      case r if r == orig => repl
+      case r => r
+    }))
+    override def simplifyBy(state: GameState): Requirement = builder(reqs.map(_.simplifyBy(state)))
+  }
+
   case class StateReq(flag: String) extends Requirement {
     def metBy(state: GameState): Boolean = state.flags.contains(WorldState(flag))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(
@@ -49,7 +66,7 @@ package SeedGenerator {
   case class EventReq(eventCode: Int) extends Requirement {
     def metBy(state: GameState): Boolean = state.inv has WorldEvent(eventCode)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(WorldEvent(eventCode)))
-    override def toString = s"${Skill.names.getOrElse(eventCode, s"Unknown World Event $eventCode")}"
+    override def toString = s"${WorldEvent.names.getOrElse(eventCode, s"Unknown World Event $eventCode")}"
   }
 
   case class SkillReq(skillCode: Int) extends Requirement {
@@ -91,9 +108,9 @@ package SeedGenerator {
         val needed = count - state.inv.totalSpiritLight
         if(needed > 174) {
           val count = needed / 174
-          Seq(GameState(new Inv(SpiritLight(needed / count + 1) -> count)))
+          return Seq(GameState(new Inv(SpiritLight(needed / (count + 1)) -> count)))
         }
-        Seq(GameState(new Inv(SpiritLight(count - state.inv.totalSpiritLight) -> 1)))
+        return Seq(GameState(new Inv(SpiritLight(count - state.inv.totalSpiritLight) -> 1)))
       }
     }
     override def and(that: Requirement): Requirement = that match {
@@ -145,19 +162,21 @@ package SeedGenerator {
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(Teleporter(teleCode)))
   }
 
-
-  class AnyReq(val reqs: Requirement*) extends Requirement {
-    override def equals(obj: Any): Boolean = obj match {
-      case r:AnyReq => r.reqs.toSet == reqs.toSet
-      case _ => false
-    }
+  class AnyReq(override val reqs: Requirement*) extends Requirement  with MultiReq {
+    override def builder(parts: Seq[Requirement]): Requirement = AnyReq(parts)
 
     override def or(that: Requirement): Requirement = that match {
-      case r: AnyReq => AnyReq(r.reqs ++ reqs :_*)
-      case r => AnyReq(reqs :+ r :_*)
+      case r: AnyReq => AnyReq(r.reqs ++ reqs )
+      case r => AnyReq(reqs :+ r )
     }
     override def and(that: Requirement): Requirement = that match {
-      case r: AnyReq if r.reqs.toSet == reqs.toSet => r
+      case AnyReq(kids)  =>
+        val overlap = reqs.toSet.union(kids.toSet)
+        if(overlap.isEmpty)
+          AllReqs(this, that)
+        else
+          AllReqs((overlap + AnyReq(reqs.filterNot(overlap.contains))+ AnyReq(kids.filterNot(overlap.contains))).toSeq)
+//      case r: AllReqs => AnyReq(reqs.map(k => k and r))
       case r => AllReqs(this, r)
     }
     override def toString: String = s"(${reqs.mkString(" || ")})"
@@ -189,17 +208,11 @@ package SeedGenerator {
       }
       cheapest
     }
-    override def children: Seq[Requirement] = reqs.flatMap(_.children)
-    override def substitute(orig: Requirement, repl: Requirement): Requirement = AnyReq(reqs.map({
-      case r: AnyReq => r.substitute(orig, repl)
-      case r: AllReqs => r.substitute(orig, repl)
-      case r if r == orig => repl
-      case r => r
-    }):_*)
   }
 
   object AnyReq {
-    def apply(reqsRaw: Requirement*): Requirement = {
+    def apply(req0: Requirement, reqsRaw: Requirement*): Requirement = apply(req0 +: reqsRaw)
+    def apply(reqsRaw: Seq[Requirement]): Requirement = {
       val reqs: Seq[Requirement] = reqsRaw.filter(_.cheapestRemaining().cost < Double.PositiveInfinity).distinct
       //      if (reqs.length < reqsRaw.length) reqsRaw.collect({ case r if !reqs.contains(r) && r != Invalid => println(s"Excluding $r") })
       reqs match {
@@ -216,16 +229,19 @@ package SeedGenerator {
         case reqs => new AnyReq(reqs: _*)
       }
     }
+    def unapply(arg: AnyReq): Option[Seq[Requirement]] = Some(arg.reqs)
   }
 
-  class AllReqs(val reqs: Requirement*) extends Requirement {
+  class AllReqs(val reqs: Requirement*) extends Requirement with MultiReq {
+    override def builder(parts: Seq[Requirement]): Requirement = AnyReq(parts)
     override def equals(obj: Any): Boolean = obj match  {
-      case r:AllReqs => r.reqs.toSet == reqs.toSet
+      case AllReqs(otherReqs) => reqs.toSet == otherReqs.toSet
       case _ => false
     }
     override def and(that: Requirement): Requirement = that match {
-      case r: AllReqs => AllReqs(r.reqs ++ reqs :_*)
-      case r => AllReqs(reqs :+ r :_*)
+      case AllReqs(kids) => AllReqs(reqs ++ kids)
+//      case AnyReq(kids) => AnyReq(kids.map(k => this and k))
+      case r => AllReqs(reqs :+ r )
     }
     override def or (other: Requirement): Requirement = other match {
       case r:AllReqs if r.reqs.toSet == reqs.toSet => r
@@ -236,7 +252,7 @@ package SeedGenerator {
     def metBy(state: GameState): Boolean = metMaybe(state).nonEmpty
     override def afterMet(state: GameState): GameState = {
       if(metMaybe(state).isEmpty)
-        println(s"about to crash: $state, $reqs, ${metBy(state)}")
+        UI.log(s"about to crash: $state, $reqs, ${metBy(state)}")
       metMaybe(state).get
     }
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
@@ -266,16 +282,10 @@ package SeedGenerator {
       else
         Seq(greedy)*/
     }
-    override def children: Seq[Requirement] = reqs.flatMap(_.children)
-    override def substitute(orig: Requirement, repl: Requirement): Requirement = AllReqs(reqs.map({
-      case r: AnyReq => r.substitute(orig, repl)
-      case r: AllReqs => r.substitute(orig, repl)
-      case r if r == orig => repl
-      case r => r
-    }):_*)
   }
   object AllReqs {
-    def apply(reqsRaw: Requirement*): Requirement = reqsRaw.filterNot(_ == Free).distinct match {
+    def apply(req0: Requirement, reqsRaw: Requirement*): Requirement = apply(req0 +: reqsRaw)
+    def apply(reqsRaw: Seq[Requirement]): Requirement = reqsRaw.filterNot(_ == Free).distinct match {
       case Nil => Free
       case Seq(req) => req
       case reqs if reqs.contains(Invalid) => Invalid
@@ -284,10 +294,11 @@ package SeedGenerator {
           case all: AllReqs => Left(all)
           case r            => Right(r)
         })
-        new AllReqs(alls.flatMap(_.reqs) ++ others:_*)
+        new AllReqs(alls.flatMap(_.reqs) ++ others :_*)
       case reqs if reqs.exists(_.isInstanceOf[Consumer]) => new AllReqs(reqs:_*) with Consumer
       case reqs => new AllReqs(reqs:_*)
     }
+    def unapply(arg: AllReqs): Option[Seq[Requirement]] = Some(arg.reqs)
   }
 
 }
