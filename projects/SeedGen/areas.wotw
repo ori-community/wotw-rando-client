@@ -3454,8 +3454,6 @@ area WillowsEnd.West:  # (445, -3840) To the left of the one-way above Lupo
 area WillowsEnd.Upper:  # (499, -3748) At the upper door
   refill Checkpoint
 
-  state WillowsEnd.ElementalDefeated:
-    base: Combat, Danger=25, DoubleJump, Bash, Launch  # +60 region danger
   state WillowsEnd.BurrowHeart:
     base, Weapon:
       Burrow, DoubleJump, Dash, Bash, Grapple, Glide
@@ -3472,10 +3470,19 @@ area WillowsEnd.Upper:  # (499, -3748) At the upper door
       Bash, Grapple, Launch, DoubleJump, Dash
       Bash, Grapple, Launch, Glide
 
+  conn LaserRockFight:
+    base:
+      Launch, DoubleJump
+      Launch, Dash, Glide
   conn WillowsEnd.East:
     base: EnemyObstacle, DoubleJump OR Dash OR Bash OR Glide OR Launch
   conn WillowsEnd.West:
     base: Launch
+
+area LaserRockFight:
+  refill Full
+  state WillowsEnd.ElementalDefeated:
+    base: Combat, Danger=85, Bash, Launch
 
 area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
   refill Full
