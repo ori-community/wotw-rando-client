@@ -8,7 +8,49 @@ SetBatchLines, -1
 
 version := "v0.1.3"
 ; data containers
-imageBase := { "Bash": "img\Bash", "Blaze": "img\Blaze", "Bow": "img\Bow", "Burrow": "img\Burrow", "Shuriken": "img\Shuriken", "Dash": "img\Dash", "DoubleJump": "img\DoubleJump", "Flap": "img\Flap", "Flash": "img\Flash" , "Feather": "img\Feather" , "Grapple": "img\Grapple" , "Hammer": "img\Hammer" , "Launch": "img\Launch" , "LightBurst": "img\LightBurst" , "Regenerate": "img\Regen" , "Spike": "img\Spike" , "SwimDash": "img\SwimDash" , "Sword": "img\Sword" , "WaterBreath": "img\WaterBreath" , "DamageUp": "img\WeaponUpgrade1" }
+imageBase := { "Bash": "img\Bash"
+    , "Blaze": "img\Blaze"
+    , "Bow": "img\Bow"
+    , "Burrow": "img\Burrow"
+    , "Shuriken": "img\Shuriken"
+    , "Dash": "img\Dash"
+    , "DoubleJump": "img\DoubleJump"
+    , "Flap": "img\Flap"
+    , "Flash": "img\Flash" 
+    , "Feather": "img\Feather" 
+    , "Grapple": "img\Grapple" 
+    , "Hammer": "img\Hammer" 
+    , "Launch": "img\Launch" 
+    , "LightBurst": "img\LightBurst" 
+    , "Regenerate": "img\Regen" 
+    , "Sentry": "img\Sentry"
+    , "Spike": "img\Spike" 
+    , "WaterDash": "img\WaterDash" 
+    , "Sword": "img\Sword" 
+    , "WaterBreath": "img\WaterBreath" 
+    , "DamageUp": "img\WeaponUpgrade1" }
+
+imageCurr := { "Bash": "img\Bash.png"
+    , "Blaze": "img\Blaze.png"
+    , "Bow": "img\Bow.png"
+    , "Burrow": "img\Burrow.png"
+    , "Shuriken": "img\Shuriken.png"
+    , "Dash": "img\Dash.png"
+    , "DoubleJump": "img\DoubleJump.png"
+    , "Flap": "img\Flap.png"
+    , "Flash": "img\Flash.png" 
+    , "Feather": "img\Feather.png" 
+    , "Grapple": "img\Grapple.png" 
+    , "Hammer": "img\Hammer.png" 
+    , "Launch": "img\Launch.png" 
+    , "LightBurst": "img\LightBurst.png" 
+    , "Regenerate": "img\Regen.png" 
+    , "Sentry": "img\Sentry.png"
+    , "Spike": "img\Spike.png" 
+    , "WaterDash": "img\WaterDash.png" 
+    , "Sword": "img\Sword.png" 
+    , "WaterBreath": "img\WaterBreath.png" 
+    , "DamageUp": "img\WeaponUpgrade1.png" }
 
 ; -------------------------------------
 ; Startup stuff
@@ -186,12 +228,12 @@ update() {
     for skill, i in imageBase {
         if(hasVal(skills, skill)) {
             if(hasVal(upgraded, skill)) 
-                GuiControl  ,, %skill%, % upgradedImage(skill)                            
+                setIfNew(skill,upgradedImage(skill))
             else 
-                GuiControl  ,, %skill%, % unlockedImage(skill)
+                setIfNew(skill,unlockedImage(skill))
         }
             else
-                GuiControl ,, %skill%, % lockedImage(skill)
+                setIfNew(skill,lockedImage(skill))
 
     }
 
@@ -272,7 +314,13 @@ DisableTT:
     return
 
 
-
+setIfNew(skill, image){
+    global imageCurr
+    if(image != imageCurr[skill]) {
+        GuiControl ,, %skill%, %image%
+        imageCurr[skill] := image
+    }
+}
 
 internalName(skill) {
     if(skill == "Ancestral Light")
