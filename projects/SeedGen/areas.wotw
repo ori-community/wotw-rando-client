@@ -304,8 +304,6 @@ area HowlsDen.Lower:  # (-328, -4536) At the teleporter
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
-  pickup HowlsDen.CombatShrine:
-    base: Combat, Danger=35, Hammer  # no region danger
   pickup HowlsDen.LaserKS:
     base:
       DoubleJump OR Dash OR Launch
@@ -326,6 +324,14 @@ area HowlsDen.Lower:  # (-328, -4536) At the teleporter
     advanced:
       Sword OR Hammer
       Bash, Grenade=1
+  
+  conn DenShrine:
+    base: Hammer  # no region danger
+
+area DenShrine:
+  refill Full
+  pickup HowlsDen.CombatShrine:
+    base: Combat, Danger=35
 
 area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking at the Millstone
   refill Checkpoint
@@ -348,8 +354,6 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
     base:
       Weapon, DoubleJump OR Bash OR Launch
     advanced: Sword                         # Pogo off of enemy
-  pickup MarshPastOpher.CombatShrine:
-    base: Combat, Danger=20  # no region danger
   pickup MarshPastOpher.SwingPoleEX:
     base:
       Danger=10, DoubleJump OR Dash OR Glide OR Launch
@@ -357,12 +361,18 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
     advanced:
       Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide      #It's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
 
+  conn MarshShrine: free
   conn OpherShop: free
   conn MarshPastOpher.BowArea:
     base:
       DoubleJump OR Dash OR Launch
       Bash, Grenade=3
     advanced: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
+
+area MarshShrine:
+  refill Full
+  pickup MarshPastOpher.CombatShrine:
+    base: Combat, Danger=20
 
 area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with bow tree.
   refill Energy=1:
@@ -1068,17 +1078,18 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
   refill Checkpoint
   refill Health=1: free
 
-  pickup WestGlades.CombatShrine:
-    base, Combat, Danger=35:  # +20 region danger
-      Grapple, Bash, DoubleJump OR Glide
-      DoubleJump, Bash, Grenade=1
-      Launch, DoubleJump OR Grapple
   pickup WestGlades.ShrineHC:
     base:
       Grapple, DoubleJump, Dash OR Glide
       DoubleJump, Bash, Grenade=2
+      Launch, Bash, Grenade=1
       Launch, DoubleJump OR Grapple
 
+  conn GladesShrine:
+    base:
+      Grapple, Bash, DoubleJump OR Glide
+      Bash, Grenade=1, DoubleJump OR Launch
+      Launch, DoubleJump OR Grapple
   conn WestGlades.Upper:
     base:
       Bash, DoubleJump OR Dash OR Glide OR Grenade=1
@@ -1098,6 +1109,14 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
       Water, WaterDash, Grapple, DoubleJump OR Dash OR Glide
       Water, Launch, Grapple
       Water, Launch, DoubleJump, Dash
+
+area GladesShrine:
+  refill Full
+  pickup WestGlades.CombatShrine:
+    base, Combat, Danger=55:
+      Grapple, Bash, DoubleJump OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch, DoubleJump OR Grapple
 
 area PoolsApproach.MillPath:  # (-873, -4146) above the water where the three paths merge
   refill Checkpoint
@@ -2141,15 +2160,15 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
 
   # having the initial escape completed is a negative, not a positive. The paths going through it are the connections to Wastes.
   # if you complete the initial escape, rocks fall and block most of the connection paths to WestTP. This is equally true for the base game though and solved by the fact that if you complete the escape, you unlock the teleporter, making these paths not softlockable
-  pickup WoodsMain.CombatShrine:
-    base, Combat, RangedWeapon, ShieldEnemy, Bash, Danger=40:  # +40 region danger
-      Glide OR Launch
-      DoubleJump, Dash
   pickup WoodsMain.ShrineEX:
     base: 
       Glide OR Launch
       DoubleJump, Dash
   
+  conn WoodsShrine:
+    base:
+      Glide
+      RangedWeapon, Launch
   # connections to the east woods teleporter would be a dead end
   conn WoodsMain.AboveHowl:
     base:
@@ -2163,6 +2182,13 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
         Grapple, Glide
         Burrow
         Launch
+
+area WoodsShrine:
+  refill Full
+  pickup WoodsMain.CombatShrine:
+    base, Combat, RangedWeapon, ShieldEnemy, Bash, Danger=80:
+      Glide OR Launch
+      DoubleJump, Dash
 
 region LowerReach:
   base:
@@ -2771,13 +2797,22 @@ area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
   quest LowerDepths.HandToHandSilk:
     base: GladesTown.HandToHandLantern
 
-  pickup LowerDepths.CombatShrine:
-    base, Combat, Danger=20:  # +40 region danger
-      DepthsLight, Water, Bash, DoubleJump OR Launch
-      DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
   pickup LowerDepths.SwimEC:
     base: DepthsLight, Water
+
+  conn DepthsShrine:
+    base:
+      DepthsLight, Water, DoubleJump, Bash
+      DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
+      DepthsLight, Water, Launch
   # backwards paths would be redundant currently
+
+area DepthsShrine:
+  refill Full
+  pickup LowerDepths.CombatShrine:
+    base, Combat, Danger=60:
+      DepthsLight, Water, Bash, DoubleJump OR Launch
+      DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
 
 area LowerDepths.Central:  # (482, -4536) Below where the trial starts
   refill Checkpoint
