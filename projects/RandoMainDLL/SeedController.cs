@@ -294,9 +294,30 @@ namespace RandoMainDLL {
     public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }
     public static string Progress {
-      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
+      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages();
     }
-    public static void UpdateGoal() {
+    public static string GoalModeMessages() {
+      var msg = "";
+      if (flags.Contains(Flag.ALLWISPS)) {
+        var max = UberStateController.Wisps.Count;
+        var amount = UberStateController.Wisps.Count((UberState s) => s.ValueOr(new UberValue(false)).Bool);
+        var w = amount == max ? "$" : "";
+        msg += $"\n{w}Wisps: {amount}/{max}{w}";
+      }
+      if (flags.Contains(Flag.ALLTREES)) {
+        var amount = SaveController.Data.TreesActivated.Count;
+        var w = amount == 14 ? "$" : "";
+        msg += $"\n{w}Trees: {amount}/{14}{w}";
+      }
+      if (flags.Contains(Flag.ALLQUESTS)) {
+        var max = UberStateController.Quests.Count;
+        var amount = UberStateController.Quests.Count((UberState s) => s.ValueOr(new UberValue(0)).Int == s.Value.Int);
+        var w = amount == max ? "$" : "";
+        msg += $"\n{w}Quests: {amount}/{max}{w}";
+      }
+      return msg;
+    }
+      public static void UpdateGoal() {
       bool finished = true;
       if (flags.Contains(Flag.ALLTREES)) {
         finished = finished && SaveController.Data.TreesActivated.Count == 14;
