@@ -47,9 +47,6 @@ namespace RandoMainDLL {
 
     public static void Init() {
       Engine.ExecRaw(Program);
-      if (File.Exists("C:\\moon\\rando_binds.ahk")) {
-        Engine.LoadFile("C:\\moon\\rando_binds.ahk");
-      }
 
       Ready = true;
       bool cursorLock = IniFlag("CursorLock");
