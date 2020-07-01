@@ -331,7 +331,9 @@ area HowlsDen.Lower:  # (-328, -4536) At the teleporter
 area DenShrine:
   refill Full
   pickup HowlsDen.CombatShrine:
-    base: Combat, Danger=35
+    base, Combat, RangedWeapon OR DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
+      Danger=60
+      Dash OR Bash OR Launch, Danger=40  # much better if you have good evasion
 
 area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking at the Millstone
   refill Checkpoint
@@ -372,7 +374,7 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
 area MarshShrine:
   refill Full
   pickup MarshPastOpher.CombatShrine:
-    base: Combat, Danger=20
+    base: Combat, RangedWeapon OR DoubleJump OR Bash OR Launch, Danger=20  # flying enemies, but short and not too hard
 
 area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with bow tree.
   refill Energy=1:
@@ -1113,10 +1115,10 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
 area GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
-    base, Combat, Danger=55:
-      Grapple, Bash, DoubleJump OR Glide
-      DoubleJump, Bash, Grenade=1
-      Launch, DoubleJump OR Grapple
+    base, Combat, RangedWeapon OR Bash:  # the shooter plants have basically no attack surface without bash
+      Danger=65  # the crabs are terrifying!
+      DoubleJump OR Dash, Danger=55  # these can help
+      Launch, Danger=30  # if you're op, nothing's terrifying
 
 area PoolsApproach.MillPath:  # (-873, -4146) above the water where the three paths merge
   refill Checkpoint
@@ -2186,9 +2188,10 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
 area WoodsShrine:
   refill Full
   pickup WoodsMain.CombatShrine:
-    base, Combat, RangedWeapon, ShieldEnemy, Bash, Danger=80:
-      Glide OR Launch
-      DoubleJump, Dash
+    base, Combat, RangedWeapon, ShieldEnemy, Bash:  # this one has it all -_-
+      Danger=80
+      DoubleJump OR Dash, Danger=65
+      Launch, Danger=50
 
 region LowerReach:
   base:
@@ -2810,9 +2813,10 @@ area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
 area DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
-    base, Combat, Danger=60:
-      DepthsLight, Water, Bash, DoubleJump OR Launch
-      DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
+    base, Combat, RangedWeapon OR Bash:
+      Danger=65
+      DoubleJump OR Dash, Danger=60
+      Launch, Danger=50
 
 area LowerDepths.Central:  # (482, -4536) Below where the trial starts
   refill Checkpoint
