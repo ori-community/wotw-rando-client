@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
