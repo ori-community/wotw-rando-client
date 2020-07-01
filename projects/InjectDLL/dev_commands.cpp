@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <iterator>
 #include <future>
+#include <regex>
 
 namespace dev
 {
@@ -40,6 +41,9 @@ namespace dev
         std::future<std::string> console_input;
         std::vector<std::string> messages;
         std::mutex message_mutex;
+
+        std::regex integer_regex("^[+-]?[0-9]+$");
+        std::regex float_regex("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
     }
 
     Initialization::Initialization(Initialization::init p_call)
@@ -78,17 +82,26 @@ namespace dev
         auto it = entries.find(name);
         if (it != entries.end())
         {
-            std::unordered_map<std::string, std::string> params;
+            std::vector<CommandParam> params;
             for (auto const& token : tokens)
             {
                 if (token.empty())
                     continue;
 
+                CommandParam param;
                 auto offset = token.find('=');
                 if (offset == std::string::npos)
-                    params[token] = "";
+                {
+                    param.name = "";
+                    param.value = token;
+                }
                 else
-                    params[token.substr(0, offset)] = token.substr(offset + 1, token.size());
+                {
+                    param.name = token.substr(0, offset);
+                    param.value = token.substr(offset + 1, token.size());
+                }
+
+                params.push_back(param);
             }
 
             for (auto const& command : it->second)
@@ -146,6 +159,12 @@ namespace dev
 
     }
 
+    void list_commands()
+    {
+        for (auto entry : entries)
+            dev::console_send(entry.first);
+    }
+
     void console_poll()
     {
         if (!initialzed)
@@ -156,6 +175,8 @@ namespace dev
             auto command = console_input.get();
             if (command.rfind("echo ", 0) != std::string::npos)
                 std::cout << command.substr(5, command.length()) << std::endl;
+            else if (command == "list")
+                list_commands();
             else
                 handle_message(command);
 
@@ -206,7 +227,34 @@ namespace dev
 
         if (std::find(false_values.begin(), false_values.end(), str) != false_values.end())
         {
-            value = true;
+            value = false;
+            return true;
+        }
+
+        return false;
+    }
+
+    bool try_get_bool(CommandParam const& param, bool& value)
+    {
+        return try_convert_to_bool(param.value, value);
+    }
+
+    bool try_get_int(CommandParam const& param, int& value)
+    {
+        if (std::regex_match(param.value, integer_regex))
+        {
+            value = std::stoi(param.value);
+            return true;
+        }
+
+        return false;
+    }
+
+    bool try_get_float(CommandParam const& param, float& value)
+    {
+        if (std::regex_match(param.value, float_regex))
+        {
+            value = std::stof(param.value);
             return true;
         }
 

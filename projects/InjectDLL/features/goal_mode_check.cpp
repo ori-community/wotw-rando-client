@@ -65,7 +65,7 @@ namespace
             SeinCharacter__FixedUpdate(this_ptr);
     }
 
-    void report_player_position(std::string const& command, std::unordered_map<std::string, std::string> const& params)
+    void report_player_position(std::string const& command, std::vector<dev::CommandParam> const& params)
     {
         auto sein = get_sein();
         if (sein != nullptr)
