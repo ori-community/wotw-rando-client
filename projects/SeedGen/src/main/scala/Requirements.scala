@@ -169,16 +169,16 @@ package SeedGenerator {
       case r: AnyReq => AnyReq(r.reqs ++ reqs )
       case r => AnyReq(reqs :+ r )
     }
-    override def and(that: Requirement): Requirement = that match {
-      case AnyReq(kids)  =>
-        val overlap = reqs.toSet.union(kids.toSet)
-        if(overlap.isEmpty)
-          AllReqs(this, that)
-        else
-          AllReqs((overlap + AnyReq(reqs.filterNot(overlap.contains))+ AnyReq(kids.filterNot(overlap.contains))).toSeq)
-//      case r: AllReqs => AnyReq(reqs.map(k => k and r))
-      case r => AllReqs(this, r)
-    }
+//    override def and(that: Requirement): Requirement = that match {
+//      case AnyReq(kids)  =>
+//        val overlap = reqs.toSet.union(kids.toSet)
+//        if(overlap.isEmpty)
+//          AllReqs(this, that)
+//        else
+//          AllReqs((overlap + AnyReq(reqs.filterNot(overlap.contains))+ AnyReq(kids.filterNot(overlap.contains))).toSeq)
+////      case r: AllReqs => AnyReq(reqs.map(k => k and r))
+//      case r => AllReqs(this, r)
+//    }
     override def toString: String = s"(${reqs.mkString(" || ")})"
     override def metBy(state: GameState): Boolean = reqs.exists(_.metBy(state))
     override def afterMet(state: GameState): GameState = {
