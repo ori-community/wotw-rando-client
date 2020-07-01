@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Microsoft.VisualBasic;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -18,6 +20,8 @@ namespace RandoMainDLL {
     QuestEvent = 9
   }
 
+  public class DoneWithThis : Exception { };
+
   public enum QuestEventType : byte {
     [Description("Clean Water")]
     Water = 0
@@ -27,7 +31,10 @@ namespace RandoMainDLL {
     Save = 0,
     ProcUberStates = 1,
     ProcUberStatesAndSurpress = 2,
-    SupressMagic = 3
+    SupressMagic = 3,
+    StopIfEqual = 4,
+    StopIfGreater = 5,
+    StopIfLess = 6
   }
 
   public enum TeleporterType : byte {
@@ -125,16 +132,32 @@ namespace RandoMainDLL {
     public abstract override string ToString();
   }
 
-  public class UberStatePickup : Pickup {
+  public class UberStateSetter : Pickup {
     public readonly UberState State;
     public override PickupType Type => PickupType.UberState;
     public override bool NeedsMagic() => true;
-    public UberStatePickup(UberState state) => State = state;
+    public UberStateSetter(UberState state) => State = state;
     public override void Grant(bool skipBase = false) {
       Randomizer.Memory.WriteUberState(State);
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
   }
+
+  public class UberStateModifier : UberStateSetter {
+    Func<UberValue, UberValue> Modifier;
+    String ModStr;
+    public UberStateModifier(UberState state, Func<UberValue, UberValue> modifier, String modstr) : base(state) {
+      Modifier = modifier;
+      ModStr = modstr;
+    }
+    public override void Grant(bool skipBase = false) {
+      State.Value = Modifier(State.ValueOr(State.Value));
+      Randomizer.Memory.WriteUberState(State);
+    }
+    public override string ToString() => $"{State.GroupID},{State.ID} -> {ModStr}";
+
+  }
+
 
   public class Multi : Pickup {
     public Multi(List<Pickup> children) {
@@ -160,7 +183,9 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
-      Children.ForEach((c) => c.Grant(true));
+      try {
+        Children.ForEach((c) => c.Grant(true));
+      } catch(DoneWithThis) { }; 
       base.Grant(false);
     }
 
@@ -173,20 +198,19 @@ namespace RandoMainDLL {
 
   public class Message : Pickup {
     private int _frames;
-
     public override int Frames { get => _frames; }
     public Message(string msg, int frames = 240, bool squelch = false) {
       Msg = msg;
       _frames = frames;
       Squelch = squelch;
     }
-
     public string Msg;
     public bool Squelch = false;
 
     public override PickupType Type => PickupType.Message;
 
-    public override string ToString() => Msg;
+    private static Regex uberMsg = new Regex(@"\$\(([0-9]+),([0-9]+)\)");
+    public override string ToString() => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
   }
 
   public abstract class Checkable : Pickup {
@@ -251,7 +275,7 @@ namespace RandoMainDLL {
   }
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
-    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Ability((AbilityType)value.ParseToByte()) : new RemoveAbility((AbilityType)value.TrimStart(new char[]{'-'}).ParseToByte());
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Ability((AbilityType)value.ParseToByte()) : new RemoveAbility((AbilityType)value.TrimStart(new char[] { '-' }).ParseToByte());
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
     public override bool Has() => SaveController.HasAbility(type);
@@ -299,7 +323,7 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 300;
     public override string ToString() => $"${type.GetDescription()}$" ?? $"Unknown Shard {type}";
   }
-  public class RemoveShard: Pickup {
+  public class RemoveShard : Pickup {
     public RemoveShard(ShardType shard) => type = shard;
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
@@ -373,6 +397,31 @@ namespace RandoMainDLL {
       }
     }
     public override string ToString() => type.ToString();
+  }
+  public class ConditionalStop : SystemCommand {
+    private UberId targetState;
+    private int targetValue;
+    public ConditionalStop(SysCommandType type, UberId s, int v) : base(type) {
+      targetState = s;
+      targetValue = v;
+    }
+    public override void Grant(bool skipBase = false) {
+      var state = targetState.State();
+      switch (type) {
+        case SysCommandType.StopIfEqual:
+          if (state.ValueAsInt() == targetValue)
+            throw new DoneWithThis();
+          break;
+        case SysCommandType.StopIfGreater:
+          if (state.ValueAsInt() > targetValue)
+            throw new DoneWithThis();
+          break;
+        case SysCommandType.StopIfLess:
+          if (state.ValueAsInt() < targetValue)
+            throw new DoneWithThis();
+          break;
+      }
+    }
   }
 
   public class Resource : Pickup {
