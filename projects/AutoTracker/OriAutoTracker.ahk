@@ -92,6 +92,7 @@ skillstate := {"Bash": 0
     ,"Launch" : 0
     ,"LightBurst" : 0
     ,"Regenerate" : 0
+    ,"Sentry" : 0
     ,"Spike" : 0
     ,"SwimDash" : 0
     ,"Sword" : 0
@@ -252,7 +253,7 @@ parsechanges(Folder, Changes) {
                     GuiControl , ,Sentry , .\img\Sentry_unlocked.png
                     skillstate["Sentry"] := 1
                 }
-                else if (skill == "SentryUpgraded" and skillstate["Sentry"] == 1) {
+                else if (skill == "SentryUpgraded" and skillstate["Sentry"] < 2) {
                     GuiControl , ,Sentry , .\img\Sentry_upgrade.png
                     skillstate["Sentry"] := 2
                 }                
@@ -293,11 +294,11 @@ parsechanges(Folder, Changes) {
                     skillstate["WaterBreath"] := 1
                 }
                 else if (skill == "Ancestral Light" and skillstate["WeaponUpgrade"] == 0) {
-                    GuiControl , ,WeaponUpgrade1 , .\img\WeaponUpgrade1_unlocked.png
+                    GuiControl , ,WeaponUpgrade , .\img\WeaponUpgrade1_unlocked.png
                     skillstate["WeaponUpgrade"] := 1
                 }
-                else if (skill == "Ancestral Light" and skillstate["WeaponUpgrade"] < 2) {
-                    GuiControl , ,WeaponUpgrade1 , .\img\WeaponUpgrade2_unlocked.png
+                else if (skill == "Ancestral LightUpgraded" and skillstate["WeaponUpgrade"] < 2) {
+                    GuiControl , ,WeaponUpgrade , .\img\WeaponUpgrade2_unlocked.png
                     skillstate["WeaponUpgrade"] := 2
                 }
 
@@ -316,7 +317,6 @@ parsechanges(Folder, Changes) {
 
 ; Hover text for each of the items.
 Help(wParam, lParam, Msg) {
-
     MouseGetPos,,,, OutputVarControl
     ControlGetText, HoverText, %OutputVarControl%
     IfEqual, HoverText, .\img\Bash.png
