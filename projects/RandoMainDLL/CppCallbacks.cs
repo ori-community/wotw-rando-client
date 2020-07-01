@@ -41,6 +41,10 @@ namespace RandoMainDLL {
             CallbackName = "on_checkpoint"
           },
           new Method() {
+            Delegate = new f_void(() => AHK.Print(SeedController.GoalModeMessages(unmet: "@"), 240, false)),
+            CallbackName = "on_goal_mode_fail"
+          },
+          new Method() {
             Delegate = new f_ull(Randomizer.Memory.ShardSlotPtr),
             CallbackName = "get_shard_slot_ptr"
           },
