@@ -8,6 +8,25 @@ namespace RandoMainDLL {
     public static UberStateCondition toCond(this Memory.UberId id, int? target = null) => new UberStateCondition(id, target);
     public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
+    public static int AsInt(this UberValue v, UberStateType t) {
+      switch(t) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.ByteUberState:
+        case UberStateType.SerializedByteUberState:
+          return Convert.ToInt32(v.Byte);
+        case UberStateType.BooleanUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return Convert.ToInt32(v.Bool);
+        case UberStateType.SerializedFloatUberState:
+          return Convert.ToInt32(v.Float);
+        case UberStateType.IntUberState:
+        case UberStateType.SerializedIntUberState:
+        default:
+          return v.Int;
+      }
+
+    }
+
     public static EquipmentType? Equip(this AbilityType t) => AbilityToEquip.Get(t);
     public static Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
       { AbilityType.Bash, EquipmentType.Ability_Bash },
