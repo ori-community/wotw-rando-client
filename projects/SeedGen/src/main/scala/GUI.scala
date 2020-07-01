@@ -102,6 +102,7 @@ package SeedGenerator {
       if(ui.forceWisps.selected) Some("ForceWisps") else None,
       if(ui.forceTrees.selected) Some("ForceTrees") else None,
       if(ui.forceQuests.selected) Some("ForceQuests") else None,
+      if(ui.zoneHints.selected) None else Some("NoHints"),
     ).flatten
     def flagLine: String = if(flags.nonEmpty) s"Flags: ${flags.mkString(", ")}\n"else ""
     def outputFile: File = {
@@ -127,8 +128,10 @@ package SeedGenerator {
         currentOp = None
       })
     }
-    def debug(x: Any): Unit = if(ui.debugToggle.selected) log(x)
+    def debug(x: Any): Unit = if(ui.debugToggle.selected || !ui.visible) log(x)
     def log(x: Any): Unit = {
+      if(!ui.visible)
+        println(x)
       ui.logView.append(s"$x\n")
       ui.logHolder.verticalScrollBar.value = ui.logHolder.verticalScrollBar.maximum
     }
