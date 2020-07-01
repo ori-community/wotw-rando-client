@@ -121,3 +121,44 @@ intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
     if (first_intercept == nullptr)
         first_intercept = this;
 }
+
+namespace il2
+{
+    extern int64_t il2cpp_get_virtual_method();
+
+    struct Il2CppRuntimeInterfaceOffsetPair
+    {
+        Il2CppClass* interface_type;
+        int32_t offset;
+    };
+
+    bool instance_of(Il2CppClass* klass, Il2CppClass* parent)
+    {
+        for (auto i = 0; i < klass->_2.typeHierarchyDepth; ++i)
+            if (klass->_2.typeHierarchy[i] == klass)
+                return true;
+
+        return false;
+    }
+
+    int implements_interface(Il2CppClass* klass, Il2CppClass* iklass)
+    {
+        for (auto i = 0; i < klass->_2.interfaces_count; ++i)
+            if (klass->_1.implementedInterfaces[i] == iklass)
+                return i;
+
+        return -1;
+    }
+
+    /*template <typename IFace, typename VirtualMember, typename FuncType>
+    FuncType resolve_iface_virtual(IFace* iface, TMember member, Il2CppClass* klass)
+    {
+        int ioffset = implements_interface(klass, iface);
+        if (ioffset < 0)
+            return nullptr;
+
+        
+        auto pair = reinterpret_cast<Il2CppRuntimeInterfaceOffsetPair**>(klass->_1.interfaceOffsets)[ioffset];
+        klass->vtable[pair->offset]
+    }*/
+}

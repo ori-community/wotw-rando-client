@@ -4,10 +4,13 @@
 #include <csharp_bridge.h>
 
 #include <set>
+#include <locale>
+#include <codecvt>
+#include <xstring>
 
-BINDING(30218144, __int64, String_GetCharArray, (__int64))//System.String$$ToCharArray
-BINDING(34816240, int, Array_get_Count, (__int64)) //System.Array$$get_Length
-BINDING(34805712, __int64, Array_GetValue, (__int64, int index)) //System.Array$$GetValue
+BINDING(30218144, System_Char_array*, System_String__ToCharArray, (System_String_o* this_ptr))//System.String$$ToCharArray
+BINDING(34816240, int, System_Array__get_Length, (System_Array_o* this_ptr)) //System.Array$$get_Length
+BINDING(34805488, Il2CppObject*, System_Array__GetValue, (System_Array_o* thus_ptr, int index)) //System.Array$$GetValue
 
 BINDING(13847344, MessageBox_o*, MessageControllerB__ShowHintSmallMessage, (MessageControllerB_o* this_ptr, MessageDescriptor_o descriptor, UnityEngine_Vector3_o position, float duration));
 BINDING(5621248, UnityEngine_Vector3_o, OnScreenPositions__get_TopCenter, ());
@@ -19,6 +22,24 @@ BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, boo
 BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
 BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
 
+std::string convert_csstring(System_String_o* str)
+{
+    std::string cppstr;
+    if (str == nullptr)
+        return cppstr;
+
+    auto chars = System_String__ToCharArray(str);
+    if (chars == nullptr)
+        return cppstr;
+
+    std::wstring wstr(reinterpret_cast<wchar_t*>(chars->m_Items), str->m_stringLength);
+    using convert_type = std::codecvt_utf8<wchar_t>;
+    std::wstring_convert<convert_type, wchar_t> converter;
+    cppstr = converter.to_bytes(wstr);
+
+    return cppstr;
+}
+
 namespace
 {
     std::set<MessageBox_o*> tracked_boxes;
@@ -27,25 +48,10 @@ namespace
     System_String_o* last_message = nullptr;
     uint32_t last_handle = 0;
 
-    void print_csstring(__int64 str)
+    void print_csstring(System_String_o* str)
     {
-        if (str != 0)
-        {
-            __int64 chars = String_GetCharArray(str);
-            if (chars != 0)
-            {
-                auto size = Array_get_Count(chars);
-                auto str = new char[size];
-                for (int i = 0; i < size; ++i)
-                {
-                    auto charStructPointer = Array_GetValue(chars, i);
-                    str[i] = *reinterpret_cast<char*>(charStructPointer + 0x10);
-                }
-
-                trace(MessageType::Info, 4, "csstring", str);
-                delete[] str;
-            }
-        }
+        auto cppstr = convert_csstring(str);
+        trace(MessageType::Info, 4, "csstring", cppstr);
     }
 
     // nullcheck helper

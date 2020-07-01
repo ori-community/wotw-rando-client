@@ -49,7 +49,13 @@ namespace RandoMainDLL {
       [Description("NoHints")]
       NOHINTS,
       [Description("NoKSDoors")]
-      NOKEYSTONES
+      NOKEYSTONES,
+      [Description("ForceWisps")]
+      ALLWISPS,
+      [Description("ForceTrees")]
+      ALLTREES,
+      [Description("ForceQuests")]
+      ALLQUESTS
     }
 
     public static Pickup Pickup(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty);
@@ -239,6 +245,30 @@ namespace RandoMainDLL {
     public static int Total { get => pickupMap.Count; }
     public static string Progress {
       get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
+    }
+    public static void UpdateGoal() {
+      bool finished = true;
+      if (flags.Contains(Flag.ALLTREES)) {
+        finished = finished && SaveController.Data.TreesActivated.Count == 14;
+      }
+
+      if (finished && flags.Contains(Flag.ALLWISPS)) {
+        foreach (var state in UberStateController.Wisps) {
+          finished = finished && state.ValueOr(new UberValue(false)).Bool;
+          if (!finished)
+            break;
+        }
+      }
+
+      if (finished && flags.Contains(Flag.ALLQUESTS)) {
+        foreach (var state in UberStateController.Quests) {
+          finished = finished && state.ValueOr(new UberValue(0)).Int == state.Value.Int;
+          if (!finished)
+            break;
+        }
+      }
+
+      InterOp.lock_shriek_goal(!finished);
     }
   }
 }

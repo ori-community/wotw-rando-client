@@ -34,6 +34,7 @@ set(
 	"pickups/shops.cpp"
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
+	"uber_states/uber_state_dev.cpp"
 )
 
 set(
