@@ -184,6 +184,8 @@ namespace RandoMainDLL {
           return Shard.Build(pickupData);
         case PickupType.Teleporter:
           return Teleporter.Build(pickupData);
+        case PickupType.QuestEvent:
+          return QuestEvent.Build(pickupData);
         case PickupType.SpiritLight:
           return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
@@ -223,8 +225,6 @@ namespace RandoMainDLL {
             }
           }
           return new Message(messageParts[0], frames, squelch);
-        case PickupType.QuestEvent:
-          return new QuestEvent((QuestEventType)pickupData.ParseToByte());
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
           if (stateParts.Count != 4) {
