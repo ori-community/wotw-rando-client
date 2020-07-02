@@ -1,6 +1,6 @@
 #include <interception_macros.h>
 #include <csharp_bridge.h>
-#include <dev_commands.h>
+#include <dev/dev_commands.h>
 
 namespace
 {

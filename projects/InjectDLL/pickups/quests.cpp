@@ -1,5 +1,5 @@
 #include <common.h>
-#include <dev_commands.h>
+#include <dev/dev_commands.h>
 #include <dll_main.h>
 #include <interception_macros.h>
 #include <Common/ext.h>
