@@ -38,6 +38,7 @@ set(
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
 	"uber_states/uber_state_dev.cpp"
+	"uber_states/state_applier.cpp"
 )
 
 set(
@@ -58,6 +59,7 @@ set(
 	"fixes/dash.h"
 	"pickups/ore.h"
 	"pickups/pickups.h"
+	"uber_states/state_applier.h"
 )
 
 set(
