@@ -51,9 +51,11 @@ package SeedGenerator {
           None
       }.toSeq
       pickupsFile.close()
-      if(UI.Options.hints)
-        pickups.filter(_.value != "LupoZoneMap")
-      else pickups
+      pickups.filter({
+        case l if UI.Options.hints && l.value == "LupoZoneMap" => false
+        case l if !UI.Options.questLocs && l.category == "Quest" => false
+        case _ => true
+      })
     }
     def byName: Map[String, LocData] = all.map(data => s"${data.area}.${data.name}" -> data).toMap
   }
@@ -131,7 +133,7 @@ package SeedGenerator {
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
       .orElse({
         if(!name.endsWith("LupoMap"))
-          UI.log(s"pickup $name not found in loc_data.csv!")
+          UI.debug(s"pickup $name not found in loc_data.csv (This is expected if locs are excluded)")
         None
       })
   }
