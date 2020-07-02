@@ -32,14 +32,15 @@ namespace csharp_bridge
     extern signatures::f_bool_at tree_fulfilled;
     extern signatures::f_void_at on_tree;
     extern signatures::f_void on_checkpoint;
+    extern signatures::f_void on_goal_mode_fail;
     extern signatures::f_ull get_shard_slot_ptr;
     extern signatures::f_bool_str check_ini;
-
     extern signatures::f_bool inject_log_enabled;
     extern signatures::f_bool inject_debug_enabled;
     extern signatures::f_bool tp_to_any_pickup;
     extern signatures::f_bool invert_swim;
-    
+    extern signatures::f_bool water_cleansed;
+
     // Save system
     extern signatures::f_void_int new_game;
     extern signatures::f_void_int_int on_load;

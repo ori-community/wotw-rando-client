@@ -31,6 +31,8 @@
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
 
+#include <dev/dev_commands.h>
+
 //---------------------------------------------------Globals-----------------------------------------------------
 
 bool trace_enabled = false;
@@ -115,6 +117,12 @@ INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController
 
 UnityEngine_Vector3_o last_position;
 __int8 set_to_last_position = 0;
+
+INJECT_C_DLLEXPORT void warp_to(int x, int y, __int8 frames) {
+  last_position.x = x;
+  last_position.y = y;
+  set_to_last_position = frames;
+}
 
 INJECT_C_DLLEXPORT void magic_function() {
     last_position = SeinCharacter__get_Position(get_sein());
@@ -310,8 +318,11 @@ void network_event_handler(network::NetworkEvent const& evt)
         switch (type)
         {
         case network::PackageType::Message:
-            // TODO: Do some fancy stuff here.
+        {
+            auto message = read_str_bw(walker);
+            dev::handle_message(message);
             break;
+        }
         default:
             break;
         }
@@ -366,6 +377,8 @@ INJECT_C_DLLEXPORT void injection_entry()
         FreeLibraryAndExitThread(GetModuleHandleA("InjectDLL.dll"), 0);
     }
 
+    dev::console_initialize();
+
     trace_enabled = csharp_bridge::check_ini("TraceEnabled");
     trace_pinging_enabled = !csharp_bridge::check_ini("TracePingingDisabled");
     if (trace_enabled)
@@ -390,12 +403,20 @@ INJECT_C_DLLEXPORT void injection_entry()
     trace(MessageType::Info, 5, "initialize", "c# init complete");
     interception_init();
 
-    if (trace_enabled)
+    dev::initialization_callbacks();
+
+    if (trace_enabled || csharp_bridge::check_ini("Dev"))
     {
         while (!shutdown_thread)
-            network::poll_peer(network_data);
+        {
+            dev::console_poll();
+            if (trace_enabled)
+                network::poll_peer(network_data);
+        }
 
-        network::shutdown_peer(network_data);
+        dev::console_free();
+        if (trace_enabled)
+            network::shutdown_peer(network_data);
     }
 
     if (write_to_csv)

@@ -7,9 +7,9 @@
 
 intercept* first_intercept = nullptr;
 intercept* last_intercept = nullptr;
-__int64 game_assembly_address;
+uint64_t game_assembly_address;
 
-__int64 resolve_rva(__int64 rva)
+uint64_t resolve_rva(uint64_t rva)
 {
     if (!game_assembly_address)
     {
@@ -20,10 +20,27 @@ __int64 resolve_rva(__int64 rva)
             return 0;
         }
 
-        game_assembly_address = reinterpret_cast<__int64>(handle);
+        game_assembly_address = reinterpret_cast<uint64_t>(handle);
     }
 
     return game_assembly_address + rva;
+}
+
+uint64_t unresolve_rva(uint64_t ptr)
+{
+    if (!game_assembly_address)
+    {
+        auto handle = GetModuleHandleA("GameAssembly.dll");
+        if (handle == nullptr)
+        {
+            trace(MessageType::Error, 1, "initialize", "Failed to get handle of GameAssembly.dll");
+            return 0;
+        }
+
+        game_assembly_address = reinterpret_cast<uint64_t>(handle);
+    }
+
+    return ptr - game_assembly_address;
 }
 
 void interception_init()
@@ -51,8 +68,8 @@ void interception_init()
                 current->name.c_str(),
                 game_assembly_address,
                 current->offset,
-                reinterpret_cast<__int64>(*current->original_pointer),
-                reinterpret_cast<__int64>(current->intercept_pointer))
+                reinterpret_cast<uint64_t>(*current->original_pointer),
+                reinterpret_cast<uint64_t>(current->intercept_pointer))
             );
 
             PDETOUR_TRAMPOLINE trampoline = nullptr;
@@ -106,7 +123,7 @@ void interception_detach()
         trace(MessageType::Debug, 3, "uninitialize", "Detach completed");
 }
 
-intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
+intercept::intercept(uint64_t o, PVOID* oP, PVOID iP, std::string s)
     : name(std::move(s))
     , offset(o)
     , original_pointer(oP)
@@ -120,4 +137,43 @@ intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
     last_intercept = this;
     if (first_intercept == nullptr)
         first_intercept = this;
+}
+
+namespace il2
+{
+    struct Il2CppRuntimeInterfaceOffsetPair
+    {
+        Il2CppClass* interface_type;
+        int32_t offset;
+    };
+
+    bool instance_of(Il2CppClass* klass, Il2CppClass* parent)
+    {
+        for (auto i = 0; i < klass->_2.typeHierarchyDepth; ++i)
+            if (klass->_2.typeHierarchy[i] == klass)
+                return true;
+
+        return false;
+    }
+
+    int implements_interface(Il2CppClass* klass, Il2CppClass* iklass)
+    {
+        for (auto i = 0; i < klass->_2.interfaces_count; ++i)
+            if (klass->_1.implementedInterfaces[i] == iklass)
+                return i;
+
+        return -1;
+    }
+
+    /*template <typename IFace, typename VirtualMember, typename FuncType>
+    FuncType resolve_iface_virtual(IFace* iface, TMember member, Il2CppClass* klass)
+    {
+        int ioffset = implements_interface(klass, iface);
+        if (ioffset < 0)
+            return nullptr;
+
+        
+        auto pair = reinterpret_cast<Il2CppRuntimeInterfaceOffsetPair**>(klass->_1.interfaceOffsets)[ioffset];
+        klass->vtable[pair->offset]
+    }*/
 }

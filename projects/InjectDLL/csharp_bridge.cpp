@@ -8,6 +8,7 @@ namespace csharp_bridge
     signatures::f_bool_at tree_fulfilled;
     signatures::f_void_at on_tree;
     signatures::f_void on_checkpoint;
+    signatures::f_void on_goal_mode_fail;
     signatures::f_ull get_shard_slot_ptr;
     signatures::f_bool_str check_ini;
 
@@ -15,6 +16,7 @@ namespace csharp_bridge
     signatures::f_bool inject_debug_enabled;
     signatures::f_bool tp_to_any_pickup;
     signatures::f_bool invert_swim;
+    signatures::f_bool water_cleansed;
 
     // Save system
     signatures::f_void_int new_game;
@@ -54,7 +56,9 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
     else if (name == "on_tree")
         on_tree = reinterpret_cast<f_void_at>(ptr);
     else if (name == "on_checkpoint")
-        on_checkpoint = reinterpret_cast<f_void>(ptr);
+      on_checkpoint = reinterpret_cast<f_void>(ptr);
+    else if (name == "on_goal_mode_fail")
+      on_goal_mode_fail = reinterpret_cast<f_void>(ptr);
     else if (name == "get_shard_slot_ptr")
         get_shard_slot_ptr = reinterpret_cast<f_ull>(ptr);
     else if (name == "check_ini")
@@ -77,6 +81,8 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         get_ability = reinterpret_cast<f_bool_at>(ptr);
     else if (name == "set_ability")
         set_ability = reinterpret_cast<f_void_at_bool>(ptr);
+    else if (name == "water_cleansed")
+        water_cleansed = reinterpret_cast<f_bool>(ptr);
     else if (name == "is_tree_activated")
         is_tree_activated = reinterpret_cast<f_bool_at>(ptr);
     else if (name == "shop_string_repl")

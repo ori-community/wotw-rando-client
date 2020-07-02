@@ -41,12 +41,20 @@ namespace RandoMainDLL {
             CallbackName = "on_checkpoint"
           },
           new Method() {
+            Delegate = new f_void(() => AHK.Print(SeedController.GoalModeMessages(unmet: "@"), 240, false)),
+            CallbackName = "on_goal_mode_fail"
+          },
+          new Method() {
             Delegate = new f_ull(Randomizer.Memory.ShardSlotPtr),
             CallbackName = "get_shard_slot_ptr"
           },
           new Method() {
             Delegate = new f_bool_str(AHK.IniFlag),
             CallbackName = "check_ini"
+          },
+          new Method() {
+            Delegate = new f_bool(() => SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false),
+            CallbackName = "water_cleansed"
           },
           // We should replace these 2 calls with calls to check_ini
           new Method() {

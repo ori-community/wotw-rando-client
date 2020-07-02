@@ -12,14 +12,19 @@ set(
     "csharp_bridge.cpp"
 	"dll_main.cpp"
 	"interception.cpp"
+	"dev/dev_commands.cpp"
+	"dev/object_visualizer.cpp"
 	"features/difficulty.cpp"
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
 	"features/opher_everywhere.cpp"
+	"features/tokk_everywhere.cpp"
 	"features/map.cpp"
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"
 	"features/input_poller.cpp"
+	"features/no_energy.cpp"
+	"features/water.cpp"
 	"fixes/dash.cpp"
 	"fixes/flap.cpp"
 	"pickups/pickups.cpp"
@@ -32,6 +37,8 @@ set(
 	"pickups/shops.cpp"
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
+	"uber_states/uber_state_dev.cpp"
+	"uber_states/state_applier.cpp"
 )
 
 set(
@@ -45,11 +52,14 @@ set(
 	"interception.h"
 	"interception_macros.h"
     "macros.h"
+	"dev/dev_commands.h"
+	"dev/object_visualizer.h"
 	"features/invert_swim.h"
 	"features/input_poller.h"
 	"fixes/dash.h"
 	"pickups/ore.h"
 	"pickups/pickups.h"
+	"uber_states/state_applier.h"
 )
 
 set(
