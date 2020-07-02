@@ -52,7 +52,6 @@ set(
     "macros.h"
 	"features/invert_swim.h"
 	"features/input_poller.h"
-	"features/water.h"
 	"fixes/dash.h"
 	"pickups/ore.h"
 	"pickups/pickups.h"

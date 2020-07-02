@@ -362,14 +362,6 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       SaveController.SetEvent(type);
-      switch (type) {
-        case QuestEventType.Water:
-          // marks the escape as complete if you get clean water
-          UberStateDefaults.watermillEscapeState.Write(new UberValue(2));
-          UberStateDefaults.cleanseWellspringQuestUberState.Write(new UberValue(4));
-          UberStateDefaults.finishedWatermillEscape.Write(new UberValue(true));
-          break;
-      }
       base.Grant(skipBase);
     }
 

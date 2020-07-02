@@ -68,8 +68,6 @@ namespace RandoMainDLL {
         }
       }
     }
-    // if (state.Name == "cleanseWellspringQuestUberState" && !AHK.IniFlag("ShowShortCutscenes") && state.Value.Int < 2)
-    //   return true;
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
@@ -92,14 +90,10 @@ namespace RandoMainDLL {
     private static bool ShouldRevert(UberState state) {
       if (NeedsNewGameInit || SkipListenersNextUpdate)
         return false;
-      if (state.Name == "cleanseWellspringQuestUberState") {
-        if ((SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false) && state.Value.Int < 4)
+      if (state.Name == "cleanseWellspringQuestUberState" && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes")) 
           return true;
-        if (state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes"))
-          return true;
-      } else if (state.Name == "findKuQuest" && state.Value.Int < 4) {
+      else if (state.Name == "findKuQuest" && state.Value.Int < 4) 
         return true;
-      }
       return false;
     }
 
@@ -248,7 +242,7 @@ namespace RandoMainDLL {
     public static List<UberState> Quests = new List<UberState>() {
       //new UberState() { Name = "wotwQuestUberState", ID = 13020, GroupName = "questUberStateGroup",  GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(true) },
       //new UberState() { Name = "findToadQuestUberState", ID = 48794, GroupName = "questUberStateGroup",  GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(2) },
-      //new UberState() { Name = "cleanseWellspringQuestUberState", ID = 34641, GroupName = "kwolokGroupDescriptor",  GroupID = 937, Type = UberStateType.SerializedIntUberState, Value = new UberValue(4) },
+      new UberState() { Name = "cleanseWellspringQuestUberState", ID = 34641, GroupName = "kwolokGroupDescriptor",  GroupID = 937, Type = UberStateType.SerializedIntUberState, Value = new UberValue(4) },
       //new UberState() { Name = "findKuQuest", ID = 34504, GroupName = "questUberStateGroup",  GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(4) },
       new UberState() { Name = "desertWispQuestUberState", ID = 35399, GroupName = "questUberStateGroup",  GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(3) },
       new UberState() { Name = "lagoonWispQuestUberState", ID = 35087, GroupName = "questUberStateGroup",  GroupID = 14019, Type = UberStateType.SerializedIntUberState, Value = new UberValue(3) },
