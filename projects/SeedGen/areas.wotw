@@ -470,7 +470,6 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
       Bash, Glide  # bashglide off a slime
   conn TwillenShop: free
 
-# begin pools path needs validation area?
 area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of the ledge at the top left of the large room with Opher
   refill Checkpoint: free
   refill Health=1:
@@ -658,7 +657,6 @@ area EastHollow.Teleporter:  # (-150, -4238) the teleporter
 
 area BeetleFight:
   refill Full: free
-
   state EastHollow.BeetleDefeated:
     base: Combat, Danger=35, Dash  # Kinda tight on danger, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
     advanced: Combat
@@ -1182,6 +1180,7 @@ area GladesShrine:
 
 area PoolsApproach.MillPath:  # (-873, -4146) above the water where the three paths merge
   refill Checkpoint: free
+
   pickup PoolsApproach.MillPathEX:
     base:
       DoubleJump, Dash, RangedWeapon OR Bash
@@ -2208,6 +2207,7 @@ area WoodsMain.AboveHowl:  # (916, -4046) At the semisolid above silenced Howl
 
 area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
   refill Full: free
+
   conn Teleporters: free
   conn WoodsMain.FeedingGrounds:
     base:
@@ -2435,6 +2435,7 @@ area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter ro
 
 area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
   refill Full: free
+
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
@@ -2453,7 +2454,7 @@ region UpperReach:
 area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
   refill Checkpoint: free
 
-  state UpperReach.KeystoneDoor:  # not validated
+  state UpperReach.KeystoneDoor:
     base, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
@@ -3380,7 +3381,6 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
 
 area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
   refill Full: free
-
   # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
   # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here 
