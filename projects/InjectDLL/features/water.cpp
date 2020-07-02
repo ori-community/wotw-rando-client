@@ -1,8 +1,8 @@
 #include <interception_macros.h>
 #include <macros.h>
 #include <csharp_bridge.h>
-
-#include <vector>
+#include <dev/dev_commands.h>
+#include <uber_states/state_applier.h>
 
 namespace
 {
@@ -11,36 +11,55 @@ namespace
         return !water_damage_override && csharp_bridge::water_cleansed();
     }
 
-    std::vector<std::pair<int32_t, int32_t>> water_states = {
-        { 569716315, 2044614461 },      // Corrupted / Clean
-        { 135459242, 2010339656 },      // notClean  / Clean
-        { 742737118, 669048353 },       // corrupted / clean
-        { 739518878, -1861424606 },     // corrupted / clean
-        { 2054782292, -357160486 },     // Corrupted / Clean
-        { 1639966459, 127921689 },      // Corrupted / Clean
-        { -1876259767, -1976832348 },   // Corrupted / Clean
-        { -1947088109, 385303388 },     // Corrupted / Clean
-    };
+    void initialize_water()
+    {
+        std::function<uber_states::applier_intercept(int32_t, int32_t)> ai_create = [](int32_t corrupted, int32_t clean) -> uber_states::applier_intercept {
+            return [corrupted, clean](auto, auto, auto) -> int32_t {
+                return csharp_bridge::water_cleansed() ? clean : corrupted;
+            };
+        };
 
-    INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (NewSetupStateController_o* this_ptr, int32_t stateGUID, int32_t context)) {
-        for (auto const& s : water_states)
-        {
-            if (stateGUID == s.first || stateGUID == s.second)
-            {
-                stateGUID = csharp_bridge::water_cleansed() ? s.second : s.first;
-                break;
-            }
-        }
+        // Corrupted / Clean
+        uber_states::register_applier_intercept({ 569716315, 2044614461 }, ai_create(569716315, 2044614461));
+        // notClean  / Clean
+        uber_states::register_applier_intercept({ 135459242, 2010339656 }, ai_create(135459242, 2010339656));
+        // corrupted / clean
+        uber_states::register_applier_intercept({ 742737118, 669048353 }, ai_create(742737118, 669048353));
+        // corrupted / clean
+        uber_states::register_applier_intercept({ 739518878, -1861424606 }, ai_create(739518878, -1861424606));
+        // Corrupted / Clean
+        uber_states::register_applier_intercept({ 2054782292, -357160486 }, ai_create(2054782292, -357160486));
+        // Corrupted / Clean
+        uber_states::register_applier_intercept({ 1639966459, 127921689 }, ai_create(1639966459, 127921689));
+        // Corrupted / Clean
+        uber_states::register_applier_intercept({ -1876259767, -1976832348 }, ai_create(-1876259767, -1976832348));
+        // Corrupted / Clean
+        uber_states::register_applier_intercept({ -1947088109, 385303388 }, ai_create(-1947088109, 385303388));
+        // Poisoned / Clean
+        uber_states::register_applier_intercept({ 378117992, -760384866 }, ai_create(378117992, -760384866));
+        // corrupted / clean
+        uber_states::register_applier_intercept({ -144265033, 685358568 }, ai_create(-144265033, 685358568));
+        // corrupted / clean
+        uber_states::register_applier_intercept({ -882028644, -1833484193 }, ai_create(-882028644, -1833484193));
+        // corrupted / clean
+        uber_states::register_applier_intercept({ -1848734555, 30971136 }, ai_create(-1848734555, 30971136));
+        // Corrupted / Clean
+        uber_states::register_applier_intercept({ 1762013712, 816885685 }, ai_create(1762013712, 816885685));
 
-        // Enable water damage during the watermill escape.
         //-> -1629508673 : NotStarted
-        //-> - 1353113975 : Started
-        //-> - 2075520848 : Finished
-        if (stateGUID == -1353113975)
-            water_damage_override = true;
-        else if (stateGUID == -2075520848 || stateGUID == -1629508673)
-            water_damage_override = false;
+        //-> -1353113975 : Started
+        //-> -2075520848 : Finished
+        uber_states::register_applier_intercept({ -1629508673, -1353113975, -2075520848 },
+            [](auto, int32_t state, auto) -> int32_t {
+                if (state == -1353113975)
+                    water_damage_override = true;
+                else
+                    water_damage_override = false;
 
-        NewSetupStateController__ApplyKnownState(this_ptr, stateGUID, context);
+                return state;
+            }
+        );
     }
+
+    CALL_ON_INIT(initialize_water);
 }

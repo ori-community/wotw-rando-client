@@ -72,6 +72,8 @@ namespace RandoMainDLL {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
+      else if (state.Name == "craftCutsceneState" && state.Value.Byte != 0)
+        state.Write(new UberValue((byte)3));
       else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2)
         Randomizer.InputUnlockCallback = () => {
           // this is really questionable!!
