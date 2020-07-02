@@ -18,6 +18,7 @@ set(
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
 	"features/opher_everywhere.cpp"
+	"features/tokk_everywhere.cpp"
 	"features/map.cpp"
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"

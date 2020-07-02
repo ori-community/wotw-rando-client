@@ -11,9 +11,11 @@ namespace dev
         namespace {
             BINDING(27825008, System_Int32_array*, NewSetupStateController__GetAllStateGUIDs, (NewSetupStateController_o* this_ptr));
             BINDING(27824416, System_String_o*, NewSetupStateController__GetStateName, (NewSetupStateController_o* this_ptr, int32_t stateGUID));
+            BINDING(29453088, bool, Moon_MoonReference_T___Resolve, (Moon_MoonReference_T__o* this_ptr, Moon_IMoonResolverContext_o* context));
             BINDING(29456192, bool, Moon_MoonReference_T___CanResolve, (Moon_MoonReference_T__o* this_ptr, Moon_IMoonResolverContext_o* context));
+            BINDING(29455680, bool, Moon_MoonReference_T___TryResolve, (Moon_MoonReference_T__o* this_ptr, Il2CppObject* value, Moon_IMoonResolverContext_o* context));
             BINDING(27824416, System_String_o*, SetupStateModifier__get_Name, (SetupStateModifier_o* this_ptr));
-
+            //get_HasAReference
             void indent(Visualizer& visualizer, int pre = 0, int post = 0)
             {
                 visualizer.indent_level += pre;
