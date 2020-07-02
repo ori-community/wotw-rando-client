@@ -372,7 +372,7 @@ area DenShrine:
   pickup HowlsDen.CombatShrine:
     base, Combat, RangedWeapon OR DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
       Danger=60
-      Dash OR Bash OR Launch, Danger=40  # much better if you have good evasion
+      Danger=40, Dash OR Bash OR Launch  # much better if you have good evasion
 
 area HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
   pickup HowlsDen.DoubleJumpTree: free
