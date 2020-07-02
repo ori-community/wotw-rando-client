@@ -104,7 +104,7 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
       Water, Bash, Launch
 
   # teleporter connections
-  conn MidnightBurrows:
+  conn MidnightBurrows.Teleporter:
     base: BurrowsTP, Keystone=2
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
     # It also makes a 4 keystone door available! Without the Keystone=2 line here, the seed generator
@@ -188,61 +188,80 @@ area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, b
       Bash, DoubleJump, Glide
       Bash, Launch
 
-  conn MidnightBurrows:
+  conn MidnightBurrows.Teleporter:
     base: Bash, DoubleJump OR Dash OR Launch
 
 region MidnightBurrows:
   base:
     Danger=25 # kind of a no-op?
 
-area MidnightBurrows:  # (-945, -4582) At the teleporter
+area MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
   refill Full
+
+  pickup MidnightBurrows.LeftKS:
+    base: DoubleJump OR Dash OR Glide OR Launch
+    advanced: Damage=15
+  pickup MidnightBurrows.LupoMap:
+    base: Launch
+    advanced: Bash
   
+  conn MidnightBurrows.Central:
+    base: DoubleJump
+
+area MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big portal room
+  refill Checkpoint
+
   quest MidnightBurrows.TabletQI:
     base, MidnightBurrows.KeystoneDoor:
-      DoubleJump, Bash
+      Bash, DoubleJump OR Dash OR Glide
       Launch
 
   state MidnightBurrows.KeystoneDoor:
     base, Keystone=4:
-      DoubleJump, Bash
+      Bash, DoubleJump OR Dash OR Glide
       Launch
   state MidnightBurrows.Lever:
-    base: DoubleJump, Bash
+    base:
+      Bash, DoubleJump OR Dash OR Glide OR Launch
+      Launch, DoubleJump OR Dash OR Glide
 
-  pickup MidnightBurrows.LeftKS:
-    base: 
-      DoubleJump OR Dash OR Glide OR Launch
-    advanced:
-      Damage=15
-  pickup MidnightBurrows.RightKS:
-    base:
-      MidnightBurrows.Lever, DoubleJump
-      Launch
-  pickup MidnightBurrows.UpperKS:
-    base:
-      MidnightBurrows.Lever, EnemyObstacle, DoubleJump, Glide
-      MidnightBurrows.Lever, EnemyObstacle, DoubleJump, Dash, Danger=15
-      Launch
-
-  pickup MidnightBurrows.LowerKS:
-    base:
-      DoubleJump, Dash, Bash
-      DoubleJump, Bash, Grenade=1
-      Launch
   pickup MidnightBurrows.LupoMap:
-    base:
-      DoubleJump
-      Bash, Grenade=1
-      Launch
-    advanced:
-      Bash
+    base: DoubleJump OR Dash OR Glide
   pickup MidnightBurrows.DeflectorShard:
     base:
-      MidnightBurrows.Lever, DoubleJump, Dash
+      MidnightBurrows.Lever, DoubleJump, Dash OR Glide
       Launch
     advanced: 
       MidnightBurrows.Lever, DoubleJump OR Dash
+  pickup MidnightBurrows.LowerKS:
+    base:
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Launch
+      Launch, DoubleJump OR Dash OR Glide
+  pickup MidnightBurrows.UpperKS:
+    base: MidnightBurrows.Lever, Launch
+
+  conn MidnightBurrows.Teleporter: free
+  conn MidnightBurrows.East:
+    base:
+      MidnightBurrows.Lever, DoubleJump OR Dash OR Glide
+      Bash, Grenade=3, DoubleJump OR Dash OR Glide  # you never need the whole set, but this is for both states of portals lifted
+      Launch
+
+area MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
+  refill Checkpoint
+
+  pickup MidnightBurrows.RightKS: free
+  pickup MidnightBurrows.UpperKS:
+    base:
+      EnemyObstacle, DoubleJump, Glide
+      EnemyObstacle, DoubleJump, Dash, Danger=15
+  
+  conn MidnightBurrows.Central:
+    base:
+      EnemyObstacle, DoubleJump, Glide
+      EnemyObstacle, DoubleJump, Dash, Danger=15
+  conn HowlsDen.Lower:  # careful! this path is incorrect, but also not relevant yet. Change this as soon as Howl's Den supports reverse logic
+    base: Weapon
 
 area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
   state HowlsDen.KeystoneDoor:
