@@ -214,11 +214,31 @@ namespace
         dev::console_send(dev::visualize::get_string(visualizer));
     }
 
+    void check_all_appliers(std::string const& command, std::vector<dev::CommandParam> const& params)
+    {
+        if (!uber_state_controller_is_valid())
+        {
+            dev::console_send("uber_state_controller not available");
+            return;
+        }
+
+        dev::Visualizer visualizer;
+        auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
+        for (auto i = 0; i < list->_size; ++i)
+        {
+            auto item = list->_items->m_Items[i];
+            dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
+        }
+
+        dev::console_send(dev::visualize::get_string(visualizer));
+    }
+
     void add_uber_state_commands()
     {
         dev::register_command("set_us_bool", set_us_bool);
         dev::register_command("set_us_int", set_us_int);
         dev::register_command("check_appliers", check_appliers);
+        dev::register_command("check_all_appliers", check_all_appliers);
     }
 
     CALL_ON_INIT(add_uber_state_commands);
