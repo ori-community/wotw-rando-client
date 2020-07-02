@@ -31,7 +31,7 @@
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
 
-#include <dev_commands.h>
+#include <dev/dev_commands.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 

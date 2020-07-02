@@ -3,11 +3,11 @@
 #include <string>
 
 struct intercept {
-    intercept(__int64 o, PVOID* oP, PVOID iP, std::string s);
+    intercept(uint64_t o, PVOID* oP, PVOID iP, std::string s);
 
     int type;
     std::string name;
-    __int64 offset;
+    uint64_t offset;
     void** original_pointer;
     void* intercept_pointer;
     intercept* next;
@@ -16,7 +16,8 @@ struct intercept {
 
 extern intercept* last_intercept;
 
-__int64 resolve_rva(__int64 rva);
+uint64_t resolve_rva(uint64_t rva);
+uint64_t unresolve_rva(uint64_t ptr);
 void interception_init();
 void interception_detach();
 
