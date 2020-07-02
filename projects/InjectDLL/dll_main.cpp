@@ -118,6 +118,12 @@ INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController
 UnityEngine_Vector3_o last_position;
 __int8 set_to_last_position = 0;
 
+INJECT_C_DLLEXPORT void warp_to(int x, int y, __int8 frames) {
+  last_position.x = x;
+  last_position.y = y;
+  set_to_last_position = frames;
+}
+
 INJECT_C_DLLEXPORT void magic_function() {
     last_position = SeinCharacter__get_Position(get_sein());
     set_to_last_position = 3;

@@ -1,5 +1,6 @@
 #include <interception_macros.h>
 #include <dll_main.h>
+#include <csharp_bridge.h>
 #include <dev_commands.h>
 #include <Common/ext.h>
 
@@ -58,6 +59,7 @@ namespace
             if (in_rect(goal_rect, position.x, position.y, position.z))
             {
                 SeinCharacter__set_Position(this_ptr, goal_reset_position);
+                csharp_bridge::on_goal_mode_fail();
                 set_camera_next_update = true;
             }
         }

@@ -84,13 +84,8 @@ INTERCEPT(17857968, void, Moon_uberSerializationWisp_PlayerUberStateAbilities__L
 }
 
 INTERCEPT(4247504, void, GeneralDebugMenuPage__SetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t ability, bool value)) {
-	GeneralDebugMenuPage__SetAbility(this_ptr, ability, value);
-	if(ability == DASH_NEW)
-	{
-        csharp_bridge::set_ability(static_cast<csharp_bridge::AbilityType>(DASH_NEW), value);
-        trace(MessageType::Debug, 5, "abilities", "debug menu, setting has_real_dash: "
-            + std::to_string(value) + ", now has_dash returns: " + std::to_string(has_dash()));
-	}
+  csharp_bridge::set_ability(static_cast<csharp_bridge::AbilityType>(ability), value);
+  GeneralDebugMenuPage__SetAbility(this_ptr, ability, value);
 }
 
 INTERCEPT(4247728, bool, GeneralDebugMenuPage__GetAbility, (GeneralDebugMenuPage_o* this_ptr, uint8_t abilityType)) {

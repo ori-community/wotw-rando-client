@@ -16,6 +16,7 @@ package SeedGenerator {
     folderSelector.title = "Choose a folder to put generated seeds in"
     val zoneHints      = new CheckBox("Zone Hints")
     val spoilers       = new CheckBox("Generate Spoiler")
+    val quests         = new CheckBox("Items on Quests")
     val teleporters    = new CheckBox("Teleporters in item pool")
     val uncheckedPaths = new CheckBox("Use unsafe paths")
     val forceTrees     = new CheckBox("Force Trees")
@@ -29,6 +30,7 @@ package SeedGenerator {
     spoilers.selected    = true
     zoneHints.selected   = true
     teleporters.selected = true
+    quests.selected      = true
     newParser.selected   = true
     logView.editable = false
     val logHolder = new ScrollPane(logView)
@@ -49,10 +51,13 @@ package SeedGenerator {
         optsLabel.font = new Font(Font.SansSerif, Font.Bold.id, 16)
         contents += optsLabel
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, spoilers, zoneHints, teleporters, uncheckedPaths, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, spoilers, uncheckedPaths, newParser, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, newParser, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue,  zoneHints, teleporters, quests, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+        }
+        contents += new BoxPanel(Orientation.Horizontal) {
+          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
 
         contents += new BoxPanel(Orientation.Horizontal) {
@@ -95,13 +100,28 @@ package SeedGenerator {
 
     }
   }
-  case class GenSettings(hints: Boolean, tps: Boolean, spoilers: Boolean, unsafePaths: Boolean, newParser: Boolean)
+  case class GenSettings(
+                          hints: Boolean,
+                          tps: Boolean,
+                          spoilers: Boolean,
+                          unsafePaths: Boolean,
+                          newParser: Boolean,
+                          questLocs: Boolean
+                        )
   object UI {
-    def Options: GenSettings = GenSettings(ui.zoneHints.selected, ui.teleporters.selected, ui.spoilers.selected, ui.uncheckedPaths.selected, ui.newParser.selected)
+    def Options: GenSettings = GenSettings(
+      ui.zoneHints.selected,
+      ui.teleporters.selected,
+      ui.spoilers.selected,
+      ui.uncheckedPaths.selected,
+      ui.newParser.selected,
+      ui.quests.selected
+    )
     def flags: Seq[String] = Seq(
       if(ui.forceWisps.selected) Some("ForceWisps") else None,
       if(ui.forceTrees.selected) Some("ForceTrees") else None,
       if(ui.forceQuests.selected) Some("ForceQuests") else None,
+      if(ui.zoneHints.selected) None else Some("NoHints"),
     ).flatten
     def flagLine: String = if(flags.nonEmpty) s"Flags: ${flags.mkString(", ")}\n"else ""
     def outputFile: File = {
@@ -127,8 +147,10 @@ package SeedGenerator {
         currentOp = None
       })
     }
-    def debug(x: Any): Unit = if(ui.debugToggle.selected) log(x)
+    def debug(x: Any): Unit = if(ui.debugToggle.selected || !ui.visible) log(x)
     def log(x: Any): Unit = {
+      if(!ui.visible)
+        println(x)
       ui.logView.append(s"$x\n")
       ui.logHolder.verticalScrollBar.value = ui.logHolder.verticalScrollBar.maximum
     }

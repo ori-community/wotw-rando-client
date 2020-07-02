@@ -1,55 +1,10 @@
 import fastparse._
-import SeedGenerator.implicits.RegexOps
 import java.io.{BufferedWriter, FileWriter}
 import scala.io.Source
 
 package SeedGenerator {
-
   import AreaParser.{ParseError, ParserError}
-
-
   object FastParser {
-    sealed trait AreasToken
-    case class  IDENTIFIER(str: String)  extends AreasToken
-    case class  ASSIGN(value: Int)       extends AreasToken
-    case object COMMENT                  extends AreasToken
-    case object AREA                     extends AreasToken
-    case object PICKUP                   extends AreasToken
-    case object STATE                    extends AreasToken
-    case object QUEST                    extends AreasToken
-    case object FREE                     extends AreasToken
-    case object REQUIREMENT              extends AreasToken
-    case object CONNECTION               extends AreasToken
-    case object COLON                    extends AreasToken
-    case object COMMA                    extends AreasToken
-    case object OR                       extends AreasToken
-    case object NEWLINE                  extends AreasToken
-    case object INDENT                   extends AreasToken
-    case object DEDENT                   extends AreasToken
-    case object REGION                   extends AreasToken
-//    def indentation: Parser[AreasToken] = positioned {  "\n[ ]*".r ^^ { whitespace => INDENTATION(whitespace.replace("\n","").length) } }
-//    def identifier:  Parser[AreasToken] = positioned { "[a-zA-Z_][a-zA-Z.0-9_]*".r ^^ { str => IDENTIFIER(str) } }
-//    def assign:      Parser[AreasToken] = positioned {  "= ?[1-9][0-9]*".r ^^ { str => ASSIGN(str.split("=")(1).trim().toInt) } }
-//    def comment:     Parser[AreasToken] = positioned { "(\n[ ]*)?#[^\n]*".r ^^^ COMMENT }
-//    def area:        Parser[AreasToken] = positioned { "area"        ^^^ AREA }
-//    def region:      Parser[AreasToken] = positioned { "region"      ^^^ REGION }
-//    def requirement: Parser[AreasToken] = positioned { "requirement" ^^^ REQUIREMENT }
-//    def pickup:      Parser[AreasToken] = positioned { "pickup"      ^^^ PICKUP }
-//    def state:       Parser[AreasToken] = positioned { "state"       ^^^ STATE }
-//    def quest:       Parser[AreasToken] = positioned { "quest"       ^^^ QUEST }
-//    def free:        Parser[AreasToken] = positioned { "free"        ^^^ FREE }
-//    def connection:  Parser[AreasToken] = positioned { "conn"        ^^^ CONNECTION }
-//    def colon:       Parser[AreasToken] = positioned { ":"           ^^^ COLON }
-//    def comma:       Parser[AreasToken] = positioned { ","           ^^^ COMMA }
-//    def or:          Parser[AreasToken] = positioned { "OR"          ^^^ OR }
-//    def area[_: P]:       P[AreasToken] = P("area").map(_ => AREA)
-//    def region[_:P]:      P[AreasToken] = P("region").map(_ =>REGION)
-//    def requirement[_:P]: P[AreasToken] = P("requirement").map(_ =>REQUIREMENT)
-//    def pickup[_:P]:      P[AreasToken] = P("pickup").map(_ =>PICKUP)
-//    def state[_:P]:       P[AreasToken] = P("state").map(_ =>STATE)
-//    def quest[_:P]:       P[AreasToken] = P("quest").map(_ =>QUEST)
-//    def free[_:P]:        P[AreasToken] = P("free").map(_ =>FREE)
-    def connection[_:P]:  P[AreasToken] = P("conn").map(_ =>CONNECTION)
     def colon[_:P]: P[Unit] = P(":")
     def comma[_:P]: P[Unit] = P(",")
     def or[_:P]: P[Unit] = P("OR")
@@ -72,7 +27,7 @@ package SeedGenerator {
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq)
     def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(SkillReq(51), EnergyReq(i)))
-    def dangerReq[_: P]: P[Requirement] = P("Danger" ~~/ equalsNum).map(DangerReq)
+    def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DangerReq)
     def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(KeystoneReq)
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
