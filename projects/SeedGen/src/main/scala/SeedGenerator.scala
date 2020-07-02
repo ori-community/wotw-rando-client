@@ -39,7 +39,9 @@ package SeedGenerator {
   object LocData {
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
-      val pickupsFile = Source.fromFile("loc_data.csv")
+      val path = if(new File("areas.wotw").exists()) "loc_data.csv" else "C:\\moon\\loc_data.csv"
+      val pickupsFile = Source.fromFile(path)
+      UI.debug(s"Loading loc_data from $path")
       val pickups = pickupsFile.getLines.flatMap {
         case s if s.trim == "" => None
         case s if s.trim.startsWith("--") =>
@@ -100,8 +102,50 @@ package SeedGenerator {
 
     }
   }
+  trait Refiller {
+    def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs
+  }
+  trait Additive extends Refiller
+  case object Well extends Refiller {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = inv.orbs // full refill
+  }
+  case object Checkpoint extends Refiller {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(
+      health = inv.orbs.health match { // Checkpoints are terrible; Math.floor((x/5)/0.6685+1)
+        case i if i < 45 => i
+        case i if i < 135 => 40
+        case i if i < 235 => Math.floor((i.toFloat/5)/0.6685+1).toInt
+        case _ => 70
+      },
+      energy = inv.orbs.energy match { // Checkpoints respawn you with 1 Energy + 1 per 5 water veins you have
+        case i if i < 55 => 1
+        case i if i < 105 => 2
+        case i if i < 155 => 3
+        case i if i < 205 => 4
+        case _ => 5
+      }).max(prior)
+  }
+  case class HealthPlants(count: Int = 1) extends Refiller with Additive {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(
+      health = Math.max(inv.orbs.health, prior.health + count * inv.orbs.health match { // Health plants drop more orbs if you have more health
+        case i if i < 45 => 10
+        case i if i < 80 => 20
+        case i if i < 105 => 30
+        case i if i < 140 => 40
+        case i if i < 165 => 50
+        case i if i < 200 => 60
+        case i if i < 225 => 70
+        case _ => 80
+      }),
+      energy = prior.energy)
+  }
+  case class EnergyCrystals(count: Int = 1) extends Refiller with Additive {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(prior.health, Math.max(inv.orbs.energy, prior.energy + count*10))
+  }
 
-  case class Area(name: String, _conns: Seq[Connection] = Seq()) extends Node {
+  case class RefillGroup(refills: Map[Requirement, Seq[Refiller]])
+
+  case class Area(name: String, _conns: Seq[Connection] = Seq()/*, refillGroup: RefillGroup*/) extends Node {
     val conns: Seq[Connection] = _conns.filterNot(_.req == Invalid)
     override val kind: NodeType = AreaNode
     override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = {
@@ -345,6 +389,7 @@ package SeedGenerator {
       val namePad = " " * (18 - item.name.length)
       s"$data$dataPad//$namePad${item.name} from ${loc.data.info}"
     }
+    override def toString: String = s"$item at $loc"
   }
   case class ItemPlacement(item: Item, loc: ItemLoc) extends Placement
 
@@ -360,13 +405,18 @@ package SeedGenerator {
     def desc(standalone: Boolean = false): String = {
       if(!UI.Options.spoilers)
         return ""
+      if(standalone)
+        return placements.collect({
+          case p @ ItemPlacement(i: Important, _) if prog.has(i) => s"*${p.toString}"
+          case p @ ShopPlacement(i: Important, _) if prog.has(i) => s"*${p.toString}"
+          case p @ ItemPlacement(_: Important, _) => p.toString
+          case p @ ShopPlacement(_: Important, _) => p.toString
+        }).mkString("\n")
+
       val progText = if(prog.count > 0) s" -- Chosen: ${prog.progText}" else ""
       val keyItems = placements.map(_.item).filterNot(prog.has(_)).collect({case i: Important => i})
       val keyItemsText = if(keyItems.nonEmpty) s" -- Randomly Placed: ${keyItems.mkString(", ")}" else ""
-      if(standalone)
-        s"// Placement Group ${i+1}$progText$keyItemsText"
-      else
-        s"\n// Placement Group ${i+1}$progText$keyItemsText\n\n"
+      s"\n// Placement Group ${i+1}$progText$keyItemsText\n\n"
       // plcmnts.placements.map(_.item).filterNot(plcmnts.prog.has(_)
     }
 
