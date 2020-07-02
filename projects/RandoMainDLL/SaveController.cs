@@ -120,6 +120,8 @@ namespace RandoMainDLL {
     }
 
     public static void OnSave(int slot, int backupSlot = -1) {
+      if (Randomizer.Memory.PlayerStats.Health == 0)
+        return; // the game saves right when you die, but we don't want to save progress when that happens.
       if (slot == -1) {
         Randomizer.Log("Error: tried to save to empty slot");
         return;
