@@ -8,6 +8,14 @@
 
 namespace
 {
+    BINDING(29456192, bool, Moon_MoonReference_T___CanResolve, (Moon_MoonReference_T__o* this_ptr, Moon_IMoonResolverContext_o* context));
+    BINDING(34816800, Il2CppObject*, System_Array__GetValue, (System_Array_o* this_ptr, int32_t index));
+    BINDING(34816240, int32_t, System_Array__get_Length, (System_Array_o* this_ptr));
+    BINDING(27825008, System_Int32_array*, NewSetupStateController__GetAllStateGUIDs, (NewSetupStateController_o* this_ptr));
+    BINDING(27824416, System_String_o*, NewSetupStateController__GetStateName, (NewSetupStateController_o* this_ptr, int32_t stateGUID));
+    BINDING(4370736, UnityEngine_Component_o*, NewSetupStateController__get_TargetComponent, (NewSetupStateController_o* this_ptr));
+    BINDING(27824416, System_String_o*, SetupStateModifier__get_Name, (SetupStateModifier_o* this_ptr));
+
     BINDING(27760400, Moon_IUberState_o*, Moon_UberStateCollection__GetState, (Moon_UberID_o* groupID, Moon_UberID_o* stateID));
     BINDING(27775392, void, Moon_UberStateController__Apply, (Moon_IUberState_o* descriptor, int context));
     BINDING(27776080, bool, Moon_UberStateController__ApplierIsAffectedByUberState, (Moon_IUberStateApplier_o* applier, Moon_IUberState_o* descriptor));
@@ -182,6 +190,41 @@ namespace
         set_us(state, group, static_cast<float>(value));
     }
 
+    void print_new_setup_state_controller(NewSetupStateController_o* controller)
+    {
+        auto guid_str = convert_csstring(controller->m_guidStr);
+        dev::console_send(format("%s - %s", controller->klass->_1.name, guid_str.c_str()));
+        dev::console_send(format("  active_state: %d", controller->m_activeStateIndex));
+        dev::console_send("  states:");
+        auto all_states = NewSetupStateController__GetAllStateGUIDs(controller);
+        for (auto i = 0; i < all_states->max_length; ++i)
+        {
+            auto guid = all_states->m_Items[i];
+            auto csname = NewSetupStateController__GetStateName(controller, guid);
+            auto name = convert_csstring(csname);
+
+            dev::console_send(format("    -> %d : %s", guid, name.c_str()));
+        }
+
+        dev::console_send("  modifiers:");
+        auto collection = reinterpret_cast<System_Collections_Generic_List_T__o*>(controller->StateHolder->Modifiers);
+        auto count = System_Collections_Generic_List_T___get_Count(collection);
+        for (auto i = 0; i < collection->_size; ++i)
+        {
+            auto item = reinterpret_cast<SetupStateModifier_o*>(collection->_items->m_Items[i]);
+            //auto item = reinterpret_cast<SetupStateModifier_o*>(System_Collections_Generic_List_T___get_Item(collection, i));
+            if (item != nullptr && item->Target->m_canResolve && Moon_MoonReference_T___CanResolve(reinterpret_cast<Moon_MoonReference_T__o*>(item->Target), nullptr))
+            {
+                auto csname = SetupStateModifier__get_Name(item);
+                auto name = convert_csstring(csname);
+
+                dev::console_send(format("    -> %s", name.c_str()));
+            }
+            else
+                dev::console_send(format("    -> unresolvable: %s - %d", item->klass->_1.name, item->ModifierGUID));
+        }
+    }
+
     void check_appliers(std::string const& command, std::vector<dev::CommandParam> const& params)
     {
         if (!uber_state_controller_is_valid())
@@ -210,7 +253,13 @@ namespace
         {
             auto item = reinterpret_cast<Moon_IUberStateApplier_o*>(System_Collections_Generic_List_T___get_Item(list, i));
             if (Moon_UberStateController__ApplierIsAffectedByUberState(item, uber_state))
-                dev::console_send(item->klass->_1.name);
+            {
+                // For some reason we don't have the address to this class in script.json? should figure out the address eventually by looking at address of item->klass.
+                if (std::string(item->klass->_1.name) == "NewSetupStateController")
+                    print_new_setup_state_controller(reinterpret_cast<NewSetupStateController_o*>(item));
+                else
+                    dev::console_send(item->klass->_1.name);
+            }
         }
     }
 
