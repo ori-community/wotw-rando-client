@@ -815,10 +815,9 @@ area GladesTown.Teleporter:  # (-306, -4153) The glades teleporter
       Bash, Grenade=1
       TuleyShop.StickyGrass, Grapple
   conn TwillenShop: free
-  conn OpherShop:
-    base: Water, EastHollow.Voice  # what this actually needs is water + the ability to talk to kwolok
+  conn OpherShop: free # opher everywhere
   conn TuleyShop: 
-    base, Water:  # maybe probably?
+    base, InnerWellspring.WaterEscape, EastHollow.Voice:  # maybe probably?
       DoubleJump OR Launch
       Flap, Glide
       Bash, Grenade=1
@@ -945,7 +944,7 @@ area GladesTown.ReachPath:  # (-176, -4100) At the soup
       Bash, Grenade=1
   conn GladesTown.Teleporter: free
   conn TuleyShop: 
-    base: Water  # maybe probably?
+    base: InnerWellspring.WaterEscape, EastHollow.Voice
   conn LowerReach.Trial:
     base:
       Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
