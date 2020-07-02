@@ -24,92 +24,13 @@ requirement DepthsLight:  # currently irrelevant since defeating mora requires f
   base: UpperDepths.ForestsEyes OR Flash
   advanced: Bow
 
-area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater well
-  refill Full
-
-  state MarshSpawn.KeystoneDoor:
-    base: Keystone=2
-
-  quest MarshSpawn.CaveKS:
-    base: Weapon
-  quest MarshSpawn.TheMissingKey:  # wont be a thing :(
-    base: Unreachable
-    # base: Weapon, MarshSpawn.CaveKS
-
-  pickup MarshSpawn.RockHC: free
-  pickup MarshSpawn.FirstPickupEX: free
-  pickup MarshSpawn.PreLupoEX: free
-  pickup MarshSpawn.LupoMap: free
-  pickup MarshSpawn.GrappleHC:
-    base:
-      Grapple, DoubleJump OR Launch
-    advanced:
-      Grapple, Sword                   # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
-      Grapple, Dash OR Glide
-  pickup MarshSpawn.BridgeEX:
-    base:
-      DoubleJump OR Dash OR Glide OR Launch
-      Bash, Grenade=1                  # Grenade bash straight up from below
-    advanced:
-      free                             # lure and sword pogo off of hopping enemy
-  pickup MarshSpawn.ResilienceShard:
-    base: Weapon
-  pickup MarshSpawn.ResilienceOre:
-    base: Weapon, Water
-  pickup MarshSpawn.BashEC:
-    base: Bash OR Launch
-  pickup MarshSpawn.LeverEC:
-    base:
-      Grapple, DoubleJump, Bash
-      Launch, Bash
-      Grapple, Launch
-      Bash, Grenade=1, DoubleJump
-    advanced:
-      Launch                          # Single jump and a launch can reach the ledge offscreen.
-      Bash                            # Lure the Jumper, then bash off him
-  pickup MarshSpawn.LongSwimEX:
-    base: Water
-  pickup MarshSpawn.LeftTokkEX:
-    base: Weapon
-  pickup MarshSpawn.FightRoomEX:
-    base: Weapon
-  pickup MarshSpawn.BurrowOre:
-    base, EnemyObstacle:
-      Water, Burrow, DoubleJump OR Glide OR Launch
-      Water, Burrow, Dash, Bash, Grenade=1
-  pickup MarshSpawn.LifepactShard:
-    base, Combat, Danger=40:  # no region danger
-      Water, Burrow, DoubleJump OR Launch
-      Water, Burrow, Dash, Bash, Grenade=1
-  pickup PoolsApproach.BurrowsPathEX:
-    base:
-      DoubleJump, Bash, Glide
-      Bash, Launch
-
-  conn MarshSpawn.PoolsBurrowsPath:
-    base:
-      Weapon, DoubleJump OR Dash OR Launch
-      Weapon, Bash, Grenade=1
-      Water, Burrow, DoubleJump OR Glide OR Launch
-      Water, Burrow, Dash, Bash, Grenade=1
-    advanced:
-      Sword, Glide
-  conn MarshSpawn.DenApproach:
-    base: MarshSpawn.KeystoneDoor
-  conn MarshPastOpher.MillView:
-    base: Weapon
-  conn PoolsApproach.LeftOfWheel:
-    base:
-      Water, DoubleJump, Bash, Glide
-      Water, Bash, Launch
-
-  # teleporter connections
+area Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
     base: BurrowsTP, Keystone=2
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
     # It also makes a 4 keystone door available! Without the Keystone=2 line here, the seed generator
     # picks this path, unlocking 4 pickups, then immediately fills those with keystones and gets stuck
-  conn HowlsDen.Lower:
+  conn HowlsDen.Teleporter:
     base: DenTP
   conn EastHollow.Teleporter:
     base: HollowTP
@@ -139,8 +60,106 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
     base: InnerRuinsTP
   conn WillowsEnd.InnerTP:
     base: WillowTP
+  # conn WillowsEnd.OuterTP:
+  #   base: ShriekTP
+
+area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater well
+  refill Full
+
+  pickup MarshSpawn.RockHC: free
+  pickup MarshSpawn.FirstPickupEX: free
+  pickup MarshSpawn.PreLupoEX: free
+  pickup MarshSpawn.GrappleHC:
+    base:
+      Grapple, DoubleJump OR Launch
+    advanced:
+      Grapple, Sword                   # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
+      Grapple, Dash OR Glide
+  pickup MarshSpawn.BridgeEX:
+    base:
+      DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1                  # Grenade bash straight up from below
+  pickup MarshSpawn.LongSwimEX:
+    base: Water
+  pickup MarshSpawn.BurrowOre:
+    base, EnemyObstacle:
+      Water, Burrow, DoubleJump OR Glide OR Launch
+      Water, Burrow, Dash, Bash, Grenade=1
+  pickup MarshSpawn.LifepactShard:
+    base, Combat, Danger=40:  # no region danger
+      Water, Burrow, DoubleJump OR Launch
+      Water, Burrow, Dash, Bash, Grenade=1
+  pickup PoolsApproach.BurrowsPathEX:
+    base:
+      DoubleJump, Bash, Glide
+      Bash, Launch
+
+  conn MarshSpawn.BrokenBridge: free
+  conn MarshSpawn.PoolsBurrowsPath:
+    base:
+      Water, Burrow, DoubleJump OR Glide OR Launch
+      Water, Burrow, Dash, Bash, Grenade=1
+  conn MarshPastOpher.MillView:
+    base: Weapon
+  conn PoolsApproach.LeftOfWheel:
+    base:
+      Water, DoubleJump, Bash, Glide
+      Water, Bash, Launch
+
+area MarshSpawn.BrokenBridge:  # (-643, -4352) after dropping down the breaking bridge
+  refill Checkpoint
+
+  pickup MarshSpawn.ResilienceShard:
+    base: Weapon
+  pickup MarshSpawn.ResilienceOre:
+    base: Weapon, Water
+  pickup MarshSpawn.BashEC:
+    base: Bash OR Launch
+  pickup MarshSpawn.LupoMap: free
+  
+  conn MarshSpawn.CaveEntrance: free
+
+area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
+  refill Checkpoint
+
+  state MarshSpawn.KeystoneDoor:
+    base: Keystone=2
+
+  quest MarshSpawn.CaveKS:
+    base: Weapon
+  quest MarshSpawn.TheMissingKey:  # wont be a thing yet :(
+    base: Unreachable
+    # base: Weapon, MarshSpawn.CaveKS
+
+  pickup MarshSpawn.LeverEC:
+    base:
+      Grapple, DoubleJump, Bash
+      Launch, Bash
+      Grapple, Launch
+      Bash, Grenade=1, DoubleJump
+    advanced:
+      Launch                          # Single jump and a launch can reach the ledge offscreen.
+      Bash                            # Lure the Jumper, then bash off him
+  pickup MarshSpawn.LeftTokkEX:
+    base: Weapon
+  pickup MarshSpawn.FightRoomEX:
+    base: Weapon
+
+  conn MarshSpawn.DenApproach:
+    base: MarshSpawn.KeystoneDoor
+  conn MarshSpawn.PoolsBurrowsPath:
+    base, Weapon:
+      DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
+  conn MarshSpawn.BrokenBridge:
+    base:
+      DoubleJump OR Launch
+      Bash, Grenade=1
 
 area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tree
+  state MarshSpawn.KeystoneDoor:
+    base: Keystone=2
+
   pickup MarshSpawn.RegenTree: free
   pickup MarshSpawn.RecklessShard:
     base, Weapon:
@@ -148,13 +167,15 @@ area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tre
       Dash, Glide
       Bash, Grenade=1
 
-  conn HowlsDen.Upper:
+  conn HowlsDen.Entrance:
     base:
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
     advanced:
       Sword OR Hammer         # Use air combos to make it to wall above thorns
+  conn MarshSpawn.CaveEntrance:
+    base: MarshSpawn.KeystoneDoor
 
 area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, burrows and marsh
   refill Checkpoint
@@ -205,6 +226,7 @@ area MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
     base: Launch
     advanced: Bash
   
+  conn Teleporters: free
   conn MidnightBurrows.Central:
     base: DoubleJump
 
@@ -252,21 +274,18 @@ area MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
 
   pickup MidnightBurrows.RightKS: free
   pickup MidnightBurrows.UpperKS:
-    base:
-      EnemyObstacle, DoubleJump, Glide
-      EnemyObstacle, DoubleJump, Dash, Danger=15
+    base, EnemyObstacle:
+      DoubleJump, Glide
+      DoubleJump, Dash, Danger=15
   
   conn MidnightBurrows.Central:
-    base:
-      EnemyObstacle, DoubleJump, Glide
-      EnemyObstacle, DoubleJump, Dash, Danger=15
-  conn HowlsDen.Lower:  # careful! this path is incorrect, but also not relevant yet. Change this as soon as Howl's Den supports reverse logic
+    base, EnemyObstacle:
+      DoubleJump, Glide
+      DoubleJump, Dash, Danger=15
+  conn HowlsDen.DoubleJumpTreeArea:
     base: Weapon
 
-area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
-  state HowlsDen.KeystoneDoor:
-    base: Keystone=2
-
+area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
   quest MarshSpawn.FangQI:
     base:
       DoubleJump OR Launch
@@ -289,34 +308,43 @@ area HowlsDen.Upper:  # (-390, -4413) Next to Mokk the Brave
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
-  pickup MarshSpawn.RegenTree:
+  pickup HowlsDen.EntranceEX: free
+  pickup HowlsDen.RightHC:
+    base: Weapon
+
+  conn HowlsDen.BoneBridge: free
+  conn MarshSpawn.DenApproach:
     base:
       DoubleJump OR Launch
       Bash, Grenade=1
+
+area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
+  refill Checkpoint
+
+  state HowlsDen.KeystoneDoor:
+    base: Keystone=2
+
+  pickup HowlsDen.BoneOre:
+    base: Hammer
+  pickup HowlsDen.AboveDoorKS:
+    base: DoubleJump OR Launch
+  pickup HowlsDen.LeftHC:
+    base: HowlsDen.KeystoneDoor, Weapon, DoubleJump OR Dash OR Launch
   pickup HowlsDen.SwordTree: free
-  pickup HowlsDen.UpperEX: free
   pickup HowlsDen.MagnetShard:
     base: Weapon
   pickup HowlsDen.AboveTPEX:
     base: Weapon
-  pickup HowlsDen.RightHC:
-    base: Weapon
-  pickup HowlsDen.BoneOre:
-    base: Hammer
-  pickup HowlsDen.LeftHC:
-    base: HowlsDen.KeystoneDoor, Weapon, DoubleJump OR Dash OR Launch
-  pickup HowlsDen.AboveDoorKS:
-    base:
-      DoubleJump OR Dash OR Launch
-    advanced:
-      Sword OR Hammer
-      Bash, Grenade=1
-      Glide
 
-  conn HowlsDen.Lower:
+  conn HowlsDen.Teleporter:
     base: Weapon
+  conn HowlsDen.Entrance:
+    base, Weapon, HowlsDen.KeystoneDoor:
+      DoubleJump
+      Dash, Bash, Grenade=1
+      Launch
 
-area HowlsDen.Lower:  # (-328, -4536) At the teleporter
+area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
   refill Full
 
   pickup HowlsDen.AboveTPEX:
@@ -330,22 +358,14 @@ area HowlsDen.Lower:  # (-328, -4536) At the teleporter
     advanced:
       Sword OR Hammer         # Can reach lever with air combos
   # if someone manages to lower the platform, they'll manage to get over the gap as well. That's how it works in the base game, that's how it'll work here
-  pickup HowlsDen.DoubleJumpTree:
-    base: Weapon OR DoubleJump OR Dash OR Glide OR Launch
   pickup HowlsDen.DoubleJumpEX:
-    base: Weapon OR Launch
-    advanced:
-      Bash                              # Bash off of rolling enemy
-  pickup HowlsDen.StickyShard:
-    base:
-      DoubleJump OR Dash OR Launch
-      Glide, Bash, Grenade=1
-    advanced:
-      Sword OR Hammer
-      Bash, Grenade=1
-  
+    base: Weapon  # no combat because the game puts this before regen. It's why all the enemies drop tons of health
+
+  conn Teleporters: free
   conn DenShrine:
-    base: Hammer  # no region danger
+    base: Hammer
+  conn HowlsDen.DoubleJumpTreeArea:
+    base: Weapon OR DoubleJump OR Dash OR Glide OR Launch
 
 area DenShrine:
   refill Full
@@ -353,6 +373,21 @@ area DenShrine:
     base, Combat, RangedWeapon OR DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
       Danger=60
       Dash OR Bash OR Launch, Danger=40  # much better if you have good evasion
+
+area HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
+  pickup HowlsDen.DoubleJumpTree: free
+  pickup HowlsDen.StickyShard:  # mind the breakable wall
+    base:
+      Bash, Grenade=1
+      Launch
+  pickup HowlsDen.DoubleJumpEX:
+    base: Launch
+  
+  conn HowlsDen.Teleporter:
+    base:
+      DoubleJump
+      Bash, Grenade=2, Dash OR Glide
+      Launch
 
 area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking at the Millstone
   refill Checkpoint
@@ -384,6 +419,12 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
 
   conn MarshShrine: free
   conn OpherShop: free
+  conn MarshSpawn.Main:
+    base, Weapon:
+      DoubleJump OR Launch
+      Bash, Grenade=1
+  conn MarshSpawn.BrokenBridge:
+    base: Weapon
   conn MarshPastOpher.BowArea:
     base:
       DoubleJump OR Dash OR Launch
@@ -609,6 +650,7 @@ region EastHollow:
 area EastHollow.Teleporter:  # (-150, -4238) the teleporter
   refill Full
 
+  conn Teleporters: free
   conn BeetleFight: free
   conn WestHollow.HollowDrainUpper:
     base: WestHollow.PurpleDoorOpen
@@ -832,6 +874,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   pickup GladesTown.DamageTree:
     base: TuleyShop.LastTree
 
+  conn Teleporters: free
   conn GladesTown.UpperWest:
     base:
       Launch, DoubleJump OR Dash OR Glide
@@ -1532,6 +1575,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
       Bash, Grenade=2
       Launch
 
+  conn Teleporters: free
   conn InnerWellspring.WaterEscape:
     base:
       DoubleJump, Dash, Grapple
@@ -1610,9 +1654,9 @@ area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the st
     base: Water, WaterDash
   pickup PoolsApproach.BurrowsPathEX:
     base:
-      Water, DoubleJump, Dash, WaterDash, Danger=10
-      Water, Glide, WaterDash, DoubleJump OR Dash
-      Water, Bash, WaterDash, DoubleJump OR Glide
+      Water, WaterDash, DoubleJump, Dash, Danger=10
+      Water, WaterDash, Glide, DoubleJump OR Dash
+      Water, WaterDash, Bash, DoubleJump OR Glide
       Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide OR Danger=10
     advanced:
       Water, Dash, Glide, WaterDash
@@ -1625,6 +1669,8 @@ area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the st
   conn EastPools.Entry:
     base: Water, Launch
     advanced: Water, DoubleJump, WaterDash, Damage=20
+  conn MarshSpawn.Main:
+    base: Water, WaterDash  # <3
 
 region EastPools:
   base:
@@ -1780,6 +1826,7 @@ area EastPools.Teleporter:  # (-1316, -4153) At the teleporter after draining th
   
   state EastPools.LowerWaterDrained: free  # this is, uh... correct, I suppose xD
 
+  conn Teleporters: free
   conn EastPools.TPArea: free
 
 region UpperPools:
@@ -1942,6 +1989,7 @@ area WestPools:  # (-1656, -4171) the west Pools TP
   pickup UpperPools.LowerKS:
     base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash
 
+  conn Teleporters: free
   conn KwolokFight:
     base: Water, WaterDash OR DoubleJump OR Launch
   conn UpperPools.KeystoneRoom:
@@ -2010,6 +2058,7 @@ area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
 #    advanced:
 #      Glide, SentryJump=1
 
+  conn Teleporters: free
   conn WoodsEntry.ShriekMeet: free
   conn WoodsEntry.BelowTeleporter: free
 
@@ -2166,6 +2215,7 @@ area WoodsMain.AboveHowl:  # (916, -4046) At the semisolid above silenced Howl
 area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
   refill Full
 
+  conn Teleporters: free
   conn WoodsMain.FeedingGrounds:
     base:
       Glide
@@ -2400,6 +2450,7 @@ area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the te
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
+  conn Teleporters: free
   conn LowerReach.OutsideTPRoom:
     base: LowerReach.TPIceMelted
   conn LowerReach.East:
@@ -2717,6 +2768,7 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
 
   pickup UpperDepths.TeleporterEX: free  # just a few steps away in the darkness
   
+  conn Teleporters: free
   conn UpperDepths.BelowHive:
     base:
       RangedWeapon
@@ -2908,6 +2960,7 @@ area LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
   pickup WoodsMain.FeedingGroundsEX:
     base: WindtornRuins.Seir, Burrow, DoubleJump OR Dash OR Glide OR Launch  # Seir to make it a safe path
 
+  conn Teleporters: free
   conn LowerWastes.SunsetView:
     base:
       DoubleJump, Grapple
@@ -3152,6 +3205,8 @@ area LowerWastes.EastTP:  # (1992, -3902) Location of the east teleporter
       Bash, Grenade=3  # it had to be done
   pickup LowerWastes.UpperPathHC:
     base: Burrow
+
+  conn Teleporters: free
   conn LowerWastes.LeverArea:
     base: Burrow
   conn LowerWastes.UpperPath:
@@ -3237,6 +3292,7 @@ area UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right
 area UpperWastes.NorthTP: # (2044, -3679) North Wastes teleporter
   refill Full
 
+  conn Teleporters: free
   conn UpperWastes.RuinsApproach: free
 
 area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
@@ -3315,6 +3371,7 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
   state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
     base: Weapon
 
+  conn Teleporters: free
   conn WindtornRuins.Escape:  # connection FROM tp TO escape
     # the gap after completing the escape locks you out of these paths, but it doesn't matter because they're only relevant for completing the uncompleted escape
     base: WindtornRuins.HeartBarrier
@@ -3462,6 +3519,7 @@ area WillowsEnd.InnerTP:  # (422, -3864) The teleporter inside
     base:
       DoubleJump OR Dash OR Launch OR RangedWeapon
 
+  conn Teleporters: free
   conn WillowsEnd.Entry:
     base:
       Weapon  # open the portal shortcut
@@ -3545,8 +3603,8 @@ area LaserRockFight:
 area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
   refill Full
 
+  conn Teleporters: free
   conn WillowsEnd.Upper: free
-
 
 # END unvalidated willow's end region
 
