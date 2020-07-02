@@ -470,7 +470,6 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
       Bash, Glide  # bashglide off a slime
   conn TwillenShop: free
 
-# begin pools path needs validation area?
 area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of the ledge at the top left of the large room with Opher
   refill Checkpoint
   refill Health=1:
@@ -526,7 +525,6 @@ area MarshPastOpher.PoolsPathWest:  # (-803, -4187)  Right on top of MarshPastOp
       Water, Grapple, DoubleJump OR Dash OR Launch
       Water, DoubleJump, Dash, Glide, Launch
     advanced: Water, Grapple, Sword OR Hammer
-# end pools path needs validation area?
 
 region WestHollow:
   base:
@@ -780,7 +778,6 @@ area EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door block
   conn UpperDepths.Entry:  # area details to be determined, will probably stay true
     base: Glide
 
-# begin glades needs-validation region
 area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   refill Full
 
@@ -1205,7 +1202,6 @@ area PoolsApproach.MillPath:  # (-873, -4146) above the water where the three pa
       Water, Bash, Grenade=1, Launch, Danger=10
   conn PoolsApproach.RightOfWheel:
     base: EnemyObstacle, Water
-# end glades needs-validation region
 
 region OuterWellspring:
   base:
@@ -1594,7 +1590,6 @@ area InnerWellspring.WaterEscape:
       Bash, Grapple, Dash, Glide
       Grapple, Launch
 
-# begin pools needs validation area
 region PoolsApproach:
   base:
     Danger=25
@@ -2003,7 +1998,6 @@ area KwolokFight:
   refill Full
   quest WestPools.ForestsStrength:
     base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
-# end pools needs validation area
 
 region WoodsEntry:
   base:
@@ -2270,7 +2264,6 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
   refill Checkpoint
   refill Health=1: free
 
-  # basically the entirety of this area is not validated, because almost all the original paths were either impossible or not base with the given skillset
   state LowerReach.BearSneezed:
     base: Flap
   state LowerReach.BearBridgeBroken:
@@ -2349,25 +2342,25 @@ area LowerReach.Central:  # (-335, -4010) After the lever door
   pickup LowerReach.AboveDoorEX:
     base:
       LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash OR Hammer  # not validated
-        Bash, Grenade=1  # not validated
+        DoubleJump, Dash, Bash OR Hammer
+        Bash, Grenade=1
       Launch
   pickup LowerReach.LupoMap:
     base:
       Launch
       DoubleJump, Dash
-      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide  # not validated
+      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
   pickup LowerReach.TPLeftEX:
     base:
       Launch
       LowerReach.CentralFurnace:
         DoubleJump, Dash
-        Bash, Grenade=1, DoubleJump OR Dash OR Glide  # not validated
+        Bash, Grenade=1, DoubleJump OR Dash OR Glide
 
   conn LowerReach.Entry:
     base: LowerReach.Lever, DoubleJump OR Dash OR Launch
-  conn LowerReach.Lower: free  # wtf reach logic
-  conn LowerReach.OutsideTPRoom:  # all not validated (added this area)
+  conn LowerReach.Lower: free
+  conn LowerReach.OutsideTPRoom:
     base:
       Launch
       LowerReach.CentralFurnace:
@@ -2388,12 +2381,12 @@ area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
   pickup LowerReach.MeltIceEX:
     base: Grenade=1
   pickup LowerReach.BurrowEX:
-    base: Burrow, DoubleJump OR Dash OR Glide OR Launch  # not validated
+    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
   pickup LowerReach.BelowLupoEX:
     base:
-      DoubleJump, Bash, Grenade=1  # not validated
+      DoubleJump, Bash, Grenade=1
       Launch
-      LowerReach.CentralFurnace, DoubleJump OR Dash  # not validated
+      LowerReach.CentralFurnace, DoubleJump OR Dash
   pickup LowerReach.BreakWallEX:
     base: Weapon, ShieldEnemy OR Bash
   pickup LowerReach.WindBottomEX:
@@ -2401,7 +2394,7 @@ area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
   pickup LowerReach.WindHiddenEX:
     base: LowerReach.WindChannelLantern, Glide
 
-  conn LowerReach.Central:  # not validated
+  conn LowerReach.Central:
     base:
       DoubleJump, Bash, Flap OR Grenade=1
       DoubleJump, Burrow
@@ -2417,7 +2410,6 @@ area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter ro
   refill Energy=3:
     base: Weapon
 
-  # none validated
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
@@ -2446,7 +2438,6 @@ area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter ro
 area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
   refill Full
 
-  # none validated
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
@@ -2465,7 +2456,7 @@ region UpperReach:
 area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
   refill Checkpoint
 
-  state UpperReach.KeystoneDoor:  # not validated
+  state UpperReach.KeystoneDoor:
     base, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
@@ -2499,8 +2490,8 @@ area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
       Launch, DoubleJump OR Dash OR Glide
       UpperReach.HeatFurnace:
         DoubleJump, Bash, Grapple OR Glide
-        Dash, Bash, Grenade=1, Glide  # not validated
-  pickup UpperReach.UpperKS:  # not validated (reworked the furnace states)
+        Dash, Bash, Grenade=1, Glide
+  pickup UpperReach.UpperKS:
     base:
       DoubleJump, Bash, Grenade=1  # go past the hidden ore
       Launch
@@ -2508,7 +2499,7 @@ area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
       UpperReach.HeatFurnace:
         DoubleJump, Bash, Grapple  # grenadebash at the waterfall would be redundant with the path going past the hidden ore that doesn't rely on furnace state
         DoubleJump, Bash, Glide  # using the tongue plant
-  pickup UpperReach.MiddleRightKS:  # not validated (reworked the furnace states)
+  pickup UpperReach.MiddleRightKS:
     base, UpperReach.HeatFurnace:
       Bash, Glide, DoubleJump OR Grenade=1  # use the tongue plant
       DoubleJump, Bash, Grenade=1  # go past the hidden ore
@@ -2517,7 +2508,7 @@ area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
       Water, Bash, Grenade=1, Dash  # also bashgrenade at waterfall
       Water, Bash, Grenade=2  # still bashgrenade at waterfall
       Launch
-  pickup UpperReach.SoupOre:  # not validated (reworked the furnace states)
+  pickup UpperReach.SoupOre:
     base:
       DoubleJump, Bash, Grenade=1
       Launch
@@ -2530,7 +2521,7 @@ area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
         Bash, Grenade=2, Dash  # bashgrenade at the waterfall
         Water, Bash, Grenade=1, Dash  # also bashgrenade at waterfall
         Water, Bash, Grenade=2  # still bashgrenade at waterfall
-  pickup UpperReach.SwingPoleEX:  # not validated (reworked the furnace states)
+  pickup UpperReach.SwingPoleEX:
     base:
       DoubleJump, Bash, Grenade=1
       Launch
@@ -2546,7 +2537,7 @@ area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
   pickup UpperReach.SwimEX:
     base: UpperReach.HeatFurnace, Water, EnemyObstacle OR DoubleJump
 
-  conn UpperReach.TreeRoom:  # not validated (added this area)
+  conn UpperReach.TreeRoom:
     base, UpperReach.KeystoneDoor, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
@@ -2560,7 +2551,7 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
 
   pickup UpperReach.LightBurstTree:
     base: free
-  pickup UpperReach.TreeOre:  # not validated
+  pickup UpperReach.TreeOre:
     base:
       DoubleJump, Bash, Grenade=1, Dash OR Glide
       Dash, Bash, Grenade=1, Glide
@@ -2570,7 +2561,7 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
   pickup UpperReach.HiddenEX:
     base: Grenade=1
 
-  conn UpperReach.KeystoneRoom:  # not validated
+  conn UpperReach.KeystoneRoom:
     base, UpperReach.KeystoneDoor, UpperReach.HeatFurnace:
       DoubleJump, Grapple
       DoubleJump, Dash
@@ -2587,17 +2578,17 @@ area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
     base: EnemyObstacle, Grenade=1
   state LowerReach.PastSnowballLantern:
     base, LowerReach.RolledSnowball:
-      DoubleJump, Bash, Grenade=2, Glide OR Dash  # not validated
+      DoubleJump, Bash, Grenade=2, Glide OR Dash
       Grenade=1, Launch
-  state LowerReach.HeatEastFurnace:  # not validated, this is required for the underwater pickup
+  state LowerReach.HeatEastFurnace:
     base, LowerReach.RolledSnowball:
       Grenade=1, Launch
       DoubleJump, Bash, Grenade=3, Dash OR Glide
-  state LowerReach.CoolEastFurnace:  # not validated, the intentional path is to cool this furnace
+  state LowerReach.CoolEastFurnace:  # the intentional path is to cool this furnace
     base, LowerReach.RolledSnowball:
       Flap, Launch
       Flap, DoubleJump, Bash, Grenade=2, Dash OR Glide
-  state LowerReach.ArenaBeaten:  # not validated
+  state LowerReach.ArenaBeaten:
     base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, Weapon, Regenerate:
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
@@ -2608,7 +2599,7 @@ area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
     base:
       LowerReach.CoolEastFurnace, DoubleJump, Dash, Bash, Grenade=1  # blame moon
       DoubleJump, Launch, Dash OR Glide
-      Bash, Grenade=1, Launch  # not validated
+      Bash, Grenade=1, Launch
   pickup LowerReach.RoofRightEX:
     base:
       LowerReach.CoolEastFurnace, Grenade=2, Bash
@@ -2616,9 +2607,8 @@ area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
   pickup LowerReach.FractureShard:
     base, LowerReach.HeatEastFurnace:
       Water, Launch
-      Water, DoubleJump, Bash, Grenade=1, Dash OR Glide  # not validated
+      Water, DoubleJump, Bash, Grenade=1, Dash OR Glide
 
-  # connections not validated
   conn LowerReach.Teleporter:
     base, LowerReach.TeleporterLantern:
       DoubleJump OR Dash OR Glide OR Launch
@@ -2643,8 +2633,8 @@ area LowerReach.Trial:  # (64, -4046) At trial start
   pickup LowerReach.RightKS:
     base:
       Glide
-      DoubleJump, Dash, Bash, Grenade=1  # not validated
-      Launch, DoubleJump OR Danger=20  # not validated
+      DoubleJump, Dash, Bash, Grenade=1
+      Launch, DoubleJump OR Danger=20
   pickup LowerReach.UpperLeftKS:
     base: Glide
   pickup LowerReach.MiddleLeftKS:
@@ -2653,7 +2643,7 @@ area LowerReach.Trial:  # (64, -4046) At trial start
     base: Glide
   pickup LowerReach.TrialEX:
     base: Glide
-  pickup LowerReach.EscapeRevisitEX:  # not validated
+  pickup LowerReach.EscapeRevisitEX:
     base, LowerReach.ArenaBeaten, LowerReach.ForestsMemory:
       Bash, Grenade=5, Glide, DoubleJump
       Bash, Grenade=4, Glide, Grapple
@@ -3475,7 +3465,6 @@ area WeepingRidge.LaunchArea:  # (1189, -3716) After the portal at the top of th
       WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump OR Glide OR Dash # you really only NEED one of the 3 of em
   # backwards connection would be meaningless
 
-# BEGIN unvalidated willow's end region
 region WillowsEnd:
   base:
     Danger=60, Regenerate # need at least 6 health and Regen to do ANYTHING in willow
@@ -3605,8 +3594,6 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
 
   conn Teleporters: free
   conn WillowsEnd.Upper: free
-
-# END unvalidated willow's end region
 
 area TwillenShop:
 # stealing this for keystones
