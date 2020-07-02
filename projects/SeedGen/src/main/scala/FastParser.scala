@@ -1,9 +1,11 @@
 import fastparse._
 import java.io.{BufferedWriter, FileWriter}
 import scala.io.Source
+import java.io.File
+import AreaParser.ParseError
 
 package SeedGenerator {
-  import AreaParser.{ParseError, ParserError}
+
   object FastParser {
     def colon[_:P]: P[Unit] = P(":")
     def comma[_:P]: P[Unit] = P(",")
@@ -23,7 +25,7 @@ package SeedGenerator {
     }
     def ts(t: (String, String)): String = t._1 + t._2
     def equalsNum[_ :P]: P[Int] = P("=" ~ CharsWhileIn("0-9").!.map(_.toInt))
-    def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "advanced") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
+    def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "advanced" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq)
     def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(SkillReq(51), EnergyReq(i)))
@@ -54,16 +56,22 @@ package SeedGenerator {
       def block[_: P]: P[Requirement] = P(reqLHS ~ blockBody).map{case (head, body) => head and body}//.log
       def line[_:P]: P[Requirement] = P(reqLine | reqRHS)//.log
       def req[_:P]: P[Requirement] = P( NoCut(block) | line )
-      def reqBlock[_:P]: P[Requirement] = P(free | NoCut(reqLine) | NoCut(blockBody)).rep.map(AnyReq(_))//.log
+      def reqBlock[_:P]: P[Requirement] = P(free | NoCut(reqLine) | NoCut(blockBody)).rep.map(AnyReq(_)).log
     }
+    def checkpoint[_:P]: P[Refiller] = P("Checkpoint").map(_ => Checkpoint)
+    def spiritWell[_:P]: P[Refiller] = P("Full").map(_ => Well).log
+    def crystal[_:P]: P[Refiller] = P("Energy" ~~/ equalsNum).map(EnergyCrystals)
+    def plant[_:P]: P[Refiller] = P("Health" ~~/ equalsNum).map(HealthPlants)
+    def refill[_:P]: P[(Refiller, Requirement)] = P("  refill" ~/ (checkpoint | spiritWell | crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock).log
+
     case class Region(prefix: String, req: Requirement)
     def endl[_:P]: P[Unit] = P("\n")
     def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)})//.log
-    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)})//.log
-    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)})//.log
+    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)}).log
+    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)}).log
     def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req)})//.log
-    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)})//.log
-    def area[_:P]: P[Area] = P("area" ~/ nameParser ~~ colon ~ endl ~~ (state | quest | pickup | conn).repX(sep=endl)).map{case (name, conns) => Area(name, conns)}//.log
+    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)}).log
+    def area[_:P]: P[Area] = P("area" ~/ nameParser ~~ colon ~ endl ~~ NoCut(refill.repX(sep=endl) ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{case (name, _, conns) => Area(name, conns)}.log
     def region[_:P]: P[Region] = P("region" ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (prefix, req) => Region(prefix, req)})
     def regionOrArea[_:P]: P[Either[Region, Area]] = P(NoCut(region) | NoCut(area)).map{
       case r: Region => Left(r)
@@ -72,7 +80,9 @@ package SeedGenerator {
     def macroSection[_:P]: P[Seq[Connection]] = reqMacro.rep(1, sep=endl)
     def file[_:P]: P[(Seq[Connection], Seq[Either[Region, Area]])] = P(endl ~ NoCut(macroSection) ~ endl ~ regionOrArea.rep(sep=endl) ~ endl ~ End)
     def input: String = {
-      val src = Source.fromFile("areas.wotw")
+      val path = if(new File("areas.wotw").exists()) "areas.wotw" else "C:\\moon\\areas.wotw"
+      val src = Source.fromFile(path)
+      UI.debug(s"Loading logic from $path")
       val raw = src.mkString.replace("\r\n","\n")
       src.close()
       "\n *(?=\n)".r.replaceAllIn(" *#[^\n]*".r.replaceAllIn(raw,""), "")
@@ -84,26 +94,6 @@ package SeedGenerator {
       val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
       if(unusedMacros.nonEmpty)
         UI.log(s"unused macros: $unusedMacros")
-
-      /*        def getUnusableStates(areas: Seq[Area]): Set[StateReq] = {
-                val reachableStateNodes = areas.flatMap(_.conns.withFilter(_.target.kind == StateNode).map(r => r.target.name))
-                stateReqs(areas).filterNot(st => macros.contains(st.flag) || reachableStateNodes.contains(st.flag)).toSet
-              }
-
-              def pruneStates(areas: Seq[Area], unused: Set[StateReq]): Seq[Area] =
-                areas.map({case Area(name, conns) => Area(name, conns.map(c => Connection(c.target, unused.foldLeft(c.req)((acc, flag) => acc.substitute(flag, Invalid)))))})
-              def pruneStatesRecursive(areas: Seq[Area], unused: Set[StateReq] = Set()): Seq[Area] = {
-                val newAreas = pruneStates(areas, unused)
-                val newUnused = getUnusableStates(newAreas)
-                if(newUnused.nonEmpty) {
-                  if(DebugParsers.debug)
-                    println(s"need to prune: $newUnused")
-                  return pruneStatesRecursive(newAreas, newUnused)
-                }
-                newAreas
-              }*/
-
-      // sub in macros
       areas.map({
         case Area(Area.SPAWN, conns) => Area(Area.SPAWN, conns ++ macros)
         case area => area
@@ -126,14 +116,15 @@ package SeedGenerator {
       doAdvanced = advanced
       parse(input, file(_)) match {
         case Parsed.Success((macros, regionAreas), _) => Right(validator(macros, regionAreas))
-        case f: Parsed.Failure => Left(ParserError(s"Failed to parse areas.wotw; $f"))
+        case f: Parsed.Failure => Left(FPError(s"Failed to parse areas.wotw; $f", f))
       }
     }
 
-    def writeIntermediate: Unit = {
+    def writeIntermediate(): Unit = {
       val bw = new BufferedWriter(new FileWriter("nofluff.wotw"))
       bw.write(input)
       bw.close()
     }
+    case class FPError(msg: String, f: Parsed.Failure) extends ParseError
   }
 }

@@ -211,6 +211,10 @@ package SeedGenerator {
     )
   }
 
+  case class Orbs(health: Int, energy: Int) {
+    def max(other: Orbs): Orbs = Orbs(Math.max(this.health, other.health), Math.max(this.energy, other.energy))
+  }
+
   // extending hashset instead of encapsulating it here was pure folly, tbh
   class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
     items.collect({ case (i: Item, count: Int) if count > 0 => set(i, count) })
@@ -224,6 +228,7 @@ package SeedGenerator {
         case i => Some(i -> this(i))
       }).toSeq :+ (SpiritLight(totalLight - cash) -> 1):_*)
     }
+    def orbs: Orbs = Orbs(this(Health)*5, this(Energy)*5)
 
     def set(item: Item, count: Int): Unit = this (item) = count
     override def apply(item: Item): Int = getOrElse(item, 0)
