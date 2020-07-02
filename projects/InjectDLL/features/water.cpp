@@ -21,6 +21,7 @@ namespace
         { -1876259767, -1976832348 },   // Corrupted / Clean
         { -1947088109, 385303388 },     // Corrupted / Clean
     };
+
     INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (NewSetupStateController_o* this_ptr, int32_t stateGUID, int32_t context)) {
         for (auto const& s : water_states)
         {
