@@ -1,10 +1,15 @@
 #include <interception_macros.h>
+#include <dev/dev_commands.h>
+#include <uber_states/state_applier.h>
 
-INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (NewSetupStateController_o* this_ptr, int32_t stateGUID, int32_t context)) {
-    // 1808259966 Present
-    // 1558151251 Gone
-    if (stateGUID == 1558151251)
-        stateGUID = 1808259966;
+namespace
+{
+    void initialize_tokk()
+    {
+        // 1808259966 Present
+        // 1558151251 Gone
+        uber_states::register_applier_intercept({ 1558151251 }, [](auto, auto, auto) -> int32_t { return 1808259966; });
+    }
 
-    NewSetupStateController__ApplyKnownState(this_ptr, stateGUID, context);
+    CALL_ON_INIT(initialize_tokk);
 }
