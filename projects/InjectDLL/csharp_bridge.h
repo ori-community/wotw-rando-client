@@ -39,7 +39,8 @@ namespace csharp_bridge
     extern signatures::f_bool inject_debug_enabled;
     extern signatures::f_bool tp_to_any_pickup;
     extern signatures::f_bool invert_swim;
-    
+    extern signatures::f_bool water_cleansed;
+
     // Save system
     extern signatures::f_void_int new_game;
     extern signatures::f_void_int_int on_load;

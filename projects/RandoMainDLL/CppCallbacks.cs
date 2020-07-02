@@ -52,6 +52,10 @@ namespace RandoMainDLL {
             Delegate = new f_bool_str(AHK.IniFlag),
             CallbackName = "check_ini"
           },
+          new Method() {
+            Delegate = new f_bool(() => SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false),
+            CallbackName = "water_cleansed"
+          },
           // We should replace these 2 calls with calls to check_ini
           new Method() {
             Delegate = new f_bool(() => !AHK.IniFlag("MuteInjectLogs")),

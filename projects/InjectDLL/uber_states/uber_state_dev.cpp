@@ -1,7 +1,8 @@
 #include <interception_macros.h>
 #include <common.h>
 #include <dll_main.h>
-#include <dev_commands.h>
+#include <dev/dev_commands.h>
+#include <dev/object_visualizer.h>
 #include <Common/ext.h>
 
 #include <array>
@@ -11,8 +12,6 @@ namespace
     BINDING(27760400, Moon_IUberState_o*, Moon_UberStateCollection__GetState, (Moon_UberID_o* groupID, Moon_UberID_o* stateID));
     BINDING(27775392, void, Moon_UberStateController__Apply, (Moon_IUberState_o* descriptor, int context));
     BINDING(27776080, bool, Moon_UberStateController__ApplierIsAffectedByUberState, (Moon_IUberStateApplier_o* applier, Moon_IUberState_o* descriptor));
-    BINDING(46026576, Il2CppObject*, System_Collections_Generic_List_T___get_Item, (System_Collections_Generic_List_T__o* this_ptr, int32_t index));
-    BINDING(6113952, int32_t, System_Collections_Generic_List_T___get_Count, (System_Collections_Generic_List_T__o* this_ptr));
 
     STATIC_CLASS(71605752, Moon_UberID_c*, uber_id_class);
     STATIC_CLASS(71444600, Moon_UberStateController_c*, uber_state_controller);
@@ -71,7 +70,6 @@ namespace
             if (*klass == reinterpret_cast<Il2CppClass*>(uber_state->klass))
             {
                 func(uber_state, value);
-                Moon_UberStateController__Apply(uber_state, 0);
                 return true;
             }
         }
@@ -204,14 +202,35 @@ namespace
             return;
         }
 
-        auto list = reinterpret_cast<System_Collections_Generic_List_T__o*>((*uber_state_controller)->static_fields->AllStateAppliers);
-        auto count = System_Collections_Generic_List_T___get_Count(list);
-        for (auto i = 0; i < count; ++i)
+        dev::Visualizer visualizer;
+        auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
+        for (auto i = 0; i < list->_size; ++i)
         {
-            auto item = reinterpret_cast<Moon_IUberStateApplier_o*>(System_Collections_Generic_List_T___get_Item(list, i));
+            auto item = list->_items->m_Items[i];
             if (Moon_UberStateController__ApplierIsAffectedByUberState(item, uber_state))
-                dev::console_send(item->klass->_1.name);
+                dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
+
+        dev::console_send(dev::visualize::get_string(visualizer));
+    }
+
+    void check_all_appliers(std::string const& command, std::vector<dev::CommandParam> const& params)
+    {
+        if (!uber_state_controller_is_valid())
+        {
+            dev::console_send("uber_state_controller not available");
+            return;
+        }
+
+        dev::Visualizer visualizer;
+        auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
+        for (auto i = 0; i < list->_size; ++i)
+        {
+            auto item = list->_items->m_Items[i];
+            dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
+        }
+
+        dev::console_send(dev::visualize::get_string(visualizer));
     }
 
     void add_uber_state_commands()
@@ -219,6 +238,7 @@ namespace
         dev::register_command("set_us_bool", set_us_bool);
         dev::register_command("set_us_int", set_us_int);
         dev::register_command("check_appliers", check_appliers);
+        dev::register_command("check_all_appliers", check_all_appliers);
     }
 
     CALL_ON_INIT(add_uber_state_commands);

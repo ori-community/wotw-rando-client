@@ -218,7 +218,7 @@ namespace RandoMainDLL {
   }
 
   public class Teleporter : Checkable {
-    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.TrimStart(new char[] { '-' }).ParseToByte());
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.Substring(1).ParseToByte());
     public Teleporter(TeleporterType teleporter) => type = teleporter;
     public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Teleporter;
@@ -275,7 +275,7 @@ namespace RandoMainDLL {
   }
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
-    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Ability((AbilityType)value.ParseToByte()) : new RemoveAbility((AbilityType)value.TrimStart(new char[] { '-' }).ParseToByte());
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Ability((AbilityType)value.ParseToByte()) : new RemoveAbility((AbilityType)value.Substring(1).ParseToByte());
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
     public override bool Has() => SaveController.HasAbility(type);
@@ -304,7 +304,7 @@ namespace RandoMainDLL {
   public class Shard : Checkable {
     public override bool NeedsMagic() => true;
     public Shard(ShardType shard) => type = shard;
-    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Shard((ShardType)value.ParseToByte()) : new RemoveShard((ShardType)value.TrimStart(new char[] { '-' }).ParseToByte());
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Shard((ShardType)value.ParseToByte()) : new RemoveShard((ShardType)value.Substring(1).ParseToByte());
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
     public override bool Has() {
@@ -346,12 +346,13 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
 
-    private static readonly List<string> MoneyNames = new List<string>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks" };
+    private static readonly List<string> MoneyNames = new List<string>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks", "Pieces of Eight", "Shillings", "Farthings" };
 
     public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
   }
   public class QuestEvent : Checkable {
     public QuestEvent(QuestEventType ev) => type = ev;
+    public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new QuestEvent((QuestEventType)value.ParseToByte()) : new RemoveQuestEvent((QuestEventType)value.Substring(1).ParseToByte());
 
     public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.QuestEvent;
@@ -362,18 +363,23 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       SaveController.SetEvent(type);
-      switch (type) {
-        case QuestEventType.Water:
-          // marks the escape as complete if you get clean water
-          UberStateDefaults.watermillEscapeState.Write(new UberValue(2));
-          UberStateDefaults.cleanseWellspringQuestUberState.Write(new UberValue(4));
-          UberStateDefaults.finishedWatermillEscape.Write(new UberValue(true));
-          break;
-      }
       base.Grant(skipBase);
     }
-
     public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
+  }
+  public class RemoveQuestEvent : Pickup {
+    public RemoveQuestEvent(QuestEventType ev) => type = ev;
+
+    public override bool NeedsMagic() => true;
+    public override PickupType Type => PickupType.QuestEvent;
+    public readonly QuestEventType type;
+
+    public override int DefaultCost() => 400;
+    public override void Grant(bool skipBase = false) {
+      SaveController.SetEvent(type, false);
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"Remove #{type.GetDescription()}#" ?? $"Unknown resource type {type}";
   }
 
   public class SystemCommand : Pickup {
