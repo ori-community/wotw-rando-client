@@ -79,7 +79,6 @@ namespace
             if (*klass == reinterpret_cast<Il2CppClass*>(uber_state->klass))
             {
                 func(uber_state, value);
-                Moon_UberStateController__Apply(uber_state, 0);
                 return true;
             }
         }
