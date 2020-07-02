@@ -1,27 +1,44 @@
 #include <interception_macros.h>
 #include <macros.h>
 #include <csharp_bridge.h>
+
+#include <vector>
+
 namespace
 {
+    bool water_damage_override = false;
     INTERCEPT(5475888, bool, Sein_World_Events__get_WaterPurified, ()) {
-        return csharp_bridge::water_cleansed();
+        return !water_damage_override && csharp_bridge::water_cleansed();
     }
 
+    std::vector<std::pair<int32_t, int32_t>> water_states = {
+        { 569716315, 2044614461 },      // Corrupted / Clean
+        { 135459242, 2010339656 },      // notClean  / Clean
+        { 742737118, 669048353 },       // corrupted / clean
+        { 739518878, -1861424606 },     // corrupted / clean
+        { 2054782292, -357160486 },     // Corrupted / Clean
+        { 1639966459, 127921689 },      // Corrupted / Clean
+        { -1876259767, -1976832348 },   // Corrupted / Clean
+        { -1947088109, 385303388 },     // Corrupted / Clean
+    };
     INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (NewSetupStateController_o* this_ptr, int32_t stateGUID, int32_t context)) {
-        // Corrupted 569716315
-        // Clean 2044614461
-        if (stateGUID == 569716315 || stateGUID == 2044614461)
-            stateGUID = csharp_bridge::water_cleansed() ? 2044614461 : 569716315;
+        for (auto const& s : water_states)
+        {
+            if (stateGUID == s.first || stateGUID == s.second)
+            {
+                stateGUID = csharp_bridge::water_cleansed() ? s.second : s.first;
+                break;
+            }
+        }
 
-        // notClean 135459242
-        // Clean 2010339656
-        if (stateGUID == 135459242 || stateGUID == 2010339656)
-            stateGUID = csharp_bridge::water_cleansed() ? 2010339656 : 135459242;
-
-        // corrupted 742737118
-        // clean 669048353
-        if (stateGUID == 742737118 || stateGUID == 669048353)
-            stateGUID = csharp_bridge::water_cleansed() ? 669048353 : 742737118;
+        // Enable water damage during the watermill escape.
+        //-> -1629508673 : NotStarted
+        //-> - 1353113975 : Started
+        //-> - 2075520848 : Finished
+        if (stateGUID == -1353113975)
+            water_damage_override = true;
+        else if (stateGUID == -2075520848 || stateGUID == -1629508673)
+            water_damage_override = false;
 
         NewSetupStateController__ApplyKnownState(this_ptr, stateGUID, context);
     }
