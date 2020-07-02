@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -70,6 +71,8 @@ namespace RandoMainDLL {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {
         pickupMap.Clear();
+        shardNag.Clear();
+        weaponNag.Clear();
         flags.Clear();
         HintsController.Reset();
         string line = "";
@@ -120,21 +123,31 @@ namespace RandoMainDLL {
         }
       }
     }
+    public static HashSet<ShardType> shardNag = new HashSet<ShardType>();
+    public static HashSet<AbilityType> weaponNag = new HashSet<AbilityType>();
+
     public static Pickup OpherWeapon(AbilityType ability) {
       var fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
       if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         return p;
       }
-      Randomizer.Log($"Couldn't find a valid Pickup for {ability}...");
+      if (!weaponNag.Contains(ability)) {
+        Randomizer.Log($"Couldn't find a valid Sellable for {ability}...");
+        weaponNag.Add(ability);
+      }
       return Multi.Empty;
     }
+
 
     public static Pickup TwillenShard(ShardType shard) {
       var fakeId = new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)shard);
       if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         return p;
       }
-      Randomizer.Log($"Couldn't find a valid Sellable for {shard}...");
+      if(!shardNag.Contains(shard)) {
+        Randomizer.Log($"Couldn't find a valid Sellable for {shard}...");
+        shardNag.Add(shard);
+      }
       return new Resource(ResourceType.Energy);
     }
 
@@ -171,6 +184,8 @@ namespace RandoMainDLL {
           return Shard.Build(pickupData);
         case PickupType.Teleporter:
           return Teleporter.Build(pickupData);
+        case PickupType.QuestEvent:
+          return QuestEvent.Build(pickupData);
         case PickupType.SpiritLight:
           return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
@@ -210,8 +225,6 @@ namespace RandoMainDLL {
             }
           }
           return new Message(messageParts[0], frames, squelch);
-        case PickupType.QuestEvent:
-          return new QuestEvent((QuestEventType)pickupData.ParseToByte());
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
           if (stateParts.Count != 4) {

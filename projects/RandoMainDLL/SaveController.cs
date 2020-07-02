@@ -115,11 +115,18 @@ namespace RandoMainDLL {
         }
         UberStateController.SkipListenersNextUpdate = true;
         Data.Load(backupSlot);
+        if (DidWeJustDie)
+          InterOp.magic_function();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
+    private static bool DidWeJustDie = false;
 
     public static void OnSave(int slot, int backupSlot = -1) {
+      if (Randomizer.Memory.PlayerStats.Health == 0) {
+        DidWeJustDie = true;
+        return; // the game saves right when you die, but we don't want to save progress when that happens.
+      }
       if (slot == -1) {
         Randomizer.Log("Error: tried to save to empty slot");
         return;
