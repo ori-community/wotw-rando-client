@@ -23,7 +23,8 @@ namespace
         { 378117992, -760384866 },      // Poisoned / Clean
         { -144265033, 685358568 },      // corrupted / clean
         { -882028644, -1833484193 },    // corrupted / clean
-        { -1848734555, 30971136 }       // corrupted / clean
+        { -1848734555, 30971136 },      // corrupted / clean
+        { 1762013712, 816885685 },      // Corrupted / Clean
     };
 
     INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (NewSetupStateController_o* this_ptr, int32_t stateGUID, int32_t context)) {
