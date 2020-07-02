@@ -10,12 +10,6 @@ package SeedGenerator {
       remaining(state, unaffordable, space)
       .minByOption(_.cost)
       .getOrElse(GameState.mk(Unobtainium))}
-    def afterMet(state: GameState): GameState = state
-    def simplifyBy(state: GameState): Requirement = this match {
-      case _: Consumer => this
-      case _ if this.metBy(state) => Free
-      case _ => this
-    }
     def and(that: Requirement): Requirement = AllReqs(this, that)
     def or(that: Requirement): Requirement = AnyReq(this, that)
     def substitute(orig: Requirement, repl: Requirement): Requirement = if(this == orig) repl else this
@@ -36,8 +30,6 @@ package SeedGenerator {
     val table: MMap[Requirement, Seq[GameState]] = MMap[Requirement, Seq[GameState]]()
   }*/
 
-  trait Consumer extends Requirement
-
   trait MultiReq extends Requirement {
     val reqs: Seq[Requirement]
     def builder(parts: Seq[Requirement]): Requirement
@@ -47,7 +39,6 @@ package SeedGenerator {
       case r if r == orig => repl
       case r => r
     }))
-    override def simplifyBy(state: GameState): Requirement = builder(reqs.map(_.simplifyBy(state)))
   }
 
   case class StateReq(flag: String) extends Requirement {
@@ -97,10 +88,8 @@ package SeedGenerator {
     }
   }
 
-  case class CashReq(count: Int) extends Requirement with Consumer {
+  case class CashReq(count: Int) extends Requirement {
     def metBy(state: GameState): Boolean = state.inv.totalSpiritLight >= count
-    override def afterMet(state: GameState): GameState = state.withoutCash(count)
-    // TODO: make this work good with forced progression picking haha
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
       if(metBy(state))
         Seq()
@@ -124,10 +113,9 @@ package SeedGenerator {
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Keystone -> Math.max(0, count - state.inv(Keystone)))))
   }
 
-  case class EnergyReq(count: Int) extends Requirement with Consumer {
+  case class EnergyReq(count: Int) extends Requirement {
     def energy(state: GameState): Float = state.inv(Energy)/2f
     def metBy(state: GameState): Boolean = energy(state) >= count
-    override def afterMet(state: GameState): GameState = state.without(Energy, count*2)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Energy -> Math.max(0, 2*count - state.inv(Energy)))))
     override def and(that: Requirement): Requirement = that match {
       case EnergyReq(c) => EnergyReq(c+count)
@@ -135,21 +123,9 @@ package SeedGenerator {
     }
   }
 
-  case class DangerReq(damage: Int) extends Requirement with Consumer  {
+  case class DamageReq(damage: Int) extends Requirement  {
     def health(state: GameState): Int = state.inv(Health) * 5
     def metBy(state: GameState): Boolean = health(state) > damage
-    override def afterMet(state: GameState): GameState = state.without(Health, Math.ceil((damage+1)/5f).intValue())
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Health -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
-    override def and(that: Requirement): Requirement = that match {
-      case DangerReq(d) => DangerReq(d+damage)
-      case r => AllReqs(this, r)
-    }
-  }
-
-  case class DamageReq(damage: Int) extends Requirement with Consumer {
-    def health(state: GameState): Int = state.inv(Health) * 5
-    def metBy(state: GameState): Boolean = health(state) > damage
-    override def afterMet(state: GameState): GameState = state.without(Health, Math.ceil((damage+1)/5f).intValue())
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Health -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
     override def and(that: Requirement): Requirement = that match {
       case DamageReq(d) => DamageReq(d+damage)
@@ -181,21 +157,6 @@ package SeedGenerator {
 //    }
     override def toString: String = s"(${reqs.mkString(" || ")})"
     override def metBy(state: GameState): Boolean = reqs.exists(_.metBy(state))
-    override def afterMet(state: GameState): GameState = {
-      val (consumers, others) = reqs.filter(_.metBy(state)).partitionMap({
-        case cons: Consumer => Left(cons)
-        case r              => Right(r)
-      })
-      if(others.nonEmpty)
-        state
-      else
-        consumers match {
-          case Seq(consumer) => consumer.afterMet(state)
-          case Nil =>
-            throw GeneratorError(s"invalid state; $this ${metBy(state)} $others, $consumers, ${state.inv}")
-          case _ => consumers.map(_.afterMet(state)).maxBy(_.inv.count)
-        }
-    }
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = reqs flatMap (_.remaining(state, unaffordable: Set[FlagState], space: Int))
     override def cheapestRemaining(state: GameState, unaffordable: Set[FlagState], space: Int): GameState = {
       var cheapest = GameState.mk(Unobtainium)
@@ -225,7 +186,6 @@ package SeedGenerator {
             case r           => Right(r)
           })
           new AnyReq(anys.flatMap(_.reqs) ++ others: _*)
-        case reqs if reqs.exists(_.isInstanceOf[Consumer]) => new AnyReq(reqs:_*) with Consumer
         case reqs => new AnyReq(reqs: _*)
       }
     }
@@ -234,36 +194,24 @@ package SeedGenerator {
 
   class AllReqs(val reqs: Requirement*) extends Requirement with MultiReq {
     override def builder(parts: Seq[Requirement]): Requirement = AnyReq(parts)
-    override def equals(obj: Any): Boolean = obj match  {
-      case AllReqs(otherReqs) => reqs.toSet == otherReqs.toSet
-      case _ => false
-    }
-    override def and(that: Requirement): Requirement = that match {
-      case AllReqs(kids) => AllReqs(reqs ++ kids)
-//      case AnyReq(kids) => AnyReq(kids.map(k => this and k))
-      case r => AllReqs(reqs :+ r )
-    }
-    override def or (other: Requirement): Requirement = other match {
-      case r:AllReqs if r.reqs.toSet == reqs.toSet => r
-      case req => AnyReq(req, this)
-    }
-    override def toString: String = s"(${reqs.mkString(" && ")})"
-    def metMaybe(state: GameState): Option[GameState] = Timer("metMaybe")(reqs.foldLeft[Option[GameState]](Some(state))((st, req) => st.filter(req.metBy).map(req.afterMet)))
-    def metBy(state: GameState): Boolean = metMaybe(state).nonEmpty
-    override def afterMet(state: GameState): GameState = {
-      if(metMaybe(state).isEmpty)
-        UI.log(s"about to crash: $state, $reqs, ${metBy(state)}")
-      metMaybe(state).get
-    }
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
-      if (metBy(state))
-        return Seq(GameState.Empty)
-/*      var mergedInv = GameState.Empty
-      val (orReqs, others) = reqs.partitionMap({
-        case any: AnyReq => Left(any)
-        case r           => Right(r)
-      })
-      mergedInv = */
+      override def equals(obj: Any): Boolean = obj match  {
+        case AllReqs(otherReqs) => reqs.toSet == otherReqs.toSet
+        case _ => false
+      }
+      override def and(that: Requirement): Requirement = that match {
+        case AllReqs(kids) => AllReqs(reqs ++ kids)
+        //      case AnyReq(kids) => AnyReq(kids.map(k => this and k))
+        case r => AllReqs(reqs :+ r )
+      }
+      override def or (other: Requirement): Requirement = other match {
+        case r:AllReqs if r.reqs.toSet == reqs.toSet => r
+        case req => AnyReq(req, this)
+      }
+      override def toString: String = s"(${reqs.mkString(" && ")})"
+      def metBy(state: GameState): Boolean = reqs.forall(_.metBy(state))
+      def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
+        if (metBy(state))
+          return Seq(GameState.Empty)
       var mergedInv = GameState.Empty
       for(req <- reqs)  {
         mergedInv = mergedInv + req.cheapestRemaining(state + mergedInv, unaffordable, space)
@@ -295,7 +243,6 @@ package SeedGenerator {
           case r            => Right(r)
         })
         new AllReqs(alls.flatMap(_.reqs) ++ others :_*)
-      case reqs if reqs.exists(_.isInstanceOf[Consumer]) => new AllReqs(reqs:_*) with Consumer
       case reqs => new AllReqs(reqs:_*)
     }
     def unapply(arg: AllReqs): Option[Seq[Requirement]] = Some(arg.reqs)

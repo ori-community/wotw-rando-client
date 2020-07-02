@@ -229,7 +229,8 @@ package SeedGenerator {
       }).toSeq :+ (SpiritLight(totalLight - cash) -> 1):_*)
     }
     def orbs: Orbs = Orbs(this(Health)*5, this(Energy)*5)
-
+    var hp = 0
+    var mp = 0
     def set(item: Item, count: Int): Unit = this (item) = count
     override def apply(item: Item): Int = getOrElse(item, 0)
     override def toString = s"Inv: (${

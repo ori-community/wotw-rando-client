@@ -22,7 +22,6 @@ package SeedGenerator {
     val forceTrees     = new CheckBox("Force Trees")
     val forceWisps     = new CheckBox("Force Wisps")
     val forceQuests    = new CheckBox("Force Quests")
-    val newParser      = new CheckBox("Use New Parser (Faster)")
     val seedField      = new TextField(5)
     val makeSeedButton = new Button("Generate")
     val folderButton   = new Button("Change")
@@ -31,7 +30,6 @@ package SeedGenerator {
     zoneHints.selected   = true
     teleporters.selected = true
     quests.selected      = true
-    newParser.selected   = true
     logView.editable = false
     val logHolder = new ScrollPane(logView)
     val debugToggle = new CheckBox("Extra Debug Info (contains spoilers)")
@@ -51,7 +49,7 @@ package SeedGenerator {
         optsLabel.font = new Font(Font.SansSerif, Font.Bold.id, 16)
         contents += optsLabel
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, spoilers, uncheckedPaths, newParser, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, spoilers, uncheckedPaths, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
           Seq(Swing.HGlue,  zoneHints, teleporters, quests, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
@@ -105,7 +103,6 @@ package SeedGenerator {
                           tps: Boolean,
                           spoilers: Boolean,
                           unsafePaths: Boolean,
-                          newParser: Boolean,
                           questLocs: Boolean
                         )
   object UI {
@@ -114,7 +111,6 @@ package SeedGenerator {
       ui.teleporters.selected,
       ui.spoilers.selected,
       ui.uncheckedPaths.selected,
-      ui.newParser.selected,
       ui.quests.selected
     )
     def flags: Seq[String] = Seq(

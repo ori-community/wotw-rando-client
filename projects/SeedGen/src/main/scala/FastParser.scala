@@ -2,9 +2,9 @@ import fastparse._
 import java.io.{BufferedWriter, FileWriter}
 import scala.io.Source
 import java.io.File
-import AreaParser.ParseError
 
 package SeedGenerator {
+  trait ParseError
 
   object FastParser {
     def colon[_:P]: P[Unit] = P(":")
@@ -29,7 +29,7 @@ package SeedGenerator {
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq)
     def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(SkillReq(51), EnergyReq(i)))
-    def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DangerReq)
+    def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
     def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(KeystoneReq)
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
@@ -51,28 +51,30 @@ package SeedGenerator {
     def reqLine[_:P]: P[Requirement] = P(reqLHS ~ !"\n" ~ reqRHS ~ &("\n")).map{case (lhs, rhs) => lhs and rhs}
     class ReqParser(indent: Int) {
       def deeper[_: P]: P[Int] = P( " ".repX(indent + 1).!.map(_.length) )
-      def blockBody[_: P]: P[Requirement] = "\n" ~~ deeper.flatMapX(i => new ReqParser(indent = i).req.repX(1, sep = ("\n" + " " * i)./)
-      ).map(AnyReq(_))//.log
-      def block[_: P]: P[Requirement] = P(reqLHS ~ blockBody).map{case (head, body) => head and body}//.log
+      def blockBody[_: P]: P[Seq[Requirement]] = "\n" ~~ deeper.flatMapX(i => new ReqParser(indent = i).req.repX(1, sep = ("\n" + " " * i)./)
+      ).map(_.flatten)//.log
+      def block[_: P]: P[Seq[Requirement]] = P(reqLHS ~ blockBody).map{case (head, body) => body.map(b => head and b)}//.log
       def line[_:P]: P[Requirement] = P(reqLine | reqRHS)//.log
-      def req[_:P]: P[Requirement] = P( NoCut(block) | line )
-      def reqBlock[_:P]: P[Requirement] = P(free | NoCut(reqLine) | NoCut(blockBody)).rep.map(AnyReq(_)).log
+      def req[_:P]: P[Seq[Requirement]] = P( NoCut(block) | line.map(Seq(_)) )
+      def reqBlock[_:P]: P[Seq[Requirement]] = P(free.map(Seq(_)) | (NoCut(reqLine.map(Seq(_))) | NoCut(blockBody)).rep.map(_.flatten))//.log
     }
     def checkpoint[_:P]: P[Refiller] = P("Checkpoint").map(_ => Checkpoint)
     def spiritWell[_:P]: P[Refiller] = P("Full").map(_ => Well).log
     def crystal[_:P]: P[Refiller] = P("Energy" ~~/ equalsNum).map(EnergyCrystals)
     def plant[_:P]: P[Refiller] = P("Health" ~~/ equalsNum).map(HealthPlants)
-    def refill[_:P]: P[(Refiller, Requirement)] = P("  refill" ~/ (checkpoint | spiritWell | crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock).log
+    def refill[_:P]: P[(Refiller, Requirement)] = P("  refill" ~/ (checkpoint | spiritWell | crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))).log
 
     case class Region(prefix: String, req: Requirement)
     def endl[_:P]: P[Unit] = P("\n")
     def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)})//.log
-    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)}).log
-    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)}).log
+    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)})//.log
+    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)})//.log
     def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req)})//.log
-    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)}).log
-    def area[_:P]: P[Area] = P("area" ~/ nameParser ~~ colon ~ endl ~~ NoCut(refill.repX(sep=endl) ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{case (name, _, conns) => Area(name, conns)}.log
-    def region[_:P]: P[Region] = P("region" ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (prefix, req) => Region(prefix, req)})
+    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)})//.log
+    def area[_:P]: P[Area] = P("area" ~/ nameParser ~~ colon ~ endl ~~ NoCut(refill.repX(sep=endl) ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
+      case (name, refills, conns) => Area(name, conns, RefillGroup(refills.map(_.groupMapReduce(_._2)(x => Seq(x._1))(_ ++ _)).getOrElse(Map())))
+    }//.log
+    def region[_:P]: P[Region] = P("region" ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (prefix, reqs) => Region(prefix, AnyReq(reqs))})
     def regionOrArea[_:P]: P[Either[Region, Area]] = P(NoCut(region) | NoCut(area)).map{
       case r: Region => Left(r)
       case a: Area => Right(a)
@@ -90,12 +92,12 @@ package SeedGenerator {
 
     def validator(macros: Seq[Connection], areasAndRegions: Seq[Either[Region, Area]]): Map[String, Area] = Timer("validator"){
       val (regions, areas) = areasAndRegions.partitionMap(a => a)
-      def stateReqs(areas: Seq[Area]) = areas.flatMap(_.conns.flatMap(_.req.children.collect({case r: StateReq => r})))
+      def stateReqs(areas: Seq[Area]) = areas.flatMap(_.conns.flatMap(_.reqs.flatMap(_.children.collect({case r: StateReq => r}))))
       val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
       if(unusedMacros.nonEmpty)
         UI.log(s"unused macros: $unusedMacros")
       areas.map({
-        case Area(Area.SPAWN, conns) => Area(Area.SPAWN, conns ++ macros)
+        case Area(Area.SPAWN, conns, r) => Area(Area.SPAWN, conns ++ macros, r)
         case area => area
       })
         // find applicable regions
@@ -105,9 +107,9 @@ package SeedGenerator {
           case (area, Some(req)) =>
 //              println(s"adding $req to paths in ${area.name}")
             area.name -> Area(area.name, area.conns.map({
-              case Connection(target, r) if target.kind != AreaNode => Connection(target, req and r)
+              case Connection(target, r) if target.kind != AreaNode => Connection(target, r.map(_ and req))
               case c => c
-            }))
+            }), area.refillGroup)
           case (area, None) => area.name -> area
         }).toMap
     }

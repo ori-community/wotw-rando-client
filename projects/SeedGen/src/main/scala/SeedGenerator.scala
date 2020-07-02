@@ -14,6 +14,14 @@ package SeedGenerator {
     implicit class RegexOps(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
+    implicit class ReqOps(reqs: Seq[Requirement]) {
+      def sortByConsumption: Seq[Requirement] = reqs.sortBy(_.children.collect({
+        case DamageReq(d) => d
+        case EnergyReq(e) => e*30
+        case _ => 0
+      }).sum)
+    }
+
     // really, they're fine
     implicit def itemToPart(item: Item): Either[Item, Either[FlagState, Node]] = Left(item)
     implicit def flagToPart(flag: FlagState): Either[Item, Either[FlagState, Node]] = Right(Left(flag))
@@ -88,7 +96,9 @@ package SeedGenerator {
     override def hashCode(): Int = name.hashCode * kind.hashCode()
   }
 
-  case class Connection(target: Node, req: Requirement)
+  case class Connection(target: Node, _reqs: Seq[Requirement]) {
+    val reqs: Seq[Requirement] = _reqs.filterNot(_ == Invalid)
+  }
 
   case class Placeholder(name: String, kind: NodeType = AreaNode) extends Node {
     override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = nodes.get(name) match {
@@ -145,17 +155,20 @@ package SeedGenerator {
 
   case class RefillGroup(refills: Map[Requirement, Seq[Refiller]])
 
-  case class Area(name: String, _conns: Seq[Connection] = Seq()/*, refillGroup: RefillGroup*/) extends Node {
-    val conns: Seq[Connection] = _conns.filterNot(_.req == Invalid)
+  case class Area(name: String, _conns: Seq[Connection] = Seq(), refillGroup: RefillGroup) extends Node {
+    // TODO: FIXME
+    val conns: Seq[Connection] = _conns.filterNot(_.reqs.nonEmpty)
     override val kind: NodeType = AreaNode
     override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = {
       conns.foldLeft(super.reached(state, nodes))({
         case (s, Connection(target, _)) if s.reached.contains(nodes.getOrElse(target.name, target)) => s
-        case (s, Connection(target, req)) if req.metBy(s)             => target.reached(s, nodes)
+        // TODO: FIXME
+        case (s, Connection(target, req)) if AnyReq(req).metBy(s)             => target.reached(s, nodes)
         case (s, _)                                                   => s
       })
     }
-    def paths: Seq[Path] = conns.filter(_.req != Invalid).map(c => SimplePath(this, c.target, c.req))
+    //                                                              TODO: FIXME
+    def paths: Seq[Path] = conns.map(c => SimplePath(this, c.target, AnyReq(c.reqs)))
     override def nearby(dist: Int = 3, ignore: Set[Node] = Set()): Map[Node, Set[Path]] = dist match {
       case 0 => Map(this -> Set(EmptyPath(this)))
       case _ =>  paths.flatMap(path => path.dest match {
@@ -341,11 +354,12 @@ package SeedGenerator {
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
       val locDataByName = LocData.byName
       areas.values.map(area => area.name -> Area(area.name, area.conns.flatMap({
-        case Connection(target: Placeholder, Invalid) if target.kind == ItemNode => UI.log(target.name); None
+            // TODO: FIXME?
+        case Connection(target: Placeholder, Seq()) if target.kind == ItemNode => UI.log(target.name); None
         case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name, locDataByName).map(Connection(_, reqs))
         case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
         case c => Some(c)
-      }))).toMap
+      }), area.refillGroup)).toMap
     }
 
     var populatedWithSetting: Option[GenSettings] = None
@@ -353,15 +367,10 @@ package SeedGenerator {
       if(populatedWithSetting.contains(UI.Options))
         return true // already done lol
       Timer("Path parsing", true) {
-        {
-        if (UI.Options.newParser)
-          FastParser.parseFile(advanced = UI.Options.unsafePaths)
-        else
-          AreaParser.AreasBuilder.run(advanced = UI.Options.unsafePaths)
-        } match {
+          FastParser.parseFile(advanced = UI.Options.unsafePaths) match {
             case Right(value) =>
               _areas = Timer("FixAreas")(fixAreas(value))
-              _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r != Invalid => t.name -> t }))
+              _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
               _paths = Timer("GetPaths") {
                 getAllPathsRecursive()
               }
