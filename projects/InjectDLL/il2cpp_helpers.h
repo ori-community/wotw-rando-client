@@ -53,6 +53,6 @@ namespace il2cpp
     template<typename T>
     T* create_object_t(const char* namezpace, const char* name)
     {
-        return reinterpret_cast<T*>(untyped::create_object(name, namezpace));
+        return reinterpret_cast<T*>(untyped::create_object(namezpace, name));
     }
 }
