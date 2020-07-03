@@ -36,7 +36,8 @@ namespace dev
 
         std::unordered_map<std::string, std::vector<dev_command>> entries;
 
-        bool initialzed;
+        bool initialzed = false;
+        bool failed = false;
         FILE* console_file;
         std::future<std::string> console_input;
         std::vector<std::string> messages;
@@ -117,6 +118,7 @@ namespace dev
     {
         console_file = nullptr;
         initialzed = false;
+        failed = true;
         if (!csharp_bridge::check_ini("Dev"))
             return;
         
@@ -145,6 +147,7 @@ namespace dev
 
         console_input = std::async(read_command);
         initialzed = true;
+        failed = false;
     }
 
     void console_free()
@@ -168,7 +171,17 @@ namespace dev
     void console_poll()
     {
         if (!initialzed)
+        {
+            if (failed)
+            {
+                // If we did not create a console window clear the message queue.
+                message_mutex.lock();
+                messages.clear();
+                message_mutex.unlock();
+            }
+
             return;
+        }
 
         if (console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
         {

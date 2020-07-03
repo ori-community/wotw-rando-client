@@ -1,6 +1,7 @@
 #include <interception.h>
 #include <common.h>
 #include <detours/detours.h>
+#include <dev/dev_commands.h>
 #include <Common/ext.h>
 
 #include <unordered_map>
@@ -21,6 +22,7 @@ uint64_t resolve_rva(uint64_t rva)
         }
 
         game_assembly_address = reinterpret_cast<uint64_t>(handle);
+        dev::console_send(format("game_assembly_address: %#018x", game_assembly_address));
     }
 
     return game_assembly_address + rva;
@@ -38,6 +40,7 @@ uint64_t unresolve_rva(uint64_t ptr)
         }
 
         game_assembly_address = reinterpret_cast<uint64_t>(handle);
+        dev::console_send(format("game_assembly_address: %#018x", game_assembly_address));
     }
 
     return ptr - game_assembly_address;
@@ -137,43 +140,4 @@ intercept::intercept(uint64_t o, PVOID* oP, PVOID iP, std::string s)
     last_intercept = this;
     if (first_intercept == nullptr)
         first_intercept = this;
-}
-
-namespace il2
-{
-    struct Il2CppRuntimeInterfaceOffsetPair
-    {
-        Il2CppClass* interface_type;
-        int32_t offset;
-    };
-
-    bool instance_of(Il2CppClass* klass, Il2CppClass* parent)
-    {
-        for (auto i = 0; i < klass->_2.typeHierarchyDepth; ++i)
-            if (klass->_2.typeHierarchy[i] == klass)
-                return true;
-
-        return false;
-    }
-
-    int implements_interface(Il2CppClass* klass, Il2CppClass* iklass)
-    {
-        for (auto i = 0; i < klass->_2.interfaces_count; ++i)
-            if (klass->_1.implementedInterfaces[i] == iklass)
-                return i;
-
-        return -1;
-    }
-
-    /*template <typename IFace, typename VirtualMember, typename FuncType>
-    FuncType resolve_iface_virtual(IFace* iface, TMember member, Il2CppClass* klass)
-    {
-        int ioffset = implements_interface(klass, iface);
-        if (ioffset < 0)
-            return nullptr;
-
-        
-        auto pair = reinterpret_cast<Il2CppRuntimeInterfaceOffsetPair**>(klass->_1.interfaceOffsets)[ioffset];
-        klass->vtable[pair->offset]
-    }*/
 }
