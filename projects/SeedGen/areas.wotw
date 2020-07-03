@@ -362,9 +362,9 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
     base, HowlsDen.KeystoneDoor:
       # breaking one wall
       Launch, BreakWall=16
-      # breaking all walls
-      Weapon, DoubleJump
-      Weapon, Dash, Bash, Grenade=1
+      # breaking all walls (this is good syntax!)
+      BreakWall=16, BreakWall=16, BreakWall=16, DoubleJump
+      BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
 
 area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
   refill Full: free
