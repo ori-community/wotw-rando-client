@@ -3,6 +3,8 @@
 #include <interception_macros.h>
 #include <dev/dev_commands.h>
 
+#include <Common/ext.h>
+
 namespace il2cpp
 {
     namespace
@@ -43,7 +45,11 @@ namespace il2cpp
 
         Il2CppObject* create_object(const char* namezpace, const char* name)
         {
-            return create_object(get_class(namezpace, name));
+            auto klass = get_class(namezpace, name);
+            if (klass == nullptr)
+                return nullptr;
+
+            return create_object(klass);
         }
 
         Il2CppObject* create_object(Il2CppClass* klass)
@@ -70,7 +76,11 @@ namespace il2cpp
                 ++i;
             }
 
-            resolved_classes[full_name] = klass;
+            if (klass != nullptr)
+                resolved_classes[full_name] = klass;
+            else
+                trace(MessageType::Error, 1, "il2cpp", format("Failed to find klass %s.%s", namezpace, name));
+
             return klass;
         }
 
