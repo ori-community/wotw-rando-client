@@ -10,6 +10,7 @@ package SeedGenerator {
       remaining(state, unaffordable, space)
       .minByOption(_.cost)
       .getOrElse(GameState.mk(Unobtainium))}
+    def orbsUsed(state: GameState): Orbs = Orbs(0, 0)
     def and(that: Requirement): Requirement = AllReqs(this, that)
     def or(that: Requirement): Requirement = AnyReq(this, that)
     def substitute(orig: Requirement, repl: Requirement): Requirement = if(this == orig) repl else this
@@ -99,7 +100,7 @@ package SeedGenerator {
           val count = needed / 174
           return Seq(GameState(new Inv(SpiritLight(needed / (count + 1)) -> count)))
         }
-        return Seq(GameState(new Inv(SpiritLight(count - state.inv.totalSpiritLight) -> 1)))
+        Seq(GameState(new Inv(SpiritLight(count - state.inv.totalSpiritLight) -> 1)))
       }
     }
     override def and(that: Requirement): Requirement = that match {
@@ -114,6 +115,7 @@ package SeedGenerator {
   }
 
   case class EnergyReq(count: Int) extends Requirement {
+    override def orbsUsed(state: GameState): Orbs = Orbs(0, count * 10)
     def energy(state: GameState): Float = state.inv(Energy)/2f
     def metBy(state: GameState): Boolean = energy(state) >= count
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Energy -> Math.max(0, 2*count - state.inv(Energy)))))
@@ -124,6 +126,7 @@ package SeedGenerator {
   }
 
   case class DamageReq(damage: Int) extends Requirement  {
+    override def orbsUsed(state: GameState): Orbs = Orbs(damage, 0)
     def health(state: GameState): Int = state.inv(Health) * 5
     def metBy(state: GameState): Boolean = health(state) > damage
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Health -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
@@ -143,6 +146,7 @@ package SeedGenerator {
 
     override def or(that: Requirement): Requirement = that match {
       case r: AnyReq => AnyReq(r.reqs ++ reqs )
+      case _: AllReqs => throw  GeneratorError("Ors cannot contain Ands")
       case r => AnyReq(reqs :+ r )
     }
 //    override def and(that: Requirement): Requirement = that match {

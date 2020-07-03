@@ -15,11 +15,7 @@ package SeedGenerator {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
     implicit class ReqOps(reqs: Seq[Requirement]) {
-      def sortByConsumption: Seq[Requirement] = reqs.sortBy(_.children.collect({
-        case DamageReq(d) => d
-        case EnergyReq(e) => e*30
-        case _ => 0
-      }).sum)
+      def sortByConsumption: Seq[Requirement] = reqs.sortBy(_.children.map(_.orbsUsed).map({case Orbs(h, e) => h  + 3*e}).sum)
     }
 
     // really, they're fine
@@ -155,17 +151,17 @@ package SeedGenerator {
 
   case class RefillGroup(refills: Map[Requirement, Seq[Refiller]])
 
-  case class Area(name: String, _conns: Seq[Connection] = Seq(), refillGroup: RefillGroup) extends Node {
-    // TODO: FIXME
-    val conns: Seq[Connection] = _conns.filterNot(_.reqs.nonEmpty)
-    override val kind: NodeType = AreaNode
-    override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = {
-      conns.foldLeft(super.reached(state, nodes))({
-        case (s, Connection(target, _)) if s.reached.contains(nodes.getOrElse(target.name, target)) => s
+      case class Area(name: String, _conns: Seq[Connection] = Seq(), refillGroup: RefillGroup) extends Node {
         // TODO: FIXME
-        case (s, Connection(target, req)) if AnyReq(req).metBy(s)             => target.reached(s, nodes)
-        case (s, _)                                                   => s
-      })
+        val conns: Seq[Connection] = _conns.filter(_.reqs.nonEmpty)
+        override val kind: NodeType = AreaNode
+        override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = {
+          conns.foldLeft(super.reached(state, nodes))({
+            case (s, Connection(target, _)) if s.reached.contains(nodes.getOrElse(target.name, target)) => s
+            // TODO: FIXME
+            case (s, Connection(target, req)) if AnyReq(req).metBy(s)             => target.reached(s, nodes)
+            case (s, _)                                                   => s
+          })
     }
     //                                                              TODO: FIXME
     def paths: Seq[Path] = conns.map(c => SimplePath(this, c.target, AnyReq(c.reqs)))
