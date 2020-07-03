@@ -25,18 +25,22 @@ package SeedGenerator {
     val seedField      = new TextField(5)
     val makeSeedButton = new Button("Generate")
     val folderButton   = new Button("Change")
-    val logView  = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12) }
+    val runLastSeed    = new Button("Launch Seed")
+    val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12) }
     spoilers.selected    = true
     zoneHints.selected   = true
     teleporters.selected = true
     quests.selected      = true
+    runLastSeed.enabled = false
     logView.editable = false
     val logHolder = new ScrollPane(logView)
     val debugToggle = new CheckBox("Extra Debug Info (contains spoilers)")
     listenTo(makeSeedButton)
     listenTo(folderButton)
+    listenTo(runLastSeed)
       reactions += {
         case ButtonClicked(`makeSeedButton`) => UI.seedClicked()
+        case ButtonClicked(`runLastSeed`) => UI.runSeed()
         case ButtonClicked(`folderButton`) =>
           if(folderSelector.showDialog(this, "Select output directory") == FileChooser.Result.Approve) {
             UI.outputFolder = folderSelector.selectedFile
@@ -92,8 +96,9 @@ package SeedGenerator {
         }
         contents += logHolder
       }, BorderPanel.Position.Center)
-      add(new BoxPanel(Orientation.Horizontal) {
-        contents += Button("Close") { sys.exit(0) }
+      add(new BorderPanel {
+        add(Button("Close") { sys.exit(0) }, BorderPanel.Position.West)
+        add(runLastSeed, BorderPanel.Position.East)
       }, BorderPanel.Position.South)
 
     }
@@ -128,7 +133,18 @@ package SeedGenerator {
         ret = new File(s"${name_base}_$i.wotwr")
         i += 1
       }
+      lastSeed = Some(ret)
       ret
+    }
+    def runSeed(): Unit = {
+      import scala.sys.process._
+      lastSeed match {
+        case Some(file) => Seq("cmd", "/C", file.getAbsolutePath).!
+        case None =>
+          UI.log("Last seed file not found!")
+          ui.runLastSeed.enabled = false
+      }
+
     }
     def seedClicked(): Unit = {
       currentOp = Some(Future {
@@ -138,7 +154,14 @@ package SeedGenerator {
           log(s"Seeded RNG with ${UI.ui.seedField.text}")
           SeedGenerator.Runner.setSeed(UI.ui.seedField.text.hashCode)
         }
-        SeedGenerator.Runner(writeTo = outputFile)
+        if(SeedGenerator.Runner(writeTo = outputFile)) {
+          log(s"Finished generating seed!")
+          ui.runLastSeed.enabled = true
+        } else {
+          lastSeed = None
+          log(s"Failed to generate seed :c")
+          ui.runLastSeed.enabled = false
+        }
         ui.makeSeedButton.enabled = true
         currentOp = None
       })
@@ -150,6 +173,7 @@ package SeedGenerator {
       ui.logView.append(s"$x\n")
       ui.logHolder.verticalScrollBar.value = ui.logHolder.verticalScrollBar.maximum
     }
+    var lastSeed: Option[File] = None
     var outputFolder: File = new File("C:/moon")
     var currentOp: Option[Future[Unit]] = None
     val ui = new UI
