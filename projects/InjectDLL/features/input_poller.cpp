@@ -47,6 +47,7 @@ namespace {
                 for (auto callback : data.callbacks)
                     callback(data.state);
         }
+
     }
 
     INTERCEPT(10044704, void, GameController_FixedUpdate, (GameController_o* this_ptr)) {

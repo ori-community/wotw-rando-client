@@ -27,6 +27,7 @@ package SeedGenerator {
   import SeedGenerator.implicits._
 
   import scala.language.postfixOps
+  import scala.util.{Failure, Success}
 
   case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
     val code = s"$uberGroupId|$uberId"
@@ -650,8 +651,10 @@ object Runner {
       }
     }
     def forceGetSeed(advanced: Boolean = false, retries: Int = 10, debug: Boolean = false, time: Boolean = true): String = {
-      if(retries == 0)
+      if(retries == 0) {
+        UI.log("Out of retries, exiting")
         throw GeneratorError("Ran out of retries on forceGetSeed")
+      }
       val t0 = System.currentTimeMillis()
       val s = getSeedOpt(advanced, debug) match {
         case Some(seed) => seed
@@ -662,13 +665,18 @@ object Runner {
         UI.log(s"Generated seed in ${(t1-t0)/1000f}s")
       s
     }
-    def apply(advanced: Boolean = false, debug: Boolean = false, writeTo: File = new File("seeds/seed_0.wotwr")): Unit = {
-      Nodes.populate()
-
-      val bw = new BufferedWriter(new FileWriter(writeTo))
-      bw.write(forceGetSeed(advanced, debug = debug))
-      UI.log(s"Wrote seed to ${writeTo.getPath}")
-      bw.close()
+    def apply(advanced: Boolean = false, debug: Boolean = false, writeTo: File = new File("seeds/seed_0.wotwr")): Boolean = {
+      (Try {
+        Nodes.populate()
+        val bw = new BufferedWriter(new FileWriter(writeTo))
+        bw.write(forceGetSeed(advanced, debug = debug))
+        UI.log(s"Wrote seed to ${writeTo.getPath}")
+        bw.close()
+      } match {
+        case Failure(e) => UI.log(e); false
+        case _: Success[Unit] => true
+      }
+      )
     }
   }
 
