@@ -82,10 +82,17 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
   pickup MarshSpawn.LongSwimEX:
     base: Water
   pickup MarshSpawn.BurrowOre:
-    base, EnemyObstacle:
-      Water, Burrow, DoubleJump OR Glide OR Launch
-      Water, Burrow, Dash, Bash, Grenade=1
+    base:
+      Water, Burrow, Bash, DoubleJump OR Glide OR Launch  # Bash for the exploding enemy
+      Water, Burrow, Bash, Grenade=1, Dash
   pickup MarshSpawn.LifepactShard:
+    # Damage required:
+    # Spider: 31 Health
+    # Hornbug: 40 Health
+    # 2 Sandworms: 20 Health
+    # 2 Lizards: 24 Health
+    # 3 Skeetos: 20 Health
+    # 1 Sneeze Slug: 31 Health
     base, Combat, Danger=40:  # no region danger
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
@@ -100,6 +107,8 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
       Water, Burrow, DoubleJump OR Glide OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
   conn MarshPastOpher.MillView:
+    # Damage required:
+    # Wall: 16 Health
     base: Weapon
   conn PoolsApproach.LeftOfWheel:
     base:
@@ -110,8 +119,12 @@ area MarshSpawn.BrokenBridge:  # (-643, -4352) after dropping down the breaking 
   refill Checkpoint: free
 
   pickup MarshSpawn.ResilienceShard:
+    # Damage required:
+    # Wall: 16 Health
     base: Weapon
   pickup MarshSpawn.ResilienceOre:
+    # Damage required:
+    # Wall: 16 Health
     base: Weapon, Water
   pickup MarshSpawn.BashEC:
     base: Bash OR Launch
@@ -126,8 +139,12 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
     base: Keystone=2
 
   quest MarshSpawn.CaveKS:
+    # Damage required:
+    # Wall: 16 Health
     base: Weapon
   quest MarshSpawn.TheMissingKey:  # wont be a thing yet :(
+    # Damage required:
+    # Wall: 16 Health
     base: Unreachable
     # base: Weapon, MarshSpawn.CaveKS
 
@@ -141,13 +158,21 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
       Launch                          # Single jump and a launch can reach the ledge offscreen.
       Bash                            # Lure the Jumper, then bash off him
   pickup MarshSpawn.LeftTokkEX:
+    # Damage required:
+    # Wall: 16 Health
+    # Wall: 10 Health
     base: Weapon
   pickup MarshSpawn.FightRoomEX:
+    # Damage required:
+    # Wall: 16 Health
+    # Wall: 10 Health
     base: Weapon
 
   conn MarshSpawn.DenApproach:
     base: MarshSpawn.KeystoneDoor
   conn MarshSpawn.PoolsBurrowsPath:
+    # Damage required:
+    # Wall: 16 Health
     base, Weapon:
       DoubleJump OR Dash OR Launch
       Bash, Grenade=1
@@ -162,6 +187,8 @@ area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tre
 
   pickup MarshSpawn.RegenTree: free
   pickup MarshSpawn.RecklessShard:
+    # Damage required:
+    # Wall: 10 Health
     base, Weapon:
       DoubleJump OR Launch
       Dash, Glide
@@ -193,12 +220,20 @@ area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, b
       DoubleJump OR Launch
       Bash, Grenade=1
   pickup MarshSpawn.BurrowOre:
-    base, EnemyObstacle:
+    base:  # easier to get past the enemy with these paths
       Burrow, DoubleJump, Dash OR Glide
+      Burrow, DoubleJump, Bash, Grenade=1
       Burrow, Launch
     advanced:
       Burrow, DoubleJump OR Dash
   pickup MarshSpawn.LifepactShard:
+    # Damage required:
+    # Spider: 31 Health
+    # Hornbug: 40 Health
+    # 2 Sandworms: 20 Health
+    # 2 Lizards: 24 Health
+    # 3 Skeetos: 20 Health
+    # Sneeze Slug: 31 Health
     base: Combat, Danger=40, DoubleJump, Burrow  # no region danger
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     base: Bash, DoubleJump OR Launch
@@ -274,15 +309,21 @@ area MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
 
   pickup MidnightBurrows.RightKS: free
   pickup MidnightBurrows.UpperKS:
+    # Damage required:
+    # Slug: 12 Health
     base, EnemyObstacle:
       DoubleJump, Glide
       DoubleJump, Dash, Danger=15
   
   conn MidnightBurrows.Central:
+    # Damage required:
+    # Slug: 12 Health
     base, EnemyObstacle:
       DoubleJump, Glide
       DoubleJump, Dash, Danger=15
   conn HowlsDen.DoubleJumpTreeArea:
+    # Damage required:
+    # Wall: 10 Health
     base: Weapon
 
 area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
@@ -305,11 +346,15 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
       Bash, Grenade=1, Sword          # As above, but sword upslash to cross the last gap
       Bash, Grenade=1, Damage=10      # As above, but take a dboost on the last gap
   pickup MarshSpawn.RecklessShard:
+    # Damage required:
+    # Wall: 10 Health
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
   pickup HowlsDen.EntranceEX: free
   pickup HowlsDen.RightHC:
+    # Damage required:
+    # Wall: 16 Health
     base: Weapon
 
   conn HowlsDen.BoneBridge: free
@@ -329,25 +374,54 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
   pickup HowlsDen.AboveDoorKS:
     base: DoubleJump OR Launch
   pickup HowlsDen.LeftHC:
+    # Damage required:
+    # Wall: 20 Health
     base: HowlsDen.KeystoneDoor, Weapon, DoubleJump OR Dash OR Launch
+  # only relevant for consuming weapons
+  # pickup HowlsDen.RightHC:
+  #   # Damage required:
+  #   # 2 Walls: 16 Health
+  #   base, Weapon, HowlsDen.KeystoneDoor:
+  #     DoubleJump
+  #     Dash, Bash, Grenade=1
+  #     Launch
   pickup HowlsDen.SwordTree: free
   pickup HowlsDen.MagnetShard:
+    # Damage required:
+    # Wall: 10 Health
     base: Weapon
   pickup HowlsDen.AboveTPEX:
+    # Damage required:
+    # Wall: 16 Health
+    # Wall: 10 Health
     base: Weapon
 
   conn HowlsDen.Teleporter:
+    # Damage required:
+    # Wall: 16 Health
     base: Weapon
   conn HowlsDen.Entrance:
+    # Damage required:
+    # 3 Walls: 16 Health
     base, Weapon, HowlsDen.KeystoneDoor:
       DoubleJump
       Dash, Bash, Grenade=1
       Launch
+    # when considering consuming weapons:
+    # base, Weapon, HowlsDen.KeystoneDoor:
+    # # 1 wall required
+    #   Launch
+    # # 3 walls required
+    #   DoubleJump
+    #   Dash, Bash, Grenade=1
+    # # others irrelevant because of energy restrictions in base
 
 area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
   refill Full: free
 
   pickup HowlsDen.AboveTPEX:
+    # Damage required:
+    # Wall: 10 Health
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
@@ -359,17 +433,38 @@ area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
       Sword OR Hammer         # Can reach lever with air combos
   # if someone manages to lower the platform, they'll manage to get over the gap as well. That's how it works in the base game, that's how it'll work here
   pickup HowlsDen.DoubleJumpEX:
+    # Damage required:
+    # Squonkey: 31 Health
+    # Lizard: 24 Health
     base: Weapon  # no combat because the game puts this before regen. It's why all the enemies drop tons of health
 
   conn Teleporters: free
   conn DenShrine:
     base: Hammer
   conn HowlsDen.DoubleJumpTreeArea:
+    # Damage required:
+    # Squonkey: 31 Health
+    # Lizard: 24 Health
     base: Weapon OR DoubleJump OR Dash OR Glide OR Launch
 
 area DenShrine:
   refill Full: free
   pickup HowlsDen.CombatShrine:
+    # Wave Refill: 4 Energy
+    # Damage required:
+    # Wave 1:
+    # Squonkey: 31 Health
+    # 2 Lizards: 24 Health
+    # Wave 2:
+    # 2 Sneeze Slugs: 31 Health
+    # Squonkey: 31 Health
+    # Skeeto: 20 Health
+    # Wave 3:
+    # 7 Skeeties: 8 Health
+    # 2 Skeetos: 20 Health
+    # Wave 4:
+    # 2 Lizards: 24 Health
+    # 2 Squonkeys: 31 Health
     base, Combat, RangedWeapon OR DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
       Danger=60
       Danger=40, Dash OR Bash OR Launch  # much better if you have good evasion
@@ -393,22 +488,33 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
   refill Checkpoint: free
 
   state MarshPastOpher.TrialActivation:
+    # Damage required:
+    # Wall: 20 Health
     base: Weapon, Grapple, Dash OR Glide OR Launch
   
   pickup MarshPastOpher.TrialOre:
+    # Damage required:
+    # Wall: 20 Health
     base: Weapon
   pickup MarshPastOpher.TrialLeftEX:
+    # Damage required:
+    # Wall: 20 Health
     base: Weapon, DoubleJump OR Glide OR Dash OR Launch
     advanced: Sword OR Hammer                 # Horizontal slash combo
   pickup MarshPastOpher.TrialEC:
-    base: DoubleJump OR Dash OR Launch OR Glide
+    # Damage required:
+    # Wall: 20 Health
+    base: Weapon, DoubleJump OR Dash OR Launch OR Glide
     advanced: Sword OR Hammer
   pickup MarshPastOpher.TrialHC:
+    # Damage required:
+    # Wall: 20 Health
     base: Hammer
     advanced: Weapon                        # Lure stomp
   pickup MarshPastOpher.TrialRightEX:
-    base:
-      Weapon, DoubleJump OR Bash OR Launch
+    # Damage required:
+    # Wall: 20 Health
+    base: Weapon, DoubleJump OR Bash OR Launch  # uses the enemy
     advanced: Sword                         # Pogo off of enemy
   pickup MarshPastOpher.SwingPoleEX:
     base:
@@ -420,10 +526,14 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
   conn MarshShrine: free
   conn OpherShop: free
   conn MarshSpawn.Main:
+    # Damage required:
+    # Wall: 10 Health
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
   conn MarshSpawn.BrokenBridge:
+    # Damage required:
+    # Wall: 10 Health
     base: Weapon
   conn MarshPastOpher.BowArea:
     base:
@@ -434,6 +544,16 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
 area MarshShrine:
   refill Full: free
   pickup MarshPastOpher.CombatShrine:
+    # Wave Refill: 2 Energy
+    # Damage required:
+    # Wave 1:
+    # 2 Skeetos: 20 Health
+    # Wave 2:
+    # Squonkey: 31 Health
+    # 4 Skeeties: 8 Health
+    # Wave 3:
+    # Squonkey: 31 Health
+    # Skeeto: 20 Health
     base: Combat, Danger=20, RangedWeapon OR DoubleJump OR Bash OR Launch  # flying enemies, but short and not too hard
 
 area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with bow tree.
@@ -570,8 +690,7 @@ area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye
     advanced, WestHollow.UpperDrainLeverPulled: 
       Damage=100
   pickup WestHollow.HiddenEC:
-    base, WestHollow.LowerDrainLeverPulled: 
-      Weapon
+    base: WestHollow.LowerDrainLeverPulled, Weapon
   
   conn TwillenShop:
     base:
@@ -609,7 +728,7 @@ area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of L
       Bash, Grenade=1
       Launch
   pickup WestHollow.TrialHC:
-    base: WestHollow.LowerDrainLeverPulled, EnemyObstacle, DoubleJump OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water. Other skill options would work, but between having to do an easy damage boost and making it harder to deal with the enemies it might not be fit for base
+    base: WestHollow.LowerDrainLeverPulled, EnemyObstacle, DoubleJump OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water.
   pickup WestHollow.BelowLupoEX:
     base:  # All the path options here include a way to get past the enemy
       DoubleJump, Dash
@@ -1376,7 +1495,7 @@ region InnerWellspring:
 
 area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you enter the first room
   refill Checkpoint: free
-  refill Energy=3:  # technically out of side, but this is very realistic
+  refill Energy=3:  # technically out of sight, but this is very realistic
     base: Weapon
 
   state InnerWellspring.ShortCutWheel:
