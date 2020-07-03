@@ -2,7 +2,7 @@ import fastparse._
 import java.io.{BufferedWriter, FileWriter}
 import scala.io.Source
 import java.io.File
-
+import SeedGenerator.implicits._
 package SeedGenerator {
   trait ParseError
 
@@ -37,7 +37,7 @@ package SeedGenerator {
     def tpReq[_: P]: P[Requirement] = P(nameMapParser(Teleporter.areaFileNames)).map(id => if(Teleporter.poolItems.exists(_.teleporterId == id)) TeleReq(id) else Invalid)
     def skillReq[_: P]: P[Requirement] = P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
-    def diffReq[_ :P]: P[Requirement] = P("base" | "advanced").!.map({case "base" => Free; case "advanced" => if(doAdvanced) Free else Invalid})
+    def diffReq[_ :P]: P[Requirement] = P("base" | "advanced").!.map({case "base" => Free; case "advanced" => if(UI.Options.unsafePaths) Free else Invalid})
     def stateReq[_:P]: P[Requirement] = P(nameParser).map(StateReq)
     def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | grenadeReq | dangerReq | ksReq | cashReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
@@ -59,18 +59,18 @@ package SeedGenerator {
       def reqBlock[_:P]: P[Seq[Requirement]] = P(free.map(Seq(_)) | (NoCut(reqLine.map(Seq(_))) | NoCut(blockBody)).rep.map(_.flatten))//.log
     }
     def checkpoint[_:P]: P[Refiller] = P("Checkpoint").map(_ => Checkpoint)
-    def spiritWell[_:P]: P[Refiller] = P("Full").map(_ => Well).log
+    def spiritWell[_:P]: P[Refiller] = P("Full").map(_ => Well)//.log
     def crystal[_:P]: P[Refiller] = P("Energy" ~~/ equalsNum).map(EnergyCrystals)
     def plant[_:P]: P[Refiller] = P("Health" ~~/ equalsNum).map(HealthPlants)
-    def refill[_:P]: P[(Refiller, Requirement)] = P("  refill" ~/ (checkpoint | spiritWell | crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))).log
+    def refill[_:P]: P[(Refiller, Requirement)] = P("  refill" ~/ (checkpoint | spiritWell | crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_)))//.log
 
     case class Region(prefix: String, req: Requirement)
     def endl[_:P]: P[Unit] = P("\n")
-    def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)})//.log
-    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)})//.log
-    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)})//.log
-    def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req)})//.log
-    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)})//.log
+    def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
+    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
+    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req.sortByConsumption)})//.log
+    def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req.sortByConsumption)})//.log
+    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req.sortByConsumption)})//.log
     def area[_:P]: P[Area] = P("area" ~/ nameParser ~~ colon ~ endl ~~ NoCut(refill.repX(sep=endl) ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
       case (name, refills, conns) => Area(name, conns, RefillGroup(refills.map(_.groupMapReduce(_._2)(x => Seq(x._1))(_ ++ _)).getOrElse(Map())))
     }//.log

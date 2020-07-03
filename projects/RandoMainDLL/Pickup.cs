@@ -185,7 +185,10 @@ namespace RandoMainDLL {
       if (!NonEmpty) return;
       try {
         Children.ForEach((c) => c.Grant(true));
-      } catch(DoneWithThis) { }; 
+      } catch(DoneWithThis) {
+        Randomizer.Log("exiting early");
+          
+      }; 
       base.Grant(false);
     }
 
@@ -415,14 +418,17 @@ namespace RandoMainDLL {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.StopIfEqual:
+          Randomizer.Log($"{state.ValueAsInt()} ?= {targetValue} -> {state.ValueAsInt() == targetValue}");
           if (state.ValueAsInt() == targetValue)
             throw new DoneWithThis();
           break;
         case SysCommandType.StopIfGreater:
+          Randomizer.Log($"{state.ValueAsInt()} ?> {targetValue} -> {state.ValueAsInt() > targetValue}");
           if (state.ValueAsInt() > targetValue)
             throw new DoneWithThis();
           break;
         case SysCommandType.StopIfLess:
+          Randomizer.Log($"{state.ValueAsInt()} ?< {targetValue} -> {state.ValueAsInt() < targetValue}");
           if (state.ValueAsInt() < targetValue)
             throw new DoneWithThis();
           break;
