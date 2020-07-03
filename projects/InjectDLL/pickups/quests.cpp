@@ -2,13 +2,13 @@
 #include <dev/dev_commands.h>
 #include <dll_main.h>
 #include <interception_macros.h>
+#include <il2cpp_helpers.h>
 #include <Common/ext.h>
 
 #include "pickups.h"
 
 namespace
 {
-    STATIC_CLASS(71349576, Moon_SerializedIntUberState_c*, serialized_int_uber_state);
     STATIC_CLASS(71441752, SeinWorldState_c*, sein_world_state);
     
     //noop only - reward triggers on uberstate change.
@@ -44,7 +44,7 @@ namespace
         if (quest_reporting)
         {
             auto uber_state = Quest__get_UberState(quest);
-            auto cast_uber_state = il2::unsafe_il2_cast<Moon_SerializedIntUberState_o>(serialized_int_uber_state, uber_state);
+            auto cast_uber_state = il2cpp::safe_il2cpp_cast<Moon_SerializedIntUberState_o>(uber_state, "Moon", "SerializedIntUberState");
             if (cast_uber_state != nullptr && cast_uber_state->UberIDOwnerSO_m_id != nullptr && cast_uber_state->Group != nullptr)
                 send_state(cast_uber_state);
         }
