@@ -55,6 +55,8 @@ namespace RandoMainDLL {
         IgnoreUpdateFrames = 5;
       } catch (IOException) {
         // that's fine
+      } catch (Exception e) {
+        Randomizer.Error("TrackFile.Write:", e); // less fine!
       }
     }
   }
