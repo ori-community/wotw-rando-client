@@ -55,6 +55,7 @@ set(
 	"interception.h"
 	"interception_macros.h"
     "il2cpp_helpers.h"
+    "il2cpp_internals.h"
     "macros.h"
 	"dev/dev_commands.h"
 	"dev/object_visualizer.h"
@@ -110,9 +111,9 @@ target_link_libraries(
 
 target_precompile_headers(
 	${PROJECT_NAME}
-		PRIVATE "framework.h"
 		PRIVATE <tchar.h>
-		PRIVATE <detours/il2cpp.h>
+		PRIVATE <framework.h>
+		PRIVATE <il2cpp_internals.h>
 )
 
 message(STATUS "Assigning source groups.")

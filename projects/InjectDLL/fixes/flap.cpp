@@ -4,8 +4,8 @@
 #include <constants.h>
 #include <fixes/dash.h>
 
-INTERCEPT(17314976, void, SeinFeatherFlap__EnterAttack, (SeinFeatherFlap_o* this_ptr)) {
-    auto abilities = this_ptr->CharacterState_m_sein->PlayerAbilities;
+INTERCEPT(17314976, void, SeinFeatherFlap__EnterAttack, (app::SeinFeatherFlap* this_ptr)) {
+    auto abilities = this_ptr->fields._.m_sein->fields.PlayerAbilities;
     if (PlayerAbilities__HasAbility(abilities, GLIDE))
     {
 		SeinFeatherFlap__EnterAttack(this_ptr);

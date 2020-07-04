@@ -15,7 +15,7 @@ namespace uber_states
         std::unordered_map<int32_t, applier_intercept> applier_intercepts;
 
         BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
-        INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (NewSetupStateController_o* this_ptr, int32_t stateGUID, int32_t context)) {
+        INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (app::NewSetupStateController* this_ptr, int32_t stateGUID, int32_t context)) {
             auto it = applier_intercepts.find(stateGUID);
             if (it != applier_intercepts.end())
                 stateGUID = it->second(this_ptr, stateGUID, context);

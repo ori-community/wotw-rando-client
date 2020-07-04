@@ -8,21 +8,21 @@
 #include <codecvt>
 #include <xstring>
 
-BINDING(30218144, System_Char_array*, System_String__ToCharArray, (System_String_o* this_ptr))//System.String$$ToCharArray
-BINDING(34816240, int, System_Array__get_Length, (System_Array_o* this_ptr)) //System.Array$$get_Length
-BINDING(34805488, Il2CppObject*, System_Array__GetValue, (System_Array_o* thus_ptr, int index)) //System.Array$$GetValue
+BINDING(30218144, app::Char__Array*, System_String__ToCharArray, (app::String* this_ptr))//System.String$$ToCharArray
+BINDING(34816240, int, System_Array__get_Length, (app::Array* this_ptr)) //System.Array$$get_Length
+BINDING(34805488, Il2CppObject*, System_Array__GetValue, (app::Array* thus_ptr, int index)) //System.Array$$GetValue
 
-BINDING(13847344, MessageBox_o*, MessageControllerB__ShowHintSmallMessage, (MessageControllerB_o* this_ptr, MessageDescriptor_o descriptor, UnityEngine_Vector3_o position, float duration));
-BINDING(5621248, UnityEngine_Vector3_o, OnScreenPositions__get_TopCenter, ());
-BINDING(13836768, bool, MessageBoxVisibility__get_Visible, (MessageBoxVisibility_o* this_ptr));
-BINDING(13820848, void, MessageBox__HideMessageScreenImmediately, (MessageBox_o* this_ptr, int32_t action));
-BINDING(13821184, void, MessageBox__HideMessageScreen, (MessageBox_o* this_ptr, int32_t action));
+BINDING(13847344, app::MessageBox*, MessageControllerB__ShowHintSmallMessage, (app::MessageControllerB* this_ptr, app::MessageDescriptor descriptor, app::Vector3 position, float duration));
+BINDING(5621248, app::Vector3, OnScreenPositions__get_TopCenter, ());
+BINDING(13836768, bool, MessageBoxVisibility__get_Visible, (app::MessageBoxVisibility* this_ptr));
+BINDING(13820848, void, MessageBox__HideMessageScreenImmediately, (app::MessageBox* this_ptr, int32_t action));
+BINDING(13821184, void, MessageBox__HideMessageScreen, (app::MessageBox* this_ptr, int32_t action));
 
 BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, bool track_resurrection))
 BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
 BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
 
-std::string convert_csstring(System_String_o* str)
+std::string convert_csstring(app::String* str)
 {
     std::string cppstr;
     if (str == nullptr)
@@ -32,7 +32,7 @@ std::string convert_csstring(System_String_o* str)
     if (chars == nullptr)
         return cppstr;
 
-    std::wstring wstr(reinterpret_cast<wchar_t*>(chars->m_Items), str->m_stringLength);
+    std::wstring wstr(reinterpret_cast<wchar_t*>(chars->vector), str->fields.m_stringLength);
     using convert_type = std::codecvt_utf8<wchar_t>;
     std::wstring_convert<convert_type, wchar_t> converter;
     cppstr = converter.to_bytes(wstr);
@@ -42,22 +42,22 @@ std::string convert_csstring(System_String_o* str)
 
 namespace
 {
-    std::set<MessageBox_o*> tracked_boxes;
-    MessageBox_o* npc_box = nullptr;
+    std::set<app::MessageBox*> tracked_boxes;
+    app::MessageBox* npc_box = nullptr;
     bool string_header_cached = false;
-    System_String_o* last_message = nullptr;
+    app::String* last_message = nullptr;
     uint32_t last_handle = 0;
 
-    void print_csstring(System_String_o* str)
+    void print_csstring(app::String* str)
     {
         auto cppstr = convert_csstring(str);
         trace(MessageType::Info, 4, "csstring", cppstr);
     }
 
     // nullcheck helper
-    bool is_visible(MessageBox_o* box)
+    bool is_visible(app::MessageBox* box)
     {
-        return box && box->Visibility && MessageBoxVisibility__get_Visible(box->Visibility);
+        return box && box->fields.Visibility && MessageBoxVisibility__get_Visible(box->fields.Visibility);
     }
 }
 
@@ -77,11 +77,11 @@ INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c)) {
   return 0;
   }
 
-INTERCEPT(13855664, MessageBox_o*, MessageControllerB__ShowCompleteQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q)) {
+INTERCEPT(13855664, app::MessageBox*, MessageControllerB__ShowCompleteQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
   return 0;
 }
 
-INTERCEPT(13856176, MessageBox_o*, MessageControllerB__ShowUpdatedQuestMessage, (MessageControllerB_o* t, MessageProvider_o* p, Quest_o* q)) {
+INTERCEPT(13856176, app::MessageBox*, MessageControllerB__ShowUpdatedQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
   return 0;
 }
 
@@ -99,7 +99,7 @@ INTERCEPT(15446864, int64_t, TranslatedMessageProvider_MessageItem_Message, (__i
     return static_cast<int64_t>(result);
 }
 
-INTERCEPT(13823536, void, MessageBox__Update, (MessageBox_o* this_ptr)) {
+INTERCEPT(13823536, void, MessageBox__Update, (app::MessageBox* this_ptr)) {
     MessageBox__Update(this_ptr);
     if (tracked_boxes.find(this_ptr) == tracked_boxes.end() && is_visible(this_ptr))
     {
@@ -108,16 +108,16 @@ INTERCEPT(13823536, void, MessageBox__Update, (MessageBox_o* this_ptr)) {
     }
 }
 
-INTERCEPT(6645664,void, NPCMessageBox__FixedUpdate, (NPCMessageBox_o* this_ptr)) {
+INTERCEPT(6645664,void, NPCMessageBox__FixedUpdate, (app::NPCMessageBox* this_ptr)) {
     NPCMessageBox__FixedUpdate(this_ptr);
-    if (this_ptr->MessageBox != npc_box && is_visible(this_ptr->MessageBox))
+    if (this_ptr->fields.MessageBox != npc_box && is_visible(this_ptr->fields.MessageBox))
     {
 //        debug("(index " + std::to_string(this_ptr->MessageBox->MessageIndex)+ ") found interactable: " + std::to_string((__int64)this_ptr->MessageBox));
-        npc_box = this_ptr->MessageBox;
+        npc_box = this_ptr->fields.MessageBox;
     }
 }
 
-INTERCEPT(13822720, void, MessageBox__OnDestroy, (MessageBox_o* this_ptr)) {
+INTERCEPT(13822720, void, MessageBox__OnDestroy, (app::MessageBox* this_ptr)) {
     MessageBox__OnDestroy(this_ptr);
     if (tracked_boxes.find(this_ptr) != tracked_boxes.end())
     {
@@ -131,10 +131,10 @@ void clear_visible_hints()
 {
     try
     {
-        for (std::set<MessageBox_o*>::iterator it = tracked_boxes.begin(); it != tracked_boxes.end(); ++it)
+        for (std::set<app::MessageBox*>::iterator it = tracked_boxes.begin(); it != tracked_boxes.end(); ++it)
         {
             auto last_box = *it;
-            if (last_box != npc_box && last_box->Visibility && MessageBoxVisibility__get_Visible(last_box->Visibility))
+            if (last_box != npc_box && last_box->fields.Visibility && MessageBoxVisibility__get_Visible(last_box->fields.Visibility))
                 MessageBox__HideMessageScreenImmediately(last_box, 0);
         }
 
@@ -149,7 +149,7 @@ void clear_visible_hints()
     }
 }
 
-UnityEngine_Vector3_o print_position;
+app::Vector3 print_position;
 extern "C" __declspec(dllexport)
 bool hints_ready()
 {
@@ -158,14 +158,20 @@ bool hints_ready()
 }
 
 extern "C" __declspec(dllexport)
-MessageBox_o * display_hint(System_String_o * hint, float duration)
+app::MessageBox* display_hint(app::String * hint, float duration)
 {
     try
     {
         clear_visible_hints();
         const auto message_controller = (*g_ui)->static_fields->MessageController;
-        auto last_box = MessageControllerB__ShowHintSmallMessage(message_controller, MessageDescriptor_o{hint, 0, nullptr, nullptr}, print_position, duration);
-        last_box->MessageIndex = 1;
+        auto last_box = MessageControllerB__ShowHintSmallMessage(
+            message_controller,
+            app::MessageDescriptor{ hint, app::EmotionType__Enum_Neutral, nullptr, nullptr },
+            print_position,
+            duration
+        );
+
+        last_box->fields.MessageIndex = 1;
         last_handle = il2cpp_gchandle_new_weakref((Il2CppObject*) last_box, true);
         last_message = hint;
         tracked_boxes.insert(last_box);
@@ -177,7 +183,7 @@ MessageBox_o * display_hint(System_String_o * hint, float duration)
 }
 
 extern "C" __declspec(dllexport)
-System_String_o * get_current_hint()
+app::String * get_current_hint()
 {
     return last_message;
 }

@@ -6,7 +6,7 @@ namespace
 {
     bool no_energy = false;
 
-    INTERCEPT(9451104, float, SeinEnergy__get_EnergyCostMultiplier, (SeinEnergy_o* this_ptr)) {
+    INTERCEPT(9451104, float, SeinEnergy__get_EnergyCostMultiplier, (app::SeinEnergy* this_ptr)) {
         if (no_energy)
             return 0.f;
 

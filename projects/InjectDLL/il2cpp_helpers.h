@@ -1,21 +1,17 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace il2cpp
 {
-    struct Il2CppMethodInfo;
     // TODO: Add virtual method calls here.
     // TODO: Add resolver for generics.
 
     namespace untyped
     {
-        Il2CppObject* invoke(Il2CppObject* obj, const char* method, int param_count, void** params);
-        Il2CppObject* invoke_virtual(Il2CppObject* obj, Il2CppClass* base, const char* method, int param_count, void** params);
-
         Il2CppObject* create_object(const char* namezpace, const char* name);
         Il2CppObject* create_object(Il2CppClass* klass);
-        Il2CppClass* get_class(const char* namezpace, const char* name);
 
         bool instance_of(Il2CppClass* klass, const char* namezpace, const char* name);
         int implements_interface(Il2CppClass* klass, const char* namezpace, const char* name);
@@ -24,8 +20,16 @@ namespace il2cpp
         int implements_interface(Il2CppClass* klass, Il2CppClass* iklass);
     }
 
+    std::string get_unity_object_name(void* object);
+
+    Il2CppObject* invoke(void* obj, const char* method, std::vector<void*> params = {});
+    Il2CppObject* invoke_virtual(void* obj, Il2CppClass* base, const char* method, std::vector<void*> params = {});
+
+    Il2CppClass* get_class(const char* namezpace, const char* name);
     bool instance_of(void* obj, const char* namezpace, const char* name);
     bool implements_interface(void* obj, const char* namezpace, const char* name);
+
+    MethodInfo* resolve_generic_method(uint64_t address);
 
     // Templates
 
@@ -38,21 +42,15 @@ namespace il2cpp
         return reinterpret_cast<TObject*>(obj);
     }
 
-    template<class Return, class... Args>
-    Return invoke(void* obj, const char* method, Args...)
+    template<typename T>
+    T* create_object(const char* namezpace, const char* name)
     {
-        return reinterpret_cast<Return>(untyped::invoke(reinterpret_cast<Il2CppObject*>(obj), method, sizeof...(Args), Args));
-    }
-
-    template<class Return, class... Args>
-    Return invoke_virtual(void* obj, void* base, const char* method, Args...)
-    {
-        return reinterpret_cast<Return>(untyped::invoke_virtual(reinterpret_cast<Il2CppObject*>(obj), reinterpret_cast<Il2CppClass*>(base), method, sizeof...(Args), Args));
+        return reinterpret_cast<T*>(untyped::create_object(namezpace, name));
     }
 
     template<typename T>
-    T* create_object_t(const char* namezpace, const char* name)
+    T* create_object(Il2CppClass* klass)
     {
-        return reinterpret_cast<T*>(untyped::create_object(namezpace, name));
+        return reinterpret_cast<T*>(untyped::create_object(klass));
     }
 }
