@@ -61,7 +61,7 @@ namespace
     {
         auto actual_value = il2cpp::create_object<app::Single>("System", "Single");;
         actual_value->m_value = value;
-        il2cpp::invoke_virtual<void*>(uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "set_GenericValue", actual_value);
+        il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "set_GenericValue", actual_value);
     }
 
     app::UberID create_id(int id)
