@@ -35,23 +35,7 @@ namespace dev
 
             app::IUberStateGroup* get_group(app::IUberState* state)
             {
-                using get_uber_group = app::IUberStateGroup* (*)(app::IUberState*);
-                VirtualInvokeData data;
-                //auto group = reinterpret_cast<app::IUberStateGroup*>(
-                //    il2cpp::invoke_virtual(state, il2cpp::get_class("Moon", "IUberState"), "get_UberStateGroup")
-                //);
-
-                // TODO: Replace this with an actual virtual resolver.
-                if (state->klass->_0.name == std::string("SerializedIntUberState"))
-                    data = reinterpret_cast<app::SerializedIntUberState*>(state)->klass->vtable.get_UberStateGroup;
-                else if (state->klass->_0.name == std::string("SerializedByteUberState"))
-                    data = reinterpret_cast<app::SerializedByteUberState*>(state)->klass->vtable.get_UberStateGroup;
-                else if (state->klass->_0.name == std::string("SerializedFloatUberState"))
-                    data = reinterpret_cast<app::SerializedFloatUberState*>(state)->klass->vtable.get_UberStateGroup;
-                else if (state->klass->_0.name == std::string("SerializedBooleanUberState"))
-                    data = reinterpret_cast<app::SerializedBooleanUberState*>(state)->klass->vtable.get_UberStateGroup;
-
-                return reinterpret_cast<get_uber_group>(data.methodPtr)(state);
+                return il2cpp::invoke_virtual<app::IUberStateGroup>(state, il2cpp::get_class("Moon", "IUberState"), "get_UberStateGroup");
             }
 
             void visualize_new_setup_state_controller(Visualizer& visualizer, Il2CppObject* obj)

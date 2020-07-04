@@ -11,11 +11,6 @@ namespace il2cpp
     {
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
 
-        struct Il2CppDomain;
-        struct Il2CppAssembly;
-        struct Il2CppImage;
-        struct Il2CppException;
-
         BINDING(37030288, app::String*, UnityEngine_Object__get_name, (app::Object* this_ptr));
         BINDING(2499936, Il2CppClass*, il2cpp_class_from_name, (Il2CppImage* image, const char* namespaze, const char* name));
         BINDING(2501792, Il2CppDomain*, il2cpp_domain_get, ());
@@ -24,7 +19,8 @@ namespace il2cpp
         BINDING(2504816, Il2CppObject*, il2cpp_object_new, (Il2CppClass* klass));
         BINDING(2500336, MethodInfo*, il2cpp_class_get_method_from_name, (Il2CppClass* klass, const char* name, int argsCount));
         BINDING(2504800, MethodInfo*, il2cpp_object_get_virtual_method, (Il2CppObject* obj, const MethodInfo* method));
-        BINDING(1111111, Il2CppObject*, il2cpp_runtime_invoke, (const MethodInfo* method, void* obj, void** params, Il2CppException** exc));
+        BINDING(2505328, Il2CppObject*, il2cpp_runtime_invoke, (const MethodInfo* method, void* obj, void** params, Il2CppException** exc));
+        BINDING(2506016, void*, il2cpp_thread_attach, (Il2CppDomain* domain));
     }
 
     namespace untyped
@@ -87,13 +83,12 @@ namespace il2cpp
         return il2cpp_runtime_invoke(method_info, cast_obj, params.data(), &exc);
     }
 
-    Il2CppObject* invoke_virtual(void* obj, Il2CppClass* base, const char* method, std::vector<void*> params)
+    Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, const char* method, std::vector<void*> params)
     {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         Il2CppException* exc = nullptr;
         auto method_info = il2cpp_class_get_method_from_name(base, method, params.size());
         auto virtual_method_info = il2cpp_object_get_virtual_method(cast_obj, method_info);
-        params.insert(params.begin(), obj);
         return il2cpp_runtime_invoke(virtual_method_info, cast_obj, params.data(), &exc);
     }
 
