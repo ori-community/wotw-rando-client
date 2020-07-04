@@ -12,17 +12,25 @@ namespace dev
         namespace {
             BINDING(27825008, app::Int32__Array*, NewSetupStateController__GetAllStateGUIDs, (app::NewSetupStateController* this_ptr));
             BINDING(27824416, app::String*, NewSetupStateController__GetStateName, (app::NewSetupStateController* this_ptr, int32_t stateGUID));
-            BINDING(29453088, bool, Moon_MoonReference_T___Resolve, (void* this_ptr, app::IMoonResolverContext* context, void* method));
-            BINDING(29456192, bool, Moon_MoonReference_T___CanResolve, (void* this_ptr, app::IMoonResolverContext* context, void* method));
-            BINDING(29455680, bool, Moon_MoonReference_T___TryResolve, (Il2CppClass* klass, void* this_ptr, Il2CppObject* value, app::IMoonResolverContext* context));
             BINDING(27824416, app::String*, SetupStateModifier__get_Name, (app::SetupStateModifier* this_ptr));
-            BINDING(29452928, bool, Moon_MoonReference_T___get_HasAReference, (void* this_ptr));
 
             BINDING(13431104, app::String*, Moon_UberState__get_Name, (app::IUberState* this_ptr));
             BINDING(13431104, app::String*, Moon_UberStateGroup__get_GroupName, (app::UberStateGroup* this_ptr));
-            BINDING(3013008, app::IUberStateGroup*, Moon_IUberState_ByteInt__get_UberStateGroup, (app::IUberState* this_ptr));
-            BINDING(3013040, app::IUberStateGroup*, Moon_IUberState_BoolFloat__get_UberStateGroup, (app::IUberState* this_ptr));
-            BINDING(3013040, app::UberID*, Moon_UberIDOwnerSO__get_ID, (app::UberIDOwnerSO* this_ptr));
+            //{
+            //  "Address": 48221264,
+            //  "Name": "UnityEngine.Transform$$GetChild",
+            //  "Signature": "UnityEngine_Transform_o* UnityEngine_Transform__GetChild (UnityEngine_Transform_o* this, int32_t index);"
+            //},
+            //{
+            //  "Address": 48221360,
+            //  "Name": "UnityEngine.Transform$$GetChildCount",
+            //  "Signature": "int32_t UnityEngine_Transform__GetChildCount (UnityEngine_Transform_o* this);"
+            //},
+            //{
+            //    "Address": 36928416,
+            //        "Name" : "UnityEngine.GameObject$$get_transform",
+            //        "Signature" : "UnityEngine_Transform_o* UnityEngine_GameObject__get_transform (UnityEngine_GameObject_o* this);"
+            //},
 
             void indent(Visualizer& visualizer, int pre = 0, int post = 0)
             {
@@ -35,23 +43,18 @@ namespace dev
 
             app::IUberStateGroup* get_group(app::IUberState* state)
             {
-                using get_uber_group = app::IUberStateGroup* (*)(app::IUberState*);
-                VirtualInvokeData data;
-                //auto group = reinterpret_cast<app::IUberStateGroup*>(
-                //    il2cpp::invoke_virtual(state, il2cpp::get_class("Moon", "IUberState"), "get_UberStateGroup")
-                //);
+                return il2cpp::invoke_virtual<app::IUberStateGroup>(state, il2cpp::get_class("Moon", "IUberState"), "get_UberStateGroup");
+            }
 
-                // TODO: Replace this with an actual virtual resolver.
-                if (state->klass->_0.name == std::string("SerializedIntUberState"))
-                    data = reinterpret_cast<app::SerializedIntUberState*>(state)->klass->vtable.get_UberStateGroup;
-                else if (state->klass->_0.name == std::string("SerializedByteUberState"))
-                    data = reinterpret_cast<app::SerializedByteUberState*>(state)->klass->vtable.get_UberStateGroup;
-                else if (state->klass->_0.name == std::string("SerializedFloatUberState"))
-                    data = reinterpret_cast<app::SerializedFloatUberState*>(state)->klass->vtable.get_UberStateGroup;
-                else if (state->klass->_0.name == std::string("SerializedBooleanUberState"))
-                    data = reinterpret_cast<app::SerializedBooleanUberState*>(state)->klass->vtable.get_UberStateGroup;
+            void visualize_game_object(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto start_level = visualizer.indent_level;
+                auto game_object = reinterpret_cast<app::GameObject*>(obj);
+                auto name = il2cpp::get_unity_object_name(game_object);
+                indent(visualizer);
+                visualizer.stream << game_object->klass->_0.name << " - " << name << visualizer.new_line;
 
-                return reinterpret_cast<get_uber_group>(data.methodPtr)(state);
+                visualizer.indent_level = start_level;
             }
 
             void visualize_new_setup_state_controller(Visualizer& visualizer, Il2CppObject* obj)
@@ -60,7 +63,7 @@ namespace dev
                 auto controller = reinterpret_cast<app::NewSetupStateController*>(obj);
                 auto guid_str = convert_csstring(controller->fields.m_guidStr);
                 indent(visualizer, 0, 1);
-                visualizer.stream << controller->klass->_0.name << " - " << guid_str.c_str() << visualizer.new_line;
+                visualizer.stream << controller->klass->_0.name << " - " << guid_str << visualizer.new_line;
                 indent(visualizer);
                 visualizer.stream << "active_state: " << controller->fields.m_activeStateIndex << visualizer.new_line;
                 indent(visualizer, 0, 1);
@@ -76,15 +79,17 @@ namespace dev
                     visualizer.stream << "-> " << guid << " : " << name.c_str() << visualizer.new_line;
                 }
 
-                // Disable this until we can figure out how to visualize this better.
-                indent(visualizer, -1, 1);
-                visualizer.stream << "modifiers:" << visualizer.new_line;
-
-                for (auto i = 0; i < controller->fields.StateHolder->fields.Modifiers->fields._size; ++i)
+                if (visualizer.level > Visualizer::InfoLevel::Low)
                 {
-                    auto item = controller->fields.StateHolder->fields.Modifiers->fields._items->vector[i];
-                    if (item != nullptr)
-                        visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
+                    indent(visualizer, -1, 1);
+                    visualizer.stream << "modifiers:" << visualizer.new_line;
+
+                    for (auto i = 0; i < controller->fields.StateHolder->fields.Modifiers->fields._size; ++i)
+                    {
+                        auto item = controller->fields.StateHolder->fields.Modifiers->fields._items->vector[i];
+                        if (item != nullptr)
+                            visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
+                    }
                 }
 
                 visualizer.indent_level = start_level;
@@ -96,25 +101,42 @@ namespace dev
                 auto item = reinterpret_cast<app::SetupStateModifier*>(obj);
                 indent(visualizer, 0, 1);
                 visualizer.stream << item->klass->_0.name << " - " << std::showbase << std::hex << item->fields.ModifierGUID << visualizer.new_line;
+                auto csname = il2cpp::invoke<app::String>(item, "get_Name");
+                auto name = convert_csstring(csname);
+
                 indent(visualizer);
-                auto moon_ref = reinterpret_cast<void*>(item->fields.Target);
-                auto generic_address = 71539072;
-                if (moon_ref != nullptr &&
-                    Moon_MoonReference_T___get_HasAReference(moon_ref) &&
-                    Moon_MoonReference_T___CanResolve(moon_ref, nullptr, il2cpp::resolve_generic_method(generic_address)))
+                visualizer.stream << "name: " << name << visualizer.new_line;
+
+                if (item->fields.Target != nullptr &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
                 {
-                    auto resolved_target = reinterpret_cast<app::GameObject*>(Moon_MoonReference_T___Resolve(moon_ref, nullptr, il2cpp::resolve_generic_method(71608472)));
-                    auto csname = SetupStateModifier__get_Name(item);
-                    visualizer.stream << convert_csstring(csname) << visualizer.new_line;
+                    auto target = il2cpp::invoke<Il2CppObject>(item->fields.Target, "Resolve", nullptr);
+                    visualize_object(visualizer, target);
                 }
                 else
+                {
+                    indent(visualizer);
                     visualizer.stream << "unresolvable target" << visualizer.new_line;
+                }
 
                 indent(visualizer, 0, 1);
                 visualizer.stream << "modifier_data:" << visualizer.new_line;
                 for (auto i = 0; i < item->fields.m_uberStateModifierDatas->fields._size; ++i)
                     if (item != nullptr)
                         visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.m_uberStateModifierDatas->fields._items->vector[i]));
+
+                visualizer.indent_level = start_level;
+            }
+
+            void visualize_setup_state_modifier_data(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto start_level = visualizer.indent_level;
+                auto item = reinterpret_cast<app::SetupStateModifierData*>(obj);
+                indent(visualizer, 0, 1);
+                visualizer.stream << item->klass->_0.name << " - " << std::showbase << std::hex << item->fields.ModifierGUID << visualizer.new_line;
+
+                //item->fields.m_modifierDataClassID.
 
                 visualizer.indent_level = start_level;
             }
@@ -151,13 +173,13 @@ namespace dev
                 indent(visualizer, 0, 1);
                 visualizer.stream << item->klass->_0.name << visualizer.new_line;
                 if (item->fields.Descriptor != nullptr &&
-                    Moon_MoonReference_T___get_HasAReference(item->fields.Descriptor) &&
-                    Moon_MoonReference_T___CanResolve(item->fields.Descriptor, nullptr, il2cpp::resolve_generic_method(71863728)))
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Descriptor, "get_HasAReference")->fields &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Descriptor, "CanResolve", nullptr)->fields)
                 {
-                    //auto descriptor = reinterpret_cast<Il2CppObject*>(Moon_MoonReference_T___Resolve(moon_ref, nullptr, il2cpp::resolve_generic_method(71608472)));
-                    //if (descriptor != nullptr)
-                    //    visualize_object(visualizer, descriptor);
-                    //else
+                    auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.Descriptor, "Resolve", nullptr);
+                    if (descriptor != nullptr)
+                        visualize_object(visualizer, descriptor);
+                    else
                     {
                         indent(visualizer);
                         visualizer.stream << "descriptor: resolved but empty" << visualizer.new_line;
@@ -217,15 +239,27 @@ namespace dev
 
             void visualize_desired_byte_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
+                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::DesiredUberStateByte*>(obj);
-                indent(visualizer);
-                if (Moon_MoonReference_T___get_HasAReference(item->fields.State))
-                    visualizer.stream << "byte_uberstate: resolvable" << visualizer.new_line;
+                indent(visualizer, 0, 1);
+                visualizer.stream << "byte_uberstate:" << visualizer.new_line;
+
+                if (item->fields.State != nullptr &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.State, "get_HasAReference")->fields &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.State, "CanResolve", nullptr)->fields)
+                {
+                    auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.State, "Resolve", nullptr);
+                    visualize_object(visualizer, descriptor);
+                }
                 else
+                {
+                    indent(visualizer);
                     visualizer.stream << "byte_uberstate: unresolvable" << visualizer.new_line;
+                }
 
                 indent(visualizer);
                 visualizer.stream << "desired_value: " << item->fields.DesiredStateValue << visualizer.new_line;
+                visualizer.indent_level = start_level;
             }
 
             void visualize_desired_float_uber_state(Visualizer& visualizer, Il2CppObject* obj)
@@ -244,40 +278,28 @@ namespace dev
                 visualizer.stream << "desired_value: " << item->fields.DesiredValue << visualizer.new_line;
             }
 
-            void visualize_serialized_uber_state(Visualizer& visualizer, app::IUberState* state, app::IUberStateGroup* group)
+            void visualize_serialized_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
+                auto state = reinterpret_cast<app::IUberState*>(obj);
                 auto start_level = visualizer.indent_level;
                 auto csstate = Moon_UberState__get_Name(state);
                 auto state_name = convert_csstring(csstate);
+                auto group = il2cpp::invoke<app::IUberStateGroup>(state, "get_UberStateGroup");
                 auto csgroup = Moon_UberStateGroup__get_GroupName(reinterpret_cast<app::UberStateGroup*>(group));
                 auto group_name = convert_csstring(csgroup);
 
-                indent(visualizer, 0, 1);
+                indent(visualizer);
                 visualizer.stream << "bool_uber_state: {" << visualizer.new_line;
-                indent(visualizer);
-                auto state_id = Moon_UberIDOwnerSO__get_ID(reinterpret_cast<app::UberIDOwnerSO*>(state));
+                indent(visualizer, 1);
+                auto state_id = il2cpp::invoke<app::UberID>(state, "get_ID");
                 visualizer.stream << state_name << "(" << state_id->fields.m_id << ")" << visualizer.new_line;
-                indent(visualizer, -1);
-                auto group_id = Moon_UberIDOwnerSO__get_ID(reinterpret_cast<app::UberIDOwnerSO*>(group));
-                visualizer.stream << group_name << "(" << group_id->fields.m_id << ")" << visualizer.new_line;
                 indent(visualizer);
+                auto group_id = il2cpp::invoke<app::UberID>(group, "get_ID");
+                visualizer.stream << group_name << "(" << group_id->fields.m_id << ")" << visualizer.new_line;
+                indent(visualizer, -1);
                 visualizer.stream << "}" << visualizer.new_line;
 
                 visualizer.indent_level = start_level;
-            }
-
-            void visualize_bool_float_serialized_uber_state(Visualizer& visualizer, Il2CppObject* obj)
-            {
-                auto item = reinterpret_cast<app::IUberState*>(obj);
-                auto group = Moon_IUberState_BoolFloat__get_UberStateGroup(item);
-                visualize_serialized_uber_state(visualizer, item, group);
-            }
-
-            void visualize_byte_int_serialized_uber_state(Visualizer& visualizer, Il2CppObject* obj)
-            {
-                auto item = reinterpret_cast<app::IUberState*>(obj);
-                auto group = Moon_IUberState_ByteInt__get_UberStateGroup(item);
-                visualize_serialized_uber_state(visualizer, item, group);
             }
 
             std::unordered_map<std::string, void (*)(Visualizer& visualizer, Il2CppObject* obj)> visualizers = {
@@ -294,10 +316,12 @@ namespace dev
                 { "DesiredUberStateByte", visualize_desired_byte_uber_state },
                 { "DesiredUberStateInt", visualize_desired_int_uber_state },
 
-                { "SerializedBooleanUberState", visualize_bool_float_serialized_uber_state },
-                { "SerializedFloatUberState", visualize_bool_float_serialized_uber_state },
-                { "SerializedByteUberState", visualize_byte_int_serialized_uber_state },
-                { "SerializedIntUberState", visualize_byte_int_serialized_uber_state },
+                { "SerializedBooleanUberState", visualize_serialized_uber_state },
+                { "SerializedFloatUberState", visualize_serialized_uber_state },
+                { "SerializedByteUberState", visualize_serialized_uber_state },
+                { "SerializedIntUberState", visualize_serialized_uber_state },
+
+                { "GameObject", visualize_game_object },
             };
         }
 
