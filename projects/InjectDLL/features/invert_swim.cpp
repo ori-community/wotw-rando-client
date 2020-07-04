@@ -6,15 +6,15 @@
 
 namespace
 {
-    BINDING(34965920, UnityEngine_AnimationCurve_o*, UnityEngine_AnimationCurve__EaseInOut, (float timeStart, float valueStart, float timeEnd, float valueEnd));
+    BINDING(34965920, app::AnimationCurve*, UnityEngine_AnimationCurve__EaseInOut, (float timeStart, float valueStart, float timeEnd, float valueEnd));
 }
 
 void set_swim_params(float normal, float boost) {
-    auto swim = get_sein()->Abilities->SwimmingWrapper;
-    if (swim->HasState)
+    auto swim = get_sein()->fields.Abilities->fields.SwimmingWrapper;
+    if (swim->fields.HasState)
     {
-        swim->State->SwimSpeed = normal;
-        swim->State->SwimSpeedBoostCurve = UnityEngine_AnimationCurve__EaseInOut(0.05, 1.f, 0.2, boost / normal);
+        swim->fields.State->fields.SwimSpeed = normal;
+        swim->fields.State->fields.SwimSpeedBoostCurve = UnityEngine_AnimationCurve__EaseInOut(0.05, 1.f, 0.2, boost / normal);
     }
 }
 
@@ -33,17 +33,17 @@ namespace
         invert_swim();
     }
 
-    INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr)) {
+    INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (app::SaveGameController* thisPtr)) {
         SaveGameController__OnFinishedLoading(thisPtr);
         invert_swim();
     }
 
-    INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr)) {
+    INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
         SaveGameController__RestoreCheckpoint(thisPtr);
         invert_swim();
     }
 
-    INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr)) {
+    INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (app::SeinHealthController* thisPtr)) {
         SeinHealthController__OnRespawn(thisPtr);
         invert_swim();
     }

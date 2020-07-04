@@ -5,18 +5,18 @@
 #include <features/input_poller.h>
 
 namespace {
-    BINDING(4091744, GameWorldArea_o*, GameWorld__GetArea, (GameWorld_o* thisPtr, int32_t areaID)) 
-    BINDING(4084240, RuntimeGameWorldArea_o*, GameWorld__FindRuntimeArea, (GameWorld_o* thisPtr, GameWorldArea_o* area));
-    BINDING(12643712, void, RuntimeGameWorldArea__DiscoverAllAreas, (RuntimeGameWorldArea_o* thisPtr));
+    BINDING(4091744, app::GameWorldArea*, GameWorld__GetArea, (app::GameWorld* thisPtr, int32_t areaID))
+    BINDING(4084240, app::RuntimeGameWorldArea*, GameWorld__FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
+    BINDING(12643712, void, RuntimeGameWorldArea__DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));
 
-    GameWorld_o* game_world_instance = 0;
+    app::GameWorld* game_world_instance = 0;
 
     bool found_game_world()
     {
 	    return game_world_instance != 0;
     }
 
-    INTERCEPT(4084560, void, GameWorld__Awake, (GameWorld_o* thisPtr)) {
+    INTERCEPT(4084560, void, GameWorld__Awake, (app::GameWorld* thisPtr)) {
 	    if (game_world_instance != thisPtr)
 	    {
             trace(MessageType::Debug, 5, "game", "Found GameWorld instance!");
@@ -25,11 +25,11 @@ namespace {
 	    GameWorld__Awake(thisPtr);
     }
 
-    INTERCEPT(12666400, bool, RuntimeWorldMapIcon__IsVisible, (RuntimeWorldMapIcon_o* thisPtr, AreaMapUI_o* areaMap)) {
+    INTERCEPT(12666400, bool, RuntimeWorldMapIcon__IsVisible, (app::RuntimeWorldMapIcon* thisPtr, app::AreaMapUI* areaMap)) {
         return true;
     }
 
-    INTERCEPT(12673168, bool, RuntimeWorldMapIcon__CanBeTeleportedTo, (RuntimeWorldMapIcon_o* thisPtr)) {
+    INTERCEPT(12673168, bool, RuntimeWorldMapIcon__CanBeTeleportedTo, (app::RuntimeWorldMapIcon* thisPtr)) {
         return RuntimeWorldMapIcon__CanBeTeleportedTo(thisPtr) || csharp_bridge::tp_to_any_pickup();
     }
 
@@ -64,17 +64,17 @@ namespace {
     constexpr InputButton FOCUS_BUTTON = InputButton::Ability3;
     void update_map_focus(InputState const& state);
 
-    AreaMapNavigation_o* cached = nullptr;
-    INTERCEPT(4840480, void, AreaMapUI__Show, (AreaMapUI_o* this_ptr)) {
+    app::AreaMapNavigation* cached = nullptr;
+    INTERCEPT(4840480, void, AreaMapUI__Show, (app::AreaMapUI* this_ptr)) {
         AreaMapUI__Show(this_ptr);
         if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
         {
-            cached = this_ptr->_Navigation_k__BackingField;
+            cached = this_ptr->fields._Navigation_k__BackingField;
             register_input_callback(FOCUS_BUTTON, update_map_focus);
         }
     }
         
-    INTERCEPT(4839760, void, AreaMapUI__Hide, (AreaMapUI_o* this_ptr)) {
+    INTERCEPT(4839760, void, AreaMapUI__Hide, (app::AreaMapUI* this_ptr)) {
         AreaMapUI__Hide(this_ptr);
         if (cached != nullptr)
         {
@@ -85,9 +85,9 @@ namespace {
         }
     }
 
-    Quest_o* quest_cache;
+    app::Quest* quest_cache;
     bool disable_next_update_map_target = false;
-    INTERCEPT(5384784, void, AreaMapNavigation__SetTarget, (AreaMapNavigation_o* this_ptr, Quest_o* quest)) {
+    INTERCEPT(5384784, void, AreaMapNavigation__SetTarget, (app::AreaMapNavigation* this_ptr, app::Quest* quest)) {
         if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
         {
             quest_cache = quest;
@@ -97,7 +97,7 @@ namespace {
             AreaMapNavigation__SetTarget(this_ptr, quest);
     }
 
-    INTERCEPT(5385552, void, AreaMapNavigation__UpdateMapTarget, (AreaMapNavigation_o* this_ptr)) {
+    INTERCEPT(5385552, void, AreaMapNavigation__UpdateMapTarget, (app::AreaMapNavigation* this_ptr)) {
         if (!disable_next_update_map_target)
             AreaMapNavigation__UpdateMapTarget(this_ptr);
 

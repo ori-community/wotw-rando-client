@@ -8,7 +8,7 @@
 
 BINDING(9970752, bool, SeinCharacter_get_Active, (int64_t)) //SeinCharacter$$get_Active - Also used by stuff like IsActive, or get_IsShopOpen. It's a magical binding
 BINDING(5047120, int64_t, WeaponmasterScreen_get_Instance, (int64_t)) //WeaponmasterScreen$$get_Instance
-BINDING(10013424, bool, GameController_get_GameInTitleScreen, (GameController_o*)) //GameController$$get_GameInTitleScreen
+BINDING(10013424, bool, GameController_get_GameInTitleScreen, (app::GameController*)) //GameController$$get_GameInTitleScreen
 
 BINDING(5042560, bool, WeaponmasterItem_get_IsLocked, (int64_t))       //WeaponmasterItem$$get_IsLocked
 BINDING(4151120, bool, WeaponmasterItem_get_IsVisible, (int64_t))      //WeaponmasterItem$$get_IsVisible
@@ -33,7 +33,7 @@ bool is_in_shop_screen(){
 	if(weaponmasterScreen && SeinCharacter_get_Active(weaponmasterScreen))
 		return true;
 
-    INLINE_STATIC_CLASS(71589120, SpiritShardsShopScreen_c*, shop_screen);
+    INLINE_STATIC_CLASS(71589120, app::SpiritShardsShopScreen__Class*, shop_screen);
 	if(shop_screen_is_valid())
 	{
 		const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
@@ -41,7 +41,7 @@ bool is_in_shop_screen(){
 			return true;
 	}
 
-    INLINE_STATIC_CLASS(71472816, MapmakerScreen_c*, mapmaker_screen);
+    INLINE_STATIC_CLASS(71472816, app::MapmakerScreen__Class*, mapmaker_screen);
     if (shop_screen_is_valid()) {
         const auto mapmakerScreen = mapmaker_screen->static_fields->Instance;
         if (mapmakerScreen && SeinCharacter_get_Active((int64_t)mapmakerScreen))
@@ -236,7 +236,7 @@ INTERCEPT(11448960, int64_t, SpellInventory_AddNewSpellToInventory, (int64_t inv
 	return result;
 }
 
-INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (Moon_SerializedByteUberState_o* this_ptr, unsigned char value)) {
+INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (app::SerializedByteUberState* this_ptr, unsigned char value)) {
     //Moon.SerializedByteUberState$$set_Value
     if (weaponmasterPurchaseInProgress)
         return;
@@ -273,23 +273,23 @@ INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (int64_t item, int64_t con
     weaponmasterPurchaseInProgress = false;
 }
 
-//MapmakerScreen_o* mapMakerPtr = nullptr;
+//MapmakerScreen* mapMakerPtr = nullptr;
 //bool pretendHandToHandNotCompleted = false;
 
-INTERCEPT(6951632, int32_t, MapmakerItem__GetCost, (MapmakerItem_o* this_ptr)) {
-    return csharp_bridge::lupo_upgrade_cost(this_ptr->UberState->UberIDOwnerSO_m_id->m_id);
+INTERCEPT(6951632, int32_t, MapmakerItem__GetCost, (app::MapmakerItem* this_ptr)) {
+    return csharp_bridge::lupo_upgrade_cost(this_ptr->fields.UberState->fields._.m_id->fields.m_id);
 }
 
 bool preventMapSafeguard = false;
 
-INTERCEPT(6954992, void, MapmakerScreen__Show, (MapmakerScreen_o* this_ptr)) {
+INTERCEPT(6954992, void, MapmakerScreen__Show, (app::MapmakerScreen* this_ptr)) {
     preventMapSafeguard = true;
     MapmakerScreen__Show(this_ptr);
     preventMapSafeguard = false;
 }
 
-INTERCEPT(27748336, bool, Moon_SerializedBooleanUberState__get_Value, (Moon_SerializedBooleanUberState_o* this_ptr)) {
-    if (preventMapSafeguard && this_ptr->UberIDOwnerSO_m_id->m_id == 35534)
+INTERCEPT(27748336, bool, Moon_SerializedBooleanUberState__get_Value, (app::SerializedBooleanUberState* this_ptr)) {
+    if (preventMapSafeguard && this_ptr->fields._.m_id->fields.m_id == 35534)
         return false;
 
     return Moon_SerializedBooleanUberState__get_Value(this_ptr);

@@ -9,4 +9,4 @@ void trace(MessageType type, int level, std::string const& group, std::string co
 // Network only
 void send_trace(MessageType type, int level, std::string const& group, std::string const& message);
 
-std::string convert_csstring(System_String_o* str);
+std::string convert_csstring(app::String* str);
