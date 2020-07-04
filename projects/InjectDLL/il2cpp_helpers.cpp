@@ -80,6 +80,12 @@ namespace il2cpp
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         Il2CppException* exc = nullptr;
         auto method_info = il2cpp_class_get_method_from_name(cast_obj->klass, method, params.size());
+        if (method_info == nullptr)
+        {
+            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method));
+            return nullptr;
+        }
+
         return il2cpp_runtime_invoke(method_info, cast_obj, params.data(), &exc);
     }
 
@@ -88,7 +94,19 @@ namespace il2cpp
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         Il2CppException* exc = nullptr;
         auto method_info = il2cpp_class_get_method_from_name(base, method, params.size());
+        if (method_info == nullptr)
+        {
+            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method));
+            return nullptr;
+        }
+
         auto virtual_method_info = il2cpp_object_get_virtual_method(cast_obj, method_info);
+        if (virtual_method_info == nullptr)
+        {
+            trace(MessageType::Error, 1, "il2cpp", format("failed to find virtual method '%s'", method));
+            return nullptr;
+        }
+
         return il2cpp_runtime_invoke(virtual_method_info, cast_obj, params.data(), &exc);
     }
 
