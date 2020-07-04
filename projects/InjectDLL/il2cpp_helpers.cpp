@@ -11,7 +11,12 @@ namespace il2cpp
     {
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
 
+        BINDING(37033312, void, UnityEngine_Object__Destroy, (app::Object* this_ptr));
+        BINDING(36928320, app::Component*, UnityEngine_GameObject__AddComponent, (app::GameObject* this_ptr, app::Type* componentType));
+        BINDING(4521104, app::GameObject*, UnityEngine_Component__get_gameObject, (app::Component* this_ptr));
         BINDING(37030288, app::String*, UnityEngine_Object__get_name, (app::Object* this_ptr));
+        BINDING(39804816, app::Type*, System_Type__GetType, (app::String* typeName));
+
         BINDING(2499936, Il2CppClass*, il2cpp_class_from_name, (Il2CppImage* image, const char* namespaze, const char* name));
         BINDING(2501792, Il2CppDomain*, il2cpp_domain_get, ());
         BINDING(2501856, Il2CppAssembly**, il2cpp_domain_get_assemblies, (Il2CppDomain* domain, size_t* size));
@@ -21,6 +26,36 @@ namespace il2cpp
         BINDING(2504800, MethodInfo*, il2cpp_object_get_virtual_method, (Il2CppObject* obj, const MethodInfo* method));
         BINDING(2505328, Il2CppObject*, il2cpp_runtime_invoke, (const MethodInfo* method, void* obj, void** params, Il2CppException** exc));
         BINDING(2506016, void*, il2cpp_thread_attach, (Il2CppDomain* domain));
+        BINDING(2505552, Il2CppString*, il2cpp_string_new_wrapper, (const char* str));
+        BINDING(2505664, Il2CppString*, il2cpp_string_new_len, (const char* str, uint32_t len));
+    }
+
+    namespace unity
+    {
+        void destroy_object(void* object)
+        {
+            UnityEngine_Object__Destroy(reinterpret_cast<app::Object*>(object));
+        }
+
+        app::GameObject* get_game_object(void* component)
+        {
+            return UnityEngine_Component__get_gameObject(reinterpret_cast<app::Component*>(component));
+        }
+
+        app::Component* add_component_untyped(app::GameObject* game_object, const char* full_name)
+        {
+            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(full_name));
+            auto runtime_type = System_Type__GetType(type_str);
+            return UnityEngine_GameObject__AddComponent(game_object, runtime_type);
+
+        }
+
+        std::string get_object_name(void* object)
+        {
+            auto cast_object = static_cast<app::Object*>(object);
+            auto csstr = UnityEngine_Object__get_name(cast_object);
+            return convert_csstring(csstr);
+        }
     }
 
     namespace untyped
@@ -68,11 +103,14 @@ namespace il2cpp
         }
     }
 
-    std::string get_unity_object_name(void* object)
+    Il2CppString* string_new(const char* str)
     {
-        auto cast_object = static_cast<app::Object*>(object);
-        auto csstr = UnityEngine_Object__get_name(cast_object);
-        return convert_csstring(csstr);
+        return il2cpp_string_new_wrapper(str);
+    }
+
+    Il2CppString* string_new(const char* str, uint32_t len)
+    {
+        return il2cpp_string_new_len(str, len);
     }
 
     Il2CppObject* invoke_v(void* obj, const char* method, std::vector<void*> params)
