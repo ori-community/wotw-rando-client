@@ -22,15 +22,8 @@ namespace il2cpp
 
     std::string get_unity_object_name(void* object);
 
-    Il2CppObject* invoke(void* obj, const char* method, std::vector<void*> params = {});
+    Il2CppObject* invoke_v(void* obj, const char* method, std::vector<void*> params = {});
     Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, const char* method, std::vector<void*> params = {});
-
-    template<typename Return, typename ...Args>
-    Return* invoke_virtual(void* obj, Il2CppClass* base, const char* method, Args ... params)
-    {
-        std::vector<void*> collected_params{ { reinterpret_cast<void*>(params)... } };
-        return reinterpret_cast<Return*>(invoke_virtual_v(obj, base, method, collected_params));
-    }
 
     Il2CppClass* get_class(const char* namezpace, const char* name);
     bool instance_of(void* obj, const char* namezpace, const char* name);
@@ -59,5 +52,19 @@ namespace il2cpp
     T* create_object(Il2CppClass* klass)
     {
         return reinterpret_cast<T*>(untyped::create_object(klass));
+    }
+
+    template<typename Return = Il2CppObject, typename ...Args>
+    Return* invoke(void* obj, const char* method, Args ... params)
+    {
+        std::vector<void*> collected_params{ { reinterpret_cast<void*>(params)... } };
+        return reinterpret_cast<Return*>(invoke_v(obj, method, collected_params));
+    }
+
+    template<typename Return = Il2CppObject, typename ...Args>
+    Return* invoke_virtual(void* obj, Il2CppClass* base, const char* method, Args ... params)
+    {
+        std::vector<void*> collected_params{ { reinterpret_cast<void*>(params)... } };
+        return reinterpret_cast<Return*>(invoke_virtual_v(obj, base, method, collected_params));
     }
 }

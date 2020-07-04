@@ -75,7 +75,7 @@ namespace il2cpp
         return convert_csstring(csstr);
     }
 
-    Il2CppObject* invoke(void* obj, const char* method, std::vector<void*> params)
+    Il2CppObject* invoke_v(void* obj, const char* method, std::vector<void*> params)
     {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         Il2CppException* exc = nullptr;
