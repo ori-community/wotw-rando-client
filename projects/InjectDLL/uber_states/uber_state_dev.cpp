@@ -1,6 +1,7 @@
 #include <interception_macros.h>
 #include <common.h>
 #include <dll_main.h>
+#include <il2cpp_helpers.h>
 #include <dev/dev_commands.h>
 #include <dev/object_visualizer.h>
 #include <Common/ext.h>
@@ -9,12 +10,12 @@
 
 namespace
 {
-    BINDING(27760400, Moon_IUberState_o*, Moon_UberStateCollection__GetState, (Moon_UberID_o* groupID, Moon_UberID_o* stateID));
-    BINDING(27775392, void, Moon_UberStateController__Apply, (Moon_IUberState_o* descriptor, int context));
-    BINDING(27776080, bool, Moon_UberStateController__ApplierIsAffectedByUberState, (Moon_IUberStateApplier_o* applier, Moon_IUberState_o* descriptor));
+    BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
+    BINDING(27775392, void, Moon_UberStateController__Apply, (app::IUberState* descriptor, int context));
+    BINDING(27776080, bool, Moon_UberStateController__ApplierIsAffectedByUberState, (app::IUberStateApplier* applier, app::IUberState* descriptor));
 
-    STATIC_CLASS(71605752, Moon_UberID_c*, uber_id_class);
-    STATIC_CLASS(71444600, Moon_UberStateController_c*, uber_state_controller);
+    STATIC_CLASS(71605752, app::UberID__Class*, uber_id_class);
+    STATIC_CLASS(71444600, app::UberStateController__Class*, uber_state_controller);
 
     STATIC_CLASS(71453760, Il2CppClass*, bool_uber_state);
     STATIC_CLASS(71829456, Il2CppClass*, byte_uber_state);
@@ -26,38 +27,42 @@ namespace
     STATIC_CLASS(71349376, Il2CppClass*, serialized_float_uber_state);
     STATIC_CLASS(71349576, Il2CppClass*, serialized_int_uber_state);
 
-    BINDING(27727008, void, Moon_BooleanUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(27728080, void, Moon_ByteUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(3006464, void, Moon_ConditionUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(27736384, void, Moon_FloatUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(27740144, void, Moon_IntUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(27748912, void, Moon_SerializedBooleanUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(27750768, void, Moon_SerializedByteUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(27752608, void, Moon_SerializedFloatUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
-    BINDING(27754240, void, Moon_SerializedIntUberState__set_GenericValue, (Moon_IUberState_o* this_ptr, float value));
+    BINDING(27727008, void, Moon_BooleanUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(27728080, void, Moon_ByteUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(3006464, void, Moon_ConditionUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(27736384, void, Moon_FloatUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(27740144, void, Moon_IntUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(27748912, void, Moon_SerializedBooleanUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(27750768, void, Moon_SerializedByteUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(27752608, void, Moon_SerializedFloatUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
+    BINDING(27754240, void, Moon_SerializedIntUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
 
-    std::array<std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>, 9> generic_sets;
+    std::array<std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>, 9> generic_sets;
 
     void initialize_generic_sets()
     {
         generic_sets = {
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ serialized_bool_uber_state, Moon_SerializedBooleanUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ serialized_byte_uber_state, Moon_SerializedByteUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ serialized_float_uber_state, Moon_SerializedFloatUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ serialized_int_uber_state, Moon_SerializedIntUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ bool_uber_state, Moon_BooleanUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ byte_uber_state, Moon_ByteUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ condition_uber_state, Moon_ConditionUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ float_uber_state, Moon_FloatUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(Moon_IUberState_o* this_ptr, float value)>{ int_uber_state, Moon_IntUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_bool_uber_state, Moon_SerializedBooleanUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_byte_uber_state, Moon_SerializedByteUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_float_uber_state, Moon_SerializedFloatUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_int_uber_state, Moon_SerializedIntUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ bool_uber_state, Moon_BooleanUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ byte_uber_state, Moon_ByteUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ condition_uber_state, Moon_ConditionUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ float_uber_state, Moon_FloatUberState__set_GenericValue },
+            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ int_uber_state, Moon_IntUberState__set_GenericValue },
         };
     }
 
     CALL_ON_INIT(initialize_generic_sets);
 
     // TODO: Figure out a way to resolve the vtable here by interface and use IGenericUberState.
-    bool set_uber_state(Moon_IUberState_o* uber_state, float value)
+    bool set_uber_state(app::IUberState* uber_state, float value)
     {
+        //auto actual_value = il2cpp::create_object<app::Single>("System", "Single");;
+        //actual_value->m_value = value;
+        //il2cpp::invoke_virtual(uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "set_GenericValue", { actual_value });
+        //return true;
         for (auto const& p : generic_sets)
         {
             auto klass = std::get<0>(p);
@@ -77,12 +82,12 @@ namespace
         return false;
     }
 
-    Moon_UberID_o create_id(int id)
+    app::UberID create_id(int id)
     {
-        Moon_UberID_o uber_id;
-        uber_id.m_id = id;
+        app::UberID uber_id;
         uber_id.monitor = nullptr;
         uber_id.klass = *uber_id_class;
+        uber_id.fields.m_id = id;
         return uber_id;
     }
 
@@ -204,9 +209,9 @@ namespace
 
         dev::Visualizer visualizer;
         auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
-        for (auto i = 0; i < list->_size; ++i)
+        for (auto i = 0; i < list->fields._size; ++i)
         {
-            auto item = list->_items->m_Items[i];
+            auto item = list->fields._items->vector[i];
             if (Moon_UberStateController__ApplierIsAffectedByUberState(item, uber_state))
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
@@ -224,9 +229,9 @@ namespace
 
         dev::Visualizer visualizer;
         auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
-        for (auto i = 0; i < list->_size; ++i)
+        for (auto i = 0; i < list->fields._size; ++i)
         {
-            auto item = list->_items->m_Items[i];
+            auto item = list->fields._items->vector[i];
             dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
 
