@@ -50,7 +50,7 @@ area Teleporters:
   conn WillowsEnd.InnerTP:
     base: WillowTP
 area MarshSpawn.Main:
-  refill Full: free
+  refill Full
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
   pickup MarshSpawn.PreLupoEX: free
@@ -90,7 +90,7 @@ area MarshSpawn.Main:
       Water, DoubleJump, Bash, Glide
       Water, Bash, Launch
 area MarshSpawn.BrokenBridge:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup MarshSpawn.ResilienceShard:
     base: Weapon
   pickup MarshSpawn.ResilienceOre:
@@ -100,7 +100,7 @@ area MarshSpawn.BrokenBridge:
   pickup MarshSpawn.LupoMap: free
   conn MarshSpawn.CaveEntrance: free
 area MarshSpawn.CaveEntrance:
-  refill Checkpoint: free
+  refill Checkpoint
   state MarshSpawn.KeystoneDoor:
     base: Keystone=2
   quest MarshSpawn.CaveKS:
@@ -149,7 +149,7 @@ area MarshSpawn.DenApproach:
   conn MarshSpawn.CaveEntrance:
     base: MarshSpawn.KeystoneDoor
 area MarshSpawn.PoolsBurrowsPath:
-  refill Checkpoint: free
+  refill Checkpoint
   quest MarshSpawn.CaveKS: free
   quest MarshSpawn.TheMissingKey:
     base: Unreachable
@@ -182,7 +182,7 @@ region MidnightBurrows:
   base:
     Danger=25
 area MidnightBurrows.Teleporter:
-  refill Full: free
+  refill Full
   pickup MidnightBurrows.LeftKS:
     base: DoubleJump OR Dash OR Glide OR Launch
     advanced: Damage=15
@@ -193,7 +193,7 @@ area MidnightBurrows.Teleporter:
   conn MidnightBurrows.Central:
     base: DoubleJump
 area MidnightBurrows.Central:
-  refill Checkpoint: free
+  refill Checkpoint
   quest MidnightBurrows.TabletQI:
     base, MidnightBurrows.KeystoneDoor:
       Bash, DoubleJump OR Dash OR Glide
@@ -227,7 +227,7 @@ area MidnightBurrows.Central:
       Bash, Grenade=3, DoubleJump OR Dash OR Glide
       Launch
 area MidnightBurrows.East:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup MidnightBurrows.RightKS: free
   pickup MidnightBurrows.UpperKS:
     base, EnemyObstacle:
@@ -261,7 +261,7 @@ area HowlsDen.Entrance:
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
-  pickup HowlsDen.EntranceEX: free
+  pickup HowlsDen.UpperEX: free
   pickup HowlsDen.RightHC:
     base: Weapon
   conn HowlsDen.BoneBridge: free
@@ -270,7 +270,7 @@ area HowlsDen.Entrance:
       DoubleJump OR Launch
       Bash, Grenade=1
 area HowlsDen.BoneBridge:
-  refill Checkpoint: free
+  refill Checkpoint
   state HowlsDen.KeystoneDoor:
     base: Keystone=2
   pickup HowlsDen.BoneOre:
@@ -292,7 +292,7 @@ area HowlsDen.BoneBridge:
       Dash, Bash, Grenade=1
       Launch
 area HowlsDen.Teleporter:
-  refill Full: free
+  refill Full
   pickup HowlsDen.AboveTPEX:
     base, Weapon:
       DoubleJump OR Launch
@@ -311,7 +311,7 @@ area HowlsDen.Teleporter:
   conn HowlsDen.DoubleJumpTreeArea:
     base: Weapon OR DoubleJump OR Dash OR Glide OR Launch
 area DenShrine:
-  refill Full: free
+  refill Full
   pickup HowlsDen.CombatShrine:
     base, Combat, RangedWeapon OR DoubleJump OR Bash OR Launch:
       Danger=60
@@ -330,7 +330,7 @@ area HowlsDen.DoubleJumpTreeArea:
       Bash, Grenade=2, Dash OR Glide
       Launch
 area MarshPastOpher.MillView:
-  refill Checkpoint: free
+  refill Checkpoint
   state MarshPastOpher.TrialActivation:
     base: Weapon, Grapple, Dash OR Glide OR Launch
   pickup MarshPastOpher.TrialOre:
@@ -368,7 +368,7 @@ area MarshPastOpher.MillView:
       Bash, Grenade=3
     advanced: Sword OR Hammer
 area MarshShrine:
-  refill Full: free
+  refill Full
   pickup MarshPastOpher.CombatShrine:
     base: Combat, Danger=20, RangedWeapon OR DoubleJump OR Bash OR Launch
 area MarshPastOpher.BowArea:
@@ -403,7 +403,7 @@ area MarshPastOpher.BowArea:
       Bash, Glide
   conn TwillenShop: free
 area MarshPastOpher.PoolsPathEast:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1:
     base: EnemyObstacle
   refill Energy=3:
@@ -427,7 +427,7 @@ area MarshPastOpher.PoolsPathEast:
       Hammer, Sword, Bash
   conn MarshPastOpher.MillView: free
 area MarshPastOpher.PoolsPathWest:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup MarshPastOpher.PoolsPathEX: free
   pickup MarshPastOpher.PoolsPathEC:
     base:
@@ -509,7 +509,7 @@ area WestHollow.HollowDrainUpper:
   conn EastHollow.Teleporter:
     base: WestHollow.PurpleDoorOpen
 area WestHollow.HollowDrainLower:
-  refill Checkpoint: free
+  refill Checkpoint
   state WestHollow.TrialActivation:
     base, EnemyObstacle:
       DoubleJump OR Dash OR Launch
@@ -536,7 +536,7 @@ area WestHollow.HollowDrainLower:
   conn WestHollow.DashArea:
     base: WestHollow.DoorLever, EnemyObstacle OR DoubleJump
 area WestHollow.DashArea:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup WestHollow.DashTree: free
   pickup WestHollow.CrusherEX:
     base: Dash
@@ -559,7 +559,7 @@ region EastHollow:
   base:
     Danger=20
 area EastHollow.Teleporter:
-  refill Full: free
+  refill Full
   conn Teleporters: free
   conn BeetleFight: free
   conn WestHollow.HollowDrainUpper:
@@ -567,12 +567,12 @@ area EastHollow.Teleporter:
   conn EastHollow.AboveBash:
     base: EnemyObstacle, EastHollow.BeetleDefeated
 area BeetleFight:
-  refill Full: free
+  refill Full
   state EastHollow.BeetleDefeated:
     base: Combat, Danger=35, Dash
     advanced: Combat
 area EastHollow.AboveBash:
-  refill Checkpoint: free
+  refill Checkpoint
   conn BeetleFight: free
   state EastHollow.MouldwoodLever:
     base: 
@@ -630,7 +630,7 @@ area EastHollow.AboveBash:
       Launch, DoubleJump, Dash OR Glide
       Launch, Dash, Glide
 area EastHollow.Kwolok:
-  refill Checkpoint: free
+  refill Checkpoint
   state EastHollow.Voice: free
   quest EastHollow.KwoloksWisdom:
     base: EastPools.KwoloksWisdomAmulet, WestPools.ForestsStrength
@@ -656,7 +656,7 @@ area EastHollow.Kwolok:
       Water, Grapple, DoubleJump, Dash OR Glide
       Water, Grapple, Dash, Glide
 area EastHollow.AboveDepths:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup EastHollow.BashHC:
     base: Bash OR Launch
   pickup EastHollow.SplinterShard:
@@ -676,7 +676,7 @@ area EastHollow.AboveDepths:
   conn UpperDepths.Entry:
     base: Glide
 area GladesTown.Teleporter:
-  refill Full: free
+  refill Full
   state GladesTown.BuildHuts:
     base: Ore=15
   state GladesTown.RoofsOverHeads:
@@ -817,7 +817,7 @@ area GladesTown.Teleporter:
       Flap, Glide
       Bash, Grenade=1
 area GladesTown.West:
-  refill Checkpoint: free
+  refill Checkpoint
   quest GladesTown.HandToHandCanteen:
     base: EastPools.HandToHandSpyglass
   quest GladesTown.HandToHandLantern:
@@ -910,7 +910,7 @@ area GladesTown.HoleHut:
       TuleyShop.SpringPlants OR DoubleJump OR Dash OR Launch
       Bash, Grenade=1
 area GladesTown.ReachPath:
-  refill Checkpoint: free
+  refill Checkpoint
   quest GladesTown.HandToHandSoup:
     base: InnerWellspring.HandToHandHerbs
   pickup GladesTown.LeafPileEX:
@@ -938,7 +938,7 @@ region WestGlades:
   base:
     Danger=20
 area WestGlades.Lower:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base, Weapon:
       DoubleJump, Dash OR Glide
@@ -975,7 +975,7 @@ area WestGlades.Lower:
       DoubleJump, Dash, Glide
       Launch
 area WestGlades.Upper:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   state LowerReach.BearSneezed:
     base: Flap
@@ -1002,7 +1002,7 @@ area WestGlades.Upper:
       Water, WaterDash
       Launch
 area WestGlades.MillApproach:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   pickup WestGlades.ShrineHC:
     base:
@@ -1035,14 +1035,14 @@ area WestGlades.MillApproach:
       Water, Launch, Grapple
       Water, Launch, DoubleJump, Dash
 area GladesShrine:
-  refill Full: free
+  refill Full
   pickup WestGlades.CombatShrine:
     base, Combat, RangedWeapon OR Bash:
       Danger=65
       Danger=55, DoubleJump OR Dash
       Danger=30, Launch
 area PoolsApproach.MillPath:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup PoolsApproach.MillPathEX:
     base:
       DoubleJump, Dash, RangedWeapon OR Bash
@@ -1066,7 +1066,7 @@ region OuterWellspring:
   base:
     Danger=25
 area OuterWellspring.EntranceDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   state OuterWellspring.EntranceDoorOpen:
     base, Weapon:
       DoubleJump, Dash OR Glide
@@ -1127,7 +1127,7 @@ area OuterWellspring.EntranceDoor:
       Launch
       Water
 area OuterWellspring.WestDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   state OuterWellspring.LeftWallWheelFree:
     base: Weapon, DoubleJump OR Dash OR Glide OR Launch
   state OuterWellspring.WestDoorBlueMoonFree:
@@ -1147,7 +1147,7 @@ area OuterWellspring.WestDoor:
       Launch, Grapple
   conn OuterWellspring.EntranceDoor: free
 area OuterWellspring.EastDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   state OuterWellspring.WestDoorBlueMoonFree:
     base, Weapon:
       Grapple, InnerWellspring.TopDoorOpen OR DoubleJump OR Dash OR Glide
@@ -1210,7 +1210,7 @@ region InnerWellspring:
   base:
     Danger=25
 area InnerWellspring.EntranceDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
   state InnerWellspring.ShortCutWheel:
@@ -1267,7 +1267,7 @@ area InnerWellspring.EntranceDoor:
       Grapple, Dash, Glide
       Launch
 area InnerWellspring.BelowDrainLever:
-  refill Checkpoint: free
+  refill Checkpoint
   state InnerWellspring.UpperCorruption:
     base, Weapon:
       DoubleJump, Dash OR Glide
@@ -1301,7 +1301,7 @@ area InnerWellspring.BelowDrainLever:
       DoubleJump, Dash
       Grapple OR Glide OR Launch
 area InnerWellspring.WestDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=2: free
   refill Energy=3:
     base: Weapon
@@ -1330,7 +1330,7 @@ area InnerWellspring.WestDoor:
     base: InnerWellspring.MiddleDoorsOpen
   conn InnerWellspring.BelowDrainLever: free
 area InnerWellspring.EastDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   refill Energy=4:
     base: Weapon
@@ -1365,7 +1365,7 @@ area InnerWellspring.EastDoor:
   pickup InnerWellspring.RotateRoomOre:
     base: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
 area InnerWellspring.Teleporter:
-  refill Full: free
+  refill Full
   quest InnerWellspring.BlueMoonSeed:
     base:
       DoubleJump, Dash
@@ -1397,7 +1397,7 @@ area InnerWellspring.Teleporter:
   conn OuterWellspring.TopDoor: free
   conn OpherShop: free
 area InnerWellspring.WaterEscape:
-  refill Full: free
+  refill Full
   state InnerWellspring.EscapeComplete:
     base:
       Bash, Grapple, DoubleJump, Dash OR Glide
@@ -1473,7 +1473,7 @@ region EastPools:
   base:
     Danger=40, Regenerate
 area EastPools.Entry:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   pickup EastPools.TwoCrushersEX:
     base: Water, WaterDash
@@ -1489,7 +1489,7 @@ area EastPools.Entry:
       DoubleJump, Dash, Launch
       Bash, Grenade=1, Launch, DoubleJump OR Dash
 area EastPools.LeverRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   state EastPools.EntryLever:
     base, EnemyObstacle:
       DoubleJump, Dash OR Glide
@@ -1528,7 +1528,7 @@ area EastPools.LeverRoom:
       Launch
   conn EastPools.Entry: free
 area EastPools.TPArea:
-  refill Checkpoint: free
+  refill Checkpoint
   state EastPools.BelowTokkBubbleFree:
     base:
       Water, Bash
@@ -1600,7 +1600,7 @@ area EastPools.TPArea:
       Water, Bash, DoubleJump, Dash OR Glide
       Water, Bash, Launch
 area EastPools.Teleporter:
-  refill Full: free
+  refill Full
   state EastPools.LowerWaterDrained: free
   conn Teleporters: free
   conn EastPools.TPArea: free
@@ -1608,7 +1608,7 @@ region UpperPools:
   base:
     Danger=40, Regenerate
 area UpperPools.KeystoneRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
   state UpperPools.KeystoneRoomBubbleFree:
@@ -1666,7 +1666,7 @@ area UpperPools.BeforeKeystoneDoor:
       DoubleJump, Bash, Grenade=1
       Launch
 area UpperPools.TreeArea:
-  refill Checkpoint: free
+  refill Checkpoint
   state UpperPools.UpperWaterDrained:
     base:
       Water, WaterDash, Grapple, DoubleJump OR Launch
@@ -1703,7 +1703,7 @@ area UpperPools.TreeArea:
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Launch
 area UpperPools.BubbleSpamRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup UpperPools.FishPoolEX:
     base: Water, Bash OR WaterDash OR Danger=10
   pickup UpperPools.FishPoolOre:
@@ -1730,7 +1730,7 @@ region WestPools:
   base:
     Danger=40, Regenerate
 area WestPools:
-  refill Full: free
+  refill Full
   quest EastPools.GrassSeed:
     base: Water, WaterDash
   pickup WestPools.TpEX:
@@ -1755,14 +1755,14 @@ area WestPools:
       WestPools.ForestsStrength, Water, WaterDash, DoubleJump
       WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
 area KwolokFight:
-  refill Full: free
+  refill Full
   quest WestPools.ForestsStrength:
     base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
 region WoodsEntry:
   base:
     Danger=40, Regenerate
 area WoodsEntry.ShriekMeet:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup WoodsEntry.MudPitEX:
     base:
       DoubleJump OR Dash OR Glide OR Launch
@@ -1772,7 +1772,7 @@ area WoodsEntry.ShriekMeet:
       Danger=10, DoubleJump OR Dash OR Glide OR Launch
       Bash, DoubleJump OR Dash OR Glide OR Launch
 area WoodsEntry.BelowTeleporter:
-  refill Checkpoint: free
+  refill Checkpoint
   conn WoodsEntry.ShriekMeet:
     base, RangedWeapon:
       DoubleJump, Dash OR Glide
@@ -1785,7 +1785,7 @@ area WoodsEntry.BelowTeleporter:
   conn WoodsEntry.TwoKeystoneRoom:
     base: RangedWeapon, DoubleJump OR Dash OR Glide OR Launch
 area WoodsEntry.Teleporter:
-  refill Full: free
+  refill Full
   state WoodsEntry.LastTreeBranch: free
   quest WoodsEntry.DollQI:
     base: GladesTown.FamilyReunionKey
@@ -1803,7 +1803,7 @@ area WoodsEntry.Teleporter:
   conn WoodsEntry.ShriekMeet: free
   conn WoodsEntry.BelowTeleporter: free
 area WoodsEntry.TwoKeystoneRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   state WoodsEntry.KeystoneDoor:
     base: Keystone=2
   pickup WoodsEntry.LowerKS:
@@ -1854,7 +1854,7 @@ area WoodsMain.FourKeystoneRoom:
       Bash, Dash OR Grenade=1
   conn WoodsMain.BelowFourKeystoneRoom: free
 area WoodsMain.BeforeKeystoneDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   state WoodsMain.KeystoneDoor:
     base: Keystone=4
   pickup WoodsMain.UpperKS:
@@ -1872,7 +1872,7 @@ area WoodsMain.BeforeKeystoneDoor:
     base: WoodsMain.KeystoneDoor
   conn WoodsMain.FourKeystoneRoom: free
 area WoodsMain.GiantSkull:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup WoodsMain.UpperLeafPileEX:
     base: Flap
   pickup WoodsMain.BehindDoorRoofEX:
@@ -1927,7 +1927,7 @@ area WoodsMain.AboveHowl:
       Bash, Grenade=1
   conn WoodsMain.PetrifiedHowl: free
 area WoodsMain.Teleporter:
-  refill Full: free
+  refill Full
   conn Teleporters: free
   conn WoodsMain.FeedingGrounds:
     base:
@@ -1939,7 +1939,7 @@ area WoodsMain.Teleporter:
       DoubleJump, Glide, Bash, Grenade=1
       DoubleJump, Bash, Launch
 area WoodsMain.FeedingGrounds:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup WoodsMain.ShrineEX:
     base: 
       Glide OR Launch
@@ -1970,7 +1970,7 @@ region LowerReach:
   base:
     Danger=40, Regenerate
 area LowerReach.Entry:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   state LowerReach.BearSneezed:
     base: Flap
@@ -2041,7 +2041,7 @@ area LowerReach.Entry:
   conn WestGlades.Upper:
     base: LowerReach.BearSneezed
 area LowerReach.Central:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup LowerReach.AboveDoorEX:
     base:
       LowerReach.CentralFurnace:
@@ -2102,7 +2102,7 @@ area LowerReach.Lower:
       DoubleJump, Dash, Bash, Grenade=2, Glide
       Glide, Launch
 area LowerReach.OutsideTPRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   refill Energy=3:
     base: Weapon
@@ -2129,7 +2129,7 @@ area LowerReach.OutsideTPRoom:
       DoubleJump, Bash, Grenade=2
       Launch
 area LowerReach.Teleporter:
-  refill Full: free
+  refill Full
   state LowerReach.TPIceMelted:
     base: Grenade=1
   conn Teleporters: free
@@ -2143,7 +2143,7 @@ region UpperReach:
   base:
     Danger=40, Regenerate
 area UpperReach.KeystoneRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   state UpperReach.KeystoneDoor:
     base, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
@@ -2251,7 +2251,7 @@ area UpperReach.TreeRoom:
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Water
 area LowerReach.East:
-  refill Checkpoint: free
+  refill Checkpoint
   state LowerReach.TeleporterLantern:
     base: Grenade=1
   state LowerReach.RolledSnowball:
@@ -2298,7 +2298,7 @@ area LowerReach.East:
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 area LowerReach.Trial:
-  refill Checkpoint: free
+  refill Checkpoint
   state LowerReach.KeystoneDoor:
     base: Keystone=4
   state LowerReach.TrialActivation:
@@ -2331,7 +2331,7 @@ area LowerReach.Trial:
   conn GladesTown.ReachPath:
     base: Glide
 area LowerReach.SnowEscape:
-  refill Full: free
+  refill Full
   quest LowerReach.ForestsMemory:
     base, LowerReach.ArenaBeaten:
       Dash, Bash, Grapple, Glide, Water OR DoubleJump
@@ -2355,7 +2355,7 @@ area UpperDepths.Entry:
   conn UpperDepths.FirstKSRoom:
     base: EnemyObstacle, Glide
 area UpperDepths.FirstKSRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
   state UpperDepths.EntryKeystoneDoor:
@@ -2397,7 +2397,7 @@ area UpperDepths.FirstKSRoom:
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
 area UpperDepths.BelowHive:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon, DoubleJump OR Launch
   pickup UpperDepths.HiveEX:
@@ -2415,7 +2415,7 @@ area UpperDepths.BelowHive:
   conn UpperDepths.Central:
     base: DepthsLight
 area UpperDepths.Teleporter:
-  refill Full: free
+  refill Full
   pickup UpperDepths.TeleporterEX: free
   conn Teleporters: free
   conn UpperDepths.BelowHive:
@@ -2428,7 +2428,7 @@ area UpperDepths.Teleporter:
       RangedWeapon, DoubleJump OR Dash OR Glide OR Launch
       Weapon, Launch
 area UpperDepths.SecondKSRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   state UpperDepths.CentralKeystoneDoor:
     base: Keystone=2
   quest UpperDepths.LightcatcherSeed:
@@ -2467,13 +2467,13 @@ area UpperDepths.SecondKSRoom:
       DepthsLight, DoubleJump, Dash, Grapple
       DepthsLight, Launch
 area MoraFight:
-  refill Full: free
+  refill Full
   quest UpperDepths.ForestsEyes:
     base, Combat, Danger=95:
       DepthsLight, Bash, Grapple, DoubleJump OR Dash
       DepthsLight, Bash, Grapple, Launch
 area UpperDepths.Central:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup LowerDepths.BelowDoorOre:
     base: DepthsLight
   pickup LowerDepths.LeftEX:
@@ -2504,7 +2504,7 @@ region LowerDepths:
   base:
     Danger=40, Regenerate
 area LowerDepths.West:
-  refill Checkpoint: free
+  refill Checkpoint
   quest LowerDepths.HandToHandSilk:
     base: GladesTown.HandToHandLantern
   pickup LowerDepths.SwimEC:
@@ -2515,14 +2515,14 @@ area LowerDepths.West:
       DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
       DepthsLight, Water, Launch
 area DepthsShrine:
-  refill Full: free
+  refill Full
   pickup LowerDepths.CombatShrine:
     base, Combat, RangedWeapon OR Bash:
       Danger=65
       Danger=60, DoubleJump OR Dash
       Danger=50, Launch
 area LowerDepths.Central:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup LowerDepths.RaceStartHC:
     base:
       DoubleJump, Grapple, Dash OR DepthsLight
@@ -2532,7 +2532,7 @@ area LowerDepths.Central:
       Bash, DoubleJump, Dash OR Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
 area LowerDepths.East:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
   state LowerDepths.TrialActivation:
@@ -2576,7 +2576,7 @@ region LowerWastes:
   base:
     Danger=50, Regenerate
 area LowerWastes.WestTP:
-  refill Full: free
+  refill Full
   pickup LowerWastes.WestTPOre:
     base: Burrow
   pickup WoodsMain.FeedingGroundsEX:
@@ -2597,7 +2597,7 @@ area LowerWastes.WestTP:
       Burrow, DoubleJump, Bash, Grenade=1, Grapple
       Burrow, Launch
 area LowerWastes.SunsetView:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup LowerWastes.SunsetViewEX: free
   pickup LowerWastes.PurpleWallEX:
     base: Burrow, Bash
@@ -2621,7 +2621,7 @@ area LowerWastes.Shovel:
       Hammer OR DoubleJump OR Burrow OR Launch
       Bash, Grenade=1
 area LowerWastes.SandPot:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup LowerWastes.MuncherTunnelEC:
     base: Burrow
   pickup LowerWastes.SandPotHC:
@@ -2645,7 +2645,7 @@ area LowerWastes.SandPot:
       Bash, Grenade=2, DoubleJump OR Glide
       Launch
 area LowerWastes.WoodenBridge:
-  refill Checkpoint: free
+  refill Checkpoint
   pickup LowerWastes.SandPotEX:
     base:
       Burrow, Grapple, DoubleJump OR Glide
@@ -2669,7 +2669,7 @@ area LowerWastes.WoodenBridge:
       Burrow
       Launch
 area LowerWastes.LeverArea:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
   state LowerWastes.SandPlatformLever:
@@ -2728,7 +2728,7 @@ area LowerWastes.MinesEntrance:
   conn WindtornRuins.LowerRuins:
     base: WindtornRuins.LowerEntrance, Burrow
 area LowerWastes.TreeArea:
-  refill Checkpoint: free
+  refill Checkpoint
   state LowerWastes.TrialActivation:
     base:
       Burrow, DoubleJump OR Dash OR Glide
@@ -2786,7 +2786,7 @@ area LowerWastes.UpperPath:
       Burrow, DoubleJump OR Dash OR Launch
       Burrow, Bash, Grenade=1
 area LowerWastes.EastTP:
-  refill Full: free
+  refill Full
   refill Health=1:
     base: Burrow OR Launch
   refill Energy=3:
@@ -2809,7 +2809,7 @@ region UpperWastes:
   base:
     Danger=50, Regenerate
 area UpperWastes.KeystoneRoom:
-  refill Checkpoint: free
+  refill Checkpoint
   state UpperWastes.KeystoneDoor:
     base, Keystone=2:
       Burrow, DoubleJump OR Dash OR Glide
@@ -2834,7 +2834,7 @@ area UpperWastes.KeystoneRoom:
   conn UpperWastes.MissilePuzzleLeft:
     base: UpperWastes.KeystoneDoor, Burrow, DoubleJump OR Dash OR Glide OR Launch
 area UpperWastes.MissilePuzzleLeft:
-  refill Checkpoint: free
+  refill Checkpoint
   state UpperWastes.MissilePuzzleLever:
     base: Bash, Burrow
   pickup UpperWastes.LedgeEC:
@@ -2869,7 +2869,7 @@ area UpperWastes.MissilePuzzleRight:
       Burrow, DoubleJump, Dash
       Burrow, Launch
 area UpperWastes.NorthTP:
-  refill Full: free
+  refill Full
   conn Teleporters: free
   conn UpperWastes.RuinsApproach: free
 area UpperWastes.RuinsApproach:
@@ -2906,7 +2906,7 @@ area UpperWastes.RuinsApproach:
       Burrow, Bash, DoubleJump, Dash OR Glide
       Burrow, Bash, Dash, Glide
 area WindtornRuins.UpperRuinsDoor:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
   state WindtornRuins.RuinsLever:
@@ -2933,7 +2933,7 @@ area WindtornRuins.UpperRuinsDoor:
   conn WindtornRuins.LowerRuins:
     base: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.Seir, Burrow
 area WindtornRuins.RuinsTP:
-  refill Full: free
+  refill Full
   state WindtornRuins.HeartBarrier:
     base: Weapon
   conn Teleporters: free
@@ -2951,7 +2951,7 @@ area WindtornRuins.RuinsTP:
       Weapon, Burrow, Bash, Grenade=1
       Weapon, Glide
 area WindtornRuins.Escape:
-  refill Full: free
+  refill Full
   quest WindtornRuins.Seir:
     base, WindtornRuins.HeartBarrier:
       Burrow, Dash, Grapple, DoubleJump OR Glide
@@ -2978,13 +2978,13 @@ region WeepingRidge:
   base:
     Danger=60, Regenerate
 area WeepingRidge.Bottom:
-  refill Checkpoint: free
+  refill Checkpoint
   state WeepingRidge.ElevatorFightCompleted:
     base: Combat, ShieldEnemy, Dash OR Bash
   conn WeepingRidge.LaunchArea:
     base: WeepingRidge.ElevatorFightCompleted
 area WeepingRidge.LaunchArea:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   pickup WeepingRidge.LaunchTree:
     base:
@@ -3018,7 +3018,7 @@ region WillowsEnd:
   base:
     Danger=60, Regenerate
 area WillowsEnd.Entry:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=4:
     base: Weapon, Launch
   state WillowsEnd.TrapHeart:
@@ -3045,7 +3045,7 @@ area WillowsEnd.Entry:
     base:
       Launch, Bash, DoubleJump OR Dash OR Glide
 area WillowsEnd.InnerTP:
-  refill Full: free
+  refill Full
   pickup WillowsEnd.LupoMap:
     base:
       DoubleJump OR Dash OR Launch OR RangedWeapon
@@ -3074,7 +3074,7 @@ area WillowsEnd.East:
   conn WillowsEnd.Upper:
     base: Bash, Launch
 area WillowsEnd.West:
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=4:
     base: Weapon
   state WillowsEnd.SpinLasersHeart:
@@ -3090,7 +3090,7 @@ area WillowsEnd.West:
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
 area WillowsEnd.Upper:
-  refill Checkpoint: free
+  refill Checkpoint
   state WillowsEnd.BurrowHeart:
     base, Weapon:
       Burrow, DoubleJump, Dash, Bash, Grapple, Glide
@@ -3114,11 +3114,11 @@ area WillowsEnd.Upper:
   conn WillowsEnd.West:
     base: Launch
 area LaserRockFight:
-  refill Full: free
+  refill Full
   state WillowsEnd.ElementalDefeated:
     base: Combat, Danger=85, Bash, Launch
 area WillowsEnd.OuterTP:
-  refill Full: free
+  refill Full
   conn Teleporters: free
   conn WillowsEnd.Upper: free
 area TwillenShop:

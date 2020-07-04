@@ -213,6 +213,10 @@ package SeedGenerator {
 
   case class Orbs(health: Int, energy: Int) {
     def max(other: Orbs): Orbs = Orbs(Math.max(this.health, other.health), Math.max(this.energy, other.energy))
+    def min(other: Orbs): Orbs = Orbs(Math.min(this.health, other.health), Math.min(this.energy, other.energy))
+    def +(other: Orbs): Orbs = Orbs(health+other.health, energy + other.energy)
+    def -(other: Orbs): Orbs = Orbs(health - other.health, energy - other.energy)
+    def value: Int = health + 3*energy // subject to change
   }
 
   // extending hashset instead of encapsulating it here was pure folly, tbh

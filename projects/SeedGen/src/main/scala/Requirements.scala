@@ -1,6 +1,4 @@
-import scala.collection.mutable.{Map => MMap}
-
-
+import scala.math.Ordering.Double.TotalOrdering
 package SeedGenerator {
   import SeedGenerator.implicits._
   trait Requirement {
@@ -10,26 +8,12 @@ package SeedGenerator {
       remaining(state, unaffordable, space)
       .minByOption(_.cost)
       .getOrElse(GameState.mk(Unobtainium))}
-    def orbsUsed(state: GameState): Orbs = Orbs(0, 0)
+    def orbsUsed(state: GameState = GameState.Empty): Orbs = Orbs(0, 0)
     def and(that: Requirement): Requirement = AllReqs(this, that)
     def or(that: Requirement): Requirement = AnyReq(this, that)
     def substitute(orig: Requirement, repl: Requirement): Requirement = if(this == orig) repl else this
     def children = Seq(this)
   }
-/*  object RemainDP {
-    var state: GameState = GameState.Empty
-    var unaffordable: Set[FlagState] = Set()
-    var flagCosts: Map[FlagState, GameState] = Map()
-    var space: Int = 999
-    def setState(newState: GameState, _unaffordable: Set[FlagState], _flagCosts: Map[FlagState, GameState], _space: Int): Unit = if(state != newState) {
-      state = newState
-      unaffordable = _unaffordable
-      space = _space
-      table.clear()
-    }
-
-    val table: MMap[Requirement, Seq[GameState]] = MMap[Requirement, Seq[GameState]]()
-  }*/
 
   trait MultiReq extends Requirement {
     val reqs: Seq[Requirement]
@@ -153,7 +137,7 @@ package SeedGenerator {
 //      case AnyReq(kids)  =>
 //        val overlap = reqs.toSet.union(kids.toSet)
 //        if(overlap.isEmpty)
-//          AllReqs(this, that)
+//          AllReqs(this, that)i
 //        else
 //          AllReqs((overlap + AnyReq(reqs.filterNot(overlap.contains))+ AnyReq(kids.filterNot(overlap.contains))).toSeq)
 ////      case r: AllReqs => AnyReq(reqs.map(k => k and r))
@@ -161,6 +145,7 @@ package SeedGenerator {
 //    }
     override def toString: String = s"(${reqs.mkString(" || ")})"
     override def metBy(state: GameState): Boolean = reqs.exists(_.metBy(state))
+    override def orbsUsed(state: GameState): Orbs = reqs.filter(_.metBy(state)).map(_.orbsUsed(state)).minBy(_.value)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = reqs flatMap (_.remaining(state, unaffordable: Set[FlagState], space: Int))
     override def cheapestRemaining(state: GameState, unaffordable: Set[FlagState], space: Int): GameState = {
       var cheapest = GameState.mk(Unobtainium)
@@ -177,8 +162,8 @@ package SeedGenerator {
 
   object AnyReq {
     def apply(req0: Requirement, reqsRaw: Requirement*): Requirement = apply(req0 +: reqsRaw)
-    def apply(reqsRaw: Seq[Requirement]): Requirement = {
-      val reqs: Seq[Requirement] = reqsRaw.filter(_.cheapestRemaining().cost < Double.PositiveInfinity).distinct
+    def apply(reqsRaw: Seq[Requirement]): Requirement = Timer("OrConst"){
+      val reqs: Seq[Requirement] = reqsRaw.filter(_.cheapestRemaining().cost < Double.PositiveInfinity).distinct//.sortByConsumption
       //      if (reqs.length < reqsRaw.length) reqsRaw.collect({ case r if !reqs.contains(r) && r != Invalid => println(s"Excluding $r") })
       reqs match {
         case Nil => Invalid
@@ -198,31 +183,32 @@ package SeedGenerator {
 
   class AllReqs(val reqs: Requirement*) extends Requirement with MultiReq {
     override def builder(parts: Seq[Requirement]): Requirement = AnyReq(parts)
-      override def equals(obj: Any): Boolean = obj match  {
-        case AllReqs(otherReqs) => reqs.toSet == otherReqs.toSet
-        case _ => false
-      }
-      override def and(that: Requirement): Requirement = that match {
-        case AllReqs(kids) => AllReqs(reqs ++ kids)
-        //      case AnyReq(kids) => AnyReq(kids.map(k => this and k))
-        case r => AllReqs(reqs :+ r )
-      }
-      override def or (other: Requirement): Requirement = other match {
-        case r:AllReqs if r.reqs.toSet == reqs.toSet => r
-        case req => AnyReq(req, this)
-      }
-      override def toString: String = s"(${reqs.mkString(" && ")})"
-      def metBy(state: GameState): Boolean = reqs.forall(_.metBy(state))
-      def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
-        if (metBy(state))
-          return Seq(GameState.Empty)
-      var mergedInv = GameState.Empty
-      for(req <- reqs)  {
-        mergedInv = mergedInv + req.cheapestRemaining(state + mergedInv, unaffordable, space)
-        if(mergedInv.inv.has(Unobtainium) || mergedInv.inv.size > space  )
-          return Nil
-      }
-      Seq(mergedInv/*reqs.foldRight(GameState.Empty)((req, accInv) => accInv + req.cheapestRemaining(accInv + state))*/)
+    override def equals(obj: Any): Boolean = obj match  {
+      case AllReqs(otherReqs) => reqs.toSet == otherReqs.toSet
+      case _ => false
+    }
+    override def and(that: Requirement): Requirement = that match {
+      case AllReqs(kids) => AllReqs(reqs ++ kids)
+      //      case AnyReq(kids) => AnyReq(kids.map(k => this and k))
+      case r => AllReqs(reqs :+ r )
+    }
+    override def or (other: Requirement): Requirement = other match {
+      case r:AllReqs if r.reqs.toSet == reqs.toSet => r
+      case req => AnyReq(req, this)
+    }
+    override def toString: String = s"(${reqs.mkString(" && ")})"
+    def metBy(state: GameState): Boolean = reqs.forall(_.metBy(state))
+    override def orbsUsed(state: GameState): Orbs = reqs.map(_.orbsUsed(state)).fold(Orbs(0, 0))(_ + _)
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
+      if (metBy(state))
+        return Seq(GameState.Empty)
+    var mergedInv = GameState.Empty
+    for(req <- reqs)  {
+      mergedInv = mergedInv + req.cheapestRemaining(state + mergedInv, unaffordable, space)
+      if(mergedInv.inv.has(Unobtainium) || mergedInv.inv.size > space  )
+        return Nil
+    }
+    Seq(mergedInv/*reqs.foldRight(GameState.Empty)((req, accInv) => accInv + req.cheapestRemaining(accInv + state))*/)
       /*      if (orReqs.length > 1)
             others.foreach(req => {
               mergedInv = mergedInv + req.cheapestRemaining(mergedInv + state)
@@ -237,7 +223,7 @@ package SeedGenerator {
   }
   object AllReqs {
     def apply(req0: Requirement, reqsRaw: Requirement*): Requirement = apply(req0 +: reqsRaw)
-    def apply(reqsRaw: Seq[Requirement]): Requirement = reqsRaw.filterNot(_ == Free).distinct match {
+    def apply(reqsRaw: Seq[Requirement]): Requirement = Timer("AndConst"){reqsRaw.filterNot(_ == Free).distinct match {
       case Nil => Free
       case Seq(req) => req
       case reqs if reqs.contains(Invalid) => Invalid
@@ -248,8 +234,9 @@ package SeedGenerator {
         })
         new AllReqs(alls.flatMap(_.reqs) ++ others :_*)
       case reqs => new AllReqs(reqs:_*)
-    }
+    }}
     def unapply(arg: AllReqs): Option[Seq[Requirement]] = Some(arg.reqs)
   }
+
 
 }

@@ -5,7 +5,7 @@ import scala.language.implicitConversions
 import scala.math.Ordering.Double.TotalOrdering
 import scala.collection.parallel.CollectionConverters._
 import scala.io.Source
-import scala.util.{Random, Try}
+import scala.util.{Random, Try, Failure, Success}
 
 package SeedGenerator {
 
@@ -15,7 +15,7 @@ package SeedGenerator {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
     implicit class ReqOps(reqs: Seq[Requirement]) {
-      def sortByConsumption: Seq[Requirement] = reqs.sortBy(_.children.map(_.orbsUsed).map({case Orbs(h, e) => h  + 3*e}).sum)
+      def sortByConsumption: Seq[Requirement] = Timer("sort")(reqs.sortBy(_.children.map(_.orbsUsed()).map(_.value).sum))
     }
 
     // really, they're fine
@@ -27,7 +27,6 @@ package SeedGenerator {
   import SeedGenerator.implicits._
 
   import scala.language.postfixOps
-  import scala.util.{Failure, Success}
 
   case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
     val code = s"$uberGroupId|$uberId"
@@ -66,6 +65,52 @@ package SeedGenerator {
     }
     def byName: Map[String, LocData] = all.map(data => s"${data.area}.${data.name}" -> data).toMap
   }
+  trait Refiller {
+    def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs
+  }
+  trait Adder extends Refiller
+  trait Setter extends Refiller
+  case object Well extends Setter {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = inv.orbs // full refill
+  }
+  case object Checkpoint extends Setter  {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(
+      health = inv.orbs.health match { // Checkpoints are terrible; Math.floor((x/5)/0.6685+1)
+        case i if i < 45 => i
+        case i if i < 135 => 40
+        case i if i < 235 => Math.floor((i.toFloat/5)/0.6685+1).toInt
+        case _ => 70
+      },
+      energy = 10*(inv.orbs.energy / 50 + 1)).max(prior)
+  }
+  case class HealthPlants(count: Int = 1) extends Refiller with Adder {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(
+      health = Math.min(inv.orbs.health, prior.health + count * inv.orbs.health match { // Health plants drop more orbs if you have more health
+        case i if i < 45 => 10
+        case i if i < 80 => 20
+        case i if i < 105 => 30
+        case i if i < 140 => 40
+        case i if i < 165 => 50
+        case i if i < 200 => 60
+        case i if i < 225 => 70
+        case _ => 80
+      }),
+      energy = prior.energy)
+  }
+  case class EnergyCrystals(count: Int = 1) extends Refiller with Adder {
+    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(prior.health, Math.min(inv.orbs.energy, prior.energy + count*10))
+  }
+
+  case class RefillGroup(setter: Option[Setter], adders: Map[Requirement, Adder]) {
+    def apply(state: GameState, prior: Orbs = Orbs(0, 0)): Orbs = {
+      val set = setter.map(_.apply(state.inv, prior)).getOrElse(prior)
+      println(adders.collect{case (req, adder) if req.metBy(state) => adder(state.inv, req.orbsUsed(state)).max(Orbs(0, 0))})
+      if(set == state.inv.orbs)
+        set
+      else
+        adders.collect{case (req, adder) if req.metBy(state) => adder(state.inv, req.orbsUsed(state)).max(Orbs(0, 0))}.fold(set)(_ + _).min(state.inv.orbs)
+    }
+  }
 
   sealed trait NodeType
   case object AreaNode extends NodeType
@@ -75,8 +120,9 @@ package SeedGenerator {
   case object StateNode extends StateNodeType
   case object QuestNode extends ItemNodeType with StateNodeType
   trait Node {
+    def refill: Option[RefillGroup] = None
     def name: String
-    def reached(state: GameState, nodes: Map[String,Node] = Map()): GameState = {
+    def reached(state: GameState, orbs: Orbs): GameState = {
       state + GameState.mk(this)
     }
     def kind: NodeType
@@ -98,74 +144,39 @@ package SeedGenerator {
   }
 
   case class Placeholder(name: String, kind: NodeType = AreaNode) extends Node {
-    override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = nodes.get(name) match {
-        case Some(n: Node) if n.kind == kind => n.reached(state, nodes)
+    override def reached(state: GameState, orbs: Orbs): GameState = Nodes.areas.get(name) match {
+        case Some(n: Node) if n.kind == kind => n.reached(state, orbs)
         case Some(x) => UI.log(s"Warning: $x was of unexpected type!"); state
         case None =>UI.log(s"Warning: $name not in nodes!"); state
     }
     override def nearby(dist: Int = 3, ignore: Set[Node] = Set()): Map[Node, Set[Path]] = kind match {
       case AreaNode => Nodes.areas(name).nearby(dist, ignore)
       case _ => Map(this -> Set(EmptyPath(this)))
-
     }
   }
-  trait Refiller {
-    def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs
-  }
-  trait Additive extends Refiller
-  case object Well extends Refiller {
-    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = inv.orbs // full refill
-  }
-  case object Checkpoint extends Refiller {
-    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(
-      health = inv.orbs.health match { // Checkpoints are terrible; Math.floor((x/5)/0.6685+1)
-        case i if i < 45 => i
-        case i if i < 135 => 40
-        case i if i < 235 => Math.floor((i.toFloat/5)/0.6685+1).toInt
-        case _ => 70
-      },
-      energy = inv.orbs.energy match { // Checkpoints respawn you with 1 Energy + 1 per 5 water veins you have
-        case i if i < 55 => 1
-        case i if i < 105 => 2
-        case i if i < 155 => 3
-        case i if i < 205 => 4
-        case _ => 5
-      }).max(prior)
-  }
-  case class HealthPlants(count: Int = 1) extends Refiller with Additive {
-    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(
-      health = Math.max(inv.orbs.health, prior.health + count * inv.orbs.health match { // Health plants drop more orbs if you have more health
-        case i if i < 45 => 10
-        case i if i < 80 => 20
-        case i if i < 105 => 30
-        case i if i < 140 => 40
-        case i if i < 165 => 50
-        case i if i < 200 => 60
-        case i if i < 225 => 70
-        case _ => 80
-      }),
-      energy = prior.energy)
-  }
-  case class EnergyCrystals(count: Int = 1) extends Refiller with Additive {
-    override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)) = Orbs(prior.health, Math.max(inv.orbs.energy, prior.energy + count*10))
-  }
-
-  case class RefillGroup(refills: Map[Requirement, Seq[Refiller]])
-
-      case class Area(name: String, _conns: Seq[Connection] = Seq(), refillGroup: RefillGroup) extends Node {
-        // TODO: FIXME
-        val conns: Seq[Connection] = _conns.filter(_.reqs.nonEmpty)
-        override val kind: NodeType = AreaNode
-        override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = {
-          conns.foldLeft(super.reached(state, nodes))({
-            case (s, Connection(target, _)) if s.reached.contains(nodes.getOrElse(target.name, target)) => s
-            // TODO: FIXME
-            case (s, Connection(target, req)) if AnyReq(req).metBy(s)             => target.reached(s, nodes)
-            case (s, _)                                                   => s
-          })
+    case class Area(name: String, _conns: Seq[Connection] = Seq(), refillGroup: RefillGroup) extends Node {
+      override def refill: Option[RefillGroup] = Some(refillGroup)
+      // TODO: FIXME
+      val conns: Seq[Connection] = _conns.filter(_.reqs.nonEmpty)
+      override val kind: NodeType = AreaNode
+      override def reached(state: GameState, orbs: Orbs): GameState = {
+        val orbsAfter = refillGroup(state, orbs)
+        println(s"reached $name with $orbs, now $orbsAfter")
+        conns.foldLeft(super.reached(state, orbsAfter))({
+          case (s, Connection(target, _)) if s.reached.contains(Nodes.areas.getOrElse(target.name, target)) => s
+          // TODO: FIXME
+          case (s, Connection(target, reqs)) =>
+            val met = reqs.collect({case r if r.metBy(s) => r.orbsUsed(s)}).filter(o => orbsAfter.health > o.health && orbsAfter.energy > o.energy)
+            if(met.nonEmpty) {
+              println(s"Heading to ${target.name} with ${orbsAfter - met.minBy(_.value)} (paid ${met.minBy(_.value)})")
+              target.reached(s, orbsAfter - met.minBy(_.value))
+            } else
+              s
+          case (s, _) => s
+        })
     }
     //                                                              TODO: FIXME
-    def paths: Seq[Path] = conns.map(c => SimplePath(this, c.target, AnyReq(c.reqs)))
+    def paths: Seq[Path] = conns.map(c => SimplePath(this, c.target, c.reqs))
     override def nearby(dist: Int = 3, ignore: Set[Node] = Set()): Map[Node, Set[Path]] = dist match {
       case 0 => Map(this -> Set(EmptyPath(this)))
       case _ =>  paths.flatMap(path => path.dest match {
@@ -194,25 +205,25 @@ package SeedGenerator {
 
   case class WorldStateNode(name: String) extends Node {
     override def kind: NodeType = StateNode
-    override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = state + GameState.mk(WorldState(name), this)
+    override def reached(state: GameState, orbs: Orbs): GameState = state + GameState.mk(WorldState(name), this)
   }
 
   case class QuestNode(name: String) extends Node {
     override def kind: NodeType = QuestNode
-    override def reached(state: GameState, nodes: Map[String, Node] = Map()): GameState = state + GameState.mk(WorldState(name), this)
+    override def reached(state: GameState, orbs: Orbs): GameState = state + GameState.mk(WorldState(name), this)
   }
 
   trait Path {
     def source: Node
     def dest: Node
     def reqs: Seq[Requirement]
-    def substitute(orig: Requirement, repl: Requirement): Path
     def and (other: Path): Option[Path] = {
         this match {
           case chain: ChainedPath => chain.compose(other)
           case _ => ChainedPath(Seq(this)).compose(other)
         }
     }
+//    def canTraverse(state: GameState): Boolean
     def nodes = Set(source, dest)
   }
   object Path {
@@ -228,13 +239,10 @@ package SeedGenerator {
     override def source: Node = loc
     override def dest: Node = loc
     override def reqs: Seq[Requirement] = Seq(Free)
-    override def substitute(orig: Requirement, repl: Requirement): Path = this
   }
 
-  case class SimplePath(source: Node, dest: Node, req: Requirement) extends Path {
-    override def reqs: Seq[Requirement] = Seq(req)
-    override def toString: String = s"${source.name}=>$req=>${dest.name}"
-    override def substitute(orig: Requirement, repl: Requirement): Path = SimplePath(source, dest, req.substitute(orig, repl))
+  case class SimplePath(source: Node, dest: Node, reqs: Seq[Requirement]) extends Path {
+    override def toString: String = s"${source.name}=>${reqs.mkString(" || ")}=>${dest.name}"
   }
   case class ChainedPath(paths: Seq[Path]) extends Path {
     def source: Node = paths.head.source
@@ -252,7 +260,6 @@ package SeedGenerator {
         case p: SimplePath   =>  ChainedPath(paths :+ p)
         case ChainedPath(ps) =>  ChainedPath(paths ++ ps)
     }) else None
-    override def substitute(orig: Requirement, repl: Requirement): Path = ChainedPath(paths.map(_.substitute(orig, repl)))
   }
 
   object Nodes {
@@ -293,11 +300,11 @@ package SeedGenerator {
     def getReachable(inv: Inv, flags: Set[FlagState]= Set(), itemsOnly: Boolean = true): (Set[Node], Set[FlagState]) = {
       Timer("getReachable"){
         var oldFlags = flags
-        var state = spawn.reached(GameState(inv, flags), areas)
+        var state = spawn.reached(GameState(inv, flags), Orbs(0, 0))
         Timer("getReachableRecursion") {
           while (oldFlags != state.flags) {
             oldFlags = state.flags
-            state = spawn.reached(GameState(inv, oldFlags), areas)
+            state = spawn.reached(GameState(inv, oldFlags), Orbs(0, 0))
           }
         }
         if(itemsOnly)
@@ -366,8 +373,11 @@ package SeedGenerator {
       Timer("Path parsing", true) {
           FastParser.parseFile(advanced = UI.Options.unsafePaths) match {
             case Right(value) =>
+              println(s"parse done ${value.size} areas")
               _areas = Timer("FixAreas")(fixAreas(value))
+              println("fixAreas done")
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
+              println(s"items done ${_items.size} items")
               _paths = Timer("GetPaths") {
                 getAllPathsRecursive()
               }
@@ -617,7 +627,7 @@ package SeedGenerator {
 
 object Runner {
     def setSeed(n: Long): Unit = r.setSeed(n)
-    val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1))
+    val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1), Set(WorldState("Weapon"), WorldState("EnemyObstacle")))
     private def mkSeed(advanced: Boolean = false)(implicit debug: Boolean = false) = {
       implicit val pool: Inv = ItemPool.build()
       recurse()
