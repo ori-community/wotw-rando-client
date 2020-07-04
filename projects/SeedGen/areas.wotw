@@ -922,7 +922,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   conn TwillenShop: free
   conn OpherShop: free # opher everywhere
   conn TuleyShop: 
-    base, InnerWellspring.EscapeComplete, EastHollow.Voice:  # maybe probably?
+    base, InnerWellspring.WaterEscape, EastHollow.Voice:  # maybe probably?
       DoubleJump OR Launch
       Flap, Glide
       Bash, Grenade=1
@@ -1053,7 +1053,7 @@ area GladesTown.ReachPath:  # (-140, -4096) At the soup
       Bash, Grenade=1
   conn GladesTown.Teleporter: free
   conn TuleyShop: 
-    base: InnerWellspring.EscapeComplete, EastHollow.Voice
+    base: InnerWellspring.WaterEscape, EastHollow.Voice
   conn LowerReach.Trial:
     base:
       Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
@@ -1563,7 +1563,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
   pickup InnerWellspring.SwimOre:
     base: Water
   pickup InnerWellspring.EscapeRevisitEX:
-    base, InnerWellspring.EscapeComplete:
+    base, InnerWellspring.WaterEscape:
       DoubleJump, Dash, Grapple
       DoubleJump, Dash, Bash, Grenade=1
       Bash, Grenade=1, Grapple
@@ -1583,7 +1583,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
 
 area InnerWellspring.WaterEscape:
   refill Full: free
-  state InnerWellspring.EscapeComplete:
+  quest InnerWellspring.WaterEscape:
     base:
       Bash, Grapple, DoubleJump, Dash OR Glide
       Bash, Grapple, Dash, Glide
@@ -3627,7 +3627,7 @@ area OpherShop:
   pickup OpherShop.Teleport:
     base: GladesTown.EntryWallBroken, SpiritLight=800
   pickup OpherShop.WaterBreath:
-    base: InnerWellspring.EscapeComplete, EastHollow.Voice, SpiritLight=800 # what this actually needs is water + the ability to talk to kwolok
+    base: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=800
 
 area TuleyShop:
   state TuleyShop.LastTreeBranchRejected:  # written out the steps in case they give pickups
