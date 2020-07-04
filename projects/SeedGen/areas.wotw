@@ -64,7 +64,7 @@ area Teleporters:  # teleporter access
   #   base: ShriekTP
 
 area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater well
-  refill Full: free
+  refill Full
 
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
@@ -107,7 +107,7 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
       Water, Bash, Launch
 
 area MarshSpawn.BrokenBridge:  # (-643, -4352) after dropping down the breaking bridge
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup MarshSpawn.ResilienceShard:
     base: Weapon
@@ -120,7 +120,7 @@ area MarshSpawn.BrokenBridge:  # (-643, -4352) after dropping down the breaking 
   conn MarshSpawn.CaveEntrance: free
 
 area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
-  refill Checkpoint: free
+  refill Checkpoint
 
   state MarshSpawn.KeystoneDoor:
     base: Keystone=2
@@ -178,7 +178,7 @@ area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tre
     base: MarshSpawn.KeystoneDoor
 
 area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, burrows and marsh
-  refill Checkpoint: free
+  refill Checkpoint
 
   quest MarshSpawn.CaveKS: free  # all other pickups in the cave require a weapon; and with a weapon you can go around instead
   quest MarshSpawn.TheMissingKey:  # wont be a thing :(
@@ -217,7 +217,7 @@ region MidnightBurrows:
     Danger=25 # kind of a no-op?
 
 area MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
-  refill Full: free
+  refill Full
 
   pickup MidnightBurrows.LeftKS:
     base: DoubleJump OR Dash OR Glide OR Launch
@@ -231,7 +231,7 @@ area MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
     base: DoubleJump
 
 area MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big portal room
-  refill Checkpoint: free
+  refill Checkpoint
 
   quest MidnightBurrows.TabletQI:
     base, MidnightBurrows.KeystoneDoor:
@@ -270,7 +270,7 @@ area MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big portal 
       Launch
 
 area MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup MidnightBurrows.RightKS: free
   pickup MidnightBurrows.UpperKS:
@@ -308,7 +308,7 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
     base, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
-  pickup HowlsDen.EntranceEX: free
+  pickup HowlsDen.UpperEX: free
   pickup HowlsDen.RightHC:
     base: Weapon
 
@@ -319,7 +319,7 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
       Bash, Grenade=1
 
 area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
-  refill Checkpoint: free
+  refill Checkpoint
 
   state HowlsDen.KeystoneDoor:
     base: Keystone=2
@@ -345,7 +345,7 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
       Launch
 
 area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
-  refill Full: free
+  refill Full
 
   pickup HowlsDen.AboveTPEX:
     base, Weapon:
@@ -368,7 +368,7 @@ area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
     base: Weapon OR DoubleJump OR Dash OR Glide OR Launch
 
 area DenShrine:
-  refill Full: free
+  refill Full
   pickup HowlsDen.CombatShrine:
     base, Combat, RangedWeapon OR DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
       Danger=60
@@ -390,7 +390,7 @@ area HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
       Launch
 
 area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking at the Millstone
-  refill Checkpoint: free
+  refill Checkpoint
 
   state MarshPastOpher.TrialActivation:
     base: Weapon, Grapple, Dash OR Glide OR Launch
@@ -432,7 +432,7 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
     advanced: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
 
 area MarshShrine:
-  refill Full: free
+  refill Full
   pickup MarshPastOpher.CombatShrine:
     base: Combat, Danger=20, RangedWeapon OR DoubleJump OR Bash OR Launch  # flying enemies, but short and not too hard
 
@@ -472,7 +472,7 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
 
 # begin pools path needs validation area?
 area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of the ledge at the top left of the large room with Opher
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1:
     base: EnemyObstacle
   refill Energy=3:
@@ -499,7 +499,7 @@ area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of
   conn MarshPastOpher.MillView: free
 
 area MarshPastOpher.PoolsPathWest:  # (-803, -4187)  Right on top of MarshPastOpher.PoolsPathEX
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup MarshPastOpher.PoolsPathEX: free
   pickup MarshPastOpher.PoolsPathEC:
@@ -588,7 +588,7 @@ area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye
     base: WestHollow.PurpleDoorOpen
 
 area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of Lupo
-  refill Checkpoint: free
+  refill Checkpoint
 
   state WestHollow.TrialActivation:
     base, EnemyObstacle:
@@ -620,7 +620,7 @@ area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of L
     base: WestHollow.DoorLever, EnemyObstacle OR DoubleJump
 
 area WestHollow.DashArea:  # (-88, -4423) To the right of the lever door
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup WestHollow.DashTree: free
   pickup WestHollow.CrusherEX:
@@ -647,7 +647,7 @@ region EastHollow:
     Danger=20
 
 area EastHollow.Teleporter:  # (-150, -4238) the teleporter
-  refill Full: free
+  refill Full
 
   conn Teleporters: free
   conn BeetleFight: free
@@ -657,14 +657,14 @@ area EastHollow.Teleporter:  # (-150, -4238) the teleporter
     base: EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
 
 area BeetleFight:
-  refill Full: free
+  refill Full
 
   state EastHollow.BeetleDefeated:
     base: Combat, Danger=35, Dash  # Kinda tight on danger, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
     advanced: Combat
 
 area EastHollow.AboveBash:  # (-28, -4233) At the breakable floor to Bash tree
-  refill Checkpoint: free
+  refill Checkpoint
 
   conn BeetleFight: free
   state EastHollow.MouldwoodLever:
@@ -727,7 +727,7 @@ area EastHollow.AboveBash:  # (-28, -4233) At the breakable floor to Bash tree
       Launch, Dash, Glide
 
 area EastHollow.Kwolok:  # (177, -4215) Between Ku and Kwolok
-  refill Checkpoint: free
+  refill Checkpoint
 
   state EastHollow.Voice: free
 
@@ -758,7 +758,7 @@ area EastHollow.Kwolok:  # (177, -4215) Between Ku and Kwolok
       Water, Grapple, Dash, Glide
 
 area EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door blocking Depths access
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup EastHollow.BashHC:
     base: Bash OR Launch
@@ -781,7 +781,7 @@ area EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door block
     base: Glide
 
 area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
-  refill Full: free
+  refill Full
 
   state GladesTown.BuildHuts:
     base: Ore=15
@@ -931,7 +931,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
 # seed paths to TuleyShop tbd if ever necessary
 # connection to hollow currently redundant with the wall in the way
 area GladesTown.West:  # (-430, -4135) At Motay
-  refill Checkpoint: free
+  refill Checkpoint
 
   quest GladesTown.HandToHandCanteen:
     base: EastPools.HandToHandSpyglass
@@ -1033,7 +1033,7 @@ area GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
   # no reason for backwards connections
 
 area GladesTown.ReachPath:  # (-140, -4096) At the soup
-  refill Checkpoint: free
+  refill Checkpoint
 
   quest GladesTown.HandToHandSoup:
     base: InnerWellspring.HandToHandHerbs
@@ -1066,7 +1066,7 @@ region WestGlades:
     Danger=20
 
 area WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past glades
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base, Weapon:
       DoubleJump, Dash OR Glide
@@ -1106,7 +1106,7 @@ area WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past gl
       Launch
 
 area WestGlades.Upper:  # (-618, -4054) At the waypoint
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
 
   state LowerReach.BearSneezed:
@@ -1137,7 +1137,7 @@ area WestGlades.Upper:  # (-618, -4054) At the waypoint
       Launch
 
 area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening up to Wellspring
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
 
   pickup WestGlades.ShrineHC:
@@ -1173,7 +1173,7 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
       Water, Launch, DoubleJump, Dash
 
 area GladesShrine:
-  refill Full: free
+  refill Full
   pickup WestGlades.CombatShrine:
     base, Combat, RangedWeapon OR Bash:  # the shooter plants have basically no attack surface without bash
       Danger=65                     # the crabs are terrifying!
@@ -1181,7 +1181,7 @@ area GladesShrine:
       Danger=30, Launch             # if you're op, nothing's terrifying
 
 area PoolsApproach.MillPath:  # (-873, -4146) above the water where the three paths merge
-  refill Checkpoint: free
+  refill Checkpoint
   pickup PoolsApproach.MillPathEX:
     base:
       DoubleJump, Dash, RangedWeapon OR Bash
@@ -1208,7 +1208,7 @@ region OuterWellspring:
     Danger=25
 
 area OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you enter the first room
-  refill Checkpoint: free
+  refill Checkpoint
   # health refill barely out of sight, also past an enemy...
   # ommited a lot of paths and most bashgrenade paths because of how complex this place is to navigate
   state OuterWellspring.EntranceDoorOpen:
@@ -1279,7 +1279,7 @@ area OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you e
       Water
 
 area OuterWellspring.WestDoor:  # (-892, -3992) Outside the door where you exit the first room
-  refill Checkpoint: free
+  refill Checkpoint
 
   state OuterWellspring.LeftWallWheelFree:
     base: Weapon, DoubleJump OR Dash OR Glide OR Launch
@@ -1303,7 +1303,7 @@ area OuterWellspring.WestDoor:  # (-892, -3992) Outside the door where you exit 
   conn OuterWellspring.EntranceDoor: free
 
 area OuterWellspring.EastDoor:  # (-814, -3973) Outside the door leading to the spin puzzle
-  refill Checkpoint: free
+  refill Checkpoint
 
   state OuterWellspring.WestDoorBlueMoonFree:
     base, Weapon:
@@ -1375,7 +1375,7 @@ region InnerWellspring:
     Danger=25
 
 area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you enter the first room
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:  # technically out of side, but this is very realistic
     base: Weapon
 
@@ -1436,7 +1436,7 @@ area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you e
       Launch
 
 area InnerWellspring.BelowDrainLever:  # (-1153, -3895) In the first room below the drain lever
-  refill Checkpoint: free
+  refill Checkpoint
 
   state InnerWellspring.UpperCorruption:  # the fourth corruption you see on your way
     base, Weapon:
@@ -1474,7 +1474,7 @@ area InnerWellspring.BelowDrainLever:  # (-1153, -3895) In the first room below 
       Grapple OR Glide OR Launch
 
 area InnerWellspring.WestDoor:  # (-1216, -3898) Inside the door where you exit the first room
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=2: free
   refill Energy=3:
     base: Weapon
@@ -1507,7 +1507,7 @@ area InnerWellspring.WestDoor:  # (-1216, -3898) Inside the door where you exit 
   conn InnerWellspring.BelowDrainLever: free
 
 area InnerWellspring.EastDoor:  # (-1190, -3733) Inside the door leading to the spin puzzle
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   refill Energy=4:
     base: Weapon
@@ -1547,7 +1547,7 @@ area InnerWellspring.EastDoor:  # (-1190, -3733) Inside the door leading to the 
   # no reason for backwards connections
 
 area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
-  refill Full: free
+  refill Full
 
   quest InnerWellspring.BlueMoonSeed:
     base:
@@ -1583,7 +1583,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
   conn OpherShop: free
 
 area InnerWellspring.WaterEscape:
-  refill Full: free
+  refill Full
   state InnerWellspring.EscapeComplete:
     base:
       Bash, Grapple, DoubleJump, Dash OR Glide
@@ -1672,7 +1672,7 @@ region EastPools:
     Danger=40, Regenerate
 
 area EastPools.Entry:  # (-1122, -4166) At the Voice dialogue
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   
   # The first bubbles here only spawn if you have Flap!
@@ -1692,7 +1692,7 @@ area EastPools.Entry:  # (-1122, -4166) At the Voice dialogue
       Bash, Grenade=1, Launch, DoubleJump OR Dash
   
 area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
-  refill Checkpoint: free
+  refill Checkpoint
 
   state EastPools.EntryLever:
     base, EnemyObstacle:
@@ -1735,7 +1735,7 @@ area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
   conn EastPools.Entry: free
 
 area EastPools.TPArea:  # (-1297, -4143) Where Tokk stands
-  refill Checkpoint: free
+  refill Checkpoint
   
   state EastPools.BelowTokkBubbleFree:
     base:
@@ -1817,7 +1817,7 @@ area EastPools.TPArea:  # (-1297, -4143) Where Tokk stands
       Water, Bash, Launch
 
 area EastPools.Teleporter:  # (-1316, -4153) At the teleporter after draining the water - this is to specify the refill and randos behaviour of draining the water if you grab the tp pickup
-  refill Full: free
+  refill Full
   
   state EastPools.LowerWaterDrained: free  # this is, uh... correct, I suppose xD
 
@@ -1829,7 +1829,7 @@ region UpperPools:
     Danger=40, Regenerate
 
 area UpperPools.KeystoneRoom:  # (-1540, -4095) Autosave below the two upper left keystones
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
 
@@ -1895,7 +1895,7 @@ area UpperPools.BeforeKeystoneDoor:  # (-1483, -4076) In front of the door block
       Launch
 
 area UpperPools.TreeArea:  # (-1467, -4075) The ledge left of waterdash tree
-  refill Checkpoint: free
+  refill Checkpoint
 
   state UpperPools.UpperWaterDrained:
     base:
@@ -1935,7 +1935,7 @@ area UpperPools.TreeArea:  # (-1467, -4075) The ledge left of waterdash tree
       Water, WaterDash, Launch
 
 area UpperPools.BubbleSpamRoom:  # (-1586, -4052) To the right of where all the bubbles rise
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup UpperPools.FishPoolEX:
     base: Water, Bash OR WaterDash OR Danger=10  # just in case someone's troubled by the fish
@@ -1966,7 +1966,7 @@ region WestPools:
     Danger=40, Regenerate
 
 area WestPools:  # (-1656, -4171) the west Pools TP
-  refill Full: free
+  refill Full
 
   quest EastPools.GrassSeed:
     base: Water, WaterDash
@@ -1995,7 +1995,7 @@ area WestPools:  # (-1656, -4171) the west Pools TP
       WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
 
 area KwolokFight:
-  refill Full: free
+  refill Full
   quest WestPools.ForestsStrength:
     base: Weapon, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
 
@@ -2004,7 +2004,7 @@ region WoodsEntry:
     Danger=40, Regenerate
 
 area WoodsEntry.ShriekMeet:  # (478, -4205) The ledge to the left of where the mudpits start
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup WoodsEntry.MudPitEX:
     base:
@@ -2017,7 +2017,7 @@ area WoodsEntry.ShriekMeet:  # (478, -4205) The ledge to the left of where the m
       Bash, DoubleJump OR Dash OR Glide OR Launch
 
 area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
-  refill Checkpoint: free
+  refill Checkpoint
 
   conn WoodsEntry.ShriekMeet:
     base, RangedWeapon:
@@ -2032,7 +2032,7 @@ area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
     base: RangedWeapon, DoubleJump OR Dash OR Glide OR Launch
 
 area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
-  refill Full: free
+  refill Full
 
   state WoodsEntry.LastTreeBranch: free  # part of a quest, but no reward on this currently
 
@@ -2057,7 +2057,7 @@ area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
   conn WoodsEntry.BelowTeleporter: free
 
 area WoodsEntry.TwoKeystoneRoom:  # (672, -4183) In front of the keystone door
-  refill Checkpoint: free
+  refill Checkpoint
 
   state WoodsEntry.KeystoneDoor:
     base: Keystone=2
@@ -2119,7 +2119,7 @@ area WoodsMain.FourKeystoneRoom:  # (950, -4167) The floor of the keystone room
   conn WoodsMain.BelowFourKeystoneRoom: free
 
 area WoodsMain.BeforeKeystoneDoor:  # (944, -4137) In front of the four keystone door
-  refill Checkpoint: free
+  refill Checkpoint
 
   state WoodsMain.KeystoneDoor:
     base: Keystone=4
@@ -2141,7 +2141,7 @@ area WoodsMain.BeforeKeystoneDoor:  # (944, -4137) In front of the four keystone
   conn WoodsMain.FourKeystoneRoom: free
 
 area WoodsMain.GiantSkull:  # (957, -4137) Behind the four keystone room door
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup WoodsMain.UpperLeafPileEX:
     base: Flap
@@ -2207,7 +2207,7 @@ area WoodsMain.AboveHowl:  # (916, -4046) At the semisolid above silenced Howl
   conn WoodsMain.PetrifiedHowl: free
 
 area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
-  refill Full: free
+  refill Full
   conn Teleporters: free
   conn WoodsMain.FeedingGrounds:
     base:
@@ -2220,7 +2220,7 @@ area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
       DoubleJump, Bash, Launch  # :)
 
 area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding grounds
-  refill Checkpoint: free
+  refill Checkpoint
 
   # having the initial escape completed is a negative, not a positive. The paths going through it are the connections to Wastes.
   # if you complete the initial escape, rocks fall and block most of the connection paths to WestTP. This is equally true for the base game though and solved by the fact that if you complete the escape, you unlock the teleporter, making these paths not softlockable
@@ -2259,7 +2259,7 @@ region LowerReach:
     Danger=40, Regenerate
 
 area LowerReach.Entry:  # (-390, -4025) Behind Baur
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
 
   state LowerReach.BearSneezed:
@@ -2335,7 +2335,7 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
     base: LowerReach.BearSneezed
 
 area LowerReach.Central:  # (-335, -4010) After the lever door
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup LowerReach.AboveDoorEX:
     base:
@@ -2403,7 +2403,7 @@ area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
       Glide, Launch
 
 area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter room
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
   refill Energy=3:
     base: Weapon
@@ -2434,7 +2434,7 @@ area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter ro
       Launch
 
 area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
-  refill Full: free
+  refill Full
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
@@ -2451,7 +2451,7 @@ region UpperReach:
     Danger=40, Regenerate
 
 area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
-  refill Checkpoint: free
+  refill Checkpoint
 
   state UpperReach.KeystoneDoor:  # not validated
     base, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
@@ -2566,7 +2566,7 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
       Water
 
 area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
-  refill Checkpoint: free
+  refill Checkpoint
 
   # no backwards paths are considered, would currently be redundant
   state LowerReach.TeleporterLantern:
@@ -2618,7 +2618,7 @@ area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
 area LowerReach.Trial:  # (64, -4046) At trial start
-  refill Checkpoint: free
+  refill Checkpoint
 
   state LowerReach.KeystoneDoor:
     base: Keystone=4
@@ -2656,7 +2656,7 @@ area LowerReach.Trial:  # (64, -4046) At trial start
     base: Glide
 
 area LowerReach.SnowEscape:
-  refill Full: free
+  refill Full
   quest LowerReach.ForestsMemory:  # currently based on the requirements of getting here as well...
     base, LowerReach.ArenaBeaten:
       Dash, Bash, Grapple, Glide, Water OR DoubleJump
@@ -2684,7 +2684,7 @@ area UpperDepths.Entry:  # (161, -4340) The little standable ground below the en
     base: EnemyObstacle, Glide
 
 area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:  # this is "in sight", but also in the darkness...
     base: Weapon
 
@@ -2730,7 +2730,7 @@ area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
       Launch
 
 area UpperDepths.BelowHive:  # (422, -4402) Below the Hive, on top of the tunnel leading downwards
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon, DoubleJump OR Launch
 
@@ -2751,7 +2751,7 @@ area UpperDepths.BelowHive:  # (422, -4402) Below the Hive, on top of the tunnel
     base: DepthsLight  # a bit scary...
 
 area UpperDepths.Teleporter:  # (513, -4361) The spirit well
-  refill Full: free
+  refill Full
 
   pickup UpperDepths.TeleporterEX: free  # just a few steps away in the darkness
   
@@ -2767,7 +2767,7 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
       Weapon, Launch
 
 area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of the second keystone door
-  refill Checkpoint: free
+  refill Checkpoint
 
   state UpperDepths.CentralKeystoneDoor:
     base: Keystone=2
@@ -2811,14 +2811,14 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
       DepthsLight, Launch
 
 area MoraFight:
-  refill Full: free
+  refill Full
   quest UpperDepths.ForestsEyes:
     base, Combat, Danger=95:
       DepthsLight, Bash, Grapple, DoubleJump OR Dash
       DepthsLight, Bash, Grapple, Launch
 
 area UpperDepths.Central:  # (423, -4475) The firefly egg to the left of the second keystone door
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup LowerDepths.BelowDoorOre:
     base: DepthsLight  # It's hidden in a dark area, not hard to reach.
@@ -2853,7 +2853,7 @@ region LowerDepths:
     Danger=40, Regenerate
 
 area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
-  refill Checkpoint: free
+  refill Checkpoint
 
   quest LowerDepths.HandToHandSilk:
     base: GladesTown.HandToHandLantern
@@ -2869,7 +2869,7 @@ area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
   # backwards paths would be redundant currently
 
 area DepthsShrine:
-  refill Full: free
+  refill Full
   pickup LowerDepths.CombatShrine:
     base, Combat, RangedWeapon OR Bash:
       Danger=65
@@ -2877,7 +2877,7 @@ area DepthsShrine:
       Danger=50, Launch
 
 area LowerDepths.Central:  # (482, -4536) Below where the trial starts
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup LowerDepths.RaceStartHC:
     base:
@@ -2891,7 +2891,7 @@ area LowerDepths.Central:  # (482, -4536) Below where the trial starts
   # back to uppercentral would be redundant currently
 
 area LowerDepths.East:  # (570, -4550) The lit up room on the trial path
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
 
@@ -2940,7 +2940,7 @@ region LowerWastes:
     Danger=50, Regenerate
 
 area LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
-  refill Full: free
+  refill Full
 
   pickup LowerWastes.WestTPOre:
     base: Burrow
@@ -2964,7 +2964,7 @@ area LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
       Burrow, Launch
 
 area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup LowerWastes.SunsetViewEX: free
   pickup LowerWastes.PurpleWallEX:
@@ -2993,7 +2993,7 @@ area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand 
       Bash, Grenade=1
 
 area LowerWastes.SandPot:  # (1726, -3990) At autosave to the left of Sand Pot
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup LowerWastes.MuncherTunnelEC:
     base: Burrow
@@ -3020,7 +3020,7 @@ area LowerWastes.SandPot:  # (1726, -3990) At autosave to the left of Sand Pot
       Launch
 
 area LowerWastes.WoodenBridge:  # (1796, -3977) Directly above MuncherPitEX
-  refill Checkpoint: free
+  refill Checkpoint
 
   pickup LowerWastes.SandPotEX:
     base:
@@ -3047,7 +3047,7 @@ area LowerWastes.WoodenBridge:  # (1796, -3977) Directly above MuncherPitEX
       Launch
 
 area LowerWastes.LeverArea:  # (1833, -3959) At the arrow sign below the lever
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
 
@@ -3114,7 +3114,7 @@ area LowerWastes.MinesEntrance:  # (1921, -4001) To the left of the lower breaka
     base: WindtornRuins.LowerEntrance, Burrow
 
 area LowerWastes.TreeArea:  # (1715, -3936) The ledge right of SkeetoHive
-  refill Checkpoint: free
+  refill Checkpoint
 
   state LowerWastes.TrialActivation:
     base:
@@ -3179,7 +3179,7 @@ area LowerWastes.UpperPath:  # (1728, -3906) Middle of the sand to the left of U
       Burrow, Bash, Grenade=1
 
 area LowerWastes.EastTP:  # (1992, -3902) Location of the east teleporter
-  refill Full: free
+  refill Full
   refill Health=1:
     base: Burrow OR Launch
   refill Energy=3:
@@ -3206,7 +3206,7 @@ region UpperWastes:
     Danger=50, Regenerate
 
 area UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone door
-  refill Checkpoint: free
+  refill Checkpoint
 
   state UpperWastes.KeystoneDoor:
     base, Keystone=2:
@@ -3235,7 +3235,7 @@ area UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone doo
     base: UpperWastes.KeystoneDoor, Burrow, DoubleJump OR Dash OR Glide OR Launch
 
 area UpperWastes.MissilePuzzleLeft:  # (1937, -3794) Immediately to the right of the sand after the keystone door
-  refill Checkpoint: free
+  refill Checkpoint
 
   # don't really need a state for purple wall, it can be broken from either side
   state UpperWastes.MissilePuzzleLever:  # for now, this state also means that both purple walls blocking the lever have been broken. If ways to pull the lever without breaking them are found, paths using this may have to change
@@ -3277,7 +3277,7 @@ area UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right
       Burrow, Launch
 
 area UpperWastes.NorthTP: # (2044, -3679) North Wastes teleporter
-  refill Full: free
+  refill Full
 
   conn Teleporters: free
   conn UpperWastes.RuinsApproach: free
@@ -3319,7 +3319,7 @@ area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top 
       Burrow, Bash, Dash, Glide  # Slightly tight getting across to the sand pit but pretty easily doable. Semi precise angle on the burrow but with glide its easy to reattempt
 
 area WindtornRuins.UpperRuinsDoor:  # (2163, -3835) Just inside the door.
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:
     base: Weapon
 
@@ -3353,7 +3353,7 @@ area WindtornRuins.UpperRuinsDoor:  # (2163, -3835) Just inside the door.
     base: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.Seir, Burrow
 
 area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
-  refill Full: free
+  refill Full
 
   state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
     base: Weapon
@@ -3379,7 +3379,7 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
       Weapon, Glide
 
 area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
-  refill Full: free
+  refill Full
 
   # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
@@ -3419,7 +3419,7 @@ region WeepingRidge:
     Danger=60, Regenerate
 
 area WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevator starts
-  refill Checkpoint: free
+  refill Checkpoint
 
   state WeepingRidge.ElevatorFightCompleted:
     base: Combat, ShieldEnemy, Dash OR Bash
@@ -3428,7 +3428,7 @@ area WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevato
     base: WeepingRidge.ElevatorFightCompleted
 
 area WeepingRidge.LaunchArea:  # (1189, -3716) After the portal at the top of the elevator
-  refill Checkpoint: free
+  refill Checkpoint
   refill Health=1: free
 
   pickup WeepingRidge.LaunchTree:
@@ -3467,7 +3467,7 @@ region WillowsEnd:
     Danger=60, Regenerate # need at least 6 health and Regen to do ANYTHING in willow
 
 area WillowsEnd.Entry:  # (495, -3951) At the lower door
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=4:
     base: Weapon, Launch
 
@@ -3499,7 +3499,7 @@ area WillowsEnd.Entry:  # (495, -3951) At the lower door
       Launch, Bash, DoubleJump OR Dash OR Glide  # mine in the way, but I think it's managable
 
 area WillowsEnd.InnerTP:  # (422, -3864) The teleporter inside
-  refill Full: free
+  refill Full
 
   pickup WillowsEnd.LupoMap:
     base:
@@ -3534,7 +3534,7 @@ area WillowsEnd.East:  # (547, -3804) To the left of the redirect puzzle changet
     base: Bash, Launch  # some other paths would be possible, but with how far back the last checkpoint is...
 
 area WillowsEnd.West:  # (445, -3840) To the left of the one-way above Lupo
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=4:
     base: Weapon
 
@@ -3554,7 +3554,7 @@ area WillowsEnd.West:  # (445, -3840) To the left of the one-way above Lupo
       Launch
 
 area WillowsEnd.Upper:  # (499, -3748) At the upper door
-  refill Checkpoint: free
+  refill Checkpoint
 
   state WillowsEnd.BurrowHeart:
     base, Weapon:
@@ -3582,12 +3582,12 @@ area WillowsEnd.Upper:  # (499, -3748) At the upper door
     base: Launch
 
 area LaserRockFight:
-  refill Full: free
+  refill Full
   state WillowsEnd.ElementalDefeated:
     base: Combat, Danger=85, Bash, Launch
 
 area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
-  refill Full: free
+  refill Full
 
   conn Teleporters: free
   conn WillowsEnd.Upper: free
