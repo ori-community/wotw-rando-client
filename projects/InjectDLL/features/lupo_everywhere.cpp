@@ -11,7 +11,8 @@ namespace
     {
         auto target = ActivateBasedOnCondition__get_EffectiveTarget(this_ptr);
         auto name = il2cpp::get_unity_object_name(target);
-        dev::console_send("ActivateBasedOnCondition: " + name);
+        // TODO: use visualizer and hide behind a dev switch.
+        //dev::console_send("ActivateBasedOnCondition: " + name);
         if (name == "mapMakerSetup")
         {
             auto condition = il2cpp::create_object<app::Condition>("Moon.InteractionGraph", "AlwaysTrueCondition");

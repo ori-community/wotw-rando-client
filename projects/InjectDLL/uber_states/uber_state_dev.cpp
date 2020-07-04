@@ -6,6 +6,7 @@
 #include <dev/object_visualizer.h>
 #include <Common/ext.h>
 
+#include <algorithm>
 #include <array>
 
 namespace
@@ -57,29 +58,11 @@ namespace
     CALL_ON_INIT(initialize_generic_sets);
 
     // TODO: Figure out a way to resolve the vtable here by interface and use IGenericUberState.
-    bool set_uber_state(app::IUberState* uber_state, float value)
+    void set_uber_state(app::IUberState* uber_state, float value)
     {
-        //auto actual_value = il2cpp::create_object<app::Single>("System", "Single");;
-        //actual_value->m_value = value;
-        //il2cpp::invoke_virtual(uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "set_GenericValue", { actual_value });
-        //return true;
-        for (auto const& p : generic_sets)
-        {
-            auto klass = std::get<0>(p);
-            auto func = std::get<1>(p);
-
-            // Some classes may not be initialized
-            if (klass == nullptr)
-                continue;
-
-            if (*klass == reinterpret_cast<Il2CppClass*>(uber_state->klass))
-            {
-                func(uber_state, value);
-                return true;
-            }
-        }
-
-        return false;
+        auto actual_value = il2cpp::create_object<app::Single>("System", "Single");;
+        actual_value->m_value = value;
+        il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "set_GenericValue", actual_value);
     }
 
     app::UberID create_id(int id)
@@ -133,8 +116,7 @@ namespace
             return;
         }
 
-        if (!set_uber_state(uber_state, value))
-            dev::console_send("invalid uber_state");
+        set_uber_state(uber_state, value);
     }
 
     void set_us_bool(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -227,7 +209,14 @@ namespace
             return;
         }
 
+        int value = 1;
+        auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
+        if (value_it != params.end())
+            if (!dev::try_get_int(*value_it, value) || value < 0 || value > 3)
+                dev::console_send("invalid value parameter not an int in range 0 - 3, using default value 1");
+
         dev::Visualizer visualizer;
+        visualizer.level = static_cast<dev::Visualizer::InfoLevel>(std::clamp(value, 0, 3));
         auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i)
         {
