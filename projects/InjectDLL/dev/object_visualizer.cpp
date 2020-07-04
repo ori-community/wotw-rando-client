@@ -50,7 +50,7 @@ namespace dev
             {
                 auto start_level = visualizer.indent_level;
                 auto game_object = reinterpret_cast<app::GameObject*>(obj);
-                auto name = il2cpp::get_unity_object_name(game_object);
+                auto name = il2cpp::unity::get_object_name(game_object);
                 indent(visualizer);
                 visualizer.stream << game_object->klass->_0.name << " - " << name << visualizer.new_line;
 

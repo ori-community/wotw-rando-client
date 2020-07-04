@@ -8,6 +8,20 @@ namespace il2cpp
     // TODO: Add virtual method calls here.
     // TODO: Add resolver for generics.
 
+    namespace unity
+    {
+        void destroy_object(void* object);
+        app::GameObject* get_game_object(void* component);
+        app::Component* add_component_untyped(app::GameObject* game_object, const char* full_name);
+        std::string get_object_name(void* object);
+
+        template<typename Return = app::Component>
+        Return* add_component(app::GameObject* game_object, const char* full_name)
+        {
+            return reinterpret_cast<Return*>(add_component_untyped(game_object, full_name));
+        }
+    }
+
     namespace untyped
     {
         Il2CppObject* create_object(const char* namezpace, const char* name);
@@ -20,7 +34,8 @@ namespace il2cpp
         int implements_interface(Il2CppClass* klass, Il2CppClass* iklass);
     }
 
-    std::string get_unity_object_name(void* object);
+    Il2CppString* string_new(const char* str);
+    Il2CppString* string_new(const char* str, uint32_t len);
 
     Il2CppObject* invoke_v(void* obj, const char* method, std::vector<void*> params = {});
     Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, const char* method, std::vector<void*> params = {});
