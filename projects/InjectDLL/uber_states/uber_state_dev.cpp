@@ -6,6 +6,7 @@
 #include <dev/object_visualizer.h>
 #include <Common/ext.h>
 
+#include <algorithm>
 #include <array>
 
 namespace
@@ -208,7 +209,14 @@ namespace
             return;
         }
 
+        int value = 1;
+        auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
+        if (value_it != params.end())
+            if (!dev::try_get_int(*value_it, value) || value < 0 || value > 3)
+                dev::console_send("invalid value parameter not an int in range 0 - 3, using default value 1");
+
         dev::Visualizer visualizer;
+        visualizer.level = static_cast<dev::Visualizer::InfoLevel>(std::clamp(value, 0, 3));
         auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i)
         {
