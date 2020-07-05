@@ -2,13 +2,13 @@ import scala.math.Ordering.Double.TotalOrdering
 package SeedGenerator {
   import SeedGenerator.implicits._
   trait Requirement {
-    def metBy(state: GameState): Boolean
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean
     def remaining(state: GameState = GameState.Empty, unaffordable: Set[FlagState] = Set(), space: Int = 999): Seq[GameState]
     def cheapestRemaining(state: GameState = GameState.Empty, unaffordable: Set[FlagState] = Set(), space: Int = 999): GameState = Timer("cheapest"){
       remaining(state, unaffordable, space)
       .minByOption(_.cost)
       .getOrElse(GameState.mk(Unobtainium))}
-    def orbsUsed(state: GameState = GameState.Empty): Orbs = Orbs(0, 0)
+    def orbsAfterMet(state: GameState = GameState.Empty, orbs: Orbs): Orbs = orbs
     def and(that: Requirement): Requirement = AllReqs(this, that)
     def or(that: Requirement): Requirement = AnyReq(this, that)
     def substitute(orig: Requirement, repl: Requirement): Requirement = if(this == orig) repl else this
@@ -27,7 +27,7 @@ package SeedGenerator {
   }
 
   case class StateReq(flag: String) extends Requirement {
-    def metBy(state: GameState): Boolean = state.flags.contains(WorldState(flag))
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.flags.contains(WorldState(flag))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(
       if(metBy(state))
         GameState.Empty
@@ -40,19 +40,19 @@ package SeedGenerator {
   }
 
   case class EventReq(eventCode: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv has WorldEvent(eventCode)
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has WorldEvent(eventCode)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(WorldEvent(eventCode)))
     override def toString = s"${WorldEvent.names.getOrElse(eventCode, s"Unknown World Event $eventCode")}"
   }
 
   case class SkillReq(skillCode: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv has Skill(skillCode)
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has Skill(skillCode)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(Skill(skillCode)))
     override def toString = s"${Skill.names.getOrElse(skillCode, s"Unknown Skill $skillCode")}"
   }
 
   case object Free extends Requirement {
-    def metBy(state: GameState) = true
+    def metBy(state: GameState, orbs: Option[Orbs]) = true
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState.Empty)
 
     override def and(that: Requirement): Requirement = that
@@ -60,12 +60,12 @@ package SeedGenerator {
   }
 
   case object Invalid extends Requirement {
-    def metBy(state: GameState) = false
+    def metBy(state: GameState, orbs: Option[Orbs]) = false
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState.mk(Unobtainium))
   }
 
   case class OreReq(count: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv(Ore) >= count
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv(Ore) >= count
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Ore -> Math.max(0, count - state.inv(Ore)))))
     override def and(that: Requirement): Requirement = that match {
       case OreReq(c) => OreReq(c+count)
@@ -74,7 +74,7 @@ package SeedGenerator {
   }
 
   case class CashReq(count: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv.totalSpiritLight >= count
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv.totalSpiritLight >= count
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
       if(metBy(state))
         Seq()
@@ -94,15 +94,17 @@ package SeedGenerator {
   }
 
   case class KeystoneReq(count: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv(Keystone) >= count
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv(Keystone) >= count
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Keystone -> Math.max(0, count - state.inv(Keystone)))))
   }
 
   case class EnergyReq(count: Int) extends Requirement {
-    override def orbsUsed(state: GameState): Orbs = Orbs(0, count * 10)
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = orbs - Orbs(0, count * 10)
     def energy(state: GameState): Float = state.inv(Energy)/2f
-    def metBy(state: GameState): Boolean = energy(state) >= count
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Energy -> Math.max(0, 2*count - state.inv(Energy)))))
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean =
+      orbs.map(_.energy >= count*10).getOrElse(energy(state) >= count)
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
+      Seq(GameState(new Inv(Energy -> Math.max(0, 2*count - state.inv(Energy)))))
     override def and(that: Requirement): Requirement = that match {
       case EnergyReq(c) => EnergyReq(c+count)
       case r => AllReqs(this, r)
@@ -110,9 +112,20 @@ package SeedGenerator {
   }
 
   case class DamageReq(damage: Int) extends Requirement  {
-    override def orbsUsed(state: GameState): Orbs = Orbs(damage, 0)
+    def orbsMod(state: GameState, orbs: Orbs): Orbs = {
+      if(orbs.health > damage ||
+        health(state) <= damage ||
+        !state.inv.has(Regen))
+        return orbs
+      val healsNeeded = 1 + (damage-orbs.health)/30
+      if(orbs.energy/10 >= healsNeeded)
+        return (orbs + Orbs(30*healsNeeded, -10*healsNeeded)).min(state.inv.orbs)
+      orbs
+    }
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = orbsMod(state, orbs) - Orbs(damage, 0)
     def health(state: GameState): Int = state.inv(Health) * 5
-    def metBy(state: GameState): Boolean = health(state) > damage
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean =
+      orbs.map(orbsMod(state, _).health > damage).getOrElse(health(state) > damage)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Health -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
     override def and(that: Requirement): Requirement = that match {
       case DamageReq(d) => DamageReq(d+damage)
@@ -121,7 +134,7 @@ package SeedGenerator {
   }
 
   case class TeleReq(teleCode: Int) extends Requirement {
-    def metBy(state: GameState): Boolean = state.inv has Teleporter(teleCode)
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has Teleporter(teleCode)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(Teleporter(teleCode)))
   }
 
@@ -144,8 +157,8 @@ package SeedGenerator {
 //      case r => AllReqs(this, r)
 //    }
     override def toString: String = s"(${reqs.mkString(" || ")})"
-    override def metBy(state: GameState): Boolean = reqs.exists(_.metBy(state))
-    override def orbsUsed(state: GameState): Orbs = reqs.filter(_.metBy(state)).map(_.orbsUsed(state)).minBy(_.value)
+    override def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = reqs.exists(_.metBy(state))
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = reqs.filter(_.metBy(state)).map(_.orbsAfterMet(state, orbs)).maxBy(_.value)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = reqs flatMap (_.remaining(state, unaffordable: Set[FlagState], space: Int))
     override def cheapestRemaining(state: GameState, unaffordable: Set[FlagState], space: Int): GameState = {
       var cheapest = GameState.mk(Unobtainium)
@@ -197,8 +210,8 @@ package SeedGenerator {
       case req => AnyReq(req, this)
     }
     override def toString: String = s"(${reqs.mkString(" && ")})"
-    def metBy(state: GameState): Boolean = reqs.forall(_.metBy(state))
-    override def orbsUsed(state: GameState): Orbs = reqs.map(_.orbsUsed(state)).fold(Orbs(0, 0))(_ + _)
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = reqs.forall(_.metBy(state))
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = reqs.foldLeft(orbs)((o, req) => req.orbsAfterMet(state, o))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
       if (metBy(state))
         return Seq(GameState.Empty)
