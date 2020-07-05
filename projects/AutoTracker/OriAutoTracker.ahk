@@ -100,11 +100,11 @@ skillstate := {"Bash": 0
     ,"WeaponUpgrade" : 0}
 
 ; -------------------------------------
-; Creating the Gui
+; Main Window
+; -------------------------------------
 
 Gui, Color, 585858
 Gui, Font, s15 cwhite
-Gui, Add, Text, , Ori WotW AutoTracker
 
 first_row = y40
 Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75 gclick, .\img\DoubleJump.png
@@ -148,8 +148,43 @@ Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, .\img\CompleteWa
 
 Gui, Show,, Ori WotW AutoTracker %version%
 
+; -------------------------------------
+; Teleporters window
+; -------------------------------------
+
+Gui, teleporters:New
+Gui, teleporters:Margin, 0, 0
+Gui, Color, 585858
+Gui, Font, s15 cwhite
+
+spacing := 20
+first_collumn = x5
+Gui, Add, Text, vDen %first_collumn% y0 Hidden, Den
+Gui, Add, Text, vHollow %first_collumn% yp+%spacing% Hidden, Hollow
+Gui, Add, Text, vGlades %first_collumn% yp+%spacing% Hidden, Glades
+Gui, Add, Text, vWellspring %first_collumn% yp+%spacing% Hidden, Wellspring
+Gui, Add, Text, vEastWoods %second_collumn% yp+%spacing% Hidden, East Woods
+
+second_collumn = x150
+Gui, Add, Text, vWestWoods %second_collumn% y0 Hidden, West Woods
+Gui, Add, Text, vBurrows %second_collumn% yp+%spacing% Hidden, Burrows
+Gui, Add, Text, vDepths %second_collumn% yp+%spacing% Hidden, Depths
+Gui, Add, Text, vEastPools %third_collumn% yp+%spacing% Hidden, East Pools
+Gui, Add, Text, vReach %third_collumn% yp+%spacing% Hidden, Reach
+
+third_collumn = x300
+Gui, Add, Text, vWestWastes %third_collumn% y0 Hidden, West Wastes
+Gui, Add, Text, vEastWastes %third_collumn% yp+%spacing% Hidden, East Wastes
+Gui, Add, Text, vOuterRuins %fourth_collumn% yp+%spacing% Hidden, Outer Ruins
+Gui, Add, Text, vWillow %fourth_collumn% yp+%spacing% Hidden, Willow
+Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
+
+Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
+
 OnMessage(0x200, "Help") ; On_mousemove event
 Return
+
+
 
 ; Function for manually toggling items
 click:
@@ -192,8 +227,9 @@ parsechanges(Folder, Changes) {
             inventory := JSON.Load(jsonString)
             skills := inventory.skills
             events := inventory.events
+            teleporters := inventory.teleporters
+
             spiritlight := inventory.spiritlight
-            Keystones := inventory.keystones
             GorlekOre := inventory.ore
 
             For index, skill in skills
@@ -304,7 +340,63 @@ parsechanges(Folder, Changes) {
 
             For index, event in events
                 if (event == "Clean Water") {
-                    GuiControl , Show ,CleanWater
+                    GuiControl, Show, CleanWater
+                }
+
+            for index, teleporter in teleporters
+                if (event == "Marsh") {
+                    GuiControl, Show, Marsh
+                }
+                if (event == "Den") {
+                    GuiControl, Show, Den
+                }
+                if (event == "Glades") {
+                    GuiControl, Show, Glades
+                }
+                if (event == "Hollow") {
+                    GuiControl, Show, Hollow
+                }
+                if (event == "Wellspring") {
+                    GuiControl, Show, Wellspring
+                }
+                if (event == "East Woods") {
+                    GuiControl, Show, EastWoods
+                }
+                if (event == "West Woods") {
+                    GuiControl, Show, WestWoods
+                }
+                if (event == "Burrows") {
+                    GuiControl, Show, Burrows
+                }
+                if (event == "Depths") {
+                    GuiControl, Show, Depths
+                }
+                if (event == "East Pools") {
+                    GuiControl, Show, EastPools
+                }
+                if (event == "West Pools") {
+                    GuiControl, Show, WestPools
+                }
+                if (event == "Reach") {
+                    GuiControl, Show, Reach
+                }
+                if (event == "West Wastes") {
+                    GuiControl, Show, WestWastes
+                }
+                if (event == "East Wastes") {
+                    GuiControl, Show, EastWastes
+                }
+                if (event == "Outer Ruins") {
+                    GuiControl, Show, OuterRuins
+                }
+                if (event == "Inner Ruins") {
+                    GuiControl, Show, InnerRuins
+                }
+                if (event == "Willow") {
+                    GuiControl, Show, Willow
+                }
+                if (event == "Shriek") {
+                    GuiControl, Show, Shriek
                 }
 
             GuiControl,, SpiritLight, % Spiritlight
