@@ -28,28 +28,28 @@ INTERCEPT(12927184, void, SeinUI__ShakeSeeds, (app::SeinUI* thisPtr)) {
 extern "C" __declspec(dllexport)
 void shake_spiritlight()
 {
-    if (!g_ui_is_valid() || (*g_ui)->static_fields->SeinUI == nullptr)
-        trace(MessageType::Error, 2, "game", "g_ui or SeinUI are invalid!");
+    if (get_ui()->static_fields->SeinUI == nullptr)
+        trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
     else
-        SeinUI__ShakeSpiritLight((*g_ui)->static_fields->SeinUI);
+        SeinUI__ShakeSpiritLight(get_ui()->static_fields->SeinUI);
 }
 
 extern "C" __declspec(dllexport)
 void shake_keystone()
 {
-    if (!g_ui_is_valid() || (*g_ui)->static_fields->SeinUI == nullptr)
-        trace(MessageType::Error, 2, "game", "g_ui or SeinUI are invalid!");
+    if (get_ui()->static_fields->SeinUI == nullptr)
+        trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
     else
-        SeinUI__ShakeKeystones((*g_ui)->static_fields->SeinUI);
+        SeinUI__ShakeKeystones(get_ui()->static_fields->SeinUI);
 }
 
 extern "C" __declspec(dllexport)
 void shake_ore()
 {
-    if (!g_ui_is_valid() || (*g_ui)->static_fields->SeinUI == nullptr)
-        trace(MessageType::Error, 2, "game", "g_ui or SeinUI are invalid!");
+    if (get_ui()->static_fields->SeinUI == nullptr)
+        trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
     else
-        SeinUI__ShakeSeeds((*g_ui)->static_fields->SeinUI);
+        SeinUI__ShakeSeeds(get_ui()->static_fields->SeinUI);
 }
 
 INTERCEPT(5806192, void, performPickupSequence, (app::SeinPickupProcessor* thisPtr, app::SeinPickupProcessor_CollectableInfo* info)) {

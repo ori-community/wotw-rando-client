@@ -23,8 +23,51 @@ namespace RandoMainDLL {
 
     public static bool Write(this UberState state, UberValue value) {
       state.Value = value;
-      Randomizer.Memory.WriteUberState(state);
+      InterOp.set_uber_state_value(state.GroupID, state.ID, state.ValueAsFloat());
       return true;
+    }
+
+    private static List<UberState> uberStateList = null;
+    public static void PopulateUberStates() {
+      uberStateList = new List<UberState>();
+      unsafe {
+        var size = 0;
+        var states = InterOp.get_uber_states(ref size);
+        for (var i = 0; i < size; ++i) {
+          var def = states[i];
+          var name = Marshal.PtrToStringAnsi(def.Name);
+          var groupName = Marshal.PtrToStringAnsi(def.GroupName);
+
+          uberStateList.Add(new UberState() {
+            ID = def.ID,
+            GroupID = def.GroupID,
+            Name = name,
+            GroupName = groupName,
+            Type = def.Type
+          });
+        }
+      }
+    }
+    public static void UpdateUberStates() {
+      foreach (var state in uberStateList) {
+        switch (state.Type) {
+          case UberStateType.SavePedestalUberState:
+          case UberStateType.SerializedByteUberState:
+            state.Value = new UberValue((byte)InterOp.get_uber_state_value(state.GroupID, state.ID));
+            break;
+          case UberStateType.SerializedBooleanUberState:
+            state.Value = new UberValue(InterOp.get_uber_state_value(state.GroupID, state.ID) != 0.0f);
+            break;
+          case UberStateType.SerializedFloatUberState:
+            state.Value = new UberValue((float)InterOp.get_uber_state_value(state.GroupID, state.ID));
+            break;
+          case UberStateType.SerializedIntUberState:
+            state.Value = new UberValue((int)InterOp.get_uber_state_value(state.GroupID, state.ID));
+            break;
+          default:
+            continue;
+        }
+      }
     }
     public static void Update() {
       if (NeedsNewGameInit)
@@ -32,11 +75,13 @@ namespace RandoMainDLL {
       bool SkipListners = SkipListenersNextUpdate;
       SkipListenersNextUpdate = false;
 
-      var memory = Randomizer.Memory;
-      Dictionary<long, UberState> uberStates = memory.GetUberStates();
-      foreach (KeyValuePair<long, UberState> pair in uberStates) {
+      if (uberStateList == null) {
+        PopulateUberStates();
+      }
+      
+      UpdateUberStates();
+      foreach (UberState state in uberStateList) {
         try {
-          UberState state = pair.Value;
           UberId key = state.GetUberId();
 
           if (UberStates.TryGetValue(key, out UberState oldState)) {
@@ -46,13 +91,13 @@ namespace RandoMainDLL {
               var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
               if (ShouldRevert(state)) {
                 Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
-                memory.WriteUberState(oldState);
+                oldState.Write();
                 continue;
               }
               HandleSpecial(state);
               UberStates[key].Value = state.Value;
               if (!SkipListners) {
-                var pos = Randomizer.Memory.Position();
+                var pos = InterOp.get_position();
                 bool found = false;
                 if (value.Int > 0)
                   found = SeedController.OnUberState(state);
@@ -64,7 +109,7 @@ namespace RandoMainDLL {
             UberStates[key] = state.Clone();
           }
         } catch (Exception e) {
-          Randomizer.Error($"USC.Update {pair}", e);
+          Randomizer.Error($"USC.Update {state}", e);
         }
       }
     }
@@ -84,12 +129,11 @@ namespace RandoMainDLL {
           var voiceState = new UberId(46462, 59806).State();
           if (!(voiceState.Value.Bool)) {
             voiceState.Write(new UberValue(true));
-            Stats stats = Randomizer.Memory.PlayerStats;
-            stats.MaxHealth += 10;
-            stats.MaxEnergy++;
-            Randomizer.Memory.PlayerStats = stats;
-            Randomizer.Memory.FillEnergy();
-            Randomizer.Memory.FillHealth();
+
+            InterOp.set_max_health(InterOp.get_max_health() + 10);
+            InterOp.set_max_energy(InterOp.get_max_energy() + 1);
+            InterOp.fill_health();
+            InterOp.fill_energy();
           }
         };
     }
@@ -104,22 +148,21 @@ namespace RandoMainDLL {
     }
 
     public static void NewGameInit() {
-      var memory = Randomizer.Memory;
-      if (!memory.IsLoadingGame()) {
+      if (!InterOp.is_loading_game()) {
         Randomizer.Log("New Game Init", false);
         SaveController.SetAbility(AbilityType.SpiritEdge);
-        foreach (UberState s in DefaultUberStates) { memory.WriteUberState(s); }
-        foreach (UberState s in Kuberstates) { memory.WriteUberState(s); }
-        foreach (UberState s in DialogAndRumors) { memory.WriteUberState(s); }
+        foreach (UberState s in DefaultUberStates) { s.Write(); }
+        foreach (UberState s in Kuberstates) { s.Write(); }
+        foreach (UberState s in DialogAndRumors) { s.Write(); }
 
         if (SeedController.KSDoorsOpen)
-          foreach (UberState s in KeystoneDoors) { memory.WriteUberState(s); }
+          foreach (UberState s in KeystoneDoors) { s.Write(); }
 
         if (!AHK.IniFlag("ShowShortCutscenes"))
-          foreach (UberState s in ShortCutscenes) { memory.WriteUberState(s); }
+          foreach (UberState s in ShortCutscenes) { s.Write(); }
 
         if (!AHK.IniFlag("ShowLongCutscenes"))
-          foreach (UberState s in LongCutscenes) { memory.WriteUberState(s); }
+          foreach (UberState s in LongCutscenes) { s.Write(); }
 
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {

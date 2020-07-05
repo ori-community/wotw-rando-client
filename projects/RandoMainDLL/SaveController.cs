@@ -123,7 +123,7 @@ namespace RandoMainDLL {
     private static bool DidWeJustDie = false;
 
     public static void OnSave(int slot, int backupSlot = -1) {
-      if (Randomizer.Memory.PlayerStats.Health == 0) {
+      if (InterOp.get_health() == 0) {
         DidWeJustDie = true;
         return; // the game saves right when you die, but we don't want to save progress when that happens.
       }

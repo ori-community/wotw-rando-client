@@ -53,8 +53,8 @@ namespace RandoMainDLL {
       bool disableDebug = IniFlag("DisableDebugControls");
       if (cursorLock || disableDebug) {
         Randomizer.TitleScreenCallback = () => {
-          if(disableDebug)
-            Randomizer.Memory.Debug = false;
+          if (disableDebug)
+            InterOp.set_debug_controls(false);
           if(cursorLock)
             InterOp.toggle_cursorlock();
         };
@@ -83,8 +83,7 @@ namespace RandoMainDLL {
             if (FramesTillUnlockReload == 0) {
               FramesTillNextSend = 0;
               SeedController.ReadSeed();
-              Randomizer.Memory.OnInit();
-              if (Randomizer.Memory.GameState == Memory.GameState.Game)
+              if (InterOp.get_game_state() == Memory.GameState.Game)
                 PsuedoLocs.RELOAD_SEED.Pickup().Grant();
               FramesTillUnlockReload = 60;
             }
@@ -104,8 +103,8 @@ namespace RandoMainDLL {
             Environment.Exit(Environment.ExitCode);
             break;
           case "toggleDebug":
-            Randomizer.Memory.Debug = !Randomizer.Memory.Debug;
-            Print($"Debug {(Randomizer.Memory.Debug ? "enabled" : "disabled")}", toMessageLog: false);
+            InterOp.set_debug_controls(!InterOp.get_debug_controls());
+            Print($"Debug {(InterOp.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
             break;
           case "toggleCursorLock":
             Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
@@ -180,7 +179,7 @@ namespace RandoMainDLL {
       MessageQueue.Enqueue(p);
     }
     private static bool tpCheatToggle = false;
-    public static bool TPToPickupsEnabled { get => tpCheatToggle && Randomizer.Memory.Debug; }
+    public static bool TPToPickupsEnabled { get => tpCheatToggle && InterOp.get_debug_controls(); }
   }
   public interface IMessage {
     string Text { get; }

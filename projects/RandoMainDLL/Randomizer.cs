@@ -12,7 +12,6 @@ namespace RandoMainDLL {
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version; // Opening a txt file every time we want to access this property? Nah.
                                     // Look it was a temporary thing - Eiko
-    public static MemoryManager Memory;
 
     public static int Bootstrap(string dllPath) {
        if (!Initialize())
@@ -49,12 +48,6 @@ namespace RandoMainDLL {
         AHK.Init();
         SeedController.ReadSeed(true);
         RVAFinder.Init();
-        Memory = new MemoryManager();
-        if (!Memory.HookProcess()) {
-          return false;
-        }
-
-        Memory.PatchNoPause(true);
         Log("init complete", false);
         return true;
       } catch (Exception e) {
@@ -66,15 +59,11 @@ namespace RandoMainDLL {
     public static void Update() {
       try {
         RVAFinder.Update();
-        if (!Memory.IsHooked) {
-          Memory.HookProcess();
-        }
-
-        if (Memory.GameState == GameState.TitleScreen) {
+        if (InterOp.get_game_state() == GameState.TitleScreen) {
           if (TitleScreenCallback != null)
             OnTitleScreen();
           UberStateController.SkipListenersNextUpdate = true;
-        } else if (Memory.GameState == GameState.Game) {
+        } else if (InterOp.get_game_state() == GameState.Game) {
           UberStateController.Update();
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();

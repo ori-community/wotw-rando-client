@@ -8,7 +8,7 @@ namespace RandoMainDLL {
     public static HashSet<string> Strings = new HashSet<string>();
 
     public static ulong MessageSwap(IntPtr str) {
-      var strr = MemoryReader.ReadString(Randomizer.Memory.Program, str);
+      var strr = Marshal.PtrToStringAuto(str);
       var shopStr = GetShopNameReplacement(strr);
       if (shopStr != strr) {
         return (ulong)InterOp.Util.getIl2cppStringPointer(shopStr);

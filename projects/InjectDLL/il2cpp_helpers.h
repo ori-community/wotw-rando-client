@@ -38,13 +38,12 @@ namespace il2cpp
         Il2CppObject* create_object(const char* namezpace, const char* name);
         Il2CppObject* create_object(Il2CppClass* klass);
 
-        bool instance_of(Il2CppClass* klass, const char* namezpace, const char* name);
-        int implements_interface(Il2CppClass* klass, const char* namezpace, const char* name);
-
-        bool instance_of(Il2CppClass* klass, Il2CppClass* parent);
-        int implements_interface(Il2CppClass* klass, Il2CppClass* iklass);
+        bool is_assignable(Il2CppClass* klass, const char* namezpace, const char* name);
+        bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass);
 
         Il2CppObject* box_value(Il2CppClass* klass, void* value);
+
+        Il2CppClass* get_class(const char* namezpace, const char* name);
     }
 
     Il2CppString* string_new(const char* str);
@@ -53,9 +52,7 @@ namespace il2cpp
     Il2CppObject* invoke_v(void* obj, const char* method, std::vector<void*> params = {});
     Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, const char* method, std::vector<void*> params = {});
 
-    Il2CppClass* get_class(const char* namezpace, const char* name);
-    bool instance_of(void* obj, const char* namezpace, const char* name);
-    bool implements_interface(void* obj, const char* namezpace, const char* name);
+    bool is_assignable(void* obj, const char* namezpace, const char* name);
 
     MethodInfo* resolve_generic_method(uint64_t address);
 
@@ -64,7 +61,7 @@ namespace il2cpp
     template<typename TObject>
     TObject* safe_il2cpp_cast(void* obj, const char* namezpace, const char* name)
     {
-        if (!instance_of(obj, namezpace, name))
+        if (!is_assignable(obj, namezpace, name))
             return nullptr;
 
         return reinterpret_cast<TObject*>(obj);
@@ -115,5 +112,11 @@ namespace il2cpp
     {
         return reinterpret_cast<Return*>(untyped::box_value(
             reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)));
+    }
+
+    template<typename Return = Il2CppClass>
+    Return* get_class(const char* namespaze, const char* name)
+    {
+        return reinterpret_cast<Return*>(untyped::get_class(namespaze, name));
     }
 }

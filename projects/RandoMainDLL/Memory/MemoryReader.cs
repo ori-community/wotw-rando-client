@@ -7,10 +7,8 @@ using System.Text;
 namespace RandoMainDLL.Memory {
   public static class MemoryReader {
     private static readonly Dictionary<int, Module64[]> ModuleCache = new Dictionary<int, Module64[]>();
-    public static bool is64Bit;
+    public static bool is64Bit = true;
     public static byte[] stringHeader;
-
-    public static void Update64Bit(Process program) => is64Bit = program.Is64Bit();
 
     public static T Read<T>(this Process targetProcess, IntPtr address, params int[] offsets) where T : unmanaged {
       if (targetProcess == null || address == IntPtr.Zero) { return default; }

@@ -9,8 +9,6 @@
 
 namespace
 {
-    STATIC_CLASS(71441752, app::SeinWorldState__Class*, sein_world_state);
-    
     //noop only - reward triggers on uberstate change.
     INTERCEPT(11712560, void, QuestsController__ApplyReward, (app::QuestsController * this_ptr, app::QuestReward * reward)) {}
     INTERCEPT(12110000, void, RaceHandler__ApplyReward, (app::RaceHandler* this_ptr)) {}
@@ -83,7 +81,8 @@ namespace
 
     void report_world_state(std::string const& command, std::vector<dev::CommandParam> const& params)
     {
-        auto state = (*sein_world_state)->static_fields->Instance;
+        auto sein_world_state = il2cpp::get_class<app::SeinWorldState__Class>("", "SeinWorldState");
+        auto state = sein_world_state->static_fields->Instance;
         send_state(state->fields.ForlornRuinsKey);
         send_state(state->fields.GinsoTreeKey);
         send_state(state->fields.MountHoruKey);
