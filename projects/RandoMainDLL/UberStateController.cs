@@ -72,8 +72,12 @@ namespace RandoMainDLL {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
-      else if (state.Name == "craftCutsceneState" && state.Value.Byte != 0)
+      else if (state.Name == "craftCutsceneState" && state.Value.Byte != 0) {
         state.Write(new UberValue((byte)3));
+        // Give diamond in the rough pickup.
+        new UberId(23987, 14832).State().Write(new UberValue(true));
+        InterOp.magic_function();
+      }
       else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2)
         Randomizer.InputUnlockCallback = () => {
           // this is really questionable!!

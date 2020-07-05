@@ -16,7 +16,7 @@ namespace
         if (name == "mapMakerSetup" && this_ptr->fields.Condition->klass->_0.name != std::string("DifficultyCondition"))
         {
             auto game_obj = il2cpp::unity::get_game_object(this_ptr->fields.Condition);
-            auto condition = il2cpp::unity::add_component<app::DifficultyCondition>(game_obj, "DifficultyCondition");
+            auto condition = il2cpp::unity::add_component<app::DifficultyCondition>(game_obj, "", "DifficultyCondition");
 
             if (condition != nullptr)
             {

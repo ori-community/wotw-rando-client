@@ -5,6 +5,8 @@
 
 #include <Common/ext.h>
 
+#include <vector>
+
 namespace il2cpp
 {
     namespace
@@ -12,11 +14,28 @@ namespace il2cpp
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
 
         BINDING(37033312, void, UnityEngine_Object__Destroy, (app::Object* this_ptr));
-        BINDING(36928320, app::Component*, UnityEngine_GameObject__AddComponent, (app::GameObject* this_ptr, app::Type* componentType));
-        BINDING(4521104, app::GameObject*, UnityEngine_Component__get_gameObject, (app::Component* this_ptr));
         BINDING(37030288, app::String*, UnityEngine_Object__get_name, (app::Object* this_ptr));
-        BINDING(39804816, app::Type*, System_Type__GetType, (app::String* typeName));
 
+        BINDING(4521104, app::GameObject*, UnityEngine_Component__get_gameObject, (app::Component* this_ptr));
+
+        BINDING(36928416, app::Transform*, UnityEngine_GameObject__get_transform, (app::GameObject* this_ptr));
+        BINDING(2095616, app::Scene, UnityEngine_GameObject__get_scene, (app::GameObject* this_ptr));
+        BINDING(36928320, app::Component*, UnityEngine_GameObject__AddComponent, (app::GameObject* this_ptr, app::Type* componentType));
+        BINDING(36926304, app::IComponent__Array*, UnityEngine_GameObject__GetComponents, (app::GameObject* this_ptr, app::Type* type));
+
+        BINDING(48221360, int32_t, UnityEngine_Transform__GetChildCount, (app::Transform* this_ptr));
+        BINDING(48221264, app::Transform*, UnityEngine_Transform__GetChild, (app::Transform* this_ptr, int32_t index));
+
+        BINDING(40843776, int32_t, UnityEngine_SceneManagement_SceneManager__get_sceneCount, ());
+        BINDING(40843936, app::Scene, UnityEngine_SceneManagement_SceneManager__GetActiveScene, ());
+        BINDING(40844336, app::Scene, UnityEngine_SceneManagement_SceneManager__GetSceneAt, (int32_t index));
+        BINDING(2095616, app::GameObject__Array*, UnityEngine_SceneManagement_Scene__GetRootGameObjects, (app::Scene__Boxed* this_ptr));
+        BINDING(2095216, app::String*, UnityEngine_SceneManagement_Scene__get_path, (app::Scene__Boxed* this_ptr));
+        BINDING(2095296, app::String*, UnityEngine_SceneManagement_Scene__get_name, (app::Scene__Boxed* this_ptr));
+
+        BINDING(39805024, app::Type*, System_Type__GetType, (app::String* typeName, bool throwOnError));
+
+        // Internal il2cpp methods.
         BINDING(2499936, Il2CppClass*, il2cpp_class_from_name, (Il2CppImage* image, const char* namespaze, const char* name));
         BINDING(2501792, Il2CppDomain*, il2cpp_domain_get, ());
         BINDING(2501856, Il2CppAssembly**, il2cpp_domain_get_assemblies, (Il2CppDomain* domain, size_t* size));
@@ -28,10 +47,45 @@ namespace il2cpp
         BINDING(2506016, void*, il2cpp_thread_attach, (Il2CppDomain* domain));
         BINDING(2505552, Il2CppString*, il2cpp_string_new_wrapper, (const char* str));
         BINDING(2505664, Il2CppString*, il2cpp_string_new_len, (const char* str, uint32_t len));
+        BINDING(1110304, Il2CppType*, il2cpp_class_get_type, (Il2CppClass* klass));
+        BINDING(2507680, char*, il2cpp_type_get_assembly_qualified_name, (const Il2CppType* type));
+        BINDING(9312, Il2CppObject*, il2cpp_value_box, (Il2CppClass* klass, void* value));
     }
 
     namespace unity
     {
+        char* get_qualified(const char* namespaze, const char* name)
+        {
+            auto klass = get_class(namespaze, name);
+            auto type = il2cpp_class_get_type(klass);
+            return il2cpp_type_get_assembly_qualified_name(type);
+        }
+
+        std::vector<app::GameObject*> get_children(app::GameObject* game_object)
+        {
+            std::vector<app::GameObject*> children;
+            auto transform = UnityEngine_GameObject__get_transform(game_object);
+            auto count = UnityEngine_Transform__GetChildCount(transform);
+            for (auto i = 0; i < count; ++i)
+                children.push_back(UnityEngine_Component__get_gameObject(
+                    reinterpret_cast<app::Component*>(UnityEngine_Transform__GetChild(transform, i))));
+
+            return children;
+        }
+
+        std::vector<app::Component*> get_components(app::GameObject* game_object, const char* namespaze, const char* name)
+        {
+            std::vector<app::Component*> components;
+            auto qualified = get_qualified(namespaze, name);
+            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto runtime_type = System_Type__GetType(type_str, false);
+            auto c_array = UnityEngine_GameObject__GetComponents(game_object, runtime_type);
+            for (auto i = 0; i < c_array->max_length; ++i)
+                components.push_back(reinterpret_cast<app::Component*>(c_array->vector[i]));
+
+            return components;
+        }
+
         void destroy_object(void* object)
         {
             UnityEngine_Object__Destroy(reinterpret_cast<app::Object*>(object));
@@ -42,10 +96,11 @@ namespace il2cpp
             return UnityEngine_Component__get_gameObject(reinterpret_cast<app::Component*>(component));
         }
 
-        app::Component* add_component_untyped(app::GameObject* game_object, const char* full_name)
+        app::Component* add_component_untyped(app::GameObject* game_object, const char* namespaze, const char* name)
         {
-            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(full_name));
-            auto runtime_type = System_Type__GetType(type_str);
+            auto qualified = get_qualified(namespaze, name);
+            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto runtime_type = System_Type__GetType(type_str, false);
             return UnityEngine_GameObject__AddComponent(game_object, runtime_type);
 
         }
@@ -55,6 +110,51 @@ namespace il2cpp
             auto cast_object = static_cast<app::Object*>(object);
             auto csstr = UnityEngine_Object__get_name(cast_object);
             return convert_csstring(csstr);
+        }
+
+        int32_t get_scene_count()
+        {
+            return UnityEngine_SceneManagement_SceneManager__get_sceneCount();
+        }
+
+        app::Scene get_scene_at(int32_t i)
+        {
+            return UnityEngine_SceneManagement_SceneManager__GetSceneAt(i);
+        }
+
+        app::Scene get_active_scene()
+        {
+            return UnityEngine_SceneManagement_SceneManager__GetActiveScene();
+        }
+
+        app::Scene get_scene(app::GameObject* game_object)
+        {
+            return UnityEngine_GameObject__get_scene(game_object);
+        }
+
+        std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene)
+        {
+            std::vector<app::GameObject*> output;
+            auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
+            auto game_objects = UnityEngine_SceneManagement_Scene__GetRootGameObjects(boxed);
+            for (auto i = 0; i < game_objects->max_length; ++i)
+                output.push_back(game_objects->vector[i]);
+
+            return output;
+        }
+
+        std::string get_scene_name(app::Scene& scene)
+        {
+            auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
+            auto csstring = UnityEngine_SceneManagement_Scene__get_name(boxed);
+            return convert_csstring(csstring);
+        }
+
+        std::string get_scene_path(app::Scene& scene)
+        {
+            auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
+            auto csstring = UnityEngine_SceneManagement_Scene__get_path(boxed);
+            return convert_csstring(csstring);
         }
     }
 
@@ -100,6 +200,11 @@ namespace il2cpp
                     return i;
 
             return -1;
+        }
+
+        Il2CppObject* box_value(Il2CppClass* klass, void* value)
+        {
+            return il2cpp_value_box(klass, value);
         }
     }
 
