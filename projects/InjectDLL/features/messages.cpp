@@ -163,7 +163,7 @@ app::MessageBox* display_hint(app::String * hint, float duration)
     try
     {
         clear_visible_hints();
-        const auto message_controller = (*g_ui)->static_fields->MessageController;
+        const auto message_controller = get_ui()->static_fields->MessageController;
         auto last_box = MessageControllerB__ShowHintSmallMessage(
             message_controller,
             app::MessageDescriptor{ hint, app::EmotionType__Enum_Neutral, nullptr, nullptr },

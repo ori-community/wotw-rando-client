@@ -42,6 +42,8 @@ set(
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
 	"uber_states/uber_state_dev.cpp"
+	"uber_states/uber_state_manager.cpp"
+	"uber_states/uber_state_helper.cpp"
 	"uber_states/state_applier.cpp"
 )
 
@@ -65,6 +67,8 @@ set(
 	"pickups/ore.h"
 	"pickups/pickups.h"
 	"uber_states/state_applier.h"
+	"uber_states/uber_state_manager.h"
+	"uber_states/uber_state_helper.h"
 )
 
 set(

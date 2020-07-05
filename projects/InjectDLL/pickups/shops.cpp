@@ -1,5 +1,6 @@
 #include <interception_macros.h>
 #include <dll_main.h>
+#include <il2cpp_helpers.h>
 
 #include <csharp_bridge.h>
 
@@ -22,10 +23,7 @@ bool isTwillenShard(char shard){
 
 
 bool is_in_shop_screen(){
-    if (!g_game_controller_is_valid())
-        return false;
-
-	const auto  gameController = (*g_game_controller)->static_fields->Instance;
+	const auto  gameController = get_game_controller();
 	if(!gameController || GameController_get_GameInTitleScreen(gameController))
 		return false;
 
@@ -33,20 +31,15 @@ bool is_in_shop_screen(){
 	if(weaponmasterScreen && SeinCharacter_get_Active(weaponmasterScreen))
 		return true;
 
-    INLINE_STATIC_CLASS(71589120, app::SpiritShardsShopScreen__Class*, shop_screen);
-	if(shop_screen_is_valid())
-	{
-		const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
-		if(spiritShardsShopScreen && SeinCharacter_get_Active((int64_t) spiritShardsShopScreen))
-			return true;
-	}
+    auto shop_screen = il2cpp::get_class<app::SpiritShardsShopScreen__Class>("", "SpiritShardsShopScreen");
+	const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
+	if(spiritShardsShopScreen && SeinCharacter_get_Active((int64_t) spiritShardsShopScreen))
+		return true;
 
-    INLINE_STATIC_CLASS(71472816, app::MapmakerScreen__Class*, mapmaker_screen);
-    if (shop_screen_is_valid()) {
-        const auto mapmakerScreen = mapmaker_screen->static_fields->Instance;
-        if (mapmakerScreen && SeinCharacter_get_Active((int64_t)mapmakerScreen))
-            return true;
-    }
+    auto mapmaker_screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen");
+    const auto mapmakerScreen = mapmaker_screen->static_fields->Instance;
+    if (mapmakerScreen && SeinCharacter_get_Active((int64_t)mapmakerScreen))
+        return true;
 
 	return false;
 };

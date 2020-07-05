@@ -22,18 +22,15 @@ namespace csharp_bridge
         using f_int_at = int(*)(AbilityType);
         using f_int_int = int(*)(int);
         using f_int_st = int(*)(ShardType);
-        using f_ull = uint64_t(*)();
         using f_ull_sll = uint64_t(*)(int64_t);
         using f_ull_str_bool = uint64_t(*)(const char*, bool);
     }
 
     extern signatures::f_void update;
-    extern signatures::f_int ore_count;
     extern signatures::f_bool_at tree_fulfilled;
     extern signatures::f_void_at on_tree;
     extern signatures::f_void on_checkpoint;
     extern signatures::f_void on_goal_mode_fail;
-    extern signatures::f_ull get_shard_slot_ptr;
     extern signatures::f_bool_str check_ini;
     extern signatures::f_bool inject_log_enabled;
     extern signatures::f_bool inject_debug_enabled;

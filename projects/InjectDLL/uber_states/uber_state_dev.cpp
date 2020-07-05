@@ -4,6 +4,7 @@
 #include <il2cpp_helpers.h>
 #include <dev/dev_commands.h>
 #include <dev/object_visualizer.h>
+#include <uber_states/uber_state_manager.h>
 #include <Common/ext.h>
 
 #include <algorithm>
@@ -12,12 +13,7 @@
 
 namespace
 {
-    BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
-    BINDING(27775392, void, Moon_UberStateController__Apply, (app::IUberState* descriptor, int context));
     BINDING(27776080, bool, Moon_UberStateController__ApplierIsAffectedByUberState, (app::IUberStateApplier* applier, app::IUberState* descriptor));
-
-    STATIC_CLASS(71605752, app::UberID__Class*, uber_id_class);
-    STATIC_CLASS(71444600, app::UberStateController__Class*, uber_state_controller);
 
     void visualizer_setup(dev::Visualizer& visualizer, std::vector<dev::CommandParam> const& params, int default_level = 1, int default_depth = 200000)
     {
@@ -57,23 +53,6 @@ namespace
             dev::console_send(dev::visualize::get_string(visualizer));
     }
 
-    // TODO: Figure out a way to resolve the vtable here by interface and use IGenericUberState.
-    void set_uber_state(app::IUberState* uber_state, float value)
-    {
-        auto actual_value = il2cpp::create_object<app::Single>("System", "Single");;
-        actual_value->m_value = value;
-        il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "set_GenericValue", actual_value);
-    }
-
-    app::UberID create_id(int id)
-    {
-        app::UberID uber_id;
-        uber_id.monitor = nullptr;
-        uber_id.klass = *uber_id_class;
-        uber_id.fields.m_id = id;
-        return uber_id;
-    }
-
     bool find_state_group(std::vector<dev::CommandParam> const& params, int& state, int& group)
     {
         auto state_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "state"; });
@@ -105,20 +84,6 @@ namespace
         return true;
     }
 
-    void set_us(int state, int group, float value)
-    {
-        auto state_id = create_id(state);
-        auto group_id = create_id(group);
-        auto uber_state = Moon_UberStateCollection__GetState(&group_id, &state_id);
-        if (uber_state == nullptr)
-        {
-            dev::console_send("uber_state not found");
-            return;
-        }
-
-        set_uber_state(uber_state, value);
-    }
-
     void set_us_bool(std::string const& command, std::vector<dev::CommandParam> const& params)
     {
         int state = 0;
@@ -140,7 +105,7 @@ namespace
             return;
         }
 
-        set_us(state, group, static_cast<float>(value));
+        uber_states::set_uber_state_value(state, group, static_cast<float>(value));
     }
 
     void set_us_int(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -164,25 +129,20 @@ namespace
             return;
         }
 
-        set_us(state, group, static_cast<float>(value));
+        uber_states::set_uber_state_value(state, group, static_cast<float>(value));
     }
 
     void check_appliers(std::string const& command, std::vector<dev::CommandParam> const& params)
     {
-        if (!uber_state_controller_is_valid())
-        {
-            dev::console_send("uber_state_controller not available");
-            return;
-        }
-
+        auto uber_state_controller = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController");
         int state = 0;
         int group = 0;
         if (!find_state_group(params, state, group))
             return;
 
-        auto state_id = create_id(state);
-        auto group_id = create_id(group);
-        auto uber_state = Moon_UberStateCollection__GetState(&group_id, &state_id);
+        auto state_id = uber_states::create_uber_id(state);
+        auto group_id = uber_states::create_uber_id(group);
+        auto uber_state = uber_states::get_uber_state(group_id, state_id);
         if (uber_state == nullptr)
         {
             dev::console_send("uber_state not found");
@@ -192,7 +152,7 @@ namespace
         dev::Visualizer visualizer;
         visualizer_setup(visualizer, params, 1, 1);
 
-        auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
+        auto list = uber_state_controller->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i)
         {
             auto item = list->fields._items->vector[i];
@@ -205,17 +165,12 @@ namespace
 
     void check_all_appliers(std::string const& command, std::vector<dev::CommandParam> const& params)
     {
-        if (!uber_state_controller_is_valid())
-        {
-            dev::console_send("uber_state_controller not available");
-            return;
-        }
-
+        auto uber_state_controller = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController");
         dev::Visualizer visualizer;
         visualizer_setup(visualizer, params, 1, 1);
 
         dev::console_send("start visualizing.");
-        auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
+        auto list = uber_state_controller->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i)
         {
             dev::console_send(format("visualizing applier (%d / %d)", i + 1, list->fields._size));

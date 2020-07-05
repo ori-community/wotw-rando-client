@@ -17,9 +17,9 @@ namespace RandoMainDLL {
     String trackName(AbilityType type) => ((byte)type > 119 && (byte)type < 122) ? "DamageUp" : type.GetDescription()?.Replace(" ", "") ?? "Unknown";
     public TrackData() {
       try {
-        keystones = Randomizer.Memory.Keystones;
-        spiritLight = Randomizer.Memory.Experience;
-        ore = Randomizer.Memory.Ore;
+        keystones = InterOp.get_keystones();
+        spiritLight = InterOp.get_experience();
+        ore = InterOp.get_ore();
         skills = SaveController.Data.SkillsFound.Select((AbilityType type) => trackName(type)).ToHashSet();
         upgraded = SaveController.Data.OpherUpgraded.Keys.Select((AbilityType type) => $"{type.GetDescription().Replace(" ", "")}").ToHashSet();
         if (SaveController.HasAbility(AbilityType.DamageUpgrade1) && SaveController.HasAbility(AbilityType.DamageUpgrade2))
@@ -42,7 +42,7 @@ namespace RandoMainDLL {
         IgnoreUpdateFrames--;
         return;
       }
-      if (Last.ore != Randomizer.Memory.Ore || Last.spiritLight != Randomizer.Memory.Experience)
+      if (Last.ore != InterOp.get_ore() || Last.spiritLight != InterOp.get_experience())
         Write();
     }
     public static void Write() {

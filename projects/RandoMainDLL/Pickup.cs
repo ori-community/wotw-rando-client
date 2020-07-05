@@ -138,21 +138,22 @@ namespace RandoMainDLL {
     public override bool NeedsMagic() => true;
     public UberStateSetter(UberState state) => State = state;
     public override void Grant(bool skipBase = false) {
-      Randomizer.Memory.WriteUberState(State);
+      InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
   }
 
   public class UberStateModifier : UberStateSetter {
     Func<UberValue, UberValue> Modifier;
-    String ModStr;
+    string ModStr;
+
     public UberStateModifier(UberState state, Func<UberValue, UberValue> modifier, String modstr) : base(state) {
       Modifier = modifier;
       ModStr = modstr;
     }
     public override void Grant(bool skipBase = false) {
       State.Value = Modifier(State.ValueOr(State.Value));
-      Randomizer.Memory.WriteUberState(State);
+      InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {ModStr}";
 
@@ -308,15 +309,10 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
     public override bool Has() {
-      try {
-        return Randomizer.Memory.HasShard(type);
-      } catch (Exception e) {
-        Randomizer.Error("Ability.Has", e);
-        return false;
-      }
+      return InterOp.has_shard(type);
     }
     public override void Grant(bool skipBase = false) {
-      Randomizer.Memory.SetShard(type);
+      InterOp.set_shard(type, true);
       base.Grant(skipBase);
     }
 
@@ -328,7 +324,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
     public override void Grant(bool skipBase = false) {
-      Randomizer.Memory.SetShard(type, false);
+      InterOp.set_shard(type, false);
       base.Grant(skipBase);
     }
     public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Shard {type}";
@@ -341,7 +337,7 @@ namespace RandoMainDLL {
     public readonly int Amount;
 
     public override void Grant(bool skipBase = false) {
-      Randomizer.Memory.Experience += Amount;
+      InterOp.set_experience(InterOp.get_experience() + Amount);
       InterOp.shake_spiritlight();
       base.Grant(skipBase);
     }
@@ -457,21 +453,23 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       switch (type) {
         case ResourceType.Health:
-          Randomizer.Memory.FakeHalfHealth();
+          InterOp.set_max_health(InterOp.get_max_health() + 5);
+          InterOp.fill_health();
           break;
         case ResourceType.Energy:
-          Randomizer.Memory.FakeHalfEnergy();
+          InterOp.set_max_energy(InterOp.get_max_energy() + 0.5f);
+          InterOp.fill_energy();
           break;
         case ResourceType.Ore:
-          InterOp.set_ore(++Randomizer.Memory.Ore);
+          InterOp.set_ore(InterOp.get_ore() + 1);
           InterOp.shake_ore();
           break;
         case ResourceType.Keystone:
-          Randomizer.Memory.Keystones++;
+          InterOp.set_keystones(InterOp.get_keystones() + 1);
           InterOp.shake_keystone();
           break;
         case ResourceType.ShardSlot:
-          Randomizer.Memory.Shards++;
+          InterOp.set_shard_slots(InterOp.get_shard_slots() + 1);
           break;
       }
       base.Grant(skipBase);

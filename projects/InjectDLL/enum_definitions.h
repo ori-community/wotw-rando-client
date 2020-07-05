@@ -2,6 +2,20 @@
 
 namespace csharp_bridge
 {
+    enum class UberStateType : uint8_t {
+        BooleanUberState,
+        ByteUberState,
+        IntUberState,
+        SerializedBooleanUberState,
+        SerializedFloatUberState,
+        SerializedIntUberState,
+        SerializedByteUberState,
+        CountUberState,
+        SavePedestalUberState,
+        ConditionUberState,
+        PlayerUberStateDescriptor
+    };
+
     enum class AbilityType {
         Bash = 0,
         WallJump = 3,

@@ -20,18 +20,14 @@ namespace RandoMainDLL {
             CallbackName = "update"
           },
           new Method() {
-            Delegate = new f_int(() => Randomizer.Memory.Ore),
-            CallbackName = "ore_count"
-          },
-          new Method() {
             Delegate = new f_bool_at((AbilityType at) => SaveController.Data.TreesActivated.Contains(at)),
             CallbackName = "tree_fulfilled"
           },
           new Method() {
             Delegate = new f_void_at((AbilityType at) => {
               SaveController.Data.TreesActivated.Add(at);
-              Randomizer.Memory.FillEnergy();
-              Randomizer.Memory.FillHealth();
+              InterOp.fill_health();
+              InterOp.fill_energy();
               SeedController.OnTree(at);
             }),
             CallbackName = "on_tree"
@@ -43,10 +39,6 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void(() => AHK.Print(SeedController.GoalModeMessages(unmet: "@"), 240, false)),
             CallbackName = "on_goal_mode_fail"
-          },
-          new Method() {
-            Delegate = new f_ull(Randomizer.Memory.ShardSlotPtr),
-            CallbackName = "get_shard_slot_ptr"
           },
           new Method() {
             Delegate = new f_bool_str(AHK.IniFlag),

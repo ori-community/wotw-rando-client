@@ -8,10 +8,9 @@ void on_fixed_update(__int64 thisPointer);
 std::string pretty_time();
 bool is_in_shop_screen();
 
-STATIC_CLASS_EXTERN(app::Characters__Class*, g_characters);
-STATIC_CLASS_EXTERN(app::GameController__Class*, g_game_controller);
-STATIC_CLASS_EXTERN(app::UI__Class*, g_ui);
+app::GameController* get_game_controller();
 app::SeinCharacter* get_sein();
+app::UI__Class* get_ui();
 
 INJECT_C_DLLEXPORT bool has_ability(uint8_t ability);
 

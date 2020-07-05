@@ -50,17 +50,39 @@ namespace il2cpp
         BINDING(1110304, Il2CppType*, il2cpp_class_get_type, (Il2CppClass* klass));
         BINDING(2507680, char*, il2cpp_type_get_assembly_qualified_name, (const Il2CppType* type));
         BINDING(9312, Il2CppObject*, il2cpp_value_box, (Il2CppClass* klass, void* value));
+        BINDING(1053568, bool, il2cpp_class_is_assignable_from, (Il2CppClass* klass, Il2CppClass* oklass));
+        BINDING(2499904, bool, il2cpp_class_is_subclass_of, (Il2CppClass* klass, Il2CppClass* klassc, bool check_interfaces));
+        BINDING(2326800, bool, il2cpp_class_has_parent, (Il2CppClass* klass, Il2CppClass* klassc));
+
+        thread_local std::string buffer;
+        std::string const& get_full_name(const char* namespaze, const char* name)
+        {
+            buffer.clear();
+            buffer.reserve(32);
+            if (namespaze == nullptr || namespaze[0] == '\0')
+            {
+                buffer += name;
+                return buffer;
+            }
+            else
+            {
+                buffer += namespaze;
+                buffer += ".";
+                buffer += name;
+                return buffer;
+            }
+        }
+
+        char* get_qualified(const char* namespaze, const char* name)
+        {
+            auto klass = get_class<>(namespaze, name);
+            auto type = il2cpp_class_get_type(klass);
+            return il2cpp_type_get_assembly_qualified_name(type);
+        }
     }
 
     namespace unity
     {
-        char* get_qualified(const char* namespaze, const char* name)
-        {
-            auto klass = get_class(namespaze, name);
-            auto type = il2cpp_class_get_type(klass);
-            return il2cpp_type_get_assembly_qualified_name(type);
-        }
-
         std::vector<app::GameObject*> get_children(app::GameObject* game_object)
         {
             std::vector<app::GameObject*> children;
@@ -174,37 +196,47 @@ namespace il2cpp
             return il2cpp_object_new(klass);
         }
 
-        bool instance_of(Il2CppClass* klass, const char* namezpace, const char* name)
+        bool is_assignable(Il2CppClass* klass, const char* namezpace, const char* name)
         {
-            return instance_of(klass, get_class(namezpace, name));
+            return is_assignable(klass, get_class(namezpace, name));
         }
 
-        int implements_interface(Il2CppClass* klass, const char* namezpace, const char* name)
+        bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass)
         {
-            return implements_interface(klass, get_class(namezpace, name));
-        }
-
-        bool instance_of(Il2CppClass* klass, Il2CppClass* parent)
-        {
-            for (auto i = 0; i < klass->typeHierarchyDepth; ++i)
-                if (klass->typeHierarchy[i] == klass)
-                    return true;
-
-            return false;
-        }
-
-        int implements_interface(Il2CppClass* klass, Il2CppClass* iklass)
-        {
-            for (auto i = 0; i < klass->interfaces_count; ++i)
-                if (klass->implementedInterfaces[i] == iklass)
-                    return i;
-
-            return -1;
+            return il2cpp_class_is_assignable_from(iklass, klass);
         }
 
         Il2CppObject* box_value(Il2CppClass* klass, void* value)
         {
             return il2cpp_value_box(klass, value);
+        }
+
+        Il2CppClass* get_class(const char* namezpace, const char* name)
+        {
+            std::string const& full_name = get_full_name(namezpace, name);
+            auto it = resolved_classes.find(full_name);
+            if (it != resolved_classes.end())
+                return it->second;
+
+            Il2CppClass* klass = nullptr;
+            size_t i = 0;
+            size_t size = 0;
+            auto domain = il2cpp_domain_get();
+            auto assemblies = il2cpp_domain_get_assemblies(domain, &size);
+            while (klass == nullptr && i < size)
+            {
+                auto image = il2cpp_assembly_get_image(assemblies[i]);
+                klass = il2cpp_class_from_name(image, namezpace, name);
+                ++i;
+            }
+
+            if (klass == nullptr)
+                trace(MessageType::Error, 1, "il2cpp", format("Failed to find klass %s", full_name.c_str()));
+            
+            // Add it to resolved classes anyway to prevent trace spam and future lookups.
+            resolved_classes[full_name] = klass;
+
+            return klass;
         }
     }
 
@@ -253,41 +285,9 @@ namespace il2cpp
         return il2cpp_runtime_invoke(virtual_method_info, cast_obj, params.data(), &exc);
     }
 
-    bool instance_of(void* obj, const char* namezpace, const char* name)
+    bool is_assignable(void* obj, const char* namezpace, const char* name)
     {
-        return untyped::instance_of(reinterpret_cast<Il2CppObject*>(obj)->klass, namezpace, name);
-    }
-
-    bool implements_interface(void* obj, const char* namezpace, const char* name)
-    {
-        return untyped::instance_of(reinterpret_cast<Il2CppObject*>(obj)->klass, namezpace, name);
-    }
-
-    Il2CppClass* get_class(const char* namezpace, const char* name)
-    {
-        std::string full_name = std::string(namezpace) + "." + name;
-        auto it = resolved_classes.find(full_name);
-        if (it != resolved_classes.end())
-            return it->second;
-
-        Il2CppClass* klass = nullptr;
-        size_t i = 0;
-        size_t size = 0;
-        auto domain = il2cpp_domain_get();
-        auto assemblies = il2cpp_domain_get_assemblies(domain, &size);
-        while (klass == nullptr && i < size)
-        {
-            auto image = il2cpp_assembly_get_image(assemblies[i]);
-            klass = il2cpp_class_from_name(image, namezpace, name);
-            ++i;
-        }
-
-        if (klass != nullptr)
-            resolved_classes[full_name] = klass;
-        else
-            trace(MessageType::Error, 1, "il2cpp", format("Failed to find klass %s.%s", namezpace, name));
-
-        return klass;
+        return untyped::is_assignable(reinterpret_cast<Il2CppObject*>(obj)->klass, namezpace, name);
     }
 
     MethodInfo* resolve_generic_method(uint64_t address)
