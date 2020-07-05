@@ -12,13 +12,24 @@ namespace il2cpp
     {
         void destroy_object(void* object);
         app::GameObject* get_game_object(void* component);
-        app::Component* add_component_untyped(app::GameObject* game_object, const char* full_name);
+        app::Component* add_component_untyped(app::GameObject* game_object, const char* namespaze, const char* name);
+        std::vector<app::GameObject*> get_children(app::GameObject* game_object);
+        std::vector<app::Component*> get_components(app::GameObject* game_object, const char* namespaze = "UnityEngine", const char* name = "Component");
+        int32_t get_scene_count();
+        app::Scene get_scene_at(int32_t i);
+        app::Scene get_active_scene();
+        app::Scene get_scene(app::GameObject* game_object);
+        std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene);
+
         std::string get_object_name(void* object);
+        std::string get_scene_name(app::Scene& scene);
+        std::string get_scene_path(app::Scene& scene);
+
 
         template<typename Return = app::Component>
-        Return* add_component(app::GameObject* game_object, const char* full_name)
+        Return* add_component(app::GameObject* game_object, const char* namespaze, const char* name)
         {
-            return reinterpret_cast<Return*>(add_component_untyped(game_object, full_name));
+            return reinterpret_cast<Return*>(add_component_untyped(game_object, namespaze, name));
         }
     }
 
@@ -32,6 +43,8 @@ namespace il2cpp
 
         bool instance_of(Il2CppClass* klass, Il2CppClass* parent);
         int implements_interface(Il2CppClass* klass, Il2CppClass* iklass);
+
+        Il2CppObject* box_value(Il2CppClass* klass, void* value);
     }
 
     Il2CppString* string_new(const char* str);
@@ -95,5 +108,12 @@ namespace il2cpp
     {
         std::vector<void*> collected_params{ { reinterpret_cast<void*>(params)... } };
         return reinterpret_cast<Return*>(invoke_virtual_v(obj, base, method, collected_params));
+    }
+
+    template<typename Return, typename Input, typename InputKlass>
+    Return* box_value(InputKlass* klass, Input value)
+    {
+        return reinterpret_cast<Return*>(untyped::box_value(
+            reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)));
     }
 }

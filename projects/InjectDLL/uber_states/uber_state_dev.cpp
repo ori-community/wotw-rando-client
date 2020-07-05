@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <array>
+#include <fstream>
 
 namespace
 {
@@ -18,44 +19,43 @@ namespace
     STATIC_CLASS(71605752, app::UberID__Class*, uber_id_class);
     STATIC_CLASS(71444600, app::UberStateController__Class*, uber_state_controller);
 
-    STATIC_CLASS(71453760, Il2CppClass*, bool_uber_state);
-    STATIC_CLASS(71829456, Il2CppClass*, byte_uber_state);
-    STATIC_CLASS(71589912, Il2CppClass*, condition_uber_state);
-    STATIC_CLASS(71833960, Il2CppClass*, float_uber_state);
-    STATIC_CLASS(71549856, Il2CppClass*, int_uber_state);
-    STATIC_CLASS(71915248, Il2CppClass*, serialized_bool_uber_state);
-    STATIC_CLASS(71797832, Il2CppClass*, serialized_byte_uber_state);
-    STATIC_CLASS(71349376, Il2CppClass*, serialized_float_uber_state);
-    STATIC_CLASS(71349576, Il2CppClass*, serialized_int_uber_state);
-
-    BINDING(27727008, void, Moon_BooleanUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(27728080, void, Moon_ByteUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(3006464, void, Moon_ConditionUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(27736384, void, Moon_FloatUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(27740144, void, Moon_IntUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(27748912, void, Moon_SerializedBooleanUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(27750768, void, Moon_SerializedByteUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(27752608, void, Moon_SerializedFloatUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-    BINDING(27754240, void, Moon_SerializedIntUberState__set_GenericValue, (app::IUberState* this_ptr, float value));
-
-    std::array<std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>, 9> generic_sets;
-
-    void initialize_generic_sets()
+    void visualizer_setup(dev::Visualizer& visualizer, std::vector<dev::CommandParam> const& params, int default_level = 1, int default_depth = 200000)
     {
-        generic_sets = {
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_bool_uber_state, Moon_SerializedBooleanUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_byte_uber_state, Moon_SerializedByteUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_float_uber_state, Moon_SerializedFloatUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ serialized_int_uber_state, Moon_SerializedIntUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ bool_uber_state, Moon_BooleanUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ byte_uber_state, Moon_ByteUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ condition_uber_state, Moon_ConditionUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ float_uber_state, Moon_FloatUberState__set_GenericValue },
-            std::tuple<Il2CppClass**, void (*)(app::IUberState* this_ptr, float value)>{ int_uber_state, Moon_IntUberState__set_GenericValue },
-        };
+        int value = default_level;
+        auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
+        if (value_it != params.end())
+            if (!dev::try_get_int(*value_it, value) || value < 0 || value > 3)
+                dev::console_send("invalid value parameter not an int in range 0 - 3, using default level");
+
+        visualizer.level = static_cast<dev::Visualizer::InfoLevel>(std::clamp(value, 0, 3));
+        visualizer.initial_depth = -1;
+        value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
+        if (value_it != params.end())
+            if (!dev::try_get_int(*value_it, visualizer.initial_depth) || visualizer.initial_depth < 0)
+                dev::console_send("invalid value parameter not a positive int, using default depth");
+
+        if (visualizer.initial_depth < 0)
+            visualizer.initial_depth = default_depth;
     }
 
-    CALL_ON_INIT(initialize_generic_sets);
+    void output_visualizer(dev::Visualizer& visualizer, std::vector<dev::CommandParam> const& params)
+    {
+        std::ofstream str;
+        auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "file"; });
+        if (value_it != params.end())
+        {
+            str.open(value_it->value);
+        }
+
+        if (str.is_open())
+        {
+            str << dev::visualize::get_string(visualizer) << std::endl;
+            dev::console_send("finished writing to file.");
+            str.close();
+        }
+        else
+            dev::console_send(dev::visualize::get_string(visualizer));
+    }
 
     // TODO: Figure out a way to resolve the vtable here by interface and use IGenericUberState.
     void set_uber_state(app::IUberState* uber_state, float value)
@@ -190,6 +190,8 @@ namespace
         }
 
         dev::Visualizer visualizer;
+        visualizer_setup(visualizer, params, 1, 1);
+
         auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i)
         {
@@ -198,7 +200,7 @@ namespace
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
 
-        dev::console_send(dev::visualize::get_string(visualizer));
+        output_visualizer(visualizer, params);
     }
 
     void check_all_appliers(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -209,22 +211,42 @@ namespace
             return;
         }
 
-        int value = 1;
-        auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
-        if (value_it != params.end())
-            if (!dev::try_get_int(*value_it, value) || value < 0 || value > 3)
-                dev::console_send("invalid value parameter not an int in range 0 - 3, using default value 1");
-
         dev::Visualizer visualizer;
-        visualizer.level = static_cast<dev::Visualizer::InfoLevel>(std::clamp(value, 0, 3));
+        visualizer_setup(visualizer, params, 1, 1);
+
+        dev::console_send("start visualizing.");
         auto list = (*uber_state_controller)->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i)
         {
+            dev::console_send(format("visualizing applier (%d / %d)", i + 1, list->fields._size));
+            dev::console_flush();
+
             auto item = list->fields._items->vector[i];
-            dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
+            dev::visualize::visualize_object(visualizer, item);
         }
 
-        dev::console_send(dev::visualize::get_string(visualizer));
+        dev::console_send("finished visualizing, outputting.\n");
+        output_visualizer(visualizer, params);
+    }
+
+    void dump_scene(std::string const& command, std::vector<dev::CommandParam> const& params)
+    {
+        dev::Visualizer visualizer;
+        visualizer_setup(visualizer, params);
+
+        auto count = il2cpp::unity::get_scene_count();
+        dev::console_send("start visualizing.");
+        for (auto i = 0; i < count; ++i)
+        {
+            dev::console_send(format("visualizing scene (%d / %d)", i + 1, count));
+            dev::console_flush();
+
+            auto scene = il2cpp::unity::get_scene_at(i);
+            dev::visualize::visualize_scene(visualizer, scene);
+        }
+
+        dev::console_send("finished visualizing, outputting.\n");
+        output_visualizer(visualizer, params);
     }
 
     void add_uber_state_commands()
@@ -233,6 +255,7 @@ namespace
         dev::register_command("set_us_int", set_us_int);
         dev::register_command("check_appliers", check_appliers);
         dev::register_command("check_all_appliers", check_all_appliers);
+        dev::register_command("dump_scene", dump_scene);
     }
 
     CALL_ON_INIT(add_uber_state_commands);
