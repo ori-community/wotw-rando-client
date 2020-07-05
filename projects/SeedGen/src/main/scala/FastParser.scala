@@ -39,42 +39,42 @@ package SeedGenerator {
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
     def diffReq[_ :P]: P[Requirement] = P("base" | "advanced").!.map({case "base" => Free; case "advanced" => if(UI.Options.unsafePaths) Free else Invalid})
     def stateReq[_:P]: P[Requirement] = P(nameParser).map(StateReq)
-    def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | grenadeReq | dangerReq | ksReq | cashReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq).log
-    def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_)).log
+    def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | grenadeReq | dangerReq | ksReq | cashReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq)//.log
+    def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
       case (reqs, Some(orReq)) =>
         AllReqs(reqs.dropRight(1)) and (reqs.last or orReq)
       case (reqs, None) => AllReqs(reqs)
-    }).log
+    })//.log
     def reqRHS[_:P]: P[Requirement] = P(andReqs)
-    def reqLHS[_:P]: P[Requirement] = P(andReqs ~~ colon).log
+    def reqLHS[_:P]: P[Requirement] = P(andReqs ~~ colon)//.log
     def reqLine[_:P]: P[Requirement] = P(reqLHS ~ !"\n" ~ reqRHS ~ &("\n")).map{case (lhs, rhs) => lhs and rhs}
     class ReqParser(indent: Int) {
       def deeper[_: P]: P[Int] = P( " ".repX(indent + 1).!.map(_.length) )
       def blockBody[_: P]: P[Seq[Requirement]] = "\n" ~~ deeper.flatMapX(i => new ReqParser(indent = i).req.repX(1, sep = ("\n" + " " * i)./)
-      ).map(_.flatten).log
-      def block[_: P]: P[Seq[Requirement]] = P(reqLHS ~ blockBody).map{case (head, body) => body.map(b => head and b)}.log
-      def line[_:P]: P[Requirement] = P(reqLine | reqRHS).log
+      ).map(_.flatten)//.log
+      def block[_: P]: P[Seq[Requirement]] = P(reqLHS ~ blockBody).map{case (head, body) => body.map(b => head and b)}//.log
+      def line[_:P]: P[Requirement] = P(reqLine | reqRHS)//.log
       def req[_:P]: P[Seq[Requirement]] = P( NoCut(block) | line.map(Seq(_)) )
-      def reqBlock[_:P]: P[Seq[Requirement]] = P(free.map(Seq(_)) | (NoCut(reqLine.map(Seq(_))) | NoCut(blockBody)).rep.map(_.flatten)).log
+      def reqBlock[_:P]: P[Seq[Requirement]] = P(free.map(Seq(_)) | (NoCut(reqLine.map(Seq(_))) | NoCut(blockBody)).rep.map(_.flatten))//.log
     }
-    def checkpoint[_:P]: P[Setter] = P("Checkpoint").map(_ => Checkpoint).log
-    def spiritWell[_:P]: P[Setter] = P("Full").map(_ => Well).log
-    def crystal[_:P]: P[Adder] = P("Energy" ~~/ equalsNum).map(EnergyCrystals).log
-    def plant[_:P]: P[Adder] = P("Health" ~~/ equalsNum).map(HealthPlants).log
+    def checkpoint[_:P]: P[Setter] = P("Checkpoint").map(_ => Checkpoint)//.log
+    def spiritWell[_:P]: P[Setter] = P("Full").map(_ => Well)//.log
+    def crystal[_:P]: P[Adder] = P("Energy" ~~/ equalsNum).map(EnergyCrystals)//.log
+    def plant[_:P]: P[Adder] = P("Health" ~~/ equalsNum).map(HealthPlants)//.log
     def refiller[_:P]: P[Setter] = P("  refill" ~ (checkpoint | spiritWell))
-    def refillReq[_:P]: P[(Requirement, Adder)] = P("  refill" ~ (crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))).map(_.swap).log
+    def refillReq[_:P]: P[(Requirement, Adder)] = P("  refill" ~ (crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))).map(_.swap)//.log
     def refillBlock[_:P]: P[RefillGroup] = P(((refiller ~ endl).? ~~ refillReq.repX(sep=endl, min=1)) | refiller.map(a => (Some(a), Seq()))).map({case (setter, adders) => RefillGroup(setter, adders.toMap)})
     case class Region(prefix: String, req: Requirement)
     def endl[_:P]: P[Unit] = P("\n")
-    def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)}).log
-    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)}).log
-    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req.sortByConsumption)}).log
-    def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req.sortByConsumption)}).log
-    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req.sortByConsumption)}).log
+    def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
+    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
+    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req.sortByConsumption)})//.log
+    def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req.sortByConsumption)})//.log
+    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req.sortByConsumption)})//.log
     def area[_:P]: P[Area] = P("area" ~/ nameParser ~~ colon ~ endl ~~ (refillBlock ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
       case (name, refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup(None, Map())))
-    }.log
+    }//.log
     def region[_:P]: P[Region] = P("region" ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (prefix, reqs) => Region(prefix, AnyReq(reqs))})
     def regionOrArea[_:P]: P[Either[Region, Area]] = P(NoCut(region) | NoCut(area)).map{
       case r: Region => Left(r)

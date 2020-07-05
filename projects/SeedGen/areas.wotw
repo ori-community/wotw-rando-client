@@ -94,6 +94,7 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
       DoubleJump, Bash, Glide
       Bash, Launch
 
+  conn Teleporters: free
   conn MarshSpawn.BrokenBridge: free
   conn MarshSpawn.PoolsBurrowsPath:
     base:
