@@ -1,6 +1,7 @@
 #include <interception_macros.h>
 #include <dll_main.h>
-#include <dev_commands.h>
+#include <csharp_bridge.h>
+#include <dev/dev_commands.h>
 #include <Common/ext.h>
 
 namespace
@@ -22,11 +23,11 @@ namespace
         );
     }
 
-    BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o* thisPtr));
-    BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o* thisPtr, UnityEngine_Vector3_o value));
+    BINDING(10971216, app::Vector3, SeinCharacter__get_Position, (app::SeinCharacter* thisPtr));
+    BINDING(10971312, void, SeinCharacter__set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
 
     // Hardcoded position, front of entrance to Shriek fight.
-    const UnityEngine_Vector3_o goal_reset_position = { 515.189453, -3745.529785, 0.0 };
+    const app::Vector3 goal_reset_position = { 515.189453, -3745.529785, 0.0 };
     // Hardcoded bounding rectangle, area right before Shriek fight.
     const BoundingRect goal_rect = {
         535.0f,
@@ -37,18 +38,18 @@ namespace
         1.0f
     };
 
-    STATIC_CLASS(71818456, Game_UI_Cameras_c*, cameras);
-    BINDING(4110512, void, GameplayCamera__MoveCameraToTargetInstantly, (GameplayCamera_o* this_ptr, bool updateTargetPosition));
+    STATIC_CLASS(71818456, app::UI_Cameras__Class*, cameras);
+    BINDING(4110512, void, GameplayCamera__MoveCameraToTargetInstantly, (app::GameplayCamera* this_ptr, bool updateTargetPosition));
 
     bool enable_goal_teleport = false;
     bool set_camera_next_update = false;
-    INTERCEPT(10977184, void, SeinCharacter__FixedUpdate, (SeinCharacter_o* this_ptr)) {
+    INTERCEPT(10977184, void, SeinCharacter__FixedUpdate, (app::SeinCharacter* this_ptr)) {
         if (enable_goal_teleport)
         {
             if (set_camera_next_update && cameras_is_valid() && (*cameras)->static_fields->Current != nullptr)
             {
                 // We need to do this on the next frame to allow state to update without causing flickering.
-                GameplayCamera_o* camera = (*cameras)->static_fields->Current;
+                auto camera = (*cameras)->static_fields->Current;
                 GameplayCamera__MoveCameraToTargetInstantly(camera, true);
                 set_camera_next_update = false;
             }
@@ -58,6 +59,7 @@ namespace
             if (in_rect(goal_rect, position.x, position.y, position.z))
             {
                 SeinCharacter__set_Position(this_ptr, goal_reset_position);
+                csharp_bridge::on_goal_mode_fail();
                 set_camera_next_update = true;
             }
         }
@@ -65,7 +67,7 @@ namespace
             SeinCharacter__FixedUpdate(this_ptr);
     }
 
-    void report_player_position(std::string const& command, std::unordered_map<std::string, std::string> const& params)
+    void report_player_position(std::string const& command, std::vector<dev::CommandParam> const& params)
     {
         auto sein = get_sein();
         if (sein != nullptr)

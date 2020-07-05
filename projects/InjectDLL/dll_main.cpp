@@ -31,7 +31,7 @@
 #include <WinNetwork/binary_walker.h>
 #include <WinNetwork/peer.h>
 
-#include <dev_commands.h>
+#include <dev/dev_commands.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 
@@ -56,30 +56,30 @@ std::mutex csv_mutex;
 //---------------------------------------------------------Bindings------------------------------------------------------------
 
 // GameController$get_InputLocked
-BINDING(10012848, bool, getInputLocked, (GameController_o * thisPtr));
+BINDING(10012848, bool, getInputLocked, (app::GameController* thisPtr));
 // GameController$$get_LockInput
-BINDING(10013200, bool, getLockInput, (GameController_o * thisPtr));
+BINDING(10013200, bool, getLockInput, (app::GameController* thisPtr));
 // GameController$$get_IsSuspended
-BINDING(10013520, bool, getIsSuspended, (GameController_o * thisPtr));
+BINDING(10013520, bool, getIsSuspended, (app::GameController* thisPtr));
 // GameController$$get_SecondaryMapAndInventoryCanBeOpened
-BINDING(10011696, bool, getSecondaryMenusAccessable, (GameController_o * thisPtr));
+BINDING(10011696, bool, getSecondaryMenusAccessable, (app::GameController* thisPtr));
 
-BINDING(11450304, void, SpellInventory__UpdateBinding, (SpellInventory_o * thisPtr, int32_t binding, int32_t typ));
+BINDING(11450304, void, SpellInventory__UpdateBinding, (app::SpellInventory* thisPtr, int32_t binding, int32_t typ));
 
 BINDING(35034256, int32_t, UnityEngine_Cursor__get_lockState, ());
 BINDING(35034336, void, UnityEngine_Cursor__set_lockState, (int32_t value));
 
 BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
-BINDING(10971216, UnityEngine_Vector3_o, SeinCharacter__get_Position, (SeinCharacter_o * thisPtr));
-BINDING(10971312, void, SeinCharacter__set_Position, (SeinCharacter_o * thisPtr, UnityEngine_Vector3_o value));
-BINDING(11448960, Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_o*, SpellInventory__AddNewSpellToInventory, (SpellInventory_o * thisPtr, int32_t type, bool adding));
+BINDING(10971216, app::Vector3, SeinCharacter__get_Position, (app::SeinCharacter* thisPtr));
+BINDING(10971312, void, SeinCharacter__set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
+BINDING(11448960, app::InventoryItem*, SpellInventory__AddNewSpellToInventory, (app::SpellInventory* thisPtr, int32_t type, bool adding));
 
 BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
 BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
-INTERCEPT(10056256, void, GameController__CreateCheckpoint, (GameController_o * thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
+INTERCEPT(10056256, void, GameController__CreateCheckpoint, (app::GameController* thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
     csharp_bridge::on_checkpoint();
     GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
 }
@@ -90,33 +90,39 @@ INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr)) {
 	newGamePerform(thisPtr, ctxPtr);
 }
 
-INTERCEPT(8237360, void, SaveGameController__SaveToFile, (SaveGameController_o* thisPtr, int32_t slotIndex, int32_t backupIndex, System_Byte_array* bytes)) {
+INTERCEPT(8237360, void, SaveGameController__SaveToFile, (app::SaveGameController* thisPtr, int32_t slotIndex, int32_t backupIndex, app::Byte__Array* bytes)) {
     csharp_bridge::on_save(slotIndex, backupIndex);
     SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
 }
 
-INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (SaveSlotBackupsManager_o* thisPtr, SaveSlotBackup_o* saveSlot, int32_t backupIndex, System_String_o* backupName)) {
-    csharp_bridge::on_save(saveSlot->Index, backupIndex);
+INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (app::SaveSlotBackupsManager* thisPtr, app::SaveSlotBackup* saveSlot, int32_t backupIndex, app::String* backupName)) {
+    csharp_bridge::on_save(saveSlot->fields.Index, backupIndex);
     SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
 }
 
-INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (SaveGameController_o* thisPtr)) {
+INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (app::SaveGameController* thisPtr)) {
     csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SaveGameController__OnFinishedLoading(thisPtr);
 }
 
-INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (SaveGameController_o* thisPtr)) {
+INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
     csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SaveGameController__RestoreCheckpoint(thisPtr);
 }
 
-INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (SeinHealthController_o* thisPtr)) {
+INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (app::SeinHealthController* thisPtr)) {
     csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
     SeinHealthController__OnRespawn(thisPtr);
 }
 
-UnityEngine_Vector3_o last_position;
+app::Vector3 last_position;
 __int8 set_to_last_position = 0;
+
+INJECT_C_DLLEXPORT void warp_to(int x, int y, __int8 frames) {
+  last_position.x = x;
+  last_position.y = y;
+  set_to_last_position = frames;
+}
 
 INJECT_C_DLLEXPORT void magic_function() {
     last_position = SeinCharacter__get_Position(get_sein());
@@ -126,24 +132,24 @@ INJECT_C_DLLEXPORT void magic_function() {
 
 INJECT_C_DLLEXPORT bool has_ability(uint8_t ability) {
     auto sein = get_sein();
-    if(sein && sein->PlayerAbilities)
-        return PlayerAbilities__HasAbility(sein->PlayerAbilities, ability);
+    if(sein && sein->fields.PlayerAbilities)
+        return PlayerAbilities__HasAbility(sein->fields.PlayerAbilities, ability);
     trace(MessageType::Error, 3, "abilities", "Failed to check ability: couldn't find reference to sein!");
     return false;
 }
 
 INJECT_C_DLLEXPORT void set_ability(uint8_t ability,  bool value) {
     auto sein = get_sein();
-    if (sein && sein->PlayerAbilities) 
-        PlayerAbilities__SetAbility(sein->PlayerAbilities, ability, value);
+    if (sein && sein->fields.PlayerAbilities)
+        PlayerAbilities__SetAbility(sein->fields.PlayerAbilities, ability, value);
     else
         trace(MessageType::Error, 3, "abilities", "Failed to set ability: couldn't find reference to sein!");
 }
 
 INJECT_C_DLLEXPORT void set_equipment(int32_t equip, bool value) {
   auto sein = get_sein();
-  if (sein && sein->PlayerSpells)
-        SpellInventory__AddNewSpellToInventory(sein->PlayerSpells, equip, value);
+  if (sein && sein->fields.PlayerSpells)
+        SpellInventory__AddNewSpellToInventory(sein->fields.PlayerSpells, equip, value);
   else
       trace(MessageType::Error, 3, "abilities", "Failed to set equipment: couldn't find reference to sein!");
 }
@@ -162,22 +168,22 @@ INJECT_C_DLLEXPORT bool toggle_cursorlock() {
   return newState > 0;
 }
 
-STATIC_CLASS(71425184, Game_Characters_c*, g_characters);
-STATIC_CLASS(71838776, GameController_c*, g_game_controller);
-STATIC_CLASS(71714856, Game_UI_c*, g_ui);
+STATIC_CLASS(71425184, app::Characters__Class*, g_characters);
+STATIC_CLASS(71838776, app::GameController__Class*, g_game_controller);
+STATIC_CLASS(71714856, app::UI__Class*, g_ui);
 
-GameController_o* get_game_controller_instance()
+app::GameController* get_game_controller_instance()
 {
   return (*g_game_controller)->static_fields->Instance;
 }
 
-SeinCharacter_o* get_sein()
+app::SeinCharacter* get_sein()
 {
     return (*g_characters)->static_fields->m_sein;
 }
 
 INJECT_C_DLLEXPORT void bind_sword() {
-    SpellInventory__UpdateBinding(get_sein()->PlayerSpells, 0, 1002);
+    SpellInventory__UpdateBinding(get_sein()->fields.PlayerSpells, 0, 1002);
 }
 
 void on_fixed_update(__int64 thisPointer){
@@ -198,7 +204,7 @@ void on_fixed_update(__int64 thisPointer){
 
 INJECT_C_DLLEXPORT void set_ore(int oreCount)
 {
-    SeinLevel__set_Ore(get_sein()->Level, oreCount);
+    SeinLevel__set_Ore(get_sein()->fields.Level, oreCount);
 }
 
 INJECT_C_DLLEXPORT bool player_can_move()

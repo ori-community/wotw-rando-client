@@ -1,15 +1,16 @@
 #include <interception.h>
 #include <common.h>
 #include <detours/detours.h>
+#include <dev/dev_commands.h>
 #include <Common/ext.h>
 
 #include <unordered_map>
 
 intercept* first_intercept = nullptr;
 intercept* last_intercept = nullptr;
-__int64 game_assembly_address;
+uint64_t game_assembly_address;
 
-__int64 resolve_rva(__int64 rva)
+uint64_t resolve_rva(uint64_t rva)
 {
     if (!game_assembly_address)
     {
@@ -20,10 +21,29 @@ __int64 resolve_rva(__int64 rva)
             return 0;
         }
 
-        game_assembly_address = reinterpret_cast<__int64>(handle);
+        game_assembly_address = reinterpret_cast<uint64_t>(handle);
+        dev::console_send(format("game_assembly_address: %#018x", game_assembly_address));
     }
 
     return game_assembly_address + rva;
+}
+
+uint64_t unresolve_rva(uint64_t ptr)
+{
+    if (!game_assembly_address)
+    {
+        auto handle = GetModuleHandleA("GameAssembly.dll");
+        if (handle == nullptr)
+        {
+            trace(MessageType::Error, 1, "initialize", "Failed to get handle of GameAssembly.dll");
+            return 0;
+        }
+
+        game_assembly_address = reinterpret_cast<uint64_t>(handle);
+        dev::console_send(format("game_assembly_address: %#018x", game_assembly_address));
+    }
+
+    return ptr - game_assembly_address;
 }
 
 void interception_init()
@@ -51,8 +71,8 @@ void interception_init()
                 current->name.c_str(),
                 game_assembly_address,
                 current->offset,
-                reinterpret_cast<__int64>(*current->original_pointer),
-                reinterpret_cast<__int64>(current->intercept_pointer))
+                reinterpret_cast<uint64_t>(*current->original_pointer),
+                reinterpret_cast<uint64_t>(current->intercept_pointer))
             );
 
             PDETOUR_TRAMPOLINE trampoline = nullptr;
@@ -106,7 +126,7 @@ void interception_detach()
         trace(MessageType::Debug, 3, "uninitialize", "Detach completed");
 }
 
-intercept::intercept(__int64 o, PVOID* oP, PVOID iP, std::string s)
+intercept::intercept(uint64_t o, PVOID* oP, PVOID iP, std::string s)
     : name(std::move(s))
     , offset(o)
     , original_pointer(oP)

@@ -59,8 +59,9 @@ namespace RandoMainDLL {
           Type = LocType.Shard;
           break;
         case "Shop":
-          Type = LocType.Shard;
+          Type = LocType.Shop;
           break;
+        case "Wisp":
         case "Quest":
           Type = LocType.Quest;
           break;
