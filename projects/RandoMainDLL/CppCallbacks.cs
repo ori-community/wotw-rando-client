@@ -75,6 +75,14 @@ namespace RandoMainDLL {
             CallbackName = "on_save"
           },
           new Method() {
+            Delegate = new f_void_int_int(SaveController.OnCopy),
+            CallbackName = "on_copy"
+          },
+          new Method() {
+            Delegate = new f_void_int(SaveController.OnDelete),
+            CallbackName = "on_delete"
+          },
+          new Method() {
             Delegate = new f_bool_at(SaveController.HasAbility),
             CallbackName = "get_ability"
           },
