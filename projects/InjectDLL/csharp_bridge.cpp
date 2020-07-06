@@ -19,6 +19,8 @@ namespace csharp_bridge
     signatures::f_void_int new_game;
     signatures::f_void_int_int on_load;
     signatures::f_void_int_int on_save;
+    signatures::f_void_int_int on_copy;
+    signatures::f_void_int on_delete;
     signatures::f_bool_at get_ability;
     signatures::f_void_at_bool set_ability;
     signatures::f_bool_at is_tree_activated;
@@ -69,6 +71,10 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_load = reinterpret_cast<f_void_int_int>(ptr);
     else if (name == "on_save")
         on_save = reinterpret_cast<f_void_int_int>(ptr);
+    else if (name == "on_copy")
+        on_copy = reinterpret_cast<f_void_int_int>(ptr);
+    else if (name == "on_delete")
+        on_delete = reinterpret_cast<f_void_int>(ptr);
     else if (name == "get_ability")
         get_ability = reinterpret_cast<f_bool_at>(ptr);
     else if (name == "set_ability")

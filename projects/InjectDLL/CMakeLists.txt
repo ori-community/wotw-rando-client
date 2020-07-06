@@ -41,6 +41,7 @@ set(
 	"pickups/shops.cpp"
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
+	"system/save.cpp"
 	"uber_states/uber_state_dev.cpp"
 	"uber_states/uber_state_manager.cpp"
 	"uber_states/uber_state_helper.cpp"
