@@ -80,6 +80,14 @@ namespace uber_states
             if (prev != current)
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
+
+        INTERCEPT(17923408, void, Moon_uberSerializationWisp_SavePedestalUberState__Load, (app::SavePedestalUberState* this_ptr, app::UberStateArchive* archive, int32_t storeVersion)) {
+            auto prev = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
+            Moon_uberSerializationWisp_SavePedestalUberState__set_IsTeleporterActive(this_ptr, value);
+            auto current = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
+            if (prev != current)
+                notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
+        }
     }
 
     void apply_uber_state_no_notify(app::IUberState* uber_state)
@@ -97,7 +105,7 @@ namespace uber_states
         auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
         return il2cpp::invoke<app::UberID>(group, "get_ID");
     }
-
+     m
     std::string get_uber_state_name(app::IUberState* uber_state)
     {
         auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
@@ -213,21 +221,23 @@ namespace uber_states
         }
     }
 
-    INJECT_C_DLLEXPORT void get_uber_state_name(int group, int state, char* buffer, int len)
+    INJECT_C_DLLEXPORT int get_uber_state_name(int group, int state, char* buffer, int len)
     {
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id(state);
         auto uber_state = get_uber_state(group_id, state_id);
         auto str = get_uber_state_name(uber_state);
         strcpy_s(buffer, len, str.c_str());
+        return str.size();
     }
 
-    INJECT_C_DLLEXPORT void get_uber_state_group_name(int group, int state, char* buffer, int len)
+    INJECT_C_DLLEXPORT int get_uber_state_group_name(int group, int state, char* buffer, int len)
     {
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id(state);
         auto uber_state = get_uber_state(group_id, state_id);
         auto str = get_uber_state_group_name(uber_state);
         strcpy_s(buffer, len, str.c_str());
+        return str.size();
     }
 }
