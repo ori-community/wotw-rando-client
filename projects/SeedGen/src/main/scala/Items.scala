@@ -193,6 +193,8 @@ package SeedGenerator {
     def -(other: GameState): GameState = GameState(inv - other.inv, flags -- other.flags, reached -- other.reached)
     def noFlags: GameState = GameState(inv, Set(), reached)
     def invOnly: GameState = GameState(inv)
+    def items: Set[ItemLoc] = reached.collect({case i: ItemLoc => i})
+    def areas: Set[Area] = reached.collect({case a: Area => a})
     def noReached: GameState = GameState(inv, flags)
     def without(item: Item, count: Int): GameState = GameState(inv.without(item, count), flags, reached)
     def withoutCash(cash: Int): GameState = GameState(inv.withoutCash(cash), flags, reached)
