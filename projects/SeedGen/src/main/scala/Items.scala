@@ -33,10 +33,10 @@ package SeedGenerator {
     def code = s"$itemType|$resourceType"
   }
 
-  case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.2f }
-  case object Energy extends Resource(1, "Half-Energy Cell")
-  case object Ore extends Resource(2, "Gorlek Ore")
-  case object Keystone extends Resource(3, "Keystone")
+  case object Health extends Resource(0, "Half-Health Cell") with Important { override val cost = 0.2f }
+  case object Energy extends Resource(1, "Half-Energy Cell") with Important
+  case object Ore extends Resource(2, "Gorlek Ore") with Important
+  case object Keystone extends Resource(3, "Keystone") with Important
   case object ShardSlot extends Resource(4, "Shard Slot")
 
   case class WorldEvent(eventId: Int) extends Item with Merch with Important  {
@@ -141,7 +141,7 @@ package SeedGenerator {
     val itemType: Int = 5
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
-    override val cost: Double = Teleporter.costs.getOrElse(teleporterId, 7d)
+    override val cost: Double = Teleporter.costs.getOrElse(teleporterId, 4d)
   }
 
   object Teleporter {
@@ -186,7 +186,9 @@ package SeedGenerator {
   case class WorldState(name: String) extends FlagState
   case class SeedGenState(name: String) extends FlagState // will become a series of case objects later
 
+
   case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
+    def progInv: Inv = inv.progInv
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def -(other: GameState): GameState = GameState(inv - other.inv, flags -- other.flags, reached -- other.reached)
     def noFlags: GameState = GameState(inv, Set(), reached)
@@ -229,8 +231,10 @@ package SeedGenerator {
 
   // extending hashset instead of encapsulating it here was pure folly, tbh
   class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
-    def subsetOf(other: Inv): Boolean =
-      other.count > this.count && forall{case (i, c) => other.has(i,c)}
+    def progInv(): Inv = Inv.mk(
+      asSeq.collect {case i: Important => i
+    }:_*)
+    def subsetOf(other: Inv): Boolean = Timer("subsetChecks"){other.count > this.count && forall{case (i, c) => other.has(i,c)}}
     items.collect({ case (i: Item, count: Int) if count > 0 => set(i, count) })
     def totalSpiritLight: Int = collect({case (SpiritLight(amount), i) => amount*i}).sum
     def withoutCash(cash: Int): Inv = {
