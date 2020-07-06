@@ -9,15 +9,47 @@ namespace RandoMainDLL {
     public static UberValue? CurrentValue(this UberState state) => state.GetUberId().GetValue();
     public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().GetValue().GetValueOrDefault(value);
     public static UberState State(this UberId id) {
-      UberStates.TryGetValue(id, out UberState s);
+      UberState s;
+      if (!UberStates.TryGetValue(id, out s)) {
+        s = createUberStateEntry(id);
+        UberStates.Add(id, s);
+      }
+
+      return s;
+    }
+
+    private static UberState createUberStateEntry(UberId id) {
+      if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
+        AHK.Print($"Failed to find {id} in uber state system.");
+        return null;
+      }
+
+      byte[] buffer = new byte[256];
+      InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string name = System.Text.Encoding.ASCII.GetString(buffer);
+      InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string groupName = System.Text.Encoding.ASCII.GetString(buffer);
+
+      var s = new UberState() {
+        ID = id.ID,
+        GroupID = id.GroupID,
+        Name = name,
+        GroupName = groupName,
+        Type = InterOp.get_uber_state_type(id.GroupID, id.ID),
+      };
+
+      s.Value = CreateValue(s.Type, InterOp.get_uber_state_value(id.GroupID, id.ID));
       return s;
     }
 
     public static UberValue? GetValue(this UberId id) {
       if (UberStates.TryGetValue(id, out UberState curr)) {
-        return curr.Value;
+        return curr?.Value;
       }
-      return null;
+
+      var state = createUberStateEntry(id);
+      UberStates.Add(id, state);
+      return state?.Value;
     }
     public static bool Write(this UberState state) => state.Write(state.Value);
 
@@ -101,21 +133,10 @@ namespace RandoMainDLL {
         getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
       }
       else if (serializableUberState((UberStateType)type)) {
-        byte[] buffer = new byte[256];
-        InterOp.get_uber_state_name(groupID, stateID, buffer, buffer.Length);
-        string name = System.Text.Encoding.ASCII.GetString(buffer);
-        InterOp.get_uber_state_group_name(groupID, stateID, buffer, buffer.Length);
-        string groupName = System.Text.Encoding.ASCII.GetString(buffer);
-
-        UberState state = new UberState() {
-          ID = stateID,
-          GroupID = groupID,
-          Name = name,
-          GroupName = groupName,
-          Type = (UberStateType)type,
-        };
-
-        uberStateLookup.Add(new UberId(groupID, stateID), state.Clone());
+        var state = createUberStateEntry(key);
+        state.Value = CreateValue(state.Type, oldValue);
+        uberStateLookup.Add(key, state);
+        state = state.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
         getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
@@ -176,7 +197,7 @@ namespace RandoMainDLL {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
-      else if (state.Name == "craftCutsceneState" && state.Value.Byte != 0) {
+      else if (state.Name == "craftCutsceneState" && 0 < state.Value.Byte && state.Value.Byte < 3) {
         state.Write(new UberValue((byte)3));
         // Give diamond in the rough pickup.
         new UberId(23987, 14832).State().Write(new UberValue(true));

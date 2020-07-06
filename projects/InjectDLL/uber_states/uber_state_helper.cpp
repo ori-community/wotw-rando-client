@@ -256,3 +256,18 @@ INJECT_C_DLLEXPORT UberStateDef* get_uber_states(int& size)
     size = temp_vector.size();
     return temp_vector.data();
 }
+
+INJECT_C_DLLEXPORT csharp_bridge::UberStateType get_uber_state_type(int group, int state)
+{
+    auto group_id = uber_states::create_uber_id(group);
+    auto state_id = uber_states::create_uber_id(state);
+    auto uber_state = uber_states::get_uber_state(group_id, state_id);
+    return resolve_type(uber_state);
+}
+
+INJECT_C_DLLEXPORT bool get_uber_state_exists(int group, int state)
+{
+    auto group_id = uber_states::create_uber_id(group);
+    auto state_id = uber_states::create_uber_id(state);
+    return uber_states::get_uber_state(group_id, state_id) != nullptr;
+}
