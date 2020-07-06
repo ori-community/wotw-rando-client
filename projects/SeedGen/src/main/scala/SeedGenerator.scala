@@ -1,6 +1,6 @@
 import java.io.{BufferedWriter, File, FileWriter}
 
-import scala.collection.mutable.{Map => MMap, ListBuffer => MList}
+import scala.collection.mutable.{Map => MMap, Set => MSet, ListBuffer => MList}
 import scala.language.implicitConversions
 import scala.math.Ordering.Double.TotalOrdering
 import scala.collection.parallel.CollectionConverters._
@@ -26,6 +26,7 @@ package SeedGenerator {
   }
   import SeedGenerator.implicits._
 
+  import scala.collection.mutable
   import scala.language.postfixOps
 
   case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
@@ -121,36 +122,61 @@ package SeedGenerator {
   case object QuestNode extends ItemNodeType with StateNodeType
   case class ReachedResult(state: GameState, remaining: Map[GameState, Set[Node]] = Map()) {
     def reached: Set[Node] = state.reached
-    def inv = state.inv
+    def inv: Inv = state.inv
     def +(other: ReachedResult) = Timer("RR.Compose"){
       val ns = state + other.state
       ReachedResult(ns, (remaining.toSeq ++ other.remaining.toSeq).groupMapReduce(_._1)(_._2)(_ ++ _).flatMap({
-        case (gs, nodes) => Some(gs -> nodes.diff(ns.reached)).filter(_._2.nonEmpty)
+        case (gs, nodes) =>
+//          UI.log(s"$gs unpruned ${nodes.diff(ns.reached)}")
+          Some(gs -> nodes.diff(ns.reached)).filter(_._2.nonEmpty)
       }))
     }
-    def affordableFlags = remaining.map({
-      case (GameState(i, f, _), locs) if f.isEmpty => locs.collect({case i: WorldStateNode => i}).map((_, i))
+    def affordableFlags: Map[String, Inv] = remaining.map({
+      case (GameState(i, f, _), locs) if f.isEmpty => locs.collect({case WorldStateNode(name) => name}).map((_, i))
       case _ => Set()
     }).flatten.groupMapReduce(_._1)(_._2)((a, b) => if(a.cost > b.cost) b else a)
-    def posInvs = remaining.keySet.collect({
-        case s if s.flags.forall(f => affordableFlags.contains(WorldStateNode(f.name))) => s.flags.foldLeft(s.inv)((s, f) => s + affordableFlags(WorldStateNode(f.name)))
+
+    def possiblePaths(recurDepth: Int = 0, maybeSeen: Option[Set[Node]] = None, progInvTested: MSet[Inv] = MSet()): Map[GameState, Set[ItemLoc]] = Timer("PPS"){
+      val seen = maybeSeen.getOrElse(state.reached)
+      val flags = affordableFlags
+      val possInvs = remaining.collect({
+        case(s, nodes) if nodes.exists(_.isInstanceOf[ItemLoc]) &&
+          s.flags.forall(f => flags.contains(f.name)) => s.flags.foldLeft(s.inv)((s, f) => s + flags(f.name))
       })
 
-    def possiblePaths: Map[GameState, Set[ItemLoc]] = Timer("PPS"){
-      val flags = affordableFlags
-      val possInvs = remaining.keySet.collect({
-        case s if s.flags.forall(f => flags.contains(WorldStateNode(f.name))) => s.flags.foldLeft(s.inv)((s, f) => s + flags(WorldStateNode(f.name)))
-      })
-      val superSets = possInvs.map(i => i->possInvs.filter(i.subsetOf).toSeq.sortBy(_.cost))
-      superSets.filterNot({case (head, _) => superSets.exists({case (_, tail) => tail.contains(head)})}).flatMap{
-        case (head, tail) =>
-          def getReached(invs: Seq[Inv]): Option[(GameState, Set[ItemLoc])] = invs match {
-            case Nil => None
-            case i =>
-              val newState = GameState(i.head)
-              Some(newState -> Nodes.spawn.reached(ReachedResult(newState + state.noReached), Orbs(0, 0)).reached.collect({case i: ItemLoc if !state.reached.contains(i) => i})).filterNot(_._2.isEmpty).orElse(getReached(i.tail))
+      def getReached(invs: Seq[Inv]): Map[GameState, Set[ItemLoc]] = invs match {
+        case Nil => Map.empty
+        case curr :: rest =>
+          val prgv = curr.progInv()
+  //        println(curr, prgv)
+          if(progInvTested.contains(prgv)) {
+  //          println(s"skipped ${prgv}")
+            Map.empty[GameState, Set[ItemLoc]]
+          } else {
+            progInvTested.add(prgv)
+            val newState = GameState(curr)
+            val ret = Nodes.reached(newState + state.noReached) match {
+              case rr@ReachedResult(GameState(_, _, reached), _) => {
+                val reachedLocs = (reached -- seen).collect({ case i: ItemLoc => i })
+//                println(s"reached locs $reachedLocs for rr: $rr")
+                (recurDepth match {
+                  case 0 => Map.empty[GameState, Set[ItemLoc]]
+                  case _ => rr.possiblePaths(recurDepth - 1, Some(seen))
+                }) ++ (if (reachedLocs.nonEmpty) Map(newState -> reachedLocs) else Map.empty[GameState, Set[ItemLoc]])
+
+              }
+            }
+            if(ret.isEmpty)
+              getReached(rest)
+            else
+              ret
           }
-          getReached(head +: tail)
+      }
+
+      val superSets = possInvs.map(i => i->possInvs.filter(i.subsetOf).toSeq.sortBy(_.cost))
+//      println(s"$possInvs\n$superSets")
+      superSets.filterNot({case (head, _) => superSets.exists({case (_, tail) => tail.contains(head)})}).flatMap{
+        case (head, tail) => getReached(head +: tail)
       }.toMap
     }
   }
@@ -201,12 +227,20 @@ package SeedGenerator {
           case (s, Connection(target, _)) if s.reached.contains(Nodes.areas.getOrElse(target.name, target)) => s
           // TODO: FIXME
           case (rr @ ReachedResult(s, rem), Connection(target, reqs)) =>
-            val met = reqs.collect({case r if r.metBy(s, Some(orbsAfter)) => r.orbsAfterMet(s, orbsAfter)})
+            val met = reqs.filter(r => {
+              if(!r.metBy(s, Some(orbsAfter))) {
+/*                if(target.name.contains("Willow"))
+                  println(target, r)*/
+                false
+              } else
+              true
+            }).map({case r => r.orbsAfterMet(s, orbsAfter)})
             if(met.nonEmpty) {
 //              println(s"Heading to ${target.name} with ${met.maxBy(_.value)} (paid ${orbsAfter - met.maxBy(_.value)})")
               target.reached(rr, met.maxBy(_.value)) + ReachedResult(GameState.Empty, rem)
             } else {
-              rr + ReachedResult(GameState.Empty, reqs.flatMap(_.remaining(s)).collect({case GameState(inv, flag, _) if (!inv.isEmpty && !inv.has(Unobtainium)) || flag.nonEmpty => GameState(inv, flag)}).toSet[GameState].map(st => st -> Set(target)).toMap)
+              rr + ReachedResult(GameState.Empty, reqs.flatMap(_.remaining(s)).collect(
+                {case GameState(inv, flag, _) if (!inv.isEmpty && !inv.has(Unobtainium)) || flag.nonEmpty => GameState(inv, flag)}).toSet[GameState].map(st => st -> Set(target)).toMap)
             }
           case (s, _) => s
         })
@@ -315,20 +349,12 @@ package SeedGenerator {
       if (_areas.isEmpty) populate()
       _areas
     }
-    def paths: Map[Node, Set[Path]] = {
-      if (_paths.isEmpty) populate()
-      _paths
-    }
 
     def items: Map[String, ItemLoc] = {
       if (_items.isEmpty) populate()
       _items
     }
-
-    def all: Set[Node] = {
-      if (_paths.isEmpty) populate()
-      _paths.keySet
-    }
+//    case class Door(name: String, slots: Int)
     val doors: Map[String, Int] = Map[String, Int](
       "MarshSpawn.KeystoneDoor" -> 2,
       "MidnightBurrows.KeystoneDoor" -> 4,
@@ -342,8 +368,12 @@ package SeedGenerator {
       "UpperDepths.CentralKeystoneDoor" -> 2,
       "UpperWastes.KeystoneDoor" -> 2,
     )
-
-    def pathByName(name: String): Option[(Node, Set[Path])] = paths.find(_._1.name == name)
+    val _connectedToDoors: MSet[Area] = MSet()
+    def connectedToDoors: Set[Area] = {
+      if(_connectedToDoors.isEmpty)
+        populate()
+      _connectedToDoors.toSet
+    }
 
     def getReachable(inv: Inv, flags: Set[FlagState]= Set(), itemsOnly: Boolean = true): (Set[Node], Set[FlagState]) = {
       Timer("getReachable"){
@@ -363,56 +393,47 @@ package SeedGenerator {
 
     var _areas: Map[String, Area] = Map()
     var _items: Map[String, ItemLoc] = Map()
-    var _paths: Map[Node, Set[Path]] = Map()
 
 
-    def getAllPathsRecursive(area: Area = spawn, pathsToHere: Set[Path] = Set()): Map[Node, Set[Path]] = {
-      return Map()
-      val seen = pathsToHere.flatMap(_.nodes.map(_.name))
-      def pathAcc(p: Path): Set[Path] = if(pathsToHere.nonEmpty) pathsToHere.flatMap(_ and p) else Set(p)
-      area.paths.flatMap(path => path.dest.kind match {
-        case AreaNode if !seen.contains(path.dest.name) => _areas.get(path.dest.name).map(getAllPathsRecursive(_, pathAcc(path))).getOrElse({UI.log("aaaaaa"); Map[Node, Set[Path]]()})
-        case _ => Map(path.dest -> pathAcc(path))
-      }).groupMapReduce(_._1)(_._2)(_ ++ _)
-    }
 
     def keystonesRequired(nodes: Set[Node]): Int = {
-      doors.foldLeft(0)({case (acc, (name, keys))=> acc + (if(pathByName(name).exists(_._2.exists({
-        case SimplePath(src, _, _) => nodes.contains(src)
-        case ChainedPath(paths) => nodes.contains(paths.last.source)
-      }))) keys else 0)})
+      val relevantNodes = nodes.collect{case a: Area => a}.intersect(connectedToDoors)
+      doors.foldLeft(0)({case (acc, (name, keys))=> acc + (if(relevantNodes.exists(_.conns.exists(_.target.name == name))) keys else 0)})
     }
 
 
-    def stateCosts(items: Inv, reached: Set[Node], flags: Set[FlagState], targets: Set[Node]): (Map[FlagState, GameState], Map[FlagState, GameState]) = Timer(s"stateCosts"){
-        val state = GameState(items, flags)
-        @scala.annotation.tailrec
-        def refineRecursive(good: Map[FlagState, GameState], hasFlags: Map[FlagState, GameState]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
-          val (newGood, newFlags) = (hasFlags.view.mapValues(s => s.flags.foldLeft(GameState(s.inv))((acc, flag) => acc + (if(flags.contains(flag)) GameState.Empty else good.getOrElse(flag, GameState.mk(flag)))))
-            ++ good).toMap.partition(_._2.flags.isEmpty)
-          if(newGood.size != good.size) {
-            refineRecursive(newGood, newFlags)
-          } else
-            (newGood, newFlags)
-        }
-      val (good, needsRefined) = targets.withFilter(_.kind == StateNode).flatMap[(FlagState, GameState)]({
-        case WorldStateNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
-        case QuestNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
-        case n @ WorldStateNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
-        case n @ QuestNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
-      }).filterNot(_._2.inv.has(Unobtainium)).toMap.partition(_._2.flags.isEmpty)
-      Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
-    }
+//    def stateCosts(items: Inv, reached: Set[Node], flags: Set[FlagState], targets: Set[Node]): (Map[FlagState, GameState], Map[FlagState, GameState]) = Timer(s"stateCosts"){
+//        val state = GameState(items, flags)
+//        @scala.annotation.tailrec
+//        def refineRecursive(good: Map[FlagState, GameState], hasFlags: Map[FlagState, GameState]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
+//          val (newGood, newFlags) = (hasFlags.view.mapValues(s => s.flags.foldLeft(GameState(s.inv))((acc, flag) => acc + (if(flags.contains(flag)) GameState.Empty else good.getOrElse(flag, GameState.mk(flag)))))
+//            ++ good).toMap.partition(_._2.flags.isEmpty)
+//          if(newGood.size != good.size) {
+//            refineRecursive(newGood, newFlags)
+//          } else
+//            (newGood, newFlags)
+//        }
+//      val (good, needsRefined) = targets.withFilter(_.kind == StateNode).flatMap[(FlagState, GameState)]({
+//        case WorldStateNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
+//        case QuestNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
+//        case n @ WorldStateNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
+//        case n @ QuestNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
+//      }).filterNot(_._2.inv.has(Unobtainium)).toMap.partition(_._2.flags.isEmpty)
+//      Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
+//    }
 
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
       val locDataByName = LocData.byName
-      areas.values.map(area => area.name -> Area(area.name, area.conns.flatMap({
+      areas.values.map(area => area.name -> Area(area.name, area.conns.flatMap(c => {
+        if(doors.contains(c.target.name))
+          _connectedToDoors.add(area)
+      c match {
             // TODO: FIXME?
-        case Connection(target: Placeholder, Seq()) if target.kind == ItemNode => UI.log(target.name); None
+        case Connection(target: Placeholder, Seq()) if target.kind == ItemNode => UI.log(s"Only empty paths from ${area.name} to ${target.name}"); None
         case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name, locDataByName).map(Connection(_, reqs))
         case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
         case c => Some(c)
-      }), area.refillGroup)).toMap
+      }}), area.refillGroup)).toMap
     }
 
     var populatedWithSetting: Option[GenSettings] = None
@@ -427,9 +448,6 @@ package SeedGenerator {
               println("fixAreas done")
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
               println(s"items done ${_items.size} items")
-              _paths = Timer("GetPaths") {
-                getAllPathsRecursive()
-              }
               populatedWithSetting = Some(UI.Options)
               true
             case Left(error) =>
@@ -510,7 +528,7 @@ package SeedGenerator {
           e
       })
     def mk(inState: GameState, i:Int=0)(implicit r: Random, pool: Inv, debug: Boolean = false): PlacementGroup = {
-      val rr @ ReachedResult(state, _) = Nodes.reached(inState)
+      val rr @ ReachedResult(state, _) = Nodes.reached(inState.noReached)
       val reachableLocs = state.reached.collect({case i: ItemLoc => i})
       val placedLocs = inState.reached.collect({ case n: ItemLoc => n })
 
@@ -579,7 +597,7 @@ package SeedGenerator {
         if(newCount > reservedForProg.size || newLocs.size == ItemPool.SIZE)
           return PlacementGroup(state.copy(reached = reachableLocs.toSet[Node] --  reservedForProg), Inv.Empty, placements.toSeq, i)
       }
-      def getProgressionPath(sizeLeft: Int, rr: ReachedResult): Inv = Timer(s"getProgPath"/*, far=$far"*/){
+      def getProgressionPath(sizeLeft: Int, rr: ReachedResult, depth: Int = 1): Inv = Timer(s"getProgPath"/*, far=$far"*/){
         val remainCount = ItemPool.SIZE - reachableLocs.size
         if(remainCount == 0)
           return Inv.Empty
@@ -597,7 +615,7 @@ package SeedGenerator {
 
         debugPrint(s"Looking for paths. Have $sizeLeft new locs. Need to reach $remainCount more")
         val possiblePaths = Timer(s"possiblePathsPartial"/*, far=$far"*/){
-          rr.possiblePaths.filter(a => {
+          rr.possiblePaths(depth).filter(a => {
             if(!a._1.inv.subsetOf(pool)) {
               a._1.inv.foreach{case (i, c) => UI.log(s"need $c of $i, pool has ${pool(i)}")}
               false
@@ -605,13 +623,20 @@ package SeedGenerator {
           })
           .collect({
             case (items, n) if n.size >= Math.min(3, remainCount) => (acc(items), items)
-            case (items, n) if n.nonEmpty => (acc(items, .3*n.size), items)
+            case (items, n) if n.nonEmpty =>
+              UI.debug(items, n)
+              (acc(items, .3*n.size), items)
         })}
         if(possiblePaths.isEmpty) {
-          UI.log(s"ERROR: uh oh! ${rr}")
+          if(depth < 4) {
+            UI.log(s"group $i: retrying with more depth")
+            return getProgressionPath(sizeLeft, rr, depth+1)
+          }
+          UI.log(s"ERROR: uh oh! $rr")
           UI.log(s"pool: $pool")
           UI.log(s"inv: ${state.inv}")
           UI.log(s"Had $sizeLeft slots")
+          UI.log(s"Couldnt reach ${Nodes.items.values.toSet -- reachableLocs}")
           throw GeneratorError(s"No possible paths???")
         }
         val limit = r.nextDouble() * _fullWeight
