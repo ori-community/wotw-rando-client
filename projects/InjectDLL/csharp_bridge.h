@@ -42,6 +42,8 @@ namespace csharp_bridge
     extern signatures::f_void_int new_game;
     extern signatures::f_void_int_int on_load;
     extern signatures::f_void_int_int on_save;
+    extern signatures::f_void_int_int on_copy;
+    extern signatures::f_void_int on_delete;
     extern signatures::f_bool_at get_ability;
     extern signatures::f_void_at_bool set_ability;
     extern signatures::f_bool_at is_tree_activated;
