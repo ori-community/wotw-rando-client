@@ -26,6 +26,15 @@ assoc .wotwr=WotwRando
 ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 )
 
+updateFailedMsg=
+(
+Error: could not delete the old %WOTWREXE%
+Please close Ori and all rando-related processes, then
+run %A_ScriptFullPath% to complete the update
+If the problem persists, please retart your computer
+)
+
+
 ; restart script in admin mode if it's not already in admin mode
 if not A_IsAdmin
 {
@@ -54,6 +63,12 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 		if(A_ScriptFullPath != WOTWREXE) {
 			; but if they don't, we have to clean up. 
 			; copy this file into the canonical path
+			Process, WaitClose, WotwRando.exe, 4 ; wait for prior process to close
+			FileDelete, %WOTWREXE%
+			if(FileExist(WOTWREXE)) {
+				msgbox 48,Update Error,%updateFailedMsg%
+				ExitApp
+			}
 			FileCopy, %A_ScriptFullPath%, %WOTWREXE%, 1
 			; mark this version of the file for deletion, then exit
 			FileDelete, %DELETEME%
@@ -295,10 +310,6 @@ Try {
 			Run, *RunAs %NEWWOTWR% "%1%" "%2%" "%3%" "%4%"
 			ExitApp
 		} 
-	}
-	if(semver_validate(latest)) {
-		FileDelete, %INSTALL_DIR%VERSION		
-		FileAppend, %latest%, %INSTALL_DIR%VERSION
 	}
 }  catch e {
 	errorMsg := "Error: " e.Message
