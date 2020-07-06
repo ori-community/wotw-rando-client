@@ -25,10 +25,10 @@ namespace RandoMainDLL {
       }
 
       byte[] buffer = new byte[256];
-      InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
-      string name = System.Text.Encoding.ASCII.GetString(buffer);
-      InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
-      string groupName = System.Text.Encoding.ASCII.GetString(buffer);
+      int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string name = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
+      len = InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string groupName = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
 
       var s = new UberState() {
         ID = id.ID,
