@@ -141,7 +141,7 @@ namespace RandoMainDLL {
           FramesTillNextSend = Current.Frames;
           try {
             InterOp.clear_visible_hints();
-            InterOp.display_hint(InterOp.Util.getIl2cppStringPointer(Current.Text), Current.Frames / 60f);
+            InterOp.display_hint(Current.Text, Current.Frames / 60f);
             if (IniFlag("LogOnPrint")) {
               Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
             }
@@ -154,7 +154,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public static bool CanPrint { get => MessageQueue.Count > 0 && Memory.MemoryReader.stringHeader != null && InterOp.hints_ready(); }
+    public static bool CanPrint { get => MessageQueue.Count > 0 && InterOp.hints_ready(); }
     // public static bool SendMessage
     public static IMessage Current = null;
     public static IMessage Last = new PlainText("*Good Luck! <3*");

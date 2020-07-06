@@ -53,6 +53,7 @@ namespace il2cpp
         BINDING(1053568, bool, il2cpp_class_is_assignable_from, (Il2CppClass* klass, Il2CppClass* oklass));
         BINDING(2499904, bool, il2cpp_class_is_subclass_of, (Il2CppClass* klass, Il2CppClass* klassc, bool check_interfaces));
         BINDING(2326800, bool, il2cpp_class_has_parent, (Il2CppClass* klass, Il2CppClass* klassc));
+        BINDING(2499584, void, il2cpp_free, (void* obj));
 
         thread_local std::string buffer;
         std::string const& get_full_name(const char* namespaze, const char* name)
@@ -206,10 +207,11 @@ namespace il2cpp
             return il2cpp_class_is_assignable_from(iklass, klass);
         }
 
-        Il2CppObject* box_value(Il2CppClass* klass, void* value)
-        {
-            return il2cpp_value_box(klass, value);
-        }
+        // This does not work for some reason, look into it later.
+        //Il2CppObject* box_value(Il2CppClass* klass, void* value)
+        //{
+        //    return il2cpp_value_box(klass, value);
+        //}
 
         Il2CppClass* get_class(const char* namezpace, const char* name)
         {
@@ -238,6 +240,11 @@ namespace il2cpp
 
             return klass;
         }
+    }
+
+    void free_obj(void* obj)
+    {
+        il2cpp_free(obj);
     }
 
     Il2CppString* string_new(const char* str)

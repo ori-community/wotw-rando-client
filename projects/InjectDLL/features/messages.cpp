@@ -1,5 +1,6 @@
 #include <interception_macros.h>
 #include <dll_main.h>
+#include <il2cpp_helpers.h>
 
 #include <csharp_bridge.h>
 
@@ -44,8 +45,8 @@ namespace
 {
     std::set<app::MessageBox*> tracked_boxes;
     app::MessageBox* npc_box = nullptr;
-    bool string_header_cached = false;
     app::String* last_message = nullptr;
+    app::String* cached = nullptr;
     uint32_t last_handle = 0;
 
     void print_csstring(app::String* str)
@@ -85,18 +86,22 @@ INTERCEPT(13856176, app::MessageBox*, MessageControllerB__ShowUpdatedQuestMessag
   return 0;
 }
 
-INTERCEPT(15446864, int64_t, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language)) {
-    //TranslatedMessageProvider.MessageItem$$GetDescriptor
+INJECT_C_DLLEXPORT void message_item_callback(const char* str)
+{
+    cached = reinterpret_cast<app::String*>(il2cpp::string_new(str));
+}
+
+INTERCEPT(15446864, app::String*, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language)) {
     auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
-    if(!string_header_cached || (result && is_in_shop_screen()))
+    if(result && is_in_shop_screen())
     {
-        auto str = csharp_bridge::shop_string_repl(*reinterpret_cast<int64_t*>(result));
-        string_header_cached = true;
-        if(str)
-             *reinterpret_cast<int64_t*>(result) = str;
+        auto shop_str = convert_csstring(result);
+        auto wrote_str = csharp_bridge::shop_string_repl(shop_str.c_str());
+        if (wrote_str)
+            return cached;
     }
 
-    return static_cast<int64_t>(result);
+    return result;
 }
 
 INTERCEPT(13823536, void, MessageBox__Update, (app::MessageBox* this_ptr)) {
@@ -154,26 +159,28 @@ extern "C" __declspec(dllexport)
 bool hints_ready()
 {
     print_position = OnScreenPositions__get_TopCenter();
-    return print_position.y > 0 && string_header_cached;
+    return print_position.y > 0;
 }
 
 extern "C" __declspec(dllexport)
-app::MessageBox* display_hint(app::String * hint, float duration)
+app::MessageBox* display_hint(const char * hint, float duration)
 {
     try
     {
         clear_visible_hints();
+        last_message = reinterpret_cast<app::String*>(il2cpp::string_new(hint));
+
         const auto message_controller = get_ui()->static_fields->MessageController;
+        // Message box will probably take ownership of the string, so don't free it on the next call here.
         auto last_box = MessageControllerB__ShowHintSmallMessage(
             message_controller,
-            app::MessageDescriptor{ hint, app::EmotionType__Enum_Neutral, nullptr, nullptr },
+            app::MessageDescriptor{ last_message, app::EmotionType__Enum_Neutral, nullptr, nullptr },
             print_position,
             duration
         );
 
         last_box->fields.MessageIndex = 1;
         last_handle = il2cpp_gchandle_new_weakref((Il2CppObject*) last_box, true);
-        last_message = hint;
         tracked_boxes.insert(last_box);
         return last_box;
     } catch (...) {
