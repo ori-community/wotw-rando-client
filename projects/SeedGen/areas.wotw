@@ -3596,39 +3596,39 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
 area TwillenShop:
 # stealing this for keystones
 #  pickup TwillenShop.Overcharge:
-#    base: SpiritLight=800
+#    base: SpiritLight=1200
   pickup TwillenShop.Wingclip:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup TwillenShop.Swap:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup TwillenShop.Vitality:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup TwillenShop.Energy:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup TwillenShop.Finesse:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup TwillenShop.TripleJump:
-    base: GladesTown.EntryWallBroken, SpiritLight=800
+    base: GladesTown.EntryWallBroken, SpiritLight=1200
   pickup TwillenShop.LightHarvest:
-    base: GladesTown.EntryWallBroken, SpiritLight=800
+    base: GladesTown.EntryWallBroken, SpiritLight=1200
   quest GladesTown.ADiamondInTheRough:
     base: LowerWastes.EerieGem
 
 area OpherShop:
   pickup OpherShop.Spike:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup OpherShop.SpiritSmash:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup OpherShop.SpiritStar:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup OpherShop.Blaze:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup OpherShop.Sentry:
-    base: SpiritLight=800
+    base: SpiritLight=1200
   pickup OpherShop.Teleport:
-    base: GladesTown.EntryWallBroken, SpiritLight=800
+    base: GladesTown.EntryWallBroken, SpiritLight=1200
   pickup OpherShop.WaterBreath:
-    base: InnerWellspring.EscapeComplete, EastHollow.Voice, SpiritLight=800 # what this actually needs is water + the ability to talk to kwolok
+    base: InnerWellspring.EscapeComplete, EastHollow.Voice, SpiritLight=1200 # what this actually needs is water + the ability to talk to kwolok
 
 area TuleyShop:
   state TuleyShop.LastTreeBranchRejected:  # written out the steps in case they give pickups
