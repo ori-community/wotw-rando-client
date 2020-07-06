@@ -34,7 +34,7 @@ namespace RandoMainDLL {
           return Convert.ToSingle(v.Byte);
         case UberStateType.BooleanUberState:
         case UberStateType.SerializedBooleanUberState:
-          return Convert.ToSingle(v.Bool);
+          return v.Bool ? 1.0f : 0.0f;
         case UberStateType.SerializedFloatUberState:
           return v.Float;
         case UberStateType.IntUberState:

@@ -14,6 +14,7 @@
 namespace
 {
     BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
+    BINDING(27758304, Il2CppObject*, Moon_UberStateCollection__get_Descriptors, ());
 
     app::CheatsHandler* get_cheats()
     {
@@ -170,7 +171,7 @@ INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state()
 INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type)
 {
     auto shards = get_shards();
-    auto boxed = il2cpp::box_value<app::Byte__Boxed*>(il2cpp::get_class<>("System", "Byte"), type);
+    auto boxed = il2cpp::box_value<app::Byte__Boxed>(il2cpp::get_class<>("System", "Byte"), type);
     app::PlayerUberStateShards_Shard* shard = nullptr;
     auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", boxed, shard)->fields;
     if (found)
@@ -185,7 +186,7 @@ INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type)
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value)
 {
     auto shards = get_shards();
-    auto boxed = il2cpp::box_value<app::Byte__Boxed*>(il2cpp::get_class<>("System", "Byte"), type);
+    auto boxed = il2cpp::box_value<app::Byte__Boxed>(il2cpp::get_class<>("System", "Byte"), type);
     app::PlayerUberStateShards_Shard* shard = nullptr;
     auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", boxed, shard)->fields;
     if (found)
@@ -215,6 +216,15 @@ INJECT_C_DLLEXPORT bool is_loading_game()
         (scene_name == "wotwTitleScreen" || scene_name == "kuFlyAway");
 }
 
+csharp_bridge::UberStateType resolve_type(app::IUberState* uber_state)
+{
+    for (auto const& resolver : resolvers)
+        if (il2cpp::is_assignable(uber_state, resolver.namezpace.c_str(), resolver.name.c_str()))
+            return resolver.type;
+
+    return static_cast<csharp_bridge::UberStateType>(-1);
+}
+
 // Define these here so they are not destroyed when we return the "array".
 std::vector<std::string> temp_string_vector;
 std::vector<UberStateDef> temp_vector;
@@ -224,31 +234,22 @@ INJECT_C_DLLEXPORT UberStateDef* get_uber_states(int& size)
     temp_vector.clear();
 
     auto collection = il2cpp::get_class<app::UberStateCollection__Class>("Moon", "UberStateCollection")
-        ->static_fields->m_instance->fields.m_descriptorsArray;
+        ->static_fields->m_instance->fields.m_descriptors->fields;
 
-    temp_vector.resize(collection->max_length);
-    temp_string_vector.resize(collection->max_length * 2);
+    temp_vector.resize(collection._size);
+    temp_string_vector.resize(collection._size * 2);
 
-    for (auto i = 0; i < collection->max_length; ++i)
+    for (auto i = 0; i < collection._size; ++i)
     {
         UberStateDef def;
-        auto uber_state = collection->vector[i];
+        auto uber_state = reinterpret_cast<app::IUberState*>(collection._items->vector[i]);
         def.state_id = uber_states::get_uber_state_id(uber_state)->fields.m_id;
         def.group_id = uber_states::get_uber_state_group_id(uber_state)->fields.m_id;
         temp_string_vector[i * 2] = uber_states::get_uber_state_name(uber_state);
         def.state_name = temp_string_vector[i * 2].c_str();
         temp_string_vector[i * 2 + 1] = uber_states::get_uber_state_group_name(uber_state);
         def.group_name = temp_string_vector[i * 2 + 1].c_str();
-        def.type = static_cast<csharp_bridge::UberStateType>(-1);
-        for (auto const& resolver : resolvers)
-        {
-            if (il2cpp::is_assignable(uber_state, resolver.namezpace.c_str(), resolver.name.c_str()))
-            {
-                def.type = resolver.type;
-                break;
-            }
-        }
-
+        def.type = resolve_type(uber_state);
         temp_vector[i] = def;
     }
 

@@ -14,6 +14,8 @@ struct UberStateDef
 };
 #pragma pack(pop)
 
+csharp_bridge::UberStateType resolve_type(app::IUberState* uber_state);
+
 INJECT_C_DLLEXPORT void set_debug_controls(bool value);
 INJECT_C_DLLEXPORT bool get_debug_controls();
 INJECT_C_DLLEXPORT void fill_health();

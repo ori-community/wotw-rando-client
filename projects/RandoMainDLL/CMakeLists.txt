@@ -24,7 +24,6 @@ set(
 	"Memory/AreaType.cs"
 	"Memory/GameState.cs"
 	"Memory/InventoryItem.cs"
-	"Memory/MemoryReader.cs"
 	"Memory/MessageDescriptor.cs"
 	"Memory/Screen.cs"
 	"Memory/Shard.cs"

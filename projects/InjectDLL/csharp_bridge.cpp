@@ -25,7 +25,7 @@ namespace csharp_bridge
     signatures::f_bool_at is_tree_activated;
 
     // Shop system
-    signatures::f_ull_sll shop_string_repl;
+    signatures::f_ull_str shop_string_repl;
     signatures::f_void_at opher_buy_weapon;
     signatures::f_void_at opher_buy_upgrade;
     signatures::f_bool_at opher_bought_weapon;
@@ -37,6 +37,7 @@ namespace csharp_bridge
     signatures::f_int_int lupo_upgrade_cost;
 
     signatures::f_ull_str_bool rva_lookup;
+    signatures::f_void_int_int_byte_float_float on_uber_state_applied;
 }
 
 INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
@@ -52,9 +53,9 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
     else if (name == "on_tree")
         on_tree = reinterpret_cast<f_void_at>(ptr);
     else if (name == "on_checkpoint")
-      on_checkpoint = reinterpret_cast<f_void>(ptr);
+        on_checkpoint = reinterpret_cast<f_void>(ptr);
     else if (name == "on_goal_mode_fail")
-      on_goal_mode_fail = reinterpret_cast<f_void>(ptr);
+        on_goal_mode_fail = reinterpret_cast<f_void>(ptr);
     else if (name == "check_ini")
         check_ini = reinterpret_cast<f_bool_str>(ptr);
     else if (name == "inject_log_enabled")
@@ -80,7 +81,7 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
     else if (name == "is_tree_activated")
         is_tree_activated = reinterpret_cast<f_bool_at>(ptr);
     else if (name == "shop_string_repl")
-        shop_string_repl = reinterpret_cast<f_ull_sll>(ptr);
+        shop_string_repl = reinterpret_cast<f_ull_str>(ptr);
     else if (name == "opher_buy_weapon")
         opher_buy_weapon = reinterpret_cast<f_void_at>(ptr);
     else if (name == "opher_buy_upgrade")
@@ -101,4 +102,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         lupo_upgrade_cost = reinterpret_cast<f_int_int>(ptr);
     else if (name == "rva_lookup")
         rva_lookup = reinterpret_cast<f_ull_str_bool>(ptr);
+    else if (name == "on_uber_state_applied")
+        on_uber_state_applied = reinterpret_cast<f_void_int_int_byte_float_float>(ptr);
 }
