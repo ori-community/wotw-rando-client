@@ -14,6 +14,7 @@ namespace uber_states
     namespace
     {
         BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
+        BINDING(27775392, void, Moon_UberStateController__Apply, (app::IUberState* descriptor, int32_t context));
 
         void notify_uber_state_change(app::IUberState* uber_state, float prev, float current)
         {
@@ -81,6 +82,11 @@ namespace uber_states
         }
     }
 
+    void apply_uber_state_no_notify(app::IUberState* uber_state)
+    {
+        Moon_UberStateController__Apply(uber_state, 0);
+    }
+
     app::UberID* get_uber_state_id(app::IUberState* uber_state)
     {
         return il2cpp::invoke<app::UberID>(uber_state, "get_ID");
@@ -112,6 +118,13 @@ namespace uber_states
         uber_id.klass = reinterpret_cast<app::UberID__Class*>(il2cpp::get_class("Moon", "UberID"));
         uber_id.fields.m_id = id;
         return uber_id;
+    }
+
+    app::IUberState* get_uber_state(int group_id, int state_id)
+    {
+        auto group = create_uber_id(group_id);
+        auto state = create_uber_id(state_id);
+        return get_uber_state(group, state);
     }
 
     app::IUberState* get_uber_state(app::UberID& group_id, app::UberID& state_id)
