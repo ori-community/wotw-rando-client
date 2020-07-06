@@ -173,7 +173,7 @@ INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type)
     auto shards = get_shards();
     auto boxed = il2cpp::box_value<app::Byte__Boxed>(il2cpp::get_class<>("System", "Byte"), type);
     app::PlayerUberStateShards_Shard* shard = nullptr;
-    auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", boxed, shard)->fields;
+    auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", boxed, &shard)->fields;
     if (found)
         return shard->fields.m_gained;
     else
@@ -188,7 +188,7 @@ INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value)
     auto shards = get_shards();
     auto boxed = il2cpp::box_value<app::Byte__Boxed>(il2cpp::get_class<>("System", "Byte"), type);
     app::PlayerUberStateShards_Shard* shard = nullptr;
-    auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", boxed, shard)->fields;
+    auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", boxed, &shard)->fields;
     if (found)
         shard->fields.m_gained = true;
     else
