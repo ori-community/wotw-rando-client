@@ -119,7 +119,7 @@ namespace uber_states
         return Moon_UberStateCollection__GetState(&group_id, &state_id);
     }
 
-    bool check_set = true;
+    constexpr bool check_set = false;
     void set_uber_state_value(app::IUberState* uber_state, float value)
     {
         if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState"))
