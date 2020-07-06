@@ -32,7 +32,7 @@ namespace uber_states
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
-        INTERCEPT(27750528, void, Moon_SerializedByteUberState__set_Value, (app::SerializedByteUberState* this_ptr, bool value)) {
+        INTERCEPT(27750528, void, Moon_SerializedByteUberState__set_Value, (app::SerializedByteUberState* this_ptr, uint8_t value)) {
             auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             Moon_SerializedByteUberState__set_Value(this_ptr, value);
             auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
@@ -40,7 +40,7 @@ namespace uber_states
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
-        INTERCEPT(27752384, void, Moon_SerializedFloatUberState__set_Value, (app::SerializedFloatUberState* this_ptr, bool value)) {
+        INTERCEPT(27752384, void, Moon_SerializedFloatUberState__set_Value, (app::SerializedFloatUberState* this_ptr, float value)) {
             auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             Moon_SerializedFloatUberState__set_Value(this_ptr, value);
             auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
@@ -48,7 +48,7 @@ namespace uber_states
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
-        INTERCEPT(27754000, void, Moon_SerializedIntUberState__set_Value, (app::SerializedIntUberState* this_ptr, bool value)) {
+        INTERCEPT(27754000, void, Moon_SerializedIntUberState__set_Value, (app::SerializedIntUberState* this_ptr, int value)) {
             auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             Moon_SerializedIntUberState__set_Value(this_ptr, value);
             auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;

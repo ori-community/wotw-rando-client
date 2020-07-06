@@ -102,7 +102,7 @@ namespace RandoMainDLL {
         case UberStateType.SerializedByteUberState:
           return new UberValue((byte)value);
         case UberStateType.SerializedBooleanUberState:
-          return new UberValue(value != 0.0f);
+          return new UberValue(!(Math.Abs(value) < 0.001f));
         case UberStateType.SerializedIntUberState:
           return new UberValue((int)value);
         default:
