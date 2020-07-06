@@ -1,7 +1,9 @@
-#include <dev/object_visualizer.h>
 #include <common.h>
 #include <interception_macros.h>
 #include <il2cpp_helpers.h>
+#include <dev/dev_commands.h>
+#include <dev/object_visualizer.h>
+#include <Common/ext.h>
 
 #include <unordered_map>
 
@@ -15,30 +17,31 @@ namespace dev
             BINDING(27824416, app::String*, SetupStateModifier__get_Name, (app::SetupStateModifier* this_ptr));
 
             BINDING(13431104, app::String*, Moon_UberState__get_Name, (app::IUberState* this_ptr));
-            BINDING(13431104, app::String*, Moon_UberStateGroup__get_GroupName, (app::UberStateGroup* this_ptr));
-            //{
-            //  "Address": 48221264,
-            //  "Name": "UnityEngine.Transform$$GetChild",
-            //  "Signature": "UnityEngine_Transform_o* UnityEngine_Transform__GetChild (UnityEngine_Transform_o* this, int32_t index);"
-            //},
-            //{
-            //  "Address": 48221360,
-            //  "Name": "UnityEngine.Transform$$GetChildCount",
-            //  "Signature": "int32_t UnityEngine_Transform__GetChildCount (UnityEngine_Transform_o* this);"
-            //},
-            //{
-            //    "Address": 36928416,
-            //        "Name" : "UnityEngine.GameObject$$get_transform",
-            //        "Signature" : "UnityEngine_Transform_o* UnityEngine_GameObject__get_transform (UnityEngine_GameObject_o* this);"
-            //},
+			BINDING(13431104, app::String*, Moon_UberStateGroup__get_GroupName, (app::UberStateGroup* this_ptr));
+
+			std::string get_full_name(Il2CppClass* klass)
+			{
+				if (std::string(klass->namespaze).empty())
+					return klass->name;
+				else
+					return format("%s.%s", klass->namespaze, klass->name);
+			}
+
+			std::string get_full_name(Il2CppObject* obj)
+			{
+				if (std::string(obj->klass->namespaze).empty())
+					return obj->klass->name;
+				else
+					return format("%s.%s", obj->klass->namespaze, obj->klass->name);
+			}
 
             void indent(Visualizer& visualizer, int pre = 0, int post = 0)
             {
-                visualizer.indent_level += pre;
-                for (auto i = 0; i < visualizer.indent_level; ++i)
+                visualizer.current_state.indent_level += pre;
+                for (auto i = 0; i < visualizer.current_state.indent_level; ++i)
                     visualizer.stream << visualizer.indent;
 
-                visualizer.indent_level += post;
+                visualizer.current_state.indent_level += post;
             }
 
             app::IUberStateGroup* get_group(app::IUberState* state)
@@ -46,24 +49,73 @@ namespace dev
                 return il2cpp::invoke_virtual<app::IUberStateGroup>(state, il2cpp::get_class("Moon", "IUberState"), "get_UberStateGroup");
             }
 
+            void visualize_object_internal(Visualizer& visualizer, void* obj, int id = 0)
+            {
+                Visualizer::State state;
+                state.id = id;
+                state.indent_level = visualizer.current_state.indent_level;
+                state.depth = visualizer.current_state.depth;
+                auto it = visualizer.visualizer_queue.begin();
+                auto index = visualizer.visualizer_queue.size() - visualizer.last_queue_size;
+                if (index < 0)
+                    trace(MessageType::Debug, 1, "deb", "queue size mismatch.");
+
+                if (index > 0)
+                    it += index;
+
+                visualizer.visualizer_queue.insert(it, std::make_pair(reinterpret_cast<Il2CppObject*>(obj), state));
+            }
+
+			void visualize_unity_object(Visualizer& visualizer, Il2CppObject* obj)
+			{
+				auto name = il2cpp::unity::get_object_name(obj);
+				indent(visualizer);
+				visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
+			}
+
             void visualize_game_object(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto game_object = reinterpret_cast<app::GameObject*>(obj);
-                auto name = il2cpp::get_unity_object_name(game_object);
-                indent(visualizer);
-                visualizer.stream << game_object->klass->_0.name << " - " << name << visualizer.new_line;
+                switch (visualizer.current_state.id)
+                {
+                case 0:
+                {
+                    auto name = il2cpp::unity::get_object_name(game_object);
+                    indent(visualizer);
+                    visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
+                    indent(visualizer, 1, 1);
+                    auto components = il2cpp::unity::get_components(game_object);
+                    visualizer.stream << "components (" << components.size() << "):" << visualizer.new_line;
+                    for (auto component : components)
+                        visualize_object_internal(visualizer, component);
 
-                visualizer.indent_level = start_level;
+                    visualize_object_internal(visualizer, obj, 1);
+                    break;
+                }
+                case 1:
+                {
+                    auto children = il2cpp::unity::get_children(game_object);
+                    indent(visualizer, -1, 1);
+                    visualizer.stream << "children (" << children.size() << "):" << visualizer.new_line;
+                    if (visualizer.level > Visualizer::InfoLevel::Low && visualizer.current_state.depth > 0)
+                    {
+                        visualizer.current_state.depth -= 1;
+                        for (auto child : children)
+                            visualize_object_internal(visualizer, child);
+                    }
+                    break;
+                }
+                default:
+                    break;
+                }
             }
 
             void visualize_new_setup_state_controller(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto controller = reinterpret_cast<app::NewSetupStateController*>(obj);
                 auto guid_str = convert_csstring(controller->fields.m_guidStr);
                 indent(visualizer, 0, 1);
-                visualizer.stream << controller->klass->_0.name << " - " << guid_str << visualizer.new_line;
+                visualizer.stream << get_full_name(obj) << " - " << guid_str << visualizer.new_line;
                 indent(visualizer);
                 visualizer.stream << "active_state: " << controller->fields.m_activeStateIndex << visualizer.new_line;
                 indent(visualizer, 0, 1);
@@ -79,106 +131,114 @@ namespace dev
                     visualizer.stream << "-> " << guid << " : " << name.c_str() << visualizer.new_line;
                 }
 
-                if (visualizer.level > Visualizer::InfoLevel::Low)
-                {
+                if (visualizer.level > Visualizer::InfoLevel::Low && visualizer.current_state.depth > 0)
+				{
+					visualizer.current_state.depth -= 1;
                     indent(visualizer, -1, 1);
-                    visualizer.stream << "modifiers:" << visualizer.new_line;
+                    visualizer.stream << "modifiers (" << controller->fields.StateHolder->fields.Modifiers->fields._size << "):" << visualizer.new_line;
 
                     for (auto i = 0; i < controller->fields.StateHolder->fields.Modifiers->fields._size; ++i)
                     {
                         auto item = controller->fields.StateHolder->fields.Modifiers->fields._items->vector[i];
                         if (item != nullptr)
-                            visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
+                            visualize_object_internal(visualizer, item);
                     }
                 }
-
-                visualizer.indent_level = start_level;
             }
 
             void visualize_setup_state_modifier(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::SetupStateModifier*>(obj);
-                indent(visualizer, 0, 1);
-                visualizer.stream << item->klass->_0.name << " - " << std::showbase << std::hex << item->fields.ModifierGUID << visualizer.new_line;
-                auto csname = il2cpp::invoke<app::String>(item, "get_Name");
-                auto name = convert_csstring(csname);
 
-                indent(visualizer);
-                visualizer.stream << "name: " << name << visualizer.new_line;
+                switch (visualizer.current_state.id)
+                {
+                case 0:
+                {
+                    indent(visualizer, 0, 1);
+                    visualizer.stream << get_full_name(obj) << " - " << std::showbase << std::hex << item->fields.ModifierGUID
+                        << std::noshowbase << std::dec << visualizer.new_line;
+                    auto csname = il2cpp::invoke<app::String>(item, "get_Name");
+                    auto name = convert_csstring(csname);
 
-                if (item->fields.Target != nullptr &&
-                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
-                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
-                {
-                    auto target = il2cpp::invoke<Il2CppObject>(item->fields.Target, "Resolve", nullptr);
-                    visualize_object(visualizer, target);
-                }
-                else
-                {
                     indent(visualizer);
-                    visualizer.stream << "unresolvable target" << visualizer.new_line;
+                    visualizer.stream << "name: " << name << visualizer.new_line;
+
+                    if (item->fields.Target != nullptr &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
+                    {
+                        auto target = il2cpp::invoke<Il2CppObject>(item->fields.Target, "Resolve", nullptr);
+                        visualize_object_internal(visualizer, target);
+                    }
+                    else
+                    {
+                        indent(visualizer);
+                        visualizer.stream << "unresolvable target" << visualizer.new_line;
+                    }
+
+                    visualize_object_internal(visualizer, obj, 1);
+                    break;
                 }
+                case 1:
+                {
+                    indent(visualizer, 0, 1);
+                    visualizer.stream << "modifier_data:" << visualizer.new_line;
+                    for (auto i = 0; i < item->fields.m_uberStateModifierDatas->fields._size; ++i)
+                        if (item != nullptr)
+                            visualize_object_internal(visualizer, item->fields.m_uberStateModifierDatas->fields._items->vector[i]);
 
-                indent(visualizer, 0, 1);
-                visualizer.stream << "modifier_data:" << visualizer.new_line;
-                for (auto i = 0; i < item->fields.m_uberStateModifierDatas->fields._size; ++i)
-                    if (item != nullptr)
-                        visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.m_uberStateModifierDatas->fields._items->vector[i]));
-
-                visualizer.indent_level = start_level;
+                    break;
+                }
+                }
             }
 
             void visualize_setup_state_modifier_data(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::SetupStateModifierData*>(obj);
                 indent(visualizer, 0, 1);
-                visualizer.stream << item->klass->_0.name << " - " << std::showbase << std::hex << item->fields.ModifierGUID << visualizer.new_line;
+                visualizer.stream << get_full_name(obj) << " - " << std::showbase << std::hex << item->fields.ModifierGUID
+                    << std::noshowbase << std::dec << visualizer.new_line;
 
                 //item->fields.m_modifierDataClassID.
-
-                visualizer.indent_level = start_level;
             }
 
             void visualize_state_condition(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::StateCondition*>(obj);
                 indent(visualizer, 0, 1);
-                visualizer.stream << item->klass->_0.name << visualizer.new_line;
+                visualizer.stream << get_full_name(obj) << visualizer.new_line;
                 indent(visualizer, 0, 1);
                 visualizer.stream << "desired_state:" << visualizer.new_line;
-                visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.DesiredState));
-                visualizer.indent_level = start_level;
+                visualize_object_internal(visualizer, item->fields.DesiredState);
             }
 
             void visualize_uber_state_bool_condition(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::UberStateBoolCondition*>(obj);
                 indent(visualizer, 0, 1);
-                visualizer.stream << item->klass->_0.name << visualizer.new_line;
-                visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.BooleanDescriptor));
+                visualizer.stream << get_full_name(obj) << visualizer.new_line;
                 indent(visualizer);
                 visualizer.stream << "value: " << item->fields.Value << visualizer.new_line;
-
-                visualizer.indent_level = start_level;
+                visualize_object_internal(visualizer, item->fields.BooleanDescriptor);
             }
 
             void visualize_uber_state_value_condition(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::UberStateValueCondition*>(obj);
                 indent(visualizer, 0, 1);
-                visualizer.stream << item->klass->_0.name << visualizer.new_line;
+                visualizer.stream << get_full_name(obj) << visualizer.new_line;
+                indent(visualizer);
+                visualizer.stream << "value: " << item->fields.Value << visualizer.new_line;
+                indent(visualizer);
+                visualizer.stream << "mode: " << item->fields.Compare << visualizer.new_line;
+
                 if (item->fields.Descriptor != nullptr &&
                     il2cpp::invoke<app::Boolean__Boxed>(item->fields.Descriptor, "get_HasAReference")->fields &&
                     il2cpp::invoke<app::Boolean__Boxed>(item->fields.Descriptor, "CanResolve", nullptr)->fields)
                 {
                     auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.Descriptor, "Resolve", nullptr);
                     if (descriptor != nullptr)
-                        visualize_object(visualizer, descriptor);
+                        visualize_object_internal(visualizer, descriptor);
                     else
                     {
                         indent(visualizer);
@@ -191,97 +251,97 @@ namespace dev
                     indent(visualizer);
                     visualizer.stream << "descriptor: unresolved" << visualizer.new_line;
                 }
-
-                indent(visualizer);
-                visualizer.stream << "value: " << item->fields.Value << visualizer.new_line;
-                indent(visualizer);
-                visualizer.stream << "mode: " << item->fields.Compare << visualizer.new_line;
-
-                visualizer.indent_level = start_level;
             }
 
             void visualize_desired_uber_state_composite(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::DesiredUberStateComposite*>(obj);
-                indent(visualizer, 0, 1);
-                visualizer.stream << item->klass->_0.name << visualizer.new_line;
-                indent(visualizer, 0, 1);
-                visualizer.stream << "bools: {" << item->fields.BoolRequirements->fields._size << "}" << visualizer.new_line;
-                for (auto i = 0; i < item->fields.BoolRequirements->fields._size; ++i)
-                    visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.BoolRequirements->fields._items->vector[i]));
+                switch (visualizer.current_state.id)
+                {
+                case 0:
+                    indent(visualizer, 0, 1);
+                    visualizer.stream << get_full_name(obj) << visualizer.new_line;
+                    indent(visualizer, 0, 1);
+                    visualizer.stream << "bools: {" << item->fields.BoolRequirements->fields._size << "}" << visualizer.new_line;
+                    for (auto i = 0; i < item->fields.BoolRequirements->fields._size; ++i)
+                        visualize_object_internal(visualizer, item->fields.BoolRequirements->fields._items->vector[i]);
 
-                indent(visualizer, -1, 1);
-                visualizer.stream << "bytes: {" << item->fields.ByteRequirements->fields._size << "}" << visualizer.new_line;
-                for (auto i = 0; i < item->fields.ByteRequirements->fields._size; ++i)
-                    visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.ByteRequirements->fields._items->vector[i]));
+                    indent(visualizer, -1, 1);
+                    visualizer.stream << "bytes: {" << item->fields.ByteRequirements->fields._size << "}" << visualizer.new_line;
+                    for (auto i = 0; i < item->fields.ByteRequirements->fields._size; ++i)
+                        visualize_object_internal(visualizer, item->fields.ByteRequirements->fields._items->vector[i]);
 
-                indent(visualizer, -1, 1);
-                visualizer.stream << "floats: {" << item->fields.FloatRequirements->fields._size << "}" << visualizer.new_line;
-                for (auto i = 0; i < item->fields.FloatRequirements->fields._size; ++i)
-                    visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.FloatRequirements->fields._items->vector[i]));
+                    visualize_object_internal(visualizer, obj, 1);
+                    break;
+                case 1:
+                    indent(visualizer, -1, 1);
+                    visualizer.stream << "floats: {" << item->fields.FloatRequirements->fields._size << "}" << visualizer.new_line;
+                    for (auto i = 0; i < item->fields.FloatRequirements->fields._size; ++i)
+                        visualize_object_internal(visualizer, item->fields.FloatRequirements->fields._items->vector[i]);
 
-                indent(visualizer, -1, 1);
-                visualizer.stream << "ints: {" << item->fields.IntRequirements->fields._size << "}" << visualizer.new_line;
-                for (auto i = 0; i < item->fields.IntRequirements->fields._size; ++i)
-                    visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.IntRequirements->fields._items->vector[i]));
+                    visualize_object_internal(visualizer, obj, 2);
+                    break;
+                case 2:
+                    indent(visualizer, -1, 1);
+                    visualizer.stream << "ints: {" << item->fields.IntRequirements->fields._size << "}" << visualizer.new_line;
+                    for (auto i = 0; i < item->fields.IntRequirements->fields._size; ++i)
+                        visualize_object_internal(visualizer, item->fields.IntRequirements->fields._items->vector[i]);
 
-                visualizer.indent_level = start_level;
+                    break;
+                }
+
+
             }
 
             void visualize_desired_bool_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateBool*>(obj);
-                visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields._.Descriptor));
                 indent(visualizer);
                 visualizer.stream << "desired_value: " << item->fields.DesiredValue << visualizer.new_line;
+                visualize_object_internal(visualizer, item->fields._.Descriptor);
             }
 
             void visualize_desired_byte_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
-                auto start_level = visualizer.indent_level;
                 auto item = reinterpret_cast<app::DesiredUberStateByte*>(obj);
                 indent(visualizer, 0, 1);
                 visualizer.stream << "byte_uberstate:" << visualizer.new_line;
+                indent(visualizer);
+                visualizer.stream << "desired_value: " << item->fields.DesiredStateValue << visualizer.new_line;
 
                 if (item->fields.State != nullptr &&
                     il2cpp::invoke<app::Boolean__Boxed>(item->fields.State, "get_HasAReference")->fields &&
                     il2cpp::invoke<app::Boolean__Boxed>(item->fields.State, "CanResolve", nullptr)->fields)
                 {
                     auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.State, "Resolve", nullptr);
-                    visualize_object(visualizer, descriptor);
+                    visualize_object_internal(visualizer, descriptor);
                 }
                 else
                 {
                     indent(visualizer);
                     visualizer.stream << "byte_uberstate: unresolvable" << visualizer.new_line;
                 }
-
-                indent(visualizer);
-                visualizer.stream << "desired_value: " << item->fields.DesiredStateValue << visualizer.new_line;
-                visualizer.indent_level = start_level;
             }
 
             void visualize_desired_float_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateFloat*>(obj);
-                visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.Descriptor));
                 indent(visualizer);
                 visualizer.stream << "desired_value: " << item->fields.DesiredValue << visualizer.new_line;
+                visualize_object_internal(visualizer, item->fields.Descriptor);
             }
 
             void visualize_desired_int_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateInt*>(obj);
-                visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item->fields.Descriptor));
                 indent(visualizer);
                 visualizer.stream << "desired_value: " << item->fields.DesiredValue << visualizer.new_line;
+                visualize_object_internal(visualizer, item->fields.Descriptor);
             }
 
             void visualize_serialized_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto state = reinterpret_cast<app::IUberState*>(obj);
-                auto start_level = visualizer.indent_level;
                 auto csstate = Moon_UberState__get_Name(state);
                 auto state_name = convert_csstring(csstate);
                 auto group = il2cpp::invoke<app::IUberStateGroup>(state, "get_UberStateGroup");
@@ -298,8 +358,6 @@ namespace dev
                 visualizer.stream << group_name << "(" << group_id->fields.m_id << ")" << visualizer.new_line;
                 indent(visualizer, -1);
                 visualizer.stream << "}" << visualizer.new_line;
-
-                visualizer.indent_level = start_level;
             }
 
             std::unordered_map<std::string, void (*)(Visualizer& visualizer, Il2CppObject* obj)> visualizers = {
@@ -321,35 +379,82 @@ namespace dev
                 { "SerializedByteUberState", visualize_serialized_uber_state },
                 { "SerializedIntUberState", visualize_serialized_uber_state },
 
-                { "GameObject", visualize_game_object },
+                { "UnityEngine.GameObject", visualize_game_object },
+				{ "UnityEngine.Object", visualize_unity_object },
             };
         }
 
-        void visualize_object(Visualizer& visualizer, Il2CppObject* obj)
+        void visualize_object(Visualizer& visualizer, void* obj, int indent_start, int depth_start)
         {
-            if (obj == nullptr)
-            {
-                indent(visualizer);
-                visualizer.stream << "nullptr" << visualizer.new_line;
-                return;
-            }
+            if (indent_start < 0)
+                indent_start = visualizer.initial_indent_level;
+            if (depth_start < 0)
+                depth_start = visualizer.initial_depth;
 
-            Il2CppClass* klass = obj->klass;
-            while (klass != nullptr)
+            visualizer.visualizer_queue.clear();
+            visualizer.last_queue_size = 0;
+            visualizer.current_state.id = 0;
+            visualizer.current_state.indent_level = indent_start;
+            visualizer.current_state.depth = depth_start;
+
+            visualize_object_internal(visualizer, obj);
+            while (!visualizer.visualizer_queue.empty())
             {
-                auto it = visualizers.find(klass->name);
-                if (it != visualizers.end())
+                auto current = visualizer.visualizer_queue.front();
+                visualizer.visualizer_queue.erase(visualizer.visualizer_queue.begin());
+                visualizer.last_queue_size = visualizer.visualizer_queue.size();
+
+                if (current.first == nullptr)
                 {
-                    it->second(visualizer, obj);
+                    indent(visualizer);
+                    visualizer.stream << "nullptr" << visualizer.new_line;
                     return;
                 }
 
-                klass = klass->parent;
-            }
+                auto klass = current.first->klass;
+                while (klass != nullptr)
+                {
+                    std::string full_name = get_full_name(klass);
+                    auto it = visualizers.find(full_name);
+                    if (it != visualizers.end())
+                    {
+                        visualizer.current_state = current.second;
+                        it->second(visualizer, current.first);
+                        break;
+                    }
 
-            indent(visualizer);
-            visualizer.stream << obj->klass->name << " - " << std::noshowbase << std::dec << reinterpret_cast<uint64_t>(obj->klass) << visualizer.new_line;
+                    klass = klass->parent;
+                }
+
+                if (klass == nullptr)
+                {
+                    indent(visualizer);
+                    std::string full_name = get_full_name(current.first);
+                    visualizer.stream << full_name << " - " << std::noshowbase << std::dec << reinterpret_cast<uint64_t>(current.first->klass) << visualizer.new_line;
+                }
+            }
         }
+
+		void visualize_scene(Visualizer& visualizer, app::Scene& scene, int indent_start, int depth_start)
+        {
+            if (indent_start < 0)
+                indent_start = visualizer.initial_indent_level;
+            if (depth_start < 0)
+                depth_start = visualizer.initial_depth;
+
+            auto roots = il2cpp::unity::get_root_game_objects(scene);
+            visualizer.current_state.indent_level = indent_start;
+            visualizer.current_state.depth = depth_start;
+			indent(visualizer, 0, 1);
+			visualizer.stream << "scene (" << roots.size() << "):" << visualizer.new_line;
+            for (auto i = 0; i < roots.size(); ++i)
+            {
+                dev::console_send(format("root_object (%d / %d)", i + 1, roots.size()));
+                dev::console_flush();
+
+                dev::visualize::visualize_object(visualizer, roots[i], indent_start + 1, depth_start - 1);
+            }
+		}
 
         std::string get_string(Visualizer& visualizer)
         {

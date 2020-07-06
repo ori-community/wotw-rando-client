@@ -1,8 +1,9 @@
 #include <ext.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <vector>
 
-std::string format(const char* str, ...)
+const char* format(const char* str, ...)
 {
     va_list args;
     va_start(args, str);
@@ -11,11 +12,12 @@ std::string format(const char* str, ...)
     return ptr;
 }
 
-std::string format(const char* str, va_list ls)
+static thread_local std::vector<char> buffer;
+const char* format(const char* str, va_list ls)
 {
+    buffer.clear();
 	size_t length = _vscprintf(str, ls);
-	std::string output;
-    output.resize(length);
-    _vsnprintf_s(&output[0], length + 1, _TRUNCATE, str, ls);
-	return output;
+    buffer.resize(length + 1);
+    _vsnprintf_s(buffer.data(), length + 1, _TRUNCATE, str, ls);
+	return buffer.data();
 }

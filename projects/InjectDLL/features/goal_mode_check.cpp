@@ -1,6 +1,7 @@
 #include <interception_macros.h>
 #include <dll_main.h>
 #include <csharp_bridge.h>
+#include <il2cpp_helpers.h>
 #include <dev/dev_commands.h>
 #include <Common/ext.h>
 
@@ -38,7 +39,6 @@ namespace
         1.0f
     };
 
-    STATIC_CLASS(71818456, app::UI_Cameras__Class*, cameras);
     BINDING(4110512, void, GameplayCamera__MoveCameraToTargetInstantly, (app::GameplayCamera* this_ptr, bool updateTargetPosition));
 
     bool enable_goal_teleport = false;
@@ -46,10 +46,11 @@ namespace
     INTERCEPT(10977184, void, SeinCharacter__FixedUpdate, (app::SeinCharacter* this_ptr)) {
         if (enable_goal_teleport)
         {
-            if (set_camera_next_update && cameras_is_valid() && (*cameras)->static_fields->Current != nullptr)
+            auto cameras = il2cpp::get_class<app::UI_Cameras__Class>("", "UI.Cameras");
+            if (set_camera_next_update && cameras->static_fields->Current != nullptr)
             {
                 // We need to do this on the next frame to allow state to update without causing flickering.
-                auto camera = (*cameras)->static_fields->Current;
+                auto camera = cameras->static_fields->Current;
                 GameplayCamera__MoveCameraToTargetInstantly(camera, true);
                 set_camera_next_update = false;
             }

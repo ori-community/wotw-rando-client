@@ -20,18 +20,10 @@ namespace RandoMainDLL {
             CallbackName = "update"
           },
           new Method() {
-            Delegate = new f_int(() => Randomizer.Memory.Ore),
-            CallbackName = "ore_count"
-          },
-          new Method() {
-            Delegate = new f_bool_at((AbilityType at) => SaveController.Data.TreesActivated.Contains(at)),
-            CallbackName = "tree_fulfilled"
-          },
-          new Method() {
             Delegate = new f_void_at((AbilityType at) => {
               SaveController.Data.TreesActivated.Add(at);
-              Randomizer.Memory.FillEnergy();
-              Randomizer.Memory.FillHealth();
+              InterOp.fill_health();
+              InterOp.fill_energy();
               SeedController.OnTree(at);
             }),
             CallbackName = "on_tree"
@@ -43,10 +35,6 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void(() => AHK.Print(SeedController.GoalModeMessages(unmet: "@"), 240, false)),
             CallbackName = "on_goal_mode_fail"
-          },
-          new Method() {
-            Delegate = new f_ull(Randomizer.Memory.ShardSlotPtr),
-            CallbackName = "get_shard_slot_ptr"
           },
           new Method() {
             Delegate = new f_bool_str(AHK.IniFlag),
@@ -99,7 +87,7 @@ namespace RandoMainDLL {
             CallbackName = "is_tree_activated"
           },
           new Method() {
-            Delegate = new f_ull_ptr(ShopController.MessageSwap),
+            Delegate = new f_bool_str(ShopController.MessageSwap),
             CallbackName = "shop_string_repl"
           },
           new Method() {
@@ -142,6 +130,10 @@ namespace RandoMainDLL {
             Delegate = new f_ull_str_bool(RVAFinder.rvaLookup),
             CallbackName = "rva_lookup"
           },
+          new Method() {
+            Delegate = new f_void_int_int_byte_float_float(UberStateController.onUberStateChanged),
+            CallbackName = "on_uber_state_applied"
+          },
         };
       }
     }
@@ -151,6 +143,7 @@ namespace RandoMainDLL {
     public delegate void f_void_at_bool(AbilityType at, bool b);
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
+    public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
     public delegate void f_void_st(ShardType st);
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
@@ -161,7 +154,6 @@ namespace RandoMainDLL {
     public delegate int f_int_int(int i);
     public delegate int f_int_st(ShardType st);
     public delegate ulong f_ull();
-    public delegate ulong f_ull_ptr(IntPtr p);
     public delegate ulong f_ull_str_bool([MarshalAs(UnmanagedType.LPStr)] string str, bool b);
   }
 }
