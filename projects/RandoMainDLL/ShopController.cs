@@ -7,18 +7,19 @@ namespace RandoMainDLL {
   public static class ShopController {
     public static HashSet<string> Strings = new HashSet<string>();
 
-    public static ulong MessageSwap(IntPtr str) {
-      var strr = MemoryReader.ReadString(Randomizer.Memory.Program, str);
-      var shopStr = GetShopNameReplacement(strr);
-      if (shopStr != strr) {
-        return (ulong)InterOp.Util.getIl2cppStringPointer(shopStr);
+    public static bool MessageSwap(string str) {
+      var shopStr = GetShopNameReplacement(str);
+      if (shopStr != str) {
+        InterOp.message_item_callback(shopStr);
+        return true;
       }
-      else if (!Strings.Contains(strr)) {
+      else if (!Strings.Contains(str)) {
 /*        if (Randomizer.Dev)
           Randomizer.Log($"New String: |{strr}|", false);*/
-        Strings.Add(strr);
+        Strings.Add(str);
       }
-      return 0;
+
+      return false;
     }
 
 

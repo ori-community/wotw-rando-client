@@ -22,6 +22,7 @@ set(
 	"features/lupo_everywhere.cpp"
 	"features/opher_everywhere.cpp"
 	"features/tokk_everywhere.cpp"
+    "features/twillen_everywhere.cpp"
 	"features/map.cpp"
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"
@@ -41,6 +42,8 @@ set(
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
 	"uber_states/uber_state_dev.cpp"
+	"uber_states/uber_state_manager.cpp"
+	"uber_states/uber_state_helper.cpp"
 	"uber_states/state_applier.cpp"
 )
 
@@ -55,7 +58,6 @@ set(
 	"interception.h"
 	"interception_macros.h"
     "il2cpp_helpers.h"
-    "il2cpp_internals.h"
     "macros.h"
 	"dev/dev_commands.h"
 	"dev/object_visualizer.h"
@@ -65,6 +67,8 @@ set(
 	"pickups/ore.h"
 	"pickups/pickups.h"
 	"uber_states/state_applier.h"
+	"uber_states/uber_state_manager.h"
+	"uber_states/uber_state_helper.h"
 )
 
 set(

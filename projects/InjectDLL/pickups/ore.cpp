@@ -1,8 +1,7 @@
 #include <common.h>
 #include <interception_macros.h>
 #include <pickups/pickups.h>
-
-#include <csharp_bridge.h>
+#include <uber_states/uber_state_helper.h>
 
 // Taken from dump.cs
 enum class WorldMapIconType : int32_t
@@ -81,7 +80,7 @@ enum class WorldMapIconType : int32_t
 INTERCEPT(4093520, int32_t, GameWorld__GetCollectedIconTypeCount, (app::GameWorld* this_ptr, app::WorldMapIconType__Enum type)) {
     auto value = GameWorld__GetCollectedIconTypeCount(this_ptr, type);
     if (static_cast<int32_t>(type) == static_cast<int32_t>(WorldMapIconType::Ore))
-        value = csharp_bridge::ore_count();
+        value = get_ore();
 
     return value;
 }

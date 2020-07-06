@@ -7,6 +7,7 @@
 #include <dll_main.h>
 #include <interception_macros.h>
 #include <macros.h>
+#include <il2cpp_helpers.h>
 #include <pickups/ore.h>
 #include <fixes/dash.h>
 #include <features/invert_swim.h>
@@ -168,18 +169,19 @@ INJECT_C_DLLEXPORT bool toggle_cursorlock() {
   return newState > 0;
 }
 
-STATIC_CLASS(71425184, app::Characters__Class*, g_characters);
-STATIC_CLASS(71838776, app::GameController__Class*, g_game_controller);
-STATIC_CLASS(71714856, app::UI__Class*, g_ui);
-
-app::GameController* get_game_controller_instance()
+app::GameController* get_game_controller()
 {
-  return (*g_game_controller)->static_fields->Instance;
+    return il2cpp::get_class<app::GameController__Class>("", "GameController")->static_fields->Instance;
 }
 
 app::SeinCharacter* get_sein()
 {
-    return (*g_characters)->static_fields->m_sein;
+    return il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
+}
+
+app::UI__Class* get_ui()
+{
+    return il2cpp::get_class<app::UI__Class>("Game", "UI");
 }
 
 INJECT_C_DLLEXPORT void bind_sword() {
@@ -202,21 +204,16 @@ void on_fixed_update(__int64 thisPointer){
     }
 }
 
-INJECT_C_DLLEXPORT void set_ore(int oreCount)
-{
-    SeinLevel__set_Ore(get_sein()->fields.Level, oreCount);
-}
-
 INJECT_C_DLLEXPORT bool player_can_move()
 {
-    auto gcip = get_game_controller_instance();
+    auto gcip = get_game_controller();
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
 }
 
 INJECT_C_DLLEXPORT void save()
 {
     trace(MessageType::Info, 3, "csharp_interop", "Save requested by c# code");
-    GameController__CreateCheckpoint(get_game_controller_instance(), true, false);
+    GameController__CreateCheckpoint(get_game_controller(), true, false);
 }
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
@@ -362,6 +359,16 @@ void network_event_handler(network::NetworkEvent const& evt)
     }
 }
 
+bool no_pause = false;
+INTERCEPT(10036704, void, GameController__OnApplicationFocus, (app::GameController* this_ptr, bool focusStatus)) {
+    this_ptr->fields._PreventFocusPause_k__BackingField = no_pause;
+}
+
+void set_no_pause(bool value)
+{
+    no_pause = value;
+}
+
 extern bool bootstrap();
 
 INJECT_C_DLLEXPORT void injection_entry()
@@ -404,6 +411,7 @@ INJECT_C_DLLEXPORT void injection_entry()
     interception_init();
 
     dev::initialization_callbacks();
+    set_no_pause(true);
 
     if (trace_enabled || csharp_bridge::check_ini("Dev"))
     {

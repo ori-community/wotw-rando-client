@@ -10,8 +10,21 @@ enum class MessageType : int
     Debug
 };
 
-const std::set<char> tree_abilities{ 0, 5, 8, 23, 51, 57, 62, 77, 97, 100, 101, 102, 103, 104, 117, 120, 121 };
-const uint8_t GLIDE = 14;
-const uint8_t DIGGING = 101;
-const uint8_t DASH_NEW = 102;
-const uint8_t WATER_DASH = 104;
+const std::set<app::AbilityType__Enum> tree_abilities{
+    app::AbilityType__Enum_Bash,
+    app::AbilityType__Enum_DoubleJump,
+    app::AbilityType__Enum_ChargeJump,
+    app::AbilityType__Enum_WaterBreath,
+    app::AbilityType__Enum_Grenade,
+    app::AbilityType__Enum_SpiritLeash,
+    app::AbilityType__Enum_GlowSpell,
+    app::AbilityType__Enum_MeditateSpell,
+    app::AbilityType__Enum_Bow,
+    app::AbilityType__Enum_Sword,
+    app::AbilityType__Enum_Digging,
+    app::AbilityType__Enum_Launch,
+    app::AbilityType__Enum_WaterDash,
+    app::AbilityType__Enum_Regenerate,
+    app::AbilityType__Enum_DamageUpgradeA,
+    app::AbilityType__Enum_DamageUpgradeB,
+};
