@@ -20,10 +20,6 @@ namespace RandoMainDLL {
             CallbackName = "update"
           },
           new Method() {
-            Delegate = new f_bool_at((AbilityType at) => SaveController.Data.TreesActivated.Contains(at)),
-            CallbackName = "tree_fulfilled"
-          },
-          new Method() {
             Delegate = new f_void_at((AbilityType at) => {
               SaveController.Data.TreesActivated.Add(at);
               InterOp.fill_health();
