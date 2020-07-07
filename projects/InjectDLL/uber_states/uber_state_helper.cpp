@@ -69,7 +69,7 @@ namespace
 
 INJECT_C_DLLEXPORT void set_debug_controls(bool value)
 {
-    //get_cheats()->fields.DebugEnabled = value;
+    get_cheats()->fields.DebugEnabled = value;
 }
 
 INJECT_C_DLLEXPORT bool get_debug_controls()
