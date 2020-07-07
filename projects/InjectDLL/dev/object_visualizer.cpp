@@ -12,12 +12,9 @@ namespace dev
     namespace visualize
     {
         namespace {
-            BINDING(27825008, app::Int32__Array*, NewSetupStateController__GetAllStateGUIDs, (app::NewSetupStateController* this_ptr));
-            BINDING(27824416, app::String*, NewSetupStateController__GetStateName, (app::NewSetupStateController* this_ptr, int32_t stateGUID));
-            BINDING(27824416, app::String*, SetupStateModifier__get_Name, (app::SetupStateModifier* this_ptr));
-
-            BINDING(13431104, app::String*, Moon_UberState__get_Name, (app::IUberState* this_ptr));
-			BINDING(13431104, app::String*, Moon_UberStateGroup__get_GroupName, (app::UberStateGroup* this_ptr));
+            IL2CPP_BINDING(, NewSetupStateController, app::Int32__Array*, GetAllStateGUIDs, (app::NewSetupStateController* this_ptr));
+            IL2CPP_BINDING(, NewSetupStateController, app::String*, GetStateName, (app::NewSetupStateController* this_ptr, int32_t state_guid));
+            IL2CPP_BINDING(, SetupStateModifier, app::String*, get_Name, (app::SetupStateModifier* this_ptr));
 
 			std::string get_full_name(Il2CppClass* klass)
 			{
@@ -120,11 +117,11 @@ namespace dev
                 visualizer.stream << "active_state: " << controller->fields.m_activeStateIndex << visualizer.new_line;
                 indent(visualizer, 0, 1);
                 visualizer.stream << "states:" << visualizer.new_line;
-                auto all_states = NewSetupStateController__GetAllStateGUIDs(controller);
+                auto all_states = NewSetupStateController_GetAllStateGUIDs(controller);
                 for (auto i = 0; i < all_states->max_length; ++i)
                 {
                     auto guid = all_states->vector[i];
-                    auto csname = NewSetupStateController__GetStateName(controller, guid);
+                    auto csname = NewSetupStateController_GetStateName(controller, guid);
                     auto name = convert_csstring(csname);
 
                     indent(visualizer);
@@ -342,10 +339,10 @@ namespace dev
             void visualize_serialized_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto state = reinterpret_cast<app::IUberState*>(obj);
-                auto csstate = Moon_UberState__get_Name(state);
+                auto csstate = il2cpp::invoke<app::String>(state, "get_Name");
                 auto state_name = convert_csstring(csstate);
                 auto group = il2cpp::invoke<app::IUberStateGroup>(state, "get_UberStateGroup");
-                auto csgroup = Moon_UberStateGroup__get_GroupName(reinterpret_cast<app::UberStateGroup*>(group));
+                auto csgroup = il2cpp::invoke<app::String>(group, "get_GroupName");
                 auto group_name = convert_csstring(csgroup);
 
                 indent(visualizer);

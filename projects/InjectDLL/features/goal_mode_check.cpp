@@ -24,8 +24,8 @@ namespace
         );
     }
 
-    BINDING(10971216, app::Vector3, SeinCharacter__get_Position, (app::SeinCharacter* thisPtr));
-    BINDING(10971312, void, SeinCharacter__set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
+    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
 
     // Hardcoded position, front of entrance to Shriek fight.
     const app::Vector3 goal_reset_position = { 515.189453, -3745.529785, 0.0 };
@@ -39,11 +39,11 @@ namespace
         1.0f
     };
 
-    BINDING(4110512, void, GameplayCamera__MoveCameraToTargetInstantly, (app::GameplayCamera* this_ptr, bool updateTargetPosition));
+    IL2CPP_BINDING(, GameplayCamera, void, MoveCameraToTargetInstantly, (app::GameplayCamera* this_ptr, bool updateTargetPosition));
 
     bool enable_goal_teleport = false;
     bool set_camera_next_update = false;
-    INTERCEPT(10977184, void, SeinCharacter__FixedUpdate, (app::SeinCharacter* this_ptr)) {
+    IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter* this_ptr)) {
         if (enable_goal_teleport)
         {
             auto cameras = il2cpp::get_class<app::UI_Cameras__Class>("", "UI.Cameras");
@@ -51,21 +51,21 @@ namespace
             {
                 // We need to do this on the next frame to allow state to update without causing flickering.
                 auto camera = cameras->static_fields->Current;
-                GameplayCamera__MoveCameraToTargetInstantly(camera, true);
+                GameplayCamera_MoveCameraToTargetInstantly(camera, true);
                 set_camera_next_update = false;
             }
 
-            SeinCharacter__FixedUpdate(this_ptr);
-            auto position = SeinCharacter__get_Position(this_ptr);
+            SeinCharacter_FixedUpdate(this_ptr);
+            auto position = SeinCharacter_get_Position(this_ptr);
             if (in_rect(goal_rect, position.x, position.y, position.z))
             {
-                SeinCharacter__set_Position(this_ptr, goal_reset_position);
+                SeinCharacter_set_Position(this_ptr, goal_reset_position);
                 csharp_bridge::on_goal_mode_fail();
                 set_camera_next_update = true;
             }
         }
         else
-            SeinCharacter__FixedUpdate(this_ptr);
+            SeinCharacter_FixedUpdate(this_ptr);
     }
 
     void report_player_position(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -73,7 +73,7 @@ namespace
         auto sein = get_sein();
         if (sein != nullptr)
         {
-            auto position = SeinCharacter__get_Position(sein);
+            auto position = SeinCharacter_get_Position(sein);
             dev::console_send(format("sein pos: {%f, %f, %f}", position.x, position.y, position.z));
         }
         else

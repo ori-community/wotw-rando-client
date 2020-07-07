@@ -13,12 +13,12 @@
 
 namespace
 {
-    BINDING(17707024, void, PlayerSpiritShards__RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
-    BINDING(17712256, void, PlayerSpiritShards__SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
-    BINDING(17706592, bool, PlayerSpiritShards__HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
-    BINDING(17712336, app::PlayerUberStateShards_Shard*, PlayerSpiritShards__AddNewShardToInventory, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
-    BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
-    BINDING(27758304, Il2CppObject*, Moon_UberStateCollection__get_Descriptors, ());
+    IL2CPP_BINDING(, PlayerSpiritShards, void, RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
+    IL2CPP_BINDING(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
+    IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
+    IL2CPP_BINDING(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
+    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
+    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
 
     app::CheatsHandler* get_cheats()
     {
@@ -126,7 +126,7 @@ INJECT_C_DLLEXPORT int32_t get_ore()
 
 INJECT_C_DLLEXPORT void set_ore(int32_t value)
 {
-    SeinLevel__set_Ore(get_sein()->fields.Level, value);
+    SeinLevel_set_Ore(get_sein()->fields.Level, value);
     get_inventory()->fields.m_ore = value;
 }
 
@@ -153,8 +153,14 @@ INJECT_C_DLLEXPORT void set_keystones(int32_t value)
 
 INJECT_C_DLLEXPORT app::Vector2 get_position()
 {
-    auto pos = get_sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
-    return app::Vector2{ pos.x, pos.y };
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        auto pos = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
+        return app::Vector2{ pos.x, pos.y };
+    }
+    else
+        return app::Vector2{ 0, 0 };
 }
 
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state()
@@ -172,21 +178,21 @@ app::PlayerSpiritShards* get_player_spirit_shards() {
 }
 
 INJECT_C_DLLEXPORT void set_shard_slots(int32_t value) {
-  PlayerSpiritShards__SetGlobalShardSlotCount(get_player_spirit_shards(), value);
+  PlayerSpiritShards_SetGlobalShardSlotCount(get_player_spirit_shards(), value);
 }
 
 INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type) {
-  return PlayerSpiritShards__HasShard(get_player_spirit_shards(), type);
+  return PlayerSpiritShards_HasShard(get_player_spirit_shards(), type);
 }
 
 INJECT_C_DLLEXPORT void refresh_shards() {
-  PlayerSpiritShards__RefreshHasShard(get_player_spirit_shards());
+  PlayerSpiritShards_RefreshHasShard(get_player_spirit_shards());
 }
 
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
     // TODO: a way to remove shards
   if (value) {
-    PlayerSpiritShards__AddNewShardToInventory(get_player_spirit_shards(), type);
+    PlayerSpiritShards_AddNewShardToInventory(get_player_spirit_shards(), type);
     return;
   }
   auto shards = get_shards();

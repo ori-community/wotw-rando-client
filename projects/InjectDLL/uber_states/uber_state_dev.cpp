@@ -13,7 +13,7 @@
 
 namespace
 {
-    BINDING(27776080, bool, Moon_UberStateController__ApplierIsAffectedByUberState, (app::IUberStateApplier* applier, app::IUberState* descriptor));
+    STATIC_IL2CPP_BINDING(Moon, UberStateController, bool, ApplierIsAffectedByUberState, (app::IUberStateApplier* applier, app::IUberState* descriptor));
 
     void visualizer_setup(dev::Visualizer& visualizer, std::vector<dev::CommandParam> const& params, int default_level = 1, int default_depth = 200000)
     {
@@ -156,7 +156,7 @@ namespace
         for (auto i = 0; i < list->fields._size; ++i)
         {
             auto item = list->fields._items->vector[i];
-            if (Moon_UberStateController__ApplierIsAffectedByUberState(item, uber_state))
+            if (UberStateController_ApplierIsAffectedByUberState(item, uber_state))
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
 
