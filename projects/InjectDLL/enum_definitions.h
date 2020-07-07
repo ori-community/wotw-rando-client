@@ -2,34 +2,18 @@
 
 namespace csharp_bridge
 {
-    enum class AbilityType {
-        Bash = 0,
-        WallJump = 3,
-        DoubleJump = 5,
-        Launch = 8,
-        Feather = 14,
-        WaterBreath = 23,
-        LightBurst = 51,
-        Grapple = 57,
-        Flash = 62,
-        Spike = 74,
-        Regenerate = 77,
-        SpiritArc = 97,
-        SpiritSmash,
-        Torch,
-        SpiritEdge,
-        Burrow,
-        Dash,
-        WaterDash = 104,
-        TeleportSpell = 105,
-        SpiritStar = 106,
-        Seir = 108,
-        Blaze = 115,
-        Sentry,
-        Flap = 118,
-        DamageUpgrade1 = 120,
-        DamageUpgrade2,
-        NONE = 255
+    enum class UberStateType : uint8_t {
+        BooleanUberState,
+        ByteUberState,
+        IntUberState,
+        SerializedBooleanUberState,
+        SerializedFloatUberState,
+        SerializedIntUberState,
+        SerializedByteUberState,
+        CountUberState,
+        SavePedestalUberState,
+        ConditionUberState,
+        PlayerUberStateDescriptor
     };
 
     enum ShardType {

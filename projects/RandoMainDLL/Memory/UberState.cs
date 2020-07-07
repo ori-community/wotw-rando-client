@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 namespace RandoMainDLL.Memory {
-  public enum UberStateType {
+  public enum UberStateType : byte {
     BooleanUberState,
     ByteUberState,
     IntUberState,
@@ -79,12 +79,22 @@ namespace RandoMainDLL.Memory {
       ID = id;
     }
 
-    public int ID;
     public int GroupID;
+    public int ID;
 
+    public static UberId FromLong(long num) => new UberId((int)((num >> 32) & 0xffffffff), (int)(num & 0xffffffff));
     public override int GetHashCode() => ID.GetHashCode() + GroupID.GetHashCode();
     public override bool Equals(object obj) => obj is UberId other ? (ID == other.ID && GroupID == other.GroupID) : false;
     public override string ToString() => $"({GroupID}, {ID})";
+  }
+
+  [StructLayout(LayoutKind.Sequential, Pack = 1)]
+  public struct UberStateDef {
+    public int ID;
+    public int GroupID;
+    public IntPtr Name;
+    public IntPtr GroupName;
+    public UberStateType Type;
   }
 
   public class UberState {
@@ -95,6 +105,7 @@ namespace RandoMainDLL.Memory {
     public string GroupName;
     public UberValue Value;
 
+    public float ValueAsFloat() => Value.AsFloat(Type);
     public int ValueAsInt() => Value.AsInt(Type);
     public UberId GetUberId() => new UberId(GroupID, ID);
     public UberState Clone() => new UberState() { Type = Type, ID = ID, Name = Name, GroupID = GroupID, GroupName = GroupName, Value = Value };

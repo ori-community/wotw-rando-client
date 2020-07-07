@@ -36,9 +36,38 @@ namespace RandoMainDLL {
       public int KSBought = 0;
 
       [JsonIgnore]
+      public string SaveDirectory => $"{Randomizer.SaveFolder}\\";
       public string Filename => $"{Randomizer.SaveFolder}\\randosave_{Slot}.json";
+      public string FilenamePattern => $"randosave_{Slot}.*";
       public string fullName(int backup) => Filename + (backup != -1 ? $".{backup}.bak" : "");
       public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nks: {KSBought}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}\nSkills: {SkillsFound}";
+      public void Delete() {
+        try {
+          var files = Directory.GetFiles(SaveDirectory, FilenamePattern);
+          foreach (var file in files) {
+            File.Delete(file);
+          }
+        }
+        catch (Exception) {}
+      }
+      public void Copy(int toSlot) {
+        try {
+          var data = new SaveData(toSlot);
+          data.Delete();
+
+          var files = Directory.GetFiles(SaveDirectory, FilenamePattern);
+          foreach (var file in files) {
+            int backup = -1;
+            if (file.EndsWith(".bak")) {
+              backup = Convert.ToInt32(file.Substring(file.Length - 5, 1));
+            }
+
+            File.Copy(file, data.fullName(backup));
+          }
+        }
+        catch (Exception) {}
+      }
+
       public void Save(int backup = -1) {
         string targetFile = fullName(backup);
         if (File.Exists(targetFile)) 
@@ -115,15 +144,18 @@ namespace RandoMainDLL {
         }
         UberStateController.SkipListenersNextUpdate = true;
         Data.Load(backupSlot);
-        if (DidWeJustDie)
-          InterOp.magic_function();
+        if (DidWeJustDie) {
+          UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
+          UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
+          UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
+        }
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
     private static bool DidWeJustDie = false;
 
     public static void OnSave(int slot, int backupSlot = -1) {
-      if (Randomizer.Memory.PlayerStats.Health == 0) {
+      if (InterOp.get_health() == 0) {
         DidWeJustDie = true;
         return; // the game saves right when you die, but we don't want to save progress when that happens.
       }
@@ -143,6 +175,14 @@ namespace RandoMainDLL {
         return;
       }
       Data.Save(backupSlot);
+    }
+
+    public static void OnCopy(int fromSlot, int toSlot) {
+      new SaveData(fromSlot).Copy(toSlot);
+    }
+
+    public static void OnDelete(int slot) {
+      new SaveData(slot).Delete();
     }
   }
 }

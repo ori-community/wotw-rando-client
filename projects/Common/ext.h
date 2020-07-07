@@ -4,8 +4,9 @@
 #include <cctype>
 #include <string>
 
-std::string format(const char* str, ...);
-std::string format(const char* str, va_list ls);
+// Calls to these methods are destructive to pointers returned previously.
+const char* format(const char* str, ...);
+const char* format(const char* str, va_list ls);
 
 // trim from start (in place)
 static inline void ltrim(std::string& s) {

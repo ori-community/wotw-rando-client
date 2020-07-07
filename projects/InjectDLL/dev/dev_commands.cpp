@@ -36,7 +36,8 @@ namespace dev
 
         std::unordered_map<std::string, std::vector<dev_command>> entries;
 
-        bool initialzed;
+        bool initialzed = false;
+        bool failed = false;
         FILE* console_file;
         std::future<std::string> console_input;
         std::vector<std::string> messages;
@@ -117,6 +118,7 @@ namespace dev
     {
         console_file = nullptr;
         initialzed = false;
+        failed = true;
         if (!csharp_bridge::check_ini("Dev"))
             return;
         
@@ -145,6 +147,7 @@ namespace dev
 
         console_input = std::async(read_command);
         initialzed = true;
+        failed = false;
     }
 
     void console_free()
@@ -167,10 +170,7 @@ namespace dev
 
     void console_poll()
     {
-        if (!initialzed)
-            return;
-
-        if (console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+        if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
         {
             auto command = console_input.get();
             if (command.rfind("echo ", 0) != std::string::npos)
@@ -180,16 +180,11 @@ namespace dev
             else
                 handle_message(command);
 
+            std::cin.clear();
             console_input = std::async(read_command);
         }
 
-        message_mutex.lock();
-        auto messages_copy = messages;
-        messages.clear();
-        message_mutex.unlock();
-
-        for (auto const& message : messages_copy)
-            std::cout << message << std::endl;
+        console_flush();
     }
 
     void console_send(std::string str)
@@ -197,6 +192,27 @@ namespace dev
         message_mutex.lock();
         messages.push_back(std::move(str));
         message_mutex.unlock();
+    }
+
+    void console_flush()
+    {
+        if (failed)
+        {
+            // If we did not create a console window clear the message queue.
+            message_mutex.lock();
+            messages.clear();
+            message_mutex.unlock();
+        }
+        else
+        {
+            message_mutex.lock();
+            auto messages_copy = messages;
+            messages.clear();
+            message_mutex.unlock();
+
+            for (auto const& message : messages_copy)
+                std::cout << message << std::endl;
+        }
     }
 
     namespace

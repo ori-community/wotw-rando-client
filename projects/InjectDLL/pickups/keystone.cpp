@@ -2,14 +2,14 @@
 #include <dll_main.h>
 #include <pickups/pickups.h>
 
-INTERCEPT(5818544, void, SeinPickupProcessor__OnCollectKeystonePickup, (SeinPickupProcessor_o* this_ptr, KeystonePickup_o* keystonePickup)) {
+INTERCEPT(5818544, void, SeinPickupProcessor__OnCollectKeystonePickup, (app::SeinPickupProcessor* this_ptr, app::KeystonePickup* keystonePickup)) {
     collecting_pickup = true;
     SeinPickupProcessor__OnCollectKeystonePickup(this_ptr, keystonePickup);
     collecting_pickup = false;
-    (*g_ui)->static_fields->SeinUI->WasLastKeystoneAnEyestone = false;
+    get_ui()->static_fields->SeinUI->fields.WasLastKeystoneAnEyestone = false;
 }
 
-INTERCEPT(8400400, void, SeinInventory__set_Keystones, (SeinInventory_o* this_ptr, int32_t value)) {
+INTERCEPT(8400400, void, SeinInventory__set_Keystones, (app::SeinInventory* this_ptr, int32_t value)) {
 	if(collecting_pickup)
 		return;
 
