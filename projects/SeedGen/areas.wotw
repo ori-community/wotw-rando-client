@@ -22,7 +22,7 @@ requirement RangedWeapon:
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
   base: UpperDepths.ForestsEyes OR Flash
-  advanced: Bow=12  # should be good, right?
+  advanced: Bow=3  # should be good, right?
 
 area Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
@@ -3436,8 +3436,8 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
       Burrow, Glide, DoubleJump OR Dash
       Burrow, Launch
       # these make you able to break the Heart and then use the resulting terrain
-      WindtornRuins.HeartBarrier, Burrow, Bash, Grenade=1
-      WindtornRuins.HeartBarrier, Burrow, Glide
+      Weapon, Burrow, Bash, Grenade=1
+      Weapon, Glide
 
 area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
   refill Full
