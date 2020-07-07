@@ -14,7 +14,7 @@ namespace RandoMainDLL {
     public HashSet<String> upgraded;
     public HashSet<String> events;
     public HashSet<String> teleporters;
-    String trackName(AbilityType type) => ((byte)type > 119 && (byte)type < 122) ? "DamageUp" : type.GetDescription()?.Replace(" ", "") ?? "Unknown";
+    String trackName(AbilityType type) => ((byte)type > 119 && (byte)type < 122) ? "DamageUp" : type.GetDescription()?.Replace(" ", "") ?? $"{type}";
     public TrackData() {
       try {
         keystones = InterOp.get_keystones();
