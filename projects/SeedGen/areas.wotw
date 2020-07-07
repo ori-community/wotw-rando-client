@@ -1615,7 +1615,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
   pickup InnerWellspring.SwimOre:
     base: Water
   pickup InnerWellspring.EscapeRevisitEX:
-    base, InnerWellspring.EscapeComplete:
+    base, InnerWellspring.WaterEscape:
       DoubleJump, Dash, Grapple
       DoubleJump, Dash, Bash, Grenade=1
       Bash, Grenade=1, Grapple
@@ -3678,7 +3678,7 @@ area OpherShop:
   pickup OpherShop.Teleport:
     base: GladesTown.EntryWallBroken, SpiritLight=1200
   pickup OpherShop.WaterBreath:
-    base: InnerWellspring.EscapeComplete, EastHollow.Voice, SpiritLight=1200 # what this actually needs is water + the ability to talk to kwolok
+    base: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=1200
 
 area TuleyShop:
   state TuleyShop.LastTreeBranchRejected:  # written out the steps in case they give pickups
