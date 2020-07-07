@@ -207,10 +207,10 @@ namespace il2cpp
             return il2cpp_class_is_assignable_from(iklass, klass);
         }
 
-        Il2CppObject* box_value(Il2CppClass* klass, void* value)
-        {
-            return il2cpp_value_box(klass, value);
-        }
+        //Il2CppObject* box_value(Il2CppClass* klass, void* value)
+        //{
+        //    return il2cpp_value_box(klass, value);
+        //}
 
         Il2CppClass* get_class(const char* namezpace, const char* name)
         {
@@ -267,7 +267,8 @@ namespace il2cpp
             return nullptr;
         }
 
-        return il2cpp_runtime_invoke(method_info, cast_obj, params.data(), &exc);
+        void** start = params.data();
+        return il2cpp_runtime_invoke(method_info, cast_obj, start, &exc);
     }
 
     Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, const char* method, std::vector<void*> params)
@@ -288,7 +289,8 @@ namespace il2cpp
             return nullptr;
         }
 
-        return il2cpp_runtime_invoke(virtual_method_info, cast_obj, params.data(), &exc);
+        void** start = params.data();
+        return il2cpp_runtime_invoke(virtual_method_info, cast_obj, start, &exc);
     }
 
     bool is_assignable(void* obj, const char* namezpace, const char* name)
