@@ -83,7 +83,7 @@ namespace uber_states
 
         INTERCEPT(17923408, void, Moon_uberSerializationWisp_SavePedestalUberState__Load, (app::SavePedestalUberState* this_ptr, app::UberStateArchive* archive, int32_t storeVersion)) {
             auto prev = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
-            Moon_uberSerializationWisp_SavePedestalUberState__set_IsTeleporterActive(this_ptr, value);
+            Moon_uberSerializationWisp_SavePedestalUberState__Load(this_ptr, archive, storeVersion);
             auto current = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
             if (prev != current)
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
@@ -105,7 +105,7 @@ namespace uber_states
         auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
         return il2cpp::invoke<app::UberID>(group, "get_ID");
     }
-     m
+    
     std::string get_uber_state_name(app::IUberState* uber_state)
     {
         auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
