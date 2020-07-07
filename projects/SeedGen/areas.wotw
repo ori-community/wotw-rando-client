@@ -385,8 +385,12 @@ area MarshPastOpher.BowArea: # (-443, -4236)  Ledge to the left of the pit with 
       Bash, Glide  # bashglide off a slime
   conn TwillenShop: free
 
-# begin pools path needs validation area?
-area MarshPastOpher.PoolsPathEast:  # (-649, -4243)  On the wood sticking out of the ledge at the top left of the large room with Opher
+area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of the ledge at the top left of the large room with Opher
+  refill Checkpoint
+  refill Health=1:
+    base: EnemyObstacle
+  refill Energy=3:
+    base: Weapon
   pickup MarshPastOpher.CeilingEX:
     base:
       Bash, DoubleJump, Dash
@@ -1048,7 +1052,16 @@ area WestGlades.MillApproach:  # (-712, -4067) At the ledge of the room opening 
       Water, Launch, Grapple
       Water, Launch, DoubleJump, Dash
 
-area PoolsApproach.MillPath:  # (-873, -4145) above the water where the three paths merge
+area GladesShrine:
+  refill Full
+  pickup WestGlades.CombatShrine:
+    base, Combat, RangedWeapon OR Bash:  # the shooter plants have basically no attack surface without bash
+      Danger=65                     # the crabs are terrifying!
+      Danger=55, DoubleJump OR Dash # these can help
+      Danger=30, Launch             # if you're op, nothing's terrifying
+
+area PoolsApproach.MillPath:  # (-873, -4146) above the water where the three paths merge
+  refill Checkpoint
   pickup PoolsApproach.MillPathEX:
     base:
       DoubleJump, Dash, RangedWeapon OR Bash
@@ -1423,7 +1436,14 @@ area InnerWellspring.Teleporter:  # (-1308, -3674) At the teleporter
   conn OuterWellspring.TopDoor: free
   conn OpherShop: free
 
-# begin pools needs validation area
+area InnerWellspring.WaterEscape:
+  refill Full
+  quest InnerWellspring.WaterEscape:
+    base:
+      Bash, Grapple, DoubleJump, Dash OR Glide
+      Bash, Grapple, Dash, Glide
+      Grapple, Launch
+
 region PoolsApproach:
   base:
     Danger=25
@@ -1992,7 +2012,9 @@ area WoodsMain.AboveHowl:  # (916, -4046) At the semisolid above silenced Howl
       Bash, Grenade=1
   conn WoodsMain.PetrifiedHowl: free
 
-area WoodsMain.Teleporter:  # (1083, -4052) At the East Woods Teleporter
+area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
+  refill Full
+  conn Teleporters: free
   conn WoodsMain.FeedingGrounds:
     base:
       Glide
@@ -2201,7 +2223,8 @@ area LowerReach.OutsideTPRoom:  # (-309, -3968) To the left of the teleporter ro
       Launch
 
 area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
-  # none validated
+  refill Full
+
   state LowerReach.TPIceMelted:
     base: Grenade=1
 
@@ -2216,8 +2239,9 @@ region UpperReach:
   base:
     Danger=40, Regenerate
 
-area UpperReach.KeystoneRoom:  # (-301, -3920) At Tokk
-  state UpperReach.KeystoneDoor:  # not validated
+area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
+  refill Checkpoint
+  state UpperReach.KeystoneDoor:
     base, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
@@ -3056,7 +3080,9 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
       Weapon, Burrow, Bash, Grenade=1
       Weapon, Glide
 
-area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts 
+area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
+  refill Full
+  
   # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
   # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here 
@@ -3279,7 +3305,7 @@ area OpherShop:
   pickup OpherShop.Teleport:
     base: GladesTown.EntryWallBroken, SpiritLight=800
   pickup OpherShop.WaterBreath:
-    base: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=800 # what this actually needs is water + the ability to talk to kwolok
+    base: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=800
 
 area TuleyShop:
   state TuleyShop.LastTreeBranchRejected:  # written out the steps in case they give pickups
