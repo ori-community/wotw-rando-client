@@ -29,9 +29,9 @@ namespace RandoMainDLL {
 
   public enum SysCommandType : byte {
     Save = 0,
-//    ProcUberStates = 1, obsolete
-//    ProcUberStatesAndSurpress = 2, obsolete
-//    SupressMagic = 3, obsolete
+    ProcUberStates = 1, 
+    ProcUberStatesAndSurpress = 2, 
+    SupressMagic = 3, 
     StopIfEqual = 4,
     StopIfGreater = 5,
     StopIfLess = 6
@@ -132,8 +132,13 @@ namespace RandoMainDLL {
   public class UberStateSetter : Pickup {
     public readonly UberState State;
     public override PickupType Type => PickupType.UberState;
-    public UberStateSetter(UberState state) => State = state;
+    public int supCount = 0;
+    public UberStateSetter(UberState state, int sup = 0) {
+      State = state;
+      supCount = sup;
+    }
     public override void Grant(bool skipBase = false) {
+      UberStateController.SkipUberStateMapCount[State.GetUberId()] += supCount;
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
@@ -143,11 +148,12 @@ namespace RandoMainDLL {
     Func<UberValue, UberValue> Modifier;
     string ModStr;
 
-    public UberStateModifier(UberState state, Func<UberValue, UberValue> modifier, String modstr) : base(state) {
+    public UberStateModifier(UberState state, Func<UberValue, UberValue> modifier, String modstr, int supCount = 0) : base(state, supCount) {
       Modifier = modifier;
       ModStr = modstr;
     }
     public override void Grant(bool skipBase = false) {
+      UberStateController.SkipUberStateMapCount[State.GetUberId()] += supCount;
       State.Value = Modifier(State.ValueOr(State.Value));
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
@@ -391,16 +397,14 @@ namespace RandoMainDLL {
         case SysCommandType.Save:
           InterOp.save();
           break;
-/*        case SysCommandType.ProcUberStates:
+        case SysCommandType.ProcUberStates:
           UberStateController.Update();
           break;
         case SysCommandType.ProcUberStatesAndSurpress:
           UberStateController.SkipListenersNextUpdate = true;
           UberStateController.Update();
           break;
-        case SysCommandType.SupressMagic: // yeah this doesn't do anything
-          break;
-*/      }
+      }
     }
     public override string ToString() => type.ToString();
   }

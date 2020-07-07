@@ -178,13 +178,18 @@ namespace RandoMainDLL {
             HandleSpecial(state);
             UberStates[key].Value = state.Value;
             if (!SkipListners) {
-              var pos = InterOp.get_position();
-              bool found = false;
-              if (value.Int > 0)
-                found = SeedController.OnUberState(state);
-              if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
-                Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
+              if(SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
+                SkipUberStateMapCount[key] -= 1;
+              } else {
+                var pos = InterOp.get_position();
+                bool found = false;
+                if (value.Int > 0)
+                  found = SeedController.OnUberState(state);
+                if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
+                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
+              }
             }
+
           }
         } catch (Exception e) {
           Randomizer.Error($"USC.Update {pair.Item1}", e);
@@ -256,6 +261,8 @@ namespace RandoMainDLL {
         NeedsNewGameInit = false;
       }
     }
+
+    public static Dictionary<UberId, int> SkipUberStateMapCount = new Dictionary<UberId, int>();
 
     public static bool SkipListenersNextUpdate = false;
 
