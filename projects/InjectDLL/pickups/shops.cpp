@@ -217,14 +217,13 @@ INTERCEPT(11448960, int64_t, SpellInventory_AddNewSpellToInventory, (int64_t inv
 	return result;
 }
 
-INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (app::SerializedByteUberState* this_ptr, unsigned char value)) {
+INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (app::SerializedByteUberState* this_ptr, uint8_t value)) {
     //Moon.SerializedByteUberState$$set_Value
     if (weaponmasterPurchaseInProgress)
         return;
 
     SerializedByteUberState_SetValue(this_ptr, value);
 }
-
 
 INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (app::WeaponmasterItem* item, int64_t context)) {
     //Weaponmasteritem$$DoPurchase
