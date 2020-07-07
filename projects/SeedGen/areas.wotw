@@ -1147,7 +1147,7 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
       Launch, Bash, Grenade=1
       Launch, DoubleJump OR Grapple
 
-  conn GladesShrine:
+  conn WestGlades.GladesShrine:
     base:
       Grapple, Bash, DoubleJump OR Glide
       Bash, Grenade=1, DoubleJump OR Launch
@@ -1172,7 +1172,7 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
       Water, Launch, Grapple
       Water, Launch, DoubleJump, Dash
 
-area GladesShrine:
+area WestGlades.GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
     base, Combat, RangedWeapon OR Bash:  # the shooter plants have basically no attack surface without bash
@@ -1584,7 +1584,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
 
 area InnerWellspring.WaterEscape:
   refill Full
-  state InnerWellspring.EscapeComplete:
+  quest InnerWellspring.EscapeComplete:
     base:
       Bash, Grapple, DoubleJump, Dash OR Glide
       Bash, Grapple, Dash, Glide

@@ -309,11 +309,10 @@ package SeedGenerator {
       Timer("Path parsing", printAfterEach = true) {
           FastParser.parseFile(advanced = UI.Options.unsafePaths) match {
             case Right(value) =>
-              println(s"parse done ${value.size} areas")
+              UI.debug(s"parse done ${value.size} areas")
               _areas = Timer("FixAreas")(fixAreas(value))
-              println("fixAreas done")
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
-              println(s"items done ${_items.size} items")
+              UI.debug(s"items done ${_items.size} items")
               populatedWithSetting = Some(UI.Options)
               true
             case Left(error) =>
