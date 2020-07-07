@@ -922,7 +922,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   conn TwillenShop: free
   conn OpherShop: free # opher everywhere
   conn TuleyShop: 
-    base, InnerWellspring.WaterEscape, EastHollow.Voice:  # maybe probably?
+    base, InnerWellspring.WaterEscape
       DoubleJump OR Launch
       Flap, Glide
       Bash, Grenade=1
@@ -1053,7 +1053,7 @@ area GladesTown.ReachPath:  # (-140, -4096) At the soup
       Bash, Grenade=1
   conn GladesTown.Teleporter: free
   conn TuleyShop: 
-    base: InnerWellspring.WaterEscape, EastHollow.Voice
+    base: InnerWellspring.WaterEscape
   conn LowerReach.Trial:
     base:
       Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
