@@ -1,5 +1,6 @@
 #include <interception_macros.h>
 #include <dll_main.h>
+#include <il2cpp_helpers.h>
 
 #include <csharp_bridge.h>
 
@@ -8,11 +9,11 @@
 
 BINDING(9970752, bool, SeinCharacter_get_Active, (int64_t)) //SeinCharacter$$get_Active - Also used by stuff like IsActive, or get_IsShopOpen. It's a magical binding
 BINDING(5047120, int64_t, WeaponmasterScreen_get_Instance, (int64_t)) //WeaponmasterScreen$$get_Instance
-BINDING(10013424, bool, GameController_get_GameInTitleScreen, (GameController_o*)) //GameController$$get_GameInTitleScreen
+BINDING(10013424, bool, GameController_get_GameInTitleScreen, (app::GameController*)) //GameController$$get_GameInTitleScreen
 
-BINDING(5042560, bool, WeaponmasterItem_get_IsLocked, (int64_t))       //WeaponmasterItem$$get_IsLocked
-BINDING(4151120, bool, WeaponmasterItem_get_IsVisible, (int64_t))      //WeaponmasterItem$$get_IsVisible
-BINDING(5043600, bool, WeaponmasterItem_get_IsAffordable, (int64_t))   //WeaponmasterItem$$get_IsAffordable
+BINDING(5042560, bool, WeaponmasterItem_get_IsLocked, (app::WeaponmasterItem*))       //WeaponmasterItem$$get_IsLocked
+BINDING(4151120, bool, WeaponmasterItem_get_IsVisible, (app::WeaponmasterItem*))      //WeaponmasterItem$$get_IsVisible
+BINDING(5043600, bool, WeaponmasterItem_get_IsAffordable, (app::WeaponmasterItem*))   //WeaponmasterItem$$get_IsAffordable
 
 bool weaponmasterPurchaseInProgress = false;
 const std::set<char> twillenShards{1, 2, 3, 5, 19, 22, 26, 40};
@@ -22,10 +23,7 @@ bool isTwillenShard(char shard){
 
 
 bool is_in_shop_screen(){
-    if (!g_game_controller_is_valid())
-        return false;
-
-	const auto  gameController = (*g_game_controller)->static_fields->Instance;
+	const auto  gameController = get_game_controller();
 	if(!gameController || GameController_get_GameInTitleScreen(gameController))
 		return false;
 
@@ -33,20 +31,15 @@ bool is_in_shop_screen(){
 	if(weaponmasterScreen && SeinCharacter_get_Active(weaponmasterScreen))
 		return true;
 
-    INLINE_STATIC_CLASS(71589120, SpiritShardsShopScreen_c*, shop_screen);
-	if(shop_screen_is_valid())
-	{
-		const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
-		if(spiritShardsShopScreen && SeinCharacter_get_Active((int64_t) spiritShardsShopScreen))
-			return true;
-	}
+    auto shop_screen = il2cpp::get_class<app::SpiritShardsShopScreen__Class>("", "SpiritShardsShopScreen");
+	const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
+	if(spiritShardsShopScreen && SeinCharacter_get_Active((int64_t) spiritShardsShopScreen))
+		return true;
 
-    INLINE_STATIC_CLASS(71472816, MapmakerScreen_c*, mapmaker_screen);
-    if (shop_screen_is_valid()) {
-        const auto mapmakerScreen = mapmaker_screen->static_fields->Instance;
-        if (mapmakerScreen && SeinCharacter_get_Active((int64_t)mapmakerScreen))
-            return true;
-    }
+    auto mapmaker_screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen");
+    const auto mapmakerScreen = mapmaker_screen->static_fields->Instance;
+    if (mapmakerScreen && SeinCharacter_get_Active((int64_t)mapmakerScreen))
+        return true;
 
 	return false;
 };
@@ -132,10 +125,9 @@ INTERCEPT(31416864, int64_t, enumDictGetValue, (int64_t dict, unsigned __int8 en
     //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
     //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
     if(impl == *(int64_t*) resolve_rva(71639080))
-    {
-    if(value)
-	    initShardDescription(enumKey, value);
-    }
+        if(value)
+	        initShardDescription(enumKey, value);
+
     return value;
 }
 
@@ -154,40 +146,29 @@ INTERCEPT(17706592, bool, PlayerSpiritShards_HasShard, (int64_t spiritShards, un
 	return PlayerSpiritShards_HasShard(spiritShards, shardType);
 }
 
-
-char getWeaponMasterAbilityItemGranted(int64_t weaponmasterItem)
-{
-	return  *(char*) ((*(int64_t*) (weaponmasterItem + 0x10)) + 0x39);
-}
-
-char getWeaponMasterAbilityItemRequired(int64_t weaponmasterItem)
-{
-	return  *(char*) ((*(int64_t*) (weaponmasterItem + 0x10)) + 0x38);
-}
-
 int purchases = 0;
 
-bool hasBeenPurchasedBefore(int64_t weaponMasterItem)
+bool hasBeenPurchasedBefore(app::WeaponmasterItem* item)
 {
-	char grantedType = getWeaponMasterAbilityItemGranted(weaponMasterItem);
-	char requiredType = getWeaponMasterAbilityItemRequired(weaponMasterItem);
-	if((int) grantedType != -1)
-		return csharp_bridge::opher_bought_weapon(static_cast<csharp_bridge::AbilityType>(grantedType));
+    app::AbilityType__Enum grantedType = item->fields.Upgrade->fields.AcquiredAbilityType;
+    app::AbilityType__Enum requiredType = item->fields.Upgrade->fields.RequiredAbility;
+	if(grantedType != app::AbilityType__Enum_None)
+		return csharp_bridge::opher_bought_weapon(grantedType);
 
-	if((int) requiredType == -1) // fast travel; 255, 255 -> 105, 0
-		return csharp_bridge::opher_bought_weapon(static_cast<csharp_bridge::AbilityType>(105));
+	if(requiredType == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
+		return csharp_bridge::opher_bought_weapon(app::AbilityType__Enum_TeleportSpell);
 
-	return csharp_bridge::opher_bought_upgrade(static_cast<csharp_bridge::AbilityType>(requiredType));
+	return csharp_bridge::opher_bought_upgrade(requiredType);
 }
 
-bool purchasable(int64_t weaponmasterItem)
+bool purchasable(app::WeaponmasterItem* weaponmasterItem)
 {
 	return !hasBeenPurchasedBefore(weaponmasterItem) && !WeaponmasterItem_get_IsLocked(weaponmasterItem) &&
 		WeaponmasterItem_get_IsVisible(weaponmasterItem) && WeaponmasterItem_get_IsAffordable(weaponmasterItem);
 
 }
 
-INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (int64_t item)) {
+INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (app::WeaponmasterItem* item)) {
 	//WeaponmasterItem$$get_IsOwned
 	if(is_in_shop_screen())
 	{
@@ -196,28 +177,28 @@ INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (int64_t item)) {
 	return WeaponmasterItem_get_IsOwned(item);
 }
 
-INTERCEPT(5046528, int, WeaponmasterItem_GetCostForLevel, (int64_t item, int level)) {
+INTERCEPT(5046528, int, WeaponmasterItem_GetCostForLevel, (app::WeaponmasterItem* item, int level)) {
 	//WeaponmasterItem$$GetCostForLevel
 	if(is_in_shop_screen())
 	{
-		auto abilityType = static_cast<int>(getWeaponMasterAbilityItemGranted(item));
+		auto abilityType = item->fields.Upgrade->fields.AcquiredAbilityType;
 		//TODO: @Eiko - you know what to do
-		if(abilityType == -1)
+		if(abilityType == app::AbilityType__Enum_None)
         {
-			if((int) getWeaponMasterAbilityItemRequired(item) == -1) // fast travel; 255, 255 -> 105, 0
-				return csharp_bridge::opher_weapon_cost(static_cast<csharp_bridge::AbilityType>(105));
+			if(item->fields.Upgrade->fields.RequiredAbility == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
+				return csharp_bridge::opher_weapon_cost(app::AbilityType__Enum_TeleportSpell);
 
 			return WeaponmasterItem_GetCostForLevel(item, level);
 		}
 
-		return csharp_bridge::opher_weapon_cost(static_cast<csharp_bridge::AbilityType>(abilityType));
+		return csharp_bridge::opher_weapon_cost(abilityType);
 	}
 
 	return WeaponmasterItem_GetCostForLevel(item, level);
 }
 
 
-INTERCEPT(5044080, bool, WeaponmasterItem_TryPurchase, (int64_t pThis, int64_t hint, int64_t sounds, int64_t hints)) {
+INTERCEPT(5044080, bool, WeaponmasterItem_TryPurchase, (app::WeaponmasterItem* pThis, int64_t hint, int64_t sounds, int64_t hints)) {
 	//WeaponmasterItem$$TryPurchase
 	if(purchasable(pThis))
 		return true;
@@ -236,7 +217,7 @@ INTERCEPT(11448960, int64_t, SpellInventory_AddNewSpellToInventory, (int64_t inv
 	return result;
 }
 
-INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (Moon_SerializedByteUberState_o* this_ptr, unsigned char value)) {
+INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (app::SerializedByteUberState* this_ptr, uint8_t value)) {
     //Moon.SerializedByteUberState$$set_Value
     if (weaponmasterPurchaseInProgress)
         return;
@@ -244,27 +225,26 @@ INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (Moon_SerializedByte
     SerializedByteUberState_SetValue(this_ptr, value);
 }
 
-
-INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (int64_t item, int64_t context)) {
+INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (app::WeaponmasterItem* item, int64_t context)) {
     //Weaponmasteritem$$DoPurchase
     //Do the rando purchase /after/ rollback, eiko ;3
-    auto abilityType = getWeaponMasterAbilityItemGranted(item);
-    if ((int)abilityType != -1)
+    auto abilityType = item->fields.Upgrade->fields.AcquiredAbilityType;
+    if (abilityType != app::AbilityType__Enum_None)
     {
-        csharp_bridge::opher_buy_weapon(static_cast<csharp_bridge::AbilityType>(abilityType));
+        csharp_bridge::opher_buy_weapon(abilityType);
         weaponmasterPurchaseInProgress = true;
     }
     else
     {
-        char requiredType = getWeaponMasterAbilityItemRequired(item);
-        if ((int)requiredType == -1) // fast travel; 255, 255 -> 105, 0
+        auto requiredType = item->fields.Upgrade->fields.RequiredAbility;
+        if (requiredType == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
         {
-            csharp_bridge::opher_buy_weapon(static_cast<csharp_bridge::AbilityType>(105));
+            csharp_bridge::opher_buy_weapon(app::AbilityType__Enum_TeleportSpell);
             weaponmasterPurchaseInProgress = true;
         }
         else
         {
-            csharp_bridge::opher_buy_upgrade(static_cast<csharp_bridge::AbilityType>(requiredType));
+            csharp_bridge::opher_buy_upgrade(requiredType);
             weaponmasterPurchaseInProgress = false; // so upgrade buying isn't no-opped
         }
     }
@@ -273,23 +253,23 @@ INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (int64_t item, int64_t con
     weaponmasterPurchaseInProgress = false;
 }
 
-//MapmakerScreen_o* mapMakerPtr = nullptr;
+//MapmakerScreen* mapMakerPtr = nullptr;
 //bool pretendHandToHandNotCompleted = false;
 
-INTERCEPT(6951632, int32_t, MapmakerItem__GetCost, (MapmakerItem_o* this_ptr)) {
-    return csharp_bridge::lupo_upgrade_cost(this_ptr->UberState->UberIDOwnerSO_m_id->m_id);
+INTERCEPT(6951632, int32_t, MapmakerItem__GetCost, (app::MapmakerItem* this_ptr)) {
+    return csharp_bridge::lupo_upgrade_cost(this_ptr->fields.UberState->fields._.m_id->fields.m_id);
 }
 
 bool preventMapSafeguard = false;
 
-INTERCEPT(6954992, void, MapmakerScreen__Show, (MapmakerScreen_o* this_ptr)) {
+INTERCEPT(6954992, void, MapmakerScreen__Show, (app::MapmakerScreen* this_ptr)) {
     preventMapSafeguard = true;
     MapmakerScreen__Show(this_ptr);
     preventMapSafeguard = false;
 }
 
-INTERCEPT(27748336, bool, Moon_SerializedBooleanUberState__get_Value, (Moon_SerializedBooleanUberState_o* this_ptr)) {
-    if (preventMapSafeguard && this_ptr->UberIDOwnerSO_m_id->m_id == 35534)
+INTERCEPT(27748336, bool, Moon_SerializedBooleanUberState__get_Value, (app::SerializedBooleanUberState* this_ptr)) {
+    if (preventMapSafeguard && this_ptr->fields._.m_id->fields.m_id == 35534)
         return false;
 
     return Moon_SerializedBooleanUberState__get_Value(this_ptr);

@@ -12,13 +12,17 @@ set(
     "csharp_bridge.cpp"
 	"dll_main.cpp"
 	"interception.cpp"
+    "il2cpp_helpers.cpp"
 	"dev/dev_commands.cpp"
 	"dev/object_visualizer.cpp"
+	"features/day_night_logic.cpp"
 	"features/difficulty.cpp"
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
+	"features/lupo_everywhere.cpp"
 	"features/opher_everywhere.cpp"
 	"features/tokk_everywhere.cpp"
+    "features/twillen_everywhere.cpp"
 	"features/map.cpp"
 	"features/goal_mode_check.cpp"
 	"features/invert_swim.cpp"
@@ -37,7 +41,10 @@ set(
 	"pickups/shops.cpp"
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
+	"system/save.cpp"
 	"uber_states/uber_state_dev.cpp"
+	"uber_states/uber_state_manager.cpp"
+	"uber_states/uber_state_helper.cpp"
 	"uber_states/state_applier.cpp"
 )
 
@@ -51,6 +58,7 @@ set(
 	"framework.h"
 	"interception.h"
 	"interception_macros.h"
+    "il2cpp_helpers.h"
     "macros.h"
 	"dev/dev_commands.h"
 	"dev/object_visualizer.h"
@@ -60,6 +68,8 @@ set(
 	"pickups/ore.h"
 	"pickups/pickups.h"
 	"uber_states/state_applier.h"
+	"uber_states/uber_state_manager.h"
+	"uber_states/uber_state_helper.h"
 )
 
 set(
@@ -106,9 +116,9 @@ target_link_libraries(
 
 target_precompile_headers(
 	${PROJECT_NAME}
-		PRIVATE "framework.h"
 		PRIVATE <tchar.h>
-		PRIVATE <detours/il2cpp.h>
+		PRIVATE <framework.h>
+		PRIVATE <il2cpp_internals.h>
 )
 
 message(STATUS "Assigning source groups.")

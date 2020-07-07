@@ -111,7 +111,7 @@ namespace RandoMainDLL {
     }
 
     private static string getZoneHintMessage(ZoneType zone, bool justUnlocked) {
-      if (zone == ZoneType.Void) return $"no hint for Void(area {Randomizer.Memory.PlayerArea()})";
+      if (zone == ZoneType.Void) return $"no hint for Void(area {InterOp.get_player_area()})";
       var items = HintObjects.GetOrElse(zone, new List<Checkable>());
       var found = items.FindAll(i => i.Has());
       if (!justUnlocked && !HaveHintForZone) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
@@ -130,7 +130,7 @@ namespace RandoMainDLL {
     public static ZoneType CurrentZone  {
       get {
         try {
-          if (AreaToZone.TryGetValue(Randomizer.Memory.PlayerArea(), out ZoneType zone)) 
+          if (AreaToZone.TryGetValue(InterOp.get_player_area(), out ZoneType zone)) 
             return zone;
           else
             return ZoneType.Void;          

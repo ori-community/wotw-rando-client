@@ -25,6 +25,7 @@ namespace dev
     void console_free();
     void console_poll();
     void console_send(std::string str);
+    void console_flush();
 
     void register_command(std::string const& name, dev_command command);
     bool handle_message(std::string const& message);

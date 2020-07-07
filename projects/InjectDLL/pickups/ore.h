@@ -1,3 +1,3 @@
 #pragma once
 
-extern void (*SeinLevel__set_Ore) (SeinLevel_o* this_ptr, int32_t value);
+extern void (*SeinLevel__set_Ore) (app::SeinLevel* this_ptr, int32_t value);

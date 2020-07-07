@@ -9,83 +9,210 @@ namespace RandoMainDLL {
     public static UberValue? CurrentValue(this UberState state) => state.GetUberId().GetValue();
     public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().GetValue().GetValueOrDefault(value);
     public static UberState State(this UberId id) {
-      UberStates.TryGetValue(id, out UberState s);
+      UberState s;
+      if (!UberStates.TryGetValue(id, out s)) {
+        s = createUberStateEntry(id);
+        UberStates.Add(id, s);
+      }
+
+      return s;
+    }
+
+    private static UberState createUberStateEntry(UberId id) {
+      if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
+        AHK.Print($"Failed to find {id} in uber state system.");
+        return null;
+      }
+
+      byte[] buffer = new byte[256];
+      int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string name = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
+      len = InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string groupName = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
+
+      var s = new UberState() {
+        ID = id.ID,
+        GroupID = id.GroupID,
+        Name = name,
+        GroupName = groupName,
+        Type = InterOp.get_uber_state_type(id.GroupID, id.ID),
+      };
+
+      s.Value = CreateValue(s.Type, InterOp.get_uber_state_value(id.GroupID, id.ID));
       return s;
     }
 
     public static UberValue? GetValue(this UberId id) {
       if (UberStates.TryGetValue(id, out UberState curr)) {
-        return curr.Value;
+        return curr?.Value;
       }
-      return null;
+
+      var state = createUberStateEntry(id);
+      UberStates.Add(id, state);
+      return state?.Value;
     }
     public static bool Write(this UberState state) => state.Write(state.Value);
 
     public static bool Write(this UberState state, UberValue value) {
       state.Value = value;
-      Randomizer.Memory.WriteUberState(state);
+      InterOp.set_uber_state_value(state.GroupID, state.ID, state.ValueAsFloat());
       return true;
+    }
+
+    private static Dictionary<UberId, UberState> uberStateLookup = null;
+    public static void PopulateUberStates() {
+      uberStateLookup = new Dictionary<UberId, UberState>();
+      unsafe {
+        var size = 0;
+        var states = InterOp.get_uber_states(ref size);
+        for (var i = 0; i < size; ++i) {
+          var def = states[i];
+          var name = Marshal.PtrToStringAnsi(def.Name);
+          var groupName = Marshal.PtrToStringAnsi(def.GroupName);
+
+          uberStateLookup.Add(new UberId(def.GroupID, def.ID), new UberState() {
+            ID = def.ID,
+            GroupID = def.GroupID,
+            Name = name,
+            GroupName = groupName,
+            Type = def.Type
+          });
+        }
+      }
+    }
+
+    private static bool serializableUberState(UberStateType type) {
+      switch (type) {
+        case UberStateType.PlayerUberStateDescriptor:
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.SerializedByteUberState:
+        case UberStateType.SerializedBooleanUberState:
+        case UberStateType.SerializedIntUberState:
+        case UberStateType.SerializedFloatUberState:
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    public static UberValue CreateValue(UberStateType type, float value) {
+      switch (type) {
+        case UberStateType.PlayerUberStateDescriptor:
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.SerializedByteUberState:
+          return new UberValue((byte)value);
+        case UberStateType.SerializedBooleanUberState:
+          return new UberValue(!(Math.Abs(value) < 0.001f));
+        case UberStateType.SerializedIntUberState:
+          return new UberValue((int)value);
+        default:
+          return new UberValue(value);
+      }
+    }
+
+    private static bool bufferSwitch = true;
+    private static List<Tuple<UberState, UberValue>> changedUberStatesBuffer1 = new List<Tuple<UberState, UberValue>>();
+    private static List<Tuple<UberState, UberValue>> changedUberStatesBuffer2 = new List<Tuple<UberState, UberValue>>();
+    private static List<Tuple<UberState, UberValue>> getchangedUberStatesBuffer() {
+      if (bufferSwitch)
+        return changedUberStatesBuffer1;
+      else
+        return changedUberStatesBuffer2;
+    }
+
+    public static void onUberStateChanged(int groupID, int stateID, byte type, float oldValue, float newValue) {
+      if (uberStateLookup == null) {
+        PopulateUberStates();
+      }
+
+      UberId key = new UberId(groupID, stateID);
+      if (uberStateLookup.TryGetValue(key, out UberState cachedState)) {
+        UberState state = cachedState.Clone();
+        state.Value = CreateValue(state.Type, newValue);
+        var value = CreateValue(state.Type, oldValue);
+        getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
+      }
+      else if (serializableUberState((UberStateType)type)) {
+        var state = createUberStateEntry(key);
+        state.Value = CreateValue(state.Type, oldValue);
+        uberStateLookup.Add(key, state);
+        state = state.Clone();
+        state.Value = CreateValue(state.Type, newValue);
+        var value = CreateValue(state.Type, oldValue);
+        getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
+      }
     }
     public static void Update() {
       if (NeedsNewGameInit)
         NewGameInit();
+
       bool SkipListners = SkipListenersNextUpdate;
       SkipListenersNextUpdate = false;
 
-      var memory = Randomizer.Memory;
-      Dictionary<long, UberState> uberStates = memory.GetUberStates();
-      foreach (KeyValuePair<long, UberState> pair in uberStates) {
+      if (uberStateLookup == null) {
+        PopulateUberStates();
+      }
+
+      var list = getchangedUberStatesBuffer();
+      bufferSwitch = !bufferSwitch;
+      foreach (var pair in list) {
         try {
-          UberState state = pair.Value;
+          UberState state = pair.Item1;
           UberId key = state.GetUberId();
 
-          if (UberStates.TryGetValue(key, out UberState oldState)) {
-            UberValue value = state.Value;
-            UberValue oldValue = oldState.Value;
-            if (value.Int != oldValue.Int) {
-              var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
-              if (ShouldRevert(state)) {
-                Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
-                memory.WriteUberState(oldState);
-                continue;
-              }
-              HandleSpecial(state);
-              UberStates[key].Value = state.Value;
-              if (!SkipListners) {
-                var pos = Randomizer.Memory.Position();
-                bool found = false;
-                if (value.Int > 0)
-                  found = SeedController.OnUberState(state);
-                if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
-                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
-              }
+          UberState oldState;
+          if (!UberStates.TryGetValue(key, out oldState)) {
+            oldState = state.Clone();
+            oldState.Value = pair.Item2;
+            UberStates.Add(key, oldState);
+          }
+
+          UberValue value = state.Value;
+          if (value.Int != pair.Item2.Int) {
+            var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
+            if (ShouldRevert(state)) {
+              Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
+              oldState.Write();
+              continue;
             }
-          } else {
-            UberStates[key] = state.Clone();
+            HandleSpecial(state);
+            UberStates[key].Value = state.Value;
+            if (!SkipListners) {
+              var pos = InterOp.get_position();
+              bool found = false;
+              if (value.Int > 0)
+                found = SeedController.OnUberState(state);
+              if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
+                Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
+            }
           }
         } catch (Exception e) {
-          Randomizer.Error($"USC.Update {pair}", e);
+          Randomizer.Error($"USC.Update {pair.Item1}", e);
         }
       }
+
+      list.Clear();
     }
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
         new UberId(5377, 1373).State().Write(state.Value);
-      else if (state.Name == "craftCutsceneState" && state.Value.Byte != 0)
+      else if (state.Name == "craftCutsceneState" && 0 < state.Value.Byte && state.Value.Byte < 3) {
         state.Write(new UberValue((byte)3));
+        // Give diamond in the rough pickup.
+        new UberId(23987, 14832).State().Write(new UberValue(true));
+      }
       else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2)
         Randomizer.InputUnlockCallback = () => {
           // this is really questionable!!
           var voiceState = new UberId(46462, 59806).State();
           if (!(voiceState.Value.Bool)) {
             voiceState.Write(new UberValue(true));
-            Stats stats = Randomizer.Memory.PlayerStats;
-            stats.MaxHealth += 10;
-            stats.MaxEnergy++;
-            Randomizer.Memory.PlayerStats = stats;
-            Randomizer.Memory.FillEnergy();
-            Randomizer.Memory.FillHealth();
+
+            InterOp.set_max_health(InterOp.get_max_health() + 10);
+            InterOp.set_max_energy(InterOp.get_max_energy() + 1);
+            InterOp.fill_health();
+            InterOp.fill_energy();
           }
         };
     }
@@ -100,27 +227,25 @@ namespace RandoMainDLL {
     }
 
     public static void NewGameInit() {
-      var memory = Randomizer.Memory;
-      if (!memory.IsLoadingGame()) {
+      if (!InterOp.is_loading_game()) {
         Randomizer.Log("New Game Init", false);
         SaveController.SetAbility(AbilityType.SpiritEdge);
-        foreach (UberState s in DefaultUberStates) { memory.WriteUberState(s); }
-        foreach (UberState s in Kuberstates) { memory.WriteUberState(s); }
-        foreach (UberState s in DialogAndRumors) { memory.WriteUberState(s); }
+        foreach (UberState s in DefaultUberStates) { s.Write(); }
+        foreach (UberState s in Kuberstates) { s.Write(); }
+        foreach (UberState s in DialogAndRumors) { s.Write(); }
 
         if (SeedController.KSDoorsOpen)
-          foreach (UberState s in KeystoneDoors) { memory.WriteUberState(s); }
+          foreach (UberState s in KeystoneDoors) { s.Write(); }
 
         if (!AHK.IniFlag("ShowShortCutscenes"))
-          foreach (UberState s in ShortCutscenes) { memory.WriteUberState(s); }
+          foreach (UberState s in ShortCutscenes) { s.Write(); }
 
         if (!AHK.IniFlag("ShowLongCutscenes"))
-          foreach (UberState s in LongCutscenes) { memory.WriteUberState(s); }
+          foreach (UberState s in LongCutscenes) { s.Write(); }
 
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
             PsuedoLocs.GAME_START.Pickup().Grant();
-            InterOp.magic_function();
             InterOp.save();
           };
         }

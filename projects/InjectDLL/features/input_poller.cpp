@@ -1,5 +1,6 @@
 #include <common.h>
 #include <constants.h>
+#include <il2cpp_helpers.h>
 #include <features/input_poller.h>
 
 #include <interception_macros.h>
@@ -10,7 +11,7 @@
 
 namespace {
 
-    BINDING(11253376, Core_Input_InputButtonProcessor_o*, Core_Input__GetButton, (int32_t button));
+    BINDING(11253376, app::Input_InputButtonProcessor*, Core_Input__GetButton, (int32_t button));
 
     struct InputData
     {
@@ -20,14 +21,13 @@ namespace {
 
     std::map<InputButton, InputData> input_data;
 
-    STATIC_CLASS(71563216, Core_Input_Cmd_c*, input_cmd);
-
-    void on_fixed_update(GameController_o* this_ptr)
+    void on_fixed_update(app::GameController* this_ptr)
     {
-        if (!input_cmd_is_valid())
+        auto input_cmd = il2cpp::get_class<app::Input_Cmd__Class>("", "Cmd");
+        if (input_cmd == nullptr)
             return;
 
-        auto processors = &(*input_cmd)->static_fields->AnyStart;
+        auto processors = &input_cmd->static_fields->AnyStart;
         auto count = static_cast<int>(InputButton::InputButton_LAST);
         for (auto i = 0; i < count; ++i)
         {
@@ -39,17 +39,18 @@ namespace {
             auto input_processor = processors[i];
             if (input_processor != nullptr)
             {
-                data.state.just_pressed = !input_processor->WasPressed && input_processor->IsPressed;
-                data.state.pressed = input_processor->IsPressed;
+                data.state.just_pressed = !input_processor->fields.WasPressed && input_processor->fields.IsPressed;
+                data.state.pressed = input_processor->fields.IsPressed;
             }
 
             if (old_pressed || data.state.pressed)
                 for (auto callback : data.callbacks)
                     callback(data.state);
         }
+
     }
 
-    INTERCEPT(10044704, void, GameController_FixedUpdate, (GameController_o* this_ptr)) {
+    INTERCEPT(10044704, void, GameController_FixedUpdate, (app::GameController* this_ptr)) {
         GameController_FixedUpdate(this_ptr);
         on_fixed_update(this_ptr);
     }
