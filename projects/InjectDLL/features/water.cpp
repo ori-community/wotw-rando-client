@@ -7,7 +7,7 @@
 namespace
 {
     bool water_damage_override = false;
-    INTERCEPT(5475888, bool, Sein_World_Events__get_WaterPurified, ()) {
+    IL2CPP_INTERCEPT(Sein.World, Events, bool, get_WaterPurified, ()) {
         return !water_damage_override && csharp_bridge::water_cleansed();
     }
 
