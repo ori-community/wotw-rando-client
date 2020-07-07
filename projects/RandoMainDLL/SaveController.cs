@@ -144,8 +144,11 @@ namespace RandoMainDLL {
         }
         UberStateController.SkipListenersNextUpdate = true;
         Data.Load(backupSlot);
-        if (DidWeJustDie)
-          InterOp.magic_function();
+        if (DidWeJustDie) {
+          UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
+          UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
+          UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
+        }
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }

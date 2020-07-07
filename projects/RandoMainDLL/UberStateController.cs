@@ -201,7 +201,6 @@ namespace RandoMainDLL {
         state.Write(new UberValue((byte)3));
         // Give diamond in the rough pickup.
         new UberId(23987, 14832).State().Write(new UberValue(true));
-        InterOp.magic_function();
       }
       else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2)
         Randomizer.InputUnlockCallback = () => {
@@ -247,7 +246,6 @@ namespace RandoMainDLL {
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
             PsuedoLocs.GAME_START.Pickup().Grant();
-            InterOp.magic_function();
             InterOp.save();
           };
         }

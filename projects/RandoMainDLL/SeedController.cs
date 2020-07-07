@@ -167,9 +167,10 @@ namespace RandoMainDLL {
       if (p.NonEmpty) {
         p.Grant();
         // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
-        if (id.toCond().Loc().Type == LocType.Shard && !p.NeedsMagic()) 
-        InterOp.magic_function();
-      } else {
+        if (id.toCond().Loc().Type == LocType.Shard)
+          InterOp.refresh_shards();
+      }
+      else {
         HintsController.OnLupoState(id);
       }
       return p.NonEmpty;

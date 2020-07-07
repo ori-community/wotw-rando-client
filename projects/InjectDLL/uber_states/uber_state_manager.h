@@ -21,4 +21,5 @@ namespace uber_states
     float get_uber_state_value(app::IUberState* uber_state);
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, float value);
     INJECT_C_DLLEXPORT float get_uber_state_value(int group, int state);
+    INJECT_C_DLLEXPORT void refresh_player_uber_descriptor();
 }

@@ -29,9 +29,9 @@ namespace RandoMainDLL {
 
   public enum SysCommandType : byte {
     Save = 0,
-    ProcUberStates = 1,
-    ProcUberStatesAndSurpress = 2,
-    SupressMagic = 3,
+//    ProcUberStates = 1, obsolete
+//    ProcUberStatesAndSurpress = 2, obsolete
+//    SupressMagic = 3, obsolete
     StopIfEqual = 4,
     StopIfGreater = 5,
     StopIfLess = 6
@@ -92,7 +92,6 @@ namespace RandoMainDLL {
   public abstract class Pickup {
     public virtual int Frames { get => 240; }
     public bool NonEmpty = true;
-    public virtual bool NeedsMagic() => false;
     public abstract PickupType Type { get; }
 
     public virtual int DefaultCost() => 1;
@@ -105,8 +104,6 @@ namespace RandoMainDLL {
       if (Frames > 0)
         AHK.Pickup(ToString(), Frames);
       SaveController.Data.FoundCount++;
-      if (NeedsMagic())
-        InterOp.magic_function();
     }
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
@@ -135,7 +132,6 @@ namespace RandoMainDLL {
   public class UberStateSetter : Pickup {
     public readonly UberState State;
     public override PickupType Type => PickupType.UberState;
-    public override bool NeedsMagic() => true;
     public UberStateSetter(UberState state) => State = state;
     public override void Grant(bool skipBase = false) {
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
@@ -176,8 +172,6 @@ namespace RandoMainDLL {
     }
 
     public static Multi Empty => new Multi(new List<Pickup>());
-    public override bool NeedsMagic() => Children.Any(c => c.NeedsMagic()) &&
-      !Children.Any(c => c is SystemCommand s && s.type == SysCommandType.SupressMagic);
 
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
@@ -221,7 +215,6 @@ namespace RandoMainDLL {
   public class Teleporter : Checkable {
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.Substring(1).ParseToByte());
     public Teleporter(TeleporterType teleporter) => type = teleporter;
-    public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
@@ -264,7 +257,6 @@ namespace RandoMainDLL {
   }
   public class RemoveTeleporter : Pickup {
     public RemoveTeleporter(TeleporterType ability) => type = ability;
-    public override bool NeedsMagic() => true;
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => Teleporter.TeleporterStates.GetOrElse(type, new List<UberState>());
@@ -303,7 +295,6 @@ namespace RandoMainDLL {
   }
 
   public class Shard : Checkable {
-    public override bool NeedsMagic() => true;
     public Shard(ShardType shard) => type = shard;
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Shard((ShardType)value.ParseToByte()) : new RemoveShard((ShardType)value.Substring(1).ParseToByte());
     public override PickupType Type => PickupType.Shard;
@@ -313,6 +304,7 @@ namespace RandoMainDLL {
     }
     public override void Grant(bool skipBase = false) {
       InterOp.set_shard(type, true);
+      InterOp.refresh_shards();
       base.Grant(skipBase);
     }
 
@@ -325,6 +317,7 @@ namespace RandoMainDLL {
     public readonly ShardType type;
     public override void Grant(bool skipBase = false) {
       InterOp.set_shard(type, false);
+      InterOp.refresh_shards();
       base.Grant(skipBase);
     }
     public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Shard {type}";
@@ -350,7 +343,7 @@ namespace RandoMainDLL {
     public QuestEvent(QuestEventType ev) => type = ev;
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new QuestEvent((QuestEventType)value.ParseToByte()) : new RemoveQuestEvent((QuestEventType)value.Substring(1).ParseToByte());
 
-    public override bool NeedsMagic() => true;
+
     public override PickupType Type => PickupType.QuestEvent;
     public readonly QuestEventType type;
 
@@ -359,6 +352,10 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       SaveController.SetEvent(type);
+      // put this behind a switch statement if we ever add another world event
+      UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
+      UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
+      UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
       base.Grant(skipBase);
     }
     public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
@@ -366,13 +363,17 @@ namespace RandoMainDLL {
   public class RemoveQuestEvent : Pickup {
     public RemoveQuestEvent(QuestEventType ev) => type = ev;
 
-    public override bool NeedsMagic() => true;
+
     public override PickupType Type => PickupType.QuestEvent;
     public readonly QuestEventType type;
 
     public override int DefaultCost() => 400;
     public override void Grant(bool skipBase = false) {
       SaveController.SetEvent(type, false);
+      // put this behind a switch statement if we ever add another world event
+      UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
+      UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
+      UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
       base.Grant(skipBase);
     }
     public override string ToString() => $"Remove #{type.GetDescription()}#" ?? $"Unknown resource type {type}";
@@ -387,7 +388,7 @@ namespace RandoMainDLL {
         case SysCommandType.Save:
           InterOp.save();
           break;
-        case SysCommandType.ProcUberStates:
+/*        case SysCommandType.ProcUberStates:
           UberStateController.Update();
           break;
         case SysCommandType.ProcUberStatesAndSurpress:
@@ -396,7 +397,7 @@ namespace RandoMainDLL {
           break;
         case SysCommandType.SupressMagic: // yeah this doesn't do anything
           break;
-      }
+*/      }
     }
     public override string ToString() => type.ToString();
   }
@@ -448,7 +449,6 @@ namespace RandoMainDLL {
       }
     }
 
-    public override bool NeedsMagic() => type == ResourceType.ShardSlot;
 
     public override void Grant(bool skipBase = false) {
       switch (type) {
