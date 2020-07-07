@@ -166,6 +166,7 @@ InnerWellspring.AboveTpEX, The Wellspring, SpiritLight, 50, waterMillStateGroupD
 InnerWellspring.BlueMoonSeed, The Wellspring, Quest, Seed, questUberStateGroup, 14019, gardenerSeedGrappleCollected, 24142, -1185, -3669
 InnerWellspring.SwimOre, The Wellspring, Resource, Ore, waterMillStateGroupDescriptor, 37858, gorlekOreA, 32932, -1204, -3715
 InnerWellspring.EscapeRevisitEX, The Wellspring, SpiritLight, 100, waterMillStateGroupDescriptor, 37858, xpOrb, 56444, -1313, -3640
+InnerWellspring.EscapeComplete, The Wellspring, Quest, Water, waterMillStateGroupDescriptor, 37858, finishedWatermillEscape, 12379, -481, -3763
 PoolsApproach.CurrentEX, Luma Pools, SpiritLight, 100, lagoonStateGroup, 945, mediumExpB, 10682, -1047, -4217
 PoolsApproach.AboveWheelEX, Luma Pools, SpiritLight, 100, lagoonStateGroup, 945, mediumExpA, 14530, -941, -4145
 PoolsApproach.MillPathHC, Luma Pools, Resource, Life, lagoonStateGroup, 945, lagoonMillTransitionHealthCell, 37243, -851, -4196

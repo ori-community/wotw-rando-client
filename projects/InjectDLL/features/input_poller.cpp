@@ -1,5 +1,6 @@
 #include <common.h>
 #include <constants.h>
+#include <il2cpp_helpers.h>
 #include <features/input_poller.h>
 
 #include <interception_macros.h>
@@ -20,14 +21,13 @@ namespace {
 
     std::map<InputButton, InputData> input_data;
 
-    STATIC_CLASS(71563216, app::Input_Cmd__Class*, input_cmd);
-
     void on_fixed_update(app::GameController* this_ptr)
     {
-        if (!input_cmd_is_valid())
+        auto input_cmd = il2cpp::get_class<app::Input_Cmd__Class>("", "Cmd");
+        if (input_cmd == nullptr)
             return;
 
-        auto processors = &(*input_cmd)->static_fields->AnyStart;
+        auto processors = &input_cmd->static_fields->AnyStart;
         auto count = static_cast<int>(InputButton::InputButton_LAST);
         for (auto i = 0; i < count; ++i)
         {

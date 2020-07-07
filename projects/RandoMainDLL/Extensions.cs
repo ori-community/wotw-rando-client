@@ -24,9 +24,26 @@ namespace RandoMainDLL {
         default:
           return v.Int;
       }
-
     }
 
+    public static float AsFloat(this UberValue v, UberStateType t) {
+      switch (t) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.ByteUberState:
+        case UberStateType.SerializedByteUberState:
+          return Convert.ToSingle(v.Byte);
+        case UberStateType.BooleanUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return v.Bool ? 1.0f : 0.0f;
+        case UberStateType.SerializedFloatUberState:
+          return v.Float;
+        case UberStateType.IntUberState:
+        case UberStateType.SerializedIntUberState:
+        default:
+          return Convert.ToSingle(v.Int);
+      }
+    }
+    public static void Refresh(this UberId id) => InterOp.refresh_uber_state(id.GroupID, id.ID);
     public static EquipmentType? Equip(this AbilityType t) => AbilityToEquip.Get(t);
     public static Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {
       { AbilityType.Bash, EquipmentType.Ability_Bash },

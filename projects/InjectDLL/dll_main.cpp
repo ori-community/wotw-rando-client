@@ -7,6 +7,7 @@
 #include <dll_main.h>
 #include <interception_macros.h>
 #include <macros.h>
+#include <il2cpp_helpers.h>
 #include <pickups/ore.h>
 #include <fixes/dash.h>
 #include <features/invert_swim.h>
@@ -74,46 +75,7 @@ BINDING(10971216, app::Vector3, SeinCharacter__get_Position, (app::SeinCharacter
 BINDING(10971312, void, SeinCharacter__set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
 BINDING(11448960, app::InventoryItem*, SpellInventory__AddNewSpellToInventory, (app::SpellInventory* thisPtr, int32_t type, bool adding));
 
-BINDING(8332848, int, getSaveSlot, ()); //SaveSlotsManager$$get_CurrentSlotIndex
-BINDING(8333136, int, getBackupSlot, ()); //SaveSlotsManager$$get_BackupIndex
-
 //---------------------------------------------------------Intercepts----------------------------------------------------------
-
-INTERCEPT(10056256, void, GameController__CreateCheckpoint, (app::GameController* thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
-    csharp_bridge::on_checkpoint();
-    GameController__CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
-}
-
-INTERCEPT(6709008, void, newGamePerform, (__int64 thisPtr, __int64 ctxPtr)) {
-    //NewGameAction$$Perform
-    csharp_bridge::new_game(getSaveSlot());
-	newGamePerform(thisPtr, ctxPtr);
-}
-
-INTERCEPT(8237360, void, SaveGameController__SaveToFile, (app::SaveGameController* thisPtr, int32_t slotIndex, int32_t backupIndex, app::Byte__Array* bytes)) {
-    csharp_bridge::on_save(slotIndex, backupIndex);
-    SaveGameController__SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
-}
-
-INTERCEPT(8297856, void, SaveSlotBackupsManager__PerformBackup, (app::SaveSlotBackupsManager* thisPtr, app::SaveSlotBackup* saveSlot, int32_t backupIndex, app::String* backupName)) {
-    csharp_bridge::on_save(saveSlot->fields.Index, backupIndex);
-    SaveSlotBackupsManager__PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
-}
-
-INTERCEPT(8252224, void, SaveGameController__OnFinishedLoading, (app::SaveGameController* thisPtr)) {
-    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
-    SaveGameController__OnFinishedLoading(thisPtr);
-}
-
-INTERCEPT(8249872, void, SaveGameController__RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
-    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
-    SaveGameController__RestoreCheckpoint(thisPtr);
-}
-
-INTERCEPT(18324032, void, SeinHealthController__OnRespawn, (app::SeinHealthController* thisPtr)) {
-    csharp_bridge::on_load(getSaveSlot(), getBackupSlot());
-    SeinHealthController__OnRespawn(thisPtr);
-}
 
 app::Vector3 last_position;
 __int8 set_to_last_position = 0;
@@ -168,18 +130,19 @@ INJECT_C_DLLEXPORT bool toggle_cursorlock() {
   return newState > 0;
 }
 
-STATIC_CLASS(71425184, app::Characters__Class*, g_characters);
-STATIC_CLASS(71838776, app::GameController__Class*, g_game_controller);
-STATIC_CLASS(71714856, app::UI__Class*, g_ui);
-
-app::GameController* get_game_controller_instance()
+app::GameController* get_game_controller()
 {
-  return (*g_game_controller)->static_fields->Instance;
+    return il2cpp::get_class<app::GameController__Class>("", "GameController")->static_fields->Instance;
 }
 
 app::SeinCharacter* get_sein()
 {
-    return (*g_characters)->static_fields->m_sein;
+    return il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
+}
+
+app::UI__Class* get_ui()
+{
+    return il2cpp::get_class<app::UI__Class>("Game", "UI");
 }
 
 INJECT_C_DLLEXPORT void bind_sword() {
@@ -202,21 +165,10 @@ void on_fixed_update(__int64 thisPointer){
     }
 }
 
-INJECT_C_DLLEXPORT void set_ore(int oreCount)
-{
-    SeinLevel__set_Ore(get_sein()->fields.Level, oreCount);
-}
-
 INJECT_C_DLLEXPORT bool player_can_move()
 {
-    auto gcip = get_game_controller_instance();
+    auto gcip = get_game_controller();
     return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
-}
-
-INJECT_C_DLLEXPORT void save()
-{
-    trace(MessageType::Info, 3, "csharp_interop", "Save requested by c# code");
-    GameController__CreateCheckpoint(get_game_controller_instance(), true, false);
 }
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
@@ -362,6 +314,16 @@ void network_event_handler(network::NetworkEvent const& evt)
     }
 }
 
+bool no_pause = false;
+INTERCEPT(10036704, void, GameController__OnApplicationFocus, (app::GameController* this_ptr, bool focusStatus)) {
+    this_ptr->fields._PreventFocusPause_k__BackingField = no_pause;
+}
+
+void set_no_pause(bool value)
+{
+    no_pause = value;
+}
+
 extern bool bootstrap();
 
 INJECT_C_DLLEXPORT void injection_entry()
@@ -404,6 +366,7 @@ INJECT_C_DLLEXPORT void injection_entry()
     interception_init();
 
     dev::initialization_callbacks();
+    set_no_pause(true);
 
     if (trace_enabled || csharp_bridge::check_ini("Dev"))
     {
