@@ -13,8 +13,8 @@ namespace uber_states
 {
     namespace
     {
-        BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
-        BINDING(27775392, void, Moon_UberStateController__Apply, (app::IUberState* descriptor, int32_t context));
+        STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
+        STATIC_IL2CPP_BINDING(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, int32_t context));
 
         void notify_uber_state_change(app::IUberState* uber_state, float prev, float current)
         {
@@ -24,30 +24,30 @@ namespace uber_states
             csharp_bridge::on_uber_state_applied(group->fields.m_id, state->fields.m_id, static_cast<uint8_t>(type), prev, current);
         }
 
-        INTERCEPT(27748672, void, Moon_SerializedBooleanUberState__set_Value, (app::SerializedBooleanUberState* this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(Moon, SerializedBooleanUberState, void, set_Value, (app::SerializedBooleanUberState* this_ptr, bool value)) {
             auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            Moon_SerializedBooleanUberState__set_Value(this_ptr, value);
+            SerializedBooleanUberState_set_Value(this_ptr, value);
             auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
-        INTERCEPT(27750528, void, Moon_SerializedByteUberState__set_Value, (app::SerializedByteUberState* this_ptr, uint8_t value)) {
+        IL2CPP_INTERCEPT(Moon, SerializedByteUberState, void, set_Value, (app::SerializedByteUberState* this_ptr, uint8_t value)) {
             auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            Moon_SerializedByteUberState__set_Value(this_ptr, value);
+            SerializedByteUberState_set_Value(this_ptr, value);
             auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
-        INTERCEPT(27752384, void, Moon_SerializedFloatUberState__set_Value, (app::SerializedFloatUberState* this_ptr, float value)) {
+        IL2CPP_INTERCEPT(Moon, SerializedFloatUberState, void, set_Value, (app::SerializedFloatUberState* this_ptr, float value)) {
             auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            Moon_SerializedFloatUberState__set_Value(this_ptr, value);
+            SerializedFloatUberState_set_Value(this_ptr, value);
             auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
-        INTERCEPT(27754000, void, Moon_SerializedIntUberState__set_Value, (app::SerializedIntUberState* this_ptr, int value)) {
+        IL2CPP_INTERCEPT(Moon, SerializedIntUberState, void, set_Value, (app::SerializedIntUberState* this_ptr, int value)) {
             auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            Moon_SerializedIntUberState__set_Value(this_ptr, value);
+            SerializedIntUberState_set_Value(this_ptr, value);
             auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
@@ -62,20 +62,20 @@ namespace uber_states
             return static_cast<float>(save | active);
         }
 
-        BINDING(17923152, app::SavePedestalUberState_PedestalState*, Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore, (app::SavePedestalUberState* this_ptr));
+        IL2CPP_BINDING(Moon.uberSerializationWisp, SavePedestalUberState, app::SavePedestalUberState_PedestalState*, ReadStateFromStore, (app::SavePedestalUberState* this_ptr));
 
-        INTERCEPT(17922816, void, Moon_uberSerializationWisp_SavePedestalUberState__set_HasGameBeenSaved, (app::SavePedestalUberState* this_ptr, bool value)) {
-            auto prev = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
-            Moon_uberSerializationWisp_SavePedestalUberState__set_HasGameBeenSaved(this_ptr, value);
-            auto current = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
+        IL2CPP_INTERCEPT(Moon.uberSerializationWisp, SavePedestalUberState, void, set_HasGameBeenSaved, (app::SavePedestalUberState* this_ptr, bool value)) {
+            auto prev = convert_pedestal_state(SavePedestalUberState_ReadStateFromStore(this_ptr));
+            SavePedestalUberState_set_HasGameBeenSaved(this_ptr, value);
+            auto current = convert_pedestal_state(SavePedestalUberState_ReadStateFromStore(this_ptr));
             if (prev != current)
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
-        INTERCEPT(17922912, void, Moon_uberSerializationWisp_SavePedestalUberState__set_IsTeleporterActive, (app::SavePedestalUberState* this_ptr, bool value)) {
-            auto prev = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
-            Moon_uberSerializationWisp_SavePedestalUberState__set_IsTeleporterActive(this_ptr, value);
-            auto current = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
+        IL2CPP_INTERCEPT(Moon.uberSerializationWisp, SavePedestalUberState, void, set_IsTeleporterActive, (app::SavePedestalUberState* this_ptr, bool value)) {
+            auto prev = convert_pedestal_state(SavePedestalUberState_ReadStateFromStore(this_ptr));
+            SavePedestalUberState_set_IsTeleporterActive(this_ptr, value);
+            auto current = convert_pedestal_state(SavePedestalUberState_ReadStateFromStore(this_ptr));
             if (prev != current)
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
@@ -83,7 +83,7 @@ namespace uber_states
 
     void apply_uber_state_no_notify(app::IUberState* uber_state)
     {
-        Moon_UberStateController__Apply(uber_state, 0);
+        UberStateController_Apply(uber_state, 0);
     }
 
     app::UberID* get_uber_state_id(app::IUberState* uber_state)
@@ -128,7 +128,7 @@ namespace uber_states
 
     app::IUberState* get_uber_state(app::UberID& group_id, app::UberID& state_id)
     {
-        return Moon_UberStateCollection__GetState(&group_id, &state_id);
+        return UberStateCollection_GetState(&group_id, &state_id);
     }
 
     constexpr bool check_set = false;
