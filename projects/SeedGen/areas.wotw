@@ -1426,7 +1426,7 @@ region InnerWellspring:
     Danger=25
 
 area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you enter the first room
-  refill Checkpoint: free
+  refill Checkpoint
   refill Energy=3:  # technically out of sight, but this is very realistic
     base: Weapon
 
