@@ -228,8 +228,8 @@ namespace RandoMainDLL {
           return new Message(messageParts[0], frames, squelch);
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
-          if (stateParts.Count != 4) {
-            if(extras.Count != 3) {
+          if (stateParts.Count < 4) {
+            if(extras.Count < 3) {
               Randomizer.Log($"malformed Uberstate specifier ${pickupData}", false);
               return new Message($"Invalid UberState ${pickupData}!");
             }
@@ -278,9 +278,10 @@ namespace RandoMainDLL {
               break;
           }
           var state = new UberState() { ID = uberId.ID, GroupID = uberId.GroupID, Type = stateType, Value = val };
+          var supCount = stateParts.Count > 4 ? stateParts[4].ParseToInt("SuppressionCounter") : 0;
           if (isModifier && modifier != null)
             return new UberStateModifier(state, modifier, stateParts[3]);
-          return new UberStateSetter(state);
+          return new UberStateSetter(state, supCount);
         default:
           Randomizer.Error("BuildPickup", $"seed parse failure: unknown pickup ${pickupData}!!!", false);
           return new Message($"Unknown pickup ${pickupData}!!!");
