@@ -83,22 +83,16 @@ INTERCEPT(17916336, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (in
 	return true;
 }
 
-#pragma warning(disable: 4244)
-BINDING(46026576, int64_t, List_getItem, (int64_t list, int index)) //System.Collections.Generic.List<T>$$get_Item
-BINDING(6113952, int64_t, List_getCount, (int64_t list)) //System.Collections.Generic.List<T>$$get_Count
-
 void forEachIndexed(int64_t list, std::function<void(int64_t, int)> fun)
 {
-	if(!list)
+    auto ptr = reinterpret_cast<void*>(list);
+	if(ptr == nullptr)
 		return;
 
-	int size = List_getCount(list);
+	int size = static_cast<int>(il2cpp::invoke<app::Int64__Boxed>(ptr, "get_Count")->fields);
 	for(int i = 0; i < size; i++)
-	{
-		fun(List_getItem(list, i), i);
-	}
+		fun(reinterpret_cast<int64_t>(il2cpp::invoke<>(ptr, "get_Item", &i)), i);
 }
-#pragma warning(default: 4244)
 
 void initShardDescription(unsigned __int8 shard, int64_t spiritShardDescription)
 {

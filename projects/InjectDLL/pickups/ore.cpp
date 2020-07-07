@@ -77,23 +77,23 @@ enum class WorldMapIconType : int32_t
     Siira = 75
 };
 
-INTERCEPT(4093520, int32_t, GameWorld__GetCollectedIconTypeCount, (app::GameWorld* this_ptr, app::WorldMapIconType__Enum type)) {
-    auto value = GameWorld__GetCollectedIconTypeCount(this_ptr, type);
+IL2CPP_INTERCEPT(, GameWorld, int32_t, GetCollectedIconTypeCount, (app::GameWorld* this_ptr, app::WorldMapIconType__Enum type)) {
+    auto value = GameWorld_GetCollectedIconTypeCount(this_ptr, type);
     if (static_cast<int32_t>(type) == static_cast<int32_t>(WorldMapIconType::Ore))
         value = get_ore();
 
     return value;
 }
 
-INTERCEPT(5814720, void, SeinPickupProcessor__OnCollectOrePickup, (app::SeinPickupProcessor* this_ptr, app::OrePickup* orePickup)) {
+IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectOrePickup, (app::SeinPickupProcessor* this_ptr, app::OrePickup* orePickup)) {
 	collecting_pickup = true;
-	SeinPickupProcessor__OnCollectOrePickup(this_ptr, orePickup);
+	SeinPickupProcessor_OnCollectOrePickup(this_ptr, orePickup);
     collecting_pickup = false;
 }
 
-INTERCEPT(8453568, void, SeinLevel__set_Ore, (app::SeinLevel* this_ptr, int32_t value)) {
+IL2CPP_INTERCEPT(, SeinLevel, void, set_Ore, (app::SeinLevel* this_ptr, int32_t value)) {
 	if(collecting_pickup)
 		return;
 
-	SeinLevel__set_Ore(this_ptr, value);
+	SeinLevel_set_Ore(this_ptr, value);
 }
