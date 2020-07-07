@@ -37,7 +37,9 @@ namespace RandoMainDLL {
 
       [JsonIgnore]
       public string SaveDirectory => $"{Randomizer.SaveFolder}\\";
+      [JsonIgnore]
       public string Filename => $"{Randomizer.SaveFolder}\\randosave_{Slot}.json";
+      [JsonIgnore]
       public string FilenamePattern => $"randosave_{Slot}.*";
       public string fullName(int backup) => Filename + (backup != -1 ? $".{backup}.bak" : "");
       public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nks: {KSBought}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}\nSkills: {SkillsFound}";
