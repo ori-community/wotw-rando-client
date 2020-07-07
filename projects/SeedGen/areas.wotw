@@ -8,7 +8,7 @@ requirement EnemyObstacle:
   base: Sword OR Hammer OR Bash OR Launch
 
 requirement ShieldEnemy:  # breaking the shield or shell of an enemy
-  base: Hammer OR Launch OR Grenade=1 OR Spear
+  base: Hammer OR Launch OR Grenade=1 OR Spear=1
 
 requirement Combat:
   base:
@@ -18,11 +18,11 @@ requirement Combat:
     Launch
 
 requirement RangedWeapon:
-  base: Grenade=3 OR Bow OR Spear  # 3 should be enough for any use of this
+  base: Grenade=3 OR Bow=3 OR Spear=1  # 3 should be enough for any use of this
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
   base: UpperDepths.ForestsEyes OR Flash
-  advanced: Bow
+  advanced: Bow=12  # should be good, right?
 
 area Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
@@ -498,12 +498,12 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
   pickup WestHollow.CrusherHC: free
   pickup MarshPastOpher.LeftEyestone:
     base:
-      Bow, DoubleJump OR Dash OR Launch
-      Bow, Bash, Grenade=1
+      Bow=1, DoubleJump OR Dash OR Launch
+      Bow=1, Bash, Grenade=1
   pickup MarshPastOpher.RightEyestone:
     base:
-      Bow, DoubleJump OR Dash OR Launch
-      Bow, Bash, Grenade=1
+      Bow=1, DoubleJump OR Dash OR Launch
+      Bow=1, Bash, Grenade=1
 
   conn MarshPastOpher.MillView:
     base:
@@ -512,11 +512,11 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
       Bash, Grenade=1
   conn MarshPastOpher.PoolsPathEast:
     base:
-      Bow, DoubleJump, Dash, Bash, Glide
-      Bow, Bash, Launch
+      Bow=4, DoubleJump, Dash, Bash, Glide  # autoaim doesn't catch the second target, 2 is needed minimum
+      Bow=4, Bash, Launch  # autoaim doesn't catch the second target, 2 is needed minimum
   conn WestHollow.HollowDrainUpper:
     base:
-      DoubleJump, Bow OR Dash OR Glide
+      DoubleJump, Bow=1 OR Dash OR Glide
       Dash, Glide
       Launch
     advanced:
@@ -586,37 +586,40 @@ region WestHollow:
 area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye door
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     base:
-      Bow, DoubleJump OR Danger=10  # easy to clip the spikes on the pole
+      Bow=1, DoubleJump OR Danger=10  # easy to clip the spikes on the pole
       Dash, DoubleJump  # Makes you Dash past a falling slime
       Launch
     advanced:
       DoubleJump, Damage=10  # One damage boost on the spikes
-  state WestHollow.LowerDrainLeverPulled:  # Lever that drains the second section of the hollow
-    base, WestHollow.UpperDrainLeverPulled, EnemyObstacle: 
-      Bow, DoubleJump OR Dash OR Launch
+  state WestHollow.RockPuzzleSolved:  # Will be convenient to have this later on
+    base, WestHollow.UpperDrainLeverPulled, Weapon:  # can't shoot properly with the skeeto
+      Bow=6, DoubleJump OR Dash
+      Bow=4, Launch  # since the traversal includes bowshots, the energy requirements here will be inaccurate. Shouldn't be relevant with Bow's cheap cost though, and it gives lenience on not solving the puzzle immediately
+  state WestHollow.LowerDrainLeverPulled:  # Lever that drains the second section of the hollow - this state strictly includes also having pulled the upper lever
+    base, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved, EnemyObstacle:
+      Bow=5, DoubleJump OR Dash
+      Launch
     advanced, WestHollow.UpperDrainLeverPulled:
-      Bow, Bash, Grenade=1  # Involves bashing off a mosquito 
-      Bow, Bash, Damage=20  # Involves bashing off a mosquito
+      Bow=5, Bash, Grenade=1  # Involves bashing off a mosquito, no idea on bow requirement
+      Bow=5, Bash, Damage=20  # Involves bashing off a mosquito, no idea on bow requirement
   state WestHollow.PurpleDoorOpen:
     base, WestHollow.UpperDrainLeverPulled:
-      Bow, DoubleJump, Dash
-      Bow, Launch
-      Bow, Bash, Grenade=1
+      Bow=1, DoubleJump, Dash
+      Bow=1, Launch
+      Bow=1, Bash, Grenade=1
     advanced, WestHollow.UpperDrainLeverPulled:
-      Bow, Glide, DoubleJump OR Dash
+      Bow=1, Glide, DoubleJump OR Dash
 
   pickup WestHollow.CrusherHC:
     base:
-      WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Launch OR Bow
+      WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Launch OR Bow=1
       Bash, Grenade=1
     advanced:
       Damage=10 #dboost through poison water
   pickup WestHollow.FarLeftEX:
-    base, WestHollow.LowerDrainLeverPulled: 
-      DoubleJump OR Dash OR Launch
-      Bash, Grenade=1
-    advanced, WestHollow.LowerDrainLeverPulled:
-      Bow, Bash, Grenade=2
+    base, WestHollow.LowerDrainLeverPulled, WestHollow.RockPuzzleSolved, EnemyObstacle:
+      Bow=4, DoubleJump, Dash  # awkward pickup
+      Launch
   pickup WestHollow.RockPuzzleEX:
     base: WestHollow.LowerDrainLeverPulled
     advanced, WestHollow.UpperDrainLeverPulled: 
@@ -625,14 +628,14 @@ area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye
     base: WestHollow.LowerDrainLeverPulled, BreakWall=10
   
   conn TwillenShop:
-    base:
-      Bow OR Glide OR Launch
-      DoubleJump, Dash
+    base, EnemyObstacle:
+      WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Glide OR Launch
       Bash, Grenade=1
   conn MarshPastOpher.BowArea:
-    base:  # there's a dropping slime in the way here, not sure if damage on some paths might be a good thing?
+    base, EnemyObstacle:
       DoubleJump OR Launch
-      Bash, Grenade=1, Dash OR Glide
+      Bash, Grenade=1, WestHollow.UpperDrainLeverPulled OR Bow=1 OR Glide
+      Bash, Grenade=2
   conn WestHollow.HollowDrainLower:
     base: WestHollow.LowerDrainLeverPulled
   conn EastHollow.Teleporter:
@@ -651,7 +654,7 @@ area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of L
       Bash, Grenade=1
   
   pickup WestHollow.QuickshotShard:
-    base: WestHollow.LowerDrainLeverPulled, EnemyObstacle, DoubleJump, Bow, Dash OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water. DoubleJump is for lenience on the bowshot
+    base: WestHollow.LowerDrainLeverPulled, EnemyObstacle, DoubleJump, Bow=1, Dash OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water. DoubleJump is for lenience on the bowshot
   pickup WestHollow.SwimEC:
     base: Water
   pickup WestHollow.LupoMap:
@@ -660,7 +663,10 @@ area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of L
       Bash, Grenade=1
       Launch
   pickup WestHollow.TrialHC:
-    base: WestHollow.LowerDrainLeverPulled, EnemyObstacle, DoubleJump OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water.
+    base, WestHollow.LowerDrainLeverPulled, EnemyObstacle:  # middle water state can softlock this, so you have to be able to fully lower the water.
+      DoubleJump, Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch
   pickup WestHollow.BelowLupoEX:
     base:  # All the path options here include a way to get past the enemy
       DoubleJump, Dash
@@ -1755,7 +1761,7 @@ area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
       EastPools.EntryLever, Water, Bash
     advanced, EastPools.EntryLever:
       Water, WaterDash
-      Water, Bow OR Grenade=1 # Bow=1 not currently a thing
+      Water, Bow=1 OR Grenade=1
   state EastPools.KwoloksWisdomAmulet: free  # part of a quest, but no reward on this currently
 
   pickup EastPools.RightOre:
@@ -1793,7 +1799,7 @@ area EastPools.TPArea:  # (-1297, -4143) Where Tokk stands
       Water, Bash
     advanced:
       Water, WaterDash
-      Water, Bow OR Grenade=1 # Bow=1 not a thing yet
+      Water, Bow=1 OR Grenade=1
   state EastPools.LowerWaterDrained:
     base: Water OR EastPoolsTP
   # There are two Arenas here: you get one if you enter without WaterDash and another if you enter with it.
@@ -1888,7 +1894,7 @@ area UpperPools.KeystoneRoom:  # (-1540, -4095) Autosave below the two upper lef
     base:
       Water, WaterDash
       Water, Bash
-    advanced: Bow OR Grenade=1
+    advanced: Bow=1 OR Grenade=1
 
   quest EastPools.GrassSeed:
     base: EnemyObstacle
