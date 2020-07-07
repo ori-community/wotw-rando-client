@@ -220,4 +220,9 @@ namespace uber_states
         strcpy_s(buffer, len, str.c_str());
         return str.size();
     }
+
+    INJECT_C_DLLEXPORT void refresh_uber_state(int group_id, int id) {
+      auto uber_state = uber_states::get_uber_state(group_id, id);
+      uber_states::apply_uber_state_no_notify(uber_state);
+    }
 }

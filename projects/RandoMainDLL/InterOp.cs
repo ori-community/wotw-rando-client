@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using RandoMainDLL.Memory;
-using System.Linq;
 
 namespace RandoMainDLL {
   static class InterOp {
@@ -38,14 +35,14 @@ namespace RandoMainDLL {
     public extern static bool player_can_move();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void lock_shriek_goal(bool value);
-
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void magic_function();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static bool toggle_cursorlock();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void bind_sword();
-
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void refresh_uber_state(int group_id, int id);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_uber_state_value(int group, int state, float value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -102,6 +99,8 @@ namespace RandoMainDLL {
     public extern static bool has_shard(ShardType type);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_shard(ShardType type, bool value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void refresh_shards();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static Vector2 get_position();
