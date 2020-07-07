@@ -28,10 +28,10 @@ ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
 
 updateFailedMsg=
 (
-Error: could not delete the old %WOTWREXE%
+Error: could not delete the old %WOTWREXE%.
 Please close Ori and all rando-related processes, then
-run %A_ScriptFullPath% to complete the update
-If the problem persists, please retart your computer
+run %A_ScriptFullPath% to complete the update.
+If the problem persists, please restart your computer.
 )
 
 
