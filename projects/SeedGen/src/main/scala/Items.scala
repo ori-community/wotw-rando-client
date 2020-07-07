@@ -33,10 +33,10 @@ package SeedGenerator {
     def code = s"$itemType|$resourceType"
   }
 
-  case object Health extends Resource(0, "Half-Health Cell") { override val cost = 0.2f }
-  case object Energy extends Resource(1, "Half-Energy Cell")
-  case object Ore extends Resource(2, "Gorlek Ore")
-  case object Keystone extends Resource(3, "Keystone")
+  case object Health extends Resource(0, "Half-Health Cell") with Important { override val cost = 0.2f }
+  case object Energy extends Resource(1, "Half-Energy Cell") with Important
+  case object Ore extends Resource(2, "Gorlek Ore") with Important
+  case object Keystone extends Resource(3, "Keystone") with Important
   case object ShardSlot extends Resource(4, "Shard Slot")
 
   case class WorldEvent(eventId: Int) extends Item with Merch with Important  {
@@ -141,7 +141,7 @@ package SeedGenerator {
     val itemType: Int = 5
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
-    override val cost: Double = Teleporter.costs.getOrElse(teleporterId, 7d)
+    override val cost: Double = Teleporter.costs.getOrElse(teleporterId, 4d)
   }
 
   object Teleporter {
@@ -176,14 +176,26 @@ package SeedGenerator {
     override def name: String = "Unobtainium"
     override val cost: Double = Double.PositiveInfinity
   }
-  trait FlagState { def name: String }
+  trait FlagState {
+    def name: String
+  }
+  object FlagState {
+    def unapply(arg: FlagState): Option[String] = Some(arg.name)
+  }
 
   case class WorldState(name: String) extends FlagState
   case class SeedGenState(name: String) extends FlagState // will become a series of case objects later
 
+
   case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
+    def progInv: Inv = inv.progInv
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def -(other: GameState): GameState = GameState(inv - other.inv, flags -- other.flags, reached -- other.reached)
+    def noFlags: GameState = GameState(inv, Set(), reached)
+    def invOnly: GameState = GameState(inv)
+    def items: Set[ItemLoc] = reached.collect({case i: ItemLoc => i})
+    def areas: Set[Area] = reached.collect({case a: Area => a})
+    def noReached: GameState = GameState(inv, flags)
     def without(item: Item, count: Int): GameState = GameState(inv.without(item, count), flags, reached)
     def withoutCash(cash: Int): GameState = GameState(inv.withoutCash(cash), flags, reached)
     def cost(implicit flagCosts: Map[FlagState, Double] = Map()): Double = inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
@@ -211,8 +223,20 @@ package SeedGenerator {
     )
   }
 
+  case class Orbs(health: Int, energy: Int) {
+    def max(other: Orbs): Orbs = Orbs(Math.max(this.health, other.health), Math.max(this.energy, other.energy))
+    def min(other: Orbs): Orbs = Orbs(Math.min(this.health, other.health), Math.min(this.energy, other.energy))
+    def +(other: Orbs): Orbs = Orbs(health+other.health, energy + other.energy)
+    def -(other: Orbs): Orbs = Orbs(health - other.health, energy - other.energy)
+    def value: Int = health + 3*energy // subject to change
+  }
+
   // extending hashset instead of encapsulating it here was pure folly, tbh
   class Inv(items: (Item, Int)*) extends mutable.HashMap[Item, Int] {
+    def progInv(): Inv = Inv.mk(
+      asSeq.collect {case i: Important => i
+    }:_*)
+    def subsetOf(other: Inv): Boolean = Timer("subsetChecks"){other.count > this.count && forall{case (i, c) => other.has(i,c)}}
     items.collect({ case (i: Item, count: Int) if count > 0 => set(i, count) })
     def totalSpiritLight: Int = collect({case (SpiritLight(amount), i) => amount*i}).sum
     def withoutCash(cash: Int): Inv = {
@@ -224,11 +248,15 @@ package SeedGenerator {
         case i => Some(i -> this(i))
       }).toSeq :+ (SpiritLight(totalLight - cash) -> 1):_*)
     }
-
-    def set(item: Item, count: Int): Unit = this (item) = count
+    def orbs: Orbs = Orbs(this(Health)*5, this(Energy)*5)
+    def set(item: Item, count: Int): Unit =  this (item) = count
     override def apply(item: Item): Int = getOrElse(item, 0)
     override def toString = s"Inv: (${
-      filter(_._2 > 0).filterNot(kv => kv._1.isInstanceOf[SpiritLight] || kv._1.isInstanceOf[Shard]).map({
+      filter(_._2 > 0).toSeq.sortBy({
+        case (_: SpiritLight, _) => 2
+        case (_: Shard, _) => 1
+        case _ => 0
+      }).map({
         case (item, 1) => s"$item"
         case (item, c) => s"$c $item"
       }).mkString(", ")})"
@@ -238,6 +266,7 @@ package SeedGenerator {
       }).mkString(", ")}"
     def asSeq: Seq[Item] = keys.toSeq.flatMap(k => (0 until this (k)).map(_ => k))
     def count: Int = foldLeft(0)(_ + _._2)
+    override def isEmpty: Boolean = count == 0
     def cost: Double = foldLeft(0d)({ case (cost: Double, (i: Item, c: Int)) => cost + i.cost * c })
     def has(item: Item, count: Int = 1): Boolean = getOrElse(item, 0) >= count
     def transfer(source: Inv, item: Item, count: Int = 1)(implicit r: Random): Unit = {
