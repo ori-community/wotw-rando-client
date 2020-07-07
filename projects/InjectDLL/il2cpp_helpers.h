@@ -41,7 +41,7 @@ namespace il2cpp
         bool is_assignable(Il2CppClass* klass, const char* namezpace, const char* name);
         bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass);
 
-        //Il2CppObject* box_value(Il2CppClass* klass, void* value);
+        Il2CppObject* box_value(Il2CppClass* klass, void* value);
 
         Il2CppClass* get_class(const char* namezpace, const char* name);
     }
@@ -109,14 +109,21 @@ namespace il2cpp
         return reinterpret_cast<Return*>(invoke_virtual_v(obj, base, method, collected_params));
     }
 
+    constexpr bool use_internal_box_function = false;
     template<typename Return, typename Input, typename InputKlass>
     Return* box_value(InputKlass* klass, Input value)
     {
-        auto boxed_value = create_object<Return>(klass);
-        boxed_value->fields = value;
-        return boxed_value;
-        //return reinterpret_cast<Return*>(untyped::box_value(
-        //    reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)));
+        if (use_internal_box_function)
+        {
+            return reinterpret_cast<Return*>(untyped::box_value(
+                reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)));
+        }
+        else
+        {
+            auto boxed_value = create_object<Return>(klass);
+            boxed_value->fields = value;
+            return boxed_value;
+        }
     }
 
     template<typename Return = Il2CppClass>
