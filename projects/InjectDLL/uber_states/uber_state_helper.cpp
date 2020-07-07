@@ -153,8 +153,14 @@ INJECT_C_DLLEXPORT void set_keystones(int32_t value)
 
 INJECT_C_DLLEXPORT app::Vector2 get_position()
 {
-    auto pos = get_sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
-    return app::Vector2{ pos.x, pos.y };
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        auto pos = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
+        return app::Vector2{ pos.x, pos.y };
+    }
+    else
+        return app::Vector2{ 0, 0 };
 }
 
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state()
