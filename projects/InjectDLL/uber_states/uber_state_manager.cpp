@@ -79,14 +79,6 @@ namespace uber_states
             if (prev != current)
                 notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
-
-        INTERCEPT(17923408, void, Moon_uberSerializationWisp_SavePedestalUberState__Load, (app::SavePedestalUberState* this_ptr, app::UberStateArchive* archive, int32_t storeVersion)) {
-            auto prev = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
-            Moon_uberSerializationWisp_SavePedestalUberState__Load(this_ptr, archive, storeVersion);
-            auto current = convert_pedestal_state(Moon_uberSerializationWisp_SavePedestalUberState__ReadStateFromStore(this_ptr));
-            if (prev != current)
-                notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
-        }
     }
 
     void apply_uber_state_no_notify(app::IUberState* uber_state)
