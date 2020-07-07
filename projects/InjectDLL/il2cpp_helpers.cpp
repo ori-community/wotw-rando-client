@@ -207,10 +207,10 @@ namespace il2cpp
             return il2cpp_class_is_assignable_from(iklass, klass);
         }
 
-        //Il2CppObject* box_value(Il2CppClass* klass, void* value)
-        //{
-        //    return il2cpp_value_box(klass, value);
-        //}
+        Il2CppObject* box_value(Il2CppClass* klass, void* value)
+        {
+            return il2cpp_value_box(klass, value);
+        }
 
         Il2CppClass* get_class(const char* namezpace, const char* name)
         {
