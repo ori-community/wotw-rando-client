@@ -142,32 +142,15 @@ namespace uber_states
     constexpr bool check_set = false;
     void set_uber_state_value(app::IUberState* uber_state, float value)
     {
-        if (il2cpp::is_assignable(uber_state, "Moon", "SerializedByteUberState"))
-        {
-            uint8_t real_value = static_cast<uint8_t>(value);
-            auto actual_value = il2cpp::box_value<app::Byte__Boxed>(il2cpp::get_class("System", "Byte"), real_value);
-            il2cpp::invoke<>(uber_state, "set_Value", actual_value);
-        }
-        else if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState"))
-        {
-            auto actual_value = il2cpp::box_value<app::Single__Boxed>(il2cpp::get_class("System", "Single"), value);
-            il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class<>("Moon", "IGenericUberState"), "set_GenericValue", actual_value);
-            if (check_set)
-            {
-                auto value = il2cpp::invoke<app::Single__Boxed>(uber_state, "get_GenericValue")->fields;
-                trace(MessageType::Info, 4, "uber_state", format("value set to %f", value));
-            }
-        }
+        if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState"))
+            il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class<>("Moon", "IGenericUberState"), "set_GenericValue", &value);
         else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState"))
         {
-            auto ivalue = static_cast<uint32_t>(value);
-            auto klass = il2cpp::get_class("System", "Boolean");
+            auto ivalue = static_cast<uint8_t>(value);
             bool is_teleporter_active = static_cast<bool>(ivalue & 1);
             bool has_been_saved = static_cast<bool>((ivalue >> 1) & 1);
-            auto actual_value = il2cpp::box_value<app::Boolean__Boxed>(klass, is_teleporter_active);
-            il2cpp::invoke<>(uber_state, "set_IsTeleporterActive", actual_value);
-            actual_value = il2cpp::box_value<app::Boolean__Boxed>(klass, has_been_saved);
-            il2cpp::invoke<>(uber_state, "set_HasGameBeenSaved", actual_value);
+            il2cpp::invoke<>(uber_state, "set_IsTeleporterActive", &is_teleporter_active);
+            il2cpp::invoke<>(uber_state, "set_HasGameBeenSaved", &has_been_saved);
         }
         else
         {
