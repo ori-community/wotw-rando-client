@@ -21,7 +21,6 @@ bool isTwillenShard(char shard){
 	return twillenShards.find(shard) != twillenShards.end();
 }
 
-
 bool is_in_shop_screen(){
 	const auto  gameController = get_game_controller();
 	if(!gameController || GameController_get_GameInTitleScreen(gameController))
