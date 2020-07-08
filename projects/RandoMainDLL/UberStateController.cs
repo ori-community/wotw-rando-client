@@ -233,7 +233,7 @@ namespace RandoMainDLL {
 
     public static void NewGameInit() {
       if (!InterOp.is_loading_game()) {
-        InterOp.clear_quest_messages(true);
+        InterOp.clear_quest_messages();
         Randomizer.Log("New Game Init", false);
         SaveController.SetAbility(AbilityType.SpiritEdge);
         foreach (UberState s in DefaultUberStates) { s.Write(); }

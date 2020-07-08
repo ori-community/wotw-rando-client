@@ -4,9 +4,17 @@ using System.Runtime.InteropServices;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
+
+  enum SoundEvent {
+    QuestComplete
+  }
+
   static class InterOp {
+
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clear_quest_messages(bool value);
+    public extern static void play_sound(SoundEvent evt);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void clear_quest_messages();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr display_hint([MarshalAs(UnmanagedType.LPStr)] string hint, float duration);
 
