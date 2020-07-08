@@ -167,7 +167,7 @@ Help(wParam, lParam, Msg) {
         Help := "Enables the long, unskippable cutscenes normally removed by the randomizer."
 
     else IfEqual, HoverText, Automatic Updates
-        Help := "Prevents the rando from updating to a newer version.`nNot recommended!"
+        Help := "Allows the randomizer to check for new updates on launch. Highly recommended!"
 
     else IfEqual, HoverText, Use Windows Store
         Help := "Launch the rando using the windows store version of the game."
