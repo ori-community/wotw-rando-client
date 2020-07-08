@@ -143,11 +143,6 @@ namespace RandoMainDLL {
       }
     }
     public static void Update() {
-      if (NewGameInitJustFinished) {
-        InterOp.prevent_quest_messages(false);
-        NewGameInitJustFinished = false;
-      }
-
       if (NeedsNewGameInit)
         NewGameInit();
 
@@ -238,7 +233,7 @@ namespace RandoMainDLL {
 
     public static void NewGameInit() {
       if (!InterOp.is_loading_game()) {
-        InterOp.prevent_quest_messages(true);
+        InterOp.clear_quest_messages(true);
         Randomizer.Log("New Game Init", false);
         SaveController.SetAbility(AbilityType.SpiritEdge);
         foreach (UberState s in DefaultUberStates) { s.Write(); }
@@ -265,7 +260,6 @@ namespace RandoMainDLL {
         InterOp.bind_sword();
         InterOp.save();
         NeedsNewGameInit = false;
-        NewGameInitJustFinished = true;
       }
     }
 
@@ -274,7 +268,6 @@ namespace RandoMainDLL {
     public static bool SkipListenersNextUpdate = false;
 
     public static bool NeedsNewGameInit = false;
-    public static bool NewGameInitJustFinished = false;
 
     public static List<UberState> DefaultUberStates = new List<UberState>() {
       new UberState() { Name = "fastTravelEnabledUberState", ID = 16489, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)1)},
