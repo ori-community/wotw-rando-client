@@ -92,15 +92,18 @@ IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowUpdatedQuestMessage
     return nullptr;
 }
 
-bool prevent_quest = false;
-INJECT_C_DLLEXPORT void prevent_quest_messages(bool value)
+bool clear_on_next_update = false;
+INJECT_C_DLLEXPORT void clear_quest_messages()
 {
-    prevent_quest = value;
+    clear_on_next_update = true;
 }
 
 IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController* this_ptr)) {
-    if (prevent_quest)
+    if (clear_on_next_update)
+    {
         il2cpp::invoke(this_ptr->fields.m_queuedQuestMessages, "Clear");
+        clear_on_next_update = false;
+    }
 
     QuestsController_Update(this_ptr);
 }
