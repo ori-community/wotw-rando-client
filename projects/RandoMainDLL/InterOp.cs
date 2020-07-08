@@ -6,6 +6,8 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   static class InterOp {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void prevent_quest_messages(bool value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr display_hint([MarshalAs(UnmanagedType.LPStr)] string hint, float duration);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
