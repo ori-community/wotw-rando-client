@@ -91,17 +91,16 @@ INJECT_C_DLLEXPORT void message_item_callback(const char* str)
     cached = reinterpret_cast<app::String*>(il2cpp::string_new(str));
 }
 
-INTERCEPT(15446864, app::String*, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language)) {
-    auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
-    if(result && is_in_shop_screen())
-    {
-        auto shop_str = convert_csstring(result);
-        auto wrote_str = csharp_bridge::shop_string_repl(shop_str.c_str());
-        if (wrote_str)
-            return cached;
-    }
+NESTED_IL2CPP_INTERCEPT(, TranslatedMessageProvider, MessageItem, app::MessageDescriptor, GetDescriptor, (app::TranslatedMessageProvider_MessageItem* this_ptr, int32_t language)) {
+  auto result = TranslatedMessageProvider_MessageItem_GetDescriptor(this_ptr, language);
+  if (result.Message != nullptr && is_in_shop_screen()){
+    auto shop_str = convert_csstring(result.Message);
+    auto wrote_str = csharp_bridge::shop_string_repl(shop_str.c_str());
+    if (wrote_str)
+      result.Message = cached;
+  }
 
-    return result;
+  return result;
 }
 
 INTERCEPT(13823536, void, MessageBox__Update, (app::MessageBox* this_ptr)) {
