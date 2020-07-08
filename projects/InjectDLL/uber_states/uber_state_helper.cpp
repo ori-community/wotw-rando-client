@@ -20,9 +20,9 @@ namespace
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
 
-    app::CheatsHandler* get_cheats()
+    app::CheatsHandler__StaticFields* get_cheats()
     {
-        return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields->Instance;
+        return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields;
     }
 
     app::PlayerUberStateStats* get_stats()
@@ -69,12 +69,16 @@ namespace
 
 INJECT_C_DLLEXPORT void set_debug_controls(bool value)
 {
-    get_cheats()->fields.DebugEnabled = value;
+  auto cheats = get_cheats();
+  cheats->Instance->fields.DebugEnabled = value;
+  cheats->DebugWasEnabled = value;
+  cheats->DebugAlwaysEnabled = value;
+  il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues")->static_fields->DebugControlsEnabled = value;
 }
 
 INJECT_C_DLLEXPORT bool get_debug_controls()
 {
-    return get_cheats()->fields.DebugEnabled;
+    return get_cheats()->Instance->fields.DebugEnabled;
 }
 
 INJECT_C_DLLEXPORT void fill_health()
