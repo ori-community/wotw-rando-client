@@ -14,7 +14,8 @@ IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectedShardSlotUpgrade, (app:
 	collecting_spirit_shard = false;
 }
 
-IL2CPP_INTERCEPT(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory, (app::PlayerSpiritShards* this_ptr, uint8_t spiritShardType)) {
+IL2CPP_INTERCEPT_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory,
+    (app::PlayerSpiritShards* this_ptr, uint8_t spiritShardType), (SpiritShardType)) {
 	if(collecting_spirit_shard)
 	{
 		app::PlayerUberStateShards_Shard* result = PlayerSpiritShards_AddNewShardToInventory(this_ptr, spiritShardType);

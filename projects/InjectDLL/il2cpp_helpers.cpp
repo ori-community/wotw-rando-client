@@ -11,7 +11,15 @@ namespace il2cpp
 {
     namespace
     {
+        struct KlassOverloadInfo
+        {
+            std::string name;
+            int param_count;
+            std::vector<MethodInfo const*> methods;
+        };
+
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
+        std::unordered_map<Il2CppClass*, std::vector<KlassOverloadInfo>> resolved_klass_overloads;
 
         STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (app::Object* this_ptr));
         IL2CPP_BINDING(UnityEngine, Object, app::String*, get_name, (app::Object* this_ptr));
@@ -21,7 +29,7 @@ namespace il2cpp
         IL2CPP_BINDING(UnityEngine, GameObject, app::Transform*, get_transform, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Component*, AddComponent, (app::GameObject* this_ptr, app::Type* type));
-        IL2CPP_BINDING(UnityEngine, GameObject, app::IComponent__Array*, GetComponents, (app::GameObject* this_ptr, app::Type* type));
+        IL2CPP_BINDING_OVERLOAD(UnityEngine, GameObject, app::IComponent__Array*, GetComponents, (app::GameObject* this_ptr, app::Type* type), (System:Type));
 
         IL2CPP_BINDING(UnityEngine, Transform, int32_t, GetChildCount, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int32_t index));
@@ -42,8 +50,10 @@ namespace il2cpp
         INTERNAL_BINDING(0x262CE0, Il2CppAssembly**, il2cpp_domain_get_assemblies, (Il2CppDomain* domain, size_t* size));
         INTERNAL_BINDING(0x101220, Il2CppImage*, il2cpp_assembly_get_image, (Il2CppAssembly* assembly));
         INTERNAL_BINDING(0x263870, Il2CppObject*, il2cpp_object_new, (Il2CppClass* klass));
+        INTERNAL_BINDING(0x2625B0, PropertyInfo*, il2cpp_class_get_properties, (Il2CppClass* klass, void** iter));
         INTERNAL_BINDING(0x2626E0, MethodInfo*, il2cpp_class_get_methods, (Il2CppClass* klass, void** iter));
-        INTERNAL_BINDING(0x2626F0, MethodInfo*, il2cpp_class_get_method_from_name, (Il2CppClass* klass, const char* name, int argsCount));
+        // We use get_methods instead and build a lookup cache.
+        //INTERNAL_BINDING(0x2626F0, MethodInfo*, il2cpp_class_get_method_from_name, (Il2CppClass* klass, const char* name, int argsCount));
         INTERNAL_BINDING(0x263860, MethodInfo*, il2cpp_object_get_virtual_method, (Il2CppObject* obj, const MethodInfo* method));
         INTERNAL_BINDING(0x263A70, Il2CppObject*, il2cpp_runtime_invoke, (const MethodInfo* method, void* obj, void** params, Il2CppException** exc));
         INTERNAL_BINDING(0x263D20, void*, il2cpp_thread_attach, (Il2CppDomain* domain));
@@ -58,6 +68,8 @@ namespace il2cpp
         INTERNAL_BINDING(0x238110, bool, il2cpp_class_has_parent, (Il2CppClass* klass, Il2CppClass* klassc));
         INTERNAL_BINDING(0x262400, void, il2cpp_free, (void* obj));
         INTERNAL_BINDING(0x262590, Il2CppClass*, il2cpp_class_get_nested_types, (Il2CppClass* klass, void** iter));
+        INTERNAL_BINDING(0x262810, bool, il2cpp_class_is_enum, (Il2CppClass* klass));
+        INTERNAL_BINDING(0x262550, Il2CppClass*, il2cpp_class_from_type, (Il2CppType const* type));
 
         thread_local std::string buffer;
         std::string const& get_full_name(std::string_view namespaze, std::string_view name, std::string_view nested = "")
@@ -86,6 +98,55 @@ namespace il2cpp
             auto klass = get_class<>(namespaze, name);
             auto type = il2cpp_class_get_type(klass);
             return il2cpp_type_get_assembly_qualified_name(type);
+        }
+
+        void resolve_overloads(Il2CppClass* klass)
+        {
+            std::vector<KlassOverloadInfo> overloads;
+            void* it = nullptr;
+            for (auto i = 0; i < klass->method_count; ++i)
+            {
+                auto method = il2cpp_class_get_methods(klass, &it);
+                auto method_overload_info = std::find_if(overloads.begin(), overloads.end(), [method](KlassOverloadInfo const& info) -> bool {
+                    return info.name == method->name && info.param_count == method->parameters_count;
+                });
+
+                if (method_overload_info == overloads.end())
+                {
+                    KlassOverloadInfo info;
+                    info.name = method->name;
+                    info.param_count = method->parameters_count;
+                    info.methods.push_back(method);
+                    overloads.push_back(std::move(info));
+                }
+                else
+                    method_overload_info->methods.push_back(method);
+            }
+
+            it = nullptr;
+            for (auto i = 0; i < klass->property_count; ++i)
+            {
+                auto prop = il2cpp_class_get_properties(klass, &it);
+                if (prop->get != nullptr)
+                {
+                    KlassOverloadInfo info;
+                    info.name = prop->get->name;
+                    info.param_count = 0;
+                    info.methods.push_back(prop->get);
+                    overloads.push_back(std::move(info));
+                }
+
+                if (prop->set != nullptr)
+                {
+                    KlassOverloadInfo info;
+                    info.name = prop->set->name;
+                    info.param_count = 1;
+                    info.methods.push_back(prop->set);
+                    overloads.push_back(std::move(info));
+                }
+            }
+
+            resolved_klass_overloads[klass] = overloads;
         }
     }
 
@@ -190,11 +251,6 @@ namespace il2cpp
 
     namespace untyped
     {
-        MethodInfo* get_method_from_name(Il2CppClass* klass, std::string_view name, int arg_count)
-        {
-            return il2cpp_class_get_method_from_name(klass, name.data(), arg_count);
-        }
-
         Il2CppObject* create_object(std::string_view namezpace, std::string_view name)
         {
             auto klass = get_class(namezpace, name);
@@ -304,16 +360,187 @@ namespace il2cpp
         return il2cpp_string_new_utf16(reinterpret_cast<const Il2CppChar*>(str.data()), str.length());
     }
 
+    KlassOverloadInfo const* get_method_info_internal(Il2CppClass* klass, std::string_view method, int param_count)
+    {
+        auto method_overloads = resolved_klass_overloads.find(klass);
+        if (method_overloads == resolved_klass_overloads.end())
+        {
+            resolve_overloads(klass);
+            method_overloads = resolved_klass_overloads.find(klass);
+        }
 
+        std::vector<KlassOverloadInfo> const& methods = method_overloads->second;
+        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](KlassOverloadInfo const& info) -> bool {
+            return info.name == method && info.param_count == param_count;
+        });
+
+        if (method_overload_info == methods.end())
+        {
+            if (klass->parent != nullptr)
+            {
+                auto info = get_method_info_internal(klass->parent, method, param_count);
+                if (info != nullptr)
+                    return info;
+            }
+
+            trace(MessageType::Error, 1, "il2cpp", format("Could not find method '%s:%d' in klass '%s'", method.data(), param_count, klass->name));
+            return nullptr;
+        }
+
+        return (&*method_overload_info);
+    }
+
+    int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count)
+    {
+        auto method_overloads = resolved_klass_overloads.find(klass);
+        if (method_overloads == resolved_klass_overloads.end())
+        {
+            resolve_overloads(klass);
+            method_overloads = resolved_klass_overloads.find(klass);
+        }
+
+        std::vector<KlassOverloadInfo> const& methods = method_overloads->second;
+        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](KlassOverloadInfo const& info) -> bool {
+            return info.name == method && info.param_count == param_count;
+        });
+
+        if (method_overload_info == methods.end())
+            return -1;
+
+        return method_overload_info->methods.size();
+    }
+
+    MethodInfo const* get_method_from_name_overloaded(Il2CppClass* klass, std::string_view method, int param_count, int overload)
+    {
+        auto info = get_method_info_internal(klass, method, param_count);
+        if (info == nullptr)
+            return nullptr;
+
+        if (info->methods.size() <= overload)
+        {
+            trace(MessageType::Error, 1, "il2cpp", format("OVerload '%d' for '%s:%d' in klass '%s' does not exist",
+                overload, method.data(), param_count, klass->name));
+        }
+
+        return info->methods.at(overload);
+    }
+
+    MethodInfo const* get_method_from_name_params(Il2CppClass* klass, std::string_view method, std::vector<void*> const& params)
+    {
+        auto info = get_method_info_internal(klass, method, params.size());
+        if (info == nullptr)
+            return nullptr;
+
+        if (info->methods.size() == 1)
+            return info->methods.front();
+        else
+        {
+            bool first = true;
+            for (auto method_info : info->methods)
+            {
+                auto valid = true;
+                for (auto i = 0; valid && i < method_info->parameters_count; ++i)
+                {
+                    auto& param = method_info->parameters[i];
+                    switch (param.parameter_type->type)
+                    {
+                    case Il2CppTypeEnum::IL2CPP_TYPE_BOOLEAN:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_U1:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_I1:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_U2:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_I2:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_CHAR:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_U4:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_I4:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_U8:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_I8:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_R4:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_R8:
+                        break;
+                    case Il2CppTypeEnum::IL2CPP_TYPE_VALUETYPE:
+                    {
+                        auto param_klass = il2cpp_class_from_type(param.parameter_type);
+                        if (il2cpp_class_is_enum(param_klass))
+                            continue;
+                        break;
+                    }
+                    case Il2CppTypeEnum::IL2CPP_TYPE_STRING:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_PTR:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_U:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_I:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_SZARRAY:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_ARRAY:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_OBJECT:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_VAR:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_MVAR:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_TYPEDBYREF:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_VOID:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_CLASS:
+                    case Il2CppTypeEnum::IL2CPP_TYPE_GENERICINST:
+                    {
+                        auto value = reinterpret_cast<Il2CppObject*>(params.at(param.position));
+                        auto klass_1 = il2cpp_class_from_type(param.parameter_type);
+                        auto klass_2 = value->klass;
+                        if (!untyped::is_assignable(klass_2, klass_1))
+                            valid = false;
+                        break;
+                    }
+                    default:
+                        break;
+                    }
+                }
+
+                if (valid)
+                    return method_info;
+            }
+        }
+
+        trace(MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
+            method.data(), params.size(), klass->name));
+        return nullptr;
+    }
+
+    MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<Il2CppClass*> const& params)
+    {
+        auto info = get_method_info_internal(klass, method, params.size());
+        if (info == nullptr)
+            return nullptr;
+
+        if (info->methods.size() == 1)
+            return info->methods.front();
+        else
+        {
+            bool first = true;
+            for (auto method_info : info->methods)
+            {
+                auto valid = true;
+                for (auto i = 0; valid && i < method_info->parameters_count; ++i)
+                {
+                    auto& param = method_info->parameters[i];
+                    auto klass_1 = il2cpp_class_from_type(param.parameter_type);
+                    auto klass_2 = params.at(param.position);
+                    if (klass_1 != klass_2)
+                        valid = false;
+                }
+
+                if (valid)
+                    return method_info;
+            }
+        }
+
+        trace(MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
+            method.data(), params.size(), klass->name));
+        return nullptr;
+    }
 
     Il2CppObject* invoke_v(void* obj, std::string_view method, std::vector<void*> params)
     {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         Il2CppException* exc = nullptr;
-        auto method_info = il2cpp_class_get_method_from_name(cast_obj->klass, method.data(), params.size());
+        auto method_info = get_method_from_name_params(cast_obj->klass, method.data(), params);
         if (method_info == nullptr)
         {
-            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method));
+            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method.data()));
             return nullptr;
         }
 
@@ -325,17 +552,17 @@ namespace il2cpp
     {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         Il2CppException* exc = nullptr;
-        auto method_info = il2cpp_class_get_method_from_name(base, method.data(), params.size());
+        auto method_info = get_method_from_name_params(base, method.data(), params);
         if (method_info == nullptr)
         {
-            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method));
+            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method.data()));
             return nullptr;
         }
 
         auto virtual_method_info = il2cpp_object_get_virtual_method(cast_obj, method_info);
         if (virtual_method_info == nullptr)
         {
-            trace(MessageType::Error, 1, "il2cpp", format("failed to find virtual method '%s'", method));
+            trace(MessageType::Error, 1, "il2cpp", format("failed to find virtual method '%s'", method.data()));
             return nullptr;
         }
 
@@ -350,6 +577,6 @@ namespace il2cpp
 
     MethodInfo* resolve_generic_method(uint64_t address)
     {
-        return *reinterpret_cast<MethodInfo**>(resolve_rva(address));
+        return *reinterpret_cast<MethodInfo**>(intercept::resolve_rva(address));
     }
 }
