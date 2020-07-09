@@ -168,7 +168,7 @@ package SeedGenerator {
       16 -> "Marsh",
       17 -> "Glades"
     )
-    def poolItems: Seq[Teleporter] = if(UI.Options.tps) names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq else Nil
+    def poolItems: Seq[Teleporter] = if(UI.opts.tps) names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq else Nil
   }
 
   // fake inventory items
