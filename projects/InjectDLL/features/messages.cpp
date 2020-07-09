@@ -189,7 +189,7 @@ bool hints_ready()
 }
 
 extern "C" __declspec(dllexport)
-app::MessageBox* display_hint(const char * hint, float duration)
+app::MessageBox* display_hint(const wchar_t* hint, float duration)
 {
     try
     {
