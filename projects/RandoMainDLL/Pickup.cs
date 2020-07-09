@@ -346,7 +346,13 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
 
-    private static readonly List<string> MoneyNames = new List<string>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks", "Pieces of Eight", "Shillings", "Farthings" };
+    private static readonly List<string> MoneyNames = new List<string>() {
+      "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", 
+     "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets",
+      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells",
+      "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
+      "Boonbucks", "Pieces of Eight", "Shillings", "Farthings"
+    };
 
     public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
   }
