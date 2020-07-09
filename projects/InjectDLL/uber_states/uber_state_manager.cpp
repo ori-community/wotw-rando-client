@@ -14,7 +14,7 @@ namespace uber_states
     namespace
     {
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
-        STATIC_IL2CPP_BINDING(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, int32_t context));
+        //STATIC_IL2CPP_BINDING(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, int32_t context));
 
         void notify_uber_state_change(app::IUberState* uber_state, float prev, float current)
         {
@@ -83,7 +83,8 @@ namespace uber_states
 
     void apply_uber_state_no_notify(app::IUberState* uber_state)
     {
-        UberStateController_Apply(uber_state, 0);
+        il2cpp::invoke(il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")
+            ->static_fields->s_instance, "Apply", uber_state);
     }
 
     app::UberID* get_uber_state_id(app::IUberState* uber_state)
@@ -128,7 +129,11 @@ namespace uber_states
 
     app::IUberState* get_uber_state(app::UberID& group_id, app::UberID& state_id)
     {
-        return UberStateCollection_GetState(&group_id, &state_id);
+        auto state = UberStateCollection_GetState(&group_id, &state_id);
+        if (state == nullptr)
+            trace(MessageType::Error, 3, "uber_state", format("unable to find uber_state %d : %d.", group_id.fields.m_id, state_id.fields.m_id));
+
+        return state;
     }
 
     constexpr bool check_set = false;

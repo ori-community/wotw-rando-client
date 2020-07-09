@@ -42,12 +42,14 @@ namespace il2cpp
         INTERNAL_BINDING(0x262CE0, Il2CppAssembly**, il2cpp_domain_get_assemblies, (Il2CppDomain* domain, size_t* size));
         INTERNAL_BINDING(0x101220, Il2CppImage*, il2cpp_assembly_get_image, (Il2CppAssembly* assembly));
         INTERNAL_BINDING(0x263870, Il2CppObject*, il2cpp_object_new, (Il2CppClass* klass));
+        INTERNAL_BINDING(0x2626E0, MethodInfo*, il2cpp_class_get_methods, (Il2CppClass* klass, void** iter));
         INTERNAL_BINDING(0x2626F0, MethodInfo*, il2cpp_class_get_method_from_name, (Il2CppClass* klass, const char* name, int argsCount));
         INTERNAL_BINDING(0x263860, MethodInfo*, il2cpp_object_get_virtual_method, (Il2CppObject* obj, const MethodInfo* method));
         INTERNAL_BINDING(0x263A70, Il2CppObject*, il2cpp_runtime_invoke, (const MethodInfo* method, void* obj, void** params, Il2CppException** exc));
         INTERNAL_BINDING(0x263D20, void*, il2cpp_thread_attach, (Il2CppDomain* domain));
         INTERNAL_BINDING(0x263B50, Il2CppString*, il2cpp_string_new_wrapper, (const char* str));
         INTERNAL_BINDING(0x263BC0, Il2CppString*, il2cpp_string_new_len, (const char* str, uint32_t len));
+        INTERNAL_BINDING(0x263B70, Il2CppString*, il2cpp_string_new_utf16, (const Il2CppChar* str, uint32_t len));
         INTERNAL_BINDING(0x10F120, Il2CppType*, il2cpp_class_get_type, (Il2CppClass* klass));
         INTERNAL_BINDING(0x2643A0, char*, il2cpp_type_get_assembly_qualified_name, (const Il2CppType* type));
         INTERNAL_BINDING(0x002460, Il2CppObject*, il2cpp_value_box, (Il2CppClass* klass, void* value));
@@ -296,6 +298,13 @@ namespace il2cpp
     {
         return il2cpp_string_new_len(str.data(), len);
     }
+
+    Il2CppString* string_new(std::wstring_view str)
+    {
+        return il2cpp_string_new_utf16(reinterpret_cast<const Il2CppChar*>(str.data()), str.length());
+    }
+
+
 
     Il2CppObject* invoke_v(void* obj, std::string_view method, std::vector<void*> params)
     {
