@@ -178,16 +178,22 @@ namespace RandoMainDLL {
             HandleSpecial(state);
             UberStates[key].Value = state.Value;
             if (!SkipListners) {
-              if(SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
-                SkipUberStateMapCount[key] -= 1;
-              } else {
-                var pos = InterOp.get_position();
-                bool found = false;
-                if (value.Int > 0)
-                  found = SeedController.OnUberState(state);
-                if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
-                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
+              var pos = InterOp.get_position();
+              bool found = false;
+              if (value.Int > 0) {
+                if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
+                  var id = state.GetUberId();
+                  var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
+                  if(p.NonEmpty) {
+                    SkipUberStateMapCount[key] -= 1;
+                    Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
+                    continue;
+                  }
+                }
+                found = SeedController.OnUberState(state);
               }
+              if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
+                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);              
             }
 
           }
