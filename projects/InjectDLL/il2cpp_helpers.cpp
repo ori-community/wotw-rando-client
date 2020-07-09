@@ -199,6 +199,9 @@ namespace il2cpp
         std::string get_object_name(void* object)
         {
             auto cast_object = static_cast<app::Object*>(object);
+            if (cast_object == nullptr)
+                return "nullptr";
+
             auto csstr = Object_get_name(cast_object);
             return convert_csstring(csstr);
         }
