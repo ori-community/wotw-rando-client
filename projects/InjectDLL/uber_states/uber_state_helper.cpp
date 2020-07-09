@@ -17,7 +17,7 @@ namespace
     IL2CPP_BINDING(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
     IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
     IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory,
-        (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type), (Moon.uberSerializationWisp:PlayerUberStateShards.Shard));
+        (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type), (SpiritShardType));
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
 
@@ -196,16 +196,20 @@ INJECT_C_DLLEXPORT void refresh_shards() {
 
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
     // TODO: a way to remove shards
-  if (value) {
-    PlayerSpiritShards_AddNewShardToInventory(get_player_spirit_shards(), type);
-    return;
-  }
-  auto shards = get_shards();
+    if (value)
+    {
+        auto shards = get_player_spirit_shards();
+        PlayerSpiritShards_AddNewShardToInventory(shards, type);
+        return;
+    }
+
+    auto shards = get_shards();
     app::PlayerUberStateShards_Shard* shard = nullptr;
     auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", &type, &shard)->fields;
-    if (found) {
-      shard->fields.m_gained = false;
-      refresh_shards();
+    if (found)
+    {
+        shard->fields.m_gained = false;
+        refresh_shards();
     }
     else
         trace(MessageType::Warning, 3, "game", format("shard of type '%d' does not exist", type));
