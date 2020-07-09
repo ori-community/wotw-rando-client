@@ -155,10 +155,10 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, Invert Swim Speeds
         Help := "Inverts the hold-space-to-swim-faster mechanic.`nHolding space will make you swim slower instead."
     else IfEqual, HoverText, Disable Quest Snap on Mouseover
-        Help := "Prevents the map from scrolling to a quest location when hovering over a quest in the quest list.`n(You can still scroll to a quest by pressing your Ability3 bind while hovering)"
+        Help := "Checking this option prevents the map from scrolling to a quest location when hovering over a quest in the`nquest list. (You can still scroll to a quest by pressing your Ability3 bind while hovering)"
 
     else IfEqual, HoverText, Disable Debug Controls
-        Help := "Disables debug controls on game launch. `nToggle debug controls on/off with Ctrl+Alt+D."
+        Help := "Disables debug controls on game launch.`nToggle debug controls on/off with Ctrl+Alt+D."
 
     else IfEqual, HoverText, Restore Short Cutscenes
         Help := "Enables the short-but-unskippable cutscenes normally removed by the randomizer."

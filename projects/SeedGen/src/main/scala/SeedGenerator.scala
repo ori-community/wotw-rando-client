@@ -56,8 +56,8 @@ package SeedGenerator {
       }.toSeq
       pickupsFile.close()
       pickups.filter({
-        case l if UI.Options.hints && l.value == "LupoZoneMap" => false
-        case l if !UI.Options.questLocs && l.category == "Quest" => false
+        case l if UI.opts.hints && l.value == "LupoZoneMap" => false
+        case l if !UI.opts.questLocs && l.category == "Quest" => false
         case _ => true
       })
     }
@@ -304,16 +304,16 @@ package SeedGenerator {
 
     var populatedWithSetting: Option[GenSettings] = None
     def populate(): Boolean = {
-      if(populatedWithSetting.contains(UI.Options))
+      if(populatedWithSetting.contains(UI.opts))
         return true // already done lol
       Timer("Path parsing", printAfterEach = true) {
-          FastParser.parseFile(advanced = UI.Options.unsafePaths) match {
+          FastParser.parseFile(advanced = UI.opts.unsafePaths) match {
             case Right(value) =>
               UI.debug(s"parse done ${value.size} areas")
               _areas = Timer("FixAreas")(fixAreas(value))
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
               UI.debug(s"items done ${_items.size} items")
-              populatedWithSetting = Some(UI.Options)
+              populatedWithSetting = Some(UI.opts)
               true
             case Left(error) =>
               UI.log(error)
@@ -347,14 +347,14 @@ package SeedGenerator {
     def getProgressionPaths(instate: GameState, spaceRemaining: Int = 999): MSet[(GameState, Set[ItemLoc])] = {
       val items = instate.items
       val states = MSet.empty[GameState]
-      reachCache.foreach{case (area, AreaTraversalInfo(_, targets)) => area.conns.filter(c => targets.contains(c.target.res)).foreach(_.reqs.foreach( r => {
-          r.remaining(instate, space = spaceRemaining).filter(s => s.flags.isEmpty && s.inv.nonEmpty).foreach(states.add)
-        }))}
-      val singles = states.filter(_.inv.count == 1).map(_.inv.head._1)
-      states.filterNot(st =>
-        st.inv.count > spaceRemaining ||
-        (st.inv.count > 1 && singles.exists(st.inv.has(_)))
-      ).map(i => i -> (Nodes.reached(instate+i).items -- items)).filter(_._2.nonEmpty)
+      reachCache.foreach { case (area, AreaTraversalInfo(_, targets)) => area.conns.filter(c => targets.contains(c.target.res)).foreach(_.reqs.foreach(r => {
+        r.remaining(instate, space = spaceRemaining).filter(s => s.flags.isEmpty && s.inv.nonEmpty).foreach(states.add)
+      }))}
+
+      val paths = states.filterNot(_.inv.count > spaceRemaining)
+        .map(i => i -> (Nodes.reached(instate + i).items -- items)).filter(_._2.nonEmpty)
+      val singles = paths.filter(_._1.inv.count == 1).map(_._1.inv.head._1)
+      paths.filterNot { case (st, _) => st.inv.count > 1 && singles.exists(st.inv.has(_)) }
     }
   }
 
@@ -364,7 +364,7 @@ package SeedGenerator {
     def code: String = loc.data.code
     def data = s"${loc.data.code}|${item.code}"
     def write: String = {
-      if(!UI.Options.spoilers)
+      if(!UI.opts.spoilers)
         return data
 //      Tracking.incAreas(item, loc.data)
       val dataPad = " " * (22 - data.length)
@@ -385,7 +385,7 @@ package SeedGenerator {
 
   case class PlacementGroup(outState: GameState, prog: Inv, placements: Seq[Placement], i: Int)(implicit r: Random, pool: Inv, debug: Boolean = false) {
     def desc(standalone: Boolean = false): String = {
-      if(!UI.Options.spoilers)
+      if(!UI.opts.spoilers)
         return ""
       if(standalone)
         return placements.collect({
@@ -429,7 +429,7 @@ package SeedGenerator {
       val state = Nodes.reached(inState)
       val reachableLocs = state.items
       val placedLocs = inState.items
-      val locs = r.shuffle(reachableLocs -- placedLocs).toSeq
+      val locs = r.shuffle((reachableLocs -- placedLocs).toSeq)
       val count = pool.count
       val placed = placedLocs.size
       if(count+placed != ItemPool.SIZE)
@@ -465,7 +465,7 @@ package SeedGenerator {
           val newState = Nodes.reached(state)
           val newLocs = newState.items
           val newCount = (newLocs -- reachableLocs).size
-          debugPrint(s"reachables after KS, got $newCount")
+          debugPrint(s"checking for reachables after KS, got $newCount")
           if(newCount > 0 || newLocs.size == ItemPool.SIZE)
             return PlacementGroup(state.copy(reached = reachableLocs.toSet[Node]), Inv.Empty, placements.toSeq, i)
           else
@@ -489,7 +489,7 @@ package SeedGenerator {
         val newState = Nodes.reached(state)
         val newLocs = newState.items
         val newCount = (newLocs -- reachableLocs).size
-        debugPrint(s"reachables after KS, got $newCount")
+        debugPrint(s"checking for reachables after random placement, got $newCount")
         if(newCount > reservedForProg.size || newLocs.size == ItemPool.SIZE)
           return PlacementGroup(state.copy(reached = reachableLocs.toSet[Node] --  reservedForProg), Inv.Empty, placements.toSeq, i)
       }
@@ -511,7 +511,7 @@ package SeedGenerator {
 
         debugPrint(s"Looking for paths. Have $sizeLeft new locs. Need to reach $remainCount more")
         val possiblePaths = Timer(s"possiblePathsPartial"/*, far=$far"*/){
-          Nodes.getProgressionPaths(state, sizeLeft).toSeq
+          Nodes.getProgressionPaths(Nodes.reached(state), sizeLeft).toSeq
           .collect({
             case (items, n) if n.size >= Math.min(3, remainCount) => (acc(items), items)
             case (items, n) if n.nonEmpty => (acc(items, .3*n.size), items)
@@ -574,7 +574,7 @@ object Runner {
       val (grps, err) = mkSeed(advanced)
       err match {
         case Some(e)  => UI.log(s"$e"); None
-        case None     => Some(UI.flagLine + grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
+        case None     => Some(UI.opts.flags.line + grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
       }
     }
     def seedProg(standalone: Boolean = true, advanced: Boolean = false): Option[String] = {
