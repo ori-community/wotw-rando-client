@@ -22,6 +22,7 @@ const std::set<app::AbilityType__Enum> tree_abilities{
     app::AbilityType__Enum_Bow,
     app::AbilityType__Enum_Sword,
     app::AbilityType__Enum_Digging,
+    app::AbilityType__Enum_DashNew,
     app::AbilityType__Enum_Launch,
     app::AbilityType__Enum_WaterDash,
     app::AbilityType__Enum_Regenerate,

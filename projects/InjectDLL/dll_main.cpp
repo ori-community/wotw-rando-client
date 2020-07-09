@@ -95,7 +95,7 @@ INJECT_C_DLLEXPORT void magic_function() {
 INJECT_C_DLLEXPORT bool has_ability(uint8_t ability) {
     auto sein = get_sein();
     if(sein && sein->fields.PlayerAbilities)
-        return PlayerAbilities__HasAbility(sein->fields.PlayerAbilities, ability);
+        return PlayerAbilities_HasAbility(sein->fields.PlayerAbilities, ability);
     trace(MessageType::Error, 3, "abilities", "Failed to check ability: couldn't find reference to sein!");
     return false;
 }
@@ -103,7 +103,7 @@ INJECT_C_DLLEXPORT bool has_ability(uint8_t ability) {
 INJECT_C_DLLEXPORT void set_ability(uint8_t ability,  bool value) {
     auto sein = get_sein();
     if (sein && sein->fields.PlayerAbilities)
-        PlayerAbilities__SetAbility(sein->fields.PlayerAbilities, ability, value);
+        PlayerAbilities_SetAbility(sein->fields.PlayerAbilities, ability, value);
     else
         trace(MessageType::Error, 3, "abilities", "Failed to set ability: couldn't find reference to sein!");
 }
@@ -363,7 +363,7 @@ INJECT_C_DLLEXPORT void injection_entry()
     trace(MessageType::Info, 5, "initialize", format("debug: %d log: %d", debug_enabled, info_enabled));
     //LOG("debug: " << debug_enabled << " log: " << info_enabled);
     trace(MessageType::Info, 5, "initialize", "c# init complete");
-    interception_init();
+    intercept::interception_init();
 
     dev::initialization_callbacks();
     set_no_pause(true);

@@ -13,16 +13,17 @@
 
 namespace
 {
-    BINDING(17707024, void, PlayerSpiritShards__RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
-    BINDING(17712256, void, PlayerSpiritShards__SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
-    BINDING(17706592, bool, PlayerSpiritShards__HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
-    BINDING(17712336, app::PlayerUberStateShards_Shard*, PlayerSpiritShards__AddNewShardToInventory, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
-    BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
-    BINDING(27758304, Il2CppObject*, Moon_UberStateCollection__get_Descriptors, ());
+    IL2CPP_BINDING(, PlayerSpiritShards, void, RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
+    IL2CPP_BINDING(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
+    IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
+    IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory,
+        (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type), (SpiritShardType));
+    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
+    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
 
-    app::CheatsHandler* get_cheats()
+    app::CheatsHandler__StaticFields* get_cheats()
     {
-        return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields->Instance;
+        return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields;
     }
 
     app::PlayerUberStateStats* get_stats()
@@ -69,12 +70,16 @@ namespace
 
 INJECT_C_DLLEXPORT void set_debug_controls(bool value)
 {
-    get_cheats()->fields.DebugEnabled = value;
+  auto cheats = get_cheats();
+  cheats->Instance->fields.DebugEnabled = value;
+  cheats->DebugWasEnabled = value;
+  cheats->DebugAlwaysEnabled = value;
+  il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues")->static_fields->DebugControlsEnabled = value;
 }
 
 INJECT_C_DLLEXPORT bool get_debug_controls()
 {
-    return get_cheats()->fields.DebugEnabled;
+    return get_cheats()->Instance->fields.DebugEnabled;
 }
 
 INJECT_C_DLLEXPORT void fill_health()
@@ -126,7 +131,7 @@ INJECT_C_DLLEXPORT int32_t get_ore()
 
 INJECT_C_DLLEXPORT void set_ore(int32_t value)
 {
-    SeinLevel__set_Ore(get_sein()->fields.Level, value);
+    SeinLevel_set_Ore(get_sein()->fields.Level, value);
     get_inventory()->fields.m_ore = value;
 }
 
@@ -153,8 +158,14 @@ INJECT_C_DLLEXPORT void set_keystones(int32_t value)
 
 INJECT_C_DLLEXPORT app::Vector2 get_position()
 {
-    auto pos = get_sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
-    return app::Vector2{ pos.x, pos.y };
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        auto pos = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
+        return app::Vector2{ pos.x, pos.y };
+    }
+    else
+        return app::Vector2{ 0, 0 };
 }
 
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state()
@@ -172,29 +183,33 @@ app::PlayerSpiritShards* get_player_spirit_shards() {
 }
 
 INJECT_C_DLLEXPORT void set_shard_slots(int32_t value) {
-  PlayerSpiritShards__SetGlobalShardSlotCount(get_player_spirit_shards(), value);
+  PlayerSpiritShards_SetGlobalShardSlotCount(get_player_spirit_shards(), value);
 }
 
 INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type) {
-  return PlayerSpiritShards__HasShard(get_player_spirit_shards(), type);
+  return PlayerSpiritShards_HasShard(get_player_spirit_shards(), type);
 }
 
 INJECT_C_DLLEXPORT void refresh_shards() {
-  PlayerSpiritShards__RefreshHasShard(get_player_spirit_shards());
+  PlayerSpiritShards_RefreshHasShard(get_player_spirit_shards());
 }
 
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
     // TODO: a way to remove shards
-  if (value) {
-    PlayerSpiritShards__AddNewShardToInventory(get_player_spirit_shards(), type);
-    return;
-  }
-  auto shards = get_shards();
+    if (value)
+    {
+        auto shards = get_player_spirit_shards();
+        PlayerSpiritShards_AddNewShardToInventory(shards, type);
+        return;
+    }
+
+    auto shards = get_shards();
     app::PlayerUberStateShards_Shard* shard = nullptr;
     auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", &type, &shard)->fields;
-    if (found) {
-      shard->fields.m_gained = false;
-      refresh_shards();
+    if (found)
+    {
+        shard->fields.m_gained = false;
+        refresh_shards();
     }
     else
         trace(MessageType::Warning, 3, "game", format("shard of type '%d' does not exist", type));

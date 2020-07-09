@@ -138,7 +138,8 @@ namespace RandoMainDLL {
       supCount = sup;
     }
     public override void Grant(bool skipBase = false) {
-      UberStateController.SkipUberStateMapCount[State.GetUberId()] += supCount;
+      var id = State.GetUberId();
+      UberStateController.SkipUberStateMapCount[id] = supCount;
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
@@ -153,7 +154,8 @@ namespace RandoMainDLL {
       ModStr = modstr;
     }
     public override void Grant(bool skipBase = false) {
-      UberStateController.SkipUberStateMapCount[State.GetUberId()] += supCount;
+      var id = State.GetUberId();
+      UberStateController.SkipUberStateMapCount[id] = supCount;
       State.Value = Modifier(State.ValueOr(State.Value));
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }

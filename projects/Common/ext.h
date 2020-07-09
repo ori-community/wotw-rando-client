@@ -3,6 +3,8 @@
 #include <algorithm> 
 #include <cctype>
 #include <string>
+#include <string_view>
+#include <sstream>
 
 // Calls to these methods are destructive to pointers returned previously.
 const char* format(const char* str, ...);
@@ -38,4 +40,13 @@ static inline std::string ltrim_copy(std::string s) {
 static inline std::string rtrim_copy(std::string s) {
     rtrim(s);
     return s;
+}
+
+template <class Container>
+void split_str(std::string const& str, Container& cont, char delim = ' ')
+{
+    std::stringstream ss(str);
+    std::string token;
+    while (std::getline(ss, token, delim))
+        cont.push_back(token);
 }

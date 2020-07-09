@@ -62,7 +62,6 @@ namespace
     }
 }
 
-
 INTERCEPT(13866448, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b)) {
     //MessageControllerB$$ShowSpiritTreeTextMessage
     return 0;
@@ -74,34 +73,61 @@ INTERCEPT(13849632, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 
   }
 
 INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c)) {
-  //MessageControllerB$$ShowShardMessage
-  return 0;
-  }
-
-INTERCEPT(13855664, app::MessageBox*, MessageControllerB__ShowCompleteQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
+  //MessageControllerB$$ShowShardMessages
   return 0;
 }
 
-INTERCEPT(13856176, app::MessageBox*, MessageControllerB__ShowUpdatedQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
-  return 0;
+// Gets called on gorlek ore, no effect on message.
+//IL2CPP_INTERCEPT(Moon, NPCEntity, void, CollectReward, (app::NPCEntity* this_ptr)) {
+//    NPCEntity_CollectReward(this_ptr);
+//    auto go = il2cpp::invoke<app::GameObject>(this_ptr, "get_GameObject");
+//    //this_ptr->fields.RewardTimeline
+//}
+
+IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
+    return nullptr;
 }
 
-INJECT_C_DLLEXPORT void message_item_callback(const char* str)
+// Don't think this ever gets called.
+IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowCompleteQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
+    return nullptr;
+}
+
+// Don't think this ever gets called.
+IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowUpdatedQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
+    return nullptr;
+}
+
+bool clear_on_next_update = false;
+INJECT_C_DLLEXPORT void clear_quest_messages()
 {
+    clear_on_next_update = true;
+}
+
+IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController* this_ptr)) {
+    if (clear_on_next_update)
+    {
+        il2cpp::invoke(this_ptr->fields.m_queuedQuestMessages, "Clear");
+        clear_on_next_update = false;
+    }
+
+    QuestsController_Update(this_ptr);
+}
+
+INJECT_C_DLLEXPORT void message_item_callback(const wchar_t* str) {
     cached = reinterpret_cast<app::String*>(il2cpp::string_new(str));
 }
 
-INTERCEPT(15446864, app::String*, TranslatedMessageProvider_MessageItem_Message, (__int64 pThis1, __int64 pThis2, char language)) {
-    auto result = TranslatedMessageProvider_MessageItem_Message(pThis1, pThis2, language);
-    if(result && is_in_shop_screen())
-    {
-        auto shop_str = convert_csstring(result);
-        auto wrote_str = csharp_bridge::shop_string_repl(shop_str.c_str());
-        if (wrote_str)
-            return cached;
-    }
+NESTED_IL2CPP_INTERCEPT(, TranslatedMessageProvider, MessageItem, app::MessageDescriptor, GetDescriptor, (app::TranslatedMessageProvider_MessageItem* this_ptr, int32_t language)) {
+  auto result = TranslatedMessageProvider_MessageItem_GetDescriptor(this_ptr, language);
+  if (result.Message != nullptr && is_in_shop_screen()){
+    auto shop_str = convert_csstring(result.Message);
+    auto wrote_str = csharp_bridge::shop_string_repl(shop_str.c_str());
+    if (wrote_str)
+      result.Message = cached;
+  }
 
-    return result;
+  return result;
 }
 
 INTERCEPT(13823536, void, MessageBox__Update, (app::MessageBox* this_ptr)) {
