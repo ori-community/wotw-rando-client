@@ -4,14 +4,22 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import java.io.File
 package SeedGenerator {
+
+  import java.io.{ByteArrayOutputStream, FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
+
+  import scala.util.Try
+
   trait Flag { def value: String }
 
   class UI extends MainFrame {
+
     title = "Wotw Rando Seed Generator"
     preferredSize = new Dimension(800, 600)
-    val folderSelector = new FileChooser(new File("C:/moon"))
-    val folderLabel = new Label(s"Output folder:   ${UI.outputFolder.getPath}")
-    folderSelector.selectedFile = UI.outputFolder
+    val startSet = UI.settings
+    val startFold = new File(startSet.outputFolder)
+    val folderSelector = new FileChooser(startFold)
+    val folderLabel = new Label(s"Output folder:   ${startSet.outputFolder}")
+    folderSelector.selectedFile = startFold
     folderSelector.fileSelectionMode = FileChooser.SelectionMode.DirectoriesOnly
     folderSelector.title = "Choose a folder to put generated seeds in"
     val zoneHints      = new CheckBox("Zone Hints")
@@ -27,11 +35,15 @@ package SeedGenerator {
     val folderButton   = new Button("Change")
     val runLastSeed    = new Button("Launch Seed")
     val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12) }
-    spoilers.selected    = true
-    zoneHints.selected   = true
-    teleporters.selected = true
-    quests.selected      = true
-    runLastSeed.enabled = false
+    spoilers.selected       = startSet.spoilers
+    zoneHints.selected      = startSet.hints
+    teleporters.selected    = startSet.tps
+    quests.selected         = startSet.questLocs
+    uncheckedPaths.selected = startSet.unsafePaths
+    forceWisps.selected = startSet.flags.forceWisps
+    forceTrees.selected = startSet.flags.forceTrees
+    forceQuests.selected = startSet.flags.forceQuests
+    runLastSeed.enabled  = false
     logView.editable = false
     val logHolder = new ScrollPane(logView)
     val debugToggle = new CheckBox("Extra Debug Info (contains spoilers)")
@@ -43,9 +55,9 @@ package SeedGenerator {
         case ButtonClicked(`runLastSeed`) => UI.runSeed()
         case ButtonClicked(`folderButton`) =>
           if(folderSelector.showDialog(this, "Select output directory") == FileChooser.Result.Approve) {
-            UI.outputFolder = folderSelector.selectedFile
             folderLabel.text = s"Output folder:   ${UI.outputFolder.getPath}"
           }
+          UI.writeSettings
       }
     contents = new BorderPanel {
       add(new BoxPanel(Orientation.Vertical) {
@@ -97,10 +109,23 @@ package SeedGenerator {
         contents += logHolder
       }, BorderPanel.Position.Center)
       add(new BorderPanel {
-        add(Button("Close") { sys.exit(0) }, BorderPanel.Position.West)
+        add(Button("Close") { UI.writeSettings; sys.exit(0) }, BorderPanel.Position.West)
         add(runLastSeed, BorderPanel.Position.East)
       }, BorderPanel.Position.South)
 
+    }
+  }
+  case class Flags(forceWisps: Boolean, forceTrees: Boolean, forceQuests: Boolean, noHints: Boolean) {
+    def line: String = {
+      Seq(
+        if(forceWisps) Some("ForceWisps") else None,
+        if(forceTrees) Some("ForceTrees") else None,
+        if(forceQuests) Some("ForceQuests") else None,
+        if(noHints) None else Some("NoHints")
+      ).flatten match {
+        case Nil => ""
+        case s => s"Flags: ${s.mkString(", ")}\n"
+      }
     }
   }
   case class GenSettings(
@@ -108,23 +133,31 @@ package SeedGenerator {
                           tps: Boolean,
                           spoilers: Boolean,
                           unsafePaths: Boolean,
-                          questLocs: Boolean
+                          questLocs: Boolean,
+                          outputFolder: String,
+                          flags: Flags
                         )
   object UI {
-    def Options: GenSettings = GenSettings(
+    def opts: GenSettings = GenSettings(
       ui.zoneHints.selected,
       ui.teleporters.selected,
       ui.spoilers.selected,
       ui.uncheckedPaths.selected,
-      ui.quests.selected
+      ui.quests.selected,
+      ui.folderSelector.selectedFile.getAbsolutePath,
+      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected)
     )
-    def flags: Seq[String] = Seq(
-      if(ui.forceWisps.selected) Some("ForceWisps") else None,
-      if(ui.forceTrees.selected) Some("ForceTrees") else None,
-      if(ui.forceQuests.selected) Some("ForceQuests") else None,
-      if(ui.zoneHints.selected) None else Some("NoHints"),
-    ).flatten
-    def flagLine: String = if(flags.nonEmpty) s"Flags: ${flags.mkString(", ")}\n"else ""
+    val settingsPath = "C:/moon/.seedgen"
+    def writeSettings = {
+      val out = new ObjectOutputStream(new FileOutputStream(settingsPath))
+      out.writeObject(opts)
+    }
+    def readSettings: Option[GenSettings] = Try {
+        val in = new ObjectInputStream(new FileInputStream(settingsPath))
+        in.readObject().asInstanceOf[GenSettings]
+      }.toOption
+    def settings = readSettings.getOrElse(GenSettings(true, true, true, false, true, "C:\\moon", Flags(false, false, false, false)))
+
     def outputFile: File = {
       val name_base = outputFolder.getPath + "/" + (if(ui.seedField.text != "") ui.seedField.text else "seed")
       var ret = new File(s"$name_base.wotwr")
@@ -137,6 +170,7 @@ package SeedGenerator {
       ret
     }
     def runSeed(): Unit = {
+      writeSettings
       import scala.sys.process._
       lastSeed match {
         case Some(file) => Seq("cmd", "/C", file.getAbsolutePath).!
@@ -149,6 +183,7 @@ package SeedGenerator {
     def seedClicked(): Unit = {
       currentOp = Some(Future {
         log("Building...")
+        writeSettings
         ui.makeSeedButton.enabled = false
         if(ui.seedField.text != "") {
           log(s"Seeded RNG with ${UI.ui.seedField.text}")
@@ -174,7 +209,7 @@ package SeedGenerator {
       ui.logHolder.verticalScrollBar.value = ui.logHolder.verticalScrollBar.maximum
     }
     var lastSeed: Option[File] = None
-    var outputFolder: File = new File("C:/moon")
+    def outputFolder: File = new File(opts.outputFolder)
     var currentOp: Option[Future[Unit]] = None
     val ui = new UI
     def show(): Unit = {
