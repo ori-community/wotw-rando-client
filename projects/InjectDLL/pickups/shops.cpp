@@ -117,7 +117,7 @@ INTERCEPT(31416864, int64_t, enumDictGetValue, (int64_t dict, unsigned __int8 en
 
     //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
     //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
-    if(impl == *(int64_t*) resolve_rva(71639080))
+    if(impl == *(int64_t*)intercept::resolve_rva(71639080))
         if(value)
 	        initShardDescription(enumKey, value);
 

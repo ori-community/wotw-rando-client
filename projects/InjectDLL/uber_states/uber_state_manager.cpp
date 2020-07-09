@@ -14,7 +14,7 @@ namespace uber_states
     namespace
     {
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
-        //STATIC_IL2CPP_BINDING(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, int32_t context));
+        STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, int32_t context), (Moon:IUberState, Moon:UberStateApplyContext));
 
         void notify_uber_state_change(app::IUberState* uber_state, float prev, float current)
         {
@@ -83,19 +83,19 @@ namespace uber_states
 
     void apply_uber_state_no_notify(app::IUberState* uber_state)
     {
-        il2cpp::invoke(il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")
-            ->static_fields->s_instance, "Apply", uber_state);
+        UberStateController_Apply(uber_state, 0);
+        //il2cpp::invoke(il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")
+        //    ->static_fields->s_instance, "Apply", uber_state, 0);
     }
 
     app::UberID* get_uber_state_id(app::IUberState* uber_state)
     {
-        return il2cpp::invoke<app::UberID>(uber_state, "get_ID");
+        return il2cpp::invoke<app::UberID>(uber_state, "get_StateID");
     }
 
     app::UberID* get_uber_state_group_id(app::IUberState* uber_state)
     {
-        auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
-        return il2cpp::invoke<app::UberID>(group, "get_ID");
+        return il2cpp::invoke<app::UberID>(uber_state, "get_GroupID");
     }
     
     std::string get_uber_state_name(app::IUberState* uber_state)
@@ -151,9 +151,8 @@ namespace uber_states
         }
         else
         {
-            auto state_id = il2cpp::invoke<app::UberID>(uber_state, "get_ID")->fields.m_id;
-            auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
-            auto group_id = il2cpp::invoke<app::UberID>(group, "get_ID")->fields.m_id;
+            auto state_id = il2cpp::invoke<app::UberID>(uber_state, "get_StateID")->fields.m_id;
+            auto group_id = il2cpp::invoke<app::UberID>(uber_state, "get_GroupID")->fields.m_id;
             trace(MessageType::Warning, 2, "uber_state",
                 format("uber state (%d, %d) does not implement IGenericUberState", state_id, group_id));
         }
@@ -172,9 +171,8 @@ namespace uber_states
         }
         else
         {
-            auto state_id = il2cpp::invoke<app::UberID>(uber_state, "get_ID")->fields.m_id;
-            auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
-            auto group_id = il2cpp::invoke<app::UberID>(group, "get_ID")->fields.m_id;
+            auto state_id = il2cpp::invoke<app::UberID>(uber_state, "get_StateID")->fields.m_id;
+            auto group_id = il2cpp::invoke<app::UberID>(uber_state, "get_GroupID")->fields.m_id;
             trace(MessageType::Warning, 2, "uber_state",
                 format("uber state (%d, %d) does not implement IGenericUberState", state_id, group_id));
             return 0.f;

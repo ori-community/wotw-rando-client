@@ -2,41 +2,48 @@
 
 #include <string_view>
 
-struct il2cpp_intercept
+namespace intercept
 {
-    il2cpp_intercept(bool p_ztatic, std::string_view p_namezpace, std::string_view p_klass, std::string_view p_nested,
-        std::string_view p_method_name, std::string p_params, void** p_original_pointer, void* p_intercept_pointer);
+    struct il2cpp_intercept
+    {
+        il2cpp_intercept(bool p_ztatic, std::string_view p_namezpace, std::string_view p_klass, std::string_view p_nested,
+            std::string_view p_method_name, std::string p_params, std::string_view p_overload_params, void** p_original_pointer, void* p_intercept_pointer);
 
-    bool ztatic;
-    std::string_view namezpace;
-    std::string_view klass;
-    std::string_view nested;
-    std::string_view method_name;
-    int param_count;
-    void** original_pointer;
-    void* intercept_pointer;
-    il2cpp_intercept* next;
-    il2cpp_intercept* prev;
-};
+        std::string_view namezpace;
+        std::string_view klass;
+        std::string_view nested;
+        std::string_view method_name;
+        std::string overload_params;
 
-struct intercept
-{
-    intercept(uint64_t o, void** oP, void* iP, std::string_view s);
+        bool ztatic;
+        int param_count;
 
-    int type;
-    std::string_view name;
-    uint64_t offset;
-    void** original_pointer;
-    void* intercept_pointer;
-    intercept* next;
-    intercept* prev;
-};
+        void** original_pointer;
+        void* intercept_pointer;
 
-extern intercept* last_intercept;
-extern il2cpp_intercept* last_il2cpp_intercept;
+        il2cpp_intercept* next;
+        il2cpp_intercept* prev;
+    };
 
-uint64_t resolve_rva(uint64_t rva);
-uint64_t unresolve_rva(uint64_t ptr);
-void interception_init();
-void interception_detach();
+    struct intercept
+    {
+        intercept(uint64_t o, void** oP, void* iP, std::string_view s);
+
+        int type;
+        std::string_view name;
+        uint64_t offset;
+        void** original_pointer;
+        void* intercept_pointer;
+        intercept* next;
+        intercept* prev;
+    };
+
+    extern intercept* last_intercept;
+    extern il2cpp_intercept* last_il2cpp_intercept;
+
+    uint64_t resolve_rva(uint64_t rva);
+    uint64_t unresolve_rva(uint64_t ptr);
+    void interception_init();
+    void interception_detach();
+}
 

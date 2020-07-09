@@ -32,8 +32,6 @@ namespace il2cpp
 
     namespace untyped
     {
-        MethodInfo* get_method_from_name(Il2CppClass* klass, std::string_view name, int arg_count);
-
         Il2CppObject* create_object(std::string_view namezpace, std::string_view name);
         Il2CppObject* create_object(Il2CppClass* klass);
 
@@ -45,6 +43,11 @@ namespace il2cpp
         Il2CppClass* get_class(std::string_view namezpace, std::string_view name);
         Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested);
     }
+
+    int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
+    MethodInfo const* get_method_from_name_overloaded(Il2CppClass* klass, std::string_view method, int param_count, int overload);
+    MethodInfo const* get_method_from_name_params(Il2CppClass* klass, std::string_view method, std::vector<void*> const& params);
+    MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<Il2CppClass*> const& params);
 
     void free_obj(void* obj);
 

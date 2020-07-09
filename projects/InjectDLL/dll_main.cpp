@@ -363,7 +363,7 @@ INJECT_C_DLLEXPORT void injection_entry()
     trace(MessageType::Info, 5, "initialize", format("debug: %d log: %d", debug_enabled, info_enabled));
     //LOG("debug: " << debug_enabled << " log: " << info_enabled);
     trace(MessageType::Info, 5, "initialize", "c# init complete");
-    interception_init();
+    intercept::interception_init();
 
     dev::initialization_callbacks();
     set_no_pause(true);
