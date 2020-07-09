@@ -128,7 +128,7 @@ namespace RandoMainDLL {
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool is_loading_game();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    unsafe public extern static void message_item_callback([MarshalAs(UnmanagedType.LPStr)] string s);
+    unsafe public extern static void message_item_callback([MarshalAs(UnmanagedType.LPWStr)] string s);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);

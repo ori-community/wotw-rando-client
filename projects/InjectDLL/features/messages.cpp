@@ -62,7 +62,6 @@ namespace
     }
 }
 
-
 INTERCEPT(13866448, __int64, showSpiritTreeTextMessage, (__int64 a, __int64 b)) {
     //MessageControllerB$$ShowSpiritTreeTextMessage
     return 0;
@@ -74,9 +73,16 @@ INTERCEPT(13849632, __int64, showAbilityMessage, (__int64 a, __int64 b, __int64 
   }
 
 INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c)) {
-  //MessageControllerB$$ShowShardMessage
+  //MessageControllerB$$ShowShardMessages
   return 0;
 }
+
+// Gets called on gorlek ore, no effect on message.
+//IL2CPP_INTERCEPT(Moon, NPCEntity, void, CollectReward, (app::NPCEntity* this_ptr)) {
+//    NPCEntity_CollectReward(this_ptr);
+//    auto go = il2cpp::invoke<app::GameObject>(this_ptr, "get_GameObject");
+//    //this_ptr->fields.RewardTimeline
+//}
 
 IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) {
     return nullptr;
@@ -108,7 +114,7 @@ IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController* this_
     QuestsController_Update(this_ptr);
 }
 
-INJECT_C_DLLEXPORT void message_item_callback(const char* str) {
+INJECT_C_DLLEXPORT void message_item_callback(const wchar_t* str) {
     cached = reinterpret_cast<app::String*>(il2cpp::string_new(str));
 }
 

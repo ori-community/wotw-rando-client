@@ -50,6 +50,7 @@ namespace il2cpp
 
     Il2CppString* string_new(std::string_view str);
     Il2CppString* string_new(std::string_view str, uint32_t len);
+    Il2CppString* string_new(std::wstring_view str);
 
     Il2CppObject* invoke_v(void* obj, std::string_view method, std::vector<void*> params = {});
     Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, std::string_view method, std::vector<void*> params = {});
