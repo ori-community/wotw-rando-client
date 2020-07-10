@@ -194,12 +194,16 @@ INJECT_C_DLLEXPORT void refresh_shards() {
   PlayerSpiritShards_RefreshHasShard(get_player_spirit_shards());
 }
 
+extern bool collecting_spirit_shard;
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
     // TODO: a way to remove shards
     if (value)
     {
         auto shards = get_player_spirit_shards();
+        auto prev = collecting_spirit_shard;
+        collecting_spirit_shard = false;
         PlayerSpiritShards_AddNewShardToInventory(shards, type);
+        collecting_spirit_shard = prev;
         return;
     }
 
