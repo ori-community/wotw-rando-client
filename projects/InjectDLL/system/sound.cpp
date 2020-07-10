@@ -5,7 +5,7 @@
 namespace
 {
     IL2CPP_BINDING_OVERLOAD(Moon.Wwise, WwiseEventSystem, void, FireAndForget,
-        (app::WwiseEventSystem* this_ptr, app::Event_1* wise_event, app::ISoundHost* host), (AK.Wwise:Event, Moon.Wwise:ISoundHost));
+        (app::WwiseEventSystem* this_ptr, app::Event_1* wwise_event, app::ISoundHost* host), (AK.Wwise:Event, Moon.Wwise:ISoundHost));
 }
 
 INJECT_C_DLLEXPORT void play_sound(SoundEvent evt)
