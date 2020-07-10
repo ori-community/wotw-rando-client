@@ -32,7 +32,7 @@ package SeedGenerator {
     def bowReq[_: P]: P[Requirement] = P("Bow" ~~/ equalsNum).map(i => AllReqs(SkillReq(97), EnergyReq(0.25f * i)))
     def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(SkillReq(74), EnergyReq(2f * i)))
     def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
-    def wallReq[_: P]: P[Requirement] = P(("BreakWall") ~~/ equalsNum).map(BreakWallReq)
+    def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq)
     def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(KeystoneReq)
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)

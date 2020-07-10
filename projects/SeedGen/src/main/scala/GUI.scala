@@ -59,7 +59,7 @@ package SeedGenerator {
           Seq(Swing.HGlue, spoilers, uncheckedPaths, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue,  zoneHints, teleporters, quests, swordSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue,  zoneHints, teleporters, quests, /*swordSpawn,*/ Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
           Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})

@@ -15,6 +15,21 @@ namespace RandoMainDLL {
     BINDING_TWO = 3,
     BINDING_THREE = 4
   }
+  public enum Flag {
+    [Description("NoHints")]
+    NOHINTS,
+    [Description("NoKSDoors")]
+    NOKEYSTONES,
+    [Description("ForceWisps")]
+    ALLWISPS,
+    [Description("ForceTrees")]
+    ALLTREES,
+    [Description("ForceQuests")]
+    ALLQUESTS,
+    [Description("NoSword")]
+    NOSWORD
+  }
+
   public class UberStateCondition {
     public UberId Id;
     public int? Target;
@@ -47,18 +62,6 @@ namespace RandoMainDLL {
       MISC_CONTROL = 3
     }
 
-    public enum Flag {
-      [Description("NoHints")]
-      NOHINTS,
-      [Description("NoKSDoors")]
-      NOKEYSTONES,
-      [Description("ForceWisps")]
-      ALLWISPS,
-      [Description("ForceTrees")]
-      ALLTREES,
-      [Description("ForceQuests")]
-      ALLQUESTS
-    }
 
     public static Pickup Pickup(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
