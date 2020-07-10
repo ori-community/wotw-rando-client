@@ -22,29 +22,20 @@ package SeedGenerator {
     folderSelector.selectedFile = startFold
     folderSelector.fileSelectionMode = FileChooser.SelectionMode.DirectoriesOnly
     folderSelector.title = "Choose a folder to put generated seeds in"
-    val zoneHints      = new CheckBox("Zone Hints")
-    val spoilers       = new CheckBox("Generate Spoiler")
-    val quests         = new CheckBox("Items on Quests")
-    val teleporters    = new CheckBox("Teleporters in item pool")
-    val uncheckedPaths = new CheckBox("Use unsafe paths")
-    val forceTrees     = new CheckBox("Force Trees")
-    val forceWisps     = new CheckBox("Force Wisps")
-    val forceQuests    = new CheckBox("Force Quests")
+    val zoneHints      = new CheckBox("Zone Hints"){selected = startSet.hints}
+    val spoilers       = new CheckBox("Generate Spoiler"){selected = startSet.spoilers}
+    val quests         = new CheckBox("Items on Quests"){selected = startSet.questLocs}
+    val teleporters    = new CheckBox("Teleporters in item pool"){selected = startSet.tps}
+    val uncheckedPaths = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
+    val swordSpawn     = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
+    val forceTrees     = new CheckBox("Force Trees"){selected = startSet.flags.forceWisps}
+    val forceWisps     = new CheckBox("Force Wisps"){selected = startSet.flags.forceTrees}
+    val forceQuests    = new CheckBox("Force Quests"){selected =  startSet.flags.forceQuests}
     val seedField      = new TextField(5)
     val makeSeedButton = new Button("Generate")
     val folderButton   = new Button("Change")
-    val runLastSeed    = new Button("Launch Seed")
-    val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12) }
-    spoilers.selected       = startSet.spoilers
-    zoneHints.selected      = startSet.hints
-    teleporters.selected    = startSet.tps
-    quests.selected         = startSet.questLocs
-    uncheckedPaths.selected = startSet.unsafePaths
-    forceWisps.selected = startSet.flags.forceWisps
-    forceTrees.selected = startSet.flags.forceTrees
-    forceQuests.selected = startSet.flags.forceQuests
-    runLastSeed.enabled  = false
-    logView.editable = false
+    val runLastSeed    = new Button("Launch Seed"){enabled  = false}
+    val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12); editable = false}
     val logHolder = new ScrollPane(logView)
     val debugToggle = new CheckBox("Extra Debug Info (contains spoilers)")
     listenTo(makeSeedButton)
@@ -68,7 +59,7 @@ package SeedGenerator {
           Seq(Swing.HGlue, spoilers, uncheckedPaths, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue,  zoneHints, teleporters, quests, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue,  zoneHints, teleporters, quests, swordSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
           Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
@@ -115,13 +106,14 @@ package SeedGenerator {
 
     }
   }
-  case class Flags(forceWisps: Boolean, forceTrees: Boolean, forceQuests: Boolean, noHints: Boolean) {
+  case class Flags(forceWisps: Boolean, forceTrees: Boolean, forceQuests: Boolean, noHints: Boolean, noSword: Boolean = false) {
     def line: String = {
       Seq(
         if(forceWisps) Some("ForceWisps") else None,
         if(forceTrees) Some("ForceTrees") else None,
         if(forceQuests) Some("ForceQuests") else None,
-        if(noHints) None else Some("NoHints")
+        if(noHints) Some("NoHints") else None,
+        if(noSword) Some("NoSword") else None
       ).flatten match {
         case Nil => ""
         case s => s"Flags: ${s.mkString(", ")}\n"
@@ -145,7 +137,7 @@ package SeedGenerator {
       ui.uncheckedPaths.selected,
       ui.quests.selected,
       ui.folderSelector.selectedFile.getAbsolutePath,
-      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected)
+      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected)
     )
     val settingsPath = "C:/moon/.seedgen"
     def writeSettings = {
@@ -156,7 +148,7 @@ package SeedGenerator {
         val in = new ObjectInputStream(new FileInputStream(settingsPath))
         in.readObject().asInstanceOf[GenSettings]
       }.toOption
-    def settings = readSettings.getOrElse(GenSettings(true, true, true, false, true, "C:\\moon", Flags(false, false, false, false)))
+    def settings = readSettings.getOrElse(GenSettings(true, true, true, false, true, "C:\\moon", Flags(false, false, false, false, false)))
 
     def outputFile: File = {
       val name_base = outputFolder.getPath + "/" + (if(ui.seedField.text != "") ui.seedField.text else "seed")
