@@ -95,6 +95,10 @@ namespace RandoMainDLL {
             CallbackName = "is_tree_activated"
           },
           new Method() {
+            Delegate = new f_void_gwa((AreaType at) => HintsController.OnMapPan(at)),
+            CallbackName = "on_map_pan"
+          },
+          new Method() {
             Delegate = new f_bool_str(ShopController.MessageSwap),
             CallbackName = "shop_string_repl"
           },
@@ -135,6 +139,10 @@ namespace RandoMainDLL {
             CallbackName = "lupo_upgrade_cost"
           },
           new Method() {
+            Delegate = new f_int_int(ShopController.LupoUpgradeCost),
+            CallbackName = "lupo_upgrade_cost"
+          },
+          new Method() {
             Delegate = new f_ull_str_bool(RVAFinder.rvaLookup),
             CallbackName = "rva_lookup"
           },
@@ -153,6 +161,7 @@ namespace RandoMainDLL {
     public delegate void f_void_int_int(int i, int j);
     public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
     public delegate void f_void_st(ShardType st);
+    public delegate void f_void_gwa(AreaType at);
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
     public delegate bool f_bool_st(ShardType st);

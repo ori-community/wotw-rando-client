@@ -66,6 +66,7 @@ set(
 	"dev/object_visualizer.h"
 	"features/invert_swim.h"
 	"features/input_poller.h"
+	"features/messages.h"
 	"features/mouse_control.h"
 	"fixes/dash.h"
 	"pickups/ore.h"

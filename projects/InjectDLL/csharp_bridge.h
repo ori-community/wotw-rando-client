@@ -10,6 +10,7 @@ namespace csharp_bridge
     {
         using f_void = void(*)();
         using f_void_at = void(*)(app::AbilityType__Enum);
+        using f_void_gwa = void(*)(app::GameWorldAreaID__Enum);
         using f_void_at_bool = void(*)(app::AbilityType__Enum, bool);
         using f_void_int = void(*)(int);
         using f_void_int_int = void(*)(int, int);
@@ -37,6 +38,7 @@ namespace csharp_bridge
     extern signatures::f_bool tp_to_any_pickup;
     extern signatures::f_bool invert_swim;
     extern signatures::f_bool water_cleansed;
+    extern signatures::f_void_gwa on_map_pan;
 
     // Save system
     extern signatures::f_void_int new_game;
