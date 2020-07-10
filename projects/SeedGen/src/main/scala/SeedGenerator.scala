@@ -505,8 +505,9 @@ package SeedGenerator {
             debugPrint(s"What? $st")
             return 0
           }
-          _fullWeight += multiplier * (1 / st.inv.cost)
-          debugPrint(s"$st->${1 / st.inv.cost} * $multiplier -> ${_fullWeight}")
+          val inc = multiplier * (1 / st.inv.cost)
+          _fullWeight += inc
+          debugPrint(s"$st->${1 / st.inv.cost} * $multiplier -> $inc, total: ${_fullWeight}")
           _fullWeight
         }
 
