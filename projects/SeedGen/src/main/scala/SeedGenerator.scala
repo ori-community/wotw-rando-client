@@ -552,7 +552,12 @@ package SeedGenerator {
 
 object Runner {
     def setSeed(n: Long): Unit = r.setSeed(n)
-    val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1), Set(WorldState("Weapon"), WorldState("EnemyObstacle")))
+    def DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6)) + (
+      if (UI.opts.flags.noSword)
+        GameState.Empty
+      else
+        GameState(Inv.mk(Sword), Set(WorldState("Weapon"), WorldState("EnemyObstacle")))
+      )
     private def mkSeed(advanced: Boolean = false) = {
       implicit val pool: Inv = ItemPool.build()
       recurse()
@@ -662,7 +667,8 @@ object Runner {
     def SIZE: Int = Nodes.items.size
     def build(size: Int = SIZE)(implicit r: Random): Inv = {
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> 32) +
-        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)
+        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*) +
+        (if(UI.opts.flags.noSword) Inv.mk(Sword) else Inv.Empty)
       while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
       pool.merchToPop = Nodes.items.values.count(_.data.category == "Shop")
       pool
