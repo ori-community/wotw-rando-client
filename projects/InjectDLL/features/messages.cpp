@@ -77,6 +77,21 @@ INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c)) {
   return 0;
 }
 
+IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider* this_ptr));
+IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB* this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
+    if (context->fields.PickupType == app::PickupMessageIcon_PickupType__Enum_QuestItem) {
+        auto arr = MessageProvider_GetAllMessages(context->fields.Name);
+        if (arr->max_length > 0)
+        {
+            auto name = convert_csstring(arr->vector[0]);
+            if (name == "Gorlek Ore")
+                return nullptr;
+        }
+    }
+
+    return MessageControllerB_ShowPickupMessage(this_ptr, message_provider, context, lockInput);
+}
+
 // Gets called on gorlek ore, no effect on message.
 //IL2CPP_INTERCEPT(Moon, NPCEntity, void, CollectReward, (app::NPCEntity* this_ptr)) {
 //    NPCEntity_CollectReward(this_ptr);
