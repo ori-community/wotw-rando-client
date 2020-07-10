@@ -194,25 +194,14 @@ INJECT_C_DLLEXPORT void refresh_shards() {
   PlayerSpiritShards_RefreshHasShard(get_player_spirit_shards());
 }
 
-INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
-    // TODO: a way to remove shards
-    if (value)
-    {
-        auto shards = get_player_spirit_shards();
-        PlayerSpiritShards_AddNewShardToInventory(shards, type);
-        return;
-    }
+IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, app::PlayerUberStateShards_Shard*, SetAbility,
+    (app::PlayerUberStateShards* this_ptr, uint8_t ability, bool value));
 
+INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
     auto shards = get_shards();
-    app::PlayerUberStateShards_Shard* shard = nullptr;
-    auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", &type, &shard)->fields;
-    if (found)
-    {
-        shard->fields.m_gained = false;
-        refresh_shards();
-    }
-    else
-        trace(MessageType::Warning, 3, "game", format("shard of type '%d' does not exist", type));
+    auto shard = PlayerUberStateShards_SetAbility(shards, static_cast<uint8_t>(type), value);
+    auto player_shards = get_player_spirit_shards();
+    il2cpp::invoke(player_shards->fields.OnInventoryUpdated, "Invoke", shard);
 }
 
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area()

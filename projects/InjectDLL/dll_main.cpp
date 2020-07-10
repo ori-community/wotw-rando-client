@@ -11,6 +11,7 @@
 #include <pickups/ore.h>
 #include <fixes/dash.h>
 #include <features/invert_swim.h>
+#include <features/mouse_control.h>
 
 #include <string>
 #include <functional>
@@ -343,6 +344,7 @@ INJECT_C_DLLEXPORT void injection_entry()
 
     trace_enabled = csharp_bridge::check_ini("TraceEnabled");
     trace_pinging_enabled = !csharp_bridge::check_ini("TracePingingDisabled");
+    set_mouse_controls();
     if (trace_enabled)
     {
         network_data.is_server = false;

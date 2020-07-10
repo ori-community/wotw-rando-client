@@ -135,9 +135,8 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
 
   quest MarshSpawn.CaveKS:
     base: BreakWall=16
-  quest MarshSpawn.TheMissingKey:  # wont be a thing yet :(
-    base: Unreachable
-    # base: BreakWall=16, MarshSpawn.CaveKS
+  quest MarshSpawn.TheMissingKey:
+    base: BreakWall=16, MarshSpawn.CaveKS
 
   pickup MarshSpawn.LeverEC:
     base:
@@ -189,9 +188,8 @@ area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, b
   refill Checkpoint
 
   quest MarshSpawn.CaveKS: free  # all other pickups in the cave require a weapon; and with a weapon you can go around instead
-  quest MarshSpawn.TheMissingKey:  # wont be a thing :(
-    base: Unreachable
-    # base: MarshSpawn.CaveKS
+  quest MarshSpawn.TheMissingKey:
+    base: MarshSpawn.CaveKS
   quest MarshSpawn.IntoTheBurrows:
     base:
       MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch

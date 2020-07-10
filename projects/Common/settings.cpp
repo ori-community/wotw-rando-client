@@ -176,6 +176,10 @@ IniSettings create_randomizer_settings()
     option.value.b = false;
     file.options.push_back(option);
 
+    option.name = "NoEnergyCost";
+    option.value.b = false;
+    file.options.push_back(option);
+
     option.name = "Dev";
     option.value.b = false;
     file.options.push_back(option);
@@ -185,6 +189,18 @@ IniSettings create_randomizer_settings()
     file.options.push_back(option);
 
     option.name = "TracePingingDisabled";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "BurrowMouseControl";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "WaterDashMouseControl";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "GrappleMouseControl";
     option.value.b = false;
     file.options.push_back(option);
 
