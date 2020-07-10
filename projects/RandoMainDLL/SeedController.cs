@@ -108,7 +108,7 @@ namespace RandoMainDLL {
           }
         }
         if(!init)
-          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}", 300);
+          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}\nFlags: {String.Join(", ", flags)}", 300);
       } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
