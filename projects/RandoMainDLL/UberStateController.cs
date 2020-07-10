@@ -241,7 +241,6 @@ namespace RandoMainDLL {
       if (!InterOp.is_loading_game()) {
         InterOp.clear_quest_messages();
         Randomizer.Log("New Game Init", false);
-        SaveController.SetAbility(AbilityType.SpiritEdge);
         foreach (UberState s in DefaultUberStates) { s.Write(); }
         foreach (UberState s in Kuberstates) { s.Write(); }
         foreach (UberState s in DialogAndRumors) { s.Write(); }
@@ -263,7 +262,10 @@ namespace RandoMainDLL {
         }
 
         InterOp.discover_everything();
-        InterOp.bind_sword();
+        if(!SeedController.flags.Contains(Flag.NOHINTS)) {
+          SaveController.SetAbility(AbilityType.SpiritEdge);
+          InterOp.bind_sword();
+        }
         InterOp.save();
         NeedsNewGameInit = false;
       }
