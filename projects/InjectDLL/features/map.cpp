@@ -1,8 +1,10 @@
 #include <interception_macros.h>
 #include <dll_main.h>
-
+#include <Common/ext.h>
+#include <common.h>
 #include <csharp_bridge.h>
 #include <features/input_poller.h>
+#include <features/messages.h>
 
 namespace {
     IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, int32_t areaID))
@@ -63,10 +65,24 @@ namespace {
 
     constexpr InputButton FOCUS_BUTTON = InputButton::Ability3;
     void update_map_focus(InputState const& state);
-
     app::AreaMapNavigation* cached = nullptr;
+    app::GameWorldAreaID__Enum area_id = app::GameWorldAreaID__Enum_None;
+
+
+    IL2CPP_BINDING(, GameMapUI, app::RuntimeGameWorldArea*, get_CurrentHighlightedArea, (app::GameMapUI* this_ptr));
+    IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
+      GameMapUI_FixedUpdate(this_ptr);
+      auto area = GameMapUI_get_CurrentHighlightedArea(this_ptr);
+      auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
+      if (aid != area_id) {
+        area_id = aid;
+        csharp_bridge::on_map_pan(area_id);
+      }
+
+    }
     IL2CPP_INTERCEPT(, AreaMapUI, void, Show, (app::AreaMapUI* this_ptr, bool set_menu_audio_state)) {
         AreaMapUI_Show(this_ptr, set_menu_audio_state);
+        area_id = app::GameWorldAreaID__Enum_None;
         if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
         {
             cached = this_ptr->fields._Navigation_k__BackingField;
@@ -76,11 +92,11 @@ namespace {
         
     IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
         AreaMapUI_Hide(this_ptr);
+        hide_map_hint();
         if (cached != nullptr)
         {
             if (!unregister_input_callback(FOCUS_BUTTON, update_map_focus))
                 trace(MessageType::Error, 2, "game", "Failed to unregister map focus callback.");
-
             cached = nullptr;
         }
     }

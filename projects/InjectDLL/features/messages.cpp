@@ -1,7 +1,8 @@
 #include <interception_macros.h>
 #include <dll_main.h>
 #include <il2cpp_helpers.h>
-
+#include <Common/ext.h>
+#include <features/messages.h>
 #include <csharp_bridge.h>
 
 #include <set>
@@ -14,7 +15,6 @@ BINDING(34816240, int, System_Array__get_Length, (app::Array* this_ptr)) //Syste
 BINDING(34805488, Il2CppObject*, System_Array__GetValue, (app::Array* thus_ptr, int index)) //System.Array$$GetValue
 
 BINDING(13847344, app::MessageBox*, MessageControllerB__ShowHintSmallMessage, (app::MessageControllerB* this_ptr, app::MessageDescriptor descriptor, app::Vector3 position, float duration));
-BINDING(5621248, app::Vector3, OnScreenPositions__get_TopCenter, ());
 BINDING(13836768, bool, MessageBoxVisibility__get_Visible, (app::MessageBoxVisibility* this_ptr));
 BINDING(13820848, void, MessageBox__HideMessageScreenImmediately, (app::MessageBox* this_ptr, int32_t action));
 BINDING(13821184, void, MessageBox__HideMessageScreen, (app::MessageBox* this_ptr, int32_t action));
@@ -22,6 +22,10 @@ BINDING(13821184, void, MessageBox__HideMessageScreen, (app::MessageBox* this_pt
 BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, bool track_resurrection))
 BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
 BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
+
+
+IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
+IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
 
 std::string convert_csstring(app::String* str)
 {
@@ -45,9 +49,11 @@ namespace
 {
     std::set<app::MessageBox*> tracked_boxes;
     app::MessageBox* npc_box = nullptr;
+    app::MessageBox* map_hint_box = nullptr;
     app::String* last_message = nullptr;
     app::String* cached = nullptr;
     uint32_t last_handle = 0;
+    uint32_t map_box_handle = 0;
 
     void print_csstring(app::String* str)
     {
@@ -147,6 +153,8 @@ NESTED_IL2CPP_INTERCEPT(, TranslatedMessageProvider, MessageItem, app::MessageDe
 
 INTERCEPT(13823536, void, MessageBox__Update, (app::MessageBox* this_ptr)) {
     MessageBox__Update(this_ptr);
+    if (this_ptr == map_hint_box)
+      return;
     if (tracked_boxes.find(this_ptr) == tracked_boxes.end() && is_visible(this_ptr))
     {
 //        debug("(index " + std::to_string(this_ptr->MessageIndex) + ") tracking visible untracked box at " + std::to_string((__int64)this_ptr));
@@ -170,6 +178,8 @@ INTERCEPT(13822720, void, MessageBox__OnDestroy, (app::MessageBox* this_ptr)) {
 //        debug("intecepted destroy of tracked box, nulling it");
         tracked_boxes.erase(this_ptr);
     }
+    if (this_ptr == map_hint_box)
+      map_hint_box = nullptr;
 }
 
 extern "C" __declspec(dllexport)
@@ -180,7 +190,7 @@ void clear_visible_hints()
         for (std::set<app::MessageBox*>::iterator it = tracked_boxes.begin(); it != tracked_boxes.end(); ++it)
         {
             auto last_box = *it;
-            if (last_box != npc_box && last_box->fields.Visibility && MessageBoxVisibility__get_Visible(last_box->fields.Visibility))
+            if (last_box != npc_box && is_visible(last_box))
                 MessageBox__HideMessageScreenImmediately(last_box, 0);
         }
 
@@ -195,39 +205,79 @@ void clear_visible_hints()
     }
 }
 
-app::Vector3 print_position;
 extern "C" __declspec(dllexport)
-bool hints_ready()
-{
-    print_position = OnScreenPositions__get_TopCenter();
-    return print_position.y > 0;
+bool hints_ready() {
+    return OnScreenPositions_get_TopCenter().y > 0;
 }
 
 extern "C" __declspec(dllexport)
-app::MessageBox* display_hint(const wchar_t* hint, float duration)
-{
-    try
-    {
-        clear_visible_hints();
-        last_message = reinterpret_cast<app::String*>(il2cpp::string_new(hint));
+app::MessageBox * display_hint(const wchar_t* hint, float duration) {
+  return send_msg(hint, duration, OnScreenPositions_get_TopCenter(), false);
+}
 
-        const auto message_controller = get_ui()->static_fields->MessageController;
-        // Message box will probably take ownership of the string, so don't free it on the next call here.
-        auto last_box = MessageControllerB__ShowHintSmallMessage(
-            message_controller,
-            app::MessageDescriptor{ last_message, app::EmotionType__Enum_Neutral, nullptr, nullptr },
-            print_position,
-            duration
-        );
-
-        last_box->fields.MessageIndex = 1;
-        last_handle = il2cpp_gchandle_new_weakref((Il2CppObject*) last_box, true);
-        tracked_boxes.insert(last_box);
-        return last_box;
-    } catch (...) {
-        trace(MessageType::Debug, 3, "messages", "Error caught by display hint. This might not be fine?");
-        return nullptr;
+extern "C" __declspec(dllexport)
+app::MessageBox* update_map_hint(const wchar_t* info) {
+  try
+  {
+    mute_for(30);
+    debug("map stuff", "set mute");
+    if (map_hint_box && is_visible(map_hint_box)) {
+      MessageBox__HideMessageScreenImmediately(map_hint_box, 0);
+      map_hint_box = 0;
+      if (map_box_handle) {
+        il2cpp_gchandle_free(map_box_handle);
+        map_box_handle = 0;
+      }
     }
+    debug("map stuff", "clear done");
+    auto msg = reinterpret_cast<app::String*>(il2cpp::string_new(info));
+    const auto message_controller = get_ui()->static_fields->MessageController;
+    map_hint_box = MessageControllerB__ShowHintSmallMessage(
+      message_controller,
+      app::MessageDescriptor{ msg, app::EmotionType__Enum_Neutral, nullptr, nullptr },
+      OnScreenPositions_get_BottomCenter(),
+      12
+    );
+    debug("map stuff", "called show");
+    map_hint_box->fields.MessageIndex = 1;
+    map_box_handle = il2cpp_gchandle_new_weakref((Il2CppObject*)map_hint_box, true);
+    return map_hint_box;
+  }
+  catch (...) {
+    trace(MessageType::Debug, 3, "messages", "Error caught by display hint. This might not be fine?");
+    return nullptr;
+  }
+}
+
+void hide_map_hint() {
+  if (map_hint_box != nullptr)
+    MessageBox__HideMessageScreenImmediately(map_hint_box, 0);
+}
+
+app::MessageBox* send_msg(const wchar_t* hint, float duration, app::Vector3 pos, bool mute){
+  try
+  {
+    if (mute)
+      mute_for(30);
+    clear_visible_hints();
+    last_message = reinterpret_cast<app::String*>(il2cpp::string_new(hint));
+    const auto message_controller = get_ui()->static_fields->MessageController;
+    // Message box will probably take ownership of the string, so don't free it on the next call here.
+    auto last_box = MessageControllerB__ShowHintSmallMessage(
+        message_controller,
+        app::MessageDescriptor{ last_message, app::EmotionType__Enum_Neutral, nullptr, nullptr },
+        pos,
+        duration
+    );
+
+    last_box->fields.MessageIndex = 1;
+    last_handle = il2cpp_gchandle_new_weakref((Il2CppObject*) last_box, true);
+    tracked_boxes.insert(last_box);
+    return last_box;
+  } catch (...) {
+      trace(MessageType::Debug, 3, "messages", "Error caught by display hint. This might not be fine?");
+      return nullptr;
+  }
 }
 
 extern "C" __declspec(dllexport)
