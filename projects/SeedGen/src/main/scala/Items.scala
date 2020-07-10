@@ -94,7 +94,6 @@ package SeedGenerator {
     )
     val poolItems: Seq[Skill] = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq
   }
-
   case class Shard(shardId: Int) extends Item with Merch {
     val itemType: Int = 3
     def code = s"$itemType|$shardId"
@@ -382,6 +381,8 @@ package SeedGenerator {
   object WaterDash extends Skill(104)
   object Flash extends Skill(62)
   object Bash extends Skill(0)
+  object Shuriken extends Skill(106)
+  object Spear extends Skill(74)
 
   object BurrowsTP extends Teleporter(0)
   object DenTP extends Teleporter(1)
