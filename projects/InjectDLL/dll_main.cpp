@@ -160,11 +160,9 @@ void mute_for(int frames) {
   auto settings = get_settings();
   float current_volume = GameSettings_get_SoundEffectsVolume(settings);
   frames_until_unmute = frames;
-  trace(MessageType::Info, 3, "sound", format("muted for %d frames", frames));
   if (current_volume > 0.001) {
     sound_mutex.lock();
     old_sfx_volume = current_volume;
-    trace(MessageType::Info, 3, "sound", format("old volume was %d", old_sfx_volume));
     GameSettings_set_SoundEffectsVolume(settings, 0.0);
     sound_mutex.unlock();
   }
@@ -181,7 +179,6 @@ void on_fixed_update(__int64 thisPointer) {
   if (frames_until_unmute > 0) {
     sound_mutex.lock();
     if (--frames_until_unmute == 0) {
-      trace(MessageType::Info, 3, "sound", "unmuted");
       GameSettings_set_SoundEffectsVolume(get_settings(), old_sfx_volume);
     }
     sound_mutex.unlock();
