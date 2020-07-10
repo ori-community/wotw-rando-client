@@ -27,8 +27,8 @@ namespace
     IL2CPP_BINDING(UnityEngine, Behaviour, bool, get_enabled, (app::Camera* this_ptr));
     IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, WorldToScreenPoint, (app::Camera* this_ptr, app::Vector3 position));
 
+    app::Camera* camera = nullptr;
     bool overwrite_input = false;
-    bool overwrite_target = false;
     IL2CPP_INTERCEPT(, SeinDigging, void, UpdateDiggingState, (app::SeinDigging* this_ptr)) {
         if (dig_mouse_control)
             overwrite_input = true;
@@ -45,23 +45,15 @@ namespace
         overwrite_input = false;
     }
 
-    IL2CPP_INTERCEPT(, SeinSpiritLeashAbility, void, FindClosestAttackHandler, (app::SeinSpiritLeashAbility* this_ptr)) {
-        if (grapple_mouse_control)
-            overwrite_target = true;
-
-        SeinSpiritLeashAbility_FindClosestAttackHandler(this_ptr);
-        overwrite_target = false;
-    }
-
-    app::Camera* camera = nullptr;
     IL2CPP_INTERCEPT(Core, Input, app::Vector2, get_Axis, ()) {
         if (overwrite_input)
         {
             if (camera == nullptr || !Behaviour_get_enabled(camera))
+            {
                 camera = Camera_get_main();
-
-            if (camera == nullptr || !Behaviour_get_enabled(camera))
-                return Input_get_Axis();
+                if (camera == nullptr || !Behaviour_get_enabled(camera))
+                    return Input_get_Axis();
+            }
 
             auto sein = get_sein();
             auto sein_pos = Camera_WorldToScreenPoint(camera, sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition);
@@ -78,9 +70,10 @@ namespace
             return Input_get_Axis();
     }
 
-    IL2CPP_INTERCEPT(, SeinSpiritLeashAbility, bool, IsInputTowardsTarget,
-        (app::SeinSpiritLeashAbility* this_ptr, app::Vector3 target_dir, app::Vector3 input_dir, bool is_current_target, float* angle_difference)) {
-        if (overwrite_target)
+    bool overwrite_target = false;
+    app::Vector3 dir;
+    IL2CPP_INTERCEPT(, SeinSpiritLeashAbility, void, FindClosestAttackHandler, (app::SeinSpiritLeashAbility* this_ptr)) {
+        if (grapple_mouse_control)
         {
             if (camera == nullptr || !Behaviour_get_enabled(camera))
                 camera = Camera_get_main();
@@ -89,16 +82,34 @@ namespace
             {
                 auto sein = this_ptr->fields._.m_sein;
                 auto sein_pos = Camera_WorldToScreenPoint(camera, sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition);
-                auto pos = MoonInput_get_mousePosition();
-                pos.x -= sein_pos.x;
-                pos.y -= sein_pos.y;
-                auto magnitude = std::sqrt(pos.x * pos.x + pos.y * pos.y);
-                input_dir.x = pos.x / magnitude;
-                input_dir.y = pos.y / magnitude;
+                dir = MoonInput_get_mousePosition();
+                dir.x -= sein_pos.x;
+                dir.y -= sein_pos.y;
+                auto magnitude = std::sqrt(dir.x * dir.x + dir.y * dir.y);
+                dir.x /= magnitude;
+                dir.y /= magnitude;
             }
+
+            overwrite_target = true;
         }
 
+        SeinSpiritLeashAbility_FindClosestAttackHandler(this_ptr);
+        overwrite_target = false;
+    }
+
+    IL2CPP_INTERCEPT(, SeinSpiritLeashAbility, bool, IsInputTowardsTarget,
+        (app::SeinSpiritLeashAbility* this_ptr, app::Vector3 target_dir, app::Vector3 input_dir, bool is_current_target, float* angle_difference)) {
+        if (overwrite_target)
+            input_dir = dir;
+
         return SeinSpiritLeashAbility_IsInputTowardsTarget(this_ptr, target_dir, input_dir, is_current_target, angle_difference);
+    }
+
+    IL2CPP_INTERCEPT(, SeinCharacter, bool, get_FaceLeft, (app::SeinCharacter* this_ptr)) {
+        if (overwrite_target)
+            return dir.x < 0;
+        else
+            return SeinCharacter_get_FaceLeft(this_ptr);
     }
 }
 
