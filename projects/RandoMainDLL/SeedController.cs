@@ -107,8 +107,10 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
-        if(!init)
-          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}\nFlags: {String.Join(", ", flags)}", 300);
+        if(!init) {
+          var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags)}" : "";
+          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
+        }
       } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
