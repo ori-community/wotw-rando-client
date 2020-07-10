@@ -136,8 +136,8 @@ package SeedGenerator {
 
   case class Placeholder(name: String, kind: NodeType = AreaNode) extends Node {
     override def res: Node = kind match {
-      case AreaNode => Nodes.areas(name)
-      case ItemNode => Nodes.items(name)
+      case AreaNode => Nodes.areas.getOrElse(name, {UI.log(s"Error: unknown area name $this") ; this})
+      case ItemNode => Nodes.items.getOrElse(name, {UI.log(s"Error: unknown item name $this") ; this})
       case _ =>
         UI.log(s"Warning: couldn't resolve $this")
         this
@@ -295,8 +295,9 @@ package SeedGenerator {
           _connectedToDoors.add(area)
       c match {
             // TODO: FIXME?
-        case Connection(target: Placeholder, Seq()) if target.kind == ItemNode => UI.log(s"Only empty paths from ${area.name} to ${target.name}"); None
-        case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name, locDataByName).map(Connection(_, reqs))
+        case Connection(Placeholder(name, _), Seq()) => UI.log(s"Warning: only empty paths from ${area.name} to $name"); None
+        case Connection(Placeholder(name, ItemNode), reqs) => ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
+        case Connection(Placeholder(name, AreaNode), _) if !areas.contains(name)  => UI.log(s"Warning: ignoring path from ${area.name} to unknown area $name"); None
         case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
         case c => Some(c)
       }}), area.refillGroup)).toMap
@@ -434,7 +435,7 @@ package SeedGenerator {
       val placed = placedLocs.size
       if(count+placed != ItemPool.SIZE)
         UI.log(s"ERROR: $count + $placed != ${ItemPool.SIZE}")
-      debugPrint(s"group $i: have ${locs.size} locs ($placed/${ItemPool.SIZE} placed already, have itempool size $count")
+      debugPrint(s"group $i: have ${locs.size} locs ($placed/${ItemPool.SIZE} placed already, have itempool size $count)")
 
       if(locs.isEmpty)
         throw GeneratorError(s"no new locs (${reachableLocs.size} out of ${ItemPool.SIZE} reached)")
