@@ -15,7 +15,7 @@ NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
 DELETEME := INSTALL_DIR . ".deleteme"
 
 ; change this when a new setting is added
-NewSetting := ""
+NewSetting := "true"
 
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
