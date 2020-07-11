@@ -581,7 +581,7 @@ object Runner {
       val (grps, err) = mkSeed(advanced)
       err match {
         case Some(e)  => UI.log(s"$e"); None
-        case None     => Some(UI.opts.flags.line + grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
+        case None     => Some(UI.opts.flags.line + grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n").replace("\n", "\r\n"))
       }
     }
     def seedProg(standalone: Boolean = true, advanced: Boolean = false): Option[String] = {
