@@ -108,7 +108,7 @@ namespace RandoMainDLL {
           }
         }
         if(!init) {
-          var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags)}" : "";
+          var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags.Select((Flag flag) => flag.GetDescription()))}" : "";
           AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
         }
       } else {
