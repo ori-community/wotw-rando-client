@@ -10,8 +10,7 @@ namespace RandoMainDLL {
     public static string SaveFolder = @"C:\moon\saves";
     public static string VersionFile = @"C:\moon\VERSION";
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
-    private static string _version; // Opening a txt file every time we want to access this property? Nah.
-                                    // Look it was a temporary thing - Eiko
+    private static string _version;
 
     public static int Bootstrap(string dllPath) {
        if (!Initialize())
