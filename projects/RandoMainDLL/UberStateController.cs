@@ -265,7 +265,7 @@ namespace RandoMainDLL {
 
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
-            PsuedoLocs.GAME_START.Pickup().Grant();
+            PsuedoLocs.GAME_START.OnCollect();
             InterOp.save();
           };
         }
