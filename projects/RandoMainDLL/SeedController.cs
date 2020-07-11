@@ -196,6 +196,8 @@ namespace RandoMainDLL {
           return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
+        case PickupType.BonusItem:
+          return new BonusItem((BonusType)pickupData.ParseToByte());
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {

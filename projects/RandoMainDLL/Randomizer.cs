@@ -70,6 +70,7 @@ namespace RandoMainDLL {
           TrackFileController.Update();
         }
         AHK.Tick();
+        BonusItemController.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }

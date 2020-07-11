@@ -17,7 +17,8 @@ namespace RandoMainDLL {
     Message = 6,
     Multi = 7,
     UberState = 8,
-    QuestEvent = 9
+    QuestEvent = 9,
+    BonusItem = 10
   }
 
   public class DoneWithThis : Exception { };
@@ -394,6 +395,17 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string ToString() => $"Remove #{type.GetDescription()}#" ?? $"Unknown resource type {type}";
+  }
+  public class BonusItem : Pickup {
+    public override int DefaultCost() => 300;
+    public override PickupType Type => PickupType.BonusItem;
+    public readonly BonusType type;
+    public BonusItem(BonusType command) => type = command;
+    public override void Grant(bool skipBase = false) {
+      SaveController.Data.BonusItems[type] = type.Count() + 1;
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"#{type.GetDescription()} x{type.Count()}#";
   }
 
   public class SystemCommand : Pickup {

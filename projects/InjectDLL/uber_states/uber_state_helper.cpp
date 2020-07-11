@@ -13,6 +13,10 @@
 
 namespace
 {
+    IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed, bool incrementStatistic));
+    IL2CPP_BINDING(, SeinEnergy, void, Gain, (app::SeinEnergy* this_ptr, float amount));
+    IL2CPP_BINDING(, SeinEnergy, float, get_BaseMaxEnergy, (app::SeinEnergy* this_ptr));
+    IL2CPP_BINDING(, SeinEnergy, void,  set_BaseMaxEnergy, (app::SeinEnergy* this_ptr, float amount));
     IL2CPP_BINDING(, PlayerSpiritShards, void, RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
     IL2CPP_BINDING(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
     IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
@@ -82,16 +86,20 @@ INJECT_C_DLLEXPORT bool get_debug_controls()
     return get_cheats()->Instance->fields.DebugEnabled;
 }
 
-INJECT_C_DLLEXPORT void fill_health()
-{
-    auto stats = get_stats();
-    stats->fields.m_health = stats->fields.m_maxHealth + get_sein()->fields.Mortality->fields.Health->fields.m_maxHealthBonus;
+INJECT_C_DLLEXPORT void add_health(float inc) {
+  SeinHealthController_GainHealth(get_sein()->fields.Mortality->fields.Health, inc, 4, true);
 }
 
-INJECT_C_DLLEXPORT void fill_energy()
-{
-    auto stats = get_stats();
-    stats->fields.m_energy = stats->fields.m_maxEnergy + get_sein()->fields.Energy->fields.m_maxEnergyBonus;
+INJECT_C_DLLEXPORT void fill_health() {
+  add_health(10000);
+}
+
+INJECT_C_DLLEXPORT void add_energy(float inc) {
+  SeinEnergy_Gain(get_sein()->fields.Energy, inc);
+}
+
+INJECT_C_DLLEXPORT void fill_energy() {
+  add_energy(10000);
 }
 
 INJECT_C_DLLEXPORT int32_t get_health()
@@ -109,9 +117,8 @@ INJECT_C_DLLEXPORT void set_max_health(int32_t value)
     get_stats()->fields.m_maxHealth = value;
 }
 
-INJECT_C_DLLEXPORT void set_max_energy(float value)
-{
-    get_stats()->fields.m_maxEnergy = value;
+INJECT_C_DLLEXPORT void set_max_energy(float value) {
+  SeinEnergy_set_BaseMaxEnergy(get_sein()->fields.Energy, value);
 }
 
 INJECT_C_DLLEXPORT int32_t get_max_health()
@@ -121,7 +128,7 @@ INJECT_C_DLLEXPORT int32_t get_max_health()
 
 INJECT_C_DLLEXPORT float get_max_energy()
 {
-    return get_stats()->fields.m_maxEnergy;
+    return SeinEnergy_get_BaseMaxEnergy(get_sein()->fields.Energy);
 }
 
 INJECT_C_DLLEXPORT int32_t get_ore()
