@@ -45,9 +45,11 @@ namespace
         uber_states::register_applier_redirect(-1643391836, 288338807);
         uber_states::register_applier_redirect(1819061226, -1052258879);
         uber_states::register_applier_redirect(787945376, 1001861749);
-        uber_states::register_applier_redirect(1361521887, -1375966924);
-        uber_states::register_applier_redirect(-480342150, 907153171);*/
-        
+        uber_states::register_applier_redirect(1361521887, -1375966924);*/
+
+        // Cutscene rain
+        uber_states::register_applier_redirect(-480342150, 907153171);
+
         // howl: notDefeated -> defeated
         uber_states::register_applier_redirect(1234021711, 620462779);
     }
