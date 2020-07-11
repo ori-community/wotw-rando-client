@@ -82,7 +82,7 @@ package SeedGenerator {
   object Skill {
     val itemType: Int = 2
     val areaFileNames: Map[String, Int] = Map("Bash" ->0, "DoubleJump" ->5, "Torch" ->99, "Sword" ->100, "WallJump" ->3, "Launch" ->8, "Glide" ->14, "WaterBreath" ->23, "Grenade" ->51, "Grapple" ->57, "Flash" ->62, "Spike" ->74, "Spear" ->74, "Regenerate" ->77, "Bow" ->97, "Hammer" ->98, "Burrow" ->101, "Dash" ->102, "WaterDash" ->104, "SpiritStar" ->106, "Shuriken" ->106, "Blaze" ->115, "Sentry" ->116, "Flap" ->118)
-    val costs: Map[Int, Double] = Map(8 -> 16, 77 -> 3, 98 -> 4)
+    val costs: Map[Int, Double] = Map(8 -> 16, 77 -> 3, 98 -> 4, 100 -> 4)
     val names: Map[Int, String] = Map(
       0 -> "Bash",
       3 -> "Wall Jump",
