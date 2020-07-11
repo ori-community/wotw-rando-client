@@ -408,7 +408,7 @@ namespace il2cpp
         });
 
         if (method_overload_info == methods.end())
-            return -1;
+            return 0;
 
         return method_overload_info->methods.size();
     }
