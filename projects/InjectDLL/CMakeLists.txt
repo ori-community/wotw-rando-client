@@ -42,6 +42,7 @@ set(
 	"pickups/shops.cpp"
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
+	"pickups/bonus/extra_ability_activations.cpp"
 	"system/save.cpp"
 	"system/sound.cpp"
 	"uber_states/uber_state_dev.cpp"
