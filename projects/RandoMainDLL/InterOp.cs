@@ -82,6 +82,10 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void fill_energy();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void add_health(float inc);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void add_energy(float inc);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static int get_health();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static float get_energy();
