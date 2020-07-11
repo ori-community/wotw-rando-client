@@ -92,7 +92,7 @@ namespace {
         
     IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
         AreaMapUI_Hide(this_ptr);
-        hide_map_hint();
+        hide_below_hint();
         if (cached != nullptr)
         {
             if (!unregister_input_callback(FOCUS_BUTTON, update_map_focus))
