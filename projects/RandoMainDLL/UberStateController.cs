@@ -160,7 +160,7 @@ namespace RandoMainDLL {
       var stateAtomic = Interlocked.Increment(ref updateState);
       var queue = getchangedUberStatesBuffer();
       // Only switch queues if this is the first time we go through this.
-      if (stateAtomic > 1)
+      if (stateAtomic <= 1)
         bufferSwitch = !bufferSwitch;
 
       Tuple<UberState, UberValue> pair;
