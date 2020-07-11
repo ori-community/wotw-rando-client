@@ -262,7 +262,7 @@ namespace RandoMainDLL {
         }
 
         InterOp.discover_everything();
-        if(!SeedController.flags.Contains(Flag.NOHINTS)) {
+        if(!SeedController.flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
           InterOp.bind_sword();
         }
