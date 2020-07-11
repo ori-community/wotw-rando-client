@@ -413,7 +413,7 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-    public override string ToString() => $"#{type.GetDescription()}{(type.Count()>1 ? $"x{type.Count()}" : "")}#";
+    public override string ToString() => $"#{type.GetDescription()}{(type.Count()>1 ? $" x{type.Count()}" : "")}#";
   }
 
   public class SystemCommand : Pickup {
