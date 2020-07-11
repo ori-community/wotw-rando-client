@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -111,9 +113,9 @@ namespace RandoMainDLL {
     }
 
     private static bool bufferSwitch = true;
-    private static List<Tuple<UberState, UberValue>> changedUberStatesBuffer1 = new List<Tuple<UberState, UberValue>>();
-    private static List<Tuple<UberState, UberValue>> changedUberStatesBuffer2 = new List<Tuple<UberState, UberValue>>();
-    private static List<Tuple<UberState, UberValue>> getchangedUberStatesBuffer() {
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer1 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer2 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> getchangedUberStatesBuffer() {
       if (bufferSwitch)
         return changedUberStatesBuffer1;
       else
@@ -130,7 +132,7 @@ namespace RandoMainDLL {
         UberState state = cachedState.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
+        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
       }
       else if (serializableUberState((UberStateType)type)) {
         var state = createUberStateEntry(key);
@@ -139,9 +141,11 @@ namespace RandoMainDLL {
         state = state.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
+        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
       }
     }
+
+    public static int updateState = 0;
     public static void Update() {
       if (NeedsNewGameInit)
         NewGameInit();
@@ -153,9 +157,14 @@ namespace RandoMainDLL {
         PopulateUberStates();
       }
 
-      var list = getchangedUberStatesBuffer();
-      bufferSwitch = !bufferSwitch;
-      foreach (var pair in list) {
+      var stateAtomic = Interlocked.Increment(ref updateState);
+      var queue = getchangedUberStatesBuffer();
+      // Only switch queues if this is the first time we go through this.
+      if (stateAtomic > 1)
+        bufferSwitch = !bufferSwitch;
+
+      Tuple<UberState, UberValue> pair;
+      while (queue.TryDequeue(out pair)) {
         try {
           UberState state = pair.Item1;
           UberId key = state.GetUberId();
@@ -202,7 +211,7 @@ namespace RandoMainDLL {
         }
       }
 
-      list.Clear();
+      updateState = 0;
     }
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
