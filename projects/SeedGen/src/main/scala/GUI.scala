@@ -25,7 +25,8 @@ package SeedGenerator {
     val zoneHints      = new CheckBox("Zone Hints"){selected = startSet.hints}
     val spoilers       = new CheckBox("Generate Spoiler"){selected = startSet.spoilers}
     val quests         = new CheckBox("Items on Quests"){selected = startSet.questLocs}
-    val teleporters    = new CheckBox("Teleporters in item pool"){selected = startSet.tps}
+    val bonusItems     = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
+    val teleporters    = new CheckBox("Teleporters"){selected = startSet.tps}
     val uncheckedPaths = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
     val swordSpawn     = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
     val forceTrees     = new CheckBox("Force Trees"){selected = startSet.flags.forceWisps}
@@ -59,10 +60,10 @@ package SeedGenerator {
           Seq(Swing.HGlue, spoilers, uncheckedPaths, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue,  zoneHints, teleporters, quests, /*swordSpawn,*/ Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue,  zoneHints, teleporters, quests, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, swordSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
 
         contents += new BoxPanel(Orientation.Horizontal) {
@@ -127,7 +128,8 @@ package SeedGenerator {
                           unsafePaths: Boolean,
                           questLocs: Boolean,
                           outputFolder: String,
-                          flags: Flags
+                          flags: Flags,
+                          bonusItems: Boolean = true
                         )
   object UI {
     def opts: GenSettings = GenSettings(
@@ -137,7 +139,8 @@ package SeedGenerator {
       ui.uncheckedPaths.selected,
       ui.quests.selected,
       ui.folderSelector.selectedFile.getAbsolutePath,
-      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected)
+      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected),
+      ui.bonusItems.selected
     )
     val settingsPath = "C:/moon/.seedgen"
     def writeSettings = {
@@ -148,7 +151,19 @@ package SeedGenerator {
         val in = new ObjectInputStream(new FileInputStream(settingsPath))
         in.readObject().asInstanceOf[GenSettings]
       }.toOption
-    def settings = readSettings.getOrElse(GenSettings(true, true, true, false, true, "C:\\moon", Flags(false, false, false, false, false)))
+    def settings = readSettings.getOrElse(GenSettings(
+      hints = true,
+      tps = true,
+      spoilers = true,
+      unsafePaths = false,
+      questLocs = true,
+      outputFolder = "C:\\moon",
+      flags = Flags(
+        forceWisps = false,
+        forceTrees = false,
+        forceQuests = false,
+        noHints = false
+      )))
 
     def outputFile: File = {
       val name_base = outputFolder.getPath + "/" + (if(ui.seedField.text != "") ui.seedField.text else "seed")
