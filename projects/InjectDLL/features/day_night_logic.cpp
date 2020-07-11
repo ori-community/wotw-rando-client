@@ -26,17 +26,17 @@ namespace
             return HasAbilityUberStateCondition_get_HasAbility(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, Validate, (app::HasAbilityUberStateCondition* this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, Validate, (app::HasAbilityUberStateCondition* this_ptr)) {
         if (HasAbilityUberStateCondition_get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
             return true;
         else
-            return HasAbilityUberStateCondition_Validate(this_ptr, context);
+            return HasAbilityUberStateCondition_Validate(this_ptr);
     }
 
     void initialize_day_night_logic()
     {
        // night -> day
-        uber_states::register_applier_redirect(-1926205078, -598230906);
+        /*uber_states::register_applier_redirect(-1926205078, -598230906);
         uber_states::register_applier_redirect(1819061226, -1052258879);
         uber_states::register_applier_redirect(-1605692968, -1815347985);
         uber_states::register_applier_redirect(-949591271, -1834135337);
@@ -46,7 +46,7 @@ namespace
         uber_states::register_applier_redirect(1819061226, -1052258879);
         uber_states::register_applier_redirect(787945376, 1001861749);
         uber_states::register_applier_redirect(1361521887, -1375966924);
-        uber_states::register_applier_redirect(-480342150, 907153171);
+        uber_states::register_applier_redirect(-480342150, 907153171);*/
         
         // howl: notDefeated -> defeated
         uber_states::register_applier_redirect(1234021711, 620462779);

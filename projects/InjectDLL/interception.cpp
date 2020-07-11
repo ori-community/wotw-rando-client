@@ -93,6 +93,12 @@ namespace intercept
     void* get_method_pointer(Il2CppClass* klass, il2cpp_intercept const& i)
     {
         auto overloads = il2cpp::get_method_overload_count(klass, i.method_name, i.param_count);
+        if (overloads < 1)
+        {
+            trace(MessageType::Error, 3, "initialize", "method not found.");
+            return nullptr;
+        }
+
         if (overloads == 1)
             return il2cpp::get_method_from_name_overloaded(klass, i.method_name, i.param_count, 0)->methodPointer;
 
