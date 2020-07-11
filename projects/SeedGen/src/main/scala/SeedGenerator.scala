@@ -668,7 +668,7 @@ object Runner {
     def SIZE: Int = Nodes.items.size
     def build(size: Int = SIZE)(implicit r: Random): Inv = {
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> 32) +
-        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*) +
+        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*) +
         (if(UI.opts.flags.noSword) Inv.mk(Sword) else Inv.Empty)
       while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
       pool.merchToPop = Nodes.items.values.count(_.data.category == "Shop")

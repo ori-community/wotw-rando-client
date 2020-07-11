@@ -46,6 +46,24 @@ package SeedGenerator {
     override val cost = 7
   }
 
+  case class Bonus(bonusId: Int, val name: String) extends Item with Merch  {
+    val itemType: Int = 10
+    def code = s"$itemType|$bonusId"
+  }
+  object HealthRegen extends Bonus(0, "Health Regeneration")
+  object EnergyRegen extends Bonus(1, "Energy Regeneration")
+  object ExtraJump extends Bonus(2, "Extra Double Jump")
+  object ExtraDash extends Bonus(3, "Extra Air Dash")
+
+  object Bonus {
+    def poolItems: Seq[Bonus] =
+      if(UI.opts.bonusItems)
+        new Inv((HealthRegen, 3), (EnergyRegen, 3), (ExtraDash, 1), (ExtraJump, 1)).asSeq.collect{case a: Bonus => a}
+      else
+        Nil
+  }
+
+
   object WorldEvent {
     val names: Map[Int, String] = Map(
       0 -> "Water"
