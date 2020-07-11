@@ -403,9 +403,17 @@ namespace RandoMainDLL {
     public BonusItem(BonusType command) => type = command;
     public override void Grant(bool skipBase = false) {
       SaveController.Data.BonusItems[type] = type.Count() + 1;
+      switch(type) {
+        case BonusType.ExtraAirDash:
+          InterOp.set_extra_dashes(type.Count());
+          break;
+        case BonusType.ExtraDoubleJump:
+          InterOp.set_extra_jumps(type.Count());
+          break;
+      }
       base.Grant(skipBase);
     }
-    public override string ToString() => $"#{type.GetDescription()} x{type.Count()}#";
+    public override string ToString() => $"#{type.GetDescription()}{(type.Count()>1 ? $"x{type.Count()}" : "")}#";
   }
 
   public class SystemCommand : Pickup {
