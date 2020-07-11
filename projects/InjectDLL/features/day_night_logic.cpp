@@ -28,7 +28,10 @@ namespace
 
     IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, Validate, (app::HasAbilityUberStateCondition* this_ptr)) {
         if (HasAbilityUberStateCondition_get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
-            return true;
+        {
+            auto booleans = this_ptr->fields._.Data->fields.Booleans;
+            return booleans->fields._items->vector[0];
+        }
         else
             return HasAbilityUberStateCondition_Validate(this_ptr);
     }
@@ -52,10 +55,6 @@ namespace
 
         // howl: notDefeated -> defeated
         uber_states::register_applier_redirect(1234021711, 620462779);
-    }
-
-    IL2CPP_INTERCEPT(, ActivationBasedOnCondition, void, Awake, (app::ActivationBasedOnCondition* this_ptr)) {
-        ActivationBasedOnCondition_Awake(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, SwampNightDayTransition, bool, DayTimeCondition, (app::SwampNightDayTransition* this_ptr)) {
