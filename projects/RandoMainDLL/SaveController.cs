@@ -131,6 +131,7 @@ namespace RandoMainDLL {
     public static int CurrentSlot = -1;
 
     public static void NewGame(int slot) {
+      UberStateController.UberStates.Clear();
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();
@@ -148,6 +149,7 @@ namespace RandoMainDLL {
           Data = new SaveData(slot);
         }
         UberStateController.SkipListenersNextUpdate = true;
+        UberStateController.UberStates.Clear();
         Data.Load(backupSlot);
         if (DidWeJustDie) {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
