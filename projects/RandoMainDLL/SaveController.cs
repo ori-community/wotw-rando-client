@@ -135,6 +135,8 @@ namespace RandoMainDLL {
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();
+
+      BonusItemController.Refresh();
     }
 
     public static void OnLoad(int slot, int backupSlot = -1) {
@@ -156,6 +158,8 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
         }
+
+        BonusItemController.Refresh();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
