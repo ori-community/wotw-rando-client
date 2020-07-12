@@ -383,10 +383,10 @@ namespace dev
                 { "DesiredUberStateByte", visualize_desired_byte_uber_state },
                 { "DesiredUberStateInt", visualize_desired_int_uber_state },
 
-                { "SerializedBooleanUberState", visualize_serialized_uber_state },
-                { "SerializedFloatUberState", visualize_serialized_uber_state },
-                { "SerializedByteUberState", visualize_serialized_uber_state },
-                { "SerializedIntUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedFloatUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedByteUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedIntUberState", visualize_serialized_uber_state },
 
                 { "SceneRoot", visualize_scene_root },
                 { "UnityEngine.GameObject", visualize_game_object },
