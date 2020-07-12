@@ -9,3 +9,7 @@ IL2CPP_INTERCEPT(, MoonDoorWithSlots, bool, get_SeinInRange, (app::MoonDoorWithS
     bool left = MoonDoorWithSlots_get_SeinInRange(this_ptr);
     return right || left;
 }
+
+IL2CPP_INTERCEPT(, MoonCustomDoorWithSlots, bool, get_CanPlayerTriggerAutomatically, (app::MoonCustomDoorWithSlots* this_ptr)) {
+    return false;
+}
