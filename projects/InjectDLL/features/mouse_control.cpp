@@ -32,16 +32,16 @@ namespace
     app::Camera* camera = nullptr;
     app::Vector2 get_mouse_dir()
     {
-        if (camera == nullptr || !Behaviour_get_enabled(camera))
+        if (camera == nullptr || !Behaviour::get_enabled(camera))
         {
-            camera = Camera_get_main();
-            if (camera == nullptr || !Behaviour_get_enabled(camera))
+            camera = Camera::get_main();
+            if (camera == nullptr || !Behaviour::get_enabled(camera))
                 return app::Vector2{ 0, 0 };
         }
 
         auto sein = get_sein();
-        auto sein_pos = Camera_WorldToScreenPoint(camera, sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition);
-        auto pos = MoonInput_get_mousePosition();
+        auto sein_pos = Camera::WorldToScreenPoint(camera, sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition);
+        auto pos = MoonInput::get_mousePosition();
         pos.x -= sein_pos.x;
         pos.y -= sein_pos.y;
         auto magnitude = std::sqrt(pos.x * pos.x + pos.y * pos.y);
@@ -56,7 +56,7 @@ namespace
         if (dig_mouse_control)
             overwrite_input = true;
 
-        auto ret = SeinDashNew_ShouldDig(this_ptr);
+        auto ret = SeinDashNew::ShouldDig(this_ptr);
         overwrite_input = false;
         return ret;
     }
@@ -65,7 +65,7 @@ namespace
         if (dig_mouse_control)
             overwrite_input = true;
 
-        SeinDigging_UpdateCharacterState(this_ptr);
+        SeinDigging::UpdateCharacterState(this_ptr);
         overwrite_input = false;
     }
 
@@ -76,7 +76,7 @@ namespace
             overwrite_input = true;
         }
 
-        auto ret = SeinDashNew_ShouldSwim(this_ptr);
+        auto ret = SeinDashNew::ShouldSwim(this_ptr);
         deadzone_active = false;
         overwrite_input = false;
         return ret;
@@ -89,7 +89,7 @@ namespace
             deadzone_active = true;
         }
 
-        SeinSwimming_UpdateCharacterState(this_ptr);
+        SeinSwimming::UpdateCharacterState(this_ptr);
         overwrite_input = false;
         deadzone_active = false;
     }
@@ -99,10 +99,10 @@ namespace
         if (overwrite_input)
             ret = get_mouse_dir();
         else
-            ret = Input_get_Axis();
+            ret = Input::get_Axis();
 
         if (ret.x > 0.1f)
-            Input_get_Axis();
+            Input::get_Axis();
 
         return ret;
     }
@@ -118,7 +118,7 @@ namespace
             overwrite_target = true;
         }
 
-        SeinSpiritLeashAbility_FindClosestAttackHandler(this_ptr);
+        SeinSpiritLeashAbility::FindClosestAttackHandler(this_ptr);
         overwrite_target = false;
     }
 
@@ -127,14 +127,14 @@ namespace
         if (overwrite_target)
             input_dir = dir;
 
-        return SeinSpiritLeashAbility_IsInputTowardsTarget(this_ptr, target_dir, input_dir, is_current_target, angle_difference);
+        return SeinSpiritLeashAbility::IsInputTowardsTarget(this_ptr, target_dir, input_dir, is_current_target, angle_difference);
     }
 
     IL2CPP_INTERCEPT(, SeinCharacter, bool, get_FaceLeft, (app::SeinCharacter* this_ptr)) {
         if (overwrite_target)
             return dir.x < 0;
         else
-            return SeinCharacter_get_FaceLeft(this_ptr);
+            return SeinCharacter::get_FaceLeft(this_ptr);
     }
 }
 

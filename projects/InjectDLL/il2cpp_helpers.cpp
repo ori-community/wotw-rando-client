@@ -155,11 +155,11 @@ namespace il2cpp
         std::vector<app::GameObject*> get_children(app::GameObject* game_object)
         {
             std::vector<app::GameObject*> children;
-            auto transform = GameObject_get_transform(game_object);
-            auto count = Transform_GetChildCount(transform);
+            auto transform = GameObject::get_transform(game_object);
+            auto count = Transform::GetChildCount(transform);
             for (auto i = 0; i < count; ++i)
-                children.push_back(Component_get_gameObject(
-                    reinterpret_cast<app::Component*>(Transform_GetChild(transform, i))));
+                children.push_back(Component::get_gameObject(
+                    reinterpret_cast<app::Component*>(Transform::GetChild(transform, i))));
 
             return children;
         }
@@ -169,8 +169,8 @@ namespace il2cpp
             std::vector<app::Component*> components;
             auto qualified = get_qualified(namespaze, name);
             auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
-            auto runtime_type = Type_GetType(type_str, false);
-            auto c_array = GameObject_GetComponents(game_object, runtime_type);
+            auto runtime_type = Type::GetType(type_str, false);
+            auto c_array = GameObject::GetComponents(game_object, runtime_type);
             for (auto i = 0; i < c_array->max_length; ++i)
                 components.push_back(reinterpret_cast<app::Component*>(c_array->vector[i]));
 
@@ -179,20 +179,20 @@ namespace il2cpp
 
         void destroy_object(void* object)
         {
-            Object_Destroy(reinterpret_cast<app::Object*>(object));
+            Object::Destroy(reinterpret_cast<app::Object*>(object));
         }
 
         app::GameObject* get_game_object(void* component)
         {
-            return Component_get_gameObject(reinterpret_cast<app::Component*>(component));
+            return Component::get_gameObject(reinterpret_cast<app::Component*>(component));
         }
 
         app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namespaze, std::string_view name)
         {
             auto qualified = get_qualified(namespaze, name);
             auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
-            auto runtime_type = Type_GetType(type_str, false);
-            return GameObject_AddComponent(game_object, runtime_type);
+            auto runtime_type = Type::GetType(type_str, false);
+            return GameObject::AddComponent(game_object, runtime_type);
 
         }
 
@@ -202,35 +202,35 @@ namespace il2cpp
             if (cast_object == nullptr)
                 return "nullptr";
 
-            auto csstr = Object_get_name(cast_object);
+            auto csstr = Object::get_name(cast_object);
             return convert_csstring(csstr);
         }
 
         int32_t get_scene_count()
         {
-            return SceneManager_get_sceneCount();
+            return SceneManager::get_sceneCount();
         }
 
         app::Scene get_scene_at(int32_t i)
         {
-            return SceneManager_GetSceneAt(i);
+            return SceneManager::GetSceneAt(i);
         }
 
         app::Scene get_active_scene()
         {
-            return SceneManager_GetActiveScene();
+            return SceneManager::GetActiveScene();
         }
 
         app::Scene get_scene(app::GameObject* game_object)
         {
-            return GameObject_get_scene(game_object);
+            return GameObject::get_scene(game_object);
         }
 
         std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene)
         {
             std::vector<app::GameObject*> output;
             auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
-            auto game_objects = Scene_GetRootGameObjects(boxed);
+            auto game_objects = Scene::GetRootGameObjects(boxed);
             for (auto i = 0; i < game_objects->max_length; ++i)
                 output.push_back(game_objects->vector[i]);
 
@@ -240,14 +240,14 @@ namespace il2cpp
         std::string get_scene_name(app::Scene& scene)
         {
             auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
-            auto csstring = Scene_get_name(boxed);
+            auto csstring = Scene::get_name(boxed);
             return convert_csstring(csstring);
         }
 
         std::string get_scene_path(app::Scene& scene)
         {
             auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
-            auto csstring = Scene_get_path(boxed);
+            auto csstring = Scene::get_path(boxed);
             return convert_csstring(csstring);
         }
     }

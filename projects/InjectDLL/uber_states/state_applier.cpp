@@ -20,7 +20,7 @@ namespace uber_states
             if (it != applier_intercepts.end())
                 stateGUID = it->second(this_ptr, stateGUID, context);
 
-            NewSetupStateController_ApplyKnownState(this_ptr, stateGUID, context);
+            NewSetupStateController::ApplyKnownState(this_ptr, stateGUID, context);
         }
 
         void intercept_state(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -53,7 +53,7 @@ namespace uber_states
 
 
             register_applier_redirect(first, second);
-            UberStateController_ApplyAll(1);
+            UberStateController::ApplyAll(0);
         }
 
         void add_applier_intercept_commands()

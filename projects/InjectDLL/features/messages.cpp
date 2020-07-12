@@ -23,7 +23,6 @@ BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, boo
 BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
 BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
 
-
 IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
 IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
 
@@ -86,7 +85,7 @@ INTERCEPT(13850992, __int64, showShardMessage, (__int64 a, __int64 b, char c)) {
 IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider* this_ptr));
 IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB* this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
     if (context->fields.PickupType == app::PickupMessageIcon_PickupType__Enum_QuestItem) {
-        auto arr = MessageProvider_GetAllMessages(context->fields.Name);
+        auto arr = MessageProvider::GetAllMessages(context->fields.Name);
         if (arr->max_length > 0)
         {
             auto name = convert_csstring(arr->vector[0]);
@@ -95,7 +94,7 @@ IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowPickupMessage, (app
         }
     }
 
-    return MessageControllerB_ShowPickupMessage(this_ptr, message_provider, context, lockInput);
+    return MessageControllerB::ShowPickupMessage(this_ptr, message_provider, context, lockInput);
 }
 
 // Gets called on gorlek ore, no effect on message.
@@ -132,7 +131,7 @@ IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController* this_
         clear_on_next_update = false;
     }
 
-    QuestsController_Update(this_ptr);
+    QuestsController::Update(this_ptr);
 }
 
 INJECT_C_DLLEXPORT void message_item_callback(const wchar_t* str) {
@@ -140,7 +139,7 @@ INJECT_C_DLLEXPORT void message_item_callback(const wchar_t* str) {
 }
 
 NESTED_IL2CPP_INTERCEPT(, TranslatedMessageProvider, MessageItem, app::MessageDescriptor, GetDescriptor, (app::TranslatedMessageProvider_MessageItem* this_ptr, int32_t language)) {
-  auto result = TranslatedMessageProvider_MessageItem_GetDescriptor(this_ptr, language);
+  auto result = TranslatedMessageProvider::MessageItem::GetDescriptor(this_ptr, language);
   if (result.Message != nullptr && is_in_shop_screen()){
     auto shop_str = convert_csstring(result.Message);
     auto wrote_str = csharp_bridge::shop_string_repl(shop_str.c_str());
@@ -207,12 +206,12 @@ void clear_visible_hints()
 
 extern "C" __declspec(dllexport)
 bool hints_ready() {
-    return OnScreenPositions_get_TopCenter().y > 0;
+    return OnScreenPositions::get_TopCenter().y > 0;
 }
 
 extern "C" __declspec(dllexport)
 app::MessageBox * display_hint(const wchar_t* hint, float duration) {
-  return send_msg(hint, duration, OnScreenPositions_get_TopCenter(), false);
+  return send_msg(hint, duration, OnScreenPositions::get_TopCenter(), false);
 }
 
 app::MessageBox* display_below_helper(const wchar_t* info, float duration, bool mute) {
@@ -233,7 +232,7 @@ app::MessageBox* display_below_helper(const wchar_t* info, float duration, bool 
     below_hint_box = MessageControllerB__ShowHintSmallMessage(
       message_controller,
       app::MessageDescriptor{ msg, app::EmotionType__Enum_Neutral, nullptr, nullptr },
-      OnScreenPositions_get_BottomCenter(),
+      OnScreenPositions::get_BottomCenter(),
       duration
     );
     below_hint_box->fields.MessageIndex = 1;

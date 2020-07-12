@@ -5,7 +5,7 @@ IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectExpOrbPickup, (app::SeinP
 	if(expOrbPickup->fields.MessageType) //Any non-enemy exp drop has an associated messageBox
 		collecting_pickup = true;
 
-	SeinPickupProcessor_OnCollectExpOrbPickup(this_ptr, expOrbPickup);
+	SeinPickupProcessor::OnCollectExpOrbPickup(this_ptr, expOrbPickup);
 	collecting_pickup = false;
 }
 
@@ -13,5 +13,5 @@ IL2CPP_INTERCEPT(, SeinLevel, void, set_Experience, (app::SeinLevel* this_ptr, i
 	if(collecting_pickup)
 		return;
 
-	SeinLevel_set_Experience(this_ptr, value);
+	SeinLevel::set_Experience(this_ptr, value);
 }

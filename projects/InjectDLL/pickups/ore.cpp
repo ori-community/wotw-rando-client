@@ -78,7 +78,7 @@ enum class WorldMapIconType : int32_t
 };
 
 IL2CPP_INTERCEPT(, GameWorld, int32_t, GetCollectedIconTypeCount, (app::GameWorld* this_ptr, app::WorldMapIconType__Enum type)) {
-    auto value = GameWorld_GetCollectedIconTypeCount(this_ptr, type);
+    auto value = GameWorld::GetCollectedIconTypeCount(this_ptr, type);
     if (static_cast<int32_t>(type) == static_cast<int32_t>(WorldMapIconType::Ore))
         value = get_ore();
 
@@ -87,7 +87,7 @@ IL2CPP_INTERCEPT(, GameWorld, int32_t, GetCollectedIconTypeCount, (app::GameWorl
 
 IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectOrePickup, (app::SeinPickupProcessor* this_ptr, app::OrePickup* orePickup)) {
 	collecting_pickup = true;
-	SeinPickupProcessor_OnCollectOrePickup(this_ptr, orePickup);
+	SeinPickupProcessor::OnCollectOrePickup(this_ptr, orePickup);
     collecting_pickup = false;
 }
 
@@ -95,5 +95,5 @@ IL2CPP_INTERCEPT(, SeinLevel, void, set_Ore, (app::SeinLevel* this_ptr, int32_t 
 	if(collecting_pickup)
 		return;
 
-	SeinLevel_set_Ore(this_ptr, value);
+	SeinLevel::set_Ore(this_ptr, value);
 }

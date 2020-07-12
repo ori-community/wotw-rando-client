@@ -58,24 +58,19 @@ std::mutex sound_mutex;
 
 //---------------------------------------------------------Bindings------------------------------------------------------------
 
-// GameController$get_InputLocked
-BINDING(10012848, bool, getInputLocked, (app::GameController* thisPtr));
-// GameController$$get_LockInput
-BINDING(10013200, bool, getLockInput, (app::GameController* thisPtr));
-// GameController$$get_IsSuspended
-BINDING(10013520, bool, getIsSuspended, (app::GameController* thisPtr));
-// GameController$$get_SecondaryMapAndInventoryCanBeOpened
-BINDING(10011696, bool, getSecondaryMenusAccessable, (app::GameController* thisPtr));
+IL2CPP_BINDING(, GameController, bool, get_InputLocked, (app::GameController* thisPtr));
+IL2CPP_BINDING(, GameController, bool, get_LockInput, (app::GameController* thisPtr));
+IL2CPP_BINDING(, GameController, bool, get_IsSuspended, (app::GameController* thisPtr));
+IL2CPP_BINDING(, GameController, bool, get_SecondaryMapAndInventoryCanBeOpened, (app::GameController* thisPtr));
 
-BINDING(11450304, void, SpellInventory__UpdateBinding, (app::SpellInventory* thisPtr, int32_t binding, int32_t typ));
+IL2CPP_BINDING(, SpellInventory, void, UpdateBinding, (app::SpellInventory* thisPtr, int32_t binding, int32_t typ));
 
-BINDING(35034256, int32_t, UnityEngine_Cursor__get_lockState, ());
-BINDING(35034336, void, UnityEngine_Cursor__set_lockState, (int32_t value));
+IL2CPP_BINDING(UnityEngine, Cursor, int32_t, get_lockState, ());
+IL2CPP_BINDING(UnityEngine, Cursor, void, set_lockState, (int32_t value));
 
-BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
-BINDING(10971216, app::Vector3, SeinCharacter__get_Position, (app::SeinCharacter* thisPtr));
-BINDING(10971312, void, SeinCharacter__set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
-BINDING(11448960, app::InventoryItem*, SpellInventory__AddNewSpellToInventory, (app::SpellInventory* thisPtr, int32_t type, bool adding));
+IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
+IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
+IL2CPP_BINDING(, SpellInventory, app::InventoryItem*, AddNewSpellToInventory, (app::SpellInventory* thisPtr, int32_t type, bool adding));
 
 //---------------------------------------------------------Intercepts----------------------------------------------------------
 
@@ -88,16 +83,10 @@ INJECT_C_DLLEXPORT void warp_to(int x, int y, __int8 frames) {
   set_to_last_position = frames;
 }
 
-INJECT_C_DLLEXPORT void magic_function() {
-  last_position = SeinCharacter__get_Position(get_sein());
-  set_to_last_position = 3;
-  Moon_UberStateController__ApplyAll(1);
-}
-
 INJECT_C_DLLEXPORT bool has_ability(uint8_t ability) {
   auto sein = get_sein();
   if (sein && sein->fields.PlayerAbilities)
-    return PlayerAbilities_HasAbility(sein->fields.PlayerAbilities, ability);
+    return PlayerAbilities::HasAbility(sein->fields.PlayerAbilities, ability);
   trace(MessageType::Error, 3, "abilities", "Failed to check ability: couldn't find reference to sein!");
   return false;
 }
@@ -105,7 +94,7 @@ INJECT_C_DLLEXPORT bool has_ability(uint8_t ability) {
 INJECT_C_DLLEXPORT void set_ability(uint8_t ability, bool value) {
   auto sein = get_sein();
   if (sein && sein->fields.PlayerAbilities)
-    PlayerAbilities_SetAbility(sein->fields.PlayerAbilities, ability, value);
+    PlayerAbilities::SetAbility(sein->fields.PlayerAbilities, ability, value);
   else
     trace(MessageType::Error, 3, "abilities", "Failed to set ability: couldn't find reference to sein!");
 }
@@ -113,22 +102,21 @@ INJECT_C_DLLEXPORT void set_ability(uint8_t ability, bool value) {
 INJECT_C_DLLEXPORT void set_equipment(int32_t equip, bool value) {
   auto sein = get_sein();
   if (sein && sein->fields.PlayerSpells)
-    SpellInventory__AddNewSpellToInventory(sein->fields.PlayerSpells, equip, value);
+    SpellInventory::AddNewSpellToInventory(sein->fields.PlayerSpells, equip, value);
   else
     trace(MessageType::Error, 3, "abilities", "Failed to set equipment: couldn't find reference to sein!");
 }
 
-INTERCEPT(10044704, void, fixedUpdate1, (__int64 thisPtr)) {
-  //GameController$$FixedUpdate
-  fixedUpdate1(thisPtr);
-  on_fixed_update(thisPtr);
+IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr)) {
+    GameController::FixedUpdate(this_ptr);
+    on_fixed_update(this_ptr);
 }
 
 //---------------------------------------------------Actual Functions------------------------------------------------
 
 INJECT_C_DLLEXPORT bool toggle_cursorlock() {
-  int32_t newState = 2 - UnityEngine_Cursor__get_lockState();
-  UnityEngine_Cursor__set_lockState(newState);
+  int32_t newState = 2 - Cursor::get_lockState();
+  Cursor::set_lockState(newState);
   return newState > 0;
 }
 
@@ -149,7 +137,7 @@ app::GameSettings* get_settings() {
 }
 
 INJECT_C_DLLEXPORT void bind_sword() {
-  SpellInventory__UpdateBinding(get_sein()->fields.PlayerSpells, 0, 1002);
+  SpellInventory::UpdateBinding(get_sein()->fields.PlayerSpells, 0, 1002);
 }
 int frames_until_unmute = 0;
 float old_sfx_volume = 0.0;
@@ -158,41 +146,47 @@ IL2CPP_BINDING(, GameSettings, void, set_SoundEffectsVolume, (app::GameSettings*
 
 void mute_for(int frames) {
   auto settings = get_settings();
-  float current_volume = GameSettings_get_SoundEffectsVolume(settings);
+  float current_volume = GameSettings::get_SoundEffectsVolume(settings);
   frames_until_unmute = frames;
   if (current_volume > 0.001) {
     sound_mutex.lock();
     old_sfx_volume = current_volume;
-    GameSettings_set_SoundEffectsVolume(settings, 0.0);
+    GameSettings::set_SoundEffectsVolume(settings, 0.0);
     sound_mutex.unlock();
   }
 }
-void on_fixed_update(__int64 thisPointer) {
-  try
-  {
-    csharp_bridge::update();
-  }
-  catch (int error)
-  {
-    trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
-  }
-  if (frames_until_unmute > 0) {
-    sound_mutex.lock();
-    if (--frames_until_unmute == 0) {
-      GameSettings_set_SoundEffectsVolume(get_settings(), old_sfx_volume);
+void on_fixed_update(app::GameController* this_ptr) {
+    try
+    {
+        csharp_bridge::update();
     }
-    sound_mutex.unlock();
-  }
-  if (set_to_last_position > 0) {
-    set_to_last_position--;
-    SeinCharacter__set_Position(get_sein(), last_position);
-  }
+    catch (int error)
+    {
+        trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
+    }
+
+    if (frames_until_unmute > 0)
+    {
+        sound_mutex.lock();
+        if (--frames_until_unmute == 0)
+            GameSettings::set_SoundEffectsVolume(get_settings(), old_sfx_volume);
+
+        sound_mutex.unlock();
+    }
+    if (set_to_last_position > 0)
+    {
+        set_to_last_position--;
+        SeinCharacter::set_Position(get_sein(), last_position);
+    }
 }
 
 INJECT_C_DLLEXPORT bool player_can_move()
 {
   auto gcip = get_game_controller();
-  return !(getInputLocked(gcip) || getLockInput(gcip) || getIsSuspended(gcip)) && getSecondaryMenusAccessable(gcip);
+  return !(GameController::get_InputLocked(gcip) ||
+      GameController::get_LockInput(gcip) ||
+      GameController::get_IsSuspended(gcip)) &&
+      GameController::get_SecondaryMapAndInventoryCanBeOpened(gcip);
 }
 
 //--------------------------------------------------------------Old-----------------------------------------------------------
@@ -349,8 +343,10 @@ void network_event_handler(network::NetworkEvent const& evt)
 }
 
 bool no_pause = false;
-INTERCEPT(10036704, void, GameController__OnApplicationFocus, (app::GameController* this_ptr, bool focusStatus)) {
-  this_ptr->fields._PreventFocusPause_k__BackingField = no_pause;
+IL2CPP_INTERCEPT(, GameController, void, OnApplicationFocus, (app::GameController* this_ptr, bool focusStatus))
+{
+    this_ptr->fields._PreventFocusPause_k__BackingField = no_pause;
+    GameController::OnApplicationFocus(this_ptr, focusStatus);
 }
 
 void set_no_pause(bool value)

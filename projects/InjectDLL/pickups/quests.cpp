@@ -15,7 +15,7 @@ namespace
 
     IL2CPP_INTERCEPT(, QuestNodeWisps, void, ApplyReward, (app::QuestNodeWisps* this_ptr)) {
         collecting_pickup = true;
-        QuestNodeWisps_ApplyReward(this_ptr);
+        QuestNodeWisps::ApplyReward(this_ptr);
         collecting_pickup = false;      
     }
 
@@ -41,13 +41,13 @@ namespace
     IL2CPP_INTERCEPT(, QuestsController, void, CompleteQuest, (app::QuestsController* this_ptr, app::Quest* quest)) {
         if (quest_reporting)
         {
-            auto uber_state = Quest_get_UberState(quest);
+            auto uber_state = Quest::get_UberState(quest);
             auto cast_uber_state = il2cpp::safe_il2cpp_cast<app::SerializedIntUberState>(uber_state, "Moon", "SerializedIntUberState");
             if (cast_uber_state != nullptr && cast_uber_state->fields._.m_id != nullptr && cast_uber_state->fields.Group != nullptr)
                 send_state(cast_uber_state);
         }
 
-        QuestsController_CompleteQuest(this_ptr, quest);
+        QuestsController::CompleteQuest(this_ptr, quest);
     }
 
 

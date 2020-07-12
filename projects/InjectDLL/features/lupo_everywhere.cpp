@@ -9,7 +9,7 @@ namespace
 
     IL2CPP_INTERCEPT(, ActivateBasedOnCondition, void, Awake, (app::ActivateBasedOnCondition* this_ptr))
     {
-        auto target = ActivateBasedOnCondition_get_EffectiveTarget(this_ptr);
+        auto target = ActivateBasedOnCondition::get_EffectiveTarget(this_ptr);
         auto name = il2cpp::unity::get_object_name(target);
         // TODO: use visualizer and hide behind a dev switch.
         //dev::console_send("ActivateBasedOnCondition: " + name);
@@ -34,6 +34,6 @@ namespace
                 trace(MessageType::Error, 2, "game", "Failed to create AlwaysTrueCondition to replace condition in map maker");
         }
 
-        ActivateBasedOnCondition_Awake(this_ptr);
+        ActivateBasedOnCondition::Awake(this_ptr);
     }
 }

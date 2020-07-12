@@ -17,7 +17,7 @@ INJECT_C_DLLEXPORT void play_sound(SoundEvent evt)
     {
     case SoundEvent::QuestComplete:
         auto controller = il2cpp::get_class<app::QuestsController__Class>("", "QuestsController")->static_fields->Instance;
-        WwiseEventSystem_FireAndForget(wes, controller->fields.CompleteSoundEvent, host);
+        WwiseEventSystem::FireAndForget(wes, controller->fields.CompleteSoundEvent, host);
         break;
     }
 }

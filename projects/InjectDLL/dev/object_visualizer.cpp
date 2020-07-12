@@ -129,11 +129,11 @@ namespace dev
                 visualizer.stream << "active_state: " << controller->fields.m_activeStateIndex << visualizer.new_line;
                 indent(visualizer, 0, 1);
                 visualizer.stream << "states:" << visualizer.new_line;
-                auto all_states = NewSetupStateController_GetAllStateGUIDs(controller);
+                auto all_states = NewSetupStateController::GetAllStateGUIDs(controller);
                 for (auto i = 0; i < all_states->max_length; ++i)
                 {
                     auto guid = all_states->vector[i];
-                    auto csname = NewSetupStateController_GetStateName(controller, guid);
+                    auto csname = NewSetupStateController::GetStateName(controller, guid);
                     auto name = convert_csstring(csname);
 
                     indent(visualizer);
