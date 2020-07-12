@@ -24,6 +24,16 @@ namespace
         else
             this_ptr->fields.m_allowDash = dashes_used <= extra_dashes;
     }
+
+    IL2CPP_INTERCEPT(, SeinDashNew, void, OnResetAirLimits, (app::SeinDashNew* this_ptr, bool reset_cooldown)) {
+        SeinDashNew_OnResetAirLimits(this_ptr, reset_cooldown);
+        dashes_used = 0;
+    }
+
+    IL2CPP_INTERCEPT(, SeinDashNew, void, ResetDash, (app::SeinDashNew* this_ptr, bool reset_cooldown)) {
+        SeinDashNew_ResetDash(this_ptr, reset_cooldown);
+        dashes_used = 0;
+    }
 }
 
 INJECT_C_DLLEXPORT void set_extra_jumps(int value)
