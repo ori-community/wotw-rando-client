@@ -49,11 +49,11 @@ namespace
 {
     std::set<app::MessageBox*> tracked_boxes;
     app::MessageBox* npc_box = nullptr;
-    app::MessageBox* map_hint_box = nullptr;
+    app::MessageBox* below_hint_box = nullptr;
     app::String* last_message = nullptr;
     app::String* cached = nullptr;
     uint32_t last_handle = 0;
-    uint32_t map_box_handle = 0;
+    uint32_t below_box_handle = 0;
 
     void print_csstring(app::String* str)
     {
@@ -153,7 +153,7 @@ NESTED_IL2CPP_INTERCEPT(, TranslatedMessageProvider, MessageItem, app::MessageDe
 
 INTERCEPT(13823536, void, MessageBox__Update, (app::MessageBox* this_ptr)) {
     MessageBox__Update(this_ptr);
-    if (this_ptr == map_hint_box)
+    if (this_ptr == below_hint_box)
       return;
     if (tracked_boxes.find(this_ptr) == tracked_boxes.end() && is_visible(this_ptr))
     {
@@ -178,8 +178,8 @@ INTERCEPT(13822720, void, MessageBox__OnDestroy, (app::MessageBox* this_ptr)) {
 //        debug("intecepted destroy of tracked box, nulling it");
         tracked_boxes.erase(this_ptr);
     }
-    if (this_ptr == map_hint_box)
-      map_hint_box = nullptr;
+    if (this_ptr == below_hint_box)
+      below_hint_box = nullptr;
 }
 
 extern "C" __declspec(dllexport)
@@ -215,43 +215,48 @@ app::MessageBox * display_hint(const wchar_t* hint, float duration) {
   return send_msg(hint, duration, OnScreenPositions_get_TopCenter(), false);
 }
 
-extern "C" __declspec(dllexport)
-app::MessageBox* update_map_hint(const wchar_t* info) {
+app::MessageBox* display_below_helper(const wchar_t* info, float duration, bool mute) {
   try
   {
-    mute_for(30);
-    debug("map stuff", "set mute");
-    if (map_hint_box && is_visible(map_hint_box)) {
-      MessageBox__HideMessageScreenImmediately(map_hint_box, 0);
-      map_hint_box = 0;
-      if (map_box_handle) {
-        il2cpp_gchandle_free(map_box_handle);
-        map_box_handle = 0;
+    if(mute)
+      mute_for(30);
+    if (below_hint_box && is_visible(below_hint_box)) {
+      MessageBox__HideMessageScreenImmediately(below_hint_box, 0);
+      below_hint_box = 0;
+      if (below_box_handle) {
+        il2cpp_gchandle_free(below_box_handle);
+        below_box_handle = 0;
       }
     }
-    debug("map stuff", "clear done");
     auto msg = reinterpret_cast<app::String*>(il2cpp::string_new(info));
     const auto message_controller = get_ui()->static_fields->MessageController;
-    map_hint_box = MessageControllerB__ShowHintSmallMessage(
+    below_hint_box = MessageControllerB__ShowHintSmallMessage(
       message_controller,
       app::MessageDescriptor{ msg, app::EmotionType__Enum_Neutral, nullptr, nullptr },
       OnScreenPositions_get_BottomCenter(),
-      12
+      duration
     );
-    debug("map stuff", "called show");
-    map_hint_box->fields.MessageIndex = 1;
-    map_box_handle = il2cpp_gchandle_new_weakref((Il2CppObject*)map_hint_box, true);
-    return map_hint_box;
+    below_hint_box->fields.MessageIndex = 1;
+    below_box_handle = il2cpp_gchandle_new_weakref((Il2CppObject*)below_hint_box, true);
+    return below_hint_box;
   }
   catch (...) {
     trace(MessageType::Debug, 3, "messages", "Error caught by display hint. This might not be fine?");
     return nullptr;
   }
 }
+extern "C" __declspec(dllexport)
+app::MessageBox * display_below(const wchar_t* hint, float duration) {
+  return display_below_helper(hint, duration, false);
+}
+extern "C" __declspec(dllexport)
+app::MessageBox * update_map_hint(const wchar_t* info) {
+  return display_below_helper(info, 20, true);
+}
 
-void hide_map_hint() {
-  if (map_hint_box != nullptr)
-    MessageBox__HideMessageScreenImmediately(map_hint_box, 0);
+void hide_below_hint() {
+  if (below_hint_box != nullptr)
+    MessageBox__HideMessageScreenImmediately(below_hint_box, 0);
 }
 
 app::MessageBox* send_msg(const wchar_t* hint, float duration, app::Vector3 pos, bool mute){
