@@ -107,7 +107,7 @@ namespace RandoMainDLL {
         duration += 60;
       if (SeedController.HintsDisabled) {
         if(!justUnlocked)
-          AHK.SendPlainText(new PlainText(SeedController.Progress, 240), justUnlocked);
+          AHK.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
         return;
       }
 
@@ -154,8 +154,7 @@ namespace RandoMainDLL {
             return false;
           if (ZoneToState.TryGetValue(zone, out UberState state)) {
             var value = state.CurrentValue();
-            if (!value.HasValue) return false;
-            return value.Value.Bool;
+            return value.HasValue && value.Value.Bool;
           }
           else
             return false;

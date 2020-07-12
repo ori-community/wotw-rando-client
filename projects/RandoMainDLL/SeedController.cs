@@ -69,11 +69,11 @@ namespace RandoMainDLL {
 
     public static bool IsGoal(this UberStateCondition goalCond) {
       var loc = goalCond.Loc();
-      if (flags.Contains(Flag.ALLTREES) && loc.Type == LocType.Tree)
+      if (loc.Type == LocType.Tree /*&& flags.Contains(Flag.ALLTREES) honestly it's just nice to always do it here?*/)
         return true;
-      if (flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId() == goalCond.Id))
+      if (flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
         return true;
-      if (flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId() == goalCond.Id && q.ValueAsInt() == goalCond.Target))
+      if (flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target.GetValueOrDefault()))
         return true;
       return false;
     }
