@@ -19,6 +19,9 @@ namespace RandoMainDLL {
 
       return s;
     }
+    public static void ClearStates() {
+      UberStates.Clear();
+    }
 
     private static UberState createUberStateEntry(UberId id) {
       if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
