@@ -35,6 +35,8 @@
 
 #include <dev/dev_commands.h>
 
+#undef Cursor
+
 //---------------------------------------------------Globals-----------------------------------------------------
 
 bool trace_enabled = false;
@@ -63,10 +65,10 @@ IL2CPP_BINDING(, GameController, bool, get_LockInput, (app::GameController* this
 IL2CPP_BINDING(, GameController, bool, get_IsSuspended, (app::GameController* thisPtr));
 IL2CPP_BINDING(, GameController, bool, get_SecondaryMapAndInventoryCanBeOpened, (app::GameController* thisPtr));
 
-IL2CPP_BINDING(, SpellInventory, void, UpdateBinding, (app::SpellInventory* thisPtr, int32_t binding, int32_t typ));
+IL2CPP_BINDING_OVERLOAD(, SpellInventory, void, UpdateBinding, (app::SpellInventory* thisPtr, int32_t binding, int32_t typ), (SpellInventory.Binding, EquipmentType));
 
-IL2CPP_BINDING(UnityEngine, Cursor, int32_t, get_lockState, ());
-IL2CPP_BINDING(UnityEngine, Cursor, void, set_lockState, (int32_t value));
+STATIC_IL2CPP_BINDING(UnityEngine, Cursor, int32_t, get_lockState, ());
+STATIC_IL2CPP_BINDING(UnityEngine, Cursor, void, set_lockState, (int32_t value));
 
 IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
 IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
