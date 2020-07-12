@@ -25,7 +25,7 @@ namespace
 
         visualizer.level = static_cast<dev::Visualizer::InfoLevel>(std::clamp(value, 0, 3));
         visualizer.initial_depth = -1;
-        value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
+        value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "depth"; });
         if (value_it != params.end())
             if (!dev::try_get_int(*value_it, visualizer.initial_depth) || visualizer.initial_depth < 0)
                 dev::console_send("invalid value parameter not a positive int, using default depth");
