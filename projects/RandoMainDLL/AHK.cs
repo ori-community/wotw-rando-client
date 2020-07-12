@@ -84,7 +84,7 @@ namespace RandoMainDLL {
               FramesTillNextSend = 0;
               SeedController.ReadSeed();
               if (InterOp.get_game_state() == Memory.GameState.Game)
-                PsuedoLocs.RELOAD_SEED.Pickup().Grant();
+                PsuedoLocs.RELOAD_SEED.OnCollect();
               FramesTillUnlockReload = 60;
             }
             break;
@@ -110,13 +110,13 @@ namespace RandoMainDLL {
             Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
             break;
           case "test1":
-            PsuedoLocs.BINDING_ONE.Pickup().Grant();
+            PsuedoLocs.BINDING_ONE.OnCollect();
             break;
           case "test2":
-            PsuedoLocs.BINDING_TWO.Pickup().Grant();
+            PsuedoLocs.BINDING_TWO.OnCollect();
             break;
           case "test3":
-            PsuedoLocs.BINDING_THREE.Pickup().Grant();
+            PsuedoLocs.BINDING_THREE.OnCollect();
             break;
           case "test4":
             Print("magic", 180, false);
@@ -166,34 +166,44 @@ namespace RandoMainDLL {
       Last = new PlainText("*Good Luck! <3*");
     }
     public static void Pickup(string message, int frames = 180) {
-      FramesTillNextSend /= 4;
-      var msg = new PlainText(message, frames);
+      var msg = new PlainText(message, frames, SeedController.GrantingGoalModeLoc);
+      if(SeedController.GrantingGoalModeLoc) 
+        HintsController.ShowHintMessage();
       SendPlainText(msg);
       Last = msg;
     }
     public static void Print(string message, int frames = 180, bool toMessageLog = true) => SendPlainText(new PlainText(message, frames), toMessageLog);
     public static void SendPlainText(PlainText p, bool logMessage = true) {
-      FramesTillNextSend /= 3;
       if (logMessage)
-        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]","")}\n");
+        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]", "")}\n");
+
+      if (p.Lower) {
+        InterOp.display_below(p.Text, p.Frames / 60f);
+        return;
+      }
+
+      FramesTillNextSend /= 3;
       MessageQueue.Enqueue(p);
     }
     private static bool tpCheatToggle = false;
     public static bool TPToPickupsEnabled { get => tpCheatToggle && InterOp.get_debug_controls(); }
   }
   public interface IMessage {
+    bool Lower { get; }
     string Text { get; }
     int Frames { get; }
   };
 
   public class PlainText : IMessage {
-    public PlainText(string text, int frames = 180) {
+    public PlainText(string text, int frames = 180, bool lower = false) {
       Text = text;
-      Frames = frames;
+      Frames = frames + (SeedController.GrantingGoalModeLoc ? 120 : 0);
+      Lower = lower;
     }
 
     public string Text { get; }
     public int Frames { get; }
+    public bool Lower { get; }
   }
 
 }

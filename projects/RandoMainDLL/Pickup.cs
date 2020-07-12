@@ -106,6 +106,13 @@ namespace RandoMainDLL {
         AHK.Pickup(ToString(), Frames);
       SaveController.Data.FoundCount++;
     }
+    public bool Collect(bool isGoal = false) {
+      SeedController.GrantingGoalModeLoc = isGoal;
+      Grant();
+      SeedController.GrantingGoalModeLoc = false;
+      return NonEmpty;
+    }
+
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
       if (this is Multi multi) {

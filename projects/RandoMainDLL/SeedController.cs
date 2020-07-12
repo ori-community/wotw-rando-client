@@ -55,6 +55,7 @@ namespace RandoMainDLL {
 
   public static class SeedController {
 
+    public static bool GrantingGoalModeLoc = false;
     public enum FakeUberGroups {
       TREE = 0,
       OPHER_WEAPON = 1,
@@ -65,6 +66,20 @@ namespace RandoMainDLL {
 
     public static Pickup Pickup(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
+
+    public static bool IsGoal(this UberStateCondition goalCond) {
+      var loc = goalCond.Loc();
+      if (loc.Type == LocType.Tree /*&& flags.Contains(Flag.ALLTREES) */)
+        return true;
+      if (flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
+        return true;
+      if (flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target.GetValueOrDefault()))
+        return true;
+      return false;
+    }
+
+    public static bool OnCollect(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty).Collect(cond.IsGoal());
+    public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
 
     public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static HashSet<Flag> flags = new HashSet<Flag>();
@@ -157,22 +172,17 @@ namespace RandoMainDLL {
     }
 
     public static void OnTree(AbilityType ability) {
-      var fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
-      if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
-        p.Grant();
-      } else {
+      if(!new UberId((int)FakeUberGroups.TREE, (int)ability).toCond().OnCollect())
         Randomizer.Log($"Tree {ability} not found in seed!");
-      }
     }
 
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
-      var p = id.toCond().Pickup().Concat(
-              id.toCond(state.ValueAsInt()).Pickup());
-      if (p.NonEmpty) {
-        p.Grant();
+      var valueCond = id.toCond(state.ValueAsInt());
+      var p = id.toCond().Pickup().Concat(valueCond.Pickup());
+      if (p.Collect(valueCond.IsGoal())) {
         // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
-        if (id.toCond().Loc().Type == LocType.Shard)
+        if (valueCond.Loc().Type == LocType.Shard)
           InterOp.refresh_shards();
       }
       else {
@@ -315,9 +325,9 @@ namespace RandoMainDLL {
     public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }
     public static string Progress {
-      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages();
+      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages(progress: true);
     }
-    public static string GoalModeMessages(string met = "$", string unmet = "") {
+    public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false) {
       var msg = "";
       if (flags.Contains(Flag.ALLWISPS)) {
         var max = UberStateController.Wisps.Count;
@@ -336,9 +346,10 @@ namespace RandoMainDLL {
         var w = amount == max ? met : unmet;
         msg += $", {w}Quests: {amount}/{max}{w}";
       }
-      return msg.StartsWith(", ") ? "\n" + msg.Substring(2) : msg;
+      return msg.StartsWith(", ") ? (progress ? "\n" : "") + msg.Substring(2) : msg;
     }
-      public static void UpdateGoal() {
+
+    public static void UpdateGoal() {
       bool finished = true;
       if (flags.Contains(Flag.ALLTREES)) {
         finished = finished && SaveController.Data.TreesActivated.Count == 14;

@@ -44,21 +44,22 @@ namespace
     bool enable_goal_teleport = false;
     bool set_camera_next_update = false;
     IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter* this_ptr)) {
-        if (enable_goal_teleport)
-        {
-            auto cameras = il2cpp::get_class<app::UI_Cameras__Class>("", "UI.Cameras");
-            if (set_camera_next_update && cameras->static_fields->Current != nullptr)
-            {
+        if (enable_goal_teleport) {
+            auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+            if (set_camera_next_update) {
+              if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
                 // We need to do this on the next frame to allow state to update without causing flickering.
                 auto camera = cameras->static_fields->Current;
                 GameplayCamera_MoveCameraToTargetInstantly(camera, true);
-                set_camera_next_update = false;
+              } else {
+                warn("goal mode tp", "failed to refocus camera");
+              }
+              set_camera_next_update = false;
             }
 
             SeinCharacter_FixedUpdate(this_ptr);
             auto position = SeinCharacter_get_Position(this_ptr);
-            if (in_rect(goal_rect, position.x, position.y, position.z))
-            {
+            if (in_rect(goal_rect, position.x, position.y, position.z)) {
                 SeinCharacter_set_Position(this_ptr, goal_reset_position);
                 csharp_bridge::on_goal_mode_fail();
                 set_camera_next_update = true;

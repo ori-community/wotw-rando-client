@@ -228,12 +228,14 @@ namespace RandoMainDLL {
           var voiceState = new UberId(46462, 59806).State();
           if (!(voiceState.Value.Bool)) {
             voiceState.Write(new UberValue(true));
-
             InterOp.set_max_health(InterOp.get_max_health() + 10);
             InterOp.set_max_energy(InterOp.get_max_energy() + 1);
             InterOp.fill_health();
             InterOp.fill_energy();
           }
+          // should happen in both branches
+          if (SeedController.flags.Contains(Flag.ALLWISPS))
+            HintsController.ShowHintMessage();
         };
     }
     private static bool ShouldRevert(UberState state) {
@@ -265,7 +267,7 @@ namespace RandoMainDLL {
 
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
-            PsuedoLocs.GAME_START.Pickup().Grant();
+            PsuedoLocs.GAME_START.OnCollect();
             InterOp.save();
           };
         }
