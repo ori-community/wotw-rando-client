@@ -13,6 +13,12 @@ namespace RandoMainDLL {
   }
 
   public static class BonusItemController {
+    public static void Refresh() {
+      var dashes = (SaveController.Data?.BonusItems?.GetOrElse(BonusType.ExtraAirDash, 0)).GetValueOrDefault(0);
+      InterOp.set_extra_dashes(dashes);
+      var jumps = (SaveController.Data?.BonusItems?.GetOrElse(BonusType.ExtraDoubleJump, 0)).GetValueOrDefault(0);
+      InterOp.set_extra_jumps(jumps);
+    }
     public static void Update() {
       int h = BonusType.HealthRegen.Count();
       if (h > 0)
