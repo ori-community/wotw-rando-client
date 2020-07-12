@@ -11,32 +11,32 @@ namespace
         if (this_ptr->fields.Ability == app::AbilityType__Enum_Sword)
             return is_day;
         else
-            return SeinAbilityCondition_Validate(this_ptr, context);
+            return SeinAbilityCondition::Validate(this_ptr, context);
     }
 
     IL2CPP_INTERCEPT(, HasAbilityCondition, bool, Validate, (app::HasAbilityCondition* this_ptr, app::IContext* context)) {
         if (this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
             return is_day;
         else
-            return HasAbilityCondition_Validate(this_ptr, context);
+            return HasAbilityCondition::Validate(this_ptr, context);
     }
 
     IL2CPP_BINDING(, HasAbilityUberStateCondition, app::AbilityType__Enum, get_AbilityType, (app::HasAbilityUberStateCondition* this_ptr));
     IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, get_HasAbility, (app::HasAbilityUberStateCondition* this_ptr)) {
-        if (HasAbilityUberStateCondition_get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
+        if (HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
             return is_day;
         else
-            return HasAbilityUberStateCondition_get_HasAbility(this_ptr);
+            return HasAbilityUberStateCondition::get_HasAbility(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, Validate, (app::HasAbilityUberStateCondition* this_ptr)) {
-        if (HasAbilityUberStateCondition_get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
+        if (HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
         {
             auto booleans = this_ptr->fields._.Data->fields.Booleans;
             return booleans->fields._items->vector[0] == is_day;
         }
         else
-            return HasAbilityUberStateCondition_Validate(this_ptr);
+            return HasAbilityUberStateCondition::Validate(this_ptr);
     }
 
     void initialize_day_night_logic()
@@ -69,7 +69,7 @@ namespace
     bool override_has_ability = false;
     IL2CPP_INTERCEPT(, SwampNightDayTransition, void, UpdateStateBasedOnCondition, (app::SwampNightDayTransition* this_ptr)) {
         override_has_ability = true;
-        SwampNightDayTransition_UpdateStateBasedOnCondition(this_ptr);
+        SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
         override_has_ability = false;
     }
 
@@ -77,7 +77,7 @@ namespace
         if (override_has_ability && ability == app::AbilityType__Enum_Sword)
             return is_day;
         else
-            return PlayerAbilities_HasAbility(this_ptr, ability);
+            return PlayerAbilities::HasAbility(this_ptr, ability);
     }
 
     CALL_ON_INIT(initialize_day_night_logic);

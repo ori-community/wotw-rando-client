@@ -24,7 +24,7 @@ namespace {
             trace(MessageType::Debug, 5, "game", "Found GameWorld instance!");
 		    game_world_instance = thisPtr;
 	    }
-	    GameWorld_Awake(thisPtr);
+	    GameWorld::Awake(thisPtr);
     }
 
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon* thisPtr, app::AreaMapUI* areaMap)) {
@@ -32,7 +32,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* thisPtr)) {
-        return RuntimeWorldMapIcon_CanBeTeleportedTo(thisPtr) || csharp_bridge::tp_to_any_pickup();
+        return RuntimeWorldMapIcon::CanBeTeleportedTo(thisPtr) || csharp_bridge::tp_to_any_pickup();
     }
 
     extern "C" __declspec(dllexport)
@@ -41,17 +41,17 @@ namespace {
 	    {
 		    for (int32_t i = 0; i <= 15; i++)
 		    {
-			    auto area = GameWorld_GetArea(game_world_instance, i);
+			    auto area = GameWorld::GetArea(game_world_instance, i);
 			    if (!area) {
 				    //Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
 				    continue;
 			    }
 
-			    auto runtimeArea = GameWorld_FindRuntimeArea(game_world_instance, area);
+			    auto runtimeArea = GameWorld::FindRuntimeArea(game_world_instance, area);
 			    if (!runtimeArea)
 				    continue;
 
-                RuntimeGameWorldArea_DiscoverAllAreas(runtimeArea);
+                RuntimeGameWorldArea::DiscoverAllAreas(runtimeArea);
             }
 
             trace(MessageType::Debug, 5, "game", "Map revealed");
@@ -71,8 +71,8 @@ namespace {
 
     IL2CPP_BINDING(, GameMapUI, app::RuntimeGameWorldArea*, get_CurrentHighlightedArea, (app::GameMapUI* this_ptr));
     IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
-      GameMapUI_FixedUpdate(this_ptr);
-      auto area = GameMapUI_get_CurrentHighlightedArea(this_ptr);
+      GameMapUI::FixedUpdate(this_ptr);
+      auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
       auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
       if (aid != area_id) {
         area_id = aid;
@@ -81,7 +81,7 @@ namespace {
 
     }
     IL2CPP_INTERCEPT(, AreaMapUI, void, Show, (app::AreaMapUI* this_ptr, bool set_menu_audio_state)) {
-        AreaMapUI_Show(this_ptr, set_menu_audio_state);
+        AreaMapUI::Show(this_ptr, set_menu_audio_state);
         area_id = app::GameWorldAreaID__Enum_None;
         if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
         {
@@ -91,7 +91,7 @@ namespace {
     }
         
     IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
-        AreaMapUI_Hide(this_ptr);
+        AreaMapUI::Hide(this_ptr);
         hide_below_hint();
         if (cached != nullptr)
         {
@@ -110,12 +110,12 @@ namespace {
             disable_next_update_map_target = true;
         }
         else
-            AreaMapNavigation_SetTarget(this_ptr, quest);
+            AreaMapNavigation::SetTarget(this_ptr, quest);
     }
 
     IL2CPP_INTERCEPT(, AreaMapNavigation, void, UpdateMapTarget, (app::AreaMapNavigation* this_ptr)) {
         if (!disable_next_update_map_target)
-            AreaMapNavigation_UpdateMapTarget(this_ptr);
+            AreaMapNavigation::UpdateMapTarget(this_ptr);
 
         disable_next_update_map_target = false;
     }
@@ -131,8 +131,8 @@ namespace {
 
         if (get_input_state(FOCUS_BUTTON).just_pressed && quest_cache != nullptr)
         {
-            AreaMapNavigation_SetTarget(cached, quest_cache);
-            AreaMapNavigation_UpdateMapTarget(cached);
+            AreaMapNavigation::SetTarget(cached, quest_cache);
+            AreaMapNavigation::UpdateMapTarget(cached);
             //quest_cache = nullptr;
         }
     }

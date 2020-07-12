@@ -46,5 +46,5 @@ IL2CPP_INTERCEPT(Moon.uberSerializationWisp, DesiredPlayerAbilityState, bool, Is
     if (is_tree(this_ptr->fields.Ability))
         return csharp_bridge::is_tree_activated(this_ptr->fields.Ability);
     else
-        return DesiredPlayerAbilityState_IsFulfilled(this_ptr);
+        return DesiredPlayerAbilityState::IsFulfilled(this_ptr);
 }

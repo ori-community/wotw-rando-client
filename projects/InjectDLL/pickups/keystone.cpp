@@ -4,7 +4,7 @@
 
 IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectKeystonePickup, (app::SeinPickupProcessor* this_ptr, app::KeystonePickup* keystonePickup)) {
     collecting_pickup = true;
-    SeinPickupProcessor_OnCollectKeystonePickup(this_ptr, keystonePickup);
+    SeinPickupProcessor::OnCollectKeystonePickup(this_ptr, keystonePickup);
     collecting_pickup = false;
     get_ui()->static_fields->SeinUI->fields.WasLastKeystoneAnEyestone = false;
 }
@@ -13,5 +13,5 @@ IL2CPP_INTERCEPT(, SeinInventory, void, set_Keystones, (app::SeinInventory* this
 	if(collecting_pickup)
 		return;
 
-	SeinInventory_set_Keystones(this_ptr, value);
+	SeinInventory::set_Keystones(this_ptr, value);
 }

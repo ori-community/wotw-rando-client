@@ -11,13 +11,13 @@ IL2CPP_INTERCEPT(, Projectile, bool, HandleMirrorStrike, (app::Projectile* this_
     if (sein != nullptr)
     {
         auto abilities = sein->fields.PlayerAbilities;
-        if (PlayerAbilities_HasAbility(abilities, app::AbilityType__Enum_Bash))
-            ret = Projectile_HandleMirrorStrike(this_ptr, damage);
+        if (PlayerAbilities::HasAbility(abilities, app::AbilityType__Enum_Bash))
+            ret = Projectile::HandleMirrorStrike(this_ptr, damage);
         else
         {
-            PlayerAbilities_SetAbility(abilities, app::AbilityType__Enum_Bash, true);
-            ret = Projectile_HandleMirrorStrike(this_ptr, damage);
-            PlayerAbilities_SetAbility(abilities, app::AbilityType__Enum_Bash, false);
+            PlayerAbilities::SetAbility(abilities, app::AbilityType__Enum_Bash, true);
+            ret = Projectile::HandleMirrorStrike(this_ptr, damage);
+            PlayerAbilities::SetAbility(abilities, app::AbilityType__Enum_Bash, false);
         }
     }
 

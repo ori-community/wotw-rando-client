@@ -4,7 +4,7 @@
 #include <macros.h>
 #include <interception_macros.h>
 
-void on_fixed_update(__int64 thisPointer);
+void on_fixed_update(app::GameController* this_ptr);
 std::string pretty_time();
 bool is_in_shop_screen();
 void mute_for(int frames);

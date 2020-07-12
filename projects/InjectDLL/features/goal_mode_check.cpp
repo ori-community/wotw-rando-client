@@ -50,23 +50,23 @@ namespace
               if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
                 // We need to do this on the next frame to allow state to update without causing flickering.
                 auto camera = cameras->static_fields->Current;
-                GameplayCamera_MoveCameraToTargetInstantly(camera, true);
+                GameplayCamera::MoveCameraToTargetInstantly(camera, true);
               } else {
                 warn("goal mode tp", "failed to refocus camera");
               }
               set_camera_next_update = false;
             }
 
-            SeinCharacter_FixedUpdate(this_ptr);
-            auto position = SeinCharacter_get_Position(this_ptr);
+            SeinCharacter::FixedUpdate(this_ptr);
+            auto position = SeinCharacter::get_Position(this_ptr);
             if (in_rect(goal_rect, position.x, position.y, position.z)) {
-                SeinCharacter_set_Position(this_ptr, goal_reset_position);
+                SeinCharacter::set_Position(this_ptr, goal_reset_position);
                 csharp_bridge::on_goal_mode_fail();
                 set_camera_next_update = true;
             }
         }
         else
-            SeinCharacter_FixedUpdate(this_ptr);
+            SeinCharacter::FixedUpdate(this_ptr);
     }
 
     void report_player_position(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -74,7 +74,7 @@ namespace
         auto sein = get_sein();
         if (sein != nullptr)
         {
-            auto position = SeinCharacter_get_Position(sein);
+            auto position = SeinCharacter::get_Position(sein);
             dev::console_send(format("sein pos: {%f, %f, %f}", position.x, position.y, position.z));
         }
         else

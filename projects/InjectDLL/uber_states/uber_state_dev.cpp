@@ -156,7 +156,7 @@ namespace
         for (auto i = 0; i < list->fields._size; ++i)
         {
             auto item = list->fields._items->vector[i];
-            if (UberStateController_ApplierIsAffectedByUberState(item, uber_state))
+            if (UberStateController::ApplierIsAffectedByUberState(item, uber_state))
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
 

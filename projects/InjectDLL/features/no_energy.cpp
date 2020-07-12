@@ -10,7 +10,7 @@ namespace
         if (no_energy)
             return 0.f;
 
-        return SeinEnergy_get_EnergyCostMultiplier(this_ptr);
+        return SeinEnergy::get_EnergyCostMultiplier(this_ptr);
     }
 
     void initialize_no_energy()

@@ -89,7 +89,7 @@ INJECT_C_DLLEXPORT bool get_debug_controls()
 INJECT_C_DLLEXPORT void add_health(float inc) {
     auto sein = get_sein();
     if (sein != nullptr)
-        SeinHealthController_GainHealth(sein->fields.Mortality->fields.Health, inc, 4, true);
+        SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, inc, 4, true);
 }
 
 INJECT_C_DLLEXPORT void fill_health() {
@@ -99,7 +99,7 @@ INJECT_C_DLLEXPORT void fill_health() {
 INJECT_C_DLLEXPORT void add_energy(float inc) {
     auto sein = get_sein();
     if (sein != nullptr)
-        SeinEnergy_Gain(sein->fields.Energy, inc);
+        SeinEnergy::Gain(sein->fields.Energy, inc);
 }
 
 INJECT_C_DLLEXPORT void fill_energy() {
@@ -124,7 +124,7 @@ INJECT_C_DLLEXPORT void set_max_health(int32_t value)
 INJECT_C_DLLEXPORT void set_max_energy(float value) {
     auto sein = get_sein();
     if (sein != nullptr)
-        SeinEnergy_set_BaseMaxEnergy(sein->fields.Energy, value);
+        SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
 }
 
 INJECT_C_DLLEXPORT int32_t get_max_health()
@@ -136,7 +136,7 @@ INJECT_C_DLLEXPORT float get_max_energy()
 {
     auto sein = get_sein();
     if (sein != nullptr)
-        return SeinEnergy_get_BaseMaxEnergy(sein->fields.Energy);
+        return SeinEnergy::get_BaseMaxEnergy(sein->fields.Energy);
     else
         return 0.f;
 }
@@ -151,7 +151,7 @@ INJECT_C_DLLEXPORT void set_ore(int32_t value)
     auto sein = get_sein();
     if (sein != nullptr)
     {
-        SeinLevel_set_Ore(sein->fields.Level, value);
+        SeinLevel::set_Ore(sein->fields.Level, value);
         get_inventory()->fields.m_ore = value;
     }
 }
@@ -210,13 +210,13 @@ app::PlayerSpiritShards* get_player_spirit_shards() {
 INJECT_C_DLLEXPORT void set_shard_slots(int32_t value) {
     auto shards = get_player_spirit_shards();
     if (shards != nullptr)
-        PlayerSpiritShards_SetGlobalShardSlotCount(shards, value);
+        PlayerSpiritShards::SetGlobalShardSlotCount(shards, value);
 }
 
 INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type) {
     auto shards = get_player_spirit_shards();
     if (shards != nullptr)
-        return PlayerSpiritShards_HasShard(shards, type);
+        return PlayerSpiritShards::HasShard(shards, type);
     else
         return false;
 }
@@ -224,7 +224,7 @@ INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type) {
 INJECT_C_DLLEXPORT void refresh_shards() {
     auto shards = get_player_spirit_shards();
     if (shards != nullptr)
-        PlayerSpiritShards_RefreshHasShard(shards);
+        PlayerSpiritShards::RefreshHasShard(shards);
 }
 
 IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, app::PlayerUberStateShards_Shard*, SetAbility,
@@ -235,7 +235,7 @@ INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
     if (player_shards != nullptr)
     {
         auto shards = get_shards();
-        auto shard = PlayerUberStateShards_SetAbility(shards, static_cast<uint8_t>(type), value);
+        auto shard = PlayerUberStateShards::SetAbility(shards, static_cast<uint8_t>(type), value);
         il2cpp::invoke(player_shards->fields.OnInventoryUpdated, "Invoke", shard);
     }
 }

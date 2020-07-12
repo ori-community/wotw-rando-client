@@ -13,27 +13,27 @@ namespace
         if (swim->fields.HasState)
         {
             swim->fields.State->fields.SwimSpeed = normal;
-            swim->fields.State->fields.SwimSpeedBoostCurve = AnimationCurve_EaseInOut(0.05, 1.f, 0.2, boost / normal);
+            swim->fields.State->fields.SwimSpeedBoostCurve = AnimationCurve::EaseInOut(0.05, 1.f, 0.2, boost / normal);
         }
     }
 
     IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (__int64 thisPtr, __int64 ctxPtr)) {
-        NewGameAction_Perform(thisPtr, ctxPtr);
+        NewGameAction::Perform(thisPtr, ctxPtr);
         invert_swim();
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* thisPtr)) {
-        SaveGameController_OnFinishedLoading(thisPtr);
+        SaveGameController::OnFinishedLoading(thisPtr);
         invert_swim();
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
-        SaveGameController_RestoreCheckpoint(thisPtr);
+        SaveGameController::RestoreCheckpoint(thisPtr);
         invert_swim();
     }
 
     IL2CPP_INTERCEPT(, SeinHealthController, void, OnRespawn, (app::SeinHealthController* thisPtr)) {
-        SeinHealthController_OnRespawn(thisPtr);
+        SeinHealthController::OnRespawn(thisPtr);
         invert_swim();
     }
 }
