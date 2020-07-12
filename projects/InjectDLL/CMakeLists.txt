@@ -31,6 +31,7 @@ set(
 	"features/no_energy.cpp"
 	"features/water.cpp"
 	"fixes/dash.cpp"
+	"fixes/deflector.cpp"
 	"fixes/flap.cpp"
 	"pickups/pickups.cpp"
 	"pickups/energy_cell.cpp"
