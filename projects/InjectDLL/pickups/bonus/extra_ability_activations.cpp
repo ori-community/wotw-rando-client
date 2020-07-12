@@ -25,8 +25,8 @@ namespace
             this_ptr->fields.m_allowDash = dashes_used <= extra_dashes;
     }
 
-    IL2CPP_INTERCEPT(, SeinDashNew, void, OnResetAirLimits, (app::SeinDashNew* this_ptr, bool reset_cooldown)) {
-        SeinDashNew_OnResetAirLimits(this_ptr, reset_cooldown);
+    IL2CPP_INTERCEPT(, SeinDashNew, void, OnResetAirLimits, (app::SeinDashNew* this_ptr)) {
+        SeinDashNew_OnResetAirLimits(this_ptr);
         dashes_used = 0;
     }
 
