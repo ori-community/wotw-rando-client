@@ -197,7 +197,7 @@ namespace RandoMainDLL {
   public class PlainText : IMessage {
     public PlainText(string text, int frames = 180, bool lower = false) {
       Text = text;
-      Frames = frames;
+      Frames = frames + (SeedController.GrantingGoalModeLoc ? 120 : 0);
       Lower = lower;
     }
 
