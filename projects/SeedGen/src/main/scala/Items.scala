@@ -46,6 +46,24 @@ package SeedGenerator {
     override val cost = 7
   }
 
+  case class Bonus(bonusId: Int, val name: String) extends Item with Merch  {
+    val itemType: Int = 10
+    def code = s"$itemType|$bonusId"
+  }
+  object HealthRegen extends Bonus(0, "Health Regeneration")
+  object EnergyRegen extends Bonus(1, "Energy Regeneration")
+  object ExtraJump extends Bonus(2, "Extra Double Jump")
+  object ExtraDash extends Bonus(3, "Extra Air Dash")
+
+  object Bonus {
+    def poolItems: Seq[Bonus] =
+      if(UI.opts.bonusItems)
+        new Inv((HealthRegen, 3), (EnergyRegen, 3), (ExtraDash, 1), (ExtraJump, 1)).asSeq.collect{case a: Bonus => a}
+      else
+        Nil
+  }
+
+
   object WorldEvent {
     val names: Map[Int, String] = Map(
       0 -> "Water"
@@ -64,7 +82,7 @@ package SeedGenerator {
   object Skill {
     val itemType: Int = 2
     val areaFileNames: Map[String, Int] = Map("Bash" ->0, "DoubleJump" ->5, "Torch" ->99, "Sword" ->100, "WallJump" ->3, "Launch" ->8, "Glide" ->14, "WaterBreath" ->23, "Grenade" ->51, "Grapple" ->57, "Flash" ->62, "Spike" ->74, "Spear" ->74, "Regenerate" ->77, "Bow" ->97, "Hammer" ->98, "Burrow" ->101, "Dash" ->102, "WaterDash" ->104, "SpiritStar" ->106, "Shuriken" ->106, "Blaze" ->115, "Sentry" ->116, "Flap" ->118)
-    val costs: Map[Int, Double] = Map(8 -> 16, 77 -> 3, 98 -> 4)
+    val costs: Map[Int, Double] = Map(8 -> 16, 77 -> 3, 98 -> 4, 100 -> 4)
     val names: Map[Int, String] = Map(
       0 -> "Bash",
       3 -> "Wall Jump",
@@ -94,7 +112,6 @@ package SeedGenerator {
     )
     val poolItems: Seq[Skill] = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq
   }
-
   case class Shard(shardId: Int) extends Item with Merch {
     val itemType: Int = 3
     def code = s"$itemType|$shardId"
@@ -382,6 +399,8 @@ package SeedGenerator {
   object WaterDash extends Skill(104)
   object Flash extends Skill(62)
   object Bash extends Skill(0)
+  object Shuriken extends Skill(106)
+  object Spear extends Skill(74)
 
   object BurrowsTP extends Teleporter(0)
   object DenTP extends Teleporter(1)

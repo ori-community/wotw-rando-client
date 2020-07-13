@@ -17,7 +17,8 @@ namespace RandoMainDLL {
     Message = 6,
     Multi = 7,
     UberState = 8,
-    QuestEvent = 9
+    QuestEvent = 9,
+    BonusItem = 10
   }
 
   public class DoneWithThis : Exception { };
@@ -27,6 +28,12 @@ namespace RandoMainDLL {
     Water = 0
   }
 
+  public enum SysState : byte {
+    KwolokDoorAvailable = 0,
+    DayTime = 1,
+    HowlEscape = 2
+  }
+
   public enum SysCommandType : byte {
     Save = 0,
     ProcUberStates = 1, 
@@ -34,7 +41,8 @@ namespace RandoMainDLL {
     SupressMagic = 3, 
     StopIfEqual = 4,
     StopIfGreater = 5,
-    StopIfLess = 6
+    StopIfLess = 6,
+    SetState = 7
   }
 
   public enum TeleporterType : byte {
@@ -105,6 +113,13 @@ namespace RandoMainDLL {
         AHK.Pickup(ToString(), Frames);
       SaveController.Data.FoundCount++;
     }
+    public bool Collect(bool isGoal = false) {
+      SeedController.GrantingGoalModeLoc = isGoal;
+      Grant();
+      SeedController.GrantingGoalModeLoc = false;
+      return NonEmpty;
+    }
+
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
       if (this is Multi multi) {
@@ -395,6 +410,25 @@ namespace RandoMainDLL {
     }
     public override string ToString() => $"Remove #{type.GetDescription()}#" ?? $"Unknown resource type {type}";
   }
+  public class BonusItem : Pickup {
+    public override int DefaultCost() => 300;
+    public override PickupType Type => PickupType.BonusItem;
+    public readonly BonusType type;
+    public BonusItem(BonusType command) => type = command;
+    public override void Grant(bool skipBase = false) {
+      SaveController.Data.BonusItems[type] = type.Count() + 1;
+      switch(type) {
+        case BonusType.ExtraAirDash:
+          InterOp.set_extra_dashes(type.Count());
+          break;
+        case BonusType.ExtraDoubleJump:
+          InterOp.set_extra_jumps(type.Count());
+          break;
+      }
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"#{type.GetDescription()}{(type.Count()>1 ? $" x{type.Count()}" : "")}#";
+  }
 
   public class SystemCommand : Pickup {
     public override PickupType Type => PickupType.SystemCommand;
@@ -440,6 +474,28 @@ namespace RandoMainDLL {
           Randomizer.Log($"{state.ValueAsInt()} ?< {targetValue} -> {state.ValueAsInt() < targetValue}");
           if (state.ValueAsInt() < targetValue)
             throw new DoneWithThis();
+          break;
+      }
+    }
+  }
+  public class SetStateCommand : SystemCommand {
+    SysState state;
+    int value;
+
+    public SetStateCommand(SysCommandType command, SysState state, int value) : base(command) {
+      this.state = state;
+      this.value = value;
+    }
+    public override void Grant(bool skipBase = false) {
+      switch (state) {
+        case SysState.KwolokDoorAvailable:
+          InterOp.set_kvolok_door_availability(value > 0);
+          break;
+        case SysState.DayTime:
+          UberStateController.DayTime = value > 0;
+          break;
+        case SysState.HowlEscape:
+          UberStateController.HowlEscape = value > 0;
           break;
       }
     }

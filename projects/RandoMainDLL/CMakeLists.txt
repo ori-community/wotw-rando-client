@@ -19,6 +19,7 @@ set(
 	"ShopController.cs"
 	"TrackFileController.cs"
 	"UberStateController.cs"
+	"BonusItemController.cs"
 	
 	"Memory/Ability.cs"
 	"Memory/AreaType.cs"

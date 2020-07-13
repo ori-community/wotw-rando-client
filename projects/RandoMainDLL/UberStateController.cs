@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -16,6 +18,9 @@ namespace RandoMainDLL {
       }
 
       return s;
+    }
+    public static void ClearStates() {
+      UberStates.Clear();
     }
 
     private static UberState createUberStateEntry(UberId id) {
@@ -111,9 +116,9 @@ namespace RandoMainDLL {
     }
 
     private static bool bufferSwitch = true;
-    private static List<Tuple<UberState, UberValue>> changedUberStatesBuffer1 = new List<Tuple<UberState, UberValue>>();
-    private static List<Tuple<UberState, UberValue>> changedUberStatesBuffer2 = new List<Tuple<UberState, UberValue>>();
-    private static List<Tuple<UberState, UberValue>> getchangedUberStatesBuffer() {
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer1 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer2 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> getchangedUberStatesBuffer() {
       if (bufferSwitch)
         return changedUberStatesBuffer1;
       else
@@ -130,7 +135,7 @@ namespace RandoMainDLL {
         UberState state = cachedState.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
+        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
       }
       else if (serializableUberState((UberStateType)type)) {
         var state = createUberStateEntry(key);
@@ -139,9 +144,11 @@ namespace RandoMainDLL {
         state = state.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        getchangedUberStatesBuffer().Add(new Tuple<UberState, UberValue>(state, value));
+        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
       }
     }
+
+    public static int updateState = 0;
     public static void Update() {
       if (NeedsNewGameInit)
         NewGameInit();
@@ -153,9 +160,14 @@ namespace RandoMainDLL {
         PopulateUberStates();
       }
 
-      var list = getchangedUberStatesBuffer();
-      bufferSwitch = !bufferSwitch;
-      foreach (var pair in list) {
+      var stateAtomic = Interlocked.Increment(ref updateState);
+      var queue = getchangedUberStatesBuffer();
+      // Only switch queues if this is the first time we go through this.
+      if (stateAtomic <= 1)
+        bufferSwitch = !bufferSwitch;
+
+      Tuple<UberState, UberValue> pair;
+      while (queue.TryDequeue(out pair)) {
         try {
           UberState state = pair.Item1;
           UberId key = state.GetUberId();
@@ -202,7 +214,7 @@ namespace RandoMainDLL {
         }
       }
 
-      list.Clear();
+      updateState = 0;
     }
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
@@ -219,12 +231,14 @@ namespace RandoMainDLL {
           var voiceState = new UberId(46462, 59806).State();
           if (!(voiceState.Value.Bool)) {
             voiceState.Write(new UberValue(true));
-
             InterOp.set_max_health(InterOp.get_max_health() + 10);
             InterOp.set_max_energy(InterOp.get_max_energy() + 1);
             InterOp.fill_health();
             InterOp.fill_energy();
           }
+          // should happen in both branches
+          if (SeedController.flags.Contains(Flag.ALLWISPS))
+            HintsController.ShowHintMessage();
         };
     }
     private static bool ShouldRevert(UberState state) {
@@ -241,7 +255,6 @@ namespace RandoMainDLL {
       if (!InterOp.is_loading_game()) {
         InterOp.clear_quest_messages();
         Randomizer.Log("New Game Init", false);
-        SaveController.SetAbility(AbilityType.SpiritEdge);
         foreach (UberState s in DefaultUberStates) { s.Write(); }
         foreach (UberState s in Kuberstates) { s.Write(); }
         foreach (UberState s in DialogAndRumors) { s.Write(); }
@@ -257,16 +270,29 @@ namespace RandoMainDLL {
 
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
-            PsuedoLocs.GAME_START.Pickup().Grant();
+            PsuedoLocs.GAME_START.OnCollect();
             InterOp.save();
           };
         }
 
         InterOp.discover_everything();
-        InterOp.bind_sword();
+        if(!SeedController.flags.Contains(Flag.NOSWORD)) {
+          SaveController.SetAbility(AbilityType.SpiritEdge);
+          InterOp.bind_sword();
+        }
         InterOp.save();
         NeedsNewGameInit = false;
       }
+    }
+
+    public static bool HowlEscape = false;
+    public static bool DayTime = true;
+
+    public static bool DoesHowlExist() {
+      return HowlEscape;
+    }
+    public static bool IsDayTime() {
+      return DayTime;
     }
 
     public static Dictionary<UberId, int> SkipUberStateMapCount = new Dictionary<UberId, int>();
@@ -280,8 +306,6 @@ namespace RandoMainDLL {
       new UberState() { Name = "savePedestalSwampIntroTop", ID = 10185, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SavePedestalUberState, Value = new UberValue((byte)1)},
       new UberState() { Name = "builderProjectSpiritWell", ID = 16825, GroupName = "hubUberStateGroup", GroupID = 42178, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)3) },
       new UberState() { Name = "torchHolded", ID = 47458, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
-      new UberState() { Name = "eyesPlacedIntoStatue", ID = 1038, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)3) },
-      new UberState() { Name = "entranceStatueOpened", ID = 64003, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "risingPedestals", ID = 54318, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "mokiTorchPlayed", ID = 3621, GroupName = "inkwaterMarshStateGroup", GroupID = 9593, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "leverA", ID = 50432, GroupName = "swampStateGroup", GroupID = 21786, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
@@ -377,6 +401,8 @@ namespace RandoMainDLL {
       new UberState() { Name = "doorWithFourSlots", ID = 3171, GroupName = "moulwoodDepthsGroup", GroupID = 18793, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "doorState", ID = 21500, GroupName = "_petrifiedForestGroup", GroupID = 58674, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
       new UberState() { Name = "mouldwoodDepthsHDoorWithFourSlotsOpened", ID = 41544, GroupName = "mouldwoodDepthsGroup", GroupID = 18793, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
+      new UberState() { Name = "eyesPlacedIntoStatue", ID = 1038, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedByteUberState, Value = new UberValue((byte)3) },
+      new UberState() { Name = "entranceStatueOpened", ID = 64003, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedBooleanUberState, Value = new UberValue(true) },
     };
 
     public static List<UberState> Wisps = new List<UberState>() {

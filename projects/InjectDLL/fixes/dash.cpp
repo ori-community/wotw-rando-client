@@ -19,7 +19,7 @@ namespace
 }
 
 IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateAbilities, void, SetAbility, (app::PlayerUberStateAbilities* this_ptr, uint8_t ability, bool value)) {
-	PlayerUberStateAbilities_SetAbility(this_ptr, ability, value);
+	PlayerUberStateAbilities::SetAbility(this_ptr, ability, value);
 	switch (ability)
 	{
 	case app::AbilityType__Enum_WaterDash:
@@ -41,56 +41,56 @@ namespace
 	}
 
 	void update_dash_state(app::PlayerUberStateAbilities* this_ptr) {
-        if (!PlayerUberStateAbilities_HasAbility(this_ptr, app::AbilityType__Enum_DashNew) &&
-            (PlayerUberStateAbilities_HasAbility(this_ptr, app::AbilityType__Enum_Digging) ||
-				PlayerUberStateAbilities_HasAbility(this_ptr, app::AbilityType__Enum_WaterDash)))
+        if (!PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum_DashNew) &&
+            (PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum_Digging) ||
+				PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum_WaterDash)))
         {
             trace(MessageType::Debug, 5, "abilities", "Updating dash state to true");
-			PlayerUberStateAbilities_SetAbility(this_ptr, app::AbilityType__Enum_DashNew, true);
+			PlayerUberStateAbilities::SetAbility(this_ptr, app::AbilityType__Enum_DashNew, true);
 		}
-		else if (PlayerUberStateAbilities_HasAbility(this_ptr, app::AbilityType__Enum_DashNew) &&
-			!PlayerUberStateAbilities_HasAbility(this_ptr, app::AbilityType__Enum_Digging) &&
-			!PlayerUberStateAbilities_HasAbility(this_ptr, app::AbilityType__Enum_WaterDash) &&
+		else if (PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum_DashNew) &&
+			!PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum_Digging) &&
+			!PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum_WaterDash) &&
 			!has_dash())
         {
             trace(MessageType::Debug, 5, "abilities", "Updating dash state to false");
-			PlayerUberStateAbilities_SetAbility(this_ptr, app::AbilityType__Enum_DashNew, false);
+			PlayerUberStateAbilities::SetAbility(this_ptr, app::AbilityType__Enum_DashNew, false);
 		}
 	}
 }
 
 IL2CPP_INTERCEPT(, SeinDashNew, bool, get_CanDash, (app::SeinDashNew* this_ptr)) {
-	auto result = SeinDashNew_get_CanDash(this_ptr);
+	auto result = SeinDashNew::get_CanDash(this_ptr);
 	if(!has_dash())
-		result = result && (SeinDashNew_ShouldDig(this_ptr) || SeinDashNew_ShouldSwim(this_ptr));
+		result = result && (SeinDashNew::ShouldDig(this_ptr) || SeinDashNew::ShouldSwim(this_ptr));
 	return result;
 }
 
 IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateAbilities, void, Save, (app::PlayerUberStateAbilities* this_ptr, app::UberStateArchive* archive, app::PlayerUberStateAbilities* abilities)) {
     bool has_real_dash = has_dash();
-    if(PlayerUberStateAbilities_HasAbility(this_ptr, app::AbilityType__Enum_DashNew) && !has_real_dash)
+    if(PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum_DashNew) && !has_real_dash)
     {
-        PlayerUberStateAbilities_SetAbility(this_ptr, app::AbilityType__Enum_DashNew, has_real_dash);
-        PlayerUberStateAbilities_SetAbility(abilities, app::AbilityType__Enum_DashNew, has_real_dash);
+        PlayerUberStateAbilities::SetAbility(this_ptr, app::AbilityType__Enum_DashNew, has_real_dash);
+        PlayerUberStateAbilities::SetAbility(abilities, app::AbilityType__Enum_DashNew, has_real_dash);
     }
 
-	PlayerUberStateAbilities_Save(this_ptr, archive, abilities);
+	PlayerUberStateAbilities::Save(this_ptr, archive, abilities);
 	update_dash_state(this_ptr);
 }
 
 IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateAbilities, void, Load, (app::PlayerUberStateAbilities* this_ptr, app::UberStateArchive* archive, int32_t storeVersion)) {
-	PlayerUberStateAbilities_Load(this_ptr, archive, storeVersion);
+	PlayerUberStateAbilities::Load(this_ptr, archive, storeVersion);
 	update_dash_state(this_ptr);
 }
 
 IL2CPP_INTERCEPT(, GeneralDebugMenuPage, void, SetAbility, (app::GeneralDebugMenuPage* this_ptr, app::AbilityType__Enum ability, bool value)) {
   csharp_bridge::set_ability(ability, value);
-  GeneralDebugMenuPage_SetAbility(this_ptr, ability, value);
+  GeneralDebugMenuPage::SetAbility(this_ptr, ability, value);
 }
 
 IL2CPP_INTERCEPT(, GeneralDebugMenuPage, bool, GetAbility, (app::GeneralDebugMenuPage* this_ptr, app::AbilityType__Enum abilityType)) {
 	if(abilityType == app::AbilityType__Enum_DashNew)
 		return has_dash();
 
-	return GeneralDebugMenuPage_GetAbility(this_ptr, abilityType);
+	return GeneralDebugMenuPage::GetAbility(this_ptr, abilityType);
 }

@@ -4,13 +4,13 @@ bool collecting_spirit_shard = false;
 
 IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectSpiritShardPickup, (app::SeinPickupProcessor* this_ptr, app::SpiritShardPickup* spiritShardPickup)) {
 	collecting_spirit_shard = true;
-	SeinPickupProcessor_OnCollectSpiritShardPickup(this_ptr, spiritShardPickup);
+	SeinPickupProcessor::OnCollectSpiritShardPickup(this_ptr, spiritShardPickup);
 	collecting_spirit_shard = false;
 }
 
 IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectedShardSlotUpgrade, (app::SeinPickupProcessor* this_ptr, app::ShardSlotUpgradePickup* shardSlotPickup)) {
 	collecting_spirit_shard = true;
-	SeinPickupProcessor_OnCollectedShardSlotUpgrade(this_ptr, shardSlotPickup);
+	SeinPickupProcessor::OnCollectedShardSlotUpgrade(this_ptr, shardSlotPickup);
 	collecting_spirit_shard = false;
 }
 
@@ -18,7 +18,7 @@ IL2CPP_INTERCEPT_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard
     (app::PlayerSpiritShards* this_ptr, uint8_t spiritShardType), (SpiritShardType)) {
 	if(collecting_spirit_shard)
 	{
-		app::PlayerUberStateShards_Shard* result = PlayerSpiritShards_AddNewShardToInventory(this_ptr, spiritShardType);
+		app::PlayerUberStateShards_Shard* result = PlayerSpiritShards::AddNewShardToInventory(this_ptr, spiritShardType);
 		if(result)
 		{
 			//Rollback if shard was new
@@ -29,12 +29,12 @@ IL2CPP_INTERCEPT_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard
 		return result;
 	}
 
-	return PlayerSpiritShards_AddNewShardToInventory(this_ptr, spiritShardType);
+	return PlayerSpiritShards::AddNewShardToInventory(this_ptr, spiritShardType);
 }
 
 IL2CPP_INTERCEPT(, PlayerSpiritShards, void, AddGlobalShardSlot, (app::PlayerSpiritShards* this_ptr)) {
 	if(collecting_spirit_shard)
 		return;
 	
-	PlayerSpiritShards_AddGlobalShardSlot(this_ptr);
+	PlayerSpiritShards::AddGlobalShardSlot(this_ptr);
 }

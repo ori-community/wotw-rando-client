@@ -51,6 +51,7 @@ package SeedGenerator {
     override def toString = s"${Skill.names.getOrElse(skillCode, s"Unknown Skill $skillCode")}"
   }
 
+
   case object Free extends Requirement {
     def metBy(state: GameState, orbs: Option[Orbs]) = true
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState.Empty)
@@ -98,17 +99,46 @@ package SeedGenerator {
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Keystone -> Math.max(0, count - state.inv(Keystone)))))
   }
 
-  case class EnergyReq(count: Int) extends Requirement {
-    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = orbs - Orbs(0, count * 10)
+  case class EnergyReq(count: Float) extends Requirement {
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = orbs - Orbs(0, Math.floor(count * 10).toInt)
     def energy(state: GameState): Float = state.inv(Energy)/2f
     def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean =
       orbs.map(_.energy >= count*10).getOrElse(energy(state) >= count)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
-      Seq(GameState(new Inv(Energy -> Math.max(0, 2*count - state.inv(Energy)))))
+      Seq(GameState(new Inv(Energy -> Math.ceil(Math.max(0, 2*count - state.inv(Energy))).toInt)))
     override def and(that: Requirement): Requirement = that match {
       case EnergyReq(c) => EnergyReq(c+count)
       case r => AllReqs(this, r)
     }
+  }
+
+  case class BreakWallReq(wallHealth: Int) extends Requirement {
+    def energyCost(skill: Skill): Float = skill match {
+      case Bow => Math.ceil(wallHealth/4f).toInt * 0.25f
+      case Grenade => Math.ceil(wallHealth/10f).toInt
+      case Shuriken => Math.ceil(wallHealth/4f).toInt * .5f
+      case Spear => Math.ceil(wallHealth/20f).toInt * 2
+    }
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = {
+      if(state.inv.has(Sword) || state.inv.has(Smash))
+        return orbs
+      for(skill <- Seq(Bow, Grenade, Shuriken, Spear))
+        if(state.inv.has(skill))
+          return EnergyReq(energyCost(skill)).orbsAfterMet(state, orbs)
+      throw GeneratorError("Unmet orbs after met")
+    }
+    def metBy(state: GameState, orbs: Option[Orbs] = None):Boolean =
+      state.inv.has(Sword) ||
+      state.inv.has(Smash) ||
+        (state.inv.has(Bow) && EnergyReq(energyCost(Bow)).metBy(state, orbs)) ||
+        (state.inv.has(Grenade) && EnergyReq(energyCost(Grenade)).metBy(state, orbs)) ||
+        (state.inv.has(Shuriken) && EnergyReq(energyCost(Shuriken)).metBy(state, orbs)) ||
+        (state.inv.has(Spear) && EnergyReq(energyCost(Spear)).metBy(state, orbs))
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
+      Seq(
+        GameState.mk(Sword),
+        GameState.mk(Smash),
+      ) ++ Seq(Bow, Grenade, Shuriken, Spear).map(s => GameState(new Inv(s -> 1, Energy -> Math.ceil(Math.max(0, 2*energyCost(s) - state.inv(Energy))).toInt)))
   }
 
   case class DamageReq(damage: Int) extends Requirement  {

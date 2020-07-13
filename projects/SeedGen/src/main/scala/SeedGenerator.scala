@@ -136,8 +136,8 @@ package SeedGenerator {
 
   case class Placeholder(name: String, kind: NodeType = AreaNode) extends Node {
     override def res: Node = kind match {
-      case AreaNode => Nodes.areas(name)
-      case ItemNode => Nodes.items(name)
+      case AreaNode => Nodes.areas.getOrElse(name, {UI.log(s"Error: unknown area name $this") ; this})
+      case ItemNode => Nodes.items.getOrElse(name, {UI.log(s"Error: unknown item name $this") ; this})
       case _ =>
         UI.log(s"Warning: couldn't resolve $this")
         this
@@ -295,8 +295,9 @@ package SeedGenerator {
           _connectedToDoors.add(area)
       c match {
             // TODO: FIXME?
-        case Connection(target: Placeholder, Seq()) if target.kind == ItemNode => UI.log(s"Only empty paths from ${area.name} to ${target.name}"); None
-        case Connection(target: Placeholder, reqs) if target.kind == ItemNode => ItemLoc.mk(target.name, locDataByName).map(Connection(_, reqs))
+        case Connection(Placeholder(name, _), Seq()) => UI.log(s"Warning: only empty paths from ${area.name} to $name"); None
+        case Connection(Placeholder(name, ItemNode), reqs) => ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
+        case Connection(Placeholder(name, AreaNode), _) if !areas.contains(name)  => UI.log(s"Warning: ignoring path from ${area.name} to unknown area $name"); None
         case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
         case c => Some(c)
       }}), area.refillGroup)).toMap
@@ -434,7 +435,7 @@ package SeedGenerator {
       val placed = placedLocs.size
       if(count+placed != ItemPool.SIZE)
         UI.log(s"ERROR: $count + $placed != ${ItemPool.SIZE}")
-      debugPrint(s"group $i: have ${locs.size} locs ($placed/${ItemPool.SIZE} placed already, have itempool size $count")
+      debugPrint(s"group $i: have ${locs.size} locs ($placed/${ItemPool.SIZE} placed already, have itempool size $count)")
 
       if(locs.isEmpty)
         throw GeneratorError(s"no new locs (${reachableLocs.size} out of ${ItemPool.SIZE} reached)")
@@ -504,8 +505,9 @@ package SeedGenerator {
             debugPrint(s"What? $st")
             return 0
           }
-          _fullWeight += multiplier * (1 / st.inv.cost)
-          debugPrint(s"$st->${1 / st.inv.cost} * $multiplier -> ${_fullWeight}")
+          val inc = multiplier * (1 / st.inv.cost)
+          _fullWeight += inc
+          debugPrint(s"$st->${1 / st.inv.cost} * $multiplier -> $inc, total: ${_fullWeight}")
           _fullWeight
         }
 
@@ -551,7 +553,12 @@ package SeedGenerator {
 
 object Runner {
     def setSeed(n: Long): Unit = r.setSeed(n)
-    val DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6, Sword -> 1), Set(WorldState("Weapon"), WorldState("EnemyObstacle")))
+    def DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6)) + (
+      if (UI.opts.flags.noSword)
+        GameState.Empty
+      else
+        GameState(Inv.mk(Sword), Set(WorldState("Weapon"), WorldState("EnemyObstacle")))
+      )
     private def mkSeed(advanced: Boolean = false) = {
       implicit val pool: Inv = ItemPool.build()
       recurse()
@@ -574,7 +581,7 @@ object Runner {
       val (grps, err) = mkSeed(advanced)
       err match {
         case Some(e)  => UI.log(s"$e"); None
-        case None     => Some(UI.opts.flags.line + grps.map(plcmnts => plcmnts.write).mkString("\n").drop(1).replace("\n", "\r\n"))
+        case None     => Some(UI.opts.flags.line + grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n").replace("\n", "\r\n"))
       }
     }
     def seedProg(standalone: Boolean = true, advanced: Boolean = false): Option[String] = {
@@ -661,7 +668,8 @@ object Runner {
     def SIZE: Int = Nodes.items.size
     def build(size: Int = SIZE)(implicit r: Random): Inv = {
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> 32) +
-        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Teleporter.poolItems:_*)
+        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*) +
+        (if(UI.opts.flags.noSword) Inv.mk(Sword) else Inv.Empty)
       while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
       pool.merchToPop = Nodes.items.values.count(_.data.category == "Shop")
       pool

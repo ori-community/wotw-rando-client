@@ -12,12 +12,18 @@ namespace RandoMainDLL {
   static class InterOp {
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_kvolok_door_availability(bool value);
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void play_sound(SoundEvent evt);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void clear_quest_messages();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr display_hint([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration);
-
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static IntPtr display_below([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static IntPtr update_map_hint([MarshalAs(UnmanagedType.LPWStr)] string info);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void clear_visible_hints();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -81,6 +87,10 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void fill_energy();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void add_health(float inc);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void add_energy(float inc);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static int get_health();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static float get_energy();
@@ -97,6 +107,10 @@ namespace RandoMainDLL {
     public extern static int get_ore();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_ore(int value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_extra_jumps(int value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_extra_dashes(int value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static int get_experience();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

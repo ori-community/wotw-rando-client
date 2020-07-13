@@ -13,7 +13,7 @@ namespace RandoMainDLL {
 
       [JsonConstructor]
       public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell, Dictionary<AbilityType, int> opherUpgrade, 
-        HashSet<ShardType> shardSlots, HashSet<QuestEventType> worldEvents, HashSet<AbilityType> skillsFound, int count = 0, int ksBought = 0) {
+        HashSet<ShardType> shardSlots, HashSet<QuestEventType> worldEvents, HashSet<AbilityType> skillsFound, Dictionary<BonusType, int> bonusItems, int count = 0, int ksBought = 0) {
         Slot = slot;
         TreesActivated = trees;
         OpherSold = opherSell;
@@ -21,6 +21,7 @@ namespace RandoMainDLL {
         TwillenSold = shardSlots;
         SkillsFound = skillsFound;
         WorldEvents = worldEvents;
+        BonusItems = bonusItems != null ? bonusItems : new Dictionary<BonusType, int>();
         FoundCount = count;
         KSBought = ksBought;
       }
@@ -32,6 +33,7 @@ namespace RandoMainDLL {
       public HashSet<ShardType> TwillenSold = new HashSet<ShardType>();
       public HashSet<QuestEventType> WorldEvents = new HashSet<QuestEventType>();
       public HashSet<AbilityType> SkillsFound = new HashSet<AbilityType>();
+      public Dictionary<BonusType, int> BonusItems = new Dictionary<BonusType, int>();
       public int FoundCount = 0;
       public int KSBought = 0;
 
@@ -98,6 +100,7 @@ namespace RandoMainDLL {
         TwillenSold = new HashSet<ShardType>(copyFrom.TwillenSold);
         WorldEvents = new HashSet<QuestEventType>(copyFrom.WorldEvents);
         SkillsFound = new HashSet<AbilityType>(copyFrom?.SkillsFound ?? new HashSet<AbilityType>());
+        BonusItems  = new Dictionary<BonusType, int>(copyFrom?.BonusItems ?? new Dictionary<BonusType, int>());
         FoundCount = copyFrom.FoundCount;
         KSBought = copyFrom.KSBought;
         TrackFileController.Write();
@@ -128,9 +131,12 @@ namespace RandoMainDLL {
     public static int CurrentSlot = -1;
 
     public static void NewGame(int slot) {
+      UberStateController.UberStates.Clear();
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();
+
+      BonusItemController.Refresh();
     }
 
     public static void OnLoad(int slot, int backupSlot = -1) {
@@ -145,12 +151,15 @@ namespace RandoMainDLL {
           Data = new SaveData(slot);
         }
         UberStateController.SkipListenersNextUpdate = true;
+        UberStateController.UberStates.Clear();
         Data.Load(backupSlot);
         if (DidWeJustDie) {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
         }
+
+        BonusItemController.Refresh();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }

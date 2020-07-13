@@ -32,8 +32,9 @@ namespace RandoMainDLL {
     [Description("Unknown")]
     Void
   }
+
   public static class HintsController {
-      public static Dictionary<AreaType, ZoneType> AreaToZone = new Dictionary<AreaType, ZoneType>() {
+    public static Dictionary<AreaType, ZoneType> AreaToZone = new Dictionary<AreaType, ZoneType>() {
       {AreaType.InkwaterMarsh, ZoneType.Marsh},
       {AreaType.KwoloksHollow, ZoneType.Hollow},
       {AreaType.WellspringGlades, ZoneType.Glades},
@@ -94,10 +95,19 @@ namespace RandoMainDLL {
         HintObjects[zone] = new List<Checkable>() { item };
     }
 
+    public static void OnMapPan(AreaType type) {
+      if (SeedController.HintsDisabled)
+        return;
+      InterOp.update_map_hint(getZoneHintMessage(type.toZone(), false) + GetKeySkillHint());
+    }
+
     public static void ShowHintMessage(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
+      int duration = 240;
+      if (justUnlocked)
+        duration += 60;
       if (SeedController.HintsDisabled) {
         if(!justUnlocked)
-          AHK.SendPlainText(new PlainText(SeedController.Progress, 240), justUnlocked);
+          AHK.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
         return;
       }
 
@@ -107,14 +117,14 @@ namespace RandoMainDLL {
         msg = $"Bought hint: {msg}";
       else
         msg = $"{SeedController.Progress}\n{msg}{GetKeySkillHint()}";
-      AHK.SendPlainText(new PlainText(msg, 240), justUnlocked);
+      AHK.SendPlainText(new PlainText(msg, duration), justUnlocked);
     }
 
     private static string getZoneHintMessage(ZoneType zone, bool justUnlocked) {
       if (zone == ZoneType.Void) return $"no hint for Void(area {InterOp.get_player_area()})";
       var items = HintObjects.GetOrElse(zone, new List<Checkable>());
       var found = items.FindAll(i => i.Has());
-      if (!justUnlocked && !HaveHintForZone) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
+      if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
       if(items.Count > 0) {
         if(found.Count == items.Count) 
           return $"{zone}: ${found.Count}/{items.Count} key items$\nfound: {String.Join(", ", found)}";
@@ -125,31 +135,26 @@ namespace RandoMainDLL {
       }
       return $"No key items in {zone}";
     }
+    public static ZoneType toZone(this AreaType t) => AreaToZone.GetOrElse(t, ZoneType.Void);
     // the two below shouldn't be properties, but i wanted to make the one above a property too?
     // so this was a compromise, if you think about it.
     public static ZoneType CurrentZone  {
       get {
         try {
-          if (AreaToZone.TryGetValue(InterOp.get_player_area(), out ZoneType zone)) 
-            return zone;
-          else
-            return ZoneType.Void;          
+           return InterOp.get_player_area().toZone();          
         } catch (Exception e) { 
           Randomizer.Error("Hints.CurrentZone", e, false);
           return ZoneType.Void;
         }
       }
     }
-    public static bool HaveHintForZone {
-      get {
+    public static bool HaveHintForZone(ZoneType zone) {
         try {
-          var zone = CurrentZone;
           if (zone == ZoneType.Void)
             return false;
           if (ZoneToState.TryGetValue(zone, out UberState state)) {
             var value = state.CurrentValue();
-            if (!value.HasValue) return false;
-            return value.Value.Bool;
+            return value.HasValue && value.Value.Bool;
           }
           else
             return false;
@@ -158,7 +163,6 @@ namespace RandoMainDLL {
           Randomizer.Error("Hints.HaveHintForZone", e, false);
           return false;
         }
-      }
     }
     public static UberState SkillHintState = new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
     public static string GetKeySkillHint() {
@@ -172,8 +176,12 @@ namespace RandoMainDLL {
       return "";
     }
     public static void OnLupoState(UberId id) {
-      if(LupoZoneIds.ContainsKey(id)) {
+      if (SeedController.HintsDisabled)
+        return;
+      if (LupoZoneIds.ContainsKey(id)) {
         ShowHintMessage(LupoZoneIds[id], true);
+      } else if(id.ID == 41666) {
+        AHK.SendPlainText(new PlainText($"Bought Hint: {GetKeySkillHint()}", 300));
       }
     }
 
