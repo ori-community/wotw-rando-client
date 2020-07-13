@@ -134,7 +134,10 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
     base: Keystone=2
 
   quest MarshSpawn.CaveKS:
-    base: BreakWall=16
+    base:
+      BreakWall=16, DoubleJump, Dash OR Grapple
+      BreakWall=16, Launch
+      Weapon  # go through the fight room
   quest MarshSpawn.TheMissingKey:
     base: BreakWall=16, MarshSpawn.CaveKS
 
@@ -155,9 +158,11 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
   conn MarshSpawn.DenApproach:
     base: MarshSpawn.KeystoneDoor
   conn MarshSpawn.PoolsBurrowsPath:
-    base, BreakWall=16:
-      DoubleJump OR Dash OR Launch
-      Bash, Grenade=1
+    base:
+      BreakWall=16, DoubleJump, Dash OR Grapple
+      BreakWall=16, Launch
+      Weapon, DoubleJump OR Dash OR Launch  # go through the fight room
+      Weapon, Bash, Grenade=1  # go through the fight room
   conn MarshSpawn.BrokenBridge:
     base:
       DoubleJump OR Launch
@@ -187,13 +192,17 @@ area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tre
 area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, burrows and marsh
   refill Checkpoint
 
-  quest MarshSpawn.CaveKS: free  # all other pickups in the cave require a weapon; and with a weapon you can go around instead
+  quest MarshSpawn.CaveKS: free
   quest MarshSpawn.TheMissingKey:
     base: MarshSpawn.CaveKS
   quest MarshSpawn.IntoTheBurrows:
     base:
       MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
 
+  pickup MarshSpawn.LeftTokkEX:
+    base: BreakWall=10
+  pickup MarshSpawn.FightRoomEX:
+    base: BreakWall=10
   pickup MarshSpawn.CaveOre:
     base:
       DoubleJump OR Launch
@@ -223,6 +232,7 @@ area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, b
       Bash, DoubleJump, Glide
       Bash, Launch
 
+  # connection to CaveEntrance should never be relevant?
   conn MidnightBurrows.Teleporter:
     base: Bash, DoubleJump OR Dash OR Launch
 
