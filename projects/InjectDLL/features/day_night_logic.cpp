@@ -6,7 +6,7 @@
 
 namespace
 {
-    bool is_day = true;
+    bool is_day = false;
     bool disable_has_ability_overwrite = false;
     IL2CPP_BINDING(UnityEngine, GameObject, app::Transform*, get_transform, (app::GameObject* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, void, SetParent, (app::Transform* this_ptr, app::Transform* parent, bool world_position_stays));
@@ -50,6 +50,39 @@ namespace
             return HasAbilityUberStateCondition::Validate(this_ptr);
     }
 
+    void find_day_night(app::List_1_SetupStateModifier___Fields& modifiers, app::GameObject*& day, app::GameObject*& night)
+    {
+        for (auto i = 0; i < modifiers._size; ++i)
+        {
+            auto item = modifiers._items->vector[i];
+            // #nightTime
+            if (item->fields.ModifierGUID == 0x39b90803)
+            {
+                if (item->fields.Target != nullptr &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
+                    night = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
+
+                if (day != nullptr)
+                    break;
+            }
+
+            // #dayTime
+            if (item->fields.ModifierGUID == 0xb4c1c837)
+            {
+                if (item->fields.Target != nullptr &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+                    il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
+                    day = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
+
+                if (night != nullptr)
+                    break;
+            }
+        }
+    }
+
+    bool water_in_day = true;
+    bool crawler_in_night = true;
     void initialize_day_night_logic()
     {
         // Cutscene rain
@@ -57,42 +90,83 @@ namespace
             return is_day ? 907153171 : -480342150;
         });
 
-        // Remove regen tree water.
-        uber_states::register_applier_intercept(-1643391836, [](app::NewSetupStateController* this_ptr, auto, auto) -> int32_t {
-            auto modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
-            for (auto i = 0; i < modifiers._size; ++i)
+        // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
+        uber_states::register_applier_intercept({ 288338807, -1643391836 }, [](app::NewSetupStateController* this_ptr, int32_t state, auto) -> int32_t {
+            auto& modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
+            if (water_in_day && state == -1643391836)
             {
-                auto item = modifiers._items->vector[i];
-                // #nightTime
-                if (item->fields.ModifierGUID == 0x39b90803)
+                app::GameObject* day = nullptr;
+                app::GameObject* night = nullptr;
+                find_day_night(modifiers, day, night);
+                if (day != nullptr && night != nullptr)
                 {
-                    if (item->fields.Target != nullptr &&
-                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
-                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
+                    // Remove undesired objects from night.
+                    auto children = il2cpp::unity::get_children(night);
+                    for (auto child : children)
                     {
-                        auto target = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
-                        auto children = il2cpp::unity::get_children(target);
-                        for (auto child : children)
+                        auto name = il2cpp::unity::get_object_name(child);
+                        if (name != "radialGlow" &&
+                            name != "glows" &&
+                            name != "fogs" &&
+                            name != "masks" &&
+                            name != "soundNightState")
+                            il2cpp::unity::destroy_object(child);
+                    }
+
+                    // Move desired from day.
+                    auto night_transform = GameObject::get_transform(night);
+                    children = il2cpp::unity::get_children(day);
+                    for (auto child : children)
+                    {
+                        auto name = il2cpp::unity::get_object_name(child);
+                        if (name == "waterCorrupted" ||
+                            name == "waterClean" ||
+                            name == "waterfalls" ||
+                            name == "foregroundBottom")
                         {
-                            auto name = il2cpp::unity::get_object_name(child);
-                            if (name != "radialGlow" &&
-                                name != "glows" &&
-                                name != "fogs" &&
-                                name != "masks" &&
-                                name != "soundNightState")
-                                il2cpp::unity::destroy_object(child);
+                            auto child_transform = GameObject::get_transform(child);
+                            Transform::SetParent(child_transform, night_transform, true);
                         }
                     }
 
-                    break;
+                    water_in_day = false;
+                }
+                else if (!water_in_day && state == 288338807)
+                {
+                    app::GameObject* day = nullptr;
+                    app::GameObject* night = nullptr;
+                    find_day_night(modifiers, day, night);
+                    if (day != nullptr && night != nullptr)
+                    {
+                        // Move desired from night.
+                        auto day_transform = GameObject::get_transform(day);
+                        auto children = il2cpp::unity::get_children(day);
+                        for (auto child : children)
+                        {
+                            auto name = il2cpp::unity::get_object_name(child);
+                            if (name == "waterCorrupted" ||
+                                name == "waterClean" ||
+                                name == "waterfalls" ||
+                                name == "foregroundBottom")
+                            {
+                                auto child_transform = GameObject::get_transform(child);
+                                Transform::SetParent(child_transform, day_transform, true);
+                            }
+                        }
+                    }
+
+                    water_in_day = true;
                 }
             }
 
-            return -1643391836;
+            return state;
         });
 
         // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
         uber_states::register_applier_intercept({ -1375966924, 1361521887 }, [](app::NewSetupStateController* this_ptr, int32_t state, auto) -> int32_t {
+            if ((crawler_in_night && state == 1361521887) || (!crawler_in_night && state == -1375966924))
+                return state;
+
             auto move_to_id = 0x787c7226;
             auto move_from_id = 0x7abccb8b;
             if (state == 1361521887)
@@ -100,7 +174,10 @@ namespace
                 auto temp = move_to_id;
                 move_to_id = move_from_id;
                 move_from_id = temp;
+                crawler_in_night = false;
             }
+            else
+                crawler_in_night = true;
 
             auto modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
             app::GameObject* move_to = nullptr;
