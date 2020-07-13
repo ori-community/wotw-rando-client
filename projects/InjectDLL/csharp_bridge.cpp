@@ -13,6 +13,8 @@ namespace csharp_bridge
     signatures::f_bool inject_debug_enabled;
     signatures::f_bool tp_to_any_pickup;
     signatures::f_bool invert_swim;
+    signatures::f_bool is_day_time;
+    signatures::f_bool does_howl_exist;
     signatures::f_bool water_cleansed;
     signatures::f_void_gwa on_map_pan;
 
@@ -82,6 +84,10 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         set_ability = reinterpret_cast<f_void_at_bool>(ptr);
     else if (name == "water_cleansed")
         water_cleansed = reinterpret_cast<f_bool>(ptr);
+    else if (name == "is_day_time")
+        is_day_time = reinterpret_cast<f_bool>(ptr);
+    else if (name == "does_howl_exist")
+        does_howl_exist = reinterpret_cast<f_bool>(ptr);
     else if (name == "on_map_pan")
         on_map_pan = reinterpret_cast<f_void_gwa>(ptr);
     else if (name == "is_tree_activated")

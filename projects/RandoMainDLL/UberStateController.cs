@@ -284,6 +284,12 @@ namespace RandoMainDLL {
         NeedsNewGameInit = false;
       }
     }
+    public static bool DoesHowlExist() {
+      return false;
+    }
+    public static bool IsDayTime() {
+      return true;
+    }
 
     public static Dictionary<UberId, int> SkipUberStateMapCount = new Dictionary<UberId, int>();
 
