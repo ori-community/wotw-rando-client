@@ -29,7 +29,9 @@ namespace RandoMainDLL {
   }
 
   public enum SysState : byte {
-    KwolokDoorAvailable = 0
+    KwolokDoorAvailable = 0,
+    DayTime = 1,
+    HowlEscape = 2
   }
 
   public enum SysCommandType : byte {
@@ -488,6 +490,12 @@ namespace RandoMainDLL {
       switch (state) {
         case SysState.KwolokDoorAvailable:
           InterOp.set_kvolok_door_availability(value > 0);
+          break;
+        case SysState.DayTime:
+          UberStateController.DayTime = value > 0;
+          break;
+        case SysState.HowlEscape:
+          UberStateController.HowlEscape = value > 0;
           break;
       }
     }
