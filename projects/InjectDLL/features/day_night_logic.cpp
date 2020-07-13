@@ -245,7 +245,7 @@ namespace
 
         // howl: (1234021711 : notDefeated, 620462779 : defeated)
         uber_states::register_applier_intercept(1234021711, [](app::NewSetupStateController* this_ptr, auto, auto) -> int32_t {
-            if (csharp_bridge::does_howl_exist)
+            if (csharp_bridge::does_howl_exist())
                 return 1234021711;
             else
                 return 620462779;
