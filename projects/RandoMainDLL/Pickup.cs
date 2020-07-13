@@ -28,6 +28,10 @@ namespace RandoMainDLL {
     Water = 0
   }
 
+  public enum SysState : byte {
+    KwolokDoorAvailable = 0
+  }
+
   public enum SysCommandType : byte {
     Save = 0,
     ProcUberStates = 1, 
@@ -35,7 +39,8 @@ namespace RandoMainDLL {
     SupressMagic = 3, 
     StopIfEqual = 4,
     StopIfGreater = 5,
-    StopIfLess = 6
+    StopIfLess = 6,
+    SetState = 7
   }
 
   public enum TeleporterType : byte {
@@ -467,6 +472,22 @@ namespace RandoMainDLL {
           Randomizer.Log($"{state.ValueAsInt()} ?< {targetValue} -> {state.ValueAsInt() < targetValue}");
           if (state.ValueAsInt() < targetValue)
             throw new DoneWithThis();
+          break;
+      }
+    }
+  }
+  public class SetStateCommand : SystemCommand {
+    SysState state;
+    int value;
+
+    public SetStateCommand(SysCommandType command, SysState state, int value) : base(command) {
+      this.state = state;
+      this.value = value;
+    }
+    public override void Grant(bool skipBase = false) {
+      switch (state) {
+        case SysState.KwolokDoorAvailable:
+          InterOp.set_kvolok_door_availability(value > 0);
           break;
       }
     }
