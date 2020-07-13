@@ -8,6 +8,8 @@ namespace
 {
     bool is_day = true;
     bool disable_has_ability_overwrite = false;
+    IL2CPP_BINDING(UnityEngine, GameObject, app::Transform*, get_transform, (app::GameObject* this_ptr));
+    IL2CPP_BINDING(UnityEngine, Transform, void, SetParent, (app::Transform* this_ptr, app::Transform* parent, bool world_position_stays));
 
     IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager* this_ptr)) {
         disable_has_ability_overwrite = true;
@@ -50,18 +52,6 @@ namespace
 
     void initialize_day_night_logic()
     {
-       // night -> day
-        //uber_states::register_applier_redirect(-1926205078, -598230906);
-        //uber_states::register_applier_redirect(1819061226, -1052258879);
-        //uber_states::register_applier_redirect(-1605692968, -1815347985);
-        //uber_states::register_applier_redirect(-949591271, -1834135337);
-        //uber_states::register_applier_redirect(-76384365, 1340727368);
-        //uber_states::register_applier_redirect(1361521887, -1375966924);
-        //uber_states::register_applier_redirect(-1643391836, 288338807);
-        //uber_states::register_applier_redirect(1819061226, -1052258879);
-        //uber_states::register_applier_redirect(787945376, 1001861749);
-        //uber_states::register_applier_redirect(1361521887, -1375966924);
-
         // Cutscene rain
         uber_states::register_applier_intercept({ -480342150, 907153171 }, [](auto, auto, auto) -> int32_t {
             return is_day ? 907153171 : -480342150;
@@ -99,6 +89,81 @@ namespace
             }
 
             return -1643391836;
+        });
+
+        // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
+        uber_states::register_applier_intercept({ -1375966924, 1361521887 }, [](app::NewSetupStateController* this_ptr, int32_t state, auto) -> int32_t {
+            auto move_to_id = 0x787c7226;
+            auto move_from_id = 0x7abccb8b;
+            if (state == 1361521887)
+            {
+                auto temp = move_to_id;
+                move_to_id = move_from_id;
+                move_from_id = temp;
+            }
+
+            auto modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
+            app::GameObject* move_to = nullptr;
+            app::GameObject* crawler = nullptr;
+            bool found = false;
+            for (auto i = 0; i < modifiers._size; ++i)
+            {
+                auto item = modifiers._items->vector[i];
+                // #day
+                if (item->fields.ModifierGUID == move_to_id)
+                {
+                    if (item->fields.Target != nullptr &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
+                    {
+                        auto target = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
+                        auto children = il2cpp::unity::get_children(target);
+                        for (auto child : children)
+                        {
+                            auto name = il2cpp::unity::get_object_name(child);
+                            if (name == "nightcrawlerChase")
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        move_to = target;
+                    }
+
+                    if (crawler != nullptr)
+                        break;
+                }
+                // #night
+                else if (item->fields.ModifierGUID == move_from_id)
+                {
+                    if (item->fields.Target != nullptr &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
+                    {
+                        auto target = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
+                        auto children = il2cpp::unity::get_children(target);
+                        for (auto child : children)
+                        {
+                            auto name = il2cpp::unity::get_object_name(child);
+                            if (name == "nightcrawlerChase")
+                            {
+                                crawler = child;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!found && crawler != nullptr && move_to != nullptr)
+            {
+                auto crawler_transform = GameObject::get_transform(crawler);
+                auto move_to_transform = GameObject::get_transform(move_to);
+                Transform::SetParent(crawler_transform, move_to_transform, true);
+            }
+
+            return state;
         });
 
         // howl: notDefeated -> defeated
