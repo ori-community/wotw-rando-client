@@ -148,7 +148,7 @@ namespace
                 {
                     // Move desired from night.
                     auto day_transform = GameObject::get_transform(day);
-                    children = il2cpp::unity::get_children(day);
+                    children = il2cpp::unity::get_children(night);
                     for (auto child : children)
                     {
                         auto name = il2cpp::unity::get_object_name(child);
