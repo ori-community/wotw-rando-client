@@ -1,11 +1,20 @@
 #include <macros.h>
 #include <interception_macros.h>
+#include <il2cpp_helpers.h>
 #include <dev/dev_commands.h>
 #include <uber_states/state_applier.h>
 
 namespace
 {
     bool is_day = true;
+    bool disable_has_ability_overwrite = false;
+
+    IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager* this_ptr)) {
+        disable_has_ability_overwrite = true;
+        auto ret = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor(this_ptr);
+        disable_has_ability_overwrite = false;
+        return ret;
+    }
 
     IL2CPP_INTERCEPT(, SeinAbilityCondition, bool, Validate, (app::SeinAbilityCondition* this_ptr, app::IContext* context)) {
         if (this_ptr->fields.Ability == app::AbilityType__Enum_Sword)
@@ -15,7 +24,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, HasAbilityCondition, bool, Validate, (app::HasAbilityCondition* this_ptr, app::IContext* context)) {
-        if (this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
+        if (!disable_has_ability_overwrite && this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
             return is_day;
         else
             return HasAbilityCondition::Validate(this_ptr, context);
@@ -56,6 +65,40 @@ namespace
         // Cutscene rain
         uber_states::register_applier_intercept({ -480342150, 907153171 }, [](auto, auto, auto) -> int32_t {
             return is_day ? 907153171 : -480342150;
+        });
+
+        // Remove regen tree water.
+        uber_states::register_applier_intercept(-1643391836, [](app::NewSetupStateController* this_ptr, auto, auto) -> int32_t {
+            auto modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
+            for (auto i = 0; i < modifiers._size; ++i)
+            {
+                auto item = modifiers._items->vector[i];
+                // #nightTime
+                if (item->fields.ModifierGUID == 0x39b90803)
+                {
+                    if (item->fields.Target != nullptr &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields)
+                    {
+                        auto target = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
+                        auto children = il2cpp::unity::get_children(target);
+                        for (auto child : children)
+                        {
+                            auto name = il2cpp::unity::get_object_name(child);
+                            if (name != "radialGlow" &&
+                                name != "glows" &&
+                                name != "fogs" &&
+                                name != "masks" &&
+                                name != "soundNightState")
+                                il2cpp::unity::destroy_object(child);
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+            return -1643391836;
         });
 
         // howl: notDefeated -> defeated
