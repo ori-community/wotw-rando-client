@@ -150,6 +150,14 @@ namespace RandoMainDLL {
             Delegate = new f_void_int_int_byte_float_float(UberStateController.onUberStateChanged),
             CallbackName = "on_uber_state_applied"
           },
+          new Method() {
+            Delegate = new f_bool(UberStateController.IsDayTime),
+            CallbackName = "is_day_time"
+          },
+          new Method() {
+            Delegate = new f_bool(UberStateController.DoesHowlExist),
+            CallbackName = "does_howl_exist"
+          },
         };
       }
     }

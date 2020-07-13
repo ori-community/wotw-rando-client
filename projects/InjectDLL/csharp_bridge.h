@@ -38,6 +38,8 @@ namespace csharp_bridge
     extern signatures::f_bool tp_to_any_pickup;
     extern signatures::f_bool invert_swim;
     extern signatures::f_bool water_cleansed;
+    extern signatures::f_bool is_day_time;
+    extern signatures::f_bool does_howl_exist;
     extern signatures::f_void_gwa on_map_pan;
 
     // Save system
