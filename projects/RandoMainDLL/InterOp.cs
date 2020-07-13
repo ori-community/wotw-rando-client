@@ -12,6 +12,9 @@ namespace RandoMainDLL {
   static class InterOp {
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_kvolok_door_availability(bool value);
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void play_sound(SoundEvent evt);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void clear_quest_messages();

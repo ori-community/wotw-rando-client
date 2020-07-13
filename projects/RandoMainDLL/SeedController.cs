@@ -223,6 +223,19 @@ namespace RandoMainDLL {
                 extras[1].ParseToInt("BuildPickup.UberId")
               );
               return new ConditionalStop(t, uid, extras[2].ParseToInt("BuildPickup.InterruptCondValue"));
+            case SysCommandType.SetState:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              var sysState = extras[0].ParseToInt("BuildPickup.SysState");
+              if (Enum.IsDefined(typeof(SysState), sysState)) {
+                Randomizer.Log($"invalid state ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+
+              var value = extras[1].ParseToInt("BuildPickup.Value");
+              return new SetStateCommand(t, (SysState)sysState, value);
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
