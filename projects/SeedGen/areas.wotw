@@ -491,9 +491,11 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
   refill Energy=1:
     base: Weapon
 
+  state MarshPastOpher.EyestoneDoor:
+    base: Keystone=2
+
   pickup MarshPastOpher.BowEC: free
   pickup MarshPastOpher.BowTree: free
-  pickup WestHollow.CrusherHC: free
   pickup MarshPastOpher.LeftEyestone:
     base:
       Bow=1, DoubleJump OR Dash OR Launch
@@ -512,14 +514,9 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
     base:
       Bow=4, DoubleJump, Dash, Bash, Glide  # autoaim doesn't catch the second target, 2 is needed minimum
       Bow=4, Bash, Launch  # autoaim doesn't catch the second target, 2 is needed minimum
-  conn WestHollow.HollowDrainUpper:
-    base:
-      DoubleJump, Bow=1 OR Dash OR Glide
-      Dash, Glide
-      Launch
-    advanced:
-      Bash, Glide  # bashglide off a slime
   conn TwillenShop: free
+  conn WestHollow.Entrance:
+    base: MarshPastOpher.EyestoneDoor
 
 area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of the ledge at the top left of the large room with Opher
   refill Checkpoint
@@ -580,6 +577,19 @@ area MarshPastOpher.PoolsPathWest:  # (-803, -4187)  Right on top of MarshPastOp
 region WestHollow:
   base:
     Danger=20
+area WestHollow.Entrance: # TODO: coords n stuff 
+  pickup WestHollow.CrusherHC: free
+
+  conn MarshPastOpher.BowArea: 
+    base: MarshPastOpher.EyestoneDoor
+
+  conn WestHollow.HollowDrainUpper:
+    base:
+      DoubleJump, Bow=1 OR Dash OR Glide
+      Dash, Glide
+      Launch
+    advanced:
+      Bash, Glide  # bashglide off a slime
 
 area WestHollow.HollowDrainUpper:  # (-178, -4238) To the left of the purple eye door
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
