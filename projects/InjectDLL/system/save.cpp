@@ -3,6 +3,7 @@
 #include <macros.h>
 #include <interception_macros.h>
 #include <csharp_bridge.h>
+#include <pickups/pickups.h>
 
 namespace
 {
@@ -10,8 +11,11 @@ namespace
     IL2CPP_BINDING(, SaveSlotsManager, int, get_BackupIndex, ()); //SaveSlotsManager$$get_BackupIndex
 
     IL2CPP_INTERCEPT(, GameController, void, CreateCheckpoint, (app::GameController* thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
-        csharp_bridge::on_checkpoint();
-        GameController::CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
+      bool c = collecting_pickup; // fuck fuck fuck shit damn aaaaa
+      collecting_pickup = false;
+      csharp_bridge::on_checkpoint();
+      collecting_pickup = c;
+      GameController::CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
     }
 
     IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (app::NewGameAction* this_ptr, app::IContext* context)) {
