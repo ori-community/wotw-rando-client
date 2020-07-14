@@ -38,6 +38,7 @@ set(
 	"pickups/experience.cpp"
 	"pickups/health_cell.cpp"
 	"pickups/keystone.cpp"
+	"pickups/map_icons.cpp"
 	"pickups/ore.cpp"
 	"pickups/quests.cpp"
 	"pickups/shops.cpp"

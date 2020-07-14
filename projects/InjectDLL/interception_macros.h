@@ -26,30 +26,60 @@ IL2CPP_BINDING_HELPER(false, namezpace, klass_name, return_type, method_name, me
 // Nested
 
 #define NESTED_STATIC_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, params) \
-IL2CPP_INTERCEPT_HELPER_NESTED(true, namezpace, klass_name, nested, return_type, method_name, method_name, params,)
+NAMED_NESTED_STATIC_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, method_name, params)
 
 #define NESTED_STATIC_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, method_name, params) \
-IL2CPP_BINDING_HELPER_NESTED(true, namezpace, klass_name, nested, return_type, method_name, method_name, params,)
+NAMED_NESTED_STATIC_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, method_name, method_name, params)
 
 #define NESTED_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, params) \
-IL2CPP_INTERCEPT_HELPER_NESTED(false, namezpace, klass_name, nested, return_type, method_name, method_name, params,)
+NAMED_NESTED_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, method_name, params)
 
 #define NESTED_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, params) \
-IL2CPP_BINDING_HELPER_NESTED(false, namezpace, klass_name, nested, return_type, method_name, method_name, params,)
+NAMED_NESTED_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, method_name, method_name, params)
+
+// Nested Named
+
+#define NAMED_NESTED_STATIC_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, name, params) \
+IL2CPP_INTERCEPT_HELPER_NESTED(true, namezpace, klass_name, nested, return_type, method_name, name, params,)
+
+#define NAMED_NESTED_STATIC_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, method_name, name, params) \
+IL2CPP_BINDING_HELPER_NESTED(true, namezpace, klass_name, nested, return_type, method_name, name, params,)
+
+#define NAMED_NESTED_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, name, params) \
+IL2CPP_INTERCEPT_HELPER_NESTED(false, namezpace, klass_name, nested, return_type, method_name, name, params,)
+
+#define NAMED_NESTED_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, name, params) \
+IL2CPP_BINDING_HELPER_NESTED(false, namezpace, klass_name, nested, return_type, method_name, name, params,)
 
 // Normal
 
 #define STATIC_IL2CPP_INTERCEPT(namezpace, klass_name, return_type, method_name, params) \
-IL2CPP_INTERCEPT_HELPER(true, namezpace, klass_name, return_type, method_name, method_name, params,)
+NAMED_STATIC_IL2CPP_INTERCEPT(namezpace, klass_name, return_type, method_name, method_name, params)
 
 #define STATIC_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, params) \
-IL2CPP_BINDING_HELPER(true, namezpace, klass_name, return_type, method_name, method_name, params,)
+NAMED_STATIC_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, method_name, params)
 
 #define IL2CPP_INTERCEPT(namezpace, klass_name, return_type, method_name, params) \
-IL2CPP_INTERCEPT_HELPER(false, namezpace, klass_name, return_type, method_name, method_name, params,)
+NAMED_IL2CPP_INTERCEPT(namezpace, klass_name, return_type, method_name, method_name, params)
 
 #define IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, params) \
-IL2CPP_BINDING_HELPER(false, namezpace, klass_name, return_type, method_name, method_name, params,)
+NAMED_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, method_name, params)
+
+// Named
+
+#define NAMED_STATIC_IL2CPP_INTERCEPT(namezpace, klass_name, return_type, method_name, name, params) \
+IL2CPP_INTERCEPT_HELPER(true, namezpace, klass_name, return_type, method_name, name, params,)
+
+#define NAMED_STATIC_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, name, params) \
+IL2CPP_BINDING_HELPER(true, namezpace, klass_name, return_type, method_name, name, params,)
+
+#define NAMED_IL2CPP_INTERCEPT(namezpace, klass_name, return_type, method_name, name, params) \
+IL2CPP_INTERCEPT_HELPER(false, namezpace, klass_name, return_type, method_name, name, params,)
+
+#define NAMED_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, name, params) \
+IL2CPP_BINDING_HELPER(false, namezpace, klass_name, return_type, method_name, name, params,)
+
+// Helpers
 
 #define IL2CPP_INTERCEPT_HELPER_NESTED(ztatic, namezpace, klass_name, nested, return_type, method_name, name_override, params, overload) \
 namespace klass_name { \
