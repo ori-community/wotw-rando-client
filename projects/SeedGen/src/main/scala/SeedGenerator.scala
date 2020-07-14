@@ -242,52 +242,15 @@ package SeedGenerator {
       _connectedToDoors.toSet
     }
 
-/*    def getReachable(inv: Inv, flags: Set[FlagState]= Set(), itemsOnly: Boolean = true): (Set[Node], Set[FlagState]) = {
-      Timer("getReachable"){
-        var oldFlags = flags
-        var re = spawn.reached(ReachedResult(GameState(inv, flags)), Orbs(0, 0))
-        Timer("getReachableRecursion") {
-          while (oldFlags != re.state.flags) {
-            oldFlags = re.state.flags
-            re = spawn.reached(ReachedResult(GameState(inv, oldFlags)), Orbs(0, 0))
-          }
-        }
-        if(itemsOnly)
-          return (re.state.reached.flatMap(node => items.get(node.name)), re.state.flags)
-        (re.state.reached, re.state.flags)
-      }
-    }*/
-
     var _areas: Map[String, Area] = Map()
     var _items: Map[String, ItemLoc] = Map()
 
-
-
     def keystonesRequired(nodes: Set[Node]): Int = {
+      if(UI.opts.flags.noKSDoors)
+        return 0
       val relevantNodes = nodes.collect{case a: Area => a}.intersect(connectedToDoors)
       doors.foldLeft(0)({case (acc, (name, keys))=> acc + (if(relevantNodes.exists(_.conns.exists(_.target.name == name))) keys else 0)})
     }
-
-
-//    def stateCosts(items: Inv, reached: Set[Node], flags: Set[FlagState], targets: Set[Node]): (Map[FlagState, GameState], Map[FlagState, GameState]) = Timer(s"stateCosts"){
-//        val state = GameState(items, flags)
-//        @scala.annotation.tailrec
-//        def refineRecursive(good: Map[FlagState, GameState], hasFlags: Map[FlagState, GameState]): (Map[FlagState, GameState], Map[FlagState, GameState]) = {
-//          val (newGood, newFlags) = (hasFlags.view.mapValues(s => s.flags.foldLeft(GameState(s.inv))((acc, flag) => acc + (if(flags.contains(flag)) GameState.Empty else good.getOrElse(flag, GameState.mk(flag)))))
-//            ++ good).toMap.partition(_._2.flags.isEmpty)
-//          if(newGood.size != good.size) {
-//            refineRecursive(newGood, newFlags)
-//          } else
-//            (newGood, newFlags)
-//        }
-//      val (good, needsRefined) = targets.withFilter(_.kind == StateNode).flatMap[(FlagState, GameState)]({
-//        case WorldStateNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
-//        case QuestNode(flag) if flags.contains(WorldState(flag)) => Some(WorldState(flag) -> GameState.Empty)
-//        case n @ WorldStateNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
-//        case n @ QuestNode(flag) => Path.filterByTargets(paths(n), targets ++ reached).map(k => AllReqs(k.reqs).cheapestRemaining(state)).minByOption(_.cost).map(WorldState(flag) -> _)
-//      }).filterNot(_._2.inv.has(Unobtainium)).toMap.partition(_._2.flags.isEmpty)
-//      Timer("stateCosts.refineRecursive")(refineRecursive(good, needsRefined))
-//    }
 
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
       val locDataByName = LocData.byName
