@@ -58,11 +58,12 @@ namespace RandoMainDLL {
     public static void Update() {
       try {
         RVAFinder.Update();
-        if (InterOp.get_game_state() == GameState.TitleScreen) {
+        var gs = InterOp.get_game_state();
+        if (gs == GameState.TitleScreen) {
           if (TitleScreenCallback != null)
             OnTitleScreen();
           UberStateController.SkipListenersNextUpdate = true;
-        } else if (InterOp.get_game_state() == GameState.Game) {
+        } else if (gs == GameState.Game) {
           UberStateController.Update();
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
