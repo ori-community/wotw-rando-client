@@ -340,6 +340,11 @@ Download(url, save, DLsize, msg = 0x1100, sleep = 250) {
 
 
 
+prompt_if_equal(v1, v2) {
+	if(semver_compare(v1, v2) == 0) {
+
+	}
+}
 
 semver_validate(version)
 {
