@@ -341,6 +341,8 @@ namespace RandoMainDLL {
       get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages(progress: true);
     }
     public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false) {
+      if (InterOp.get_game_state() != GameState.Game)
+        return ""; // don't even try!
       var msg = "";
       if (flags.Contains(Flag.ALLWISPS)) {
         var max = UberStateController.Wisps.Count;
@@ -349,7 +351,7 @@ namespace RandoMainDLL {
         msg += $", {w}Wisps: {amount}/{max}{w}";
       }
       if (flags.Contains(Flag.ALLTREES)) {
-        var amount = SaveController.Data.TreesActivated.Count;
+        var amount = SaveController.Data?.TreesActivated?.Count ?? 0;
         var w = amount == 14 ? met : unmet;
         msg += $", {w}Trees: {amount}/{14}{w}";
       }

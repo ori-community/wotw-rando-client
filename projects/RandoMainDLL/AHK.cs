@@ -93,7 +93,7 @@ namespace RandoMainDLL {
             MessageQueue.Enqueue(Last);
             break;
           case "hintMessage":
-            HintsController.ShowHintMessage();
+            HintsController.ProgressWithHints();
             break;
           case "dev":
             Randomizer.Dev = !Randomizer.Dev;
@@ -168,7 +168,7 @@ namespace RandoMainDLL {
     public static void Pickup(string message, int frames = 180) {
       var msg = new PlainText(message, frames, SeedController.GrantingGoalModeLoc);
       if(SeedController.GrantingGoalModeLoc) 
-        HintsController.ShowHintMessage();
+        HintsController.ProgressWithHints();
       SendPlainText(msg);
       Last = msg;
     }

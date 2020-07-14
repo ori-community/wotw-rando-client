@@ -101,12 +101,10 @@ namespace RandoMainDLL {
       InterOp.update_map_hint(getZoneHintMessage(type.toZone(), false) + GetKeySkillHint());
     }
 
-    public static void ShowHintMessage(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
-      int duration = 240;
-      if (justUnlocked)
-        duration += 60;
-      if (SeedController.HintsDisabled) {
-        if(!justUnlocked)
+    public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
+      int duration = justUnlocked ? 300 : 240;
+      if (SeedController.HintsDisabled || InterOp.get_game_state() != GameState.Game) {
+        if (!justUnlocked )
           AHK.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
         return;
       }
@@ -179,7 +177,7 @@ namespace RandoMainDLL {
       if (SeedController.HintsDisabled)
         return;
       if (LupoZoneIds.ContainsKey(id)) {
-        ShowHintMessage(LupoZoneIds[id], true);
+        ProgressWithHints(LupoZoneIds[id], true);
       } else if(id.ID == 41666) {
         AHK.SendPlainText(new PlainText($"Bought Hint: {GetKeySkillHint()}", 300));
       }
