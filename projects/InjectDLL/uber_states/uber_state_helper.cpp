@@ -14,6 +14,8 @@
 namespace
 {
     IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed, bool incrementStatistic));
+    IL2CPP_BINDING(, SeinHealthController, void, set_BaseMaxHealth, (app::SeinHealthController* this_ptr, int value));
+    IL2CPP_BINDING(, SeinHealthController, int,  get_BaseMaxHealth, (app::SeinHealthController* this_ptr));
     IL2CPP_BINDING(, SeinEnergy, void, Gain, (app::SeinEnergy* this_ptr, float amount));
     IL2CPP_BINDING(, SeinEnergy, float, get_BaseMaxEnergy, (app::SeinEnergy* this_ptr));
     IL2CPP_BINDING(, SeinEnergy, void,  set_BaseMaxEnergy, (app::SeinEnergy* this_ptr, float amount));
@@ -89,7 +91,7 @@ INJECT_C_DLLEXPORT bool get_debug_controls()
 INJECT_C_DLLEXPORT void add_health(float inc) {
     auto sein = get_sein();
     if (sein != nullptr)
-        SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, inc, 4, true);
+        SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, inc, 4, false);
 }
 
 INJECT_C_DLLEXPORT void fill_health() {
@@ -116,20 +118,30 @@ INJECT_C_DLLEXPORT float get_energy()
     return get_stats()->fields.m_energy;
 }
 
-INJECT_C_DLLEXPORT void set_max_health(int32_t value)
-{
-    get_stats()->fields.m_maxHealth = value;
+INJECT_C_DLLEXPORT void set_max_health(int32_t value) {
+  auto sein = get_sein();
+  if (sein == nullptr) {
+    warn("set_max_health", "No sein!!! D:");
+    return;
+  }
+  SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
 }
 
 INJECT_C_DLLEXPORT void set_max_energy(float value) {
     auto sein = get_sein();
-    if (sein != nullptr)
-        SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
+    if (sein == nullptr) {
+      warn("set_max_energy", "No sein!!! D:");
+      return;
+    }
+    SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
 }
 
-INJECT_C_DLLEXPORT int32_t get_max_health()
-{
-    return get_stats()->fields.m_maxHealth;
+INJECT_C_DLLEXPORT int32_t get_max_health() {
+  auto sein = get_sein();
+  if (sein != nullptr) {
+    return SeinHealthController::get_BaseMaxHealth(sein->fields.Mortality->fields.Health);
+  } else
+    return 0.f;
 }
 
 INJECT_C_DLLEXPORT float get_max_energy()
