@@ -7,10 +7,28 @@
 
 namespace
 {
-    bool disable_has_ability_overwrite = false;
+    int time_override = 2;
+    bool is_day()
+    {
+        if (time_override == 2)
+            return csharp_bridge::is_day_time();
+        else
+            return time_override == 1;
+    }
+
     IL2CPP_BINDING(UnityEngine, GameObject, app::Transform*, get_transform, (app::GameObject* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, void, SetParent, (app::Transform* this_ptr, app::Transform* parent, bool world_position_stays));
 
+    // Fix for Lupo in Marsh not selling map.
+    NESTED_IL2CPP_INTERCEPT(, QuestNodeSetup, QuestInteraction, bool, get_Eligible, (app::QuestNodeSetup_QuestInteraction* this_ptr)) {
+        time_override = 1;
+        auto ret = QuestNodeSetup::QuestInteraction::get_Eligible(this_ptr);
+        time_override = 2;
+        return ret;
+    }
+
+    // Fix for weapon wheel.
+    bool disable_has_ability_overwrite = false;
     IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager* this_ptr)) {
         disable_has_ability_overwrite = true;
         auto ret = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor(this_ptr);
@@ -20,14 +38,14 @@ namespace
 
     IL2CPP_INTERCEPT(, SeinAbilityCondition, bool, Validate, (app::SeinAbilityCondition* this_ptr, app::IContext* context)) {
         if (this_ptr->fields.Ability == app::AbilityType__Enum_Sword)
-            return csharp_bridge::is_day_time();
+            return is_day();
         else
             return SeinAbilityCondition::Validate(this_ptr, context);
     }
 
     IL2CPP_INTERCEPT(, HasAbilityCondition, bool, Validate, (app::HasAbilityCondition* this_ptr, app::IContext* context)) {
         if (!disable_has_ability_overwrite && this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
-            return csharp_bridge::is_day_time();
+            return is_day();
         else
             return HasAbilityCondition::Validate(this_ptr, context);
     }
@@ -35,7 +53,7 @@ namespace
     IL2CPP_BINDING(, HasAbilityUberStateCondition, app::AbilityType__Enum, get_AbilityType, (app::HasAbilityUberStateCondition* this_ptr));
     IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, get_HasAbility, (app::HasAbilityUberStateCondition* this_ptr)) {
         if (HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
-            return csharp_bridge::is_day_time();
+            return is_day();
         else
             return HasAbilityUberStateCondition::get_HasAbility(this_ptr);
     }
@@ -44,7 +62,7 @@ namespace
         if (HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
         {
             auto booleans = this_ptr->fields._.Data->fields.Booleans;
-            return booleans->fields._items->vector[0] == csharp_bridge::is_day_time();
+            return booleans->fields._items->vector[0] == is_day();
         }
         else
             return HasAbilityUberStateCondition::Validate(this_ptr);
@@ -85,7 +103,7 @@ namespace
     {
         // Cutscene rain
         uber_states::register_applier_intercept({ -480342150, 907153171 }, [](auto, auto, auto) -> int32_t {
-            return csharp_bridge::is_day_time() ? 907153171 : -480342150;
+            return is_day() ? 907153171 : -480342150;
         });
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
@@ -253,7 +271,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SwampNightDayTransition, bool, DayTimeCondition, (app::SwampNightDayTransition* this_ptr)) {
-        return csharp_bridge::is_day_time();
+        return is_day();
     }
 
     bool override_has_ability = false;
@@ -265,7 +283,7 @@ namespace
 
     IL2CPP_INTERCEPT(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability)) {
         if (override_has_ability && ability == app::AbilityType__Enum_Sword)
-            return csharp_bridge::is_day_time();
+            return is_day();
         else
             return PlayerAbilities::HasAbility(this_ptr, ability);
     }
