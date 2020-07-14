@@ -70,6 +70,10 @@ namespace il2cpp
         INTERNAL_BINDING(0x262590, Il2CppClass*, il2cpp_class_get_nested_types, (Il2CppClass* klass, void** iter));
         INTERNAL_BINDING(0x262810, bool, il2cpp_class_is_enum, (Il2CppClass* klass));
         INTERNAL_BINDING(0x262550, Il2CppClass*, il2cpp_class_from_type, (Il2CppType const* type));
+        INTERNAL_BINDING(0x263100, uint32_t, il2cpp_gchandle_new, (Il2CppObject* obj, bool pinned));
+        INTERNAL_BINDING(0x263120, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, bool track_resurrection));
+        INTERNAL_BINDING(0x263160, void, il2cpp_gchandle_free, (uint32_t handle));
+        INTERNAL_BINDING(0x263140, Il2CppObject*, il2cpp_gchandle_get_target, (uint32_t handle));
 
         thread_local std::string buffer;
         std::string const& get_full_name(std::string_view namespaze, std::string_view name, std::string_view nested = "")
@@ -254,6 +258,15 @@ namespace il2cpp
 
     namespace untyped
     {
+        Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested)
+        {
+            auto actual_klass = get_nested_class(namezpace, klass, nested);
+            if (actual_klass == nullptr)
+                return nullptr;
+
+            return create_object(actual_klass);
+        }
+
         Il2CppObject* create_object(std::string_view namezpace, std::string_view name)
         {
             auto klass = get_class(namezpace, name);
@@ -346,6 +359,26 @@ namespace il2cpp
     void free_obj(void* obj)
     {
         il2cpp_free(obj);
+    }
+
+    uint32_t gchandle_new(void* obj, bool pinned)
+    {
+        return il2cpp_gchandle_new(reinterpret_cast<Il2CppObject*>(obj), pinned);
+    }
+
+    uint32_t gchandle_new_weak(void* obj, bool track_ressurection)
+    {
+        return il2cpp_gchandle_new_weakref(reinterpret_cast<Il2CppObject*>(obj), track_ressurection);
+    }
+
+    Il2CppObject* gchandle_target(uint32_t handle)
+    {
+        return il2cpp_gchandle_get_target(handle);
+    }
+
+    void gchandle_free(uint32_t handle)
+    {
+        il2cpp_gchandle_free(handle);
     }
 
     Il2CppString* string_new(std::string_view str)

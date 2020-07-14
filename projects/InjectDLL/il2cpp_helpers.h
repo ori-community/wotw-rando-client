@@ -32,6 +32,7 @@ namespace il2cpp
 
     namespace untyped
     {
+        Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested);
         Il2CppObject* create_object(std::string_view namezpace, std::string_view name);
         Il2CppObject* create_object(Il2CppClass* klass);
 
@@ -43,6 +44,11 @@ namespace il2cpp
         Il2CppClass* get_class(std::string_view namezpace, std::string_view name);
         Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested);
     }
+
+    uint32_t gchandle_new(void* obj, bool pinned);
+    uint32_t gchandle_new_weak(void* obj, bool track_ressurection);
+    Il2CppObject* gchandle_target(uint32_t handle);
+    void gchandle_free(uint32_t handle);
 
     int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
     MethodInfo const* get_method_from_name_overloaded(Il2CppClass* klass, std::string_view method, int param_count, int overload);
@@ -71,6 +77,12 @@ namespace il2cpp
             return nullptr;
 
         return reinterpret_cast<TObject*>(obj);
+    }
+
+    template<typename T>
+    T* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested)
+    {
+        return reinterpret_cast<T*>(untyped::create_object(namezpace, klass, nested));
     }
 
     template<typename T>
