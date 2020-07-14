@@ -55,11 +55,7 @@ package SeedGenerator {
           None
       }.toSeq
       pickupsFile.close()
-      pickups.filter({
-        case l if UI.opts.hints && l.value == "LupoZoneMap" => false
-        case l if !UI.opts.questLocs && l.category == "Quest" => false
-        case _ => true
-      })
+      pickups
     }
     def byName: Map[String, LocData] = all.map(data => s"${data.area}.${data.name}" -> data).toMap
   }
@@ -188,10 +184,14 @@ package SeedGenerator {
   object ItemLoc {
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
       .orElse({
-        if(!name.endsWith("LupoMap"))
-          UI.debug(s"pickup $name not found in loc_data.csv (This is expected if locs are excluded)")
+          UI.debug(s"pickup $name not found in loc_data.csv")
         None
-      })
+      }) match {
+    case Some(ItemLoc(_, l)) if UI.opts.hints && l.value == "LupoZoneMap" => UI.debug(s"Filtered out $l"); None
+    case Some(ItemLoc(_, l)) if !UI.opts.questLocs && l.category == "Quest" => UI.debug(s"Filtered out $l"); None
+    case Some(ItemLoc(name, _)) if !UI.opts.flags.noKSDoors && name == "OpherShop.Sentry" => UI.debug(s"Filtered out $name"); None
+    case a => a
+    }
   }
 
   case class WorldStateNode(name: String) extends Node {
@@ -225,6 +225,7 @@ package SeedGenerator {
       "MarshSpawn.KeystoneDoor" -> 2,
       "MidnightBurrows.KeystoneDoor" -> 4,
       "HowlsDen.KeystoneDoor" -> 2,
+      "MarshPastOpher.EyestoneDoor" -> 2,
       "UpperPools.KeystoneDoor" -> 4,
       "WoodsEntry.KeystoneDoor" -> 2,
       "WoodsMain.KeystoneDoor" -> 4,
@@ -667,9 +668,8 @@ object Runner {
   object ItemPool {
     def SIZE: Int = Nodes.items.size
     def build(size: Int = SIZE)(implicit r: Random): Inv = {
-      val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> 32) +
-        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*) +
-        (if(UI.opts.flags.noSword) Inv.mk(Sword) else Inv.Empty)
+      val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(UI.opts.flags.noKSDoors) 0 else 34)) +
+        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
       while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
       pool.merchToPop = Nodes.items.values.count(_.data.category == "Shop")
       pool

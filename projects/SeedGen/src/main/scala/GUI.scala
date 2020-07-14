@@ -29,6 +29,8 @@ package SeedGenerator {
     val teleporters    = new CheckBox("Teleporters"){selected = startSet.tps}
     val uncheckedPaths = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
     val swordSpawn     = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
+    val rain           = new CheckBox("Rainy Marsh"){selected = startSet.flags.rain}
+    val noKSDoors      = new CheckBox("Remove KS doors"){selected = startSet.flags.noKSDoors}
     val forceTrees     = new CheckBox("Force Trees"){selected = startSet.flags.forceWisps}
     val forceWisps     = new CheckBox("Force Wisps"){selected = startSet.flags.forceTrees}
     val forceQuests    = new CheckBox("Force Quests"){selected =  startSet.flags.forceQuests}
@@ -57,10 +59,10 @@ package SeedGenerator {
         optsLabel.font = new Font(Font.SansSerif, Font.Bold.id, 16)
         contents += optsLabel
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, spoilers, uncheckedPaths, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, spoilers, uncheckedPaths, quests, noKSDoors, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue,  zoneHints, teleporters, quests, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue,  zoneHints, teleporters, rain, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
           Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, swordSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
@@ -107,14 +109,16 @@ package SeedGenerator {
 
     }
   }
-  case class Flags(forceWisps: Boolean, forceTrees: Boolean, forceQuests: Boolean, noHints: Boolean, noSword: Boolean = false) {
+  case class Flags(forceWisps: Boolean, forceTrees: Boolean, forceQuests: Boolean, noHints: Boolean, noSword: Boolean = false, rain: Boolean = false, noKSDoors: Boolean = false) {
     def line: String = {
       Seq(
         if(forceWisps) Some("ForceWisps") else None,
         if(forceTrees) Some("ForceTrees") else None,
         if(forceQuests) Some("ForceQuests") else None,
         if(noHints) Some("NoHints") else None,
-        if(noSword) Some("NoSword") else None
+        if(noSword) Some("NoFreeSword") else None,
+        if(rain) Some("RainyMarsh") else None,
+        if(noKSDoors) Some("NoKSDoors") else None
       ).flatten match {
         case Nil => ""
         case s => s"Flags: ${s.mkString(", ")}\n"
@@ -139,7 +143,7 @@ package SeedGenerator {
       ui.uncheckedPaths.selected,
       ui.quests.selected,
       ui.folderSelector.selectedFile.getAbsolutePath,
-      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected),
+      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected),
       ui.bonusItems.selected
     )
     val settingsPath = "C:/moon/.seedgen"
