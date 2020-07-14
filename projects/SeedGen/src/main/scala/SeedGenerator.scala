@@ -187,9 +187,9 @@ package SeedGenerator {
           UI.debug(s"pickup $name not found in loc_data.csv")
         None
       }) match {
-    case Some(ItemLoc(_, l)) if UI.opts.hints && l.value == "LupoZoneMap" => UI.debug(s"Filtered out $l"); None
-    case Some(ItemLoc(_, l)) if !UI.opts.questLocs && l.category == "Quest" => UI.debug(s"Filtered out $l"); None
-    case Some(ItemLoc(name, _)) if !UI.opts.flags.noKSDoors && name == "OpherShop.Sentry" => UI.debug(s"Filtered out $name"); None
+    case Some(ItemLoc(_, l)) if UI.opts.hints && l.value == "LupoZoneMap" => None
+    case Some(ItemLoc(_, l)) if !UI.opts.questLocs && l.category == "Quest" => None
+    case Some(ItemLoc(name, _)) if !UI.opts.flags.noKSDoors && name == "OpherShop.Sentry" => None
     case a => a
     }
   }
@@ -405,7 +405,7 @@ package SeedGenerator {
         throw GeneratorError(s"no new locs (${reachableLocs.size} out of ${ItemPool.SIZE} reached)")
       val placements = MList[Placement]()
       def process(ps: Seq[Placement], prefix: String = ""): Unit =
-        ps.foreach(p => {state.inv.add(p.item); placements.prepend(p); debugPrint(prefix + " " + p)})
+        ps.foreach(p => {state.inv.add(p.item); placements.prepend(p)})
       def assignRandom(itemLocs: Seq[ItemLoc]): Seq[Placement] = {
         val (shops, nonShops) = itemLocs.partition(_.data.category == "Shop")
           if(nonShops.size > pool.count - pool.merchToPop)
