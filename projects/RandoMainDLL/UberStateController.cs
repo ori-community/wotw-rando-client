@@ -238,7 +238,7 @@ namespace RandoMainDLL {
           }
           // should happen in both branches
           if (SeedController.flags.Contains(Flag.ALLWISPS))
-            HintsController.ShowHintMessage();
+            HintsController.ProgressWithHints();
         };
     }
     private static bool ShouldRevert(UberState state) {
@@ -283,16 +283,6 @@ namespace RandoMainDLL {
         InterOp.save();
         NeedsNewGameInit = false;
       }
-    }
-
-    public static bool HowlEscape = false;
-    public static bool DayTime = true;
-
-    public static bool DoesHowlExist() {
-      return HowlEscape;
-    }
-    public static bool IsDayTime() {
-      return DayTime;
     }
 
     public static Dictionary<UberId, int> SkipUberStateMapCount = new Dictionary<UberId, int>();

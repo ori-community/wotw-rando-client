@@ -151,11 +151,11 @@ namespace RandoMainDLL {
             CallbackName = "on_uber_state_applied"
           },
           new Method() {
-            Delegate = new f_bool(UberStateController.IsDayTime),
+            Delegate = new f_bool(SeedController.IsDayTime),
             CallbackName = "is_day_time"
           },
           new Method() {
-            Delegate = new f_bool(UberStateController.DoesHowlExist),
+            Delegate = new f_bool(SeedController.DoesHowlExist),
             CallbackName = "does_howl_exist"
           },
         };

@@ -492,10 +492,12 @@ namespace RandoMainDLL {
           InterOp.set_kvolok_door_availability(value > 0);
           break;
         case SysState.DayTime:
-          UberStateController.DayTime = value > 0;
+          AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
+//          SeedController.DayTimeOverride = value > 0;
           break;
         case SysState.HowlEscape:
-          UberStateController.HowlEscape = value > 0;
+          AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
+          //          SeedController.HowlEscapeOverride = value > 0;
           break;
       }
     }
