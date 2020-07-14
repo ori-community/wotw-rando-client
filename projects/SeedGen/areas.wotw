@@ -3668,9 +3668,8 @@ area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
   conn WillowsEnd.Upper: free
 
 area TwillenShop:
-# stealing this for keystones
-#  pickup TwillenShop.Overcharge:
-#    base: SpiritLight=1200
+  pickup TwillenShop.Overcharge:
+    base: SpiritLight=1200
   pickup TwillenShop.Wingclip:
     base: SpiritLight=1200
   pickup TwillenShop.Swap:
@@ -3697,7 +3696,7 @@ area OpherShop:
     base: SpiritLight=1200
   pickup OpherShop.Blaze:
     base: SpiritLight=1200
-  pickup OpherShop.Sentry:
+  pickup OpherShop.Sentry: # used for keystones if necessary; filtered by gen
     base: SpiritLight=1200
   pickup OpherShop.Teleport:
     base: GladesTown.EntryWallBroken, SpiritLight=1200

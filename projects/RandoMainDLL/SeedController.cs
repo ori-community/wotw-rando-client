@@ -16,18 +16,20 @@ namespace RandoMainDLL {
     BINDING_THREE = 4
   }
   public enum Flag {
-    [Description("NoHints")]
+    [Description("No Hints")]
     NOHINTS,
-    [Description("NoKSDoors")]
+    [Description("No KS Doors")]
     NOKEYSTONES,
-    [Description("ForceWisps")]
+    [Description("Force Wisps")]
     ALLWISPS,
-    [Description("ForceTrees")]
+    [Description("Force Trees")]
     ALLTREES,
-    [Description("ForceQuests")]
+    [Description("Force Quests")]
     ALLQUESTS,
-    [Description("NoSword")]
-    NOSWORD
+    [Description("No Free Sword")]
+    NOSWORD,
+    [Description("Rainy Marsh")]
+    RAIN
   }
 
   public class UberStateCondition {
@@ -42,6 +44,8 @@ namespace RandoMainDLL {
         var idAndTarget = rawTarget.Split('=');
         Id = new UberId(groupId, int.Parse(idAndTarget[0]));
         Target = int.Parse(idAndTarget[1]);
+        if (Target == 0)
+          Target = null;
       }
       else {
         Id = new UberId(groupId, int.Parse(rawTarget));
@@ -109,9 +113,13 @@ namespace RandoMainDLL {
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
-            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4)
-              ShopController.SetCostMod((AbilityType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
-            else if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4)
+            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4) {
+              if (!flags.Contains(Flag.NOKEYSTONES) && cond.Id.ID == (int)AbilityType.Sentry) // :upside_down:
+                cond = new UberStateCondition(new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)ShardType.Overcharge), null);
+              else
+                ShopController.SetCostMod((AbilityType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
+            } 
+            if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4)
               ShopController.SetCostMod((ShardType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
 
             var pickup = BuildPickup(pickupType, frags[3], frags.Skip(4).ToList());
@@ -135,12 +143,15 @@ namespace RandoMainDLL {
     public static void ProcessFlags(string flagline) {
       if (flags.Count > 0)
         Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
+      var enumsByName = Enum.GetValues(typeof(Flag)).Cast<Flag>().ToDictionary(f => f.GetDescription().ToLower().Replace(" ", ""));
       foreach (var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
-        foreach (Flag flag in Enum.GetValues(typeof(Flag))) {
-          if (rawFlag.Trim().ToLower() == flag.GetDescription().ToLower()) {
-            flags.Add(flag);
-          }
-        }
+        var flag = rawFlag.Trim().ToLower();
+        if (flag == "nosword")
+          flags.Add(Flag.NOSWORD);
+        else if (enumsByName.TryGetValue(flag, out Flag f))
+          flags.Add(f);
+        else
+          Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
     }
     public static HashSet<ShardType> shardNag = new HashSet<ShardType>();
@@ -182,7 +193,7 @@ namespace RandoMainDLL {
       var p = id.toCond().Pickup().Concat(valueCond.Pickup());
       if (p.Collect(valueCond.IsGoal())) {
         // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
-        if (valueCond.Loc().Type == LocType.Shard)
+        if (id.toCond().Loc().Type == LocType.Shard)
           InterOp.refresh_shards();
       }
       else {
@@ -334,6 +345,11 @@ namespace RandoMainDLL {
           return UberStateType.SerializedIntUberState;
       }
     }
+
+    public static bool DoesHowlExist() => flags.Contains(Flag.RAIN);
+
+    public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || (SaveController.Data?.TreesActivated?.Contains(AbilityType.SpiritEdge) ?? false);
+
 
     public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }
