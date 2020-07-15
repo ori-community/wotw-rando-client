@@ -40,19 +40,20 @@ package SeedGenerator {
     val runLastSeed    = new Button("Launch Seed"){enabled  = false}
     val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12); editable = false}
     val logHolder = new ScrollPane(logView)
-    val debugToggle = new CheckBox("Extra Debug Info (contains spoilers)")
-    listenTo(makeSeedButton)
-    listenTo(folderButton)
-    listenTo(runLastSeed)
-      reactions += {
-        case ButtonClicked(`makeSeedButton`) => UI.seedClicked()
-        case ButtonClicked(`runLastSeed`) => UI.runSeed()
-        case ButtonClicked(`folderButton`) =>
-          if(folderSelector.showDialog(this, "Select output directory") == FileChooser.Result.Approve) {
-            folderLabel.text = s"Output folder:   ${UI.outputFolder.getPath}"
-          }
-          UI.writeSettings
-      }
+    val debugToggle = new CheckBox("Extra Debug Info (contains spoilers)"){selected = startSet.debugInfo}
+    listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems,
+      teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, debugToggle)
+    reactions += {
+      case ButtonClicked(`makeSeedButton`) => UI.seedClicked()
+      case ButtonClicked(`runLastSeed`) => UI.runSeed()
+      case ButtonClicked(`folderButton`) =>
+        if(folderSelector.showDialog(this, "Select output directory") == FileChooser.Result.Approve) {
+          folderLabel.text = s"Output folder:   ${UI.outputFolder.getPath}"
+        }
+        UI.writeSettings
+      case ButtonClicked(_) => UI.writeSettings
+    }
+
     contents = new BorderPanel {
       add(new BoxPanel(Orientation.Vertical) {
         val optsLabel = new Label("Settings")
@@ -133,7 +134,8 @@ package SeedGenerator {
                           questLocs: Boolean,
                           outputFolder: String,
                           flags: Flags,
-                          bonusItems: Boolean = true
+                          bonusItems: Boolean = true,
+                          debugInfo: Boolean = false
                         )
   object UI {
     def opts: GenSettings = GenSettings(
@@ -144,7 +146,8 @@ package SeedGenerator {
       ui.quests.selected,
       ui.folderSelector.selectedFile.getAbsolutePath,
       Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected),
-      ui.bonusItems.selected
+      ui.bonusItems.selected,
+      ui.debugToggle.selected
     )
     val settingsPath = "C:/moon/.seedgen"
     def writeSettings = {
