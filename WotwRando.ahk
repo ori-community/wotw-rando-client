@@ -14,7 +14,7 @@ WOTWREXE := INSTALL_DIR . "WotwRando.exe"
 NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
 DELETEME := INSTALL_DIR . ".deleteme"
 
-; change this when a new setting is added
+; change this TO THE NAME OF THE NEW SETTING when a new setting is added
 NewSetting := ""
 
 ; this is how you write multiline strings in AHK. it's terrible. 
@@ -53,7 +53,7 @@ FileRead, MY_VER, %INSTALL_DIR%.VERSION
 if(FileExist(INSTALL_DIR . "VERSION")) {
 	FileRead, INSTALL_VER, %INSTALL_DIR%VERSION
 	; check if this exe is a newer version from the one installed
-	if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and semver_compare(MY_VER, INSTALL_VER) == 1)) {
+	if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and semver_compare(MY_VER, INSTALL_VER) == 1) or (A_ScriptFullPath != WOTWREXE)) {
 		; update; write ini defaults, extract new versions of files
 		gosub, WriteIniDefaults
 		gosub, ExtractFiles
@@ -338,13 +338,6 @@ Download(url, save, DLsize, msg = 0x1100, sleep = 250) {
 	Exit
 }
 
-
-
-prompt_if_equal(v1, v2) {
-	if(semver_compare(v1, v2) == 0) {
-
-	}
-}
 
 semver_validate(version)
 {
