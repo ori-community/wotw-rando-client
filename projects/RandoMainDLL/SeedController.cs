@@ -241,7 +241,7 @@ namespace RandoMainDLL {
               }
               var sysState = extras[0].ParseToByte("BuildPickup.SysState");
               if (!Enum.IsDefined(typeof(SysState), sysState)) {
-                Randomizer.Log($"invalid state ${pickupData}", false);
+                Randomizer.Log($"invalid state ${sysState}", false);
                 return new Message($"Invalid command ${pickupData}!");
               }
 
