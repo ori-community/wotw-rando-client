@@ -86,27 +86,33 @@ namespace uber_states
         //    ->static_fields->s_instance, "Apply", uber_state, 0);
     }
 
-    app::UberID* get_uber_state_id(app::IUberState* uber_state)
-    {
+    app::UberID* get_uber_state_id(app::IUberState* uber_state) {
         return il2cpp::invoke<app::UberID>(uber_state, "get_StateID");
     }
 
-    app::UberID* get_uber_state_group_id(app::IUberState* uber_state)
-    {
+    app::UberID* get_uber_state_group_id(app::IUberState* uber_state) {
         return il2cpp::invoke<app::UberID>(uber_state, "get_GroupID");
     }
     
-    std::string get_uber_state_name(app::IUberState* uber_state)
-    {
+    std::string get_uber_state_name(app::IUberState* uber_state) {
         auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
         return convert_csstring(csstring);
     }
 
-    std::string get_uber_state_group_name(app::IUberState* uber_state)
-    {
+    std::string get_uber_state_group_name(app::IUberState* uber_state) {
         auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
         auto csstring = il2cpp::invoke<app::String>(group, "get_GroupName");
         return convert_csstring(csstring);
+    }
+
+    std::string tostring(app::IUberState* uber_state) {
+      auto str = new std::string(format("%d|%d // %s.%s = %f",
+        get_uber_state_group_id(uber_state)->fields.m_id, 
+        get_uber_state_id(uber_state)->fields.m_id,
+        get_uber_state_group_name(uber_state),
+        get_uber_state_name(uber_state),
+        get_uber_state_value(uber_state)));
+      return *str;
     }
 
     app::UberID create_uber_id(int id)
