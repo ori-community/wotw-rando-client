@@ -113,14 +113,17 @@ namespace RandoMainDLL {
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
-            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4) {
+            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
               if (!flags.Contains(Flag.NOKEYSTONES) && cond.Id.ID == (int)AbilityType.Sentry) // :upside_down:
                 cond = new UberStateCondition(new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)ShardType.Overcharge), null);
               else
-                ShopController.SetCostMod((AbilityType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
+                ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
+              frags.RemoveAt(frags.Count - 1);
             } 
-            if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4)
-              ShopController.SetCostMod((ShardType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
+            if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
+              ShopController.SetCostMod((ShardType)cond.Id.ID, tMulti);
+              frags.RemoveAt(frags.Count - 1);
+            }
 
             var pickup = BuildPickup(pickupType, frags[3], frags.Skip(4).ToList());
             if (pickup.IsHintItem())
@@ -233,7 +236,7 @@ namespace RandoMainDLL {
                 extras[0].ParseToInt("BuildPickup.UberGroupId"),
                 extras[1].ParseToInt("BuildPickup.UberId")
               );
-              return new ConditionalStop(t, uid, extras[2].ParseToInt("BuildPickup.InterruptCondValue"));
+              return new ConditionalStop(t, uid, extras[2].ParseToFloat("BuildPickup.InterruptCondValue"));
             case SysCommandType.SetState:
               if (extras.Count != 2) {
                 Randomizer.Log($"malformed command specifier ${pickupData}", false);
@@ -251,10 +254,23 @@ namespace RandoMainDLL {
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
         case PickupType.Message:
-          var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None);
+          var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None).ToList();
+          List<string> msgs = new List<string>();
           int frames = 240;
           bool squelch = false;
-          if (messageParts.Length > 1) {
+          foreach (string extra in extras.Prepend(messageParts[0])) {
+            if (extra.StartsWith("f=")) {
+              int.TryParse(extra.Replace("f=", ""), out frames);
+              continue;
+            }
+            else if (extra == "mute") {
+              squelch = true;
+              continue;
+            }
+            msgs.Add(extra);
+          }
+          var msg = String.Join("|", msgs);
+          if (messageParts.Count > 1) {
             var cmdsRaw = messageParts[1].TrimEnd(')');
             foreach (string cmd in cmdsRaw.Split(',')) {
               if (cmd.StartsWith("f=")) {
@@ -266,7 +282,7 @@ namespace RandoMainDLL {
               }
             }
           }
-          return new Message(messageParts[0], frames, squelch);
+          return new Message(msg, frames, squelch);
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
           if (stateParts.Count < 4) {

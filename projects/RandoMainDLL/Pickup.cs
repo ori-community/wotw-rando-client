@@ -201,12 +201,11 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
-      try {
-        Children.ForEach((c) => c.Grant(true));
-      } catch(DoneWithThis) {
-        Randomizer.Log("exiting early");
-          
-      }; 
+      foreach(var child in Children) {
+        if (child is ConditionalStop s && s.StopActive())
+          break;
+        child.Grant(true);
+      }
       base.Grant(false);
     }
 
@@ -230,7 +229,7 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Message;
 
-    private static Regex uberMsg = new Regex(@"\$\(([0-9]+),([0-9]+)\)");
+    private static Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,]([0-9]+)\)");
     public override string ToString() => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
   }
 
@@ -452,31 +451,38 @@ namespace RandoMainDLL {
   }
   public class ConditionalStop : SystemCommand {
     private UberId targetState;
-    private int targetValue;
-    public ConditionalStop(SysCommandType type, UberId s, int v) : base(type) {
+    private float targetValue;
+    public ConditionalStop(SysCommandType type, UberId s, float v) : base(type) {
       targetState = s;
       targetValue = v;
     }
-    public override void Grant(bool skipBase = false) {
+
+    public bool StopActive() {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.StopIfEqual:
-          Randomizer.Log($"{state.ValueAsInt()} ?= {targetValue} -> {state.ValueAsInt() == targetValue}");
-          if (state.ValueAsInt() == targetValue)
-            throw new DoneWithThis();
+          Randomizer.Log($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue}");
+          if (state.ValueAsFloat() == targetValue)
+            return true;
           break;
         case SysCommandType.StopIfGreater:
-          Randomizer.Log($"{state.ValueAsInt()} ?> {targetValue} -> {state.ValueAsInt() > targetValue}");
-          if (state.ValueAsInt() > targetValue)
-            throw new DoneWithThis();
+          Randomizer.Log($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue}");
+          if (state.ValueAsFloat() > targetValue)
+            return true;
           break;
         case SysCommandType.StopIfLess:
-          Randomizer.Log($"{state.ValueAsInt()} ?< {targetValue} -> {state.ValueAsInt() < targetValue}");
-          if (state.ValueAsInt() < targetValue)
-            throw new DoneWithThis();
+          Randomizer.Log($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
+          if (state.ValueAsFloat() < targetValue)
+            return true;
           break;
       }
+      return false;
     }
+
+    public override void Grant(bool skipBase = false) {
+      base.Grant(skipBase);
+    }
+
   }
   public class SetStateCommand : SystemCommand {
     SysState state;
