@@ -239,7 +239,7 @@ namespace RandoMainDLL {
                 Randomizer.Log($"malformed command specifier ${pickupData}", false);
                 return new Message($"Invalid command ${pickupData}!");
               }
-              var sysState = extras[0].ParseToInt("BuildPickup.SysState");
+              var sysState = extras[0].ParseToByte("BuildPickup.SysState");
               if (Enum.IsDefined(typeof(SysState), sysState)) {
                 Randomizer.Log($"invalid state ${pickupData}", false);
                 return new Message($"Invalid command ${pickupData}!");
