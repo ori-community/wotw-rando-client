@@ -1,12 +1,20 @@
+import java.io.File
+
+import org.json4s._
+import org.json4s.native.Serialization
+import org.json4s.native.Serialization.{read, write}
+
+import scala.collection.mutable.{Map => MMap}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.swing._
 import scala.swing.event._
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
-import java.io.File
+
 package SeedGenerator {
 
-  import java.io.{ByteArrayOutputStream, FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
+  import java.io.{BufferedWriter, FileWriter}
 
+  import scala.io.Source
   import scala.util.Try
 
   trait Flag { def value: String }
@@ -15,32 +23,33 @@ package SeedGenerator {
 
     title = "Wotw Rando Seed Generator"
     preferredSize = new Dimension(800, 600)
-    val startSet = UI.settings
+    val startSet: GenSettings = UI.settings
     val startFold = new File(startSet.outputFolder)
     val folderSelector = new FileChooser(startFold)
     val folderLabel = new Label(s"Output folder:   ${startSet.outputFolder}")
     folderSelector.selectedFile = startFold
     folderSelector.fileSelectionMode = FileChooser.SelectionMode.DirectoriesOnly
     folderSelector.title = "Choose a folder to put generated seeds in"
-    val zoneHints      = new CheckBox("Zone Hints"){selected = startSet.hints}
-    val spoilers       = new CheckBox("Generate Spoiler"){selected = startSet.spoilers}
-    val quests         = new CheckBox("Items on Quests"){selected = startSet.questLocs}
-    val bonusItems     = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
-    val teleporters    = new CheckBox("Teleporters"){selected = startSet.tps}
-    val uncheckedPaths = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
-    val swordSpawn     = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
-    val rain           = new CheckBox("Rainy Marsh"){selected = startSet.flags.rain}
-    val noKSDoors      = new CheckBox("Remove KS doors"){selected = startSet.flags.noKSDoors}
-    val forceTrees     = new CheckBox("Force Trees"){selected = startSet.flags.forceWisps}
-    val forceWisps     = new CheckBox("Force Wisps"){selected = startSet.flags.forceTrees}
-    val forceQuests    = new CheckBox("Force Quests"){selected =  startSet.flags.forceQuests}
+    val zoneHints: CheckBox = new CheckBox("Zone Hints"){selected = !startSet.flags.noHints}
+    val spoilers: CheckBox = new CheckBox("Generate Spoiler"){selected = startSet.spoilers}
+    val quests: CheckBox = new CheckBox("Items on Quests"){selected = startSet.questLocs}
+    val bonusItems: CheckBox = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
+    val teleporters: CheckBox = new CheckBox("Teleporters"){selected = startSet.tps}
+    val uncheckedPaths: CheckBox = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
+    val swordSpawn: CheckBox = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
+    val rain: CheckBox = new CheckBox("Rainy Marsh"){selected = startSet.flags.rain}
+    val seirLaunch: CheckBox = new CheckBox("Launch on Seir"){selected = startSet.seirLaunch}
+    val noKSDoors: CheckBox = new CheckBox("Remove KS doors"){selected = startSet.flags.noKSDoors}
+    val forceTrees: CheckBox = new CheckBox("Force Trees"){selected = startSet.flags.forceTrees}
+    val forceWisps: CheckBox = new CheckBox("Force Wisps"){selected = startSet.flags.forceWisps}
+    val forceQuests: CheckBox = new CheckBox("Force Quests"){selected =  startSet.flags.forceQuests}
     val seedField      = new TextField(5)
     val makeSeedButton = new Button("Generate")
     val folderButton   = new Button("Change")
-    val runLastSeed    = new Button("Launch Seed"){enabled  = false}
+    val runLastSeed: Button = new Button("Launch Seed"){enabled  = false}
     val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12); editable = false}
-    val logHolder = new ScrollPane(logView)
-    val debugToggle = new CheckBox("Extra Debug Info (contains spoilers)"){selected = startSet.debugInfo}
+    val logHolder: ScrollPane = new ScrollPane(logView)
+    val debugToggle: CheckBox = new CheckBox("Extra Debug Info (contains spoilers)"){selected = startSet.debugInfo}
     listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems,
       teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, debugToggle)
     reactions += {
@@ -50,8 +59,8 @@ package SeedGenerator {
         if(folderSelector.showDialog(this, "Select output directory") == FileChooser.Result.Approve) {
           folderLabel.text = s"Output folder:   ${UI.outputFolder.getPath}"
         }
-        UI.writeSettings
-      case ButtonClicked(_) => UI.writeSettings
+        UI.writeSettings()
+      case ButtonClicked(_) => UI.writeSettings()
     }
 
     contents = new BorderPanel {
@@ -60,7 +69,7 @@ package SeedGenerator {
         optsLabel.font = new Font(Font.SansSerif, Font.Bold.id, 16)
         contents += optsLabel
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, spoilers, uncheckedPaths, quests, noKSDoors, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, spoilers, uncheckedPaths, quests, noKSDoors, seirLaunch, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
           Seq(Swing.HGlue,  zoneHints, teleporters, rain, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
@@ -104,13 +113,20 @@ package SeedGenerator {
         contents += logHolder
       }, BorderPanel.Position.Center)
       add(new BorderPanel {
-        add(Button("Close") { UI.writeSettings; sys.exit(0) }, BorderPanel.Position.West)
+        add(Button("Close") { UI.writeSettings(); sys.exit(0) }, BorderPanel.Position.West)
         add(runLastSeed, BorderPanel.Position.East)
       }, BorderPanel.Position.South)
-
     }
   }
-  case class Flags(forceWisps: Boolean, forceTrees: Boolean, forceQuests: Boolean, noHints: Boolean, noSword: Boolean = false, rain: Boolean = false, noKSDoors: Boolean = false) {
+  case class Flags(
+    forceWisps: Boolean = false,
+    forceTrees: Boolean = false,
+    forceQuests: Boolean = false,
+    noHints: Boolean = false,
+    noSword: Boolean = false,
+    rain: Boolean = false,
+    noKSDoors: Boolean = false
+  ) {
     def line: String = {
       Seq(
         if(forceWisps) Some("ForceWisps") else None,
@@ -127,19 +143,18 @@ package SeedGenerator {
     }
   }
   case class GenSettings(
-                          hints: Boolean,
-                          tps: Boolean,
-                          spoilers: Boolean,
-                          unsafePaths: Boolean,
-                          questLocs: Boolean,
-                          outputFolder: String,
-                          flags: Flags,
-                          bonusItems: Boolean = true,
-                          debugInfo: Boolean = false
-                        )
+    tps: Boolean = true,
+    spoilers: Boolean = true,
+    unsafePaths: Boolean = false,
+    questLocs: Boolean = true,
+    outputFolder: String = "C:\\moon",
+    flags: Flags = Flags(),
+    bonusItems: Boolean = true,
+    debugInfo: Boolean = false,
+    seirLaunch: Boolean = false
+  )
   object UI {
     def opts: GenSettings = GenSettings(
-      ui.zoneHints.selected,
       ui.teleporters.selected,
       ui.spoilers.selected,
       ui.uncheckedPaths.selected,
@@ -147,30 +162,30 @@ package SeedGenerator {
       ui.folderSelector.selectedFile.getAbsolutePath,
       Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected),
       ui.bonusItems.selected,
-      ui.debugToggle.selected
+      ui.debugToggle.selected,
+      ui.seirLaunch.selected
     )
-    val settingsPath = "C:/moon/.seedgen"
-    def writeSettings = {
-      val out = new ObjectOutputStream(new FileOutputStream(settingsPath))
-      out.writeObject(opts)
+    def getPreplcs: MMap[ItemLoc, Placement] = {
+      if(ui.seirLaunch.selected) {
+        val seir = Nodes.items("WindtornRuins.Seir")
+        MMap(seir -> ItemPlacement(Launch, seir))
+      } else
+        MMap()
+    }
+    val settingsPath = "C:/moon/SeedGenSettings.json"
+    implicit val formats: Formats = Serialization.formats(NoTypeHints)
+    def writeSettings(): Unit = {
+      val bw = new BufferedWriter(new FileWriter(settingsPath))
+      bw.write(write(opts))
+      bw.close()
     }
     def readSettings: Option[GenSettings] = Try {
-        val in = new ObjectInputStream(new FileInputStream(settingsPath))
-        in.readObject().asInstanceOf[GenSettings]
+        val inFile = Source.fromFile(settingsPath)
+        val ret = read[GenSettings](inFile.mkString)
+        inFile.close()
+        ret
       }.toOption
-    def settings = readSettings.getOrElse(GenSettings(
-      hints = true,
-      tps = true,
-      spoilers = true,
-      unsafePaths = false,
-      questLocs = true,
-      outputFolder = "C:\\moon",
-      flags = Flags(
-        forceWisps = false,
-        forceTrees = false,
-        forceQuests = false,
-        noHints = false
-      )))
+    def settings: GenSettings = readSettings.getOrElse(GenSettings())
 
     def outputFile: File = {
       val name_base = outputFolder.getPath + "/" + (if(ui.seedField.text != "") ui.seedField.text else "seed")
@@ -184,7 +199,7 @@ package SeedGenerator {
       ret
     }
     def runSeed(): Unit = {
-      writeSettings
+      writeSettings()
       import scala.sys.process._
       lastSeed match {
         case Some(file) => Seq("cmd", "/C", file.getAbsolutePath).!
@@ -197,7 +212,7 @@ package SeedGenerator {
     def seedClicked(): Unit = {
       currentOp = Some(Future {
         log("Building...")
-        writeSettings
+        writeSettings()
         ui.makeSeedButton.enabled = false
         if(ui.seedField.text != "") {
           log(s"Seeded RNG with ${UI.ui.seedField.text}")
