@@ -136,12 +136,13 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
   quest MarshSpawn.CaveKS:
     base:
       BreakWall=16, DoubleJump, Dash OR Grapple
+      # BreakWall=16, Bash, DoubleJump OR Dash OR Glide OR Grapple
       BreakWall=16, Launch
       Weapon  # go through the fight room
   quest MarshSpawn.TheMissingKey:
     base: BreakWall=16, MarshSpawn.CaveKS
 
-  pickup MarshSpawn.LeverEC:
+  pickup MarshSpawn.LeverEC:  # the enemy here doesn't spawn sometimes
     base:
       Grapple, DoubleJump, Bash
       Launch, Bash
@@ -160,6 +161,7 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
   conn MarshSpawn.PoolsBurrowsPath:
     base:
       BreakWall=16, DoubleJump, Dash OR Grapple
+      # BreakWall=16, Bash, DoubleJump OR Dash OR Glide OR Grapple
       BreakWall=16, Launch
       Weapon, DoubleJump OR Dash OR Launch  # go through the fight room
       Weapon, Bash, Grenade=1  # go through the fight room
@@ -351,7 +353,7 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave after chasing of
 
   conn HowlsDen.BoneBridge: free
   conn MarshSpawn.DenApproach:
-    base, MarshSpawn.HowlBurnt:
+    base:
       DoubleJump OR Launch
       Bash, Grenade=1
 
@@ -368,7 +370,17 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
     base: DoubleJump OR Launch
   pickup HowlsDen.LeftHC:
     base: HowlsDen.KeystoneDoor, EnemyObstacle, BreakWall=20, DoubleJump OR Dash OR Launch
-  # technically a connection to right health cell could be relevant, but not in the current status quo
+  pickup HowlsDen.RightHC:
+    base, HowlsDen.KeystoneDoor:
+      BreakWall=16, BreakWall=16, BreakWall=20, DoubleJump OR Launch
+      BreakWall=16, BreakWall=16, BreakWall=20, Dash, Bash, Grenade=1
+  pickup HowlsDen.UpperEX:
+    base, HowlsDen.KeystoneDoor:
+      # breaking one wall
+      Launch, BreakWall=16
+      # breaking all walls (this is good syntax!)
+      BreakWall=16, BreakWall=16, BreakWall=16, DoubleJump
+      BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
   pickup HowlsDen.SwordTree: free
   pickup HowlsDen.MagnetShard:
     base: BreakWall=10
@@ -378,7 +390,7 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
   conn HowlsDen.Teleporter:
     base: BreakWall=16
   conn HowlsDen.Entrance:
-    base, HowlsDen.KeystoneDoor:
+    base, HowlsDen.KeystoneDoor, MarshSpawn.HowlBurnt:  # the path is blocked if howl fight is not done
       # breaking one wall
       Launch, BreakWall=16
       # breaking all walls (this is good syntax!)
