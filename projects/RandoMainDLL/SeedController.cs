@@ -114,9 +114,12 @@ namespace RandoMainDLL {
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
             if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
-              if (!flags.Contains(Flag.NOKEYSTONES) && cond.Id.ID == (int)AbilityType.Sentry) // :upside_down:
+              if (!KSDoorsOpen && cond.Id.ID == (int)AbilityType.Sentry) // :upside_down:
                 cond = new UberStateCondition(new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)ShardType.Overcharge), null);
-              else
+              else if(!HintsDisabled && cond.Id.ID == (int)AbilityType.WaterBreath) {
+                cond = new UberStateCondition(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)PsuedoLocs.GAME_START), null);
+                pickupMap[cond] = new Message("Granting pickup overwritten by hint:").Concat(cond.Pickup());
+              } else
                 ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
               frags.RemoveAt(frags.Count - 1);
             } 

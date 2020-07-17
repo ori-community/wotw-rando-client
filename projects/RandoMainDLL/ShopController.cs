@@ -35,13 +35,15 @@ namespace RandoMainDLL {
         if (!OpherWeaponChatter.ContainsKey(weapon)) {
           if (KSOverride(weapon))
             OpherWeaponChatter[weapon] = $"Costs more each time you buy it\\nNever logically required";
+          else if(WaterOverride(weapon))
+            OpherWeaponChatter[weapon] = "Will tell you what Zone *Bash*, #Clean Water#, and *Flap* are in";
           else
             OpherWeaponChatter[weapon] = Chatter[new Random().Next(Chatter.Count)];
         }
         return OpherWeaponChatter[weapon];
       }
       else if (OpherWeaponNames.TryGetValue(orig, out var weapon)) {
-        return KSOverride(weapon) ? "Black Market Keystone" : SeedController.OpherWeapon(weapon).ToString();
+        return KSOverride(weapon) ? "Black Market Keystone" : WaterOverride(weapon) ? "Bash/Clean Water/Flap Hint" : SeedController.OpherWeapon(weapon).ToString();
       }
       else if (TwillenShardDetail.ContainsKey(orig)) {
         var shard = TwillenShardDetail[orig];
@@ -77,7 +79,7 @@ namespace RandoMainDLL {
       {"Reveal Shards", "Burrow/Water Dash/Light Burst hint" },
       {"Show all #Energy Cells# on maps", "information on $Key Items$ in #Wellspring Glades#" },
       {"Show all #Life Cells# on maps", "information on $Key Items$ in #Silent Woods#" },
-      {"Show all #Spirit Shards# on maps", "Will tell you what Zone $Water Dash$, $Burrow$ and $Light Burst$ are in" },
+      {"Show all #Spirit Shards# on maps", "Will tell you what Zone *Water Dash*, *Burrow* and *Light Burst* are in" },
     };
 
     public static Dictionary<string, AbilityType> OpherWeaponNames = new Dictionary<string, AbilityType> {
@@ -174,6 +176,11 @@ namespace RandoMainDLL {
         SaveController.Data.KSBought++;
         SaveController.Data.FoundCount--;
         return;
+      } 
+      if (WaterOverride(slot)) {
+        SaveController.Data.OpherSold.Add(slot);
+        AHK.SendPlainText(new PlainText($"Bought Hint: {HintsController.GetKeySkillHintOne()}", 300));
+        return;
       }
 
       Pickup item = SeedController.OpherWeapon(slot);
@@ -190,6 +197,7 @@ namespace RandoMainDLL {
     public static void OnBuyOpherUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
 
     private static bool KSOverride(AbilityType a) => a == AbilityType.Sentry && !SeedController.KSDoorsOpen;
+    private static bool WaterOverride(AbilityType a) => a == AbilityType.WaterBreath && !SeedController.HintsDisabled;
 
     private static readonly int KSMAX = 8;
     private static int KSBought { get => Math.Min(KSMAX, SaveController.Data?.KSBought ?? 0); }
@@ -213,7 +221,8 @@ namespace RandoMainDLL {
     public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(ShopController.GetCostMod(shard));
     public static int OpherWeaponCost(AbilityType ability) => KSOverride(ability) ?
       100 + 50 * KSBought : 
-      SeedController.OpherWeapon(ability).CostWithMod(ShopController.GetCostMod(ability));
+      (WaterOverride(ability) ? 2500 : 
+      SeedController.OpherWeapon(ability).CostWithMod(ShopController.GetCostMod(ability)));
 
     private static Dictionary<int, int> lupoCosts = new Dictionary<int, int>() {
       {19396, 200 },  // energy -> glades
