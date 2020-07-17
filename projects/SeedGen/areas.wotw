@@ -168,9 +168,14 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
       DoubleJump OR Launch
       Bash, Grenade=1
 
-area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tree
+area MarshSpawn.DenApproach:  # (-540, -4406) at regen tree
   state MarshSpawn.KeystoneDoor:
     base: Keystone=2
+  state MarshSpawn.HowlBurnt:
+    base:
+      DoubleJump OR Launch
+      Dash, Glide
+      Bash, Grenade=1
 
   pickup MarshSpawn.RegenTree: free
   pickup MarshSpawn.RecklessShard:
@@ -180,14 +185,18 @@ area MarshSpawn.DenApproach:  # (-569, -4394) behind the door blocking regen tre
       Bash, Grenade=1
 
   conn HowlsDen.Entrance:
-    base:
+    base, MarshSpawn.HowlBurnt:
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
-    advanced:
+    advanced, MarshSpawn.HowlBurnt:
       Sword OR Hammer         # Use air combos to make it to wall above thorns
   conn MarshSpawn.CaveEntrance:
-    base: MarshSpawn.KeystoneDoor
+    base, MarshSpawn.KeystoneDoor:
+      DoubleJump, Dash, Bash, Glide  # not sorry
+      Bash, Grenade=1
+      Launch
+      MarshSpawn.RainLifted, DoubleJump
 
 area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, burrows and marsh
   refill Checkpoint
@@ -313,7 +322,7 @@ area MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
   conn HowlsDen.DoubleJumpTreeArea:
     base: BreakWall=10
 
-area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
+area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave after chasing off Howl
   quest MarshSpawn.FangQI:
     base:
       DoubleJump OR Launch
@@ -333,7 +342,7 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
       Bash, Grenade=1, Sword          # As above, but sword upslash to cross the last gap
       Bash, Grenade=1, Damage=10      # As above, but take a dboost on the last gap
   pickup MarshSpawn.RecklessShard:
-    base, BreakWall=10:
+    base, MarshSpawn.HowlBurnt, BreakWall=10:
       DoubleJump OR Launch
       Bash, Grenade=1
   pickup HowlsDen.UpperEX: free
@@ -342,7 +351,7 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave
 
   conn HowlsDen.BoneBridge: free
   conn MarshSpawn.DenApproach:
-    base:
+    base, MarshSpawn.HowlBurnt:
       DoubleJump OR Launch
       Bash, Grenade=1
 
@@ -351,6 +360,7 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
 
   state HowlsDen.KeystoneDoor:
     base: Keystone=2
+  state MarshSpawn.RainLifted: free  # the sword tree
 
   pickup HowlsDen.BoneOre:
     base: Hammer
