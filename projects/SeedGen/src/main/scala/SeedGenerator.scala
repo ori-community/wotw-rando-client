@@ -187,7 +187,7 @@ package SeedGenerator {
           UI.debug(s"pickup $name not found in loc_data.csv")
         None
       }) match {
-    case Some(ItemLoc(_, l)) if !UI.opts.flags.noHints && l.value == "LupoZoneMap" => None
+    case Some(ItemLoc(name, l)) if !UI.opts.flags.noHints && (l.value == "LupoZoneMap" || name == "OpherShop.WaterBreath") => None
     case Some(ItemLoc(_, l)) if !UI.opts.questLocs && l.category == "Quest" => None
     case Some(ItemLoc(name, _)) if !UI.opts.flags.noKSDoors && name == "OpherShop.Sentry" =>/* UI.log(s"Filtered out $name");*/ None
     case a => a
@@ -293,7 +293,7 @@ package SeedGenerator {
     def reached(s: GameState)(implicit preplc: MMap[ItemLoc, Placement]): (GameState, Set[Placement]) = Timer("Reached"){
       val(rs, plcs) = Nodes.reachedRec(s, Set())
       if(plcs.nonEmpty) {
-        UI.log(s"new placements after reachable search: $plcs")
+        UI.debug(s"new placements after reachable search: $plcs")
       }
       (rs, plcs)
     }
