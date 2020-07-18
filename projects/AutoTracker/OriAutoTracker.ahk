@@ -124,6 +124,7 @@ If !WatchFolder("C:\moon", "parsechanges",, 8) {
 ; Main Window
 ; -------------------------------------
 
+Gui, Main:New
 Gui, Color, 585858
 Gui, Font, s15 cwhite
 
@@ -167,8 +168,28 @@ Gui, Add, Text, vGorlekOre x190 y465 w50, 0
 Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, img\CompleteWatermillEscape.png
 
 
-Gui, Show,, Ori WotW AutoTracker %version%
+Gui, Main:Show,, Ori WotW AutoTracker %version%
 update()
+
+; -------------------------------------
+; Context menu
+; -------------------------------------
+
+OnTopState := 0
+TeleporterState := 0
+
+; Create the popup menu by adding some items to it.
+Menu, ContextMenu, Add, Always on top, ToggleOnTop
+Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
+
+Menu, ContextMenu, Add, Background colour, ToggleCheck
+Menu, ContextMenu, Add, Teleporters, ToggleTeleporters
+Menu, ContextMenu, % TeleporterState ? "Check" : "Uncheck", Teleporters
+
+Menu, ContextMenu, Add, Settings, OpenSettingsEditor
+
+Menu, ContextMenu, Add  ; Add a separator line below the submenu.
+Menu, ContextMenu, Add, Exit, mainGuiClose  ; Add another menu item beneath the submenu.
 
 ; -------------------------------------
 ; Teleporters window
@@ -201,13 +222,13 @@ Gui, Add, Text, vOuterRuins %fourth_collumn% yp+%spacing% Hidden, Outer Ruins
 Gui, Add, Text, vWillow %fourth_collumn% yp+%spacing% Hidden, Willow
 Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
 
-Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
+; Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
 
 OnMessage(0x200, "Help") ; On_mousemove event
 Return
 ; Function for manually toggling items
- click:
- return
+click:
+return
 ;     MouseGetPos,,,, OutputVarControl
 ;     ControlGetText, HoverText, %OutputVarControl%
 ;     if (HoverText == "img\Bash.png") {
@@ -232,6 +253,38 @@ Return
 ;         }
 ;     }
 
+ToggleOnTop:
+    OnTopState := !OnTopState
+    Menu, %A_ThisMenu%, % OnTopState ? "Check" : "Uncheck", %A_ThisMenuItem%
+    if (OnTopState) {
+        Gui Main:+AlwaysOnTop
+        Gui Teleporters:+AlwaysOnTop
+    } else {
+        Gui Main:-AlwaysOnTop
+        Gui Teleporters:-AlwaysOnTop
+    }
+    return
+
+ToggleCheck:
+    return
+
+ToggleTeleporters:
+    TeleporterState := !TeleporterState
+    Menu, %A_ThisMenu%, % TeleporterState ? "Check" : "Uncheck", %A_ThisMenuItem%
+    
+    if (TeleporterState) {
+        Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
+    } else {
+        Gui, teleporters:Hide
+    }
+
+OpenSettingsEditor:
+    Run, C:\moon\RandoSettings.exe
+
+
+#if MouseIsOver("Ori WotW AutoTracker") ; Not fully sure why this matches but it works!
+RButton::Menu, ContextMenu, Show 
+
 ; Function that gets called when a change is detected in the trackfile.
 parsechanges(Folder, Changes) {
     For Each, Change In Changes
@@ -244,6 +297,9 @@ parsechanges(Folder, Changes) {
 update() {
     global skillstate, currentinv, imageBase
     FileRead jsonString, C:\moon\trackfile.json
+    if (ErrorLevel) {
+        MsgBox, 16, Error, There was an error reading the file.
+    }
     
     ; Skip parsing if there are no changes
     if (currentinv == jsonString) {
@@ -382,11 +438,15 @@ HasVal(haystack, needle) {
     for index, value in haystack
         if (value = needle)
             return index
-    if !(IsObject(haystack))
-        throw Exception("Bad haystack!", -1, haystack)
+    ; if !(IsObject(haystack))
+    ;     throw Exception("Bad haystack! %haystack%", -1, haystack)
     return 0
 }
 
+MouseIsOver(WinTitle) {
+    MouseGetPos,,, Win
+    return WinExist(WinTitle . " ahk_id " . Win)
+}
 
-GuiClose:
+MainGuiClose: ; Exit the app when the main window closes
     ExitApp
