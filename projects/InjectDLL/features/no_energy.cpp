@@ -6,11 +6,11 @@ namespace
 {
     bool no_energy = false;
 
-    INTERCEPT(9451104, float, SeinEnergy__get_EnergyCostMultiplier, (app::SeinEnergy* this_ptr)) {
+    IL2CPP_INTERCEPT(, SeinEnergy, float, get_EnergyCostMultiplier, (app::SeinEnergy* this_ptr)) {
         if (no_energy)
             return 0.f;
 
-        return SeinEnergy__get_EnergyCostMultiplier(this_ptr);
+        return SeinEnergy::get_EnergyCostMultiplier(this_ptr);
     }
 
     void initialize_no_energy()

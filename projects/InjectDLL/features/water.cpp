@@ -6,16 +6,22 @@
 
 namespace
 {
+    bool water_cheat_purified = false;
     bool water_damage_override = false;
-    INTERCEPT(5475888, bool, Sein_World_Events__get_WaterPurified, ()) {
-        return !water_damage_override && csharp_bridge::water_cleansed();
+    IL2CPP_INTERCEPT(Sein.World, Events, bool, get_WaterPurified, ()) {
+        return !water_damage_override && (csharp_bridge::water_cleansed() || water_cheat_purified);
+    }
+
+    void toggle_clear_water(std::string const& command, std::vector<dev::CommandParam> const& params)
+    {
+        water_cheat_purified = !water_cheat_purified;
     }
 
     void initialize_water()
     {
         std::function<uber_states::applier_intercept(int32_t, int32_t)> ai_create = [](int32_t corrupted, int32_t clean) -> uber_states::applier_intercept {
             return [corrupted, clean](auto, auto, auto) -> int32_t {
-                return csharp_bridge::water_cleansed() ? clean : corrupted;
+                return (csharp_bridge::water_cleansed() || water_cheat_purified) ? clean : corrupted;
             };
         };
 
@@ -59,6 +65,8 @@ namespace
                 return state;
             }
         );
+
+        dev::register_command("toggle_clear_water", toggle_clear_water);
     }
 
     CALL_ON_INIT(initialize_water);

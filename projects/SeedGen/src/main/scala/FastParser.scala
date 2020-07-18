@@ -27,19 +27,22 @@ package SeedGenerator {
     def equalsNum[_ :P]: P[Int] = P("=" ~ CharsWhileIn("0-9").!.map(_.toInt))
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "advanced" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
-    def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq)
+    def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq(_))
     def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(SkillReq(51), EnergyReq(i)))
+    def bowReq[_: P]: P[Requirement] = P("Bow" ~~/ equalsNum).map(i => AllReqs(SkillReq(97), EnergyReq(0.25f * i)))
+    def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(SkillReq(74), EnergyReq(2f * i)))
     def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
-    def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(KeystoneReq)
+    def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq)
+    def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(n => if(UI.opts.flags.noKSDoors) Free else KeystoneReq(n))
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
     def unfree[_: P]: P[Requirement] = P("Unreachable").map(_ => Invalid)
     def tpReq[_: P]: P[Requirement] = P(nameMapParser(Teleporter.areaFileNames)).map(id => if(Teleporter.poolItems.exists(_.teleporterId == id)) TeleReq(id) else Invalid)
-    def skillReq[_: P]: P[Requirement] = P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
+    def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
-    def diffReq[_ :P]: P[Requirement] = P("base" | "advanced").!.map({case "base" => Free; case "advanced" => if(UI.Options.unsafePaths) Free else Invalid})
+    def diffReq[_ :P]: P[Requirement] = P("base" | "advanced").!.map({case "base" => Free; case "advanced" => if(UI.opts.unsafePaths) Free else Invalid})
     def stateReq[_:P]: P[Requirement] = P(nameParser).map(StateReq)
-    def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | grenadeReq | dangerReq | ksReq | cashReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq)//.log
+    def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | dangerReq | ksReq | cashReq | wallReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
       case (reqs, Some(orReq)) =>

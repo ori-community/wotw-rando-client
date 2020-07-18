@@ -18,6 +18,9 @@ IniRead, varCursorLock, %inipath%, Flags, CursorLock, false
 IniRead, varInvertSwim, %inipath%, Flags, InvertSwim, false
 IniRead, varDisableDebug, %inipath%, Flags, DisableDebugControls, false
 IniRead, varDisableQuestSnap, %inipath%, Flags, QuestFocusOnAbility3, false
+IniRead, varMouseBurrow, %inipath%, Flags, BurrowMouseControl, false
+IniRead, varMouseWDash, %inipath%, Flags, WaterDashMouseControl, false
+IniRead, varMouseGrapple, %inipath%, Flags, GrappleMouseControl, false
 
 IniRead, varSteamPath, %inipath%, Paths, Steam
 
@@ -45,7 +48,9 @@ ahkvarDisableDebug := parseBooltoNum(varDisableDebug)
 ahkvarAutoUpdate := 1-parseBooltoNum(varSkipUpdate)
 ahkvarDisableQuestSnap := parseBooltoNum(varDisableQuestSnap)
 ahkVarLaunchTracker := parseBooltoNum(varLaunchTracker)
-
+ahkVarMouseBurrow := parseBooltoNum(varMouseBurrow)
+ahkVarMouseWDash := parseBooltoNum(varMouseWDash)
+ahkVarMouseGrapple := parseBooltoNum(varMouseGrapple)
 ; Adding all the buttons and text in the Window.
 
 col2 := 260
@@ -74,6 +79,15 @@ Gui, Add, Checkbox, x%col2% ys checked%ahkvarDisableQuestSnap% vahkvarDisableQue
 
 Gui, Add, Text, x20 section, Disable Debug Controls
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarDisableDebug% vahkvarDisableDebug gwritetofile
+
+Gui, Add, Text, x20 y+30 section, Mouse Aiming: Grapple
+Gui, Add, Checkbox, x%col2% ys checked%ahkvarMouseGrapple% vahkvarMouseGrapple gwritetofile
+
+Gui, Add, Text, x20 section, Mouse Aiming: Burrow
+Gui, Add, Checkbox, x%col2% ys checked%ahkvarMouseBurrow% vahkvarMouseBurrow gwritetofile
+
+Gui, Add, Text, x20 section, Mouse Aiming: Water Dash
+Gui, Add, Checkbox, x%col2% ys checked%ahkvarMouseWDash% vahkvarMouseWDash gwritetofile
 
 Gui, Add, Text, x20 y+30 section, Restore Short Cutscenes
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarShowShortCutscenes% vahkvarShowShortCutscenes gwritetofile
@@ -155,9 +169,10 @@ writetofile:
     varDisableDebug := parseNumToBool(ahkvarDisableDebug)
     varDisableQuestSnap := parseNumtoBool(ahkvarDisableQuestSnap)
     varLaunchTracker := parseNumtoBool(ahkvarLaunchTracker)
-
     varSkipUpdate := parseNumtoBool(1-ahkvarAutoUpdate)
-
+    varMouseBurrow := parseNumtoBool(ahkvarMouseBurrow) 
+    varMouseWDash := parseNumtoBool(ahkvarMouseWDash) 
+    varMouseGrapple := parseNumtoBool(ahkvarMouseGrapple)
     ; Writing the new values to file.
     IniWrite, %varSkipUpdate%, %inispath%, Flags, SkipUpdate
     IniWrite, %varShowShortCutscenes%, %inipath%, Flags, ShowShortCutscenes
@@ -168,6 +183,9 @@ writetofile:
     IniWrite, %varDisableDebug%, %inipath%, Flags, DisableDebugControls
     IniWrite, %varDisableQuestSnap%, %inipath%, Flags, QuestFocusOnAbility3
     IniWrite, %varLaunchTracker%, %inipath%, Flags, LaunchWithTracker
+    IniWrite, %varMouseBurrow%, %inipath%, Flags, BurrowMouseControl
+    IniWrite, %varMouseWDash%, %inipath%, Flags, WaterDashMouseControl
+    IniWrite, %varMouseGrapple%, %inipath%, Flags, GrappleMouseControl
 
     IniWrite, %varSteamPath%, %inipath%, Paths, Steam
     return
@@ -181,10 +199,10 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, Invert Swim Speeds
         Help := "Inverts the hold-space-to-swim-faster mechanic.`nHolding space will make you swim slower instead."
     else IfEqual, HoverText, Disable Quest Snap on Mouseover
-        Help := "Prevents the map from scrolling to a quest location when hovering over a quest in the quest list.`n(You can still scroll to a quest by pressing your Ability3 bind while hovering)"
+        Help := "Checking this option prevents the map from scrolling to a quest location when hovering over a quest in the`nquest list. (You can still scroll to a quest by pressing your Ability3 bind while hovering)"
 
     else IfEqual, HoverText, Disable Debug Controls
-        Help := "Disables debug controls on game launch. `nToggle debug controls on/off with Ctrl+Alt+D."
+        Help := "Disables debug controls on game launch.`nToggle debug controls on/off with Ctrl+Alt+D."
 
     else IfEqual, HoverText, Restore Short Cutscenes
         Help := "Enables the short-but-unskippable cutscenes normally removed by the randomizer."
@@ -192,8 +210,17 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, Restore Long Cutscenes
         Help := "Enables the long, unskippable cutscenes normally removed by the randomizer."
 
+    else IfEqual, HoverText, Mouse Aiming: Water Dash
+        Help := "Enables aiming Water Dash with your mouse cursor"
+
+    else IfEqual, HoverText, Mouse Aiming: Burrow
+        Help := "Enables aiming Burrow with your mouse cursor"
+
+    else IfEqual, HoverText, Mouse Aiming: Grapple
+        Help := "Enables aiming Grapple with your mouse cursor"
+
     else IfEqual, HoverText, Automatic Updates
-        Help := "Prevents the rando from updating to a newer version.`nNot recommended!"
+        Help := "Allows the randomizer to check for new updates on launch. Highly recommended!"
 
     else IfEqual, HoverText, Use Windows Store
         Help := "Launch the rando using the windows store version of the game."

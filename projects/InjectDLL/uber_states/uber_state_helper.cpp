@@ -13,16 +13,23 @@
 
 namespace
 {
-    BINDING(17707024, void, PlayerSpiritShards__RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
-    BINDING(17712256, void, PlayerSpiritShards__SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
-    BINDING(17706592, bool, PlayerSpiritShards__HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
-    BINDING(17712336, app::PlayerUberStateShards_Shard*, PlayerSpiritShards__AddNewShardToInventory, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
-    BINDING(27760400, app::IUberState*, Moon_UberStateCollection__GetState, (app::UberID* groupID, app::UberID* stateID));
-    BINDING(27758304, Il2CppObject*, Moon_UberStateCollection__get_Descriptors, ());
+    IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed, bool incrementStatistic));
+    IL2CPP_BINDING(, SeinHealthController, void, set_BaseMaxHealth, (app::SeinHealthController* this_ptr, int value));
+    IL2CPP_BINDING(, SeinHealthController, int,  get_BaseMaxHealth, (app::SeinHealthController* this_ptr));
+    IL2CPP_BINDING(, SeinEnergy, void, Gain, (app::SeinEnergy* this_ptr, float amount));
+    IL2CPP_BINDING(, SeinEnergy, float, get_BaseMaxEnergy, (app::SeinEnergy* this_ptr));
+    IL2CPP_BINDING(, SeinEnergy, void,  set_BaseMaxEnergy, (app::SeinEnergy* this_ptr, float amount));
+    IL2CPP_BINDING(, PlayerSpiritShards, void, RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
+    IL2CPP_BINDING(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
+    IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
+    IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory,
+        (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type), (SpiritShardType));
+    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
+    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
 
-    app::CheatsHandler* get_cheats()
+    app::CheatsHandler__StaticFields* get_cheats()
     {
-        return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields->Instance;
+        return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields;
     }
 
     app::PlayerUberStateStats* get_stats()
@@ -69,24 +76,36 @@ namespace
 
 INJECT_C_DLLEXPORT void set_debug_controls(bool value)
 {
-    get_cheats()->fields.DebugEnabled = value;
+  auto cheats = get_cheats();
+  cheats->Instance->fields.DebugEnabled = value;
+  cheats->DebugWasEnabled = value;
+  cheats->DebugAlwaysEnabled = value;
+  il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues")->static_fields->DebugControlsEnabled = value;
 }
 
 INJECT_C_DLLEXPORT bool get_debug_controls()
 {
-    return get_cheats()->fields.DebugEnabled;
+    return get_cheats()->Instance->fields.DebugEnabled;
 }
 
-INJECT_C_DLLEXPORT void fill_health()
-{
-    auto stats = get_stats();
-    stats->fields.m_health = stats->fields.m_maxHealth + get_sein()->fields.Mortality->fields.Health->fields.m_maxHealthBonus;
+INJECT_C_DLLEXPORT void add_health(float inc) {
+    auto sein = get_sein();
+    if (sein != nullptr)
+        SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, inc, 4, false);
 }
 
-INJECT_C_DLLEXPORT void fill_energy()
-{
-    auto stats = get_stats();
-    stats->fields.m_energy = stats->fields.m_maxEnergy + get_sein()->fields.Energy->fields.m_maxEnergyBonus;
+INJECT_C_DLLEXPORT void fill_health() {
+  add_health(10000);
+}
+
+INJECT_C_DLLEXPORT void add_energy(float inc) {
+    auto sein = get_sein();
+    if (sein != nullptr)
+        SeinEnergy::Gain(sein->fields.Energy, inc);
+}
+
+INJECT_C_DLLEXPORT void fill_energy() {
+  add_energy(10000);
 }
 
 INJECT_C_DLLEXPORT int32_t get_health()
@@ -99,24 +118,39 @@ INJECT_C_DLLEXPORT float get_energy()
     return get_stats()->fields.m_energy;
 }
 
-INJECT_C_DLLEXPORT void set_max_health(int32_t value)
-{
-    get_stats()->fields.m_maxHealth = value;
+INJECT_C_DLLEXPORT void set_max_health(int32_t value) {
+  auto sein = get_sein();
+  if (sein == nullptr) {
+    warn("set_max_health", "No sein!!! D:");
+    return;
+  }
+  SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
 }
 
-INJECT_C_DLLEXPORT void set_max_energy(float value)
-{
-    get_stats()->fields.m_maxEnergy = value;
+INJECT_C_DLLEXPORT void set_max_energy(float value) {
+    auto sein = get_sein();
+    if (sein == nullptr) {
+      warn("set_max_energy", "No sein!!! D:");
+      return;
+    }
+    SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
 }
 
-INJECT_C_DLLEXPORT int32_t get_max_health()
-{
-    return get_stats()->fields.m_maxHealth;
+INJECT_C_DLLEXPORT int32_t get_max_health() {
+  auto sein = get_sein();
+  if (sein != nullptr) {
+    return SeinHealthController::get_BaseMaxHealth(sein->fields.Mortality->fields.Health);
+  } else
+    return 0.f;
 }
 
 INJECT_C_DLLEXPORT float get_max_energy()
 {
-    return get_stats()->fields.m_maxEnergy;
+    auto sein = get_sein();
+    if (sein != nullptr)
+        return SeinEnergy::get_BaseMaxEnergy(sein->fields.Energy);
+    else
+        return 0.f;
 }
 
 INJECT_C_DLLEXPORT int32_t get_ore()
@@ -126,8 +160,12 @@ INJECT_C_DLLEXPORT int32_t get_ore()
 
 INJECT_C_DLLEXPORT void set_ore(int32_t value)
 {
-    SeinLevel__set_Ore(get_sein()->fields.Level, value);
-    get_inventory()->fields.m_ore = value;
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        SeinLevel::set_Ore(sein->fields.Level, value);
+        get_inventory()->fields.m_ore = value;
+    }
 }
 
 INJECT_C_DLLEXPORT int32_t get_experience()
@@ -153,8 +191,14 @@ INJECT_C_DLLEXPORT void set_keystones(int32_t value)
 
 INJECT_C_DLLEXPORT app::Vector2 get_position()
 {
-    auto pos = get_sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
-    return app::Vector2{ pos.x, pos.y };
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        auto pos = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
+        return app::Vector2{ pos.x, pos.y };
+    }
+    else
+        return app::Vector2{ 0, 0 };
 }
 
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state()
@@ -168,36 +212,44 @@ INJECT_C_DLLEXPORT int32_t get_shard_slots() {
 }
 
 app::PlayerSpiritShards* get_player_spirit_shards() {
-  return get_sein()->fields.PlayerSpiritShards;
+    auto sein = get_sein();
+    if (sein != nullptr)
+        return sein->fields.PlayerSpiritShards;
+    else
+        return nullptr;
 }
 
 INJECT_C_DLLEXPORT void set_shard_slots(int32_t value) {
-  PlayerSpiritShards__SetGlobalShardSlotCount(get_player_spirit_shards(), value);
+    auto shards = get_player_spirit_shards();
+    if (shards != nullptr)
+        PlayerSpiritShards::SetGlobalShardSlotCount(shards, value);
 }
 
 INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type) {
-  return PlayerSpiritShards__HasShard(get_player_spirit_shards(), type);
+    auto shards = get_player_spirit_shards();
+    if (shards != nullptr)
+        return PlayerSpiritShards::HasShard(shards, type);
+    else
+        return false;
 }
 
 INJECT_C_DLLEXPORT void refresh_shards() {
-  PlayerSpiritShards__RefreshHasShard(get_player_spirit_shards());
+    auto shards = get_player_spirit_shards();
+    if (shards != nullptr)
+        PlayerSpiritShards::RefreshHasShard(shards);
 }
 
+IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, app::PlayerUberStateShards_Shard*, SetAbility,
+    (app::PlayerUberStateShards* this_ptr, uint8_t ability, bool value));
+
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
-    // TODO: a way to remove shards
-  if (value) {
-    PlayerSpiritShards__AddNewShardToInventory(get_player_spirit_shards(), type);
-    return;
-  }
-  auto shards = get_shards();
-    app::PlayerUberStateShards_Shard* shard = nullptr;
-    auto found = il2cpp::invoke<app::Boolean__Boxed>(shards->fields.m_shards, "TryGetValue", &type, &shard)->fields;
-    if (found) {
-      shard->fields.m_gained = false;
-      refresh_shards();
+    auto player_shards = get_player_spirit_shards();
+    if (player_shards != nullptr)
+    {
+        auto shards = get_shards();
+        auto shard = PlayerUberStateShards::SetAbility(shards, static_cast<uint8_t>(type), value);
+        il2cpp::invoke(player_shards->fields.OnInventoryUpdated, "Invoke", shard);
     }
-    else
-        trace(MessageType::Warning, 3, "game", format("shard of type '%d' does not exist", type));
 }
 
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area()

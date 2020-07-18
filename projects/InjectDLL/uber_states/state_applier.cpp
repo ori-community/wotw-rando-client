@@ -14,13 +14,13 @@ namespace uber_states
     {
         std::unordered_map<int32_t, applier_intercept> applier_intercepts;
 
-        BINDING(27776432, void, Moon_UberStateController__ApplyAll, (int32_t context));
-        INTERCEPT(27823760, void, NewSetupStateController__ApplyKnownState, (app::NewSetupStateController* this_ptr, int32_t stateGUID, int32_t context)) {
+        STATIC_IL2CPP_BINDING(Moon, UberStateController, void, ApplyAll, (int32_t context));
+        IL2CPP_INTERCEPT(, NewSetupStateController, void, ApplyKnownState, (app::NewSetupStateController* this_ptr, int32_t stateGUID, int32_t context)) {
             auto it = applier_intercepts.find(stateGUID);
             if (it != applier_intercepts.end())
                 stateGUID = it->second(this_ptr, stateGUID, context);
 
-            NewSetupStateController__ApplyKnownState(this_ptr, stateGUID, context);
+            NewSetupStateController::ApplyKnownState(this_ptr, stateGUID, context);
         }
 
         void intercept_state(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -53,7 +53,7 @@ namespace uber_states
 
 
             register_applier_redirect(first, second);
-            Moon_UberStateController__ApplyAll(1);
+            UberStateController::ApplyAll(0);
         }
 
         void add_applier_intercept_commands()

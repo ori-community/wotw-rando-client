@@ -11,7 +11,7 @@
 
 namespace {
 
-    BINDING(11253376, app::Input_InputButtonProcessor*, Core_Input__GetButton, (int32_t button));
+    STATIC_IL2CPP_BINDING(Core, Input, app::Input_InputButtonProcessor*, GetButton, (int32_t button));
 
     struct InputData
     {
@@ -23,7 +23,7 @@ namespace {
 
     void on_fixed_update(app::GameController* this_ptr)
     {
-        auto input_cmd = il2cpp::get_class<app::Input_Cmd__Class>("", "Cmd");
+        auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
         if (input_cmd == nullptr)
             return;
 

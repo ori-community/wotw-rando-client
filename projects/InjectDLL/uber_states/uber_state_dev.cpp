@@ -13,7 +13,7 @@
 
 namespace
 {
-    BINDING(27776080, bool, Moon_UberStateController__ApplierIsAffectedByUberState, (app::IUberStateApplier* applier, app::IUberState* descriptor));
+    STATIC_IL2CPP_BINDING(Moon, UberStateController, bool, ApplierIsAffectedByUberState, (app::IUberStateApplier* applier, app::IUberState* descriptor));
 
     void visualizer_setup(dev::Visualizer& visualizer, std::vector<dev::CommandParam> const& params, int default_level = 1, int default_depth = 200000)
     {
@@ -25,7 +25,7 @@ namespace
 
         visualizer.level = static_cast<dev::Visualizer::InfoLevel>(std::clamp(value, 0, 3));
         visualizer.initial_depth = -1;
-        value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
+        value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "depth"; });
         if (value_it != params.end())
             if (!dev::try_get_int(*value_it, visualizer.initial_depth) || visualizer.initial_depth < 0)
                 dev::console_send("invalid value parameter not a positive int, using default depth");
@@ -156,7 +156,7 @@ namespace
         for (auto i = 0; i < list->fields._size; ++i)
         {
             auto item = list->fields._items->vector[i];
-            if (Moon_UberStateController__ApplierIsAffectedByUberState(item, uber_state))
+            if (UberStateController::ApplierIsAffectedByUberState(item, uber_state))
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
 

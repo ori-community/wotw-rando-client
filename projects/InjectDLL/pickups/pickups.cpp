@@ -4,25 +4,25 @@
 
 bool collecting_pickup = false;
 
-INTERCEPT(12926528, void, SeinUI__ShakeSpiritLight, (app::SeinUI* thisPtr)) {
+IL2CPP_INTERCEPT(, SeinUI, void, ShakeSpiritLight, (app::SeinUI* thisPtr)) {
     if (collecting_pickup)
         return;
 
-    SeinUI__ShakeSpiritLight(thisPtr);
+    SeinUI::ShakeSpiritLight(thisPtr);
 }
 
-INTERCEPT(12926016, void, SeinUI__ShakeKeystones, (app::SeinUI* thisPtr)) {
+IL2CPP_INTERCEPT(, SeinUI, void, ShakeKeystones, (app::SeinUI* thisPtr)) {
     if (collecting_pickup)
         return;
 
-    SeinUI__ShakeKeystones(thisPtr);
+    SeinUI::ShakeKeystones(thisPtr);
 }
 
-INTERCEPT(12927184, void, SeinUI__ShakeSeeds, (app::SeinUI* thisPtr)) {
+IL2CPP_INTERCEPT(, SeinUI, void, ShakeSeeds, (app::SeinUI* thisPtr)) {
     if (collecting_pickup)
         return;
 
-    SeinUI__ShakeSeeds(thisPtr);
+    SeinUI::ShakeSeeds(thisPtr);
 }
 
 extern "C" __declspec(dllexport)
@@ -31,7 +31,7 @@ void shake_spiritlight()
     if (get_ui()->static_fields->SeinUI == nullptr)
         trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
     else
-        SeinUI__ShakeSpiritLight(get_ui()->static_fields->SeinUI);
+        SeinUI::ShakeSpiritLight(get_ui()->static_fields->SeinUI);
 }
 
 extern "C" __declspec(dllexport)
@@ -40,7 +40,7 @@ void shake_keystone()
     if (get_ui()->static_fields->SeinUI == nullptr)
         trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
     else
-        SeinUI__ShakeKeystones(get_ui()->static_fields->SeinUI);
+        SeinUI::ShakeKeystones(get_ui()->static_fields->SeinUI);
 }
 
 extern "C" __declspec(dllexport)
@@ -49,10 +49,9 @@ void shake_ore()
     if (get_ui()->static_fields->SeinUI == nullptr)
         trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
     else
-        SeinUI__ShakeSeeds(get_ui()->static_fields->SeinUI);
+        SeinUI::ShakeSeeds(get_ui()->static_fields->SeinUI);
 }
 
-INTERCEPT(5806192, void, performPickupSequence, (app::SeinPickupProcessor* thisPtr, app::SeinPickupProcessor_CollectableInfo* info)) {
-    //SeinPickupProcessor$$PerformPickupSequence
-    //noping this removes all pickup animations
+IL2CPP_INTERCEPT(, SeinPickupProcessor, void, PerformPickupSequence, (app::SeinPickupProcessor* thisPtr, app::SeinPickupProcessor_CollectableInfo* info)) {
+
 }

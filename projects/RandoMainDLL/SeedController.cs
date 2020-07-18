@@ -15,6 +15,23 @@ namespace RandoMainDLL {
     BINDING_TWO = 3,
     BINDING_THREE = 4
   }
+  public enum Flag {
+    [Description("No Hints")]
+    NOHINTS,
+    [Description("No KS Doors")]
+    NOKEYSTONES,
+    [Description("Force Wisps")]
+    ALLWISPS,
+    [Description("Force Trees")]
+    ALLTREES,
+    [Description("Force Quests")]
+    ALLQUESTS,
+    [Description("No Free Sword")]
+    NOSWORD,
+    [Description("Rainy Marsh")]
+    RAIN
+  }
+
   public class UberStateCondition {
     public UberId Id;
     public int? Target;
@@ -27,6 +44,8 @@ namespace RandoMainDLL {
         var idAndTarget = rawTarget.Split('=');
         Id = new UberId(groupId, int.Parse(idAndTarget[0]));
         Target = int.Parse(idAndTarget[1]);
+        if (Target == 0)
+          Target = null;
       }
       else {
         Id = new UberId(groupId, int.Parse(rawTarget));
@@ -40,6 +59,7 @@ namespace RandoMainDLL {
 
   public static class SeedController {
 
+    public static bool GrantingGoalModeLoc = false;
     public enum FakeUberGroups {
       TREE = 0,
       OPHER_WEAPON = 1,
@@ -47,21 +67,23 @@ namespace RandoMainDLL {
       MISC_CONTROL = 3
     }
 
-    public enum Flag {
-      [Description("NoHints")]
-      NOHINTS,
-      [Description("NoKSDoors")]
-      NOKEYSTONES,
-      [Description("ForceWisps")]
-      ALLWISPS,
-      [Description("ForceTrees")]
-      ALLTREES,
-      [Description("ForceQuests")]
-      ALLQUESTS
-    }
 
     public static Pickup Pickup(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
+
+    public static bool IsGoal(this UberStateCondition goalCond) {
+      var loc = goalCond.Loc();
+      if (loc.Type == LocType.Tree /*&& flags.Contains(Flag.ALLTREES) */)
+        return true;
+      if (flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
+        return true;
+      if (flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target.GetValueOrDefault()))
+        return true;
+      return false;
+    }
+
+    public static bool OnCollect(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty).Collect(cond.IsGoal());
+    public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
 
     public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static HashSet<Flag> flags = new HashSet<Flag>();
@@ -91,10 +113,20 @@ namespace RandoMainDLL {
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
-            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4)
-              ShopController.SetCostMod((AbilityType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
-            else if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4)
-              ShopController.SetCostMod((ShardType)cond.Id.ID, float.Parse(frags[4], NumberStyles.Number, CultureInfo.GetCultureInfo("en-US")));
+            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
+              if (!KSDoorsOpen && cond.Id.ID == (int)AbilityType.Sentry) // :upside_down:
+                cond = new UberStateCondition(new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)ShardType.Overcharge), null);
+              else if(!HintsDisabled && cond.Id.ID == (int)AbilityType.WaterBreath) {
+                cond = new UberStateCondition(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)PsuedoLocs.GAME_START), null);
+                pickupMap[cond] = new Message("Granting pickup overwritten by hint:").Concat(cond.Pickup());
+              } else
+                ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
+              frags.RemoveAt(frags.Count - 1);
+            } 
+            if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
+              ShopController.SetCostMod((ShardType)cond.Id.ID, tMulti);
+              frags.RemoveAt(frags.Count - 1);
+            }
 
             var pickup = BuildPickup(pickupType, frags[3], frags.Skip(4).ToList());
             if (pickup.IsHintItem())
@@ -104,8 +136,10 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
-        if(!init)
-          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}", 300);
+        if(!init) {
+          var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags.Select((Flag flag) => flag.GetDescription()))}" : "";
+          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
+        }
       } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
@@ -115,12 +149,15 @@ namespace RandoMainDLL {
     public static void ProcessFlags(string flagline) {
       if (flags.Count > 0)
         Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
+      var enumsByName = Enum.GetValues(typeof(Flag)).Cast<Flag>().ToDictionary(f => f.GetDescription().ToLower().Replace(" ", ""));
       foreach (var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
-        foreach (Flag flag in Enum.GetValues(typeof(Flag))) {
-          if (rawFlag.Trim().ToLower() == flag.GetDescription().ToLower()) {
-            flags.Add(flag);
-          }
-        }
+        var flag = rawFlag.Trim().ToLower();
+        if (flag == "nosword")
+          flags.Add(Flag.NOSWORD);
+        else if (enumsByName.TryGetValue(flag, out Flag f))
+          flags.Add(f);
+        else
+          Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
     }
     public static HashSet<ShardType> shardNag = new HashSet<ShardType>();
@@ -152,20 +189,15 @@ namespace RandoMainDLL {
     }
 
     public static void OnTree(AbilityType ability) {
-      var fakeId = new UberId((int)FakeUberGroups.TREE, (int)ability);
-      if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
-        p.Grant();
-      } else {
+      if(!new UberId((int)FakeUberGroups.TREE, (int)ability).toCond().OnCollect())
         Randomizer.Log($"Tree {ability} not found in seed!");
-      }
     }
 
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
-      var p = id.toCond().Pickup().Concat(
-              id.toCond(state.ValueAsInt()).Pickup());
-      if (p.NonEmpty) {
-        p.Grant();
+      var valueCond = id.toCond(state.ValueAsInt());
+      var p = id.toCond().Pickup().Concat(valueCond.Pickup());
+      if (p.Collect(valueCond.IsGoal())) {
         // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
         if (id.toCond().Loc().Type == LocType.Shard)
           InterOp.refresh_shards();
@@ -191,6 +223,8 @@ namespace RandoMainDLL {
           return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
+        case PickupType.BonusItem:
+          return new BonusItem((BonusType)pickupData.ParseToByte());
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {
@@ -205,15 +239,41 @@ namespace RandoMainDLL {
                 extras[0].ParseToInt("BuildPickup.UberGroupId"),
                 extras[1].ParseToInt("BuildPickup.UberId")
               );
-              return new ConditionalStop(t, uid, extras[2].ParseToInt("BuildPickup.InterruptCondValue"));
+              return new ConditionalStop(t, uid, extras[2].ParseToFloat("BuildPickup.InterruptCondValue"));
+            case SysCommandType.SetState:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              var sysState = extras[0].ParseToByte("BuildPickup.SysState");
+              if (!Enum.IsDefined(typeof(SysState), sysState)) {
+                Randomizer.Log($"invalid state ${sysState}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+
+              var value = extras[1].ParseToInt("BuildPickup.Value");
+              return new SetStateCommand(t, (SysState)sysState, value);
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
         case PickupType.Message:
-          var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None);
+          var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None).ToList();
+          List<string> msgs = new List<string>();
           int frames = 240;
           bool squelch = false;
-          if (messageParts.Length > 1) {
+          foreach (string extra in extras.Prepend(messageParts[0])) {
+            if (extra.StartsWith("f=")) {
+              int.TryParse(extra.Replace("f=", ""), out frames);
+              continue;
+            }
+            else if (extra == "mute") {
+              squelch = true;
+              continue;
+            }
+            msgs.Add(extra);
+          }
+          var msg = String.Join("|", msgs);
+          if (messageParts.Count > 1) {
             var cmdsRaw = messageParts[1].TrimEnd(')');
             foreach (string cmd in cmdsRaw.Split(',')) {
               if (cmd.StartsWith("f=")) {
@@ -225,7 +285,7 @@ namespace RandoMainDLL {
               }
             }
           }
-          return new Message(messageParts[0], frames, squelch);
+          return new Message(msg, frames, squelch);
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
           if (stateParts.Count < 4) {
@@ -305,12 +365,19 @@ namespace RandoMainDLL {
       }
     }
 
+    public static bool DoesHowlExist() => flags.Contains(Flag.RAIN);
+
+    public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || (SaveController.Data?.TreesActivated?.Contains(AbilityType.SpiritEdge) ?? false);
+
+
     public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }
     public static string Progress {
-      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages();
+      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages(progress: true);
     }
-    public static string GoalModeMessages(string met = "$", string unmet = "") {
+    public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false) {
+      if (InterOp.get_game_state() != GameState.Game)
+        return ""; // don't even try!
       var msg = "";
       if (flags.Contains(Flag.ALLWISPS)) {
         var max = UberStateController.Wisps.Count;
@@ -319,7 +386,7 @@ namespace RandoMainDLL {
         msg += $", {w}Wisps: {amount}/{max}{w}";
       }
       if (flags.Contains(Flag.ALLTREES)) {
-        var amount = SaveController.Data.TreesActivated.Count;
+        var amount = SaveController.Data?.TreesActivated?.Count ?? 0;
         var w = amount == 14 ? met : unmet;
         msg += $", {w}Trees: {amount}/{14}{w}";
       }
@@ -329,9 +396,10 @@ namespace RandoMainDLL {
         var w = amount == max ? met : unmet;
         msg += $", {w}Quests: {amount}/{max}{w}";
       }
-      return msg.StartsWith(", ") ? "\n" + msg.Substring(2) : msg;
+      return msg.StartsWith(", ") ? (progress ? "\n" : "") + msg.Substring(2) : msg;
     }
-      public static void UpdateGoal() {
+
+    public static void UpdateGoal() {
       bool finished = true;
       if (flags.Contains(Flag.ALLTREES)) {
         finished = finished && SaveController.Data.TreesActivated.Count == 14;

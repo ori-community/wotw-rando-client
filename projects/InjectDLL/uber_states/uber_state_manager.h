@@ -12,6 +12,7 @@ namespace uber_states
     app::UberID* get_uber_state_group_id(app::IUberState* uber_state);
     std::string get_uber_state_name(app::IUberState* uber_state);
     std::string get_uber_state_group_name(app::IUberState* uber_state);
+    std::string tostring(app::IUberState* uber_state);
 
     app::UberID create_uber_id(int id);
     app::IUberState* get_uber_state(int group_id, int state_id);

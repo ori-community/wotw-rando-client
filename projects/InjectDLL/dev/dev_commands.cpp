@@ -16,15 +16,6 @@ namespace dev
 {
     namespace
     {
-        template <class Container>
-        void split_str(const std::string& str, Container& cont, char delim = ' ')
-        {
-            std::stringstream ss(str);
-            std::string token;
-            while (std::getline(ss, token, delim))
-                cont.push_back(token);
-        }
-
         std::string read_command()
         {
             std::string command;

@@ -10,18 +10,16 @@
 namespace
 {
     //noop only - reward triggers on uberstate change.
-    INTERCEPT(11712560, void, QuestsController__ApplyReward, (app::QuestsController * this_ptr, app::QuestReward * reward)) {}
-    INTERCEPT(12110000, void, RaceHandler__ApplyReward, (app::RaceHandler* this_ptr)) {}
+    IL2CPP_INTERCEPT(, QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward * reward)) {}
+    IL2CPP_INTERCEPT(, RaceHandler, void, ApplyReward, (app::RaceHandler* this_ptr)) {}
 
-    INTERCEPT(11697904, void, QuestNodeWisps__ApplyReward, (app::QuestNodeWisps* this_ptr)) {
+    IL2CPP_INTERCEPT(, QuestNodeWisps, void, ApplyReward, (app::QuestNodeWisps* this_ptr)) {
         collecting_pickup = true;
-        QuestNodeWisps__ApplyReward(this_ptr);
+        QuestNodeWisps::ApplyReward(this_ptr);
         collecting_pickup = false;      
     }
 
-    BINDING(13431104, app::String*, Moon_UberState__get_Name, (app::IUberState* this_ptr));
-    BINDING(13431104, app::String*, Moon_UberStateGroup__get_GroupName, (app::UberStateGroup* this_ptr));
-    BINDING(11674320, app::IGenericUberState*, Quest__get_UberState, (app::Quest* this_ptr));
+    IL2CPP_BINDING(, Quest, app::IGenericUberState*, get_UberState, (app::Quest* this_ptr));
 
     template<typename T>
     void send_state(T* state)
@@ -29,25 +27,27 @@ namespace
         if (state == nullptr)
             return;
 
-        auto name = convert_csstring(Moon_UberState__get_Name(reinterpret_cast<app::IUberState*>(state)));
+        auto csname = il2cpp::invoke<app::String>(state, "get_Name");
+        auto name = convert_csstring(csname);
         auto id = state->fields._.m_id->fields.m_id;
         auto value = state->fields.m_value;
         auto group_id = state->fields.Group->fields._.m_id->fields.m_id;
-        auto group_name = convert_csstring(Moon_UberStateGroup__get_GroupName(state->fields.Group));
+        auto csgroup = il2cpp::invoke<app::String>(state->fields.Group, "get_GroupName");
+        auto group_name = convert_csstring(csgroup);
         dev::console_send(format("quest: '%s' { %d } '%s' { %d } : %d", name.c_str(), id, group_name.c_str(), group_id, value));
     }
 
     bool quest_reporting = false;
-    INTERCEPT(11715888, void, QuestsController__CompleteQuest, (app::QuestsController* this_ptr, app::Quest* quest)) {
+    IL2CPP_INTERCEPT(, QuestsController, void, CompleteQuest, (app::QuestsController* this_ptr, app::Quest* quest)) {
         if (quest_reporting)
         {
-            auto uber_state = Quest__get_UberState(quest);
+            auto uber_state = Quest::get_UberState(quest);
             auto cast_uber_state = il2cpp::safe_il2cpp_cast<app::SerializedIntUberState>(uber_state, "Moon", "SerializedIntUberState");
             if (cast_uber_state != nullptr && cast_uber_state->fields._.m_id != nullptr && cast_uber_state->fields.Group != nullptr)
                 send_state(cast_uber_state);
         }
 
-        QuestsController__CompleteQuest(this_ptr, quest);
+        QuestsController::CompleteQuest(this_ptr, quest);
     }
 
 

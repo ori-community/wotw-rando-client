@@ -13,15 +13,24 @@ namespace
     }
 }
 
-INTERCEPT(0x1105510, bool, FUN_181105510, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
+// 0x1105510
+INTERNAL_INTERCEPT(0x1105510, bool, Matches, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
     // Return if we have ability, state_map->m_matchType inverts result.
     if (is_tree(state_map->m_ability))
         return csharp_bridge::is_tree_activated(state_map->m_ability) ^ (state_map->m_matchType != 0);
     else
-        return FUN_181105510(state_map, uberState);
+        return Matches(state_map, uberState);
 }
 
-INTERCEPT(10404368, void, GetAbilityOnCondition__AssignAbility, (app::GetAbilityOnCondition* this_ptr)) {
+/*NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerStateMap, Mapping, bool, Matches, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
+    // Return if we have ability, state_map->m_matchType inverts result.
+    if (is_tree(state_map->m_ability))
+        return csharp_bridge::is_tree_activated(state_map->m_ability) ^ (state_map->m_matchType != 0);
+    else
+        return PlayerStateMap_Mapping_Matches(state_map, uberState);
+}*/
+
+IL2CPP_INTERCEPT(, GetAbilityOnCondition, void, AssignAbility, (app::GetAbilityOnCondition* this_ptr)) {
     //GetAbilityOnCondition$$AssignAbility        
     auto ability = this_ptr->fields.Ability->fields.Ability;
     if (is_tree(ability))
@@ -33,10 +42,9 @@ INTERCEPT(10404368, void, GetAbilityOnCondition__AssignAbility, (app::GetAbility
     }
 }
 
-INTERCEPT(17845472, bool, Moon_uberSerializationWisp_DesiredPlayerAbilityState__IsFulfilled, (app::DesiredPlayerAbilityState* this_ptr, __int64 contextPtr)) {
-    //Moon.uberSerializationWisp.DesiredPlayerAbilityState$$IsFulfilled
+IL2CPP_INTERCEPT(Moon.uberSerializationWisp, DesiredPlayerAbilityState, bool, IsFulfilled, (app::DesiredPlayerAbilityState* this_ptr)) {
     if (is_tree(this_ptr->fields.Ability))
         return csharp_bridge::is_tree_activated(this_ptr->fields.Ability);
     else
-        return Moon_uberSerializationWisp_DesiredPlayerAbilityState__IsFulfilled(this_ptr, contextPtr);
+        return DesiredPlayerAbilityState::IsFulfilled(this_ptr);
 }

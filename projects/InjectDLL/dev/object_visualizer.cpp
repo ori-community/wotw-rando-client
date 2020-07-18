@@ -12,12 +12,9 @@ namespace dev
     namespace visualize
     {
         namespace {
-            BINDING(27825008, app::Int32__Array*, NewSetupStateController__GetAllStateGUIDs, (app::NewSetupStateController* this_ptr));
-            BINDING(27824416, app::String*, NewSetupStateController__GetStateName, (app::NewSetupStateController* this_ptr, int32_t stateGUID));
-            BINDING(27824416, app::String*, SetupStateModifier__get_Name, (app::SetupStateModifier* this_ptr));
-
-            BINDING(13431104, app::String*, Moon_UberState__get_Name, (app::IUberState* this_ptr));
-			BINDING(13431104, app::String*, Moon_UberStateGroup__get_GroupName, (app::UberStateGroup* this_ptr));
+            IL2CPP_BINDING(, NewSetupStateController, app::Int32__Array*, GetAllStateGUIDs, (app::NewSetupStateController* this_ptr));
+            IL2CPP_BINDING(, NewSetupStateController, app::String*, GetStateName, (app::NewSetupStateController* this_ptr, int32_t state_guid));
+            IL2CPP_BINDING(, SetupStateModifier, app::String*, get_Name, (app::SetupStateModifier* this_ptr));
 
 			std::string get_full_name(Il2CppClass* klass)
 			{
@@ -110,6 +107,18 @@ namespace dev
                 }
             }
 
+            void visualize_scene_root(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto name = il2cpp::unity::get_object_name(obj);
+                indent(visualizer);
+                visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
+                auto scene_root = reinterpret_cast<app::SceneRoot*>(obj);
+                indent(visualizer, 0, 1);
+                visualizer.stream << "objects (" << scene_root->fields.SceneResources->fields._size << "):" << visualizer.new_line;
+                for (auto i = 0; i < scene_root->fields.SceneResources->fields._size; ++i)
+                    visualize_object_internal(visualizer, scene_root->fields.SceneResources->fields._items->vector[i]);
+            }
+
             void visualize_new_setup_state_controller(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto controller = reinterpret_cast<app::NewSetupStateController*>(obj);
@@ -120,11 +129,11 @@ namespace dev
                 visualizer.stream << "active_state: " << controller->fields.m_activeStateIndex << visualizer.new_line;
                 indent(visualizer, 0, 1);
                 visualizer.stream << "states:" << visualizer.new_line;
-                auto all_states = NewSetupStateController__GetAllStateGUIDs(controller);
+                auto all_states = NewSetupStateController::GetAllStateGUIDs(controller);
                 for (auto i = 0; i < all_states->max_length; ++i)
                 {
                     auto guid = all_states->vector[i];
-                    auto csname = NewSetupStateController__GetStateName(controller, guid);
+                    auto csname = NewSetupStateController::GetStateName(controller, guid);
                     auto name = convert_csstring(csname);
 
                     indent(visualizer);
@@ -342,10 +351,10 @@ namespace dev
             void visualize_serialized_uber_state(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto state = reinterpret_cast<app::IUberState*>(obj);
-                auto csstate = Moon_UberState__get_Name(state);
+                auto csstate = il2cpp::invoke<app::String>(state, "get_Name");
                 auto state_name = convert_csstring(csstate);
                 auto group = il2cpp::invoke<app::IUberStateGroup>(state, "get_UberStateGroup");
-                auto csgroup = Moon_UberStateGroup__get_GroupName(reinterpret_cast<app::UberStateGroup*>(group));
+                auto csgroup = il2cpp::invoke<app::String>(group, "get_GroupName");
                 auto group_name = convert_csstring(csgroup);
 
                 indent(visualizer);
@@ -374,11 +383,12 @@ namespace dev
                 { "DesiredUberStateByte", visualize_desired_byte_uber_state },
                 { "DesiredUberStateInt", visualize_desired_int_uber_state },
 
-                { "SerializedBooleanUberState", visualize_serialized_uber_state },
-                { "SerializedFloatUberState", visualize_serialized_uber_state },
-                { "SerializedByteUberState", visualize_serialized_uber_state },
-                { "SerializedIntUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedFloatUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedByteUberState", visualize_serialized_uber_state },
+                { "Moon.SerializedIntUberState", visualize_serialized_uber_state },
 
+                { "SceneRoot", visualize_scene_root },
                 { "UnityEngine.GameObject", visualize_game_object },
 				{ "UnityEngine.Object", visualize_unity_object },
             };

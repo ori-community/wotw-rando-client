@@ -6,7 +6,15 @@ SetWorkingDir, %A_ScriptDir%
 SetBatchLines, -1
 ; TODO Decide on keeping/removing manual toggling
 
-version := "v0.1.3"
+; Reading the settings file and setting variables
+inipath = C:\moon\settings.ini
+IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
+if(launchWithTracker != "false"){
+    WinWait, OriAndTheWilloftheWisps
+    SetTimer, IsOriStillRunning, 500
+}
+
+version := "v0.1.4"
 ; data containers
 imageBase := { "Bash": "img\Bash"
     , "Blaze": "img\Blaze"
@@ -226,6 +234,10 @@ Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
 
 OnMessage(0x200, "Help") ; On_mousemove event
 Return
+IsOriStillRunning:
+IfWinNotExist, OriAndTheWilloftheWisps 
+ExitApp
+return
 ; Function for manually toggling items
 click:
 return
@@ -438,8 +450,8 @@ HasVal(haystack, needle) {
     for index, value in haystack
         if (value = needle)
             return index
-    ; if !(IsObject(haystack))
-    ;     throw Exception("Bad haystack! %haystack%", -1, haystack)
+;    if !(IsObject(haystack)) 'd rather not throw this error
+;        throw Exception("Bad haystack!", -1, haystack)
     return 0
 }
 

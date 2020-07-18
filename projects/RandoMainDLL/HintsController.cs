@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
 using System.ComponentModel;
+using System.Runtime.Remoting.Lifetime;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Linq;
 
 namespace RandoMainDLL {
   public enum ZoneType : byte {
@@ -32,8 +35,9 @@ namespace RandoMainDLL {
     [Description("Unknown")]
     Void
   }
+
   public static class HintsController {
-      public static Dictionary<AreaType, ZoneType> AreaToZone = new Dictionary<AreaType, ZoneType>() {
+    public static Dictionary<AreaType, ZoneType> AreaToZone = new Dictionary<AreaType, ZoneType>() {
       {AreaType.InkwaterMarsh, ZoneType.Marsh},
       {AreaType.KwoloksHollow, ZoneType.Hollow},
       {AreaType.WellspringGlades, ZoneType.Glades},
@@ -66,16 +70,21 @@ namespace RandoMainDLL {
     public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is QuestEvent);
 
     public static Dictionary<ZoneType, List<Checkable>> HintObjects = new Dictionary<ZoneType, List<Checkable>>();
+    // group 1
     public static ZoneType BurrowZone = ZoneType.Void;
     public static ZoneType WaterDashZone = ZoneType.Void;
     public static ZoneType LightBurstZone = ZoneType.Void;
+    // group 2
+    public static ZoneType CleanWaterZone = ZoneType.Void;
+    public static ZoneType BashZone = ZoneType.Void;
+    public static ZoneType FlapZone = ZoneType.Void;
     public static void Reset() {
       HintObjects.Clear();
     }
 
     public static void AddHint(ZoneType zone, Checkable item) {
-      if(item is Ability abil) 
-        switch(abil.type) {
+      if (item is Ability abil)
+        switch (abil.type) {
           case AbilityType.Burrow:
             BurrowZone = zone;
             break;
@@ -85,19 +94,38 @@ namespace RandoMainDLL {
           case AbilityType.WaterDash:
             WaterDashZone = zone;
             break;
+          case AbilityType.Bash:
+            BashZone = zone;
+            break;
+          case AbilityType.Flap:
+            FlapZone = zone;
+            break;
           default:
             break;
-      }
+        }
+      else if (item is QuestEvent q && q.type == QuestEventType.Water)
+        CleanWaterZone = zone;
+
       if (HintObjects.ContainsKey(zone))
         HintObjects[zone].Add(item);
       else
         HintObjects[zone] = new List<Checkable>() { item };
     }
 
-    public static void ShowHintMessage(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
-      if (SeedController.HintsDisabled) {
-        if(!justUnlocked)
-          AHK.SendPlainText(new PlainText(SeedController.Progress, 240), justUnlocked);
+    public static void OnMapPan(AreaType type) {
+      if (SeedController.HintsDisabled)
+        return;
+      var msg = getZoneHintMessage(type.toZone(), false) + GetKeySkillHints();
+      if (msg.Count(c => c == '\n') == 2) // if there's exactly 3 lines, insert an extra linebreak at the top
+        msg = "\n" + msg;                 // so the middle text isn't obscured by the filter button
+      InterOp.update_map_hint(msg);
+    }
+
+    public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
+      int duration = justUnlocked ? 300 : 240;
+      if (SeedController.HintsDisabled || InterOp.get_game_state() != GameState.Game) {
+        if (!justUnlocked )
+          AHK.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
         return;
       }
 
@@ -106,15 +134,15 @@ namespace RandoMainDLL {
       if (justUnlocked)
         msg = $"Bought hint: {msg}";
       else
-        msg = $"{SeedController.Progress}\n{msg}{GetKeySkillHint()}";
-      AHK.SendPlainText(new PlainText(msg, 240), justUnlocked);
+        msg = $"{SeedController.Progress}\n{msg}{GetKeySkillHints()}";
+      AHK.SendPlainText(new PlainText(msg, duration), justUnlocked);
     }
 
     private static string getZoneHintMessage(ZoneType zone, bool justUnlocked) {
       if (zone == ZoneType.Void) return $"no hint for Void(area {InterOp.get_player_area()})";
       var items = HintObjects.GetOrElse(zone, new List<Checkable>());
       var found = items.FindAll(i => i.Has());
-      if (!justUnlocked && !HaveHintForZone) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
+      if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
       if(items.Count > 0) {
         if(found.Count == items.Count) 
           return $"{zone}: ${found.Count}/{items.Count} key items$\nfound: {String.Join(", ", found)}";
@@ -125,31 +153,26 @@ namespace RandoMainDLL {
       }
       return $"No key items in {zone}";
     }
+    public static ZoneType toZone(this AreaType t) => AreaToZone.GetOrElse(t, ZoneType.Void);
     // the two below shouldn't be properties, but i wanted to make the one above a property too?
     // so this was a compromise, if you think about it.
     public static ZoneType CurrentZone  {
       get {
         try {
-          if (AreaToZone.TryGetValue(InterOp.get_player_area(), out ZoneType zone)) 
-            return zone;
-          else
-            return ZoneType.Void;          
+           return InterOp.get_player_area().toZone();          
         } catch (Exception e) { 
           Randomizer.Error("Hints.CurrentZone", e, false);
           return ZoneType.Void;
         }
       }
     }
-    public static bool HaveHintForZone {
-      get {
+    public static bool HaveHintForZone(ZoneType zone) {
         try {
-          var zone = CurrentZone;
           if (zone == ZoneType.Void)
             return false;
           if (ZoneToState.TryGetValue(zone, out UberState state)) {
             var value = state.CurrentValue();
-            if (!value.HasValue) return false;
-            return value.Value.Bool;
+            return value.HasValue && value.Value.Bool;
           }
           else
             return false;
@@ -158,22 +181,46 @@ namespace RandoMainDLL {
           Randomizer.Error("Hints.HaveHintForZone", e, false);
           return false;
         }
-      }
     }
-    public static UberState SkillHintState = new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
-    public static string GetKeySkillHint() {
-      var value = SkillHintState.CurrentValue();
+    public static UberState SkillHintTwoState = new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
+    public static string GetKeySkillHints() {
+      String ret = "";
+      ret += GetKeySkillHintOne();
+      if (ret.Length > 0)
+        ret += "\n";
+      ret += GetKeySkillHintTwo();
+      if (ret.Length > 0)
+        ret = "\n" + ret;
+      return ret.TrimEnd('\n');
+    }
+    public static string GetKeySkillHintOne() {
+      var value = SkillHintTwoState.CurrentValue();
+      if (SaveController.Data?.OpherSold?.Contains(AbilityType.WaterBreath) ?? false) {
+        var b = SaveController.HasAbility(AbilityType.Bash) ? "$" : "";
+        var w = SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false ? "$" : "";
+        var l = SaveController.HasAbility(AbilityType.LightBurst) ? "$" : "";
+        return $"{b}Bash: {BashZone}{b}, {w}Clean Water: {CleanWaterZone}{w}, {l}Flap: {FlapZone}{l}";
+      }
+      return "";
+    }
+
+    public static string GetKeySkillHintTwo() {
+      var value = SkillHintTwoState.CurrentValue();
       if(value.HasValue && value.Value.Bool) {
         var b = SaveController.HasAbility(AbilityType.Burrow) ? "$" : "";
         var w = SaveController.HasAbility(AbilityType.WaterDash) ? "$" : "";
         var l = SaveController.HasAbility(AbilityType.LightBurst) ? "$" : "";
-        return $"\n{b}Burrow: {BurrowZone}{b}, {w}Water Dash: {WaterDashZone}{w}, {l}Light Burst: {LightBurstZone}{l}";
+        return $"{b}Burrow: {BurrowZone}{b}, {w}Water Dash: {WaterDashZone}{w}, {l}Light Burst: {LightBurstZone}{l}";
       }
       return "";
     }
     public static void OnLupoState(UberId id) {
-      if(LupoZoneIds.ContainsKey(id)) {
-        ShowHintMessage(LupoZoneIds[id], true);
+      if (SeedController.HintsDisabled)
+        return;
+      if (LupoZoneIds.ContainsKey(id)) {
+        ProgressWithHints(LupoZoneIds[id], true);
+      } else if(id.ID == 41666) {
+        AHK.SendPlainText(new PlainText($"Bought Hint: {GetKeySkillHintTwo()}", 300));
       }
     }
 

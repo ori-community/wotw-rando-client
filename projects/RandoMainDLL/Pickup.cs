@@ -17,7 +17,8 @@ namespace RandoMainDLL {
     Message = 6,
     Multi = 7,
     UberState = 8,
-    QuestEvent = 9
+    QuestEvent = 9,
+    BonusItem = 10
   }
 
   public class DoneWithThis : Exception { };
@@ -27,6 +28,12 @@ namespace RandoMainDLL {
     Water = 0
   }
 
+  public enum SysState : byte {
+    KwolokDoorAvailable = 0,
+    DayTime = 1,
+    HowlEscape = 2
+  }
+
   public enum SysCommandType : byte {
     Save = 0,
     ProcUberStates = 1, 
@@ -34,7 +41,8 @@ namespace RandoMainDLL {
     SupressMagic = 3, 
     StopIfEqual = 4,
     StopIfGreater = 5,
-    StopIfLess = 6
+    StopIfLess = 6,
+    SetState = 7
   }
 
   public enum TeleporterType : byte {
@@ -105,6 +113,13 @@ namespace RandoMainDLL {
         AHK.Pickup(ToString(), Frames);
       SaveController.Data.FoundCount++;
     }
+    public bool Collect(bool isGoal = false) {
+      SeedController.GrantingGoalModeLoc = isGoal;
+      Grant();
+      SeedController.GrantingGoalModeLoc = false;
+      return NonEmpty;
+    }
+
     public Pickup Concat(Pickup other) {
       var children = new List<Pickup>();
       if (this is Multi multi) {
@@ -138,7 +153,8 @@ namespace RandoMainDLL {
       supCount = sup;
     }
     public override void Grant(bool skipBase = false) {
-      UberStateController.SkipUberStateMapCount[State.GetUberId()] += supCount;
+      var id = State.GetUberId();
+      UberStateController.SkipUberStateMapCount[id] = supCount;
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
@@ -153,7 +169,8 @@ namespace RandoMainDLL {
       ModStr = modstr;
     }
     public override void Grant(bool skipBase = false) {
-      UberStateController.SkipUberStateMapCount[State.GetUberId()] += supCount;
+      var id = State.GetUberId();
+      UberStateController.SkipUberStateMapCount[id] = supCount;
       State.Value = Modifier(State.ValueOr(State.Value));
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
@@ -184,12 +201,11 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
-      try {
-        Children.ForEach((c) => c.Grant(true));
-      } catch(DoneWithThis) {
-        Randomizer.Log("exiting early");
-          
-      }; 
+      foreach(var child in Children) {
+        if (child is ConditionalStop s && s.StopActive())
+          break;
+        child.Grant(true);
+      }
       base.Grant(false);
     }
 
@@ -213,7 +229,7 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Message;
 
-    private static Regex uberMsg = new Regex(@"\$\(([0-9]+),([0-9]+)\)");
+    private static Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,]([0-9]+)\)");
     public override string ToString() => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
   }
 
@@ -344,7 +360,13 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
 
-    private static readonly List<string> MoneyNames = new List<string>() { "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos", "Boonbucks", "Pieces of Eight", "Shillings", "Farthings" };
+    private static readonly List<string> MoneyNames = new List<string>() {
+      "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", 
+     "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets",
+      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells",
+      "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
+      "Boonbucks", "Pieces of Eight", "Shillings", "Farthings"
+    };
 
     public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
   }
@@ -387,6 +409,25 @@ namespace RandoMainDLL {
     }
     public override string ToString() => $"Remove #{type.GetDescription()}#" ?? $"Unknown resource type {type}";
   }
+  public class BonusItem : Pickup {
+    public override int DefaultCost() => 300;
+    public override PickupType Type => PickupType.BonusItem;
+    public readonly BonusType type;
+    public BonusItem(BonusType command) => type = command;
+    public override void Grant(bool skipBase = false) {
+      SaveController.Data.BonusItems[type] = type.Count() + 1;
+      switch(type) {
+        case BonusType.ExtraAirDash:
+          InterOp.set_extra_dashes(type.Count());
+          break;
+        case BonusType.ExtraDoubleJump:
+          InterOp.set_extra_jumps(type.Count());
+          break;
+      }
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"#{type.GetDescription()}{(type.Count()>1 ? $" x{type.Count()}" : "")}#";
+  }
 
   public class SystemCommand : Pickup {
     public override PickupType Type => PickupType.SystemCommand;
@@ -410,28 +451,59 @@ namespace RandoMainDLL {
   }
   public class ConditionalStop : SystemCommand {
     private UberId targetState;
-    private int targetValue;
-    public ConditionalStop(SysCommandType type, UberId s, int v) : base(type) {
+    private float targetValue;
+    public ConditionalStop(SysCommandType type, UberId s, float v) : base(type) {
       targetState = s;
       targetValue = v;
     }
-    public override void Grant(bool skipBase = false) {
+
+    public bool StopActive() {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.StopIfEqual:
-          Randomizer.Log($"{state.ValueAsInt()} ?= {targetValue} -> {state.ValueAsInt() == targetValue}");
-          if (state.ValueAsInt() == targetValue)
-            throw new DoneWithThis();
+          Randomizer.Log($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue}");
+          if (state.ValueAsFloat() == targetValue)
+            return true;
           break;
         case SysCommandType.StopIfGreater:
-          Randomizer.Log($"{state.ValueAsInt()} ?> {targetValue} -> {state.ValueAsInt() > targetValue}");
-          if (state.ValueAsInt() > targetValue)
-            throw new DoneWithThis();
+          Randomizer.Log($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue}");
+          if (state.ValueAsFloat() > targetValue)
+            return true;
           break;
         case SysCommandType.StopIfLess:
-          Randomizer.Log($"{state.ValueAsInt()} ?< {targetValue} -> {state.ValueAsInt() < targetValue}");
-          if (state.ValueAsInt() < targetValue)
-            throw new DoneWithThis();
+          Randomizer.Log($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
+          if (state.ValueAsFloat() < targetValue)
+            return true;
+          break;
+      }
+      return false;
+    }
+
+    public override void Grant(bool skipBase = false) {
+      base.Grant(skipBase);
+    }
+
+  }
+  public class SetStateCommand : SystemCommand {
+    SysState state;
+    int value;
+
+    public SetStateCommand(SysCommandType command, SysState state, int value) : base(command) {
+      this.state = state;
+      this.value = value;
+    }
+    public override void Grant(bool skipBase = false) {
+      switch (state) {
+        case SysState.KwolokDoorAvailable:
+          InterOp.set_kvolok_door_availability(value > 0);
+          break;
+        case SysState.DayTime:
+          AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
+//          SeedController.DayTimeOverride = value > 0;
+          break;
+        case SysState.HowlEscape:
+          AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
+          //          SeedController.HowlEscapeOverride = value > 0;
           break;
       }
     }
