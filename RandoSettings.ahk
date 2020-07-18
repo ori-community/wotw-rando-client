@@ -57,6 +57,9 @@ Gui, Font, s10 italic
 Gui, Add, Text, x20, (mouse over options for more info)
 Gui, Font, s10 norm
 
+; Gui, Add, Tab3,, General|Tracker
+
+; Gui, Tab, General
 Gui, Add, Text, x20 section, Setting
 Gui, Add, Text, x%col2% ys, Enabled
 
@@ -92,28 +95,51 @@ Gui, Add, Text, x20 vvarSteamPath, %varSteamPath%
 Gui, Add, Button, x20 section gchangesteampath, Change Steam path
 Gui, Add, Button, x%col2% ys gquit, Done
 
-Gui, Show, , WotW Rando Settings
+; Gui, Tab, Tracker
+
+; Gui, Add, Text, x20 , Setting
+; ; Gui, Add, Text, x%col2% ys, Enabled
+
+; Gui, Add, Text, x20 , Cursor Lock
+; ; Gui, Add, Checkbox, x%col2% ys checked%ahkvarCursorLock%  gwritetofile
+
+; Gui, Add, Text, x20 , Invert Swim Speeds
+; ; Gui, Add, Checkbox, x%col2% ys checked%ahkvarInvertSwim%  gwritetofile
+
+; Gui, Add, Text, x20 , Disable Quest Snap on Mouseover
+; ; Gui, Add, Checkbox, x%col2% ys checked%ahkvarDisableQuestSnap%  gwritetofile
+
+; Gui, Add, Text, x20 , Disable Debug Controls
+; ; Gui, Add, Checkbox, x%col2% ys checked%ahkvarDisableDebug%  gwritetofile
+
+; Gui, Add, Text, x20 , Restore Short Cutscenes
+; ; Gui, Add, Checkbox, x%col2% ys checked%ahkvarShowShortCutscenes%  gwritetofile
+
+; Gui, Add, Text, x20 , Restore Long Cutscenes
+; ; Gui, Add, Checkbox, x%col2% ys checked%ahkvarShowLongCutscenes%  gwritetofile
+
+Gui, Show,, WotW Rando Settings
 
 OnMessage(0x200, "Help")
 Return
 
 quit:
-if(!A_IsCompiled)
-    Reload
-ExitApp
+    if(!A_IsCompiled)
+        Reload
+    ExitApp
 
 changesteampath:
-; label that gets called when the change button is pressed
-oldsteampath := varSteamPath
-SplitPath, oldsteampath,, oldDir
-FileSelectFile, varSteamPath, 3, %oldDir%, Select Steam.exe, *.exe ; Possibly want to use the missing arg with the current location. have to split %varSteamPath% into folder and file for that.
-if (varSteamPath= "") {
-    varSteamPath := oldsteampath
-    return
-}
-GuiControl, Text, varSteamPath, %varSteamPath%
-gosub, writetofile
-Return
+    ; label that gets called when the change button is pressed
+    oldsteampath := varSteamPath
+    SplitPath, oldsteampath,, oldDir
+    FileSelectFile, varSteamPath, 3, %oldDir%, Select Steam.exe, *.exe ; Possibly want to use the missing arg with the current location. have to split %varSteamPath% into folder and file for that.
+    if (varSteamPath= "") {
+        varSteamPath := oldsteampath
+        return
+    }
+    GuiControl, Text, varSteamPath, %varSteamPath%
+    gosub, writetofile
+    Return
 
 
 writetofile:
@@ -181,10 +207,10 @@ Help(wParam, lParam, Msg) {
 }
 
 DisableTT:
-ToolTip,
-return
+    ToolTip,
+    return
 
 
 
 GuiClose:
-ExitApp
+    ExitApp
