@@ -7,12 +7,12 @@ SetBatchLines, -1
 ; TODO Decide on keeping/removing manual toggling
 
 ; Reading the settings file and setting variables
-inipath = C:\moon\settings.ini
-IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
-if(launchWithTracker != "false"){
-    WinWait, OriAndTheWilloftheWisps
-    SetTimer, IsOriStillRunning, 500
-}
+; inipath = C:\moon\settings.ini
+; IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
+; if(launchWithTracker != "false"){
+;     WinWait, OriAndTheWilloftheWisps
+;     SetTimer, IsOriStillRunning, 500
+; }
 
 version := "v0.1.4"
 ; data containers
@@ -176,7 +176,6 @@ Gui, Add, Text, vGorlekOre x190 y465 w50, 0
 
 Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, img\CompleteWatermillEscape.png
 
-
 Gui, Main:Show,, Ori WotW AutoTracker %version%
 update()
 
@@ -191,9 +190,10 @@ TeleporterState := 0
 Menu, ContextMenu, Add, Always on top, ToggleOnTop
 Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
 
-Menu, ContextMenu, Add, Background colour, ToggleCheck
-Menu, ContextMenu, Add, Teleporters, ToggleTeleporters
-Menu, ContextMenu, % TeleporterState ? "Check" : "Uncheck", Teleporters
+; Disabled for now since it doesnt function as intended yet.
+; Menu, ContextMenu, Add, Background colour, ToggleCheck 
+; Menu, ContextMenu, Add, Teleporters, ToggleTeleporters
+; Menu, ContextMenu, % TeleporterState ? "Check" : "Uncheck", Teleporters
 
 Menu, ContextMenu, Add, Settings, OpenSettingsEditor
 
