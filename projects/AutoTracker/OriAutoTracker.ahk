@@ -24,18 +24,18 @@ imageBase := { "Bash": "img\Bash"
     , "Dash": "img\Dash"
     , "DoubleJump": "img\DoubleJump"
     , "Flap": "img\Flap"
-    , "Flash": "img\Flash" 
-    , "Feather": "img\Feather" 
-    , "Grapple": "img\Grapple" 
-    , "Hammer": "img\Hammer" 
-    , "Launch": "img\Launch" 
-    , "LightBurst": "img\LightBurst" 
-    , "Regenerate": "img\Regen" 
+    , "Flash": "img\Flash"
+    , "Feather": "img\Feather"
+    , "Grapple": "img\Grapple"
+    , "Hammer": "img\Hammer"
+    , "Launch": "img\Launch"
+    , "LightBurst": "img\LightBurst"
+    , "Regenerate": "img\Regen"
     , "Sentry": "img\Sentry"
-    , "Spike": "img\Spike" 
-    , "WaterDash": "img\WaterDash" 
-    , "Sword": "img\Sword" 
-    , "WaterBreath": "img\WaterBreath" 
+    , "Spike": "img\Spike"
+    , "WaterDash": "img\WaterDash"
+    , "Sword": "img\Sword"
+    , "WaterBreath": "img\WaterBreath"
     , "DamageUp": "img\WeaponUpgrade1" }
 
 imageCurr := { "Bash": "img\Bash.png"
@@ -46,24 +46,24 @@ imageCurr := { "Bash": "img\Bash.png"
     , "Dash": "img\Dash.png"
     , "DoubleJump": "img\DoubleJump.png"
     , "Flap": "img\Flap.png"
-    , "Flash": "img\Flash.png" 
-    , "Feather": "img\Feather.png" 
-    , "Grapple": "img\Grapple.png" 
-    , "Hammer": "img\Hammer.png" 
-    , "Launch": "img\Launch.png" 
-    , "LightBurst": "img\LightBurst.png" 
-    , "Regenerate": "img\Regen.png" 
+    , "Flash": "img\Flash.png"
+    , "Feather": "img\Feather.png"
+    , "Grapple": "img\Grapple.png"
+    , "Hammer": "img\Hammer.png"
+    , "Launch": "img\Launch.png"
+    , "LightBurst": "img\LightBurst.png"
+    , "Regenerate": "img\Regen.png"
     , "Sentry": "img\Sentry.png"
-    , "Spike": "img\Spike.png" 
-    , "WaterDash": "img\WaterDash.png" 
-    , "Sword": "img\Sword.png" 
-    , "WaterBreath": "img\WaterBreath.png" 
+    , "Spike": "img\Spike.png"
+    , "WaterDash": "img\WaterDash.png"
+    , "Sword": "img\Sword.png"
+    , "WaterBreath": "img\WaterBreath.png"
     , "DamageUp": "img\WeaponUpgrade1.png" }
 
 ; -------------------------------------
 ; Startup stuff
 if !FileExist(img)
-    FileCreateDir, img  
+    FileCreateDir, img
 
 FileInstall, img\Bash.png, img\Bash.png
 FileInstall, img\Bash_unlocked.png, img\Bash_unlocked.png
@@ -135,6 +135,7 @@ If !WatchFolder("C:\moon", "parsechanges",, 8) {
 Gui, Main:New
 Gui, Color, 585858
 Gui, Font, s15 cwhite
+Gui, Add, Text, , Ori WotW AutoTracker
 
 first_row = y40
 Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75 gclick, img\DoubleJump.png
@@ -234,10 +235,12 @@ Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
 
 OnMessage(0x200, "Help") ; On_mousemove event
 Return
+
 IsOriStillRunning:
-IfWinNotExist, OriAndTheWilloftheWisps 
-ExitApp
+    IfWinNotExist, OriAndTheWilloftheWisps
+    ExitApp
 return
+
 ; Function for manually toggling items
 click:
 return
@@ -275,27 +278,28 @@ ToggleOnTop:
         Gui Main:-AlwaysOnTop
         Gui Teleporters:-AlwaysOnTop
     }
-    return
+return
 
 ToggleCheck:
-    return
+return
 
 ToggleTeleporters:
     TeleporterState := !TeleporterState
     Menu, %A_ThisMenu%, % TeleporterState ? "Check" : "Uncheck", %A_ThisMenuItem%
-    
+
     if (TeleporterState) {
         Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
     } else {
         Gui, teleporters:Hide
     }
+return
 
 OpenSettingsEditor:
     Run, C:\moon\RandoSettings.exe
-
+return
 
 #if MouseIsOver("Ori WotW AutoTracker") ; Not fully sure why this matches but it works!
-RButton::Menu, ContextMenu, Show 
+RButton::Menu, ContextMenu, Show
 
 ; Function that gets called when a change is detected in the trackfile.
 parsechanges(Folder, Changes) {
@@ -303,7 +307,7 @@ parsechanges(Folder, Changes) {
         If (change.Action == 3 and change.Name == "C:\moon\trackfile.json") {
             update()
         }
-}   
+}
 
 
 update() {
@@ -312,7 +316,7 @@ update() {
     if (ErrorLevel) {
         MsgBox, 16, Error, There was an error reading the file.
     }
-    
+
     ; Skip parsing if there are no changes
     if (currentinv == jsonString) {
     ; return
@@ -328,9 +332,9 @@ update() {
 
     for skill, i in imageBase {
         if(hasVal(skills, skill)) {
-            if(hasVal(upgraded, skill)) 
+            if(hasVal(upgraded, skill))
                 setIfNew(skill,upgradedImage(skill))
-            else 
+            else
                 setIfNew(skill,unlockedImage(skill))
         }
             else
@@ -404,14 +408,14 @@ Help(wParam, lParam, Msg) {
         Help := "Gorlek Ore"
     else IfEqual, HoverText, img\CompleteWatermillEscape.png
         Help := "Clean Water"
-    
+
     ToolTip % Help
     SetTimer, DisableTT, -3000
 }
 
 DisableTT:
-    ToolTip, 
-    return
+    ToolTip,
+return
 
 
 setIfNew(skill, image){
@@ -440,7 +444,7 @@ unlockedImage(skill) {
 
 upgradedImage(skill) {
     global imageBase
-    if(skill == "DamageUp") 
+    if(skill == "DamageUp")
         return "img\WeaponUpgrade2_unlocked.png"
     return % imageBase[skill] "_upgrade.png"
 }
