@@ -888,14 +888,14 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   state GladesTown.CaveEntrance:
     base: GladesTown.ClearThorns, Ore=29
   # decoration not accounted for
-  state GladesTown.FamilyReunionKey:  # part of a quest, but no reward on this currently
-    base: GladesTown.RoofsOverHeads
 
   # silent woods map quest doesn't exactly make sense
   quest GladesTown.HandToHandPouch:
     base: EastHollow.HandToHandMap
   quest GladesTown.HandToHandLantern:
     base: LowerReach.HandToHandHat
+  quest GladesTown.FamilyReunionKey:
+    base: GladesTown.RoofsOverHeads
   quest GladesTown.AcornQI:
     base, GladesTown.ClearThorns, GladesTown.CaveEntrance, Flash:
         Water, Glide
@@ -1807,7 +1807,8 @@ area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
     advanced, EastPools.EntryLever:
       Water, WaterDash
       Water, Bow=1 OR Grenade=1
-  state EastPools.KwoloksWisdomAmulet: free  # part of a quest, but no reward on this currently
+
+  quest EastPools.KwoloksWisdomAmulet: free
 
   pickup EastPools.RightOre:
     base:
@@ -2136,8 +2137,7 @@ area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
 area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
   refill Full
 
-  state WoodsEntry.LastTreeBranch: free  # part of a quest, but no reward on this currently
-
+  quest WoodsEntry.LastTreeBranch: free
   quest WoodsEntry.DollQI:
     base: GladesTown.FamilyReunionKey
   quest WoodsEntry.TreeSeed:
