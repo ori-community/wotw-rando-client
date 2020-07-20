@@ -362,6 +362,8 @@ update() {
     For index, event in events
         if (event == "Clean Water") {
             GuiControl , Show ,CleanWater
+        } else {
+            GuiControl , Hide ,CleanWater
         }
 
     GuiControl,, SpiritLight, % Spiritlight
