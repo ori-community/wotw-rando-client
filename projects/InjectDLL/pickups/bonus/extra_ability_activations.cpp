@@ -34,6 +34,12 @@ namespace
         SeinDashNew::ResetDash(this_ptr, reset_cooldown);
         dashes_used = 0;
     }
+
+    // For some reason this doesn't use the ResetDash function but sets the member fields directly.
+    IL2CPP_INTERCEPT(, SeinLogicCycle, void, ResetMovementAbilities, (app::SeinLogicCycle* this_ptr)) {
+        SeinLogicCycle::ResetMovementAbilities(this_ptr);
+        dashes_used = 0;
+    }
 }
 
 INJECT_C_DLLEXPORT void set_extra_jumps(int value)
