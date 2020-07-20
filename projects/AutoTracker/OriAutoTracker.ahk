@@ -428,6 +428,12 @@ Help(wParam, lParam, Msg) {
         Help := "Gorlek Ore"
     else IfEqual, HoverText, img\CompleteWatermillEscape.png
         Help := "Clean Water"
+    else IfEqual, HoverText, img\Wisp.png
+        Help := "Force Wisps"
+    else IfEqual, HoverText, img\SkillTree.png
+        Help := "Force Trees"
+    else IfEqual, HoverText, img\Quest.png
+        Help := "Force Quests"
 
     ToolTip % Help
     SetTimer, DisableTT, -3000
