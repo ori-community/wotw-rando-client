@@ -9,8 +9,8 @@ SetBatchLines, -1
 ; Reading the settings file and setting variables
 inipath = C:\moon\settings.ini
 IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
-IniRead, bgcolor, %inipath%, Tracker, BackgroundColor, false
-IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, false
+IniRead, bgcolour, %inipath%, Tracker, BackgroundColour, 585858
+IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, 0
 if(launchWithTracker != "false"){
     WinWait, OriAndTheWilloftheWisps
     SetTimer, IsOriStillRunning, 500
@@ -140,7 +140,7 @@ If !WatchFolder("C:\moon", "parsechanges",, 8) {
 ; -------------------------------------
 
 Gui, Main:New
-Gui, Color, %bgcolor%
+Gui, Color, %bgcolour%
 Gui, Font, s15 cwhite
 
 if (seed != "") {
@@ -200,18 +200,19 @@ Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, img\CompleteWate
 Gui, Main:Show,, Ori WotW AutoTracker %version%
 update()
 
+gosub ParseOnTopState
+
 ; -------------------------------------
 ; Context menu
 ; -------------------------------------
 
-OnTopState := 0
 TeleporterState := 0
 
 ; Create the popup menu by adding some items to it.
 Menu, ContextMenu, Add, Always on top, ToggleOnTop
 Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
 
-Menu, ContextMenu, Add, Background colour, ShowColourPicker 
+Menu, ContextMenu, Add, Background colour, ShowColourPicker
 
 ; Disabled for now since it doesnt function as intended yet.
 ; Menu, ContextMenu, Add, Teleporters, ToggleTeleporters
@@ -259,7 +260,7 @@ Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
 ; ColourPicker Window
 ; -------------------------------------
 
-RGBval := bgcolor
+RGBval := bgcolour
 Gui, ColourPicker:New
 Gui, Add, Text, x0 y10 w40 h20 +Right, Red
 Gui, Add, Text, x0 y30 w40 h20 +Right, Green
@@ -276,7 +277,7 @@ Gui, Add, UpDown, Range0-255 vuB gUpDownSub, %Bval%
 Gui, Add, Progress, x285 y10 w60 h60 +Border Background%RGBval% vpC
 Gui, Add, Text, x285 y10 w60 h60 +Border vtP cWhite +BackgroundTrans, Preview
 Gui, Add, Button, x120 y80 w110 h20 vbS gButtonSub, Select
-; Gui, ColourPicker:Show, w351 h105, Simple Color Dialog
+; Gui, ColourPicker:Show, w351 h105, Simple colour Dialog
 
 
 OnMessage(0x200, "Help") ; On_mousemove event
@@ -316,7 +317,11 @@ return
 
 ToggleOnTop:
     OnTopState := !OnTopState
-    Menu, %A_ThisMenu%, % OnTopState ? "Check" : "Uncheck", %A_ThisMenuItem%
+    gosub ParseOnTopState
+    IniWrite, %OnTopState%, %inipath%, Tracker, AlwaysOnTop
+return
+
+ParseOnTopState:
     if (OnTopState) {
         Gui Main:+AlwaysOnTop
         Gui Teleporters:+AlwaysOnTop
@@ -345,7 +350,9 @@ OpenSettingsEditor:
 return
 
 #if MouseIsOver("Ori WotW AutoTracker") ; Not fully sure why this matches but it works!
-RButton::Menu, ContextMenu, Show
+RButton::
+    Menu, ContextMenu, Show
+    Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
 
 ; Function that gets called when a change is detected in one of the files in c:\moon.
 parsechanges(Folder, Changes) {
@@ -536,7 +543,6 @@ MainGuiClose: ; Exit the app when the main window closes
 
 ShowColourPicker:
     Gui, ColourPicker:Show, w351 h105, Colour Picker
-    ; Gui, Main:Color, %bgcolor%
 return
 
 EditSub:
@@ -608,9 +614,9 @@ ButtonSub:
 	StringReplace,RGBval,RGBval,0x
 	; Display Last selected values... (these values can later be used), and Notify the user
 	; MsgBox,64,Simple Color Dialog,RGB: (%Rval%, %Gval%, %Bval%)`nHex: %RGBval%`nCopied to Clipboard!
-    bgcolor := RGBval
-    Gui, Main:Color, %bgcolor%
-    IniWrite, %bgcolor%, %inipath%, Tracker, BackgroundColor
+    bgcolour := RGBval
+    Gui, Main:Color, %bgcolour%
+    IniWrite, %bgcolour%, %inipath%, Tracker, BackgroundColour
 return
 
 ;Function to convert Decimal RGB to Hexadecimal RBG, Note: '0' (zero) padding is unnecessary
