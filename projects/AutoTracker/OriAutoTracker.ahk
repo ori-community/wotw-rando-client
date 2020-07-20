@@ -318,11 +318,14 @@ return
 #if MouseIsOver("Ori WotW AutoTracker") ; Not fully sure why this matches but it works!
 RButton::Menu, ContextMenu, Show
 
-; Function that gets called when a change is detected in the trackfile.
+; Function that gets called when a change is detected in one of the files in c:\moon.
 parsechanges(Folder, Changes) {
     For Each, Change In Changes
         If (change.Action == 3 and change.Name == "C:\moon\trackfile.json") {
             update()
+        }
+        if (change.Action == 3 and change.Name == "C:\moon\.currentseedpath") {
+            updateFlags()
         }
 }
 
@@ -372,6 +375,11 @@ update() {
     currentinv := jsonString
 
 }
+
+updateFlags() {
+    run, OriAutoTracker.ahk ; Very crudely restarting the tracker for now, elegant solution to follow
+}
+
 ; Hover text for each of the items.
 Help(wParam, lParam, Msg) {
     MouseGetPos,,,, OutputVarControl
