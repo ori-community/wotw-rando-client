@@ -7,12 +7,14 @@ SetBatchLines, -1
 ; TODO Decide on keeping/removing manual toggling
 
 ; Reading the settings file and setting variables
-; inipath = C:\moon\settings.ini
-; IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
-; if(launchWithTracker != "false"){
-;     WinWait, OriAndTheWilloftheWisps
-;     SetTimer, IsOriStillRunning, 500
-; }
+inipath = C:\moon\settings.ini
+IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
+IniRead, bgcolor, %inipath%, Tracker, BackgroundColor, false
+IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, false
+if(launchWithTracker != "false"){
+    WinWait, OriAndTheWilloftheWisps
+    SetTimer, IsOriStillRunning, 500
+}
 
 version := "v0.1.4"
 FileRead, seed, C:\moon\.currentseedpath
@@ -138,7 +140,7 @@ If !WatchFolder("C:\moon", "parsechanges",, 8) {
 ; -------------------------------------
 
 Gui, Main:New
-Gui, Color, 585858
+Gui, Color, %bgcolor%
 Gui, Font, s15 cwhite
 
 if (seed != "") {
@@ -209,7 +211,7 @@ TeleporterState := 0
 Menu, ContextMenu, Add, Always on top, ToggleOnTop
 Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
 
-Menu, ContextMenu, Add, Background colour, ToggleCheck 
+Menu, ContextMenu, Add, Background colour, ShowColourPicker 
 
 ; Disabled for now since it doesnt function as intended yet.
 ; Menu, ContextMenu, Add, Teleporters, ToggleTeleporters
@@ -252,6 +254,30 @@ Gui, Add, Text, vWillow %fourth_collumn% yp+%spacing% Hidden, Willow
 Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
 
 ; Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
+
+; -------------------------------------
+; ColourPicker Window
+; -------------------------------------
+
+RGBval := bgcolor
+Gui, ColourPicker:New
+Gui, Add, Text, x0 y10 w40 h20 +Right, Red
+Gui, Add, Text, x0 y30 w40 h20 +Right, Green
+Gui, Add, Text, x0 y50 w40 h20 +Right, Blue
+Gui, Add, Slider, x40 y10 w190 h20 AltSubmit +NoTicks +Range0-255 vsR gSliderSub, %Rval%
+Gui, Add, Slider, x40 y30 w190 h20 AltSubmit +NoTicks +Range0-255 vsG gSliderSub, %Gval%
+Gui, Add, Slider, x40 y50 w190 h20 AltSubmit +NoTicks +Range0-255 vsB gSliderSub, %Bval%
+Gui, Add, Edit, x230 y10 w45 h20 gEditSub veR +Limit3 +Number, %Rval%
+Gui, Add, UpDown, Range0-255 vuR gUpDownSub, %Rval%
+Gui, Add, Edit, x230 y30 w45 h20 gEditSub veG +Limit3 +Number, %Gval%
+Gui, Add, UpDown, Range0-255 vuG gUpDownSub, %Gval%
+Gui, Add, Edit, x230 y50 w45 h20 gEditSub veB +Limit3 +Number, %Bval%
+Gui, Add, UpDown, Range0-255 vuB gUpDownSub, %Bval%
+Gui, Add, Progress, x285 y10 w60 h60 +Border Background%RGBval% vpC
+Gui, Add, Text, x285 y10 w60 h60 +Border vtP cWhite +BackgroundTrans, Preview
+Gui, Add, Button, x120 y80 w110 h20 vbS gButtonSub, Select
+; Gui, ColourPicker:Show, w351 h105, Simple Color Dialog
+
 
 OnMessage(0x200, "Help") ; On_mousemove event
 Return
@@ -503,3 +529,105 @@ MouseIsOver(WinTitle) {
 
 MainGuiClose: ; Exit the app when the main window closes
     ExitApp
+
+; -------------------------------------
+; ColourPicker Subroutines
+; -------------------------------------
+
+ShowColourPicker:
+    Gui, ColourPicker:Show, w351 h105, Colour Picker
+    ; Gui, Main:Color, %bgcolor%
+return
+
+EditSub:
+	;Get Values
+	GuiControlGet,Rval,,eR
+	GuiControlGet,Gval,,eG
+	GuiControlGet,Bval,,eB
+	;Set preview
+	gosub set
+	;Make Everything else aware
+	GuiControl, ColourPicker:,uR,%Rval%
+	GuiControl, ColourPicker:,uG,%Gval%
+	GuiControl, ColourPicker:,uB,%Bval%
+	GuiControl, ColourPicker:,sR,%Rval%
+	GuiControl, ColourPicker:,sG,%Gval%
+	GuiControl, ColourPicker:,sB,%Bval%
+return
+
+UpDownSub:
+	;Get Values
+	GuiControlGet,Rval,,uR
+	GuiControlGet,Gval,,uG
+	GuiControlGet,Bval,,uB
+	;Set preview
+	gosub set
+	;Make Everything else aware
+	GuiControl, ColourPicker:,eR,%Rval%
+	GuiControl, ColourPicker:,eG,%Gval%
+	GuiControl, ColourPicker:,eB,%Bval%
+	GuiControl, ColourPicker:,sR,%Rval%
+	GuiControl, ColourPicker:,sG,%Gval%
+	GuiControl, ColourPicker:,sB,%Bval%
+return
+
+SliderSub:
+	;Get Values
+	GuiControlGet,Rval,,sR
+	GuiControlGet,Gval,,sG
+	GuiControlGet,Bval,,sB
+	;Set preview
+	gosub set
+	;Make Everything else aware
+	GuiControl, ColourPicker:,eR,%Rval%
+	GuiControl, ColourPicker:,eG,%Gval%
+	GuiControl, ColourPicker:,eB,%Bval%
+	GuiControl, ColourPicker:,uR,%Rval%
+	GuiControl, ColourPicker:,uG,%Gval%
+	GuiControl, ColourPicker:,uB,%Bval%
+return
+
+set:
+	;Convert values to Hex
+	RGBval:=RGB(Rval,Gval,Bval)
+	;Display Tooltip
+	; ToolTip Red: %Rval%`nGreen: %Gval%`nBlue: %Bval%`nHex: %RGBval%
+	;Make tooltip disappear after 375 ms (3/8th of a second)
+	; SetTimer, RemoveToolTip, 375
+	;Apply colour to preview
+	GuiControl, ColourPicker:+Background%RGBval%,pC
+return
+
+; RemoveToolTip:
+; 	SetTimer, RemoveToolTip, Off ;Turn timer off
+; 	ToolTip ;Turn off tooltip
+; return
+
+ButtonSub:
+	; Remove '0x' prefix from the hex code.
+	StringReplace,RGBval,RGBval,0x
+	; Display Last selected values... (these values can later be used), and Notify the user
+	; MsgBox,64,Simple Color Dialog,RGB: (%Rval%, %Gval%, %Bval%)`nHex: %RGBval%`nCopied to Clipboard!
+    bgcolor := RGBval
+    Gui, Main:Color, %bgcolor%
+    IniWrite, %bgcolor%, %inipath%, Tracker, BackgroundColor
+return
+
+;Function to convert Decimal RGB to Hexadecimal RBG, Note: '0' (zero) padding is unnecessary
+RGB(r, g, b) {
+	;Shift Numbers
+	var:=(r << 16) + (g << 8) + b
+	;Save current A_FormatInteger
+	OldFormat := A_FormatInteger
+	;Set Hex A_FormatInteger mode
+	SetFormat, Integer, Hex
+	;Force decimal number to Hex number
+	var += 0
+	;set original A_FormatInteger mode
+	SetFormat, Integer, %OldFormat%
+	return var
+}
+
+; -------------------------------------
+; End of ColourPicker Subroutines
+; -------------------------------------
