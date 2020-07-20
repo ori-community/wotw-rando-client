@@ -15,6 +15,8 @@ SetBatchLines, -1
 ; }
 
 version := "v0.1.4"
+seed = %1%
+
 ; data containers
 imageBase := { "Bash": "img\Bash"
     , "Blaze": "img\Blaze"
@@ -135,7 +137,21 @@ If !WatchFolder("C:\moon", "parsechanges",, 8) {
 Gui, Main:New
 Gui, Color, 585858
 Gui, Font, s15 cwhite
-Gui, Add, Text, , Ori WotW AutoTracker
+
+if (seed != "") {
+    FileReadLine, Flags, %seed%, 1
+
+    Gui, Add, Text, , Flags:
+    if (InStr(Flags, "ForceWisps")) {
+        Gui, Add, Picture, xp+60 h30 w30, img\Wisp.png
+    }
+    if (InStr(Flags, "ForceTrees")) {
+        Gui, Add, Picture, xp+60 h30 w20, img\SkillTree.png
+    }
+    if (InStr(Flags, "ForceQuests")) {
+        Gui, Add, Picture, xp+60 h30 w30, img\Quest.png
+    }
+}
 
 first_row = y40
 Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75 gclick, img\DoubleJump.png
@@ -190,8 +206,9 @@ TeleporterState := 0
 Menu, ContextMenu, Add, Always on top, ToggleOnTop
 Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
 
+Menu, ContextMenu, Add, Background colour, ToggleCheck 
+
 ; Disabled for now since it doesnt function as intended yet.
-; Menu, ContextMenu, Add, Background colour, ToggleCheck 
 ; Menu, ContextMenu, Add, Teleporters, ToggleTeleporters
 ; Menu, ContextMenu, % TeleporterState ? "Check" : "Uncheck", Teleporters
 
