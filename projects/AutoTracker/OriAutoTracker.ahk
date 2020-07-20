@@ -16,7 +16,7 @@ if(launchWithTracker != "false"){
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.1.4"
+version := "v0.1.5"
 FileRead, seed, C:\moon\.currentseedpath
 
 ; data containers
