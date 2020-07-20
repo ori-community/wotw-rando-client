@@ -359,15 +359,14 @@ update() {
 
     }
 
-    For index, event in events
-        if (event == "Clean Water") {
-            GuiControl , Show ,CleanWater
-        } else {
-            GuiControl , Hide ,CleanWater
-        }
+    if(hasVal(events, "Clean Water")) {
+        GuiControl, Main:Show, CleanWater
+    } else {
+        GuiControl, Main:Hide, CleanWater
+    }
 
-    GuiControl,, SpiritLight, % Spiritlight
-    GuiControl,, GorlekOre, % GorlekOre
+    GuiControl, Main:, SpiritLight, % Spiritlight
+    GuiControl, Main:, GorlekOre, % GorlekOre
 
     ; Store last inventory to check against with next proc
     currentinv := jsonString
@@ -446,7 +445,7 @@ return
 setIfNew(skill, image){
     global imageCurr
     if(image != imageCurr[skill]) {
-        GuiControl ,, %skill%, %image%
+        GuiControl, Main:, %skill%, %image%
         imageCurr[skill] := image
     }
 }
