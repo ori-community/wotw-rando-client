@@ -123,6 +123,9 @@ FileInstall, img\WeaponUpgrade1_unlocked.png, img\WeaponUpgrade1_unlocked.png
 FileInstall, img\WeaponUpgrade2.png, img\WeaponUpgrade2.png
 FileInstall, img\WeaponUpgrade2_unlocked.png, img\WeaponUpgrade2_unlocked.png
 FileInstall, img\GorlekOre.png, img\GorlekOre.png
+FileInstall, img\Wips.png, img\Wisp.png
+FileInstall, img\SkillTree.png, img\SkillTree.png
+FileInstall, img\Quest.png, img\Quest.png
 
 
 If !WatchFolder("C:\moon", "parsechanges",, 8) {
@@ -426,8 +429,10 @@ Help(wParam, lParam, Msg) {
         Help := "Burrow"
     else IfEqual, HoverText, img\Flap.png
         Help := "Flap"
+    else IfEqual, HoverText, img\Sword.png
+        Help := "Sword | Spirit Edge"
     else IfEqual, HoverText, img\WeaponUpgrade1.png
-        Help := "Ancestral Light"
+        Help := "Ancestral Light | Damage up"
     else IfEqual, HoverText, img\SpiritLight.png
         Help := "Spirit Light"
     else IfEqual, HoverText, img\GorlekOre.png
