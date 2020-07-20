@@ -16,7 +16,6 @@ SetBatchLines, -1
 
 version := "v0.1.4"
 FileRead, seed, C:\moon\.currentseedpath
-MsgBox,,, %seed%
 
 ; data containers
 imageBase := { "Bash": "img\Bash"
