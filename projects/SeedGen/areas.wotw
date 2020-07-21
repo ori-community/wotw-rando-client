@@ -288,7 +288,7 @@ area MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big portal 
     base:
       MidnightBurrows.Lever, DoubleJump, Dash OR Glide
       Launch
-    advanced: 
+    advanced:
       MidnightBurrows.Lever, DoubleJump OR Dash
   pickup MidnightBurrows.LowerKS:
     base:
@@ -613,7 +613,7 @@ area WestHollow.Entrance:  # (-303, -4238) At Twillen
   pickup WestHollow.CrusherHC: free
 
   conn TwillenShop: free
-  conn MarshPastOpher.BowArea: 
+  conn MarshPastOpher.BowArea:
     base: MarshPastOpher.EyestoneDoor
   conn EastHollow.Teleporter:
     base, WestHollow.PurpleDoorOpen:
@@ -854,7 +854,7 @@ area EastHollow.Kwolok:  # (177, -4215) Between Ku and Kwolok
       Dash, Glide, Danger=10
       Launch
   conn WoodsEntry.ShriekMeet:
-    base: 
+    base:
       Water, Launch
       Water, Grapple, DoubleJump, Dash OR Glide
       Water, Grapple, Dash, Glide
@@ -1017,7 +1017,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
       TuleyShop.StickyGrass, Grapple
   conn TwillenShop: free
   conn OpherShop: free # opher everywhere
-  conn TuleyShop: 
+  conn TuleyShop:
     base, InnerWellspring.WaterEscape
       DoubleJump OR Launch
       Flap, Glide
@@ -1449,7 +1449,7 @@ area OuterWellspring.EastDoor:  # (-814, -3973) Outside the door leading to the 
       DoubleJump OR Dash OR Launch
       InnerWellspring.TopDoorOpen, OuterWellspring.WestDoorBlueMoonFree, Grapple
   conn OuterWellspring.EntranceDoor: free
-  conn WestGlades.MillApproach: 
+  conn WestGlades.MillApproach:
     base: Grapple OR Glide OR Launch
 
 area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the teleporter
@@ -2147,7 +2147,7 @@ area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
   pickup WoodsEntry.LeafPileEX:
     base: Flap
   pickup WoodsEntry.LedgeOre:
-    base: 
+    base:
       Glide, DoubleJump OR Launch
       Bash, Grenade=1, Glide OR Launch
       DoubleJump, Dash, Launch  # coming from below you'd just need Launch
@@ -2168,7 +2168,7 @@ area WoodsEntry.TwoKeystoneRoom:  # (672, -4183) In front of the keystone door
     base: DoubleJump OR Dash OR Glide  # Launch is awful
   pickup WoodsEntry.UpperKS:
     base: DoubleJump OR Launch
-#   advanced: 
+#   advanced:
 #     SentryJump=1, Glide
 
   conn WoodsMain.BelowFourKeystoneRoom:
@@ -2330,7 +2330,7 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
   # having the initial escape completed is a negative, not a positive. The paths going through it are the connections to Wastes.
   # if you complete the initial escape, rocks fall and block most of the connection paths to WestTP. This is equally true for the base game though and solved by the fact that if you complete the escape, you unlock the teleporter, making these paths not softlockable
   pickup WoodsMain.ShrineEX:
-    base: 
+    base:
       Glide OR Launch
       DoubleJump, Dash
   
@@ -2886,7 +2886,7 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
   pickup UpperDepths.RightHealthKS:
     base: BreakWall=1 OR DepthsLight
   pickup UpperDepths.LeftHealthKS:
-    base: 
+    base:
       BreakWall=1, DoubleJump, Dash OR Glide
       DepthsLight, DoubleJump, Dash OR Glide
       DepthsLight, DoubleJump, Bash, Grenade=1
@@ -2928,7 +2928,7 @@ area UpperDepths.Central:  # (423, -4475) The firefly egg to the left of the sec
   pickup LowerDepths.BelowDoorOre:
     base: DepthsLight  # It's hidden in a dark area, not hard to reach.
   pickup LowerDepths.LeftEX:
-    base: 
+    base:
       BreakWall=1, DoubleJump OR Dash OR Glide OR Launch
       DepthsLight, DoubleJump OR Dash OR Glide OR Launch
   
