@@ -1,25 +1,18 @@
-import java.io.File
+import java.io.{File, FileWriter}
 
+import SeedGenerator._
 import org.json4s._
 import org.json4s.native.Serialization
-import org.json4s.native.Serialization.{read, write}
 
 import scala.collection.mutable.{Map => MMap}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.io.Source
 import scala.swing._
 import scala.swing.event._
+import scala.util.Try
 
-package SeedGenerator {
-
-  import java.io.{BufferedWriter, FileWriter}
-
-  import scala.io.Source
-  import scala.util.Try
-
-  trait Flag { def value: String }
-
-  class UI extends MainFrame {
+class UI extends MainFrame {
 
     title = "Wotw Rando Seed Generator"
     preferredSize = new Dimension(800, 600)
@@ -118,41 +111,6 @@ package SeedGenerator {
       }, BorderPanel.Position.South)
     }
   }
-  case class Flags(
-    forceWisps: Boolean = false,
-    forceTrees: Boolean = false,
-    forceQuests: Boolean = false,
-    noHints: Boolean = false,
-    noSword: Boolean = false,
-    rain: Boolean = false,
-    noKSDoors: Boolean = false
-  ) {
-    def line: String = {
-      Seq(
-        if(forceWisps) Some("ForceWisps") else None,
-        if(forceTrees) Some("ForceTrees") else None,
-        if(forceQuests) Some("ForceQuests") else None,
-        if(noHints) Some("NoHints") else None,
-        if(noSword) Some("NoFreeSword") else None,
-        if(rain) Some("RainyMarsh") else None,
-        if(noKSDoors) Some("NoKSDoors") else None
-      ).flatten match {
-        case Nil => ""
-        case s => s"Flags: ${s.mkString(", ")}\n"
-      }
-    }
-  }
-  case class GenSettings(
-    tps: Boolean = true,
-    spoilers: Boolean = true,
-    unsafePaths: Boolean = false,
-    questLocs: Boolean = true,
-    outputFolder: String = "C:\\moon",
-    flags: Flags = Flags(),
-    bonusItems: Boolean = true,
-    debugInfo: Boolean = false,
-    seirLaunch: Boolean = false
-  )
   object UI extends SettingsProvider with Logger {
     def apply(): GenSettings = GenSettings(
       ui.teleporters.selected,
@@ -176,12 +134,12 @@ package SeedGenerator {
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def writeSettings(): Unit = {
       val bw = new FileWriter(settingsPath)
-      bw.write(write(apply))
+      bw.write(Serialization.write(this()))
       bw.close()
     }
     def readSettings: Option[GenSettings] = Try {
         val inFile = Source.fromFile(settingsPath)
-        val ret = read[GenSettings](inFile.mkString)
+        val ret = Serialization.read[GenSettings](inFile.mkString)
         inFile.close()
         ret
       }.toOption
@@ -204,34 +162,34 @@ package SeedGenerator {
       lastSeed match {
         case Some(file) => Seq("cmd", "/C", file.getAbsolutePath).!
         case None =>
-          UI.log("Last seed file not found!")
+          warn("Last seed file not found!")
           ui.runLastSeed.enabled = false
       }
 
     }
     def seedClicked(): Unit = {
       currentOp = Some(Future {
-        log("Building...")
+        info("Building...")
         writeSettings()
         ui.makeSeedButton.enabled = false
         if(ui.seedField.text != "") {
-          log(s"Seeded RNG with ${UI.ui.seedField.text}")
+          info(s"Seeded RNG with ${UI.ui.seedField.text}")
           SeedGenerator.Runner.setSeed(UI.ui.seedField.text.hashCode)
         }
         if(SeedGenerator.Runner(outputPath)) {
-          log(s"Finished generating seed!")
+          info(s"Finished generating seed!")
           ui.runLastSeed.enabled = true
         } else {
           lastSeed = None
-          log(s"Failed to generate seed :c")
+          error(s"Failed to generate seed :c")
           ui.runLastSeed.enabled = false
         }
         ui.makeSeedButton.enabled = true
         currentOp = None
       })
     }
-    def debug(x: Any): Unit = if(ui.debugToggle.selected) log(x)
-    def log(x: Any): Unit = {
+    override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ (if(ui.debugToggle.selected) Seq(DEBUG) else Nil)
+    override def write(x: Any): Unit = {
       ui.logView.append(s"$x\n")
       ui.logHolder.verticalScrollBar.value = ui.logHolder.verticalScrollBar.maximum
     }
@@ -244,8 +202,29 @@ package SeedGenerator {
     }
   }
   object Main extends App {
-    Config.settingsProvider = UI
-    Config.logger = UI
-    UI.show()
+    def reachCheck() = {
+      Config.logger = FileLogger("""C:\moon\reach_log.txt""")
+      val hp = args(1).toInt / 5
+      val en = args(2).toInt / 5
+      val ks = args(3).toInt
+      val ore = args(4).toInt
+      val sl = args(5).toInt
+      val st = GameState(new Inv((Health, hp), (Energy, en), (Keystone, ks), (Ore, ore), (SpiritLight(sl), 1)))
+        .withParams(args.drop(6).map({
+        case s if Skill.areaFileNames.contains(s) => Some(Skill(Skill.areaFileNames(s)))
+        case s if Teleporter.areaFileNames.contains(s) => Some(Teleporter(Teleporter.areaFileNames(s)))
+        case s if WorldEvent.areaFileNames.contains(s) => Some(WorldEvent(WorldEvent.areaFileNames(s)))
+        case a => Config.error(s"unknown name $a"); None
+      }).toSeq.flatten.map(Left(_)):_*)
+      println(Nodes.reached(st)(MMap())._1.items.map(_.data.code).mkString(", "))
+    }
+
+    // autorun section
+    if(args(0) == "ReachCheck")
+      reachCheck()
+    else {
+      Config.settingsProvider = UI
+      Config.logger = UI
+      UI.show()
+    }
   }
-}

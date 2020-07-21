@@ -99,7 +99,7 @@ package SeedGenerator {
       def stateReqs(areas: Seq[Area]) = areas.flatMap(_.conns.flatMap(_.reqs.flatMap(_.children.collect({case r: StateReq => r}))))
       val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
       if(unusedMacros.nonEmpty)
-        Config.log(s"unused macros: $unusedMacros")
+        Config.warn(s"unused macros: $unusedMacros")
       areas.map({
         case Area(Area.SPAWN, conns, r) => Area(Area.SPAWN, conns ++ macros, r)
         case area => area
