@@ -46,6 +46,7 @@ std::string convert_csstring(app::String* str)
 }
 
 INJECT_C_DLLEXPORT void clear_visible_hints();
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description);
 
 namespace
 {
@@ -288,6 +289,12 @@ namespace
         {
             auto key = static_cast<uint8_t>(shard->fields.m_type);
             auto it = twillen_overrides.find(key);
+            if (it == twillen_overrides.end())
+            {
+                set_twillen_item(key, L"test", L"test2");
+                it = twillen_overrides.find(key);
+            }
+
             if (it != twillen_overrides.end())
             {
                 auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
@@ -295,6 +302,13 @@ namespace
                 description->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
                 if (description->fields.UpgradablePropertyLevels->fields._size > 0)
                 {
+                    if (description->fields.UpgradablePropertyLevels->fields._size > 1)
+                    {
+                        int index = 1;
+                        int count = description->fields.UpgradablePropertyLevels->fields._size - 1;
+                        il2cpp::invoke(description->fields.UpgradablePropertyLevels, "RemoveRange", &index, &count);
+                    }
+
                     auto prop = description->fields.UpgradablePropertyLevels->fields._items->vector[0];
                     prop->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
                 }
