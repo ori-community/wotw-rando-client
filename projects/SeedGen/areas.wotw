@@ -2672,7 +2672,8 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
 
 area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
   refill Checkpoint
-
+  refill Energy=4:
+    base: Weapon, Glide
   # no backwards paths are considered, would currently be redundant
   state LowerReach.TeleporterLantern:
     base: Grenade=1
@@ -2690,10 +2691,6 @@ area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
     base, LowerReach.RolledSnowball:
       Flap, Launch
       Flap, DoubleJump, Bash, Grenade=2, Dash OR Glide
-  state LowerReach.ArenaBeaten:
-    base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, Combat, ShieldEnemy, Danger=40:  # there's a lot of shield enemies here... maybe revisit this at some point
-      Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
-      LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
   pickup LowerReach.SnowballHC:
     base: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Danger=20
@@ -2717,10 +2714,34 @@ area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
       Bash, Grenade=1
   conn LowerReach.Lower:
     base: EnemyObstacle, Glide
-  conn LowerReach.Trial:
-    base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern, LowerReach.ArenaBeaten:
+  conn LowerReach.ArenaArea:
+    base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern:
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
       LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
+
+area LowerReach.ArenaArea:  # (40, -3993) To the left of the combat arena
+  refill Checkpoint
+  refill Health=1: free
+  refill Energy=3:
+    base:
+      DoubleJump, Sword
+      Weapon, Launch
+  state LowerReach.ArenaBeaten:
+    base: Combat, ShieldEnemy, Danger=40  # there's a lot of shield enemies here... maybe revisit this at some point
+
+  pickup LowerReach.EscapeRevisitEX:
+    base, LowerReach.ArenaBeaten, LowerReach.ForestsMemory:
+      Bash, Grenade=5, Glide, DoubleJump
+      Bash, Grenade=4, Glide, Grapple
+      Bash, Glide, Launch
+
+  conn LowerReach.Trial:
+    base: LowerReach.ArenaBeaten
+  conn LowerReach.SnowEscape:
+    base, LowerReach.ArenaBeaten:
+      Bash, Grenade=5, Glide, DoubleJump   # these energy costs are a major issue for these paths!
+      Bash, Grenade=4, Glide, Grapple
+      Bash, Glide, Launch
 
 area LowerReach.Trial:  # (64, -4046) At trial start
   refill Checkpoint
@@ -2745,18 +2766,9 @@ area LowerReach.Trial:  # (64, -4046) At trial start
     base: Glide
   pickup LowerReach.TrialEX:
     base: Glide
-  pickup LowerReach.EscapeRevisitEX:
-    base, LowerReach.ArenaBeaten, LowerReach.ForestsMemory:
-      Bash, Grenade=5, Glide, DoubleJump
-      Bash, Grenade=4, Glide, Grapple
-      Bash, Glide, Launch
-
+  conn LowerReach.ArenaArea:
+    base: LowerReach.ArenaBeaten, Glide
   # Connections to LowerReach.East would currently be redundant with ArenaBeaten
-  conn LowerReach.SnowEscape:
-    base, LowerReach.ArenaBeaten:
-      Bash, Grenade=5, Glide, DoubleJump
-      Bash, Grenade=4, Glide, Grapple
-      Bash, Glide, Launch
   conn GladesTown.ReachPath:
     base: Glide
 
@@ -3389,6 +3401,7 @@ area UpperWastes.NorthTP: # (2044, -3679) North Wastes teleporter
   conn UpperWastes.RuinsApproach: free
 
 area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
+  refill Full  # this is just the TP refill
   quest UpperWastes.FlowersSeed:
     base:
       Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies

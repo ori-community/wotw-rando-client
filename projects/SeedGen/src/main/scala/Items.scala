@@ -249,6 +249,7 @@ package SeedGenerator {
     def +(other: Orbs): Orbs = Orbs(health+other.health, energy + other.energy)
     def -(other: Orbs): Orbs = Orbs(health - other.health, energy - other.energy)
     def value: Int = health + 3*energy // subject to change
+    def valid: Boolean  = health > 0 && energy >= 0
   }
 
   // extending hashset instead of encapsulating it here was pure folly, tbh
