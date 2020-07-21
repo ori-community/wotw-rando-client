@@ -50,6 +50,10 @@ namespace il2cpp
 
         Il2CppClass* get_class(std::string_view namezpace, std::string_view name);
         Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested);
+
+        Il2CppArray* array_new(Il2CppClass* element, il2cpp_array_size_t length);
+        Il2CppArray* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length);
+        Il2CppArray* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
     }
 
     uint32_t gchandle_new(void* obj, bool pinned);

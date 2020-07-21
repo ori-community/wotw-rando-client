@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using RandoMainDLL.Memory;
 
@@ -159,6 +160,9 @@ namespace RandoMainDLL {
         else
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
+
+      // We might want to hide this behind a spoiler flag instead of the hints flag.
+      InterOp.allow_spoilers(!HintsDisabled);
     }
     public static HashSet<ShardType> shardNag = new HashSet<ShardType>();
     public static HashSet<AbilityType> weaponNag = new HashSet<AbilityType>();
@@ -369,6 +373,23 @@ namespace RandoMainDLL {
 
     public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || (SaveController.Data?.TreesActivated?.Contains(AbilityType.SpiritEdge) ?? false);
 
+    public static bool FilterIconShow(int group_id, int state_id) {
+      // Show Icon (in logic)
+      return true;
+    }
+
+    public static int FilterIconType(int group_id, int state_id) {
+      // Keystone icon
+      return 0;
+    }
+
+    public static void FilterIconText(IntPtr buffer, int length, int group_id, int state_id) {
+      // Icon Label
+      string text = "test";
+
+      length = Math.Min(text.Length, length);
+      Marshal.Copy(text.ToCharArray(), 0, buffer, length);
+    }
 
     public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }

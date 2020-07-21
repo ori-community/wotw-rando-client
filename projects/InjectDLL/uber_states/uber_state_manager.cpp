@@ -57,7 +57,7 @@ namespace uber_states
             UberStateCollection::Add(create_uber_id_ptr(constants::TREE_GROUP_ID), tree_group);
 
             add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "sword", app::AbilityType__Enum_Sword, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "double_jump", app::AbilityType__Enum_DoubleJump, false);
+            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "double_jump", app::AbilityType__Enum_DoubleJump, true);
             add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "regenerate", app::AbilityType__Enum_MeditateSpell, false);
             add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "bow", app::AbilityType__Enum_Bow, false);
             add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "dash", app::AbilityType__Enum_DashNew, false);
@@ -80,6 +80,12 @@ namespace uber_states
             auto twillen_group = il2cpp::create_object<app::UberStateCollectionGroup>("Moon", "UberStateCollectionGroup");
             UberStateCollectionGroup::ctor(twillen_group);
             UberStateCollection::Add(create_uber_id_ptr(constants::TWILLEN_SHARD_GROUP_ID), twillen_group);
+
+            auto map_filter_group = il2cpp::create_object<app::UberStateCollectionGroup>("Moon", "UberStateCollectionGroup");
+            UberStateCollectionGroup::ctor(map_filter_group);
+            UberStateCollection::Add(create_uber_id_ptr(constants::MAP_FILTER_GROUP_ID), map_filter_group);
+            
+            add_state<app::SerializedBooleanUberState>(map_filter_group, "SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false);
 
             trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
         }
