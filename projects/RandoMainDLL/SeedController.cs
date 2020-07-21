@@ -373,6 +373,11 @@ namespace RandoMainDLL {
 
     public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || (SaveController.Data?.TreesActivated?.Contains(AbilityType.SpiritEdge) ?? false);
 
+    public static bool FilterIconShow(int group_id, int state_id) {
+      // Show Icon (in logic)
+      return true;
+    }
+
     public static int FilterIconType(int group_id, int state_id) {
       // Keystone icon
       return 0;
