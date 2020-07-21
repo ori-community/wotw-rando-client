@@ -202,6 +202,8 @@ area MarshSpawn.DenApproach:  # (-540, -4406) at regen tree
 
 area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, burrows and marsh
   refill Checkpoint
+  refill Energy=1:
+    advanced: Weapon  # slightly out of sight
 
   quest MarshSpawn.CaveKS: free
   quest MarshSpawn.TheMissingKey:
@@ -383,7 +385,7 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
       BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
   pickup HowlsDen.SwordTree: free
   pickup HowlsDen.MagnetShard:
-    base: BreakWall=10
+    base: BreakWall=10, BreakWall=16 OR Launch
   pickup HowlsDen.AboveTPEX:
     base: BreakWall=16, BreakWall=10
 
@@ -468,6 +470,9 @@ area HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
 
 area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking at the Millstone
   refill Checkpoint
+  refill Energy=3:
+    base: Weapon  # to the left
+  # there are two more energy crystals to the right end which are not currently considered.
 
   state MarshPastOpher.TrialActivation:
     base: BreakWall=20, Grapple, Dash OR Glide OR Launch
@@ -520,6 +525,7 @@ area MarshShrine:
 area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with bow tree.
   refill Energy=1:
     base: Weapon
+  # some more energy crystals nearby
 
   state MarshPastOpher.EyestoneDoor:
     base: Keystone=2
@@ -594,6 +600,8 @@ region WestHollow:
 
 area WestHollow.Entrance:  # (-303, -4238) At Twillen
   refill Checkpoint
+  refill Energy=3:
+    base: Weapon
 
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     base:
@@ -650,6 +658,7 @@ area WestHollow.RockPuzzle:  # (-249, -4275) At the right ledge of the rock puzz
   refill Checkpoint
   refill Energy=3:
     base: Weapon, DoubleJump OR Dash OR Bash OR Glide OR Launch
+  # more energy crystals to the left
 
   state WestHollow.RockPuzzleSolved:  # You can get the puzzle into some weird constellations, but teleporting out works in the worst cases
     base, WestHollow.UpperDrainLeverPulled, EnemyObstacle:  # EnemyObstacle provides solutions to shoot with the skeeto around
@@ -685,6 +694,7 @@ area WestHollow.RockPuzzle:  # (-249, -4275) At the right ledge of the rock puzz
 
 area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of Lupo
   refill Checkpoint
+  # an energy crystal near the bottom is not currently considered
 
   state WestHollow.TrialActivation:
     base, EnemyObstacle:
@@ -861,6 +871,8 @@ area EastHollow.Kwolok:  # (177, -4215) Between Ku and Kwolok
 
 area EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door blocking Depths access
   refill Checkpoint
+  refill Energy=3:
+    base: Weapon
 
   pickup EastHollow.BashHC:
     base: Bash OR Launch
@@ -1139,7 +1151,7 @@ area GladesTown.ReachPath:  # (-140, -4096) At the soup
       Water, Bash, Flap  # seems to be a casual strat the game suggests you to do
       Water, Grenade=1
   pickup GladesTown.UpdraftCeilingEX:
-    base:  # other (non-redundant) paths exist, but these have free retries, otherwise you'd have to go through entire reach to get another attempt
+    base:  # other (non-redundant) paths exist, but these here have free retries, otherwise you'd have to go through entire reach to get another attempt
       DoubleJump
       TuleyShop.Lightcatchers, Bash
   
@@ -1226,8 +1238,6 @@ area WestGlades.Upper:  # (-618, -4054) At the waypoint
       Grapple, DoubleJump OR Dash OR Glide
       Bash OR Launch
       Water, WaterDash
-
-# state of progress
 
 area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening up to Wellspring
   refill Checkpoint
@@ -1317,7 +1327,10 @@ region OuterWellspring:
 area OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you enter the first room
   refill Checkpoint
   refill Health=1:
-    advanced: free # barely out of sight, also past an enemy...
+    advanced: free  # barely out of sight, also past an enemy...
+  refill Energy=3:
+    advanced: Weapon  # pretty far to the left
+  # two more energy crystals in the outer area
 
   # ommited a lot of paths including most bash-related paths because of how complex this place is to navigate
   state OuterWellspring.EntranceDoorOpen:
@@ -1485,6 +1498,7 @@ area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you e
   refill Checkpoint
   refill Energy=3:  # technically out of sight, but this is very realistic
     base: Weapon
+  # another energy crystal in the room to the right
 
   state InnerWellspring.ShortCutWheel:
     base:
@@ -2004,6 +2018,7 @@ area UpperPools.TreeArea:  # (-1467, -4075) The ledge left of waterdash tree
     base:
       Water, WaterDash, Grapple, DoubleJump OR Launch
       Water, WaterDash, Launch, DoubleJump, Dash OR Glide
+
   pickup UpperPools.SwimDashTree: free
   pickup UpperPools.CurrentEX:
     base: Water, WaterDash
@@ -2160,6 +2175,8 @@ area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
 
 area WoodsEntry.TwoKeystoneRoom:  # (672, -4183) In front of the keystone door
   refill Checkpoint
+  refill Energy=3:
+    base: WoodsEntry.KeystoneDoor, Weapon
 
   state WoodsEntry.KeystoneDoor:
     base: Keystone=2
@@ -2326,6 +2343,7 @@ area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
 
 area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding grounds
   refill Checkpoint
+  # energy crystal in the pit not considered
 
   # having the initial escape completed is a negative, not a positive. The paths going through it are the connections to Wastes.
   # if you complete the initial escape, rocks fall and block most of the connection paths to WestTP. This is equally true for the base game though and solved by the fact that if you complete the escape, you unlock the teleporter, making these paths not softlockable
@@ -2369,33 +2387,15 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
 
   state LowerReach.BearSneezed:
     base: Flap
-  state LowerReach.BearBridgeBroken:
-    base, LowerReach.BearSneezed:  # the game behaves weird when dropping the rock on Baur, so not making that base
-      DoubleJump, Launch  # Can't rely on the sleeping bear to be there, same goes for a lot of Launch paths coming up
-      Bash, DoubleJump OR Launch
-      Dash, Bash, Glide
-      Dash, Bash, Grenade=1
-      Bash, Glide, Grenade=2  # most of these skills are to get past the frozen plant and are removed in the path below
-      LowerReach.LowerFurnace, Bash, Grenade=1
-    advanced:
-      LowerReach.BearSneezed, Launch
-  state LowerReach.LowerFurnace:
+  state LowerReach.SecondSoupFurnace:
     base, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
       Bash, Flap
       Grenade=1
-  state LowerReach.LeftFurnace:
-    base, Grenade=1:  # Grenade to light the furnace
-      # these paths want the player to bash off the skeetos, as is taught in other regions of the game
-      DoubleJump, Bash
-      Dash, Bash, Glide
-      Bash, Grenade=2, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
-      LowerReach.LowerFurnace, Bash, Grenade=1
-      Launch, DoubleJump OR Bash
   state LowerReach.Lever:
     base:
       DoubleJump, Bash, Grenade=1
       Launch, DoubleJump OR Bash
-      LowerReach.LowerFurnace, DoubleJump, Bash
+      LowerReach.SecondSoupFurnace, DoubleJump, Bash
     advanced:  # One of the grenades hit the ceiling sometimes, so I didn't want those to be base. They might need less skills for advanced. Also these probably won't work if you heated the furnace and there might have to be a state for cooling the furnace
       Dash, Bash, Glide, Grenade=2
       Dash, Bash, Grenade=3
@@ -2407,7 +2407,7 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
       Launch
   pickup LowerReach.AboveBaurLowerEX:
     base:  # Using the mortar shooting from offscreen might be one of the intended strats? Wasn't considered for these paths
-      LowerReach.LowerFurnace OR Grenade=1:  # these use a grenadebash if they can't use the unfrozen plant
+      LowerReach.SecondSoupFurnace OR Grenade=1:  # these use a grenadebash if they can't use the unfrozen plant
         DoubleJump, Bash
         Dash, Bash, Glide  # not sure about this path's difficulty when the LowerFurnace is hot, might need state for cooling it
       Bash, Grenade=2  # same as above, also this could maybe go in the above group? If you try to make the jump off the plant, you won't make it, but it will reliably trigger the mortar to shoot at you and makes it easy to catch. Decided against it because the player might not try that jump from eyesight
@@ -2415,21 +2415,18 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
   pickup LowerReach.AboveBaurUpperEX:
     base:  # same about the mortar as above
       Launch, DoubleJump OR Bash  # not entirely sure about base
-      LowerReach.LowerFurnace, DoubleJump, Bash
-  pickup LowerReach.IcefallOre:
-    base, LowerReach.LeftFurnace:  # EnemyObstacle alone isn't really enough here, with the Furnace lit it's hard to get past the enemies even with a weapon. The paths consider tools to help.
-      DoubleJump, Bash, Grapple
-      Dash, Bash, Glide, Grapple
-      Bash, Grenade=2, Grapple, Glide  # most of these skills are to get past the frozen plant and are removed in the path below
-      LowerReach.LowerFurnace, Bash, Grenade=1, Grapple
-      DoubleJump, Grapple, Launch, Danger=10  # Grapple past the enemies and probably get hit by them
-      DoubleJump, Water, Launch  # Swim past the enemies
-      Launch, Bash
-  pickup LowerReach.IcefallEX:
-    base, LowerReach.LeftFurnace:  # Here you have to deal with the enemies a lot less
-      Launch, DoubleJump OR Bash
-      DoubleJump, Bash  # bash off the skeetos
+      LowerReach.SecondSoupFurnace, DoubleJump, Bash
 
+  conn LowerReach.Icefall:
+    base:
+      DoubleJump, Launch  # Can't rely on the sleeping bear to be there, same goes for a lot of Launch paths here
+      Bash, DoubleJump OR Launch
+      Dash, Bash, Glide
+      Dash, Bash, Grenade=1
+      Bash, Glide, Grenade=2  # most of these skills are to get past the frozen plant and are removed in the path below
+      LowerReach.SecondSoupFurnace, Bash, Grenade=1
+    advanced:
+      Launch
   conn LowerReach.Central:
     base, LowerReach.Lever:
       DoubleJump, Bash
@@ -2438,6 +2435,30 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
       Launch, DoubleJump OR Bash
   conn WestGlades.Upper:
     base: LowerReach.BearSneezed
+
+area LowerReach.Icefall:  # (-448, -3998) Where you drop the rock on Baur's nose
+  refill Checkpoint
+  refill Energy=3:
+    base: Weapon
+
+  state LowerReach.BearBridgeBroken:
+    base, LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that base
+  state LowerReach.LeftFurnace:
+    base:
+      Grenade=1, Bash, DoubleJump OR Dash OR Glide  # Grenade to light the furnace
+      Grenade=1, Launch  # Grenade to light the furnace
+
+  pickup LowerReach.IcefallOre:
+    base, LowerReach.LeftFurnace, EnemyObstacle:
+      Bash, Grapple OR Launch  # bash the enemies
+      Grapple, Danger=10, DoubleJump OR Dash  # grapple past the enemies and probably get hit by them
+      Water, Launch  # swim past the enemies
+  pickup LowerReach.IcefallEX:
+    base, LowerReach.LeftFurnace, EnemyObstacle:
+      DoubleJump, Bash  # bash the enemies
+      DoubleJump, Grapple, Danger=10  # grapple past the enemies and probably get hit by them
+      Water, DoubleJump, WaterDash  # swim past the enemies
+      Launch
 
 area LowerReach.Central:  # (-335, -4010) After the lever door
   refill Checkpoint
@@ -2462,50 +2483,13 @@ area LowerReach.Central:  # (-335, -4010) After the lever door
 
   conn LowerReach.Entry:
     base: LowerReach.Lever, DoubleJump OR Dash OR Launch
-  conn LowerReach.Lower: free
+  conn LowerReach.SecondSoup: free
   conn LowerReach.OutsideTPRoom:
     base:
       Launch
       LowerReach.CentralFurnace:
         DoubleJump, Dash, Bash
         Bash, Grenade=1
-
-area LowerReach.Lower:  # (-316, -4036) Next to the soup below the teleporter
-  state LowerReach.CentralFurnace:
-    base, ShieldEnemy OR Bash:
-      Grenade=1
-      DoubleJump, Dash, Bash, Flap
-  state LowerReach.WindChannelLantern:
-    base: Grenade=1, ShieldEnemy OR Bash
-
-  quest LowerReach.HandToHandHat:  # paths from other anchors should currently be redundant
-    base: GladesTown.HandToHandSoup, LowerReach.WindChannelLantern, Glide
-
-  pickup LowerReach.MeltIceEX:
-    base: Grenade=1
-  pickup LowerReach.BurrowEX:
-    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
-  pickup LowerReach.BelowLupoEX:
-    base:
-      DoubleJump, Bash, Grenade=1
-      Launch
-      LowerReach.CentralFurnace, DoubleJump OR Dash
-  pickup LowerReach.BreakWallEX:
-    base: BreakWall=20, ShieldEnemy OR Bash
-  pickup LowerReach.WindBottomEX:
-    base: LowerReach.WindChannelLantern, Glide
-  pickup LowerReach.WindHiddenEX:
-    base: LowerReach.WindChannelLantern, Glide
-
-  conn LowerReach.Central:
-    base:
-      DoubleJump, Bash, Flap OR Grenade=1
-      DoubleJump, Burrow
-      Launch
-  conn LowerReach.East:
-    base, LowerReach.WindChannelLantern:
-      DoubleJump, Dash, Bash, Grenade=2, Glide
-      Glide, Launch
 
 area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter room
   refill Checkpoint
@@ -2529,7 +2513,7 @@ area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter ro
       Launch
       LowerReach.CentralFurnace, DoubleJump, Bash, Dash OR Glide OR Grenade=1
 
-  conn LowerReach.Lower: free
+  conn LowerReach.SecondSoup: free
   conn LowerReach.Central:
     base: DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer
   conn UpperReach.KeystoneRoom:
@@ -2558,6 +2542,8 @@ region UpperReach:
 
 area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
   refill Checkpoint
+  # energy crystal near keystone door wasn't considered
+
   state UpperReach.KeystoneDoor:
     base, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
@@ -2648,6 +2634,8 @@ area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
   conn LowerReach.OutsideTPRoom: free
 
 area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
+  # energy crystal next to tree not considered
+
   quest UpperReach.SpringSeed:
     base: Grenade=1
 
@@ -2670,62 +2658,139 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Water
 
+area LowerReach.SecondSoup:  # (-316, -4036) Next to the soup below the teleporter
+  state LowerReach.CentralFurnace:
+    base: DoubleJump, Dash, Bash, Flap
+
+  pickup LowerReach.MeltIceEX:
+    base: Grenade=1
+  pickup LowerReach.BurrowEX:
+    base: Burrow, DoubleJump OR Dash OR Glide OR Launch
+
+  conn LowerReach.Central:
+    base:
+      DoubleJump, Bash, Flap OR Grenade=1
+      DoubleJump, Burrow
+      Launch
+  conn LowerReach.WindChannel:
+    base: ShieldEnemy OR Bash OR Launch
+
+area LowerReach.WindChannel:  # (-256, -4034) The furnace left of the wind channel connecting to east reach
+  refill Checkpoint
+  refill Energy=3:
+    base: ShieldEnemy, DoubleJump OR Dash OR Launch
+
+  state LowerReach.CentralFurnace:
+    base: Grenade=1
+
+  pickup LowerReach.BelowLupoEX:
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch
+      LowerReach.CentralFurnace, DoubleJump OR Dash
+  pickup LowerReach.BreakWallEX:
+    base: BreakWall=20, ShieldEnemy OR Bash
+  pickup LowerReach.WindBottomEX:
+    base: Grenade=1, Glide  # grenade to light the lantern
+  pickup LowerReach.WindHiddenEX:
+    base: Grenade=1, Glide  # grenade to light the lantern
+
+  conn LowerReach.SecondSoup:
+    base:
+      ShieldEnemy, DoubleJump OR Dash OR Glide OR Launch
+      ShieldEnemy, Bash, Grenade=1
+  conn LowerReach.SoupMoki:
+    base: Grenade=1, Glide  # grenade to light the lantern
+
+area LowerReach.SoupMoki:  # (-240, -3988) Below the reach teleporter, where you hand delicious marshclam soup to a moki (or alternatively extuingish his fireplace...)
+  refill Energy=4:
+    base: Weapon
+
+  quest LowerReach.HandToHandHat:
+    base: GladesTown.HandToHandSoup
+
+  pickup LowerReach.WindHiddenEX:
+    base:
+      DoubleJump, Dash, Glide
+      Launch, Glide
+
+  conn LowerReach.WindChannel:
+    base: Glide
+  conn LowerReach.East:
+    base:
+      DoubleJump, Dash, Bash, Grenade=2
+      Launch
+
 area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
   refill Checkpoint
-  refill Energy=4:
-    base: Weapon, Glide
-  # no backwards paths are considered, would currently be redundant
+
   state LowerReach.TeleporterLantern:
     base: Grenade=1
   state LowerReach.RolledSnowball:
     base: EnemyObstacle, Grenade=1
-  state LowerReach.PastSnowballLantern:
-    base, LowerReach.RolledSnowball:
-      DoubleJump, Bash, Grenade=2, Glide OR Dash
-      Grenade=1, Launch
-  state LowerReach.HeatEastFurnace:
-    base, LowerReach.RolledSnowball:
-      Grenade=1, Launch
-      DoubleJump, Bash, Grenade=3, Dash OR Glide
-  state LowerReach.CoolEastFurnace:  # the intentional path is to cool this furnace
-    base, LowerReach.RolledSnowball:
-      Flap, Launch
-      Flap, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
   pickup LowerReach.SnowballHC:
     base: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Danger=20
-  pickup LowerReach.RoofLeftEX:
-    base:
-      LowerReach.CoolEastFurnace, DoubleJump, Dash, Bash, Grenade=1  # blame moon
-      DoubleJump, Launch, Dash OR Glide
-      Bash, Grenade=1, Launch
-  pickup LowerReach.RoofRightEX:
-    base:
-      LowerReach.CoolEastFurnace, Grenade=2, Bash
-      Launch
-  pickup LowerReach.FractureShard:
-    base, LowerReach.HeatEastFurnace:
-      Water, Launch
-      Water, DoubleJump, Bash, Grenade=1, Dash OR Glide
 
   conn LowerReach.Teleporter:
     base, LowerReach.TeleporterLantern:
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=1
-  conn LowerReach.Lower:
-    base: EnemyObstacle, Glide
+  conn LowerReach.SoupMoki: free
+  conn LowerReach.PastSnowball:
+    base, LowerReach.RolledSnowball:
+      DoubleJump OR Glide OR Launch
+      Bash, Grenade=1, Dash
+      Bash, Grenade=2
+
+area LowerReach.PastSnowball:  # (-99, -3982) At the bashnade pedestal after rolling the snowball
+  refill Checkpoint
+  refill Energy=8:  # instantly respawns, counted two crystals here
+    base: Weapon
+  # energy crystal on the way to arena not considered
+
+  state LowerReach.EastDoorLantern:
+    base:
+      Bash, Grenade=2, DoubleJump, Dash, Glide
+      Grenade=1, Launch
+  state LowerReach.HeatEastFurnace:
+    base:
+      Bash, Grenade=3, DoubleJump, Dash, Glide
+      Grenade=1, Launch
+  state LowerReach.CoolEastFurnace:  # the intentional path is to cool this furnace
+    base:
+      Flap, Bash, Grenade=2, DoubleJump, Dash, Glide
+      Flap, Launch
+
+  pickup LowerReach.RoofLeftEX:
+    base:
+      LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash  # blame moon
+      Launch, DoubleJump, Dash OR Glide
+      Bash, Grenade=1, Launch
+  pickup LowerReach.RoofRightEX:
+    base:
+      LowerReach.CoolEastFurnace, Bash, Grenade=2
+      Launch
+  pickup LowerReach.FractureShard:
+    base, LowerReach.HeatEastFurnace:
+      Water, Bash, Grenade=1, DoubleJump, Dash, Glide
+      Water, Launch
+
   conn LowerReach.ArenaArea:
-    base, LowerReach.RolledSnowball, LowerReach.PastSnowballLantern:
+    base, LowerReach.EastDoorLantern:
+      LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash, Glide
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
-      LowerReach.CoolEastFurnace, DoubleJump, Bash, Grenade=2, Dash OR Glide
 
 area LowerReach.ArenaArea:  # (40, -3993) To the left of the combat arena
   refill Checkpoint
   refill Health=1: free
   refill Energy=3:
     base:
-      DoubleJump, Sword
+      Weapon, DoubleJump, Dash
       Weapon, Launch
+      Bow=1 OR Grenade=1 OR Spear=1  # RangedWeapon...
+  # energy crystal on the climb to top not considered
+
   state LowerReach.ArenaBeaten:
     base: Combat, ShieldEnemy, Danger=40  # there's a lot of shield enemies here... maybe revisit this at some point
 
@@ -2801,9 +2866,9 @@ area UpperDepths.Entry:  # (161, -4340) The little standable ground below the en
     base: EnemyObstacle, Glide
 
 area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
-  refill Checkpoint
-  refill Energy=3:  # this is "in sight", but also in the darkness...
-    base: Weapon
+  # can't put this on the nearby checkpoint...
+  refill Energy=3:  # this crystal is in the darkness
+    advanced: Weapon
 
   state UpperDepths.EntryKeystoneDoor:
     base, Keystone=2:
@@ -2829,10 +2894,10 @@ area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
       Grapple, DoubleJump
       Launch, DoubleJump OR Dash OR Glide OR Grapple
   pickup UpperDepths.LeftEntryKS:
-    base:
-      EnemyObstacle, BreakWall=1, Grapple, DoubleJump OR Dash
-      EnemyObstacle, BreakWall=1, Launch
-      EnemyObstacle, DepthsLight
+    base, EnemyObstacle:
+      BreakWall=1, Grapple, DoubleJump OR Dash
+      BreakWall=1, Launch
+      DepthsLight
   pickup UpperDepths.SwimEC:
     base: EnemyObstacle, DepthsLight, Water
   
@@ -2862,9 +2927,9 @@ area UpperDepths.BelowHive:  # (422, -4402) Below the Hive, on top of the tunnel
       Bash, Grapple
   conn UpperDepths.Teleporter:
     base: Grapple OR Launch
-  conn UpperDepths.SecondKSRoom:
-    base: DepthsLight, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
   conn UpperDepths.Central:
+    base: DepthsLight, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+  conn UpperDepths.LowerConnection:
     base: DepthsLight  # a bit scary...
 
 area UpperDepths.Teleporter:  # (513, -4361) The spirit well
@@ -2878,16 +2943,34 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
       RangedWeapon
       BreakWall=1, Launch
       DepthsLight
-  conn UpperDepths.SecondKSRoom:
+  conn UpperDepths.Central:
     base:
       RangedWeapon, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
       BreakWall=1, Launch
 
-area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of the second keystone door
+area UpperDepths.Central:  # (464, -4484) The firefly egg to the right of the second keystone door
   refill Checkpoint
+  # energy crystal in the dark not considered
 
-  state UpperDepths.CentralKeystoneDoor:
+  state UpperDepths.LowerConnectionKeystoneDoor:
     base: Keystone=2
+
+  conn UpperDepths.SecondKSRoom:
+    base: EnemyObstacle, DepthsLight OR BreakWall=1
+  conn UpperDepths.LowerConnection:
+    base: UpperDepths.LowerConnectionKeystoneDoor
+  conn UpperDepths.BelowHive:
+    base: DepthsLight, Launch
+  conn UpperDepths.Teleporter:
+    base, BreakWall=20:
+      DepthsLight, DoubleJump, Dash, Grapple
+      DepthsLight, Launch
+
+area UpperDepths.SecondKSRoom:  # (542, -4466) The egg of the firefly circling through the keystone room
+  refill Checkpoint
+  refill Energy=4:
+    base: Weapon
+  # a great number of energy crystals on the way through the dark have not been considered (nor is flash consumption considered...)
 
   quest UpperDepths.LightcatcherSeed:
     base:
@@ -2914,17 +2997,15 @@ area UpperDepths.SecondKSRoom:  # (464, -4484) The firefly egg to the right of t
       DepthsLight, DoubleJump, Bash, Grenade=1
       DepthsLight, Launch
 
+  conn UpperDepths.Central:
+    base: EnemyObstacle, DepthsLight OR BreakWall=1
   conn MoraFight:
     base:
       DepthsLight, DoubleJump, Grapple, Dash OR Glide
       DepthsLight, Launch
-  conn UpperDepths.Central:
-    base: UpperDepths.CentralKeystoneDoor
-  conn UpperDepths.BelowHive:
-    base: DepthsLight, Launch
   conn UpperDepths.Teleporter:
     base, BreakWall=20:
-      DepthsLight, DoubleJump, Dash, Grapple
+      DepthsLight, DoubleJump, Grapple, Dash OR Glide
       DepthsLight, Launch
 
 area MoraFight:
@@ -2934,8 +3015,9 @@ area MoraFight:
       DepthsLight, Bash, Grapple, DoubleJump OR Dash
       DepthsLight, Bash, Grapple, Launch
 
-area UpperDepths.Central:  # (423, -4475) The firefly egg to the left of the second keystone door
+area UpperDepths.LowerConnection:  # (423, -4475) The firefly egg to the left of the second keystone door
   refill Checkpoint
+  # energy crystal on the way to the trial not considered
 
   pickup LowerDepths.BelowDoorOre:
     base: DepthsLight  # It's hidden in a dark area, not hard to reach.
@@ -2943,13 +3025,13 @@ area UpperDepths.Central:  # (423, -4475) The firefly egg to the left of the sec
     base:
       BreakWall=1, DoubleJump OR Dash OR Glide OR Launch
       DepthsLight, DoubleJump OR Dash OR Glide OR Launch
-  
+
   conn UpperDepths.BelowHive:
     base, BreakWall=1 OR DepthsLight:
       DoubleJump, Grapple
       Launch
-  conn UpperDepths.SecondKSRoom:
-    base: UpperDepths.CentralKeystoneDoor
+  conn UpperDepths.Central:
+    base: UpperDepths.LowerConnectionKeystoneDoor
   conn LowerDepths.West:
     base:
       BreakWall=1, Dash, DoubleJump OR Glide
@@ -2971,6 +3053,7 @@ region LowerDepths:
 
 area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
   refill Checkpoint
+  # energy crystal and plant to the left not considered
 
   quest LowerDepths.HandToHandSilk:
     base: GladesTown.HandToHandLantern
@@ -2983,7 +3066,12 @@ area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
       DepthsLight, Water, DoubleJump, Bash
       DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
       DepthsLight, Water, Launch
-  # backwards paths would be redundant currently
+  conn UpperDepths.LowerConnection:
+    base: DepthsLight, Launch
+  conn LowerDepths.Central:
+    base:
+      BreakWall=1, DoubleJump, Dash, Bash OR Glide
+      BreakWall=1, Launch, DoubleJump OR Glide
 
 area DepthsShrine:
   refill Full
@@ -3000,17 +3088,25 @@ area LowerDepths.Central:  # (482, -4536) Below where the trial starts
     base:
       DoubleJump, Grapple, Dash OR DepthsLight
       Launch
-  
+
   conn LowerDepths.East:
     base:
       Bash, DoubleJump, Dash OR Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
-  # back to uppercentral would be redundant currently
+  conn UpperDepths.LowerConnection:
+    base:
+      DepthsLight, Launch, Bash
+      DepthsLight, Bash, DoubleJump
 
 area LowerDepths.East:  # (570, -4550) The lit up room on the trial path
   refill Checkpoint
   refill Energy=3:
     base: Weapon
+  refill Energy=3:
+    base, Weapon:
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
+  # energy crystal at flash tree not considered
 
   state LowerDepths.TrialActivation:
     base:
@@ -3030,14 +3126,12 @@ area LowerDepths.East:  # (570, -4550) The lit up room on the trial path
       Launch, Glide
       DepthsLight, Glide
       DepthsLight, Launch, DoubleJump OR Dash
-  pickup LowerDepths.RightEX:
-    base:
-      BreakWall=1, Launch, Bash, DoubleJump, Dash
-      BreakWall=1, Launch, Bash, Glide
-      BreakWall=1, Launch, Grapple, DoubleJump OR Dash OR Bash OR Glide
-      DepthsLight, Bash, Grapple, DoubleJump OR Dash OR Glide
-      DepthsLight, Launch, Bash OR Grapple
-  pickup LowerDepths.FlashTree:
+
+  conn UpperDepths.Central:
+    base, BreakWall=20:
+      DepthsLight, DoubleJump, Bash, Grapple
+      DepthsLight, Launch
+  conn LowerDepths.TreeArea:
     base:
       BreakWall=1, DoubleJump, Bash, Grapple, Dash OR Glide
       BreakWall=1, Launch, Bash, DoubleJump, Dash
@@ -3045,12 +3139,27 @@ area LowerDepths.East:  # (570, -4550) The lit up room on the trial path
       BreakWall=1, Launch, Grapple, DoubleJump OR Dash OR Bash OR Glide
       DepthsLight, Bash, Grapple, DoubleJump OR Dash OR Glide
       DepthsLight, Launch, Bash OR Grapple
-  
-  conn UpperDepths.SecondKSRoom:
-    base, BreakWall=20:
-      DepthsLight, DoubleJump, Bash, Grapple
-      DepthsLight, Launch
-  # back to lowercentral would be redundant currently
+  conn LowerDepths.Central:
+    base:
+      Bash, DoubleJump OR Launch
+      DepthsLight, Launch, DoubleJump, Dash OR Glide
+
+area LowerDepths.TreeArea:  # (776, -4541) The flash tree
+  refill Checkpoint
+  refill Energy=4:
+    base: Weapon
+
+  # there could be a path to activate the trial here, but these aren't used currently...
+
+  pickup LowerDepths.FlashTree: free
+  pickup LowerDepths.RightEX:
+    base: DepthsLight OR Launch
+
+  conn LowerDepths.East:
+    base:
+      DepthsLight, Glide OR Launch
+      DepthsLight, DoubleJump, Bash OR Grapple
+      DepthsLight, Dash, Bash OR Grapple
 
 region LowerWastes:
   base:
@@ -3095,6 +3204,8 @@ area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
       Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
 
 area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
+  # energy crystal on the way to sand pot not considered
+
   quest LowerWastes.EerieGem:
     base: Burrow
 
@@ -3277,7 +3388,11 @@ area LowerWastes.TreeArea:  # (1715, -3936) The ledge right of SkeetoHive
       Grapple, Launch
       Grapple, DoubleJump, Dash  # still sort of tight
 
-area LowerWastes.UpperPath:  # (1728, -3906) Middle of the sand to the left of UpperPath Pole  changethisforcheckpoint
+area LowerWastes.UpperPath:  # (1768, -3896) on the left side of the path connecting tree and east teleporter
+  refill Checkpoint
+  refill Energy=3:
+    base: Weapon
+
   pickup LowerWastes.UpperPathEC:
     base:
       Burrow, DoubleJump OR Dash OR Launch
@@ -3301,7 +3416,7 @@ area LowerWastes.EastTP:  # (1992, -3902) Location of the east teleporter
   refill Health=1:
     base: Burrow OR Launch
   refill Energy=3:
-    base: Burrow OR Launch
+    base: Weapon, Burrow OR Launch
 
   pickup LowerWastes.EastTPOre:
     base, BreakWall=20:
@@ -3388,7 +3503,7 @@ area UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right
 
   conn UpperWastes.MissilePuzzleLeft:
     base: UpperWastes.MissilePuzzleLever, Burrow
-  conn UpperWastes.RuinsApproach:  # this covers all connections to the pickups in the spinning lasers
+  conn UpperWastes.NorthTP:  # this covers all connections to the pickups in the spinning lasers. Connecting to the teleporter because the paths are equivalent and this makes it account for the refill
     base:
       Burrow, Bash, DoubleJump, Dash OR Glide  # dash or glide to make the lasers better
       Burrow, DoubleJump, Dash  # you can retry the burrow with DoubleJump, so I think this is fine
@@ -3401,7 +3516,6 @@ area UpperWastes.NorthTP: # (2044, -3679) North Wastes teleporter
   conn UpperWastes.RuinsApproach: free
 
 area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
-  refill Full  # this is just the TP refill
   quest UpperWastes.FlowersSeed:
     base:
       Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
@@ -3536,6 +3650,7 @@ region WeepingRidge:
 
 area WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevator starts
   refill Checkpoint
+  # energy crystal to the right not considered
 
   state WeepingRidge.ElevatorFightCompleted:
     base: Combat, ShieldEnemy, Dash OR Bash
@@ -3585,7 +3700,10 @@ region WillowsEnd:
 area WillowsEnd.Entry:  # (495, -3951) At the lower door
   refill Checkpoint
   refill Energy=4:
-    base: Weapon, Launch
+    base:
+      Weapon, Launch
+      Bow=1
+  # a lot of energy crystals not considered
 
   state WillowsEnd.TrapHeart:
     base: BreakWall=30, RangedWeapon, Launch, DoubleJump, Dash
