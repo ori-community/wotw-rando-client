@@ -55,7 +55,6 @@ namespace csharp_bridge
     extern signatures::f_bool_at is_tree_activated;
     
     // Shop system
-    extern signatures::f_ull_str shop_string_repl;
     extern signatures::f_void_at opher_buy_weapon;
     extern signatures::f_void_at opher_buy_upgrade;
     extern signatures::f_bool_at opher_bought_weapon;

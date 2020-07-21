@@ -29,7 +29,6 @@ namespace csharp_bridge
     signatures::f_bool_at is_tree_activated;
 
     // Shop system
-    signatures::f_ull_str shop_string_repl;
     signatures::f_void_at opher_buy_weapon;
     signatures::f_void_at opher_buy_upgrade;
     signatures::f_bool_at opher_bought_weapon;
@@ -95,8 +94,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_map_pan = reinterpret_cast<f_void_gwa>(ptr);
     else if (name == "is_tree_activated")
         is_tree_activated = reinterpret_cast<f_bool_at>(ptr);
-    else if (name == "shop_string_repl")
-        shop_string_repl = reinterpret_cast<f_ull_str>(ptr);
     else if (name == "opher_buy_weapon")
         opher_buy_weapon = reinterpret_cast<f_void_at>(ptr);
     else if (name == "opher_buy_upgrade")

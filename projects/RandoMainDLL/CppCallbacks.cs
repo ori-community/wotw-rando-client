@@ -99,10 +99,6 @@ namespace RandoMainDLL {
             CallbackName = "on_map_pan"
           },
           new Method() {
-            Delegate = new f_bool_str(ShopController.MessageSwap),
-            CallbackName = "shop_string_repl"
-          },
-          new Method() {
             Delegate = new f_void_at(ShopController.OnBuyOpherWeapon),
             CallbackName = "opher_buy_weapon"
           },
