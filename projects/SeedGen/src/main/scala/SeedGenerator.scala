@@ -304,7 +304,7 @@ package SeedGenerator {
       states.clear()
       var stateCount = 0
       def fullState: GameState  = s.noReached + GameState(Inv.Empty, states.toSet, haveReached.toSet)
-      spawn.reached(fullState, Orbs(0,0))
+      spawn.reached(fullState, s.inv.orbs)
       do {
         stateCount = states.size
         reachCache.mapValuesInPlace({case (_, rr) => rr.copy(couldConnect = rr.couldConnect -- haveReached)})
