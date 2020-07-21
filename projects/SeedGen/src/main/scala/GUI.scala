@@ -153,8 +153,8 @@ package SeedGenerator {
     debugInfo: Boolean = false,
     seirLaunch: Boolean = false
   )
-  object UI {
-    def opts: GenSettings = GenSettings(
+  object UI extends SettingsProvider with Logger {
+    def apply(): GenSettings = GenSettings(
       ui.teleporters.selected,
       !ui.spoilers.selected,
       ui.uncheckedPaths.selected,
@@ -176,7 +176,7 @@ package SeedGenerator {
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def writeSettings(): Unit = {
       val bw = new FileWriter(settingsPath)
-      bw.write(write(opts))
+      bw.write(write(apply))
       bw.close()
     }
     def readSettings: Option[GenSettings] = Try {
@@ -230,19 +230,22 @@ package SeedGenerator {
         currentOp = None
       })
     }
-    def debug(x: Any): Unit = if(ui.debugToggle.selected || !ui.visible) log(x)
+    def debug(x: Any): Unit = if(ui.debugToggle.selected) log(x)
     def log(x: Any): Unit = {
-      if(!ui.visible)
-        println(x)
       ui.logView.append(s"$x\n")
       ui.logHolder.verticalScrollBar.value = ui.logHolder.verticalScrollBar.maximum
     }
     var lastSeed: Option[File] = None
-    def outputFolder: File = new File(opts.outputFolder)
+    def outputFolder: File = new File(apply().outputFolder)
     var currentOp: Option[Future[Unit]] = None
     val ui = new UI
     def show(): Unit = {
       ui.visible = true
     }
+  }
+  object Main extends App {
+    Config.settingsProvider = UI
+    Config.logger = UI
+    UI.show()
   }
 }

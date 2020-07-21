@@ -57,7 +57,7 @@ package SeedGenerator {
 
   object Bonus {
     def poolItems: Seq[Bonus] =
-      if(UI.opts.bonusItems)
+      if(Config().bonusItems)
         new Inv((HealthRegen, 3), (EnergyRegen, 3), (ExtraDash, 1), (ExtraJump, 1)).asSeq.collect{case a: Bonus => a}
       else
         Nil
@@ -113,7 +113,7 @@ package SeedGenerator {
       121 -> "Ancestral Light"
     )
     def poolItems: Seq[Skill] = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq  ++
-      (if(UI.opts.flags.noSword) Seq(Sword) else Nil)
+      (if(Config().flags.noSword) Seq(Sword) else Nil)
   }
   case class Shard(shardId: Int) extends Item with Merch {
     val itemType: Int = 3
@@ -188,7 +188,7 @@ package SeedGenerator {
       16 -> "Marsh",
       17 -> "Glades"
     )
-    def poolItems: Seq[Teleporter] = if(UI.opts.tps) names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq else Nil
+    def poolItems: Seq[Teleporter] = if(Config().tps) names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq else Nil
   }
 
   // fake inventory items
@@ -263,7 +263,7 @@ package SeedGenerator {
     def withoutCash(cash: Int): Inv = {
       val totalLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
       if(totalLight < cash)
-        UI.log("THIS SEEMS SUBOPTIMAL")
+        Config.log("THIS SEEMS SUBOPTIMAL")
       new Inv(keys.flatMap({
         case _: SpiritLight => None
         case i => Some(i -> this(i))
@@ -307,7 +307,7 @@ package SeedGenerator {
             if(afterSLCount > 0) {
               val average = (slAmount - amount*count) / afterSLCount
               (0 until afterSLCount).foreach(_ => add(SpiritLight(r.between(average-50, average+50))))
-              UI.debug(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
+              Config.debug(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
               return true
             }
           case _ =>
@@ -321,7 +321,7 @@ package SeedGenerator {
     }
     def without(item: Item, count: Int): Inv = {
       if (!has(item, count)) {
-        UI.log(s"Error building ${this} without $count of $item")
+        Config.log(s"Error building ${this} without $count of $item")
       }
       new Inv(keys.map({
         case i if i == item => i -> (this(i)-count)
