@@ -258,7 +258,8 @@ namespace
         Teleports = 2,
         Collectibles = 3,
         Spoilers = 4,
-        COUNT = 5,
+        InLogic = 5,
+        COUNT = 6,
     };
 
     STATIC_IL2CPP_BINDING(, AreaMapIconManager, bool, IsIconShownByFilter, (app::WorldMapIconType__Enum icon, app::AreaMapIconFilter__Enum filter));
@@ -272,7 +273,7 @@ namespace
         // If we are in original filters then use the original function.
         if (filter <= NewFilters::Collectibles)
             return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter);
-        else
+        else if (filter == NewFilters::Spoilers)
         {
             if (icon->fields.IsCollectedState == nullptr)
                 return false;
@@ -280,12 +281,35 @@ namespace
             return icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
         }
+        else if (filter == NewFilters::InLogic)
+        {
+            if (icon->fields.IsCollectedState == nullptr)
+                return false;
+            
+            auto is_spoiler = icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
+                icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
+
+            if (is_spoiler)
+            {
+                auto it = spoiler_states.find(stingify_guid(icon->fields.Guid));
+                if (it != spoiler_states.end())
+                {
+                    auto value = uber_states::get_uber_state_value(it->second.first, it->second.second);
+                    // Hide pickups that have been collected.
+                    if (value < 1 && csharp_bridge::filter_icon_show(it->second.first, it->second.second))
+                        return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     IL2CPP_INTERCEPT(, AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager* this_ptr)) {
         switch (this_ptr->fields.Filter)
         {
         case NewFilters::Spoilers:
+        case NewFilters::InLogic:
             uber_states::set_uber_state_value(uber_states::constants::MAP_FILTER_GROUP_ID, 70, 0);
             break;
         default:
@@ -345,6 +369,7 @@ namespace
 
             // Add extra labels.
             arr->vector[static_cast<int>(NewFilters::Spoilers)] = create_filter(NewFilters::Spoilers, "Spoilers");
+            arr->vector[static_cast<int>(NewFilters::InLogic)] = create_filter(NewFilters::InLogic, "Spoilers (In logic)");
 
             this_ptr->fields.Labels = arr;
         }
