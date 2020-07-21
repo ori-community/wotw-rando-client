@@ -3389,6 +3389,7 @@ area UpperWastes.NorthTP: # (2044, -3679) North Wastes teleporter
   conn UpperWastes.RuinsApproach: free
 
 area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
+  refill Full  # this is just the TP refill
   quest UpperWastes.FlowersSeed:
     base:
       Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
