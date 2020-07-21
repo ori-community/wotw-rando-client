@@ -10,6 +10,14 @@ namespace RandoMainDLL {
   }
 
   static class InterOp {
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_twillen_item(int shard_type, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_lupo_item(int group_id, int state_id, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_opher_item(int acquired, int required, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, bool uses_energy);
+
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void allow_spoilers(bool value);
 
@@ -143,8 +151,6 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool is_loading_game();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    unsafe public extern static void message_item_callback([MarshalAs(UnmanagedType.LPWStr)] string s);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);
