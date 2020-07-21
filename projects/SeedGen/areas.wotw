@@ -2200,6 +2200,12 @@ region WoodsMain:
     Danger=40, Regenerate
 
 area WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile after meeting Ku
+  state WoodsEntry.KeystoneDoor:
+    base, Keystone=2:
+      Bash, Grenade=2, Danger=10  # uses the enemy
+      Bash, Grenade=1, Danger=10, DoubleJump OR Dash  # uses the enemy
+      Launch, DoubleJump OR Dash OR Bash OR Glide  # bash uses the enemy
+
   pickup WoodsMain.LowerLeafPileEX:
     base: Flap
   pickup WoodsMain.BehindWallOre:
@@ -2262,6 +2268,8 @@ area WoodsMain.BeforeKeystoneDoor:  # (944, -4137) In front of the four keystone
 area WoodsMain.GiantSkull:  # (957, -4137) Behind the four keystone room door
   refill Checkpoint
 
+  state WoodsMain.KeystoneDoor:
+    base: Keystone=4
   state WoodsMain.BelowHiddenOreCorruption:  # defined as state because some paths cross this twice
     base:
       BreakWall=3, Glide
@@ -2916,15 +2924,16 @@ area UpperDepths.BelowHive:  # (422, -4402) Below the Hive, on top of the tunnel
   refill Energy=3:
     base: Weapon, DoubleJump OR Launch
 
+  state UpperDepths.EntryKeystoneDoor:
+    base: Keystone=2, DepthsLight, DoubleJump OR Dash OR Glide OR Launch
+
   pickup UpperDepths.HiveEX:
     base: Bash OR Launch
   pickup UpperDepths.RightEntryKS:
     base: DepthsLight, Launch
-  
+
   conn UpperDepths.FirstKSRoom:
-    base, UpperDepths.EntryKeystoneDoor, UpperDepths.LightPuzzle OR DepthsLight:
-      DoubleJump OR Dash OR Glide OR Launch
-      Bash, Grapple
+    base: UpperDepths.EntryKeystoneDoor, DepthsLight, DoubleJump OR Dash OR Glide OR Launch
   conn UpperDepths.Teleporter:
     base: Grapple OR Launch
   conn UpperDepths.Central:
@@ -2936,7 +2945,7 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
   refill Full
 
   pickup UpperDepths.TeleporterEX: free  # just a few steps away in the darkness
-  
+
   conn Teleporters: free
   conn UpperDepths.BelowHive:
     base:
@@ -2952,13 +2961,13 @@ area UpperDepths.Central:  # (464, -4484) The firefly egg to the right of the se
   refill Checkpoint
   # energy crystal in the dark not considered
 
-  state UpperDepths.LowerConnectionKeystoneDoor:
+  state UpperDepths.CentralKeystoneDoor:
     base: Keystone=2
 
   conn UpperDepths.SecondKSRoom:
     base: EnemyObstacle, DepthsLight OR BreakWall=1
   conn UpperDepths.LowerConnection:
-    base: UpperDepths.LowerConnectionKeystoneDoor
+    base: UpperDepths.CentralKeystoneDoor
   conn UpperDepths.BelowHive:
     base: DepthsLight, Launch
   conn UpperDepths.Teleporter:
@@ -3019,6 +3028,9 @@ area UpperDepths.LowerConnection:  # (423, -4475) The firefly egg to the left of
   refill Checkpoint
   # energy crystal on the way to the trial not considered
 
+  state UpperDepths.CentralKeystoneDoor:
+    base: Keystone=2
+
   pickup LowerDepths.BelowDoorOre:
     base: DepthsLight  # It's hidden in a dark area, not hard to reach.
   pickup LowerDepths.LeftEX:
@@ -3031,7 +3043,7 @@ area UpperDepths.LowerConnection:  # (423, -4475) The firefly egg to the left of
       DoubleJump, Grapple
       Launch
   conn UpperDepths.Central:
-    base: UpperDepths.LowerConnectionKeystoneDoor
+    base: UpperDepths.CentralKeystoneDoor
   conn LowerDepths.West:
     base:
       BreakWall=1, Dash, DoubleJump OR Glide
