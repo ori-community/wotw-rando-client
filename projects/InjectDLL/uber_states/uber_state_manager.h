@@ -10,10 +10,12 @@ namespace uber_states
         constexpr int TREE_GROUP_ID = 0;
         constexpr int OPHER_WEAPON_GROUP_ID = 1;
         constexpr int TWILLEN_SHARD_GROUP_ID = 2;
+        constexpr int MAP_FILTER_GROUP_ID = 8;
 
         const std::string TREE_GROUP_NAME = "trees";
         const std::string OPHER_WEAPON_GROUP_NAME = "opher_weapons";
         const std::string TWILLEN_SHARD_GROUP_NAME = "twillen_shards";
+        const std::string MAP_FILTER_GROUP_NAME = "map_filter";
     }
 
     // Mainly useful for reevaluating listeners when a state should have changed but it didn't.

@@ -10,6 +10,8 @@ namespace RandoMainDLL {
   }
 
   static class InterOp {
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void allow_spoilers(bool value);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_kvolok_door_availability(bool value);
