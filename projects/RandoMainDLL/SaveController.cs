@@ -158,7 +158,7 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
         }
-
+        ShopController.UpdateShopData();
         BonusItemController.Refresh();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
