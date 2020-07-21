@@ -75,7 +75,7 @@ package SeedGenerator {
         case i if i < 235 => Math.floor((i.toFloat/5)/0.6685+1).toInt
         case _ => 70
       },
-      energy = 10*(inv.orbs.energy / 50 + 1))
+      energy = Math.max(10*(inv.orbs.energy / 50 + 1), prior.energy / 2))
   }
   case class HealthPlants(count: Int = 1) extends Refiller with Adder {
     override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = Orbs(
@@ -292,9 +292,8 @@ package SeedGenerator {
     val states: MSet[FlagState] = MSet.empty[FlagState]
     def reached(s: GameState)(implicit preplc: MMap[ItemLoc, Placement]): (GameState, Set[Placement]) = Timer("Reached"){
       val(rs, plcs) = Nodes.reachedRec(s, Set())
-      if(plcs.nonEmpty) {
+      if(plcs.nonEmpty)
         UI.debug(s"new placements after reachable search: $plcs")
-      }
       (rs, plcs)
     }
 
@@ -314,7 +313,7 @@ package SeedGenerator {
           case _ =>
         }
       } while(stateCount < states.size)
-      reachCache.mapValuesInPlace({case (_, rr) => rr.copy(couldConnect = rr.couldConnect -- haveReached)}) // not sure if this is needed
+//      reachCache.mapValuesInPlace({case (_, rr) => rr.copy(couldConnect = rr.couldConnect -- haveReached)}) // not sure if this is needed
       reachCache.subtractAll(reachCache.collect{case (a, AreaTraversalInfo(_, s)) if s.isEmpty => a})
       val reached_placements = preplc.keySet.intersect(haveReached.collect({case i: ItemLoc => i}))
       if(reached_placements.nonEmpty) {
@@ -419,7 +418,7 @@ package SeedGenerator {
     def mk(inState: GameState, i:Int = 0, parent: Option[PlacementGroup] = None)(implicit r: Random, pool: Inv, preplc: MMap[ItemLoc, Placement] = MMap()): PlacementGroup = {
       val (state, preplaced) = Nodes.reached(inState)
       val placements = MList[Placement]() ++ preplaced
-      def process(ps: Seq[Placement], prefix: String = ""): Unit =
+      def process(ps: Iterable[Placement], prefix: String = ""): Unit =
         ps.foreach(p => {state.inv.add(p.item); placements.prepend(p)})
       val reachableLocs = state.items
       val locsWithItems = (parent.map(_.allPlacements).getOrElse(Set()) ++ placements).map(_.loc)
@@ -456,12 +455,12 @@ package SeedGenerator {
           val (newState, newPlc) = Nodes.reached(state)
           if(newPlc.nonEmpty) {
             UI.debug(s"Preplacements after KS placement: $newPlc")
-            placements.prependAll(newPlc)
+            process(newPlc, "preplc: ")
           }
           val newLocs = newState.items
           val newCount = (newLocs -- reachableLocs).size
           debugPrint(s"checking for reachables after KS, got $newCount")
-          if(newCount > 0 || newLocs.size == ItemPool.SIZE)
+          if(newCount > 0 || newPlc.exists(_.item.isInstanceOf[Important]) || newLocs.size == ItemPool.SIZE)
             return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
           else
             throw GeneratorError(s"Placed $ksNeeded into exactly that many locs, but failed to find a reachable after")
@@ -483,13 +482,15 @@ package SeedGenerator {
       if(randPlacements.nonEmpty) {
         val (newState, newPlc) = Nodes.reached(state)
         if(newPlc.nonEmpty) {
-          UI.debug(s"Preplacements after random placement: $newPlc")
-          placements.prependAll(newPlc)
+          UI.log(s"Preplacements after random placement: $newPlc (${newPlc.exists(_.item.isInstanceOf[Important])})")
+          process(newPlc, "preplc: ")
         }
         val newLocs = newState.items
         val newCount = (newLocs -- reachableLocs).size
         debugPrint(s"checking for reachables after random placement, got $newCount")
-        if(newCount > reservedForProg.size || newLocs.size == ItemPool.SIZE)
+        if(newCount > reservedForProg.size ||                 // more new items than were reserved for prog OR
+          newPlc.exists(_.item.isInstanceOf[Important]) ||    // found an Important preplaced item OR
+          newLocs.size == ItemPool.SIZE)                      // we're done
           return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
       }
       def getProgressionPath(sizeLeft: Int): Inv = Timer(s"getProgPath"/*, far=$far"*/){
@@ -514,7 +515,9 @@ package SeedGenerator {
           val (progS, progP) = Nodes.reached(state)
           if(progP.nonEmpty) {
             UI.debug(s"Preplacements in gPP: $progP")
-            placements.prependAll(progP)
+            process(progP, "preplc: ")
+            if(progP.exists(_.item.isInstanceOf[Important]))
+              return Inv.Empty // bunt!
           }
           Nodes.getProgressionPaths(progS, sizeLeft).toSeq
           .collect({
