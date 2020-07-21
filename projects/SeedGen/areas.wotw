@@ -4,13 +4,15 @@
 requirement Weapon:
   base: Sword OR Hammer
 
-requirement EnemyObstacle:
+requirement EnemyObstacle:  # getting past an uncomfortably placed enemy
   base: Sword OR Hammer OR Bash OR Launch
 
-requirement ShieldEnemy:  # breaking the shield or shell of an enemy
-  base: Hammer OR Launch OR Grenade=1 OR Spear=1
+requirement ShieldEnemyObstacle:  # getting past a shielded enemy
+  base:
+    Sword, Grenade=1 OR Spear=1
+    Hammer OR Bash OR Launch
 
-requirement Combat:
+requirement Combat:  # engaging in longer combat sequences
   base:
     Regenerate, Sword OR Hammer  # define danger when using this!
   advanced:
@@ -18,7 +20,7 @@ requirement Combat:
     Launch
 
 requirement RangedWeapon:
-  base: Grenade=3 OR Bow=3 OR Spear=1  # 3 should be enough for any use of this
+  base: Grenade=1 OR Bow=1 OR Spear=1
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
   base: UpperDepths.ForestsEyes OR Flash
@@ -446,7 +448,7 @@ area DenShrine:
     # Wave 4:
     # 2 Lizards: 24 Health
     # 2 Squonkeys: 31 Health
-    base, Combat, RangedWeapon OR DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
+    base, Combat, DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
       Danger=60
       Danger=40, Dash OR Bash OR Launch  # much better if you have good evasion
 
@@ -520,7 +522,7 @@ area MarshShrine:
     # Wave 3:
     # Squonkey: 31 Health
     # Skeeto: 20 Health
-    base: Combat, Danger=20, RangedWeapon OR DoubleJump OR Bash OR Launch  # flying enemies, but short and not too hard
+    base: Combat, Danger=20, DoubleJump OR Bash OR Launch  # flying enemies, but short and not too hard
 
 area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with bow tree.
   refill Energy=1:
@@ -606,8 +608,8 @@ area WestHollow.Entrance:  # (-303, -4238) At Twillen
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     base:
       Weapon, Bow=4, DoubleJump OR Dash  # the camera only reliably moves to the tongues if you can kill the slimes
+      Bash, Bow=2  # bashing up with the slime
       RangedWeapon, DoubleJump, Dash, Glide
-      RangedWeapon, Bash, Bow=1  # bashing up with the slime
       RangedWeapon, Bash, DoubleJump, Dash OR Glide  # bashing up with the slime
       Launch
   state WestHollow.PurpleDoorOpen:
@@ -1279,7 +1281,7 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
 area GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
-    base, Combat, RangedWeapon OR Bash:  # the shooter plants have basically no attack surface without bash
+    base, Combat, Bash:  # the shooter plants have basically no attack surface without bash
       Danger=65                     # the crabs are terrifying!
       Danger=55, DoubleJump OR Dash # these can help
       Danger=30, Launch             # if you're op, nothing's terrifying
@@ -1537,8 +1539,7 @@ area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you e
       Launch
   pickup InnerWellspring.LaserOre:
     base:
-      RangedWeapon, BreakWall=16, DoubleJump, Dash
-      RangedWeapon, BreakWall=16, DoubleJump, Glide
+      RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide
       EnemyObstacle, Grapple, DoubleJump, Dash
       EnemyObstacle, Grapple, Glide
       Launch
@@ -2380,7 +2381,7 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
 
 area WoodsShrine:
   pickup WoodsMain.CombatShrine:
-    base, Combat, RangedWeapon, ShieldEnemy, Bash:  # this one has it all -_-
+    base, Combat, RangedWeapon, Bash, Hammer OR Launch:  # this one has it all -_-
       Danger=80
       Danger=65, DoubleJump OR Dash
       Danger=50, Launch
@@ -2681,12 +2682,12 @@ area LowerReach.SecondSoup:  # (-316, -4036) Next to the soup below the teleport
       DoubleJump, Burrow
       Launch
   conn LowerReach.WindChannel:
-    base: ShieldEnemy OR Bash OR Launch
+    base: ShieldEnemyObstacle
 
 area LowerReach.WindChannel:  # (-256, -4034) The furnace left of the wind channel connecting to east reach
   refill Checkpoint
   refill Energy=3:
-    base: ShieldEnemy, DoubleJump OR Dash OR Launch
+    base: ShieldEnemyObstacle, DoubleJump OR Dash OR Launch
 
   state LowerReach.CentralFurnace:
     base: Grenade=1
@@ -2697,7 +2698,7 @@ area LowerReach.WindChannel:  # (-256, -4034) The furnace left of the wind chann
       Launch
       LowerReach.CentralFurnace, DoubleJump OR Dash
   pickup LowerReach.BreakWallEX:
-    base: BreakWall=20, ShieldEnemy OR Bash
+    base: BreakWall=20, ShieldEnemyObstacle OR Bash
   pickup LowerReach.WindBottomEX:
     base: Grenade=1, Glide  # grenade to light the lantern
   pickup LowerReach.WindHiddenEX:
@@ -2705,8 +2706,8 @@ area LowerReach.WindChannel:  # (-256, -4034) The furnace left of the wind chann
 
   conn LowerReach.SecondSoup:
     base:
-      ShieldEnemy, DoubleJump OR Dash OR Glide OR Launch
-      ShieldEnemy, Bash, Grenade=1
+      ShieldEnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1
   conn LowerReach.SoupMoki:
     base: Grenade=1, Glide  # grenade to light the lantern
 
@@ -2796,11 +2797,11 @@ area LowerReach.ArenaArea:  # (40, -3993) To the left of the combat arena
     base:
       Weapon, DoubleJump, Dash
       Weapon, Launch
-      Bow=1 OR Grenade=1 OR Spear=1  # RangedWeapon...
+      RangedWeapon
   # energy crystal on the climb to top not considered
 
   state LowerReach.ArenaBeaten:
-    base: Combat, ShieldEnemy, Danger=40  # there's a lot of shield enemies here... maybe revisit this at some point
+    base: Combat, Danger=40, Hammer OR Launch
 
   pickup LowerReach.EscapeRevisitEX:
     base, LowerReach.ArenaBeaten, LowerReach.ForestsMemory:
@@ -3088,7 +3089,7 @@ area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
 area DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
-    base, Combat, RangedWeapon OR Bash:
+    base, Combat, Bash:
       Danger=65
       Danger=60, DoubleJump OR Dash
       Danger=50, Launch
@@ -3665,7 +3666,9 @@ area WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevato
   # energy crystal to the right not considered
 
   state WeepingRidge.ElevatorFightCompleted:
-    base: Combat, ShieldEnemy, Dash OR Bash
+    base:
+      Combat, Dash, Hammer OR Launch
+      Combat, Bash, Hammer OR Launch
 
   conn WeepingRidge.LaunchArea:
     base: WeepingRidge.ElevatorFightCompleted
