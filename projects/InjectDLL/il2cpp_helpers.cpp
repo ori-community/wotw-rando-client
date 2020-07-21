@@ -21,6 +21,8 @@ namespace il2cpp
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
         std::unordered_map<Il2CppClass*, std::vector<KlassOverloadInfo>> resolved_klass_overloads;
 
+        STATIC_IL2CPP_BINDING(UnityEngine, ScriptableObject, app::ScriptableObject*, CreateInstance, (app::Type* type));
+
         STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (app::Object* this_ptr));
         IL2CPP_BINDING(UnityEngine, Object, app::String*, get_name, (app::Object* this_ptr));
 
@@ -45,7 +47,7 @@ namespace il2cpp
         IL2CPP_BINDING(System, Type, app::Type*, GetType, (app::String* type_name, bool throw_on_error));
 
         // Internal il2cpp methods.
-        INTERNAL_BINDING(0x262560, Il2CppClass*, il2cpp_class_from_name, (Il2CppImage* image, const char* namespaze, const char* name));
+        INTERNAL_BINDING(0x262560, Il2CppClass*, il2cpp_class_from_name, (Il2CppImage* image, const char* namezpace, const char* name));
         INTERNAL_BINDING(0x262CA0, Il2CppDomain*, il2cpp_domain_get, ());
         INTERNAL_BINDING(0x262CE0, Il2CppAssembly**, il2cpp_domain_get_assemblies, (Il2CppDomain* domain, size_t* size));
         INTERNAL_BINDING(0x101220, Il2CppImage*, il2cpp_assembly_get_image, (Il2CppAssembly* assembly));
@@ -76,13 +78,13 @@ namespace il2cpp
         INTERNAL_BINDING(0x263140, Il2CppObject*, il2cpp_gchandle_get_target, (uint32_t handle));
 
         thread_local std::string buffer;
-        std::string const& get_full_name(std::string_view namespaze, std::string_view name, std::string_view nested = "")
+        std::string const& get_full_name(std::string_view namezpace, std::string_view name, std::string_view nested = "")
         {
             buffer.clear();
             buffer.reserve(32);
-            if (!namespaze.empty())
+            if (!namezpace.empty())
             {
-                buffer += namespaze;
+                buffer += namezpace;
                 buffer += ".";
             }
 
@@ -97,9 +99,9 @@ namespace il2cpp
             return buffer;
         }
 
-        char* get_qualified(std::string_view namespaze, std::string_view name)
+        char* get_qualified(std::string_view namezpace, std::string_view name)
         {
-            auto klass = get_class<>(namespaze, name);
+            auto klass = get_class<>(namezpace, name);
             auto type = il2cpp_class_get_type(klass);
             return il2cpp_type_get_assembly_qualified_name(type);
         }
@@ -168,10 +170,10 @@ namespace il2cpp
             return children;
         }
 
-        std::vector<app::Component*> get_components(app::GameObject* game_object, std::string_view namespaze, std::string_view name)
+        std::vector<app::Component*> get_components(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
         {
             std::vector<app::Component*> components;
-            auto qualified = get_qualified(namespaze, name);
+            auto qualified = get_qualified(namezpace, name);
             auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
             auto runtime_type = Type::GetType(type_str, false);
             auto c_array = GameObject::GetComponents(game_object, runtime_type);
@@ -179,6 +181,14 @@ namespace il2cpp
                 components.push_back(reinterpret_cast<app::Component*>(c_array->vector[i]));
 
             return components;
+        }
+
+        app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name)
+        {
+            auto qualified = get_qualified(namezpace, name);
+            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto runtime_type = Type::GetType(type_str, false);
+            return ScriptableObject::CreateInstance(runtime_type);
         }
 
         void destroy_object(void* object)
@@ -191,9 +201,9 @@ namespace il2cpp
             return Component::get_gameObject(reinterpret_cast<app::Component*>(component));
         }
 
-        app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namespaze, std::string_view name)
+        app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
         {
-            auto qualified = get_qualified(namespaze, name);
+            auto qualified = get_qualified(namezpace, name);
             auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
             auto runtime_type = Type::GetType(type_str, false);
             return GameObject::AddComponent(game_object, runtime_type);
