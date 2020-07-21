@@ -7,11 +7,13 @@ namespace il2cpp
 {
     namespace unity
     {
+        app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name);
+
         void destroy_object(void* object);
         app::GameObject* get_game_object(void* component);
-        app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namespaze, std::string_view name);
+        app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
         std::vector<app::GameObject*> get_children(app::GameObject* game_object);
-        std::vector<app::Component*> get_components(app::GameObject* game_object, std::string_view namespaze = "UnityEngine", std::string_view name = "Component");
+        std::vector<app::Component*> get_components(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component");
         int32_t get_scene_count();
         app::Scene get_scene_at(int32_t i);
         app::Scene get_active_scene();
@@ -22,11 +24,16 @@ namespace il2cpp
         std::string get_scene_name(app::Scene& scene);
         std::string get_scene_path(app::Scene& scene);
 
-
         template<typename Return = app::Component>
-        Return* add_component(app::GameObject* game_object, std::string_view namespaze, std::string_view name)
+        Return* add_component(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
         {
-            return reinterpret_cast<Return*>(add_component_untyped(game_object, namespaze, name));
+            return reinterpret_cast<Return*>(add_component_untyped(game_object, namezpace, name));
+        }
+
+        template<typename Return = app::ScriptableObject>
+        Return* create_scriptable_object(std::string_view namezpace, std::string_view name)
+        {
+            return reinterpret_cast<Return*>(create_scriptable_object_untyped(namezpace, name));
         }
     }
 
@@ -143,14 +150,14 @@ namespace il2cpp
     }
 
     template<typename Return = Il2CppClass>
-    Return* get_class(std::string_view namespaze, std::string_view name)
+    Return* get_class(std::string_view namezpace, std::string_view name)
     {
-        return reinterpret_cast<Return*>(untyped::get_class(namespaze, name));
+        return reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
     }
 
     template<typename Return = Il2CppClass>
-    Return* get_nested_class(std::string_view namespaze, std::string_view name, std::string_view nested)
+    Return* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested)
     {
-        return reinterpret_cast<Return*>(untyped::get_nested_class(namespaze, name, nested));
+        return reinterpret_cast<Return*>(untyped::get_nested_class(namezpace, name, nested));
     }
 }
