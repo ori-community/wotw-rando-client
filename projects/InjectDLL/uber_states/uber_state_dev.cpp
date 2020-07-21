@@ -105,7 +105,7 @@ namespace
             return;
         }
 
-        uber_states::set_uber_state_value(state, group, static_cast<float>(value));
+        uber_states::set_uber_state_value(group, state, static_cast<float>(value));
     }
 
     void set_us_int(std::string const& command, std::vector<dev::CommandParam> const& params)
@@ -129,7 +129,7 @@ namespace
             return;
         }
 
-        uber_states::set_uber_state_value(state, group, static_cast<float>(value));
+        uber_states::set_uber_state_value(group, state, static_cast<float>(value));
     }
 
     void check_appliers(std::string const& command, std::vector<dev::CommandParam> const& params)
