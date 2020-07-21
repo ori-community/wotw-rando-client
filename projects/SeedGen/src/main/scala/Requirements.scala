@@ -240,7 +240,7 @@ package SeedGenerator {
       case req => AnyReq(req, this)
     }
     override def toString: String = s"(${reqs.mkString(" && ")})"
-    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = reqs.forall(_.metBy(state))
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = reqs.forall(_.metBy(state, orbs)) && orbs.forall(o => orbsAfterMet(state, o).valid)
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = reqs.foldLeft(orbs)((o, req) => req.orbsAfterMet(state, o))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
       if (metBy(state))
