@@ -94,6 +94,7 @@ GladesTown.HandToHandPouch, Wellspring Glades, Quest, Pouch, questUberStateGroup
 GladesTown.HandToHandLantern, Wellspring Glades, Quest, Lantern, questUberStateGroup, 14019, tradeSequenceQuest, 26318=6, -426, -4155
 GladesTown.HandToHandCanteen, Wellspring Glades, Quest, Canteen, questUberStateGroup, 14019, tradeSequenceQuest, 26318=9, -410, -4142
 GladesTown.HandToHandSoup, Wellspring Glades, Quest, Soup, questUberStateGroup, 14019, tradeSequenceQuest, 26318=4, -110, -4090
+GladesTown.FamilyReunionKey, Wellspring Glades, Quest, Key, questUberStateGroup, 14019, familyReunionQuest, 27804=2, -385, -4161
 GladesTown.AcornQI, Wellspring Glades, Quest, Acorn, questUberStateGroup, 14019, darkCaveQuestItemCollected, 2782, -10, -4551
 GladesTown.IntoTheDarkness, Wellspring Glades, Quest, SL500, questUberStateGroup, 14019, darkCaveQuest, 33776=3, -358, -4185
 GladesTown.HoleHutEC, Wellspring Glades, Resource, Energy, hubUberStateGroup, 42178, energyCellA, 52786, -116, -4540
@@ -174,6 +175,7 @@ PoolsApproach.MillPathEC, Luma Pools, Resource, Energy, lagoonStateGroup, 945, e
 PoolsApproach.MillPathEX, Luma Pools, SpiritLight, 100, lagoonStateGroup, 945, medExpA, 58723, -895, -4137
 PoolsApproach.BurrowsPathEX, Inkwater Marsh, SpiritLight, 200, swampStateGroup, 21786, largeExpA, 21727, -1015, -4269
 EastPools.RightOre, Luma Pools, Resource, Ore, lumaPoolsStateGroup, 5377, orePickupA, 34852, -1134, -4117
+EastPools.KwoloksWisdomAmulet, Luma Pools, Quest, Amulet, questUberStateGroup, 14019, kwoloksWisdomItemCollected, 53103, -1173, -4154
 EastPools.TwoCrushersEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbD, 13832, -1176, -4178
 EastPools.CurrentEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbC, 17396, -1214, -4181
 EastPools.BelowLeverEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbA, 27204, -1230, -4126
@@ -207,6 +209,7 @@ WestPools.BurrowOre, Luma Pools, Resource, Ore, lumaPoolsStateGroup, 5377, gorle
 WestPools.TpEX, Luma Pools, SpiritLight, 50, lumaPoolsStateGroup, 5377, xpOrbA, 25391, -1650, -4160
 WestPools.EscapeRevisitEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbA, 44122, -1654, -4143
 WestPools.ForestsStrength, Luma Pools, Wisp, Strength, lagoonStateGroup, 945, bossReward, 49747, -1928, -4066
+WoodsEntry.LastTreeBranch, Silent Woods, Quest, Branch, questUberStateGroup, 14019, treeKeeperQuest, 59708=1, 513, -4158
 WoodsEntry.DollQI, Silent Woods, Quest, Doll, questUberStateGroup, 14019, familyReunionItemCollected, 57399, 441, -4119
 WoodsEntry.TreeSeed, Silent Woods, Quest, Seed, questUberStateGroup, 14019, gardenerSeedTreeCollected, 7470, 513, -4159
 WoodsEntry.MudPitEX, Silent Woods, SpiritLight, 50, _petrifiedForestGroup, 58674, CollectibleXpA, 8487, 514, -4185
