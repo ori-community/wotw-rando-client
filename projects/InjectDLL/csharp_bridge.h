@@ -14,6 +14,7 @@ namespace csharp_bridge
         using f_void_at_bool = void(*)(app::AbilityType__Enum, bool);
         using f_void_int = void(*)(int);
         using f_void_int_int = void(*)(int, int);
+        using f_void_ptr_int_int_int = void(*)(void*, int, int, int);
         using f_void_int_int_byte_float_float = void(*)(int, int, uint8_t, float, float);
         using f_void_st = void(*)(ShardType);
         using f_bool = bool(*)();
@@ -23,6 +24,7 @@ namespace csharp_bridge
         using f_int = int(*)();
         using f_int_at = int(*)(app::AbilityType__Enum);
         using f_int_int = int(*)(int);
+        using f_int_int_int = int(*)(int, int);
         using f_int_st = int(*)(ShardType);
         using f_ull_str = uint64_t(*)(const char*);
         using f_ull_str_bool = uint64_t(*)(const char*, bool);
@@ -53,7 +55,6 @@ namespace csharp_bridge
     extern signatures::f_bool_at is_tree_activated;
     
     // Shop system
-    extern signatures::f_ull_str shop_string_repl;
     extern signatures::f_void_at opher_buy_weapon;
     extern signatures::f_void_at opher_buy_upgrade;
     extern signatures::f_bool_at opher_bought_weapon;
@@ -66,4 +67,7 @@ namespace csharp_bridge
 
     extern signatures::f_ull_str_bool rva_lookup;
     extern signatures::f_void_int_int_byte_float_float on_uber_state_applied;
+
+    extern signatures::f_int_int_int filter_icon_type;
+    extern signatures::f_void_ptr_int_int_int filter_icon_text;
 }
