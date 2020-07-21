@@ -29,7 +29,6 @@ namespace csharp_bridge
     signatures::f_bool_at is_tree_activated;
 
     // Shop system
-    signatures::f_ull_str shop_string_repl;
     signatures::f_void_at opher_buy_weapon;
     signatures::f_void_at opher_buy_upgrade;
     signatures::f_bool_at opher_bought_weapon;
@@ -42,6 +41,10 @@ namespace csharp_bridge
 
     signatures::f_ull_str_bool rva_lookup;
     signatures::f_void_int_int_byte_float_float on_uber_state_applied;
+
+    signatures::f_bool_int_int filter_icon_show;
+    signatures::f_int_int_int filter_icon_type;
+    signatures::f_void_ptr_int_int_int filter_icon_text;
 }
 
 INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
@@ -92,8 +95,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_map_pan = reinterpret_cast<f_void_gwa>(ptr);
     else if (name == "is_tree_activated")
         is_tree_activated = reinterpret_cast<f_bool_at>(ptr);
-    else if (name == "shop_string_repl")
-        shop_string_repl = reinterpret_cast<f_ull_str>(ptr);
     else if (name == "opher_buy_weapon")
         opher_buy_weapon = reinterpret_cast<f_void_at>(ptr);
     else if (name == "opher_buy_upgrade")
@@ -116,4 +117,10 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         rva_lookup = reinterpret_cast<f_ull_str_bool>(ptr);
     else if (name == "on_uber_state_applied")
         on_uber_state_applied = reinterpret_cast<f_void_int_int_byte_float_float>(ptr);
+    else if (name == "filter_icon_show")
+        filter_icon_show = reinterpret_cast<f_bool_int_int>(ptr);
+    else if (name == "filter_icon_type")
+        filter_icon_type = reinterpret_cast<f_int_int_int>(ptr);
+    else if (name == "filter_icon_text")
+        filter_icon_text = reinterpret_cast<f_void_ptr_int_int_int>(ptr);
 }

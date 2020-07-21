@@ -7,21 +7,9 @@ namespace RandoMainDLL {
   public static class ShopController {
     public static HashSet<string> Strings = new HashSet<string>();
 
-    public static bool MessageSwap(string str) {
-      var shopStr = GetShopNameReplacement(str);
-      if (shopStr != str) {
-        InterOp.message_item_callback(shopStr);
-        return true;
-      }
-      else if (!Strings.Contains(str)) {
-/*        if (Randomizer.Dev)
-          Randomizer.Log($"New String: |{strr}|", false);*/
-        Strings.Add(str);
-      }
-
-      return false;
+    public static void InitializeStringReplacement() {
+      // TODO: Add shop string replacement stuff here.
     }
-
 
     public static string GetShopNameReplacement(string orig) {
       if (RemoveStrings.Contains(orig)) {
