@@ -31,7 +31,7 @@ package SeedGenerator {
     folderSelector.fileSelectionMode = FileChooser.SelectionMode.DirectoriesOnly
     folderSelector.title = "Choose a folder to put generated seeds in"
     val zoneHints: CheckBox = new CheckBox("Zone Hints"){selected = !startSet.flags.noHints}
-    val spoilers: CheckBox = new CheckBox("Generate Spoiler"){selected = startSet.spoilers}
+    val spoilers: CheckBox = new CheckBox("Separate Spoiler"){selected = !startSet.spoilers}
     val quests: CheckBox = new CheckBox("Items on Quests"){selected = startSet.questLocs}
     val bonusItems: CheckBox = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
     val teleporters: CheckBox = new CheckBox("Teleporters"){selected = startSet.tps}
@@ -156,7 +156,7 @@ package SeedGenerator {
   object UI {
     def opts: GenSettings = GenSettings(
       ui.teleporters.selected,
-      ui.spoilers.selected,
+      !ui.spoilers.selected,
       ui.uncheckedPaths.selected,
       ui.quests.selected,
       ui.folderSelector.selectedFile.getAbsolutePath,
@@ -175,7 +175,7 @@ package SeedGenerator {
     val settingsPath = "C:/moon/SeedGenSettings.json"
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def writeSettings(): Unit = {
-      val bw = new BufferedWriter(new FileWriter(settingsPath))
+      val bw = new FileWriter(settingsPath)
       bw.write(write(opts))
       bw.close()
     }
@@ -187,7 +187,7 @@ package SeedGenerator {
       }.toOption
     def settings: GenSettings = readSettings.getOrElse(GenSettings())
 
-    def outputFile: File = {
+    def outputPath: String = {
       val name_base = outputFolder.getPath + "/" + (if(ui.seedField.text != "") ui.seedField.text else "seed")
       var ret = new File(s"$name_base.wotwr")
       var i = 0
@@ -196,7 +196,7 @@ package SeedGenerator {
         i += 1
       }
       lastSeed = Some(ret)
-      ret
+      ret.getAbsolutePath
     }
     def runSeed(): Unit = {
       writeSettings()
@@ -218,7 +218,7 @@ package SeedGenerator {
           log(s"Seeded RNG with ${UI.ui.seedField.text}")
           SeedGenerator.Runner.setSeed(UI.ui.seedField.text.hashCode)
         }
-        if(SeedGenerator.Runner(writeTo = outputFile)) {
+        if(SeedGenerator.Runner(outputPath)) {
           log(s"Finished generating seed!")
           ui.runLastSeed.enabled = true
         } else {
