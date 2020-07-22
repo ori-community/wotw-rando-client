@@ -20,7 +20,9 @@ namespace RandoMainDLL {
       try {
         Updating = true;
         Thread.Sleep(30); // wait a frame or two to let values update
-        String args = $"-jar C:\\moon\\SeedGen.jar ReachCheck {InterOp.get_max_health()} {Convert.ToInt32(10*InterOp.get_max_energy())} {InterOp.get_keystones()} {InterOp.get_ore()} {InterOp.get_experience()} ";
+        String args = $"-jar C:\\moon\\SeedGen.jar ReachCheck {InterOp.get_max_health()} {Convert.ToInt32(10*InterOp.get_max_energy())} {new UberId(6, 0).GetValue().GetValueOrDefault(new UberValue(0)).Int} {InterOp.get_ore()} {InterOp.get_experience()} ";
+        // ^ this should probably be an array at this point...
+        // TODO: send which key doors are already open
         args += String.Join(" ", SaveController.Data.SkillsFound.Select((AbilityType at) => at.GetDescription().Replace(" ", "")));
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = @"java.exe";
