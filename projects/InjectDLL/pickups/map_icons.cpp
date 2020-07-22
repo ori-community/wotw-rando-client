@@ -106,6 +106,21 @@ namespace
         return app::WorldMapIconType__Enum_Keystone;
     }
 
+    app::WorldMapIconType__Enum get_base_icon(app::RuntimeWorldMapIcon* icon, int group_id, int state_id)
+    {
+        auto base_icons = icon->fields.Area->fields.Area->fields.Icons;
+        for (auto i = 0; i < base_icons->fields._size; ++i)
+        {
+            auto base_icon = base_icons->fields._items->vector[i];
+            if (base_icon->fields.State != nullptr &&
+                base_icon->fields.State->fields._.m_id->fields.m_id == state_id &&
+                base_icon->fields.State->fields.Group->fields._.m_id->fields.m_id == group_id)
+                return base_icon->fields.Icon;
+        }
+
+        return app::WorldMapIconType__Enum_Keystone;
+    }
+
     // For some stupid reason they set icons to WorldMapIconType__Enum_Invisible when a pickup is picked up...
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, void, Show, (app::RuntimeWorldMapIcon* this_ptr)) {
         if (this_ptr->fields.Icon == app::WorldMapIconType__Enum_Invisible)
@@ -132,7 +147,7 @@ namespace
                 }
                 else if (it->second.has_spoiler_icon)
                 {
-                    auto icon_enum = get_base_icon(this_ptr);
+                    auto icon_enum = get_base_icon(this_ptr, it->second.group_id, it->second.state_id);
                     il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
                     it->second.has_spoiler_icon = false;
                 }
