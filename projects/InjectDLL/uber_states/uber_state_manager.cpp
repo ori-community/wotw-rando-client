@@ -40,7 +40,6 @@ namespace uber_states
             state->fields._.m_id = create_uber_id_ptr(state_id);
             il2cpp::invoke(state, "set_name", il2cpp::string_new(state_name.c_str()));
 
-            state->fields.EditorValue = default_value;
             state->fields.DefaultValue = default_value;
             state->fields.m_value = default_value;
             state->fields.NamedValues = nullptr;
@@ -98,6 +97,8 @@ namespace uber_states
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "ancestral_light_2", app::AbilityType__Enum_DamageUpgradeB, false),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "test1", 112, false),
+
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "keystones_collected", 0, 0),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false),
                 };
