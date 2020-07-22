@@ -210,8 +210,17 @@ namespace RandoMainDLL {
     }
 
     public override string ToString() {
+      if(Children.Count == 0) {
+        return "Empty";
+      }
       var squelching = Children.FindAll(p => p is Message msg && msg.Squelch);
-      return string.Join("\n", (squelching.Count > 0 ? squelching : Children).Select(c => c.ToString()).Where(s => s.Length > 0));
+      List<string> names = new List<string>();
+      foreach (var child in (squelching.Count > 0 ? squelching : Children)) {
+        if (child is ConditionalStop s && s.StopActive())
+          break;
+        names.Add(child.ToString());
+      }
+      return string.Join("\n", names.Where(s => s.Length > 0));
     }
 
   }

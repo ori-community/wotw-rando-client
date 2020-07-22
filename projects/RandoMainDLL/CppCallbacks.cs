@@ -29,6 +29,10 @@ namespace RandoMainDLL {
             CallbackName = "on_tree"
           },
           new Method() {
+            Delegate = new f_void(MapController.MapOpened),
+            CallbackName = "map_opened"
+          },
+          new Method() {
             Delegate = new f_void(UberStateController.Update),
             CallbackName = "on_checkpoint"
           },
@@ -155,15 +159,15 @@ namespace RandoMainDLL {
             CallbackName = "does_howl_exist"
           },
           new Method() {
-            Delegate = new f_bool_int_int(SeedController.FilterIconShow),
+            Delegate = new f_bool_int_int(MapController.FilterIconShow),
             CallbackName = "filter_icon_show"
           },
           new Method() {
-            Delegate = new f_int_int_int(SeedController.FilterIconType),
+            Delegate = new f_int_int_int(MapController.FilterIconType),
             CallbackName = "filter_icon_type"
           },
           new Method() {
-            Delegate = new f_void_ptr_int_int_int(SeedController.FilterIconText),
+            Delegate = new f_void_ptr_int_int_int(MapController.FilterIconText),
             CallbackName = "filter_icon_text"
           },
         };
