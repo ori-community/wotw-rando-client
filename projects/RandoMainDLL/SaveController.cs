@@ -136,12 +136,9 @@ namespace RandoMainDLL {
     public static int CurrentSlot = -1;
 
     public static void NewGame(int slot) {
-      UberStateController.UberStates.Clear();
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();
-
-      BonusItemController.Refresh();
     }
 
     public static void OnLoad(int slot, int backupSlot = -1) {
@@ -163,7 +160,6 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
         }
-        ShopController.UpdateShopData();
         BonusItemController.Refresh();
         MapController.UpdateReachable();
       }

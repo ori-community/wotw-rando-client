@@ -170,6 +170,10 @@ namespace RandoMainDLL {
             Delegate = new f_void_ptr_int_int_int(MapController.FilterIconText),
             CallbackName = "filter_icon_text"
           },
+          new Method() {
+            Delegate = new f_void(ShopController.UpdateShopData),
+            CallbackName = "update_shop_data"
+          }
         };
       }
     }
