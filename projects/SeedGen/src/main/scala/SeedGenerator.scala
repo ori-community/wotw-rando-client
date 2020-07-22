@@ -273,7 +273,7 @@ package SeedGenerator {
       if(populatedWithSetting.contains(Config()))
         return true // already done lol
       Timer("Path parsing", printAfterEach = true) {
-          FastParser.parseFile(advanced = Config().unsafePaths) match {
+          FastParser.parseFile() match {
             case Right(value) =>
               Config.debug(s"parse done ${value.size} areas")
               _areas = Timer("FixAreas")(fixAreas(value))
