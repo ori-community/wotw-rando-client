@@ -438,6 +438,21 @@ namespace
                 SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum_None);
         }
     }
+
+    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen* this_ptr)) {
+        csharp_bridge::update_shop_data();
+        SpiritShardsShopScreen::Show(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, WeaponmasterScreen, void, Show, (app::WeaponmasterScreen* this_ptr)) {
+        csharp_bridge::update_shop_data();
+        WeaponmasterScreen::Show(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, MapmakerScreen, void, Show, (app::MapmakerScreen* this_ptr)) {
+        csharp_bridge::update_shop_data();
+        MapmakerScreen::Show(this_ptr);
+    }
 }
 
 INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, bool uses_energy)
