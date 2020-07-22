@@ -101,7 +101,7 @@ namespace RandoMainDLL {
     public virtual int Frames { get => 240; }
     public bool NonEmpty = true;
     public abstract PickupType Type { get; }
-
+    public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
     public virtual float ModEffectiveness() => 1.0f;
     public virtual int CostWithMod(float mod) => Convert.ToInt32(DefaultCost() * (1f + mod * ModEffectiveness()));
@@ -111,7 +111,7 @@ namespace RandoMainDLL {
         return;
       if (Frames > 0)
         AHK.Pickup(ToString(), Frames);
-      SaveController.Data.FoundCount++;
+      SaveController.FoundItem();
     }
     public bool Collect(bool isGoal = false) {
       SeedController.GrantingGoalModeLoc = isGoal;
@@ -210,8 +210,17 @@ namespace RandoMainDLL {
     }
 
     public override string ToString() {
+      if(Children.Count == 0) {
+        return "Empty";
+      }
       var squelching = Children.FindAll(p => p is Message msg && msg.Squelch);
-      return string.Join("\n", (squelching.Count > 0 ? squelching : Children).Select(c => c.ToString()).Where(s => s.Length > 0));
+      List<string> names = new List<string>();
+      foreach (var child in (squelching.Count > 0 ? squelching : Children)) {
+        if (child is ConditionalStop s && s.StopActive())
+          break;
+        names.Add(child.ToString());
+      }
+      return string.Join("\n", names.Where(s => s.Length > 0));
     }
 
   }
@@ -240,6 +249,7 @@ namespace RandoMainDLL {
   public class Teleporter : Checkable {
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.Substring(1).ParseToByte());
     public Teleporter(TeleporterType teleporter) => type = teleporter;
+    public override WorldMapIconType Icon => WorldMapIconType.SavePedestal;
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
@@ -293,6 +303,8 @@ namespace RandoMainDLL {
   }
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
+
+    public override WorldMapIconType Icon => WorldMapIconType.AbilityPedestal;
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Ability((AbilityType)value.ParseToByte()) : new RemoveAbility((AbilityType)value.Substring(1).ParseToByte());
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
@@ -321,6 +333,7 @@ namespace RandoMainDLL {
 
   public class Shard : Checkable {
     public Shard(ShardType shard) => type = shard;
+    public override WorldMapIconType Icon => WorldMapIconType.SpiritShard;
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Shard((ShardType)value.ParseToByte()) : new RemoveShard((ShardType)value.Substring(1).ParseToByte());
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
@@ -352,6 +365,7 @@ namespace RandoMainDLL {
     public Cash(int amount) => Amount = amount;
 
     public override PickupType Type => PickupType.SpiritLight;
+    public override WorldMapIconType Icon => WorldMapIconType.Experience;
     public readonly int Amount;
 
     public override void Grant(bool skipBase = false) {
@@ -380,6 +394,7 @@ namespace RandoMainDLL {
 
     public override int DefaultCost() => 400;
     public override bool Has() => SaveController.Data.WorldEvents.Contains(type);
+    public override WorldMapIconType Icon => WorldMapIconType.QuestEnd;
 
     public override void Grant(bool skipBase = false) {
       SaveController.SetEvent(type);
@@ -389,7 +404,7 @@ namespace RandoMainDLL {
       UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
       base.Grant(skipBase);
     }
-    public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
+    public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown resource type {type}";
   }
   public class RemoveQuestEvent : Pickup {
     public RemoveQuestEvent(QuestEventType ev) => type = ev;
@@ -514,7 +529,23 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Resource;
     public readonly ResourceType type;
-
+    public override WorldMapIconType Icon { get {
+        switch (type) {
+          case ResourceType.Health:
+            return WorldMapIconType.HealthFragment;
+          case ResourceType.Energy:
+            return WorldMapIconType.EnergyFragment;
+          case ResourceType.Ore:
+            return WorldMapIconType.Ore;
+          case ResourceType.Keystone:
+            return WorldMapIconType.Keystone;
+          case ResourceType.ShardSlot:
+            return WorldMapIconType.ShardSlotUpgrade;
+          default:
+            return base.Icon;
+        }
+      } 
+    }
     public override int DefaultCost() {
       switch (type) {
         case ResourceType.Health:
@@ -548,6 +579,8 @@ namespace RandoMainDLL {
           break;
         case ResourceType.Keystone:
           InterOp.set_keystones(InterOp.get_keystones() + 1);
+          var uid = new UberId(6, 0);
+          uid.State().Write(new UberValue(1 + uid.GetValue().GetValueOrDefault(new UberValue(0)).Int));
           InterOp.shake_keystone();
           break;
         case ResourceType.ShardSlot:

@@ -25,8 +25,10 @@ namespace RandoMainDLL {
       File.WriteAllText(Randomizer.MessageLog, "");
       SeedController.ReadSeed();
       UberStateController.NeedsNewGameInit = true;
+      UberStateController.UberStates.Clear();
       AHK.OnNewGame();
       SaveController.NewGame(slot);
+      BonusItemController.Refresh();
     }
 
     public static bool Initialize() {
@@ -68,6 +70,7 @@ namespace RandoMainDLL {
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
           SeedController.UpdateGoal();
+          MapController.Update();
           TrackFileController.Update();
         }
         AHK.Tick();

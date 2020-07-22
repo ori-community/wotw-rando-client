@@ -29,6 +29,10 @@ namespace RandoMainDLL {
             CallbackName = "on_tree"
           },
           new Method() {
+            Delegate = new f_bool_int(MapController.FilterEnabled),
+            CallbackName = "filter_enabled"
+          },
+          new Method() {
             Delegate = new f_void(UberStateController.Update),
             CallbackName = "on_checkpoint"
           },
@@ -155,13 +159,21 @@ namespace RandoMainDLL {
             CallbackName = "does_howl_exist"
           },
           new Method() {
-            Delegate = new f_int_int_int(SeedController.FilterIconType),
+            Delegate = new f_bool_int_int(MapController.FilterIconShow),
+            CallbackName = "filter_icon_show"
+          },
+          new Method() {
+            Delegate = new f_int_int_int(MapController.FilterIconType),
             CallbackName = "filter_icon_type"
           },
           new Method() {
-            Delegate = new f_void_ptr_int_int_int(SeedController.FilterIconText),
+            Delegate = new f_void_ptr_int_int_int(MapController.FilterIconText),
             CallbackName = "filter_icon_text"
           },
+          new Method() {
+            Delegate = new f_void(ShopController.UpdateShopData),
+            CallbackName = "update_shop_data"
+          }
         };
       }
     }
@@ -177,6 +189,8 @@ namespace RandoMainDLL {
     public delegate void f_void_gwa(AreaType at);
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
+    public delegate bool f_bool_int(int i);
+    public delegate bool f_bool_int_int(int i, int j);
     public delegate bool f_bool_st(ShardType st);
     public delegate bool f_bool_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate int f_int();

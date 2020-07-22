@@ -1,121 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
-using System.Runtime.InteropServices;
 
 namespace RandoMainDLL {
   public static class ShopController {
     public static HashSet<string> Strings = new HashSet<string>();
-
-    public static void InitializeStringReplacement() {
-      // TODO: Add shop string replacement stuff here.
-    }
-
-    public static string GetShopNameReplacement(string orig) {
-      if (RemoveStrings.Contains(orig)) {
-        return " ";
-      }
-      else if(LupoReplacements.ContainsKey(orig)) {
-        return LupoReplacements[orig];
-      }
-      else if (OpherWeaponDetail.ContainsKey(orig)) {
-        var weapon = OpherWeaponDetail[orig];
-        if (!OpherWeaponChatter.ContainsKey(weapon)) {
-          if (KSOverride(weapon))
-            OpherWeaponChatter[weapon] = $"Costs more each time you buy it\\nNever logically required";
-          else if(WaterOverride(weapon))
-            OpherWeaponChatter[weapon] = "Will tell you what Zone *Bash*, #Clean Water#, and *Flap* are in";
+    private static readonly HashSet<AbilityType> opherWeaponInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.TeleportSpell, AbilityType.WaterBreath };
+    private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
+    private static readonly HashSet<ShardType>   twillenShardInv = new HashSet<ShardType> { ShardType.Energy, ShardType.Vitality, ShardType.Overcharge, ShardType.Wingclip, ShardType.TripleJump, ShardType.Finesse, ShardType.Swap, ShardType.LightHarvest };
+    private static readonly String bmKeysDesc  = $"Costs more each time you buy it\\nNever logically required";
+    private static readonly String bmKeysName  = "Black Market Keystone";
+    private static readonly String hintOneName = "Bash/Clean Water/Flap Hint";
+    private static readonly String hintOneDesc = "Will tell you what Zone *Bash*, #Clean Water#, and *Flap* are in";
+    public static void UpdateShopData() {
+      foreach(AbilityType t in opherWeaponInv) {
+        if (WaterOverride(t)) {
+          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, false);
+        }
+        else if (KSOverride(t)) {
+          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, false);
+        }
+        else {
+          var pickup = SeedController.OpherWeapon(t);
+          if (pickup.NonEmpty) {
+            var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
+            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), pickup is Ability s && costsEnergy.Contains(s.type));
+          }
           else
-            OpherWeaponChatter[weapon] = Chatter[new Random().Next(Chatter.Count)];
+            Randomizer.Warn("UpdateShopData", $"Couldn't find a pickup for {t.GetDescription()}");
         }
-        return OpherWeaponChatter[weapon];
       }
-      else if (OpherWeaponNames.TryGetValue(orig, out var weapon)) {
-        return KSOverride(weapon) ? "Black Market Keystone" : WaterOverride(weapon) ? "Bash/Clean Water/Flap Hint" : SeedController.OpherWeapon(weapon).ToString();
+      foreach(ShardType s in twillenShardInv) {
+        var pickup = SeedController.TwillenShard(s);
+        if (pickup.NonEmpty)
+          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter());
       }
-      else if (TwillenShardDetail.ContainsKey(orig)) {
-        var shard = TwillenShardDetail[orig];
-        if (!TwillenShardChatter.ContainsKey(shard)) {
-          TwillenShardChatter[shard] = Chatter[new Random().Next(Chatter.Count)];
-        }
-        return TwillenShardChatter[shard];
-      }
-      else if (TwillenShardNames.TryGetValue(orig, out var shard)) {
-        return SeedController.TwillenShard(shard).ToString();
-      }
-      return orig;
+      foreach(LupoHintData d in lupoDataByID.Values)
+        d.Setup();
     }
 
-    public static HashSet<string> RemoveStrings = new HashSet<string> {
-      "Level {0}:",
-      "Next Level",
-      "Uses Energy",
-      "*Uses Energy*",
-      "Upgrade for",
-      "Gain 2 additional Energy cells",
-      "Gain 3 additional Energy cells",
-      "Gain 2 additional Life cells",
-      "Gain 3 additional Life cells",
-      "Enemies drop 3 extra Spirit Light orbs",
-      "Enemies drop 4 extra Spirit Light orbs",
-      "20% chance to deal 50% bonus damage",
-    };
-
-    public static Dictionary<string, string> LupoReplacements = new Dictionary<string, string> {
-      {"Reveal Energy Cells", "Glades hint" },
-      {"Reveal Life Cells", "Woods hint" },
-      {"Reveal Shards", "Burrow/Water Dash/Light Burst hint" },
-      {"Show all #Energy Cells# on maps", "information on $Key Items$ in #Wellspring Glades#" },
-      {"Show all #Life Cells# on maps", "information on $Key Items$ in #Silent Woods#" },
-      {"Show all #Spirit Shards# on maps", "Will tell you what Zone *Water Dash*, *Burrow* and *Light Burst* are in" },
-    };
-
-    public static Dictionary<string, AbilityType> OpherWeaponNames = new Dictionary<string, AbilityType> {
-      { "Sentry", AbilityType.Sentry },
-      { "Spirit Smash", AbilityType.SpiritSmash },
-      { "Spirit Star", AbilityType.SpiritStar },
-      { "Spike", AbilityType.Spike },
-      { "Blaze", AbilityType.Blaze },
-      { "Water Breath", AbilityType.WaterBreath },
-      { "Fast Travel", AbilityType.TeleportSpell },
-    };
-
-    public static Dictionary<string, AbilityType> OpherWeaponDetail = new Dictionary<string, AbilityType> {
-      { @"Pound foes with a strong, sweeping blow.\nDestroys unstable ground", AbilityType.SpiritSmash },
-      { @"Throw a powerful spear of light.\nUses a large amount of Energy.\nDestroys unstable ground", AbilityType.Spike },
-      { "Spawn a spirit orb that attacks for you", AbilityType.Sentry },
-      { "Throw a star that returns to you", AbilityType.SpiritStar },
-      { "Set nearby enemies on fire", AbilityType.Blaze },
-      { "Breathe under water", AbilityType.WaterBreath },
-      { "Select Spirit Wells on the map and #warp# to them #from anywhere#.", AbilityType.TeleportSpell }
-    };
-
-    public static Dictionary<string, ShardType> TwillenShardNames = new Dictionary<string, ShardType> {
-      { "Energy", ShardType.Energy },
-      { "Vitality", ShardType.Vitality },
-      { "Overcharge", ShardType.Overcharge },
-      { "Wingclip", ShardType.Wingclip },
-      { "Triple Jump", ShardType.TripleJump },
-      { "Finesse", ShardType.Finesse },
-      { "Swap", ShardType.Swap },
-      { "Light Harvest", ShardType.LightHarvest },
-    };
-
-    public static Dictionary<string, ShardType> TwillenShardDetail = new Dictionary<string, ShardType> {
-      { "Gain 1 additional Energy cell", ShardType.Energy },
-      { "Gain 1 additional Life cell", ShardType.Vitality },
-      { "Reduce Energy costs by 50% and increase damage taken by 100%", ShardType.Overcharge },
-      { "Deal bonus damage to flying enemies", ShardType.Wingclip},
-      { "Jump twice mid-air before landing", ShardType.TripleJump},
-      { "10% chance to deal 50% bonus damage", ShardType.Finesse},
-      { "Swap maximum Life and Energy", ShardType.Swap },
-      { "Enemies drop 2 extra Spirit Light orbs", ShardType.LightHarvest },
-    };
-
-    public static Dictionary<AbilityType, string> OpherWeaponChatter = new Dictionary<AbilityType, string>();
-    public static Dictionary<ShardType, string> TwillenShardChatter = new Dictionary<ShardType, string>();
-
-    public static List<string> Chatter = new List<string> {
+    private static Random R = new Random();
+    public static String Chatter() {
+      return GenericChatter[R.Next(GenericChatter.Count)];
+    }
+    public static List<string> GenericChatter = new List<string> {
       "Nice, isn't it?",
       "Very shiny",
       "One of my favorites",
@@ -173,7 +101,7 @@ namespace RandoMainDLL {
 
       Pickup item = SeedController.OpherWeapon(slot);
       if (SaveController.Data.OpherSold.Contains(slot)) {
-        Randomizer.Log($"OBW: not enough money or slot already sold");
+        Randomizer.Log($"OBW: slot already sold");
         return;
       }
       SaveController.Data.OpherSold.Add(slot);
@@ -184,7 +112,7 @@ namespace RandoMainDLL {
 
     public static void OnBuyOpherUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
 
-    private static bool KSOverride(AbilityType a) => a == AbilityType.Sentry && !SeedController.KSDoorsOpen;
+    private static bool KSOverride(AbilityType a)    => a == AbilityType.Sentry      && !SeedController.KSDoorsOpen;
     private static bool WaterOverride(AbilityType a) => a == AbilityType.WaterBreath && !SeedController.HintsDisabled;
 
     private static readonly int KSMAX = 8;
@@ -212,13 +140,26 @@ namespace RandoMainDLL {
       (WaterOverride(ability) ? 2500 : 
       SeedController.OpherWeapon(ability).CostWithMod(ShopController.GetCostMod(ability)));
 
-    private static Dictionary<int, int> lupoCosts = new Dictionary<int, int>() {
-      {19396, 200 },  // energy -> glades
-      {57987, 200 },  // health -> woods
-      {41666, 4000 }, // shards -> key item hints
+    class LupoHintData {
+      public readonly String Name;
+      public readonly String Desc;
+      public readonly int Cost;
+      public readonly UberId Id;
+
+      public LupoHintData(string name, string desc, int cost, UberId id) {
+        Name = name;
+        Desc = desc;
+        Cost = cost;
+        Id   = id;
+      }
+      public void Setup() => InterOp.set_lupo_item(Id.GroupID, Id.ID, Name, Desc);
+
+    }
+    private static Dictionary<int, LupoHintData> lupoDataByID = new Dictionary<int, LupoHintData>() {
+      {19396, new LupoHintData("Glades hint", "information on $Key Items$ in #Wellspring Glades#", 200, new UberId(48248, 19396)) },  // energy -> glades
+      {57987, new LupoHintData("Woods hint", "information on $Key Items$ in #Silent Woods#", 200, new UberId(48248, 57987)) },  // health -> woods
+      {41666, new LupoHintData("Burrow/Water Dash/Light Burst hint", "Will tell you what Zone *Water Dash*, *Burrow* and *Light Burst* are in", 4000, new UberId(48248, 41666)) }, // shards -> key item hints
     };
-    public static int LupoUpgradeCost(int upgradeId) => lupoCosts.GetOrElse(upgradeId, 250);
-
-
+    public static int LupoUpgradeCost(int upgradeId) => lupoDataByID.TryGetValue(upgradeId, out LupoHintData d) ? d.Cost : 250;
   }
 }
