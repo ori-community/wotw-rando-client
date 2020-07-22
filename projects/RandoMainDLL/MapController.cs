@@ -32,7 +32,7 @@ namespace RandoMainDLL {
         // ^ this should probably be an array at this point...
         // TODO: send which key doors are already open
         argsList.AddRange(SaveController.Data.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
-        argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => (int)t < 15 && new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
+        argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
         if (new QuestEvent(QuestEventType.Water).Has())
           argsList.Add("w:0");
         var proc = new System.Diagnostics.Process();
