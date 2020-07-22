@@ -21,7 +21,6 @@ namespace
         COUNT = 6,
     };
 
-    bool spoilers_enabled = true; // TODO: false by default
     std::mt19937 generator(40500);
     const std::unordered_map<std::string, std::pair<int, int>> TREE_OVERRIDES = {
         { "64590ed6, 476b6885, 8993bbb3, 7d01ee6d", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_DoubleJump) },
@@ -370,8 +369,8 @@ namespace
                 arr->vector[i] = this_ptr->fields.Labels->vector[i];
 
             // Add extra labels.
-            arr->vector[static_cast<int>(NewFilters::Spoilers)] = create_filter(NewFilters::Spoilers, "Spoilers");
             arr->vector[static_cast<int>(NewFilters::InLogic)]  = create_filter(NewFilters::InLogic, "In Logic");
+            arr->vector[static_cast<int>(NewFilters::Spoilers)] = create_filter(NewFilters::Spoilers, "Spoilers");
 
             this_ptr->fields.Labels = arr;
         }
@@ -420,6 +419,13 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void allow_spoilers(bool value) {
-    spoilers_enabled = value;
+INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
+    auto game_map_ui = il2cpp::get_class<app::GameMapUI__Class>("", "GameMapUI")->static_fields->Instance;
+    auto icon_manager = game_map_ui->fields.m_areaMap->fields._IconManager_k__BackingField;
+    if (static_cast<NewFilters>(icon_manager->fields.Filter) == NewFilters::InLogic)
+    {
+        AreaMapUI::set_IconFilter(game_map_ui->fields.m_areaMap, icon_manager->fields.Filter);
+        GameMapUI::UpdateFilterText(game_map_ui);
+        GameMapUI::UpdateQuests(game_map_ui);
+    }
 }
