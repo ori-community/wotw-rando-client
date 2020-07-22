@@ -64,7 +64,14 @@ namespace
         return guid;
     }
 
-    std::unordered_map<std::string, std::pair<int, int>> spoiler_states;
+    struct SpoilerState
+    {
+        int group_id;
+        int state_id;
+        bool has_spoiler_icon;
+    };
+
+    std::unordered_map<std::string, SpoilerState> spoiler_states;
     NAMED_IL2CPP_BINDING(, RuntimeWorldMapIcon, void, .ctor, ctor, (app::RuntimeWorldMapIcon* this_ptr, app::GameWorldArea_WorldMapIcon* icon, app::RuntimeGameWorldArea* area));
     IL2CPP_BINDING(, AreaMapIcon, void, SetMessageProvider, (app::AreaMapIcon* this_ptr, app::MessageProvider* provider));
 
@@ -83,34 +90,52 @@ namespace
         return reinterpret_cast<app::MessageProvider*>(provider);
     }
 
+    app::WorldMapIconType__Enum get_base_icon(app::RuntimeWorldMapIcon* icon)
+    {
+        auto base_icons = icon->fields.Area->fields.Area->fields.Icons;
+        for (auto i = 0; i < base_icons->fields._size; ++i)
+        {
+            auto base_icon = base_icons->fields._items->vector[i];
+            if (base_icon->fields.Guid->fields.A == icon->fields.Guid->fields.A &&
+                base_icon->fields.Guid->fields.B == icon->fields.Guid->fields.B &&
+                base_icon->fields.Guid->fields.C == icon->fields.Guid->fields.C &&
+                base_icon->fields.Guid->fields.D == icon->fields.Guid->fields.D)
+                return base_icon->fields.Icon;
+        }
+
+        return app::WorldMapIconType__Enum_Keystone;
+    }
+
     // For some stupid reason they set icons to WorldMapIconType__Enum_Invisible when a pickup is picked up...
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, void, Show, (app::RuntimeWorldMapIcon* this_ptr)) {
         if (this_ptr->fields.Icon == app::WorldMapIconType__Enum_Invisible)
-        {
-            auto base_icons = this_ptr->fields.Area->fields.Area->fields.Icons;
-            for (auto i = 0; i < base_icons->fields._size; ++i)
-            {
-                auto icon = base_icons->fields._items->vector[i];
-                if (icon->fields.Guid->fields.A == this_ptr->fields.Guid->fields.A &&
-                    icon->fields.Guid->fields.B == this_ptr->fields.Guid->fields.B &&
-                    icon->fields.Guid->fields.C == this_ptr->fields.Guid->fields.C &&
-                    icon->fields.Guid->fields.D == this_ptr->fields.Guid->fields.D)
-                {
-                    this_ptr->fields.Icon = icon->fields.Icon;
-                }
-            }
-        }
+            this_ptr->fields.Icon = get_base_icon(this_ptr);
 
         RuntimeWorldMapIcon::Show(this_ptr);
 
-        if (this_ptr->fields.m_areaMapIcon != nullptr && csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+        if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
             auto it = spoiler_states.find(stingify_guid(this_ptr->fields.Guid));
             if (it != spoiler_states.end())
             {
-                wchar_t buffer[128] = {0};
-                csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.first, it->second.second);
-                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
+                if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+                {
+                    wchar_t buffer[128] = { 0 };
+                    csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id);
+                    AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
+                    if (!it->second.has_spoiler_icon)
+                    {
+                        auto icon_enum = csharp_bridge::filter_icon_type(it->second.group_id, it->second.state_id);
+                        il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
+                        it->second.has_spoiler_icon = true;
+                    }
+                }
+                else if (it->second.has_spoiler_icon)
+                {
+                    auto icon_enum = get_base_icon(this_ptr);
+                    il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
+                    it->second.has_spoiler_icon = false;
+                }
             }
         }
     }
@@ -237,7 +262,10 @@ namespace
             icon->fields.Condition = nullptr;
             icon->fields.SpecialState = nullptr;
 
-            spoiler_states[stingify_guid(icon->fields.Guid)] = std::make_pair(group_id, state_id);
+            auto& state = spoiler_states[stingify_guid(icon->fields.Guid)];
+            state.group_id = group_id;
+            state.state_id = state_id;
+            state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
 
             il2cpp::invoke(area->fields.Icons, "Add", icon);
             RuntimeWorldMapIcon::Show_intercept(icon);
@@ -296,9 +324,9 @@ namespace
                 auto it = spoiler_states.find(stingify_guid(icon->fields.Guid));
                 if (it != spoiler_states.end())
                 {
-                    auto value = uber_states::get_uber_state_value(it->second.first, it->second.second);
+                    auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
                     // Hide pickups that have been collected.
-                    if (value < 1 && csharp_bridge::filter_icon_show(it->second.first, it->second.second))
+                    if (value < 1 && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id))
                         return true;
                 }
             }
