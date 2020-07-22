@@ -109,7 +109,6 @@ namespace RandoMainDLL {
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
             var frags = line.Split('|').ToList();
-            string idAndMaybeTarget = frags[1];
             var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
@@ -372,24 +371,6 @@ namespace RandoMainDLL {
     public static bool DoesHowlExist() => flags.Contains(Flag.RAIN);
 
     public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || (SaveController.Data?.TreesActivated?.Contains(AbilityType.SpiritEdge) ?? false);
-
-    public static bool FilterIconShow(int group_id, int state_id) {
-      // Show Icon (in logic)
-      return true;
-    }
-
-    public static int FilterIconType(int group_id, int state_id) {
-      // Keystone icon
-      return 0;
-    }
-
-    public static void FilterIconText(IntPtr buffer, int length, int group_id, int state_id) {
-      // Icon Label
-      string text = "test";
-
-      length = Math.Min(text.Length, length);
-      Marshal.Copy(text.ToCharArray(), 0, buffer, length);
-    }
 
     public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }

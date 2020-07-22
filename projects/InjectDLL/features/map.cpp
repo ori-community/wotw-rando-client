@@ -82,6 +82,7 @@ namespace {
     }
     IL2CPP_INTERCEPT(, AreaMapUI, void, Show, (app::AreaMapUI* this_ptr, bool set_menu_audio_state)) {
         AreaMapUI::Show(this_ptr, set_menu_audio_state);
+        csharp_bridge::map_opened();
         area_id = app::GameWorldAreaID__Enum_None;
         if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
         {

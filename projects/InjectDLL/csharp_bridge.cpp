@@ -45,6 +45,7 @@ namespace csharp_bridge
     signatures::f_bool_int_int filter_icon_show;
     signatures::f_int_int_int filter_icon_type;
     signatures::f_void_ptr_int_int_int filter_icon_text;
+    signatures::f_void map_opened;
 }
 
 INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
@@ -123,4 +124,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         filter_icon_type = reinterpret_cast<f_int_int_int>(ptr);
     else if (name == "filter_icon_text")
         filter_icon_text = reinterpret_cast<f_void_ptr_int_int_int>(ptr);
+    else if (name == "map_opened")
+      map_opened = reinterpret_cast<f_void>(ptr);
 }
