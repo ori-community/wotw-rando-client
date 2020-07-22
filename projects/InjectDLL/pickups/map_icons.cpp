@@ -11,7 +11,7 @@
 
 namespace
 {
-    bool spoilers_enabled = true;
+    bool spoilers_enabled = true; // TODO: false by default
     std::mt19937 generator(40500);
     const std::unordered_map<std::string, std::pair<int, int>> TREE_OVERRIDES = {
         { "64590ed6, 476b6885, 8993bbb3, 7d01ee6d", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_DoubleJump) },
@@ -251,14 +251,13 @@ namespace
         }
     }
 
-    enum class NewFilters : int32_t
-    {
+    enum class NewFilters : int32_t {
         All = 0,
         Quests = 1,
         Teleports = 2,
         Collectibles = 3,
-        Spoilers = 4,
-        InLogic = 5,
+        InLogic = 4,
+        Spoilers = 5,
         COUNT = 6,
     };
 
@@ -359,8 +358,7 @@ namespace
     bool filter_labels_initialized = false;
     void initialize_filter_labels(app::AreaMapIconManager* this_ptr)
     {
-        if (il2cpp::is_assignable(this_ptr, "", "AreaMapIconManager") && this_ptr->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT))
-        {
+        if (il2cpp::is_assignable(this_ptr, "", "AreaMapIconManager") && this_ptr->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
             auto arr = reinterpret_cast<app::AreaMapIconFilterFooterLabel__Array*>(il2cpp::untyped::array_new(
                 il2cpp::get_class("", "AreaMapIconFilterFooterLabel"), static_cast<int>(NewFilters::COUNT)));
 
@@ -369,7 +367,7 @@ namespace
 
             // Add extra labels.
             arr->vector[static_cast<int>(NewFilters::Spoilers)] = create_filter(NewFilters::Spoilers, "Spoilers");
-            arr->vector[static_cast<int>(NewFilters::InLogic)] = create_filter(NewFilters::InLogic, "Spoilers (In logic)");
+            arr->vector[static_cast<int>(NewFilters::InLogic)]  = create_filter(NewFilters::InLogic, "In Logic");
 
             this_ptr->fields.Labels = arr;
         }
@@ -388,10 +386,11 @@ namespace
         auto icon_manager = map->fields._IconManager_k__BackingField;
         if (!filter_labels_initialized)
             initialize_filter_labels(icon_manager);
-
-        auto filter = static_cast<NewFilters>((static_cast<int32_t>(icon_manager->fields.Filter) + 1) % static_cast<int32_t>(NewFilters::COUNT));
-        if (!spoilers_enabled && filter == NewFilters::Spoilers)
-            filter = static_cast<NewFilters>((static_cast<int32_t>(filter) + 1) % static_cast<int32_t>(NewFilters::COUNT));
+        auto count = static_cast<int32_t>(NewFilters::COUNT);
+        auto prev = static_cast<int32_t>(icon_manager->fields.Filter);
+        auto filter = (prev + 1) % count;
+        while(!csharp_bridge::filter_enabled(filter) && filter != prev)
+            filter = (filter + 1) % count;
 
         AreaMapUI::set_IconFilter(map, static_cast<app::AreaMapIconFilter__Enum>(filter));
     }
@@ -417,7 +416,6 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void allow_spoilers(bool value)
-{
+INJECT_C_DLLEXPORT void allow_spoilers(bool value) {
     spoilers_enabled = value;
 }

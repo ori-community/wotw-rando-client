@@ -53,7 +53,24 @@ namespace RandoMainDLL {
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
+    enum FilterType {
+        All = 0,
+        Quests = 1,
+        Teleports = 2,
+        Collectibles = 3,
+        InLogic = 4,
+        Spoilers = 5,
+        COUNT = 6,
+    };
+    public static bool FilterEnabled(int filterId) {
+      var f = (FilterType)filterId;
+      switch(f) {
+        case FilterType.Spoilers:
+        default:
+          return true;
+      }
 
+    }
     public static bool FilterIconShow(int groupId, int id) {
       // Show Icon (in logic)
       return Reachable.Contains(new UberId(groupId, id));
