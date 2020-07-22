@@ -444,9 +444,9 @@ namespace
         SpiritShardsShopScreen::Show(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, WeaponmasterScreen, void, Show, (app::WeaponmasterScreen* this_ptr)) {
+    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Show, (app::ShopkeeperScreen* this_ptr)) {
         csharp_bridge::update_shop_data();
-        WeaponmasterScreen::Show(this_ptr);
+        ShopkeeperScreen::Show(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, MapmakerScreen, void, Show, (app::MapmakerScreen* this_ptr)) {
