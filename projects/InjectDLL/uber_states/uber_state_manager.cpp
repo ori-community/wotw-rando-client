@@ -47,30 +47,6 @@ namespace uber_states
             return reinterpret_cast<app::IUberState*>(state);
         }
 
-        NAMED_IL2CPP_INTERCEPT(Moon, UberStateValueGroup, void, .ctor, ctor, (app::UberStateValueGroup* this_ptr, app::UberID* id)) {
-            UberStateValueGroup::ctor(this_ptr, id);
-            trace(MessageType::Info, 5, "initialize", format("UberStateValueGroup created %d.", id->fields.m_id));
-        }
-
-        IL2CPP_INTERCEPT(Moon, UberStateValueStore, void, PopulateValueStore, (app::UberStateValueStore* this_ptr)) {
-            UberStateValueStore::PopulateValueStore(this_ptr);
-            trace(MessageType::Info, 5, "initialize", "UberStateValueStore populated.");
-        }
-
-        IL2CPP_INTERCEPT(Moon, UberStateCollection, app::IUberState__Array*, BuildDescriptorsArray, (app::UberStateCollection* this_ptr)) {
-            auto arr = UberStateCollection::BuildDescriptorsArray(this_ptr);
-            trace(MessageType::Info, 5, "initialize", "Listing array.");
-            for (auto i = 0; i < arr->max_length; ++i)
-            {
-                auto group_id = il2cpp::invoke<app::UberID>(arr->vector[i], "get_GroupID");
-                auto state_id = il2cpp::invoke<app::UberID>(arr->vector[i], "get_StateID");
-                trace(MessageType::Info, 5, "initialize", format(" - state (%d, %d)", group_id->fields.m_id, state_id->fields.m_id));
-            }
-
-            trace(MessageType::Info, 5, "initialize", "Listing array finished.");
-            return arr;
-        }
-
         bool initialized = false;
         NAMED_IL2CPP_INTERCEPT(Moon, UberStateCollection, void, .ctor, ctor, (app::UberStateCollection* this_ptr)) {
             UberStateCollection::ctor(this_ptr);
