@@ -11,6 +11,16 @@
 
 namespace
 {
+    enum class NewFilters : int32_t {
+        All = 0,
+        Quests = 1,
+        Teleports = 2,
+        Collectibles = 3,
+        InLogic = 4,
+        Spoilers = 5,
+        COUNT = 6,
+    };
+
     bool spoilers_enabled = true; // TODO: false by default
     std::mt19937 generator(40500);
     const std::unordered_map<std::string, std::pair<int, int>> TREE_OVERRIDES = {
@@ -94,7 +104,7 @@ namespace
 
         RuntimeWorldMapIcon::Show(this_ptr);
 
-        if (this_ptr->fields.m_areaMapIcon != nullptr)
+        if (this_ptr->fields.m_areaMapIcon != nullptr && csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
         {
             auto it = spoiler_states.find(stingify_guid(this_ptr->fields.Guid));
             if (it != spoiler_states.end())
@@ -214,7 +224,11 @@ namespace
             auto state_id = item->fields.IsCollectedState->fields._.m_id->fields.m_id;
 
             // TODO: get icon.
-            icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(group_id, state_id));
+            if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+                icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(group_id, state_id));
+            else
+                icon->fields.Icon = item->fields.Icon;
+
             icon->fields.Guid = create_guid();
             icon->fields.Position.x = item->fields.Position.x;
             icon->fields.Position.y = item->fields.Position.y;
@@ -250,16 +264,6 @@ namespace
             resolve_icons(area);
         }
     }
-
-    enum class NewFilters : int32_t {
-        All = 0,
-        Quests = 1,
-        Teleports = 2,
-        Collectibles = 3,
-        InLogic = 4,
-        Spoilers = 5,
-        COUNT = 6,
-    };
 
     STATIC_IL2CPP_BINDING(, AreaMapIconManager, bool, IsIconShownByFilter, (app::WorldMapIconType__Enum icon, app::AreaMapIconFilter__Enum filter));
     IL2CPP_BINDING(, RuntimeWorldMapIcon, void, Hide, (app::RuntimeWorldMapIcon* this_ptr));
