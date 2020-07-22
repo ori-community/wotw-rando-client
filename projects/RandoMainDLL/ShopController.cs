@@ -39,8 +39,9 @@ namespace RandoMainDLL {
         d.Setup();
     }
 
+    private static Random R = new Random();
     public static String Chatter() {
-      return GenericChatter[new Random().Next(GenericChatter.Count)];
+      return GenericChatter[R.Next(GenericChatter.Count)];
     }
     public static List<string> GenericChatter = new List<string> {
       "Nice, isn't it?",
