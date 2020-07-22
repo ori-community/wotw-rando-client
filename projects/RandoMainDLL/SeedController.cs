@@ -98,8 +98,8 @@ namespace RandoMainDLL {
         weaponNag.Clear();
         flags.Clear();
         HintsController.Reset();
+        HasInternalSpoilers = true;
         string line = "";
-
         foreach (string rawLine in File.ReadLines(SeedFile)) {
           try {
             if (rawLine.StartsWith("Flags: ")) {
@@ -108,6 +108,11 @@ namespace RandoMainDLL {
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
+
+            if (HasInternalSpoilers && !rawLine.Contains("//"))
+              HasInternalSpoilers = false; 
+            // if we got this far and there's no comment, it's a line without a spoiler
+
             var frags = line.Split('|').ToList();
             var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
             var pickupType = (PickupType)byte.Parse(frags[2]);
@@ -145,6 +150,7 @@ namespace RandoMainDLL {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
+    public static bool HasInternalSpoilers = false;
     public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
     public static bool KSDoorsOpen { get => flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {

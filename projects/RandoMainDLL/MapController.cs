@@ -8,20 +8,17 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class MapController {
-    public static void Update() {
-      if(FrameLockout > 0)
-        FrameLockout--;
-    }
-    public static void UpdateReachable() {
-      if(InterOp.get_game_state() == GameState.Game && FrameLockout < 1) {
+    public static void Update() {}
+    public static void UpdateReachable(bool force = false) {
+      if(InterOp.get_game_state() == GameState.Game && !Updating) {
       var t = new Thread(UpdateReachableAsync);
       t.Start();
       }
     }
-    public static int FrameLockout = 0;
+    public static bool Updating;
     public static void UpdateReachableAsync() {
       try {
-        FrameLockout = 240;
+        Updating = true;
         String args = $"-jar C:\\moon\\SeedGen.jar ReachCheck {InterOp.get_max_health()} {Convert.ToInt32(InterOp.get_max_energy())} {InterOp.get_keystones()} {InterOp.get_ore()} {InterOp.get_experience()} ";
         args += String.Join(" ", SaveController.Data.SkillsFound.Select((AbilityType at) => at.GetDescription().Replace(" ", "")));
         var proc = new System.Diagnostics.Process();
@@ -45,6 +42,7 @@ namespace RandoMainDLL {
         }
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
+      Updating = false;
     }
     public static int FilterIconType(int groupId, int id) => (int) new UberId(groupId, id).toCond().Pickup().Icon;
 
@@ -65,7 +63,18 @@ namespace RandoMainDLL {
     public static bool FilterEnabled(int filterId) {
       var f = (FilterType)filterId;
       switch(f) {
+        // TODO
+/*        case FilterType.Quests:
+          return AHK.IniFilterFlag("Quests");
+        case FilterType.Teleports:
+          return AHK.IniFilterFlag("Teleporters");
+        case FilterType.Collectables:
+          return AHK.IniFilterFlag("Collectables");
+*/
+        case FilterType.InLogic:
+          return SeedController.HasInternalSpoilers;
         case FilterType.Spoilers:
+          return (SeedController.HasInternalSpoilers && InterOp.get_debug_controls()) || UberStateDefaults.savePedestalWillowsEndShriek.GetUberId().GetValue().GetValueOrDefault(new UberValue(false)).Bool;
         default:
           return true;
       }

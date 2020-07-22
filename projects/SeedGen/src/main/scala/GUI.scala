@@ -203,7 +203,7 @@ class UI extends MainFrame {
   }
   object Main extends App {
     def reachCheck() = {
-      Config.logger = FileLogger("""C:\moon\reach_log.txt""")
+      Config.logger = FileLogger("""C:\moon\reach_log.txt""", enabled = Seq(WARN, ERROR))
       val hp = args(1).toInt / 5
       val en = args(2).toInt / 5
       val ks = args(3).toInt
@@ -216,6 +216,7 @@ class UI extends MainFrame {
         case s if WorldEvent.areaFileNames.contains(s) => Some(WorldEvent(WorldEvent.areaFileNames(s)))
         case a => Config.error(s"unknown name $a"); None
       }).toSeq.flatten.map(Left(_)):_*)
+      Config.warn(st)
       println(Nodes.reached(st)(MMap())._1.items.map(_.data.code).mkString(", "))
     }
 
