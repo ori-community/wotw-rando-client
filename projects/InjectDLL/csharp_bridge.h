@@ -72,4 +72,5 @@ namespace csharp_bridge
     extern signatures::f_bool_int_int filter_icon_show;
     extern signatures::f_int_int_int filter_icon_type;
     extern signatures::f_void_ptr_int_int_int filter_icon_text;
+    extern signatures::f_void map_opened;
 }
