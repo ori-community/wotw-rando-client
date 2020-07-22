@@ -34,7 +34,7 @@ NAMED_NESTED_STATIC_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, m
 #define NESTED_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, params) \
 NAMED_NESTED_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, method_name, params)
 
-#define NESTED_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, params) \
+#define NESTED_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, method_name, params) \
 NAMED_NESTED_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, method_name, method_name, params)
 
 // Nested Named
@@ -48,7 +48,7 @@ IL2CPP_BINDING_HELPER_NESTED(true, namezpace, klass_name, nested, return_type, m
 #define NAMED_NESTED_IL2CPP_INTERCEPT(namezpace, klass_name, nested, return_type, method_name, name, params) \
 IL2CPP_INTERCEPT_HELPER_NESTED(false, namezpace, klass_name, nested, return_type, method_name, name, params,)
 
-#define NAMED_NESTED_IL2CPP_BINDING(namezpace, klass_name, return_type, method_name, name, params) \
+#define NAMED_NESTED_IL2CPP_BINDING(namezpace, klass_name, nested, return_type, method_name, name, params) \
 IL2CPP_BINDING_HELPER_NESTED(false, namezpace, klass_name, nested, return_type, method_name, name, params,)
 
 // Normal
