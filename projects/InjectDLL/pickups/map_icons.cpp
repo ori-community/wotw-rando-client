@@ -333,7 +333,16 @@ namespace
         auto filter = static_cast<NewFilters>(manager->fields.Filter);
         // If we are in original filters then use the original function.
         if (filter <= NewFilters::Collectibles)
+        {
+            auto is_spoiler = icon->fields.IsCollectedState != nullptr &&
+                icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
+                icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
+
+            if (is_spoiler)
+                return false;
+
             return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter);
+        }
         else if (filter == NewFilters::Spoilers)
         {
             if (icon->fields.IsCollectedState == nullptr)
