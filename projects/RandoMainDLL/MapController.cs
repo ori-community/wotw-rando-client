@@ -24,6 +24,9 @@ namespace RandoMainDLL {
         // ^ this should probably be an array at this point...
         // TODO: send which key doors are already open
         args += String.Join(" ", SaveController.Data.SkillsFound.Select((AbilityType at) => at.GetDescription().Replace(" ", "")));
+        args += " " + String.Join(" ", Teleporter.TeleporterStates.Keys.Where(t => (int)t < 15 && new Teleporter(t).Has()).Select(t => t.GetDescription().Replace(" ", "") + "TP"));
+        if (new QuestEvent(QuestEventType.Water).Has())
+          args += " Water";
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = @"java.exe";
         proc.StartInfo.Arguments = args;
@@ -59,11 +62,11 @@ namespace RandoMainDLL {
       var cond = new UberId(groupId, id).toCond();
       var pick = cond.Pickup();
       string text = pick is Cash c ? $"{c.Amount} Spirit Light" : pick.ToString();
-      if (!pick.NonEmpty && cond.Loc() == LocData.Void) {
+      if (!pick.NonEmpty && cond.Loc() == LocData.Void) 
         text = " ";
-        foreach (var wrap in new string[] { "#", "*", "$", "@" })
+      
+      foreach (var wrap in new string[] { "#", "*", "$", "@" })
         text = text.Replace(wrap, "");
-      }
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
