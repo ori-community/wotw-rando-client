@@ -19,6 +19,7 @@ namespace RandoMainDLL {
     public static void UpdateReachableAsync() {
       try {
         Updating = true;
+        Thread.Sleep(30); // wait a frame or two to let values update
         String args = $"-jar C:\\moon\\SeedGen.jar ReachCheck {InterOp.get_max_health()} {Convert.ToInt32(InterOp.get_max_energy())} {InterOp.get_keystones()} {InterOp.get_ore()} {InterOp.get_experience()} ";
         args += String.Join(" ", SaveController.Data.SkillsFound.Select((AbilityType at) => at.GetDescription().Replace(" ", "")));
         var proc = new System.Diagnostics.Process();
