@@ -100,7 +100,7 @@ namespace RandoMainDLL {
 
       Pickup item = SeedController.OpherWeapon(slot);
       if (SaveController.Data.OpherSold.Contains(slot)) {
-        Randomizer.Log($"OBW: not enough money or slot already sold");
+        Randomizer.Log($"OBW: slot already sold");
         return;
       }
       SaveController.Data.OpherSold.Add(slot);

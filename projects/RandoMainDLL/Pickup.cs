@@ -111,7 +111,7 @@ namespace RandoMainDLL {
         return;
       if (Frames > 0)
         AHK.Pickup(ToString(), Frames);
-      SaveController.Data.FoundCount++;
+      SaveController.FoundItem();
     }
     public bool Collect(bool isGoal = false) {
       SeedController.GrantingGoalModeLoc = isGoal;

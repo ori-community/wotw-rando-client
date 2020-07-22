@@ -85,7 +85,7 @@ namespace RandoMainDLL {
               SeedController.ReadSeed();
               if (InterOp.get_game_state() == Memory.GameState.Game)
                 PsuedoLocs.RELOAD_SEED.OnCollect();
-              FramesTillUnlockReload = 60;
+              FramesTillUnlockReload = 120;
             }
             break;
           case "lastPickup":

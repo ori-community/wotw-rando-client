@@ -68,6 +68,7 @@ namespace RandoMainDLL {
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
           SeedController.UpdateGoal();
+          MapController.Update();
           TrackFileController.Update();
         }
         AHK.Tick();
