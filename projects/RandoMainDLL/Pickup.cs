@@ -404,7 +404,7 @@ namespace RandoMainDLL {
       UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
       base.Grant(skipBase);
     }
-    public override string ToString() => $"#{type.GetDescription()}#" ?? $"Unknown resource type {type}";
+    public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown resource type {type}";
   }
   public class RemoveQuestEvent : Pickup {
     public RemoveQuestEvent(QuestEventType ev) => type = ev;
