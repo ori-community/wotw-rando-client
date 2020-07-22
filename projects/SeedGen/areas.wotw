@@ -15,7 +15,7 @@ requirement ShieldEnemyObstacle:  # getting past a shielded enemy
 requirement Combat:  # engaging in longer combat sequences
   base:
     Regenerate, Sword OR Hammer  # define danger when using this!
-  advanced:
+  unsafe:
     Sword OR Hammer
     Launch
 
@@ -24,9 +24,9 @@ requirement RangedWeapon:
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in base, just future proofing here
   base: UpperDepths.ForestsEyes OR Flash
-  advanced: Bow=3  # should be good, right?
+  unsafe: Bow=3  # should be good, right?
 
-area Teleporters:  # teleporter access
+anchor Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
     base: BurrowsTP, Keystone=2
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
@@ -65,7 +65,7 @@ area Teleporters:  # teleporter access
   # conn WillowsEnd.OuterTP:
   #   base: ShriekTP
 
-area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater well
+anchor MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater well
   refill Full
 
   pickup MarshSpawn.RockHC: free
@@ -74,7 +74,7 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
   pickup MarshSpawn.GrappleHC:
     base:
       Grapple, DoubleJump OR Launch
-    advanced:
+    unsafe:
       Grapple, Sword                   # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
       Grapple, Dash OR Glide
   pickup MarshSpawn.BridgeEX:
@@ -116,7 +116,7 @@ area MarshSpawn.Main:                  # (-799, -4310) spawn location / inkwater
       Water, DoubleJump, Bash, Glide
       Water, Bash, Launch
 
-area MarshSpawn.BrokenBridge:  # (-643, -4352) after dropping down the breaking bridge
+anchor MarshSpawn.BrokenBridge:  # (-643, -4352) after dropping down the breaking bridge
   refill Checkpoint
 
   pickup MarshSpawn.ResilienceShard:
@@ -126,10 +126,10 @@ area MarshSpawn.BrokenBridge:  # (-643, -4352) after dropping down the breaking 
   pickup MarshSpawn.BashEC:
     base: Bash OR Launch
   pickup MarshSpawn.LupoMap: free
-  
+
   conn MarshSpawn.CaveEntrance: free
 
-area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
+anchor MarshSpawn.CaveEntrance:  # before the door blocking regen tree
   refill Checkpoint
 
   state MarshSpawn.KeystoneDoor:
@@ -150,7 +150,7 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
       Launch, Bash
       Grapple, Launch
       Bash, Grenade=1, DoubleJump
-    advanced:
+    unsafe:
       Launch                          # Single jump and a launch can reach the ledge offscreen.
       Bash                            # Lure the Jumper, then bash off him
   pickup MarshSpawn.LeftTokkEX:
@@ -172,40 +172,10 @@ area MarshSpawn.CaveEntrance:  # before the door blocking regen tree
       DoubleJump OR Launch
       Bash, Grenade=1
 
-area MarshSpawn.DenApproach:  # (-540, -4406) at regen tree
-  state MarshSpawn.KeystoneDoor:
-    base: Keystone=2
-  state MarshSpawn.HowlBurnt:
-    base:
-      DoubleJump OR Launch
-      Dash, Glide
-      Bash, Grenade=1
-
-  pickup MarshSpawn.RegenTree: free
-  pickup MarshSpawn.RecklessShard:
-    base, BreakWall=10:
-      DoubleJump OR Launch
-      Dash, Glide
-      Bash, Grenade=1
-
-  conn HowlsDen.Entrance:
-    base, MarshSpawn.HowlBurnt:
-      DoubleJump OR Launch
-      Dash, Glide
-      Bash, Grenade=1
-    advanced, MarshSpawn.HowlBurnt:
-      Sword OR Hammer         # Use air combos to make it to wall above thorns
-  conn MarshSpawn.CaveEntrance:
-    base, MarshSpawn.KeystoneDoor:
-      DoubleJump, Dash, Bash, Glide  # not sorry
-      Bash, Grenade=1
-      Launch
-      MarshSpawn.RainLifted, DoubleJump
-
-area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, burrows and marsh
+anchor MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, burrows and marsh
   refill Checkpoint
   refill Energy=1:
-    advanced: Weapon  # slightly out of sight
+    unsafe: Weapon  # slightly out of sight
 
   quest MarshSpawn.CaveKS: free
   quest MarshSpawn.TheMissingKey:
@@ -227,7 +197,7 @@ area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, b
       Burrow, DoubleJump, Dash OR Glide
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, Launch
-    advanced:
+    unsafe:
       Burrow, DoubleJump OR Dash
   pickup MarshSpawn.LifepactShard:
     # Damage required:
@@ -251,89 +221,42 @@ area MarshSpawn.PoolsBurrowsPath:  # (-898, -4436) the waypoint between pools, b
   conn MidnightBurrows.Teleporter:
     base: Bash, DoubleJump OR Dash OR Launch
 
-region MidnightBurrows:
-  base:
-    Danger=25 # kind of a no-op?
-
-area MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
-  refill Full
-
-  pickup MidnightBurrows.LeftKS:
-    base: DoubleJump OR Dash OR Glide OR Launch
-    advanced: Damage=15
-  pickup MidnightBurrows.LupoMap:
-    base: Launch
-    advanced: Bash
-  
-  conn Teleporters: free
-  conn MidnightBurrows.Central:
-    base: DoubleJump
-
-area MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big portal room
-  refill Checkpoint
-
-  quest MidnightBurrows.TabletQI:
-    base, MidnightBurrows.KeystoneDoor:
-      Bash, DoubleJump OR Dash OR Glide
-      Launch
-
-  state MidnightBurrows.KeystoneDoor:
-    base, Keystone=4:
-      Bash, DoubleJump OR Dash OR Glide
-      Launch
-  state MidnightBurrows.Lever:
+anchor MarshSpawn.DenApproach:  # (-540, -4406) at regen tree
+  state MarshSpawn.KeystoneDoor:
+    base: Keystone=2
+  state MarshSpawn.HowlBurnt:
     base:
-      Bash, DoubleJump OR Dash OR Glide OR Launch
-      Launch, DoubleJump OR Dash OR Glide
+      DoubleJump OR Launch
+      Dash, Glide
+      Bash, Grenade=1
 
-  pickup MidnightBurrows.LupoMap:
-    base: DoubleJump OR Dash OR Glide
-  pickup MidnightBurrows.DeflectorShard:
-    base:
-      MidnightBurrows.Lever, DoubleJump, Dash OR Glide
+  pickup MarshSpawn.RegenTree: free
+  pickup MarshSpawn.RecklessShard:
+    base, BreakWall=10:
+      DoubleJump OR Launch
+      Dash, Glide
+      Bash, Grenade=1
+
+  conn HowlsDen.Entrance:
+    base, MarshSpawn.HowlBurnt:
+      DoubleJump OR Launch
+      Dash, Glide
+      Bash, Grenade=1
+    unsafe, MarshSpawn.HowlBurnt:
+      Sword OR Hammer         # Use air combos to make it to wall above thorns
+  conn MarshSpawn.CaveEntrance:
+    base, MarshSpawn.KeystoneDoor:
+      DoubleJump, Dash, Bash, Glide  # not sorry
+      Bash, Grenade=1
       Launch
-    advanced:
-      MidnightBurrows.Lever, DoubleJump OR Dash
-  pickup MidnightBurrows.LowerKS:
-    base:
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Launch
-      Launch, DoubleJump OR Dash OR Glide
-  pickup MidnightBurrows.UpperKS:
-    base: MidnightBurrows.Lever, Launch
+      MarshSpawn.RainLifted, DoubleJump
 
-  conn MidnightBurrows.Teleporter: free
-  conn MidnightBurrows.East:
-    base:
-      MidnightBurrows.Lever, DoubleJump OR Dash OR Glide
-      Bash, Grenade=3, DoubleJump OR Dash OR Glide  # you never need the whole set, but this is for both states of portals lifted
-      Launch
-
-area MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
-  refill Checkpoint
-
-  pickup MidnightBurrows.RightKS: free
-  pickup MidnightBurrows.UpperKS:
-    # Damage required:
-    # Slug: 12 Health
-    base, EnemyObstacle:
-      DoubleJump, Glide
-      DoubleJump, Dash, Danger=15
-  
-  conn MidnightBurrows.Central:
-    # Damage required:
-    # Slug: 12 Health
-    base, EnemyObstacle:
-      DoubleJump, Glide
-      DoubleJump, Dash, Danger=15
-  conn HowlsDen.DoubleJumpTreeArea:
-    base: BreakWall=10
-
-area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave after chasing off Howl
+anchor HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave after chasing off Howl
   quest MarshSpawn.FangQI:
     base:
       DoubleJump OR Launch
       Bash, Dash                      # Bash off the enemy to get to the vine, then jump&dash right
-    advanced:
+    unsafe:
       Bash, Damage=10                 # Bash off the enemy to get to the vine, then jump right. Dboost the last gap.
       Bash, Grenade=1                   # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
   quest MarshSpawn.ALittleBraver:
@@ -343,7 +266,7 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave after chasing of
     base:
       DoubleJump, Dash                # Stick to the ceiling
       Launch
-    advanced:
+    unsafe:
       Bash, Grenade=1, Dash           # Bash up off the enemy and Dash to the fang. Grenade+bash up from the fang
       Bash, Grenade=1, Sword          # As above, but sword upslash to cross the last gap
       Bash, Grenade=1, Damage=10      # As above, but take a dboost on the last gap
@@ -361,7 +284,7 @@ area HowlsDen.Entrance:  # (-390, -4413) Next to Mokk the Brave after chasing of
       DoubleJump OR Launch
       Bash, Grenade=1
 
-area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
+anchor HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
   refill Checkpoint
 
   state HowlsDen.KeystoneDoor:
@@ -401,7 +324,7 @@ area HowlsDen.BoneBridge:  # (-371, -4468) After the long drop into Howl's Den
       BreakWall=16, BreakWall=16, BreakWall=16, DoubleJump
       BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
 
-area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
+anchor HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
   refill Full
 
   pickup HowlsDen.AboveTPEX:
@@ -412,7 +335,7 @@ area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
     base:
       DoubleJump OR Dash OR Launch
       Bash, Grenade=1
-    advanced:
+    unsafe:
       Sword OR Hammer         # Can reach lever with air combos
   # if someone manages to lower the platform, they'll manage to get over the gap as well. That's how it works in the base game, that's how it'll work here
   pickup HowlsDen.DoubleJumpEX:
@@ -430,7 +353,7 @@ area HowlsDen.Teleporter:  # (-328, -4536) At the teleporter
     # Lizard: 24 Health
     base: Weapon OR DoubleJump OR Dash OR Glide OR Launch
 
-area DenShrine:
+anchor DenShrine:
   refill Full
   pickup HowlsDen.CombatShrine:
     # Wave Refill: 4 Energy
@@ -452,7 +375,7 @@ area DenShrine:
       Danger=60
       Danger=40, Dash OR Bash OR Launch  # much better if you have good evasion
 
-area HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
+anchor HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
   pickup HowlsDen.DoubleJumpTree: free
   pickup HowlsDen.StickyShard:  # mind the breakable wall
     base:
@@ -470,7 +393,7 @@ area HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
       Bash, Grenade=1, Dash OR Glide
       Launch
 
-area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking at the Millstone
+anchor MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking at the Millstone
   refill Checkpoint
   refill Energy=3:
     base: Weapon  # to the left
@@ -478,26 +401,26 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
 
   state MarshPastOpher.TrialActivation:
     base: BreakWall=20, Grapple, Dash OR Glide OR Launch
-  
+
   pickup MarshPastOpher.TrialOre:
     base: BreakWall=20
   pickup MarshPastOpher.TrialLeftEX:
     base: BreakWall=20, DoubleJump OR Glide OR Dash OR Launch
-    advanced: Sword OR Hammer                 # Horizontal slash combo
+    unsafe: Sword OR Hammer                 # Horizontal slash combo
   pickup MarshPastOpher.TrialEC:
     base: BreakWall=20, DoubleJump OR Dash OR Launch OR Glide
-    advanced: Sword OR Hammer
+    unsafe: Sword OR Hammer
   pickup MarshPastOpher.TrialHC:
     base: Hammer
-    advanced: BreakWall=20                        # Lure stomp
+    unsafe: BreakWall=20                        # Lure stomp
   pickup MarshPastOpher.TrialRightEX:
     base: BreakWall=20, DoubleJump OR Bash OR Launch  # bash uses the enemy
-    advanced: Sword                         # Pogo off of enemy
+    unsafe: Sword                         # Pogo off of enemy
   pickup MarshPastOpher.SwingPoleEX:
     base:
       Danger=10, DoubleJump OR Dash OR Glide OR Launch
       Danger=10, Bash, Grenade=1
-    advanced:
+    unsafe:
       Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide      #It's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
 
   conn MarshShrine: free
@@ -506,10 +429,10 @@ area MarshPastOpher.MillView:  # (-596, -4293) Standing next to Opher, looking a
     base:
       DoubleJump OR Dash OR Launch
       Bash, Grenade=3
-    advanced: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
+    unsafe: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
   # wall leading to spawn can't be base-broken from behind
 
-area MarshShrine:
+anchor MarshShrine:
   refill Full
   pickup MarshPastOpher.CombatShrine:
     # Wave Refill: 2 Energy
@@ -524,7 +447,7 @@ area MarshShrine:
     # Skeeto: 20 Health
     base: Combat, Danger=20, DoubleJump OR Bash OR Launch  # flying enemies, but short and not too hard
 
-area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with bow tree.
+anchor MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with bow tree.
   refill Energy=1:
     base: Weapon
   # some more energy crystals nearby
@@ -555,7 +478,7 @@ area MarshPastOpher.BowArea:  # (-443, -4236) Ledge to the left of the pit with 
   conn WestHollow.Entrance:
     base: MarshPastOpher.EyestoneDoor
 
-area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of the ledge at the top left of the large room with Opher
+anchor MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of the ledge at the top left of the large room with Opher
   refill Checkpoint
   refill Health=1:
     base: EnemyObstacle
@@ -566,20 +489,20 @@ area MarshPastOpher.PoolsPathEast:  # (-662, -4241)  On the wood sticking out of
     base:
       Bash, DoubleJump, Dash
       Launch
-    advanced:
+    unsafe:
       Bash, Dash              # Pretty precise to do without damage
   pickup MarshPastOpher.PoolsPathEC:  # the squonkey doesn't reappear if you respawn on this checkpoint
     base: Bash, DoubleJump OR Launch
-    advanced: Bash, Glide
+    unsafe: Bash, Glide
 
   conn MarshPastOpher.PoolsPathWest:  # the squonkey doesn't reappear if you respawn on this checkpoint
     base: Bash, DoubleJump OR Launch
-    advanced:
+    unsafe:
       Hammer, Bash                    # Fairly precise air combos needed
       Hammer, Sword, Bash             # Fairly precise air combos needed
   conn MarshPastOpher.MillView: free
 
-area MarshPastOpher.PoolsPathWest:  # (-803, -4187)  Right on top of MarshPastOpher.PoolsPathEX
+anchor MarshPastOpher.PoolsPathWest:  # (-803, -4187)  Right on top of MarshPastOpher.PoolsPathEX
   refill Checkpoint
 
   pickup MarshPastOpher.PoolsPathEX: free
@@ -596,11 +519,88 @@ area MarshPastOpher.PoolsPathWest:  # (-803, -4187)  Right on top of MarshPastOp
       Launch, Danger=10, DoubleJump OR Dash OR Glide
       Launch, Bash
 
+region MidnightBurrows:
+  base:
+    Danger=25 # kind of a no-op?
+
+anchor MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
+  refill Full
+
+  pickup MidnightBurrows.LeftKS:
+    base: DoubleJump OR Dash OR Glide OR Launch
+    unsafe: Damage=15
+  pickup MidnightBurrows.LupoMap:
+    base: Launch
+    unsafe: Bash
+
+  conn Teleporters: free
+  conn MidnightBurrows.Central:
+    base: DoubleJump
+
+anchor MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big portal room
+  refill Checkpoint
+
+  quest MidnightBurrows.TabletQI:
+    base, MidnightBurrows.KeystoneDoor:
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
+
+  state MidnightBurrows.KeystoneDoor:
+    base, Keystone=4:
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
+  state MidnightBurrows.Lever:
+    base:
+      Bash, DoubleJump OR Dash OR Glide OR Launch
+      Launch, DoubleJump OR Dash OR Glide
+
+  pickup MidnightBurrows.LupoMap:
+    base: DoubleJump OR Dash OR Glide
+  pickup MidnightBurrows.DeflectorShard:
+    base:
+      MidnightBurrows.Lever, DoubleJump, Dash OR Glide
+      Launch
+    unsafe:
+      MidnightBurrows.Lever, DoubleJump OR Dash
+  pickup MidnightBurrows.LowerKS:
+    base:
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Launch
+      Launch, DoubleJump OR Dash OR Glide
+  pickup MidnightBurrows.UpperKS:
+    base: MidnightBurrows.Lever, Launch
+
+  conn MidnightBurrows.Teleporter: free
+  conn MidnightBurrows.East:
+    base:
+      MidnightBurrows.Lever, DoubleJump OR Dash OR Glide
+      Bash, Grenade=3, DoubleJump OR Dash OR Glide  # you never need the whole set, but this is for both states of portals lifted
+      Launch
+
+anchor MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
+  refill Checkpoint
+
+  pickup MidnightBurrows.RightKS: free
+  pickup MidnightBurrows.UpperKS:
+    # Damage required:
+    # Slug: 12 Health
+    base, EnemyObstacle:
+      DoubleJump, Glide
+      DoubleJump, Dash, Danger=15
+
+  conn MidnightBurrows.Central:
+    # Damage required:
+    # Slug: 12 Health
+    base, EnemyObstacle:
+      DoubleJump, Glide
+      DoubleJump, Dash, Danger=15
+  conn HowlsDen.DoubleJumpTreeArea:
+    base: BreakWall=10
+
 region WestHollow:
   base:
     Danger=20
 
-area WestHollow.Entrance:  # (-303, -4238) At Twillen
+anchor WestHollow.Entrance:  # (-303, -4238) At Twillen
   refill Checkpoint
   refill Energy=3:
     base: Weapon
@@ -617,7 +617,7 @@ area WestHollow.Entrance:  # (-303, -4238) At Twillen
       Bow=1, DoubleJump, Dash
       Bow=1, Launch
       Bow=1, Bash, Grenade=1
-    advanced, WestHollow.UpperDrainLeverPulled:
+    unsafe, WestHollow.UpperDrainLeverPulled:
       Bow=1, Glide, DoubleJump OR Dash
 
   pickup WestHollow.CrusherHC: free
@@ -634,12 +634,12 @@ area WestHollow.Entrance:  # (-303, -4238) At Twillen
   conn WestHollow.HollowDrainMiddle:
     base: WestHollow.UpperDrainLeverPulled
 
-area WestHollow.HollowDrainMiddle:  # (-197, -4275) At the crystal below the purple eye
+anchor WestHollow.HollowDrainMiddle:  # (-197, -4275) At the crystal below the purple eye
   refill Checkpoint
   refill Energy=3:
     base: WestHollow.UpperDrainLeverPulled, Weapon
 
-  # this area doesn't assume drained water because that should make it usable for weird dirty water swim paths
+  # this anchor doesn't assume drained water because that should make it usable for weird dirty water swim paths
   pickup WestHollow.HiddenEC:
     base: WestHollow.FullyDrained, BreakWall=10
 
@@ -656,7 +656,7 @@ area WestHollow.HollowDrainMiddle:  # (-197, -4275) At the crystal below the pur
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=1
 
-area WestHollow.RockPuzzle:  # (-249, -4275) At the right ledge of the rock puzzle room
+anchor WestHollow.RockPuzzle:  # (-249, -4275) At the right ledge of the rock puzzle room
   refill Checkpoint
   refill Energy=3:
     base: Weapon, DoubleJump OR Dash OR Bash OR Glide OR Launch
@@ -671,7 +671,7 @@ area WestHollow.RockPuzzle:  # (-249, -4275) At the right ledge of the rock puzz
       Bow=3, DoubleJump OR Dash
       Bow=2, Bash, DoubleJump OR Dash OR Glide  # bashing off the skeeto
       Launch
-    advanced, WestHollow.UpperDrainLeverPulled:
+    unsafe, WestHollow.UpperDrainLeverPulled:
       Bow=3, Bash, Grenade=1  # Involves bashing off a mosquito, no idea on bow requirement
       Bow=3, Bash, Damage=20  # Involves bashing off a mosquito, no idea on bow requirement
 
@@ -681,7 +681,7 @@ area WestHollow.RockPuzzle:  # (-249, -4275) At the right ledge of the rock puzz
       Bow=2, DoubleJump, Dash
   pickup WestHollow.RockPuzzleEX:
     base: WestHollow.FullyDrained
-    advanced: WestHollow.UpperDrainLeverPulled, Damage=100
+    unsafe: WestHollow.UpperDrainLeverPulled, Damage=100
   pickup WestHollow.HiddenEC:
     base: WestHollow.FullyDrained, BreakWall=10
 
@@ -694,7 +694,7 @@ area WestHollow.RockPuzzle:  # (-249, -4275) At the right ledge of the rock puzz
   conn WestHollow.HollowDrainLower:
     base: WestHollow.FullyDrained
 
-area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of Lupo
+anchor WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of Lupo
   refill Checkpoint
   # an energy crystal near the bottom is not currently considered
 
@@ -730,13 +730,13 @@ area WestHollow.HollowDrainLower:  # (-216, -4329) Next to the jumppad left of L
   conn WestHollow.DashArea:
     base: WestHollow.DoorLever, EnemyObstacle OR DoubleJump
 
-area WestHollow.DashArea:  # (-88, -4423) To the right of the lever door
+anchor WestHollow.DashArea:  # (-88, -4423) To the right of the lever door
   refill Checkpoint
 
   pickup WestHollow.DashTree: free
   pickup WestHollow.CrusherEX:
     base: Dash
-    advanced: Launch
+    unsafe: Launch
   pickup WestHollow.DashRightEX:
     base:
       DoubleJump, Dash
@@ -752,7 +752,7 @@ region EastHollow:
   base:
     Danger=20
 
-area EastHollow.Teleporter:  # (-150, -4238) the teleporter
+anchor EastHollow.Teleporter:  # (-150, -4238) the teleporter
   refill Full
 
   # paths through the purple door exist mainly because of historical reasons, but might be a candidate for future open mode as well
@@ -773,14 +773,14 @@ area EastHollow.Teleporter:  # (-150, -4238) the teleporter
   conn WestHollow.HollowDrainMiddle:
     base: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
 
-area BeetleFight:
+anchor BeetleFight:
   refill Full
 
   state EastHollow.BeetleDefeated:
     base: Combat, Danger=35, Dash OR Launch  # Kinda tight on danger, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
-    advanced: Combat
+    unsafe: Combat
 
-area EastHollow.AboveBash:  # (-28, -4233) At the breakable floor to Bash tree
+anchor EastHollow.AboveBash:  # (-28, -4233) At the breakable floor to Bash tree
   refill Checkpoint
 
   state EastHollow.DepthsLever:
@@ -792,7 +792,7 @@ area EastHollow.AboveBash:  # (-28, -4233) At the breakable floor to Bash tree
     base, EastHollow.BeetleDefeated, EastHollow.Voice:
       Bash, DoubleJump OR Dash OR Glide
       Launch
-    advanced:
+    unsafe:
       DoubleJump, Dash, Glide
 
   pickup EastHollow.GladesApproachOre:
@@ -840,7 +840,7 @@ area EastHollow.AboveBash:  # (-28, -4233) At the breakable floor to Bash tree
       Launch, DoubleJump, Dash OR Glide
       Launch, Dash, Glide
 
-area EastHollow.Kwolok:  # (177, -4215) Between Ku and Kwolok
+anchor EastHollow.Kwolok:  # (177, -4215) Between Ku and Kwolok
   refill Checkpoint
 
   state EastHollow.Voice: free
@@ -871,7 +871,7 @@ area EastHollow.Kwolok:  # (177, -4215) Between Ku and Kwolok
       Water, Grapple, DoubleJump, Dash OR Glide
       Water, Grapple, Dash, Glide
 
-area EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door blocking Depths access
+anchor EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door blocking Depths access
   refill Checkpoint
   refill Energy=3:
     base: Weapon
@@ -880,7 +880,7 @@ area EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door block
     base: Bash OR Launch
   pickup EastHollow.SplinterShard:
     base: Bash OR Launch  # Other abilities can get there, but these can also get you out again (just player convenience)
-    advanced: free
+    unsafe: free
   pickup EastHollow.DepthsExteriorEX:
     base: Glide, Launch  # ...what even is intended here?
 
@@ -888,7 +888,7 @@ area EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door block
     base: Glide
   # backwards paths through the door seem pointless
 
-area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
+anchor GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   refill Full
 
   state GladesTown.BuildHuts:
@@ -916,7 +916,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
         Water, DoubleJump, Dash
         Bash, Grenade=1
         Launch
-    advanced: GladesTown.CaveEntrance, Flash, Water, Dash
+    unsafe: GladesTown.CaveEntrance, Flash, Water, Dash
   quest GladesTown.IntoTheDarkness:
     base: GladesTown.ClearThorns, GladesTown.AcornQI
   quest GladesTown.RebuildTheGlades:
@@ -936,7 +936,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
       TuleyShop.BlueMoon, TuleyShop.Lightcatchers, Bash, Grapple
       TuleyShop.SpringPlants, DoubleJump OR Dash OR Glide
       TuleyShop.SpringPlants, TuleyShop.Lightcatchers, Bash
-    advanced: Bash, Grenade=2
+    unsafe: Bash, Grenade=2
   pickup GladesTown.AboveTpEX:
     base:
       Launch  # probably base?
@@ -946,7 +946,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
         TuleyShop.StickyGrass, Grapple
         TuleyShop.BlueMoon, DoubleJump, Grapple
         TuleyShop.SpringPlants, DoubleJump
-    advanced:
+    unsafe:
       Bash, Grenade=2, Dash, DoubleJump
   pickup GladesTown.BountyShard:
     base:
@@ -957,7 +957,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
         TuleyShop.StickyGrass, Grapple
         TuleyShop.BlueMoon, DoubleJump, Grapple
         TuleyShop.SpringPlants, DoubleJump
-    advanced:
+    unsafe:
       Bash, Grenade=3, Dash, DoubleJump
   pickup GladesTown.ArcingShard:
     base, GladesTown.ClearThorns:
@@ -1038,7 +1038,7 @@ area GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
       Bash, Grenade=1
 # seed paths to TuleyShop tbd if ever necessary
 # connection to hollow currently redundant with the wall in the way
-area GladesTown.West:  # (-430, -4135) At Motay
+anchor GladesTown.West:  # (-430, -4135) At Motay
   refill Checkpoint
 
   quest GladesTown.HandToHandCanteen:
@@ -1108,7 +1108,7 @@ area GladesTown.West:  # (-430, -4135) At Motay
         TuleyShop.Lightcatchers, Bash, DoubleJump OR Dash OR Glide
   # all other paths should be redundant with the connection to tp
 
-area GladesTown.UpperWest:  # (-357, -4126) Where Mokk lives
+anchor GladesTown.UpperWest:  # (-357, -4126) Where Mokk lives
   pickup GladesTown.ArcingShard:
     base, GladesTown.ClearThorns:
       DoubleJump OR Dash OR Glide OR Launch
@@ -1128,7 +1128,7 @@ area GladesTown.UpperWest:  # (-357, -4126) Where Mokk lives
       Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
   # no reason for backwards connections
 
-area GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
+anchor GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
   pickup GladesTown.BelowHoleHutEX: free
   pickup GladesTown.HoleHutEX:
     base, GladesTown.RoofsOverHeads:
@@ -1140,7 +1140,7 @@ area GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
       Bash, Grenade=1
   # no reason for backwards connections
 
-area GladesTown.ReachPath:  # (-140, -4096) At the soup
+anchor GladesTown.ReachPath:  # (-140, -4096) At the soup
   refill Checkpoint
 
   quest GladesTown.HandToHandSoup:
@@ -1156,7 +1156,7 @@ area GladesTown.ReachPath:  # (-140, -4096) At the soup
     base:  # other (non-redundant) paths exist, but these here have free retries, otherwise you'd have to go through entire reach to get another attempt
       DoubleJump
       TuleyShop.Lightcatchers, Bash
-  
+
   conn GladesTown.HoleHut:
     base:  # free if you know the whole branch is semisolid, but you probably don't as a base player
       TuleyShop.SpringPlants OR DoubleJump OR Dash OR Glide OR Launch
@@ -1173,7 +1173,7 @@ region WestGlades:
   base:
     Danger=20
 
-area WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past glades
+anchor WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past glades
   refill Checkpoint
   refill Energy=3:
     base, Weapon:
@@ -1211,7 +1211,7 @@ area WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past gl
       DoubleJump, Dash, Glide
       Launch
 
-area WestGlades.Upper:  # (-618, -4054) At the waypoint
+anchor WestGlades.Upper:  # (-618, -4054) At the waypoint
   refill Checkpoint
   refill Health=1: free
 
@@ -1241,7 +1241,7 @@ area WestGlades.Upper:  # (-618, -4054) At the waypoint
       Bash OR Launch
       Water, WaterDash
 
-area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening up to Wellspring
+anchor WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening up to Wellspring
   refill Checkpoint
   refill Health=1: free
 
@@ -1278,7 +1278,7 @@ area WestGlades.MillApproach:  # (-703, -4064) At the ledge of the room opening 
       Water, Launch, DoubleJump, Dash
       Water, Launch, Glide
 
-area GladesShrine:
+anchor GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
     base, Combat, Bash:  # the shooter plants have basically no attack surface without bash
@@ -1286,52 +1286,16 @@ area GladesShrine:
       Danger=55, DoubleJump OR Dash # these can help
       Danger=30, Launch             # if you're op, nothing's terrifying
 
-area PoolsApproach.MillPathCheckpoint:  # (-826, -4129) The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
-  refill Checkpoint
-
-  conn WestGlades.MillApproach:
-    base:
-      Water, Grapple, DoubleJump, Dash OR Glide
-      Water, Grapple, Bash, Grenade=1, Dash, Glide
-      Water, Launch, DoubleJump OR Dash OR Grapple OR Glide  # go up the left wall
-  conn PoolsApproach.MillPath:
-    base, EnemyObstacle, Danger=20:  # severe enemy spam
-      Bash, Grapple OR Launch  # this is probably actually closest to how you'd traverse this naturally
-      Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
-      Launch, DoubleJump OR Grapple
-
-area PoolsApproach.MillPath:  # (-873, -4146) above the water where the three paths merge
-  refill Checkpoint
-
-  pickup PoolsApproach.MillPathEX:
-    base:
-      Bash, DoubleJump OR Dash
-      RangedWeapon, DoubleJump, Dash
-      RangedWeapon, DoubleJump, Grapple, Glide  # solvable either through the right grapple point or using the wrap-around taught at glades shrine
-      Launch
-  pickup PoolsApproach.MillPathEC:
-    base: Water  # again not really a reason to even use Bash
-
-  conn PoolsApproach.MillPathCheckpoint:
-    base, EnemyObstacle, Danger=20:  # severe enemy spam
-      Bash, DoubleJump  # bash errything
-      Weapon, Bash, Grenade=3, Dash OR Glide  # clear the space to bashnade
-      Weapon, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
-      DoubleJump, Grapple, Dash OR Glide
-      Launch, DoubleJump OR Dash OR Bash OR Glide
-  conn PoolsApproach.RightOfWheel:
-    base: EnemyObstacle, Water  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement.
-
 region OuterWellspring:
   base:
     Danger=25
 
-area OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you enter the first room
+anchor OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you enter the first room
   refill Checkpoint
   refill Health=1:
-    advanced: free  # barely out of sight, also past an enemy...
+    unsafe: free  # barely out of sight, also past an enemy...
   refill Energy=3:
-    advanced: Weapon  # pretty far to the left
+    unsafe: Weapon  # pretty far to the left
   # two more energy crystals in the outer area
 
   # ommited a lot of paths including most bash-related paths because of how complex this place is to navigate
@@ -1367,21 +1331,21 @@ area OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you e
       Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Water, Launch
       OuterWellspring.EntranceDoorOpen  # casual strat I guess?
-    advanced:
-      Glide, Dash, Bash, Damage=20  # in advanced due to a single tick of poison water damage needed
+    unsafe:
+      Glide, Dash, Bash, Damage=20  # in unsafe due to a single tick of poison water damage needed
       DoubleJump, Bash, Damage=20  # also only one tick of water damage! 
   pickup OuterWellspring.LifeHarvestShard:
     base, BreakWall=20:
       DoubleJump, Bash
       Launch
-    advanced, BreakWall=20:
+    unsafe, BreakWall=20:
       # SentryJump
       Bash, Grenade=1  # this would be in Base if the camera didn’t put ori right at the top of the screen, making it hard to aim/catch the grenade
   pickup OuterWellspring.SwimEX:
     base: Water
   pickup OuterWellspring.SwimOre:
     base: Water, Grapple OR WaterDash OR Launch
-    advanced: Water, Bash, Grenade=1  # you can stand on the spinny wheel and bash-grenade this
+    unsafe: Water, Bash, Grenade=1  # you can stand on the spinny wheel and bash-grenade this
       # Water, DoubleJump, TripleJump
       # Water, SentryJump
 
@@ -1400,7 +1364,7 @@ area OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you e
       Launch
       Water
 
-area OuterWellspring.WestDoor:  # (-892, -3992) Outside the door where you exit the first room
+anchor OuterWellspring.WestDoor:  # (-892, -3992) Outside the door where you exit the first room
   refill Checkpoint
 
   state OuterWellspring.LeftWallWheelFree:
@@ -1424,7 +1388,7 @@ area OuterWellspring.WestDoor:  # (-892, -3992) Outside the door where you exit 
       Launch, Grapple
   conn OuterWellspring.EntranceDoor: free
 
-area OuterWellspring.EastDoor:  # (-814, -3973) Outside the door leading to the spin puzzle
+anchor OuterWellspring.EastDoor:  # (-814, -3973) Outside the door leading to the spin puzzle
   refill Checkpoint
 
   state OuterWellspring.WestDoorBlueMoonFree:
@@ -1467,7 +1431,7 @@ area OuterWellspring.EastDoor:  # (-814, -3973) Outside the door leading to the 
   conn WestGlades.MillApproach:
     base: Grapple OR Glide OR Launch
 
-area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the teleporter
+anchor OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the teleporter
   state OuterWellspring.TrialActivation:
     base:
       EnemyObstacle, DoubleJump, Grapple, Dash OR Glide
@@ -1485,7 +1449,7 @@ area OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the t
       Grapple, DoubleJump, Dash OR Glide
       Grapple, Dash, Glide
       Launch, DoubleJump OR Dash OR Grapple OR Glide
-  
+
   conn InnerWellspring.Teleporter:
     base: InnerWellspring.TopDoorOpen
   conn OuterWellspring.EastDoor: free
@@ -1496,7 +1460,7 @@ region InnerWellspring:
   base:
     Danger=25
 
-area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you enter the first room
+anchor InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you enter the first room
   refill Checkpoint
   refill Energy=3:  # technically out of sight, but this is very realistic
     base: Weapon
@@ -1557,7 +1521,7 @@ area InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you e
       Grapple, Dash, Glide
       Launch
 
-area InnerWellspring.BelowDrainLever:  # (-1153, -3895) In the first room below the drain lever
+anchor InnerWellspring.BelowDrainLever:  # (-1153, -3895) In the first room below the drain lever
   refill Checkpoint
 
   state InnerWellspring.UpperCorruption:  # the fourth corruption you see on your way
@@ -1595,7 +1559,7 @@ area InnerWellspring.BelowDrainLever:  # (-1153, -3895) In the first room below 
       DoubleJump, Dash
       Grapple OR Glide OR Launch
 
-area InnerWellspring.WestDoor:  # (-1216, -3898) Inside the door where you exit the first room
+anchor InnerWellspring.WestDoor:  # (-1216, -3898) Inside the door where you exit the first room
   refill Checkpoint
   refill Health=2: free
   refill Energy=3:
@@ -1628,7 +1592,7 @@ area InnerWellspring.WestDoor:  # (-1216, -3898) Inside the door where you exit 
     base: InnerWellspring.MiddleDoorsOpen
   conn InnerWellspring.BelowDrainLever: free
 
-area InnerWellspring.EastDoor:  # (-1190, -3733) Inside the door leading to the spin puzzle
+anchor InnerWellspring.EastDoor:  # (-1190, -3733) Inside the door leading to the spin puzzle
   refill Checkpoint
   refill Health=1: free
   refill Energy=4:
@@ -1641,7 +1605,7 @@ area InnerWellspring.EastDoor:  # (-1190, -3733) Inside the door leading to the 
       Grapple, DoubleJump OR Dash
       Grapple, Bash, Grenade=1
       Launch
-    advanced:
+    unsafe:
       Water, DoubleJump, Dash OR Glide
   state InnerWellspring.TopDoorOpen:
     base, InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, EnemyObstacle, BreakWall=16:
@@ -1668,7 +1632,7 @@ area InnerWellspring.EastDoor:  # (-1190, -3733) Inside the door leading to the 
     base: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
   # no reason for backwards connections
 
-area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
+anchor InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
   refill Full
 
   quest InnerWellspring.BlueMoonSeed:
@@ -1704,7 +1668,7 @@ area InnerWellspring.Teleporter:  # (-1308, -3675) At the teleporter
   conn OuterWellspring.TopDoor: free
   conn OpherShop: free
 
-area InnerWellspring.EscapeSequence:
+anchor InnerWellspring.EscapeSequence:
   refill Full
   quest InnerWellspring.WaterEscape:
     base:
@@ -1712,430 +1676,24 @@ area InnerWellspring.EscapeSequence:
       Bash, Grapple, Dash, Glide
       Grapple, Launch
 
-region PoolsApproach:
-  base:
-    Danger=25
-
-area PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the static wheel
-  pickup PoolsApproach.AboveWheelEX:
-    base:
-      # grenadebash doesn't work as well when the wheel spins
-      PoolsApproach.WheelFreed, DoubleJump
-      Launch
-  pickup PoolsApproach.MillPathHC:
-    base:
-      Water, DoubleJump, Dash, WaterDash, Grapple
-      Water, DoubleJump, Grapple, Launch
-    advanced:
-      Water, WaterDash, DoubleJump, Grapple
-      Water, Grapple, Launch
-  pickup PoolsApproach.MillPathEC:
-    base: Water, Bash, WaterDash OR Danger=10
-
-  conn MarshPastOpher.PoolsPathWest:
-    base, BreakWall=20:
-      Water, DoubleJump, WaterDash, Grapple  # maybe not obvious?
-      Water, Grapple, Launch
-    advanced:
-      BreakWall=20, Water, WaterDash, Grapple, Dash OR Sword
-  # this replaces all MarshPastOpher pickup paths in this area
-  conn PoolsApproach.LeftOfWheel:
-    base:
-      PoolsApproach.WheelFreed OR DoubleJump OR Grapple OR Launch
-      Bash, Grenade=1
-  conn EastPools.Entry:
-    base:
-      # grenadebash doesn't work as well when the wheel spins
-      Glide, Launch
-      Bash, Grenade=1, Launch, DoubleJump OR Dash
-      DoubleJump, Dash, Launch, Danger=20
-      PoolsApproach.WheelFreed, DoubleJump, Glide
-    advanced:
-      Launch, Dash  # advanced? definitions tbd
-  conn PoolsApproach.MillPath:
-    base:
-      Water, Bash, Danger=10, Grapple, DoubleJump, Dash OR Glide
-      Water, Bash, WaterDash
-      Water, Bash, Danger=10, Launch
-
-area PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the static wheel
-  state PoolsApproach.WheelFreed:
-    base: Water, Bash
-
-  pickup PoolsApproach.CurrentEX:
-    base: Water, WaterDash
-  pickup PoolsApproach.BurrowsPathEX:
-    base:
-      Water, WaterDash, DoubleJump, Dash, Danger=10
-      Water, WaterDash, Glide, DoubleJump OR Dash
-      Water, WaterDash, Bash, DoubleJump OR Glide
-      Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide OR Danger=10
-    advanced:
-      Water, Dash, Glide, WaterDash
-
-  conn PoolsApproach.RightOfWheel:
-    base:
-      # grenadebash doesn't work when the wheel spins
-      PoolsApproach.WheelFreed, Water
-      DoubleJump OR Launch
-  conn EastPools.Entry:
-    base: Water, Launch
-    advanced: Water, DoubleJump, WaterDash, Damage=20
-  conn MarshSpawn.Main:
-    base: Water, WaterDash  # <3
-
-region EastPools:
-  base:
-    Danger=40, Regenerate
-
-area EastPools.Entry:  # (-1122, -4166) At the Voice dialogue
-  refill Checkpoint
-  refill Health=1: free
-  
-  # The first bubbles here only spawn if you have Flap!
-  pickup EastPools.TwoCrushersEX:
-    base: Water, WaterDash
-  
-  conn EastPools.LeverRoom:
-    base:
-      Flap OR Launch
-      Bash, Grenade=1
-  conn PoolsApproach.LeftOfWheel:
-    base:
-      Water
-      Bash, Grenade=1, Glide
-      Glide, Launch
-      DoubleJump, Dash, Launch
-      Bash, Grenade=1, Launch, DoubleJump OR Dash
-  
-area EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
-  refill Checkpoint
-
-  state EastPools.EntryLever:
-    base, EnemyObstacle:
-      DoubleJump, Dash OR Glide
-      Dash, Glide
-      Launch
-  state EastPools.BelowTokkBubbleFree:
-    base:
-      EastPools.EntryLever, Water, Bash
-    advanced, EastPools.EntryLever:
-      Water, WaterDash
-      Water, Bow=1 OR Grenade=1
-
-  quest EastPools.KwoloksWisdomAmulet: free
-
-  pickup EastPools.RightOre:
-    base:
-      DoubleJump, Grapple, Flap, Dash OR Glide  # kinda weird, but I guess this is the casual way?
-      Launch, Grapple
-    advanced:
-      Dash, Grapple, Glide, Flap
-  pickup EastPools.CurrentEX:
-    base: Water, WaterDash
-  pickup EastPools.BelowLeverEX:
-    base:  # kinda dangerous with the spikes? but damage seemed mostly avoidable
-      DoubleJump, Bash, Grenade=1
-      Hammer  # double jump makes it easier
-      Launch
-  pickup EastPools.AboveDoorOre:
-    base, EastPools.EntryLever:  # other paths would be redundant with the paths coming from tokk
-      Bash, Grenade=2
-      Bash, Grenade=1, DoubleJump OR Grapple
-
-  conn EastPools.TPArea:
-    base, EastPools.EntryLever:
-      EastPools.BelowTokkBubbleFree, EnemyObstacle, Grapple, Flap, DoubleJump OR Dash OR Glide
-      DoubleJump, Bash, Grenade=1  # bashgrenade above
-      Bash, Grenade=2, Dash OR Glide  # bashgrenade above
-      EnemyObstacle, Bash, Grenade=2, EastPools.BelowTokkBubbleFree OR Water  # bashgrenade below
-      Launch
-  conn EastPools.Entry: free
-
-area EastPools.TPArea:  # (-1297, -4143) Where Tokk stands
-  refill Checkpoint
-  
-  state EastPools.BelowTokkBubbleFree:
-    base:
-      Water, Bash
-    advanced:
-      Water, WaterDash
-      Water, Bow=1 OR Grenade=1
-  state EastPools.LowerWaterDrained:
-    base: Water OR EastPoolsTP
-  # There are two Arenas here: you get one if you enter without WaterDash and another if you enter with it.
-  # This path is assuming the worse case of getting the strictly harder WaterDash arena, but doesn't list WaterDash
-  # explicitly because you don't need it unless you have it.
-  # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
-  # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
-  state EastPools.FightArenas:
-    base: EastPools.LowerWaterDrained, Combat, Water, Bash
-
-  quest EastPools.HandToHandSpyglass:
-    base, LowerDepths.HandToHandSilk:
-      Grapple, DoubleJump OR Dash OR Glide
-      DoubleJump, Bash, Grenade=1
-      Launch
-  quest EastPools.GrassSeed:
-    base, EastPools.FightArenas:
-      Water, Bash, WaterDash OR Launch
-      Water, Bash, DoubleJump, Dash OR Glide
-      Water, Bash, Dash, Glide
-      Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-
-  pickup EastPools.AboveDoorOre:
-    base:
-      EastPools.BelowTokkBubbleFree, Grapple, Flap, DoubleJump OR Dash
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
-      Bash, Grenade=2
-      Launch
-  pickup EastPools.AboveTpEX:
-    base:  # these need water to not be softlockable with the player draining the upper water
-      Water, DoubleJump, Bash, Grenade=2
-      Water, DoubleJump, Grapple, Bash, Grenade=1
-      Water, Launch
-  pickup EastPools.PurpleWallHC:
-    base, UpperPools.UpperWaterDrained:
-      Water, WaterDash, Bash, Grenade=3, DoubleJump
-      Water, WaterDash, Bash, Grenade=2, DoubleJump, Grapple
-      Water, WaterDash, Bash, Launch
-  pickup EastPools.LupoOre:
-    base: Water
-  pickup EastPools.UltraBashShard:
-    base: EastPools.LowerWaterDrained, Water, Bash
-  pickup EastPools.FightRoomHC:
-    base, EastPools.FightArenas, WaterDash:  # The HC only gets unlocked if you finish the alternate WaterDash arena; FightArenas doesn't have WaterDash as requirement included for reasons explained above, so it's needed here
-      DoubleJump, Dash OR Grapple
-      Bash, Grenade=1
-      Launch
-  pickup EastPools.EnergyHarvestShard:
-    base, EastPools.FightArenas:
-      Water, WaterDash, DoubleJump
-      Bash, Grenade=1
-      Launch
-  pickup EastPools.LupoEX:
-    base: EastPools.FightArenas, Water, Bash
-  pickup EastPools.LupoMap:
-    base: EastPools.FightArenas, Water, Bash
-  pickup EastPools.BehindCrusherEX:
-    base: EastPools.FightArenas, Water
-
-  conn EastPools.Teleporter:
-    base: EastPools.LowerWaterDrained
-  conn EastPools.LeverRoom:
-    base, EastPools.EntryLever, EnemyObstacle:
-      DoubleJump OR Dash OR Glide OR Launch  # go above
-      Bash, Grenade=1  # go above
-      Grapple  # go below
-  conn WestPools:
-    base: EastPools.FightArenas, Water, Bash, WaterDash, DoubleJump OR Dash OR Glide OR Launch
-  conn UpperPools.KeystoneRoom:
-    base, EastPools.FightArenas, EnemyObstacle:
-      Water, Bash, DoubleJump, Dash OR Glide
-      Water, Bash, Launch
-
-area EastPools.Teleporter:  # (-1316, -4153) At the teleporter after draining the water - this is to specify the refill and randos behaviour of draining the water if you grab the tp pickup
-  refill Full
-  
-  state EastPools.LowerWaterDrained: free  # this is, uh... correct, I suppose xD
-
-  conn Teleporters: free
-  conn EastPools.TPArea: free
-
-region UpperPools:
-  base:
-    Danger=40, Regenerate
-
-area UpperPools.KeystoneRoom:  # (-1540, -4095) Autosave below the two upper left keystones
-  refill Checkpoint
-  refill Energy=3:
-    base: Weapon
-
-  state UpperPools.KeystoneRoomBubbleFree:
-    base:
-      Water, WaterDash
-      Water, Bash
-    advanced: Bow=1 OR Grenade=1
-
-  quest EastPools.GrassSeed:
-    base: EnemyObstacle
-
-  pickup UpperPools.LowerKS:
-    base:
-      Water, DoubleJump, Bash
-      Water, WaterDash OR Launch
-  pickup UpperPools.UpperLeftKS:
-    base:
-      Bash, Grenade=1
-      UpperPools.KeystoneRoomBubbleFree, DoubleJump, Flap
-      Launch
-  pickup UpperPools.UpperMidKS:
-    base:
-      DoubleJump, Bash, Grenade=1
-      Bash, Grenade=2, DoubleJump OR Dash OR Glide
-      Grapple, DoubleJump OR Dash OR Glide
-      Launch
-  pickup UpperPools.UpperRightKS:
-    base:
-      Bash, Grenade=1, Water OR DoubleJump OR Dash OR Glide
-      Grapple, DoubleJump OR Glide OR Dash
-      Water, WaterDash, DoubleJump
-      Launch
-
-  conn UpperPools.BeforeKeystoneDoor:
-    base:
-      Grapple, DoubleJump OR Dash OR Glide
-      Water, Grapple, Bash, Grenade=1
-      Bash, Grenade=2, Water OR DoubleJump OR Dash OR Glide
-      Bash, Grenade=3
-      Launch
-  conn UpperPools.BubbleSpamRoom:
-    base: Flap, DoubleJump, Dash, Grapple  # seems to be intended
-  conn WestPools:
-    base: Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
-
-area UpperPools.BeforeKeystoneDoor:  # (-1483, -4076) In front of the door blocking waterdash tree
-  refill Health=1:
-    base: DoubleJump OR Dash OR Glide OR Grapple OR Launch
-
-  state UpperPools.KeystoneDoor:
-    base: Keystone=4
-  state UpperPools.TrialActivation:
-    base: DoubleJump OR Grapple OR Launch
-  
-  conn UpperPools.TreeArea:
-    base: UpperPools.KeystoneDoor
-  conn UpperPools.KeystoneRoom:
-    base: Water OR DoubleJump OR Dash OR Glide OR Launch  # don't really need anything, but eh
-  conn UpperPools.BubbleSpamRoom:
-    base:
-      DoubleJump, Bash, Grenade=1
-      Launch
-
-area UpperPools.TreeArea:  # (-1467, -4075) The ledge left of waterdash tree
-  refill Checkpoint
-
-  state UpperPools.UpperWaterDrained:
-    base:
-      Water, WaterDash, Grapple, DoubleJump OR Launch
-      Water, WaterDash, Launch, DoubleJump, Dash OR Glide
-
-  pickup UpperPools.SwimDashTree: free
-  pickup UpperPools.CurrentEX:
-    base: Water, WaterDash
-  pickup UpperPools.RoofEX:
-    base:
-      Water, WaterDash, Flap, DoubleJump OR Dash
-      Water, WaterDash, Launch
-    advanced: Launch  # use the small bubbles
-  pickup UpperPools.WaterfallEC:
-    base:
-      Water, WaterDash, DoubleJump, Dash, Grapple
-      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
-      Water, WaterDash, Launch
-    advanced:  # these are maybe probably not base
-      Water, WaterDash, Grapple, DoubleJump OR Dash
-      Water, WaterDash, Grapple, Bash, Grenade=1
-  pickup EastPools.PurpleWallHC:
-    base, UpperPools.UpperWaterDrained:
-      Water, WaterDash, DoubleJump, Dash, Bash, Grapple
-      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
-      Water, WaterDash, Bash, Launch
-  pickup EastPools.AboveTpEX:
-    base, UpperPools.UpperWaterDrained:
-      Water, WaterDash, DoubleJump, Dash, Grapple
-      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
-      Water, WaterDash, Launch
-
-  conn EastPools.TPArea:
-    base, UpperPools.UpperWaterDrained:
-      Water, WaterDash, DoubleJump, Dash, Grapple
-      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
-      Water, WaterDash, Launch
-
-area UpperPools.BubbleSpamRoom:  # (-1586, -4052) To the right of where all the bubbles rise
-  refill Checkpoint
-
-  pickup UpperPools.FishPoolEX:
-    base: Water, Bash OR WaterDash OR Danger=10  # just in case someone's troubled by the fish
-  pickup UpperPools.FishPoolOre:
-    base:
-      DoubleJump, Bash, Dash OR Glide
-      Bash, Grenade=1
-      Launch
-  pickup UpperPools.LeftBubblesEX:  # Beautiful autosave placement right there
-    base: Water
-  pickup UpperPools.RightBubblesEX:
-    base:
-      Water, Bash, DoubleJump OR Launch
-      Water, WaterDash
-    advanced: Water, Grenade=1
-  pickup UpperPools.BubblesEC:
-    base:
-      DoubleJump, Dash OR Glide
-      Launch, DoubleJump OR Dash OR Glide
-
-  conn UpperPools.KeystoneRoom:
-    base: Water OR DoubleJump OR Dash OR Glide OR Launch
-  conn UpperPools.TreeArea:
-    base: free
-
-region WestPools:
-  base:
-    Danger=40, Regenerate
-
-area WestPools:  # (-1656, -4171) the west Pools TP
-  refill Full
-
-  quest EastPools.GrassSeed:
-    base: Water, WaterDash
-
-  pickup WestPools.TpEX:
-    base:
-      Water, WaterDash, DoubleJump, Dash  # hard on keyboard, but I guess this is intended, and no other ability would even help
-      Launch
-  pickup WestPools.BurrowEX:
-    base: Water, Burrow
-  pickup WestPools.BurrowOre:
-    base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash, Burrow
-  pickup WestPools.EscapeRevisitEX:
-    base: WestPools.ForestsStrength, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
-  pickup UpperPools.LowerKS:
-    base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash
-
-  conn Teleporters: free
-  conn KwolokFight:
-    base: Water, WaterDash OR DoubleJump OR Launch
-  conn UpperPools.KeystoneRoom:
-    base, EnemyObstacle:
-      Water, WaterDash, Bash, DoubleJump, Dash OR Glide
-      Water, WaterDash, Bash, Launch
-      WestPools.ForestsStrength, Water, WaterDash, DoubleJump
-      WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
-
-area KwolokFight:
-  refill Full
-  quest WestPools.ForestsStrength:
-    base: Combat, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
-
 region WoodsEntry:
   base:
     Danger=40, Regenerate
 
-area WoodsEntry.ShriekMeet:  # (478, -4205) The ledge to the left of where the mudpits start
+anchor WoodsEntry.ShriekMeet:  # (478, -4205) The ledge to the left of where the mudpits start
   refill Checkpoint
 
   pickup WoodsEntry.MudPitEX:
     base:
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=2
-  
+
   conn WoodsEntry.BelowTeleporter:
     base, RangedWeapon:
       Danger=10, DoubleJump OR Dash OR Glide OR Launch
       Bash, DoubleJump OR Dash OR Glide OR Launch
 
-area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
+anchor WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
   refill Checkpoint
 
   conn WoodsEntry.ShriekMeet:
@@ -2150,7 +1708,7 @@ area WoodsEntry.BelowTeleporter:  # (591, -4198) Read the name
   conn WoodsEntry.TwoKeystoneRoom:
     base: RangedWeapon, DoubleJump OR Dash OR Glide OR Launch
 
-area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
+anchor WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
   refill Full
 
   quest WoodsEntry.LastTreeBranch: free
@@ -2167,26 +1725,26 @@ area WoodsEntry.Teleporter:  # (611, -4162) At the West Woods Teleporter
       Glide, DoubleJump OR Launch
       Bash, Grenade=1, Glide OR Launch
       DoubleJump, Dash, Launch  # coming from below you'd just need Launch
-#    advanced:
+#    unsafe:
 #      Glide, SentryJump=1
 
   conn Teleporters: free
   conn WoodsEntry.ShriekMeet: free
   conn WoodsEntry.BelowTeleporter: free
 
-area WoodsEntry.TwoKeystoneRoom:  # (672, -4183) In front of the keystone door
+anchor WoodsEntry.TwoKeystoneRoom:  # (672, -4183) In front of the keystone door
   refill Checkpoint
   refill Energy=3:
     base: WoodsEntry.KeystoneDoor, Weapon
 
   state WoodsEntry.KeystoneDoor:
     base: Keystone=2
-  
+
   pickup WoodsEntry.LowerKS:
     base: DoubleJump OR Dash OR Glide  # Launch is awful
   pickup WoodsEntry.UpperKS:
     base: DoubleJump OR Launch
-#   advanced:
+#   unsafe:
 #     SentryJump=1, Glide
 
   conn WoodsMain.BelowFourKeystoneRoom:
@@ -2200,7 +1758,7 @@ region WoodsMain:
   base:
     Danger=40, Regenerate
 
-area WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile after meeting Ku
+anchor WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile after meeting Ku
   state WoodsEntry.KeystoneDoor:
     base, Keystone=2:
       Bash, Grenade=2, Danger=10  # uses the enemy
@@ -2211,10 +1769,10 @@ area WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile aft
     base: Flap
   pickup WoodsMain.BehindWallOre:
     base: BreakWall=20, RangedWeapon, Bash, Grenade=2, DoubleJump  # different ways to solve
-    advanced: BreakWall=20, DoubleJump, Dash  # Perform wrap-around double jumps on the far right wall under the ore
+    unsafe: BreakWall=20, DoubleJump, Dash  # Perform wrap-around double jumps on the far right wall under the ore
   pickup WoodsMain.BelowKeystonesEX:
     base: RangedWeapon, Bash, Grenade=2, DoubleJump  # different ways to solve
-  
+
   conn WoodsMain.FourKeystoneRoom:
     base, RangedWeapon:
       Flap, Glide
@@ -2226,7 +1784,7 @@ area WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile aft
       Bash, Grenade=1, Danger=10, DoubleJump OR Dash  # uses the enemy
       Launch, DoubleJump OR Dash OR Bash OR Glide  # bash uses the enemy
 
-area WoodsMain.FourKeystoneRoom:  # (950, -4167) The floor of the keystone room
+anchor WoodsMain.FourKeystoneRoom:  # (950, -4167) The floor of the keystone room
   pickup WoodsMain.BehindWallOre:
     base: BreakWall=20, DoubleJump OR Dash OR Glide OR Launch
   pickup WoodsMain.BelowKeystonesEX:
@@ -2244,12 +1802,12 @@ area WoodsMain.FourKeystoneRoom:  # (950, -4167) The floor of the keystone room
       Bash, Dash OR Grenade=1
   conn WoodsMain.BelowFourKeystoneRoom: free
 
-area WoodsMain.BeforeKeystoneDoor:  # (944, -4137) In front of the four keystone door
+anchor WoodsMain.BeforeKeystoneDoor:  # (944, -4137) In front of the four keystone door
   refill Checkpoint
 
   state WoodsMain.KeystoneDoor:
     base: Keystone=4
-  
+
   pickup WoodsMain.UpperKS:
     base, BreakWall=3:
       Glide OR Launch
@@ -2266,7 +1824,7 @@ area WoodsMain.BeforeKeystoneDoor:  # (944, -4137) In front of the four keystone
     base: WoodsMain.KeystoneDoor
   conn WoodsMain.FourKeystoneRoom: free
 
-area WoodsMain.GiantSkull:  # (957, -4137) Behind the four keystone room door
+anchor WoodsMain.GiantSkull:  # (957, -4137) Behind the four keystone room door
   refill Checkpoint
 
   state WoodsMain.KeystoneDoor:
@@ -2282,13 +1840,13 @@ area WoodsMain.GiantSkull:  # (957, -4137) Behind the four keystone room door
     base:
       Bash OR Launch
       DoubleJump, Dash, Glide
-  
+
   conn WoodsMain.BelowHiddenOre:
     base: WoodsMain.BelowHiddenOreCorruption, Glide OR Launch
   conn WoodsMain.BeforeKeystoneDoor:
     base: WoodsMain.KeystoneDoor
 
-area WoodsMain.BelowHiddenOre:  # (1038, -4100) Below and to the right of the hidden ore, close to the yellow wall
+anchor WoodsMain.BelowHiddenOre:  # (1038, -4100) Below and to the right of the hidden ore, close to the yellow wall
   state WoodsMain.BelowHiddenOreCorruption:  # defined as state because some paths cross this twice
     base: BreakWall=3
 
@@ -2296,7 +1854,7 @@ area WoodsMain.BelowHiddenOre:  # (1038, -4100) Below and to the right of the hi
     base: Flap, Glide
   pickup WoodsMain.YellowWallEX:
     base: WoodsMain.BelowHiddenOreCorruption, Flap, Glide OR Launch
-  
+
   conn WoodsMain.PetrifiedHowl:
     base: Glide
   conn WoodsMain.GiantSkull:
@@ -2304,7 +1862,7 @@ area WoodsMain.BelowHiddenOre:  # (1038, -4100) Below and to the right of the hi
       Glide OR Launch
       DoubleJump, Dash
 
-area WoodsMain.PetrifiedHowl:  # (910, -4071) At silenced Howl
+anchor WoodsMain.PetrifiedHowl:  # (910, -4071) At silenced Howl
   refill Health=1: free
 
   pickup WoodsMain.PetrifiedHowlEX: free
@@ -2319,25 +1877,25 @@ area WoodsMain.PetrifiedHowl:  # (910, -4071) At silenced Howl
       Glide
       Launch, DoubleJump OR Dash
 
-area WoodsMain.AboveHowl:  # (916, -4046) At the semisolid above silenced Howl
+anchor WoodsMain.AboveHowl:  # (916, -4046) At the semisolid above silenced Howl
   state WoodsMain.TrialActivation:
     base:
       DoubleJump, Dash, Bash, Grapple, Glide, Burrow
       Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
-  
+
   pickup WoodsMain.HiddenEX: free
   pickup WoodsMain.OverflowShard:
     base:
       DoubleJump, Bash, Grapple, Burrow, Dash OR Glide
       Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
-  
+
   conn WoodsMain.Teleporter:
     base, RangedWeapon:
       DoubleJump OR Launch
       Bash, Grenade=1
   conn WoodsMain.PetrifiedHowl: free
 
-area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
+anchor WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
   refill Full
   conn Teleporters: free
   conn WoodsMain.FeedingGrounds:
@@ -2350,7 +1908,7 @@ area WoodsMain.Teleporter:  # (1083, -4053) At the East Woods Teleporter
       DoubleJump, Glide, Bash, Grenade=1
       DoubleJump, Bash, Launch  # :)
 
-area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding grounds
+anchor WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding grounds
   refill Checkpoint
   # energy crystal in the pit not considered
 
@@ -2360,7 +1918,7 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
     base:
       Glide OR Launch
       DoubleJump, Dash
-  
+
   conn WoodsShrine:
     base:
       Glide
@@ -2379,7 +1937,7 @@ area WoodsMain.FeedingGrounds:  # (1292, -3993) At the left entrance to feeding 
         Burrow
         Launch
 
-area WoodsShrine:
+anchor WoodsShrine:
   pickup WoodsMain.CombatShrine:
     base, Combat, RangedWeapon, Bash, Hammer OR Launch:  # this one has it all -_-
       Danger=80
@@ -2390,7 +1948,7 @@ region LowerReach:
   base:
     Danger=40, Regenerate
 
-area LowerReach.Entry:  # (-390, -4025) Behind Baur
+anchor LowerReach.Entry:  # (-390, -4025) Behind Baur
   refill Checkpoint
   refill Health=1: free
 
@@ -2405,7 +1963,7 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
       DoubleJump, Bash, Grenade=1
       Launch, DoubleJump OR Bash
       LowerReach.SecondSoupFurnace, DoubleJump, Bash
-    advanced:  # One of the grenades hit the ceiling sometimes, so I didn't want those to be base. They might need less skills for advanced. Also these probably won't work if you heated the furnace and there might have to be a state for cooling the furnace
+    unsafe:  # One of the grenades hit the ceiling sometimes, so I didn't want those to be base. They might need less skills. Also these probably won't work if you heated the furnace and there might have to be a state for cooling the furnace
       Dash, Bash, Glide, Grenade=2
       Dash, Bash, Grenade=3
 
@@ -2434,7 +1992,7 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
       Dash, Bash, Grenade=1
       Bash, Glide, Grenade=2  # most of these skills are to get past the frozen plant and are removed in the path below
       LowerReach.SecondSoupFurnace, Bash, Grenade=1
-    advanced:
+    unsafe:
       Launch
   conn LowerReach.Central:
     base, LowerReach.Lever:
@@ -2445,7 +2003,7 @@ area LowerReach.Entry:  # (-390, -4025) Behind Baur
   conn WestGlades.Upper:
     base: LowerReach.BearSneezed
 
-area LowerReach.Icefall:  # (-448, -3998) Where you drop the rock on Baur's nose
+anchor LowerReach.Icefall:  # (-448, -3998) Where you drop the rock on Baur's nose
   refill Checkpoint
   refill Energy=3:
     base: Weapon
@@ -2469,7 +2027,7 @@ area LowerReach.Icefall:  # (-448, -3998) Where you drop the rock on Baur's nose
       Water, DoubleJump, WaterDash  # swim past the enemies
       Launch
 
-area LowerReach.Central:  # (-335, -4010) After the lever door
+anchor LowerReach.Central:  # (-335, -4010) After the lever door
   refill Checkpoint
 
   pickup LowerReach.AboveDoorEX:
@@ -2500,7 +2058,7 @@ area LowerReach.Central:  # (-335, -4010) After the lever door
         DoubleJump, Dash, Bash
         Bash, Grenade=1
 
-area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter room
+anchor LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter room
   refill Checkpoint
   refill Health=1: free
   refill Energy=3:
@@ -2531,7 +2089,7 @@ area LowerReach.OutsideTPRoom:  # (-311, -3970) To the left of the teleporter ro
       DoubleJump, Bash, Grenade=2  # bash the squonkey
       Launch
 
-area LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
+anchor LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the teleporter pickup
   refill Full
 
   state LowerReach.TPIceMelted:
@@ -2549,7 +2107,7 @@ region UpperReach:
   base:
     Danger=40, Regenerate
 
-area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
+anchor UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
   refill Checkpoint
   # energy crystal near keystone door wasn't considered
 
@@ -2642,7 +2200,7 @@ area UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
       Water
   conn LowerReach.OutsideTPRoom: free
 
-area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
+anchor UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
   # energy crystal next to tree not considered
 
   quest UpperReach.SpringSeed:
@@ -2667,7 +2225,7 @@ area UpperReach.TreeRoom:  # (-140, -3912) Behind the keystone door
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Water
 
-area LowerReach.SecondSoup:  # (-316, -4036) Next to the soup below the teleporter
+anchor LowerReach.SecondSoup:  # (-316, -4036) Next to the soup below the teleporter
   state LowerReach.CentralFurnace:
     base: DoubleJump, Dash, Bash, Flap
 
@@ -2684,7 +2242,7 @@ area LowerReach.SecondSoup:  # (-316, -4036) Next to the soup below the teleport
   conn LowerReach.WindChannel:
     base: ShieldEnemyObstacle
 
-area LowerReach.WindChannel:  # (-256, -4034) The furnace left of the wind channel connecting to east reach
+anchor LowerReach.WindChannel:  # (-256, -4034) The furnace left of the wind channel connecting to east reach
   refill Checkpoint
   refill Energy=3:
     base: ShieldEnemyObstacle, DoubleJump OR Dash OR Launch
@@ -2711,7 +2269,7 @@ area LowerReach.WindChannel:  # (-256, -4034) The furnace left of the wind chann
   conn LowerReach.SoupMoki:
     base: Grenade=1, Glide  # grenade to light the lantern
 
-area LowerReach.SoupMoki:  # (-240, -3988) Below the reach teleporter, where you hand delicious marshclam soup to a moki (or alternatively extuingish his fireplace...)
+anchor LowerReach.SoupMoki:  # (-240, -3988) Below the reach teleporter, where you hand delicious marshclam soup to a moki (or alternatively extuingish his fireplace...)
   refill Energy=4:
     base: Weapon
 
@@ -2730,7 +2288,7 @@ area LowerReach.SoupMoki:  # (-240, -3988) Below the reach teleporter, where you
       DoubleJump, Dash, Bash, Grenade=2
       Launch
 
-area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
+anchor LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
   refill Checkpoint
 
   state LowerReach.TeleporterLantern:
@@ -2752,7 +2310,7 @@ area LowerReach.East:  # (-182, -3968) Right of the Lantern opening the Tp room
       Bash, Grenade=1, Dash
       Bash, Grenade=2
 
-area LowerReach.PastSnowball:  # (-99, -3982) At the bashnade pedestal after rolling the snowball
+anchor LowerReach.PastSnowball:  # (-99, -3982) At the bashnade pedestal after rolling the snowball
   refill Checkpoint
   refill Energy=8:  # instantly respawns, counted two crystals here
     base: Weapon
@@ -2790,7 +2348,7 @@ area LowerReach.PastSnowball:  # (-99, -3982) At the bashnade pedestal after rol
       LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash, Glide
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
 
-area LowerReach.ArenaArea:  # (40, -3993) To the left of the combat arena
+anchor LowerReach.ArenaArea:  # (40, -3993) To the left of the combat arena
   refill Checkpoint
   refill Health=1: free
   refill Energy=3:
@@ -2817,7 +2375,7 @@ area LowerReach.ArenaArea:  # (40, -3993) To the left of the combat arena
       Bash, Grenade=4, Glide, Grapple
       Bash, Glide, Launch
 
-area LowerReach.Trial:  # (64, -4046) At trial start
+anchor LowerReach.Trial:  # (64, -4046) At trial start
   refill Checkpoint
 
   state LowerReach.KeystoneDoor:
@@ -2846,7 +2404,7 @@ area LowerReach.Trial:  # (64, -4046) At trial start
   conn GladesTown.ReachPath:
     base: Glide
 
-area LowerReach.SnowEscape:
+anchor LowerReach.SnowEscape:
   refill Full
   quest LowerReach.ForestsMemory:  # currently based on the requirements of getting here as well...
     base, LowerReach.ArenaBeaten:
@@ -2857,7 +2415,7 @@ region UpperDepths:
   base:
     Danger=40, Regenerate
 
-area UpperDepths.Entry:  # (161, -4340) The little standable ground below the entrance
+anchor UpperDepths.Entry:  # (161, -4340) The little standable ground below the entrance
   pickup UpperDepths.EntrySpikesEX:
     base: Glide
   pickup UpperDepths.EntryRoofEX:
@@ -2870,14 +2428,14 @@ area UpperDepths.Entry:  # (161, -4340) The little standable ground below the en
       Weapon, Glide, Grapple, DoubleJump OR Dash  # weapon to kill the enemy
       Glide, Bash, DoubleJump OR Grapple
       Glide, Launch
-  
+
   conn UpperDepths.FirstKSRoom:
     base: EnemyObstacle, Glide
 
-area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
+anchor UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
   # can't put this on the nearby checkpoint...
   refill Energy=3:  # this crystal is in the darkness
-    advanced: Weapon
+    unsafe: Weapon
 
   state UpperDepths.EntryKeystoneDoor:
     base, Keystone=2:
@@ -2888,7 +2446,7 @@ area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
     base, UpperDepths.EntryKeystoneDoor, BreakWall=16, BreakWall=16:
       DoubleJump, Bash, Grapple
       Bash, Launch
-  
+
   pickup UpperDepths.EntryRoofEX:
     base, EnemyObstacle:
       Grapple, DoubleJump, Bash
@@ -2909,7 +2467,7 @@ area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
       DepthsLight
   pickup UpperDepths.SwimEC:
     base: EnemyObstacle, DepthsLight, Water
-  
+
   conn UpperDepths.Entry:
     base, EnemyObstacle:
       Glide, Grapple, DoubleJump
@@ -2920,7 +2478,7 @@ area UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
 
-area UpperDepths.BelowHive:  # (422, -4402) Below the Hive, on top of the tunnel leading downwards
+anchor UpperDepths.BelowHive:  # (422, -4402) Below the Hive, on top of the tunnel leading downwards
   refill Checkpoint
   refill Energy=3:
     base: Weapon, DoubleJump OR Launch
@@ -2942,7 +2500,7 @@ area UpperDepths.BelowHive:  # (422, -4402) Below the Hive, on top of the tunnel
   conn UpperDepths.LowerConnection:
     base: DepthsLight  # a bit scary...
 
-area UpperDepths.Teleporter:  # (513, -4361) The spirit well
+anchor UpperDepths.Teleporter:  # (513, -4361) The spirit well
   refill Full
 
   pickup UpperDepths.TeleporterEX: free  # just a few steps away in the darkness
@@ -2958,7 +2516,7 @@ area UpperDepths.Teleporter:  # (513, -4361) The spirit well
       RangedWeapon, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
       BreakWall=1, Launch
 
-area UpperDepths.Central:  # (464, -4484) The firefly egg to the right of the second keystone door
+anchor UpperDepths.Central:  # (464, -4484) The firefly egg to the right of the second keystone door
   refill Checkpoint
   # energy crystal in the dark not considered
 
@@ -2976,7 +2534,7 @@ area UpperDepths.Central:  # (464, -4484) The firefly egg to the right of the se
       DepthsLight, DoubleJump, Dash, Grapple
       DepthsLight, Launch
 
-area UpperDepths.SecondKSRoom:  # (542, -4466) The egg of the firefly circling through the keystone room
+anchor UpperDepths.SecondKSRoom:  # (542, -4466) The egg of the firefly circling through the keystone room
   refill Checkpoint
   refill Energy=4:
     base: Weapon
@@ -3018,14 +2576,14 @@ area UpperDepths.SecondKSRoom:  # (542, -4466) The egg of the firefly circling t
       DepthsLight, DoubleJump, Grapple, Dash OR Glide
       DepthsLight, Launch
 
-area MoraFight:
+anchor MoraFight:
   refill Full
   quest UpperDepths.ForestsEyes:
     base, Combat, Danger=95:
       DepthsLight, Bash, Grapple, DoubleJump OR Dash
       DepthsLight, Bash, Grapple, Launch
 
-area UpperDepths.LowerConnection:  # (423, -4475) The firefly egg to the left of the second keystone door
+anchor UpperDepths.LowerConnection:  # (423, -4475) The firefly egg to the left of the second keystone door
   refill Checkpoint
   # energy crystal on the way to the trial not considered
 
@@ -3064,7 +2622,7 @@ region LowerDepths:
   base:
     Danger=40, Regenerate
 
-area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
+anchor LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
   refill Checkpoint
   # energy crystal and plant to the left not considered
 
@@ -3086,7 +2644,7 @@ area LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
       BreakWall=1, DoubleJump, Dash, Bash OR Glide
       BreakWall=1, Launch, DoubleJump OR Glide
 
-area DepthsShrine:
+anchor DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
     base, Combat, Bash:
@@ -3094,7 +2652,7 @@ area DepthsShrine:
       Danger=60, DoubleJump OR Dash
       Danger=50, Launch
 
-area LowerDepths.Central:  # (482, -4536) Below where the trial starts
+anchor LowerDepths.Central:  # (482, -4536) Below where the trial starts
   refill Checkpoint
 
   pickup LowerDepths.RaceStartHC:
@@ -3111,7 +2669,7 @@ area LowerDepths.Central:  # (482, -4536) Below where the trial starts
       DepthsLight, Launch, Bash
       DepthsLight, Bash, DoubleJump
 
-area LowerDepths.East:  # (570, -4550) The lit up room on the trial path
+anchor LowerDepths.East:  # (570, -4550) The lit up room on the trial path
   refill Checkpoint
   refill Energy=3:
     base: Weapon
@@ -3157,7 +2715,7 @@ area LowerDepths.East:  # (570, -4550) The lit up room on the trial path
       Bash, DoubleJump OR Launch
       DepthsLight, Launch, DoubleJump, Dash OR Glide
 
-area LowerDepths.TreeArea:  # (776, -4541) The flash tree
+anchor LowerDepths.TreeArea:  # (776, -4541) The flash tree
   refill Checkpoint
   refill Energy=4:
     base: Weapon
@@ -3174,11 +2732,452 @@ area LowerDepths.TreeArea:  # (776, -4541) The flash tree
       DepthsLight, DoubleJump, Bash OR Grapple
       DepthsLight, Dash, Bash OR Grapple
 
+region PoolsApproach:
+  base:
+    Danger=25
+
+anchor PoolsApproach.MillPathCheckpoint:  # (-826, -4129) The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
+  refill Checkpoint
+
+  conn WestGlades.MillApproach:
+    base:
+      Water, Grapple, DoubleJump, Dash OR Glide
+      Water, Grapple, Bash, Grenade=1, Dash, Glide
+      Water, Launch, DoubleJump OR Dash OR Grapple OR Glide  # go up the left wall
+  conn PoolsApproach.MillPath:
+    base, EnemyObstacle, Danger=20:  # severe enemy spam
+      Bash, Grapple OR Launch  # this is probably actually closest to how you'd traverse this naturally
+      Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
+      Launch, DoubleJump OR Grapple
+
+anchor PoolsApproach.MillPath:  # (-873, -4146) above the water where the three paths merge
+  refill Checkpoint
+
+  pickup PoolsApproach.MillPathEX:
+    base:
+      Bash, DoubleJump OR Dash
+      RangedWeapon, DoubleJump, Dash
+      RangedWeapon, DoubleJump, Grapple, Glide  # solvable either through the right grapple point or using the wrap-around taught at glades shrine
+      Launch
+  pickup PoolsApproach.MillPathEC:
+    base: Water  # again not really a reason to even use Bash
+
+  conn PoolsApproach.MillPathCheckpoint:
+    base, EnemyObstacle, Danger=20:  # severe enemy spam
+      Bash, DoubleJump  # bash errything
+      Weapon, Bash, Grenade=3, Dash OR Glide  # clear the space to bashnade
+      Weapon, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
+      DoubleJump, Grapple, Dash OR Glide
+      Launch, DoubleJump OR Dash OR Bash OR Glide
+  conn PoolsApproach.RightOfWheel:
+    base: EnemyObstacle, Water  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement.
+
+anchor PoolsApproach.RightOfWheel:  # (-948, -4185) The rightmost platform of the static wheel
+  pickup PoolsApproach.AboveWheelEX:
+    base:
+      # grenadebash doesn't work as well when the wheel spins
+      PoolsApproach.WheelFreed, DoubleJump
+      Launch
+  pickup PoolsApproach.MillPathHC:
+    base:
+      Water, DoubleJump, Dash, WaterDash, Grapple
+      Water, DoubleJump, Grapple, Launch
+    unsafe:
+      Water, WaterDash, DoubleJump, Grapple
+      Water, Grapple, Launch
+  pickup PoolsApproach.MillPathEC:
+    base: Water, Bash, WaterDash OR Danger=10
+
+  conn MarshPastOpher.PoolsPathWest:
+    base, BreakWall=20:
+      Water, DoubleJump, WaterDash, Grapple  # maybe not obvious?
+      Water, Grapple, Launch
+    unsafe:
+      BreakWall=20, Water, WaterDash, Grapple, Dash OR Sword
+  conn PoolsApproach.LeftOfWheel:
+    base:
+      PoolsApproach.WheelFreed OR DoubleJump OR Grapple OR Launch
+      Bash, Grenade=1
+  conn EastPools.Entry:
+    base:
+      # grenadebash doesn't work as well when the wheel spins
+      Glide, Launch
+      Bash, Grenade=1, Launch, DoubleJump OR Dash
+      DoubleJump, Dash, Launch, Danger=20
+      PoolsApproach.WheelFreed, DoubleJump, Glide
+    unsafe:
+      Launch, Dash
+  conn PoolsApproach.MillPath:
+    base:
+      Water, Bash, Danger=10, Grapple, DoubleJump, Dash OR Glide
+      Water, Bash, WaterDash
+      Water, Bash, Danger=10, Launch
+
+anchor PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the static wheel
+  state PoolsApproach.WheelFreed:
+    base: Water, Bash
+
+  pickup PoolsApproach.CurrentEX:
+    base: Water, WaterDash
+  pickup PoolsApproach.BurrowsPathEX:
+    base:
+      Water, WaterDash, DoubleJump, Dash, Danger=10
+      Water, WaterDash, Glide, DoubleJump OR Dash
+      Water, WaterDash, Bash, DoubleJump OR Glide
+      Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide OR Danger=10
+    unsafe:
+      Water, Dash, Glide, WaterDash
+
+  conn PoolsApproach.RightOfWheel:
+    base:
+      # grenadebash doesn't work when the wheel spins
+      PoolsApproach.WheelFreed, Water
+      DoubleJump OR Launch
+  conn EastPools.Entry:
+    base: Water, Launch
+    unsafe: Water, DoubleJump, WaterDash, Damage=20
+  conn MarshSpawn.Main:
+    base: Water, WaterDash  # <3
+
+region EastPools:
+  base:
+    Danger=40, Regenerate
+
+anchor EastPools.Entry:  # (-1122, -4166) At the Voice dialogue
+  refill Checkpoint
+  refill Health=1: free
+
+  # The first bubbles here only spawn if you have Flap!
+  pickup EastPools.TwoCrushersEX:
+    base: Water, WaterDash
+
+  conn EastPools.LeverRoom:
+    base:
+      Flap OR Launch
+      Bash, Grenade=1
+  conn PoolsApproach.LeftOfWheel:
+    base:
+      Water
+      Bash, Grenade=1, Glide
+      Glide, Launch
+      DoubleJump, Dash, Launch
+      Bash, Grenade=1, Launch, DoubleJump OR Dash
+
+anchor EastPools.LeverRoom:  # (-1160, -4152) At the amulet Moki
+  refill Checkpoint
+
+  state EastPools.EntryLever:
+    base, EnemyObstacle:
+      DoubleJump, Dash OR Glide
+      Dash, Glide
+      Launch
+  state EastPools.BelowTokkBubbleFree:
+    base:
+      EastPools.EntryLever, Water, Bash
+    unsafe, EastPools.EntryLever:
+      Water, WaterDash
+      Water, Bow=1 OR Grenade=1
+
+  quest EastPools.KwoloksWisdomAmulet: free
+
+  pickup EastPools.RightOre:
+    base:
+      DoubleJump, Grapple, Flap, Dash OR Glide  # kinda weird, but I guess this is the casual way?
+      Launch, Grapple
+    unsafe:
+      Dash, Grapple, Glide, Flap
+  pickup EastPools.CurrentEX:
+    base: Water, WaterDash
+  pickup EastPools.BelowLeverEX:
+    base:  # kinda dangerous with the spikes? but damage seemed mostly avoidable
+      DoubleJump, Bash, Grenade=1
+      Hammer  # double jump makes it easier
+      Launch
+  pickup EastPools.AboveDoorOre:
+    base, EastPools.EntryLever:  # other paths would be redundant with the paths coming from tokk
+      Bash, Grenade=2
+      Bash, Grenade=1, DoubleJump OR Grapple
+
+  conn EastPools.TPArea:
+    base, EastPools.EntryLever:
+      EastPools.BelowTokkBubbleFree, EnemyObstacle, Grapple, Flap, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1  # bashgrenade above
+      Bash, Grenade=2, Dash OR Glide  # bashgrenade above
+      EnemyObstacle, Bash, Grenade=2, EastPools.BelowTokkBubbleFree OR Water  # bashgrenade below
+      Launch
+  conn EastPools.Entry: free
+
+anchor EastPools.TPArea:  # (-1297, -4143) Where Tokk stands
+  refill Checkpoint
+
+  state EastPools.BelowTokkBubbleFree:
+    base:
+      Water, Bash
+    unsafe:
+      Water, WaterDash
+      Water, Bow=1 OR Grenade=1
+  state EastPools.LowerWaterDrained:
+    base: Water OR EastPoolsTP
+  # There are two Arenas here: you get one if you enter without WaterDash and another if you enter with it.
+  # This path is assuming the worse case of getting the strictly harder WaterDash arena, but doesn't list WaterDash
+  # explicitly because you don't need it unless you have it.
+  # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
+  # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
+  state EastPools.FightArenas:
+    base: EastPools.LowerWaterDrained, Combat, Water, Bash
+
+  quest EastPools.HandToHandSpyglass:
+    base, LowerDepths.HandToHandSilk:
+      Grapple, DoubleJump OR Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch
+  quest EastPools.GrassSeed:
+    base, EastPools.FightArenas:
+      Water, Bash, WaterDash OR Launch
+      Water, Bash, DoubleJump, Dash OR Glide
+      Water, Bash, Dash, Glide
+      Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+
+  pickup EastPools.AboveDoorOre:
+    base:
+      EastPools.BelowTokkBubbleFree, Grapple, Flap, DoubleJump OR Dash
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      Bash, Grenade=2
+      Launch
+  pickup EastPools.AboveTpEX:
+    base:  # these need water to not be softlockable with the player draining the upper water
+      Water, DoubleJump, Bash, Grenade=2
+      Water, DoubleJump, Grapple, Bash, Grenade=1
+      Water, Launch
+  pickup EastPools.PurpleWallHC:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, Bash, Grenade=3, DoubleJump
+      Water, WaterDash, Bash, Grenade=2, DoubleJump, Grapple
+      Water, WaterDash, Bash, Launch
+  pickup EastPools.LupoOre:
+    base: Water
+  pickup EastPools.UltraBashShard:
+    base: EastPools.LowerWaterDrained, Water, Bash
+  pickup EastPools.FightRoomHC:
+    base, EastPools.FightArenas, WaterDash:  # The HC only gets unlocked if you finish the alternate WaterDash arena; FightArenas doesn't have WaterDash as requirement included for reasons explained above, so it's needed here
+      DoubleJump, Dash OR Grapple
+      Bash, Grenade=1
+      Launch
+  pickup EastPools.EnergyHarvestShard:
+    base, EastPools.FightArenas:
+      Water, WaterDash, DoubleJump
+      Bash, Grenade=1
+      Launch
+  pickup EastPools.LupoEX:
+    base: EastPools.FightArenas, Water, Bash
+  pickup EastPools.LupoMap:
+    base: EastPools.FightArenas, Water, Bash
+  pickup EastPools.BehindCrusherEX:
+    base: EastPools.FightArenas, Water
+
+  conn EastPools.Teleporter:
+    base: EastPools.LowerWaterDrained
+  conn EastPools.LeverRoom:
+    base, EastPools.EntryLever, EnemyObstacle:
+      DoubleJump OR Dash OR Glide OR Launch  # go above
+      Bash, Grenade=1  # go above
+      Grapple  # go below
+  conn WestPools:
+    base: EastPools.FightArenas, Water, Bash, WaterDash, DoubleJump OR Dash OR Glide OR Launch
+  conn UpperPools.KeystoneRoom:
+    base, EastPools.FightArenas, EnemyObstacle:
+      Water, Bash, DoubleJump, Dash OR Glide
+      Water, Bash, Launch
+
+anchor EastPools.Teleporter:  # (-1316, -4153) At the teleporter after draining the water - this is to specify the refill and randos behaviour of draining the water if you grab the tp pickup
+  refill Full
+
+  state EastPools.LowerWaterDrained: free  # this is, uh... correct, I suppose xD
+
+  conn Teleporters: free
+  conn EastPools.TPArea: free
+
+region UpperPools:
+  base:
+    Danger=40, Regenerate
+
+anchor UpperPools.KeystoneRoom:  # (-1540, -4095) Autosave below the two upper left keystones
+  refill Checkpoint
+  refill Energy=3:
+    base: Weapon
+
+  state UpperPools.KeystoneRoomBubbleFree:
+    base:
+      Water, WaterDash
+      Water, Bash
+    unsafe: Bow=1 OR Grenade=1
+
+  quest EastPools.GrassSeed:
+    base: EnemyObstacle
+
+  pickup UpperPools.LowerKS:
+    base:
+      Water, DoubleJump, Bash
+      Water, WaterDash OR Launch
+  pickup UpperPools.UpperLeftKS:
+    base:
+      Bash, Grenade=1
+      UpperPools.KeystoneRoomBubbleFree, DoubleJump, Flap
+      Launch
+  pickup UpperPools.UpperMidKS:
+    base:
+      DoubleJump, Bash, Grenade=1
+      Bash, Grenade=2, DoubleJump OR Dash OR Glide
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch
+  pickup UpperPools.UpperRightKS:
+    base:
+      Bash, Grenade=1, Water OR DoubleJump OR Dash OR Glide
+      Grapple, DoubleJump OR Glide OR Dash
+      Water, WaterDash, DoubleJump
+      Launch
+
+  conn UpperPools.BeforeKeystoneDoor:
+    base:
+      Grapple, DoubleJump OR Dash OR Glide
+      Water, Grapple, Bash, Grenade=1
+      Bash, Grenade=2, Water OR DoubleJump OR Dash OR Glide
+      Bash, Grenade=3
+      Launch
+  conn UpperPools.BubbleSpamRoom:
+    base: Flap, DoubleJump, Dash, Grapple  # seems to be intended
+  conn WestPools:
+    base: Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
+
+anchor UpperPools.BeforeKeystoneDoor:  # (-1483, -4076) In front of the door blocking waterdash tree
+  refill Health=1:
+    base: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+
+  state UpperPools.KeystoneDoor:
+    base: Keystone=4
+  state UpperPools.TrialActivation:
+    base: DoubleJump OR Grapple OR Launch
+
+  conn UpperPools.TreeArea:
+    base: UpperPools.KeystoneDoor
+  conn UpperPools.KeystoneRoom:
+    base: Water OR DoubleJump OR Dash OR Glide OR Launch  # don't really need anything, but eh
+  conn UpperPools.BubbleSpamRoom:
+    base:
+      DoubleJump, Bash, Grenade=1
+      Launch
+
+anchor UpperPools.TreeArea:  # (-1467, -4075) The ledge left of waterdash tree
+  refill Checkpoint
+
+  state UpperPools.UpperWaterDrained:
+    base:
+      Water, WaterDash, Grapple, DoubleJump OR Launch
+      Water, WaterDash, Launch, DoubleJump, Dash OR Glide
+
+  pickup UpperPools.SwimDashTree: free
+  pickup UpperPools.CurrentEX:
+    base: Water, WaterDash
+  pickup UpperPools.RoofEX:
+    base:
+      Water, WaterDash, Flap, DoubleJump OR Dash
+      Water, WaterDash, Launch
+    unsafe: Launch  # use the small bubbles
+  pickup UpperPools.WaterfallEC:
+    base:
+      Water, WaterDash, DoubleJump, Dash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Launch
+    unsafe:  # these are maybe probably not base
+      Water, WaterDash, Grapple, DoubleJump OR Dash
+      Water, WaterDash, Grapple, Bash, Grenade=1
+  pickup EastPools.PurpleWallHC:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, DoubleJump, Dash, Bash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Bash, Launch
+  pickup EastPools.AboveTpEX:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, DoubleJump, Dash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Launch
+
+  conn EastPools.TPArea:
+    base, UpperPools.UpperWaterDrained:
+      Water, WaterDash, DoubleJump, Dash, Grapple
+      Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
+      Water, WaterDash, Launch
+
+anchor UpperPools.BubbleSpamRoom:  # (-1586, -4052) To the right of where all the bubbles rise
+  refill Checkpoint
+
+  pickup UpperPools.FishPoolEX:
+    base: Water, Bash OR WaterDash OR Danger=10  # just in case someone's troubled by the fish
+  pickup UpperPools.FishPoolOre:
+    base:
+      DoubleJump, Bash, Dash OR Glide
+      Bash, Grenade=1
+      Launch
+  pickup UpperPools.LeftBubblesEX:  # Beautiful autosave placement right there
+    base: Water
+  pickup UpperPools.RightBubblesEX:
+    base:
+      Water, Bash, DoubleJump OR Launch
+      Water, WaterDash
+    unsafe: Water, Grenade=1
+  pickup UpperPools.BubblesEC:
+    base:
+      DoubleJump, Dash OR Glide
+      Launch, DoubleJump OR Dash OR Glide
+
+  conn UpperPools.KeystoneRoom:
+    base: Water OR DoubleJump OR Dash OR Glide OR Launch
+  conn UpperPools.TreeArea:
+    base: free
+
+region WestPools:
+  base:
+    Danger=40, Regenerate
+
+anchor WestPools:  # (-1656, -4171) the west Pools TP
+  refill Full
+
+  quest EastPools.GrassSeed:
+    base: Water, WaterDash
+
+  pickup WestPools.TpEX:
+    base:
+      Water, WaterDash, DoubleJump, Dash  # hard on keyboard, but I guess this is intended, and no other ability would even help
+      Launch
+  pickup WestPools.BurrowEX:
+    base: Water, Burrow
+  pickup WestPools.BurrowOre:
+    base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash, Burrow
+  pickup WestPools.EscapeRevisitEX:
+    base: WestPools.ForestsStrength, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
+  pickup UpperPools.LowerKS:
+    base: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash
+
+  conn Teleporters: free
+  conn KwolokFight:
+    base: Water, WaterDash OR DoubleJump OR Launch
+  conn UpperPools.KeystoneRoom:
+    base, EnemyObstacle:
+      Water, WaterDash, Bash, DoubleJump, Dash OR Glide
+      Water, WaterDash, Bash, Launch
+      WestPools.ForestsStrength, Water, WaterDash, DoubleJump
+      WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
+
+anchor KwolokFight:
+  refill Full
+  quest WestPools.ForestsStrength:
+    base: Combat, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
+
 region LowerWastes:
   base:
     Danger=50, Regenerate
 
-area LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
+anchor LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
   refill Full
 
   pickup LowerWastes.WestTPOre:
@@ -3202,7 +3201,7 @@ area LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
       Burrow, DoubleJump, Bash, Grenade=1, Grapple
       Burrow, Launch
 
-area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
+anchor LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
   refill Checkpoint
 
   pickup LowerWastes.SunsetViewEX: free
@@ -3216,7 +3215,7 @@ area LowerWastes.SunsetView:  # (1552, -3984) At the Sunset View checkpoint
       DoubleJump, Bash, Grenade=1 # Does require double jump to the grenade, and then double jump after bash to clear grapple section
       Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
 
-area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
+anchor LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand Bridge
   # energy crystal on the way to sand pot not considered
 
   quest LowerWastes.EerieGem:
@@ -3233,7 +3232,7 @@ area LowerWastes.Shovel:  # (1634, -3980) On the ground to the left of the Sand 
       Hammer OR DoubleJump OR Burrow OR Launch
       Bash, Grenade=1
 
-area LowerWastes.SandPot:  # (1726, -3990) At autosave to the left of Sand Pot
+anchor LowerWastes.SandPot:  # (1726, -3990) At autosave to the left of Sand Pot
   refill Checkpoint
 
   pickup LowerWastes.MuncherTunnelEC:
@@ -3260,7 +3259,7 @@ area LowerWastes.SandPot:  # (1726, -3990) At autosave to the left of Sand Pot
       Bash, Grenade=2, DoubleJump OR Glide
       Launch
 
-area LowerWastes.WoodenBridge:  # (1796, -3977) Directly above MuncherPitEX
+anchor LowerWastes.WoodenBridge:  # (1796, -3977) Directly above MuncherPitEX
   refill Checkpoint
 
   pickup LowerWastes.SandPotEX:
@@ -3287,12 +3286,12 @@ area LowerWastes.WoodenBridge:  # (1796, -3977) Directly above MuncherPitEX
       Burrow
       Launch
 
-area LowerWastes.LeverArea:  # (1833, -3959) At the arrow sign below the lever
+anchor LowerWastes.LeverArea:  # (1833, -3959) At the arrow sign below the lever
   refill Checkpoint
   refill Energy=3:
     base: Weapon
 
-  # So you may ask why this isn't part of WoodenBridge. It doesn't actually have to do with the lever, but more with the MinesEntrance area below and in particular the Health Cell. Effectively, without this area, that Health Cell would have pickup paths in three areas including EastTP and that's kinda bad.
+  # So you may ask why this isn't part of WoodenBridge. It doesn't actually have to do with the lever, but more with the MinesEntrance anchor below and in particular the Health Cell. Effectively, without this anchor, that Health Cell would have pickup paths in three areas including EastTP and that's kinda bad.
   # This still probably wouldn't have been the choice if not for another reason: You can go through the Ruins back exit to here without a Weapon, and then have to Burrow through the ceiling, which requires this subarea to be represented without major dumb
   state LowerWastes.SandPlatformLever:
     base:
@@ -3333,7 +3332,7 @@ area LowerWastes.LeverArea:  # (1833, -3959) At the arrow sign below the lever
   conn LowerWastes.EastTP:
     base: Burrow
 
-area LowerWastes.MinesEntrance:  # (1921, -4001) To the left of the lower breakable wall
+anchor LowerWastes.MinesEntrance:  # (1921, -4001) To the left of the lower breakable wall
   pickup LowerWastes.BottomRightEX:
     base, EnemyObstacle:
       Grapple
@@ -3355,7 +3354,7 @@ area LowerWastes.MinesEntrance:  # (1921, -4001) To the left of the lower breaka
   #   base: WindtornRuins.LowerEntrance, Burrow
   # write explicit path here if needed, state doesn't exist anymore
 
-area LowerWastes.TreeArea:  # (1715, -3936) The ledge right of SkeetoHive
+anchor LowerWastes.TreeArea:  # (1715, -3936) The ledge right of SkeetoHive
   refill Checkpoint
 
   state LowerWastes.TrialActivation:
@@ -3401,7 +3400,7 @@ area LowerWastes.TreeArea:  # (1715, -3936) The ledge right of SkeetoHive
       Grapple, Launch
       Grapple, DoubleJump, Dash  # still sort of tight
 
-area LowerWastes.UpperPath:  # (1768, -3896) on the left side of the path connecting tree and east teleporter
+anchor LowerWastes.UpperPath:  # (1768, -3896) on the left side of the path connecting tree and east teleporter
   refill Checkpoint
   refill Energy=3:
     base: Weapon
@@ -3424,7 +3423,7 @@ area LowerWastes.UpperPath:  # (1768, -3896) on the left side of the path connec
       Burrow, DoubleJump OR Dash OR Launch
       Burrow, Bash, Grenade=1
 
-area LowerWastes.EastTP:  # (1992, -3902) Location of the east teleporter
+anchor LowerWastes.EastTP:  # (1992, -3902) Location of the east teleporter
   refill Full
   refill Health=1:
     base: Burrow OR Launch
@@ -3451,14 +3450,14 @@ region UpperWastes:
   base:
     Danger=50, Regenerate
 
-area UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone door
+anchor UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone door
   refill Checkpoint
 
   state UpperWastes.KeystoneDoor:
     base, Keystone=2:
       Burrow, DoubleJump OR Dash OR Glide
       Launch
-  
+
   pickup UpperWastes.LowerKS:
     base:
       Burrow, DoubleJump OR Dash OR Glide
@@ -3480,7 +3479,7 @@ area UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone doo
   conn UpperWastes.MissilePuzzleLeft:
     base: UpperWastes.KeystoneDoor, Burrow, DoubleJump OR Dash OR Glide OR Launch
 
-area UpperWastes.MissilePuzzleLeft:  # (1937, -3794) Immediately to the right of the sand after the keystone door
+anchor UpperWastes.MissilePuzzleLeft:  # (1937, -3794) Immediately to the right of the sand after the keystone door
   refill Checkpoint
 
   # don't really need a state for purple wall, it can be broken from either side
@@ -3505,7 +3504,7 @@ area UpperWastes.MissilePuzzleLeft:  # (1937, -3794) Immediately to the right of
   conn UpperWastes.MissilePuzzleRight:
     base: UpperWastes.MissilePuzzleLever, Burrow
 
-area UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right of lever gate, underneath a laser.
+anchor UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right of lever gate, underneath a laser.
   pickup UpperWastes.PurpleWallEX:
     base: Burrow
   pickup UpperWastes.RoofEX:
@@ -3522,13 +3521,13 @@ area UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right
       Burrow, DoubleJump, Dash  # you can retry the burrow with DoubleJump, so I think this is fine
       Burrow, Launch
 
-area UpperWastes.NorthTP: # (2044, -3679) North Wastes teleporter
+anchor UpperWastes.NorthTP: # (2044, -3679) North Wastes teleporter
   refill Full
 
   conn Teleporters: free
   conn UpperWastes.RuinsApproach: free
 
-area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
+anchor UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top of the sand
   quest UpperWastes.FlowersSeed:
     base:
       Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
@@ -3546,7 +3545,7 @@ area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top 
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, DoubleJump, Dash OR Glide
       Burrow, Launch
-    advanced:
+    unsafe:
       Dash, Bash  # seemed kinda difficult to get past the spikes without doublejump
   pickup UpperWastes.WallOre:
     base:
@@ -3564,14 +3563,14 @@ area UpperWastes.RuinsApproach:  # (2002, -3684) Left of the teleporter, on top 
       Burrow, Bash, DoubleJump, Dash OR Glide
       Burrow, Bash, Dash, Glide  # Slightly tight getting across to the sand pit but pretty easily doable. Semi precise angle on the burrow but with glide its easy to reattempt
 
-area WindtornRuins.UpperRuinsDoor:  # (2163, -3835) Just inside the door.
+anchor WindtornRuins.UpperRuinsDoor:  # (2163, -3835) Just inside the door.
   refill Checkpoint
   refill Energy=3:
     base: Weapon
 
   state WindtornRuins.RuinsLever:
     base: Burrow, BreakWall=16  # just being safe here
-  state WindtornRuins.HeartBarrier:  # These are paths to go to the teleporter and break the corruption heart. But they can't originate from the teleporter area because after you broke the heart, you can't go to the teleporter again, which makes these paths not viable as connections to the teleporter. These paths are just about breaking the heart, so it doesn't matter if the paths can lock you out of the teleporter if you already have broken the heart, because then you have already broken the heart.
+  state WindtornRuins.HeartBarrier:  # These are paths to go to the teleporter and break the corruption heart. But they can't originate from the teleporter anchor because after you broke the heart, you can't go to the teleporter again, which makes these paths not viable as connections to the teleporter. These paths are just about breaking the heart, so it doesn't matter if the paths can lock you out of the teleporter if you already have broken the heart, because then you have already broken the heart.
     base, WindtornRuins.RuinsLever, BreakWall=16:
       Burrow, DoubleJump OR Dash OR Glide OR Launch
       Burrow, Bash, Grenade=1
@@ -3582,7 +3581,7 @@ area WindtornRuins.UpperRuinsDoor:  # (2163, -3835) Just inside the door.
       Bash, Grenade=1, Glide
       Launch, DoubleJump OR Glide
 
-  conn UpperWastes.RuinsApproach:  # you don't really need anything, but the freefall is awkward and the area home is on top of a wall... These are more realistic cases than the complete list of possibilities
+  conn UpperWastes.RuinsApproach:  # you don't really need anything, but the freefall is awkward ... These are more realistic cases than the complete list of possibilities
     base: Bash OR Glide OR Burrow OR Launch
   conn WindtornRuins.RuinsTP:  # connection FROM entrance TO tp at ANY TIME
     # this accounts for both situations of having broken the heart or not
@@ -3598,7 +3597,7 @@ area WindtornRuins.UpperRuinsDoor:  # (2163, -3835) Just inside the door.
     # Since Burrow solves this connection, it accounts for all paths to the escape revisit pickup
     base: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.Seir, Burrow
 
-area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
+anchor WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
   refill Full
 
   state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
@@ -3624,13 +3623,13 @@ area WindtornRuins.RuinsTP:  # (2130, -3984) Windtorn Ruins teleporter.
       Weapon, Burrow, Bash, Grenade=1
       Weapon, Glide
 
-area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
+anchor WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
   refill Full
-  
+
   # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
   # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here 
-  # can softlock after achieving the EscapeComplete state, so this area is only safe as long as it does nothing else than handling that state.
+  # can softlock after achieving the EscapeComplete state, so this anchor is only safe as long as it does nothing else than handling that state.
   quest WindtornRuins.Seir:
     base, WindtornRuins.HeartBarrier:
       Burrow, Dash, Grapple, DoubleJump OR Glide
@@ -3638,7 +3637,7 @@ area WindtornRuins.Escape:  # (2015, -4027) Where the escape starts
       Burrow, DoubleJump, Launch, Dash OR Glide
       Burrow, Grapple, Launch, Glide
 
-area WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
+anchor WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
   # requires escape to be done
   quest WindtornRuins.HandToHandComplete:
     base: LowerWastes.HandToHandMapstone
@@ -3661,7 +3660,7 @@ region WeepingRidge:
   base:
     Danger=60, Regenerate
 
-area WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevator starts
+anchor WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevator starts
   refill Checkpoint
   # energy crystal to the right not considered
 
@@ -3673,7 +3672,7 @@ area WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevato
   conn WeepingRidge.LaunchArea:
     base: WeepingRidge.ElevatorFightCompleted
 
-area WeepingRidge.LaunchArea:  # (1189, -3716) After the portal at the top of the elevator
+anchor WeepingRidge.LaunchArea:  # (1189, -3716) After the portal at the top of the elevator
   refill Checkpoint
   refill Health=1: free
 
@@ -3681,30 +3680,30 @@ area WeepingRidge.LaunchArea:  # (1189, -3716) After the portal at the top of th
     base:
       Glide
       Launch, Bash OR DoubleJump OR Dash
-    advanced:
+    unsafe:
       Launch                    # this could not. it's tricky!
       Bash, DoubleJump, Dash    # requires bash gliding (validation note: it does not oriThink... maybe base even?)
   pickup WeepingRidge.PortalEX:
     base:
       Launch, Glide OR Bash OR DoubleJump OR Dash
-    advanced:
+    unsafe:
       Launch
   pickup WeepingRidge.SpikeClimbEX:
     base:
       Launch, Glide OR Bash OR DoubleJump OR Dash
-    advanced:
+    unsafe:
       Launch
   pickup WeepingRidge.Ore:
     base:
       Launch, DoubleJump OR Bash
-    advanced:
+    unsafe:
       Launch
       Bash, Glide              # fuck with the elemental until he gives you a shot to bash
 
   conn WillowsEnd.Entry:
     base:
       WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump, Dash OR Glide
-    advanced:
+    unsafe:
       WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump OR Glide OR Dash # you really only NEED one of the 3 of em
   # backwards connection would be meaningless
 
@@ -3712,7 +3711,7 @@ region WillowsEnd:
   base:
     Danger=60, Regenerate # need at least 6 health and Regen to do ANYTHING in willow
 
-area WillowsEnd.Entry:  # (495, -3951) At the lower door
+anchor WillowsEnd.Entry:  # (495, -3951) At the lower door
   refill Checkpoint
   refill Energy=4:
     base:
@@ -3746,7 +3745,7 @@ area WillowsEnd.Entry:  # (495, -3951) At the lower door
     base:
       Launch, Bash, DoubleJump OR Dash OR Glide  # mine in the way, but I think it's managable
 
-area WillowsEnd.InnerTP:  # (422, -3864) The teleporter inside
+anchor WillowsEnd.InnerTP:  # (422, -3864) The teleporter inside
   refill Full
 
   pickup WillowsEnd.LupoMap:
@@ -3764,7 +3763,7 @@ area WillowsEnd.InnerTP:  # (422, -3864) The teleporter inside
       DoubleJump, Bash, Grenade=1, Dash OR Glide
       Launch, DoubleJump OR Dash
 
-area WillowsEnd.East:  # (547, -3804) To the left of the redirect puzzle changethisforcheckpoint
+anchor WillowsEnd.East:  # (547, -3804) To the left of the redirect puzzle changethisforcheckpoint
   state WillowsEnd.RedirectHeart:
     base: BreakWall=10, BreakWall=30, DoubleJump, Bash, Launch
 
@@ -3781,7 +3780,7 @@ area WillowsEnd.East:  # (547, -3804) To the left of the redirect puzzle changet
   conn WillowsEnd.Upper:
     base: Bash, Launch  # some other paths would be possible, but with how far back the last checkpoint is...
 
-area WillowsEnd.West:  # (445, -3840) To the left of the one-way above Lupo
+anchor WillowsEnd.West:  # (445, -3840) To the left of the one-way above Lupo
   refill Checkpoint
   refill Energy=4:
     base: Weapon
@@ -3801,7 +3800,7 @@ area WillowsEnd.West:  # (445, -3840) To the left of the one-way above Lupo
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
 
-area WillowsEnd.Upper:  # (499, -3748) At the upper door
+anchor WillowsEnd.Upper:  # (499, -3748) At the upper door
   refill Checkpoint
 
   state WillowsEnd.BurrowHeart:
@@ -3829,18 +3828,18 @@ area WillowsEnd.Upper:  # (499, -3748) At the upper door
   conn WillowsEnd.West:
     base: Launch
 
-area LaserRockFight:
+anchor LaserRockFight:
   refill Full
   state WillowsEnd.ElementalDefeated:
     base: Combat, Danger=85, Bash, Launch
 
-area WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
+anchor WillowsEnd.OuterTP:  # (554, -3609) The teleporter before Shriek
   refill Full
 
   conn Teleporters: free
   conn WillowsEnd.Upper: free
 
-area TwillenShop:
+anchor TwillenShop:
   quest GladesTown.ADiamondInTheRough:
     base: LowerWastes.EerieGem
 
@@ -3861,7 +3860,7 @@ area TwillenShop:
   pickup TwillenShop.LightHarvest:
     base: GladesTown.EntryWallBroken, SpiritLight=1200
 
-area OpherShop:
+anchor OpherShop:
   pickup OpherShop.Spike:
     base: SpiritLight=1200
   pickup OpherShop.SpiritSmash:
@@ -3877,7 +3876,7 @@ area OpherShop:
   pickup OpherShop.WaterBreath:
     base: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=1200
 
-area TuleyShop:
+anchor TuleyShop:
   quest GladesTown.RegrowTheGlades:
     base: TuleyShop.SelaFlowers, TuleyShop.StickyGrass, TuleyShop.Lightcatchers, TuleyShop.BlueMoon, TuleyShop.SpringPlants, TuleyShop.LastTree
 
