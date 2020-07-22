@@ -451,9 +451,5 @@ INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
     auto game_map_ui = il2cpp::get_class<app::GameMapUI__Class>("", "GameMapUI")->static_fields->Instance;
     auto icon_manager = game_map_ui->fields.m_areaMap->fields._IconManager_k__BackingField;
     if (static_cast<NewFilters>(icon_manager->fields.Filter) == NewFilters::InLogic)
-    {
         AreaMapUI::set_IconFilter(game_map_ui->fields.m_areaMap, icon_manager->fields.Filter);
-        GameMapUI::UpdateFilterText(game_map_ui);
-        GameMapUI::UpdateQuests(game_map_ui);
-    }
 }
