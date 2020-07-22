@@ -579,6 +579,8 @@ namespace RandoMainDLL {
           break;
         case ResourceType.Keystone:
           InterOp.set_keystones(InterOp.get_keystones() + 1);
+          var uid = new UberId(6, 0);
+          uid.State().Write(new UberValue(1 + uid.GetValue().GetValueOrDefault(new UberValue(0)).Int));
           InterOp.shake_keystone();
           break;
         case ResourceType.ShardSlot:
