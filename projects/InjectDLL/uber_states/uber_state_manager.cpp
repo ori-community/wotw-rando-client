@@ -29,64 +29,86 @@ namespace uber_states
         }
 
         template<typename T, typename V>
-        void add_state(app::UberStateCollectionGroup* group, std::string klass, std::string group_name, int group_id, std::string state_name, int state_id, V default_value)
+        app::IUberState* add_state(std::string klass, std::string group_name, int group_id, std::string state_name, int state_id, V default_value)
         {
             auto state = il2cpp::unity::create_scriptable_object<T>("Moon", klass);
 
             state->fields.Group = il2cpp::unity::create_scriptable_object<app::UberStateGroup>("Moon", "UberStateGroup");
             state->fields.Group->fields._.m_id = create_uber_id_ptr(group_id);
-            state->fields.Group->fields._.m_awakeName = reinterpret_cast<app::String*>(il2cpp::string_new(group_name.c_str()));
+            il2cpp::invoke(state->fields.Group, "set_name", il2cpp::string_new(group_name.c_str()));
 
             state->fields._.m_id = create_uber_id_ptr(state_id);
-            state->fields._.m_awakeName = reinterpret_cast<app::String*>(il2cpp::string_new(state_name.c_str()));
+            il2cpp::invoke(state, "set_name", il2cpp::string_new(state_name.c_str()));
 
             state->fields.EditorValue = default_value;
             state->fields.DefaultValue = default_value;
             state->fields.m_value = default_value;
             state->fields.NamedValues = nullptr;
             state->fields._VolitileGenericOverrideValue_k__BackingField.has_value = false;
-            UberStateCollectionGroup::Add(group, state->fields._.m_id, reinterpret_cast<app::IUberState*>(state));
+            return reinterpret_cast<app::IUberState*>(state);
+        }
+
+        NAMED_IL2CPP_INTERCEPT(Moon, UberStateValueGroup, void, .ctor, ctor, (app::UberStateValueGroup* this_ptr, app::UberID* id)) {
+            UberStateValueGroup::ctor(this_ptr, id);
+            trace(MessageType::Info, 5, "initialize", format("UberStateValueGroup created %d.", id->fields.m_id));
+        }
+
+        IL2CPP_INTERCEPT(Moon, UberStateValueStore, void, PopulateValueStore, (app::UberStateValueStore* this_ptr)) {
+            UberStateValueStore::PopulateValueStore(this_ptr);
+            trace(MessageType::Info, 5, "initialize", "UberStateValueStore populated.");
+        }
+
+        IL2CPP_INTERCEPT(Moon, UberStateCollection, app::IUberState__Array*, BuildDescriptorsArray, (app::UberStateCollection* this_ptr)) {
+            auto arr = UberStateCollection::BuildDescriptorsArray(this_ptr);
+            trace(MessageType::Info, 5, "initialize", "Listing array.");
+            for (auto i = 0; i < arr->max_length; ++i)
+            {
+                auto group_id = il2cpp::invoke<app::UberID>(arr->vector[i], "get_GroupID");
+                auto state_id = il2cpp::invoke<app::UberID>(arr->vector[i], "get_StateID");
+                trace(MessageType::Info, 5, "initialize", format(" - state (%d, %d)", group_id->fields.m_id, state_id->fields.m_id));
+            }
+
+            trace(MessageType::Info, 5, "initialize", "Listing array finished.");
+            return arr;
+        }
+
+        bool initialized = false;
+        NAMED_IL2CPP_INTERCEPT(Moon, UberStateCollection, void, .ctor, ctor, (app::UberStateCollection* this_ptr)) {
+            UberStateCollection::ctor(this_ptr);
+            initialized = false;
         }
 
         IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
+            if (!initialized)
+            {
+                std::vector<app::IUberState*> states = {
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "sword", app::AbilityType__Enum_Sword, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "double_jump", app::AbilityType__Enum_DoubleJump, true),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "regenerate", app::AbilityType__Enum_MeditateSpell, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "bow", app::AbilityType__Enum_Bow, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "dash", app::AbilityType__Enum_DashNew, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "bash", app::AbilityType__Enum_Bash, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "grapple", app::AbilityType__Enum_SpiritLeash, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "water_dash", app::AbilityType__Enum_WaterDash, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "flash", app::AbilityType__Enum_GlowSpell, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "grenade", app::AbilityType__Enum_Grenade, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "burrow", app::AbilityType__Enum_Digging, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "launch", app::AbilityType__Enum_ChargeJump, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "ancestral_light", app::AbilityType__Enum_DamageUpgradeA, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "ancestral_light_2", app::AbilityType__Enum_DamageUpgradeB, false),
+
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "test1", 112, false),
+
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false),
+                };
+
+                for (auto state : states)
+                    il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
+
+                initialized = true;
+            }
+
             UberStateCollection::PrepareRuntimeDataType(this_ptr);
-            
-            // Add our custom states here.
-            auto tree_group = il2cpp::create_object<app::UberStateCollectionGroup>("Moon", "UberStateCollectionGroup");
-            UberStateCollectionGroup::ctor(tree_group);
-            UberStateCollection::Add(create_uber_id_ptr(constants::TREE_GROUP_ID), tree_group);
-
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "sword", app::AbilityType__Enum_Sword, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "double_jump", app::AbilityType__Enum_DoubleJump, true);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "regenerate", app::AbilityType__Enum_MeditateSpell, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "bow", app::AbilityType__Enum_Bow, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "dash", app::AbilityType__Enum_DashNew, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "bash", app::AbilityType__Enum_Bash, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "grapple", app::AbilityType__Enum_SpiritLeash, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "water_dash", app::AbilityType__Enum_WaterDash, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "flash", app::AbilityType__Enum_GlowSpell, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "grenade", app::AbilityType__Enum_Grenade, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "burrow", app::AbilityType__Enum_Digging, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "launch", app::AbilityType__Enum_ChargeJump, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "ancestral_light", app::AbilityType__Enum_DamageUpgradeA, false);
-            add_state<app::SerializedBooleanUberState>(tree_group, "SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "ancestral_light_2", app::AbilityType__Enum_DamageUpgradeB, false);
-
-            auto opher_group = il2cpp::create_object<app::UberStateCollectionGroup>("Moon", "UberStateCollectionGroup");
-            UberStateCollectionGroup::ctor(opher_group);
-            UberStateCollection::Add(create_uber_id_ptr(constants::OPHER_WEAPON_GROUP_ID), opher_group);
-
-            add_state<app::SerializedBooleanUberState>(opher_group, "SerializedBooleanUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "test1", 112, false);
-
-            auto twillen_group = il2cpp::create_object<app::UberStateCollectionGroup>("Moon", "UberStateCollectionGroup");
-            UberStateCollectionGroup::ctor(twillen_group);
-            UberStateCollection::Add(create_uber_id_ptr(constants::TWILLEN_SHARD_GROUP_ID), twillen_group);
-
-            auto map_filter_group = il2cpp::create_object<app::UberStateCollectionGroup>("Moon", "UberStateCollectionGroup");
-            UberStateCollectionGroup::ctor(map_filter_group);
-            UberStateCollection::Add(create_uber_id_ptr(constants::MAP_FILTER_GROUP_ID), map_filter_group);
-            
-            add_state<app::SerializedBooleanUberState>(map_filter_group, "SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false);
-
             trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
         }
 
