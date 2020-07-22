@@ -47,12 +47,22 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
       Updating = false;
     }
-    public static int FilterIconType(int groupId, int id) => (int) new UberId(groupId, id).toCond().Pickup().Icon;
+    public static int FilterIconType(int groupId, int id) {
+      var cond = new UberId(groupId, id).toCond();
+      if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)
+        return (int)cond.Pickup().Icon;
+      else
+        return (int)WorldMapIconType.Eyestone;
+    }
 
     public static void FilterIconText(IntPtr buffer, int length, int groupId, int id) {
-      string text = new UberId(groupId, id).toCond().Pickup().ToString();
+      var cond = new UberId(groupId, id).toCond();
+      string text = cond.Pickup().ToString();
       foreach (var wrap in new string[] { "#", "*", "$", "@" })
         text = text.Replace(wrap, "");
+      if (!cond.Pickup().NonEmpty && cond.Loc() == LocData.Void) {
+        text = " ";
+      }
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
