@@ -713,7 +713,7 @@ package SeedGenerator {
   object Config extends SettingsProvider with Logger {
     var settingsProvider: SettingsProvider = DefaultSettingsProvider
     var logger: Logger = DefaultLogger
-    override def write(x: Any): Unit = logger.debug(x)
+    override def write(x: Any): Unit = logger.write(x)
     override def enabled: Seq[LogLevel] = logger.enabled
 
     override def apply(): GenSettings = settingsProvider.apply()

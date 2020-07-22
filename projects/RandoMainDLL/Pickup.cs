@@ -249,7 +249,7 @@ namespace RandoMainDLL {
   public class Teleporter : Checkable {
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.Substring(1).ParseToByte());
     public Teleporter(TeleporterType teleporter) => type = teleporter;
-    public override WorldMapIconType Icon => WorldMapIconType.Teleporter;
+    public override WorldMapIconType Icon => WorldMapIconType.SavePedestal;
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
