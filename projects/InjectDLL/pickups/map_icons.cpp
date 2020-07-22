@@ -401,8 +401,7 @@ namespace
         return label;
     }
 
-    bool filter_labels_initialized = false;
-    void initialize_filter_labels(app::AreaMapIconManager* this_ptr)
+    void check_and_initialize_filter_labels(app::AreaMapIconManager* this_ptr)
     {
         if (il2cpp::is_assignable(this_ptr, "", "AreaMapIconManager") && this_ptr->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
             auto arr = reinterpret_cast<app::AreaMapIconFilterFooterLabel__Array*>(il2cpp::untyped::array_new(
@@ -417,8 +416,6 @@ namespace
 
             this_ptr->fields.Labels = arr;
         }
-
-        filter_labels_initialized = true;
     }
 
     bool ignore_filter_input = false;
@@ -430,8 +427,7 @@ namespace
     void cycle_filter(app::AreaMapUI* map)
     {
         auto icon_manager = map->fields._IconManager_k__BackingField;
-        if (!filter_labels_initialized)
-            initialize_filter_labels(icon_manager);
+        check_and_initialize_filter_labels(icon_manager);
         auto count = static_cast<int32_t>(NewFilters::COUNT);
         auto prev = static_cast<int32_t>(icon_manager->fields.Filter);
         auto filter = (prev + 1) % count;
