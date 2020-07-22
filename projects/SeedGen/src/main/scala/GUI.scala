@@ -216,7 +216,6 @@ class UI extends MainFrame {
         case s if WorldEvent.areaFileNames.contains(s) => Some(WorldEvent(WorldEvent.areaFileNames(s)))
         case a => Config.error(s"unknown name $a"); None
       }).toSeq.flatten.map(Left(_)):_*)
-      Config.warn(st)
       println(Nodes.reached(st)(MMap())._1.items.map(_.data.code).mkString(", "))
     }
 

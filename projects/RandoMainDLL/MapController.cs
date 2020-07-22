@@ -25,7 +25,6 @@ namespace RandoMainDLL {
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = @"java.exe";
         proc.StartInfo.Arguments = args;
-        Randomizer.Log(args, false);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.RedirectStandardOutput = true;
@@ -41,6 +40,7 @@ namespace RandoMainDLL {
             Reachable.Add(cond.Id);
           } catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing {rawCond}", e); }
         }
+        InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
       Updating = false;
@@ -49,6 +49,8 @@ namespace RandoMainDLL {
 
     public static void FilterIconText(IntPtr buffer, int length, int groupId, int id) {
       string text = new UberId(groupId, id).toCond().Pickup().ToString();
+      foreach (var wrap in new string[] { "#", "*", "$", "@" })
+        text = text.Replace(wrap, "");
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
