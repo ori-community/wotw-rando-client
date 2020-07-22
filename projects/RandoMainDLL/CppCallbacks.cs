@@ -29,8 +29,8 @@ namespace RandoMainDLL {
             CallbackName = "on_tree"
           },
           new Method() {
-            Delegate = new f_void(MapController.MapOpened),
-            CallbackName = "map_opened"
+            Delegate = new f_bool_int(MapController.FilterEnabled),
+            CallbackName = "filter_enabled"
           },
           new Method() {
             Delegate = new f_void(UberStateController.Update),
@@ -185,6 +185,7 @@ namespace RandoMainDLL {
     public delegate void f_void_gwa(AreaType at);
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
+    public delegate bool f_bool_int(int i);
     public delegate bool f_bool_int_int(int i, int j);
     public delegate bool f_bool_st(ShardType st);
     public delegate bool f_bool_str([MarshalAs(UnmanagedType.LPStr)] string str);

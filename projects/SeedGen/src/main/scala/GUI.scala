@@ -220,7 +220,7 @@ class UI extends MainFrame {
     }
 
     // autorun section
-    if(args(0) == "ReachCheck")
+    if(args.nonEmpty && args(0) == "ReachCheck")
       reachCheck()
     else {
       Config.settingsProvider = UI
