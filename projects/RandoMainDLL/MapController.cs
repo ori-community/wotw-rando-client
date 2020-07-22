@@ -62,11 +62,11 @@ namespace RandoMainDLL {
       var cond = new UberId(groupId, id).toCond();
       var pick = cond.Pickup();
       string text = pick is Cash c ? $"{c.Amount} Spirit Light" : pick.ToString();
-      if (!pick.NonEmpty && cond.Loc() == LocData.Void) {
+      if (!pick.NonEmpty && cond.Loc() == LocData.Void) 
         text = " ";
-        foreach (var wrap in new string[] { "#", "*", "$", "@" })
+      
+      foreach (var wrap in new string[] { "#", "*", "$", "@" })
         text = text.Replace(wrap, "");
-      }
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
