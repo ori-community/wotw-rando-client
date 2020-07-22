@@ -106,6 +106,11 @@ namespace RandoMainDLL {
         TrackFileController.Write();
       }
     }
+    public static void FoundItem() {
+      if(Data != null)
+        Data.FoundCount++;
+      MapController.UpdateReachable();
+    }
     public static bool HasAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
     public static void SetAbility(AbilityType ability, bool setTo = true) {
       if (setTo)
@@ -160,6 +165,7 @@ namespace RandoMainDLL {
         }
         ShopController.UpdateShopData();
         BonusItemController.Refresh();
+        MapController.UpdateReachable();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }

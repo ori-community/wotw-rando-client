@@ -8,13 +8,21 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class MapController {
-    public static void MapOpened() {
-      var t = new Thread(GetReachableAsync);
-      t.Start();
+    public static void Update() {
+      if(FrameLockout > 0)
+        FrameLockout--;
     }
-    public static void GetReachableAsync() {
+    public static void UpdateReachable() {
+      if(InterOp.get_game_state() == GameState.Game && FrameLockout < 1) {
+      var t = new Thread(UpdateReachableAsync);
+      t.Start();
+      }
+    }
+    public static int FrameLockout = 0;
+    public static void UpdateReachableAsync() {
       try {
-        String args = $"-jar C:\\moon\\Reachable.jar {InterOp.get_max_health()} {Convert.ToInt32(InterOp.get_max_energy())} {InterOp.get_keystones()} {InterOp.get_ore()} {InterOp.get_experience()} ";
+        FrameLockout = 240;
+        String args = $"-jar C:\\moon\\SeedGen.jar ReachCheck {InterOp.get_max_health()} {Convert.ToInt32(InterOp.get_max_energy())} {InterOp.get_keystones()} {InterOp.get_ore()} {InterOp.get_experience()} ";
         args += String.Join(" ", SaveController.Data.SkillsFound.Select((AbilityType at) => at.GetDescription().Replace(" ", "")));
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = @"java.exe";
@@ -26,6 +34,7 @@ namespace RandoMainDLL {
         proc.StartInfo.WorkingDirectory = @"C:\moon\";
         proc.Start();
         proc.WaitForExit();
+        Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
         foreach (var rawCond in rawOutput.Split(',')) {
           try {
