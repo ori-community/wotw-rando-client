@@ -25,8 +25,10 @@ namespace RandoMainDLL {
       File.WriteAllText(Randomizer.MessageLog, "");
       SeedController.ReadSeed();
       UberStateController.NeedsNewGameInit = true;
+      UberStateController.UberStates.Clear();
       AHK.OnNewGame();
       SaveController.NewGame(slot);
+      BonusItemController.Refresh();
     }
 
     public static bool Initialize() {
