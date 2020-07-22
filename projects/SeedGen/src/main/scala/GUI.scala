@@ -202,26 +202,9 @@ class UI extends MainFrame {
     }
   }
   object Main extends App {
-    def reachCheck() = {
-      Config.logger = FileLogger("""C:\moon\reach_log.txt""", enabled = Seq(WARN, ERROR))
-      val hp = args(1).toInt / 5
-      val en = args(2).toInt / 5
-      val ks = args(3).toInt
-      val ore = args(4).toInt
-      val sl = args(5).toInt
-      val st = GameState(new Inv((Health, hp), (Energy, en), (Keystone, ks), (Ore, ore), (SpiritLight(sl), 1)))
-        .withParams(args.drop(6).map({
-        case s if Skill.areaFileNames.contains(s) => Some(Skill(Skill.areaFileNames(s)))
-        case s if Teleporter.areaFileNames.contains(s) => Some(Teleporter(Teleporter.areaFileNames(s)))
-        case s if WorldEvent.areaFileNames.contains(s) => Some(WorldEvent(WorldEvent.areaFileNames(s)))
-        case a => Config.error(s"unknown name $a"); None
-      }).toSeq.flatten.map(Left(_)):_*)
-      println(Nodes.reached(st)(MMap())._1.items.map(_.data.code).mkString(", "))
-    }
-
     // autorun section
-    if(args.nonEmpty && args(0) == "ReachCheck")
-      reachCheck()
+    if(args.nonEmpty)
+      ReachChecker(args.toSeq)
     else {
       Config.settingsProvider = UI
       Config.logger = UI
