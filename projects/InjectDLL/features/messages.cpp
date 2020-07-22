@@ -46,6 +46,7 @@ std::string convert_csstring(app::String* str)
 }
 
 INJECT_C_DLLEXPORT void clear_visible_hints();
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description);
 
 namespace
 {
@@ -202,107 +203,6 @@ namespace
         return nullptr;
       }
     }
-
-    app::MessageProvider* create_message_provider(Il2CppString* message)
-    {
-        auto provider = il2cpp::create_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
-        il2cpp::invoke(provider, ".ctor");
-        // TODO: Add input provider and message provider with different color.
-
-        auto item = il2cpp::create_object<app::TranslatedMessageProvider_MessageItem>("", "TranslatedMessageProvider", "MessageItem");
-        item->fields.English = reinterpret_cast<app::String*>(message);
-        item->fields.Sound = nullptr;
-        item->fields.WWiseEvent = nullptr;
-        item->fields.Emotion = app::EmotionType__Enum_Neutral;
-        il2cpp::invoke(provider->fields.Messages, "Add", item);
-        return reinterpret_cast<app::MessageProvider*>(provider);
-    }
-
-    struct ShopItem
-    {
-        uint32_t name;
-        uint32_t description;
-        bool uses_energy;
-    };
-
-    std::unordered_map<uint16_t, ShopItem> opher_overrides;
-    std::unordered_map<uint8_t, ShopItem> twillen_overrides;
-    std::unordered_map<uint64_t, ShopItem> lupo_overrides;
-
-    uint16_t get_key(app::WeaponmasterItem* item)
-    {
-        auto acquired = static_cast<uint16_t>(item->fields.Upgrade->fields.AcquiredAbilityType);
-        auto required = static_cast<uint16_t>(item->fields.Upgrade->fields.RequiredAbility) << 8;
-        return acquired | required;
-    }
-
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemName, (app::WeaponmasterItem* this_ptr)) {
-        auto key = get_key(this_ptr);
-        auto it = opher_overrides.find(key);
-        if (it == opher_overrides.end())
-            return WeaponmasterItem::get_ItemName(this_ptr);
-        else
-            return reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-    }
-
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemDescription, (app::WeaponmasterItem* this_ptr)) {
-        auto key = get_key(this_ptr);
-        auto it = opher_overrides.find(key);
-        if (it == opher_overrides.end())
-            return WeaponmasterItem::get_ItemDescription(this_ptr);
-        else
-            return reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-    }
-
-    // When does this happen?
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemNextLevelDescription, (app::WeaponmasterItem* this_ptr)) {
-        return WeaponmasterItem::get_ItemNextLevelDescription(this_ptr);
-    }
-
-    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_UsesEnergy, (app::WeaponmasterItem* this_ptr)) {
-        auto key = get_key(this_ptr);
-        auto it = opher_overrides.find(key);
-        if (it == opher_overrides.end())
-            return WeaponmasterItem::get_UsesEnergy(this_ptr);
-        else
-            return it->second.uses_energy;
-    }
-
-    IL2CPP_INTERCEPT(, MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem* this_ptr, app::MapmakerItem* item)) {
-        auto state_id = item->fields.UberState->fields._.m_id->fields.m_id;
-        auto group_id = item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
-        auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
-        auto it = lupo_overrides.find(key);
-        if (it != lupo_overrides.end())
-        {
-            item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-            item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-        }
-
-        MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
-    }
-
-    IL2CPP_BINDING(, SpiritShardSettings, app::SpiritShardDescription*, GetUpgradableAbility, (app::SpiritShardSettings* this_ptr, app::SpiritShardType__Enum shardType));
-    IL2CPP_INTERCEPT(, SpiritShardShopUIItem, void, UpdateShard, (app::SpiritShardShopUIItem* this_ptr, app::PlayerUberStateShards_Shard* shard)) {
-        if (shard != nullptr)
-        {
-            auto key = static_cast<uint8_t>(shard->fields.m_type);
-            auto it = twillen_overrides.find(key);
-            if (it != twillen_overrides.end())
-            {
-                auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
-                auto description = SpiritShardSettings::GetUpgradableAbility(settings, shard->fields.m_type);
-                description->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-                if (description->fields.UpgradablePropertyLevels->fields._size > 0)
-                {
-                    auto prop = description->fields.UpgradablePropertyLevels->fields._items->vector[0];
-                    prop->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-                }
-            }
-        }
-
-        SpiritShardShopUIItem::UpdateShard(this_ptr, shard);
-    }
 }
 
 void hide_below_hint() {
@@ -380,56 +280,4 @@ INJECT_C_DLLEXPORT app::MessageBox * update_map_hint(const wchar_t* info) {
 INJECT_C_DLLEXPORT app::String* get_current_hint()
 {
     return last_message;
-}
-
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, bool uses_energy)
-{
-    auto key = static_cast<uint16_t>(acquired & 0xFF) | (static_cast<uint16_t>(required & 0xFF) << 8);
-    auto it = opher_overrides.find(key);
-    if (it != opher_overrides.end())
-    {
-        il2cpp::gchandle_free(it->second.name);
-        il2cpp::gchandle_free(it->second.description);
-    }
-
-    auto& item = opher_overrides[key];
-    auto provider = create_message_provider(il2cpp::string_new(name));
-    item.name = il2cpp::gchandle_new(provider, false);
-    provider = create_message_provider(il2cpp::string_new(description));
-    item.description = il2cpp::gchandle_new(provider, false);
-    item.uses_energy = uses_energy;
-}
-
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description)
-{
-    auto key = static_cast<uint8_t>(shard);
-    auto it = twillen_overrides.find(key);
-    if (it != twillen_overrides.end())
-    {
-        il2cpp::gchandle_free(it->second.name);
-        il2cpp::gchandle_free(it->second.description);
-    }
-
-    auto& item = twillen_overrides[key];
-    auto provider = create_message_provider(il2cpp::string_new(name));
-    item.name = il2cpp::gchandle_new(provider, false);
-    provider = create_message_provider(il2cpp::string_new(description));
-    item.description = il2cpp::gchandle_new(provider, false);
-}
-
-INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description)
-{
-    auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
-    auto it = lupo_overrides.find(key);
-    if (it != lupo_overrides.end())
-    {
-        il2cpp::gchandle_free(it->second.name);
-        il2cpp::gchandle_free(it->second.description);
-    }
-
-    auto& item = lupo_overrides[key];
-    auto provider = create_message_provider(il2cpp::string_new(name));
-    item.name = il2cpp::gchandle_new(provider, false);
-    provider = create_message_provider(il2cpp::string_new(description));
-    item.description = il2cpp::gchandle_new(provider, false);
 }

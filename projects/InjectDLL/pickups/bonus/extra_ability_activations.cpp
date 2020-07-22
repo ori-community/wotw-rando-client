@@ -12,7 +12,7 @@ namespace
     int dashes_used = 0;
     IL2CPP_INTERCEPT(, SeinDashNew, void, TryPerformDash, (app::SeinDashNew* this_ptr, int32_t direction, bool is_forward)) {
         SeinDashNew::TryPerformDash(this_ptr, direction, is_forward);
-        if (this_ptr->fields.m_isDashing)
+        if (this_ptr->fields.m_isDashing && !this_ptr->fields.m_allowDash)
             ++dashes_used;
     }
 
