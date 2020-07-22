@@ -717,7 +717,7 @@ package SeedGenerator {
     override def enabled: Seq[LogLevel] = logger.enabled
 
     override def apply(): GenSettings = settingsProvider.apply()
-    override def getPreplcs: MMap[ItemLoc, Placement] = DefaultSettingsProvider.getPreplcs
+    override def getPreplcs: MMap[ItemLoc, Placement] = settingsProvider.getPreplcs
   }
 
   case class Distro(sl: Int = 0, hc: Int = 0, ec: Int = 0, ore: Int = 0, sks: Int = 0)
