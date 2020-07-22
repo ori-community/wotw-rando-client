@@ -101,7 +101,7 @@ namespace RandoMainDLL {
     public virtual int Frames { get => 240; }
     public bool NonEmpty = true;
     public abstract PickupType Type { get; }
-
+    public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
     public virtual float ModEffectiveness() => 1.0f;
     public virtual int CostWithMod(float mod) => Convert.ToInt32(DefaultCost() * (1f + mod * ModEffectiveness()));
@@ -249,6 +249,7 @@ namespace RandoMainDLL {
   public class Teleporter : Checkable {
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.Substring(1).ParseToByte());
     public Teleporter(TeleporterType teleporter) => type = teleporter;
+    public override WorldMapIconType Icon => WorldMapIconType.Teleporter;
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
@@ -302,6 +303,8 @@ namespace RandoMainDLL {
   }
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
+
+    public override WorldMapIconType Icon => WorldMapIconType.AbilityPedestal;
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Ability((AbilityType)value.ParseToByte()) : new RemoveAbility((AbilityType)value.Substring(1).ParseToByte());
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
@@ -330,6 +333,7 @@ namespace RandoMainDLL {
 
   public class Shard : Checkable {
     public Shard(ShardType shard) => type = shard;
+    public override WorldMapIconType Icon => WorldMapIconType.SpiritShard;
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Shard((ShardType)value.ParseToByte()) : new RemoveShard((ShardType)value.Substring(1).ParseToByte());
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
@@ -361,6 +365,7 @@ namespace RandoMainDLL {
     public Cash(int amount) => Amount = amount;
 
     public override PickupType Type => PickupType.SpiritLight;
+    public override WorldMapIconType Icon => WorldMapIconType.Experience;
     public readonly int Amount;
 
     public override void Grant(bool skipBase = false) {
@@ -389,6 +394,7 @@ namespace RandoMainDLL {
 
     public override int DefaultCost() => 400;
     public override bool Has() => SaveController.Data.WorldEvents.Contains(type);
+    public override WorldMapIconType Icon => WorldMapIconType.QuestEnd;
 
     public override void Grant(bool skipBase = false) {
       SaveController.SetEvent(type);
@@ -523,7 +529,23 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Resource;
     public readonly ResourceType type;
-
+    public override WorldMapIconType Icon { get {
+        switch (type) {
+          case ResourceType.Health:
+            return WorldMapIconType.HealthFragment;
+          case ResourceType.Energy:
+            return WorldMapIconType.EnergyFragment;
+          case ResourceType.Ore:
+            return WorldMapIconType.Ore;
+          case ResourceType.Keystone:
+            return WorldMapIconType.Keystone;
+          case ResourceType.ShardSlot:
+            return WorldMapIconType.ShardSlotUpgrade;
+          default:
+            return base.Icon;
+        }
+      } 
+    }
     public override int DefaultCost() {
       switch (type) {
         case ResourceType.Health:
