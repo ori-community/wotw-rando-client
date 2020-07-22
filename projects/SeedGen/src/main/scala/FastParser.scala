@@ -117,9 +117,7 @@ package SeedGenerator {
           case (area, None) => area.name -> area
         }).toMap
     }
-    var doAdvanced = false
-    def parseFile(advanced: Boolean): Either[ParseError, Map[String, Area]] = {
-      doAdvanced = advanced
+    def parseFile(): Either[ParseError, Map[String, Area]] = {
       parse(input, file(_)) match {
         case Parsed.Success((macros, regionAreas), _) => Right(validator(macros, regionAreas))
         case f: Parsed.Failure => Left(FPError(s"Failed to parse areas.wotw; $f", f))
