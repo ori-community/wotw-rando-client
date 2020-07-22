@@ -26,13 +26,13 @@ namespace RandoMainDLL.Memory {
     Resilience = 18,
     [Description("Spirit Light Harvest")]
     LightHarvest,
-    [Description("Bonus Health")]
+    [Description("Vitality")]
     Vitality = 22,
     [Description("Life Harvest")]
     LifeHarvest,
     [Description("Energy Harvest")]
     EnergyHarvest = 25,
-    [Description("Bonus Energy")]
+    [Description("Energy (Shard)")]
     Energy,
     [Description("Life Pact")]
     LifePact,
