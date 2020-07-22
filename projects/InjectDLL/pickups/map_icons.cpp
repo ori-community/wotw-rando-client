@@ -115,14 +115,14 @@ namespace
         else if (group_id == 21786)
         {
             if (state_id == 27433 || state_id == 37225)
-                return WorldMapIconType__Enum_Keystone;
+                return app::WorldMapIconType__Enum_Keystone;
             else if (state_id == 10295)
-                return WorldMapIconType__Enum_EnergyFragment;
+                return app::WorldMapIconType__Enum_EnergyFragment;
         }
         else if (group_id == 28895 && state_id == 25522)
-            return WorldMapIconType__Enum_Experience;
+            return app::WorldMapIconType__Enum_Experience;
         else if (group_id == 58674 && state_id == 19769)
-            return WorldMapIconType__Enum_Keystone;
+            return app::WorldMapIconType__Enum_Keystone;
 
         auto base_icons = icon->fields.Area->fields.Area->fields.Icons;
         for (auto i = 0; i < base_icons->fields._size; ++i)
