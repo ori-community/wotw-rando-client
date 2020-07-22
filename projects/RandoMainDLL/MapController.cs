@@ -25,7 +25,6 @@ namespace RandoMainDLL {
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = @"java.exe";
         proc.StartInfo.Arguments = args;
-        Randomizer.Log(args, false);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.RedirectStandardOutput = true;
