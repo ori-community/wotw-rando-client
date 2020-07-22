@@ -19,7 +19,7 @@ namespace RandoMainDLL {
     public extern static void set_opher_item(int acquired, int required, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, bool uses_energy);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void allow_spoilers(bool value);
+    public extern static void refresh_inlogic_filter();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_kvolok_door_availability(bool value);

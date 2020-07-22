@@ -166,9 +166,6 @@ namespace RandoMainDLL {
         else
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
-
-      // We might want to hide this behind a spoiler flag instead of the hints flag.
-      InterOp.allow_spoilers(!HintsDisabled);
     }
     public static HashSet<ShardType> shardNag = new HashSet<ShardType>();
     public static HashSet<AbilityType> weaponNag = new HashSet<AbilityType>();
