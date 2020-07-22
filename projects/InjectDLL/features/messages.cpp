@@ -291,6 +291,13 @@ namespace
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_Upgradable, (app::PlayerUberStateShards_Shard* this_ptr));
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_UpgradeAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
     IL2CPP_BINDING(, SpellUIShardEquipStatus, void, SetEquipment, (app::SpellUIShardEquipStatus* this_ptr, app::EquipmentType__Enum type));
+    
+    bool overwrite_shard_text = false;
+    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen* this_ptr)) {
+        overwrite_shard_text = true;
+        SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
+        overwrite_shard_text = false;
+    }
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
     IL2CPP_INTERCEPT(, SpiritShardUIShardDetails, void, UpdateDetails, (app::SpiritShardUIShardDetails* this_ptr)) {
@@ -299,11 +306,14 @@ namespace
 
         auto item = this_ptr->fields.m_item;
         auto type = item->fields.m_type;
-        auto it = twillen_overrides.find(static_cast<uint8_t>(type));
-        if (it != twillen_overrides.end())
+        if (overwrite_shard_text)
         {
-            name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-            description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+            auto it = twillen_overrides.find(static_cast<uint8_t>(type));
+            if (it != twillen_overrides.end())
+            {
+                name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+            }
         }
 
         auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
