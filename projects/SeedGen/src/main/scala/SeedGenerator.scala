@@ -699,8 +699,8 @@ package SeedGenerator {
 
   case class FileLogger(path: String, override val enabled: Seq[LogLevel] = Seq(ERROR)) extends Logger {
     def write(x: Any): Unit = {
-      val seedWriter = new FileWriter(path)
-      seedWriter.write(s"$x")
+      val seedWriter = new FileWriter(path, true)
+      seedWriter.write(s"$x\n")
       seedWriter.close()
     }
   }
