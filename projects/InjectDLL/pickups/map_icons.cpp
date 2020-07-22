@@ -109,6 +109,9 @@ namespace
 
     app::WorldMapIconType__Enum get_base_icon(app::RuntimeWorldMapIcon* icon, int group_id, int state_id)
     {
+        if (group_id == 0)
+            return app::WorldMapIconType__Enum_AbilityPedestal;
+
         auto base_icons = icon->fields.Area->fields.Area->fields.Icons;
         for (auto i = 0; i < base_icons->fields._size; ++i)
         {
