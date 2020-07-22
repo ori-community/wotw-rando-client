@@ -13,7 +13,7 @@ namespace il2cpp
         app::GameObject* get_game_object(void* component);
         app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
         std::vector<app::GameObject*> get_children(app::GameObject* game_object);
-        std::vector<app::Component*> get_components(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component");
+        std::vector<app::Component*> get_components_untyped(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component");
         int32_t get_scene_count();
         app::Scene get_scene_at(int32_t i);
         app::Scene get_active_scene();
@@ -28,6 +28,17 @@ namespace il2cpp
         Return* add_component(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
         {
             return reinterpret_cast<Return*>(add_component_untyped(game_object, namezpace, name));
+        }
+
+        template<typename Return = app::Component>
+        std::vector<Return*> get_components(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
+        {
+            auto components = get_components_untyped(game_object, namezpace, name);
+            std::vector<Return*> output;
+            for (auto component : components)
+                output.push_back(reinterpret_cast<Return*>(component));
+
+            return output;
         }
 
         template<typename Return = app::ScriptableObject>

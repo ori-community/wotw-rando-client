@@ -173,7 +173,7 @@ namespace il2cpp
             return children;
         }
 
-        std::vector<app::Component*> get_components(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
+        std::vector<app::Component*> get_components_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
         {
             std::vector<app::Component*> components;
             auto qualified = get_qualified(namezpace, name);
