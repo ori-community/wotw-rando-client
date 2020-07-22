@@ -267,3 +267,16 @@ INTERCEPT(27748336, bool, Moon_SerializedBooleanUberState__get_Value, (app::Seri
 
     return Moon_SerializedBooleanUberState__get_Value(this_ptr);
 }
+
+constexpr float NORMAL_PURCHASE_TIME = 0.4f;
+constexpr float FAST_PURCHASE_TIME = 0.01f;
+
+IL2CPP_INTERCEPT(, PurchaseThingScreen, void, PurchaseInput, (app::PurchaseThingScreen* this_ptr)) {
+    this_ptr->fields.PurchaseTime = NORMAL_PURCHASE_TIME;
+    auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+    if (input_cmd->static_fields->DialogueOption1 != nullptr &&
+        input_cmd->static_fields->DialogueOption1->fields.IsPressed)
+        this_ptr->fields.PurchaseTime = FAST_PURCHASE_TIME;
+
+    PurchaseThingScreen::PurchaseInput(this_ptr);
+}
