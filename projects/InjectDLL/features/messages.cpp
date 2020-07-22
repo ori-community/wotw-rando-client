@@ -206,7 +206,7 @@ namespace
 
     app::MessageProvider* create_message_provider(Il2CppString* message)
     {
-        auto provider = il2cpp::create_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
+        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
         il2cpp::invoke(provider, ".ctor");
         // TODO: Add input provider and message provider with different color.
 
