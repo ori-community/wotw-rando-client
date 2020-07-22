@@ -3505,7 +3505,7 @@ anchor UpperWastes.MissilePuzzleLeft:  # (1937, -3794) Immediately to the right 
     base: UpperWastes.MissilePuzzleLever, Burrow
 
 anchor UpperWastes.MissilePuzzleRight: # (2058, -3813) On top of sand to the right of lever gate, underneath a laser.
-  pickup UpperWastes.PurpleWallEX:
+  pickup UpperWastes.PurpleWallHC:
     base: Burrow
   pickup UpperWastes.RoofEX:
     base:
