@@ -57,11 +57,12 @@ namespace RandoMainDLL {
 
     public static void FilterIconText(IntPtr buffer, int length, int groupId, int id) {
       var cond = new UberId(groupId, id).toCond();
-      string text = cond.Pickup().ToString();
-      foreach (var wrap in new string[] { "#", "*", "$", "@" })
-        text = text.Replace(wrap, "");
-      if (!cond.Pickup().NonEmpty && cond.Loc() == LocData.Void) {
+      var pick = cond.Pickup();
+      string text = pick is Cash c ? $"{c.Amount} Spirit Light" : pick.ToString();
+      if (!pick.NonEmpty && cond.Loc() == LocData.Void) {
         text = " ";
+        foreach (var wrap in new string[] { "#", "*", "$", "@" })
+        text = text.Replace(wrap, "");
       }
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
