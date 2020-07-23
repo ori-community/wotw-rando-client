@@ -19,6 +19,7 @@ package SeedGenerator {
     def mkTp(s: String): Option[(Teleporter, Int)] = tps.get(s.toLowerCase).map(Teleporter(_) -> 1)
     def mkEvent(s: String): Option[(WorldEvent, Int)] = events.get(s.toLowerCase).map(WorldEvent(_) -> 1)
     def apply(args: Seq[String]): Unit = {
+
       if(args.head == "ReachCheck") {
         fromGame(args)
       } else {
@@ -49,7 +50,7 @@ package SeedGenerator {
     }
 
     def fromGame(args: Seq[String]): Unit = {
-      Config.logger = FileLogger("""C:\moon\reach_log.txt""", enabled = Seq(WARN, ERROR, DEBUG))
+      Config.logger = FileLogger("""C:\moon\reach_log.txt""", enabled = Seq(WARN, ERROR))
       val hp = args(1).toInt / 5
       val en = args(2).toInt / 5
       val ks = args(3).toInt
@@ -57,9 +58,9 @@ package SeedGenerator {
       val sl = args(5).toInt
       val st = GameState(new Inv((Health, hp), (Energy, en), (Keystone, ks), (Ore, ore), (SpiritLight(sl), 1))
         + new Inv(args.drop(6).flatMap {
-        case s if isSkill(s)  => mkSkill(s)
-        case s if isTp(s)     => mkTp(s)
-        case s if isEvent(s)  => mkEvent(s)
+        case s if s.startsWith("s:")  => s.stripPrefix("s:").toIntOption.map(Skill(_)->1)
+        case s if s.startsWith("t:")  => s.stripPrefix("t:").toIntOption.map(Teleporter(_)->1)
+        case s if s.startsWith("w:")  => s.stripPrefix("w:").toIntOption.map(WorldEvent(_)->1)
         case a => Config.error(s"unknown name $a"); None
         }:_*))
       Config.debug(s"$args\n$st")
