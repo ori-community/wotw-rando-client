@@ -1,5 +1,5 @@
 #include <macros.h>
-#include <interception_macros.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {

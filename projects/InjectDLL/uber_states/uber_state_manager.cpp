@@ -1,13 +1,15 @@
 #include <uber_states/uber_state_manager.h>
 
-#include <common.h>
+#include <Il2CppModLoader/common.h>
 #include <constants.h>
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>
 #include <uber_states/uber_state_helper.h>
 
 #include <csharp_bridge.h>
+
+using namespace modloader;
 
 namespace uber_states
 {
@@ -169,13 +171,13 @@ namespace uber_states
     
     std::string get_uber_state_name(app::IUberState* uber_state) {
         auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
-        return convert_csstring(csstring);
+        return il2cpp::convert_csstring(csstring);
     }
 
     std::string get_uber_state_group_name(app::IUberState* uber_state) {
         auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
         auto csstring = il2cpp::invoke<app::String>(group, "get_GroupName");
-        return convert_csstring(csstring);
+        return il2cpp::convert_csstring(csstring);
     }
 
     std::string tostring(app::IUberState* uber_state) {

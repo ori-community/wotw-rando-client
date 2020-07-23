@@ -8,12 +8,8 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
 	SOURCE_FILES
-	"bootstrap.cpp"
     "csharp_bridge.cpp"
 	"dll_main.cpp"
-	"interception.cpp"
-    "il2cpp_helpers.cpp"
-	"dev/dev_commands.cpp"
 	"dev/object_visualizer.cpp"
 	"features/day_night_logic.cpp"
 	"features/difficulty.cpp"
@@ -56,23 +52,16 @@ set(
 
 set(
 	PUBLIC_HEADER_FILES
-	"common.h"
 	"constants.h"
     "csharp_bridge.h"
 	"dll_main.h"
     "enum_definitions.h"
-	"framework.h"
-	"interception.h"
-	"interception_macros.h"
-    "il2cpp_helpers.h"
     "macros.h"
-	"dev/dev_commands.h"
 	"dev/object_visualizer.h"
 	"features/invert_swim.h"
 	"features/input_poller.h"
 	"features/messages.h"
 	"features/mouse_control.h"
-	"fixes/dash.h"
 	"pickups/ore.h"
 	"pickups/pickups.h"
 	"system/sound.h"
@@ -120,15 +109,13 @@ target_include_directories(
 
 target_link_libraries(
 	${PROJECT_NAME}
-	"${WOTWR_LIB_DIR}/detours.lib"
-	WinNetwork
+	Common
+	Il2CppModLoader
 )
 
 target_precompile_headers(
 	${PROJECT_NAME}
 		PRIVATE <tchar.h>
-		PRIVATE <framework.h>
-		PRIVATE <il2cpp_internals.h>
 )
 
 message(STATUS "Assigning source groups.")

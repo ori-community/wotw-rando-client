@@ -1,15 +1,19 @@
-#include <interception_macros.h>
 #include <dll_main.h>
-#include <il2cpp_helpers.h>
-#include <Common/ext.h>
 #include <features/messages.h>
 #include <csharp_bridge.h>
+
+#include <Common/ext.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <set>
 #include <locale>
 #include <codecvt>
 #include <unordered_map>
 #include <xstring>
+
+using namespace modloader;
 
 BINDING(30218144, app::Char__Array*, System_String__ToCharArray, (app::String* this_ptr))//System.String$$ToCharArray
 BINDING(34816240, int, System_Array__get_Length, (app::Array* this_ptr)) //System.Array$$get_Length
@@ -24,8 +28,8 @@ BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, boo
 BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
 BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
 
-IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
-IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
+STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
+STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
 
 std::string convert_csstring(app::String* str)
 {
