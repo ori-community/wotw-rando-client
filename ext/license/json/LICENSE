@@ -1,20 +1,5 @@
-MIT License
+MIT License 
 
-Copyright (c) 2020 Eiko
-
-This project uses the following software, 
-also licensed under the MIT License:
-
-https://github.com/JamesNK/Newtonsoft.Json/
-Copyright (c) 2007 James Newton-King 
-
-https://github.com/microsoft/Detours/
-Copyright (c) Microsoft Corporation
-
-https://github.com/ocornut/imgui/
-Copyright (c) 2014-2020 Omar Cornut
-
-https://github.com/nlohmann/json
 Copyright (c) 2013-2020 Niels Lohmann
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

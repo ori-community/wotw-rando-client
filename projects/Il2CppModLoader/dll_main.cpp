@@ -28,11 +28,13 @@
 
 namespace modloader
 {
+    std::string base_path = "C:\\moon\\";
+    std::string mod_title = "Randomizer";
+    std::string dll_path = "dll_config.json";
+    std::string csv_path = "inject_log.csv";
+
     namespace
     {
-        std::string base_path = "C:\\moon\\";
-        std::string mod_title = "Randomizer";
-
         bool trace_enabled = false;
         // if you are debugging and don't want the trace client to be dropped set this to false.
         bool trace_pinging_enabled = true;
@@ -41,7 +43,6 @@ namespace modloader
         int peer_id = -1;
         std::mutex network_mutex;
 
-        std::string csv_path = "inject_log.csv";
         bool write_to_csv = true;
         bool flush_after_every_line = true;
         std::ofstream csv_file;
