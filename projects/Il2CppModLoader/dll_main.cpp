@@ -154,7 +154,6 @@ namespace modloader
             sanitized_message.c_str()
         );
 
-        line = csv::sanitize_csv_field(line);
         csv_mutex.lock();
         if (flush_after_every_line)
             csv_file << line << std::endl;
