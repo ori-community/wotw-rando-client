@@ -18,7 +18,7 @@ std::string log_path = "loader_log.txt";
 
 // Load order is top to bottom.
 std::array<std::string, 1> dll_paths = {
-    "InjectDll.dll"
+    "Il2CppModLoader.dll"
 };
 
 int load_inject_dlls()

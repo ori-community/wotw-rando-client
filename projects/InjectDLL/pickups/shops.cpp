@@ -1,11 +1,14 @@
-#include <interception_macros.h>
 #include <dll_main.h>
-#include <il2cpp_helpers.h>
 
 #include <csharp_bridge.h>
 
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
+
 #include <functional>
 #include <set>
+
+using namespace modloader;
 
 namespace
 {

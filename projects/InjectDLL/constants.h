@@ -2,14 +2,6 @@
 
 #include <set>
 
-enum class MessageType : int
-{
-    Info,
-    Warning,
-    Error,
-    Debug
-};
-
 const std::set<app::AbilityType__Enum> tree_abilities{
     app::AbilityType__Enum_Bash,
     app::AbilityType__Enum_DoubleJump,

@@ -1,5 +1,7 @@
-#include <interception_macros.h>
-#include <dev/dev_commands.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/interception_macros.h>
+
 #include <uber_states/state_applier.h>
 
 namespace

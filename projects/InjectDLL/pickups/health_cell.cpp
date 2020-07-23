@@ -1,4 +1,4 @@
-#include <interception_macros.h>
+#include <Il2CppModLoader/interception_macros.h>
 #include <pickups/pickups.h>
 
 IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectMaxHealthHalfContainerPickup, (app::SeinPickupProcessor* this_ptr, app::MaxHealthHalfContainerPickup* maxHealthContainerPickup)) {
