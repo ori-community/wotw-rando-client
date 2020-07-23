@@ -53,6 +53,16 @@ namespace modloader
 
             csv_file.open(csv_path);
             write_to_csv = csv_file.is_open();
+
+            if (write_to_csv)
+            {
+                csv_mutex.lock();
+                if (flush_after_every_line)
+                    csv_file << "type, group, level, message," << std::endl;
+                else
+                    csv_file << "type, group, level, message,\n";
+                csv_mutex.unlock();
+            }
         }
 
         void network_event_handler(network::NetworkEvent const& evt)
