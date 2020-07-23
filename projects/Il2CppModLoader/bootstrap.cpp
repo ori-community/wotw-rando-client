@@ -17,7 +17,7 @@
 namespace modloader
 {
     extern std::string base_path;
-    extern std::string dll_path;
+    extern std::string modloader_path;
 
     namespace
     {
@@ -126,11 +126,19 @@ namespace modloader
 
     bool bootstrap()
     {
-        std::ifstream stream(base_path + dll_path);
+        std::ifstream stream(base_path + modloader_path);
         if (stream.is_open())
         {
             nlohmann::json j;
-            stream >> j;
+            try
+            {
+                stream >> j;
+            }
+            catch (nlohmann::json::parse_error& ex)
+            {
+                trace(MessageType::Debug, 3, "initialize", format("failed to parse '%s%s' error '%d' at byte '%d'", base_path.c_str(), modloader_path.c_str(), ex.id, ex.byte));
+            }
+
             if (j.contains("cpp") && j["cpp"].is_array())
             {
                 cpp_dlls.clear();
@@ -150,9 +158,9 @@ namespace modloader
                     if (it->is_object() && it->contains("dll") && it->contains("class") && it->contains("method") &&
                         (*it)["dll"].is_string() && (*it)["class"].is_string() && (*it)["method"].is_string())
                         csharp_dlls.push_back(CSharpDll{
-                           converter.from_bytes(base_path + (*it)["dll"].get<std::string>()),
-                           converter.from_bytes((*it)["class"].get<std::string>()),
-                           converter.from_bytes((*it)["method"].get<std::string>())
+                            converter.from_bytes(base_path + (*it)["dll"].get<std::string>()),
+                            converter.from_bytes((*it)["class"].get<std::string>()),
+                            converter.from_bytes((*it)["method"].get<std::string>())
                             });
                 }
             }

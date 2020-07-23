@@ -6,10 +6,16 @@
 #include <console.h>
 #include <Common/ext.h>
 
+#include <fstream>
+#include <json/json.hpp>
+
 #include <unordered_map>
 
 namespace modloader
 {
+    extern std::string base_path;
+    extern std::string modloader_path;
+
     namespace intercept
     {
         // TODO: Handle bindings and intercepts separately so we can't call in the middle of a function chain.
@@ -219,6 +225,35 @@ namespace modloader
 
         void internal_intercepts()
         {
+            std::unordered_map<std::string, uint64_t> binding_overrides;
+            std::ifstream stream(base_path + modloader_path);
+            if (stream.is_open())
+            {
+                nlohmann::json j;
+                try
+                {
+                    stream >> j;
+                }
+                catch (nlohmann::json::parse_error& ex)
+                {
+                    trace(MessageType::Debug, 3, "initialize", format("failed to parse '%s%s' error '%d' at byte '%d'", base_path.c_str(), modloader_path.c_str(), ex.id, ex.byte));
+                }
+
+                if (j.contains("il2cpp_bindings") && j["il2cpp_bindings"].is_array())
+                {
+                    auto bindings = j["il2cpp_bindings"];
+                    for (auto it = bindings.begin(); it != bindings.end(); ++it)
+                    {
+                        auto& entry = *it;
+                        if (entry.contains("name") && entry.contains("address") && entry["name"].is_string() && entry["address"].is_string())
+                        {
+                            auto x = std::stoul(entry["address"].get<std::string>(), nullptr, 16);
+                            binding_overrides[entry["name"].get<std::string>()] = x;
+                        }
+                    }
+                }
+            }
+
             DetourRestoreAfterWith();
             DetourTransactionBegin();
             DetourUpdateThread(GetCurrentThread());
@@ -227,9 +262,17 @@ namespace modloader
             auto current = last_intercept;
             while (current != nullptr)
             {
+                auto it = binding_overrides.find(std::string(current->name));
+                if (it != binding_overrides.end())
+                {
+                    trace(MessageType::Debug, 5, "initialize", format("internal injection, default offset overridden '%s': %d -> %d", current->name.data(), current->offset, it->second));
+                    current->offset = it->second;
+                }
+
                 *current->original_pointer = reinterpret_cast<void*>(resolve_rva(current->offset));
                 if (current->intercept_pointer)
                 {
+
                     do_intercept(
                         intercept_cache,
                         current->offset,
