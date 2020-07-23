@@ -10,6 +10,8 @@ namespace RandoMainDLL {
   }
 
   static class InterOp {
+    [DllImport("Il2CppModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static IntPtr get_base_path();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_twillen_item(int shard_type, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description);

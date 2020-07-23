@@ -30,6 +30,7 @@ namespace modloader
 {
     namespace
     {
+        std::string base_path = "C:\\moon\\";
         std::string mod_title = "Randomizer";
 
         bool trace_enabled = false;
@@ -40,7 +41,7 @@ namespace modloader
         int peer_id = -1;
         std::mutex network_mutex;
 
-        std::string csv_path = "C:\\moon\\inject_log.csv";
+        std::string csv_path = "inject_log.csv";
         bool write_to_csv = true;
         bool flush_after_every_line = true;
         std::ofstream csv_file;
@@ -51,7 +52,7 @@ namespace modloader
             if (!write_to_csv)
                 return;
 
-            csv_file.open(csv_path);
+            csv_file.open(base_path + csv_path);
             write_to_csv = csv_file.is_open();
 
             if (write_to_csv)
@@ -226,8 +227,9 @@ namespace modloader
 
     extern bool bootstrap();
 
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry()
+    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path)
     {
+        base_path = path;
         initialize_trace_file();
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
 
@@ -294,5 +296,10 @@ namespace modloader
         int32_t newState = 2 - Cursor::get_lockState();
         Cursor::set_lockState(newState);
         return newState > 0;
+    }
+
+    IL2CPP_MODLOADER_C_DLLEXPORT const char* get_base_path()
+    {
+        return base_path.c_str();
     }
 }
