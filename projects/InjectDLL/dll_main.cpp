@@ -37,9 +37,10 @@ std::mutex sound_mutex;
 IL2CPP_BINDING(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability));
 IL2CPP_INTERCEPT(, PlayerAbilities, void, SetAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability, bool value)) {
     auto debug_values = il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues");
+    auto old = debug_values->static_fields->IsBlindForestMode;
     debug_values->static_fields->IsBlindForestMode = true;
     SetAbility(this_ptr, ability, value);
-    debug_values->static_fields->IsBlindForestMode = false;
+    debug_values->static_fields->IsBlindForestMode = old;
 }
 
 IL2CPP_BINDING(, GameController, bool, get_InputLocked, (app::GameController* thisPtr));
