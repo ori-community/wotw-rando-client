@@ -24,7 +24,6 @@ namespace RandoMainDLL {
               SaveController.Data.TreesActivated.Add(at);
               InterOp.fill_health();
               InterOp.fill_energy();
-              SeedController.OnTree(at);
             }),
             CallbackName = "on_tree"
           },

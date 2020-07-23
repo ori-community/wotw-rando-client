@@ -97,6 +97,13 @@ namespace RandoMainDLL.Memory {
     public UberStateType Type;
   }
 
+  public static class UberGet {
+
+    public static UberValue value(int groupId, int id) => value(new UberId(groupId, id));
+    public static UberValue value(UberId id) => id.GetValue().GetValueOrDefault(new UberValue(0));
+
+  }
+
   public class UberState {
     public UberStateType Type;
     public int ID;
