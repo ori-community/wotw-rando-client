@@ -277,12 +277,14 @@ namespace
     constexpr float FAST_PURCHASE_TIME = 0.01f;
 
     IL2CPP_INTERCEPT(, PurchaseThingScreen, void, PurchaseInput, (app::PurchaseThingScreen* this_ptr)) {
-        this_ptr->fields.PurchaseCooldown = 0;
+        this_ptr->fields.PurchaseCooldown = 0.1f;
         this_ptr->fields.PurchaseTime = NORMAL_PURCHASE_TIME;
         auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
         if (input_cmd->static_fields->DialogueOption1 != nullptr &&
-            input_cmd->static_fields->DialogueOption1->fields.IsPressed)
+            input_cmd->static_fields->DialogueOption1->fields.IsPressed) {
             this_ptr->fields.PurchaseTime = FAST_PURCHASE_TIME;
+            
+        }
 
         PurchaseThingScreen::PurchaseInput(this_ptr);
     }
