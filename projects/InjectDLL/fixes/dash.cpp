@@ -14,8 +14,6 @@ namespace
     IL2CPP_BINDING(, SeinDashNew, bool, ShouldDig, (app::SeinDashNew* this_ptr));
     IL2CPP_BINDING(, SeinDashNew, bool, ShouldSwim, (app::SeinDashNew* this_ptr));
     IL2CPP_BINDING(, SeinCharacter, bool, HasAbility, (app::SeinCharacter* this_ptr, uint8_t abilityType));
-    IL2CPP_BINDING(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities* this_ptr, uint8_t ability));
-    IL2CPP_BINDING(, PlayerAbilities, void, SetAbility, (app::PlayerAbilities* this_ptr, uint8_t ability, bool value));
     IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateAbilities, bool, HasAbility, (app::PlayerUberStateAbilities* this_ptr, uint8_t ability));
 
 	void update_dash_state(app::PlayerUberStateAbilities* this_ptr);
