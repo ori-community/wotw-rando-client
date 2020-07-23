@@ -101,7 +101,7 @@ namespace RandoMainDLL {
         case FilterType.InLogic:
           return SeedController.HasInternalSpoilers;
         case FilterType.Spoilers:
-          return (SeedController.HasInternalSpoilers && InterOp.get_debug_controls()) || UberStateDefaults.savePedestalWillowsEndShriek.GetUberId().GetValue().GetValueOrDefault(new UberValue(false)).Bool;
+          return UberGet.value(34543, 11226).Bool;
         default:
           return true;
       }

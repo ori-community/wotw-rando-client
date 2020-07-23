@@ -254,6 +254,7 @@ TryDelete(INJECTOR)
 TryDelete(INSTALL_DIR . "RandoMainDLL.dll")
 TryDelete(INSTALL_DIR . "InjectDLL.dll")
 TryDelete(INSTALL_DIR . "InjectLoader.dll")
+TryDelete(INSTALL_DIR . "Il2CppModLoader.dll")
 TryDelete(INSTALL_DIR . "loc_data.csv")
 TryDelete(INSTALL_DIR . "areas.wotw")
 TryDelete(INSTALL_DIR . "VERSION")
@@ -262,6 +263,7 @@ TryDelete(INSTALL_DIR . "VERSION")
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
+FileInstall, C:\moon\Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
 FileInstall, C:\moon\SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
 FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
 FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
