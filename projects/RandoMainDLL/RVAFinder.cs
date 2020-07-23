@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace RandoMainDLL {
   public static class RVAFinder {
-    public static string targetsFile = @"C:\moon\methodRVAs.json";
-    public static string dumpFile = @"C:\moon\script.json";
+    public static string targetsFile { get { return Randomizer.BasePath + "methodRVAs.json"; } }
+    public static string dumpFile { get { return Randomizer.BasePath + "script.json"; } }
     public class DumpMethod {
       public UInt64 Address;
       public String Name;

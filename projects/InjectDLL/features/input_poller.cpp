@@ -1,16 +1,18 @@
-#include <common.h>
 #include <constants.h>
-#include <il2cpp_helpers.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <features/input_poller.h>
 
-#include <interception_macros.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
+
 #include <map>
 #include <vector>
 
+using namespace modloader;
+
 // We might want to make this thread safe?
-
-namespace {
-
+namespace
+{
     STATIC_IL2CPP_BINDING(Core, Input, app::Input_InputButtonProcessor*, GetButton, (int32_t button));
 
     struct InputData

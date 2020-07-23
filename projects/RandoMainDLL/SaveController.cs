@@ -106,6 +106,11 @@ namespace RandoMainDLL {
         TrackFileController.Write();
       }
     }
+    public static void FoundItem() {
+      if(Data != null)
+        Data.FoundCount++;
+      MapController.UpdateReachable();
+    }
     public static bool HasAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
     public static void SetAbility(AbilityType ability, bool setTo = true) {
       if (setTo)
@@ -131,12 +136,9 @@ namespace RandoMainDLL {
     public static int CurrentSlot = -1;
 
     public static void NewGame(int slot) {
-      UberStateController.UberStates.Clear();
       CurrentSlot = slot;
       Data = new SaveData(slot);
       Data.Save();
-
-      BonusItemController.Refresh();
     }
 
     public static void OnLoad(int slot, int backupSlot = -1) {
@@ -158,8 +160,8 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
         }
-
         BonusItemController.Refresh();
+        MapController.UpdateReachable();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }

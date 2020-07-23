@@ -1,12 +1,16 @@
-#include <interception_macros.h>
 #include <dll_main.h>
 #include <Common/ext.h>
-#include <common.h>
 #include <csharp_bridge.h>
 #include <features/input_poller.h>
 #include <features/messages.h>
 
-namespace {
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
+
+using namespace modloader;
+
+namespace
+{
     IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, int32_t areaID))
     IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
     IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));

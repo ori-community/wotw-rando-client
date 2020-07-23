@@ -204,7 +204,7 @@ namespace RandoMainDLL {
                 }
                 found = SeedController.OnUberState(state);
               }
-              if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup"))
+              if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 70))
                   Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);              
             }
 
@@ -255,6 +255,7 @@ namespace RandoMainDLL {
       if (!InterOp.is_loading_game()) {
         InterOp.clear_quest_messages();
         Randomizer.Log("New Game Init", false);
+
         foreach (UberState s in DefaultUberStates) { s.Write(); }
         foreach (UberState s in Kuberstates) { s.Write(); }
         foreach (UberState s in DialogAndRumors) { s.Write(); }
@@ -281,6 +282,7 @@ namespace RandoMainDLL {
           InterOp.bind_sword();
         }
         InterOp.save();
+        MapController.UpdateReachable();
         NeedsNewGameInit = false;
       }
     }

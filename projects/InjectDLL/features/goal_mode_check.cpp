@@ -1,9 +1,13 @@
-#include <interception_macros.h>
 #include <dll_main.h>
 #include <csharp_bridge.h>
-#include <il2cpp_helpers.h>
-#include <dev/dev_commands.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/console.h>
+
 #include <Common/ext.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
+
+using namespace modloader;
 
 namespace
 {
@@ -69,21 +73,21 @@ namespace
             SeinCharacter::FixedUpdate(this_ptr);
     }
 
-    void report_player_position(std::string const& command, std::vector<dev::CommandParam> const& params)
+    void report_player_position(std::string const& command, std::vector<console::CommandParam> const& params)
     {
         auto sein = get_sein();
         if (sein != nullptr)
         {
             auto position = SeinCharacter::get_Position(sein);
-            dev::console_send(format("sein pos: {%f, %f, %f}", position.x, position.y, position.z));
+            console::console_send(format("sein pos: {%f, %f, %f}", position.x, position.y, position.z));
         }
         else
-            dev::console_send("sein not available.");
+            console::console_send("sein not available.");
     }
 
     void add_goal_commands()
     {
-        dev::register_command("report_player_position", report_player_position);
+        console::register_command("report_player_position", report_player_position);
     }
 
     CALL_ON_INIT(add_goal_commands);

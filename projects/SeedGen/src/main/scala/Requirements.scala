@@ -53,7 +53,7 @@ package SeedGenerator {
 
 
   case object Free extends Requirement {
-    def metBy(state: GameState, orbs: Option[Orbs]) = true
+    def metBy(state: GameState, orbs: Option[Orbs]): Boolean = orbs.forall(_.health > 0)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState.Empty)
 
     override def and(that: Requirement): Requirement = that
@@ -187,7 +187,7 @@ package SeedGenerator {
 //      case r => AllReqs(this, r)
 //    }
     override def toString: String = s"(${reqs.mkString(" || ")})"
-    override def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = reqs.exists(_.metBy(state))
+    override def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = orbs.forall(_.health > 0) && reqs.exists(_.metBy(state))
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = reqs.filter(_.metBy(state)).map(_.orbsAfterMet(state, orbs)).maxBy(_.value)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = reqs flatMap (_.remaining(state, unaffordable: Set[FlagState], space: Int))
     override def cheapestRemaining(state: GameState, unaffordable: Set[FlagState], space: Int): GameState = {
@@ -240,7 +240,7 @@ package SeedGenerator {
       case req => AnyReq(req, this)
     }
     override def toString: String = s"(${reqs.mkString(" && ")})"
-    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = reqs.forall(_.metBy(state))
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = reqs.forall(_.metBy(state, orbs)) && orbs.forall(o => orbsAfterMet(state, o).valid)
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = reqs.foldLeft(orbs)((o, req) => req.orbsAfterMet(state, o))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
       if (metBy(state))

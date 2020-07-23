@@ -1,5 +1,5 @@
-#include <common.h>
-#include <interception_macros.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
 #include <pickups/pickups.h>
 #include <uber_states/uber_state_helper.h>
 

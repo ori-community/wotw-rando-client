@@ -1,5 +1,5 @@
 #include <constants.h>
-#include <interception_macros.h>
+#include <Il2CppModLoader/interception_macros.h>
 #include <dll_main.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -35,6 +35,7 @@ IL2CPP_INTERCEPT(, GetAbilityOnCondition, void, AssignAbility, (app::GetAbilityO
     auto ability = this_ptr->fields.Ability->fields.Ability;
     if (is_tree(ability))
     {
+        uber_states::set_uber_state_value(uber_states::constants::TREE_GROUP_ID, ability, 1);
         csharp_bridge::on_tree(ability);
         // Update PlayerDescriptorUberState
         auto uber_state = uber_states::get_uber_state(3440, 37811);

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using RandoMainDLL.Memory;
 
@@ -97,8 +98,8 @@ namespace RandoMainDLL {
         weaponNag.Clear();
         flags.Clear();
         HintsController.Reset();
+        HasInternalSpoilers = true;
         string line = "";
-
         foreach (string rawLine in File.ReadLines(SeedFile)) {
           try {
             if (rawLine.StartsWith("Flags: ")) {
@@ -107,8 +108,12 @@ namespace RandoMainDLL {
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
+
+            if (HasInternalSpoilers && !rawLine.Contains("//"))
+              HasInternalSpoilers = false; 
+            // if we got this far and there's no comment, it's a line without a spoiler
+
             var frags = line.Split('|').ToList();
-            string idAndMaybeTarget = frags[1];
             var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
             var pickupType = (PickupType)byte.Parse(frags[2]);
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
@@ -136,14 +141,16 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
-        if(!init) {
+        if (!init) {
           var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags.Select((Flag flag) => flag.GetDescription()))}" : "";
           AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
+          MapController.UpdateReachable();
         }
       } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
+    public static bool HasInternalSpoilers = false;
     public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
     public static bool KSDoorsOpen { get => flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {
@@ -188,16 +195,11 @@ namespace RandoMainDLL {
       return new Resource(ResourceType.Energy);
     }
 
-    public static void OnTree(AbilityType ability) {
-      if(!new UberId((int)FakeUberGroups.TREE, (int)ability).toCond().OnCollect())
-        Randomizer.Log($"Tree {ability} not found in seed!");
-    }
-
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
       var valueCond = id.toCond(state.ValueAsInt());
       var p = id.toCond().Pickup().Concat(valueCond.Pickup());
-      if (p.Collect(valueCond.IsGoal())) {
+      if (p.Collect(valueCond.IsGoal() || id.toCond().IsGoal())) {
         // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
         if (id.toCond().Loc().Type == LocType.Shard)
           InterOp.refresh_shards();
@@ -368,7 +370,6 @@ namespace RandoMainDLL {
     public static bool DoesHowlExist() => flags.Contains(Flag.RAIN);
 
     public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || (SaveController.Data?.TreesActivated?.Contains(AbilityType.SpiritEdge) ?? false);
-
 
     public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
     public static int Total { get => pickupMap.Count; }

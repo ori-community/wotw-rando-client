@@ -1,11 +1,14 @@
-#include <common.h>
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
-#include <dev/dev_commands.h>
+#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/console.h>
 #include <dev/object_visualizer.h>
+
 #include <Common/ext.h>
+#include <Il2CppModLoader/common.h>
 
 #include <unordered_map>
+
+using namespace modloader;
 
 namespace dev
 {
@@ -122,7 +125,7 @@ namespace dev
             void visualize_new_setup_state_controller(Visualizer& visualizer, Il2CppObject* obj)
             {
                 auto controller = reinterpret_cast<app::NewSetupStateController*>(obj);
-                auto guid_str = convert_csstring(controller->fields.m_guidStr);
+                auto guid_str = il2cpp::convert_csstring(controller->fields.m_guidStr);
                 indent(visualizer, 0, 1);
                 visualizer.stream << get_full_name(obj) << " - " << guid_str << visualizer.new_line;
                 indent(visualizer);
@@ -134,7 +137,7 @@ namespace dev
                 {
                     auto guid = all_states->vector[i];
                     auto csname = NewSetupStateController::GetStateName(controller, guid);
-                    auto name = convert_csstring(csname);
+                    auto name = il2cpp::convert_csstring(csname);
 
                     indent(visualizer);
                     visualizer.stream << "-> " << guid << " : " << name.c_str() << visualizer.new_line;
@@ -167,7 +170,7 @@ namespace dev
                     visualizer.stream << get_full_name(obj) << " - " << std::showbase << std::hex << item->fields.ModifierGUID
                         << std::noshowbase << std::dec << visualizer.new_line;
                     auto csname = il2cpp::invoke<app::String>(item, "get_Name");
-                    auto name = convert_csstring(csname);
+                    auto name = il2cpp::convert_csstring(csname);
 
                     indent(visualizer);
                     visualizer.stream << "name: " << name << visualizer.new_line;
@@ -352,10 +355,10 @@ namespace dev
             {
                 auto state = reinterpret_cast<app::IUberState*>(obj);
                 auto csstate = il2cpp::invoke<app::String>(state, "get_Name");
-                auto state_name = convert_csstring(csstate);
+                auto state_name = il2cpp::convert_csstring(csstate);
                 auto group = il2cpp::invoke<app::IUberStateGroup>(state, "get_UberStateGroup");
                 auto csgroup = il2cpp::invoke<app::String>(group, "get_GroupName");
-                auto group_name = convert_csstring(csgroup);
+                auto group_name = il2cpp::convert_csstring(csgroup);
 
                 indent(visualizer);
                 visualizer.stream << "bool_uber_state: {" << visualizer.new_line;
@@ -459,8 +462,8 @@ namespace dev
 			visualizer.stream << "scene (" << roots.size() << "):" << visualizer.new_line;
             for (auto i = 0; i < roots.size(); ++i)
             {
-                dev::console_send(format("root_object (%d / %d)", i + 1, roots.size()));
-                dev::console_flush();
+                console::console_send(format("root_object (%d / %d)", i + 1, roots.size()));
+                console::console_flush();
 
                 dev::visualize::visualize_object(visualizer, roots[i], indent_start + 1, depth_start - 1);
             }

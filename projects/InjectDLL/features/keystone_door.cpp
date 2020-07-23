@@ -1,6 +1,7 @@
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <uber_states/uber_state_manager.h>
+
+#include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {

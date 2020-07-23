@@ -1,4 +1,4 @@
-#include <interception_macros.h>
+#include <Il2CppModLoader/interception_macros.h>
 #include <pickups/pickups.h>
 
 IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectExpOrbPickup, (app::SeinPickupProcessor* this_ptr, app::ExpOrbPickup* expOrbPickup)) {
@@ -7,6 +7,13 @@ IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectExpOrbPickup, (app::SeinP
 
 	SeinPickupProcessor::OnCollectExpOrbPickup(this_ptr, expOrbPickup);
 	collecting_pickup = false;
+}
+
+NESTED_STATIC_IL2CPP_INTERCEPT(Game, Orbs, OrbDisplayText, app::ExpText*, Create, (app::Transform* target, app::Vector3* offset, int32_t value)) {
+    if (collecting_pickup)
+        return nullptr;
+
+    return Orbs::OrbDisplayText::Create(target, offset, value);
 }
 
 IL2CPP_INTERCEPT(, SeinLevel, void, set_Experience, (app::SeinLevel* this_ptr, int32_t value)) {
