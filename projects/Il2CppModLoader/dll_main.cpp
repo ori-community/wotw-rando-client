@@ -30,7 +30,7 @@ namespace modloader
 {
     std::string base_path = "C:\\moon\\";
     std::string mod_title = "Randomizer";
-    std::string dll_path = "dll_config.json";
+    std::string modloader_path = "modloader_config.json";
     std::string csv_path = "inject_log.csv";
 
     namespace
