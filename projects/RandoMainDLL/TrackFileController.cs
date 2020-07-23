@@ -36,7 +36,7 @@ namespace RandoMainDLL {
     public static class TrackFileController {
     public static TrackData Last;
     public static int IgnoreUpdateFrames = 0;
-    public static String trackFilePath = @"C:\moon\trackfile.json";
+    public static string trackFilePath { get { return Randomizer.BasePath + "trackfile.json"; } }
     public static void Update() {
       if (IgnoreUpdateFrames > 0) {
         IgnoreUpdateFrames--;

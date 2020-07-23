@@ -41,7 +41,7 @@ namespace RandoMainDLL {
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.RedirectStandardOutput = true;
-        proc.StartInfo.WorkingDirectory = @"C:\moon\";
+        proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
         proc.WaitForExit();
         Reachable.Clear();

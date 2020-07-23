@@ -104,7 +104,7 @@ namespace RandoMainDLL {
   }
   public static class LocDataStatic {
     public static void PopulateLocData() {
-      foreach(var line in File.ReadAllLines(@"C:\moon\loc_data.csv")) {
+      foreach(var line in File.ReadAllLines(Randomizer.BasePath + "loc_data.csv")) {
         var data = new LocData(line);
         _all[data.Cond] = data;
       }
