@@ -23,8 +23,13 @@ class UI extends MainFrame {
     folderSelector.selectedFile = startFold
     folderSelector.fileSelectionMode = FileChooser.SelectionMode.DirectoriesOnly
     folderSelector.title = "Choose a folder to put generated seeds in"
-    val zoneHints: CheckBox = new CheckBox("Zone Hints"){selected = !startSet.flags.noHints}
-    val spoilers: CheckBox = new CheckBox("Separate Spoiler"){selected = !startSet.spoilers}
+    val zoneHints: CheckBox = new CheckBox("Zone Hints"){
+      selected = !startSet.flags.noHints
+    }
+    val spoilers: CheckBox = new CheckBox("Race Mode"){
+      selected = !startSet.spoilers
+      tooltip = "Puts the spoiler in a separate file.\nAlso disables the logic helper filter."
+    }
     val quests: CheckBox = new CheckBox("Items on Quests"){selected = startSet.questLocs}
     val bonusItems: CheckBox = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
     val teleporters: CheckBox = new CheckBox("Teleporters"){selected = startSet.tps}
