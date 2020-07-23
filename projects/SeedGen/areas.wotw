@@ -530,12 +530,12 @@ anchor MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
     base: DoubleJump OR Dash OR Glide OR Launch
     unsafe: Damage=15
   pickup MidnightBurrows.LupoMap:
-    base: Launch
+    base: Launch  # paths coming from the right side are on that anchor
     unsafe: Bash
 
   conn Teleporters: free
   conn MidnightBurrows.Central:
-    base: DoubleJump
+    base: DoubleJump OR Launch
 
 anchor MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big portal room
   refill Checkpoint
@@ -551,8 +551,10 @@ anchor MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big porta
       Launch
   state MidnightBurrows.Lever:
     base:
-      Bash, DoubleJump OR Dash OR Glide OR Launch
-      Launch, DoubleJump OR Dash OR Glide
+      Glide
+      DoubleJump, Dash
+      Bash, DoubleJump OR Dash
+      Launch, DoubleJump OR Dash OR Bash
 
   pickup MidnightBurrows.LupoMap:
     base: DoubleJump OR Dash OR Glide
@@ -564,10 +566,12 @@ anchor MidnightBurrows.Central:  # (-781, -4564) The ledge left of the big porta
       MidnightBurrows.Lever, DoubleJump OR Dash
   pickup MidnightBurrows.LowerKS:
     base:
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Launch
-      Launch, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash OR Glide
+      Dash, Glide
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Launch, DoubleJump OR Dash OR Bash OR Glide
   pickup MidnightBurrows.UpperKS:
-    base: MidnightBurrows.Lever, Launch
+    base: MidnightBurrows.Lever, Launch  # paths coming from the right side are on that anchor
 
   conn MidnightBurrows.Teleporter: free
   conn MidnightBurrows.East:
@@ -586,6 +590,7 @@ anchor MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
     base, EnemyObstacle:
       DoubleJump, Glide
       DoubleJump, Dash, Danger=15
+      Launch, DoubleJump OR Dash OR Glide OR Danger=15
 
   conn MidnightBurrows.Central:
     # Damage required:
@@ -593,6 +598,7 @@ anchor MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
     base, EnemyObstacle:
       DoubleJump, Glide
       DoubleJump, Dash, Danger=15
+      Launch, DoubleJump OR Dash OR Glide OR Danger=15
   conn HowlsDen.DoubleJumpTreeArea:
     base: BreakWall=10
 
