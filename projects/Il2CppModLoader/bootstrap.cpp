@@ -6,11 +6,19 @@
 #include <common.h>
 #include <Common/ext.h>
 
+#include <json/json.hpp>
+
+#include <locale>
+#include <codecvt>
+#include <fstream>
 #include <string>
 #include <vector>
 
 namespace modloader
 {
+    extern std::string base_path;
+    extern std::string dll_path;
+
     namespace
     {
         // TODO: Read these from a file or something.
@@ -24,11 +32,10 @@ namespace modloader
             std::wstring path;
             std::wstring klass;
             std::wstring method;
-            std::wstring param;
         };
 
         std::vector<CSharpDll> csharp_dlls = {
-            CSharpDll{ L"c:\\moon\\RandoMainDll.dll", L"RandoMainDLL.Randomizer", L"Bootstrap", L"C:\\moon\\InjectDll.dll" }
+            CSharpDll{ L"c:\\moon\\RandoMainDll.dll", L"RandoMainDLL.Randomizer", L"Bootstrap" }
         };
 
         bool cpp_bootstrap()
@@ -102,7 +109,8 @@ namespace modloader
             for (auto dll : csharp_dlls)
             {
                 DWORD return_value = 0;
-                hr = runtime_host->ExecuteInDefaultAppDomain(dll.path.c_str(), dll.klass.c_str(), dll.method.c_str(), dll.param.c_str(), &return_value);
+                trace(MessageType::Info, 5, "initialize", format("Loading dll '%ls' entry 'int %ls.%ls(string param)'", dll.path.c_str(), dll.klass.c_str(), dll.method.c_str()));
+                hr = runtime_host->ExecuteInDefaultAppDomain(dll.path.c_str(), dll.klass.c_str(), dll.method.c_str(), L"", &return_value);
                 if (hr != S_OK)
                 {
                     trace(MessageType::Error, 1, "initialize", format("'%ls' returned %d", dll.path.c_str(), hr));
@@ -118,6 +126,38 @@ namespace modloader
 
     bool bootstrap()
     {
+        std::ifstream stream(base_path + dll_path);
+        if (stream.is_open())
+        {
+            nlohmann::json j;
+            stream >> j;
+            if (j.contains("cpp") && j["cpp"].is_array())
+            {
+                cpp_dlls.clear();
+                auto cpp = j["cpp"];
+                for (auto it = cpp.begin(); it != cpp.end(); ++it)
+                    if (it->is_string())
+                        cpp_dlls.push_back(base_path + it->get<std::string>());
+            }
+
+            if (j.contains("csharp") && j["csharp"].is_array())
+            {
+                std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+                csharp_dlls.clear();
+                auto csharp = j["csharp"];
+                for (auto it = csharp.begin(); it != csharp.end(); ++it)
+                {
+                    if (it->is_object() && it->contains("dll") && it->contains("class") && it->contains("method") &&
+                        (*it)["dll"].is_string() && (*it)["class"].is_string() && (*it)["method"].is_string())
+                        csharp_dlls.push_back(CSharpDll{
+                           converter.from_bytes(base_path + (*it)["dll"].get<std::string>()),
+                           converter.from_bytes((*it)["class"].get<std::string>()),
+                           converter.from_bytes((*it)["method"].get<std::string>())
+                            });
+                }
+            }
+        }
+
         if (!cpp_bootstrap())
             return false;
 
