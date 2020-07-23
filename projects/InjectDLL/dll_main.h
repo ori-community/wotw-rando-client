@@ -13,4 +13,5 @@ app::GameController* get_game_controller();
 app::SeinCharacter* get_sein();
 app::UI__Class* get_ui();
 
-INJECT_C_DLLEXPORT bool has_ability(uint8_t ability);
+INJECT_C_DLLEXPORT bool has_ability(app::AbilityType__Enum ability);
+INJECT_C_DLLEXPORT void set_ability(app::AbilityType__Enum ability, bool value);

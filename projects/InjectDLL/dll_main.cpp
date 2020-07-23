@@ -34,8 +34,13 @@ std::mutex sound_mutex;
 
 //---------------------------------------------------------Bindings------------------------------------------------------------
 
-IL2CPP_BINDING(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities* this_ptr, uint8_t ability));
-IL2CPP_BINDING(, PlayerAbilities, void, SetAbility, (app::PlayerAbilities* this_ptr, uint8_t ability, bool value));
+IL2CPP_BINDING(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability));
+IL2CPP_INTERCEPT(, PlayerAbilities, void, SetAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability, bool value)) {
+    auto debug_values = il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues");
+    debug_values->static_fields->IsBlindForestMode = true;
+    SetAbility(this_ptr, ability, value);
+    debug_values->static_fields->IsBlindForestMode = false;
+}
 
 IL2CPP_BINDING(, GameController, bool, get_InputLocked, (app::GameController* thisPtr));
 IL2CPP_BINDING(, GameController, bool, get_LockInput, (app::GameController* thisPtr));
@@ -60,7 +65,7 @@ INJECT_C_DLLEXPORT void warp_to(int x, int y, __int8 frames)
     set_to_last_position = frames;
 }
 
-INJECT_C_DLLEXPORT bool has_ability(uint8_t ability)
+INJECT_C_DLLEXPORT bool has_ability(app::AbilityType__Enum ability)
 {
     auto sein = get_sein();
     if (sein && sein->fields.PlayerAbilities)
@@ -70,11 +75,11 @@ INJECT_C_DLLEXPORT bool has_ability(uint8_t ability)
     return false;
 }
 
-INJECT_C_DLLEXPORT void set_ability(uint8_t ability, bool value)
+INJECT_C_DLLEXPORT void set_ability(app::AbilityType__Enum ability, bool value)
 {
     auto sein = get_sein();
     if (sein && sein->fields.PlayerAbilities)
-        PlayerAbilities::SetAbility(sein->fields.PlayerAbilities, ability, value);
+        PlayerAbilities::SetAbility_intercept(sein->fields.PlayerAbilities, ability, value);
     else
         trace(MessageType::Error, 3, "abilities", "Failed to set ability: couldn't find reference to sein!");
 }
