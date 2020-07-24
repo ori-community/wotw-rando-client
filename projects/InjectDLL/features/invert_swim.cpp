@@ -1,8 +1,9 @@
-#include <interception_macros.h>
 #include <dll_main.h>
 #include <features/invert_swim.h>
 
 #include <csharp_bridge.h>
+
+#include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {

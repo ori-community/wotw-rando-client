@@ -1,11 +1,14 @@
 #include <il2cpp_helpers.h>
 #include <common.h>
 #include <interception_macros.h>
-#include <dev/dev_commands.h>
+#include <console.h>
 
 #include <Common/ext.h>
 
 #include <vector>
+#include <locale>
+#include <codecvt>
+#include <xstring>
 
 namespace il2cpp
 {
@@ -45,6 +48,7 @@ namespace il2cpp
         IL2CPP_BINDING(UnityEngine.SceneManagement, Scene, app::String*, get_name, (app::Scene__Boxed* this_ptr));
 
         IL2CPP_BINDING(System, Type, app::Type*, GetType, (app::String* type_name, bool throw_on_error));
+        IL2CPP_BINDING(System, String, app::Char__Array*, ToCharArray, (app::String* this_ptr));
 
         // Internal il2cpp methods.
         INTERNAL_BINDING(0x262560, Il2CppClass*, il2cpp_class_from_name, (Il2CppImage* image, const char* namezpace, const char* name));
@@ -329,7 +333,7 @@ namespace il2cpp
             }
 
             if (klass == nullptr)
-                trace(MessageType::Error, 1, "il2cpp", format("Failed to find klass %s", full_name.c_str()));
+                trace(modloader::MessageType::Error, 1, "il2cpp", format("Failed to find klass %s", full_name.c_str()));
             
             // Add it to resolved classes anyway to prevent trace spam and future lookups.
             resolved_classes[full_name] = klass;
@@ -363,7 +367,7 @@ namespace il2cpp
             auto const& full_name = get_full_name(namezpace, name, nested);
             resolved_classes[full_name] = output;
             if (output == nullptr)
-                trace(MessageType::Error, 1, "il2cpp", format("Failed to find klass %s", full_name.c_str()));
+                trace(modloader::MessageType::Error, 1, "il2cpp", format("Failed to find klass %s", full_name.c_str()));
 
             return output;
         }
@@ -447,7 +451,7 @@ namespace il2cpp
                     return info;
             }
 
-            trace(MessageType::Error, 1, "il2cpp", format("Could not find method '%s:%d' in klass '%s'", method.data(), param_count, klass->name));
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("Could not find method '%s:%d' in klass '%s'", method.data(), param_count, klass->name));
             return nullptr;
         }
 
@@ -482,7 +486,7 @@ namespace il2cpp
 
         if (info->methods.size() <= overload)
         {
-            trace(MessageType::Error, 1, "il2cpp", format("OVerload '%d' for '%s:%d' in klass '%s' does not exist",
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("OVerload '%d' for '%s:%d' in klass '%s' does not exist",
                 overload, method.data(), param_count, klass->name));
         }
 
@@ -559,7 +563,7 @@ namespace il2cpp
             }
         }
 
-        trace(MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
+        trace(modloader::MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
             method.data(), params.size(), klass->name));
         return nullptr;
     }
@@ -592,7 +596,7 @@ namespace il2cpp
             }
         }
 
-        trace(MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
+        trace(modloader::MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
             method.data(), params.size(), klass->name));
         return nullptr;
     }
@@ -604,7 +608,7 @@ namespace il2cpp
         auto method_info = get_method_from_name_params(cast_obj->klass, method.data(), params);
         if (method_info == nullptr)
         {
-            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method.data()));
             return nullptr;
         }
 
@@ -619,14 +623,14 @@ namespace il2cpp
         auto method_info = get_method_from_name_params(base, method.data(), params);
         if (method_info == nullptr)
         {
-            trace(MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("failed to find method '%s'", method.data()));
             return nullptr;
         }
 
         auto virtual_method_info = il2cpp_object_get_virtual_method(cast_obj, method_info);
         if (virtual_method_info == nullptr)
         {
-            trace(MessageType::Error, 1, "il2cpp", format("failed to find virtual method '%s'", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("failed to find virtual method '%s'", method.data()));
             return nullptr;
         }
 
@@ -641,6 +645,24 @@ namespace il2cpp
 
     MethodInfo* resolve_generic_method(uint64_t address)
     {
-        return *reinterpret_cast<MethodInfo**>(intercept::resolve_rva(address));
+        return *reinterpret_cast<MethodInfo**>(modloader::intercept::resolve_rva(address));
+    }
+
+    std::string convert_csstring(app::String* str)
+    {
+        std::string cppstr;
+        if (str == nullptr)
+            return cppstr;
+
+        auto chars = String::ToCharArray(str);
+        if (chars == nullptr)
+            return cppstr;
+
+        std::wstring wstr(reinterpret_cast<wchar_t*>(chars->vector), str->fields.m_stringLength);
+        using convert_type = std::codecvt_utf8<wchar_t>;
+        std::wstring_convert<convert_type, wchar_t> converter;
+        cppstr = converter.to_bytes(wstr);
+
+        return cppstr;
     }
 }

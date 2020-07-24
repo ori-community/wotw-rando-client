@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include <array>
+#include <filesystem>
 #include <vector>
 #include <thread>
 
@@ -22,6 +23,29 @@ std::string steam_process_name = "oriwotw.exe";
 std::string store_process_name = "oriandthewillofthewisps-pc.exe";
 std::string base_path = "C:\\moon\\";
 std::string dll_name = "InjectLoader.dll";
+std::string settings_name = "settings.ini";
+
+bool find_base_path(std::string& output_path)
+{
+    char path[MAX_PATH];
+    HMODULE handle = nullptr;
+    if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&find_base_path, &handle) == 0)
+    {
+        std::cout << "failed to GetModuleHandle, error: " << GetLastError() << std::endl;
+        return false;
+    }
+
+    if (GetModuleFileName(handle, path, sizeof(path)) == 0)
+    {
+        std::cout << "failed to GetModuleFileName, error: " << GetLastError() << std::endl;
+        return false;
+    }
+
+    std::filesystem::path actual_path(path);
+    output_path = actual_path.parent_path().string();
+    std::cout << "setting path to: " << output_path << std::endl;
+    return true;
+}
 
 DWORD find_process_id(const char* processname)
 {
@@ -124,9 +148,10 @@ void listen_for_ori()
 
 int actual_main()
 {
-    // TODO: Maybe add code in the injector that handles swapping out the seed?
+    find_base_path(base_path);
 
     IniSettings settings(create_randomizer_settings());
+    settings.path = base_path + settings_name;
     load_settings_from_file(settings);
 
     auto use_win_store = find_option(settings, "Flags", "UseWinStore")->value.b;

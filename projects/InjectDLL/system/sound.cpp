@@ -1,6 +1,6 @@
 #include <system/sound.h>
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 
 namespace
 {

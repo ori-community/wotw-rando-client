@@ -1,12 +1,14 @@
-#include <uber_states/state_applier.h>
-
-#include <common.h>
-#include <interception_macros.h>
 #include <macros.h>
 #include <csharp_bridge.h>
-#include <dev/dev_commands.h>
+#include <uber_states/state_applier.h>
+
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <unordered_map>
+
+using namespace modloader;
 
 namespace uber_states
 {
@@ -23,31 +25,31 @@ namespace uber_states
             NewSetupStateController::ApplyKnownState(this_ptr, stateGUID, context);
         }
 
-        void intercept_state(std::string const& command, std::vector<dev::CommandParam> const& params)
+        void intercept_state(std::string const& command, std::vector<console::CommandParam> const& params)
         {
             if (params.size() != 2)
             {
-                dev::console_send("invalid number of parameters.");
+                console::console_send("invalid number of parameters.");
                 return;
             }
 
             if (!params[0].name.empty() || !params[1].name.empty())
             {
-                dev::console_send("invalid, does not support named parameters.");
+                console::console_send("invalid, does not support named parameters.");
                 return;
             }
 
             int first;
-            if (!dev::try_get_int(params[0], first))
+            if (!console::try_get_int(params[0], first))
             {
-                dev::console_send("invalid first parameter, not an integer.");
+                console::console_send("invalid first parameter, not an integer.");
                 return;
             }
 
             int second;
-            if (!dev::try_get_int(params[1], second))
+            if (!console::try_get_int(params[1], second))
             {
-                dev::console_send("invalid second parameter, not an integer.");
+                console::console_send("invalid second parameter, not an integer.");
                 return;
             }
 
@@ -58,7 +60,7 @@ namespace uber_states
 
         void add_applier_intercept_commands()
         {
-            dev::register_command("intercept_state", intercept_state);
+            console::register_command("intercept_state", intercept_state);
         }
 
         CALL_ON_INIT(add_applier_intercept_commands);

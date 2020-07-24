@@ -1,8 +1,9 @@
 #include <features/mouse_control.h>
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <dll_main.h>
 #include <csharp_bridge.h>
+
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <algorithm>
 #include <cmath>
@@ -94,7 +95,7 @@ namespace
         deadzone_active = false;
     }
 
-    IL2CPP_INTERCEPT(Core, Input, app::Vector2, get_Axis, ()) {
+    STATIC_IL2CPP_INTERCEPT(Core, Input, app::Vector2, get_Axis, ()) {
         app::Vector2 ret;
         if (overwrite_input)
             ret = get_mouse_dir();

@@ -8,8 +8,7 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class MapController {
-    public static void Update() {}
-    public static void UpdateReachable(bool force = false) {
+    public static void UpdateReachable() {
       if(InterOp.get_game_state() == GameState.Game && !Updating) {
       var t = new Thread(UpdateReachableAsync);
       t.Start();
@@ -20,20 +19,29 @@ namespace RandoMainDLL {
       try {
         Updating = true;
         Thread.Sleep(30); // wait a frame or two to let values update
-        String args = $"-jar C:\\moon\\SeedGen.jar ReachCheck {InterOp.get_max_health()} {Convert.ToInt32(10*InterOp.get_max_energy())} {new UberId(6, 0).GetValue().GetValueOrDefault(new UberValue(0)).Int} {InterOp.get_ore()} {InterOp.get_experience()} ";
+        var argsList = new List<string> {
+          "-jar",
+          @"C:\\moon\\SeedGen.jar ",
+          "ReachCheck",
+          $"{InterOp.get_max_health()}",
+          $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
+          $"{UberGet.value(6, 0).Int}",
+          $"{InterOp.get_ore()}",
+          $"{InterOp.get_experience()}",
+        };
         // ^ this should probably be an array at this point...
         // TODO: send which key doors are already open
-        args += String.Join(" ", SaveController.Data.SkillsFound.Select((AbilityType at) => at.GetDescription().Replace(" ", "")));
-        args += " " + String.Join(" ", Teleporter.TeleporterStates.Keys.Where(t => (int)t < 15 && new Teleporter(t).Has()).Select(t => t.GetDescription().Replace(" ", "") + "TP"));
+        argsList.AddRange(SaveController.Data.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
+        argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
         if (new QuestEvent(QuestEventType.Water).Has())
-          args += " Water";
+          argsList.Add("w:0");
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = @"java.exe";
-        proc.StartInfo.Arguments = args;
+        proc.StartInfo.Arguments = String.Join(" ", argsList);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.RedirectStandardOutput = true;
-        proc.StartInfo.WorkingDirectory = @"C:\moon\";
+        proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
         proc.WaitForExit();
         Reachable.Clear();
@@ -93,7 +101,7 @@ namespace RandoMainDLL {
         case FilterType.InLogic:
           return SeedController.HasInternalSpoilers;
         case FilterType.Spoilers:
-          return (SeedController.HasInternalSpoilers && InterOp.get_debug_controls()) || UberStateDefaults.savePedestalWillowsEndShriek.GetUberId().GetValue().GetValueOrDefault(new UberValue(false)).Bool;
+          return UberGet.value(34543, 11226).Bool;
         default:
           return true;
       }

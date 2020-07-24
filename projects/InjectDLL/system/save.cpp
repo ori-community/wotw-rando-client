@@ -1,14 +1,16 @@
-#include <common.h>
+#include <Il2CppModLoader/common.h>
 #include <dll_main.h>
 #include <macros.h>
-#include <interception_macros.h>
+#include <Il2CppModLoader/interception_macros.h>
 #include <csharp_bridge.h>
 #include <pickups/pickups.h>
 
+using namespace modloader;
+
 namespace
 {
-    IL2CPP_BINDING(, SaveSlotsManager, int, get_CurrentSlotIndex, ()); //SaveSlotsManager$$get_CurrentSlotIndex
-    IL2CPP_BINDING(, SaveSlotsManager, int, get_BackupIndex, ()); //SaveSlotsManager$$get_BackupIndex
+    STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_CurrentSlotIndex, ());
+    STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_BackupIndex, ());
 
     IL2CPP_INTERCEPT(, GameController, void, CreateCheckpoint, (app::GameController* thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
       bool c = collecting_pickup; // fuck fuck fuck shit damn aaaaa
