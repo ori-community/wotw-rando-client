@@ -1,15 +1,19 @@
-#include <interception_macros.h>
 #include <dll_main.h>
-#include <il2cpp_helpers.h>
-#include <Common/ext.h>
 #include <features/messages.h>
 #include <csharp_bridge.h>
+
+#include <Common/ext.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <set>
 #include <locale>
 #include <codecvt>
 #include <unordered_map>
 #include <xstring>
+
+using namespace modloader;
 
 BINDING(30218144, app::Char__Array*, System_String__ToCharArray, (app::String* this_ptr))//System.String$$ToCharArray
 BINDING(34816240, int, System_Array__get_Length, (app::Array* this_ptr)) //System.Array$$get_Length
@@ -20,12 +24,8 @@ BINDING(13836768, bool, MessageBoxVisibility__get_Visible, (app::MessageBoxVisib
 BINDING(13820848, void, MessageBox__HideMessageScreenImmediately, (app::MessageBox* this_ptr, int32_t action));
 BINDING(13821184, void, MessageBox__HideMessageScreen, (app::MessageBox* this_ptr, int32_t action));
 
-BINDING(0x262520, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, bool track_resurrection))
-BINDING(0x262540, Il2CppObject*, il2cpp_gc_get_target, (uint32_t gchandle))
-BINDING(0x262560, uint32_t, il2cpp_gchandle_free, (uint32_t gchandle))
-
-IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
-IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
+STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
+STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
 
 std::string convert_csstring(app::String* str)
 {
@@ -182,7 +182,7 @@ namespace
           MessageBox__HideMessageScreenImmediately(below_hint_box, 0);
           below_hint_box = 0;
           if (below_box_handle) {
-            il2cpp_gchandle_free(below_box_handle);
+            il2cpp::gchandle_free(below_box_handle);
             below_box_handle = 0;
           }
         }
@@ -195,7 +195,7 @@ namespace
           duration
         );
         below_hint_box->fields.MessageIndex = 1;
-        below_box_handle = il2cpp_gchandle_new_weakref((Il2CppObject*)below_hint_box, true);
+        below_box_handle = il2cpp::gchandle_new_weak((Il2CppObject*)below_hint_box, true);
         return below_hint_box;
       }
       catch (...) {
@@ -228,7 +228,7 @@ app::MessageBox* send_msg(const wchar_t* hint, float duration, app::Vector3 pos,
         );
 
         last_box->fields.MessageIndex = 1;
-        last_handle = il2cpp_gchandle_new_weakref((Il2CppObject*)last_box, true);
+        last_handle = il2cpp::gchandle_new_weak((Il2CppObject*)last_box, true);
         tracked_boxes.insert(last_box);
         return last_box;
     }
@@ -252,7 +252,7 @@ INJECT_C_DLLEXPORT void clear_visible_hints()
         tracked_boxes.clear();
         if (last_handle)
         {
-            il2cpp_gchandle_free(last_handle);
+            il2cpp::gchandle_free(last_handle);
             last_handle = 0;
         }
     }

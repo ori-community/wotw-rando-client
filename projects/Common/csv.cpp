@@ -46,7 +46,7 @@ namespace csv
             char c = 0;
             std::string token;
 
-            c = ss.get();
+            do { c = ss.get(); } while (c == ' ');
             if (c == '"')
             {
                 encode = true;
@@ -72,7 +72,7 @@ namespace csv
                             csv.data.push_back(token);
 
                         token.clear();
-                        c = ss.get();
+                        do { c = ss.get(); } while (c == ' ');
                         if (c == '"')
                         {
                             encode = true;
@@ -101,7 +101,7 @@ namespace csv
                             csv.data.push_back(token);
 
                         token.clear();
-                        c = ss.get();
+                        do { c = ss.get(); } while (c == ' ');
                         if (c == '"')
                         {
                             encode = true;

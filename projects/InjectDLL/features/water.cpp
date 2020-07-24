@@ -1,18 +1,22 @@
-#include <interception_macros.h>
 #include <macros.h>
 #include <csharp_bridge.h>
-#include <dev/dev_commands.h>
 #include <uber_states/state_applier.h>
+
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/interception_macros.h>
+
+using namespace modloader;
 
 namespace
 {
     bool water_cheat_purified = false;
     bool water_damage_override = false;
-    IL2CPP_INTERCEPT(Sein.World, Events, bool, get_WaterPurified, ()) {
+    STATIC_IL2CPP_INTERCEPT(Sein.World, Events, bool, get_WaterPurified, ()) {
         return !water_damage_override && (csharp_bridge::water_cleansed() || water_cheat_purified);
     }
 
-    void toggle_clear_water(std::string const& command, std::vector<dev::CommandParam> const& params)
+    void toggle_clear_water(std::string const& command, std::vector<console::CommandParam> const& params)
     {
         water_cheat_purified = !water_cheat_purified;
     }
@@ -66,7 +70,7 @@ namespace
             }
         );
 
-        dev::register_command("toggle_clear_water", toggle_clear_water);
+        console::register_command("toggle_clear_water", toggle_clear_water);
     }
 
     CALL_ON_INIT(initialize_water);

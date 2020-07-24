@@ -1,11 +1,13 @@
-#include <common.h>
-#include <dev/dev_commands.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
 #include <dll_main.h>
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>
 
 #include "pickups.h"
+
+using namespace modloader;
 
 namespace
 {
@@ -28,13 +30,13 @@ namespace
             return;
 
         auto csname = il2cpp::invoke<app::String>(state, "get_Name");
-        auto name = convert_csstring(csname);
+        auto name = il2cpp::convert_csstring(csname);
         auto id = state->fields._.m_id->fields.m_id;
         auto value = state->fields.m_value;
         auto group_id = state->fields.Group->fields._.m_id->fields.m_id;
         auto csgroup = il2cpp::invoke<app::String>(state->fields.Group, "get_GroupName");
-        auto group_name = convert_csstring(csgroup);
-        dev::console_send(format("quest: '%s' { %d } '%s' { %d } : %d", name.c_str(), id, group_name.c_str(), group_id, value));
+        auto group_name = il2cpp::convert_csstring(csgroup);
+        console::console_send(format("quest: '%s' { %d } '%s' { %d } : %d", name.c_str(), id, group_name.c_str(), group_id, value));
     }
 
     bool quest_reporting = false;
@@ -51,11 +53,11 @@ namespace
     }
 
 
-    void report_quests_completed(std::string const& command, std::vector<dev::CommandParam> const& params)
+    void report_quests_completed(std::string const& command, std::vector<console::CommandParam> const& params)
     {
         if (params.size() > 1)
         {
-            dev::console_send("report_quests_completed only takes 1 or less parameters.");
+            console::console_send("report_quests_completed only takes 1 or less parameters.");
             return;
         }
 
@@ -64,22 +66,22 @@ namespace
         {
             if (!params.front().name.empty())
             {
-                dev::console_send("report_quests_completed unexpected named parameter.");
+                console::console_send("report_quests_completed unexpected named parameter.");
                 return;
             }
             
-            if (!dev::try_get_bool(params.front(), value))
+            if (!console::try_get_bool(params.front(), value))
             {
-                dev::console_send("report_quests_completed invalid parameter.");
+                console::console_send("report_quests_completed invalid parameter.");
                 return;
             }
         }
 
-        dev::console_send(format("quest_reporting set to %d.", value));
+        console::console_send(format("quest_reporting set to %d.", value));
         quest_reporting = value;
     }
 
-    void report_world_state(std::string const& command, std::vector<dev::CommandParam> const& params)
+    void report_world_state(std::string const& command, std::vector<console::CommandParam> const& params)
     {
         auto sein_world_state = il2cpp::get_class<app::SeinWorldState__Class>("", "SeinWorldState");
         auto state = sein_world_state->static_fields->Instance;
@@ -110,8 +112,8 @@ namespace
 
     void add_quest_commands()
     {
-        dev::register_command("report_quests_completed", report_quests_completed);
-        dev::register_command("report_world_state", report_world_state);
+        console::register_command("report_quests_completed", report_quests_completed);
+        console::register_command("report_world_state", report_world_state);
     }
 
     CALL_ON_INIT(add_quest_commands);

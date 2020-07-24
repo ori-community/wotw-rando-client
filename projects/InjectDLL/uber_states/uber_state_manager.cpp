@@ -1,13 +1,15 @@
 #include <uber_states/uber_state_manager.h>
 
-#include <common.h>
+#include <Il2CppModLoader/common.h>
 #include <constants.h>
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>
 #include <uber_states/uber_state_helper.h>
 
 #include <csharp_bridge.h>
+
+using namespace modloader;
 
 namespace uber_states
 {
@@ -58,7 +60,7 @@ namespace uber_states
             {
                 std::vector<app::IUberState*> states = {
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "sword", app::AbilityType__Enum_Sword, false),
-                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "double_jump", app::AbilityType__Enum_DoubleJump, true),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "double_jump", app::AbilityType__Enum_DoubleJump, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "regenerate", app::AbilityType__Enum_MeditateSpell, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "bow", app::AbilityType__Enum_Bow, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "dash", app::AbilityType__Enum_DashNew, false),
@@ -169,13 +171,13 @@ namespace uber_states
     
     std::string get_uber_state_name(app::IUberState* uber_state) {
         auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
-        return convert_csstring(csstring);
+        return il2cpp::convert_csstring(csstring);
     }
 
     std::string get_uber_state_group_name(app::IUberState* uber_state) {
         auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
         auto csstring = il2cpp::invoke<app::String>(group, "get_GroupName");
-        return convert_csstring(csstring);
+        return il2cpp::convert_csstring(csstring);
     }
 
     std::string tostring(app::IUberState* uber_state) {

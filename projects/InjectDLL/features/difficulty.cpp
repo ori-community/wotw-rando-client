@@ -1,5 +1,6 @@
-#include <interception_macros.h>
 #include <dll_main.h>
+
+#include <Il2CppModLoader/interception_macros.h>
 
 IL2CPP_INTERCEPT(, GameController, app::GameController_GameModeBalanceSettings*, get_CurrentGameModeBalanceSettings, (app::GameController* this_ptr)) {
     auto result = GameController::get_CurrentGameModeBalanceSettings(this_ptr);

@@ -1,5 +1,6 @@
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace dev
 {

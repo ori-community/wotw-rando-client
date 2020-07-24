@@ -1,11 +1,14 @@
-#include <interception_macros.h>
 #include <dll_main.h>
-#include <il2cpp_helpers.h>
 
 #include <csharp_bridge.h>
 
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
+
 #include <functional>
 #include <set>
+
+using namespace modloader;
 
 namespace
 {
@@ -274,11 +277,14 @@ namespace
     constexpr float FAST_PURCHASE_TIME = 0.01f;
 
     IL2CPP_INTERCEPT(, PurchaseThingScreen, void, PurchaseInput, (app::PurchaseThingScreen* this_ptr)) {
+        this_ptr->fields.PurchaseCooldown = 0.1f;
         this_ptr->fields.PurchaseTime = NORMAL_PURCHASE_TIME;
         auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
         if (input_cmd->static_fields->DialogueOption1 != nullptr &&
-            input_cmd->static_fields->DialogueOption1->fields.IsPressed)
+            input_cmd->static_fields->DialogueOption1->fields.IsPressed) {
             this_ptr->fields.PurchaseTime = FAST_PURCHASE_TIME;
+            
+        }
 
         PurchaseThingScreen::PurchaseInput(this_ptr);
     }
@@ -444,9 +450,9 @@ namespace
         SpiritShardsShopScreen::Show(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, WeaponmasterScreen, void, Show, (app::WeaponmasterScreen* this_ptr)) {
+    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Show, (app::ShopkeeperScreen* this_ptr)) {
         csharp_bridge::update_shop_data();
-        WeaponmasterScreen::Show(this_ptr);
+        ShopkeeperScreen::Show(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, MapmakerScreen, void, Show, (app::MapmakerScreen* this_ptr)) {

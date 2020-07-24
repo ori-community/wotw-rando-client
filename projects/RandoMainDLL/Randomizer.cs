@@ -4,11 +4,12 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class Randomizer {
-    public static string SeedPathFile = @"C:\moon\.currentseedpath";
-    public static string MessageLog = @"C:\moon\.messagelog";
-    public static string LogFile = @"C:\moon\cs_log.txt";
-    public static string SaveFolder = @"C:\moon\saves";
-    public static string VersionFile = @"C:\moon\VERSION";
+    public static string BasePath = @"C:\moon\";
+    public static string SeedPathFile { get { return BasePath + ".currentseedpath"; } }
+    public static string MessageLog { get { return BasePath + "messagelog"; } }
+    public static string LogFile { get { return BasePath + "cs_log.txt"; } }
+    public static string SaveFolder { get { return BasePath + "saves"; } }
+    public static string VersionFile { get { return BasePath + "VERSION"; } }
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version;
 
@@ -33,11 +34,14 @@ namespace RandoMainDLL {
 
     public static bool Initialize() {
       try {
+        BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.get_base_path());
+        Log($"Set base path to {BasePath}");
+
         if (!Directory.Exists(SaveFolder)) 
           Directory.CreateDirectory(SaveFolder);
         
         if (!File.Exists(SeedPathFile)) 
-          File.WriteAllText(SeedPathFile, @"C:\moon\.currentseed");
+          File.WriteAllText(SeedPathFile, BasePath + ".currentseed");
         
         foreach (var fileName in new string[] { LogFile, MessageLog }) {
           if (!File.Exists(fileName)) {
@@ -70,7 +74,6 @@ namespace RandoMainDLL {
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
           SeedController.UpdateGoal();
-          MapController.Update();
           TrackFileController.Update();
         }
         AHK.Tick();

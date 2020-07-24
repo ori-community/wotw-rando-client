@@ -1,7 +1,10 @@
-#include <common.h>
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
-#include <dev/dev_commands.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/console.h>
+
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
+
+using namespace modloader;
 
 namespace
 {

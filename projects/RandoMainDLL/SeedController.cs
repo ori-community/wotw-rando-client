@@ -195,16 +195,11 @@ namespace RandoMainDLL {
       return new Resource(ResourceType.Energy);
     }
 
-    public static void OnTree(AbilityType ability) {
-      if(!new UberId((int)FakeUberGroups.TREE, (int)ability).toCond().OnCollect())
-        Randomizer.Log($"Tree {ability} not found in seed!");
-    }
-
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
       var valueCond = id.toCond(state.ValueAsInt());
       var p = id.toCond().Pickup().Concat(valueCond.Pickup());
-      if (p.Collect(valueCond.IsGoal())) {
+      if (p.Collect(valueCond.IsGoal() || id.toCond().IsGoal())) {
         // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
         if (id.toCond().Loc().Type == LocType.Shard)
           InterOp.refresh_shards();

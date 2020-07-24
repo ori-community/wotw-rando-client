@@ -1,9 +1,11 @@
 #include <macros.h>
-#include <interception_macros.h>
 #include <csharp_bridge.h>
-#include <il2cpp_helpers.h>
-#include <dev/dev_commands.h>
 #include <uber_states/state_applier.h>
+
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {

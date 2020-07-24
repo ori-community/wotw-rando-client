@@ -10,6 +10,8 @@ namespace RandoMainDLL {
   }
 
   static class InterOp {
+    [DllImport("Il2CppModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static IntPtr get_base_path();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_twillen_item(int shard_type, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description);
@@ -65,7 +67,7 @@ namespace RandoMainDLL {
     public extern static void lock_shriek_goal(bool value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void magic_function();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("Il2CPPModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool toggle_cursorlock();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

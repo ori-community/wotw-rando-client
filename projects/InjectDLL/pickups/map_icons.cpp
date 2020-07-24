@@ -1,14 +1,17 @@
-#include <interception_macros.h>
-#include <il2cpp_helpers.h>
-#include <Common/ext.h>
-#include <dev/dev_commands.h>
 #include <uber_states/uber_state_manager.h>
 
 #include <csharp_bridge.h>
 
+#include <Common/ext.h>
+#include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
+
 #include <atomic>
 #include <unordered_map>
 #include <random>
+
+using namespace modloader;
 
 namespace
 {
@@ -239,7 +242,7 @@ namespace
                 else
                 {
                     // This should no longer be called as we have overridden every single tree icon.
-                    dev::console_send(format(
+                    console::console_send(format(
                         "tree icon { guid: [%0x, %0x, %0x, %0x], pos: [%d, %d] }",
                         item->fields.Guid->fields.A,
                         item->fields.Guid->fields.B,
