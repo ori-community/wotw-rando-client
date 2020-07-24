@@ -2424,22 +2424,34 @@ region UpperDepths:
 anchor UpperDepths.Entry:  # (161, -4340) The little standable ground below the entrance
   pickup UpperDepths.EntrySpikesEX:
     base: Glide
-  pickup UpperDepths.EntryRoofEX:
-    base, EnemyObstacle:
-      Glide, Bash, DoubleJump OR Dash
-      Glide, DoubleJump, Dash, Grapple
-      Glide, Launch
-  pickup UpperDepths.EntryOre:
-    base, EnemyObstacle:
-      Weapon, Glide, Grapple, DoubleJump OR Dash  # weapon to kill the enemy
-      Glide, Bash, DoubleJump OR Grapple
-      Glide, Launch
 
-  conn UpperDepths.FirstKSRoom:
-    base: EnemyObstacle, Glide
+  conn UpperDepths.FirstFirefly:
+    base: EnemyObstacle, Glide, RangedWeapon OR Bash
+
+anchor UpperDepths.FirstFirefly:  # (211, -4391) Where the Voice dialogue plays
+  refill Checkpoint
+
+  pickup UpperDepths.EntryRoofEX:
+    base:
+      Bash, DoubleJump OR Dash
+      DoubleJump, Dash, Grapple
+      Launch
+  pickup UpperDepths.EntryOre:
+    base:
+      Weapon, Grapple, DoubleJump  # weapon to kill the enemy
+      Bash, DoubleJump OR Grapple
+      Launch
+  pickup UpperDepths.LeftEntryKS:
+    base, EnemyObstacle:
+      BreakWall=1, Grapple, DoubleJump OR Dash OR Glide
+      BreakWall=1, Launch
+      Bow=1
+
+  conn UpperDepths.Entry:
+    base: EnemyObstacle, Glide, RangedWeapon OR Bash
+  conn UpperDepths.FirstKSRoom: free
 
 anchor UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
-  # can't put this on the nearby checkpoint...
   refill Energy=3:  # this crystal is in the darkness
     unsafe: Weapon
 
@@ -2453,31 +2465,19 @@ anchor UpperDepths.FirstKSRoom:  # (223, -4420) Below the first firefly egg
       DoubleJump, Bash, Grapple
       Bash, Launch
 
-  pickup UpperDepths.EntryRoofEX:
-    base, EnemyObstacle:
-      Grapple, DoubleJump, Bash
-      Grapple, DoubleJump, Dash
-      Launch, DoubleJump OR Grapple
-  pickup UpperDepths.EntryOre:
-    base, EnemyObstacle:
-      Grapple, DoubleJump
-      Launch, DoubleJump OR Grapple
   pickup UpperDepths.RightEntryKS:
-    base, BreakWall=1:
+    base:
       Grapple, DoubleJump
       Launch, DoubleJump OR Dash OR Glide OR Grapple
   pickup UpperDepths.LeftEntryKS:
-    base, EnemyObstacle:
-      BreakWall=1, Grapple, DoubleJump OR Dash
-      BreakWall=1, Launch
-      DepthsLight
+    base: EnemyObstacle, DepthsLight
   pickup UpperDepths.SwimEC:
     base: EnemyObstacle, DepthsLight, Water
 
-  conn UpperDepths.Entry:
+  conn UpperDepths.FirstFirefly:
     base, EnemyObstacle:
-      Glide, Grapple, DoubleJump
-      Glide, Launch, DoubleJump OR Grapple
+      Grapple, DoubleJump
+      Launch, DoubleJump OR Grapple
   conn UpperDepths.BelowHive:
     base, UpperDepths.EntryKeystoneDoor, UpperDepths.LightPuzzle OR DepthsLight:
       Bash, DoubleJump, Grapple
