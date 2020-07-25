@@ -9,6 +9,7 @@
 
 #include <atomic>
 #include <unordered_map>
+#include <unordered_set>
 #include <random>
 
 using namespace modloader;
@@ -41,7 +42,19 @@ namespace
         { "1f79d15a, 4192137e, a40d0c9e, 3e289606", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Grenade) },
     };
 
-    std::string stingify_guid(app::MoonGuid *guid)
+    struct SpoilerState
+    {
+        int group_id;
+        int state_id;
+        bool has_spoiler_icon;
+    };
+
+    std::unordered_map<std::string, SpoilerState> spoiler_states;
+    std::unordered_map<app::GameWorldAreaID__Enum, std::vector<uint32_t>> extra_icons;
+    std::unordered_set<std::string> can_teleport;
+    bool initialized = false;
+
+    std::string stringify_guid(app::MoonGuid *guid)
     {
         return format(
             "%08x, %08x, %08x, %08x",
@@ -68,14 +81,6 @@ namespace
         return guid;
     }
 
-    struct SpoilerState
-    {
-        int group_id;
-        int state_id;
-        bool has_spoiler_icon;
-    };
-
-    std::unordered_map<std::string, SpoilerState> spoiler_states;
     NAMED_IL2CPP_BINDING(, RuntimeWorldMapIcon, void, .ctor, ctor, (app::RuntimeWorldMapIcon* this_ptr, app::GameWorldArea_WorldMapIcon* icon, app::RuntimeGameWorldArea* area));
     IL2CPP_BINDING(, AreaMapIcon, void, SetMessageProvider, (app::AreaMapIcon* this_ptr, app::MessageProvider* provider));
 
@@ -149,7 +154,7 @@ namespace
 
         if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
-            auto it = spoiler_states.find(stingify_guid(this_ptr->fields.Guid));
+            auto it = spoiler_states.find(stringify_guid(this_ptr->fields.Guid));
             if (it != spoiler_states.end())
             {
                 if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
@@ -174,7 +179,7 @@ namespace
         }
     }
 
-    uint32_t create_icon(app::WorldMapIconType__Enum type, float x, float y, app::SerializedBooleanUberState* collected = nullptr, app::ConditionUberState* condition = nullptr)
+    uint32_t create_icon(app::WorldMapIconType__Enum type, float x, float y, app::SerializedBooleanUberState* collected = nullptr, app::ConditionUberState* condition = nullptr, bool allow_teleport = false)
     {
         auto icon_guid = create_guid();
         auto icon = il2cpp::create_object<app::GameWorldArea_WorldMapIcon>("", "GameWorldArea", "WorldMapIcon");
@@ -185,11 +190,12 @@ namespace
         icon->fields.IsSecret = false;
         icon->fields.Icon = type;
         icon->fields.Guid = icon_guid;
+        if (allow_teleport)
+            can_teleport.emplace(stringify_guid(icon_guid));
+
         return il2cpp::gchandle_new(icon, false);
     }
 
-    std::unordered_map<app::GameWorldAreaID__Enum, std::vector<uint32_t>> extra_icons;
-    bool initialized = false;
     void initialize()
     {
         extra_icons[app::GameWorldAreaID__Enum_KwoloksHollow] = {
@@ -296,7 +302,7 @@ namespace
             icon->fields.Condition = nullptr;
             icon->fields.SpecialState = nullptr;
 
-            auto& state = spoiler_states[stingify_guid(icon->fields.Guid)];
+            auto& state = spoiler_states[stringify_guid(icon->fields.Guid)];
             state.group_id = group_id;
             state.state_id = state_id;
             state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
@@ -364,7 +370,7 @@ namespace
 
             if (is_spoiler)
             {
-                auto it = spoiler_states.find(stingify_guid(icon->fields.Guid));
+                auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
                 if (it != spoiler_states.end())
                 {
                     auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
@@ -494,6 +500,32 @@ namespace
     IL2CPP_INTERCEPT(, AreaMapUI, void, CycleFilter, (app::AreaMapUI* this_ptr)) {
         cycle_filter(this_ptr);
     }
+
+    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* this_ptr)) {
+        auto guid = stringify_guid(this_ptr->fields.Guid);
+        if (can_teleport.find(guid) != can_teleport.end())
+            return true;
+
+        return CanBeTeleportedTo(this_ptr);
+    }
+}
+
+INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, app::WorldMapIconType__Enum icon, float x, float y, int group_id, int state_id, bool allow_teleport)
+{
+    app::SerializedBooleanUberState* collected = nullptr;
+    if (group_id != -1 && state_id != -1)
+        uber_states::get_uber_state(group_id, state_id);
+
+    auto handle = create_icon(
+        icon,
+        x,
+        y,
+        collected,
+        nullptr,
+        allow_teleport
+    );
+
+    extra_icons[area].push_back(handle);
 }
 
 INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
