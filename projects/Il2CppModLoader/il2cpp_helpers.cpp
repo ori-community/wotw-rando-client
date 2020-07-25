@@ -246,6 +246,15 @@ namespace il2cpp
             return convert_csstring(csstr);
         }
 
+        app::String* get_object_csname(void* object)
+        {
+            auto cast_object = static_cast<app::Object*>(object);
+            if (cast_object == nullptr)
+                return nullptr;
+
+            return Object::get_name(cast_object);
+        }
+
         int32_t get_scene_count()
         {
             return SceneManager::get_sceneCount();

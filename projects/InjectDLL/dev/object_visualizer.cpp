@@ -19,6 +19,17 @@ namespace dev
             IL2CPP_BINDING(, NewSetupStateController, app::String*, GetStateName, (app::NewSetupStateController* this_ptr, int32_t state_guid));
             IL2CPP_BINDING(, SetupStateModifier, app::String*, get_Name, (app::SetupStateModifier* this_ptr));
 
+            void transform_hierarchy(std::string& output, app::Transform* transform)
+            {
+                output += il2cpp::unity::get_object_name(transform);
+                auto parent = il2cpp::unity::get_parent(transform);
+                if (parent != nullptr)
+                {
+                    output += " -> ";
+                    transform_hierarchy(output, parent);
+                }
+            }
+
 			std::string get_full_name(Il2CppClass* klass)
 			{
 				if (std::string(klass->namespaze).empty())

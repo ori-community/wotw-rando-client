@@ -25,6 +25,7 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT app::Scene get_scene(app::GameObject* game_object);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene);
 
+        IL2CPP_MODLOADER_DLLEXPORT app::String* get_object_csname(void* object);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_object_name(void* object);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_name(app::Scene& scene);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_path(app::Scene& scene);
