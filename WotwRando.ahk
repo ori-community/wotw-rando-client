@@ -6,7 +6,7 @@ SetTitleMatchMode, 3            ; require a full match of window name
 #SingleInstance, force
 
 ; script variables (mostly file paths)
-INSTALL_DIR := "C:\moon\"
+INSTALL_DIR = %A_ScriptDir%
 INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
@@ -87,10 +87,12 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     FileDelete, %INSTALL_DIR%.VERSION
 } else {
     ; installation code
+    FileSelectFolder, INSTALL_DIR, ,, Select installation folder for the Ori Randomiser:
+
     Msgbox 4, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR% ?
     IfMsgBox No
     {
-        Msgbox Exiting without installing
+        Msgbox The installer will now exit without installing
         ExitApp
     }
     gosub, WriteIniDefaults
@@ -171,7 +173,7 @@ ExitApp
 
 PromptAfterInstall:
 SetTimer, ChangeButtonNames, 25 
-Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`nLaunch the randomizer by running C:\moon\WotwRando.exe `n  or by double-clicking a .wotwr file`n`nChange settings using C:\moon\RandoSettings.exe
+Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`nLaunch the randomizer by running %INSTALL_DIR%\WotwRando.exe `n  or by double-clicking a .wotwr file`n`nChange settings using %INSTALL_DIR%\RandoSettings.exe
 IfMsgBox Cancel
     ExitApp
 IfMsgBox No
@@ -260,21 +262,21 @@ TryDelete(INSTALL_DIR . "areas.wotw")
 TryDelete(INSTALL_DIR . "VERSION")
 
 
-FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
-FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
-FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
-FileInstall, C:\moon\Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
-FileInstall, C:\moon\SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
-FileInstall, C:\moon\Injector.exe, %INJECTOR%, 1
-FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
-FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
-FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
-FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
-FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
+FileInstall, RandoMainDLL.dll, %INSTALL_DIR%\RandoMainDLL.dll, 1
+FileInstall, InjectDLL.dll, %INSTALL_DIR%\InjectDLL.dll, 1
+FileInstall, InjectLoader.dll, %INSTALL_DIR%\InjectLoader.dll, 1
+FileInstall, Il2CppModLoader.dll, %INSTALL_DIR%\Il2CppModLoader.dll, 1
+FileInstall, SeedGen.jar, %INSTALL_DIR%\SeedGen.jar, 1
+FileInstall, Injector.exe, %INSTALL_DIR%\%INJECTOR%, 1
+FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%\loc_data.csv, 1
+FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%\areas.wotw, 1
+FileInstall, RandoSettings.exe, %INSTALL_DIR%\RandoSettings.exe, 1
+FileInstall, ItemTracker.exe, %INSTALL_DIR%\ItemTracker.exe, 1
+FileInstall, VERSION, %INSTALL_DIR%\VERSION, 1
 If(A_IsCompiled)
     FileCopy, %A_ScriptFullPath%, %WOTWREXE%
 Else
-    FileCopy C:\moon\WotwRando.exe, %WOTWREXE%
+    FileCopy WotwRando.exe, %WOTWREXE%
 return
 
 CheckForUpdates:
