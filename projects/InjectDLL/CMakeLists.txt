@@ -26,6 +26,7 @@ set(
 	"features/invert_swim.cpp"
 	"features/input_poller.cpp"
 	"features/no_energy.cpp"
+	"features/start_anywhere.cpp"
 	"features/water.cpp"
 	"fixes/dash.cpp"
 	"fixes/deflector.cpp"
