@@ -16,7 +16,7 @@ DELETEME := INSTALL_DIR . ".deleteme"
 
 ; change this TO THE NAME OF THE NEW SETTING when a new setting is added
 NewSetting := ""
-
+FirstLaunch := False
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
 ; associating .wotwr files with WotwRando.exe
@@ -88,6 +88,7 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 } else {
     ; installation code
     Msgbox 4, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR% ?
+    FirstLaunch := True
     IfMsgBox No
     {
         Msgbox Exiting without installing
@@ -331,9 +332,12 @@ Try {
 }
 SplashTextOff
 Return
+
 TryDelete(filePath) {
+    global FirstLaunch
     if(!FileExist(filePath)) {
-        msgbox already gone: %filePath%
+        if not FirstLaunch
+            msgbox already gone: %filePath%
         return
     }
     try {
