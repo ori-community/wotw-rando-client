@@ -11,7 +11,10 @@ namespace il2cpp
     {
         IL2CPP_MODLOADER_DLLEXPORT app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name);
 
+        IL2CPP_MODLOADER_DLLEXPORT app::Type* get_type(std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT void destroy_object(void* object);
+        IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_parent(app::Transform* object);
+        IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_transform(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* get_game_object(void* component);
         IL2CPP_MODLOADER_DLLEXPORT app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_children(app::GameObject* game_object);
@@ -75,10 +78,18 @@ namespace il2cpp
     IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(uint32_t handle);
     IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(uint32_t handle);
 
+    struct KlassDescriptor
+    {
+        std::string namezpace;
+        std::string name;
+        Il2CppClass* klass;
+    };
+
     IL2CPP_MODLOADER_DLLEXPORT int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_overloaded(Il2CppClass* klass, std::string_view method, int param_count, int overload);
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_params(Il2CppClass* klass, std::string_view method, std::vector<void*> const& params);
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<Il2CppClass*> const& params);
+    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params);
 
     IL2CPP_MODLOADER_DLLEXPORT void free_obj(void* obj);
 
