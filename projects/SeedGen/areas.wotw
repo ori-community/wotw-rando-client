@@ -377,10 +377,7 @@ anchor DenShrine:
 
 anchor HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
   pickup HowlsDen.DoubleJumpTree: free
-  pickup HowlsDen.StickyShard:  # mind the breakable wall
-    base:
-      Bash, Grenade=1
-      Launch
+  pickup HowlsDen.StickyShard: free  # origlow
   pickup HowlsDen.DoubleJumpEX:
     base:
       DoubleJump, Bash  # not the most cooperative enemy, which is why there are assisting abilities
