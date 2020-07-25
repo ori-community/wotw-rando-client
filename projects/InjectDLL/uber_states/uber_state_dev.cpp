@@ -42,9 +42,7 @@ namespace
         std::ofstream str;
         auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "file"; });
         if (value_it != params.end())
-        {
             str.open(value_it->value);
-        }
 
         if (str.is_open())
         {

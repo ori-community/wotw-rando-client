@@ -13,6 +13,7 @@ set(
 	"dev/object_visualizer.cpp"
 	"features/day_night_logic.cpp"
 	"features/difficulty.cpp"
+	"features/instanciate_objects.cpp"
 	"features/keystone_door.cpp"
 	"features/messages.cpp"
 	"features/lupo_everywhere.cpp"
