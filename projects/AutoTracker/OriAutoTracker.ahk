@@ -9,12 +9,16 @@ SetBatchLines, -1
 ; Reading the settings file and setting variables
 inipath = C:\moon\settings.ini
 IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
+IniRead, bgcolour, %inipath%, Tracker, BackgroundColour, 585858
+IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, 0
 if(launchWithTracker != "false"){
     WinWait, OriAndTheWilloftheWisps
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.1.4"
+version := "v0.1.5"
+FileRead, seed, C:\moon\.currentseedpath
+
 ; data containers
 imageBase := { "Bash": "img\Bash"
     , "Blaze": "img\Blaze"
@@ -24,18 +28,18 @@ imageBase := { "Bash": "img\Bash"
     , "Dash": "img\Dash"
     , "DoubleJump": "img\DoubleJump"
     , "Flap": "img\Flap"
-    , "Flash": "img\Flash" 
-    , "Feather": "img\Feather" 
-    , "Grapple": "img\Grapple" 
-    , "Hammer": "img\Hammer" 
-    , "Launch": "img\Launch" 
-    , "LightBurst": "img\LightBurst" 
-    , "Regenerate": "img\Regen" 
+    , "Flash": "img\Flash"
+    , "Feather": "img\Feather"
+    , "Grapple": "img\Grapple"
+    , "Hammer": "img\Hammer"
+    , "Launch": "img\Launch"
+    , "LightBurst": "img\LightBurst"
+    , "Regenerate": "img\Regen"
     , "Sentry": "img\Sentry"
-    , "Spike": "img\Spike" 
-    , "WaterDash": "img\WaterDash" 
-    , "Sword": "img\Sword" 
-    , "WaterBreath": "img\WaterBreath" 
+    , "Spike": "img\Spike"
+    , "WaterDash": "img\WaterDash"
+    , "Sword": "img\Sword"
+    , "WaterBreath": "img\WaterBreath"
     , "DamageUp": "img\WeaponUpgrade1" }
 
 imageCurr := { "Bash": "img\Bash.png"
@@ -46,24 +50,24 @@ imageCurr := { "Bash": "img\Bash.png"
     , "Dash": "img\Dash.png"
     , "DoubleJump": "img\DoubleJump.png"
     , "Flap": "img\Flap.png"
-    , "Flash": "img\Flash.png" 
-    , "Feather": "img\Feather.png" 
-    , "Grapple": "img\Grapple.png" 
-    , "Hammer": "img\Hammer.png" 
-    , "Launch": "img\Launch.png" 
-    , "LightBurst": "img\LightBurst.png" 
-    , "Regenerate": "img\Regen.png" 
+    , "Flash": "img\Flash.png"
+    , "Feather": "img\Feather.png"
+    , "Grapple": "img\Grapple.png"
+    , "Hammer": "img\Hammer.png"
+    , "Launch": "img\Launch.png"
+    , "LightBurst": "img\LightBurst.png"
+    , "Regenerate": "img\Regen.png"
     , "Sentry": "img\Sentry.png"
-    , "Spike": "img\Spike.png" 
-    , "WaterDash": "img\WaterDash.png" 
-    , "Sword": "img\Sword.png" 
-    , "WaterBreath": "img\WaterBreath.png" 
+    , "Spike": "img\Spike.png"
+    , "WaterDash": "img\WaterDash.png"
+    , "Sword": "img\Sword.png"
+    , "WaterBreath": "img\WaterBreath.png"
     , "DamageUp": "img\WeaponUpgrade1.png" }
 
 ; -------------------------------------
 ; Startup stuff
 if !FileExist(img)
-    FileCreateDir, img  
+    FileCreateDir, img
 
 FileInstall, img\Bash.png, img\Bash.png
 FileInstall, img\Bash_unlocked.png, img\Bash_unlocked.png
@@ -121,6 +125,9 @@ FileInstall, img\WeaponUpgrade1_unlocked.png, img\WeaponUpgrade1_unlocked.png
 FileInstall, img\WeaponUpgrade2.png, img\WeaponUpgrade2.png
 FileInstall, img\WeaponUpgrade2_unlocked.png, img\WeaponUpgrade2_unlocked.png
 FileInstall, img\GorlekOre.png, img\GorlekOre.png
+FileInstall, img\Wips.png, img\Wisp.png
+FileInstall, img\SkillTree.png, img\SkillTree.png
+FileInstall, img\Quest.png, img\Quest.png
 
 
 If !WatchFolder("C:\moon", "parsechanges",, 8) {
@@ -129,11 +136,27 @@ If !WatchFolder("C:\moon", "parsechanges",, 8) {
 }
 
 ; -------------------------------------
-; Creating the Gui
+; Main Window
+; -------------------------------------
 
-Gui, Color, 585858
+Gui, Main:New
+Gui, Color, %bgcolour%
 Gui, Font, s15 cwhite
-Gui, Add, Text, , Ori WotW AutoTracker
+
+if (seed != "") {
+    FileReadLine, Flags, %seed%, 1
+
+    Gui, Add, Text, , Flags:
+    if (InStr(Flags, "ForceWisps")) {
+        Gui, Add, Picture, xp+60 h30 w30, img\Wisp.png
+    }
+    if (InStr(Flags, "ForceTrees")) {
+        Gui, Add, Picture, xp+60 h30 w20, img\SkillTree.png
+    }
+    if (InStr(Flags, "ForceQuests")) {
+        Gui, Add, Picture, xp+60 h30 w30, img\Quest.png
+    }
+}
 
 first_row = y40
 Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75 gclick, img\DoubleJump.png
@@ -174,19 +197,100 @@ Gui, Add, Text, vGorlekOre x190 y465 w50, 0
 
 Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, img\CompleteWatermillEscape.png
 
-
-Gui, Show,, Ori WotW AutoTracker %version%
+Gui, Main:Show,, Ori WotW AutoTracker %version%
 update()
+
+gosub ParseOnTopState
+
+; -------------------------------------
+; Context menu
+; -------------------------------------
+
+TeleporterState := 0
+
+; Create the popup menu by adding some items to it.
+Menu, ContextMenu, Add, Always on top, ToggleOnTop
+Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
+
+Menu, ContextMenu, Add, Background colour, ShowColourPicker
+
+; Disabled for now since it doesnt function as intended yet.
+; Menu, ContextMenu, Add, Teleporters, ToggleTeleporters
+; Menu, ContextMenu, % TeleporterState ? "Check" : "Uncheck", Teleporters
+
+Menu, ContextMenu, Add, Settings, OpenSettingsEditor
+
+Menu, ContextMenu, Add  ; Add a separator line below the submenu.
+Menu, ContextMenu, Add, Exit, mainGuiClose  ; Add another menu item beneath the submenu.
+
+; -------------------------------------
+; Teleporters window
+; -------------------------------------
+
+Gui, teleporters:New
+Gui, teleporters:Margin, 0, 0
+Gui, Color, 585858
+Gui, Font, s15 cwhite
+
+spacing := 20
+first_collumn = x5
+Gui, Add, Text, vDen %first_collumn% y0 Hidden, Den
+Gui, Add, Text, vHollow %first_collumn% yp+%spacing% Hidden, Hollow
+Gui, Add, Text, vGlades %first_collumn% yp+%spacing% Hidden, Glades
+Gui, Add, Text, vWellspring %first_collumn% yp+%spacing% Hidden, Wellspring
+Gui, Add, Text, vEastWoods %second_collumn% yp+%spacing% Hidden, East Woods
+
+second_collumn = x150
+Gui, Add, Text, vWestWoods %second_collumn% y0 Hidden, West Woods
+Gui, Add, Text, vBurrows %second_collumn% yp+%spacing% Hidden, Burrows
+Gui, Add, Text, vDepths %second_collumn% yp+%spacing% Hidden, Depths
+Gui, Add, Text, vEastPools %third_collumn% yp+%spacing% Hidden, East Pools
+Gui, Add, Text, vReach %third_collumn% yp+%spacing% Hidden, Reach
+
+third_collumn = x300
+Gui, Add, Text, vWestWastes %third_collumn% y0 Hidden, West Wastes
+Gui, Add, Text, vEastWastes %third_collumn% yp+%spacing% Hidden, East Wastes
+Gui, Add, Text, vOuterRuins %fourth_collumn% yp+%spacing% Hidden, Outer Ruins
+Gui, Add, Text, vWillow %fourth_collumn% yp+%spacing% Hidden, Willow
+Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
+
+; Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
+
+; -------------------------------------
+; ColourPicker Window
+; -------------------------------------
+
+RGBval := bgcolour
+Gui, ColourPicker:New
+Gui, Add, Text, x0 y10 w40 h20 +Right, Red
+Gui, Add, Text, x0 y30 w40 h20 +Right, Green
+Gui, Add, Text, x0 y50 w40 h20 +Right, Blue
+Gui, Add, Slider, x40 y10 w190 h20 AltSubmit +NoTicks +Range0-255 vsR gSliderSub, %Rval%
+Gui, Add, Slider, x40 y30 w190 h20 AltSubmit +NoTicks +Range0-255 vsG gSliderSub, %Gval%
+Gui, Add, Slider, x40 y50 w190 h20 AltSubmit +NoTicks +Range0-255 vsB gSliderSub, %Bval%
+Gui, Add, Edit, x230 y10 w45 h20 gEditSub veR +Limit3 +Number, %Rval%
+Gui, Add, UpDown, Range0-255 vuR gUpDownSub, %Rval%
+Gui, Add, Edit, x230 y30 w45 h20 gEditSub veG +Limit3 +Number, %Gval%
+Gui, Add, UpDown, Range0-255 vuG gUpDownSub, %Gval%
+Gui, Add, Edit, x230 y50 w45 h20 gEditSub veB +Limit3 +Number, %Bval%
+Gui, Add, UpDown, Range0-255 vuB gUpDownSub, %Bval%
+Gui, Add, Progress, x285 y10 w60 h60 +Border Background%RGBval% vpC
+Gui, Add, Text, x285 y10 w60 h60 +Border vtP cWhite +BackgroundTrans, Preview
+Gui, Add, Button, x120 y80 w110 h20 vbS gButtonSub, Select
+; Gui, ColourPicker:Show, w351 h105, Simple colour Dialog
+
 
 OnMessage(0x200, "Help") ; On_mousemove event
 Return
+
 IsOriStillRunning:
-IfWinNotExist, OriAndTheWilloftheWisps 
-ExitApp
+    IfWinNotExist, OriAndTheWilloftheWisps
+    ExitApp
 return
+
 ; Function for manually toggling items
- click:
- return
+click:
+return
 ;     MouseGetPos,,,, OutputVarControl
 ;     ControlGetText, HoverText, %OutputVarControl%
 ;     if (HoverText == "img\Bash.png") {
@@ -211,22 +315,67 @@ return
 ;         }
 ;     }
 
-; Function that gets called when a change is detected in the trackfile.
+ToggleOnTop:
+    OnTopState := !OnTopState
+    gosub ParseOnTopState
+    IniWrite, %OnTopState%, %inipath%, Tracker, AlwaysOnTop
+return
+
+ParseOnTopState:
+    if (OnTopState) {
+        Gui Main:+AlwaysOnTop
+        Gui Teleporters:+AlwaysOnTop
+    } else {
+        Gui Main:-AlwaysOnTop
+        Gui Teleporters:-AlwaysOnTop
+    }
+return
+
+ToggleCheck:
+return
+
+ToggleTeleporters:
+    TeleporterState := !TeleporterState
+    Menu, %A_ThisMenu%, % TeleporterState ? "Check" : "Uncheck", %A_ThisMenuItem%
+
+    if (TeleporterState) {
+        Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
+    } else {
+        Gui, teleporters:Hide
+    }
+return
+
+OpenSettingsEditor:
+    Run, C:\moon\RandoSettings.exe
+return
+
+#if MouseIsOver("Ori WotW AutoTracker") ; Not fully sure why this matches but it works!
+RButton::
+    Menu, ContextMenu, Show
+    Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
+
+; Function that gets called when a change is detected in one of the files in c:\moon.
 parsechanges(Folder, Changes) {
     For Each, Change In Changes
         If (change.Action == 3 and change.Name == "C:\moon\trackfile.json") {
             update()
         }
-}   
+        if (change.Action == 3 and change.Name == "C:\moon\.currentseedpath") {
+            updateFlags()
+        }
+}
 
 
 update() {
     global skillstate, currentinv, imageBase
     FileRead jsonString, C:\moon\trackfile.json
-    
+    if (ErrorLevel) {
+        MsgBox, 16, Error, There was an error reading the file.
+    }
+
     ; Skip parsing if there are no changes
     if (currentinv == jsonString) {
-;        return
+    ; return
     }
 
     inventory := JSON.Load(jsonString)
@@ -239,9 +388,9 @@ update() {
 
     for skill, i in imageBase {
         if(hasVal(skills, skill)) {
-            if(hasVal(upgraded, skill)) 
+            if(hasVal(upgraded, skill))
                 setIfNew(skill,upgradedImage(skill))
-            else 
+            else
                 setIfNew(skill,unlockedImage(skill))
         }
             else
@@ -249,19 +398,24 @@ update() {
 
     }
 
+    if(hasVal(events, "Clean Water")) {
+        GuiControl, Main:Show, CleanWater
+    } else {
+        GuiControl, Main:Hide, CleanWater
+    }
 
-    For index, event in events
-        if (event == "Clean Water") {
-            GuiControl , Show ,CleanWater
-        }
-
-    GuiControl,, SpiritLight, % Spiritlight
-    GuiControl,, GorlekOre, % GorlekOre
+    GuiControl, Main:, SpiritLight, % Spiritlight
+    GuiControl, Main:, GorlekOre, % GorlekOre
 
     ; Store last inventory to check against with next proc
     currentinv := jsonString
 
 }
+
+updateFlags() {
+    run, OriAutoTracker.ahk ; Very crudely restarting the tracker for now, elegant solution to follow
+}
+
 ; Hover text for each of the items.
 Help(wParam, lParam, Msg) {
     MouseGetPos,,,, OutputVarControl
@@ -308,28 +462,36 @@ Help(wParam, lParam, Msg) {
         Help := "Burrow"
     else IfEqual, HoverText, img\Flap.png
         Help := "Flap"
+    else IfEqual, HoverText, img\Sword.png
+        Help := "Sword | Spirit Edge"
     else IfEqual, HoverText, img\WeaponUpgrade1.png
-        Help := "Ancestral Light"
+        Help := "Ancestral Light | Damage up"
     else IfEqual, HoverText, img\SpiritLight.png
         Help := "Spirit Light"
     else IfEqual, HoverText, img\GorlekOre.png
         Help := "Gorlek Ore"
     else IfEqual, HoverText, img\CompleteWatermillEscape.png
         Help := "Clean Water"
-    
+    else IfEqual, HoverText, img\Wisp.png
+        Help := "Force Wisps"
+    else IfEqual, HoverText, img\SkillTree.png
+        Help := "Force Trees"
+    else IfEqual, HoverText, img\Quest.png
+        Help := "Force Quests"
+
     ToolTip % Help
     SetTimer, DisableTT, -3000
 }
 
 DisableTT:
-    ToolTip, 
-    return
+    ToolTip,
+return
 
 
 setIfNew(skill, image){
     global imageCurr
     if(image != imageCurr[skill]) {
-        GuiControl ,, %skill%, %image%
+        GuiControl, Main:, %skill%, %image%
         imageCurr[skill] := image
     }
 }
@@ -352,7 +514,7 @@ unlockedImage(skill) {
 
 upgradedImage(skill) {
     global imageBase
-    if(skill == "DamageUp") 
+    if(skill == "DamageUp")
         return "img\WeaponUpgrade2_unlocked.png"
     return % imageBase[skill] "_upgrade.png"
 }
@@ -367,6 +529,111 @@ HasVal(haystack, needle) {
     return 0
 }
 
+MouseIsOver(WinTitle) {
+    MouseGetPos,,, Win
+    return WinExist(WinTitle . " ahk_id " . Win)
+}
 
-GuiClose:
+MainGuiClose: ; Exit the app when the main window closes
     ExitApp
+
+; -------------------------------------
+; ColourPicker Subroutines
+; -------------------------------------
+
+ShowColourPicker:
+    Gui, ColourPicker:Show, w351 h105, Colour Picker
+return
+
+EditSub:
+	;Get Values
+	GuiControlGet,Rval,,eR
+	GuiControlGet,Gval,,eG
+	GuiControlGet,Bval,,eB
+	;Set preview
+	gosub set
+	;Make Everything else aware
+	GuiControl, ColourPicker:,uR,%Rval%
+	GuiControl, ColourPicker:,uG,%Gval%
+	GuiControl, ColourPicker:,uB,%Bval%
+	GuiControl, ColourPicker:,sR,%Rval%
+	GuiControl, ColourPicker:,sG,%Gval%
+	GuiControl, ColourPicker:,sB,%Bval%
+return
+
+UpDownSub:
+	;Get Values
+	GuiControlGet,Rval,,uR
+	GuiControlGet,Gval,,uG
+	GuiControlGet,Bval,,uB
+	;Set preview
+	gosub set
+	;Make Everything else aware
+	GuiControl, ColourPicker:,eR,%Rval%
+	GuiControl, ColourPicker:,eG,%Gval%
+	GuiControl, ColourPicker:,eB,%Bval%
+	GuiControl, ColourPicker:,sR,%Rval%
+	GuiControl, ColourPicker:,sG,%Gval%
+	GuiControl, ColourPicker:,sB,%Bval%
+return
+
+SliderSub:
+	;Get Values
+	GuiControlGet,Rval,,sR
+	GuiControlGet,Gval,,sG
+	GuiControlGet,Bval,,sB
+	;Set preview
+	gosub set
+	;Make Everything else aware
+	GuiControl, ColourPicker:,eR,%Rval%
+	GuiControl, ColourPicker:,eG,%Gval%
+	GuiControl, ColourPicker:,eB,%Bval%
+	GuiControl, ColourPicker:,uR,%Rval%
+	GuiControl, ColourPicker:,uG,%Gval%
+	GuiControl, ColourPicker:,uB,%Bval%
+return
+
+set:
+	;Convert values to Hex
+	RGBval:=RGB(Rval,Gval,Bval)
+	;Display Tooltip
+	; ToolTip Red: %Rval%`nGreen: %Gval%`nBlue: %Bval%`nHex: %RGBval%
+	;Make tooltip disappear after 375 ms (3/8th of a second)
+	; SetTimer, RemoveToolTip, 375
+	;Apply colour to preview
+	GuiControl, ColourPicker:+Background%RGBval%,pC
+return
+
+; RemoveToolTip:
+; 	SetTimer, RemoveToolTip, Off ;Turn timer off
+; 	ToolTip ;Turn off tooltip
+; return
+
+ButtonSub:
+	; Remove '0x' prefix from the hex code.
+	StringReplace,RGBval,RGBval,0x
+	; Display Last selected values... (these values can later be used), and Notify the user
+	; MsgBox,64,Simple Color Dialog,RGB: (%Rval%, %Gval%, %Bval%)`nHex: %RGBval%`nCopied to Clipboard!
+    bgcolour := RGBval
+    Gui, Main:Color, %bgcolour%
+    IniWrite, %bgcolour%, %inipath%, Tracker, BackgroundColour
+return
+
+;Function to convert Decimal RGB to Hexadecimal RBG, Note: '0' (zero) padding is unnecessary
+RGB(r, g, b) {
+	;Shift Numbers
+	var:=(r << 16) + (g << 8) + b
+	;Save current A_FormatInteger
+	OldFormat := A_FormatInteger
+	;Set Hex A_FormatInteger mode
+	SetFormat, Integer, Hex
+	;Force decimal number to Hex number
+	var += 0
+	;set original A_FormatInteger mode
+	SetFormat, Integer, %OldFormat%
+	return var
+}
+
+; -------------------------------------
+; End of ColourPicker Subroutines
+; -------------------------------------
