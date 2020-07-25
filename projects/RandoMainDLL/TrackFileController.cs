@@ -16,6 +16,15 @@ namespace RandoMainDLL {
     public HashSet<String> teleporters;
     String trackName(AbilityType type) => ((byte)type > 119 && (byte)type < 122) ? "DamageUp" : type.GetDescription()?.Replace(" ", "") ?? $"{type}";
     public TrackData() {
+      if(TrackFileController.DontTrackYet) {
+        keystones = 0;
+        spiritLight = 0;
+        ore = 0;
+        skills = new HashSet<String>();
+        upgraded = new HashSet<String>();
+        events = new HashSet<String>();
+        teleporters = new HashSet<String>();
+      }
       try {
         keystones = InterOp.get_keystones();
         spiritLight = InterOp.get_experience();
@@ -34,10 +43,13 @@ namespace RandoMainDLL {
   }
 
     public static class TrackFileController {
+    public static bool DontTrackYet = true;
     public static TrackData Last;
     public static int IgnoreUpdateFrames = 0;
     public static string trackFilePath { get { return Randomizer.BasePath + "trackfile.json"; } }
     public static void Update() {
+      if (InterOp.get_game_state() == GameState.Game)
+        DontTrackYet = false;
       if (IgnoreUpdateFrames > 0) {
         IgnoreUpdateFrames--;
         return;
