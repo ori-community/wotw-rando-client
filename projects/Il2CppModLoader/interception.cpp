@@ -119,7 +119,7 @@ namespace modloader
             auto overload_params = i.overload_params.substr(1, i.overload_params.size() - 2);
             trim(overload_params);
 
-            std::vector<Il2CppClass*> klass_params;
+            std::vector<il2cpp::KlassDescriptor> klass_params;
             std::vector<std::string> tokens;
             split_str(overload_params, tokens, ',');
             for (auto const& token : tokens)
@@ -144,17 +144,25 @@ namespace modloader
                     trim(nested);
                     klass = klass.substr(0, i);
                     trim(klass);
-                    klass_params.push_back(il2cpp::get_nested_class(namezpace, klass, nested));
+                    klass_params.push_back(il2cpp::KlassDescriptor{
+                        namezpace,
+                        klass + "." + nested,
+                        il2cpp::get_nested_class(namezpace, klass, nested)
+                    });
                 }
                 else
-                    klass_params.push_back(il2cpp::get_class(namezpace, klass));
+                    klass_params.push_back(il2cpp::KlassDescriptor{
+                        namezpace,
+                        klass,
+                        il2cpp::get_class(namezpace, klass)
+                    });
             }
 
             auto method_info = il2cpp::get_method_from_name(klass, i.method_name, klass_params);
             if (method_info == nullptr)
                 trace(MessageType::Error, 3, "initialize", format("overload '%s(%s)' failed to find.", i.method_name.data(), overload_params.c_str()));
 
-            return method_info->methodPointer;
+            return method_info == nullptr ? nullptr : method_info->methodPointer;
         }
 
         void il2cpp_intercepts()

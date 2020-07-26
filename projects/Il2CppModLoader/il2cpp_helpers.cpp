@@ -30,7 +30,8 @@ namespace il2cpp
         IL2CPP_BINDING(UnityEngine, Object, app::String*, get_name, (app::Object* this_ptr));
 
         IL2CPP_BINDING(UnityEngine, Component, app::GameObject*, get_gameObject, (app::Component* this_ptr));
-
+        
+        IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Transform*, get_transform, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Component*, AddComponent, (app::GameObject* this_ptr, app::Type* type));
@@ -165,6 +166,17 @@ namespace il2cpp
 
     namespace unity
     {
+        app::Transform* get_parent(app::Transform* object)
+        {
+            return Transform::get_parent(object);
+        }
+
+        app::Transform* get_transform(void* object)
+        {
+            auto go = reinterpret_cast<app::GameObject*>(object);
+            return GameObject::get_transform(go);
+        }
+
         std::vector<app::GameObject*> get_children(app::GameObject* game_object)
         {
             std::vector<app::GameObject*> children;
@@ -175,6 +187,13 @@ namespace il2cpp
                     reinterpret_cast<app::Component*>(Transform::GetChild(transform, i))));
 
             return children;
+        }
+
+        app::Type* get_type(std::string_view namezpace, std::string_view name)
+        {
+            auto qualified = get_qualified(namezpace, name);
+            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            return Type::GetType(type_str, false);
         }
 
         std::vector<app::Component*> get_components_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
@@ -225,6 +244,15 @@ namespace il2cpp
 
             auto csstr = Object::get_name(cast_object);
             return convert_csstring(csstr);
+        }
+
+        app::String* get_object_csname(void* object)
+        {
+            auto cast_object = static_cast<app::Object*>(object);
+            if (cast_object == nullptr)
+                return nullptr;
+
+            return Object::get_name(cast_object);
         }
 
         int32_t get_scene_count()
@@ -598,6 +626,77 @@ namespace il2cpp
 
         trace(modloader::MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
             method.data(), params.size(), klass->name));
+
+        trace(modloader::MessageType::Info, 3, "il2cpp", "valid parameters are:");
+        for (auto method_info : info->methods)
+        {
+            std::string params = " - ";
+            for (auto i = 0; i < method_info->parameters_count; ++i)
+            {
+                auto& param = method_info->parameters[i];
+                auto klass = il2cpp_class_from_type(param.parameter_type);
+                params += get_full_name(klass->namespaze, klass->name);
+                params += ", ";
+            }
+
+            trace(modloader::MessageType::Info, 3, "il2cpp", params);
+        }
+
+        return nullptr;
+    }
+
+    MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params)
+    {
+        auto info = get_method_info_internal(klass, method, params.size());
+        if (info == nullptr)
+            return nullptr;
+
+        if (info->methods.size() == 1)
+            return info->methods.front();
+        else
+        {
+            bool first = true;
+            for (auto method_info : info->methods)
+            {
+                auto valid = true;
+                for (auto i = 0; valid && i < method_info->parameters_count; ++i)
+                {
+                    auto& param = method_info->parameters[i];
+                    auto klass_1 = il2cpp_class_from_type(param.parameter_type);
+                    auto& klass_2 = params.at(param.position);
+                    if (klass_2.klass == nullptr)
+                    {
+                        if (klass_1->namespaze != klass_2.namezpace || klass_1->name != klass_2.name)
+                            valid = false;
+                    }
+                    else if (klass_1 != klass_2.klass)
+                        valid = false;
+
+                }
+
+                if (valid)
+                    return method_info;
+            }
+        }
+
+        trace(modloader::MessageType::Error, 3, "il2cpp", format("could not find a method overload for '%s:%d'in klass '%s' that matched parameters",
+            method.data(), params.size(), klass->name));
+
+        trace(modloader::MessageType::Info, 3, "il2cpp", "valid parameters are:");
+        for (auto method_info : info->methods)
+        {
+            std::string params = " - ";
+            for (auto i = 0; i < method_info->parameters_count; ++i)
+            {
+                auto& param = method_info->parameters[i];
+                auto klass = il2cpp_class_from_type(param.parameter_type);
+                params += get_full_name(klass->namespaze, klass->name);
+                params += ", ";
+            }
+
+            trace(modloader::MessageType::Info, 3, "il2cpp", params);
+        }
+
         return nullptr;
     }
 

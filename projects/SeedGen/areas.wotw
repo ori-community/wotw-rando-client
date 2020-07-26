@@ -377,10 +377,7 @@ anchor DenShrine:
 
 anchor HowlsDen.DoubleJumpTreeArea:  # (-555, -4552) At the Double Jump Tree
   pickup HowlsDen.DoubleJumpTree: free
-  pickup HowlsDen.StickyShard:  # mind the breakable wall
-    base:
-      Bash, Grenade=1
-      Launch
+  pickup HowlsDen.StickyShard: free  # origlow
   pickup HowlsDen.DoubleJumpEX:
     base:
       DoubleJump, Bash  # not the most cooperative enemy, which is why there are assisting abilities
@@ -520,8 +517,8 @@ anchor MarshPastOpher.PoolsPathWest:  # (-803, -4187)  Right on top of MarshPast
       Launch, Bash
 
 region MidnightBurrows:
-  base:
-    Danger=25 # kind of a no-op?
+  base: Danger=25 # kind of a no-op?
+  unsafe: free
 
 anchor MidnightBurrows.Teleporter:  # (-945, -4582) At the teleporter
   refill Full
@@ -603,8 +600,8 @@ anchor MidnightBurrows.East:  # (-597, -4549) At the wall connecting to Den
     base: BreakWall=10
 
 region WestHollow:
-  base:
-    Danger=20
+  base: Danger=20
+  unsafe: free
 
 anchor WestHollow.Entrance:  # (-303, -4238) At Twillen
   refill Checkpoint
@@ -755,8 +752,8 @@ anchor WestHollow.DashArea:  # (-88, -4423) To the right of the lever door
   # backwards connections pointless with the lever
 
 region EastHollow:
-  base:
-    Danger=20
+  base: Danger=20
+  unsafe: free
 
 anchor EastHollow.Teleporter:  # (-150, -4238) the teleporter
   refill Full
@@ -884,9 +881,7 @@ anchor EastHollow.AboveDepths:  # (47, -4302) To the right of the lever door blo
 
   pickup EastHollow.BashHC:
     base: Bash OR Launch
-  pickup EastHollow.SplinterShard:
-    base: Bash OR Launch  # Other abilities can get there, but these can also get you out again (just player convenience)
-    unsafe: free
+  pickup EastHollow.SplinterShard: free
   pickup EastHollow.DepthsExteriorEX:
     base: Glide, Launch  # ...what even is intended here?
 
@@ -908,6 +903,20 @@ anchor GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   state GladesTown.CaveEntrance:
     base: GladesTown.ClearThorns, Ore=29
   # decoration not accounted for
+  state GladesTown.RatherPlay:  # talking to the Moki that allows to build decoration
+    base:
+      Flap, Glide
+      Launch
+      TuleyShop.Lightcatchers, Bash:
+        Grenade=1
+        TuleyShop.BlueMoon, Grapple, DoubleJump OR Dash
+        TuleyShop.StickyGrass, Grapple, DoubleJump OR Dash
+        TuleyShop.SpringPlants
+      TuleyShop.SpringPlants, DoubleJump
+      GladesTown.RoofsOverHeads:
+        Bash, Grenade=2
+        TuleyShop.BlueMoon, Grapple, Bash, Grenade=1
+        TuleyShop.SpringPlants, Bash, Grenade=1
 
   # silent woods map quest doesn't exactly make sense
   quest GladesTown.HandToHandPouch:
@@ -926,7 +935,7 @@ anchor GladesTown.Teleporter:  # (-307, -4153) The glades teleporter
   quest GladesTown.IntoTheDarkness:
     base: GladesTown.ClearThorns, GladesTown.AcornQI
   quest GladesTown.RebuildTheGlades:
-    base: Ore=39
+    base: GladesTown.RatherPlay, Ore=39
 
   pickup GladesTown.AboveCaveEX:
     base: GladesTown.ClearThorns
@@ -1149,6 +1158,11 @@ anchor GladesTown.HoleHut:  # (-214, -4111) The ledge below Hole Hut
 anchor GladesTown.ReachPath:  # (-140, -4096) At the soup
   refill Checkpoint
 
+  state GladesTown.RatherPlay:  # talking to the Moki that allows to build decoration
+    base:  # free if you know the whole branch is semisolid, but you probably don't as a base player
+      DoubleJump OR Dash OR Glide OR Launch
+      TuleyShop.BlueMoon, Grapple
+
   quest GladesTown.HandToHandSoup:
     base: InnerWellspring.HandToHandHerbs
 
@@ -1159,14 +1173,13 @@ anchor GladesTown.ReachPath:  # (-140, -4096) At the soup
       Water, Bash, Flap  # seems to be a casual strat the game suggests you to do
       Water, Grenade=1
   pickup GladesTown.UpdraftCeilingEX:
-    base:  # other (non-redundant) paths exist, but these here have free retries, otherwise you'd have to go through entire reach to get another attempt
-      DoubleJump
-      TuleyShop.Lightcatchers, Bash
+    base: DoubleJump  # other (non-redundant) paths exist, but this has free retries, otherwise you'd have to go through entire reach to get another attempt
 
   conn GladesTown.HoleHut:
     base:  # free if you know the whole branch is semisolid, but you probably don't as a base player
-      TuleyShop.SpringPlants OR DoubleJump OR Dash OR Glide OR Launch
-      Bash, Grenade=1
+      DoubleJump OR Dash OR Glide OR Launch
+      TuleyShop.BlueMoon, TuleyShop.SpringPlants, Grapple
+      TuleyShop.BlueMoon, Grapple, Bash, Grenade=1
   conn GladesTown.Teleporter: free
   conn TuleyShop:
     base: InnerWellspring.WaterEscape
@@ -1176,8 +1189,8 @@ anchor GladesTown.ReachPath:  # (-140, -4096) At the soup
       Glide, Launch
 
 region WestGlades:
-  base:
-    Danger=20
+  base: Danger=20
+  unsafe: free
 
 anchor WestGlades.Lower:  # (-545, -4113) The right edge of the first pool past glades
   refill Checkpoint
@@ -1293,8 +1306,8 @@ anchor GladesShrine:
       Danger=30, Launch             # if you're op, nothing's terrifying
 
 region OuterWellspring:
-  base:
-    Danger=25
+  base: Danger=25
+  unsafe: free
 
 anchor OuterWellspring.EntranceDoor:  # (-856, -4058) Outside the door where you enter the first room
   refill Checkpoint
@@ -1463,8 +1476,8 @@ anchor OuterWellspring.TopDoor:  # (-836, -3927) Outside the door leading to the
     base: EnemyObstacle, DoubleJump OR Dash OR Grapple OR Glide OR Launch
 
 region InnerWellspring:
-  base:
-    Danger=25
+  base: Danger=25
+  unsafe: free
 
 anchor InnerWellspring.EntranceDoor:  # (-1263, -3952) Inside the door where you enter the first room
   refill Checkpoint
@@ -1683,8 +1696,8 @@ anchor InnerWellspring.EscapeSequence:
       Grapple, Launch
 
 region WoodsEntry:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor WoodsEntry.ShriekMeet:  # (478, -4205) The ledge to the left of where the mudpits start
   refill Checkpoint
@@ -1761,8 +1774,8 @@ anchor WoodsEntry.TwoKeystoneRoom:  # (672, -4183) In front of the keystone door
     base: RangedWeapon, DoubleJump OR Glide OR Launch
 
 region WoodsMain:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor WoodsMain.BelowFourKeystoneRoom:  # (951, -4209) At the first leaf pile after meeting Ku
   state WoodsEntry.KeystoneDoor:
@@ -1951,8 +1964,8 @@ anchor WoodsShrine:
       Danger=50, Launch
 
 region LowerReach:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor LowerReach.Entry:  # (-390, -4025) Behind Baur
   refill Checkpoint
@@ -2110,8 +2123,8 @@ anchor LowerReach.Teleporter:  # (-259, -3961) This has to exist to support the 
       Launch
 
 region UpperReach:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor UpperReach.KeystoneRoom:  # (-298, -3919) At Tokk
   refill Checkpoint
@@ -2418,8 +2431,8 @@ anchor LowerReach.SnowEscape:
       Bash, Glide, Launch
 
 region UpperDepths:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor UpperDepths.Entry:  # (161, -4340) The little standable ground below the entrance
   pickup UpperDepths.EntrySpikesEX:
@@ -2625,8 +2638,8 @@ anchor UpperDepths.LowerConnection:  # (423, -4475) The firefly egg to the left 
       DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
 
 region LowerDepths:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor LowerDepths.West:  # (322, -4510) At the Moki needing a Lantern
   refill Checkpoint
@@ -2739,8 +2752,8 @@ anchor LowerDepths.TreeArea:  # (776, -4541) The flash tree
       DepthsLight, Dash, Bash OR Grapple
 
 region PoolsApproach:
-  base:
-    Danger=25
+  base: Danger=25
+  unsafe: free
 
 anchor PoolsApproach.MillPathCheckpoint:  # (-826, -4129) The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
   refill Checkpoint
@@ -2846,8 +2859,8 @@ anchor PoolsApproach.LeftOfWheel:  # (-995, -4185) The leftmost platform of the 
     base: Water, WaterDash  # <3
 
 region EastPools:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor EastPools.Entry:  # (-1122, -4166) At the Voice dialogue
   refill Checkpoint
@@ -3004,8 +3017,8 @@ anchor EastPools.Teleporter:  # (-1316, -4153) At the teleporter after draining 
   conn EastPools.TPArea: free
 
 region UpperPools:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor UpperPools.KeystoneRoom:  # (-1540, -4095) Autosave below the two upper left keystones
   refill Checkpoint
@@ -3142,8 +3155,8 @@ anchor UpperPools.BubbleSpamRoom:  # (-1586, -4052) To the right of where all th
     base: free
 
 region WestPools:
-  base:
-    Danger=40, Regenerate
+  base: Danger=40, Regenerate
+  unsafe: free
 
 anchor WestPools:  # (-1656, -4171) the west Pools TP
   refill Full
@@ -3180,8 +3193,8 @@ anchor KwolokFight:
     base: Combat, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
 
 region LowerWastes:
-  base:
-    Danger=50, Regenerate
+  base: Danger=50, Regenerate
+  unsafe: free
 
 anchor LowerWastes.WestTP:  # (1456, -3997) At the Western Wastes TP
   refill Full
@@ -3453,8 +3466,8 @@ anchor LowerWastes.EastTP:  # (1992, -3902) Location of the east teleporter
     base: Burrow, DoubleJump OR Dash OR Launch  # Dash is maybe probably base?
 
 region UpperWastes:
-  base:
-    Danger=50, Regenerate
+  base: Danger=50, Regenerate
+  unsafe: free
 
 anchor UpperWastes.KeystoneRoom:  # (1900, -3831) Autosave underneath keystone door
   refill Checkpoint
@@ -3663,8 +3676,8 @@ anchor WindtornRuins.LowerRuins:  # (1969, -4023) At the ancient map pedestal
     base: Burrow, BreakWall=20
 
 region WeepingRidge:
-  base:
-    Danger=60, Regenerate
+  base: Danger=60, Regenerate
+  unsafe: free
 
 anchor WeepingRidge.Bottom: # (1170, -3820) Just to the right of where the elevator starts
   refill Checkpoint
@@ -3714,8 +3727,8 @@ anchor WeepingRidge.LaunchArea:  # (1189, -3716) After the portal at the top of 
   # backwards connection would be meaningless
 
 region WillowsEnd:
-  base:
-    Danger=60, Regenerate # need at least 6 health and Regen to do ANYTHING in willow
+  base: Danger=60, Regenerate # need more than 6 health and Regen to do ANYTHING in willow
+  unsafe: free
 
 anchor WillowsEnd.Entry:  # (495, -3951) At the lower door
   refill Checkpoint

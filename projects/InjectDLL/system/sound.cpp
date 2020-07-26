@@ -1,6 +1,22 @@
+#include <constants.h>
+#include <dev/object_visualizer.h>
 #include <system/sound.h>
+
+#include <Common/ext.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+
+#include <algorithm>
+#include <chrono>
+#include <fstream>
+#include <queue>
+#include <regex>
+#include <unordered_set>
+#include <unordered_map>
+
+using namespace modloader;
 
 namespace
 {

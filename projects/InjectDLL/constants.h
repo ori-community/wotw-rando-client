@@ -21,3 +21,5 @@ const std::set<app::AbilityType__Enum> tree_abilities{
     app::AbilityType__Enum_DamageUpgradeA,
     app::AbilityType__Enum_DamageUpgradeB,
 };
+
+constexpr double PI = 3.14159265358979323846;

@@ -198,7 +198,7 @@ namespace RandoMainDLL {
       if (SaveController.Data?.OpherSold?.Contains(AbilityType.WaterBreath) ?? false) {
         var b = SaveController.HasAbility(AbilityType.Bash) ? "$" : "";
         var w = SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false ? "$" : "";
-        var l = SaveController.HasAbility(AbilityType.LightBurst) ? "$" : "";
+        var l = SaveController.HasAbility(AbilityType.Flap) ? "$" : "";
         return $"{b}Bash: {BashZone}{b}, {w}Clean Water: {CleanWaterZone}{w}, {l}Flap: {FlapZone}{l}";
       }
       return "";
