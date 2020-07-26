@@ -31,6 +31,7 @@ set(
 	"fixes/dash.cpp"
 	"fixes/deflector.cpp"
 	"fixes/flap.cpp"
+	"fixes/teleporters.cpp"
 	"pickups/pickups.cpp"
 	"pickups/energy_cell.cpp"
 	"pickups/experience.cpp"
