@@ -34,6 +34,7 @@ class UI extends MainFrame {
     val bonusItems: CheckBox = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
     val teleporters: CheckBox = new CheckBox("Teleporters"){selected = startSet.tps}
     val uncheckedPaths: CheckBox = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
+    val randomSpawn: CheckBox = new CheckBox("Random spawn"){enabled = startSet.unsafePaths }
     val swordSpawn: CheckBox = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
     val rain: CheckBox = new CheckBox("Rainy Marsh"){selected = startSet.flags.rain}
     val seirLaunch: CheckBox = new CheckBox("Launch on Seir"){selected = startSet.seirLaunch}

@@ -24,7 +24,11 @@ package SeedGenerator {
       CharsWhileIn(" \t", 0)
     }
     def ts(t: (String, String)): String = t._1 + t._2
-    def equalsNum[_ :P]: P[Int] = P("=" ~ CharsWhileIn("0-9").!.map(_.toInt))
+    def num[_ :P]: P[Int] = P(("-".!.? ~~ CharsWhileIn("0-9").!).map({
+      case (Some(_), digits) => -digits.toInt
+      case (None, digits) => digits.toInt
+    }))
+    def equalsNum[_ :P]: P[Int] = P("=" ~ num)
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq(_))
@@ -69,14 +73,15 @@ package SeedGenerator {
     def refillReq[_:P]: P[(Requirement, Adder)] = P("  refill" ~ (crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))).map(_.swap)//.log
     def refillBlock[_:P]: P[RefillGroup] = P(((refiller ~ endl).? ~~ refillReq.repX(sep=endl, min=1)) | refiller.map(a => (Some(a), Seq()))).map({case (setter, adders) => RefillGroup(setter, adders.toMap)})
     case class Region(prefix: String, req: Requirement)
+    def atParser[_:P]: P[Coords] = P(" at " ~~ num ~~ "," ~~ " ".? ~~ num).map(xy => Coords(xy._1, xy._2))//.log
     def endl[_:P]: P[Unit] = P("\n")
     def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
     def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
     def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req.sortByConsumption)})//.log
     def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req.sortByConsumption)})//.log
     def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req.sortByConsumption)})//.log
-    def area[_:P]: P[Area] = P("anchor" ~/ nameParser ~~ colon ~ endl ~~ (refillBlock ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
-      case (name, refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup(None, Map())))
+    def area[_:P]: P[Area] = P("anchor" ~/ nameParser ~~ atParser.? ~~ colon ~ endl ~~ (refillBlock ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
+      case (name, coords,  refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup(None, Map())), coords)
     }//.log
     def region[_:P]: P[Region] = P("region" ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (prefix, reqs) => Region(prefix, AnyReq(reqs))})
     def regionOrArea[_:P]: P[Either[Region, Area]] = P(NoCut(region) | NoCut(area)).map{
@@ -100,10 +105,7 @@ package SeedGenerator {
       val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
       if(unusedMacros.nonEmpty)
         Config.warn(s"unused macros: $unusedMacros")
-      areas.map({
-        case Area(Area.SPAWN, conns, r) => Area(Area.SPAWN, conns ++ macros, r)
-        case area => area
-      })
+      (areas :+ Area("RequirementMacros", macros, RefillGroup()))
         // find applicable regions
         .map(a => (a, regions.collectFirst({case Region(rName, rReq) if a.name.startsWith(rName) => rReq})))
         // apply their reqs

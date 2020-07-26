@@ -95,7 +95,7 @@ package SeedGenerator {
     override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = Orbs(prior.health, Math.min(inv.orbs.energy, prior.energy + count*10))
   }
 
-  case class RefillGroup(setter: Option[Setter], adders: Map[Requirement, Adder]) {
+  case class RefillGroup(setter: Option[Setter] = None, adders: Map[Requirement, Adder] = Map.empty) {
     def apply(state: GameState, prior: Orbs = Orbs(0, 0)): Orbs = {
       val set = setter.map(_.apply(state.inv, prior)).getOrElse(prior)
       if(set == state.inv.orbs)
@@ -145,9 +145,9 @@ package SeedGenerator {
         case None =>Config.warn(s"$name not in nodes!")
     }
   }
-    case class Area(name: String, _conns: Seq[Connection] = Seq(), refillGroup: RefillGroup) extends Node {
-      // TODO: FIXME
-      val conns: Seq[Connection] = _conns.filter(_.reqs.nonEmpty)
+    case class Coords(x: Int, y: Int)
+    case class Area(name: String, var conns: Seq[Connection] = Seq(), refillGroup: RefillGroup, coords: Option[Coords] = None) extends Node {
+      conns = conns.filter(_.reqs.nonEmpty)
       override val kind: NodeType = AreaNode
       override def reached(curr: GameState, orbs: Orbs): Unit = {
         val orbsAfter = refillGroup(curr, orbs)
@@ -155,7 +155,6 @@ package SeedGenerator {
         Nodes.reachCache(this) = AreaTraversalInfo(orbsAfter, Set()) // no loops
         val didntReach = conns.flatMap({
           case Connection(p @ Placeholder(_, AreaNode), _) if Nodes.reachCache.contains(p.res.asInstanceOf[Area]) => None
-          // TODO: FIXME
           case Connection(target, reqs) =>
             val s = curr + GameState(Inv.Empty, Nodes.states.toSet)
 //            val met2 = reqs.filter(r => r.metBy(s))
@@ -288,6 +287,7 @@ package SeedGenerator {
       }
     }
     def spawn: Area = areas("MarshSpawn.Main")
+    def macros: Area = areas("RequirementMacros")
     val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
     val haveReached: MSet[Node] = MSet.empty[Node]
     val states: MSet[FlagState] = MSet.empty[FlagState]
@@ -305,6 +305,7 @@ package SeedGenerator {
       states.clear()
       var stateCount = 0
       def fullState: GameState  = s.noReached + GameState(Inv.Empty, states.toSet, haveReached.toSet)
+      macros.reached(fullState, s.inv.orbs)
       spawn.reached(fullState, s.inv.orbs)
       do {
         stateCount = states.size
