@@ -3,9 +3,9 @@
 SetWorkingDir, %A_ScriptDir%	; start where we at
 
 ; Reading the settings file and setting variables
-inipath = C:\moon\settings.ini
+inipath = settings.ini
 if not (FileExist(inipath)) {
-    MsgBox, 16, Ori WotW Rando Settings editor - Error, File C:\moon\settings.ini not found!
+    MsgBox, 16, Ori WotW Rando Settings editor - Error, File %A_ScriptDir%\settings.ini not found!
     ExitApp, 1
 }
 
