@@ -1,7 +1,7 @@
 #include <macros.h>
 #include <dll_main.h>
 #include <uber_states/uber_state_manager.h>
- 
+
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -28,6 +28,8 @@ namespace
     bool handling_start = false;
     int cutscene_skips = 0;
     int ignore_count = 0;
+    IL2CPP_BINDING(, ScenesManager, void, LoadScenesAtPosition,
+        (app::ScenesManager* this_ptr, app::Vector3 position, bool async, bool loadingZones, bool keepPreloaded, bool forceLoad, bool loadDependantScenes));
     IL2CPP_BINDING(, SkipCutsceneController, void, SkipCutscene, (app::SkipCutsceneController* this_ptr));
     IL2CPP_BINDING(, SkipCutsceneController, void, SkipPrologue, (app::SkipCutsceneController* this_ptr));
     IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
@@ -73,15 +75,18 @@ namespace
 
         SeinCharacter::FixedUpdate(this_ptr);
     }
-;
+    ;
     IL2CPP_INTERCEPT(, GameStateMachine, void, SetToPrologue, (app::GameStateMachine* this_ptr)) {
         GameStateMachine::SetToPrologue(this_ptr);
         handling_start = true;
         auto controller = il2cpp::get_class<app::SkipCutsceneController__Class>("", "SkipCutsceneController")->static_fields->Instance;
         SkipCutsceneController::SkipPrologue(controller);
         uber_states::set_uber_state_value(21786, 48748, 1);
-        teleport_position = overwrite_start ? start_position : ORIGINAL_START;
-        teleport_state = TeleportState::Teleport;
+        if (overwrite_start)
+            teleport(start_position.x, start_position.y);
+        else
+            teleport(ORIGINAL_START.x, ORIGINAL_START.y);
+
         // I hate this but required for nice looking transition here.
         cutscene_skips += 2;
     }
@@ -93,12 +98,22 @@ namespace
 
         PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
     }
+
+    // Dont cancel loads during teleportation.
+    IL2CPP_INTERCEPT(, ScenesManager, bool , CancelScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* scene)) {
+        if (teleport_state != TeleportState::Teleport)
+            return ScenesManager::CancelScene(this_ptr, scene);
+    
+        return false;
+    }
 }
 
 INJECT_C_DLLEXPORT void teleport(float x, float y)
 {
     teleport_position = { x, y, 0.f };
     teleport_state = TeleportState::Teleport;
+    auto manager = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes")->static_fields->Manager;
+    ScenesManager::LoadScenesAtPosition(manager, teleport_position, true, false, true, false, false);
 }
 
 INJECT_C_DLLEXPORT void set_start_position(float x, float y)
