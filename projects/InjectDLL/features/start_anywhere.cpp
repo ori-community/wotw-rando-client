@@ -7,7 +7,8 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-INJECT_C_DLLEXPORT void teleport(float x, float y);
+INJECT_C_DLLEXPORT void save();
+INJECT_C_DLLEXPORT void teleport(float x, float y, bool wait_for_load);
 
 namespace
 {
@@ -20,7 +21,7 @@ namespace
 
     const app::Vector3 ORIGINAL_START = { -798.797058f, -4310.119141f, 0.f };
     bool overwrite_start = false;
-    app::Vector3 start_position;
+    app::Vector3 start_position = { 1992.240112f, -3902.245361f, 0.f };
 
     TeleportState teleport_state = TeleportState::None;
     app::Vector3 teleport_position;
@@ -63,7 +64,12 @@ namespace
                 modloader::warn("teleport", "failed to refocus camera");
 
             teleport_state = TeleportState::None;
-            handling_start = false;
+            if(handling_start)
+            {
+                save();
+                handling_start = false;
+            }
+
         }
 
         if (cutscene_skips > 0)
@@ -83,9 +89,9 @@ namespace
         SkipCutsceneController::SkipPrologue(controller);
         uber_states::set_uber_state_value(21786, 48748, 1);
         if (overwrite_start)
-            teleport(start_position.x, start_position.y);
+            teleport(start_position.x, start_position.y, true);
         else
-            teleport(ORIGINAL_START.x, ORIGINAL_START.y);
+            teleport(ORIGINAL_START.x, ORIGINAL_START.y, false); // This is already preloaded at this point.
 
         // I hate this but required for nice looking transition here.
         cutscene_skips += 2;
@@ -108,12 +114,12 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void teleport(float x, float y)
+INJECT_C_DLLEXPORT void teleport(float x, float y, bool wait_for_load)
 {
     teleport_position = { x, y, 0.f };
     teleport_state = TeleportState::Teleport;
     auto manager = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes")->static_fields->Manager;
-    ScenesManager::LoadScenesAtPosition(manager, teleport_position, true, false, true, false, false);
+    ScenesManager::LoadScenesAtPosition(manager, teleport_position, !wait_for_load, false, true, false, false);
 }
 
 INJECT_C_DLLEXPORT void set_start_position(float x, float y)
