@@ -42,7 +42,9 @@ namespace RandoMainDLL {
     StopIfEqual = 4,
     StopIfGreater = 5,
     StopIfLess = 6,
-    SetState = 7
+    SetState = 7,
+    Warp = 8,
+    StartingLocation = 9
   }
 
   public enum TeleporterType : byte {
@@ -503,7 +505,7 @@ namespace RandoMainDLL {
     SysState state;
     int value;
 
-    public SetStateCommand(SysCommandType command, SysState state, int value) : base(command) {
+    public SetStateCommand(SysState state, int value) : base(SysCommandType.SetState) {
       this.state = state;
       this.value = value;
     }
@@ -521,6 +523,35 @@ namespace RandoMainDLL {
           //          SeedController.HowlEscapeOverride = value > 0;
           break;
       }
+    }
+  }
+  public class WarpCommand : SystemCommand {
+    float x;
+    float y;
+
+    public WarpCommand(float x, float y) : base(SysCommandType.Warp) {
+      this.x = x;
+      this.y = y;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.teleport(x, y, true);
+    }
+  }
+  public class SetStartCommand : SystemCommand {
+    float x;
+    float y;
+    bool value;
+
+    public SetStartCommand(float x, float y, bool value) : base(SysCommandType.StartingLocation) {
+      this.x = x;
+      this.y = y;
+      this.value = value;
+    }
+    public override void Grant(bool skipBase = false) {
+      if (value)
+        InterOp.set_start_position(x, y);
+      else
+        InterOp.clear_start_position();
     }
   }
 

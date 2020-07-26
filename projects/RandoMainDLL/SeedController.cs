@@ -14,7 +14,8 @@ namespace RandoMainDLL {
     RELOAD_SEED = 1,
     BINDING_ONE = 2,
     BINDING_TWO = 3,
-    BINDING_THREE = 4
+    BINDING_THREE = 4,
+    READ_SEED = 5
   }
   public enum Flag {
     [Description("No Hints")]
@@ -150,6 +151,9 @@ namespace RandoMainDLL {
           AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
           MapController.UpdateReachable();
         }
+
+        // Should only be used for configuration options.
+        PsuedoLocs.READ_SEED.OnCollect();
       } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
@@ -258,7 +262,23 @@ namespace RandoMainDLL {
               }
 
               var value = extras[1].ParseToInt("BuildPickup.Value");
-              return new SetStateCommand(t, (SysState)sysState, value);
+              return new SetStateCommand((SysState)sysState, value);
+            case SysCommandType.Warp:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              var warpX = extras[0].ParseToFloat("BuildPickup.PositionX");
+              var warpY = extras[1].ParseToFloat("BuildPickup.PositionY");
+              return new WarpCommand(warpX, warpY);
+            case SysCommandType.StartingLocation:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              var startX = extras[0].ParseToFloat("BuildPickup.PositionX");
+              var startY = extras[1].ParseToFloat("BuildPickup.PositionY");
+              return new SetStartCommand(startX, startY, true);
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
