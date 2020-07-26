@@ -645,7 +645,8 @@ package SeedGenerator {
                     noHints: Boolean = false,
                     noSword: Boolean = false,
                     rain: Boolean = false,
-                    noKSDoors: Boolean = false
+                    noKSDoors: Boolean = false,
+                    disableGladsTPFix: Boolean = false
                   ) {
     def line: String = {
       Seq(
@@ -655,7 +656,8 @@ package SeedGenerator {
         if(noHints) Some("NoHints") else None,
         if(noSword) Some("NoFreeSword") else None,
         if(rain) Some("RainyMarsh") else None,
-        if(noKSDoors) Some("NoKSDoors") else None
+        if(noKSDoors) Some("NoKSDoors") else None,
+        if(disableGladsTPFix) Some("disableGladsTPFix") else None
       ).flatten match {
         case Nil => ""
         case s => s"Flags: ${s.mkString(", ")}\n"
@@ -671,7 +673,8 @@ package SeedGenerator {
                           flags: Flags = Flags(),
                           bonusItems: Boolean = true,
                           debugInfo: Boolean = false,
-                          seirLaunch: Boolean = false
+                          seirLaunch: Boolean = false,
+                          disableGladsTPFix: Boolean = false
                         )
 
   trait SettingsProvider {

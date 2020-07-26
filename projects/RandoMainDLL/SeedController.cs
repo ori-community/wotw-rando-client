@@ -30,7 +30,9 @@ namespace RandoMainDLL {
     [Description("No Free Sword")]
     NOSWORD,
     [Description("Rainy Marsh")]
-    RAIN
+    RAIN,
+    [Description("Disable Glades TP fix")]
+    NOGLADESTPFIX
   }
 
   public class UberStateCondition {
@@ -104,6 +106,8 @@ namespace RandoMainDLL {
           try {
             if (rawLine.StartsWith("Flags: ")) {
               ProcessFlags(rawLine);
+              if (flags.Contains(Flag.NOGLADESTPFIX))
+                InterOp.set_glades_teleport_fix(false);
               continue;
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();

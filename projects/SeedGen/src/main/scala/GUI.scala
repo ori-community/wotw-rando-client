@@ -40,7 +40,8 @@ class UI extends MainFrame {
     val noKSDoors: CheckBox = new CheckBox("Remove KS doors"){selected = startSet.flags.noKSDoors}
     val forceTrees: CheckBox = new CheckBox("Force Trees"){selected = startSet.flags.forceTrees}
     val forceWisps: CheckBox = new CheckBox("Force Wisps"){selected = startSet.flags.forceWisps}
-    val forceQuests: CheckBox = new CheckBox("Force Quests"){selected =  startSet.flags.forceQuests}
+    val forceQuests: CheckBox = new CheckBox("Force Quests"){selected = startSet.flags.forceQuests}
+    val disableGladsTPFix: CheckBox = new CheckBox("Disable Hollow TP from Glades"){selected = startSet.flags.disableGladsTPFix}
     val seedField      = new TextField(5)
     val makeSeedButton = new Button("Generate")
     val folderButton   = new Button("Change")
@@ -49,7 +50,7 @@ class UI extends MainFrame {
     val logHolder: ScrollPane = new ScrollPane(logView)
     val debugToggle: CheckBox = new CheckBox("Extra Debug Info (contains spoilers)"){selected = startSet.debugInfo}
     listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems,
-      teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, debugToggle)
+      teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, disableGladsTPFix, debugToggle)
     reactions += {
       case ButtonClicked(`makeSeedButton`) => UI.seedClicked()
       case ButtonClicked(`runLastSeed`) => UI.runSeed()
@@ -73,7 +74,7 @@ class UI extends MainFrame {
           Seq(Swing.HGlue,  zoneHints, teleporters, rain, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, swordSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, swordSpawn, disableGladsTPFix, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
 
         contents += new BoxPanel(Orientation.Horizontal) {
@@ -123,7 +124,8 @@ class UI extends MainFrame {
       ui.uncheckedPaths.selected,
       ui.quests.selected,
       ui.folderSelector.selectedFile.getAbsolutePath,
-      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected, !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected),
+      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected,
+        !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected, ui.disableGladsTPFix.selected),
       ui.bonusItems.selected,
       ui.debugToggle.selected,
       ui.seirLaunch.selected
