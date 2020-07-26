@@ -46,13 +46,11 @@ namespace
         // Don't teleport during cutscene skips, causes crashes.
         if (teleport_state == TeleportState::Teleport && cutscene_skips == 0)
         {
-            modloader::console::console_send("called teleport");
             SeinCharacter::set_Position(this_ptr, teleport_position);
             teleport_state = TeleportState::PostTeleport;
         }
         else if (teleport_state == TeleportState::PostTeleport)
         {
-            modloader::console::console_send("called post teleport");
             auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (cameras != nullptr && cameras->static_fields->Current != nullptr)
             {
