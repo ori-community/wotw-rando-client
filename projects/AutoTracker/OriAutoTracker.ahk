@@ -125,7 +125,7 @@ FileInstall, img\WeaponUpgrade1_unlocked.png, img\WeaponUpgrade1_unlocked.png
 FileInstall, img\WeaponUpgrade2.png, img\WeaponUpgrade2.png
 FileInstall, img\WeaponUpgrade2_unlocked.png, img\WeaponUpgrade2_unlocked.png
 FileInstall, img\GorlekOre.png, img\GorlekOre.png
-FileInstall, img\Wips.png, img\Wisp.png
+FileInstall, img\Wisp.png, img\Wisp.png
 FileInstall, img\SkillTree.png, img\SkillTree.png
 FileInstall, img\Quest.png, img\Quest.png
 
