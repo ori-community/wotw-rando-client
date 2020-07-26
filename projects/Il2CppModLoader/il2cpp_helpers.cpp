@@ -703,6 +703,12 @@ namespace il2cpp
     Il2CppObject* invoke_v(void* obj, std::string_view method, std::vector<void*> params)
     {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
+        if (cast_obj == nullptr)
+        {
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("invoked '%s' with nullptr", method.data()));
+            return nullptr;
+        }
+
         Il2CppException* exc = nullptr;
         auto method_info = get_method_from_name_params(cast_obj->klass, method.data(), params);
         if (method_info == nullptr)
@@ -718,6 +724,12 @@ namespace il2cpp
     Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, std::string_view method, std::vector<void*> params)
     {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
+        if (cast_obj == nullptr)
+        {
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("invoked '%s' with nullptr", method.data()));
+            return nullptr;
+        }
+
         Il2CppException* exc = nullptr;
         auto method_info = get_method_from_name_params(base, method.data(), params);
         if (method_info == nullptr)
