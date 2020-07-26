@@ -17,7 +17,7 @@ namespace
 
     // Dont reactivate teleporters we have visited if we for some reason set teleporter uber states to false.
     bool overwrite_is_visited = false;
-    STATIC_IL2CPP_INTERCEPT(, RuntimeGameWorldArea, bool, IsVisited, (app::RuntimeGameWorldArea* this_ptr, app::Vector3 position)) {
+    IL2CPP_INTERCEPT(, RuntimeGameWorldArea, bool, IsVisited, (app::RuntimeGameWorldArea* this_ptr, app::Vector3 position)) {
         if (overwrite_is_visited)
             return false;
 
