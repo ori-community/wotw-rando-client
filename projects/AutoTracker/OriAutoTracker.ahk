@@ -7,7 +7,7 @@ SetBatchLines, -1
 ; TODO Decide on keeping/removing manual toggling
 
 ; Reading the settings file and setting variables
-inipath = C:\moon\settings.ini
+inipath = settings.ini
 IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
 IniRead, bgcolour, %inipath%, Tracker, BackgroundColour, 585858
 IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, 0
@@ -17,7 +17,10 @@ if(launchWithTracker != "false"){
 }
 
 version := "v0.1.5"
-FileRead, seed, C:\moon\.currentseedpath
+global TRACKFILE := A_ScriptDir . "\trackfile.json"
+global SEEDPATH := A_ScriptDir . "\.currentseedpath"
+
+FileRead, seed, .currentseedpath
 
 ; data containers
 imageBase := { "Bash": "img\Bash"
@@ -125,12 +128,12 @@ FileInstall, img\WeaponUpgrade1_unlocked.png, img\WeaponUpgrade1_unlocked.png
 FileInstall, img\WeaponUpgrade2.png, img\WeaponUpgrade2.png
 FileInstall, img\WeaponUpgrade2_unlocked.png, img\WeaponUpgrade2_unlocked.png
 FileInstall, img\GorlekOre.png, img\GorlekOre.png
-FileInstall, img\Wips.png, img\Wisp.png
+FileInstall, img\Wisp.png, img\Wisp.png
 FileInstall, img\SkillTree.png, img\SkillTree.png
 FileInstall, img\Quest.png, img\Quest.png
 
 
-If !WatchFolder("C:\moon", "parsechanges",, 8) {
+If !WatchFolder(A_ScriptDir, "parsechanges",, 8) {
     MsgBox, 0, Error, Error starting the tracker: Call of WatchFolder() failed!
     Return
 }
@@ -346,7 +349,7 @@ ToggleTeleporters:
 return
 
 OpenSettingsEditor:
-    Run, C:\moon\RandoSettings.exe
+    Run, RandoSettings.exe
 return
 
 #if MouseIsOver("Ori WotW AutoTracker") ; Not fully sure why this matches but it works!
@@ -354,13 +357,13 @@ RButton::
     Menu, ContextMenu, Show
     Menu, ContextMenu, % OnTopState ? "Check" : "Uncheck", Always on top
 
-; Function that gets called when a change is detected in one of the files in c:\moon.
+; Function that gets called when a change is detected in one of the files in installation folder.
 parsechanges(Folder, Changes) {
     For Each, Change In Changes
-        If (change.Action == 3 and change.Name == "C:\moon\trackfile.json") {
+        If (change.Action == 3 and change.Name == TRACKFILE) {
             update()
         }
-        if (change.Action == 3 and change.Name == "C:\moon\.currentseedpath") {
+        if (change.Action == 3 and change.Name == SEEDPATH) {
             updateFlags()
         }
 }
@@ -368,9 +371,13 @@ parsechanges(Folder, Changes) {
 
 update() {
     global skillstate, currentinv, imageBase
-    FileRead jsonString, C:\moon\trackfile.json
+
+    if !(FileExist("trackfile.json"))
+        return
+
+    FileRead jsonString, trackfile.json
     if (ErrorLevel) {
-        MsgBox, 16, Error, There was an error reading the file.
+        MsgBox, 16, Error, There was an error reading the tracking file.
     }
 
     ; Skip parsing if there are no changes

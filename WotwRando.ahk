@@ -6,13 +6,9 @@ SetTitleMatchMode, 3            ; require a full match of window name
 #SingleInstance, force
 
 ; script variables (mostly file paths)
-INSTALL_DIR = %A_ScriptDir%
-INI_FILE := INSTALL_DIR . "settings.ini"
-VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
-INJECTOR := INSTALL_DIR . "Injector.exe"
-WOTWREXE := INSTALL_DIR . "WotwRando.exe"
-NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
-DELETEME := INSTALL_DIR . ".deleteme"
+INSTALL_DIR := A_ScriptDir . "\"
+
+gosub SetCommonVariables
 
 ; change this TO THE NAME OF THE NEW SETTING when a new setting is added
 NewSetting := ""
@@ -41,6 +37,7 @@ if not A_IsAdmin
    Run *RunAs "%A_ScriptFullPath%" "%1%" "%2%" "%3%" "%4%"
    ExitApp
 }
+
 ; filecreatedir silent fails if it exists, so we won't bother checking if it's already there
 FileCreateDir %INSTALL_DIR%
 
@@ -88,6 +85,8 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 } else {
     ; installation code
     FileSelectFolder, INSTALL_DIR, ,, Select installation folder for the Ori Randomiser:
+    INSTALL_DIR := INSTALL_DIR . "\"
+    gosub SetCommonVariables
 
     Msgbox 4, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR% ?
     FirstLaunch := True
@@ -142,9 +141,9 @@ if(argc > 0 and seedfile != "")  {
 
     ; if a seedfile was provided as an argument (presumably by doubleclicking),
     ; load it in and launch/highlight the game
-    FileDelete, %INSTALL_DIR%\.currentseedpath
+    FileDelete, %INSTALL_DIR%.currentseedpath
     SplitPath, 1, FileName
-    FileAppend, %1%, %INSTALL_DIR%\.currentseedpath
+    FileAppend, %1%, %INSTALL_DIR%.currentseedpath
     IfWinNotExist, OriAndTheWilloftheWisps
     {
         SplashTextOn,400,, Launching Rando with Seed %FileName%
@@ -174,7 +173,7 @@ ExitApp
 
 PromptAfterInstall:
 SetTimer, ChangeButtonNames, 25 
-Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`nLaunch the randomizer by running %INSTALL_DIR%\WotwRando.exe `n  or by double-clicking a .wotwr file`n`nChange settings using %INSTALL_DIR%\RandoSettings.exe
+Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`nLaunch the randomizer by running %INSTALL_DIR%WotwRando.exe `n  or by double-clicking a .wotwr file`n`nChange settings using %INSTALL_DIR%RandoSettings.exe
 IfMsgBox Cancel
     ExitApp
 IfMsgBox No
@@ -224,6 +223,15 @@ if(NewSetting != "") {
 }
 return
 
+SetCommonVariables:
+INI_FILE := INSTALL_DIR . "settings.ini"
+VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
+INJECTOR := INSTALL_DIR . "Injector.exe"
+WOTWREXE := INSTALL_DIR . "WotwRando.exe"
+NEWWOTWR := INSTALL_DIR . "WotwRando.new.exe"
+DELETEME := INSTALL_DIR . ".deleteme"
+return
+
 ReadIniVals:
 IniRead, SkipUpdate, %INI_FILE%, Flags, SkipUpdate, false
 IniRead, SteamPath, %INI_FILE%, Paths, Steam, C:\Program Files (x86)\Steam\steam.exe
@@ -249,11 +257,10 @@ IniWrite, %ShowLongCutscenes%, %INI_FILE%, Flags, ShowLongCutscenes
 return
 
 ExtractFiles:
-
 TryDelete(INSTALL_DIR . "SeedGen.jar")
 TryDelete(INSTALL_DIR . "RandoSettings.exe")
 TryDelete(INSTALL_DIR . "ItemTracker.exe")
-TryDelete(INJECTOR)
+TryDelete(INSTALL_DIR . "Injector.exe")
 TryDelete(INSTALL_DIR . "RandoMainDLL.dll")
 TryDelete(INSTALL_DIR . "InjectDLL.dll")
 TryDelete(INSTALL_DIR . "InjectLoader.dll")
@@ -263,21 +270,21 @@ TryDelete(INSTALL_DIR . "areas.wotw")
 TryDelete(INSTALL_DIR . "VERSION")
 
 
-FileInstall, RandoMainDLL.dll, %INSTALL_DIR%\RandoMainDLL.dll, 1
-FileInstall, InjectDLL.dll, %INSTALL_DIR%\InjectDLL.dll, 1
-FileInstall, InjectLoader.dll, %INSTALL_DIR%\InjectLoader.dll, 1
-FileInstall, Il2CppModLoader.dll, %INSTALL_DIR%\Il2CppModLoader.dll, 1
-FileInstall, SeedGen.jar, %INSTALL_DIR%\SeedGen.jar, 1
-FileInstall, Injector.exe, %INSTALL_DIR%\%INJECTOR%, 1
-FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%\loc_data.csv, 1
-FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%\areas.wotw, 1
-FileInstall, RandoSettings.exe, %INSTALL_DIR%\RandoSettings.exe, 1
-FileInstall, ItemTracker.exe, %INSTALL_DIR%\ItemTracker.exe, 1
-FileInstall, VERSION, %INSTALL_DIR%\VERSION, 1
+FileInstall, RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
+FileInstall, InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
+FileInstall, InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
+FileInstall, Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
+FileInstall, SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
+FileInstall, Injector.exe, %INSTALL_DIR%Injector.exe, 1
+FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
+FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
+FileInstall, RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
+FileInstall, ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
+FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
-    FileCopy, %A_ScriptFullPath%, %WOTWREXE%
+    FileCopy, %A_ScriptFullPath%, %INSTALL_DIR%WotwRando.exe
 Else
-    FileCopy WotwRando.exe, %WOTWREXE%
+    FileCopy WotwRando.exe, %INSTALL_DIR%WotwRando.exe
 return
 
 CheckForUpdates:
