@@ -1,12 +1,15 @@
+#include <macros.h>
+
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {
+    bool glades_tp_fix = true;
     STATIC_IL2CPP_INTERCEPT(, SavePedestalController, void, Activate, (app::String* identifier)) {
         auto test = il2cpp::convert_csstring(identifier);
         // Glades teleporter weirdness.
-        if (test == "kwoloksCavernSaveRoomA")
+        if (glades_tp_fix && test == "kwoloksCavernSaveRoomA")
             return;
 
         SavePedestalController::Activate(identifier);
@@ -27,4 +30,9 @@ namespace
         overwrite_is_visited = false;
         return ret;
     }
+}
+
+INJECT_C_DLLEXPORT void set_glades_teleport_fix(bool value)
+{
+    glades_tp_fix = value;
 }
