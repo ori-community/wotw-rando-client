@@ -4,7 +4,6 @@ import SeedGenerator._
 import org.json4s._
 import org.json4s.native.Serialization
 
-import scala.collection.mutable.{Map => MMap}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.io.Source
@@ -62,11 +61,10 @@ class UI extends MainFrame {
           folderLabel.text = s"Output folder:   ${UI.outputFolder.getPath}"
         }
         UI.writeSettings()
-      case ButtonClicked(`uncheckedPaths`) => {
+      case ButtonClicked(`uncheckedPaths`) =>
         randomSpawn.enabled = uncheckedPaths.selected
         randomSpawn.selected = randomSpawn.selected && uncheckedPaths.selected
         UI.writeSettings()
-      }
       case ButtonClicked(_) => UI.writeSettings()
     }
 
@@ -138,14 +136,7 @@ class UI extends MainFrame {
       ui.debugToggle.selected,
       ui.seirLaunch.selected
     )
-    def getPreplcs: MMap[ItemLoc, Placement] = {
-      if(ui.seirLaunch.selected) {
-        val seir = Nodes.items("WindtornRuins.Seir")
-        MMap(seir -> ItemPlacement(Launch, seir))
-      } else
-        MMap()
-    }
-    val settingsPath = if(new File("SeedGenSettings.json").exists()) "SeedGenSettings.json" else "C:/moon/SeedGenSettings.json"
+    val settingsPath: String = if(new File("SeedGenSettings.json").exists()) "SeedGenSettings.json" else "C:/moon/SeedGenSettings.json"
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def writeSettings(): Unit = {
       val bw = new FileWriter(settingsPath)
