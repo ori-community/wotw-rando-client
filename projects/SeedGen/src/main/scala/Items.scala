@@ -161,13 +161,13 @@ package SeedGenerator {
     val itemType: Int = 5
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
-    override val cost: Double = Teleporter.costs.getOrElse(teleporterId, 4d)
+    override val cost: Double = Math.max(4d + (if(Config().flags.randomSpawn) 11 else 0), Teleporter.costs.getOrElse(teleporterId, 0))
   }
 
   object Teleporter {
     val itemType: Int = 5
     val costs: Map[Int, Double] = Map(3 -> 14, 11->10)
-    val areaFileNames = Map("BurrowsTP" -> 0, "DenTP" -> 1, "EastPoolsTP" -> 2, "WellspringTP" -> 3, "ReachTP" -> 4, "HollowTP" -> 5, "DepthsTP" -> 6, "WestWoodsTP" -> 7, "EastWoodsTP" -> 8, "WestWastesTP" -> 9, "EastWastesTP" -> 10, "OuterRuinsTP" -> 11, "WillowTP" -> 12, "Willow'sEndTP" -> 12, "WestPoolsTP" -> 13, "InnerRuinsTP" -> 14, "GladesTP" -> 17)
+    val areaFileNames = Map("BurrowsTP" -> 0, "DenTP" -> 1, "EastPoolsTP" -> 2, "WellspringTP" -> 3, "ReachTP" -> 4, "HollowTP" -> 5, "DepthsTP" -> 6, "WestWoodsTP" -> 7, "EastWoodsTP" -> 8, "WestWastesTP" -> 9, "EastWastesTP" -> 10, "OuterRuinsTP" -> 11, "WillowTP" -> 12, "Willow'sEndTP" -> 12, "WestPoolsTP" -> 13, "InnerRuinsTP" -> 14, "MarshTP"->16, "GladesTP" -> 17)
     val names: Map[Int, String] = Map(
       0 -> "Burrows",
       1 -> "Den",
@@ -188,7 +188,7 @@ package SeedGenerator {
       16 -> "Marsh",
       17 -> "Glades"
     )
-    def poolItems: Seq[Teleporter] = if(Config().tps) names.keys.withFilter(!Seq(13, 14, 15, 16).contains(_)).map(Teleporter(_)).toSeq else Nil
+    def poolItems: Seq[Teleporter] = if(Config().tps) names.keys.withFilter(!Seq(13, 14, 15).contains(_)).map(Teleporter(_)).filterNot(_ == Nodes.spawnTP).toSeq else Nil
   }
 
   // fake inventory items

@@ -34,7 +34,10 @@ class UI extends MainFrame {
     val bonusItems: CheckBox = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
     val teleporters: CheckBox = new CheckBox("Teleporters"){selected = startSet.tps}
     val uncheckedPaths: CheckBox = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
-    val randomSpawn: CheckBox = new CheckBox("Random spawn"){enabled = startSet.unsafePaths }
+    val randomSpawn: CheckBox = new CheckBox("Random spawn"){
+      enabled = startSet.unsafePaths
+      selected = startSet.flags.randomSpawn
+    }
     val swordSpawn: CheckBox = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
     val rain: CheckBox = new CheckBox("Rainy Marsh"){selected = startSet.flags.rain}
     val seirLaunch: CheckBox = new CheckBox("Launch on Seir"){selected = startSet.seirLaunch}
@@ -42,7 +45,6 @@ class UI extends MainFrame {
     val forceTrees: CheckBox = new CheckBox("Force Trees"){selected = startSet.flags.forceTrees}
     val forceWisps: CheckBox = new CheckBox("Force Wisps"){selected = startSet.flags.forceWisps}
     val forceQuests: CheckBox = new CheckBox("Force Quests"){selected = startSet.flags.forceQuests}
-    val disableGladsTPFix: CheckBox = new CheckBox("Disable Hollow TP from Glades"){selected = startSet.flags.disableGladsTPFix}
     val seedField      = new TextField(5)
     val makeSeedButton = new Button("Generate")
     val folderButton   = new Button("Change")
@@ -51,7 +53,7 @@ class UI extends MainFrame {
     val logHolder: ScrollPane = new ScrollPane(logView)
     val debugToggle: CheckBox = new CheckBox("Extra Debug Info (contains spoilers)"){selected = startSet.debugInfo}
     listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems,
-      teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, disableGladsTPFix, debugToggle)
+      teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, randomSpawn, debugToggle)
     reactions += {
       case ButtonClicked(`makeSeedButton`) => UI.seedClicked()
       case ButtonClicked(`runLastSeed`) => UI.runSeed()
@@ -60,6 +62,11 @@ class UI extends MainFrame {
           folderLabel.text = s"Output folder:   ${UI.outputFolder.getPath}"
         }
         UI.writeSettings()
+      case ButtonClicked(`uncheckedPaths`) => {
+        randomSpawn.enabled = uncheckedPaths.selected
+        randomSpawn.selected = randomSpawn.selected && uncheckedPaths.selected
+        UI.writeSettings()
+      }
       case ButtonClicked(_) => UI.writeSettings()
     }
 
@@ -75,7 +82,7 @@ class UI extends MainFrame {
           Seq(Swing.HGlue,  zoneHints, teleporters, rain, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, swordSpawn, disableGladsTPFix, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, swordSpawn, randomSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
 
         contents += new BoxPanel(Orientation.Horizontal) {
@@ -126,7 +133,7 @@ class UI extends MainFrame {
       ui.quests.selected,
       ui.folderSelector.selectedFile.getAbsolutePath,
       Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected,
-        !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected, ui.disableGladsTPFix.selected),
+        !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected, ui.randomSpawn.selected && ui.uncheckedPaths.selected),
       ui.bonusItems.selected,
       ui.debugToggle.selected,
       ui.seirLaunch.selected
