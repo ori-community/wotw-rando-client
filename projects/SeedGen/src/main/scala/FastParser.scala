@@ -105,17 +105,17 @@ package SeedGenerator {
       val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
       if(unusedMacros.nonEmpty)
         Config.warn(s"unused macros: $unusedMacros")
-      (areas :+ Area("RequirementMacros", macros, RefillGroup()))
+      (areas :+ Area("RequirementMacros", macros, RefillGroup(), None))
         // find applicable regions
         .map(a => (a, regions.collectFirst({case Region(rName, rReq) if a.name.startsWith(rName) => rReq})))
         // apply their reqs
         .map({
           case (area, Some(req)) =>
 //              println(s"adding $req to paths in ${area.name}")
-            area.name -> Area(area.name, area.conns.map({
+            area.name -> area.copy(conns = area.conns.map({
               case Connection(target, r)  => Connection(target, r.map(_ and req))
               case c => c
-            }), area.refillGroup)
+            }))
           case (area, None) => area.name -> area
         }).toMap
     }
