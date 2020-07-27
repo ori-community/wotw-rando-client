@@ -343,7 +343,7 @@ package SeedGenerator {
         val i = s(r.nextInt(s.size))
         if(i.cost >= 10d) {
             // reroll expensive items %[placed] of the time
-            if(r.nextFloat() > count/ItemPool.SIZE)
+            if(r.nextFloat() > (count.toFloat/ItemPool.SIZE.toFloat))
               return popRand
         }
         take(i)
