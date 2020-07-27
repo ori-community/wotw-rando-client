@@ -381,8 +381,9 @@ package SeedGenerator {
       } else
         (fullState, plcs)
     }
-    def getProgressionPaths(instate: GameState, spaceRemaining: Int = 999)(implicit pool: Inv): MSet[(GameState, Set[ItemLoc])] = {
+    def getProgressionPaths(instate: GameState, spaceRemaining: Int = 999)(implicit pool: Inv): MSet[(GameState, Set[Node])] = {
       val items = instate.items
+      val currFlags = instate.flags.map{case FlagState(f) => WorldStateNode(f)}
       val states = MSet.empty[GameState]
       reachCache.foreach { case (area, AreaTraversalInfo(_, targets)) => area.conns.filter(c => targets.contains(c.target.res)).foreach(_.reqs.foreach(r => {
         r.remaining(instate, space = spaceRemaining).filter(s => s.inv.nonEmpty).foreach(s => states.add(s.invOnly))
@@ -391,7 +392,14 @@ package SeedGenerator {
       val paths = states
         .filterNot(_.inv.count > spaceRemaining)
         .filter(_.inv.forall({case (i, c) => pool.has(i, c)}))
-        .map(i => i -> (Nodes.reached(instate + i, true)._1.items -- items)).filter(_._2.nonEmpty)
+        .map(i => {
+
+          val (outState, _) = Nodes.reached(instate + i, theoretical = true)
+          i ->  (outState.reached.collect[Node]{
+            case i: ItemLoc => i
+            case w: WorldStateNode => w
+          } -- items -- currFlags)
+        }).filter(_._2.nonEmpty)
       val singles = paths.filter(_._1.inv.count == 1).map(_._1.inv.head._1)
       paths.filterNot {
         case (st, _) => st.inv.count > 1 && singles.exists(st.inv.has(_))
