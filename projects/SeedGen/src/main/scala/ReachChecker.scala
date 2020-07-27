@@ -1,9 +1,16 @@
 import scala.collection.mutable.{Map => MMap}
+import scala.io.Source
+import scala.util.matching.Regex
+import org.json4s.native.Serialization
+import org.json4s.{Formats, NoTypeHints}
 package SeedGenerator {
   import implicits._
 
-  import scala.util.matching.Regex
+  import scala.util.Try
+
   object ReachChecker {
+    var doingReachCheck = false
+    val cfg: Regex         = """(?i)(?:seed|seedfile|seedpath)=(.*)""".r
     val health: Regex      = """(?i)(?:health|h|hp)=([0-9]+)""".r
     val energy: Regex      = """(?i)(?:energy|e|mana)=([0-9]+)""".r
     val ore: Regex         = """(?i)(?:ore|o)=([0-9]+)""".r
@@ -19,12 +26,23 @@ package SeedGenerator {
     def mkTp(s: String): Option[(Teleporter, Int)] = tps.get(s.toLowerCase).map(Teleporter(_) -> 1)
     def mkEvent(s: String): Option[(WorldEvent, Int)] = events.get(s.toLowerCase).map(WorldEvent(_) -> 1)
     def apply(args: Seq[String]): Unit = {
-
+      doingReachCheck = true
       if(args.head == "ReachCheck") {
         fromGame(args)
       } else {
         val st = GameState(new Inv(
           args.flatMap({
+            case cfg(path)        =>
+              Config.settingsProvider = Try {
+                val inFile = Source.fromFile(path)
+                val configsRaw = inFile.getLines().toSeq.last.replace("// Config: ", "")
+                implicit val formats: Formats = Serialization.formats(NoTypeHints)
+                Serialization.read[GenSettings](configsRaw)
+              }.toOption.getOrElse({
+                Config.error(s"Error reading config from $path")
+                GenSettings()
+              })
+              None
             case health(amt)      => amt.toIntOption.map(Health -> _)
             case energy(amt)      => amt.toIntOption.map(Energy -> _)
             case ore(amt)         => amt.toIntOption.map(Ore -> _)
@@ -50,14 +68,24 @@ package SeedGenerator {
     }
 
     def fromGame(args: Seq[String]): Unit = {
-      Config.logger = FileLogger("""C:\moon\reach_log.txt""", enabled = Seq(WARN, ERROR))
-      val hp = args(1).toInt / 5
-      val en = args(2).toInt / 5
-      val ks = args(3).toInt
-      val ore = args(4).toInt
-      val sl = args(5).toInt
+      Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
+      val seedFile = args(1)
+      Config.settingsProvider = Try {
+        val inFile = Source.fromFile(seedFile)
+        val configsRaw = inFile.getLines().toSeq.last.replace("// Config: ", "")
+        implicit val formats: Formats = Serialization.formats(NoTypeHints)
+        Serialization.read[GenSettings](configsRaw)
+      }.toOption.getOrElse({
+        Config.error(s"Error reading config from $seedFile")
+        GenSettings()
+      })
+      val hp = args(2).toInt / 5
+      val en = args(3).toInt / 5
+      val ks = args(4).toInt
+      val ore = args(5).toInt
+      val sl = args(6).toInt
       val st = GameState(new Inv((Health, hp), (Energy, en), (Keystone, ks), (Ore, ore), (SpiritLight(sl), 1))
-        + new Inv(args.drop(6).flatMap {
+        + new Inv(args.drop(7).flatMap {
         case s if s.startsWith("s:")  => s.stripPrefix("s:").toIntOption.map(Skill(_)->1)
         case s if s.startsWith("t:")  => s.stripPrefix("t:").toIntOption.map(Teleporter(_)->1)
         case s if s.startsWith("w:")  => s.stripPrefix("w:").toIntOption.map(WorldEvent(_)->1)

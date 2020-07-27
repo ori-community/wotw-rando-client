@@ -4,6 +4,8 @@ import scala.collection.mutable.{ListBuffer => MList, Map => MMap, Set => MSet}
 import scala.io.Source
 import scala.language.implicitConversions
 import scala.util.{Random, Try}
+import org.json4s.native.Serialization
+import org.json4s.{Formats, NoTypeHints}
 
 package SeedGenerator {
 
@@ -27,7 +29,6 @@ package SeedGenerator {
       implicit val r: Random = new Random()
     }
     import SeedGenerator.implicits._
-
     import scala.language.postfixOps
 
     case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
@@ -45,7 +46,7 @@ package SeedGenerator {
   object LocData {
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
-      val path = if(new File("areas.wotw").exists()) "loc_data.csv" else "C:\\moon\\loc_data.csv"
+      val path = if(new File("loc_data.csv").exists()) "loc_data.csv" else "C:\\moon\\loc_data.csv"
       val pickupsFile = Source.fromFile(path)
       Config.debug(s"Loading loc_data from $path")
       val pickups = pickupsFile.getLines.flatMap {
@@ -280,7 +281,7 @@ package SeedGenerator {
         if(areaName == "MarshSpawn.Main")
           return ""
         val Coords(x, y) = area.coords.get
-        s"Spawn: $x, $y        // $areaName\n3|0|6|Spawning with:|f=420\n"
+        s"Spawn: $x, $y        // $areaName\n\n" + (if(spawnSlots > 0) "3|0|6|Spawning with:|f=420\n\n" else "")
       }
 
     }
@@ -607,7 +608,10 @@ package SeedGenerator {
 
   case class Seed(grps: Seq[PlacementGroup], error: Option[GeneratorError]) {
     def built: Boolean = error.isEmpty && grps.last.done
-    def seed: String = Config().header + grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n").replace("\n", "\r\n")
+    def seed: String = (Config().header +
+        grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n") +
+        s"\n// Config: ${Config().toJson}"
+      ).replace("\n", "\r\n")
     def spoiler: String = grps.map(grp => grp.desc(true)).mkString("\n").replace("\n", "\r\n")
     def desc(standalone: Boolean = false): String = grps.map(grp => if(standalone) grp.desc(standalone) else grp.desc(standalone).replace("\n", "")).mkString("\n")
 
@@ -719,10 +723,18 @@ package SeedGenerator {
                           bonusItems: Boolean = true,
                           debugInfo: Boolean = false,
                           seirLaunch: Boolean = false,
-                        ) {
+                        ) extends SettingsProvider {
     def header: String = {
       flags.line + (if(flags.randomSpawn) Nodes._spawn.line else "")
     }
+    implicit val formats: Formats = Serialization.formats(NoTypeHints)
+    def toJson: String = {Serialization.write(this)}
+    override def apply(): GenSettings = this
+    override def getPreplcs: MMap[ItemLoc, Placement] = if(this.seirLaunch) {
+      val seir = Nodes.items("WindtornRuins.Seir")
+      MMap(seir -> ItemPlacement(Launch, seir))
+    } else
+      MMap()
   }
 
   trait SettingsProvider {
@@ -758,7 +770,7 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
 
   object DefaultSettingsProvider extends SettingsProvider {
     def apply(): GenSettings = GenSettings()
-    def getPreplcs: MMap[ItemLoc, Placement] = MMap()
+    def getPreplcs: MMap[ItemLoc, Placement] = apply().getPreplcs
   }
 
   object Config extends SettingsProvider with Logger {

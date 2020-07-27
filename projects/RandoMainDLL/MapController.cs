@@ -23,6 +23,7 @@ namespace RandoMainDLL {
           "-jar",
           @"C:\\moon\\SeedGen.jar ",
           "ReachCheck",
+          SeedController.SeedFile,
           $"{InterOp.get_max_health()}",
           $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
           $"{UberGet.value(6, 0).Int}",
