@@ -41,7 +41,7 @@ FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
 FileRead, MY_VER, %INSTALL_DIR%.VERSION
 
 ; check for an existing installation by seeing if
-; there's a VERSION file in the install directory
+; there's a VERSION  file in the install directory
 if(FileExist(INSTALL_DIR . "VERSION")) {
     FileRead, INSTALL_VER, %INSTALL_DIR%VERSION
     ; check if this exe is a newer version from the one installed
@@ -79,27 +79,16 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     FileDelete, %INSTALL_DIR%.VERSION
 } else {
     ; installation code
-    FileSelectFolder, INSTALL_DIR, ,, Select installation folder for the Ori Randomiser:
-    if (ErrorLevel == 1)
-    {
-        gosub ExitInstaller
-    }
-    INSTALL_DIR := INSTALL_DIR . "\"
-
-    gosub SetCommonVariables
-
-    Msgbox 4, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR% ?
+    
+    gosub AskForInstallPath ; Asks the user for the install path, sets a number of file paths accordingly and shows a confirmation box.
+    
     FirstLaunch := True
-    IfMsgBox No
-    {
-        gosub ExitInstaller
-    }
 
     gosub, WriteIniDefaults
     winStoreOri:=ComObjCreate("WScript.Shell").Exec("powershell -command  foreach ($app in get-AppxPackage) { if($app.Name -eq 'Microsoft.Patagonia') { echo yes } } ").StdOut.ReadAll()
     if(InStr(winStoreOri, "yes")) {
         Msgbox 4, Ori WOTW Randomizer Installer, Windows Store version of WotW found. `nInstall Wotw Rando for windows store?
-        IfMsgBox Yes
+        IfMsgBox, Yes
         {
             WinStore := "true"
             IniWrite, %WinStore%, %INI_FILE%, Flags, UseWinStore
@@ -174,9 +163,9 @@ ExitApp
 PromptAfterInstall:
 SetTimer, ChangeButtonNames, 25 
 Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`nLaunch the randomizer by running %INSTALL_DIR%WotwRando.exe `n  or by double-clicking a .wotwr file`n`nChange settings using %INSTALL_DIR%RandoSettings.exe
-IfMsgBox Cancel
+IfMsgBox, Cancel
     ExitApp
-IfMsgBox No
+IfMsgBox, No
     RunWait, %INSTALL_DIR%RandoSettings.exe
 Return
 
@@ -193,7 +182,7 @@ return
 CheckSteamPath:
 if(not FileExist(SteamPath)) {
         Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. `nLocate manually?
-        IfMsgBox No
+        IfMsgBox, No
     {
         Msgbox Exiting; install incomplete
         ExitApp
@@ -227,6 +216,26 @@ ExitInstaller:
 Msgbox The installer will now exit without installing
 ExitApp
 
+AskForInstallPath:
+FileSelectFolder, INSTALL_DIR, ,, Select installation folder for the Ori Randomiser:
+if (ErrorLevel == 1)
+{
+    gosub ExitInstaller
+}
+INSTALL_DIR := INSTALL_DIR . "\"
+gosub SetCommonVariables
+
+Msgbox 3, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR%? `n Press No to change the install path.
+
+IfMsgBox, No
+{
+    gosub AskForInstallPath
+}
+IfMsgBox, Cancel
+{
+    gosub ExitInstaller
+}
+return
 
 SetCommonVariables:
 batch=
