@@ -35,10 +35,6 @@ namespace
         return true;
     }
 
-    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* thisPtr)) {
-        return RuntimeWorldMapIcon::CanBeTeleportedTo(thisPtr) || csharp_bridge::tp_to_any_pickup();
-    }
-
     extern "C" __declspec(dllexport)
     bool discover_everything() {
 	    if (game_world_instance)
