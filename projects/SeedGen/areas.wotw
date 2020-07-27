@@ -13,11 +13,8 @@ requirement ShieldEnemyObstacle:  # getting past a shielded enemy
     Hammer OR Bash OR Launch
 
 requirement Combat:  # engaging in longer combat sequences
-  base:
-    Regenerate, Sword OR Hammer  # define danger when using this!
-  unsafe:
-    Sword OR Hammer
-    Launch
+  base: Regenerate, Sword OR Hammer  # define danger when using this!
+  unsafe: Sword OR Hammer
 
 requirement RangedWeapon:
   base: Grenade=1 OR Bow=1 OR Spear=1
