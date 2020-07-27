@@ -1,17 +1,31 @@
+#include <dll_main.h>
 #include <macros.h>
 #include <uber_states/uber_state_manager.h>
 
+#include <Common/ext.h>
+#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
+using namespace modloader;
+
 namespace
 {
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
     STATIC_IL2CPP_INTERCEPT(, SavePedestalController, void, Activate, (app::String* identifier)) {
         auto test = il2cpp::convert_csstring(identifier);
         // Glades teleporter weirdness.
-        if (test == "kwoloksCavernSaveRoomA" &&
-            uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 0) > 0.5f)
-            return;
+        if (test == "kwoloksCavernSaveRoomA")
+        {
+            auto position = SeinCharacter::get_Position(get_sein());
+            if (position.x < -295 && position.x > -322 && position.y < -4130 && position.y > -4160)
+            {
+                // We are in glades TP, activate that one instead.
+                uber_states::set_uber_state_value(42178, 42096, 1);
+                if (uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 0) > 0.5f)
+                    return;
+            }
+        }
 
         SavePedestalController::Activate(identifier);
     }
@@ -26,7 +40,7 @@ namespace
     }
 
     STATIC_IL2CPP_INTERCEPT(, SavePedestalController, bool, IsTeleporterActiveAtMapPosition, (app::Vector2 position)) {
-        overwrite_is_visited = true;
+        overwrite_is_visited = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 1) > 0.5f;
         auto ret = SavePedestalController::IsTeleporterActiveAtMapPosition(position);
         overwrite_is_visited = false;
         return ret;
