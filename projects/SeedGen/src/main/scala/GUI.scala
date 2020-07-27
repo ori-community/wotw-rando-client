@@ -145,11 +145,11 @@ class UI extends MainFrame {
       } else
         MMap()
     }
-    val settingsPath = "C:/moon/SeedGenSettings.json"
+    val settingsPath = if(new File("SeedGenSettings.json").exists()) "SeedGenSettings.json" else "C:/moon/SeedGenSettings.json"
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def writeSettings(): Unit = {
       val bw = new FileWriter(settingsPath)
-      bw.write(Serialization.write(this()))
+      bw.write(this().toJson)
       bw.close()
     }
     def readSettings: Option[GenSettings] = Try {
