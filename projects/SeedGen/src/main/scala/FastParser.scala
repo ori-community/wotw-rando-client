@@ -3,6 +3,7 @@ import java.io.{BufferedWriter, FileWriter}
 import scala.io.Source
 import java.io.File
 import SeedGenerator.implicits._
+import scala.collection.mutable.{Map=>MMap}
 package SeedGenerator {
   trait ParseError
 
@@ -45,7 +46,10 @@ package SeedGenerator {
     def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
     def diffReq[_ :P]: P[Requirement] = P("base" | "unsafe").!.map({case "base" => Free; case "unsafe" => if(Config().unsafePaths) Free else Invalid})
-    def stateReq[_:P]: P[Requirement] = P(nameParser).map(StateReq)
+    def stateReq[_:P]: P[Requirement] = P(nameParser).map({
+      case s if knownMacros.contains(s) => knownMacros(s)
+      case s => StateReq(s)
+    })
     def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | dangerReq | ksReq | cashReq | wallReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
@@ -75,11 +79,11 @@ package SeedGenerator {
     case class Region(prefix: String, req: Requirement)
     def atParser[_:P]: P[Coords] = P(" at " ~~ num ~~ "," ~~ " ".? ~~ num).map(xy => Coords(xy._1, xy._2))//.log
     def endl[_:P]: P[Unit] = P("\n")
-    def reqMacro[_:P]: P[Connection] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
-    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req.sortByConsumption)})//.log
-    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req.sortByConsumption)})//.log
-    def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req.sortByConsumption)})//.log
-    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req.sortByConsumption)})//.log
+    def reqMacro[_:P]: P[Unit] = P("requirement " ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (name, req) => knownMacros(name) = AnyReq(req)})//.log
+    def state[_:P]: P[Connection] = P("  state" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(WorldStateNode(name), req)})//.log
+    def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)})//.log
+    def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req)})//.log
+    def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)})//.log
     def area[_:P]: P[Area] = P("anchor" ~/ nameParser ~~ atParser.? ~~ colon ~ endl ~~ (refillBlock ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
       case (name, coords,  refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup(None, Map())), coords)
     }//.log
@@ -88,8 +92,8 @@ package SeedGenerator {
       case r: Region => Left(r)
       case a: Area => Right(a)
     }
-    def macroSection[_:P]: P[Seq[Connection]] = reqMacro.rep(1, sep=endl)
-    def file[_:P]: P[(Seq[Connection], Seq[Either[Region, Area]])] = P(endl ~ NoCut(macroSection) ~ endl ~ regionOrArea.rep(sep=endl) ~ endl ~ End)
+    def macroSection[_:P]: P[Unit] = reqMacro.rep(1, sep=endl)
+    def file[_:P]: P[Seq[Either[Region, Area]]] = P(endl ~ NoCut(macroSection) ~ endl ~ regionOrArea.rep(sep=endl) ~ endl ~ End)
     def input: String = {
       val path = if(new File("areas.wotw").exists()) "areas.wotw" else "C:\\moon\\areas.wotw"
       val src = Source.fromFile(path)
@@ -99,13 +103,13 @@ package SeedGenerator {
       "\n *(?=\n)".r.replaceAllIn(" *#[^\n]*".r.replaceAllIn(raw,""), "")
     }
 
-    def validator(macros: Seq[Connection], areasAndRegions: Seq[Either[Region, Area]]): Map[String, Area] = Timer("validator"){
+    def validator(areasAndRegions: Seq[Either[Region, Area]]): Map[String, Area] = Timer("validator"){
       val (regions, areas) = areasAndRegions.partitionMap(a => a)
       def stateReqs(areas: Seq[Area]) = areas.flatMap(_.conns.flatMap(_.reqs.flatMap(_.children.collect({case r: StateReq => r}))))
-      val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
-      if(unusedMacros.nonEmpty)
-        Config.warn(s"unused macros: $unusedMacros")
-      (areas :+ Area("RequirementMacros", macros, RefillGroup(), None))
+//      val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
+//      if(unusedMacros.nonEmpty)
+//        Config.warn(s"unused macros: $unusedMacros")
+      areas
         // find applicable regions
         .map(a => (a, regions.collectFirst({case Region(rName, rReq) if a.name.startsWith(rName) => rReq})))
         // apply their reqs
@@ -120,9 +124,11 @@ package SeedGenerator {
           case (area, None) => area.name -> area
         }).toMap
     }
+    val knownMacros = MMap[String, Requirement]()
     def parseFile(): Either[ParseError, Map[String, Area]] = {
+      knownMacros.clear()
       parse(input, file(_)) match {
-        case Parsed.Success((macros, regionAreas), _) => Right(validator(macros, regionAreas))
+        case Parsed.Success( regionAreas, _) => Right(validator(regionAreas))
         case f: Parsed.Failure => Left(FPError(s"Failed to parse areas.wotw; $f", f))
       }
     }
