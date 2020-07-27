@@ -420,7 +420,7 @@ update() {
 }
 
 updateFlags() {
-    run, OriAutoTracker.ahk ; Very crudely restarting the tracker for now, elegant solution to follow
+    Reload  ; Very crudely restarting the tracker for now, elegant solution to follow
 }
 
 ; Hover text for each of the items.
