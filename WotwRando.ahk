@@ -16,11 +16,6 @@ FirstLaunch := False
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
 ; associating .wotwr files with WotwRando.exe
-batch=
-(
-assoc .wotwr=WotwRando
-ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
-)
 
 updateFailedMsg=
 (
@@ -224,6 +219,12 @@ if(NewSetting != "") {
 return
 
 SetCommonVariables:
+batch=
+(
+assoc .wotwr=WotwRando
+ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
+)
+
 INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
