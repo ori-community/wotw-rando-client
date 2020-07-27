@@ -270,17 +270,17 @@ TryDelete(INSTALL_DIR . "areas.wotw")
 TryDelete(INSTALL_DIR . "VERSION")
 
 
-FileInstall, RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
-FileInstall, InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
-FileInstall, InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
-FileInstall, Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
-FileInstall, SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
-FileInstall, Injector.exe, %INSTALL_DIR%Injector.exe, 1
-FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
-FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
-FileInstall, RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
-FileInstall, ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
-FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
+FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
+FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
+FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
+FileInstall, C:\moon\Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
+FileInstall, C:\moon\SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
+FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe, 1
+FileInstall, C:\moon\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
+FileInstall, C:\moon\areas.wotw, %INSTALL_DIR%areas.wotw, 1
+FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
+FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
+FileInstall, C:\moon\VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
     FileCopy, %A_ScriptFullPath%, %INSTALL_DIR%WotwRando.exe
 Else
