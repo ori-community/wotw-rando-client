@@ -510,7 +510,7 @@ package SeedGenerator {
       }
       val ksNeeded = Math.max(0, Nodes.keystonesRequired(state.reached) - state.inv(Keystone)) match { case 2 => 0; case n => n }
       val locsOpen = freeLocs.size - ksNeeded
-      if(ksNeeded > 0) {
+      if(ksNeeded > 0 && (!Config().flags.randomSpawn || i > 4)) {
         if(locsOpen < 0)
           throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
         val (shops, nonShops) = freeLocs.take(ksNeeded).partition(_.data.category == "Shop")
@@ -588,7 +588,7 @@ package SeedGenerator {
           Nodes.getProgressionPaths(progS, sizeLeft).toSeq
           .collect({
             case (items, n) if n.size >= Math.min(3, remainCount) => (acc(items), items)
-            case (items, n) if n.nonEmpty => (acc(items, .3*n.size), items)
+            case (items, n) if n.nonEmpty => (acc(items, .4*n.size), items)
         })}
 
         if(possiblePaths.isEmpty) {
