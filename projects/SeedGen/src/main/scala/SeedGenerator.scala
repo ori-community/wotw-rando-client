@@ -517,9 +517,13 @@ package SeedGenerator {
         process(assignRandom(freeLocs), "rand: ")
         return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
       }
-      val ksNeeded = Math.max(0, Nodes.keystonesRequired(state.reached) - state.inv(Keystone)) match { case 2 => 0; case n => n }
+      val ksNeeded = Math.max(0, Nodes.keystonesRequired(state.reached) - state.inv(Keystone)) match {
+        case _ if !Config().flags.randomSpawn && i < 3 => 0
+        case 2 => 0
+        case n => n
+      }
       val locsOpen = freeLocs.size - ksNeeded
-      if(ksNeeded > 0 && (!Config().flags.randomSpawn || i > 4)) {
+      if(ksNeeded > 0) {
         if(locsOpen < 0)
           throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
         val (shops, nonShops) = freeLocs.take(ksNeeded).partition(_.data.category == "Shop")
