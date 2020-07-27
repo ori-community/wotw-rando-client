@@ -225,7 +225,7 @@ if (ErrorLevel == 1)
 INSTALL_DIR := INSTALL_DIR . "\"
 gosub SetCommonVariables
 
-Msgbox 3, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR%? `n Press No to change the install path.
+Msgbox 3, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR%? `nPress No to change the install path.
 
 IfMsgBox, No
 {
