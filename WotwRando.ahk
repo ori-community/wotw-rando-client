@@ -85,16 +85,21 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
 } else {
     ; installation code
     FileSelectFolder, INSTALL_DIR, ,, Select installation folder for the Ori Randomiser:
+    if (ErrorLevel == 1)
+    {
+        gosub ExitInstaller
+    }
     INSTALL_DIR := INSTALL_DIR . "\"
+
     gosub SetCommonVariables
 
     Msgbox 4, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR% ?
     FirstLaunch := True
     IfMsgBox No
     {
-        Msgbox The installer will now exit without installing
-        ExitApp
+        gosub ExitInstaller
     }
+
     gosub, WriteIniDefaults
     winStoreOri:=ComObjCreate("WScript.Shell").Exec("powershell -command  foreach ($app in get-AppxPackage) { if($app.Name -eq 'Microsoft.Patagonia') { echo yes } } ").StdOut.ReadAll()
     if(InStr(winStoreOri, "yes")) {
@@ -222,6 +227,11 @@ if(NewSetting != "") {
     RunWait, %INSTALL_DIR%RandoSettings.exe
 }
 return
+
+ExitInstaller:
+Msgbox The installer will now exit without installing
+ExitApp
+
 
 SetCommonVariables:
 INI_FILE := INSTALL_DIR . "settings.ini"
