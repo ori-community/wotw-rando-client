@@ -21,7 +21,7 @@ namespace RandoMainDLL {
         Thread.Sleep(30); // wait a frame or two to let values update
         var argsList = new List<string> {
           "-jar",
-          @"C:\\moon\\SeedGen.jar ",
+          $"{Randomizer.BasePath}SeedGen.jar ",
           "ReachCheck",
           SeedController.SeedFile,
           $"{InterOp.get_max_health()}",
