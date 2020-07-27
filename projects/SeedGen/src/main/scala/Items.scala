@@ -1,7 +1,8 @@
+import scala.collection.mutable
+import scala.util.Random
+
 package SeedGenerator {
 
-  import scala.collection.mutable
-  import scala.util.Random
   import SeedGenerator.implicits._
 
   trait Item {

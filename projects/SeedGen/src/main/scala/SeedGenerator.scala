@@ -293,11 +293,11 @@ package SeedGenerator {
         SpawnLoc("HowlsDen.Teleporter", 1, Teleporter(1)),
         SpawnLoc("EastPools.Teleporter", 3, Teleporter(2)),
         SpawnLoc("InnerWellspring.Teleporter", 3, Teleporter(3)),
-        SpawnLoc("LowerReach.Teleporter", 4, Teleporter(4)),
-        SpawnLoc("EastHollow.Teleporter", 4, Teleporter(5)),
-        SpawnLoc("UpperDepths.Teleporter", 4, Teleporter(6)),
-        SpawnLoc("WoodsEntry.Teleporter", 4, Teleporter(7)),
-        SpawnLoc("WoodsMain.Teleporter", 4, Teleporter(8)),
+        SpawnLoc("LowerReach.Teleporter", 3, Teleporter(4)),
+        SpawnLoc("EastHollow.Teleporter", 2, Teleporter(5)),
+        SpawnLoc("UpperDepths.Teleporter", 3, Teleporter(6)),
+        SpawnLoc("WoodsEntry.Teleporter", 3, Teleporter(7)),
+        SpawnLoc("WoodsMain.Teleporter", 3, Teleporter(8)),
         SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
         SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
         SpawnLoc("UpperWastes.NorthTP", 4, Teleporter(11)),
@@ -317,12 +317,12 @@ package SeedGenerator {
             case Right(value) =>
               Config.debug(s"parse done, ${value.size} areas")
               if(!ReachChecker.doingReachCheck)
-                if(Config().flags.randomSpawn) {
+                if(Config().flags.randomSpawn)
                   _spawn = SpawnLoc.all.rand
-                  Config.debug(s"set spawn loc to ${_spawn.areaName}")
-                } else {
+                else
                   _spawn = SpawnLoc.default
-                }
+
+              Config.debug(s"spawn loc is ${_spawn.areaName}")
               _areas = Timer("FixAreas")(fixAreas(value))
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
               Config.debug(s"items done ${_items.size} items")
@@ -471,8 +471,11 @@ package SeedGenerator {
     def write: String = desc() + placements.map(_.write).mkString("\n")
 
     def tryNext(): Either[GeneratorError, PlacementGroup] = PlacementGroup.trymk(outState, i + 1, Some(this))
-
     def next(): PlacementGroup = PlacementGroup.mk(outState, i + 1, Some(this))
+    def withParents: Seq[PlacementGroup] = Seq(this) ++ (parent match {
+      case Some(g) => g.withParents
+      case None => Nil
+    })
   }
   object PlacementGroup {
     def debugPrint(x: Any): Unit = Config.debug(x)
