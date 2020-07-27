@@ -283,7 +283,7 @@ package SeedGenerator {
         if(areaName == "MarshSpawn.Main")
           return ""
         val Coords(x, y) = area.coords.get
-        s"Spawn: $x, $y        // $areaName\n\n" + (if(spawnSlots > 0) "3|0|6|Spawning with:|f=420 // needed\n\n" else "")
+        s"Spawn: $x, $y        // $areaName\n\n" + (if(spawnSlots > 0) "3|0|6|Spawning with:|f=420 // show spawn text for longer\n\n" else "")
       }
 
     }
