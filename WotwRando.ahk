@@ -11,7 +11,7 @@ INSTALL_DIR := A_ScriptDir . "\"
 gosub SetCommonVariables
 
 ; change this TO THE NAME OF THE NEW SETTING when a new setting is added
-NewSetting := "Beta Versions, Always Show Warps, and more"
+NewSetting := ""
 FirstLaunch := False
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
