@@ -292,11 +292,11 @@ package SeedGenerator {
         SpawnLoc("MidnightBurrows.Teleporter", 3, Teleporter(0)),
         SpawnLoc("HowlsDen.Teleporter", 1, Teleporter(1)),
         SpawnLoc("EastPools.Teleporter", 3, Teleporter(2)),
-        SpawnLoc("InnerWellspring.Teleporter", 2, Teleporter(3)),
-        SpawnLoc("LowerReach.Teleporter", 3, Teleporter(4)),
-        SpawnLoc("EastHollow.Teleporter", 3, Teleporter(5)),
-        SpawnLoc("UpperDepths.Teleporter", 3, Teleporter(6)),
-        SpawnLoc("WoodsEntry.Teleporter", 3, Teleporter(7)),
+        SpawnLoc("InnerWellspring.Teleporter", 3, Teleporter(3)),
+        SpawnLoc("LowerReach.Teleporter", 4, Teleporter(4)),
+        SpawnLoc("EastHollow.Teleporter", 4, Teleporter(5)),
+        SpawnLoc("UpperDepths.Teleporter", 4, Teleporter(6)),
+        SpawnLoc("WoodsEntry.Teleporter", 4, Teleporter(7)),
         SpawnLoc("WoodsMain.Teleporter", 4, Teleporter(8)),
         SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
         SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
@@ -342,7 +342,6 @@ package SeedGenerator {
     def spawn: Area = _spawn.area
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
-    def macros: Area = areas("RequirementMacros")
     val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
     val haveReached: MSet[Node] = MSet.empty[Node]
     val states: MSet[FlagState] = MSet.empty[FlagState]
@@ -363,7 +362,6 @@ package SeedGenerator {
       states.clear()
       var stateCount = 0
       def fullState: GameState  = s.noReached + GameState(Inv.Empty, states.toSet, haveReached.toSet)
-      macros.reached(fullState, s.inv.orbs)
       spawn.reached(fullState, s.inv.orbs)
       do {
         stateCount = states.size
@@ -387,7 +385,7 @@ package SeedGenerator {
       val items = instate.items
       val states = MSet.empty[GameState]
       reachCache.foreach { case (area, AreaTraversalInfo(_, targets)) => area.conns.filter(c => targets.contains(c.target.res)).foreach(_.reqs.foreach(r => {
-        r.remaining(instate, space = spaceRemaining).filter(s => s.flags.isEmpty && s.inv.nonEmpty).foreach(states.add)
+        r.remaining(instate, space = spaceRemaining).filter(s => s.inv.nonEmpty).foreach(s => states.add(s.invOnly))
       }))}
 
       val paths = states
@@ -535,6 +533,7 @@ package SeedGenerator {
 
       val locIter = freeLocs.drop(ksNeeded).iterator
       val reservedForProg = (1 to (locsOpen match {
+        case n if Config().flags.randomSpawn && i < 4 => n // always reserve every placement
         // if random placement doesn't open something (and it often won't), we gotta place something. Reserve item slots for it so we aren't in trouble
         case n if n < 3 => n  // pick how many slots to save by how big the pool is.
         case n if n < 5 => 2  // ideally we'd like 2?
@@ -592,7 +591,7 @@ package SeedGenerator {
         })}
 
         if(possiblePaths.isEmpty) {
-          Config.error(s"ERROR: uh oh!")
+          Config.error(s"uh oh!")
           Config.error(s"pool: ${pool.progInv()}")
           Config.error(s"inv: ${state.inv.progInv()}")
           Config.error(s"Had $sizeLeft slots")
@@ -844,7 +843,6 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Config().flags.noKSDoors) 0 else 34)) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
       while(pool.count < SIZE) pool.add(SpiritLight(r.between(75, 175)))
-      Config.debug(s"${pool.count}, $SIZE")
       Nodes.preplc.values.foreach(plc => pool.take(plc.item))
       pool.merchToPop = (Nodes.items.values.toSet -- Nodes.preplc.keys).count(_.data.category == "Shop")
       pool
