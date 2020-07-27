@@ -167,6 +167,7 @@ IfMsgBox, Cancel
     ExitApp
 IfMsgBox, No
     RunWait, %INSTALL_DIR%RandoSettings.exe
+    ExitApp
 Return
 
 ChangeButtonNames: 
