@@ -46,6 +46,21 @@ namespace
         MeleeComboMoveHammerChargeable::EnterMove(this_ptr);
     }
 
+    IL2CPP_INTERCEPT(, MeleeComboMoveHammerStomp, void, EnterStartState, (app::MeleeComboMoveHammerStomp* this_ptr)) {
+        if (this_ptr->fields.LoopTimeline != nullptr)
+            il2cpp::invoke(this_ptr->fields.LoopTimeline, "SetTimeScale", &hammer_speed_multiplier);
+        if (this_ptr->fields.StartTimeline != nullptr)
+            il2cpp::invoke(this_ptr->fields.StartTimeline, "SetTimeScale", &hammer_speed_multiplier);
+        if (this_ptr->fields.EndTimeline != nullptr)
+            il2cpp::invoke(this_ptr->fields.EndTimeline, "SetTimeScale", &hammer_speed_multiplier);
+        if (this_ptr->fields.StartShortTimeline != nullptr)
+            il2cpp::invoke(this_ptr->fields.StartShortTimeline, "SetTimeScale", &hammer_speed_multiplier);
+        if (this_ptr->fields.EndShortTimeline != nullptr)
+            il2cpp::invoke(this_ptr->fields.EndShortTimeline, "SetTimeScale", &hammer_speed_multiplier);
+
+        MeleeComboMoveHammerStomp::EnterStartState(this_ptr);
+    }
+    
     void set_hammer_speed(std::string const& name, std::vector<console::CommandParam> const& params)
     {
         if (params.size() != 1)
