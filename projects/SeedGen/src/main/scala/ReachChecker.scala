@@ -1,4 +1,4 @@
-import scala.collection.mutable.{Map => MMap}
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Source
 import scala.util.matching.Regex
 import org.json4s.native.Serialization
@@ -25,6 +25,25 @@ package SeedGenerator {
     def mkSkill(s: String): Option[(Skill, Int)] = skills.get(s.toLowerCase).map(Skill(_) -> 1)
     def mkTp(s: String): Option[(Teleporter, Int)] = tps.get(s.toLowerCase).map(Teleporter(_) -> 1)
     def mkEvent(s: String): Option[(WorldEvent, Int)] = events.get(s.toLowerCase).map(WorldEvent(_) -> 1)
+    def settingsFromFile(path: String): GenSettings = Try {
+        val inFile = Source.fromFile(path)
+        val lines = inFile.getLines().toSeq
+        val configsRaw = lines.last.replace("// Config: ", "")
+        val mbSpawn = lines.find(_.startsWith("Spawn: ")).flatMap(spawnLine => {
+          val spawnName = spawnLine.split("//").last.trim
+          if(Nodes.SpawnLoc.all.exists(_.areaName == spawnName))
+            Some(spawnName)
+          else
+            None
+        })
+        Nodes._spawn = Nodes.SpawnLoc.byName(mbSpawn.getOrElse("MarshSpawn.Main"))
+        Config.error(s"set spawn to ${Nodes._spawn.areaName}")
+        implicit val formats: Formats = Serialization.formats(NoTypeHints)
+        Serialization.read[GenSettings](configsRaw)
+      }.toOption.getOrElse({
+        Config.error(s"Error reading config from $path")
+        GenSettings()
+      })
     def apply(args: Seq[String]): Unit = {
       doingReachCheck = true
       if(args.head == "ReachCheck") {
@@ -33,15 +52,7 @@ package SeedGenerator {
         val st = GameState(new Inv(
           args.flatMap({
             case cfg(path)        =>
-              Config.settingsProvider = Try {
-                val inFile = Source.fromFile(path)
-                val configsRaw = inFile.getLines().toSeq.last.replace("// Config: ", "")
-                implicit val formats: Formats = Serialization.formats(NoTypeHints)
-                Serialization.read[GenSettings](configsRaw)
-              }.toOption.getOrElse({
-                Config.error(s"Error reading config from $path")
-                GenSettings()
-              })
+              Config.settingsProvider = settingsFromFile(path)
               None
             case health(amt)      => amt.toIntOption.map(Health -> _)
             case energy(amt)      => amt.toIntOption.map(Energy -> _)
@@ -54,7 +65,7 @@ package SeedGenerator {
             case a => Config.warn(s"unknown name $a"); None
           }):_*
         ))
-        val res = Nodes.reached(st)(MMap())._1.items.map(_.data.fullName).toSeq.sorted
+        val res = Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).toSeq.sorted
         println("")
         println("")
 
@@ -69,16 +80,7 @@ package SeedGenerator {
 
     def fromGame(args: Seq[String]): Unit = {
       Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
-      val seedFile = args(1)
-      Config.settingsProvider = Try {
-        val inFile = Source.fromFile(seedFile)
-        val configsRaw = inFile.getLines().toSeq.last.replace("// Config: ", "")
-        implicit val formats: Formats = Serialization.formats(NoTypeHints)
-        Serialization.read[GenSettings](configsRaw)
-      }.toOption.getOrElse({
-        Config.error(s"Error reading config from $seedFile")
-        GenSettings()
-      })
+      Config.settingsProvider = settingsFromFile(args(1))
       val hp = args(2).toInt / 5
       val en = args(3).toInt / 5
       val ks = args(4).toInt
@@ -92,7 +94,7 @@ package SeedGenerator {
         case a => Config.error(s"unknown name $a"); None
         }:_*))
       Config.debug(s"$args\n$st")
-      println(Nodes.reached(st)(MMap())._1.items.map(_.data.code).mkString(", "))
+      println(Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.code).mkString(", "))
     }
 
   }
