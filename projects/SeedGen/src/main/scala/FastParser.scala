@@ -41,7 +41,7 @@ package SeedGenerator {
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
     def unfree[_: P]: P[Requirement] = P("Unreachable").map(_ => Invalid)
-    def tpReq[_: P]: P[Requirement] = P(nameMapParser(Teleporter.areaFileNames)).map(id => if(Teleporter.poolItems.exists(_.teleporterId == id)) TeleReq(id) else Invalid)
+    def tpReq[_: P]: P[Requirement] = P(nameMapParser(Teleporter.areaFileNames)).map(id => TeleReq(id))
     def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
     def diffReq[_ :P]: P[Requirement] = P("base" | "unsafe").!.map({case "base" => Free; case "unsafe" => if(Config().unsafePaths) Free else Invalid})
@@ -110,6 +110,7 @@ package SeedGenerator {
         .map(a => (a, regions.collectFirst({case Region(rName, rReq) if a.name.startsWith(rName) => rReq})))
         // apply their reqs
         .map({
+          case (area, Some(Free)) => area.name -> area
           case (area, Some(req)) =>
 //              println(s"adding $req to paths in ${area.name}")
             area.name -> area.copy(conns = area.conns.map({

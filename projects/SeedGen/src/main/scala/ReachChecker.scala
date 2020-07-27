@@ -37,7 +37,6 @@ package SeedGenerator {
             None
         })
         Nodes._spawn = Nodes.SpawnLoc.byName(mbSpawn.getOrElse("MarshSpawn.Main"))
-        Config.error(s"set spawn to ${Nodes._spawn.areaName}")
         implicit val formats: Formats = Serialization.formats(NoTypeHints)
         Serialization.read[GenSettings](configsRaw)
       }.toOption.getOrElse({
