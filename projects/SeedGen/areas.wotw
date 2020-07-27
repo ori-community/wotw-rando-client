@@ -780,6 +780,8 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   conn BeetleFight: free
   conn EastHollow.AboveBash:
     base: EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
+    unsafe: 
+      Bash, Glide OR Dash OR DoubleJump OR Launch
   conn WestHollow.Entrance:
     base, WestHollow.PurpleDoorOpen:
       WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Dash OR Glide OR Launch
