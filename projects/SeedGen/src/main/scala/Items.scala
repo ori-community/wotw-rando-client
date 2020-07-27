@@ -2,6 +2,7 @@ package SeedGenerator {
 
   import scala.collection.mutable
   import scala.util.Random
+  import SeedGenerator.implicits._
 
   trait Item {
     def itemType: Int
@@ -329,6 +330,9 @@ package SeedGenerator {
     }
     var merchToPop = 16
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
+    def popSL(implicit r: Random): SpiritLight = {
+      asSeq.collect({case s: SpiritLight => s}).rand
+    }
     def popRand(implicit r: Random): Option[Item] = {
       val s =
         if(merchToPop > 0) {
