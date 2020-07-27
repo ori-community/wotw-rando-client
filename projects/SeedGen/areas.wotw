@@ -126,7 +126,7 @@ anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaki
 
   conn MarshSpawn.CaveEntrance: free
 
-anchor MarshSpawn.CaveEntrance:  # before the door blocking regen tree
+anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen tree
   refill Checkpoint
 
   state MarshSpawn.KeystoneDoor:
@@ -648,7 +648,7 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
   conn WestHollow.HollowDrainMiddle:
     base: WestHollow.UpperDrainLeverPulled
 
-anchor WestHollow.HollowDrainMiddle at -197, -4275:  # At the crystal below the purple eye
+anchor WestHollow.HollowDrainMiddle:  # At the crystal below the purple eye (at -197, -4275; coordinates omitted because this is not a valid warp/spawn target)
   refill Checkpoint
   refill Energy=3:
     base: WestHollow.UpperDrainLeverPulled, Weapon
@@ -670,7 +670,7 @@ anchor WestHollow.HollowDrainMiddle at -197, -4275:  # At the crystal below the 
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=1
 
-anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock puzzle room
+anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at -249, -4275; coordinates omitted because this is not a valid warp/spawn target)
   refill Checkpoint
   refill Energy=3:
     base: Weapon, DoubleJump OR Dash OR Bash OR Glide OR Launch
@@ -1607,7 +1607,7 @@ anchor InnerWellspring.BelowDrainLever at -1153, -3895:  # In the first room bel
       DoubleJump, Dash
       Grapple OR Glide OR Launch
 
-anchor InnerWellspring.WestDoor at -1216, -3898:  # Inside the door where you exit the first room
+anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you exit the first room
   refill Checkpoint
   refill Health=2: free
   refill Energy=3:
@@ -1810,7 +1810,7 @@ region WoodsMain:
   base: Danger=40, Regenerate
   unsafe: free
 
-anchor WoodsMain.BelowFourKeystoneRoom at 951, -4209:  # At the first leaf pile after meeting Ku
+anchor WoodsMain.BelowFourKeystoneRoom at 951, -4210:  # At the first leaf pile after meeting Ku
   state WoodsEntry.KeystoneDoor:
     base, Keystone=2:
       Bash, Grenade=2, Danger=10  # uses the enemy
@@ -1836,7 +1836,7 @@ anchor WoodsMain.BelowFourKeystoneRoom at 951, -4209:  # At the first leaf pile 
       Bash, Grenade=1, Danger=10, DoubleJump OR Dash  # uses the enemy
       Launch, DoubleJump OR Dash OR Bash OR Glide  # bash uses the enemy
 
-anchor WoodsMain.FourKeystoneRoom at 950, -4167:  # The floor of the keystone room
+anchor WoodsMain.FourKeystoneRoom at 950, -4168:  # The floor of the keystone room
   pickup WoodsMain.BehindWallOre:
     base: BreakWall=20, DoubleJump OR Dash OR Glide OR Launch
   pickup WoodsMain.BelowKeystonesEX:
@@ -1876,7 +1876,7 @@ anchor WoodsMain.BeforeKeystoneDoor at 944, -4137:  # In front of the four keyst
     base: WoodsMain.KeystoneDoor
   conn WoodsMain.FourKeystoneRoom: free
 
-anchor WoodsMain.GiantSkull at 957, -4137:  # Behind the four keystone room door
+anchor WoodsMain.GiantSkull at 957, -4138:  # Behind the four keystone room door
   refill Checkpoint
 
   state WoodsMain.KeystoneDoor:
@@ -1898,7 +1898,7 @@ anchor WoodsMain.GiantSkull at 957, -4137:  # Behind the four keystone room door
   conn WoodsMain.BeforeKeystoneDoor:
     base: WoodsMain.KeystoneDoor
 
-anchor WoodsMain.BelowHiddenOre at 1038, -4100:  # Below and to the right of the hidden ore, close to the yellow wall
+anchor WoodsMain.BelowHiddenOre at 1038, -4101:  # Below and to the right of the hidden ore, close to the yellow wall
   state WoodsMain.BelowHiddenOreCorruption:  # defined as state because some paths cross this twice
     base: BreakWall=3
 
@@ -1929,7 +1929,7 @@ anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
       Glide
       Launch, DoubleJump OR Dash
 
-anchor WoodsMain.AboveHowl at 916, -4046:  # At the semisolid above silenced Howl
+anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced Howl
   state WoodsMain.TrialActivation:
     base:
       DoubleJump, Dash, Bash, Grapple, Glide, Burrow
@@ -1947,7 +1947,7 @@ anchor WoodsMain.AboveHowl at 916, -4046:  # At the semisolid above silenced How
       Bash, Grenade=1
   conn WoodsMain.PetrifiedHowl: free
 
-anchor WoodsMain.Teleporter at 1083, -4053:  # At the East Woods Teleporter
+anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
   refill Full
   conn Teleporters: free
   conn WoodsMain.FeedingGrounds:
@@ -2029,7 +2029,7 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
   conn WestGlades.Upper:
     base: LowerReach.BearSneezed
 
-anchor LowerReach.AboveEntry at -401, -3999:  # On the platform above Baur inside the tree trunk
+anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur inside the tree trunk
   refill Checkpoint
 
   state LowerReach.Lever:
@@ -2060,7 +2060,7 @@ anchor LowerReach.AboveEntry at -401, -3999:  # On the platform above Baur insid
       Bash, DoubleJump OR Dash OR Glide
       Launch
 
-anchor LowerReach.Icefall at -448, -3998:  # Where you drop the rock on Baur's nose
+anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's nose
   refill Checkpoint
   refill Energy=3:
     base: Weapon
@@ -2149,7 +2149,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
   conn LowerReach.Teleporter:
     base: Grenade=1
 
-anchor LowerReach.Teleporter at -259, -3961:  # This has to exist to support the teleporter pickup
+anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the teleporter pickup
   refill Full
 
   conn Teleporters: free
@@ -2277,7 +2277,7 @@ anchor UpperReach.TreeRoom at -140, -3912:  # Behind the keystone door
 
   # backwards connection can't get through the Icefall
 
-anchor LowerReach.SecondSoup at -316, -4036:  # Next to the soup below the teleporter
+anchor LowerReach.SecondSoup at -316, -4037:  # Next to the soup below the teleporter
   state LowerReach.CentralFurnace:
     base: DoubleJump, Dash, Bash, Flap
 
@@ -2294,7 +2294,7 @@ anchor LowerReach.SecondSoup at -316, -4036:  # Next to the soup below the telep
   conn LowerReach.WindChannel:
     base: ShieldEnemyObstacle
 
-anchor LowerReach.WindChannel at -256, -4034:  # The furnace left of the wind channel connecting to east reach
+anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind channel connecting to east reach
   refill Checkpoint
   refill Energy=3:
     base: ShieldEnemyObstacle, DoubleJump OR Dash OR Launch
@@ -2321,7 +2321,7 @@ anchor LowerReach.WindChannel at -256, -4034:  # The furnace left of the wind ch
   conn LowerReach.SoupMoki:
     base: Grenade=1, Glide  # grenade to light the lantern
 
-anchor LowerReach.SoupMoki at -240, -3988:  # Below the reach teleporter, where you hand delicious marshclam soup to a moki (or alternatively extuingish his fireplace...)
+anchor LowerReach.SoupMoki at -240, -3989:  # Below the reach teleporter, where you hand delicious marshclam soup to a moki (or alternatively extuingish his fireplace...)
   refill Energy=4:
     base: Weapon
 
@@ -2400,7 +2400,7 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
       LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash, Glide
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
 
-anchor LowerReach.ArenaArea at 40, -3993:  # To the left of the combat arena
+anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
   refill Checkpoint
   refill Health=1: free
   refill Energy=3:
@@ -2584,7 +2584,7 @@ anchor UpperDepths.Central at 464, -4484:  # The firefly egg to the right of the
       DepthsLight, DoubleJump, Dash, Grapple
       DepthsLight, Launch
 
-anchor UpperDepths.SecondKSRoom at 542, -4466:  # The egg of the firefly circling through the keystone room
+anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circling through the keystone room
   refill Checkpoint
   refill Energy=4:
     base: Weapon
@@ -2765,7 +2765,7 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       Bash, DoubleJump OR Launch
       DepthsLight, Launch, DoubleJump, Dash OR Glide
 
-anchor LowerDepths.TreeArea at 776, -4541:  # The flash tree
+anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
   refill Checkpoint
   refill Energy=4:
     base: Weapon
@@ -2786,7 +2786,7 @@ region PoolsApproach:
   base: Danger=25
   unsafe: free
 
-anchor PoolsApproach.MillPathCheckpoint at -826, -4129:  # The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
+anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
   refill Checkpoint
 
   conn WestGlades.MillApproach:
@@ -2822,7 +2822,7 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
   conn PoolsApproach.RightOfWheel:
     base: EnemyObstacle, Water  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement.
 
-anchor PoolsApproach.RightOfWheel at -948, -4185:  # The rightmost platform of the static wheel
+anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of the static wheel
   pickup PoolsApproach.AboveWheelEX:
     base:
       # grenadebash doesn't work as well when the wheel spins
@@ -2863,7 +2863,7 @@ anchor PoolsApproach.RightOfWheel at -948, -4185:  # The rightmost platform of t
       Water, Bash, WaterDash
       Water, Bash, Danger=10, Launch
 
-anchor PoolsApproach.LeftOfWheel at -995, -4185:  # The leftmost platform of the static wheel
+anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the static wheel
   state PoolsApproach.WheelFreed:
     base: Water, Bash
 
@@ -3167,7 +3167,7 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Launch
 
-anchor UpperPools.BubbleSpamRoom at -1586, -4052:  # To the right of where all the bubbles rise
+anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all the bubbles rise
   refill Checkpoint
 
   pickup UpperPools.FishPoolEX:
@@ -3276,7 +3276,7 @@ anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
       DoubleJump, Bash, Grenade=1 # Does require double jump to the grenade, and then double jump after bash to clear grapple section
       Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
 
-anchor LowerWastes.Shovel at 1634, -3980:  # On the ground to the left of the Sand Bridge
+anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
   # energy crystal on the way to sand pot not considered
 
   quest LowerWastes.EerieGem:
@@ -3457,7 +3457,7 @@ anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
       Grapple, Launch
       Grapple, DoubleJump, Dash  # still sort of tight
 
-anchor LowerWastes.UpperPath at 1768, -3896:  # on the left side of the path connecting tree and east teleporter
+anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path connecting tree and east teleporter
   refill Checkpoint
   refill Energy=3:
     base: Weapon
@@ -3684,7 +3684,7 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
       Weapon, Burrow, Bash, Grenade=1
       Weapon, Glide
 
-anchor WindtornRuins.Escape at 2015, -4027:  # Where the escape starts
+anchor WindtornRuins.Escape:
   refill Full
 
   # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
@@ -3698,7 +3698,7 @@ anchor WindtornRuins.Escape at 2015, -4027:  # Where the escape starts
       Burrow, DoubleJump, Launch, Dash OR Glide
       Burrow, Grapple, Launch, Glide
 
-anchor WindtornRuins.LowerRuins at 1969, -4023:  # At the ancient map pedestal
+anchor WindtornRuins.LowerRuins at 1969, -4024:  # At the ancient map pedestal
   # requires escape to be done
   quest WindtornRuins.HandToHandComplete:
     base: LowerWastes.HandToHandMapstone
@@ -3819,7 +3819,7 @@ anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
       DoubleJump, Bash, Grenade=1, Dash OR Glide
       Launch, DoubleJump OR Dash
 
-anchor WillowsEnd.East at 547, -3804:  # To the left of the redirect puzzle changethisforcheckpoint
+anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle changethisforcheckpoint
   state WillowsEnd.RedirectHeart:
     base: BreakWall=10, BreakWall=30, DoubleJump, Bash, Launch
 
@@ -3836,7 +3836,7 @@ anchor WillowsEnd.East at 547, -3804:  # To the left of the redirect puzzle chan
   conn WillowsEnd.Upper:
     base: Bash, Launch  # some other paths would be possible, but with how far back the last checkpoint is...
 
-anchor WillowsEnd.West at 445, -3840:  # To the left of the one-way above Lupo
+anchor WillowsEnd.West at 437, -3840:  # To the left of the one-way above Lupo
   refill Checkpoint
   refill Energy=4:
     base: Weapon
