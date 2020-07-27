@@ -276,6 +276,12 @@ package SeedGenerator {
       def area: Area = Nodes.areas(areaName)
       def conns: Seq[Connection] = (1 to spawnSlots) map (i =>
         Connection(ItemLoc(s"Spawn item #$i", LocData("Spawn", s"Item_$i", "nullCat", "nullVal", "spawn", "control", 3, "spawn", "0", 0, 0)), Seq(Free)))
+      def line: String = {
+        if(areaName == "MarshSpawn.Main")
+          return ""
+        val Coords(x, y) = area.coords.get
+        s"Spawn: $x, $y        // $areaName\n"
+      }
 
     }
     object SpawnLoc {
@@ -713,10 +719,7 @@ package SeedGenerator {
                           seirLaunch: Boolean = false,
                         ) {
     def header: String = {
-      flags.line + (if(flags.randomSpawn) {
-        val Coords(x, y) = Nodes._spawn.area.coords.get
-        s"\nSpawn: $x, $y"
-      } else "")
+      flags.line + (if(flags.randomSpawn) Nodes._spawn.line else "")
     }
   }
 
@@ -807,6 +810,7 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
   object ItemPool {
     def SIZE: Int = Nodes.items.size
     def build(implicit r: Random, preplc: MMap[ItemLoc, Placement] = MMap()): Inv = {
+      Config.debug("about to pop")
       Nodes.populate()
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Config().flags.noKSDoors) 0 else 34)) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
