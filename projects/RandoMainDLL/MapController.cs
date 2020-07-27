@@ -92,13 +92,12 @@ namespace RandoMainDLL {
       var f = (FilterType)filterId;
       switch(f) {
         // TODO
-/*        case FilterType.Quests:
-          return AHK.IniFilterFlag("Quests");
+        case FilterType.Quests:
+          return !AHK.IniFlag("HideQuestFilter");
         case FilterType.Teleports:
-          return AHK.IniFilterFlag("Teleporters");
-        case FilterType.Collectables:
-          return AHK.IniFilterFlag("Collectables");
-*/
+          return !AHK.IniFlag("HideWarpFilter");
+        case FilterType.Collectibles:
+          return !AHK.IniFlag("HideCollectableFilter");
         case FilterType.InLogic:
           return SeedController.HasInternalSpoilers;
         case FilterType.Spoilers:
@@ -106,7 +105,6 @@ namespace RandoMainDLL {
         default:
           return true;
       }
-
     }
     public static bool FilterIconShow(int groupId, int id) {
       // Show Icon (in logic)
