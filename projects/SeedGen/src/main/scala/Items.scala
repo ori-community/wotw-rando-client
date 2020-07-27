@@ -161,7 +161,7 @@ package SeedGenerator {
     val itemType: Int = 5
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
-    override val cost: Double = Math.max(4d + (if(Config().flags.randomSpawn) 11 else 0), Teleporter.costs.getOrElse(teleporterId, 0))
+    override val cost: Double = Math.max(4d + (if(Config().flags.randomSpawn) 11d else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
   }
 
   object Teleporter {

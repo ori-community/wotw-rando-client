@@ -43,8 +43,7 @@ namespace RandoMainDLL {
     StopIfGreater = 5,
     StopIfLess = 6,
     SetState = 7,
-    Warp = 8,
-    StartingLocation = 9
+    Warp = 8
   }
 
   public enum TeleporterType : byte {
@@ -526,33 +525,18 @@ namespace RandoMainDLL {
     }
   }
   public class WarpCommand : SystemCommand {
-    float x;
-    float y;
+    float X;
+    float Y;
 
     public WarpCommand(float x, float y) : base(SysCommandType.Warp) {
-      this.x = x;
-      this.y = y;
+      X = x;
+      Y = y;
     }
     public override void Grant(bool skipBase = false) {
-      InterOp.teleport(x, y, true);
+      InterOp.teleport(X, Y, true);
+      base.Grant(skipBase);
     }
-  }
-  public class SetStartCommand : SystemCommand {
-    float x;
-    float y;
-    bool value;
-
-    public SetStartCommand(float x, float y, bool value) : base(SysCommandType.StartingLocation) {
-      this.x = x;
-      this.y = y;
-      this.value = value;
-    }
-    public override void Grant(bool skipBase = false) {
-      if (value)
-        InterOp.set_start_position(x, y);
-      else
-        InterOp.clear_start_position();
-    }
+    public override string ToString() => $"Warp to {X}, {Y}";
   }
 
   public class Resource : Pickup {

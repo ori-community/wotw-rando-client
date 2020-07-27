@@ -15,7 +15,6 @@ namespace RandoMainDLL {
     BINDING_ONE = 2,
     BINDING_TWO = 3,
     BINDING_THREE = 4,
-    READ_SEED = 5
   }
   public enum Flag {
     [Description("No Hints")]
@@ -32,8 +31,8 @@ namespace RandoMainDLL {
     NOSWORD,
     [Description("Rainy Marsh")]
     RAIN,
-    [Description("Disable Glades TP fix")]
-    NOGLADESTPFIX
+    [Description("Random Spawn")]
+    RAND
   }
 
   public class UberStateCondition {
@@ -103,12 +102,14 @@ namespace RandoMainDLL {
         HintsController.Reset();
         HasInternalSpoilers = true;
         string line = "";
+        string coordsRaw = "";
         foreach (string rawLine in File.ReadLines(SeedFile)) {
           try {
             if (rawLine.StartsWith("Flags: ")) {
               ProcessFlags(rawLine);
-              if (flags.Contains(Flag.NOGLADESTPFIX))
-                InterOp.set_glades_teleport_fix(false);
+              continue;
+            } else if(rawLine.StartsWith("Spawn: ")) {
+              coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
               continue;
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
@@ -146,6 +147,14 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
+        if(coordsRaw != "") {
+          var coords = coordsRaw.Split(',').ToList();
+          var x = coords[0].ParseToFloat("SpawnX");
+          var y = coords[1].ParseToFloat("SpawnY");
+          InterOp.set_start_position(x, y);
+        } else {
+          InterOp.clear_start_position();
+        }
         if (!init) {
           var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags.Select((Flag flag) => flag.GetDescription()))}" : "";
           AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
@@ -153,7 +162,6 @@ namespace RandoMainDLL {
         }
 
         // Should only be used for configuration options.
-        PsuedoLocs.READ_SEED.OnCollect();
       } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
@@ -271,14 +279,6 @@ namespace RandoMainDLL {
               var warpX = extras[0].ParseToFloat("BuildPickup.PositionX");
               var warpY = extras[1].ParseToFloat("BuildPickup.PositionY");
               return new WarpCommand(warpX, warpY);
-            case SysCommandType.StartingLocation:
-              if (extras.Count != 2) {
-                Randomizer.Log($"malformed command specifier ${pickupData}", false);
-                return new Message($"Invalid command ${pickupData}!");
-              }
-              var startX = extras[0].ParseToFloat("BuildPickup.PositionX");
-              var startY = extras[1].ParseToFloat("BuildPickup.PositionY");
-              return new SetStartCommand(startX, startY, true);
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
