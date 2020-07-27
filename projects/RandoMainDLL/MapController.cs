@@ -21,8 +21,9 @@ namespace RandoMainDLL {
         Thread.Sleep(30); // wait a frame or two to let values update
         var argsList = new List<string> {
           "-jar",
-          @"C:\\moon\\SeedGen.jar ",
+          $"{Randomizer.BasePath}SeedGen.jar ",
           "ReachCheck",
+          SeedController.SeedFile,
           $"{InterOp.get_max_health()}",
           $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
           $"{UberGet.value(6, 0).Int}",
@@ -91,13 +92,12 @@ namespace RandoMainDLL {
       var f = (FilterType)filterId;
       switch(f) {
         // TODO
-/*        case FilterType.Quests:
-          return AHK.IniFilterFlag("Quests");
+        case FilterType.Quests:
+          return !AHK.IniFlag("HideQuestFilter");
         case FilterType.Teleports:
-          return AHK.IniFilterFlag("Teleporters");
-        case FilterType.Collectables:
-          return AHK.IniFilterFlag("Collectables");
-*/
+          return !AHK.IniFlag("HideWarpFilter");
+        case FilterType.Collectibles:
+          return !AHK.IniFlag("HideCollectableFilter");
         case FilterType.InLogic:
           return SeedController.HasInternalSpoilers;
         case FilterType.Spoilers:
@@ -105,7 +105,6 @@ namespace RandoMainDLL {
         default:
           return true;
       }
-
     }
     public static bool FilterIconShow(int groupId, int id) {
       // Show Icon (in logic)

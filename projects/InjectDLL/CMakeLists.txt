@@ -44,6 +44,7 @@ set(
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
 	"pickups/bonus/extra_ability_activations.cpp"
+	"pickups/bonus/hammer_attack_speed.cpp"
 	"system/save.cpp"
 	"system/sound.cpp"
 	"system/textures.cpp"

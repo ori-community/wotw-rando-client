@@ -4,6 +4,8 @@ import scala.collection.mutable.{ListBuffer => MList, Map => MMap, Set => MSet}
 import scala.io.Source
 import scala.language.implicitConversions
 import scala.util.{Random, Try}
+import org.json4s.native.Serialization
+import org.json4s.{Formats, NoTypeHints}
 
 package SeedGenerator {
 
@@ -15,6 +17,10 @@ package SeedGenerator {
     implicit class ReqOps(reqs: Seq[Requirement]) { // TODO; fix or delete
       def sortByConsumption: Seq[Requirement] = reqs //Timer("sort")(reqs.sortBy(_.children.map(_.orbsUsed()).map(_.value).sum))
     }
+    implicit class itOpts[T](vs: Seq[T]) { // TODO; fix or delete
+      def rand(implicit r: Random): T = vs(r.nextInt(vs.size))
+      def randOpt(implicit r: Random): Option[T] = if(vs.nonEmpty) Some(rand) else None
+    }
 
     // really, they're fine
     implicit def itemToPart(item: Item): Either[Item, Either[FlagState, Node]] = Left(item)
@@ -25,6 +31,7 @@ package SeedGenerator {
     import SeedGenerator.implicits._
 
     import scala.language.postfixOps
+    import scala.util.{Failure, Success}
 
     case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
       val code = s"$uberGroupId|$uberId"
@@ -41,7 +48,7 @@ package SeedGenerator {
   object LocData {
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
-      val path = if(new File("areas.wotw").exists()) "loc_data.csv" else "C:\\moon\\loc_data.csv"
+      val path = if(new File("loc_data.csv").exists()) "loc_data.csv" else "C:\\moon\\loc_data.csv"
       val pickupsFile = Source.fromFile(path)
       Config.debug(s"Loading loc_data from $path")
       val pickups = pickupsFile.getLines.flatMap {
@@ -95,7 +102,7 @@ package SeedGenerator {
     override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = Orbs(prior.health, Math.min(inv.orbs.energy, prior.energy + count*10))
   }
 
-  case class RefillGroup(setter: Option[Setter], adders: Map[Requirement, Adder]) {
+  case class RefillGroup(setter: Option[Setter] = None, adders: Map[Requirement, Adder] = Map.empty) {
     def apply(state: GameState, prior: Orbs = Orbs(0, 0)): Orbs = {
       val set = setter.map(_.apply(state.inv, prior)).getOrElse(prior)
       if(set == state.inv.orbs)
@@ -145,9 +152,9 @@ package SeedGenerator {
         case None =>Config.warn(s"$name not in nodes!")
     }
   }
-    case class Area(name: String, _conns: Seq[Connection] = Seq(), refillGroup: RefillGroup) extends Node {
-      // TODO: FIXME
-      val conns: Seq[Connection] = _conns.filter(_.reqs.nonEmpty)
+    case class Coords(x: Int, y: Int)
+    case class Area(name: String, var conns: Seq[Connection] = Seq(), refillGroup: RefillGroup, coords: Option[Coords]) extends Node {
+      conns = conns.filter(_.reqs.nonEmpty)
       override val kind: NodeType = AreaNode
       override def reached(curr: GameState, orbs: Orbs): Unit = {
         val orbsAfter = refillGroup(curr, orbs)
@@ -155,7 +162,6 @@ package SeedGenerator {
         Nodes.reachCache(this) = AreaTraversalInfo(orbsAfter, Set()) // no loops
         val didntReach = conns.flatMap({
           case Connection(p @ Placeholder(_, AreaNode), _) if Nodes.reachCache.contains(p.res.asInstanceOf[Area]) => None
-          // TODO: FIXME
           case Connection(target, reqs) =>
             val s = curr + GameState(Inv.Empty, Nodes.states.toSet)
 //            val met2 = reqs.filter(r => r.metBy(s))
@@ -188,10 +194,10 @@ package SeedGenerator {
           Config.debug(s"pickup $name not found in loc_data.csv")
         None
       }) match {
-    case Some(ItemLoc(name, l)) if !Config().flags.noHints && (l.value == "LupoZoneMap" || name == "OpherShop.WaterBreath") => None
-    case Some(ItemLoc(_, l)) if !Config().questLocs && l.category == "Quest" => None
-    case Some(ItemLoc(name, _)) if !Config().flags.noKSDoors && name == "OpherShop.Sentry" =>/* Config.debug(s"Filtered out $name");*/ None
-    case a => a
+      case Some(ItemLoc(name, l)) if !Config().flags.noHints && (l.value == "LupoZoneMap" || name == "OpherShop.WaterBreath") => None
+      case Some(ItemLoc(_, l)) if !Config().questLocs && l.category == "Quest" => None
+      case Some(ItemLoc(name, _)) if !Config().flags.noKSDoors && name == "OpherShop.Sentry" =>/* Config.debug(s"Filtered out $name");*/ None
+      case a => a
     }
   }
 
@@ -255,7 +261,7 @@ package SeedGenerator {
 
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
       val locDataByName = LocData.byName
-      areas.values.map(area => area.name -> Area(area.name, area.conns.flatMap(c => {
+      areas.values.map(area => area.name -> area.copy(conns = area.conns.flatMap(c => {
         if(doors.contains(c.target.name))
           _connectedToDoors.add(area)
       c match {
@@ -265,20 +271,66 @@ package SeedGenerator {
         case Connection(Placeholder(name, AreaNode), _) if !areas.contains(name)  => Config.warn(s"ignoring path from ${area.name} to unknown area $name"); None
         case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
         case c => Some(c)
-      }}), area.refillGroup)).toMap
+      }}) ++ (if(area.name == _spawn.areaName) _spawn.conns else Seq()))).toMap
+    }
+
+
+    case class SpawnLoc(areaName: String, spawnSlots: Int, teleporter: Teleporter) {
+      def area: Area = Nodes.areas(areaName)
+      def conns: Seq[Connection] = (1 to spawnSlots) map (i =>
+        Connection(ItemLoc(s"Spawn item #$i", LocData("Spawn", s"Item_$i", "nullCat", "nullVal", "spawn", "control", 3, "spawn", "0", 0, 0)), Seq(Free)))
+      def line: String = {
+        if(areaName == "MarshSpawn.Main")
+          return ""
+        val Coords(x, y) = area.coords.get
+        s"Spawn: $x, $y        // $areaName\n\n" + (if(spawnSlots > 0) "3|0|6|Spawning with:|f=420 // show spawn text for longer\n\n" else "")
+      }
+
+    }
+    object SpawnLoc {
+      def all = Seq(
+        SpawnLoc("MidnightBurrows.Teleporter", 3, Teleporter(0)),
+        SpawnLoc("HowlsDen.Teleporter", 1, Teleporter(1)),
+        SpawnLoc("EastPools.Teleporter", 3, Teleporter(2)),
+        SpawnLoc("InnerWellspring.Teleporter", 2, Teleporter(3)),
+        SpawnLoc("LowerReach.Teleporter", 3, Teleporter(4)),
+        SpawnLoc("EastHollow.Teleporter", 3, Teleporter(5)),
+        SpawnLoc("UpperDepths.Teleporter", 3, Teleporter(6)),
+        SpawnLoc("WoodsEntry.Teleporter", 3, Teleporter(7)),
+        SpawnLoc("WoodsMain.Teleporter", 4, Teleporter(8)),
+        SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
+        SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
+        SpawnLoc("UpperWastes.NorthTP", 4, Teleporter(11)),
+        SpawnLoc("GladesTown.Teleporter", 3, Teleporter(16)),
+        SpawnLoc("MarshSpawn.Main", 0, Teleporter(17)),
+      )
+      def byName: Map[String, SpawnLoc] = all.map(a => a.areaName -> a).toMap
+      def default: SpawnLoc = SpawnLoc("MarshSpawn.Main", 0, Teleporter(17))
     }
 
     var populatedWithSetting: Option[GenSettings] = None
-    def populate(): Boolean = {
-      if(populatedWithSetting.contains(Config()))
+    def populate()(implicit r: Random): Boolean = {
+      if(populatedWithSetting.contains(Config()) && !Config().flags.randomSpawn)
         return true // already done lol
       Timer("Path parsing", printAfterEach = true) {
           FastParser.parseFile() match {
             case Right(value) =>
-              Config.debug(s"parse done ${value.size} areas")
+              Config.debug(s"parse done, ${value.size} areas")
+              if(!ReachChecker.doingReachCheck)
+                if(Config().flags.randomSpawn) {
+                  _spawn = SpawnLoc.all.rand
+                  Config.debug(s"set spawn loc to ${_spawn.areaName}")
+                } else {
+                  _spawn = SpawnLoc.default
+                }
               _areas = Timer("FixAreas")(fixAreas(value))
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
               Config.debug(s"items done ${_items.size} items")
+              preplc.clear()
+              if(Config().seirLaunch) {
+                val seir = Nodes.items("WindtornRuins.Seir")
+                preplc(seir) = ItemPlacement(Launch, seir)
+              }
               populatedWithSetting = Some(Config())
               true
             case Left(error) =>
@@ -287,24 +339,31 @@ package SeedGenerator {
           }
       }
     }
-    def spawn: Area = areas("MarshSpawn.Main")
+    def spawn: Area = _spawn.area
+    def spawnTP: Teleporter = _spawn.teleporter
+    var _spawn: SpawnLoc = SpawnLoc.default
+    def macros: Area = areas("RequirementMacros")
     val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
     val haveReached: MSet[Node] = MSet.empty[Node]
     val states: MSet[FlagState] = MSet.empty[FlagState]
-    def reached(s: GameState)(implicit preplc: MMap[ItemLoc, Placement]): (GameState, Set[Placement]) = Timer("Reached"){
+    def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
+      val mbprplc = if(theoretical) Some(MMap(preplc.toSeq:_*)) else None
       val(rs, plcs) = Nodes.reachedRec(s, Set())
+      mbprplc.foreach(old => {preplc.clear(); preplc.addAll(old)})
       if(plcs.nonEmpty)
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, plcs)
     }
+    val preplc: MMap[ItemLoc, Placement] = MMap.empty
 
     @scala.annotation.tailrec
-    def reachedRec(s: GameState, plcs: Set[Placement] = Set())(implicit preplc: MMap[ItemLoc, Placement]): (GameState, Set[Placement]) = {
+    def reachedRec(s: GameState, plcs: Set[Placement] = Set()): (GameState, Set[Placement]) = {
       reachCache.clear()
       haveReached.clear()
       states.clear()
       var stateCount = 0
       def fullState: GameState  = s.noReached + GameState(Inv.Empty, states.toSet, haveReached.toSet)
+      macros.reached(fullState, s.inv.orbs)
       spawn.reached(fullState, s.inv.orbs)
       do {
         stateCount = states.size
@@ -334,7 +393,7 @@ package SeedGenerator {
       val paths = states
         .filterNot(_.inv.count > spaceRemaining)
         .filter(_.inv.forall({case (i, c) => pool.has(i, c)}))
-        .map(i => i -> (Nodes.reached(instate + i)(MMap())._1.items -- items)).filter(_._2.nonEmpty)
+        .map(i => i -> (Nodes.reached(instate + i, true)._1.items -- items)).filter(_._2.nonEmpty)
       val singles = paths.filter(_._1.inv.count == 1).map(_._1.inv.head._1)
       paths.filterNot {
         case (st, _) => st.inv.count > 1 && singles.exists(st.inv.has(_))
@@ -378,7 +437,7 @@ package SeedGenerator {
     placements: Seq[Placement],
     i: Int,
     parent: Option[PlacementGroup] = None
-  )(implicit r: Random, pool: Inv, preplc: MMap[ItemLoc, Placement] = MMap()) {
+  )(implicit r: Random, pool: Inv) {
     def desc(standalone: Boolean = false): String = {
       if (standalone)
         return placements.collect({
@@ -396,7 +455,10 @@ package SeedGenerator {
       // plcmnts.placements.map(_.item).filterNot(plcmnts.prog.has(_)
     }
 
-    def done: Boolean = pool.isEmpty && Nodes.items.values.forall(outState.reached.contains)
+    def done: Boolean = pool.isEmpty && (Try { Nodes.items.values.forall(outState.reached.contains) } match {
+      case Success(b) => b
+      case Failure(f) => Config.error(f); true
+    })
 
     def allPlacements: Set[Placement] = parent.map(_.allPlacements).getOrElse(Set()) ++ placements
 
@@ -409,7 +471,7 @@ package SeedGenerator {
   object PlacementGroup {
     def debugPrint(x: Any): Unit = Config.debug(x)
     def trymk(inState: GameState, i:Int = 0, parent: Option[PlacementGroup] = None)
-             (implicit r: Random, pool: Inv, preplc: MMap[ItemLoc, Placement] = MMap()): Either[GeneratorError, PlacementGroup] = Try {
+             (implicit r: Random, pool: Inv): Either[GeneratorError, PlacementGroup] = Try {
       Timer("pg.mk")(mk(inState, i, parent))
     }.toEither.left.map(
       {
@@ -419,7 +481,7 @@ package SeedGenerator {
           e.setStackTrace(t.getStackTrace)
           e
       })
-    def mk(inState: GameState, i:Int = 0, parent: Option[PlacementGroup] = None)(implicit r: Random, pool: Inv, preplc: MMap[ItemLoc, Placement] = MMap()): PlacementGroup = {
+    def mk(inState: GameState, i:Int = 0, parent: Option[PlacementGroup] = None)(implicit r: Random, pool: Inv): PlacementGroup = {
       val (state, preplaced) = Nodes.reached(inState)
       val placements = MList[Placement]() ++ preplaced
       def process(ps: Iterable[Placement], prefix: String = ""): Unit =
@@ -427,7 +489,7 @@ package SeedGenerator {
       val reachableLocs = state.items
       val locsWithItems = (parent.map(_.allPlacements).getOrElse(Set()) ++ placements).map(_.loc)
       val freeLocs = r.shuffle((reachableLocs -- locsWithItems).toSeq)
-      val count = pool.count + preplc.size
+      val count = pool.count + Nodes.preplc.size
       val placed = locsWithItems.size
       if(count+placed != ItemPool.SIZE)
         Config.warn(s"$count + $placed != ${ItemPool.SIZE}")
@@ -463,7 +525,7 @@ package SeedGenerator {
           }
           val newLocs = newState.items
           val newCount = (newLocs -- reachableLocs).size
-          debugPrint(s"checking for reachables after KS, got $newCount")
+          Config.debug(s"checking for reachables after KS, got $newCount")
           if(newCount > 0 || newPlc.exists(_.item.isInstanceOf[Important]) || newLocs.size == ItemPool.SIZE)
             return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
           else
@@ -510,7 +572,7 @@ package SeedGenerator {
           }
           val inc = multiplier * (1 / st.inv.cost)
           _fullWeight += inc
-          debugPrint(s"$st->${1 / st.inv.cost} * $multiplier -> $inc, total: ${_fullWeight}")
+          debugPrint(s"$st->${(1 / st.inv.cost).toString.take(6)} * $multiplier -> ${inc.toString.take(7)}, total: ${_fullWeight.toString.take(7)}")
           _fullWeight
         }
 
@@ -531,10 +593,13 @@ package SeedGenerator {
 
         if(possiblePaths.isEmpty) {
           Config.error(s"ERROR: uh oh!")
-          Config.error(s"pool: $pool")
-          Config.error(s"inv: ${state.inv}")
+          Config.error(s"pool: ${pool.progInv()}")
+          Config.error(s"inv: ${state.inv.progInv()}")
           Config.error(s"Had $sizeLeft slots")
-          Config.error(s"Couldnt reach ${Nodes.items.values.toSet -- reachableLocs}")
+          val unreachable = Nodes.items.values.toSet -- reachableLocs
+          Config.error(s"Couldnt reach ${unreachable.take(8)}... (${unreachable.size} total)")
+          if(Config().flags.randomSpawn)
+            Config.error(s"Spawned at ${Nodes.spawn.name}")
           throw GeneratorError(s"No possible paths???")
         }
         val limit = r.nextDouble() * _fullWeight
@@ -561,15 +626,23 @@ package SeedGenerator {
 
   case class Seed(grps: Seq[PlacementGroup], error: Option[GeneratorError]) {
     def built: Boolean = error.isEmpty && grps.last.done
-    def seed: String = Config().flags.line + grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n").replace("\n", "\r\n")
+    def seed: String = (Config().header +
+        grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n") +
+        s"\n// Config: ${Config().toJson}"
+      ).replace("\n", "\r\n")
     def spoiler: String = grps.map(grp => grp.desc(true)).mkString("\n").replace("\n", "\r\n")
     def desc(standalone: Boolean = false): String = grps.map(grp => if(standalone) grp.desc(standalone) else grp.desc(standalone).replace("\n", "")).mkString("\n")
 
     def write(targetPath: String): Unit = {
-      val seedWriter = new FileWriter(targetPath)
-      seedWriter.write(seed)
-      Config.log(s"Wrote seed to $targetPath")
-      seedWriter.close()
+      Try {
+        val seedWriter = new FileWriter(targetPath)
+        seedWriter.write(seed)
+        Config.log(s"Wrote seed to $targetPath")
+        seedWriter.close()
+      } match {
+        case Success(_) =>
+        case Failure(e) => Config.error(s"write failed, $e")
+      }
       if(!Config().spoilers) {
         val spoilerPath = targetPath.replace(".wotwr", "_SPOILER.txt")
         val spoilerWriter = new FileWriter(spoilerPath)
@@ -590,17 +663,15 @@ package SeedGenerator {
       )
 
     def mkSeed: Seed = {
-      implicit val preplc: MMap[ItemLoc, Placement] = Config.getPreplcs
-      implicit val pool: Inv = ItemPool.build()
-      recurse()(pool, preplc)
+      implicit val pool: Inv = ItemPool.build(r)
+      recurse()(pool)
     }
     def single: PlacementGroup = {
-      implicit val preplc: MMap[ItemLoc, Placement] = Config.getPreplcs
-      implicit val pool: Inv = ItemPool.build()
+      implicit val pool: Inv = ItemPool.build(r)
       PlacementGroup.mk(DEFAULT_INV)
     }
     @scala.annotation.tailrec
-    def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv, preplc: MMap[ItemLoc, Placement] = MMap()): Seed = {
+    def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {
@@ -631,10 +702,11 @@ package SeedGenerator {
       ret
     }
     def apply(targetPath: String = "seeds/seed_0.wotwr"): Boolean = {
-      Nodes.populate()
       val seed = forceGetSeed()
       if(seed.built)
         seed.write(targetPath)
+      else
+        Config.warn(s"Failed to build! didn't write.")
       seed.built
     }
   }
@@ -645,7 +717,8 @@ package SeedGenerator {
                     noHints: Boolean = false,
                     noSword: Boolean = false,
                     rain: Boolean = false,
-                    noKSDoors: Boolean = false
+                    noKSDoors: Boolean = false,
+                    randomSpawn: Boolean = false
                   ) {
     def line: String = {
       Seq(
@@ -655,7 +728,8 @@ package SeedGenerator {
         if(noHints) Some("NoHints") else None,
         if(noSword) Some("NoFreeSword") else None,
         if(rain) Some("RainyMarsh") else None,
-        if(noKSDoors) Some("NoKSDoors") else None
+        if(noKSDoors) Some("NoKSDoors") else None,
+        if(randomSpawn) Some("RandomSpawn") else None
       ).flatten match {
         case Nil => ""
         case s => s"Flags: ${s.mkString(", ")}\n"
@@ -671,13 +745,20 @@ package SeedGenerator {
                           flags: Flags = Flags(),
                           bonusItems: Boolean = true,
                           debugInfo: Boolean = false,
-                          seirLaunch: Boolean = false
-                        )
+                          seirLaunch: Boolean = false,
+                        ) extends SettingsProvider {
+    def header: String = {
+      flags.line + (if(flags.randomSpawn) Nodes._spawn.line else "")
+    }
+    implicit val formats: Formats = Serialization.formats(NoTypeHints)
+    def toJson: String = {Serialization.write(this)}
+    override def apply(): GenSettings = this
+  }
 
   trait SettingsProvider {
     def apply(): GenSettings
-    def getPreplcs: MMap[ItemLoc, Placement]
   }
+
   trait LogLevel
   case object DEBUG extends LogLevel
   case object INFO  extends LogLevel
@@ -693,7 +774,7 @@ package SeedGenerator {
     def warn(x: Any): Unit    = writeIf(WARN,  s"WARN:  $x")
     def error(x: Any): Unit   = writeIf(ERROR, s"ERROR: $x")
   }
-  object DefaultLogger extends Logger {
+case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR)) extends Logger {
     def write(x: Any): Unit = println(x)
   }
 
@@ -707,17 +788,15 @@ package SeedGenerator {
 
   object DefaultSettingsProvider extends SettingsProvider {
     def apply(): GenSettings = GenSettings()
-    def getPreplcs: MMap[ItemLoc, Placement] = MMap()
   }
 
   object Config extends SettingsProvider with Logger {
     var settingsProvider: SettingsProvider = DefaultSettingsProvider
-    var logger: Logger = DefaultLogger
+    var logger: Logger = DefaultLogger()
     override def write(x: Any): Unit = logger.write(x)
     override def enabled: Seq[LogLevel] = logger.enabled
 
     override def apply(): GenSettings = settingsProvider.apply()
-    override def getPreplcs: MMap[ItemLoc, Placement] = settingsProvider.getPreplcs
   }
 
   case class Distro(sl: Int = 0, hc: Int = 0, ec: Int = 0, ore: Int = 0, sks: Int = 0)
@@ -760,12 +839,14 @@ package SeedGenerator {
   }
   object ItemPool {
     def SIZE: Int = Nodes.items.size
-    def build(size: Int = SIZE)(implicit r: Random, preplc: MMap[ItemLoc, Placement] = MMap()): Inv = {
+    def build(implicit r: Random): Inv = {
+      Nodes.populate()
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Config().flags.noKSDoors) 0 else 34)) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
-      while(pool.count < size) pool.add(SpiritLight(r.between(75, 175)))
-      preplc.values.foreach(plc => pool.take(plc.item))
-      pool.merchToPop = (Nodes.items.values.toSet -- preplc.keys).count(_.data.category == "Shop")
+      while(pool.count < SIZE) pool.add(SpiritLight(r.between(75, 175)))
+      Config.debug(s"${pool.count}, $SIZE")
+      Nodes.preplc.values.foreach(plc => pool.take(plc.item))
+      pool.merchToPop = (Nodes.items.values.toSet -- Nodes.preplc.keys).count(_.data.category == "Shop")
       pool
     }
   }

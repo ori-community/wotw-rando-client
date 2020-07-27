@@ -14,7 +14,7 @@ namespace RandoMainDLL {
     RELOAD_SEED = 1,
     BINDING_ONE = 2,
     BINDING_TWO = 3,
-    BINDING_THREE = 4
+    BINDING_THREE = 4,
   }
   public enum Flag {
     [Description("No Hints")]
@@ -30,7 +30,9 @@ namespace RandoMainDLL {
     [Description("No Free Sword")]
     NOSWORD,
     [Description("Rainy Marsh")]
-    RAIN
+    RAIN,
+    [Description("Random Spawn")]
+    RAND
   }
 
   public class UberStateCondition {
@@ -100,10 +102,14 @@ namespace RandoMainDLL {
         HintsController.Reset();
         HasInternalSpoilers = true;
         string line = "";
+        string coordsRaw = "";
         foreach (string rawLine in File.ReadLines(SeedFile)) {
           try {
             if (rawLine.StartsWith("Flags: ")) {
               ProcessFlags(rawLine);
+              continue;
+            } else if(rawLine.StartsWith("Spawn: ")) {
+              coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
               continue;
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
@@ -141,11 +147,21 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
+        if(coordsRaw != "") {
+          var coords = coordsRaw.Split(',').ToList();
+          var x = coords[0].ParseToFloat("SpawnX");
+          var y = coords[1].ParseToFloat("SpawnY");
+          InterOp.set_start_position(x, y);
+        } else {
+          InterOp.clear_start_position();
+        }
         if (!init) {
           var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags.Select((Flag flag) => flag.GetDescription()))}" : "";
           AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
           MapController.UpdateReachable();
         }
+
+        // Should only be used for configuration options.
       } else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
@@ -254,7 +270,15 @@ namespace RandoMainDLL {
               }
 
               var value = extras[1].ParseToInt("BuildPickup.Value");
-              return new SetStateCommand(t, (SysState)sysState, value);
+              return new SetStateCommand((SysState)sysState, value);
+            case SysCommandType.Warp:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              var warpX = extras[0].ParseToFloat("BuildPickup.PositionX");
+              var warpY = extras[1].ParseToFloat("BuildPickup.PositionY");
+              return new WarpCommand(warpX, warpY);
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }

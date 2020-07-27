@@ -16,11 +16,6 @@ FirstLaunch := False
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
 ; associating .wotwr files with WotwRando.exe
-batch=
-(
-assoc .wotwr=WotwRando
-ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
-)
 
 updateFailedMsg=
 (
@@ -222,7 +217,7 @@ return
 
 PromptSettingsChange:
 if(NewSetting != "") {
-    Msgbox 4, WOTW Rando v%MY_VER%, New Setting available: %NewSetting%`nWould you like to update settings before launching?
+    Msgbox 4, WOTW Rando v%MY_VER%, New Setting(s) available: %NewSetting%`nWould you like to update settings before launching?
     IfMsgBox, No, Return
     RunWait, %INSTALL_DIR%RandoSettings.exe
 }
@@ -234,6 +229,12 @@ ExitApp
 
 
 SetCommonVariables:
+batch=
+(
+assoc .wotwr=WotwRando
+ftype WotwRando="%INSTALL_DIR%WotwRando.exe" "`%`%1" `%`%*
+)
+
 INI_FILE := INSTALL_DIR . "settings.ini"
 VCR_FILE := INSTALL_DIR . "VC_redist.x64.exe"
 INJECTOR := INSTALL_DIR . "Injector.exe"
@@ -252,6 +253,7 @@ IniRead, ShowShortCutscenes, %INI_FILE%, Flags, ShowShortCutscenes, false
 IniRead, ShowLongCutscenes, %INI_FILE%, Flags, ShowLongCutscenes, false
 IniRead, WinStore, %INI_FILE%, Flags, UseWinStore, false
 IniRead, LaunchWithTracker, %INI_FILE%, Flags, LaunchWithTracker, false
+IniRead, BetaVersions, %INI_FILE%, Flags, BetaVersions, true
 return
 
 WriteIniDefaults:
@@ -280,17 +282,17 @@ TryDelete(INSTALL_DIR . "areas.wotw")
 TryDelete(INSTALL_DIR . "VERSION")
 
 
-FileInstall, RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
-FileInstall, InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
-FileInstall, InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
-FileInstall, Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
-FileInstall, SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
-FileInstall, Injector.exe, %INSTALL_DIR%Injector.exe, 1
-FileInstall, projects\SeedGen\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
-FileInstall, projects\SeedGen\areas.wotw, %INSTALL_DIR%areas.wotw, 1
-FileInstall, RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
-FileInstall, ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
-FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
+FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
+FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
+FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
+FileInstall, C:\moon\Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
+FileInstall, C:\moon\SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
+FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe, 1
+FileInstall, C:\moon\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
+FileInstall, C:\moon\areas.wotw, %INSTALL_DIR%areas.wotw, 1
+FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
+FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
+FileInstall, C:\moon\VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
     FileCopy, %A_ScriptFullPath%, %INSTALL_DIR%WotwRando.exe
 Else
@@ -327,6 +329,11 @@ Try {
     whr.Send() ; second
 
     latest := whr.ResponseText
+    if((BetaVersions == "false") and RegExMatch(latest, "\.0$") == 0) {
+        SplashTextOff
+        return
+    }
+
     if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
     {
         SplashTextOff

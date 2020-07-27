@@ -336,9 +336,22 @@ namespace
     IL2CPP_BINDING(, RuntimeWorldMapIcon, void, Hide, (app::RuntimeWorldMapIcon* this_ptr));
     STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Inequality, (app::Object* o1, app::Object* o2));
     STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (app::Object* this_ptr));
+    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* this_ptr)) {
+        if (csharp_bridge::tp_to_any_pickup())
+            return true;
+        auto guid = stringify_guid(this_ptr->fields.Guid);
+        if (can_teleport.find(guid) != can_teleport.end())
+            return true;
 
+        return CanBeTeleportedTo(this_ptr);
+    }
     bool shown_by_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
     {
+        // Always show warps check
+        if (icon->fields.Icon == app::WorldMapIconType__Enum_SavePedestal && RuntimeWorldMapIcon::CanBeTeleportedTo(icon) && csharp_bridge::check_ini("AlwaysShowWarps"))
+            // the icon filter here might be limiting but without it, the tpcheat spams every filter so meh
+            return true;
+
         auto filter = static_cast<NewFilters>(manager->fields.Filter);
         // If we are in original filters then use the original function.
         if (filter <= NewFilters::Collectibles)
@@ -501,13 +514,6 @@ namespace
         cycle_filter(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* this_ptr)) {
-        auto guid = stringify_guid(this_ptr->fields.Guid);
-        if (can_teleport.find(guid) != can_teleport.end())
-            return true;
-
-        return CanBeTeleportedTo(this_ptr);
-    }
 }
 
 INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, app::WorldMapIconType__Enum icon, float x, float y, int group_id, int state_id, bool allow_teleport)

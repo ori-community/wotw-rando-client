@@ -11,12 +11,14 @@ namespace uber_states
         constexpr int OPHER_WEAPON_GROUP_ID = 1;
         constexpr int TWILLEN_SHARD_GROUP_ID = 2;
         constexpr int RANDO_STATS_GROUP_ID = 6;
+        constexpr int RANDO_CONFIG_GROUP_ID = 7;
         constexpr int MAP_FILTER_GROUP_ID = 8;
 
         const std::string TREE_GROUP_NAME = "trees";
         const std::string OPHER_WEAPON_GROUP_NAME = "opher_weapons";
         const std::string TWILLEN_SHARD_GROUP_NAME = "twillen_shards";
         const std::string RANDO_STATS_GROUP_NAME = "rando_stats";
+        const std::string RANDO_CONFIG_GROUP_NAME = "rando_config";
         const std::string MAP_FILTER_GROUP_NAME = "map_filter";
     }
 

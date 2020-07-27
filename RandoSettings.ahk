@@ -21,6 +21,11 @@ IniRead, varDisableQuestSnap, %inipath%, Flags, QuestFocusOnAbility3, false
 IniRead, varMouseBurrow, %inipath%, Flags, BurrowMouseControl, false
 IniRead, varMouseWDash, %inipath%, Flags, WaterDashMouseControl, false
 IniRead, varMouseGrapple, %inipath%, Flags, GrappleMouseControl, false
+IniRead, varBetaVersions, %inipath%, Flags, BetaVersions, true
+IniRead, varHideQuestFilter, %inipath%, Flags, HideQuestFilter, false
+IniRead, varHideWarpFilter, %inipath%, Flags, HideWarpFilter, false
+IniRead, varHideCollectableFilter, %inipath%, Flags, HideCollectableFilter, false
+IniRead, varAlwaysShowWarps, %inipath%, Flags, AlwaysShowWarps, false
 
 IniRead, varSteamPath, %inipath%, Paths, Steam
 
@@ -51,6 +56,11 @@ ahkVarLaunchTracker := parseBooltoNum(varLaunchTracker)
 ahkVarMouseBurrow := parseBooltoNum(varMouseBurrow)
 ahkVarMouseWDash := parseBooltoNum(varMouseWDash)
 ahkVarMouseGrapple := parseBooltoNum(varMouseGrapple)
+ahkVarBetaVersions := parseBooltoNum(varBetaVersions)
+ahkVarHideQuestFilter := parseBooltoNum(varHideQuestFilter)
+ahkVarHideWarpFilter := parseBooltoNum(varHideWarpFilter)
+ahkVarHideCollectableFilter := parseBooltoNum(varHideCollectableFilter)
+ahkVarAlwaysShowWarps := parseBooltoNum(varAlwaysShowWarps)
 ; Adding all the buttons and text in the Window.
 
 col2 := 260
@@ -86,6 +96,18 @@ Gui, Add, Checkbox, x%col2% ys checked%ahkvarMouseBurrow% vahkvarMouseBurrow gwr
 Gui, Add, Text, x20 section, Mouse Aiming: Water Dash
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarMouseWDash% vahkvarMouseWDash gwritetofile
 
+Gui, Add, Text, x20 y+30 section, Hide Quest Filter
+Gui, Add, Checkbox, x%col2% ys checked%ahkVarHideQuestFilter% vahkVarHideQuestFilter gwritetofile
+
+Gui, Add, Text, x20 section, Hide Warp Filter
+Gui, Add, Checkbox, x%col2% ys checked%ahkVarHideWarpFilter% vahkVarHideWarpFilter gwritetofile
+
+Gui, Add, Text, x20 section, Hide Collectable Filter
+Gui, Add, Checkbox, x%col2% ys checked%ahkVarHideCollectableFilter% vahkVarHideCollectableFilter gwritetofile
+
+Gui, Add, Text, x20 section, Always Show Warps
+Gui, Add, Checkbox, x%col2% ys checked%ahkVarAlwaysShowWarps% vahkVarAlwaysShowWarps gwritetofile
+
 Gui, Add, Text, x20 y+30 section, Restore Short Cutscenes
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarShowShortCutscenes% vahkvarShowShortCutscenes gwritetofile
 
@@ -97,6 +119,9 @@ Gui, Add, Checkbox, x%col2% ys checked%ahkvarLaunchTracker% vahkvarLaunchTracker
 
 Gui, Add, Text, x20 section, Automatic Updates
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarAutoUpdate% vahkvarAutoUpdate gwritetofile
+
+Gui, Add, Text, x20 section, Beta Versions
+Gui, Add, Checkbox, x%col2% ys checked%ahkvarBetaVersions% vahkvarBetaVersions gwritetofile
 
 Gui, Add, Text, x20 section, Use Windows Store
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarUseWinStore% vahkvarUseWinStore gwritetofile
@@ -147,6 +172,11 @@ writetofile:
     varMouseBurrow := parseNumtoBool(ahkvarMouseBurrow) 
     varMouseWDash := parseNumtoBool(ahkvarMouseWDash) 
     varMouseGrapple := parseNumtoBool(ahkvarMouseGrapple)
+    varBetaVersions := parseNumtoBool(ahkvarBetaVersions)
+    varHideQuestFilter := parseNumtoBool(ahkvarHideQuestFilter)
+    varHideWarpFilter := parseNumtoBool(ahkvarHideWarpFilter)
+    varHideCollectableFilter := parseNumtoBool(ahkvarHideCollectableFilter)
+    varAlwaysShowWarps := parseNumtoBool(ahkvarAlwaysShowWarps)
     ; Writing the new values to file.
     IniWrite, %varSkipUpdate%, %inispath%, Flags, SkipUpdate
     IniWrite, %varShowShortCutscenes%, %inipath%, Flags, ShowShortCutscenes
@@ -160,7 +190,11 @@ writetofile:
     IniWrite, %varMouseBurrow%, %inipath%, Flags, BurrowMouseControl
     IniWrite, %varMouseWDash%, %inipath%, Flags, WaterDashMouseControl
     IniWrite, %varMouseGrapple%, %inipath%, Flags, GrappleMouseControl
-
+    IniWrite, %varBetaVersions%, %inipath%, Flags, BetaVersions
+    IniWrite, %varHideQuestFilter%, %inipath%, Flags, HideQuestFilter
+    IniWrite, %varHideWarpFilter%, %inipath%, Flags, HideWarpFilter
+    IniWrite, %varHideCollectableFilter%, %inipath%, Flags, HideCollectableFilter
+    IniWrite, %varAlwaysShowWarps%, %inipath%, Flags, AlwaysShowWarps
     IniWrite, %varSteamPath%, %inipath%, Paths, Steam
     return
 
@@ -184,6 +218,18 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, Restore Long Cutscenes
         Help := "Enables the long, unskippable cutscenes normally removed by the randomizer."
 
+    else IfEqual, HoverText,Hide Quest Filter
+        Help := "Never show the Quests filter in the in-game map"
+
+    else IfEqual, HoverText,Hide Warp Filter
+        Help := "Never show the Warp filter in the in-game map"
+
+    else IfEqual, HoverText,Hide Collectable Filter
+        Help := "Never show the Collectables filter in the in-game map"
+
+    else IfEqual, HoverText,Always Show Warps
+        Help := "Always show Spirit Wells on the in-game map, no matter what filter"
+
     else IfEqual, HoverText, Mouse Aiming: Water Dash
         Help := "Enables aiming Water Dash with your mouse cursor"
 
@@ -195,6 +241,9 @@ Help(wParam, lParam, Msg) {
 
     else IfEqual, HoverText, Automatic Updates
         Help := "Allows the randomizer to check for new updates on launch. Highly recommended!"
+
+    else IfEqual, HoverText,Beta Versions
+        Help := "Allows the randomizer to update to beta versions in need of testing. We appreciate the help!"
 
     else IfEqual, HoverText, Use Windows Store
         Help := "Launch the rando using the windows store version of the game."
