@@ -1742,6 +1742,8 @@ anchor WoodsEntry.ShriekMeet at 478, -4205:  # The ledge to the left of where th
     base, RangedWeapon:
       Danger=10, DoubleJump OR Dash OR Glide OR Launch
       Bash, DoubleJump OR Dash OR Glide OR Launch
+  conn EastHollow.Kwolok:
+    unsafe: Water, Bash
 
 anchor WoodsEntry.BelowTeleporter at 591, -4198:  # Read the name
   refill Checkpoint
@@ -3252,6 +3254,7 @@ anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
       Launch
   conn WoodsMain.FeedingGrounds:
     base: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
+    unsafe: Burrow
   conn WeepingRidge.Bottom:
     base, WindtornRuins.Seir:  # Seir to make it a safe path
       Burrow, DoubleJump, Glide, Grapple
