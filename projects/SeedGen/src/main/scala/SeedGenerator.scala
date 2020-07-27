@@ -280,7 +280,7 @@ package SeedGenerator {
         if(areaName == "MarshSpawn.Main")
           return ""
         val Coords(x, y) = area.coords.get
-        s"Spawn: $x, $y        // $areaName\n"
+        s"Spawn: $x, $y        // $areaName\n3|0|6|Spawning with:|f=420\n"
       }
 
     }
@@ -288,12 +288,12 @@ package SeedGenerator {
       def all = Seq(
         SpawnLoc("MidnightBurrows.Teleporter", 3, Teleporter(0)),
         SpawnLoc("HowlsDen.Teleporter", 1, Teleporter(1)),
-        SpawnLoc("EastPools.Teleporter", 4, Teleporter(2)),
+        SpawnLoc("EastPools.Teleporter", 3, Teleporter(2)),
         SpawnLoc("InnerWellspring.Teleporter", 2, Teleporter(3)),
-        SpawnLoc("LowerReach.Teleporter", 4, Teleporter(4)),
-        SpawnLoc("EastHollow.Teleporter", 4, Teleporter(5)),
-        SpawnLoc("UpperDepths.Teleporter", 4, Teleporter(6)),
-        SpawnLoc("WoodsEntry.Teleporter", 4, Teleporter(7)),
+        SpawnLoc("LowerReach.Teleporter", 3, Teleporter(4)),
+        SpawnLoc("EastHollow.Teleporter", 3, Teleporter(5)),
+        SpawnLoc("UpperDepths.Teleporter", 3, Teleporter(6)),
+        SpawnLoc("WoodsEntry.Teleporter", 3, Teleporter(7)),
         SpawnLoc("WoodsMain.Teleporter", 4, Teleporter(8)),
         SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
         SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
@@ -599,6 +599,8 @@ package SeedGenerator {
           pool.take(item)
           ItemPlacement(item, nonShop)
       }), "prog: ")
+      if(i == 1 && Config().flags.randomSpawn)
+        process(assignRandom(reservedForProg.drop(progPath.count)))
       PlacementGroup(state, progPath, placements.toSeq, i, parent)
     }
   }
