@@ -63,7 +63,6 @@ package SeedGenerator {
         Nil
   }
 
-
   object WorldEvent {
     val names: Map[Int, String] = Map(
       0 -> "Water"
@@ -338,10 +337,9 @@ package SeedGenerator {
         } else asSeq
       if (s.nonEmpty) {
         val i = s(r.nextInt(s.size))
-        if(i == Launch && count > 165) {
-            // if we haven't placed half the items yet,
-            // reroll launch count/500 % of the time
-            if(r.nextFloat() < count/500f)
+        if(i.cost >= 10d) {
+            // reroll expensive items %[placed] of the time
+            if(r.nextFloat() < count/ItemPool.SIZE)
               return popRand
         }
         take(i)
