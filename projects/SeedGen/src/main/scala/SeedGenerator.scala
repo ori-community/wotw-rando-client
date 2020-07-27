@@ -541,8 +541,9 @@ package SeedGenerator {
 
       val locIter = freeLocs.drop(ksNeeded).iterator
       val reservedForProg = (1 to (locsOpen match {
-        case n if Config().flags.randomSpawn && i < 4 => n // always reserve every placement
-        // if random placement doesn't open something (and it often won't), we gotta place something. Reserve item slots for it so we aren't in trouble
+        // if random placement doesn't open something (and it often won't), we gotta place something
+        // Reserve item slots for it so we aren't in trouble
+        case n if Config().flags.randomSpawn && i < 3 => n // be cautious
         case n if n < 3 => n  // pick how many slots to save by how big the pool is.
         case n if n < 5 => 2  // ideally we'd like 2?
         case n if n < 10 => 4 // tweak if necessary
@@ -550,7 +551,9 @@ package SeedGenerator {
         case _ => 8
       })).map(_ => locIter.next())
       debugPrint(s"reserving ${reservedForProg.size}: $reservedForProg")
-      val randPlacements = assignRandom(locIter.toSeq)
+      val (remaining, leftoverSpawn) = locIter.toSeq.partition(_.data.category != "nullCat")
+      leftoverSpawn.foreach(_ => pool.popSL)
+      val randPlacements = assignRandom(remaining)
       process(randPlacements, "rand: ")
       if(randPlacements.nonEmpty) {
         val (newState, newPlc) = Nodes.reached(state)
