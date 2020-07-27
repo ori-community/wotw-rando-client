@@ -11,7 +11,7 @@ INSTALL_DIR := A_ScriptDir . "\"
 gosub SetCommonVariables
 
 ; change this TO THE NAME OF THE NEW SETTING when a new setting is added
-NewSetting := ""
+NewSetting := "Beta Versions, Always Show Warps, and more"
 FirstLaunch := False
 ; this is how you write multiline strings in AHK. it's terrible. 
 ; this specifically is just the 2-line batchfile for  
@@ -217,7 +217,7 @@ return
 
 PromptSettingsChange:
 if(NewSetting != "") {
-    Msgbox 4, WOTW Rando v%MY_VER%, New Setting available: %NewSetting%`nWould you like to update settings before launching?
+    Msgbox 4, WOTW Rando v%MY_VER%, New Setting(s) available: %NewSetting%`nWould you like to update settings before launching?
     IfMsgBox, No, Return
     RunWait, %INSTALL_DIR%RandoSettings.exe
 }
@@ -242,6 +242,7 @@ IniRead, ShowShortCutscenes, %INI_FILE%, Flags, ShowShortCutscenes, false
 IniRead, ShowLongCutscenes, %INI_FILE%, Flags, ShowLongCutscenes, false
 IniRead, WinStore, %INI_FILE%, Flags, UseWinStore, false
 IniRead, LaunchWithTracker, %INI_FILE%, Flags, LaunchWithTracker, false
+IniRead, BetaVersions, %INI_FILE%, Flags, BetaVersions, true
 return
 
 WriteIniDefaults:
@@ -317,6 +318,11 @@ Try {
     whr.Send() ; second
 
     latest := whr.ResponseText
+    if((BetaVersions == "false") and RegExMatch(latest, "\.0$") == 0) {
+        SplashTextOff
+        return
+    }
+
     if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
     {
         SplashTextOff
