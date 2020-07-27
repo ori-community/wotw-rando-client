@@ -65,13 +65,14 @@ namespace RandoMainDLL {
     }
 
     private static readonly HashSet<string> Falsey = new HashSet<string>() { "false", "False", "no", "", "0", "ERROR", null };
-
-    public static bool IniFlag(string Flag) {
+    private static Dictionary<string, Boolean> iniFlagCache = new Dictionary<string, bool>();
+    public static bool IniFlag(string flag) {
       if (!Ready) {
         return false;
       }
-
-      return !Falsey.Contains(Engine.ExecFunction("DoIniRead", "Flags", Flag));
+      if(!iniFlagCache.ContainsKey(flag))
+        iniFlagCache[flag] = !Falsey.Contains(Engine.ExecFunction("DoIniRead", "Flags", flag));
+      return iniFlagCache[flag];
     }
 
     public static void Tick() {
@@ -81,6 +82,7 @@ namespace RandoMainDLL {
         switch (signal) {
           case "reload":
             if (FramesTillUnlockReload == 0) {
+              iniFlagCache.Clear();
               FramesTillNextSend = 0;
               SeedController.ReadSeed();
               if (InterOp.get_game_state() == Memory.GameState.Game)
