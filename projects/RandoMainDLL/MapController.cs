@@ -47,13 +47,14 @@ namespace RandoMainDLL {
         proc.WaitForExit();
         Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
-        foreach (var rawCond in rawOutput.Split(',')) {
-          try {
-            var frags = rawCond.Split('|');
-            var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
-            Reachable.Add(cond.Id);
-          } catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing {rawCond}", e); }
-        }
+        if(rawOutput.Contains(','))
+          foreach (var rawCond in rawOutput.Split(',')) {
+            try {
+              var frags = rawCond.Split('|');
+              var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
+              Reachable.Add(cond.Id);
+            } catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
+          }
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
