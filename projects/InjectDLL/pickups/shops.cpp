@@ -1,7 +1,9 @@
 #include <dll_main.h>
 
 #include <csharp_bridge.h>
+#include <uber_states/uber_state_manager.h>
 
+#include <Il2CppModLoader/il2cpp_internals.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -22,7 +24,7 @@ namespace
     BINDING(5043600, bool, WeaponmasterItem_get_IsAffordable, (app::WeaponmasterItem*)); //WeaponmasterItem$$get_IsAffordable
 
     bool weaponmaster_purchase_in_progress = false;
-    const std::set<char> TWILLEN_SHARDS{1, 2, 3, 5, 19, 22, 26, 40};
+    const std::set<char> TWILLEN_SHARDS{ 1, 2, 3, 5, 19, 22, 26, 40 };
 
     bool is_twillen_shard(const uint8_t shard)
     {
@@ -53,7 +55,7 @@ namespace
     };
 
     BINDING(14042272, int64_t, getSelectedShard, (int64_t spiritShardShopScreen)) //SpiritShardsShopScreen$$get_SelectedSpiritShard
-    INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
+        INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
     {
         //SpiritShardsShopScreen$$CanPurchase
         const auto result = canShardPurchase(spiritShardShopScreen);
@@ -62,10 +64,10 @@ namespace
 
 
     BINDING(14046576, void, SpiritShardsShopScreen_UpdateContextCanvasShards, (int64_t)) //SpiritShardsShopScreen$$UpdateContextCanvasShards
-    BINDING(17918112, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, (int64_t))
-    //Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$RunSetDirtyCallback
+        BINDING(17918112, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, (int64_t))
+        //Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$RunSetDirtyCallback
 
-    INTERCEPT(14055664, void, completeShardPurchase, (int64_t spiritShardShopScreen))
+        INTERCEPT(14055664, void, completeShardPurchase, (int64_t spiritShardShopScreen))
     {
         //SpiritShardsShopScreen$$CompletePurchase
         //save shard new/purchased state
@@ -117,14 +119,14 @@ namespace
         for_each_indexed(
             upgradable_ability_list,
             [shard](int64_t upgradableAbilityLevel, int index) -> void
+        {
+            if (upgradableAbilityLevel)
             {
-                if (upgradableAbilityLevel)
-                {
-                    //Set upgrade cost (normal):
-                    // *(int*)(upgradableAbilityLevel + 0x18) = 10;// 1337 * 2;
-                    //TODO: @Eiko: Get this from c# too
-                }
+                //Set upgrade cost (normal):
+                // *(int*)(upgradableAbilityLevel + 0x18) = 10;// 1337 * 2;
+                //TODO: @Eiko: Get this from c# too
             }
+        }
         );
     }
 
@@ -302,7 +304,7 @@ namespace
     {
         this_ptr->fields.PurchaseCooldown = 0.1f;
         this_ptr->fields.PurchaseTime = NORMAL_PURCHASE_TIME;
-        const auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+        auto* const input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
         if (input_cmd->static_fields->DialogueOption1 != nullptr &&
             input_cmd->static_fields->DialogueOption1->fields.IsPressed)
         {
@@ -356,20 +358,6 @@ namespace
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
     }
 
-    // Generic --------------------------------
-
-    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
-
-    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
-
-    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
-
-    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_Upgradable, (app::PlayerUberStateShards_Shard* this_ptr));
-
-    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_UpgradeAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
-
-    IL2CPP_BINDING(, SpellUIShardEquipStatus, void, SetEquipment, (app::SpellUIShardEquipStatus* this_ptr, app::EquipmentType__Enum type));
-
     // Opher --------------------------------
 
     IL2CPP_BINDING(, ShopkeeperScreen, app::ShopkeeperItem*, get_SelectedUpgradeItem, (app::ShopkeeperScreen* this_ptr));
@@ -379,6 +367,32 @@ namespace
         const auto acquired = static_cast<uint16_t>(item->fields.Upgrade->fields.AcquiredAbilityType);
         const auto required = static_cast<uint16_t>(item->fields.Upgrade->fields.RequiredAbility) << 8;
         return acquired | required;
+    }
+
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsVisible, (app::WeaponmasterItem* this_ptr))
+    {
+        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr)
+        {
+            const auto acquired = this_ptr->fields.Upgrade->fields.AcquiredAbilityType;
+            const auto required = this_ptr->fields.Upgrade->fields.RequiredAbility;
+            if (acquired == app::AbilityType__Enum_WaterBreath && required == app::AbilityType__Enum_None)
+                return uber_states::get_uber_state_value(37858, 10720) > 1.5f; // Watermill escape.
+        }
+
+        return get_IsVisible(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsLocked, (app::WeaponmasterItem* this_ptr))
+    {
+        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr)
+        {
+            const auto acquired = this_ptr->fields.Upgrade->fields.AcquiredAbilityType;
+            const auto required = this_ptr->fields.Upgrade->fields.RequiredAbility;
+            if (acquired == app::AbilityType__Enum_WaterBreath && required == app::AbilityType__Enum_None)
+                return uber_states::get_uber_state_value(37858, 10720) < 1.5f; // Watermill escape.
+        }
+
+        return get_IsLocked(this_ptr);
     }
 
     // When does this happen?
@@ -396,6 +410,20 @@ namespace
 
         return it->second.uses_energy;
     }
+
+    // Generic --------------------------------
+
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
+
+    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
+
+    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
+
+    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_Upgradable, (app::PlayerUberStateShards_Shard* this_ptr));
+
+    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_UpgradeAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
+
+    IL2CPP_BINDING(, SpellUIShardEquipStatus, void, SetEquipment, (app::SpellUIShardEquipStatus* this_ptr, app::EquipmentType__Enum type));
 
     enum class ShopTypeOverwrite
     {
@@ -421,21 +449,21 @@ namespace
 
     void set_providers(app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
     {
-        switch(overwrite_shop_text)
+        switch (overwrite_shop_text)
         {
         case ShopTypeOverwrite::Opher:
+        {
+            auto* const item = reinterpret_cast<app::WeaponmasterItem*>(selected_item);
+            const auto key = get_key(item);
+            const auto it = opher_overrides.find(key);
+            if (it != opher_overrides.end())
             {
-                auto* const item = reinterpret_cast<app::WeaponmasterItem*>(selected_item);
-                const auto key = get_key(item);
-                const auto it = opher_overrides.find(key);
-                if (it != opher_overrides.end())
-                {
-                    name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-                    description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-                    locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-                }
-                break;
+                name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+                locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
             }
+            break;
+        }
         default:
             break;
         }
