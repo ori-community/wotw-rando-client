@@ -52,7 +52,6 @@ namespace RandoMainDLL {
 
         AHK.Init();
         SeedController.ReadSeed(true);
-        RVAFinder.Init();
         Log("init complete", false);
         return true;
       } catch (Exception e) {
@@ -63,7 +62,6 @@ namespace RandoMainDLL {
 
     public static void Update() {
       try {
-        RVAFinder.Update();
         var gs = InterOp.get_game_state();
         if (gs == GameState.TitleScreen) {
           if (TitleScreenCallback != null)
