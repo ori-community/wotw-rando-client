@@ -339,48 +339,7 @@ namespace
     std::unordered_map<uint8_t, ShopItem> twillen_overrides;
     std::unordered_map<uint64_t, ShopItem> lupo_overrides;
 
-    uint16_t get_key(app::WeaponmasterItem* item)
-    {
-        const auto acquired = static_cast<uint16_t>(item->fields.Upgrade->fields.AcquiredAbilityType);
-        const auto required = static_cast<uint16_t>(item->fields.Upgrade->fields.RequiredAbility) << 8;
-        return acquired | required;
-    }
-
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemName, (app::WeaponmasterItem* this_ptr))
-    {
-        const auto key = get_key(this_ptr);
-        const auto it = opher_overrides.find(key);
-        if (it == opher_overrides.end())
-            return WeaponmasterItem::get_ItemName(this_ptr);
-        
-        return reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-    }
-
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemDescription, (app::WeaponmasterItem* this_ptr))
-    {
-        const auto key = get_key(this_ptr);
-        const auto it = opher_overrides.find(key);
-        if (it == opher_overrides.end())
-            return WeaponmasterItem::get_ItemDescription(this_ptr);
-        
-        return reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-    }
-
-    // When does this happen?
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemNextLevelDescription, (app::WeaponmasterItem* this_ptr))
-    {
-        return WeaponmasterItem::get_ItemNextLevelDescription(this_ptr);
-    }
-
-    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_UsesEnergy, (app::WeaponmasterItem* this_ptr))
-    {
-        const auto key = get_key(this_ptr);
-        const auto it = opher_overrides.find(key);
-        if (it == opher_overrides.end())
-            return WeaponmasterItem::get_UsesEnergy(this_ptr);
-        
-        return it->second.uses_energy;
-    }
+    // Lupo --------------------------------
 
     IL2CPP_INTERCEPT(, MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem* this_ptr, app::MapmakerItem* item))
     {
@@ -397,6 +356,8 @@ namespace
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
     }
 
+    // Generic --------------------------------
+
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
 
     IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
@@ -408,6 +369,139 @@ namespace
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_UpgradeAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
 
     IL2CPP_BINDING(, SpellUIShardEquipStatus, void, SetEquipment, (app::SpellUIShardEquipStatus* this_ptr, app::EquipmentType__Enum type));
+
+    // Opher --------------------------------
+
+    IL2CPP_BINDING(, ShopkeeperScreen, app::ShopkeeperItem*, get_SelectedUpgradeItem, (app::ShopkeeperScreen* this_ptr));
+
+    uint16_t get_key(app::WeaponmasterItem* item)
+    {
+        const auto acquired = static_cast<uint16_t>(item->fields.Upgrade->fields.AcquiredAbilityType);
+        const auto required = static_cast<uint16_t>(item->fields.Upgrade->fields.RequiredAbility) << 8;
+        return acquired | required;
+    }
+
+    // When does this happen?
+    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemNextLevelDescription, (app::WeaponmasterItem* this_ptr))
+    {
+        return WeaponmasterItem::get_ItemNextLevelDescription(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_UsesEnergy, (app::WeaponmasterItem* this_ptr))
+    {
+        const auto key = get_key(this_ptr);
+        const auto it = opher_overrides.find(key);
+        if (it == opher_overrides.end())
+            return WeaponmasterItem::get_UsesEnergy(this_ptr);
+
+        return it->second.uses_energy;
+    }
+
+    enum class ShopTypeOverwrite
+    {
+        None,
+        Opher,
+        Tuley,
+        Grom
+    };
+
+    ShopTypeOverwrite overwrite_shop_text = ShopTypeOverwrite::None;
+    app::ShopkeeperItem* selected_item;
+    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, UpdateContextCanvasShards, (app::ShopkeeperScreen* this_ptr))
+    {
+        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterScreen"))
+            overwrite_shop_text = ShopTypeOverwrite::Opher;
+
+        selected_item = get_SelectedUpgradeItem(this_ptr);
+        UpdateContextCanvasShards(this_ptr);
+        overwrite_shop_text = ShopTypeOverwrite::None;
+    }
+
+    IL2CPP_BINDING(, ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails* this_ptr));
+
+    void set_providers(app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
+    {
+        switch(overwrite_shop_text)
+        {
+        case ShopTypeOverwrite::Opher:
+            {
+                auto* const item = reinterpret_cast<app::WeaponmasterItem*>(selected_item);
+                const auto key = get_key(item);
+                const auto it = opher_overrides.find(key);
+                if (it != opher_overrides.end())
+                {
+                    name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                    description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+                    locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
+                }
+                break;
+            }
+        default:
+            break;
+        }
+    }
+
+    bool locked_shop_overwrite = false;
+    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails* this_ptr))
+    {
+        app::MessageProvider* name_provider = nullptr;
+        app::MessageProvider* description_provider = nullptr;
+        app::MessageProvider* locked_provider = nullptr;
+
+        set_providers(name_provider, description_provider, locked_provider);
+
+        auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        auto* const renderer = renderer_components[0];
+        auto* const texture = il2cpp::invoke<app::Texture>(this_ptr->fields.m_item, "get_ItemIcon");
+
+        UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
+
+        auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
+        auto* const name_box = message_box_components[0];
+
+        message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox");
+        auto* const description_box = message_box_components[0];
+
+        const auto locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
+        auto* const empty_str = reinterpret_cast<app::String*>(il2cpp::string_new(""));
+
+        if (locked || locked_shop_overwrite)
+        {
+            name_box->fields.MessageProvider = this_ptr->fields.LockedName;
+            description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
+        }
+        else
+        {
+            name_box->fields.MessageProvider = name_provider == nullptr ? il2cpp::invoke<app::MessageProvider>(this_ptr->fields.m_item, "get_ItemName") : name_provider;
+            description_box->fields.MessageProvider = description_provider == nullptr ? il2cpp::invoke<app::MessageProvider>(this_ptr->fields.m_item, "get_ItemDescription") : description_provider;
+        }
+
+        MessageBox::RefreshText(name_box, empty_str, empty_str);
+        MessageBox::RefreshText(description_box, empty_str, empty_str);
+
+        // Need to do this as UpdateDetails2 overwrites the messageprovider.
+        auto* const temp = this_ptr->fields.LockedDescription;
+        this_ptr->fields.LockedDescription = description_box->fields.MessageProvider;
+        UpdateDetails2(this_ptr);
+        description_box->fields.MessageProvider = temp;
+
+        if (this_ptr->fields.ShowEquipStatus != false)
+            SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum_None);
+    }
+
+    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, ShowEmptyDetails, (app::ShopkeeperUIDetails* this_ptr))
+    {
+        if (overwrite_shop_text != ShopTypeOverwrite::None && selected_item != nullptr)
+        {
+            locked_shop_overwrite = true;
+            UpdateDetails_intercept(this_ptr);
+            locked_shop_overwrite = false;
+        }
+        else
+            ShowEmptyDetails(this_ptr);
+    }
+
+    // Twillen --------------------------------
 
     IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
 
