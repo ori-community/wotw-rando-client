@@ -15,16 +15,16 @@ namespace RandoMainDLL {
     public static void UpdateShopData() {
       foreach(AbilityType t in opherWeaponInv) {
         if (WaterOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, false);
+          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, "test1", false);
         }
         else if (KSOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, false);
+          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, "test1", false);
         }
         else {
           var pickup = SeedController.OpherWeapon(t);
           if (pickup.NonEmpty) {
             var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), pickup is Ability s && costsEnergy.Contains(s.type));
+            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), "test1", pickup is Ability s && costsEnergy.Contains(s.type));
           }
           else
             Randomizer.Warn("UpdateShopData", $"Couldn't find a pickup for {t.GetDescription()}");
@@ -33,7 +33,7 @@ namespace RandoMainDLL {
       foreach(ShardType s in twillenShardInv) {
         var pickup = SeedController.TwillenShard(s);
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter());
+          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter(), "test2");
       }
       foreach(LupoHintData d in lupoDataByID.Values)
         d.Setup();
@@ -152,7 +152,7 @@ namespace RandoMainDLL {
         Cost = cost;
         Id   = id;
       }
-      public void Setup() => InterOp.set_lupo_item(Id.GroupID, Id.ID, Name, Desc);
+      public void Setup() => InterOp.set_lupo_item(Id.GroupID, Id.ID, Name, Desc, "test3");
 
     }
     private static Dictionary<int, LupoHintData> lupoDataByID = new Dictionary<int, LupoHintData>() {
