@@ -30,6 +30,7 @@ set(
 	"features/water.cpp"
 	"fixes/dash.cpp"
 	"fixes/deflector.cpp"
+	"fixes/feedinggrounds.cpp"
 	"fixes/flap.cpp"
 	"fixes/teleporters.cpp"
 	"pickups/pickups.cpp"
