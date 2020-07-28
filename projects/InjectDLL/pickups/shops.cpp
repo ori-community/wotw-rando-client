@@ -331,6 +331,7 @@ namespace
     {
         uint32_t name = 0;
         uint32_t description = 0;
+        uint32_t locked = 0;
         bool uses_energy = false;
     };
 
@@ -408,22 +409,28 @@ namespace
 
     IL2CPP_BINDING(, SpellUIShardEquipStatus, void, SetEquipment, (app::SpellUIShardEquipStatus* this_ptr, app::EquipmentType__Enum type));
 
+    IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
+
     bool overwrite_shard_text = false;
+    app::PlayerUberStateShards_Shard* selected_shard;
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen* this_ptr))
     {
         overwrite_shard_text = true;
+        selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
         SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
         overwrite_shard_text = false;
     }
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
 
+    bool locked_shard_overwrite = false;
     IL2CPP_INTERCEPT(, SpiritShardUIShardDetails, void, UpdateDetails, (app::SpiritShardUIShardDetails* this_ptr))
     {
         app::MessageProvider* name_provider = nullptr;
         app::MessageProvider* description_provider = nullptr;
+        app::MessageProvider* locked_provider = nullptr;
 
-        auto* const item = this_ptr->fields.m_item;
+        auto* const item = selected_shard;
         auto type = item->fields.m_type;
         if (overwrite_shard_text)
         {
@@ -432,6 +439,7 @@ namespace
             {
                 name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
                 description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+                locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
             }
         }
 
@@ -440,7 +448,7 @@ namespace
         auto* const description = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &type);
         auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
         auto* const renderer = renderer_components[0];
-        if (!(item->fields.m_gained || !this_ptr->fields.RequireOwned))
+        if (!(item->fields.m_gained || !this_ptr->fields.RequireOwned) || locked_shard_overwrite)
             type = app::SpiritShardType__Enum_None;
 
         if (settings != nullptr)
@@ -458,7 +466,7 @@ namespace
             if (type == 0)
             {
                 name_box->fields.MessageProvider = this_ptr->fields.LockedName;
-                description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
+                description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
             }
             else
             {
@@ -481,6 +489,23 @@ namespace
         }
     }
 
+    IL2CPP_INTERCEPT(, SpiritShardUIShardDetails, void, ShowEmptyDetails, (app::SpiritShardUIShardDetails* this_ptr))
+    {
+        if (overwrite_shard_text && selected_shard != nullptr)
+        {
+            const auto it = twillen_overrides.find(static_cast<uint8_t>(selected_shard->fields.m_type));
+            if (it != twillen_overrides.end())
+            {
+                locked_shard_overwrite = true;
+                UpdateDetails_intercept(this_ptr);
+                locked_shard_overwrite = false;
+                return;
+            }
+        }
+
+        ShowEmptyDetails(this_ptr);
+    }
+
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen* this_ptr))
     {
         csharp_bridge::update_shop_data();
@@ -499,39 +524,43 @@ namespace
         MapmakerScreen::Show(this_ptr);
     }
 
-    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, bool uses_energy)
+    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy)
     {
         if (item.name != 0)
             il2cpp::gchandle_free(item.name);
         if (item.description != 0)
             il2cpp::gchandle_free(item.description);
+        if (item.locked != 0)
+            il2cpp::gchandle_free(item.locked);
 
         auto* provider = create_message_provider(il2cpp::string_new(name));
         item.name = il2cpp::gchandle_new(provider, false);
         provider = create_message_provider(il2cpp::string_new(description));
         item.description = il2cpp::gchandle_new(provider, false);
+        provider = create_message_provider(il2cpp::string_new(locked));
+        item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }
 }
 
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, bool uses_energy)
+INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy)
 {
     const auto key = static_cast<uint16_t>(acquired & 0xFF) | (static_cast<uint16_t>(required & 0xFF) << 8);
     auto& item = opher_overrides[key];
-    set_item(item, name, description, uses_energy);
+    set_item(item, name, description, locked, uses_energy);
 }
 
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description)
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
 {
     const auto key = static_cast<uint8_t>(shard);
     auto& item = twillen_overrides[key];
-    set_item(item, name, description, false);
+    set_item(item, name, description, locked, false);
 }
 
-INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description)
+INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
 {
     const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
     const auto it = lupo_overrides.find(key);
     auto& item = lupo_overrides[key];
-    set_item(item, name, description, false);
+    set_item(item, name, description, locked, false);
 }
