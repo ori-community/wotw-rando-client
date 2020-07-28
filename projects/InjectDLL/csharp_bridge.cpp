@@ -40,7 +40,6 @@ namespace csharp_bridge
     signatures::f_int_int lupo_upgrade_cost;
     signatures::f_void update_shop_data;
 
-    signatures::f_ull_str_bool rva_lookup;
     signatures::f_void_int_int_byte_float_float on_uber_state_applied;
 
     signatures::f_bool_int_int filter_icon_show;
@@ -115,8 +114,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         twillen_shard_cost = reinterpret_cast<f_int_st>(ptr);
     else if (name == "lupo_upgrade_cost")
         lupo_upgrade_cost = reinterpret_cast<f_int_int>(ptr);
-    else if (name == "rva_lookup")
-        rva_lookup = reinterpret_cast<f_ull_str_bool>(ptr);
     else if (name == "on_uber_state_applied")
         on_uber_state_applied = reinterpret_cast<f_void_int_int_byte_float_float>(ptr);
     else if (name == "filter_icon_show")
