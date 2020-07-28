@@ -329,9 +329,9 @@ namespace
 
     struct ShopItem
     {
-        uint32_t name;
-        uint32_t description;
-        bool uses_energy;
+        uint32_t name = 0;
+        uint32_t description = 0;
+        bool uses_energy = false;
     };
 
     std::unordered_map<uint16_t, ShopItem> opher_overrides;
@@ -498,56 +498,40 @@ namespace
         csharp_bridge::update_shop_data();
         MapmakerScreen::Show(this_ptr);
     }
+
+    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, bool uses_energy)
+    {
+        if (item.name != 0)
+            il2cpp::gchandle_free(item.name);
+        if (item.description != 0)
+            il2cpp::gchandle_free(item.description);
+
+        auto* provider = create_message_provider(il2cpp::string_new(name));
+        item.name = il2cpp::gchandle_new(provider, false);
+        provider = create_message_provider(il2cpp::string_new(description));
+        item.description = il2cpp::gchandle_new(provider, false);
+        item.uses_energy = uses_energy;
+    }
 }
 
 INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, bool uses_energy)
 {
     const auto key = static_cast<uint16_t>(acquired & 0xFF) | (static_cast<uint16_t>(required & 0xFF) << 8);
-    const auto it = opher_overrides.find(key);
-    if (it != opher_overrides.end())
-    {
-        il2cpp::gchandle_free(it->second.name);
-        il2cpp::gchandle_free(it->second.description);
-    }
-
     auto& item = opher_overrides[key];
-    auto* provider = create_message_provider(il2cpp::string_new(name));
-    item.name = il2cpp::gchandle_new(provider, false);
-    provider = create_message_provider(il2cpp::string_new(description));
-    item.description = il2cpp::gchandle_new(provider, false);
-    item.uses_energy = uses_energy;
+    set_item(item, name, description, uses_energy);
 }
 
 INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description)
 {
     const auto key = static_cast<uint8_t>(shard);
-    const auto it = twillen_overrides.find(key);
-    if (it != twillen_overrides.end())
-    {
-        il2cpp::gchandle_free(it->second.name);
-        il2cpp::gchandle_free(it->second.description);
-    }
-
     auto& item = twillen_overrides[key];
-    auto* provider = create_message_provider(il2cpp::string_new(name));
-    item.name = il2cpp::gchandle_new(provider, false);
-    provider = create_message_provider(il2cpp::string_new(description));
-    item.description = il2cpp::gchandle_new(provider, false);
+    set_item(item, name, description, false);
 }
 
 INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description)
 {
     const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
     const auto it = lupo_overrides.find(key);
-    if (it != lupo_overrides.end())
-    {
-        il2cpp::gchandle_free(it->second.name);
-        il2cpp::gchandle_free(it->second.description);
-    }
-
     auto& item = lupo_overrides[key];
-    auto* provider = create_message_provider(il2cpp::string_new(name));
-    item.name = il2cpp::gchandle_new(provider, false);
-    provider = create_message_provider(il2cpp::string_new(description));
-    item.description = il2cpp::gchandle_new(provider, false);
+    set_item(item, name, description, false);
 }
