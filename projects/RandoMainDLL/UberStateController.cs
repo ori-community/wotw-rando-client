@@ -269,20 +269,22 @@ namespace RandoMainDLL {
         if (!AHK.IniFlag("ShowLongCutscenes"))
           foreach (UberState s in LongCutscenes) { s.Write(); }
 
-        if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
-          Randomizer.InputUnlockCallback = () => {
-            PsuedoLocs.GAME_START.OnCollect();
-            InterOp.save();
-          };
-        }
-
         InterOp.discover_everything();
         if(!SeedController.flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
           InterOp.bind_sword();
         }
+        if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
+          Randomizer.InputUnlockCallback = () => {
+            MapController.UpdateReachable(2000);
+            PsuedoLocs.GAME_START.OnCollect();
+            InterOp.save();
+          };
+        }
+        else
+          MapController.UpdateReachable();
         InterOp.save();
-        MapController.UpdateReachable();
+
         NeedsNewGameInit = false;
       }
     }
