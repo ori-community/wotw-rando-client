@@ -509,7 +509,9 @@ namespace
 
         // Need to do this as UpdateDetails2 overwrites the messageprovider.
         auto* const temp = this_ptr->fields.LockedDescription;
-        this_ptr->fields.LockedDescription = description_box->fields.MessageProvider;
+        if (locked || locked_shop_overwrite)
+            this_ptr->fields.LockedDescription = description_box->fields.MessageProvider;
+
         UpdateDetails2(this_ptr);
         description_box->fields.MessageProvider = temp;
 
