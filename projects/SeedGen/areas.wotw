@@ -3318,6 +3318,8 @@ anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Po
       Dash, DoubleJump OR Grapple
       Dash, Bash, Grenade=1
       Bash, Grenade=2, DoubleJump OR Glide
+      Bash, Grenade=1, Grapple, DoubleJump OR Glide
+      Bash, Grenade=1, DoubleJump, Glide
       Launch
 
 anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
