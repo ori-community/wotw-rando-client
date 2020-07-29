@@ -308,24 +308,24 @@ return
 ;     }
 
 CheckFlags:
-FileRead, seed, .currentseedpath
-FileReadLine, Flags, %seed%, 1
+    FileRead, seed, .currentseedpath
+    FileReadLine, Flags, %seed%, 1
 
-if (seed != "") {
-    GuiControl, Main:Hide, img\Wisp.png
-    GuiControl, Main:Hide, img\SkillTree.png
-    GuiControl, Main:Hide, img\Quest.png
+    if (seed != "") {
+        GuiControl, Main:Hide, img\Wisp.png
+        GuiControl, Main:Hide, img\SkillTree.png
+        GuiControl, Main:Hide, img\Quest.png
 
-    if (InStr(Flags, "ForceWisps")) {
-        GuiControl, Main:Show, img\Wisp.png
+        if (InStr(Flags, "ForceWisps")) {
+            GuiControl, Main:Show, img\Wisp.png
+        }
+        if (InStr(Flags, "ForceTrees")) {
+            GuiControl, Main:Show, img\SkillTree.png
+        }
+        if (InStr(Flags, "ForceQuests")) {
+            GuiControl, Main:Show, img\Quest.png
+        }
     }
-    if (InStr(Flags, "ForceTrees")) {
-        GuiControl, Main:Show, img\SkillTree.png
-    }
-    if (InStr(Flags, "ForceQuests")) {
-        GuiControl, Main:Show, img\Quest.png
-    }
-}
 return
 
 
