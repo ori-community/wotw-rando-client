@@ -47,19 +47,19 @@ namespace RandoMainDLL {
   }
 
   public enum TeleporterType : byte {
-    [Description("Burrows")]
+    [Description("Midnight Burrows")]
     Burrows = 0,
-    [Description("Den")]
+    [Description("Howl's Den")]
     Den = 1,
-    [Description("East Pools")]
+    [Description("East Luma")]
     EastPools = 2,
     [Description("Wellspring")]
     Wellspring = 3,
-    [Description("Reach")]
+    [Description("Baur's Reach")]
     Reach = 4,
-    [Description("Hollow")]
+    [Description("Kwolok's Hollow")]
     Hollow = 5,
-    [Description("Depths")]
+    [Description("Mouldwood Depths")]
     Depths = 6,
     [Description("West Woods")]
     WestWoods = 7,
@@ -73,13 +73,13 @@ namespace RandoMainDLL {
     OuterRuins = 11,
     [Description("Willow's End")]
     WillowsEnd = 12,
-    [Description("West Pools")]
+    [Description("West Luma")]
     WestPools = 13,
     [Description("Inner Ruins")]
     InnerRuins = 14,
     [Description("Shriek")]
     Shriek = 15,
-    [Description("Marsh")]
+    [Description("Inkwater Marsh")]
     Spawn = 16,
     [Description("Glades")]
     Glades = 17,
