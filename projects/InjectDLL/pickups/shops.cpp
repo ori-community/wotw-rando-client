@@ -621,6 +621,7 @@ namespace
             if (it != twillen_overrides.end())
             {
                 locked_shard_overwrite = true;
+                this_ptr->fields.m_item = selected_shard;
                 UpdateDetails_intercept(this_ptr);
                 locked_shard_overwrite = false;
                 return;
