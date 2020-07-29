@@ -16,11 +16,9 @@ if(launchWithTracker != "false"){
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.1.5"
+version := "v0.1.6"
 global TRACKFILE := A_ScriptDir . "\trackfile.json"
 global SEEDPATH := A_ScriptDir . "\.currentseedpath"
-
-FileRead, seed, .currentseedpath
 
 ; data containers
 imageBase := { "Bash": "img\Bash"
@@ -129,7 +127,7 @@ FileInstall, img\WeaponUpgrade2.png, img\WeaponUpgrade2.png
 FileInstall, img\WeaponUpgrade2_unlocked.png, img\WeaponUpgrade2_unlocked.png
 FileInstall, img\GorlekOre.png, img\GorlekOre.png
 FileInstall, img\Wisp.png, img\Wisp.png
-FileInstall, img\SkillTree.png, img\SkillTree.png
+FileInstall, img\SkillTree.png, img\SkillTree.png, 1 ; Changed this image. Remove next release
 FileInstall, img\Quest.png, img\Quest.png
 
 
@@ -146,20 +144,10 @@ Gui, Main:New
 Gui, Color, %bgcolour%
 Gui, Font, s15 cwhite
 
-if (seed != "") {
-    FileReadLine, Flags, %seed%, 1
-
-    Gui, Add, Text, , Flags:
-    if (InStr(Flags, "ForceWisps")) {
-        Gui, Add, Picture, xp+60 h30 w30, img\Wisp.png
-    }
-    if (InStr(Flags, "ForceTrees")) {
-        Gui, Add, Picture, xp+60 h30 w20, img\SkillTree.png
-    }
-    if (InStr(Flags, "ForceQuests")) {
-        Gui, Add, Picture, xp+60 h30 w30, img\Quest.png
-    }
-}
+Gui, Add, Text, , Flags:
+Gui, Add, Picture, xp+60 h30 w30 Hidden, img\Wisp.png
+Gui, Add, Picture, xp+40 h30 w20 Hidden, img\SkillTree.png
+Gui, Add, Picture, xp+30 h30 w30 Hidden, img\Quest.png
 
 first_row = y40
 Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75 gclick, img\DoubleJump.png
@@ -201,8 +189,9 @@ Gui, Add, Text, vGorlekOre x190 y465 w50, 0
 Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, img\CompleteWatermillEscape.png
 
 Gui, Main:Show,, Ori WotW AutoTracker %version%
-update()
 
+gosub CheckFlags
+update()
 gosub ParseOnTopState
 
 ; -------------------------------------
@@ -318,6 +307,28 @@ return
 ;         }
 ;     }
 
+CheckFlags:
+FileRead, seed, .currentseedpath
+FileReadLine, Flags, %seed%, 1
+
+if (seed != "") {
+    GuiControl, Main:Hide, img\Wisp.png
+    GuiControl, Main:Hide, img\SkillTree.png
+    GuiControl, Main:Hide, img\Quest.png
+
+    if (InStr(Flags, "ForceWisps")) {
+        GuiControl, Main:Show, img\Wisp.png
+    }
+    if (InStr(Flags, "ForceTrees")) {
+        GuiControl, Main:Show, img\SkillTree.png
+    }
+    if (InStr(Flags, "ForceQuests")) {
+        GuiControl, Main:Show, img\Quest.png
+    }
+}
+return
+
+
 ToggleOnTop:
     OnTopState := !OnTopState
     gosub ParseOnTopState
@@ -364,7 +375,7 @@ parsechanges(Folder, Changes) {
             update()
         }
         if (change.Action == 3 and change.Name == SEEDPATH) {
-            updateFlags()
+            gosub CheckFlags
         }
 }
 
@@ -417,10 +428,6 @@ update() {
     ; Store last inventory to check against with next proc
     currentinv := jsonString
 
-}
-
-updateFlags() {
-    Reload  ; Very crudely restarting the tracker for now, elegant solution to follow
 }
 
 ; Hover text for each of the items.
@@ -547,100 +554,4 @@ MainGuiClose: ; Exit the app when the main window closes
 ; -------------------------------------
 ; ColourPicker Subroutines
 ; -------------------------------------
-
-ShowColourPicker:
-    Gui, ColourPicker:Show, w351 h105, Colour Picker
-return
-
-EditSub:
-	;Get Values
-	GuiControlGet,Rval,,eR
-	GuiControlGet,Gval,,eG
-	GuiControlGet,Bval,,eB
-	;Set preview
-	gosub set
-	;Make Everything else aware
-	GuiControl, ColourPicker:,uR,%Rval%
-	GuiControl, ColourPicker:,uG,%Gval%
-	GuiControl, ColourPicker:,uB,%Bval%
-	GuiControl, ColourPicker:,sR,%Rval%
-	GuiControl, ColourPicker:,sG,%Gval%
-	GuiControl, ColourPicker:,sB,%Bval%
-return
-
-UpDownSub:
-	;Get Values
-	GuiControlGet,Rval,,uR
-	GuiControlGet,Gval,,uG
-	GuiControlGet,Bval,,uB
-	;Set preview
-	gosub set
-	;Make Everything else aware
-	GuiControl, ColourPicker:,eR,%Rval%
-	GuiControl, ColourPicker:,eG,%Gval%
-	GuiControl, ColourPicker:,eB,%Bval%
-	GuiControl, ColourPicker:,sR,%Rval%
-	GuiControl, ColourPicker:,sG,%Gval%
-	GuiControl, ColourPicker:,sB,%Bval%
-return
-
-SliderSub:
-	;Get Values
-	GuiControlGet,Rval,,sR
-	GuiControlGet,Gval,,sG
-	GuiControlGet,Bval,,sB
-	;Set preview
-	gosub set
-	;Make Everything else aware
-	GuiControl, ColourPicker:,eR,%Rval%
-	GuiControl, ColourPicker:,eG,%Gval%
-	GuiControl, ColourPicker:,eB,%Bval%
-	GuiControl, ColourPicker:,uR,%Rval%
-	GuiControl, ColourPicker:,uG,%Gval%
-	GuiControl, ColourPicker:,uB,%Bval%
-return
-
-set:
-	;Convert values to Hex
-	RGBval:=RGB(Rval,Gval,Bval)
-	;Display Tooltip
-	; ToolTip Red: %Rval%`nGreen: %Gval%`nBlue: %Bval%`nHex: %RGBval%
-	;Make tooltip disappear after 375 ms (3/8th of a second)
-	; SetTimer, RemoveToolTip, 375
-	;Apply colour to preview
-	GuiControl, ColourPicker:+Background%RGBval%,pC
-return
-
-; RemoveToolTip:
-; 	SetTimer, RemoveToolTip, Off ;Turn timer off
-; 	ToolTip ;Turn off tooltip
-; return
-
-ButtonSub:
-	; Remove '0x' prefix from the hex code.
-	StringReplace,RGBval,RGBval,0x
-	; Display Last selected values... (these values can later be used), and Notify the user
-	; MsgBox,64,Simple Color Dialog,RGB: (%Rval%, %Gval%, %Bval%)`nHex: %RGBval%`nCopied to Clipboard!
-    bgcolour := RGBval
-    Gui, Main:Color, %bgcolour%
-    IniWrite, %bgcolour%, %inipath%, Tracker, BackgroundColour
-return
-
-;Function to convert Decimal RGB to Hexadecimal RBG, Note: '0' (zero) padding is unnecessary
-RGB(r, g, b) {
-	;Shift Numbers
-	var:=(r << 16) + (g << 8) + b
-	;Save current A_FormatInteger
-	OldFormat := A_FormatInteger
-	;Set Hex A_FormatInteger mode
-	SetFormat, Integer, Hex
-	;Force decimal number to Hex number
-	var += 0
-	;set original A_FormatInteger mode
-	SetFormat, Integer, %OldFormat%
-	return var
-}
-
-; -------------------------------------
-; End of ColourPicker Subroutines
-; -------------------------------------
+#Include, ColourPickerFunctions.ahk
