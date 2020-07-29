@@ -4,30 +4,20 @@
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
 
+#include <vector>
 #include <unordered_map>
 
 using namespace modloader;
 
 namespace
 {
-    std::unordered_map<app::AbilityType__Enum, float> initial_costs;
-    struct BlazeCost
-    {
-        bool set = false;
-        float level_one;
-        float level_one_full;
-        float level_two;
-        float level_two_full;
-        float level_three;
-        float level_three_full;
-    };
-
-    BlazeCost initial_blaze_cost;
+    std::unordered_map<app::AbilityType__Enum, std::vector<float>> initial_costs;
 }
 
 INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum ability , const float modifier)
 {
-    const auto it = initial_costs.find(ability);
+    const auto found = initial_costs.find(ability) != initial_costs.end();
+    auto& cost = initial_costs[ability];
     switch (ability)
     {
     case app::AbilityType__Enum_Blaze:
@@ -36,33 +26,32 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
         if (blaze->fields.HasState)
         {
             auto* const balance = blaze->fields.State->fields.Balancing;
-            if (!initial_blaze_cost.set)
+            if (!found)
             {
-                initial_blaze_cost.level_one = balance->fields.BlazeSettingsLevel1->fields.BlazeCost;
-                initial_blaze_cost.level_one_full = balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost;
-                initial_blaze_cost.level_two = balance->fields.BlazeSettingsLevel2->fields.BlazeCost;
-                initial_blaze_cost.level_two_full = balance->fields.BlazeSettingsLevel2->fields.FullBlazeCost;
-                initial_blaze_cost.level_three = balance->fields.BlazeSettingsLevel3->fields.BlazeCost;
-                initial_blaze_cost.level_three_full = balance->fields.BlazeSettingsLevel3->fields.FullBlazeCost;
-                initial_blaze_cost.set = true;
+                cost.push_back(balance->fields.BlazeSettingsLevel1->fields.BlazeCost);
+                cost.push_back(balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost);
+                cost.push_back(balance->fields.BlazeSettingsLevel2->fields.BlazeCost);
+                cost.push_back(balance->fields.BlazeSettingsLevel2->fields.FullBlazeCost);
+                cost.push_back(balance->fields.BlazeSettingsLevel3->fields.BlazeCost);
+                cost.push_back(balance->fields.BlazeSettingsLevel3->fields.FullBlazeCost);
             }
 
-            balance->fields.BlazeSettingsLevel1->fields.BlazeCost = initial_blaze_cost.level_one * modifier;
-            balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost = initial_blaze_cost.level_one_full * modifier;
-            balance->fields.BlazeSettingsLevel2->fields.BlazeCost = initial_blaze_cost.level_two * modifier;
-            balance->fields.BlazeSettingsLevel2->fields.FullBlazeCost = initial_blaze_cost.level_two_full * modifier;
-            balance->fields.BlazeSettingsLevel3->fields.BlazeCost = initial_blaze_cost.level_three * modifier;
-            balance->fields.BlazeSettingsLevel3->fields.FullBlazeCost = initial_blaze_cost.level_three_full * modifier;
+            balance->fields.BlazeSettingsLevel1->fields.BlazeCost = cost[0] * modifier;
+            balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost = cost[1] * modifier;
+            balance->fields.BlazeSettingsLevel2->fields.BlazeCost = cost[2] * modifier;
+            balance->fields.BlazeSettingsLevel2->fields.FullBlazeCost = cost[3] * modifier;
+            balance->fields.BlazeSettingsLevel3->fields.BlazeCost = cost[4] * modifier;
+            balance->fields.BlazeSettingsLevel3->fields.FullBlazeCost = cost[5] * modifier;
         }
         break;
     }
     case app::AbilityType__Enum_SpiritSentrySpell:
     {
         auto* const sentry = get_sein()->fields.Spells->fields.SpiritSentrySpell;
-        if (it == initial_costs.end())
-            initial_costs[ability] = sentry->fields.Balancing->fields.EnergyCost;
+        if (!found)
+            cost.push_back(sentry->fields.Balancing->fields.EnergyCost);
 
-        sentry->fields.Balancing->fields.EnergyCost = initial_costs[ability] * modifier;
+        sentry->fields.Balancing->fields.EnergyCost = cost[0] * modifier;
         break;
     }
     case app::AbilityType__Enum_SpiritSpearSpell:
@@ -70,10 +59,27 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
         auto* const spear = get_sein()->fields.Spells->fields.SpiritSpearSpellWrapper;
         if (spear->fields.HasState)
         {
-            if (it == initial_costs.end())
-                initial_costs[ability] = spear->fields.State->fields.Balancing->fields.EnergyCost;
+            if (!found)
+                cost.push_back(spear->fields.State->fields.Balancing->fields.EnergyCost);
 
-            spear->fields.State->fields.EnergyCost = initial_costs[ability] * modifier;
+            spear->fields.State->fields.EnergyCost = initial_costs[ability][0] * modifier;
+        }
+        break;
+    }
+    case app::AbilityType__Enum_ChakramSpell:
+    {
+        auto* const shuriken = get_sein()->fields.Spells->fields.ChakramSpellWrapper;
+        if (shuriken->fields.HasState)
+        {
+            auto& cost = initial_costs[ability];
+            if (!found)
+            {
+                cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost);
+                cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost);
+            }
+
+            shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost = cost[0] * modifier;
+            shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost = cost[1] * modifier;
         }
         break;
     }

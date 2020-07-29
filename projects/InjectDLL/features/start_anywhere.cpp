@@ -51,11 +51,11 @@ namespace
         }
         else if (teleport_state == TeleportState::PostTeleport)
         {
-            auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+            auto* const cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (cameras != nullptr && cameras->static_fields->Current != nullptr)
             {
                 // We need to do this on the next frame to allow state to update without causing flickering.
-                auto camera = cameras->static_fields->Current;
+                auto* const camera = cameras->static_fields->Current;
                 GameplayCamera::MoveCameraToTargetInstantly(camera, true);
             }
             else
@@ -72,7 +72,7 @@ namespace
 
         if (cutscene_skips > 0)
         {
-            auto controller = il2cpp::get_class<app::SkipCutsceneController__Class>("", "SkipCutsceneController")->static_fields->Instance;
+            auto* const controller = il2cpp::get_class<app::SkipCutsceneController__Class>("", "SkipCutsceneController")->static_fields->Instance;
             SkipCutsceneController::SkipCutscene(controller);
             --cutscene_skips;
         }
@@ -83,7 +83,7 @@ namespace
     IL2CPP_INTERCEPT(, GameStateMachine, void, SetToPrologue, (app::GameStateMachine* this_ptr)) {
         GameStateMachine::SetToPrologue(this_ptr);
         handling_start = true;
-        auto controller = il2cpp::get_class<app::SkipCutsceneController__Class>("", "SkipCutsceneController")->static_fields->Instance;
+        auto* const controller = il2cpp::get_class<app::SkipCutsceneController__Class>("", "SkipCutsceneController")->static_fields->Instance;
         SkipCutsceneController::SkipPrologue(controller);
         uber_states::set_uber_state_value(21786, 48748, 1);
         if (overwrite_start)
@@ -92,6 +92,7 @@ namespace
             teleport(ORIGINAL_START.x, ORIGINAL_START.y, false); // This is already preloaded at this point.
 
         // I hate this but required for nice looking transition here.
+        set_ability(app::AbilityType__Enum_SpiritMagnet, false);
         cutscene_skips += 2;
     }
 
