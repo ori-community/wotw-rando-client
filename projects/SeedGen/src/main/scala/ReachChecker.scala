@@ -10,7 +10,7 @@ package SeedGenerator {
 
   object ReachChecker {
     var doingReachCheck = false
-    val cfg: Regex         = """(?i)(?:seed|seedfile|seedpath)=(.*)""".r
+    val cfg: Regex         = """(?i)(?:seed|seedfile|seedpath)="?(.*)"?""".r
     val health: Regex      = """(?i)(?:health|h|hp)=([0-9]+)""".r
     val energy: Regex      = """(?i)(?:energy|e|mana)=([0-9]+)""".r
     val ore: Regex         = """(?i)(?:ore|o)=([0-9]+)""".r
