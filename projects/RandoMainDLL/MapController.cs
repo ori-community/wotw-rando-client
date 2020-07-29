@@ -8,22 +8,24 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class MapController {
-    public static void UpdateReachable() {
-      if(InterOp.get_game_state() == GameState.Game && !Updating) {
-      var t = new Thread(UpdateReachableAsync);
+    public static void UpdateReachable(int sleepTime = 30) {
+      if(InterOp.get_game_state() == GameState.Game) {
+      var t = new Thread(() => UpdateReachableAsync(sleepTime));
       t.Start();
       }
     }
     public static bool Updating;
-    public static void UpdateReachableAsync() {
+    public static void UpdateReachableAsync(int sleepTime = 30) {
       try {
+        Thread.Sleep(sleepTime); // wait to let values update
+        if (Updating)
+          return;
         Updating = true;
-        Thread.Sleep(30); // wait a frame or two to let values update
         var argsList = new List<string> {
           "-jar",
           $"{Randomizer.BasePath}SeedGen.jar ",
           "ReachCheck",
-          SeedController.SeedFile,
+          $"\"{SeedController.SeedFile}\"",
           $"{InterOp.get_max_health()}",
           $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
           $"{UberGet.value(6, 0).Int}",
@@ -47,13 +49,14 @@ namespace RandoMainDLL {
         proc.WaitForExit();
         Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
-        foreach (var rawCond in rawOutput.Split(',')) {
-          try {
-            var frags = rawCond.Split('|');
-            var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
-            Reachable.Add(cond.Id);
-          } catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing {rawCond}", e); }
-        }
+        if(rawOutput.Trim() != "")
+          foreach (var rawCond in rawOutput.Split(',')) {
+            try {
+              var frags = rawCond.Split('|');
+              var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
+              Reachable.Add(cond.Id);
+            } catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
+          }
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }

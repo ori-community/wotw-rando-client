@@ -84,39 +84,39 @@ IL2CPP_BINDING_HELPER(false, namezpace, klass_name, return_type, method_name, na
 #define IL2CPP_INTERCEPT_HELPER_NESTED(ztatic, namezpace, klass_name, nested, return_type, method_name, name_override, params, overload) \
 namespace klass_name { \
 namespace nested { \
-return_type (*name_override) params; \
+return_type (*(name_override)) params = nullptr; \
 return_type name_override##_intercept params; \
-modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, #nested, #method_name, #params, #overload, &reinterpret_cast<void*>(name_override), name_override##_intercept); \
+modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, #nested, #method_name, #params, #overload, reinterpret_cast<void**>(&name_override), name_override##_intercept); \
 }} \
 return_type klass_name::nested::name_override##_intercept params
 
 #define IL2CPP_BINDING_HELPER_NESTED(ztatic, namezpace, klass_name, nested, return_type, method_name, name_override, params, overload) \
 namespace klass_name { \
 namespace nested { \
-return_type (*name_override) params; \
-modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, #nested, #method_name, #params, #overload, &reinterpret_cast<void*>(name_override), nullptr); \
+return_type (*(name_override)) params = nullptr; \
+modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, #nested, #method_name, #params, #overload, reinterpret_cast<void**>(&name_override), nullptr); \
 }}
 
 #define IL2CPP_INTERCEPT_HELPER(ztatic, namezpace, klass_name, return_type, method_name, name_override, params, overload) \
 namespace klass_name { \
-return_type (*name_override) params; \
+return_type (*(name_override)) params = nullptr; \
 return_type name_override##_intercept params; \
-modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, "", #method_name, #params, #overload, &reinterpret_cast<void*>(name_override), name_override##_intercept); \
+modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, "", #method_name, #params, #overload, reinterpret_cast<void**>(&name_override), name_override##_intercept); \
 } \
 return_type klass_name::name_override##_intercept params
 
 #define IL2CPP_BINDING_HELPER(ztatic, namezpace, klass_name, return_type, method_name, name_override, params, overload) \
 namespace klass_name { \
-return_type (*name_override) params; \
-modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, "", #method_name, #params, #overload, &reinterpret_cast<void*>(name_override), nullptr); \
+return_type (*(name_override)) params = nullptr; \
+modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpace, #klass_name, "", #method_name, #params, #overload, reinterpret_cast<void**>(&name_override), nullptr); \
 }
 
 #define INTERNAL_INTERCEPT(address, return_type, name, params) \
-return_type (*name) params; \
+return_type (*name) params = nullptr; \
 return_type name##_intercept params; \
-modloader::intercept::intercept binding_##name (address, &reinterpret_cast<void*>(name), name##_intercept, #name); \
+modloader::intercept::intercept binding_##name (address, reinterpret_cast<void**>(&name), name##_intercept, #name); \
 return_type name##_intercept params
 
 #define INTERNAL_BINDING(address, return_type, name, params) \
-return_type (*name) params; \
-modloader::intercept::intercept binding_##name (address, &reinterpret_cast<void*>(name), nullptr, #name);
+return_type (*name) params = nullptr; \
+modloader::intercept::intercept binding_##name (address, reinterpret_cast<void**>(&name), nullptr, #name);

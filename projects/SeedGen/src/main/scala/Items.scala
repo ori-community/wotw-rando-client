@@ -1,7 +1,9 @@
+import scala.collection.mutable
+import scala.util.Random
+
 package SeedGenerator {
 
-  import scala.collection.mutable
-  import scala.util.Random
+  import SeedGenerator.implicits._
 
   trait Item {
     def itemType: Int
@@ -63,7 +65,6 @@ package SeedGenerator {
         Nil
   }
 
-
   object WorldEvent {
     val names: Map[Int, String] = Map(
       0 -> "Water"
@@ -82,8 +83,7 @@ package SeedGenerator {
   object Skill {
     val itemType: Int = 2
     val areaFileNames: Map[String, Int] = Map("Bash" ->0, "DoubleJump" ->5, "Torch" ->99, "Sword" ->100, "WallJump" ->3, "Launch" ->8, "Feather"->14, "Glide" ->14, "WaterBreath" ->23, "LightBurst"->51, "Grenade" ->51, "Grapple" ->57, "Flash" ->62, "Spike" ->74, "Spear" ->74, "Regenerate" ->77, "Bow" ->97, "Hammer" ->98, "Burrow" ->101, "Dash" ->102, "WaterDash" ->104, "SpiritStar" ->106, "Shuriken" ->106, "Blaze" ->115, "Sentry" ->116, "Flap" ->118)
-    val costs: Map[Int, Double] = Map(8 -> 16, 77 -> 3, 98 -> 4,
-      100 -> 8 // TODO: delete this when item pool editor
+    val costs: Map[Int, Double] = Map(8 -> 16, 77 -> 3, 98 -> 4, 100 -> 6
     )
     val names: Map[Int, String] = Map(
       0 -> "Bash",
@@ -161,12 +161,12 @@ package SeedGenerator {
     val itemType: Int = 5
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
-    override val cost: Double = Math.max(4d + (if(Config().flags.randomSpawn) 11d else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
+    override val cost: Double = Math.max(6d + (if(Config().flags.randomSpawn) 94d else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
   }
 
   object Teleporter {
     val itemType: Int = 5
-    val costs: Map[Int, Double] = Map(3 -> 14, 11->10)
+    val costs: Map[Int, Double] = Map(3 -> 14, 17->10)
     val areaFileNames = Map("BurrowsTP" -> 0, "DenTP" -> 1, "EastPoolsTP" -> 2, "WellspringTP" -> 3, "ReachTP" -> 4, "HollowTP" -> 5, "DepthsTP" -> 6, "WestWoodsTP" -> 7, "EastWoodsTP" -> 8, "WestWastesTP" -> 9, "EastWastesTP" -> 10, "OuterRuinsTP" -> 11, "WillowTP" -> 12, "Willow'sEndTP" -> 12, "WestPoolsTP" -> 13, "InnerRuinsTP" -> 14, "MarshTP"->16, "GladesTP" -> 17)
     val names: Map[Int, String] = Map(
       0 -> "Burrows",
@@ -330,6 +330,9 @@ package SeedGenerator {
     }
     var merchToPop = 16
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
+    def popSL(implicit r: Random): SpiritLight = {
+      asSeq.collect({case s: SpiritLight => s}).rand
+    }
     def popRand(implicit r: Random): Option[Item] = {
       val s =
         if(merchToPop > 0) {
@@ -338,10 +341,9 @@ package SeedGenerator {
         } else asSeq
       if (s.nonEmpty) {
         val i = s(r.nextInt(s.size))
-        if(i == Launch && count > 165) {
-            // if we haven't placed half the items yet,
-            // reroll launch count/500 % of the time
-            if(r.nextFloat() < count/500f)
+        if(i.cost >= 10d) {
+            // reroll expensive items %[placed] of the time
+            if(r.nextFloat() > (count.toFloat/ItemPool.SIZE.toFloat))
               return popRand
         }
         take(i)

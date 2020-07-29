@@ -166,7 +166,7 @@ class UI extends MainFrame {
       writeSettings()
       import scala.sys.process._
       lastSeed match {
-        case Some(file) => Seq("cmd", "/C", file.getAbsolutePath).!
+        case Some(file) => Seq("cmd", "/C", file.getAbsolutePath).lazyLines
         case None =>
           warn("Last seed file not found!")
           ui.runLastSeed.enabled = false

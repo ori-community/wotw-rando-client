@@ -68,7 +68,6 @@ namespace csharp_bridge
     extern signatures::f_int_int lupo_upgrade_cost;
     extern signatures::f_void update_shop_data;
 
-    extern signatures::f_ull_str_bool rva_lookup;
     extern signatures::f_void_int_int_byte_float_float on_uber_state_applied;
 
     extern signatures::f_bool_int_int filter_icon_show;

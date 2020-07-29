@@ -780,6 +780,9 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   conn BeetleFight: free
   conn EastHollow.AboveBash:
     base: EnemyObstacle, EastHollow.BeetleDefeated  # Didn't consider avoiding the beetle fight for base, so this connection should cover all paths going up
+    unsafe:
+      Bash, Glide OR Dash OR DoubleJump
+      Launch
   conn WestHollow.Entrance:
     base, WestHollow.PurpleDoorOpen:
       WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Dash OR Glide OR Launch
@@ -800,18 +803,26 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
     base: Bash, DoubleJump OR Dash OR Glide OR Launch  # just Bash is treacherous
   state GladesTown.EntryWallBroken:  # for the shop unlocks
     base: EastHollow.BeetleDefeated, EastHollow.Voice, Bash, DoubleJump OR Launch
+    unsafe: EastHollow.Voice, Bash, DoubleJump OR Launch
 
   quest EastHollow.HandToHandMap:
     base, EastHollow.BeetleDefeated, EastHollow.Voice:
       Bash, DoubleJump OR Dash OR Glide
       Launch
     unsafe:
-      DoubleJump, Dash, Glide
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
+      EastHollow.BeetleDefeated, DoubleJump, Dash, Glide
 
   pickup EastHollow.GladesApproachOre:
     base: EastHollow.BeetleDefeated, EastHollow.Voice, Bash, DoubleJump OR Dash OR Glide OR Launch
+    unsafe: EastHollow.Voice, Bash, DoubleJump OR Dash OR Glide OR Launch
   pickup EastHollow.HornBeetleFightEX:
     base, EastHollow.BeetleDefeated:
+      DoubleJump, Dash, Bash
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide  # the nearby skeeto loses interest in you if you go to the ledge below this pickup
+      Launch
+    unsafe:
       DoubleJump, Dash, Bash
       Bash, Grenade=1, DoubleJump OR Dash OR Glide  # the nearby skeeto loses interest in you if you go to the ledge below this pickup
       Launch
@@ -845,6 +856,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       Glide OR Launch
   conn GladesTown.Teleporter:  # using the wall state here could have relevance if it was to fall under some open mode
     base: EastHollow.BeetleDefeated, EastHollow.Voice, GladesTown.EntryWallBroken, Bash, DoubleJump OR Launch
+    unsafe: EastHollow.Voice, GladesTown.EntryWallBroken, Bash, DoubleJump OR Launch
   conn EastHollow.AboveDepths:
     base: EastHollow.DepthsLever, EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch  # just Bash is treacherous
   conn EastHollow.Kwolok:
@@ -3318,6 +3330,8 @@ anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Po
       Dash, DoubleJump OR Grapple
       Dash, Bash, Grenade=1
       Bash, Grenade=2, DoubleJump OR Glide
+      Bash, Grenade=1, Grapple, DoubleJump OR Glide
+      Bash, Grenade=1, DoubleJump, Glide
       Launch
 
 anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
@@ -3602,8 +3616,6 @@ anchor UpperWastes.RuinsApproach at 2002, -3684:  # Left of the teleporter, on t
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, DoubleJump, Dash OR Glide
       Burrow, Launch
-    unsafe:
-      Dash, Bash  # seemed kinda difficult to get past the spikes without doublejump
   pickup UpperWastes.WallOre:
     base:
       Burrow, Bash, DoubleJump, Dash OR Glide

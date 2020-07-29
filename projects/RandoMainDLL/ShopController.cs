@@ -6,25 +6,28 @@ namespace RandoMainDLL {
   public static class ShopController {
     public static HashSet<string> Strings = new HashSet<string>();
     private static readonly HashSet<AbilityType> opherWeaponInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.TeleportSpell, AbilityType.WaterBreath };
+    private static readonly HashSet<AbilityType> opherUpgradeInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze };
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
     private static readonly HashSet<ShardType>   twillenShardInv = new HashSet<ShardType> { ShardType.Energy, ShardType.Vitality, ShardType.Overcharge, ShardType.Wingclip, ShardType.TripleJump, ShardType.Finesse, ShardType.Swap, ShardType.LightHarvest };
-    private static readonly String bmKeysDesc  = $"Costs more each time you buy it\\nNever logically required";
-    private static readonly String bmKeysName  = "Black Market Keystone";
-    private static readonly String hintOneName = "Bash/Clean Water/Flap Hint";
-    private static readonly String hintOneDesc = "Will tell you what Zone *Bash*, #Clean Water#, and *Flap* are in";
+    private static readonly string bmKeysDesc  = $"Costs more each time you buy it\\nNever logically required";
+    private static readonly string bmKeysName  = "Black Market Keystone";
+    private static readonly string hintOneName = "Bash/Clean Water/Flap Hint";
+    private static readonly string hintOneDesc = "Will tell you what Zone *Bash*, #Clean Water#, and *Flap* are in";
+    // can actually use this for all of them besides the water one since they're either unlocked at spawn
+    private static readonly string lockedTillGlades = "Locked: enter Glades\nfrom Hollow to unlock"; 
     public static void UpdateShopData() {
       foreach(AbilityType t in opherWeaponInv) {
         if (WaterOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, false);
+          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, "Locked: Escape Wellspring\nto unlock", false);
         }
         else if (KSOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, false);
+          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, "", false);
         }
         else {
           var pickup = SeedController.OpherWeapon(t);
           if (pickup.NonEmpty) {
             var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), pickup is Ability s && costsEnergy.Contains(s.type));
+            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type));
           }
           else
             Randomizer.Warn("UpdateShopData", $"Couldn't find a pickup for {t.GetDescription()}");
@@ -33,7 +36,7 @@ namespace RandoMainDLL {
       foreach(ShardType s in twillenShardInv) {
         var pickup = SeedController.TwillenShard(s);
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter());
+          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter(), lockedTillGlades);
       }
       foreach(LupoHintData d in lupoDataByID.Values)
         d.Setup();
@@ -152,7 +155,7 @@ namespace RandoMainDLL {
         Cost = cost;
         Id   = id;
       }
-      public void Setup() => InterOp.set_lupo_item(Id.GroupID, Id.ID, Name, Desc);
+      public void Setup() => InterOp.set_lupo_item(Id.GroupID, Id.ID, Name, Desc, "test3");
 
     }
     private static Dictionary<int, LupoHintData> lupoDataByID = new Dictionary<int, LupoHintData>() {
