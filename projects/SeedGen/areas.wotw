@@ -3616,8 +3616,6 @@ anchor UpperWastes.RuinsApproach at 2002, -3684:  # Left of the teleporter, on t
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, DoubleJump, Dash OR Glide
       Burrow, Launch
-    unsafe:
-      Dash, Bash  # seemed kinda difficult to get past the spikes without doublejump
   pickup UpperWastes.WallOre:
     base:
       Burrow, Bash, DoubleJump, Dash OR Glide
