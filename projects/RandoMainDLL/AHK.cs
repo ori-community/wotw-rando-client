@@ -7,7 +7,7 @@ using AutoHotkey.Interop;
 namespace RandoMainDLL {
   public static class AHK {
     private static readonly string Program = @"
-
+      #MenuMaskKey vkE8
       signal := ""none""
       gui, add, edit, w50 h20 vextChannel gonSignalExt
       gui, show, hide, wotwRandoSecretChannel
