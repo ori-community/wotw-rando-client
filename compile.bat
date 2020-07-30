@@ -4,8 +4,9 @@ cd "%~dp0"
 :: Either change paths or build yourself and run with nobuild
 if NOT "%1"=="nobuild" (
 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MsBuild.exe" -targets -p:Configuration=MinSizeRel -p:Platform=x64 C:\Users\WorstMirari\Documents\GitHub\OriWotwRandomizerClient\build\win64\WotWRandomizer.sln
-	IF NOT %ERRORLEVEL%==0 (
-		Title BUILD FAILED
+	IF ERRORLEVEL 1 (
+		echo BUILD FAILED
+		timeout /t 14
 		exit 1
 	)
 )
