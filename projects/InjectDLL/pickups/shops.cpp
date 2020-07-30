@@ -371,6 +371,13 @@ namespace
         return acquired | required;
     }
 
+    IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_IsVisible, (app::UpgradableShardItem* z)) {
+        return true;
+    }
+    IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_isLocked, (app::UpgradableShardItem* z)) {
+        return true;
+    }
+
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsVisible, (app::WeaponmasterItem* this_ptr))
     {
         if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr)
@@ -381,7 +388,7 @@ namespace
                 return uber_states::get_uber_state_value(37858, 10720) > 1.5f; // Watermill escape.
         }
 
-        return get_IsVisible(this_ptr);
+        return true; //get_IsVisible(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsLocked, (app::WeaponmasterItem* this_ptr))
@@ -394,7 +401,7 @@ namespace
                 return uber_states::get_uber_state_value(37858, 10720) < 1.5f; // Watermill escape.
         }
 
-        return get_IsLocked(this_ptr);
+        return false; // get_IsLocked(this_ptr);
     }
 
     // When does this happen?
