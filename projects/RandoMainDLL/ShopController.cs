@@ -18,16 +18,16 @@ namespace RandoMainDLL {
     public static void UpdateShopData() {
       foreach(AbilityType t in opherWeaponInv) {
         if (WaterOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, "Locked: Escape Wellspring\nto unlock", false);
+          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, "Locked: Escape Wellspring\nto unlock", false, 2400);
         }
         else if (KSOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, "", false);
+          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, "", false, 100 + 50 * KSBought);
         }
         else {
           var pickup = SeedController.OpherWeapon(t);
           if (pickup.NonEmpty) {
             var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type));
+            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
           }
           else
             Randomizer.Warn("UpdateShopData", $"Couldn't find a pickup for {t.GetDescription()}");
@@ -36,7 +36,7 @@ namespace RandoMainDLL {
       foreach(ShardType s in twillenShardInv) {
         var pickup = SeedController.TwillenShard(s);
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter(), lockedTillGlades);
+          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter(), lockedTillGlades, pickup.CostWithMod(GetCostMod(s)));
       }
       foreach(LupoHintData d in lupoDataByID.Values)
         d.Setup();
@@ -137,11 +137,11 @@ namespace RandoMainDLL {
 
     public static bool OpherBoughtUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.GetOrElse(slot, 0) > 0;
 
-    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(ShopController.GetCostMod(shard));
+    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(GetCostMod(shard));
     public static int OpherWeaponCost(AbilityType ability) => KSOverride(ability) ?
       100 + 50 * KSBought : 
       (WaterOverride(ability) ? 2500 : 
-      SeedController.OpherWeapon(ability).CostWithMod(ShopController.GetCostMod(ability)));
+      SeedController.OpherWeapon(ability).CostWithMod(GetCostMod(ability)));
 
     class LupoHintData {
       public readonly String Name;
