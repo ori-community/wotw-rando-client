@@ -637,17 +637,18 @@ namespace RandoMainDLL {
     public UberId UberId() => new UberId(4, (int)Id);
     public byte Value() => UberId().GetValue().Value.Byte;
     public override void Grant(bool skipBase = false) {
-      UberId().State().Write(new UberValue(Value() + 1));
-      Apply();
+      byte newVal = Convert.ToByte(1 + Value());
+      UberId().State().Write(new UberValue(newVal));
+      Apply(newVal);
       base.Grant(skipBase);
     }
     public override string ToString() => Name;
 
-
-    public void Apply() {
+    public void Apply() => Apply(Value());
+    public void Apply(byte v) {
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:
-          InterOp.set_hammer_speed_multiplier(1f + .5f * Value());
+          InterOp.set_hammer_speed_multiplier(1f + .5f * v);
           break;
         case WeaponUpgradeType.RapidSword:
           // TODO: implement this
@@ -656,7 +657,7 @@ namespace RandoMainDLL {
         case WeaponUpgradeType.StarEfficiency:
         case WeaponUpgradeType.SentryEfficiency:
         case WeaponUpgradeType.BlazeEfficiency:
-          InterOp.set_ability_energy_modifier(Weapon, Convert.ToSingle(Math.Pow(.5f, Value())));
+          InterOp.set_ability_energy_modifier(Weapon, Convert.ToSingle(Math.Pow(.5f, v)));
           break;
         default:
           Randomizer.Log($"Unknown upgrade {Id}, can't apply");

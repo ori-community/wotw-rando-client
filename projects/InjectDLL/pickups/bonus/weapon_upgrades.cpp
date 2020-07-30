@@ -117,7 +117,7 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             }
             break;
         }
-    case app::AbilityType__Enum_SpiritSentrySpell:
+    case app::AbilityType__Enum_TurretSpell:
         {
             auto* const sentry = get_sein()->fields.Spells->fields.SpiritSentrySpell;
             if (!found)
