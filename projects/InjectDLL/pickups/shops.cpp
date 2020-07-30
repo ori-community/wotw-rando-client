@@ -529,8 +529,8 @@ namespace
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen* this_ptr))
     {
         overwrite_shard_text = true;
-        selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
-        SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
+        selected_shard = get_SelectedSpiritShard(this_ptr);
+        UpdateContextCanvasShards(this_ptr);
         overwrite_shard_text = false;
     }
 
@@ -543,7 +543,7 @@ namespace
         app::MessageProvider* description_provider = nullptr;
         app::MessageProvider* locked_provider = nullptr;
 
-        auto* const item = selected_shard;
+        auto* const item = overwrite_shard_text ? selected_shard : this_ptr->fields.m_item;
         auto type = item->fields.m_type;
         if (overwrite_shard_text)
         {
