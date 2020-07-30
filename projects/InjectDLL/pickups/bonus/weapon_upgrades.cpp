@@ -52,8 +52,8 @@ namespace
                 initial_damage,
                 app::Vector2{ 0, 0 },
                 source_pos,
-                app::DamageType__Enum_Grenade,
-                app::AbilityType__Enum_Grenade,
+                app::DamageType__Enum_Blaze,
+                app::AbilityType__Enum_Blaze,
                 il2cpp::unity::get_game_object(sein),
                 -1,
                 nullptr,
@@ -67,15 +67,15 @@ namespace
             damage->fields.DamageLayerMask = app::DamageLayerMask__Enum_EnemyAndEnvironment;
             Damage::DealToComponents(damage, go);
 
-            // Flames
-            auto flammables = il2cpp::unity::get_components(go, "Moon", "Flammable");
-            auto state = app::Flammable_FlameState__Enum_Burning;
-            for (auto* const flammable : flammables)
-            {
-                const auto current = il2cpp::invoke<app::Flammable_FlameState__Enum__Boxed>(flammable, "get_State")->value;
-                if (current != state)
-                    il2cpp::invoke(flammable, "SetState", &state);
-            }
+            // Flames for Bonfires
+            //auto flammables = il2cpp::unity::get_components(go, "Moon", "Flammable");
+            //auto state = app::Flammable_FlameState__Enum_Burning;
+            //for (auto* const flammable : flammables)
+            //{
+            //    const auto current = il2cpp::invoke<app::Flammable_FlameState__Enum__Boxed>(flammable, "get_State")->value;
+            //    if (current != state)
+            //        il2cpp::invoke(flammable, "SetState", &state);
+            //}
         }
     }
 }
