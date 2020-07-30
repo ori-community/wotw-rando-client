@@ -26,6 +26,7 @@ set(
 	"interception.h"
 	"interception_macros.h"
 	"macros.h"
+	"math.h"
 )
 
 set(
