@@ -8,8 +8,8 @@ namespace RandoMainDLL {
     private static readonly HashSet<AbilityType> opherWeaponInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.TeleportSpell, AbilityType.WaterBreath };
     private static readonly HashSet<AbilityType> opherUpgradeInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze };
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
-    private static readonly HashSet<ShardType>   twillenShardInv = new HashSet<ShardType> { ShardType.Energy, ShardType.Vitality, ShardType.Overcharge, ShardType.Wingclip, ShardType.TripleJump, ShardType.Finesse, ShardType.Swap, ShardType.LightHarvest };
-    private static readonly string bmKeysDesc  = $"Costs more each time you buy it\\nNever logically required";
+    private static readonly HashSet<ShardType> twillenShardInv = new HashSet<ShardType> { ShardType.Energy, ShardType.Vitality, ShardType.Overcharge, ShardType.Wingclip, ShardType.TripleJump, ShardType.Finesse, ShardType.Swap, ShardType.LightHarvest };
+    private static string bmKeysDesc { get => $"Never logically required\\nNext will cost: {(KSBought == KSMAX ?  "#500#" : $"{150 + 50 * KSBought /* look at this! the function-y prop? the inline teriary? the nested string interpolation? this awful comment dragging it out? *chef's kiss */ }")}"; }
     private static readonly string bmKeysName  = "Black Market Keystone";
     private static readonly string hintOneName = "Bash/Clean Water/Flap Hint";
     private static readonly string hintOneDesc = "Will tell you what Zone *Bash*, #Clean Water#, and *Flap* are in";
@@ -18,16 +18,17 @@ namespace RandoMainDLL {
     public static void UpdateShopData() {
       foreach(AbilityType t in opherWeaponInv) {
         if (WaterOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, "Locked: Escape Wellspring\nto unlock", false, 2400);
+          InterOp.set_opher_item((int)t, 255, hintOneName, hintOneDesc, "Locked: Escape Wellspring\nto unlock", false, 2500);
         }
         else if (KSOverride(t)) {
-          InterOp.set_opher_item((int)t, 255, bmKeysName, bmKeysDesc, "", false, 100 + 50 * KSBought);
+
+          var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
+          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false, 100 + 50 * KSBought);
         }
         else {
           var pickup = SeedController.OpherWeapon(t);
           if (pickup.NonEmpty) {
-            var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-            InterOp.set_opher_item(i, 255, pickup.ToString(), Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
+            InterOp.set_opher_item((int)t, 255, pickup.ToString(), Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
           }
           else
             Randomizer.Warn("UpdateShopData", $"Couldn't find a pickup for {t.GetDescription()}");
@@ -115,8 +116,8 @@ namespace RandoMainDLL {
 
     public static void OnBuyOpherUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
 
-    private static bool KSOverride(AbilityType a)    => a == AbilityType.Sentry      && !SeedController.KSDoorsOpen;
-    private static bool WaterOverride(AbilityType a) => a == AbilityType.WaterBreath && !SeedController.HintsDisabled;
+    private static bool KSOverride(AbilityType a)    => a == AbilityType.TeleportSpell && !SeedController.KSDoorsOpen;
+    private static bool WaterOverride(AbilityType a) => a == AbilityType.WaterBreath   && !SeedController.HintsDisabled;
 
     private static readonly int KSMAX = 8;
     private static int KSBought { get => Math.Min(KSMAX, SaveController.Data?.KSBought ?? 0); }

@@ -196,7 +196,7 @@ package SeedGenerator {
       }) match {
       case Some(ItemLoc(name, l)) if !Config().flags.noHints && (l.value == "LupoZoneMap" || name == "OpherShop.WaterBreath") => None
       case Some(ItemLoc(_, l)) if !Config().questLocs && l.category == "Quest" => None
-      case Some(ItemLoc(name, _)) if !Config().flags.noKSDoors && name == "OpherShop.Sentry" =>/* Config.debug(s"Filtered out $name");*/ None
+      case Some(ItemLoc(_, l)) if Config().bonusItems && l.uberGroupId == 1 => None // TODO: change this when weapons probably
       case a => a
     }
   }
