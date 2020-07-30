@@ -353,9 +353,6 @@ namespace
     IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_IsVisible, (app::UpgradableShardItem* z)) {
         return true;
     }
-    IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_IsLocked, (app::UpgradableShardItem* z)) {
-        return true;
-    }
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsVisible, (app::WeaponmasterItem* this_ptr))
     {
