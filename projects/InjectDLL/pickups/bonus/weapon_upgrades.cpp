@@ -87,7 +87,6 @@ namespace
 
 INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum ability, const float modifier)
 {
-    const auto found = initial_costs.find(ability) != initial_costs.end();
     auto& cost = initial_costs[ability];
     switch (ability)
     {
@@ -97,7 +96,7 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             if (blaze->fields.HasState)
             {
                 auto* const balance = blaze->fields.State->fields.Balancing;
-                if (!found)
+                if (cost.empty())
                 {
                     cost.push_back(balance->fields.BlazeSettingsLevel1->fields.BlazeCost);
                     cost.push_back(balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost);
@@ -121,7 +120,7 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             auto* const sentry = get_sein()->fields.Spells->fields.TurretSpell;
             if (sentry != nullptr)
             {
-                if (!found)
+                if (cost.empty())
                     cost.push_back(sentry->fields.BalancingData->fields.EnergyCost);
 
                 sentry->fields.BalancingData->fields.EnergyCost = cost[0] * modifier;
@@ -133,7 +132,7 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             auto* const spear = get_sein()->fields.Spells->fields.SpiritSpearSpellWrapper;
             if (spear->fields.HasState)
             {
-                if (!found)
+                if (cost.empty())
                     cost.push_back(spear->fields.State->fields.Balancing->fields.EnergyCost);
 
                 spear->fields.State->fields.Balancing->fields.EnergyCost = initial_costs[ability][0] * modifier;
@@ -147,7 +146,7 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             auto* const shuriken = get_sein()->fields.Spells->fields.ChakramSpellWrapper;
             if (shuriken->fields.HasState)
             {
-                if (!found)
+                if (cost.empty())
                 {
                     cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost);
                     cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost);
