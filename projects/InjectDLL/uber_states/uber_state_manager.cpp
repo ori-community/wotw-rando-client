@@ -76,6 +76,13 @@ namespace uber_states
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "test1", 112, false),
 
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Rapid Smash", 0, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Rapid Sword", 1, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Blaze Efficiency", 2, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Spike Efficiency", 3, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Star Efficiency", 4, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Sentry Efficiency", 5, 0),
+
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "keystones_collected", 0, 0),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "glades_tp_fix", 0, false),
