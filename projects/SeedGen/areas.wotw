@@ -403,8 +403,8 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
     base: Weapon  # to the left
   # there are two more energy crystals to the right end which are not currently considered.
 
-  state MarshPastOpher.TrialActivation:
-    base: BreakWall=20, Grapple, Dash OR Glide OR Launch
+  # state MarshPastOpher.TrialActivation:
+  #   base: BreakWall=20, Grapple, Dash OR Glide OR Launch
 
   pickup MarshPastOpher.TrialOre:
     base: BreakWall=20
@@ -712,10 +712,10 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
   refill Checkpoint
   # an energy crystal near the bottom is not currently considered
 
-  state WestHollow.TrialActivation:
-    base, EnemyObstacle:
-      DoubleJump OR Dash OR Launch
-      Bash, Grenade=1
+  # state WestHollow.TrialActivation:
+  #   base, EnemyObstacle:
+  #     DoubleJump OR Dash OR Launch
+  #     Bash, Grenade=1
   state WestHollow.DoorLever:  # The door blocking Dash area
     base, EnemyObstacle:
       DoubleJump OR Dash OR Launch
@@ -1492,12 +1492,12 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
     base: Grapple OR Glide OR Launch
 
 anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to the teleporter
-  state OuterWellspring.TrialActivation:
-    base:
-      EnemyObstacle, DoubleJump, Grapple, Dash OR Glide
-      DoubleJump, Grapple, Bash, Grenade=1
-      Bash, Grenade=2
-      Launch
+  # state OuterWellspring.TrialActivation:
+  #   base:
+  #     EnemyObstacle, DoubleJump, Grapple, Dash OR Glide
+  #     DoubleJump, Grapple, Bash, Grenade=1
+  #     Bash, Grenade=2
+  #     Launch
 
   pickup OuterWellspring.UltraGrappleShard:
     base:
@@ -1942,10 +1942,10 @@ anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
       Launch, DoubleJump OR Dash
 
 anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced Howl
-  state WoodsMain.TrialActivation:
-    base:
-      DoubleJump, Dash, Bash, Grapple, Glide, Burrow
-      Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
+  # state WoodsMain.TrialActivation:
+  #   base:
+  #     DoubleJump, Dash, Bash, Grapple, Glide, Burrow
+  #     Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
 
   pickup WoodsMain.HiddenEX: free
   pickup WoodsMain.OverflowShard:
@@ -2444,8 +2444,8 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
 
   state LowerReach.KeystoneDoor:
     base: Keystone=4
-  state LowerReach.TrialActivation:
-    base: LowerReach.KeystoneDoor
+  # state LowerReach.TrialActivation:
+  #   base: LowerReach.KeystoneDoor
   state LowerReach.BearSneezed:
     base: LowerReach.ForestsMemory  # the game forces Baur awake when collecting the wisp
 
@@ -2741,13 +2741,13 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       Launch
   # energy crystal at flash tree not considered
 
-  state LowerDepths.TrialActivation:
-    base:
-      DoubleJump, Bash, Grenade=3
-      DoubleJump, Bash, Grenade=2, Grapple
-      DoubleJump, Dash, Bash, Grapple
-      Bash, Grapple, Glide
-      Launch
+  # state LowerDepths.TrialActivation:
+  #   base:
+  #     DoubleJump, Bash, Grenade=3
+  #     DoubleJump, Bash, Grenade=2, Grapple
+  #     DoubleJump, Dash, Bash, Grapple
+  #     Bash, Grapple, Glide
+  #     Launch
   pickup LowerDepths.SpiritSurgeShard:
     base:
       DoubleJump, Grapple, Dash OR Glide
@@ -3117,8 +3117,8 @@ anchor UpperPools.BeforeKeystoneDoor at -1483, -4076:  # In front of the door bl
 
   state UpperPools.KeystoneDoor:
     base: Keystone=4
-  state UpperPools.TrialActivation:
-    base: DoubleJump OR Grapple OR Launch
+  # state UpperPools.TrialActivation:
+  #   base: DoubleJump OR Grapple OR Launch
 
   pickup UpperPools.UpperMidKS:
     base:
@@ -3428,13 +3428,13 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
 anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
   refill Checkpoint
 
-  state LowerWastes.TrialActivation:
-    base:
-      Burrow, DoubleJump OR Dash OR Glide
-      Burrow, Bash, Grenade=1
-      DoubleJump, Bash, Grenade=2
-      Dash, Bash, Grenade=4  # yes, good
-      Launch
+  # state LowerWastes.TrialActivation:
+  #   base:
+  #     Burrow, DoubleJump OR Dash OR Glide
+  #     Burrow, Bash, Grenade=1
+  #     DoubleJump, Bash, Grenade=2
+  #     Dash, Bash, Grenade=4  # yes, good
+  #     Launch
 
   quest LowerWastes.HandToHandMapstone:
     base, GladesTown.HandToHandCanteen:
@@ -3790,13 +3790,13 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
       Bow=1
   # a lot of energy crystals not considered
 
-  state WillowsEnd.TrapHeart:
-    base: BreakWall=30, RangedWeapon, Launch, DoubleJump, Dash
+  # state WillowsEnd.TrapHeart:
+  #   base: BreakWall=30, RangedWeapon, Launch, DoubleJump, Dash
 
-  state WillowsEnd.GrappleWheelsHeart:
-    base, BreakWall=30:
-      Grapple, Launch, DoubleJump, Dash
-      Grapple, Launch, Glide
+  # state WillowsEnd.GrappleWheelsHeart:
+  #   base, BreakWall=30:
+  #     Grapple, Launch, DoubleJump, Dash
+  #     Grapple, Launch, Glide
 
   pickup WillowsEnd.SpikesOre:
     base: Launch, Dash OR Glide
@@ -3832,8 +3832,8 @@ anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
       Launch, DoubleJump OR Dash
 
 anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle changethisforcheckpoint
-  state WillowsEnd.RedirectHeart:
-    base: BreakWall=10, BreakWall=30, DoubleJump, Bash, Launch
+  # state WillowsEnd.RedirectHeart:
+  #   base: BreakWall=10, BreakWall=30, DoubleJump, Bash, Launch
 
   pickup WillowsEnd.RedirectEX:
     base:
@@ -3853,10 +3853,10 @@ anchor WillowsEnd.West at 437, -3840:  # To the left of the one-way above Lupo
   refill Energy=4:
     base: Weapon
 
-  state WillowsEnd.SpinLasersHeart:
-    base: BreakWall=30, Launch, DoubleJump OR Dash OR Glide
-  state WillowsEnd.GlideHeart:
-    base: BreakWall=30, DoubleJump, Glide, Launch  # technically easy dboost without djump, but you already take so much damage in this place...
+  # state WillowsEnd.SpinLasersHeart:
+  #   base: BreakWall=30, Launch, DoubleJump OR Dash OR Glide
+  # state WillowsEnd.GlideHeart:
+  #   base: BreakWall=30, DoubleJump, Glide, Launch  # technically easy dboost without djump, but you already take so much damage in this place...
 
   pickup WillowsEnd.WindSpinOre:
     base: DoubleJump, Glide, Launch
@@ -3871,14 +3871,14 @@ anchor WillowsEnd.West at 437, -3840:  # To the left of the one-way above Lupo
 anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
   refill Checkpoint
 
-  state WillowsEnd.BurrowHeart:
-    base, BreakWall=30:
-      Burrow, DoubleJump, Dash, Bash, Grapple, Glide
-      Burrow, Bash, Grapple, Launch, DoubleJump OR Glide
-  state WillowsEnd.SpinPortalsHeart:
-    base, BreakWall=30:
-      Bash, Grapple, Launch, DoubleJump, Dash
-      Bash, Grapple, Launch, Glide
+  # state WillowsEnd.BurrowHeart:
+  #   base, BreakWall=30:
+  #     Burrow, DoubleJump, Dash, Bash, Grapple, Glide
+  #     Burrow, Bash, Grapple, Launch, DoubleJump OR Glide
+  # state WillowsEnd.SpinPortalsHeart:
+  #   base, BreakWall=30:
+  #     Bash, Grapple, Launch, DoubleJump, Dash
+  #     Bash, Grapple, Launch, Glide
 
   pickup WillowsEnd.UpperLeftEX:
     base: Grapple, Launch, DoubleJump OR Dash OR Glide
@@ -3887,19 +3887,19 @@ anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
       Bash, Grapple, Launch, DoubleJump, Dash
       Bash, Grapple, Launch, Glide
 
-  conn LaserRockFight:
-    base:
-      Launch, DoubleJump
-      Launch, Dash, Glide
+  # conn LaserRockFight:
+  #   base:
+  #     Launch, DoubleJump
+  #     Launch, Dash, Glide
   conn WillowsEnd.East:
     base: EnemyObstacle, DoubleJump OR Dash OR Bash OR Glide OR Launch
   conn WillowsEnd.West:
     base: Launch
 
-anchor LaserRockFight:
-  refill Full
-  state WillowsEnd.ElementalDefeated:
-    base: Combat, Danger=85, Bash, Launch
+# anchor LaserRockFight:
+#   refill Full
+#   state WillowsEnd.ElementalDefeated:
+#     base: Combat, Danger=85, Bash, Launch
 
 anchor TwillenShop:
   quest GladesTown.ADiamondInTheRough:
@@ -3944,7 +3944,7 @@ anchor TuleyShop:
 
   state TuleyShop.LastTreeBranchRejected:  # written out the steps in case they give pickups
     base: WoodsEntry.LastTreeBranch
-  state TuleyShop.SelaFlowers:  # surprisingly, this state isn't actually used anywhere
+  state TuleyShop.SelaFlowers:
     base: UpperWastes.FlowersSeed
   state TuleyShop.StickyGrass:
     base: EastPools.GrassSeed
