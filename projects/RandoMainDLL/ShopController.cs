@@ -9,7 +9,7 @@ namespace RandoMainDLL {
     private static readonly HashSet<AbilityType> opherUpgradeInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze };
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
     private static readonly HashSet<ShardType> twillenShardInv = new HashSet<ShardType> { ShardType.Energy, ShardType.Vitality, ShardType.Overcharge, ShardType.Wingclip, ShardType.TripleJump, ShardType.Finesse, ShardType.Swap, ShardType.LightHarvest };
-    private static string bmKeysDesc { get => $"Never logically required\\nNext will cost: {(KSBought == KSMAX ?  "#500#" : $"{150 + 50 * KSBought /* look at this! the function-y prop? the inline teriary? the nested string interpolation? this awful comment dragging it out? *chef's kiss */ }")}"; }
+    private static string bmKeysDesc { get => $"Never logically required\\nNext will cost: {(KSBought == KSMAX ?  "@500@" : $"{150 + 50 * KSBought /* look at this! the function-y prop? the inline teriary? the nested string interpolation? this awful comment dragging it out? *chef's kiss */ }")}"; }
     private static readonly string bmKeysName  = "Black Market Keystone";
     private static readonly string hintOneName = "Bash/Clean Water/Flap Hint";
     private static readonly string hintOneDesc = "Will tell you what Zone *Bash*, #Clean Water#, and *Flap* are in";
@@ -95,6 +95,7 @@ namespace RandoMainDLL {
         (new Resource(ResourceType.Keystone)).Grant();
         SaveController.Data.KSBought++;
         SaveController.Data.FoundCount--;
+        InterOp.set_opher_item(255, 255, bmKeysName, bmKeysDesc, "", false, 100 + 50 * KSBought);
         return;
       } 
       if (WaterOverride(slot)) {
