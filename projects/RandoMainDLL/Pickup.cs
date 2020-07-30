@@ -627,6 +627,7 @@ namespace RandoMainDLL {
     public readonly string Desc;
     public readonly AbilityType Weapon;
     public readonly WeaponUpgradeType Id;
+    public override int CostWithMod(float mod) => 300; // later maybe we'll do something more interesting here
     public WeaponUpgrade(WeaponUpgradeType id, AbilityType weapon, string name, string desc) {
       Name = name;
       Id = id;
