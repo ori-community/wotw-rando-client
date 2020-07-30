@@ -1,5 +1,6 @@
 #include <dll_main.h>
 #include <macros.h>
+#include <dev/object_visualizer.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -9,6 +10,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace modloader;
 
@@ -31,51 +33,43 @@ namespace
         Physics,
         app::Collider__Array*,
         OverlapSphere,
-        (app::Vector3 position, float radius, unsigned int layerMask, app::QueryTriggerInteraction__Enum queryTriggerInteraction)
+        (app::Vector3 position, float radius, int layer_mask, app::QueryTriggerInteraction__Enum query_trigger_interaction)
     );
 
+    STATIC_IL2CPP_BINDING(, Damage, int, GetNewDamageID, ());
     IL2CPP_INTERCEPT(, SeinBlazeSpell, void, DealBlazeDamage, (app::SeinBlazeSpell* this_ptr, float range, float initial_damage, app::DamageWeight__Enum weight))
     {
         auto* const sein = get_sein();
         const auto source_pos = SeinCharacter::get_Position(sein);
 
-        auto* const physics = il2cpp::get_class<app::Physics__Class>("UnityEngine", "Physics");
+        // Damage
+        const auto damage_id = Damage::GetNewDamageID();
+        auto* const damage = il2cpp::create_object<app::Damage>("", "Damage");
+        Damage::ctor(
+            damage,
+            initial_damage,
+            app::Vector2{ 0, 0 },
+            source_pos,
+            app::DamageType__Enum_Blaze,
+            app::AbilityType__Enum_Blaze,
+            il2cpp::unity::get_game_object(sein),
+            damage_id,
+            sein->fields._DamageOwner_k__BackingField,
+            app::SpiritShardType__Enum_None,
+            true,
+            weight,
+            0,
+            false
+        );
+        
+        damage->fields.DamageLayerMask = app::DamageLayerMask__Enum_EnemyAndEnvironment;
+
         auto* const colliders = Physics::OverlapSphere(source_pos, range, 0xffffffff, app::QueryTriggerInteraction__Enum_Collide);
         for (auto i = 0; i < colliders->max_length; ++i)
         {
             auto* const collider = colliders->vector[i];
             auto* const go = il2cpp::unity::get_game_object(collider);
-            // Damage
-            auto* const damage = il2cpp::create_object<app::Damage>("", "Damage");
-            Damage::ctor(
-                damage,
-                initial_damage,
-                app::Vector2{ 0, 0 },
-                source_pos,
-                app::DamageType__Enum_Blaze,
-                app::AbilityType__Enum_Blaze,
-                il2cpp::unity::get_game_object(sein),
-                -1,
-                nullptr,
-                app::SpiritShardType__Enum_None,
-                true,
-                weight,
-                0,
-                false
-            );
-
-            damage->fields.DamageLayerMask = app::DamageLayerMask__Enum_EnemyAndEnvironment;
             Damage::DealToComponents(damage, go);
-
-            // Flames for Bonfires
-            //auto flammables = il2cpp::unity::get_components(go, "Moon", "Flammable");
-            //auto state = app::Flammable_FlameState__Enum_Burning;
-            //for (auto* const flammable : flammables)
-            //{
-            //    const auto current = il2cpp::invoke<app::Flammable_FlameState__Enum__Boxed>(flammable, "get_State")->value;
-            //    if (current != state)
-            //        il2cpp::invoke(flammable, "SetState", &state);
-            //}
         }
     }
 }

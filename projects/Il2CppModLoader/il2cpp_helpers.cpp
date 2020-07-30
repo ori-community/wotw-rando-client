@@ -333,6 +333,9 @@ namespace il2cpp
 
         bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass)
         {
+            if (klass == nullptr || iklass == nullptr)
+                return false;
+
             return il2cpp_class_is_assignable_from(iklass, klass);
         }
 

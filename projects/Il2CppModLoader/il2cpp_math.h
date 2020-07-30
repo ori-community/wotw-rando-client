@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Il2CppModloader/il2cpp_internals.h>
-
 namespace modloader::math
 {
     inline bool in_rect(app::Vector3 const& a, app::Rect const& b)

@@ -3,8 +3,6 @@
 #include <macros.h>
 #include <string>
 
-#include <Il2CppModLoader/il2cpp_internals.h>
-
 namespace uber_states
 {
     namespace constants
