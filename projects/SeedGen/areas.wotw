@@ -925,26 +925,26 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   state GladesTown.CaveEntrance:
     base: GladesTown.ClearThorns, Ore=29
   # decoration not accounted for
-  state GladesTown.RatherPlay:  # talking to the Moki that allows to build decoration
-    base:
-      Flap, Glide
-      Launch
-      TuleyShop.Lightcatchers, Bash:
-        Grenade=1
-        TuleyShop.BlueMoon, Grapple, DoubleJump OR Dash
-        TuleyShop.StickyGrass, Grapple, DoubleJump OR Dash
-        TuleyShop.SpringPlants
-      TuleyShop.SpringPlants, DoubleJump
-      GladesTown.RoofsOverHeads:
-        Bash, Grenade=2
-        TuleyShop.BlueMoon, Grapple, Bash, Grenade=1
-        TuleyShop.SpringPlants, Bash, Grenade=1
+  # state GladesTown.RatherPlay:  # talking to the Moki that allows to build decoration
+  #   base:
+  #     Flap, Glide
+  #     Launch
+  #     TuleyShop.Lightcatchers, Bash:
+  #       Grenade=1
+  #       TuleyShop.BlueMoon, Grapple, DoubleJump OR Dash
+  #       TuleyShop.StickyGrass, Grapple, DoubleJump OR Dash
+  #       TuleyShop.SpringPlants
+  #     TuleyShop.SpringPlants, DoubleJump
+  #     GladesTown.RoofsOverHeads:
+  #       Bash, Grenade=2
+  #       TuleyShop.BlueMoon, Grapple, Bash, Grenade=1
+  #       TuleyShop.SpringPlants, Bash, Grenade=1
 
   # silent woods map quest doesn't exactly make sense
   quest GladesTown.HandToHandPouch:
     base: EastHollow.HandToHandMap
   quest GladesTown.RebuildTheGlades:
-    base: GladesTown.RatherPlay, Ore=39
+    base: Ore=29
 
   pickup GladesTown.UpdraftCeilingEX:
     base:
@@ -1200,10 +1200,10 @@ anchor GladesTown.HoleHut at -214, -4111:  # The ledge below Hole Hut
 anchor GladesTown.ReachPath at -140, -4096:  # At the soup
   refill Checkpoint
 
-  state GladesTown.RatherPlay:  # talking to the Moki that allows to build decoration
-    base:  # free if you know the whole branch is semisolid, but you probably don't as a base player
-      DoubleJump OR Dash OR Glide OR Launch
-      TuleyShop.BlueMoon, Grapple
+  # state GladesTown.RatherPlay:  # talking to the Moki that allows to build decoration
+  #   base:  # free if you know the whole branch is semisolid, but you probably don't as a base player
+  #     DoubleJump OR Dash OR Glide OR Launch
+  #     TuleyShop.BlueMoon, Grapple
 
   quest GladesTown.HandToHandSoup:
     base: InnerWellspring.HandToHandHerbs
