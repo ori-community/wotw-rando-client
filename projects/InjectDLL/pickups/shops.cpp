@@ -20,10 +20,6 @@ namespace
     BINDING(5047120, int64_t, WeaponmasterScreen_get_Instance, (int64_t)); //WeaponmasterScreen$$get_Instance
     BINDING(10013424, bool, GameController_get_GameInTitleScreen, (app::GameController*)); //GameController$$get_GameInTitleScreen
 
-    BINDING(5042560, bool, WeaponmasterItem_get_IsLocked, (app::WeaponmasterItem*)); //WeaponmasterItem$$get_IsLocked
-    BINDING(4151120, bool, WeaponmasterItem_get_IsVisible, (app::WeaponmasterItem*)); //WeaponmasterItem$$get_IsVisible
-    BINDING(5043600, bool, WeaponmasterItem_get_IsAffordable, (app::WeaponmasterItem*)); //WeaponmasterItem$$get_IsAffordable
-
     bool weaponmaster_purchase_in_progress = false;
     const std::set<char> TWILLEN_SHARDS{ 1, 2, 3, 5, 19, 22, 26, 40 };
     std::unordered_map<uint16_t, int> opher_weapon_costs;
@@ -183,11 +179,7 @@ namespace
         return csharp_bridge::opher_bought_upgrade(required_type);
     }
 
-    bool purchasable(app::WeaponmasterItem* weaponmasterItem)
-    {
-        return !hasBeenPurchasedBefore(weaponmasterItem) && !WeaponmasterItem_get_IsLocked(weaponmasterItem) &&
-            WeaponmasterItem_get_IsVisible(weaponmasterItem) && WeaponmasterItem_get_IsAffordable(weaponmasterItem);
-    }
+    bool purchasable(app::WeaponmasterItem* weaponmasterItem);
 
     INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (app::WeaponmasterItem* item))
     {
@@ -213,18 +205,6 @@ namespace
 
         return WeaponmasterItem_GetCostForLevel(item, level);
     }
-
-
-    INTERCEPT(5044080, bool, WeaponmasterItem_TryPurchase, (app::WeaponmasterItem* pThis, int64_t hint, int64_t sounds, int64_t hints))
-    {
-        //WeaponmasterItem$$TryPurchase
-        if (purchasable(pThis))
-            return true;
-
-        WeaponmasterItem_TryPurchase(pThis, hint, sounds, hints);
-        return false;
-    }
-
 
     INTERCEPT(11448960, int64_t, SpellInventory_AddNewSpellToInventory, (int64_t inv, unsigned int equipmentType, bool add))
     {
@@ -374,7 +354,7 @@ namespace
     IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_IsVisible, (app::UpgradableShardItem* z)) {
         return true;
     }
-    IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_isLocked, (app::UpgradableShardItem* z)) {
+    IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_IsLocked, (app::UpgradableShardItem* z)) {
         return true;
     }
 
@@ -674,6 +654,30 @@ namespace
         provider = create_message_provider(il2cpp::string_new(locked));
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
+    }
+
+    IL2CPP_BINDING(, UISoundSettingsAsset, bool, PlaySoundEvent, (app::UISoundSettingsAsset* this_ptr, app::Event_1* sound_event));
+    IL2CPP_BINDING(, WeaponmasterItem, bool, get_IsAffordable, (app::WeaponmasterItem* this_ptr));
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, TryPurchase, (app::WeaponmasterItem* this_ptr, app::Action_1_MessageProvider_* show_hint, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints))
+    {
+        app::MessageProvider* selected_hint;
+        if (hasBeenPurchasedBefore(this_ptr))
+            selected_hint = hints->fields.AlreadyOwned;
+        else if (get_IsLocked_intercept(this_ptr))
+            selected_hint = hints->fields.ShardNotDiscovered;
+        else if (!get_IsVisible_intercept(this_ptr))
+            selected_hint = hints->fields.ShardNotDiscovered;
+        else if (!get_IsAffordable(this_ptr))
+            selected_hint = hints->fields.NotEnoughSpiritLight;
+        else
+            return true;
+
+
+        il2cpp::invoke(show_hint, "Invoke", selected_hint);
+        if (sounds != nullptr)
+            UISoundSettingsAsset::PlaySoundEvent(sounds, sounds->fields.InvalidItem);
+
+        return false;
     }
 }
 
