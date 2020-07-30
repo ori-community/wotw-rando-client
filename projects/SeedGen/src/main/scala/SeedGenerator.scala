@@ -197,6 +197,7 @@ package SeedGenerator {
       case Some(ItemLoc(name, l)) if !Config().flags.noHints && (l.value == "LupoZoneMap" || name == "OpherShop.WaterBreath") => None
       case Some(ItemLoc(_, l)) if !Config().questLocs && l.category == "Quest" => None
       case Some(ItemLoc(_, l)) if Config().bonusItems && l.uberGroupId == 1 => None // TODO: change this when weapons probably
+      case Some(ItemLoc(name, _)) if !Config().flags.noKSDoors && name == "OpherShop.Teleport" =>/* Config.debug(s"Filtered out $name");*/ None
       case a => a
     }
   }
@@ -645,6 +646,12 @@ package SeedGenerator {
     def built: Boolean = error.isEmpty && grps.last.done
     def seed: String = (Config().header +
         grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n") +
+        (if(Config().bonusItems) """
+                                   |1|74|11|3  //   Spike Efficiency from Spike,
+                                   |1|98|11|0  //   Rapid Smash from OpherShop.SpiritSmash,
+                                   |1|106|11|4 //   Star Efficiency from OpherShop.SpiritStar,
+                                   |1|115|11|2 //   Blaze Efficiency from OpherShop.Blaze,
+                                   |1|116|11|5 //   Sentry Efficiency from OpherShop.Sentry, """.stripMargin else "") +
         s"\n// Config: ${Config().toJson}"
       ).replace("\n", "\r\n")
     def spoiler: String = grps.map(grp => grp.desc(true)).mkString("\n").replace("\n", "\r\n")
