@@ -18,14 +18,16 @@ namespace RandoMainDLL {
       InterOp.set_extra_dashes(dashes);
       var jumps = (SaveController.Data?.BonusItems?.GetOrElse(BonusType.ExtraDoubleJump, 0)).GetValueOrDefault(0);
       InterOp.set_extra_jumps(jumps);
+      foreach (var wu in WeaponUpgrade.ById.Values)
+        wu.Apply();
     }
     public static void Update() {
       int h = BonusType.HealthRegen.Count();
       if (h > 0)
-        InterOp.add_health(h * 0.00224f);
+        InterOp.add_health(h * 0.0028f);
       int e = BonusType.EnergyRegen.Count();
       if (e > 0)
-        InterOp.add_energy(e * 0.000224f);
+        InterOp.add_energy(e * 0.00028f);
     }
     public static int Count(this BonusType b) => SaveController.Data?.BonusItems?.GetOrElse(b, 0) ?? 0;
   }
