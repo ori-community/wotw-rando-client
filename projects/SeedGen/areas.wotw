@@ -2002,6 +2002,8 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
         Launch
 
 anchor WoodsShrine:
+  refill Full
+
   pickup WoodsMain.CombatShrine:
     base, Combat, RangedWeapon, Bash, Hammer OR Launch:  # this one has it all -_-
       Danger=80
