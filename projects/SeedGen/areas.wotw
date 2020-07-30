@@ -944,7 +944,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   quest GladesTown.HandToHandPouch:
     base: EastHollow.HandToHandMap
   quest GladesTown.RebuildTheGlades:
-    base: Ore=29
+    base: Ore=40
 
   pickup GladesTown.UpdraftCeilingEX:
     base:
