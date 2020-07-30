@@ -1,5 +1,5 @@
 #include <dll_main.h>
-
+#include <Common/ext.h>
 #include <csharp_bridge.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -9,6 +9,7 @@
 
 #include <functional>
 #include <set>
+#include <map>
 
 using namespace modloader;
 
@@ -25,6 +26,12 @@ namespace
 
     bool weaponmaster_purchase_in_progress = false;
     const std::set<char> TWILLEN_SHARDS{ 1, 2, 3, 5, 19, 22, 26, 40 };
+    std::unordered_map<uint16_t, int> opher_weapon_costs;
+    std::unordered_map<uint8_t, int> twillen_shard_costs;
+
+    uint16_t opher_key(int acq, int req) {
+        return static_cast<uint16_t>(acq & 0xFF) | (static_cast<uint16_t>(req & 0xFF) << 8);
+    }
 
     bool is_twillen_shard(const uint8_t shard)
     {
@@ -196,18 +203,13 @@ namespace
         //WeaponmasterItem$$GetCostForLevel
         if (is_in_shop_screen())
         {
-            const auto ability_type = item->fields.Upgrade->fields.AcquiredAbilityType;
-            //TODO: @Eiko - you know what to do
-            if (ability_type == app::AbilityType__Enum_None)
-            {
-                if (item->fields.Upgrade->fields.RequiredAbility == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
-                    return csharp_bridge::opher_weapon_cost(app::AbilityType__Enum_TeleportSpell);
-
-                return WeaponmasterItem_GetCostForLevel(item, level);
-            }
-
-            return csharp_bridge::opher_weapon_cost(ability_type);
-        }
+            const auto acq = static_cast<int>(item->fields.Upgrade->fields.AcquiredAbilityType);
+            const auto req = static_cast<int>(item->fields.Upgrade->fields.RequiredAbility);
+            const auto key = opher_key(acq, req);
+            if(opher_weapon_costs.find(key) != opher_weapon_costs.end())
+                return opher_weapon_costs[opher_key(acq, req)];
+            return 300; // todo; maybe a bit smarter than this?
+         }
 
         return WeaponmasterItem_GetCostForLevel(item, level);
     }
@@ -668,18 +670,19 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy)
-{
-    const auto key = static_cast<uint16_t>(acquired & 0xFF) | (static_cast<uint16_t>(required & 0xFF) << 8);
+INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy, int cost) {
+    const auto key = opher_key(acquired, required);
     auto& item = opher_overrides[key];
     set_item(item, name, description, locked, uses_energy);
+    opher_weapon_costs[key] = cost;
 }
 
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked, int cost)
 {
     const auto key = static_cast<uint8_t>(shard);
     auto& item = twillen_overrides[key];
     set_item(item, name, description, locked, false);
+    twillen_shard_costs[key] = cost;
 }
 
 INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
