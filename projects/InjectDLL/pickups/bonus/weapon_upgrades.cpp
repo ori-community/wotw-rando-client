@@ -45,11 +45,6 @@ namespace
         {
             auto* const collider = colliders->vector[i];
             auto* const go = il2cpp::unity::get_game_object(collider);
-            if (!il2cpp::unity::get_components(go, "", "SeinDamageReciever").empty())
-                continue;
-            if (!il2cpp::unity::get_components(go, "", "SeinCharacter").empty())
-                continue;
-
             // Damage
             auto* const damage = il2cpp::create_object<app::Damage>("", "Damage");
             Damage::ctor(
