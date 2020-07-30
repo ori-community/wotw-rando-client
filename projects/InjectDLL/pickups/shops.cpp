@@ -3,7 +3,6 @@
 #include <csharp_bridge.h>
 #include <uber_states/uber_state_manager.h>
 
-#include <Il2CppModLoader/il2cpp_internals.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 

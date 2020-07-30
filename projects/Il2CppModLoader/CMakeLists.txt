@@ -77,7 +77,7 @@ target_precompile_headers(
 	${PROJECT_NAME}
 		PRIVATE <tchar.h>
 		PRIVATE <framework.h>
-		PUBLIC <Il2CppModLoader/il2cpp_internals.h>
+		PUBLIC <${PROJECT_NAME}/il2cpp_internals.h>
 )
 
 message(STATUS "Assigning source groups.")
