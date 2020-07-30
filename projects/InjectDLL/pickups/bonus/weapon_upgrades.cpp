@@ -5,7 +5,7 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Il2CppModLoader/math.h>
+#include <Il2CppModLoader/il2cpp_math.h>
 
 #include <vector>
 #include <unordered_map>
@@ -51,7 +51,6 @@ namespace
                 continue;
 
             // Damage
-            console::console_send(il2cpp::unity::get_object_name(go));
             auto* const damage = il2cpp::create_object<app::Damage>("", "Damage");
             Damage::ctor(
                 damage,
@@ -119,11 +118,14 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
         }
     case app::AbilityType__Enum_TurretSpell:
         {
-            auto* const sentry = get_sein()->fields.Spells->fields.SpiritSentrySpell;
-            if (!found)
-                cost.push_back(sentry->fields.Balancing->fields.EnergyCost);
+            auto* const sentry = get_sein()->fields.Spells->fields.TurretSpell;
+            if (sentry != nullptr)
+            {
+                if (!found)
+                    cost.push_back(sentry->fields.BalancingData->fields.EnergyCost);
 
-            sentry->fields.Balancing->fields.EnergyCost = cost[0] * modifier;
+                sentry->fields.BalancingData->fields.EnergyCost = cost[0] * modifier;
+            }
             break;
         }
     case app::AbilityType__Enum_SpiritSpearSpell:
@@ -134,6 +136,8 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
                 if (!found)
                     cost.push_back(spear->fields.State->fields.Balancing->fields.EnergyCost);
 
+                spear->fields.State->fields.Balancing->fields.EnergyCost = initial_costs[ability][0] * modifier;
+                // Is this even used?
                 spear->fields.State->fields.EnergyCost = initial_costs[ability][0] * modifier;
             }
             break;
@@ -143,13 +147,12 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             auto* const shuriken = get_sein()->fields.Spells->fields.ChakramSpellWrapper;
             if (shuriken->fields.HasState)
             {
-                auto& cost = initial_costs[ability];
                 if (!found)
                 {
                     cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost);
                     cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost);
                 }
-
+            
                 shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost = cost[0] * modifier;
                 shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost = cost[1] * modifier;
             }

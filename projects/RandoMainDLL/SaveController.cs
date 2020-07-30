@@ -122,6 +122,7 @@ namespace RandoMainDLL {
       if (ability.Equip().HasValue)
         InterOp.set_equipment(ability.Equip().Value, setTo);
 
+      BonusItemController.Refresh();
       TrackFileController.Write();
     }
     public static void SetEvent(QuestEventType ev, bool setTo = true) {
