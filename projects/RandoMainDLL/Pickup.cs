@@ -642,7 +642,7 @@ namespace RandoMainDLL {
       Apply(newVal);
       base.Grant(skipBase);
     }
-    public override string ToString() => Name;
+    public override string ToString() => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}";
 
     public void Apply() => Apply(Value());
     public void Apply(byte v) {
