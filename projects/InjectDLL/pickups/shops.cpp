@@ -518,6 +518,16 @@ namespace
 
     // Twillen --------------------------------
 
+    NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_VisibleInShop, (app::PlayerUberStateShards_Shard* this_ptr))
+    {
+        return true;
+    }
+
+    NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_PurchasableInShop, (app::PlayerUberStateShards_Shard* this_ptr))
+    {
+        return true;
+    }
+    
     IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
 
     bool overwrite_shard_text = false;
@@ -587,7 +597,7 @@ namespace
 
             MessageBox::RefreshText(name_box, empty_str, empty_str);
             MessageBox::RefreshText(description_box, empty_str, empty_str);
-            SpiritShardUIShardDetails::UpdateUpgradeDetails(this_ptr);
+            UpdateUpgradeDetails(this_ptr);
 
             auto active = false;
             il2cpp::invoke(this_ptr->fields.LevelNextGO, "SetActive", &active);
