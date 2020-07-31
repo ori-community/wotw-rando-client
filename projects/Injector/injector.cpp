@@ -199,8 +199,8 @@ int actual_main()
     }
 
     //load_dll(process_handle, load_function, base_path + dll_name);
-    const char path[] = "C:\\moon\\InjectLoader.dll";
-    if (load_dll(process_handle, load_function, path, sizeof(path) + 1))
+    auto dll_path = base_path + dll_name;
+    if (load_dll(process_handle, load_function, dll_path.c_str(), dll_path.size()))
     {
         std::thread thread(listen_for_ori);
         
