@@ -6,7 +6,7 @@ namespace RandoMainDLL {
   public static class Randomizer {
     public static string BasePath = @"C:\moon\";
     public static string SeedPathFile { get { return BasePath + ".currentseedpath"; } }
-    public static string MessageLog { get { return BasePath + "messagelog"; } }
+    public static string MessageLog { get { return BasePath + ".messagelog"; } }
     public static string LogFile { get { return BasePath + "cs_log.txt"; } }
     public static string SaveFolder { get { return BasePath + "saves"; } }
     public static string VersionFile { get { return BasePath + "VERSION"; } }
