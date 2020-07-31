@@ -284,7 +284,8 @@ package SeedGenerator {
         if(areaName == "MarshSpawn.Main")
           return ""
         val Coords(x, y) = area.coords.get
-        s"Spawn: $x, $y        // $areaName\n\n" + (if(spawnSlots > 0) "3|0|6|Spawning with:|f=420 // show spawn text for longer\n\n" else "")
+        s"Spawn: $x, $y        // $areaName\n\n" +
+        s"3|0|6|Spawning with:|f=420  // show spawn text for longer\n3|0${teleporter.code} // ${teleporter.name} granted implicitly by spawn \n"
       }
 
     }
@@ -492,6 +493,7 @@ package SeedGenerator {
           e
       })
     def mk(inState: GameState, i:Int = 0, parent: Option[PlacementGroup] = None)(implicit r: Random, pool: Inv): PlacementGroup = {
+//      val backupPool = Inv.mk(pool.asSeq:_*)
       val (state, preplaced) = Nodes.reached(inState)
       val placements = MList[Placement]() ++ preplaced
       def process(ps: Iterable[Placement], prefix: String = ""): Unit =
@@ -525,8 +527,13 @@ package SeedGenerator {
       }
       val locsOpen = freeLocs.size - ksNeeded
       if(ksNeeded > 0) {
-        if(locsOpen < 0)
+        if(locsOpen < 0) {
           throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
+//          parent match {
+//            case Some(p) => p.t
+//            case None => throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
+//          }
+        }
         val (shops, nonShops) = freeLocs.take(ksNeeded).partition(_.data.category == "Shop")
         val ksPlc = shops.map(shop => {pool.merchToPop-=1; ShopPlacement(Keystone, shop)}) ++ nonShops.map(nonShop => ItemPlacement(Keystone, nonShop))
         pool.take(Keystone, ksPlc.size)
