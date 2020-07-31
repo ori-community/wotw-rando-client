@@ -293,7 +293,7 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 250;
     public override string ToString() {
       var str = type.GetDescription();
-      return !(str is null) ? $"{str} TP" : $"Unknown Teleporter {type}";
+      return !(str is null) ? $"#{str} TP#" : $"Unknown Teleporter {type}";
     }
   }
   public class RemoveTeleporter : Pickup {
