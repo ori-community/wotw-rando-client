@@ -104,6 +104,7 @@ namespace RandoMainDLL {
   public abstract class Pickup {
     public virtual int Frames { get => 240; }
     public bool NonEmpty = true;
+    public bool Muted = false;
     public abstract PickupType Type { get; }
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
@@ -224,6 +225,8 @@ namespace RandoMainDLL {
       foreach (var child in (squelching.Count > 0 ? squelching : Children)) {
         if (child is ConditionalStop s && s.StopActive())
           break;
+        if (child.Muted)
+          continue;
         names.Add(child.ToString());
       }
       return string.Join("\n", names.Where(s => s.Length > 0));

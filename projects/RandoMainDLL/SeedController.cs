@@ -140,8 +140,14 @@ namespace RandoMainDLL {
               ShopController.SetCostMod((ShardType)cond.Id.ID, tMulti);
               frags.RemoveAt(frags.Count - 1);
             }
-
-            var pickup = BuildPickup(pickupType, frags[3], frags.Skip(4).ToList());
+            var extras = frags.Skip(4).ToList();
+            bool needsMute = false;
+            if(pickupType != PickupType.Message && extras.Contains("mute")) {
+              extras.Remove("mute");
+              needsMute = true;
+            }
+            var pickup = BuildPickup(pickupType, frags[3], extras);
+            pickup.Muted = needsMute;
             if (pickup.IsHintItem())
               HintsController.AddHint(cond.Loc().Zone, pickup as Checkable);
             pickupMap[cond] = cond.Pickup().Concat(pickup);
