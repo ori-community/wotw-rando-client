@@ -648,7 +648,7 @@ namespace RandoMainDLL {
     public void Apply(byte v) {
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:
-          InterOp.set_hammer_speed_multiplier(1f + .5f * v);
+          InterOp.set_hammer_speed_multiplier(1f + .4f * v);
           break;
         case WeaponUpgradeType.RapidSword:
           // TODO: implement this
