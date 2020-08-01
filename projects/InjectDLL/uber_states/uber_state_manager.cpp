@@ -76,13 +76,21 @@ namespace uber_states
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "test1", 112, false),
 
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Rapid Smash", 0, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Rapid Sword", 1, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Blaze Efficiency", 2, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Spike Efficiency", 3, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Star Efficiency", 4, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::WEAPON_UPGRADE_GROUP_NAME, constants::WEAPON_UPGRADE, "Sentry Efficiency", 5, 0),
-
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Rapid Smash", 0, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Rapid Sword", 1, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Blaze Efficiency", 2, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Spike Efficiency", 3, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Star Efficiency", 4, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Sentry Efficiency", 5, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Bow Efficiency", 6, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Regeneration Efficiency", 7, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Flash Efficiency", 8, 1),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Light Burst Efficiency", 9, 1),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Health Regeneration", 30, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Energy Regeneration", 31, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Double Jumps", 35, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Dashes", 36, 0),
+                    
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "keystones_collected", 0, 0),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "glades_tp_fix", 0, false),
@@ -91,7 +99,7 @@ namespace uber_states
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false),
                 };
 
-                for (auto state : states)
+                for (const auto state : states)
                     il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
 
                 initialized = true;
@@ -103,64 +111,92 @@ namespace uber_states
 
         void notify_uber_state_change(app::IUberState* uber_state, float prev, float current)
         {
-            auto state = get_uber_state_id(uber_state);
-            auto group = get_uber_state_group_id(uber_state);
+            const auto state = get_uber_state_id(uber_state);
+            const auto group = get_uber_state_group_id(uber_state);
             auto type = resolve_type(uber_state);
             csharp_bridge::on_uber_state_applied(group->fields.m_id, state->fields.m_id, static_cast<uint8_t>(type), prev, current);
         }
 
         IL2CPP_INTERCEPT(Moon, SerializedBooleanUberState, void, set_Value, (app::SerializedBooleanUberState* this_ptr, bool value)) {
-            auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            SerializedBooleanUberState::set_Value(this_ptr, value);
-            auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            set_Value(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
         IL2CPP_INTERCEPT(Moon, SerializedByteUberState, void, set_Value, (app::SerializedByteUberState* this_ptr, uint8_t value)) {
-            auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            SerializedByteUberState::set_Value(this_ptr, value);
-            auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            set_Value(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
         IL2CPP_INTERCEPT(Moon, SerializedFloatUberState, void, set_Value, (app::SerializedFloatUberState* this_ptr, float value)) {
-            auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            SerializedFloatUberState::set_Value(this_ptr, value);
-            auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            set_Value(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
         IL2CPP_INTERCEPT(Moon, SerializedIntUberState, void, set_Value, (app::SerializedIntUberState* this_ptr, int value)) {
-            auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
-            SerializedIntUberState::set_Value(this_ptr, value);
-            auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
+            set_Value(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_GenericValue")->fields;
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
         float convert_pedestal_state(app::SavePedestalUberState_PedestalState* state)
         {
-            if (state == 0)
+            if (state == nullptr)
                 return 0;
 
-            auto active = static_cast<int>(state->fields.IsTeleporterActive != 0);
-            auto save = static_cast<int>(state->fields.HasGameBeenSaved != 0) << 1;
+            const auto active = static_cast<int>(state->fields.IsTeleporterActive != 0);
+            const auto save = static_cast<int>(state->fields.HasGameBeenSaved != 0) << 1;
             return static_cast<float>(save | active);
         }
 
         IL2CPP_BINDING(Moon.uberSerializationWisp, SavePedestalUberState, app::SavePedestalUberState_PedestalState*, ReadStateFromStore, (app::SavePedestalUberState* this_ptr));
 
         IL2CPP_INTERCEPT(Moon.uberSerializationWisp, SavePedestalUberState, void, set_HasGameBeenSaved, (app::SavePedestalUberState* this_ptr, bool value)) {
-            auto prev = convert_pedestal_state(SavePedestalUberState::ReadStateFromStore(this_ptr));
-            SavePedestalUberState::set_HasGameBeenSaved(this_ptr, value);
-            auto current = convert_pedestal_state(SavePedestalUberState::ReadStateFromStore(this_ptr));
+            const auto prev = convert_pedestal_state(ReadStateFromStore(this_ptr));
+            set_HasGameBeenSaved(this_ptr, value);
+            const auto current = convert_pedestal_state(ReadStateFromStore(this_ptr));
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
         IL2CPP_INTERCEPT(Moon.uberSerializationWisp, SavePedestalUberState, void, set_IsTeleporterActive, (app::SavePedestalUberState* this_ptr, bool value)) {
-            auto prev = convert_pedestal_state(SavePedestalUberState::ReadStateFromStore(this_ptr));
-            SavePedestalUberState::set_IsTeleporterActive(this_ptr, value);
-            auto current = convert_pedestal_state(SavePedestalUberState::ReadStateFromStore(this_ptr));
+            const auto prev = convert_pedestal_state(ReadStateFromStore(this_ptr));
+            set_IsTeleporterActive(this_ptr, value);
+            const auto current = convert_pedestal_state(ReadStateFromStore(this_ptr));
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
+        }
+        
+        IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedBoolUberStateWrapper, void, SetValue, (app::SerializedBoolUberStateWrapper* this_ptr, bool value)) {
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            SetValue(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state), prev, current);
+        }
+
+        IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedByteUberStateWrapper, void, SetValue, (app::SerializedByteUberStateWrapper* this_ptr, uint8_t value)) {
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            SetValue(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state), prev, current);
+        }
+
+        IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedFloatUberStateWrapper, void, SetValue, (app::SerializedFloatUberStateWrapper* this_ptr, float value)) {
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            SetValue(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state), prev, current);
+        }
+
+        IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedIntUberStateWrapper, void, SetValue, (app::SerializedIntUberStateWrapper* this_ptr, int value)) {
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            SetValue(this_ptr, value);
+            const auto current = il2cpp::invoke<app::Single__Boxed>(this_ptr->fields.m_state, "get_GenericValue")->fields;
+            notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state), prev, current);
         }
     }
 

@@ -437,20 +437,19 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 300;
     public override PickupType Type => PickupType.BonusItem;
     public readonly BonusType type;
-    public BonusItem(BonusType command) => type = command;
+    private readonly UberId stateId;
+
+    public BonusItem(BonusType command) {
+      type = command;
+      stateId = new UberId(4, (int)type);
+    }
     public override void Grant(bool skipBase = false) {
-      SaveController.Data.BonusItems[type] = type.Count() + 1;
-      switch (type) {
-        case BonusType.ExtraAirDash:
-          InterOp.set_extra_dashes(type.Count());
-          break;
-        case BonusType.ExtraDoubleJump:
-          InterOp.set_extra_jumps(type.Count());
-          break;
-      }
+      var state = stateId.State();
+      state.Value.Byte += 1;
+      state.Write(state.Value);
       base.Grant(skipBase);
     }
-    public override string ToString() => $"#{type.GetDescription()}{(type.Count() > 1 ? $" x{type.Count()}" : "")}#";
+    public override string ToString() => $"#{type.GetDescription()}{(stateId.State().Value.Byte > 1 ? $" x{stateId.State().Value.Byte}" : "")}#";
   }
 
   public class SystemCommand : Pickup {
@@ -623,6 +622,10 @@ namespace RandoMainDLL {
     SpikeEfficiency = 3,
     StarEfficiency = 4,
     SentryEfficiency = 5,
+    BowEfficiency = 6,
+    RegenerationEfficiency = 7,
+    FlashEfficiency = 8,
+    LightBurstEfficiency = 9,
   }
   public class WeaponUpgrade : Pickup {
     public override PickupType Type => PickupType.WeaponUpgrade;
@@ -638,35 +641,26 @@ namespace RandoMainDLL {
       Desc = desc;
     }
     public UberId UberId() => new UberId(4, (int)Id);
-    public byte Value() => UberId().GetValue().Value.Byte;
+    public float Value() => UberId().GetValue().Value.Float;
     public override void Grant(bool skipBase = false) {
-      byte newVal = Convert.ToByte(1 + Value());
-      UberId().State().Write(new UberValue(newVal));
-      Apply(newVal);
-      base.Grant(skipBase);
-    }
-    public override string ToString() => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}";
-
-    public void Apply() => Apply(Value());
-    public void Apply(byte v) {
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:
-          InterOp.set_hammer_speed_multiplier(1f + .25f * v);
-          break;
         case WeaponUpgradeType.RapidSword:
-          // TODO: implement this
+          UberId().State().Write(new UberValue(Value() * 1.25f));
           break;
         case WeaponUpgradeType.SpikeEfficiency:
         case WeaponUpgradeType.StarEfficiency:
         case WeaponUpgradeType.SentryEfficiency:
         case WeaponUpgradeType.BlazeEfficiency:
-          InterOp.set_ability_energy_modifier(Weapon, Convert.ToSingle(Math.Pow(.5f, v)));
+          UberId().State().Write(new UberValue(Value() * 0.5f));
           break;
         default:
           Randomizer.Log($"Unknown upgrade {Id}, can't apply");
           break;
       }
+      base.Grant(skipBase);
     }
+    public override string ToString() => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}";
     public static WeaponUpgrade RapidSmash = new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Spirit Smash* attacks are faster");
     public static WeaponUpgrade RapidSword = new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are faster");
     public static WeaponUpgrade BlazeEfficiency = new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs less energy");
