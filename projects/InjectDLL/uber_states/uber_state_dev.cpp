@@ -207,11 +207,11 @@ namespace
 
     void add_uber_state_commands()
     {
-        console::register_command("set_us_bool", set_us_bool);
-        console::register_command("set_us_int", set_us_int);
-        console::register_command("check_appliers", check_appliers);
-        console::register_command("check_all_appliers", check_all_appliers);
-        console::register_command("dump_scene", dump_scene);
+        console::register_command({ "uber_state", "set_bool" }, set_us_bool);
+        console::register_command({ "uber_state", "set_int" }, set_us_int);
+        console::register_command({ "debug", "check_appliers" }, check_appliers);
+        console::register_command({ "debug", "check_all_appliers" }, check_all_appliers);
+        console::register_command({ "debug", "dump_scene" }, dump_scene);
     }
 
     CALL_ON_INIT(add_uber_state_commands);

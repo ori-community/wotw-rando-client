@@ -70,7 +70,7 @@ namespace
             }
         );
 
-        console::register_command("toggle_clear_water", toggle_clear_water);
+        console::register_command({ "cheat", "toggle_clear_water" }, toggle_clear_water);
     }
 
     CALL_ON_INIT(initialize_water);

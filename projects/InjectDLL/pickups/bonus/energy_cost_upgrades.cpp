@@ -6,12 +6,39 @@
 
 #include <vector>
 #include <unordered_map>
+#include <Il2CppModLoader/console.h>
 
 using namespace modloader;
+using namespace console;
+
+INJECT_C_DLLEXPORT void set_ability_energy_modifier(app::AbilityType__Enum ability, float modifier);
 
 namespace
 {
     std::unordered_map<app::AbilityType__Enum, std::vector<float>> initial_costs;
+
+    void set_ability_cost_modifier(std::string const& name, std::vector<CommandParam> const& params)
+    {
+        if (params.size() != 2)
+            return;
+        
+        int ability = 0;
+        if (!try_get_int(params[0], ability))
+            console_send("failed to parse ability");
+
+        float modifier = 0;
+        if (!try_get_float(params[1], modifier))
+            console_send("failed to parse modifier");
+
+        set_ability_energy_modifier(static_cast<app::AbilityType__Enum>(ability), modifier);
+    }
+
+    void initialize()
+    {
+        register_command({ "upgrade", "set_ability_cost_modifier" }, set_ability_cost_modifier);
+    }
+
+    CALL_ON_INIT(initialize);
 }
 
 INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum ability, const float modifier)

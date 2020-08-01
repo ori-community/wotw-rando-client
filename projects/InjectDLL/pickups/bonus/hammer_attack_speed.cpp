@@ -72,7 +72,7 @@ namespace
 
     void initialize()
     {
-        console::register_command("set_hammer_speed", set_hammer_speed);
+        console::register_command({ "upgrade", "set_hammer_speed" }, set_hammer_speed);
     }
 
     CALL_ON_INIT(initialize);
