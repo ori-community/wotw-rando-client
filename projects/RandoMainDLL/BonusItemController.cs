@@ -1,34 +1,35 @@
 ﻿using System.ComponentModel;
+using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
-  public enum BonusType : byte {
+  public enum BonusType {
     [Description("Health Regeneration")]
-    HealthRegen = 0,
+    HealthRegen = 30,
     [Description("Energy Regeneration")]
-    EnergyRegen = 1,
+    EnergyRegen = 31,
     [Description("Extra Double Jump")]
-    ExtraDoubleJump = 2,
+    ExtraDoubleJump = 35,
     [Description("Extra Air Dash")]
-    ExtraAirDash = 3
+    ExtraAirDash = 36
   }
 
   public static class BonusItemController {
     public static void Refresh() {
-      var dashes = (SaveController.Data?.BonusItems?.GetOrElse(BonusType.ExtraAirDash, 0)).GetValueOrDefault(0);
-      InterOp.set_extra_dashes(dashes);
-      var jumps = (SaveController.Data?.BonusItems?.GetOrElse(BonusType.ExtraDoubleJump, 0)).GetValueOrDefault(0);
-      InterOp.set_extra_jumps(jumps);
-      foreach (var wu in WeaponUpgrade.ById.Values)
-        wu.Apply();
+      InterOp.refresh_ability_energy_modifiers();
     }
     public static void Update() {
-      int h = BonusType.HealthRegen.Count();
+      float h = InterOp.get_uber_state_value(4, (int)BonusType.HealthRegen);
       if (h > 0)
         InterOp.add_health(h * 0.0028f);
-      int e = BonusType.EnergyRegen.Count();
+      float e = InterOp.get_uber_state_value(4, (int)BonusType.EnergyRegen);
       if (e > 0)
         InterOp.add_energy(e * 0.00028f);
     }
-    public static int Count(this BonusType b) => SaveController.Data?.BonusItems?.GetOrElse(b, 0) ?? 0;
+
+    public static void OnUberState(UberState state) {
+      // If weapon upgrade, refresh.
+      if (state.GroupID == 4)
+        Refresh();
+    }
   }
 }

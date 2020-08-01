@@ -9,6 +9,20 @@ INTERNAL_INTERCEPT(address, return_type, name, params)
 #define BINDING(address, return_type, name, params) \
 INTERNAL_BINDING(address, return_type, name, params)
 
+// Named Overloads
+
+#define NAMED_STATIC_IL2CPP_INTERCEPT_OVERLOAD(namezpace, klass_name, return_type, method_name, name, params, overloads) \
+IL2CPP_INTERCEPT_HELPER(true, namezpace, klass_name, return_type, method_name, name, params, overloads)
+
+#define NAMED_STATIC_IL2CPP_BINDING_OVERLOAD(namezpace, klass_name, return_type, method_name, name, params, overloads) \
+IL2CPP_BINDING_HELPER(true, namezpace, klass_name, return_type, method_name, name, params, overloads)
+
+#define NAMED_IL2CPP_INTERCEPT_OVERLOAD(namezpace, klass_name, return_type, method_name, name, params, overloads) \
+IL2CPP_INTERCEPT_HELPER(false, namezpace, klass_name, return_type, method_name, name, params, overloads)
+
+#define NAMED_IL2CPP_BINDING_OVERLOAD(namezpace, klass_name, return_type, method_name, name, params, overloads) \
+IL2CPP_BINDING_HELPER(false, namezpace, klass_name, return_type, method_name, name, params, overloads)
+
 // Overloads
 
 #define STATIC_IL2CPP_INTERCEPT_OVERLOAD(namezpace, klass_name, return_type, method_name, params, overloads) \
