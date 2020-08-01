@@ -112,8 +112,8 @@ namespace
 
     void add_quest_commands()
     {
-        console::register_command("report_quests_completed", report_quests_completed);
-        console::register_command("report_world_state", report_world_state);
+        console::register_command({ "debug", "report_quests_completed" }, report_quests_completed);
+        console::register_command({ "debug", "report_world_state" }, report_world_state);
     }
 
     CALL_ON_INIT(add_quest_commands);

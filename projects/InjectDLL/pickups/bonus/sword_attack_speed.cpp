@@ -50,7 +50,7 @@ namespace
 
     void initialize()
     {
-        register_command("set_sword_speed", set_sword_speed);
+        register_command({ "upgrade", "set_sword_speed" }, set_sword_speed);
     }
 
     CALL_ON_INIT(initialize);
