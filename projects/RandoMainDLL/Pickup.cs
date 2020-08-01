@@ -630,7 +630,7 @@ namespace RandoMainDLL {
     public readonly string Desc;
     public readonly AbilityType Weapon;
     public readonly WeaponUpgradeType Id;
-    public override int CostWithMod(float mod) => 300; // later maybe we'll do something more interesting here
+    public override int CostWithMod(float mod) => 400; // later maybe we'll do something more interesting here
     public WeaponUpgrade(WeaponUpgradeType id, AbilityType weapon, string name, string desc) {
       Name = name;
       Id = id;
@@ -651,7 +651,7 @@ namespace RandoMainDLL {
     public void Apply(byte v) {
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:
-          InterOp.set_hammer_speed_multiplier(1f + .4f * v);
+          InterOp.set_hammer_speed_multiplier(1f + .25f * v);
           break;
         case WeaponUpgradeType.RapidSword:
           // TODO: implement this
