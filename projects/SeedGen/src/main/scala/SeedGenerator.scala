@@ -285,7 +285,7 @@ package SeedGenerator {
           return ""
         val Coords(x, y) = area.coords.get
         s"Spawn: $x, $y        // $areaName\n\n" +
-        s"3|0|6|Spawning with:|f=420  // show spawn text for longer\n3|0${teleporter.code} // ${teleporter.name} granted implicitly by spawn \n"
+        s"3|0|6|Spawning with:|f=420  // show spawn text for longer\n3|0|${teleporter.code}|mute // ${teleporter.name} granted implicitly by spawn \n"
       }
 
     }
