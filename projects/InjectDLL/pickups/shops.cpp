@@ -57,45 +57,12 @@ namespace
     };
     
     
-    IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
 
     INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
     {
         //SpiritShardsShopScreen$$CanPurchase
         const auto result = canShardPurchase(spiritShardShopScreen);
         return result;
-    }
-
-    namespace SpiritShardsShopScreen
-    {
-        extern void (*UpdateContextCanvasShards)(app::SpiritShardsShopScreen* this_ptr);
-    }
-
-    bool overwrite_set_shard = false;
-    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, void, RunSetDirtyCallback, (app::PlayerUberStateShards_Shard* this_ptr));
-    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, CompletePurchase, (app::SpiritShardsShopScreen* this_ptr))
-    {
-        //SpiritShardsShopScreen$$CompletePurchase
-        //save shard new/purchased state
-        auto* const shard = get_SelectedSpiritShard(this_ptr);
-        const auto first = shard->fields.m_isNew;
-        const auto second = shard->fields.m_gained;
-
-        overwrite_set_shard = true;
-        CompletePurchase(this_ptr);
-        overwrite_set_shard = false;
-
-        // rollback vanilla purchase 
-        shard->fields.m_isNew = first;
-        shard->fields.m_gained = second;
-
-        il2cpp::invoke(get_sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
-
-        // do the rando purchase /after/ rollback, xem ;3
-        csharp_bridge::twillen_buy_shard(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
-
-        PlayerUberStateShards::Shard::RunSetDirtyCallback(shard);
-        UpdateContextCanvasShards(this_ptr);
     }
 
     void for_each_indexed(const int64_t list, const std::function<void(int64_t, int)> fun)
@@ -526,6 +493,8 @@ namespace
     {
         return true;
     }
+
+    IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
     
     bool overwrite_shard_text = false;
     app::PlayerUberStateShards_Shard* selected_shard;
@@ -535,6 +504,30 @@ namespace
         selected_shard = get_SelectedSpiritShard(this_ptr);
         UpdateContextCanvasShards(this_ptr);
         overwrite_shard_text = false;
+    }
+
+    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, void, RunSetDirtyCallback, (app::PlayerUberStateShards_Shard* this_ptr));
+    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, CompletePurchase, (app::SpiritShardsShopScreen* this_ptr))
+    {
+        //SpiritShardsShopScreen$$CompletePurchase
+        //save shard new/purchased state
+        auto* const shard = get_SelectedSpiritShard(this_ptr);
+        const auto first = shard->fields.m_isNew;
+        const auto second = shard->fields.m_gained;
+
+        CompletePurchase(this_ptr);
+
+        // rollback vanilla purchase 
+        shard->fields.m_isNew = first;
+        shard->fields.m_gained = second;
+
+        il2cpp::invoke(get_sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
+
+        // do the rando purchase /after/ rollback, xem ;3
+        csharp_bridge::twillen_buy_shard(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
+
+        PlayerUberStateShards::Shard::RunSetDirtyCallback(shard);
+        UpdateContextCanvasShards(this_ptr);
     }
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
