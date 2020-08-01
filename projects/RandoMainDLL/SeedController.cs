@@ -253,9 +253,9 @@ namespace RandoMainDLL {
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
         case PickupType.WeaponUpgrade:
-          return WeaponUpgrade.ById[(WeaponUpgradeType)pickupData.ParseToByte()];
+          return WeaponUpgrade.ById[(WeaponUpgradeType)pickupData.ParseToInt()];
         case PickupType.BonusItem:
-          return new BonusItem((BonusType)pickupData.ParseToByte());
+          return new BonusItem((BonusType)pickupData.ParseToInt());
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {
