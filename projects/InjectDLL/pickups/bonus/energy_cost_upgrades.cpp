@@ -145,6 +145,36 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             }
             break;
         }
+    case app::AbilityType__Enum_GlowSpell:
+        {
+            auto* const flash = get_sein()->fields.Spells->fields.GlowWrapper;
+            if (flash != nullptr)
+            {
+                if (cost.empty())
+                {
+                    cost.push_back(flash->fields.State->fields.Balancing->fields.QuickGlowEnergyDrainPerSecond);
+                    cost.push_back(flash->fields.State->fields.Balancing->fields.QuickGlowEnergyCost);
+                    cost.push_back(flash->fields.State->fields.Balancing->fields.FullGlowEnergyCost);
+                }
+            
+                flash->fields.State->fields.Balancing->fields.QuickGlowEnergyDrainPerSecond= cost[0] * modifier;
+                flash->fields.State->fields.Balancing->fields.QuickGlowEnergyCost = cost[1] * modifier;
+                flash->fields.State->fields.Balancing->fields.FullGlowEnergyCost = cost[2] * modifier;
+            }
+            break;
+        }
+    case app::AbilityType__Enum_Grenade:
+        {
+            auto* const grenade = get_sein()->fields.Abilities->fields.GrenadeWrapper;
+            if (grenade->fields.HasState)
+            {
+                if (cost.empty())
+                    cost.push_back(grenade->fields.State->fields.Balancing->fields.EnergyCost);
+            
+                grenade->fields.State->fields.Balancing->fields.EnergyCost = cost[0] * modifier;
+            }
+            break;
+        }
     default:
         trace(MessageType::Warning, 2, "pickups", format("tried to set energy modifier on unsupported ability '%d'", ability));
         break;
