@@ -55,48 +55,47 @@ namespace
 
         return false;
     };
+    
+    
+    IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
 
-    BINDING(14042272, int64_t, getSelectedShard, (int64_t spiritShardShopScreen)) //SpiritShardsShopScreen$$get_SelectedSpiritShard
-        INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
+    INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
     {
         //SpiritShardsShopScreen$$CanPurchase
         const auto result = canShardPurchase(spiritShardShopScreen);
         return result;
     }
 
+    namespace SpiritShardsShopScreen
+    {
+        extern void (*UpdateContextCanvasShards)(app::SpiritShardsShopScreen* this_ptr);
+    }
 
-    BINDING(14046576, void, SpiritShardsShopScreen_UpdateContextCanvasShards, (int64_t)) //SpiritShardsShopScreen$$UpdateContextCanvasShards
-        BINDING(17918112, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, (int64_t))
-        //Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$RunSetDirtyCallback
-
-        INTERCEPT(14055664, void, completeShardPurchase, (int64_t spiritShardShopScreen))
+    bool overwrite_set_shard = false;
+    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, void, RunSetDirtyCallback, (app::PlayerUberStateShards_Shard* this_ptr));
+    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, CompletePurchase, (app::SpiritShardsShopScreen* this_ptr))
     {
         //SpiritShardsShopScreen$$CompletePurchase
         //save shard new/purchased state
-        const auto shard = getSelectedShard(spiritShardShopScreen);
-        const auto first = *reinterpret_cast<bool*>(shard + 24);
-        const auto second = *reinterpret_cast<bool*>(shard + 25);
+        auto* const shard = get_SelectedSpiritShard(this_ptr);
+        const auto first = shard->fields.m_isNew;
+        const auto second = shard->fields.m_gained;
 
-        completeShardPurchase(spiritShardShopScreen);
+        overwrite_set_shard = true;
+        CompletePurchase(this_ptr);
+        overwrite_set_shard = false;
 
         // rollback vanilla purchase 
-        *reinterpret_cast<bool*>(shard + 24) = first;
-        *reinterpret_cast<bool*>(shard + 25) = second;
+        shard->fields.m_isNew = first;
+        shard->fields.m_gained = second;
+
+        il2cpp::invoke(get_sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
 
         // do the rando purchase /after/ rollback, xem ;3
-        auto shard_type = *reinterpret_cast<uint8_t*>(shard + 0x10);
-        csharp_bridge::twillen_buy_shard(static_cast<csharp_bridge::ShardType>(shard_type));
+        csharp_bridge::twillen_buy_shard(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
 
-        PlayerUberStateShards_Shard_RunSetDirtyCallback(shard);
-        SpiritShardsShopScreen_UpdateContextCanvasShards(spiritShardShopScreen);
-    }
-
-
-    INTERCEPT(17916336, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (int64_t shard))
-    {
-        //Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$get_PurchasableInShop
-        auto shardType = *reinterpret_cast<unsigned __int8*>(shard + 0x10);
-        return true;
+        PlayerUberStateShards::Shard::RunSetDirtyCallback(shard);
+        UpdateContextCanvasShards(this_ptr);
     }
 
     void for_each_indexed(const int64_t list, const std::function<void(int64_t, int)> fun)
@@ -528,8 +527,6 @@ namespace
         return true;
     }
     
-    IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
-
     bool overwrite_shard_text = false;
     app::PlayerUberStateShards_Shard* selected_shard;
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen* this_ptr))
@@ -618,6 +615,7 @@ namespace
                 locked_shard_overwrite = true;
                 this_ptr->fields.m_item = selected_shard;
                 UpdateDetails_intercept(this_ptr);
+                this_ptr->fields.m_item = nullptr;
                 locked_shard_overwrite = false;
                 return;
             }
@@ -677,7 +675,6 @@ namespace
             selected_hint = hints->fields.NotEnoughSpiritLight;
         else
             return true;
-
 
         il2cpp::invoke(show_hint, "Invoke", selected_hint);
         if (sounds != nullptr)
