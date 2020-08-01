@@ -2,13 +2,13 @@ cd "%~dp0"
 if "%1"=="compileonly" (
 	cd "projects"
 	cd "SeedGen"
-	copy "./loc_data.csv" "C:/moon/loc_data.csv" /Y
-	copy "./areas.wotw" "C:/moon/areas.wotw" /Y
-	cd "../.."
-	copy "./VERSION" "C:/moon/VERSION" /Y
-	"./ext/ahk/Ahk2Exe.exe" /in "./RandoSettings.ahk" /icon "./WotwRando.ico" /out "C:/moon/RandoSettings.exe"
-	"./ext/ahk/Ahk2Exe.exe" /in "./projects/AutoTracker/OriAutoTracker.ahk" /icon "./WotwRando.ico" /out "C:/moon/ItemTracker.exe"
-	"./ext/ahk/Ahk2Exe.exe" /in "./WotwRando.ahk" /icon "./WotwRando.ico" /out "C:/moon/WotwRando.exe"
+	copy ".\loc_data.csv" "C:\moon\loc_data.csv" /Y
+	copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
+	cd "..\.."
+	copy ".\VERSION" "C:\moon\VERSION" /Y
+	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
+	".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
+	".\ext\ahk\Ahk2Exe.exe" /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
 	exit 0
 )
 :: Either change paths or build yourself and run with nobuild
@@ -21,18 +21,18 @@ if NOT "%1"=="nobuild" (
 	)
 )
 
-copy "projects/SeedGen/loc_data.csv" "C:/moon/loc_data.csv" /Y
-copy "projects/SeedGen/areas.wotw" "C:/moon/areas.wotw" /Y
-copy "VERSION" "C:/moon/VERSION" /Y
+copy "projects\SeedGen\loc_data.csv" "C:\moon\loc_data.csv" /Y
+copy "projects\SeedGen\areas.wotw" "C:\moon\areas.wotw" /Y
+copy "VERSION" "C:\moon\VERSION" /Y
 
 if NOT "%1"=="buildonly" (
-	cd "projects/SeedGen"
+	cd "projects\SeedGen"
 
 	call sbt assembly
 
-	cd "../.."
+	cd "..\.."
 
-	"ext/ahk/Ahk2Exe.exe" /in "RandoSettings.ahk" /icon "WotwRando.ico" /out "C:/moon/RandoSettings.exe"
-	"ext/ahk/Ahk2Exe.exe" /in "projects/AutoTracker/OriAutoTracker.ahk" /icon "WotwRando.ico" /out "C:/moon/ItemTracker.exe"
-	"ext/ahk/Ahk2Exe.exe" /in "WotwRando.ahk" /icon "WotwRando.ico" /out "C:/moon/WotwRando.exe"
+	"ext\ahk\Ahk2Exe.exe" /in "RandoSettings.ahk" /icon "WotwRando.ico" /out "C:\moon\RandoSettings.exe"
+	"ext\ahk\Ahk2Exe.exe" /in "projects/AutoTracker/OriAutoTracker.ahk" /icon "WotwRando.ico" /out "C:\moon\ItemTracker.exe"
+	"ext\ahk\Ahk2Exe.exe" /in "WotwRando.ahk" /icon "WotwRando.ico" /out "C:\moon\WotwRando.exe"
 )
