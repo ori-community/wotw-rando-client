@@ -86,6 +86,38 @@ INJECT_C_DLLEXPORT void set_ability_energy_modifier(const app::AbilityType__Enum
             }
             break;
         }
+    case app::AbilityType__Enum_Bow:
+        {
+            auto* const bow = get_sein()->fields.Abilities->fields.BowWrapper;
+            if (bow->fields.HasState)
+            {
+                if (cost.empty())
+                {
+                    cost.push_back(bow->fields.State->fields.Balancing->fields.ArrowEnergyCost);
+                    cost.push_back(bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost);
+                }
+            
+                bow->fields.State->fields.Balancing->fields.ArrowEnergyCost = cost[0] * modifier;
+                bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost = cost[1] * modifier;
+            }
+            break;
+        }
+    case app::AbilityType__Enum_MeditateSpell:
+        {
+            auto* const meditate = get_sein()->fields.Spells->fields.MeditateSpellWrapper;
+            if (meditate->fields.HasState)
+            {
+                if (cost.empty())
+                {
+                    cost.push_back(meditate->fields.State->fields.Balancing->fields.m_energyPerHeal);
+                    cost.push_back(meditate->fields.State->fields.Balancing->fields.EnergyPerFullHeal);
+                }
+            
+                meditate->fields.State->fields.Balancing->fields.m_energyPerHeal = cost[0] * modifier;
+                meditate->fields.State->fields.Balancing->fields.EnergyPerFullHeal = cost[1] * modifier;
+            }
+            break;
+        }
     default:
         trace(MessageType::Warning, 2, "pickups", format("tried to set energy modifier on unsupported ability '%d'", ability));
         break;
