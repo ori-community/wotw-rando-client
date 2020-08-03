@@ -35,7 +35,6 @@ class IniFile {
   def clear(): Unit = entries.clear()
 
   def load(path: String): Boolean = {
-    clear()
     if (!exists(Paths.get(path)))
       return false
 
@@ -50,7 +49,8 @@ class IniFile {
         entries(section)(field) = value
       } else if (line.startsWith("[") && line.endsWith("]")) {
         section = line.substring(1, line.length - 1)
-        entries(section) = mutable.SortedMap[String, String]()
+        if (!entries.contains(section))
+          entries(section) = mutable.SortedMap[String, String]()
       }
     }
 
