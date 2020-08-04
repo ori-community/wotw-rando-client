@@ -401,40 +401,44 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
   refill Checkpoint
   refill Energy=3:
     moki: Weapon  # to the left
-  # there are two more energy crystals to the right end which are not currently considered.
 
-  # state MarshPastOpher.TrialActivation:
-  #   moki: BreakWall=20, Grapple, Dash OR Glide OR Launch
-
-  pickup MarshPastOpher.TrialOre:
-    moki: BreakWall=20
   pickup MarshPastOpher.TrialLeftEX:
     moki: BreakWall=20, DoubleJump OR Glide OR Dash OR Launch
-    unsafe: Sword OR Hammer                 # Horizontal slash combo
+    unsafe: Sword OR Hammer  # horizontal slash combo
+
+  conn OpherShop: free
+  conn MarshPastOpher.TrialArea:
+    moki: BreakWall=20
+  conn MarshPastOpher.BowPath:
+    moki: DoubleJump OR Dash OR Glide OR Launch
+  conn MarshSpawn.Main:
+    unsafe: Hammer  # break the wall from behind and use an upswing
+
+anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
+  refill Checkpoint
+  refill Health=1:  # right below
+    moki: DoubleJump OR Dash OR Glide OR Launch
+
+  # state MarshPastOpher.TrialActivation:
+  #   moki: Grapple, Dash OR Glide OR Launch
+
+  pickup MarshPastOpher.TrialLeftEX:
+    moki:
+      DoubleJump, Dash OR Glide
+      Dash, Glide
+      Grapple OR Launch
+  pickup MarshPastOpher.TrialOre: free
   pickup MarshPastOpher.TrialEC:
-    moki: BreakWall=20, DoubleJump OR Dash OR Launch OR Glide
+    moki: DoubleJump OR Dash OR Glide OR Launch
     unsafe: Sword OR Hammer
   pickup MarshPastOpher.TrialHC:
     moki: Hammer
-    unsafe: BreakWall=20                        # Lure stomp
+    unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
-    moki: BreakWall=20, DoubleJump OR Bash OR Launch  # bash uses the enemy
-    unsafe: Sword                         # Pogo off of enemy
-  pickup MarshPastOpher.SwingPoleEX:
-    moki:
-      Danger=10, DoubleJump OR Dash OR Glide OR Launch
-      Danger=10, Bash, Grenade=1
-    unsafe:
-      Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide      #It's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
+    moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
+    unsafe: Sword  # pogo off of enemy
 
   conn MarshShrine: free
-  conn OpherShop: free
-  conn MarshPastOpher.BowArea:
-    moki:
-      DoubleJump OR Dash OR Launch
-      Bash, Grenade=3
-    unsafe: Sword OR Hammer       # I specify this in case "Weapon" is changed because they are being used for movement, not breaking a barrier.
-  # wall leading to spawn can't be base-broken from behind
 
 anchor MarshShrine:
   refill Full
@@ -451,32 +455,52 @@ anchor MarshShrine:
     # Skeeto: 20 Health
     moki: Combat, Danger=20, DoubleJump OR Bash OR Launch  # flying enemies, but short and not too hard
 
+anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow tree
+  refill Checkpoint
+  refill Health=1: free
+  refill Energy=1:
+    moki: Weapon
+
+  pickup MarshPastOpher.SwingPoleEX:
+    moki:
+      Danger=10, DoubleJump OR Dash OR Glide OR Launch
+      Danger=10, Bash, Grenade=1
+    unsafe: Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide  # it's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
+
+  conn MarshPastOpher.BowArea:
+    moki:
+      DoubleJump OR Launch
+      Bash, Grenade=3
+    unsafe: Sword OR Hammer
+  conn MarshPastOpher.MillView:
+    moki:
+      DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=2
+  conn MarshPastOpher.TrialArea:
+    moki: BreakWall=20, Danger=10  # the one-way has 20 health as well, so there might not be relevant shurikenbreak paths here
+
 anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit with bow tree.
   refill Energy=1:
     moki: Weapon
-  # some more energy crystals nearby
 
   state MarshPastOpher.EyestoneDoor:
     moki: Keystone=2
 
   pickup MarshPastOpher.BowEC: free
   pickup MarshPastOpher.BowTree: free
-  pickup MarshPastOpher.LeftEyestone:
-    moki, EnemyObstacle:
-      Bow=3, DoubleJump
-      Bow=1, Launch
-  pickup MarshPastOpher.RightEyestone:
-    moki, EnemyObstacle:
-      Bow=3, DoubleJump
-      Bow=1, Launch
   pickup MarshPastOpher.SwingPoleEX:
-    moki: Danger=10
+    moki: Danger=20
 
+  conn MarshPastOpher.UpperBowArea:
+    moki, EnemyObstacle:
+      Bow=2, DoubleJump
+      Launch
   conn MarshPastOpher.MillView:
     moki:
       DoubleJump OR Dash OR Launch
       Glide, Danger=10
-      Bash, Grenade=1
+      Bash, Grenade=1, Bow=1
+      Bash, Grenade=2
   conn MarshPastOpher.PoolsPathEast:
     moki:
       Bow=4, DoubleJump, Dash, Bash, Glide  # autoaim doesn't catch the second target, 2 is needed minimum
@@ -484,7 +508,22 @@ anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit wi
   conn WestHollow.Entrance:
     moki: MarshPastOpher.EyestoneDoor
 
-anchor MarshPastOpher.PoolsPathEast at -662, -4241:  #  On the wood sticking out of the ledge at the top left of the large room with Opher
+anchor MarshPastOpher.UpperBowArea at -437, -4211:  # Between the eyestones
+  refill Checkpoint
+  refill Energy=1:
+    moki: Weapon
+
+  pickup MarshPastOpher.LeftEyestone:
+    moki: EnemyObstacle, Bow=1
+  pickup MarshPastOpher.RightEyestone:
+    moki: EnemyObstacle, Bow=1
+
+  conn MarshPastOpher.BowArea: free
+  conn MarshPastOpher.BowPath: free
+  conn MarshPastOpher.MillView:
+    moki: Bash, Grenade=1
+
+anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out of the ledge at the top left of the large room with Opher
   refill Checkpoint
   refill Health=1:
     moki: EnemyObstacle
@@ -652,6 +691,8 @@ anchor WestHollow.HollowDrainMiddle:  # At the crystal below the purple eye (at 
   refill Checkpoint
   refill Energy=3:
     moki: WestHollow.UpperDrainLeverPulled, Weapon
+  refill Energy=1:  # no matter which direction you come to or go from here, you should be able to grab this crystal without having to go back
+    moki: WestHollow.FullyDrained, Weapon
 
   # this anchor doesn't assume drained water because that should make it usable for weird dirty water swim paths
   pickup WestHollow.HiddenEC:
@@ -674,31 +715,22 @@ anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at 
   refill Checkpoint
   refill Energy=3:
     moki: Weapon, DoubleJump OR Dash OR Bash OR Glide OR Launch
-  # more energy crystals to the left
 
   state WestHollow.RockPuzzleSolved:  # You can get the puzzle into some weird constellations, but teleporting out works in the worst cases
     moki, WestHollow.UpperDrainLeverPulled, EnemyObstacle:  # EnemyObstacle provides solutions to shoot with the skeeto around
       Bow=4, DoubleJump OR Dash OR Bash OR Glide OR Launch
       Bow=4, Bash, Grenade=1
-  state WestHollow.FullyDrained:
-    moki, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved, EnemyObstacle:
-      Bow=3, DoubleJump OR Dash
-      Bow=2, Bash, DoubleJump OR Dash OR Glide  # bashing off the skeeto
-      Launch
-    unsafe, WestHollow.UpperDrainLeverPulled:
-      Bow=3, Bash, Grenade=1  # Involves bashing off a mosquito, no idea on bow requirement
-      Bow=3, Bash, Damage=20  # Involves bashing off a mosquito, no idea on bow requirement
 
-  pickup WestHollow.FarLeftEX:
-    moki, WestHollow.FullyDrained, WestHollow.RockPuzzleSolved, EnemyObstacle:
-      Bash OR Launch
-      Bow=2, DoubleJump, Dash
   pickup WestHollow.RockPuzzleEX:
     moki: WestHollow.FullyDrained
     unsafe: WestHollow.UpperDrainLeverPulled, Damage=100
   pickup WestHollow.HiddenEC:
     moki: WestHollow.FullyDrained, BreakWall=10
 
+  conn WestHollow.FarLeftRoom:
+    moki, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved, EnemyObstacle:
+      Bow=1, DoubleJump OR Dash
+      Bash OR Launch  # bashing off the skeeto
   conn WestHollow.HollowDrainMiddle:
     moki:
       Launch, DoubleJump OR Dash OR Glide OR Bow=1
@@ -708,18 +740,24 @@ anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at 
   conn WestHollow.HollowDrainLower:
     moki: WestHollow.FullyDrained
 
+anchor WestHollow.FarLeftRoom at -357, -4284:  # ledge below and to the right of second drain lever
+  refill Energy=3:  # fast respawning crystal
+    moki: Weapon
+  # energy crystal below not considered because it doesn't seem relevant for anything
+
+  state WestHollow.FullyDrained:
+    moki, WestHollow.UpperDrainLeverPulled:
+      Bow=2, DoubleJump OR Dash OR Glide
+      Launch
+
+  pickup WestHollow.FarLeftEX:
+    moki, WestHollow.FullyDrained:
+      Bash OR Launch
+      Bow=1, DoubleJump, Dash
+  # backwards connection blocked by the door
+
 anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left of Lupo
   refill Checkpoint
-  # an energy crystal near the bottom is not currently considered
-
-  # state WestHollow.TrialActivation:
-  #   moki, EnemyObstacle:
-  #     DoubleJump OR Dash OR Launch
-  #     Bash, Grenade=1
-  state WestHollow.DoorLever:  # The door blocking Dash area
-    moki, EnemyObstacle:
-      DoubleJump OR Dash OR Launch
-      Bash, Grenade=1
 
   pickup WestHollow.QuickshotShard:
     moki: WestHollow.FullyDrained, EnemyObstacle, DoubleJump, Bow=1, Dash OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water. DoubleJump is for lenience on the bowshot
@@ -740,7 +778,29 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
       DoubleJump, Dash
       Launch
 
+  conn WestHollow.Lower:
+    moki: EnemyObstacle OR DoubleJump
   # no backwards connection through the water
+
+anchor WestHollow.Lower at -111, -4429:  # To the left of the lever door
+  refill Checkpoint
+  refill Energy=3:
+    moki: Weapon
+
+  # state WestHollow.TrialActivation:
+  #   moki, EnemyObstacle:
+  #     DoubleJump OR Dash OR Launch
+  #     Bash, Grenade=1
+  state WestHollow.DoorLever:  # The door blocking Dash area
+    moki, EnemyObstacle:
+      DoubleJump OR Dash OR Launch
+      Bash, Grenade=1
+
+  conn WestHollow.HollowDrainLower:
+    moki, EnemyObstacle:
+      DoubleJump, Dash
+      Bash, Grenade=2, DoubleJump OR Dash
+      Launch
   conn WestHollow.DashArea:
     moki: WestHollow.DoorLever, EnemyObstacle OR DoubleJump
 
@@ -1312,6 +1372,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       DoubleJump, Bash, Grenade=2
       Launch, Bash, Grenade=1
       Launch, DoubleJump OR Grapple
+  # any moki path to the ore above way redundant with connection to outerentrance
 
   conn GladesShrine:
     moki:
@@ -1319,7 +1380,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Bash, Grenade=1, DoubleJump OR Launch
       Launch, DoubleJump OR Grapple
   conn WestGlades.Upper:
-    moki:
+    moki:  # realizing the semisolid not considered for moki
       Bash, DoubleJump OR Dash OR Glide OR Grenade=1
       Grapple, DoubleJump OR Dash OR Glide
       DoubleJump, Dash, Glide
@@ -1356,9 +1417,8 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
     unsafe: free  # barely out of sight, also past an enemy...
   refill Energy=3:
     unsafe: Weapon  # pretty far to the left
-  # two more energy crystals in the outer area
 
-  # ommited a lot of paths including most bash-related paths because of how complex this place is to navigate
+  # ommited a lot of paths in moki including most bash-related paths because of how complex this place is to navigate (as in, more paths were omitted than were taken into moki...)
   state OuterWellspring.EntranceDoorOpen:
     moki, BreakWall=16:
       DoubleJump, Dash OR Glide
@@ -1366,20 +1426,11 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       Grapple, Glide
       Bash, DoubleJump OR Dash OR Glide  # use the insect
       Launch
-  state OuterWellspring.WestDoorBlueMoonFree:
-    moki, BreakWall=3:
-      Grapple, DoubleJump, Dash
-      Grapple, Glide OR Launch
 
-  pickup OuterWellspring.RightWallOre:
-    moki:
-      Grapple, DoubleJump OR Glide OR Launch
-      Bash, Grenade=1, Launch
   pickup OuterWellspring.EntranceRoofEX:
     moki:
       DoubleJump, Grapple, Dash OR Glide
       Grapple, Launch
-      OuterWellspring.LeftWallWheelFree, DoubleJump, Launch, Dash OR Glide
   pickup OuterWellspring.WheelEX:
     moki: OuterWellspring.EntranceDoorOpen
   pickup OuterWellspring.BasementEC:
@@ -1406,17 +1457,14 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
   pickup OuterWellspring.SwimOre:
     moki: Water, Grapple OR WaterDash OR Launch
     unsafe: Water, Bash, Grenade=1  # you can stand on the spinny wheel and bash-grenade this
-      # Water, DoubleJump, TripleJump
+      # Water, TripleJump
       # Water, SentryJump
 
   conn InnerWellspring.EntranceDoor:
     moki: OuterWellspring.EntranceDoorOpen
-  conn OuterWellspring.WestDoor:
-    moki:
-      Grapple, DoubleJump, Dash
-      Grapple, Glide OR Launch
-      # connections using the left wall wheel would be pointless
-  # east door is more demanding than west door, it didn't need any paths from here in base
+  conn OuterWellspring.AboveEntranceDoor:
+    moki: DoubleJump, Grapple  # save all the other ways for gorlek...
+  # connections using the left wall wheel would be pointless
   conn WestGlades.MillApproach:
     moki:
       DoubleJump, Dash
@@ -1424,18 +1472,39 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       Launch
       Water
 
+anchor OuterWellspring.AboveEntranceDoor at -837, -4026:  # at the crystal above the entrance door
+  refill Energy=3:
+    moki: Weapon
+
+  state OuterWellspring.WestDoorBlueMoonFree:
+    moki, RangedWeapon:
+      Grapple, DoubleJump, Dash
+      Grapple, Glide OR Launch
+
+  pickup OuterWellspring.RightWallOre:
+    moki: Grapple
+
+  conn OuterWellspring.EastDoor:  # going to the right
+    moki:
+      Grapple, DoubleJump, Dash OR Glide
+      Launch
+  conn OuterWellspring.WestDoor:  # going to the left
+    moki:
+      Grapple, DoubleJump, Dash
+      Grapple, Glide OR Launch
+
 anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you exit the first room
   refill Checkpoint
 
-  state OuterWellspring.LeftWallWheelFree:
-    moki: BreakWall=16, DoubleJump OR Dash OR Glide OR Launch
+  # the wheel is only a shortcut, at least in moki doesn't open up anything new
   state OuterWellspring.WestDoorBlueMoonFree:
-    moki: BreakWall=3, Launch, DoubleJump OR Dash OR Glide
+    moki: BreakWall=3, Launch
 
   pickup OuterWellspring.HiddenHC:
-    moki:
-      OuterWellspring.WestDoorBlueMoonFree, Grapple, DoubleJump, Dash OR Glide
-      OuterWellspring.WestDoorBlueMoonFree, Grapple, Dash, Glide
+    moki, OuterWellspring.WestDoorBlueMoonFree:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Grapple, Launch
   pickup OuterWellspring.EntranceRoofEX:
     moki: DoubleJump, Launch, Dash OR Glide
 
@@ -1452,10 +1521,10 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
   refill Checkpoint
 
   state OuterWellspring.WestDoorBlueMoonFree:
-    moki, BreakWall=3:
-      Grapple, InnerWellspring.TopDoorOpen OR DoubleJump OR Dash OR Glide
-      Grapple, Bash, Grenade=1
-      Launch
+    moki, RangedWeapon:
+      DoubleJump OR Dash OR Glide
+      Bash, Grenade=1
+      InnerWellspring.TopDoorOpen, Grapple
 
   quest OuterWellspring.TheLostCompass:
     moki: InnerWellspring.NeedleQI
@@ -1472,24 +1541,47 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
       DoubleJump, Grapple, Dash OR Glide
       DoubleJump, Bash, Grenade=1, Grapple
       Launch
-  pickup OuterWellspring.TrialOre:
-    moki:
-      Grapple, DoubleJump
-      Launch
 
   conn InnerWellspring.EastDoor:
     moki: InnerWellspring.MiddleDoorsOpen
-  conn OuterWellspring.TopDoor:
+  conn OuterWellspring.AboveWestDoor:
     moki:
-      InnerWellspring.TopDoorOpen, Grapple OR Launch
-      Bash, Grenade=1, Launch
+      Grapple, InnerWellspring.TopDoorOpen OR EnemyObstacle
+      Launch
   conn OuterWellspring.WestDoor:
     moki:
       DoubleJump OR Dash OR Launch
       InnerWellspring.TopDoorOpen, OuterWellspring.WestDoorBlueMoonFree, Grapple
+  conn OuterWellspring.TrialRoom:
+    moki:
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch
   conn OuterWellspring.EntranceDoor: free
   conn WestGlades.MillApproach:
     moki: Grapple OR Glide OR Launch
+
+anchor OuterWellspring.AboveWestDoor at -866, -3949:  # on the platform arcing over west door
+  refill Energy=3:
+    moki: Weapon
+
+  pickup OuterWellspring.HiddenHC:
+    moki, EnemyObstacle:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Launch, DoubleJump OR Dash OR Grapple OR Glide
+
+  conn OuterWellspring.TopDoor:
+    moki:
+      InnerWellspring.TopDoorOpen, Grapple OR Launch
+      Bash, Grenade=1
+      Launch
+  conn OuterWellspring.WestDoor:
+    moki: DoubleJump OR Dash OR Grapple OR Glide OR Launch
+  conn InnerWellspring.EastDoor:
+    moki:
+      DoubleJump, Dash
+      Glide OR Grapple OR Launch
+  conn OuterWellspring.EntranceDoor: free
 
 anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to the teleporter
   # state OuterWellspring.TrialActivation:
@@ -1504,17 +1596,39 @@ anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to th
       EnemyObstacle, DoubleJump, Grapple, Dash OR Glide
       Bash, Grenade=1
       Launch
-  pickup OuterWellspring.HiddenHC:
-    moki, EnemyObstacle:
-      Grapple, DoubleJump, Dash OR Glide
-      Grapple, Dash, Glide
-      Launch, DoubleJump OR Dash OR Grapple OR Glide
 
   conn InnerWellspring.Teleporter:
     moki: InnerWellspring.TopDoorOpen
   conn OuterWellspring.EastDoor: free
-  conn OuterWellspring.WestDoor:
-    moki: EnemyObstacle, DoubleJump OR Dash OR Grapple OR Glide OR Launch
+  conn OuterWellspring.AboveWestDoor: free
+
+anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to trial start
+  refill Checkpoint
+  refill Health=1: free
+  refill Energy=1:
+    moki: Weapon
+
+  pickup OuterWellspring.TrialOre:
+    moki:
+      Grapple, DoubleJump
+      Launch
+  pickup OuterWellspring.RightWallOre:
+    moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+  pickup OuterWellspring.RightWallEC:
+    moki, BreakWall=20:
+      DoubleJump, Dash
+      Glide OR Launch
+      Grapple, DoubleJump OR Dash
+  # connection should cover the spirit light in moki
+
+  conn OuterWellspring.EastDoor:
+    moki:
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch
+  conn OuterWellspring.EntranceDoor:
+    moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+  conn WestGlades.MillApproach:
+    moki: Grapple OR Glide OR Launch
 
 region InnerWellspring:
   moki: Danger=25
@@ -1522,9 +1636,8 @@ region InnerWellspring:
 
 anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where you enter the first room
   refill Checkpoint
-  refill Energy=3:  # technically out of sight, but this is very realistic
+  refill Energy=3:
     moki: Weapon
-  # another energy crystal in the room to the right
 
   state InnerWellspring.ShortCutWheel:
     moki:
@@ -1548,37 +1661,51 @@ anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where yo
       BreakWall=3  # break the three wheels free
   pickup InnerWellspring.WaterSwitchEX:
     moki: Water, WaterDash
-  pickup InnerWellspring.DrainHC:
-    moki, InnerWellspring.DrainLever:
-      DoubleJump OR Grapple OR Launch  # bit of a weird pickup
-      Water, Dash OR Glide
-      Water, Bash, Grenade=1
-  pickup InnerWellspring.DrainEX:
-    moki, InnerWellspring.DrainLever:  # the skeetos just want to be bashed here
-      DoubleJump, Water OR Bash
-      Water, Bash, Grenade=3
-      Water, Bash, Grenade=2, Dash OR Glide
-      Water, Dash, Bash, Grenade=1
-      RangedWeapon, BreakWall=16, DoubleJump, Dash, Glide
-      Launch
-  pickup InnerWellspring.LaserOre:
-    moki:
-      RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide
-      EnemyObstacle, Grapple, DoubleJump, Dash
-      EnemyObstacle, Grapple, Glide
-      Launch
 
   conn OuterWellspring.EntranceDoor: free
-  conn InnerWellspring.BelowDrainLever:
+  conn InnerWellspring.DrainRoom:
     moki:
-      RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide
-      BreakWall=16, Grapple, DoubleJump OR Dash OR Glide
-      Grapple, DoubleJump, Dash OR Glide
-      Launch
+      DoubleJump OR Dash OR Glide OR Launch
+      BreakWall=3, Grapple  # break the three wheels free
+      BreakWall=3, Bash, Grenade=1  # break the three wheels free
   conn InnerWellspring.WestDoor:
     moki:  # this in combination with the ShortCutWheel state accounts for all paths to the EX in the wheel
       Grapple, DoubleJump, Dash OR Glide
       Grapple, Dash, Glide
+      Launch
+
+anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can drain
+  refill Checkpoint
+  refill Energy=3:
+    moki: Weapon
+
+  pickup InnerWellspring.DrainHC:
+    moki, InnerWellspring.DrainLever:
+      DoubleJump OR Grapple OR Launch  # bit of a weird pickup
+      Water, Dash OR Glide
+  pickup InnerWellspring.DrainEX:
+    moki, InnerWellspring.DrainLever:  # the skeetos just want to be bashed here
+      DoubleJump, Water OR Bash
+      Dash, Bash, Grenade=1
+      Water, Bash, Grenade=1, Grapple OR Glide
+      Launch
+    # ShurikenBreak note: this wall has 10 health
+  pickup InnerWellspring.LaserOre:
+    moki:
+      RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide  # don't see a better solution... refill nearby should mitigate the overestimated energy requirement
+      EnemyObstacle, Grapple, DoubleJump, Dash
+      EnemyObstacle, Grapple, Glide
+      Launch
+
+  conn InnerWellspring.EntranceDoor:
+    moki:
+      DoubleJump OR Dash OR Grapple OR Glide OR Launch
+      Bash, Grenade=1
+  conn InnerWellspring.BelowDrainLever:
+    moki:
+      RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide  # don't see a better solution... refill nearby should mitigate the overestimated energy requirement
+      BreakWall=16, Grapple, DoubleJump OR Dash OR Glide
+      Grapple, DoubleJump, Dash OR Glide
       Launch
 
 anchor InnerWellspring.BelowDrainLever at -1153, -3895:  # In the first room below the drain lever
@@ -1614,7 +1741,7 @@ anchor InnerWellspring.BelowDrainLever at -1153, -3895:  # In the first room bel
       DoubleJump, Bash, Grenade=1
       Launch
       InnerWellspring.UpperCorruption
-  conn InnerWellspring.EntranceDoor:
+  conn InnerWellspring.DrainRoom:
     moki:
       DoubleJump, Dash
       Grapple OR Glide OR Launch
@@ -1711,13 +1838,6 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
       Launch
   pickup InnerWellspring.SwimOre:
     moki: Water
-  pickup InnerWellspring.EscapeRevisitEX:
-    moki, InnerWellspring.WaterEscape:
-      DoubleJump, Dash, Grapple
-      DoubleJump, Dash, Bash, Grenade=1
-      Bash, Grenade=1, Grapple
-      Bash, Grenade=2
-      Launch
 
   conn Teleporters: free
   conn InnerWellspring.EscapeSequence:
@@ -1737,6 +1857,8 @@ anchor InnerWellspring.EscapeSequence:
       Bash, Grapple, DoubleJump, Dash OR Glide
       Bash, Grapple, Dash, Glide
       Grapple, Launch
+  pickup InnerWellspring.EscapeRevisitEX:
+    moki: InnerWellspring.WaterEscape
 
 region WoodsEntry:
   moki: Danger=40, Regenerate
@@ -1961,8 +2083,9 @@ anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced How
 
 anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
   refill Full
+
   conn Teleporters: free
-  conn WoodsMain.FeedingGrounds:
+  conn WoodsMain.AbovePit:
     moki:
       Glide
       DoubleJump, Bash, Launch  # :)
@@ -1972,9 +2095,24 @@ anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
       DoubleJump, Glide, Bash, Grenade=1
       DoubleJump, Bash, Launch  # :)
 
+anchor WoodsMain.AbovePit at 1234, -3985:  # To the left of the pit before feeding grounds
+  refill Energy=3:  # the crystal in the pit
+    unsafe: Weapon, Bash, DoubleJump OR Dash OR Glide OR Launch  # technically just Bash
+
+  # connections to the east woods teleporter would be a dead end in moki
+  conn WoodsMain.AboveHowl:
+    moki:
+      DoubleJump, Bash, Grenade=1
+      Launch
+  conn WoodsMain.FeedingGrounds:
+    moki:  # these cover the shrine connections as well
+      DoubleJump, Dash OR Bash
+      Glide OR Launch
+      Bash, Grenade=1
+
 anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feeding grounds
   refill Checkpoint
-  # energy crystal in the pit not considered
+  refill Energy=3:
 
   # having the initial escape completed is a negative, not a positive. The paths going through it are the connections to Wastes.
   # if you complete the initial escape, rocks fall and block most of the connection paths to WestTP. This is equally true for the base game though and solved by the fact that if you complete the escape, you unlock the teleporter, making these paths not softlockable
@@ -1985,13 +2123,8 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
 
   conn WoodsShrine:
     moki:
-      Glide
-      RangedWeapon, Launch
-  # connections to the east woods teleporter would be a dead end
-  conn WoodsMain.AboveHowl:
-    moki:
-      DoubleJump, Bash, Grenade=1
-      Launch
+      Glide OR Launch
+      DoubleJump, Dash
   conn LowerWastes.WestTP:
     moki:
       Grapple, Glide, DoubleJump OR Dash OR Launch  # this solves with Seir as well
@@ -2003,7 +2136,6 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
 
 anchor WoodsShrine:
   refill Full
-
   pickup WoodsMain.CombatShrine:
     moki, Combat, RangedWeapon, Bash, Hammer OR Launch:  # this one has it all -_-
       Danger=80
@@ -2180,14 +2312,8 @@ region UpperReach:
 
 anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
   refill Checkpoint
-  # energy crystal near keystone door wasn't considered
+  # the crystal is evil
 
-  state UpperReach.KeystoneDoor:
-    moki, Keystone=4, UpperReach.HeatFurnace, EnemyObstacle:
-      DoubleJump, Dash OR Grapple
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
-      Launch
-      Water
   state UpperReach.HeatFurnace:
     moki:
       Grenade=1  # this makes grenadebash paths meaningless
@@ -2263,32 +2389,47 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
   pickup UpperReach.SwimEX:
     moki: UpperReach.HeatFurnace, Water, EnemyObstacle OR DoubleJump
 
-  conn UpperReach.TreeRoom:
-    moki, UpperReach.KeystoneDoor, UpperReach.HeatFurnace, EnemyObstacle:
+  conn UpperReach.OutsideTreeRoom:
+    moki, UpperReach.HeatFurnace, EnemyObstacle:
       DoubleJump, Dash OR Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
       Water
   conn LowerReach.OutsideTPRoom: free
 
-anchor UpperReach.TreeRoom at -140, -3912:  # Behind the keystone door
-  # energy crystal next to tree not considered
+anchor UpperReach.OutsideTreeRoom at -169, -3911:  # In front of the keystone door
+  refill Checkpoint
+  refill Energy=3:
+    moki, UpperReach.HeatFurnace, Weapon:
+      Water, Grapple, DoubleJump OR Dash OR Glide
+      Launch
+
+  state UpperReach.KeystoneDoor:
+    moki: Keystone=4
+
+  pickup UpperReach.TreeOre:
+    moki:
+      DoubleJump, Bash, Grenade=1, Dash OR Glide
+      Dash, Bash, Grenade=1, Glide
+      Launch, DoubleJump OR Dash OR Glide
+
+  conn UpperReach.TreeRoom:
+    moki: UpperReach.KeystoneDoor
+  # backwards connection can't get through the Icefall
+
+anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
+  refill Energy=4:  # fast respawning crystal
+    moki: Weapon
 
   quest UpperReach.SpringSeed:
     moki: Grenade=1
 
   pickup UpperReach.LightBurstTree:
     moki: free
-  pickup UpperReach.TreeOre:
-    moki:
-      DoubleJump, Bash, Grenade=1, Dash OR Glide
-      Dash, Bash, Grenade=1, Glide
-      Launch, DoubleJump OR Dash OR Glide
   pickup UpperReach.WellEX:
     moki: free
   pickup UpperReach.HiddenEX:
     moki: Grenade=1
-
   # backwards connection can't get through the Icefall
 
 anchor LowerReach.SecondSoup at -316, -4037:  # Next to the soup below the teleporter
@@ -2378,41 +2519,55 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
 
 anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after rolling the snowball
   refill Checkpoint
-  refill Energy=8:  # instantly respawns, counted two crystals here
+  refill Energy=4:  # fast respawning crystal
     moki: Weapon
-  # energy crystal on the way to arena not considered
 
   state LowerReach.EastDoorLantern:
     moki:
       Bash, Grenade=2, DoubleJump, Dash, Glide
       Grenade=1, Launch
-  state LowerReach.HeatEastFurnace:
-    moki:
-      Bash, Grenade=3, DoubleJump, Dash, Glide
-      Grenade=1, Launch
-  state LowerReach.CoolEastFurnace:  # the intentional path is to cool this furnace
-    moki:
-      Flap, Bash, Grenade=2, DoubleJump, Dash, Glide
-      Flap, Launch
 
   pickup LowerReach.RoofLeftEX:
     moki:
-      LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash  # blame moon
+      LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash, Glide  # blame moon
       Launch, DoubleJump, Dash OR Glide
       Bash, Grenade=1, Launch
   pickup LowerReach.RoofRightEX:
     moki:
       LowerReach.CoolEastFurnace, Bash, Grenade=2
       Launch
+
+  conn LowerReach.SwimmingPool:
+    moki:
+      Bash, Grenade=1, DoubleJump, Dash, Glide
+      Launch
+    # shuriken break note: this wall has 20 health
+  # backwards path can't get past the snowball
+
+anchor LowerReach.SwimmingPool at -44, -4001:  # At the platform in the freezable water
+  refill Energy=4:
+    moki: Weapon, LowerReach.CoolEastFurnace OR Water
+
+  state LowerReach.HeatEastFurnace:
+    moki:
+      Bash, Grenade=2
+      Grenade=1, Launch
+  state LowerReach.CoolEastFurnace:  # the intentional path is to cool this furnace
+    moki:
+      Flap, Bash, Grenade=1
+      Flap, Launch
+
   pickup LowerReach.FractureShard:
-    moki, LowerReach.HeatEastFurnace:
-      Water, Bash, Grenade=1, DoubleJump, Dash, Glide
-      Water, Launch
+    moki: LowerReach.HeatEastFurnace, Water
 
   conn LowerReach.ArenaArea:
     moki, LowerReach.EastDoorLantern:
-      LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash, Glide
+      LowerReach.CoolEastFurnace, Bash, Grenade=1
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
+  conn LowerReach.PastSnowball:
+    moki, BreakWall=20:
+      Bash, Grenade=1
+      Launch
 
 anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
   refill Checkpoint
@@ -2422,24 +2577,47 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
       Weapon, DoubleJump, Dash
       Weapon, Launch
       RangedWeapon
-  # energy crystal on the climb to top not considered
 
   state LowerReach.ArenaBeaten:
     moki: Combat, Danger=40, Hammer OR Launch
 
-  pickup LowerReach.EscapeRevisitEX:
-    moki, LowerReach.ArenaBeaten, LowerReach.ForestsMemory:
+  conn LowerReach.Trial:
+    moki: LowerReach.ArenaBeaten
+  conn LowerReach.WispPath:
+    moki, LowerReach.ArenaBeaten:
+      Glide, Grapple OR Launch
+      Glide, DoubleJump, Bash, Grenade=1
+  # backwards path can't get through the door
+
+anchor LowerReach.WispPath at 83, -3874:  # Halfway through the climb
+  refill Checkpoint
+  refill Health=1:
+    moki:
+      Grapple OR Launch
+      Bash, Grenade=1  # wasted energy...
+  refill Energy=4:
+    moki:
+      DoubleJump, Grapple
+      DoubleJump, Bash, Grenade=1  # wasted energy...
+      Dash, Danger=20, Grapple
+      Dash, Danger=20, Bash, Grenade=1  # wasted energy...
+      Launch
+
+  conn LowerReach.SnowEscape:
+    moki:
       Bash, Grenade=5, Glide, DoubleJump
       Bash, Grenade=4, Glide, Grapple
       Bash, Glide, Launch
+  # backwards path can't get through the arena ceiling
 
-  conn LowerReach.Trial:
-    moki: LowerReach.ArenaBeaten
-  conn LowerReach.SnowEscape:
+anchor LowerReach.SnowEscape:
+  refill Full
+  quest LowerReach.ForestsMemory:  # currently based on the requirements of getting here to simplify
     moki, LowerReach.ArenaBeaten:
-      Bash, Grenade=5, Glide, DoubleJump   # these energy costs are a major issue for these paths!
-      Bash, Grenade=4, Glide, Grapple
+      Dash, Bash, Grapple, Glide, Water OR DoubleJump
       Bash, Glide, Launch
+  pickup LowerReach.EscapeRevisitEX:
+    moki: LowerReach.ForestsMemory
 
 anchor LowerReach.Trial at 64, -4046:  # At trial start
   refill Checkpoint
@@ -2467,13 +2645,6 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
 
   conn GladesTown.ReachPath:
     moki: Glide
-
-anchor LowerReach.SnowEscape:
-  refill Full
-  quest LowerReach.ForestsMemory:  # currently based on the requirements of getting here as well...
-    moki, LowerReach.ArenaBeaten:
-      Dash, Bash, Grapple, Glide, Water OR DoubleJump
-      Bash, Glide, Launch
 
 region UpperDepths:
   moki: Danger=40, Regenerate
@@ -2582,7 +2753,8 @@ anchor UpperDepths.Teleporter at 513, -4361:  # The spirit well
 
 anchor UpperDepths.Central at 464, -4484:  # The firefly egg to the right of the second keystone door
   refill Checkpoint
-  # energy crystal in the dark not considered
+  refill Energy=3:  # in the dark
+    unsafe: Weapon, Launch
 
   state UpperDepths.CentralKeystoneDoor:
     moki: Keystone=2
@@ -2688,7 +2860,14 @@ region LowerDepths:
 
 anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
   refill Checkpoint
-  # energy crystal and plant to the left not considered
+  refill Health=1:  # to the left
+    unsafe:
+      DoubleJump, Dash OR Glide
+      Bash OR Launch
+  refill Energy=3:  # to the left
+    unsafe:
+      DoubleJump, Dash OR Glide
+      Bash OR Launch
 
   quest LowerDepths.HandToHandSilk:
     moki: GladesTown.HandToHandLantern
@@ -2701,6 +2880,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
       DepthsLight, Water, DoubleJump, Bash
       DepthsLight, Water, Bash, Grenade=1, Dash OR Glide
       DepthsLight, Water, Launch
+    # shuriken break note: this wall has 20 health
   conn UpperDepths.LowerConnection:
     moki: DepthsLight, Launch
   conn LowerDepths.Central:
@@ -2741,7 +2921,6 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
     moki, Weapon:
       Bash, DoubleJump OR Dash OR Glide
       Launch
-  # energy crystal at flash tree not considered
 
   # state LowerDepths.TrialActivation:
   #   moki:
@@ -3291,7 +3470,10 @@ anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
       Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
 
 anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
-  # energy crystal on the way to sand pot not considered
+  refill Energy=3:
+    moki, Weapon:
+      DoubleJump OR Launch
+      Bash, Grenade=1
 
   quest LowerWastes.EerieGem:
     moki: Burrow
@@ -3324,9 +3506,8 @@ anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Po
 
   conn LowerWastes.Shovel:
     moki:
-      DoubleJump
-      Launch
-      EnemyObstacle, Bash, Grenade=1
+      DoubleJump OR Launch
+      Bash, Grenade=1
   conn LowerWastes.WoodenBridge:
     moki:
       Dash, DoubleJump OR Grapple
@@ -3735,17 +3916,25 @@ region WeepingRidge:
   moki: Danger=60, Regenerate
   unsafe: free
 
-anchor WeepingRidge.Bottom at 1170, -3820:  # Just to the right of where the elevator starts
+anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weeping ridge
   refill Checkpoint
-  # energy crystal to the right not considered
+  refill Health=1: free
+  refill Energy=3:
+    moki:
+      Weapon, DoubleJump OR Burrow OR Launch
+      Bow=1
 
   state WeepingRidge.ElevatorFightCompleted:
-    moki:
-      Combat, Dash, Hammer OR Launch
-      Combat, Bash, Hammer OR Launch
+    moki, Combat, Bash OR Hammer OR Launch:  # against the shields
+      DoubleJump, Dash OR Glide
+      Bash, Grenade=1
+      Launch
 
   conn WeepingRidge.LaunchArea:
-    moki: WeepingRidge.ElevatorFightCompleted
+    moki, WeepingRidge.ElevatorFightCompleted:
+      DoubleJump, Dash OR Glide
+      Bash, Grenade=1
+      Launch
   conn LowerWastes.WestTP:
     moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
 
@@ -3790,7 +3979,7 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
     moki:
       Weapon, Launch
       Bow=1
-  # a lot of energy crystals not considered
+  # a lot of energy crystals not considered, mostly because they are on the way to hearts which aren't currently used
 
   # state WillowsEnd.TrapHeart:
   #   moki: BreakWall=30, RangedWeapon, Launch, DoubleJump, Dash
@@ -3828,12 +4017,35 @@ anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
       BreakWall=20  # open the portal shortcut
       DoubleJump, Dash
       Glide OR Launch
+  conn WillowsEnd.AboveInnerTP:
+    moki:
+      DoubleJump, Bash, Grenade=1, Dash OR Glide
+      Launch, DoubleJump OR Dash
+
+anchor WillowsEnd.AboveInnerTP at 530, -3844:  # at the lava pit before bash puzzle
+  refill Checkpoint
+  refill Energy=4:
+    moki:
+      Weapon, Launch
+      EnemyObstacle, Bow=1
+
+  conn WillowsEnd.InnerTP: EnemyObstacle
   conn WillowsEnd.East:
     moki:
       DoubleJump, Bash, Grenade=1, Dash OR Glide
       Launch, DoubleJump OR Dash
 
-anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle changethisforcheckpoint
+anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
+  refill Health=1:
+    moki:
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
+  refill Energy=4:
+    moki:
+      Weapon, Bash, DoubleJump OR Glide
+      Bow=1, Bash, DoubleJump OR Dash OR Glide
+      Launch, Weapon OR Bow=1
+
   # state WillowsEnd.RedirectHeart:
   #   moki: BreakWall=10, BreakWall=30, DoubleJump, Bash, Launch
 
@@ -3842,9 +4054,9 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle chan
       BreakWall=10, Bash, Launch, DoubleJump OR Dash OR Glide
       Bash, Grenade=1, Launch
 
-  conn WillowsEnd.InnerTP:
+  conn WillowsEnd.AboveInnerTP:
     moki:
-      EnemyObstacle, Glide
+      Glide
       Bash, DoubleJump, Dash
       Launch, DoubleJump OR Dash OR Bash
   conn WillowsEnd.Upper:
@@ -3857,11 +4069,6 @@ anchor WillowsEnd.West at 437, -3840:  # To the left of the one-way above Lupo
 
   # state WillowsEnd.SpinLasersHeart:
   #   moki: BreakWall=30, Launch, DoubleJump OR Dash OR Glide
-  # state WillowsEnd.GlideHeart:
-  #   moki: BreakWall=30, DoubleJump, Glide, Launch  # technically easy dboost without djump, but you already take so much damage in this place...
-
-  pickup WillowsEnd.WindSpinOre:
-    moki: DoubleJump, Glide, Launch
 
   conn WillowsEnd.InnerTP:
     moki: BreakWall=20
@@ -3869,25 +4076,33 @@ anchor WillowsEnd.West at 437, -3840:  # To the left of the one-way above Lupo
     moki, BreakWall=10:  # enemy can mess you up... players will be fine, right?
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
+  conn WillowsEnd.GlideHeartPath:
+    moki: DoubleJump, Launch
+
+anchor WillowsEnd.GlideHeartPath at 360, -3861:  # Before the last two rooms
+  refill Checkpoint
+  refill Energy=4:
+    moki:
+      Weapon, Launch
+      Bow=1
+
+  # state WillowsEnd.GlideHeart:
+  #   moki: BreakWall=30, DoubleJump, Glide, Launch
+
+  pickup WillowsEnd.WindSpinOre:
+    moki: Glide
+
+  conn WillowsEnd.West: free  # :D
 
 anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
   refill Checkpoint
+  refill Energy=4:  # on the way to burrow heart
+    unsafe: Weapon, Bash OR Launch
 
   # state WillowsEnd.BurrowHeart:
   #   moki, BreakWall=30:
   #     Burrow, DoubleJump, Dash, Bash, Grapple, Glide
   #     Burrow, Bash, Grapple, Launch, DoubleJump OR Glide
-  # state WillowsEnd.SpinPortalsHeart:
-  #   moki, BreakWall=30:
-  #     Bash, Grapple, Launch, DoubleJump, Dash
-  #     Bash, Grapple, Launch, Glide
-
-  pickup WillowsEnd.UpperLeftEX:
-    moki: Grapple, Launch, DoubleJump OR Dash OR Glide
-  pickup WillowsEnd.UpperRightEX:
-    moki:
-      Bash, Grapple, Launch, DoubleJump, Dash
-      Bash, Grapple, Launch, Glide
 
   # conn LaserRockFight:
   #   moki:
@@ -3902,6 +4117,27 @@ anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
 #   refill Full
 #   state WillowsEnd.ElementalDefeated:
 #     moki: Combat, Danger=85, Bash, Launch
+
+anchor WillowsEnd.UpperHeartPath at 506, -3711:  # Right above the exit blocked by vines
+  refill Checkpoint
+  refill Energy=4:
+    moki:
+      Weapon, Launch
+      Bow=1
+
+  # state WillowsEnd.SpinPortalsHeart:
+  #   moki, BreakWall=30:
+  #     Bash, Grapple, Launch, DoubleJump, Dash
+  #     Bash, Grapple, Launch, Glide
+
+  pickup WillowsEnd.UpperLeftEX:
+    moki: Grapple, Launch, DoubleJump OR Dash OR Glide
+  pickup WillowsEnd.UpperRightEX:
+    moki:
+      Bash, Grapple, Launch, DoubleJump, Dash
+      Bash, Grapple, Launch, Glide
+
+  conn WillowsEnd.Upper: free
 
 anchor TwillenShop:
   quest GladesTown.ADiamondInTheRough:
