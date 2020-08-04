@@ -63,7 +63,7 @@ anchor Teleporters:  # teleporter access
     moki: WillowTP
 
 anchor MarshSpawn.Main at -799, -4310:                  # spawn location / inkwater well
-  refill Full
+  refill Full: free
 
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
@@ -330,7 +330,7 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
       BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
 
 anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
-  refill Full
+  refill Full: free
 
   pickup HowlsDen.AboveTPEX:
     moki, BreakWall=10:
@@ -361,7 +361,7 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
     unsafe: Hammer  # break a wall from behind
 
 anchor DenShrine:
-  refill Full
+  refill Full: free
   pickup HowlsDen.CombatShrine:
     # Wave Refill: 4 Energy
     # Damage required:
@@ -441,7 +441,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
   conn MarshShrine: free
 
 anchor MarshShrine:
-  refill Full
+  refill Full: free
   pickup MarshPastOpher.CombatShrine:
     # Wave Refill: 2 Energy
     # Damage required:
@@ -569,7 +569,7 @@ region MidnightBurrows:
   unsafe: free
 
 anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
-  refill Full
+  refill Full: free
 
   pickup MidnightBurrows.LeftKS:
     moki: DoubleJump OR Dash OR Glide OR Launch
@@ -827,7 +827,7 @@ region EastHollow:
   unsafe: free
 
 anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
-  refill Full
+  refill Full: free
 
   # paths through the purple door exist mainly because of historical reasons, but might be a candidate for future open mode as well
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
@@ -851,7 +851,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
     moki: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
 
 anchor BeetleFight:
-  refill Full
+  refill Full: free
   state EastHollow.BeetleDefeated:
     moki: Combat, Danger=35, Dash OR Launch  # Kinda tight on danger, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
     unsafe: Combat
@@ -972,7 +972,7 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
   # backwards paths through the door seem pointless
 
 anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
-  refill Full
+  refill Full: free
 
   state GladesTown.BuildHuts:
     moki: Ore=15
@@ -1401,7 +1401,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Water, Launch, Glide
 
 anchor GladesShrine:
-  refill Full
+  refill Full: free
   pickup WestGlades.CombatShrine:
     moki, Combat, Bash:  # the shooter plants have basically no attack surface without bash
       Danger=65                     # the crabs are terrifying!
@@ -1823,7 +1823,7 @@ anchor InnerWellspring.EastDoor at -1190, -3733:  # Inside the door leading to t
     moki: InnerWellspring.MiddleDoorsOpen
 
 anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
-  refill Full
+  refill Full: free
 
   quest InnerWellspring.BlueMoonSeed:
     moki:
@@ -1852,7 +1852,7 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
   conn OpherShop: free
 
 anchor InnerWellspring.EscapeSequence:
-  refill Full
+  refill Full: free
   quest InnerWellspring.WaterEscape:
     moki:
       Bash, Grapple, DoubleJump, Dash OR Glide
@@ -1896,7 +1896,7 @@ anchor WoodsEntry.BelowTeleporter at 591, -4198:  # Read the name
     moki: RangedWeapon, DoubleJump OR Dash OR Glide OR Launch
 
 anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
-  refill Full
+  refill Full: free
 
   quest WoodsEntry.LastTreeBranch: free
   quest WoodsEntry.DollQI:
@@ -2083,7 +2083,7 @@ anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced How
   conn WoodsMain.PetrifiedHowl: free
 
 anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
-  refill Full
+  refill Full: free
 
   conn Teleporters: free
   conn WoodsMain.AbovePit:
@@ -2136,7 +2136,7 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
         Launch
 
 anchor WoodsShrine:
-  refill Full
+  refill Full: free
   pickup WoodsMain.CombatShrine:
     moki, Combat, RangedWeapon, Bash, Hammer OR Launch:  # this one has it all -_-
       Danger=80
@@ -2268,6 +2268,8 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
 
 anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter room
   refill Checkpoint
+  refill Full:  # use the teleporter
+    moki: Grenade=1
   refill Health=1: free
   refill Energy=3:
     moki: Weapon
@@ -2297,15 +2299,11 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
     moki: Grenade=1
 
 anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the teleporter pickup
-  refill Full
+  refill Full: free
 
   conn Teleporters: free
   conn LowerReach.OutsideTPRoom:
     moki: Grenade=1
-  conn LowerReach.East:
-    moki, LowerReach.TeleporterLantern:
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide
-      Launch
 
 region UpperReach:
   moki: Danger=40, Regenerate
@@ -2498,6 +2496,9 @@ anchor LowerReach.SoupMoki at -240, -3989:  # Below the reach teleporter, where 
 
 anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp room
   refill Checkpoint
+  refill Full:  # use the teleporter
+    moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
+  # could be considered moving this anchor to the left, closer to the teleporter, if it gets important on higher difficulties
 
   state LowerReach.TeleporterLantern:
     moki: Grenade=1
@@ -2612,7 +2613,7 @@ anchor LowerReach.WispPath at 83, -3874:  # Halfway through the climb
   # backwards path can't get through the arena ceiling
 
 anchor LowerReach.SnowEscape:
-  refill Full
+  refill Full: free
   quest LowerReach.ForestsMemory:  # currently based on the requirements of getting here to simplify
     moki, LowerReach.ArenaBeaten:
       Dash, Bash, Grapple, Glide, Water OR DoubleJump
@@ -2716,6 +2717,8 @@ anchor UpperDepths.FirstKSRoom at 223, -4420:  # Below the first firefly egg
 
 anchor UpperDepths.BelowHive at 422, -4402:  # Below the Hive, on top of the tunnel leading downwards
   refill Checkpoint
+  refill Full:  # use the teleporter
+    moki: BreakWall=1, Grapple OR Launch
   refill Energy=3:
     moki: Weapon, DoubleJump OR Launch
 
@@ -2737,7 +2740,7 @@ anchor UpperDepths.BelowHive at 422, -4402:  # Below the Hive, on top of the tun
     moki: DepthsLight  # a bit scary...
 
 anchor UpperDepths.Teleporter at 513, -4361:  # The spirit well
-  refill Full
+  refill Full: free
 
   pickup UpperDepths.TeleporterEX: free  # just a few steps away in the darkness
 
@@ -2814,7 +2817,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
       DepthsLight, Launch
 
 anchor MoraFight:
-  refill Full
+  refill Full: free
   quest UpperDepths.ForestsEyes:
     moki, Combat, Danger=95:
       DepthsLight, Bash, Grapple, DoubleJump OR Dash
@@ -2890,7 +2893,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
       BreakWall=1, Launch, DoubleJump OR Glide
 
 anchor DepthsShrine:
-  refill Full
+  refill Full: free
   pickup LowerDepths.CombatShrine:
     moki, Combat, Bash:
       Danger=65
@@ -3154,6 +3157,8 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
 
 anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   refill Checkpoint
+  refill Full:  # use the teleporter
+    moki: EastPools.LowerWaterDrained
 
   state EastPools.BelowTokkBubbleFree:
     moki:
@@ -3235,7 +3240,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
       Water, Bash, Launch
 
 anchor EastPools.Teleporter at -1316, -4153:  # At the teleporter after draining the water - this is to specify the refill and randos behaviour of draining the water if you grab the tp pickup
-  refill Full
+  refill Full: free
 
   state EastPools.LowerWaterDrained: free  # this is, uh... correct, I suppose xD
 
@@ -3395,7 +3400,7 @@ region WestPools:
   unsafe: free
 
 anchor WestPools at -1656, -4171:  # the west Pools TP
-  refill Full
+  refill Full: free
 
   quest EastPools.GrassSeed:
     moki: Water, WaterDash
@@ -3424,7 +3429,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
       WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
 
 anchor KwolokFight:
-  refill Full
+  refill Full: free
   quest WestPools.ForestsStrength:
     moki: Combat, Water, WaterDash, Bash, DoubleJump, Danger=95, Dash OR Launch
 
@@ -3433,7 +3438,7 @@ region LowerWastes:
   unsafe: free
 
 anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
-  refill Full
+  refill Full: free
 
   pickup LowerWastes.WestTPOre:
     moki: Burrow
@@ -3680,11 +3685,7 @@ anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path con
       Burrow, Bash, Grenade=1
 
 anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
-  refill Full
-  refill Health=1:
-    moki: Burrow OR Launch
-  refill Energy=3:
-    moki: Weapon, Burrow OR Launch
+  refill Full: free
 
   pickup LowerWastes.EastTPOre:
     moki, BreakWall=20:
@@ -3771,19 +3772,24 @@ anchor UpperWastes.MissilePuzzleRight at 2058, -3813: # On top of sand to the ri
 
   conn UpperWastes.MissilePuzzleLeft:
     moki: UpperWastes.MissilePuzzleLever, Burrow
-  conn UpperWastes.NorthTP:  # this covers all connections to the pickups in the spinning lasers. Connecting to the teleporter because the paths are equivalent and this makes it account for the refill
+  conn UpperWastes.RuinsApproach:  # this covers all connections to the pickups in the spinning lasers.
     moki:
       Burrow, Bash, DoubleJump, Dash OR Glide  # dash or glide to make the lasers better
       Burrow, DoubleJump, Dash  # you can retry the burrow with DoubleJump, so I think this is fine
       Burrow, Launch
 
 anchor UpperWastes.NorthTP at 2044, -3679: # North Wastes teleporter
-  refill Full
+  refill Full: free
 
   conn Teleporters: free
   conn UpperWastes.RuinsApproach: free
 
 anchor UpperWastes.RuinsApproach at 2002, -3684:  # Left of the teleporter, on top of the sand
+  refill Full:  # use the teleporter
+    moki:
+      DoubleJump, Bash
+      Burrow OR Launch
+
   quest UpperWastes.FlowersSeed:
     moki:
       Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
@@ -3856,7 +3862,7 @@ anchor WindtornRuins.UpperRuinsDoor at 2163, -3835:  # Just inside the door.
     moki: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, WindtornRuins.Seir, Burrow
 
 anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
-  refill Full
+  refill Full: free
 
   state WindtornRuins.HeartBarrier:  # Barrier next to the teleporter that stops you from getting the Heart.
     moki: BreakWall=16
@@ -3882,8 +3888,7 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
       Weapon, Glide
 
 anchor WindtornRuins.Escape:
-  refill Full
-
+  refill Full: free
   # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
   # that would have reached it before completing the escape. That's why this has no outside connections; the paths to here 
@@ -4008,7 +4013,7 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
     moki: Launch, Bash, DoubleJump OR Dash OR Glide  # mine in the way, but I think it's managable
 
 anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
-  refill Full
+  refill Full: free
 
   pickup WillowsEnd.LupoMap:
     moki: DoubleJump OR Dash OR Launch OR RangedWeapon
@@ -4116,7 +4121,7 @@ anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
     moki: Launch
 
 # anchor LaserRockFight:
-#   refill Full
+#   refill Full: free
 #   state WillowsEnd.ElementalDefeated:
 #     moki: Combat, Danger=85, Bash, Launch
 
