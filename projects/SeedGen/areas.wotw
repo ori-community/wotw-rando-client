@@ -297,7 +297,7 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
   state MarshSpawn.RainLifted: free  # the sword tree
 
   pickup HowlsDen.BoneOre:
-    moki: Hammer
+    moki: Hammer OR Spear=1
   pickup HowlsDen.AboveDoorKS:
     moki: DoubleJump OR Launch
   pickup HowlsDen.LeftHC:
@@ -351,7 +351,7 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
 
   conn Teleporters: free
   conn DenShrine:
-    moki: Hammer
+    moki: Hammer OR Spear=1
   conn HowlsDen.DoubleJumpTreeArea:
     # Damage required:
     # Squonkey: 31 Health
@@ -432,7 +432,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
     moki: DoubleJump OR Dash OR Glide OR Launch
     unsafe: Sword OR Hammer
   pickup MarshPastOpher.TrialHC:
-    moki: Hammer
+    moki: Hammer OR Spear=1
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
@@ -1119,7 +1119,8 @@ anchor GladesTown.TwillenHome at -414, -4160:  # # At Twillen in Glades
   pickup GladesTown.LowerOre:
     moki:
       Hammer, DoubleJump OR Launch OR Dash OR Glide
-      Hammer, Bash, Grenade=1
+      Spear=1, DoubleJump OR Launch OR Dash OR Glide
+      Bash, Grenade=1, Hammer OR Spear=1
   pickup GladesTown.AboveCaveEX:
     moki: GladesTown.ClearThorns
   pickup GladesTown.CaveBurrowEX:
@@ -2242,7 +2243,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
   pickup LowerReach.AboveDoorEX:
     moki:
       LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash OR Hammer
+        DoubleJump, Dash, Bash OR Hammer OR Spear=1
         Bash, Grenade=1
       Launch
   pickup LowerReach.LupoMap:
@@ -2272,7 +2273,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
     moki: Weapon
 
   pickup LowerReach.AboveDoorEX:
-    moki: Bash OR Hammer
+    moki: Bash OR Hammer OR Spear=1
   pickup LowerReach.LupoMap:
     moki: DoubleJump OR Dash OR Glide OR Launch
   pickup LowerReach.TPLeftEX:
@@ -2286,7 +2287,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
 
   conn LowerReach.SecondSoup: free
   conn LowerReach.Central:
-    moki: DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer
+    moki: DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer OR Spear=1
   conn UpperReach.KeystoneRoom:
     moki:
       DoubleJump, Dash, Bash  # bash the squonkey
@@ -3134,7 +3135,8 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
   pickup EastPools.BelowLeverEX:
     moki:  # kinda dangerous with the spikes? but damage seemed mostly avoidable
       DoubleJump, Bash, Grenade=1
-      Hammer  # double jump makes it easier
+      Hammer, DoubleJump OR Dash OR Glide
+      Spear=1, DoubleJump OR Dash OR Glide
       Launch
   pickup EastPools.AboveDoorOre:
     moki, EastPools.EntryLever:  # other paths would be redundant with the paths coming from tokk
