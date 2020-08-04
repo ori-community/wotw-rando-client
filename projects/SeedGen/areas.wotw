@@ -2500,8 +2500,6 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
   # could be considered moving this anchor to the left, closer to the teleporter, if it gets important on higher difficulties
 
-  state LowerReach.TeleporterLantern:
-    moki: Grenade=1
   state LowerReach.RolledSnowball:
     moki: EnemyObstacle, Grenade=1
 
@@ -2509,9 +2507,9 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     moki: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Danger=20
 
   conn LowerReach.Teleporter:
-    moki, LowerReach.TeleporterLantern:
-      DoubleJump OR Dash OR Glide OR Launch
-      Bash, Grenade=1
+    moki:
+      Grenade=1, DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=2
   conn LowerReach.SoupMoki: free
   conn LowerReach.PastSnowball:
     moki, LowerReach.RolledSnowball:
@@ -4036,7 +4034,8 @@ anchor WillowsEnd.AboveInnerTP at 530, -3844:  # at the lava pit before bash puz
       Weapon, Launch
       EnemyObstacle, Bow=1
 
-  conn WillowsEnd.InnerTP: EnemyObstacle
+  conn WillowsEnd.InnerTP:
+    moki: EnemyObstacle
   conn WillowsEnd.East:
     moki:
       DoubleJump, Bash, Grenade=1, Dash OR Glide
@@ -4051,7 +4050,8 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
     moki:
       Weapon, Bash, DoubleJump OR Glide
       Bow=1, Bash, DoubleJump OR Dash OR Glide
-      Launch, Weapon OR Bow=1
+      Weapon, Launch
+      Bow=1, Launch
 
   # state WillowsEnd.RedirectHeart:
   #   moki: BreakWall=10, BreakWall=30, DoubleJump, Bash, Launch
@@ -4119,6 +4119,10 @@ anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
     moki: EnemyObstacle, DoubleJump OR Dash OR Bash OR Glide OR Launch
   conn WillowsEnd.West:
     moki: Launch
+  conn WillowsEnd.UpperHeartPath:
+    moki:
+      RangedWeapon, DoubleJump, Bash, Grenade=1
+      Launch
 
 # anchor LaserRockFight:
 #   refill Full: free
