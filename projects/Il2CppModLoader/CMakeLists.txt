@@ -22,10 +22,11 @@ set(
 	"constants.h"
 	"framework.h"
 	"il2cpp_helpers.h"
-	"il2cpp_internals.h"
+	"il2cpp_internals/il2cpp_internals.h"
 	"interception.h"
 	"interception_macros.h"
 	"macros.h"
+	"il2cpp_math.h"
 )
 
 set(
@@ -76,7 +77,7 @@ target_precompile_headers(
 	${PROJECT_NAME}
 		PRIVATE <tchar.h>
 		PRIVATE <framework.h>
-		PUBLIC <Il2CppModLoader/il2cpp_internals.h>
+		PUBLIC <${PROJECT_NAME}/il2cpp_internals/il2cpp_internals.h>
 )
 
 message(STATUS "Assigning source groups.")

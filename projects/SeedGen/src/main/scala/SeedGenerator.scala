@@ -196,7 +196,8 @@ package SeedGenerator {
       }) match {
       case Some(ItemLoc(name, l)) if !Config().flags.noHints && (l.value == "LupoZoneMap" || name == "OpherShop.WaterBreath") => None
       case Some(ItemLoc(_, l)) if !Config().questLocs && l.category == "Quest" => None
-      case Some(ItemLoc(name, _)) if !Config().flags.noKSDoors && name == "OpherShop.Sentry" =>/* Config.debug(s"Filtered out $name");*/ None
+      case Some(ItemLoc(_, l)) if Config().bonusItems && l.uberGroupId == 1 => None // TODO: change this when weapons probably
+      case Some(ItemLoc(name, _)) if !Config().flags.noKSDoors && name == "OpherShop.Teleport" =>/* Config.debug(s"Filtered out $name");*/ None
       case a => a
     }
   }
@@ -283,7 +284,8 @@ package SeedGenerator {
         if(areaName == "MarshSpawn.Main")
           return ""
         val Coords(x, y) = area.coords.get
-        s"Spawn: $x, $y        // $areaName\n\n" + (if(spawnSlots > 0) "3|0|6|Spawning with:|f=420 // show spawn text for longer\n\n" else "")
+        s"Spawn: $x, $y        // $areaName\n\n" +
+        s"3|0|6|Spawning with:|f=420  // show spawn text for longer\n3|0|${teleporter.code}|mute // ${teleporter.name} granted implicitly by spawn \n"
       }
 
     }
@@ -491,6 +493,7 @@ package SeedGenerator {
           e
       })
     def mk(inState: GameState, i:Int = 0, parent: Option[PlacementGroup] = None)(implicit r: Random, pool: Inv): PlacementGroup = {
+//      val backupPool = Inv.mk(pool.asSeq:_*)
       val (state, preplaced) = Nodes.reached(inState)
       val placements = MList[Placement]() ++ preplaced
       def process(ps: Iterable[Placement], prefix: String = ""): Unit =
@@ -524,8 +527,13 @@ package SeedGenerator {
       }
       val locsOpen = freeLocs.size - ksNeeded
       if(ksNeeded > 0) {
-        if(locsOpen < 0)
+        if(locsOpen < 0) {
           throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
+//          parent match {
+//            case Some(p) => p.t
+//            case None => throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
+//          }
+        }
         val (shops, nonShops) = freeLocs.take(ksNeeded).partition(_.data.category == "Shop")
         val ksPlc = shops.map(shop => {pool.merchToPop-=1; ShopPlacement(Keystone, shop)}) ++ nonShops.map(nonShop => ItemPlacement(Keystone, nonShop))
         pool.take(Keystone, ksPlc.size)
@@ -645,6 +653,12 @@ package SeedGenerator {
     def built: Boolean = error.isEmpty && grps.last.done
     def seed: String = (Config().header +
         grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n") +
+        (if(Config().bonusItems) """
+                                   |1|74|11|3  //   Spike Efficiency from Spike,
+                                   |1|98|11|0  //   Rapid Smash from OpherShop.SpiritSmash,
+                                   |1|106|11|4 //   Star Efficiency from OpherShop.SpiritStar,
+                                   |1|115|11|2 //   Blaze Efficiency from OpherShop.Blaze,
+                                   |1|116|11|5 //   Sentry Efficiency from OpherShop.Sentry, """.stripMargin else "") +
         s"\n// Config: ${Config().toJson}"
       ).replace("\n", "\r\n")
     def spoiler: String = grps.map(grp => grp.desc(true)).mkString("\n").replace("\n", "\r\n")

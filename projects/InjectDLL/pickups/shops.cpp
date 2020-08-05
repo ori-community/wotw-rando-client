@@ -1,14 +1,14 @@
 #include <dll_main.h>
-
+#include <Common/ext.h>
 #include <csharp_bridge.h>
 #include <uber_states/uber_state_manager.h>
 
-#include <Il2CppModLoader/il2cpp_internals.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
 #include <functional>
 #include <set>
+#include <map>
 
 using namespace modloader;
 
@@ -19,12 +19,14 @@ namespace
     BINDING(5047120, int64_t, WeaponmasterScreen_get_Instance, (int64_t)); //WeaponmasterScreen$$get_Instance
     BINDING(10013424, bool, GameController_get_GameInTitleScreen, (app::GameController*)); //GameController$$get_GameInTitleScreen
 
-    BINDING(5042560, bool, WeaponmasterItem_get_IsLocked, (app::WeaponmasterItem*)); //WeaponmasterItem$$get_IsLocked
-    BINDING(4151120, bool, WeaponmasterItem_get_IsVisible, (app::WeaponmasterItem*)); //WeaponmasterItem$$get_IsVisible
-    BINDING(5043600, bool, WeaponmasterItem_get_IsAffordable, (app::WeaponmasterItem*)); //WeaponmasterItem$$get_IsAffordable
-
     bool weaponmaster_purchase_in_progress = false;
     const std::set<char> TWILLEN_SHARDS{ 1, 2, 3, 5, 19, 22, 26, 40 };
+    std::unordered_map<uint16_t, int> opher_weapon_costs;
+    std::unordered_map<uint8_t, int> twillen_shard_costs;
+
+    uint16_t opher_key(int acq, int req) {
+        return static_cast<uint16_t>(acq & 0xFF) | (static_cast<uint16_t>(req & 0xFF) << 8);
+    }
 
     bool is_twillen_shard(const uint8_t shard)
     {
@@ -53,48 +55,14 @@ namespace
 
         return false;
     };
+    
+    
 
-    BINDING(14042272, int64_t, getSelectedShard, (int64_t spiritShardShopScreen)) //SpiritShardsShopScreen$$get_SelectedSpiritShard
-        INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
+    INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
     {
         //SpiritShardsShopScreen$$CanPurchase
         const auto result = canShardPurchase(spiritShardShopScreen);
         return result;
-    }
-
-
-    BINDING(14046576, void, SpiritShardsShopScreen_UpdateContextCanvasShards, (int64_t)) //SpiritShardsShopScreen$$UpdateContextCanvasShards
-        BINDING(17918112, void, PlayerUberStateShards_Shard_RunSetDirtyCallback, (int64_t))
-        //Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$RunSetDirtyCallback
-
-        INTERCEPT(14055664, void, completeShardPurchase, (int64_t spiritShardShopScreen))
-    {
-        //SpiritShardsShopScreen$$CompletePurchase
-        //save shard new/purchased state
-        const auto shard = getSelectedShard(spiritShardShopScreen);
-        const auto first = *reinterpret_cast<bool*>(shard + 24);
-        const auto second = *reinterpret_cast<bool*>(shard + 25);
-
-        completeShardPurchase(spiritShardShopScreen);
-
-        // rollback vanilla purchase 
-        *reinterpret_cast<bool*>(shard + 24) = first;
-        *reinterpret_cast<bool*>(shard + 25) = second;
-
-        // do the rando purchase /after/ rollback, xem ;3
-        auto shard_type = *reinterpret_cast<uint8_t*>(shard + 0x10);
-        csharp_bridge::twillen_buy_shard(static_cast<csharp_bridge::ShardType>(shard_type));
-
-        PlayerUberStateShards_Shard_RunSetDirtyCallback(shard);
-        SpiritShardsShopScreen_UpdateContextCanvasShards(spiritShardShopScreen);
-    }
-
-
-    INTERCEPT(17916336, bool, PlayerUberStateShards_Shard_Get_PurchasableInShop, (int64_t shard))
-    {
-        //Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$get_PurchasableInShop
-        auto shardType = *reinterpret_cast<unsigned __int8*>(shard + 0x10);
-        return true;
     }
 
     void for_each_indexed(const int64_t list, const std::function<void(int64_t, int)> fun)
@@ -176,11 +144,7 @@ namespace
         return csharp_bridge::opher_bought_upgrade(required_type);
     }
 
-    bool purchasable(app::WeaponmasterItem* weaponmasterItem)
-    {
-        return !hasBeenPurchasedBefore(weaponmasterItem) && !WeaponmasterItem_get_IsLocked(weaponmasterItem) &&
-            WeaponmasterItem_get_IsVisible(weaponmasterItem) && WeaponmasterItem_get_IsAffordable(weaponmasterItem);
-    }
+    bool purchasable(app::WeaponmasterItem* weaponmasterItem);
 
     INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (app::WeaponmasterItem* item))
     {
@@ -196,33 +160,16 @@ namespace
         //WeaponmasterItem$$GetCostForLevel
         if (is_in_shop_screen())
         {
-            const auto ability_type = item->fields.Upgrade->fields.AcquiredAbilityType;
-            //TODO: @Eiko - you know what to do
-            if (ability_type == app::AbilityType__Enum_None)
-            {
-                if (item->fields.Upgrade->fields.RequiredAbility == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
-                    return csharp_bridge::opher_weapon_cost(app::AbilityType__Enum_TeleportSpell);
-
-                return WeaponmasterItem_GetCostForLevel(item, level);
-            }
-
-            return csharp_bridge::opher_weapon_cost(ability_type);
-        }
+            const auto acq = static_cast<int>(item->fields.Upgrade->fields.AcquiredAbilityType);
+            const auto req = static_cast<int>(item->fields.Upgrade->fields.RequiredAbility);
+            const auto key = opher_key(acq, req);
+            if(opher_weapon_costs.find(key) != opher_weapon_costs.end())
+                return opher_weapon_costs[opher_key(acq, req)];
+            return 300; // todo; maybe a bit smarter than this?
+         }
 
         return WeaponmasterItem_GetCostForLevel(item, level);
     }
-
-
-    INTERCEPT(5044080, bool, WeaponmasterItem_TryPurchase, (app::WeaponmasterItem* pThis, int64_t hint, int64_t sounds, int64_t hints))
-    {
-        //WeaponmasterItem$$TryPurchase
-        if (purchasable(pThis))
-            return true;
-
-        WeaponmasterItem_TryPurchase(pThis, hint, sounds, hints);
-        return false;
-    }
-
 
     INTERCEPT(11448960, int64_t, SpellInventory_AddNewSpellToInventory, (int64_t inv, unsigned int equipmentType, bool add))
     {
@@ -369,6 +316,10 @@ namespace
         return acquired | required;
     }
 
+    IL2CPP_INTERCEPT(, UpgradableShardItem, bool, get_IsVisible, (app::UpgradableShardItem* z)) {
+        return true;
+    }
+
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsVisible, (app::WeaponmasterItem* this_ptr))
     {
         if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr)
@@ -379,7 +330,7 @@ namespace
                 return uber_states::get_uber_state_value(37858, 10720) > 1.5f; // Watermill escape.
         }
 
-        return get_IsVisible(this_ptr);
+        return true; //get_IsVisible(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsLocked, (app::WeaponmasterItem* this_ptr))
@@ -392,7 +343,7 @@ namespace
                 return uber_states::get_uber_state_value(37858, 10720) < 1.5f; // Watermill escape.
         }
 
-        return get_IsLocked(this_ptr);
+        return false; // get_IsLocked(this_ptr);
     }
 
     // When does this happen?
@@ -533,16 +484,50 @@ namespace
 
     // Twillen --------------------------------
 
-    IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
+    NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_VisibleInShop, (app::PlayerUberStateShards_Shard* this_ptr))
+    {
+        return true;
+    }
 
+    NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_PurchasableInShop, (app::PlayerUberStateShards_Shard* this_ptr))
+    {
+        return true;
+    }
+
+    IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
+    
     bool overwrite_shard_text = false;
     app::PlayerUberStateShards_Shard* selected_shard;
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen* this_ptr))
     {
         overwrite_shard_text = true;
-        selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
-        SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
+        selected_shard = get_SelectedSpiritShard(this_ptr);
+        UpdateContextCanvasShards(this_ptr);
         overwrite_shard_text = false;
+    }
+
+    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, void, RunSetDirtyCallback, (app::PlayerUberStateShards_Shard* this_ptr));
+    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, CompletePurchase, (app::SpiritShardsShopScreen* this_ptr))
+    {
+        //SpiritShardsShopScreen$$CompletePurchase
+        //save shard new/purchased state
+        auto* const shard = get_SelectedSpiritShard(this_ptr);
+        const auto first = shard->fields.m_isNew;
+        const auto second = shard->fields.m_gained;
+
+        CompletePurchase(this_ptr);
+
+        // rollback vanilla purchase 
+        shard->fields.m_isNew = first;
+        shard->fields.m_gained = second;
+
+        il2cpp::invoke(get_sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
+
+        // do the rando purchase /after/ rollback, xem ;3
+        csharp_bridge::twillen_buy_shard(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
+
+        PlayerUberStateShards::Shard::RunSetDirtyCallback(shard);
+        UpdateContextCanvasShards(this_ptr);
     }
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
@@ -554,7 +539,7 @@ namespace
         app::MessageProvider* description_provider = nullptr;
         app::MessageProvider* locked_provider = nullptr;
 
-        auto* const item = selected_shard;
+        auto* const item = overwrite_shard_text ? selected_shard : this_ptr->fields.m_item;
         auto type = item->fields.m_type;
         if (overwrite_shard_text)
         {
@@ -602,7 +587,7 @@ namespace
 
             MessageBox::RefreshText(name_box, empty_str, empty_str);
             MessageBox::RefreshText(description_box, empty_str, empty_str);
-            SpiritShardUIShardDetails::UpdateUpgradeDetails(this_ptr);
+            UpdateUpgradeDetails(this_ptr);
 
             auto active = false;
             il2cpp::invoke(this_ptr->fields.LevelNextGO, "SetActive", &active);
@@ -623,6 +608,7 @@ namespace
                 locked_shard_overwrite = true;
                 this_ptr->fields.m_item = selected_shard;
                 UpdateDetails_intercept(this_ptr);
+                this_ptr->fields.m_item = nullptr;
                 locked_shard_overwrite = false;
                 return;
             }
@@ -666,20 +652,44 @@ namespace
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }
+
+    IL2CPP_BINDING(, UISoundSettingsAsset, bool, PlaySoundEvent, (app::UISoundSettingsAsset* this_ptr, app::Event_1* sound_event));
+    IL2CPP_BINDING(, WeaponmasterItem, bool, get_IsAffordable, (app::WeaponmasterItem* this_ptr));
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, TryPurchase, (app::WeaponmasterItem* this_ptr, app::Action_1_MessageProvider_* show_hint, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints))
+    {
+        app::MessageProvider* selected_hint;
+        if (hasBeenPurchasedBefore(this_ptr))
+            selected_hint = hints->fields.AlreadyOwned;
+        else if (get_IsLocked_intercept(this_ptr))
+            selected_hint = hints->fields.ShardNotDiscovered;
+        else if (!get_IsVisible_intercept(this_ptr))
+            selected_hint = hints->fields.ShardNotDiscovered;
+        else if (!get_IsAffordable(this_ptr))
+            selected_hint = hints->fields.NotEnoughSpiritLight;
+        else
+            return true;
+
+        il2cpp::invoke(show_hint, "Invoke", selected_hint);
+        if (sounds != nullptr)
+            UISoundSettingsAsset::PlaySoundEvent(sounds, sounds->fields.InvalidItem);
+
+        return false;
+    }
 }
 
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy)
-{
-    const auto key = static_cast<uint16_t>(acquired & 0xFF) | (static_cast<uint16_t>(required & 0xFF) << 8);
+INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy, int cost) {
+    const auto key = opher_key(acquired, required);
     auto& item = opher_overrides[key];
     set_item(item, name, description, locked, uses_energy);
+    opher_weapon_costs[key] = cost;
 }
 
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked, int cost)
 {
     const auto key = static_cast<uint8_t>(shard);
     auto& item = twillen_overrides[key];
     set_item(item, name, description, locked, false);
+    twillen_shard_costs[key] = cost;
 }
 
 INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* locked)

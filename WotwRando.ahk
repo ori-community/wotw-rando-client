@@ -289,7 +289,10 @@ TryDelete(INSTALL_DIR . "InjectLoader.dll")
 TryDelete(INSTALL_DIR . "Il2CppModLoader.dll")
 TryDelete(INSTALL_DIR . "loc_data.csv")
 TryDelete(INSTALL_DIR . "areas.wotw")
+TryDelete(INSTALL_DIR . "modloader_config.json")
 TryDelete(INSTALL_DIR . "VERSION")
+
+
 
 
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
@@ -302,7 +305,8 @@ FileInstall, C:\moon\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
 FileInstall, C:\moon\areas.wotw, %INSTALL_DIR%areas.wotw, 1
 FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
 FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
-FileInstall, C:\moon\VERSION, %INSTALL_DIR%VERSION, 1
+FileInstall, modloader_config.json, %INSTALL_DIR%modloader_config.json, 1
+FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
     FileCopy, %A_ScriptFullPath%, %INSTALL_DIR%WotwRando.exe
 Else

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic;
@@ -18,7 +19,8 @@ namespace RandoMainDLL {
     Multi = 7,
     UberState = 8,
     QuestEvent = 9,
-    BonusItem = 10
+    BonusItem = 10,
+    WeaponUpgrade = 11
   }
 
   public class DoneWithThis : Exception { };
@@ -36,9 +38,9 @@ namespace RandoMainDLL {
 
   public enum SysCommandType : byte {
     Save = 0,
-    ProcUberStates = 1, 
-    ProcUberStatesAndSurpress = 2, 
-    SupressMagic = 3, 
+    ProcUberStates = 1,
+    ProcUberStatesAndSurpress = 2,
+    SupressMagic = 3,
     StopIfEqual = 4,
     StopIfGreater = 5,
     StopIfLess = 6,
@@ -98,9 +100,11 @@ namespace RandoMainDLL {
     ShardSlot = 4
   }
 
+
   public abstract class Pickup {
     public virtual int Frames { get => 240; }
     public bool NonEmpty = true;
+    public bool Muted = false;
     public abstract PickupType Type { get; }
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
@@ -125,13 +129,15 @@ namespace RandoMainDLL {
       var children = new List<Pickup>();
       if (this is Multi multi) {
         children.AddRange(multi.Children);
-      } else {
+      }
+      else {
         children.Add(this);
       }
 
       if (other is Multi otherM) {
         children.AddRange(otherM.Children);
-      } else {
+      }
+      else {
         children.Add(other);
       }
       // this can only really happen if one of these was Multi.Empty, but we do concat on empties, soooo
@@ -202,7 +208,7 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
-      foreach(var child in Children) {
+      foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
         child.Grant(true);
@@ -211,7 +217,7 @@ namespace RandoMainDLL {
     }
 
     public override string ToString() {
-      if(Children.Count == 0) {
+      if (Children.Count == 0) {
         return "Empty";
       }
       var squelching = Children.FindAll(p => p is Message msg && msg.Squelch);
@@ -219,6 +225,8 @@ namespace RandoMainDLL {
       foreach (var child in (squelching.Count > 0 ? squelching : Children)) {
         if (child is ConditionalStop s && s.StopActive())
           break;
+        if (child.Muted)
+          continue;
         names.Add(child.ToString());
       }
       return string.Join("\n", names.Where(s => s.Length > 0));
@@ -288,7 +296,7 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 250;
     public override string ToString() {
       var str = type.GetDescription();
-      return !(str is null) ? $"{str} TP" : $"Unknown Teleporter {type}";
+      return !(str is null) ? $"#{str} TP#" : $"Unknown Teleporter {type}";
     }
   }
   public class RemoveTeleporter : Pickup {
@@ -376,7 +384,7 @@ namespace RandoMainDLL {
     }
 
     private static readonly List<string> MoneyNames = new List<string>() {
-      "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", 
+      "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo",
      "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets",
       "Pounds Sterling", "BTC", "Euros", "Credits", "Bells",
       "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
@@ -429,20 +437,19 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 300;
     public override PickupType Type => PickupType.BonusItem;
     public readonly BonusType type;
-    public BonusItem(BonusType command) => type = command;
+    private readonly UberId stateId;
+
+    public BonusItem(BonusType command) {
+      type = command;
+      stateId = new UberId(4, (int)type);
+    }
     public override void Grant(bool skipBase = false) {
-      SaveController.Data.BonusItems[type] = type.Count() + 1;
-      switch(type) {
-        case BonusType.ExtraAirDash:
-          InterOp.set_extra_dashes(type.Count());
-          break;
-        case BonusType.ExtraDoubleJump:
-          InterOp.set_extra_jumps(type.Count());
-          break;
-      }
+      var state = stateId.State();
+      state.Value.Byte += 1;
+      state.Write(state.Value);
       base.Grant(skipBase);
     }
-    public override string ToString() => $"#{type.GetDescription()}{(type.Count()>1 ? $" x{type.Count()}" : "")}#";
+    public override string ToString() => $"#{type.GetDescription()}{(stateId.State().Value.Byte > 1 ? $" x{stateId.State().Value.Byte}" : "")}#";
   }
 
   public class SystemCommand : Pickup {
@@ -515,7 +522,7 @@ namespace RandoMainDLL {
           break;
         case SysState.DayTime:
           AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
-//          SeedController.DayTimeOverride = value > 0;
+          //          SeedController.DayTimeOverride = value > 0;
           break;
         case SysState.HowlEscape:
           AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
@@ -544,7 +551,8 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Resource;
     public readonly ResourceType type;
-    public override WorldMapIconType Icon { get {
+    public override WorldMapIconType Icon {
+      get {
         switch (type) {
           case ResourceType.Health:
             return WorldMapIconType.HealthFragment;
@@ -559,7 +567,7 @@ namespace RandoMainDLL {
           default:
             return base.Icon;
         }
-      } 
+      }
     }
     public override int DefaultCost() {
       switch (type) {
@@ -606,6 +614,68 @@ namespace RandoMainDLL {
     }
 
     public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
+  }
+  public enum WeaponUpgradeType {
+    RapidSmash = 0,
+    RapidSword = 1,
+    BlazeEfficiency = 2,
+    SpikeEfficiency = 3,
+    StarEfficiency = 4,
+    SentryEfficiency = 5,
+    BowEfficiency = 6,
+    RegenerationEfficiency = 7,
+    FlashEfficiency = 8,
+    LightBurstEfficiency = 9,
+  }
+  public class WeaponUpgrade : Pickup {
+    public override PickupType Type => PickupType.WeaponUpgrade;
+    public readonly string Name;
+    public readonly string Desc;
+    public readonly AbilityType Weapon;
+    public readonly WeaponUpgradeType Id;
+    public override int CostWithMod(float mod) => 400; // later maybe we'll do something more interesting here
+    public WeaponUpgrade(WeaponUpgradeType id, AbilityType weapon, string name, string desc) {
+      Name = name;
+      Id = id;
+      Weapon = weapon;
+      Desc = desc;
+    }
+    public UberId UberId() => new UberId(4, (int)Id);
+    public float Value() => UberId().GetValue().Value.Float;
+    public override void Grant(bool skipBase = false) {
+      switch (Id) {
+        case WeaponUpgradeType.RapidSmash:
+        case WeaponUpgradeType.RapidSword:
+          UberId().State().Write(new UberValue(Value() * 1.25f));
+          break;
+        case WeaponUpgradeType.SpikeEfficiency:
+        case WeaponUpgradeType.StarEfficiency:
+        case WeaponUpgradeType.SentryEfficiency:
+        case WeaponUpgradeType.BlazeEfficiency:
+          UberId().State().Write(new UberValue(Value() * 0.5f));
+          break;
+        default:
+          Randomizer.Log($"Unknown upgrade {Id}, can't apply");
+          break;
+      }
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}";
+    public static WeaponUpgrade RapidSmash = new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Spirit Smash* attacks are faster");
+    public static WeaponUpgrade RapidSword = new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are faster");
+    public static WeaponUpgrade BlazeEfficiency = new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs less energy");
+    public static WeaponUpgrade SpikeEfficiency = new WeaponUpgrade(WeaponUpgradeType.SpikeEfficiency, AbilityType.Spike, "Spike Efficiency", "*Spike* costs less energy");
+    public static WeaponUpgrade StarEfficiency = new WeaponUpgrade(WeaponUpgradeType.StarEfficiency, AbilityType.SpiritStar, "Star Efficiency", "*Spirit Star* costs less energy");
+    public static WeaponUpgrade SentryEfficiency = new WeaponUpgrade(WeaponUpgradeType.SentryEfficiency, AbilityType.Sentry, "Sentry Efficiency", "*Sentry* costs less energy");
+
+    public static Dictionary<WeaponUpgradeType, WeaponUpgrade> ById = new Dictionary<WeaponUpgradeType, WeaponUpgrade>() {
+      {RapidSmash.Id,       RapidSmash },
+      {RapidSword.Id,       RapidSword },
+      {BlazeEfficiency.Id,  BlazeEfficiency },
+      {SpikeEfficiency.Id,  SpikeEfficiency },
+      {StarEfficiency.Id,   StarEfficiency },
+      {SentryEfficiency.Id, SentryEfficiency },
+    };
   }
 
 }

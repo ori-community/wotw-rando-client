@@ -52,10 +52,10 @@ package SeedGenerator {
     val itemType: Int = 10
     def code = s"$itemType|$bonusId"
   }
-  object HealthRegen extends Bonus(0, "Health Regeneration")
-  object EnergyRegen extends Bonus(1, "Energy Regeneration")
-  object ExtraJump extends Bonus(2, "Extra Double Jump")
-  object ExtraDash extends Bonus(3, "Extra Air Dash")
+  object HealthRegen extends Bonus(30, "Health Regeneration")
+  object EnergyRegen extends Bonus(31, "Energy Regeneration")
+  object ExtraJump extends Bonus(35, "Extra Double Jump")
+  object ExtraDash extends Bonus(36, "Extra Air Dash")
 
   object Bonus {
     def poolItems: Seq[Bonus] =

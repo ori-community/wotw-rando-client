@@ -1,12 +1,9 @@
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Source
 import scala.util.matching.Regex
 import org.json4s.native.Serialization
 import org.json4s.{Formats, NoTypeHints}
-package SeedGenerator {
-  import implicits._
-
   import scala.util.Try
+package SeedGenerator {
 
   object ReachChecker {
     var doingReachCheck = false

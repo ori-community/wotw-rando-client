@@ -91,8 +91,8 @@ namespace RandoMainDLL {
     public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static HashSet<Flag> flags = new HashSet<Flag>();
     public static string SeedFile = "";
-    public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1+SeedFile.LastIndexOf('\\')) : SeedFile;  }
-    public static void ReadSeed(bool init=false) {
+    public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
+    public static void ReadSeed(bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {
         pickupMap.Clear();
@@ -108,7 +108,8 @@ namespace RandoMainDLL {
             if (rawLine.StartsWith("Flags: ")) {
               ProcessFlags(rawLine);
               continue;
-            } else if(rawLine.StartsWith("Spawn: ")) {
+            }
+            else if (rawLine.StartsWith("Spawn: ")) {
               coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
               continue;
             }
@@ -116,43 +117,52 @@ namespace RandoMainDLL {
             if (line == "") continue;
 
             if (HasInternalSpoilers && !rawLine.Contains("//"))
-              HasInternalSpoilers = false; 
+              HasInternalSpoilers = false;
             // if we got this far and there's no comment, it's a line without a spoiler
 
             var frags = line.Split('|').ToList();
-            var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
-            var pickupType = (PickupType)byte.Parse(frags[2]);
+            var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
+            var pickupType = (PickupType)frags[2].ParseToByte();
             // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
             if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
-              if (!KSDoorsOpen && cond.Id.ID == (int)AbilityType.Sentry) // :upside_down:
-                cond = new UberStateCondition(new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)ShardType.Overcharge), null);
-              else if(!HintsDisabled && cond.Id.ID == (int)AbilityType.WaterBreath) {
+              if (!KSDoorsOpen && cond.Id.ID == (int)AbilityType.TeleportSpell) 
+                cond.Id.ID = (int)AbilityType.Sentry; // :upside_down: :upside_down: :upside_down:
+              else if (!HintsDisabled && cond.Id.ID == (int)AbilityType.WaterBreath) {
                 cond = new UberStateCondition(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)PsuedoLocs.GAME_START), null);
                 pickupMap[cond] = new Message("Granting pickup overwritten by hint:").Concat(cond.Pickup());
-              } else
+              }
+              else
                 ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
               frags.RemoveAt(frags.Count - 1);
-            } 
+            }
             if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
               ShopController.SetCostMod((ShardType)cond.Id.ID, tMulti);
               frags.RemoveAt(frags.Count - 1);
             }
-
-            var pickup = BuildPickup(pickupType, frags[3], frags.Skip(4).ToList());
+            var extras = frags.Skip(4).ToList();
+            bool needsMute = false;
+            if(pickupType != PickupType.Message && extras.Contains("mute")) {
+              extras.Remove("mute");
+              needsMute = true;
+            }
+            var pickup = BuildPickup(pickupType, frags[3], extras);
+            pickup.Muted = needsMute;
             if (pickup.IsHintItem())
               HintsController.AddHint(cond.Loc().Zone, pickup as Checkable);
             pickupMap[cond] = cond.Pickup().Concat(pickup);
-          } catch (Exception e) {
+          }
+          catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
-        if(coordsRaw != "") {
+        if (coordsRaw != "") {
           var coords = coordsRaw.Split(',').ToList();
           var x = coords[0].ParseToFloat("SpawnX");
           var y = coords[1].ParseToFloat("SpawnY");
           InterOp.set_start_position(x, y);
-        } else {
+        }
+        else {
           InterOp.clear_start_position();
         }
         if (!init) {
@@ -162,7 +172,8 @@ namespace RandoMainDLL {
         }
 
         // Should only be used for configuration options.
-      } else {
+      }
+      else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
@@ -204,7 +215,7 @@ namespace RandoMainDLL {
       if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         return p;
       }
-      if(!shardNag.Contains(shard)) {
+      if (!shardNag.Contains(shard)) {
         Randomizer.Log($"Couldn't find a valid Sellable for {shard}...");
         shardNag.Add(shard);
       }
@@ -241,8 +252,10 @@ namespace RandoMainDLL {
           return new Cash(pickupData.ParseToInt());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
+        case PickupType.WeaponUpgrade:
+          return WeaponUpgrade.ById[(WeaponUpgradeType)pickupData.ParseToInt()];
         case PickupType.BonusItem:
-          return new BonusItem((BonusType)pickupData.ParseToByte());
+          return new BonusItem((BonusType)pickupData.ParseToInt());
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {
@@ -315,7 +328,7 @@ namespace RandoMainDLL {
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
           if (stateParts.Count < 4) {
-            if(extras.Count < 3) {
+            if (extras.Count < 3) {
               Randomizer.Log($"malformed Uberstate specifier ${pickupData}", false);
               return new Message($"Invalid UberState ${pickupData}!");
             }
@@ -341,7 +354,7 @@ namespace RandoMainDLL {
             case UberStateType.SerializedByteUberState:
               val.Byte = rawVal.ParseToByte("BuildPickup.UberValue<Byte>");
               if (isModifier)
-                modifier = (UberValue old) => new UberValue(old.Byte + sign*val.Byte);
+                modifier = (UberValue old) => new UberValue(old.Byte + sign * val.Byte);
               break;
             case UberStateType.SavePedestalUberState:
               if (isModifier)
@@ -369,8 +382,8 @@ namespace RandoMainDLL {
             return new UberStateModifier(state, modifier, stateParts[3]);
           return new UberStateSetter(state, supCount);
         default:
-          Randomizer.Error("BuildPickup", $"seed parse failure: unknown pickup ${pickupData}!!!", false);
-          return new Message($"Unknown pickup ${pickupData}!!!");
+          Randomizer.Error("BuildPickup", $"seed parse failure: unknown pickup {type}|{pickupData}!!!", false);
+          return new Message($"Unknown pickup {type}|{pickupData}!!!");
       }
     }
     public static UberStateType uberTypeFromString(String raw) {
@@ -445,7 +458,7 @@ namespace RandoMainDLL {
             break;
         }
       }
-        
+
       InterOp.lock_shriek_goal(!finished);
     }
   }

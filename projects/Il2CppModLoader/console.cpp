@@ -5,246 +5,300 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <sstream>
 #include <algorithm>
-#include <iterator>
 #include <future>
 #include <regex>
+#include <map>
 
-namespace modloader
+namespace modloader::console
 {
-    namespace console
+    namespace
     {
-        namespace
+        std::string read_command()
         {
-            std::string read_command()
-            {
-                std::string command;
-                std::getline(std::cin, command);
-                return command;
-            }
-
-            std::unordered_map<std::string, std::vector<dev_command>> entries;
-
-            bool initialzed = false;
-            bool failed = false;
-            FILE* console_file;
-            std::future<std::string> console_input;
-            std::vector<std::string> messages;
-            std::mutex message_mutex;
-
-            std::regex integer_regex("^[+-]?[0-9]+$");
-            std::regex float_regex("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
+            std::string command;
+            std::getline(std::cin, command);
+            return command;
         }
 
-        void register_command(std::string const& name, dev_command command)
+        struct Command
         {
-            auto& entry = entries[name];
-            entry.push_back(command);
+            std::map<std::string, Command> sub_commands;
+            std::vector<dev_command> actions;
+        };
+
+        Command root;
+
+        bool initialzed = false;
+        bool failed = false;
+        FILE* console_file;
+        std::future<std::string> console_input;
+        std::vector<std::string> messages;
+        std::mutex message_mutex;
+
+        std::regex integer_regex("^[+-]?[0-9]+$");
+        std::regex float_regex("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
+    }
+
+    void register_command(std::vector<std::string> const& path, dev_command command)
+    {
+        Command* current = &root;
+        for (const auto& entry : path)
+            current = &current->sub_commands[entry];
+
+        current->actions.push_back(command);
+    }
+
+    Command* find_command(std::vector<std::string> const& path)
+    {
+        Command* current = &root;
+        for (const auto& entry : path)
+        {
+            auto it = current->sub_commands.find(entry);
+            if (it == current->sub_commands.end())
+                return nullptr;
+
+            current = &it->second;
         }
 
-        bool handle_message(std::string const& message)
+        return current;
+    }
+
+    bool handle_message(std::string const& message)
+    {
+        if (message.empty())
+            return false;
+
+        std::vector<std::string> tokens;
+        split_str(message, tokens);
+
+        const auto path_str = tokens.front();
+        std::vector<std::string> path;
+        split_str(path_str, path, '.');
+
+        tokens.erase(tokens.begin());
+        auto* const command = find_command(path);
+        if (command != nullptr)
         {
-            if (message.empty())
-                return false;
-
-            std::vector<std::string> tokens;
-            split_str(message, tokens);
-
-            auto name = tokens.front();
-            tokens.erase(tokens.begin());
-            auto it = entries.find(name);
-            if (it != entries.end())
+            std::vector<CommandParam> params;
+            for (auto const& token : tokens)
             {
-                std::vector<CommandParam> params;
-                for (auto const& token : tokens)
+                if (token.empty())
+                    continue;
+
+                CommandParam param;
+                const auto offset = token.find('=');
+                if (offset == std::string::npos)
                 {
-                    if (token.empty())
-                        continue;
-
-                    CommandParam param;
-                    auto offset = token.find('=');
-                    if (offset == std::string::npos)
-                    {
-                        param.name = "";
-                        param.value = token;
-                    }
-                    else
-                    {
-                        param.name = token.substr(0, offset);
-                        param.value = token.substr(offset + 1, token.size());
-                    }
-
-                    params.push_back(param);
+                    param.name = "";
+                    param.value = token;
+                }
+                else
+                {
+                    param.name = token.substr(0, offset);
+                    param.value = token.substr(offset + 1, token.size());
                 }
 
-                for (auto const& command : it->second)
-                    command(name, params);
-
-                return true;
+                params.push_back(param);
             }
 
-            return false;
+            for (auto const& action : command->actions)
+                action(path_str, params);
+
+            return true;
         }
 
-        void console_initialize()
+        return false;
+    }
+
+    void console_initialize()
+    {
+        console_file = nullptr;
+        initialzed = false;
+        failed = true;
+        if (!AllocConsole())
+            return;
+
+        auto err = freopen_s(&console_file, "CONOUT$", "w", stdout);
+        if (err != 0)
+            trace(MessageType::Warning, 4, "initialize", format("failed to open console output {stdout}: %d", err));
+
+        err = freopen_s(&console_file, "CONOUT$", "w", stderr);
+        if (err != 0)
+            trace(MessageType::Warning, 4, "initialize", format("failed to open console output {stderr}: %d", err));
+
+        err = freopen_s(&console_file, "CONIN$", "r", stdin);
+        if (err != 0)
+            trace(MessageType::Warning, 4, "initialize", format("failed to open console input {stdin}: %d", err));
+
+        std::cout.clear();
+        std::clog.clear();
+        std::cerr.clear();
+        std::cin.clear();
+
+        SetConsoleCP(GetACP());
+        SetConsoleOutputCP(GetACP());
+
+        console_input = std::async(read_command);
+        initialzed = true;
+        failed = false;
+    }
+
+    void console_free()
+    {
+        if (!initialzed)
+            return;
+
+        if (console_file != nullptr)
+            fclose(console_file);
+
+        FreeConsole();
+
+    }
+
+    void list_commands()
+    {
+        console_send("");
+        console_send("echo *");
+        console_send("list *");
+
+        std::vector<std::tuple<int, std::string, Command*>> commands;
+        commands.push_back(std::make_tuple(-1, "", &root));
+        while (!commands.empty())
         {
-            console_file = nullptr;
-            initialzed = false;
-            failed = true;
-            if (!AllocConsole())
-                return;
+            auto entry = commands.back();
+            commands.erase(commands.end() - 1);
 
-            auto err = freopen_s(&console_file, "CONOUT$", "w", stdout);
-            if (err != 0)
-                trace(MessageType::Warning, 4, "initialize", format("failed to open console output {stdout}: %d", err));
+            auto* const command = std::get<2>(entry);
+            std::string info;
+            for (auto i = 0; i < std::get<0>(entry); ++i)
+                info += "\t";
 
-            err = freopen_s(&console_file, "CONOUT$", "w", stderr);
-            if (err != 0)
-                trace(MessageType::Warning, 4, "initialize", format("failed to open console output {stderr}: %d", err));
+            info += std::get<1>(entry);
+            if (!command->actions.empty())
+                info += " *";
 
-            err = freopen_s(&console_file, "CONIN$", "r", stdin);
-            if (err != 0)
-                trace(MessageType::Warning, 4, "initialize", format("failed to open console input {stdin}: %d", err));
+            if (!info.empty())
+                console_send(info);
 
-            std::cout.clear();
-            std::clog.clear();
-            std::cerr.clear();
+            const int index = commands.size();
+            for (auto& sub_command : command->sub_commands)
+                commands.insert(commands.begin() + index, std::make_tuple(
+                    std::get<0>(entry) + 1,
+                    sub_command.first,
+                    &sub_command.second
+                ));
+        }
+
+        console_send("");
+    }
+
+    void console_poll()
+    {
+        if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+        {
+            const auto command = console_input.get();
+            if (command.rfind("echo ", 0) != std::string::npos)
+                std::cout << command.substr(5, command.length()) << std::endl;
+            else if (command == "list")
+                list_commands();
+            else
+                handle_message(command);
+
             std::cin.clear();
-
-            SetConsoleCP(GetACP());
-            SetConsoleOutputCP(GetACP());
-
             console_input = std::async(read_command);
-            initialzed = true;
-            failed = false;
         }
 
-        void console_free()
+        console_flush();
+    }
+
+    void console_send(std::string str)
+    {
+        message_mutex.lock();
+        messages.push_back(std::move(str));
+        message_mutex.unlock();
+    }
+
+    void console_flush()
+    {
+        if (failed)
         {
-            if (!initialzed)
-                return;
-
-            if (console_file != nullptr)
-                fclose(console_file);
-
-            FreeConsole();
-
-        }
-
-        void list_commands()
-        {
-            for (auto entry : entries)
-                console_send(entry.first);
-        }
-
-        void console_poll()
-        {
-            if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
-            {
-                auto command = console_input.get();
-                if (command.rfind("echo ", 0) != std::string::npos)
-                    std::cout << command.substr(5, command.length()) << std::endl;
-                else if (command == "list")
-                    list_commands();
-                else
-                    handle_message(command);
-
-                std::cin.clear();
-                console_input = std::async(read_command);
-            }
-
-            console_flush();
-        }
-
-        void console_send(std::string str)
-        {
+            // If we did not create a console window clear the message queue.
             message_mutex.lock();
-            messages.push_back(std::move(str));
+            messages.clear();
             message_mutex.unlock();
         }
-
-        void console_flush()
+        else
         {
-            if (failed)
-            {
-                // If we did not create a console window clear the message queue.
-                message_mutex.lock();
-                messages.clear();
-                message_mutex.unlock();
-            }
-            else
-            {
-                message_mutex.lock();
-                auto messages_copy = messages;
-                messages.clear();
-                message_mutex.unlock();
+            message_mutex.lock();
+            auto messages_copy = messages;
+            messages.clear();
+            message_mutex.unlock();
 
-                for (auto const& message : messages_copy)
-                    std::cout << message << std::endl;
-            }
+            for (auto const& message : messages_copy)
+                std::cout << message << std::endl;
+        }
+    }
+
+    namespace
+    {
+        std::vector<std::string> false_values = {
+            "false",
+            "0",
+            "f"
+        };
+
+        std::vector<std::string> true_values = {
+            "true",
+            "1",
+            "t"
+        };
+    }
+
+    bool try_convert_to_bool(std::string str, bool& value)
+    {
+        std::transform(str.begin(), str.end(), str.begin(),
+            [](auto c) { return std::tolower(c); });
+
+        if (std::find(true_values.begin(), true_values.end(), str) != true_values.end())
+        {
+            value = true;
+            return true;
         }
 
-        namespace
+        if (std::find(false_values.begin(), false_values.end(), str) != false_values.end())
         {
-            std::vector<std::string> false_values = {
-                "false",
-                "0",
-                "f"
-            };
-
-            std::vector<std::string> true_values = {
-                "true",
-                "1",
-                "t"
-            };
+            value = false;
+            return true;
         }
 
-        bool try_convert_to_bool(std::string str, bool& value)
+        return false;
+    }
+
+    bool try_get_bool(CommandParam const& param, bool& value)
+    {
+        return try_convert_to_bool(param.value, value);
+    }
+
+    bool try_get_int(CommandParam const& param, int& value)
+    {
+        if (std::regex_match(param.value, integer_regex))
         {
-            std::transform(str.begin(), str.end(), str.begin(),
-                [](auto c) { return std::tolower(c); });
-
-            if (std::find(true_values.begin(), true_values.end(), str) != true_values.end())
-            {
-                value = true;
-                return true;
-            }
-
-            if (std::find(false_values.begin(), false_values.end(), str) != false_values.end())
-            {
-                value = false;
-                return true;
-            }
-
-            return false;
+            value = std::stoi(param.value);
+            return true;
         }
 
-        bool try_get_bool(CommandParam const& param, bool& value)
+        return false;
+    }
+
+    bool try_get_float(CommandParam const& param, float& value)
+    {
+        if (std::regex_match(param.value, float_regex))
         {
-            return try_convert_to_bool(param.value, value);
+            value = std::stof(param.value);
+            return true;
         }
 
-        bool try_get_int(CommandParam const& param, int& value)
-        {
-            if (std::regex_match(param.value, integer_regex))
-            {
-                value = std::stoi(param.value);
-                return true;
-            }
-
-            return false;
-        }
-
-        bool try_get_float(CommandParam const& param, float& value)
-        {
-            if (std::regex_match(param.value, float_regex))
-            {
-                value = std::stof(param.value);
-                return true;
-            }
-
-            return false;
-        }
+        return false;
     }
 }

@@ -87,7 +87,7 @@ namespace
 
     void add_goal_commands()
     {
-        console::register_command("report_player_position", report_player_position);
+        console::register_command({ "debug", "report_player_position" }, report_player_position);
     }
 
     CALL_ON_INIT(add_goal_commands);

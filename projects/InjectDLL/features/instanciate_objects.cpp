@@ -294,7 +294,7 @@ namespace
 
     void initialize()
     {
-        console::register_command("find_objects", find_objects);
+        console::register_command({ "debug", "find_objects" }, find_objects);
 
         // Jump pad on double jump tree.
         add_item("swampSpringIntroductionB", "springSunkenGlades", { -566.93634f, -4545.384766f, 0.f }, { 0, PI, 0 });
