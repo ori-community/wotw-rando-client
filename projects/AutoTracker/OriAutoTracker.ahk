@@ -11,12 +11,14 @@ inipath = settings.ini
 IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
 IniRead, bgcolour, %inipath%, Tracker, BackgroundColour, 585858
 IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, 0
+IniRead, xpos, %inipath%, Tracker, xpos, 0
+IniRead, ypos, %inipath%, Tracker, ypos, 0
 if(launchWithTracker != "false"){
     WinWait, OriAndTheWilloftheWisps
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.1.6"
+version := "v0.1.7"
 global TRACKFILE := A_ScriptDir . "\trackfile.json"
 global SEEDPATH := A_ScriptDir . "\.currentseedpath"
 
@@ -150,34 +152,34 @@ Gui, Add, Picture, xp+40 h30 w20 Hidden, img\SkillTree.png
 Gui, Add, Picture, xp+30 h30 w30 Hidden, img\Quest.png
 
 first_row = y40
-Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75 gclick, img\DoubleJump.png
-Gui, Add, Picture, vRegenerate xp+80 %first_row% h75 w75 gclick, img\Regen.png
-Gui, Add, Picture, vBow xp+80 %first_row% h75 w75 gclick, img\Bow.png
-Gui, Add, Picture, vDash xp+80 %first_row% h75 w75 gclick, img\Dash.png
+Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75, img\DoubleJump.png
+Gui, Add, Picture, vRegenerate xp+80 %first_row% h75 w75, img\Regen.png
+Gui, Add, Picture, vBow xp+80 %first_row% h75 w75, img\Bow.png
+Gui, Add, Picture, vDash xp+80 %first_row% h75 w75, img\Dash.png
 
 second_row = y120
-Gui, Add, Picture, vBash x0 %second_row% h75 w75 gclick, img\Bash.png
-Gui, Add, Picture, VGrapple xp+80 %second_row% h75 w75 gclick, img\Grapple.png
-Gui, Add, Picture, vFeather xp+80 %second_row% h75 w75 gclick, img\Feather.png
-Gui, Add, Picture, vFlap xp+80 %second_row% h75 w75 gclick, img\Flap.png
+Gui, Add, Picture, vBash x0 %second_row% h75 w75, img\Bash.png
+Gui, Add, Picture, VGrapple xp+80 %second_row% h75 w75, img\Grapple.png
+Gui, Add, Picture, vFeather xp+80 %second_row% h75 w75, img\Feather.png
+Gui, Add, Picture, vFlap xp+80 %second_row% h75 w75, img\Flap.png
 
 third_row = y200
-Gui, Add, Picture, vLightBurst x0 %third_row% h75 w75 gclick, img\LightBurst.png
-Gui, Add, Picture, vFlash xp+80 %third_row% h75 w75 gclick, img\Flash.png
-Gui, Add, Picture, vWaterDash xp+80 %third_row% h75 w75 gclick, img\WaterDash.png
-Gui, Add, Picture, vBurrow xp+80 %third_row% h75 w75 gclick, img\Burrow.png
+Gui, Add, Picture, vLightBurst x0 %third_row% h75 w75, img\LightBurst.png
+Gui, Add, Picture, vFlash xp+80 %third_row% h75 w75, img\Flash.png
+Gui, Add, Picture, vWaterDash xp+80 %third_row% h75 w75, img\WaterDash.png
+Gui, Add, Picture, vBurrow xp+80 %third_row% h75 w75, img\Burrow.png
 
 fourth_row = y280
-Gui, Add, Picture, vlaunch x0 %fourth_row% h75 w75 gclick, img\Launch.png
-Gui, Add, Picture, vSentry xp+80 %fourth_row% h75 w75 gclick, img\Sentry.png
-Gui, Add, Picture, VHammer xp+80 %fourth_row% h75 w75 gclick, img\Hammer.png
-Gui, Add, Picture, vShuriken xp+80 %fourth_row% h75 w75 gclick, img\Shuriken.png
+Gui, Add, Picture, vlaunch x0 %fourth_row% h75 w75, img\Launch.png
+Gui, Add, Picture, vSentry xp+80 %fourth_row% h75 w75, img\Sentry.png
+Gui, Add, Picture, VHammer xp+80 %fourth_row% h75 w75, img\Hammer.png
+Gui, Add, Picture, vShuriken xp+80 %fourth_row% h75 w75, img\Shuriken.png
 
 fifth_row = y360
-Gui, Add, Picture, vSpike x0 %fifth_row% h75 w75 gclick, img\Spike.png
-Gui, Add, Picture, vBlaze xp+80 %fifth_row% h75 w75 gclick, img\Blaze.png
-Gui, Add, Picture, vWaterBreath xp+80 %fifth_row% h75 w75 gclick, img\WaterBreath.png
-Gui, Add, Picture, vDamageUp xp+80 %fifth_row% h75 w75 gclick, img\WeaponUpgrade1.png
+Gui, Add, Picture, vSpike x0 %fifth_row% h75 w75, img\Spike.png
+Gui, Add, Picture, vBlaze xp+80 %fifth_row% h75 w75, img\Blaze.png
+Gui, Add, Picture, vWaterBreath xp+80 %fifth_row% h75 w75, img\WaterBreath.png
+Gui, Add, Picture, vDamageUp xp+80 %fifth_row% h75 w75, img\WeaponUpgrade1.png
 
 sixth_row = y440
 Gui, Add, Picture, x0 %sixth_row% h75 w75, img\SpiritLight.png
@@ -188,7 +190,7 @@ Gui, Add, Text, vGorlekOre x190 y465 w50, 0
 
 Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, img\CompleteWatermillEscape.png
 
-Gui, Main:Show,, Ori WotW AutoTracker %version%
+Gui, Main:Show, x%xpos% y%ypos%, Ori WotW AutoTracker %version%
 
 gosub CheckFlags
 update()
@@ -199,6 +201,7 @@ gosub ParseOnTopState
 ; -------------------------------------
 
 TeleporterState := 0
+PickupTrackerState := 0
 
 ; Create the popup menu by adding some items to it.
 Menu, ContextMenu, Add, Always on top, ToggleOnTop
@@ -211,6 +214,9 @@ Menu, ContextMenu, Add, Background colour, ShowColourPicker
 ; Menu, ContextMenu, % TeleporterState ? "Check" : "Uncheck", Teleporters
 
 Menu, ContextMenu, Add, Settings, OpenSettingsEditor
+
+Menu, ContextMenu, Add, Show last Pickup, TogglePickup
+Menu, ContextMenu, % PickupTrackerState ? "Check" : "Uncheck", Show last Pickup
 
 Menu, ContextMenu, Add  ; Add a separator line below the submenu.
 Menu, ContextMenu, Add, Exit, mainGuiClose  ; Add another menu item beneath the submenu.
@@ -246,7 +252,6 @@ Gui, Add, Text, vOuterRuins %fourth_collumn% yp+%spacing% Hidden, Outer Ruins
 Gui, Add, Text, vWillow %fourth_collumn% yp+%spacing% Hidden, Willow
 Gui, Add, Text, vShriek %fourth_collumn% yp+%spacing% Hidden, Shriek
 
-; Gui, teleporters:Show, w400 h100, Ori WotW Teleporters %version%
 
 ; -------------------------------------
 ; ColourPicker Window
@@ -269,7 +274,6 @@ Gui, Add, UpDown, Range0-255 vuB gUpDownSub, %Bval%
 Gui, Add, Progress, x285 y10 w60 h60 +Border Background%RGBval% vpC
 Gui, Add, Text, x285 y10 w60 h60 +Border vtP cWhite +BackgroundTrans, Preview
 Gui, Add, Button, x120 y80 w110 h20 vbS gButtonSub, Select
-; Gui, ColourPicker:Show, w351 h105, Simple colour Dialog
 
 
 OnMessage(0x200, "Help") ; On_mousemove event
@@ -279,33 +283,6 @@ IsOriStillRunning:
     IfWinNotExist, OriAndTheWilloftheWisps
     ExitApp
 return
-
-; Function for manually toggling items
-click:
-return
-;     MouseGetPos,,,, OutputVarControl
-;     ControlGetText, HoverText, %OutputVarControl%
-;     if (HoverText == "img\Bash.png") {
-;         if (skillstate["Bash"] == 0) {
-;             GuiControl , ,Bash , img\Bash_unlocked.png
-;             skillstate["Bash"] := 1
-;         } else if (skillstate["Bash"] == 1) {
-;             GuiControl , ,Bash , img\Bash.png
-;             skillstate["Bash"] := 0
-;         }
-;     }
-;     else if (HoverText == "img\Blaze.png") {
-;         if (skillstate["Blaze"] == 0) {
-;             GuiControl , ,Blaze , img\Blaze_unlocked.png
-;             skillstate["Blaze"] := 1
-;         } else if (skillstate["Blaze"] == 1) {
-;             GuiControl , ,Blaze , img\Blaze_upgrade.png
-;             skillstate["Blaze"] := 2
-;         } else if (skillstate["Blaze"] == 2) {
-;             GuiControl , ,Blaze , img\Blaze.png
-;             skillstate["Blaze"] := 0
-;         }
-;     }
 
 CheckFlags:
     FileRead, seed, .currentseedpath
@@ -328,6 +305,18 @@ CheckFlags:
     }
 return
 
+TogglePickup:
+    PickupTrackerState := !PickupTrackerState
+    if (PickupTrackerState) {
+        Gui, Main:Add, Text, vLastPickup X20 y520, Your last pickup will show here
+    } else {
+        WinGetPos, xpos, ypos,,, Ori WotW AutoTracker
+        IniWrite, %xpos%, %inipath%, Tracker, xpos
+        IniWrite, %ypos%, %inipath%, Tracker, ypos
+        Reload
+    }
+    Gui, Main:Show, AutoSize
+return
 
 ToggleOnTop:
     OnTopState := !OnTopState
@@ -381,22 +370,23 @@ parsechanges(Folder, Changes) {
 
 
 update() {
-    global skillstate, currentinv, imageBase
+    global skillstate, currentinv, imageBase, LastPickup
 
     if !(FileExist("trackfile.json"))
         return
-
-    FileRead jsonString, trackfile.json
-    if (ErrorLevel) {
-        MsgBox, 16, Error, There was an error reading the tracking file.
-    }
 
     ; Skip parsing if there are no changes
     if (currentinv == jsonString) {
     ; return
     }
 
+    Loop, read, messagelog
+    {
+        LastPickup := A_LoopReadLine
+    }
+
     inventory := JSON.Load(jsonString)
+
     skills := inventory.skills
     upgraded := inventory.upgraded
     events := inventory.events
@@ -424,6 +414,8 @@ update() {
 
     GuiControl, Main:, SpiritLight, % Spiritlight
     GuiControl, Main:, GorlekOre, % GorlekOre
+
+    GuiControl, Main:, LastPickup, % LastPickup
 
     ; Store last inventory to check against with next proc
     currentinv := jsonString
@@ -549,6 +541,9 @@ MouseIsOver(WinTitle) {
 }
 
 MainGuiClose: ; Exit the app when the main window closes
+    WinGetPos, xpos, ypos,,, Ori WotW AutoTracker
+    IniWrite, %xpos%, %inipath%, Tracker, xpos
+    IniWrite, %ypos%, %inipath%, Tracker, ypos
     ExitApp
 
 ; -------------------------------------
