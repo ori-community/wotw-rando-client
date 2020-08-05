@@ -69,13 +69,20 @@ package SeedGenerator {
       def req[_:P]: P[Seq[Requirement]] = P( NoCut(block) | line.map(Seq(_)) )
       def reqBlock[_:P]: P[Seq[Requirement]] = P(free.map(Seq(_)) | (NoCut(reqLine.map(Seq(_))) | NoCut(blockBody)).rep.map(_.flatten))//.log
     }
-    def checkpoint[_:P]: P[Setter] = P("Checkpoint").map(_ => Checkpoint)//.log
-    def spiritWell[_:P]: P[Setter] = P("Full").map(_ => Well)//.log
-    def crystal[_:P]: P[Adder] = P("Energy" ~~/ equalsNum).map(EnergyCrystals)//.log
-    def plant[_:P]: P[Adder] = P("Health" ~~/ equalsNum).map(HealthPlants)//.log
-    def refiller[_:P]: P[Setter] = P("  refill" ~ (checkpoint | spiritWell))
-    def refillReq[_:P]: P[(Requirement, Adder)] = P("  refill" ~ (crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))).map(_.swap)//.log
-    def refillBlock[_:P]: P[RefillGroup] = P(((refiller ~ endl).? ~~ refillReq.repX(sep=endl, min=1)) | refiller.map(a => (Some(a), Seq()))).map({case (setter, adders) => RefillGroup(setter, adders.toMap)})
+    trait RefillBuilder {def build(r: Requirement): Refiller}
+    case object CPBuilder extends RefillBuilder   { def build(r: Requirement): Refiller = Checkpoint(r) }
+    case object WellBuilder extends RefillBuilder { def build(r: Requirement): Refiller = Well(r) }
+    case class ECBuilder(count: Int) extends RefillBuilder { def build(r: Requirement): Refiller = EnergyCrystals(count, r) }
+    case class HPBuilder(count: Int) extends RefillBuilder { def build(r: Requirement): Refiller = HealthPlants(count, r) }
+    def checkpoint[_:P]: P[RefillBuilder] = P("Checkpoint").map(_ => CPBuilder)//.log
+    def spiritWell[_:P]: P[RefillBuilder] = P("Full").map(_ => WellBuilder)//.log
+    def crystal[_:P]: P[RefillBuilder] = P("Energy" ~~/ equalsNum).map(ECBuilder)//.log
+    def plant[_:P]: P[RefillBuilder] = P("Health" ~~/ equalsNum).map(HPBuilder)//.log
+    def refillReq[_:P]: P[Refiller] = P("  refill" ~ (crystal | plant | checkpoint | spiritWell) ~~
+      ((colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))) | &("\n").map(_ => Free))).map({case (builder, req) => builder.build(req)})
+//      .log
+    def refillBlock[_:P]: P[RefillGroup] = P(refillReq.repX(sep=endl, min=1).map(RefillGroup))
+//      .log
     case class Region(prefix: String, req: Requirement)
     def atParser[_:P]: P[Coords] = P(" at " ~~ num ~~ "," ~~ " ".? ~~ num).map(xy => Coords(xy._1, xy._2))//.log
     def endl[_:P]: P[Unit] = P("\n")
@@ -84,8 +91,8 @@ package SeedGenerator {
     def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)})//.log
     def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req)})//.log
     def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)})//.log
-    def area[_:P]: P[Area] = P("anchor" ~/ nameParser ~~ atParser.? ~~ colon ~ endl ~~ (refillBlock ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
-      case (name, coords,  refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup(None, Map())), coords)
+    def area[_:P]: P[Area] = P("anchor" ~/ nameParser ~~ atParser.? ~~ colon ~ endl ~~ (refillBlock ~ endl.?).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
+      case (name, coords,  refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup()), coords)
     }//.log
     def region[_:P]: P[Region] = P("region" ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (prefix, reqs) => Region(prefix, AnyReq(reqs))})
     def regionOrArea[_:P]: P[Either[Region, Area]] = P(NoCut(region) | NoCut(area)).map{
