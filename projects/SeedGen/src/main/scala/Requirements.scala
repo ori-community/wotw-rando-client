@@ -133,10 +133,10 @@ package SeedGenerator {
         (state.inv.has(Shuriken) && EnergyReq(energyCost(Shuriken)).metBy(state, orbs)) ||
         (state.inv.has(Spear) && EnergyReq(energyCost(Spear)).metBy(state, orbs))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
-      Seq(
-        GameState.mk(Sword),
-        GameState.mk(Smash),
-      ) ++ Seq(Bow, Grenade, Shuriken, Spear).map(s => GameState(new Inv(s -> 1, Energy -> Math.ceil(Math.max(0, 2*energyCost(s) - state.inv(Energy))).toInt)))
+      (Seq(
+        if(state.inv.has(Sword)) GameState.Empty else GameState.mk(Sword),
+        if(state.inv.has(Smash)) GameState.Empty else GameState.mk(Smash),
+      ) ++ Seq(Bow, Grenade, Shuriken, Spear).map(s => GameState(new Inv(s -> (if(state.inv.has(s)) 1 else 0), Energy -> Math.ceil(Math.max(0, 2*energyCost(s) - state.inv(Energy))).toInt)))).filter(g => g.inv.count > 0 && g.inv.count <= space)
   }
 
   case class DamageReq(damage: Int) extends Requirement  {
