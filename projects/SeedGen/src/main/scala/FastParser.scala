@@ -38,19 +38,26 @@ package SeedGenerator {
     def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(SkillReq(74), EnergyReq(2f * i)))
     def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
     def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq)
+    def shardReq[_: P]: P[Requirement] = P("TripleJump").map(_ => TripleJump.req) // TODO: hahahaha we'll come back to this
+    def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~/ equalsNum).map(n => if(Config().glitchPaths) SentryJumpReq(n) else Invalid)
     def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(n => if(Config().flags.noKSDoors) Free else KeystoneReq(n))
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
     def unfree[_: P]: P[Requirement] = P("Unreachable").map(_ => Invalid)
     def tpReq[_: P]: P[Requirement] = P(nameMapParser(Teleporter.areaFileNames)).map(id => TeleReq(id))
-    def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
+    def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | sentryJumpReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
-    def diffReq[_ :P]: P[Requirement] = P("moki" | "unsafe").!.map({case "moki" => Free; case "unsafe" => if(Config().unsafePaths) Free else Invalid})
+    def diffReq[_ :P]: P[Requirement] = P("moki" | "unsafe" | "gorlek" | "glitch").!.map({
+      case "moki" => Free
+      case "gorlek" => if(Config().gorlekPaths) Free else Invalid
+      case "glitch" => if(Config().glitchPaths) Free else Invalid
+      case "unsafe" => if(Config().unsafePaths) Free else Invalid
+    })
     def stateReq[_:P]: P[Requirement] = P(nameParser).map({
       case s if knownMacros.contains(s) => knownMacros(s)
       case s => StateReq(s)
     })
-    def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | dangerReq | ksReq | cashReq | wallReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq)//.log
+    def singleReq[_:P]: P[Requirement] = P(diffReq | tpReq | skillReq | oreReq | energyReq | dangerReq | ksReq | cashReq | wallReq | free | eventReq | shardReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
       case (reqs, Some(orReq)) =>
