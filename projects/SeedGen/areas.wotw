@@ -263,7 +263,7 @@ anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing
       Bash, Dash                      # Bash off the enemy to get to the vine, then jump&dash right
     unsafe:
       Bash, Damage=10                 # Bash off the enemy to get to the vine, then jump right. Dboost the last gap.
-      Bash, Grenade=1                   # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
+      Bash, Grenade=1                 # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
   quest MarshSpawn.ALittleBraver:
     moki: MarshSpawn.FangQI
 
@@ -816,7 +816,7 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
       DoubleJump, Dash
       Launch
   pickup WestHollow.AboveDashEX:
-    moki:  # there's some funny Bashgrenade paths here, but better no fun in base
+    moki:  # there's some funny Bashgrenade paths here, but they're not moki-safe
       DoubleJump, Dash
       Launch
 
@@ -1019,7 +1019,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
     unsafe: Bash, Grenade=2
   pickup GladesTown.AboveTpEX:
     moki:
-      Launch  # probably base?
+      Launch  # probably fine?
       TuleyShop.Lightcatchers, Bash:
         Grenade=1
         DoubleJump, Flap, Glide
@@ -1030,7 +1030,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
       Bash, Grenade=2, Dash, DoubleJump
   pickup GladesTown.BountyShard:
     moki:
-      Launch  # probably base?
+      Launch  # probably fine?
       TuleyShop.Lightcatchers, Bash:
         Grenade=1
         DoubleJump, Flap, Glide
@@ -1041,7 +1041,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
       Bash, Grenade=3, Dash, DoubleJump
   pickup GladesTown.ArcingShard:
     moki, GladesTown.ClearThorns:
-      Bash, Grenade=1  # probably base?
+      Bash, Grenade=1  # probably fine?
       Launch
       TuleyShop.Lightcatchers, Bash, DoubleJump OR Dash OR Glide
   pickup GladesTown.LupoSoupEX:
@@ -1176,7 +1176,7 @@ anchor GladesTown.West at -430, -4135:  # At Motay
   conn WestGlades.Lower:
     moki, EnemyObstacle:
       Bash, DoubleJump OR Dash
-      DoubleJump, Dash, Glide  # this path is too nice to not be base... right?
+      DoubleJump, Dash, Glide  # this path is too nice to not be moki... right?
       Launch
   conn GladesTown.TwillenHome: free
   conn GladesTown.Teleporter:
@@ -1262,7 +1262,7 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
   refill Checkpoint
 
   # state GladesTown.RatherPlay:  # talking to the Moki that allows to build decoration
-  #   moki:  # free if you know the whole branch is semisolid, but you probably don't as a base player
+  #   moki:  # free if you know the whole branch is semisolid, but you probably don't as a moki player
   #     DoubleJump OR Dash OR Glide OR Launch
   #     TuleyShop.BlueMoon, Grapple
 
@@ -1279,7 +1279,7 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
     moki: DoubleJump  # other (non-redundant) paths exist, but this has free retries, otherwise you'd have to go through entire reach to get another attempt
 
   conn GladesTown.HoleHut:
-    moki:  # free if you know the whole branch is semisolid, but you probably don't as a base player
+    moki:  # free if you know the whole branch is semisolid, but you probably don't as a moki player
       DoubleJump OR Dash OR Glide OR Launch
       TuleyShop.BlueMoon, TuleyShop.SpringPlants, Grapple
       TuleyShop.BlueMoon, Grapple, Bash, Grenade=1
@@ -1452,7 +1452,7 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       Launch
     unsafe, BreakWall=20:
       # SentryJump
-      Bash, Grenade=1  # this would be in Base if the camera didn’t put ori right at the top of the screen, making it hard to aim/catch the grenade
+      Bash, Grenade=1  # this would be in moki if the camera didn’t put ori right at the top of the screen, making it hard to aim/catch the grenade
   pickup OuterWellspring.SwimEX:
     moki: Water
   pickup OuterWellspring.SwimOre:
@@ -2213,7 +2213,7 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
     moki: Weapon
 
   state LowerReach.BearBridgeBroken:
-    moki, LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that base
+    moki, LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that moki
   state LowerReach.LeftFurnace:
     moki:
       Grenade=1, Bash, DoubleJump OR Dash OR Glide  # Grenade to light the furnace
@@ -2322,7 +2322,7 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
 
   pickup UpperReach.LifeForceShard:
     moki:
-      Bash, Grenade=1, Burrow, DoubleJump, Dash  # Just one of djump / dash is maybe too precise for base
+      Bash, Grenade=1, Burrow, DoubleJump, Dash  # Just one of djump / dash is maybe too precise for moki
       Bash, Grenade=1, Burrow, Glide
       Burrow, Launch
   pickup UpperReach.LifeForceEX:
@@ -3343,7 +3343,7 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
       Water, WaterDash, DoubleJump, Dash, Grapple
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Launch
-    unsafe:  # these are maybe probably not base
+    unsafe:  # these are maybe probably not moki. Might be valid for gorlek
       Water, WaterDash, Grapple, DoubleJump OR Dash
       Water, WaterDash, Grapple, Bash, Grenade=1
   pickup EastPools.PurpleWallHC:
@@ -3501,7 +3501,7 @@ anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Po
     moki: Burrow
   pickup LowerWastes.SandPotHC:
     moki:
-      Burrow  # should be fine for base? It mostly works holding left with somewhat proper timing
+      Burrow  # should be fine for moki? It mostly works holding left with somewhat proper timing
       Launch
   pickup LowerWastes.SandPotEX:  # Duplicated pickup as paths differ.
     moki:
@@ -3567,7 +3567,7 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
   pickup LowerWastes.BottomRightHC:
     moki: free
   pickup LowerWastes.LastStandShard:
-    moki:  # for the puzzle, it is considered base solvable with one of doublejump, dash or burrow.
+    moki:  # for the puzzle, it is considered solvable in moki with one of doublejump, dash or burrow.
       Bash, Grenade=1, DoubleJump
       Launch, DoubleJump OR Dash OR Burrow
       LowerWastes.SandPlatformLever, DoubleJump, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
@@ -3589,7 +3589,7 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       DoubleJump, Grapple, Bash, Grenade=1
       Grapple, Launch
       LowerWastes.SandPlatformLever, DoubleJump, Grapple, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
-      LowerWastes.SandPlatformLever, Grapple, Dash, Glide, Burrow  # This path is fun. Glide is just to make it base safe
+      LowerWastes.SandPlatformLever, Grapple, Dash, Glide, Burrow  # This path is fun. Glide is just to make it moki-safe
   conn LowerWastes.MinesEntrance:
     moki: EnemyObstacle, DoubleJump OR Dash OR Glide OR Grapple OR Launch
   conn LowerWastes.EastTP:
@@ -3611,7 +3611,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
     moki, BreakWall=20:
       DoubleJump, Grapple
       Launch, DoubleJump OR Dash OR Grapple
-  # connection back to lever seems to obscure for base
+  # connection back to lever seems to obscure for moki
 
 anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
   refill Checkpoint
@@ -3699,7 +3699,7 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
   conn LowerWastes.UpperPath:
     moki: Burrow, DoubleJump OR Dash OR Launch
   conn UpperWastes.KeystoneRoom:
-    moki: Burrow, DoubleJump OR Dash OR Launch  # Dash is maybe probably base?
+    moki: Burrow, DoubleJump OR Dash OR Launch 
 
 region UpperWastes:
   moki: Danger=50, Regenerate
@@ -3952,8 +3952,8 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
       Glide
       Launch, Bash OR DoubleJump OR Dash
     unsafe:
-      Launch                    # this could not. it's tricky!
-      Bash, DoubleJump, Dash    # requires bash gliding (validation note: it does not oriThink... maybe base even?)
+      Launch                    # tricky!
+      Bash, DoubleJump, Dash    # also kinda tricky?
   pickup WeepingRidge.PortalEX:
     moki: Launch, Glide OR Bash OR DoubleJump OR Dash
     unsafe: Launch
@@ -3984,7 +3984,7 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
     moki:
       Weapon, Launch
       Bow=1
-  # a lot of energy crystals not considered, mostly because they are on the way to hearts which aren't currently used
+  # a lot of energy crystals not considered, mostly because they are on the way to hearts which aren't currently tracked
 
   # state WillowsEnd.TrapHeart:
   #   moki: BreakWall=30, RangedWeapon, Launch, DoubleJump, Dash
