@@ -39,18 +39,16 @@ package SeedGenerator {
     )
   }
 
-  case class EventReq(eventCode: Int) extends Requirement {
-    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has WorldEvent(eventCode)
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(WorldEvent(eventCode)))
-    override def toString = s"${WorldEvent.names.getOrElse(eventCode, s"Unknown World Event $eventCode")}"
+  class SingleItemReq(item: Item) extends Requirement  {
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has item
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(item))
+    override def toString: String = item.name
   }
 
-  case class SkillReq(skillCode: Int) extends Requirement {
-    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has Skill(skillCode)
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(Skill(skillCode)))
-    override def toString = s"${Skill.names.getOrElse(skillCode, s"Unknown Skill $skillCode")}"
-  }
 
+  case class EventReq(eventCode: Int) extends SingleItemReq(WorldEvent(eventCode))
+  case class SkillReq(skillCode: Int) extends SingleItemReq(Skill(skillCode))
+  case class TeleReq(teleCode: Int)   extends SingleItemReq(Teleporter(teleCode))
 
   case object Free extends Requirement {
     def metBy(state: GameState, orbs: Option[Orbs]): Boolean = orbs.forall(_.health > 0)
@@ -163,10 +161,6 @@ package SeedGenerator {
     }
   }
 
-  case class TeleReq(teleCode: Int) extends Requirement {
-    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has Teleporter(teleCode)
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(Teleporter(teleCode)))
-  }
 
   class AnyReq(override val reqs: Requirement*) extends Requirement  with MultiReq {
     override def builder(parts: Seq[Requirement]): Requirement = AnyReq(parts)
