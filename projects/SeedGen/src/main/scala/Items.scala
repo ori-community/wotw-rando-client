@@ -120,6 +120,7 @@ package SeedGenerator {
     val itemType: Int = 3
     def code = s"$itemType|$shardId"
     def name: String = s"${Shard.names.getOrElse(shardId, s"Unknown ($shardId)")}"
+    def req: Requirement = ShardReq(shardId)
   }
 
   object Shard {
@@ -410,6 +411,8 @@ package SeedGenerator {
   object Shuriken extends Skill(106)
   object Spear extends Skill(74)
   object Sentry extends Skill(116)
+
+  object TripleJump extends Shard(2)
 
   object BurrowsTP extends Teleporter(0)
   object DenTP extends Teleporter(1)
