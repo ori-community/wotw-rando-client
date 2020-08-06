@@ -768,6 +768,8 @@ package SeedGenerator {
                           tps: Boolean = true,
                           spoilers: Boolean = true,
                           unsafePaths: Boolean = false,
+                          gorlekPaths: Boolean = false, // todo: this better!!
+                          glitchPaths: Boolean = false, // todo: this better!!
                           questLocs: Boolean = true,
                           outputFolder: String = "C:\\moon",
                           flags: Flags = Flags(),

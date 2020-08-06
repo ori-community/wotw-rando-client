@@ -33,6 +33,8 @@ class UI extends MainFrame {
     val bonusItems: CheckBox = new CheckBox("Bonus Items"){selected = startSet.bonusItems}
     val teleporters: CheckBox = new CheckBox("Teleporters"){selected = startSet.tps}
     val uncheckedPaths: CheckBox = new CheckBox("Use unsafe paths"){selected = startSet.unsafePaths}
+    val gorlekPaths: CheckBox = new CheckBox("gorlek paths"){selected = startSet.gorlekPaths}
+    val glitchPaths: CheckBox = new CheckBox("glitches"){selected = startSet.glitchPaths}
     val randomSpawn: CheckBox = new CheckBox("Random spawn"){
       enabled = startSet.unsafePaths
       selected = startSet.flags.randomSpawn
@@ -51,7 +53,7 @@ class UI extends MainFrame {
     val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12); editable = false}
     val logHolder: ScrollPane = new ScrollPane(logView)
     val debugToggle: CheckBox = new CheckBox("Extra Debug Info (contains spoilers)"){selected = startSet.debugInfo}
-    listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems,
+    listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems, gorlekPaths, glitchPaths,
       teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, randomSpawn, debugToggle)
     reactions += {
       case ButtonClicked(`makeSeedButton`) => UI.seedClicked()
@@ -74,13 +76,16 @@ class UI extends MainFrame {
         optsLabel.font = new Font(Font.SansSerif, Font.Bold.id, 16)
         contents += optsLabel
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, spoilers, uncheckedPaths, quests, noKSDoors, seirLaunch, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, uncheckedPaths, gorlekPaths, glitchPaths, rain, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue,  zoneHints, teleporters, rain, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue, spoilers, quests, noKSDoors, seirLaunch, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
         contents += new BoxPanel(Orientation.Horizontal) {
-          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, swordSpawn, randomSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+          Seq(Swing.HGlue,  zoneHints, teleporters, swordSpawn, bonusItems, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
+        }
+        contents += new BoxPanel(Orientation.Horizontal) {
+          Seq(Swing.HGlue, forceWisps, forceTrees, forceQuests, randomSpawn, Swing.HGlue).foreach(e => {contents += Swing.HStrut(5); contents += e; contents += Swing.HStrut(5)})
         }
 
         contents += new BoxPanel(Orientation.Horizontal) {
@@ -125,16 +130,18 @@ class UI extends MainFrame {
   }
   object UI extends SettingsProvider with Logger {
     def apply(): GenSettings = GenSettings(
-      ui.teleporters.selected,
-      !ui.spoilers.selected,
-      ui.uncheckedPaths.selected,
-      ui.quests.selected,
-      ui.folderSelector.selectedFile.getAbsolutePath,
-      Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected,
-        !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected, ui.randomSpawn.selected && ui.uncheckedPaths.selected),
-      ui.bonusItems.selected,
-      ui.debugToggle.selected,
-      ui.seirLaunch.selected
+      tps          = ui.teleporters.selected,
+      spoilers     = !ui.spoilers.selected,
+      unsafePaths  = ui.uncheckedPaths.selected,
+      gorlekPaths  = ui.gorlekPaths.selected,
+      glitchPaths  = ui.glitchPaths.selected,
+      questLocs    = ui.quests.selected,
+      outputFolder = ui.folderSelector.selectedFile.getAbsolutePath,
+      flags        = Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected,
+                          !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected, ui.randomSpawn.selected && ui.uncheckedPaths.selected),
+      bonusItems   = ui.bonusItems.selected,
+      debugInfo    = ui.debugToggle.selected,
+      seirLaunch   = ui.seirLaunch.selected
     )
     val settingsPath: String = if(new File("SeedGenSettings.json").exists()) "SeedGenSettings.json" else "C:/moon/SeedGenSettings.json"
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
