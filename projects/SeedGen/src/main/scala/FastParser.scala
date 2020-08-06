@@ -33,9 +33,9 @@ package SeedGenerator {
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq(_))
-    def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(SkillReq(51), EnergyReq(i)))
-    def bowReq[_: P]: P[Requirement] = P("Bow" ~~/ equalsNum).map(i => AllReqs(SkillReq(97), EnergyReq(0.25f * i)))
-    def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(SkillReq(74), EnergyReq(2f * i)))
+    def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(Grenade.req, EnergyReq(i)))
+    def bowReq[_: P]: P[Requirement] = P("Bow" ~~/ equalsNum).map(i => AllReqs(Bow.req, EnergyReq(0.25f * i)))
+    def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(Spear.req, EnergyReq(2f * i)))
     def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
     def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq)
     def shardReq[_: P]: P[Requirement] = P("TripleJump").map(_ => TripleJump.req) // TODO: hahahaha we'll come back to this
