@@ -49,6 +49,7 @@ package SeedGenerator {
   case class EventReq(eventCode: Int) extends SingleItemReq(WorldEvent(eventCode))
   case class SkillReq(skillCode: Int) extends SingleItemReq(Skill(skillCode))
   case class TeleReq(teleCode: Int)   extends SingleItemReq(Teleporter(teleCode))
+  case class ShardReq(shardCode: Int) extends SingleItemReq(Shard(shardCode))
 
   case object Free extends Requirement {
     def metBy(state: GameState, orbs: Option[Orbs]): Boolean = orbs.forall(_.health > 0)
@@ -102,12 +103,30 @@ package SeedGenerator {
     def energy(state: GameState): Float = state.inv(Energy)/2f
     def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean =
       orbs.map(_.energy >= count*10).getOrElse(energy(state) >= count)
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = if(metBy(state)) Seq(GameState.Empty) else
       Seq(GameState(new Inv(Energy -> Math.ceil(Math.max(0, 2*count - state.inv(Energy))).toInt)))
     override def and(that: Requirement): Requirement = that match {
       case EnergyReq(c) => EnergyReq(c+count)
       case r => AllReqs(this, r)
     }
+  }
+
+  case class SentryJumpReq(count: Int) extends Requirement {
+    private val er = EnergyReq(count)
+    override def metBy(state: GameState, orbs: Option[Orbs]): Boolean =
+      state.inv.has(Sentry) &&
+      (state.inv.has(Sword) || state.inv.has(Smash)) &&
+      er.metBy(state, orbs)
+
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = er.orbsAfterMet(state, orbs)
+
+    override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
+      Seq( // yes yes this is awful i know i know
+        if(state.inv.has(Sword)) GameState.Empty else GameState.mk(Sword),
+        if(state.inv.has(Smash)) GameState.Empty else GameState.mk(Smash),
+      ).map(_ + er.remaining(state, unaffordable, space).head +
+        (if(state.inv.has(Sentry)) GameState.Empty else GameState.mk(Sentry))
+      ).filter(g => g.inv.count > 0 && g.inv.count <= space)
   }
 
   case class BreakWallReq(wallHealth: Int) extends Requirement {
