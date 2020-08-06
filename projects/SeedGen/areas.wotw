@@ -70,9 +70,10 @@ anchor MarshSpawn.Main at -799, -4310:                  # spawn location / inkwa
   pickup MarshSpawn.GrappleHC:
     moki:
       Grapple, DoubleJump OR Launch
-    unsafe:
+    gorlek:
+      Grapple, SentryJump=1            # Sjump to get to the lower hanging plant
       Grapple, Sword                   # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
-      Grapple, Dash OR Glide
+      Grapple, Dash OR Glide           # These also do the trick
   pickup MarshSpawn.BridgeEX:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
@@ -261,7 +262,7 @@ anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing
     moki:
       DoubleJump OR Launch
       Bash, Dash                      # Bash off the enemy to get to the vine, then jump&dash right
-    unsafe:
+    gorlek:
       Bash, Damage=10                 # Bash off the enemy to get to the vine, then jump right. Dboost the last gap.
       Bash, Grenade=1                 # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
   quest MarshSpawn.ALittleBraver:
@@ -271,7 +272,7 @@ anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing
     moki:
       DoubleJump, Dash                # Stick to the ceiling
       Launch
-    unsafe:
+    gorlek:
       Bash, Grenade=1, Dash           # Bash up off the enemy and Dash to the fang. Grenade+bash up from the fang
       Bash, Grenade=1, Sword          # As above, but sword upslash to cross the last gap
       Bash, Grenade=1, Damage=10      # As above, but take a dboost on the last gap
@@ -899,6 +900,8 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       Bash, DoubleJump, Dash
       Bash, Grenade=1
       Launch
+    gorlek:
+      SentryJump=3
   pickup EastHollow.BashTree:
     moki:
       EnemyObstacle, DoubleJump OR Dash
@@ -1456,10 +1459,12 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
   pickup OuterWellspring.SwimEX:
     moki: Water
   pickup OuterWellspring.SwimOre:
-    moki: Water, Grapple OR WaterDash OR Launch
-    unsafe: Water, Bash, Grenade=1  # you can stand on the spinny wheel and bash-grenade this
-      # Water, TripleJump
-      # Water, SentryJump
+    moki: 
+      Water, Grapple OR WaterDash OR Launch
+    gorlek:
+      Water, Bash, Grenade=1          # stand on the spinny wheel and bash-grenade up
+      Water, SentryJump=1             # ooooor use a SentryJump
+      Water, DoubleJump, TripleJump   # ooooor just some regular jumps!
 
   conn InnerWellspring.EntranceDoor:
     moki: OuterWellspring.EntranceDoorOpen
