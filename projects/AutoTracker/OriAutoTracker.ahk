@@ -375,6 +375,8 @@ update() {
     if !(FileExist("trackfile.json"))
         return
 
+    FileRead jsonString, trackfile.json
+
     ; Skip parsing if there are no changes
     if (currentinv == jsonString) {
     ; return
