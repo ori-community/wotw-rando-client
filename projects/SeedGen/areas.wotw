@@ -3440,14 +3440,14 @@ region LowerWastes:
   moki: Danger=50, Regenerate
   unsafe: free
 
-anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
+anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP 
   refill Full
 
-  pickup LowerWastes.WestTPOre:
+  pickup LowerWastes.WestTPOre: 
     moki: Burrow
-  pickup WoodsMain.FeedingGroundsEX:
+  pickup WoodsMain.FeedingGroundsEX: # I feel like there's some jank state check that we have to have here as well
     moki: Burrow, DoubleJump OR Dash OR Glide OR Launch
-
+		gorlek: Burrow
   conn Teleporters: free
   conn LowerWastes.SunsetView:
     moki:
@@ -3455,35 +3455,76 @@ anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
       Bash, Grenade=1, DoubleJump OR Dash
       DoubleJump, Burrow
       Launch
-  conn WoodsMain.FeedingGrounds:
-    moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
-    unsafe: Burrow
-  conn WeepingRidge.Bottom:
+		gorlek:
+			Bash, Grenade=1, Damage=30
+			Grapple, Dash, Glide # Could almost go in moki but lets not.
+			Burrow, Damage=30 # This is a pretty rough path. Might be too tricky. Sticky makes it a bit easier though?
+			DoubleJump # precise....? This is another rough path. Can turn it to triple jump to make it freeTM, or can add weapons
+			# DoubleJump: 
+			#		TripleJump
+			#		Sword
+			#		Hammer
+			# Maybe you can add shuriken here as well but it didn't seem to make it easier
+			Grapple, Dash # done by jumping off the chomping grappler
+			SentryJump=1, Damage=30
+		unsafe:
+			DoubleJump, Spear=1 OR Sentry=1 OR Flash=1
+  conn WoodsMain.FeedingGrounds: # Going to continue the assumption you have Seir AND have done FG
+    moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path # Can't think of a gorlek path.
+  conn WeepingRidge.Bottom: # Going to continue the assumption you have Seir AND have done FG
     moki, WindtornRuins.Seir:  # Seir to make it a safe path
       Burrow, DoubleJump, Glide, Grapple
       Burrow, Bash, Grenade=1, Glide, Grapple
       Burrow, DoubleJump, Bash, Grenade=1, Grapple
       Burrow, Launch
+		gorlek, WindtornRuins.Seir, Burrow:
+				SentryJump=1, Grapple # Does this require too "good" of a sj?
+				SentryJump=1, DoubleJump, TripleJump
+				DoubleJump, TripleJump, Bash, Grenade=1
+				Glide, DoubleJump, TripleJump
+				SentryJump=1, DoubleJump, Dash, Hammer # Pretty tight
+				Glide, DoubleJump, Dash, Hammer # Pretty tight
+				
 
-anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
+
+anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint # gorlek done
   refill Checkpoint
 
   pickup LowerWastes.SunsetViewEX: free
   pickup LowerWastes.PurpleWallEX:
     moki: Burrow, Bash
+		gorlek: Burrow # Damage=14 - Doable without damage, but you're likely to take at least one hit when trying, so depends how mean you want to be
   conn LowerWastes.WestTP:
     moki: DoubleJump OR Dash OR Glide OR Launch
+		gorlek: 
+			Damage=30
+			Hammer
+			Sword # Multiple side slashes, not difficult
+		unsafe:
+			Sentry=1
+			Flash=1
+			Blaze=1 # This is a little tight
+			Shuriken=1
+			Spear=1 # Not sure if this is Gorlek, have to aim right and then after throwing move left. Not obvious at all
   conn LowerWastes.Shovel:
     moki:  # I think this is fine without EnemyObstacle?
       Grapple, DoubleJump OR Dash OR Glide
       DoubleJump, Bash, Grenade=1 # Does require double jump to the grenade, and then double jump after bash to clear grapple section
       Launch  # Pretty free. Only difficulty is wall jumping pre-Launch to go over the grapples.
+		gorlek: # sentry jump surprisingly not useful here
+			Bash, DoubleJump # Lure the gorlek to throw a bomb at you, bash off it and dj to the top
+			Bash, Grenade=1 # Lure the gorlek to throw a bomb while charging a grenade, let go of grenade, then bash off both
+			Grapple # Hope that the camera likes you
 
-anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
+
+			
+anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge # gorlek done
   refill Energy=3:
     moki, Weapon:
       DoubleJump OR Launch
       Bash, Grenade=1
+		gorlek:
+			Weapon
 
   quest LowerWastes.EerieGem:
     moki: Burrow
@@ -3492,14 +3533,19 @@ anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sa
 
   conn LowerWastes.SunsetView:
     moki: EnemyObstacle
+		gorlek: free # ?
   conn LowerWastes.TreeArea:
     moki: Burrow
   conn LowerWastes.SandPot:
     moki, EnemyObstacle:
       Hammer OR DoubleJump OR Burrow OR Launch
       Bash, Grenade=1
+		gorlek: # Maybe enemyobstacle not required here?
+			EnemyObstacle, SentryJump=1
+			Hammer OR DoubleJump OR Burrow OR Launch # Different because no enemyobstacle
 
-anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Pot
+			
+anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Pot # gorlek done
   refill Checkpoint
 
   pickup LowerWastes.MuncherTunnelEC:
@@ -3508,16 +3554,26 @@ anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Po
     moki:
       Burrow  # should be fine for moki? It mostly works holding left with somewhat proper timing
       Launch
+		gorlek:
+			SentryJump=1
+			DoubleJump # Sorta tight, TJ or Sticky makes this easier
   pickup LowerWastes.SandPotEX:  # Duplicated pickup as paths differ.
     moki:
       Burrow, Dash, Grapple, DoubleJump OR Glide
       Burrow, Bash, Grenade=1
       Burrow, Launch
+		gorlek:
+			Burrow, SentryJump=1
+			Burrow, DoubleJump # I'm considering getting across the hot coals free.
 
   conn LowerWastes.Shovel:
     moki:
       DoubleJump OR Launch
       Bash, Grenade=1
+		gorlek:
+			Damage=30 # weapons wont help you here
+			Dash
+			SentryJump=1
   conn LowerWastes.WoodenBridge:
     moki:
       Dash, DoubleJump OR Grapple
@@ -3526,8 +3582,18 @@ anchor LowerWastes.SandPot at 1726, -3990:  # At autosave to the left of Sand Po
       Bash, Grenade=1, Grapple, DoubleJump OR Glide
       Bash, Grenade=1, DoubleJump, Glide
       Launch
+		gorlek: # Considering getting across the hot coals free
+			DoubleJump, Glide
+			DoubleJump, Grapple
+			DoubleJump, Damage=30
+			DoubleJump, TripleJump
+			SentryJump=1, Damage=30 # Jump from right spike pit to safety
+			SentryJump=1, DoubleJump 
+			Bash, Grenade=1 # Damageless with a bashglide.
 
-anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
+
+
+anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX # gorlek done
   refill Checkpoint
 
   pickup LowerWastes.SandPotEX:
@@ -3536,25 +3602,63 @@ anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
       Burrow, Grapple, Bash, Grenade=1
       Burrow, Bash, Grenade=1, DoubleJump, Dash OR Glide
       Burrow, Launch
+		gorlek:
+			Burrow, DoubleJump:
+				Damage=30
+				Glide
+				TripleJump
+			Burrow, Grapple, Dash
+			SentryJump=2, Damage=30 # Maybe too dumb. Gotta do a sentry jump in the spikes, and even then it can be close
   pickup LowerWastes.MuncherPitEX:
     moki:
       DoubleJump  # Slightly precise to land on the sand sphere. Can always add glide
       Burrow, Glide  # Might be a little _too_ precise. I guess this is among the intended strats tho?
       Launch  # Still slightly precise.
-
+		gorlek:
+			Burrow
+			Hammer
+			Sword
+		unsafe:
+			Sentry=1
+			Spear=1
+			# Pretty sure that other spells _should_ work here, but they're unsafe paths so cbf checking now lol
+	pickup LowerWastes.BottomRightHC: # Duplicated pickup as it's free to get to from here.
+		gorlek: BackWallBreak=20 # maybe add EnemyObstacle for the gorlek?
+	
   conn LowerWastes.SandPot:
     moki:
       Dash, DoubleJump OR Grapple
       Bash, Grenade=1, Grapple
       Bash, Grenade=1, DoubleJump, Glide
       Launch
+		gorlek:
+			Grapple
+			DoubleJump, Damage=30
+			DoubleJump, TripleJump
+			DoubleJump, Glide
+			SentryJump=1, Damage=30 # Maybe too dumb. Gotta do a sentry jump in the spikes, and even then it can be close
+			
   conn LowerWastes.LeverArea:
     moki:
       DoubleJump
       Burrow
       Launch
+		gorlek:
+			Bash # Sorta janky but seems to work most of the time. Doesn't _look_ like it should work though
+			Dash
+			SentryJump=1
+			# BackWallBreak=20, Bash, Grenade=1 # Throw this in if you think Bash is too janky.
+		unsafe:
+			Shuriken=1 # Just as janky as Bash
+			Sentry=1
+		
+	conn LowerWastes.MinesEntrance: # guess this wasn't that bad after all
+		gorlek, BackWallBreak=20: 
+			EnemyObstacle, DoubleJump OR Dash OR Glide OR Grapple OR Launch OR Damage=30
 
-anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the lever
+
+
+anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the lever 
   refill Checkpoint
   refill Energy=3:
     moki: Weapon
@@ -3568,6 +3672,9 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       Bash, Grenade=2
       Bash, Grenade=1, Dash
       Launch
+		gorlek:
+			SentryJump=1 # Sorta tight, =2 is super free though
+			Bash, Grenade=1
 
   pickup LowerWastes.BottomRightHC:
     moki: free
@@ -3576,47 +3683,96 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       Bash, Grenade=1, DoubleJump
       Launch, DoubleJump OR Dash OR Burrow
       LowerWastes.SandPlatformLever, DoubleJump, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
-  pickup LowerWastes.LastStandEX:
+		gorlek:
+			Dash, DoubleJump, TripleJump
+			LowerWastes.SandPlatformLever, DoubleJump
+			SentryJump=1, DoubleJump # Can add the platform if we need it
+			LowerWastes.SandPlatformLever, Glide, Burrow
+	pickup LowerWastes.LastStandEX:
     moki:
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, DoubleJump, LowerWastes.SandPlatformLever  # Requires a vertical burrow through a vertical sand platform
       Burrow, Launch
+		gorlek:
+			Burrow, Dash, DoubleJump, TripleJump
+			Burrow, LowerWastes.SandPlatformLever, DoubleJump
+			Burrow, SentryJump=1, DoubleJump # Can add the platform if we need it
+			LowerWastes.SandPlatformLever, Glide, Burrow, Damage=30 # Doable without damage but rough
+		unsafe:
+			LowerWastes.SandPlatformLever, Glide, Burrow
   pickup LowerWastes.MuncherClimbEX:
     moki:
       DoubleJump, Grapple, Bash, Grenade=1
       LowerWastes.SandPlatformLever, DoubleJump, Grapple, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
       Grapple, Launch
-
+		gorlek:
+			LowerWastes.SandPlatformLever, DoubleJump, Grapple
+			
   conn LowerWastes.WoodenBridge:
     moki: free
-  conn LowerWastes.TreeArea:
+  conn LowerWastes.TreeArea: 
     moki:
       DoubleJump, Grapple, Bash, Grenade=1
       Grapple, Launch
       LowerWastes.SandPlatformLever, DoubleJump, Grapple, Dash OR Glide OR Burrow  # If the double jump is too tight this makes it free
       LowerWastes.SandPlatformLever, Grapple, Dash, Glide, Burrow  # This path is fun. Glide is just to make it moki-safe
-  conn LowerWastes.MinesEntrance:
+		gorlek:
+			LowerWastes.SandPlatformLever, DoubleJump, Grapple
+			LowerWastes.SandPlatformLever, Grapple, Dash, Burrow
+	conn LowerWastes.MinesEntrance:
     moki: EnemyObstacle, DoubleJump OR Dash OR Glide OR Grapple OR Launch
+		gorlek:
+			EnemyObstacle, Damage=30
   conn LowerWastes.EastTP:
     moki: Burrow
 
-anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower breakable wall
+
+	
+anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower breakable wall 
   pickup LowerWastes.BottomRightEX:
     moki, EnemyObstacle:
       Grapple
       Bash, Grenade=1, DoubleJump OR Dash  # Very much not a mandatory grenade... This is only important if the Ruins Wall is broken, and then only if you don't use the enemies
       Launch
+		gorlek: # feels like there should be more paths here but I'm not thinking of any.
+			DoubleJump, TripleJump, Hammer OR Sword
+			SentryJump=1, DoubleJump OR Dash OR Glide
+		unsafe:
+			Bash # Requires you not to kill anything and hopefully not have ultra bash or whatever equipped
+			DoubleJump, TripleJump:
+				Sentry=1
+				Flash=1
+				
   pickup LowerWastes.BottomRightHC:
     moki, EnemyObstacle:
       Grapple  # Use both Grapple points
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
-
-  conn LowerWastes.WoodenBridge:
+		gorlek:
+			Damage=30 # lol. This really limits other paths
+			DoubleJump, TripleJump
+			DoubleJump, Dash
+			DoubleJump, Glide
+			
+  conn LowerWastes.WoodenBridge: # Should this have EnemyObstacle in here as well?
     moki, BreakWall=20:
       DoubleJump, Grapple
       Launch, DoubleJump OR Dash OR Grapple
-  # connection back to lever seems to obscure for moki
+		gorlek, BreakWall=20: # technically breakwall not required if you go via lever area but ¯\_(ツ)_/¯
+			SentryJump=1, DoubleJump, TripleJump
+			Launch
+			Bash, DoubleJump, TripleJump # Utilise the enemies to bashglide across. I don't think its softlockable because there's no autosave here.
+			Grapple, Dash, EnemyObstacle # Pretty straightforward. Rest of these paths you're able to avoid enemies so enemyobstacle isnt included.
+	
+	conn LowerWastes.LeverArea: # connection back to lever seems to obscure for moki
+		gorlek:
+			# free once you get across. All of these skill sets are more than enough if you've already broken the wall btw. Grapple Dash is the only slightly dodgy one
+			SentryJump=1, DoubleJump, TripleJump
+			Launch
+			Bash, DoubleJump, TripleJump # Utilise the enemies to bashglide across. I don't think its softlockable because there's no autosave here.
+			Grapple, Dash, EnemyObstacle # Pretty straightforward. Rest of these paths you're able to avoid enemies so enemyobstacle isnt included.
+			
+
 
 anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
   refill Checkpoint
@@ -3635,20 +3791,36 @@ anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
       Burrow
       Bash, Grenade=2  # literally never going to get used but you can do it
       Launch
-
+		gorlek, GladesTown.HandToHandCanteen:
+			SentryJump=2
+			SentryJump=1, Grapple
+			Bash, Grenade=1, Grapple
+			
   pickup LowerWastes.SkeetoHiveEX:
     moki: Burrow, DoubleJump OR Dash OR Glide OR Launch
+		gorlek: Burrow
   pickup LowerWastes.LupoMap:
     moki:
       Burrow
       Bash, Grenade=4  # literally never going to get used but you can do it
       Launch
+		gorlek:
+			Bash, Grenade=3, Grapple
+			SentryJump=4
+			SentryJump=3, Grapple
+			DoubleJump, TripleJump, Hammer
+		unsafe:
+			DoubleJump, TripleJump, Sword # It's doable and its B A D. I guess you can put it in if you really want.
   pickup LowerWastes.BurrowTree:
     moki:
       DoubleJump
       Burrow
       Bash, Grenade=2  # literally never going to get used but you can do it
       Launch
+		gorlek:
+			SentryJump=2
+			SentryJump=1, Grapple
+			Bash, Grenade=1, Grapple
   pickup LowerWastes.BurrowTreeEX:
     moki: Burrow
 
@@ -3658,13 +3830,20 @@ anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
     moki:
       Burrow, DoubleJump OR Launch
       Burrow, Bash, Grenade=1  # literally never going to get used but you can do it
-      Burrow, Bash # unverified. Have to use a skeeto.
+    gorlek:
+			Burrow, Bash # unverified. Have to use a skeeto. # MOVED FROM MOKI TO GORLEK 
+			Burrow, SentryJump=1
   conn LowerWastes.LeverArea:
     moki:
       Grapple, Launch
       Grapple, DoubleJump, Dash  # still sort of tight
+		gorlek:
+			Grapple, DoubleJump 
+			Grapple, Dash
+			
 
-anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path connecting tree and east teleporter
+
+anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path connecting tree and east teleporter 
   refill Checkpoint
   refill Energy=3:
     moki: Weapon
@@ -3673,12 +3852,16 @@ anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path con
     moki:
       Burrow, DoubleJump OR Dash OR Launch
       Burrow, Bash, Grenade=1
+		gorlek: Burrow, SentryJump=1
   pickup LowerWastes.UpperPathEX:
     moki:
       Burrow, DoubleJump OR Dash OR Launch
       Burrow, Bash, Grenade=1, Glide  # this is absolutely a necessary path
+		gorlek: Burrow, SentryJump=1
   pickup LowerWastes.UpperPathHiddenEX:
     moki: Burrow, DoubleJump OR Dash OR Launch
+		gorlek: 
+			Burrow, SentryJump=1, precise # only gorlek path I could think of.
 
   conn LowerWastes.TreeArea:
     moki: Burrow
@@ -3686,8 +3869,11 @@ anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path con
     moki:
       Burrow, DoubleJump OR Dash OR Launch
       Burrow, Bash, Grenade=1
+		gorlek: Burrow, SentryJump=1
 
-anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
+
+
+anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter 
   refill Full
 
   pickup LowerWastes.EastTPOre:
@@ -3695,6 +3881,9 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
       Burrow OR Launch
       DoubleJump, Bash, Grenade=1
       Bash, Grenade=3  # it had to be done
+		gorlek, BreakWall=20:
+			DoubleJump
+			SentryJump=2 # Can be 1, 2 or 3. I did an upslash to get out of the tp, then a single sj to reach the pickup. 2 might be needed?
   pickup LowerWastes.UpperPathHC:
     moki: Burrow
 
@@ -3703,8 +3892,13 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
     moki: Burrow
   conn LowerWastes.UpperPath:
     moki: Burrow, DoubleJump OR Dash OR Launch
+		gorlek: Burrow # Sorta tight.
   conn UpperWastes.KeystoneRoom:
     moki: Burrow, DoubleJump OR Dash OR Launch 
+		gorlek: Burrow # Again pretty tight. More lenient with Damage=30
+
+
+
 
 region UpperWastes:
   moki: Danger=50, Regenerate
