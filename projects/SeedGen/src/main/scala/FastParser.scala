@@ -33,24 +33,31 @@ package SeedGenerator {
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq(_))
-    def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(SkillReq(51), EnergyReq(i)))
-    def bowReq[_: P]: P[Requirement] = P("Bow" ~~/ equalsNum).map(i => AllReqs(SkillReq(97), EnergyReq(0.25f * i)))
-    def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(SkillReq(74), EnergyReq(2f * i)))
+    def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(Grenade.req, EnergyReq(i)))
+    def bowReq[_: P]: P[Requirement] = P("Bow" ~~/ equalsNum).map(i => AllReqs(Bow.req, EnergyReq(0.25f * i)))
+    def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(Spear.req, EnergyReq(2f * i)))
     def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
     def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq)
+    def shardReq[_: P]: P[Requirement] = P("TripleJump").map(_ => TripleJump.req) // TODO: hahahaha we'll come back to this
+    def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~/ equalsNum).map(n => if(Config().glitchPaths) SentryJumpReq(n) else Invalid)
     def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(n => if(Config().flags.noKSDoors) Free else KeystoneReq(n))
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
     def unfree[_: P]: P[Requirement] = P("Unreachable").map(_ => Invalid)
     def tpReq[_: P]: P[Requirement] = P(nameMapParser(Teleporter.areaFileNames)).map(id => TeleReq(id))
-    def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
+    def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | sentryJumpReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
-    def diffReq[_ :P]: P[Requirement] = P("moki" | "unsafe").!.map({case "moki" => Free; case "unsafe" => if(Config().unsafePaths) Free else Invalid})
+    def diffReq[_ :P]: P[Requirement] = P("moki" | "unsafe" | "gorlek" | "glitch").!.map({
+      case "moki" => Free
+      case "gorlek" => if(Config().gorlekPaths) Free else Invalid
+      case "glitch" => if(Config().glitchPaths) Free else Invalid
+      case "unsafe" => if(Config().unsafePaths) Free else Invalid
+    })
     def stateReq[_:P]: P[Requirement] = P(nameParser).map({
       case s if knownMacros.contains(s) => knownMacros(s)
       case s => StateReq(s)
     })
-    def singleReq[_:P]: P[Requirement] = P(oreReq | energyReq | dangerReq | ksReq | cashReq | wallReq | free | tpReq | skillReq | eventReq | diffReq | unfree | stateReq)//.log
+    def singleReq[_:P]: P[Requirement] = P(diffReq | tpReq | skillReq | oreReq | energyReq | dangerReq | ksReq | cashReq | wallReq | free | eventReq | shardReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
       case (reqs, Some(orReq)) =>
@@ -69,13 +76,20 @@ package SeedGenerator {
       def req[_:P]: P[Seq[Requirement]] = P( NoCut(block) | line.map(Seq(_)) )
       def reqBlock[_:P]: P[Seq[Requirement]] = P(free.map(Seq(_)) | (NoCut(reqLine.map(Seq(_))) | NoCut(blockBody)).rep.map(_.flatten))//.log
     }
-    def checkpoint[_:P]: P[Setter] = P("Checkpoint").map(_ => Checkpoint)//.log
-    def spiritWell[_:P]: P[Setter] = P("Full").map(_ => Well)//.log
-    def crystal[_:P]: P[Adder] = P("Energy" ~~/ equalsNum).map(EnergyCrystals)//.log
-    def plant[_:P]: P[Adder] = P("Health" ~~/ equalsNum).map(HealthPlants)//.log
-    def refiller[_:P]: P[Setter] = P("  refill" ~ (checkpoint | spiritWell))
-    def refillReq[_:P]: P[(Requirement, Adder)] = P("  refill" ~ (crystal | plant) ~~ colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))).map(_.swap)//.log
-    def refillBlock[_:P]: P[RefillGroup] = P(((refiller ~ endl).? ~~ refillReq.repX(sep=endl, min=1)) | refiller.map(a => (Some(a), Seq()))).map({case (setter, adders) => RefillGroup(setter, adders.toMap)})
+    trait RefillBuilder {def build(r: Requirement): Refiller}
+    case object CPBuilder extends RefillBuilder   { def build(r: Requirement): Refiller = Checkpoint(r) }
+    case object WellBuilder extends RefillBuilder { def build(r: Requirement): Refiller = Well(r) }
+    case class ECBuilder(count: Int) extends RefillBuilder { def build(r: Requirement): Refiller = EnergyCrystals(count, r) }
+    case class HPBuilder(count: Int) extends RefillBuilder { def build(r: Requirement): Refiller = HealthPlants(count, r) }
+    def checkpoint[_:P]: P[RefillBuilder] = P("Checkpoint").map(_ => CPBuilder)//.log
+    def spiritWell[_:P]: P[RefillBuilder] = P("Full").map(_ => WellBuilder)//.log
+    def crystal[_:P]: P[RefillBuilder] = P("Energy" ~~/ equalsNum).map(ECBuilder)//.log
+    def plant[_:P]: P[RefillBuilder] = P("Health" ~~/ equalsNum).map(HPBuilder)//.log
+    def refillReq[_:P]: P[Refiller] = P("  refill" ~ (crystal | plant | checkpoint | spiritWell) ~~
+      ((colon ~ new ReqParser(1).reqBlock.map(AnyReq(_))) | &("\n").map(_ => Free))).map({case (builder, req) => builder.build(req)})
+//      .log
+    def refillBlock[_:P]: P[RefillGroup] = P(refillReq.repX(sep=endl, min=1).map(RefillGroup))
+//      .log
     case class Region(prefix: String, req: Requirement)
     def atParser[_:P]: P[Coords] = P(" at " ~~ num ~~ "," ~~ " ".? ~~ num).map(xy => Coords(xy._1, xy._2))//.log
     def endl[_:P]: P[Unit] = P("\n")
@@ -84,8 +98,8 @@ package SeedGenerator {
     def quest[_:P]: P[Connection] = P("  quest" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(QuestNode(name), req)})//.log
     def conn[_:P]: P[Connection] = P("  conn" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, AreaNode), req)})//.log
     def pickup[_:P]: P[Connection] = P("  pickup" ~/ nameParser ~~ colon ~ new ReqParser(1).reqBlock).map({case (name, req) => Connection(Placeholder(name, ItemNode), req)})//.log
-    def area[_:P]: P[Area] = P("anchor" ~/ nameParser ~~ atParser.? ~~ colon ~ endl ~~ (refillBlock ~ endl).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
-      case (name, coords,  refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup(None, Map())), coords)
+    def area[_:P]: P[Area] = P("anchor" ~/ nameParser ~~ atParser.? ~~ colon ~ endl ~~ (refillBlock ~ endl.?).? ~~ (state | quest | pickup | conn).repX(sep=endl)).map{
+      case (name, coords,  refills, conns) => Area(name, conns, refills.getOrElse(RefillGroup()), coords)
     }//.log
     def region[_:P]: P[Region] = P("region" ~/ nameParser ~~ colon ~ new ReqParser(0).reqBlock).map({case (prefix, reqs) => Region(prefix, AnyReq(reqs))})
     def regionOrArea[_:P]: P[Either[Region, Area]] = P(NoCut(region) | NoCut(area)).map{

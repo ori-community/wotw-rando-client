@@ -68,13 +68,16 @@ package SeedGenerator {
   }
   trait Refiller {
     def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs
+    def req: Requirement
+    def orbsAfter(state: GameState, prior: Orbs): Orbs =
+      if(req.metBy(state, Some(prior)))
+        apply(state.inv, prior).best(prior)
+      else prior
   }
-  trait Adder extends Refiller
-  trait Setter extends Refiller
-  case object Well extends Setter {
+  case class Well(req: Requirement) extends Refiller {
     override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = inv.orbs // full refill
   }
-  case object Checkpoint extends Setter  {
+  case class Checkpoint(req: Requirement) extends Refiller  {
     override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = Orbs(
       health = inv.orbs.health match { // Checkpoints are terrible; Math.floor((x/5)/0.6685+1)
         case i if i < 45 => i
@@ -84,7 +87,7 @@ package SeedGenerator {
       },
       energy = Math.max(10*(inv.orbs.energy / 50 + 1), prior.energy / 2))
   }
-  case class HealthPlants(count: Int = 1) extends Refiller with Adder {
+  case class HealthPlants(count: Int = 1, req: Requirement) extends Refiller  {
     override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = Orbs(
       health = Math.min(inv.orbs.health, prior.health + count * inv.orbs.health match { // Health plants drop more orbs if you have more health
         case i if i < 45 => 10
@@ -98,18 +101,12 @@ package SeedGenerator {
       }),
       energy = prior.energy)
   }
-  case class EnergyCrystals(count: Int = 1) extends Refiller with Adder {
+  case class EnergyCrystals(count: Int = 1, req: Requirement) extends Refiller {
     override def apply(inv: Inv, prior: Orbs = Orbs(0, 0)): Orbs = Orbs(prior.health, Math.min(inv.orbs.energy, prior.energy + count*10))
   }
 
-  case class RefillGroup(setter: Option[Setter] = None, adders: Map[Requirement, Adder] = Map.empty) {
-    def apply(state: GameState, prior: Orbs = Orbs(0, 0)): Orbs = {
-      val set = setter.map(_.apply(state.inv, prior)).getOrElse(prior)
-      if(set == state.inv.orbs)
-        set
-      else
-        adders.collect{case (req, adder) if req.metBy(state) => adder(state.inv, req.orbsAfterMet(state, prior))}.fold(set)(_ + _).min(state.inv.orbs)
-    }
+  case class RefillGroup(refillers: Seq[Refiller] = Nil) {
+    def apply(state: GameState, prior: Orbs = Orbs(0, 0)): Orbs = refillers.foldLeft(prior){case (acc, ref) => ref.orbsAfter(state, acc)}
   }
 
   sealed trait NodeType
@@ -771,6 +768,8 @@ package SeedGenerator {
                           tps: Boolean = true,
                           spoilers: Boolean = true,
                           unsafePaths: Boolean = false,
+                          gorlekPaths: Boolean = false, // todo: this better!!
+                          glitchPaths: Boolean = false, // todo: this better!!
                           questLocs: Boolean = true,
                           outputFolder: String = "C:\\moon",
                           flags: Flags = Flags(),

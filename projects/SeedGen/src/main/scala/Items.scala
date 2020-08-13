@@ -41,12 +41,6 @@ package SeedGenerator {
   case object Keystone extends Resource(3, "Keystone") with Important
   case object ShardSlot extends Resource(4, "Shard Slot")
 
-  case class WorldEvent(eventId: Int) extends Item with Merch with Important  {
-    val itemType: Int = 9
-    def code = s"$itemType|$eventId"
-    def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event $eventId")}"
-    override val cost = 7
-  }
 
   case class Bonus(bonusId: Int, val name: String) extends Item with Merch  {
     val itemType: Int = 10
@@ -64,7 +58,13 @@ package SeedGenerator {
       else
         Nil
   }
-
+  case class WorldEvent(eventId: Int) extends Item with Merch with Important  {
+    val itemType: Int = 9
+    def code = s"$itemType|$eventId"
+    def name: String = s"${WorldEvent.names.getOrElse(eventId, s"Unknown World Event $eventId")}"
+    def req: Requirement = EventReq(eventId)
+    override val cost = 7
+  }
   object WorldEvent {
     val names: Map[Int, String] = Map(
       0 -> "Water"
@@ -78,6 +78,7 @@ package SeedGenerator {
     val itemType: Int = 2
     def code = s"$itemType|$skillId"
     def name: String = s"${Skill.names.getOrElse(skillId, s"Unknown ($skillId)")}"
+    def req: Requirement = SkillReq(skillId)
     override val cost: Double = Skill.costs.getOrElse(skillId, 5d)
   }
   object Skill {
@@ -119,6 +120,7 @@ package SeedGenerator {
     val itemType: Int = 3
     def code = s"$itemType|$shardId"
     def name: String = s"${Shard.names.getOrElse(shardId, s"Unknown ($shardId)")}"
+    def req: Requirement = ShardReq(shardId)
   }
 
   object Shard {
@@ -161,6 +163,7 @@ package SeedGenerator {
     val itemType: Int = 5
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
+    def req: Requirement = TeleReq(teleporterId)
     override val cost: Double = Math.max(6d + (if(Config().flags.randomSpawn) 94d else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
   }
 
@@ -244,7 +247,7 @@ package SeedGenerator {
   }
 
   case class Orbs(health: Int, energy: Int) {
-    def max(other: Orbs): Orbs = Orbs(Math.max(this.health, other.health), Math.max(this.energy, other.energy))
+    def best(other: Orbs): Orbs = if(other.value > value) other else this
     def min(other: Orbs): Orbs = Orbs(Math.min(this.health, other.health), Math.min(this.energy, other.energy))
     def +(other: Orbs): Orbs = Orbs(health+other.health, energy + other.energy)
     def -(other: Orbs): Orbs = Orbs(health - other.health, energy - other.energy)
@@ -407,6 +410,9 @@ package SeedGenerator {
   object Bash extends Skill(0)
   object Shuriken extends Skill(106)
   object Spear extends Skill(74)
+  object Sentry extends Skill(116)
+
+  object TripleJump extends Shard(2)
 
   object BurrowsTP extends Teleporter(0)
   object DenTP extends Teleporter(1)
