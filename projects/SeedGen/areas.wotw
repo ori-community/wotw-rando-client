@@ -62,7 +62,7 @@ anchor Teleporters:  # teleporter access
   conn WillowsEnd.InnerTP:
     moki: WillowTP
 
-anchor MarshSpawn.Main at -799, -4310:                  # spawn location / inkwater well
+anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
   refill Full
 
   pickup MarshSpawn.RockHC: free
@@ -78,17 +78,15 @@ anchor MarshSpawn.Main at -799, -4310:                  # spawn location / inkwa
     moki:
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=1                  # Grenade bash straight up from below
-    gorlek: 
-      Sword OR Hammer # Long jump, upslash and neutral slashes are enough with both weapons	
+    gorlek: Sword OR Hammer  # Long jump, upslash and neutral slashes are enough with both weapons
   pickup MarshSpawn.LongSwimEX:
     moki: Water
-    gorlek: Water
   pickup MarshSpawn.BurrowOre:
     moki:
       Water, Burrow, Bash, DoubleJump OR Glide OR Launch  # Bash for the exploding enemy
       Water, Burrow, Bash, Grenade=1, Dash
-    gorlek: 
-      Water, Burrow, Sword # An air combo is enough to get you to the ground OR Damage=10 
+    gorlek:
+      Water, Burrow, Sword  # An air combo is enough to get you to the ground OR Damage=10
       Water Dash, Burrow, Sword
   pickup MarshSpawn.LifepactShard:
     # Damage required:
@@ -101,16 +99,14 @@ anchor MarshSpawn.Main at -799, -4310:                  # spawn location / inkwa
     moki, Combat, Danger=40:  # no region danger
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-    gorlek: 
-      Skipped for now, Eiko said <3
+    # gorlek tbd
   pickup PoolsApproach.BurrowsPathEX:
     moki:
       DoubleJump, Bash, Glide
       Bash, Launch
-    gorlek: 
-      DoubleJump, Bash, Sword # While waiting for 3rd shot do two neutral slashes to stay in the air longer
+    gorlek:
+      DoubleJump, Bash, Sword  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
       Launch, Damage=10, Sword
-	    
 
   conn Teleporters: free
   conn MarshSpawn.BrokenBridge: free
@@ -118,17 +114,16 @@ anchor MarshSpawn.Main at -799, -4310:                  # spawn location / inkwa
     moki:
       Water, Burrow, DoubleJump OR Glide OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-    gorlek: 
+    gorlek:
       Water, Burrow, Dash
       WaterDash, Burrow, Dash
   conn MarshPastOpher.MillView:
     moki: BreakWall=16
-    gorlek: BreakWall=16
   conn PoolsApproach.LeftOfWheel:
     moki:
       Water, DoubleJump, Bash, Glide
       Water, Bash, Launch
-    gorlek: 
+    gorlek:
       Water, Bash, DoubleJump, Damage=10
       Water, Launch, DoubleJump
 
@@ -137,14 +132,13 @@ anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaki
 
   pickup MarshSpawn.ResilienceShard:
     moki: BreakWall=16
-    gorlek: BreakWall=16
   pickup MarshSpawn.ResilienceOre:
     moki: BreakWall=16, Water
-    gorlek: BreakWall=16, Water
   pickup MarshSpawn.BashEC:
     moki: Bash OR Launch
-    gorlek: SentryJump=1
-            DoubleJump, TripleJump, Sword # Use pogo of the slime to jump to the ledge
+    gorlek:
+      SentryJump=1
+      DoubleJump, TripleJump, Sword  # Use pogo of the slime to jump to the ledge
   pickup MarshSpawn.PreLupoEX: free
   pickup MarshSpawn.LupoMap: free
 
@@ -155,7 +149,6 @@ anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen
 
   state MarshSpawn.KeystoneDoor:
     moki: Keystone=2
-    gorlek: Keystone=2
 
   pickup MarshSpawn.LeverEC:  # the enemy here doesn't spawn sometimes
     moki:
@@ -163,26 +156,22 @@ anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen
       Launch, Bash
       Grapple, Launch
       Bash, Grenade=1, DoubleJump
-    gorlek: Sentryjump=1
-	    DoubleJump # Jump off the door to the wall above and then to lever
-	    
+    gorlek:
+      SentryJump=1
+      DoubleJump  # Jump off the door to the wall above and then to lever
     unsafe:
       Launch                          # Single jump and a launch can reach the ledge offscreen.
       Bash                            # Lure the Jumper, then bash off him
 
   conn MarshSpawn.DenApproach:
     moki: MarshSpawn.KeystoneDoor
-    gorlek: MarshSpawn.KeystoneDoor
   conn MarshSpawn.BrokenBridge:
     moki:
       DoubleJump OR Launch
       Bash, Grenade=1
-    gorlek: 
-      SentryJump=1
-      Sword OR Hammmer
+    gorlek: Sword OR Hammer
   conn MarshSpawn.Cave:
     moki: BreakWall=16
-    gorlek: BreakWall=16
 
 anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
   refill Checkpoint
@@ -194,20 +183,14 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Bash, DoubleJump OR Dash OR Glide OR Grapple
       Launch
       Weapon  # go through the fight room
-    gorlek: 
-      Sword # Use pogo of the slime to get to the ledge
-      Weapon # Fighting room
 
   quest MarshSpawn.TheMissingKey:
     moki: MarshSpawn.CaveKS
-    gorlek: MarshSpawn.CaveKS
 
   pickup MarshSpawn.LeftTokkEX:
     moki: BreakWall=10
-    gorlek: BreakWall=10
   pickup MarshSpawn.FightRoomEX:
     moki: BreakWall=10
-    gorlek: BreakWall=10
 
   conn MarshSpawn.CaveEntrance:
     unsafe: Hammer  # break the wall from behind
@@ -218,8 +201,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Launch
       Weapon, DoubleJump OR Dash OR Launch  # go through the fight room
       Weapon, Bash, Grenade=1  # go through the fight room
-    gorlek: 
-      Sword OR Hammer # Pogo off the slime to get up, then upslash to get to the ore
+    gorlek:
       Weapon # Fighting room, Sword OR Hammer
 
 anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools, burrows and marsh
@@ -229,28 +211,22 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
 
   quest MarshSpawn.CaveKS: free
   quest MarshSpawn.IntoTheBurrows:
-    moki:
-      MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
-    gorlek: 
-      MidnightBurrows.TabletQI, Bash, Glide
+    moki: MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
+    gorlek: MidnightBurrows.TabletQI, Bash, Glide
 
   pickup MarshSpawn.CaveOre:
     moki:
       DoubleJump OR Launch
       Bash, Grenade=1
-    gorlek: 
-      Sword OR Hammer
-    unsafe:
-      Sentry # Not in gorlek cause it requires Sentry to get higher
+    gorlek: Sword OR Hammer
+    unsafe: Sentry # Not in gorlek cause it requires Sentry to get higher
   pickup MarshSpawn.BurrowOre:
     moki, EnemyObstacle:
       Burrow, DoubleJump, Dash OR Glide
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, Launch
-    gorlek:
-      Burrow, SentryJump=2
-    unsafe:
-      Burrow, DoubleJump OR Dash
+    gorlek: Burrow, SentryJump=2
+    unsafe: Burrow, DoubleJump OR Dash
   pickup MarshSpawn.LifepactShard:
     # Damage required:
     # Spider: 31 Health
@@ -260,13 +236,15 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     # 3 Skeetos: 20 Health
     # Sneeze Slug: 31 Health
     moki: Combat, Danger=40, DoubleJump, Burrow  # no region danger
-    gorlek: Skipped for now, Eiko said <3
+    # gorlek tbd
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     moki: Bash, DoubleJump OR Launch
-    gorlek: Bash, Dash OR Glide
-	    Launch, Damage=10
-    unsafe: Bash, Sentry=4 # Use Sentry instead of DoubleJump #I didnt use it in gorlek cause it requires using Sentry instead of DoubleJump and we said it does not belong to gorlek
-            Bash, Sword, Damage=10 # Just use Sword slashes, you need combination of both - upslashes and sideway slashes (too hard for gorlek)
+    gorlek:
+      Bash, Dash OR Glide
+      Launch, Damage=10
+    unsafe:
+      Bash, Sentry=4 # Use Sentry instead of DoubleJump #I didnt use it in gorlek cause it requires using Sentry instead of DoubleJump and we said it does not belong to gorlek
+      Bash, Sword, Damage=10 # Just use Sword slashes, you need combination of both - upslashes and sideway slashes (too hard for gorlek)
   pickup MarshSpawn.CrusherSwimEX:
     moki: Water, WaterDash, Bash, DoubleJump OR Dash OR Launch
     gorlek: Water, WaterDash, Bash, Glide
@@ -274,8 +252,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     moki:
       Bash, DoubleJump, Glide
       Bash, Launch
-    gorlek: 
-      gorlek: Bash, SentryJump=1
+    gorlek: Bash, SentryJump=1
 
   conn MidnightBurrows.Teleporter:
     moki: Bash, DoubleJump OR Dash OR Launch
@@ -286,13 +263,12 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Water, Burrow, DoubleJump, Dash OR Glide
       Water, Burrow, Launch
     gorlek:
-      Water, Burrow, Double Jump
+      Water, Burrow, DoubleJump
       WaterDash, Burrow, DoubleJump
 
 anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
   state MarshSpawn.KeystoneDoor:
     moki: Keystone=2
-    gorlek: Keystone=2
   state MarshSpawn.HowlBurnt:
     moki:
       DoubleJump OR Launch
@@ -306,27 +282,24 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
-    gorlek, BreakWall=10: 
-      SentryJump=1
+    gorlek: BreakWall=10, SentryJump=1
 
   conn HowlsDen.Entrance:
     moki, MarshSpawn.HowlBurnt:
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
-    gorlek, MarshSpawn.HowlBurnt: 
-      SentryJump=1
-    unsafe, MarshSpawn.HowlBurnt:
-      Sword OR Hammer         # Use air combos to make it to wall above thorns
+    gorlek: MarshSpawn.HowlBurnt, SentryJump=1
+    unsafe: MarshSpawn.HowlBurnt, Sword OR Hammer  # Use air combos to make it to wall above thorns
   conn MarshSpawn.CaveEntrance:
     moki, MarshSpawn.KeystoneDoor:
       DoubleJump, Dash, Bash, Glide  # not sorry
       Bash, Grenade=1
       Launch
       MarshSpawn.RainLifted, DoubleJump  # the platform only spawns once you lift the rain
-    gorlek, MarshSpawn.KeystoneDoor: 
+    gorlek, MarshSpawn.KeystoneDoor:
       SentryJump=1
-      MarshSpawn.RainLifted, Sword # Use upslash to get to the platform next to the tree
+      MarshSpawn.RainLifted, Sword  # Use upslash to get to the platform next to the tree
 
 anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing off Howl
   quest MarshSpawn.FangQI:
