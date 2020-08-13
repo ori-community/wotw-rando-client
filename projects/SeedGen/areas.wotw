@@ -68,26 +68,27 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
   pickup MarshSpawn.GrappleHC:
-    moki:
-      Grapple, DoubleJump OR Launch
+    moki: Grapple, DoubleJump OR Launch
     gorlek:
-      Grapple, SentryJump=1            # Sjump to get to the lower hanging plant
-      Grapple, Sword                   # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
-      Grapple, Dash OR Glide           # These also do the trick
+      Grapple, Dash OR Bash OR Glide OR Sword OR Hammer  # An air combo is enough to get you from the ceiling plant into range of the lower hanging plant
+      Bash, Launch, Damage=10
+      Bash, Launch, DoubleJump, TripleJump OR Glide OR Sword OR Hammer
+      Bash, Launch, Dash
+      SentryJump=1, Launch, DoubleJump OR Dash  # just using the swordfloats was a bit precise
   pickup MarshSpawn.BridgeEX:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
-      Bash, Grenade=1                  # Grenade bash straight up from below
-    gorlek: Sword OR Hammer  # Long jump, upslash and neutral slashes are enough with both weapons
+      Bash, Grenade=1  # Grenade bash straight up from below
+    gorlek:
+      Bash  # jump the jumper
+      Sword OR Hammer  # Long jump, upslash and neutral slashes are enough with both weapons
   pickup MarshSpawn.LongSwimEX:
     moki: Water
   pickup MarshSpawn.BurrowOre:
     moki:
       Water, Burrow, Bash, DoubleJump OR Glide OR Launch  # Bash for the exploding enemy
       Water, Burrow, Bash, Grenade=1, Dash
-    gorlek:
-      Water, Burrow, Sword  # An air combo is enough to get you to the ground OR Damage=10
-      Water Dash, Burrow, Sword
+    gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   pickup MarshSpawn.LifepactShard:
     # Damage required:
     # Spider: 31 Health
@@ -105,8 +106,10 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       DoubleJump, Bash, Glide
       Bash, Launch
     gorlek:
-      DoubleJump, Bash, Sword  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
-      Launch, Damage=10, Sword
+      DoubleJump, Bash, TripleJump OR Dash OR Sword OR Hammer OR Damage=10
+      Bash, Dash, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
+      Bash, Glide, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
+      Launch, Damage=10, DoubleJump OR Dash OR Glide OR Sword
 
   conn Teleporters: free
   conn MarshSpawn.BrokenBridge: free
@@ -114,9 +117,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
     moki:
       Water, Burrow, DoubleJump OR Glide OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-    gorlek:
-      Water, Burrow, Dash
-      WaterDash, Burrow, Dash
+    gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   conn MarshPastOpher.MillView:
     moki: BreakWall=16
   conn PoolsApproach.LeftOfWheel:
@@ -124,8 +125,10 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Water, DoubleJump, Bash, Glide
       Water, Bash, Launch
     gorlek:
-      Water, Bash, DoubleJump, Damage=10
-      Water, Launch, DoubleJump
+      Water, DoubleJump, Bash, TripleJump OR Dash OR Sword OR Hammer OR Damage=10
+      Water, Bash, Dash, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
+      Water, Bash, Glide, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
+      Water, Launch, Damage=10, DoubleJump OR Dash OR Glide OR Sword
 
 anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaking bridge
   refill Checkpoint
@@ -157,11 +160,15 @@ anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen
       Grapple, Launch
       Bash, Grenade=1, DoubleJump
     gorlek:
-      SentryJump=1
-      DoubleJump  # Jump off the door to the wall above and then to lever
+      Grapple, Bash, Dash OR Glide  # both weapon float variants are rather awkward
+      Bash, DoubleJump  # Lure the squonkey; if the door is there, you can alternatively jump from there
+      SentryJump=1, DoubleJump, TripleJump  # not redundant due to the keydoor requirement later
+      SentryJump=1, Bash
+      MarshSpawn.KeystoneDoor, DoubleJump, TripleJump, Sword OR Hammer  # added opening the keydoor so that detailed knowledge of the ability locks near doors is not required
+      Launch  # different ways to solve
     unsafe:
-      Launch                          # Single jump and a launch can reach the ledge offscreen.
-      Bash                            # Lure the Jumper, then bash off him
+      SentryJump=1  # max height
+      Bash  # Lure the Jumper, then bash off him
 
   conn MarshSpawn.DenApproach:
     moki: MarshSpawn.KeystoneDoor
@@ -169,7 +176,11 @@ anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen
     moki:
       DoubleJump OR Launch
       Bash, Grenade=1
-    gorlek: Sword OR Hammer
+    gorlek:
+      Dash OR Sword
+      Glide, Hammer
+      SentryJump=1
+      MarshSpawn.RainLifted, Bash  # enemy that only spawns at daytime
   conn MarshSpawn.Cave:
     moki: BreakWall=16
 
@@ -183,6 +194,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Bash, DoubleJump OR Dash OR Glide OR Grapple
       Launch
       Weapon  # go through the fight room
+    gorlek: DoubleJump OR Bash OR Grapple  # basically the moki paths without assisting abilities
 
   quest MarshSpawn.TheMissingKey:
     moki: MarshSpawn.CaveKS
@@ -197,12 +209,16 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
   conn MarshSpawn.PoolsBurrowsPath:
     moki:
       DoubleJump, Dash OR Grapple
-      Bash, DoubleJump OR Dash OR Glide OR Grapple
+      Bash, DoubleJump OR Dash
+      Bash, Grenade=1, Glide OR Grapple
       Launch
       Weapon, DoubleJump OR Dash OR Launch  # go through the fight room
       Weapon, Bash, Grenade=1  # go through the fight room
     gorlek:
-      Weapon # Fighting room, Sword OR Hammer
+      DoubleJump  # basically the moki path without assisting abilities
+      Bash, Grenade=1  # basically the moki path without assisting abilities
+      Weapon, SentryJump=1  # go through the fight room, makes other sentryjump paths unnecessary
+      # weapon floats maybe too precise for gorlek
 
 anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools, burrows and marsh
   refill Checkpoint
@@ -212,7 +228,11 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
   quest MarshSpawn.CaveKS: free
   quest MarshSpawn.IntoTheBurrows:
     moki: MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
-    gorlek: MidnightBurrows.TabletQI, Bash, Glide
+    gorlek, MidnightBurrows.TabletQI:
+      Bash, Glide OR Sword
+      Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
+      Launch, Glide
+      Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
 
   pickup MarshSpawn.CaveOre:
     moki:
@@ -225,8 +245,12 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Burrow, DoubleJump, Dash OR Glide
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, Launch
-    gorlek: Burrow, SentryJump=2
-    unsafe: Burrow, DoubleJump OR Dash
+    gorlek, EnemyObstacle OR Danger=10:  # for the spider specifically
+      Burrow, DoubleJump OR Dash
+      Burrow, Sword, Damage=10
+      Burrow, Hammer, Glide, Damage=10
+      # could do a sentryjump into bashgrenade, but I heard that kind of thing is unwelcome ;P
+    unsafe: Burrow, SentryJump=1  # max height
   pickup MarshSpawn.LifepactShard:
     # Damage required:
     # Spider: 31 Health
@@ -241,40 +265,64 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     moki: Bash, DoubleJump OR Launch
     gorlek:
       Bash, Dash OR Glide
-      Launch, Damage=10
+      # weapon floats with bash moved out of gorlek
+      Launch, Glide
+      Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
     unsafe:
-      Bash, Sentry=4 # Use Sentry instead of DoubleJump #I didnt use it in gorlek cause it requires using Sentry instead of DoubleJump and we said it does not belong to gorlek
-      Bash, Sword, Damage=10 # Just use Sword slashes, you need combination of both - upslashes and sideway slashes (too hard for gorlek)
+      Bash, Sentry=3  # Use Sentry instead of DoubleJump
+      Bash, Sword
+      Bash, Hammer, Damage=10
   pickup MarshSpawn.CrusherSwimEX:
     moki: Water, WaterDash, Bash, DoubleJump OR Dash OR Launch
-    gorlek: Water, WaterDash, Bash, Glide
+    gorlek:
+      Water, WaterDash, Bash, Glide OR Sword
+      Water, WaterDash, Hammer, Damage=10  # dboost at the start
+      Water, WaterDash, Launch, Glide
+      Water, WaterDash, Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
   pickup MarshSpawn.DamageTree:
     moki:
       Bash, DoubleJump, Glide
       Bash, Launch
-    gorlek: Bash, SentryJump=1
+    gorlek:
+      Bash, DoubleJump OR Dash OR Glide OR Sword
+      Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
 
-  conn MidnightBurrows.Teleporter:
+  conn MidnightBurrows.Teleporter:  # one of the bells is hard to reach in this sequence
     moki: Bash, DoubleJump OR Dash OR Launch
-    gorlek: Bash, SentryJump=1
+    gorlek:
+      Bash, Glide
+      Bash, Grenade=1, Sword
+      Bash, Grenade=2, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
+      Bash, SentryJump=1, Sword
   conn MarshSpawn.Cave: free
   conn MarshSpawn.Main:
     moki, EnemyObstacle:
       Water, Burrow, DoubleJump, Dash OR Glide
       Water, Burrow, Launch
     gorlek:
-      Water, Burrow, DoubleJump
-      WaterDash, Burrow, DoubleJump
+    gorlek, EnemyObstacle OR Danger=10:  # for the spider specifically
+      Water, Burrow, DoubleJump OR Dash
+      Water, Burrow, Sword, Damage=10
+      Water, Burrow, Hammer, Glide, Damage=10
 
 anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
   state MarshSpawn.KeystoneDoor:
-    moki: Keystone=2
+    moki, Keystone=2:
+      DoubleJump, Dash, Bash, Glide  # not sorry
+      Bash, Grenade=1
+      Launch
+      MarshSpawn.RainLifted, DoubleJump  # the platform only spawns once you lift the rain
+    gorlek, Keystone=2:
+      DoubleJump  # wrap around
+      SentryJump=1  # can do one of a good sjump, a good positioning, pressing left quickly after the sentryjump or spending an extra energy
+      MarshSpawn.RainLifted, Sword OR Hammer  # Use an upswing to get to the door
   state MarshSpawn.HowlBurnt:
     moki:
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
-    gorlek: SentryJump=1
+      WaterDash  # water always clean
+    gorlek: Dash OR Sword OR Hammer
 
   pickup MarshSpawn.RegenTree: free
   pickup MarshSpawn.RecklessShard:
@@ -282,15 +330,15 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
-    gorlek: BreakWall=10, SentryJump=1
+    gorlek: BreakWall=10, Dash OR Sword OR Hammer
 
   conn HowlsDen.Entrance:
     moki, MarshSpawn.HowlBurnt:
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
-    gorlek: MarshSpawn.HowlBurnt, SentryJump=1
-    unsafe: MarshSpawn.HowlBurnt, Sword OR Hammer  # Use air combos to make it to wall above thorns
+      WaterDash  # water always clean
+    gorlek: MarshSpawn.HowlBurnt, Dash OR Sword OR Hammer
   conn MarshSpawn.CaveEntrance:
     moki, MarshSpawn.KeystoneDoor:
       DoubleJump, Dash, Bash, Glide  # not sorry
@@ -298,8 +346,9 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       Launch
       MarshSpawn.RainLifted, DoubleJump  # the platform only spawns once you lift the rain
     gorlek, MarshSpawn.KeystoneDoor:
-      SentryJump=1
-      MarshSpawn.RainLifted, Sword  # Use upslash to get to the platform next to the tree
+      DoubleJump  # wrap around
+      SentryJump=1  # can do one of a good sjump, a good positioning, pressing left quickly after the sentryjump or spending an extra energy
+      MarshSpawn.RainLifted, Sword OR Hammer  # Use an upswing to get to the door
 
 anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing off Howl
   quest MarshSpawn.FangQI:
