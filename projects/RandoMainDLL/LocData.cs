@@ -23,6 +23,8 @@ namespace RandoMainDLL {
     public ZoneType Zone;
     public LocType Type;
     public UberStateCondition Cond;
+
+    public string FullName { get => $"{Area}.{Name}"; }
     public LocData(ZoneType zone, LocType type) { Zone = zone; Type = type; }
 
     public static Dictionary<string, ZoneType> NameToZone = new Dictionary<string, ZoneType>() {
