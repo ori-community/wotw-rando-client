@@ -42,14 +42,25 @@ package SeedGenerator {
   case object ShardSlot extends Resource(4, "Shard Slot")
 
 
-  case class Bonus(bonusId: Int, val name: String) extends Item with Merch  {
+  case class Bonus(bonusId: Int, name: String) extends Item with Merch  {
     val itemType: Int = 10
     def code = s"$itemType|$bonusId"
   }
-  object HealthRegen extends Bonus(30, "Health Regeneration")
-  object EnergyRegen extends Bonus(31, "Energy Regeneration")
+  object HealthRegen extends Bonus(30, "Health Regen")
+  object EnergyRegen extends Bonus(31, "Energy Regen")
   object ExtraJump extends Bonus(35, "Extra Double Jump")
   object ExtraDash extends Bonus(36, "Extra Air Dash")
+
+  case class WeaponUpgrade(upgradeId: Int, name: String) extends Item with Merch {
+    val itemType: Int = 11
+    def code = s"$itemType|$upgradeId"
+  }
+  object RapidSmash extends WeaponUpgrade(0, "Rapid Smash")
+  object RapidSword extends WeaponUpgrade(1, "Rapid Sword")
+  object BlazeEfficiency extends WeaponUpgrade(2, "Blaze Efficiency")
+  object SpikeEfficiency extends WeaponUpgrade(3, "Spike Efficiency")
+  object StarEfficiency extends WeaponUpgrade(4, "Star Efficiency")
+  object SentryEfficiency extends WeaponUpgrade(5, "Sentry Efficiency")
 
   object Bonus {
     def poolItems: Seq[Bonus] =
@@ -211,7 +222,7 @@ package SeedGenerator {
 
 
   case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
-    def progInv: Inv = inv.progInv
+    def progInv: Inv = inv.progInv()
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def -(other: GameState): GameState = GameState(inv - other.inv, flags -- other.flags, reached -- other.reached)
     def noFlags: GameState = GameState(inv, Set(), reached)
@@ -361,7 +372,7 @@ package SeedGenerator {
         return None
       val i = merch(r.nextInt(merch.size))
       if(reroll && i == Keystone)
-        return popMerch(false)
+        return popMerch(reroll = false)
 
       merchToPop -= 1
       take(i)
