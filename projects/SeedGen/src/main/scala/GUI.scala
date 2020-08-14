@@ -36,7 +36,7 @@ class UI extends MainFrame {
     val gorlekPaths: CheckBox = new CheckBox("gorlek paths"){selected = startSet.gorlekPaths}
     val glitchPaths: CheckBox = new CheckBox("glitches"){selected = startSet.glitchPaths}
     val randomSpawn: CheckBox = new CheckBox("Random spawn"){
-      enabled = startSet.unsafePaths
+//      enabled = startSet.unsafePaths
       selected = startSet.flags.randomSpawn
     }
     val swordSpawn: CheckBox = new CheckBox("Spawn with Sword"){selected = !startSet.flags.noSword}
@@ -64,8 +64,8 @@ class UI extends MainFrame {
         }
         UI.writeSettings()
       case ButtonClicked(`uncheckedPaths`) =>
-        randomSpawn.enabled = uncheckedPaths.selected
-        randomSpawn.selected = randomSpawn.selected && uncheckedPaths.selected
+        //randomSpawn.enabled = uncheckedPaths.selected
+        //randomSpawn.selected = randomSpawn.selected && uncheckedPaths.selected
         UI.writeSettings()
       case ButtonClicked(_) => UI.writeSettings()
     }
@@ -138,12 +138,13 @@ class UI extends MainFrame {
       questLocs    = ui.quests.selected,
       outputFolder = ui.folderSelector.selectedFile.getAbsolutePath,
       flags        = Flags(ui.forceWisps.selected, ui.forceTrees.selected, ui.forceQuests.selected, !ui.zoneHints.selected,
-                          !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected, ui.randomSpawn.selected && ui.uncheckedPaths.selected),
+                          !ui.swordSpawn.selected, ui.rain.selected, ui.noKSDoors.selected, ui.randomSpawn.selected/* && ui.uncheckedPaths.selected*/),
       bonusItems   = ui.bonusItems.selected,
       debugInfo    = ui.debugToggle.selected,
       seirLaunch   = ui.seirLaunch.selected
     )
-    val settingsPath: String = if(new File("SeedGenSettings.json").exists()) "SeedGenSettings.json" else "C:/moon/SeedGenSettings.json"
+    val settingsPath: String =
+      if(new File("SeedGenSettings.json").exists() || !new File("C:/moon/SeedGenSettings.json").exists()) "SeedGenSettings.json" else "C:/moon/SeedGenSettings.json"
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def writeSettings(): Unit = {
       val bw = new FileWriter(settingsPath)
