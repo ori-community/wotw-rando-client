@@ -9,6 +9,7 @@ import scala.concurrent.Future
 import scala.io.Source
 import scala.swing._
 import scala.swing.event._
+import scala.sys.process._
 import scala.util.Try
 
 class UI extends MainFrame {
@@ -50,14 +51,16 @@ class UI extends MainFrame {
     val makeSeedButton = new Button("Generate")
     val folderButton   = new Button("Change")
     val runLastSeed: Button = new Button("Launch Seed"){enabled  = false}
+    val openSeedFolder: Button = new Button("Open Seed Folder")
     val logView: TextArea = new TextArea { rows = 8; lineWrap = true; wordWrap = true; font = new Font(Font.Monospaced, Font.Plain.id, 12); editable = false}
     val logHolder: ScrollPane = new ScrollPane(logView)
     val debugToggle: CheckBox = new CheckBox("Extra Debug Info (contains spoilers)"){selected = startSet.debugInfo}
-    listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems, gorlekPaths, glitchPaths,
+    listenTo(makeSeedButton, folderButton, runLastSeed, zoneHints, spoilers, quests, bonusItems, gorlekPaths, glitchPaths, openSeedFolder,
       teleporters, uncheckedPaths, swordSpawn, rain, noKSDoors, forceTrees, forceWisps, forceQuests, randomSpawn, debugToggle)
     reactions += {
       case ButtonClicked(`makeSeedButton`) => UI.seedClicked()
       case ButtonClicked(`runLastSeed`) => UI.runSeed()
+      case ButtonClicked(`openSeedFolder`) => UI.seedFolder()
       case ButtonClicked(`folderButton`) =>
         if(folderSelector.showDialog(this, "Select output directory") == FileChooser.Result.Approve) {
           folderLabel.text = s"Output folder:   ${UI.outputFolder.getPath}"
@@ -124,7 +127,10 @@ class UI extends MainFrame {
       }, BorderPanel.Position.Center)
       add(new BorderPanel {
         add(Button("Close") { UI.writeSettings(); sys.exit(0) }, BorderPanel.Position.West)
-        add(runLastSeed, BorderPanel.Position.East)
+        add( new BoxPanel(Orientation.Horizontal) {
+          contents += openSeedFolder
+          contents += runLastSeed
+        }, BorderPanel.Position.East)
       }, BorderPanel.Position.South)
     }
   }
@@ -172,15 +178,18 @@ class UI extends MainFrame {
     }
     def runSeed(): Unit = {
       writeSettings()
-      import scala.sys.process._
       lastSeed match {
         case Some(file) => Seq("cmd", "/C", file.getAbsolutePath).lazyLines
         case None =>
           warn("Last seed file not found!")
           ui.runLastSeed.enabled = false
       }
-
     }
+    def seedFolder(): Unit = lastSeed match {
+      case Some(file) => Seq("explorer.exe",  s"/select,${file.getAbsolutePath}").!
+      case None =>  Seq("explorer.exe", outputFolder.getAbsolutePath).!
+    }
+
     def seedClicked(): Unit = {
       currentOp = Some(Future {
         info("Building...")
