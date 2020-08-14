@@ -13,9 +13,6 @@ gosub SetCommonVariables
 ; change this TO THE NAME OF THE NEW SETTING when a new setting is added
 NewSetting := ""
 FirstLaunch := False
-; this is how you write multiline strings in AHK. it's terrible. 
-; this specifically is just the 2-line batchfile for  
-; associating .wotwr files with WotwRando.exe
 
 updateFailedMsg=
 (
@@ -25,6 +22,7 @@ run %A_ScriptFullPath% to complete the update.
 If the problem persists, please restart your computer.
 )
 
+JavaInstalled := False
 
 ; restart script in admin mode if it's not already in admin mode
 if not A_IsAdmin
@@ -113,6 +111,34 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     Run, *RunAs "%INSTALL_DIR%associateFileTypes.bat",
     SplashTextOff
     FileDelete, %INSTALL_DIR%.VERSION
+
+    ; Check Java Installation and prompt if not found.
+    Loop,HKLM, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\, 1, 1
+    {
+        RegRead, outvar
+        vLenoutvar := StrLen(outvar)
+        if (vlenoutvar = 0)
+            Continue
+        If (A_LoopRegName = "DisplayName")
+        {	
+            If InStr(outvar, "Java")
+            {
+               JavaInstalled := True
+            }
+        }
+    }
+
+    If JavaInstalled 
+    {
+        SetTimer, ChangeButtonNames_JavaInstaller, 50 
+        MsgBox, 4, Java not installed, Java was not found on your system, which is required to run the seedgen and generate your own seeds.`nGet it from: java.com/en/download/
+        IfMsgBox, YES 
+        {
+            Run, https:\\www.java.com/en/download/
+            MsgBox,, Java not installed, Press OK to continue after installing Java
+        }
+    }
+
     GoSub, PromptAfterInstall
 }
 gosub, ReadIniVals
@@ -180,6 +206,15 @@ ControlSetText, Button2, &Settings
 ControlSetText, Button3, &Exit 
 return
 
+ChangeButtonNames_JavaInstaller: 
+IfWinNotExist, Java not installed
+    return  ; Keep waiting.
+SetTimer, ChangeButtonNames_JavaInstaller, Off 
+WinActivate 
+ControlSetText, Button1, &Open URL 
+ControlSetText, Button2, &Continue 
+return
+
 CheckSteamPath:
 if(not FileExist(SteamPath)) {
         Msgbox 4, Ori WOTW Randomizer Installer, Error! Steam not found. `nLocate manually?
@@ -239,6 +274,9 @@ IfMsgBox, Cancel
 return
 
 SetCommonVariables:
+; this is how you write multiline strings in AHK. it's terrible. 
+; this specifically is just the 2-line batchfile for  
+; associating .wotwr files with WotwRando.exe
 batch=
 (
 assoc .wotwr=WotwRando
