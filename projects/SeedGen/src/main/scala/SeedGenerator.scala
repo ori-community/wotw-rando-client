@@ -186,7 +186,9 @@ package SeedGenerator {
   }
 
   object ItemLoc {
+    val known: MMap[String, ItemLoc] = MMap.empty
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
+      .map(i => {known(name) = i; i})
       .orElse({
           Config.debug(s"pickup $name not found in loc_data.csv")
         None
@@ -281,8 +283,11 @@ package SeedGenerator {
         if(areaName == "MarshSpawn.Main")
           return ""
         val Coords(x, y) = area.coords.get
-        s"Spawn: $x, $y        // $areaName\n\n" +
-        s"3|0|6|Spawning with:|f=420  // show spawn text for longer\n3|0|${teleporter.code}|mute // ${teleporter.name} granted implicitly by spawn \n"
+        val spawnLine = s"Spawn: $x, $y"
+        val tpLine = s"3|0|${teleporter.code}|mute"
+        s"$spawnLine${" " * (30 - spawnLine.length)}// $areaName\n\n" +
+        s"3|0|6|Spawning with:|f=420    // show spawn text for longer\n" +
+        s"$tpLine${" " * (30 - tpLine.length)}// ${teleporter.name} granted implicitly\n\n"
       }
 
     }
@@ -427,8 +432,11 @@ package SeedGenerator {
   }
   case class ItemPlacement(item: Item, loc: ItemLoc) extends Placement
 
-  case class ShopPlacement(item: Merch, loc: ItemLoc)(implicit r: Random) extends Placement {
-    override val data = s"${loc.data.code}|${item.code}|${r.between(-30, 20)/100f}"
+  case class ShopPlacement(item: Merch, loc: ItemLoc, costMod: Float) extends Placement {
+    override val data = s"${loc.data.code}|${item.code}|$costMod"
+  }
+  object ShopPlacement {
+    def randMod(item: Merch, loc: ItemLoc)(implicit r: Random): ShopPlacement = ShopPlacement(item, loc, r.between(-30, 20)/100f)
   }
 
   case class GeneratorError(message: String) extends Error {
@@ -479,7 +487,6 @@ package SeedGenerator {
           e
       })
     def mk(inState: GameState, i:Int = 0, parent: Option[PlacementGroup] = None)(implicit r: Random, pool: Inv): PlacementGroup = {
-//      val backupPool = Inv.mk(pool.asSeq:_*)
       val (state, preplaced) = Nodes.reached(inState)
       val placements = MList[Placement]() ++ preplaced
       def process(ps: Iterable[Placement], prefix: String = ""): Unit =
@@ -499,7 +506,9 @@ package SeedGenerator {
         val (shops, nonShops) = itemLocs.partition(_.data.category == "Shop")
           if(nonShops.size > pool.count - pool.merchToPop)
             throw GeneratorError(s"Won't have enough space? ${pool.merchToPop} ${pool.count} $itemLocs ${pool.asSeq}")
-          shops.map(shop => ShopPlacement(pool.popMerch().getOrElse(throw GeneratorError(s"Shop randASS failure: ${pool.merchToPop} ${pool.count} $itemLocs ${pool.asSeq}")), shop)) ++
+          shops.map(shop => ShopPlacement.randMod(
+            item = pool.popMerch().getOrElse(throw GeneratorError(s"Shop randASS failure: ${pool.merchToPop} ${pool.count} $itemLocs ${pool.asSeq}")),
+            loc = shop)) ++
               nonShops.map(nonShop => ItemPlacement(pool.popRand.get, nonShop))
       }
       if(reachableLocs.size == ItemPool.SIZE) {
@@ -513,15 +522,11 @@ package SeedGenerator {
       }
       val locsOpen = freeLocs.size - ksNeeded
       if(ksNeeded > 0) {
-        if(locsOpen < 0) {
+        if(locsOpen < 0)
           throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
-//          parent match {
-//            case Some(p) => p.t
-//            case None => throw GeneratorError(s"Need to place $ksNeeded keystones, but only ${freeLocs.size} locs available...")
-//          }
-        }
+
         val (shops, nonShops) = freeLocs.take(ksNeeded).partition(_.data.category == "Shop")
-        val ksPlc = shops.map(shop => {pool.merchToPop-=1; ShopPlacement(Keystone, shop)}) ++ nonShops.map(nonShop => ItemPlacement(Keystone, nonShop))
+        val ksPlc = shops.map(shop => {pool.merchToPop-=1; ShopPlacement.randMod(Keystone, shop)}) ++ nonShops.map(nonShop => ItemPlacement(Keystone, nonShop))
         pool.take(Keystone, ksPlc.size)
         process(ksPlc, "KS: ")
         if(locsOpen == 0)  {
@@ -626,7 +631,7 @@ package SeedGenerator {
         case (item: Merch, shop) if shop.data.category == "Shop" =>
           pool.take(item)
           pool.merchToPop-=1
-          ShopPlacement(item, shop)
+          ShopPlacement.randMod(item, shop)
         case (item, nonShop) =>
           pool.take(item)
           ItemPlacement(item, nonShop)
@@ -637,15 +642,22 @@ package SeedGenerator {
 
   case class Seed(grps: Seq[PlacementGroup], error: Option[GeneratorError]) {
     def built: Boolean = error.isEmpty && grps.last.done
+    val groups: Seq[PlacementGroup] = {
+      if(Config().bonusItems) {
+        val last = grps.last
+        val bonus = last.copy(prog = Inv.Empty, i = last.i+1, parent = Some(last), placements = Seq(
+          ShopPlacement(SpikeEfficiency, ItemLoc.known("OpherShop.Spike"), 0f),
+          ShopPlacement(RapidSmash, ItemLoc.known("OpherShop.SpiritSmash"), 0f),
+          ShopPlacement(StarEfficiency, ItemLoc.known("OpherShop.SpiritStar"), 0f),
+          ShopPlacement(BlazeEfficiency, ItemLoc.known("OpherShop.Blaze"), 0f),
+          ShopPlacement(SentryEfficiency, ItemLoc.known("OpherShop.Sentry"), 0f)
+        ))(r, Inv.Empty)
+        grps :+ bonus
+      } else grps
+    }
     def seed(spoilers: Boolean = true): String = (Config().header +
-        grps.map(plcmnts => plcmnts.write(spoilers)).mkString("\n").stripPrefix("\n") +
-        (if(Config().bonusItems) """
-                                   |1|74|11|3  //   Spike Efficiency from Spike,
-                                   |1|98|11|0  //   Rapid Smash from OpherShop.SpiritSmash,
-                                   |1|106|11|4 //   Star Efficiency from OpherShop.SpiritStar,
-                                   |1|115|11|2 //   Blaze Efficiency from OpherShop.Blaze,
-                                   |1|116|11|5 //   Sentry Efficiency from OpherShop.Sentry, """.stripMargin else "") +
-        s"\n// Config: ${Config().toJson}"
+        groups.map(plcmnts => plcmnts.write(spoilers)).mkString("\n").stripPrefix("\n") +
+        s"\n\n// Config: ${Config().toJson}"
       ).replace("\n", "\r\n")
     def desc: String = grps.map(grp => grp.desc.replace("\n", "")).mkString("\n")
 
