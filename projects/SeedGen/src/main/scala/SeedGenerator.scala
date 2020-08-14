@@ -415,18 +415,13 @@ package SeedGenerator {
     def item: Item
     def code: String = loc.data.code
     def data = s"${loc.data.code}|${item.code}"
-    def write: String = {
-      if(!Config().spoilers)
+    def write(spoilers: Boolean = true): String = {
+      if(!spoilers)
         return data
 //      Tracking.incAreas(item, loc.data)
       val dataPad = " " * (22 - data.length)
       val namePad = " " * (18 - item.name.length)
       s"$data$dataPad//$namePad${item.name} from ${loc.data.info}"
-    }
-    def spoil(forced: Boolean = false): String = {
-      val itemName = (if(forced) "*" else "") + item.name
-      val namePad = " " * (18 - itemName.length)
-      s"$itemName$namePad from $loc"
     }
     override def toString: String = s"$item at $loc"
   }
@@ -447,21 +442,11 @@ package SeedGenerator {
     i: Int,
     parent: Option[PlacementGroup] = None
   )(implicit r: Random, pool: Inv) {
-    def desc(standalone: Boolean = false): String = {
-      if (standalone)
-        return placements.collect({
-          case p@ItemPlacement(_: Important, _) => p
-          case p@ShopPlacement(_: Important, _) => p
-        }).map(plc => plc.spoil(prog.has(plc.item))).mkString("\n")
-
-      if (!Config().spoilers)
-        return ""
-
+    def desc: String = {
       val progText = if (prog.count > 0) s" -- Chosen: ${prog.progText}" else ""
       val keyItems = Inv.mk(placements.map(_.item).filterNot(prog.has(_)).collect({ case i: Important => i }): _*)
       val keyItemsText = if (keyItems.nonEmpty) s" -- Randomly Placed: ${keyItems.progText}" else ""
       s"\n// Placement Group ${i + 1}$progText$keyItemsText\n\n"
-      // plcmnts.placements.map(_.item).filterNot(plcmnts.prog.has(_)
     }
 
     def done: Boolean = pool.isEmpty && (Try { Nodes.items.values.forall(outState.reached.contains) } match {
@@ -471,7 +456,7 @@ package SeedGenerator {
 
     def allPlacements: Set[Placement] = parent.map(_.allPlacements).getOrElse(Set()) ++ placements
 
-    def write: String = desc() + placements.map(_.write).mkString("\n")
+    def write(spoilers: Boolean = true): String = (if(spoilers) desc else "") + placements.map(_.write(spoilers)).mkString("\n")
 
     def tryNext(): Either[GeneratorError, PlacementGroup] = PlacementGroup.trymk(outState, i + 1, Some(this))
     def next(): PlacementGroup = PlacementGroup.mk(outState, i + 1, Some(this))
@@ -652,8 +637,8 @@ package SeedGenerator {
 
   case class Seed(grps: Seq[PlacementGroup], error: Option[GeneratorError]) {
     def built: Boolean = error.isEmpty && grps.last.done
-    def seed: String = (Config().header +
-        grps.map(plcmnts => plcmnts.write).mkString("\n").stripPrefix("\n") +
+    def seed(spoilers: Boolean = true): String = (Config().header +
+        grps.map(plcmnts => plcmnts.write(spoilers)).mkString("\n").stripPrefix("\n") +
         (if(Config().bonusItems) """
                                    |1|74|11|3  //   Spike Efficiency from Spike,
                                    |1|98|11|0  //   Rapid Smash from OpherShop.SpiritSmash,
@@ -662,13 +647,12 @@ package SeedGenerator {
                                    |1|116|11|5 //   Sentry Efficiency from OpherShop.Sentry, """.stripMargin else "") +
         s"\n// Config: ${Config().toJson}"
       ).replace("\n", "\r\n")
-    def spoiler: String = grps.map(grp => grp.desc(true)).mkString("\n").replace("\n", "\r\n")
-    def desc(standalone: Boolean = false): String = grps.map(grp => if(standalone) grp.desc(standalone) else grp.desc(standalone).replace("\n", "")).mkString("\n")
+    def desc: String = grps.map(grp => grp.desc.replace("\n", "")).mkString("\n")
 
     def write(targetPath: String): Unit = {
       Try {
         val seedWriter = new FileWriter(targetPath)
-        seedWriter.write(seed)
+        seedWriter.write(seed(Config().spoilers))
         Config.log(s"Wrote seed to $targetPath")
         seedWriter.close()
       } match {
@@ -676,10 +660,10 @@ package SeedGenerator {
         case Failure(e) => Config.error(s"write failed, $e")
       }
       if(!Config().spoilers) {
-        val spoilerPath = targetPath.replace(".wotwr", "_SPOILER.txt")
+        val spoilerPath = targetPath.replace(".wotwr", "_SPOILER.wotwr")
         val spoilerWriter = new FileWriter(spoilerPath)
-        spoilerWriter.write(spoiler)
-        Config.log(s"Wrote spoiler to $spoilerPath")
+        spoilerWriter.write(seed())
+        Config.log(s"Wrote spoiler-seed to $spoilerPath")
         spoilerWriter.close()
       }
     }
