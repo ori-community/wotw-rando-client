@@ -2335,6 +2335,10 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
         Grapple, Glide
         Burrow
         Launch
+  conn WoodsMain.AbovePit:
+    moki:
+      DoubleJump, Bash
+      Launch
 
 anchor WoodsShrine:
   refill Full
