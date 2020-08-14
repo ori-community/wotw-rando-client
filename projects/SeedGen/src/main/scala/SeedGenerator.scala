@@ -273,7 +273,7 @@ package SeedGenerator {
     }
 
 
-    case class SpawnLoc(areaName: String, spawnSlots: Int, teleporter: Teleporter) {
+    case class SpawnLoc(areaName: String, spawnSlots: Int, teleporter: Teleporter, safe: Boolean = false) {
       def area: Area = Nodes.areas(areaName)
       def conns: Seq[Connection] = (1 to spawnSlots) map (i =>
         Connection(ItemLoc(s"Spawn item #$i", LocData("Spawn", s"Item_$i", "nullCat", "nullVal", "spawn", "control", 3, "spawn", "0", 0, 0)), Seq(Free)))
@@ -287,22 +287,26 @@ package SeedGenerator {
 
     }
     object SpawnLoc {
-      def all = Seq(
-        SpawnLoc("MidnightBurrows.Teleporter", 3, Teleporter(0)),
-        SpawnLoc("HowlsDen.Teleporter", 1, Teleporter(1)),
+      val all = Seq(
+        SpawnLoc("MidnightBurrows.Teleporter", 3, Teleporter(0), safe = true),
+        SpawnLoc("HowlsDen.Teleporter", 1, Teleporter(1), safe = true),
         SpawnLoc("EastPools.Teleporter", 3, Teleporter(2)),
-        SpawnLoc("InnerWellspring.Teleporter", 3, Teleporter(3)),
+        SpawnLoc("InnerWellspring.Teleporter", 3, Teleporter(3), safe = true),
         SpawnLoc("LowerReach.Teleporter", 3, Teleporter(4)),
-        SpawnLoc("EastHollow.Teleporter", 2, Teleporter(5)),
+        SpawnLoc("EastHollow.Teleporter", 2, Teleporter(5), safe = true),
         SpawnLoc("UpperDepths.Teleporter", 3, Teleporter(6)),
         SpawnLoc("WoodsEntry.Teleporter", 3, Teleporter(7)),
         SpawnLoc("WoodsMain.Teleporter", 3, Teleporter(8)),
         SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
         SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
         SpawnLoc("UpperWastes.NorthTP", 4, Teleporter(11)),
-        SpawnLoc("GladesTown.Teleporter", 3, Teleporter(16)),
+        SpawnLoc("GladesTown.Teleporter", 3, Teleporter(16), safe = true),
         SpawnLoc("MarshSpawn.Main", 0, Teleporter(17)),
       )
+      def valid: Seq[SpawnLoc] = if(Config().unsafePaths)
+          all
+        else
+          all.filter(_.safe)
       def byName: Map[String, SpawnLoc] = all.map(a => a.areaName -> a).toMap
       def default: SpawnLoc = SpawnLoc("MarshSpawn.Main", 0, Teleporter(17))
     }
@@ -317,7 +321,7 @@ package SeedGenerator {
               Config.debug(s"parse done, ${value.size} areas")
               if(!ReachChecker.doingReachCheck)
                 if(Config().flags.randomSpawn)
-                  _spawn = SpawnLoc.all.rand
+                  _spawn = SpawnLoc.valid.rand
                 else
                   _spawn = SpawnLoc.default
 
