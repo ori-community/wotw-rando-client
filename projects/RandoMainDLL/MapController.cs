@@ -79,6 +79,8 @@ namespace RandoMainDLL {
       
       foreach (var wrap in new string[] { "#", "*", "$", "@" })
         text = text.Replace(wrap, "");
+      if (NameLabels)
+        text = $"{cond.Loc().FullName}\n{text}";
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
@@ -109,6 +111,7 @@ namespace RandoMainDLL {
           return true;
       }
     }
+    public static bool NameLabels = false;
     public static bool FilterIconShow(int groupId, int id) {
       // Show Icon (in logic)
       return Reachable.Contains(new UberId(groupId, id));
