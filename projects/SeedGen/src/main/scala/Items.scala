@@ -225,6 +225,9 @@ package SeedGenerator {
     def progInv: Inv = inv.progInv()
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def -(other: GameState): GameState = GameState(inv - other.inv, flags -- other.flags, reached -- other.reached)
+    def missing(i: Item): GameState = !(inv has i) ? GameState.mk(Left(i)) ?? GameState.Empty
+    def ++(maybeOther: Option[GameState]): GameState = this + (maybeOther ?? GameState.Empty)
+    def --(maybeOther: Option[GameState]): GameState = this - (maybeOther ?? GameState.Empty)
     def noFlags: GameState = GameState(inv, Set(), reached)
     def invOnly: GameState = GameState(inv)
     def items: Set[ItemLoc] = reached.collect({case i: ItemLoc => i})
@@ -334,9 +337,9 @@ package SeedGenerator {
       true
     }
     def without(item: Item, count: Int): Inv = {
-      if (!has(item, count)) {
+      if (!has(item, count))
         Config.error(s"couldn't build ${this} without $count of $item")
-      }
+
       new Inv(keys.map({
         case i if i == item => i -> (this(i)-count)
         case i => i -> this(i)
@@ -354,7 +357,7 @@ package SeedGenerator {
           norm ++ r.shuffle(merch).drop(merchToPop)
         } else asSeq
       if (s.nonEmpty) {
-        val i = s(r.nextInt(s.size))
+        val i = s.rand
         if(i.cost >= 10d) {
             // reroll expensive items %[placed] of the time
             if(r.nextFloat() > (count.toFloat/ItemPool.SIZE.toFloat))
@@ -370,8 +373,8 @@ package SeedGenerator {
       val merch = asSeq.collect({case i: Merch => i})
       if (merch.isEmpty)
         return None
-      val i = merch(r.nextInt(merch.size))
-      if(reroll && i == Keystone)
+      val i = merch.rand
+      if(reroll && (i == Keystone || i == Ore))
         return popMerch(reroll = false)
 
       merchToPop -= 1
@@ -393,6 +396,8 @@ package SeedGenerator {
         case i    => Some(i -> this(i))
       }): _*)
     }
+    def ++(maybeOther: Option[Inv]): Inv = this + maybeOther ?? Inv.Empty
+    def --(maybeOther: Option[Inv]): Inv = this - maybeOther ?? Inv.Empty
 
   }
   object Inv {

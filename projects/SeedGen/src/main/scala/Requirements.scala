@@ -11,7 +11,6 @@ package SeedGenerator {
     def orbsAfterMet(state: GameState = GameState.Empty, orbs: Orbs): Orbs = orbs
     def and(that: Requirement): Requirement = AllReqs(this, that)
     def or(that: Requirement): Requirement = AnyReq(this, that)
-    def substitute(orig: Requirement, repl: Requirement): Requirement = if(this == orig) repl else this
     def children = Seq(this)
   }
 
@@ -19,11 +18,6 @@ package SeedGenerator {
     val reqs: Seq[Requirement]
     def builder(parts: Seq[Requirement]): Requirement
     override def children: Seq[Requirement] = reqs.flatMap(_.children)
-    override def substitute(orig: Requirement, repl: Requirement): Requirement = builder(reqs.map({
-      case r: MultiReq => r.substitute(orig, repl)
-      case r if r == orig => repl
-      case r => r
-    }))
   }
 
   case class StateReq(flag: String) extends Requirement {
@@ -41,7 +35,7 @@ package SeedGenerator {
 
   class SingleItemReq(item: Item) extends Requirement  {
     def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv has item
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(if (metBy(state)) GameState.Empty else GameState.mk(item))
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(state missing item)
     override def toString: String = item.name
   }
 
@@ -75,18 +69,14 @@ package SeedGenerator {
 
   case class CashReq(count: Int) extends Requirement {
     def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = state.inv.totalSpiritLight >= count
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = {
-      if(metBy(state))
-        Seq()
-      else {
-        val needed = count - state.inv.totalSpiritLight
-        if(needed > 174) {
-          val count = needed / 174
-          return Seq(GameState(new Inv(SpiritLight(needed / (count + 1)) -> count)))
-        }
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = !metBy(state) ? {
+      val needed = count - state.inv.totalSpiritLight
+      if(needed > 174) {
+        val count = needed / 174
+        Seq(GameState(new Inv(SpiritLight(needed / (count + 1)) -> count)))
+      } else
         Seq(GameState(new Inv(SpiritLight(count - state.inv.totalSpiritLight) -> 1)))
-      }
-    }
+    } ?? Seq(GameState.Empty)
     override def and(that: Requirement): Requirement = that match {
       case CashReq(c) => CashReq(c+count)
       case r => AllReqs(this, r)
@@ -103,12 +93,15 @@ package SeedGenerator {
     def energy(state: GameState): Float = state.inv(Energy)/2f
     def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean =
       orbs.map(_.energy >= count*10).getOrElse(energy(state) >= count)
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = if(metBy(state)) Seq(GameState.Empty) else
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
       Seq(GameState(new Inv(Energy -> Math.ceil(Math.max(0, 2*count - state.inv(Energy))).toInt)))
     override def and(that: Requirement): Requirement = that match {
       case EnergyReq(c) => EnergyReq(c+count)
       case r => AllReqs(this, r)
     }
+  }
+  object EnergyReq {
+    def apply(count: Float): Requirement = if(count > 0) new EnergyReq(count) else Free
   }
 
   case class SentryJumpReq(count: Int) extends Requirement {
@@ -120,13 +113,12 @@ package SeedGenerator {
 
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = er.orbsAfterMet(state, orbs)
 
-    override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
+    override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = metBy(state) ? Seq(GameState.Empty) ??
       Seq( // yes yes this is awful i know i know
-        if(state.inv.has(Sword)) GameState.Empty else GameState.mk(Sword),
-        if(state.inv.has(Smash)) GameState.Empty else GameState.mk(Smash),
-      ).map(_ + er.remaining(state, unaffordable, space).head +
-        (if(state.inv.has(Sentry)) GameState.Empty else GameState.mk(Sentry))
-      ).filter(g => g.inv.count > 0 && g.inv.count <= space)
+        state missing Sword,
+        state missing Smash
+      ).distinct.map(_ + er.remaining(state, unaffordable, space).head + state missing Sentry
+      ).filter(g => g.inv.count <= space)
   }
 
   case class BreakWallReq(wallHealth: Int) extends Requirement {
@@ -135,34 +127,21 @@ package SeedGenerator {
       case Grenade => Math.ceil(wallHealth/10f).toInt
       case Shuriken => Math.ceil(wallHealth/4f).toInt * .5f
       case Spear => Math.ceil(wallHealth/20f).toInt * 2
+      case _ => 0
     }
-    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = {
-      if(state.inv.has(Sword) || state.inv.has(Smash))
-        return orbs
-      for(skill <- Seq(Bow, Grenade, Shuriken, Spear))
-        if(state.inv.has(skill))
-          return EnergyReq(energyCost(skill)).orbsAfterMet(state, orbs)
-      throw GeneratorError("Unmet orbs after met")
-    }
+    def energyReq(skill: Skill): Requirement = EnergyReq(energyCost(skill))
+    private def skills = Seq(Sword, Smash, Bow, Grenade, Shuriken, Spear)
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs =
+      skills.collectFirst({ case s if state.inv.has(s) => energyReq(s).orbsAfterMet(state, orbs)}).get
     def metBy(state: GameState, orbs: Option[Orbs] = None):Boolean =
-      state.inv.has(Sword) ||
-      state.inv.has(Smash) ||
-        (state.inv.has(Bow) && EnergyReq(energyCost(Bow)).metBy(state, orbs)) ||
-        (state.inv.has(Grenade) && EnergyReq(energyCost(Grenade)).metBy(state, orbs)) ||
-        (state.inv.has(Shuriken) && EnergyReq(energyCost(Shuriken)).metBy(state, orbs)) ||
-        (state.inv.has(Spear) && EnergyReq(energyCost(Spear)).metBy(state, orbs))
-    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
-      (Seq(
-        if(state.inv.has(Sword)) GameState.Empty else GameState.mk(Sword),
-        if(state.inv.has(Smash)) GameState.Empty else GameState.mk(Smash),
-      ) ++ Seq(Bow, Grenade, Shuriken, Spear).map(s => GameState(new Inv(s -> (if(state.inv.has(s)) 1 else 0), Energy -> Math.ceil(Math.max(0, 2*energyCost(s) - state.inv(Energy))).toInt)))).filter(g => g.inv.count > 0 && g.inv.count <= space)
+      skills.exists(s => state.inv.has(s) && energyReq(s).metBy(state, orbs))
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = metBy(state) ? Seq(GameState.Empty) ??
+      skills.map(s => (state missing s) + energyReq(s).remaining(state).head).filter(_.inv.count <= space)
   }
 
   case class DamageReq(damage: Int) extends Requirement  {
     def orbsMod(state: GameState, orbs: Orbs): Orbs = {
-      if(orbs.health > damage ||
-        health(state) <= damage ||
-        !state.inv.has(Regen))
+      if(orbs.health > damage || health(state) <= damage || !state.inv.has(Regen))
         return orbs
       val healsNeeded = 1 + (damage-orbs.health)/30
       if(orbs.energy/10 >= healsNeeded)
@@ -189,16 +168,7 @@ package SeedGenerator {
       case _: AllReqs => throw  GeneratorError("Ors cannot contain Ands")
       case r => AnyReq(reqs :+ r )
     }
-//    override def and(that: Requirement): Requirement = that match {
-//      case AnyReq(kids)  =>
-//        val overlap = reqs.toSet.union(kids.toSet)
-//        if(overlap.isEmpty)
-//          AllReqs(this, that)i
-//        else
-//          AllReqs((overlap + AnyReq(reqs.filterNot(overlap.contains))+ AnyReq(kids.filterNot(overlap.contains))).toSeq)
-////      case r: AllReqs => AnyReq(reqs.map(k => k and r))
-//      case r => AllReqs(this, r)
-//    }
+
     override def toString: String = s"(${reqs.mkString(" || ")})"
     override def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean = orbs.forall(_.health > 0) && reqs.exists(_.metBy(state))
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = reqs.filter(_.metBy(state)).map(_.orbsAfterMet(state, orbs)).maxBy(_.value)

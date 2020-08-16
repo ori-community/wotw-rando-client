@@ -1,25 +1,51 @@
-import java.io.{File, FileWriter}
-
+import java.nio.file.{Path, Paths, Files}
+import scala.jdk.CollectionConverters._
 import scala.collection.mutable.{ListBuffer => MList, Map => MMap, Set => MSet}
-import scala.io.Source
 import scala.language.implicitConversions
 import scala.util.{Random, Try}
 import org.json4s.native.Serialization
 import org.json4s.{Formats, NoTypeHints}
-
+import java.nio.charset.StandardCharsets
 package SeedGenerator {
 
   //  these are fine
   object implicits {
-    implicit class RegexOps(sc: StringContext) {
+    val DEBUG = (sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments).asScala.exists(it => it.contains("IntelliJ"))
+
+    implicit class RegexOpts(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
-    implicit class ReqOps(reqs: Seq[Requirement]) { // TODO; fix or delete
-      def sortByConsumption: Seq[Requirement] = reqs //Timer("sort")(reqs.sortBy(_.children.map(_.orbsUsed()).map(_.value).sum))
+    implicit class BooleanOps(b: Boolean) {
+      // kinda like a terinary operator, but since scala has that already,  ? means "cond+val->Opt"
+      def ?[T](block: => T): Option[T] = if(b) Some(block) else None
     }
-    implicit class itOpts[T](vs: Seq[T]) { // TODO; fix or delete
+    implicit class StringOpts(s: =>String) {
+      def f: Path = Paths.get(s) // quick convert a String to a Path
+    }
+    implicit class PathOpts(f: Path) {
+      import java.nio.file.StandardOpenOption._
+      val defaultPath: Path = Paths.get("C:", "moon")
+      // sugar funcs for interacting with paths and their target files
+      def exists: Boolean = Files exists f
+      def toOpt: Option[Path] = exists ? f
+      def forceRead: String = Files readString f
+      def read: Option[String] = exists ? forceRead
+      def readLines: Seq[String] = Seq.from(Files.readAllLines(f).asScala)
+      def write(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
+      def append(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE, APPEND)
+      def canonPath: Path = if(DEBUG) defaultPath.resolve(f) else f
+    }
+
+    implicit class OptOpts[T](o: Option[T]) {
+      def ?(other: => Option[T]): Option[T] = o orElse other
+      def ??(other: => T): T = o getOrElse other
+    }
+
+    implicit class itOpts[T](vs: Seq[T]) {
+      // sugar for pulling randomly from a sequence
       def rand(implicit r: Random): T = vs(r.nextInt(vs.size))
-      def randOpt(implicit r: Random): Option[T] = if(vs.nonEmpty) Some(rand) else None
+      def randOpt(implicit r: Random): Option[T] = vs.nonEmpty ? rand
+      def randFilter(pred: T => Boolean)(implicit r: Random): Option[T] = vs.filter(pred).randOpt
     }
 
     // really, they're fine
@@ -28,6 +54,9 @@ package SeedGenerator {
       implicit def nodeToPart(node: Node): Either[Item, Either[FlagState, Node]] = Right(Right(node))
       implicit val r: Random = new Random()
     }
+    import java.nio.charset.Charset
+    import java.nio.file.{Path, Paths}
+
     import SeedGenerator.implicits._
 
     import scala.language.postfixOps
@@ -48,10 +77,9 @@ package SeedGenerator {
   object LocData {
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
-      val path = if(new File("loc_data.csv").exists()) "loc_data.csv" else "C:\\moon\\loc_data.csv"
-      val pickupsFile = Source.fromFile(path)
-      Config.debug(s"Loading loc_data from $path")
-      val pickups = pickupsFile.getLines.flatMap {
+      val pickupsFile = "loc_data.csv".f
+      Config.debug(s"Loading loc_data from $pickupsFile")
+      val pickups = pickupsFile.readLines.flatMap {
         case s if s.trim == "" => None
         case s if s.trim.startsWith("--") =>
           None
@@ -61,7 +89,6 @@ package SeedGenerator {
           Config.warn(s"Couldn't parse line: $line")
           None
       }.toSeq
-      pickupsFile.close()
       pickups
     }
     def byName: Map[String, LocData] = all.map(data => s"${data.area}.${data.name}" -> data).toMap
@@ -161,14 +188,11 @@ package SeedGenerator {
           case Connection(p @ Placeholder(_, AreaNode), _) if Nodes.reachCache.contains(p.res.asInstanceOf[Area]) => None
           case Connection(target, reqs) =>
             val s = curr + GameState(Inv.Empty, Nodes.states.toSet)
-//            val met2 = reqs.filter(r => r.metBy(s))
             val met = reqs.filter(r => r.metBy(s, Some(orbsAfter))).map(r => r.orbsAfterMet(s, orbsAfter))
             if(met.nonEmpty) {
               target.reached(s, met.maxBy(_.value))
               None
             } else {
-/*              if(met2.nonEmpty)
-              println(s"$name: couldn't reach ${target.name}")*/
               Some(target.res)
             }
           case _ => None
@@ -256,7 +280,7 @@ package SeedGenerator {
       if(Config().flags.noKSDoors)
         return 0
       val relevantNodes = nodes.collect{case a: Area => a}.intersect(connectedToDoors)
-      doors.foldLeft(0)({case (acc, (name, keys))=> acc + (if(relevantNodes.exists(_.conns.exists(_.target.name == name))) keys else 0)})
+      doors.foldLeft(0)({case (acc, (name, keys))=> acc + (relevantNodes.exists(_.conns.exists(_.target.name == name)) ? keys ?? 0)})
     }
 
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
@@ -271,7 +295,7 @@ package SeedGenerator {
         case Connection(Placeholder(name, AreaNode), _) if !areas.contains(name)  => Config.warn(s"ignoring path from ${area.name} to unknown area $name"); None
         case c @ Connection(QuestNode(name), reqs) => Seq(c) ++ ItemLoc.mk(name, locDataByName).map(Connection(_, reqs))
         case c => Some(c)
-      }}) ++ (if(area.name == _spawn.areaName) _spawn.conns else Seq()))).toMap
+      }}) ++ (area.name == _spawn.areaName) ? _spawn.conns ?? Nil)).toMap
     }
 
 
@@ -308,10 +332,7 @@ package SeedGenerator {
         SpawnLoc("GladesTown.Teleporter", 3, Teleporter(16), safe = true),
         SpawnLoc("MarshSpawn.Main", 0, Teleporter(17)),
       )
-      def valid: Seq[SpawnLoc] = if(Config().unsafePaths)
-          all
-        else
-          all.filter(_.safe)
+      def valid: Seq[SpawnLoc] = Config().unsafePaths ? all ?? all.filter(_.safe)
       def byName: Map[String, SpawnLoc] = all.map(a => a.areaName -> a).toMap
       def default: SpawnLoc = SpawnLoc("MarshSpawn.Main", 0, Teleporter(17))
     }
@@ -325,10 +346,7 @@ package SeedGenerator {
             case Right(value) =>
               Config.debug(s"parse done, ${value.size} areas")
               if(!ReachChecker.doingReachCheck)
-                if(Config().flags.randomSpawn)
-                  _spawn = SpawnLoc.valid.rand
-                else
-                  _spawn = SpawnLoc.default
+                _spawn = Config().flags.randomSpawn ? SpawnLoc.valid.rand ?? SpawnLoc.default
 
               Config.debug(s"spawn loc is ${_spawn.areaName}")
               _areas = Timer("FixAreas")(fixAreas(value))
@@ -354,7 +372,7 @@ package SeedGenerator {
     val haveReached: MSet[Node] = MSet.empty[Node]
     val states: MSet[FlagState] = MSet.empty[FlagState]
     def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
-      val mbprplc = if(theoretical) Some(MMap(preplc.toSeq:_*)) else None
+      val mbprplc = theoretical ? MMap(preplc.toSeq:_*)
       val(rs, plcs) = Nodes.reachedRec(s, Set())
       mbprplc.foreach(old => {preplc.clear(); preplc.addAll(old)})
       if(plcs.nonEmpty)
@@ -451,9 +469,9 @@ package SeedGenerator {
     parent: Option[PlacementGroup] = None
   )(implicit r: Random, pool: Inv) {
     def desc: String = {
-      val progText = if (prog.count > 0) s" -- Chosen: ${prog.progText}" else ""
+      val progText =  (prog.count > 0) ? s" -- Chosen: ${prog.progText}" ?? ""
       val keyItems = Inv.mk(placements.map(_.item).filterNot(prog.has(_)).collect({ case i: Important => i }): _*)
-      val keyItemsText = if (keyItems.nonEmpty) s" -- Randomly Placed: ${keyItems.progText}" else ""
+      val keyItemsText = (keyItems.nonEmpty) ? s" -- Randomly Placed: ${keyItems.progText}" ?? ""
       s"\n// Placement Group ${i + 1}$progText$keyItemsText\n\n"
     }
 
@@ -663,32 +681,24 @@ package SeedGenerator {
 
     def write(targetPath: String): Unit = {
       Try {
-        val seedWriter = new FileWriter(targetPath)
-        seedWriter.write(seed(Config().spoilers))
+        targetPath.f.write(seed(Config().spoilers))
         Config.log(s"Wrote seed to $targetPath")
-        seedWriter.close()
+        if(!Config().spoilers) {
+          val spoilerPath = targetPath.replace(".wotwr", "_SPOILER.wotwr")
+          spoilerPath.f.write(seed())
+        }
       } match {
         case Success(_) =>
         case Failure(e) => Config.error(s"write failed, $e")
-      }
-      if(!Config().spoilers) {
-        val spoilerPath = targetPath.replace(".wotwr", "_SPOILER.wotwr")
-        val spoilerWriter = new FileWriter(spoilerPath)
-        spoilerWriter.write(seed())
-        Config.log(s"Wrote spoiler-seed to $spoilerPath")
-        spoilerWriter.close()
       }
     }
   }
 
   object Runner {
     def setSeed(n: Long): Unit = r.setSeed(n)
-    def DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6)) + (
-        if (Config().flags.noSword) GameState.Empty else
-          GameState(Inv.mk(Sword), Set(WorldState("Weapon"), WorldState("EnemyObstacle")))
-      ) + (
-        if (Config().flags.rain) GameState.Empty else GameState.mk(WorldState("MarshSpawn.HowlBurnt"))
-      )
+    def DEFAULT_INV: GameState = GameState(new Inv(Health -> 6, Energy -> 6)) ++
+          !Config().flags.noSword ? GameState(Inv.mk(Sword), Set(WorldState("Weapon"), WorldState("EnemyObstacle"))) ++
+          !Config().flags.rain ? GameState.mk(WorldState("MarshSpawn.HowlBurnt"))
 
     def mkSeed: Seed = {
       implicit val pool: Inv = ItemPool.build(r)
@@ -750,14 +760,14 @@ package SeedGenerator {
                   ) {
     def line: String = {
       Seq(
-        if(forceWisps) Some("ForceWisps") else None,
-        if(forceTrees) Some("ForceTrees") else None,
-        if(forceQuests) Some("ForceQuests") else None,
-        if(noHints) Some("NoHints") else None,
-        if(noSword) Some("NoFreeSword") else None,
-        if(rain) Some("RainyMarsh") else None,
-        if(noKSDoors) Some("NoKSDoors") else None,
-        if(randomSpawn) Some("RandomSpawn") else None
+        forceWisps ? "ForceWisps",
+        forceTrees ? "ForceTrees",
+        forceQuests ? "ForceQuests",
+        noHints ? "NoHints",
+        noSword ? "NoFreeSword",
+        rain ? "RainyMarsh",
+        noKSDoors ? "NoKSDoors",
+        randomSpawn ? "RandomSpawn"
       ).flatten match {
         case Nil => ""
         case s => s"Flags: ${s.mkString(", ")}\n"
@@ -809,11 +819,7 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
   }
 
   case class FileLogger(path: String, override val enabled: Seq[LogLevel] = Seq(ERROR)) extends Logger {
-    def write(x: Any): Unit = {
-      val seedWriter = new FileWriter(path, true)
-      seedWriter.write(s"$x\n")
-      seedWriter.close()
-    }
+    def write(x: Any): Unit = path.f.append(s"$x\n")
   }
 
   object DefaultSettingsProvider extends SettingsProvider {
