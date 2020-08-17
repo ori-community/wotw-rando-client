@@ -350,9 +350,10 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       SentryJump=1  # can do one of a good sjump, a good positioning, pressing left quickly after the sentryjump or spending an extra energy
       MarshSpawn.RainLifted, Sword OR Hammer  # Use an upswing to get to the door
 
-# TODO: consider adding state for MarshSpawn.HowlBurnt given that it or howl not existing is required for all instances of this anchor
-anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing off Howl
-  quest MarshSpawn.FangQI:           # TODO: consider renaminng to HowlsDen.FangQI
+anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside the bridge if Howl is still lurking
+  state MarshSpawn.HowlBurnt: free
+
+  quest MarshSpawn.FangQI:
     moki:
       DoubleJump OR Launch
       Bash, Dash                      # Bash off the enemy to get to the vine, then jump&dash right
@@ -364,10 +365,10 @@ anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing
     unsafe:
       Grenade=1, Damage=10            # Grenade jump to get to the vine, then jump right. Dboost the last gap.
       Grenade=2                       # Grenade jump to get to the vine, then jump right. Grenade jump the last gap.
-  quest MarshSpawn.ALittleBraver:     # TODO: consider renaminng to HowlsDen.ALittleBraver
-    moki: MarshSpawn.FangQI
+  quest MarshSpawn.ALittleBraver:
+    moki: MarshSpawn.HowlBurnt, MarshSpawn.FangQI
 
-  pickup MarshSpawn.FangEC:           # TODO: consider renaminng to HowlsDen.FangEC
+  pickup MarshSpawn.FangEC:
     moki:
       DoubleJump, Dash                # Stick to the ceiling
       Launch
@@ -394,20 +395,22 @@ anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing
       Grenade=1                       # Grenade jump to get over initial gap
       Sword                           # Validator moved from Gorlek to unsafe do to precision
       Hammer                          # Validator moved from Gorlek to unsafe do to precision
-  pickup HowlsDen.UpperEX: free
+  pickup HowlsDen.UpperEX:
+    moki: MarshSpawn.HowlBurnt
   pickup HowlsDen.RightHC:
     moki: BreakWall=16
 
-  conn HowlsDen.BoneBridge: free
-  conn MarshSpawn.DenApproach:        # Consider adding MarshSpawn.HowlBurnt if a state isnt added
-    moki:
+  conn HowlsDen.BoneBridge:
+    moki: MarshSpawn.HowlBurnt
+  conn MarshSpawn.DenApproach:
+    moki, MarshSpawn.HowlBurnt:
       DoubleJump OR Launch
       Bash, Grenade=1
-    gorlek:
+    gorlek, MarshSpawn.HowlBurnt:
       SentryJump=2
       Dash, Sword OR Hammer                     # Dash then upslash to gain the extra height needed on second jump
       Dash, Bash                      # Dash for first jump, bash off fronkey for second
-    unsafe:
+    unsafe, MarshSpawn.HowlBurnt:
       Bash                            # Long distance lure for the first jump, simple lure for second
       Dash, Spear=1                   # Uses the small hitrise from spear to make the second jump
       Dash, Sentry=1                  # As above but uses sentry
