@@ -90,7 +90,12 @@ namespace uber_states
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Energy Regeneration", 31, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Double Jumps", 35, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Dashes", 36, 0),
-                    
+
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Spawn", 0, false),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Reload", 1, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Binding One", 2, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Binding Two", 3, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Binding Three", 4, 0),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Goal Modes Complete", 11, false),
 
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "keystones_collected", 0, 0),

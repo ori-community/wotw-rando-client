@@ -189,7 +189,9 @@ namespace RandoMainDLL {
         var flag = rawFlag.Trim().ToLower();
         if (flag == "nosword")
           flags.Add(Flag.NOSWORD);
-        else if (enumsByName.TryGetValue(flag, out Flag f))
+        else if(flag.StartsWith("worldtour")) {
+
+        } else if (enumsByName.TryGetValue(flag, out Flag f))
           flags.Add(f);
         else
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
