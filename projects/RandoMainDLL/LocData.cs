@@ -15,6 +15,7 @@ namespace RandoMainDLL {
     Quest = 8,
     Tree = 9,
     Shop = 10,
+    Control = 11,
     Unknown = 15
   }
   public class LocData {
