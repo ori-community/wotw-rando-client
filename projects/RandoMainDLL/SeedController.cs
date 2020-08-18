@@ -463,7 +463,6 @@ namespace RandoMainDLL {
       }
       if (finished != UberGet.value(3, 11).Bool) {
         UberSet.Bool(3, 11, finished);
-        InterOp.lock_shriek_goal(!finished);
       }
     }
   }
