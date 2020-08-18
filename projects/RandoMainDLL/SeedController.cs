@@ -15,6 +15,7 @@ namespace RandoMainDLL {
     BINDING_ONE = 2,
     BINDING_TWO = 3,
     BINDING_THREE = 4,
+    GOAL_MODES_COMPLETED = 11
   }
   public enum Flag {
     [Description("No Hints")]
@@ -458,8 +459,10 @@ namespace RandoMainDLL {
             break;
         }
       }
-
-      InterOp.lock_shriek_goal(!finished);
+      if (finished != UberGet.value(3, 11).Bool) {
+        UberSet.Bool(3, 11, finished);
+        InterOp.lock_shriek_goal(!finished);
+      }
     }
   }
 }
