@@ -10,7 +10,7 @@ package SeedGenerator {
 
   //  these are fine
   object implicits {
-    val DEBUG = (sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments).asScala.exists(it => it.contains("IntelliJ"))
+    val IS_DEBUG = (sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments).asScala.exists(it => it.contains("IntelliJ"))
 
     implicit class RegexOpts(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
@@ -33,7 +33,7 @@ package SeedGenerator {
       def readLines: Seq[String] = Seq.from(Files.readAllLines(f).asScala)
       def write(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
       def append(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE, APPEND)
-      def canonPath: Path = if(DEBUG) defaultPath.resolve(f) else f
+      def canonPath: Path = if(IS_DEBUG) defaultPath.resolve(f) else f
     }
 
     implicit class OptOpts[T](o: Option[T]) {
@@ -375,6 +375,7 @@ package SeedGenerator {
       val mbprplc = theoretical ? MMap(preplc.toSeq:_*)
       val(rs, plcs) = Nodes.reachedRec(s, Set())
       mbprplc.foreach(old => {preplc.clear(); preplc.addAll(old)})
+
       if(plcs.nonEmpty)
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, plcs)
