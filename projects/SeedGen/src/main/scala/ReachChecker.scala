@@ -75,7 +75,8 @@ package SeedGenerator {
     }
 
     def fromGame(args: Seq[String]): Unit = {
-      Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
+      Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR, INFO, DEBUG))
+
       Config.settingsProvider = settingsFromFile(args(1))
       val hp = args(2).toInt / 5
       val en = args(3).toInt / 5
@@ -89,7 +90,7 @@ package SeedGenerator {
         case s if s.startsWith("w:")  => s.stripPrefix("w:").toIntOption.map(WorldEvent(_)->1)
         case a => Config.error(s"unknown name $a"); None
         }:_*))
-      Config.debug(s"$args\n$st")
+      Config.debug(s"$args\n$st\n${Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).mkString(", ")}")
       println(Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.code).mkString(", "))
     }
 

@@ -68,7 +68,7 @@ package SeedGenerator {
     }
     object FXLogger extends Logger {
       override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ Config().debugInfo ? DEBUG
-      override def write(x: Any): Unit = {
+      override def write(x: =>Any): Unit = {
         //        logArea.setScrollTop(logArea.height())
         println(x)
         Platform.runLater(() => logArea.appendText(s"$x\n"))

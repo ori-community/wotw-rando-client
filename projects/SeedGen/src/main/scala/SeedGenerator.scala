@@ -32,7 +32,7 @@ package SeedGenerator {
       def read: Option[String] = exists ? forceRead
       def readLines: Seq[String] = Seq.from(Files.readAllLines(f).asScala)
       def write(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
-      def append(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE, APPEND)
+      def append(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, CREATE, APPEND)
       def canonPath: Path = if(IS_DEBUG) defaultPath.resolve(f) else f
     }
 
@@ -806,21 +806,21 @@ package SeedGenerator {
   case object WARN  extends LogLevel
   case object ERROR extends LogLevel
   trait Logger {
-    def write(x: Any): Unit
-    def writeIf(l: LogLevel, x: Any): Unit = if(enabled.contains(l)) write(x)
+    def write(x: =>Any): Unit
+    def writeIf(l: LogLevel, x: =>Any): Unit = if(enabled.contains(l)) write(x)
     def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR)
-    def debug(x: Any): Unit   = writeIf(DEBUG, s"DEBUG: $x")
-    def log(x: Any): Unit     = writeIf(INFO,  s"INFO:  $x")
-    def info(x: Any): Unit    = writeIf(INFO,  s"INFO:  $x")
-    def warn(x: Any): Unit    = writeIf(WARN,  s"WARN:  $x")
-    def error(x: Any): Unit   = writeIf(ERROR, s"ERROR: $x")
+    def debug(x: =>Any): Unit   = writeIf(DEBUG, s"DEBUG: $x")
+    def log(x: =>Any): Unit     = writeIf(INFO,  s"INFO:  $x")
+    def info(x: =>Any): Unit    = writeIf(INFO,  s"INFO:  $x")
+    def warn(x: =>Any): Unit    = writeIf(WARN,  s"WARN:  $x")
+    def error(x: =>Any): Unit   = writeIf(ERROR, s"ERROR: $x")
   }
 case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR)) extends Logger {
-    def write(x: Any): Unit = println(x)
+    def write(x: =>Any): Unit = println(x)
   }
 
   case class FileLogger(path: String, override val enabled: Seq[LogLevel] = Seq(ERROR)) extends Logger {
-    def write(x: Any): Unit = path.f.append(s"$x\n")
+    def write(x: =>Any): Unit = path.f.append(s"$x\n")
   }
 
   object DefaultSettingsProvider extends SettingsProvider {
@@ -830,7 +830,7 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
   object Config extends SettingsProvider with Logger {
     var settingsProvider: SettingsProvider = DefaultSettingsProvider
     var logger: Logger = DefaultLogger()
-    override def write(x: Any): Unit = logger.write(x)
+    override def write(x: =>Any): Unit = logger.write(x)
     override def enabled: Seq[LogLevel] = logger.enabled
 
     override def apply(): GenSettings = settingsProvider.apply()
@@ -859,7 +859,7 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
   object Timer {
     var enabled = true
     val times: MMap[String, Long] = MMap[String, Long]()
-    def showTimes(): Unit = times.toSeq.sortBy(_._2).foreach(Config.log)
+    def showTimes(): Unit = times.toSeq.sortBy(_._2).foreach(t => Config.log(t))
     def clear(): Unit = times.clear()
     def apply[R](name: String, printAfterEach: Boolean = false)(block: => R): R = {
       if(enabled) {

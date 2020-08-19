@@ -212,7 +212,7 @@ class UI extends MainFrame {
       })
     }
     override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ (if(ui.debugToggle.selected) Seq(DEBUG) else Nil)
-    override def write(x: Any): Unit = {
+    override def write(x: =>Any): Unit = {
       ui.logView.append(s"$x\n")
       ui.logHolder.verticalScrollBar.value = ui.logHolder.verticalScrollBar.maximum
     }
