@@ -6,7 +6,12 @@ using Newtonsoft.Json;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
-  public static class RelicStatic {
+  public class Relic : BonusItem {
+    private readonly UberId zoneId;
+    public Relic(ZoneType zone) : base(BonusType.Relic) {
+      zoneId = ZoneToId[zone];
+
+    }
     public static Dictionary<ZoneType, UberId> ZoneToId = new Dictionary<ZoneType, UberId>() {
       { ZoneType.Marsh, new UberId(4, 101) },
       { ZoneType.Hollow, new UberId(4, 102) },
@@ -21,6 +26,11 @@ namespace RandoMainDLL {
       { ZoneType.Wastes, new UberId(4, 111) },
       { ZoneType.Willow, new UberId(4, 113) },
     };
+    public static Dictionary<ZoneType, int> Counts = new Dictionary<ZoneType, int>();
+
+    public static void Init() {
+
+    }
 
   }
 
