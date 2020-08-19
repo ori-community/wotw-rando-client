@@ -44,19 +44,23 @@ namespace RandoMainDLL {
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.RedirectStandardOutput = true;
+        proc.StartInfo.RedirectStandardError= true;
         proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
         proc.WaitForExit();
         Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
-        if(rawOutput.Trim() != "")
+        if (rawOutput.Trim() != "")
           foreach (var rawCond in rawOutput.Split(',')) {
             try {
               var frags = rawCond.Split('|');
               var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
               Reachable.Add(cond.Id);
-            } catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
+            }
+            catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
           }
+        else
+          Randomizer.Log($"got output |{rawOutput}| from cmd. args: \"{String.Join(" ", argsList)}\" stderr was {proc.StandardError.ReadToEnd()}", false);
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
