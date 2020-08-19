@@ -447,4 +447,5 @@ package SeedGenerator {
   object InnerRuinsTP extends Teleporter(14)
   object ShriekTP extends Teleporter(15)
   object MarshTP extends Teleporter(16)
+  object GladesTP extends Teleporter(17)
 }
