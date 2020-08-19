@@ -75,7 +75,7 @@ package SeedGenerator {
     }
 
     def fromGame(args: Seq[String]): Unit = {
-      Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR, INFO, DEBUG))
+      Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
 
       Config.settingsProvider = settingsFromFile(args(1))
       val hp = args(2).toInt / 5

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using RandoMainDLL.Memory;
 
@@ -44,10 +46,10 @@ namespace RandoMainDLL {
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.RedirectStandardOutput = true;
-        proc.StartInfo.RedirectStandardError= true;
         proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
-        proc.WaitForExit();
+        if(!proc.WaitForExit(7500))
+          Randomizer.Warn("MapController.waitForProc", "timed out waiting for reach check", false);
         Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
         if (rawOutput.Trim() != "")
@@ -59,8 +61,8 @@ namespace RandoMainDLL {
             }
             catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
           }
-        else
-          Randomizer.Log($"got output |{rawOutput}| from cmd. args: \"{String.Join(" ", argsList)}\" stderr was {proc.StandardError.ReadToEnd()}", false);
+//        else
+//          Randomizer.Log($"got output |{rawOutput}| from cmd. args: \"{String.Join(" ", argsList)}\" stderr was {proc.StandardError.ReadToEnd()}", false);
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
