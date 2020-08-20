@@ -369,14 +369,14 @@ package SeedGenerator {
               preplc.clear()
               if(Config().seirLaunch) {
                 val seir = Nodes.items("WindtornRuins.Seir")
-                preplc(seir) = ItemPlacement(Launch, seir)
+                preplc(seir).add(ItemPlacement(Launch, seir))
               }
               if(Config().flags.worldTour) {
                 Config.debug("Starting world tour placements...")
                 Nodes._items.values.groupBy(_.data.zone).foreach({case (z, items) =>
                   if(z != "Windtorn Ruins" && r.nextFloat() < .8) {
                     val slot = items.toSeq.rand
-                    preplc(slot) = ItemPlacement(Bonus(20, "Relic"), slot)
+                    preplc(slot).add(ItemPlacement(Bonus(20, "Relic"), slot))
                   }
                 })
                 Config.debug(preplc)
@@ -404,7 +404,41 @@ package SeedGenerator {
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, plcs)
     }
-    val preplc: MMap[ItemLoc, Placement] = MMap.empty
+    val preplc: MMap[ItemLoc, MSet[Placement]] = MMap.empty.withDefaultValue(MSet())
+
+    val seedLineRegex = """^(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
+
+    def applyPreplcsFromHeader(pool: Inv)(implicit r: Random) = {
+      val locsByCode = Nodes._items.values.map(a => a.data.code -> a).toMap
+      val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
+      FXGUI.header().split("\n").foreach({
+        case raw @ seedLineRegex(locCode,gid,uid,v,itemCode,_,_,extra,comm) if !comm.contains("skip") =>
+          (locsByCode.get(locCode), poolByCode.get(itemCode)) match {
+            case (Some(loc), Some(item)) =>
+              Config.debug(s"$loc, $item <= $raw")
+              pool.take(item)
+              preplc(loc) += GhostPlacement(item, loc)
+            case (Some(loc), None) =>
+              Config.debug(s"$loc, None($itemCode) <= $raw")
+              preplc(loc) += GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc)
+            case (None, Some(item)) =>
+              Config.debug(s"None($locCode), $item <= $raw")
+              pool.take(item)
+              Config.warn(s"Placing item $item in unknown location $locCode logically removes it from the pool.")
+            case (None, None) => Config.debug(s"None($locCode), None($itemCode) <= $raw")
+          }
+        case raw => Config.debug(s"ignoring line $raw")
+      })
+    }
+    case class GhostPlacement(item: Item, loc: ItemLoc) extends Placement {
+      override def write(spoilers:  Boolean): String = "//" + super.write(spoilers)
+    }
+    case class LocCode(ugid: String, uid: String, tailRaw: String, full: String) {
+      val groupId = ugid.toInt
+      val id = uid.toInt
+      val tail = Option(tailRaw)
+      override def toString: String = full
+    }
 
     @scala.annotation.tailrec
     def reachedRec(s: GameState, plcs: Set[Placement] = Set()): (GameState, Set[Placement]) = {
@@ -425,7 +459,7 @@ package SeedGenerator {
       reachCache.subtractAll(reachCache.collect{case (a, AreaTraversalInfo(_, s)) if s.isEmpty => a})
       val reached_placements = preplc.keySet.intersect(haveReached.collect({case i: ItemLoc => i}))
       if(reached_placements.nonEmpty) {
-        val new_placements = plcs ++ reached_placements.map(l => preplc(l))
+        val new_placements = plcs ++ reached_placements.flatMap(l => preplc(l))
         val partialState =  s.noReached + GameState(new Inv(new_placements.map(_.item -> 1).toSeq:_*), states.toSet, haveReached.toSet)
         preplc.subtractAll(new_placements.map(_.loc))
         Nodes.reachedRec(partialState, new_placements)
@@ -683,7 +717,7 @@ package SeedGenerator {
     }
   }
 
-  case class Seed(grps: Seq[PlacementGroup], error: Option[GeneratorError]) {
+  case class Seed(grps: Seq[PlacementGroup], error: Option[GeneratorError], header: String) {
     def built: Boolean = error.isEmpty && grps.last.done
     val groups: Seq[PlacementGroup] = {
       if(Config().bonusItems) {
@@ -698,7 +732,7 @@ package SeedGenerator {
         grps :+ bonus
       } else grps
     }
-    def seed(spoilers: Boolean = true): String = (Config().header +
+    def seed(spoilers: Boolean = true): String = (Config().header + header +
         groups.map(plcmnts => plcmnts.write(spoilers)).mkString("\n").stripPrefix("\n") +
         s"\n\n// Config: ${Config().toJson}"
       ).replace("\n", "\r\n")
@@ -735,12 +769,13 @@ package SeedGenerator {
     }
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
+      val h = FXGUI.header()
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {
-      case Right(next) if next.done => Seed(grps :+ next, None)
+      case Right(next) if next.done => Seed(grps :+ next, None, h)
       case Right(next) => recurse(grps :+ next)
-      case Left(error) => Seed(grps, Some(error))
+      case Left(error) => Seed(grps, Some(error), h)
     }
 }
     def forceGetSeed(retries: Int = 10, time: Boolean = true): Seed = {
@@ -904,10 +939,14 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
       Nodes.populate()
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Config().flags.noKSDoors) 0 else 34)) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
-      while(pool.count < SIZE) pool.add(SpiritLight(r.between(75, 175)))
-      for { plc <- Nodes.preplc.values } Try { pool.take(plc.item) } match { case Failure(f) => pool.popSL(r) }
+      Try { Nodes.applyPreplcsFromHeader(pool) } match {
+        case Success(_) => Config.log(s"finished applying header: ${Nodes.preplc}")
+        case Failure(f) => Config.error(f)
+      }
+      val locs = Nodes.items.values.toSet -- Nodes.preplc.keys
+      while(pool.count < locs.size) pool.add(SpiritLight(r.between(75, 175)))
 
-      pool.merchToPop = (Nodes.items.values.toSet -- Nodes.preplc.keys).count(_.data.category == "Shop")
+      pool.merchToPop = locs.count(_.data.category == "Shop")
       pool
     }
   }
