@@ -72,14 +72,29 @@ package SeedGenerator {
           case 2 => s"$withPad(Shop) (Twillen)"
           case _ => s"$withPad($x,$y) $zone"
         }
-    }
+      }
+      val zoneId = LocData.zoneToId.getOrElse(zone, 12)
   }
   object LocData {
+    def zoneToId = Map(
+      "Inkwater Marsh" -> 0,
+      "Kwoloks Hollow" -> 1,
+      "Wellspring Glades" -> 2,
+      "The Wellspring" -> 3,
+      "Luma Pools" -> 4,
+      "Midnight Burrows" -> 5,
+      "Baurs Reach" -> 6,
+      "Silent Woods" -> 7,
+      "Mouldwood Depths" -> 8,
+      "Windswept Wastes" -> 9,
+      "Windtorn Ruins" -> 10,
+      "Willows End" -> 11
+    )
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = "loc_data.csv".f
       Config.debug(s"Loading loc_data from $pickupsFile")
-      val pickups = pickupsFile.readLines.flatMap {
+       pickupsFile.readLines.flatMap {
         case s if s.trim == "" => None
         case s if s.trim.startsWith("--") =>
           None
@@ -88,8 +103,7 @@ package SeedGenerator {
         case line: String =>
           Config.warn(s"Couldn't parse line: $line")
           None
-      }.toSeq
-      pickups
+      }
     }
     def byName: Map[String, LocData] = all.map(data => s"${data.area}.${data.name}" -> data).toMap
   }
@@ -357,6 +371,16 @@ package SeedGenerator {
                 val seir = Nodes.items("WindtornRuins.Seir")
                 preplc(seir) = ItemPlacement(Launch, seir)
               }
+              if(Config().flags.worldTour) {
+                Config.debug("Starting world tour placements...")
+                Nodes._items.values.groupBy(_.data.zone).foreach({case (z, items) =>
+                  if(z != "Windtorn Ruins" && r.nextFloat() < .8) {
+                    val slot = items.toSeq.rand
+                    preplc(slot) = ItemPlacement(Bonus(20, "Relic"), slot)
+                  }
+                })
+                Config.debug(preplc)
+              }
               populatedWithSetting = Some(Config())
               true
             case Left(error) =>
@@ -376,7 +400,7 @@ package SeedGenerator {
       val(rs, plcs) = Nodes.reachedRec(s, Set())
       mbprplc.foreach(old => {preplc.clear(); preplc.addAll(old)})
 
-      if(plcs.nonEmpty)
+      if(plcs.nonEmpty && !theoretical)
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, plcs)
     }
@@ -757,7 +781,8 @@ package SeedGenerator {
                     noSword: Boolean = false,
                     rain: Boolean = false,
                     noKSDoors: Boolean = false,
-                    randomSpawn: Boolean = false
+                    randomSpawn: Boolean = false,
+                    worldTour: Boolean = false
                   ) {
     def line: String = {
       Seq(
@@ -768,7 +793,8 @@ package SeedGenerator {
         noSword ? "NoFreeSword",
         rain ? "RainyMarsh",
         noKSDoors ? "NoKSDoors",
-        randomSpawn ? "RandomSpawn"
+        randomSpawn ? "RandomSpawn",
+        worldTour ? "WorldTour"
       ).flatten match {
         case Nil => ""
         case s => s"Flags: ${s.mkString(", ")}\n"
@@ -788,9 +814,7 @@ package SeedGenerator {
                           debugInfo: Boolean = false,
                           seirLaunch: Boolean = false,
                         ) extends SettingsProvider {
-    def header: String = {
-      flags.line + (if(flags.randomSpawn) Nodes._spawn.line else "")
-    }
+    def header: String = flags.line + flags.randomSpawn ? Nodes._spawn.line ?? ""
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def toJson: String = {Serialization.write(this)}
     override def apply(): GenSettings = this
@@ -881,7 +905,8 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Config().flags.noKSDoors) 0 else 34)) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
       while(pool.count < SIZE) pool.add(SpiritLight(r.between(75, 175)))
-      Nodes.preplc.values.foreach(plc => pool.take(plc.item))
+      for { plc <- Nodes.preplc.values } Try { pool.take(plc.item) } match { case Failure(f) => pool.popSL(r) }
+
       pool.merchToPop = (Nodes.items.values.toSet -- Nodes.preplc.keys).count(_.data.category == "Shop")
       pool
     }
