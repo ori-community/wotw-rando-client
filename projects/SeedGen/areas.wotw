@@ -1611,7 +1611,12 @@ anchor GladesTown.West at -430, -4135:  # At Motay
     unsafe, EnemyObstacle:
       DoubleJump, Damage=20
       Bash, Weapon		# weapon floating, yes verified with hammer
-
+  conn GladesTown.TwillenHome: free
+  conn GladesTown.Teleporter:
+    moki:
+      TuleyShop.Lightcatchers, Bash, Glide
+      TuleyShop.BlueMoon, Grapple
+      GladesTown.BuildHuts, TuleyShop.StickyGrass, Grapple, Glide
   conn GladesTown.UpperWest:
     moki:
       TuleyShop.StickyGrass, Launch
@@ -1685,13 +1690,10 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
       Sword, Grenade=1
 
   pickup GladesTown.MotayHutEX:
-    moki, GladesTown.BuildHuts:
-      DoubleJump OR Dash OR Glide
-      TuleyShop.Lightcatchers, Bash
-      TuleyShop.BlueMoon, Grapple
+    moki: GladesTown.BuildHuts, DoubleJump OR Dash OR Glide
     gorlek, GladesTown.BuildHuts: 
       Weapon	# Weapon Float
-      TuleyShop.StickyGrass, Grapple
+      Grapple, TuleyShop.BlueMoon OR TuleyShop.StickyGrass
     unsafe: GladesTown.BuildHuts, Sentry=1 OR Spear=1 OR Flash OR Blaze=1
 
   pickup GladesTown.UpperOre:
