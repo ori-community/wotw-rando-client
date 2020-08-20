@@ -22,7 +22,7 @@ package SeedGenerator {
     def mkSkill(s: String): Option[(Skill, Int)] = skills.get(s.toLowerCase).map(Skill(_) -> 1)
     def mkTp(s: String): Option[(Teleporter, Int)] = tps.get(s.toLowerCase).map(Teleporter(_) -> 1)
     def mkEvent(s: String): Option[(WorldEvent, Int)] = events.get(s.toLowerCase).map(WorldEvent(_) -> 1)
-    def settingsFromFile(path: String): GenSettings = Try {
+    def settingsFromSeed(path: String): GenSettings = Try {
         val inFile = Source.fromFile(path)
         val lines = inFile.getLines().toSeq
         val configsRaw = lines.last.replace("// Config: ", "")
@@ -48,7 +48,7 @@ package SeedGenerator {
         val st = GameState(new Inv(
           args.flatMap({
             case cfg(path)        =>
-              Config.settingsProvider = settingsFromFile(path)
+              Config.settingsProvider = settingsFromSeed(path)
               None
             case health(amt)      => amt.toIntOption.map(Health -> _)
             case energy(amt)      => amt.toIntOption.map(Energy -> _)
@@ -77,7 +77,7 @@ package SeedGenerator {
     def fromGame(args: Seq[String]): Unit = {
       Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
 
-      Config.settingsProvider = settingsFromFile(args(1))
+      Config.settingsProvider = settingsFromSeed(args(1))
       val hp = args(2).toInt / 5
       val en = args(3).toInt / 5
       val ks = args(4).toInt
@@ -90,7 +90,7 @@ package SeedGenerator {
         case s if s.startsWith("w:")  => s.stripPrefix("w:").toIntOption.map(WorldEvent(_)->1)
         case a => Config.error(s"unknown name $a"); None
         }:_*))
-      Config.debug(s"$args\n$st\n${Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).mkString(", ")}")
+//      Config.debug(s"$args\n$st\n${Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).mkString(", ")}")
       println(Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.code).mkString(", "))
     }
 

@@ -21,6 +21,10 @@ package SeedGenerator {
     val itemType: Int = -1
   }
 
+  case class RawItem(override val code: String) extends Unplaceable {
+    def name: String = code
+  }
+
   trait SpiritLightItem extends Item {
     val itemType: Int = 0
     def amount: Int

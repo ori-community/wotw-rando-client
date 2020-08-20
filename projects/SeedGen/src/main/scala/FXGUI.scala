@@ -26,11 +26,16 @@ package SeedGenerator {
 
   import scala.util.Try
   object FXGUI extends JFXApp {
-    val settingsFile = "SeedGenSettings.json".f.canonPath
     def settingsFromFile = {
       implicit val formats: Formats = Serialization.formats(NoTypeHints)
       settingsFile.read.map(Serialization.read[GenSettings]).getOrElse(GenSettings())
     }
+    if(FXGUI.parameters.raw.nonEmpty) {
+      ReachChecker(FXGUI.parameters.raw.toSeq)
+      sys.exit()
+    }
+
+    val settingsFile = "SeedGenSettings.json".f.canonPath
     var currentOp: Option[Future[Unit]] = None
     val headerFilePath =  ".seedHeader".f.canonPath
     val startSet = settingsFromFile
@@ -61,7 +66,6 @@ package SeedGenerator {
       override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ Config().debugInfo ? DEBUG
       override def write(x: =>Any): Unit = {
         //        logArea.setScrollTop(logArea.height())
-        println(x)
         Platform.runLater(() => logArea.appendText(s"$x\n"))
       }
     }
@@ -69,7 +73,7 @@ package SeedGenerator {
     Config.logger  = FXLogger
 
     def outputPath: String = {
-      val name_base = outputDirectory.toAbsolutePath + "\\" + "seed"
+      val name_base = outputDirectory.toAbsolutePath.resolve("seed").toString
       var ret = s"$name_base.wotwr"
       var i = 0
       while(ret.f.exists) {
@@ -154,7 +158,6 @@ package SeedGenerator {
     }
 
     header.addListener((o, oldV, newV) => {
-      println(newV.count(a => Seq('\n', '\r').contains(a)))
       headerFilePath.write(newV)
     })
     stage = new PrimaryStage {
