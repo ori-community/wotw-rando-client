@@ -1275,7 +1275,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
       TuleyShop.SpringPlants, TuleyShop.Lightcatchers, Bash
     gorlek:
       DoubleJump, TripleJump
-      SentryJump=2, Weapon
+      SentryJump=2, Sword OR Hammer
       SentryJump=1, Sword, DoubleJump
       Hammer:  # uphammer into exp
         Bash, Grenade=1
@@ -1306,7 +1306,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
         Flap, Glide
         TuleyShop.BlueMoon, Grapple
         TuleyShop.SpringPlants
-        SentryJump=1, Weapon  # hammer is waaaaay easier from the left side
+        SentryJump=1, Sword OR Hammer  # hammer is waaaaay easier from the left side
       Bash, Grenade=2, Dash, DoubleJump OR Glide
     unsafe:
       DoubleJump, Sword
@@ -1332,7 +1332,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
         Flap, Glide
         TuleyShop.BlueMoon, Grapple
         TuleyShop.SpringPlants
-        SentryJump=1, Weapon  # hammer is waaaaay easier from the left side
+        SentryJump=1, Sword OR Hammer  # hammer is waaaaay easier from the left side
       Bash, Grenade=3, Dash, DoubleJump OR Glide
     unsafe:
       DoubleJump, Sword
@@ -1348,7 +1348,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
       Launch
       TuleyShop.Lightcatchers, Bash, DoubleJump OR Dash OR Glide
     gorlek, GladesTown.ClearThorns:
-      SentryJump=1, Weapon
+      SentryJump=1, Sword OR Hammer
       TuleyShop.Lightcatchers, Bash
     unsafe, GladesTown.ClearThorns:
       Grenade=1  # Grenade Jump
@@ -1391,7 +1391,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
     gorlek:
       Launch
       TuleyShop.BlueMoon, Grapple:
-        SentryJump=1, Weapon
+        SentryJump=1, Sword OR Hammer
         TuleyShop.Lightcatchers, Bash
     unsafe:
       TuleyShop.Lightcatchers, Bash, Grenade=1, Grapple  # grenadebash
@@ -1425,18 +1425,18 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
         TuleyShop.SpringPlants, Bash, Grenade=1
     gorlek:
       Flap, Glide:
-        SentryJump=1, Weapon
+        SentryJump=1, Sword OR Hammer
         Hammer, Dash
         TuleyShop.StickyGrass, Grapple
-      SentryJump=2, Weapon
+      SentryJump=2, Sword OR Hammer
       DoubleJump, TripleJump
       TuleyShop.Lightcatchers, Bash:
-        TuleyShop.BlueMoon, Grapple, Weapon  # uphammer in question, upslash is easy
+        TuleyShop.BlueMoon, Grapple, Sword OR Hammer  # uphammer in question, upslash is easy
         TuleyShop.SpringPlants
       TuleyShop.SpringPlants, Hammer
     unsafe:
       TuleyShop.SpringPlants, Sword OR Grenade=1 OR Sentry OR Flash  # increased height bounces # sentry and flash short hops give you juuuuuust enough height to get up using the springboard by the hut with the crates
-      Flap, Glide, Weapon OR Grenade=1  # grenade jump, upslash, uphammer
+      Flap, Glide, Sword OR Hammer OR Grenade=1  # grenade jump, upslash, uphammer
       TuleyShop.Lightcatchers, Bash, TuleyShop.BlueMoon, Grapple
 
   conn GladesTown.ReachPath:
@@ -1454,7 +1454,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
       Flap, Glide
       Bash, Grenade=1
     gorlek: InnerWellspring.WaterEscape, SentryJump=1 OR Burrow OR Dash
-    unsafe: InnerWellspring.WaterEscape, Shuriken=1 OR Weapon OR Grenade=1 OR Sentry=1 OR Flash OR Spear=1
+    unsafe: InnerWellspring.WaterEscape, Shuriken=1 OR Sword OR Hammer OR Grenade=1 OR Sentry=1 OR Flash OR Spear=1
     # seed paths tbd if ever necessary
 # connection to hollow currently redundant with the wall in the way
 
@@ -1474,7 +1474,7 @@ anchor GladesTown.TwillenHome at -414, -4160:  # # At Twillen in Glades
       Launch
     gorlek, GladesTown.ClearThorns, GladesTown.CaveEntrance:
       Flash:
-        Water, Damage=10, DoubleJump OR Weapon
+        Water, Damage=10, DoubleJump OR Sword OR Hammer
         Water, Dash
         Water, DoubleJump, TripleJump
         SentryJump=1
@@ -1532,8 +1532,8 @@ anchor GladesTown.TwillenHome at -414, -4160:  # # At Twillen in Glades
       Bash, Grenade=1
       TuleyShop.StickyGrass, Grapple
     gorlek:
-      SentryJump=1, Weapon
-      TuleyShop.SpringPlants, Weapon  # upslash or uphammer
+      SentryJump=1, Sword OR Hammer
+      TuleyShop.SpringPlants, Sword OR Hammer  # upslash or uphammer
       TuleyShop.Lightcatchers, Bash
     unsafe:
       Grenade=1
@@ -1544,7 +1544,7 @@ anchor GladesTown.TwillenHome at -414, -4160:  # # At Twillen in Glades
       Bash, Grenade=1
     gorlek:
       Damage=10
-      SentryJump=1, Weapon
+      SentryJump=1, Sword OR Hammer
 
 anchor GladesTown.West at -430, -4135:  # At Motay
   refill Checkpoint
@@ -1572,11 +1572,12 @@ anchor GladesTown.West at -430, -4135:  # At Motay
         TuleyShop.Lightcatchers, Bash, Grenade=1
     gorlek:
       Launch
-      SentryJump=2, Weapon, GladesTown.BuildHuts
-      SentryJump=1, Weapon, DoubleJump OR TuleyShop.StickyGrass
+      SentryJump=1, DoubleJump, Sword OR Hammer
+      TuleyShop.StickyGrass, SentryJump=1, Sword OR Hammer
+      GladesTown.BuildHuts, SentryJump=2, Sword OR Hammer
     unsafe:
       DoubleJump, TripleJump, TuleyShop.BlueMoon, Grapple, GladesTown.BuildHuts
-      SentryJump=2, Weapon  # Midairs
+      SentryJump=2, Sword OR Hammer  # Midairs
       Grenade=3, GladesTown.BuildHuts  # Grenade Jumps
       TuleyShop.Lightcatchers, Bash, Grenade=1, Grapple  # Grenadebash
 
@@ -1588,7 +1589,7 @@ anchor GladesTown.West at -430, -4135:  # At Motay
       Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
       TuleyShop.Lightcatchers, Bash
     gorlek, GladesTown.BuildHuts:
-      SentryJump=1, Weapon
+      SentryJump=1, Sword OR Hammer
       DoubleJump, TripleJump
     unsafe, GladesTown.BuildHuts:
       Grenade=1  # grenade jumps
@@ -1610,7 +1611,7 @@ anchor GladesTown.West at -430, -4135:  # At Motay
       DoubleJump, TripleJump OR Damage=30
     unsafe, EnemyObstacle:
       DoubleJump, Damage=20
-      Bash, Weapon  # weapon floating, yes verified with hammer
+      Bash, Sword OR Hammer  # weapon floating, yes verified with hammer
   conn GladesTown.TwillenHome: free
   conn GladesTown.Teleporter:
     moki:
@@ -1650,7 +1651,7 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
       DoubleJump OR Dash OR Glide OR Launch
       TuleyShop.Lightcatchers, Bash  # somehow I don't think this path is very relevant
       TuleyShop.BlueMoon, Grapple
-    gorlek: GladesTown.ClearThorns, Weapon
+    gorlek: GladesTown.ClearThorns, Sword OR Hammer
     unsafe, GladesTown.ClearThorns:
       Sentry=2
       Shuriken=1
@@ -1659,7 +1660,7 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
     moki: GladesTown.OnwardsAndUpwards, DoubleJump OR Launch
     gorlek: GladesTown.OnwardsAndUpwards, SentryJump=1
     unsafe, GladesTown.OnwardsAndUpwards:
-      Weapon  # upslash or uphammer
+      Sword OR Hammer  # upslash or uphammer
       Grenade=1  # grenade jump
       Bash, Spear=1  # spearbash off of the pots
 
@@ -1669,7 +1670,7 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
       Launch
       DoubleJump, Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
     gorlek:
-      SentryJump=1, Weapon
+      SentryJump=1, Sword OR Hammer
       DoubleJump, TripleJump
     unsafe:
       DoubleJump
@@ -1683,7 +1684,7 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
       Grapple, TuleyShop.StickyGrass OR TuleyShop.BlueMoon
     gorlek:
       Bash, Grenade=1
-      SentryJump=1, Weapon  # hammer sjump on the left side and walk over the top
+      SentryJump=1, Sword OR Hammer  # hammer sjump on the left side and walk over the top
       DoubleJump, TripleJump
     unsafe:
       DoubleJump
@@ -1692,7 +1693,7 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
   pickup GladesTown.MotayHutEX:
     moki: GladesTown.BuildHuts, DoubleJump OR Dash OR Glide
     gorlek, GladesTown.BuildHuts:
-      Weapon  # Weapon Float
+      Sword OR Hammer  # Weapon Float
       Grapple, TuleyShop.BlueMoon OR TuleyShop.StickyGrass
     unsafe: GladesTown.BuildHuts, Sentry=1 OR Spear=1 OR Flash OR Blaze=1
 
@@ -1701,16 +1702,16 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
     gorlek, GladesTown.BuildHuts:
       SentryJump=1, Sword, DoubleJump OR TuleyShop.StickyGrass
       SentryJump=1, Hammer, TuleyShop.StickyGrass
-      SentryJump=2, Weapon
+      SentryJump=2, Sword OR Hammer
     unsafe, GladesTown.BuildHuts:
-      Grenade=2, Sentry=1 OR Spear=1 OR Flash OR Blaze=1 OR Weapon OR Dash OR Glide OR DoubleJump
+      Grenade=2, Sentry=1 OR Spear=1 OR Flash OR Blaze=1 OR Sword OR Hammer OR Dash OR Glide OR DoubleJump
 
   conn GladesTown.West:
     moki:
       Dash OR Glide
       TuleyShop.BlueMoon, Grapple
     gorlek:
-      Weapon
+      Sword OR Hammer
       TuleyShop.StickyGrass, Grapple
     unsafe: GladesTown.BuildHuts, Sentry=1 OR Spear=1 OR Flash OR Blaze=1
 
@@ -1720,7 +1721,7 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
       Dash OR Glide
       TuleyShop.Lightcatchers, Bash
       TuleyShop.BlueMoon, Grapple
-    gorlek: Damage=10 OR Weapon
+    gorlek: Damage=10 OR Sword OR Hammer
     unsafe: Grenade=1 OR Sentry=1 OR Flash OR Blaze=1 OR Spear=1 OR Shuriken=1
 
 anchor GladesTown.HoleHut at -214, -4111:  # The ledge below Hole Hut
@@ -1759,20 +1760,20 @@ anchor GladesTown.HoleHut at -214, -4111:  # The ledge below Hole Hut
       TuleyShop.Lightcatchers, TuleyShop.StickyGrass, Bash, Grapple, Glide
     gorlek:
       Launch
-      TuleyShop.BlueMoon, Grapple, Weapon OR Glide
+      TuleyShop.BlueMoon, Grapple, Sword OR Hammer OR Glide
       TuleyShop.StickyGrass, Grapple, Glide
       DoubleJump, TripleJump
-      SentryJump=1, Weapon  # Weapon Float
+      SentryJump=1, Sword OR Hammer  # Weapon Float
     unsafe:
       TuleyShop.SpringPlants, Hammer  # Uphammer Bounce
-      TuleyShop.StickyGrass, Grapple, Weapon OR Blaze=1 OR Shuriken=1 OR Sentry=1 OR Flash
-      Grenade=1, Weapon OR Glide OR Dash OR DoubleJump OR Blaze=1 OR Shuriken=1 OR Sentry=1 OR Flash
+      TuleyShop.StickyGrass, Grapple, Sword OR Hammer OR Blaze=1 OR Shuriken=1 OR Sentry=1 OR Flash
+      Grenade=1, Sword OR Hammer OR Glide OR Dash OR DoubleJump OR Blaze=1 OR Shuriken=1 OR Sentry=1 OR Flash
       Grenade=1, TuleyShop.Lightcatchers, Bash
       Grenade=2
 
   conn TuleyShop:
     moki: InnerWellspring.WaterEscape, Dash OR Glide  # seed paths tbd if ever necessary
-    gorlek: Weapon  # getting up there with just a weapon from below is not written in gorlek. The weapon floats from hole hut, however, are probably gorlek difficulty.
+    gorlek: Sword OR Hammer  # getting up there with just a weapon from below is not written in gorlek. The weapon floats from hole hut, however, are probably gorlek difficulty.
     # everything else is redundant
   conn GladesTown.Teleporter: free
 
@@ -1798,7 +1799,7 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
   pickup GladesTown.UpdraftCeilingEX:
     moki: DoubleJump  # other (non-redundant) paths exist, but this has free retries, otherwise you'd have to go through entire reach to get another attempt
     gorlek:
-      SentryJump=1, Weapon  # weapon float woo
+      SentryJump=1, Sword OR Hammer  # weapon float woo
       Glide
     unsafe: Grenade=1
 
@@ -1816,8 +1817,8 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
       Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
       Glide, Launch
     gorlek:
-      Glide, SentryJump=1, Weapon
-      Launch, Damage=20, DoubleJump OR Weapon
+      Glide, SentryJump=1, Sword OR Hammer
+      Launch, Damage=20, DoubleJump OR Sword OR Hammer
       Launch, Damage=40  # it's really simple so idk if it belongs in gorlek or not
     unsafe:
       SentryJump=3, Sword, DoubleJump, Damage=20
