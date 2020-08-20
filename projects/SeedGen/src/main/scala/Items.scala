@@ -348,7 +348,9 @@ package SeedGenerator {
     var merchToPop = 16
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
     def popSL(implicit r: Random): SpiritLight = {
-      asSeq.collect({case s: SpiritLight => s}).rand
+      val i = asSeq.collect({case s: SpiritLight => s}).rand
+      take(i)
+      i
     }
     def popRand(implicit r: Random): Option[Item] = {
       val s =

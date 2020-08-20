@@ -1,39 +1,28 @@
-import scalafx.application.JFXApp
-import scalafx.application.JFXApp.PrimaryStage
-import scalafx.stage.DirectoryChooser
-import scalafx.scene.Scene
-import scalafx.scene.effect._
-import scalafx.Includes._
-import scalafx.scene.layout.HBox
-import scalafx.scene.paint.Color._
-import scalafx.scene.paint.{LinearGradient, Stops}
-import scalafx.scene.text.Text
-import scalafx.scene.layout.BorderPane
-import SeedGenerator._
+import java.io.File
+import java.nio.file.{Path, Paths, Files}
 import org.json4s._
 import org.json4s.native.Serialization
-import scalafx.beans.property.ObjectProperty
+import scalafx.Includes._
+import scalafx.application.JFXApp
+import scalafx.application.JFXApp.PrimaryStage
+import scalafx.scene.Scene
+import scalafx.scene.layout.BorderPane
+import scalafx.scene.paint.Color._
+import scalafx.scene.text.Text
+import scalafx.stage.DirectoryChooser
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import java.nio.file.{Paths, Files}
-import java.io.{File, FileWriter}
+import scala.concurrent.Future
+import scala.sys.process._
 package SeedGenerator {
 
-  import java.nio.file.Path
-
-  import scalafx.beans.property.{DoubleProperty, IntegerProperty, StringProperty}
-  import scalafx.scene.control.ScrollPane.ScrollBarPolicy
-  import scalafx.scene.control.{Button, Label, RadioButton, ScrollPane, Tab, TabPane, TextArea, TextInputControl, ToggleButton, ToggleGroup}
-  import scalafx.scene.text.Font
-
-  import scala.io.Source
   import SeedGenerator.implicits._
-  import javafx.scene.control.{Toggle => Joggle}
   import scalafx.application.Platform
+  import scalafx.beans.property.StringProperty
   import scalafx.geometry.{Insets, Pos}
-  import scalafx.scene.layout.Priority.Always
-  import scalafx.scene.layout.{Background, BackgroundFill, Border, BorderStroke, BorderStrokeStyle, BorderWidths, CornerRadii, GridPane, VBox}
+  import scalafx.scene.control._
+  import scalafx.scene.layout.{Border, BorderStroke, BorderStrokeStyle, BorderWidths, CornerRadii, GridPane, VBox}
+  import scalafx.scene.text.Font
 
   import scala.util.Try
   object FXGUI extends JFXApp {
@@ -43,10 +32,12 @@ package SeedGenerator {
       settingsFile.read.map(Serialization.read[GenSettings]).getOrElse(GenSettings())
     }
     var currentOp: Option[Future[Unit]] = None
-    var outputDirectory = new File(".")
     val headerFilePath =  ".seedHeader".f.canonPath
-    val folderLabel = new Text {text = s"Output folder: ${outputDirectory.getAbsolutePath}"}
+    val startSet = settingsFromFile
+    var outputDirectory = Paths.get(startSet.outputFolder)
+    val folderLabel = new Text {text = s"Output folder: ${outputDirectory.toAbsolutePath}"}
     val header = new StringProperty(null, "header_text", headerFilePath.read ?? "// Replace this text with a seed header, if desired")
+    val seedName = new StringProperty(null, "seed_name", "")
     val logArea = new TextArea {
       editable = false
     }
@@ -58,9 +49,9 @@ package SeedGenerator {
         gorlekPaths  = gorlekPathsButton.selected(),
         glitchPaths  = glitchPathsButton.selected(),
         questLocs    = questsButton.selected(),
-        outputFolder = outputDirectory.getAbsolutePath,
+        outputFolder = outputDirectory.toAbsolutePath.toString,
         flags        = Flags(forceWispsButton.selected(), forceTreesButton.selected(), forceQuestsButton.selected(), !zoneHintsButton.selected(),
-          !swordSpawnButton.selected(), rainButton.selected(), noKSDoorsButton.selected(), randomSpawnButton.selected()),
+          !swordSpawnButton.selected(), rainButton.selected(), noKSDoorsButton.selected(), randomSpawnButton.selected(), worldTourButton.selected()),
         bonusItems   = bonusItemsButton.selected(),
         debugInfo    = debugButton.selected(),
         seirLaunch   = seirLaunchButton.selected()
@@ -77,7 +68,17 @@ package SeedGenerator {
     Config.settingsProvider = FXSettingsProvider
     Config.logger  = FXLogger
 
-    val startSet = settingsFromFile
+    def outputPath: String = {
+      val name_base = outputDirectory.toAbsolutePath + "\\" + "seed"
+      var ret = s"$name_base.wotwr"
+      var i = 0
+      while(ret.f.exists) {
+        ret = s"${name_base}_$i.wotwr"
+        i += 1
+      }
+      lastSeed = Some(ret)
+      ret
+    }
 
     def onChange(unused: Boolean) = settingsFile.write(FXSettingsProvider().toJson)
     def toggle(name: String, tooltipText: String, startSelected: => Boolean, listener: => Boolean=>Unit = onChange) =  new ToggleButton(name){
@@ -105,21 +106,26 @@ package SeedGenerator {
     val seirLaunchButton:       ToggleButton = toggle("Launch on Seir",     "Places launch on Seir", startSet.seirLaunch)
     val noKSDoorsButton:        ToggleButton = toggle("Remove KS doors",    "Start the game with every keystone door opened", startSet.flags.noKSDoors)
     val forceWispsButton:       ToggleButton = toggle("Force Wisps",        "Adds requirement: Collect every Wisp", startSet.flags.forceWisps)
+    val worldTourButton:        ToggleButton = toggle("World Tour",         "Adds requirement: Collect a Relic from every zone with one", startSet.flags.worldTour)
     val forceQuestsButton:      ToggleButton = toggle("Force Quests",       "Adds requirement: Complete every Quest", startSet.flags.forceQuests)
     val forceTreesButton:       ToggleButton = toggle("Force Trees",        "Adds requirement: Collect all Ancestral Trees", startSet.flags.forceTrees)
+    val seedNameInput:          TextField    = new TextField {
+      text <==> seedName
+    }
 
-    val generateButton = new Button("Generate"){ tooltip = "build a seed with the specified parameters"}
-    val runLastSeedButton = new Button("Run Last Seed")
+    val generateButton = new Button("Generate"){ tooltip = "build a seed with the specified parameters" }
+    val runLastSeedButton = new Button("Run Last Seed") {disable = true}
+    var lastSeed: Option[String] = None
     generateButton.onAction = _ => {
       generateButton.disable = true
         currentOp = Some(Future {
           Config.info("Building...")
-/*          if(ui.seedField.text != "") {
-            info(s"Seeded RNG with ${UI.ui.seedField.text}")
-            SeedGenerator.Runner.setSeed(UI.ui.seedField.text.hashCode)
-          }*/
+          if(seedName() != "") {
+            Config.info(s"Seeded RNG with ${seedName()}")
+            SeedGenerator.Runner.setSeed(seedName().hashCode)
+          }
          val succ = Try {
-            if (SeedGenerator.Runner()) {
+            if (SeedGenerator.Runner(outputPath)) {
               Config.info(s"Finished generating seed!")
               true
             } else {
@@ -135,6 +141,13 @@ package SeedGenerator {
           })
         })
       }
+    runLastSeedButton.onAction = _ => lastSeed match {
+      case Some(file) => Seq("cmd", "/C", file.f.toString).lazyLines
+      case None =>
+        Config.warn("Last seed file not found!")
+        runLastSeedButton.disable = true
+    }
+
 
     val textArea: TextArea = new TextArea() {
       text <==> header
@@ -149,7 +162,7 @@ package SeedGenerator {
       width = 800
       height = 600
       val selector = new DirectoryChooser {
-        initialDirectory = outputDirectory
+        initialDirectory = outputDirectory.toFile
       }
 
       val headerInputField = new TextArea() {
@@ -186,8 +199,10 @@ package SeedGenerator {
       }
 
       gp.addRow(0, new Label("Logic Groups: "), gorlekPathsButton, glitchPathsButton, uncheckedPathsButton)
-      gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton)
-      gp.addRow(2, generateButton, debugButton,
+      gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
+      gp.addRow(2, swordSpawnButton,  rainButton, randomSpawnButton, seirLaunchButton)
+      gp.addRow(3, raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton)
+      gp.addRow(4, generateButton, debugButton, seedNameInput, runLastSeedButton,
         new Button("Clear Log"){onAction = _ => logArea.setText("")},
       )
       gp
