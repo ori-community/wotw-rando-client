@@ -437,12 +437,14 @@ namespace RandoMainDLL {
     public override int DefaultCost() => 300;
     public override PickupType Type => PickupType.BonusItem;
     public readonly BonusType type;
-    private readonly UberId stateId;
+    protected readonly UberId stateId;
 
-    public BonusItem(BonusType command) {
-      type = command;
+    public BonusItem(BonusType t) {
+      type = t;
       stateId = new UberId(4, (int)type);
     }
+    public static BonusItem Build(BonusType t, ZoneType z) => t == BonusType.Relic ? Relic.Build(z) : new BonusItem(t);
+
     public override void Grant(bool skipBase = false) {
       var state = stateId.State();
       state.Value.Byte += 1;

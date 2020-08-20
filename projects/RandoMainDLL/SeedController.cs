@@ -33,7 +33,9 @@ namespace RandoMainDLL {
     [Description("Rainy Marsh")]
     RAIN,
     [Description("Random Spawn")]
-    RAND
+    RAND,
+    [Description("World Tour")]
+    RELIC_HUNT,
   }
 
   public class UberStateCondition {
@@ -100,6 +102,7 @@ namespace RandoMainDLL {
         shardNag.Clear();
         weaponNag.Clear();
         flags.Clear();
+        Relic.Reset();
         HintsController.Reset();
         HasInternalSpoilers = true;
         string line = "";
@@ -147,7 +150,7 @@ namespace RandoMainDLL {
               extras.Remove("mute");
               needsMute = true;
             }
-            var pickup = BuildPickup(pickupType, frags[3], extras);
+            var pickup = BuildPickup(pickupType, frags[3], extras, cond);
             pickup.Muted = needsMute;
             if (pickup.IsHintItem())
               HintsController.AddHint(cond.Loc().Zone, pickup as Checkable);
@@ -189,9 +192,7 @@ namespace RandoMainDLL {
         var flag = rawFlag.Trim().ToLower();
         if (flag == "nosword")
           flags.Add(Flag.NOSWORD);
-        else if(flag.StartsWith("worldtour")) {
-
-        } else if (enumsByName.TryGetValue(flag, out Flag f))
+        else if (enumsByName.TryGetValue(flag, out Flag f))
           flags.Add(f);
         else
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
@@ -241,7 +242,7 @@ namespace RandoMainDLL {
     }
 
 
-    public static Pickup BuildPickup(PickupType type, string pickupData, List<String> extras) {
+    public static Pickup BuildPickup(PickupType type, string pickupData, List<String> extras, UberStateCondition cond) {
       switch (type) {
         case PickupType.Ability:
           return Ability.Build(pickupData);
@@ -258,7 +259,7 @@ namespace RandoMainDLL {
         case PickupType.WeaponUpgrade:
           return WeaponUpgrade.ById[(WeaponUpgradeType)pickupData.ParseToInt()];
         case PickupType.BonusItem:
-          return new BonusItem((BonusType)pickupData.ParseToInt());
+          return BonusItem.Build((BonusType)pickupData.ParseToInt(), cond.Loc().Zone);
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {
@@ -437,6 +438,8 @@ namespace RandoMainDLL {
         var w = amount == max ? met : unmet;
         msg += $", {w}Quests: {amount}/{max}{w}";
       }
+      if (flags.Contains(Flag.RELIC_HUNT))
+        msg += Relic.RelicMessage();
       return msg.StartsWith(", ") ? (progress ? "\n" : "") + msg.Substring(2) : msg;
     }
 
@@ -461,6 +464,7 @@ namespace RandoMainDLL {
             break;
         }
       }
+      finished = finished && Relic.Valid;
       if (finished != UberGet.value(3, 11).Bool) {
         UberSet.Bool(3, 11, finished);
       }
