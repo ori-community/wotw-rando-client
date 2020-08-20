@@ -17,7 +17,7 @@ lazy val osName = System.getProperty("os.name") match {
 }
 
 // Add dependency on JavaFX libraries, OS dependent
-lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media")
+lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics")
 libraryDependencies ++= javaFXModules.map( m =>
   "org.openjfx" % s"javafx-$m" % "14.0.1" classifier osName
 )
@@ -29,10 +29,10 @@ assemblyMergeStrategy in assembly := {
 }
 
 libraryDependencies += "org.json4s" %% "json4s-native" % "3.6.9"
-libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
+// libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
 libraryDependencies += "com.lihaoyi" %% "fastparse" % "2.2.2" // SBT
 libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0"
-libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
+// libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
 
 scalacOptions += "-deprecation"
 scalacOptions += "-feature"
