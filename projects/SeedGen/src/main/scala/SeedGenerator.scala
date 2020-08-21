@@ -1,16 +1,18 @@
-import java.nio.file.{Path, Paths, Files}
-import scala.jdk.CollectionConverters._
-import scala.collection.mutable.{ListBuffer => MList, Map => MMap, Set => MSet}
-import scala.language.implicitConversions
-import scala.util.{Random, Try}
+import java.nio.charset.StandardCharsets
+import java.nio.file.{Files, Path, Paths}
+
 import org.json4s.native.Serialization
 import org.json4s.{Formats, NoTypeHints}
-import java.nio.charset.StandardCharsets
+
+import scala.collection.mutable.{ListBuffer => MList, Map => MMap, Set => MSet}
+import scala.jdk.CollectionConverters._
+import scala.language.implicitConversions
+import scala.util.{Random, Try}
 package SeedGenerator {
 
   //  these are fine
   object implicits {
-    val IS_DEBUG = (sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments).asScala.exists(it => it.contains("IntelliJ"))
+    val IS_DEBUG: Boolean = sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments.asScala.exists(it => it.contains("IntelliJ"))
 
     implicit class RegexOpts(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
@@ -54,12 +56,10 @@ package SeedGenerator {
       implicit def nodeToPart(node: Node): Either[Item, Either[FlagState, Node]] = Right(Right(node))
       implicit val r: Random = new Random()
     }
-    import java.nio.charset.Charset
-    import java.nio.file.{Path, Paths}
-
     import SeedGenerator.implicits._
 
     import scala.language.postfixOps
+    import scala.util.matching.Regex
     import scala.util.{Failure, Success}
 
     case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
@@ -73,7 +73,7 @@ package SeedGenerator {
           case _ => s"$withPad($x,$y) $zone"
         }
       }
-      val zoneId = LocData.zoneToId.getOrElse(zone, 12)
+      val zoneId: Int = LocData.zoneToId.getOrElse(zone, 12)
   }
   object LocData {
     def zoneToId = Map(
@@ -361,26 +361,10 @@ package SeedGenerator {
               Config.debug(s"parse done, ${value.size} areas")
               if(!ReachChecker.doingReachCheck)
                 _spawn = Config().flags.randomSpawn ? SpawnLoc.valid.rand ?? SpawnLoc.default
-
               Config.debug(s"spawn loc is ${_spawn.areaName}")
               _areas = Timer("FixAreas")(fixAreas(value))
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
               Config.debug(s"items done ${_items.size} items")
-              preplc.clear()
-              if(Config().seirLaunch) {
-                val seir = Nodes.items("WindtornRuins.Seir")
-                preplc(seir).add(ItemPlacement(Launch, seir))
-              }
-              if(Config().flags.worldTour) {
-                Config.debug("Starting world tour placements...")
-                Nodes._items.values.groupBy(_.data.zone).foreach({case (z, items) =>
-                  if(z != "Windtorn Ruins" && r.nextFloat() < .8) {
-                    val slot = items.toSeq.rand
-                    preplc(slot).add(ItemPlacement(Bonus(20, "Relic"), slot))
-                  }
-                })
-                Config.debug(preplc)
-              }
               populatedWithSetting = Some(Config())
               true
             case Left(error) =>
@@ -404,23 +388,44 @@ package SeedGenerator {
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, plcs)
     }
-    val preplc: MMap[ItemLoc, MSet[Placement]] = MMap.empty.withDefaultValue(MSet())
+    val preplc: MMap[ItemLoc, MSet[Placement]] =  MMap[ItemLoc, MSet[Placement]]()
+    val seedLineRegex: Regex = """^(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
 
-    val seedLineRegex = """^(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
-
-    def applyPreplcsFromHeader(pool: Inv)(implicit r: Random) = {
+    def regenPreplcs(pool: Inv)(implicit r: Random): Unit = Try {
+      def addPreplc(p: Placement): Unit = {
+        val s = preplc.getOrElse(p.loc, MSet())
+        s.add(p)
+        preplc += (p.loc -> s)
+      }
+      preplc.clear()
+      if(Config().flags.worldTour) {
+        Config.debug("World Tour: finding relic placements...")
+        Nodes._items.values.groupBy(_.data.zone).foreach({case (z, items) =>
+          if(z != "Windtorn Ruins" && r.nextFloat() < .8) {
+            val slot = items.toSeq.rand
+            addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
+          }
+        })
+        Config.debug(s"World Tour: placed ${preplc.size} relics")
+      }
+      if(Config().seirLaunch) {
+        val seir = Nodes.items("WindtornRuins.Seir")
+        addPreplc(ItemPlacement(Launch, seir))
+      }
       val locsByCode = Nodes._items.values.map(a => a.data.code -> a).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
+      //noinspection FieldFromDelayedInit
       FXGUI.header().split("\n").foreach({
-        case raw @ seedLineRegex(locCode,gid,uid,v,itemCode,_,_,extra,comm) if !comm.contains("skip") =>
+        case raw @ seedLineRegex(locCode,_,_,_,itemCode,_,_,extra,comm) if !comm.contains("skip") =>
           (locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (Some(loc), Some(item)) =>
-              Config.debug(s"$loc, $item <= $raw")
               pool.take(item)
-              preplc(loc) += GhostPlacement(item, loc)
+              addPreplc(GhostPlacement(item, loc))
+              Config.debug(s"$loc, $item <= $raw")
+              Config.debug(s"$loc, ${preplc.get(loc)}, ${preplc.toMap}")
             case (Some(loc), None) =>
               Config.debug(s"$loc, None($itemCode) <= $raw")
-              preplc(loc) += GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc)
+              addPreplc(GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc))
             case (None, Some(item)) =>
               Config.debug(s"None($locCode), $item <= $raw")
               pool.take(item)
@@ -429,14 +434,19 @@ package SeedGenerator {
           }
         case raw => Config.debug(s"ignoring line $raw")
       })
+    }  match {
+      case Success(_) => Config.log(s"finished generating preplacements, got: $preplc")
+      case Failure(f) => Config.error(s"Failed generating preplacements, got: $preplc, error: $f")
     }
     case class GhostPlacement(item: Item, loc: ItemLoc) extends Placement {
-      override def write(spoilers:  Boolean): String = "//" + super.write(spoilers)
+      override def write(spoilers:  Boolean): String = {
+        "//" + super.write(spoilers).replace(s" from ${loc.data.info}", "") + " (preplaced)"
+      }
     }
     case class LocCode(ugid: String, uid: String, tailRaw: String, full: String) {
-      val groupId = ugid.toInt
-      val id = uid.toInt
-      val tail = Option(tailRaw)
+      val groupId: Int = ugid.toInt
+      val id: Int = uid.toInt
+      val tail: Option[String] = Option(tailRaw)
       override def toString: String = full
     }
 
@@ -530,7 +540,7 @@ package SeedGenerator {
     def desc: String = {
       val progText =  (prog.count > 0) ? s" -- Chosen: ${prog.progText}" ?? ""
       val keyItems = Inv.mk(placements.map(_.item).filterNot(prog.has(_)).collect({ case i: Important => i }): _*)
-      val keyItemsText = (keyItems.nonEmpty) ? s" -- Randomly Placed: ${keyItems.progText}" ?? ""
+      val keyItemsText = keyItems.nonEmpty ? s" -- Randomly Placed: ${keyItems.progText}" ?? ""
       s"\n// Placement Group ${i + 1}$progText$keyItemsText\n\n"
     }
 
@@ -767,6 +777,7 @@ package SeedGenerator {
       implicit val pool: Inv = ItemPool.build(r)
       PlacementGroup.mk(DEFAULT_INV)
     }
+    //noinspection FieldFromDelayedInit
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
       val h = FXGUI.header()
@@ -939,10 +950,7 @@ case class DefaultLogger(override val enabled: Seq[LogLevel] = Seq(INFO, WARN, E
       Nodes.populate()
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Config().flags.noKSDoors) 0 else 34)) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
-      Try { Nodes.applyPreplcsFromHeader(pool) } match {
-        case Success(_) => Config.log(s"finished applying header: ${Nodes.preplc}")
-        case Failure(f) => Config.error(f)
-      }
+      Nodes.regenPreplcs(pool)
       val locs = Nodes.items.values.toSet -- Nodes.preplc.keys
       while(pool.count < locs.size) pool.add(SpiritLight(r.between(75, 175)))
 
