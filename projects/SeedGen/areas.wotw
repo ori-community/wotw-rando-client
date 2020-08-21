@@ -4376,7 +4376,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
       Launch
     gorlek:
       DoubleJump, TripleJump, Hammer
-      SentryJump=1  # can either jump good or use the right wall
+      SentryJump=1, Sword OR Hammer  # can either jump good or use the right wall and weapon float
       Bash, Grenade=1 OR DoubleJump OR Glide
     unsafe:
       Bash  # Requires you not to kill anything and hopefully not have ultra bash or whatever equipped
