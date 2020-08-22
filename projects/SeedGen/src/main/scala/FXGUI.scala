@@ -180,8 +180,8 @@ package SeedGenerator {
         }
         gp.addRow(0, new Label("Logic Groups: "), gorlekPathsButton, glitchPathsButton, uncheckedPathsButton)
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
-        gp.addRow(2, swordSpawnButton, rainButton, randomSpawnButton, seirLaunchButton)
-        gp.addRow(3, raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton)
+        gp.addRow(2, swordSpawnButton, rainButton, randomSpawnButton, seirLaunchButton, bonusItemsButton)
+        gp.addRow(3, raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton, teleportersButton)
         gp.addRow(4, getGenerateButton, debugButton, seedNameInput, runLastSeedButton,
           new Button("Clear Log") {
             onAction = _ => logArea.setText("")
