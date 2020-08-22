@@ -21,6 +21,10 @@ package SeedGenerator {
     val itemType: Int = -1
   }
 
+  case class RawItem(override val code: String) extends Unplaceable {
+    def name: String = code
+  }
+
   trait SpiritLightItem extends Item {
     val itemType: Int = 0
     def amount: Int
@@ -42,14 +46,25 @@ package SeedGenerator {
   case object ShardSlot extends Resource(4, "Shard Slot")
 
 
-  case class Bonus(bonusId: Int, val name: String) extends Item with Merch  {
+  case class Bonus(bonusId: Int, name: String) extends Item with Merch  {
     val itemType: Int = 10
     def code = s"$itemType|$bonusId"
   }
-  object HealthRegen extends Bonus(30, "Health Regeneration")
-  object EnergyRegen extends Bonus(31, "Energy Regeneration")
+  object HealthRegen extends Bonus(30, "Health Regen")
+  object EnergyRegen extends Bonus(31, "Energy Regen")
   object ExtraJump extends Bonus(35, "Extra Double Jump")
   object ExtraDash extends Bonus(36, "Extra Air Dash")
+
+  case class WeaponUpgrade(upgradeId: Int, name: String) extends Item with Merch {
+    val itemType: Int = 11
+    def code = s"$itemType|$upgradeId"
+  }
+  object RapidSmash extends WeaponUpgrade(0, "Rapid Smash")
+  object RapidSword extends WeaponUpgrade(1, "Rapid Sword")
+  object BlazeEfficiency extends WeaponUpgrade(2, "Blaze Efficiency")
+  object SpikeEfficiency extends WeaponUpgrade(3, "Spike Efficiency")
+  object StarEfficiency extends WeaponUpgrade(4, "Star Efficiency")
+  object SentryEfficiency extends WeaponUpgrade(5, "Sentry Efficiency")
 
   object Bonus {
     def poolItems: Seq[Bonus] =
@@ -211,9 +226,12 @@ package SeedGenerator {
 
 
   case class GameState(inv: Inv, flags: Set[FlagState] = Set(), reached: Set[Node] = Set()) {
-    def progInv: Inv = inv.progInv
+    def progInv: Inv = inv.progInv()
     def +(other: GameState): GameState = GameState(inv + other.inv, flags ++ other.flags, reached ++ other.reached)
     def -(other: GameState): GameState = GameState(inv - other.inv, flags -- other.flags, reached -- other.reached)
+    def missing(i: Item): GameState = !(inv has i) ? GameState.mk(Left(i)) ?? GameState.Empty
+    def ++(maybeOther: Option[GameState]): GameState = this + (maybeOther ?? GameState.Empty)
+    def --(maybeOther: Option[GameState]): GameState = this - (maybeOther ?? GameState.Empty)
     def noFlags: GameState = GameState(inv, Set(), reached)
     def invOnly: GameState = GameState(inv)
     def items: Set[ItemLoc] = reached.collect({case i: ItemLoc => i})
@@ -323,9 +341,9 @@ package SeedGenerator {
       true
     }
     def without(item: Item, count: Int): Inv = {
-      if (!has(item, count)) {
+      if (!has(item, count))
         Config.error(s"couldn't build ${this} without $count of $item")
-      }
+
       new Inv(keys.map({
         case i if i == item => i -> (this(i)-count)
         case i => i -> this(i)
@@ -334,7 +352,9 @@ package SeedGenerator {
     var merchToPop = 16
     def add(item: Item, count: Int = 1): Unit = set(item, this (item) + count)
     def popSL(implicit r: Random): SpiritLight = {
-      asSeq.collect({case s: SpiritLight => s}).rand
+      val i = asSeq.collect({case s: SpiritLight => s}).rand
+      take(i)
+      i
     }
     def popRand(implicit r: Random): Option[Item] = {
       val s =
@@ -343,7 +363,7 @@ package SeedGenerator {
           norm ++ r.shuffle(merch).drop(merchToPop)
         } else asSeq
       if (s.nonEmpty) {
-        val i = s(r.nextInt(s.size))
+        val i = s.rand
         if(i.cost >= 10d) {
             // reroll expensive items %[placed] of the time
             if(r.nextFloat() > (count.toFloat/ItemPool.SIZE.toFloat))
@@ -359,9 +379,9 @@ package SeedGenerator {
       val merch = asSeq.collect({case i: Merch => i})
       if (merch.isEmpty)
         return None
-      val i = merch(r.nextInt(merch.size))
-      if(reroll && i == Keystone)
-        return popMerch(false)
+      val i = merch.rand
+      if(reroll && (i == Keystone || i == Ore))
+        return popMerch(reroll = false)
 
       merchToPop -= 1
       take(i)
@@ -382,6 +402,8 @@ package SeedGenerator {
         case i    => Some(i -> this(i))
       }): _*)
     }
+    def ++(maybeOther: Option[Inv]): Inv = this + maybeOther ?? Inv.Empty
+    def --(maybeOther: Option[Inv]): Inv = this - maybeOther ?? Inv.Empty
 
   }
   object Inv {
@@ -431,4 +453,5 @@ package SeedGenerator {
   object InnerRuinsTP extends Teleporter(14)
   object ShriekTP extends Teleporter(15)
   object MarshTP extends Teleporter(16)
+  object GladesTP extends Teleporter(17)
 }
