@@ -50,7 +50,7 @@ namespace
     IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter* this_ptr)) {
         
         //add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Goal Modes Complete", 11, false),
-        if (uber_states::get_uber_state_value(uber_states::constants::GAME_STATE_GROUP_ID, 11) > 0) {
+        if (uber_states::get_uber_state_value(uber_states::constants::GAME_STATE_GROUP_ID, 11) < 0.5f) {
             auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (set_camera_next_update) {
               if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
