@@ -435,7 +435,7 @@ package SeedGenerator {
         case raw => Config.debug(s"ignoring line $raw")
       })
     }  match {
-      case Success(_) => Config.log(s"finished generating preplacements, got: $preplc")
+      case Success(_) => Config.debug(s"finished creating preplacements, got: $preplc")
       case Failure(f) => Config.error(s"Failed generating preplacements, got: $preplc, error: $f")
     }
     case class GhostPlacement(item: Item, loc: ItemLoc) extends Placement {
@@ -755,6 +755,7 @@ package SeedGenerator {
         if(!Config().spoilers) {
           val spoilerPath = targetPath.replace(".wotwr", "_SPOILER.wotwr")
           spoilerPath.f.write(seed())
+          Config.log(s"Wrote spoiler to $spoilerPath")
         }
       } match {
         case Success(_) =>
