@@ -73,7 +73,7 @@ package SeedGenerator {
       settingsFile.read.map(Serialization.read[GenSettings]).getOrElse(GenSettings())
     }
     def outputPath: String = {
-      val name_base = outputDirectory.toAbsolutePath.resolve("seed").toString
+      val name_base = outputDirectory.toAbsolutePath.resolve((seedName() == "") ? "seed" ?? seedName()).toString
       var ret = s"$name_base.wotwr"
       var i = 0
       while(ret.f.exists) {
@@ -84,7 +84,7 @@ package SeedGenerator {
       ret
     }
 
-    def onChange(unused: Boolean): Path = settingsFile.write(FXSettingsProvider().toJson)
+    def onChange(unused: Boolean): Path = settingsFile.write(Config().toJson)
     def toggle(name: String, tooltipText: String, startSelected: => Boolean, listener: => Boolean=>Unit = onChange): ToggleButton =  new ToggleButton(name){
       selected = startSelected
       tooltip = tooltipText
