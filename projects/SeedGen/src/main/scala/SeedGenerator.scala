@@ -90,7 +90,10 @@ package SeedGenerator {
       "Windtorn Ruins" -> 10,
       "Willows End" -> 11
     )
-    val VOID = LocData("Unknown", s"Void", "nullCat", "nullVal", "N/A", "N/A", -1, "N/A", "0", 0, 0)
+    val UNCAT = "No category"
+    val NOVAL = "No value"
+    val VOID = LocData("Unknown", s"Void", UNCAT, NOVAL, "N/A", "N/A", -1, "N/A", "0", 0, 0)
+    def spawnLoc(i: Int) = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "spawn", "control", 3, "spawn", "0", 0, 0)
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = "loc_data.csv".f
@@ -319,7 +322,7 @@ package SeedGenerator {
     case class SpawnLoc(areaName: String, spawnSlots: Int, teleporter: Teleporter, safe: Boolean = false) {
       def area: Area = Nodes.areas(areaName)
       def conns: Seq[Connection] = (1 to spawnSlots) map (i =>
-        Connection(ItemLoc(s"Spawn item #$i", LocData.VOID), Seq(Free)))
+        Connection(ItemLoc(s"Spawn item #$i", LocData.spawnLoc(i)), Seq(Free)))
       def line: String = {
         if(areaName == "MarshSpawn.Main")
           return ""
