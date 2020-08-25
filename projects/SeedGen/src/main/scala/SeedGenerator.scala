@@ -383,24 +383,22 @@ package SeedGenerator {
     val haveReached: MSet[Node] = MSet(ItemLoc.IMPLICIT)
     val states: MSet[FlagState] = MSet.empty[FlagState]
     def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
-      val mbprplc = theoretical ? MMap(preplc.toSeq:_*)
+      val mbprplc: Option[Map[ItemLoc, Set[Placement]]] = theoretical ? Map.from(preplc)
       val(rs, plcs) = Nodes.reachedRec(s, Set())
-      mbprplc.foreach(old => {preplc.clear(); preplc.addAll(old)})
+      mbprplc.foreach(old => {preplc = Map.from(old)})
 
       if(plcs.nonEmpty && !theoretical)
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, plcs)
     }
-    val preplc: MMap[ItemLoc, MSet[Placement]] =  MMap[ItemLoc, MSet[Placement]]()
+    var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
     val seedLineRegex: Regex = """^(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
 
     def regenPreplcs(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
-        val s = preplc.getOrElse(p.loc, MSet())
-        s.add(p)
-        preplc += (p.loc -> s)
+        preplc = preplc.updated(p.loc, preplc.getOrElse(p.loc, Set()) ++ Set(p))
       }
-      preplc.clear()
+      preplc = Map()
       if(Config().flags.worldTour) {
         Config.debug("World Tour: finding relic placements...")
         Nodes._items.values.groupBy(_.data.zone).foreach({case (z, items) =>
@@ -422,7 +420,7 @@ package SeedGenerator {
       //noinspection FieldFromDelayedInit
       // yes, this is how we nullcheck now
       (Option(FXGUI.header).map(_.apply()) ?? "").split("\n").foreach({
-        case raw @ seedLineRegex(locCode,_,_,_,itemCode,_,_,extra,comm) if !comm.contains("skip") =>
+        case raw @ seedLineRegex(locCode,_,_,_,itemCode,_,_,extra,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
           (locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (Some(loc), Some(item)) =>
               pool.take(item)
@@ -442,7 +440,7 @@ package SeedGenerator {
       })
     }  match {
       case Success(_) => Config.debug(s"finished creating preplacements, got: $preplc")
-      case Failure(f) => Config.error(s"Failed generating preplacements, got: $preplc, error: $f")
+      case Failure(f) => Config.error(s"Failed generating preplacements, got: $preplc, error: ${f.getMessage}")
     }
     case class LocCode(ugid: String, uid: String, tailRaw: String, full: String) {
       val groupId: Int = ugid.toInt
@@ -473,7 +471,7 @@ package SeedGenerator {
       if(reached_placements.nonEmpty) {
         val new_placements = plcs ++ reached_placements.flatMap(l => preplc(l))
         val partialState =  s.noReached + GameState(new Inv(new_placements.map(_.item -> 1).toSeq:_*), states.toSet, haveReached.toSet)
-        preplc.subtractAll(new_placements.map(_.loc))
+        preplc = preplc.filterNot(kv => new_placements.map(_.loc).contains(kv._1))
         Nodes.reachedRec(partialState, new_placements)
       } else
         (fullState, plcs)
@@ -752,8 +750,8 @@ package SeedGenerator {
         grps :+ bonus
       } else grps
     }
-    def seed(spoilers: Boolean = true): String = (Seq(Config().header, header) ++
-      (groups.map(plcmnts => plcmnts.write(spoilers))).mkString("\n").stripPrefix("\n") +
+    def seed(spoilers: Boolean = true): String = ((Seq(Config().header, header) ++
+      groups.map(plcmnts => plcmnts.write(spoilers))).mkString("\n").stripPrefix("\n") +
         s"\n\n// Config: ${Config().toJson}"
       ).replace("\n", "\r\n")
     def desc: String = grps.map(grp => grp.desc.replace("\n", "")).mkString("\n")
