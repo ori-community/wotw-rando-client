@@ -1,5 +1,6 @@
 :: change these if necessary
 set MSBuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MsBuild.exe"
+set JavaHome="C:\Program Files\Java\jdk-11.0.8\"
 
 cd "%~dp0"
 if "%1"=="compileonly" (
@@ -16,8 +17,7 @@ if "%1"=="compileonly" (
 )
 if NOT "%1"=="buildonly" (
 	cd "projects\SeedGen"
-	java -version
-	sbt assembly
+	sbt assembly --java-home=%JavaHome%
 
 	cd "..\.."
 )
