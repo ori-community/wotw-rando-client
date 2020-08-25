@@ -90,6 +90,7 @@ package SeedGenerator {
       "Windtorn Ruins" -> 10,
       "Willows End" -> 11
     )
+    val VOID = LocData("Unknown", s"Void", "nullCat", "nullVal", "N/A", "N/A", -1, "N/A", "0", 0, 0)
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = "loc_data.csv".f
@@ -224,7 +225,7 @@ package SeedGenerator {
 
 
   object ItemLoc {
-    val Implicit = ItemLoc("Implicits", null)
+    val IMPLICIT = ItemLoc("Implicits", LocData.VOID)
 
     val known: MMap[String, ItemLoc] = MMap.empty
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
@@ -318,7 +319,7 @@ package SeedGenerator {
     case class SpawnLoc(areaName: String, spawnSlots: Int, teleporter: Teleporter, safe: Boolean = false) {
       def area: Area = Nodes.areas(areaName)
       def conns: Seq[Connection] = (1 to spawnSlots) map (i =>
-        Connection(ItemLoc(s"Spawn item #$i", LocData("Spawn", s"Item_$i", "nullCat", "nullVal", "spawn", "control", 3, "spawn", "0", 0, 0)), Seq(Free)))
+        Connection(ItemLoc(s"Spawn item #$i", LocData.VOID), Seq(Free)))
       def line: String = {
         if(areaName == "MarshSpawn.Main")
           return ""
@@ -379,7 +380,7 @@ package SeedGenerator {
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
     val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
-    val haveReached: MSet[Node] = MSet(ItemLoc.Implicit)
+    val haveReached: MSet[Node] = MSet(ItemLoc.IMPLICIT)
     val states: MSet[FlagState] = MSet.empty[FlagState]
     def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
       val mbprplc = theoretical ? MMap(preplc.toSeq:_*)
@@ -416,7 +417,7 @@ package SeedGenerator {
         pool.take(Launch) // whoops
       }
       val locsByCode = (Nodes._items.values.map(a => a.data.code -> a) ++
-      Seq("3|0", "3|1", "3|2", "3|3").map(_ -> ItemLoc.Implicit)).toMap
+      Seq("3|0", "3|1", "3|2", "3|3").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
       FXGUI.header().split("\n").foreach({
@@ -442,11 +443,6 @@ package SeedGenerator {
       case Success(_) => Config.debug(s"finished creating preplacements, got: $preplc")
       case Failure(f) => Config.error(s"Failed generating preplacements, got: $preplc, error: $f")
     }
-    case class GhostPlacement(item: Item, loc: ItemLoc) extends Placement {
-      override def write(spoilers:  Boolean): String = {
-        "//" + super.write(spoilers).replace(s" from ${loc.data.info}", "") + " (preplaced)"
-      }
-    }
     case class LocCode(ugid: String, uid: String, tailRaw: String, full: String) {
       val groupId: Int = ugid.toInt
       val id: Int = uid.toInt
@@ -458,7 +454,7 @@ package SeedGenerator {
     def reachedRec(s: GameState, plcs: Set[Placement] = Set()): (GameState, Set[Placement]) = {
       reachCache.clear()
       haveReached.clear()
-      haveReached.add(ItemLoc.Implicit)
+      haveReached.add(ItemLoc.IMPLICIT)
       states.clear()
       var stateCount = 0
       def fullState: GameState  = s.noReached + GameState(Inv.Empty, states.toSet, haveReached.toSet)
@@ -529,6 +525,11 @@ package SeedGenerator {
   }
   object ShopPlacement {
     def randMod(item: Merch, loc: ItemLoc)(implicit r: Random): ShopPlacement = ShopPlacement(item, loc, r.between(-30, 20)/100f)
+  }
+  case class GhostPlacement(item: Item, loc: ItemLoc) extends Placement {
+    override def write(spoilers:  Boolean): String = {
+      "//" + super.write(spoilers).replace(s" from ${loc.data.info}", "") + " (preplaced)"
+    }
   }
 
   case class GeneratorError(message: String) extends Error {
@@ -649,7 +650,7 @@ package SeedGenerator {
         case _ => 8
       })).map(_ => locIter.next())
       debugPrint(s"reserving ${reservedForProg.size}: $reservedForProg")
-      val (remaining, leftoverSpawn) = locIter.toSeq.partition(_.data.category != "nullCat")
+      val (remaining, leftoverSpawn) = locIter.toSeq.partition(_.data != LocData.VOID)
       leftoverSpawn.foreach(_ => pool.popSL)
       val randPlacements = assignRandom(remaining)
       process(randPlacements, "rand: ")
@@ -718,8 +719,11 @@ package SeedGenerator {
       val progPath = getProgressionPath(reservedForProg.size)
       val progLocs = reservedForProg.take(progPath.count)
       process(progPath.asSeq.zip(progLocs).map({
-            // this might seem sketch but it's almost literally always impossible
-            // for a progression item not to be Merch
+        case (i, ItemLoc.IMPLICIT) =>
+          println(i)
+          GhostPlacement(i, null)
+        // this might seem sketch but it's almost literally always impossible
+        // for a progression item not to be Merch
         case (item: Merch, shop) if shop.data.category == "Shop" =>
           pool.take(item)
           pool.merchToPop-=1
@@ -795,7 +799,7 @@ package SeedGenerator {
       case Left(error) => Seed(grps, Some(error), h)
     }
 }
-    def forceGetSeed(retries: Int = 10, time: Boolean = true): Seed = {
+    def forceGetSeed(retries: Int = 5, time: Boolean = true): Seed = {
       val t0 = System.currentTimeMillis()
 
       val s = mkSeed
