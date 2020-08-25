@@ -229,7 +229,7 @@ package SeedGenerator {
 
     val known: MMap[String, ItemLoc] = MMap.empty
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
-      .map(i => {known(name) = i; i})
+      .map(i => {if(i == IMPLICIT) { known(name) = i}; i})
       .orElse({
           Config.debug(s"pickup $name not found in loc_data.csv")
         None
@@ -420,7 +420,8 @@ package SeedGenerator {
       Seq("3|0", "3|1", "3|2", "3|3").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
-      FXGUI.header().split("\n").foreach({
+      // yes, this is how we nullcheck now
+      (Option(FXGUI.header).map(_.apply()) ?? "").split("\n").foreach({
         case raw @ seedLineRegex(locCode,_,_,_,itemCode,_,_,extra,comm) if !comm.contains("skip") =>
           (locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (Some(loc), Some(item)) =>
@@ -584,8 +585,8 @@ package SeedGenerator {
       val placements = MList[Placement]() ++ preplaced
       def process(ps: Iterable[Placement], prefix: String = ""): Unit =
         ps.foreach(p => {state.inv.add(p.item); placements.prepend(p)})
-      val reachableLocs = state.items
-      val locsWithItems = (parent.map(_.allPlacements).getOrElse(Set()) ++ placements).map(_.loc)
+      val reachableLocs = state.items - ItemLoc.IMPLICIT
+      val locsWithItems = (parent.map(_.allPlacements).getOrElse(Set()) ++ placements).map(_.loc) - ItemLoc.IMPLICIT
       val freeLocs = r.shuffle((reachableLocs -- locsWithItems).toSeq)
       val count = pool.count + Nodes.preplc.size
       val placed = locsWithItems.size
@@ -720,8 +721,8 @@ package SeedGenerator {
       val progLocs = reservedForProg.take(progPath.count)
       process(progPath.asSeq.zip(progLocs).map({
         case (i, ItemLoc.IMPLICIT) =>
-          println(i)
-          GhostPlacement(i, null)
+          Config.debug(i)
+          GhostPlacement(i, ItemLoc.IMPLICIT)
         // this might seem sketch but it's almost literally always impossible
         // for a progression item not to be Merch
         case (item: Merch, shop) if shop.data.category == "Shop" =>
