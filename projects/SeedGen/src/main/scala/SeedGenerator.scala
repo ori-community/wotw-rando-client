@@ -382,18 +382,6 @@ package SeedGenerator {
     def spawn: Area = _spawn.area
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
-    val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
-    val haveReached: MSet[Node] = MSet(ItemLoc.IMPLICIT)
-    val states: MSet[FlagState] = MSet.empty[FlagState]
-    def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
-      val mbprplc: Option[Map[ItemLoc, Set[Placement]]] = theoretical ? Map.from(preplc)
-      val(rs, plcs) = Nodes.reachedRec(s, Set())
-      mbprplc.foreach(old => {preplc = Map.from(old)})
-
-      if(plcs.nonEmpty && !theoretical)
-        Config.debug(s"new placements after reachable search: $plcs")
-      (rs, plcs)
-    }
     var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
     val seedLineRegex: Regex = """^(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
 
@@ -452,6 +440,17 @@ package SeedGenerator {
       override def toString: String = full
     }
 
+    val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
+    val haveReached: MSet[Node] = MSet(ItemLoc.IMPLICIT)
+    val states: MSet[FlagState] = MSet.empty[FlagState]
+    def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
+      val mbprplc: Option[Map[ItemLoc, Set[Placement]]] = theoretical ? Map.from(preplc)
+      val(rs, plcs) = Nodes.reachedRec(s, Set())
+      mbprplc.foreach(old => {preplc = Map.from(old)})
+      if(plcs.nonEmpty && !theoretical)
+        Config.debug(s"new placements after reachable search: $plcs")
+      (rs, theoretical ? plcs ?? Set())
+    }
     @scala.annotation.tailrec
     def reachedRec(s: GameState, plcs: Set[Placement] = Set()): (GameState, Set[Placement]) = {
       reachCache.clear()
@@ -592,7 +591,7 @@ package SeedGenerator {
       val count = pool.count + Nodes.preplc.size
       val placed = locsWithItems.size
       if(count+placed != ItemPool.SIZE)
-        Config.warn(s"$count + $placed != ${ItemPool.SIZE}")
+        Config.warn(s"pool: ${pool.count} + upcoming prplcs ${Nodes.preplc.size} + placed $placed (${count+placed}) != ${ItemPool.SIZE}")
       debugPrint(s"group $i: have ${freeLocs.size} locs ($placed/${ItemPool.SIZE} placed already, have itempool size $count)")
 
       if(freeLocs.isEmpty)
@@ -669,6 +668,11 @@ package SeedGenerator {
           newPlc.exists(_.item.isInstanceOf[Important]) ||    // found an Important preplaced item OR
           newLocs.size == ItemPool.SIZE)                      // we're done
           return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
+          else if(newLocs.size > ItemPool.SIZE) {
+          Config.error("aaaaaa")
+          return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
+        }
+
       }
       def getProgressionPath(sizeLeft: Int): Inv = Timer(s"getProgPath"/*, far=$far"*/){
         val remainCount = ItemPool.SIZE - reachableLocs.size
