@@ -1,11 +1,11 @@
-import java.io.File
-import java.nio.file.{Path, Paths, Files}
+import java.nio.file.{Path, Paths}
 import org.json4s._
 import org.json4s.native.Serialization
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
+import javafx.scene.layout.{Border => JBorder}
 import scalafx.scene.layout.BorderPane
 import scalafx.scene.paint.Color._
 import scalafx.scene.text.Text
@@ -90,8 +90,8 @@ package SeedGenerator {
       tooltip = tooltipText
       selected.addListener((_, _, nval) => listener(nval))
       border <== when (selected) choose
-        new Border(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
-        new Border(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
+        new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
+        new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
 //      background <== when (selected) choose new Background(Array(new BackgroundFill(LightSkyBlue, new CornerRadii(3f), Insets(1)))) otherwise new Background(Array(new BackgroundFill(LightGrey, new CornerRadii(3f), Insets(1))))
     }
 
@@ -165,7 +165,7 @@ package SeedGenerator {
 
       private def getTabPane = {
         new TabPane {
-          border = new Border(new BorderStroke(stroke = Black, BorderStrokeStyle.Solid, new CornerRadii(3f), BorderWidths.Default))
+          border = new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.Solid, new CornerRadii(3f), BorderWidths.Default))
           padding = Insets(15)
           tabs = Seq(
             getMainTab,
