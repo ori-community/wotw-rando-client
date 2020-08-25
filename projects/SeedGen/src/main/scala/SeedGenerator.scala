@@ -665,7 +665,6 @@ package SeedGenerator {
         val newLocs = state.items - ItemLoc.IMPLICIT
         val newCount = (newLocs -- reachableLocs)
         debugPrint(s"checking for reachables after random placement, got $newCount")
-        if(newCount > reservedForProg.size ||                 // more new items than were reserved for prog OR
         if(newCount.size > reservedForProg.size ||            // more new items than were reserved for prog OR
           newPlc.exists(_.item.isInstanceOf[Important]) ||    // found an Important preplaced item OR
           newLocs.size == ItemPool.SIZE)                      // we're done
