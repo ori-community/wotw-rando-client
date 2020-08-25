@@ -2,11 +2,11 @@ name := "SeedGen"
 
 version := "0.1"
 
-scalaVersion := "2.13.1"
+scalaVersion := "2.13.3"
 
 assemblyOutputPath in assembly := file("C:\\moon\\SeedGen.jar")
 //assemblyJarName in assembly := "SeedGen.jar"
-libraryDependencies += "org.scalafx" %% "scalafx" % "14-R19"
+libraryDependencies += "org.scalafx" %% "scalafx" % "12.0.2-R18"
 // Determine OS version of JavaFX binaries
 lazy val osName = System.getProperty("os.name") match {
   case n if n.startsWith("Linux")   => "linux"
@@ -18,7 +18,7 @@ lazy val osName = System.getProperty("os.name") match {
 // Add dependency on JavaFX libraries, OS dependent
 lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media")
 libraryDependencies ++= javaFXModules.map( m =>
-  "org.openjfx" % s"javafx-$m" % "14.0.1" classifier osName
+  "org.openjfx" % s"javafx-$m" % "12-ea+8" classifier osName
 )
 
 assemblyMergeStrategy in assembly := {
