@@ -742,8 +742,8 @@ package SeedGenerator {
         grps :+ bonus
       } else grps
     }
-    def seed(spoilers: Boolean = true): String = (Config().header + header +
-        groups.map(plcmnts => plcmnts.write(spoilers)).mkString("\n").stripPrefix("\n") +
+    def seed(spoilers: Boolean = true): String = (Seq(Config().header, header) ++
+      (groups.map(plcmnts => plcmnts.write(spoilers))).mkString("\n").stripPrefix("\n") +
         s"\n\n// Config: ${Config().toJson}"
       ).replace("\n", "\r\n")
     def desc: String = grps.map(grp => grp.desc.replace("\n", "")).mkString("\n")
