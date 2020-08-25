@@ -178,8 +178,7 @@ package SeedGenerator {
   case class Placeholder(name: String, kind: NodeType = AreaNode) extends Node {
     override def res: Node = kind match {
       case AreaNode => Nodes.areas.getOrElse(name, {Config.error(s"unknown area name $this") ; this})
-      case ItemNode => Nodes.items.getOrElse(name, {Config.error(s"" +
-        s"unknown item name $this") ; this})
+      case ItemNode => Nodes.items.getOrElse(name, {Config.error(s"unknown item name $this") ; this})
       case _ =>
         Config.warn(s"couldn't resolve $this")
         this
@@ -223,7 +222,10 @@ package SeedGenerator {
     override def toString: String = name // data.info
   }
 
+
   object ItemLoc {
+    val Implicit = ItemLoc("Implicits", null)
+
     val known: MMap[String, ItemLoc] = MMap.empty
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
       .map(i => {known(name) = i; i})
@@ -377,7 +379,7 @@ package SeedGenerator {
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
     val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
-    val haveReached: MSet[Node] = MSet.empty[Node]
+    val haveReached: MSet[Node] = MSet(ItemLoc.Implicit)
     val states: MSet[FlagState] = MSet.empty[FlagState]
     def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
       val mbprplc = theoretical ? MMap(preplc.toSeq:_*)
@@ -413,7 +415,8 @@ package SeedGenerator {
         addPreplc(ItemPlacement(Launch, seir))
         pool.take(Launch) // whoops
       }
-      val locsByCode = Nodes._items.values.map(a => a.data.code -> a).toMap
+      val locsByCode = (Nodes._items.values.map(a => a.data.code -> a) ++
+      Seq("3|0", "3|1", "3|2", "3|3").map(_ -> ItemLoc.Implicit)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
       FXGUI.header().split("\n").foreach({
@@ -455,6 +458,7 @@ package SeedGenerator {
     def reachedRec(s: GameState, plcs: Set[Placement] = Set()): (GameState, Set[Placement]) = {
       reachCache.clear()
       haveReached.clear()
+      haveReached.add(ItemLoc.Implicit)
       states.clear()
       var stateCount = 0
       def fullState: GameState  = s.noReached + GameState(Inv.Empty, states.toSet, haveReached.toSet)
