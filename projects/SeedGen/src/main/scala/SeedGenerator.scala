@@ -463,13 +463,13 @@ package SeedGenerator {
       spawn.reached(fullState, s.inv.orbs)
       do {
         stateCount = states.size
+        reachCache.mapValuesInPlace({case (_, rr) => rr.copy(couldConnect = rr.couldConnect -- haveReached)})
+        reachCache.subtractAll(reachCache.collect{case (a, AreaTraversalInfo(_, s)) if s.isEmpty => a})
         reachCache.foreach{
           case (a, AreaTraversalInfo(orbs, s)) if s.nonEmpty => a.reached(fullState, orbs)
           case _ =>
         }
       } while(stateCount < states.size)
-      reachCache.mapValuesInPlace({case (_, rr) => rr.copy(couldConnect = rr.couldConnect -- haveReached)})
-      reachCache.subtractAll(reachCache.collect{case (a, AreaTraversalInfo(_, s)) if s.isEmpty => a})
       val reached_placements = preplc.keySet.intersect(haveReached.collect({case i: ItemLoc => i}))
       if(reached_placements.nonEmpty) {
         val new_placements = plcs ++ reached_placements.flatMap(l => preplc(l))
@@ -662,10 +662,11 @@ package SeedGenerator {
           Config.debug(s"Preplacements after random placement: $newPlc")
           process(newPlc, "preplc: ")
         }
-        val newLocs = newState.items
-        val newCount = (newLocs -- reachableLocs).size
+        val newLocs = state.items - ItemLoc.IMPLICIT
+        val newCount = (newLocs -- reachableLocs)
         debugPrint(s"checking for reachables after random placement, got $newCount")
         if(newCount > reservedForProg.size ||                 // more new items than were reserved for prog OR
+        if(newCount.size > reservedForProg.size ||            // more new items than were reserved for prog OR
           newPlc.exists(_.item.isInstanceOf[Important]) ||    // found an Important preplaced item OR
           newLocs.size == ItemPool.SIZE)                      // we're done
           return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
@@ -704,11 +705,12 @@ package SeedGenerator {
 
         if(possiblePaths.isEmpty) {
           Config.error(s"uh oh!")
+          Config.error(s"gPP: ${Nodes.getProgressionPaths(progS, sizeLeft)}")
           Config.error(s"pool: ${pool.progInv()}")
           Config.error(s"inv: ${state.inv.progInv()}")
           Config.error(s"Had $sizeLeft slots")
           val unreachable = Nodes.items.values.toSet -- reachableLocs
-          Config.error(s"Couldnt reach ${unreachable.take(8)}... (${unreachable.size} total)")
+          Config.error(s"Couldn't reach ${unreachable.take(8)}... (${unreachable.size} total)")
           if(Config().flags.randomSpawn)
             Config.error(s"Spawned at ${Nodes.spawn.name}")
           throw GeneratorError(s"No possible paths???")
