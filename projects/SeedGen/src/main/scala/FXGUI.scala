@@ -10,22 +10,22 @@ import scalafx.scene.layout.BorderPane
 import scalafx.scene.paint.Color._
 import scalafx.scene.text.Text
 import scalafx.stage.DirectoryChooser
+import SeedGenerator.implicits._
+import scalafx.application.Platform
+import scalafx.beans.binding.Bindings
+import scalafx.beans.property.StringProperty
+import scalafx.geometry.{Insets, Pos}
+import scalafx.scene.control.Alert.AlertType
+import scalafx.scene.control._
+import scalafx.scene.layout.{BorderStroke, BorderStrokeStyle, BorderWidths, CornerRadii, GridPane, VBox}
+import scalafx.scene.text.{Font, TextAlignment}
+import java.util.prefs.Preferences
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.sys.process._
 package SeedGenerator {
 
-  import SeedGenerator.implicits._
-  import scalafx.application.Platform
-  import scalafx.beans.binding.Bindings
-  import scalafx.beans.property.StringProperty
-  import scalafx.geometry.{Insets, Pos}
-  import scalafx.scene.control.Alert.AlertType
-  import scalafx.scene.control._
-  import scalafx.scene.layout.{Border, BorderStroke, BorderStrokeStyle, BorderWidths, CornerRadii, GridPane, VBox}
-  import scalafx.scene.text.{Font, TextAlignment}
-  import java.util.prefs.Preferences
 
 
   import scala.util.{Failure, Success, Try}
