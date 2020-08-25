@@ -17,9 +17,9 @@ if "%1"=="compileonly" (
 )
 if NOT "%1"=="buildonly" (
 	cd "projects\SeedGen"
-	sbt assembly --java-home=%JavaHome%
-
+	call sbt assembly --java-home=%JavaHome%
 	cd "..\.."
+	timeout /t 10
 )
 
 :: Either change paths or build yourself and run with nobuild
