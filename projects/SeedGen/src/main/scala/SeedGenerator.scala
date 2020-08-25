@@ -229,7 +229,7 @@ package SeedGenerator {
 
     val known: MMap[String, ItemLoc] = MMap.empty
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
-      .map(i => {if(i == IMPLICIT) { known(name) = i}; i})
+      .map(i => {if(i != IMPLICIT) { known(name) = i}; i})
       .orElse({
           Config.debug(s"pickup $name not found in loc_data.csv")
         None
