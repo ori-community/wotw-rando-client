@@ -411,6 +411,7 @@ package SeedGenerator {
       if(Config().seirLaunch) {
         val seir = Nodes.items("WindtornRuins.Seir")
         addPreplc(ItemPlacement(Launch, seir))
+        pool.take(Launch) // whoops
       }
       val locsByCode = Nodes._items.values.map(a => a.data.code -> a).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
