@@ -704,7 +704,6 @@ package SeedGenerator {
 
         if(possiblePaths.isEmpty) {
           Config.error(s"uh oh!")
-          Config.error(s"gPP: ${Nodes.getProgressionPaths(progS, sizeLeft)}")
           Config.error(s"pool: ${pool.progInv()}")
           Config.error(s"inv: ${state.inv.progInv()}")
           Config.error(s"Had $sizeLeft slots")
