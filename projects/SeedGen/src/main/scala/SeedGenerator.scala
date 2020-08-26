@@ -726,7 +726,6 @@ package SeedGenerator {
       val progLocs = reservedForProg.take(progPath.count)
       process(progPath.asSeq.zip(progLocs).map({
         case (i, ItemLoc.IMPLICIT) =>
-          Config.debug(i)
           GhostPlacement(i, ItemLoc.IMPLICIT)
         // this might seem sketch but it's almost literally always impossible
         // for a progression item not to be Merch
@@ -807,7 +806,7 @@ package SeedGenerator {
       case Left(error) => Seed(grps, Some(error), h)
     }
 }
-    def forceGetSeed(retries: Int = 5, time: Boolean = true): Seed = {
+    def forceGetSeed(retries: Int = IS_DEBUG ? 1 ?? 10, time: Boolean = true): Seed = {
       val t0 = System.currentTimeMillis()
 
       val s = mkSeed
