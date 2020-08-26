@@ -449,7 +449,7 @@ package SeedGenerator {
       mbprplc.foreach(old => {preplc = Map.from(old)})
       if(plcs.nonEmpty && !theoretical)
         Config.debug(s"new placements after reachable search: $plcs")
-      (rs, theoretical ? plcs ?? Set())
+      (rs, theoretical ? Set[Placement]() ?? plcs)
     }
     @scala.annotation.tailrec
     def reachedRec(s: GameState, plcs: Set[Placement] = Set()): (GameState, Set[Placement]) = {
