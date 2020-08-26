@@ -409,15 +409,14 @@ package SeedGenerator {
       Seq("3|0", "3|1", "3|2", "3|3").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
-      // yes, this is how we nullcheck now
-      (Option(FXGUI.header).map(_.apply()) ?? "").split("\n").foreach({
+      (Option(FXGUI.header).map(_.apply()) ?? "").split("\n").foreach({ // yes, this is how we nullcheck now
         case raw @ seedLineRegex(locCode,_,_,_,itemCode,_,_,extra,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
           (locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (Some(loc), Some(item)) =>
               pool.take(item)
               addPreplc(GhostPlacement(item, loc))
               Config.debug(s"$loc, $item <= $raw")
-              Config.debug(s"$loc, ${preplc.get(loc)}, ${preplc.toMap}")
+              Config.debug(s"$loc, ${preplc.get(loc)}, ${preplc}")
             case (Some(loc), None) =>
               Config.debug(s"$loc, None($itemCode) <= $raw")
               addPreplc(GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc))
