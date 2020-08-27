@@ -40,10 +40,7 @@ package SeedGenerator {
       def exists: Boolean = Files exists f
       def toOpt: Option[Path] = exists ? f
       def readLines: Seq[String] = Files.readAllLines(f).asScala
-      def read: Option[String] = readLines match {
-        case Nil => None
-        case lines => Some(lines.mkString("\n"))
-      }
+      def read: Option[String] = exists ? readLines.mkString("\n")
       def write(output: => String): Unit = {
         val bw = Files.newBufferedWriter(f, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
         bw.write(output)
