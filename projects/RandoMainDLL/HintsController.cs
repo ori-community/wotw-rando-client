@@ -71,38 +71,23 @@ namespace RandoMainDLL {
 
     public static Dictionary<ZoneType, List<Checkable>> HintObjects = new Dictionary<ZoneType, List<Checkable>>();
     // group 1
-    public static ZoneType BurrowZone = ZoneType.Void;
+/*    public static ZoneType BurrowZone = ZoneType.Void;
     public static ZoneType WaterDashZone = ZoneType.Void;
     public static ZoneType LightBurstZone = ZoneType.Void;
     // group 2
-    public static ZoneType CleanWaterZone = ZoneType.Void;
     public static ZoneType BashZone = ZoneType.Void;
     public static ZoneType FlapZone = ZoneType.Void;
+*/
+    public static Dictionary<AbilityType, ZoneType> SkillLocs = new Dictionary<AbilityType, ZoneType>();
+    public static ZoneType CleanWaterZone = ZoneType.Void;
     public static void Reset() {
       HintObjects.Clear();
+      SkillLocs.Clear();
     }
 
     public static void AddHint(ZoneType zone, Checkable item) {
       if (item is Ability abil)
-        switch (abil.type) {
-          case AbilityType.Burrow:
-            BurrowZone = zone;
-            break;
-          case AbilityType.LightBurst:
-            LightBurstZone = zone;
-            break;
-          case AbilityType.WaterDash:
-            WaterDashZone = zone;
-            break;
-          case AbilityType.Bash:
-            BashZone = zone;
-            break;
-          case AbilityType.Flap:
-            FlapZone = zone;
-            break;
-          default:
-            break;
-        }
+        SkillLocs[abil.type] = zone;
       else if (item is QuestEvent q && q.type == QuestEventType.Water)
         CleanWaterZone = zone;
 
@@ -182,7 +167,8 @@ namespace RandoMainDLL {
           return false;
         }
     }
-    public static UberState SkillHintTwoState = new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
+    public static UberId SkillHintTwoState = new UberId(48248, 41666);
+      //new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
     public static string GetKeySkillHints() {
       String ret = "";
       ret += GetKeySkillHintOne();
@@ -193,27 +179,22 @@ namespace RandoMainDLL {
         ret = "\n" + ret;
       return ret.TrimEnd('\n');
     }
+
+    static string HintFrag(this AbilityType t) {
+      var w = SaveController.HasAbility(t) ? "$" : "";
+      return $"{w}{t.GetDescription()}: {SkillLocs[t]}";
+    }
     public static string GetKeySkillHintOne() {
-      var value = SkillHintTwoState.CurrentValue();
       if (SaveController.Data?.OpherSold?.Contains(AbilityType.WaterBreath) ?? false) {
-        var b = SaveController.HasAbility(AbilityType.Bash) ? "$" : "";
         var w = SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false ? "$" : "";
-        var l = SaveController.HasAbility(AbilityType.Flap) ? "$" : "";
-        return $"{b}Bash: {BashZone}{b}, {w}Clean Water: {CleanWaterZone}{w}, {l}Flap: {FlapZone}{l}";
+        return $"{AbilityType.Bash.HintFrag()}, {w}Water: {CleanWaterZone}{w}, {AbilityType.Flap.HintFrag()}, {AbilityType.Feather.HintFrag()}";
       }
       return "";
     }
 
-    public static string GetKeySkillHintTwo() {
-      var value = SkillHintTwoState.CurrentValue();
-      if(value.HasValue && value.Value.Bool) {
-        var b = SaveController.HasAbility(AbilityType.Burrow) ? "$" : "";
-        var w = SaveController.HasAbility(AbilityType.WaterDash) ? "$" : "";
-        var l = SaveController.HasAbility(AbilityType.LightBurst) ? "$" : "";
-        return $"{b}Burrow: {BurrowZone}{b}, {w}Water Dash: {WaterDashZone}{w}, {l}Light Burst: {LightBurstZone}{l}";
-      }
-      return "";
-    }
+    public static string GetKeySkillHintTwo() => UberGet.value(SkillHintTwoState).Bool ?
+        $"{AbilityType.Burrow.HintFrag()}, {AbilityType.WaterDash.HintFrag()}, {AbilityType.LightBurst.HintFrag()}, {AbilityType.Flash.HintFrag()}" : "";
+
     public static void OnLupoState(UberId id) {
       if (SeedController.HintsDisabled)
         return;
