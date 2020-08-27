@@ -471,7 +471,7 @@ package SeedGenerator {
     def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
       val mbprplc: Option[Map[ItemLoc, Set[Placement]]] = theoretical ? Map(preplc.toSeq:_*)
       val(rs, plcs) = Nodes.reachedRec(s, Set())
-      mbprplc.foreach(old => {preplc = Map(preplc.toSeq:_*)})
+      mbprplc.foreach(old => {preplc = Map(old.toSeq:_*)})
       if(plcs.nonEmpty && !theoretical)
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, theoretical ? Set[Placement]() ?? plcs)
