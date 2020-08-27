@@ -6,20 +6,8 @@ scalaVersion := "2.12.12"
 
 assemblyOutputPath in assembly := file("C:\\moon\\SeedGen.jar")
 //assemblyJarName in assembly := "SeedGen.jar"
-libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.192-R14"
-// Determine OS version of JavaFX binaries
-lazy val osName = System.getProperty("os.name") match {
-  case n if n.startsWith("Linux")   => "linux"
-  case n if n.startsWith("Mac")     => "mac"
-  case n if n.startsWith("Windows") => "win"
-  case _ => throw new Exception("Unknown platform!")
-}
-
-// Add dependency on JavaFX libraries, OS dependent
-//lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media")
-//libraryDependencies ++= javaFXModules.map( m =>
-//  "org.openjfx" % s"javafx-$m" % "12-ea+8" classifier osName
-//)
+libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.181-R13"
+scalacOptions += "-target:jvm-1.8"
 
 assemblyMergeStrategy in assembly := {
   case "module-info.class" => MergeStrategy.discard
@@ -29,6 +17,7 @@ assemblyMergeStrategy in assembly := {
 
 libraryDependencies += "org.json4s" %% "json4s-native" % "3.6.9"
 libraryDependencies += "com.lihaoyi" %% "fastparse" % "2.2.2" // SBT
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-feature", "-Ylog-classpath")
 
-scalacOptions += "-deprecation"
-scalacOptions += "-feature"
+// Fork a new JVM for 'run' and 'test:run', to avoid JavaFX double initialization problems
+fork in run := true

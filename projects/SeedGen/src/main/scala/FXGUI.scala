@@ -27,12 +27,11 @@ import scala.sys.process._
 package SeedGenerator {
 
 
-
   import scala.util.{Failure, Success, Try}
   object FXGUI extends JFXApp {
 
     if(FXGUI.parameters.raw.nonEmpty) {
-      ReachChecker(FXGUI.parameters.raw.toSeq)
+      ReachChecker(FXGUI.parameters.raw)
       sys.exit()
     }
 
@@ -60,7 +59,7 @@ package SeedGenerator {
     val header = new StringProperty(null, "header_text", headerFilePath.read ?? "// Replace this text with a seed header, if desired")
     val lastSeedText: StringProperty = new StringProperty(null, "last_seed")
     val seedName: StringProperty = new StringProperty(null, "seed_name", "")
-    val logArea: TextArea = new TextArea { editable = false; font = Font("Monospaced")}
+    val logArea: TextArea = new TextArea { editable = false; font = Font("Monospaced").delegate}
     var lastSeed: Option[String] = None
     val lastSeedName: StringProperty = new StringProperty(null, "last_seed_name", "N/A")
 
@@ -83,11 +82,11 @@ package SeedGenerator {
       ret
     }
 
-    def onChange(unused: Boolean): Path = settingsFile.write(Config().toJson)
+    def onChange(unused: Boolean): Unit = settingsFile.write(Config().toJson)
     def toggle(name: String, tooltipText: String, startSelected: => Boolean, listener: => Boolean=>Unit = onChange): ToggleButton =  new ToggleButton(name){
       selected = startSelected
       tooltip = tooltipText
-      selected.addListener((_, _, nval) => listener(nval))
+      selected.onChange((_, _, nval) => listener(nval))
       border <== when (selected) choose
         new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
         new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
@@ -118,7 +117,7 @@ package SeedGenerator {
     }
 
     runLastSeedButton.onAction = _ => lastSeed match {
-      case Some(file) => Seq("cmd", "/C", file.f.toString).lazyLines
+      case Some(file) => Seq("cmd", "/C", file.f.toString).run
       case None =>
         Config.warn("Last seed file not found!")
         runLastSeedButton.disable = true
@@ -174,18 +173,16 @@ package SeedGenerator {
       }
 
       private def getOptions: GridPane = {
-        val gp = new GridPane() {
-
+        val gp = new GridPane()
+        val clearBtn = new Button("Clear Log") {
+          onAction = _ => logArea.setText("")
         }
+
         gp.addRow(0, new Label("Logic Groups: "), gorlekPathsButton, glitchPathsButton, uncheckedPathsButton)
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
         gp.addRow(2, swordSpawnButton, rainButton, randomSpawnButton, seirLaunchButton, bonusItemsButton)
         gp.addRow(3, raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton, teleportersButton)
-        gp.addRow(4, getGenerateButton, debugButton, seedNameInput, runLastSeedButton,
-          new Button("Clear Log") {
-            onAction = _ => logArea.setText("")
-          },
-        )
+        gp.addRow(4, getGenerateButton, debugButton, seedNameInput, runLastSeedButton, clearBtn)
         gp
       }
 

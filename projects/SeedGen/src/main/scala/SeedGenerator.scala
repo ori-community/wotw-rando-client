@@ -39,11 +39,21 @@ package SeedGenerator {
       // sugar funcs for interacting with paths and their target files
       def exists: Boolean = Files exists f
       def toOpt: Option[Path] = exists ? f
-      def forceRead: String = Files readString f
-      def read: Option[String] = exists ? forceRead
       def readLines: Seq[String] = Files.readAllLines(f).asScala
-      def write(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
-      def append(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, CREATE, APPEND)
+      def read: Option[String] = readLines match {
+        case Nil => None
+        case lines => Some(lines.mkString("\n"))
+      }
+      def write(output: => String): Unit = {
+        val bw = Files.newBufferedWriter(f, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
+        bw.write(output)
+        bw.close()
+      }
+      def append(output: => String): Unit = {
+        val bw = Files.newBufferedWriter(f, StandardCharsets.UTF_8, WRITE, CREATE, APPEND)
+        bw.write(output)
+        bw.close()
+      }
       def canonPath: Path = if(IS_DEBUG) defaultPath.resolve(f) else f
     }
     // hehe OptOpts
@@ -774,12 +784,9 @@ package SeedGenerator {
         grps :+ bonus
       } else grps
     }
-    def seed(spoilers: Boolean = true): String = {
-      ((Seq(Config().header, header) ++
-        groups.map(plcmnts => plcmnts.write(spoilers))).mkString("\n").stripPrefix("\n") +
-        s"\n\n// Config: ${Config().toJson}"
-        ).replace("\n", "\r\n")
-    }
+    def seed(spoilers: Boolean = true): String = "%s\n\n// Config: %s".format((Seq(Config().header, header) ++
+      groups.map(plcmnts => plcmnts.write(spoilers))).mkString("\n").stripPrefix("\n"), Config().toJson)
+
     def desc: String = grps.map(grp => grp.desc.replace("\n", "")).mkString("\n")
 
     def write(targetPath: String): Unit = {
