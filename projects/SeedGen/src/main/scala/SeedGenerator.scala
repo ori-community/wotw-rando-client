@@ -1,18 +1,23 @@
 import java.nio.charset.StandardCharsets
-import java.nio.file.{Files, Path, Paths}
+import java.nio.file
+.{Files, Path, Paths}
 
 import org.json4s.native.Serialization
 import org.json4s.{Formats, NoTypeHints}
 
 import scala.collection.mutable.{ListBuffer => MList, Map => MMap, Set => MSet}
-import scala.jdk.CollectionConverters._
 import scala.language.implicitConversions
+import collection.JavaConverters._
 import scala.util.{Random, Try}
+import scala.language.postfixOps
+import scala.util.matching.Regex
+import scala.util.{Failure, Success}
+
 package SeedGenerator {
 
   //  these are fine
   object implicits {
-    val IS_DEBUG: Boolean = sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments.asScala.exists(it => it.contains("IntelliJ"))
+    val IS_DEBUG: Boolean = sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments.asScala.exists(_.contains("IntelliJ"))
 
     implicit class RegexOpts(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
@@ -23,6 +28,10 @@ package SeedGenerator {
     }
     implicit class StringOpts(s: =>String) {
       def f: Path = Paths.get(s) // quick convert a String to a Path
+      def toIntOption: Option[Int] = Try { s.toInt } match {
+        case Success(v) => Some(v)
+        case _ => None
+      }
     }
     implicit class PathOpts(f: Path) {
       import java.nio.file.StandardOpenOption._
@@ -32,18 +41,32 @@ package SeedGenerator {
       def toOpt: Option[Path] = exists ? f
       def forceRead: String = Files readString f
       def read: Option[String] = exists ? forceRead
-      def readLines: Seq[String] = Seq.from(Files.readAllLines(f).asScala)
+      def readLines: Seq[String] = Files.readAllLines(f).asScala
       def write(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
       def append(output: => String): Path = Files.writeString(f, output, StandardCharsets.UTF_8, WRITE, CREATE, APPEND)
       def canonPath: Path = if(IS_DEBUG) defaultPath.resolve(f) else f
     }
-
+    // hehe OptOpts
     implicit class OptOpts[T](o: Option[T]) {
       def ?(other: => Option[T]): Option[T] = o orElse other
       def ??(other: => T): T = o getOrElse other
     }
 
-    implicit class itOpts[T](vs: Seq[T]) {
+    implicit class RandOpts(r: Random) {
+      def between(low: Int, high: Int): Int = low + r.nextInt(high - low) // backported
+    }
+
+    implicit class SeqOpts[T](vs: Seq[T]) {
+      // backports
+      def minByOption[B](f: T => B)(implicit cmp: Ordering[B]): Option[T] = vs match {
+        case Nil => None
+        case s => Some(s.minBy(f))
+      }
+      def partitionMap[T1, T2](f: T => Either[T1, T2]): (Seq[T1], Seq[T2]) = {
+        val full = vs map f
+        (full.collect{case Left(l) => l}, full.collect{case Right(r) => r})
+      }
+
       // sugar for pulling randomly from a sequence
       def rand(implicit r: Random): T = vs(r.nextInt(vs.size))
       def randOpt(implicit r: Random): Option[T] = vs.nonEmpty ? rand
@@ -57,10 +80,6 @@ package SeedGenerator {
       implicit val r: Random = new Random()
     }
     import SeedGenerator.implicits._
-
-    import scala.language.postfixOps
-    import scala.util.matching.Regex
-    import scala.util.{Failure, Success}
 
     case class LocData(area: String, name: String, category: String, value: String, zone: String, uberGroup: String, uberGroupId: Int, uberName: String, uberId: String, x: Int, y: Int) {
       val code = s"$uberGroupId|$uberId"
@@ -92,8 +111,8 @@ package SeedGenerator {
     )
     val UNCAT = "No category"
     val NOVAL = "No value"
-    val VOID = LocData("Unknown", s"Void", UNCAT, NOVAL, "N/A", "N/A", -1, "N/A", "0", 0, 0)
-    def spawnLoc(i: Int) = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "spawn", "control", 3, "spawn", "0", 0, 0)
+    val VOID: LocData = LocData("Unknown", s"Void", UNCAT, NOVAL, "N/A", "N/A", -1, "N/A", "0", 0, 0)
+    def spawnLoc(i: Int): LocData = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "spawn", "control", 3, "spawn", "0", 0, 0)
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = "loc_data.csv".f
@@ -228,7 +247,7 @@ package SeedGenerator {
 
 
   object ItemLoc {
-    val IMPLICIT = ItemLoc("Implicits", LocData.VOID)
+    val IMPLICIT: ItemLoc = ItemLoc("Implicits", LocData.VOID)
 
     val known: MMap[String, ItemLoc] = MMap.empty
     def mk(name: String, src: Map[String, LocData]): Option[ItemLoc] = src.get(name).map(ItemLoc(name, _))
@@ -406,7 +425,7 @@ package SeedGenerator {
         pool.take(Launch) // whoops
       }
       val locsByCode = (Nodes._items.values.map(a => a.data.code -> a) ++
-      Seq("3|0", "3|1", "3|2", "3|3").map(_ -> ItemLoc.IMPLICIT)).toMap
+      Seq("3|0", "3|1", "3|2", "3|3", "3|4").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
       (Option(FXGUI.header).map(_.apply()) ?? "").split("\n").foreach({ // yes, this is how we nullcheck now
@@ -416,7 +435,7 @@ package SeedGenerator {
               pool.take(item)
               addPreplc(GhostPlacement(item, loc))
               Config.debug(s"$loc, $item <= $raw")
-              Config.debug(s"$loc, ${preplc.get(loc)}, ${preplc}")
+              Config.debug(s"$loc, ${preplc.get(loc)}, $preplc")
             case (Some(loc), None) =>
               Config.debug(s"$loc, None($itemCode) <= $raw")
               addPreplc(GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc))
@@ -443,9 +462,9 @@ package SeedGenerator {
     val haveReached: MSet[Node] = MSet(ItemLoc.IMPLICIT)
     val states: MSet[FlagState] = MSet.empty[FlagState]
     def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
-      val mbprplc: Option[Map[ItemLoc, Set[Placement]]] = theoretical ? Map.from(preplc)
+      val mbprplc: Option[Map[ItemLoc, Set[Placement]]] = theoretical ? Map(preplc.toSeq:_*)
       val(rs, plcs) = Nodes.reachedRec(s, Set())
-      mbprplc.foreach(old => {preplc = Map.from(old)})
+      mbprplc.foreach(old => {preplc = Map(preplc.toSeq:_*)})
       if(plcs.nonEmpty && !theoretical)
         Config.debug(s"new placements after reachable search: $plcs")
       (rs, theoretical ? Set[Placement]() ?? plcs)
@@ -461,8 +480,8 @@ package SeedGenerator {
       spawn.reached(fullState, s.inv.orbs)
       do {
         stateCount = states.size
-        reachCache.mapValuesInPlace({case (_, rr) => rr.copy(couldConnect = rr.couldConnect -- haveReached)})
-        reachCache.subtractAll(reachCache.collect{case (a, AreaTraversalInfo(_, s)) if s.isEmpty => a})
+        reachCache.transform({case (_, rr) => rr.copy(couldConnect = rr.couldConnect -- haveReached)})
+        reachCache --= reachCache.collect{case (a, AreaTraversalInfo(_, s)) if s.isEmpty => a}
         reachCache.foreach{
           case (a, AreaTraversalInfo(orbs, s)) if s.nonEmpty => a.reached(fullState, orbs)
           case _ =>
@@ -491,10 +510,10 @@ package SeedGenerator {
         .map(i => {
 
           val (outState, _) = Nodes.reached(instate + i, theoretical = true)
-          i ->  (outState.reached.collect[Node]{
+          i ->  (outState.reached.collect{
             case i: ItemLoc => i
             case w: WorldStateNode => w
-          } -- items -- currFlags)
+          }.toSet[Node] -- items -- currFlags)
         }).filter(_._2.nonEmpty)
       val singles = paths.filter(_._1.inv.count == 1).map(_._1.inv.head._1)
       paths.filterNot {
@@ -606,7 +625,7 @@ package SeedGenerator {
       }
       if(reachableLocs.size == ItemPool.SIZE) {
         process(assignRandom(freeLocs), "rand: ")
-        return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
+        return PlacementGroup(state, Inv.Empty, placements, i, parent)
       }
       val ksNeeded = Math.max(0, Nodes.keystonesRequired(state.reached) - state.inv(Keystone)) match {
         case _ if !Config().flags.randomSpawn && i < 3 => 0
@@ -632,7 +651,7 @@ package SeedGenerator {
           val newCount = (newLocs -- reachableLocs).size
           Config.debug(s"checking for reachables after KS, got $newCount")
           if(newCount > 0 || newPlc.exists(_.item.isInstanceOf[Important]) || newLocs.size == ItemPool.SIZE)
-            return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
+            return PlacementGroup(state, Inv.Empty, placements, i, parent)
           else
             throw GeneratorError(s"Placed $ksNeeded into exactly that many locs, but failed to find a reachable after")
         }
@@ -660,16 +679,16 @@ package SeedGenerator {
           Config.debug(s"Preplacements after random placement: $newPlc")
           process(newPlc, "preplc: ")
         }
-        val newLocs = state.items - ItemLoc.IMPLICIT
-        val newCount = (newLocs -- reachableLocs)
+        val newLocs = newState.items - ItemLoc.IMPLICIT
+        val newCount = newLocs -- reachableLocs
         debugPrint(s"checking for reachables after random placement, got $newCount")
         if(newCount.size > reservedForProg.size ||            // more new items than were reserved for prog OR
           newPlc.exists(_.item.isInstanceOf[Important]) ||    // found an Important preplaced item OR
           newLocs.size == ItemPool.SIZE)                      // we're done
-          return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
+          return PlacementGroup(state, Inv.Empty, placements, i, parent)
           else if(newLocs.size > ItemPool.SIZE) {
           Config.error("aaaaaa")
-          return PlacementGroup(state, Inv.Empty, placements.toSeq, i, parent)
+          return PlacementGroup(state, Inv.Empty, placements, i, parent)
         }
 
       }
@@ -680,7 +699,7 @@ package SeedGenerator {
 
         var _fullWeight = 0d
         def acc(st: GameState, multiplier: Double = 1.0): Double = {
-          if(!st.cost.isFinite || st.inv.count == 0) {
+          if(st.cost.isNaN || st.cost.isInfinite || st.inv.count == 0) {
             debugPrint(s"What? $st")
             return 0
           }
@@ -736,7 +755,7 @@ package SeedGenerator {
           pool.take(item)
           ItemPlacement(item, nonShop)
       }), "prog: ")
-      PlacementGroup(state, progPath, placements.toSeq, i, parent)
+      PlacementGroup(state, progPath, placements, i, parent)
     }
   }
 
