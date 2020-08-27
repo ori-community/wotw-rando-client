@@ -17,7 +17,7 @@ assemblyMergeStrategy in assembly := {
 
 libraryDependencies += "org.json4s" %% "json4s-native" % "3.6.9"
 libraryDependencies += "com.lihaoyi" %% "fastparse" % "2.2.2" // SBT
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-feature", "-Ylog-classpath")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-feature")
 
 // Fork a new JVM for 'run' and 'test:run', to avoid JavaFX double initialization problems
 fork in run := true
