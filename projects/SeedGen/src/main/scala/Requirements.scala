@@ -1,4 +1,3 @@
-import scala.math.Ordering.Double.TotalOrdering
 package SeedGenerator {
   import SeedGenerator.implicits._
   trait Requirement {

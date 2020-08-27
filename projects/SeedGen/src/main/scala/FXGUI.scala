@@ -36,7 +36,6 @@ package SeedGenerator {
       sys.exit()
     }
 
-    versionCheck()
     val APP_NAME: String = "RandoSeedGen"
     val pref: Preferences = Preferences.userRoot.node(APP_NAME)
     case class DoublePref(key: String) {

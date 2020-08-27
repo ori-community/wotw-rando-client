@@ -2,8 +2,9 @@ import scala.io.Source
 import scala.util.matching.Regex
 import org.json4s.native.Serialization
 import org.json4s.{Formats, NoTypeHints}
-  import scala.util.Try
+import scala.util.Try
 package SeedGenerator {
+  import implicits._
 
   object ReachChecker {
     var doingReachCheck = false
