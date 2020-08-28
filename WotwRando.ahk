@@ -131,10 +131,10 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     If JavaInstalled 
     {
         SetTimer, ChangeButtonNames_JavaInstaller, 50 
-        MsgBox, 4, Java not installed, Java was not found on your system, which is required to run the seedgen and generate your own seeds.`nGet it from: https://jdk.java.net/14/
+        MsgBox, 4, Java not installed, Java was not found on your system, which is required to run the seedgen and generate your own seeds.`nGet it from: https://www.java.com/en/download/. `n`nOpen URL now?
         IfMsgBox, YES 
         {
-            Run, https://jdk.java.net/14/
+            Run, https://www.java.com/en/download/
             MsgBox,, Java not installed, After the java install has finished, press OK to continue.
         }
     }
