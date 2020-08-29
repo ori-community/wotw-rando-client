@@ -4,7 +4,6 @@ SetWorkingDir, %A_ScriptDir%
 #Include WatchFolder.ahk
 #Include JSON.ahk
 SetBatchLines, -1
-; TODO Decide on keeping/removing manual toggling
 
 ; Reading the settings file and setting variables
 inipath = settings.ini
@@ -18,9 +17,10 @@ if(launchWithTracker != "false"){
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.1.7"
+version := "v0.2.0"
 global TRACKFILE := A_ScriptDir . "\trackfile.json"
 global SEEDPATH := A_ScriptDir . "\.currentseedpath"
+global MESSAGELOG := A_ScriptDir . "\.messagelog"
 
 ; data containers
 imageBase := { "Bash": "img\Bash"
@@ -375,14 +375,14 @@ update() {
     if !(FileExist("trackfile.json"))
         return
 
-    FileRead jsonString, trackfile.json
+    FileRead jsonString, %TRACKFILE%
 
     ; Skip parsing if there are no changes
     if (currentinv == jsonString) {
     ; return
     }
 
-    Loop, read, messagelog
+    Loop, read, %MESSAGELOG%
     {
         LastPickup := A_LoopReadLine
     }
