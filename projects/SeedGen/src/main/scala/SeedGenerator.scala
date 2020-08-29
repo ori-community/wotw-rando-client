@@ -112,7 +112,7 @@ package SeedGenerator {
     )
     val UNCAT = "No category"
     val NOVAL = "No value"
-    val VOID: LocData = LocData("Unknown", s"Void", UNCAT, NOVAL, "N/A", "N/A", -1, "N/A", "0", 0, 0)
+    val VOID: LocData = LocData("Null", "Void", UNCAT, NOVAL, "Void", "N/A", -1, "N/A", "0", 0, 0)
     def spawnLoc(i: Int): LocData = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "spawn", "control", 3, "spawn", "0", 0, 0)
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
@@ -412,8 +412,10 @@ package SeedGenerator {
       preplc = Map()
       if(Settings.flags.worldTour) {
         Logger.debug("World Tour: finding relic placements...")
-        Nodes._items.values.groupBy(_.data.zone).foreach({case (z, items) =>
-          if(z != "Windtorn Ruins" && r.nextFloat() < .8) {
+        Nodes._items.values.groupBy(_.data.zone).foreach({
+          case (zone, _) if Seq("Windtorn Ruins", "Void") contains zone => // no relics in these zones
+          case (_, items) =>
+          if(r.nextFloat() < .8) {
             val slot = items.toSeq.rand
             addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
           }
