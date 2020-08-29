@@ -5,6 +5,7 @@ version := "0.1"
 scalaVersion := "2.12.12"
 
 assemblyOutputPath in assembly := file("C:\\moon\\SeedGen.jar")
+mainClass in assembly := Some("SeedGenerator.EntryPoint")
 //assemblyJarName in assembly := "SeedGen.jar"
 libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.181-R13"
 scalacOptions += "-target:jvm-1.8"

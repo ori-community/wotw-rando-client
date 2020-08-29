@@ -6,6 +6,14 @@ import scala.util.Try
 package SeedGenerator {
   import implicits._
 
+  object EntryPoint extends App {
+    if (args.nonEmpty) {
+        ReachChecker(args.toSeq)
+        sys.exit()
+      }
+      FXGUI.main(args)
+  }
+
   object ReachChecker {
     var doingReachCheck = false
     val cfg: Regex         = """(?i)(?:seed|seedfile|seedpath)="?(.*)"?""".r
@@ -23,7 +31,7 @@ package SeedGenerator {
     def mkSkill(s: String): Option[(Skill, Int)] = skills.get(s.toLowerCase).map(Skill(_) -> 1)
     def mkTp(s: String): Option[(Teleporter, Int)] = tps.get(s.toLowerCase).map(Teleporter(_) -> 1)
     def mkEvent(s: String): Option[(WorldEvent, Int)] = events.get(s.toLowerCase).map(WorldEvent(_) -> 1)
-    def settingsFromSeed(path: String): GenSettings = Try {
+    def settingsFromSeed(path: String): Settings = Try {
         val inFile = Source.fromFile(path)
         val lines = inFile.getLines().toSeq
         val configsRaw = lines.last.replace("// Config: ", "")
@@ -36,10 +44,10 @@ package SeedGenerator {
         })
         Nodes._spawn = Nodes.SpawnLoc.byName(mbSpawn.getOrElse("MarshSpawn.Main"))
         implicit val formats: Formats = Serialization.formats(NoTypeHints)
-        Serialization.read[GenSettings](configsRaw)
+        Serialization.read[Settings](configsRaw)
       }.toOption.getOrElse({
-        Config.error(s"Error reading config from $path")
-        GenSettings()
+        Logger.error(s"Error reading config from $path")
+        Settings()
       })
     def apply(args: Seq[String]): Unit = {
       doingReachCheck = true
@@ -49,7 +57,7 @@ package SeedGenerator {
         val st = GameState(new Inv(
           args.flatMap({
             case cfg(path)        =>
-              Config.settingsProvider = settingsFromSeed(path)
+              Settings.provider = settingsFromSeed(path)
               None
             case health(amt)      => amt.toIntOption.map(Health -> _)
             case energy(amt)      => amt.toIntOption.map(Energy -> _)
@@ -59,7 +67,7 @@ package SeedGenerator {
             case s if isSkill(s)  => mkSkill(s)
             case s if isTp(s)     => mkTp(s)
             case s if isEvent(s)  => mkEvent(s)
-            case a => Config.warn(s"unknown name $a"); None
+            case a => Logger.warn(s"unknown name $a"); None
           }):_*
         ))
         val res = Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).toSeq.sorted
@@ -76,9 +84,9 @@ package SeedGenerator {
     }
 
     def fromGame(args: Seq[String]): Unit = {
-      Config.logger = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
+      Logger.current = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
 
-      Config.settingsProvider = settingsFromSeed(args(1))
+      Settings.provider = settingsFromSeed(args(1))
       val hp = args(2).toInt / 5
       val en = args(3).toInt / 5
       val ks = args(4).toInt
@@ -89,9 +97,9 @@ package SeedGenerator {
         case s if s.startsWith("s:")  => s.stripPrefix("s:").toIntOption.map(Skill(_)->1)
         case s if s.startsWith("t:")  => s.stripPrefix("t:").toIntOption.map(Teleporter(_)->1)
         case s if s.startsWith("w:")  => s.stripPrefix("w:").toIntOption.map(WorldEvent(_)->1)
-        case a => Config.error(s"unknown name $a"); None
+        case a => Logger.error(s"unknown name $a"); None
         }:_*))
-//      Config.debug(s"$args\n$st\n${Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).mkString(", ")}")
+//      Logger.debug(s"$args\n$st\n${Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).mkString(", ")}")
       println(Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.code).mkString(", "))
     }
 
