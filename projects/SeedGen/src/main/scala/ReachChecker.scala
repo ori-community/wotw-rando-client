@@ -51,36 +51,36 @@ package SeedGenerator {
       })
     def apply(args: Seq[String]): Unit = {
       doingReachCheck = true
-      if(args.head == "ReachCheck") {
-        fromGame(args)
-      } else {
-        val st = GameState(new Inv(
-          args.flatMap({
-            case cfg(path)        =>
-              Settings.provider = settingsFromSeed(path)
-              None
-            case health(amt)      => amt.toIntOption.map(Health -> _)
-            case energy(amt)      => amt.toIntOption.map(Energy -> _)
-            case ore(amt)         => amt.toIntOption.map(Ore -> _)
-            case keystones(amt)   => amt.toIntOption.map(Keystone -> _)
-            case spiritlight(amt) => amt.toIntOption.map(SpiritLight(_) -> 1)
-            case s if isSkill(s)  => mkSkill(s)
-            case s if isTp(s)     => mkTp(s)
-            case s if isEvent(s)  => mkEvent(s)
-            case a => Logger.warn(s"unknown name $a"); None
-          }):_*
-        ))
-        val res = Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).toSeq.sorted
-        println("")
-        println("")
+      args.head match {
+        case "ReachCheck" => fromGame(args)
+        case "test" => println("tested")
+        case _ =>
+          val st = GameState(new Inv(
+            args.flatMap({
+              case cfg(path)        =>
+                Settings.provider = settingsFromSeed(path)
+                None
+              case health(amt)      => amt.toIntOption.map(Health -> _)
+              case energy(amt)      => amt.toIntOption.map(Energy -> _)
+              case ore(amt)         => amt.toIntOption.map(Ore -> _)
+              case keystones(amt)   => amt.toIntOption.map(Keystone -> _)
+              case spiritlight(amt) => amt.toIntOption.map(SpiritLight(_) -> 1)
+              case s if isSkill(s)  => mkSkill(s)
+              case s if isTp(s)     => mkTp(s)
+              case s if isEvent(s)  => mkEvent(s)
+              case a => Logger.warn(s"unknown name $a"); None
+            }):_*
+          ))
+          val res = Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).toSeq.sorted
+          println("")
+          println("")
 
-        res.grouped(3).map({
-          case Seq(a, b, c) => f"$a%-30s $b%-30s $c"
-          case Seq(a, b) => f"$a%-30s $b"
-          case Seq(a) => a
-        }).foreach(println)
+          res.grouped(3).map({
+            case Seq(a, b, c) => f"$a%-30s $b%-30s $c"
+            case Seq(a, b) => f"$a%-30s $b"
+            case Seq(a) => a
+          }).foreach(println)
       }
-
     }
 
     def fromGame(args: Seq[String]): Unit = {
