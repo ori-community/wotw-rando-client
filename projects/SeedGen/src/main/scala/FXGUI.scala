@@ -29,12 +29,6 @@ package SeedGenerator {
 
   import scala.util.{Failure, Success, Try}
   object FXGUI extends JFXApp {
-
-    if(FXGUI.parameters.raw.nonEmpty) {
-      ReachChecker(FXGUI.parameters.raw)
-      sys.exit()
-    }
-
     val APP_NAME: String = "RandoSeedGen"
     val pref: Preferences = Preferences.userRoot.node(APP_NAME)
     case class DoublePref(key: String) {
@@ -53,7 +47,7 @@ package SeedGenerator {
     val settingsFile: Path = "SeedGenSettings.json".f.canonPath
     var currentOp: Option[Future[Unit]] = None
     val headerFilePath: Path =  ".seedHeader".f.canonPath
-    val startSet: GenSettings = settingsFromFile
+    val startSet: Settings = settingsFromFile
     var outputDirectory: Path = Paths.get(startSet.outputFolder)
     val folderLabel: Text = new Text {text = s"Output folder: ${outputDirectory.toAbsolutePath}"}
     val header = new StringProperty(null, "header_text", headerFilePath.read ?? "// Replace this text with a seed header, if desired")
@@ -63,12 +57,12 @@ package SeedGenerator {
     var lastSeed: Option[String] = None
     val lastSeedName: StringProperty = new StringProperty(null, "last_seed_name", "N/A")
 
-    Config.settingsProvider = FXSettingsProvider
-    Config.logger  = FXLogger
+    Settings.provider = FXSettingsProvider
+    Logger.current  = FXLogger
 
-    def settingsFromFile: GenSettings = {
+    def settingsFromFile: Settings = {
       implicit val formats: Formats = Serialization.formats(NoTypeHints)
-      settingsFile.read.map(Serialization.read[GenSettings]).getOrElse(GenSettings())
+      settingsFile.read.map(Serialization.read[Settings]).getOrElse(Settings())
     }
     def outputPath: String = {
       val name_base = outputDirectory.toAbsolutePath.resolve((seedName() == "") ? "seed" ?? seedName()).toString
@@ -82,15 +76,14 @@ package SeedGenerator {
       ret
     }
 
-    def onChange(unused: Boolean): Unit = settingsFile.write(Config().toJson)
+    def onChange(unused: Boolean): Unit = settingsFile.write(Settings.toJson)
     def toggle(name: String, tooltipText: String, startSelected: => Boolean, listener: => Boolean=>Unit = onChange): ToggleButton =  new ToggleButton(name){
       selected = startSelected
       tooltip = tooltipText
-      selected.onChange((_, _, nval) => listener(nval))
+      selected.onChange((_, _, nval) => listener(nval) )
       border <== when (selected) choose
         new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
         new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
-//      background <== when (selected) choose new Background(Array(new BackgroundFill(LightSkyBlue, new CornerRadii(3f), Insets(1)))) otherwise new Background(Array(new BackgroundFill(LightGrey, new CornerRadii(3f), Insets(1))))
     }
 
     val runLastSeedButton: Button = new Button("Run Last Seed") {disable = true}
@@ -119,7 +112,7 @@ package SeedGenerator {
     runLastSeedButton.onAction = _ => lastSeed match {
       case Some(file) => Seq("cmd", "/C", file.f.toString).run
       case None =>
-        Config.warn("Last seed file not found!")
+        Logger.warn("Last seed file not found!")
         runLastSeedButton.disable = true
     }
 
@@ -143,7 +136,7 @@ package SeedGenerator {
       }
 
       onCloseRequest = _ => {
-        settingsFile.write(FXSettingsProvider().toJson)
+        settingsFile.write(Settings.toJson)
         WIN_W.set(width())
         WIN_H.set(height())
         WIN_X.set(x())
@@ -194,21 +187,21 @@ package SeedGenerator {
           generateButton.disable = true
           currentOp = Some(Future {
             val succ = Try {
-              Config.info("Building...")
+              Logger.info("Building...")
               if (seedName() != "") {
-                Config.info(s"Seeded RNG with ${seedName()}")
+                Logger.info(s"Seeded RNG with ${seedName()}")
                 SeedGenerator.Runner.setSeed(seedName().hashCode)
               }
               if (SeedGenerator.Runner(outputPath)) {
-                Config.info(s"Finished generating seed!")
+                Logger.info(s"Finished generating seed!")
                 true
               } else {
                 lastSeed = None
-                Config.error(s"Failed to generate seed :c")
+                Logger.error(s"Failed to generate seed :c")
                 false
               }
             } match {
-              case Failure(e) => Config.error(e); false
+              case Failure(e) => Logger.error(e); false
               case Success(_) => true
             }
             Platform.runLater(() => {
@@ -282,23 +275,27 @@ package SeedGenerator {
       }
     }
     object FXSettingsProvider extends SettingsProvider {
-      def apply(): GenSettings = GenSettings(
-        tps          = teleportersButton.selected(),
-        spoilers     = !raceModeButton.selected(),
-        unsafePaths  = uncheckedPathsButton.selected(),
-        gorlekPaths  = gorlekPathsButton.selected(),
-        glitchPaths  = glitchPathsButton.selected(),
-        questLocs    = questsButton.selected(),
-        outputFolder = outputDirectory.toAbsolutePath.toString,
-        flags        = Flags(forceWispsButton.selected(), forceTreesButton.selected(), forceQuestsButton.selected(), !zoneHintsButton.selected(),
-          !swordSpawnButton.selected(), rainButton.selected(), noKSDoorsButton.selected(), randomSpawnButton.selected(), worldTourButton.selected()),
-        bonusItems   = bonusItemsButton.selected(),
-        debugInfo    = debugButton.selected(),
-        seirLaunch   = seirLaunchButton.selected()
-      )
+      def get: Settings = {
+        Settings(
+          tps          = teleportersButton.selected(),
+          spoilers     = !raceModeButton.selected(),
+          unsafePaths  = uncheckedPathsButton.selected(),
+          gorlekPaths  = gorlekPathsButton.selected(),
+          glitchPaths  = glitchPathsButton.selected(),
+          questLocs    = questsButton.selected(),
+          outputFolder = outputDirectory.toAbsolutePath.toString,
+          flags        = Flags(forceWispsButton.selected(), forceTreesButton.selected(), forceQuestsButton.selected(), !zoneHintsButton.selected(),
+            !swordSpawnButton.selected(), rainButton.selected(), noKSDoorsButton.selected(), randomSpawnButton.selected(), worldTourButton.selected()),
+          bonusItems   = bonusItemsButton.selected(),
+          debugInfo    = debugButton.selected(),
+          seirLaunch   = seirLaunchButton.selected()
+        )
+      }
+      // don't need to nullcheck bc we don't use this provider with the gui off! neat C:
+      override def userHeader: String = FXGUI.header()
     }
     object FXLogger extends Logger {
-      override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ Config().debugInfo ? DEBUG
+      override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ Settings.debugInfo ? DEBUG
       override def write(x: =>Any): Unit = {
         //        logArea.setScrollTop(logArea.height())
         Platform.runLater(() => logArea.appendText(s"$x\n"))

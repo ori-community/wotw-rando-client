@@ -39,8 +39,8 @@ package SeedGenerator {
     def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
     def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq)
     def shardReq[_: P]: P[Requirement] = P("TripleJump").map(_ => TripleJump.req) // TODO: hahahaha we'll come back to this
-    def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~/ equalsNum).map(n => if(Config().glitchPaths) SentryJumpReq(n) else Invalid)
-    def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(n => if(Config().flags.noKSDoors) Free else KeystoneReq(n))
+    def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~/ equalsNum).map(n => if(Settings.glitchPaths) SentryJumpReq(n) else Invalid)
+    def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(n => if(Settings.flags.noKSDoors) Free else KeystoneReq(n))
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
     def unfree[_: P]: P[Requirement] = P("Unreachable").map(_ => Invalid)
@@ -49,9 +49,9 @@ package SeedGenerator {
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
     def diffReq[_ :P]: P[Requirement] = P("moki" | "unsafe" | "gorlek" | "glitch").!.map({
       case "moki" => Free
-      case "gorlek" => if(Config().gorlekPaths) Free else Invalid
-      case "glitch" => if(Config().glitchPaths) Free else Invalid
-      case "unsafe" => if(Config().unsafePaths) Free else Invalid
+      case "gorlek" => if(Settings.gorlekPaths) Free else Invalid
+      case "glitch" => if(Settings.glitchPaths) Free else Invalid
+      case "unsafe" => if(Settings.unsafePaths) Free else Invalid
     })
     def stateReq[_:P]: P[Requirement] = P(nameParser).map({
       case s if knownMacros.contains(s) => knownMacros(s)
@@ -111,7 +111,7 @@ package SeedGenerator {
     def input: String = {
       val path = if(new File("areas.wotw").exists()) "areas.wotw" else "C:\\moon\\areas.wotw"
       val src = Source.fromFile(path)
-      Config.debug(s"Loading logic from $path")
+      Logger.debug(s"Loading logic from $path")
       val raw = src.mkString.replace("\r\n","\n")
       src.close()
       "\n *(?=\n)".r.replaceAllIn(" *#[^\n]*".r.replaceAllIn(raw,""), "")
@@ -122,7 +122,7 @@ package SeedGenerator {
       def stateReqs(areas: Seq[Area]) = areas.flatMap(_.conns.flatMap(_.reqs.flatMap(_.children.collect({case r: StateReq => r}))))
 //      val unusedMacros = macros.filterNot(mc => stateReqs(areas).map(st => st.flag).contains(mc.target.name)).toSet
 //      if(unusedMacros.nonEmpty)
-//        Config.warn(s"unused macros: $unusedMacros")
+//        Logger.warn(s"unused macros: $unusedMacros")
       areas
         // find applicable regions
         .map(a => (a, regions.collectFirst({case Region(rName, rReq) if a.name.startsWith(rName) => rReq})))

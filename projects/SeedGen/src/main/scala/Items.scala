@@ -68,7 +68,7 @@ package SeedGenerator {
 
   object Bonus {
     def poolItems: Seq[Bonus] =
-      if(Config().bonusItems)
+      if(Settings.bonusItems)
         new Inv((HealthRegen, 3), (EnergyRegen, 3), (ExtraDash, 1), (ExtraJump, 1)).asSeq.collect{case a: Bonus => a}
       else
         Nil
@@ -129,7 +129,7 @@ package SeedGenerator {
       121 -> "Ancestral Light"
     )
     def poolItems: Seq[Skill] = names.keys.withFilter(!Seq(3, 99, 100, 108).contains(_)).map(Skill(_)).toSeq  ++
-      (if(Config().flags.noSword) Seq(Sword) else Nil)
+      (if(Settings.flags.noSword) Seq(Sword) else Nil)
   }
   case class Shard(shardId: Int) extends Item with Merch {
     val itemType: Int = 3
@@ -179,7 +179,7 @@ package SeedGenerator {
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
     def req: Requirement = TeleReq(teleporterId)
-    override val cost: Double = Math.max(6d + (if(Config().flags.randomSpawn) 94d else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
+    override val cost: Double = Math.max(6d + (if(Settings.flags.randomSpawn) 94d else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
   }
 
   object Teleporter {
@@ -206,7 +206,7 @@ package SeedGenerator {
       16 -> "Marsh",
       17 -> "Glades"
     )
-    def poolItems: Seq[Teleporter] = if(Config().tps) names.keys.withFilter(!Seq(13, 14, 15).contains(_)).map(Teleporter(_)).filterNot(_ == Nodes.spawnTP).toSeq else Nil
+    def poolItems: Seq[Teleporter] = if(Settings.tps) names.keys.withFilter(!Seq(13, 14, 15).contains(_)).map(Teleporter(_)).filterNot(_ == Nodes.spawnTP).toSeq else Nil
   }
 
   // fake inventory items
@@ -284,7 +284,7 @@ package SeedGenerator {
     def withoutCash(cash: Int): Inv = {
       val totalLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
       if(totalLight < cash)
-        Config.error("THIS SEEMS SUBOPTIMAL")
+        Logger.error("THIS SEEMS SUBOPTIMAL")
       new Inv(keys.flatMap({
         case _: SpiritLight => None
         case i => Some(i -> this(i))
@@ -328,7 +328,7 @@ package SeedGenerator {
             if(afterSLCount > 0) {
               val average = (slAmount - amount*count) / afterSLCount
               (0 until afterSLCount).foreach(_ => add(SpiritLight(r.between(average-50, average+50))))
-              Config.debug(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
+              Logger.debug(s"take($item, $count): reshuffled spirit light (new average value of $average, across $afterSLCount, total $totalSpiritLight)")
               return true
             }
           case _ =>
@@ -342,7 +342,7 @@ package SeedGenerator {
     }
     def without(item: Item, count: Int): Inv = {
       if (!has(item, count))
-        Config.error(s"couldn't build ${this} without $count of $item")
+        Logger.error(s"couldn't build ${this} without $count of $item")
 
       new Inv(keys.map({
         case i if i == item => i -> (this(i)-count)
