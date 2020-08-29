@@ -182,7 +182,7 @@ namespace RandoMainDLL {
 
     static string HintFrag(this AbilityType t) {
       var w = SaveController.HasAbility(t) ? "$" : "";
-      return $"{w}{t.GetDescription()}: {SkillLocs[t]}";
+      return $"{w}{t.GetDescription()}: {SkillLocs[t]}{w}";
     }
     public static string GetKeySkillHintOne() {
       if (SaveController.Data?.OpherSold?.Contains(AbilityType.WaterBreath) ?? false) {
