@@ -369,8 +369,8 @@ package SeedGenerator {
         SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
         SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
         SpawnLoc("UpperWastes.NorthTP", 4, Teleporter(11)),
-        SpawnLoc("GladesTown.Teleporter", 3, Teleporter(16), safe = true),
-        SpawnLoc("MarshSpawn.Main", 0, Teleporter(17)),
+        SpawnLoc("MarshSpawn.Main", 0, Teleporter(16)),
+        SpawnLoc("GladesTown.Teleporter", 3, Teleporter(17), safe = true),
       )
       def valid: Seq[SpawnLoc] = Settings.unsafePaths ? all ?? all.filter(_.safe)
       def byName: Map[String, SpawnLoc] = all.map(a => a.areaName -> a).toMap
