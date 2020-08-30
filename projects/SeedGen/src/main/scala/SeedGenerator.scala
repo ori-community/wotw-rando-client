@@ -16,10 +16,6 @@ package SeedGenerator {
     implicit class RegexOpts(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
-    implicit class BooleanOps(b: Boolean) {
-      // kinda like a terinary operator, but since scala has that already,  ? means "cond+val->Opt"
-      def ?[T](block: => T): Option[T] = if(b) Some(block) else None
-    }
     implicit class StringOpts(s: =>String) {
       def f: Path = Paths.get(s) // quick convert a String to a Path
       def toIntOption: Option[Int] = Try { s.toInt } match {
@@ -46,6 +42,10 @@ package SeedGenerator {
         bw.close()
       }
       def canonPath: Path = if(IS_DEBUG) defaultPath.resolve(f) else f
+    }
+    implicit class BooleanOps(b: Boolean) {
+      // kinda like a terinary operator, but since scala has that already,  ? means "cond+val->Opt"
+      def ?[T](block: => T): Option[T] = if(b) Some(block) else None
     }
     // hehe OptOpts
     implicit class OptOpts[T](o: Option[T]) {
