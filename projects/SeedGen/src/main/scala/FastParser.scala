@@ -29,23 +29,22 @@ package SeedGenerator {
       case (Some(_), digits) => -digits.toInt
       case (None, digits) => digits.toInt
     }))
+    val skillsWithCost = Map("Bow" -> (Bow, .25f), "Spear" -> (Spear,  2f), "Flash" -> (Flash, 1f), "Shuriken" -> (Shuriken, 0.5f), "Blaze" -> (Blaze, 1f), "Grenade" -> (Blaze, 1f), "Sentry" -> (Sentry, 1f))
+    def energySkillReq[_: P]: P[Requirement] = P(nameMapParser(skillsWithCost) ~~ equalsNum).map({case (skill, cost, count) => skill.req and EnergyReq(count * cost)})
     def equalsNum[_ :P]: P[Int] = P("=" ~ num)
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq(_))
-    def grenadeReq[_: P]: P[Requirement] = P("Grenade" ~~/ equalsNum).map(i => AllReqs(Grenade.req, EnergyReq(i)))
-    def bowReq[_: P]: P[Requirement] = P("Bow" ~~/ equalsNum).map(i => AllReqs(Bow.req, EnergyReq(0.25f * i)))
-    def spearReq[_: P]: P[Requirement] = P("Spear" ~~/ equalsNum).map(i => AllReqs(Spear.req, EnergyReq(2f * i)))
     def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
-    def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq)
+    def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq) | P("ShurikenBreak" ~~/ equalsNum).map(BackWallBreak)
+    def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~ equalsNum).map(n => if(Settings.glitchPaths) SentryJumpReq(n) else Invalid)
     def shardReq[_: P]: P[Requirement] = P("TripleJump").map(_ => TripleJump.req) // TODO: hahahaha we'll come back to this
-    def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~/ equalsNum).map(n => if(Settings.glitchPaths) SentryJumpReq(n) else Invalid)
     def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(n => if(Settings.flags.noKSDoors) Free else KeystoneReq(n))
     def cashReq[_: P]: P[Requirement] = P("SpiritLight" ~~/ equalsNum).map(CashReq)
     def free[_: P]: P[Requirement] = P("free").map(_ => Free)
     def unfree[_: P]: P[Requirement] = P("Unreachable").map(_ => Invalid)
     def tpReq[_: P]: P[Requirement] = P(nameMapParser(Teleporter.areaFileNames)).map(id => TeleReq(id))
-    def skillReq[_: P]: P[Requirement] = grenadeReq | bowReq | spearReq | sentryJumpReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
+    def skillReq[_: P]: P[Requirement] = sentryJumpReq | energySkillReq | P(nameMapParser(Skill.areaFileNames)).map(id => if(id == 100 || Skill.poolItems.exists(_.skillId == id)) SkillReq(id) else Invalid)
     def eventReq[_: P]: P[Requirement] = P(nameMapParser(WorldEvent.areaFileNames)).map(EventReq)
     def diffReq[_ :P]: P[Requirement] = P("moki" | "unsafe" | "gorlek" | "glitch").!.map({
       case "moki" => Free
@@ -66,7 +65,7 @@ package SeedGenerator {
     })//.log
     def reqRHS[_:P]: P[Requirement] = P(andReqs)
     def reqLHS[_:P]: P[Requirement] = P(andReqs ~~ colon)//.log
-    def reqLine[_:P]: P[Requirement] = P(reqLHS ~ !"\n" ~ reqRHS ~ &("\n")).map{case (lhs, rhs) => lhs and rhs}
+    def reqLine[_:P]: P[Requirement] = P(reqLHS ~ !"\n" ~ reqRHS ~ &("\n")).map{case (lhs, rhs) => lhs and rhs}//.log
     class ReqParser(indent: Int) {
       def deeper[_: P]: P[Int] = P( " ".repX(indent + 1).!.map(_.length) )
       def blockBody[_: P]: P[Seq[Requirement]] = "\n" ~~ deeper.flatMapX(i => new ReqParser(indent = i).req.repX(1, sep = ("\n" + " " * i)./)

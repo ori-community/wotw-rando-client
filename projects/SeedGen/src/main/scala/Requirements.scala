@@ -119,24 +119,28 @@ package SeedGenerator {
       ).distinct.map(_ + er.remaining(state, unaffordable, space).head + state missing Sentry
       ).filter(g => g.inv.count <= space)
   }
-
-  case class BreakWallReq(wallHealth: Int) extends Requirement {
+  class WallReq(wallHealth: Int, skills: Map[Skill, (Float, Float)]) extends Requirement {
     def energyCost(skill: Skill): Float = skill match {
-      case Bow => Math.ceil(wallHealth/4f).toInt * 0.25f
-      case Grenade => Math.ceil(wallHealth/10f).toInt
-      case Shuriken => Math.ceil(wallHealth/4f).toInt * .5f
-      case Spear => Math.ceil(wallHealth/20f).toInt * 2
-      case _ => 0
+      case s if skills.contains(s) =>
+        val (dmg, cost) = skills(s)
+        Math.ceil(wallHealth/dmg).toInt * cost
+      case s => Logger.warn(s"checking cost of non-valid skill $s"); 0
     }
     def energyReq(skill: Skill): Requirement = EnergyReq(energyCost(skill))
-    private def skills = Seq(Sword, Smash, Bow, Grenade, Shuriken, Spear)
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs =
-      skills.collectFirst({ case s if state.inv.has(s) => energyReq(s).orbsAfterMet(state, orbs)}).get
+      skills.keys.collectFirst({ case s if state.inv.has(s) => energyReq(s).orbsAfterMet(state, orbs)}).get
     def metBy(state: GameState, orbs: Option[Orbs] = None):Boolean =
-      skills.exists(s => state.inv.has(s) && energyReq(s).metBy(state, orbs))
+      skills.keys.exists(s => state.inv.has(s) && energyReq(s).metBy(state, orbs))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = metBy(state) ? Seq(GameState.Empty) ??
-      skills.map(s => (state missing s) + energyReq(s).remaining(state).head).filter(_.inv.count <= space)
+      skills.keys.map(s => (state missing s) + energyReq(s).remaining(state).head).filter(_.inv.count <= space).toSeq
   }
+
+  case class BreakWallReq(wallHealth: Int) extends WallReq(wallHealth,  Map(
+    Sword -> (4f, 0f), Smash -> (12f, 0f), Bow -> (4f, 0.25f),
+    Grenade -> (10f, 1f), Shuriken -> (4f, .5f), Spear -> (20f, 2f))
+  )
+
+  case class BackWallBreak(wallHealth: Int) extends WallReq(wallHealth,  Map(Shuriken -> (7f, 1.5f)))
 
   case class DamageReq(damage: Int) extends Requirement  {
     def orbsMod(state: GameState, orbs: Orbs): Orbs = {
