@@ -239,7 +239,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       DoubleJump OR Launch
       Bash, Grenade=1
     gorlek: Sword OR Hammer
-    unsafe: Sentry # Not in gorlek cause it requires Sentry to get higher
+    unsafe: Sentry=1 # Not in gorlek cause it requires Sentry to get higher
   pickup MarshSpawn.BurrowOre:
     moki, EnemyObstacle:
       Burrow, DoubleJump, Dash OR Glide
@@ -299,7 +299,6 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     moki, EnemyObstacle:
       Water, Burrow, DoubleJump, Dash OR Glide
       Water, Burrow, Launch
-    gorlek:
     gorlek, EnemyObstacle OR Danger=10:  # for the spider specifically
       Water, Burrow, DoubleJump OR Dash
       Water, Burrow, Sword, Damage=10
@@ -677,7 +676,7 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=2
   conn MarshPastOpher.TrialArea:
-    moki: BreakWall=20, Danger=10  # the one-way has 20 health as well, so there might not be relevant shurikenbreak paths here
+    moki: BreakWall=20, Danger=10  # the one-way has 20 health as well, so there might not be relevant BackWallBreak paths here
 
 anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit with bow tree.
   refill Energy=1:
@@ -872,10 +871,11 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
       DoubleJump, Glide
       DoubleJump, Dash, Danger=15
       Launch, DoubleJump OR Dash OR Glide OR Danger=15
-    gorlek, EnemyObstacle OR DoubleJump OR Dash:
+    gorlek:
       DoubleJump, Danger=10
-      Dash OR Hammer, Danger=15
-      Glide OR Launch
+      Danger=15, Dash OR Hammer
+      Glide, EnemyObstacle OR DoubleJump OR Dash
+      Launch
       Sword, Damage=15
       DoubleJump, Dash OR Sword OR Hammer
       Dash, Sword OR Hammer
@@ -887,13 +887,15 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
       DoubleJump, Glide
       DoubleJump, Dash, Danger=15
       Launch, DoubleJump OR Dash OR Glide OR Danger=15
-    gorlek, EnemyObstacle OR DoubleJump OR Dash:
+    gorlek:
       DoubleJump, Danger=10
-      Dash OR Hammer, Danger=15
-      Glide OR Launch
+      Danger=15, Dash OR Hammer
+      Glide, EnemyObstacle OR DoubleJump OR Dash
+      Launch
       Sword, Damage=15
       DoubleJump, Dash OR Sword OR Hammer
       Dash, Sword OR Hammer
+
   conn HowlsDen.DoubleJumpTreeArea:
     moki: BreakWall=10
 
@@ -1429,7 +1431,8 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
         TuleyShop.StickyGrass, Grapple, Bash, Grenade=2, Sword
     unsafe:
       Flap, Glide, Sword OR Hammer OR Grenade=1  # grenade jump, upslash, uphammer
-      TuleyShop.SpringPlants, Sword OR Grenade=1 OR Sentry OR Flash  # increased height bounces # sentry and flash short hops give you juuuuuust enough height to get up using the springboard by the hut with the crates
+      TuleyShop.SpringPlants, Sword OR Grenade=1 # increased height bounces 
+      TuleyShop.SpringPlants, Sentry=1 OR Flash  # sentry and flash short hops give you juuuuuust enough height to get up using the springboard by the hut with the crates
       TuleyShop.Lightcatchers, Bash, TuleyShop.BlueMoon, Grapple
   conn GladesTown.ReachPath:
     moki: TuleyShop.Lightcatchers, TuleyShop.StickyGrass, Bash, Grapple, DoubleJump OR Dash  # other paths should be redundant with HoleHut
@@ -1491,7 +1494,7 @@ anchor GladesTown.TwillenHome at -414, -4160:  # At Twillen in Glades
       Bash, Grenade=1, Hammer OR Spear=1
     gorlek:
       Hammer  # hammer float
-      Spear=1, Sword or Damage=10  # sword float
+      Spear=1, Sword OR Damage=10  # sword float
     unsafe: Spear=1  # tricky jump over the coals damageless
   pickup GladesTown.AboveCaveEX:
     moki: GladesTown.ClearThorns
@@ -2200,7 +2203,7 @@ anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where yo
       Launch
     gorlek:
       Bash, Grenade=1, DoubleJump, TripleJump
-      Bash, Grenade=2, DoubleJump, Dash OR Glide, Damage=15
+      Bash, Grenade=2, DoubleJump, Damage=15, Dash OR Glide
       DoubleJump, TripleJump, Damage=15
       SentryJump=2, Damage=15, Dash OR DoubleJump OR Glide
       Grapple, Sword OR Hammer
@@ -2288,7 +2291,7 @@ anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can d
     unsafe:
       InnerWellspring.DrainLever, Dash, Hammer, Damage=20 # Technically possible without damage  
 
-    # ShurikenBreak note: this wall has 10 health, 2 Shurikens to break (BackWallBreak=10)
+    # BackWallBreak note: this wall has 10 health, 2 Shurikens to break (BackWallBreak=10)
   pickup InnerWellspring.LaserOre:
     moki:
       RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide  # don't see a better solution... refill nearby should mitigate the overestimated energy requirement
@@ -4338,7 +4341,7 @@ anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
     gorlek: Burrow OR Hammer
     unsafe: Sentry=1 OR Spear=1  # Pretty sure that other spells _should_ work here, but they're unsafe paths so cbf checking now lol
   pickup LowerWastes.BottomRightHC:  # free to get to from here
-    gorlek: ShurikenBreak=20, EnemyObstacle OR DoubleJump  # dance with the gorlek
+    gorlek: BackWallBreak=20, EnemyObstacle OR DoubleJump  # dance with the gorlek
 
   conn LowerWastes.SandPot:
     moki:
@@ -4364,9 +4367,9 @@ anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
       Sentry=1
   conn LowerWastes.MinesEntrance:  # guess this wasn't that bad after all
     gorlek, EnemyObstacle OR DoubleJump:
-      ShurikenBreak=20, Dash OR Glide OR Grapple OR Damage=30
-      ShurikenBreak=20, DoubleJump OR Launch
-      ShurikenBreak=20, Bash, Grenade=1
+      BackWallBreak=20, Dash OR Glide OR Grapple OR Damage=30
+      BackWallBreak=20, DoubleJump OR Launch
+      BackWallBreak=20, Bash, Grenade=1
 
 anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower breakable wall
   pickup LowerWastes.BottomRightEX:
@@ -4403,7 +4406,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
       Grapple, Dash, EnemyObstacle  # Pretty straightforward. Rest of these paths you're able to avoid enemies so enemyobstacle isnt included.
       Launch
   conn WindtornRuins.LowerRuins:
-    gorlek: ShurikenBreak=20, Burrow
+    gorlek: BackWallBreak=20, Burrow
 
 anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the lever
   refill Checkpoint
