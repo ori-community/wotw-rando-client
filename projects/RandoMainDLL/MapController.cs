@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using RandoMainDLL.Memory;
 
@@ -46,17 +48,21 @@ namespace RandoMainDLL {
         proc.StartInfo.RedirectStandardOutput = true;
         proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
-        proc.WaitForExit();
+        if(!proc.WaitForExit(7500))
+          Randomizer.Warn("MapController.waitForProc", "timed out waiting for reach check", false);
         Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
-        if(rawOutput.Trim() != "")
+        if (rawOutput.Trim() != "")
           foreach (var rawCond in rawOutput.Split(',')) {
             try {
               var frags = rawCond.Split('|');
               var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
               Reachable.Add(cond.Id);
-            } catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
+            }
+            catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
           }
+//        else
+//          Randomizer.Log($"got output |{rawOutput}| from cmd. args: \"{String.Join(" ", argsList)}\" stderr was {proc.StandardError.ReadToEnd()}", false);
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
@@ -79,6 +85,8 @@ namespace RandoMainDLL {
       
       foreach (var wrap in new string[] { "#", "*", "$", "@" })
         text = text.Replace(wrap, "");
+      if (NameLabels)
+        text = $"{cond.Loc().FullName}\n{text}";
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
@@ -109,6 +117,7 @@ namespace RandoMainDLL {
           return true;
       }
     }
+    public static bool NameLabels = false;
     public static bool FilterIconShow(int groupId, int id) {
       // Show Icon (in logic)
       return Reachable.Contains(new UberId(groupId, id));

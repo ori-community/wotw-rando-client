@@ -3,6 +3,8 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public enum BonusType {
+    [Description("Relic")]
+    Relic = 20,
     [Description("Health Regeneration")]
     HealthRegen = 30,
     [Description("Energy Regeneration")]
@@ -10,7 +12,7 @@ namespace RandoMainDLL {
     [Description("Extra Double Jump")]
     ExtraDoubleJump = 35,
     [Description("Extra Air Dash")]
-    ExtraAirDash = 36
+    ExtraAirDash = 36,
   }
 
   public static class BonusItemController {

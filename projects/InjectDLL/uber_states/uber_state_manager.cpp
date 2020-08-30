@@ -86,11 +86,33 @@ namespace uber_states
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Regeneration Efficiency", 7, 1),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Flash Efficiency", 8, 1),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Light Burst Efficiency", 9, 1),
+
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Health Regeneration", 30, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Energy Regeneration", 31, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Double Jumps", 35, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Dashes", 36, 0),
-                    
+
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Relic", 20, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Marsh Relic", 100, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Hollow Relic", 101, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Glades Relic", 102, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Wellspring Relic", 103, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Burrows Relic", 104, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Woods Relic", 105, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Reach Relic", 106, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Pools Relic", 107, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Depths Relic", 108, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Wastes Relic", 109, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Willow Relic", 111, 0),
+
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Spawn", 0, false),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Reload", 1, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Binding One", 2, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Binding Two", 3, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Binding Three", 4, 0),
+
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Goal Modes Complete", 11, false),
+
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "keystones_collected", 0, 0),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "glades_tp_fix", 0, false),

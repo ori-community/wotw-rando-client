@@ -1,0 +1,378 @@
+Flags: ForceTrees, NoHints, WorldTour
+// Placement Group 1 -- Randomly Placed: Gorlek Ore, 2 Keystone, Half-Energy Cell, Half-Health Cell
+
+9593|5929|0|82        //   82 Spirit Light from MarshSpawn.PreLupoEX               (-656,-4342) Inkwater Marsh
+21786|64677|3|33      //     Ultra Grapple from MarshSpawn.CaveKS                  (-852,-4404) Inkwater Marsh
+9593|42047|1|3        //          Keystone from MarshSpawn.FightRoomEX             (-783,-4452) Inkwater Marsh
+9593|5253|1|0         //  Half-Health Cell from MarshPastOpher.TrialLeftEX         (-527,-4354) Inkwater Marsh
+23987|59173|1|1       //  Half-Energy Cell from MarshSpawn.ResilienceShard         (-790,-4335) Inkwater Marsh
+21786|59513|1|2       //        Gorlek Ore from MarshSpawn.LeftTokkEX              (-755,-4423) Inkwater Marsh
+21786|49485|1|3       //          Keystone from MarshSpawn.FirstPickupEX           (-764,-4313) Inkwater Marsh
+
+// Placement Group 2 -- Chosen: Water -- Randomly Placed: 2 Gorlek Ore, 2 Half-Energy Cell, Burrow
+
+21786|2852|9|0        //             Water from HowlsDen.LaserKS                   (-400,-4568) Inkwater Marsh
+9593|17818|1|2        //        Gorlek Ore from HowlsDen.DoubleJumpEX              (-507,-4537) Inkwater Marsh
+21786|63545|2|101     //            Burrow from HowlsDen.MagnetShard               (-239,-4441) Inkwater Marsh
+9593|25989|0|112      //  112 Spirit Light from MarshPastOpher.TrialOre            (-501,-4340) Inkwater Marsh
+21786|20194|1|2       //        Gorlek Ore from MarshPastOpher.TrialHC             (-437,-4381) Inkwater Marsh
+21786|60210|1|1       //  Half-Energy Cell from MarshSpawn.RockHC                  (-958,-4313) Inkwater Marsh
+21786|16206|3|18      //        Resilience from HowlsDen.AboveTPEX                 (-389,-4503) Inkwater Marsh
+0|100|0|99            //   99 Spirit Light from HowlsDen.SwordTree                 (-296,-4483) Inkwater Marsh
+21786|43668|1|1       //  Half-Energy Cell from HowlsDen.UpperEX                   (-433,-4420) Inkwater Marsh
+
+// Placement Group 3 -- Chosen: Bash -- Randomly Placed: West Wastes TP
+
+21786|23154|2|0       //              Bash from MarshSpawn.LongSwimEX              (-837,-4315) Inkwater Marsh
+23987|27134|0|115     //  115 Spirit Light from HowlsDen.StickyShard               (-547,-4530) Inkwater Marsh
+21786|29892|5|9       //    West Wastes TP from MarshSpawn.ResilienceOre           (-810,-4334) Inkwater Marsh
+9593|27562|0|136      //  136 Spirit Light from MarshPastOpher.TrialEC             (-473,-4340) Inkwater Marsh
+0|5|0|138             //  138 Spirit Light from HowlsDen.DoubleJumpTree            (-555,-4551) Inkwater Marsh
+0|77|3|28             //        Last Stand from MarshSpawn.RegenTree               (-539,-4406) Inkwater Marsh
+
+// Placement Group 4 -- Chosen: Wellspring TP
+
+21786|18109|5|3       //     Wellspring TP from MarshPastOpher.CombatShrine        (-382,-4337) Inkwater Marsh
+21786|17920|3|36      //          Catalyst from MarshSpawn.LeverEC                 (-625,-4418) Inkwater Marsh
+21786|10413|0|136     //  136 Spirit Light from MarshPastOpher.TrialRightEX        (-343,-4357) Inkwater Marsh
+48248|18767|3|40|0.06 //           Finesse from MarshSpawn.LupoMap                 (-589,-4348) Inkwater Marsh
+
+// Placement Group 5 -- Randomly Placed: Double Jump, Dash
+
+21786|28908|2|5       //       Double Jump from HowlsDen.RightHC                   (-332,-4439) Inkwater Marsh
+37858|59022|2|102     //              Dash from InnerWellspring.LibraryEX          (-1252,-3683) The Wellspring
+
+// Placement Group 6 -- Chosen: Light Burst -- Randomly Placed: 2 Gorlek Ore, 8 Keystone, 2 Half-Energy Cell, 5 Half-Health Cell, East Woods TP, Marsh TP, Water Breath, Depths TP
+
+24922|47244|2|51      //       Light Burst from MidnightBurrows.RightKS            (-597,-4548) Midnight Burrows
+37858|45906|1|0       //  Half-Health Cell from InnerWellspring.ThreeWheelsEX      (-1247,-3928) The Wellspring
+53632|6869|10|31      //      Energy Regen from OuterWellspring.BasementEC         (-857,-4116) The Wellspring
+37858|47533|0|105     //  105 Spirit Light from InnerWellspring.RotateRoomOre      (-1178,-3756) The Wellspring
+9593|20382|0|130      //  130 Spirit Light from MarshSpawn.BurrowOre               (-935,-4357) Inkwater Marsh
+24922|46311|0|114     //  114 Spirit Light from MidnightBurrows.DeflectorShard     (-773,-4528) Midnight Burrows
+21786|61706|0|75      //   75 Spirit Light from MarshSpawn.FangEC                  (-233,-4385) Inkwater Marsh
+53632|1911|0|85       //   85 Spirit Light from OuterWellspring.RightWallEC        (-735,-3989) The Wellspring
+24922|33535|3|39      //            Sticky from MidnightBurrows.LowerKS            (-704,-4609) Midnight Burrows
+9593|23858|0|170      //  170 Spirit Light from MarshSpawn.CaveOre                 (-858,-4423) Inkwater Marsh
+21786|6987|1|1        //  Half-Energy Cell from MarshSpawn.BridgeEX                (-739,-4324) Inkwater Marsh
+937|17761|1|0         //  Half-Health Cell from WestGlades.SwimEC                  (-690,-4115) Wellspring Glades
+9593|59344|1|1        //  Half-Energy Cell from MarshPastOpher.SwingPoleEX         (-492,-4260) Inkwater Marsh
+7228|56821|0|146      //  146 Spirit Light from LowerWastes.PurpleWallEX           (1535,-3997) Windswept Wastes
+53632|25556|1|2       //        Gorlek Ore from OuterWellspring.RightWallOre       (-738,-4018) The Wellspring
+21786|22068|1|0       //  Half-Health Cell from HowlsDen.AboveDoorKS               (-439,-4462) Inkwater Marsh
+24922|32076|2|23      //      Water Breath from MarshSpawn.BurrowsApproachLedgeEX  (-1001,-4451) Inkwater Marsh
+37858|2797|5|16       //          Marsh TP from InnerWellspring.AboveTpEX          (-1317,-3665) The Wellspring
+37858|52110|1|2       //        Gorlek Ore from InnerWellspring.RotateRoomEX       (-1151,-3841) The Wellspring
+53632|62356|0|85      //   85 Spirit Light from OuterWellspring.SwimEX             (-825,-4086) The Wellspring
+0|97|0|155            //  155 Spirit Light from MarshPastOpher.BowTree             (-457,-4267) Inkwater Marsh
+58674|32647|1|0       //  Half-Health Cell from WoodsMain.ShrineEX                 (1406,-4065) Silent Woods
+21786|7152|1|0        //  Half-Health Cell from MarshSpawn.BashEC                  (-667,-4330) Inkwater Marsh
+23987|9864|5|6        //         Depths TP from MarshSpawn.RecklessShard           (-499,-4411) Inkwater Marsh
+37858|32932|5|8       //     East Woods TP from InnerWellspring.SwimOre            (-1204,-3715) The Wellspring
+937|11846|0|144       //  144 Spirit Light from WestGlades.RightOre                (-560,-4063) Wellspring Glades
+24922|34250|0|77      //   77 Spirit Light from MidnightBurrows.UpperKS            (-725,-4520) Midnight Burrows
+48248|45538|1|4|0.1   //        Shard Slot from MidnightBurrows.LupoMap            (-870,-4555) Midnight Burrows
+24922|60358|1|3       //          Keystone from MidnightBurrows.LeftKS             (-800,-4580) Midnight Burrows
+23987|53934|1|3       //          Keystone from OuterWellspring.LifeHarvestShard   (-998,-4030) The Wellspring
+44310|17523|1|3       //          Keystone from GladesTown.LupoSwimHC              (-161,-4192) Wellspring Glades
+937|31036|1|3         //          Keystone from WestGlades.AbovePlantEX            (-586,-4091) Wellspring Glades
+21786|10295|1|3       //          Keystone from MarshPastOpher.BowEC               (-422,-4273) Inkwater Marsh
+9593|61304|1|3        //          Keystone from HowlsDen.LeftHC                    (-569,-4454) Inkwater Marsh
+23987|31426|1|3       //          Keystone from InnerWellspring.ThornShard         (-1376,-3995) The Wellspring
+53632|6500|1|3        //          Keystone from OuterWellspring.WheelEX            (-898,-4071) The Wellspring
+
+// Placement Group 7 -- Randomly Placed: Ancestral Light, Grapple, 6 Gorlek Ore, 12 Keystone, 4 Half-Energy Cell, 6 Half-Health Cell, Regenerate, Shuriken, Den TP, Feather, Willow TP
+
+20120|18965|1|3       //          Keystone from UpperWastes.PurpleWallHC           (2027,-3843) Windswept Wastes
+20120|30740|1|0       //  Half-Health Cell from UpperWastes.MissileSpawnEX         (1951,-3838) Windswept Wastes
+20120|50026|1|3       //          Keystone from LowerWastes.UpperPathEC            (1779,-3875) Windswept Wastes
+7228|62117|0|163      //  163 Spirit Light from UpperWastes.UpperKS                (1823,-3769) Windswept Wastes
+20120|62264|5|1       //            Den TP from LowerWastes.SandPotHC              (1698,-3977) Windswept Wastes
+23987|50364|2|121     //   Ancestral Light from LowerWastes.LastStandShard         (1833,-3936) Windswept Wastes
+20120|48829|0|149     //  149 Spirit Light from LowerWastes.UpperPathEX            (1809,-3883) Windswept Wastes
+58674|17974|0|157     //  157 Spirit Light from WoodsMain.PetrifiedHowlEX          (904,-4075) Silent Woods
+20120|46919|1|0       //  Half-Health Cell from LowerWastes.SandBridgeOre          (1658,-3974) Windswept Wastes
+7228|8370|1|1         //  Half-Energy Cell from UpperWastes.WallOre                (1952,-3616) Windswept Wastes
+53632|12019|0|135     //  135 Spirit Light from WestGlades.GrappleEX               (-515,-4103) Wellspring Glades
+18793|53953|1|2       //        Gorlek Ore from UpperDepths.LeftHealthKS           (498,-4463) Mouldwood Depths
+37858|41380|0|110     //  110 Spirit Light from InnerWellspring.DrainEX            (-1063,-3961) The Wellspring
+937|40657|0|103       //  103 Spirit Light from WestGlades.LowerPoolEX             (-586,-4129) Wellspring Glades
+20120|10397|0|98      //   98 Spirit Light from LowerWastes.MuncherPitEX           (1795,-3998) Windswept Wastes
+37858|58846|0|166     //  166 Spirit Light from InnerWellspring.LaserOre           (-1077,-3937) The Wellspring
+0|57|1|3              //          Keystone from InnerWellspring.GrappleTree        (-1309,-3905) The Wellspring
+20120|12941|1|2       //        Gorlek Ore from LowerWastes.BottomRightHC          (1860,-4022) Windswept Wastes
+18793|2881|0|174      //  174 Spirit Light from LowerDepths.LeftEX                 (387,-4523) Mouldwood Depths
+37858|41911|0|165     //  165 Spirit Light from InnerWellspring.LupoEX             (-1142,-3862) The Wellspring
+20120|57781|1|0       //  Half-Health Cell from LowerWastes.SandPotEX              (1719,-3962) Windswept Wastes
+18793|6573|1|2        //        Gorlek Ore from UpperDepths.HiveEX                 (425,-4385) Mouldwood Depths
+20120|17798|0|169     //  169 Spirit Light from LowerWastes.UpperPathHiddenEX      (1862,-3874) Windswept Wastes
+20120|8910|0|100      //  100 Spirit Light from LowerWastes.SkeetoHiveEX           (1642,-3944) Windswept Wastes
+37858|25833|1|2       //        Gorlek Ore from InnerWellspring.DrainHC            (-1168,-3991) The Wellspring
+20120|22354|1|0       //  Half-Health Cell from UpperWastes.LedgeEC                (1950,-3778) Windswept Wastes
+20120|19113|0|127     //  127 Spirit Light from LowerWastes.BurrowTreeEX           (1601,-3953) Windswept Wastes
+7228|48993|1|3        //          Keystone from UpperWastes.SpinLasersMiddleEX     (1948,-3730) Windswept Wastes
+42178|63404|1|4       //        Shard Slot from GladesTown.UpdraftCeilingEX        (-240,-4130) Wellspring Glades
+7228|54275|1|1        //  Half-Energy Cell from UpperWastes.SpinLasersRightEX      (2006,-3724) Windswept Wastes
+7228|61548|10|30      //      Health Regen from UpperWastes.SpinLasersLowerEX      (1935,-3755) Windswept Wastes
+20120|33275|1|0       //  Half-Health Cell from LowerWastes.LastStandEX            (1839,-3907) Windswept Wastes
+37858|31136|2|106     //          Shuriken from InnerWellspring.GrappleTreeEX      (-1308,-3885) The Wellspring
+44310|9902|0|156      //  156 Spirit Light from WestGlades.CombatShrine            (-636,-4018) Wellspring Glades
+58674|64484|1|2       //        Gorlek Ore from WoodsMain.FeedingGroundsEX         (1464,-4008) Silent Woods
+23987|50415|0|126     //  126 Spirit Light from MarshSpawn.LifepactShard           (-916,-4399) Inkwater Marsh
+42178|51468|5|12      //         Willow TP from GladesTown.LupoSoupEX              (-161,-4521) Wellspring Glades
+37858|57552|1|2       //        Gorlek Ore from InnerWellspring.LeverEC            (-1109,-3865) The Wellspring
+18793|23986|0|106     //  106 Spirit Light from UpperDepths.RightHealthKS          (524,-4465) Mouldwood Depths
+23987|12104|1|0       //  Half-Health Cell from OuterWellspring.UltraGrappleShard  (-799,-3913) The Wellspring
+7228|35329|0|144      //  144 Spirit Light from UpperWastes.KSDoorEX               (1907,-3807) Windswept Wastes
+7228|54494|3|32       //        Ultra Bash from LowerWastes.WestTPOre              (1503,-4007) Windswept Wastes
+20120|40245|0|104     //  104 Spirit Light from LowerWastes.EastTPOre              (1930,-3879) Windswept Wastes
+23987|48605|1|3       //          Keystone from UpperWastes.TurmoilShard           (1779,-3783) Windswept Wastes
+58674|54516|2|57      //           Grapple from WoodsMain.HiddenEX                 (936,-4044) Silent Woods
+48248|1590|1|1|-0.12  //  Half-Energy Cell from InnerWellspring.LupoMap            (-1190,-3861) The Wellspring
+2|5|1|3|0.03          //          Keystone from TwillenShop.Swap                   (Shop) (Twillen)
+2|26|1|1|-0.17        //  Half-Energy Cell from TwillenShop.Energy                 (Shop) (Twillen)
+2|1|3|9|0.0           //          Splinter from TwillenShop.Overcharge             (Shop) (Twillen)
+2|40|2|77|0.02        //        Regenerate from TwillenShop.Finesse                (Shop) (Twillen)
+48248|61146|2|14|-0.12//           Feather from LowerWastes.LupoMap                (1647,-3899) Windswept Wastes
+2|22|3|35|0.1         //             Thorn from TwillenShop.Vitality               (Shop) (Twillen)
+2|3|3|3|-0.18         //          Wingclip from TwillenShop.Wingclip               (Shop) (Twillen)
+937|45744|1|3         //          Keystone from WestGlades.UpperPoolEX             (-632,-4088) Wellspring Glades
+23987|14014|1|3       //          Keystone from GladesTown.BountyShard             (-247,-4106) Wellspring Glades
+20120|2013|1|3        //          Keystone from UpperWastes.RoofEX                 (2025,-3729) Windswept Wastes
+20120|59046|1|3       //          Keystone from LowerWastes.UpperPathHC            (1853,-3909) Windswept Wastes
+42178|42762|1|3       //          Keystone from GladesTown.AboveTpEX               (-307,-4119) Wellspring Glades
+7228|20282|1|3        //          Keystone from UpperWastes.LowerKS                (1877,-3844) Windswept Wastes
+
+// Placement Group 8 -- Chosen: 4 Gorlek Ore -- Randomly Placed: Hollow TP, Blaze, 9 Keystone, 4 Half-Energy Cell, 6 Half-Health Cell, East Pools TP, Outer Ruins TP, Hammer
+
+42178|27110|1|2       //        Gorlek Ore from GladesTown.UpperOre                (-418,-4104) Wellspring Glades
+53632|17403|1|2       //        Gorlek Ore from OuterWellspring.HiddenHC           (-877,-3962) The Wellspring
+37858|56444|1|2       //        Gorlek Ore from InnerWellspring.EscapeRevisitEX    (-1313,-3640) The Wellspring
+21786|25761|1|2       //        Gorlek Ore from MarshSpawn.GrappleHC               (-718,-4278) Inkwater Marsh
+18793|42235|0|168     //  168 Spirit Light from UpperDepths.KeystoneHC             (531,-4452) Mouldwood Depths
+937|45987|0|106       //  106 Spirit Light from EastHollow.SecretRoofEX            (9,-4197) Kwoloks Hollow
+37858|22107|0|138     //  138 Spirit Light from InnerWellspring.ThornEX            (-1372,-3939) The Wellspring
+58674|11736|1|3       //          Keystone from WoodsEntry.UpperKS                 (641,-4166) Silent Woods
+5377|12235|3|26       //            Energy from EastPools.LupoOre                  (-1370,-4167) Luma Pools
+0|121|0|150           //  150 Spirit Light from MarshSpawn.DamageTree              (-840,-4488) Inkwater Marsh
+37858|64086|0|101     //  101 Spirit Light from InnerWellspring.AboveSpinArenaEX   (-1237,-3741) The Wellspring
+20120|57133|0|109     //  109 Spirit Light from LowerWastes.MuncherClimbEX         (1765,-3921) Windswept Wastes
+18793|19004|3|41      //      Spirit Surge from UpperDepths.EntrySpikesEX          (171,-4358) Mouldwood Depths
+5377|19694|0|99       //   99 Spirit Light from EastPools.AboveDoorOre             (-1249,-4139) Luma Pools
+58674|26274|0|151     //  151 Spirit Light from WoodsMain.BehindWallOre            (988,-4172) Silent Woods
+13428|59730|0|91      //   91 Spirit Light from EastHollow.BashHC                  (83,-4264) Kwoloks Hollow
+5377|7540|0|96        //   96 Spirit Light from EastPools.AboveTpEX                (-1336,-4104) Luma Pools
+5377|41881|5|2        //     East Pools TP from UpperPools.UpperRightKS            (-1518,-4079) Luma Pools
+937|6703|3|25         //    Energy Harvest from WestGlades.LeftOre                 (-690,-4098) Wellspring Glades
+23987|62973|1|0       //  Half-Health Cell from EastHollow.SplinterShard           (216,-4308) Kwoloks Hollow
+23987|986|1|2         //        Gorlek Ore from LowerDepths.SpiritSurgeShard       (564,-4571) Mouldwood Depths
+20120|52812|0|78      //   78 Spirit Light from UpperWastes.PurpleWallEX           (2006,-3826) Windswept Wastes
+18793|29979|0|146     //  146 Spirit Light from UpperDepths.TeleporterEX           (481,-4381) Mouldwood Depths
+5377|35091|0|138      //  138 Spirit Light from UpperPools.UpperLeftKS             (-1548,-4081) Luma Pools
+58674|59691|0|135     //  135 Spirit Light from WoodsEntry.TpEX                    (628,-4156) Silent Woods
+58674|64057|2|98      //            Hammer from WoodsMain.BehindDoorRoofEX         (968,-4124) Silent Woods
+937|61897|0|122       //  122 Spirit Light from WestHollow.CrusherHC               (-254,-4225) Kwoloks Hollow
+18793|1914|0|99       //   99 Spirit Light from UpperDepths.RightEntryKS           (317,-4454) Mouldwood Depths
+7228|52086|3|43       //         Lifeforce from LowerWastes.SunsetViewEX           (1607,-3975) Windswept Wastes
+44310|36911|1|0       //  Half-Health Cell from WestGlades.ShrineHC                (-688,-4009) Wellspring Glades
+23987|25996|0|125     //  125 Spirit Light from EastPools.UltraBashShard           (-1284,-4197) Luma Pools
+58674|42531|0|129     //  129 Spirit Light from WoodsMain.LeftKS                   (886,-4123) Silent Woods
+20120|11785|0|116     //  116 Spirit Light from LowerWastes.MuncherTunnelEC        (1653,-4015) Windswept Wastes
+42178|59623|0|168     //  168 Spirit Light from GladesTown.UpperLeftEX             (-374,-4103) Wellspring Glades
+58674|8487|0|152      //  152 Spirit Light from WoodsEntry.MudPitEX                (514,-4185) Silent Woods
+5377|1600|0|116       //  116 Spirit Light from UpperPools.BubblesEC               (-1623,-4000) Luma Pools
+58674|23186|1|3       //          Keystone from WoodsMain.BelowKeystonesEX         (941,-4185) Silent Woods
+5377|18345|1|2        //        Gorlek Ore from EastPools.BehindCrusherEX          (-1431,-4181) Luma Pools
+53632|42264|0|88      //   88 Spirit Light from OuterWellspring.EntranceRoofEX     (-850,-4024) The Wellspring
+58674|20983|2|115     //             Blaze from EastHollow.RightKwolokEX           (289,-4196) Kwoloks Hollow
+18793|35351|3|14      //         Quickshot from UpperDepths.EntryOre               (185,-4380) Mouldwood Depths
+58674|28710|1|0       //  Half-Health Cell from WoodsEntry.LedgeOre                (411,-4174) Silent Woods
+0|104|3|4             //            Bounty from UpperPools.SwimDashTree            (-1430,-4082) Luma Pools
+945|58723|0|82        //   82 Spirit Light from PoolsApproach.MillPathEX           (-895,-4137) Luma Pools
+5377|35440|1|1        //  Half-Energy Cell from EastPools.LupoEX                   (-1414,-4155) Luma Pools
+937|19529|1|0         //  Half-Health Cell from EastHollow.MortarEX                (57,-4189) Kwoloks Hollow
+937|10729|1|1         //  Half-Energy Cell from EastHollow.GladesApproachOre       (-97,-4190) Kwoloks Hollow
+58674|43033|1|2       //        Gorlek Ore from WoodsMain.RightKS                  (956,-4148) Silent Woods
+937|5568|3|19         //     Light Harvest from EastHollow.SpikeLanternEX          (-55,-4201) Kwoloks Hollow
+5377|40328|3|13       //          Reckless from EastPools.EnergyHarvestShard       (-1441,-4130) Luma Pools
+37858|33063|1|1       //  Half-Energy Cell from InnerWellspring.ShortcutWheelEX    (-1223,-3907) The Wellspring
+58674|19769|1|3       //          Keystone from WoodsMain.UpperKS                  (908,-4120) Silent Woods
+21786|21727|0|118     //  118 Spirit Light from PoolsApproach.BurrowsPathEX        (-1015,-4269) Inkwater Marsh
+44310|29043|0|99      //   99 Spirit Light from GladesTown.AboveGromHC             (-326,-4103) Wellspring Glades
+5377|46926|0|153      //  153 Spirit Light from UpperPools.LowerKS                 (-1576,-4126) Luma Pools
+0|101|0|115           //  115 Spirit Light from LowerWastes.BurrowTree             (1583,-3930) Windswept Wastes
+0|120|1|2             //        Gorlek Ore from GladesTown.DamageTree              (-368,-4158) Wellspring Glades
+16155|49381|0|149     //  149 Spirit Light from WillowsEnd.EntryEX                 (470,-3915) Willows End
+5377|628|1|0          //  Half-Health Cell from UpperPools.LeftBubblesEX           (-1572,-4077) Luma Pools
+20120|224|0|132       //  132 Spirit Light from LowerWastes.BottomRightEX          (1887,-3973) Windswept Wastes
+945|14530|0|135       //  135 Spirit Light from PoolsApproach.AboveWheelEX         (-941,-4145) Luma Pools
+18793|62694|5|11      //    Outer Ruins TP from LowerDepths.RaceStartHC            (496,-4499) Mouldwood Depths
+18793|15396|5|5       //         Hollow TP from UpperDepths.EntryRoofEX            (146,-4375) Mouldwood Depths
+937|23772|0|113       //  113 Spirit Light from EastHollow.BashEC                  (46,-4237) Kwoloks Hollow
+945|21334|0|136       //  136 Spirit Light from PoolsApproach.MillPathEC           (-924,-4170) Luma Pools
+53632|21124|0|93      //   93 Spirit Light from OuterWellspring.SwimOre            (-761,-4094) The Wellspring
+5377|21860|0|148      //  148 Spirit Light from UpperPools.RightBubblesEX          (-1645,-4085) Luma Pools
+58674|40073|0|113     //  113 Spirit Light from WoodsEntry.LowerKS                 (690,-4189) Silent Woods
+18793|58148|0|127     //  127 Spirit Light from UpperDepths.LeftEntryKS            (146,-4426) Mouldwood Depths
+46462|37897|1|3       //          Keystone from EastHollow.KwolokSwimOre           (243,-4224) Kwoloks Hollow
+5377|31434|1|2        //        Gorlek Ore from UpperPools.FishPoolOre             (-1535,-4034) Luma Pools
+0|0|1|2               //        Gorlek Ore from EastHollow.BashTree                (-20,-4326) Kwoloks Hollow
+5377|16426|1|2        //        Gorlek Ore from UpperPools.UpperMidKS              (-1538,-4074) Luma Pools
+5377|33110|1|2        //        Gorlek Ore from UpperPools.FishPoolEX              (-1568,-4063) Luma Pools
+5377|27204|0|105      //  105 Spirit Light from EastPools.BelowLeverEX             (-1230,-4126) Luma Pools
+48248|1557|1|3|-0.04  //          Keystone from EastPools.LupoMap                  (-1391,-4167) Luma Pools
+48248|48423|1|4|-0.21 //        Shard Slot from LowerDepths.LupoMap                (682,-4576) Mouldwood Depths
+2|19|1|0|0.17         //  Half-Health Cell from TwillenShop.LightHarvest           (Shop) (Twillen)
+48248|4045|1|1|0.0    //  Half-Energy Cell from WillowsEnd.LupoMap                 (474,-3859) Willows End
+53632|51706|1|3       //          Keystone from OuterWellspring.RightWallEX        (-745,-3942) The Wellspring
+46462|20780|1|3       //          Keystone from EastHollow.KwolokSwimRightEX       (161,-4245) Kwoloks Hollow
+937|30182|1|3         //          Keystone from EastHollow.BashEX                  (-31,-4302) Kwoloks Hollow
+2|2|1|3|0.19          //          Keystone from TwillenShop.TripleJump             (Shop) (Twillen)
+
+// Placement Group 9 -- Randomly Placed: 3 Gorlek Ore, Half-Energy Cell, Launch
+
+42178|23125|1|1       //  Half-Energy Cell from GladesTown.LowerOre                (-416,-4174) Wellspring Glades
+28895|22761|0|134     //  134 Spirit Light from LowerReach.TrialEX                 (-39,-4018) Baurs Reach
+0|62|0|142            //  142 Spirit Light from LowerDepths.FlashTree              (776,-4541) Mouldwood Depths
+28895|10823|1|2       //        Gorlek Ore from LowerReach.UpperLeftKS             (-84,-4025) Baurs Reach
+23987|23015|1|2       //        Gorlek Ore from GladesTown.ArcingShard             (-325,-4135) Wellspring Glades
+23987|897|0|97        //   97 Spirit Light from LowerReach.CatalystShard           (-90,-4097) Baurs Reach
+42178|51934|2|8       //            Launch from GladesTown.KeyMokiHutEX            (-119,-4560) Wellspring Glades
+28895|18358|0|156     //  156 Spirit Light from LowerReach.BottomLeftKS            (-58,-4055) Baurs Reach
+21786|2046|0|78       //   78 Spirit Light from HowlsDen.BoneOre                   (-432,-4503) Inkwater Marsh
+37858|58286|0|89      //   89 Spirit Light from OuterWellspring.TrialOre           (-678,-3934) The Wellspring
+42178|6117|0|167      //  167 Spirit Light from GladesTown.BelowHoleHutEX          (-232,-4106) Wellspring Glades
+937|2538|0|132        //  132 Spirit Light from WestHollow.RockPuzzleEX            (-296,-4293) Kwoloks Hollow
+42178|57455|3|23      //      Life Harvest from GladesTown.MotayHutEX              (-172,-4584) Wellspring Glades
+42178|30520|1|4       //        Shard Slot from GladesTown.HoleHutEX               (-118,-4521) Wellspring Glades
+28895|37444|1|2       //        Gorlek Ore from LowerReach.MiddleLeftKS            (-80,-4040) Baurs Reach
+
+// Placement Group 10 -- Chosen: Water Dash -- Randomly Placed: 4 Gorlek Ore, Half-Energy Cell, Half-Health Cell
+
+42178|52786|2|104     //        Water Dash from GladesTown.HoleHutEC               (-116,-4540) Wellspring Glades
+16155|55446|1|2       //        Gorlek Ore from WillowsEnd.RedirectEX              (654,-3780) Willows End
+16155|9230|1|2        //        Gorlek Ore from WillowsEnd.WindSpinOre             (326,-3811) Willows End
+42178|18448|1|0       //  Half-Health Cell from GladesTown.CaveBurrowEX            (-307,-4168) Wellspring Glades
+46462|29054|1|2       //        Gorlek Ore from EastHollow.KwolokSwimLeftEX        (113,-4229) Kwoloks Hollow
+18793|23799|0|139     //  139 Spirit Light from LowerDepths.RightEX                (799,-4512) Mouldwood Depths
+42178|9780|3|34       //          Overflow from GladesTown.LupoSwimMiddleEX        (-225,-4162) Wellspring Glades
+937|13413|1|2         //        Gorlek Ore from EastHollow.HornBeetleFightEX       (-85,-4209) Kwoloks Hollow
+945|10833|10|35       // Extra Double Jump from MarshPastOpher.PoolsPathEX         (-801,-4186) Inkwater Marsh
+23987|25183|0|121     //  121 Spirit Light from WoodsMain.OverflowShard            (827,-3939) Silent Woods
+5377|34852|0|83       //   83 Spirit Light from EastPools.RightOre                 (-1134,-4117) Luma Pools
+9593|26457|1|1        //  Half-Energy Cell from MarshPastOpher.PoolsPathEC         (-664,-4187) Inkwater Marsh
+58674|29265|0|147     //  147 Spirit Light from WoodsMain.CombatShrine             (1361,-4064) Silent Woods
+58674|9583|0|165      //  165 Spirit Light from EastHollow.SilentSwimEC            (331,-4192) Kwoloks Hollow
+18793|42980|0|92      //   92 Spirit Light from EastHollow.DepthsExteriorEX        (131,-4272) Kwoloks Hollow
+5377|33180|0|93       //   93 Spirit Light from UpperPools.RoofEX                  (-1449,-4037) Luma Pools
+21786|50255|0|156     //  156 Spirit Light from MarshPastOpher.CeilingEX           (-641,-4223) Inkwater Marsh
+36153|3662|0|121      //  121 Spirit Light from WillowsEnd.UpperRightEX            (540,-3655) Willows End
+945|37243|3|38        //           Turmoil from PoolsApproach.MillPathHC           (-851,-4196) Luma Pools
+
+// Placement Group 11 -- Chosen: Bow -- Randomly Placed: 2 Gorlek Ore, Keystone, 2 Half-Energy Cell
+
+42178|30206|2|97      //               Bow from GladesTown.AboveCaveEX             (-363,-4172) Wellspring Glades
+5377|62180|0|147      //  147 Spirit Light from WestPools.BurrowEX                 (-1655,-4189) Luma Pools
+945|49747|1|1         //  Half-Energy Cell from WestPools.ForestsStrength          (-1928,-4066) Luma Pools
+16155|38979|1|2       //        Gorlek Ore from WillowsEnd.SpikesOre               (557,-3876) Willows End
+5377|52791|1|2        //        Gorlek Ore from UpperPools.CurrentEX               (-1468,-4098) Luma Pools
+37858|45656|10|30     //      Health Regen from InnerWellspring.WaterSwitchEX      (-1197,-3972) The Wellspring
+24922|13993|0|108     //  108 Spirit Light from HowlsDen.CombatShrine              (-314,-4570) Inkwater Marsh
+24922|62138|0|143     //  143 Spirit Light from MarshSpawn.CrusherSwimEX           (-979,-4510) Inkwater Marsh
+945|10682|1|3         //          Keystone from PoolsApproach.CurrentEX            (-1047,-4217) Luma Pools
+5377|44122|0|95       //   95 Spirit Light from WestPools.EscapeRevisitEX          (-1654,-4143) Luma Pools
+5377|45774|1|4        //        Shard Slot from EastPools.FightRoomHC              (-1365,-4109) Luma Pools
+36153|23902|0|101     //  101 Spirit Light from WillowsEnd.UpperLeftEX             (434,-3640) Willows End
+5377|63201|1|1        //  Half-Energy Cell from EastPools.PurpleWallHC             (-1278,-4086) Luma Pools
+42178|37028|3|27      //         Life Pact from GladesTown.LupoSwimLeftEX          (-277,-4173) Wellspring Glades
+16155|46270|10|30     //      Health Regen from WillowsEnd.PoisonfallHC            (411,-3972) Willows End
+
+// Placement Group 12 -- Chosen: Flap -- Randomly Placed: 3 Gorlek Ore, 2 Half-Energy Cell, Half-Health Cell, Ancestral Light
+
+48248|3638|2|118|0.16 //              Flap from WestHollow.LupoMap                 (-146,-4321) Kwoloks Hollow
+5377|17396|3|30       //            Secret from EastPools.CurrentEX                (-1214,-4181) Luma Pools
+18793|836|0|169       //  169 Spirit Light from LowerDepths.BelowDoorOre           (436,-4507) Mouldwood Depths
+5377|32750|2|120      //   Ancestral Light from UpperPools.WaterfallEC             (-1389,-4040) Luma Pools
+42178|13327|1|2       //        Gorlek Ore from GladesTown.BraveMokiHutEX          (-177,-4541) Wellspring Glades
+18793|63291|0|77      //   77 Spirit Light from UpperDepths.ForestsEyes            (687,-4386) Mouldwood Depths
+937|50176|0|137       //  137 Spirit Light from WestHollow.CrusherEX               (-37,-4453) Kwoloks Hollow
+21786|27433|0|82      //   82 Spirit Light from MarshPastOpher.LeftEyestone        (-461,-4195) Inkwater Marsh
+5377|65019|1|2        //        Gorlek Ore from WestPools.BurrowOre                (-1770,-4125) Luma Pools
+5377|13832|0|141      //  141 Spirit Light from EastPools.TwoCrushersEX            (-1176,-4178) Luma Pools
+18793|28175|0|173     //  173 Spirit Light from LowerDepths.SwimEC                 (324,-4535) Mouldwood Depths
+937|61744|10|31       //      Energy Regen from WestHollow.AboveDashEX             (-99,-4408) Kwoloks Hollow
+937|48192|1|2         //        Gorlek Ore from WestHollow.BelowLupoEX             (-82,-4370) Kwoloks Hollow
+5377|25391|1|1        //  Half-Energy Cell from WestPools.TpEX                     (-1650,-4160) Luma Pools
+18793|18395|0|83      //   83 Spirit Light from UpperDepths.BossPathEX             (567,-4443) Mouldwood Depths
+23987|61017|0|160     //  160 Spirit Light from WestHollow.QuickshotShard          (-310,-4326) Kwoloks Hollow
+937|37926|1|0         //  Half-Health Cell from WestHollow.DashRightEX             (11,-4401) Kwoloks Hollow
+18793|31937|10|36     //    Extra Air Dash from LowerDepths.CombatShrine           (212,-4510) Mouldwood Depths
+21786|37225|1|1       //  Half-Energy Cell from MarshPastOpher.RightEyestone       (-394,-4188) Inkwater Marsh
+
+// Placement Group 13 -- Randomly Placed: Burrows TP, Sentry, East Wastes TP, 5 Gorlek Ore, 2 Keystone, 5 Half-Energy Cell, 4 Half-Health Cell, Flash, West Woods TP, Spike, Reach TP
+
+28287|32414|0|138     //  138 Spirit Light from UpperReach.LifeForceEX             (-423,-3876) Baurs Reach
+28895|1053|1|0        //  Half-Health Cell from UpperReach.LowerKS                 (-248,-3891) Baurs Reach
+28895|3777|0|111      //  111 Spirit Light from LowerReach.AboveBaurUpperEX        (-439,-3946) Baurs Reach
+36153|12077|1|0       //  Half-Health Cell from WeepingRidge.PortalEX              (1331,-3798) Silent Woods
+937|24175|0|88        //   88 Spirit Light from WestHollow.SwimEC                  (-177,-4353) Kwoloks Hollow
+28895|58675|3|46      //          Fracture from LowerReach.IcefallOre              (-483,-3974) Baurs Reach
+23987|36359|3|2       //       Triple Jump from LowerReach.FractureShard           (-81,-4001) Baurs Reach
+28895|45066|0|169     //  169 Spirit Light from LowerReach.BurrowEX                (-331,-4051) Baurs Reach
+28895|4301|3|44       //         Deflector from LowerReach.MeltIceEX               (-350,-4039) Baurs Reach
+28895|50368|0|116     //  116 Spirit Light from UpperReach.UpperKS                 (-207,-3843) Baurs Reach
+28895|36231|0|123     //  123 Spirit Light from LowerReach.TPLeftEX                (-340,-3984) Baurs Reach
+0|8|0|86              //   86 Spirit Light from WeepingRidge.LaunchTree            (1363,-3815) Silent Woods
+28895|53283|1|2       //        Gorlek Ore from LowerReach.RoofLeftEX              (-112,-3950) Baurs Reach
+28895|40242|5|10      //    East Wastes TP from UpperReach.SwimEX                  (-239,-3921) Baurs Reach
+23987|19630|1|1       //  Half-Energy Cell from UpperReach.LifeForceShard          (-400,-3861) Baurs Reach
+937|16163|0|170       //  170 Spirit Light from WestHollow.FarLeftEX               (-357,-4294) Kwoloks Hollow
+28895|47529|0|120     //  120 Spirit Light from LowerReach.HiddenOre               (-346,-3947) Baurs Reach
+28895|54373|1|1       //  Half-Energy Cell from LowerReach.WindHiddenEX            (-205,-4011) Baurs Reach
+28895|25522|0|133     //  133 Spirit Light from LowerReach.ForestsMemory           (-428,-4030) Baurs Reach
+18793|26618|0|128     //  128 Spirit Light from UpperDepths.SwimEC                 (134,-4456) Mouldwood Depths
+28895|40744|1|3       //          Keystone from LowerReach.SnowballHC              (-190,-4017) Baurs Reach
+28895|7597|0|153      //  153 Spirit Light from UpperReach.WellEX                  (-72,-3926) Baurs Reach
+58674|59714|0|76      //   76 Spirit Light from WoodsMain.YellowWallEX             (1069,-4099) Silent Woods
+58674|22472|1|3       //          Keystone from WoodsEntry.LeafPileEX              (485,-4165) Silent Woods
+28895|46404|2|74      //             Spike from LowerReach.EscapeRevisitEX         (71,-3731) Baurs Reach
+28895|9949|5|0        //        Burrows TP from UpperReach.MiddleRightKS           (-184,-3867) Baurs Reach
+0|51|0|102            //  102 Spirit Light from UpperReach.LightBurstTree          (-106,-3934) Baurs Reach
+10289|44555|2|116     //            Sentry from WindtornRuins.EscapeRevisitEC      (2054,-4050) Windtorn Ruins
+28895|46711|0|107     //  107 Spirit Light from LowerReach.RoofRightEX             (-72,-3951) Baurs Reach
+10289|22102|0|168     //  168 Spirit Light from WindtornRuins.Seir                 (2056,-3568) Windtorn Ruins
+28895|24533|2|62      //             Flash from LowerReach.AboveBaurLowerEX        (-416,-3968) Baurs Reach
+36153|36521|1|2       //        Gorlek Ore from WeepingRidge.SpikeClimbEX          (1382,-3767) Silent Woods
+58674|42158|3|47      //            Arcing from WoodsMain.LowerLeafPileEX          (948,-4210) Silent Woods
+28895|40089|0|109     //  109 Spirit Light from UpperReach.SwingPoleEX             (-194,-3854) Baurs Reach
+58674|33893|1|2       //        Gorlek Ore from WoodsMain.MiddleLeafPileEX         (951,-4168) Silent Woods
+42178|40609|10|31     //      Energy Regen from LowerReach.BreakWallEX             (-194,-4043) Baurs Reach
+0|102|0|155           //  155 Spirit Light from WestHollow.DashTree                (-69,-4453) Kwoloks Hollow
+58674|20713|1|0       //  Half-Health Cell from WoodsMain.HiddenOre                (1011,-4070) Silent Woods
+28895|29898|1|1       //  Half-Energy Cell from LowerReach.RightKS                 (34,-4025) Baurs Reach
+937|8518|0|121        //  121 Spirit Light from WestHollow.HiddenEC                (-177,-4353) Kwoloks Hollow
+28895|2129|3|5        //              Swap from UpperReach.HiddenEX                (-172,-3928) Baurs Reach
+28895|22382|0|146     //  146 Spirit Light from UpperReach.MiddleLeftKS            (-232,-3869) Baurs Reach
+28895|38049|5|4       //          Reach TP from LowerReach.BelowLupoEX             (-282,-4013) Baurs Reach
+42178|44748|1|2       //        Gorlek Ore from GladesTown.LeafPileEX              (-160,-4099) Wellspring Glades
+58674|780|1|0         //  Half-Health Cell from WoodsMain.LowerKS                  (929,-4185) Silent Woods
+937|2463|3|22         //          Vitality from WestHollow.TrialHC                 (-121,-4269) Kwoloks Hollow
+28895|55384|0|145     //  145 Spirit Light from LowerReach.BelowBaurEX             (-401,-4053) Baurs Reach
+28895|45337|3|1       //        Overcharge from LowerReach.IcefallEX               (-500,-3970) Baurs Reach
+28895|35045|5|7       //     West Woods TP from LowerReach.WindBottomEX            (-215,-4057) Baurs Reach
+36153|3013|1|1        //  Half-Energy Cell from WeepingRidge.Ore                   (1305,-3732) Silent Woods
+28895|38143|0|107     //  107 Spirit Light from LowerReach.AboveDoorEX             (-337,-3999) Baurs Reach
+58674|30908|0|79      //   79 Spirit Light from WoodsMain.UpperLeafPileEX          (968,-4142) Silent Woods
+28895|23795|3|8       //            Magnet from UpperReach.SoupOre                 (-203,-3886) Baurs Reach
+28895|39291|1|1       //  Half-Energy Cell from UpperReach.TreeOre                 (-87,-3903) Baurs Reach
+48248|29604|1|2|-0.3  //        Gorlek Ore from LowerReach.LupoMap                 (-275,-3996) Baurs Reach
+
+// Placement Group 14
+
+1|74|11|3|0.0         //  Spike Efficiency from OpherShop.Spike                    (Shop) (Opher)
+1|98|11|0|0.0         //       Rapid Smash from OpherShop.SpiritSmash              (Shop) (Opher)
+1|106|11|4|0.0        //   Star Efficiency from OpherShop.SpiritStar               (Shop) (Opher)
+1|115|11|2|0.0        //  Blaze Efficiency from OpherShop.Blaze                    (Shop) (Opher)
+1|116|11|5|0.0        // Sentry Efficiency from OpherShop.Sentry                   (Shop) (Opher)
+
+// Config: {"tps":true,"spoilers":true,"unsafePaths":true,"gorlekPaths":false,"glitchPaths":false,"questLocs":false,"outputFolder":"C:\\Users\\WorstMirari\\Documents\\GitHub\\OriWotwRandomizerClient\\projects\\SeedGen\\.","flags":{"forceWisps":false,"forceTrees":true,"forceQuests":false,"noHints":true,"noSword":false,"rain":false,"noKSDoors":false,"randomSpawn":false,"worldTour":true},"bonusItems":true,"debugInfo":true,"seirLaunch":false}
