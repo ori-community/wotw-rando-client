@@ -37,6 +37,8 @@ namespace RandoMainDLL {
       !^3::signal := ""test3""
       !^4::signal := ""test4""
       !^5::signal := ""test5""
+      !^c::signal := ""printcoords""
+      !^n::signal := ""namespoilertoggle""
       onSignalExt:
       gui, submit
       signal := extChannel
@@ -121,12 +123,22 @@ namespace RandoMainDLL {
             PsuedoLocs.BINDING_THREE.OnCollect();
             break;
           case "test4":
-            Print("magic", 180, false);
-            InterOp.magic_function();
+            if(SeedController.HasInternalSpoilers) {
+              Print("spoiler unlocked", toMessageLog: false);
+              InterOp.magic_function();
+            }
             break;
           case "test5":
             tpCheatToggle = !tpCheatToggle;
-            Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}");
+            Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
+            break;
+          case "printcoords":
+            var pos = InterOp.get_position();
+            Print($"{pos.X}, {pos.Y}", toMessageLog: false);
+            break;
+          case "namespoilertoggle":
+            MapController.NameLabels = !MapController.NameLabels;
+            Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
             break;
 
           default:

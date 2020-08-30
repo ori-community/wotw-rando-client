@@ -6,6 +6,7 @@
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <uber_states/uber_state_manager.h>
 
 using namespace modloader;
 
@@ -45,10 +46,11 @@ namespace
 
     IL2CPP_BINDING(, GameplayCamera, void, MoveCameraToTargetInstantly, (app::GameplayCamera* this_ptr, bool updateTargetPosition));
 
-    bool enable_goal_teleport = false;
     bool set_camera_next_update = false;
     IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter* this_ptr)) {
-        if (enable_goal_teleport) {
+        
+        //add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Goal Modes Complete", 11, false),
+        if (uber_states::get_uber_state_value(uber_states::constants::GAME_STATE_GROUP_ID, 11) < 0.5f) {
             auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (set_camera_next_update) {
               if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
@@ -75,10 +77,10 @@ namespace
 
     void report_player_position(std::string const& command, std::vector<console::CommandParam> const& params)
     {
-        auto sein = get_sein();
+        const auto sein = get_sein();
         if (sein != nullptr)
         {
-            auto position = SeinCharacter::get_Position(sein);
+            const auto position = SeinCharacter::get_Position(sein);
             console::console_send(format("sein pos: {%f, %f, %f}", position.x, position.y, position.z));
         }
         else
@@ -91,9 +93,4 @@ namespace
     }
 
     CALL_ON_INIT(add_goal_commands);
-}
-
-INJECT_C_DLLEXPORT void lock_shriek_goal(bool value)
-{
-    enable_goal_teleport = value;
 }

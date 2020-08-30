@@ -213,7 +213,7 @@ namespace
 
         extra_icons[app::GameWorldAreaID__Enum_BaursReach] = {
             create_icon(app::WorldMapIconType__Enum_Experience, 68.761978f, -3730.634521f,
-                uber_states::get_uber_state<app::SerializedBooleanUberState>(28895, 25522)),
+                uber_states::get_uber_state<app::SerializedBooleanUberState>(28895, 46404)),
         };
 
         extra_icons[app::GameWorldAreaID__Enum_SilentWoodland] = {
