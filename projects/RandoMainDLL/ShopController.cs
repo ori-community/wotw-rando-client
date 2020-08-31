@@ -4,14 +4,13 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class ShopController {
-    private static int KSBought { get => Math.Min(KS_MAX, SaveController.Data?.KSBought ?? 0); }
+    private static int KSBought { get => Math.Min(KS_MAX, SaveController.KSBought); }
     private static int KS_MAX { get => !SeedController.HasInternalSpoilers ? 4 : 8 ; }
     private static int KS_INC { get => !SeedController.HasInternalSpoilers ? 200 : 50; }
     private static int KS_START{ get => !SeedController.HasInternalSpoilers ? 200 : 100; }
     private static int KS_PRICE { get => KS_START + KS_INC * KSBought; }
     public static HashSet<string> Strings = new HashSet<string>();
     private static readonly HashSet<AbilityType> opherWeaponInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.TeleportSpell, AbilityType.WaterBreath };
-    private static readonly HashSet<AbilityType> opherUpgradeInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze };
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
     private static readonly HashSet<ShardType> twillenShardInv = new HashSet<ShardType> { ShardType.Energy, ShardType.Vitality, ShardType.Overcharge, ShardType.Wingclip, ShardType.TripleJump, ShardType.Finesse, ShardType.Swap, ShardType.LightHarvest };
     private static string bmKeysDesc { get => $"Never logically required\\nNext will cost: {(KSBought == KS_MAX ? $"@{KS_PRICE}@" : $"{KS_PRICE+KS_INC}" /* look at this! the function-y props? the inline teriary? the nested string interpolations? this awful comment dragging it out? *chef's kiss */ )}"; }
@@ -97,49 +96,38 @@ namespace RandoMainDLL {
     public static void OnBuyOpherWeapon(AbilityType slot) {
       if (KSOverride(slot)) {
         (new Resource(ResourceType.Keystone)).Grant();
-        SaveController.Data.KSBought++;
-        SaveController.Data.FoundCount--;
+        SaveController.KSBought++;
+        SaveController.FoundCount--;
         InterOp.set_opher_item(255, 255, bmKeysName, bmKeysDesc, "", false, KS_PRICE);
         return;
       } 
+      UberSet.Bool(slot.BoughtState(), true);
       if (WaterOverride(slot)) {
-        SaveController.Data.OpherSold.Add(slot);
-        AHK.SendPlainText(new PlainText($"Bought Hint: {HintsController.GetKeySkillHintOne()}", 300));
+        AHK.SendPlainText(new PlainText($"Bought Hint: {HintsController.GetKeySkillHintOne(true)}", 300));
         return;
       }
 
       Pickup item = SeedController.OpherWeapon(slot);
-      if (SaveController.Data.OpherSold.Contains(slot)) {
-        Randomizer.Log($"OBW: slot already sold");
-        return;
-      }
-      SaveController.Data.OpherSold.Add(slot);
       Randomizer.Log($"sold {item} from {slot} for ${SeedController.OpherWeapon(slot).CostWithMod(GetCostMod(slot))}", false);
-      item.Grant();
       return;
     }
 
-    public static void OnBuyOpherUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.Add(slot, 1);
+    public static void OnBuyOpherUpgrade(AbilityType slot) => UberSet.Bool(slot.UpgradedState(), true);
 
     private static bool KSOverride(AbilityType a)    => a == AbilityType.TeleportSpell && !SeedController.KSDoorsOpen;
     private static bool WaterOverride(AbilityType a) => a == AbilityType.WaterBreath   && !SeedController.HintsDisabled;
 
     public static void OnBuyTwillenShard(ShardType slot) {
       Pickup item = SeedController.TwillenShard(slot);
-      if (SaveController.Data.TwillenSold.Contains(slot)) {
-        Randomizer.Log($"TBS: slot already sold???");
-        return;
-      }
       Randomizer.Log($"sold {item} from {slot} for ${SeedController.TwillenShard(slot).CostWithMod(GetCostMod(slot))}", false);
-      SaveController.Data.TwillenSold.Add(slot);
-      item.Grant();
+      UberSet.Bool(slot.BoughtState(), true);
       return;
     }
-    public static bool OpherBoughtWeapon(AbilityType granted) => SaveController.Data.OpherSold.Contains(granted);
+    public static bool OpherBoughtWeapon(AbilityType granted) => granted.Bought();
 
-    public static bool TwillenBoughtShard(ShardType shard) => SaveController.Data.TwillenSold.Contains(shard);
+    public static bool TwillenBoughtShard(ShardType shard) => shard.Bought();
 
-    public static bool OpherBoughtUpgrade(AbilityType slot) => SaveController.Data.OpherUpgraded.GetOrElse(slot, 0) > 0;
+    public static bool OpherBoughtUpgrade(AbilityType slot) => slot.Upgraded();
 
     public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(GetCostMod(shard));
     public static int OpherWeaponCost(AbilityType ability) => KSOverride(ability) ? KS_PRICE : 

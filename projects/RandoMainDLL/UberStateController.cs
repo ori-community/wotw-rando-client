@@ -25,9 +25,9 @@ namespace RandoMainDLL {
 
     private static UberState createUberStateEntry(UberId id) {
       if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
-        AHK.Print($"Failed to find {id} in uber state system.");
+        Randomizer.Error("cuse", $"Failed to find {id} in uber state system.");
         return null;
-      }
+       }
 
       byte[] buffer = new byte[256];
       int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);

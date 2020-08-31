@@ -12,7 +12,7 @@ namespace uber_states
         constexpr int TWILLEN_SHARD_GROUP_ID = 2;
         constexpr int GAME_STATE_GROUP_ID = 3;
         constexpr int RANDO_UPGRADE_GROUP_ID = 4;
-        constexpr int RANDO_STATS_GROUP_ID = 6;
+        constexpr int RANDO_STATE_GROUP_ID = 6;
         constexpr int RANDO_CONFIG_GROUP_ID = 7;
         constexpr int MAP_FILTER_GROUP_ID = 8;
 
@@ -21,7 +21,7 @@ namespace uber_states
         const std::string TWILLEN_SHARD_GROUP_NAME = "twillen_shards";
         const std::string RANDO_UPGRADE_GROUP_NAME = "rando_upgrades";
         const std::string GAME_STATE_GROUP_NAME = "game_state";
-        const std::string RANDO_STATS_GROUP_NAME = "rando_stats";
+        const std::string RANDO_STATE_GROUP_NAME = "rando_state";
         const std::string RANDO_CONFIG_GROUP_NAME = "rando_config";
         const std::string MAP_FILTER_GROUP_NAME = "map_filter";
     }

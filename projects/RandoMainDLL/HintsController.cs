@@ -184,9 +184,9 @@ namespace RandoMainDLL {
       var w = SaveController.HasAbility(t) ? "$" : "";
       return $"{w}{t.GetDescription()}: {SkillLocs[t]}{w}";
     }
-    public static string GetKeySkillHintOne() {
-      if (SaveController.Data?.OpherSold?.Contains(AbilityType.WaterBreath) ?? false) {
-        var w = SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false ? "$" : "";
+    public static string GetKeySkillHintOne(bool justBought = false) {
+      if (justBought || AbilityType.WaterBreath.Upgraded()) {
+        var w = QuestEventType.Water.Have() ? "$" : "";
         return $"{AbilityType.Bash.HintFrag()}, {w}Water: {CleanWaterZone}{w}, {AbilityType.Flap.HintFrag()}, {AbilityType.Feather.HintFrag()}";
       }
       return "";
