@@ -1583,7 +1583,7 @@ anchor OuterWellspring.AboveWestDoor at -866, -3949:  # on the platform arcing o
       Launch
   conn OuterWellspring.WestDoor:
     moki: DoubleJump OR Dash OR Grapple OR Glide OR Launch
-  conn InnerWellspring.EastDoor:
+  conn OuterWellspring.EastDoor:
     moki:
       DoubleJump, Dash
       Glide OR Grapple OR Launch
