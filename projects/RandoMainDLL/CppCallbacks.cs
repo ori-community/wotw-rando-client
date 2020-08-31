@@ -21,7 +21,7 @@ namespace RandoMainDLL {
           },
           new Method() {
             Delegate = new f_void_at((AbilityType at) => {
-              SaveController.Data.TreesActivated.Add(at);
+              UberSet.Bool(at.TreeState(), true);
               InterOp.fill_health();
               InterOp.fill_energy();
             }),
@@ -44,7 +44,7 @@ namespace RandoMainDLL {
             CallbackName = "check_ini"
           },
           new Method() {
-            Delegate = new f_bool(() => SaveController.Data?.WorldEvents?.Contains(QuestEventType.Water) ?? false),
+            Delegate = new f_bool(() => QuestEventType.Water.Have()),
             CallbackName = "water_cleansed"
           },
           // We should replace these 2 calls with calls to check_ini
@@ -94,7 +94,7 @@ namespace RandoMainDLL {
             CallbackName = "set_ability"
           },
           new Method() {
-            Delegate = new f_bool_at((AbilityType at) => SaveController.Data.TreesActivated.Contains(at)),
+            Delegate = new f_bool_at((AbilityType at) => at.HaveTree()),
             CallbackName = "is_tree_activated"
           },
           new Method() {
