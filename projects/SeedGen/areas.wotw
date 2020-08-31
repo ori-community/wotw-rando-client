@@ -246,12 +246,13 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     gorlek: Sword OR Hammer
     unsafe: Sentry=1 # Not in gorlek cause it requires Sentry to get higher
   pickup MarshSpawn.BurrowOre:
-    moki, EnemyObstacle:
-      Burrow, DoubleJump, Dash OR Glide
+    moki:
+      EnemyObstacle, Burrow, DoubleJump, Dash OR Glide
       Burrow, DoubleJump, Bash, Grenade=1
       Burrow, Launch
-    gorlek, EnemyObstacle OR Danger=10:  # for the spider specifically
-      Burrow, DoubleJump OR Dash
+    gorlek:
+      EnemyObstacle, Burrow, DoubleJump OR Dash
+      Danger=10, Burrow, DoubleJump OR Dash  # for the spider specifically
       Burrow, Sword, Damage=10
       Burrow, Hammer, Glide, Damage=10
       # could do a sentryjump into bashgrenade, but I heard that kind of thing is unwelcome ;P
@@ -301,11 +302,12 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Bash, SentryJump=1, Sword
   conn MarshSpawn.Cave: free
   conn MarshSpawn.Main:
-    moki, EnemyObstacle:
-      Water, Burrow, DoubleJump, Dash OR Glide
+    moki:
+      EnemyObstacle, Water, Burrow, DoubleJump, Dash OR Glide
       Water, Burrow, Launch
-    gorlek, EnemyObstacle OR Danger=10:  # for the spider specifically
-      Water, Burrow, DoubleJump OR Dash
+    gorlek:
+      EnemyObstacle, Water, Burrow, DoubleJump OR Dash
+      Danger=10, Water, Burrow, DoubleJump OR Dash  # for the spider specifically
       Water, Burrow, Sword, Damage=10
       Water, Burrow, Hammer, Glide, Damage=10
 
@@ -448,7 +450,9 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
     unsafe:
       Grenade=2                      # Grenade jump onto the unstable platform then grenade jump to the pickup (requires some horizontal drifting)
   pickup HowlsDen.LeftHC:
-    moki: HowlsDen.KeystoneDoor, EnemyObstacle, BreakWall=20, DoubleJump OR Dash OR Launch
+    moki:
+      HowlsDen.KeystoneDoor, EnemyObstacle, BreakWall=20, DoubleJump OR Dash
+      HowlsDen.KeystoneDoor, BreakWall=20, Launch
     gorlek: HowlsDen.KeystoneDoor, BreakWall=20, Damage=10, Sword OR Hammer        # Possible with no damage but its much tighter, use sword combos to make the longer jumps
   pickup HowlsDen.RightHC:
     moki, HowlsDen.KeystoneDoor:
@@ -721,8 +725,8 @@ anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit wi
     moki: Danger=20
 
   conn MarshPastOpher.UpperBowArea:
-    moki, EnemyObstacle:
-      Bow=2, DoubleJump
+    moki:
+      EnemyObstacle, Bow=2, DoubleJump
       Launch
   conn MarshPastOpher.MillView:
     moki:
@@ -906,9 +910,9 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
   pickup MidnightBurrows.UpperKS:
     # Damage required:
     # Slug: 12 Health
-    moki, EnemyObstacle:
-      DoubleJump, Glide
-      DoubleJump, Dash, Danger=15
+    moki:
+      EnemyObstacle, DoubleJump, Glide
+      EnemyObstacle, DoubleJump, Dash, Danger=15
       Launch, DoubleJump OR Dash OR Glide OR Danger=15
     gorlek:
       DoubleJump, Danger=10
@@ -922,9 +926,9 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
   conn MidnightBurrows.Central:
     # Damage required:
     # Slug: 12 Health
-    moki, EnemyObstacle:
-      DoubleJump, Glide
-      DoubleJump, Dash, Danger=15
+    moki:
+      EnemyObstacle, DoubleJump, Glide
+      EnemyObstacle, DoubleJump, Dash, Danger=15
       Launch, DoubleJump OR Dash OR Glide OR Danger=15
     gorlek:
       DoubleJump, Danger=10
@@ -1008,9 +1012,9 @@ anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at 
     moki: Weapon, DoubleJump OR Dash OR Bash OR Glide OR Launch
 
   state WestHollow.RockPuzzleSolved:  # You can get the puzzle into some weird constellations, but teleporting out works in the worst cases
-    moki, WestHollow.UpperDrainLeverPulled, EnemyObstacle:  # EnemyObstacle provides solutions to shoot with the skeeto around
-      Bow=4, DoubleJump OR Dash OR Bash OR Glide OR Launch
-      Bow=4, Bash, Grenade=1
+    moki, WestHollow.UpperDrainLeverPulled:
+      EnemyObstacle, Bow=4, DoubleJump OR Dash OR Glide  # EnemyObstacle provides solutions to shoot with the skeeto around
+      Bow=4, Bash OR Launch
 
   pickup WestHollow.RockPuzzleEX:
     moki: WestHollow.FullyDrained
@@ -1019,8 +1023,8 @@ anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at 
     moki: WestHollow.FullyDrained, BreakWall=10
 
   conn WestHollow.FarLeftRoom:
-    moki, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved, EnemyObstacle:
-      Bow=1, DoubleJump OR Dash
+    moki, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved:
+      EnemyObstacle, Bow=1, DoubleJump OR Dash
       Bash OR Launch  # bashing off the skeeto
   conn WestHollow.HollowDrainMiddle:
     moki:
@@ -1053,7 +1057,9 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
   refill Checkpoint
 
   pickup WestHollow.QuickshotShard:
-    moki: WestHollow.FullyDrained, EnemyObstacle, DoubleJump, Bow=1, Dash OR Launch  # middle water state can softlock this, so you have to be able to fully lower the water. DoubleJump is for lenience on the bowshot
+    moki:  # middle water state can softlock this, so you have to be able to fully lower the water. DoubleJump is for lenience on the bowshot
+      WestHollow.FullyDrained, EnemyObstacle, DoubleJump, Bow=1, Dash
+      WestHollow.FullyDrained, DoubleJump, Bow=1, Launch
   pickup WestHollow.SwimEC:
     moki: Water
   pickup WestHollow.LupoMap:
@@ -1062,8 +1068,8 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
       Bash  # bash off the slug
       Launch
   pickup WestHollow.TrialHC:
-    moki, WestHollow.FullyDrained, EnemyObstacle:  # middle water state can softlock this, so you have to be able to fully lower the water.
-      DoubleJump, Dash OR Glide
+    moki, WestHollow.FullyDrained:  # middle water state can softlock this, so you have to be able to fully lower the water.
+      EnemyObstacle, DoubleJump, Dash OR Glide
       DoubleJump, Bash  # bash off the skeetos
       Launch
   pickup WestHollow.BelowLupoEX:
@@ -1088,13 +1094,14 @@ anchor WestHollow.Lower at -111, -4429:  # To the left of the lever door
   #     DoubleJump OR Dash OR Launch
   #     Bash, Grenade=1
   state WestHollow.DoorLever:  # The door blocking Dash area
-    moki, EnemyObstacle:
-      DoubleJump OR Dash OR Launch
+    moki:
+      EnemyObstacle, DoubleJump OR Dash
       Bash, Grenade=1
+      Launch
 
   conn WestHollow.HollowDrainLower:
-    moki, EnemyObstacle:
-      DoubleJump, Dash
+    moki:
+      EnemyObstacle, DoubleJump, Dash
       Bash, Grenade=2, DoubleJump OR Dash
       Launch
   conn WestHollow.DashArea:
@@ -1225,7 +1232,9 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
     moki: EastHollow.BeetleDefeated, EastHollow.Voice, GladesTown.EntryWallBroken, Bash, DoubleJump OR Launch
     gorlek: EastHollow.Voice, GladesTown.EntryWallBroken
   conn EastHollow.AboveDepths:
-    moki: EastHollow.DepthsLever, EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch  # just Bash is treacherous
+    moki:
+      EastHollow.DepthsLever, EnemyObstacle, DoubleJump OR Dash OR Glide  # just Bash is treacherous
+      EastHollow.DepthsLever, Launch
   conn EastHollow.Kwolok:
     moki:
       Bash, DoubleJump OR Dash OR Glide OR Launch
@@ -1641,21 +1650,21 @@ anchor GladesTown.West at -430, -4135:  # At Motay
       Bash  # slime lure
       TuleyShop.SpringPlants, Hammer, Dash  # uphammer bounce
   pickup WestGlades.GrappleEX:
-    unsafe: EnemyObstacle, SentryJump=1, Sword, Damage=10
+    unsafe: SentryJump=1, Sword, Damage=10
 
   conn WestGlades.Lower:
-    moki, EnemyObstacle:
+    moki:
       Bash, DoubleJump OR Dash
-      DoubleJump, Dash, Glide  # this path is too nice to not be moki... right?
+      EnemyObstacle, DoubleJump, Dash, Glide  # this path is too nice to not be moki... right?
       Launch
-    gorlek, EnemyObstacle:
+    gorlek:
       Bash, Glide
       Bash, Damage=10, Sword OR Hammer
-      DoubleJump, Dash
-      DoubleJump, TripleJump  # can either wrap around or grab the bottom of the last wall
+      EnemyObstacle, DoubleJump, Dash
+      EnemyObstacle, DoubleJump, TripleJump  # can either wrap around or grab the bottom of the last wall
       DoubleJump, Sword, Damage=10
-    unsafe, EnemyObstacle:
-      DoubleJump, Damage=20
+    unsafe:
+      EnemyObstacle, DoubleJump, Damage=20
       Bash, Sword OR Hammer  # weapon floating, yes verified with hammer
   conn GladesTown.TwillenHome: free
   conn GladesTown.Teleporter:
@@ -1939,8 +1948,9 @@ anchor WestGlades.Upper at -618, -4054:  # At the waypoint
 
   conn WestGlades.Lower:
     moki:
-      EnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
-      Water, DoubleJump OR Dash OR Bash OR Glide OR Launch OR Danger=10
+      EnemyObstacle, DoubleJump OR Dash OR Glide
+      Water, DoubleJump OR Dash OR Bash OR Glide OR Danger=10
+      Launch
   conn LowerReach.Entry:
     moki: LowerReach.BearSneezed
   conn WestGlades.MillApproach:
@@ -2158,9 +2168,9 @@ anchor OuterWellspring.AboveWestDoor at -866, -3949:  # on the platform arcing o
     moki: Weapon
 
   pickup OuterWellspring.HiddenHC:
-    moki, EnemyObstacle:
-      Grapple, DoubleJump, Dash OR Glide
-      Grapple, Dash, Glide
+    moki:
+      EnemyObstacle, Grapple, DoubleJump, Dash OR Glide
+      EnemyObstacle, Grapple, Dash, Glide
       Launch, DoubleJump OR Dash OR Grapple OR Glide
 
   conn OuterWellspring.TopDoor:
@@ -2476,9 +2486,9 @@ anchor InnerWellspring.DrainRoomTop at -1086, -3908:  # At the right ledge on to
   refill Health=1: free
 
   pickup InnerWellspring.LaserOre:
-    moki, EnemyObstacle:
-      DoubleJump, Dash OR Glide
-      Dash, Glide
+    moki:
+      EnemyObstacle, DoubleJump, Dash OR Glide
+      EnemyObstacle, Dash, Glide
       Launch
     gorlek:
       DoubleJump OR Dash OR Sword
@@ -2865,9 +2875,10 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
 #     SentryJump=1, Glide
 
   conn WoodsMain.BelowFourKeystoneRoom:
-    moki, WoodsEntry.KeystoneDoor, EnemyObstacle:
-      DoubleJump, Dash
-      Bash OR Glide OR Launch  # bash uses the enemy
+    moki, WoodsEntry.KeystoneDoor:
+      EnemyObstacle, DoubleJump, Dash
+      EnemyObstacle, Glide
+      Bash OR Launch  # bash uses the enemy
   conn WoodsEntry.BelowTeleporter:
     moki: RangedWeapon, DoubleJump OR Glide OR Launch
 
@@ -3169,15 +3180,15 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
       Grenade=1, Launch  # Grenade to light the furnace
 
   pickup LowerReach.IcefallOre:
-    moki, LowerReach.LeftFurnace, EnemyObstacle:
+    moki, LowerReach.LeftFurnace:
       Bash, Grapple OR Launch  # bash the enemies
-      Grapple, Danger=10, DoubleJump OR Dash  # grapple past the enemies and probably get hit by them
+      EnemyObstacle, Grapple, Danger=10, DoubleJump OR Dash  # grapple past the enemies and probably get hit by them
       Water, Launch  # swim past the enemies
   pickup LowerReach.IcefallEX:
-    moki, LowerReach.LeftFurnace, EnemyObstacle:
+    moki, LowerReach.LeftFurnace:
       DoubleJump, Bash  # bash the enemies
-      DoubleJump, Grapple, Danger=10  # grapple past the enemies and probably get hit by them
-      Water, DoubleJump, WaterDash  # swim past the enemies
+      EnemyObstacle, DoubleJump, Grapple, Danger=10  # grapple past the enemies and probably get hit by them
+      EnemyObstacle, Water, DoubleJump, WaterDash  # swim past the enemies
       Launch
 
   conn LowerReach.Entry: free
@@ -3340,11 +3351,11 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
     moki: UpperReach.HeatFurnace, Water, EnemyObstacle OR DoubleJump
 
   conn UpperReach.OutsideTreeRoom:
-    moki, UpperReach.HeatFurnace, EnemyObstacle:
-      DoubleJump, Dash OR Grapple
+    moki, UpperReach.HeatFurnace:
+      EnemyObstacle, DoubleJump, Dash OR Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      EnemyObstacle, Water
       Launch
-      Water
   conn LowerReach.OutsideTPRoom: free
 
 # checkpoint at -369, -3917
@@ -3410,7 +3421,9 @@ anchor LowerReach.SecondSoup at -316, -4037:  # Next to the soup below the telep
 anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind channel connecting to east reach
   refill Checkpoint
   refill Energy=3:
-    moki: ShieldEnemyObstacle, DoubleJump OR Dash OR Launch
+    moki:
+      ShieldEnemyObstacle, DoubleJump OR Dash
+      Launch
 
   state LowerReach.CentralFurnace:
     moki: Grenade=1
@@ -3421,7 +3434,7 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
       Launch
       LowerReach.CentralFurnace, DoubleJump OR Dash
   pickup LowerReach.BreakWallEX:
-    moki: BreakWall=20, ShieldEnemyObstacle OR Bash
+    moki: BreakWall=20, ShieldEnemyObstacle
   pickup LowerReach.WindBottomEX:
     moki: Grenade=1, Glide  # grenade to light the lantern
   pickup LowerReach.WindHiddenEX:
@@ -3429,8 +3442,9 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
 
   conn LowerReach.SecondSoup:
     moki:
-      ShieldEnemyObstacle, DoubleJump OR Dash OR Glide OR Launch
+      ShieldEnemyObstacle, DoubleJump OR Dash OR Glide
       Bash, Grenade=1
+      Launch
   conn LowerReach.SoupMoki:
     moki: Grenade=1, Glide  # grenade to light the lantern
 
@@ -3620,7 +3634,9 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
     moki: Glide
 
   conn UpperDepths.FirstFirefly:
-    moki: EnemyObstacle, Glide, RangedWeapon OR Bash
+    moki:
+      EnemyObstacle, RangedWeapon, Glide
+      Glide, Bash
 
 # checkpoint at 147, -4392
 
@@ -3638,13 +3654,15 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
       Bash, DoubleJump OR Grapple
       Launch
   pickup UpperDepths.LeftEntryKS:
-    moki, EnemyObstacle:
-      BreakWall=1, Grapple, DoubleJump OR Dash OR Glide
+    moki:
+      EnemyObstacle, BreakWall=1, Grapple, DoubleJump OR Dash OR Glide
       BreakWall=1, Launch
-      Bow=1
+      EnemyObstacle, Bow=1
 
   conn UpperDepths.Entry:
-    moki: EnemyObstacle, Glide, RangedWeapon OR Bash
+    moki:
+      EnemyObstacle, RangedWeapon, Glide
+      Glide, Bash
   conn UpperDepths.FirstKSRoom: free
 
 # checkpoint at anchor below, kind of easy to miss though
@@ -3673,8 +3691,8 @@ anchor UpperDepths.FirstKSRoom at 223, -4420:  # Below the first firefly egg
     moki: EnemyObstacle, DepthsLight, Water
 
   conn UpperDepths.FirstFirefly:
-    moki, EnemyObstacle:
-      Grapple, DoubleJump
+    moki:
+      EnemyObstacle, Grapple, DoubleJump
       Launch, DoubleJump OR Grapple
   conn UpperDepths.BelowHive:
     moki, UpperDepths.EntryKeystoneDoor, UpperDepths.LightPuzzle OR DepthsLight:
@@ -3973,9 +3991,9 @@ anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfwa
       Water, Grapple, Bash, Grenade=1, Dash, Glide
       Water, Launch, DoubleJump OR Dash OR Grapple OR Glide  # go up the left wall
   conn PoolsApproach.MillPath:
-    moki, EnemyObstacle, Danger=20:  # severe enemy spam
+    moki, Danger=20:  # severe enemy spam
       Bash, Grapple OR Launch  # this is probably actually closest to how you'd traverse this naturally
-      Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
+      EnemyObstacle, Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
       Launch, DoubleJump OR Grapple
 
 anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three paths merge
@@ -3991,11 +4009,11 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
     moki: Water  # again not really a reason to even use Bash
 
   conn PoolsApproach.MillPathCheckpoint:
-    moki, EnemyObstacle, Danger=20:  # severe enemy spam
+    moki, Danger=20:  # severe enemy spam
       Bash, DoubleJump  # bash errything
       Weapon, Bash, Grenade=3, Dash OR Glide  # clear the space to bashnade
       Weapon, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
-      DoubleJump, Grapple, Dash OR Glide
+      EnemyObstacle, DoubleJump, Grapple, Dash OR Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
   conn PoolsApproach.RightOfWheel:
     moki: EnemyObstacle, Water  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement.
@@ -4097,9 +4115,9 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
   refill Checkpoint
 
   state EastPools.EntryLever:
-    moki, EnemyObstacle:
-      DoubleJump, Dash OR Glide
-      Dash, Glide
+    moki:
+      EnemyObstacle, DoubleJump, Dash OR Glide
+      EnemyObstacle, Dash, Glide
       Launch
   state EastPools.BelowTokkBubbleFree:
     moki:
@@ -4134,7 +4152,7 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       EastPools.BelowTokkBubbleFree, EnemyObstacle, Grapple, Flap, DoubleJump OR Dash OR Glide
       DoubleJump, Bash, Grenade=1  # bashgrenade above
       Bash, Grenade=2, Dash OR Glide  # bashgrenade above
-      EnemyObstacle, Bash, Grenade=2, EastPools.BelowTokkBubbleFree OR Water  # bashgrenade below
+      Bash, Grenade=2, EastPools.BelowTokkBubbleFree OR Water  # bashgrenade below
       Launch
   conn EastPools.Entry: free
 
@@ -4213,14 +4231,15 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   conn EastPools.Teleporter:
     moki: EastPools.LowerWaterDrained
   conn EastPools.LeverRoom:
-    moki, EastPools.EntryLever, EnemyObstacle:
-      DoubleJump OR Dash OR Glide OR Launch  # go above
+    moki, EastPools.EntryLever, :
+      EnemyObstacle, DoubleJump OR Dash OR Glide  # go above
       Bash, Grenade=1  # go above
-      Grapple  # go below
+      Launch  # go above
+      EnemyObstacle, Grapple  # go below
   conn WestPools:
     moki: EastPools.FightArenas, Water, Bash, WaterDash, DoubleJump OR Dash OR Glide OR Launch
   conn UpperPools.KeystoneRoom:
-    moki, EastPools.FightArenas, EnemyObstacle:
+    moki, EastPools.FightArenas:
       Water, Bash, DoubleJump, Dash OR Glide
       Water, Bash, Launch
 
@@ -4285,7 +4304,7 @@ anchor UpperPools.KeystoneRoom at -1540, -4095:  # Autosave below the two upper 
   conn UpperPools.BubbleSpamRoom:
     moki: Flap, DoubleJump, Dash, Grapple  # seems to be intended
   conn WestPools:
-    moki: Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide OR Launch
+    moki: Water, WaterDash, EnemyObstacle OR DoubleJump OR Dash OR Glide
 
 # checkpoint at anchor below, maybe move
 
@@ -4406,7 +4425,9 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
   pickup WestPools.BurrowOre:
     moki: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash, Burrow
   pickup WestPools.EscapeRevisitEX:
-    moki: WestPools.ForestsStrength, EnemyObstacle, Water, DoubleJump OR WaterDash OR Launch
+    moki:
+      WestPools.ForestsStrength, EnemyObstacle, Water, DoubleJump OR WaterDash
+      WestPools.ForestsStrength, Water, Launch
   pickup UpperPools.LowerKS:
     moki: WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash
 
@@ -4414,10 +4435,10 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
   conn KwolokFight:
     moki: Water, WaterDash OR DoubleJump OR Launch
   conn UpperPools.KeystoneRoom:
-    moki, EnemyObstacle:
+    moki:
       Water, WaterDash, Bash, DoubleJump, Dash OR Glide
       Water, WaterDash, Bash, Launch
-      WestPools.ForestsStrength, Water, WaterDash, DoubleJump
+      WestPools.ForestsStrength, EnemyObstacle, Water, WaterDash, DoubleJump
       WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
 
 anchor KwolokFight:
@@ -4540,8 +4561,9 @@ anchor LowerWastes.MuncherTunnel at 1681, -4002:  # Above the sand/muncher tunne
       Damage=30 OR Dash OR SentryJump=1
       Bash, Glide OR Sword OR Hammer  # lure the mantis
   conn LowerWastes.SandPot:
-    moki, EnemyObstacle:
-      DoubleJump OR Burrow OR Launch OR Hammer
+    moki:
+      EnemyObstacle, DoubleJump OR Burrow
+      Launch OR Hammer
       Sword, Grenade=1 OR Spear=1
       Bash, Grenade=1
     gorlek: DoubleJump OR Dash OR Burrow OR Sword  # slash the enemy off the wall
@@ -4627,15 +4649,15 @@ anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
       Shuriken=1  # Just as janky as Bash
       Sentry=1
   conn LowerWastes.MinesEntrance:  # guess this wasn't that bad after all
-    gorlek, EnemyObstacle OR DoubleJump:
-      BackWallBreak=20, Dash OR Glide OR Grapple OR Damage=30
+    gorlek:
+      EnemyObstacle, BackWallBreak=20, Dash OR Glide OR Grapple OR Damage=30
       BackWallBreak=20, DoubleJump OR Launch
       BackWallBreak=20, Bash, Grenade=1
 
 anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower breakable wall
   pickup LowerWastes.BottomRightEX:
-    moki, EnemyObstacle:
-      Grapple
+    moki:
+      EnemyObstacle, Grapple
       Bash, Grenade=1, DoubleJump OR Dash  # Very much not a mandatory grenade... This is only important if the Ruins Wall is broken, and then only if you don't use the enemies
       Launch
     gorlek:
@@ -4646,25 +4668,25 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
       Bash  # Requires you not to kill anything and hopefully not have ultra bash or whatever equipped
       DoubleJump, TripleJump, Sentry=1 OR Flash=1
   pickup LowerWastes.BottomRightHC:
-    moki, EnemyObstacle:
-      Grapple  # Use both Grapple points
+    moki:
+      EnemyObstacle, Grapple  # Use both Grapple points
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
-    gorlek, EnemyObstacle OR DoubleJump:
-      Damage=30  # lol. This really limits other paths
+    gorlek:
+      Damage=30, EnemyObstacle OR DoubleJump  # lol. This really limits other paths
       DoubleJump, TripleJump OR Dash OR Glide
       Bash, DoubleJump OR Dash OR Glide
 
   conn LowerWastes.WoodenBridge:
-    moki, EnemyObstacle, BreakWall=20:
-      DoubleJump, Grapple
+    moki, BreakWall=20:
+      EnemyObstacle, DoubleJump, Grapple
       Launch, DoubleJump OR Dash OR Grapple
     # in gorlek, all paths would be redundant with just going up to lever area, which doesn't require breaking the wall
   conn LowerWastes.LeverArea:  # paths function for both cases of having destroyed or kept the wall
     gorlek:
       SentryJump=1, DoubleJump, TripleJump, Dash OR Glide
       Bash, DoubleJump, TripleJump  # Utilise the enemies to bashglide across. I don't think its softlockable because there's no autosave here.
-      Grapple, Dash, EnemyObstacle  # Pretty straightforward. Rest of these paths you're able to avoid enemies so enemyobstacle isnt included.
+      EnemyObstacle, Grapple, Dash  # Pretty straightforward. Rest of these paths you're able to avoid enemies so enemyobstacle isnt included.
       Launch
   conn WindtornRuins.LowerRuins:
     gorlek: BackWallBreak=20, Burrow
@@ -4736,9 +4758,11 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       LowerWastes.SandPlatformLever, DoubleJump, Grapple
       LowerWastes.SandPlatformLever, Burrow, Grapple, Dash OR Glide OR Sword
   conn LowerWastes.MinesEntrance:
-    moki: EnemyObstacle, DoubleJump OR Dash OR Glide OR Grapple OR Launch
-    gorlek, EnemyObstacle OR DoubleJump:
-      Dash OR Glide OR Grapple OR Damage=30
+    moki:
+      EnemyObstacle, DoubleJump OR Dash OR Glide OR Grapple
+      Launch
+    gorlek:
+      EnemyObstacle, Dash OR Glide OR Grapple OR Damage=30
       DoubleJump OR Launch
       Bash, Grenade=1
   conn LowerWastes.EastTP:
@@ -5293,7 +5317,9 @@ anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
   #     Launch, DoubleJump
   #     Launch, Dash, Glide
   conn WillowsEnd.East:
-    moki: EnemyObstacle, DoubleJump OR Dash OR Bash OR Glide OR Launch
+    moki:
+      EnemyObstacle, DoubleJump OR Dash OR Glide
+      Bash OR Launch
   conn WillowsEnd.West:
     moki: Launch
   conn WillowsEnd.UpperHeartPath:
