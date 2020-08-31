@@ -10,7 +10,10 @@ import io.ktor.routing.*
 import io.ktor.websocket.webSocket
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
+import wotw.io.messages.protobuf.InitBingoMessage
+import wotw.io.messages.protobuf.UberId
 import wotw.io.messages.protobuf.UberStateUpdateMessage
+import wotw.io.messages.sendMessage
 import wotw.server.database.model.PlayerData
 import wotw.server.database.model.PlayerDataTable
 import wotw.server.io.protocol
@@ -48,6 +51,12 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             } ?: return@webSocket this.close(
                 CloseReason(CloseReason.Codes.NORMAL, "Player is not part of game - no syncing possible")
             )
+
+            val initData = transaction {
+                playerData.game.board?.goals?.flatMap { it.value.keys }?.map { UberId(it.first, it.second) }
+            }
+            outgoing.sendMessage(InitBingoMessage(initData ?: emptyList()))
+
             protocol {
                 onMessage(UberStateUpdateMessage::class) {
                     val game = transaction {
