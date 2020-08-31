@@ -91,6 +91,28 @@ fun generatePool() = mutableListOf(
         number("32", 1, 1, 32),
         max = 1
     ),
+    pool(
+        "Complete Quests",
+        number("The Silent Teeth", 937, 34641, 4),
+        number("Beneath Shifting Sands", 14019, 35399, 3),
+        number("Lost in Paradise", 14019, 35087, 3),
+        number("Breaking the Mould", 14019, 45931, 3),
+        number("The Highest Reach", 14019, 8973, 3),
+        number("The Missing Key ", 48248, 51645, 3),
+        number("Into the Burrows", 48248, 18458, 4),
+        number("The Lost Compass", 14019, 20667, 3),
+        number("A Little Braver", 14019, 15983, 3),
+        number("Family Reunion", 14019, 27804, 4),
+        number("The Tree Keeper", 14019, 59708, 3),
+        number("A Diamond in the Rough", 14019, 61011, 5),
+        number("Hand to Hand", 14019, 26318, 11),
+        number("Into The Darkness", 14019, 33776, 3),
+        number("Kwolok's Wisdom", 14019, 50597, 4),
+        number("The Silent Map", 14019, 24683, 5),
+        number("Rebuilding the Glades", 14019, 44578, 2),
+        number("Regrowing the Glades", 14019, 26394, 2),
+        max = 4
+    ),
     number("Store Spirit Light", 1, 1, 2000, 6000, 4000),
     number("Spend Spirit Light", 1, 1, 2000, 6000, 3000)
 ).also {
