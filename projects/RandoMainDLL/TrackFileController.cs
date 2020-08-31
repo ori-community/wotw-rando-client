@@ -59,7 +59,7 @@ namespace RandoMainDLL {
           Write();
       } catch (Exception e) {
         Randomizer.Error("Track.Update", e);
-          Randomizer.Log($"Last: {Last}");
+        Randomizer.Log($"Last: {Last}", false);
       }
     }
     public static void Write() {
