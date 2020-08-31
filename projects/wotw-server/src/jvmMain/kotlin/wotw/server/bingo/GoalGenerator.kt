@@ -105,7 +105,7 @@ fun generatePool() = mutableListOf(
         bool("Inkwater Marsh", 21786, 18109),
         bool("Wellspring Glades", 44310, 9902),
         bool("Silent Woods", 58674, 29265),
-        bool("Mouldwood Depths", 18793, 31937),
+        bool("Mouldwood Depths", 18793, 31937)
     ),
     pool(
         "Complete Quests",
