@@ -13,9 +13,6 @@ gosub SetCommonVariables
 ; change this TO THE NAME OF THE NEW SETTING when a new setting is added
 NewSetting := ""
 FirstLaunch := False
-; this is how you write multiline strings in AHK. it's terrible. 
-; this specifically is just the 2-line batchfile for  
-; associating .wotwr files with WotwRando.exe
 
 updateFailedMsg=
 (
@@ -24,7 +21,6 @@ Please close Ori and all rando-related processes, then
 run %A_ScriptFullPath% to complete the update.
 If the problem persists, please restart your computer.
 )
-
 
 ; restart script in admin mode if it's not already in admin mode
 if not A_IsAdmin
@@ -113,6 +109,17 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     Run, *RunAs "%INSTALL_DIR%associateFileTypes.bat",
     SplashTextOff
     FileDelete, %INSTALL_DIR%.VERSION
+
+    ; Check Java Installation and prompt if not found.
+    javaTest := ComObjCreate("WScript.Shell").Exec("cmd.exe /c java -jar """ . INSTALL_DIR . "SeedGen.jar"" test").StdOut.ReadAll()
+    If !InStr(javaTest, "tested") {
+        MsgBox, 4, Java not installed, Java was not found on your system, which is required to run the seedgen and generate your own seeds.`nGet it from: https://www.java.com/en/download/. `n`nOpen URL now?
+        IfMsgBox, Yes, {
+            Run, https://www.java.com/en/download/
+            MsgBox,, Java not installed, After the java install has finished, press OK to continue.
+        }
+    }
+
     GoSub, PromptAfterInstall
 }
 gosub, ReadIniVals
@@ -162,12 +169,12 @@ ExitApp
 
 PromptAfterInstall:
 SetTimer, ChangeButtonNames, 25 
-Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`nLaunch the randomizer by running %INSTALL_DIR%WotwRando.exe `n  or by double-clicking a .wotwr file`n`nChange settings using %INSTALL_DIR%RandoSettings.exe
-IfMsgBox, Cancel
-    ExitApp
-IfMsgBox, No
-    RunWait, %INSTALL_DIR%RandoSettings.exe
-    ExitApp
+Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`n> Launch the randomizer by running %INSTALL_DIR%WotwRando.exe`n  or by double-clicking a .wotwr file`n> Generate Seeds by running %INSTALL_DIR%SeedGen.jar`n> Change settings using %INSTALL_DIR%RandoSettings.exe
+IfMsgBox, Yes 
+    Run, java -jar "%INSTALL_DIR%\SeedGen.jar" , %INSTALL_DIR%
+IfMsgBox, No 
+    Run,  %INSTALL_DIR%RandoSettings.exe
+ExitApp
 Return
 
 ChangeButtonNames: 
@@ -175,9 +182,18 @@ IfWinNotExist, WOTW Rando v%MY_VER% Installer
     return  ; Keep waiting.
 SetTimer, ChangeButtonNames, Off 
 WinActivate 
-ControlSetText, Button1, &Play Now
+ControlSetText, Button1, &SeedGen
 ControlSetText, Button2, &Settings 
 ControlSetText, Button3, &Exit 
+return
+
+ChangeButtonNames_JavaInstaller: 
+IfWinNotExist, Java not installed
+    return  ; Keep waiting.
+SetTimer, ChangeButtonNames_JavaInstaller, Off 
+WinActivate 
+ControlSetText, Button1, &Open URL 
+ControlSetText, Button2, &Continue 
 return
 
 CheckSteamPath:
@@ -239,6 +255,9 @@ IfMsgBox, Cancel
 return
 
 SetCommonVariables:
+; this is how you write multiline strings in AHK. it's terrible. 
+; this specifically is just the 2-line batchfile for  
+; associating .wotwr files with WotwRando.exe
 batch=
 (
 assoc .wotwr=WotwRando

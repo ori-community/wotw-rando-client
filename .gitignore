@@ -25,6 +25,7 @@ projects/SeedGen/out
 projects/SeedGen/seeds
 projects/SeedGen/project*
 projects/SeedGen/target*
+projects/SeedGen/*.wotwr
 Web/*
 *.user
 build/*

@@ -151,7 +151,7 @@ int actual_main()
     find_base_path(base_path);
 
     IniSettings settings(create_randomizer_settings());
-    settings.path = base_path + settings_name;
+    settings.path = base_path + "\\" + settings_name;
     load_settings_from_file(settings);
 
     auto use_win_store = find_option(settings, "Flags", "UseWinStore")->value.b;
