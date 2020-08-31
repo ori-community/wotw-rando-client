@@ -81,10 +81,8 @@ package SeedGenerator {
     override val cost = 7
   }
   object WorldEvent {
-    val names: Map[Int, String] = Map(
-      0 -> "Water"
-    )
-    val areaFileNames: Map[String, Int] = names.map({case (a, b) => b->a})
+    val names: Map[Int, String] = Map(0 -> "Clean Water")
+    val areaFileNames: Map[String, Int] = Map("Water" -> 0)
     val poolItems: Seq[WorldEvent] = names.keys.map(WorldEvent(_)).toSeq
   }
   object Water extends WorldEvent(0)
