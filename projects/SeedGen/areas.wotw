@@ -2174,52 +2174,53 @@ anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where yo
       Grapple, DoubleJump OR Dash OR Glide
       Launch
     gorlek:
-      DoubleJump, TripleJump, Damage=15
-      Grapple, Damage=15
+      DoubleJump, TripleJump, Damage=15  # bit tricky
+      Grapple, Damage=15  # bit tricky
       Grapple, Hammer OR Sword
+  state InnerWellspring.ThreeWheels:
+    moki: BreakWall=3
 
   pickup InnerWellspring.ThornShard:
     moki:
       Grapple, DoubleJump OR Dash OR Glide
       DoubleJump, Bash, Grenade=1
       Launch
-      BreakWall=3, DoubleJump OR Dash OR Glide           # break the three wheels free
+      InnerWellspring.ThreeWheels, DoubleJump OR Dash OR Glide
     gorlek:
-      Bash, Grenade=1, Hammer OR Sword                   # Bash grenade up right side, jump to left side vines, use sword/hammer to reach platform
-      Bash, Grenade=1, Dash OR Glide                     # As above but use Dash/Glide
-      SentryJump=1                                       # As above but use sentry jump on right side, then use sword/hammer to reach platform
+      Bash, Grenade=1, Dash OR Glide OR Hammer OR Sword  # Bash grenade up right side, jump to left side vines, use abilities to reach platform
+      SentryJump=1, Sword OR Hammer                      # As above but use sentry jump on right side, then use sword/hammer to reach platform
       DoubleJump, TripleJump
       Grapple, Sword OR Hammer
     unsafe:
       DoubleJump, Hammer, Dash OR Glide
-      Grapple
-
+      Grapple  # seems like a fun kii path
   pickup InnerWellspring.ThornEX:
     moki:
       Grapple, DoubleJump, Dash OR Glide
       Launch
     gorlek:
-      Bash, Grenade=1, DoubleJump, TripleJump
-      Bash, Grenade=2, DoubleJump, Dash OR Glide, Damage=15
+      Bash, Grenade=1, DoubleJump, TripleJump  # two working grenade angles to solve
+      Bash, Grenade=2, DoubleJump, Dash OR Glide, Danger=15  # two working grenade angles to solve
       DoubleJump, TripleJump, Damage=15
-      SentryJump=2, Damage=15, Dash OR DoubleJump OR Glide
-      Grapple, Sword OR Hammer
-      Grapple, DoubleJump OR Dash OR Glide
+      SentryJump=1, DoubleJump, TripleJump, Dash OR Glide
+      SentryJump=2, Damage=15, DoubleJump, Dash OR Glide
+      SentryJump=2, Damage=15, Dash, Glide
+      Grapple, Damage=15, Sword OR DoubleJump OR Dash OR Glide
+      Grapple, DoubleJump, Sword OR Hammer
+      Grapple, Dash, Glide OR Sword OR Hammer
     unsafe:
       Dash, DoubleJump, Hammer OR Sword
       SentryJump=2, Damage=15, Sword
-
   pickup InnerWellspring.ThreeWheelsEX:
     moki:
       Bash, Grenade=1
       Launch
-      BreakWall=3  # break the three wheels free
+      InnerWellspring.ThreeWheels
     gorlek:
       DoubleJump, TripleJump
       SentryJump=1
     unsafe:
       Grenade=1
-
   pickup InnerWellspring.WaterSwitchEX:
     moki: Water, WaterDash
 
@@ -2227,10 +2228,12 @@ anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where yo
   conn InnerWellspring.DrainRoom:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
-      BreakWall=3, Grapple  # break the three wheels free
-      BreakWall=3, Bash, Grenade=1  # break the three wheels free
+      InnerWellspring.ThreeWheels, Grapple
+      InnerWellspring.ThreeWheels, Bash, Grenade=1
     gorlek:
-      Bash, Grenade=1
+      Sword OR Hammer
+      Bash, Grenade=1, Damage=15  # kii would do this damageless
+      InnerWellspring.ThreeWheels, Damage=15
   conn InnerWellspring.WestDoor:
     moki:  # this in combination with the ShortCutWheel state accounts for all paths to the EX in the wheel
       Grapple, DoubleJump, Dash OR Glide
@@ -2238,9 +2241,8 @@ anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where yo
       Launch
     gorlek:
       DoubleJump, TripleJump, Damage=15
-      Grapple, Glide, Damage=15
-      Grapple, DoubleJump OR Dash
-      Grapple, Damage=15, Sword OR Hammer
+      Grapple, DoubleJump OR Dash  # pretty tight
+      Grapple, Damage=15, Glide OR Sword OR Hammer
     unsafe:
       Grapple, Hammer, Glide
 
@@ -2249,73 +2251,181 @@ anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can d
   refill Energy=3:
     moki: Weapon
 
-  pickup InnerWellspring.DrainHC:
-    moki, InnerWellspring.DrainLever:
-      DoubleJump OR Grapple OR Launch  # bit of a weird pickup
-      Water, Dash OR Glide
-    gorlek:
-      InnerWellspring.DrainLever:	
-        Damage=15 # Might be too precise for gorlek, if so remove
-        Sword OR Hammer # Might be too precise for gorlek, if so add Damage=20 or Damage=15 (both work just done different ways)
-        Dash OR Glide
-      BackWallBreak=10:
-        DoubleJump, TripleJump
-        Glide, Bash, Damage=20  # It is possible without taking damage but difficult due to no verticality
-        Glide, Damage=20, DoubleJump OR Dash
-        Bash, Damage=15, DoubleJump OR Dash
-        Dash, DoubleJump, Damage=20
-        Grapple, Damage=20, DoubleJump OR Dash
-        Grapple, Water
-
-  pickup InnerWellspring.DrainEX:
-    moki, InnerWellspring.DrainLever:  # the skeetos just want to be bashed here
-      DoubleJump, Water OR Bash
-      Dash, Bash, Grenade=1
-      Water, Bash, Grenade=1, Grapple OR Glide
-      Launch
-    gorlek: 
-      InnerWellspring.DrainLever:
-        DoubleJump, Damage=20
-        DoubleJump, TripleJump OR Dash
-        DoubleJump, Sword OR Hammer   
-        SentryJump=2, Dash, Damage=20 # Technically possible without damage just a little enemy reliant
-      BackWallBreak=10:
-        Glide
-        Damage=15, Dash OR DoubleJump
-        Bash, Grenade=1, Dash, DoubleJump
-        DoubleJump, TripleJump
-        Grapple
-    unsafe:
-      InnerWellspring.DrainLever, Dash, Hammer, Damage=20 # Technically possible without damage  
-
-    # ShurikenBreak note: this wall has 10 health, 2 Shurikens to break (BackWallBreak=10)
-  pickup InnerWellspring.LaserOre:
-    moki:
-      RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide  # don't see a better solution... refill nearby should mitigate the overestimated energy requirement
-      EnemyObstacle, Grapple, DoubleJump, Dash
-      EnemyObstacle, Grapple, Glide
-      Launch
-    gorlek:
-      EnemyObstacle, DoubleJump, TripleJump OR Dash OR Glide OR Damage=15
-      Grapple, Sword
-      Grapple, Hammer, Damage=20 # Possible damageless but a bit tougher
-
   conn InnerWellspring.EntranceDoor:
     moki:
       DoubleJump OR Dash OR Grapple OR Glide OR Launch
       Bash, Grenade=1
     gorlek: free
-  conn InnerWellspring.BelowDrainLever:
+  conn InnerWellspring.DrainRoomCenter:
     moki:
-      RangedWeapon, BreakWall=16, DoubleJump, Dash OR Glide  # don't see a better solution... refill nearby should mitigate the overestimated energy requirement
-      BreakWall=16, Grapple, DoubleJump OR Dash OR Glide
-      Grapple, DoubleJump, Dash OR Glide
+      DoubleJump, Glide
+      Grapple OR Launch
+      Glide, Bash, Grenade=2
+      InnerWellspring.ThreeWheels, BreakWall=16, DoubleJump  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
+      InnerWellspring.ThreeWheels, BreakWall=16, Dash, Bash, Grenade=2  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
+      Water, DoubleJump  # if you drained the water, you can use the bottom of the wheel instead
+      Water, WaterDash, Dash, Bash, Grenade=2  # if you drained the water, you can use the bottom of the wheel instead
+    gorlek:
+      # if you have a weapon here, you can break the three wheels free. Redundant paths without the three wheels state were removed.
+      DoubleJump, TripleJump OR Dash OR Sword OR Damage=15
+      Dash, Glide OR Damage=15
+      Glide, Damage=15
+      Bash, Grenade=1, DoubleJump OR Glide
+      SentryJump=1, Glide
+      InnerWellspring.ThreeWheels, BreakWall=16:  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
+        Dash
+        Damage=15, Sword OR Hammer
+        Bash, Grenade=1, Sword OR Hammer
+        SentryJump=1, Sword OR Hammer
+        Bash, Grenade=4
+      Water, Dash  # if you drained the water, you can use the bottom of the wheel instead
+      Water, Bash, Grenade=4  # if you drained the water, you can use the bottom of the wheel instead
+      Water, WaterDash, Bash, Grenade=3, BreakWall=10  # if you drained the water, you can go through through the drained room instead
+      Water, WaterDash, Bash, Grenade=2, Damage=15, BreakWall=10  # if you drained the water, you can go through through the drained room instead
+  conn InnerWellspring.DrainAreaEntrance:
+    moki: InnerWellspring.DrainLever, DoubleJump OR Dash OR Grapple OR Glide OR Launch
+    gorlek, InnerWellspring.DrainLever:
+      Sword OR Hammer OR Damage=15
+      Bash, Grenade=1
+    unsafe: InnerWellspring.DrainLever
+  conn InnerWellspring.DrainAreaExit:
+    gorlek:
+      # if you have a weapon here, you can break the three wheels free. Redundant paths without the three wheels state were removed.
+      ShurikenBreak=10:  # cross the gap going over
+        Grapple OR Glide OR Launch
+        DoubleJump, TripleJump
+        Damage=15, DoubleJump OR Dash
+        Bash, Grenade=1, DoubleJump, Dash
+      InnerWellspring.DrainLever, ShurikenBreak=10:  # use the bottom of the wheel, don't have to free it
+        DoubleJump OR Dash
+        Bash, Grenade=2
+      InnerWellspring.ThreeWheels, BreakWall=16, ShurikenBreak=10:  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
+        DoubleJump OR Dash OR Sword
+        SentryJump=1, Hammer
+        Bash, Grenade=2
+        Bash, Grenade=1, Hammer
+      ShurikenBreak=10, Water, DoubleJump OR Dash  # if you drained the water, you can use the bottom of the wheel instead
+      ShurikenBreak=10, Water, Bash, Grenade=1 OR WaterDash OR Damage=15  # if you drained the water, you can go through through the drained room instead
+
+anchor InnerWellspring.DrainAreaEntrance at -1128, -3968:  # On the wall after dropping through the gate draining the water
+  pickup InnerWellspring.DrainHC:
+    moki:
+      Water OR DoubleJump OR Grapple OR Launch  # bit of a weird pickup
+      Bash, Grenade=1  # seems fine
+    gorlek: Bash OR Dash OR Glide OR Damage=20
+    unsafe: free
+
+  conn InnerWellspring.DrainAreaExit:
+    moki:  # the skeetos just want to be bashed here
+      DoubleJump, Water OR Bash
+      Dash, Bash, Grenade=1
+      Water, Bash, Grenade=1, Grapple OR Glide
       Launch
     gorlek:
-      Grapple, Bash, Grenade=1
-      DoubleJump, TripleJump OR Dash OR Glide
-    unsafe:
-      DoubleJump
+      DoubleJump, Water OR TripleJump OR Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=20
+      Bash, Dash, Sword OR Hammer
+      Bash, Glide, Water OR Sword
+      Bash, Glide, Hammer, Damage=20
+      Bash, Damage=15, Water
+      Bash, Grenade=1, Water OR Dash OR Damage=20
+      Bash, SentryJump=1, Water, Sword OR Hammer
+      Bash, SentryJump=1, Damage=20, Sword OR Hammer
+    unsafe: Dash, Hammer, Damage=20  # Technically possible without damage
+
+anchor InnerWellspring.DrainAreaExit at -1064, -3961:  # At DrainEX
+  pickup InnerWellspring.DrainEX: free
+  pickup InnerWellspring.DrainHC:
+    moki: Water OR Launch
+    gorlek:
+      DoubleJump, TripleJump
+      DoubleJump, Dash, Sword
+      Bash, DoubleJump OR Dash  # luring the skeetos with other abilities seems tricky
+
+  conn InnerWellspring.DrainRoom:
+    moki, BreakWall=10:
+      DoubleJump, Dash OR Glide OR Grapple
+      Dash, Glide, Water
+      Bash, Grenade=2, Grapple
+      Bash, Grenade=2, Dash, Glide
+      Bash, Grenade=1, Dash, Grapple
+      Launch
+    gorlek, BreakWall=10:
+      Glide, Water OR Damage=20
+      Water, Sword
+      Water, Grapple, Damage=15, Bash OR Hammer
+      Water, Bash, Grenade=2
+      Water, Bash, Grenade=1, Damage=15
+      Water, SentryJump=1, Damage=15
+  conn InnerWellspring.DrainRoomCenter:
+    moki, BreakWall=10:
+      DoubleJump OR Launch
+      Dash, Bash, Grenade=2
+      Bash, Grenade=3
+    gorlek, BreakWall=10:
+      Dash
+      Glide, Grapple OR SentryJump=1 OR Damage=15
+      Sword, Grapple OR SentryJump=1 OR Damage=15
+      Bash, Grenade=1, Grapple OR Glide OR Sword OR Damage=15
+      Bash, Grenade=2
+      SentryJump=2, Grapple OR Damage=15
+      SentryJump=3
+
+anchor InnerWellspring.DrainRoomCenter at -1116, -3924:  # Standing on the wheel in the center of the room
+  state InnerWellspring.DrainRoomTopWheel:  # breaking the top wheel free; has a state because it can be used to connect from top right to top left
+    moki:
+      BreakWall=16, Bow OR Grenade OR Spear
+      Launch, BreakWall=16
+    gorlek: BreakWall=16
+
+  conn InnerWellspring.DrainRoom:
+    moki:
+      DoubleJump, Dash
+      Grapple OR Glide OR Launch
+    gorlek:
+      DoubleJump OR Dash OR Sword
+      Hammer, Damage=20
+      Hammer, Water, Damage=15
+    unsafe: Bash, Grenade=1  # could've been gorlek maybe, just seems a bit awkward
+  conn InnerWellspring.DrainAreaEntrance:
+    moki: InnerWellspring.DrainLever
+  conn InnerWellspring.DrainAreaExit:
+    gorlek: ShurikenBreak=10
+  conn InnerWellspring.DrainRoomTop:
+    moki: InnerWellspring.DrainRoomTopWheel OR Grapple OR Launch
+    gorlek:
+      DoubleJump OR Dash
+      Bash, Grenade=1
+
+anchor InnerWellspring.DrainRoomTop at -1086, -3908:  # At the right ledge on top of the drain room
+  refill Checkpoint
+  refill Health=1: free
+
+  pickup InnerWellspring.LaserOre:
+    moki, EnemyObstacle:
+      DoubleJump, Dash OR Glide
+      Dash, Glide
+      Launch
+    gorlek:
+      DoubleJump OR Dash OR Sword
+      EnemyObstacle, Glide
+    unsafe: Bash, Grenade=1
+
+  conn InnerWellspring.DrainRoomCenter: free
+  conn InnerWellspring.BelowDrainLever:
+    moki:
+      DoubleJump, Dash OR Glide
+      InnerWellspring.DrainRoomTopWheel, Grapple
+      Launch
+    gorlek:
+      DoubleJump, TripleJump OR Sword OR Hammer OR Damage=15
+      Dash, Glide OR Sword OR Hammer OR Damage=15
+      Grapple, Damage=15
+      Grapple, SentryJump=1, Sword OR Hammer
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      SentryJump=1, Sword, Glide
+      InnerWellspring.DrainRoomTopWheel, Bash, Grenade=1
+      InnerWellspring.DrainRoomTopWheel, SentryJump=1
+    unsafe: DoubleJump OR Dash OR Grapple
 
 anchor InnerWellspring.BelowDrainLever at -1153, -3895:  # In the first room below the drain lever
   refill Checkpoint
@@ -2326,43 +2436,16 @@ anchor InnerWellspring.BelowDrainLever at -1153, -3895:  # In the first room bel
       Launch
     gorlek, BreakWall=16:
       Damage=15
-      DoubleJump, TripleJump
-
+      DoubleJump, TripleJump OR Sword OR Hammer
   state InnerWellspring.DrainLever:
     moki:
       Bash, Grenade=1  # not softlockable: UpperCorruption solves this
-      InnerWellspring.UpperCorruption OR Launch
-    gorlek:
-      DoubleJump, TripleJump, Damage=15
-      DoubleJump, Hammer, Damage=15
-      SentryJump=1
-    unsafe:
-      Grenade=1, DoubleJump
-
-  pickup InnerWellspring.LaserOre:
-    moki, EnemyObstacle:
-      DoubleJump, Dash
-      Glide OR Launch
-    gorlek:
-      Sword
-      Hammer, Damage=20
-      Dash OR DoubleJump
- 
-  pickup InnerWellspring.LeverEC:
-    moki:
-      Bash, Grenade=2  # not softlockable: UpperCorruption solves this
-      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide  # not softlockable: UpperCorruption solves this
+      InnerWellspring.UpperCorruption, DoubleJump
       Launch
-      InnerWellspring.UpperCorruption, Bash, Grenade=1
-      InnerWellspring.UpperCorruption, Grapple, DoubleJump OR Dash OR Glide
     gorlek:
-      SentryJump=2
-      InnerWellspring.UpperCorruption, SentryJump=1
-      InnerWellspring.UpperCorruption, Grapple
-      InnerWellspring.UpperCorruption, DoubleJump, TripleJump, Damage=15
-    unsafe:
       DoubleJump, TripleJump, Damage=15
-      Grenade=2, DoubleJump
+      InnerWellspring.UpperCorruption OR SentryJump=1
+    unsafe: Grenade=1
 
   pickup InnerWellspring.LupoEX:
     moki:
@@ -2370,31 +2453,42 @@ anchor InnerWellspring.BelowDrainLever at -1153, -3895:  # In the first room bel
       Launch
     gorlek:
       Damage=15
-      DoubleJump, TripleJump
+      DoubleJump, TripleJump OR Sword OR Hammer
+  pickup InnerWellspring.LeverEC:
+    moki:
+      Bash, Grenade=2  # not softlockable: UpperCorruption solves this
+      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide  # not softlockable: UpperCorruption solves this
+      InnerWellspring.UpperCorruption, DoubleJump, Bash, Grenade=1
+      InnerWellspring.UpperCorruption, DoubleJump, Grapple
+      Launch
+    gorlek:
+      DoubleJump, TripleJump, Damage=15, Bash, Grenade=1
+      DoubleJump, TripleJump, Damage=15, Grapple OR SentryJump=1
+      Bash, Grenade=1, Grapple
+      SentryJump=2
+      SentryJump=1, Grapple
+      InnerWellspring.UpperCorruption, Bash, Grenade=1
+      InnerWellspring.UpperCorruption, Grapple OR SentryJump=1
+      InnerWellspring.UpperCorruption, DoubleJump, TripleJump, Damage=15
+    unsafe:
+      DoubleJump, TripleJump, Damage=15
+      Grenade=2
 
   conn InnerWellspring.WestDoor:
     moki:
       DoubleJump, Bash, Grenade=1
-      Launch
-      InnerWellspring.UpperCorruption
+      InnerWellspring.UpperCorruption OR Launch
     gorlek:
-      SentryJump=1, Damage=15
-      SentryJump=2
       DoubleJump, TripleJump, Damage=15
-    unsafe:
-      Grenade=2
-
-  conn InnerWellspring.DrainRoom:
-    moki:
-      DoubleJump, Dash
-      Grapple OR Glide OR Launch
-    gorlek:
-      Dash
-      Sword
-      DoubleJump, Damage=15
-      Hammer, Damage=15
-    unsafe:
-      DoubleJump
+      Bash, Grenade=1
+      SentryJump=1, Damage=15
+      SentryJump=1, DoubleJump, Glide
+      SentryJump=2
+    unsafe: Grenade=2
+  conn InnerWellspring.DrainRoomTop:
+    moki: DoubleJump OR Dash OR Glide OR Launch
+    gorlek: free
+  conn InnerWellspring.DrainRoomCenter: free
 
 anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you exit the first room
   refill Checkpoint
@@ -2407,11 +2501,12 @@ anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you ex
       Grapple
       Bash, Grenade=1, Launch
     gorlek:
-      Bash, DoubleJump, TripleJump                 # Unsure if gorlek or not 
-      SentryJump=1, DoubleJump, TripleJump         # Unsure if gorlek or not
+      Bash, DoubleJump, TripleJump  # entertain the mantis
+      SentryJump=1, DoubleJump, TripleJump  # solvable through wraparound if you don't sjump well
+      Launch
     unsafe:
       Hammer, DoubleJump, TripleJump
-      SentryJump=1, Hammer
+      SentryJump=1
 
   pickup InnerWellspring.ShortcutWheelEX:
     moki: InnerWellspring.ShortCutWheel
@@ -2421,9 +2516,9 @@ anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you ex
       Bash  # bash the skeeto
       InnerWellspring.UpperCorruption
     gorlek:
-      DoubleJump                                   # If too precise add triple jump
       Grapple
-
+      SentryJump=1, Sword  # hammer locking your movement makes this awkward
+    unsafe: DoubleJump  # kind of easy
   pickup InnerWellspring.GrappleTreeEX:
     moki:
       DoubleJump, Grapple
@@ -2431,20 +2526,18 @@ anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you ex
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
     gorlek:
+      Bash, Grenade=1
       DoubleJump, TripleJump OR Hammer
       SentryJump=1
       Grapple, Dash
     unsafe:
       DoubleJump, Sword
-      Grenade=1, Damage=20
-
+      Grenade=1
   pickup InnerWellspring.GrappleTree:
     moki:
       DoubleJump OR Dash OR Glide OR Grapple OR Launch
-      Bash, Grenade=1  # the jumper would be kind of lure-ish
-    gorlek:
-      Damage=20
-      Hammer OR Sword
+      Bash, Grenade=1  # jumper would be a lure
+    gorlek: free  # kind of weird that this works
 
   conn OuterWellspring.WestDoor:
     moki: InnerWellspring.MiddleDoorsOpen
@@ -2458,70 +2551,101 @@ anchor InnerWellspring.EastDoor at -1190, -3733:  # Inside the door leading to t
 
   state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
     moki: Combat, DoubleJump OR Dash OR Glide OR Launch  # +25 region danger
-    gorlek: Combat
-
-  state InnerWellspring.SpinPuzzleSolved:  # to prevent softlocks the pickups in the spin puzzle room unlock only after completing it
+    gorlek: Combat  # different ways to solve
+  state InnerWellspring.SpinPuzzleSolved:  # Having Water changes this room (not considered in moki)
     moki, InnerWellspring.SpinArena:
       Grapple, DoubleJump OR Dash
       Grapple, Bash, Grenade=1
       Launch
     gorlek, InnerWellspring.SpinArena:
-      Water, DoubleJump
-      Water, Damage=15, Dash OR Glide
-      Water, Damage=15, Sword
-      Water, Hammer
-      Grapple, Sword OR Hammer
+      Grapple, Glide OR Sword OR Hammer
+      Water, DoubleJump OR Grapple OR SentryJump=1
+      Water, Bash, Grenade=1
+      Water, Damage=15, Dash OR Sword
     unsafe, InnerWellspring.SpinArena:
-      DoubleJump, TripleJump, Hammer
       Grapple
-
-  state InnerWellspring.TopDoorOpen:
-    moki, InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, EnemyObstacle, BreakWall=16:
-      Grapple, DoubleJump, Dash OR Glide
-      Grapple, Dash, Glide
-      Grapple, Launch
-    gorlek, InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, EnemyObstacle, BreakWall=16:
-      Grapple, Dash OR Glide OR DoubleJump
-      Water, Grapple, Damage=15
-      Launch, DoubleJump, TripleJump
-      Launch, Damage=15, DoubleJump OR Dash
-    unsafe, InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, EnemyObstacle, BreakWall=16:
-      Water, WaterDash, Launch, Damage=15
-      Grapple, Damage=15
+      DoubleJump, TripleJump, Hammer
+      Water, Glide, Damage=15
+      Water, Hammer
 
   quest InnerWellspring.HandToHandHerbs:
     moki: GladesTown.HandToHandPouch
   quest InnerWellspring.NeedleQI:
     moki, InnerWellspring.TopDoorOpen:
-      InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Grapple, Dash, Glide
       Grapple, DoubleJump OR Launch
-      DoubleJump, Bash, Grenade=1
+      Bash, Grenade=1, DoubleJump OR Launch
       Launch, DoubleJump
     gorlek, InnerWellspring.TopDoorOpen:
-      InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Grapple, Dash OR Glide
-      InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Water, Grapple, Damage=15
-      Grapple, Sword OR Hammer
-      DoubleJump, TripleJump, Hammer
       Bash, Grenade=1
-      Launch
+      Grapple OR Launch
 
   pickup InnerWellspring.AboveSpinArenaEX:
     moki:
       Grapple, DoubleJump OR Dash
       Launch
     gorlek:
+      Grapple, Sword OR SentryJump=1 OR Damage=15
+      DoubleJump, TripleJump, SentryJump=1 OR Damage=15
+      ShurikenBreak=10
+    unsafe: DoubleJump
+  pickup InnerWellspring.RotateRoomEX:  # after pulling two of the three levers, this pickup is blocked off. Due to that, fully solving the puzzle is the only non-softlockable solution for this pickup
+    moki: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
+  pickup InnerWellspring.RotateRoomOre:  # blocked off until you fully solve the puzzle
+    moki: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
+
+  conn OuterWellspring.EastDoor: free
+  conn InnerWellspring.PastSpinPuzzle:  # while there are abilitysets to get through the spinning room regardless of state, they are more expensive than just solving the puzzle
+    moki: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Grapple OR Launch
+    gorlek: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved, Water  # gorlek is fun
+
+anchor InnerWellspring.PastSpinPuzzle at -1101, -3778:  # Right after exiting the spin puzzle room
+  refill Checkpoint
+
+  state InnerWellspring.TopDoorOpen:
+    moki, BreakWall=16:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Grapple, Launch
+    gorlek, BreakWall=16:
+      Grapple, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      Water, Grapple, Damage=15
+      Launch, DoubleJump, TripleJump
+      Launch, Damage=15, DoubleJump OR Dash OR Glide
+      Water, WaterDash, Launch, DoubleJump
+    unsafe, BreakWall=16:
+      Water, WaterDash, Launch, Damage=15
       Grapple, Damage=15
-      Grapple, Hammer
-      DoubleJump, TripleJump, SentryJump=1
-      BackWallBreak=12
 
-  pickup InnerWellspring.RotateRoomEX:
-    moki: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
-  pickup InnerWellspring.RotateRoomOre:
-    moki: InnerWellspring.SpinArena, InnerWellspring.SpinPuzzleSolved
+  quest InnerWellspring.NeedleQI:
+    moki, InnerWellspring.TopDoorOpen:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Grapple, Launch
+    gorlek, InnerWellspring.TopDoorOpen:
+      Grapple, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      Water, Grapple, Damage=15
+      Launch, DoubleJump, TripleJump
+      Launch, Damage=15, DoubleJump OR Dash OR Glide
+      Water, WaterDash, Launch, DoubleJump
+    unsafe, InnerWellspring.TopDoorOpen:
+      Water, WaterDash, Launch, Damage=15
+      Grapple, Damage=15
 
-  conn OuterWellspring.EastDoor:
-    moki: InnerWellspring.MiddleDoorsOpen
+  conn InnerWellspring.EastDoor:
+    moki, InnerWellspring.TopDoorOpen:
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
+      Grapple, Launch
+    gorlek, InnerWellspring.TopDoorOpen:
+      Grapple, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      Water, Grapple, Damage=15
+      Launch, DoubleJump, TripleJump
+      Launch, Damage=15, DoubleJump OR Dash OR Glide
+      Water, WaterDash, Launch, DoubleJump
+    unsafe, InnerWellspring.TopDoorOpen:
+      Water, WaterDash, Launch, Damage=15
+      Grapple, Damage=15
+  # backwards connections would be cool here someday
 
 anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
   refill Full
@@ -2532,9 +2656,9 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
       Bash, Grenade=1
       Launch
     gorlek:
-      DoubleJump, TripleJump
+      DoubleJump, TripleJump OR Glide OR Sword OR Hammer
       SentryJump=1
-      Dash, Hammer
+    unsafe: Dash, Hammer
 
   pickup InnerWellspring.LibraryEX: free
   pickup InnerWellspring.AboveTpEX:
@@ -2544,14 +2668,15 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
       Launch
     gorlek:
       DoubleJump, TripleJump                 # Can be done with just double jump but the first jump is precise
-      SentryJump=1
+      SentryJump=1, Sword
     unsafe:
       DoubleJump, Sword OR Hammer            # Sword path uses platform on the right, Hammer path uses the wall to the left of tp
-
   pickup InnerWellspring.SwimOre:
     moki: Water
 
   conn Teleporters: free
+  conn OuterWellspring.TopDoor: free
+  conn OpherShop: free
   conn InnerWellspring.EscapeSequence:
     moki:
       DoubleJump, Dash, Grapple
@@ -2560,16 +2685,13 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
       Bash, Grenade=2
       Launch
     gorlek:
-      SentryJump=1, Glide OR Dash          # Possibly too precise for gorlek, sentry jump to left wall, then wall jump up it
-      SentryJump=1, Grapple
+      DoubleJump, TripleJump OR Dash OR Glide OR Sword OR Hammer
+      Bash, Grenade=1, DoubleJump
+      SentryJump=1, DoubleJump OR Grapple
       SentryJump=2
-      Dash, Hammer                         # Possibly too precide for gorlek (wall jump up left side is a bit tricky)
-      DoubleJump, TripleJump               # Can be done with just double jump but the first jump is precise
     unsafe:
-      SentryJump=1
-      DoubleJump
-  conn OuterWellspring.TopDoor: free
-  conn OpherShop: free
+      DoubleJump OR SentryJump=1
+      Dash, Hammer
 
 anchor InnerWellspring.EscapeSequence:
   refill Full
@@ -2579,10 +2701,9 @@ anchor InnerWellspring.EscapeSequence:
       Bash, Grapple, Dash, Glide
       Grapple, Launch
     gorlek:
-      Grapple, DoubleJump, Dash
-      Grapple, Bash, DoubleJump OR Dash OR Glide
-      Grapple, Bash, Sword
-      Launch, Damage=15                 # Assumes at least one damage is taken in the final grapple section, probablly possible without
+      Grapple, DoubleJump, Dash  # bit spicy
+      Bash, Grapple, DoubleJump OR Dash OR Glide
+      Launch, Damage=15  # Assumes at least one damage is taken in the final grapple section, probably possible without
     unsafe:
       Grapple, DoubleJump
       Grapple, Dash
