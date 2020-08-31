@@ -54,8 +54,13 @@ namespace RandoMainDLL {
         IgnoreUpdateFrames--;
         return;
       }
-      if (Last != null && Last.ore != InterOp.get_ore() || Last.spiritLight != InterOp.get_experience())
-        Write();
+      try {
+        if (Last == null || Last.ore != InterOp.get_ore() || Last.spiritLight != InterOp.get_experience())
+          Write();
+      } catch (Exception e) {
+        Randomizer.Error("Track.Update", e);
+          Randomizer.Log($"Last: {Last}");
+      }
     }
     public static void Write() {
       try {
