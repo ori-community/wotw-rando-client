@@ -32,3 +32,7 @@ build/*
 projects/Injector/bin/*
 projects/Injector/obj/*
 projects/SeedGen/nofluff.wotw
+projects/wotw-server/gradle/wrapper/gradle-wrapper.jar
+projects/wotw-server/gradle/wrapper/gradle-wrapper.properties
+projects/wotw-server/gradlew
+projects/wotw-server/gradlew.bat
