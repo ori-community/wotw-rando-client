@@ -1,3 +1,7 @@
+:: change these if necessary
+set MSBuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MsBuild.exe"
+set JavaHome="C:\Program Files\Java\AzJDK_8\jdk1.8.0_265\"
+
 cd "%~dp0"
 if "%1"=="compileonly" (
 	cd "projects"
@@ -13,15 +17,14 @@ if "%1"=="compileonly" (
 )
 if NOT "%1"=="buildonly" (
 	cd "projects\SeedGen"
-
-	call sbt assembly
-
+	call sbt assembly --java-home=%JavaHome%
 	cd "..\.."
+	timeout /t 10
 )
 
 :: Either change paths or build yourself and run with nobuild
 if NOT "%1"=="nobuild" (
-	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MsBuild.exe" -targets -p:Configuration=MinSizeRel -p:Platform=x64 C:\Users\WorstMirari\Documents\GitHub\OriWotwRandomizerClient\build\win64\WotWRandomizer.sln
+	%MSBuildPath% -targets -p:Configuration=RelWithDebInfo -p:Platform=x64 C:\Users\WorstMirari\Documents\GitHub\OriWotwRandomizerClient\build\win64\WotWRandomizer.sln
 	IF ERRORLEVEL 1 (
 		echo BUILD FAILED
 		timeout /t 14
@@ -37,4 +40,6 @@ if NOT "%1"=="buildonly" (
 	"ext\ahk\Ahk2Exe.exe" /in "RandoSettings.ahk" /icon "WotwRando.ico" /out "C:\moon\RandoSettings.exe"
 	"ext\ahk\Ahk2Exe.exe" /in "projects/AutoTracker/OriAutoTracker.ahk" /icon "WotwRando.ico" /out "C:\moon\ItemTracker.exe"
 	"ext\ahk\Ahk2Exe.exe" /in "WotwRando.ahk" /icon "WotwRando.ico" /out "C:\moon\WotwRando.exe"
+	echo BUILD SUCCESS!
+	timeout /t 10
 )

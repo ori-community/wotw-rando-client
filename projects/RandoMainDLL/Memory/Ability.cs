@@ -10,6 +10,7 @@ namespace RandoMainDLL.Memory {
     [Description("Double Jump")]
     DoubleJump = 5,
     Launch = 8,
+    [Description("Glide")]
     Feather = 14,
     [Description("Water Breath")]
     WaterBreath = 23,

@@ -14,6 +14,7 @@ set(
 	"MapController.cs"
 	"Pickup.cs"
 	"Randomizer.cs"
+	"Relics.cs"
 	"SaveController.cs"
 	"SeedController.cs"
 	"ShopController.cs"
