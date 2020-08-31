@@ -4231,7 +4231,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   conn EastPools.Teleporter:
     moki: EastPools.LowerWaterDrained
   conn EastPools.LeverRoom:
-    moki, EastPools.EntryLever, :
+    moki, EastPools.EntryLever:
       EnemyObstacle, DoubleJump OR Dash OR Glide  # go above
       Bash, Grenade=1  # go above
       Launch  # go above
