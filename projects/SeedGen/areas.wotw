@@ -2983,6 +2983,7 @@ anchor WoodsMain.BelowHiddenOre at 1038, -4101:  # Below and to the right of the
       DoubleJump, Dash
 
 anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
+  refill Checkpoint
   refill Health=1: free
 
   pickup WoodsMain.PetrifiedHowlEX: free
@@ -3055,7 +3056,6 @@ anchor WoodsMain.AbovePit at 1234, -3985:  # To the left of the pit before feedi
 
 anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feeding grounds
   refill Checkpoint
-  refill Energy=3:
 
   # having the initial escape completed is a negative, not a positive. The paths going through it are the connections to Wastes.
   # if you complete the initial escape, rocks fall and block most of the connection paths to WestTP. This is equally true for the base game though and solved by the fact that if you complete the escape, you unlock the teleporter, making these paths not softlockable
@@ -3844,6 +3844,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
     unsafe:
       DoubleJump, Dash OR Glide
       Bash OR Launch
+  # energy crystal on the way not considered
 
   quest LowerDepths.HandToHandSilk:
     moki: GladesTown.HandToHandLantern
@@ -5152,10 +5153,10 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
   # state WillowsEnd.TrapHeart:
   #   moki: BreakWall=30, RangedWeapon, Launch, DoubleJump, Dash
 
-  # state WillowsEnd.GrappleWheelsHeart:
-  #   moki, BreakWall=30:
-  #     Grapple, Launch, DoubleJump, Dash
-  #     Grapple, Launch, Glide
+  state WillowsEnd.GrappleWheelsHeart:
+    moki, BreakWall=30:
+      Grapple, Launch, DoubleJump, Dash
+      Grapple, Launch, Glide
 
   pickup WillowsEnd.SpikesOre:
     moki: Launch, Dash OR Glide
