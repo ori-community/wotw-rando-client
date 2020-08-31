@@ -92,6 +92,14 @@ fun generatePool() = mutableListOf(
         max = 1
     ),
     pool(
+        "Collect Wisps",
+        bool("Strength", 945, 49747),
+        bool("Memory", 28895, 25522),
+        bool("Eyes", 18793, 63291),
+        bool("Heart", 10289, 22102),
+        bool("Voice", 46462, 59806)
+    ),
+    pool(
         "Complete Quests",
         number("The Silent Teeth", 937, 34641, 4),
         number("Beneath Shifting Sands", 14019, 35399, 3),
