@@ -74,13 +74,16 @@ private fun number(text: String, group: Int, state: Int, min: Int, max: Int, mod
 fun generatePool() = mutableListOf(
     pool(
         "Buy # maps",
-        bool("Inkwater Marhs", 1, 1),
-        bool("Baur's Reach", 1, 1),
-        bool("Mouldwood", 1, 1),
-        bool("The Wellspring", 1, 1),
-        bool("Luma Pools", 1, 1),
-        bool("Willow's End", 1, 1)
-    ),
+        bool("Inkwater Marsh", 48248, 18767),
+        bool("Midnight Burrows", 48248, 45538),
+        bool("Kwoloks Hollow", 48248, 3638),
+        bool("The Wellspring", 48248, 1590),
+        bool("Luma Pools", 48248, 1557),
+        bool("Baurs Reach", 48248, 29604),
+        bool("Mouldwood Depths", 48248, 48423),
+        bool("Windswept Wastes", 48248, 61146),
+        bool("Willows End", 48248, 4045)
+        ),
     bool("Go fish!", 1, 1),
     pool(
         "Spend Gorlek Ore",
