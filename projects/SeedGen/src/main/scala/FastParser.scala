@@ -29,7 +29,7 @@ package SeedGenerator {
       case (Some(_), digits) => -digits.toInt
       case (None, digits) => digits.toInt
     }))
-    val skillsWithCost = Map("Bow" -> (Bow, .25f), "Spear" -> (Spear,  2f), "Flash" -> (Flash, 1f), "Shuriken" -> (Shuriken, 0.5f), "Blaze" -> (Blaze, 1f), "Grenade" -> (Blaze, 1f), "Sentry" -> (Sentry, 1f))
+    val skillsWithCost = Map("Bow" -> (Bow, .25f), "Spear" -> (Spear,  2f), "Flash" -> (Flash, 1f), "Shuriken" -> (Shuriken, 0.5f), "Blaze" -> (Blaze, 1f), "Grenade" -> (Grenade, 1f), "Sentry" -> (Sentry, 1f))
     def energySkillReq[_: P]: P[Requirement] = P(nameMapParser(skillsWithCost) ~~ equalsNum).map({case (skill, cost, count) => skill.req and EnergyReq(count * cost)})
     def equalsNum[_ :P]: P[Int] = P("=" ~ num)
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
