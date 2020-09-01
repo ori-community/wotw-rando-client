@@ -2416,7 +2416,7 @@ anchor UpperReach.OutsideTreeRoom at -169, -3911:  # In front of the keystone do
     moki: Keystone=4
 
   pickup UpperReach.TreeOre:
-    moki:
+    moki, UpperReach.KeystoneDoor:
       DoubleJump, Bash, Grenade=1, Dash OR Glide
       Dash, Bash, Grenade=1, Glide
       Launch, DoubleJump OR Dash OR Glide
