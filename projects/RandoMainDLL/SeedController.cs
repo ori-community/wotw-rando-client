@@ -59,7 +59,7 @@ namespace RandoMainDLL {
       }
     }
     public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
-    public override bool Equals(object obj) => obj is UberStateCondition other ? (Id.Equals(other.Id) && Target == other.Target) : false;
+    public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
   }
 
 
@@ -410,9 +410,9 @@ namespace RandoMainDLL {
 
     public static bool DoesHowlExist() => flags.Contains(Flag.RAIN);
 
-    public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || (SaveController.Data?.TreesActivated?.Contains(AbilityType.SpiritEdge) ?? false);
+    public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || AbilityType.SpiritEdge.HaveTree();
 
-    public static int Current { get => SaveController.Data?.FoundCount ?? 0; }
+    public static int Current { get => SaveController.FoundCount; }
     public static int Total { get => pickupMap.Count; }
     public static string Progress {
       get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages(progress: true);
@@ -428,7 +428,7 @@ namespace RandoMainDLL {
         msg += $", {w}Wisps: {amount}/{max}{w}";
       }
       if (flags.Contains(Flag.ALLTREES)) {
-        var amount = SaveController.Data?.TreesActivated?.Count ?? 0;
+        var amount = SaveController.TreeCount;
         var w = amount == 14 ? met : unmet;
         msg += $", {w}Trees: {amount}/{14}{w}";
       }
@@ -446,7 +446,7 @@ namespace RandoMainDLL {
     public static void UpdateGoal() {
       bool finished = true;
       if (flags.Contains(Flag.ALLTREES)) {
-        finished = finished && SaveController.Data.TreesActivated.Count == 14;
+        finished = finished && SaveController.TreeCount == 14;
       }
 
       if (finished && flags.Contains(Flag.ALLWISPS)) {

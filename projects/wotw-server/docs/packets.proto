@@ -1,0 +1,17 @@
+message Packet {
+    required int32 id = 1;
+    required bytes packet = 2;
+}
+
+message UberStateUpdateMessage{
+    required UberId state = 1;
+    required float value = 2;
+}
+
+message UberId{
+    required int32 group = 1;
+    required int32 state = 2;
+}
+message InitBingoMessage{
+    repeated UberId uberId = 1;
+}

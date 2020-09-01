@@ -1,120 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class SaveController {
-    public class SaveData {
-      public SaveData(int slot) {
-        Slot = slot;
-      }
 
-      [JsonConstructor]
-      public SaveData(int slot, HashSet<AbilityType> trees, HashSet<AbilityType> opherSell, Dictionary<AbilityType, int> opherUpgrade, 
-        HashSet<ShardType> shardSlots, HashSet<QuestEventType> worldEvents, HashSet<AbilityType> skillsFound, Dictionary<BonusType, int> bonusItems, int count = 0, int ksBought = 0) {
-        Slot = slot;
-        TreesActivated = trees;
-        OpherSold = opherSell;
-        OpherUpgraded = opherUpgrade;
-        TwillenSold = shardSlots;
-        SkillsFound = skillsFound;
-        WorldEvents = worldEvents;
-        FoundCount = count;
-        KSBought = ksBought;
-      }
+    // extensions! C:
+    public static UberId State(this QuestEventType at) => new UberId(6, 2000 + (int)at);
+    public static bool Have(this QuestEventType at) => UberGet.value(at.State()).Bool;
 
-      public int Slot;
-      public HashSet<AbilityType> TreesActivated = new HashSet<AbilityType>();
-      public HashSet<AbilityType> OpherSold = new HashSet<AbilityType>();
-      public Dictionary<AbilityType, int> OpherUpgraded = new Dictionary<AbilityType, int>();
-      public HashSet<ShardType> TwillenSold = new HashSet<ShardType>();
-      public HashSet<QuestEventType> WorldEvents = new HashSet<QuestEventType>();
-      public HashSet<AbilityType> SkillsFound = new HashSet<AbilityType>();
-      public int FoundCount = 0;
-      public int KSBought = 0;
+    public static UberId State(this AbilityType at) => new UberId(6, 1000 + (int)at);
+    public static bool Have(this AbilityType at) => UberGet.value(at.State()).Bool;
+    public static UberId TreeState(this AbilityType at) => new UberId(0, (int)at);
+    public static bool HaveTree(this AbilityType at) => UberGet.value(at.TreeState()).Bool;
+    public static UberId BoughtState(this AbilityType at) => new UberId(1, (int)at);
+    public static bool Bought(this AbilityType at) => UberGet.value(at.BoughtState()).Bool;
+    public static UberId UpgradedState(this AbilityType at) => new UberId(1, 1000 + (int)at);
+    public static bool Upgraded(this AbilityType at) => UberGet.value(at.UpgradedState()).Bool;
 
-      [JsonIgnore]
-      public string SaveDirectory => $"{Randomizer.SaveFolder}\\";
-      [JsonIgnore]
-      public string Filename => $"{Randomizer.SaveFolder}\\randosave_{Slot}.json";
-      [JsonIgnore]
-      public string FilenamePattern => $"randosave_{Slot}.*";
-      public string fullName(int backup) => Filename + (backup != -1 ? $".{backup}.bak" : "");
-      public override string ToString() => $"slot: {Slot}\npickups: {FoundCount}\nks: {KSBought}\nTreesActivated: {TreesActivated}\nOpherSold: {OpherSold}\nOpherUpgraded: {OpherUpgraded}\nTwillenSold: {TwillenSold}\nWorldEvents: {WorldEvents}\nSkills: {SkillsFound}";
-      public void Delete() {
-        try {
-          var files = Directory.GetFiles(SaveDirectory, FilenamePattern);
-          foreach (var file in files) {
-            File.Delete(file);
-          }
-        }
-        catch (Exception) {}
-      }
-      public void Copy(int toSlot) {
-        try {
-          var data = new SaveData(toSlot);
-          data.Delete();
+    public static UberId BoughtState(this ShardType st) => new UberId(2, (int)st);
+    public static bool Bought(this ShardType st) => UberGet.value(st.BoughtState()).Bool;
 
-          var files = Directory.GetFiles(SaveDirectory, FilenamePattern);
-          foreach (var file in files) {
-            int backup = -1;
-            if (file.EndsWith(".bak")) {
-              backup = Convert.ToInt32(file.Substring(file.Length - 5, 1));
-            }
+    public static List<AbilityType> UpgradeableATs = new List<AbilityType>() { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, };
 
-            File.Copy(file, data.fullName(backup));
-          }
-        }
-        catch (Exception) {}
-      }
+    public static List<AbilityType> UpgradedWeapons { get => UpgradeableATs.Where(at => at.Upgraded()).ToList(); }
 
-      public void Save(int backup = -1) {
-        string targetFile = fullName(backup);
-        if (File.Exists(targetFile)) 
-          File.Delete(targetFile);
-        
-        using (var sw = new StreamWriter(targetFile))
-          using (JsonWriter writer = new JsonTextWriter(sw)) {
-            var serializer = new JsonSerializer();
-            serializer.Serialize(writer, this);
-          }
-        TrackFileController.Write();
-      }
-      public void Load(int backup = -1) {
-        string targetFile = fullName(backup);
-        var copyFrom = new SaveData(-1);
-        if (File.Exists(targetFile)) {
-          using (var sr = new StreamReader(targetFile))
-          using (JsonReader reader = new JsonTextReader(sr)) {
-            var serializer = new JsonSerializer { DefaultValueHandling = DefaultValueHandling.Populate };
-            copyFrom = serializer.Deserialize<SaveData>(reader);
-          }
-        }
-        TreesActivated = new HashSet<AbilityType>(copyFrom.TreesActivated);
-        OpherSold = new HashSet<AbilityType>(copyFrom.OpherSold);
-        OpherUpgraded = new Dictionary<AbilityType, int>(copyFrom.OpherUpgraded);
-        TwillenSold = new HashSet<ShardType>(copyFrom.TwillenSold);
-        WorldEvents = new HashSet<QuestEventType>(copyFrom.WorldEvents);
-        SkillsFound = new HashSet<AbilityType>(copyFrom?.SkillsFound ?? new HashSet<AbilityType>());
-        FoundCount = copyFrom.FoundCount;
-        KSBought = copyFrom.KSBought;
-        TrackFileController.Write();
-      }
-    }
+    public static List<AbilityType> SkillsFound { get => ((AbilityType[])Enum.GetValues(typeof(AbilityType))).Where(at => at != AbilityType.NONE && at != AbilityType.TeleportSpell && at.Have()).ToList(); }
+    public static List<QuestEventType> WorldEvents { get => ((QuestEventType[])Enum.GetValues(typeof(QuestEventType))).Where(at => at.Have()).ToList(); }
+
+    public static List<AbilityType> TreeAbilities = new List<AbilityType>() {
+                     AbilityType.SpiritEdge,
+                     AbilityType.DoubleJump,
+                     AbilityType.Regenerate,
+                     AbilityType.SpiritArc,
+                     AbilityType.Dash,
+                     AbilityType.Bash,
+                     AbilityType.Grapple,
+                     AbilityType.WaterDash,
+                     AbilityType.Flash,
+                     AbilityType.LightBurst,
+                     AbilityType.Burrow,
+                     AbilityType.Launch,
+                     AbilityType.DamageUpgrade1,
+                     AbilityType.DamageUpgrade2,
+    };
+    public static int TreeCount { get => TreeAbilities.Count(at => at.HaveTree()); }
     public static void FoundItem() {
-      if(Data != null)
-        Data.FoundCount++;
+      FoundCount++;
       MapController.UpdateReachable();
     }
-    public static bool HasAbility(AbilityType ability) => Data?.SkillsFound?.Contains(ability) ?? false;
+    public static int KSBought { get => UberGet.value(6, 1).Int; set => UberSet.Int(6, 1, value); }
+    public static int FoundCount { get => UberGet.value(6, 2).Int; set => UberSet.Int(6, 2, value); }
+    public static bool HasAbility(AbilityType ability) => ability.Have();
     public static void SetAbility(AbilityType ability, bool setTo = true) {
-      if (setTo)
-        Data.SkillsFound.Add(ability);
-      else
-        Data.SkillsFound.Remove(ability);
-      
+      UberSet.Bool(ability.State(), setTo);      
       InterOp.set_ability(ability, setTo);
       if (ability.Equip().HasValue)
         InterOp.set_equipment(ability.Equip().Value, setTo);
@@ -123,20 +65,14 @@ namespace RandoMainDLL {
       TrackFileController.Write();
     }
     public static void SetEvent(QuestEventType ev, bool setTo = true) {
-      if (setTo)
-        Data.WorldEvents.Add(ev);
-      else
-        Data.WorldEvents.Remove(ev);
+      UberSet.Bool(ev.State(), setTo);
       TrackFileController.Write();
     }
 
-    public static SaveData Data;
     public static int CurrentSlot = -1;
 
     public static void NewGame(int slot) {
       CurrentSlot = slot;
-      Data = new SaveData(slot);
-      Data.Save();
     }
 
     public static void OnLoad(int slot, int backupSlot = -1) {
@@ -148,11 +84,9 @@ namespace RandoMainDLL {
           }
           // slot swap
           CurrentSlot = slot;
-          Data = new SaveData(slot);
         }
         UberStateController.SkipListenersNextUpdate = true;
         UberStateController.UberStates.Clear();
-        Data.Load(backupSlot);
         if (DidWeJustDie) {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
@@ -177,23 +111,18 @@ namespace RandoMainDLL {
       if (slot != CurrentSlot) {
         // this is a slot swap and not a save
         CurrentSlot = slot;
-        Data = new SaveData(slot);
-        Data.Load(backupSlot);
         if (Randomizer.InputUnlockCallback != null) {
           AHK.Print("Warning: Callback overwritten on slot change!", 240);
           Randomizer.InputUnlockCallback = null;
         }
         return;
       }
-      Data.Save(backupSlot);
     }
 
     public static void OnCopy(int fromSlot, int toSlot) {
-      new SaveData(fromSlot).Copy(toSlot);
     }
 
     public static void OnDelete(int slot) {
-      new SaveData(slot).Delete();
     }
   }
 }
