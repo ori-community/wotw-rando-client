@@ -56,7 +56,7 @@ package SeedGenerator {
       case s if knownMacros.contains(s) => knownMacros(s)
       case s => StateReq(s)
     })
-    def singleReq[_:P]: P[Requirement] = P(diffReq | tpReq | skillReq | oreReq | energyReq | dangerReq | ksReq | cashReq | wallReq | free | eventReq | shardReq | unfree | stateReq)//.log
+    def singleReq[_:P]: P[Requirement] = P(diffReq | tpReq | wallReq | skillReq | oreReq | energyReq | dangerReq | ksReq | cashReq | free | eventReq | shardReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
       case (reqs, Some(orReq)) =>
