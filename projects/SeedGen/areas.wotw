@@ -708,7 +708,7 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=2
   conn MarshPastOpher.TrialArea:
-    moki: BreakWall=20, Danger=10  # the one-way has 20 health as well, so there might not be relevant BackWallBreak paths here
+    moki: BreakWall=20, Danger=10  # the one-way has 20 health as well, so there might not be relevant ShurikenBreak paths here
 
 # checkpoint at -472, -4236
 
@@ -4727,7 +4727,7 @@ anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
     gorlek: Burrow OR Hammer
     unsafe: Sentry=1 OR Spear=1  # Pretty sure that other spells _should_ work here, but they're unsafe paths so cbf checking now lol
   pickup LowerWastes.BottomRightHC:  # free to get to from here
-    gorlek: BackWallBreak=20, EnemyObstacle OR DoubleJump  # dance with the gorlek
+    gorlek: ShurikenBreak=20, EnemyObstacle OR DoubleJump  # dance with the gorlek
 
   conn LowerWastes.SandPot:
     moki:
@@ -4753,9 +4753,9 @@ anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
       Sentry=1
   conn LowerWastes.MinesEntrance:  # guess this wasn't that bad after all
     gorlek:
-      EnemyObstacle, BackWallBreak=20, Dash OR Glide OR Grapple OR Damage=30
-      BackWallBreak=20, DoubleJump OR Launch
-      BackWallBreak=20, Bash, Grenade=1
+      EnemyObstacle, ShurikenBreak=20, Dash OR Glide OR Grapple OR Damage=30
+      ShurikenBreak=20, DoubleJump OR Launch
+      ShurikenBreak=20, Bash, Grenade=1
 
 anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower breakable wall
   pickup LowerWastes.BottomRightEX:
@@ -4792,7 +4792,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
       EnemyObstacle, Grapple, Dash  # Pretty straightforward. Rest of these paths you're able to avoid enemies so enemyobstacle isnt included.
       Launch
   conn WindtornRuins.LowerRuins:
-    gorlek: BackWallBreak=20, Burrow
+    gorlek: ShurikenBreak=20, Burrow
 
 anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the lever
   refill Checkpoint
