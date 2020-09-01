@@ -1894,18 +1894,19 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
     moki, Weapon:
       DoubleJump, Dash OR Glide
       Launch
-    gorlek:
-      Water, RangedWeapon OR Sentry=1  # break the crystal from afar and jump into the water to get the energy
-      DoubleJump, TripleJump, RangedWeapon OR Sentry=1 OR Blaze=1 # break the crystal from afar and use triple jump to collect the energy midair
-      Launch, RangedWeapon OR Sentry=1 OR Blaze=1 OR Weapon  # launch up to the crystal. Note that breaking the crystal with launch causes the energy crystals to go very far out of bounds.
-      SentryJump=1
-    unsafe:
-      Dash, RangedWeapon OR Sentry=1
-      DoubleJump, RangedWeapon OR Sentry=1 OR Bash
-      Glide, RangedWeapon OR Sentry=1
-      Sword, RangedWeapon OR Sentry=1  # Sword Float over then back
-      Hammer, Sentry=2
-      Hammer, RangedWeapon, Sentry=1  # Midair Hammer Sentry
+#     gorlek:
+#       Water, RangedWeapon OR Sentry=1  # break the crystal from afar and jump into the water to get the energy
+#       DoubleJump, TripleJump, RangedWeapon OR Sentry=1 OR Blaze=1 # break the crystal from afar and use triple jump to collect the energy midair
+#       Launch, RangedWeapon OR Sentry=1 OR Blaze=1 OR Weapon  # launch up to the crystal. Note that breaking the crystal with launch causes the energy crystals to go very far out of bounds.
+#       SentryJump=1
+#     unsafe:
+#       Dash, RangedWeapon OR Sentry=1
+#       DoubleJump, RangedWeapon OR Sentry=1 OR Bash
+#       Glide, RangedWeapon OR Sentry=1
+#       Sword, RangedWeapon OR Sentry=1  # Sword Float over then back
+#       Hammer, Sentry=2
+#       Hammer, RangedWeapon, Sentry=1  # Midair Hammer Sentry
+# procrastinating these a bit
 
   pickup WestGlades.GrappleEX:
     moki:
