@@ -48,8 +48,7 @@ package SeedGenerator {
     var currentOp: Option[Future[Unit]] = None
     val headerFilePath: Path =  ".seedHeader".f.canonPath
     val startSet: Settings = settingsFromFile
-    var outputDirectory: Path = Paths.get(startSet.outputFolder)
-    val folderLabel: Text = new Text {text = s"Output folder: ${outputDirectory.toAbsolutePath}"}
+    val outputDirectory = new StringProperty(null, "output_dir", startSet.outputFolder)
     val header = new StringProperty(null, "header_text", headerFilePath.read ?? "// Replace this text with a seed header, if desired")
     val lastSeedText: StringProperty = new StringProperty(null, "last_seed")
     val seedName: StringProperty = new StringProperty(null, "seed_name", "")
@@ -65,7 +64,7 @@ package SeedGenerator {
       settingsFile.read.map(Serialization.read[Settings]).getOrElse(Settings())
     }
     def outputPath: String = {
-      val name_base = outputDirectory.toAbsolutePath.resolve((seedName() == "") ? "seed" ?? seedName()).toString
+      val name_base = outputDirectory().f.toAbsolutePath.resolve((seedName() == "") ? "seed" ?? seedName()).toString
       var ret = s"$name_base.wotwr"
       var i = 0
       while(ret.f.exists) {
@@ -85,8 +84,18 @@ package SeedGenerator {
         new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
         new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
     }
+    val selector: DirectoryChooser = new DirectoryChooser {
+      initialDirectory = outputDirectory().f.toFile
+    }
 
     val runLastSeedButton: Button = new Button("Run Last Seed") {disable = true}
+    val changeFolderButton: Button = new Button("Change Folder") {
+      onAction = _ => {
+        val f = selector.showDialog(stage)
+        outputDirectory.setValue(f.getAbsolutePath)
+        settingsFile.write(Settings.toJson)
+      }
+    }
     val raceModeButton:         ToggleButton = toggle("Race Mode",          "Generate a spoiler-free version of the seed for racing", !startSet.spoilers)
     val debugButton:            ToggleButton = toggle("Debug Mode",         "Outputs spoiler-containing generation info to the console, and enables the last seed tab", startSet.debugInfo)
     val questsButton:           ToggleButton = toggle("Items on Quests",    "Receive items from quest progress and completion", startSet.questLocs)
@@ -105,9 +114,8 @@ package SeedGenerator {
     val worldTourButton:        ToggleButton = toggle("World Tour",         "Adds requirement: Collect a Relic from every zone with one", startSet.flags.worldTour)
     val forceQuestsButton:      ToggleButton = toggle("Force Quests",       "Adds requirement: Complete every Quest", startSet.flags.forceQuests)
     val forceTreesButton:       ToggleButton = toggle("Force Trees",        "Adds requirement: Collect all Ancestral Trees", startSet.flags.forceTrees)
-    val seedNameInput:          TextField    = new TextField {
-      text <==> seedName
-    }
+    val seedNameInput:          TextField    = new TextField { text <==> seedName; prefColumnCount = 10 }
+    val outputLabel:            Label        = new Label { text <== outputDirectory }
 
     runLastSeedButton.onAction = _ => lastSeed match {
       case Some(file) => Seq("cmd", "/C", file.f.toString).run
@@ -131,9 +139,6 @@ package SeedGenerator {
       height = WIN_H ?? 600
       WIN_X.get.foreach(pref_c => x = pref_c)
       WIN_Y.get.foreach(pref_c => y = pref_c)
-      val selector: DirectoryChooser = new DirectoryChooser {
-        initialDirectory = outputDirectory.toFile
-      }
 
       onCloseRequest = _ => {
         settingsFile.write(Settings.toJson)
@@ -173,9 +178,10 @@ package SeedGenerator {
 
         gp.addRow(0, new Label("Logic Groups: "), gorlekPathsButton, glitchPathsButton, uncheckedPathsButton)
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
-        gp.addRow(2, swordSpawnButton, rainButton, randomSpawnButton, seirLaunchButton, bonusItemsButton)
-        gp.addRow(3, raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton, teleportersButton)
-        gp.addRow(4, getGenerateButton, debugButton, seedNameInput, runLastSeedButton, clearBtn)
+        gp.addRow(2, new Label("Options: "), swordSpawnButton, rainButton, randomSpawnButton, seirLaunchButton, bonusItemsButton)
+        gp.addRow(3, new Label(""),  raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton, teleportersButton)
+        gp.addRow(4,  new Label(s"Output folder: "), outputLabel, changeFolderButton, debugButton, clearBtn)
+        gp.addRow(5, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton)
         gp
       }
 
@@ -283,7 +289,7 @@ package SeedGenerator {
           gorlekPaths  = gorlekPathsButton.selected(),
           glitchPaths  = glitchPathsButton.selected(),
           questLocs    = questsButton.selected(),
-          outputFolder = outputDirectory.toAbsolutePath.toString,
+          outputFolder = outputDirectory(),
           flags        = Flags(forceWispsButton.selected(), forceTreesButton.selected(), forceQuestsButton.selected(), !zoneHintsButton.selected(),
             !swordSpawnButton.selected(), rainButton.selected(), noKSDoorsButton.selected(), randomSpawnButton.selected(), worldTourButton.selected()),
           bonusItems   = bonusItemsButton.selected(),

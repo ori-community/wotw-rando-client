@@ -785,9 +785,7 @@ package SeedGenerator {
     def write(targetPath: String): Unit = {
       Try {
         targetPath.f.write(seed(Settings.spoilers))
-        Logger.log(Settings.provider.getClass.toGenericString)
         Logger.log(s"Wrote seed to $targetPath")
-        Logger.log(Settings.spoilers)
         if(!Settings.spoilers) {
           val spoilerPath = targetPath.replace(".wotwr", "_SPOILER.wotwr")
           spoilerPath.f.write(seed())

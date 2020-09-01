@@ -23,12 +23,12 @@ namespace RandoMainDLL.Memory {
     [Description("Bow")]
     SpiritArc = 97,
     [Description("Hammer")]
-    SpiritSmash,
-    Torch,
+    SpiritSmash = 98,
+    Torch = 99,
     [Description("Sword")]
-    SpiritEdge,
-    Burrow,
-    Dash,
+    SpiritEdge = 100,
+    Burrow = 101,
+    Dash = 102,
     [Description("Water Dash")]
     WaterDash = 104,
     [Description("Teleport")]
@@ -37,7 +37,7 @@ namespace RandoMainDLL.Memory {
     SpiritStar = 106,
     Seir = 108,
     Blaze = 115,
-    Sentry,
+    Sentry = 116,
     Flap = 118,
     [Description("Ancestral Light")]
     DamageUpgrade1 = 120,

@@ -29,11 +29,11 @@ namespace RandoMainDLL {
         keystones = InterOp.get_keystones();
         spiritLight = InterOp.get_experience();
         ore = InterOp.get_ore();
-        skills = SaveController.Data.SkillsFound.Select((AbilityType type) => trackName(type)).ToHashSet();
-        upgraded = SaveController.Data.OpherUpgraded.Keys.Select((AbilityType type) => $"{type.GetDescription().Replace(" ", "")}").ToHashSet();
+        skills = SaveController.SkillsFound.Select((AbilityType type) => trackName(type)).ToHashSet();
+        upgraded = SaveController.UpgradedWeapons.Select((AbilityType type) => $"{type.GetDescription().Replace(" ", "")}").ToHashSet();
         if (SaveController.HasAbility(AbilityType.DamageUpgrade1) && SaveController.HasAbility(AbilityType.DamageUpgrade2))
           upgraded.Add(trackName(AbilityType.DamageUpgrade1));
-        events = SaveController.Data.WorldEvents.Select((QuestEventType type) => type.GetDescription()).ToHashSet();
+        events = SaveController.WorldEvents.Select((QuestEventType type) => type.GetDescription()).ToHashSet();
         teleporters = Teleporter.TeleporterStates.Keys.Where((TeleporterType t) => (new Teleporter(t)).Has()).Select((TeleporterType t) => t.GetDescription()).ToHashSet();
       }
       catch (Exception e) {
@@ -54,8 +54,13 @@ namespace RandoMainDLL {
         IgnoreUpdateFrames--;
         return;
       }
-      if (Last.ore != InterOp.get_ore() || Last.spiritLight != InterOp.get_experience())
-        Write();
+      try {
+        if (Last == null || Last.ore != InterOp.get_ore() || Last.spiritLight != InterOp.get_experience())
+          Write();
+      } catch (Exception e) {
+        Randomizer.Error("Track.Update", e);
+        Randomizer.Log($"Last: {Last}", false);
+      }
     }
     public static void Write() {
       try {

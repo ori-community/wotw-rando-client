@@ -402,7 +402,7 @@ namespace RandoMainDLL {
     public readonly QuestEventType type;
 
     public override int DefaultCost() => 400;
-    public override bool Has() => SaveController.Data.WorldEvents.Contains(type);
+    public override bool Has() => type.Have();
     public override WorldMapIconType Icon => WorldMapIconType.QuestEnd;
 
     public override void Grant(bool skipBase = false) {
