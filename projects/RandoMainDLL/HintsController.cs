@@ -156,8 +156,7 @@ namespace RandoMainDLL {
           if (zone == ZoneType.Void)
             return false;
           if (ZoneToState.TryGetValue(zone, out UberState state)) {
-            var value = state.CurrentValue();
-            return value.HasValue && value.Value.Bool;
+            return state.GetValue().Bool;
           }
           else
             return false;
