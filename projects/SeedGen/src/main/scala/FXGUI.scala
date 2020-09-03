@@ -27,8 +27,32 @@ import scala.sys.process._
 package SeedGenerator {
 
 
+  import scalafx.beans.binding.{BooleanBinding, ObjectBinding}
+  import scalafx.beans.property.{BooleanProperty, ObjectProperty}
+  import scalafx.stage.FileChooser
+
   import scala.util.{Failure, Success, Try}
   object FXGUI extends JFXApp {
+    implicit class ObjectPropExts[T](wrapped: ObjectProperty[T]) {
+      def mapObjBind[V](f: T => V): ObjectBinding[V] = Bindings.createObjectBinding(() => f(wrapped()), wrapped)
+      def mapBoolBind(f: T => Boolean): BooleanBinding = Bindings.createBooleanBinding(() => f(wrapped()), wrapped)
+      def mapBoolProp(outbound: T => Boolean, inbound: (T, Boolean) => T): BooleanProperty = {
+        val prop = new BooleanProperty()
+        prop.setValue(outbound(wrapped()))
+        wrapped.onChange((_, _, nval) => prop.setValue(outbound(nval)))
+        prop.onChange((_, _, nval) => wrapped.setValue(inbound(wrapped(), nval)))
+        prop
+      }
+      def mapStringProp(outbound: T => String, inbound: (T,String) => T): StringProperty = {
+        val prop = new StringProperty()
+        prop.setValue(outbound(wrapped()))
+        wrapped.onChange((_, _, nval) => prop.setValue(outbound(nval)))
+        prop.onChange((_, _, nval) => wrapped.setValue(inbound(wrapped(), nval)))
+        prop
+      }
+    }
+
+
     val APP_NAME: String = "RandoSeedGen"
     val pref: Preferences = Preferences.userRoot.node(APP_NAME)
     case class DoublePref(key: String) {
@@ -47,8 +71,9 @@ package SeedGenerator {
     val settingsFile: Path = "SeedGenSettings.json".f.canonPath
     var currentOp: Option[Future[Unit]] = None
     val headerFilePath: Path =  ".seedHeader".f.canonPath
-    val startSet: Settings = settingsFromFile
-    val outputDirectory = new StringProperty(null, "output_dir", startSet.outputFolder)
+    val settings: ObjectProperty[Settings] = new ObjectProperty(null, "settings", settingsFromFile)
+    settings.onChange((_, _, nv) => Logger.log(nv))
+    val outputDirectory: StringProperty = settings.mapStringProp(_.outputFolder, (set, path) => set.copy(outputFolder = path))
     val header = new StringProperty(null, "header_text", headerFilePath.read ?? "// Replace this text with a seed header, if desired")
     val lastSeedText: StringProperty = new StringProperty(null, "last_seed")
     val seedName: StringProperty = new StringProperty(null, "seed_name", "")
@@ -58,7 +83,6 @@ package SeedGenerator {
 
     Settings.provider = FXSettingsProvider
     Logger.current  = FXLogger
-
     def settingsFromFile: Settings = {
       implicit val formats: Formats = Serialization.formats(NoTypeHints)
       settingsFile.read.map(Serialization.read[Settings]).getOrElse(Settings())
@@ -75,45 +99,56 @@ package SeedGenerator {
       ret
     }
 
-    def onChange(unused: Boolean): Unit = settingsFile.write(Settings.toJson)
-    def toggle(name: String, tooltipText: String, startSelected: => Boolean, listener: => Boolean=>Unit = onChange): ToggleButton =  new ToggleButton(name){
-      selected = startSelected
+    def settingsToggle(name: String, tooltipText: String, selectedBinding: BooleanProperty): ToggleButton =  new ToggleButton(name){
+      selected = selectedBinding()
+      selected <==> selectedBinding
       tooltip = tooltipText
-      selected.onChange((_, _, nval) => listener(nval) )
       border <== when (selected) choose
         new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
         new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
     }
-    val selector: DirectoryChooser = new DirectoryChooser {
-      initialDirectory = outputDirectory().f.toFile
+    val outputDirChooser: DirectoryChooser = new DirectoryChooser { initialDirectory = outputDirectory().f.toFile }
+    val importSettingsChooser: FileChooser = new FileChooser {
+      initialDirectory <== settings.mapObjBind(_.outputFolder.f.toFile)
+      selectedExtensionFilter = new FileChooser.ExtensionFilter("Wotw Rando Seed File", Seq(".wotwr"))
     }
 
     val runLastSeedButton: Button = new Button("Run Last Seed") {disable = true}
     val changeFolderButton: Button = new Button("Change Folder") {
       onAction = _ => {
-        val f = selector.showDialog(stage)
-        outputDirectory.setValue(f.getAbsolutePath)
-        settingsFile.write(Settings.toJson)
+        Option(outputDirChooser.showDialog(stage)).map(f => {
+          outputDirectory.setValue(f.getAbsolutePath)
+          settingsFile.write(Settings.toJson)
+        })
       }
     }
-    val raceModeButton:         ToggleButton = toggle("Race Mode",          "Generate a spoiler-free version of the seed for racing", !startSet.spoilers)
-    val debugButton:            ToggleButton = toggle("Debug Mode",         "Outputs spoiler-containing generation info to the console, and enables the last seed tab", startSet.debugInfo)
-    val questsButton:           ToggleButton = toggle("Items on Quests",    "Receive items from quest progress and completion", startSet.questLocs)
-    val zoneHintsButton:        ToggleButton = toggle("Zone Hints",         "Lupo sells the hints", !startSet.flags.noHints)
-    val bonusItemsButton:       ToggleButton = toggle("Bonus Items",        "Enables rando-only bonus pickups, including weapon upgrades", startSet.bonusItems)
-    val teleportersButton:      ToggleButton = toggle("Teleporters",        "Add items to the item pool that unlock teleporters", startSet.tps)
-    val gorlekPathsButton:      ToggleButton = toggle("Gorlek paths",       "Enable Gorlek-difficulty paths", startSet.gorlekPaths)
-    val uncheckedPathsButton:   ToggleButton = toggle("Unsafe paths",       "Enable paths that have not yet been sorted into a difficulty group.", startSet.unsafePaths)
-    val glitchPathsButton:      ToggleButton = toggle("Glitched paths",     "Enable paths that rely on glitches, such as Sentry Jumps", startSet.glitchPaths)
-    val randomSpawnButton:      ToggleButton = toggle("Random spawn",       "Spawn at a randomly-chosen spirit well", startSet.flags.randomSpawn)
-    val swordSpawnButton:       ToggleButton = toggle("Spawn with Sword",   "Start the game with Spirit Edge in your inventory and equipped", !startSet.flags.noSword)
-    val rainButton:             ToggleButton = toggle("Rainy Marsh",        "Start the game in the 'prologue' marsh state, with rain present and Howl enabled", startSet.flags.rain)
-    val seirLaunchButton:       ToggleButton = toggle("Launch on Seir",     "Places launch on Seir", startSet.seirLaunch)
-    val noKSDoorsButton:        ToggleButton = toggle("Remove KS doors",    "Start the game with every keystone door opened", startSet.flags.noKSDoors)
-    val forceWispsButton:       ToggleButton = toggle("Force Wisps",        "Adds requirement: Collect every Wisp", startSet.flags.forceWisps)
-    val worldTourButton:        ToggleButton = toggle("World Tour",         "Adds requirement: Collect a Relic from every zone with one", startSet.flags.worldTour)
-    val forceQuestsButton:      ToggleButton = toggle("Force Quests",       "Adds requirement: Complete every Quest", startSet.flags.forceQuests)
-    val forceTreesButton:       ToggleButton = toggle("Force Trees",        "Adds requirement: Collect all Ancestral Trees", startSet.flags.forceTrees)
+    val importSettingsButton: Button = new Button("Import Settings") {
+      onAction = _ => {
+        Option(importSettingsChooser.showOpenDialog(stage)).map(f =>
+          settings.setValue(ReachChecker.settingsFromSeed(f.toPath, updateSpawn = false).copy(outputFolder = outputDirectory(), debugInfo = settings().debugInfo))
+        )
+      }
+    }
+
+
+    val raceModeButton:         ToggleButton = settingsToggle("Race Mode",          "Generate a spoiler-free version of the seed for racing", settings.mapBoolProp(!_.spoilers, (s, b) => s.copy(spoilers = !b)))
+    val debugButton:            ToggleButton = settingsToggle("Debug Mode",         "Outputs spoiler-containing generation info to the console, and enables the last seed tab", settings.mapBoolProp(_.debugInfo, (s, b) => s.copy(debugInfo = b)))
+    val questsButton:           ToggleButton = settingsToggle("Items on Quests",    "Receive items from quest progress and completion", settings.mapBoolProp(_.questLocs, (s, b) => s.copy(questLocs = b)))
+    val bonusItemsButton:       ToggleButton = settingsToggle("Bonus Items",        "Enables rando-only bonus pickups, including weapon upgrades", settings.mapBoolProp(_.bonusItems, (s, b) => s.copy(bonusItems = b)))
+    val teleportersButton:      ToggleButton = settingsToggle("Teleporters",        "Add items to the item pool that unlock teleporters", settings.mapBoolProp(_.tps, (s, b) => s.copy(tps = b)))
+    val gorlekPathsButton:      ToggleButton = settingsToggle("Gorlek paths",       "Enable Gorlek-difficulty paths", settings.mapBoolProp(_.gorlekPaths, (s, b) => s.copy(gorlekPaths = b)))
+    val uncheckedPathsButton:   ToggleButton = settingsToggle("Unsafe paths",       "Enable paths that have not yet been sorted into a difficulty group.", settings.mapBoolProp(_.unsafePaths, (s, b) => s.copy(unsafePaths = b)))
+    val glitchPathsButton:      ToggleButton = settingsToggle("Glitched paths",     "Enable paths that rely on glitches, such as Sentry Jumps", settings.mapBoolProp(_.glitchPaths, (s, b) => s.copy(glitchPaths = b)))
+    val seirLaunchButton:       ToggleButton = settingsToggle("Launch on Seir",     "Places launch on Seir", settings.mapBoolProp(_.seirLaunch, (s, b) => s.copy(seirLaunch = b)))
+    val randomSpawnButton:      ToggleButton = settingsToggle("Random spawn",       "Spawn at a randomly-chosen spirit well", settings.mapBoolProp(_.flags.randomSpawn, (s, b) => s.copy(flags = s.flags.copy(randomSpawn = b))))
+    val rainButton:             ToggleButton = settingsToggle("Rainy Marsh",        "Start the game in the 'prologue' marsh state, with rain present and Howl enabled", settings.mapBoolProp(_.flags.rain, (s, b) => s.copy(flags = s.flags.copy(rain = b))))
+    val noKSDoorsButton:        ToggleButton = settingsToggle("Remove KS doors",    "Start the game with every keystone door opened", settings.mapBoolProp(_.flags.noKSDoors, (s, b) => s.copy(flags = s.flags.copy(noKSDoors = b))))
+    val forceWispsButton:       ToggleButton = settingsToggle("Force Wisps",        "Adds requirement: Collect every Wisp", settings.mapBoolProp(_.flags.forceWisps, (s, b) => s.copy(flags = s.flags.copy(forceWisps = b))))
+    val worldTourButton:        ToggleButton = settingsToggle("World Tour",         "Adds requirement: Collect a Relic from every zone with one", settings.mapBoolProp(_.flags.worldTour, (s, b) => s.copy(flags = s.flags.copy(worldTour = b))))
+    val forceQuestsButton:      ToggleButton = settingsToggle("Force Quests",       "Adds requirement: Complete every Quest", settings.mapBoolProp(_.flags.forceQuests, (s, b) => s.copy(flags = s.flags.copy(forceQuests = b))))
+    val forceTreesButton:       ToggleButton = settingsToggle("Force Trees",        "Adds requirement: Collect all Ancestral Trees", settings.mapBoolProp(_.flags.forceTrees, (s, b) => s.copy(flags = s.flags.copy(forceTrees = b))))
+    val zoneHintsButton:        ToggleButton = settingsToggle("Zone Hints",         "Lupo sells the hints", settings.mapBoolProp(!_.flags.noHints, (s, b) => s.copy(flags = s.flags.copy(noHints = !b))))
+    val swordSpawnButton:       ToggleButton = settingsToggle("Spawn with Sword",   "Start the game with Spirit Edge in your inventory and equipped", settings.mapBoolProp(!_.flags.noSword, (s, b) => s.copy(flags = s.flags.copy(noSword = !b))))
     val seedNameInput:          TextField    = new TextField { text <==> seedName; prefColumnCount = 10 }
     val outputLabel:            Label        = new Label { text <== outputDirectory }
 
@@ -180,8 +215,8 @@ package SeedGenerator {
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
         gp.addRow(2, new Label("Options: "), swordSpawnButton, rainButton, randomSpawnButton, seirLaunchButton, bonusItemsButton)
         gp.addRow(3, new Label(""),  raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton, teleportersButton)
-        gp.addRow(4,  new Label(s"Output folder: "), outputLabel, changeFolderButton, debugButton, clearBtn)
-        gp.addRow(5, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton)
+        gp.addRow(4,  new Label(s"Output folder: "), outputLabel, changeFolderButton, importSettingsButton)
+        gp.addRow(5, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton, debugButton, clearBtn)
         gp
       }
 
@@ -281,23 +316,7 @@ package SeedGenerator {
       }
     }
     object FXSettingsProvider extends SettingsProvider {
-      def get: Settings = {
-        Settings(
-          tps          = teleportersButton.selected(),
-          spoilers     = !raceModeButton.selected(),
-          unsafePaths  = uncheckedPathsButton.selected(),
-          gorlekPaths  = gorlekPathsButton.selected(),
-          glitchPaths  = glitchPathsButton.selected(),
-          questLocs    = questsButton.selected(),
-          outputFolder = outputDirectory(),
-          flags        = Flags(forceWispsButton.selected(), forceTreesButton.selected(), forceQuestsButton.selected(), !zoneHintsButton.selected(),
-            !swordSpawnButton.selected(), rainButton.selected(), noKSDoorsButton.selected(), randomSpawnButton.selected(), worldTourButton.selected()),
-          bonusItems   = bonusItemsButton.selected(),
-          debugInfo    = debugButton.selected(),
-          seirLaunch   = seirLaunchButton.selected()
-        )
-      }
-      // don't need to nullcheck bc we don't use this provider with the gui off! neat C:
+      def get: Settings = settings.getValue
       override def userHeader: String = FXGUI.header()
     }
     object FXLogger extends Logger {

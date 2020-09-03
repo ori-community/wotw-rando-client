@@ -4,6 +4,8 @@ import org.json4s.native.Serialization
 import org.json4s.{Formats, NoTypeHints}
 import scala.util.Try
 package SeedGenerator {
+  import java.nio.file.Path
+
   import implicits._
 
   object EntryPoint extends App {
@@ -31,24 +33,22 @@ package SeedGenerator {
     def mkSkill(s: String): Option[(Skill, Int)] = skills.get(s.toLowerCase).map(Skill(_) -> 1)
     def mkTp(s: String): Option[(Teleporter, Int)] = tps.get(s.toLowerCase).map(Teleporter(_) -> 1)
     def mkEvent(s: String): Option[(WorldEvent, Int)] = events.get(s.toLowerCase).map(WorldEvent(_) -> 1)
-    def settingsFromSeed(path: String): Settings = Try {
-        val inFile = Source.fromFile(path)
-        val lines = inFile.getLines().toSeq
-        val configsRaw = lines.last.replace("// Config: ", "")
+    def settingsFromSeed(path: Path, updateSpawn: Boolean = true): Settings = Try {
+      val lines = path.readLines
+      val configsRaw = lines.last.replace("// Config: ", "")
+      if(updateSpawn) {
         val mbSpawn = lines.find(_.startsWith("Spawn: ")).flatMap(spawnLine => {
           val spawnName = spawnLine.split("//").last.trim
-          if(Nodes.SpawnLoc.all.exists(_.areaName == spawnName))
-            Some(spawnName)
-          else
-            None
+          Nodes.SpawnLoc.all.exists(_.areaName == spawnName) ? spawnName
         })
         Nodes._spawn = Nodes.SpawnLoc.byName(mbSpawn.getOrElse("MarshSpawn.Main"))
-        implicit val formats: Formats = Serialization.formats(NoTypeHints)
-        Serialization.read[Settings](configsRaw)
-      }.toOption.getOrElse({
-        Logger.error(s"Error reading config from $path")
-        Settings()
-      })
+      }
+      implicit val formats: Formats = Serialization.formats(NoTypeHints)
+      Serialization.read[Settings](configsRaw)
+    }.toOption.getOrElse({
+      Logger.error(s"Error reading config from $path")
+      Settings()
+    })
     def apply(args: Seq[String]): Unit = {
       doingReachCheck = true
       args.head match {
@@ -58,7 +58,7 @@ package SeedGenerator {
           val st = GameState(new Inv(
             args.flatMap({
               case cfg(path)        =>
-                Settings.provider = settingsFromSeed(path)
+                Settings.provider = settingsFromSeed(path.f)
                 None
               case health(amt)      => amt.toIntOption.map(Health -> _)
               case energy(amt)      => amt.toIntOption.map(Energy -> _)
@@ -86,7 +86,7 @@ package SeedGenerator {
     def fromGame(args: Seq[String]): Unit = {
       Logger.current = FileLogger("reach_log.txt", enabled = Seq(WARN, ERROR))
 
-      Settings.provider = settingsFromSeed(args(1))
+      Settings.provider = settingsFromSeed(args(1).f)
       val hp = args(2).toInt / 5
       val en = args(3).toInt / 5
       val ks = args(4).toInt
