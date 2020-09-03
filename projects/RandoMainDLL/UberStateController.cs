@@ -8,8 +8,9 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   public static class UberStateController {
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
-    public static UberValue? CurrentValue(this UberState state) => state.GetUberId().GetValue();
-    public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().GetValue().GetValueOrDefault(value);
+    public static UberValue? ValueOpt(this UberState state) => state.GetUberId().ValueOpt();
+    public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().ValueOpt().GetValueOrDefault(value);
+    public static UberValue GetValue(this UberState state) => state.GetUberId().GetValue();
     public static UberState State(this UberId id) {
       UberState s;
       if (!UberStates.TryGetValue(id, out s)) {
@@ -47,15 +48,19 @@ namespace RandoMainDLL {
       return s;
     }
 
-    public static UberValue? GetValue(this UberId id) {
+    public static UberValue? ValueOpt(this UberId id) {
       if (UberStates.TryGetValue(id, out UberState curr)) {
         return curr?.Value;
       }
-
       var state = createUberStateEntry(id);
-      UberStates.Add(id, state);
+      try {
+        UberStates.Add(id, state);
+      } catch(Exception e) {
+        Randomizer.Warn("ValueOpt", $"{e}", false);
+      }
       return state?.Value;
     }
+    public static UberValue GetValue(this UberId id) => id.ValueOpt().GetValueOrDefault(new UberValue(0));
     public static bool Write(this UberState state) => state.Write(state.Value);
 
     public static bool Write(this UberState state, UberValue value) {
