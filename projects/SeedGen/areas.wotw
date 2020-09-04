@@ -2060,8 +2060,9 @@ anchor WestGlades.ShrineArea at -664, -4026:
       Launch
     gorlek:
       Grapple, DoubleJump, TripleJump
-      Bash, DoubleJump OR Dash OR Glide OR Sword  # use the shrine enemies
       SentryJump=1
+    unsafe:
+      Bash, DoubleJump OR Dash OR Glide OR Sword  # use the shrine enemies
 
   conn GladesShrine: free
   conn WestGlades.MillApproach: free
