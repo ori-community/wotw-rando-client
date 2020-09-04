@@ -1893,7 +1893,7 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
 #     gorlek:
 #       Water, RangedWeapon OR Sentry=1  # break the crystal from afar and jump into the water to get the energy
 #       DoubleJump, TripleJump, RangedWeapon OR Sentry=1 OR Blaze=1 # break the crystal from afar and use triple jump to collect the energy midair
-#       Launch, RangedWeapon OR Sentry=1 OR Blaze=1 OR Weapon  # launch up to the crystal. Note that breaking the crystal with launch causes the energy crystals to go very far out of bounds.
+#       Launch, RangedWeapon OR Sentry=1 OR Blaze=1  # launch up to the crystal. Note that breaking the crystal with launch causes the energy crystals to go very far out of bounds.
 #       SentryJump=1
 #     unsafe:
 #       Dash, RangedWeapon OR Sentry=1
@@ -2048,7 +2048,6 @@ anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions
       WaterDash, Damage=20
       SentryJump=1
     unsafe:
-      DoubleJump, TripleJump, Glide OR Dash
       Grenade=1  # grenade jump
 
 anchor WestGlades.ShrineArea at -664, -4026:
@@ -2060,7 +2059,7 @@ anchor WestGlades.ShrineArea at -664, -4026:
       Bash, Grenade=1
       Launch
     gorlek:
-      Grapple, DoubleJump, TripleJump OR Dash
+      Grapple, DoubleJump, TripleJump
       Bash, DoubleJump OR Dash OR Glide OR Sword  # use the shrine enemies
       SentryJump=1
 
@@ -2081,7 +2080,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Launch, Bash, Grenade=1
       Launch, DoubleJump OR Grapple
     gorlek:
-      Grapple, DoubleJump OR Dash OR Glide OR Sword
+      Grapple, Dash OR Glide OR Sword
       SentryJump=1, DoubleJump, TripleJump
       Launch
     unsafe:
