@@ -13,6 +13,8 @@ namespace RandoMainDLL {
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version;
 
+    public static WebSocketClient Client = new WebSocketClient();
+
     public static int Bootstrap(string dllPath) {
        if (!Initialize())
         return 1;
@@ -53,6 +55,9 @@ namespace RandoMainDLL {
         AHK.Init();
         SeedController.ReadSeed(true);
         Log("init complete", false);
+
+        Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
+        Client.UberStateChanged = UberStateController.HandleSyncedUberStateChange;
         return true;
       } catch (Exception e) {
         Log($"init error: {e.Message}\n{e.StackTrace}");

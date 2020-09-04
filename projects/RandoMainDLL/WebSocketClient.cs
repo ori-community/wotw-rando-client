@@ -7,24 +7,48 @@ using WebSocketSharp;
 namespace RandoMainDLL
 {
   public class WebSocketClient {
-    private const string ServerAddress = "ws://somethingsomething";
+    public delegate void UberStateRegistrationHandler(Memory.UberId id);
+    public delegate void UberStateUpdateHandler(Memory.UberId id, float value);
+
+    public UberStateRegistrationHandler UberStateRegistered;
+    public UberStateUpdateHandler UberStateChanged;
+
+    private const string ServerAddress = "ws://wotw.orirando.com/gameSync/{}/{}";
 
     private static WebSocket socket;
 
-    public void Connect() {
-      socket = new WebSocket(ServerAddress);
+    public bool IsConnected { get { return socket != null; } }
+
+    public void Connect(Guid game, long player) {
+      if (socket != null) {
+        Disconnect();
+      }
+      
+      socket = new WebSocket(string.Format(ServerAddress, game, player));
       socket.OnMessage += HandleMessage;
       socket.Connect();
-      //socket.Send("test");
     }
 
-    public void SendUpdate(int group, int state, float value) {
+    public void Disconnect() {
+      if (socket == null) {
+        return;
+      }
+
+      socket.Close();
+      socket = null;
+    }
+
+    public void SendUpdate(Memory.UberId id, float value) {
+      if (socket == null) {
+        return;
+      }
+
       Packet packet = new Packet {
         Id = 3,
         Packet_ = new UberStateUpdateMessage {
           State = new UberId {
-            Group = group,
-            State = state
+            Group = id.GroupID,
+            State = id.ID
           },
           Value = value
         }.ToByteString()
@@ -38,9 +62,13 @@ namespace RandoMainDLL
       switch (packet.Id) {
         case 5:
           var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
+          foreach (var state in init.UberId) {
+            UberStateRegistered(new Memory.UberId(state.Group, state.State));
+          }
           break;
         case 3:
           var update = UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_);
+          UberStateChanged(new Memory.UberId(update.State.Group, update.State.State), update.Value);
           break;
         default:
           break;

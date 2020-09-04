@@ -2,11 +2,13 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Threading;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class UberStateController {
+    public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
     public static UberValue? ValueOpt(this UberState state) => state.GetUberId().ValueOpt();
     public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().ValueOpt().GetValueOrDefault(value);
@@ -22,6 +24,19 @@ namespace RandoMainDLL {
     }
     public static void ClearStates() {
       UberStates.Clear();
+    }
+
+    public static void RegisterSyncedUberState(UberId id) {
+      SyncedUberStates.Add(id);
+    }
+
+    public static void HandleSyncedUberStateChange(UberId id, float value) {
+      InterOp.set_uber_state_value(id.GroupID, id.ID, value);
+    }
+
+    private static bool shouldUpdateSync = false;
+    public static void QueueSyncedStateUpdate() {
+      shouldUpdateSync = true;
     }
 
     private static UberState createUberStateEntry(UberId id) {
@@ -210,6 +225,10 @@ namespace RandoMainDLL {
                 found = SeedController.OnUberState(state);
               }
 
+              if (SyncedUberStates.Contains(key)) {
+                Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
+              }
+
               BonusItemController.OnUberState(state);
               if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 70))
                   Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);              
@@ -222,6 +241,13 @@ namespace RandoMainDLL {
       }
 
       updateState = 0;
+
+      if (shouldUpdateSync) {
+        shouldUpdateSync = false;
+        foreach (var state in SyncedUberStates) {
+          Randomizer.Client.SendUpdate(state, state.State().ValueAsFloat());
+        }
+      }
     }
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
