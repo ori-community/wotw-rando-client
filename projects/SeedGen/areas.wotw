@@ -2486,9 +2486,9 @@ anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can d
       Grapple OR Launch
       Glide, Bash, Grenade=2
       InnerWellspring.ThreeWheels, BreakWall=16, DoubleJump  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
-      InnerWellspring.ThreeWheels, BreakWall=16, Dash, Bash, Grenade=2  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
+      InnerWellspring.ThreeWheels, BreakWall=16, Dash, Bash, Grenade=1  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
       Water, DoubleJump  # if you drained the water, you can use the bottom of the wheel instead
-      Water, WaterDash, Dash, Bash, Grenade=2  # if you drained the water, you can use the bottom of the wheel instead
+      Water, WaterDash, Dash, Bash, Grenade=1  # if you drained the water, you can use the bottom of the wheel instead
     gorlek:
       # if you have a weapon here, you can break the three wheels free. Redundant paths without the three wheels state were removed.
       DoubleJump, TripleJump OR Dash OR Sword OR Damage=15
@@ -2501,11 +2501,12 @@ anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can d
         Damage=15, Sword OR Hammer
         Bash, Grenade=1, Sword OR Hammer
         SentryJump=1, Sword OR Hammer
-        Bash, Grenade=4
       Water, Dash  # if you drained the water, you can use the bottom of the wheel instead
       Water, Bash, Grenade=4  # if you drained the water, you can use the bottom of the wheel instead
       Water, WaterDash, Bash, Grenade=3, BreakWall=10  # if you drained the water, you can go through through the drained room instead
       Water, WaterDash, Bash, Grenade=2, Damage=15, BreakWall=10  # if you drained the water, you can go through through the drained room instead
+    unsafe:
+      InnerWellspring.ThreeWheels, BreakWall=16, Bash, Grenade=4  # not hard, but grenades can vanish on rotating objects sometimes
   conn InnerWellspring.DrainAreaEntrance:
     moki: InnerWellspring.DrainLever, DoubleJump OR Dash OR Grapple OR Glide OR Launch
     gorlek, InnerWellspring.DrainLever:
@@ -2523,13 +2524,12 @@ anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can d
       InnerWellspring.DrainLever, ShurikenBreak=10:  # use the bottom of the wheel, don't have to free it
         DoubleJump OR Dash
         Bash, Grenade=2
-      InnerWellspring.ThreeWheels, BreakWall=16, ShurikenBreak=10:  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
-        DoubleJump OR Dash OR Sword
-        SentryJump=1, Hammer
-        Bash, Grenade=2
-        Bash, Grenade=1, Hammer
+      InnerWellspring.ThreeWheels, BreakWall=16, ShurikenBreak=10, DoubleJump OR Dash OR Sword OR Hammer  # break the wheel to the right free - threewheels state is free enough that alternatives don't seem worth noting
       ShurikenBreak=10, Water, DoubleJump OR Dash  # if you drained the water, you can use the bottom of the wheel instead
-      ShurikenBreak=10, Water, Bash, Grenade=1 OR WaterDash OR Damage=15  # if you drained the water, you can go through through the drained room instead
+      ShurikenBreak=10, Water, Bash, Grenade=1, Damage=15  # if you drained the water, you can go through through the drained room instead
+      ShurikenBreak=10, Water, Bash, Grenade=2  # if you drained the water, you can go through through the drained room instead
+    unsafe:
+      InnerWellspring.ThreeWheels, BreakWall=16, ShurikenBreak=10, Bash, Grenade=2  # not hard, but grenades can vanish on rotating objects sometimes
 
 anchor InnerWellspring.DrainAreaEntrance at -1128, -3968:  # On the wall after dropping through the gate draining the water
   pickup InnerWellspring.DrainHC:
@@ -2548,9 +2548,6 @@ anchor InnerWellspring.DrainAreaEntrance at -1128, -3968:  # On the wall after d
     gorlek:
       DoubleJump, Water OR TripleJump OR Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=20
       Bash, Dash, Sword OR Hammer
-      Bash, Glide, Water OR Sword
-      Bash, Glide, Hammer, Damage=20
-      Bash, Damage=15, Water
       Bash, Grenade=1, Water OR Dash OR Damage=20
       Bash, SentryJump=1, Water, Sword OR Hammer
       Bash, SentryJump=1, Damage=20, Sword OR Hammer
@@ -2650,7 +2647,8 @@ anchor InnerWellspring.DrainRoomTop at -1086, -3908:  # At the right ledge on to
       Dash, Glide OR Sword OR Hammer OR Damage=15
       Grapple, Damage=15
       Grapple, SentryJump=1, Sword OR Hammer
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+      Bash, Grenade=1, DoubleJump OR Dash OR Grapple
+      Bash, Grenade=1, Glide, Damage=15
       SentryJump=1, Sword, Glide
       InnerWellspring.DrainRoomTopWheel, Bash, Grenade=1
       InnerWellspring.DrainRoomTopWheel, SentryJump=1
