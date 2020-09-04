@@ -31,6 +31,14 @@ set(
 	"BonusItemController.cs"
 	"WebSocketClient.cs"
 	
+	"DiscordIntegration/ActivityManager.cs"
+	"DiscordIntegration/Constants.cs"
+	"DiscordIntegration/Core.cs"
+	"DiscordIntegration/ImageManager.cs"
+	"DiscordIntegration/LobbyManager.cs"
+	"DiscordIntegration/StorageManager.cs"
+	"DiscordIntegration/StoreManager.cs"
+
 	"Memory/Ability.cs"
 	"Memory/AreaType.cs"
 	"Memory/GameState.cs"
