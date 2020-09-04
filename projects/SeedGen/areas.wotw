@@ -189,7 +189,7 @@ anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen
 
 anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   quest MarshSpawn.CaveKS:
     moki:
@@ -688,7 +688,7 @@ anchor MarshShrine:
 
 anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow tree
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
   refill Energy=1:
     moki: Weapon
 
@@ -2019,7 +2019,7 @@ anchor WestGlades.Center at -612, -4083:  # At the middle room connecting upper 
 
 anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions to Wellspring, Reach, and Pools
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   state LowerReach.BearSneezed:
     moki: Flap
@@ -2073,7 +2073,7 @@ anchor WestGlades.ShrineArea at -664, -4026:
 
 anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room opening up to Wellspring
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   # any paths to the ore above would be redundant with connection to outerentrance so far
 
@@ -2352,7 +2352,7 @@ anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to th
 
 anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to trial start
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
   refill Energy=1:
     moki: Weapon
 
@@ -2623,7 +2623,7 @@ anchor InnerWellspring.DrainRoomCenter at -1116, -3924:  # Standing on the wheel
 
 anchor InnerWellspring.DrainRoomTop at -1086, -3908:  # At the right ledge on top of the drain room
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   pickup InnerWellspring.LaserOre:
     moki:
@@ -2770,7 +2770,7 @@ anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you ex
 
 anchor InnerWellspring.EastDoor at -1190, -3733:  # Inside the door leading to the spin puzzle
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
   refill Energy=4:
     moki: Weapon
 
@@ -3138,7 +3138,7 @@ anchor WoodsMain.BelowHiddenOre at 1038, -4101:  # Below and to the right of the
 
 anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   pickup WoodsMain.PetrifiedHowlEX: free
 
@@ -3249,7 +3249,7 @@ region LowerReach:
 
 anchor LowerReach.Entry at -390, -4025:  # Behind Baur
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   state LowerReach.BearSneezed:
     moki: Flap
@@ -3370,7 +3370,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
   refill Checkpoint
   refill Full:  # use the teleporter
     moki: Grenade=1
-  refill Health=1: free
+  refill Health=1
   refill Energy=3:
     moki: Weapon
 
@@ -3686,7 +3686,7 @@ anchor LowerReach.SwimmingPool at -44, -4001:  # At the platform in the freezabl
 
 anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
   refill Energy=3:
     moki:
       Weapon, DoubleJump, Dash
@@ -4233,7 +4233,7 @@ region EastPools:
 
 anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   # The first bubbles here only spawn if you have Flap!
   pickup EastPools.TwoCrushersEX:
@@ -5252,7 +5252,7 @@ region WeepingRidge:
 
 anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weeping ridge
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
   refill Energy=3:
     moki:
       Weapon, DoubleJump OR Burrow OR Launch
@@ -5274,7 +5274,7 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
 
 anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of the elevator
   refill Checkpoint
-  refill Health=1: free
+  refill Health=1
 
   pickup WeepingRidge.LaunchTree:
     moki:
