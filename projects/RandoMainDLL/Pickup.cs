@@ -605,7 +605,7 @@ namespace RandoMainDLL {
         case ResourceType.Keystone:
           InterOp.set_keystones(InterOp.get_keystones() + 1);
           var uid = new UberId(6, 0);
-          uid.State().Write(new UberValue(1 + uid.GetValue().GetValueOrDefault(new UberValue(0)).Int));
+          uid.State().Write(new UberValue(1 + uid.GetValue().Int));
           InterOp.shake_keystone();
           break;
         case ResourceType.ShardSlot:
@@ -643,7 +643,7 @@ namespace RandoMainDLL {
       Desc = desc;
     }
     public UberId UberId() => new UberId(4, (int)Id);
-    public float Value() => UberId().GetValue().Value.Float;
+    public float Value() => UberId().ValueOpt().Value.Float;
     public override void Grant(bool skipBase = false) {
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:

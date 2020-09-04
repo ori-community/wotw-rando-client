@@ -100,7 +100,7 @@ namespace RandoMainDLL.Memory {
   public static class UberGet {
 
     public static UberValue value(int groupId, int id) => value(new UberId(groupId, id));
-    public static UberValue value(UberId id) => id.GetValue().GetValueOrDefault(new UberValue(0));
+    public static UberValue value(UberId id) => id.GetValue();
 
   }
   public static class UberSet {

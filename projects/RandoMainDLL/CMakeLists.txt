@@ -3,6 +3,14 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 include(CSharpUtilities)
 
+file(MAKE_DIRECTORY ${PROJECT_DIR}/Generated/)
+execute_process(
+	COMMAND ${CMAKE_ROOT_DIRECTORY}/ext/protobuf-3.13.0/bin/protoc
+		-I=${WOTWR_PROJECTS_DIR}/wotw-server/docs/
+		--csharp_out=${PROJECT_DIR}/Generated/
+		${WOTWR_PROJECTS_DIR}/wotw-server/docs/packets.proto
+)
+
 set(
 	SOURCE_FILES
 	"AHK.cs"
@@ -21,6 +29,7 @@ set(
 	"TrackFileController.cs"
 	"UberStateController.cs"
 	"BonusItemController.cs"
+	"WebSocketClient.cs"
 	
 	"Memory/Ability.cs"
 	"Memory/AreaType.cs"
@@ -34,6 +43,8 @@ set(
 	"Memory/UberState.cs"
 	"Memory/Vector2.cs"
 	"Memory/Vector4.cs"
+
+	"Generated/Packets.cs"
 )
 
 set(
@@ -59,7 +70,8 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE FALSE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Newtonsoft.Json ${WOTWR_LIB_DIR}/Newtonsoft.Json.dll)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_AutoHotkey.Interop ${WOTWR_LIB_DIR}/AutoHotkey.Interop.dll)
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "MSBuild.ILMerge.Task_1.1.3")
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "MSBuild.ILMerge.Task_1.1.3;WebSocketSharp-netstandard_1.0.1;Google.Protobuf_3.13.0")
+
 
 target_compile_options(${PROJECT_NAME}
     PRIVATE /unsafe
