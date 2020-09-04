@@ -13,18 +13,18 @@ namespace RandoMainDLL
     public UberStateRegistrationHandler UberStateRegistered;
     public UberStateUpdateHandler UberStateChanged;
 
-    private const string ServerAddress = "ws://wotw.orirando.com/gameSync/{}/{}";
+    private const string ServerAddress = "ws://{0}/gameSync/{1}/{2}";
 
     private static WebSocket socket;
 
     public bool IsConnected { get { return socket != null; } }
 
-    public void Connect(Guid game, long player) {
+    public void Connect(string domain, Guid game, long player) {
       if (socket != null) {
         Disconnect();
       }
       
-      socket = new WebSocket(string.Format(ServerAddress, game, player));
+      socket = new WebSocket(string.Format(ServerAddress, domain, game, player));
       socket.OnMessage += HandleMessage;
       socket.Connect();
     }

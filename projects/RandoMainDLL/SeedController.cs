@@ -179,8 +179,13 @@ namespace RandoMainDLL {
         // Should only be used for configuration options.
 
         if (GameID != Guid.Empty) {
-          if (!Randomizer.Client.IsConnected)
-            Randomizer.Client.Connect(GameID, 0);
+          if (!Randomizer.Client.IsConnected) {
+            string url = AHK.IniString("Paths", "URL");
+            if (url == string.Empty)
+              url = "wotw.orirando.com";
+
+            Randomizer.Client.Connect(url, GameID, 0);
+          }
 
           UberStateController.QueueSyncedStateUpdate();
         }
