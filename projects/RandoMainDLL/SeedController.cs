@@ -65,6 +65,7 @@ namespace RandoMainDLL {
 
   public static class SeedController {
 
+    private static Guid GameID = Guid.Empty;
     public static bool GrantingGoalModeLoc = false;
     public enum FakeUberGroups {
       TREE = 0,
@@ -176,6 +177,13 @@ namespace RandoMainDLL {
         }
 
         // Should only be used for configuration options.
+
+        if (GameID != Guid.Empty) {
+          if (!Randomizer.Client.IsConnected)
+            Randomizer.Client.Connect(GameID, 0);
+
+          UberStateController.QueueSyncedStateUpdate();
+        }
       }
       else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
