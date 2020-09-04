@@ -19,6 +19,9 @@ namespace RandoMainDLL {
         return _discord;
       }
     }
+
+    public static bool Initialized = false;
+    public static bool ConnectToServer = false;
     public static Discord.User User;
     private static Discord.Discord _discord;
     public static Discord.ApplicationManager ApplicationManager;
@@ -46,8 +49,14 @@ namespace RandoMainDLL {
     }
 
     public static void DiscordInitComplete() {
+      Initialized = true;
       User = UserManager.GetCurrentUser();
       Randomizer.Log($"ID: {User.Id}, name: {User.Username}");
+
+      if (ConnectToServer) {
+        SeedController.ConnectToServer();
+        ConnectToServer = false;
+      }
     }
   }
 }
