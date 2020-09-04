@@ -40,19 +40,11 @@ class WotwBackendServer {
 
     lateinit var db: Database
     private fun initDatabase() {
-        val dbConfig = javaClass.getResourceAsStream("/dbconfig.properties")
-        if (dbConfig == null) {
-            logger.error("Cannot read dbconfig - ensure that dbconfig.properties exists!")
-            exitProcess(-1)
-        }
-
-        val dbProperties = Properties()
-        dbProperties.load(dbConfig)
-        val host = dbProperties.getProperty("host")
-        val port = dbProperties.getProperty("port")
-        val db = dbProperties.getProperty("db")
-        val user = dbProperties.getProperty("user")
-        val password = dbProperties.getProperty("password")
+        val host = System.getenv("WOTW_DB_HOST")
+        val port = System.getenv("WOTW_DB_PORT")
+        val db = System.getenv("WOTW_DB")
+        val user = System.getenv("WOTW_DB_USER")
+        val password = System.getenv("WOTW_DB_PW")
 
         this.db =
             Database.connect("jdbc:postgresql://$host:$port/$db?user=$user&password=$password", "org.postgresql.Driver")
@@ -66,7 +58,7 @@ class WotwBackendServer {
     val gameEndpoint = GameEndpoint(this)
     val connections = ConnectionRegistry()
     private fun startServer() {
-        embeddedServer(Netty, port = 8081, host = "127.0.0.1") {
+        embeddedServer(Netty, port = System.getenv("WOTW_SERVER_PORT").toIntOrNull() ?: 8081, host = System.getenv("WOTW_SERVER_HOST") ?: "localhost") {
             install(WebSockets) {
                 maxFrameSize = Long.MAX_VALUE
             }
