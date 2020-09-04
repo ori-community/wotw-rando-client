@@ -2717,7 +2717,7 @@ anchor InnerWellspring.BelowDrainLever at -1153, -3895:  # In the first room bel
 
 anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you exit the first room
   refill Checkpoint
-  refill Health=2: free
+  refill Health=2
   refill Energy=3:
     moki: Weapon
 
