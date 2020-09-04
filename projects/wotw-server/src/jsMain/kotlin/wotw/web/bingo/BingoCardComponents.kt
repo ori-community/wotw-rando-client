@@ -14,6 +14,8 @@ import wotw.io.messages.protobuf.*
 import wotw.io.messages.protobuf.Position
 import wotw.web.io.WebSocketComponent
 import wotw.web.main.Application
+import wotw.web.util.BACKEND_HOST
+import wotw.web.util.BACKEND_PORT
 import wotw.web.util.hbox
 import wotw.web.util.vbox
 
@@ -161,8 +163,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                 }
             }
             child(WebSocketComponent::class) {
-                //TODO: Config
-                attrs.url = "ws://localhost:8081/bingosync/${props.gameId}"
+                attrs.url = "ws://$BACKEND_HOST:$BACKEND_PORT/bingosync/${props.gameId}"
             }
         }
     }
