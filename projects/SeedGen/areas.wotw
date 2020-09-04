@@ -1,4 +1,13 @@
-# Areas.wotw: defines logic paths for the wotw randomizer
+# This file defines all the requirements a player has to fulfill in order to reach a given pickup on the map.
+# The pickup names and locations are defined in loc_data.csv.
+
+# All pickups are tied to an anchor, a point on the map. The requirements listed under a pickup are what you need to get from that anchor to that pickup. For more details on this visit https://docs.google.com/document/d/1XAiL4GbyYGr2_PobxWajrOPO9kQ5UOSf4KrbI1rsOBM/view?usp=sharing
+
+# Special Syntax:
+# BreakWall=x: A wall or corruption with x Health is broken
+# ShurikenBreak=x: A wall with x Health is broken from behind using Shuriken
+# SentryJump=x: short for Energy=1, Sword OR Hammer
+# Combat=x: An enemy has to be defeated. For a list of enemies visit https://docs.google.com/spreadsheets/d/1AE_ctym6WAwltGK-r6w58ARq0ym2MU4MzFiwg328kjM/view?usp=sharing
 
 # requirement macros. must go at the top of the file!
 requirement Weapon:
