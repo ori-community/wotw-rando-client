@@ -1914,7 +1914,8 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Bash, Grenade=1
     gorlek:
       DoubleJump, TripleJump
-      SentryJump=1, Sword OR Hammer
+      Bash, DoubleJump
+      SentryJump=1
     unsafe:
       Grenade=1  # grenade jump
   pickup WestGlades.AbovePlantEX:
@@ -1924,8 +1925,15 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Water, Bash
       Launch
     gorlek:
-      Bash, Dash OR DoubleJump OR Glide
+      Bash, DoubleJump OR Dash OR Grenade=1
+      Bash, WaterDash, Damage=20
+      Bash, SentryJump=1, Glide
+      SentryJump=1, Combat=SpitPlant, DoubleJump OR Dash OR Water
+      SentryJump=1, Combat=SpitPlant, WaterDash, Damage=20
+      SentryJump=2, Glide, Combat=SpitPlant
+    unsafe:
       SentryJump=1, Sword, Danger=20  # defeating the enemy. Note that RangedWeapon would probably not be appropriate because it would take more than one hit to kill.
+      # DiveLaunch, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Flap OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
   pickup WestGlades.LowerPoolEX:
     moki: Water
   pickup WestGlades.SwimEC:
@@ -1937,20 +1945,30 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Water, Grapple, DoubleJump
       Water, Grapple, WaterDash, Dash OR Glide
     gorlek:
-      Water, Grapple, Dash OR Glide OR Sword OR Hammer  # You can wall jump up thru the ledge just to the right of the first hook. It's a semisolid.
-      Launch, DoubleJump
+      DoubleJump, Grapple, Bash OR Damage=10 OR Combat=SpitPlant
+      Dash, Grapple, Bash OR Damage=10 OR Combat=SpitPlant
+      Bash, Damage=10, DoubleJump, TripleJump, Dash OR Glide
+      Combat=SpitPlant, Damage=10, DoubleJump, TripleJump, Dash, Glide
+      WaterDash, Damage=20, Bash, Grapple, Glide OR Sword OR Hammer
+      WaterDash, Damage=20, Combat=SpitPlant, Grapple, Glide OR Sword OR Hammer
+      Bash, Grenade=1, Grapple, Glide OR Sword OR Hammer
+      Bash, Grenade=1, DoubleJump, TripleJump
+      Bash, Grenade=1, DoubleJump, Dash, Damage=10
+      SentryJump=1, Glide, Grapple, Bash OR Damage=10 OR Combat=SpitPlant
+      Water, Grapple, Dash OR Glide OR Sword OR Hammer
+      Launch
     unsafe:
       Water, Grapple, Sentry=1 OR Flash OR Shuriken=1 OR Blaze=1 OR Damage=30
-      Launch
 
-  conn WestGlades.Upper:
+  conn WestGlades.Center:
     moki:
       DoubleJump, Bash, Water OR Dash OR Glide OR Grenade=1
       Launch
     gorlek:
-      Bash, DoubleJump
-      Water, DoubleJump, SentryJump=2
-      Water, Grapple, Dash, DoubleJump, TripleJump, Damage=10  # in that order lol
+      Bash, DoubleJump OR Dash
+      Grapple, DoubleJump, TripleJump, Dash, Glide, Water OR Damage=10 OR Combat=SpitPlant
+      Grapple, DoubleJump, TripleJump, Dash, Sword  # solves the enemy as per Combat=SpitPlant definition
+      SentryJump=1, DoubleJump, Water OR Damage=10 OR Combat=SpitPlant
     unsafe:
       Bash  # verified
       SentryJump=2, Sword, Danger=20  # defeating the enemy and sword floating, FANTASTIC for kii
@@ -1962,13 +1980,42 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Launch
     gorlek:
       Bash
-      SentryJump=1, Glide OR DoubleJump OR Dash
       DoubleJump, TripleJump OR Dash
-      DoubleJump, Sword, Damage=10
+      DoubleJump, Damage=10, Glide OR Sword
+      SentryJump=1, DoubleJump OR Dash OR Glide OR Sword
+      SentryJump=1, Hammer, Damage=10
     unsafe:
       DoubleJump, Sword OR Glide  # verified damageless
 
-# checkpoint at -612, -4083
+anchor WestGlades.Center at -612, -4083:  # At the middle room connecting upper and lower Glades
+  refill Checkpoint
+
+  pickup WestGlades.LeftOre:
+    moki: Grapple, DoubleJump OR Dash OR Glide OR Launch
+    gorlek: Grapple, Sword OR Hammer
+    unsafe: Grapple, Sentry=1 OR Flash OR Shuriken=1 OR Blaze=1 OR Damage=30
+  pickup WestGlades.RightOre:
+    moki:
+      Bash, DoubleJump OR Dash
+      Launch
+    gorlek:
+      Bash, Glide OR Sword OR Hammer OR Grenade=1
+      SentryJump=1, Dash, Sword OR Hammer
+
+  conn WestGlades.Upper:
+    moki:
+      Bash, DoubleJump OR Dash OR Glide OR Grenade=1
+      Launch
+    gorlek:
+      Bash
+      SentryJump=1, DoubleJump
+  conn WestGlades.Lower:
+    moki:
+      EnemyObstacle, DoubleJump OR Dash OR Glide
+      Water, DoubleJump OR Dash OR Bash OR Glide OR Danger=10
+      Launch
+    gorlek:
+      Water OR Bash OR Damage=10 OR Combat=SpitPlant
 
 anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions to Wellspring, Reach, and Pools
   refill Checkpoint
@@ -1977,33 +2024,21 @@ anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions
   state LowerReach.BearSneezed:
     moki: Flap
 
-  pickup WestGlades.LeftOre:
-    moki: Grapple, DoubleJump OR Dash OR Glide OR Launch
-    gorlek: 
-      Grapple, Sword OR Hammer
-      Launch
-    unsafe: Grapple, Sentry=1 OR Flash OR Shuriken=1 OR Blaze=1 OR Damage=30
   pickup WestGlades.UpperPoolEX:
     moki: Water
   pickup WestGlades.RightOre:
     moki:
-      Bash, DoubleJump OR Dash
       Glide, DoubleJump OR Dash
       DoubleJump, Dash
-      Launch
-    gorlek: 
-      Bash, Glide OR Sword OR Hammer
+    gorlek:
       DoubleJump, TripleJump OR Sword OR Hammer
-      Glide, SentryJump=1
+      Dash, Sword OR Hammer
+      Glide, Combat=SpitPlant, SentryJump=1
     unsafe:
       Bash
       Glide, Shuriken=1 OR Sword OR Hammer OR Flash OR Sentry=1
 
-  conn WestGlades.Lower:
-    moki:
-      EnemyObstacle, DoubleJump OR Dash OR Glide
-      Water, DoubleJump OR Dash OR Bash OR Glide OR Danger=10
-      Launch
+  conn WestGlades.Center: free
   conn LowerReach.Entry:
     moki: LowerReach.BearSneezed
   conn WestGlades.MillApproach:
@@ -2013,44 +2048,46 @@ anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions
       Water, WaterDash
     gorlek:
       Grapple  # grapple up to the second hook and drop down
-      DoubleJump, TripleJump, Danger=10, Glide OR Dash  # danger because it is incredibly difficult to dodge the enemy
+      DoubleJump, TripleJump, Glide OR Dash OR Sword
+      WaterDash, Damage=20
       SentryJump=1
     unsafe:
       DoubleJump, TripleJump, Glide OR Dash
       Grenade=1  # grenade jump
 
-# checkpoint at -664, -4026
+anchor WestGlades.ShrineArea at -664, -4026:
+  refill Checkpoint
+
+  pickup WestGlades.ShrineHC:
+    moki:
+      Grapple, DoubleJump, Dash OR Glide
+      Bash, Grenade=1
+      Launch
+    gorlek:
+      Grapple, DoubleJump, TripleJump OR Dash
+      Bash, DoubleJump OR Dash OR Glide OR Sword  # use the shrine enemies
+      SentryJump=1
+
+  conn GladesShrine: free
+  conn WestGlades.MillApproach: free
 
 anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room opening up to Wellspring
   refill Checkpoint
   refill Health=1: free
 
-  pickup WestGlades.ShrineHC:
+  # any paths to the ore above would be redundant with connection to outerentrance so far
+
+  conn WestGlades.ShrineArea:
     moki:
-      Grapple, DoubleJump, Dash OR Glide
-      Grapple, DoubleJump, Bash, Grenade=1
-      DoubleJump, Bash, Grenade=2
+      Grapple, DoubleJump
+      Grapple, Dash, Glide
+      Bash, Grenade=1, DoubleJump
       Launch, Bash, Grenade=1
       Launch, DoubleJump OR Grapple
     gorlek:
-      Grapple, DoubleJump, TripleJump
-      Bash, Grenade=1, Grapple OR SentryJump=1
-      Launch OR SentryJump=2
-    unsafe:
-      Grapple, Glide, Sentry=1 OR Flash OR Shuriken=1 OR Hammer  # could be more
-      Grenade=1, Sword  # pogo
-      
-
-   # any moki path to the ore above way redundant with connection to outerentrance
-
-  conn GladesShrine:
-    moki:
-      Grapple, Bash, DoubleJump OR Glide
-      Bash, Grenade=1, DoubleJump OR Launch
-      Launch, DoubleJump OR Grapple
-    gorlek:
-      Grapple, DoubleJump OR Glide OR Dash
-      Launch OR SentryJump=1
+      Grapple, DoubleJump OR Dash OR Glide OR Sword
+      SentryJump=1, DoubleJump, TripleJump
+      Launch
     unsafe:
       Bash, Grenade=1, Grapple  # Grenadebash
   conn WestGlades.Upper:
@@ -2061,13 +2098,12 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Launch
       Water, WaterDash
     gorlek:
-      Water OR Sword OR DoubleJump OR Glide OR Dash  # use the floating log and wall jump up
+      Water OR DoubleJump OR Dash OR Glide OR Sword OR Damage=20  # wall jump through the semisolid
       Hammer, Bash OR SentryJump=1 OR Grapple
     unsafe:
       Bash
       Grenade=1, Sentry=1 OR Flash OR Blaze=1 OR Shuriken=1
       Sentry=2
-      
   conn OuterWellspring.EntranceDoor:
     moki:
       Launch OR Water
@@ -2076,29 +2112,30 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Dash, Glide
     gorlek:
       DoubleJump OR Dash
+      Damage=20, Glide OR Sword
+      Bash, Grenade=1, Glide OR Sword OR Damage=20
       Bash, Grenade=2
+      SentryJump=1, Glide OR Sword OR Damage=20
       SentryJump=2, Sword OR Hammer
-      Grapple, SentryJump=1, Sword OR Hammer
-      # Grapple, Hammer
+      # Other Grapple options don't seem very consistent
     unsafe:
-      Bash, Grenade=1, Grapple	# requires holding up, good for kii
+      Bash, Grenade=1, Grapple  # requires holding up, good for kii
       Glide OR Sword
       Grenade=2, Hammer  # grenade jumps and hammer floats
       Grapple, Sentry=1 OR Flash OR Spear=1 OR Shuriken=1
-      
   conn PoolsApproach.MillPathCheckpoint:  # this makes more sense here than at OuterWellspring
     moki:
       Danger=15, Water, Grapple, DoubleJump, Dash OR Glide  # you can make this path harder on yourself by not using the wall, but really the fail case is you taking 15 damage
       Water, Grapple, WaterDash OR Launch
       Water, Launch, DoubleJump, Dash
       Water, Launch, Glide
-    gorlek:
-      Danger=15, Water, Grapple, DoubleJump OR Dash OR Glide OR Sword OR Hammer
-      Water, Grapple, DoubleJump, TripleJump
-      Water, Launch, Damage=15 OR Sword OR Hammer OR DoubleJump OR Dash
-    unsafe:
-      Water, Bash, Grapple OR Launch OR Damage=15  # sit at the water's surface and use the enemy's projectile for verticality
-      Water, Grapple, Dash OR DoubleJump OR Damage=15
+    gorlek:  # hopefully didn't go too far for gorlek?
+      Water, Grapple, DoubleJump OR Dash OR Bash OR Damage=15  # non-damage variants pretty risky
+      Water, WaterDash, DoubleJump, TripleJump
+      Water, WaterDash, Dash OR Glide OR Sword OR Damage=15
+      Water, Bash, DoubleJump, TripleJump
+      Water, Bash, Dash OR Glide OR Sword OR Damage=15
+      Water, Launch, DoubleJump OR Dash OR Bash OR WaterDash OR Sword OR Hammer OR Damage=15
 
 anchor GladesShrine:
   refill Full
