@@ -13,13 +13,6 @@
 requirement Weapon:
   moki: Sword OR Hammer
 
-requirement Combat:  # engaging in longer combat sequences
-  moki: Regenerate, Sword OR Hammer  # define damage when using this!
-  unsafe: Sword OR Hammer
-
-requirement RangedWeapon:
-  moki: Grenade=1 OR Bow=1 OR Spear=1
-
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in moki, just future proofing here
   moki: UpperDepths.ForestsEyes OR Flash
   unsafe: Bow=3  # should be good, right?
@@ -91,17 +84,9 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Water, Burrow, Bash, Grenade=1, Dash
     gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   pickup MarshSpawn.LifepactShard:
-    # Damage required:
-    # Spider: 31 Health
-    # Hornbug: 40 Health
-    # 2 Sandworms: 20 Health
-    # 2 Lizards: 24 Health
-    # 3 Skeetos: 20 Health
-    # 1 Sneeze Slug: 31 Health
-    moki, Combat, Damage=40:  # no region damage
+    moki, Combat=Hornbug, Bat, 2xSandworm, 2xLizard, 3xSkeeto, SneezeSlug:
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-    # gorlek tbd
   pickup PoolsApproach.BurrowsPathEX:
     moki:
       DoubleJump, Bash, Glide
@@ -197,7 +182,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       DoubleJump, Dash OR Grapple
       Bash, DoubleJump OR Dash OR Glide OR Grapple
       Launch
-      Weapon  # go through the fight room
+      Combat=3xLizard  # go through the fight room
     gorlek: DoubleJump OR Bash OR Grapple  # basically the moki paths without assisting abilities
 
   quest MarshSpawn.TheMissingKey:
@@ -216,12 +201,12 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Bash, DoubleJump OR Dash
       Bash, Grenade=1, Glide OR Grapple
       Launch
-      Weapon, DoubleJump OR Dash OR Launch  # go through the fight room
-      Weapon, Bash, Grenade=1  # go through the fight room
+      Combat=3xLizard, DoubleJump OR Dash OR Launch  # go through the fight room
+      Combat=3xLizard, Bash, Grenade=1  # go through the fight room
     gorlek:
       DoubleJump  # basically the moki path without assisting abilities
       Bash, Grenade=1  # basically the moki path without assisting abilities
-      Weapon, SentryJump=1  # go through the fight room, makes other sentryjump paths unnecessary
+      Combat=3xLizard, SentryJump=1  # go through the fight room, makes other sentryjump paths unnecessary
       # weapon floats maybe too precise for gorlek
 
 # checkpoint at -845, -4438
@@ -257,14 +242,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       # could do a sentryjump into bashgrenade, but I heard that kind of thing is unwelcome ;P
     unsafe: Burrow, SentryJump=1  # max height
   pickup MarshSpawn.LifepactShard:
-    # Damage required:
-    # Spider: 31 Health
-    # Hornbug: 40 Health
-    # 2 Sandworms: 20 Health
-    # 2 Lizards: 24 Health
-    # 3 Skeetos: 20 Health
-    # Sneeze Slug: 31 Health
-    moki: Combat, Damage=40, DoubleJump, Burrow  # no region damage
+    moki: Combat=Hornbug, Bat, 2xSandworm, 2xLizard, 3xSkeeto, SneezeSlug, Bash, DoubleJump OR Launch
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     moki: Bash, DoubleJump OR Launch
     gorlek:
@@ -552,43 +530,20 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
       Grenade=1               # Grenade jump to platform
   # if someone manages to lower the platform, they'll manage to get over the gap as well. That's how it works in the base game, that's how it'll work here
   pickup HowlsDen.DoubleJumpEX:
-    # Damage required:
-    # Squonkey: 31 Health
-    # Lizard: 24 Health
-    moki: Weapon  # no combat because the game puts this before regen. It's why all the enemies drop tons of health
+    moki: Combat=Mantis, Lizard  # the game puts this before regen. It's why all the enemies drop tons of health
 
   conn Teleporters: free
   conn DenShrine:
     moki: Hammer OR Spear=1
   conn HowlsDen.DoubleJumpTreeArea:
-    # Damage required:
-    # Squonkey: 31 Health
-    # Lizard: 24 Health
-    moki: Weapon OR DoubleJump OR Dash OR Glide OR Launch
+    moki: Combat=Mantis, Lizard OR DoubleJump OR Dash OR Glide OR Launch
   conn HowlsDen.BoneBridge:
     unsafe: Hammer  # break a wall from behind
 
 anchor DenShrine:
   refill Full
   pickup HowlsDen.CombatShrine:
-    # Wave Refill: 4 Energy
-    # Damage required:
-    # Wave 1:
-    # Squonkey: 31 Health
-    # 2 Lizards: 24 Health
-    # Wave 2:
-    # 2 Sneeze Slugs: 31 Health
-    # Squonkey: 31 Health
-    # Skeeto: 20 Health
-    # Wave 3:
-    # 7 Skeeties: 8 Health
-    # 2 Skeetos: 20 Health
-    # Wave 4:
-    # 2 Lizards: 24 Health
-    # 2 Squonkeys: 31 Health
-    moki, Combat, DoubleJump OR Bash OR Launch:  # pretty difficult shrine actually
-      Damage=60
-      Damage=40, Dash OR Bash OR Launch  # much better if you have good evasion
+    moki: Combat=Mantis, 2xLizard, 4xEnergyRefill, 2xSneezeSlug, Mantis, Skeeto, 4xEnergyRefill, 7xSmallSkeeto, 2xSkeeto, 4xEnergyRefill, 2xLizard, 2xMantis
 
 # checkpoint at -514, -4549
 
@@ -673,17 +628,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
 anchor MarshShrine:
   refill Full
   pickup MarshPastOpher.CombatShrine:
-    # Wave Refill: 2 Energy
-    # Damage required:
-    # Wave 1:
-    # 2 Skeetos: 20 Health
-    # Wave 2:
-    # Squonkey: 31 Health
-    # 4 Skeeties: 8 Health
-    # Wave 3:
-    # Squonkey: 31 Health
-    # Skeeto: 20 Health
-    moki: Combat, Damage=20, DoubleJump OR Bash OR Launch  # flying enemies, but short and not too hard
+    moki: Combat=2xSkeeto, 2xEnergyRefill, Mantis, 4xSmallSkeeto, 2xEnergyRefill, Mantis, Skeeto
 
 anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow tree
   refill Checkpoint
@@ -945,10 +890,10 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
 
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     moki:
-      Weapon, Bow=4, DoubleJump OR Dash  # the camera only reliably moves to the tongues if you can kill the slimes
-      Bash, Bow=2  # bashing up with the slime
-      RangedWeapon, DoubleJump, Dash, Glide
-      RangedWeapon, Bash, DoubleJump, Dash OR Glide  # bashing up with the slime
+      Combat=2xSlug, BombSlug, Bow=3, DoubleJump OR Dash  # the camera only reliably moves to the tongues if you can kill the slugs
+      Bash, Combat=BombSlug, Bow=1  # bashing up with the slug
+      Combat=BombSlug, DoubleJump, Dash, Glide
+      Combat=BombSlug, Bash, DoubleJump, Dash OR Glide  # bashing up with the slug
       Launch
   state WestHollow.PurpleDoorOpen:
     moki, WestHollow.UpperDrainLeverPulled:
@@ -967,9 +912,9 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
       Bash, Grenade=1
   conn EastHollow.Teleporter:
     moki, WestHollow.PurpleDoorOpen:
-      Weapon, Bow=1, DoubleJump OR Dash OR Glide  # the camera only reliably moves to the tongue if you can kill the slime
+      Combat=2xSlug, Bow=1, DoubleJump OR Dash OR Glide  # the camera only reliably moves to the tongue if you can kill the slug
       DoubleJump, Dash OR Glide
-      Bash, RangedWeapon OR DoubleJump OR Dash OR Glide  # bashing up with the slime
+      Bash, Combat=BombSlug OR DoubleJump OR Dash OR Glide  # bashing up with the slug
       Launch
   conn WestHollow.HollowDrainMiddle:
     moki: WestHollow.UpperDrainLeverPulled
@@ -1130,8 +1075,8 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   # paths through the purple door exist mainly because of historical reasons, but might be a candidate for future open mode as well
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     moki, WestHollow.PurpleDoorOpen:
-      Weapon, Bow=3, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slime
-      RangedWeapon, DoubleJump, Dash, Glide
+      Combat=Slug, BombSlug, Bow=1, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
+      Combat=BombSlug, DoubleJump, Dash, Glide
       Launch
 
   conn Teleporters: free
@@ -1151,8 +1096,8 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
 anchor BeetleFight:
   refill Full
   state EastHollow.BeetleDefeated:
-    moki: Combat, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
-    unsafe: Combat
+    moki: Combat=250, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
+    unsafe: Combat=250
 
 # checkpoint at -106, -4221
 
@@ -1927,7 +1872,7 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       SentryJump=1, Combat=Spitter, WaterDash, Damage=20
       SentryJump=2, Glide, Combat=Spitter
     unsafe:
-      SentryJump=1, Sword, Damage=20  # defeating the enemy. Note that RangedWeapon would probably not be appropriate because it would take more than one hit to kill.
+      SentryJump=1, Sword, Damage=20  # defeating the enemy. Should replace with Combat= once applicable
       # DiveLaunch, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Flap OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
   pickup WestGlades.LowerPoolEX:
     moki: Water
@@ -2136,10 +2081,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
 anchor GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
-    moki, Combat, Bash:  # the shooter plants have basically no attack surface without bash
-      Damage=65                     # the crabs are terrifying!
-      Damage=55, DoubleJump OR Dash # these can help
-      Damage=30, Launch             # if you're op, nothing's terrifying
+    moki: Combat=2xCrab, Bee, 3xEnergyRefill, Hornbug, 2xSpitter, 3xEnergyRefill, 2xSpinCrab, 2xBee, 3xEnergyRefill, 2xMantis, Spitter, SpinCrab
 
 region OuterWellspring:
   moki: Damage=25
@@ -2215,7 +2157,7 @@ anchor OuterWellspring.AboveEntranceDoor at -837, -4026:  # at the crystal above
     moki: Weapon
 
   state OuterWellspring.WestDoorBlueMoonFree:
-    moki, RangedWeapon:
+    moki, BreakWall=3, Bow OR Spear OR Grenade:
       Grapple, DoubleJump, Dash
       Grapple, Glide OR Launch
 
@@ -2259,7 +2201,7 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
   refill Checkpoint
 
   state OuterWellspring.WestDoorBlueMoonFree:
-    moki, RangedWeapon:
+    moki, BreakWall=3, Bow OR Spear OR Grenade:
       DoubleJump OR Dash OR Glide
       Bash, Grenade=1
       InnerWellspring.TopDoorOpen, Grapple
@@ -2773,8 +2715,8 @@ anchor InnerWellspring.EastDoor at -1190, -3733:  # Inside the door leading to t
     moki: Weapon
 
   state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
-    moki: Combat, DoubleJump OR Dash OR Glide OR Launch  # +25 region damage
-    gorlek: Combat  # different ways to solve
+    moki: Combat=2xLizard, 3xMantis, Miner, DoubleJump OR Dash OR Glide OR Launch
+    gorlek: Combat=2xLizard, 3xMantis, Miner  # different ways to solve
   state InnerWellspring.SpinPuzzleSolved:  # Having Water changes this room (not considered in moki)
     moki, InnerWellspring.SpinArena:
       Grapple, DoubleJump OR Dash
@@ -2950,9 +2892,9 @@ anchor WoodsEntry.ShriekMeet at 478, -4205:  # The ledge to the left of where th
       Bash, Grenade=2
 
   conn WoodsEntry.BelowTeleporter:
-    moki, RangedWeapon:
-      Damage=10, DoubleJump OR Dash OR Glide OR Launch
-      Bash, DoubleJump OR Dash OR Glide OR Launch
+    moki:
+      Combat=Balloon, Bash, DoubleJump OR Dash OR Glide
+      Combat=Balloon, Launch
   conn EastHollow.Kwolok:
     unsafe: Water, Bash
 
@@ -2962,16 +2904,16 @@ anchor WoodsEntry.BelowTeleporter at 591, -4198:  # Read the name
   refill Checkpoint
 
   conn WoodsEntry.ShriekMeet:
-    moki, RangedWeapon:
-      DoubleJump, Dash OR Glide
-      Launch
+    moki:
+      Combat=Balloon, Bash, DoubleJump, Dash OR Glide
+      Combat=Balloon, Bash, Launch
   conn WoodsEntry.Teleporter:
     moki:
       Grapple, DoubleJump OR Dash OR Glide
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
   conn WoodsEntry.TwoKeystoneRoom:
-    moki: RangedWeapon, DoubleJump OR Dash OR Glide OR Launch
+    moki: Combat=2xBalloon, DoubleJump OR Dash OR Glide OR Launch
 
 anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
   refill Full
@@ -3018,7 +2960,7 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
       Combat=2xSkeeto, Spitter, Glide
       Bash OR Launch  # bash uses the enemy
   conn WoodsEntry.BelowTeleporter:
-    moki: RangedWeapon, DoubleJump OR Glide OR Launch
+    moki: Combat=2xBalloon, DoubleJump OR Glide OR Launch
 
 region WoodsMain:
   moki: Damage=40, Regenerate
@@ -3036,13 +2978,13 @@ anchor WoodsMain.BelowFourKeystoneRoom at 951, -4210:  # At the first leaf pile 
   pickup WoodsMain.LowerLeafPileEX:
     moki: Flap
   pickup WoodsMain.BehindWallOre:
-    moki: BreakWall=20, RangedWeapon, Bash, Grenade=2, DoubleJump  # different ways to solve
+    moki: BreakWall=20, Combat=2xBalloon, Bash, Grenade=2, DoubleJump  # different ways to solve
     unsafe: BreakWall=20, DoubleJump, Dash  # Perform wrap-around double jumps on the far right wall under the ore
   pickup WoodsMain.BelowKeystonesEX:
-    moki: RangedWeapon, Bash, Grenade=2, DoubleJump  # different ways to solve
+    moki: Combat=2xBalloon, Bash, Grenade=2, DoubleJump  # different ways to solve
 
   conn WoodsMain.FourKeystoneRoom:
-    moki, RangedWeapon:
+    moki, Combat=2xBalloon:
       Flap, Glide
       Bash, Grenade=2, DoubleJump, Dash  # different ways to solve
       Launch
@@ -3102,7 +3044,7 @@ anchor WoodsMain.GiantSkull at 957, -4138:  # Behind the four keystone room door
   state WoodsMain.BelowHiddenOreCorruption:  # defined as state because some paths cross this twice
     moki:
       BreakWall=3, Glide
-      RangedWeapon, Launch
+      Launch, BreakWall=3, Bow OR Spear OR Grenade
 
   pickup WoodsMain.UpperLeafPileEX:
     moki: Flap
@@ -3166,9 +3108,9 @@ anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced How
       Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
 
   conn WoodsMain.Teleporter:
-    moki, RangedWeapon:
-      DoubleJump OR Launch
-      Bash, Grenade=1
+    moki:
+      Combat=4xBalloon, DoubleJump OR Launch
+      Combat=4xBalloon, Bash, Grenade=1
   conn WoodsMain.PetrifiedHowl: free
 
 # checkpoint at 873, -3980
@@ -3236,10 +3178,7 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
 anchor WoodsShrine:
   refill Full
   pickup WoodsMain.CombatShrine:
-    moki, Combat, RangedWeapon, Bash, Hammer OR Launch:  # this one has it all -_-
-      Damage=80
-      Damage=65, DoubleJump OR Dash
-      Damage=50, Launch
+    moki: Combat=Hornbug, Lizard, 3xSkeeto, 4xEnergyRefill, 2xCrystalMiner, Bat, 4xEnergyRefill, 9xBalloon, 4xEnergyRefill, 4xMantis, Bat
 
 region LowerReach:
   moki: Damage=40, Regenerate
@@ -3693,10 +3632,10 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
     moki:
       Weapon, DoubleJump, Dash
       Weapon, Launch
-      RangedWeapon
+      Bow=1 OR Spear=1 OR Grenade=1
 
   state LowerReach.ArenaBeaten:
-    moki: Combat, Damage=40, Hammer OR Launch
+    moki: Combat=3xShieldMiner, Hornbug, 2xBee
 
   conn LowerReach.Trial:
     moki: LowerReach.ArenaBeaten
@@ -3792,7 +3731,7 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
       Launch
   pickup UpperDepths.EntryOre:
     moki:
-      Weapon, Grapple, DoubleJump  # weapon to kill the enemy
+      Combat=Bat, Grapple, DoubleJump
       Bash, DoubleJump OR Grapple
       Launch
   pickup UpperDepths.LeftEntryKS:
@@ -3882,12 +3821,13 @@ anchor UpperDepths.Teleporter at 513, -4361:  # The spirit well
   conn Teleporters: free
   conn UpperDepths.BelowHive:
     moki:
-      RangedWeapon
+      BreakWall=1, Bow OR Spear
       BreakWall=1, Launch
       DepthsLight
   conn UpperDepths.Central:
     moki:
-      RangedWeapon, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+      BreakWall=1, Bow, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+      BreakWall=1, Spear, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
       BreakWall=1, Launch
 
 anchor UpperDepths.Central at 464, -4484:  # The firefly egg to the right of the second keystone door
@@ -3920,7 +3860,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
   quest UpperDepths.LightcatcherSeed:
     moki:
       DepthsLight, DoubleJump, Dash, Grapple
-      Weapon, DepthsLight, DoubleJump, Dash, Bash, Grenade=1  # weapon to clear the place for bashgrenading
+      DepthsLight, Combat=2xSpiderling, DoubleJump, Dash, Bash, Grenade=1  # clear the floor to bashgrenade
       DepthsLight, Launch
 
   pickup UpperDepths.RightHealthKS:
@@ -3960,9 +3900,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
 anchor MoraFight:
   refill Full
   quest UpperDepths.ForestsEyes:
-    moki, Combat, Damage=95:
-      DepthsLight, Bash, Grapple, DoubleJump OR Dash
-      DepthsLight, Bash, Grapple, Launch
+    moki: Combat=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
 
 anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left of the second keystone door
   refill Checkpoint
@@ -4037,10 +3975,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
 anchor DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
-    moki, Combat, Bash:
-      Damage=65
-      Damage=60, DoubleJump OR Dash
-      Damage=50, Launch
+    moki: Combat=3xBat, 4xEnergyRefill, 2xSneezeSlug, 2xSpitter, 4xEnergyRefill, 2xBat, 2xSpitter, 4xEnergyRefill, Bat, SneezeSlug
 
 anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
   refill Checkpoint
@@ -4151,8 +4086,8 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
   pickup PoolsApproach.MillPathEX:
     moki:
       Bash, DoubleJump OR Dash
-      RangedWeapon, DoubleJump, Dash
-      RangedWeapon, DoubleJump, Grapple, Glide  # solvable either through the right grapple point or using the wrap-around taught at glades shrine
+      Combat=SpinCrab, CorruptSlug, DoubleJump, Dash
+      Combat=SpinCrab, CorruptSlug, DoubleJump, Grapple, Glide  # solvable either through the right grapple point or using the wrap-around taught at glades shrine
       Launch
   pickup PoolsApproach.MillPathEC:
     moki: Water  # again not really a reason to even use Bash
@@ -4160,8 +4095,8 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
   conn PoolsApproach.MillPathCheckpoint:
     moki, Damage=20:  # severe enemy spam
       Bash, DoubleJump  # bash errything
-      Weapon, Bash, Grenade=3, Dash OR Glide  # clear the space to bashnade
-      Weapon, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
+      Combat=Crab, 2xSmallSkeeto, Bash, Grenade=3, Dash OR Glide  # clear the space to bashnade
+      Combat=Crab, 2xSmallSkeeto, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
       Combat=Crab, 2xSmallSkeeto, DoubleJump, Grapple, Dash OR Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
   conn PoolsApproach.RightOfWheel:
@@ -4327,7 +4262,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
   # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
   state EastPools.FightArenas:
-    moki: EastPools.LowerWaterDrained, Combat, Water, Bash
+    moki: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab, Spitter, 2xSkeeto
 
   quest EastPools.HandToHandSpyglass:
     moki, LowerDepths.HandToHandSilk:
@@ -4599,7 +4534,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
 anchor KwolokFight:
   refill Full
   quest WestPools.ForestsStrength:
-    moki: Combat, Water, WaterDash, Bash, DoubleJump, Damage=95, Dash OR Launch
+    moki: Combat=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
   moki: Damage=50, Regenerate
@@ -5229,8 +5164,8 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
       Burrow, Glide, DoubleJump OR Dash
       Burrow, Launch
       # these make you able to break the Heart and then use the resulting terrain
-      Weapon, Burrow, Bash, Grenade=1
-      Weapon, Glide
+      BreakWall=16, Burrow, Bash, Grenade=1
+      BreakWall=16, Glide
 
 anchor WindtornRuins.Escape:
   refill Full
@@ -5277,7 +5212,7 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
       Bow=1
 
   state WeepingRidge.ElevatorFightCompleted:
-    moki, Combat, Bash OR Hammer OR Launch:  # against the shields
+    moki, Combat=2xCrystalMiner, 2xShieldCrystalMiner:
       DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch
@@ -5336,7 +5271,7 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
   # a lot of energy crystals not considered, mostly because they are on the way to hearts which aren't currently tracked
 
   # state WillowsEnd.TrapHeart:
-  #   moki: BreakWall=30, RangedWeapon, Launch, DoubleJump, Dash
+  #   moki: BreakWall=30, Launch, DoubleJump, Dash
 
   state WillowsEnd.GrappleWheelsHeart:
     moki, BreakWall=30:
@@ -5366,7 +5301,7 @@ anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
   refill Full
 
   pickup WillowsEnd.LupoMap:
-    moki: DoubleJump OR Dash OR Launch OR RangedWeapon
+    moki: DoubleJump OR Dash OR Launch OR Bow=1
 
   conn Teleporters: free
   conn WillowsEnd.Entry:
@@ -5482,13 +5417,13 @@ anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
     moki: Launch
   conn WillowsEnd.UpperHeartPath:
     moki:
-      RangedWeapon, DoubleJump, Bash, Grenade=1
+      DoubleJump, Bash, Grenade=1, Bow=1 OR Spear=1 OR Grenade=1
       Launch
 
 # anchor LaserRockFight:
 #   refill Full
 #   state WillowsEnd.ElementalDefeated:
-#     moki: Combat, Damage=85, Bash, Launch
+#     moki: Combat=smth
 
 anchor WillowsEnd.UpperHeartPath at 506, -3711:  # Right above the exit blocked by vines
   refill Checkpoint
