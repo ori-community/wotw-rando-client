@@ -21,6 +21,7 @@ plugins {
 repositories {
     jcenter()
     maven("https://dl.bintray.com/kotlin/ktor")
+    maven(url = "https://dl.bintray.com/kordlib/Kord")
     mavenCentral()
 }
 
@@ -54,6 +55,7 @@ kotlin{
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
+                implementation("com.gitlab.kordlib.kord:kord-core:0.6.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$serialization_version")
 
