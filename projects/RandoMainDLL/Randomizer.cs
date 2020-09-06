@@ -24,14 +24,18 @@ namespace RandoMainDLL {
     }
 
     public static void OnNewGame(int slot) {
-      // overwrite the message log TODO: save a backup maybe?
-      File.WriteAllText(Randomizer.MessageLog, "");
-      SeedController.ReadSeed();
-      UberStateController.NeedsNewGameInit = true;
-      UberStateController.UberStates.Clear();
-      AHK.OnNewGame();
-      SaveController.NewGame(slot);
-      BonusItemController.Refresh();
+      try {
+        // overwrite the message log TODO: save a backup maybe?
+        File.WriteAllText(Randomizer.MessageLog, "");
+        SeedController.ReadSeed();
+        UberStateController.NeedsNewGameInit = true;
+        UberStateController.UberStates.Clear();
+        AHK.OnNewGame();
+        SaveController.NewGame(slot);
+        BonusItemController.Refresh();
+      } catch(Exception e) {
+        Randomizer.Error("OnNewGame", e);
+      }
     }
 
     public static bool Initialize() {
@@ -58,6 +62,7 @@ namespace RandoMainDLL {
 
         Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
         Client.UberStateChanged = UberStateController.HandleSyncedUberStateChange;
+        DiscordController.Initialize();
         return true;
       } catch (Exception e) {
         Log($"init error: {e.Message}\n{e.StackTrace}");
@@ -81,6 +86,7 @@ namespace RandoMainDLL {
         }
         AHK.Tick();
         BonusItemController.Update();
+        DiscordController.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }

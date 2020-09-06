@@ -15,6 +15,7 @@ set(
 	SOURCE_FILES
 	"AHK.cs"
 	"CppCallbacks.cs"
+	"DiscordController.cs"
 	"Extensions.cs"
 	"HintsController.cs"
 	"InterOp.cs"
