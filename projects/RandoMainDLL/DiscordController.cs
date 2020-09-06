@@ -3,6 +3,7 @@
 namespace RandoMainDLL {
   public static class DiscordController {
     private static long CLIENT_ID = 751523174767919195;
+    public static bool Disabled = true;
     public static Discord.UserManager UserManager {
       get {
         if(userManager == null) {
@@ -26,6 +27,7 @@ namespace RandoMainDLL {
     private static Discord.Discord _discord;
     public static Discord.ApplicationManager ApplicationManager;
     public static void Initialize() {
+      if (Disabled) return;
       ApplicationManager = discord.GetApplicationManager();
       ApplicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) => {
         try {
@@ -45,11 +47,13 @@ namespace RandoMainDLL {
     }
 
     public static void Update() {
+      if(Disabled) return;
       discord?.RunCallbacks();
     }
 
     public static void DiscordInitComplete() {
       Initialized = true;
+      if (Disabled) return;
       User = UserManager.GetCurrentUser();
       Randomizer.Log($"ID: {User.Id}, name: {User.Username}");
 
