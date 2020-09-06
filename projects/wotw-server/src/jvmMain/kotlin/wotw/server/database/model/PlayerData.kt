@@ -1,5 +1,6 @@
 package wotw.server.database.model
 
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.serializer
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
@@ -12,6 +13,7 @@ import wotw.server.database.jsonb
 object PlayerDataTable : LongIdTable() {
     val gameId = reference("game_id", Games)
     val userId = reference("user_id", Users)
+    @OptIn(InternalSerializationApi::class)
     val uberStateData = jsonb("uber_state_data", UberStateMap::class.serializer())
 
     init {

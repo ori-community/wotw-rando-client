@@ -1,8 +1,7 @@
 package wotw.io.messages.protobuf
 
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.StringDescriptor
-import kotlinx.serialization.protobuf.ProtoId
+import kotlinx.serialization.protobuf.ProtoNumber
 import kotlin.math.max
 
 //All fields have default values ^= protobuf optional
@@ -13,8 +12,8 @@ data class BingoData(val board: BingoBoard, val players: List<PlayerInfo>)
 
 @Serializable
 data class BingoBoard(
-    @ProtoId(1) val squares: Map<Position, BingoSquare> = emptyMap(),
-    @ProtoId(2) val size: Int = -1) {
+    @ProtoNumber(1) val squares: Map<Position, BingoSquare> = emptyMap(),
+    @ProtoNumber(2) val size: Int = -1) {
 
     operator fun get(position: Position) = squares[position]
     fun merge(other: BingoBoard) =
@@ -24,21 +23,21 @@ data class BingoBoard(
 
 @Serializable
 data class Position(
-    @ProtoId(1) val x: Int,
-    @ProtoId(2) val y: Int
+    @ProtoNumber(1) val x: Int,
+    @ProtoNumber(2) val y: Int
 )
 
 infix fun Int.to (y: Int) = Position(this, y)
 
 @Serializable
 data class BingoSquare(
-    @ProtoId(1) val text: String = "",
-    @ProtoId(2) val completed: Boolean = false,
-    @ProtoId(3) val goals: List<BingoGoal> = emptyList()
+    @ProtoNumber(1) val text: String = "",
+    @ProtoNumber(2) val completed: Boolean = false,
+    @ProtoNumber(3) val goals: List<BingoGoal> = emptyList()
 )
 
 @Serializable
 data class BingoGoal(
-    @ProtoId(1) val text: String = "",
-    @ProtoId(2) val completed: Boolean = false
+    @ProtoNumber(1) val text: String = "",
+    @ProtoNumber(2) val completed: Boolean = false
 )

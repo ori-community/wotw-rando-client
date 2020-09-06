@@ -10,7 +10,8 @@ import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.*
 import io.ktor.websocket.webSocket
-import kotlinx.serialization.json.json
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.protobuf.BingoData
@@ -48,8 +49,8 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 }
             }
 
-            call.respond(HttpStatusCode.Created, json {
-                "id" to game.id.value
+            call.respond(HttpStatusCode.Created, buildJsonObject {
+                put("id", game.id.value)
             })
         }
         post<Long>("bingo/{game_id}/players") { userId ->

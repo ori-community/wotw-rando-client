@@ -10,7 +10,9 @@ import io.ktor.http.cio.websocket.WebSocketSession
 import io.ktor.http.cio.websocket.close
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.dump
+import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.load
 import react.*
 import wotw.io.messages.protobuf.Packet
@@ -35,11 +37,11 @@ class WebSocketComponent : RComponent<WebSocketProperties, RState>(){
                 props.config?.invoke(this)
                 currentSession = this
                 Application.eventBus.register(this, Packet::class){
-                    outgoing.send(Frame.Binary(true, protoBuf.dump(it)))
+                    outgoing.send(Frame.Binary(true, protoBuf.encodeToByteArray(it)))
                 }
                 for(frame in incoming){
                     if(frame is Frame.Binary){
-                        val packet: Packet = protoBuf.load(frame.data)
+                        val packet: Packet = protoBuf.decodeFromByteArray(frame.data)
                         val message = packet.deserializeMessage()?.also {
                             Application.eventBus.send(it)
                         }
