@@ -99,7 +99,7 @@ data class NumberThresholdGoal(override val title: String, private val expressio
     BingoGoal() {
     override val keys = expression.keys + threshold.keys
     override fun isCompleted(state: GameState): Boolean {
-        return expression.calc(state) < threshold.calc(state)
+        return expression.calc(state) >= threshold.calc(state)
     }
 
     override fun printSubText(state: GameState):  Iterable<Pair<String, Boolean>>{
@@ -108,7 +108,6 @@ data class NumberThresholdGoal(override val title: String, private val expressio
         else{
             listOf((expression.calc(state).toString().replace("NaN", "?") + " / " + threshold.calc(state).toString().replace("NaN", "?")) to false)
         }
-
     }
 }
 
