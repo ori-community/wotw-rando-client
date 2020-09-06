@@ -1,21 +1,21 @@
 package wotw.io.messages.protobuf
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.protobuf.ProtoId
+import kotlinx.serialization.protobuf.ProtoNumber
 
 @Serializable
 data class UberId(
-    @ProtoId(1) val group: Int,
-    @ProtoId(2) val state: Int
+    @ProtoNumber(1) val group: Int,
+    @ProtoNumber(2) val state: Int
 )
 
 @Serializable
 data class UberStateUpdateMessage(
-    @ProtoId(1) val uberId: UberId,
-    @ProtoId(2) val value: Float
+    @ProtoNumber(1) val uberId: UberId,
+    @ProtoNumber(2) val value: Float
 )
 
 @Serializable
 data class InitBingoMessage(
-    @ProtoId(1) val uberStates: List<UberId> = emptyList()
+    @ProtoNumber(1) val uberStates: List<UberId> = emptyList()
 )

@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 import wotw.io.messages.protobuf.BingoBoard
 import wotw.io.messages.protobuf.BingoSquare
 import wotw.io.messages.protobuf.Position
+import wotw.io.messages.protobuf.UberId
+import kotlin.math.exp
 
 typealias GameState = UberStateMap //These have changed *4 times* now, I'm keeping the typealiases :D
 
@@ -80,7 +82,7 @@ data class CountGoal(
     override val title: String = when {
         hideChildren -> text
         threshold == goals.size -> text.replace("#", "THESE")
-        threshold > 1 -> text.replace("#", "AT LEAST $threshold")
+        threshold > 1 -> text.replace("#", "$threshold")
         else -> text.replace("#", "ANY")
     }
 }
@@ -93,15 +95,21 @@ data class BoolGoal(override val title: String, private val key: Pair<Int, Int>)
 }
 
 @Serializable
-data class NumberThresholdGoal(override val title: String, private val key: Pair<Int, Int>, private val threshold: Double) :
+data class NumberThresholdGoal(override val title: String, private val expression: StateExpression, private val threshold: StateExpression, private val hide: Boolean = false) :
     BingoGoal() {
-    override val keys = setOf(key)
+    override val keys = expression.keys + threshold.keys
     override fun isCompleted(state: GameState): Boolean {
-        return (state[key] ?: Float.MIN_VALUE).compareTo(threshold) >= 0
+        return expression.calc(state) < threshold.calc(state)
     }
 
-    override fun printSubText(state: GameState) =
-        listOf((state[key] ?: 0).toString() + " / " + threshold.toString() to false)
+    override fun printSubText(state: GameState):  Iterable<Pair<String, Boolean>>{
+        return if (hide)
+            emptyList()
+        else{
+            listOf((expression.calc(state).toString().replace("NaN", "?") + " / " + threshold.calc(state).toString().replace("NaN", "?")) to false)
+        }
+
+    }
 }
 
 typealias Point = Pair<Int, Int>
@@ -122,4 +130,57 @@ data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf()) {
             )
         }.toMap(), 5)
     }
+}
+
+@Serializable
+sealed class StateExpression{
+    abstract fun calc(state: GameState) : Float
+    abstract val keys: Set<Pair<Int, Int>>
+
+    operator fun plus(other: StateExpression): StateExpression {
+        return OperatorExpression(this, other, OperatorExpression.OPERATOR.PLUS)
+    }
+
+    operator fun minus(other: StateExpression): StateExpression {
+        return OperatorExpression(this, other, OperatorExpression.OPERATOR.MINUS)
+    }
+
+    operator fun times(other: StateExpression): StateExpression {
+        return OperatorExpression(this, other, OperatorExpression.OPERATOR.TIMES)
+    }
+}
+
+@Serializable
+class UberStateExpression(val uberId: Pair<Int, Int>): StateExpression() {
+    constructor(group: Int, state: Int): this(group to state)
+
+    override fun calc(state: GameState) : Float = state[uberId] ?: Float.NaN
+    override val keys: Set<Pair<Int, Int>>
+        get() = setOf(uberId)
+}
+
+@Serializable
+class ConstExpression(val value: Float): StateExpression(){
+    override fun calc(state: GameState): Float = value
+    override val keys: Set<Pair<Int, Int>>
+        get() = emptySet()
+}
+
+@Serializable
+class OperatorExpression(val first: StateExpression, val second: StateExpression, val op: OPERATOR): StateExpression(){
+    enum class OPERATOR{
+        PLUS, MINUS, TIMES, DIV
+    }
+
+    override fun calc(state: GameState): Float {
+        return when(op){
+            OPERATOR.PLUS -> first.calc(state) + second.calc(state)
+            OPERATOR.MINUS -> first.calc(state) - second.calc(state)
+            OPERATOR.TIMES -> first.calc(state) * second.calc(state)
+            OPERATOR.DIV -> first.calc(state) / second.calc(state)
+        }
+    }
+
+    override val keys: Set<Pair<Int, Int>>
+            get() = first.keys + second.keys
 }

@@ -6,16 +6,16 @@ buildscript {
     }
 }
 
-val kotlin_version = "1.3.72"
-val ktor_version = "1.3.2"
+val kotlin_version = "1.4.0"
+val ktor_version = "1.4.0"
 val logback_version = "1.2.3"
 val exposed_version = "0.24.1"
 val kotlinx_html_version = "0.7.1"
-val serialization_version = "0.20.0"
+val serialization_version = "1.0.0-RC"
 
 plugins {
-    id("org.jetbrains.kotlin.multiplatform") version "1.3.72"
-    kotlin("plugin.serialization") version "1.3.72"
+    id("org.jetbrains.kotlin.multiplatform") version "1.4.0"
+    kotlin("plugin.serialization") version "1.4.0"
 }
 
 repositories {
@@ -40,8 +40,8 @@ kotlin{
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation("io.ktor:ktor-client-core:$ktor_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf-common:$serialization_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$serialization_version")
             }
         }
         val commonTest by getting {
@@ -54,7 +54,7 @@ kotlin{
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:$serialization_version")
 
                 implementation("io.github.classgraph:classgraph:4.8.87")
@@ -82,7 +82,7 @@ kotlin{
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-js:$serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf-js:$serialization_version")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-html-js:${kotlinx_html_version}")
@@ -90,7 +90,7 @@ kotlin{
                 implementation("io.ktor:ktor-client-js:$ktor_version")
                 implementation("io.ktor:ktor-client-serialization-js:$ktor_version")
 
-                implementation("org.jetbrains:kotlin-react:16.13.1-pre.110-kotlin$kotlin_version")
+                implementation("org.jetbrains:kotlin-react:16.13.1-pre.110-kotlin-$kotlin_version")
                 implementation("org.jetbrains:kotlin-react-dom:16.13.1-pre.110-kotlin-$kotlin_version")
                 implementation("org.jetbrains:kotlin-styled:1.0.0-pre.110-kotlin-$kotlin_version")
                 implementation("org.jetbrains:kotlin-extensions:1.0.1-pre.110-kotlin-$kotlin_version")
@@ -116,10 +116,9 @@ kotlin{
 
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.ImplicitReflectionSerializer"
+
 }
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().configureEach {
-    kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.serialization.ImplicitReflectionSerializer"
 
 }
 
@@ -132,6 +131,6 @@ val jvmJar = tasks.named<Jar>("jvmJar"){
 
 tasks.create<JavaExec>("run"){
     group = "application"
-    main = "wotw.server.main.Application"
+    main = "wotw.server.main.WotwBackendServer"
     classpath(configurations["jvmRuntimeClasspath"], jvmJar)
 }

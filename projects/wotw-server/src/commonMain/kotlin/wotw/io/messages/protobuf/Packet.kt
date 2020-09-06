@@ -1,22 +1,25 @@
 package wotw.io.messages.protobuf
 
 import kotlinx.serialization.*
-import kotlinx.serialization.protobuf.ProtoId
+import kotlinx.serialization.protobuf.ProtoNumber
 import wotw.io.messages.protoBuf
 import wotw.util.BiMap
 import wotw.util.biMapOf
 import kotlin.reflect.KClass
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
 typealias PacketId = Int
+
 @Serializable
 data class Packet(
-    @ProtoId(1) val id: PacketId,
-    @ProtoId(2) val message: ByteArray) {
+    @ProtoNumber(1) val id: PacketId,
+    @ProtoNumber(2) val message: ByteArray
+) {
 
-    @ImplicitReflectionSerializer
-    fun deserializeMessage(): Any?{
-        val cls = ids[id] ?: return null
-        return protoBuf.load(cls.serializer(), message)
+    fun deserializeMessage(): Any? {
+        val type = ids[id] ?: return null
+        return protoBuf.decodeFromByteArray(serializer(type), message)
     }
 
     //Auto-Generated equals/hash-code due to array type
@@ -38,31 +41,30 @@ data class Packet(
         return result
     }
 
-    companion object{
-        val ids : BiMap<PacketId, KClass<*>> = biMapOf(
-            1 to SyncBoardMessage::class,
-            2 to RequestUpdatesMessage::class,
-            3 to UberStateUpdateMessage::class,
-            4 to SyncPlayersMessage::class,
-            5 to InitBingoMessage::class
+    @OptIn(ExperimentalStdlibApi::class)
+    companion object {
+        val ids: BiMap<PacketId, KType> = biMapOf(
+            1 to typeOf<SyncBoardMessage>(),
+            2 to typeOf<RequestUpdatesMessage>(),
+            3 to typeOf<UberStateUpdateMessage>(),
+            4 to typeOf<SyncPlayersMessage>(),
+            5 to typeOf<InitBingoMessage>(),
         )
 
-        @ImplicitReflectionSerializer
-        fun deserialize(bytes: ByteArray): Any?{
-            return protoBuf.load(Packet.serializer(), bytes).deserializeMessage()
+        fun deserialize(bytes: ByteArray): Any? {
+            return protoBuf.decodeFromByteArray(serializer(), bytes).deserializeMessage()
         }
 
-        @ImplicitReflectionSerializer
-        fun <T: Any> from(obj: T): Packet {
-            val serializer = obj::class.serializerOrNull() as? KSerializer<T> ?: throw SerializationException("Cannot find Serializer for ${obj::class.simpleName}")
-            val id = ids.inverse[obj::class] ?: throw SerializationException("No packet-id known for ${obj::class.simpleName}, known values: ${ids.inverse.keys}, ${ids.values}")
-            return Packet(id, protoBuf.dump(serializer, obj))
+        inline fun <reified T : Any> from(obj: T): Packet {
+            val id = ids.inverse[typeOf<T>()]
+                ?: throw SerializationException("No packet-id known for ${obj::class.simpleName}, known values: ${ids.inverse.keys}, ${ids.values}")
+            val serializer = serializer(typeOf<T>())
+            return Packet(id, protoBuf.encodeToByteArray(serializer, obj))
         }
 
-        @ImplicitReflectionSerializer
-        fun <T: Any> serialize(obj: T): ByteArray?{
-            return from(obj)?.let {
-                protoBuf.dump(it)
+        inline fun <reified T : Any> serialize(obj: T): ByteArray? {
+            return from(obj).let {
+                protoBuf.encodeToByteArray(it)
             }
         }
     }
