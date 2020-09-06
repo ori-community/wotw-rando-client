@@ -103,7 +103,7 @@ namespace RandoMainDLL {
       } 
       UberSet.Bool(slot.BoughtState(), true);
       if (WaterOverride(slot)) {
-        AHK.SendPlainText(new PlainText($"Bought Hint: {HintsController.GetKeySkillHintOne(true)}", 300));
+        AHK.SendPlainText(new PlainText($"Bought Hint: {HintsController.GetKeySkillHintOne()}", 300));
         return;
       }
 
