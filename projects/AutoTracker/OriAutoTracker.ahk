@@ -449,7 +449,7 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, img\Regen.png
         Help := "Regenerate"
     else IfEqual, HoverText, img\Glide.png
-        Help := "Glide | Glide"
+        Help := "Glide"
     else IfEqual, HoverText, img\Flash.png
         Help := "Flash"
     else IfEqual, HoverText, img\WaterBreath.png
