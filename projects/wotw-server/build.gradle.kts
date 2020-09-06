@@ -21,6 +21,7 @@ plugins {
 repositories {
     jcenter()
     maven("https://dl.bintray.com/kotlin/ktor")
+    maven(url = "https://dl.bintray.com/kordlib/Kord")
     mavenCentral()
 }
 
@@ -71,6 +72,8 @@ kotlin{
                 implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
 
                 implementation("org.postgresql:postgresql:42.2.14")
+
+                implementation("com.gitlab.kordlib.kord:kord-core:0.6.2")
             }
         }
         val jvmTest by getting {

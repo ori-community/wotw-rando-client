@@ -65,7 +65,7 @@ namespace RandoMainDLL {
 
   public static class SeedController {
 
-    private static Guid GameID = Guid.Empty;
+    private static bool Sync = false;
     public static bool GrantingGoalModeLoc = false;
     public enum FakeUberGroups {
       TREE = 0,
@@ -177,18 +177,32 @@ namespace RandoMainDLL {
         }
 
         // Should only be used for configuration options.
-
-        if (GameID != Guid.Empty) {
-          if (!Randomizer.Client.IsConnected)
-            Randomizer.Client.Connect(GameID, 0);
-
-          UberStateController.QueueSyncedStateUpdate();
+        if (Sync) {
+          if (DiscordController.Initialized) {
+            ConnectToServer();
+          }
+          else {
+            DiscordController.ConnectToServer = true;
+          }
         }
       }
       else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
+
+    public static void ConnectToServer() {
+      if (!Randomizer.Client.IsConnected) {
+        string url = AHK.IniString("Paths", "URL");
+        if (url == string.Empty)
+          url = "wotw.orirando.com";
+
+        Randomizer.Client.Connect(url, DiscordController.User.Id);
+      }
+
+      UberStateController.QueueSyncedStateUpdate();
+    }
+
     public static bool HasInternalSpoilers = false;
     public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
     public static bool KSDoorsOpen { get => flags.Contains(Flag.NOKEYSTONES); }

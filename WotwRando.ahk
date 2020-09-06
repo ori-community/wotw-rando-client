@@ -314,6 +314,7 @@ TryDelete(INSTALL_DIR . "VERSION")
 
 
 
+FileInstall, C:\moon\discord_game_sdk.dll, %INSTALL_DIR%discord_game_sdk.dll, 1
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1

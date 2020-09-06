@@ -15,6 +15,7 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.server.api.BingoEndpoint
 import wotw.server.api.ConnectionRegistry
+import wotw.server.api.DiscordEndpoint
 import wotw.server.api.GameEndpoint
 import wotw.server.database.model.Games
 import wotw.server.database.model.PlayerDataTable
@@ -56,6 +57,7 @@ class WotwBackendServer {
 
     val bingoEndpoint = BingoEndpoint(this)
     val gameEndpoint = GameEndpoint(this)
+    val discordEndpoint = DiscordEndpoint(this)
     val connections = ConnectionRegistry()
     private fun startServer() {
         embeddedServer(Netty, port = System.getenv("WOTW_SERVER_PORT").toIntOrNull() ?: 8081, host = System.getenv("WOTW_SERVER_HOST") ?: "localhost") {
@@ -94,6 +96,7 @@ class WotwBackendServer {
             routing {
                 bingoEndpoint.init(this)
                 gameEndpoint.init(this)
+                discordEndpoint.init(this)
             }
         }.start(wait = true)
     }
