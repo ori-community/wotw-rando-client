@@ -25,7 +25,7 @@ repositories {
     mavenCentral()
 }
 
-kotlin{
+kotlin {
     jvm()
     js {
         browser {
@@ -64,6 +64,7 @@ kotlin{
                 implementation("io.ktor:ktor-websockets:$ktor_version")
                 implementation("io.ktor:ktor-html-builder:$ktor_version")
                 implementation("io.ktor:ktor-serialization:$ktor_version")
+                implementation("io.ktor:ktor-network-tls-certificates:$ktor_version")
 
                 implementation("ch.qos.logback:logback-classic:$logback_version")
 
@@ -98,7 +99,7 @@ kotlin{
                 implementation("org.jetbrains:kotlin-styled:1.0.0-pre.110-kotlin-$kotlin_version")
                 implementation("org.jetbrains:kotlin-extensions:1.0.1-pre.110-kotlin-$kotlin_version")
                 implementation("org.jetbrains:kotlin-css-js:1.0.0-pre.110-kotlin-$kotlin_version")
-                implementation( "org.jetbrains:kotlin-react-router-dom:5.1.2-pre.110-kotlin-$kotlin_version")
+                implementation("org.jetbrains:kotlin-react-router-dom:5.1.2-pre.110-kotlin-$kotlin_version")
                 implementation(npm("styled-components", "5.1.0"))
                 implementation(npm("inline-style-prefixer", "6.0.0"))
                 implementation(npm("react", "16.13.1"))
@@ -119,18 +120,23 @@ kotlin{
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = "1.8"
 }
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().configureEach {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().configureEach {}
 
-}
-
-val jvmJar = tasks.named<Jar>("jvmJar"){
+val jvmJar = tasks.named<Jar>("jvmJar") {
     //Uncomment this to include the webpack
     /*val jsBrowserProductionWebpack = tasks.getByName<org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack>("jsBrowserProductionWebpack")
     dependsOn(jsBrowserProductionWebpack)
     from(jsBrowserProductionWebpack.entry, jsBrowserProductionWebpack.destinationDirectory)*/
 }
 
-tasks.create<JavaExec>("run"){
+//Generates self-signed test certificate
+val generateJks = tasks.create<JavaExec>("generateJks") {
+    group = "application"
+    main = "wotw.build.main.CertificateGenerator"
+    classpath(configurations["jvmRuntimeClasspath"], jvmJar)
+}
+
+tasks.create<JavaExec>("run") {
     group = "application"
     main = "wotw.server.main.WotwBackendServer"
     classpath(configurations["jvmRuntimeClasspath"], jvmJar)
