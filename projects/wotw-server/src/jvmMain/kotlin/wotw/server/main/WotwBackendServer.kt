@@ -66,6 +66,7 @@ class WotwBackendServer {
                 install(WebSockets) {
                     maxFrameSize = Long.MAX_VALUE
                 }
+                install(HttpsRedirect)
                 install(CallLogging)
                 install(CORS) {
                     method(HttpMethod.Options)
