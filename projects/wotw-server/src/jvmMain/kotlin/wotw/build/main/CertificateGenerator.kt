@@ -11,11 +11,11 @@ class CertificateGenerator {
             val jkspw = System.getenv("JKSPW") ?: throw Exception("JKSPW not set!")
             val keypw = System.getenv("KEYPW") ?: throw Exception("KEYPW not set!")
 
-            val jksFile = File("build/temporary.jks").apply {
+            val jksFile = File("/etc/letsencrypt/live/wotw.orirando.com/keystore.jks").apply {
                 parentFile.mkdirs()
             }
             if (!jksFile.exists()) {
-                generateCertificate(jksFile, keyAlias = "wotwserverkey", jksPassword = jkspw, keyPassword = keypw)
+                generateCertificate(jksFile, keyAlias = "wotwrcert", jksPassword = jkspw, keyPassword = keypw)
             }
         }
     }
