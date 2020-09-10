@@ -158,11 +158,11 @@ namespace RandoMainDLL {
             CallbackName = "filter_icon_show"
           },
           new Method() {
-            Delegate = new f_int_int_int(MapController.FilterIconType),
+            Delegate = new f_int_int_int_int(MapController.FilterIconType),
             CallbackName = "filter_icon_type"
           },
           new Method() {
-            Delegate = new f_void_ptr_int_int_int(MapController.FilterIconText),
+            Delegate = new f_void_ptr_int_int_int_int(MapController.FilterIconText),
             CallbackName = "filter_icon_text"
           },
           new Method() {
@@ -178,7 +178,7 @@ namespace RandoMainDLL {
     public delegate void f_void_at_bool(AbilityType at, bool b);
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
-    public delegate void f_void_ptr_int_int_int(IntPtr buffer, int l, int i, int j);
+    public delegate void f_void_ptr_int_int_int_int(IntPtr buffer, int l, int i, int j, int k);
     public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
     public delegate void f_void_st(ShardType st);
     public delegate void f_void_gwa(AreaType at);
@@ -192,6 +192,7 @@ namespace RandoMainDLL {
     public delegate int f_int_at(AbilityType at);
     public delegate int f_int_int(int i);
     public delegate int f_int_int_int(int i, int j);
+    public delegate int f_int_int_int_int(int i, int j, int k);
     public delegate int f_int_st(ShardType st);
     public delegate ulong f_ull();
     public delegate ulong f_ull_str_bool([MarshalAs(UnmanagedType.LPStr)] string str, bool b);

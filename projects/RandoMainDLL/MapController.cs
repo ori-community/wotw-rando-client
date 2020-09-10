@@ -68,16 +68,20 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
       Updating = false;
     }
-    public static int FilterIconType(int groupId, int id) {
+    public static int FilterIconType(int groupId, int id, int value) {
       var cond = new UberId(groupId, id).toCond();
+      if (value >= 0)
+        cond.Target = value;
       if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)
         return (int)cond.Pickup().Icon;
       else
         return (int)WorldMapIconType.Eyestone;
     }
 
-    public static void FilterIconText(IntPtr buffer, int length, int groupId, int id) {
+    public static void FilterIconText(IntPtr buffer, int length, int groupId, int id, int value) {
       var cond = new UberId(groupId, id).toCond();
+      if (value >= 0)
+        cond.Target = value;
       var pick = cond.Pickup();
       string text = pick is Cash c ? $"{c.Amount} Spirit Light" : pick.ToString();
       if (!pick.NonEmpty && cond.Loc() == LocData.Void) 
