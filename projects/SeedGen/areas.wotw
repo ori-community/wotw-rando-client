@@ -796,8 +796,6 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
     moki: Bash, DoubleJump OR Launch
     gorlek:
       Bash, Dash  # the bat is weird
-      
-      ShurikenBreak=20, Bash, Dash  # the bat is weird
       ShurikenBreak=20, Combat=Bat, Launch, DoubleJump OR Dash
     unsafe:
       Hammer, Bash                    # Fairly precise air combos needed
