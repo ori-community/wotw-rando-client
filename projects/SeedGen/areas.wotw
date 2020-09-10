@@ -584,17 +584,21 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
 
   pickup MarshPastOpher.TrialLeftEX:
     moki: BreakWall=20, DoubleJump OR Glide OR Dash OR Launch
-    gorlek: Sword OR Hammer  # Horizontal slash combo
-    unsafe: Sentry=1 # Use Sentry instead of DoubleJump
+    gorlek:
+      Sword OR Hammer  # Horizontal slash combo
+      BreakWall=20, Damage=10
+    unsafe: BreakWall=20, Sentry=1 # Use Sentry instead of DoubleJump
 
   conn OpherShop: free
   conn MarshPastOpher.TrialArea:
     moki: BreakWall=20
   conn MarshPastOpher.BowPath:
     moki: DoubleJump OR Dash OR Glide OR Launch
-    gorlek: Weapon
+    gorlek: free
   conn MarshSpawn.Main:
-    unsafe: Hammer  # break the wall from behind and use an upswing
+    unsafe: Hammer OR Spear=1 OR ShurikenBreak=16  # break the wall from behind using clipping techniques
+  conn MarshPastOpher.PoolsPathEast:
+    gorlek: Water, Bash, Launch  # the enemies appear once you have water
 
 # checkpoint at -603, -4316
 # checkpoint at -573, -4339
@@ -603,7 +607,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
   refill Checkpoint
   refill Health=1:  # right below
     moki: DoubleJump OR Dash OR Glide OR Launch
-    gorlek: Weapon 
+    gorlek: free
 
   # state MarshPastOpher.TrialActivation:
   #   moki: Grapple, Dash OR Glide OR Launch
@@ -623,24 +627,32 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
   pickup MarshPastOpher.TrialOre: free
   pickup MarshPastOpher.TrialEC:
     moki: DoubleJump OR Dash OR Glide OR Launch
-    gorlek: Sword OR Hammer # Horizontal slashes
-    unsafe: Sentry=1
+    gorlek:
+      Sword  # Horizontal slashes
+      Hammer, Damage=10
+    unsafe: Hammer OR Sentry=1
   pickup MarshPastOpher.TrialHC:
     moki: Hammer OR Spear=1
+    gorlek: Combat=Slug OR Bash OR Launch  # lure stomp
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
     gorlek:
-      Dash, Sword
-      SentryJump=1 
       Sword  # Pogo the enemy
+      SentryJump=1, Hammer
     unsafe:
-      Dash, Sentry=1
-      Shuriken, Sword
+      Dash
 
   conn MarshShrine: free
-
-# checkpoint at -436, -4323
+  conn MarshPastOpher.BowPath:
+    moki, BreakWall=20:
+      Bash, DoubleJump OR Dash OR Glide OR Grapple OR Launch
+      Combat=Mantis, SneezeSlug, DoubleJump OR Dash OR Glide OR Grapple OR Launch
+    gorlek, BreakWall=20:
+      Bash, Sword OR Hammer
+      Bash, Grenade=1
+      Combat=Mantis, SneezeSlug, Sword OR Hammer
+      Launch
 
 anchor MarshShrine:
   refill Full
@@ -656,64 +668,84 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
   pickup MarshPastOpher.SwingPoleEX:
     moki:
       Damage=10, DoubleJump OR Dash OR Glide OR Launch
-      Damage=10, Bash, Grenade=1
-    gorlek: 
-      Danger=10, Sword OR Hammer OR Bash OR SentryJump=1
-      Danger=10, Bash, Grenade=2
-    unsafe: Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide  # it's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
+      Damage=10, Bash, Grenade=2
+    gorlek:
+      DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Launch  # it's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
+      Bash, Grenade=1
+    unsafe: Bash  # the mantis disappears if you die
 
-  conn MarshPastOpher.BowArea:
-    moki:
-      DoubleJump OR Launch
-      Bash, Grenade=3
-    gorlek: Sword OR Hammer
-    unsafe: Sentry=1
+  conn MarshPastOpher.BowApproach:
+    moki: DoubleJump OR Launch
+    gorlek:
+      Dash OR Sword
+      Bash, Grenade=2
+    unsafe: Hammer OR Sentry=1
   conn MarshPastOpher.MillView:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=2
-    gorlek: Weapon
+    gorlek:
+      Sword OR Hammer
+      Bash, Grenade=1
+    unsafe: Bash  # befriend the slug
   conn MarshPastOpher.TrialArea:
-    moki: BreakWall=20, Damage=10  # the one-way has 20 health as well, so there might not be relevant shurikenbreak paths here
+    moki:
+      BreakWall=20, DoubleJump OR Dash OR Glide OR Launch
+      BreakWall=20, Bash, Grenade=1
+    gorlek: BreakWall=20  # the one-way has 20 health as well, so there are no relevant shurikenbreak paths here
+
+anchor MarshPastOpher.BowApproach at -490, -4245:  # On the right ledge above the scenic mill view
+  refill Checkpoint
+  refill Health=1
+
+  pickup MarshPastOpher.SwingPoleEX:
+    moki: Damage=10
+    gorlek: free
+
+  conn MarshPastOpher.BowPath: free
+  conn MarshPastOpher.BowArea:
+    moki:
+      DoubleJump OR Dash OR Glide OR Launch
+      Bash, Grenade=1
+    gorlek: Sword OR Damage=10
+  conn MarshPastOpher.MillView:
+    moki: Bash, Grenade=1  # this is the only non-redundant connection that will ever exist.
+  conn MarshPastOpher.PoolsPathEast:
+    moki:
+      Bow=4, DoubleJump, Dash, Bash, Glide  # autoaim doesn't catch the second target, 2 is needed minimum
+      Bow=4, Bash, Launch  # autoaim doesn't catch the second target, 2 is needed minimum
+    gorlek:
+      Bow=2, Bash, Launch  # the moki path, but without safety energy
+      Bow=2, DoubleJump, Bash, TripleJump OR Dash OR Glide
+      Launch, DoubleJump OR Dash OR Glide  # For the last part reset your Launch on the wall above the lantern
+    unsafe:
+      Bow=2, Bash, DoubleJump, Weapon
 
 anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit with bow tree.
   refill Energy=1:
     moki: Weapon
 
   state MarshPastOpher.EyestoneDoor:
-    moki: Keystone=2
+    moki: Keystone=2  # crosses where the water would usually be
 
-  pickup MarshPastOpher.BowEC: free
-  pickup MarshPastOpher.BowTree: free
-  pickup MarshPastOpher.SwingPoleEX:
-    moki: Damage=20
-    gorlek: Danger=10
+  pickup MarshPastOpher.BowEC: free  # crosses where the water would usually be
+  pickup MarshPastOpher.BowTree: free  # crosses where the water would usually be
 
   conn MarshPastOpher.UpperBowArea:
     moki:
       Combat=Skeeto, Bow=2, DoubleJump
       Launch
-   gorlek:
-      Bow=2 OR SentryJump=2 OR DoubleJump
-  conn MarshPastOpher.MillView:
-    moki:
-      DoubleJump OR Dash OR Launch
-      Glide, Damage=10
-      Bash, Grenade=1, Bow=1
+    gorlek:
+      SentryJump=2 OR DoubleJump  # can kill the skeeto with your weapon if desired on the sentryjump path
+      Combat=Skeeto, Bow=2, Dash OR Glide OR Sword OR Hammer
+      Bash, Bow=2, Dash OR Glide OR Sword OR Hammer
       Bash, Grenade=2
-    gorlek:
-      Weapon OR Glide, Danger=10
-  conn MarshPastOpher.PoolsPathEast:
-    moki:
-      Bow=4, DoubleJump, Dash, Bash, Glide  # autoaim doesn't catch the second target, 2 is needed minimum
-      Bow=4, Bash, Launch  # autoaim doesn't catch the second target, 2 is needed minimum
-    gorlek:
-      Bow=2, DoubleJump, TripleJump, Bash
-      Launch, DoubleJump # For the last part reset your Launch on the wall above the lantern
-    unsafe:
-      Bow=2, Bash, DoubleJump, Weapon
   conn WestHollow.Entrance:
-    moki: MarshPastOpher.EyestoneDoor
+    moki: MarshPastOpher.EyestoneDoor  # crosses where the water would usually be
+  conn MarshPastOpher.BowApproach:
+    moki: DoubleJump OR Dash OR Launch
+    gorlek: Bash OR Sword OR Damage=10
+    unsafe: Glide
 
 anchor MarshPastOpher.UpperBowArea at -437, -4211:  # Between the eyestones
   refill Checkpoint
@@ -728,10 +760,7 @@ anchor MarshPastOpher.UpperBowArea at -437, -4211:  # Between the eyestones
     gorlek: Bow=1
 
   conn MarshPastOpher.BowArea: free
-  conn MarshPastOpher.BowPath: free
-  conn MarshPastOpher.MillView:
-    moki: Bash, Grenade=1
-    gorlek: Weapon
+  conn MarshPastOpher.BowApproach: free
 
 # checkpoint at -383, -4230
 
@@ -739,25 +768,37 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
   refill Checkpoint
   refill Health=1:
     moki: Combat=Mantis, Bat
+    gorlek: free
   refill Energy=3:
     moki: Weapon, Combat=Mantis, Bat
+    gorlek: Weapon
 
-  pickup MarshPastOpher.CeilingEX:
+  pickup MarshPastOpher.CeilingEX:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki:
       Bash, DoubleJump, Dash
       Launch
     gorlek:
-      Bash, DoubleJump OR Grenade=1
-      SentryJump=1, DoubleJump
+      Bash, DoubleJump
+      Bash, Grenade=1, Dash OR Sword OR Hammer
+      SentryJump=1, DoubleJump OR Dash OR Sword
     unsafe:
       Bash, Dash              # Pretty precise to do without damage
   pickup MarshPastOpher.PoolsPathEC:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
-    gorlek: Bash, Dash
-    unsafe: Bash, Glide
+    gorlek:
+      Bash, Dash  # the bat is weird
+      Combat=Bat, Launch, DoubleJump OR Dash
+    unsafe:
+      Bash, Glide
+      Combat=Bat, Launch, Damage=10
 
   conn MarshPastOpher.PoolsPathWest:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
+    gorlek:
+      Bash, Dash  # the bat is weird
+      
+      ShurikenBreak=20, Bash, Dash  # the bat is weird
+      ShurikenBreak=20, Combat=Bat, Launch, DoubleJump OR Dash
     unsafe:
       Hammer, Bash                    # Fairly precise air combos needed
       Hammer, Sword, Bash             # Fairly precise air combos needed
@@ -1479,7 +1520,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
         TuleyShop.StickyGrass, Grapple, Bash, Grenade=2, Sword
     unsafe:
       Flap, Glide, Sword OR Hammer OR Grenade=1  # grenade jump, upslash, uphammer
-      TuleyShop.SpringPlants, Sword OR Grenade=1 # increased height bounces 
+      TuleyShop.SpringPlants, Sword OR Grenade=1 # increased height bounces
       TuleyShop.SpringPlants, Sentry=1 OR Flash  # sentry and flash short hops give you juuuuuust enough height to get up using the springboard by the hut with the crates
       TuleyShop.Lightcatchers, Bash, TuleyShop.BlueMoon, Grapple
   conn GladesTown.ReachPath:
