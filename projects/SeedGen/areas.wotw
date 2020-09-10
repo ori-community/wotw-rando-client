@@ -584,13 +584,15 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
 
   pickup MarshPastOpher.TrialLeftEX:
     moki: BreakWall=20, DoubleJump OR Glide OR Dash OR Launch
-    unsafe: Sword OR Hammer  # horizontal slash combo
+    gorlek: Sword OR Hammer  # Horizontal slash combo
+    unsafe: Sentry=1 # Use Sentry instead of DoubleJump
 
   conn OpherShop: free
   conn MarshPastOpher.TrialArea:
     moki: BreakWall=20
   conn MarshPastOpher.BowPath:
     moki: DoubleJump OR Dash OR Glide OR Launch
+    gorlek: Weapon
   conn MarshSpawn.Main:
     unsafe: Hammer  # break the wall from behind and use an upswing
 
@@ -601,25 +603,40 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
   refill Checkpoint
   refill Health=1:  # right below
     moki: DoubleJump OR Dash OR Glide OR Launch
+    gorlek: Weapon 
 
   # state MarshPastOpher.TrialActivation:
   #   moki: Grapple, Dash OR Glide OR Launch
+  #   gorlek: Grapple, DoubleJump OR Dash OR Sword OR Hammer OR Glide OR Damage=10
+  #            Launch, DoubleJump OR Dash OR Damage=10
+  #    unsafe: DoubleJump, TripleJump, Damage=10, Sword OR Glide # Double Jump from the right wall to the small ledge under the spikes, then dmg boost to the wall on the left
 
   pickup MarshPastOpher.TrialLeftEX:
     moki:
       DoubleJump, Dash OR Glide
       Dash, Glide
       Grapple OR Launch
+    gorlek:
+      DoubleJump
+      Glide OR Dash OR Sword OR Hammer, Damage=10
+    unsafe: Sentry=1, Damage=10
   pickup MarshPastOpher.TrialOre: free
   pickup MarshPastOpher.TrialEC:
     moki: DoubleJump OR Dash OR Glide OR Launch
-    unsafe: Sword OR Hammer
+    gorlek: Sword OR Hammer # Horizontal slashes
+    unsafe: Sentry=1
   pickup MarshPastOpher.TrialHC:
     moki: Hammer OR Spear=1
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
-    unsafe: Sword  # pogo off of enemy
+    gorlek:
+      Dash, Sword
+      SentryJump=1 
+      Sword  # Pogo the enemy
+    unsafe:
+      Dash, Sentry=1
+      Shuriken, Sword
 
   conn MarshShrine: free
 
@@ -640,17 +657,22 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
     moki:
       Damage=10, DoubleJump OR Dash OR Glide OR Launch
       Damage=10, Bash, Grenade=1
+    gorlek: 
+      Danger=10, Sword OR Hammer OR Bash OR SentryJump=1
+      Danger=10, Bash, Grenade=2
     unsafe: Sword OR Hammer OR DoubleJump OR Dash OR Launch OR Bash OR Glide  # it's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
 
   conn MarshPastOpher.BowArea:
     moki:
       DoubleJump OR Launch
       Bash, Grenade=3
-    unsafe: Sword OR Hammer
+    gorlek: Sword OR Hammer
+    unsafe: Sentry=1
   conn MarshPastOpher.MillView:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=2
+    gorlek: Weapon
   conn MarshPastOpher.TrialArea:
     moki: BreakWall=20, Damage=10  # the one-way has 20 health as well, so there might not be relevant shurikenbreak paths here
 
@@ -665,21 +687,31 @@ anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit wi
   pickup MarshPastOpher.BowTree: free
   pickup MarshPastOpher.SwingPoleEX:
     moki: Damage=20
+    gorlek: Danger=10
 
   conn MarshPastOpher.UpperBowArea:
     moki:
       Combat=Skeeto, Bow=2, DoubleJump
       Launch
+   gorlek:
+      Bow=2 OR SentryJump=2 OR DoubleJump
   conn MarshPastOpher.MillView:
     moki:
       DoubleJump OR Dash OR Launch
       Glide, Damage=10
       Bash, Grenade=1, Bow=1
       Bash, Grenade=2
+    gorlek:
+      Weapon OR Glide, Danger=10
   conn MarshPastOpher.PoolsPathEast:
     moki:
       Bow=4, DoubleJump, Dash, Bash, Glide  # autoaim doesn't catch the second target, 2 is needed minimum
       Bow=4, Bash, Launch  # autoaim doesn't catch the second target, 2 is needed minimum
+    gorlek:
+      Bow=2, DoubleJump, TripleJump, Bash
+      Launch, DoubleJump # For the last part reset your Launch on the wall above the lantern
+    unsafe:
+      Bow=2, Bash, DoubleJump, Weapon
   conn WestHollow.Entrance:
     moki: MarshPastOpher.EyestoneDoor
 
@@ -690,13 +722,16 @@ anchor MarshPastOpher.UpperBowArea at -437, -4211:  # Between the eyestones
 
   pickup MarshPastOpher.LeftEyestone:
     moki: Combat=Skeeto, Bow=1
+    gorlek: Bow=1
   pickup MarshPastOpher.RightEyestone:
     moki: Combat=Skeeto, Bow=1
+    gorlek: Bow=1
 
   conn MarshPastOpher.BowArea: free
   conn MarshPastOpher.BowPath: free
   conn MarshPastOpher.MillView:
     moki: Bash, Grenade=1
+    gorlek: Weapon
 
 # checkpoint at -383, -4230
 
@@ -711,10 +746,14 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
     moki:
       Bash, DoubleJump, Dash
       Launch
+    gorlek:
+      Bash, DoubleJump OR Grenade=1
+      SentryJump=1, DoubleJump
     unsafe:
       Bash, Dash              # Pretty precise to do without damage
   pickup MarshPastOpher.PoolsPathEC:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
+    gorlek: Bash, Dash
     unsafe: Bash, Glide
 
   conn MarshPastOpher.PoolsPathWest:  # the squonkey doesn't reappear if you respawn on this checkpoint
@@ -736,6 +775,10 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
       DoubleJump, Bash, Dash OR Glide
       Bash, Grenade=1, Dash, Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
+    gorlek, BreakWall=20:
+      DoubleJump, Bash, Sword OR Hammer OR Damage=10
+      Launch # Reset Launch by hitting the ceiling
+      SentryJump=1, Bash, Sword OR Hammer # Hug the wall and the SentryJump, then horizontal slashes to the lantern
 
   conn MarshPastOpher.PoolsPathEast:
     moki, BreakWall=20:
@@ -743,6 +786,10 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
       Bash, Grenade=1, Dash, Glide
       Launch, Damage=10, DoubleJump OR Dash OR Glide
       Launch, Bash
+    gorlek, BreakWall=20:
+      DoubleJump, Bash, Weapon OR Grenade=1
+      SentryJump=1, DoubleJump, Bash # Hug the wall, do SentryJump and then hold right
+      Launch
 
 region MidnightBurrows:
   moki: Damage=25
