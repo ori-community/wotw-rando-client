@@ -1,8 +1,9 @@
 :: change these if necessary
 set MSBuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MsBuild.exe"
 set JavaHome="C:\Program Files\Java\AzJDK_8\jdk1.8.0_265\"
-
 cd "%~dp0"
+
+
 if "%1"=="compileonly" (
 	cd "projects"
 	cd "SeedGen"
@@ -11,15 +12,20 @@ if "%1"=="compileonly" (
 	cd "..\.."
 	copy ".\VERSION" "C:\moon\VERSION" /Y
 	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
+	echo built RandoSettings.exe
 	".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
+	echo built ItemTracker.exe
 	".\ext\ahk\Ahk2Exe.exe" /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
+	echo built WotwRando.exe
+	echo AHK compile complete!
+	timeout /t 3
 	exit 0
 )
 if NOT "%1"=="buildonly" (
 	cd "projects\SeedGen"
 	call sbt assembly --java-home=%JavaHome%
 	cd "..\.."
-	timeout /t 10
+	timeout /t 3
 )
 
 :: Either change paths or build yourself and run with nobuild
@@ -37,9 +43,13 @@ copy "projects\SeedGen\areas.wotw" "C:\moon\areas.wotw" /Y
 copy "VERSION" "C:\moon\VERSION" /Y
 
 if NOT "%1"=="buildonly" (
-	"ext\ahk\Ahk2Exe.exe" /in "RandoSettings.ahk" /icon "WotwRando.ico" /out "C:\moon\RandoSettings.exe"
-	"ext\ahk\Ahk2Exe.exe" /in "projects/AutoTracker/OriAutoTracker.ahk" /icon "WotwRando.ico" /out "C:\moon\ItemTracker.exe"
-	"ext\ahk\Ahk2Exe.exe" /in "WotwRando.ahk" /icon "WotwRando.ico" /out "C:\moon\WotwRando.exe"
+	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
+	echo built RandoSettings.exe
+	".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
+	echo built ItemTracker.exe
+	".\ext\ahk\Ahk2Exe.exe" /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
+	echo built WotwRando.exe
+
 	echo BUILD SUCCESS!
 	timeout /t 10
 )
