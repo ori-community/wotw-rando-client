@@ -162,12 +162,8 @@ namespace RandoMainDLL {
             CallbackName = "filter_icon_type"
           },
           new Method() {
-            Delegate = new f_void_ptr_int_int_int_int(MapController.FilterIconText),
+            Delegate = new f_void_ptr_int_int_int_int_int(MapController.FilterIconText),
             CallbackName = "filter_icon_text"
-          },
-          new Method() {
-            Delegate = new f_void_ptr_int_int_int_int(MapController.QuestItemText),
-            CallbackName = "quest_item_text"
           },
           new Method() {
             Delegate = new f_void(ShopController.UpdateShopData),
@@ -182,7 +178,7 @@ namespace RandoMainDLL {
     public delegate void f_void_at_bool(AbilityType at, bool b);
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
-    public delegate void f_void_ptr_int_int_int_int(IntPtr buffer, int l, int i, int j, int k);
+    public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
     public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
     public delegate void f_void_st(ShardType st);
     public delegate void f_void_gwa(AreaType at);

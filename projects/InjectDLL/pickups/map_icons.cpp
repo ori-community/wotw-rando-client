@@ -81,7 +81,7 @@ namespace
     std::unordered_map<std::string, ExtraIcon*> extra_icons_map;
     std::unordered_map<std::string, ExtraIcon*> extra_states;
     bool initialized = false;
-
+    int current_filter = 0;
     std::string stringify_guid(app::MoonGuid *guid)
     {
         return format(
@@ -185,32 +185,27 @@ namespace
             auto it = spoiler_states.find(stringify_guid(this_ptr->fields.Guid));
             if (it != spoiler_states.end())
             {
-                if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+                wchar_t buffer[128] = { 0 };
+                csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, static_cast<int>(it->second.value), current_filter);
+                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
+                const auto spoiler_active = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
+                if (spoiler_active && it->second.has_spoiler_icon)
                 {
-                    wchar_t buffer[128] = { 0 };
-                    csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, static_cast<int>(it->second.value));
-                    AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
-                    if (!it->second.has_spoiler_icon)
-                    {
-                        auto icon_enum = csharp_bridge::filter_icon_type(it->second.group_id, it->second.state_id, it->second.value);
-                        il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
-                        it->second.has_spoiler_icon = true;
-                    }
+                    auto icon_enum = csharp_bridge::filter_icon_type(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value));
+                    il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
+                    it->second.has_spoiler_icon = true;
                 }
-                else if (it->second.has_spoiler_icon)
+                else if (!spoiler_active && !it->second.has_spoiler_icon)
                 {
                     auto icon_enum = get_base_icon(this_ptr, it->second.group_id, it->second.state_id);
-                    if (icon_enum == app::WorldMapIconType__Enum_QuestItem) {
-                        wchar_t buffer[128] = { 0 };
-                        csharp_bridge::quest_loc_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, it->second.value);
-                        AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
-                    }
                     il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
                     it->second.has_spoiler_icon = false;
                 }
             }
         }
     }
+
+    
 
     void initialize()
     {
@@ -649,11 +644,11 @@ namespace
         check_and_initialize_filter_labels(icon_manager);
         auto count = static_cast<int32_t>(NewFilters::COUNT);
         auto prev = static_cast<int32_t>(icon_manager->fields.Filter);
-        auto filter = (prev + 1) % count;
-        while(!csharp_bridge::filter_enabled(filter) && filter != prev)
-            filter = (filter + 1) % count;
+        current_filter = (prev + 1) % count;
+        while(!csharp_bridge::filter_enabled(current_filter) && current_filter != prev)
+            current_filter = (current_filter + 1) % count;
 
-        AreaMapUI::set_IconFilter(map, static_cast<app::AreaMapIconFilter__Enum>(filter));
+        AreaMapUI::set_IconFilter(map, static_cast<app::AreaMapIconFilter__Enum>(current_filter));
     }
 
     std::atomic<bool> refresh = false;
