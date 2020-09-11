@@ -72,7 +72,6 @@ package SeedGenerator {
     var currentOp: Option[Future[Unit]] = None
     val headerFilePath: Path =  ".seedHeader".f.canonPath
     val settings: ObjectProperty[Settings] = new ObjectProperty(null, "settings", settingsFromFile)
-    settings.onChange((_, _, nv) => Logger.log(nv))
     val outputDirectory: StringProperty = settings.mapStringProp(_.outputFolder, (set, path) => set.copy(outputFolder = path))
     val header = new StringProperty(null, "header_text", headerFilePath.read ?? "// Replace this text with a seed header, if desired")
     val lastSeedText: StringProperty = new StringProperty(null, "last_seed")
