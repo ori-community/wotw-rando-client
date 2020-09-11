@@ -57,7 +57,7 @@ namespace RandoMainDLL {
             try {
               var frags = rawCond.Split('|');
               var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
-              Reachable.Add(cond.Id);
+              Reachable.Add(cond);
             }
             catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
           }
@@ -69,21 +69,16 @@ namespace RandoMainDLL {
       Updating = false;
     }
     public static int FilterIconType(int groupId, int id, int value) {
-      var cond = new UberId(groupId, id).toCond();
-      if (value >= 0)
-        cond.Target = value;
+      var cond = new UberStateCondition(groupId, id, value);
       if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)
         return (int)cond.Pickup().Icon;
       else
         return (int)WorldMapIconType.Eyestone;
     }
-
     public static void FilterIconText(IntPtr buffer, int length, int groupId, int id, int value) {
-      var cond = new UberId(groupId, id).toCond();
-      if (value >= 0)
-        cond.Target = value;
+      var cond = new UberStateCondition(groupId, id, value);
       var pick = cond.Pickup();
-      string text = pick is Cash c ? $"{c.Amount} Spirit Light" : pick.ToString();
+      string text = pick.Name;
       if (!pick.NonEmpty && cond.Loc() == LocData.Void) 
         text = " ";
       
@@ -93,6 +88,12 @@ namespace RandoMainDLL {
         text = $"{cond.Loc().FullName}\n{text}";
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
+    }
+    public static void QuestItemText(IntPtr buffer, int length, int groupId, int id, int value) {
+      string text = $"Quest {new UberStateCondition(groupId, id, value).Loc().Name}";
+      length = Math.Min(text.Length, length);
+      Marshal.Copy(text.ToCharArray(), 0, buffer, length);
+
     }
     enum FilterType {
         All = 0,
@@ -122,10 +123,7 @@ namespace RandoMainDLL {
       }
     }
     public static bool NameLabels = false;
-    public static bool FilterIconShow(int groupId, int id) {
-      // Show Icon (in logic)
-      return Reachable.Contains(new UberId(groupId, id));
-    }
-    public static HashSet<UberId> Reachable = new HashSet<UberId>();
+    public static bool FilterIconShow(int groupId, int id, int value) => Reachable.Contains(new UberStateCondition(groupId, id, value));
+    public static HashSet<UberStateCondition> Reachable = new HashSet<UberStateCondition>();
   }
 }

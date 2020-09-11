@@ -154,7 +154,7 @@ namespace RandoMainDLL {
             CallbackName = "does_howl_exist"
           },
           new Method() {
-            Delegate = new f_bool_int_int(MapController.FilterIconShow),
+            Delegate = new f_bool_int_int_int(MapController.FilterIconShow),
             CallbackName = "filter_icon_show"
           },
           new Method() {
@@ -164,6 +164,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_ptr_int_int_int_int(MapController.FilterIconText),
             CallbackName = "filter_icon_text"
+          },
+          new Method() {
+            Delegate = new f_void_ptr_int_int_int_int(MapController.QuestItemText),
+            CallbackName = "quest_item_text"
           },
           new Method() {
             Delegate = new f_void(ShopController.UpdateShopData),
@@ -185,7 +189,7 @@ namespace RandoMainDLL {
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
     public delegate bool f_bool_int(int i);
-    public delegate bool f_bool_int_int(int i, int j);
+    public delegate bool f_bool_int_int_int(int i, int j, int k);
     public delegate bool f_bool_st(ShardType st);
     public delegate bool f_bool_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate int f_int();

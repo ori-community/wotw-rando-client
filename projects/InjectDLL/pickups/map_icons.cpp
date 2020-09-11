@@ -200,6 +200,11 @@ namespace
                 else if (it->second.has_spoiler_icon)
                 {
                     auto icon_enum = get_base_icon(this_ptr, it->second.group_id, it->second.state_id);
+                    if (icon_enum == app::WorldMapIconType__Enum_QuestItem) {
+                        wchar_t buffer[128] = { 0 };
+                        csharp_bridge::quest_loc_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, it->second.value);
+                        AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
+                    }
                     il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
                     it->second.has_spoiler_icon = false;
                 }
@@ -555,7 +560,7 @@ namespace
                     auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
                     // Hide pickups that have been collected.
                     auto compare = it->second.value < 0 ? 1.f : it->second.value;
-                    if (value < compare && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id))
+                    if (value < compare && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(value)))
                         return true;
                 }
             }
