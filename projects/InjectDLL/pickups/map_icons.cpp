@@ -275,8 +275,7 @@ namespace
 
         extra_icons[app::GameWorldAreaID__Enum_SilentWoodland] = {
             { app::WorldMapIconType__Enum_Keystone, 907.865112f, -4121.716309f, false, true,
-                { true, 58674, 19769, 1.f }, {} },
-
+                { true, 58674, 19769, -1.f }, {} },
             { app::WorldMapIconType__Enum_QuestItem, 513, -4158, false, true,
                 {},  { true, 14019, 59708, 1.f } }, // WoodsEntry.LastTreeBranch
             { app::WorldMapIconType__Enum_QuestItem, 441, -4119, false, true,
@@ -287,7 +286,7 @@ namespace
 
         extra_icons[app::GameWorldAreaID__Enum_BaursReach] = {
             { app::WorldMapIconType__Enum_Experience, 68.761978f, -3730.634521f, false, true,
-                { true, 28895, 46404, -1.f }, {} },
+                { true, 28895, 46404, -1.f }, {} }, // UpperReach.RevisitEX
 
             { app::WorldMapIconType__Enum_QuestItem, -244, -3989, false, true,
                 {},  { true, 14019, 26318, 5.f } }, // LowerReach.HandToHandHat
@@ -302,7 +301,7 @@ namespace
             { app::WorldMapIconType__Enum_QuestItem, 1641, -4003, false, true,
                 {},  { true, 14019, 58342, -1.f } }, // LowerWastes.EerieGem
             { app::WorldMapIconType__Enum_QuestItem, 1685, -3923, false, true,
-                {},  { true, 14019, 26318, 10.f } }, // LowerWastes.HandToHandMapston
+                {},  { true, 14019, 26318, 10.f } }, // LowerWastes.HandToHandMapstone
             { app::WorldMapIconType__Enum_QuestItem, 1996, -3651, false, true,
                 {},  { true, 14019, 20601, -1.f } }, // UpperWastes.FlowersSeed
         };
