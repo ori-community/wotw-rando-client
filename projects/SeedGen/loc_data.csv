@@ -175,7 +175,7 @@ PoolsApproach.MillPathEC, Luma Pools, Resource, Energy, lagoonStateGroup, 945, e
 PoolsApproach.MillPathEX, Luma Pools, SpiritLight, 100, lagoonStateGroup, 945, medExpA, 58723, -895, -4137
 PoolsApproach.BurrowsPathEX, Inkwater Marsh, SpiritLight, 200, swampStateGroup, 21786, largeExpA, 21727, -1015, -4269
 EastPools.RightOre, Luma Pools, Resource, Ore, lumaPoolsStateGroup, 5377, orePickupA, 34852, -1134, -4117
-EastPools.KwoloksWisdomAmulet, Luma Pools, Quest, Amulet, questUberStateGroup, 14019, kwoloksWisdomItemCollected, 53103, -1173, -4154
+EastPools.KwolokAmuletQI, Luma Pools, Quest, Amulet, questUberStateGroup, 14019, kwoloksWisdomItemCollected, 53103, -1173, -4154
 EastPools.TwoCrushersEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbD, 13832, -1176, -4178
 EastPools.CurrentEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbC, 17396, -1214, -4181
 EastPools.BelowLeverEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbA, 27204, -1230, -4126
