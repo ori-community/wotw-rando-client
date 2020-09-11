@@ -271,6 +271,8 @@ namespace
                 {},  { true, 14019, 53103, -1.f } }, // EastPools.KwoloksWisdomAmulet
             { app::WorldMapIconType__Enum_QuestItem, -1284, -4126, false, true,
                 {},  { true, 14019, 26318, 8.f } }, // EastPools.HandToHandSpyglass
+            { app::WorldMapIconType__Enum_QuestEnd, -1928, -4066, false, true,
+                {},  { true, 945, 49747, -1.f } }, // WestPools.ForestsStrength
         };
 
         extra_icons[app::GameWorldAreaID__Enum_SilentWoodland] = {
@@ -290,11 +292,15 @@ namespace
 
             { app::WorldMapIconType__Enum_QuestItem, -244, -3989, false, true,
                 {},  { true, 14019, 26318, 5.f } }, // LowerReach.HandToHandHat
+            { app::WorldMapIconType__Enum_QuestEnd, -31, -3711, false, true,
+                {},  { true, 28895, 25522, -1.f } }, // UpperReach.ForestsMemory
         };
 
         extra_icons[app::GameWorldAreaID__Enum_MouldwoodDepths] = {
             { app::WorldMapIconType__Enum_QuestItem, 317, -4508, false, true,
                 {},  { true, 14019, 26318, 7.f } }, // LowerDepths.HandToHandSilk
+            { app::WorldMapIconType__Enum_QuestEnd, 687, -4386, false, true,
+                {},  { true, 18793, 63291, -1.f } }, // UpperDepths.ForestsEyes
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WindsweptWastes] = {
@@ -309,6 +315,8 @@ namespace
         extra_icons[app::GameWorldAreaID__Enum_WindtornRuins] = {
             { app::WorldMapIconType__Enum_QuestItem, 1969, -4024, false, true,
                 {},  { true, 14019, 26318, 11.f } }, // WindtornRuins.HandToHandComplete
+            { app::WorldMapIconType__Enum_QuestEnd, 2056, -3568, false, true,
+                {},  { true, 10289, 22102, -1.f } }, // UpperDepths.WindtornRuins.Seir
         };
 
         initialized = true;
