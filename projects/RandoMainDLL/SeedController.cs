@@ -45,6 +45,11 @@ namespace RandoMainDLL {
       Id = id;
       Target = target;
     }
+    public UberStateCondition(int groupId, int id, int target) {
+      Id = new UberId(groupId, id);
+      if(target > 0)
+        Target = target;
+    }
     public UberStateCondition(int groupId, string rawTarget) {
       if (rawTarget.Contains("=")) {
         var idAndTarget = rawTarget.Split('=');

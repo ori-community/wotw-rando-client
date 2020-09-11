@@ -42,9 +42,10 @@ namespace csharp_bridge
 
     signatures::f_void_int_int_byte_float_float on_uber_state_applied;
 
-    signatures::f_bool_int_int filter_icon_show;
+    signatures::f_bool_int_int_int filter_icon_show;
     signatures::f_int_int_int_int filter_icon_type;
     signatures::f_void_ptr_int_int_int_int filter_icon_text;
+    signatures::f_void_ptr_int_int_int_int quest_loc_text;
     signatures::f_bool_int filter_enabled;
 }
 
@@ -117,11 +118,13 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
     else if (name == "on_uber_state_applied")
         on_uber_state_applied = reinterpret_cast<f_void_int_int_byte_float_float>(ptr);
     else if (name == "filter_icon_show")
-        filter_icon_show = reinterpret_cast<f_bool_int_int>(ptr);
+        filter_icon_show = reinterpret_cast<f_bool_int_int_int>(ptr);
     else if (name == "filter_icon_type")
         filter_icon_type = reinterpret_cast<f_int_int_int_int>(ptr);
     else if (name == "filter_icon_text")
         filter_icon_text = reinterpret_cast<f_void_ptr_int_int_int_int>(ptr);
+    else if (name == "quest_loc_text")
+        quest_loc_text = reinterpret_cast<f_void_ptr_int_int_int_int>(ptr);
     else if (name == "filter_enabled")
       filter_enabled = reinterpret_cast<f_bool_int>(ptr);
     else if(name == "update_shop_data")
