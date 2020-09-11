@@ -73,7 +73,7 @@ namespace RandoMainDLL {
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool toggle_cursorlock();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void bind_sword();
+    public extern static void bind(int slot, int equip_type);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void refresh_uber_state(int group_id, int id);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
