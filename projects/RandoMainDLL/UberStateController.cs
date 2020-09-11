@@ -305,7 +305,16 @@ namespace RandoMainDLL {
         InterOp.discover_everything();
         if(!SeedController.flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
-          InterOp.bind_sword();
+          var slotRaw = AHK.IniString("Misc", "SpawnSlot");
+          var slot = 0;
+          if(slotRaw != string.Empty) {
+            slot = slotRaw.ParseToInt("Spawn Slot Ini") - 1;
+            if (slot > 2 || slot < 0) {
+              AHK.Print($"Ignoring invalid slot specifier {slotRaw}", toMessageLog: false);
+              slot = 0;
+            }
+          }
+          InterOp.bind(slot, 1002);
         }
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
