@@ -394,7 +394,7 @@ namespace RandoMainDLL {
       "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings"
     };
-    public override string Name {  get => $"{Amount} Spirit Light" }
+    public override string Name { get => $"{Amount} Spirit Light"; }
     public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
   }
   public class QuestEvent : Checkable {
