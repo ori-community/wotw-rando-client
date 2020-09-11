@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic;
 using RandoMainDLL.Memory;
@@ -638,13 +639,22 @@ namespace RandoMainDLL {
   }
   public class WeaponUpgrade : Pickup {
     public override PickupType Type => PickupType.WeaponUpgrade;
-    public readonly string Name;
+    public override string Name { get => _name; }
+    private readonly string _name;
     public readonly string Desc;
     public readonly AbilityType Weapon;
     public readonly WeaponUpgradeType Id;
-    public override int CostWithMod(float mod) => 400; // later maybe we'll do something more interesting here
+    public override int CostWithMod(float mod) {
+      switch(Id) {
+        case WeaponUpgradeType.RapidSmash:
+        case WeaponUpgradeType.SentryEfficiency:
+          return 600;
+        default:
+          return 300;
+      }
+    }
     public WeaponUpgrade(WeaponUpgradeType id, AbilityType weapon, string name, string desc) {
-      Name = name;
+      _name = name;
       Id = id;
       Weapon = weapon;
       Desc = desc;

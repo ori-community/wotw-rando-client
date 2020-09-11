@@ -75,26 +75,29 @@ namespace RandoMainDLL {
       else
         return (int)WorldMapIconType.Eyestone;
     }
-    public static void FilterIconText(IntPtr buffer, int length, int groupId, int id, int value) {
+    public static void FilterIconText(IntPtr buffer, int length, int groupId, int id, int value, int filterId) {
       var cond = new UberStateCondition(groupId, id, value);
+      var f = (FilterType)filterId;
+
+      string text = (f == FilterType.InLogic || f == FilterType.Spoilers) && UberGet.value(34543, 11226).Bool ? cond.SpoilerName() : LocName(cond);
+      length = Math.Min(text.Length, length);
+      Marshal.Copy(text.ToCharArray(), 0, buffer, length);
+    }
+
+
+    public static string SpoilerName(this UberStateCondition cond) {
       var pick = cond.Pickup();
       string text = pick.Name;
-      if (!pick.NonEmpty && cond.Loc() == LocData.Void) 
+      if (!pick.NonEmpty && cond.Loc() == LocData.Void)
         text = " ";
-      
+
       foreach (var wrap in new string[] { "#", "*", "$", "@" })
         text = text.Replace(wrap, "");
       if (NameLabels)
         text = $"{cond.Loc().FullName}\n{text}";
-      length = Math.Min(text.Length, length);
-      Marshal.Copy(text.ToCharArray(), 0, buffer, length);
+      return text;
     }
-    public static void QuestItemText(IntPtr buffer, int length, int groupId, int id, int value) {
-      string text = $"Quest {new UberStateCondition(groupId, id, value).Loc().Name}";
-      length = Math.Min(text.Length, length);
-      Marshal.Copy(text.ToCharArray(), 0, buffer, length);
-
-    }
+    public static string LocName(this UberStateCondition cond) => NameLabels ? cond.Loc().FullName : cond.Loc().Name;
     enum FilterType {
         All = 0,
         Quests = 1,
