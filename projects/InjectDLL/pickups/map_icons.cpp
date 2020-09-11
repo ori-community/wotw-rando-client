@@ -560,7 +560,7 @@ namespace
                     auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
                     // Hide pickups that have been collected.
                     auto compare = it->second.value < 0 ? 1.f : it->second.value;
-                    if (value < compare && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(value)))
+                    if (value < compare && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value)))
                         return true;
                 }
             }
