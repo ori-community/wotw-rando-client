@@ -213,8 +213,6 @@ namespace
                 {},  { true, 48248, 51645, 3.f } }, // MarshSpawn.TheMissingKey
             { app::WorldMapIconType__Enum_QuestItem, -932, -4494, false, true,
                 {},  { true, 48248, 18458, 4.f } }, // MarshSpawn.IntoTheBurrows
-            //{ app::WorldMapIconType__Enum_QuestItem, -221, -4406, false, true,
-            //    {},  { true, 14019, 27539, -1.f } }, // MarshSpawn.FangQI
             { app::WorldMapIconType__Enum_QuestItem, -391, -4414, false, true,
                 {},  { true, 14019, 15983, 3.f } }, // MarshSpawn.ALittleBraver
 
@@ -228,10 +226,6 @@ namespace
                 { true, uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Bow, -1.f  }, {} },
         };
 
-        extra_icons[app::GameWorldAreaID__Enum_MidnightBurrow] = {
-            { app::WorldMapIconType__Enum_QuestItem, -848, -4530, false, true,
-                {},  { true, 14019, 52747, 3.f } }, // MidnightBurrows.TabletQI
-        };
 
         extra_icons[app::GameWorldAreaID__Enum_KwoloksHollow] = {
             { app::WorldMapIconType__Enum_QuestItem, -110, -4220, false, true,
@@ -264,14 +258,10 @@ namespace
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WaterMill] = {
-            //{ app::WorldMapIconType__Enum_QuestItem, -811, -3973, false, true,
-            //    {},  { true, 14019, 20667, 3.f } }, // OuterWellspring.TheLostCompass
+            { app::WorldMapIconType__Enum_QuestItem, -811, -3973, false, true,
+                {},  { true, 14019, 20667, 3.f } }, // OuterWellspring.TheLostCompass
             { app::WorldMapIconType__Enum_QuestItem, -1168, -3733, false, true,
                 {},  { true, 14019, 26318, 3.f } }, // InnerWellspring.HandToHandHerbs
-            { app::WorldMapIconType__Enum_QuestItem, -1186, -3697, false, true,
-                {},  { true, 53632, 41227, -1.f } }, // InnerWellspring.NeedleQI
-            { app::WorldMapIconType__Enum_QuestItem, -1185, -3669, false, true,
-                {},  { true, 14019, 24142, -1.f } }, // InnerWellspring.BlueMoonSeed
             { app::WorldMapIconType__Enum_QuestItem, -481, -3763, false, true,
                 {},  { true, 37858, 12379, -1.f } }, // InnerWellspring.WaterEscape
         };
@@ -281,8 +271,6 @@ namespace
                 {},  { true, 14019, 53103, -1.f } }, // EastPools.KwoloksWisdomAmulet
             { app::WorldMapIconType__Enum_QuestItem, -1284, -4126, false, true,
                 {},  { true, 14019, 26318, 8.f } }, // EastPools.HandToHandSpyglass
-            { app::WorldMapIconType__Enum_QuestItem, -1528, -4140, false, true,
-                {},  { true, 14019, 28662, -1.f } }, // EastPools.GrassSeed
         };
 
         extra_icons[app::GameWorldAreaID__Enum_SilentWoodland] = {
@@ -303,13 +291,9 @@ namespace
 
             { app::WorldMapIconType__Enum_QuestItem, -244, -3989, false, true,
                 {},  { true, 14019, 26318, 5.f } }, // LowerReach.HandToHandHat
-            { app::WorldMapIconType__Enum_QuestItem, -103, -3858, false, true,
-                {},  { true, 14019, 32376, -1.f } }, // UpperReach.SpringSeed
         };
 
         extra_icons[app::GameWorldAreaID__Enum_MouldwoodDepths] = {
-            { app::WorldMapIconType__Enum_QuestItem, 488, -4431, false, true,
-                {},  { true, 14019, 8192, -1.f } }, // UpperDepths.LightcatcherSeed
             { app::WorldMapIconType__Enum_QuestItem, 317, -4508, false, true,
                 {},  { true, 14019, 26318, 7.f } }, // LowerDepths.HandToHandSilk
         };
