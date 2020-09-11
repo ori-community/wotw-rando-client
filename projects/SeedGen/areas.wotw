@@ -162,7 +162,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Bash, DoubleJump OR Dash OR Glide OR Grapple
       Launch
       Weapon  # go through the fight room
-  quest MarshSpawn.TheMissingKey:
+  quest MarshSpawn.TokkKeystoneQuest:
     moki: MarshSpawn.CaveKS
 
   pickup MarshSpawn.LeftTokkEX:
@@ -186,7 +186,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     unsafe: Weapon  # slightly out of sight
 
   quest MarshSpawn.CaveKS: free
-  quest MarshSpawn.IntoTheBurrows:
+  quest MarshSpawn.TokkTabletQuest:
     moki:
       MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
 
@@ -265,7 +265,7 @@ anchor HowlsDen.Entrance at -390, -4413:  # Next to Mokk the Brave after chasing
     gorlek:
       Bash, Damage=10                 # Bash off the enemy to get to the vine, then jump right. Dboost the last gap.
       Bash, Grenade=1                 # Bash off the enemy to get to the vine, then jump right. Bash+Grenade the last gap.
-  quest MarshSpawn.ALittleBraver:
+  quest MarshSpawn.MokkFangQuest:
     moki: MarshSpawn.FangQI
 
   pickup MarshSpawn.FangEC:
@@ -933,8 +933,8 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
 
   state EastHollow.Voice: free
 
-  quest EastHollow.KwoloksWisdom:
-    moki: EastPools.KwoloksWisdomAmulet, WestPools.ForestsStrength
+  quest EastHollow.KwolokAmuletQuest:
+    moki: EastPools.KwolokAmuletQuestAmulet, WestPools.ForestsStrength
 
   pickup EastHollow.RightKwolokEX:
     moki: Bash OR Launch
@@ -1116,7 +1116,7 @@ anchor GladesTown.TwillenHome at -414, -4160:  # # At Twillen in Glades
       Bash, Grenade=1
       Launch
     unsafe: GladesTown.CaveEntrance, Flash, Water, Dash
-  quest GladesTown.IntoTheDarkness:
+  quest GladesTown.MokiAcornQuest:
     moki: GladesTown.ClearThorns, GladesTown.AcornQI
 
   pickup GladesTown.LowerOre:
@@ -3132,7 +3132,7 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       Water, WaterDash
       Water, Bow=1 OR Grenade=1
 
-  quest EastPools.KwoloksWisdomAmulet: free
+  quest EastPools.KwolokAmuletQuestAmulet: free
 
   pickup EastPools.RightOre:
     moki:
@@ -3489,7 +3489,7 @@ anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sa
       DoubleJump OR Launch
       Bash, Grenade=1
 
-  quest LowerWastes.EerieGem:
+  quest LowerWastes.EerieGemQI:
     moki: Burrow
 
   pickup LowerWastes.SandBridgeOre: free
@@ -4160,8 +4160,8 @@ anchor WillowsEnd.UpperHeartPath at 506, -3711:  # Right above the exit blocked 
   conn WillowsEnd.Upper: free
 
 anchor TwillenShop:
-  quest GladesTown.ADiamondInTheRough:
-    moki: LowerWastes.EerieGem
+  quest GladesTown.TwillenGemQuest:
+    moki: LowerWastes.EerieGemQI
 
   pickup TwillenShop.Overcharge:
     moki: SpiritLight=1200
