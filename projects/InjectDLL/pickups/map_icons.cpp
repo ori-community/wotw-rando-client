@@ -188,7 +188,7 @@ namespace
                 if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
                 {
                     wchar_t buffer[128] = { 0 };
-                    csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, it->second.value);
+                    csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, static_cast<int>(it->second.value));
                     AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
                     if (!it->second.has_spoiler_icon)
                     {
