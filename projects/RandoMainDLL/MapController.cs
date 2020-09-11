@@ -79,7 +79,7 @@ namespace RandoMainDLL {
       var cond = new UberStateCondition(groupId, id, value);
       var f = (FilterType)filterId;
 
-      string text = (f == FilterType.InLogic || f == FilterType.Spoilers) && UberGet.value(34543, 11226).Bool ? cond.SpoilerName() : LocName(cond);
+      string text = ((f == FilterType.InLogic || f == FilterType.Spoilers) && UberGet.value(34543, 11226).Bool ? cond.SpoilerName() : LocName(cond)) ?? " ";
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
@@ -97,7 +97,7 @@ namespace RandoMainDLL {
         text = $"{cond.Loc().FullName}\n{text}";
       return text;
     }
-    public static string LocName(this UberStateCondition cond) => NameLabels ? cond.Loc().FullName : cond.Loc().Name;
+    public static string LocName(this UberStateCondition cond) => NameLabels ? cond.Loc().FullName : cond.Loc()?.Name;
     enum FilterType {
         All = 0,
         Quests = 1,
