@@ -308,8 +308,6 @@ namespace
                 {},  { true, 14019, 58342, -1.f } }, // LowerWastes.EerieGem
             { app::WorldMapIconType__Enum_QuestItem, 1685, -3923, false, true,
                 {},  { true, 14019, 26318, 10.f } }, // LowerWastes.HandToHandMapstone
-            { app::WorldMapIconType__Enum_QuestItem, 1996, -3651, false, true,
-                {},  { true, 14019, 20601, -1.f } }, // UpperWastes.FlowersSeed
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WindtornRuins] = {
@@ -500,11 +498,11 @@ namespace
             // the icon filter here might be limiting but without it, the tpcheat spams every filter so meh
             return true;
 
-        auto filter = static_cast<NewFilters>(manager->fields.Filter);
+        const auto filter = static_cast<NewFilters>(manager->fields.Filter);
         // If we are in original filters then use the original function.
         if (filter <= NewFilters::Collectibles)
         {
-            auto is_spoiler = icon->fields.IsCollectedState != nullptr &&
+            const auto is_spoiler = icon->fields.IsCollectedState != nullptr &&
                 icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
 
@@ -512,9 +510,13 @@ namespace
                 return false;
 
             // if our custom state is bigger or equal to expected value dont show.
-            auto it = extra_states.find(stringify_guid(icon->fields.Guid));
-            if (it != extra_states.end() && (uber_states::get_uber_state_value(it->second->custom.group, it->second->custom.state) >= it->second->custom.value))
-                return false;
+            const auto it = extra_states.find(stringify_guid(icon->fields.Guid));
+            if (it != extra_states.end())
+            {
+                const auto value = it->second->custom.value < 0 ? 1.f : it->second->custom.value;
+                if (uber_states::get_uber_state_value(it->second->custom.group, it->second->custom.state) >= value)
+                    return false;
+            }
 
             return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter);
         }
@@ -531,7 +533,7 @@ namespace
             if (icon->fields.IsCollectedState == nullptr)
                 return false;
             
-            auto is_spoiler = icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
+            const auto is_spoiler = icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
 
             if (is_spoiler)
@@ -539,9 +541,9 @@ namespace
                 auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
                 if (it != spoiler_states.end())
                 {
-                    auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
+                    const auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
                     // Hide pickups that have been collected.
-                    auto compare = it->second.value < 0 ? 1.f : it->second.value;
+                    const auto compare = it->second.value < 0 ? 1.f : it->second.value;
                     if (value < compare && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value)))
                         return true;
                 }
