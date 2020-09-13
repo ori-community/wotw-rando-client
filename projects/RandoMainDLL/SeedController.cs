@@ -71,7 +71,7 @@ namespace RandoMainDLL {
 
   public static class SeedController {
 
-    private static bool Sync = false;
+    private static bool Sync = true;
     public static bool GrantingGoalModeLoc = false;
     public enum FakeUberGroups {
       TREE = 0,
@@ -184,12 +184,13 @@ namespace RandoMainDLL {
 
         // Should only be used for configuration options.
         if (Sync) {
-          if (DiscordController.Initialized) {
+          ConnectToServer();
+/*          if (DiscordController.Initialized) {
             ConnectToServer();
           }
           else {
             DiscordController.ConnectToServer = true;
-          }
+          }*/
         }
       }
       else {
@@ -199,11 +200,7 @@ namespace RandoMainDLL {
 
     public static void ConnectToServer() {
       if (!Randomizer.Client.IsConnected) {
-        string url = AHK.IniString("Paths", "URL");
-        if (url == string.Empty)
-          url = "wotw.orirando.com";
-
-        Randomizer.Client.Connect(url, DiscordController.User.Id);
+        Randomizer.Client.Connect(DiscordController.User.Id);
       }
 
       UberStateController.QueueSyncedStateUpdate();

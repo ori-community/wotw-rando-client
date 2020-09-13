@@ -248,7 +248,6 @@ INJECT_C_DLLEXPORT void clear_visible_hints()
             if (last_box != npc_box && is_visible(last_box))
                 MessageBox__HideMessageScreenImmediately(last_box, 0);
         }
-
         tracked_boxes.clear();
         if (last_handle)
         {
