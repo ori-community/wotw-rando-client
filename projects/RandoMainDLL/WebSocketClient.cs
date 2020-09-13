@@ -4,27 +4,43 @@ using Google.Protobuf;
 using Network;
 using WebSocketSharp;
 
-namespace RandoMainDLL
-{
+namespace RandoMainDLL {
   public class WebSocketClient {
     public delegate void UberStateRegistrationHandler(Memory.UberId id);
     public delegate void UberStateUpdateHandler(Memory.UberId id, float value);
 
     public UberStateRegistrationHandler UberStateRegistered;
     public UberStateUpdateHandler UberStateChanged;
+    private string _domain;
+    public string Domain { 
+      get {
+        if (_domain == null) { 
+          _domain = AHK.IniString("Paths", "URL");
+          if(_domain == "")
+            _domain = "wotw.orirando.com";
+        }
+        return _domain;
+      }
+    }
 
-    private const string ServerAddress = "ws://{0}/gameSync/{1}";
+    public static int GameId = 1;
+    public static long PlayerId = 1;
+
+
+
+    private string ServerAddress => $"ws://{Domain}/gameSync/{GameId}/{PlayerId}";
 
     private static WebSocket socket;
 
     public bool IsConnected { get { return socket != null; } }
 
-    public void Connect(string domain, long player) {
+    public void Connect(long player) {
+      //      PlayerId = player;
       if (socket != null) {
         Disconnect();
       }
       
-      socket = new WebSocket(string.Format(ServerAddress, domain, player));
+      socket = new WebSocket(ServerAddress);
       socket.OnMessage += HandleMessage;
       socket.Connect();
     }
