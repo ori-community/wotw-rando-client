@@ -41,7 +41,7 @@ namespace RandoMainDLL {
 
     private static UberState createUberStateEntry(UberId id) {
       if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
-        Randomizer.Error("cuse", $"Failed to find {id} in uber state system.");
+        Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
         return null;
        }
 
