@@ -12,6 +12,7 @@ import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.protobuf.InitBingoMessage
+import wotw.io.messages.protobuf.PrintTextMessage
 import wotw.io.messages.protobuf.UberId
 import wotw.io.messages.protobuf.UberStateUpdateMessage
 import wotw.io.messages.sendMessage
@@ -60,6 +61,8 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     ?.map { UberId(it.first, it.second) }
             }
             outgoing.sendMessage(InitBingoMessage(initData ?: emptyList()))
+            outgoing.sendMessage(PrintTextMessage("Hello from server"))
+
 
             protocol {
                 onMessage(UberStateUpdateMessage::class) {
