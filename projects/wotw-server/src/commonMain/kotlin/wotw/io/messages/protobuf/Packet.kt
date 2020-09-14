@@ -49,6 +49,7 @@ data class Packet(
             3 to typeOf<UberStateUpdateMessage>(),
             4 to typeOf<SyncPlayersMessage>(),
             5 to typeOf<InitBingoMessage>(),
+            6 to typeOf<PrintTextMessage>()
         )
 
         fun deserialize(bytes: ByteArray): Any? {
