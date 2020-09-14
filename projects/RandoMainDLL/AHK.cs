@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
 using AutoHotkey.Interop;
+using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class AHK {
@@ -128,9 +129,9 @@ namespace RandoMainDLL {
             PsuedoLocs.BINDING_THREE.OnCollect();
             break;
           case "test4":
-            if(SeedController.HasInternalSpoilers) {
+            if (SeedController.HasInternalSpoilers) {
+              UberSet.Bool(34543, 11226, true);
               Print("spoiler unlocked", toMessageLog: false);
-              InterOp.magic_function();
             }
             break;
           case "test5":
@@ -161,6 +162,8 @@ namespace RandoMainDLL {
           try {
             InterOp.clear_visible_hints();
             InterOp.display_hint(Current.Text, Current.Frames / 60f);
+            float ypos = 3.2f - .2f * Current.Text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None).Length;
+            InterOp.display_hint(Current.Text, Current.Frames / 60f, ypos);
             if (IniFlag("LogOnPrint")) {
               Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
             }
