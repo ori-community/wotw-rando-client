@@ -199,11 +199,17 @@ namespace RandoMainDLL {
     }
 
     public static void ConnectToServer() {
-      if (!Randomizer.Client.IsConnected) {
-        Randomizer.Client.Connect(DiscordController.User.Id);
-      }
+      try {
+        if (!Randomizer.Client.IsConnected) {
+          Randomizer.Log("Attempting to connect...", false);
+          Randomizer.Client.Connect(DiscordController.User.Id);
+          Randomizer.Log("Connect attempt complete", false);
+        }
 
-      UberStateController.QueueSyncedStateUpdate();
+        UberStateController.QueueSyncedStateUpdate();
+      } catch (Exception e) {
+        Randomizer.Error("CTS", e, false);
+      }
     }
 
     public static bool HasInternalSpoilers = false;

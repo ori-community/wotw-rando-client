@@ -226,6 +226,7 @@ namespace RandoMainDLL {
               }
 
               if (SyncedUberStates.Contains(key)) {
+                Randomizer.Log($"Sending update for {state}", false);
                 Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
               }
 
@@ -244,9 +245,15 @@ namespace RandoMainDLL {
 
       if (shouldUpdateSync) {
         shouldUpdateSync = false;
-        foreach (var state in SyncedUberStates) {
-          Randomizer.Client.SendUpdate(state, state.State().ValueAsFloat());
+        var bad = new HashSet<UberId>();
+        foreach (var uid in SyncedUberStates) {
+          if (uid.State() != null) {
+            Randomizer.Client.SendUpdate(uid, uid.State().ValueAsFloat());
+          }
+          else
+            bad.Add(uid);
         }
+        foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
       }
     }
     private static void HandleSpecial(UberState state) {

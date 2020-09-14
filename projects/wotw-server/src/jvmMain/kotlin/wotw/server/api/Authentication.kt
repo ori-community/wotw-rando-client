@@ -31,21 +31,17 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server){
             oauth(AUTH){
                 client = HttpClient()
                 providerLookup = { discordOauthProvider }
-                urlProvider = { redirectUrl("/oauth/redir") }
+                urlProvider = { redirectUrl("/api/oauth/redir") }
             }
         }
         authenticate(AUTH) {
-            route("/login"){
-                handle {
-
-                }
-            }
             route("/oauth/redir"){
                 handle {
                     val principal = call.authentication.principal<OAuthAccessTokenResponse.OAuth2>() ?: error("No Principal")
                     val jsonResponse = HttpClient().get<String>("https://discord.com/api//users/@me"){
                         header("Authorization", "Bearer ${principal.accessToken}")
                     }
+
                     val json = json.parseToJsonElement(jsonResponse).jsonObject
                     val userId = json["id"]?.jsonPrimitive?.longOrNull ?: -1L
                     val user = transaction {
@@ -54,7 +50,7 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server){
                                 name = json["username"]?.jsonPrimitive?.contentOrNull ?: "unknown"
                             }
                     }
-                    call.respondText("Hi ${user.name}")
+                    call.respondText("Hi ${user.name}! Your ID is ")
                 }
             }
 
