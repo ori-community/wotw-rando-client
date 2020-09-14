@@ -21,8 +21,8 @@ fun generatePool() = mutableListOf(
         ),
     group(
         "Spend Gorlek Ore",
-        threshold("14", 1, 1, 14),
-        threshold("32", 1, 1, 32),
+        threshold("14", 6, 6, 14),
+        threshold("20", 6, 6, 20),
     ),
     bool("Find Bash", 6, 1000),
     bool("Find Wall Jump", 6, 1003),

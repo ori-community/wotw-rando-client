@@ -36,7 +36,9 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server){
         }
         authenticate(AUTH) {
             route("/login"){
+                handle {
 
+                }
             }
             route("/oauth/redir"){
                 handle {
