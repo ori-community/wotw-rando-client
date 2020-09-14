@@ -65,6 +65,7 @@ kotlin {
                 implementation("io.ktor:ktor-html-builder:$ktor_version")
                 implementation("io.ktor:ktor-serialization:$ktor_version")
                 implementation("io.ktor:ktor-network-tls-certificates:$ktor_version")
+                implementation("io.ktor:ktor-auth:$ktor_version")
 
                 implementation("ch.qos.logback:logback-classic:$logback_version")
 
@@ -124,9 +125,9 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().configureEa
 
 val jvmJar = tasks.named<Jar>("jvmJar") {
     //Uncomment this to include the webpack
-    /*val jsBrowserProductionWebpack = tasks.getByName<org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack>("jsBrowserProductionWebpack")
+    val jsBrowserProductionWebpack = tasks.getByName<org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack>("jsBrowserProductionWebpack")
     dependsOn(jsBrowserProductionWebpack)
-    from(jsBrowserProductionWebpack.entry, jsBrowserProductionWebpack.destinationDirectory)*/
+    from(jsBrowserProductionWebpack.entry, jsBrowserProductionWebpack.destinationDirectory)
 }
 
 //Generates self-signed test certificate

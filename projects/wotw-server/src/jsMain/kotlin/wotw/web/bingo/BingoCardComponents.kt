@@ -163,7 +163,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                 }
             }
             child(WebSocketComponent::class) {
-                attrs.url = "ws://$BACKEND_HOST:$BACKEND_PORT/bingosync/${props.gameId}"
+                attrs.url = "wss://$BACKEND_HOST:$BACKEND_PORT/api/bingosync/${props.gameId}"
             }
         }
     }

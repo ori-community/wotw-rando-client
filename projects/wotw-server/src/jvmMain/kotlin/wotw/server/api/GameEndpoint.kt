@@ -20,7 +20,7 @@ import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
 
 class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
-    override fun Routing.initRouting() {
+    override fun Route.initRouting() {
         post<UberStateUpdateMessage>("games/{game_id}/{player_id}/state") { message ->
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("")
             val playerId = call.parameters["player_id"]?.toLongOrNull() ?: throw BadRequestException("")

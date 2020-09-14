@@ -2,20 +2,21 @@ package wotw.server.main
 
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.html.*
 import io.ktor.http.*
+import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.websocket.*
+import kotlinx.html.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import wotw.server.api.BingoEndpoint
-import wotw.server.api.ConnectionRegistry
-import wotw.server.api.DiscordEndpoint
-import wotw.server.api.GameEndpoint
+import org.slf4j.event.Level
+import wotw.server.api.*
 import wotw.server.database.model.Games
 import wotw.server.database.model.PlayerDataTable
 import wotw.server.database.model.Users
@@ -53,12 +54,16 @@ class WotwBackendServer {
 
     }
 
+    private fun initDiscordOauth(){
+
+    }
+
     val bingoEndpoint = BingoEndpoint(this)
     val gameEndpoint = GameEndpoint(this)
-    val discordEndpoint = DiscordEndpoint(this)
+    val authEndpoint = AuthenticationEndpoint(this)
     val connections = ConnectionRegistry()
     private fun startServer(args: Array<String>) {
-        val cmd  =commandLineEnvironment(args)
+        val cmd = commandLineEnvironment(args)
         val env = applicationEngineEnvironment {
             config =  cmd.config
             connectors += cmd.connectors
@@ -67,7 +72,9 @@ class WotwBackendServer {
                     maxFrameSize = Long.MAX_VALUE
                 }
                 install(HttpsRedirect)
-                install(CallLogging)
+                install(CallLogging){
+                    level = Level.INFO
+                }
                 install(CORS) {
                     method(HttpMethod.Options)
                     allowNonSimpleContentTypes = true
@@ -97,11 +104,32 @@ class WotwBackendServer {
 
                 }
                 routing {
-                    bingoEndpoint.init(this)
-                    gameEndpoint.init(this)
-                    discordEndpoint.init(this)
-                    get("/"){
-                        call.respondText("WOTW-Backend running")
+                    route("api"){
+                        bingoEndpoint.init(this)
+                        gameEndpoint.init(this)
+                        authEndpoint.init(this)
+                        get("/"){
+                            call.respondText("WOTW-Backend running")
+                        }
+                    }
+                    static("static"){
+                        resource("flex-helper.css")
+                        resource("wotw-server.js")
+                        resource("wotw-server.js.map")
+                        defaultResource("index.html")
+                    }
+                    get("{...}"){
+                        call.respondHtml {
+                            head {
+                                link("/static/flex-helper.css", rel = "stylesheet")
+                            }
+                            body {
+                                div {
+                                    id = "content"
+                                }
+                                script(src = "/static/wotw-server.js"){}
+                            }
+                        }
                     }
                 }
             }
