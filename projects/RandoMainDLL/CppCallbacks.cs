@@ -36,7 +36,7 @@ namespace RandoMainDLL {
             CallbackName = "on_checkpoint"
           },
           new Method() {
-            Delegate = new f_void(() => AHK.SendPlainText(new PlainText(SeedController.GoalModeMessages(unmet: "@"), 300, true), false)),
+            Delegate = new f_void(() => AHK.SendPlainText(new PlainText(SeedController.GoalModeMessages(unmet: "@"), 300, -2f), false)),
             CallbackName = "on_goal_mode_fail"
           },
           new Method() {
