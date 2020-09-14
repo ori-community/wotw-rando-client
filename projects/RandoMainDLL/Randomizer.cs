@@ -114,7 +114,7 @@ namespace RandoMainDLL {
         File.AppendAllText(LogFile, contents: $"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       }
       if (Dev && printIfDev)
-        AHK.Print(message, 180, false);
+        AHK.Print(message, 180, toMessageLog: false);
     }
 
 
