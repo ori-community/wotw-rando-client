@@ -4,8 +4,10 @@ import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.sessions.*
 import io.ktor.websocket.*
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -18,10 +20,7 @@ import wotw.io.messages.protobuf.SyncBoardMessage
 import wotw.io.messages.sendMessage
 import wotw.server.bingo.BingoBoardGenerator
 import wotw.server.bingo.UberStateMap
-import wotw.server.database.model.Game
-import wotw.server.database.model.PlayerData
-import wotw.server.database.model.PlayerDataTable
-import wotw.server.database.model.User
+import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
@@ -58,23 +57,31 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
             call.respond(HttpStatusCode.Created, buildJsonObject {
                 put("id", game.id.value)
             })
-        }
-        post<Long>("bingo/{game_id}/players") { userId ->
 
+        }
+        //FIXME
+        post("bingo/{game_id}/players") {
+            //FIXME
+            val userId = call.receiveOrNull<Long>()
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@post call.respondText(
                 "Cannot parse gameID",
                 status = HttpStatusCode.BadRequest
             )
             val game = newSuspendedTransaction {
-                val existing = PlayerData.find {
-                    (PlayerDataTable.gameId eq gameId) and
-                            (PlayerDataTable.userId eq userId)
+                val user = if (userId != null) {
+                    User.findById(userId) ?: throw NotFoundException()
+                } else {
+                    //FIXME
+                    val id = call.sessions.get<BrowserSession>()?.token ?: throw  NotFoundException()
+                    //FIXME
+                    Token.findById(id)?.user ?: throw  NotFoundException()
                 }
-                if (!existing.empty())
+
+                val existing = PlayerData.find(gameId, user.id.value)
+                if (existing != null)
                     throw AlreadyExistsException()
 
                 val game = Game.findById(gameId) ?: throw NotFoundException()
-                val user = User.findById(userId) ?: throw NotFoundException()
 
                 PlayerData.new {
                     this.game = game

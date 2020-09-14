@@ -19,6 +19,7 @@ import org.slf4j.event.Level
 import wotw.server.api.*
 import wotw.server.database.model.Games
 import wotw.server.database.model.PlayerDataTable
+import wotw.server.database.model.Tokens
 import wotw.server.database.model.Users
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.util.logger
@@ -49,7 +50,7 @@ class WotwBackendServer {
         this.db =
             Database.connect("jdbc:postgresql://$host:$port/$db?user=$user&password=$password", "org.postgresql.Driver")
         transaction {
-            SchemaUtils.createMissingTablesAndColumns(Games, Users, PlayerDataTable)
+            SchemaUtils.createMissingTablesAndColumns(Games, Users, PlayerDataTable, Tokens)
         }
 
     }

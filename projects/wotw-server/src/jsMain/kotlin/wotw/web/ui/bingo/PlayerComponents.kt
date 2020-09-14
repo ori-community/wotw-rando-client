@@ -1,4 +1,4 @@
-package wotw.web.bingo
+package wotw.web.ui.bingo
 
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -15,7 +15,6 @@ import react.RComponent
 import react.RState
 import react.dom.button
 import react.dom.div
-import react.dom.h1
 import react.dom.input
 import react.setState
 import styled.css
@@ -124,9 +123,7 @@ class JoinGameComponent : RComponent<JoinGameProps, JoinGameState>() {
                 onClickFunction = {
                     state.playerId?.let {
                         GlobalScope.launch {
-                            val response = Application.client.post<HttpResponse>(path = "bingo/${props.gameId}/players", body = it.toString()){
-                                contentType(ContentType.Application.Json)
-                            }
+                            val response = Application.client.post<HttpResponse>(path = "bingo/${props.gameId}/players")//, body = it.toString()){                                contentType(ContentType.Application.Json)                            }
                             if(response.status == HttpStatusCode.OK || response.status == HttpStatusCode.Companion.Conflict){
                                 Application.eventBus.send(Packet.from(RequestUpdatesMessage(it)))
                                 props.afterJoin(it)

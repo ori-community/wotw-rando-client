@@ -1,4 +1,4 @@
-package wotw.web.bingo
+package wotw.web.ui.bingo
 
 import io.ktor.client.request.*
 import kotlinx.coroutines.GlobalScope
@@ -14,6 +14,7 @@ import wotw.io.messages.protobuf.*
 import wotw.io.messages.protobuf.Position
 import wotw.web.io.WebSocketComponent
 import wotw.web.main.Application
+import wotw.web.ui.UserInfoComponent
 import wotw.web.util.BACKEND_HOST
 import wotw.web.util.BACKEND_PORT
 import wotw.web.util.hbox
@@ -47,18 +48,21 @@ external interface BingoGoalProps : RProps {
 
 class BingoView : RComponent<GameIdProps, RState>() {
     override fun RBuilder.render() {
-        hbox {
-            css {
-                gap = Gap("10px")
+        vbox {
+            child(UserInfoComponent::class){
             }
-            child(BingoCardComponent::class) {
-                attrs.gameId = props.gameId
-            }
-            child(BingoPlayersComponent::class) {
-                attrs.gameId = props.gameId
+            hbox {
+                css {
+                    gap = Gap("10px")
+                }
+                child(BingoCardComponent::class) {
+                    attrs.gameId = props.gameId
+                }
+                child(BingoPlayersComponent::class) {
+                    attrs.gameId = props.gameId
+                }
             }
         }
-
     }
 }
 

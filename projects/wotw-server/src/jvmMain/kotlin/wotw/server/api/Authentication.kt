@@ -9,14 +9,20 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.sessions.*
+import io.ktor.util.pipeline.*
 import kotlinx.serialization.json.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.json
+import wotw.server.database.model.Token
 import wotw.server.database.model.User
 import wotw.server.main.WotwBackendServer
+import java.util.*
 
 const val AUTH = "discordOAuth"
+
+data class BrowserSession(val token: UUID)
 
 class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
     override fun Route.initRouting() {
@@ -29,15 +35,40 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
             defaultScopes = listOf("identify"),
             requestMethod = HttpMethod.Post
         )
+
+        val redirectCookiePahse = PipelinePhase("RedirCookiePhase")
         application.install(Authentication) {
             oauth(AUTH) {
                 client = HttpClient()
                 providerLookup = { discordOauthProvider }
-                urlProvider = { redirectUrl("/api/oauth/redir") }
+                urlProvider = { redirectUrl("/api/login") }
+                pipeline.insertPhaseBefore(AuthenticationPipeline.RequestAuthentication, redirectCookiePahse)
+                pipeline.intercept(redirectCookiePahse) {
+                    call.request.queryParameters["redir"]?.also {
+                        call.response.cookies.append("authRedir", it)
+                    }
+                }
+            }
+            session<BrowserSession> {
+                challenge {
+                    call.respond(HttpStatusCode.Unauthorized)
+                }
+                validate { session ->
+                    newSuspendedTransaction {
+                        Token.findById(session.token)?.user?.id?.value
+                    }?.let { UserIdPrincipal(it.toString()) }
+                }
             }
         }
+
+        application.install(Sessions) {
+            cookie<BrowserSession>("JSESSIONID", SessionStorageMemory()) {
+                cookie.path = "/"
+            }
+        }
+
         authenticate(AUTH) {
-            route("/oauth/redir") {
+            route("/login") {
                 handle {
                     val principal =
                         call.authentication.principal<OAuthAccessTokenResponse.OAuth2>() ?: error("No Principal")
@@ -47,13 +78,22 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
                     val json = json.parseToJsonElement(jsonResponse).jsonObject
                     val userId = json["id"]?.jsonPrimitive?.longOrNull ?: -1L
-                    val user = newSuspendedTransaction {
-                        User.findById(userId)
+                    val (user, token) = newSuspendedTransaction {
+                        (User.findById(userId)
                             ?: User.new(userId) {
                                 name = json["username"]?.jsonPrimitive?.contentOrNull ?: "unknown"
-                            }
+                            }).let {
+                            it to Token.new { user = it }
+                        }
                     }
-                    call.respondText("Hi ${user.name}! Your ID is ")
+                    val redir = call.request.cookies["authRedir"]
+                    call.response.cookies.appendExpired("authRedir")
+                    call.sessions.set(BrowserSession(token.id.value))
+
+                    if (redir == null)
+                        call.respondText("Hi ${user.name}! Your ID is ${user.id.value}")
+                    else
+                        call.respondRedirect(redir)
                 }
             }
 
