@@ -10,6 +10,7 @@ import io.ktor.websocket.*
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.protobuf.BingoData
 import wotw.io.messages.protobuf.RequestUpdatesMessage
@@ -27,9 +28,9 @@ import wotw.server.main.WotwBackendServer
 
 class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
     override fun Route.initRouting() {
-        get("bingo/{game_id}"){
+        get("bingo/{game_id}") {
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Cannot parse game_id")
-            val boardData = transaction {
+            val boardData = newSuspendedTransaction {
                 val game = Game.findById(gameId) ?: throw NotFoundException()
                 val board = game.board ?: throw NotFoundException()
                 val info = game.playerInfo()
@@ -38,7 +39,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
             call.respond(boardData)
         }
         get("bingo") {
-            val game = transaction {
+            val game = newSuspendedTransaction {
                 Game.new {
                     board = BingoBoardGenerator().generateBoard()
                 }
@@ -48,7 +49,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
             })
         }
         post("bingo") {
-            val game = transaction {
+            val game = newSuspendedTransaction {
                 Game.new {
                     board = BingoBoardGenerator().generateBoard()
                 }
@@ -64,12 +65,12 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 "Cannot parse gameID",
                 status = HttpStatusCode.BadRequest
             )
-            val game = transaction {
+            val game = newSuspendedTransaction {
                 val existing = PlayerData.find {
                     (PlayerDataTable.gameId eq gameId) and
                             (PlayerDataTable.userId eq userId)
                 }
-                if(!existing.empty())
+                if (!existing.empty())
                     throw AlreadyExistsException()
 
                 val game = Game.findById(gameId) ?: throw NotFoundException()
@@ -80,7 +81,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     this.user = user
                     uberStateData = UberStateMap()
                 }
-                game
+                game.id.value
             }
 
             server.connections.onGameUpdate(game)
@@ -92,24 +93,34 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
     private fun Route.bingoSyncWebsocket() {
         webSocket(path = "/bingosync/{game_id}") {
-            val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Game-ID is required"))
-            val (game, board) = transaction {
+            val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(
+                CloseReason(
+                    CloseReason.Codes.VIOLATED_POLICY,
+                    "Game-ID is required"
+                )
+            )
+            val (game, board) = newSuspendedTransaction {
                 val game = Game.findById(gameId)
                 game to game?.board
             }
             if (game == null || board == null)
-                return@webSocket this.close(CloseReason(CloseReason.Codes.NORMAL, "Requested Bingo-Game does not exist"))
+                return@webSocket this.close(
+                    CloseReason(
+                        CloseReason.Codes.NORMAL,
+                        "Requested Bingo-Game does not exist"
+                    )
+                )
 
             var playerId = -1L
             server.connections.register(this@webSocket, gameId)
             protocol {
                 onMessage(RequestUpdatesMessage::class) {
-                    if(this.playerId != playerId){
+                    if (this.playerId != playerId) {
                         server.connections.unregister(this@webSocket, gameId, playerId)
                         playerId = this.playerId
                         server.connections.register(this@webSocket, gameId, playerId)
 
-                        val playerData = transaction {
+                        val playerData = newSuspendedTransaction {
                             game.players.firstOrNull { it.user.id.value == playerId }?.uberStateData
                         }
                         outgoing.sendMessage(SyncBoardMessage(board.toBingoBoard(playerData), true))

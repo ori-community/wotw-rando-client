@@ -9,6 +9,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.websocket.webSocket
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.protobuf.InitBingoMessage
 import wotw.io.messages.protobuf.UberId
@@ -26,14 +27,14 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
         post<UberStateUpdateMessage>("games/{game_id}/{player_id}/state") { message ->
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("")
             val playerId = call.parameters["player_id"]?.toLongOrNull() ?: throw BadRequestException("")
-            val game = transaction {
+            val game = newSuspendedTransaction {
                 val playerData = PlayerData.find {
                     (PlayerDataTable.gameId eq gameId) and (PlayerDataTable.userId eq playerId)
                 }.singleOrNull() ?: throw NotFoundException()
                 val data = playerData.uberStateData
                 data[message.uberId.group to message.uberId.state] = message.value
                 playerData.uberStateData = data
-                playerData.game
+                playerData.game.id.value
             }
             server.connections.onGameUpdate(game)
             call.respond(HttpStatusCode.NoContent)
@@ -47,27 +48,27 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             val playerId = call.parameters["player_id"]?.toLongOrNull() ?: return@webSocket this.close(
                 CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Player-ID is required")
             )
-            val playerData = transaction {
-                PlayerData.find {
-                    (PlayerDataTable.gameId eq gameId) and (PlayerDataTable.userId eq playerId)
-                }.singleOrNull()
+            newSuspendedTransaction {
+                PlayerData.find(gameId, playerId)?.id?.value
             } ?: return@webSocket this.close(
                 CloseReason(CloseReason.Codes.NORMAL, "Player is not part of game - no syncing possible")
             )
             logger.info("socket connect; did not close")
 
-            val initData = transaction {
-                playerData.game.board?.goals?.flatMap { it.value.keys }?.map { UberId(it.first, it.second) }
+            val initData = newSuspendedTransaction {
+                PlayerData.find(gameId, playerId)?.game?.board?.goals?.flatMap { it.value.keys }
+                    ?.map { UberId(it.first, it.second) }
             }
             outgoing.sendMessage(InitBingoMessage(initData ?: emptyList()))
 
             protocol {
                 onMessage(UberStateUpdateMessage::class) {
-                    val game = transaction {
+                    val game = newSuspendedTransaction {
+                        val playerData = PlayerData.find(gameId, playerId) ?: error("Inconsitent game state")
                         val data = playerData.uberStateData
                         data[uberId.group to uberId.state] = value
                         playerData.uberStateData = data
-                        playerData.game
+                        playerData.game.id.value
                     }
                     server.connections.onGameUpdate(game)
                 }

@@ -10,13 +10,15 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.serialization.json.*
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.json
 import wotw.server.database.model.User
 import wotw.server.main.WotwBackendServer
 
 const val AUTH = "discordOAuth"
-class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server){
+
+class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
     override fun Route.initRouting() {
         val discordOauthProvider = OAuthServerSettings.OAuth2ServerSettings(
             name = "discord",
@@ -27,25 +29,26 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server){
             defaultScopes = listOf("identify"),
             requestMethod = HttpMethod.Post
         )
-        application.install(Authentication){
-            oauth(AUTH){
+        application.install(Authentication) {
+            oauth(AUTH) {
                 client = HttpClient()
                 providerLookup = { discordOauthProvider }
                 urlProvider = { redirectUrl("/api/oauth/redir") }
             }
         }
         authenticate(AUTH) {
-            route("/oauth/redir"){
+            route("/oauth/redir") {
                 handle {
-                    val principal = call.authentication.principal<OAuthAccessTokenResponse.OAuth2>() ?: error("No Principal")
-                    val jsonResponse = HttpClient().get<String>("https://discord.com/api//users/@me"){
+                    val principal =
+                        call.authentication.principal<OAuthAccessTokenResponse.OAuth2>() ?: error("No Principal")
+                    val jsonResponse = HttpClient().get<String>("https://discord.com/api//users/@me") {
                         header("Authorization", "Bearer ${principal.accessToken}")
                     }
 
                     val json = json.parseToJsonElement(jsonResponse).jsonObject
                     val userId = json["id"]?.jsonPrimitive?.longOrNull ?: -1L
-                    val user = transaction {
-                        return@transaction User.findById(userId)
+                    val user = newSuspendedTransaction {
+                        User.findById(userId)
                             ?: User.new(userId) {
                                 name = json["username"]?.jsonPrimitive?.contentOrNull ?: "unknown"
                             }
@@ -57,6 +60,7 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server){
         }
 
     }
+
     private fun ApplicationCall.redirectUrl(path: String): String {
         val defaultPort = if (request.origin.scheme == "http") 80 else 443
         val hostPort = request.host() + request.port().let { port -> if (port == defaultPort) "" else ":$port" }
