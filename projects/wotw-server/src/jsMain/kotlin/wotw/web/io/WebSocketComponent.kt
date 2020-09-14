@@ -29,6 +29,7 @@ class WebSocketComponent : RComponent<WebSocketProperties, RState>(){
     var currentSession: WebSocketSession? = null
     override fun componentDidMount() {
         GlobalScope.launch {
+            console.log("WS: ${props.url}")
             Application.client.ws(props.url, {
                 accept(ContentType.Application.ProtoBuf)
                 accept(ContentType.Text.Any)

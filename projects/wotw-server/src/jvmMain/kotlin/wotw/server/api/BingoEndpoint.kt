@@ -1,36 +1,32 @@
 package wotw.server.api
 
-import wotw.server.exception.AlreadyExistsException
-import io.ktor.application.call
+import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.http.cio.websocket.CloseReason
-import io.ktor.http.cio.websocket.close
-import io.ktor.response.respond
-import io.ktor.response.respondText
+import io.ktor.http.cio.websocket.*
+import io.ktor.response.*
 import io.ktor.routing.*
-import io.ktor.websocket.webSocket
+import io.ktor.websocket.*
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.protobuf.BingoData
-import wotw.io.messages.protobuf.PlayerInfo
 import wotw.io.messages.protobuf.RequestUpdatesMessage
 import wotw.io.messages.protobuf.SyncBoardMessage
 import wotw.io.messages.sendMessage
 import wotw.server.bingo.BingoBoardGenerator
-import wotw.server.bingo.GameState
 import wotw.server.bingo.UberStateMap
 import wotw.server.database.model.Game
 import wotw.server.database.model.PlayerData
 import wotw.server.database.model.PlayerDataTable
 import wotw.server.database.model.User
+import wotw.server.exception.AlreadyExistsException
 import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
 
 class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
-    override fun Routing.initRouting() {
+    override fun Route.initRouting() {
         get("bingo/{game_id}"){
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Cannot parse game_id")
             val boardData = transaction {
@@ -85,7 +81,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
         bingoSyncWebsocket()
     }
 
-    private fun Routing.bingoSyncWebsocket() {
+    private fun Route.bingoSyncWebsocket() {
         webSocket(path = "/bingosync/{game_id}") {
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Game-ID is required"))
             val (game, board) = transaction {
