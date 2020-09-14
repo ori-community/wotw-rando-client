@@ -61,7 +61,8 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     ?.map { UberId(it.first, it.second) }
             }
             outgoing.sendMessage(InitBingoMessage(initData ?: emptyList()))
-            outgoing.sendMessage(PrintTextMessage("Hello from server"))
+            outgoing.sendMessage(PrintTextMessage("Hello without explicit params"))
+            outgoing.sendMessage(PrintTextMessage("Hello from server", 240, 3f))
 
 
             protocol {
