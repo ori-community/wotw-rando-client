@@ -22,6 +22,6 @@ data class InitBingoMessage(
 
 data class PrintTextMessage(
     @ProtoNumber(1) val text: String,
-    @ProtoNumber(2) val y_pos: Float = 3f,
-    @ProtoNumber(3) val duration: Float = 4f
+    @ProtoNumber(2) val Frames: Int = 200,
+    @ProtoNumber(3) val y_pos: Float = 3f
 )
