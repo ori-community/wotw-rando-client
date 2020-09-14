@@ -85,7 +85,6 @@ namespace RandoMainDLL {
     }
 
     public void HandleMessage(object sender, MessageEventArgs args) {
-      Randomizer.Log("Handle message start");
       try {
         var packet = Packet.Parser.ParseFrom(args.RawData);
         switch (packet.Id) {
