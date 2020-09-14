@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Google.Protobuf;
 using Network;
 using WebSocketSharp;
@@ -21,19 +22,38 @@ namespace RandoMainDLL {
         return _domain;
       }
     }
+    public static bool WantConnection = true;
 
-    public static int GameId = 3;
-    public static long PlayerId = 1;
-
-
+    public int GameId = 1;
+    public long PlayerId = 1;
+    public int ReconnectCooldown = 0;
 
     private string ServerAddress => $"wss://{Domain}/api/gameSync/{GameId}/{PlayerId}";
 
-    private static WebSocket socket;
+    private WebSocket socket;
 
-    public bool IsConnected { get { return socket != null; } }
+    public void Update() {
+      if(WantConnection && !IsConnected) {
+        if(ReconnectCooldown > 0) {
+          ReconnectCooldown--;
+          return;
+        }
+        try {
+          Randomizer.Log("Connecting...");
+          Connect();
+          UberStateController.QueueSyncedStateUpdate();
+        }
+        catch (Exception e) {
+          Randomizer.Error("CTS", e, false);
+          if (!IsConnected)
+            ReconnectCooldown = 5;
+        }
+      }
+    }
 
-    public void Connect(long player) {
+    public bool IsConnected { get { return socket != null && socket.IsAlive; } }
+
+    public void Connect() {
       //      PlayerId = player;
       if (socket != null) {
         Disconnect();
@@ -46,11 +66,17 @@ namespace RandoMainDLL {
       };
       socket.OnError += (sender, e) => {
         Randomizer.Error("WebSocket", e.Exception, false);
+        ReconnectCooldown = 5;
+      };
+      socket.OnClose += (sender, e) => {
+        Randomizer.Log("Disconnected! Retrying in 5s");
+        ReconnectCooldown = 5;
       };
       socket.OnMessage += HandleMessage;
       socket.OnOpen +=  new EventHandler(delegate (object sender, EventArgs args) {
-        Randomizer.Log($"Socket opened!\nArgs: {args}", false);
+        Randomizer.Log($"Socket opened", false);
       });
+      Randomizer.Log($"Attempting to connect to ${Domain}", false);
 
       socket.Connect();
 

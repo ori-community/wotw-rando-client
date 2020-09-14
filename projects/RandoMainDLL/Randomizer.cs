@@ -86,6 +86,7 @@ namespace RandoMainDLL {
         }
         AHK.Tick();
         BonusItemController.Update();
+        Client.Update();
         DiscordController.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
