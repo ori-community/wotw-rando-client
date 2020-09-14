@@ -113,6 +113,16 @@ namespace RandoMainDLL.Memory {
     public static void Byte(UberId id, byte val) => id.State().Write(new UberValue(val));
     public static void Byte(int groupId, int id, byte val) => Byte(new UberId(groupId, id), val);
   }
+  public static class UberInc {
+    public static void Toggle(UberId id) => UberSet.Bool(id, UberGet.value(id).Bool);
+    public static void Toggle(int groupId, int id) => Toggle(new UberId(groupId, id));
+    public static void Int(UberId id, int val = 1) => UberSet.Int(id, UberGet.value(id).Int + val);
+    public static void Int(int groupId, int id, int val = 1) => Int(new UberId(groupId, id), val);
+    public static void Float(UberId id, float val = 1) => UberSet.Float(id, UberGet.value(id).Float + val);
+    public static void Float(int groupId, int id, float val = 1) => Float(new UberId(groupId, id), val);
+    public static void Byte(UberId id, byte val = 1) => UberSet.Byte(id, (byte)(UberGet.value(id).Byte + val));
+    public static void Byte(int groupId, int id, byte val = 1) => Byte(new UberId(groupId, id), val);
+  }
 
   public class UberState {
     public UberStateType Type;

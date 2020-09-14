@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Sockets;
 using Google.Protobuf;
 using Network;
 using WebSocketSharp;
@@ -23,12 +22,12 @@ namespace RandoMainDLL {
       }
     }
 
-    public static int GameId = 1;
+    public static int GameId = 3;
     public static long PlayerId = 1;
 
 
 
-    private string ServerAddress => $"ws://{Domain}/gameSync/{GameId}/{PlayerId}";
+    private string ServerAddress => $"wss://{Domain}/api/gameSync/{GameId}/{PlayerId}";
 
     private static WebSocket socket;
 
@@ -39,10 +38,22 @@ namespace RandoMainDLL {
       if (socket != null) {
         Disconnect();
       }
-      
+      Randomizer.Log(ServerAddress, false);
       socket = new WebSocket(ServerAddress);
+      socket.Log.Level = LogLevel.Info;
+      socket.Log.Output = (logdata, output) => {
+        Randomizer.Log($"Websocket says: {logdata.Message}", false, $"{logdata.Level}");
+      };
+      socket.OnError += (sender, e) => {
+        Randomizer.Error("WebSocket", e.Exception, false);
+      };
       socket.OnMessage += HandleMessage;
+      socket.OnOpen +=  new EventHandler(delegate (object sender, EventArgs args) {
+        Randomizer.Log($"Socket opened!\nArgs: {args}", false);
+      });
+
       socket.Connect();
+
     }
 
     public void Disconnect() {
@@ -74,20 +85,25 @@ namespace RandoMainDLL {
     }
 
     public void HandleMessage(object sender, MessageEventArgs args) {
-      var packet = Packet.Parser.ParseFrom(args.RawData);
-      switch (packet.Id) {
-        case 5:
-          var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
-          foreach (var state in init.UberId) {
-            UberStateRegistered(new Memory.UberId(state.Group, state.State));
-          }
-          break;
-        case 3:
-          var update = UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_);
-          UberStateChanged(new Memory.UberId(update.State.Group, update.State.State), update.Value);
-          break;
-        default:
-          break;
+      try {
+        var packet = Packet.Parser.ParseFrom(args.RawData);
+        switch (packet.Id) {
+          case 5:
+            var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
+            foreach (var state in init.UberId) {
+              Randomizer.Log(state.ToString(), false);
+              UberStateRegistered(new Memory.UberId(state.Group, state.State));
+            }
+            break;
+          case 3:
+            var update = UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_);
+            UberStateChanged(new Memory.UberId(update.State.Group, update.State.State), update.Value);
+            break;
+          default:
+            break;
+        }
+      } catch (Exception t) {
+        Randomizer.Error("t", t);
       }
     }
   }

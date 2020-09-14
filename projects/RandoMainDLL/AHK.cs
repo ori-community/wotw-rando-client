@@ -78,7 +78,8 @@ namespace RandoMainDLL {
     }
 
     public static string IniString(string section, string name) {
-      return Engine.ExecFunction("DoIniRead", section, name);
+      var raw = Engine.ExecFunction("DoIniRead", section, name);
+      return Falsey.Contains(raw) ? "" : raw;
     }
 
     public static void Tick() {

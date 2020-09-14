@@ -384,6 +384,7 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       InterOp.set_experience(InterOp.get_experience() + Amount);
+      UberInc.Int(6, 3, Amount);
       InterOp.shake_spiritlight();
       base.Grant(skipBase);
     }
@@ -608,12 +609,12 @@ namespace RandoMainDLL {
           break;
         case ResourceType.Ore:
           InterOp.set_ore(InterOp.get_ore() + 1);
+          UberInc.Int(6, 5);
           InterOp.shake_ore();
           break;
         case ResourceType.Keystone:
           InterOp.set_keystones(InterOp.get_keystones() + 1);
-          var uid = new UberId(6, 0);
-          uid.State().Write(new UberValue(1 + uid.GetValue().Int));
+          UberInc.Int(6, 0);
           InterOp.shake_keystone();
           break;
         case ResourceType.ShardSlot:
