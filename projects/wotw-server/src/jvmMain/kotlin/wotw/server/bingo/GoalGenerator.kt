@@ -24,8 +24,33 @@ fun generatePool() = mutableListOf(
         "Spend Gorlek Ore",
         threshold("14", 1, 1, 14),
         threshold("32", 1, 1, 32),
-
     ),
+    bool("Find Bash", 6, 1000),
+    bool("Find Wall Jump", 6, 1003),
+    bool("Find Double Jump", 6, 1005),
+    bool("Find Launch", 6, 1008),
+    bool("Find Feather", 6, 1014),
+    bool("Find Water Breath", 6, 1023),
+    bool("Find Light Burst", 6, 1051),
+    bool("Find Grapple", 6, 1057),
+    bool("Find Flash", 6, 1062),
+    bool("Find Spike", 6, 1074),
+    bool("Find Regenerate", 6, 1077),
+    bool("Find Spirit Arc", 6, 1097),
+    bool("Find Spirit Smash", 6, 1098),
+    bool("Find Torch", 6, 1099),
+    bool("Find Spirit Edge", 6, 1100),
+    bool("Find Burrow", 6, 1101),
+    bool("Find Dash", 6, 1102),
+    bool("Find Water Dash", 6, 1104),
+    bool("Find Spirit Star", 6, 1106),
+    bool("Find Seir", 6, 1108),
+    bool("Find Blaze", 6, 1115),
+    bool("Find Sentry", 6, 1116),
+    bool("Find Flap", 6, 1118),
+    bool("Find Damage Upgrade 1", 6, 1120),
+    bool("Find Damage Upgrade 2", 6, 1121),
+    bool("Find Clean Water", 6, 2000),
     group(
         "Collect Wisps",
         bool("Strength", 945, 49747),
@@ -63,11 +88,10 @@ fun generatePool() = mutableListOf(
         threshold("Rebuilding the Glades", 14019, 44578, 2, hideValue = true),
         threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true),
     ),
-    threshold("Store Spirit Light", 1, 1, triag(2000, 6000, 4000)),
-    threshold("Spend Spirit Light", 1, 1, triag(2000, 6000, 3000)),
-).also {
-    it += (1..30).map { bool("Test Goal $it", it, it) }
-}
+    threshold("Collect Pickups", 6, 2, triag(60, 300, 140)),
+    threshold("Store Spirit Light", 6, 3, triag(2000, 6000, 4000)),
+    threshold("Spend Spirit Light", 6, 4, triag(2000, 6000, 3000)),
+)
 
 class BingoBoardGenerator() {
     fun generateBoard(seed: String? = null): BingoCard {
