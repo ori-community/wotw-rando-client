@@ -24,7 +24,7 @@ import wotw.server.exception.AlreadyExistsException
 import wotw.server.util.logger
 
 class WotwBackendServer {
-    companion object{
+    companion object {
         @JvmStatic
         fun main(args: Array<String>) {
             WotwBackendServer().start(args)
@@ -33,7 +33,7 @@ class WotwBackendServer {
 
     val logger = logger()
 
-    fun start(args: Array<String>){
+    fun start(args: Array<String>) {
         initDatabase()
         startServer(args)
     }
@@ -54,10 +54,6 @@ class WotwBackendServer {
 
     }
 
-    private fun initDiscordOauth(){
-
-    }
-
     val bingoEndpoint = BingoEndpoint(this)
     val gameEndpoint = GameEndpoint(this)
     val authEndpoint = AuthenticationEndpoint(this)
@@ -65,14 +61,14 @@ class WotwBackendServer {
     private fun startServer(args: Array<String>) {
         val cmd = commandLineEnvironment(args)
         val env = applicationEngineEnvironment {
-            config =  cmd.config
+            config = cmd.config
             connectors += cmd.connectors
-            module{
+            module {
                 install(WebSockets) {
                     maxFrameSize = Long.MAX_VALUE
                 }
                 install(HttpsRedirect)
-                install(CallLogging){
+                install(CallLogging) {
                     level = Level.INFO
                 }
                 install(CORS) {
@@ -104,21 +100,21 @@ class WotwBackendServer {
 
                 }
                 routing {
-                    route("api"){
+                    route("api") {
                         bingoEndpoint.init(this)
                         gameEndpoint.init(this)
                         authEndpoint.init(this)
-                        get("/"){
+                        get("/") {
                             call.respondText("WOTW-Backend running")
                         }
                     }
-                    static("static"){
+                    static("static") {
                         resource("flex-helper.css")
                         resource("wotw-server.js")
                         resource("wotw-server.js.map")
                         defaultResource("index.html")
                     }
-                    get("{...}"){
+                    get("{...}") {
                         call.respondHtml {
                             head {
                                 link("/static/flex-helper.css", rel = "stylesheet")
@@ -127,7 +123,7 @@ class WotwBackendServer {
                                 div {
                                     id = "content"
                                 }
-                                script(src = "/static/wotw-server.js"){}
+                                script(src = "/static/wotw-server.js") {}
                             }
                         }
                     }

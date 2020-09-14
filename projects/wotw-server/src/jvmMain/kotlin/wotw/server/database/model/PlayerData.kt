@@ -6,6 +6,7 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
+import org.jetbrains.exposed.sql.and
 import wotw.server.bingo.UberStateMap
 import wotw.server.database.jsonb
 
@@ -27,5 +28,9 @@ class PlayerData(id: EntityID<Long>): LongEntity(id){
     var user by User referencedOn PlayerDataTable.userId
     var uberStateData by PlayerDataTable.uberStateData
 
-    companion object : LongEntityClass<PlayerData>(PlayerDataTable)
+    companion object : LongEntityClass<PlayerData>(PlayerDataTable){
+        fun find(gameId: Long, playerId: Long) = find{
+            (PlayerDataTable.gameId eq gameId) and (PlayerDataTable.userId eq playerId)
+        }.singleOrNull()
+    }
 }

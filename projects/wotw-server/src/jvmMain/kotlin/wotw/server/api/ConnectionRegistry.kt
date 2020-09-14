@@ -1,6 +1,7 @@
 package wotw.server.api
 
 import io.ktor.http.cio.websocket.*
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.protobuf.SyncBoardMessage
 import wotw.io.messages.protobuf.SyncPlayersMessage
@@ -30,11 +31,11 @@ class ConnectionRegistry {
     }
 
     //TODO: Move
-    suspend fun onGameUpdate(game: Game) {
+    suspend fun onGameUpdate(gameId: Long) {
         val messages = mutableListOf<suspend () -> Unit>()
 
-        transaction {
-            val gameId = game.id.value
+        newSuspendedTransaction {
+            val game = Game.findById(gameId) ?: return@newSuspendedTransaction
             val info = game.playerInfo()
             gameConnections[gameId].forEach {
                 messages += { it.outgoing.sendMessage(SyncPlayersMessage(info)) }
@@ -44,12 +45,15 @@ class ConnectionRegistry {
                 game.players.forEach { playerData ->
                     val playerId = playerData.user.id.value
                     playerConnections[gameId to playerId].forEach {
+                        val data = playerData.uberStateData
                         messages += {
                             it.outgoing.sendMessage(
                                 SyncBoardMessage(
-                                    board.toBingoBoard(playerData.uberStateData),
+                                    board.toBingoBoard(data),
                                     true
-                                )
+                                ).also {
+                                    println(it)
+                                }
                             )
                         }
                     }
@@ -60,7 +64,9 @@ class ConnectionRegistry {
         messages.forEach {
             try {
                 it.invoke()
-            }catch (e: Throwable){}
+            } catch (e: Throwable) {
+                println(e)
+            }
         }
     }
 
