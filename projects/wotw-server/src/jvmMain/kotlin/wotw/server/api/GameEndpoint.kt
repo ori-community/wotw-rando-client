@@ -61,18 +61,13 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     ?.map { UberId(it.first, it.second) }
             }
             outgoing.sendMessage(InitBingoMessage(initData ?: emptyList()))
-            val msg1 = PrintTextMessage(text ="Hello?", frames = 240, ypos = -2f)
-            val msg2 = PrintTextMessage(text = "Hello but higher?", frames =  240, ypos = 3f)
-            logger.info("Sending $msg1")
-            outgoing.sendMessage(msg1)
-            logger.info("Sending $msg2")
-            outgoing.sendMessage(msg2)
+            outgoing.sendMessage( PrintTextMessage(text = "Hello ", frames =  240, ypos = 3f))
 
 
             protocol {
                 onMessage(UberStateUpdateMessage::class) {
                     val game = newSuspendedTransaction {
-                        val playerData = PlayerData.find(gameId, playerId) ?: error("Inconsitent game state")
+                        val playerData = PlayerData.find(gameId, playerId) ?: error("Inconsistent game state")
                         val data = playerData.uberStateData
                         data[uberId.group to uberId.state] = value
                         playerData.uberStateData = data
