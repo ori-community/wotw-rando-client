@@ -65,7 +65,7 @@ namespace RandoMainDLL {
         Randomizer.Log($"Websocket says: {logdata.Message}", false, $"{logdata.Level}");
       };
       socket.OnError += (sender, e) => {
-        Randomizer.Error("WebSocket", e.Exception, false);
+        Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
         ReconnectCooldown = 5;
       };
       socket.OnClose += (sender, e) => {

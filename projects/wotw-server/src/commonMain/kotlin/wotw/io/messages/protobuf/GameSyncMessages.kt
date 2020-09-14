@@ -20,6 +20,7 @@ data class InitBingoMessage(
     @ProtoNumber(1) val uberStates: List<UberId> = emptyList()
 )
 
+@Serializable
 data class PrintTextMessage(
     @ProtoNumber(1) val text: String,
     @ProtoNumber(2) val Frames: Int = 200,
