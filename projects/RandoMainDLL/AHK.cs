@@ -161,7 +161,6 @@ namespace RandoMainDLL {
           FramesTillNextSend = Current.Frames;
           try {
             InterOp.clear_visible_hints();
-            InterOp.display_hint(Current.Text, Current.Frames / 60f);
             float ypos = 3.2f - .2f * Current.Text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None).Length;
             InterOp.display_hint(Current.Text, Current.Frames / 60f, ypos);
             if (IniFlag("LogOnPrint")) {
