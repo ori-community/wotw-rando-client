@@ -19,3 +19,9 @@ data class UberStateUpdateMessage(
 data class InitBingoMessage(
     @ProtoNumber(1) val uberStates: List<UberId> = emptyList()
 )
+
+data class PrintTextMessage(
+    @ProtoNumber(1) val text: String,
+    @ProtoNumber(2) val y_pos: Float = 3f,
+    @ProtoNumber(3) val duration: Float = 4f
+)
