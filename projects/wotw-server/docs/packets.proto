@@ -22,6 +22,6 @@ message InitBingoMessage{
 
 message PrintTextMessage{
 	string text = 1;
-	int frames = 2;
+	int32 frames = 2;
 	float y_pos = 3;
 }
