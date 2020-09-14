@@ -114,6 +114,10 @@ namespace RandoMainDLL {
       try {
         var packet = Packet.Parser.ParseFrom(args.RawData);
         switch (packet.Id) {
+          case 6:
+            var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
+            AHK.SendPlainText(new PlainText(printMsg.Text, printMsg.Frames, printMsg.YPos), true);
+            break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
             foreach (var state in init.UberId) {
