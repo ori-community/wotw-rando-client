@@ -71,7 +71,6 @@ namespace RandoMainDLL {
 
   public static class SeedController {
 
-    private static bool Sync = true;
     public static bool GrantingGoalModeLoc = false;
     public enum FakeUberGroups {
       TREE = 0,
