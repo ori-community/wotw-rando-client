@@ -22,7 +22,7 @@ data class InitBingoMessage(
 
 @Serializable
 data class PrintTextMessage(
-    @ProtoNumber(1) val frames: Int = 200,
-    @ProtoNumber(2) val y_pos: Float = 3f,
+    @ProtoNumber(1) val frames: Int,
+    @ProtoNumber(2) val ypos: Float,
     @ProtoNumber(3) val text: String
 )
