@@ -19,7 +19,6 @@ fun generatePool() = mutableListOf(
         bool("Windswept Wastes", 48248, 61146),
         bool("Willows End", 48248, 4045)
         ),
-    bool("Go fish!", 1, 1),
     group(
         "Spend Gorlek Ore",
         threshold("14", 1, 1, 14),
@@ -36,20 +35,9 @@ fun generatePool() = mutableListOf(
     bool("Find Flash", 6, 1062),
     bool("Find Spike", 6, 1074),
     bool("Find Regenerate", 6, 1077),
-    bool("Find Spirit Arc", 6, 1097),
-    bool("Find Spirit Smash", 6, 1098),
-    bool("Find Torch", 6, 1099),
-    bool("Find Spirit Edge", 6, 1100),
     bool("Find Burrow", 6, 1101),
     bool("Find Dash", 6, 1102),
     bool("Find Water Dash", 6, 1104),
-    bool("Find Spirit Star", 6, 1106),
-    bool("Find Seir", 6, 1108),
-    bool("Find Blaze", 6, 1115),
-    bool("Find Sentry", 6, 1116),
-    bool("Find Flap", 6, 1118),
-    bool("Find Damage Upgrade 1", 6, 1120),
-    bool("Find Damage Upgrade 2", 6, 1121),
     bool("Find Clean Water", 6, 2000),
     group(
         "Collect Wisps",
@@ -107,7 +95,7 @@ class BingoBoardGenerator() {
                 while(generatedGoal == null){
                     val goal = pool.random(random)
                     generatedGoal = goal(config)
-                    if(generatedGoal == null)
+                    if(generatedGoal != null)
                         pool -= goal
                 }
                 card.goals[x to y] = generatedGoal
