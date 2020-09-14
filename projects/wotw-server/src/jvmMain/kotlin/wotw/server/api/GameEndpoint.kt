@@ -61,8 +61,8 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     ?.map { UberId(it.first, it.second) }
             }
             outgoing.sendMessage(InitBingoMessage(initData ?: emptyList()))
-            val msg1 = PrintTextMessage(text ="Hello without explicit params")
-            val msg2 = PrintTextMessage(text = "Hello?", frames =  240, y_pos = 3f)
+            val msg1 = PrintTextMessage(text ="Hello?", frames = 240, ypos = -2f)
+            val msg2 = PrintTextMessage(text = "Hello but higher?", frames =  240, ypos = 3f)
             logger.info("Sending $msg1")
             outgoing.sendMessage(msg1)
             logger.info("Sending $msg2")
