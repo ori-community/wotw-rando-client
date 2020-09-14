@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using Google.Protobuf;
 using Network;
 using WebSocketSharp;
@@ -27,28 +28,37 @@ namespace RandoMainDLL {
     public int GameId = 1;
     public long PlayerId = 1;
     public int ReconnectCooldown = 0;
-
+    public int FramesSinceLastCheck = 0;
     private string ServerAddress => $"wss://{Domain}/api/gameSync/{GameId}/{PlayerId}";
 
     private WebSocket socket;
-
+    private object threadLock = new object();
     public void Update() {
-      if(WantConnection && !IsConnected) {
-        if(ReconnectCooldown > 0) {
-          ReconnectCooldown--;
-          return;
-        }
-        try {
-          Randomizer.Log("Connecting...");
-          Connect();
-          UberStateController.QueueSyncedStateUpdate();
-        }
-        catch (Exception e) {
-          Randomizer.Error("CTS", e, false);
-          if (!IsConnected)
-            ReconnectCooldown = 5;
-        }
+      if (FramesSinceLastCheck > 0) {
+        FramesSinceLastCheck--;
+        return;
       }
+      FramesSinceLastCheck = 60;
+      new Thread(() => {
+        if (WantConnection && !IsConnected) {
+          if(Monitor.TryEnter(threadLock, 50)) {
+            try {
+              if (ReconnectCooldown > 0) {
+                ReconnectCooldown--;
+                Randomizer.Log($"{ReconnectCooldown}", false);
+                return;
+              } else {
+                Randomizer.Log("Connecting...", false);
+                Connect();
+              }
+            } catch (Exception e) {
+              Randomizer.Error("CTS", e, false);
+            } finally {
+              Monitor.Exit(threadLock);
+            }
+          }
+        }
+      }).Start();
     }
 
     public bool IsConnected { get { return socket != null && socket.IsAlive; } }
@@ -75,6 +85,8 @@ namespace RandoMainDLL {
       socket.OnMessage += HandleMessage;
       socket.OnOpen +=  new EventHandler(delegate (object sender, EventArgs args) {
         Randomizer.Log($"Socket opened", false);
+        UberStateController.QueueSyncedStateUpdate();
+        ReconnectCooldown = 0;
       });
       Randomizer.Log($"Attempting to connect to ${Domain}", false);
 
@@ -116,7 +128,8 @@ namespace RandoMainDLL {
         switch (packet.Id) {
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-            AHK.SendPlainText(new PlainText(printMsg.Text, printMsg.Frames, printMsg.YPos), true);
+            Randomizer.Log($"Server says {printMsg.Text} (f={printMsg.Frames} p={printMsg.Ypos})", false);
+            AHK.Print(printMsg.Text, printMsg.Frames, printMsg.Ypos, true);
             break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
