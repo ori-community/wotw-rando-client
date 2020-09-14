@@ -182,35 +182,12 @@ namespace RandoMainDLL {
           MapController.UpdateReachable();
         }
 
-        // Should only be used for configuration options.
-        if (Sync) {
-          ConnectToServer();
-/*          if (DiscordController.Initialized) {
-            ConnectToServer();
-          }
-          else {
-            DiscordController.ConnectToServer = true;
-          }*/
-        }
       }
       else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
 
-    public static void ConnectToServer() {
-      try {
-        if (!Randomizer.Client.IsConnected) {
-          Randomizer.Log("Attempting to connect...", false);
-          Randomizer.Client.Connect(DiscordController.User.Id);
-          Randomizer.Log("Connect attempt complete", false);
-        }
-
-        UberStateController.QueueSyncedStateUpdate();
-      } catch (Exception e) {
-        Randomizer.Error("CTS", e, false);
-      }
-    }
 
     public static bool HasInternalSpoilers = false;
     public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }

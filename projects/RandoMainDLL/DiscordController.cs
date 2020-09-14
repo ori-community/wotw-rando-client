@@ -57,10 +57,6 @@ namespace RandoMainDLL {
       User = UserManager.GetCurrentUser();
       Randomizer.Log($"ID: {User.Id}, name: {User.Username}");
 
-      if (ConnectToServer) {
-        SeedController.ConnectToServer();
-        ConnectToServer = false;
-      }
     }
   }
 }
