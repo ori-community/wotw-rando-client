@@ -11,9 +11,7 @@ import io.ktor.sessions.*
 import io.ktor.websocket.*
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
-import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.protobuf.BingoData
 import wotw.io.messages.protobuf.RequestUpdatesMessage
 import wotw.io.messages.protobuf.SyncBoardMessage
@@ -72,9 +70,9 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     User.findById(userId) ?: throw NotFoundException()
                 } else {
                     //FIXME
-                    val id = call.sessions.get<BrowserSession>()?.token ?: throw  NotFoundException()
+                    val id = call.sessions.get<UserSession>()?.user ?: throw  NotFoundException()
                     //FIXME
-                    Token.findById(id)?.user ?: throw  NotFoundException()
+                    User.findById(id) ?: throw  NotFoundException()
                 }
 
                 val existing = PlayerData.find(gameId, user.id.value)
