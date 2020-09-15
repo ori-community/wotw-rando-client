@@ -91,7 +91,7 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
             post<String>("/") {
                 val user = handleOAuthToken(it)
                 call.sessions.set(UserSession(user.id.value))
-                call.respond(HttpStatusCode.Created)
+                call.respondText(call.response.cookies[SESSION_AUTH]?.value ?: "")
             }
             authenticate(SESSION_AUTH) {
                 delete {
