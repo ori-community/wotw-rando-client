@@ -60,7 +60,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 PlayerData.find(gameId, playerId)?.game?.board?.goals?.flatMap { it.value.keys }
                     ?.map { UberId(it.first, it.second) }
             }
-            outgoing.sendMessage(InitBingoMessage(initData ?: emptyList()))
+            outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
             outgoing.sendMessage( PrintTextMessage(text = "Hello ", frames =  240, ypos = 3f))
 
 

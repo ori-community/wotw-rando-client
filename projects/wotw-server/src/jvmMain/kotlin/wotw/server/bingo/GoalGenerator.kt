@@ -139,6 +139,42 @@ fun generatePool() = mutableListOf(
         maxRepeats = 1,
         subsetGoal = false
     ),
+    group("Get Pickups from Keystones",
+        bool("MarshSpawn.CaveKS", 21786, 64677),
+        bool("MidnightBurrows.LeftKS", 24922, 60358),
+        bool("MidnightBurrows.RightKS", 24922, 47244),
+        bool("MidnightBurrows.UpperKS", 24922, 34250),
+        bool("MidnightBurrows.LowerKS", 24922, 33535),
+        bool("HowlsDen.AboveDoorKS", 21786, 22068),
+        bool("HowlsDen.LaserKS", 21786, 2852),
+        bool("UpperPools.LowerKS", 5377, 46926),
+        bool("UpperPools.UpperLeftKS", 5377, 35091),
+        bool("UpperPools.UpperMidKS", 5377, 16426),
+        bool("UpperPools.UpperRightKS", 5377, 41881),
+        bool("WoodsEntry.LowerKS", 58674, 40073),
+        bool("WoodsEntry.UpperKS", 58674, 11736),
+        bool("WoodsMain.RightKS", 58674, 43033),
+        bool("WoodsMain.UpperKS", 58674, 19769),
+        bool("WoodsMain.LeftKS", 58674, 42531),
+        bool("WoodsMain.LowerKS", 58674, 780),
+        bool("LowerReach.RightKS", 28895, 29898),
+        bool("LowerReach.UpperLeftKS", 28895, 10823),
+        bool("LowerReach.MiddleLeftKS", 28895, 37444),
+        bool("LowerReach.BottomLeftKS", 28895, 18358),
+        bool("UpperReach.LowerKS", 28895, 1053),
+        bool("UpperReach.UpperKS", 28895, 50368),
+        bool("UpperReach.MiddleLeftKS", 28895, 22382),
+        bool("UpperReach.MiddleRightKS", 28895, 9949),
+        bool("UpperDepths.RightEntryKS", 18793, 1914),
+        bool("UpperDepths.LeftEntryKS", 18793, 58148),
+        bool("UpperDepths.LeftHealthKS", 18793, 53953),
+        bool("UpperDepths.RightHealthKS", 18793, 23986),
+        bool("UpperWastes.LowerKS", 7228, 20282),
+        bool("UpperWastes.UpperKS", 7228, 62117),
+        countGoal = { it.nextTriangular(6, 30, 12)},
+        maxRepeats = 1,
+        subsetGoal = false
+    ),
     group( "Get Pickups from Gorlek Ore",
         bool("MarshSpawn.ResilienceOre", 21786, 29892),
         bool("MarshSpawn.CaveOre", 9593, 23858),
@@ -182,6 +218,21 @@ fun generatePool() = mutableListOf(
         maxRepeats = 1,
         subsetGoal = false
     ),
+    group("Open doors",
+        bool("Light Burst Tree Door", 28895, 49900),
+        bool("Reach Trial Door", 28895, 4290),
+        bool("Regen Tree Door", 21786, 42309),
+        bool("Howl's Den Door", 21786, 47445),
+        bool("Luma Pools Door", 5377, 47621),
+        bool("Eyestone Door", 937, 64003),
+        bool("Mouldwood Entry Door", 21786, 59990),
+        bool("Mouldwood Lower Door", 18793, 10758),
+        bool("Silent Woods West Door", 58674, 21500),
+        bool("Silent Woods East Door", 18793, 41544),
+        bool("Midnight Burrows Door",  18793, 3171),
+        bool("Windswept Wastes Door", 20120, 28786),
+        countGoal = { it.nextTriangular(2, 10, 5)},
+    ),
     group(
         "Complete Quests",
         threshold("The Silent Teeth", 937, 34641, 4, hideValue = true),
@@ -211,7 +262,7 @@ fun generatePool() = mutableListOf(
     threshold("Spend SL", 6, 4, triag(2000, 6000, 3000)),
 )
 
-class BingoBoardGenerator() {
+class BingoBoardGenerator {
     fun generateBoard(seed: String? = null): BingoCard {
         val random = Random(seed?.hashCode() ?: Instant.now().epochSecond.toInt())
         val pool = generatePool()
