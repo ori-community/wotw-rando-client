@@ -21,7 +21,7 @@ import wotw.server.database.model.User
 import wotw.server.main.WotwBackendServer
 
 const val DISCORD_OAUTH = "discordOAuth"
-const val SESSION_AUTH = "sessionId"
+const val SESSION_AUTH = "sessionid"
 
 data class UserSession(val user: Long)
 
