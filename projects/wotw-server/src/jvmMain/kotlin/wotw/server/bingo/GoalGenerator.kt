@@ -17,7 +17,9 @@ fun generatePool() = mutableListOf(
         bool("Baurs Reach", 48248, 29604),
         bool("Mouldwood Depths", 48248, 48423),
         bool("Windswept Wastes", 48248, 61146),
-        bool("Willows End", 48248, 4045)
+        bool("Willows End", 48248, 4045),
+        countGoal = { it.nextTriangular(2, 8, 5) },
+        maxRepeats = 2
         ),
     group(
         "Buy Weapon Upgrades",
@@ -26,6 +28,7 @@ fun generatePool() = mutableListOf(
         bool("Static Star", 1, 1106),
         bool("Charge Blaze", 1, 1115),
         bool("Rapid Sentry", 1, 1116),
+        maxRepeats = 1
     ),
     group(
         "Get Trees",
@@ -43,7 +46,8 @@ fun generatePool() = mutableListOf(
         bool("Launch", 0, 8),
         bool("Ancestral Light (Glades)", 0, 120),
         bool("Ancestral Light (Burrows)", 0, 121),
-        ),
+        countGoal = { it.nextTriangular(3, 11, 6) },
+    ),
     bool("Find Bash", 6, 1000),
     bool("Find Feather", 6, 1014),
     bool("Find Light Burst", 6, 1051),
@@ -59,6 +63,7 @@ fun generatePool() = mutableListOf(
         bool("Eyes", 18793, 63291),
         bool("Heart", 10289, 22102),
         bool("Voice", 46462, 59806),
+        maxRepeats = 2
     ),
     group(
         "Complete Combat Shrines",
@@ -75,6 +80,34 @@ fun generatePool() = mutableListOf(
         threshold("Grapple Bulbs", 42178, 33011, 3, hideValue = true),
         threshold("Jump Pads", 42178, 38393, 3, hideValue = true),
         threshold("The Lost Seed", 42178, 40006, 3, hideValue = true),
+    ),
+    group( "Pickups from Health Frags",
+        bool("MarshSpawn.RockHC", 21786, 60210),
+        bool("MarshSpawn.GrappleHC", 21786, 25761),
+        bool("HowlsDen.RightHC", 21786, 28908),
+        bool("HowlsDen.LeftHC", 9593, 61304),
+        bool("MarshPastOpher.TrialHC", 21786, 20194),
+        bool("WestHollow.CrusherHC", 937, 61897),
+        bool("WestHollow.TrialHC", 937, 2463),
+        bool("EastHollow.BashHC", 13428, 59730),
+        bool("GladesTown.AboveGromHC", 44310, 29043),
+        bool("GladesTown.LupoSwimHC", 44310, 17523),
+        bool("WestGlades.ShrineHC", 44310, 36911),
+        bool("OuterWellspring.HiddenHC", 53632, 17403),
+        bool("InnerWellspring.DrainHC", 37858, 25833),
+        bool("PoolsApproach.MillPathHC", 945, 37243),
+        bool("EastPools.PurpleWallHC", 5377, 63201),
+        bool("EastPools.FightRoomHC", 5377, 45774),
+        bool("LowerReach.SnowballHC", 28895, 40744),
+        bool("UpperDepths.KeystoneHC", 18793, 42235),
+        bool("LowerDepths.RaceStartHC", 18793, 62694),
+        bool("LowerWastes.SandPotHC", 20120, 62264),
+        bool("LowerWastes.BottomRightHC", 20120, 12941),
+        bool("LowerWastes.UpperPathHC", 20120, 59046),
+        bool("UpperWastes.PurpleWallHC", 20120, 18965),
+        bool("WillowsEnd.PoisonfallHC", 16155, 46270),
+        countGoal = { it.nextTriangular(6, 20, 10)},
+        maxRepeats = 1
     ),
     group(
         "Complete Quests",
@@ -109,6 +142,7 @@ class BingoBoardGenerator() {
     fun generateBoard(seed: String? = null): BingoCard {
         val random = Random(seed?.hashCode() ?: Instant.now().epochSecond.toInt())
         val pool = generatePool()
+        val counts = (pool.map {it to 0}).toMap().toMutableMap()
 
         val config = GeneratorConfig(random)
 
@@ -118,9 +152,12 @@ class BingoBoardGenerator() {
                 var generatedGoal: BingoGoal? = null
                 while(generatedGoal == null){
                     val goal = pool.random(random)
-                    generatedGoal = goal(config)
-                    if(generatedGoal != null)
+                    generatedGoal = goal(config, counts[goal] ?: 0)
+                    if(generatedGoal == null) {
                         pool -= goal
+                    }  else {
+                        counts[goal] = 1 + (counts[goal] ?: 0)
+                    }
                 }
                 card.goals[x to y] = generatedGoal
             }

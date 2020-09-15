@@ -23,7 +23,7 @@ fun Random.nextTriangular(min: Double, max: Double, mode: Double): Double {
         min + sqrt((1 - rand) * (max - min) * (max - mode))
 }
 
-data class GeneratorConfig(val random: Random, val difficulty: Difficulty = Difficulty.NORMAL)
+data class GeneratorConfig(val random: Random, val difficulty: Difficulty = Difficulty.NORMAL, val repeats: Int = 0)
 enum class Difficulty {
     EASY, NORMAL, HARD
 }
@@ -37,9 +37,14 @@ fun interface NumberGenerator : NumberStateGenerator {
     fun get(generatorConfig: GeneratorConfig): Float?
 }
 
-fun interface GoalGenerator : (GeneratorConfig) -> BingoGoal?
+fun interface GoalGenerator : (GeneratorConfig, Int) -> BingoGoal?
 
-fun bool(title: String, group: Int, state: Int) = GoalGenerator { BoolGoal(title, group to state) }
+fun bool(title: String, group: Int, state: Int) = GoalGenerator { _, count ->
+    when {
+        count > 0 -> null
+        else      -> BoolGoal(title, group to state)
+    }
+}
 
 fun fixed(number: Number) = NumberGenerator { number.toFloat() }
 fun triag(min: Int, max: Int, mode: Int = (min + max) / 2) =
@@ -66,28 +71,34 @@ fun threshold(
     number: NumberStateGenerator,
     threshold: NumberStateGenerator,
     hideValue: Boolean = false
-): GoalGenerator = GoalGenerator {
-    val numberExp = number(it) ?: return@GoalGenerator null
-    val thresholdExp = threshold(it) ?: return@GoalGenerator null
-    NumberThresholdGoal(title, numberExp, thresholdExp, hideValue)
+): GoalGenerator = GoalGenerator {config, count ->
+    when {
+        count > 0 -> null
+        else -> {
+            val numberExp = number(config) ?: return@GoalGenerator null
+            val thresholdExp = threshold(config) ?: return@GoalGenerator null
+            NumberThresholdGoal(title, numberExp, thresholdExp, hideValue)
+        }
+    }
 }
 
 fun group(
     text: String,
     vararg goals: GoalGenerator,
     countGoal: ((Random) -> Int)? = null,
-    subsetGoal: Boolean = true
+    subsetGoal: Boolean = true,
+    maxRepeats: Int = 3
 ): GoalGenerator {
     var countUsed = countGoal == null
     val remainingGoals = goals.toMutableList()
-    return GoalGenerator { config ->
+    return GoalGenerator { config, used ->
         val (random, difficulty) = config
-
         val count = !countUsed && random.nextDouble() > 0.5
         when {
+            used >= maxRepeats -> null
             count -> {
                 countUsed = true
-                CountGoal(text, countGoal!!.invoke(config.random), goals.mapNotNull { it(config) }.toTypedArray(), true)
+                CountGoal(text, countGoal!!.invoke(config.random), goals.mapNotNull { it(config, 0) }.toTypedArray(), true)
             }
             subsetGoal -> {
                 val maxAmount = when (difficulty) {
@@ -107,12 +118,11 @@ fun group(
 
                 while (generatedGoals.size < goalAmount) {
                     val goal = remainingGoals.randomOrNull(random) ?: return@GoalGenerator null
-                    val generatedGoal = goal(config)
+                    val generatedGoal = goal(config, 0)
                     if (generatedGoal != null)
                         generatedGoals += generatedGoal
                     remainingGoals -= goal
                 }
-
                 CountGoal(text, requiredAmount, generatedGoals.toTypedArray())
             }
             else -> null
