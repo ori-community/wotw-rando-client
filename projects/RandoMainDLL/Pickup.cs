@@ -132,22 +132,19 @@ namespace RandoMainDLL {
       var children = new List<Pickup>();
       if (this is Multi multi) {
         children.AddRange(multi.Children);
-      }
-      else {
+      } else {
         children.Add(this);
       }
 
       if (other is Multi otherM) {
         children.AddRange(otherM.Children);
-      }
-      else {
+      } else {
         children.Add(other);
       }
       // this can only really happen if one of these was Multi.Empty, but we do concat on empties, soooo
       if (children.Count == 1) {
         return children[0];
       }
-
       return new Multi(children);
     }
   }
@@ -165,6 +162,7 @@ namespace RandoMainDLL {
       UberStateController.SkipUberStateMapCount[id] = supCount;
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
+    public override string Name { get => ""; }
     public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
   }
 
@@ -226,9 +224,9 @@ namespace RandoMainDLL {
       foreach (var child in (squelching.Count > 0 ? squelching : Children)) {
         if (child is ConditionalStop s && s.StopActive())
           break;
-        if (child.Muted)
+        if (child.Muted || child.Name == "")
           continue;
-        names.Add(child.ToString());
+        names.Add(child.Name);
       }
       return string.Join("\n", names.Where(s => s.Length > 0));
     }
