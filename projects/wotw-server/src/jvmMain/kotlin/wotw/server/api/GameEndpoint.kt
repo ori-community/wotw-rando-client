@@ -45,27 +45,21 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
         authenticate(SESSION_AUTH) {
             webSocket("gameSync/{game_id}") {
-                println("1")
                 val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(
                     CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Game-ID is required")
                 )
-                println("2")
                 val playerId = call.sessions.get<UserSession>()?.user ?: return@webSocket this.close(
                     CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session active!")
                 )
-                println("3")
                 newSuspendedTransaction {
                     PlayerData.find(gameId, playerId)?.id?.value
                 } ?: return@webSocket this.close(
                     CloseReason(CloseReason.Codes.NORMAL, "Player is not part of game - no syncing possible")
                 )
-
-                println("4")
                 val initData = newSuspendedTransaction {
                     PlayerData.find(gameId, playerId)?.game?.board?.goals?.flatMap { it.value.keys }
                         ?.map { UberId(it.first, it.second) }
                 }
-                println("5")
                 outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
                 outgoing.sendMessage(PrintTextMessage(text = "Hello ", frames = 240, ypos = 3f))
 
