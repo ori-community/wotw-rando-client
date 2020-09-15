@@ -1,24 +1,31 @@
 package wotw.server.main
 
 import io.ktor.application.*
+import io.ktor.auth.*
+import io.ktor.client.*
 import io.ktor.features.*
 import io.ktor.html.*
 import io.ktor.http.*
 import io.ktor.http.content.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.sessions.*
+import io.ktor.util.pipeline.*
 import io.ktor.websocket.*
 import kotlinx.html.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.event.Level
 import wotw.server.api.*
 import wotw.server.database.model.Games
 import wotw.server.database.model.PlayerDataTable
+import wotw.server.database.model.User
 import wotw.server.database.model.Users
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.exception.UnauthorizedException
@@ -103,6 +110,46 @@ class WotwBackendServer {
                     }
 
                 }
+                val discordOauthProvider = OAuthServerSettings.OAuth2ServerSettings(
+                    name = "discord",
+                    clientId = System.getenv("DISCORD_CLIENT_ID"),
+                    clientSecret = System.getenv("DISCORD_SECRET"),
+                    authorizeUrl = "https://discord.com/api/oauth2/authorize",
+                    accessTokenUrl = "https://discord.com/api/oauth2/token",
+                    defaultScopes = listOf("identify"),
+                    requestMethod = HttpMethod.Post
+                )
+
+                val redirectCookiePahse = PipelinePhase("RedirCookiePhase")
+                install(Authentication) {
+                    oauth(DISCORD_OAUTH) {
+                        client = HttpClient()
+                        providerLookup = { discordOauthProvider }
+                        urlProvider = { redirectUrl("/api/login") }
+                        pipeline.insertPhaseBefore(AuthenticationPipeline.RequestAuthentication, redirectCookiePahse)
+                        pipeline.intercept(redirectCookiePahse) {
+                            call.request.queryParameters["redir"]?.also {
+                                call.response.cookies.append("authRedir", it)
+                            }
+                        }
+                    }
+                    session<UserSession>(SESSION_AUTH) {
+                        challenge {
+                            call.respond(HttpStatusCode.Unauthorized)
+                        }
+                        validate { session ->
+                            newSuspendedTransaction {
+                                User.findById(session.user)?.id?.value
+                            }?.let { UserIdPrincipal(it.toString()) }
+                        }
+                    }
+                }
+
+                install(Sessions) {
+                    cookie<UserSession>(SESSION_AUTH, SessionStorageMemory()) {
+                        cookie.path = "/"
+                    }
+                }
                 routing {
                     route("api") {
                         bingoEndpoint.init(this)
@@ -135,5 +182,13 @@ class WotwBackendServer {
             }
         }
         embeddedServer(Netty, env).start(wait = true)
+    }
+
+
+    private fun ApplicationCall.redirectUrl(path: String): String {
+        val defaultPort = if (request.origin.scheme == "http") 80 else 443
+        val hostPort = request.host() + request.port().let { port -> if (port == defaultPort) "" else ":$port" }
+        val protocol = request.origin.scheme
+        return "$protocol://$hostPort$path"
     }
 }

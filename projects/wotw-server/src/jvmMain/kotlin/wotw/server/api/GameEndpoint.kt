@@ -1,12 +1,14 @@
 package wotw.server.api
 
 import io.ktor.application.*
+import io.ktor.auth.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.CloseReason
 import io.ktor.http.cio.websocket.close
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.sessions.*
 import io.ktor.websocket.webSocket
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -41,39 +43,40 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             call.respond(HttpStatusCode.NoContent)
         }
 
-        webSocket("gameSync/{game_id}/{player_id}") {
-            logger.info("socket connect start")
-            val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(
-                CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Game-ID is required")
-            )
-            val playerId = call.parameters["player_id"]?.toLongOrNull() ?: return@webSocket this.close(
-                CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Player-ID is required")
-            )
-            newSuspendedTransaction {
-                PlayerData.find(gameId, playerId)?.id?.value
-            } ?: return@webSocket this.close(
-                CloseReason(CloseReason.Codes.NORMAL, "Player is not part of game - no syncing possible")
-            )
-            logger.info("socket connect; did not close")
+        authenticate(SESSION_AUTH) {
+            webSocket("gameSync/{game_id}") {
+                logger.info("socket connect start")
+                val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(
+                    CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Game-ID is required")
+                )
+                val playerId = call.sessions.get<UserSession>()?.user ?: return@webSocket this.close(
+                    CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session active!")
+                )
+                newSuspendedTransaction {
+                    PlayerData.find(gameId, playerId)?.id?.value
+                } ?: return@webSocket this.close(
+                    CloseReason(CloseReason.Codes.NORMAL, "Player is not part of game - no syncing possible")
+                )
+                logger.info("socket connect; did not close")
 
-            val initData = newSuspendedTransaction {
-                PlayerData.find(gameId, playerId)?.game?.board?.goals?.flatMap { it.value.keys }
-                    ?.map { UberId(it.first, it.second) }
-            }
-            outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
-            outgoing.sendMessage( PrintTextMessage(text = "Hello ", frames =  240, ypos = 3f))
+                val initData = newSuspendedTransaction {
+                    PlayerData.find(gameId, playerId)?.game?.board?.goals?.flatMap { it.value.keys }
+                        ?.map { UberId(it.first, it.second) }
+                }
+                outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
+                outgoing.sendMessage(PrintTextMessage(text = "Hello ", frames = 240, ypos = 3f))
 
-
-            protocol {
-                onMessage(UberStateUpdateMessage::class) {
-                    val game = newSuspendedTransaction {
-                        val playerData = PlayerData.find(gameId, playerId) ?: error("Inconsistent game state")
-                        val data = playerData.uberStateData
-                        data[uberId.group to uberId.state] = value
-                        playerData.uberStateData = data
-                        playerData.game.id.value
+                protocol {
+                    onMessage(UberStateUpdateMessage::class) {
+                        val game = newSuspendedTransaction {
+                            val playerData = PlayerData.find(gameId, playerId) ?: error("Inconsistent game state")
+                            val data = playerData.uberStateData
+                            data[uberId.group to uberId.state] = value
+                            playerData.uberStateData = data
+                            playerData.game.id.value
+                        }
+                        server.connections.onGameUpdate(game)
                     }
-                    server.connections.onGameUpdate(game)
                 }
             }
         }

@@ -27,47 +27,6 @@ data class UserSession(val user: Long)
 
 class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
     override fun Route.initRouting() {
-        val discordOauthProvider = OAuthServerSettings.OAuth2ServerSettings(
-            name = "discord",
-            clientId = System.getenv("DISCORD_CLIENT_ID"),
-            clientSecret = System.getenv("DISCORD_SECRET"),
-            authorizeUrl = "https://discord.com/api/oauth2/authorize",
-            accessTokenUrl = "https://discord.com/api/oauth2/token",
-            defaultScopes = listOf("identify"),
-            requestMethod = HttpMethod.Post
-        )
-
-        val redirectCookiePahse = PipelinePhase("RedirCookiePhase")
-        application.install(Authentication) {
-            oauth(DISCORD_OAUTH) {
-                client = HttpClient()
-                providerLookup = { discordOauthProvider }
-                urlProvider = { redirectUrl("/api/login") }
-                pipeline.insertPhaseBefore(AuthenticationPipeline.RequestAuthentication, redirectCookiePahse)
-                pipeline.intercept(redirectCookiePahse) {
-                    call.request.queryParameters["redir"]?.also {
-                        call.response.cookies.append("authRedir", it)
-                    }
-                }
-            }
-            session<UserSession>(SESSION_AUTH) {
-                challenge {
-                    call.respond(HttpStatusCode.Unauthorized)
-                }
-                validate { session ->
-                    newSuspendedTransaction {
-                        User.findById(session.user)?.id?.value
-                    }?.let { UserIdPrincipal(it.toString()) }
-                }
-            }
-        }
-
-        application.install(Sessions) {
-            cookie<UserSession>(SESSION_AUTH, SessionStorageMemory()) {
-                cookie.path = "/"
-            }
-        }
-
         authenticate(DISCORD_OAUTH) {
             route("/login") {
                 handle {
@@ -119,11 +78,5 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
     }
 
 
-    private fun ApplicationCall.redirectUrl(path: String): String {
-        val defaultPort = if (request.origin.scheme == "http") 80 else 443
-        val hostPort = request.host() + request.port().let { port -> if (port == defaultPort) "" else ":$port" }
-        val protocol = request.origin.scheme
-        return "$protocol://$hostPort$path"
-    }
 
 }
