@@ -11,18 +11,19 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
 import io.ktor.util.pipeline.*
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.longOrNull
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import org.jetbrains.exposed.sql.transactions.transaction
 import wotw.io.messages.json
-import wotw.server.database.model.Token
 import wotw.server.database.model.User
 import wotw.server.main.WotwBackendServer
-import java.util.*
 
-const val AUTH = "discordOAuth"
+const val DISCORD_OAUTH = "discordOAuth"
+const val SESSION_AUTH = "JSESSIONID"
 
-data class BrowserSession(val token: UUID)
+data class UserSession(val user: Long)
 
 class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
     override fun Route.initRouting() {
@@ -38,7 +39,7 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
         val redirectCookiePahse = PipelinePhase("RedirCookiePhase")
         application.install(Authentication) {
-            oauth(AUTH) {
+            oauth(DISCORD_OAUTH) {
                 client = HttpClient()
                 providerLookup = { discordOauthProvider }
                 urlProvider = { redirectUrl("/api/login") }
@@ -49,46 +50,33 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     }
                 }
             }
-            session<BrowserSession> {
+            session<UserSession>(SESSION_AUTH) {
                 challenge {
                     call.respond(HttpStatusCode.Unauthorized)
                 }
                 validate { session ->
                     newSuspendedTransaction {
-                        Token.findById(session.token)?.user?.id?.value
+                        User.findById(session.user)?.id?.value
                     }?.let { UserIdPrincipal(it.toString()) }
                 }
             }
         }
 
         application.install(Sessions) {
-            cookie<BrowserSession>("JSESSIONID", SessionStorageMemory()) {
+            cookie<UserSession>(SESSION_AUTH, SessionStorageMemory()) {
                 cookie.path = "/"
             }
         }
 
-        authenticate(AUTH) {
+        authenticate(DISCORD_OAUTH) {
             route("/login") {
                 handle {
                     val principal =
                         call.authentication.principal<OAuthAccessTokenResponse.OAuth2>() ?: error("No Principal")
-                    val jsonResponse = HttpClient().get<String>("https://discord.com/api//users/@me") {
-                        header("Authorization", "Bearer ${principal.accessToken}")
-                    }
-
-                    val json = json.parseToJsonElement(jsonResponse).jsonObject
-                    val userId = json["id"]?.jsonPrimitive?.longOrNull ?: -1L
-                    val (user, token) = newSuspendedTransaction {
-                        (User.findById(userId)
-                            ?: User.new(userId) {
-                                name = json["username"]?.jsonPrimitive?.contentOrNull ?: "unknown"
-                            }).let {
-                            it to Token.new { user = it }
-                        }
-                    }
+                    val user = handleOAuthToken(principal.accessToken)
                     val redir = call.request.cookies["authRedir"]
                     call.response.cookies.appendExpired("authRedir")
-                    call.sessions.set(BrowserSession(token.id.value))
+                    call.sessions.set(UserSession(user.id.value))
 
                     if (redir == null)
                         call.respondText("Hi ${user.name}! Your ID is ${user.id.value}")
@@ -99,7 +87,34 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
         }
 
+        route("/sessions") {
+            post<String>("/") {
+                val user = handleOAuthToken(it)
+                call.sessions.set(UserSession(user.id.value))
+                call.respond(HttpStatusCode.Created)
+            }
+            authenticate(SESSION_AUTH) {
+                delete {
+                    call.sessions.clear(SESSION_AUTH)
+                }
+            }
+        }
     }
+
+    private suspend fun handleOAuthToken(accessToken: String): User {
+        val jsonResponse = HttpClient().get<String>("https://discord.com/api//users/@me") {
+            header("Authorization", "Bearer $accessToken")
+        }
+        val json = json.parseToJsonElement(jsonResponse).jsonObject
+        val userId = json["id"]?.jsonPrimitive?.longOrNull ?: -1L
+        return newSuspendedTransaction {
+            User.findById(userId)
+                ?: User.new(userId) {
+                    name = json["username"]?.jsonPrimitive?.contentOrNull ?: "unknown"
+                }
+        }
+    }
+
 
     private fun ApplicationCall.redirectUrl(path: String): String {
         val defaultPort = if (request.origin.scheme == "http") 80 else 443
