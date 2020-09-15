@@ -72,6 +72,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                             val data = playerData.uberStateData
                             data[uberId.group to uberId.state] = value
                             playerData.uberStateData = data
+                            logger.info("(${uberId.group}, ${uberId.state}) -> $value")
                             playerData.game.id.value
                         }
                         server.connections.onGameUpdate(game)
