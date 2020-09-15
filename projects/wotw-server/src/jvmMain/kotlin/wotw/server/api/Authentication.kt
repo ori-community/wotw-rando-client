@@ -21,7 +21,7 @@ import wotw.server.database.model.User
 import wotw.server.main.WotwBackendServer
 
 const val DISCORD_OAUTH = "discordOAuth"
-const val SESSION_AUTH = "JSESSIONID"
+const val SESSION_AUTH = "sessionId"
 
 data class UserSession(val user: Long)
 
@@ -50,9 +50,6 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
             post<String>("/") {
                 val user = handleOAuthToken(it)
                 call.sessions.set(UserSession(user.id.value))
-                println("---------")
-                println(call.response.cookies[SESSION_AUTH]?.value ?: "")
-                println("---------")
                 call.respondText(call.response.cookies[SESSION_AUTH]?.value ?: "")
             }
             authenticate(SESSION_AUTH) {
