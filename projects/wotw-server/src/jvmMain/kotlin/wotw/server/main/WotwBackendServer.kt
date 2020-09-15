@@ -142,7 +142,10 @@ class WotwBackendServer {
                                 User.findById(session.user)?.id?.value
                             }?.let { UserIdPrincipal(it.toString()) }
                         }
+
                     }
+
+
                 }
 
                 install(Sessions) {

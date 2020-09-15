@@ -44,20 +44,22 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
         }
 
         authenticate(SESSION_AUTH) {
-            webSocket("gameSync/{game_id}") {
-                val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(
-                    CloseReason(CloseReason.Codes.VIOLATED_POLICY, "Game-ID is required")
-                )
+            webSocket("game_sync") {
+                logger.info("socket connect start")
                 val playerId = call.sessions.get<UserSession>()?.user ?: return@webSocket this.close(
                     CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session active!")
                 )
-                newSuspendedTransaction {
-                    PlayerData.find(gameId, playerId)?.id?.value
+                val playerDataId = newSuspendedTransaction {
+                    PlayerData.find {
+                        PlayerDataTable.userId eq playerId
+                    }.sortedByDescending { it.id.value }.firstOrNull()?.id?.value
                 } ?: return@webSocket this.close(
-                    CloseReason(CloseReason.Codes.NORMAL, "Player is not part of game - no syncing possible")
+                    CloseReason(CloseReason.Codes.NORMAL, "Player is not part of an active game")
                 )
+                logger.info("socket connect; did not close")
+
                 val initData = newSuspendedTransaction {
-                    PlayerData.find(gameId, playerId)?.game?.board?.goals?.flatMap { it.value.keys }
+                    PlayerData.findById(playerDataId)?.game?.board?.goals?.flatMap { it.value.keys }
                         ?.map { UberId(it.first, it.second) }
                 }
                 outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
@@ -66,7 +68,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 protocol {
                     onMessage(UberStateUpdateMessage::class) {
                         val game = newSuspendedTransaction {
-                            val playerData = PlayerData.find(gameId, playerId) ?: error("Inconsistent game state")
+                            val playerData = PlayerData.findById(playerDataId) ?: error("Inconsistent game state")
                             val data = playerData.uberStateData
                             data[uberId.group to uberId.state] = value
                             playerData.uberStateData = data
