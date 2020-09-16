@@ -157,7 +157,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                             }
 
                             child(BingoSquareComponent::class) {
-                                attrs.isLabel = x in cardRange || y in cardRange
+                                attrs.isLabel = x !in cardRange || y !in cardRange
                                 attrs.gridPosition = gridPos
                                 attrs.size = width to height
                                 attrs.boardSize = size
@@ -192,8 +192,14 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
-            if(props.isLabel)
-                    +"X"
+            if(props.isLabel)  styledP {
+                    css {
+                        fontWeight = FontWeight.normal
+                        marginTop = LinearDimension("0em")
+                        paddingTop = LinearDimension("0em")
+                    }
+                    +props.text
+                }
             else p {
                 +props.text
             }
@@ -219,9 +225,6 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
 class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RState>(props) {
     override fun RBuilder.render() {
         styledP {
-            css {
-                fontWeight = FontWeight.normal
-            }
             +props.text
             if (props.completed) {
                 css {
