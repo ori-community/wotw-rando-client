@@ -33,14 +33,6 @@ namespace RandoMainDLL {
     private string ServerAddress => $"wss://{Domain}/api/game_sync/";
 
     private Websocket.Client.WebsocketClient socket;
-    private object threadLock = new object();
-    public void Update() {
-      if (!DiscordController.Initialized)
-        return;
-      if (WantConnection && socket == null) {
-          Connect();
-      }
-    }
 
     public bool IsConnected { get { return socket != null && socket.IsRunning; } }
     public void Connect() {
