@@ -4,6 +4,7 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.css.*
+import kotlinx.css.properties.LineHeight
 import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.p
@@ -195,19 +196,10 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
             when {
-                props.xEdge && !props.yEdge -> styledP {
-                    css {
-                        fontWeight = FontWeight.normal
-                        marginTop = LinearDimension("0em")
-                        paddingTop = height.minus(fontSize).div(2)
-                    }
-                    +"Z"
-                }
                 props.xEdge || props.yEdge -> styledP {
                     css {
                         fontWeight = FontWeight.normal
-                        marginTop = LinearDimension("0em")
-                        paddingTop =LinearDimension("0em")
+                        lineHeight = LineHeight("100")
                     }
                     +props.text
                 }
