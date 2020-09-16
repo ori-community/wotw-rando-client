@@ -783,7 +783,8 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
       SentryJump=1, DoubleJump OR Dash OR Sword
     unsafe:
       Bash, Dash              # Pretty precise to do without damage
-  pickup MarshPastOpher.PoolsPathEC:  # the squonkey doesn't reappear if you respawn on this checkpoint
+
+  conn MarshPastOpher.PoolsPathMiddle:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
     gorlek:
       Bash, Dash  # the bat is weird
@@ -791,44 +792,84 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
     unsafe:
       Bash, Glide
       Combat=Bat, Launch, Damage=10
+  conn MarshPastOpher.MillView: free
+
+anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable floor
+  refill Checkpoint
+
+  pickup MarshPastOpher.PoolsPathEC:
+    moki:
+      Bash, DoubleJump OR Dash OR Glide OR Grenade=1
+      Launch
+    gorlek:
+      Bash
+      SentryJump=1  # Sword should be fine for the enemy
 
   conn MarshPastOpher.PoolsPathWest:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
     gorlek:
-      Bash, Dash  # the bat is weird
-      ShurikenBreak=20, Combat=Bat, Launch, DoubleJump OR Dash
+      Bash, Dash OR Glide
+      Bash, Sword, Damage=10
+      ShurikenBreak=20, Bash, Sword
+      ShurikenBreak=20, Bash, Damage=10, Hammer OR Grenade=1
+      ShurikenBreak=20, DoubleJump, Damage=10, TripleJump OR Dash OR Glide OR Sword OR Hammer
+      ShurikenBreak=20, DoubleJump, TripleJump, Dash, Glide OR Sword  # enough tools to allow multiple approaches
+      ShurikenBreak=20, Launch, DoubleJump OR Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=10
     unsafe:
       Hammer, Bash                    # Fairly precise air combos needed
       Hammer, Sword, Bash             # Fairly precise air combos needed
-  conn MarshPastOpher.MillView: free
+  conn MarshPastOpher.PoolsPathEast:
+    moki: Bash
+    gorlek:
+      Glide, DoubleJump OR Dash OR Launch
+      Damage=10  # more other paths would exist, but seem difficult to do damageless themselves
+    unsafe: DoubleJump OR Dash OR Glide OR Launch
 
-# checkpoint at -709, -4181
 # checkpoint at -740, -4168
 
 anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPastOpher.PoolsPathEX
   refill Checkpoint
 
   pickup MarshPastOpher.PoolsPathEX: free
-  pickup MarshPastOpher.PoolsPathEC:
+  pickup PoolsApproach.MillPathHC:
+    gorlek, ShurikenBreak=20:
+      Water, WaterDash, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      Water, Bash, Damage=20, DoubleJump OR Sword
+      Water, Launch
+
+  conn MarshPastOpher.PoolsPathMiddle:
     moki, BreakWall=20:
       DoubleJump, Bash, Dash OR Glide
       Bash, Grenade=1, Dash, Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
-    gorlek, BreakWall=20:
-      DoubleJump, Bash, Sword OR Hammer OR Damage=10
-      Launch # Reset Launch by hitting the ceiling
-      SentryJump=1, Bash, Sword OR Hammer # Hug the wall and the SentryJump, then horizontal slashes to the lantern
-
-  conn MarshPastOpher.PoolsPathEast:
-    moki, BreakWall=20:
-      DoubleJump, Bash, Dash OR Glide
-      Bash, Grenade=1, Dash, Glide
-      Launch, Damage=10, DoubleJump OR Dash OR Glide
-      Launch, Bash
-    gorlek, BreakWall=20:
-      DoubleJump, Bash, Weapon OR Grenade=1
-      SentryJump=1, DoubleJump, Bash # Hug the wall, do SentryJump and then hold right
-      Launch
+    gorlek:
+      BreakWall=20:  # go above and open the shortcut
+        DoubleJump, Bash, Sword OR Hammer OR Damage=10
+        Dash, Bash, Glide OR Sword OR Hammer OR Damage=10
+        Sword, Bash, Damage=10
+        SentryJump=1, Hammer, Bash, Damage=10
+        DoubleJump, TripleJump, Dash OR Glide OR Damage=10
+        DoubleJump, TripleJump, SentryJump=1, Sword OR Hammer
+        DoubleJump, Damage=10, Dash OR Glide OR Sword OR Hammer
+        Dash, Damage=10, Sword OR Hammer
+        Sword, Damage=10, SentryJump=1
+        Bash, Grenade=1, DoubleJump OR Dash OR Damage=10
+        Launch  # Reset Launch by hitting the ceiling
+      Glide, DoubleJump, Hammer OR Spear=1  # go below and break the floor
+      Glide, Dash, Hammer OR Spear=1  # go below and break the floor
+    unsafe:
+      SentryJump=1, Bash, Sword OR Hammer  # Hug the wall and the SentryJump, then horizontal slashes to the lantern; weapon breaks the wall
+      Hammer, Damage=10, SentryJump=1  # hammer breaks the wall
+  conn PoolsApproach.RightOfWheel:
+    gorlek, ShurikenBreak=20:
+      Water, Grapple, DoubleJump OR Dash OR Launch
+      Water, Grapple, Damage=20, Glide OR Sword
+      Water, Damage=20, DoubleJump, TripleJump, Dash OR Glide OR Sword OR Hammer
+      Water, Launch, Glide OR Damage=20
+      Water, Launch, DoubleJump, Dash
+      Water, Launch, DoubleJump, Sword OR Hammer
+      Water, Launch, Dash, Sword OR Hammer
+    unsafe: ShurikenBreak=20, Water, Launch
 
 region MidnightBurrows:
   moki: Damage=25
