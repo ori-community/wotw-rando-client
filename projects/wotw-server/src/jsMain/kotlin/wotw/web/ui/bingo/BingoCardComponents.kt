@@ -126,6 +126,10 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                                 if (y !in cardRange) labelSize else LinearDimension("calc((100% - 2 * $labelSize - ${size + 1} * $gapSize) / $size)")
                         }
                         for (x: Int in 0..size + 1) {
+                            if (x !in cardRange || y !in cardRange) css {
+                                marginTop = LinearDimension.none
+                                textAlign = TextAlign.center
+                            }
                             //why are grids not 0-based again? :<
                             val gridPos = Position(x + 1, y + 1)
                             val width = if (x !in cardRange) labelSize else null
@@ -184,6 +188,8 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 width = props.size?.first
                     ?: LinearDimension("calc((100% - 2 * $labelSize  - ${props.boardSize + 1} * $gapSize) / ${props.boardSize})")
                 height = 100.pct
+                textAlign = TextAlign.center
+                fontWeight = FontWeight.bold
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
@@ -211,6 +217,9 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
 class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RState>(props) {
     override fun RBuilder.render() {
         styledP {
+            css {
+                textAlign = TextAlign.center
+            }
             +props.text
             if (props.completed) {
                 css {
