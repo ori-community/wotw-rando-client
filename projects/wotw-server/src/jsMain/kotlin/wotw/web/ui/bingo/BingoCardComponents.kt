@@ -192,13 +192,8 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
-            if(props.isLabel)  styledP {
-                    css {
-                        fontWeight = FontWeight.normal
-                        margin(LinearDimension.none)
-                    }
-                    +props.text
-                }
+            if(props.isLabel)
+                    +"X"
             else p {
                 +props.text
             }
