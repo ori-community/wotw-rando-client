@@ -124,12 +124,11 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                             width = 100.pct
                             height =
                                 if (y !in cardRange) labelSize else LinearDimension("calc((100% - 2 * $labelSize - ${size + 1} * $gapSize) / $size)")
+                            textAlign = TextAlign.center
+                            marginTop = LinearDimension.none
+                            verticalAlign = VerticalAlign.middle
                         }
                         for (x: Int in 0..size + 1) {
-                            if (x !in cardRange || y !in cardRange) css {
-                                marginTop = LinearDimension.none
-                                textAlign = TextAlign.center
-                            }
                             //why are grids not 0-based again? :<
                             val gridPos = Position(x + 1, y + 1)
                             val width = if (x !in cardRange) labelSize else null
