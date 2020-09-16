@@ -79,7 +79,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE FALSE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Newtonsoft.Json ${WOTWR_LIB_DIR}/Newtonsoft.Json.dll)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_AutoHotkey.Interop ${WOTWR_LIB_DIR}/AutoHotkey.Interop.dll)
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "MSBuild.ILMerge.Task_1.1.3;WebSocketSharp_1.0.3-rc11;Google.Protobuf_3.13.0")
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "MSBuild.ILMerge.Task_1.1.3;Websocket.Client_4.3.21;Google.Protobuf_3.13.0")
 
 target_compile_options(${PROJECT_NAME}
     PRIVATE /unsafe

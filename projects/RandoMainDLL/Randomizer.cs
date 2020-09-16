@@ -33,7 +33,9 @@ namespace RandoMainDLL {
         AHK.OnNewGame();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
-      } catch(Exception e) {
+        Client.Connect();
+      }
+      catch (Exception e) {
         Randomizer.Error("OnNewGame", e);
       }
     }
@@ -86,7 +88,6 @@ namespace RandoMainDLL {
         }
         AHK.Tick();
         BonusItemController.Update();
-        Client.Update();
         DiscordController.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
