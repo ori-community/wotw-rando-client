@@ -39,6 +39,10 @@ namespace RandoMainDLL {
       if (socket != null) {
         Disconnect();
       }
+      var client = new WebClient();
+      client.UploadString($"https://{WebSocketClient.Domain}/api/sessions/", DiscordController.Token.AccessToken);
+      var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
+      SessionId = rawCookie.Split(';')[0].Split('=')[1];
 
       socket = new Websocket.Client.WebsocketClient(new Uri(ServerAddress), () => {
         var wrapped = new System.Net.WebSockets.ClientWebSocket();
@@ -75,10 +79,11 @@ namespace RandoMainDLL {
         Id = 3,
         Packet_ = new UberStateUpdateMessage {
           State = new UberId {
-            Group = id.GroupID,
-            State = id.ID
+            // wolf started it :D
+            Group = id.GroupID == 0 ? -1 : id.GroupID,
+            State = id.ID == 0 ? -1 : id.ID
           },
-          Value = value
+          Value = value == 0f ? -1f : 0f
         }.ToByteString()
       };
 
