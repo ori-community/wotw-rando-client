@@ -194,16 +194,26 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
-            if(props.xEdge || props.yEdge)  styledP {
+            when {
+                props.xEdge && !props.yEdge -> styledP {
                     css {
                         fontWeight = FontWeight.normal
                         marginTop = LinearDimension("0em")
-                        paddingTop = if(props.xEdge && !props.yEdge) height.minus(fontSize).div(2) else LinearDimension("0em")
+                        paddingTop = height.minus(fontSize).div(2)
+                    }
+                    +"Z"
+                }
+                props.xEdge || props.yEdge -> styledP {
+                    css {
+                        fontWeight = FontWeight.normal
+                        marginTop = LinearDimension("0em")
+                        paddingTop =LinearDimension("0em")
                     }
                     +props.text
                 }
-            else p {
-                +props.text
+                else -> p {
+                    +props.text
+                }
             }
 
             attrs {
