@@ -67,19 +67,19 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
             )
             val game = newSuspendedTransaction {
                 val user = if (userId != null) {
-                    User.findById(userId) ?: throw NotFoundException()
+                    User.findById(userId) ?: throw NotFoundException("user unknown?")
                 } else {
                     //FIXME
-                    val id = call.sessions.get<UserSession>()?.user ?: throw  NotFoundException()
+                    val id = call.sessions.get<UserSession>()?.user ?: throw  NotFoundException("Id unknown?")
                     //FIXME
-                    User.findById(id) ?: throw  NotFoundException()
+                    User.findById(id) ?: throw  NotFoundException("user unknown??")
                 }
 
                 val existing = PlayerData.find(gameId, user.id.value)
                 if (existing != null)
                     throw AlreadyExistsException()
 
-                val game = Game.findById(gameId) ?: throw NotFoundException()
+                val game = Game.findById(gameId) ?: throw NotFoundException("game not found??")
 
                 PlayerData.new {
                     this.game = game
