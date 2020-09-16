@@ -35,6 +35,7 @@ external interface BingoSquareProps : RProps {
     var text: String
     var completed: Boolean
     var goals: List<BingoGoal>
+    var isLabel: Boolean
 }
 
 external interface BingoSquareState : RState {
@@ -156,6 +157,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                             }
 
                             child(BingoSquareComponent::class) {
+                                attrs.isLabel = x in cardRange || y in cardRange
                                 attrs.gridPosition = gridPos
                                 attrs.size = width to height
                                 attrs.boardSize = size
@@ -186,15 +188,18 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                     ?: LinearDimension("calc((100% - 2 * $labelSize  - ${props.boardSize + 1} * $gapSize) / ${props.boardSize})")
                 height = 100.pct
                 textAlign = TextAlign.center
+                fontWeight = FontWeight.bold
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
-            styledP {
-                css {
-                    fontWeight = FontWeight.bold
-                    if (props.text.length  < 4 )
+            if(props.isLabel)  styledP {
+                    css {
+                        fontWeight = FontWeight.normal
                         margin(LinearDimension.none)
+                    }
+                    +props.text
                 }
+            else p {
                 +props.text
             }
 
@@ -219,6 +224,9 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
 class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RState>(props) {
     override fun RBuilder.render() {
         styledP {
+            css {
+                fontWeight = FontWeight.normal
+            }
             +props.text
             if (props.completed) {
                 css {
