@@ -45,7 +45,6 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
         authenticate(SESSION_AUTH) {
             webSocket("game_sync") {
-                logger.info("socket connect start")
                 val playerId = call.sessions.get<UserSession>()?.user ?: return@webSocket this.close(
                     CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session active!")
                 )
@@ -56,7 +55,6 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 } ?: return@webSocket this.close(
                     CloseReason(CloseReason.Codes.NORMAL, "Player is not part of an active game")
                 )
-                logger.info("socket connect; did not close")
 
                 val initData = newSuspendedTransaction {
                     PlayerData.findById(playerDataId)?.game?.board?.goals?.flatMap { it.value.keys }
