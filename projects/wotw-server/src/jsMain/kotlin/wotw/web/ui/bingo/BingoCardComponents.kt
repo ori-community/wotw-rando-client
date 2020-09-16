@@ -35,7 +35,8 @@ external interface BingoSquareProps : RProps {
     var text: String
     var completed: Boolean
     var goals: List<BingoGoal>
-    var isLabel: Boolean
+    var xEdge: Boolean
+    var yEdge: Boolean
 }
 
 external interface BingoSquareState : RState {
@@ -157,7 +158,8 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                             }
 
                             child(BingoSquareComponent::class) {
-                                attrs.isLabel = x !in cardRange || y !in cardRange
+                                attrs.xEdge = x !in cardRange
+                                attrs.yEdge = y !in cardRange
                                 attrs.gridPosition = gridPos
                                 attrs.size = width to height
                                 attrs.boardSize = size
@@ -192,11 +194,11 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
-            if(props.isLabel)  styledP {
+            if(props.xEdge || props.yEdge)  styledP {
                     css {
                         fontWeight = FontWeight.normal
                         marginTop = LinearDimension("0em")
-                        paddingTop = LinearDimension("0em")
+                        paddingTop = if(props.xEdge && !props.yEdge) height.minus(fontSize).div(2) else LinearDimension("0em")
                     }
                     +props.text
                 }
@@ -225,6 +227,9 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
 class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RState>(props) {
     override fun RBuilder.render() {
         styledP {
+            css {
+                fontWeight = FontWeight.normal
+            }
             +props.text
             if (props.completed) {
                 css {
