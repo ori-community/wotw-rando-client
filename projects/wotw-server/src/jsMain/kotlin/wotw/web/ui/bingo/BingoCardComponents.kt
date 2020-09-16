@@ -186,15 +186,14 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                     ?: LinearDimension("calc((100% - 2 * $labelSize  - ${props.boardSize + 1} * $gapSize) / ${props.boardSize})")
                 height = 100.pct
                 textAlign = TextAlign.center
-                verticalAlign = VerticalAlign.middle
                 margin = if (props.text.length < 4 ) "0px" else margin
                 fontWeight = FontWeight.bold
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
-            p {
-                +props.text
-            }
+
+            +props.text
+
             attrs {
                 onClickFunction = {
                     it.preventDefault()
@@ -217,7 +216,7 @@ class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RSt
     override fun RBuilder.render() {
         styledP {
             css {
-                textAlign = TextAlign.center
+                fontWeight = FontWeight.normal
             }
             +props.text
             if (props.completed) {
