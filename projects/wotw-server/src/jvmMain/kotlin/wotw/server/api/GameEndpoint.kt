@@ -66,11 +66,11 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 protocol {
                     onMessage(UberStateUpdateMessage::class) {
                         val game = newSuspendedTransaction {
+                            logger.info("(${uberId.group}, ${uberId.state}) -> $value")
                             val playerData = PlayerData.findById(playerDataId) ?: error("Inconsistent game state")
                             val data = playerData.uberStateData
                             data[uberId.group to uberId.state] = value
                             playerData.uberStateData = data
-                            logger.info("(${uberId.group}, ${uberId.state}) -> $value")
                             playerData.game.id.value
                         }
                         server.connections.onGameUpdate(game)

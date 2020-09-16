@@ -52,7 +52,8 @@ class ConnectionRegistry {
                                     board.toBingoBoard(data),
                                     true
                                 ).also {
-                                    println(it)
+                                    // println(it)
+                                    // this is too spammy -eiko
                                 }
                             )
                         }
