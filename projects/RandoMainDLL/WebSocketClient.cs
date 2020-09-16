@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Net;
 using System.Threading;
+using System.Windows.Interop;
 using Google.Protobuf;
 using Network;
-using WebSocketSharp;
+using Websocket;
 
 namespace RandoMainDLL {
   public class WebSocketClient {
@@ -12,8 +14,8 @@ namespace RandoMainDLL {
 
     public UberStateRegistrationHandler UberStateRegistered;
     public UberStateUpdateHandler UberStateChanged;
-    private string _domain;
-    public string Domain { 
+    private static string _domain;
+    public static string Domain { 
       get {
         if (_domain == null) { 
           _domain = AHK.IniString("Paths", "URL");
@@ -24,74 +26,43 @@ namespace RandoMainDLL {
       }
     }
     public static bool WantConnection = true;
+    public static string SessionId;
 
-    public int GameId = 1;
-    public long PlayerId = 1;
     public int ReconnectCooldown = 0;
     public int FramesSinceLastCheck = 0;
-    private string ServerAddress => $"wss://{Domain}/api/gameSync/{GameId}/{PlayerId}";
+    private string ServerAddress => $"wss://{Domain}/api/game_sync/";
 
-    private WebSocket socket;
+    private Websocket.Client.WebsocketClient socket;
     private object threadLock = new object();
     public void Update() {
-      if (FramesSinceLastCheck > 0) {
-        FramesSinceLastCheck--;
+      if (!DiscordController.Initialized)
         return;
+      if (WantConnection && socket == null) {
+          Connect();
       }
-      FramesSinceLastCheck = 60;
-      new Thread(() => {
-        if (WantConnection && !IsConnected) {
-          if(Monitor.TryEnter(threadLock, 50)) {
-            try {
-              if (ReconnectCooldown > 0) {
-                ReconnectCooldown--;
-                Randomizer.Log($"{ReconnectCooldown}", false);
-                return;
-              } else {
-                Randomizer.Log("Connecting...", false);
-                Connect();
-              }
-            } catch (Exception e) {
-              Randomizer.Error("CTS", e, false);
-            } finally {
-              Monitor.Exit(threadLock);
-            }
-          }
-        }
-      }).Start();
     }
 
-    public bool IsConnected { get { return socket != null && socket.IsAlive; } }
-
+    public bool IsConnected { get { return socket != null && socket.IsRunning; } }
     public void Connect() {
-      //      PlayerId = player;
       if (socket != null) {
         Disconnect();
       }
-      Randomizer.Log(ServerAddress, false);
-      socket = new WebSocket(ServerAddress);
-      socket.Log.Level = LogLevel.Info;
-      socket.Log.Output = (logdata, output) => {
-        Randomizer.Log($"Websocket says: {logdata.Message}", false, $"{logdata.Level}");
+
+      socket = new Websocket.Client.WebsocketClient(new Uri(ServerAddress), () => {
+        var wrapped = new System.Net.WebSockets.ClientWebSocket();
+        wrapped.Options.Cookies = new CookieContainer();
+        wrapped.Options.Cookies.Add(new Cookie("sessionid", SessionId, "/", Domain));
+        return wrapped;
+      }) {
+        ReconnectTimeout = null // TODO; add keepalive for auto reconnect
       };
-      socket.OnError += (sender, e) => {
-        Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
-        ReconnectCooldown = 5;
-      };
-      socket.OnClose += (sender, e) => {
-        Randomizer.Log("Disconnected! Retrying in 5s");
-        ReconnectCooldown = 5;
-      };
-      socket.OnMessage += HandleMessage;
-      socket.OnOpen +=  new EventHandler(delegate (object sender, EventArgs args) {
-        Randomizer.Log($"Socket opened", false);
+      socket.MessageReceived.Subscribe(msg => HandleMessage(msg.Binary));
+      socket.ReconnectionHappened.Subscribe(info => Randomizer.Log($"Reconnected: {info}", false));
+      socket.DisconnectionHappened.Subscribe(info => Randomizer.Log($"Disconnected: {info?.CloseStatusDescription} {info?.CloseStatus} {info?.Exception}", false));
+      var task = socket.Start();
+      task.ContinueWith(_ => {
         UberStateController.QueueSyncedStateUpdate();
-        ReconnectCooldown = 0;
       });
-      Randomizer.Log($"Attempting to connect to ${Domain}", false);
-
-      socket.Connect();
-
     }
 
     public void Disconnect() {
@@ -99,7 +70,7 @@ namespace RandoMainDLL {
         return;
       }
 
-      socket.Close();
+      socket.Dispose();
       socket = null;
     }
 
@@ -119,22 +90,20 @@ namespace RandoMainDLL {
         }.ToByteString()
       };
 
-      socket.Send(packet.ToByteArray());
+      socket.SendInstant(packet.ToByteArray());
     }
 
-    public void HandleMessage(object sender, MessageEventArgs args) {
+    public void HandleMessage(byte[] rawData) {
       try {
-        var packet = Packet.Parser.ParseFrom(args.RawData);
+        var packet = Packet.Parser.ParseFrom(rawData);
         switch (packet.Id) {
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-            Randomizer.Log($"Server says {printMsg.Text} (f={printMsg.Frames} p={printMsg.Ypos})", false);
             AHK.Print(printMsg.Text, printMsg.Frames, printMsg.Ypos, true);
             break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
             foreach (var state in init.UberId) {
-              Randomizer.Log(state.ToString(), false);
               UberStateRegistered(new Memory.UberId(state.Group, state.State));
             }
             break;

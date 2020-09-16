@@ -92,8 +92,9 @@ namespace RandoMainDLL {
             if (FramesTillUnlockReload == 0) {
               iniFlagCache.Clear();
               FramesTillNextSend = 0;
+              Randomizer.Client.Connect();
               SeedController.ReadSeed();
-              if (InterOp.get_game_state() == Memory.GameState.Game)
+              if (InterOp.get_game_state() == GameState.Game)
                 PsuedoLocs.RELOAD_SEED.OnCollect();
               FramesTillUnlockReload = 120;
             }
