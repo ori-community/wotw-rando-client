@@ -257,7 +257,7 @@ fun generatePool() = mutableListOf(
     threshold("Collect Items", 6, 2, triag(60, 300, 140)),
     threshold("Collect Keystones", 6, 0, triag(4, 24, 10)),
     threshold("Collect Ore", 6, 5, triag(6, 35, 16)),
-    threshold("Spend Ore", 6, 5, triag(6, 35, 16)),
+    threshold("Spend Ore", 6, 6, triag(6, 35, 16)),
     threshold("Collect SL", 6, 3, triag(2000, 6000, 4000)),
     threshold("Spend SL", 6, 4, triag(2000, 6000, 3000)),
 )
