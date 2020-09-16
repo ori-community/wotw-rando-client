@@ -46,7 +46,7 @@ data class CountGoal(
     val hideChildren: Boolean = false
 ) : CompositeGoal() {
     override fun isCompleted(state: GameState): Boolean {
-        return goals.count { it.isCompleted(state) } > threshold
+        return goals.count { it.isCompleted(state) } >= threshold
     }
 
     override fun printSubText(state: GameState) =
