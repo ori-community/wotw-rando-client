@@ -31,6 +31,7 @@ import wotw.server.database.model.Users
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.exception.UnauthorizedException
 import wotw.server.util.logger
+import java.io.File
 
 class WotwBackendServer {
     companion object {
@@ -156,7 +157,7 @@ class WotwBackendServer {
                 }
 
                 install(Sessions) {
-                    cookie<UserSession>(SESSION_AUTH, SessionStorageMemory()) {
+                    cookie<UserSession>(SESSION_AUTH, directorySessionStorage(File(".sessions"), cached=true)) {
                         cookie.path = "/"
                     }
                 }
@@ -165,6 +166,7 @@ class WotwBackendServer {
                         bingoEndpoint.init(this)
                         gameEndpoint.init(this)
                         authEndpoint.init(this)
+                        userEndpoint.init(this)
                         get("/") {
                             call.respondText("WOTW-Backend running")
                         }
