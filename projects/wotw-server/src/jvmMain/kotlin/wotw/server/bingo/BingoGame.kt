@@ -81,10 +81,10 @@ data class CountGoal(
     val two = goals.size == 2
     override val title: String = when {
         hideChildren -> text
-        threshold == goals.size -> text.replace("#", two ? "BOTH" : "THESE")
+        threshold == goals.size -> text.replace("#", (if(two) "BOTH" else "THESE"))
         threshold > 1 -> text.replace("#", "$threshold")
-        else -> text.replace("#", two ? "EITHER" : "ONE OF THESE")
-    }.replace("[s]", threshold > 1 ? "s" : "")
+        else -> text.replace("#", if(two) "EITHER" else "ONE OF THESE")
+    }.replace("[s]", if(threshold > 1 ) "s" else "")
 }
 
 
