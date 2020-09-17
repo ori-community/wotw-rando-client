@@ -36,29 +36,31 @@ namespace RandoMainDLL {
 
     public bool IsConnected { get { return socket != null && socket.IsRunning; } }
     public void Connect() {
-      if (socket != null) {
+      new Thread(() => {
+        if (socket != null) {
         Disconnect();
       }
-      var client = new WebClient();
-      client.UploadString($"https://{WebSocketClient.Domain}/api/sessions/", DiscordController.Token.AccessToken);
-      var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
-      SessionId = rawCookie.Split(';')[0].Split('=')[1];
+        var client = new WebClient();
+        client.UploadString($"https://{WebSocketClient.Domain}/api/sessions/", DiscordController.Token.AccessToken);
+        var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
+        SessionId = rawCookie.Split(';')[0].Split('=')[1];
 
-      socket = new Websocket.Client.WebsocketClient(new Uri(ServerAddress), () => {
-        var wrapped = new System.Net.WebSockets.ClientWebSocket();
-        wrapped.Options.Cookies = new CookieContainer();
-        wrapped.Options.Cookies.Add(new Cookie("sessionid", SessionId, "/", Domain));
-        return wrapped;
-      }) {
-        ReconnectTimeout = null // TODO; add keepalive for auto reconnect
-      };
-      socket.MessageReceived.Subscribe(msg => HandleMessage(msg.Binary));
-      socket.ReconnectionHappened.Subscribe(info => Randomizer.Log($"Reconnected: {info}", false));
-      socket.DisconnectionHappened.Subscribe(info => Randomizer.Log($"Disconnected: {info?.CloseStatusDescription} {info?.CloseStatus} {info?.Exception}", false));
-      var task = socket.Start();
-      task.ContinueWith(_ => {
-        UberStateController.QueueSyncedStateUpdate();
-      });
+        socket = new Websocket.Client.WebsocketClient(new Uri(ServerAddress), () => {
+          var wrapped = new System.Net.WebSockets.ClientWebSocket();
+          wrapped.Options.Cookies = new CookieContainer();
+          wrapped.Options.Cookies.Add(new Cookie("sessionid", SessionId, "/", Domain));
+          return wrapped;
+        }) {
+          ReconnectTimeout = null // TODO; add keepalive for auto reconnect
+        };
+        socket.MessageReceived.Subscribe(msg => HandleMessage(msg.Binary));
+        socket.ReconnectionHappened.Subscribe(info => Randomizer.Log($"Reconnected: {info}", false));
+        socket.DisconnectionHappened.Subscribe(info => Randomizer.Log($"Disconnected: {info?.CloseStatusDescription} {info?.CloseStatus} {info?.Exception}", false));
+        var task = socket.Start();
+        task.ContinueWith(_ => {
+          UberStateController.QueueSyncedStateUpdate();
+        });
+      }).Start();
     }
 
     public void Disconnect() {
@@ -83,7 +85,7 @@ namespace RandoMainDLL {
             Group = id.GroupID == 0 ? -1 : id.GroupID,
             State = id.ID == 0 ? -1 : id.ID
           },
-          Value = value == 0f ? -1f : 0f
+          Value = value == 0f ? -1f : value
         }.ToByteString()
       };
 
