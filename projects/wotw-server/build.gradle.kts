@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.ir.backend.js.compile
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
 }
 
@@ -72,6 +73,7 @@ kotlin {
                 implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
                 implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
                 implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
+                implementation("com.zaxxer:HikariCP:3.4.5")
 
                 implementation("org.postgresql:postgresql:42.2.14")
 

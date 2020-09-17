@@ -1,5 +1,6 @@
 package wotw.server.main
 
+import com.zaxxer.hikari.HikariDataSource
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.client.*
@@ -54,8 +55,14 @@ class WotwBackendServer {
         val user = System.getenv("WOTW_DB_USER")
         val password = System.getenv("WOTW_DB_PW")
 
+        val ds = HikariDataSource().apply {
+            jdbcUrl = "jdbc:postgresql://$host:$port/$db"
+            username = user
+            this.password = password
+            driverClassName = "org.postgresql.Driver"
+        }
         this.db =
-            Database.connect("jdbc:postgresql://$host:$port/$db?user=$user&password=$password", "org.postgresql.Driver")
+            Database.connect(ds)//"jdbc:postgresql://$host:$port/$db?user=$user&password=$password", "org.postgresql.Driver")
         transaction {
             SchemaUtils.createMissingTablesAndColumns(Games, Users, PlayerDataTable)
         }
