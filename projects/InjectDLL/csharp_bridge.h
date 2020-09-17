@@ -16,6 +16,7 @@ namespace csharp_bridge
         using f_void_int_int = void(*)(int, int);
         using f_void_ptr_int_int_int_int_int = void(*)(void*, int, int, int, int, int);
         using f_void_int_int_byte_float_float = void(*)(int, int, uint8_t, float, float);
+        using f_void_string = void(*)(const char*);
         using f_void_st = void(*)(ShardType);
         using f_bool = bool(*)();
         using f_bool_at = bool(*)(app::AbilityType__Enum);
@@ -71,6 +72,7 @@ namespace csharp_bridge
 
     extern signatures::f_void_int_int_byte_float_float on_uber_state_applied;
 
+    extern signatures::f_void_string on_teleporter_activated;
     extern signatures::f_bool_int_int_int filter_icon_show;
     extern signatures::f_int_int_int_int filter_icon_type;
     extern signatures::f_void_ptr_int_int_int_int_int filter_icon_text;

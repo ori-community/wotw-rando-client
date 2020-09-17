@@ -98,6 +98,12 @@ namespace RandoMainDLL {
       Randomizer.Warn(caller, $"didn't contain {key}: using {alt}");
       return alt;
     }
+    // pickup shorthands for fun and profit
+
+    public static Teleporter p(this TeleporterType tp) => new Teleporter(tp);
+    public static Ability p(this AbilityType s) => new Ability(s);
+    public static Resource p(this ResourceType r) => new Resource(r);
+
     /// <summary>
     /// Gets the description of the given Enum from its Description attribute. If the attribute is missing, returns the Enum as a string. If the Enum is invalid, returns null.
     /// </summary>

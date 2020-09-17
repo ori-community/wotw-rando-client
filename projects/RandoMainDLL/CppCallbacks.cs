@@ -168,6 +168,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void(ShopController.UpdateShopData),
             CallbackName = "update_shop_data"
+          },
+          new Method() {
+            Delegate = new f_void_str(UberStateController.OnTeleporterActivated),
+            CallbackName = "on_teleporter_activated"
           }
         };
       }
@@ -180,6 +184,7 @@ namespace RandoMainDLL {
     public delegate void f_void_int_int(int i, int j);
     public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
     public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
+    public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate void f_void_st(ShardType st);
     public delegate void f_void_gwa(AreaType at);
     public delegate bool f_bool();

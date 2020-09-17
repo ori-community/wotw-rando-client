@@ -28,6 +28,7 @@ set(
 	"features/no_energy.cpp"
 	"features/start_anywhere.cpp"
 	"features/water.cpp"
+	"features/bingo_tracking.cpp"
 	"fixes/blaze_environment.cpp"
 	"fixes/dash.cpp"
 	"fixes/deflector.cpp"
