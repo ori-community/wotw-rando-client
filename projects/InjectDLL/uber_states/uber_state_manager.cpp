@@ -176,6 +176,11 @@ namespace uber_states
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false),
                 };
+                int i = 0;
+                for (; i < 100; i++)
+                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", "plando_vars", 9, format("%3d_int", i), i, 0));
+                for (; i < 150; i++)
+                    states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", "plando_vars", 9, format("%3d_bool", i), i, false));
 
                 for (const auto state : states)
                     il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
