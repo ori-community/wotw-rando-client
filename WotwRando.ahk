@@ -311,8 +311,13 @@ TryDelete(INSTALL_DIR . "areas.wotw")
 TryDelete(INSTALL_DIR . "modloader_config.json")
 TryDelete(INSTALL_DIR . "VERSION")
 
-
-
+FileInstall, C:\moon\Google.Protobuf.dll, %INTSALL_DIR%Google.Protobuf.dll
+FileInstall, C:\moon\System.Memory.dll, %INTSALL_DIR%System.Memory.dll
+FileInstall, C:\moon\System.Reactive.dll, %INTSALL_DIR%System.Reactive.dll
+FileInstall, C:\moon\System.Runtime.CompilerServices.Unsafe.dll, %INTSALL_DIR%System.Runtime.CompilerServices.Unsafe.dll
+FileInstall, C:\moon\System.Threading.Channels.dll, %INTSALL_DIR%System.Threading.Channels.dll
+FileInstall, C:\moon\System.Threading.Tasks.Extensions.dll, %INTSALL_DIR%System.Threading.Tasks.Extensions.dll
+FileInstall, C:\moon\Websocket.Client.dll, %INTSALL_DIR%Websocket.Client.dll
 
 FileInstall, C:\moon\discord_game_sdk.dll, %INSTALL_DIR%discord_game_sdk.dll, 1
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
