@@ -29,7 +29,7 @@ namespace RandoMainDLL {
       { "wellSpringSaveRoomOld", TeleporterType.Wellspring},
       { "baursReachSaveroom", TeleporterType.Reach},
       { "mouldwoodDepthsF", TeleporterType.Depths},
-      { "silentWoodsHowlReveal", TeleporterType.WestWoods},
+      { "silentWoodlandsHowlReveal", TeleporterType.WestWoods},
       { "kuDeathSceneBlockout", TeleporterType.EastWoods},
       { "feedingGroundsSaveRoom", TeleporterType.WestWastes},
       { "e3DesertI", TeleporterType.EastWastes},
@@ -43,10 +43,12 @@ namespace RandoMainDLL {
     };
 
     public static void OnTeleporterActivated(String identifier) {
-      if(identifier == "kwoloksCavernSaveRoomA") 
-        (HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow).p().Grant(false); 
-      else
-        TpsByID[identifier].p().Grant(false);
+      try {
+        if (identifier == "kwoloksCavernSaveRoomA")
+          (HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow).p().Grant(true);
+        else
+          TpsByID[identifier].p().Grant(true);
+      } catch(Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
     }
     public static void ClearStates() {
       UberStates.Clear();
