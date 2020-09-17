@@ -39,6 +39,7 @@ namespace csharp_bridge
     signatures::f_int_st twillen_shard_cost;
     signatures::f_int_int lupo_upgrade_cost;
     signatures::f_void update_shop_data;
+    signatures::f_void_string on_teleporter_activated;
 
     signatures::f_void_int_int_byte_float_float on_uber_state_applied;
 
@@ -126,4 +127,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
       filter_enabled = reinterpret_cast<f_bool_int>(ptr);
     else if(name == "update_shop_data")
       update_shop_data = reinterpret_cast<f_void>(ptr);
+    else if(name == "on_teleporter_activated")
+      on_teleporter_activated = reinterpret_cast<f_void_string>(ptr);
 }

@@ -22,6 +22,32 @@ namespace RandoMainDLL {
 
       return s;
     }
+
+    public static Dictionary<String, TeleporterType> TpsByID = new Dictionary<String, TeleporterType>() {
+      { "howlsOriginA", TeleporterType.Burrows},
+      { "howlsDenSaveRoom", TeleporterType.Den},
+      { "wellSpringSaveRoomOld", TeleporterType.Wellspring},
+      { "baursReachSaveroom", TeleporterType.Reach},
+      { "mouldwoodDepthsF", TeleporterType.Depths},
+      { "silentWoodsHowlReveal", TeleporterType.WestWoods},
+      { "kuDeathSceneBlockout", TeleporterType.EastWoods},
+      { "feedingGroundsSaveRoom", TeleporterType.WestWastes},
+      { "e3DesertI", TeleporterType.EastWastes},
+      { "desertRuinsTowerSaveRoom", TeleporterType.OuterRuins},
+      { "willowsEnd", TeleporterType.WillowsEnd},
+      { "desertRuinsSaveRoom", TeleporterType.InnerRuins},
+      { "lagoonSaveRoomB", TeleporterType.EastPools},
+      { "lagoonSaveRoom", TeleporterType.WestPools},
+      { "willowCeremonyIntro", TeleporterType.Shriek},
+      { "swampIntroTop", TeleporterType.Spawn},
+    };
+
+    public static void OnTeleporterActivated(String identifier) {
+      if(identifier == "kwoloksCavernSaveRoomA") 
+        (HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow).p().Grant(false); 
+      else
+        TpsByID[identifier].p().Grant(false);
+    }
     public static void ClearStates() {
       UberStates.Clear();
     }
