@@ -64,9 +64,9 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 }
                 val user = User.find{
                     Users.id eq playerId
-                }.firstOrNull() ?: return@webSocket this.close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "User not in database"))
+                }.firstOrNull()?.name ?: "Mystery User"
                 outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
-                outgoing.sendMessage(PrintTextMessage(text = "Hello ${user.name}", frames = 240, ypos = 3f))
+                outgoing.sendMessage(PrintTextMessage(text = "Hello ${user}", frames = 240, ypos = 3f))
 
                 protocol {
                     onMessage(UberStateUpdateMessage::class) {
