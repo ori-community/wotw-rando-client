@@ -62,11 +62,11 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     PlayerData.findById(playerDataId)?.game?.board?.goals?.flatMap { it.value.keys }
                         ?.map { UberId(it.first, it.second) }
                 }
-                val user = User.find{
+                val user = newSuspendedTransaction {  User.find{
                     Users.id eq playerId
-                }.firstOrNull()?.name ?: "Mystery User"
+                }.firstOrNull()?.name } ?: "Mystery User"
                 outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
-                outgoing.sendMessage(PrintTextMessage(text = "Hello ${user}", frames = 240, ypos = 3f))
+                outgoing.sendMessage(PrintTextMessage(text = "Hello $user", frames = 240, ypos = 3f))
 
                 protocol {
                     onMessage(UberStateUpdateMessage::class) {
