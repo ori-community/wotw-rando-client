@@ -20,6 +20,8 @@ import wotw.io.messages.protobuf.UberStateUpdateMessage
 import wotw.io.messages.sendMessage
 import wotw.server.database.model.PlayerData
 import wotw.server.database.model.PlayerDataTable
+import wotw.server.database.model.User
+import wotw.server.database.model.Users
 import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.logger
@@ -60,8 +62,11 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     PlayerData.findById(playerDataId)?.game?.board?.goals?.flatMap { it.value.keys }
                         ?.map { UberId(it.first, it.second) }
                 }
+                val user = User.find{
+                    Users.id eq playerId
+                }.firstOrNull() ?: return@webSocket this.close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "User not in database"))
                 outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
-                outgoing.sendMessage(PrintTextMessage(text = "Hello ", frames = 240, ypos = 3f))
+                outgoing.sendMessage(PrintTextMessage(text = "Hello ${user.name}", frames = 240, ypos = 3f))
 
                 protocol {
                     onMessage(UberStateUpdateMessage::class) {
