@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Net;
 using System.Threading;
-using System.Windows.Interop;
 using Google.Protobuf;
 using Network;
-using Websocket;
+using WebSocketSharp;
 
 namespace RandoMainDLL {
   public class WebSocketClient {
@@ -33,34 +31,38 @@ namespace RandoMainDLL {
     private string ServerAddress => $"wss://{Domain}/api/game_sync/";
 
     private Websocket.Client.WebsocketClient socket;
+    public bool IsConnected { get { return socket != null && socket.IsAlive; } }
 
-    public bool IsConnected { get { return socket != null && socket.IsRunning; } }
     public void Connect() {
       new Thread(() => {
-        if (socket != null) {
+      //      PlayerId = player;
+      if (socket != null) {
         Disconnect();
       }
-        var client = new WebClient();
-        client.UploadString($"https://{WebSocketClient.Domain}/api/sessions/", DiscordController.Token.AccessToken);
-        var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
-        SessionId = rawCookie.Split(';')[0].Split('=')[1];
+      Randomizer.Log(ServerAddress, false);
+      socket = new WebSocket(ServerAddress);
+      socket.Log.Level = LogLevel.Info;
+      socket.Log.Output = (logdata, output) => {
+        Randomizer.Log($"Websocket says: {logdata.Message}", false, $"{logdata.Level}");
+      };
+      socket.OnError += (sender, e) => {
+        Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
+        ReconnectCooldown = 5;
+      };
+      socket.OnClose += (sender, e) => {
+        Randomizer.Log("Disconnected! Retrying in 5s");
+        ReconnectCooldown = 5;
+      };
+      socket.OnMessage += HandleMessage;
+      socket.OnOpen += new EventHandler(delegate (object sender, EventArgs args) {
+        Randomizer.Log($"Socket opened", false);
+        UberStateController.QueueSyncedStateUpdate();
+        ReconnectCooldown = 0;
+      });
+      Randomizer.Log($"Attempting to connect to ${Domain}", false);
 
-        socket = new Websocket.Client.WebsocketClient(new Uri(ServerAddress), () => {
-          var wrapped = new System.Net.WebSockets.ClientWebSocket();
-          wrapped.Options.Cookies = new CookieContainer();
-          wrapped.Options.Cookies.Add(new Cookie("sessionid", SessionId, "/", Domain));
-          return wrapped;
-        }) {
-          ReconnectTimeout = null // TODO; add keepalive for auto reconnect
-        };
-        socket.MessageReceived.Subscribe(msg => HandleMessage(msg.Binary));
-        socket.ReconnectionHappened.Subscribe(info => Randomizer.Log($"Reconnected: {info}", false));
-        socket.DisconnectionHappened.Subscribe(info => Randomizer.Log($"Disconnected: {info?.CloseStatusDescription} {info?.CloseStatus} {info?.Exception}", false));
-        var task = socket.Start();
-        task.ContinueWith(_ => {
-          UberStateController.QueueSyncedStateUpdate();
-        });
-      }).Start();
+      socket.Connect();
+
     }
 
     public void Disconnect() {
@@ -68,7 +70,7 @@ namespace RandoMainDLL {
         return;
       }
 
-      socket.Dispose();
+      socket.Close();
       socket = null;
     }
 
@@ -89,20 +91,22 @@ namespace RandoMainDLL {
         }.ToByteString()
       };
 
-      socket.SendInstant(packet.ToByteArray());
+      socket.Send(packet.ToByteArray());
     }
 
-    public void HandleMessage(byte[] rawData) {
+    public void HandleMessage(object sender, MessageEventArgs args) {
       try {
-        var packet = Packet.Parser.ParseFrom(rawData);
+        var packet = Packet.Parser.ParseFrom(args.RawData);
         switch (packet.Id) {
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
+            Randomizer.Log($"Server says {printMsg.Text} (f={printMsg.Frames} p={printMsg.Ypos})", false);
             AHK.Print(printMsg.Text, printMsg.Frames, printMsg.Ypos, true);
             break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
             foreach (var state in init.UberId) {
+              Randomizer.Log(state.ToString(), false);
               UberStateRegistered(new Memory.UberId(state.Group, state.State));
             }
             break;
@@ -113,7 +117,8 @@ namespace RandoMainDLL {
           default:
             break;
         }
-      } catch (Exception t) {
+      }
+      catch (Exception t) {
         Randomizer.Error("t", t);
       }
     }
