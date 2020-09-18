@@ -73,6 +73,7 @@ class WotwBackendServer {
     val bingoEndpoint = BingoEndpoint(this)
     val gameEndpoint = GameEndpoint(this)
     val authEndpoint = AuthenticationEndpoint(this)
+    val userEndpoint = UserEndpoint(this)
     val connections = ConnectionRegistry()
     private fun startServer(args: Array<String>) {
         val cmd = commandLineEnvironment(args)

@@ -35,3 +35,4 @@ projects/SeedGen/nofluff.wotw
 projects/wotw-server/gradle/*
 projects/wotw-server/gradlew
 projects/wotw-server/gradlew.bat
+projects/wotw-server/*

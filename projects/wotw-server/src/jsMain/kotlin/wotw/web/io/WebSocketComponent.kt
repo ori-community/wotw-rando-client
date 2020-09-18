@@ -11,9 +11,7 @@ import io.ktor.http.cio.websocket.close
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromByteArray
-import kotlinx.serialization.dump
 import kotlinx.serialization.encodeToByteArray
-import kotlinx.serialization.load
 import react.*
 import wotw.io.messages.protobuf.Packet
 import wotw.io.messages.protoBuf
@@ -30,7 +28,7 @@ class WebSocketComponent : RComponent<WebSocketProperties, RState>(){
     override fun componentDidMount() {
         GlobalScope.launch {
             console.log("WS: ${props.url}")
-            Application.client.ws(props.url, {
+            Application.api.ws(props.url, {
                 accept(ContentType.Application.ProtoBuf)
                 accept(ContentType.Text.Any)
                 accept(ContentType.Application.Json)

@@ -4,6 +4,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.protobuf.ProtoNumber
 
 @Serializable
+data class UserInfo(
+    val id: Long,
+    val name: String
+)
+
+@Serializable
 data class UberId(
     @ProtoNumber(1) val group: Int,
     @ProtoNumber(2) val state: Int
