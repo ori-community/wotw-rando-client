@@ -78,15 +78,24 @@ data class CountGoal(
         result = 31 * result + title.hashCode()
         return result
     }
-    val two = goals.size == 2
-    override val title: String = when {
-        hideChildren -> text
-        threshold == goals.size -> text.replace("#", (if(two) "BOTH" else "THESE"))
-        threshold > 1 -> text.replace("#", "$threshold")
-        else -> text.replace("#", if(two) "EITHER" else "ONE OF THESE")
-    }.replace("[s]", if(threshold > 1 ) "s" else "")
-}
 
+    fun String.fixSuffix(plural: Boolean) = if(plural)
+        this.replace("[s]", "s").replace("[es]", "es")
+    else
+        this.replace("[s]", "").replace("[es]", "")
+
+    override val title: String = when {
+        hideChildren -> text.replace(" #", "")
+        threshold == goals.size -> text.replace("#", when(goals.size) {
+            1 -> "THIS"
+            2 -> "BOTH"
+            else -> "THESE"
+        })
+        threshold > 1 -> text.replace("#", "$threshold")
+        goals.size == 2 -> text.replace("#", "EITHER").fixSuffix(false)
+        else -> text.replace("#", "ONE OF THESE").fixSuffix(true)
+    }.fixSuffix(threshold > 1 )
+}
 
 @Serializable
 data class BoolGoal(override val title: String, private val key: Pair<Int, Int>) : BingoGoal() {
@@ -106,7 +115,7 @@ data class NumberThresholdGoal(override val title: String, private val expressio
         return if (hide)
             emptyList()
         else{
-            listOf((expression.calc(state).toString().replace("NaN", "?") + " / " + threshold.calc(state).toString().replace("NaN", "?")) to false)
+            listOf((expression.calc(state).toString().replace("NaN", "0") + " / " + threshold.calc(state).toString().replace("NaN", "0")) to false)
         }
     }
 }

@@ -69,6 +69,22 @@ fun generatePool() = mutableListOf(
         maxRepeats = 2
     ),
     bool("Get Seir", 10289, 22102),
+    group(
+        "Defeat # Boss[es]",
+        threshold("Kwolok", 945, 58403, 6, hideValue = true),
+        threshold("Hornbug", 937, 48534, 4, hideValue = true),
+        threshold("Mora", 18793, 26713, 7, hideValue = true),
+        threshold("Shriek", 16155, 47278, 5, hideValue = true),
+        threshold("Willow Laser", 16155, 12971, 4, hideValue = true),
+        maxRepeats = 2,
+    ),
+    group(
+        "Complete # Escape[s]",
+        bool("The Wellspring", 37858, 12379),
+        bool("Baur's Reach", 28895, 16339),
+        threshold("Windtorn Ruins", 10289, 19890, 3, hideValue=true),
+        maxRepeats = 1
+    ),
     group("Complete # Combat Shrine[s]",
         bool("Howl's Den", 24922, 13993),
         bool("Inkwater Marsh", 21786, 18109),
@@ -291,7 +307,7 @@ fun generatePool() = mutableListOf(
         countGoal = { it.nextTriangular(4, 16, 6)},
     ),
     group(
-        "Complete # Quests[s]",
+        "Complete # Quest[s]",
         threshold("The Silent Teeth", 937, 34641, 4, hideValue = true),
         threshold("Beneath Shifting Sands", 14019, 35399, 3, hideValue = true),
         threshold("Lost in Paradise", 14019, 35087, 3, hideValue = true),
@@ -312,12 +328,12 @@ fun generatePool() = mutableListOf(
         threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true),
         countGoal = { it.nextTriangular(2, 16, 6)},
     ),
-    threshold("Collect # Items", 6, 2, triag(40, 300, 140)),
-    threshold("Collect # Keystones", 6, 0, triag(4, 24, 10)),
-    threshold("Collect # Ore", 6, 5, triag(6, 35, 16)),
-    threshold("Spend # Ore", 6, 6, triag(6, 35, 16)),
-    threshold("Collect # Spirit Light", 6, 3, triag(2000, 6000, 4000)),
-    threshold("Spend # Spirit Light", 6, 4, triag(2000, 6000, 3000)),
+    threshold("Collect Items", 6, 2, triag(40, 320, 100)),
+    threshold("Collect Keystones", 6, 0, triag(4, 24, 10)),
+    threshold("Collect Ore", 6, 5, triag(6, 35, 16)),
+    threshold("Spend Ore", 6, 6, triag(6, 35, 16)),
+    threshold("Collect Spirit Light", 6, 3, triag(2000, 6000, 4000)),
+    threshold("Spend Spirit Light", 6, 4, triag(2000, 6000, 3000)),
 )
 
 class BingoBoardGenerator {
