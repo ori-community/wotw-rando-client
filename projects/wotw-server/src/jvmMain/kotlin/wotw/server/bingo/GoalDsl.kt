@@ -107,8 +107,13 @@ fun group(
                     Difficulty.HARD -> 4
                 }
 
-                val goalAmount =
-                    random.nextTriangular(1, min(remainingGoals.size, maxAmount), min(remainingGoals.size, maxAmount))
+//                val midpoint =  when (difficulty) {
+//                    Difficulty.EASY -> 1
+//                    Difficulty.NORMAL -> (1 + maxAmount)/2
+//                    Difficulty.HARD -> maxAmount
+//                }
+
+                val goalAmount = random.nextInt(1, maxAmount+1)
                 val requiredAmount = when (difficulty) {
                     Difficulty.EASY -> 1
                     Difficulty.NORMAL -> if (random.nextDouble() > 0.5) goalAmount else 1
