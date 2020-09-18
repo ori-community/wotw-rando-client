@@ -35,27 +35,13 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
             }
             call.respond(boardData)
         }
-        get("bingo") {
-            val game = newSuspendedTransaction {
-                Game.new {
-                    board = BingoBoardGenerator().generateBoard()
-                }
-            }
-            call.respond(HttpStatusCode.Created, buildJsonObject {
-                put("id", game.id.value)
-            })
-        }
         post("bingo") {
             val game = newSuspendedTransaction {
                 Game.new {
                     board = BingoBoardGenerator().generateBoard()
                 }
             }
-
-            call.respond(HttpStatusCode.Created, buildJsonObject {
-                put("id", game.id.value)
-            })
-
+            call.respondText("${game.id.value}", status = HttpStatusCode.Created)
         }
         //FIXME
         post("bingo/{game_id}/players") {

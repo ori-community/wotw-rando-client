@@ -43,7 +43,18 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
                         call.respondRedirect(redir)
                 }
             }
-
+        }
+        authenticate(SESSION_AUTH) {
+            route("/logout") {
+                get("/") {
+                    val redir = call.request.queryParameters["redir"]
+                    call.sessions.clear(SESSION_AUTH)
+                    when {
+                        redir != null -> call.respondRedirect(redir)
+                        else          -> call.respondText("you have been logged out!")
+                    }
+                }
+            }
         }
 
         route("/sessions") {

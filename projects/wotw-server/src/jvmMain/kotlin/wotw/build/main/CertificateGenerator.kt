@@ -9,9 +9,10 @@ class CertificateGenerator {
         @JvmStatic
         fun main(args: Array<String>) {
             val jkspw = System.getenv("JKSPW") ?: throw Exception("JKSPW not set!")
+            val jksloc= System.getenv("JKSLOC") ?: throw Exception("JKSLOC not set!")
             val keypw = System.getenv("KEYPW") ?: throw Exception("KEYPW not set!")
 
-            val jksFile = File("/etc/letsencrypt/live/wotw.orirando.com/keystore.jks").apply {
+            val jksFile = File(jksloc).apply {
                 parentFile.mkdirs()
             }
             if (!jksFile.exists()) {

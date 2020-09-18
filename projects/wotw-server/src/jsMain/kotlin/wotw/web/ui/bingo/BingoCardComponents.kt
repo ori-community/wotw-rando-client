@@ -4,6 +4,7 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.css.*
+import kotlinx.css.properties.border
 import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.p
@@ -14,7 +15,6 @@ import wotw.io.messages.protobuf.*
 import wotw.io.messages.protobuf.Position
 import wotw.web.io.WebSocketComponent
 import wotw.web.main.Application
-import wotw.web.ui.UserInfoComponent
 import wotw.web.util.BACKEND_HOST
 import wotw.web.util.BACKEND_PORT
 import wotw.web.util.hbox
@@ -51,8 +51,6 @@ external interface BingoGoalProps : RProps {
 class BingoView : RComponent<GameIdProps, RState>() {
     override fun RBuilder.render() {
         vbox {
-            child(UserInfoComponent::class){
-            }
             hbox {
                 css {
                     gap = Gap("10px")
@@ -79,7 +77,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
 
     override fun componentDidMount() {
         GlobalScope.launch {
-            val boardData = Application.client.get<BingoData>(path = "bingo/${props.gameId}")
+            val boardData = Application.api.get<BingoData>(path = "bingo/${props.gameId}")
             setState {
                 this.board = boardData.board
             }
@@ -102,6 +100,8 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
     override fun RBuilder.render() {
         styledDiv {
             css {
+                border(width = 2.px, style = BorderStyle.solid, color = Color.aqua)
+                marginRight = 3.em
                 position = kotlinx.css.Position.relative
                 width = LinearDimension("min(80%, 95vh)")
                 before {
