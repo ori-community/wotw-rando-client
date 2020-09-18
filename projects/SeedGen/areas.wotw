@@ -187,7 +187,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Combat=3xLizard  # go through the fight room
     gorlek: DoubleJump OR Bash OR Grapple  # basically the moki paths without assisting abilities
 
-  quest MarshSpawn.TheMissingKey:
+  quest MarshSpawn.TokkKeystoneQuest:
     moki: MarshSpawn.CaveKS
 
   pickup MarshSpawn.LeftTokkEX:
@@ -219,7 +219,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     unsafe: Weapon  # slightly out of sight
 
   quest MarshSpawn.CaveKS: free
-  quest MarshSpawn.IntoTheBurrows:
+  quest MarshSpawn.TokkTabletQuest:
     moki: MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
     gorlek, MidnightBurrows.TabletQI:
       Bash, Glide OR Sword
@@ -355,7 +355,7 @@ anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside 
     unsafe:
       Grenade=1, Damage=10            # Grenade jump to get to the vine, then jump right. Dboost the last gap.
       Grenade=2                       # Grenade jump to get to the vine, then jump right. Grenade jump the last gap.
-  quest MarshSpawn.ALittleBraver:
+  quest MarshSpawn.MokkFangQuest:
     moki: MarshSpawn.HowlBurnt, MarshSpawn.FangQI
 
   pickup MarshSpawn.FangEC:
@@ -1450,7 +1450,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
 
   state EastHollow.Voice: free
 
-  quest EastHollow.KwoloksWisdom:
+  quest EastHollow.KwolokAmuletQuest:
     moki: EastPools.KwoloksWisdomAmulet, WestPools.ForestsStrength
 
   pickup EastHollow.RightKwolokEX:
@@ -1749,7 +1749,7 @@ anchor GladesTown.TwillenHome at -414, -4160:  # At Twillen in Glades
       # Grenade=4  # grenade jumps and light refills, very nasty strat
       DoubleJump, TripleJump, Grenade=2, Water OR Damage=10  # light refills, NO GRENADE JUMPS, Small Dirty Water Dboost
       DoubleJump, TripleJump, Grenade=1, Sword, Water OR Damage=10
-  quest GladesTown.IntoTheDarkness:
+  quest GladesTown.MokiAcornQuest:
     moki: GladesTown.ClearThorns, GladesTown.AcornQI
 
   pickup GladesTown.LowerOre:
@@ -4885,7 +4885,7 @@ anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
       SentryJump=1, Damage=30 OR DoubleJump OR Dash
 
 anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
-  quest LowerWastes.EerieGem:
+  quest LowerWastes.EerieGemQI:
     moki: Burrow
 
   pickup LowerWastes.SandBridgeOre: free
@@ -5709,8 +5709,8 @@ anchor WillowsEnd.UpperHeartPath at 506, -3711:  # Right above the exit blocked 
   conn WillowsEnd.Upper: free
 
 anchor TwillenShop:
-  quest GladesTown.ADiamondInTheRough:
-    moki: LowerWastes.EerieGem
+  quest GladesTown.TwillenGemQuest:
+    moki: LowerWastes.EerieGemQI
 
   pickup TwillenShop.Overcharge:
     moki: SpiritLight=1200
