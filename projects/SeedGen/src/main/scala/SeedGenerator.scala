@@ -63,6 +63,7 @@ package SeedGenerator {
         case Nil => None
         case s => Some(s.minBy(f))
       }
+      def ??(other: => T) = if(vs.isEmpty) Seq(other) else vs
       def partitionMap[T1, T2](f: T => Either[T1, T2]): (Seq[T1], Seq[T2]) = {
         val full = vs map f
         (full.collect{case Left(l) => l}, full.collect{case Right(r) => r})
@@ -403,7 +404,7 @@ package SeedGenerator {
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
     var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
-    val seedLineRegex: Regex = """^(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
+    val seedLineRegex: Regex = """^((!)?([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
 
     def regenPreplcs(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
@@ -431,22 +432,23 @@ package SeedGenerator {
       Seq("3|0", "3|1", "3|2", "3|3", "3|4").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
-      Settings.userHeader.split("\n").foreach({ // yes, this is how we nullcheck now
-        case raw @ seedLineRegex(locCode,_,_,_,itemCode,_,_,extra,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
-          (locsByCode.get(locCode), poolByCode.get(itemCode)) match {
-            case (Some(loc), Some(item)) =>
+      Settings.userHeader.foreach({ // yes, this is how we nullcheck now
+        case raw @ seedLineRegex(dontMergeToPool, locCode,_,_,_,itemCode,_,_,extra,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
+          (dontMergeToPool == "!", locsByCode.get(locCode), poolByCode.get(itemCode)) match {
+            case (true, _, _) => // do nothing
+            case (false, Some(loc), Some(item)) =>
               pool.take(item)
               addPreplc(GhostPlacement(item, loc))
               Logger.debug(s"$loc, $item <= $raw")
               Logger.debug(s"$loc, ${preplc.get(loc)}, $preplc")
-            case (Some(loc), None) =>
+            case (false, Some(loc), None) =>
               Logger.debug(s"$loc, None($itemCode) <= $raw")
               addPreplc(GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc))
-            case (None, Some(item)) =>
+            case (false, None, Some(item)) =>
               Logger.debug(s"None($locCode), $item <= $raw")
               pool.take(item)
               Logger.warn(s"Placing item $item in unknown location $locCode logically removes it from the pool.")
-            case (None, None) => Logger.debug(s"None($locCode), None($itemCode) <= $raw")
+            case (_, None, None) => Logger.debug(s"None($locCode), None($itemCode) <= $raw")
           }
         case raw => Logger.debug(s"ignoring line $raw")
       })
@@ -815,7 +817,7 @@ package SeedGenerator {
     //noinspection FieldFromDelayedInit
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
-      val h = Settings.userHeader
+      val h = Settings.userHeader.map(_.stripMargin('!')).mkString("\n")
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {
@@ -826,7 +828,6 @@ package SeedGenerator {
 }
     def forceGetSeed(retries: Int = IS_DEBUG ? 1 ?? 10, time: Boolean = true): Seed = {
       val t0 = System.currentTimeMillis()
-
       val s = mkSeed
       val ret = s.error match {
         case Some(e) if retries > 0 =>
