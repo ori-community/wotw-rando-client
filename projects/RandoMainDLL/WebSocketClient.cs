@@ -34,15 +34,22 @@ namespace RandoMainDLL {
     public bool IsConnected { get { return socket != null && socket.IsAlive; } }
 
     public void Connect() {
+      if (DiscordController.Disabled) return;
       new Thread(() => {
         //      PlayerId = player;
         if (socket != null) {
           Disconnect();
         }
-        var client = new WebClient();
-        client.UploadString($"https://{Domain}/api/sessions/", DiscordController.Token.AccessToken);
-        var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
-        SessionId = rawCookie.Split(';')[0].Split('=')[1];
+        try {
+          var client = new WebClient();
+          client.UploadString($"https://{Domain}/api/sessions/", DiscordController.Token.AccessToken);
+          var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
+          SessionId = rawCookie.Split(';')[0].Split('=')[1];
+        } catch(Exception e) { 
+          Randomizer.Error($"Connect (UploadString, token was {DiscordController.Token}", e);
+          return;
+        }
+
 
         socket = new WebSocket(ServerAddress, null);
         socket.CookieCollection.Add(new WebSocketSharp.Net.Cookie("sessionid", SessionId, "/", Domain));
@@ -65,8 +72,9 @@ namespace RandoMainDLL {
           ReconnectCooldown = 0;
         };
         Randomizer.Log($"Attempting to connect to ${Domain}", false);
-
-        socket.Connect();
+        try {
+          socket.Connect();
+        } catch(Exception e) { Randomizer.Error("Connect (socket.)", e, false);  }
 
       }).Start();
     }
