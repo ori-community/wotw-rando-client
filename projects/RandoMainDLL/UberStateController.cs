@@ -303,6 +303,7 @@ namespace RandoMainDLL {
             InterOp.set_max_energy(InterOp.get_max_energy() + 1);
             InterOp.fill_health();
             InterOp.fill_energy();
+            InterOp.save();
           }
           // should happen in both branches
           if (SeedController.flags.Contains(Flag.ALLWISPS))
