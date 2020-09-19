@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Net;
 using System.Threading;
 using Google.Protobuf;
 using Network;
@@ -30,39 +31,45 @@ namespace RandoMainDLL {
     public int FramesSinceLastCheck = 0;
     private string ServerAddress => $"wss://{Domain}/api/game_sync/";
 
-    private Websocket.Client.WebsocketClient socket;
+    private WebSocket socket;
     public bool IsConnected { get { return socket != null && socket.IsAlive; } }
 
     public void Connect() {
       new Thread(() => {
-      //      PlayerId = player;
-      if (socket != null) {
-        Disconnect();
-      }
-      Randomizer.Log(ServerAddress, false);
-      socket = new WebSocket(ServerAddress);
-      socket.Log.Level = LogLevel.Info;
-      socket.Log.Output = (logdata, output) => {
-        Randomizer.Log($"Websocket says: {logdata.Message}", false, $"{logdata.Level}");
-      };
-      socket.OnError += (sender, e) => {
-        Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
-        ReconnectCooldown = 5;
-      };
-      socket.OnClose += (sender, e) => {
-        Randomizer.Log("Disconnected! Retrying in 5s");
-        ReconnectCooldown = 5;
-      };
-      socket.OnMessage += HandleMessage;
-      socket.OnOpen += new EventHandler(delegate (object sender, EventArgs args) {
-        Randomizer.Log($"Socket opened", false);
-        UberStateController.QueueSyncedStateUpdate();
-        ReconnectCooldown = 0;
-      });
-      Randomizer.Log($"Attempting to connect to ${Domain}", false);
+        //      PlayerId = player;
+        if (socket != null) {
+          Disconnect();
+        }
+        var client = new WebClient();
+        client.UploadString($"https://{WebSocketClient.Domain}/api/sessions/", DiscordController.Token.AccessToken);
+        var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
+        SessionId = rawCookie.Split(';')[0].Split('=')[1];
 
-      socket.Connect();
+        socket = new WebSocket(ServerAddress, null);
+        socket.CookieCollection.Add(new WebSocketSharp.Net.Cookie("sessionid", SessionId, "/", Domain));
+        socket.Log.Level = LogLevel.Info;
+        socket.Log.Output = (logdata, output) => {
+          Randomizer.Log($"Websocket says: {logdata.Message}", false, $"{logdata.Level}");
+        };
+        socket.OnError += (sender, e) => {
+          Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
+          ReconnectCooldown = 5;
+        };
+        socket.OnClose += (sender, e) => {
+          Randomizer.Log("Disconnected! Retrying in 5s");
+          ReconnectCooldown = 5;
+        };
+        socket.OnMessage += HandleMessage;
+        socket.OnOpen += (sender, args) => {
+          Randomizer.Log($"Socket opened", false);
+          UberStateController.QueueSyncedStateUpdate();
+          ReconnectCooldown = 0;
+        };
+        Randomizer.Log($"Attempting to connect to ${Domain}", false);
 
+        socket.Connect();
+
+      }).Start();
     }
 
     public void Disconnect() {
@@ -96,7 +103,12 @@ namespace RandoMainDLL {
 
     public void HandleMessage(object sender, MessageEventArgs args) {
       try {
-        var packet = Packet.Parser.ParseFrom(args.RawData);
+        var data = args.RawData;
+        if (data == null) {
+          Randomizer.Log("received message with no data!");
+          return;
+        }
+        var packet = Packet.Parser.ParseFrom(data);
         switch (packet.Id) {
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
