@@ -24,7 +24,6 @@ namespace RandoMainDLL {
         return _domain;
       }
     }
-    public static bool WantConnection = true;
     public static string SessionId;
 
     public int ReconnectCooldown = 0;
@@ -41,7 +40,7 @@ namespace RandoMainDLL {
           Disconnect();
         }
         var client = new WebClient();
-        client.UploadString($"https://{WebSocketClient.Domain}/api/sessions/", DiscordController.Token.AccessToken);
+        client.UploadString($"https://{Domain}/api/sessions/", DiscordController.Token.AccessToken);
         var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
         SessionId = rawCookie.Split(';')[0].Split('=')[1];
 
@@ -61,7 +60,7 @@ namespace RandoMainDLL {
         };
         socket.OnMessage += HandleMessage;
         socket.OnOpen += (sender, args) => {
-          Randomizer.Log($"Socket opened", false);
+          Randomizer.Log($"Connected to server", false);
           UberStateController.QueueSyncedStateUpdate();
           ReconnectCooldown = 0;
         };
@@ -118,7 +117,7 @@ namespace RandoMainDLL {
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
             foreach (var state in init.UberId) {
-              Randomizer.Log(state.ToString(), false);
+//              Randomizer.Log(state.ToString(), false);
               UberStateRegistered(new Memory.UberId(state.Group, state.State));
             }
             break;
