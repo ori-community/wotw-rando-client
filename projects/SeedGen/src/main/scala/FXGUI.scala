@@ -30,6 +30,7 @@ package SeedGenerator {
   import scalafx.beans.binding.{BooleanBinding, ObjectBinding}
   import scalafx.beans.property.{BooleanProperty, ObjectProperty}
   import scalafx.stage.FileChooser
+  import scalafx.util.StringConverter
 
   import scala.util.{Failure, Success, Try}
   object FXGUI extends JFXApp {
@@ -73,7 +74,7 @@ package SeedGenerator {
     val headerFilePath: Path =  ".seedHeader".f.canonPath
     val settings: ObjectProperty[Settings] = new ObjectProperty(null, "settings", settingsFromFile)
     val outputDirectory: StringProperty = settings.mapStringProp(_.outputFolder, (set, path) => set.copy(outputFolder = path))
-    val header = new StringProperty(null, "header_text", headerFilePath.read ?? "// Replace this text with a seed header, if desired")
+    val header = new ObjectProperty[Seq[String]](null, "header_text", headerFilePath.readLines ?? "// Replace this text with a seed header, if desired")
     val lastSeedText: StringProperty = new StringProperty(null, "last_seed")
     val seedName: StringProperty = new StringProperty(null, "seed_name", "")
     val logArea: TextArea = new TextArea { editable = false; font = Font("Monospaced").delegate}
@@ -160,11 +161,14 @@ package SeedGenerator {
 
 
     val headerTextArea: TextArea = new TextArea() {
-      text <==> header
-      font = Font("Monospaced")
+      text.bindBidirectional[Seq[String]](header, StringConverter[Seq[String]](
+        body => body.split("\n"),
+        lines => lines.mkString("\n")
+      ))
+        font = Font("Monospaced")
     }
-    header.addListener((_, _, newV) => {
-      headerFilePath.write(newV)
+    header.addListener((_, _, newV: Seq[String]) => {
+      headerFilePath.write(newV.mkString(scala.util.Properties.lineSeparator))
     })
 
     stage = new PrimaryStage {
@@ -316,7 +320,7 @@ package SeedGenerator {
     }
     object FXSettingsProvider extends SettingsProvider {
       def get: Settings = settings.getValue
-      override def userHeader: String = FXGUI.header()
+      override def userHeader: Seq[String] = FXGUI.header()
     }
     object FXLogger extends Logger {
       override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ Settings.debugInfo ? DEBUG
