@@ -33,7 +33,8 @@ namespace RandoMainDLL {
       if (Disabled) {
         Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
         return;
-      } 
+      }
+      discord.SetLogHook(Discord.LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(Discord.LogLevel.Info) > 0, level.ToString()));
       ApplicationManager = discord.GetApplicationManager();
       ApplicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) => {
         try {
@@ -58,7 +59,6 @@ namespace RandoMainDLL {
     }
 
     public static void Update() {
-      if(Disabled) return;
       try {
         discord?.RunCallbacks();
       } catch (Exception e) {
