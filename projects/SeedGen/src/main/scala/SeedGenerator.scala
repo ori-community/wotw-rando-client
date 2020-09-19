@@ -113,7 +113,7 @@ package SeedGenerator {
     val UNCAT = "No category"
     val NOVAL = "No value"
     val VOID: LocData = LocData("Null", "Void", UNCAT, NOVAL, "Void", "N/A", -1, "N/A", "0", 0, 0)
-    def spawnLoc(i: Int): LocData = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "spawn", "control", 3, "spawn", "0", 0, 0)
+    def spawnLoc(i: Int): LocData = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "Spawn", "control", 3, "spawn", "0", 0, 0)
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = "loc_data.csv".f.canonPath
@@ -413,7 +413,7 @@ package SeedGenerator {
       if(Settings.flags.worldTour) {
         Logger.debug("World Tour: finding relic placements...")
         Nodes._items.values.groupBy(_.data.zone).foreach({
-          case (zone, _) if Seq("Windtorn Ruins", "Void") contains zone => // no relics in these zones
+          case (zone, _) if Seq("Windtorn Ruins", "Void", "Spawn") contains zone => // no relics in these zones
           case (_, items) =>
           if(r.nextFloat() < .8) {
             val slot = items.toSeq.rand
