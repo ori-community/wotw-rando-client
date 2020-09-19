@@ -60,11 +60,12 @@ namespace RandoMainDLL {
 
         AHK.Init();
         SeedController.ReadSeed(true);
-        Log("init complete", false);
 
         Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
         Client.UberStateChanged = UberStateController.HandleSyncedUberStateChange;
         DiscordController.Initialize();
+
+        Log("init complete", false);
         return true;
       } catch (Exception e) {
         Log($"init error: {e.Message}\n{e.StackTrace}");
