@@ -24,13 +24,16 @@ namespace RandoMainDLL {
     }
 
     public static bool Initialized = false;
-    public static bool ConnectToServer = false;
     public static Discord.User User;
     private static Discord.Discord _discord;
     public static Discord.ApplicationManager ApplicationManager;
     public static Discord.OAuth2Token Token;
     public static void Initialize() {
-      if (Disabled) return;
+      Disabled = AHK.IniFlag("DisableNetcode");
+      if (Disabled) {
+        Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
+        return;
+      } 
       ApplicationManager = discord.GetApplicationManager();
       ApplicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) => {
         try {

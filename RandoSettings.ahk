@@ -26,6 +26,7 @@ IniRead, varHideQuestFilter, %inipath%, Flags, HideQuestFilter, false
 IniRead, varHideWarpFilter, %inipath%, Flags, HideWarpFilter, false
 IniRead, varHideCollectableFilter, %inipath%, Flags, HideCollectableFilter, false
 IniRead, varAlwaysShowWarps, %inipath%, Flags, AlwaysShowWarps, false
+IniRead, varDisableNetcode, %inipath%, Flags, DisableNetcode, false
 
 IniRead, varSteamPath, %inipath%, Paths, Steam
 
@@ -61,6 +62,7 @@ ahkVarHideQuestFilter := parseBooltoNum(varHideQuestFilter)
 ahkVarHideWarpFilter := parseBooltoNum(varHideWarpFilter)
 ahkVarHideCollectableFilter := parseBooltoNum(varHideCollectableFilter)
 ahkVarAlwaysShowWarps := parseBooltoNum(varAlwaysShowWarps)
+ahkvarDisableNetcode := parseBooltoNum(varDisableNetcode)
 ; Adding all the buttons and text in the Window.
 
 col2 := 260
@@ -123,6 +125,9 @@ Gui, Add, Checkbox, x%col2% ys checked%ahkvarAutoUpdate% vahkvarAutoUpdate gwrit
 Gui, Add, Text, x20 section, Beta Versions
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarBetaVersions% vahkvarBetaVersions gwritetofile
 
+Gui, Add, Text, x20 section, Disable Netcode
+Gui, Add, Checkbox, x%col2% ys checked%ahkvarDisableNetcode% vahkvarDisableNetcode gwritetofile
+
 Gui, Add, Text, x20 section, Use Windows Store
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarUseWinStore% vahkvarUseWinStore gwritetofile
 
@@ -177,6 +182,7 @@ writetofile:
     varHideWarpFilter := parseNumtoBool(ahkvarHideWarpFilter)
     varHideCollectableFilter := parseNumtoBool(ahkvarHideCollectableFilter)
     varAlwaysShowWarps := parseNumtoBool(ahkvarAlwaysShowWarps)
+    varDisableNetcode := parseNumtoBool(ahkvarDisableNetcode)
     ; Writing the new values to file.
     IniWrite, %varSkipUpdate%, %inispath%, Flags, SkipUpdate
     IniWrite, %varShowShortCutscenes%, %inipath%, Flags, ShowShortCutscenes
@@ -196,6 +202,7 @@ writetofile:
     IniWrite, %varHideCollectableFilter%, %inipath%, Flags, HideCollectableFilter
     IniWrite, %varAlwaysShowWarps%, %inipath%, Flags, AlwaysShowWarps
     IniWrite, %varSteamPath%, %inipath%, Paths, Steam
+    IniWrite, %varDisableNetcode%, %inipath%, Flags, DisableNetcode
     return
 
 
@@ -250,6 +257,9 @@ Help(wParam, lParam, Msg) {
 
     else IfEqual, HoverText, Launch with Item Tracker
         Help := "Automatically open the item tracker when launching the randomizer"
+
+    else IfEqual, HoverText, Disable Netcode
+        Help := "Checking this option prevents the randomizer from communicating with the rando server.`nWith netcode disabled, bingo autotracking and other networked features will be unavailable.`nNote: Netcode uses Discord OAuth to identify users to the webserver."
 
 
     SetTimer, DisableTT, -3000
