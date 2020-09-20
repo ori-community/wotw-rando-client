@@ -69,7 +69,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
                 outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
-                outgoing.sendMessage(PrintTextMessage(text = "Hewwo $user", frames = 240, ypos = 3f))
+                outgoing.sendMessage(PrintTextMessage(text = "$user - Connected", frames = 600, ypos = 3f))
 
                 protocol {
                     onMessage(UberStateUpdateMessage::class) {

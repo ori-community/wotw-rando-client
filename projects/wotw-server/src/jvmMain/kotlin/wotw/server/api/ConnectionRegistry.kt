@@ -58,7 +58,6 @@ class ConnectionRegistry {
                 val playerId = playerData.user.id.value
                 if(playerConns[playerId] != null) {
                     val bingoPlayerData = board.getPlayerData(playerData.uberStateData)
-                    logger.info("$bingoPlayerData")
                     messages += {
                         playerConns[playerId]!!.socket.outgoing.sendMessage(UberStateUpdateMessage(UberId(10, 0), bingoPlayerData.squares.toFloat()))
                         playerConns[playerId]!!.socket.outgoing.sendMessage(UberStateUpdateMessage(UberId(10, 1), bingoPlayerData.lines.toFloat()))
