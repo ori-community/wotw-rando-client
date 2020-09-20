@@ -141,7 +141,7 @@ enum class Line(val label: String, val start: Point, val direction: Point) {
 }
 @Serializable
 data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf()) {
-    fun Line.cards() = (1..size).map { this.direction * it + this.start }
+    fun Line.cards() = (1..size).map { this.direction * (it-1) + this.start }
     val allKeys
         get() = goals.values.flatMap { it.keys }.toSet()
     val size = 5 // get() = goals.keys.maxByOrNull { it.first }
