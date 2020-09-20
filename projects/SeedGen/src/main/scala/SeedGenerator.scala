@@ -33,7 +33,7 @@ package SeedGenerator {
       // sugar funcs for interacting with paths and their target files
       def exists: Boolean = Files exists f
       def toOpt: Option[Path] = exists ? f
-      def readLines: Seq[String] = Files.readAllLines(f).asScala
+      def readLines: Seq[String] = exists ? Files.readAllLines(f).asScala.toSeq ?? Seq()
       def read: Option[String] = exists ? readLines.mkString("\n")
       def write(output: => String): Unit = {
         val bw = Files.newBufferedWriter(f, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
