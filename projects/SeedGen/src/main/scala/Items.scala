@@ -21,8 +21,9 @@ package SeedGenerator {
     val itemType: Int = -1
   }
 
-  case class RawItem(override val code: String) extends Unplaceable {
-    def name: String = code
+  case class RawItem(main: String, extra: Option[String] = None) extends Unplaceable {
+    override val code: String = main + extra ?? ""
+    def name: String = main
   }
 
   trait SpiritLightItem extends Item {
