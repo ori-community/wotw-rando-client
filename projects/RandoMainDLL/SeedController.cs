@@ -303,18 +303,6 @@ namespace RandoMainDLL {
               var warpX = extras[0].ParseToFloat("BuildPickup.PositionX");
               var warpY = extras[1].ParseToFloat("BuildPickup.PositionY");
               return new WarpCommand(warpX, warpY);
-            case SysCommandType.StartTimer:
-            case SysCommandType.StopTimer:
-              if (extras.Count != 2) {
-                Randomizer.Log($"malformed command specifier ${pickupData}", false);
-                return new Message($"Invalid command ${pickupData}!");
-              }
-              var incGroup = extras[0].ParseToInt("BuildPickup.IncGroup");
-              var incState = extras[1].ParseToInt("BuildPickup.IncState");
-              return new TimerCommand(
-                t,
-                new UberId(incGroup, incState)
-              );
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }

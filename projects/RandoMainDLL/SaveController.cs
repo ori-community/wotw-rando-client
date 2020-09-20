@@ -85,9 +85,8 @@ namespace RandoMainDLL {
           // slot swap
           CurrentSlot = slot;
         }
-        UberStateController.SkipListeners = true;
+        UberStateController.SkipListenersNextUpdate = true;
         UberStateController.UberStates.Clear();
-        UberStateController.TickingUberStates.Clear();
         if (DidWeJustDie) {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
