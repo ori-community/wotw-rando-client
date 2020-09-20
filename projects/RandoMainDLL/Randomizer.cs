@@ -30,7 +30,6 @@ namespace RandoMainDLL {
         SeedController.ReadSeed();
         UberStateController.NeedsNewGameInit = true;
         UberStateController.UberStates.Clear();
-        UberStateController.TickingUberStates.Clear();
         AHK.OnNewGame();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
@@ -78,11 +77,10 @@ namespace RandoMainDLL {
       try {
         var gs = InterOp.get_game_state();
         if (gs == GameState.TitleScreen) {
-          UberStateController.SkipListeners = true;
           if (TitleScreenCallback != null)
             OnTitleScreen();
+          UberStateController.SkipListenersNextUpdate = true;
         } else if (gs == GameState.Game) {
-          UberStateController.SkipListeners = false;
           UberStateController.Update();
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Threading;
@@ -9,7 +8,6 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class UberStateController {
-    public static HashSet<UberId> TickingUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
     public static UberValue? ValueOpt(this UberState state) => state.GetUberId().ValueOpt();
@@ -51,6 +49,9 @@ namespace RandoMainDLL {
         else
           TpsByID[identifier].p().Grant(true);
       } catch(Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
+    }
+    public static void ClearStates() {
+      UberStates.Clear();
     }
 
     public static void RegisterSyncedUberState(UberId id) {
@@ -162,7 +163,17 @@ namespace RandoMainDLL {
       }
     }
 
-    public static void OnUberStateChanged(int groupID, int stateID, byte type, float oldValue, float newValue) {
+    private static bool bufferSwitch = true;
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer1 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer2 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
+    private static ConcurrentQueue<Tuple<UberState, UberValue>> getchangedUberStatesBuffer() {
+      if (bufferSwitch)
+        return changedUberStatesBuffer1;
+      else
+        return changedUberStatesBuffer2;
+    }
+
+    public static void onUberStateChanged(int groupID, int stateID, byte type, float oldValue, float newValue) {
       if (uberStateLookup == null) {
         PopulateUberStates();
       }
@@ -172,7 +183,7 @@ namespace RandoMainDLL {
         UberState state = cachedState.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        ResolveUberStateChange(state, value);
+        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
       }
       else if (serializableUberState((UberStateType)type)) {
         var state = createUberStateEntry(key);
@@ -181,71 +192,84 @@ namespace RandoMainDLL {
         state = state.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        ResolveUberStateChange(state, value);
-      }
-    }
-    public static void ResolveUberStateChange(UberState state, UberValue old) {
-      try {
-        UberId key = state.GetUberId();
-        if (!UberStates.TryGetValue(key, out UberState oldState)) {
-          oldState = state.Clone();
-          oldState.Value = old;
-          UberStates.Add(key, oldState);
-        }
-
-        UberValue value = state.Value;
-        if (value.Int == old.Int)
-          return;
-
-        var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
-        if (ShouldRevert(state)) {
-          Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
-          oldState.Write();
-          return;
-        }
-
-        HandleSpecial(state);
-        UberStates[key].Value = state.Value;
-        var pos = InterOp.get_position();
-        bool found = false;
-        if (value.Int > 0) {
-          if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
-            var id = state.GetUberId();
-            var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
-            if (p.NonEmpty) {
-              SkipUberStateMapCount[key] -= 1;
-              Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
-              return;
-            }
-          }
-
-          found = SeedController.OnUberState(state);
-        }
-
-        if (SyncedUberStates.Contains(key))
-          Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
-
-        BonusItemController.OnUberState(state);
-        if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 70))
-          Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
-      }
-      catch (Exception e) {
-        Randomizer.Error($"USC.Update {state}", e);
+        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
       }
     }
 
+    public static int updateState = 0;
     public static void Update() {
       if (NeedsNewGameInit)
         NewGameInit();
 
-      if (!SkipListeners) {
-        // We do ToArray here so we can change the hashset while we are looping.
-        foreach (var state in TickingUberStates.ToArray()) {
-          // Maybe change this to use our own cache lookup?
-          var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
-          InterOp.set_uber_state_value(state.GroupID, state.ID, value + 1);
+      bool SkipListners = SkipListenersNextUpdate;
+      SkipListenersNextUpdate = false;
+
+      if (uberStateLookup == null) {
+        PopulateUberStates();
+      }
+
+      var stateAtomic = Interlocked.Increment(ref updateState);
+      var queue = getchangedUberStatesBuffer();
+      // Only switch queues if this is the first time we go through this.
+      if (stateAtomic <= 1)
+        bufferSwitch = !bufferSwitch;
+
+      Tuple<UberState, UberValue> pair;
+      while (queue.TryDequeue(out pair)) {
+        try {
+          UberState state = pair.Item1;
+          UberId key = state.GetUberId();
+
+          UberState oldState;
+          if (!UberStates.TryGetValue(key, out oldState)) {
+            oldState = state.Clone();
+            oldState.Value = pair.Item2;
+            UberStates.Add(key, oldState);
+          }
+
+          UberValue value = state.Value;
+          if (value.Int != pair.Item2.Int) {
+            var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
+            if (ShouldRevert(state)) {
+              Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
+              oldState.Write();
+              continue;
+            }
+            HandleSpecial(state);
+            UberStates[key].Value = state.Value;
+            if (!SkipListners) {
+              var pos = InterOp.get_position();
+              bool found = false;
+              if (value.Int > 0) {
+                if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
+                  var id = state.GetUberId();
+                  var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
+                  if(p.NonEmpty) {
+                    SkipUberStateMapCount[key] -= 1;
+                    Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
+                    continue;
+                  }
+                }
+                found = SeedController.OnUberState(state);
+              }
+
+              if (SyncedUberStates.Contains(key)) {
+                Randomizer.Log($"Sending update for {state}", false);
+                Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
+              }
+
+              BonusItemController.OnUberState(state);
+              if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 70))
+                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);              
+            }
+
+          }
+        } catch (Exception e) {
+          Randomizer.Error($"USC.Update {pair.Item1}", e);
         }
       }
+
+      updateState = 0;
 
       if (shouldUpdateSync) {
         shouldUpdateSync = false;
@@ -287,7 +311,7 @@ namespace RandoMainDLL {
         };
     }
     private static bool ShouldRevert(UberState state) {
-      if (NeedsNewGameInit || SkipListeners)
+      if (NeedsNewGameInit || SkipListenersNextUpdate)
         return false;
       if (state.Name == "cleanseWellspringQuestUberState" && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes")) 
           return true;
@@ -345,7 +369,7 @@ namespace RandoMainDLL {
 
     public static Dictionary<UberId, int> SkipUberStateMapCount = new Dictionary<UberId, int>();
 
-    public static bool SkipListeners = false;
+    public static bool SkipListenersNextUpdate = false;
 
     public static bool NeedsNewGameInit = false;
 
