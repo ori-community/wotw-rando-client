@@ -22,15 +22,26 @@ namespace RandoMainDLL {
 
     private WebSocket socket;
     public bool IsConnected { get { return socket != null && socket.IsAlive; } }
-
+    public bool Connecting = false;
     public void Connect() {
-      if (DiscordController.Disabled) return;
+      if (DiscordController.Disabled ) return;
+      if(Connecting) {
+        Randomizer.Log("Skipping connection request as one is in-progress", false, "DEBUG");
+        return;
+      }
       new Thread(() => {
+        Connecting = true;
         //      PlayerId = player;
         if (socket != null) {
           Disconnect();
         }
         try {
+          if(DiscordController.Token.AccessToken == null) {
+            Connecting = false;
+            Randomizer.Log("Have no token; reattempting discord auth", false, "WARN");
+            DiscordController.Initialize();
+            return;
+          }
           var client = new WebClient();
           client.UploadString($"https://{Domain}/api/sessions/", DiscordController.Token.AccessToken);
           var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
@@ -49,22 +60,25 @@ namespace RandoMainDLL {
         };
         socket.OnError += (sender, e) => {
           Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
-          ReconnectCooldown = 5;
+          Connecting = false;
         };
         socket.OnClose += (sender, e) => {
           Randomizer.Log("Disconnected! Retrying in 5s");
-          ReconnectCooldown = 5;
+          Connecting = false;
         };
         socket.OnMessage += HandleMessage;
         socket.OnOpen += (sender, args) => {
+          Connecting = false;
           Randomizer.Log($"Connected to server", false);
           UberStateController.QueueSyncedStateUpdate();
-          ReconnectCooldown = 0;
         };
         Randomizer.Log($"Attempting to connect to ${Domain}", false);
         try {
           socket.Connect();
-        } catch(Exception e) { Randomizer.Error("Connect (socket.)", e, false);  }
+        } catch(Exception e) {
+          Connecting = false;
+          Randomizer.Error("Connect (socket.)", e, false); 
+        }
 
       }).Start();
     }
