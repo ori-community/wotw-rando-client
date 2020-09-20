@@ -35,8 +35,8 @@ namespace RandoMainDLL {
         if (socket != null) {
           Disconnect();
         }
+        var user = DiscordController.GetUser();
         try {
-          var user = DiscordController.GetUser();
           if (user == null) {
             Connecting = false;
             Randomizer.Log("Have no user ID; reattempting discord auth", false, "WARN");
@@ -48,7 +48,7 @@ namespace RandoMainDLL {
           var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
           SessionId = rawCookie.Split(';')[0].Split('=')[1];
         } catch(Exception e) { 
-          Randomizer.Error($"Connect (UploadString, user was {DiscordController.Token}", e);
+          Randomizer.Error($"Connect (UploadString, user had id {user?.Id}", e);
           return;
         }
 
