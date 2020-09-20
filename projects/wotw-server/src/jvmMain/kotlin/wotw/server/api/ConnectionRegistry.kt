@@ -8,10 +8,13 @@ import wotw.io.messages.protobuf.UberId
 import wotw.io.messages.protobuf.UberStateUpdateMessage
 import wotw.io.messages.sendMessage
 import wotw.server.database.model.Game
+import wotw.server.util.logger
 import wotw.util.MultiMap
 import java.util.*
 
 class ConnectionRegistry {
+    val logger = logger()
+
     data class PlayerConn(val socket: WebSocketSession, val gameId: Long?)
     private val bingoGameConns = MultiMap<Long, WebSocketSession>(Collections.synchronizedMap(hashMapOf()))
     private val bingoPlayerConns = MultiMap<Pair<Long, Long>, WebSocketSession>(Collections.synchronizedMap(hashMapOf()))
@@ -55,6 +58,7 @@ class ConnectionRegistry {
                 val playerId = playerData.user.id.value
                 if(playerConns[playerId] != null) {
                     val bingoPlayerData = board.getPlayerData(playerData.uberStateData)
+                    logger.info("$bingoPlayerData")
                     messages += {
                         playerConns[playerId]!!.socket.outgoing.sendMessage(UberStateUpdateMessage(UberId(10, 0), bingoPlayerData.squares.toFloat()))
                         playerConns[playerId]!!.socket.outgoing.sendMessage(UberStateUpdateMessage(UberId(10, 1), bingoPlayerData.lines.toFloat()))
