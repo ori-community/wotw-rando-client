@@ -13,14 +13,11 @@ namespace RandoMainDLL {
 
     public UberStateRegistrationHandler UberStateRegistered;
     public UberStateUpdateHandler UberStateChanged;
-    private static string _domain;
     public static string Domain { 
       get {
-        if (_domain == null) { 
-          _domain = AHK.IniString("Paths", "URL");
-          if(_domain == "")
-            _domain = "wotw.orirando.com";
-        }
+        string _domain = AHK.IniString("Paths", "URL");
+        if(_domain == "")
+          _domain = "wotw.orirando.com";
         return _domain;
       }
     }
