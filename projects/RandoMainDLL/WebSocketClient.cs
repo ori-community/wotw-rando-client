@@ -89,23 +89,25 @@ namespace RandoMainDLL {
     }
 
     public void SendUpdate(Memory.UberId id, float value) {
-      if (socket == null) {
+      if (socket == null || !socket.IsConnected) {
         return;
       }
+      try {
+        Packet packet = new Packet {
+          Id = 3,
+          Packet_ = new UberStateUpdateMessage {
+            State = new UberId {
+              // wolf started it :D
+              Group = id.GroupID == 0 ? -1 : id.GroupID,
+              State = id.ID == 0 ? -1 : id.ID
+            },
+            Value = value == 0f ? -1f : value
+          }.ToByteString()
+        };
 
-      Packet packet = new Packet {
-        Id = 3,
-        Packet_ = new UberStateUpdateMessage {
-          State = new UberId {
-            // wolf started it :D
-            Group = id.GroupID == 0 ? -1 : id.GroupID,
-            State = id.ID == 0 ? -1 : id.ID
-          },
-          Value = value == 0f ? -1f : value
-        }.ToByteString()
-      };
+        socket.Send(packet.ToByteArray());
+      } catch(Exception e) { Randomizer.Error("send update", e, false);  }
 
-      socket.Send(packet.ToByteArray());
     }
 
     public void HandleMessage(object sender, MessageEventArgs args) {
