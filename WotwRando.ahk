@@ -11,7 +11,7 @@ INSTALL_DIR := A_ScriptDir . "\"
 gosub SetCommonVariables
 
 ; change this TO THE NAME OF THE NEW SETTING when a new setting is added
-NewSetting := "Disable Netcode"
+NewSetting := ""
 FirstLaunch := False
 
 updateFailedMsg=
