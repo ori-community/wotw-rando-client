@@ -78,9 +78,9 @@ namespace RandoMainDLL {
       return iniFlagCache[flag];
     }
 
-    public static string IniString(string section, string name) {
+    public static string IniString(string section, string name, string def = "") {
       var raw = Engine.ExecFunction("DoIniRead", section, name);
-      return Falsey.Contains(raw) ? "" : raw;
+      return Falsey.Contains(raw) ? def : raw;
     }
 
     public static void Tick() {
