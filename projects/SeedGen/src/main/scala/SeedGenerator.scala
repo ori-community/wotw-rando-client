@@ -404,7 +404,8 @@ package SeedGenerator {
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
     var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
-    val seedLineRegex: Regex = """^((!)?([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
+    val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
+    val addItemRegex: Regex = """^!!add ([0-9]+\|.*?) *(//.*)?""".r
 
     def regenPreplcs(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
@@ -416,10 +417,10 @@ package SeedGenerator {
         Nodes._items.values.groupBy(_.data.zone).foreach({
           case (zone, _) if Seq("Windtorn Ruins", "Void", "Spawn") contains zone => // no relics in these zones
           case (_, items) =>
-          if(r.nextFloat() < .8) {
-            val slot = items.toSeq.rand
-            addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
-          }
+            if(r.nextFloat() < .8) {
+              val slot = items.toSeq.rand
+              addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
+            }
         })
         Logger.debug(s"World Tour: placed ${preplc.size} relics")
       }
@@ -433,7 +434,14 @@ package SeedGenerator {
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
       Settings.userHeader.foreach({ // yes, this is how we nullcheck now
-        case raw @ seedLineRegex(dontMergeToPool, locCode,_,_,_,itemCode,_,_,extra,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
+        case  addItemRegex(itemCode, comm) =>
+          val item = poolByCode.get(itemCode) match{
+            case Some(i) => i
+            case None =>RawItem(itemCode, Option(comm))
+          }
+          Logger.debug(s"adding $item to the item pool")
+          pool.add(item)
+        case raw @ seedLineRegex(dontMergeToPool, locCode,_,_,_,itemCode,_,_,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
           (dontMergeToPool == "!", locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (true, _, _) => // do nothing
             case (false, Some(loc), Some(item)) =>
@@ -443,7 +451,7 @@ package SeedGenerator {
               Logger.debug(s"$loc, ${preplc.get(loc)}, $preplc")
             case (false, Some(loc), None) =>
               Logger.debug(s"$loc, None($itemCode) <= $raw")
-              addPreplc(GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc))
+              addPreplc(GhostPlacement(RawItem(itemCode), loc))
             case (false, None, Some(item)) =>
               Logger.debug(s"None($locCode), $item <= $raw")
               pool.take(item)
@@ -817,7 +825,7 @@ package SeedGenerator {
     //noinspection FieldFromDelayedInit
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
-      val h = Settings.userHeader.map(_.stripMargin('!')).mkString("\n")
+      val h = Settings.userHeader.filterNot(_.startsWith("!!")).map(_.stripMargin('!')).mkString("\n")
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {
