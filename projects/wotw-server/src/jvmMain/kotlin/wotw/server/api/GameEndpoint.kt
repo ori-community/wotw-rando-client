@@ -58,6 +58,9 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     CloseReason(CloseReason.Codes.NORMAL, "Player is not part of an active game")
                 )
 
+                val gameId = newSuspendedTransaction { PlayerData.findById(playerDataId)?.game?.id?.value }
+                server.connections.registerGameConn(this, playerId, gameId)
+
                 val initData = newSuspendedTransaction {
                     PlayerData.findById(playerDataId)?.game?.board?.goals?.flatMap { it.value.keys }
                         ?.map { UberId(it.first, it.second) }
@@ -66,7 +69,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
                 outgoing.sendMessage(InitBingoMessage(initData?.distinct() ?: emptyList()))
-                outgoing.sendMessage(PrintTextMessage(text = "Hello $user", frames = 240, ypos = 3f))
+                outgoing.sendMessage(PrintTextMessage(text = "Hewwo $user", frames = 240, ypos = 3f))
 
                 protocol {
                     onMessage(UberStateUpdateMessage::class) {
@@ -81,6 +84,11 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                             data[real_group to real_state] = real_value
                             playerData.uberStateData = data
                             playerData.game.id.value
+                        }
+                        val pc = server.connections.playerConns[playerId]!!
+                        if(pc.gameId != game) {
+                            server.connections.unregisterGameConn(playerId)
+                            server.connections.registerGameConn(pc.socket, playerId, game)
                         }
                         server.connections.onGameUpdate(game)
                     }

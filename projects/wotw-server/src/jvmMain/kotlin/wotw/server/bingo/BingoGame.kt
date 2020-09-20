@@ -5,8 +5,6 @@ import kotlinx.serialization.Serializable
 import wotw.io.messages.protobuf.BingoBoard
 import wotw.io.messages.protobuf.BingoSquare
 import wotw.io.messages.protobuf.Position
-import wotw.io.messages.protobuf.UberId
-import kotlin.math.exp
 
 typealias GameState = UberStateMap //These have changed *4 times* now, I'm keeping the typealiases :D
 
@@ -122,10 +120,37 @@ data class NumberThresholdGoal(override val title: String, private val expressio
 
 typealias Point = Pair<Int, Int>
 
+data class PlayerBingoData(val lines: Int, val squares: Int, val rank: Int)
+
+fun Boolean.int() = if(this) 1 else 0
+operator fun Point.times(i: Int) = this.first*i to this.second*i
+operator fun Point.plus(p: Point) = this.first + p.first to this.second + p.second
+enum class Line(val label: String, val start: Point, val direction: Point) {
+    COL_A("Column A", 1 to 1, 0 to 1),
+    COL_B("Column B", 2 to 1, 0 to 1),
+    COL_C("Column C", 3 to 1, 0 to 1),
+    COL_D("Column D", 4 to 1, 0 to 1),
+    COL_E("Column E", 5 to 1, 0 to 1),
+    ROW_1("Row 1", 1 to 1, 1 to 0),
+    ROW_2("Row 2", 1 to 2, 1 to 0),
+    ROW_3("Row 3", 1 to 3, 1 to 0),
+    ROW_4("Row 4", 1 to 4, 1 to 0),
+    ROW_5("Row 5", 1 to 5, 1 to 0),
+    X("TLBR", 1 to 1, 1 to 1),
+    Y("TLBR", 1 to 5, 1 to -1)
+}
 @Serializable
 data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf()) {
+    fun Line.cards() = (1..size).map { this.direction * it + this.start }
     val allKeys
         get() = goals.values.flatMap { it.keys }.toSet()
+    val size = 5 // get() = goals.keys.maxByOrNull { it.first }
+    fun goalCompleted(p: Point, gs: GameState?) = goals[p]?.isCompleted(gs ?: UberStateMap.empty) ?: false
+    fun getPlayerData(gameState: GameState?): PlayerBingoData {
+        val lines = Line.values().count {l -> l.cards().all {goalCompleted(it, gameState)}}
+        val squares = goals.count { (position, _) -> goalCompleted(position, gameState)}
+        return PlayerBingoData(lines, squares, lines*10+squares)
+    }
 
     fun toBingoBoard(gameState: GameState?): BingoBoard {
         val gameState = gameState ?: UberStateMap.empty

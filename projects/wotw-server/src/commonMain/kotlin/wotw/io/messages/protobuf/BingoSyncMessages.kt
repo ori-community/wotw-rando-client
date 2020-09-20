@@ -14,7 +14,10 @@ data class PlayerInfo(
     @ProtoNumber(1) val playerId: Long,
     @ProtoNumber(2) val name: String,
     @ProtoNumber(3) val score: String,
-    @ProtoNumber(4) val rank: Int? = null
+    @ProtoNumber(4) val rank: Int = 0,
+    @ProtoNumber(5) val squares: Int = 0,
+    @ProtoNumber(6) val lines: Int = 0,
+
 )
 
 @Serializable

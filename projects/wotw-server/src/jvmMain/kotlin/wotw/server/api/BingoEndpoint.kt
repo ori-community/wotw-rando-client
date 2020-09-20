@@ -9,8 +9,6 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
 import io.ktor.websocket.*
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.io.messages.protobuf.BingoData
 import wotw.io.messages.protobuf.RequestUpdatesMessage
@@ -103,13 +101,13 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 )
 
             var playerId = -1L
-            server.connections.register(this@webSocket, gameId)
+            server.connections.registerBingoBoardConn(this@webSocket, gameId)
             protocol {
                 onMessage(RequestUpdatesMessage::class) {
                     if (this.playerId != playerId) {
-                        server.connections.unregister(this@webSocket, gameId, playerId)
+                        server.connections.unregisterBingoBoardConn(this@webSocket, gameId, playerId)
                         playerId = this.playerId
-                        server.connections.register(this@webSocket, gameId, playerId)
+                        server.connections.registerBingoBoardConn(this@webSocket, gameId, playerId)
 
                         val playerData = newSuspendedTransaction {
                             game.players.firstOrNull { it.user.id.value == playerId }?.uberStateData
@@ -118,11 +116,11 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     }
                 }
                 onClose {
-                    server.connections.unregister(this@webSocket, gameId)
+                    server.connections.unregisterAllBingoBoardConns(this@webSocket, gameId)
                 }
                 onError {
 
-                    server.connections.unregister(this@webSocket, gameId)
+                    server.connections.unregisterAllBingoBoardConns(this@webSocket, gameId)
                 }
                 onMessage(Any::class) {
                     println("Incoming Message: $this")
