@@ -8,30 +8,19 @@ namespace RandoMainDLL {
   public static class DiscordController {
     private static long CLIENT_ID = 751523174767919195;
     public static bool Disabled = false;
-    public static Discord.UserManager UserManager {
-      get {
-        if(userManager == null) {
-          userManager = discord.GetUserManager();
-        }
-        return userManager;
-      }
-    }
-    private static Discord.UserManager userManager;
-    public static Discord.Discord discord {
-      get {
-        if (_discord == null)
-          _discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default); ;
-        return _discord;
-      }
-    }
-
+    public static Discord.Discord discord  = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
+    public static Discord.UserManager UserManager = discord.GetUserManager();
     public static bool Initialized = false;
     public static Discord.User User;
-    private static Discord.Discord _discord;
     public static Discord.ApplicationManager ApplicationManager;
     public static Discord.OAuth2Token Token;
     public static bool InitRunning = false;
     public static void Initialize() {
+      if(GetUser() != null) {
+        Randomizer.Log("User already known, skipping rest of discord init", false, "DEBUG");
+        Randomizer.Client.Connect();
+        return;
+      }
       if (InitRunning) {
         Randomizer.Log("Init running already, skipping", false, "DEBUG");
         return;
@@ -41,13 +30,14 @@ namespace RandoMainDLL {
         Disabled = AHK.IniFlag("DisableNetcode");
         if (Disabled) {
           Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
+          InitRunning = false;
           return;
         }
-        discord.SetLogHook(Discord.LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(Discord.LogLevel.Info) > 0, level.ToString()));
+        discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(Discord.LogLevel.Info) > 0, level.ToString()));
         ApplicationManager = discord.GetApplicationManager();
-        ApplicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) => {
+        ApplicationManager.GetOAuth2Token((Result result, ref Discord.OAuth2Token token) => {
           try {
-            if (result == Discord.Result.Ok) { // You may now use this token against Discord's HTTP API
+            if (result == Result.Ok) { // You may now use this token against Discord's HTTP API
               Token = token;
               Randomizer.Log($"Token for the user: {token.AccessToken}. Expires in {token.Expires}. Session ID: {WebSocketClient.SessionId}", false);
               InitRunning = false;
@@ -69,20 +59,24 @@ namespace RandoMainDLL {
 
     public static void Update() {
       try {
-        if(discord != null)
+        if (discord != null)
           discord?.RunCallbacks();
       } catch (Exception e) {
+        if (e is NullReferenceException)
+          return;
         Randomizer.Error("Discord callbacks", e, false);
       }
     }
 
     public static User? GetUser() {
-      if(Disabled || InitRunning) 
-        return null;
       try {
         return UserManager.GetCurrentUser();
       }
       catch(Exception e) {
+        if (e is Discord.ResultException) {
+          Randomizer.Log($"Result exception {e} on GetUser, returning null", false);
+          return null;
+        }
         Randomizer.Error("GetUser", e, false);
         return null;
       }
@@ -91,6 +85,7 @@ namespace RandoMainDLL {
     public static void DiscordInitComplete() {
       if (Disabled) return;
       User = UserManager.GetCurrentUser();
+      InitRunning = false;
       Randomizer.Log($"Discord; have user UID: {User.Id}", false);
       Randomizer.Client.Connect();
 
