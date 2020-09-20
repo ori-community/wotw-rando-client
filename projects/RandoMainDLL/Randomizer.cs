@@ -96,6 +96,7 @@ namespace RandoMainDLL {
     }
 
     public static bool Dev = false;
+    private static object logLock = new object();
 
     public static void Error(string caller, Exception e, bool printIfDev = true) {
       Log($"{caller}: {e.Message}\n{e.StackTrace}", printIfDev, "ERROR");
@@ -112,7 +113,7 @@ namespace RandoMainDLL {
         return;
       if (level == "DEBUG" && !Dev)
         return;
-      lock (LogFile) {
+      lock (logLock) {
         File.AppendAllText(LogFile, contents: $"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       }
       if (Dev && printIfDev)

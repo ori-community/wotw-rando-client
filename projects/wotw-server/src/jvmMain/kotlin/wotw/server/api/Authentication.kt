@@ -63,6 +63,10 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 call.sessions.set(UserSession(user.id.value))
                 call.respondText(call.response.cookies[SESSION_AUTH]?.value ?: "")
             }
+            post<Long>("/uid") {
+                call.sessions.set(UserSession(it))
+                call.respondText(call.response.cookies[SESSION_AUTH]?.value ?: "")
+            }
             authenticate(SESSION_AUTH) {
                 delete {
                     call.sessions.clear(SESSION_AUTH)
