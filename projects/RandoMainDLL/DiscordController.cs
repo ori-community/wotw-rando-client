@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Security.Cryptography;
+using System.Threading;
+using Discord;
 
 namespace RandoMainDLL {
   public static class DiscordController {
@@ -28,48 +30,69 @@ namespace RandoMainDLL {
     private static Discord.Discord _discord;
     public static Discord.ApplicationManager ApplicationManager;
     public static Discord.OAuth2Token Token;
+    public static bool InitRunning = false;
     public static void Initialize() {
-      Disabled = AHK.IniFlag("DisableNetcode");
-      if (Disabled) {
-        Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
+      if (InitRunning) {
+        Randomizer.Log("Init running already, skipping", false, "DEBUG");
         return;
       }
-      discord.SetLogHook(Discord.LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(Discord.LogLevel.Info) > 0, level.ToString()));
-      ApplicationManager = discord.GetApplicationManager();
-      ApplicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) => {
-        try {
-          if (result == Discord.Result.Ok) { // You may now use this token against Discord's HTTP API
-            Token = token;
-            var client = new WebClient();
-            client.UploadString($"https://{WebSocketClient.Domain}/api/sessions/", token.AccessToken);
-            var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
-            WebSocketClient.SessionId = rawCookie.Split(';')[0].Split('=')[1];
-            Randomizer.Log($"Token for the user: {token.AccessToken}. Expires in {token.Expires}. Session ID: {WebSocketClient.SessionId}", false);
-            Initialized = true;
-          }
-          else {
-            Randomizer.Log($"Got: {result}");
-          }
+      InitRunning = true;
+      new Thread(() => {
+        Disabled = AHK.IniFlag("DisableNetcode");
+        if (Disabled) {
+          Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
+          return;
         }
-        catch (Exception e) {
-          Randomizer.Error("appManager", e);
-        }
-      });
-     UserManager.OnCurrentUserUpdate += DiscordInitComplete;
+        discord.SetLogHook(Discord.LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(Discord.LogLevel.Info) > 0, level.ToString()));
+        ApplicationManager = discord.GetApplicationManager();
+        ApplicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) => {
+          try {
+            if (result == Discord.Result.Ok) { // You may now use this token against Discord's HTTP API
+              Token = token;
+              Randomizer.Log($"Token for the user: {token.AccessToken}. Expires in {token.Expires}. Session ID: {WebSocketClient.SessionId}", false);
+              InitRunning = false;
+            }
+            else {
+              Randomizer.Log($"Got: {result}, token is ${token.AccessToken}", false);
+              Token = token;
+              InitRunning = false;
+            }
+          }
+          catch (Exception e) {
+            Randomizer.Error("appManager", e);
+            InitRunning = false;
+          }
+        });
+        UserManager.OnCurrentUserUpdate += DiscordInitComplete;
+      }).Start();
     }
 
     public static void Update() {
       try {
-        discord?.RunCallbacks();
+        if(discord != null)
+          discord?.RunCallbacks();
       } catch (Exception e) {
         Randomizer.Error("Discord callbacks", e, false);
       }
     }
 
+    public static User? GetUser() {
+      if(Disabled || InitRunning) 
+        return null;
+      try {
+        return UserManager.GetCurrentUser();
+      }
+      catch(Exception e) {
+        Randomizer.Error("GetUser", e, false);
+        return null;
+      }
+    }
+
     public static void DiscordInitComplete() {
       if (Disabled) return;
-      Randomizer.Client.Connect();
       User = UserManager.GetCurrentUser();
+      Randomizer.Log($"Discord; have user UID: {User.Id}", false);
+      Randomizer.Client.Connect();
 
     }
   }

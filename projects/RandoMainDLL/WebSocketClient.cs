@@ -36,18 +36,19 @@ namespace RandoMainDLL {
           Disconnect();
         }
         try {
-          if(DiscordController.Token.AccessToken == null) {
+          var user = DiscordController.GetUser();
+          if (user == null) {
             Connecting = false;
-            Randomizer.Log("Have no token; reattempting discord auth", false, "WARN");
+            Randomizer.Log("Have no user ID; reattempting discord auth", false, "WARN");
             DiscordController.Initialize();
             return;
           }
           var client = new WebClient();
-          client.UploadString($"https://{Domain}/api/sessions/", DiscordController.Token.AccessToken);
+          client.UploadString($"https://{Domain}/api/sessions/uid", $"{user?.Id}");
           var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
           SessionId = rawCookie.Split(';')[0].Split('=')[1];
         } catch(Exception e) { 
-          Randomizer.Error($"Connect (UploadString, token was {DiscordController.Token}", e);
+          Randomizer.Error($"Connect (UploadString, user was {DiscordController.Token}", e);
           return;
         }
 
