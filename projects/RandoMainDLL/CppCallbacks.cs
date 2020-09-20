@@ -142,7 +142,7 @@ namespace RandoMainDLL {
             CallbackName = "lupo_upgrade_cost"
           },
           new Method() {
-            Delegate = new f_void_int_int_byte_float_float(UberStateController.OnUberStateChanged),
+            Delegate = new f_void_int_int_byte_float_float(UberStateController.onUberStateChanged),
             CallbackName = "on_uber_state_applied"
           },
           new Method() {
