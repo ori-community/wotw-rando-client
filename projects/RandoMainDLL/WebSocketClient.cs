@@ -43,20 +43,32 @@ namespace RandoMainDLL {
         var user = DiscordController.GetUser();
         try {
           if (user == null) {
-            Connecting = false;
             Randomizer.Log("Have no user ID; reattempting discord auth", false, "WARN");
             DiscordController.Initialize();
+            Connecting = false;
+            FramesTillReconnectAttempt = 30;
             return;
           }
           var client = new WebClient();
-          if(AHK.IniFlag("Insecure")) 
+
+          if(AHK.IniFlag("Insecure")) // don't try this at home!
             ServicePointManager.ServerCertificateValidationCallback = (_, __, ___, ____) => true;
 
           client.UploadString($"http{S}://{Domain}/api/sessions/uid", $"{user?.Id}");
           var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
-          SessionId = rawCookie.Split(';')[0].Split('=')[1];
-        } catch(Exception e) { 
+          try {
+            SessionId = rawCookie.Split(';')[0].Split('=')[1];
+          } catch (Exception e2) {
+            Randomizer.Error($"Failed to parse cookie {rawCookie} (response headers: {client.ResponseHeaders})", e2);
+            Connecting = false;
+            FramesTillReconnectAttempt = 120;
+            return;
+          }
+        }
+        catch (Exception e) { 
           Randomizer.Error($"Connect (UploadString, user had id {user?.Id}", e);
+          Connecting = false;
+          FramesTillReconnectAttempt = 120;
           return;
         }
 
