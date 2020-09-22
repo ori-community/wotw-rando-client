@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -119,12 +120,17 @@ namespace RandoMainDLL {
         return;
       if (Frames > 0)
         AHK.Pickup(ToString(), Frames);
-      SaveController.FoundItem();
     }
-    public bool Collect(bool isGoal = false) {
-      SeedController.GrantingGoalModeLoc = isGoal;
-      Grant();
-      SeedController.GrantingGoalModeLoc = false;
+    public bool Collect(UberStateCondition foundAt) {
+      if (NonEmpty) {
+        SeedController.GrantingGoalModeLoc = foundAt.IsGoal();
+        Grant();
+        SeedController.GrantingGoalModeLoc = false;
+        if (foundAt.Loc().Type != LocType.Unknown) {
+          SaveController.FoundCount++;
+          MapController.UpdateReachable();
+        }
+      }
       return NonEmpty;
     }
 
@@ -152,6 +158,7 @@ namespace RandoMainDLL {
   public class UberStateSetter : Pickup {
     public readonly UberState State;
     public override PickupType Type => PickupType.UberState;
+    public override int Frames { get => 0; }
     public int supCount = 0;
     public UberStateSetter(UberState state, int sup = 0) {
       State = state;
@@ -193,10 +200,9 @@ namespace RandoMainDLL {
 
     public override int Frames {
       get {
-        var messages = Children.FindAll(p => p is Message msg);
-        if (messages.Count == 0)
-          return base.Frames;
-        return messages.Max(p => p.Frames);
+        if (NonEmpty)
+          return Children.Max(p => p.Frames);
+        return base.Frames;
       }
     }
 
@@ -219,17 +225,19 @@ namespace RandoMainDLL {
       if (Children.Count == 0) {
         return "Empty";
       }
-      var squelching = Children.FindAll(p => p is Message msg && msg.Squelch);
+      var targets = Children.Exists(p => p is Message msg && msg.Squelch) ? Children.FindAll(p => (p is Message msg && msg.Squelch) || p is ConditionalStop) : Children;
       List<string> names = new List<string>();
-      foreach (var child in (squelching.Count > 0 ? squelching : Children)) {
+      foreach (var child in targets.Count > 0 ? targets : Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
         if (child.Muted || child.Name == "")
           continue;
-        names.Add(child.Name);
+        names.Add(child.ToString());
       }
       return string.Join("\n", names.Where(s => s.Length > 0));
     }
+    
+    public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
 
   }
 
@@ -486,17 +494,17 @@ namespace RandoMainDLL {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.StopIfEqual:
-          Randomizer.Log($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue}");
+          Randomizer.Debug($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue}", false);
           if (state.ValueAsFloat() == targetValue)
             return true;
           break;
         case SysCommandType.StopIfGreater:
-          Randomizer.Log($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue}");
+          Randomizer.Debug($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue}", false);
           if (state.ValueAsFloat() > targetValue)
             return true;
           break;
         case SysCommandType.StopIfLess:
-          Randomizer.Log($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
+          Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
           if (state.ValueAsFloat() < targetValue)
             return true;
           break;

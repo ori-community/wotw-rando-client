@@ -113,7 +113,7 @@ namespace RandoMainDLL {
       if (!DiscordController.Disabled && !IsConnected) {
         if (FramesTillReconnectAttempt-- <= 0) {
           FramesTillReconnectAttempt = 0;
-          Randomizer.Log("Want c  onnection but currently have none, attempting reconnect", false);
+          Randomizer.Log("Want connection but currently have none, attempting reconnect", false);
           Connect();
         }
       }
