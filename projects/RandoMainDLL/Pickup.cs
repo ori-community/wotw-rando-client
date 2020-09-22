@@ -39,14 +39,14 @@ namespace RandoMainDLL {
 
   public enum SysCommandType : byte {
     Save = 0,
-    ProcUberStates = 1,
-    ProcUberStatesAndSurpress = 2,
     SupressMagic = 3,
     StopIfEqual = 4,
     StopIfGreater = 5,
     StopIfLess = 6,
     SetState = 7,
-    Warp = 8
+    Warp = 8,
+    StartTimer = 9,
+    StopTimer = 10,
   }
 
   public enum TeleporterType : byte {
@@ -470,13 +470,6 @@ namespace RandoMainDLL {
         case SysCommandType.Save:
           InterOp.save();
           break;
-        case SysCommandType.ProcUberStates:
-          UberStateController.Update();
-          break;
-        case SysCommandType.ProcUberStatesAndSurpress:
-          UberStateController.SkipListenersNextUpdate = true;
-          UberStateController.Update();
-          break;
       }
     }
     public override string ToString() => type.ToString();
@@ -555,6 +548,26 @@ namespace RandoMainDLL {
     public override string ToString() => $"Warp to {X}, {Y}";
   }
 
+  public class TimerCommand : SystemCommand {
+    private readonly UberId id;
+
+    public TimerCommand(SysCommandType type, UberId id) : base(type) {
+      this.id = id;
+    }
+    public override void Grant(bool skipBase = false) {
+      switch (type) {
+        case SysCommandType.StartTimer:
+          UberStateController.TickingUberStates.Add(id);
+          break;
+        case SysCommandType.StopTimer:
+          UberStateController.TickingUberStates.Remove(id);
+          break;
+      }
+      base.Grant(skipBase);
+    }
+    public override string ToString() => $"On trigger {id}";
+  }
+
   public class Resource : Pickup {
     public Resource(ResourceType resource) => type = resource;
 
@@ -624,6 +637,7 @@ namespace RandoMainDLL {
 
     public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
   }
+
   public enum WeaponUpgradeType {
     RapidSmash = 0,
     RapidSword = 1,
