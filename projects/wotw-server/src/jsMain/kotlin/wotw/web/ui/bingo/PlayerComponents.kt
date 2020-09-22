@@ -43,7 +43,10 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoPlayerState>() {
     override fun componentDidMount() {
         GlobalScope.launch {
             val maybeInfo = Application.user.await()
-            setState { highlighted = maybeInfo?.id }
+            if(maybeInfo != null) {
+                setState { highlighted = maybeInfo.id }
+                Application.eventBus.send(Packet.from(RequestUpdatesMessage(maybeInfo.id)))
+            }
         }
 
         Application.eventBus.register(this, SyncPlayersMessage::class) {
