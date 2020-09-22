@@ -29,6 +29,7 @@ namespace RandoMainDLL {
       if (DiscordController.Disabled ) return;
       if(Connecting) {
         Randomizer.Log("Skipping connection request as one is in-progress", false, "DEBUG");
+        FramesTillReconnectAttempt = 120;
         return;
       }
       new Thread(() => {
@@ -64,6 +65,7 @@ namespace RandoMainDLL {
         };
         socket.OnError += (sender, e) => {
           Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
+          FramesTillReconnectAttempt = 300;
           Connecting = false;
         };
         socket.OnClose += (sender, e) => {
@@ -81,6 +83,7 @@ namespace RandoMainDLL {
           socket.Connect();
         } catch(Exception e) {
           Connecting = false;
+          FramesTillReconnectAttempt = 120;
           Randomizer.Error("Connect (socket.)", e, false); 
         }
 
@@ -94,16 +97,21 @@ namespace RandoMainDLL {
       if (!DiscordController.Disabled && !IsConnected) {
         if (FramesTillReconnectAttempt-- <= 0) {
           FramesTillReconnectAttempt = 0;
-          Randomizer.Log("Want connection but currently have none, attempting reconnect", false);
+          Randomizer.Log("Want c  onnection but currently have none, attempting reconnect", false);
           Connect();
         }
       }
       if (!SendQueue.IsEmpty && !(updateThread != null && updateThread.IsAlive)) {
         updateThread = new Thread(() => {
           Randomizer.Debug($"Starting update thread to send {SendQueue.Count} packets", false);
-          while (SendQueue.TryDequeue(out var packet))
-            socket.Send(packet.ToByteArray());
-        });
+          try {
+            while (SendQueue.TryDequeue(out var packet) && (socket?.IsConnected ?? false)) {
+              socket.Send(packet.ToByteArray());
+            }
+          } catch(Exception e) {
+            Randomizer.Warn("UpdateThread", $"caught error {e},exiting update loop early");
+          }
+        }); 
         updateThread.Start();
       }
     }
