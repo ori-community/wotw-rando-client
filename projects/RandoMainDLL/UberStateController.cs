@@ -250,7 +250,7 @@ namespace RandoMainDLL {
       if (FullSyncNextUpdate) {
         FullSyncNextUpdate = false;
         var bad = new HashSet<UberId>();
-        foreach (var uid in SyncedUberStates) {
+        foreach (var uid in SyncedUberStates.ToList()) {
           if (uid.State() != null) {
             Randomizer.Client.SendUpdate(uid, uid.State().ValueAsFloat());
           }
