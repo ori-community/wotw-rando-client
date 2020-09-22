@@ -209,8 +209,8 @@ namespace RandoMainDLL {
         var pos = InterOp.get_position();
         bool found = false;
         if (value.Int > 0) {
+          var id = state.GetUberId();
           if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
-            var id = state.GetUberId();
             var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
             if (p.NonEmpty) {
               SkipUberStateMapCount[key] -= 1;
@@ -218,16 +218,17 @@ namespace RandoMainDLL {
               return;
             }
           }
-
           found = SeedController.OnUberState(state);
+          if (!found)
+            HintsController.OnLupoState(id);
         }
 
         if (SyncedUberStates.Contains(key))
           Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
 
         BonusItemController.OnUberState(state);
-        if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 70))
-          Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);
+        if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8))
+          Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {state.FmtVal()} (was {oldValFmt}, ori at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )");
       }
       catch (Exception e) {
         Randomizer.Error($"USC.Update {state}", e);
