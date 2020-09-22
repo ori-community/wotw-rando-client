@@ -92,6 +92,7 @@ namespace RandoMainDLL {
         AHK.Tick();
         BonusItemController.Update();
         DiscordController.Update();
+        Client.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }
@@ -109,11 +110,12 @@ namespace RandoMainDLL {
     public static void Warn(string caller, string message, bool printIfDev = true) {
       Log($"{caller}: {message}", printIfDev, "WARN");
     }
+    public static void Debug(string message, bool printIfDev = false) {
+      Log(message, printIfDev, "DEBUG");
+    }
 
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
       if (AHK.IniFlag("MuteCSLogs"))
-        return;
-      if (level == "DEBUG" && !Dev)
         return;
       lock (logLock) {
         File.AppendAllText(LogFile, contents: $"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
