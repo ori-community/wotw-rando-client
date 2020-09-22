@@ -106,7 +106,7 @@ fun generatePool() = mutableListOf(
     group(
         "Complete # Escape[s]",
         bool("The Wellspring", 37858, 12379),
-        bool("Baur's Reach", 28895, 16339),
+        bool("Baur's Reach", 28287, 16339),
         threshold("Windtorn Ruins", 10289, 19890, 3, hideValue=true),
         maxRepeats = 1
     ),
