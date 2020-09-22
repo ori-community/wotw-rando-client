@@ -61,9 +61,9 @@ namespace RandoMainDLL {
       InterOp.set_uber_state_value(id.GroupID, id.ID, value);
     }
 
-    private static bool shouldUpdateSync = false;
+    private static bool FullSyncNextUpdate = false;
     public static void QueueSyncedStateUpdate() {
-      shouldUpdateSync = true;
+      FullSyncNextUpdate = true;
     }
 
     private static UberState createUberStateEntry(UberId id) {
@@ -197,7 +197,7 @@ namespace RandoMainDLL {
         if (value.Int == old.Int)
           return;
 
-        var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
+        var oldValFmt = old.FmtVal(state.Type); // get this now because we overwrite the value by reference 
         if (ShouldRevert(state)) {
           Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
           oldState.Write();
@@ -247,8 +247,8 @@ namespace RandoMainDLL {
         }
       }
 
-      if (shouldUpdateSync) {
-        shouldUpdateSync = false;
+      if (FullSyncNextUpdate) {
+        FullSyncNextUpdate = false;
         var bad = new HashSet<UberId>();
         foreach (var uid in SyncedUberStates) {
           if (uid.State() != null) {
