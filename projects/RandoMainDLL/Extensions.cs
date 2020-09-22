@@ -8,6 +8,23 @@ namespace RandoMainDLL {
     public static UberStateCondition toCond(this Memory.UberId id, int? target = null) => new UberStateCondition(id, target);
     public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
+
+    public static string FmtVal(this UberValue Value, UberStateType t) {
+      switch (t) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return $"{Value.Bool}";
+        case UberStateType.SerializedByteUberState:
+          return $"{Value.Byte}";
+        case UberStateType.SerializedIntUberState:
+          return $"{Value.Int}";
+        case UberStateType.SerializedFloatUberState:
+          return $"{Value.Float}";
+      }
+      return $"{t}-{Value}";
+
+    }
+
     public static int AsInt(this UberValue v, UberStateType t) {
       switch(t) {
         case UberStateType.SavePedestalUberState:
