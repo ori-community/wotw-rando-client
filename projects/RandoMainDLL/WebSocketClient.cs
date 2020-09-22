@@ -15,12 +15,13 @@ namespace RandoMainDLL {
     public UberStateRegistrationHandler UberStateRegistered;
     public UberStateUpdateHandler UberStateChanged;
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
+    public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
     public static string SessionId;
 
     public bool ExpectingDisconnect = false;
     public int ReconnectCooldown = 0;
     public int FramesSinceLastCheck = 0;
-    private string ServerAddress => $"wss://{Domain}/api/game_sync/";
+    private string ServerAddress => $"ws{S}://{Domain}/api/game_sync/";
 
     private WebSocket socket;
     public bool IsConnected { get { return socket != null && socket.IsConnected; } }
@@ -48,7 +49,7 @@ namespace RandoMainDLL {
             return;
           }
           var client = new WebClient();
-          client.UploadString($"https://{Domain}/api/sessions/uid", $"{user?.Id}");
+          client.UploadString($"http{S}://{Domain}/api/sessions/uid", $"{user?.Id}");
           var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
           SessionId = rawCookie.Split(';')[0].Split('=')[1];
         } catch(Exception e) { 
