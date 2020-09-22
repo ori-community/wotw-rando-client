@@ -8,16 +8,16 @@ namespace RandoMainDLL {
   public static class DiscordController {
     private static long CLIENT_ID = 751523174767919195;
     public static bool Disabled = false;
-    public static Discord.Discord discord;
-    public static Discord.UserManager UserManager;
+    public static UserManager UserManager;
     public static bool Initialized = false;
-    public static Discord.User User;
-    public static Discord.ApplicationManager ApplicationManager;
-    public static Discord.OAuth2Token Token;
+    public static User User;
+    public static ApplicationManager ApplicationManager;
+    public static OAuth2Token Token;
     public static bool InitRunning = false;
+    public static Discord.Discord discord;
     public static void Initialize() {
       if (discord == null)
-        discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
+        discord = new Discord.Discord(CLIENT_ID, (UInt64)CreateFlags.Default);
       if(UserManager == null) 
         UserManager = discord.GetUserManager();
       if(ApplicationManager == null)
@@ -40,8 +40,8 @@ namespace RandoMainDLL {
           InitRunning = false;
           return;
         }
-        discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(Discord.LogLevel.Info) > 0, level.ToString()));
-        ApplicationManager.GetOAuth2Token((Result result, ref Discord.OAuth2Token token) => {
+        discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(LogLevel.Info) > 0, level.ToString()));
+        ApplicationManager.GetOAuth2Token((Result result, ref OAuth2Token token) => {
           try {
             if (result == Result.Ok) { // You may now use this token against Discord's HTTP API
               Token = token;
@@ -65,9 +65,8 @@ namespace RandoMainDLL {
 
     public static void Update() {
         try {
-        if (discord != null)
           discord?.RunCallbacks();
-      } catch (Exception e) {
+        } catch (Exception e) {
         if (e is NullReferenceException)
           return;
         Randomizer.Error("Discord callbacks", e, false);
@@ -79,8 +78,9 @@ namespace RandoMainDLL {
         return UserManager.GetCurrentUser();
       }
       catch(Exception e) {
-        if (e is Discord.ResultException) {
-          Randomizer.Log($"Result exception {e} on GetUser, returning null", false);
+        if (e is ResultException re) {
+          if(re.Result != Result.NotFound)
+            Randomizer.Log($"Result exception {e} on GetUser, returning null", false);
           return null;
         }
         Randomizer.Error("GetUser", e, false);
@@ -92,7 +92,7 @@ namespace RandoMainDLL {
       if (Disabled) return;
       User = UserManager.GetCurrentUser();
       InitRunning = false;
-      Randomizer.Log($"Discord; have user UID: {User.Id}", false);
+      Randomizer.Log($"have user UID: {User.Id}", false);
       Randomizer.Client.Connect();
 
     }

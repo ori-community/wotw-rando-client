@@ -5,23 +5,25 @@ using System.Threading;
 using Google.Protobuf;
 using Network;
 using WebSocketSharp;
-
+using System.Collections.Concurrent;
 namespace RandoMainDLL {
   public class WebSocketClient {
     public delegate void UberStateRegistrationHandler(Memory.UberId id);
     public delegate void UberStateUpdateHandler(Memory.UberId id, float value);
+    public ConcurrentQueue<Packet> SendQueue = new ConcurrentQueue<Packet>();
 
     public UberStateRegistrationHandler UberStateRegistered;
     public UberStateUpdateHandler UberStateChanged;
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
     public static string SessionId;
 
+    public bool ExpectingDisconnect = false;
     public int ReconnectCooldown = 0;
     public int FramesSinceLastCheck = 0;
     private string ServerAddress => $"wss://{Domain}/api/game_sync/";
 
     private WebSocket socket;
-    public bool IsConnected { get { return socket != null && socket.IsAlive; } }
+    public bool IsConnected { get { return socket != null && socket.IsConnected; } }
     public bool Connecting = false;
     public void Connect() {
       if (DiscordController.Disabled ) return;
@@ -35,6 +37,7 @@ namespace RandoMainDLL {
         if (socket != null) {
           Disconnect();
         }
+        ExpectingDisconnect = false;
         var user = DiscordController.GetUser();
         try {
           if (user == null) {
@@ -64,8 +67,8 @@ namespace RandoMainDLL {
           Connecting = false;
         };
         socket.OnClose += (sender, e) => {
-          Randomizer.Log("Disconnected! Retrying in 5s");
-          Connecting = false;
+          if(!ExpectingDisconnect)
+            Randomizer.Log("Disconnected! Retrying in 5s");
         };
         socket.OnMessage += HandleMessage;
         socket.OnOpen += (sender, args) => {
@@ -84,19 +87,37 @@ namespace RandoMainDLL {
       }).Start();
     }
 
+    public Thread updateThread;
+
+    public static int FramesTillReconnectAttempt = 420;
+    public void Update() {
+      if (!DiscordController.Disabled && !IsConnected) {
+        if (FramesTillReconnectAttempt-- <= 0) {
+          FramesTillReconnectAttempt = 0;
+          Randomizer.Log("Want connection but currently have none, attempting reconnect", false);
+          Connect();
+        }
+      }
+      if (!SendQueue.IsEmpty && !(updateThread != null && updateThread.IsAlive)) {
+        updateThread = new Thread(() => {
+          Randomizer.Debug($"Starting update thread to send {SendQueue.Count} packets", false);
+          while (SendQueue.TryDequeue(out var packet))
+            socket.Send(packet.ToByteArray());
+        });
+        updateThread.Start();
+      }
+    }
+
     public void Disconnect() {
       if (socket == null) {
         return;
       }
-
+      ExpectingDisconnect = true;
       socket.Close();
       socket = null;
     }
 
     public void SendUpdate(Memory.UberId id, float value) {
-      if (socket == null || !socket.IsConnected) {
-        return;
-      }
       try {
         Packet packet = new Packet {
           Id = 3,
@@ -109,10 +130,8 @@ namespace RandoMainDLL {
             Value = value == 0f ? -1f : value
           }.ToByteString()
         };
-
-        socket.Send(packet.ToByteArray());
-      } catch(Exception e) { Randomizer.Error("send update", e, false);  }
-
+        SendQueue.Enqueue(packet);
+      } catch(Exception e) { Randomizer.Error("SendUpdate", e, false);  }
     }
 
     public void HandleMessage(object sender, MessageEventArgs args) {
