@@ -3,6 +3,10 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public enum BonusType {
+    [Description("Skill Hint 1")]
+    HintOne = 10,
+    [Description("Skill Hint 2")]
+    HintTwo = 11,
     [Description("Relic")]
     Relic = 20,
     [Description("Health Regeneration")]
