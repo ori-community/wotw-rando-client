@@ -85,7 +85,7 @@ fun threshold(
 fun nof(n: Int, vararg goals: GoalGenerator): GoalGenerator {
     val unusedGoals = goals.toMutableList()
         return GoalGenerator { config, used -> when {
-            used > n -> null
+            used >= n -> null
             else -> {
                 val goal = unusedGoals.random(config.random)
                 unusedGoals.remove(goal)
