@@ -41,7 +41,7 @@ namespace RandoMainDLL {
           return;
         }
         discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(LogLevel.Info) > 0, level.ToString()));
-        ApplicationManager.GetOAuth2Token((Result result, ref OAuth2Token token) => {
+/*        ApplicationManager.GetOAuth2Token((Result result, ref OAuth2Token token) => {
           try {
             if (result == Result.Ok) { // You may now use this token against Discord's HTTP API
               Token = token;
@@ -55,10 +55,13 @@ namespace RandoMainDLL {
             }
           }
           catch (Exception e) {
+            if(e is ResultException re) {
+              Randomizer.Debug($"Got result {re.Result} when grabbing token");
+            } else 
             Randomizer.Error("appManager", e);
             InitRunning = false;
           }
-        });
+        });*/
         UserManager.OnCurrentUserUpdate += DiscordInitComplete;
       }).Start();
     }
