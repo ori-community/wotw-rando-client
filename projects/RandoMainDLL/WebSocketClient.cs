@@ -49,6 +49,9 @@ namespace RandoMainDLL {
             return;
           }
           var client = new WebClient();
+          if(AHK.IniFlag("Insecure")) 
+            ServicePointManager.ServerCertificateValidationCallback = (_, __, ___, ____) => true;
+
           client.UploadString($"http{S}://{Domain}/api/sessions/uid", $"{user?.Id}");
           var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
           SessionId = rawCookie.Split(';')[0].Split('=')[1];
