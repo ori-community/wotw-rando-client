@@ -73,6 +73,8 @@ namespace
     IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
       GameMapUI::FixedUpdate(this_ptr);
       auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
+      if (area == nullptr || area->fields.Area == nullptr)
+          return;
       auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
       if (aid != area_id) {
         area_id = aid;
