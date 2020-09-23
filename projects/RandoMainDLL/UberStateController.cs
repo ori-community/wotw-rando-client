@@ -236,30 +236,35 @@ namespace RandoMainDLL {
     }
 
     public static void Update() {
-      if (NeedsNewGameInit)
-        NewGameInit();
+      try {
+        if (NeedsNewGameInit)
+          NewGameInit();
 
-      if (!SkipListeners) {
-        // We do ToArray here so we can change the hashset while we are looping.
-        foreach (var state in TickingUberStates.ToArray()) {
-          // Maybe change this to use our own cache lookup?
-          var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
-          InterOp.set_uber_state_value(state.GroupID, state.ID, value + 1);
-        }
-      }
-
-      if (FullSyncNextUpdate) {
-        FullSyncNextUpdate = false;
-        var bad = new HashSet<UberId>();
-        foreach (var uid in SyncedUberStates.ToList()) {
-          if (uid.State() != null) {
-            Randomizer.Client.SendUpdate(uid, uid.State().ValueAsFloat());
+        if (!SkipListeners) {
+          // We do ToArray here so we can change the hashset while we are looping.
+          foreach (var state in TickingUberStates.ToArray()) {
+            // Maybe change this to use our own cache lookup?
+            var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
+            InterOp.set_uber_state_value(state.GroupID, state.ID, value + 1);
           }
-          else
-            bad.Add(uid);
         }
-        foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
-      }
+
+        if (FullSyncNextUpdate) {
+          FullSyncNextUpdate = false;
+          var bad = new HashSet<UberId>();
+          foreach (var uid in SyncedUberStates.ToList()) {
+            if (uid.State() != null) {
+              Randomizer.Client.SendUpdate(uid, uid.State().ValueAsFloat());
+            }
+            else
+              bad.Add(uid);
+          }
+          foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
+        }
+        while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
+          InterOp.set_uber_state_value(stateUpdate.State.Group, stateUpdate.State.State, stateUpdate.Value);
+        }
+      } catch(Exception e) { Randomizer.Error("USC.Update", e, false);  }
     }
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)

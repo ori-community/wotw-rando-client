@@ -9,7 +9,7 @@ namespace RandoMainDLL {
     public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
 
-    public static string FmtVal(this UberValue Value, UberStateType t) {
+  public static string FmtVal(this UberValue Value, UberStateType t) {
       switch (t) {
         case UberStateType.SavePedestalUberState:
         case UberStateType.SerializedBooleanUberState:
