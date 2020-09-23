@@ -3,11 +3,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
+using System.Collections.Concurrent;
+
 namespace RandoMainDLL {
   public static class Extensions {
-    public static UberStateCondition toCond(this Memory.UberId id, int? target = null) => new UberStateCondition(id, target);
+    public static UberStateCondition toCond(this UberId id, int? target = null) => new UberStateCondition(id, target);
     public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
+    public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
 
   public static string FmtVal(this UberValue Value, UberStateType t) {
       switch (t) {
