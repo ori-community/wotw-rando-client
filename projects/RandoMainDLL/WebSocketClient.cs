@@ -9,11 +9,10 @@ using System.Collections.Concurrent;
 namespace RandoMainDLL {
   public class WebSocketClient {
     public delegate void UberStateRegistrationHandler(Memory.UberId id);
-    public delegate void UberStateUpdateHandler(Memory.UberId id, float value);
-    public ConcurrentQueue<Packet> SendQueue = new ConcurrentQueue<Packet>();
+    public BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
+    public BlockingCollection<UberStateUpdateMessage> UberStateQueue = new BlockingCollection<UberStateUpdateMessage>();
 
     public UberStateRegistrationHandler UberStateRegistered;
-    public UberStateUpdateHandler UberStateChanged;
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
     public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
     public static string SessionId;
@@ -28,6 +27,20 @@ namespace RandoMainDLL {
     public bool Connecting = false;
     public void Connect() {
       if (DiscordController.Disabled ) return;
+      if(updateThread == null) {
+        updateThread = new Thread(() => {
+          while(true) {
+            try {
+              var packet = SendQueue.Take();
+              socket.Send(packet.ToByteArray());
+            }
+            catch (Exception e) {
+              Randomizer.Warn("UpdateThread", $"caught error {e}");
+            }
+          }
+        });
+        updateThread.Start();
+      }
       if(Connecting) {
         Randomizer.Log("Skipping connection request as one is in-progress", false, "DEBUG");
         FramesTillReconnectAttempt = 120;
@@ -117,19 +130,6 @@ namespace RandoMainDLL {
           Connect();
         }
       }
-      if (!SendQueue.IsEmpty && !(updateThread != null && updateThread.IsAlive)) {
-        updateThread = new Thread(() => {
-          Randomizer.Debug($"Starting update thread to send {SendQueue.Count} packets", false);
-          try {
-            while (SendQueue.TryDequeue(out var packet) && (socket?.IsConnected ?? false)) {
-              socket.Send(packet.ToByteArray());
-            }
-          } catch(Exception e) {
-            Randomizer.Warn("UpdateThread", $"caught error {e},exiting update loop early");
-          }
-        }); 
-        updateThread.Start();
-      }
     }
 
     public void Disconnect() {
@@ -139,6 +139,8 @@ namespace RandoMainDLL {
       ExpectingDisconnect = true;
       socket.Close();
       socket = null;
+      SendQueue.Clear();
+      UberStateQueue.Clear();
     }
 
     public void SendUpdate(Memory.UberId id, float value) {
@@ -154,7 +156,7 @@ namespace RandoMainDLL {
             Value = value == 0f ? -1f : value
           }.ToByteString()
         };
-        SendQueue.Enqueue(packet);
+        SendQueue.Add(packet);
       } catch(Exception e) { Randomizer.Error("SendUpdate", e, false);  }
     }
 
@@ -180,8 +182,9 @@ namespace RandoMainDLL {
             }
             break;
           case 3:
-            var update = UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_);
-            UberStateChanged(new Memory.UberId(update.State.Group, update.State.State), update.Value);
+            try {
+              UberStateQueue.Add(UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_));
+            } catch(Exception e) { Randomizer.Error("UberStateQueue.Add", e); }
             break;
           default:
             break;
