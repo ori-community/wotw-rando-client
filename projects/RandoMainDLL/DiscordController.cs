@@ -41,28 +41,8 @@ namespace RandoMainDLL {
           return;
         }
         discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(LogLevel.Info) > 0, level.ToString()));
-/*        ApplicationManager.GetOAuth2Token((Result result, ref OAuth2Token token) => {
-          try {
-            if (result == Result.Ok) { // You may now use this token against Discord's HTTP API
-              Token = token;
-              Randomizer.Log($"Token for the user: {token.AccessToken}. Expires in {token.Expires}. Session ID: {WebSocketClient.SessionId}", false);
-              InitRunning = false;
-            }
-            else {
-              Randomizer.Log($"Got: {result}, token is ${token.AccessToken}", false);
-              Token = token;
-              InitRunning = false;
-            }
-          }
-          catch (Exception e) {
-            if(e is ResultException re) {
-              Randomizer.Debug($"Got result {re.Result} when grabbing token");
-            } else 
-            Randomizer.Error("appManager", e);
-            InitRunning = false;
-          }
-        });*/
         UserManager.OnCurrentUserUpdate += DiscordInitComplete;
+        InitRunning = false;
       }).Start();
     }
 
@@ -77,18 +57,50 @@ namespace RandoMainDLL {
     }
 
     public static User? GetUser() {
+      if (Disabled || InitRunning) return null;
       try {
         return UserManager.GetCurrentUser();
       }
       catch(Exception e) {
         if (e is ResultException re) {
-          if(re.Result != Result.NotFound)
-            Randomizer.Log($"Result exception {e} on GetUser, returning null", false);
+          if(re.Result != Result.NotFound) {
+            Randomizer.Log($"Result {re.Result} on GetUser, returning null", false);
+          }
+          if (CanTryToken) {
+            Randomizer.Debug("Discord user not found. Attempting to get token...");
+            new Thread(() => TryGetToken()).Start();
+          }
           return null;
         }
         Randomizer.Error("GetUser", e, false);
         return null;
       }
+    }
+
+    public static bool CanTryToken = true;
+
+    public static void TryGetToken() {
+      if (Disabled || InitRunning) return;
+      CanTryToken = false;
+      ApplicationManager.GetOAuth2Token((Result result, ref OAuth2Token token) => {
+        try {
+          if (result == Result.Ok) { // You may now use this token against Discord's HTTP API
+            Token = token;
+            Randomizer.Log($"Token for the user: {token.AccessToken}. Expires in {token.Expires}. Session ID: {WebSocketClient.SessionId}", false);
+          }
+          else {
+            Randomizer.Log($"Got: {result}, token is ${token.AccessToken}", false);
+            Token = token;
+          }
+        }
+        catch (Exception e) {
+          if (e is ResultException re) {
+            Randomizer.Debug($"Got result {re.Result} when grabbing token");
+          }
+          else
+            Randomizer.Error("appManager", e);
+        }
+      });
     }
 
     public static void DiscordInitComplete() {
