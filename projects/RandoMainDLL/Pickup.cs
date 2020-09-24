@@ -108,8 +108,9 @@ namespace RandoMainDLL {
     public bool NonEmpty = true;
     public bool Muted = false;
     public abstract PickupType Type { get; }
-    public abstract override string ToString();
-    public virtual string Name { get => ToString(); }
+    public virtual string DisplayName { get; }
+    public virtual string Name { get => DisplayName; }
+    public override string ToString() => Name;
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
     public virtual float ModEffectiveness() => 1.0f;
@@ -118,8 +119,9 @@ namespace RandoMainDLL {
     public virtual void Grant(bool skipBase = false) {
       if (skipBase)
         return;
-      if (Frames > 0)
-        AHK.Pickup(ToString(), Frames);
+      var s = DisplayName;
+      if (Frames > 0 && s.Length > 0)
+        AHK.Pickup(DisplayName, Frames);
     }
     public bool Collect(UberStateCondition foundAt) {
       if (NonEmpty) {
@@ -169,8 +171,8 @@ namespace RandoMainDLL {
       UberStateController.SkipUberStateMapCount[id] = supCount;
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
-    public override string Name { get => ""; }
-    public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
+    public override string DisplayName { get => ""; }
+    public override string Name { get => $"{State.GroupID},{State.ID} -> {State.FmtVal()}"; }
   }
 
   public class UberStateModifier : UberStateSetter {
@@ -187,7 +189,7 @@ namespace RandoMainDLL {
       State.Value = Modifier(State.ValueOr(State.Value));
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
-    public override string ToString() => $"{State.GroupID},{State.ID} -> {ModStr}";
+    public override string Name { get => $"{State.GroupID},{State.ID} -> {ModStr}"; }
 
   }
 
@@ -221,21 +223,25 @@ namespace RandoMainDLL {
       base.Grant(false);
     }
 
-    public override string ToString() {
-      if (Children.Count == 0) {
-        return "Empty";
-      }
-      var targets = Children.Exists(p => p is Message msg && msg.Squelch) ? Children.FindAll(p => (p is Message msg && msg.Squelch) || p is ConditionalStop) : Children;
-      List<string> names = new List<string>();
-      foreach (var child in targets.Count > 0 ? targets : Children) {
-        if (child is ConditionalStop s && s.StopActive())
-          break;
-        if (child.Muted || child.Name == "")
-          continue;
-        names.Add(child.ToString());
-      }
-      return string.Join("\n", names.Where(s => s.Length > 0));
-    }
+    public override string DisplayName { get {
+        if (Children.Count == 0) {
+          return "Empty";
+        }
+        bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+        var targets = squelchActive ? Children.FindAll(p => (p is Message msg && msg.Squelch) || p is ConditionalStop) : Children;
+        List<string> names = new List<string>();
+        foreach (var child in targets) {
+          if (child is ConditionalStop s) {
+            if (s.StopActive()) break; // stop 
+            else if(squelchActive)
+              continue;
+          }
+          if (child.Muted || child.Name == "" || child.Frames == 0)
+            continue;
+          names.Add(child.DisplayName);
+        }
+        return string.Join("\n", names.Where(s => s.Length > 0));
+      } }
     
     public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
 
@@ -255,7 +261,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Message;
 
     private static Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,]([0-9]+)\)");
-    public override string ToString() => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
+    public override string DisplayName { get => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal()); }
   }
 
   public abstract class Checkable : Pickup {
@@ -301,9 +307,8 @@ namespace RandoMainDLL {
     }
 
     public override int DefaultCost() => 250;
-
     public override string Name { get => $"{type.GetDescription() ?? $"unknown {type}"} TP";  }
-    public override string ToString() => $"#{Name}#";
+    public override string DisplayName { get => $"#{Name}#"; }
   }
   public class RemoveTeleporter : Pickup {
     public RemoveTeleporter(TeleporterType ability) => type = ability;
@@ -315,7 +320,7 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Teleporter {type}"}"; }
-    public override string ToString() => $"Removed {type.GetDescription() ?? $"Unknown Teleporter {type}"}";
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Teleporter {type}"}"; }
   }
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
@@ -334,7 +339,7 @@ namespace RandoMainDLL {
     }
 
     public override string Name { get => type.GetDescription() ?? $"Unknown Ability {type}"; }
-    public override string ToString() => $"*{Name}*";
+    public override string DisplayName { get => $"*{Name}*"; }
   }
 
   public class RemoveAbility : Pickup {
@@ -346,7 +351,7 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Ability {type}"}"; }
-    public override string ToString() => $"Removed {type.GetDescription() ?? $"Unknown Ability {type}"}";
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Ability {type}"}"; }
   }
 
   public class Shard : Checkable {
@@ -366,7 +371,7 @@ namespace RandoMainDLL {
 
     public override int DefaultCost() => 300;
     public override string Name { get => type.GetDescription() ?? $"Unknown Shard {type}"; }
-    public override string ToString() => $"${Name}$";
+    public override string DisplayName { get => $"${Name}$"; }
   }
   public class RemoveShard : Pickup {
     public RemoveShard(ShardType shard) => type = shard;
@@ -378,7 +383,7 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Shard {type}"}"; }
-    public override string ToString() => $"Removed {type.GetDescription() ?? $"Unknown Shard {type}"}";
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Shard {type}"}"; }
   }
 
   public class Cash : Pickup {
@@ -403,7 +408,7 @@ namespace RandoMainDLL {
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings"
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
-    public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
+    public override string DisplayName { get => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}"; }
   }
   public class QuestEvent : Checkable {
     public QuestEvent(QuestEventType ev) => type = ev;
@@ -426,7 +431,7 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string Name { get => type.GetDescription() ?? $"Unknown Event {type}"; }
-    public override string ToString() => $"*{Name}*";
+    public override string DisplayName { get => $"*{Name}*"; }
   }
   public class RemoveQuestEvent : Pickup {
     public RemoveQuestEvent(QuestEventType ev) => type = ev;
@@ -445,7 +450,7 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Event {type}"}"; }
-    public override string ToString() => $"Removed {type.GetDescription() ?? $"Unknown Event {type}"}";
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Event {type}"}"; }
   }
   public class BonusItem : Pickup {
     public override int DefaultCost() => 300;
@@ -466,7 +471,7 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string Name { get => type.GetDescription() ?? $"Unknown Bonus Item {type}"; }
-    public override string ToString() => $"#{type.GetDescription() ?? $"Unknown Bonus Item {type}"}{(stateId.State().Value.Byte > 1 ? $" x{stateId.State().Value.Byte}" : "")}#";
+    public override string DisplayName { get => $"#{type.GetDescription() ?? $"Unknown Bonus Item {type}"}{(stateId.State().Value.Byte > 1 ? $" x{stateId.State().Value.Byte}" : "")}#"; }
   }
 
   public class SystemCommand : Pickup {
@@ -480,7 +485,8 @@ namespace RandoMainDLL {
           break;
       }
     }
-    public override string ToString() => type.ToString();
+    public override string Name { get => type.ToString(); }
+    public override string DisplayName { get => ""; }
   }
   public class ConditionalStop : SystemCommand {
     private UberId targetState;
@@ -553,7 +559,7 @@ namespace RandoMainDLL {
       InterOp.teleport(X, Y, true);
       base.Grant(skipBase);
     }
-    public override string ToString() => $"Warp to {X}, {Y}";
+    public override string DisplayName { get => $"Warp to {X}, {Y}"; }
   }
 
   public class TimerCommand : SystemCommand {
@@ -573,7 +579,7 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-    public override string ToString() => $"On trigger {id}";
+    public override string DisplayName { get => $"On trigger {id}"; }
   }
 
   public class Resource : Pickup {
@@ -642,8 +648,7 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-
-    public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
+    public override string DisplayName { get => type.GetDescription() ?? $"Unknown resource type {type}"; }
   }
 
   public enum WeaponUpgradeType {
@@ -700,7 +705,7 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-    public override string ToString() => Name; // we should do this but, only on-pickup... $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}";
+    public override string DisplayName { get => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}"; }
     public static WeaponUpgrade RapidSmash = new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Spirit Smash* attacks are 25% faster");
     public static WeaponUpgrade RapidSword = new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are 25% faster");
     public static WeaponUpgrade BlazeEfficiency = new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs 50% less energy");
