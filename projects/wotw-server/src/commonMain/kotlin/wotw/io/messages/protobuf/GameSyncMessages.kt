@@ -22,7 +22,7 @@ data class UberStateUpdateMessage(
 )
 
 @Serializable
-data class InitBingoMessage(
+data class InitGameSyncMessage(
     @ProtoNumber(1) val uberStates: List<UberId> = emptyList()
 )
 

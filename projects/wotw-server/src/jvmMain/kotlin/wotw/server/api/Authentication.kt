@@ -63,6 +63,7 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 call.sessions.set(UserSession(user.id.value))
                 call.respondText(call.response.cookies[SESSION_AUTH]?.value ?: "")
             }
+            //FIXME needs to be removed once client stuff gets figured out
             post<String>("/uid") {
                 call.sessions.set(UserSession(it.toLongOrNull() ?: -1))
                 call.respondText(call.response.cookies[SESSION_AUTH]?.value ?: "")
