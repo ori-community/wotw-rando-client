@@ -5,7 +5,6 @@ import kotlinx.serialization.protobuf.ProtoNumber
 import wotw.io.messages.protoBuf
 import wotw.util.BiMap
 import wotw.util.biMapOf
-import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 
@@ -48,7 +47,7 @@ data class Packet(
             2 to typeOf<RequestUpdatesMessage>(),
             3 to typeOf<UberStateUpdateMessage>(),
             4 to typeOf<SyncPlayersMessage>(),
-            5 to typeOf<InitBingoMessage>(),
+            5 to typeOf<InitGameSyncMessage>(),
             6 to typeOf<PrintTextMessage>()
         )
 

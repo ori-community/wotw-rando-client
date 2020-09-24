@@ -10,27 +10,27 @@ import org.jetbrains.exposed.sql.and
 import wotw.server.bingo.UberStateMap
 import wotw.server.database.jsonb
 
-//Why is the plural of data data ._.
-object PlayerDataTable : LongIdTable() {
+object GameStates : LongIdTable() {
     val gameId = reference("game_id", Games)
-    val userId = reference("user_id", Users)
+    val teamId = reference("user_id", Teams)
     @OptIn(InternalSerializationApi::class)
     val uberStateData = jsonb("uber_state_data", UberStateMap::class.serializer())
 
+    //TODO - migrate later
+    override val tableName: String = "playerdata"
     init {
-        uniqueIndex(gameId, userId)
+        uniqueIndex(gameId, teamId)
     }
-    override val primaryKey = PrimaryKey(id)
 }
 
-class PlayerData(id: EntityID<Long>): LongEntity(id){
-    var game by Game referencedOn PlayerDataTable.gameId
-    var user by User referencedOn PlayerDataTable.userId
-    var uberStateData by PlayerDataTable.uberStateData
+class GameState(id: EntityID<Long>): LongEntity(id){
+    var game by Game referencedOn GameStates.gameId
+    var team by Team referencedOn GameStates.teamId
+    var uberStateData by GameStates.uberStateData
 
-    companion object : LongEntityClass<PlayerData>(PlayerDataTable){
+    companion object : LongEntityClass<GameState>(GameStates){
         fun find(gameId: Long, playerId: Long) = find{
-            (PlayerDataTable.gameId eq gameId) and (PlayerDataTable.userId eq playerId)
+            (GameStates.gameId eq gameId) and (GameStates.teamId eq playerId)
         }.singleOrNull()
     }
 }

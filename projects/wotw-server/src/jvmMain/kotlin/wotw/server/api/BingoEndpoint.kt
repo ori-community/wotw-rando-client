@@ -9,6 +9,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
 import io.ktor.websocket.*
+import org.jetbrains.exposed.sql.SizedCollection
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.io.messages.protobuf.BingoData
 import wotw.io.messages.protobuf.RequestUpdatesMessage
@@ -56,18 +57,26 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     //FIXME
                     val id = call.sessions.get<UserSession>()?.user ?: throw  NotFoundException("Id unknown?")
                     //FIXME
-                    User.findById(id) ?: throw  NotFoundException("user unknown??")
+                    User.findById(id) ?: throw NotFoundException("user unknown??")
                 }
 
-                val existing = PlayerData.find(gameId, user.id.value)
+                val existing = Team.find(gameId, user.id.value)
                 if (existing != null)
                     throw AlreadyExistsException()
 
                 val game = Game.findById(gameId) ?: throw NotFoundException("game not found??")
 
-                PlayerData.new {
+                GameState.new {
                     this.game = game
-                    this.user = user
+                    val team = Team.new {
+                        this.game = game
+                        this.name = user.name
+                    }
+                    this.team = team
+                    TeamMembership.new {
+                        this.player = user
+                        this.team = team
+                    }
                     uberStateData = UberStateMap()
                 }
                 game.id.value
@@ -109,10 +118,10 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                         playerId = this.playerId
                         server.connections.registerBingoBoardConn(this@webSocket, gameId, playerId)
 
-                        val playerData = newSuspendedTransaction {
-                            game.players.firstOrNull { it.user.id.value == playerId }?.uberStateData
+                        val gameState = newSuspendedTransaction {
+                            game.teamStates[Team.find(gameId, playerId)]?.uberStateData
                         }
-                        outgoing.sendMessage(SyncBoardMessage(board.toBingoBoard(playerData), true))
+                        outgoing.sendMessage(SyncBoardMessage(board.toBingoBoard(gameState), true))
                     }
                 }
                 onClose {
