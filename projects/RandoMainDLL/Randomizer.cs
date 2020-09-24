@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -12,6 +15,8 @@ namespace RandoMainDLL {
     public static string VersionFile { get { return BasePath + "VERSION"; } }
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version;
+
+    private static BlockingCollection<String> logQueue = new BlockingCollection<string>();
 
     public static WebSocketClient Client = new WebSocketClient();
 
@@ -40,9 +45,25 @@ namespace RandoMainDLL {
         Randomizer.Error("OnNewGame", e);
       }
     }
-
+    public static Thread logThread;
     public static bool Initialize() {
       try {
+        if (logThread == null) {
+          logThread = new Thread(() => {
+            while (true) {
+              try {
+                var txt = logQueue.Take();
+                while (logQueue.TryTake(out var line))
+                  txt += line;
+                File.AppendAllText(LogFile, txt);
+              } catch (Exception e) {
+                if (Dev) AHK.Print($"error logging: {e}", toMessageLog: false);
+              }
+            }
+          });
+          logThread.Start();
+        }
+
         BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.get_base_path());
         Log($"Set base path to {BasePath}");
 
@@ -63,7 +84,6 @@ namespace RandoMainDLL {
         SeedController.ReadSeed(true);
 
         Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
-        Client.UberStateChanged = UberStateController.HandleSyncedUberStateChange;
         DiscordController.Initialize();
 
         Log("init complete", false);
@@ -97,10 +117,7 @@ namespace RandoMainDLL {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }
     }
-
     public static bool Dev = false;
-    private static object logLock = new object();
-
     public static void Error(string caller, Exception e, bool printIfDev = true) {
       Log($"{caller}: {e.Message}\n{e.StackTrace}", printIfDev, "ERROR");
     }
@@ -114,12 +131,12 @@ namespace RandoMainDLL {
       Log(message, printIfDev, "DEBUG");
     }
 
+
+
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
       if (AHK.IniFlag("MuteCSLogs"))
         return;
-      lock (logLock) {
-        File.AppendAllText(LogFile, contents: $"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
-      }
+      logQueue.Add($"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       if (Dev && printIfDev)
         AHK.Print(message, 180, toMessageLog: false);
     }
