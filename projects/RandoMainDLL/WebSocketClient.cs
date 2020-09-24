@@ -171,7 +171,7 @@ namespace RandoMainDLL {
         switch (packet.Id) {
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-            Randomizer.Log($"Server says {printMsg.Text} (f={printMsg.Frames} p={printMsg.Ypos})", false);
+//              Randomizer.Debug($"Server says {printMsg.Text} (f={printMsg.Frames} p={printMsg.Ypos})", false);
             AHK.Print(printMsg.Text, printMsg.Frames, printMsg.Ypos, true);
             break;
           case 5:
