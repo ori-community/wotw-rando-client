@@ -24,10 +24,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.event.Level
 import wotw.server.api.*
-import wotw.server.database.model.Games
-import wotw.server.database.model.PlayerDataTable
-import wotw.server.database.model.User
-import wotw.server.database.model.Users
+import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.exception.UnauthorizedException
 import wotw.server.util.logger
@@ -65,7 +62,7 @@ class WotwBackendServer {
         this.db =
             Database.connect(ds)//"jdbc:postgresql://$host:$port/$db?user=$user&password=$password", "org.postgresql.Driver")
         transaction {
-            SchemaUtils.createMissingTablesAndColumns(Games, Users, PlayerDataTable)
+            SchemaUtils.createMissingTablesAndColumns(Games, Users, GameStates, TeamMemberships, Teams)
         }
 
     }

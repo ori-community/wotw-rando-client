@@ -15,16 +15,21 @@ object Games : LongIdTable("game") {
 }
 
 class Game(id: EntityID<Long>) : LongEntity(id) {
-    val players by PlayerData referrersOn PlayerDataTable.gameId
     var seed by Games.seed
     var board by Games.board
+    val teams by Team referrersOn Teams.gameId
+    private val states by GameState referrersOn GameStates.gameId
+    val teamStates
+        get() = states.map { it.team to it }.toMap()
+    val players
+        get() = teams.flatMap { it.members }
 
     fun playerInfo(): List<PlayerInfo> {
-        return players.map { playerData ->
+        return teamStates.map { (team, state) ->
             PlayerInfo(
-                playerData.user.id.value,
-                playerData.user.name,
-                board?.goals?.count { it.value.isCompleted(playerData.uberStateData) }.toString() + " / ${board?.goals?.size}"
+                team.members.firstOrNull()?.id?.value ?: -1L,
+                team.name,
+                board?.goals?.count { it.value.isCompleted(state.uberStateData) }.toString() + " / ${board?.goals?.size}"
             )
         }.sortedByDescending { it.rank }
     }
