@@ -19,6 +19,7 @@ import wotw.io.messages.protobuf.PrintTextMessage
 import wotw.io.messages.protobuf.UberId
 import wotw.io.messages.protobuf.UberStateUpdateMessage
 import wotw.io.messages.sendMessage
+import wotw.server.bingo.BingoBoardGenerator
 import wotw.server.bingo.pickupIds
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
@@ -50,6 +51,10 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
         }
 
         authenticate(SESSION_AUTH) {
+            post("games") {
+                val game = newSuspendedTransaction {Game.new {} }
+                call.respondText("${game.id.value}", status = HttpStatusCode.Created)
+            }
             post("games/{game_id]/teams"){
                 val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
                 newSuspendedTransaction {
