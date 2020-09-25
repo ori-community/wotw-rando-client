@@ -409,7 +409,8 @@ namespace RandoMainDLL {
       "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
       "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
-      "Money", "Cash", "ISK", "Munny", "Nuyen", "Rings", "Rupees"
+      "Money", "Cash", "ISK", "Munny", "Nuyen", "Rings", "Rupees", "Coins",
+      "Echoes", "Sovereigns", "Vbucks", "Robux"
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
     public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}"; }
