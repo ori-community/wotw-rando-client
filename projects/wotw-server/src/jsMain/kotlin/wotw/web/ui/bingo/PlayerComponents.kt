@@ -29,13 +29,51 @@ external interface BingoPlayerProps : GameIdProps {
     var height: LinearDimension?
 }
 
-external interface BingoPlayerState : RState {
+external interface PlayerListState : RState {
     var players: List<PlayerInfo>
     var highlighted: Long?
 }
+class PlayersComponent : RComponent<GameIdProps, PlayerListState>() {
+    override fun PlayerListState.init(props: GameIdProps) {
+        players = emptyList()
+    }
 
-class BingoPlayersComponent : RComponent<GameIdProps, BingoPlayerState>() {
-    override fun BingoPlayerState.init() {
+    override fun RBuilder.render() {
+        div {
+            child(TempHeaderComp::class) {}
+
+            styledP {
+                css {
+                    marginTop = 1.em
+                    textAlign = TextAlign.center
+                    fontSize = 2.em
+                    fontWeight = FontWeight.bold
+                }
+                +"Teams"
+            }
+            styledDiv {
+                css {
+                    marginBottom = 1.em
+                }
+                state.players.forEach {
+                    styledDiv {
+                        css {
+                            backgroundColor = Color.white
+                            color = Color.black
+                        }
+/*                        child(JoinTeamComponent::class) {
+                            attrs { playerId = it.playerId }
+                        }*/
+                    }
+                }
+            }
+        }
+    }
+
+
+        }
+class BingoPlayersComponent : RComponent<GameIdProps, PlayerListState>() {
+    override fun PlayerListState.init() {
         players = emptyList()
         highlighted = null
     }
@@ -97,7 +135,7 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoPlayerState>() {
                 }
             }
 
-            child(JoinGameComponent::class) {
+            child(JoinBingoComponent::class) {
                 attrs {
                     userId = state.highlighted
                     gameId = props.gameId
@@ -113,13 +151,25 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoPlayerState>() {
 
 }
 
-external interface JoinGameProps : GameIdProps {
+external interface JoinBingoProps : GameIdProps {
     var afterJoin: (Long) -> Unit
     var userId: Long?
 }
+external interface JoinTeamState : RState {
+    var playerId: Long
+}
+
+class JoinTeamComponent : RComponent<JoinBingoProps, JoinTeamState>() {
+    override fun JoinTeamState.init() {
+
+    }
+    override fun RBuilder.render() {
 
 
-class JoinGameComponent : RComponent<JoinGameProps, RState>() {
+    }
+}
+
+class JoinBingoComponent : RComponent<JoinBingoProps, RState>() {
     override fun RBuilder.render() {
         button {
             +"Join"
