@@ -109,6 +109,7 @@ namespace RandoMainDLL {
     public bool Muted = false;
     public abstract PickupType Type { get; }
     public virtual string DisplayName { get; }
+    public virtual string ShopName { get => DisplayName; }
     public virtual string Name { get => DisplayName; }
     public override string ToString() => Name;
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
@@ -120,7 +121,7 @@ namespace RandoMainDLL {
       if (skipBase)
         return;
       var s = DisplayName;
-      if (Frames > 0 && s.Length > 0)
+      if (Frames > 0 && s.Length > 0 && !Muted)
         AHK.Pickup(DisplayName, Frames);
     }
     public bool Collect(UberStateCondition foundAt) {
@@ -190,7 +191,6 @@ namespace RandoMainDLL {
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
     public override string Name { get => $"{State.GroupID},{State.ID} -> {ModStr}"; }
-
   }
 
 
@@ -202,9 +202,10 @@ namespace RandoMainDLL {
 
     public override int Frames {
       get {
-        if (NonEmpty)
-          return Children.Max(p => p.Frames);
-        return base.Frames;
+        if (!NonEmpty)
+          return base.Frames;
+        var msgs = Children.Where(p => p is Message msg).ToList();
+        return (msgs.Count > 0 ? msgs : Children).Max(p => p.Frames);
       }
     }
 
@@ -223,6 +224,8 @@ namespace RandoMainDLL {
       base.Grant(false);
     }
 
+    public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName;  }
+
     public override string DisplayName { get {
         if (Children.Count == 0) {
           return "Empty";
@@ -236,7 +239,7 @@ namespace RandoMainDLL {
             else if(squelchActive)
               continue;
           }
-          if (child.Muted || child.Name == "" || child.Frames == 0)
+          if (child.Muted || child.DisplayName == "" || child.Frames == 0)
             continue;
           names.Add(child.DisplayName);
         }
@@ -244,7 +247,6 @@ namespace RandoMainDLL {
       } }
     
     public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
-
   }
 
   public class Message : Pickup {
@@ -579,7 +581,8 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-    public override string DisplayName { get => $"On trigger {id}"; }
+    public override string Name { get => $"On trigger {id}"; }
+    public override string DisplayName { get => ""; }
   }
 
   public class Resource : Pickup {
@@ -665,7 +668,7 @@ namespace RandoMainDLL {
   }
   public class WeaponUpgrade : Pickup {
     public override PickupType Type => PickupType.WeaponUpgrade;
-    public override string Name { get => _name; }
+    public override string DisplayName { get => _name; }
     private readonly string _name;
     public readonly string Desc;
     public readonly AbilityType Weapon;
@@ -705,7 +708,7 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-    public override string DisplayName { get => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}"; }
+//    public override string DisplayName { get => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}"; }
     public static WeaponUpgrade RapidSmash = new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Spirit Smash* attacks are 25% faster");
     public static WeaponUpgrade RapidSword = new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are 25% faster");
     public static WeaponUpgrade BlazeEfficiency = new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs 50% less energy");
