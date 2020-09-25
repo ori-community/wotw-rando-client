@@ -30,9 +30,8 @@ namespace RandoMainDLL {
         }
         else {
           var pickup = SeedController.OpherWeapon(t);
-          if (pickup.NonEmpty) {
-            InterOp.set_opher_item((int)t, 255, pickup.ToString(), pickup is WeaponUpgrade wu ? wu.Desc : Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
-          }
+          if (pickup.NonEmpty) 
+            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup is WeaponUpgrade wu ? wu.Desc : Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
           else
             Randomizer.Warn("UpdateShopData", $"Couldn't find a pickup for {t.GetDescription()}");
         }
