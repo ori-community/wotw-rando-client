@@ -65,7 +65,7 @@ namespace RandoMainDLL {
         }
 
         BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.get_base_path());
-        Log($"Set base path to {BasePath}");
+        Debug($"Init: set base path to {BasePath}");
 
         if (!Directory.Exists(SaveFolder)) 
           Directory.CreateDirectory(SaveFolder);
@@ -86,7 +86,7 @@ namespace RandoMainDLL {
         Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
         DiscordController.Initialize();
 
-        Log("init complete", false);
+        Debug("Init: Complete", false);
         return true;
       } catch (Exception e) {
         Log($"init error: {e.Message}\n{e.StackTrace}");

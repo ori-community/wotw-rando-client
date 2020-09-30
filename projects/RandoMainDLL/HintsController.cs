@@ -70,14 +70,7 @@ namespace RandoMainDLL {
     public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is QuestEvent);
 
     public static Dictionary<ZoneType, List<Checkable>> HintObjects = new Dictionary<ZoneType, List<Checkable>>();
-    // group 1
-/*    public static ZoneType BurrowZone = ZoneType.Void;
-    public static ZoneType WaterDashZone = ZoneType.Void;
-    public static ZoneType LightBurstZone = ZoneType.Void;
-    // group 2
-    public static ZoneType BashZone = ZoneType.Void;
-    public static ZoneType FlapZone = ZoneType.Void;
-*/
+
     public static Dictionary<AbilityType, ZoneType> SkillLocs = new Dictionary<AbilityType, ZoneType>();
     public static ZoneType CleanWaterZone = ZoneType.Void;
     public static void Reset() {
