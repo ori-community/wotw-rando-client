@@ -120,8 +120,7 @@ namespace RandoMainDLL {
     public virtual void Grant(bool skipBase = false) {
       if (skipBase)
         return;
-      var s = DisplayName;
-      if (Frames > 0 && s.Length > 0 && !Muted)
+      if (Frames > 0 && DisplayName.Length > 0 && !Muted)
         AHK.Pickup(DisplayName, Frames);
     }
     public bool Collect(UberStateCondition foundAt) {
@@ -195,6 +194,8 @@ namespace RandoMainDLL {
 
 
   public class Multi : Pickup {
+
+    private string _lastDispName = "Empty";
     public Multi(List<Pickup> children) {
       Children = children;
       NonEmpty = children.Count > 0;
@@ -216,35 +217,23 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
+      List<string> lines = new List<string>();
+      bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
         child.Grant(true);
+        if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch))
+          continue;
+        lines.Add(child.DisplayName);
       }
+      _lastDispName = string.Join("\n", lines);
       base.Grant(false);
     }
 
     public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName;  }
-
-    public override string DisplayName { get {
-        if (Children.Count == 0) {
-          return "Empty";
-        }
-        bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
-        var targets = squelchActive ? Children.FindAll(p => (p is Message msg && msg.Squelch) || p is ConditionalStop) : Children;
-        List<string> names = new List<string>();
-        foreach (var child in targets) {
-          if (child is ConditionalStop s) {
-            if (s.StopActive()) break; // stop 
-            else if(squelchActive)
-              continue;
-          }
-          if (child.Muted || child.DisplayName == "" || child.Frames == 0)
-            continue;
-          names.Add(child.DisplayName);
-        }
-        return string.Join("\n", names.Where(s => s.Length > 0));
-      } }
+    public override string DisplayName { get => _lastDispName; }
     
     public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
   }
