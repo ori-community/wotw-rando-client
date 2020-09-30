@@ -39,7 +39,7 @@ namespace RandoMainDLL {
       foreach(ShardType s in twillenShardInv) {
         var pickup = SeedController.TwillenShard(s);
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter(), lockedTillGlades, pickup.CostWithMod(GetCostMod(s)));
+          InterOp.set_twillen_item((int)s, pickup.ShopName, Chatter(), lockedTillGlades, pickup.CostWithMod(GetCostMod(s)));
       }
       foreach(LupoHintData d in lupoDataByID.Values)
         d.Setup();
