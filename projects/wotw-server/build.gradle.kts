@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.ir.backend.js.compile
-
 buildscript {
     repositories {
         jcenter()
@@ -127,10 +125,12 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().configureEach {}
 
 val jvmJar = tasks.named<Jar>("jvmJar") {
-    //Uncomment this to include the webpack
-    val jsBrowserProductionWebpack = tasks.getByName<org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack>("jsBrowserProductionWebpack")
-    dependsOn(jsBrowserProductionWebpack)
-    from(jsBrowserProductionWebpack.entry, jsBrowserProductionWebpack.destinationDirectory)
+    //includes webpack
+    val taskName = if (project.hasProperty("isProduction")) "jsBrowserProductionWebpack"  else "jsBrowserDevelopmentWebpack"
+    val jsWebpack = tasks.getByName<org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack>(taskName)
+
+    dependsOn(jsWebpack)
+    from(jsWebpack.entry, jsWebpack.destinationDirectory)
 }
 
 //Generates self-signed test certificate
