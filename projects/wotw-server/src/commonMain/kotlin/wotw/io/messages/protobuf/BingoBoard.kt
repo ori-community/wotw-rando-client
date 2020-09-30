@@ -8,7 +8,7 @@ import kotlin.math.max
 //We just send partial updates and merge state client-side
 
 @Serializable
-data class BingoData(val board: BingoBoard, val players: List<PlayerInfo>)
+data class BingoData(val board: BingoBoard, val players: List<BingoPlayerInfo>)
 
 @Serializable
 data class BingoBoard(

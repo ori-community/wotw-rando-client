@@ -3,7 +3,7 @@ package wotw.server.api
 import io.ktor.http.cio.websocket.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.io.messages.protobuf.SyncBoardMessage
-import wotw.io.messages.protobuf.SyncPlayersMessage
+import wotw.io.messages.protobuf.SyncBingoPlayersMessage
 import wotw.io.messages.protobuf.UberId
 import wotw.io.messages.protobuf.UberStateUpdateMessage
 import wotw.io.messages.sendMessage
@@ -83,7 +83,7 @@ class ConnectionRegistry {
             val info = game.playerInfo()
 
             bingoGameConns[gameId].forEach {
-                messages += { it.outgoing.sendMessage(SyncPlayersMessage(info)) }
+                messages += { it.outgoing.sendMessage(SyncBingoPlayersMessage(info)) }
             }
 
             game.board?.let { board ->

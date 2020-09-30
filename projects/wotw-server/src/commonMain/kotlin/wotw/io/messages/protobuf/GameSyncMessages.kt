@@ -8,6 +8,16 @@ data class UserInfo(
     val id: Long,
     val name: String
 )
+@Serializable
+data class TeamInfo(
+    val leader: UserInfo,
+    val members: List<UserInfo>
+)
+
+@Serializable
+data class GameInfo(
+    val teams: List<TeamInfo>,
+)
 
 @Serializable
 data class UberId(
