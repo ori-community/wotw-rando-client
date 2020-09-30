@@ -317,11 +317,14 @@ package SeedGenerator {
     var _areas: Map[String, Area] = Map()
     var _items: Map[String, ItemLoc] = Map()
 
-    def keystonesRequired(nodes: Set[Node]): Int = {
+    def keystonesRequired(state: GameState): Int = {
       if(Settings.flags.noKSDoors)
         return 0
-      val relevantNodes = nodes.collect{case a: Area => a}.intersect(connectedToDoors)
-      doors.foldLeft(0)({case (acc, (name, keys))=> acc + (relevantNodes.exists(_.conns.exists(_.target.name == name)) ? keys ?? 0)})
+      val relevantNodes = state.reached.collect{case a: Area => a}.intersect(connectedToDoors)
+      if(relevantNodes.size > 1)
+        doors.foldLeft(0)({case (acc, (name, keys))=> acc + (relevantNodes.exists(_.conns.exists(_.target.name == name)) ? keys ?? 0)}) - state.inv(Keystone)
+      else
+        0
     }
 
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
@@ -640,11 +643,7 @@ package SeedGenerator {
         process(assignRandom(freeLocs), "rand: ")
         return PlacementGroup(state, Inv.Empty, placements, i, parent)
       }
-      val ksNeeded = Math.max(0, Nodes.keystonesRequired(state.reached) - state.inv(Keystone)) match {
-        case _ if !Settings.flags.randomSpawn && i < 3 => 0
-        case 2 => 0
-        case n => n
-      }
+      val ksNeeded = Nodes.keystonesRequired(state)
       val locsOpen = freeLocs.size - ksNeeded
       if(ksNeeded > 0) {
         if(locsOpen < 0)
