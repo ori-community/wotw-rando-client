@@ -444,7 +444,7 @@ package SeedGenerator {
           }
           Logger.debug(s"adding $item to the item pool")
           pool.add(item)
-        case raw @ seedLineRegex(dontMergeToPool, locCode,_,_,_,itemCode,_,_,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
+        case raw @ seedLineRegex(dontMergeToPool, locCode,_,_,_,itemCode,_,_,_)  =>
           (dontMergeToPool == "!", locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (true, _, _) => // do nothing
             case (false, Some(loc), Some(item)) =>
