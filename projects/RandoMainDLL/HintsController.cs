@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.Remoting.Lifetime;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace RandoMainDLL {
   public enum ZoneType : byte {
@@ -122,10 +123,9 @@ namespace RandoMainDLL {
       var found = items.FindAll(i => i.Has());
       if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
       if(items.Count > 0) {
-        if(found.Count == items.Count) 
-          return $"{zone}: ${found.Count}/{items.Count} key items$\nfound: {String.Join(", ", found)}";
-        else if (found.Count > 0)
-          return $"{zone}: {found.Count}/{items.Count} key items\nfound: {String.Join(", ", found)}";
+        var g = found.Count == items.Count ? "$" : "";
+        if (found.Count > 0)
+          return $"{zone}: {g}{found.Count}/{items.Count}{g} key items\nfound: {String.Join(", ", found.Select(i => i.DisplayName))}";
         else
           return $"{zone}: {found.Count}/{items.Count} key items";
       }
