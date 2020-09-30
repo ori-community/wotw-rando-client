@@ -81,7 +81,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
             setState {
                 this.board = boardData.board
             }
-            Application.eventBus.send(SyncPlayersMessage(boardData.players))
+            Application.eventBus.send(SyncBingoPlayersMessage(boardData.players))
         }
 
         Application.eventBus.register(this, SyncBoardMessage::class) {

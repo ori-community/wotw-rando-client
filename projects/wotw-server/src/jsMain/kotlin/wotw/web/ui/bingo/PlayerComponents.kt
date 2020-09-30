@@ -16,10 +16,7 @@ import react.setState
 import styled.css
 import styled.styledDiv
 import styled.styledP
-import wotw.io.messages.protobuf.Packet
-import wotw.io.messages.protobuf.PlayerInfo
-import wotw.io.messages.protobuf.RequestUpdatesMessage
-import wotw.io.messages.protobuf.SyncPlayersMessage
+import wotw.io.messages.protobuf.*
 import wotw.web.main.Application
 import wotw.web.ui.TempHeaderComp
 
@@ -29,51 +26,84 @@ external interface BingoPlayerProps : GameIdProps {
     var height: LinearDimension?
 }
 
-external interface PlayerListState : RState {
-    var players: List<PlayerInfo>
+external interface TeamListState : RState {
+    var teams: List<TeamInfo>
+    var user: Long?
+}
+
+external interface BingoListState : RState {
+    var players: List<BingoPlayerInfo>
     var highlighted: Long?
 }
-class PlayersComponent : RComponent<GameIdProps, PlayerListState>() {
-    override fun PlayerListState.init(props: GameIdProps) {
-        players = emptyList()
+
+class PlayersComponent : RComponent<GameIdProps, TeamListState>() {
+    override fun TeamListState.init() {
+        teams = emptyList()
+    }
+    override fun componentDidMount() {
+        GlobalScope.launch {
+            val gameInfo = Application.api.get<GameInfo>("/games/${props.gameId}/teams")
+            console.log(gameInfo)
+            setState {teams = gameInfo.teams }
+        }
+
+        GlobalScope.launch {
+            val maybeInfo = Application.user.await()
+            if (maybeInfo != null) {
+                setState { user = maybeInfo.id }
+            }
+        }
     }
 
     override fun RBuilder.render() {
-        div {
-            child(TempHeaderComp::class) {}
+        console.log(state)
+            div {
+                child(TempHeaderComp::class) {}
 
-            styledP {
-                css {
-                    marginTop = 1.em
-                    textAlign = TextAlign.center
-                    fontSize = 2.em
-                    fontWeight = FontWeight.bold
+                styledP {
+                    css {
+                        marginTop = 1.em
+                        fontSize = 2.em
+                    }
+                    +"Teams: "
                 }
-                +"Teams"
-            }
-            styledDiv {
-                css {
-                    marginBottom = 1.em
-                }
-                state.players.forEach {
-                    styledDiv {
-                        css {
-                            backgroundColor = Color.white
-                            color = Color.black
+                styledDiv {
+                    css {
+                        marginBottom = 1.em
+                    }
+                    state.teams.forEach {
+                        styledDiv {
+                            css {
+                                backgroundColor = Color.white
+                                color = Color.black
+                            }
+                            +"${it.leader.name}'s team "
+                            if(state.user != it.leader.id)
+                            child(JoinTeamComponent::class) {
+                                attrs {
+                                    gameId = props.gameId
+                                    playerId = it.leader.id
+                                    afterJoin = { componentDidMount() }
+                                }
+                            }
                         }
-/*                        child(JoinTeamComponent::class) {
-                            attrs { playerId = it.playerId }
-                        }*/
                     }
                 }
+                child(JoinGameComponent::class) {
+                    attrs {
+                        userId = state.user
+                        gameId = props.gameId
+                        afterJoin = { componentDidMount() }
+                    }
+                }
+
             }
-        }
     }
 
 
         }
-class BingoPlayersComponent : RComponent<GameIdProps, PlayerListState>() {
-    override fun PlayerListState.init() {
+class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
+    override fun BingoListState.init() {
         players = emptyList()
         highlighted = null
     }
@@ -87,7 +117,7 @@ class BingoPlayersComponent : RComponent<GameIdProps, PlayerListState>() {
             }
         }
 
-        Application.eventBus.register(this, SyncPlayersMessage::class) {
+        Application.eventBus.register(this, SyncBingoPlayersMessage::class) {
             setState {
                 players = it.players
             }
@@ -155,17 +185,54 @@ external interface JoinBingoProps : GameIdProps {
     var afterJoin: (Long) -> Unit
     var userId: Long?
 }
-external interface JoinTeamState : RState {
+external interface JoinGameProps : GameIdProps {
+    var afterJoin: () -> Unit
+    var userId: Long?
+}
+
+external interface JoinTeamProps : GameIdProps {
+    var afterJoin: () -> Unit
     var playerId: Long
 }
 
-class JoinTeamComponent : RComponent<JoinBingoProps, JoinTeamState>() {
-    override fun JoinTeamState.init() {
-
-    }
+class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
     override fun RBuilder.render() {
-
-
+        button {
+            +"Join"
+            attrs {
+                onClickFunction = {
+                    GlobalScope.launch {
+                        val response = Application.api.post<HttpResponse>(path = "/games/${props.gameId}/teams/${props.playerId}}")
+                        if (response.status == HttpStatusCode.OK || response.status == HttpStatusCode.Created || response.status == HttpStatusCode.Companion.Conflict) {
+                            props.afterJoin()
+                        } else {
+                            console.error("failed to join team")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+class JoinGameComponent : RComponent<JoinGameProps, RState>() {
+    override fun RBuilder.render() {
+        button {
+            +"Join game on new team"
+            attrs {
+                onClickFunction = {
+                    props.userId?.let {
+                        GlobalScope.launch {
+                            val response = Application.api.post<HttpResponse>(path = "games/${props.gameId}/teams")
+                            if (response.status == HttpStatusCode.OK || response.status == HttpStatusCode.Created || response.status == HttpStatusCode.Companion.Conflict) {
+                                props.afterJoin()
+                            } else {
+                                console.error("failed to join team")
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

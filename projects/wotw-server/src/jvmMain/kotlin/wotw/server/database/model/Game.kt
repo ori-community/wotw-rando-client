@@ -4,7 +4,7 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
-import wotw.io.messages.protobuf.PlayerInfo
+import wotw.io.messages.protobuf.BingoPlayerInfo
 import wotw.server.bingo.BingoCard
 import wotw.server.database.jsonb
 
@@ -24,9 +24,9 @@ class Game(id: EntityID<Long>) : LongEntity(id) {
     val players
         get() = teams.flatMap { it.members }
 
-    fun playerInfo(): List<PlayerInfo> {
+    fun playerInfo(): List<BingoPlayerInfo> {
         return teamStates.map { (team, state) ->
-            PlayerInfo(
+            BingoPlayerInfo(
                 team.members.firstOrNull()?.id?.value ?: -1L,
                 team.name,
                 board?.goals?.count { it.value.isCompleted(state.uberStateData) }.toString() + " / ${board?.goals?.size}"

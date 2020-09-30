@@ -16,6 +16,7 @@ import styled.styledP
 import wotw.web.ui.TempHeaderComp
 import wotw.web.ui.bingo.BingoView
 import wotw.web.ui.bingo.GameIdProps
+import wotw.web.ui.bingo.PlayersComponent
 
 class RootComponent : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
@@ -26,14 +27,14 @@ class RootComponent : RComponent<RProps, RState>() {
                         attrs.gameId = props.match.params.gameId
                     }
                 }
-                route( "/game/:gameId") {
+                route<GameIdProps>( "/game/:gameId") { props ->
                     div {
-                        child(TempHeaderComp::class) {}
-
-
+                        child(PlayersComponent::class) {
+                            attrs.gameId = props.match.params.gameId
+                        }
                     }
                 }
-                route("/") {
+                route("/", exact = true) {
                     div {
                         child(TempHeaderComp::class) {}
                         styledP {
@@ -60,6 +61,12 @@ class RootComponent : RComponent<RProps, RState>() {
                             attrs.href = "https://discord.gg/Ahwh4Na"
                             +"Join the dev discord for more info"
                         }
+                    }
+                }
+                route("*") {
+                    child(TempHeaderComp::class) {}
+                    styledP {
+                        +"page not found!"
                     }
                 }
             }

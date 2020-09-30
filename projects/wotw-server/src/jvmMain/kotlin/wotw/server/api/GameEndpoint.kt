@@ -14,10 +14,7 @@ import org.jetbrains.exposed.sql.SizedCollection
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import wotw.io.messages.protobuf.InitGameSyncMessage
-import wotw.io.messages.protobuf.PrintTextMessage
-import wotw.io.messages.protobuf.UberId
-import wotw.io.messages.protobuf.UberStateUpdateMessage
+import wotw.io.messages.protobuf.*
 import wotw.io.messages.sendMessage
 import wotw.server.bingo.BingoBoardGenerator
 import wotw.server.bingo.pickupIds
@@ -27,6 +24,7 @@ import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.logger
 import kotlin.math.max
+import kotlin.to
 
 class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
     val logger = logger()
@@ -55,7 +53,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 val game = newSuspendedTransaction {Game.new {} }
                 call.respondText("${game.id.value}", status = HttpStatusCode.Created)
             }
-            post("games/{game_id]/teams"){
+            post("games/{game_id}/teams"){
                 val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
                 newSuspendedTransaction {
                     val player = sessionInfo()
@@ -76,7 +74,31 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 }
                 call.respond(HttpStatusCode.Created)
             }
-            post("games/{game_id]/teams/{team_id}"){
+            get("games/{game_id}/teams/{team_id}"){
+                val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
+                val teamId = call.parameters["team_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable TeamID")
+                val members = newSuspendedTransaction {
+                    val game = Game.findById(gameId) ?: throw NotFoundException("Game does not exist!")
+                    val team = game.teams.firstOrNull { it.id.value == teamId } ?: throw NotFoundException("Team does not exist!")
+                    team.members.map { UserInfo(it.id.value, it.name) }
+                }
+                println(members)
+                call.respond(TeamInfo(members.first(), members.drop(1)))
+            }
+            get("games/{game_id}/teams"){
+                val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
+                val teams = newSuspendedTransaction {
+                    val game = Game.findById(gameId) ?: throw NotFoundException("Game does not exist!")
+                    game.teams.map {
+                        val members = it.members.map { m -> UserInfo(m.id.value, m.name) }
+                        TeamInfo(members.first(), members.drop(1))
+                    }
+                }
+                println(teams)
+                call.respond(GameInfo(teams))
+            }
+
+            post("games/{game_id}/teams/{team_id}"){
                 val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
                 val teamId = call.parameters["team_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable TeamID")
                 newSuspendedTransaction {
