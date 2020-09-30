@@ -93,7 +93,7 @@ fun generatePool() = mutableListOf(
         bool("Voice (Hollow)", 46462, 59806),
         maxRepeats = 2
     ),
-    bool("Get Seir", 10289, 22102),
+//    bool("Get Seir", 10289, 22102),
     group(
         "Defeat # Boss[es]",
         threshold("Kwolok", 945, 58403, 6, hideValue = true),
@@ -352,7 +352,8 @@ fun generatePool() = mutableListOf(
         threshold("Rebuilding the Glades", 14019, 44578, 2, hideValue = true),
         threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true),
         countGoal = { it.nextTriangular(2, 16, 6)},
-    ),
+        maxRepeats = 2,
+        ),
     threshold("Collect Items", 6, 2, triag(40, 320, 100)),
     threshold("Collect Keystones", 6, 0, triag(4, 24, 10)),
     oneof(
