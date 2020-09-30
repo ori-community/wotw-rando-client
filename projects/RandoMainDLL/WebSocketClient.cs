@@ -30,7 +30,6 @@ namespace RandoMainDLL {
       if(updateThread == null) {
         updateThread = new Thread(() => {
           while(true) {
-            if(IsConnected)
             try {
               var packet = SendQueue.Take();
               socket.Send(packet.ToByteArray());
@@ -127,7 +126,6 @@ namespace RandoMainDLL {
       if (!DiscordController.Disabled && !IsConnected) {
         if (FramesTillReconnectAttempt-- <= 0) {
           FramesTillReconnectAttempt = 0;
-          Connecting = false;
           Randomizer.Log("Want connection but currently have none, attempting reconnect", false);
           Connect();
         }
