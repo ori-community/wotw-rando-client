@@ -18,6 +18,9 @@ fun generatePool() = mutableListOf(
         bool("Mouldwood Depths", 48248, 48423),
         bool("Windswept Wastes", 48248, 61146),
         bool("Willows End", 48248, 4045),
+        bool("Wellspring Glades", 48248, 19396),
+        bool("Silent Woods", 48248, 57987),
+
         countGoal = { it.nextTriangular(2, 8, 5) },
         maxRepeats = 2
         ),
@@ -44,6 +47,19 @@ fun generatePool() = mutableListOf(
         countGoal = { it.nextTriangular(1, 5, 2) },
         maxRepeats = 1
     ),
+    group(
+        "Buy # Item[s] from Twillen",
+        bool("TwillenShop.Overcharge", 2, 1),
+        bool("TwillenShop.TripleJump", 2, 2),
+        bool("TwillenShop.Wingclip", 2, 3),
+        bool("TwillenShop.Swap", 2, 5),
+        bool("TwillenShop.LightHarvest", 2, 19),
+        bool("TwillenShop.Vitality", 2, 22),
+        bool("TwillenShop.Energy", 2, 26),
+        bool("TwillenShop.Finesse", 2, 40),
+        subsetGoal = false,
+        maxRepeats = 1
+        ),
     group(
         "Get # Tree[s]",
         bool("Sword", 0, 100),
@@ -91,6 +107,8 @@ fun generatePool() = mutableListOf(
         bool("Memory (Reach)", 28895, 25522),
         bool("Eyes (Depths)", 18793, 63291),
         bool("Voice (Hollow)", 46462, 59806),
+        bool("Seir", 10289, 22102, countOnly = true),
+        countGoal = { it.nextTriangular(2, 4, 3)},
         maxRepeats = 2
     ),
 //    bool("Get Seir", 10289, 22102),
@@ -99,7 +117,7 @@ fun generatePool() = mutableListOf(
         threshold("Kwolok", 945, 58403, 6, hideValue = true),
         threshold("Hornbug", 937, 48534, 4, hideValue = true),
         threshold("Mora", 18793, 26713, 7, hideValue = true),
-        threshold("Shriek", 16155, 47278, 5, hideValue = true),
+        threshold("Shriek", 16155, 47278, 5, hideValue = true, countOnly = true),
         threshold("Willow Laser", 16155, 12971, 4, hideValue = true),
         maxRepeats = 2,
     ),
@@ -107,7 +125,7 @@ fun generatePool() = mutableListOf(
         "Complete # Escape[s]",
         bool("The Wellspring", 37858, 12379),
         bool("Baur's Reach", 28287, 16339),
-        threshold("Windtorn Ruins", 10289, 19890, 3, hideValue=true),
+        threshold("Windtorn Ruins", 10289, 19890, 3, hideValue=true, countOnly = true),
         maxRepeats = 1
     ),
     group("Complete # Combat Shrine[s]",
@@ -323,10 +341,10 @@ fun generatePool() = mutableListOf(
         bool("East Wastes", 20120, 49994),
         bool("Outer Ruins", 20120, 41398),
         bool("Willow's End", 16155, 41465),
-        bool("Inner Ruins", 10289, 4928),
+        bool("Inner Ruins", 10289, 4928, countOnly = true),
         bool("East Luma", 945, 58183),
         bool("West Luma", 945, 1370),
-        bool("Shriek", 16155, 50867),
+        bool("Shriek", 16155, 50867, countOnly = true),
         bool("Inkwater Marsh", 21786, 10185),
         bool("Glades", 42178, 42096),
         countGoal = { it.nextTriangular(4, 16, 6)},
@@ -334,10 +352,6 @@ fun generatePool() = mutableListOf(
     group(
         "Complete # Quest[s]",
         threshold("The Silent Teeth", 937, 34641, 4, hideValue = true),
-        threshold("Beneath Shifting Sands", 14019, 35399, 3, hideValue = true),
-        threshold("Lost in Paradise", 14019, 35087, 3, hideValue = true),
-        threshold("Breaking the Mould", 14019, 45931, 3, hideValue = true),
-        threshold("The Highest Reach", 14019, 8973, 3, hideValue = true),
         threshold("The Missing Key ", 48248, 51645, 3, hideValue = true),
         threshold("Into the Burrows", 48248, 18458, 4, hideValue = true),
         threshold("The Lost Compass", 14019, 20667, 3, hideValue = true),
@@ -345,16 +359,40 @@ fun generatePool() = mutableListOf(
         threshold("Family Reunion", 14019, 27804, 4, hideValue = true),
         threshold("The Tree Keeper", 14019, 59708, 3, hideValue = true),
         threshold("A Diamond in the Rough", 14019, 61011, 5, hideValue = true),
-        threshold("Hand to Hand", 14019, 26318, 11, hideValue = true),
         threshold("Into The Darkness", 14019, 33776, 3, hideValue = true),
         threshold("Kwolok's Wisdom", 14019, 50597, 4, hideValue = true),
         threshold("The Silent Map", 14019, 24683, 5, hideValue = true),
-        threshold("Rebuilding the Glades", 14019, 44578, 2, hideValue = true),
-        threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true),
+        threshold("Breaking the Mould", 14019, 45931, 3, hideValue = true, countOnly = true),
+        threshold("Lost in Paradise", 14019, 35087, 3, hideValue = true, countOnly = true),
+        threshold("The Highest Reach", 14019, 8973, 3, hideValue = true, countOnly = true),
+        threshold("Beneath Shifting Sands", 14019, 35399, 3, hideValue = true, countOnly = true),
+        threshold("Hand to Hand", 14019, 26318, 11, hideValue = true, countOnly = true),
+        threshold("Rebuilding the Glades", 14019, 44578, 2, hideValue = true, countOnly = true),
+        threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true, countOnly = true),
         countGoal = { it.nextTriangular(2, 16, 6)},
         maxRepeats = 2,
         ),
-    threshold("Collect Items", 6, 2, triag(40, 320, 100)),
+    group("Complete # Quest[s]", // same as above but it's only the bad quests
+            threshold("Hand to Hand", 14019, 26318, 11, hideValue = true),
+            threshold("Rebuilding the Glades", 14019, 44578, 2, hideValue = true),
+            threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true),
+        maxRepeats = 1,
+    ),
+    group("Get # Pickup[s]",
+        bool("Marsh Burrow Fight Shard", 23987, 50415),
+        bool("Right Launch Tree EX", 36153, 36521),
+        bool("Lower Depths Swim EC", 18793,  28175),
+        bool("Wastes Sand Puzzle Shard", 23987, 50364),
+        bool("Reach Hut Seed", 14019, 32376),
+        bool("Woods Combat Shrine Shard", 23987, 25183),
+        bool("Above East Pools TP HC",5377, 63201),
+        bool("Wellspring Escape Revisit EX", 37858, 56444),
+        bool("Burrow Swim HC", 44310, 17523),
+        bool("Above Depths Entry EX", 18793, 42980),
+        bool("Wellspring Wheel Room Ore", 37858, 47533),
+        bool("Burrows Tablet", 14019, 52747 )
+    ),
+    threshold("Collect Items", 6, 2, triag(40, 240, 100)),
     threshold("Collect Keystones", 6, 0, triag(4, 24, 10)),
     oneof(
         threshold("Collect Ore", 6, 5, triag(6, 35, 16)),
@@ -380,7 +418,7 @@ class BingoBoardGenerator {
                 var generatedGoal: BingoGoal? = null
                 while(generatedGoal == null){
                     val goal = pool.random(random)
-                    generatedGoal = goal(config, counts[goal] ?: 0)
+                    generatedGoal = goal.gen(config, counts[goal] ?: 0)
                     if(generatedGoal == null) {
                         pool -= goal
                     }  else {
