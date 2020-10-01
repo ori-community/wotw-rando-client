@@ -380,6 +380,7 @@ fun generatePool() = mutableListOf(
     ),
     group("Get # Pickup[s]",
         bool("Marsh Burrow Fight Shard", 23987, 50415),
+        bool("Howl's Den Door HC", 9593, 61304),
         bool("Right Launch Tree EX", 36153, 36521),
         bool("Lower Depths Swim EC", 18793,  28175),
         bool("Wastes Sand Puzzle Shard", 23987, 50364),
@@ -387,7 +388,7 @@ fun generatePool() = mutableListOf(
         bool("Woods Combat Shrine Shard", 23987, 25183),
         bool("Above East Pools TP HC",5377, 63201),
         bool("Wellspring Escape Revisit EX", 37858, 56444),
-        bool("Burrow Swim HC", 44310, 17523),
+        bool("Glades Burrow Swim HC", 44310, 17523),
         bool("Above Depths Entry EX", 18793, 42980),
         bool("Wellspring Wheel Room Ore", 37858, 47533),
         bool("Burrows Tablet", 14019, 52747 )
