@@ -3292,37 +3292,91 @@ anchor WoodsMain.BelowFourKeystoneRoom at 951, -4210:  # At the first leaf pile 
     moki: Flap
   pickup WoodsMain.BehindWallOre:
     moki: BreakWall=20, Combat=2xBalloon, Bash, Grenade=2, DoubleJump  # different ways to solve
+    gorlek, BreakWall=20:
+      Flap, Glide  # @Validator should probably be a moki path by adding RangedWeapons
+      DoubleJump, SentryJump=1
+      DoubleJump, TripleJump, Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=15
+      DoubleJump, Dash, Bash OR Glide OR Sword OR Hammer OR Damage=15
+      Launch  # Bait an enemy near the wall then launch away to avoid damage thanks to launch invincibility
+      Combat=2xBalloon, Bash, Grenade=2  # weapon to kill enemies, bash grenade to reach the breakable wall
     unsafe: BreakWall=20, DoubleJump, Dash  # Perform wrap-around double jumps on the far right wall under the ore
   pickup WoodsMain.BelowKeystonesEX:
     moki: Combat=2xBalloon, Bash, Grenade=2, DoubleJump  # different ways to solve
+    gorlek:
+      Bash, Grenade=1, DoubleJump  # From bellow the pickup, near WoodsMain.LowerLeafPileEX
+      Flap, Glide, DoubleJump OR Dash OR Bash OR Sword OR Hammer  # @Validator should probably be a moki path by adding RangedWeapons
+      Launch  # Climb on the right wall then launch on the left one
+      SentryJump=1, DoubleJump, TripleJump, Bash  # From bellow the pickup, near WoodsMain.LowerLeafPileEX
+      DoubleJump:  # For all these paths, climb the right wall then go to the right platform and fall from there
+        SentryJump=1
+        TripleJump, Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=15
+        Dash, Bash OR Sword OR Hammer OR Glide OR Damage=15
+      Combat=2xBalloon, Bash, Grenade=3  # Climb the right wall then shoot a grenade from the breakable wall, bash it to reach to bashable plant next to the pickup
 
   conn WoodsMain.FourKeystoneRoom:
     moki, Combat=2xBalloon:
       Flap, Glide
       Bash, Grenade=2, DoubleJump, Dash  # different ways to solve
       Launch
+    gorlek:
+      DoubleJump:
+        SentryJump=1  # DoubleJump + full sword combo + up slash from the breakable wall to reach the right platform
+        TripleJump, Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=15
+        Dash, Bash OR Sword OR Hammer OR Glide OR Damage=15
+      Launch
+      Combat=2xBalloon, Bash, Grenade=3, DoubleJump OR Dash  # Climb the right wall then shoot a grenade from the breakable wall. Double Jump/Dash to reach the grenade and bash it to get on the right platform
   conn WoodsEntry.TwoKeystoneRoom:
     moki, WoodsEntry.KeystoneDoor:
       Bash, Grenade=2, Damage=10  # uses the enemy
       Bash, Grenade=1, Damage=10, DoubleJump OR Dash  # uses the enemy
       Launch, DoubleJump OR Dash OR Bash OR Glide  # bash uses the enemy
+    gorlek, WoodsEntry.KeystoneDoor:
+      Bash  # bait the enemy into attacking you, bash it. Bash the enemy again from above with a 80° angle to get to the platform. Bait it again after that (need the gatling pattern). If waiting for the right pattern isn't gorlek, add DoubleJump OR Grenade=1 OR SentryJump=1
+      Launch  # jump from the edge of the platorm, keepholding right then about a 45° angle
+      Glide:  # climb the right wall then glide to the left
+        Flap, DoubleJump OR SentryJump=1  # use the wind column and glide to the left
+        Flap, Bash, Grenade=1  # use the wind column and glide to the left
+        SentryJump=2
+        SentryJump=1, Bash, Grenade=1
+        SentryJump=1, DoubleJump
+        DoubleJump, TripleJump OR Dash  # Climb the right wall then glide from there. With tjump, you can also tjump near WoodsMain.LowerLeafPileEX and glide to the left but you'll need to damage boost through the tentacle projectile if it shoots (damage=10)
+    unsafe, WoodsEntry.KeystoneDoor:
+      DoubleJump, Sword  # Keep hitting the tentacle with sword to reset your double jump
 
 anchor WoodsMain.FourKeystoneRoom at 950, -4168:  # The floor of the keystone room
   pickup WoodsMain.BehindWallOre:
     moki: BreakWall=20, DoubleJump OR Dash OR Glide OR Launch
+    gorlek, BreakWall=20: Sword, Hammer
+    unsafe, BreakWall=20: Sentry=1 OR Flash=1 OR Blaze=1 OR Shuriken=1 OR Spear=1 OR Grenade=1 OR Bow=1
   pickup WoodsMain.BelowKeystonesEX:
     moki: Bash, DoubleJump OR Dash OR Glide OR Launch
+    gorlek:
+      Glide, DoubleJump OR Sword OR Hammer
+      Damage=15, Dash OR DoubleJump  # slides off the wall, take a damage boost and djump/dash when near the pickup
+      DoubleJump, TripleJump OR Sword  # With sword, full combo while falling then doublejump to get the pickup
+    unsafe: Dash  # Dash against the wall to reset it
   pickup WoodsMain.MiddleLeafPileEX:
     moki: Flap
   pickup WoodsMain.RightKS:
     moki:
       Glide OR Launch
       Bash, Grenade=1
+    gorlek:
+      SentryJump=1
+      DoubleJump, TripleJump OR Sword OR Hammer OR Dash  # Climb the left wall to get on the right wall, let ori slide slowly then double jump + upslash OR dash + doublejump
+    unsafe: DoubleJump  # Climb the left wall to get on the right wall, let ori slide slowly then double jump and quickly turn around to catch the other side of the wall
+  pickup WoodsMain.LowerKS:  # @Validator I added this pickup
+    gorlek:
+      Launch  # Fall, launch on the wall near WoodsMain.BelowKeystonesEX then launch again
+      Glide, Bash  # Fall, glide above the tentacle and bash its projectiles to reach the floating platform
+      Glide, DoubleJump, TripleJump  # fall, glide and triple jump to reach the floating platform
+      Glide, Dash, DoubleJump, Hammer OR Sword  # fall, glide, dash when just bellow the pickup, double jump and up slash to reach the floating platform
 
   conn WoodsMain.BeforeKeystoneDoor:
     moki:
       DoubleJump OR Glide OR Launch
       Bash, Dash OR Grenade=1
+    gorlek: free  # Climb the left wall, jump on the floating platform to reach the door
   conn WoodsMain.BelowFourKeystoneRoom: free
 
 # checkpoint at 906, -4136
@@ -3337,13 +3391,23 @@ anchor WoodsMain.BeforeKeystoneDoor at 944, -4137:  # In front of the four keyst
     moki, BreakWall=3:
       Glide OR Launch
       Bash, Grenade=1, DoubleJump OR Dash
+    gorlek, BreakWall=3:
+      DoubleJump OR Bash OR SentryJump=2  # start your double jump from the higher floor near the spikes / bash the mosquitos / sjump from the platform next to the door to reach the platformtform above the door, sjump from there and sword combo + up slash
+  pickup WoodsMain.LeftKS:
   pickup WoodsMain.LeftKS:
     moki: Glide
+    gorlek:
+      Launch
+      DoubleJump, Damage=15  # Doublejump as far as possible, take a damage boost then wall jump + doublejump to get the key and return to safety
+      DoubleJump, TripleJump, Dash OR Sword OR Hammer  # tjump on the ceiling, reset your jumps then tjump + upslshe to get the pickup.
   pickup WoodsMain.LowerKS:
     moki, Flap:  # Flap being the casual way of breaking the yellow barrier
       Glide OR Launch
       DoubleJump, Dash
       Bash, DoubleJump OR Dash
+    gorlek, Flap:
+      DoubleJump OR Dash OR Sword OR Hammer
+    unsafe: Flap, Bash, Damage=15  # Flap to break the yellow wall, precise jump to avoid damage in the first spikes, fall in the last spikes. Bash glide from the bashable plant to the platform before the pickup (~20° angle)
 
   conn WoodsMain.GiantSkull:
     moki: WoodsMain.KeystoneDoor
@@ -3358,6 +3422,10 @@ anchor WoodsMain.GiantSkull at 957, -4138:  # Behind the four keystone room door
     moki:
       BreakWall=3, Glide
       Launch, BreakWall=3, Bow OR Spear OR Grenade
+    gorlek, BreakWall=3:
+      DoubleJump, Weapon OR RangedWeapon
+      Bash, Grenade=3  # bash grenade to get on the skull, bash a tentacle projectile and the bashable plant to get to the blowing enemy level, 2nd bash grenade to get near the spikes and last one to break the wall
+      SentryJump=2  # jump + sword combo to reach the skull, sword combo to reach the tentacle. use your sjumps to get on get edge near the spikes then jump and up slash
 
   pickup WoodsMain.UpperLeafPileEX:
     moki: Flap
@@ -3365,9 +3433,21 @@ anchor WoodsMain.GiantSkull at 957, -4138:  # Behind the four keystone room door
     moki:
       Bash OR Launch
       DoubleJump, Dash, Glide
+    gorlek:
+      SentryJump=1
+      DoubleJump, Glide, TripleJump OR Sword OR Hammer
+    unsafe:
+      Glide, DoubleJump  # need a really precise vertical boost from the wind
 
   conn WoodsMain.BelowHiddenOre:
     moki: WoodsMain.BelowHiddenOreCorruption, Glide OR Launch
+    gorlek, BelowHiddenOreCorruption:
+      DoubleJump, TripleJump, Sword OR Hammer
+      DoubleJump, Bash, Grenade=1  # land on the ledge near the spikes bellow the breakable wall
+      DoubleJump, SentryJump=1  # land on the ledge near the spikes bellow the breakable wall
+      Dash, Bash, Grenade=2
+      Bash, Grenade=3  # bash grenade to get on the skull, bash a tentacle projectile and the bashable plant to get to the blowing enemy level, 2nd bash grenade to get near the spikes and last one to reach the connection
+      SentryJump=3  # jump + sword combo to reach the skull, sword combo to reach the tentacle. use your sjumps to get to the connection
   conn WoodsMain.BeforeKeystoneDoor:
     moki: WoodsMain.KeystoneDoor
 
@@ -3379,15 +3459,31 @@ anchor WoodsMain.BelowHiddenOre at 1038, -4101:  # Below and to the right of the
 
   pickup WoodsMain.HiddenOre:
     moki: Flap, Glide
+    gorlek:
+      Launch  # Launch straight up from the right side of the fire pit to touch the ceiling, go a bit to the left, launch again on the right wall, wall jump and launch to the pickup. Launch again to return to safety
+      DoubleJump, TripleJump, Bash, Damage=15  # triple jump to rech the bashable plant, bash it, triple jump again, damage boost on the spikes and triple jump to get the pickup. stick the wall for a bit to reset triple jump and return to safety
+    unsafe:
+      SentryJump=1, DoubleJump, TripleJump, Damage=15  # sjump from a micro ledge at very edge of the fre pit
   pickup WoodsMain.YellowWallEX:
     moki: WoodsMain.BelowHiddenOreCorruption, Flap, Glide OR Launch
+    gorlek, WoodsMain.BelowHiddenOreCorruption:
+      DoubleJump, TripleJump, Sword OR Hammer:
+        RangedWeapon OR Flap OR Damage=20
+    unsafe, WoodsMain.BelowHiddenOreCorruption:
+      DoubleJump, Dash, Bash, Grenade=1  # Bait the enemy by jumping and imediately dashing against the left wall, double wall off the wall to  get to the edge near the spikes and bash grenade. Launch the grenade near the right edge and bash it to get to the left edge. If you are too slow, the enemy will die from the explosion after your bash
 
   conn WoodsMain.PetrifiedHowl:
     moki: Glide
+    gorlek:
+      DoubleJump, TripleJump, Hammer, Damage=15  # Triple jump to get to the wall just bellow the ceiling's spikes, wall jump and triplejump, land on the spikes. Triple jump and up slash to get to the wall on the right.
+      Launch  # launch on the wall just bellow the ceiling's spikes, wall jump and lauch again to get to the right wall after the ceiling's spikes
   conn WoodsMain.GiantSkull:
     moki, WoodsMain.BelowHiddenOreCorruption:
       Glide OR Launch
       DoubleJump, Dash
+    gorlek, WoodsMain.BelowHiddenOreCorruption:
+      Dash OR DoubleJump OR Sword OR Damage=15  # dash/djump on the left wall next to the tentacle, dash/djump again to get on the skull
+      Bash, Grenade=1
 
 anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
   refill Checkpoint
@@ -3400,10 +3496,24 @@ anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
       BreakWall=3, Bash, Glide, DoubleJump OR Grenade=2
       BreakWall=3, DoubleJump, Dash, Glide
       Launch, DoubleJump OR Dash OR Glide OR Bash  # a bit awful honestly. The good news is that you can also just Launch upwards easily instead of going the long way
+    gorlek:
+      Launch
+      Bash, Grenade=1 OR DoubleJump  # Bash grenade directly above / double jump and bash all the way around. On the last tentacle, bash it straight up and wait on the wall just below the spikes for the tentacle to shoot and bash its projectiles
+      SentryJump=1, DoubleJump, TripleJump
+      BreakWall=3, Bash, Glide, Damage=15
+    unsafe:
+      Bash, Damage=15, Dash OR Sword OR Hammer  # Up slash to get to the right wall just under the spikes near the breakable wall is hard / dashing against that wall require the tentacle to be in specifics positions
+      SentryJump=1, DoubleJump  # sjump to get to the right wall near the bashable plant, double jump and down slash to get on the semisolid ground
+      BreakWall=3, Glide, Damage=15  # Really hard to get through the first tentacle
   conn WoodsMain.BelowHiddenOre:
     moki:
       Glide
       Launch, DoubleJump OR Dash
+    gorlek:
+      Dash OR Sword OR Launch
+      Damage, TripleJump OR Hammer OR DoubleJump=15
+    unsafe:
+      Hammer, Damage=15
 
 # checkpoint at 824, -4068
 # checkpoint at 848, -4052
@@ -3419,12 +3529,27 @@ anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced How
     moki:
       DoubleJump, Bash, Grapple, Burrow, Dash OR Glide
       Launch, Grapple, Bash, DoubleJump OR Dash OR Glide
+    gorlek:
+      Launch
+      DoubleJump, Bash, Grapple:
+        Burrow, TripleJump OR Sword
+        Burrow, Hammer, Damage=15
+        Grenade=1, Damage=15, Sword OR TripleJump #Jump on the first sand ball, double jump + up slash/triple jump to get on the spike obstacle then double jump. Bash grenade to get to the bashable lantern
+        TripleJump, SentryJump=1, Damage=15
+        SentryJump=2, Damage=15
 
   conn WoodsMain.Teleporter:
     moki:
       Combat=4xBalloon, DoubleJump OR Launch
       Combat=4xBalloon, Bash, Grenade=1
+    gorlek: SentryJump=1
   conn WoodsMain.PetrifiedHowl: free
+  conn WoodsMain.AbovePit:  # @Validator: I added this path, pass over the tree
+    gorlek:
+      Launch
+      DoubleJump, Bash, Grenade=1
+      DoubleJump, SentryJump=1
+      Bash, Grenade=2
 
 # checkpoint at 873, -3980
 # checkpoint at 868, -3952
@@ -3438,11 +3563,19 @@ anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
     moki:
       Glide
       DoubleJump, Bash, Launch  # :)
+    gorlek:
+      Launch
+      DoubleJump, TripleJump, Hammer, Damage=15  # climb the right wall, triple jump in the spikes, triple jump + up slash to climb the right wall
   conn WoodsMain.AboveHowl:
     moki:
       Glide, Launch
       DoubleJump, Glide, Bash, Grenade=1
       DoubleJump, Bash, Launch  # :)
+    gorlek:
+      Launch
+      DoubleJump, TripleJump
+      SentryJump=1
+      Bash, Grenade=1
 
 # checkpoint at the anchor below, could split another anchor off for the crystal and move it over
 
@@ -3455,11 +3588,15 @@ anchor WoodsMain.AbovePit at 1234, -3985:  # To the left of the pit before feedi
     moki:
       DoubleJump, Bash, Grenade=1
       Launch
+    gorlek:
+      SentryJump=1, DoubleJump, TripleJump
   conn WoodsMain.FeedingGrounds:
     moki:  # these cover the shrine connections as well
       DoubleJump, Dash OR Bash
       Glide OR Launch
       Bash, Grenade=1
+    gorlek:
+      DoubleJump OR Dash OR Sword OR Hammer
 
 anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feeding grounds
   refill Checkpoint
@@ -3470,11 +3607,13 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
     moki:
       Glide OR Launch
       DoubleJump, Dash
+    gorlek: Sword OR Hammer OR Dash OR DoubleJump
 
   conn WoodsShrine:
     moki:
       Glide OR Launch
       DoubleJump, Dash
+    gorlek: Sword OR Hammer OR Dash OR DoubleJump
   conn LowerWastes.WestTP:
     moki:
       Grapple, Glide, DoubleJump OR Dash OR Launch  # this solves with Seir as well
@@ -3483,15 +3622,51 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
         Grapple, Glide
         Burrow
         Launch
+    gorlek:
+      Launch
+      Burrow  # If doing cat and mouse, burrow below first to reset shriek aggression then burrow to the TP
+      Glide:
+        DoubleJump, TripleJump
+        SentryJump=2, DoubleJump OR Dash  # Only 1 sjump if you have seir, one more to get to the 2nd protection during cat and mouse (which activate the wind column)
+        Grapple
+      WindtornRuins.Seir:  # these wouldn't solve without Seir
+        SentryJump=2, DoubleJump
+        SentryJump=1, DoubleJump, TripleJump  # tjump+up slash to reach the grappable surface
+        Bash, Grenade=1, Grapple
+        Bash, Grenade=2, Dash  # Dash to get in bash range on the 2nd grenade to get on the grappable surface
+        Bash, Grenade=1, DoubleJump, TripleJump, Sword OR Hammer OR Dash
   conn WoodsMain.AbovePit:
     moki:
       DoubleJump, Bash
       Launch
+    gorlek:
+      Bash, Grenade=1, Dash OR Glide OR Sword OR Hammer
+      SentryJump=1
+      DoubleJump, TripleJump  # fall then go through the tunnels (glide skip)
+    unsafe:
+      DoubleJump  # fall then good old glide skip
 
 anchor WoodsShrine:
   refill Full
   pickup WoodsMain.CombatShrine:
     moki: Combat=Hornbug, Lizard, 3xSkeeto, 4xEnergyRefill, 2xCrystalMiner, Bat, 4xEnergyRefill, 9xBalloon, 4xEnergyRefill, 4xMantis, Bat
+  conn WoodsMain.FeedingGrounds:  # @Validator I added this path
+    gorlek:
+      Launch
+      Glide, DoubleJump, Bash, Damage=15 OR Dash OR TripleJump
+      DoubleJump, TripleJump, Bash, Damage=15 OR Grenade=1 OR SentryJump=1 OR Glide
+      SentryJump=2, DoubleJump, Bash, Damage=15
+      SentryJump=3, DoubleJump, Bash
+  conn WoodsMain.AbovePit:  # @Validator I added this path
+    gorlek:
+      Launch
+      Glide, DoubleJump, Bash, Damage=15 OR Dash OR TripleJump
+      Glide, DoubleJump, TripleJump
+      DoubleJump, TripleJump, Bash, Damage=15 OR Grenade=1 OR SentryJump=1
+      SentryJump=2, DoubleJump
+      SentryJump=1, DoubleJump, TripleJump
+    unsafe:
+      SentryJump=1, DoubleJump
 
 region LowerReach:
   moki: Damage=40, Regenerate
