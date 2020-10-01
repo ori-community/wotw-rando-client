@@ -3152,13 +3152,16 @@ anchor WoodsEntry.ShriekMeet at 478, -4205:  # The ledge to the left of where th
     moki:
       DoubleJump OR Dash OR Glide OR Launch
       Bash, Grenade=2
+    gorlek: free  # Jump on the bubble
 
   conn WoodsEntry.BelowTeleporter:
     moki:
       Combat=Balloon, Bash, DoubleJump OR Dash OR Glide
       Combat=Balloon, Launch
+    gorlek:
+      DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer  # Bait the enemy so you don't need to kill it. Careful with sword and hammer because it can break bubbles
   conn EastHollow.Kwolok:
-    unsafe: Water, Bash
+    gorlek: Water, Bash  # @Validator: from unsafe to gorlek
 
 # checkpoint at 525, -4205
 
@@ -3169,13 +3172,25 @@ anchor WoodsEntry.BelowTeleporter at 591, -4198:  # Read the name
     moki:
       Combat=Balloon, Bash, DoubleJump, Dash OR Glide
       Combat=Balloon, Bash, Launch
+    gorlek:
+      Launch
+      DoubleJump, TripleJump OR Dash OR Glide OR Sword
+      Dash, Sword OR Hammer  # Jump on the first bubble, dash into the corner, dash again then up slash
+      Glide, Sword OR Hammer  # Jump on the first bubble, glide then up slash near the 2nd bubble (not too close, you can pop the bubble with an upslash)
   conn WoodsEntry.Teleporter:
     moki:
       Grapple, DoubleJump OR Dash OR Glide
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
+    gorlek:
+      Bash  # Bash the tentacle's projectiles
+      Grapple, Sword
+      Grapple, Hammer, Damage=20
+      SentryJump=1
+      DoubleJump, TripleJump OR Hammer  # Double jump to the right wall, upslash/triple jump to start climbing it
   conn WoodsEntry.TwoKeystoneRoom:
     moki: Combat=2xBalloon, DoubleJump OR Dash OR Glide OR Launch
+    gorlek: DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer  # The first enemy is annoying without Launch, might add a Damage=20 requirement to let it explodeon you
 
 anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
   refill Full
@@ -3194,8 +3209,14 @@ anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
       Glide, DoubleJump OR Launch
       Bash, Grenade=1, Glide OR Launch
       DoubleJump, Dash, Launch  # coming from below you'd just need Launch
-#    unsafe:
-#      Glide, SentryJump=1
+    gorlek:
+      Glide  # from the kind of pillar
+      Launch  # fall then launch from under the pickup
+      DoubleJump, TripleJump, Dash, Sword OR Hammer
+      SentryJump=1, Dash  # Dash after the apex of the sjump then sword's full combo + up slash
+      Bash, Grenade=1, DoubleJump, TripleJump OR Dash OR Sword OR Hammer
+    unsafe:
+      Bash, Grenade=1, DoubleJump OR Dash OR Sword  # Need a bash glide
 
   conn Teleporters: free
   conn WoodsEntry.ShriekMeet: free
@@ -3211,18 +3232,31 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
 
   pickup WoodsEntry.LowerKS:
     moki: DoubleJump OR Dash OR Glide  # Launch is awful
+    gorlek: Launch OR Sword OR Hammer  # jump on the 1st bubble just before it disappear, jump on the second one, take the key and air stall until the first bubble respawn (or just launch away)
+    unsafe: free  # Jump on the first bubble just before it disappears, jump on the second one and take the key, wall jump on the left wall to wait for the 1st bubble to respawn
   pickup WoodsEntry.UpperKS:
     moki: DoubleJump OR Launch
-#   unsafe:
-#     SentryJump=1, Glide
+    gorlek:
+      Hammer, Dash
+      Bash, Grenade=1
+      SentryJump=1
 
   conn WoodsMain.BelowFourKeystoneRoom:
     moki, WoodsEntry.KeystoneDoor:
       Combat=2xSkeeto, Spitter, DoubleJump, Dash
       Combat=2xSkeeto, Spitter, Glide
       Bash OR Launch  # bash uses the enemy
+    gorlek, WoodsEntry.KeystoneDoor, EnemyObstacle:
+      DoubleJump, Sword OR Hammer
+      Dash, Sword OR Hammer
+      SentryJump=1  # sjump then full sword combo
+      DoubleJump, TripleJump
+    unsafe, WoodsEntry.KeystoneDoor:
+      Dash  # Dash close to the edge, coyote jump, dash again
   conn WoodsEntry.BelowTeleporter:
     moki: Combat=2xBalloon, DoubleJump OR Glide OR Launch
+    gorlek: DoubleJump OR Dash OR Sword OR Hammer
+    unsafe: Flash=1 OR Sentry=1 OR Shuriken=1
 
 region WoodsMain:
   moki: Damage=40, Regenerate
