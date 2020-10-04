@@ -61,6 +61,19 @@ fun generatePool() = mutableListOf(
         maxRepeats = 1
         ),
     group(
+        "Break # Willow Heart[s]",
+        bool("Wind Spinners", 16155,42976),
+        bool("Spinning Lasers", 16155,54940),
+        bool("Upper Heart", 16155, 24290),
+        bool("Burrow Heart", 16155, 3588),
+        threshold("Willow Laser", 16155, 12971, 4, hideValue = true, countOnly = true),
+        bool("Redirect Puzzle", 16155, 65277),
+        bool("Boulder Escape Heart", 16155, 41488),
+        bool("Lower Left Heart", 16155, 60752),
+        maxRepeats = 2,
+        countGoal = { it.nextTriangular(2, 8, 4) },
+        ),
+    group(
         "Get # Tree[s]",
         bool("Sword", 0, 100),
         bool("Double Jump", 0, 5),
