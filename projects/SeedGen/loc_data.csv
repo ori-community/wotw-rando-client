@@ -175,7 +175,7 @@ PoolsApproach.MillPathHC, Luma Pools, Resource, Life, lagoonStateGroup, 945, lag
 PoolsApproach.MillPathEC, Luma Pools, Resource, Energy, lagoonStateGroup, 945, energyCellA, 21334, -924, -4170
 PoolsApproach.MillPathEX, Luma Pools, SpiritLight, 100, lagoonStateGroup, 945, medExpA, 58723, -895, -4137
 EastPools.RightOre, Luma Pools, Resource, Ore, lumaPoolsStateGroup, 5377, orePickupA, 34852, -1134, -4117
-EastPools.KwoloksWisdomAmulet, Luma Pools, Quest, Amulet, questUberStateGroup, 14019, kwoloksWisdomItemCollected, 53103, -1173, -4154
+EastPools.KwolokAmuletQI, Luma Pools, Quest, Amulet, questUberStateGroup, 14019, kwoloksWisdomItemCollected, 53103, -1173, -4154
 EastPools.TwoCrushersEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbD, 13832, -1176, -4178
 EastPools.CurrentEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbC, 17396, -1214, -4181
 EastPools.BelowLeverEX, Luma Pools, SpiritLight, 100, lumaPoolsStateGroup, 5377, xpOrbA, 27204, -1230, -4126
@@ -257,7 +257,7 @@ LowerReach.RoofLeftEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xp
 LowerReach.RoofRightEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbB, 46711, -72, -3951
 LowerReach.FractureShard, Baurs Reach, Shard, Fracture, pickupsGroup, 23987, fractureShardPickup, 36359, -81, -4001
 LowerReach.EscapeRevisitEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, xpOrbB, 46404, 71, -3731
-LowerReach.ForestsMemory, Baurs Reach, Wisp, Memory, baursReachGroup, 28895, wispRewardPickup, 25522, -428, -4030
+LowerReach.ForestsMemory, Baurs Reach, Wisp, Memory, baursReachGroup, 28895, wispRewardPickup, 25522, -31, -3711
 LowerReach.RightKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneA, 29898, 34, -4025
 LowerReach.UpperLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneC, 10823, -84, -4025
 LowerReach.MiddleLeftKS, Baurs Reach, Resource, Keystone, baursReachGroup, 28895, keystoneB, 37444, -80, -4040

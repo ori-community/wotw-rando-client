@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -13,6 +16,10 @@ namespace RandoMainDLL {
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version;
 
+    private static BlockingCollection<String> logQueue = new BlockingCollection<string>();
+
+    public static WebSocketClient Client = new WebSocketClient();
+
     public static int Bootstrap(string dllPath) {
        if (!Initialize())
         return 1;
@@ -22,20 +29,43 @@ namespace RandoMainDLL {
     }
 
     public static void OnNewGame(int slot) {
-      // overwrite the message log TODO: save a backup maybe?
-      File.WriteAllText(Randomizer.MessageLog, "");
-      SeedController.ReadSeed();
-      UberStateController.NeedsNewGameInit = true;
-      UberStateController.UberStates.Clear();
-      AHK.OnNewGame();
-      SaveController.NewGame(slot);
-      BonusItemController.Refresh();
+      try {
+        // overwrite the message log TODO: save a backup maybe?
+        File.WriteAllText(Randomizer.MessageLog, "");
+        SeedController.ReadSeed();
+        UberStateController.NeedsNewGameInit = true;
+        UberStateController.UberStates.Clear();
+        UberStateController.TickingUberStates.Clear();
+        AHK.OnNewGame();
+        SaveController.NewGame(slot);
+        BonusItemController.Refresh();
+        Client.Connect();
+      }
+      catch (Exception e) {
+        Randomizer.Error("OnNewGame", e);
+      }
     }
-
+    public static Thread logThread;
     public static bool Initialize() {
       try {
+        if (logThread == null) {
+          logThread = new Thread(() => {
+            while (true) {
+              try {
+                var txt = logQueue.Take();
+                while (logQueue.TryTake(out var line))
+                  txt += line;
+                File.AppendAllText(LogFile, txt);
+              } catch (Exception e) {
+                if (Dev) AHK.Print($"error logging: {e}", toMessageLog: false);
+              }
+            }
+          });
+          logThread.Start();
+        }
+
         BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.get_base_path());
-        Log($"Set base path to {BasePath}");
+        Debug($"Init: set base path to {BasePath}");
 
         if (!Directory.Exists(SaveFolder)) 
           Directory.CreateDirectory(SaveFolder);
@@ -52,7 +82,11 @@ namespace RandoMainDLL {
 
         AHK.Init();
         SeedController.ReadSeed(true);
-        Log("init complete", false);
+
+        Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
+        DiscordController.Initialize();
+
+        Debug("Init: Complete", false);
         return true;
       } catch (Exception e) {
         Log($"init error: {e.Message}\n{e.StackTrace}");
@@ -64,10 +98,11 @@ namespace RandoMainDLL {
       try {
         var gs = InterOp.get_game_state();
         if (gs == GameState.TitleScreen) {
+          UberStateController.SkipListeners = true;
           if (TitleScreenCallback != null)
             OnTitleScreen();
-          UberStateController.SkipListenersNextUpdate = true;
         } else if (gs == GameState.Game) {
+          UberStateController.SkipListeners = false;
           UberStateController.Update();
           if (InputUnlockCallback != null && InterOp.player_can_move())
             OnInputUnlock();
@@ -76,13 +111,13 @@ namespace RandoMainDLL {
         }
         AHK.Tick();
         BonusItemController.Update();
+        DiscordController.Update();
+        Client.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }
     }
-
     public static bool Dev = false;
-
     public static void Error(string caller, Exception e, bool printIfDev = true) {
       Log($"{caller}: {e.Message}\n{e.StackTrace}", printIfDev, "ERROR");
     }
@@ -92,15 +127,18 @@ namespace RandoMainDLL {
     public static void Warn(string caller, string message, bool printIfDev = true) {
       Log($"{caller}: {message}", printIfDev, "WARN");
     }
+    public static void Debug(string message, bool printIfDev = false) {
+      Log(message, printIfDev, "DEBUG");
+    }
+
+
 
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
       if (AHK.IniFlag("MuteCSLogs"))
         return;
-      if (level == "DEBUG" && !Dev)
-        return;
-      File.AppendAllText(LogFile, $"{DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff]")} [{level}]: {message}\n");
+      logQueue.Add($"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       if (Dev && printIfDev)
-        AHK.Print(message, 180, false);
+        AHK.Print(message, 180, toMessageLog: false);
     }
 
 

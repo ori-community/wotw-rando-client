@@ -13,5 +13,5 @@ object Users : LongIdTable("users") {
 class User(id: EntityID<Long>): LongEntity(id){
     companion object : LongEntityClass<User>(Users)
     var name by Users.name
-    val games by Game via PlayerDataTable
+    val games by Game via GameStates
 }

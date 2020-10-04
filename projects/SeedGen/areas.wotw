@@ -1451,7 +1451,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
   state EastHollow.Voice: free
 
   quest EastHollow.KwolokAmuletQuest:
-    moki: EastPools.KwoloksWisdomAmulet, WestPools.ForestsStrength
+    moki: EastPools.KwolokAmuletQI, WestPools.ForestsStrength
 
   pickup EastHollow.RightKwolokEX:
     moki: Bash OR Launch
@@ -4523,7 +4523,7 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       Water, WaterDash
       Water, Bow=1 OR Grenade=1
 
-  quest EastPools.KwoloksWisdomAmulet: free
+  quest EastPools.KwolokAmuletQI: free
 
   pickup EastPools.RightOre:
     moki:
@@ -4936,6 +4936,11 @@ anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
       SentryJump=1, Damage=30 OR DoubleJump OR Dash
 
 anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
+  refill Energy=3:
+    moki, Weapon:
+      DoubleJump OR Launch
+      Bash, Grenade=1
+
   quest LowerWastes.EerieGemQI:
     moki: Burrow
 

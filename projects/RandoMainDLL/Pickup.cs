@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic;
 using RandoMainDLL.Memory;
@@ -38,14 +40,14 @@ namespace RandoMainDLL {
 
   public enum SysCommandType : byte {
     Save = 0,
-    ProcUberStates = 1,
-    ProcUberStatesAndSurpress = 2,
     SupressMagic = 3,
     StopIfEqual = 4,
     StopIfGreater = 5,
     StopIfLess = 6,
     SetState = 7,
-    Warp = 8
+    Warp = 8,
+    StartTimer = 9,
+    StopTimer = 10,
   }
 
   public enum TeleporterType : byte {
@@ -106,6 +108,10 @@ namespace RandoMainDLL {
     public bool NonEmpty = true;
     public bool Muted = false;
     public abstract PickupType Type { get; }
+    public virtual string DisplayName { get; }
+    public virtual string ShopName { get => DisplayName; }
+    public virtual string Name { get => DisplayName; }
+    public override string ToString() => Name;
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
     public virtual float ModEffectiveness() => 1.0f;
@@ -114,14 +120,19 @@ namespace RandoMainDLL {
     public virtual void Grant(bool skipBase = false) {
       if (skipBase)
         return;
-      if (Frames > 0)
-        AHK.Pickup(ToString(), Frames);
-      SaveController.FoundItem();
+      if (Frames > 0 && DisplayName.Length > 0 && !Muted)
+        AHK.Pickup(DisplayName, Frames);
     }
-    public bool Collect(bool isGoal = false) {
-      SeedController.GrantingGoalModeLoc = isGoal;
-      Grant();
-      SeedController.GrantingGoalModeLoc = false;
+    public bool Collect(UberStateCondition foundAt) {
+      if (NonEmpty) {
+        SeedController.GrantingGoalModeLoc = foundAt.IsGoal();
+        Grant();
+        SeedController.GrantingGoalModeLoc = false;
+        if (foundAt.Loc().Type != LocType.Unknown) {
+          SaveController.FoundCount++;
+          MapController.UpdateReachable();
+        }
+      }
       return NonEmpty;
     }
 
@@ -129,31 +140,27 @@ namespace RandoMainDLL {
       var children = new List<Pickup>();
       if (this is Multi multi) {
         children.AddRange(multi.Children);
-      }
-      else {
+      } else {
         children.Add(this);
       }
 
       if (other is Multi otherM) {
         children.AddRange(otherM.Children);
-      }
-      else {
+      } else {
         children.Add(other);
       }
       // this can only really happen if one of these was Multi.Empty, but we do concat on empties, soooo
       if (children.Count == 1) {
         return children[0];
       }
-
       return new Multi(children);
     }
-
-    public abstract override string ToString();
   }
 
   public class UberStateSetter : Pickup {
     public readonly UberState State;
     public override PickupType Type => PickupType.UberState;
+    public override int Frames { get => 0; }
     public int supCount = 0;
     public UberStateSetter(UberState state, int sup = 0) {
       State = state;
@@ -164,7 +171,8 @@ namespace RandoMainDLL {
       UberStateController.SkipUberStateMapCount[id] = supCount;
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
-    public override string ToString() => $"{State.GroupID},{State.ID} -> {State.FmtVal()}";
+    public override string DisplayName { get => ""; }
+    public override string Name { get => $"{State.GroupID},{State.ID} -> {State.FmtVal()}"; }
   }
 
   public class UberStateModifier : UberStateSetter {
@@ -181,12 +189,13 @@ namespace RandoMainDLL {
       State.Value = Modifier(State.ValueOr(State.Value));
       InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
     }
-    public override string ToString() => $"{State.GroupID},{State.ID} -> {ModStr}";
-
+    public override string Name { get => $"{State.GroupID},{State.ID} -> {ModStr}"; }
   }
 
 
   public class Multi : Pickup {
+
+    private string _lastDispName = "Empty";
     public Multi(List<Pickup> children) {
       Children = children;
       NonEmpty = children.Count > 0;
@@ -194,10 +203,10 @@ namespace RandoMainDLL {
 
     public override int Frames {
       get {
-        var messages = Children.FindAll(p => p is Message msg);
-        if (messages.Count == 0)
+        if (!NonEmpty)
           return base.Frames;
-        return messages.Max(p => p.Frames);
+        var msgs = Children.Where(p => p is Message msg).ToList();
+        return (msgs.Count > 0 ? msgs : Children).Max(p => p.Frames);
       }
     }
 
@@ -208,30 +217,25 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
+      List<string> lines = new List<string>();
+      bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
         child.Grant(true);
+        if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch))
+          continue;
+        lines.Add(child.DisplayName);
       }
+      _lastDispName = string.Join("\n", lines);
       base.Grant(false);
     }
 
-    public override string ToString() {
-      if (Children.Count == 0) {
-        return "Empty";
-      }
-      var squelching = Children.FindAll(p => p is Message msg && msg.Squelch);
-      List<string> names = new List<string>();
-      foreach (var child in (squelching.Count > 0 ? squelching : Children)) {
-        if (child is ConditionalStop s && s.StopActive())
-          break;
-        if (child.Muted)
-          continue;
-        names.Add(child.ToString());
-      }
-      return string.Join("\n", names.Where(s => s.Length > 0));
-    }
-
+    public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName;  }
+    public override string DisplayName { get => _lastDispName; }
+    
+    public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
   }
 
   public class Message : Pickup {
@@ -248,7 +252,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Message;
 
     private static Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,]([0-9]+)\)");
-    public override string ToString() => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
+    public override string DisplayName { get => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal()); }
   }
 
   public abstract class Checkable : Pickup {
@@ -294,10 +298,8 @@ namespace RandoMainDLL {
     }
 
     public override int DefaultCost() => 250;
-    public override string ToString() {
-      var str = type.GetDescription();
-      return !(str is null) ? $"#{str} TP#" : $"Unknown Teleporter {type}";
-    }
+    public override string Name { get => $"{type.GetDescription() ?? $"unknown {type}"} TP";  }
+    public override string DisplayName { get => $"#{Name}#"; }
   }
   public class RemoveTeleporter : Pickup {
     public RemoveTeleporter(TeleporterType ability) => type = ability;
@@ -308,7 +310,8 @@ namespace RandoMainDLL {
       states().ForEach((s) => s.Write(new UberValue(false)));
       base.Grant(skipBase);
     }
-    public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Teleporter {type}";
+    public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Teleporter {type}"}"; }
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Teleporter {type}"}"; }
   }
   public class Ability : Checkable {
     public Ability(AbilityType ability) => type = ability;
@@ -326,7 +329,8 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
 
-    public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown Ability {type}";
+    public override string Name { get => type.GetDescription() ?? $"Unknown Ability {type}"; }
+    public override string DisplayName { get => $"*{Name}*"; }
   }
 
   public class RemoveAbility : Pickup {
@@ -337,7 +341,8 @@ namespace RandoMainDLL {
       SaveController.SetAbility(type, false);
       base.Grant(skipBase);
     }
-    public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Ability {type}";
+    public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Ability {type}"}"; }
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Ability {type}"}"; }
   }
 
   public class Shard : Checkable {
@@ -356,7 +361,8 @@ namespace RandoMainDLL {
     }
 
     public override int DefaultCost() => 300;
-    public override string ToString() => $"${type.GetDescription()}$" ?? $"Unknown Shard {type}";
+    public override string Name { get => type.GetDescription() ?? $"Unknown Shard {type}"; }
+    public override string DisplayName { get => $"${Name}$"; }
   }
   public class RemoveShard : Pickup {
     public RemoveShard(ShardType shard) => type = shard;
@@ -367,7 +373,8 @@ namespace RandoMainDLL {
       InterOp.refresh_shards();
       base.Grant(skipBase);
     }
-    public override string ToString() => $"Removed {type.GetDescription()}" ?? $"Unknown Shard {type}";
+    public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Shard {type}"}"; }
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Shard {type}"}"; }
   }
 
   public class Cash : Pickup {
@@ -379,19 +386,23 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       InterOp.set_experience(InterOp.get_experience() + Amount);
+      UberInc.Int(6, 3, Amount);
       InterOp.shake_spiritlight();
       base.Grant(skipBase);
     }
 
     private static readonly List<string> MoneyNames = new List<string>() {
       "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo",
-     "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets",
-      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells",
+     "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", 
+      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", 
       "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
-      "Boonbucks", "Pieces of Eight", "Shillings", "Farthings"
+      "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
+      "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
+      "Money", "Cash", "ISK", "Munny", "Nuyen", "Rings", "Rupees", "Coins",
+      "Echoes", "Sovereigns", "Vbucks", "Robux"
     };
-
-    public override string ToString() => $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}";
+    public override string Name { get => $"{Amount} Spirit Light"; }
+    public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}"; }
   }
   public class QuestEvent : Checkable {
     public QuestEvent(QuestEventType ev) => type = ev;
@@ -413,7 +424,8 @@ namespace RandoMainDLL {
       UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
       base.Grant(skipBase);
     }
-    public override string ToString() => $"*{type.GetDescription()}*" ?? $"Unknown resource type {type}";
+    public override string Name { get => type.GetDescription() ?? $"Unknown Event {type}"; }
+    public override string DisplayName { get => $"*{Name}*"; }
   }
   public class RemoveQuestEvent : Pickup {
     public RemoveQuestEvent(QuestEventType ev) => type = ev;
@@ -431,7 +443,8 @@ namespace RandoMainDLL {
       UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
       base.Grant(skipBase);
     }
-    public override string ToString() => $"Remove #{type.GetDescription()}#" ?? $"Unknown resource type {type}";
+    public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Event {type}"}"; }
+    public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Event {type}"}"; }
   }
   public class BonusItem : Pickup {
     public override int DefaultCost() => 300;
@@ -451,7 +464,8 @@ namespace RandoMainDLL {
       state.Write(state.Value);
       base.Grant(skipBase);
     }
-    public override string ToString() => $"#{type.GetDescription()}{(stateId.State().Value.Byte > 1 ? $" x{stateId.State().Value.Byte}" : "")}#";
+    public override string Name { get => type.GetDescription() ?? $"Unknown Bonus Item {type}"; }
+    public override string DisplayName { get => $"#{type.GetDescription() ?? $"Unknown Bonus Item {type}"}{(stateId.State().Value.Byte > 1 ? $" x{stateId.State().Value.Byte}" : "")}#"; }
   }
 
   public class SystemCommand : Pickup {
@@ -463,16 +477,10 @@ namespace RandoMainDLL {
         case SysCommandType.Save:
           InterOp.save();
           break;
-        case SysCommandType.ProcUberStates:
-          UberStateController.Update();
-          break;
-        case SysCommandType.ProcUberStatesAndSurpress:
-          UberStateController.SkipListenersNextUpdate = true;
-          UberStateController.Update();
-          break;
       }
     }
-    public override string ToString() => type.ToString();
+    public override string Name { get => type.ToString(); }
+    public override string DisplayName { get => ""; }
   }
   public class ConditionalStop : SystemCommand {
     private UberId targetState;
@@ -486,17 +494,17 @@ namespace RandoMainDLL {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.StopIfEqual:
-          Randomizer.Log($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue}");
+          Randomizer.Debug($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue}", false);
           if (state.ValueAsFloat() == targetValue)
             return true;
           break;
         case SysCommandType.StopIfGreater:
-          Randomizer.Log($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue}");
+          Randomizer.Debug($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue}", false);
           if (state.ValueAsFloat() > targetValue)
             return true;
           break;
         case SysCommandType.StopIfLess:
-          Randomizer.Log($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
+          Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
           if (state.ValueAsFloat() < targetValue)
             return true;
           break;
@@ -545,7 +553,28 @@ namespace RandoMainDLL {
       InterOp.teleport(X, Y, true);
       base.Grant(skipBase);
     }
-    public override string ToString() => $"Warp to {X}, {Y}";
+    public override string DisplayName { get => $"Warp to {X}, {Y}"; }
+  }
+
+  public class TimerCommand : SystemCommand {
+    private readonly UberId id;
+
+    public TimerCommand(SysCommandType type, UberId id) : base(type) {
+      this.id = id;
+    }
+    public override void Grant(bool skipBase = false) {
+      switch (type) {
+        case SysCommandType.StartTimer:
+          UberStateController.TickingUberStates.Add(id);
+          break;
+        case SysCommandType.StopTimer:
+          UberStateController.TickingUberStates.Remove(id);
+          break;
+      }
+      base.Grant(skipBase);
+    }
+    public override string Name { get => $"On trigger {id}"; }
+    public override string DisplayName { get => ""; }
   }
 
   public class Resource : Pickup {
@@ -600,12 +629,12 @@ namespace RandoMainDLL {
           break;
         case ResourceType.Ore:
           InterOp.set_ore(InterOp.get_ore() + 1);
+          UberInc.Int(6, 5);
           InterOp.shake_ore();
           break;
         case ResourceType.Keystone:
           InterOp.set_keystones(InterOp.get_keystones() + 1);
-          var uid = new UberId(6, 0);
-          uid.State().Write(new UberValue(1 + uid.GetValue().Int));
+          UberInc.Int(6, 0);
           InterOp.shake_keystone();
           break;
         case ResourceType.ShardSlot:
@@ -614,9 +643,9 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-
-    public override string ToString() => type.GetDescription() ?? $"Unknown resource type {type}";
+    public override string DisplayName { get => type.GetDescription() ?? $"Unknown resource type {type}"; }
   }
+
   public enum WeaponUpgradeType {
     RapidSmash = 0,
     RapidSword = 1,
@@ -631,13 +660,22 @@ namespace RandoMainDLL {
   }
   public class WeaponUpgrade : Pickup {
     public override PickupType Type => PickupType.WeaponUpgrade;
-    public readonly string Name;
+    public override string DisplayName { get => _name; }
+    private readonly string _name;
     public readonly string Desc;
     public readonly AbilityType Weapon;
     public readonly WeaponUpgradeType Id;
-    public override int CostWithMod(float mod) => 400; // later maybe we'll do something more interesting here
+    public override int CostWithMod(float mod) {
+      switch(Id) {
+        case WeaponUpgradeType.RapidSmash:
+        case WeaponUpgradeType.SentryEfficiency:
+          return 600;
+        default:
+          return 300;
+      }
+    }
     public WeaponUpgrade(WeaponUpgradeType id, AbilityType weapon, string name, string desc) {
-      Name = name;
+      _name = name;
       Id = id;
       Weapon = weapon;
       Desc = desc;
@@ -662,7 +700,7 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-    public override string ToString() => Name; // we should do this but, only on-pickup... $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}";
+//    public override string DisplayName { get => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}"; }
     public static WeaponUpgrade RapidSmash = new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Spirit Smash* attacks are 25% faster");
     public static WeaponUpgrade RapidSword = new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are 25% faster");
     public static WeaponUpgrade BlazeEfficiency = new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs 50% less energy");

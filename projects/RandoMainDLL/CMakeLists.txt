@@ -11,41 +11,9 @@ execute_process(
 		${WOTWR_PROJECTS_DIR}/wotw-server/docs/packets.proto
 )
 
-set(
-	SOURCE_FILES
-	"AHK.cs"
-	"CppCallbacks.cs"
-	"Extensions.cs"
-	"HintsController.cs"
-	"InterOp.cs"
-	"LocData.cs"
-	"MapController.cs"
-	"Pickup.cs"
-	"Randomizer.cs"
-	"Relics.cs"
-	"SaveController.cs"
-	"SeedController.cs"
-	"ShopController.cs"
-	"TrackFileController.cs"
-	"UberStateController.cs"
-	"BonusItemController.cs"
-	"WebSocketClient.cs"
-	
-	"Memory/Ability.cs"
-	"Memory/AreaType.cs"
-	"Memory/GameState.cs"
-	"Memory/InventoryItem.cs"
-	"Memory/WorldMapIconType.cs"
-	"Memory/MessageDescriptor.cs"
-	"Memory/Screen.cs"
-	"Memory/Shard.cs"
-	"Memory/Stats.cs"
-	"Memory/UberState.cs"
-	"Memory/Vector2.cs"
-	"Memory/Vector4.cs"
+FILE(GLOB_RECURSE SOURCE_FILES RELATIVE ${PROJECT_DIR} "*.cs")
 
-	"Generated/Packets.cs"
-)
+
 
 set(
 	MISC_FILES
@@ -70,8 +38,8 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE FALSE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES ${REFERENCES})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Newtonsoft.Json ${WOTWR_LIB_DIR}/Newtonsoft.Json.dll)
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_AutoHotkey.Interop ${WOTWR_LIB_DIR}/AutoHotkey.Interop.dll)
-set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "MSBuild.ILMerge.Task_1.1.3;WebSocketSharp-netstandard_1.0.1;Google.Protobuf_3.13.0")
-
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCE_Google.Protobuf ${WOTWR_LIB_DIR}/Google.Protobuf.dll)
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_PACKAGE_REFERENCES "MSBuild.ILMerge.Task_1.1.3")
 
 target_compile_options(${PROJECT_NAME}
     PRIVATE /unsafe

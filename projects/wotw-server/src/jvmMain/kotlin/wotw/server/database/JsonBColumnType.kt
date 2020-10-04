@@ -3,11 +3,13 @@ package wotw.server.database
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
+import kotlinx.serialization.stringify
 import wotw.server.database.JsonbColumnType.Companion.JSONB
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.Function
 import org.jetbrains.exposed.sql.statements.api.PreparedStatementApi
 import org.postgresql.util.PGobject
+import wotw.io.messages.json
 
 //Yoinked from https://gist.github.com/qoomon/70bbbedc134fd2a149f1f2450667dc9d
 class JsonbColumnType<T : Any>(
@@ -52,8 +54,8 @@ fun <T : Any> Table.jsonb(name: String, stringify: (T) -> String, parse: (String
 fun <T : Any> Table.jsonb(
     name: String,
     serializer: KSerializer<T>,
-    json: Json = Json(JsonConfiguration.Stable)
-): Column<T> = jsonb(name, { json.stringify(serializer, it) }, { json.parse(serializer, it) })
+    jsonSerializer: Json = json
+): Column<T> = jsonb(name, { jsonSerializer.encodeToString(serializer, it) }, { jsonSerializer.decodeFromString(serializer, it) })
 
 
 class JsonValue<T>(

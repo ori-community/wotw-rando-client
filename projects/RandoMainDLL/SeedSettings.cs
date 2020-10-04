@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using RandoMainDLL.Memory;
-
+using Newtonsoft.Json;
+using System;
 namespace RandoMainDLL {
 
   public class SeedGenSettings {
@@ -9,7 +10,7 @@ namespace RandoMainDLL {
     [JsonProperty("spoilers")]
     public Boolean Spoilers { get; set; }
     [JsonIgnore]
-    public Boolean RaceMode { get => !Spoilers }
+    public Boolean RaceMode { get => !Spoilers; }
     [JsonProperty("unsafePaths")]
     public Boolean UnsafePaths { get; set; }
     [JsonProperty("gorlekPaths")]
