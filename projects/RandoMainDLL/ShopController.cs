@@ -30,9 +30,8 @@ namespace RandoMainDLL {
         }
         else {
           var pickup = SeedController.OpherWeapon(t);
-          if (pickup.NonEmpty) {
-            InterOp.set_opher_item((int)t, 255, pickup.ToString(), pickup is WeaponUpgrade wu ? wu.Desc : Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
-          }
+          if (pickup.NonEmpty) 
+            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup is WeaponUpgrade wu ? wu.Desc : Chatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
           else
             Randomizer.Warn("UpdateShopData", $"Couldn't find a pickup for {t.GetDescription()}");
         }
@@ -40,7 +39,7 @@ namespace RandoMainDLL {
       foreach(ShardType s in twillenShardInv) {
         var pickup = SeedController.TwillenShard(s);
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s, pickup.ToString(), Chatter(), lockedTillGlades, pickup.CostWithMod(GetCostMod(s)));
+          InterOp.set_twillen_item((int)s, pickup.ShopName, Chatter(), lockedTillGlades, pickup.CostWithMod(GetCostMod(s)));
       }
       foreach(LupoHintData d in lupoDataByID.Values)
         d.Setup();
@@ -103,7 +102,7 @@ namespace RandoMainDLL {
       } 
       UberSet.Bool(slot.BoughtState(), true);
       if (WaterOverride(slot)) {
-        AHK.SendPlainText(new PlainText($"Bought Hint: {HintsController.GetKeySkillHintOne(true)}", 300));
+        AHK.SendPlainText(new PlainText($"Bought Hint: {HintsController.GetKeySkillHintOne()}", 300));
         return;
       }
 

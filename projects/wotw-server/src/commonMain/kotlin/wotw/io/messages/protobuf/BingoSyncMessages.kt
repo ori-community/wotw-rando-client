@@ -1,28 +1,30 @@
 package wotw.io.messages.protobuf
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.protobuf.ProtoId
+import kotlinx.serialization.protobuf.ProtoNumber
 
 @Serializable
 data class SyncBoardMessage(
-    @ProtoId(1) val board: BingoBoard,
-    @ProtoId(2) val replace: Boolean = false
+    @ProtoNumber(1) val board: BingoBoard,
+    @ProtoNumber(2) val replace: Boolean = false
 )
 
 @Serializable
-data class PlayerInfo(
-    @ProtoId(1) val playerId: Long,
-    @ProtoId(2) val name: String,
-    @ProtoId(3) val score: String,
-    @ProtoId(4) val rank: Int? = null
+data class BingoPlayerInfo(
+    @ProtoNumber(1) val playerId: Long,
+    @ProtoNumber(2) val name: String,
+    @ProtoNumber(3) val score: String,
+    @ProtoNumber(4) val rank: Int = 0,
+    @ProtoNumber(5) val squares: Int = 0,
+    @ProtoNumber(6) val lines: Int = 0,
 )
 
 @Serializable
-data class SyncPlayersMessage(
-    @ProtoId(1) val players: List<PlayerInfo>
+data class SyncBingoPlayersMessage(
+    @ProtoNumber(1) val players: List<BingoPlayerInfo>
 )
 
 @Serializable
 data class RequestUpdatesMessage(
-    @ProtoId(1) val playerId: Long
+    @ProtoNumber(1) val playerId: Long
 )

@@ -48,7 +48,7 @@ IL2CPP_BINDING(, GameController, bool, get_LockInput, (app::GameController* this
 IL2CPP_BINDING(, GameController, bool, get_IsSuspended, (app::GameController* thisPtr));
 IL2CPP_BINDING(, GameController, bool, get_SecondaryMapAndInventoryCanBeOpened, (app::GameController* thisPtr));
 
-IL2CPP_BINDING_OVERLOAD(, SpellInventory, void, UpdateBinding, (app::SpellInventory* thisPtr, int32_t binding, int32_t typ), (SpellInventory.Binding, EquipmentType));
+IL2CPP_BINDING_OVERLOAD(, SpellInventory, void, UpdateBinding, (app::SpellInventory* thisPtr, app::SpellInventory_Binding__Enum binding, app::EquipmentType__Enum typ), (SpellInventory.Binding, EquipmentType));
 
 IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
 IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
@@ -122,9 +122,10 @@ app::GameSettings* get_settings()
     return il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance;
 }
 
-INJECT_C_DLLEXPORT void bind_sword()
+INJECT_C_DLLEXPORT void bind(int slot, int equip_type)
 {
-    SpellInventory::UpdateBinding(get_sein()->fields.PlayerSpells, 0, 1002);
+    app::SpellInventory_Binding__Enum;
+    SpellInventory::UpdateBinding(get_sein()->fields.PlayerSpells, static_cast<app::SpellInventory_Binding__Enum>(slot), static_cast<app::EquipmentType__Enum>(equip_type));
 }
 
 int frames_until_unmute = 0;

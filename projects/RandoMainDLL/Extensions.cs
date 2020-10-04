@@ -3,10 +3,30 @@ using System.ComponentModel;
 using System.Linq;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
+using System.Collections.Concurrent;
+
 namespace RandoMainDLL {
   public static class Extensions {
-    public static UberStateCondition toCond(this Memory.UberId id, int? target = null) => new UberStateCondition(id, target);
+    public static UberStateCondition toCond(this UberId id, int? target = null) => new UberStateCondition(id, target);
     public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
+
+    public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
+
+  public static string FmtVal(this UberValue Value, UberStateType t) {
+      switch (t) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return $"{Value.Bool}";
+        case UberStateType.SerializedByteUberState:
+          return $"{Value.Byte}";
+        case UberStateType.SerializedIntUberState:
+          return $"{Value.Int}";
+        case UberStateType.SerializedFloatUberState:
+          return $"{Value.Float}";
+      }
+      return $"{t}-{Value}";
+
+    }
 
     public static int AsInt(this UberValue v, UberStateType t) {
       switch(t) {
@@ -98,6 +118,12 @@ namespace RandoMainDLL {
       Randomizer.Warn(caller, $"didn't contain {key}: using {alt}");
       return alt;
     }
+    // pickup shorthands for fun and profit
+
+    public static Teleporter p(this TeleporterType tp) => new Teleporter(tp);
+    public static Ability p(this AbilityType s) => new Ability(s);
+    public static Resource p(this ResourceType r) => new Resource(r);
+
     /// <summary>
     /// Gets the description of the given Enum from its Description attribute. If the attribute is missing, returns the Enum as a string. If the Enum is invalid, returns null.
     /// </summary>

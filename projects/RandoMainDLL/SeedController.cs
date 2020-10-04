@@ -45,6 +45,11 @@ namespace RandoMainDLL {
       Id = id;
       Target = target;
     }
+    public UberStateCondition(int groupId, int id, int target) {
+      Id = new UberId(groupId, id);
+      if(target > 0)
+        Target = target;
+    }
     public UberStateCondition(int groupId, string rawTarget) {
       if (rawTarget.Contains("=")) {
         var idAndTarget = rawTarget.Split('=');
@@ -58,6 +63,7 @@ namespace RandoMainDLL {
         Target = null;
       }
     }
+    public override string ToString() => $"({Id.GroupID}, {Id.ID}){(Target.HasValue ?  $"={Target.Value}" : "")}";
     public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
   }
@@ -74,6 +80,7 @@ namespace RandoMainDLL {
     }
 
 
+    public static bool HasPickup(this UberStateCondition cond) => pickupMap.ContainsKey(cond);
     public static Pickup Pickup(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
 
@@ -88,7 +95,7 @@ namespace RandoMainDLL {
       return false;
     }
 
-    public static bool OnCollect(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty).Collect(cond.IsGoal());
+    public static bool OnCollect(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty).Collect(cond);
     public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
 
     public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
@@ -175,12 +182,13 @@ namespace RandoMainDLL {
           MapController.UpdateReachable();
         }
 
-        // Should only be used for configuration options.
       }
       else {
         AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
+
+
     public static bool HasInternalSpoilers = false;
     public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
     public static bool KSDoorsOpen { get => flags.Contains(Flag.NOKEYSTONES); }
@@ -228,17 +236,13 @@ namespace RandoMainDLL {
 
     public static bool OnUberState(UberState state) {
       var id = state.GetUberId();
+      var baseCond = id.toCond();
       var valueCond = id.toCond(state.ValueAsInt());
-      var p = id.toCond().Pickup().Concat(valueCond.Pickup());
-      if (p.Collect(valueCond.IsGoal() || id.toCond().IsGoal())) {
-        // handle shard bug! (don't need to check with target= bc shard locs don't have targets)
-        if (id.toCond().Loc().Type == LocType.Shard)
-          InterOp.refresh_shards();
-      }
-      else {
-        HintsController.OnLupoState(id);
-      }
-      return p.NonEmpty;
+      baseCond.OnCollect();
+      valueCond.OnCollect();
+      if (baseCond.Loc().Type == LocType.Shard)
+        InterOp.refresh_shards();
+      return baseCond.HasPickup() || valueCond.HasPickup();
     }
 
 
@@ -296,6 +300,18 @@ namespace RandoMainDLL {
               var warpX = extras[0].ParseToFloat("BuildPickup.PositionX");
               var warpY = extras[1].ParseToFloat("BuildPickup.PositionY");
               return new WarpCommand(warpX, warpY);
+            case SysCommandType.StartTimer:
+            case SysCommandType.StopTimer:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              var incGroup = extras[0].ParseToInt("BuildPickup.IncGroup");
+              var incState = extras[1].ParseToInt("BuildPickup.IncState");
+              return new TimerCommand(
+                t,
+                new UberId(incGroup, incState)
+              );
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
@@ -381,7 +397,7 @@ namespace RandoMainDLL {
               break;
           }
           var state = new UberState() { ID = uberId.ID, GroupID = uberId.GroupID, Type = stateType, Value = val };
-          var supCount = stateParts.Count > 4 ? stateParts[4].ParseToInt("SuppressionCounter") : 0;
+          var supCount = stateParts.Count > 4 ? stateParts[4].Replace("skip=", "").ParseToInt("SuppressionCounter") : 0;
           if (isModifier && modifier != null)
             return new UberStateModifier(state, modifier, stateParts[3]);
           return new UberStateSetter(state, supCount);
