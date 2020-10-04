@@ -78,7 +78,7 @@ fun generatePool() = mutableListOf(
         bool("Ancestral Light (Burrows)", 0, 121),
         countGoal = { it.nextTriangular(3, 11, 6) },
     ),
-    group("Activate # Spirit Trials",
+    group("Activate # Spirit Trial[s]",
         threshold("Baur's Reach", 44964, 23661, threshold = 1, hideValue = true),
         threshold("Windswept Wastes", 44964, 30767, threshold = 1, hideValue = true),
         threshold("Inkwater Marsh", 44964, 45951, threshold = 1, hideValue = true),
@@ -124,8 +124,8 @@ fun generatePool() = mutableListOf(
     group(
         "Complete # Escape[s]",
         bool("The Wellspring", 37858, 12379),
-        bool("Baur's Reach", 28287, 16339),
-        threshold("Windtorn Ruins", 10289, 19890, 3, hideValue=true, countOnly = true),
+        threshold("Baur's Reach", 28895, 29098, 3, hideValue=true),
+//        threshold("Windtorn Ruins", 10289, 19890, 3, hideValue=true, countOnly = true),
         maxRepeats = 1
     ),
     group("Complete # Combat Shrine[s]",
