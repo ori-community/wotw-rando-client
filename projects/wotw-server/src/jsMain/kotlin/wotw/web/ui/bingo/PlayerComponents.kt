@@ -202,7 +202,7 @@ class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
             attrs {
                 onClickFunction = {
                     GlobalScope.launch {
-                        val response = Application.api.post<HttpResponse>(path = "/games/${props.gameId}/teams/${props.playerId}}")
+                        val response = Application.api.post<HttpResponse>(path = "games/${props.gameId}/teams/${props.playerId}")
                         if (response.status == HttpStatusCode.OK || response.status == HttpStatusCode.Created || response.status == HttpStatusCode.Companion.Conflict) {
                             props.afterJoin()
                         } else {
