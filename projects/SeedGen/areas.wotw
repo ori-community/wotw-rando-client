@@ -1256,7 +1256,9 @@ anchor WestHollow.TrialApproach at -155, -4298:  # after getting past the beetle
 anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon OR Bow=1
+    moki: 
+      Weapon
+      Bow=1
 
   # state WestHollow.TrialActivation:
   #   moki, Combat=Slug:
