@@ -29,7 +29,17 @@ package SeedGenerator {
       case (Some(_), digits) => -digits.toInt
       case (None, digits) => digits.toInt
     }))
-    val skillsWithCost = Map("Bow" -> (Bow, .25f), "Spear" -> (Spear,  2f), "Flash" -> (Flash, 1f), "Shuriken" -> (Shuriken, 0.5f), "Blaze" -> (Blaze, 1f), "Grenade" -> (Grenade, 1f), "Sentry" -> (Sentry, 1f))
+    val enemiesByName = Map(
+      "Mantis" -> Mantis, "Slug" -> Slug, "WeakSlug" -> WeakSlug, "BombSlug" -> BombSlug, "CorruptSlug" -> CorruptSlug, "SneezeSlug" -> SneezeSlug, "ShieldSlug" -> ShieldSlug,
+      "Lizard" -> Lizard, "Bat" -> Bat, "Hornbug" -> Hornbug, "Skeeto" -> Skeeto, "SmallSkeeto" -> SmallSkeeto, "Bee" -> Bee, "Nest" -> Nest, "Fish" -> Fish, "Waterworm" -> Waterworm,
+      "Crab" -> Crab, "SpinCrab" -> SpinCrab, "Spitter" -> Spitter, "Balloon" -> Balloon, "Miner" -> Miner, "MaceMiner" -> MaceMiner, "ShieldMiner" -> ShieldMiner, "BombSlime" -> BombSlug, // maybe?
+      "CrystalMiner" -> CrystalMiner, "Tentacle" -> Tentacle, "ShieldCrystalMiner" -> CrystalShieldMiner, "Sandworm" -> Sandworm, "Spiderling" -> Spiderling, "EnergyRefill" -> EnergyRefill)
+    val skillsWithCost = Map(
+      "Bow" -> (Bow, .25f), "Spear" -> (Spear,  2f), "Flash" -> (Flash, 1f), "Shuriken" -> (Shuriken, 0.5f),
+      "Blaze" -> (Blaze, 1f), "Grenade" -> (Grenade, 1f), "Sentry" -> (Sentry, 1f)
+    )
+    def enemyParser[_: P]: P[(Enemy, Int)] = P((num ~~ "x").? ~~ nameMapParser(enemiesByName)).map({case (None, e) => (e, 1); case (Some(i), e) => (e, i)})
+    def combatReq[_: P]: P[Requirement] = P("Combat=" ~~/ enemyParser.repX(sep="+")).map(CombatReq) | P("Boss"~~/equalsNum).map(n => CombatReq(Seq((Boss(n), 1))))
     def energySkillReq[_: P]: P[Requirement] = P(nameMapParser(skillsWithCost) ~~ equalsNum).map({case (skill, cost, count) => skill.req and EnergyReq(count * cost)})
     def equalsNum[_ :P]: P[Int] = P("=" ~ num)
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
@@ -56,7 +66,7 @@ package SeedGenerator {
       case s if knownMacros.contains(s) => knownMacros(s)
       case s => StateReq(s)
     })
-    def singleReq[_:P]: P[Requirement] = P(diffReq | tpReq | wallReq | skillReq | oreReq | energyReq | dangerReq | ksReq | cashReq | free | eventReq | shardReq | unfree | stateReq)//.log
+    def singleReq[_:P]: P[Requirement] = P(combatReq | diffReq | tpReq | wallReq | skillReq | oreReq | energyReq | dangerReq | ksReq | cashReq | free | eventReq | shardReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
       case (reqs, Some(orReq)) =>

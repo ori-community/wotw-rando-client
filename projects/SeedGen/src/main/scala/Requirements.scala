@@ -103,6 +103,7 @@ package SeedGenerator {
     def apply(count: Float): Requirement = if(count > 0) new EnergyReq(count) else Free
   }
 
+
   case class SentryJumpReq(count: Int) extends Requirement {
     private val er = EnergyReq(count)
     override def metBy(state: GameState, orbs: Option[Orbs]): Boolean =
@@ -161,6 +162,49 @@ package SeedGenerator {
       case r => AllReqs(this, r)
     }
   }
+
+
+  trait Enemy {
+    def dodgeMultiplier = 1.0
+    val health: Int
+  }
+  case class Boss(val health: Int) extends Enemy
+  case object Mantis extends Enemy { val health = 32}
+  case object Slug extends Enemy { val health = 13}
+  case object WeakSlug extends Enemy { val health = 12}
+  case object BombSlug extends Enemy { val health = 1}
+  case object CorruptSlug extends Enemy { val health = 1}
+  case object SneezeSlug extends Enemy { val health = 32}
+  case object ShieldSlug extends Enemy { val health = 24}
+  case object Lizard extends Enemy { val health = 24}
+  case object Bat extends Enemy { val health = 32}
+  case object Hornbug extends Enemy { val health = 40}
+  case object Skeeto extends Enemy { val health = 20}
+  case object SmallSkeeto extends Enemy { val health = 8}
+  case object Bee extends Enemy { val health = 24}
+  case object Nest extends Enemy { val health = 25}
+  case object Fish extends Enemy { val health = 10}
+  case object Waterworm extends Enemy { val health = 20}
+  case object Crab extends Enemy { val health = 32}
+  case object SpinCrab extends Enemy { val health = 32}
+  case object Spitter extends Enemy { val health = 40}
+  case object Balloon extends Enemy { val health = 1}
+  case object Miner extends Enemy { val health = 40}
+  case object MaceMiner extends Enemy { val health = 60}
+  case object ShieldMiner extends Enemy { val health = 60}
+  case object CrystalMiner extends Enemy { val health = 80}
+  case object CrystalShieldMiner extends Enemy { val health = 80}
+  case object Sandworm extends Enemy { val health = 20}
+  case object Spiderling extends Enemy { val health = 12}
+  case object Tentacle extends Enemy {val health = 40 } // i think? 20 on the head?
+  case object EnergyRefill extends Enemy { val health = 1 } // yes this is dumb no i don't care
+
+  case class CombatReq(enemies: Seq[(Enemy, Int)]) extends Requirement {
+    val placeholder = Sword.req or Smash.req
+    override def metBy(state: GameState, orbs: Option[Orbs]): Boolean = placeholder.metBy(state, orbs)
+    override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = placeholder.remaining(state, unaffordable, space)
+  }
+
 
 
   class AnyReq(override val reqs: Requirement*) extends Requirement  with MultiReq {
