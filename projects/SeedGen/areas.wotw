@@ -624,7 +624,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
       Grapple OR Launch
     gorlek:
       DoubleJump
-      Glide OR Dash OR Sword OR Hammer, Damage=10
+      Damage=10, Glide OR Dash OR Sword OR Hammer
     unsafe: Sentry=1, Damage=10
   pickup MarshPastOpher.TrialOre: free
   pickup MarshPastOpher.TrialEC:
@@ -1308,7 +1308,7 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
       WestHollow.DoorLever, DoubleJump, TripleJump, Damage=10, Bash  # Lure the mantis
       Dash, Bash, Grenade=2, Glide OR Sword OR Hammer OR Damage=10  # around the right
     unsafe:
-      SentryJump=2, Dash, Sword OR Hammer, Damage=10
+      Damage=10, SentryJump=2, Dash, Sword OR Hammer
       SentryJump=2, DoubleJump, Damage=10, Sword OR Hammer  # Go up with the first SentryJump, then jump into spikes, SentryJump over and continue
   pickup WestHollow.AboveDashEX:
     moki:  # there's some funny Bashgrenade paths here, but they're not moki-safe
