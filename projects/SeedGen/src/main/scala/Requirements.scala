@@ -103,6 +103,7 @@ package SeedGenerator {
     def apply(count: Float): Requirement = if(count > 0) new EnergyReq(count) else Free
   }
 
+
   case class SentryJumpReq(count: Int) extends Requirement {
     private val er = EnergyReq(count)
     override def metBy(state: GameState, orbs: Option[Orbs]): Boolean =
@@ -119,24 +120,28 @@ package SeedGenerator {
       ).distinct.map(_ + er.remaining(state, unaffordable, space).head + state missing Sentry
       ).filter(g => g.inv.count <= space)
   }
-
-  case class BreakWallReq(wallHealth: Int) extends Requirement {
+  class WallReq(wallHealth: Int, skills: Map[Skill, (Float, Float)]) extends Requirement {
     def energyCost(skill: Skill): Float = skill match {
-      case Bow => Math.ceil(wallHealth/4f).toInt * 0.25f
-      case Grenade => Math.ceil(wallHealth/10f).toInt
-      case Shuriken => Math.ceil(wallHealth/4f).toInt * .5f
-      case Spear => Math.ceil(wallHealth/20f).toInt * 2
-      case _ => 0
+      case s if skills.contains(s) =>
+        val (dmg, cost) = skills(s)
+        Math.ceil(wallHealth/dmg).toInt * cost
+      case s => Logger.warn(s"checking cost of non-valid skill $s"); 0
     }
     def energyReq(skill: Skill): Requirement = EnergyReq(energyCost(skill))
-    private def skills = Seq(Sword, Smash, Bow, Grenade, Shuriken, Spear)
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs =
-      skills.collectFirst({ case s if state.inv.has(s) => energyReq(s).orbsAfterMet(state, orbs)}).get
+      skills.keys.collectFirst({ case s if state.inv.has(s) => energyReq(s).orbsAfterMet(state, orbs)}).get
     def metBy(state: GameState, orbs: Option[Orbs] = None):Boolean =
-      skills.exists(s => state.inv.has(s) && energyReq(s).metBy(state, orbs))
+      skills.keys.exists(s => state.inv.has(s) && energyReq(s).metBy(state, orbs))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = metBy(state) ? Seq(GameState.Empty) ??
-      skills.map(s => (state missing s) + energyReq(s).remaining(state).head).filter(_.inv.count <= space)
+      skills.keys.map(s => (state missing s) + energyReq(s).remaining(state).head).filter(_.inv.count <= space).toSeq
   }
+
+  case class BreakWallReq(wallHealth: Int) extends WallReq(wallHealth,  Map(
+    Sword -> (4f, 0f), Smash -> (12f, 0f), Bow -> (4f, 0.25f),
+    Grenade -> (10f, 1f), Shuriken -> (4f, .5f), Spear -> (20f, 2f))
+  )
+
+  case class BackWallBreak(wallHealth: Int) extends WallReq(wallHealth,  Map(Shuriken -> (7f, 1.5f)))
 
   case class DamageReq(damage: Int) extends Requirement  {
     def orbsMod(state: GameState, orbs: Orbs): Orbs = {
@@ -157,6 +162,49 @@ package SeedGenerator {
       case r => AllReqs(this, r)
     }
   }
+
+
+  trait Enemy {
+    def dodgeMultiplier = 1.0
+    val health: Int
+  }
+  case class Boss(val health: Int) extends Enemy
+  case object Mantis extends Enemy { val health = 32}
+  case object Slug extends Enemy { val health = 13}
+  case object WeakSlug extends Enemy { val health = 12}
+  case object BombSlug extends Enemy { val health = 1}
+  case object CorruptSlug extends Enemy { val health = 1}
+  case object SneezeSlug extends Enemy { val health = 32}
+  case object ShieldSlug extends Enemy { val health = 24}
+  case object Lizard extends Enemy { val health = 24}
+  case object Bat extends Enemy { val health = 32}
+  case object Hornbug extends Enemy { val health = 40}
+  case object Skeeto extends Enemy { val health = 20}
+  case object SmallSkeeto extends Enemy { val health = 8}
+  case object Bee extends Enemy { val health = 24}
+  case object Nest extends Enemy { val health = 25}
+  case object Fish extends Enemy { val health = 10}
+  case object Waterworm extends Enemy { val health = 20}
+  case object Crab extends Enemy { val health = 32}
+  case object SpinCrab extends Enemy { val health = 32}
+  case object Spitter extends Enemy { val health = 40}
+  case object Balloon extends Enemy { val health = 1}
+  case object Miner extends Enemy { val health = 40}
+  case object MaceMiner extends Enemy { val health = 60}
+  case object ShieldMiner extends Enemy { val health = 60}
+  case object CrystalMiner extends Enemy { val health = 80}
+  case object CrystalShieldMiner extends Enemy { val health = 80}
+  case object Sandworm extends Enemy { val health = 20}
+  case object Spiderling extends Enemy { val health = 12}
+  case object Tentacle extends Enemy {val health = 40 } // i think? 20 on the head?
+  case object EnergyRefill extends Enemy { val health = 1 } // yes this is dumb no i don't care
+
+  case class CombatReq(enemies: Seq[(Enemy, Int)]) extends Requirement {
+    val placeholder = Sword.req or Smash.req
+    override def metBy(state: GameState, orbs: Option[Orbs]): Boolean = placeholder.metBy(state, orbs)
+    override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = placeholder.remaining(state, unaffordable, space)
+  }
+
 
 
   class AnyReq(override val reqs: Requirement*) extends Requirement  with MultiReq {
