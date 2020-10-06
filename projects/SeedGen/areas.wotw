@@ -1358,8 +1358,8 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
 anchor BeetleFight:
   refill Full
   state EastHollow.BeetleDefeated:
-    moki: Combat=250, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
-    unsafe: Combat=250
+    moki: Boss=250, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
+    unsafe: Boss=250
 
 # checkpoint at -106, -4221
 
@@ -4213,7 +4213,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
 anchor MoraFight:
   refill Full
   quest UpperDepths.ForestsEyes:
-    moki: Combat=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
+    moki: Boss=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
 
 anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left of the second keystone door
   refill Checkpoint
@@ -4847,7 +4847,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
 anchor KwolokFight:
   refill Full
   quest WestPools.ForestsStrength:
-    moki: Combat=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
+    moki: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
   moki: Damage=50, Regenerate
