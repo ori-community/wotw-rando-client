@@ -1,6 +1,79 @@
 package wotw.server.bingo
 
 import wotw.io.messages.protobuf.UberId
+fun coopStates() = (tpIds.values + doorIds.values + corruptedHeartIds.values + questIds.values + pickupIds.values)
+
+val tpIds = mapOf(
+    "savePedestalMidnightBurrows" to UberId(24922, 42531),
+    "savePedestalInkwaterMarsh" to UberId(21786, 10185),
+    "savePedestalHowlsDen" to UberId(11666, 61594),
+    "savePedestalLumaPoolsA" to UberId(945, 58183),
+    "waterLoweredNearLumaTP" to UberId(5377, 63173),
+    "savePedestalLumaPoolsB" to UberId(945, 1370),
+    "savePedestalWellspring" to UberId(53632, 18181),
+    "savePedestalBaursReach" to UberId(28895, 54235),
+    "savePedestalKwoloksHollow" to UberId(937, 26601),
+    "savePedestalMouldwood" to UberId(18793, 38871),
+    "savePedestalWillowsEnd" to UberId(16155, 41465),
+    "savePedestalWillowsEndShriek" to UberId(16155, 50867),
+    "savePedestalSilentWoodsA" to UberId(58674, 7071),
+    "savePedestalSilentWoodsB" to UberId(58674, 1965),
+    "savePedestalWindsweptWastesA" to UberId(58674, 10029),
+    "savePedestalWindsweptWastesB" to UberId(20120, 49994),
+    "savePedestalWindtornRuinsA" to UberId(20120, 41398),
+    "savePedestalWindtornRuinsB" to UberId(10289, 4928),
+    "savePedistalGladesTown" to UberId(42178, 42096),
+)
+
+val doorIds = mapOf(
+    "Light Burst Tree Door" to UberId(28895, 49900),
+    "Reach Trial Door" to UberId(28895, 4290),
+    "Regen Tree Door" to UberId(21786, 42309),
+    "Howl's Den Door" to UberId(21786, 47445),
+    "Luma Pools Door" to UberId(5377, 47621),
+    "Eyestone Door" to UberId(937, 64003),
+    "Eyes Placed Into Statue" to UberId(937, 1038),
+    "Mouldwood Entry Door" to UberId(21786, 59990),
+    "Mouldwood Lower Door" to UberId(18793, 10758),
+    "Silent Woods West Door" to UberId(58674, 21500),
+    "Silent Woods East Door" to UberId(18793, 41544),
+    "Midnight Burrows Door" to UberId(18793, 3171),
+    "Windswept Wastes Door" to UberId(20120, 28786),
+)
+
+val corruptedHeartIds = mapOf(
+    "Wind Spinners" to UberId(16155,42976),
+    "Spinning Lasers" to UberId(16155,54940),
+    "Upper Heart" to UberId(16155, 24290),
+    "Burrow Heart" to UberId(16155, 3588),
+    "Laser Boss" to UberId(16155, 28478),
+    "Redirect Puzzle" to UberId(16155, 65277),
+    "Boulder Escape Heart" to UberId(16155, 41488),
+    "Lower Left Heart" to UberId(16155, 60752),
+)
+
+val questIds = mapOf(
+    "The Silent Teeth" to UberId(937, 34641),
+    "The Missing Key " to UberId(48248, 51645),
+    "Into the Burrows" to UberId(48248, 18458),
+    "The Lost Compass" to UberId(14019, 20667),
+    "A Little Braver" to UberId(14019, 15983),
+    "Family Reunion" to UberId(14019, 27804),
+    "The Tree Keeper" to UberId(14019, 59708),
+    "A Diamond in the Rough" to UberId(14019, 61011),
+    "Into The Darkness" to UberId(14019, 33776),
+    "Kwolok's Wisdom" to UberId(14019, 50597),
+    "The Silent Map" to UberId(14019, 24683),
+    "Breaking the Mould" to UberId(14019, 45931),
+    "Lost in Paradise" to UberId(14019, 35087),
+    "The Highest Reach" to UberId(14019, 8973),
+    "Beneath Shifting Sands" to UberId(14019, 35399),
+    "Hand to Hand" to UberId(14019, 26318),
+    "Rebuilding the Glades" to UberId(14019, 44578),
+    "Regrowing the Glades" to UberId(14019, 26394),
+)
+
+
 
 val pickupIds = mapOf(
     "MarshSpawn.RockHC" to UberId(21786, 60210),

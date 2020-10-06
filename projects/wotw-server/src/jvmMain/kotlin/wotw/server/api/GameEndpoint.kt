@@ -17,6 +17,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import wotw.io.messages.protobuf.*
 import wotw.io.messages.sendMessage
 import wotw.server.bingo.BingoBoardGenerator
+import wotw.server.bingo.coopStates
 import wotw.server.bingo.pickupIds
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
@@ -134,7 +135,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
 
-                outgoing.sendMessage(InitGameSyncMessage(initData?.plus(pickupIds.values)?.distinct() ?: pickupIds.values.distinct()))
+                outgoing.sendMessage(InitGameSyncMessage(coopStates().plus(initData.orEmpty())))
                 outgoing.sendMessage(PrintTextMessage(text = "$user - Connected", frames = 600, ypos = 3f))
 
                 fun rezero(n: Int) = if(n == -1) 0 else n
