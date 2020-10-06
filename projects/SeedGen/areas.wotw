@@ -3152,18 +3152,18 @@ anchor WoodsEntry.ShriekMeet at 391, -4198:  # The ledge after swimming through 
     gorlek: Launch
   pickup WoodsEntry.MudPitEX:
     moki:
-      Combat=Tentacle, Balloon, DoubleJump OR Dash OR Glide
+      Combat=Tentacle+Balloon, DoubleJump OR Dash OR Glide
       Bash, DoubleJump OR Dash OR Glide
       Launch
       Bash, Grenade=2
-    gorlek: Combat=Tentacle, Balloon OR Bash OR Damage=10  # Jump on the bubble
+    gorlek: Combat=Tentacle+Balloon OR Bash OR Damage=10  # Jump on the bubble
 
   conn WoodsEntry.BelowTeleporter:
     moki:
       Combat=Balloon, Bash, DoubleJump OR Dash OR Glide
       Combat=Balloon, Launch
     gorlek:  # for the last balloon, lure it away or use the checkpoint to despawn it
-      Combat=Tentacle, Balloon, DoubleJump OR Dash OR Glide
+      Combat=Tentacle+Balloon, DoubleJump OR Dash OR Glide
       Bash, DoubleJump OR Dash OR Glide
       Damage=10, DoubleJump OR Dash OR Glide
       Launch
