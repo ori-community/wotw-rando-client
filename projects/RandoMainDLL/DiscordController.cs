@@ -7,7 +7,7 @@ using Discord;
 namespace RandoMainDLL {
   public static class DiscordController {
     private static long CLIENT_ID = 751523174767919195;
-    public static bool Disabled = false;
+    public static bool Disabled = true;
     public static UserManager UserManager;
     public static bool Initialized = false;
     public static User User;
@@ -16,16 +16,9 @@ namespace RandoMainDLL {
     public static bool InitRunning = false;
     public static Discord.Discord discord;
     public static void Initialize() {
-      if (discord == null)
-        discord = new Discord.Discord(CLIENT_ID, (UInt64)CreateFlags.Default);
-      if(UserManager == null) 
-        UserManager = discord.GetUserManager();
-      if(ApplicationManager == null)
-        ApplicationManager = discord.GetApplicationManager();
-      Initialized = true;
-      if (GetUser() != null) {
-        Randomizer.Log("User already known, skipping rest of discord init", false, "DEBUG");
-        Randomizer.Client.Connect();
+      Disabled = AHK.IniFlag("DisableNetcode");
+      if (Disabled) {
+        Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
         return;
       }
       if (InitRunning) {
@@ -34,10 +27,16 @@ namespace RandoMainDLL {
       }
       InitRunning = true;
       new Thread(() => {
-        Disabled = AHK.IniFlag("DisableNetcode");
-        if (Disabled) {
-          Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
-          InitRunning = false;
+        if (discord == null)
+          discord = new Discord.Discord(CLIENT_ID, (UInt64)CreateFlags.Default);
+        if (UserManager == null)
+          UserManager = discord.GetUserManager();
+        if (ApplicationManager == null)
+          ApplicationManager = discord.GetApplicationManager();
+        Initialized = true;
+        if (GetUser() != null) {
+          Randomizer.Log("User already known, skipping rest of discord init", false, "DEBUG");
+          Randomizer.Client.Connect();
           return;
         }
         discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(LogLevel.Info) > 0, level.ToString()));
