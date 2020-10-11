@@ -227,8 +227,12 @@ namespace RandoMainDLL {
           Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
 
         BonusItemController.OnUberState(state);
-        if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8))
-          Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {state.FmtVal()} (was {oldValFmt}, ori at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )");
+        var zone = ZoneType.Void;
+        if (InterOp.get_game_state() == GameState.Game)
+          zone = InterOp.get_player_area().toZone();
+        if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10))
+          Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {oldValFmt}->{state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
+          //Randomizer.Debug($"{state.GroupName}.{state.Name}, {state.GroupID}, {state.ID}, {state.Type}, {oldValFmt}, {state.FmtVal()}, {zone}, {Math.Round(pos.X)},{Math.Round(pos.Y)}");
       }
       catch (Exception e) {
         Randomizer.Error($"USC.Update {state}", e);
