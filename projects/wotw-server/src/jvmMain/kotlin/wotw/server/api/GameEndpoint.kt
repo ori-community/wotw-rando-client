@@ -49,12 +49,11 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             server.connections.onGameUpdate(gameId)
             call.respond(HttpStatusCode.NoContent)
         }
-
+        post("games") {
+            val game = newSuspendedTransaction {Game.new {} }
+            call.respondText("${game.id.value}", status = HttpStatusCode.Created)
+        }
         authenticate(SESSION_AUTH) {
-            post("games") {
-                val game = newSuspendedTransaction {Game.new {} }
-                call.respondText("${game.id.value}", status = HttpStatusCode.Created)
-            }
             post("games/{game_id}/teams"){
                 val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
                 newSuspendedTransaction {
