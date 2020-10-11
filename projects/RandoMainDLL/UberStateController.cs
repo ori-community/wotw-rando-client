@@ -16,8 +16,7 @@ namespace RandoMainDLL {
     public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().ValueOpt().GetValueOrDefault(value);
     public static UberValue GetValue(this UberState state) => state.GetUberId().GetValue();
     public static UberState State(this UberId id) {
-      UberState s;
-      if (!UberStates.TryGetValue(id, out s)) {
+      if (!UberStates.TryGetValue(id, out UberState s)) {
         s = createUberStateEntry(id);
         UberStates.Add(id, s);
       }
@@ -50,7 +49,8 @@ namespace RandoMainDLL {
           (HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow).p().Grant(true);
         else
           TpsByID[identifier].p().Grant(true);
-      } catch(Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
+      }
+      catch (Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
     }
 
     public static void RegisterSyncedUberState(UberId id) {
@@ -70,7 +70,7 @@ namespace RandoMainDLL {
       if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
         Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
         return null;
-       }
+      }
 
       byte[] buffer = new byte[256];
       int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
@@ -97,7 +97,8 @@ namespace RandoMainDLL {
       var state = createUberStateEntry(id);
       try {
         UberStates.Add(id, state);
-      } catch(Exception e) {
+      }
+      catch (Exception e) {
         Randomizer.Warn("ValueOpt", $"{e}", false);
       }
       return state?.Value;
@@ -268,7 +269,8 @@ namespace RandoMainDLL {
         while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
           InterOp.set_uber_state_value(stateUpdate.State.Group, stateUpdate.State.State, stateUpdate.Value);
         }
-      } catch(Exception e) { Randomizer.Error("USC.Update", e, false);  }
+      }
+      catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
     }
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
@@ -283,7 +285,7 @@ namespace RandoMainDLL {
         Randomizer.InputUnlockCallback = () => {
           // this is really questionable!!
           var voiceState = new UberId(46462, 59806).State();
-          if (!(voiceState.Value.Bool)) {
+          if (!voiceState.Value.Bool) {
             voiceState.Write(new UberValue(true));
             InterOp.set_max_health(InterOp.get_max_health() + 10);
             InterOp.set_max_energy(InterOp.get_max_energy() + 1);
@@ -299,9 +301,9 @@ namespace RandoMainDLL {
     private static bool ShouldRevert(UberState state) {
       if (NeedsNewGameInit || SkipListeners)
         return false;
-      if (state.Name == "cleanseWellspringQuestUberState" && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes")) 
-          return true;
-      else if (state.Name == "findKuQuest" && state.Value.Int < 4) 
+      if (state.Name == "cleanseWellspringQuestUberState" && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes"))
+        return true;
+      else if (state.Name == "findKuQuest" && state.Value.Int < 4)
         return true;
       return false;
     }
@@ -325,11 +327,11 @@ namespace RandoMainDLL {
           foreach (UberState s in LongCutscenes) { s.Write(); }
 
         InterOp.discover_everything();
-        if(!SeedController.flags.Contains(Flag.NOSWORD)) {
+        if (!SeedController.flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
           var slotRaw = AHK.IniString("Misc", "SpawnSlot");
           var slot = 0;
-          if(slotRaw != string.Empty) {
+          if (slotRaw != string.Empty) {
             slot = slotRaw.ParseToInt("Spawn Slot Ini") - 1;
             if (slot > 2 || slot < 0) {
               AHK.Print($"Ignoring invalid slot specifier {slotRaw}", toMessageLog: false);
