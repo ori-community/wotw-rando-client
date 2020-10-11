@@ -37,6 +37,16 @@ fun generatePool() = mutableListOf(
         pickupsIn.wastes,
         pickupsIn.willow
     ),
+    bool("Drop the rock next to Baur", 28895, 49329),
+    group(
+        "Complete # Fight Rooms",
+        bool("Ridge Elevator Ride", 36153, 23584),
+        bool("Reach Escape Access", 28895, 42209),
+        bool("Marsh Cave Lizard Door", 21786, 35598),
+        threshold("Marsh Burrow Area Gauntlet", 9593, 59418, 3, hideValue=true),
+        threshold("Double Jump Tree Approach", 9593, 25130, 3, hideValue=true),
+        threshold("Wellspring Wheel Room Access", 37858, 8487, 2, hideValue=true),
+        ),
     group(
         "Buy # Weapon Upgrade[s]",
         bool("Exploding Spike", 1, 1074),
