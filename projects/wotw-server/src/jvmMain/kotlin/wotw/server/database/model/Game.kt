@@ -28,7 +28,7 @@ class Game(id: EntityID<Long>) : LongEntity(id) {
         return teamStates.map { (team, state) ->
             BingoPlayerInfo(
                 team.members.firstOrNull()?.id?.value ?: -1L,
-                team.name,
+                if(team.members.count() == 1L) team.members.first().name else team.name,
                 board?.goals?.count { it.value.isCompleted(state.uberStateData) }.toString() + " / ${board?.goals?.size}"
             )
         }.sortedByDescending { it.rank }

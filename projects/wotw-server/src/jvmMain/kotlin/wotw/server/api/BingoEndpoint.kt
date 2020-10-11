@@ -66,19 +66,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
                 val game = Game.findById(gameId) ?: throw NotFoundException("game not found??")
 
-                GameState.new {
-                    this.game = game
-                    val team = Team.new {
-                        this.game = game
-                        this.name = user.name
-                    }
-                    this.team = team
-                    TeamMembership.new {
-                        this.player = user
-                        this.team = team
-                    }
-                    uberStateData = UberStateMap()
-                }
+                Team.new(game, user)
                 game.id.value
             }
 
