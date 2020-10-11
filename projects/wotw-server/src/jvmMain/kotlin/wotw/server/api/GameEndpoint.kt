@@ -6,6 +6,7 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.CloseReason
 import io.ktor.http.cio.websocket.close
+import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
@@ -64,27 +65,20 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     if(existingTeam != null)
                         throw AlreadyExistsException("You are already in a Team!")
 
-                    val team = Team.new {
-                        this.game = game
-                        this.name = player.name
-                    }
-                    TeamMembership.new {
-                        this.player = player
-                        this.team = team
-                    }
+                    Team.new(game, player)
                 }
                 call.respond(HttpStatusCode.Created)
             }
             get("games/{game_id}/teams/{team_id}"){
                 val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
                 val teamId = call.parameters["team_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable TeamID")
-                val members = newSuspendedTransaction {
+                val (team, members) = newSuspendedTransaction {
                     val game = Game.findById(gameId) ?: throw NotFoundException("Game does not exist!")
                     val team = game.teams.firstOrNull { it.id.value == teamId } ?: throw NotFoundException("Team does not exist!")
-                    team.members.map { UserInfo(it.id.value, it.name) }
+                    team to team.members.map { UserInfo(it.id.value, it.name) }
                 }
                 println(members)
-                call.respond(TeamInfo(members.first(), members.drop(1)))
+                call.respond(TeamInfo(teamId, team.name, members.first(), members.drop(1)))
             }
             get("games/{game_id}/teams"){
                 val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Unparsable GameID")
@@ -92,7 +86,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     val game = Game.findById(gameId) ?: throw NotFoundException("Game does not exist!")
                     game.teams.map {
                         val members = it.members.map { m -> UserInfo(m.id.value, m.name) }
-                        TeamInfo(members.first(), members.drop(1))
+                        TeamInfo(it.id.value, it.name, members.first(), members.drop(1))
                     }
                 }
                 println(teams)

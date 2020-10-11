@@ -10,6 +10,8 @@ data class UserInfo(
 )
 @Serializable
 data class TeamInfo(
+    val id: Long,
+    val name: String,
     val leader: UserInfo,
     val members: List<UserInfo>
 )
