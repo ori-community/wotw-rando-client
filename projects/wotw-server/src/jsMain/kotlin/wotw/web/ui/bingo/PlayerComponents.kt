@@ -157,7 +157,7 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
                             color = Color.black
                             fontWeight = if (it.playerId == state.highlighted) FontWeight.bold else FontWeight.normal
                         }
-                        +"${it.name} ${it.score}"
+                        +"${it.name} | ${it.score}"
                         attrs.onClickFunction = { _ ->
                             setState {
                                 highlighted = it.playerId
