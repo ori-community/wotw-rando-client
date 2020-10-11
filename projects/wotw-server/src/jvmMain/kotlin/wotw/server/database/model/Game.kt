@@ -31,7 +31,7 @@ class Game(id: EntityID<Long>) : LongEntity(id) {
             BingoPlayerInfo(
                 team.members.firstOrNull()?.id?.value ?: -1L,
                 if(team.members.count() == 1L) team.members.first().name else team.name,
-                "${data.lines} line${(if(data.lines == 1) "" else "s")}, ${data.squares} / ${board?.goals?.size}",
+                "${data.lines} line${(if(data.lines == 1) "" else "s")} | ${data.squares} / ${board?.goals?.size}",
                 data.rank,
                 data.squares,
                 data.lines
