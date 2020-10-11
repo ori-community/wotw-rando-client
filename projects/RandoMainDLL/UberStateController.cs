@@ -281,7 +281,10 @@ namespace RandoMainDLL {
         // Give diamond in the rough pickup.
         new UberId(23987, 14832).State().Write(new UberValue(true));
       }
-      else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2)
+      // the below is a fix for a vanilla bug where you can just miss getting voice if you
+      else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2 ||        // (a) skip the kwolok cutscene too fast
+               state.Name == "cleanseWellspringQuestUberState" && state.Value.Int == 4  // (b) come to kwolok after wellspring and get the cutscenes stacked awkwardly
+        )
         Randomizer.InputUnlockCallback = () => {
           // this is really questionable!!
           var voiceState = new UberId(46462, 59806).State();
