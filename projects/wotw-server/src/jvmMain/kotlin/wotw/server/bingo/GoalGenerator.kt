@@ -39,7 +39,7 @@ fun generatePool() = mutableListOf(
     ),
     bool("Drop the rock next to Baur", 28895, 49329),
     group(
-        "Complete # Fight Rooms",
+        "Complete # Fight Room[s]",
         bool("Ridge Elevator Ride", 36153, 23584),
         bool("Reach Escape Access", 28895, 42209),
         bool("Marsh Cave Lizard Door", 21786, 35598),
