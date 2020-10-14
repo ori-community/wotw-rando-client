@@ -81,7 +81,7 @@ class PlayersComponent : RComponent<GameIdProps, TeamListState>() {
                             if(it.members.isEmpty())
                                 +it.leader.name
                             else
-                                +it.name
+                                +"${it.name} (${it.leader.name}, ${it.members.joinToString(", ", transform = {it.name})})"
 
                             if(state.user != it.leader.id)
                             child(JoinTeamComponent::class) {
