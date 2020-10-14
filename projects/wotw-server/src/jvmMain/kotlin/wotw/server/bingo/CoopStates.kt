@@ -1,7 +1,8 @@
 package wotw.server.bingo
 
 import wotw.io.messages.protobuf.UberId
-fun coopStates() = (tpIds.values + doorIds.values + corruptedHeartIds.values + questIds.values + pickupIds.values + unsortedCoop)
+
+fun coopStates() = (tpIds.values + /*ksDoorIds.values +*/ seedQuestStates + corruptedHeartIds.values + questIds.values + pickupIds.values + unsortedCoop)
 
 val tpIds = mapOf(
     "savePedestalMidnightBurrows" to UberId(24922, 42531),
@@ -25,7 +26,7 @@ val tpIds = mapOf(
     "savePedistalGladesTown" to UberId(42178, 42096),
 )
 
-val doorIds = mapOf(
+val ksDoorIds = mapOf(
     "Light Burst Tree Door" to UberId(28895, 49900),
     "Reach Trial Door" to UberId(28895, 4290),
     "Regen Tree Door" to UberId(21786, 42309),
@@ -39,6 +40,14 @@ val doorIds = mapOf(
     "Silent Woods East Door" to UberId(18793, 41544),
     "Midnight Burrows Door" to UberId(18793, 3171),
     "Windswept Wastes Door" to UberId(20120, 28786),
+)
+
+val seedQuestStates = sequenceOf(UberId(42178, 47651),
+    UberId(42178, 16254),
+    UberId(42178, 33011),
+    UberId(42178, 64583),
+    UberId(42178, 38393),
+    UberId(42178, 40006),
 )
 
 val corruptedHeartIds = mapOf(
@@ -450,7 +459,9 @@ val pickupIds = mapOf(
     "OpherShop.Sentry" to UberId(1, 116),
 )
 
-val unsortedCoop = sequenceOf(UberId(10289, 3804),
+val unsortedCoop = sequenceOf(
+    UberId(48248, 41666), // 4000 hint
+    UberId(10289, 3804),
     UberId(10289, 43103),
     UberId(16155, 18906),
     UberId(16155, 20672),
