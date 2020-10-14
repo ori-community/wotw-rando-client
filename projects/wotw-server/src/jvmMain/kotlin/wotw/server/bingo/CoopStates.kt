@@ -2,7 +2,10 @@ package wotw.server.bingo
 
 import wotw.io.messages.protobuf.UberId
 
-fun coopStates() = (tpIds.values + /*ksDoorIds.values +*/ seedQuestStates + corruptedHeartIds.values + questIds.values + pickupIds.values + unsortedCoop)
+fun coopStates() = (
+                tpIds.values + /*ksDoorIds.values +*/ safeMaxLevers + seedQuestStates + corruptedHeartIds.values +
+                questIds.values + pickupIds.values + unsortedCoop
+        )
 
 val tpIds = mapOf(
     "savePedestalMidnightBurrows" to UberId(24922, 42531),
@@ -42,7 +45,8 @@ val ksDoorIds = mapOf(
     "Windswept Wastes Door" to UberId(20120, 28786),
 )
 
-val seedQuestStates = sequenceOf(UberId(42178, 47651),
+val seedQuestStates = sequenceOf(
+    UberId(42178, 47651),
     UberId(42178, 16254),
     UberId(42178, 33011),
     UberId(42178, 64583),
@@ -457,6 +461,24 @@ val pickupIds = mapOf(
     "OpherShop.SpiritStar" to UberId(1, 106),
     "OpherShop.Blaze" to UberId(1, 115),
     "OpherShop.Sentry" to UberId(1, 116),
+)
+
+val safeMaxLevers = sequenceOf(
+    UberId(26019, 23382),  // convertedSetupsGymGroup.leverAndDoor
+    UberId(37858, 34433),  // waterMillStateGroupDescriptor.wheelLever
+    UberId(37858, 31187),  // waterMillStateGroupDescriptor.recedingWater
+    UberId(28895, 62198),  // baursReachGroup.leverSetup
+    UberId(937, 22419),  // kwolokGroupDescriptor.leverDoor
+    UberId(18793, 14503),  // mouldwoodDepthsGroup.leverAndDoorA
+    UberId(937, 57028),  // kwolokGroupDescriptor.leverDoorA
+    UberId(937, 59920),  // kwolokGroupDescriptor.switchDoorUberState
+    UberId(21786, 50453),  // swampStateGroup.leverAndDoor
+    UberId(5377, 14488),  // lumaPoolsStateGroup.leverAndDoor
+    UberId(5377, 6398),  // lumaPoolsStateGroup.leverAndDoor
+    UberId(20120, 48009),  // windsweptWastesGroupDescriptor.verticalPlatformLeverA
+    UberId(20120, 12902),  // windsweptWastesGroupDescriptor.leverStateA
+    UberId(10289, 41277),  // windtornRuinsGroup.lever
+    UberId(937, 6778),  // kwolokGroupDescriptor.mokiGateOpened
 )
 
 val unsortedCoop = sequenceOf(
