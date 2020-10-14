@@ -149,7 +149,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                             server.connections.registerGameConn(pc.socket, playerId, game)
                         }
                         server.connections.onGameUpdate(game)
-                        server.connections.syncState(game, playerId, UberId(real_group, real_state), newValue)
+                        server.connections.syncState(game, playerId, UberId(real_group, real_state), newValue, newValue != real_value)
                     }
                 }
             }
