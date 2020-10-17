@@ -27,11 +27,13 @@ namespace RandoMainDLL {
 
     public static int FramesTillReconnectAttempt = 420;
 
+    public static bool WantConnection { get => !DiscordController.Disabled && (SeedController.Settings?.NetcodeEnabled ?? false); }
+
     private WebSocket socket;
     public bool IsConnected { get { return socket != null && socket.IsConnected; } }
     public bool Connecting { get => connectThread?.IsAlive ?? false; }
     public void Connect() {
-      if (DiscordController.Disabled ) return;
+      if (!WantConnection) return;
       setupUpdateThread();
 
       if (Connecting) {
@@ -114,7 +116,7 @@ namespace RandoMainDLL {
     }
 
     public void Update() {
-      if (!DiscordController.Disabled && !IsConnected && !Connecting) {
+      if (WantConnection && !IsConnected && !Connecting) {
         if (FramesTillReconnectAttempt-- <= 0) {
           FramesTillReconnectAttempt = 600;
           Randomizer.Log("Want connection but currently have none, attempting reconnect", false);
