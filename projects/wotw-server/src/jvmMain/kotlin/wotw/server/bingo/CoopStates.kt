@@ -483,6 +483,9 @@ val safeMaxLevers = sequenceOf(
 
 val unsortedCoop = sequenceOf(
     UberId(48248, 41666), // 4000 hint
+    UberId(48248, 19396), // Glades hint
+    UberId(48248, 57987), // Woods hint
+
     UberId(10289, 3804),
     UberId(10289, 43103),
     UberId(16155, 18906),
@@ -619,25 +622,13 @@ val unsortedCoop = sequenceOf(
     UberId(58674, 9239),
     UberId(7228, 4034),
     UberId(937, 10140),
-    UberId(937, 12557),
-    UberId(937, 14026),
     UberId(937, 22716),
-    UberId(937, 24510),
-    UberId(937, 28504),
     UberId(937, 32165),
     UberId(937, 40225),
-    UberId(937, 41587),
     UberId(937, 42245),
-    UberId(937, 44452),
     UberId(937, 45349),
-    UberId(937, 51234),
-    UberId(937, 53749),
     UberId(937, 54236),
-    UberId(937, 57711),
-    UberId(937, 59288),
     UberId(937, 59850),
-    UberId(937, 63834),
-    UberId(937, 64257),
     UberId(945, 12852),
     UberId(945, 28631),
     UberId(945, 3487),
