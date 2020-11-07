@@ -52,8 +52,8 @@ namespace
 
     }
 
-    INTERCEPT(10044704, void, GameController_FixedUpdate, (app::GameController* this_ptr)) {
-        GameController_FixedUpdate(this_ptr);
+    IL2CPP_INTERCEPT(,GameController,void, FixedUpdate, (app::GameController* this_ptr)) {
+        GameController::FixedUpdate(this_ptr);
         on_fixed_update(this_ptr);
     }
 }

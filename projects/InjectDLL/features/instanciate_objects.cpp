@@ -26,11 +26,11 @@ namespace
     
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
     
-    STATIC_IL2CPP_BINDING_OVERLOAD(, InstantiateUtility, app::Object*, Instantiate,
+    STATIC_IL2CPP_BINDING_OVERLOAD(, InstantiateUtility, app::Object*, InstantiateImmediate,
         (app::Object* object, app::Vector3 position, app::Quaternion rotation, app::Transform* parent, app::Object* owner, bool record),
         (UnityEngine:GameObject, UnityEngine : Vector3, UnityEngine : Quaternion, UnityEngine : Transform, UnityEngine : Object, System : Boolean));
     STATIC_IL2CPP_BINDING_OVERLOAD(, InstantiateUtility, bool, IsDestroyed, (app::GameObject* object), (UnityEngine:GameObject));
-    STATIC_IL2CPP_BINDING(, InstantiateUtility, void, Destroy, (app::GameObject* object));
+    STATIC_IL2CPP_BINDING_OVERLOAD(, InstantiateUtility, void, Destroy, (app::GameObject* object, bool immediate), (UnityEngine:GameObject, System : Boolean));
 
     IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, PreventUnloading, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta, bool prevent_disabling), (RuntimeSceneMetaData, System:Boolean));
     IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, PreloadScene, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* data), (RuntimeSceneMetaData));
@@ -194,7 +194,7 @@ namespace
                 quat.z = s1 * c2 * c3 + c1 * s2 * s3;
                 quat.w = c1 * s2 * c3 - s1 * c2 * s3;
                 auto owner = il2cpp::unity::get_game_object(scenes->static_fields->Manager);
-                auto object = InstantiateUtility::Instantiate(prefab, spawn.position, quat, il2cpp::unity::get_transform(owner), reinterpret_cast<app::Object*>(owner), true);
+                auto object = InstantiateUtility::InstantiateImmediate(prefab, spawn.position, quat, il2cpp::unity::get_transform(owner), reinterpret_cast<app::Object*>(owner), true);
                 spawn.spawned = true;
                 spawn.handle = il2cpp::gchandle_new(object, false);
                 GameObject::SetActive(reinterpret_cast<app::GameObject*>(object), true);
