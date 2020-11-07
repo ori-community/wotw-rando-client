@@ -219,7 +219,7 @@ package SeedGenerator {
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
         gp.addRow(2, new Label("Spawn Opts: "), swordSpawnButton, randomSpawnButton, rainButton, noKSDoorsButton)
         gp.addRow(3, new Label("Misc Opts: "),  seirLaunchButton,zoneHintsButton, questsButton)
-        gp.addRow(4, new Label(""), bonusItemsButton, teleportersButton, webConnButton)
+        gp.addRow(4, new Label(""), bonusItemsButton, teleportersButton, raceModeButton, webConnButton)
         gp.addRow(5,  new Label(s"Output folder: "), outputLabel, changeFolderButton, importSettingsButton)
         gp.addRow(6, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton, debugButton, clearBtn)
         gp
