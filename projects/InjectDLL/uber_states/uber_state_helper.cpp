@@ -85,6 +85,11 @@ INJECT_C_DLLEXPORT void set_debug_controls(bool value)
   cheats->DebugWasEnabled = value;
   cheats->DebugAlwaysEnabled = value;
   il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues")->static_fields->DebugControlsEnabled = value;
+  auto simpleFPS = il2cpp::get_class<app::SimpleFPS__Class>("", "SimpleFPS")->static_fields->Instance;
+  simpleFPS->fields.ComplicatedMode = false;
+  simpleFPS->fields.ReallySimpleMode = false;
+  simpleFPS->fields.TrailerMode = false;
+
 }
 
 INJECT_C_DLLEXPORT bool get_debug_controls()
