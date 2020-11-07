@@ -19,7 +19,7 @@ namespace
         app::DamageType__Enum type, app::AbilityType__Enum abilityType, app::GameObject* sender, int damageID, app::DamageOwner* owner,
         app::SpiritShardType__Enum shardType, bool ignoreKickback, app::DamageWeight__Enum weight, float speedTransfer, bool bypassPlayersInvincibility));
 
-    IL2CPP_BINDING(, Damage, void, DealToComponents, (app::Damage* this_ptr, app::GameObject* go));
+    IL2CPP_BINDING_OVERLOAD(, Damage, void, DealToComponents, (app::Damage* this_ptr, app::GameObject* go), (UnityEngine:GameObject));
 
     STATIC_IL2CPP_BINDING(
         UnityEngine,
