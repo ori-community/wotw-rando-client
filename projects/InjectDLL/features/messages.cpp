@@ -144,7 +144,7 @@ namespace
 
     IL2CPP_INTERCEPT(, MessageBox, void, Update, (app::MessageBox* this_ptr)) {
         MessageBox::Update(this_ptr);
-        if (this_ptr == below_hint_box)
+        if (this_ptr == below_hint_box || this_ptr == NULL)
           return;
         if (tracked_boxes.find(this_ptr) == tracked_boxes.end() && is_visible(this_ptr)) {
             tracked_boxes.insert(this_ptr);
