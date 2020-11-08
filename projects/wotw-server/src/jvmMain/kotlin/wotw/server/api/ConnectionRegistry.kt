@@ -1,15 +1,9 @@
 package wotw.server.api
 
 import io.ktor.http.cio.websocket.*
+import kotlinx.coroutines.channels.SendChannel
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import wotw.io.messages.protobuf.SyncBoardMessage
-import wotw.io.messages.protobuf.SyncBingoPlayersMessage
-import wotw.io.messages.protobuf.UberId
-import wotw.io.messages.protobuf.UberStateUpdateMessage
-import wotw.io.messages.sendMessage
-import wotw.server.database.model.Game
 import wotw.server.database.model.Team
-import wotw.server.database.model.User
 import wotw.server.util.logger
 import wotw.util.MultiMap
 import java.util.*
@@ -44,103 +38,81 @@ class ConnectionRegistry {
         bingoPlayerConns[gameId to playerId] -= socket
     }
 
-    //TODO move this too
-    suspend fun syncState(gameId: Long, causedByPlayerId: Long, uberId: UberId, value: Float, force: Boolean = false) {
-        val messages = mutableListOf<suspend () -> Unit>()
-        newSuspendedTransaction {
-            val team = Team.find(gameId, causedByPlayerId) ?: return@newSuspendedTransaction
-            val user = User.findById(causedByPlayerId)
-            val players = team.members.filter { force || it != user }.map { it.id.value }
-            for (playerId in players) {
-                playerConns[playerId]?.let { conn ->
-                    messages += {
-                        conn.socket.outgoing.sendMessage(
-                            UberStateUpdateMessage(
-                                uberId,
-                                value
-                            )
-                        )
-                    }
-                }
-            }
+    //------------------------Convenience sending functions-------------------------------
+    suspend fun toTeam(teamId: Long, message: suspend SendChannel<Frame>.() -> Unit) =
+        toTeam(teamId, *arrayOf(message))
 
-        }
-        messages.forEach {
-            try {
-                it.invoke()
-            } catch (e: Throwable) {
-                println(e)
-            }
-        }
+    suspend fun toTeam(teamId: Long, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
+        val (players, gameId) = newSuspendedTransaction {
+            val team = Team.findById(teamId) ?: return@newSuspendedTransaction null
+            team.members.map { it.id.value } to team.game.id.value
+        } ?: return
+        toPlayers(players, gameId, *messages)
     }
 
-    //TODO: Move
-    suspend fun onGameUpdate(gameId: Long) {
-        val messages = mutableListOf<suspend () -> Unit>()
+    suspend fun toTeam(gameId: Long, playerId: Long, message: suspend SendChannel<Frame>.() -> Unit) =
+        toTeam(gameId, playerId, *arrayOf(message))
 
-        newSuspendedTransaction {
-            val game = Game.findById(gameId) ?: return@newSuspendedTransaction
-            val info = game.playerInfo()
+    suspend fun toTeam(gameId: Long, playerId: Long, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
+        val players = newSuspendedTransaction {
+            Team.find(gameId, playerId)?.members?.map { it.id.value }
+        } ?: return
+        toPlayers(players, gameId, *messages)
+    }
 
-            bingoGameConns[gameId].forEach {
-                messages += { it.outgoing.sendMessage(SyncBingoPlayersMessage(info)) }
-            }
+    suspend fun toPlayers(
+        players: Iterable<Long>,
+        gameId: Long? = null,
+        message: suspend SendChannel<Frame>.() -> Unit
+    ) =
+        toPlayers(players, gameId, *arrayOf(message))
 
-            game.board?.let { board ->
-                for (player in game.players) {
-                    val playerId = player.id.value
-                    val team = Team.find(gameId, playerId) ?: continue
-                    val teamData = game.teamStates[team] ?: continue
-
-                    playerConns[playerId]?.let { conn ->
-                        val bingoPlayerData = board.getPlayerData(teamData.uberStateData)
-                        messages += {
-                            conn.socket.outgoing.sendMessage(
-                                UberStateUpdateMessage(
-                                    UberId(10, 0),
-                                    bingoPlayerData.squares.toFloat()
-                                )
-                            )
-                            conn.socket.outgoing.sendMessage(
-                                UberStateUpdateMessage(
-                                    UberId(10, 1),
-                                    bingoPlayerData.lines.toFloat()
-                                )
-                            )
-                            conn.socket.outgoing.sendMessage(
-                                UberStateUpdateMessage(
-                                    UberId(10, 2),
-                                    bingoPlayerData.rank.toFloat()
-                                )
-                            )
-                        }
-                    }
-
-                    bingoPlayerConns[gameId to playerId].forEach {
-                        val data = teamData.uberStateData
-                        messages += {
-                            it.outgoing.sendMessage(
-                                SyncBoardMessage(
-                                    board.toBingoBoard(data),
-                                    true
-                                ).also {
-                                    // println(it)
-                                    // this was too spammy -eiko
-                                }
-                            )
-                        }
+    suspend fun toPlayers(
+        players: Iterable<Long>,
+        gameId: Long? = null,
+        vararg messages: suspend SendChannel<Frame>.() -> Unit
+    ) {
+        for (player in players) {
+            playerConns[player]?.let { conn ->
+                for (message in messages) {
+                    try {
+                        if (gameId == null || gameId == conn.gameId)
+                            message(conn.socket.outgoing)
+                    } catch (e: Throwable) {
+                        println(e)
                     }
                 }
             }
         }
+    }
 
-        messages.forEach {
-            try {
-                it.invoke()
-            } catch (e: Throwable) {
-                println(e)
+    suspend fun toObservers(gameId: Long, message: suspend SendChannel<Frame>.() -> Unit) =
+        toObservers(gameId, *arrayOf(message))
+
+    suspend fun toObservers(gameId: Long, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
+        bingoGameConns[gameId].forEach { conn ->
+            for (message in messages) {
+                try {
+                    message(conn.outgoing)
+                } catch (e: Throwable) {
+                    println(e)
+                }
             }
         }
     }
 
+    suspend fun toObservers(gameId: Long, playerId: Long, message: suspend SendChannel<Frame>.() -> Unit) =
+        toObservers(gameId, playerId, *arrayOf(message))
+
+    suspend fun toObservers(gameId: Long, playerId: Long, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
+        bingoPlayerConns[gameId to playerId].forEach { conn ->
+            for (message in messages) {
+                try {
+                    message(conn.outgoing)
+                } catch (e: Throwable) {
+                    println(e)
+                }
+            }
+        }
+    }
 }
