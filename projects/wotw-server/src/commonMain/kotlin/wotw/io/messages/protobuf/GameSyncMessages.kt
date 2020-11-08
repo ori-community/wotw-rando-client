@@ -28,6 +28,13 @@ data class UberId(
 )
 
 @Serializable
+data class UberStateBatchUpdateMessage(
+    @ProtoNumber(1) val updates: List<UberStateUpdateMessage>
+){
+    constructor(vararg updates: UberStateUpdateMessage): this(updates.toList())
+}
+
+@Serializable
 data class UberStateUpdateMessage(
     @ProtoNumber(1) val uberId: UberId,
     @ProtoNumber(2) val value: Float

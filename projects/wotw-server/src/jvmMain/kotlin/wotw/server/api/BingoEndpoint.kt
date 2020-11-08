@@ -70,7 +70,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 game.id.value
             }
 
-            server.connections.onGameUpdate(game)
+            server.sync.syncGameProgress(game)
 
             call.respond(HttpStatusCode.OK)
         }

@@ -6,26 +6,20 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.CloseReason
 import io.ktor.http.cio.websocket.close
-import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
 import io.ktor.websocket.webSocket
 import org.jetbrains.exposed.sql.SizedCollection
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.io.messages.protobuf.*
 import wotw.io.messages.sendMessage
-import wotw.server.bingo.BingoBoardGenerator
 import wotw.server.bingo.coopStates
-import wotw.server.bingo.pickupIds
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.logger
-import kotlin.math.max
 import kotlin.to
 
 class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
@@ -40,13 +34,13 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 val team = Team.find(gameId, playerId) ?: throw NotFoundException()
                 val state = game.teamStates[team] ?: throw NotFoundException()
 
-                aggregateState(state, message.uberId.group to message.uberId.state, message.value)
+                server.sync.aggregateState(state, message.uberId, message.value)
             }
 
-            server.connections.onGameUpdate(gameId)
-            server.connections.syncState(gameId, playerId, UberId(message.uberId.group, message.uberId.state), newValue, true)
+            server.sync.syncGameProgress(gameId)
+            server.sync.syncState(gameId, playerId, message.uberId, newValue)
 
-            server.connections.onGameUpdate(gameId)
+            server.sync.syncGameProgress(gameId)
             call.respond(HttpStatusCode.NoContent)
         }
         post("games") {
@@ -131,40 +125,59 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 outgoing.sendMessage(InitGameSyncMessage(coopStates().plus(initData.orEmpty())))
                 outgoing.sendMessage(PrintTextMessage(text = "$user - Connected", frames = 600, ypos = 3f))
 
-                fun rezero(n: Int) = if(n == -1) 0 else n
                 protocol {
-                    onMessage(UberStateUpdateMessage::class) {
-                        val real_state = rezero(uberId.state)
-                        val real_group = rezero(uberId.group)
-                        val real_value = if(value == -1f) 0f else value
-                        val (newValue, game) = newSuspendedTransaction {
-                            logger.info("($real_group, $real_state) -> $real_value")
-                            val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
-                            aggregateState(playerData, real_group to real_state, real_value) to
-                            playerData.game.id.value
-                        }
-                        val pc = server.connections.playerConns[playerId]!!
-                        if(pc.gameId != game) {
-                            server.connections.unregisterGameConn(playerId)
-                            server.connections.registerGameConn(pc.socket, playerId, game)
-                        }
-                        server.connections.onGameUpdate(game)
-                        server.connections.syncState(game, playerId, UberId(real_group, real_state), newValue, newValue != real_value)
+                    onMessage(UberStateUpdateMessage::class){
+                        updateUberState(gameStateId, playerId)
+                    }
+                    onMessage(UberStateBatchUpdateMessage::class){
+                        updateUberStates(gameStateId, playerId)
                     }
                 }
             }
         }
     }
 
-    private fun aggregateState(state: GameState, uberId: Pair<Int, Int>, value: Float): Float{
-        val data = state.uberStateData
-        val newVal = when(state.team.members.count()){
-            1L -> value
-            else -> max(data[uberId] ?: 0f, value)
+    fun rezero(n: Int) = if(n == -1) 0 else n
+    private suspend fun UberStateUpdateMessage.updateUberState(gameStateId: Long, playerId: Long) {
+        val uberState = rezero(uberId.state)
+        val uberGroup = rezero(uberId.group)
+        val value = if(value == -1f) 0f else value
+        val (newValue, game) = newSuspendedTransaction {
+            logger.debug("($uberGroup, $uberState) -> $value")
+            val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
+            server.sync.aggregateState(playerData, uberId, value) to
+                    playerData.game.id.value
         }
-        data[uberId] = newVal
-        state.uberStateData = data
-        return newVal
+        val pc = server.connections.playerConns[playerId]!!
+        if(pc.gameId != game) {
+            server.connections.unregisterGameConn(playerId)
+            server.connections.registerGameConn(pc.socket, playerId, game)
+        }
+        server.sync.syncGameProgress(game)
+        server.sync.syncState(game, playerId, UberId(uberGroup, uberState), newValue, newValue != value)
     }
+
+    private suspend fun UberStateBatchUpdateMessage.updateUberStates(gameStateId: Long, playerId: Long) {
+        val updates = updates.map {
+            UberId(rezero(it.uberId.group), rezero(it.uberId.state)) to if(it.value == -1f) 0f else it.value
+        }.toMap()
+
+        val game = newSuspendedTransaction {
+            val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
+            updates.mapValues { (uberId, value) ->
+                server.sync.aggregateState(playerData, uberId, value)
+            }
+            playerData.game.id.value
+        }
+
+        val pc = server.connections.playerConns[playerId]!!
+        if(pc.gameId != game) {
+            server.connections.unregisterGameConn(playerId)
+            server.connections.registerGameConn(pc.socket, playerId, game)
+        }
+        server.sync.syncGameProgress(game)
+        server.sync.syncStates(game, playerId, updates)
+    }
+
 
 }
