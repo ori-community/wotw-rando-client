@@ -7,6 +7,10 @@ message Packet {
     bytes packet = 2;
 }
 
+message UberStateBatchUpdateMessage{
+    repeated UberStateUpdateMessage updates = 1;
+}
+
 message UberStateUpdateMessage{
     UberId state = 1;
     float value = 2;
