@@ -256,14 +256,8 @@ namespace RandoMainDLL {
 
         if (FullSyncNextUpdate) {
           FullSyncNextUpdate = false;
-          var bad = new HashSet<UberId>();
-          foreach (var uid in SyncedUberStates.ToList()) {
-            if (uid.State() != null) {
-              Randomizer.Client.SendUpdate(uid, uid.State().ValueAsFloat());
-            }
-            else
-              bad.Add(uid);
-          }
+          Randomizer.Client.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsFloat()));
+          var bad = SyncedUberStates.Where(uid => uid.State() == null);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
         while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {

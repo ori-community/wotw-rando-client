@@ -6,6 +6,9 @@ using Google.Protobuf;
 using Network;
 using WebSocketSharp;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace RandoMainDLL {
   public class WebSocketClient {
     public delegate void UberStateRegistrationHandler(Memory.UberId id);
@@ -153,18 +156,25 @@ namespace RandoMainDLL {
       UberStateQueue.Clear();
     }
 
-    public void SendUpdate(Memory.UberId id, float value) {
+    public void SendBulk(Dictionary<Memory.UberId, float> updates) {
+      try {
+        var batch = new UberStateBatchUpdateMessage();
+        batch.Updates.AddRange(updates.Select((kv) => kv.Key.MakeUpdateMsg(kv.Value)));
+        Packet packet = new Packet {
+          Id = 7,
+          Packet_ = batch.ToByteString()
+        };
+        SendQueue.Add(packet);
+
+      }
+      catch (Exception e) { Randomizer.Error("SendBulk", e, false);  }
+
+}
+public void SendUpdate(Memory.UberId id, float value) {
       try {
         Packet packet = new Packet {
           Id = 3,
-          Packet_ = new UberStateUpdateMessage {
-            State = new UberId {
-              // wolf started it :D
-              Group = id.GroupID == 0 ? -1 : id.GroupID,
-              State = id.ID == 0 ? -1 : id.ID
-            },
-            Value = value == 0f ? -1f : value
-          }.ToByteString()
+          Packet_ = id.MakeUpdateMsg(value).ToByteString()
         };
         SendQueue.Add(packet);
       } catch(Exception e) { Randomizer.Error("SendUpdate", e, false);  }
@@ -179,6 +189,11 @@ namespace RandoMainDLL {
         }
         var packet = Packet.Parser.ParseFrom(data);
         switch (packet.Id) {
+          case 7:
+            var messages = UberStateBatchUpdateMessage.Parser.ParseFrom(packet.Packet_);
+            foreach (var us in messages.Updates)
+              UberStateQueue.Add(us);
+            break;
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
 //              Randomizer.Debug($"Server says {printMsg.Text} (f={printMsg.Frames} p={printMsg.Ypos})", false);
