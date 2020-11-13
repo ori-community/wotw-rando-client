@@ -43,7 +43,7 @@ fun generatePool() = mutableListOf(
         bool("Ridge Elevator Ride", 36153, 23584),
         bool("Reach Escape Access", 28895, 42209),
         bool("Marsh Cave Lizard Door", 21786, 35598),
-        threshold("Marsh Burrow Area Gauntlet", 9593, 59418, 3, hideValue=true),
+        bool("Marsh Burrow Area Gauntlet", 9593, 59418),
         threshold("Double Jump Tree Approach", 9593, 25130, 3, hideValue=true),
         threshold("Wellspring Wheel Room Access", 37858, 8487, 2, hideValue=true),
         ),
