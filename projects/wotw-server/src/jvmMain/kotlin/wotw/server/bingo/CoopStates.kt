@@ -74,7 +74,7 @@ val questIds = mapOf(
     "Family Reunion" to UberId(14019, 27804),
     "The Tree Keeper" to UberId(14019, 59708),
     "A Diamond in the Rough" to UberId(14019, 61011),
-//    "Into The Darkness" to UberId(14019, 33776), bad to sync for reasons
+    "Into The Darkness" to UberId(14019, 33776),
     "Kwolok's Wisdom" to UberId(14019, 50597),
     "The Silent Map" to UberId(14019, 24683),
     "Breaking the Mould" to UberId(14019, 45931),
