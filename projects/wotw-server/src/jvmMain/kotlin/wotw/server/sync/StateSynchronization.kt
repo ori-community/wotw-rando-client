@@ -11,16 +11,14 @@ import kotlin.to
 
 class StateSynchronization(private val server: WotwBackendServer) {
     fun aggregateState(state: GameState, uberId: UberId, value: Float): Float {
-        if (state.team.members.count() == 1L)
-            return value
-
         val data = state.uberStateData
-        val oldVal = data[uberId.group to uberId.state] ?: return value
+        val newValue = if (state.team.members.count() == 1L)
+            value
+        else data[uberId.group to uberId.state]?.let { uberId.uberAggregateFunction(it, value) } ?: value
 
-        val newVal = uberId.uberAggregateFunction(oldVal, value)
-        data[uberId.group to uberId.state] = newVal
+        data[uberId.group to uberId.state] = newValue
         state.uberStateData = data
-        return newVal
+        return newValue
     }
 
     suspend fun syncState(gameId: Long, playerId: Long, uberId: UberId, value: Float, force: Boolean = false) {
