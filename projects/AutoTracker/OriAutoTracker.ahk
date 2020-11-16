@@ -17,7 +17,7 @@ if(launchWithTracker != "false"){
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.2.0"
+version := "v0.2.2"
 global TRACKFILE := A_ScriptDir . "\trackfile.json"
 global SEEDPATH := A_ScriptDir . "\.currentseedpath"
 global MESSAGELOG := A_ScriptDir . "\.messagelog"
@@ -131,6 +131,7 @@ FileInstall, img\GorlekOre.png, img\GorlekOre.png
 FileInstall, img\Wisp.png, img\Wisp.png
 FileInstall, img\SkillTree.png, img\SkillTree.png, 1 ; Changed this image. Remove next release
 FileInstall, img\Quest.png, img\Quest.png
+FileInstall, img\MapStone.png, img\MapStone.png
 
 
 If !WatchFolder(A_ScriptDir, "parsechanges",, 8) {
@@ -150,6 +151,7 @@ Gui, Add, Text, , Flags:
 Gui, Add, Picture, xp+60 h30 w30 Hidden, img\Wisp.png
 Gui, Add, Picture, xp+40 h30 w20 Hidden, img\SkillTree.png
 Gui, Add, Picture, xp+30 h30 w30 Hidden, img\Quest.png
+Gui, Add, Picture, xp+30 h30 w30 Hidden, img\MapStone.png
 
 first_row = y40
 Gui, Add, Picture, vDoubleJump x0 %first_row% h75 w75, img\DoubleJump.png
@@ -182,13 +184,18 @@ Gui, Add, Picture, vWaterBreath xp+80 %fifth_row% h75 w75, img\WaterBreath.png
 Gui, Add, Picture, vDamageUp xp+80 %fifth_row% h75 w75, img\WeaponUpgrade1.png
 
 sixth_row = y440
-Gui, Add, Picture, x0 %sixth_row% h75 w75, img\SpiritLight.png
-Gui, Add, Text, vSpiritLight x65 y465 w50, 0
+Gui, Add, Picture, x80 %sixth_row% h75 w75, img\SpiritLight.png
+Gui, Add, Text, right vSpiritLight x30 y465 w50, 0
 
-Gui, Add, Picture, x125 %sixth_row% h75 w75, img\GorlekOre.png
-Gui, Add, Text, vGorlekOre x190 y465 w50, 0
+Gui, Add, Picture, vCleanWater x170 y450 h55 w55 hidden, img\CompleteWatermillEscape.png
+Gui, Add, Picture, vSword xp+70 %sixth_row% h75 w75, img\Sword.png
 
-Gui, Add, Picture, vCleanWater x240 %sixth_row% h75 w75 Hidden, img\CompleteWatermillEscape.png
+seventh_row = y510
+Gui, Add, Picture, x80 %seventh_row% h75 w75, img\Keystone.png
+Gui, Add, Text, right vKeystone x30 y530 w50, 0
+
+Gui, Add, Picture, x160 %seventh_row% h75 w75, img\GorlekOre.png
+Gui, Add, Text, vGorlekOre x240 y535 w50, 0
 
 Gui, Main:Show, x%xpos% y%ypos%, Ori WotW AutoTracker %version%
 
@@ -292,6 +299,7 @@ CheckFlags:
         GuiControl, Main:Hide, img\Wisp.png
         GuiControl, Main:Hide, img\SkillTree.png
         GuiControl, Main:Hide, img\Quest.png
+        GuiControl, Main:Hide, img\MapStone.png
 
         if (InStr(Flags, "ForceWisps")) {
             GuiControl, Main:Show, img\Wisp.png
@@ -301,6 +309,9 @@ CheckFlags:
         }
         if (InStr(Flags, "ForceQuests")) {
             GuiControl, Main:Show, img\Quest.png
+        }
+        if (InStr(Flags, "WorldTour")) {
+            GuiControl, Main:Show, img\MapStone.png
         }
     }
 return
@@ -416,6 +427,7 @@ update() {
 
     GuiControl, Main:, SpiritLight, % Spiritlight
     GuiControl, Main:, GorlekOre, % GorlekOre
+    GuiControl, Main:, Keystone, % Keystones
 
     GuiControl, Main:, LastPickup, % LastPickup
 
@@ -486,6 +498,10 @@ Help(wParam, lParam, Msg) {
         Help := "Force Trees"
     else IfEqual, HoverText, img\Quest.png
         Help := "Force Quests"
+    else IfEqual, HoverText, img\MapStone.png
+        Help := "World Tour"
+    else IfEqual, HoverText, img\Keystone.png
+        Help := "Keystones"
 
     ToolTip % Help
     SetTimer, DisableTT, -3000
