@@ -487,13 +487,13 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
       # breaking all walls (this is good syntax!)
       BreakWall=16, BreakWall=16, BreakWall=16, DoubleJump
       BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
-    gorlek:
+    gorlek, MarshSpawn.HowlBurnt:
       Launch                                                                       # Follow door skip path with launch (done without opening the keystone door)
       HowlsDen.KeystoneDoor:
         BreakWall=16, BreakWall=16, BreakWall=16, Dash OR Glide
         BreakWall=16, BreakWall=16, BreakWall=16, Damage=10, Sword
         BreakWall=16, BreakWall=16, BreakWall=16, SentryJump=4                     # Questionable relevance for anything other than 1hitko given that a sword path exists
-    unsafe:
+    unsafe, MarshSpawn.HowlBurnt:
       SentryJump=2, Hammer, DoubleJump                                             # Hammer sentry jump to door skip platform, double jump up left wall, sentry jump to pickup (done without opening the keystone door)
       SentryJump=3, Hammer, Dash                                                   # Hammer sentry jump to door skip platform, sentry jump again to get more height, then dash across, sentry jump to pickup (done without opening the keystone door)
       HowlsDen.KeystoneDoor:
@@ -1066,7 +1066,7 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
       DoubleJump, TripleJump OR Sword
       SentryJump=1  # Go up to the moki, then poles and then jump down
       Bash  # bash the slime to get up
-    unsafe:
+    unsafe, WestHollow.PurpleDoorOpen:
       Dash, Sword  # Easier with upslash
       Hammer, DoubleJump OR Dash  # Easier with upslash
       Hammer, Glide  # Press Glide then before reaching the wall upslash with Hammer and hold Glide again
