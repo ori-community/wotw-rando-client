@@ -98,7 +98,7 @@ namespace
         );
     }
 
-    /*INTERNAL_INTERCEPT(27145792, int64_t, enumDictGetValue, (int64_t dict, unsigned __int8 enumKey, int64_t impl))
+    INTERNAL_INTERCEPT(27145792, int64_t, enumDictGetValue, (int64_t dict, unsigned __int8 enumKey, int64_t impl))
     {
         //EnumDictionary<ENUMTYPE, VALUETYPE>$$GetValue
         const int64_t value = enumDictGetValue(dict, enumKey, impl);
@@ -110,7 +110,7 @@ namespace
                 initShardDescription(enumKey, value);
 
         return value;
-    }*/
+    }
 
     NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, int, GetCostForLevel, (app::PlayerUberStateShards_Shard* this_ptr, int level))
     {

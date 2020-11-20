@@ -41,5 +41,6 @@
 		{ "address": "0x277c80", "name": "il2cpp_array_new_specific" },
 		{ "address": "0x277c90", "name": "il2cpp_array_new_full" },
 		{ "address": "0xf32100", "name": "PlayerStateMap_Matches_Helper" },
+		{ "address": "0x19e3fa0", "name": "enumDictGetValue" }
 	]
 }
