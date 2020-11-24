@@ -3514,6 +3514,12 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
       DoubleJump, Dash, Bash, Flap
       Bash, Grenade=1
       Launch
+    gorlek, LowerReach.BearSneezed, LowerReach.BearBridgeBroken: 
+      Bash #bash the enemy into the air first, may have to use the purple one
+      SentryJump=1
+    unsafe, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
+       DoubleJump, TripleJump, Dash # you only get one shot at it else you have to come back down from Baur
+       # GrenadeJump=1
 
   conn LowerReach.AboveEntry:
     moki:
