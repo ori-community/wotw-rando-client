@@ -18,8 +18,6 @@ requirement DepthsLight:  # currently irrelevant since defeating mora requires f
   unsafe: Bow=3  # should be good, right?
 
 anchor Teleporters:  # teleporter access
-  state Teleporters.TPAccess: free
-
   conn MidnightBurrows.Teleporter:
     moki: BurrowsTP, Keystone=2
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
@@ -1106,7 +1104,7 @@ anchor WestHollow.HollowDrainMiddle at -197, -4275:  # At the crystal below the 
     gorlek, WestHollow.UpperDrainLeverPulled:
       Sword OR Hammer  # Hammer is a bit particular; you can use upslash and horizontal slashes instead
 
-anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at -249, -4275; coordinates omitted because this is not a valid warp/spawn target)
+anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock puzzle room
   refill Checkpoint
   refill Health=1
   refill Energy=3:
@@ -1121,7 +1119,6 @@ anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at 
       Bow=1, SentryJump=1 OR Launch  # Get up to the rock and push it to use only one Bow shot
       Bow=1, Bash, Grenade=1  # Get up to the rock and push it to use only one Bow shot
       Combat=Skeeto, Bow=6  # Stand to the left of energy crystal, look up and aim for the target, minimum 4 shots needed
-    unsafe, glitch: Teleporters.TPAccess
 
   pickup WestHollow.RockPuzzleEX:
     moki: WestHollow.FullyDrained
