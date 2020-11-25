@@ -84,7 +84,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Water, Burrow, Bash, Grenade=1, Dash
     gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   pickup MarshSpawn.LifepactShard:
-    moki, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug:
+    moki, Regenerate, Damage=40, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug:
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
   pickup MarshSpawn.BurrowsPathEX:
@@ -242,7 +242,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       # could do a sentryjump into bashgrenade, but I heard that kind of thing is unwelcome ;P
     unsafe: Burrow, SentryJump=1  # max height
   pickup MarshSpawn.LifepactShard:
-    moki: Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug, Bash, DoubleJump OR Launch
+    moki: Regenerate, Damage=40, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug, Bash, DoubleJump OR Launch
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     moki: Bash, DoubleJump OR Launch
     gorlek:
@@ -543,7 +543,9 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
 anchor DenShrine:
   refill Full
   pickup HowlsDen.CombatShrine:
-    moki: Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis
+    moki, Regenerate, Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis:
+      Damage=60
+      Damage=40, Dash OR Bash OR Launch  # much better if you have good evasion
 
 # checkpoint at -514, -4549
 
@@ -657,7 +659,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
 anchor MarshShrine:
   refill Full
   pickup MarshPastOpher.CombatShrine:
-    moki: Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
+    moki: Regenerate, Damage=20, Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
 
 anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow tree
   refill Checkpoint
@@ -1357,7 +1359,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
 anchor BeetleFight:
   refill Full
   state EastHollow.BeetleDefeated:
-    moki: Boss=250, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
+    moki: Boss=250, Regenerate, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
     unsafe: Boss=250
 
 # checkpoint at -106, -4221
@@ -2342,7 +2344,10 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
 anchor GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
-    moki: Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab
+    moki, Regenerate, Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab:
+      Damage=65                     # the crabs are terrifying!
+      Damage=55, DoubleJump OR Dash # these can help
+      Damage=30, Launch             # if you're op, nothing's terrifying
 
 region OuterWellspring:
   moki: Damage=25
@@ -3490,7 +3495,10 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
 anchor WoodsShrine:
   refill Full
   pickup WoodsMain.CombatShrine:
-    moki: Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat
+    moki, Regenerate, Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat:  # this one has it all -_-
+      Damage=80
+      Damage=65, DoubleJump OR Dash
+      Damage=50, Launch
 
 region LowerReach:
   moki: Damage=40, Regenerate
@@ -3947,7 +3955,7 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
       Bow=1 OR Spear=1 OR Grenade=1
 
   state LowerReach.ArenaBeaten:
-    moki: Combat=3xShieldMiner+Hornbug+2xBee
+    moki: Regenerate, Damage=40, Combat=3xShieldMiner+Hornbug+2xBee
 
   conn LowerReach.Trial:
     moki: LowerReach.ArenaBeaten
@@ -4212,7 +4220,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
 anchor MoraFight:
   refill Full
   quest UpperDepths.ForestsEyes:
-    moki: Boss=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
+    moki: Boss=330, Regenerate, Damage=95, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
 
 anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left of the second keystone door
   refill Checkpoint
@@ -4287,7 +4295,10 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
 anchor DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
-    moki: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug
+    moki, Regenerate, Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug:
+      Damage=65
+      Damage=60, DoubleJump OR Dash
+      Damage=50, Launch
 
 anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
   refill Checkpoint
@@ -4846,7 +4857,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
 anchor KwolokFight:
   refill Full
   quest WestPools.ForestsStrength:
-    moki: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
+    moki: Boss=250, Regenerate, Damage=95, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
   moki: Damage=50, Regenerate
