@@ -45,7 +45,9 @@ package SeedGenerator {
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
     def oreReq[_: P]: P[Requirement] = P("Ore" ~~/ equalsNum).map(OreReq)
     def energyReq[_: P]: P[Requirement] = P("Energy" ~~/ equalsNum).map(EnergyReq(_))
-    def dangerReq[_: P]: P[Requirement] = P(("Danger" | "Damage") ~~/ equalsNum).map(DamageReq)
+    def damageReq[_: P]: P[Requirement] = P("Damage" ~~/ equalsNum).map(DamageReq)
+    def dangerReq[_: P]: P[Requirement] = P("Danger" ~~/ equalsNum).map(DangerReq)
+    def dboostReq[_: P]: P[Requirement] = dangerReq | damageReq
     def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq) | P("ShurikenBreak" ~~/ equalsNum).map(BackWallBreak)
     def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~ equalsNum).map(n => if(Settings.glitchPaths) SentryJumpReq(n) else Invalid)
     def shardReq[_: P]: P[Requirement] = P("TripleJump").map(_ => TripleJump.req) // TODO: hahahaha we'll come back to this
@@ -66,7 +68,7 @@ package SeedGenerator {
       case s if knownMacros.contains(s) => knownMacros(s)
       case s => StateReq(s)
     })
-    def singleReq[_:P]: P[Requirement] = P(combatReq | diffReq | tpReq | wallReq | skillReq | oreReq | energyReq | dangerReq | ksReq | cashReq | free | eventReq | shardReq | unfree | stateReq)//.log
+    def singleReq[_:P]: P[Requirement] = P(combatReq | diffReq | tpReq | wallReq | skillReq | oreReq | energyReq | dboostReq | ksReq | cashReq | free | eventReq | shardReq | unfree | stateReq)//.log
     def orReqs[_:P]: P[Requirement] = P(singleReq.rep(sep=or)).map(AnyReq(_))//.log
     def andReqs[_:P]: P[Requirement] = P(NoCut(singleReq.rep(sep=comma, min=1) ~ (or ~ orReqs).?)).map({
       case (reqs, Some(orReq)) =>
