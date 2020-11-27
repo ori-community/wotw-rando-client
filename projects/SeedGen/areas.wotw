@@ -3526,8 +3526,12 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
       DoubleJump, Launch  # Can't rely on the sleeping bear to be there
       Bash, DoubleJump OR Launch
       Bash, Grenade=1
+    gorlek:
+      Launch # a little tight but totally doable. Jump up before launching.
     unsafe:
-      Launch
+      Bash # can be done damageless, but damage is likely. Keep jumping at the right wall until you go over it and bash the first latern at just the right angle to reach the second
+      # using sword/hammer makes getting to the second latern easier, sticky helps with the initial wall jump.
+      
   conn WestGlades.Upper:
     moki: LowerReach.BearSneezed
 
@@ -3538,14 +3542,24 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
     moki:
       Launch
       LowerReach.HeatBaurFurnace, DoubleJump
-
-  pickup LowerReach.AboveBaurLowerEX:
+    gorlek:
+      LowerReach.HeatBaurFurnace, Dash
+    unsafe:
+      LowerReach.HeatBaurFurnace, Bash, Grenade=1 # weapon stall needed to reach the highest snaptrap
+      Bash, Grenade=1, DoubleJump OR Dash # gotta get plenty of height and some distance on the grenadebash. Weapon stalls help
+      SentryJump=1 # you actually want a weaker jump to land on top of the plant, a strong one will send you sailing over it. Weapon stalls or dash/doublejump from there
+      
+  pickup LowerReach.AboveBaurLowerEX: 
     moki:
       Launch
-      LowerReach.HeatBaurFurnace OR Grenade=1:  # these use a grenadebash if they can't use the unfrozen tongue plant
-        DoubleJump, Bash
-        Dash, Bash, Glide
-      LowerReach.CoolBaurFurnace, Bash, Grenade=1  # seemed a bit hectic without cooling the furnace
+      DoubleJump, Bash, LowerReach.HeatBaurFurnace OR Grenade=1  # use a grenadebash if you can't use the tongue plant
+    gorlek:
+      LowerReach.HeatBaurFurnace, Bash, Dash OR DoubleJump OR Glide # have fun with the snaptraps
+      Bash, Grenade=1 OR SentryJump=1
+      SentryJump=2
+    unsafe:
+      LowerReach.HeatBaurFurnace, Bash # weapon stalling! Not really that hard, maybe gorlek ok
+  
   pickup LowerReach.AboveBaurUpperEX:
     moki:
       Launch
