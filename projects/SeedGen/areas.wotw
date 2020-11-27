@@ -3559,22 +3559,35 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
       SentryJump=2
     unsafe:
       LowerReach.HeatBaurFurnace, Bash # weapon stalling! Not really that hard, maybe gorlek ok
+      Bash # jump repeated under the left side of the snaptrap to aggro the spitter. yes, really.
   
   pickup LowerReach.AboveBaurUpperEX:
     moki:
       Launch
       LowerReach.HeatBaurFurnace, DoubleJump, Dash, Bash
+    gorlek:
+      LowerReach.HeatBaurFurnace, DoubleJump, Bash
+    unsafe:
+      LowerReach.HeatBaurFurnace, Dash, Bash # get up to the snaptrap with the LowerReach.AboveBaurLowerEX then dash and weapon stall to the tongue plant
+      LowerReach.HeatBaurFurnace, SentryJump=2, Damage=20 # First jump into the spikes near the shooter, can use lower jump to snaptrap - wall - weapon stall to spikes, then sentry up from spikes to the tongue plant
+      LowerReach.HeatBaurFurnace, Bash, Glide # get up to the snaptrap with the LowerReach.AboveBaurLowerEX, glide down over the shooter, bash off its projectile
+      LowerReach.HeatBaurFurnace, Bash, Grenade=1 # charge the grenade on the snaptrap by the spikes
 
   conn LowerReach.Entry: free
   conn LowerReach.Icefall:
     moki:
-      DoubleJump OR Launch
+      DoubleJump OR Launch OR Dash
       LowerReach.HeatBaurFurnace
-      # could use bashgrenades to get past the frozen tongue plant, but seems a bit unintuitive
+    unsafe: Bash # jump to aggro the spitter (or use grenade) and catch high up on the frozen tongue, then jump off quickly
+      
   conn LowerReach.Central:
     moki, LowerReach.Lever:
       Bash, DoubleJump OR Dash OR Glide
       Launch
+    gorlek, LowerReach.Lever:
+      Bash # aim high and weapon stall
+    unsafe, LowerReach.Lever:
+      Dash # slide down the wall and dash away, then dash again and weapon stall
 
 anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's nose
   refill Checkpoint
@@ -3583,16 +3596,29 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
 
   state LowerReach.BearBridgeBroken:
     moki, LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that moki
-  state LowerReach.LeftFurnace:
+  
+  state LowerReach.LeftFurnace: 
     moki:
       Grenade=1, Bash, DoubleJump OR Dash OR Glide  # Grenade to light the furnace
       Grenade=1, Launch  # Grenade to light the furnace
+      Grenade=1, Grapple, DoubleJump OR Dash OR Glide # Grenade to light the furnace
+    gorlek: 
+      Grenade=1, Bash OR Grapple # grapple alone requires some weapon stalling
+      
+      
 
   pickup LowerReach.IcefallOre:
     moki, LowerReach.LeftFurnace:
       Bash, Grapple OR Launch  # bash the enemies
       Combat=2xSlug, Grapple, Damage=10, DoubleJump OR Dash  # grapple past the enemies and probably get hit by them
       Water, Launch  # swim past the enemies
+    gorlek, LowerReach.LeftFurnace:
+      Water, WaterDash, DoubleJump, TripleJump
+      Bash
+      Grapple, Damage=10 # weapon stall needed, probably get hit by wasps
+      Launch, Damage=10
+      
+      
   pickup LowerReach.IcefallEX:
     moki, LowerReach.LeftFurnace:
       DoubleJump, Bash  # bash the enemies
@@ -3603,7 +3629,7 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
   conn LowerReach.Entry: free
   conn LowerReach.AboveEntry:
     moki:
-      DoubleJump OR Launch
+      DoubleJump OR Launch OR Dash
       LowerReach.HeatBaurFurnace
 
 anchor LowerReach.Central at -335, -4010:  # After the lever door
