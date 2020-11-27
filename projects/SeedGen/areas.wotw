@@ -874,7 +874,7 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
     unsafe: ShurikenBreak=20, Water, Launch
 
 region MidnightBurrows:
-  moki: Damage=25
+  moki: Danger=25
   unsafe: free
 
 anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
@@ -1009,7 +1009,7 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
     moki: BreakWall=10
 
 region WestHollow:
-  moki: Damage=20
+  moki: Danger=20
   unsafe: free
 
 anchor WestHollow.Entrance at -303, -4238:  # At Twillen
@@ -1329,7 +1329,7 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
 # checkpoint at -21, -4411
 
 region EastHollow:
-  moki: Damage=20
+  moki: Danger=20
   unsafe: free
 
 anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
@@ -2088,7 +2088,7 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
       Launch, Damage=40
 
 region WestGlades:
-  moki: Damage=20
+  moki: Danger=20
   unsafe: free
 
 anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past glades
@@ -2350,7 +2350,7 @@ anchor GladesShrine:
       Damage=30, Launch             # if you're op, nothing's terrifying
 
 region OuterWellspring:
-  moki: Damage=25
+  moki: Danger=25
   unsafe: free
 
 anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where you enter the first room
@@ -2587,7 +2587,7 @@ anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to tri
     moki: Grapple OR Glide OR Launch
 
 region InnerWellspring:
-  moki: Damage=25
+  moki: Danger=25
   unsafe: free
 
 anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where you enter the first room
@@ -3146,7 +3146,7 @@ anchor InnerWellspring.EscapeSequence:
     moki: InnerWellspring.WaterEscape
 
 region WoodsEntry:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 anchor WoodsEntry.ShriekMeet at 391, -4198:  # The ledge after swimming through the Hollow connection
@@ -3280,7 +3280,7 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
     unsafe: Hammer OR Flash=1 OR Sentry=1 OR Shuriken=1
 
 region WoodsMain:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 # checkpoint at 856, -4192
@@ -3501,7 +3501,7 @@ anchor WoodsShrine:
       Damage=50, Launch
 
 region LowerReach:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 anchor LowerReach.Entry at -390, -4025:  # Behind Baur
@@ -3665,7 +3665,7 @@ anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the
 # checkpoint at -296, -3944
 
 region UpperReach:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
@@ -4027,7 +4027,7 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
     moki: Glide
 
 region UpperDepths:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the entrance
@@ -4258,7 +4258,7 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
       DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
 
 region LowerDepths:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
@@ -4385,7 +4385,7 @@ anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
       DepthsLight, Dash, Bash OR Grapple
 
 region PoolsApproach:
-  moki: Damage=25
+  moki: Danger=25
   unsafe: free
 
 anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
@@ -4495,7 +4495,7 @@ anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the
     moki: Water, WaterDash  # <3
 
 region EastPools:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
@@ -4661,7 +4661,7 @@ anchor EastPools.Teleporter at -1316, -4153:  # At the teleporter after draining
   conn EastPools.TPArea: free
 
 region UpperPools:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 # checkpoint at -1425, -4144
@@ -4819,7 +4819,7 @@ anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all t
 # checkpoint at -1386, -4062
 
 region WestPools:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
   unsafe: free
 
 anchor WestPools at -1656, -4171:  # the west Pools TP
@@ -4860,7 +4860,7 @@ anchor KwolokFight:
     moki: Boss=250, Regenerate, Damage=95, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
-  moki: Damage=50, Regenerate
+  moki: Danger=50, Regenerate
   unsafe: free
 
 anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
@@ -5306,7 +5306,7 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
     gorlek: Burrow  # Again pretty tight. More lenient with Damage=30
 
 region UpperWastes:
-  moki: Damage=50, Regenerate
+  moki: Danger=50, Regenerate
   unsafe: free
 
 anchor UpperWastes.KeystoneRoom at 1900, -3831:  # Autosave underneath keystone door
@@ -5528,7 +5528,7 @@ anchor WindtornRuins.LowerRuins at 1969, -4024:  # At the ancient map pedestal
     moki: Burrow, BreakWall=20
 
 region WeepingRidge:
-  moki: Damage=60, Regenerate
+  moki: Danger=60, Regenerate
   unsafe: free
 
 anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weeping ridge
@@ -5587,7 +5587,7 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
 # checkpoint at 1344, -3791
 
 region WillowsEnd:
-  moki: Damage=60, Regenerate  # need more than 6 health and Regen to do ANYTHING in willow
+  moki: Danger=60, Regenerate  # need more than 6 health and Regen to do ANYTHING in willow
   unsafe: free
 
 anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
