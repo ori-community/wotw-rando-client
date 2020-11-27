@@ -162,7 +162,20 @@ package SeedGenerator {
       case r => AllReqs(this, r)
     }
   }
-
+  case class DangerReq(damage: Int) extends Requirement  {
+    def orbsMod(state: GameState, orbs: Orbs): Orbs = {
+      if(orbs.health > damage || health(state) <= damage || !state.inv.has(Regen))
+        return orbs
+      val healsNeeded = 1 + (damage-orbs.health)/30
+      if(orbs.energy/10 >= healsNeeded)
+        return (orbs + Orbs(30*healsNeeded, -10*healsNeeded)).min(state.inv.orbs)
+      orbs
+    }
+    def health(state: GameState): Int = state.inv(Health) * 5
+    def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean =
+      orbs.map(orbsMod(state, _).health > damage).getOrElse(health(state) > damage)
+    def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Health -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
+  }
 
   trait Enemy {
     def dodgeMultiplier = 1.0
