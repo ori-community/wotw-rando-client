@@ -3650,10 +3650,9 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
     moki:
       Launch
       DoubleJump, Dash
-      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      LowerReach.CentralFurnace, Bash, Grenade=1 # just land on the little wall first
     gorlek:
       DoubleJump, TripleJump
-      Bash, Grenade=1 # just land on the little wall first
       SentryJump=1 # from the snaptrap
     unsafe:
       Bash # move the purple slug to the right first
@@ -3679,9 +3678,15 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
   conn LowerReach.OutsideTPRoom:
     moki:
       Launch
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash
-        Bash, Grenade=1
+      LowerReach.CentralFurnace, DoubleJump, Dash, Bash
+      LowerReach.CentralFurnace, Bash, Grenade=1
+    gorlek:
+      Bash, Hammer OR Spear=1
+      SentryJump=2, Hammer OR Spear=1
+      LowerReach.CentralFurnace, DoubleJump, TripleJump OR Dash # stand on the tongue plant
+    unsafe: 
+      LowerReach.CentralFurnace, Bash # move the purple slug to the right first
+      Grenade=2, DoubleJump, Hammer OR Spear=1 # GrenadeJump=2, DoubleJump, Hammer OR Spear=1
 
 anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter room
   refill Checkpoint
