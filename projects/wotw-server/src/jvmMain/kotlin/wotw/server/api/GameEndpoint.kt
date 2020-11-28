@@ -122,7 +122,9 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
 
-                outgoing.sendMessage(InitGameSyncMessage(coopStates().plus(initData.orEmpty())))
+                outgoing.sendMessage(InitGameSyncMessage(coopStates().plus(initData.orEmpty()).map {
+                    UberId(zerore(it.group), zerore(it.state))
+                }))
                 outgoing.sendMessage(PrintTextMessage(text = "$user - Connected", frames = 600, ypos = 3f))
 
                 protocol {
@@ -138,6 +140,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
     }
 
     fun rezero(n: Int) = if(n == -1) 0 else n
+    fun zerore(n: Int) = if(n == 0) -1 else n
     private suspend fun UberStateUpdateMessage.updateUberState(gameStateId: Long, playerId: Long) {
         val uberState = rezero(uberId.state)
         val uberGroup = rezero(uberId.group)
@@ -145,7 +148,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
         val (newValue, game) = newSuspendedTransaction {
             logger.debug("($uberGroup, $uberState) -> $value")
             val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
-            server.sync.aggregateState(playerData, uberId, value) to
+            server.sync.aggregateState(playerData, UberId(uberGroup, uberState), value) to
                     playerData.game.id.value
         }
         val pc = server.connections.playerConns[playerId]!!
@@ -154,7 +157,8 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             server.connections.registerGameConn(pc.socket, playerId, game)
         }
         server.sync.syncGameProgress(game)
-        server.sync.syncState(game, playerId, UberId(uberGroup, uberState), newValue, newValue != value)
+        server.sync.syncState(game, playerId, uberId,
+            if(newValue == 0f) -1f else newValue, newValue != value)
     }
 
     private suspend fun UberStateBatchUpdateMessage.updateUberStates(gameStateId: Long, playerId: Long) {
@@ -176,7 +180,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             server.connections.registerGameConn(pc.socket, playerId, game)
         }
         server.sync.syncGameProgress(game)
-        server.sync.syncStates(game, playerId, updates)
+        server.sync.syncStates(game, playerId, updates.mapKeys { UberId(zerore(it.key.group), zerore(it.key.state)) })
     }
 
 
