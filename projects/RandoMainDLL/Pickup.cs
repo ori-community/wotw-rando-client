@@ -294,7 +294,10 @@ namespace RandoMainDLL {
     };
 
     public override void Grant(bool skipBase = false) {
-      states().ForEach((s) => s.Write(new UberValue(true)));
+      states().ForEach(s => {
+        if (s.ValueAsFloat() == 0) // don't write to these if they're already set; on that path lies dumb-ass loops
+          s.Write(new UberValue(true));
+      });
       base.Grant(skipBase);
     }
 
