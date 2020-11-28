@@ -56,8 +56,6 @@ namespace
         return false;
     };
     
-    
-
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, bool, CanPurchase, (app::SpiritShardsShopScreen* this_ptr))
     {
         //SpiritShardsShopScreen$$CanPurchase
@@ -105,9 +103,10 @@ namespace
 
         //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
         //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
-        if (impl == *reinterpret_cast<int64_t*>(intercept::resolve_rva(74897664)))
-            if (value)
-                initShardDescription(enumKey, value);
+        //update: something broke! It's been touched
+        //if (impl == *reinterpret_cast<int64_t*>(intercept::resolve_rva(74897664)))
+        if (value)
+            initShardDescription(enumKey, value);
 
         return value;
     }
