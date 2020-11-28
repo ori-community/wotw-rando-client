@@ -117,12 +117,16 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 val initData = newSuspendedTransaction {
                     GameState.findById(gameStateId)?.game?.board?.goals?.flatMap { it.value.keys }
                         ?.map { UberId(it.first, it.second) }
+                }.orEmpty()
+                val isCoop = newSuspendedTransaction {
+                    GameState.findById(gameStateId)?.team?.members?.count() ?:1 > 1
                 }
                 val user = newSuspendedTransaction {  User.find{
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
 
-                outgoing.sendMessage(InitGameSyncMessage(coopStates().plus(initData.orEmpty()).map {
+                val states = if(isCoop) coopStates().plus(initData) else initData // don't sync new data 
+                outgoing.sendMessage(InitGameSyncMessage(states.map {
                     UberId(zerore(it.group), zerore(it.state))
                 }))
                 outgoing.sendMessage(PrintTextMessage(text = "$user - Connected", frames = 600, ypos = 3f))
