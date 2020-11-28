@@ -99,7 +99,7 @@ namespace RandoMainDLL {
         UberStates.Add(id, state);
       }
       catch (Exception e) {
-        Randomizer.Warn("ValueOpt", $"{e}", false);
+        Randomizer.Warn($"ValueOpt ({id.GroupID}, {id.ID})", $"{e}", false);
       }
       return state?.Value;
     }
@@ -257,11 +257,12 @@ namespace RandoMainDLL {
         if (FullSyncNextUpdate) {
           FullSyncNextUpdate = false;
           Randomizer.Client.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsFloat()));
-          var bad = SyncedUberStates.Where(uid => uid.State() == null);
+          var bad = SyncedUberStates.Where(uid => uid.State() == null).ToList();
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
         while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
-          InterOp.set_uber_state_value(stateUpdate.State.Group, stateUpdate.State.State, stateUpdate.Value);
+          var (id, val) = stateUpdate.FromNet();
+          InterOp.set_uber_state_value(id.GroupID, id.ID, val);
         }
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
