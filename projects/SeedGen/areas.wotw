@@ -3692,6 +3692,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
   refill Checkpoint
   refill Full:  # use the teleporter
     moki: Grenade=1
+    gorlek: Sentry=1
   refill Health=1
   refill Energy=3:
     moki: Weapon
@@ -3700,25 +3701,45 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
     moki: Bash OR Hammer OR Spear=1
   pickup LowerReach.LupoMap:
     moki: DoubleJump OR Dash OR Glide OR Launch
+    gorlek: free # not too hard to do damageless, slide down the tongue plant and land on the little wall
+  
   pickup LowerReach.TPLeftEX:
     moki:
       Bash, DoubleJump OR Dash OR Glide
       Launch
+    gorlek: Bash OR Glide OR Dash OR DoubleJump OR SentryJump=1 # weapon stalling may be needed
+    unsafe: Grenade=1 # GrenadeJump=1
+  
   pickup LowerReach.HiddenOre:
     moki:
       Launch
       LowerReach.CentralFurnace, DoubleJump, Bash, Dash OR Glide OR Grenade=1
+    gorlek:
+      LowerReach.CentralFurnace, SentryJump=1 # highest jump can go all the way, middling can reach tongue plant, low can reach snaptrap then weaponstall to tongue
+      LowerReach.CentralFurnace, Bash, Grenade=1 OR Glide OR DoubleJump OR Dash
+    unsafe:
+      LowerReach.CentralFurnace, Bash # stand beside the spitter, bash off it once it shoots, then again off the projectile
+      LowerReach.CentralFurnace, TripleJump, Damage=20 # jump onto the spikes then up to the snaptrap
+      SentryJump=1
 
   conn LowerReach.SecondSoup: free
   conn LowerReach.Central:
     moki: DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer OR Spear=1
+    unsafe: free
+    
   conn UpperReach.KeystoneRoom:
     moki:
       DoubleJump, Dash, Bash  # bash the squonkey
       DoubleJump, Bash, Grenade=2  # bash the squonkey
       Launch
+    gorlek:
+      Bash, Grenade=1, Dash OR Glide OR DoubleJump # use the spitter projectile to get a higher bash off your grenade
+    unsafe: 
+      Bash, Grenade=1 OR DoubleJump OR Dash
+   
   conn LowerReach.Teleporter:
     moki: Grenade=1
+    gorlek: Sentry=1
 
 anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the teleporter pickup
   refill Full
@@ -3726,6 +3747,7 @@ anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the
   conn Teleporters: free
   conn LowerReach.OutsideTPRoom:
     moki: Grenade=1
+    gorlek: Sentry=1
 
 # checkpoint at -296, -3944
 
