@@ -18,6 +18,8 @@ namespace RandoMainDLL {
       },
       Value = value == 0f ? -1f : value
     };
+    public static UberId IdFromMsg(this Network.UberId n) => new UberId(n.Group == -1 ? 0 : n.Group, n.State == -1 ? 0 : n.State);
+    public static (UberId, float) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value == -1f ? 0f : n.Value);
 
 public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
 
