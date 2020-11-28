@@ -3519,7 +3519,7 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
       SentryJump=1
     unsafe, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
        DoubleJump, TripleJump, Dash # you only get one shot at it else you have to come back down from Baur
-       # GrenadeJump=1
+       Grenade=1 #GrenadeJump=1
 
   conn LowerReach.AboveEntry:
     moki:
@@ -3604,8 +3604,6 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
       Grenade=1, Grapple, DoubleJump OR Dash OR Glide # Grenade to light the furnace
     gorlek: 
       Grenade=1, Bash OR Grapple # grapple alone requires some weapon stalling
-      
-      
 
   pickup LowerReach.IcefallOre:
     moki, LowerReach.LeftFurnace:
@@ -3618,7 +3616,6 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
       Grapple, Damage=10 # weapon stall needed, probably get hit by wasps
       Launch, Damage=10
       
-      
   pickup LowerReach.IcefallEX:
     moki, LowerReach.LeftFurnace:
       DoubleJump, Bash  # bash the enemies
@@ -3630,28 +3627,53 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
   conn LowerReach.AboveEntry:
     moki:
       DoubleJump OR Launch OR Dash
-      LowerReach.HeatBaurFurnace
+      LowerReach.HeatBaurFurnace 
+  
 
 anchor LowerReach.Central at -335, -4010:  # After the lever door
   refill Checkpoint
 
   pickup LowerReach.AboveDoorEX:
     moki:
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash OR Hammer OR Spear=1
-        Bash, Grenade=1
+      LowerReach.CentralFurnace, DoubleJump, Dash, Bash OR Hammer OR Spear=1
+      Bash, Grenade=1
       Launch
+    gorlek: 
+      Bash
+      SentryJump=1
+      DoubleJump, TripleJump
+    unsafe:
+      DoubleJump #annoying but doable, requires upslash
+      Grenade=1 # GrenadeJump=1
+      
   pickup LowerReach.LupoMap:
     moki:
       Launch
       DoubleJump, Dash
       LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+    gorlek:
+      DoubleJump, TripleJump
+      Bash, Grenade=1 # just land on the little wall first
+      SentryJump=1 # from the snaptrap
+    unsafe:
+      Bash # move the purple slug to the right first
+      DoubleJump, Glide # from LowerReach.AboveDoorEX
+      Grenade=1 # GrenadeJump=1
+      
   pickup LowerReach.TPLeftEX:
     moki:
       Launch
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash
-        Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      LowerReach.CentralFurnace, DoubleJump, Dash
+      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Bash, Grenade=2, Hammer OR Spear=1
+    gorlek:
+      Bash, Hammer OR Spear=1
+      SentryJump=2, Hammer OR Spear=1
+      DoubleJump, TripleJump, Hammer OR Spear=1 # finish with an upswing
+    unsafe:
+      Grenade=2, Hammer OR Spear=1 # GrenadeJump=2, Hammer OR Spear=1
+      Spear=1, SentryJump=1
+      
 
   conn LowerReach.SecondSoup: free
   conn LowerReach.OutsideTPRoom:
