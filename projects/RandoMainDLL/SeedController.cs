@@ -274,6 +274,12 @@ namespace RandoMainDLL {
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {
+            case SysCommandType.SetResource:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              return new SetResource((ResourceType)extras[0].ParseToByte("BuildPickup.SetResourceType"), extras[1].ParseToInt("BuildPickup.SetResourceValue"));
             case SysCommandType.StopIfEqual:
             case SysCommandType.StopIfGreater:
             case SysCommandType.StopIfLess:
