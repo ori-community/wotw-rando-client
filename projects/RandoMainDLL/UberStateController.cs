@@ -91,10 +91,14 @@ namespace RandoMainDLL {
     }
 
     public static UberValue? ValueOpt(this UberId id) {
-      if (UberStates.TryGetValue(id, out UberState curr)) {
+      if (UberStates.TryGetValue(id, out UberState curr)) 
         return curr?.Value;
-      }
+
       var state = createUberStateEntry(id);
+
+      if (UberStates.TryGetValue(id, out curr)) 
+        return curr?.Value;
+
       try {
         UberStates.Add(id, state);
       }
