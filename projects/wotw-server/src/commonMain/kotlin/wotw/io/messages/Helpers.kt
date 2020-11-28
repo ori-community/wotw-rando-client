@@ -15,7 +15,7 @@ suspend inline fun <reified T: Any> SendChannel<Frame>.sendMessage(obj: T){
 
 //kotlinx.serialization suggests a central configured ProtoBuf instance
 val protoBuf = ProtoBuf {
-    encodeDefaults = false;
+    encodeDefaults = true
     serializersModule = EmptySerializersModule
 }
 val json = Json{
