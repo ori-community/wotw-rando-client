@@ -3763,31 +3763,58 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
     moki:
       Grenade=1  # this makes grenadebash paths meaningless
       Flap, Bash, DoubleJump OR Launch
+    gorlek:
+      Flap, Bash # jump is easier than it looks, will need a weapon stall to cross
+      
   state UpperReach.CoolFurnace:  # need this because the player might have to refreeze the waterfall
     moki: Flap
 
   pickup UpperReach.LifeForceShard:
     moki:
-      Bash, Grenade=1, Burrow, DoubleJump, Dash  # Just one of djump / dash is maybe too precise for moki
-      Bash, Grenade=1, Burrow, Glide
       Burrow, Launch
+    gorlek:
+      Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+    unsafe:
+      Burrow, Bash, SentryJump=1
+    
   pickup UpperReach.LifeForceEX:
     moki:
-      Bash, Grenade=1, Burrow, DoubleJump, Dash
-      Bash, Grenade=1, Burrow, Glide
       Burrow, Launch
+    gorlek:
+      Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+    unsafe:
+      Burrow, Bash, SentryJump=1
+      
   pickup UpperReach.LowerKS:
     moki:
       Launch
-      UpperReach.HeatFurnace:
-        DoubleJump
-        Bash, Grenade=1
-  pickup UpperReach.MiddleLeftKS:
+      UpperReach.HeatFurnace, DoubleJump
+      UpperReach.HeatFurnace, Bash, Grenade=1
+      UpperReach.HeatFurnace, Water, WaterDash
+    gorlek:
+      UpperReach.HeatFurnace, Bash # use the gorlek
+      UpperReach.HeatFurnace, Grapple, Dash
+      Bash, Grenade=1 # use the gorlek to get a higher bash on your grenade
+    unsafe:
+      UpperReach.HeatFurnace, Grapple, Glide
+      SentryJump=1 # need a decently high one
+      
+  pickup UpperReach.MiddleLeftKS: # I hate this pickup, there's too many ways to get it, still not done finding them all
     moki:
       Launch, DoubleJump OR Dash OR Glide
+      Launch, Bash, Flap OR Grenade=1
       UpperReach.HeatFurnace:
         DoubleJump, Bash, Grapple OR Glide
-        Dash, Bash, Grenade=1, Glide
+        Dash, Bash, Glide, Grenade=1
+        Dash, Bash, Glide, Water, WaterDash
+    gorlek:
+      Launch # sideways weapon stall needed
+      Bash, Damage=20, Grenade=1 OR Flap OR Dash OR DoubleJump OR Glide # start at the soup, may need to weapon stall to land further left on the spikes
+      Bash, Grenade
+    unsafe:
+      Damage=20, Bash OR SentryJump=1 OR Grenade=1 # GrenadeJump=1 # start at the soup, may need to weapon stall to land further left on the spikes
+      
+      
   pickup UpperReach.UpperKS:
     moki:
       DoubleJump, Bash, Grenade=1  # go past the hidden ore
