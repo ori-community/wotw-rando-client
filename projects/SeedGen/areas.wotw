@@ -15,7 +15,7 @@ requirement Weapon:
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in moki, just future proofing here
   moki: UpperDepths.ForestsEyes OR Flash
-  unsafe: Bow=3  # should be good, right?
+  gorlek: Bow=3  # should be good, right?
 
 anchor Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
@@ -546,6 +546,7 @@ anchor DenShrine:
     moki, Regenerate, Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis:
       Damage=60
       Damage=40, Dash OR Bash OR Launch  # much better if you have good evasion
+    unsafe: Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis
 
 # checkpoint at -514, -4549
 
@@ -660,6 +661,7 @@ anchor MarshShrine:
   refill Full
   pickup MarshPastOpher.CombatShrine:
     moki: Regenerate, Damage=20, Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
+    unsafe: Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
 
 anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow tree
   refill Checkpoint
@@ -1341,7 +1343,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   # paths through the purple door exist mainly because of historical reasons, but might be a candidate for future open mode as well
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     moki, WestHollow.PurpleDoorOpen:
-      Combat=Slug, BombSlug, Bow=1, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
+      Combat=Slug+BombSlug, Bow=1, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
       Combat=BombSlug, DoubleJump, Dash, Glide
       Launch
 
@@ -2352,6 +2354,7 @@ anchor GladesShrine:
       Damage=65                     # the crabs are terrifying!
       Damage=55, DoubleJump OR Dash # these can help
       Damage=30, Launch             # if you're op, nothing's terrifying
+    unsafe: Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab
 
 region OuterWellspring:
   moki: Danger=25
@@ -3507,6 +3510,7 @@ anchor WoodsShrine:
       Damage=80
       Damage=65, DoubleJump OR Dash
       Damage=50, Launch
+    unsafe: Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat
 
 region LowerReach:
   moki: Danger=40, Regenerate
@@ -3966,6 +3970,7 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
 
   state LowerReach.ArenaBeaten:
     moki: Regenerate, Damage=40, Combat=3xShieldMiner+Hornbug+2xBee
+    unsafe: Combat=3xShieldMiner+Hornbug+2xBee
 
   conn LowerReach.Trial:
     moki: LowerReach.ArenaBeaten
@@ -4232,6 +4237,7 @@ anchor MoraFight:
   refill Full
   quest UpperDepths.ForestsEyes:
     moki: Boss=330, Regenerate, Damage=95, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
+    unsafe: Boss=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
 
 anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left of the second keystone door
   refill Checkpoint
@@ -4311,6 +4317,7 @@ anchor DepthsShrine:
       Damage=65
       Damage=60, DoubleJump OR Dash
       Damage=50, Launch
+    unsafe: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug
 
 anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
   refill Checkpoint
@@ -4599,7 +4606,8 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
   # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
   state EastPools.FightArenas:
-    moki: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
+    moki: EastPools.LowerWaterDrained, Regenerate, Damage=20, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
+    unsafe: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
 
   quest EastPools.HandToHandSpyglass:
     moki, LowerDepths.HandToHandSilk:
@@ -4874,6 +4882,7 @@ anchor KwolokFight:
   refill Full
   quest WestPools.ForestsStrength:
     moki: Boss=250, Regenerate, Damage=95, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
+    unsafe: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
   moki: Danger=50, Regenerate
