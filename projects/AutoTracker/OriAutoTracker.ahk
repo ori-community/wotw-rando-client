@@ -32,7 +32,7 @@ imageBase := { "Bash": "img\Bash"
     , "DoubleJump": "img\DoubleJump"
     , "Flap": "img\Flap"
     , "Flash": "img\Flash"
-    , "Feather": "img\Feather"
+    , "Glide": "img\Glide"
     , "Grapple": "img\Grapple"
     , "Hammer": "img\Hammer"
     , "Launch": "img\Launch"
@@ -54,7 +54,7 @@ imageCurr := { "Bash": "img\Bash.png"
     , "DoubleJump": "img\DoubleJump.png"
     , "Flap": "img\Flap.png"
     , "Flash": "img\Flash.png"
-    , "Feather": "img\Feather.png"
+    , "Glide": "img\Glide.png"
     , "Grapple": "img\Grapple.png"
     , "Hammer": "img\Hammer.png"
     , "Launch": "img\Launch.png"
@@ -87,8 +87,8 @@ FileInstall, img\Dash.png, img\Dash.png
 FileInstall, img\Dash_unlocked.png, img\Dash_unlocked.png
 FileInstall, img\DoubleJump.png, img\DoubleJump.png
 FileInstall, img\DoubleJump_unlocked.png, img\DoubleJump_unlocked.png
-FileInstall, img\Feather.png, img\Feather.png
-FileInstall, img\Feather_unlocked.png, img\Feather_unlocked.png
+FileInstall, img\Glide.png, img\Glide.png
+FileInstall, img\Glide_unlocked.png, img\Glide_unlocked.png
 FileInstall, img\Flap.png, img\Flap.png
 FileInstall, img\Flap_unlocked.png, img\Flap_unlocked.png
 FileInstall, img\Flash.png, img\Flash.png
@@ -160,7 +160,7 @@ Gui, Add, Picture, vDash xp+80 %first_row% h75 w75, img\Dash.png
 second_row = y120
 Gui, Add, Picture, vBash x0 %second_row% h75 w75, img\Bash.png
 Gui, Add, Picture, VGrapple xp+80 %second_row% h75 w75, img\Grapple.png
-Gui, Add, Picture, vFeather xp+80 %second_row% h75 w75, img\Feather.png
+Gui, Add, Picture, vGlide xp+80 %second_row% h75 w75, img\Glide.png
 Gui, Add, Picture, vFlap xp+80 %second_row% h75 w75, img\Flap.png
 
 third_row = y200
@@ -448,8 +448,8 @@ Help(wParam, lParam, Msg) {
         Help := "Sentry"
     else IfEqual, HoverText, img\Regen.png
         Help := "Regenerate"
-    else IfEqual, HoverText, img\Feather.png
-        Help := "Feather | Glide"
+    else IfEqual, HoverText, img\Glide.png
+        Help := "Glide"
     else IfEqual, HoverText, img\Flash.png
         Help := "Flash"
     else IfEqual, HoverText, img\WaterBreath.png

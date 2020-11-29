@@ -137,6 +137,10 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Collected Keystones", 0, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Purchased Keystones", 1, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Pickups Collected", 2, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Spirit Light Collected", 3, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Spirit Light Spent", 4, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Ore Collected", 5, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Ore Spent", 6, 0),
                     // skills
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Bash", 1000, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "WallJump", 1003, false),
@@ -164,12 +168,28 @@ namespace uber_states
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "DamageUpgrade1", 1120, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "DamageUpgrade2", 1121, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Clean Water", 2000, false),
+                    // deep skills
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Spirit Magnet", 1009, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Spirit Flame", 1015, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Bounce", 1056, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Bow Charge", 1109, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Unknown", 1112, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Weapon Charge", 1119, false),
+
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "Squares", 0, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "Lines", 1, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "Rank", 2, 0),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "glades_tp_fix", 0, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "prevent_map_reactivate_tps", 1, false),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false),
                 };
+                int i = 0;
+                for (; i < 100; i++)
+                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", "plando_vars", 9, format("%3d_int", i), i, 0));
+                for (; i < 150; i++)
+                    states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", "plando_vars", 9, format("%3d_bool", i), i, false));
 
                 for (const auto state : states)
                     il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);

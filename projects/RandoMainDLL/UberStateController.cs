@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Threading;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class UberStateController {
+    public static HashSet<UberId> TickingUberStates = new HashSet<UberId>();
+    public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
     public static UberValue? ValueOpt(this UberState state) => state.GetUberId().ValueOpt();
     public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().ValueOpt().GetValueOrDefault(value);
@@ -20,13 +24,51 @@ namespace RandoMainDLL {
 
       return s;
     }
-    public static void ClearStates() {
-      UberStates.Clear();
+
+    public static Dictionary<String, TeleporterType> TpsByID = new Dictionary<String, TeleporterType>() {
+      { "howlsOriginA", TeleporterType.Burrows},
+      { "howlsDenSaveRoom", TeleporterType.Den},
+      { "wellSpringSaveRoomOld", TeleporterType.Wellspring},
+      { "baursReachSaveroom", TeleporterType.Reach},
+      { "mouldwoodDepthsF", TeleporterType.Depths},
+      { "silentWoodlandsHowlReveal", TeleporterType.WestWoods},
+      { "kuDeathSceneBlockout", TeleporterType.EastWoods},
+      { "feedingGroundsSaveRoom", TeleporterType.WestWastes},
+      { "e3DesertI", TeleporterType.EastWastes},
+      { "desertRuinsTowerSaveRoom", TeleporterType.OuterRuins},
+      { "willowsEnd", TeleporterType.WillowsEnd},
+      { "desertRuinsSaveRoom", TeleporterType.InnerRuins},
+      { "lagoonSaveRoomB", TeleporterType.EastPools},
+      { "lagoonSaveRoom", TeleporterType.WestPools},
+      { "willowCeremonyIntro", TeleporterType.Shriek},
+      { "swampIntroTop", TeleporterType.Spawn},
+    };
+
+    public static void OnTeleporterActivated(String identifier) {
+      try {
+        if (identifier == "kwoloksCavernSaveRoomA")
+          (HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow).p().Grant(true);
+        else
+          TpsByID[identifier].p().Grant(true);
+      } catch(Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
+    }
+
+    public static void RegisterSyncedUberState(UberId id) {
+      SyncedUberStates.Add(id);
+    }
+
+    public static void HandleSyncedUberStateChange(UberId id, float value) {
+      InterOp.set_uber_state_value(id.GroupID, id.ID, value);
+    }
+
+    private static bool FullSyncNextUpdate = false;
+    public static void QueueSyncedStateUpdate() {
+      FullSyncNextUpdate = true;
     }
 
     private static UberState createUberStateEntry(UberId id) {
       if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
-        Randomizer.Error("cuse", $"Failed to find {id} in uber state system.");
+        Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
         return null;
        }
 
@@ -120,17 +162,7 @@ namespace RandoMainDLL {
       }
     }
 
-    private static bool bufferSwitch = true;
-    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer1 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
-    private static ConcurrentQueue<Tuple<UberState, UberValue>> changedUberStatesBuffer2 = new ConcurrentQueue<Tuple<UberState, UberValue>>();
-    private static ConcurrentQueue<Tuple<UberState, UberValue>> getchangedUberStatesBuffer() {
-      if (bufferSwitch)
-        return changedUberStatesBuffer1;
-      else
-        return changedUberStatesBuffer2;
-    }
-
-    public static void onUberStateChanged(int groupID, int stateID, byte type, float oldValue, float newValue) {
+    public static void OnUberStateChanged(int groupID, int stateID, byte type, float oldValue, float newValue) {
       if (uberStateLookup == null) {
         PopulateUberStates();
       }
@@ -140,7 +172,7 @@ namespace RandoMainDLL {
         UberState state = cachedState.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
+        ResolveUberStateChange(state, value);
       }
       else if (serializableUberState((UberStateType)type)) {
         var state = createUberStateEntry(key);
@@ -149,79 +181,90 @@ namespace RandoMainDLL {
         state = state.Clone();
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
-        getchangedUberStatesBuffer().Enqueue(new Tuple<UberState, UberValue>(state, value));
+        ResolveUberStateChange(state, value);
+      }
+    }
+    public static void ResolveUberStateChange(UberState state, UberValue old) {
+      try {
+        UberId key = state.GetUberId();
+        if (!UberStates.TryGetValue(key, out UberState oldState)) {
+          oldState = state.Clone();
+          oldState.Value = old;
+          UberStates.Add(key, oldState);
+        }
+
+        UberValue value = state.Value;
+        if (value.Int == old.Int)
+          return;
+
+        var oldValFmt = old.FmtVal(state.Type); // get this now because we overwrite the value by reference 
+        if (ShouldRevert(state)) {
+          Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
+          oldState.Write();
+          return;
+        }
+
+        HandleSpecial(state);
+        UberStates[key].Value = state.Value;
+        var pos = InterOp.get_position();
+        bool found = false;
+        if (value.Int > 0) {
+          var id = state.GetUberId();
+          if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
+            var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
+            if (p.NonEmpty) {
+              SkipUberStateMapCount[key] -= 1;
+              Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
+              return;
+            }
+          }
+          found = SeedController.OnUberState(state);
+          if (!found)
+            HintsController.OnLupoState(id);
+        }
+
+        if (SyncedUberStates.Contains(key))
+          Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
+
+        BonusItemController.OnUberState(state);
+        if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8))
+          Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {state.FmtVal()} (was {oldValFmt}, ori at ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )");
+      }
+      catch (Exception e) {
+        Randomizer.Error($"USC.Update {state}", e);
       }
     }
 
-    public static int updateState = 0;
     public static void Update() {
-      if (NeedsNewGameInit)
-        NewGameInit();
+      try {
+        if (NeedsNewGameInit)
+          NewGameInit();
 
-      bool SkipListners = SkipListenersNextUpdate;
-      SkipListenersNextUpdate = false;
-
-      if (uberStateLookup == null) {
-        PopulateUberStates();
-      }
-
-      var stateAtomic = Interlocked.Increment(ref updateState);
-      var queue = getchangedUberStatesBuffer();
-      // Only switch queues if this is the first time we go through this.
-      if (stateAtomic <= 1)
-        bufferSwitch = !bufferSwitch;
-
-      Tuple<UberState, UberValue> pair;
-      while (queue.TryDequeue(out pair)) {
-        try {
-          UberState state = pair.Item1;
-          UberId key = state.GetUberId();
-
-          UberState oldState;
-          if (!UberStates.TryGetValue(key, out oldState)) {
-            oldState = state.Clone();
-            oldState.Value = pair.Item2;
-            UberStates.Add(key, oldState);
+        if (!SkipListeners) {
+          // We do ToArray here so we can change the hashset while we are looping.
+          foreach (var state in TickingUberStates.ToArray()) {
+            // Maybe change this to use our own cache lookup?
+            var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
+            InterOp.set_uber_state_value(state.GroupID, state.ID, value + 1);
           }
-
-          UberValue value = state.Value;
-          if (value.Int != pair.Item2.Int) {
-            var oldValFmt = oldState.FmtVal(); // get this now because we overwrite the value by reference 
-            if (ShouldRevert(state)) {
-              Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
-              oldState.Write();
-              continue;
-            }
-            HandleSpecial(state);
-            UberStates[key].Value = state.Value;
-            if (!SkipListners) {
-              var pos = InterOp.get_position();
-              bool found = false;
-              if (value.Int > 0) {
-                if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
-                  var id = state.GetUberId();
-                  var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
-                  if(p.NonEmpty) {
-                    SkipUberStateMapCount[key] -= 1;
-                    Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
-                    continue;
-                  }
-                }
-                found = SeedController.OnUberState(state);
-              }
-
-              BonusItemController.OnUberState(state);
-              if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 70))
-                  Randomizer.Log($"State change: {state.Name} {state.ID} {state.GroupName} {state.GroupID} {state.Type} {state.FmtVal()} (was {oldValFmt}, pos ({Math.Round(pos.X)},{Math.Round(pos.Y)}) )", false);              
-            }
-
-          }
-        } catch (Exception e) {
-          Randomizer.Error($"USC.Update {pair.Item1}", e);
         }
-      }
 
-      updateState = 0;
+        if (FullSyncNextUpdate) {
+          FullSyncNextUpdate = false;
+          var bad = new HashSet<UberId>();
+          foreach (var uid in SyncedUberStates.ToList()) {
+            if (uid.State() != null) {
+              Randomizer.Client.SendUpdate(uid, uid.State().ValueAsFloat());
+            }
+            else
+              bad.Add(uid);
+          }
+          foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
+        }
+        while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
+          InterOp.set_uber_state_value(stateUpdate.State.Group, stateUpdate.State.State, stateUpdate.Value);
+        }
+      } catch(Exception e) { Randomizer.Error("USC.Update", e, false);  }
     }
     private static void HandleSpecial(UberState state) {
       if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
@@ -242,6 +285,7 @@ namespace RandoMainDLL {
             InterOp.set_max_energy(InterOp.get_max_energy() + 1);
             InterOp.fill_health();
             InterOp.fill_energy();
+            InterOp.save();
           }
           // should happen in both branches
           if (SeedController.flags.Contains(Flag.ALLWISPS))
@@ -249,7 +293,7 @@ namespace RandoMainDLL {
         };
     }
     private static bool ShouldRevert(UberState state) {
-      if (NeedsNewGameInit || SkipListenersNextUpdate)
+      if (NeedsNewGameInit || SkipListeners)
         return false;
       if (state.Name == "cleanseWellspringQuestUberState" && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes")) 
           return true;
@@ -279,7 +323,16 @@ namespace RandoMainDLL {
         InterOp.discover_everything();
         if(!SeedController.flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
-          InterOp.bind_sword();
+          var slotRaw = AHK.IniString("Misc", "SpawnSlot");
+          var slot = 0;
+          if(slotRaw != string.Empty) {
+            slot = slotRaw.ParseToInt("Spawn Slot Ini") - 1;
+            if (slot > 2 || slot < 0) {
+              AHK.Print($"Ignoring invalid slot specifier {slotRaw}", toMessageLog: false);
+              slot = 0;
+            }
+          }
+          InterOp.bind(slot, 1002);
         }
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
@@ -298,7 +351,7 @@ namespace RandoMainDLL {
 
     public static Dictionary<UberId, int> SkipUberStateMapCount = new Dictionary<UberId, int>();
 
-    public static bool SkipListenersNextUpdate = false;
+    public static bool SkipListeners = false;
 
     public static bool NeedsNewGameInit = false;
 

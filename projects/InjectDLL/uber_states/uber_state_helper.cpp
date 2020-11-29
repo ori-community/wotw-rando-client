@@ -2,6 +2,7 @@
 
 #include <constants.h>
 #include <dll_main.h>
+#include <pickups/pickups.h>
 #include <pickups/ore.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -93,8 +94,11 @@ INJECT_C_DLLEXPORT bool get_debug_controls()
 
 INJECT_C_DLLEXPORT void add_health(float inc) {
     auto sein = get_sein();
+    bool temp = collecting_pickup;
+    collecting_pickup = false;
     if (sein != nullptr)
         SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, inc, 4, false);
+    collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT void fill_health() {
@@ -102,9 +106,12 @@ INJECT_C_DLLEXPORT void fill_health() {
 }
 
 INJECT_C_DLLEXPORT void add_energy(float inc) {
+    bool temp = collecting_pickup;
+    collecting_pickup = false;
     auto sein = get_sein();
     if (sein != nullptr)
         SeinEnergy::Gain(sein->fields.Energy, inc);
+    collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT void fill_energy() {
@@ -127,7 +134,10 @@ INJECT_C_DLLEXPORT void set_max_health(int32_t value) {
     warn("set_max_health", "No sein!!! D:");
     return;
   }
+  bool temp = collecting_pickup;
+  collecting_pickup = false;
   SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
+  collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT void set_max_energy(float value) {
@@ -136,7 +146,10 @@ INJECT_C_DLLEXPORT void set_max_energy(float value) {
       warn("set_max_energy", "No sein!!! D:");
       return;
     }
+    bool temp = collecting_pickup;
+    collecting_pickup = false;
     SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
+    collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT int32_t get_max_health() {
@@ -178,7 +191,10 @@ INJECT_C_DLLEXPORT int32_t get_experience()
 
 INJECT_C_DLLEXPORT void set_experience(int32_t value)
 {
+    bool temp = collecting_pickup;
+    collecting_pickup = false;
     get_inventory()->fields.m_experience = value;
+    collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT int32_t get_keystones()

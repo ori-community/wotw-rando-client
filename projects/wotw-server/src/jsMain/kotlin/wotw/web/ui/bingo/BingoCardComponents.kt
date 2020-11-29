@@ -1,9 +1,10 @@
-package wotw.web.bingo
+package wotw.web.ui.bingo
 
 import io.ktor.client.request.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.css.*
+import kotlinx.css.properties.border
 import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.p
@@ -14,6 +15,8 @@ import wotw.io.messages.protobuf.*
 import wotw.io.messages.protobuf.Position
 import wotw.web.io.WebSocketComponent
 import wotw.web.main.Application
+import wotw.web.util.BACKEND_HOST
+import wotw.web.util.BACKEND_PORT
 import wotw.web.util.hbox
 import wotw.web.util.vbox
 
@@ -32,6 +35,8 @@ external interface BingoSquareProps : RProps {
     var text: String
     var completed: Boolean
     var goals: List<BingoGoal>
+    var xEdge: Boolean
+    var yEdge: Boolean
 }
 
 external interface BingoSquareState : RState {
@@ -45,18 +50,19 @@ external interface BingoGoalProps : RProps {
 
 class BingoView : RComponent<GameIdProps, RState>() {
     override fun RBuilder.render() {
-        hbox {
-            css {
-                gap = Gap("10px")
-            }
-            child(BingoCardComponent::class) {
-                attrs.gameId = props.gameId
-            }
-            child(BingoPlayersComponent::class) {
-                attrs.gameId = props.gameId
+        vbox {
+            hbox {
+                css {
+                    gap = Gap("10px")
+                }
+                child(BingoCardComponent::class) {
+                    attrs.gameId = props.gameId
+                }
+                child(BingoPlayersComponent::class) {
+                    attrs.gameId = props.gameId
+                }
             }
         }
-
     }
 }
 
@@ -71,11 +77,11 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
 
     override fun componentDidMount() {
         GlobalScope.launch {
-            val boardData = Application.client.get<BingoData>(path = "bingo/${props.gameId}")
+            val boardData = Application.api.get<BingoData>(path = "bingo/${props.gameId}")
             setState {
                 this.board = boardData.board
             }
-            Application.eventBus.send(SyncPlayersMessage(boardData.players))
+            Application.eventBus.send(SyncBingoPlayersMessage(boardData.players))
         }
 
         Application.eventBus.register(this, SyncBoardMessage::class) {
@@ -94,6 +100,8 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
     override fun RBuilder.render() {
         styledDiv {
             css {
+                border(width = 2.px, style = BorderStyle.solid, color = Color.aqua)
+                marginRight = 3.em
                 position = kotlinx.css.Position.relative
                 width = LinearDimension("min(80%, 95vh)")
                 before {
@@ -118,6 +126,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                             width = 100.pct
                             height =
                                 if (y !in cardRange) labelSize else LinearDimension("calc((100% - 2 * $labelSize - ${size + 1} * $gapSize) / $size)")
+                            textAlign = TextAlign.center
                         }
                         for (x: Int in 0..size + 1) {
                             //why are grids not 0-based again? :<
@@ -149,6 +158,8 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                             }
 
                             child(BingoSquareComponent::class) {
+                                attrs.xEdge = x !in cardRange
+                                attrs.yEdge = y !in cardRange
                                 attrs.gridPosition = gridPos
                                 attrs.size = width to height
                                 attrs.boardSize = size
@@ -161,8 +172,7 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                 }
             }
             child(WebSocketComponent::class) {
-                //TODO: Config
-                attrs.url = "ws://localhost:8081/bingosync/${props.gameId}"
+                attrs.url = "wss://$BACKEND_HOST:$BACKEND_PORT/api/bingosync/${props.gameId}"
             }
         }
     }
@@ -179,12 +189,33 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 width = props.size?.first
                     ?: LinearDimension("calc((100% - 2 * $labelSize  - ${props.boardSize + 1} * $gapSize) / ${props.boardSize})")
                 height = 100.pct
+                textAlign = TextAlign.center
+                fontWeight = FontWeight.bold
                 backgroundColor =
                     if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
             }
-            p {
-                +props.text
+            when {
+                props.xEdge && !props.yEdge -> styledP {
+                    css {
+                        fontWeight = FontWeight.normal
+                        marginTop = 0.em
+                        paddingTop = 4.em // TODO: actually center
+                    }
+                    +props.text
+                }
+                props.xEdge || props.yEdge -> styledP {
+                    css {
+                        fontWeight = FontWeight.normal
+                        marginTop  = 0.em
+                        paddingTop = 0.em
+                    }
+                    +props.text
+                }
+                else -> p {
+                    +props.text
+                }
             }
+
             attrs {
                 onClickFunction = {
                     it.preventDefault()
@@ -206,6 +237,9 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
 class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RState>(props) {
     override fun RBuilder.render() {
         styledP {
+            css {
+                fontWeight = FontWeight.normal
+            }
             +props.text
             if (props.completed) {
                 css {
