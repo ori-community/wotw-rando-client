@@ -267,7 +267,7 @@ package SeedGenerator {
     def min(other: Orbs): Orbs = Orbs(Math.min(this.health, other.health), Math.min(this.energy, other.energy))
     def +(other: Orbs): Orbs = Orbs(health+other.health, energy + other.energy)
     def -(other: Orbs): Orbs = Orbs(health - other.health, energy - other.energy)
-    def value: Int = health + 3*energy // subject to change
+    def value: Int = health + energy // subject to change
     def valid: Boolean  = health > 0 && energy >= 0
   }
 
