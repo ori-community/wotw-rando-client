@@ -51,7 +51,7 @@ package SeedGenerator {
 
   trait SettingsProvider {
     def get: Settings
-    def userHeader: String = ""
+    def userHeader: Seq[String] = Nil
   }
   object DefaultSettingsProvider extends SettingsProvider {
     def get: Settings = Settings()
@@ -71,7 +71,7 @@ package SeedGenerator {
     def debugInfo: Boolean = provider.get.debugInfo
     def seirLaunch: Boolean = provider.get.seirLaunch
     def header: String = provider.get.header
-    def userHeader: String = provider.userHeader
+    def userHeader: Seq[String] = provider.userHeader
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def toJson: String = {Serialization.write(provider.get)}
     def get: Settings = provider.get

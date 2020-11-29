@@ -21,8 +21,9 @@ package SeedGenerator {
     val itemType: Int = -1
   }
 
-  case class RawItem(override val code: String) extends Unplaceable {
-    def name: String = code
+  case class RawItem(main: String, extra: Option[String] = None) extends Unplaceable {
+    override val code: String = main + extra ?? ""
+    def name: String = main
   }
 
   trait SpiritLightItem extends Item {
@@ -236,7 +237,6 @@ package SeedGenerator {
     def areas: Set[Area] = reached.collect({case a: Area => a})
     def noReached: GameState = GameState(inv, flags)
     def without(item: Item, count: Int): GameState = GameState(inv.without(item, count), flags, reached)
-    def withoutCash(cash: Int): GameState = GameState(inv.withoutCash(cash), flags, reached)
     def cost(implicit flagCosts: Map[FlagState, Double] = Map()): Double = inv.cost + flags.foldLeft(0d)((i, f) => i + flagCosts.getOrElse(f, 10000d))
     def canEqual(that: Any): Boolean = that.isInstanceOf[GameState]
     override def equals(state: Any): Boolean = {
@@ -279,15 +279,6 @@ package SeedGenerator {
     def subsetOf(other: Inv): Boolean = Timer("subsetChecks"){other.count > this.count && forall{case (i, c) => other.has(i,c)}}
     items.collect({ case (i: Item, count: Int) if count > 0 => set(i, count) })
     def totalSpiritLight: Int = collect({case (SpiritLight(amount), i) => amount*i}).sum
-    def withoutCash(cash: Int): Inv = {
-      val totalLight = collect({case (SpiritLight(amount), i) => amount*i}).sum
-      if(totalLight < cash)
-        Logger.error("THIS SEEMS SUBOPTIMAL")
-      new Inv(keys.flatMap({
-        case _: SpiritLight => None
-        case i => Some(i -> this(i))
-      }).toSeq :+ (SpiritLight(totalLight - cash) -> 1):_*)
-    }
     def orbs: Orbs = Orbs(this(Health)*5, this(Energy)*5)
     def set(item: Item, count: Int): Unit =  this (item) = count
     override def apply(item: Item): Int = getOrElse(item, 0)
@@ -314,7 +305,7 @@ package SeedGenerator {
         add(item, count)
     }
 
-    def take(item: Item, count: Int = 1)(implicit r: Random): Boolean = {
+    def take(item: Item, count: Int = 1): Boolean = {
       if (!has(item, count)) {
         item match {
           case SpiritLight(amount)  =>

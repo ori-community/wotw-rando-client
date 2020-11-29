@@ -652,6 +652,18 @@ namespace
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }
+    IL2CPP_INTERCEPT(, SpellUIExperience, bool, Spend, (app::SpellUIExperience* this_ptr, int amount)) {
+        bool worked = SpellUIExperience::Spend(this_ptr, amount);
+        if (worked)
+            uber_states::set_uber_state_value(6, 4, amount + uber_states::get_uber_state_value(6, 4));
+        return worked;
+    };
+    IL2CPP_INTERCEPT(, SpellUISeeds, bool, Spend, (app::SpellUISeeds* this_ptr, int amount)) {
+        bool worked = SpellUISeeds::Spend(this_ptr, amount);
+        if (worked)
+            uber_states::set_uber_state_value(6, 6, amount + uber_states::get_uber_state_value(6, 6));
+        return worked;
+    };
 
     IL2CPP_BINDING(, UISoundSettingsAsset, bool, PlaySoundEvent, (app::UISoundSettingsAsset* this_ptr, app::Event_1* sound_event));
     IL2CPP_BINDING(, WeaponmasterItem, bool, get_IsAffordable, (app::WeaponmasterItem* this_ptr));

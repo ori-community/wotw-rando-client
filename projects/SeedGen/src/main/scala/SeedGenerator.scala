@@ -29,7 +29,7 @@ package SeedGenerator {
       // sugar funcs for interacting with paths and their target files
       def exists: Boolean = Files exists f
       def toOpt: Option[Path] = exists ? f
-      def readLines: Seq[String] = Files.readAllLines(f).asScala
+      def readLines: Seq[String] = exists ? Files.readAllLines(f).asScala.toSeq ?? Seq()
       def read: Option[String] = exists ? readLines.mkString("\n")
       def write(output: => String): Unit = {
         val bw = Files.newBufferedWriter(f, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
@@ -63,6 +63,7 @@ package SeedGenerator {
         case Nil => None
         case s => Some(s.minBy(f))
       }
+      def ??(other: => T) = if(vs.isEmpty) Seq(other) else vs
       def partitionMap[T1, T2](f: T => Either[T1, T2]): (Seq[T1], Seq[T2]) = {
         val full = vs map f
         (full.collect{case Left(l) => l}, full.collect{case Right(r) => r})
@@ -113,7 +114,7 @@ package SeedGenerator {
     val UNCAT = "No category"
     val NOVAL = "No value"
     val VOID: LocData = LocData("Null", "Void", UNCAT, NOVAL, "Void", "N/A", -1, "N/A", "0", 0, 0)
-    def spawnLoc(i: Int): LocData = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "spawn", "control", 3, "spawn", "0", 0, 0)
+    def spawnLoc(i: Int): LocData = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "Spawn", "control", 3, "spawn", "0", 0, 0)
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
       val pickupsFile = "loc_data.csv".f.canonPath
@@ -316,11 +317,14 @@ package SeedGenerator {
     var _areas: Map[String, Area] = Map()
     var _items: Map[String, ItemLoc] = Map()
 
-    def keystonesRequired(nodes: Set[Node]): Int = {
+    def keystonesRequired(state: GameState): Int = {
       if(Settings.flags.noKSDoors)
         return 0
-      val relevantNodes = nodes.collect{case a: Area => a}.intersect(connectedToDoors)
-      doors.foldLeft(0)({case (acc, (name, keys))=> acc + (relevantNodes.exists(_.conns.exists(_.target.name == name)) ? keys ?? 0)})
+      val relevantNodes = state.reached.collect{case a: Area => a}.intersect(connectedToDoors)
+      if(relevantNodes.size > 1)
+        doors.foldLeft(0)({case (acc, (name, keys))=> acc + (relevantNodes.exists(_.conns.exists(_.target.name == name)) ? keys ?? 0)}) - state.inv(Keystone)
+      else
+        0
     }
 
     def fixAreas(areas: Map[String, Area]): Map[String, Area] = {
@@ -403,7 +407,8 @@ package SeedGenerator {
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
     var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
-    val seedLineRegex: Regex = """^(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|([0-9]+))(\|[^ ]*)? *(//.*)?""".r
+    val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
+    val addItemRegex: Regex = """^!!add ([0-9]+\|.*?) *(//.*)?""".r
 
     def regenPreplcs(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
@@ -413,12 +418,12 @@ package SeedGenerator {
       if(Settings.flags.worldTour) {
         Logger.debug("World Tour: finding relic placements...")
         Nodes._items.values.groupBy(_.data.zone).foreach({
-          case (zone, _) if Seq("Windtorn Ruins", "Void") contains zone => // no relics in these zones
+          case (zone, _) if Seq("Windtorn Ruins", "Void", "Spawn") contains zone => // no relics in these zones
           case (_, items) =>
-          if(r.nextFloat() < .8) {
-            val slot = items.toSeq.rand
-            addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
-          }
+            if(r.nextFloat() < .8) {
+              val slot = items.toSeq.rand
+              addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
+            }
         })
         Logger.debug(s"World Tour: placed ${preplc.size} relics")
       }
@@ -431,22 +436,30 @@ package SeedGenerator {
       Seq("3|0", "3|1", "3|2", "3|3", "3|4").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
-      Settings.userHeader.split("\n").foreach({ // yes, this is how we nullcheck now
-        case raw @ seedLineRegex(locCode,_,_,_,itemCode,_,_,extra,comm) if Option(comm).map(!_.contains("skip")) ?? true =>
-          (locsByCode.get(locCode), poolByCode.get(itemCode)) match {
-            case (Some(loc), Some(item)) =>
+      Settings.userHeader.foreach({ // yes, this is how we nullcheck now
+        case  addItemRegex(itemCode, comm) =>
+          val item = poolByCode.get(itemCode) match{
+            case Some(i) => i
+            case None =>RawItem(itemCode, Option(comm))
+          }
+          Logger.debug(s"adding $item to the item pool")
+          pool.add(item)
+        case raw @ seedLineRegex(dontMergeToPool, locCode,_,_,_,itemCode,_,_,_)  =>
+          (dontMergeToPool == "!", locsByCode.get(locCode), poolByCode.get(itemCode)) match {
+            case (true, _, _) => // do nothing
+            case (false, Some(loc), Some(item)) =>
               pool.take(item)
               addPreplc(GhostPlacement(item, loc))
               Logger.debug(s"$loc, $item <= $raw")
               Logger.debug(s"$loc, ${preplc.get(loc)}, $preplc")
-            case (Some(loc), None) =>
+            case (false, Some(loc), None) =>
               Logger.debug(s"$loc, None($itemCode) <= $raw")
-              addPreplc(GhostPlacement(RawItem(itemCode + Option(extra) ?? ""), loc))
-            case (None, Some(item)) =>
+              addPreplc(GhostPlacement(RawItem(itemCode), loc))
+            case (false, None, Some(item)) =>
               Logger.debug(s"None($locCode), $item <= $raw")
               pool.take(item)
               Logger.warn(s"Placing item $item in unknown location $locCode logically removes it from the pool.")
-            case (None, None) => Logger.debug(s"None($locCode), None($itemCode) <= $raw")
+            case (_, None, None) => Logger.debug(s"None($locCode), None($itemCode) <= $raw")
           }
         case raw => Logger.debug(s"ignoring line $raw")
       })
@@ -630,11 +643,7 @@ package SeedGenerator {
         process(assignRandom(freeLocs), "rand: ")
         return PlacementGroup(state, Inv.Empty, placements, i, parent)
       }
-      val ksNeeded = Math.max(0, Nodes.keystonesRequired(state.reached) - state.inv(Keystone)) match {
-        case _ if !Settings.flags.randomSpawn && i < 3 => 0
-        case 2 => 0
-        case n => n
-      }
+      val ksNeeded = Nodes.keystonesRequired(state)
       val locsOpen = freeLocs.size - ksNeeded
       if(ksNeeded > 0) {
         if(locsOpen < 0)
@@ -815,7 +824,7 @@ package SeedGenerator {
     //noinspection FieldFromDelayedInit
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
-      val h = Settings.userHeader
+      val h = Settings.userHeader.filterNot(_.startsWith("!!")).map(_.stripMargin('!')).mkString("\n")
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {
@@ -826,7 +835,6 @@ package SeedGenerator {
 }
     def forceGetSeed(retries: Int = IS_DEBUG ? 1 ?? 10, time: Boolean = true): Seed = {
       val t0 = System.currentTimeMillis()
-
       val s = mkSeed
       val ret = s.error match {
         case Some(e) if retries > 0 =>

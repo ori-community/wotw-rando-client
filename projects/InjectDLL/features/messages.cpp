@@ -248,7 +248,6 @@ INJECT_C_DLLEXPORT void clear_visible_hints()
             if (last_box != npc_box && is_visible(last_box))
                 MessageBox__HideMessageScreenImmediately(last_box, 0);
         }
-
         tracked_boxes.clear();
         if (last_handle)
         {
@@ -265,8 +264,10 @@ INJECT_C_DLLEXPORT bool hints_ready() {
     return OnScreenPositions::get_TopCenter().y > 0;
 }
 
-INJECT_C_DLLEXPORT app::MessageBox * display_hint(const wchar_t* hint, float duration) {
-    return send_msg(hint, duration, OnScreenPositions::get_TopCenter(), false);
+INJECT_C_DLLEXPORT app::MessageBox* display_hint(const wchar_t* hint, float duration, float ypos) {
+    auto pos = OnScreenPositions::get_TopCenter();
+    pos.y = ypos;
+    return send_msg(hint, duration, pos, false);
 }
 
 INJECT_C_DLLEXPORT app::MessageBox * display_below(const wchar_t* hint, float duration) {

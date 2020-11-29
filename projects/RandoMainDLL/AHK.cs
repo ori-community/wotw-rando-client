@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
 using AutoHotkey.Interop;
+using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class AHK {
@@ -77,6 +78,11 @@ namespace RandoMainDLL {
       return iniFlagCache[flag];
     }
 
+    public static string IniString(string section, string name, string def = "") {
+      var raw = Engine.ExecFunction("DoIniRead", section, name);
+      return Falsey.Contains(raw) ? def : raw;
+    }
+
     public static void Tick() {
       var signal = Engine.ExecFunction("Tick");
       if (signal != null && signal != "none") {
@@ -86,8 +92,9 @@ namespace RandoMainDLL {
             if (FramesTillUnlockReload == 0) {
               iniFlagCache.Clear();
               FramesTillNextSend = 0;
+              Randomizer.Client.Connect();
               SeedController.ReadSeed();
-              if (InterOp.get_game_state() == Memory.GameState.Game)
+              if (InterOp.get_game_state() == GameState.Game)
                 PsuedoLocs.RELOAD_SEED.OnCollect();
               FramesTillUnlockReload = 120;
             }
@@ -123,9 +130,9 @@ namespace RandoMainDLL {
             PsuedoLocs.BINDING_THREE.OnCollect();
             break;
           case "test4":
-            if(SeedController.HasInternalSpoilers) {
+            if (SeedController.HasInternalSpoilers) {
+              UberSet.Bool(34543, 11226, true);
               Print("spoiler unlocked", toMessageLog: false);
-              InterOp.magic_function();
             }
             break;
           case "test5":
@@ -155,7 +162,7 @@ namespace RandoMainDLL {
           FramesTillNextSend = Current.Frames;
           try {
             InterOp.clear_visible_hints();
-            InterOp.display_hint(Current.Text, Current.Frames / 60f);
+            InterOp.display_hint(Current.Text, Current.Frames / 60f, Current.Pos);
             if (IniFlag("LogOnPrint")) {
               Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
             }
@@ -180,18 +187,22 @@ namespace RandoMainDLL {
       Last = new PlainText("*Good Luck! <3*");
     }
     public static void Pickup(string message, int frames = 180) {
-      var msg = new PlainText(message, frames, SeedController.GrantingGoalModeLoc);
-      if(SeedController.GrantingGoalModeLoc) 
+      PlainText msg;
+      if(SeedController.GrantingGoalModeLoc) {
+        msg = new PlainText(message, frames, -2f);
         HintsController.ProgressWithHints();
+      } else 
+        msg = new PlainText(message, frames);
+      
       SendPlainText(msg);
       Last = msg;
     }
-    public static void Print(string message, int frames = 180, bool toMessageLog = true) => SendPlainText(new PlainText(message, frames), toMessageLog);
+    public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true) => SendPlainText(new PlainText(message, frames, pos), toMessageLog);
     public static void SendPlainText(PlainText p, bool logMessage = true) {
       if (logMessage)
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]", "")}\n");
 
-      if (p.Lower) {
+      if (p.Pos == -2f) {
         InterOp.display_below(p.Text, p.Frames / 60f);
         return;
       }
@@ -203,21 +214,21 @@ namespace RandoMainDLL {
     public static bool TPToPickupsEnabled { get => tpCheatToggle && InterOp.get_debug_controls(); }
   }
   public interface IMessage {
-    bool Lower { get; }
+    float Pos { get; }
     string Text { get; }
     int Frames { get; }
   };
 
   public class PlainText : IMessage {
-    public PlainText(string text, int frames = 180, bool lower = false) {
+    public PlainText(string text, int frames = 180, float? pos = null) {
       Text = text;
       Frames = frames + (SeedController.GrantingGoalModeLoc ? 120 : 0);
-      Lower = lower;
+      Pos = pos.HasValue ? pos.Value : (3.2f - .2f * Text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None).Length);
     }
 
     public string Text { get; }
     public int Frames { get; }
-    public bool Lower { get; }
+    public float Pos { get; }
   }
 
 }

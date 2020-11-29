@@ -36,7 +36,7 @@ namespace RandoMainDLL {
             CallbackName = "on_checkpoint"
           },
           new Method() {
-            Delegate = new f_void(() => AHK.SendPlainText(new PlainText(SeedController.GoalModeMessages(unmet: "@"), 300, true), false)),
+            Delegate = new f_void(() => AHK.SendPlainText(new PlainText(SeedController.GoalModeMessages(unmet: "@"), 300, -2f), false)),
             CallbackName = "on_goal_mode_fail"
           },
           new Method() {
@@ -142,7 +142,7 @@ namespace RandoMainDLL {
             CallbackName = "lupo_upgrade_cost"
           },
           new Method() {
-            Delegate = new f_void_int_int_byte_float_float(UberStateController.onUberStateChanged),
+            Delegate = new f_void_int_int_byte_float_float(UberStateController.OnUberStateChanged),
             CallbackName = "on_uber_state_applied"
           },
           new Method() {
@@ -154,20 +154,24 @@ namespace RandoMainDLL {
             CallbackName = "does_howl_exist"
           },
           new Method() {
-            Delegate = new f_bool_int_int(MapController.FilterIconShow),
+            Delegate = new f_bool_int_int_int(MapController.FilterIconShow),
             CallbackName = "filter_icon_show"
           },
           new Method() {
-            Delegate = new f_int_int_int(MapController.FilterIconType),
+            Delegate = new f_int_int_int_int(MapController.FilterIconType),
             CallbackName = "filter_icon_type"
           },
           new Method() {
-            Delegate = new f_void_ptr_int_int_int(MapController.FilterIconText),
+            Delegate = new f_void_ptr_int_int_int_int_int(MapController.FilterIconText),
             CallbackName = "filter_icon_text"
           },
           new Method() {
             Delegate = new f_void(ShopController.UpdateShopData),
             CallbackName = "update_shop_data"
+          },
+          new Method() {
+            Delegate = new f_void_str(UberStateController.OnTeleporterActivated),
+            CallbackName = "on_teleporter_activated"
           }
         };
       }
@@ -178,20 +182,22 @@ namespace RandoMainDLL {
     public delegate void f_void_at_bool(AbilityType at, bool b);
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
-    public delegate void f_void_ptr_int_int_int(IntPtr buffer, int l, int i, int j);
+    public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
     public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
+    public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate void f_void_st(ShardType st);
     public delegate void f_void_gwa(AreaType at);
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
     public delegate bool f_bool_int(int i);
-    public delegate bool f_bool_int_int(int i, int j);
+    public delegate bool f_bool_int_int_int(int i, int j, int k);
     public delegate bool f_bool_st(ShardType st);
     public delegate bool f_bool_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate int f_int();
     public delegate int f_int_at(AbilityType at);
     public delegate int f_int_int(int i);
     public delegate int f_int_int_int(int i, int j);
+    public delegate int f_int_int_int_int(int i, int j, int k);
     public delegate int f_int_st(ShardType st);
     public delegate ulong f_ull();
     public delegate ulong f_ull_str_bool([MarshalAs(UnmanagedType.LPStr)] string str, bool b);

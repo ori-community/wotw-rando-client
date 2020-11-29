@@ -19,3 +19,9 @@ message UberId{
 message InitBingoMessage{
     repeated UberId uberId = 1;
 }
+
+message PrintTextMessage{
+	int32 frames = 1;
+	float ypos = 2;
+    string text = 3;
+}

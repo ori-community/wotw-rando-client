@@ -86,7 +86,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Water, Burrow, Bash, Grenade=1, Dash
     gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   pickup MarshSpawn.LifepactShard:
-    moki, Combat=Hornbug, Bat, 2xSandworm, 2xLizard, 3xSkeeto, SneezeSlug:
+    moki, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug:
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
   pickup MarshSpawn.BurrowsPathEX:
@@ -244,7 +244,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       # could do a sentryjump into bashgrenade, but I heard that kind of thing is unwelcome ;P
     unsafe: Burrow, SentryJump=1  # max height
   pickup MarshSpawn.LifepactShard:
-    moki: Combat=Hornbug, Bat, 2xSandworm, 2xLizard, 3xSkeeto, SneezeSlug, Bash, DoubleJump OR Launch
+    moki: Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug, Bash, DoubleJump OR Launch
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     moki: Bash, DoubleJump OR Launch
     gorlek:
@@ -532,20 +532,20 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
       Grenade=1               # Grenade jump to platform
   # if someone manages to lower the platform, they'll manage to get over the gap as well. That's how it works in the base game, that's how it'll work here
   pickup HowlsDen.DoubleJumpEX:
-    moki: Combat=Mantis, Lizard  # the game puts this before regen. It's why all the enemies drop tons of health
+    moki: Combat=Mantis+Lizard  # the game puts this before regen. It's why all the enemies drop tons of health
 
   conn Teleporters: free
   conn DenShrine:
     moki: Hammer OR Spear=1
   conn HowlsDen.DoubleJumpTreeArea:
-    moki: Combat=Mantis, Lizard OR DoubleJump OR Dash OR Glide OR Launch
+    moki: Combat=Mantis+Lizard OR DoubleJump OR Dash OR Glide OR Launch
   conn HowlsDen.BoneBridge:
     unsafe: Hammer  # break a wall from behind
 
 anchor DenShrine:
   refill Full
   pickup HowlsDen.CombatShrine:
-    moki: Combat=Mantis, 2xLizard, 4xEnergyRefill, 2xSneezeSlug, Mantis, Skeeto, 4xEnergyRefill, 7xSmallSkeeto, 2xSkeeto, 4xEnergyRefill, 2xLizard, 2xMantis
+    moki: Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis
 
 # checkpoint at -514, -4549
 
@@ -624,7 +624,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
       Grapple OR Launch
     gorlek:
       DoubleJump
-      Glide OR Dash OR Sword OR Hammer, Damage=10
+      Damage=10, Glide OR Dash OR Sword OR Hammer
     unsafe: Sentry=1, Damage=10
   pickup MarshPastOpher.TrialOre: free
   pickup MarshPastOpher.TrialEC:
@@ -649,17 +649,17 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
   conn MarshPastOpher.BowPath:
     moki, BreakWall=20:
       Bash, DoubleJump OR Dash OR Glide OR Grapple OR Launch
-      Combat=Mantis, SneezeSlug, DoubleJump OR Dash OR Glide OR Grapple OR Launch
+      Combat=Mantis+SneezeSlug, DoubleJump OR Dash OR Glide OR Grapple OR Launch
     gorlek, BreakWall=20:
       Bash, Sword OR Hammer
       Bash, Grenade=1
-      Combat=Mantis, SneezeSlug, Sword OR Hammer
+      Combat=Mantis+SneezeSlug, Sword OR Hammer
       Launch
 
 anchor MarshShrine:
   refill Full
   pickup MarshPastOpher.CombatShrine:
-    moki: Combat=2xSkeeto, 2xEnergyRefill, Mantis, 4xSmallSkeeto, 2xEnergyRefill, Mantis, Skeeto
+    moki: Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
 
 anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow tree
   refill Checkpoint
@@ -769,10 +769,10 @@ anchor MarshPastOpher.UpperBowArea at -437, -4211:  # Between the eyestones
 anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out of the ledge at the top left of the large room with Opher
   refill Checkpoint
   refill Health=1:
-    moki: Combat=Mantis, Bat
+    moki: Combat=Mantis+Bat
     gorlek: free
   refill Energy=3:
-    moki: Weapon, Combat=Mantis, Bat
+    moki: Weapon, Combat=Mantis+Bat
     gorlek: Weapon
 
   pickup MarshPastOpher.CeilingEX:  # the squonkey doesn't reappear if you respawn on this checkpoint
@@ -1131,10 +1131,10 @@ anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at 
 
   conn WestHollow.FarLeftRoom:
     moki, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved:
-      Combat=Skeeto, Slug, Bow=1, DoubleJump OR Dash
+      Combat=Skeeto+Slug, Bow=1, DoubleJump OR Dash
       Bash OR Launch  # bashing off the skeeto
     gorlek, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved:
-      Combat=Skeeto, Slug, Bow=1, Glide OR Sword
+      Combat=Skeeto+Slug, Bow=1, Glide OR Sword
       Combat=Skeeto, SentryJump=1
       DoubleJump, Combat=Slug OR Damage=10  # Jump to the left wall and wrap around to the top
     unsafe:
@@ -1220,14 +1220,14 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
 
   conn WestHollow.TrialApproach:
     moki, WestHollow.FullyDrained:  # middle water state can softlock this, so you have to be able to fully lower the water.
-      Combat=Slug, 2xSkeeto, DoubleJump, Dash OR Glide
-      Combat=Slug, 2xSkeeto, Hornbug, Dash, Glide
+      Combat=Slug+2xSkeeto, DoubleJump, Dash OR Glide
+      Combat=Slug+2xSkeeto+Hornbug, Dash, Glide
       Bash, Damage=10, DoubleJump OR Dash OR Glide  # bash off the skeetos
       Water, WaterDash, Combat=Slug, Combat=Hornbug OR DoubleJump
       Water, WaterDash, Bash
       Launch
     gorlek, WestHollow.FullyDrained:  # middle water state can softlock this, so you have to be able to fully lower the water.
-      Combat=Slug, 2xSkeeto, DoubleJump OR Dash OR Glide OR Sword
+      Combat=Slug+2xSkeeto, DoubleJump OR Dash OR Glide OR Sword
       Bash  # bash off the skeetos
       SentryJump=1
   conn WestHollow.DashApproach:
@@ -1256,7 +1256,9 @@ anchor WestHollow.TrialApproach at -155, -4298:  # after getting past the beetle
 anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon OR Bow=1
+    moki: 
+      Weapon
+      Bow=1
 
   # state WestHollow.TrialActivation:
   #   moki, Combat=Slug:
@@ -1267,13 +1269,13 @@ anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
   #     SentryJump=1
   state WestHollow.DoorLever:  # The door blocking Dash area
     moki:
-      Combat=Skeeto, Mantis, 2xLizard, Hornbug, DoubleJump OR Dash
-      Combat=Skeeto, Mantis, 2xLizard, Hornbug, Bash, Grenade=1
+      Combat=Skeeto+Mantis+2xLizard+Hornbug, DoubleJump OR Dash
+      Combat=Skeeto+Mantis+2xLizard+Hornbug, Bash, Grenade=1
       Bash, DoubleJump OR Dash
       Launch
     gorlek:
       DoubleJump OR Dash OR Bash
-      Combat=Skeeto, 2xLizard, Hornbug, Glide OR Sword OR SentryJump=1
+      Combat=Skeeto+2xLizard+Hornbug, Glide OR Sword OR SentryJump=1
     unsafe: Hammer
 
   conn WestHollow.HollowDrainLower:
@@ -1308,7 +1310,7 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
       WestHollow.DoorLever, DoubleJump, TripleJump, Damage=10, Bash  # Lure the mantis
       Dash, Bash, Grenade=2, Glide OR Sword OR Hammer OR Damage=10  # around the right
     unsafe:
-      SentryJump=2, Dash, Sword OR Hammer, Damage=10
+      Damage=10, SentryJump=2, Dash, Sword OR Hammer
       SentryJump=2, DoubleJump, Damage=10, Sword OR Hammer  # Go up with the first SentryJump, then jump into spikes, SentryJump over and continue
   pickup WestHollow.AboveDashEX:
     moki:  # there's some funny Bashgrenade paths here, but they're not moki-safe
@@ -1344,7 +1346,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   conn Teleporters: free
   conn BeetleFight: free
   conn EastHollow.AboveBash:
-    moki: EastHollow.BeetleDefeated, Combat=Mantis, Skeeto OR Bash OR Launch  # Didn't consider avoiding the beetle fight for moki, so this connection should cover all paths going up
+    moki: EastHollow.BeetleDefeated, Combat=Mantis+Skeeto OR Bash OR Launch  # Didn't consider avoiding the beetle fight for moki, so this connection should cover all paths going up
     unsafe:
       Bash, Glide OR Dash OR DoubleJump
       Launch
@@ -1358,8 +1360,8 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
 anchor BeetleFight:
   refill Full
   state EastHollow.BeetleDefeated:
-    moki: Combat=250, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
-    unsafe: Combat=250
+    moki: Boss=250, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
+    unsafe: Boss=250
 
 # checkpoint at -106, -4221
 
@@ -1451,7 +1453,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
   state EastHollow.Voice: free
 
   quest EastHollow.KwolokAmuletQuest:
-    moki: EastPools.KwoloksWisdomAmulet, WestPools.ForestsStrength
+    moki: EastPools.KwolokAmuletQI, WestPools.ForestsStrength
 
   pickup EastHollow.RightKwolokEX:
     moki: Bash OR Launch
@@ -2343,7 +2345,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
 anchor GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
-    moki: Combat=2xCrab, Bee, 3xEnergyRefill, Hornbug, 2xSpitter, 3xEnergyRefill, 2xSpinCrab, 2xBee, 3xEnergyRefill, 2xMantis, Spitter, SpinCrab
+    moki: Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab
 
 region OuterWellspring:
   moki: Damage=25
@@ -2977,8 +2979,8 @@ anchor InnerWellspring.EastDoor at -1190, -3733:  # Inside the door leading to t
     moki: Weapon
 
   state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
-    moki: Combat=2xLizard, 3xMantis, Miner, DoubleJump OR Dash OR Glide OR Launch
-    gorlek: Combat=2xLizard, 3xMantis, Miner  # different ways to solve
+    moki: Combat=2xLizard+3xMantis+Miner, DoubleJump OR Dash OR Glide OR Launch
+    gorlek: Combat=2xLizard+3xMantis+Miner  # different ways to solve
   state InnerWellspring.SpinPuzzleSolved:  # Having Water changes this room (not considered in moki)
     moki, InnerWellspring.SpinArena:
       Grapple, DoubleJump OR Dash
@@ -3152,18 +3154,18 @@ anchor WoodsEntry.ShriekMeet at 391, -4198:  # The ledge after swimming through 
     gorlek: Launch
   pickup WoodsEntry.MudPitEX:
     moki:
-      Combat=Tentacle, Balloon, DoubleJump OR Dash OR Glide
+      Combat=Tentacle+Balloon, DoubleJump OR Dash OR Glide
       Bash, DoubleJump OR Dash OR Glide
       Launch
       Bash, Grenade=2
-    gorlek: Combat=Tentacle, Balloon OR Bash OR Damage=10  # Jump on the bubble
+    gorlek: Combat=Tentacle+Balloon OR Bash OR Damage=10  # Jump on the bubble
 
   conn WoodsEntry.BelowTeleporter:
     moki:
       Combat=Balloon, Bash, DoubleJump OR Dash OR Glide
       Combat=Balloon, Launch
     gorlek:  # for the last balloon, lure it away or use the checkpoint to despawn it
-      Combat=Tentacle, Balloon, DoubleJump OR Dash OR Glide
+      Combat=Tentacle+Balloon, DoubleJump OR Dash OR Glide
       Bash, DoubleJump OR Dash OR Glide
       Damage=10, DoubleJump OR Dash OR Glide
       Launch
@@ -3261,13 +3263,13 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
 
   conn WoodsMain.BelowFourKeystoneRoom:
     moki, WoodsEntry.KeystoneDoor:
-      Combat=2xSkeeto, Spitter, DoubleJump, Dash
-      Combat=2xSkeeto, Spitter, Glide
+      Combat=2xSkeeto+Spitter, DoubleJump, Dash
+      Combat=2xSkeeto+Spitter, Glide
       Bash OR Launch  # bash uses the enemy
     gorlek, WoodsEntry.KeystoneDoor:
-      Combat=2xSkeeto, Spitter, DoubleJump, TripleJump OR Sword OR Hammer
-      Combat=2xSkeeto, Spitter, Dash, Sword OR Hammer
-      Combat=2xSkeeto, Spitter, SentryJump=1, Sword  # sjump then full sword combo
+      Combat=2xSkeeto+Spitter, DoubleJump, TripleJump OR Sword OR Hammer
+      Combat=2xSkeeto+Spitter, Dash, Sword OR Hammer
+      Combat=2xSkeeto+Spitter, SentryJump=1, Sword  # sjump then full sword combo
     unsafe, WoodsEntry.KeystoneDoor:
       Damage=10, Dash  # Dash close to the edge, coyote jump, dash again
   conn WoodsEntry.BelowTeleporter:
@@ -3649,24 +3651,7 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
 anchor WoodsShrine:
   refill Full
   pickup WoodsMain.CombatShrine:
-    moki: Combat=Hornbug, Lizard, 3xSkeeto, 4xEnergyRefill, 2xCrystalMiner, Bat, 4xEnergyRefill, 9xBalloon, 4xEnergyRefill, 4xMantis, Bat
-  conn WoodsMain.FeedingGrounds:  # @Validator I added this path
-    gorlek:
-      Launch
-      Glide, DoubleJump, Bash, Damage=15 OR Dash OR TripleJump
-      DoubleJump, TripleJump, Bash, Damage=15 OR Grenade=1 OR SentryJump=1 OR Glide
-      SentryJump=2, DoubleJump, Bash, Damage=15
-      SentryJump=3, DoubleJump, Bash
-  conn WoodsMain.AbovePit:  # @Validator I added this path
-    gorlek:
-      Launch
-      Glide, DoubleJump, Bash, Damage=15 OR Dash OR TripleJump
-      Glide, DoubleJump, TripleJump
-      DoubleJump, TripleJump, Bash, Damage=15 OR Grenade=1 OR SentryJump=1
-      SentryJump=2, DoubleJump
-      SentryJump=1, DoubleJump, TripleJump
-    unsafe:
-      SentryJump=1, DoubleJump
+    moki: Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat
 
 region LowerReach:
   moki: Damage=40, Regenerate
@@ -4123,7 +4108,7 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
       Bow=1 OR Spear=1 OR Grenade=1
 
   state LowerReach.ArenaBeaten:
-    moki: Combat=3xShieldMiner, Hornbug, 2xBee
+    moki: Combat=3xShieldMiner+Hornbug+2xBee
 
   conn LowerReach.Trial:
     moki: LowerReach.ArenaBeaten
@@ -4204,7 +4189,7 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
 
   conn UpperDepths.FirstFirefly:
     moki:
-      Glide, Combat=2xBombSlime, 2xBat, SneezeSlug
+      Glide, Combat=2xBombSlime+2xBat+SneezeSlug
       Glide, Combat=2xBombSlime, Bash
 
 # checkpoint at 147, -4392
@@ -4232,7 +4217,7 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
 
   conn UpperDepths.Entry:
     moki:
-      Glide, Combat=2xBombSlime, 2xBat, SneezeSlug
+      Glide, Combat=2xBombSlime+2xBat+SneezeSlug
       Glide, Combat=2xBombSlime, Bash
   conn UpperDepths.FirstKSRoom: free
 
@@ -4388,7 +4373,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
 anchor MoraFight:
   refill Full
   quest UpperDepths.ForestsEyes:
-    moki: Combat=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
+    moki: Boss=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
 
 anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left of the second keystone door
   refill Checkpoint
@@ -4463,7 +4448,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
 anchor DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
-    moki: Combat=3xBat, 4xEnergyRefill, 2xSneezeSlug, 2xSpitter, 4xEnergyRefill, 2xBat, 2xSpitter, 4xEnergyRefill, Bat, SneezeSlug
+    moki: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug
 
 anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
   refill Checkpoint
@@ -4564,7 +4549,7 @@ anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfwa
   conn PoolsApproach.MillPath:
     moki, Damage=20:  # severe enemy spam
       Bash, Grapple OR Launch  # this is probably actually closest to how you'd traverse this naturally
-      Combat=Crab, 2xSmallSkeeto, Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
+      Combat=Crab+2xSmallSkeeto, Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
       Bash, Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
       Launch, DoubleJump OR Grapple
 
@@ -4574,8 +4559,8 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
   pickup PoolsApproach.MillPathEX:
     moki:
       Bash, DoubleJump OR Dash
-      Combat=SpinCrab, CorruptSlug, DoubleJump, Dash
-      Combat=SpinCrab, CorruptSlug, DoubleJump, Grapple, Glide  # solvable either through the right grapple point or using the wrap-around taught at glades shrine
+      Combat=SpinCrab+CorruptSlug, DoubleJump, Dash
+      Combat=SpinCrab+CorruptSlug, DoubleJump, Grapple, Glide  # solvable either through the right grapple point or using the wrap-around taught at glades shrine
       Launch
   pickup PoolsApproach.MillPathEC:
     moki: Water  # again not really a reason to even use Bash
@@ -4583,9 +4568,9 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
   conn PoolsApproach.MillPathCheckpoint:
     moki, Damage=20:  # severe enemy spam
       Bash, DoubleJump  # bash errything
-      Combat=Crab, 2xSmallSkeeto, Bash, Grenade=3, Dash OR Glide  # clear the space to bashnade
-      Combat=Crab, 2xSmallSkeeto, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
-      Combat=Crab, 2xSmallSkeeto, DoubleJump, Grapple, Dash OR Glide
+      Combat=Crab+2xSmallSkeeto, Bash, Grenade=3, Dash OR Glide  # clear the space to bashnade
+      Combat=Crab+2xSmallSkeeto, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
+      Combat=Crab+2xSmallSkeeto, DoubleJump, Grapple, Dash OR Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
   conn PoolsApproach.RightOfWheel:
     moki: Water, Combat=SpinCrab OR DoubleJump OR Bash OR Launch  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement.
@@ -4698,7 +4683,7 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       Water, WaterDash
       Water, Bow=1 OR Grenade=1
 
-  quest EastPools.KwoloksWisdomAmulet: free
+  quest EastPools.KwolokAmuletQI: free
 
   pickup EastPools.RightOre:
     moki:
@@ -4750,7 +4735,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
   # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
   state EastPools.FightArenas:
-    moki: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab, Spitter, 2xSkeeto
+    moki: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
 
   quest EastPools.HandToHandSpyglass:
     moki, LowerDepths.HandToHandSilk:
@@ -5004,10 +4989,10 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
   pickup WestPools.EscapeRevisitEX:
     moki:
       WestPools.ForestsStrength, Water, DoubleJump, Bash
-      WestPools.ForestsStrength, Water, WaterDash, Combat=Crab, SpinCrab OR Bash
+      WestPools.ForestsStrength, Water, WaterDash, Combat=Crab+SpinCrab OR Bash
       WestPools.ForestsStrength, Water, Launch
   pickup UpperPools.LowerKS:
-    moki: WestPools.ForestsStrength, Water, WaterDash, Combat=Crab, SpinCrab OR Bash
+    moki: WestPools.ForestsStrength, Water, WaterDash, Combat=Crab+SpinCrab OR Bash
 
   conn Teleporters: free
   conn KwolokFight:
@@ -5016,13 +5001,13 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
     moki:
       Water, WaterDash, Bash, DoubleJump, Dash OR Glide
       Water, WaterDash, Bash, Launch
-      WestPools.ForestsStrength, Water, WaterDash, DoubleJump, Combat=Crab, SpinCrab OR Bash
+      WestPools.ForestsStrength, Water, WaterDash, DoubleJump, Combat=Crab+SpinCrab OR Bash
       WestPools.ForestsStrength, Water, WaterDash, Bash, Grenade=1, Dash
 
 anchor KwolokFight:
   refill Full
   quest WestPools.ForestsStrength:
-    moki: Combat=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
+    moki: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
   moki: Damage=50, Regenerate
@@ -5111,6 +5096,11 @@ anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
       SentryJump=1, Damage=30 OR DoubleJump OR Dash
 
 anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
+  refill Energy=3:
+    moki, Weapon:
+      DoubleJump OR Launch
+      Bash, Grenade=1
+
   quest LowerWastes.EerieGemQI:
     moki: Burrow
 
@@ -5140,7 +5130,7 @@ anchor LowerWastes.MuncherTunnel at 1681, -4002:  # Above the sand/muncher tunne
       Bash, Glide OR Sword OR Hammer  # lure the mantis
   conn LowerWastes.SandPot:
     moki:
-      Combat=Mantis, ShieldSlug
+      Combat=Mantis+ShieldSlug
       Combat=Mantis, DoubleJump OR Burrow OR Hammer
       Bash, DoubleJump OR Burrow OR Grenade=1
       Launch
@@ -5235,7 +5225,7 @@ anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
 anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower breakable wall
   pickup LowerWastes.BottomRightEX:
     moki:
-      Combat=MaceMiner, Mantis, Grapple
+      Combat=MaceMiner+Mantis, Grapple
       Bash, Grenade=1, DoubleJump OR Dash  # Very much not a mandatory grenade... This is only important if the Ruins Wall is broken, and then only if you don't use the enemies
       Launch
     gorlek:
@@ -5247,17 +5237,17 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
       DoubleJump, TripleJump, Sentry=1 OR Flash=1
   pickup LowerWastes.BottomRightHC:
     moki:
-      Combat=MaceMiner, Mantis, Grapple  # Use both Grapple points
+      Combat=MaceMiner+Mantis, Grapple  # Use both Grapple points
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
     gorlek:
-      Damage=30, Combat=MaceMiner, Mantis OR Bash
+      Damage=30, Combat=MaceMiner+Mantis OR Bash
       DoubleJump, TripleJump OR Dash OR Glide
       Bash, DoubleJump OR Dash OR Glide
 
   conn LowerWastes.WoodenBridge:
     moki, BreakWall=20:
-      Combat=MaceMiner, Mantis, DoubleJump, Grapple
+      Combat=MaceMiner+Mantis, DoubleJump, Grapple
       Bash, DoubleJump, Grapple
       Launch, DoubleJump OR Dash OR Grapple
     # in gorlek, all paths would be redundant with just going up to lever area, which doesn't require breaking the wall
@@ -5265,7 +5255,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
     gorlek:
       SentryJump=1, DoubleJump, TripleJump, Dash OR Glide
       Bash, DoubleJump, TripleJump  # Utilise the enemies to bashglide across. I don't think its softlockable because there's no autosave here.
-      Grapple, Dash, Combat=MaceMiner, Mantis OR Bash  # Pretty straightforward. Rest of these paths you're able to avoid enemies so Combat isnt included.
+      Grapple, Dash, Combat=MaceMiner+Mantis OR Bash  # Pretty straightforward. Rest of these paths you're able to avoid enemies so Combat isnt included.
       Launch
   conn WindtornRuins.LowerRuins:
     gorlek: ShurikenBreak=20, Burrow
@@ -5338,11 +5328,11 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       LowerWastes.SandPlatformLever, Burrow, Grapple, Dash OR Glide OR Sword
   conn LowerWastes.MinesEntrance:
     moki:
-      Combat=MaceMiner, Mantis, DoubleJump OR Dash OR Glide OR Grapple
+      Combat=MaceMiner+Mantis, DoubleJump OR Dash OR Glide OR Grapple
       Bash, DoubleJump OR Dash OR Glide OR Grapple
       Launch
     gorlek:
-      Combat=MaceMiner, Mantis, Dash OR Glide OR Grapple OR Damage=30
+      Combat=MaceMiner+Mantis, Dash OR Glide OR Grapple OR Damage=30
       Bash, Dash OR Glide OR Grapple OR Damage=30
       DoubleJump OR Launch
       Bash, Grenade=1
@@ -5700,7 +5690,7 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
       Bow=1
 
   state WeepingRidge.ElevatorFightCompleted:
-    moki, Combat=2xCrystalMiner, 2xShieldCrystalMiner:
+    moki, Combat=2xCrystalMiner+2xShieldCrystalMiner:
       DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.Remoting.Lifetime;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace RandoMainDLL {
   public enum ZoneType : byte {
@@ -70,14 +71,7 @@ namespace RandoMainDLL {
     public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is QuestEvent);
 
     public static Dictionary<ZoneType, List<Checkable>> HintObjects = new Dictionary<ZoneType, List<Checkable>>();
-    // group 1
-/*    public static ZoneType BurrowZone = ZoneType.Void;
-    public static ZoneType WaterDashZone = ZoneType.Void;
-    public static ZoneType LightBurstZone = ZoneType.Void;
-    // group 2
-    public static ZoneType BashZone = ZoneType.Void;
-    public static ZoneType FlapZone = ZoneType.Void;
-*/
+
     public static Dictionary<AbilityType, ZoneType> SkillLocs = new Dictionary<AbilityType, ZoneType>();
     public static ZoneType CleanWaterZone = ZoneType.Void;
     public static void Reset() {
@@ -129,10 +123,9 @@ namespace RandoMainDLL {
       var found = items.FindAll(i => i.Has());
       if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
       if(items.Count > 0) {
-        if(found.Count == items.Count) 
-          return $"{zone}: ${found.Count}/{items.Count} key items$\nfound: {String.Join(", ", found)}";
-        else if (found.Count > 0)
-          return $"{zone}: {found.Count}/{items.Count} key items\nfound: {String.Join(", ", found)}";
+        var g = found.Count == items.Count ? "$" : "";
+        if (found.Count > 0)
+          return $"{zone}: {g}{found.Count}/{items.Count}{g} key items\nfound: {String.Join(", ", found.Select(i => i.DisplayName))}";
         else
           return $"{zone}: {found.Count}/{items.Count} key items";
       }
@@ -183,8 +176,8 @@ namespace RandoMainDLL {
       var w = SaveController.HasAbility(t) ? "$" : "";
       return $"{w}{t.GetDescription()}: {SkillLocs[t]}{w}";
     }
-    public static string GetKeySkillHintOne(bool justBought = false) {
-      if (justBought || AbilityType.WaterBreath.Upgraded()) {
+    public static string GetKeySkillHintOne() {
+      if (AbilityType.WaterBreath.Bought()) {
         var w = QuestEventType.Water.Have() ? "$" : "";
         return $"{AbilityType.Bash.HintFrag()}, {w}Water: {CleanWaterZone}{w}, {AbilityType.Flap.HintFrag()}, {AbilityType.Feather.HintFrag()}";
       }

@@ -42,18 +42,46 @@ namespace
         { "1f79d15a, 4192137e, a40d0c9e, 3e289606", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Grenade) },
     };
 
+    struct ExtraState
+    {
+        bool valid;
+        int group;
+        int state;
+        float value;
+    };
+
+    struct ExtraIcon
+    {
+        app::WorldMapIconType__Enum icon;
+        float x;
+        float y;
+        bool can_teleport;
+        bool create_spoiler;
+        
+        ExtraState collected;
+        ExtraState custom;
+    };
+
     struct SpoilerState
     {
+        app::WorldMapIconType__Enum icon;
         int group_id;
         int state_id;
+        float value;
         bool has_spoiler_icon;
     };
 
-    std::unordered_map<std::string, SpoilerState> spoiler_states;
-    std::unordered_map<app::GameWorldAreaID__Enum, std::vector<uint32_t>> extra_icons;
-    std::unordered_set<std::string> can_teleport;
-    bool initialized = false;
+    struct ExtraIconData
+    {
+        ExtraIcon* parent;
+    };
 
+    std::unordered_map<std::string, SpoilerState> spoiler_states;
+    std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_icons;
+    std::unordered_map<std::string, ExtraIcon*> extra_icons_map;
+    std::unordered_map<std::string, ExtraIcon*> extra_states;
+    bool initialized = false;
+    int current_filter = 0;
     std::string stringify_guid(app::MoonGuid *guid)
     {
         return format(
@@ -117,20 +145,20 @@ namespace
 
     app::WorldMapIconType__Enum get_base_icon(app::RuntimeWorldMapIcon* icon, int group_id, int state_id)
     {
+        auto guid = stringify_guid(icon->fields.Guid);
+
         // Extra icons and trees.
-        if (group_id == 0)
-            return app::WorldMapIconType__Enum_AbilityPedestal;
-        else if (group_id == 21786)
         {
-            if (state_id == 27433 || state_id == 37225)
-                return app::WorldMapIconType__Enum_Keystone;
-            else if (state_id == 10295)
-                return app::WorldMapIconType__Enum_EnergyFragment;
+            auto it = spoiler_states.find(guid);
+            if (it != spoiler_states.end())
+                return it->second.icon;
         }
-        else if (group_id == 28895 && state_id == 25522)
-            return app::WorldMapIconType__Enum_Experience;
-        else if (group_id == 58674 && state_id == 19769)
-            return app::WorldMapIconType__Enum_Keystone;
+
+        {
+            auto it = extra_icons_map.find(guid);
+            if (it != extra_icons_map.end())
+                return it->second->icon;
+        }
 
         auto base_icons = icon->fields.Area->fields.Area->fields.Icons;
         for (auto i = 0; i < base_icons->fields._size; ++i)
@@ -157,68 +185,136 @@ namespace
             auto it = spoiler_states.find(stringify_guid(this_ptr->fields.Guid));
             if (it != spoiler_states.end())
             {
-                if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+                wchar_t buffer[128] = { 0 };
+                csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, static_cast<int>(it->second.value), current_filter);
+                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
+                const auto spoiler_active = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
+                if (spoiler_active ^ it->second.has_spoiler_icon)
                 {
-                    wchar_t buffer[128] = { 0 };
-                    csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id);
-                    AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
-                    if (!it->second.has_spoiler_icon)
-                    {
-                        auto icon_enum = csharp_bridge::filter_icon_type(it->second.group_id, it->second.state_id);
-                        il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
-                        it->second.has_spoiler_icon = true;
-                    }
-                }
-                else if (it->second.has_spoiler_icon)
-                {
-                    auto icon_enum = get_base_icon(this_ptr, it->second.group_id, it->second.state_id);
+                    auto icon_enum = spoiler_active
+                        ? csharp_bridge::filter_icon_type(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value))
+                        : get_base_icon(this_ptr, it->second.group_id, it->second.state_id);
                     il2cpp::invoke(this_ptr, "SetIcon", &icon_enum);
-                    it->second.has_spoiler_icon = false;
+                    it->second.has_spoiler_icon = spoiler_active;
                 }
             }
         }
     }
 
-    uint32_t create_icon(app::WorldMapIconType__Enum type, float x, float y, app::SerializedBooleanUberState* collected = nullptr, app::ConditionUberState* condition = nullptr, bool allow_teleport = false)
-    {
-        auto icon_guid = create_guid();
-        auto icon = il2cpp::create_object<app::GameWorldArea_WorldMapIcon>("", "GameWorldArea", "WorldMapIcon");
-        icon->fields.SpecialState = nullptr;
-        icon->fields.Condition = condition;
-        icon->fields.State = collected;
-        icon->fields.Position = app::Vector2{ x, y };
-        icon->fields.IsSecret = false;
-        icon->fields.Icon = type;
-        icon->fields.Guid = icon_guid;
-        if (allow_teleport)
-            can_teleport.emplace(stringify_guid(icon_guid));
-
-        return il2cpp::gchandle_new(icon, false);
-    }
+    
 
     void initialize()
     {
-        extra_icons[app::GameWorldAreaID__Enum_KwoloksHollow] = {
-            create_icon(app::WorldMapIconType__Enum_Keystone, -461.027069f, -4195.8754808f, uber_states::get_uber_state<app::SerializedBooleanUberState>(21786, 27433)),
-            create_icon(app::WorldMapIconType__Enum_Keystone, -393.719452f, -4188.882813f, uber_states::get_uber_state<app::SerializedBooleanUberState>(21786, 37225)),
-            create_icon(app::WorldMapIconType__Enum_EnergyFragment, -421.697601f, -4273.036133f, uber_states::get_uber_state<app::SerializedBooleanUberState>(21786, 10295)),
-            create_icon(app::WorldMapIconType__Enum_AbilityPedestal, -457.110748f, -4260.f,
-                uber_states::get_uber_state<app::SerializedBooleanUberState>(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Bow)),
-        };
-
         extra_icons[app::GameWorldAreaID__Enum_InkwaterMarsh] = {
-            create_icon(app::WorldMapIconType__Enum_AbilityPedestal, -296.395905f, -4480.f,
-                uber_states::get_uber_state<app::SerializedBooleanUberState>(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Sword)),
+            { app::WorldMapIconType__Enum_AbilityPedestal, -296.395905f, -4480.f, false, true,
+                { true, uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Sword, -1.f }, {} },
+            
+            { app::WorldMapIconType__Enum_QuestItem, -695, -4417, false, true,
+                {},  { true, 48248, 51645, 3.f } }, // MarshSpawn.TheMissingKey
+            { app::WorldMapIconType__Enum_QuestItem, -932, -4494, false, true,
+                {},  { true, 48248, 18458, 4.f } }, // MarshSpawn.IntoTheBurrows
+            { app::WorldMapIconType__Enum_QuestItem, -391, -4414, false, true,
+                {},  { true, 14019, 15983, 3.f } }, // MarshSpawn.ALittleBraver
+
+            { app::WorldMapIconType__Enum_Keystone, -461.027069f, -4195.8754808f, false, true,
+                { true, 21786, 27433, -1.f }, {} },
+            { app::WorldMapIconType__Enum_Keystone, -393.719452f, -4188.882813f, false, true,
+                { true, 21786, 37225, -1.f }, {} },
+            { app::WorldMapIconType__Enum_EnergyFragment, -421.697601f, -4273.036133f, false, true,
+                { true, 21786, 10295, -1.f }, {} },
+            { app::WorldMapIconType__Enum_AbilityPedestal, -457.110748f, -4260.f, false, true,
+                { true, uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Bow, -1.f  }, {} },
         };
 
-        extra_icons[app::GameWorldAreaID__Enum_BaursReach] = {
-            create_icon(app::WorldMapIconType__Enum_Experience, 68.761978f, -3730.634521f,
-                uber_states::get_uber_state<app::SerializedBooleanUberState>(28895, 46404)),
+
+        extra_icons[app::GameWorldAreaID__Enum_KwoloksHollow] = {
+            { app::WorldMapIconType__Enum_QuestItem, -110, -4220, false, true,
+                {},  { true, 14019, 26318, 1.f } }, // EastHollow.HandToHandMap
+            { app::WorldMapIconType__Enum_QuestItem, 240, -4207, false, true,
+                {},  { true, 14019, 50597, 4.f } }, // EastHollow.KwoloksWisdom
+        };
+
+        extra_icons[app::GameWorldAreaID__Enum_WellspringGlades] = {
+            { app::WorldMapIconType__Enum_QuestItem, -282, -4155, false, true,
+                {},  { true, 14019, 26318, 2.f } }, // GladesTown.HandToHandPouch
+            { app::WorldMapIconType__Enum_QuestItem, -426, -4155, false, true,
+                {},  { true, 14019, 26318, 6.f } }, // GladesTown.HandToHandLantern
+            { app::WorldMapIconType__Enum_QuestItem, -410, -4142, false, true,
+                {},  { true, 14019, 26318, 9.f } }, // GladesTown.HandToHandCanteen
+            { app::WorldMapIconType__Enum_QuestItem, -110, -4090, false, true,
+                {},  { true, 14019, 26318, 4.f } }, // GladesTown.HandToHandSoup
+            { app::WorldMapIconType__Enum_QuestItem, -385, -4161, false, true,
+                {},  { true, 14019, 27804, 2.f } }, // GladesTown.FamilyReunionKey
+            { app::WorldMapIconType__Enum_QuestItem, -10, -4551, false, true,
+                {},  { true, 14019, 2782, -1.f } }, // GladesTown.AcornQI
+            { app::WorldMapIconType__Enum_QuestItem, -358, -4185, false, true,
+                {},  { true, 14019, 33776, 3.f } }, // GladesTown.IntoTheDarkness
+            { app::WorldMapIconType__Enum_QuestItem, 240, -4207, false, true,
+                {},  { true, 14019, 44578, 2.f } }, // GladesTown.RebuildTheGlades
+            { app::WorldMapIconType__Enum_QuestItem, -408, -4162, false, true,
+                {},  { true, 23987, 14832, -1.f } }, // GladesTown.ADiamondInTheRough
+            { app::WorldMapIconType__Enum_QuestItem, 240, -4207, false, true,
+                {},  { true, 14019, 26394, 2.f } }, // GladesTown.RegrowTheGlades
+        };
+
+        extra_icons[app::GameWorldAreaID__Enum_WaterMill] = {
+            { app::WorldMapIconType__Enum_QuestItem, -811, -3973, false, true,
+                {},  { true, 14019, 20667, 3.f } }, // OuterWellspring.TheLostCompass
+            { app::WorldMapIconType__Enum_QuestItem, -1168, -3733, false, true,
+                {},  { true, 14019, 26318, 3.f } }, // InnerWellspring.HandToHandHerbs
+            { app::WorldMapIconType__Enum_QuestItem, -481, -3763, false, true,
+                {},  { true, 37858, 12379, -1.f } }, // InnerWellspring.WaterEscape
+        };
+
+        extra_icons[app::GameWorldAreaID__Enum_LumaPools] = {
+            { app::WorldMapIconType__Enum_QuestItem, -1173, -4154, false, true,
+                {},  { true, 14019, 53103, -1.f } }, // EastPools.KwoloksWisdomAmulet
+            { app::WorldMapIconType__Enum_QuestItem, -1284, -4126, false, true,
+                {},  { true, 14019, 26318, 8.f } }, // EastPools.HandToHandSpyglass
+            { app::WorldMapIconType__Enum_QuestEnd, -1928, -4066, false, true,
+                {},  { true, 945, 49747, -1.f } }, // WestPools.ForestsStrength
         };
 
         extra_icons[app::GameWorldAreaID__Enum_SilentWoodland] = {
-            create_icon(app::WorldMapIconType__Enum_Keystone, 907.865112f, -4121.716309f,
-                uber_states::get_uber_state<app::SerializedBooleanUberState>(58674, 19769)),
+            { app::WorldMapIconType__Enum_Keystone, 907.865112f, -4121.716309f, false, true,
+                { true, 58674, 19769, -1.f }, {} },
+            { app::WorldMapIconType__Enum_QuestItem, 513, -4158, false, true,
+                {},  { true, 14019, 59708, 1.f } }, // WoodsEntry.LastTreeBranch
+            { app::WorldMapIconType__Enum_QuestItem, 441, -4119, false, true,
+                {},  { true, 14019, 57399, -1.f } }, // WoodsEntry.DollQI
+            { app::WorldMapIconType__Enum_QuestItem, 513, -4159, false, true,
+                {},  { true, 14019, 7470, -1.f } }, // WoodsEntry.TreeSeed
+        };
+
+        extra_icons[app::GameWorldAreaID__Enum_BaursReach] = {
+            { app::WorldMapIconType__Enum_Experience, 68.761978f, -3730.634521f, false, true,
+                { true, 28895, 46404, -1.f }, {} }, // UpperReach.RevisitEX
+
+            { app::WorldMapIconType__Enum_QuestItem, -244, -3989, false, true,
+                {},  { true, 14019, 26318, 5.f } }, // LowerReach.HandToHandHat
+            { app::WorldMapIconType__Enum_QuestEnd, -31, -3711, false, true,
+                {},  { true, 28895, 25522, -1.f } }, // UpperReach.ForestsMemory
+        };
+
+        extra_icons[app::GameWorldAreaID__Enum_MouldwoodDepths] = {
+            { app::WorldMapIconType__Enum_QuestItem, 317, -4508, false, true,
+                {},  { true, 14019, 26318, 7.f } }, // LowerDepths.HandToHandSilk
+            { app::WorldMapIconType__Enum_QuestEnd, 687, -4386, false, true,
+                {},  { true, 18793, 63291, -1.f } }, // UpperDepths.ForestsEyes
+        };
+
+        extra_icons[app::GameWorldAreaID__Enum_WindsweptWastes] = {
+            { app::WorldMapIconType__Enum_QuestItem, 1641, -4003, false, true,
+                {},  { true, 14019, 58342, -1.f } }, // LowerWastes.EerieGem
+            { app::WorldMapIconType__Enum_QuestItem, 1685, -3923, false, true,
+                {},  { true, 14019, 26318, 10.f } }, // LowerWastes.HandToHandMapstone
+        };
+
+        extra_icons[app::GameWorldAreaID__Enum_WindtornRuins] = {
+            { app::WorldMapIconType__Enum_QuestItem, 1969, -4024, false, true,
+                {},  { true, 14019, 26318, 11.f } }, // WindtornRuins.HandToHandComplete
+            { app::WorldMapIconType__Enum_QuestEnd, 2056, -3568, false, true,
+                {},  { true, 10289, 22102, -1.f } }, // UpperDepths.WindtornRuins.Seir
         };
 
         initialized = true;
@@ -261,35 +357,82 @@ namespace
             }
         }
 
-        auto extras = extra_icons.find(area->fields.Area->fields.WorldMapAreaUniqueID);
-        if (extras != extra_icons.end())
+        for (auto& item : extra_icons[area->fields.Area->fields.WorldMapAreaUniqueID])
         {
-            for (auto icon_base_handle : extras->second)
+            auto icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
+            icon->fields.Guid = create_guid();
+            auto guid = stringify_guid(icon->fields.Guid);
+
+            extra_icons_map[guid] = &item;
+
+            // Custom spoiler state.
+            icon->fields.Icon = item.icon;
+            if (item.collected.valid && item.collected.group == uber_states::constants::MAP_FILTER_GROUP_ID && item.collected.state == 70)
             {
-                auto icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
-                auto icon_base = reinterpret_cast<app::GameWorldArea_WorldMapIcon*>(il2cpp::gchandle_target(icon_base_handle));
-                RuntimeWorldMapIcon::ctor(icon, icon_base, area);
-                il2cpp::invoke(area->fields.Icons, "Add", icon);
-                RuntimeWorldMapIcon::Show_intercept(icon);
+                if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+                    icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(item.custom.group, item.custom.state, static_cast<int>(item.custom.value)));
+
+                auto& state = spoiler_states[guid];
+                state.group_id = item.custom.group;
+                state.state_id = item.custom.state;
+                state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
             }
+            else if (item.custom.valid)
+                extra_states[stringify_guid(icon->fields.Guid)] = &item;
+
+            icon->fields.Position.x = item.x;
+            icon->fields.Position.y = item.y;
+            icon->fields.Area = area;
+            icon->fields.IsSecret = false;
+            icon->fields.IsCollectedState = item.collected.valid ? uber_states::get_uber_state<app::SerializedBooleanUberState>(item.collected.group, item.collected.state) : nullptr;
+            icon->fields.Condition = nullptr;
+            icon->fields.SpecialState = nullptr;
+
+            il2cpp::invoke(area->fields.Icons, "Add", icon);
+            RuntimeWorldMapIcon::Show_intercept(icon);
         }
 
         auto spoiler_state = uber_states::get_uber_state<app::SerializedBooleanUberState>(uber_states::constants::MAP_FILTER_GROUP_ID, 70);
         auto old_size = area->fields.Icons->fields._size;
         for (auto i = 0; i < old_size; ++i)
         {
+            int group_id = 0;
+            int state_id = 0;
+            float value = -1.f;
+
             auto item = area->fields.Icons->fields._items->vector[i];
-            if (item->fields.IsCollectedState == nullptr)
+            auto it = extra_icons_map.find(stringify_guid(item->fields.Guid));
+            if (it != extra_icons_map.end())
+            {
+                if (!it->second->create_spoiler)
+                    continue;
+
+                if (it->second->custom.valid)
+                {
+                    group_id = it->second->custom.group;
+                    state_id = it->second->custom.state;
+                    value = it->second->custom.value;
+                }
+                else
+                {
+                    group_id = it->second->collected.group;
+                    state_id = it->second->collected.state;
+                    value = it->second->collected.value;
+                }
+            }
+            else if (item->fields.IsCollectedState != nullptr)
+            {
+                group_id = item->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id;
+                state_id = item->fields.IsCollectedState->fields._.m_id->fields.m_id;
+            }
+            else
                 continue;
 
             auto icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
 
-            auto group_id = item->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id;
-            auto state_id = item->fields.IsCollectedState->fields._.m_id->fields.m_id;
-
             // TODO: get icon.
             if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
-                icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(group_id, state_id));
+                icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(group_id, state_id, static_cast<int>(value)));
             else
                 icon->fields.Icon = item->fields.Icon;
 
@@ -303,8 +446,10 @@ namespace
             icon->fields.SpecialState = nullptr;
 
             auto& state = spoiler_states[stringify_guid(icon->fields.Guid)];
+            state.icon = item->fields.Icon;
             state.group_id = group_id;
             state.state_id = state_id;
+            state.value = value;
             state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
 
             il2cpp::invoke(area->fields.Icons, "Add", icon);
@@ -339,8 +484,9 @@ namespace
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* this_ptr)) {
         if (csharp_bridge::tp_to_any_pickup())
             return true;
-        auto guid = stringify_guid(this_ptr->fields.Guid);
-        if (can_teleport.find(guid) != can_teleport.end())
+
+        auto it = extra_icons_map.find(stringify_guid(this_ptr->fields.Guid));
+        if (it != extra_icons_map.end() && it->second->can_teleport)
             return true;
 
         return CanBeTeleportedTo(this_ptr);
@@ -352,16 +498,25 @@ namespace
             // the icon filter here might be limiting but without it, the tpcheat spams every filter so meh
             return true;
 
-        auto filter = static_cast<NewFilters>(manager->fields.Filter);
+        const auto filter = static_cast<NewFilters>(manager->fields.Filter);
         // If we are in original filters then use the original function.
         if (filter <= NewFilters::Collectibles)
         {
-            auto is_spoiler = icon->fields.IsCollectedState != nullptr &&
+            const auto is_spoiler = icon->fields.IsCollectedState != nullptr &&
                 icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
 
             if (is_spoiler)
                 return false;
+
+            // if our custom state is bigger or equal to expected value dont show.
+            const auto it = extra_states.find(stringify_guid(icon->fields.Guid));
+            if (it != extra_states.end())
+            {
+                const auto value = it->second->custom.value < 0 ? 1.f : it->second->custom.value;
+                if (uber_states::get_uber_state_value(it->second->custom.group, it->second->custom.state) >= value)
+                    return false;
+            }
 
             return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter);
         }
@@ -378,7 +533,7 @@ namespace
             if (icon->fields.IsCollectedState == nullptr)
                 return false;
             
-            auto is_spoiler = icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
+            const auto is_spoiler = icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
 
             if (is_spoiler)
@@ -386,9 +541,10 @@ namespace
                 auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
                 if (it != spoiler_states.end())
                 {
-                    auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
+                    const auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
                     // Hide pickups that have been collected.
-                    if (value < 1 && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id))
+                    const auto compare = it->second.value < 0 ? 1.f : it->second.value;
+                    if (value < compare && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value)))
                         return true;
                 }
             }
@@ -477,11 +633,11 @@ namespace
         check_and_initialize_filter_labels(icon_manager);
         auto count = static_cast<int32_t>(NewFilters::COUNT);
         auto prev = static_cast<int32_t>(icon_manager->fields.Filter);
-        auto filter = (prev + 1) % count;
-        while(!csharp_bridge::filter_enabled(filter) && filter != prev)
-            filter = (filter + 1) % count;
+        current_filter = (prev + 1) % count;
+        while(!csharp_bridge::filter_enabled(current_filter) && current_filter != prev)
+            current_filter = (current_filter + 1) % count;
 
-        AreaMapUI::set_IconFilter(map, static_cast<app::AreaMapIconFilter__Enum>(filter));
+        AreaMapUI::set_IconFilter(map, static_cast<app::AreaMapIconFilter__Enum>(current_filter));
     }
 
     std::atomic<bool> refresh = false;
@@ -518,20 +674,15 @@ namespace
 
 INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, app::WorldMapIconType__Enum icon, float x, float y, int group_id, int state_id, bool allow_teleport)
 {
-    app::SerializedBooleanUberState* collected = nullptr;
-    if (group_id != -1 && state_id != -1)
-        uber_states::get_uber_state(group_id, state_id);
-
-    auto handle = create_icon(
+    extra_icons[area].push_back({
         icon,
         x,
         y,
-        collected,
-        nullptr,
-        allow_teleport
-    );
-
-    extra_icons[area].push_back(handle);
+        allow_teleport,
+        false,
+        { true, group_id, state_id, 1.f },
+        {}
+    });
 }
 
 INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
