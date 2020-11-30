@@ -888,7 +888,11 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
     gorlek: Sword OR Hammer OR Damage=15
   pickup MidnightBurrows.LupoMap:
     moki: Launch  # paths coming from the right side are on that anchor
-    gorlek: Bash  # bait some shots
+    gorlek:
+      Bash  # bait some shots
+      DoubleJump:
+        TripleJump
+        Dash, Hammer OR Sword
 
   conn Teleporters: free
   conn MidnightBurrows.Central:
@@ -912,9 +916,10 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       Launch, DoubleJump OR Dash OR Bash
     gorlek:
       Damage=15, DoubleJump OR Dash OR Bash OR Sword OR Hammer
-      DoubleJump, Sword OR Hammer
-      Dash, Sword OR Hammer
+      DoubleJump, Hammer OR TripleJump
+      Dash, Hammer
       Launch
+			Sword
 
   quest MidnightBurrows.TabletQI:
     moki, MidnightBurrows.KeystoneDoor:
@@ -931,9 +936,14 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       Launch
       MidnightBurrows.Lever, DoubleJump, Dash OR Glide
     gorlek:
-      DoubleJump, TripleJump
-      MidnightBurrows.Lever, Dash
-    unsafe: MidnightBurrows.Lever, DoubleJump
+      DoubleJump:
+        TripleJump
+        MidnightBurrows.Lever, Sword OR Hammer
+      MidnightBurrows.Lever, Dash OR Glide
+    unsafe:
+			DoubleJump, Damage=15, Hammer OR Sword
+      MidnightBurrows.Lever, DoubleJump
+      MidnightBurrows.Lever, Damage=15, Hammer OR Sword
   pickup MidnightBurrows.LowerKS:
     moki:
       DoubleJump, Dash OR Glide
@@ -944,19 +954,20 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       Glide
       Bash, Grenade=1, Sword OR Hammer OR Damage=15
       Bash, Damage=15, DoubleJump OR Dash OR Sword OR Hammer  # boost on the brambles below the keystone
-      DoubleJump, Sword OR Hammer
+      DoubleJump, Sword OR Hammer OR TripleJump
       Dash, Sword OR Hammer
-      SentryJump=1, Bash OR Damage=15  # use the sword for movement as well
+      SentryJump=1 # use the sword for movement as well
       Launch
-  pickup MidnightBurrows.UpperKS:
+  conn MidnightBurrows.BelowUpperKS:
     moki: MidnightBurrows.Lever, Launch  # paths coming from the right side are on that anchor
     gorlek:
-      MidnightBurrows.Lever, DoubleJump, TripleJump, Bash OR Hammer OR SentryJump=1 OR Damage=15  # baiting a spidershot is considered here because it's straightforward and doesn't require waiting like with other skillsets
-      MidnightBurrows.Lever, SentryJump=1, DoubleJump, Damage=15
-      MidnightBurrows.Lever, SentryJump=2, Dash
-      MidnightBurrows.Lever, DoubleJump, Bash, Grenade=1 OR SentryJump=1 OR Damage=15  # use the slime
-      Bash, Grenade=1, DoubleJump, TripleJump OR Damage=15  # resolves for both states
+      MidnightBurrows.Lever, SentryJump=2, Dash OR DoubleJump OR Glide
       Launch
+		unsafe:
+			MidnightBurrows.Lever, SentryJump=2
+			MidnightBurrows.Lever, SentryJump=1, DoubleJump, Damage=15
+			MidnightBurrows.Lever, DoubleJump, Bash # use the slime
+			Bash, Grenade=2, DoubleJump, TripleJump OR Damage=15  # resolves for both states / with MidnightBurrows.Lever bash the slime next to the last teleporter to get above it
 
   conn MidnightBurrows.Teleporter: free
   conn MidnightBurrows.East:
@@ -965,13 +976,10 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       Bash, Grenade=3, DoubleJump OR Dash OR Glide  # you never need the whole set, but this is for both states of portals lifted
       Launch
     gorlek:
-      MidnightBurrows.Lever, Sword OR Hammer
-      Bash, Grenade=3
-      SentryJump=2  # use the sword to hover to the lever
-      Bash, Grenade=2, Dash OR Glide OR Sword
-      Bash, Grenade=2, DoubleJump, Hammer
-      DoubleJump, TripleJump, Bash, Grenade=1
-      DoubleJump, TripleJump, SentryJump=1
+      Bash, Grenade=1 # bash the lantern to reach the lever, grenade bash from there
+      SentryJump=1  # use the sword to hover to the lever
+		unsafe:
+			MidnightBurrows.Lever, Sword OR Hammer
 
 # checkpoint at -685, -4616
 # checkpoint at -707, -4588
@@ -981,35 +989,26 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
   refill Checkpoint
 
   pickup MidnightBurrows.RightKS: free
-  pickup MidnightBurrows.UpperKS:
+  conn MidnightBurrows.BelowUpperKS:
     moki:
       Combat=WeakSlug, DoubleJump, Glide
       Combat=WeakSlug, DoubleJump, Dash, Damage=15
       Launch, DoubleJump OR Dash OR Glide OR Damage=15
     gorlek:
-      DoubleJump, Damage=10
-      Damage=15, Dash OR Hammer
       Glide, Combat=WeakSlug OR DoubleJump OR Dash
       Launch
       Sword, Damage=15
-      DoubleJump, Dash OR Sword OR Hammer
+      DoubleJump, Dash OR Sword OR Hammer OR TripleJump
       Dash, Sword OR Hammer
-
-  conn MidnightBurrows.Central:
-    moki:
-      Combat=WeakSlug, DoubleJump, Glide
-      Combat=WeakSlug, DoubleJump, Dash, Damage=15
-      Launch, DoubleJump OR Dash OR Glide OR Damage=15
-    gorlek:
-      DoubleJump, Damage=10
-      Damage=15, Dash OR Hammer
-      Glide, Combat=WeakSlug OR DoubleJump OR Dash
-      Launch
-      Sword, Damage=15
-      DoubleJump, Dash OR Sword OR Hammer
-      Dash, Sword OR Hammer
+		unsafe:
+			DoubleJump
+			Damage=15, Dash OR Hammer
   conn HowlsDen.DoubleJumpTreeArea:
     moki: BreakWall=10
+
+anchor MidnightBurrows.BelowUpperKS at -724, -4524: # Just bellow the keystone, to avoid duplicating paths to Central and UpperKS
+	pickup MidnightBurrows.UpperKS: free
+	conn MidnightBurrows.Central: free
 
 region WestHollow:
   moki: Danger=20
