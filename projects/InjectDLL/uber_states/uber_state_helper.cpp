@@ -18,9 +18,11 @@ using namespace modloader;
 namespace
 {
     IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed, bool incrementStatistic));
+    IL2CPP_BINDING(, SeinHealthController, void, set_Amount, (app::SeinHealthController* this_ptr, float value));
     IL2CPP_BINDING(, SeinHealthController, void, set_BaseMaxHealth, (app::SeinHealthController* this_ptr, int value));
     IL2CPP_BINDING(, SeinHealthController, int,  get_BaseMaxHealth, (app::SeinHealthController* this_ptr));
     IL2CPP_BINDING(, SeinEnergy, void, Gain, (app::SeinEnergy* this_ptr, float amount));
+    IL2CPP_BINDING(, SeinEnergy, void, set_Current, (app::SeinEnergy* this_ptr, float value));
     IL2CPP_BINDING(, SeinEnergy, float, get_BaseMaxEnergy, (app::SeinEnergy* this_ptr));
     IL2CPP_BINDING(, SeinEnergy, void,  set_BaseMaxEnergy, (app::SeinEnergy* this_ptr, float amount));
     IL2CPP_BINDING(, PlayerSpiritShards, void, RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
@@ -78,6 +80,8 @@ namespace
     };
 }
 
+
+
 INJECT_C_DLLEXPORT void set_debug_controls(bool value)
 {
   auto cheats = get_cheats();
@@ -101,6 +105,15 @@ INJECT_C_DLLEXPORT void add_health(float inc) {
     collecting_pickup = temp;
 }
 
+INJECT_C_DLLEXPORT void set_health(float val) {
+    auto sein = get_sein();
+    bool temp = collecting_pickup;
+    collecting_pickup = false;
+    if (sein != nullptr)
+        SeinHealthController::set_Amount(sein->fields.Mortality->fields.Health, val);
+    collecting_pickup = temp;
+}
+
 INJECT_C_DLLEXPORT void fill_health() {
   add_health(10000);
 }
@@ -113,6 +126,16 @@ INJECT_C_DLLEXPORT void add_energy(float inc) {
         SeinEnergy::Gain(sein->fields.Energy, inc);
     collecting_pickup = temp;
 }
+
+INJECT_C_DLLEXPORT void set_energy(float val) {
+    bool temp = collecting_pickup;
+    collecting_pickup = false;
+    auto sein = get_sein();
+    if (sein != nullptr)
+        SeinEnergy::set_Current(sein->fields.Energy, val);
+    collecting_pickup = temp;
+}
+
 
 INJECT_C_DLLEXPORT void fill_energy() {
   add_energy(10000);
@@ -274,6 +297,8 @@ INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area()
 {
     app::GameWorld* game_world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+    if (game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr)
+        return app::GameWorldAreaID__Enum_None;
     return game_world->fields.CurrentArea->fields.Area->fields.WorldMapAreaUniqueID;
 }
 

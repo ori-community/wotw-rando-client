@@ -19,5 +19,12 @@ namespace RandoMainDLL {
     public Boolean GlitchPaths { get; set; }
     [JsonProperty("questLocs")]
     public Boolean ItemsOnQuests { get; set; }
+    [JsonProperty("bonusItems")]
+    public Boolean BonusItems { get; set; }
+    [JsonProperty("randomSpawn")]
+    public Boolean RandomSpawn { get; set; }
+    [JsonProperty("webConn")]
+    [DefaultValue(true)]
+    public Boolean NetcodeEnabled { get; set; }
   }
 }

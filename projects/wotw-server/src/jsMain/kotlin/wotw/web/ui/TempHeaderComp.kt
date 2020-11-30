@@ -49,6 +49,16 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                         }
                     }
                     button {
+                        +"New Coop Game"
+                        attrs {
+                            onClickFunction = {
+                                GlobalScope.launch {
+                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games")}"
+                                }
+                            }
+                        }
+                    }
+                    button {
                         attrs.onClickFunction = {
                             document.location?.href = "/api/logout?redir=${window.location.pathname}"
                         }

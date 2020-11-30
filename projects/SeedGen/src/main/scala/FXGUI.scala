@@ -149,6 +149,7 @@ package SeedGenerator {
     val forceTreesButton:       ToggleButton = settingsToggle("Force Trees",        "Adds requirement: Collect all Ancestral Trees", settings.mapBoolProp(_.flags.forceTrees, (s, b) => s.copy(flags = s.flags.copy(forceTrees = b))))
     val zoneHintsButton:        ToggleButton = settingsToggle("Zone Hints",         "Lupo sells the hints", settings.mapBoolProp(!_.flags.noHints, (s, b) => s.copy(flags = s.flags.copy(noHints = !b))))
     val swordSpawnButton:       ToggleButton = settingsToggle("Spawn with Sword",   "Start the game with Spirit Edge in your inventory and equipped", settings.mapBoolProp(!_.flags.noSword, (s, b) => s.copy(flags = s.flags.copy(noSword = !b))))
+    val webConnButton:          ToggleButton = settingsToggle("Enable Netcode",     "Connect to the webserver (for bingo or co-op)", settings.mapBoolProp(_.webConn, (s, b) => s.copy(webConn = b)))
     val seedNameInput:          TextField    = new TextField { text <==> seedName; prefColumnCount = 10 }
     val outputLabel:            Label        = new Label { text <== outputDirectory }
 
@@ -216,10 +217,11 @@ package SeedGenerator {
 
         gp.addRow(0, new Label("Logic Groups: "), gorlekPathsButton, glitchPathsButton, uncheckedPathsButton)
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
-        gp.addRow(2, new Label("Options: "), swordSpawnButton, rainButton, randomSpawnButton, seirLaunchButton, bonusItemsButton)
-        gp.addRow(3, new Label(""),  raceModeButton, zoneHintsButton, questsButton, noKSDoorsButton, teleportersButton)
-        gp.addRow(4,  new Label(s"Output folder: "), outputLabel, changeFolderButton, importSettingsButton)
-        gp.addRow(5, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton, debugButton, clearBtn)
+        gp.addRow(2, new Label("Spawn Opts: "), swordSpawnButton, randomSpawnButton, rainButton, noKSDoorsButton)
+        gp.addRow(3, new Label("Misc Opts: "),  seirLaunchButton,zoneHintsButton, questsButton)
+        gp.addRow(4, new Label(""), bonusItemsButton, teleportersButton, raceModeButton, webConnButton)
+        gp.addRow(5,  new Label(s"Output folder: "), outputLabel, changeFolderButton, importSettingsButton)
+        gp.addRow(6, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton, debugButton, clearBtn)
         gp
       }
 

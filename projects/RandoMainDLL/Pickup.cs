@@ -40,6 +40,7 @@ namespace RandoMainDLL {
 
   public enum SysCommandType : byte {
     Save = 0,
+    SetResource = 1,
     SupressMagic = 3,
     StopIfEqual = 4,
     StopIfGreater = 5,
@@ -232,9 +233,9 @@ namespace RandoMainDLL {
       base.Grant(false);
     }
 
-    public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName;  }
+    public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName; }
     public override string DisplayName { get => _lastDispName; }
-    
+
     public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
   }
 
@@ -293,12 +294,15 @@ namespace RandoMainDLL {
     };
 
     public override void Grant(bool skipBase = false) {
-      states().ForEach((s) => s.Write(new UberValue(true)));
+      states().ForEach(s => {
+        if (s.ValueAsFloat() == 0) // don't write to these if they're already set; on that path lies dumb-ass loops
+          s.Write(new UberValue(true));
+      });
       base.Grant(skipBase);
     }
 
     public override int DefaultCost() => 250;
-    public override string Name { get => $"{type.GetDescription() ?? $"unknown {type}"} TP";  }
+    public override string Name { get => $"{type.GetDescription() ?? $"unknown {type}"} TP"; }
     public override string DisplayName { get => $"#{Name}#"; }
   }
   public class RemoveTeleporter : Pickup {
@@ -393,8 +397,8 @@ namespace RandoMainDLL {
 
     private static readonly List<string> MoneyNames = new List<string>() {
       "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo",
-     "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets", 
-      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", 
+     "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets",
+      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells",
       "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
       "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
@@ -482,9 +486,37 @@ namespace RandoMainDLL {
     public override string Name { get => type.ToString(); }
     public override string DisplayName { get => ""; }
   }
+  public class SetResource : SystemCommand {
+    private readonly int newResourceValue;
+    private readonly ResourceType resourceType;
+    public SetResource(ResourceType r, int v) : base(SysCommandType.SetResource) {
+      resourceType = r;
+      newResourceValue = v;
+    }
+    public override void Grant(bool skipBase = false) {
+      switch (resourceType) {
+        case ResourceType.Health:
+          InterOp.set_health(newResourceValue);
+          break;
+        case ResourceType.Energy:
+          InterOp.set_energy(newResourceValue);
+          break;
+        case ResourceType.Ore:
+          InterOp.set_ore(newResourceValue);
+          break;
+        case ResourceType.Keystone:
+          InterOp.set_keystones(newResourceValue);
+          break;
+        case ResourceType.ShardSlot:
+          InterOp.set_shard_slots(newResourceValue);
+          break;
+      }
+    }
+
+  }
   public class ConditionalStop : SystemCommand {
-    private UberId targetState;
-    private float targetValue;
+    private readonly UberId targetState;
+    private readonly float targetValue;
     public ConditionalStop(SysCommandType type, UberId s, float v) : base(type) {
       targetState = s;
       targetValue = v;

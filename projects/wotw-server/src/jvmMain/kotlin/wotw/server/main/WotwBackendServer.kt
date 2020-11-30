@@ -24,6 +24,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.event.Level
 import wotw.server.api.*
+import wotw.server.sync.StateSynchronization
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.exception.UnauthorizedException
@@ -72,6 +73,8 @@ class WotwBackendServer {
     val authEndpoint = AuthenticationEndpoint(this)
     val userEndpoint = UserEndpoint(this)
     val connections = ConnectionRegistry()
+    val sync = StateSynchronization(this)
+
     private fun startServer(args: Array<String>) {
         val cmd = commandLineEnvironment(args)
         val env = applicationEngineEnvironment {

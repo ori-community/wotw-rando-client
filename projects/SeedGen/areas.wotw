@@ -15,11 +15,9 @@ requirement Weapon:
 
 requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in moki, just future proofing here
   moki: UpperDepths.ForestsEyes OR Flash
-  unsafe: Bow=3  # should be good, right?
+  gorlek: Bow=3  # should be good, right?
 
 anchor Teleporters:  # teleporter access
-  state Teleporters.TPAccess: free
-
   conn MidnightBurrows.Teleporter:
     moki: BurrowsTP, Keystone=2
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
@@ -86,7 +84,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Water, Burrow, Bash, Grenade=1, Dash
     gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   pickup MarshSpawn.LifepactShard:
-    moki, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug:
+    moki, Regenerate, Damage=40, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug:
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
   pickup MarshSpawn.BurrowsPathEX:
@@ -244,7 +242,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       # could do a sentryjump into bashgrenade, but I heard that kind of thing is unwelcome ;P
     unsafe: Burrow, SentryJump=1  # max height
   pickup MarshSpawn.LifepactShard:
-    moki: Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug, Bash, DoubleJump OR Launch
+    moki: Regenerate, Damage=40, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug, Bash, DoubleJump OR Launch
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     moki: Bash, DoubleJump OR Launch
     gorlek:
@@ -487,13 +485,13 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
       # breaking all walls (this is good syntax!)
       BreakWall=16, BreakWall=16, BreakWall=16, DoubleJump
       BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
-    gorlek:
+    gorlek, MarshSpawn.HowlBurnt:
       Launch                                                                       # Follow door skip path with launch (done without opening the keystone door)
       HowlsDen.KeystoneDoor:
         BreakWall=16, BreakWall=16, BreakWall=16, Dash OR Glide
         BreakWall=16, BreakWall=16, BreakWall=16, Damage=10, Sword
         BreakWall=16, BreakWall=16, BreakWall=16, SentryJump=4                     # Questionable relevance for anything other than 1hitko given that a sword path exists
-    unsafe:
+    unsafe, MarshSpawn.HowlBurnt:
       SentryJump=2, Hammer, DoubleJump                                             # Hammer sentry jump to door skip platform, double jump up left wall, sentry jump to pickup (done without opening the keystone door)
       SentryJump=3, Hammer, Dash                                                   # Hammer sentry jump to door skip platform, sentry jump again to get more height, then dash across, sentry jump to pickup (done without opening the keystone door)
       HowlsDen.KeystoneDoor:
@@ -545,7 +543,10 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
 anchor DenShrine:
   refill Full
   pickup HowlsDen.CombatShrine:
-    moki: Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis
+    moki, Regenerate, Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis:
+      Damage=60
+      Damage=40, Dash OR Bash OR Launch  # much better if you have good evasion
+    unsafe: Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis
 
 # checkpoint at -514, -4549
 
@@ -659,7 +660,8 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
 anchor MarshShrine:
   refill Full
   pickup MarshPastOpher.CombatShrine:
-    moki: Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
+    moki: Regenerate, Damage=20, Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
+    unsafe: Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
 
 anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow tree
   refill Checkpoint
@@ -874,7 +876,8 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
     unsafe: ShurikenBreak=20, Water, Launch
 
 region MidnightBurrows:
-  moki: Damage=25
+  moki: Danger=25
+  gorlek: free
   unsafe: free
 
 anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
@@ -1009,7 +1012,8 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
     moki: BreakWall=10
 
 region WestHollow:
-  moki: Damage=20
+  moki: Danger=20
+  gorlek: free
   unsafe: free
 
 anchor WestHollow.Entrance at -303, -4238:  # At Twillen
@@ -1066,7 +1070,7 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
       DoubleJump, TripleJump OR Sword
       SentryJump=1  # Go up to the moki, then poles and then jump down
       Bash  # bash the slime to get up
-    unsafe:
+    unsafe, WestHollow.PurpleDoorOpen:
       Dash, Sword  # Easier with upslash
       Hammer, DoubleJump OR Dash  # Easier with upslash
       Hammer, Glide  # Press Glide then before reaching the wall upslash with Hammer and hold Glide again
@@ -1106,7 +1110,7 @@ anchor WestHollow.HollowDrainMiddle at -197, -4275:  # At the crystal below the 
     gorlek, WestHollow.UpperDrainLeverPulled:
       Sword OR Hammer  # Hammer is a bit particular; you can use upslash and horizontal slashes instead
 
-anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at -249, -4275; coordinates omitted because this is not a valid warp/spawn target)
+anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock puzzle room
   refill Checkpoint
   refill Health=1
   refill Energy=3:
@@ -1121,7 +1125,6 @@ anchor WestHollow.RockPuzzle:  # At the right ledge of the rock puzzle room (at 
       Bow=1, SentryJump=1 OR Launch  # Get up to the rock and push it to use only one Bow shot
       Bow=1, Bash, Grenade=1  # Get up to the rock and push it to use only one Bow shot
       Combat=Skeeto, Bow=6  # Stand to the left of energy crystal, look up and aim for the target, minimum 4 shots needed
-    unsafe, glitch: Teleporters.TPAccess
 
   pickup WestHollow.RockPuzzleEX:
     moki: WestHollow.FullyDrained
@@ -1330,7 +1333,8 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
 # checkpoint at -21, -4411
 
 region EastHollow:
-  moki: Damage=20
+  moki: Danger=20
+  gorlek: free
   unsafe: free
 
 anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
@@ -1339,7 +1343,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   # paths through the purple door exist mainly because of historical reasons, but might be a candidate for future open mode as well
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     moki, WestHollow.PurpleDoorOpen:
-      Combat=Slug, BombSlug, Bow=1, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
+      Combat=Slug+BombSlug, Bow=1, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
       Combat=BombSlug, DoubleJump, Dash, Glide
       Launch
 
@@ -1360,7 +1364,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
 anchor BeetleFight:
   refill Full
   state EastHollow.BeetleDefeated:
-    moki: Boss=250, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
+    moki: Boss=250, Regenerate, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
     unsafe: Boss=250
 
 # checkpoint at -106, -4221
@@ -2089,7 +2093,8 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
       Launch, Damage=40
 
 region WestGlades:
-  moki: Damage=20
+  moki: Danger=20
+  gorlek: free
   unsafe: free
 
 anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past glades
@@ -2345,10 +2350,15 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
 anchor GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
-    moki: Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab
+    moki, Regenerate, Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab:
+      Damage=65                     # the crabs are terrifying!
+      Damage=55, DoubleJump OR Dash # these can help
+      Damage=30, Launch             # if you're op, nothing's terrifying
+    unsafe: Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab
 
 region OuterWellspring:
-  moki: Damage=25
+  moki: Danger=25
+  gorlek: free
   unsafe: free
 
 anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where you enter the first room
@@ -2585,7 +2595,8 @@ anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to tri
     moki: Grapple OR Glide OR Launch
 
 region InnerWellspring:
-  moki: Damage=25
+  moki: Danger=25
+  gorlek: free
   unsafe: free
 
 anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where you enter the first room
@@ -3144,7 +3155,8 @@ anchor InnerWellspring.EscapeSequence:
     moki: InnerWellspring.WaterEscape
 
 region WoodsEntry:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor WoodsEntry.ShriekMeet at 391, -4198:  # The ledge after swimming through the Hollow connection
@@ -3270,7 +3282,8 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
     unsafe: Hammer OR Flash=1 OR Sentry=1 OR Shuriken=1
 
 region WoodsMain:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor WoodsMain.AfterKuMeet at 856, -4192:  # At the upper ledge opening up to the room after finding Ku
@@ -3652,10 +3665,15 @@ anchor WoodsShrine:
   refill Full
   pickup WoodsMain.ShrineEX: free
   pickup WoodsMain.CombatShrine:
-    moki: Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat
+    moki, Regenerate, Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat:  # this one has it all -_-
+      Damage=80
+      Damage=65, DoubleJump OR Dash
+      Damage=50, Launch
+    unsafe: Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat
 
 region LowerReach:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor LowerReach.Entry at -390, -4025:  # Behind Baur
@@ -3819,7 +3837,8 @@ anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the
 # checkpoint at -296, -3944
 
 region UpperReach:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
@@ -4109,7 +4128,8 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
       Bow=1 OR Spear=1 OR Grenade=1
 
   state LowerReach.ArenaBeaten:
-    moki: Combat=3xShieldMiner+Hornbug+2xBee
+    moki: Regenerate, Damage=40, Combat=3xShieldMiner+Hornbug+2xBee
+    unsafe: Combat=3xShieldMiner+Hornbug+2xBee
 
   conn LowerReach.Trial:
     moki: LowerReach.ArenaBeaten
@@ -4181,7 +4201,8 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
     moki: Glide
 
 region UpperDepths:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the entrance
@@ -4374,7 +4395,8 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
 anchor MoraFight:
   refill Full
   quest UpperDepths.ForestsEyes:
-    moki: Boss=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
+    moki: Boss=330, Regenerate, Damage=95, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
+    unsafe: Boss=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
 
 anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left of the second keystone door
   refill Checkpoint
@@ -4412,7 +4434,8 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
       DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
 
 region LowerDepths:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
@@ -4449,7 +4472,11 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
 anchor DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
-    moki: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug
+    moki, Regenerate, Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug:
+      Damage=65
+      Damage=60, DoubleJump OR Dash
+      Damage=50, Launch
+    unsafe: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug
 
 anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
   refill Checkpoint
@@ -4536,7 +4563,8 @@ anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
       DepthsLight, Dash, Bash OR Grapple
 
 region PoolsApproach:
-  moki: Damage=25
+  moki: Danger=25
+  gorlek: free
   unsafe: free
 
 anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfway between Mill Approach and Mill Path (added mostly because the paths through here reached ridiculous complexity otherwise)
@@ -4646,7 +4674,8 @@ anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the
     moki: Water, WaterDash  # <3
 
 region EastPools:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
@@ -4736,7 +4765,8 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
   # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
   state EastPools.FightArenas:
-    moki: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
+    moki: EastPools.LowerWaterDrained, Regenerate, Damage=20, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
+    unsafe: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
 
   quest EastPools.HandToHandSpyglass:
     moki, LowerDepths.HandToHandSilk:
@@ -4812,7 +4842,8 @@ anchor EastPools.Teleporter at -1316, -4153:  # At the teleporter after draining
   conn EastPools.TPArea: free
 
 region UpperPools:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 # checkpoint at -1425, -4144
@@ -4970,7 +5001,8 @@ anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all t
 # checkpoint at -1386, -4062
 
 region WestPools:
-  moki: Damage=40, Regenerate
+  moki: Danger=40, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor WestPools at -1656, -4171:  # the west Pools TP
@@ -5008,10 +5040,12 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
 anchor KwolokFight:
   refill Full
   quest WestPools.ForestsStrength:
-    moki: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
+    moki: Boss=250, Regenerate, Damage=95, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
+    unsafe: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
-  moki: Damage=50, Regenerate
+  moki: Danger=50, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
@@ -5457,7 +5491,8 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
     gorlek: Burrow  # Again pretty tight. More lenient with Damage=30
 
 region UpperWastes:
-  moki: Damage=50, Regenerate
+  moki: Danger=50, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor UpperWastes.KeystoneRoom at 1900, -3831:  # Autosave underneath keystone door
@@ -5679,7 +5714,8 @@ anchor WindtornRuins.LowerRuins at 1969, -4024:  # At the ancient map pedestal
     moki: Burrow, BreakWall=20
 
 region WeepingRidge:
-  moki: Damage=60, Regenerate
+  moki: Danger=60, Regenerate
+  gorlek: Regenerate
   unsafe: free
 
 anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weeping ridge
@@ -5738,7 +5774,8 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
 # checkpoint at 1344, -3791
 
 region WillowsEnd:
-  moki: Damage=60, Regenerate  # need more than 6 health and Regen to do ANYTHING in willow
+  moki: Danger=60, Regenerate  # need more than 6 health and Regen to do ANYTHING in willow
+  gorlek: Regenerate
   unsafe: free
 
 anchor WillowsEnd.Entry at 495, -3951:  # At the lower door

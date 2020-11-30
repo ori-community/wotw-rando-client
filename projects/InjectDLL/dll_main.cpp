@@ -145,6 +145,7 @@ void mute_for(int frames)
         sound_mutex.unlock();
     }
 }
+IL2CPP_BINDING(UnityEngine, Behaviour, void, set_enabled, (app::Behaviour*, bool));
 
 void on_fixed_update(app::GameController* this_ptr)
 {
@@ -170,6 +171,9 @@ void on_fixed_update(app::GameController* this_ptr)
         set_to_last_position--;
         SeinCharacter::set_Position(get_sein(), last_position);
     }
+    auto simpleFPS = il2cpp::get_class<app::SimpleFPS__Class>("", "SimpleFPS")->static_fields->Instance;
+    Behaviour::set_enabled((app::Behaviour*)simpleFPS, false);
+
 }
 
 INJECT_C_DLLEXPORT bool player_can_move()

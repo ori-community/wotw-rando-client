@@ -2,13 +2,6 @@
 
 #include "interception.h"
 
-// TEMP
-#define INTERCEPT(address, return_type, name, params) \
-INTERNAL_INTERCEPT(address, return_type, name, params)
-
-#define BINDING(address, return_type, name, params) \
-INTERNAL_BINDING(address, return_type, name, params)
-
 // Named Overloads
 
 #define NAMED_STATIC_IL2CPP_INTERCEPT_OVERLOAD(namezpace, klass_name, return_type, method_name, name, params, overloads) \

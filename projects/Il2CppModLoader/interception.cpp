@@ -276,6 +276,8 @@ namespace modloader
                     trace(MessageType::Debug, 5, "initialize", format("internal injection, default offset overridden '%s': %d -> %d", current->name.data(), current->offset, it->second));
                     current->offset = it->second;
                 }
+                else
+                    trace(MessageType::Debug, 5, "initialize", format("internal injection, default offset used '%s': %d", current->name.data(), current->offset));
 
                 *current->original_pointer = reinterpret_cast<void*>(resolve_rva(current->offset));
                 if (current->intercept_pointer)

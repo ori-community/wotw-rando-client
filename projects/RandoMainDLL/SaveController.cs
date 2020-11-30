@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using Newtonsoft.Json;
 using RandoMainDLL.Memory;
 
@@ -88,7 +89,8 @@ namespace RandoMainDLL {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
-        }
+          UberStateController.QueueSyncedStateUpdate();
+      }
         BonusItemController.Refresh();
         MapController.UpdateReachable();
       }

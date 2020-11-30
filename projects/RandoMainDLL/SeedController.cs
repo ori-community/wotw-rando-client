@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using Newtonsoft.Json;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -72,6 +73,8 @@ namespace RandoMainDLL {
   public static class SeedController {
 
     public static bool GrantingGoalModeLoc = false;
+
+    public static SeedGenSettings Settings;
     public enum FakeUberGroups {
       TREE = 0,
       OPHER_WEAPON = 1,
@@ -123,6 +126,10 @@ namespace RandoMainDLL {
             else if (rawLine.StartsWith("Spawn: ")) {
               coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
               continue;
+            }
+            else if (rawLine.StartsWith("// Config: ")) {
+              var configRaw = rawLine.Replace("// Config: ", "");
+              Settings = JsonConvert.DeserializeObject<SeedGenSettings>(configRaw);
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
@@ -267,6 +274,12 @@ namespace RandoMainDLL {
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {
+            case SysCommandType.SetResource:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              return new SetResource((ResourceType)extras[0].ParseToByte("BuildPickup.SetResourceType"), extras[1].ParseToInt("BuildPickup.SetResourceValue"));
             case SysCommandType.StopIfEqual:
             case SysCommandType.StopIfGreater:
             case SysCommandType.StopIfLess:

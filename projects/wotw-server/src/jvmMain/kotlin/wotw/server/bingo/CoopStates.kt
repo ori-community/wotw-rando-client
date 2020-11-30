@@ -2,6 +2,92 @@ package wotw.server.bingo
 
 import wotw.io.messages.protobuf.UberId
 
+fun coopStates() = (
+                tpIds.values + /*ksDoorIds.values +*/ safeMaxLevers + seedQuestStates + corruptedHeartIds.values +
+                questIds.values + pickupIds.values + unsortedCoop
+        )
+
+val tpIds = mapOf(
+    "savePedestalMidnightBurrows" to UberId(24922, 42531),
+    "savePedestalInkwaterMarsh" to UberId(21786, 10185),
+    "savePedestalHowlsDen" to UberId(11666, 61594),
+    "savePedestalLumaPoolsA" to UberId(945, 58183),
+    "waterLoweredNearLumaTP" to UberId(5377, 63173),
+    "savePedestalLumaPoolsB" to UberId(945, 1370),
+    "savePedestalWellspring" to UberId(53632, 18181),
+    "savePedestalBaursReach" to UberId(28895, 54235),
+    "savePedestalKwoloksHollow" to UberId(937, 26601),
+    "savePedestalMouldwood" to UberId(18793, 38871),
+    "savePedestalWillowsEnd" to UberId(16155, 41465),
+    "savePedestalWillowsEndShriek" to UberId(16155, 50867),
+    "savePedestalSilentWoodsA" to UberId(58674, 7071),
+    "savePedestalSilentWoodsB" to UberId(58674, 1965),
+    "savePedestalWindsweptWastesA" to UberId(58674, 10029),
+    "savePedestalWindsweptWastesB" to UberId(20120, 49994),
+    "savePedestalWindtornRuinsA" to UberId(20120, 41398),
+    "savePedestalWindtornRuinsB" to UberId(10289, 4928),
+    "savePedistalGladesTown" to UberId(42178, 42096),
+)
+
+val ksDoorIds = mapOf(
+    "Light Burst Tree Door" to UberId(28895, 49900),
+    "Reach Trial Door" to UberId(28895, 4290),
+    "Regen Tree Door" to UberId(21786, 42309),
+    "Howl's Den Door" to UberId(21786, 47445),
+    "Luma Pools Door" to UberId(5377, 47621),
+    "Eyestone Door" to UberId(937, 64003),
+    "Eyes Placed Into Statue" to UberId(937, 1038),
+    "Mouldwood Entry Door" to UberId(21786, 59990),
+    "Mouldwood Lower Door" to UberId(18793, 10758),
+    "Silent Woods West Door" to UberId(58674, 21500),
+    "Silent Woods East Door" to UberId(18793, 41544),
+    "Midnight Burrows Door" to UberId(18793, 3171),
+    "Windswept Wastes Door" to UberId(20120, 28786),
+)
+
+val seedQuestStates = sequenceOf(
+    UberId(42178, 47651),
+    UberId(42178, 16254),
+    UberId(42178, 33011),
+    UberId(42178, 64583),
+    UberId(42178, 38393),
+    UberId(42178, 40006),
+)
+
+val corruptedHeartIds = mapOf(
+    "Wind Spinners" to UberId(16155,42976),
+    "Spinning Lasers" to UberId(16155,54940),
+    "Upper Heart" to UberId(16155, 24290),
+    "Burrow Heart" to UberId(16155, 3588),
+    "Laser Boss" to UberId(16155, 28478),
+    "Redirect Puzzle" to UberId(16155, 65277),
+    "Boulder Escape Heart" to UberId(16155, 41488),
+    "Lower Left Heart" to UberId(16155, 60752),
+)
+
+val questIds = mapOf(
+    "The Silent Teeth" to UberId(937, 34641),
+    "The Missing Key " to UberId(48248, 51645),
+    "Into the Burrows" to UberId(48248, 18458),
+    "The Lost Compass" to UberId(14019, 20667),
+    "A Little Braver" to UberId(14019, 15983),
+    "Family Reunion" to UberId(14019, 27804),
+    "The Tree Keeper" to UberId(14019, 59708),
+    "A Diamond in the Rough" to UberId(14019, 61011),
+//    "Into The Darkness" to UberId(14019, 33776), bad to sync for reasons
+    "Kwolok's Wisdom" to UberId(14019, 50597),
+    "The Silent Map" to UberId(14019, 24683),
+    "Breaking the Mould" to UberId(14019, 45931),
+    "Lost in Paradise" to UberId(14019, 35087),
+    "The Highest Reach" to UberId(14019, 8973),
+    "Beneath Shifting Sands" to UberId(14019, 35399),
+    "Hand to Hand" to UberId(14019, 26318),
+    "Rebuilding the Glades" to UberId(14019, 44578),
+    "Regrowing the Glades" to UberId(14019, 26394),
+)
+
+
+
 val pickupIds = mapOf(
     "MarshSpawn.RockHC" to UberId(21786, 60210),
     "MarshSpawn.FirstPickupEX" to UberId(21786, 49485),
@@ -376,3 +462,184 @@ val pickupIds = mapOf(
     "OpherShop.Blaze" to UberId(1, 115),
     "OpherShop.Sentry" to UberId(1, 116),
 )
+
+val safeMaxLevers = sequenceOf(
+    UberId(26019, 23382),  // convertedSetupsGymGroup.leverAndDoor
+    UberId(37858, 34433),  // waterMillStateGroupDescriptor.wheelLever
+    UberId(37858, 31187),  // waterMillStateGroupDescriptor.recedingWater
+    UberId(28895, 62198),  // baursReachGroup.leverSetup
+    UberId(937, 22419),  // kwolokGroupDescriptor.leverDoor
+    UberId(18793, 14503),  // mouldwoodDepthsGroup.leverAndDoorA
+    UberId(937, 57028),  // kwolokGroupDescriptor.leverDoorA
+    UberId(937, 59920),  // kwolokGroupDescriptor.switchDoorUberState
+    UberId(21786, 50453),  // swampStateGroup.leverAndDoor
+    UberId(5377, 14488),  // lumaPoolsStateGroup.leverAndDoor
+    UberId(5377, 6398),  // lumaPoolsStateGroup.leverAndDoor
+    UberId(20120, 48009),  // windsweptWastesGroupDescriptor.verticalPlatformLeverA
+    UberId(20120, 12902),  // windsweptWastesGroupDescriptor.leverStateA
+    UberId(10289, 41277),  // windtornRuinsGroup.lever
+    UberId(937, 6778),  // kwolokGroupDescriptor.mokiGateOpened
+)
+
+val unsortedCoop = sequenceOf(
+    UberId(48248, 41666), // 4000 hint
+    UberId(48248, 19396), // Glades hint
+    UberId(48248, 57987), // Woods hint
+
+    UberId(10289, 3804),
+    UberId(10289, 43103),
+    UberId(16155, 18906),
+    UberId(16155, 20672),
+    UberId(16155, 21899),
+    UberId(16155, 2235),
+    UberId(16155, 3096),
+    UberId(16155, 33738),
+    UberId(16155, 36353),
+    UberId(16155, 37558),
+    UberId(18793, 11676),
+    UberId(18793, 13349),
+    UberId(18793, 15855),
+    UberId(18793, 21022),
+    UberId(18793, 21994),
+    UberId(18793, 25789),
+    UberId(18793, 29066),
+    UberId(18793, 5315),
+    UberId(18793, 64772),
+    UberId(18793, 65202),
+    UberId(20120, 1348),
+    UberId(20120, 16172),
+    UberId(20120, 33775),
+    UberId(20120, 43231),
+    UberId(20120, 51985),
+    UberId(20120, 55388),
+    UberId(20120, 60960),
+    UberId(20120, 9095),
+    UberId(21786, 10467),
+    UberId(21786, 11343),
+    UberId(21786, 22091),
+    UberId(21786, 22570),
+    UberId(21786, 23177),
+    UberId(21786, 25147),
+    UberId(21786, 25291),
+    UberId(21786, 29636),
+    UberId(21786, 30928),
+    UberId(21786, 33430),
+    UberId(21786, 34008),
+    UberId(21786, 35166),
+    UberId(21786, 35350),
+    UberId(21786, 35598),
+    UberId(21786, 35925),
+    UberId(21786, 40424),
+    UberId(21786, 41817),
+    UberId(21786, 44253),
+    UberId(21786, 45648),
+    UberId(21786, 50691),
+    UberId(21786, 53932),
+    UberId(21786, 61900),
+    UberId(21786, 6994),
+    UberId(21786, 876),
+    UberId(24922, 13349),
+    UberId(24922, 2524),
+    UberId(24922, 59146),
+    UberId(26019, 1274),
+    UberId(28895, 17510),
+    UberId(28895, 20731),
+    UberId(28895, 27787),
+    UberId(28895, 30566),
+    UberId(28895, 30794),
+    UberId(28895, 34098),
+    UberId(28895, 37287),
+    UberId(28895, 38120),
+    UberId(28895, 42209),
+    UberId(28895, 43977),
+    UberId(28895, 48757),
+    UberId(28895, 49329),
+    UberId(28895, 58337),
+    UberId(28895, 59394),
+    UberId(28895, 61789),
+    UberId(28895, 7616),
+    UberId(28895, 8664),
+    UberId(28895, 8934),
+    UberId(31136, 3441),
+    UberId(36153, 23584),
+    UberId(36153, 60795),
+    UberId(37858, 16604),
+    UberId(37858, 21874),
+    UberId(37858, 23644),
+    UberId(37858, 31104),
+    UberId(37858, 31584),
+    UberId(37858, 31962),
+    UberId(37858, 36070),
+    UberId(37858, 50902),
+    UberId(37858, 60716),
+    UberId(37858, 6338),
+    UberId(37858, 64055),
+    UberId(37858, 8487),
+    UberId(37858, 9487),
+    UberId(42178, 38905),
+    UberId(42178, 5630),
+    UberId(42178, 5815),
+    UberId(44310, 47361),
+    UberId(44310, 55192),
+    UberId(53632, 2522),
+    UberId(53632, 3382),
+    UberId(53632, 62781),
+    UberId(53632, 9366),
+    UberId(5377, 10782),
+    UberId(5377, 15402),
+    UberId(5377, 15754),
+    UberId(5377, 22978),
+    UberId(5377, 24765),
+    UberId(5377, 26170),
+    UberId(5377, 29911),
+    UberId(5377, 31145),
+    UberId(5377, 35751),
+    UberId(5377, 3831),
+    UberId(5377, 4463),
+    UberId(5377, 53480),
+    UberId(5377, 56302),
+    UberId(5377, 57453),
+    UberId(5377, 58278),
+    UberId(5377, 63922),
+    UberId(5377, 64337),
+    UberId(5377, 65413),
+    UberId(5377, 8451),
+    UberId(58674, 10877),
+    UberId(58674, 11400),
+    UberId(58674, 14313),
+    UberId(58674, 17742),
+    UberId(58674, 20143),
+    UberId(58674, 29622),
+    UberId(58674, 37037),
+    UberId(58674, 39950),
+    UberId(58674, 44324),
+    UberId(58674, 48394),
+    UberId(58674, 49272),
+    UberId(58674, 5285),
+    UberId(58674, 54686),
+    UberId(58674, 61616),
+    UberId(58674, 902),
+    UberId(58674, 9239),
+    UberId(7228, 4034),
+    UberId(937, 10140),
+    UberId(937, 22716),
+    UberId(937, 32165),
+    UberId(937, 40225),
+    UberId(937, 42245),
+    UberId(937, 45349),
+    UberId(937, 54236),
+    UberId(937, 59850),
+    UberId(945, 12852),
+    UberId(945, 28631),
+    UberId(945, 3487),
+    UberId(945, 39004),
+    UberId(945, 43451),
+    UberId(945, 55795),
+    UberId(9593, 17659),
+    UberId(9593, 23319),
+    UberId(9593, 25130),
+    UberId(9593, 26238),
+    UberId(9593, 34704),
+    UberId(9593, 47420),
+    UberId(9593, 59418),
+    UberId(9593, 9229))

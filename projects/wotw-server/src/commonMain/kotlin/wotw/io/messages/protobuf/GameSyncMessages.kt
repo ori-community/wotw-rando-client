@@ -10,6 +10,8 @@ data class UserInfo(
 )
 @Serializable
 data class TeamInfo(
+    val id: Long,
+    val name: String,
     val leader: UserInfo,
     val members: List<UserInfo>
 )
@@ -24,6 +26,13 @@ data class UberId(
     @ProtoNumber(1) val group: Int,
     @ProtoNumber(2) val state: Int
 )
+
+@Serializable
+data class UberStateBatchUpdateMessage(
+    @ProtoNumber(1) val updates: List<UberStateUpdateMessage>
+){
+    constructor(vararg updates: UberStateUpdateMessage): this(updates.toList())
+}
 
 @Serializable
 data class UberStateUpdateMessage(
