@@ -87,7 +87,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
     moki, Regenerate, Damage=40, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug:
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-  pickup MarshSpawn.BurrowsPathEX:
+  pickup MarshSpawn.PoolsPathEX:
     moki:
       DoubleJump, Bash, Glide
       Bash, Launch
@@ -5448,7 +5448,7 @@ anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the
 
   pickup PoolsApproach.CurrentEX:
     moki: Water, WaterDash
-  pickup MarshSpawn.BurrowsPathEX:
+  pickup MarshSpawn.PoolsPathEX:
     moki:
       Water, WaterDash, DoubleJump, Dash, Damage=10
       Water, WaterDash, Glide, DoubleJump OR Dash
