@@ -6630,16 +6630,30 @@ anchor WindtornRuins.UpperRuinsDoor at 2163, -3835:  # Just inside the door.
 
   state WindtornRuins.RuinsLever:
     moki: Burrow, BreakWall=16  # just being safe here
+    unsafe: Burrow, Sentry=2 OR Grenade=1 OR Blaze=1
   state WindtornRuins.HeartBarrier:  # These are paths to go to the teleporter and break the corruption heart. But they can't originate from the teleporter anchor because after you broke the heart, you can't go to the teleporter again, which makes these paths not viable as connections to the teleporter. These paths are just about breaking the heart, so it doesn't matter if the paths can lock you out of the teleporter if you already have broken the heart, because then you have already broken the heart.
     moki, WindtornRuins.RuinsLever, BreakWall=16:
       Burrow, DoubleJump OR Dash OR Glide OR Launch
       Burrow, Bash, Grenade=1
+    gorlek: 
+      # I'm making the following bold assumptions
+      # 1. You're playing gorlek, so you know things.
+      # 2. You're playing gorlek, so you can climb walls (REGARDLESS of FPS)
+      # 3. You're playing gorlek, so you can hold right and burrow into the TP area
+      Burrow, WindtornRuins.RuinsLever, BreakWall=20
 
   pickup UpperWastes.FlowersSeed: free
   pickup UpperWastes.WallOre:
     moki:
       Bash, Grenade=1, Glide
       Launch, DoubleJump OR Glide
+    gorlek:
+      Dash, Damage=30
+      Dash, DoubleJump, Glide
+      SentryJump=1, Glide
+      DoubleJump, TripleJump, Burrow # MIGHT be doable with no triple, but its there for safety
+      Launch
+      # Probably a bunch of other paths but I cant think of any
 
   conn UpperWastes.RuinsApproach: free
   # higher difficulties can put connections to northtp here
@@ -6650,6 +6664,25 @@ anchor WindtornRuins.UpperRuinsDoor at 2163, -3835:  # Just inside the door.
       Burrow, DoubleJump, Glide
       Burrow, Bash, Grenade=1, Glide
       Burrow, Launch
+    gorlek, WindtornRuins.RuinsLever:
+      Burrow, SentryJump=1 # Use sword to go across spikes, then SJ
+      #Burrow, DoubleJump, TripleJump, Hammer OR Sword OR Sentry=1 OR Shuriken=1 OR Flash=1 OR Spike=1
+      Burrow, DoubleJump, TripleJump OR Dash OR Hammer # Use the wall on the right and then burrow through sand platform. Might be a bit obscure. Like really obscure. Use above if too obscure
+      Burrow, Bash, Grenade=1 # Burrow through the sand platform to get up
+  conn UpperWastes.NorthTP:
+    gorlek:
+      # There's an autosave at the top above the seed, so failure isn't super punishing for this connection.
+      # not_recoverable are paths from the seed to the TP, that if you fall down to the same level as the gorlek, you can't get up
+      # recoverable_from_fall paths are ones that you can make to the TP.
+      # I guess what paths you want to include is up to the validator, either just recoverable or both recoverable and not_recoverable
+      recoverable_from_fall:
+        DoubleJump, TripleJump OR Dash
+        Bash OR Burrow # Almost certainly some danger associated here, but I'm not sure how to assign that
+        Launch
+        SentryJump=1 # I guess lol
+      not_recoverable:
+        Dash OR Glide OR 
+        DoubleJump, TripleJump OR Hammer OR Sword OR Sentry=1 OR Flash=1 OR Blaze=1 OR Shuriken=1
   conn WindtornRuins.Escape:  # connection FROM entrance TO escape to support future paths of breaking the heart without reaching the teleporter
     moki: WindtornRuins.RuinsLever, WindtornRuins.HeartBarrier, Burrow
   conn WindtornRuins.LowerRuins:  # connection FROM entrance TO lower AFTER escape
@@ -6673,6 +6706,8 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
     moki, WindtornRuins.HeartBarrier, WindtornRuins.Seir:
       DoubleJump OR Dash OR Glide OR Burrow OR Launch
       Bash, Grenade=1  # yes, this needs a bashgrenade path
+    gorlek, WindtornRuins.HeartBarrier, WindtornRuins.Seir:
+      SentryJump=1 # because why not
   conn WindtornRuins.UpperRuinsDoor:
     moki, WindtornRuins.RuinsLever:
       # these account for both situations of having broken the heart or not
@@ -6682,6 +6717,11 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
       # these make you able to break the Heart and then use the resulting terrain
       BreakWall=16, Burrow, Bash, Grenade=1
       BreakWall=16, Glide
+    gorlek, WindtornRuins.RuinsLever:
+      Burrow, SentryJump=1
+      Burrow, Dash, Glide OR Hammer
+      Burrow, Dash, DoubleJump
+      Burrow, Bash, Grenade=1
 
 anchor WindtornRuins.Escape:
   refill Full
@@ -6695,6 +6735,13 @@ anchor WindtornRuins.Escape:
       Burrow, DoubleJump, Glide, Grapple  # I think this is fine?
       Burrow, DoubleJump, Launch, Dash OR Glide
       Burrow, Grapple, Launch, Glide
+    gorlek, WindwotnRuins.HeartBarrier:
+      #Burrow, Dash, Launch # Damage=40 Potentially for the spike zig-zag
+      #Burrow, DoubleJump, Launch
+      Burrow, Launch, Damage=80 # Can be damage=40 but why not be generous
+      Burrow, Dash, DoubleJump # doable but boy its nasty
+      # Maybe there are bash-grenade and sentry-jump paths here, but I'm not sure if they're gorlek.
+      # Can't think of things other than this, happy to test if you think of others.
 
 anchor WindtornRuins.LowerRuins at 1969, -4024:  # At the ancient map pedestal
   # requires escape to be done
@@ -6710,6 +6757,11 @@ anchor WindtornRuins.LowerRuins at 1969, -4024:  # At the ancient map pedestal
       Burrow, DoubleJump, Glide
       Burrow, Bash, Glide, Grenade=2
       Launch
+    gorlek, WindtornRuins.HeartBarrier, WindtornRuins.Seir:
+      SentryJump=2
+      Burrow, Dash
+      Burrow, DoubleJump, TripleJump
+      Burrow, DoubleJump, Bash, Grenade=1
   # connection to upper should be redundant with the conn to tp?
 
   conn LowerWastes.MinesEntrance:
