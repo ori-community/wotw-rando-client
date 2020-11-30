@@ -5481,7 +5481,7 @@ anchor UpperPools.KeystoneRoom at -1540, -4095:  # Autosave below the two upper 
     moki:
       Water, WaterDash
       Water, Bash
-    unsafe: Bow=1 OR Grenade=1
+    unsafe: Bow=1 OR Grenade=1 OR Spear=1 OR Shuriken=1 #@Validator Some of these could be considered Gorlek
 
   quest EastPools.GrassSeed:
     moki:
@@ -5492,23 +5492,59 @@ anchor UpperPools.KeystoneRoom at -1540, -4095:  # Autosave below the two upper 
     moki:
       Water, DoubleJump, Bash
       Water, WaterDash OR Launch
+    gorlek:
+      Water, Bash, Hammer
+    unsafe:
+      Water, Bash, Glide OR Sword # Bash it when it goes out of the water, wait for it to jump at you and bash it again / upslash with sword (too precise for gorlek)
   pickup UpperPools.UpperLeftKS:
     moki:
       Bash, Grenade=1
       UpperPools.KeystoneRoomBubbleFree, DoubleJump, Flap
       Launch
+    gorlek:
+      SentryJump=1
+      DoubleJump, TripleJump, Hammer #tjump + upslash to reach the left wall to reset your jumps
+      UpperPools.KeystoneRoomBubbleFree, Dash, Flap
+      Grapple OR Bash: #From above
+        DoubleJump, Glide OR TripleJump
+        DoubleJump, Dash, Hammer OR Sword
   pickup UpperPools.UpperMidKS:
     moki:
       DoubleJump, Bash, Grenade=1
       Bash, Grenade=2, DoubleJump OR Dash OR Glide
       Grapple, DoubleJump OR Dash OR Glide
       Launch
+    gorlek:
+      SentryJump=1:
+        Damage=20 OR DoubleJump #Damage boost in the spikes or wjump from the right wall
+        WaterDash, Water OR Damage=20
+      SentryJump=2
+      Grapple:
+        Water OR Sword OR Damage=20 #sword combo to reach the platform just before the grappable plant
+        Bash, Grenade=1 #bash grenade to reach the platform under UpperRightKS
+      DoubleJump, WaterDash, Water OR Damage=20 #wdash to reach the right wall
+      Bash, Grenade=1:
+        Damage=20, Sword OR Hammer
+        WaterDash, Water OR Damage=20 # launch grenade, wdash to reach it
+    unsafe:
+      Water, WaterDash, Hammer, Damage=20 #wdash+upslash to reach the left wall, wjump in the spikes and upslash to get the key
+      Bash, Grenade=1, Water OR Sword OR Glide OR DoubleJump OR Dash OR Damage=20 #bash grenade to reach the platform under UpperRightKS, bash the ennemi in the air then bash it again. Then grab the pickup from the upper platform
   pickup UpperPools.UpperRightKS:
     moki:
       Bash, Grenade=1, Water OR DoubleJump OR Dash OR Glide
       Grapple, DoubleJump OR Glide OR Dash
       Water, WaterDash, DoubleJump
       Launch
+    gorlek:
+      SentryJump=1
+      Bash, Grenade=1, Sword OR Damage=20 #sword/damage boost to reach the platform below he pickup
+      WaterDash, Water OR Damage=20
+      Grapple:
+        Sword
+        Hammer, Water OR Damage=20
+      DoubleJump, TripleJump OR Hammer OR Sword OR Bash #Bash the crab enemy
+    unsafe:
+      Grapple, Water OR Damage=20 #grapple the plant to make it swing. When the plant is swinging at the left, grapple it with a good angle to grab the keystone
 
   conn UpperPools.BeforeKeystoneDoor:
     moki:
@@ -5517,17 +5553,54 @@ anchor UpperPools.KeystoneRoom at -1540, -4095:  # Autosave below the two upper 
       Bash, Grenade=2, Water OR DoubleJump OR Dash OR Glide
       Bash, Grenade=3
       Launch
+    gorlek:
+      SentryJump=2
+      Bash, DoubleJump #bash the crab enemy
+      Bash, Grenade=2, Sword OR Damage=20
+      DoubleJump, TripleJump: #wjump from UpperRightKS
+        Dash
+        Glide, Hammer
+      Grapple:
+        Damage=20 OR Sword OR Water
+        Bash, Grenade=1
+      WaterDash, Water OR Damage=20:
+        SentryJump=1
+        Bash, Grenade=1
   conn UpperPools.BubbleSpamRoom:
     moki: Flap, DoubleJump, Dash, Grapple  # seems to be intended
+    gorlek:
+      Launch #Should probably be moki
+      SentryJump=3, Damage=20 #sjump in the spikes at UpperMidKS and sjump again
+      SentryJump=2, DoubleJump, Damage=20 #Same as above but doublejump out of the spikes instead of using a sjump
+      UpperPools.KeystoneRoomBubbleFree, Flap:
+        Grapple, Dash OR DoubleJump
+        SentryJump=2 #guide the bubble to the anchor then sjump on it
+        DoubleJump, TripleJump, Dash OR Glide OR Sword #guide the bubble to the anchor then tjump on it. wjump from the left wall to reach to right wall
+      Grapple, SentryJump=1
+      Bash, Grenade=1:
+        SentryJump=2 #sjump to reach the grenade
+        WaterDash, SentryJump=1, Water Or Damage=20 #wdash to reach the grenade
+      Bash, Grenade=2:
+        DoubleJump
+        Water, WaterDash, Damage=20 OR Glide OR Sword OR Hammer OR Dash
+        WaterDash, Damage=20, Glide OR Sword OR Hammer OR Dash
+      WaterDash, Water OR Damage=20:
+        DoubleJump, TripleJump, Dash OR Glide OR Sword #wjump from the left wall to reach to right wall
+    unsafe:
+      UpperPools.KeystoneRoomBubbleFree, Flap, DoubleJump, TripleJump, Hammer #guide the bubble to the anchor then tjump on it. wjump rom the left wall to reach to right wall. Upslash then tjump and then hammer combo
+      WaterDash, DoubleJump, TripleJump, Hammer, Water OR Damage=20
   conn WestPools:
-    moki: Water, WaterDash, Combat=SpinCrab OR Bash OR Launch
-    moki: Water, WaterDash, DoubleJump, Dash
+    moki:
+      Water, WaterDash, Combat=SpinCrab OR Bash OR Launch
+      Water, WaterDash, DoubleJump, Dash
+    gorlek: Water, WaterDash
 
 # checkpoint at anchor below, maybe move
 
 anchor UpperPools.BeforeKeystoneDoor at -1483, -4076:  # In front of the door blocking waterdash tree
   refill Health=1:
     moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+    gorlek: free
 
   state UpperPools.KeystoneDoor:
     moki: Keystone=4
@@ -5538,15 +5611,27 @@ anchor UpperPools.BeforeKeystoneDoor at -1483, -4076:  # In front of the door bl
     moki:
       DoubleJump OR Dash
       Grapple, Glide
+    gorlek: free
 
   conn UpperPools.TreeArea:
     moki: UpperPools.KeystoneDoor
   conn UpperPools.KeystoneRoom:
+    gorlek: free
     moki: Water OR DoubleJump OR Dash OR Glide OR Launch  # don't really need anything, but eh
   conn UpperPools.BubbleSpamRoom:
     moki:
       DoubleJump, Bash, Grenade=1
       Launch
+    gorlek:
+      Grapple, DoubleJump:
+        TripleJump OR Glide
+        Dash, Hammer OR Sword
+      SentryJump=1
+      Bash, Grenade=1, Glide OR Sword OR Hammer OR Dash OR Damage=20
+      DoubleJump, TripleJump, Dash OR Glide OR Sword OR Damage=20 #wjump from the left wall to reach to right wall / dboost in the spikes and reach the wooden platform
+    unsafe:
+      DoubleJump, TripleJump, Hammer #wjump from the left wall to reach to right wall. Upslash then tjump and then hammer combo
+      Bash, Grenade=1 #Bash grenade to reach the slime, bash glide from it
 
 anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
   refill Checkpoint
@@ -5557,6 +5642,11 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
     moki:
       Water, WaterDash, Grapple, DoubleJump OR Launch
       Water, WaterDash, Launch, DoubleJump, Dash OR Glide
+    gorlek, Water, WaterDash: #Need waterdash to open the door
+      Grapple, Dash OR Sword OR Hammer OR Glide
+      Launch #Break the purple wall
+    unsafe:
+      Water, WaterDash, DoubleJump, SentryJump=1
 
   pickup UpperPools.SwimDashTree: free
   pickup UpperPools.CurrentEX:
@@ -5565,25 +5655,76 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
     moki:
       Water, WaterDash, Flap, DoubleJump OR Dash
       Water, WaterDash, Launch
-    unsafe: Launch  # use the small bubbles
+    gorlek:
+      Launch #use the small bubbles for a launch reset or use the wall above the trees
+      Bash, Grenade=2, DoubleJump, Dash, Damage=20 #bash grenade to reach the wall above the tree
+      Bash, Grenade=1, DoubleJump: #Same path as above but use a wdash/tjump to reach the pickup
+        WaterDash, Dash, Water, Damage=20
+        TripleJump:
+          Dash
+          Glide, Damage=20 OR Sword OR Hammer
+      SentryJump=2, DoubleJump, Dash, Damage=20 #same path as above, replace bash grenade by sentry jump
+      SentryJump=1, DoubleJump: #Same path as above but use a wdash/tjump to reach the pickup
+        WaterDash, Water, Dash, Damage=20
+        TripleJump, Glide OR Dash
+      Water, WaterDash, DoubleJump, TripleJump, Glide OR Sword OR Hammer OR Dash OR Damage=20 #free the bubble, jump on it and tjump to the wall above the tree
+    unsafe:
+      Water, WaterDash, Dash, DoubleJump OR Damage=20 #free the left bubbles, return to the anchor then dash on the bubble to reach the small pool below the pickup
+      Flap:
+        Bow=1 OR Grenade=1 OR Spear=1:
+          DoubleJump OR Dash OR Damage=20:
+            SentryJump=1
+            Bash, Grenade=1
+            DoubleJump, TripleJump
+            WaterDash, Water OR Damage=20
+        Shuriken=1, Water OR Damage=20:
+          DoubleJump OR Dash:
+            SentryJump=1
+            Bash, Grenade=1
+            DoubleJump, TripleJump
+            WaterDash, Water OR Damage=20
   pickup UpperPools.WaterfallEC:
     moki:
       Water, WaterDash, DoubleJump, Dash, Grapple
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Launch
-    unsafe:  # these are maybe probably not moki. Might be valid for gorlek
-      Water, WaterDash, Grapple, DoubleJump OR Dash
-      Water, WaterDash, Grapple, Bash, Grenade=1
+    gorlek, Water, WaterDash: #Need waterdash to open the door
+      Grapple, DoubleJump OR SentryJump=1
+      Bash, Grenade=1, DoubleJump #launch grenade below the waterfall
+      SentryJump=1, DoubleJump
+    unsafe:
+      Water, WaterDash, SentryJump=2
   pickup EastPools.PurpleWallHC:
     moki, UpperPools.UpperWaterDrained:
       Water, WaterDash, DoubleJump, Dash, Bash, Grapple
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Bash, Launch
+    gorlek, UpperPools.UpperWaterDrained, Water, WaterDash, Bash:
+      Grapple:
+        DoubleJump OR SentryJump=1 OR Grenade=2
+        Dash, Hammer #upslash + dash to reach the wall then grapple
+      DoubleJump, TripleJump, Dash, Damage=20
+    unsafe:
+      UpperPools.UpperWaterDrained, Water, WaterDash: #You can manipulate the torpedo enemy in a way that it hit the purple wall without needing any skills
+        Launch
+        Grapple:
+          SentryJump=1 OR DoubleJump
+          Glide, Hammer #Super precise, can grapple for a short time after an upslash
+        DoubleJump, TripleJump, Damage=20
   pickup EastPools.AboveTpEX:
     moki, UpperPools.UpperWaterDrained:
       Water, WaterDash, DoubleJump, Dash, Grapple
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Launch
+    gorlek, UpperPools.UpperWaterDrained, Water, WaterDash:
+      Grapple:
+        SentryJump=1 OR DoubleJump
+        Bash, Grenade= 1
+      DoubleJump, TripleJump, Dash, Damage=20
+    unsafe:
+      UpperPools.UpperWaterDrained, Water, WaterDash:
+        Grapple, Glide, Hammer #Super precise, can grapple for a short time after an upslash
+        DoubleJump, TripleJump, Damage=20
 
   conn UpperPools.BeforeKeystoneDoor:
     moki: UpperPools.KeystoneDoor
@@ -5592,33 +5733,67 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
       Water, WaterDash, DoubleJump, Dash, Grapple
       Water, WaterDash, DoubleJump, Bash, Grenade=1, Grapple
       Water, WaterDash, Launch
+    gorlek, UpperPools.UpperWaterDrained, Water, WaterDash: 
+      Grapple:
+        SentryJump=1 OR DoubleJump
+        Bash, Grenade= 1
+      DoubleJump, TripleJump, Dash, Damage=20
+    unsafe:
+      UpperPools.UpperWaterDrained, Water, WaterDash:
+        Grapple, Glide, Hammer #Super precise, can grapple for a short time after an upslash
+        DoubleJump, TripleJump, Damage=20
 
 anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all the bubbles rise
   refill Checkpoint
 
   pickup UpperPools.FishPoolEX:
     moki: Water, Bash OR WaterDash OR Damage=10  # just in case someone's troubled by the fish
+    gorlek: Water OR Damage=20 #Only need one tick of damage to take the pickup
   pickup UpperPools.FishPoolOre:
     moki:
       DoubleJump, Bash, Dash OR Glide
       Bash, Grenade=1
       Launch
+    gorlek:
+      SentryJump=1
+      DoubleJump, Bash, TripleJump OR Sword
+      Bash, Dash, Glide, Hammer OR Sword
+    unsafe:
+      Bash #Juggle the exploding enemyq
   pickup UpperPools.LeftBubblesEX:  # Beautiful autosave placement right there
     moki: Water
   pickup UpperPools.RightBubblesEX:
     moki:
       Water, Bash, DoubleJump OR Launch
       Water, WaterDash
-    unsafe: Water, Grenade=1
+    gorlek: #The torpedo won't hit you if you are touching the breakable wall
+      Water, Bash, Grenade=1
+      Water, Launch
+      Water, SentryJump, Damage=20 OR Dash OR DoubleJump #Dash/doulejump to cancel the sjump before the apex
+      Water, DoubleJump:
+        TripleJump
+        Dash, Hammer OR Damage=20
+    unsafe:
+      Water, Grenade=1
+      Water, SentryJump=1 #sword combo before hitting the spikes 
   pickup UpperPools.BubblesEC:
     moki:
       DoubleJump, Dash OR Glide
       Launch, DoubleJump OR Dash OR Glide
+    gorlek:
+      Dash OR Launch OR SentryJump=1
+      Glide, Sword OR Hammer
+      DoubleJump, Sword OR Hammer OR TripleJump OR Damage=20
+      Bash: #Bash the mosquitos
+        Sword OR Hammer OR Glide
+        Grenade=1, Damage=20  #bash a grenade to get out of the right side
   pickup UpperPools.UpperMidKS:
     moki: DoubleJump OR Dash OR Glide
+    gorlek: free
 
   conn UpperPools.KeystoneRoom:
     moki: Water OR DoubleJump OR Dash OR Glide OR Launch
+    gorlek: free
   conn UpperPools.BeforeKeystoneDoor: free
 
 # checkpoint at -1386, -4062
