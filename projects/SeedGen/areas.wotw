@@ -3970,7 +3970,7 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
         SentryJump=1, Dash
     unsafe:
       TripleJump, DoubleJump  # TripleJump frozen tongue climbing
-      LowerReach.HeatBaurFurnace, SentryJump=2, # Sentry Jump ramp on the left wall
+      LowerReach.HeatBaurFurnace, SentryJump=2  # Sentry Jump ramp on the left wall
       DoubleJump, Bash, Sword  # Gain height bashing a shot up and use sword to stall
 
   conn LowerReach.Entry: free
@@ -4088,7 +4088,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
         DoubleJump, Hammer  # use the plant up slash and directly wall jump on the left wall
         Dash, Glide, Hammer
     unsafe:
-      Bash, # unsafe because the checkpoint is actually on the slime so he wont spawn if you reload from this checkpoint
+      Bash  # unsafe because the checkpoint is actually on the slime so he wont spawn if you reload from this checkpoint
       DoubleJump, Sword  # Pogo on the slime
       LowerReach.CentralFurnace:
         Dash, Sword, Bash OR Hammer OR Spear=1
@@ -4554,7 +4554,7 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
       DoubleJump, Sentry=1, Glide, TripleJump OR Hammer  # sentry to light the lantern
       SentryJump=1, Sentry=1, Glide
       SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
-      DoubleJump, TripleJump, Sword OR Hammer, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
+      DoubleJump, TripleJump, SentryJump=1, Damage=20, Sword OR Hammer  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
       Launch, DoubleJump OR Dash OR Sword
     unsafe:
       DoubleJump, TripleJump, Damage=20, Sword OR Hammer OR Bash  # tjump + upslash/bash the gorlek to climb the right wall, tjump to the left spiky wall, iframe to wjump and tjump again to wjump from the wall just above and tjump again to the ice wall<
@@ -4612,8 +4612,8 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     gorlek:
       Bash, Grenade=2
       # Grenade=1, DoubleJump, OR Dash OR Glide OR Launch OR Sword OR Hammer  not sure which was the intent xD
-      Sentry=, Launch OR SentryJump=1
-      Sentry=, DoubleJump, TripleJump OR Hammer
+      Sentry=1, Launch OR SentryJump=1
+      Sentry=1, DoubleJump, TripleJump OR Hammer
     unsafe:
       Grenade=1, Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
   # could be considered moving this anchor to the left, closer to the teleporter, if it gets important on higher difficulties
@@ -4638,7 +4638,7 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
       Bash, Grenade=2
     gorlek:
       Bash, Grenade=2
-      Grenade=1, DoubleJump, OR Dash OR Glide OR Launch OR Sword OR Hammer
+      # Grenade=1, DoubleJump, OR Dash OR Glide OR Launch OR Sword OR Hammer  not sure which one was the intent :p
       Sentry=1, Launch OR SentryJump=1
       Sentry=1, DoubleJump, TripleJump OR Hammer
     unsafe:
@@ -4804,7 +4804,7 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
       Launch, DoubleJump OR Dash OR Sword OR Damage=20  # Pass the 3 first spinner, wall jump on the right wall, stall, launch into the ceiling, relaunch on the left wall
     unsafe, LowerReach.ArenaBeaten:
       Launch, Shuriken=1 OR Sentry=1 OR Spear=1 OR Flash=1  # Pass the 3 first spinner, wall jump on the right wall, stall, launch into the ceiling, relaunch on the left wall
-      DoubleJump, TripleJump, Damage=20, Dash OR Sword OR Hammer OR Shuriken=2 OR Sentry=2 OR Flash=2 OR Blaze=2 or Spear=2  # Climb the right wall, triple jump + stall to the left wall, return to the right before the 2nd spinner, climb  the left wall after the 3rd spinner, stall as much possible in the air, take a damage boost on the spike floor then go to the right wall. You can saty on the right wall and climb to the energy cristal with triple jump
+      DoubleJump, TripleJump, Damage=20, Dash OR Sword OR Hammer OR Shuriken=2 OR Sentry=2 OR Flash=2 OR Blaze=2 OR Spear=2  # Climb the right wall, triple jump + stall to the left wall, return to the right before the 2nd spinner, climb  the left wall after the 3rd spinner, stall as much possible in the air, take a damage boost on the spike floor then go to the right wall. You can saty on the right wall and climb to the energy cristal with triple jump
       Bash, Grenade=2, DoubleJump, TripleJump, Damage=20  # Same as above. 1st bash grenade to access directly to the left wall in the arena and second one just after the 3rd spinner
   # backwards path can't get through the door
 
@@ -5400,7 +5400,7 @@ anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of t
         DoubleJump, Damage=20, TripleJump OR Dash OR Glide OR Sword  # dboost in the spikes bellow the grapple plant and go directly to the breakable wall
       Launch, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=20
     unsafe:
-      Water, BreackWall=20, WaterDash OR Bash:
+      Water, BreakWall=20, WaterDash OR Bash:
         DoubleJump, Damage=20, Glide OR Sword
       Water, BreakWall=20, Grapple, WaterDash OR Bash:
         Sword OR Hammer  # Need an upslash but you can't refill it anywhere near
@@ -5953,7 +5953,7 @@ anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all t
     gorlek:  # The torpedo won't hit you if you are touching the breakable wall
       Water, Bash, Grenade=1
       Water, Launch
-      Water, SentryJump, Damage=20 OR DoubleJump OR Dash  # Dash/doulejump to cancel the sjump before the apex
+      Water, SentryJump=1, Damage=20 OR DoubleJump OR Dash  # Dash/doulejump to cancel the sjump before the apex
       Water, DoubleJump:
         TripleJump
         Dash, Hammer OR Damage=20
@@ -6022,7 +6022,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
 
   conn Teleporters: free
   conn KwolokFight:
-    moki: Water, WaterDoubleJump OR Dash OR Launch
+    moki: Water, DoubleJump OR Dash OR Launch
     gorlek: Water
   conn UpperPools.KeystoneRoom:
     moki:
