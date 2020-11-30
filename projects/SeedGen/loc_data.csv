@@ -238,7 +238,7 @@ WoodsMain.ShrineEX, Silent Woods, SpiritLight, 100, _petrifiedForestGroup, 58674
 WoodsMain.FeedingGroundsEX, Silent Woods, SpiritLight, 200, _petrifiedForestGroup, 58674, expOrb, 64484, 1464, -4008
 LowerReach.BelowBaurEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, smallXPOrbA, 55384, -401, -4053
 LowerReach.AboveBaurLowerEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, smallXPOrbB, 24533, -416, -3968
-LowerReach.AboveBaurUpperEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, , 3777, -439, -3946
+LowerReach.AboveBaurUpperEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, mediumExpOrb, 3777, -439, -3946
 LowerReach.IcefallOre, Baurs Reach, Resource, Ore, baursReachGroup, 28895, gorlekOreA, 58675, -483, -3974
 LowerReach.IcefallEX, Baurs Reach, SpiritLight, 200, baursReachGroup, 28895, largeXPOrbA, 45337, -500, -3970
 LowerReach.AboveDoorEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbA, 38143, -337, -3999
@@ -246,7 +246,7 @@ LowerReach.HiddenOre, Baurs Reach, Resource, Ore, baursReachGroup, 28895, orePla
 LowerReach.LupoMap, Baurs Reach, Shop, LupoZoneMap, npcsStateGroup, 48248, hasMapBaursReach, 29604, -275, -3996
 LowerReach.MeltIceEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbF, 4301, -350, -4039
 LowerReach.BurrowEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, xpOrbE, 45066, -331, -4051
-LowerReach.TPLeftEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, , 36231, -340, -3984
+LowerReach.TPLeftEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbC, 36231, -340, -3984
 LowerReach.BelowLupoEX, Baurs Reach, SpiritLight, 100, baursReachGroup, 28895, xpOrbB, 38049, -282, -4013
 LowerReach.BreakWallEX, Baurs Reach, SpiritLight, 200, hubUberStateGroup, 42178, mediumExpB, 40609, -194, -4043
 LowerReach.WindBottomEX, Baurs Reach, SpiritLight, 50, baursReachGroup, 28895, smallXPOrbB, 35045, -215, -4057

@@ -10,7 +10,18 @@ namespace RandoMainDLL {
     public static UberStateCondition toCond(this UberId id, int? target = null) => new UberStateCondition(id, target);
     public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
-    public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
+    public static Network.UberStateUpdateMessage MakeUpdateMsg(this UberId id, float value) => new Network.UberStateUpdateMessage {
+      State = new Network.UberId {
+        // wolf started it :D
+        Group = id.GroupID == 0 ? -1 : id.GroupID,
+        State = id.ID == 0 ? -1 : id.ID
+      },
+      Value = value == 0f ? -1f : value
+    };
+    public static UberId IdFromMsg(this Network.UberId n) => new UberId(n.Group == -1 ? 0 : n.Group, n.State == -1 ? 0 : n.State);
+    public static (UberId, float) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value == -1f ? 0f : n.Value);
+
+public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
 
   public static string FmtVal(this UberValue Value, UberStateType t) {
       switch (t) {

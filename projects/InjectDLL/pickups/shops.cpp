@@ -2,7 +2,7 @@
 #include <Common/ext.h>
 #include <csharp_bridge.h>
 #include <uber_states/uber_state_manager.h>
-
+#include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -14,10 +14,10 @@ using namespace modloader;
 
 namespace
 {
-    BINDING(9970752, bool, SeinCharacter_get_Active, (int64_t));
-    //SeinCharacter$$get_Active - Also used by stuff like IsActive, or get_IsShopOpen. It's a magical binding
-    BINDING(5047120, int64_t, WeaponmasterScreen_get_Instance, (int64_t)); //WeaponmasterScreen$$get_Instance
-    BINDING(10013424, bool, GameController_get_GameInTitleScreen, (app::GameController*)); //GameController$$get_GameInTitleScreen
+    IL2CPP_BINDING(, SeinCharacter, bool, get_Active, (app::SeinCharacter*));
+    IL2CPP_BINDING(, WeaponmasterScreen, app::WeaponmasterScreen*, get_Instance, ());
+    IL2CPP_BINDING(, GameController, bool, get_GameInTitleScreen, (app::GameController*));
+    IL2CPP_BINDING(, PurchaseThingScreen, bool, get_IsShopOpen, (app::PurchaseThingScreen*));
 
     bool weaponmaster_purchase_in_progress = false;
     const std::set<char> TWILLEN_SHARDS{ 1, 2, 3, 5, 19, 22, 26, 40 };
@@ -36,32 +36,30 @@ namespace
     bool is_in_shop_screen()
     {
         const auto gameController = get_game_controller();
-        if (!gameController || GameController_get_GameInTitleScreen(gameController))
+        if (!gameController || GameController::get_GameInTitleScreen(gameController))
             return false;
 
-        const auto weaponmasterScreen = WeaponmasterScreen_get_Instance(0);
-        if (weaponmasterScreen && SeinCharacter_get_Active(weaponmasterScreen))
+        const auto weaponmasterScreen = WeaponmasterScreen::get_Instance();
+        if (weaponmasterScreen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(weaponmasterScreen)))
             return true;
 
         auto* const shop_screen = il2cpp::get_class<app::SpiritShardsShopScreen__Class>("", "SpiritShardsShopScreen");
         const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
-        if (spiritShardsShopScreen && SeinCharacter_get_Active(reinterpret_cast<int64_t>(spiritShardsShopScreen)))
+        if (spiritShardsShopScreen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(spiritShardsShopScreen)))
             return true;
 
         auto* const mapmaker_screen_class = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen");
         auto* const mapmaker_screen = mapmaker_screen_class->static_fields->Instance;
-        if (mapmaker_screen && SeinCharacter_get_Active(reinterpret_cast<int64_t>(mapmaker_screen)))
+        if (mapmaker_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(mapmaker_screen)))
             return true;
 
         return false;
     };
     
-    
-
-    INTERCEPT(14054576, bool, canShardPurchase, (int64_t spiritShardShopScreen))
+    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, bool, CanPurchase, (app::SpiritShardsShopScreen* this_ptr))
     {
         //SpiritShardsShopScreen$$CanPurchase
-        const auto result = canShardPurchase(spiritShardShopScreen);
+        const auto result = SpiritShardsShopScreen::CanPurchase(this_ptr);
         return result;
     }
 
@@ -98,35 +96,35 @@ namespace
         );
     }
 
-    INTERCEPT(31416864, int64_t, enumDictGetValue, (int64_t dict, unsigned __int8 enumKey, int64_t impl))
+    INTERNAL_INTERCEPT(27145792, int64_t, enumDictGetValue, (int64_t dict, unsigned __int8 enumKey, int64_t impl))
     {
         //EnumDictionary<ENUMTYPE, VALUETYPE>$$GetValue
         const int64_t value = enumDictGetValue(dict, enumKey, impl);
 
         //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
         //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
-        if (impl == *reinterpret_cast<int64_t*>(intercept::resolve_rva(71639080)))
-            if (value)
-                initShardDescription(enumKey, value);
+        //update: something broke! It's been touched
+        //if (impl == *reinterpret_cast<int64_t*>(intercept::resolve_rva(74897664)))
+        if (value)
+            initShardDescription(enumKey, value);
 
         return value;
     }
 
-    INTERCEPT(17914496, int, getCostForLevel, (int64_t shardPointer, int level))
+    NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, int, GetCostForLevel, (app::PlayerUberStateShards_Shard* this_ptr, int level))
     {
-        //Moon.uberSerializationWisp.PlayerUberStateShards.Shard$$GetCostForLevel - For whenever we want random upgrade costs
-        return getCostForLevel(shardPointer, level);
+        // For whenever we want random upgrade costs
+        return PlayerUberStateShards::Shard::GetCostForLevel(this_ptr, level);
     }
 
-    INTERCEPT(17706592, bool, PlayerSpiritShards_HasShard, (int64_t spiritShards, unsigned __int8 shardType))
+    IL2CPP_INTERCEPT(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* this_ptr, app::SpiritShardType__Enum shardType))
     {
-        //PlayerSpiritShards$$HasShard
         if (is_in_shop_screen() && is_twillen_shard(shardType))
         {
             return csharp_bridge::twillen_bought_shard(static_cast<csharp_bridge::ShardType>(shardType));
             //TODO: @Eiko - Call C# using shardType, return true if the player has *purchased* the slot before
         }
-        return PlayerSpiritShards_HasShard(spiritShards, shardType);
+        return PlayerSpiritShards::HasShard(this_ptr, shardType);
     }
 
     int purchases = 0;
@@ -146,18 +144,16 @@ namespace
 
     bool purchasable(app::WeaponmasterItem* weaponmasterItem);
 
-    INTERCEPT(5043504, bool, WeaponmasterItem_get_IsOwned, (app::WeaponmasterItem* item))
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsOwned, (app::WeaponmasterItem* item))
     {
-        //WeaponmasterItem$$get_IsOwned
         if (is_in_shop_screen())
             return hasBeenPurchasedBefore(item);
 
-        return WeaponmasterItem_get_IsOwned(item);
+        return WeaponmasterItem::get_IsOwned(item);
     }
 
-    INTERCEPT(5046528, int, WeaponmasterItem_GetCostForLevel, (app::WeaponmasterItem* item, int level))
+    IL2CPP_INTERCEPT(, WeaponmasterItem, int, GetCostForLevel, (app::WeaponmasterItem* item, int level))
     {
-        //WeaponmasterItem$$GetCostForLevel
         if (is_in_shop_screen())
         {
             const auto acq = static_cast<int>(item->fields.Upgrade->fields.AcquiredAbilityType);
@@ -168,29 +164,27 @@ namespace
             return 300; // todo; maybe a bit smarter than this?
          }
 
-        return WeaponmasterItem_GetCostForLevel(item, level);
+        return WeaponmasterItem::GetCostForLevel(item, level);
     }
 
-    INTERCEPT(11448960, int64_t, SpellInventory_AddNewSpellToInventory, (int64_t inv, unsigned int equipmentType, bool add))
+    IL2CPP_INTERCEPT(, SpellInventory, app::PlayerUberStateInventory_InventoryItem*, AddNewSpellToInventory, (app::SpellInventory* this_ptr, unsigned int equipmentType, bool add))
     {
-        //SpellInventory$$AddNewSpellToInventory
         if (weaponmaster_purchase_in_progress)
-            return 0;
+            return NULL;
 
-        const int64_t result = SpellInventory_AddNewSpellToInventory(inv, equipmentType, add);
+        const auto result = SpellInventory::AddNewSpellToInventory(this_ptr, equipmentType, add);
         return result;
     }
 
-    INTERCEPT(27750528, void, SerializedByteUberState_SetValue, (app::SerializedByteUberState* this_ptr, uint8_t value))
+    IL2CPP_INTERCEPT(Moon, SerializedByteUberState, void, set_Value, (app::SerializedByteUberState* this_ptr, uint8_t value))
     {
-        //Moon.SerializedByteUberState$$set_Value
         if (weaponmaster_purchase_in_progress)
             return;
 
-        SerializedByteUberState_SetValue(this_ptr, value);
+        SerializedByteUberState::set_Value(this_ptr, value);
     }
 
-    INTERCEPT(5045152, void, WeaponmasterItem_DoPurchase, (app::WeaponmasterItem* item, int64_t context))
+    IL2CPP_INTERCEPT(, WeaponmasterItem, void, DoPurchase, (app::WeaponmasterItem* item, int64_t context))
     {
         //Weaponmasteritem$$DoPurchase
         //Do the rando purchase /after/ rollback, eiko ;3
@@ -215,33 +209,34 @@ namespace
             }
         }
 
-        WeaponmasterItem_DoPurchase(item, context);
+        WeaponmasterItem::DoPurchase(item, context);
         weaponmaster_purchase_in_progress = false;
     }
 
     //MapmakerScreen* mapMakerPtr = nullptr;
     //bool pretendHandToHandNotCompleted = false;
 
-    INTERCEPT(6951632, int32_t, MapmakerItem__GetCost, (app::MapmakerItem* this_ptr))
+    IL2CPP_INTERCEPT(, MapmakerItem, int32_t, GetCost, (app::MapmakerItem* this_ptr))
     {
         return csharp_bridge::lupo_upgrade_cost(this_ptr->fields.UberState->fields._.m_id->fields.m_id);
     }
 
     bool prevent_map_safeguard = false;
 
-    INTERCEPT(6954992, void, MapmakerScreen__Show, (app::MapmakerScreen* this_ptr))
+    IL2CPP_INTERCEPT(, MapmakerScreen, void, Show, (app::MapmakerScreen* this_ptr))
     {
         prevent_map_safeguard = true;
-        MapmakerScreen__Show(this_ptr);
+        csharp_bridge::update_shop_data();
+        MapmakerScreen::Show(this_ptr);
         prevent_map_safeguard = false;
     }
 
-    INTERCEPT(27748336, bool, Moon_SerializedBooleanUberState__get_Value, (app::SerializedBooleanUberState* this_ptr))
+    IL2CPP_INTERCEPT(Moon, SerializedBooleanUberState, bool, get_Value, (app::SerializedBooleanUberState* this_ptr))
     {
         if (prevent_map_safeguard && this_ptr->fields._.m_id->fields.m_id == 35534)
             return false;
 
-        return Moon_SerializedBooleanUberState__get_Value(this_ptr);
+        return SerializedBooleanUberState::get_Value(this_ptr);
     }
 
     constexpr float NORMAL_PURCHASE_TIME = 0.4f;
@@ -500,6 +495,10 @@ namespace
     app::PlayerUberStateShards_Shard* selected_shard;
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen* this_ptr))
     {
+        if (this_ptr == 0) {
+            info("shards", "pointer was 0??");
+            return;
+        }
         overwrite_shard_text = true;
         selected_shard = get_SelectedSpiritShard(this_ptr);
         UpdateContextCanvasShards(this_ptr);
@@ -627,12 +626,6 @@ namespace
     {
         csharp_bridge::update_shop_data();
         ShopkeeperScreen::Show(this_ptr);
-    }
-
-    IL2CPP_INTERCEPT(, MapmakerScreen, void, Show, (app::MapmakerScreen* this_ptr))
-    {
-        csharp_bridge::update_shop_data();
-        MapmakerScreen::Show(this_ptr);
     }
 
     void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy)

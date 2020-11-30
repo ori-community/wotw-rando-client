@@ -77,12 +77,17 @@ class PlayersComponent : RComponent<GameIdProps, TeamListState>() {
                                 backgroundColor = Color.white
                                 color = Color.black
                             }
-                            +"${it.leader.name}'s team "
+
+                            if(it.members.isEmpty())
+                                +it.leader.name
+                            else
+                                +"${it.name} (${it.leader.name}, ${it.members.joinToString(", ", transform = {it.name})})"
+
                             if(state.user != it.leader.id)
                             child(JoinTeamComponent::class) {
                                 attrs {
                                     gameId = props.gameId
-                                    playerId = it.leader.id
+                                    teamId = it.id
                                     afterJoin = { componentDidMount() }
                                 }
                             }
@@ -152,7 +157,7 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
                             color = Color.black
                             fontWeight = if (it.playerId == state.highlighted) FontWeight.bold else FontWeight.normal
                         }
-                        +"${it.name} ${it.score}"
+                        +"${it.name} | ${it.score}"
                         attrs.onClickFunction = { _ ->
                             setState {
                                 highlighted = it.playerId
@@ -192,7 +197,7 @@ external interface JoinGameProps : GameIdProps {
 
 external interface JoinTeamProps : GameIdProps {
     var afterJoin: () -> Unit
-    var playerId: Long
+    var teamId: Long
 }
 
 class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
@@ -202,7 +207,7 @@ class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
             attrs {
                 onClickFunction = {
                     GlobalScope.launch {
-                        val response = Application.api.post<HttpResponse>(path = "/games/${props.gameId}/teams/${props.playerId}}")
+                        val response = Application.api.post<HttpResponse>(path = "games/${props.gameId}/teams/${props.teamId}")
                         if (response.status == HttpStatusCode.OK || response.status == HttpStatusCode.Created || response.status == HttpStatusCode.Companion.Conflict) {
                             props.afterJoin()
                         } else {

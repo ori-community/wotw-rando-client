@@ -37,6 +37,16 @@ fun generatePool() = mutableListOf(
         pickupsIn.wastes,
         pickupsIn.willow
     ),
+    bool("Drop the rock next to Baur", 28895, 49329),
+    group(
+        "Complete # Fight Room[s]",
+        bool("Ridge Elevator Ride", 36153, 23584),
+        bool("Reach Escape Access", 28895, 42209),
+        bool("Marsh Cave Lizard Door", 21786, 35598),
+        bool("Marsh Burrow Area Gauntlet", 9593, 59418),
+        threshold("Double Jump Tree Approach", 9593, 25130, 3, hideValue=true),
+        threshold("Wellspring Wheel Room Access", 37858, 8487, 2, hideValue=true),
+        ),
     group(
         "Buy # Weapon Upgrade[s]",
         bool("Exploding Spike", 1, 1074),
@@ -250,7 +260,7 @@ fun generatePool() = mutableListOf(
         bool("UpperDepths.RightHealthKS", 18793, 23986),
         bool("UpperWastes.LowerKS", 7228, 20282),
         bool("UpperWastes.UpperKS", 7228, 62117),
-        countGoal = { it.nextTriangular(6, 30, 12)},
+        countGoal = { it.nextTriangular(6, 30, 10)},
         maxRepeats = 1,
         subsetGoal = false
     ),
@@ -398,13 +408,20 @@ fun generatePool() = mutableListOf(
         bool("Lower Depths Swim EC", 18793,  28175),
         bool("Wastes Sand Puzzle Shard", 23987, 50364),
         bool("Reach Hut Seed", 14019, 32376),
-        bool("Woods Combat Shrine Shard", 23987, 25183),
+        bool("Woods Race End Shard", 23987, 25183),
         bool("Above East Pools TP HC",5377, 63201),
         bool("Wellspring Escape Revisit EX", 37858, 56444),
         bool("Glades Burrow Swim HC", 44310, 17523),
         bool("Above Depths Entry EX", 18793, 42980),
         bool("Wellspring Wheel Room Ore", 37858, 47533),
         bool("Burrows Tablet", 14019, 52747 )
+    ),
+    oneof(
+        threshold("Trade for some Soup", 14019, 26318, 4, hideValue = true),
+        threshold("Trade for a Comfy Hat", 14019, 26318, 5, hideValue = true),
+        threshold("Trade for a Lantern", 14019, 26318, 6, hideValue = true),
+        threshold("Trade for some Silk", 14019, 26318, 7, hideValue = true),
+        threshold("Trade for a Spyglass (pools)", 14019, 26318, 8, hideValue = true),
     ),
     threshold("Collect Items", 6, 2, triag(40, 240, 100)),
     threshold("Collect Keystones", 6, 0, triag(4, 24, 10)),

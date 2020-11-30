@@ -14,12 +14,12 @@ namespace
 }
 
 // 0x1105510
-INTERNAL_INTERCEPT(0x1105510, bool, Matches, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
+INTERNAL_INTERCEPT(0xf31a30, bool, PlayerStateMap_Matches_Helper, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
     // Return if we have ability, state_map->m_matchType inverts result.
     if (is_tree(state_map->m_ability))
         return csharp_bridge::is_tree_activated(state_map->m_ability) ^ (state_map->m_matchType != 0);
     else
-        return Matches(state_map, uberState);
+        return PlayerStateMap_Matches_Helper(state_map, uberState);
 }
 
 /*NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerStateMap, Mapping, bool, Matches, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {

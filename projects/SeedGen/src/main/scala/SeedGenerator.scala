@@ -376,7 +376,7 @@ package SeedGenerator {
         SpawnLoc("MarshSpawn.Main", 0, Teleporter(16)),
         SpawnLoc("GladesTown.Teleporter", 3, Teleporter(17), safe = true),
       )
-      def valid: Seq[SpawnLoc] = Settings.unsafePaths ? all ?? all.filter(_.safe)
+      def valid: Seq[SpawnLoc] = (Settings.unsafePaths || Settings.gorlekPaths) ? all ?? all.filter(_.safe)
       def byName: Map[String, SpawnLoc] = all.map(a => a.areaName -> a).toMap
       def default: SpawnLoc = SpawnLoc("MarshSpawn.Main", 0, Teleporter(17))
     }

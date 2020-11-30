@@ -39,6 +39,7 @@ package SeedGenerator {
                        questLocs: Boolean = true,
                        outputFolder: String = "C:\\moon",
                        flags: Flags = Flags(),
+                       webConn: Boolean = false,
                        bonusItems: Boolean = true,
                        debugInfo: Boolean = false,
                        seirLaunch: Boolean = false,
