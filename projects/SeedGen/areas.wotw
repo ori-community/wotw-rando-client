@@ -3492,6 +3492,7 @@ anchor WoodsShrine:
 
 region LowerReach:
   moki: Damage=40, Regenerate
+  gorlek: Damage=20
   unsafe: free
 
 anchor LowerReach.Entry at -390, -4025:  # Behind Baur
@@ -3516,19 +3517,22 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
       Bash #bash the enemy into the air first, may have to use the purple one
       SentryJump=1
     unsafe, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
-       DoubleJump, TripleJump, Dash # you only get one shot at it else you have to come back down from Baur
        Grenade=1 #GrenadeJump=1
+       # you only get one shot at these else you have to come back down from Baur
+       Dash, DoubleJump, TripleJump OR Shuriken=1 OR Flash=1 OR Spear=1 OR Sentry=1 OR Blaze=1 #A single activation of flash
+       DoubleJump, TripleJump, Sword OR Hammer OR Flash=1 OR Sentry=1 OR Shuriken=1
 
   conn LowerReach.AboveEntry:
     moki:
       DoubleJump, Launch  # Can't rely on the sleeping bear to be there
-      Bash, DoubleJump OR Launch
-      Bash, Grenade=1
+      Bash, DoubleJump OR Launch OR Dash OR Grenade=1
     gorlek:
       Launch # a little tight but totally doable. Jump up before launching.
+      Bash, Sword OR Glide OR Hammer OR SentryJump=1 #There is a safe spot at the left of the spike before the first lantern
+      SentryJump=1, DoubleJump
     unsafe:
+      SentryJump=1
       Bash # can be done damageless, but damage is likely. Keep jumping at the right wall until you go over it and bash the first latern at just the right angle to reach the second
-      # using sword/hammer makes getting to the second latern easier, sticky helps with the initial wall jump.
       
   conn WestGlades.Upper:
     moki: LowerReach.BearSneezed
