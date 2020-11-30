@@ -1259,7 +1259,7 @@ anchor WestHollow.TrialApproach at -155, -4298:  # after getting past the beetle
 anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
   refill Checkpoint
   refill Energy=3:
-    moki: 
+    moki:
       Weapon
       Bow=1
 
@@ -3850,52 +3850,46 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
       Grenade=1  # this makes grenadebash paths meaningless
       Flap, Bash, DoubleJump OR Launch
     gorlek:
-      Flap, Bash, Dash OR Sword OR Hammer OR Glide # Walljump on the left wall to reach the frozen waterfall
+      Flap, Bash, Dash OR Glide OR Sword OR Hammer  # Walljump on the left wall to reach the frozen waterfall
   state UpperReach.CoolFurnace:  # need this because the player might have to refreeze the waterfall
     moki: Flap
 
   pickup UpperReach.LifeForceShard:
-    moki:
-      Bash, Grenade=1, Burrow, DoubleJump, Dash  # Just one of djump / dash is maybe too precise for moki
-      Bash, Grenade=1, Burrow, Glide
-      Burrow, Launch
+    moki, Burrow:
+      Bash, Grenade=1, DoubleJump, Dash  # Just one of djump / dash is maybe too precise for moki
+      Bash, Grenade=1, Glide
+      Launch
     gorlek, Burrow:
-      LowerReach.CentralFurnace, DoubleJump, Dash: #Bait the plant enemy, djump from it when it's close and dash
-        Bash OR SentryJump=1 OR TripleJump OR Damage=20 #sjump from bellow LifeForceEX to reach its platform then djump+dash to reach the burrow section at your right / tjump+dash to reach the wall after the bashable plant, reach the burrow section from it. djump+dash+damage boost to get to that same wall
-      DoubleJump, Sword OR Hammer:
-        Bash OR Dash OR Glide OR TripleJump OR Damage=20
-      DoubleJump, TripleJump:
-        Bash OR Dash OR Glide OR Damage=20
-      Bash: #Bash the squonkey
-        Glide OR Sword #sword combo to get under the 3rd burrow section, upslash to get above the spikes and get bellow LifeForceEX
-        DoubleJump, TripleJump OR Damage=20
-        Grenade=1, DoubleJump OR Dash OR Hammer #from under LifeForceEX, launch a grenade, burrow to reach it at its highest point then dash/hammer/sword/glide/djump to reach the platform near the spikes
-      SentryJump=2 #From LifeForceEX, sword combo to reach the edge of the platform near the spikes.
+      DoubleJump, Sword, TripleJump OR Dash OR Bash OR Glide OR Damage=20
+      DoubleJump, Hammer, TripleJump OR Dash OR Bash OR Glide OR Damage=20
+      DoubleJump, TripleJump, Dash OR Bash OR Glide OR Damage=20
+      Bash, Glide OR Sword  # sword combo to get under the 3rd burrow section, upslash to get above the spikes and get bellow LifeForceEX
+      Bash, DoubleJump, TripleJump OR Damage=20
+      Bash, Grenade=1, DoubleJump OR Dash OR Hammer  # from under LifeForceEX, launch a grenade, burrow to reach it at its highest point then dash/hammer/sword/glide/djump to reach the platform near the spikes
+      SentryJump=2  # From LifeForceEX, sword combo to reach the edge of the platform near the spikes.
       SentryJump=1, Glide OR Damage=20
-    unsafe:
-      Burrow, DoubleJump, TripleJump OR Hammer #From under LifeForceEX, get out of the burrow section straight up. Hard to do on keyboard
-      Burrow, SentryJump=1, Dash #Need a precise angle to exit the burrow section under LifeForceEX
+      LowerReach.CentralFurnace, DoubleJump, Dash, TripleJump OR Bash OR SentryJump=1 OR Damage=20  # sjump from bellow LifeForceEX to reach its platform then djump+dash to reach the burrow section at your right / tjump+dash to reach the wall after the bashable plant, reach the burrow section from it. djump+dash+damage boost to get to that same wall
+    unsafe, Burrow:
+      DoubleJump, TripleJump OR Hammer  # From under LifeForceEX, get out of the burrow section straight up. Hard to do on keyboard
+      SentryJump=1, Dash  # Need a precise angle to exit the burrow section under LifeForceEX
   pickup UpperReach.LifeForceEX:
-    moki:
-      Bash, Grenade=1, Burrow, DoubleJump, Dash
-      Bash, Grenade=1, Burrow, Glide
-      Burrow, Launch
+    moki, Burrow:
+      Bash, Grenade=1, DoubleJump, Dash
+      Bash, Grenade=1, Glide
+      Launch
     gorlek, Burrow:
-      LowerReach.CentralFurnace, DoubleJump, Dash: #Bait the plant enemy, djump from it when it's close and dash
-        Bash OR SentryJump=1 OR TripleJump OR Damage=20 #sjump from bellow LifeForceEX to reach its platform / tjump+dash to reach the wall after the bashable plant, reach the burrow section from it. djump+dash+damage boost to get to that same wall
-      DoubleJump, Sword OR Hammer:
-        Bash OR Dash OR Glide OR TripleJump OR Damage=20
-      DoubleJump, TripleJump:
-        Bash OR Dash OR Glide OR Damage=20
-      Bash: #Bash the squonkey
-        Glide OR Sword #sword combo to get under the 3rd burrow section, upslash to get above the spikes and get bellow LifeForceEX
-        DoubleJump, TripleJump OR Damage=20
-        Grenade=1 #from under LifeForceEX, launch a grenade, burrow to reach it at its highest point
-      SentryJump=2 #From LifeForceEX, sword combo to reach the edge of the platform near the spikes.
+      DoubleJump, Sword, TripleJump OR Dash OR Bash OR Glide OR Damage=20
+      DoubleJump, Hammer, TripleJump OR Dash OR Bash OR Glide OR Damage=20
+      DoubleJump, TripleJump, Dash OR Bash OR Glide OR Damage=20
+      Bash, Glide OR Sword  # sword combo to get under the 3rd burrow section, upslash to get above the spikes and get bellow LifeForceEX
+      Bash, DoubleJump, TripleJump OR Damage=20
+      Bash, Grenade=1  # from under LifeForceEX, launch a grenade, burrow to reach it at its highest point
+      SentryJump=2  # From LifeForceEX, sword combo to reach the edge of the platform near the spikes.
       SentryJump=1, Glide OR Damage=20
-    unsafe:
-      Burrow, DoubleJump, TripleJump OR Hammer #From under LifeForceEX, get out of the burrow section straight up. Hard to do on keyboard
-      Burrow, SentryJump=1, Dash #Need a precise angle to exit the burrow section under LifeForceEX
+      LowerReach.CentralFurnace, DoubleJump, Dash, TripleJump OR Bash OR SentryJump=1 OR Damage=20  # sjump from bellow LifeForceEX to reach its platform / tjump+dash to reach the wall after the bashable plant, reach the burrow section from it. djump+dash+damage boost to get to that same wall
+    unsafe, Burrow:
+      DoubleJump, TripleJump OR Hammer  # From under LifeForceEX, get out of the burrow section straight up. Hard to do on keyboard
+      SentryJump=1, Dash  # Need a precise angle to exit the burrow section under LifeForceEX
   pickup UpperReach.LowerKS:
     moki:
       Launch
@@ -3903,17 +3897,17 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
         DoubleJump
         Bash, Grenade=1
     gorlek:
-      Bash, DoubleJump, Grenade=1 OR Flap #grenade bash from bellow the pickup or use the soup
-      DoubleJump, SentryJump=1 OR TripleJump #SentryJump from bellow / triple jump from the soup 
-      Doubjump, Dash, Sword OR Hammer #from the the soup, stick to the wall then djump+upslash+dash
+      Bash, DoubleJump, Grenade=1 OR Flap  # grenade bash from bellow the pickup or use the soup
+      DoubleJump, TripleJump OR SentryJump=1  # SentryJump from bellow / triple jump from the soup
+      DoubleJump, Dash, Sword OR Hammer  # from the the soup, stick to the wall then djump+upslash+dash
       UpperReach.HeatFurnace:
         SentryJump=1
-        WaterDash, Water Or Damage=20
-        Dash, Sword Or Hammer OR Bash #Upslash then dash / bash the gorlek then dash
-        Bash, Glide Or Sword OR Hammer #Bash the gorlek then air stall
+        WaterDash, Water OR Damage=20
+        Dash, Bash OR Sword OR Hammer  # Upslash then dash / bash the gorlek then dash
+        Bash, Glide OR Sword OR Hammer  # Bash the gorlek then air stall
     unsafe:
-      UpperReach.HeatFurnace, Hammer #Stupidly precise upslash
       DoubleJump, Sword OR Hammer
+      UpperReach.HeatFurnace, Hammer  # Stupidly precise upslash
   pickup UpperReach.MiddleLeftKS:
     moki:
       Launch, DoubleJump OR Dash OR Glide
@@ -3922,21 +3916,20 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
         Dash, Bash, Grenade=1, Glide
     gorlek:
       Launch
-      UpperReach.HeatFurnace, Bash:
-        Glide, Damage=20 OR Sword OR Hammer #bash the gorlek then glide, dboost/upslash in the spikes near the the pickup
-        Grapple:
-          Hammer OR Sword OR Dash #Bash the gorlek to reach the plant
-          WaterDash, Water, Damage=20 #dboost in the spikes near the pickup
-    unsafe:
-      UpperReach.CoolFurnace, SentryJump=1, Damage=20 # Walljump on the left wall to reach the frozen waterfall, at the soup dboost on the spikes bellow the pickup then sjump
       UpperReach.HeatFurnace:
-        Damage=20: #Reach the soup then same as above
-          SentryJump=2
-          SentryJump=1, DoubleJump OR Grapple
-          SentryJump=1, Bash, Grenade=1
+        Bash, Glide, Damage=20 OR Sword OR Hammer  # bash the gorlek then glide, dboost/upslash in the spikes near the the pickup
+        Bash, Grapple, Dash OR Sword OR Hammer  # Bash the gorlek to reach the plant
+        Bash, Grapple, WaterDash, Water, Damage=20  # dboost in the spikes near the pickup
+    unsafe:
+      UpperReach.CoolFurnace:
+        SentryJump=1, Damage=20  #  Walljump on the left wall to reach the frozen waterfall, at the soup dboost on the spikes bellow the pickup then sjump
+        Bash, Glide  # Juggle the projetile until the ennemy shot a new one. When they do, bash upwards and juggle with the new projectile
+      UpperReach.HeatFurnace:
+        Damage=20, SentryJump=2
+        Damage=20, SentryJump=1, DoubleJump OR Grapple
+        Damage=20, SentryJump=1, Bash, Grenade=1
         Glide, Bash
-      Bash, Glide, UpperReach.CoolFurnace #Juggle the projetile until the ennemy shot a new one. When they do, bash upwards and juggle with the new projectile
-      UpperReach.HeatFurnace, Bash, WaterDash, Grapple, Water OR Damage=20 # bash glide the last projectile to avoid a damage boost in the spikes just before the pickup
+        Bash, WaterDash, Grapple, Water OR Damage=20  #  bash glide the last projectile to avoid a damage boost in the spikes just before the pickup
   pickup UpperReach.UpperKS:
     moki:
       DoubleJump, Bash, Grenade=1  # go past the hidden ore
@@ -3946,18 +3939,16 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
         DoubleJump, Bash, Grapple  # grenadebash at the waterfall would be redundant with the path going past the hidden ore that doesn't rely on furnace state
         DoubleJump, Bash, Glide  # using the tongue plant
     gorlek:
-      DoubleJump, SentryJump=1, Damage=20 #djump from the soup to reach the branch, dboost in the spike at the right of the enemy and sjump from here
-      Bash:
-        Grenade=1 #Launch grenade, bash the gorlek to reach the grenade and pass through the hidden area bellow the soup 
-        UpperReach.CoolFurnace:
-          Sword OR Dash OR DoubleJump OR Hammer
-        UpperReach.HeatFurnace:
-          Grapple, Sword OR Dash OR Hammer
-          DoubleJump, TripleJump OR Sword OR Dash OR Hammer
-          WaterDash, DoubleJump, Water OR Damage=20
-    unsafe:
-      UpperReach.HeatFurnace, Bash, WaterDash, Hammer OR Sword: #water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy cristal
-        Water OR Damage=20
+      DoubleJump, SentryJump=1, Damage=20  # djump from the soup to reach the branch, dboost in the spike at the right of the enemy and sjump from here
+      Bash, Grenade=1  # Launch grenade, bash the gorlek to reach the grenade and pass through the hidden area bellow the soup
+      UpperReach.CoolFurnace, Bash, DoubleJump OR Dash OR Sword OR Hammer
+      UpperReach.HeatFurnace:
+        Bash, Grapple, Dash OR Sword OR Hammer
+        Bash, DoubleJump, TripleJump OR Dash OR Sword OR Hammer
+        Bash, WaterDash, DoubleJump, Water OR Damage=20
+    unsafe, UpperReach.HeatFurnace:
+      Bash, WaterDash, Sword, Water OR Damage=20  # water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy cristal
+      Bash, WaterDash, Hammer, Water OR Damage=20  # water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy cristal
   pickup UpperReach.MiddleRightKS:
     moki, UpperReach.HeatFurnace:
       Bash, Glide, DoubleJump OR Grenade=1  # use the tongue plant
@@ -3968,23 +3959,20 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
       Water, Bash, Grenade=2  # still bashgrenade at waterfall
       Launch
     gorlek, UpperReach.HeatFurnace:
-      SentryJump=1, DoubleJump OR Bash OR Damage =20 #with dboost, upslash from the soup to reach the spikes, jump to get the pickup / djump+upslash to grab the pole
-      SentryJump=2 #2nd sjump to reach the pole
-      DoubleJump:
-        TripleJump OR Sword Or Hammer OR Dash OR Grapple
-        WaterDash, Water OR Damage=20
-      Grapple, Dash, Bash OR DoubleJump OR Hammer
-      Bash, Grenade=1 #grenade, bash the gorlek to reach the grenade and go through the hidden area bellow the soup
+      SentryJump=1, DoubleJump OR Bash OR Damage=20  # with dboost, upslash from the soup to reach the spikes, jump to get the pickup / djump+upslash to grab the pole
+      SentryJump=2  # 2nd sjump to reach the pole
+      DoubleJump, TripleJump OR Dash OR Grapple OR Sword OR Hammer
+      DoubleJump, WaterDash, Water OR Damage=20
+      Grapple, Dash, DoubleJump OR Bash OR Hammer
+      Bash, Grenade=1  # grenade, bash the gorlek to reach the grenade and go through the hidden area bellow the soup
     unsafe, UpperReach.HeatFurnace:
-      Grapple, Dash:
-        Damage=20
-        Sword, Damage=10 # upslash+dash in the icy part of the pole
-      Grapple, Hammer, Bash OR Damage=20 #upslash just after jumping from the plant to reach the right wall
-      DoubleJump, Glide #the doublejump+glide to catch the wall above the floating platform is precise
-      WaterDash, Hammer, Water OR Damage=20 #water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy cristal
-      WaterDash, Sword:
-        Bash, Water OR Damage=20
-        Water, Dash, Damage=10 # upslash+dash in the icy part of the pole
+      Grapple, Dash, Damage=20
+      Grapple, Dash, Sword, Damage=10  # upslash+dash in the icy part of the pole
+      Grapple, Hammer, Bash OR Damage=20  # upslash just after jumping from the plant to reach the right wall
+      DoubleJump, Glide  # the doublejump+glide to catch the wall above the floating platform is precise
+      WaterDash, Hammer, Water OR Damage=20  # water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy cristal
+      WaterDash, Sword, Bash, Water OR Damage=20
+      Water, WaterDash, Sword, Dash, Damage=10  # upslash+dash in the icy part of the pole
   pickup UpperReach.SoupOre:
     moki:
       DoubleJump, Bash, Grenade=1
@@ -4000,20 +3988,17 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
         Water, Bash, Grenade=2  # still bashgrenade at waterfall
     gorlek:
       DoubleJump, TripleJump
+      Bash, Grenade=1  # grenade, bash the gorlek to reach the grenade and go through the hidden area bellow the soup
+      UpperReach.CoolFurnace, Dash OR Glide OR Sword OR Hammer
       UpperReach.HeatFurnace:
         SentryJump=1
-        DoubleJump:
-          Sword Or Hammer OR Dash OR Grapple
-          WaterDash, Water OR Damage=20
-        Grapple:
-          Dash OR Sword OR Hammer #with hammer, grapple from the floating platform to avoid the water 
-      UpperReach.CoolFurnace, Dash OR Sword OR Hammer OR Glide
-      Bash, Grenade=1 #grenade, bash the gorlek to reach the grenade and go through the hidden area bellow the soup
-    unsafe:
-      UpperReach.HeatFurnace, DoubleJump, Glide #the doublejump+glide to catch the wall above the floating platform is precise
-      UpperReach.HeatFurnace, WaterDash:
-        Water OR Damage=20:
-          Sword OR Hammer #water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy cristal
+        DoubleJump, Dash OR Grapple OR Sword OR Hammer
+        DoubleJump, WaterDash, Water OR Damage=20
+        Grapple, Dash OR Sword OR Hammer  # with hammer, grapple from the floating platform to avoid the water
+    unsafe, UpperReach.HeatFurnace:
+      DoubleJump, Glide  # the doublejump+glide to catch the wall above the floating platform is precise
+      WaterDash, Sword, Water OR Damage=20  # water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy crystal
+      WaterDash, Hammer, Water OR Damage=20  # water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy crystal
   pickup UpperReach.SwingPoleEX:
     moki:
       DoubleJump, Bash, Grenade=1
@@ -4029,22 +4014,21 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
         Water, Bash, Grenade=2  # still bashgrenade at waterfall
     gorlek:
       DoubleJump, TripleJump
+      Bash, Grenade=1  # grenade, bash the gorlek to reach the grenade and go through the hidden area bellow the soup
+      UpperReach.CoolFurnace, Dash OR Glide OR Sword OR Hammer
       UpperReach.HeatFurnace:
-        DoubleJump:
-          Sword Or Hammer OR Dash OR Grapple
-          WaterDash, Water OR Damage=20 #dboost in water to waterdash
-        Grapple, Bash OR SentryJump=1:
-          Dash OR Sword
+        DoubleJump, Dash OR Grapple OR Sword OR Hammer
+        DoubleJump, WaterDash, Water OR Damage=20  # dboost in water to waterdash
+        Grapple, Dash, Bash OR SentryJump=1
+        Grapple, Sword, Bash OR SentryJump=1
         SentryJump=2
         SentryJump=1, Bash
-      UpperReach.CoolFurnace, Dash OR Sword OR Hammer OR Glide
-      Bash, Grenade=1 #grenade, bash the gorlek to reach the grenade and go through the hidden area bellow the soup
-    unsafe:
-      UpperReach.HeatFurnace, Grapple, Hammer
-      UpperReach.HeatFurnace, DoubleJump, Glide
+    unsafe, UpperReach.HeatFurnace:
+      Grapple, Hammer
+      DoubleJump, Glide
   pickup UpperReach.SwimEX:
     moki: UpperReach.HeatFurnace, Water, Combat=ShieldMiner OR DoubleJump OR Bash OR Launch
-    gorlek: UpperReach.HeatFurnace, Water #You can trigger the plant from the left if you stick to it from bellow
+    gorlek: UpperReach.HeatFurnace, Water  # You can trigger the plant from the left if you stick to it from bellow
 
   conn UpperReach.OutsideTreeRoom:
     moki, UpperReach.HeatFurnace:
@@ -4077,12 +4061,12 @@ anchor UpperReach.OutsideTreeRoom at -169, -3911:  # In front of the keystone do
       Dash, Bash, Grenade=1, Glide
       Launch, DoubleJump OR Dash OR Glide
     gorlek, UpperReach.KeystoneDoor:
-      Bash, Grenade=1, DoubleJump Or Dash OR Glide OR Sword
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword
       SentryJump=1, DoubleJump OR Dash OR Glide
       Launch, Sword OR Hammer
     unsafe, UpperReach.KeystoneDoor:
-      Launch #Need a really precise launch boost from the branch at the top of the room (launch against the wall behind the door to access it)
-  conn UpperReach.KeystoneRoom: #@Validator I added this path
+      Launch  # Need a really precise launch boost from the branch at the top of the room (launch against the wall behind the door to access it)
+  conn UpperReach.KeystoneRoom:  # @Validator I added this path
     gorlek, UpperReach.HeatFurnace:
       Water OR DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=20
       Bash, Grenade=1
@@ -4099,7 +4083,7 @@ anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
 
   quest UpperReach.SpringSeed:
     moki: Grenade=1
-    gorlek: Sentry=1 #Use sentry to light the lantern
+    gorlek: Sentry=1  # Use sentry to light the lantern
 
   pickup UpperReach.LightBurstTree:
     moki: free
@@ -4107,26 +4091,14 @@ anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
     moki: free
   pickup UpperReach.HiddenEX:
     moki: Grenade=1
-    gorlek: Sentry=1 #Use sentry to melt the ice
-  pickup UpperReach.TreeOre: #@Validator I added this path
+    gorlek: Sentry=1  # Use sentry to melt the ice
+  pickup UpperReach.TreeOre:  # @Validator I added this path
     gorlek:
-      DoubleJump, TripleJump, Glide OR Sword #Climb the right wall then triplejump + glide (or sword combo + upslash)
+      DoubleJump, TripleJump, Glide OR Sword  # Climb the right wall then triplejump + glide (or sword combo + upslash)
       Launch, DoubleJump OR Dash OR Glide OR Sword OR Hammer
       DoubleJump, TripleJump, Bash, Grenade=1
       Launch, Bash, Grenade=1
   # backwards connection can't get through the Icefall
-  conn UpperReach.OutsideTreeRoom: #@Validator I added this path
-    gorlek, UpperReach.KeystoneDoor:
-      DoubleJump, TripleJump:
-        Glide OR Sword #Climb the left wall, land near UpperReach.TreeOre and triple jump + air stall again 
-        Bash, Grenade=1
-      Launch
-      Bash, Grenade=3 #2 grenades to melt the ice + another to bash grenade
-      SentryJump=1:
-        Grenade=2 #melt the ice then sjump
-        Sentry=1, Grenade=1 #melt te first ice with sentry, the second one with grenade
-        Sentry=2 #melt the first ice with sentry, sjump on the left of the trunk, melt the second ice with a sentry and keep wall jumping while the sentry is melting the ice to avoid a seoncd sjump
-      SentryJump=2, Sentry=1 #melt the first wall with sentry, sjump to place a sentry bellow the second ice to melt it 
 
 anchor LowerReach.SecondSoup at -316, -4037:  # Next to the soup below the teleporter
   state LowerReach.CentralFurnace:
