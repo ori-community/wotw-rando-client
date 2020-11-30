@@ -2135,9 +2135,9 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Bash, DoubleJump OR Dash OR Grenade=1
       Bash, WaterDash, Damage=20
       Bash, SentryJump=1, Glide
-      SentryJump=1, Combat=Spitter, DoubleJump OR Dash OR Water
-      SentryJump=1, Combat=Spitter, WaterDash, Damage=20
-      SentryJump=2, Glide, Combat=Spitter
+      SentryJump=1, Combat=Tentacle, DoubleJump OR Dash OR Water
+      SentryJump=1, Combat=Tentacle, WaterDash, Damage=20
+      SentryJump=2, Glide, Combat=Tentacle
     unsafe:
       SentryJump=1, Sword, Damage=20  # defeating the enemy. Should replace with Combat= once applicable
       # DiveLaunch, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Flap OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
@@ -2147,22 +2147,22 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
     moki: Water
   pickup WestGlades.LeftOre:
     moki:
-      Combat=Spitter, Grapple, DoubleJump, Dash OR Glide
+      Combat=Tentacle, Grapple, DoubleJump, Dash OR Glide
       Bash, Grapple, DoubleJump, Dash OR Glide
       Grapple, Launch
       Water, Grapple, DoubleJump
       Water, Grapple, WaterDash, Dash OR Glide
     gorlek:
-      DoubleJump, Grapple, Bash OR Damage=10 OR Combat=Spitter
-      Dash, Grapple, Bash OR Damage=10 OR Combat=Spitter
+      DoubleJump, Grapple, Bash OR Damage=10 OR Combat=Tentacle
+      Dash, Grapple, Bash OR Damage=10 OR Combat=Tentacle
       Bash, Damage=10, DoubleJump, TripleJump, Dash OR Glide
-      Combat=Spitter, Damage=10, DoubleJump, TripleJump, Dash, Glide
+      Combat=Tentacle, Damage=10, DoubleJump, TripleJump, Dash, Glide
       WaterDash, Damage=20, Bash, Grapple, Glide OR Sword OR Hammer
-      WaterDash, Damage=20, Combat=Spitter, Grapple, Glide OR Sword OR Hammer
+      WaterDash, Damage=20, Combat=Tentacle, Grapple, Glide OR Sword OR Hammer
       Bash, Grenade=1, Grapple, Glide OR Sword OR Hammer
       Bash, Grenade=1, DoubleJump, TripleJump
       Bash, Grenade=1, DoubleJump, Dash, Damage=10
-      SentryJump=1, Glide, Grapple, Bash OR Damage=10 OR Combat=Spitter
+      SentryJump=1, Glide, Grapple, Bash OR Damage=10 OR Combat=Tentacle
       Water, Grapple, Dash OR Glide OR Sword OR Hammer
       Launch
     unsafe:
@@ -2174,9 +2174,9 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Launch
     gorlek:
       Bash, DoubleJump OR Dash
-      Grapple, DoubleJump, TripleJump, Dash, Glide, Water OR Damage=10 OR Combat=Spitter
-      Grapple, DoubleJump, TripleJump, Dash, Sword  # solves the enemy as per Combat=Spitter definition
-      SentryJump=1, DoubleJump, Water OR Damage=10 OR Combat=Spitter
+      Grapple, DoubleJump, TripleJump, Dash, Glide, Water OR Damage=10 OR Combat=Tentacle
+      Grapple, DoubleJump, TripleJump, Dash, Sword  # solves the enemy as per Combat=Tentacle definition
+      SentryJump=1, DoubleJump, Water OR Damage=10 OR Combat=Tentacle
     unsafe:
       Bash  # verified
       SentryJump=2, Sword, Damage=20  # defeating the enemy and sword floating, FANTASTIC for kii
@@ -2219,11 +2219,11 @@ anchor WestGlades.Center at -612, -4083:  # At the middle room connecting upper 
       SentryJump=1, DoubleJump
   conn WestGlades.Lower:
     moki:
-      Combat=Spitter, DoubleJump OR Dash OR Glide
+      Combat=Tentacle, DoubleJump OR Dash OR Glide
       Water, DoubleJump OR Dash OR Bash OR Glide OR Damage=10
       Launch
     gorlek:
-      Water OR Bash OR Damage=10 OR Combat=Spitter
+      Water OR Bash OR Damage=10 OR Combat=Tentacle
 
 anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions to Wellspring, Reach, and Pools
   refill Checkpoint
@@ -2241,7 +2241,7 @@ anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions
     gorlek:
       DoubleJump, TripleJump OR Sword OR Hammer
       Dash, Sword OR Hammer
-      Glide, Combat=Spitter, SentryJump=1
+      Glide, Combat=Tentacle, SentryJump=1
     unsafe:
       Bash
       Glide, Shuriken=1 OR Sword OR Hammer OR Flash OR Sentry=1
@@ -2348,11 +2348,11 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
 anchor GladesShrine:
   refill Full
   pickup WestGlades.CombatShrine:
-    moki, Regenerate, Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab:
+    moki, Regenerate, Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xTentacle+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Tentacle+SpinCrab:
       Damage=65                     # the crabs are terrifying!
       Damage=55, DoubleJump OR Dash  # these can help
       Damage=30, Launch             # if you're op, nothing's terrifying
-    unsafe: Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xSpitter+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Spitter+SpinCrab
+    unsafe: Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xTentacle+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Tentacle+SpinCrab
 
 region OuterWellspring:
   moki: Danger=25
@@ -3478,7 +3478,7 @@ anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone doo
       SentryJump=1
 
   conn WoodsMain.AfterKuMeet:
-    moki: WoodsEntry.KeystoneDoor, Combat=2xSkeeto+Spitter OR Bash OR Launch
+    moki: WoodsEntry.KeystoneDoor, Combat=2xSkeeto+Tentacle OR Bash OR Launch
     gorlek: WoodsEntry.KeystoneDoor, Damage=10
   conn WoodsEntry.BelowTeleporter:
     moki: Combat=2xBalloon, DoubleJump OR Glide OR Launch
@@ -3493,7 +3493,7 @@ region WoodsMain:
 anchor WoodsMain.AfterKuMeet at 856, -4192:  # At the upper ledge opening up to the room after finding Ku
   refill Checkpoint
   state WoodsEntry.KeystoneDoor:
-    moki: Keystone=2, Combat=2xSkeeto+Spitter OR Bash OR Launch
+    moki: Keystone=2, Combat=2xSkeeto+Tentacle OR Bash OR Launch
     gorlek: Keystone=2, Damage=10
 
   conn WoodsMain.BelowFourKeystoneRoom:
@@ -3507,7 +3507,7 @@ anchor WoodsMain.AfterKuMeet at 856, -4192:  # At the upper ledge opening up to 
     unsafe:
       Dash  # Dash close to the edge, coyote jump, dash again; or triple dash
   conn WoodsEntry.TwoKeystoneRoom:
-    moki: WoodsEntry.KeystoneDoor, Combat=2xSkeeto+Spitter OR Bash OR Launch
+    moki: WoodsEntry.KeystoneDoor, Combat=2xSkeeto+Tentacle OR Bash OR Launch
     gorlek: WoodsEntry.KeystoneDoor, Damage=10
 
 anchor WoodsMain.BelowFourKeystoneRoom at 951, -4210:  # At the first leaf pile after meeting Ku
@@ -4933,8 +4933,8 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
 
   conn UpperDepths.FirstFirefly:
     moki:
-      Glide, Combat=2xBombSlime+2xBat+SneezeSlug
-      Glide, Combat=2xBombSlime, Bash
+      Glide, Combat=2xBombSlug+2xBat+SneezeSlug
+      Glide, Combat=2xBombSlug, Bash
 
 # checkpoint at 147, -4392
 
@@ -4961,8 +4961,8 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
 
   conn UpperDepths.Entry:
     moki:
-      Glide, Combat=2xBombSlime+2xBat+SneezeSlug
-      Glide, Combat=2xBombSlime, Bash
+      Glide, Combat=2xBombSlug+2xBat+SneezeSlug
+      Glide, Combat=2xBombSlug, Bash
   conn UpperDepths.FirstKSRoom: free
 
 # checkpoint at anchor below, kind of easy to miss though
@@ -5194,11 +5194,11 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
 anchor DepthsShrine:
   refill Full
   pickup LowerDepths.CombatShrine:
-    moki, Regenerate, Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug:
+    moki, Regenerate, Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xTentacle+4xEnergyRefill+2xBat+2xTentacle+4xEnergyRefill+Bat+SneezeSlug:
       Damage=65
       Damage=60, DoubleJump OR Dash
       Damage=50, Launch
-    unsafe: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xSpitter+4xEnergyRefill+2xBat+2xSpitter+4xEnergyRefill+Bat+SneezeSlug
+    unsafe: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xTentacle+4xEnergyRefill+2xBat+2xTentacle+4xEnergyRefill+Bat+SneezeSlug
 
 anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
   refill Checkpoint
@@ -5572,8 +5572,8 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   # And any other way would lock basically all of Pools behind WaterDash. So it makes sense, right?
   # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
   state EastPools.FightArenas:
-    moki: EastPools.LowerWaterDrained, Regenerate, Damage=20, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
-    unsafe: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Spitter+2xSkeeto
+    moki: EastPools.LowerWaterDrained, Regenerate, Damage=20, Water, Bash, Combat=4xCrab+Tentacle+2xSkeeto
+    unsafe: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Tentacle+2xSkeeto
 
   quest EastPools.HandToHandSpyglass:
     moki, LowerDepths.HandToHandSilk:
