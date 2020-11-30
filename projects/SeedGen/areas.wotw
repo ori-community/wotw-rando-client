@@ -5113,12 +5113,27 @@ anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfwa
       Water, Grapple, DoubleJump, Dash OR Glide
       Water, Grapple, Bash, Grenade=1, Dash, Glide
       Water, Launch, DoubleJump OR Dash OR Grapple OR Glide  # go up the left wall
+    gorlek, Water:
+      Launch
+      Grapple, Glide OR Dash OR Sword OR DoubleJump #grapple the plant then let you fall under it and regrapple it from bellow to have more height 
+      Grapple, Hammer, Damage=15
   conn PoolsApproach.MillPath:
     moki, Damage=20:  # severe enemy spam
       Bash, Grapple OR Launch  # this is probably actually closest to how you'd traverse this naturally
       Combat=Crab+2xSmallSkeeto, Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
       Bash, Grapple, DoubleJump OR Dash  # go through the gap from above, you can use Grapple to reset if you fall
       Launch, DoubleJump OR Grapple
+    gorlek:
+      Grapple, Sword OR Hammer OR Glide
+      Launch, Damage=20
+      SentryJump=1: 
+        Dash, Damage=20 #sjump then dash in the spikes 
+        DoubleJump, TripleJump OR Damage=20
+      Bash, Grenade=1:
+        DoubleJump
+        Dash, Damage=20
+    unsafe:
+      Bash # Bash the ennemies but they don't really like being on the right position for you to bash them 
 
 anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three paths merge
   refill Checkpoint
@@ -5129,6 +5144,9 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
       Combat=SpinCrab+CorruptSlug, DoubleJump, Dash
       Combat=SpinCrab+CorruptSlug, DoubleJump, Grapple, Glide  # solvable either through the right grapple point or using the wrap-around taught at glades shrine
       Launch
+    gorlek:
+      Bash OR DoubleJump OR SentryJump=1 #bash the crab thingy. Once upward to make it gain height then downward in order to reach the pickup / djump where the slime. Can ignore it if its high on the wall
+      Dash, Sword OR Hammer OR Grapple #Dash upslash / grapple the right plant, and spam dash to reach the wall where the slime is
   pickup PoolsApproach.MillPathEC:
     moki: Water  # again not really a reason to even use Bash
 
@@ -5139,8 +5157,13 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
       Combat=Crab+2xSmallSkeeto, Bash, Grenade=2, Grapple, Dash OR Glide  # clear the space to bashnade
       Combat=Crab+2xSmallSkeeto, DoubleJump, Grapple, Dash OR Glide
       Launch, DoubleJump OR Dash OR Bash OR Glide
+    gorlek:
+      Bash OR Launch OR SentryJump=1
+      DoubleJump, TripleJump #climb the wall bellow the checkpoint
+      Grapple, DoubleJump OR Dash OR Sword OR Hammer
   conn PoolsApproach.RightOfWheel:
     moki: Water, Combat=SpinCrab OR DoubleJump OR Bash OR Launch  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement.
+    gorlek: Water
 
 # checkpoint at anchor below in the water
 
@@ -5150,26 +5173,59 @@ anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of t
       # grenadebash doesn't work as well when the wheel spins
       PoolsApproach.WheelFreed, DoubleJump
       Launch
+    gorlek:
+      DoubleJump: #if the wheel isn't spinning, need a bit more than double jump
+        Sword, Dash #djump + upslash then dash to the wall
+        TripleJump OR Hammer
+      SentryJump=2
+      SentryJump=1:
+        DoubleJump OR PoolsApproach.WheelFreed
+        Hammer, Dash
+      PoolsApproach.WheelFreed, Dash, Hammer
+    unsafe:
+      Bash, Grenade=1: #When the wheel is spinning, grenade can be offset from Ori making this path finicky
+        DoubleJump OR SentryJump=1
+        Hammer, Dash
   pickup PoolsApproach.MillPathHC:
     moki:
       Water, DoubleJump, Dash, WaterDash, Grapple
       Water, DoubleJump, Grapple, Launch
+    gorlek, Water:
+      WaterDash, DoubleJump, Grapple, Damage=20 # Analog swimming can avoid the damage boost but its hard to do with keyboard swimming
+      Grapple, Launch
+      DoubleJump, TripleJump, Bash, Damage=20 OR Grapple
     unsafe:
-      Water, WaterDash, DoubleJump, Grapple
-      Water, Grapple, Launch
+      Water, DoubleJump, Bash, Damage=20 OR Grapple:
+        Sword OR Hammer # the air stalling to skip grapple is quite hard + need an upslash and a precise shot to get to the HC but you can't refill your upsash anywhere 
+      Water, WaterDash, DoubleJump, Grapple # the waterdash to get to the hc is really hard with keyboard swimming
   pickup PoolsApproach.MillPathEC:
     moki: Water, Bash, Damage=10
+    gorlek: Water, Bash
 
   conn MarshPastOpher.PoolsPathWest:
     moki, BreakWall=20:
       Water, DoubleJump, WaterDash, Grapple  # maybe not obvious?
       Water, Grapple, Launch
+    gorlek, Water, BreakWall=20:
+      WaterDash, Grapple, Dash OR DoubleJump OR Glide
+      Bash, Grapple:
+        Glide
+        DoubleJump, TripleJump OR Dash OR Sword OR Hammer
+        Dash, Sword OR Hammer
+      WaterDash OR Bash:
+        DoubleJump, Damage=20, TripleJump OR Glide OR Dash OR Sword #dboost in the spikes bellow the grapple plant and go directly to the breakable wall
+      Launch, DoubleJump OR Dash OR Glide OR Hammer OR Sword OR Damage=20
     unsafe:
-      BreakWall=20, Water, WaterDash, Grapple, Dash OR Sword
+      Water, BreackWall=20, WaterDash OR Bash:
+        DoubleJump, Damage=20, Glide OR Sword
+      Water, BreakWall=20, Grapple, WaterDash OR Bash:
+        Sword OR Hammer #Need an upslash but you can't refill it anywhere near
+      Water, Launch #Launch boost on the ceiling
   conn PoolsApproach.LeftOfWheel:
     moki:
       PoolsApproach.WheelFreed OR DoubleJump OR Grapple OR Launch
       Bash, Grenade=1
+    gorlek: free
   conn EastPools.Entry:
     moki:
       # grenadebash doesn't work as well when the wheel spins
@@ -5177,13 +5233,30 @@ anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of t
       Bash, Grenade=1, Launch, DoubleJump OR Dash
       DoubleJump, Dash, Launch, Damage=20
       PoolsApproach.WheelFreed, DoubleJump, Glide
+    gorlek:
+      DoubleJump, Glide: #if the wheel isn't spinning, need a bit more than double jump to reach the top platform
+        Sword, Dash #djump + upslash then dash to the wall
+        TripleJump OR Hammer
+      SentryJump=1, Glide #upslash before starting gliding from the platform above the wheel
+      PoolsApproach.WheelFreed:
+        Glide, Sword OR Hammer OR Dash
+        Bash, Grenade=1, Dash: #Dash to catch the grenade 
+          Sword, Damage=20
+          DoubleJump, TripleJump OR Sword OR Hammer
+      Launch:
+        Dash, DoubleJump OR Sword OR Hammer OR Damage=20 #dash, launch, dash again + air stall. Can air stall before the launch to make it even easier
+        DoubleJump, Sword OR Hammer
+        Bash, Grenade=1, Damage=20 #grenade, launch to have it in range of bash then lauch again
     unsafe:
-      Launch, Dash
+      Launch:
+        Dash OR DoubleJump OR Sword OR Hammer #Use the ceiling to refresh your launch
+        Bash, Grenade=1 #Bash glide
   conn PoolsApproach.MillPath:
     moki:
       Water, Bash, Damage=10, Grapple, DoubleJump, Dash OR Glide
       Water, Bash, WaterDash
       Water, Bash, Damage=10, Launch
+    gorlek: Water, Bash #Bash the projectile and use it to bash the crab thing to reach the connection
 
 anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the static wheel
   state PoolsApproach.WheelFreed:
@@ -5197,17 +5270,29 @@ anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the
       Water, WaterDash, Glide, DoubleJump OR Dash
       Water, WaterDash, Bash, DoubleJump OR Glide
       Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide OR Damage=10
+    gorlek, Water, WaterDash:
+      Launch
+      DoubleJump, TripleJump OR Glide OR Dash OR Sword
+      Dash, Sword OR Glide OR Bash
+      Glide, Damage=10
+      Bash, Damage=10 #Jump in the spikes then jump to reach the projectile
+      Hammer, Damage=10, Dash OR DoubleJump #With Dash, Upslash -> dash -> hammer combo
     unsafe:
-      Water, Dash, Glide, WaterDash
+      Water, WaterDash, Bash, Sword OR Hammer #stall in the air in order to wait for a projectile to bash
 
   conn PoolsApproach.RightOfWheel:
     moki:
       # grenadebash doesn't work when the wheel spins
       PoolsApproach.WheelFreed, Water
       DoubleJump OR Launch
+    gorlek:
+      Dash, Sword #upslash then dash
+      Hammer #upslash
   conn EastPools.Entry:
     moki: Water, Launch
-    unsafe: Water, DoubleJump, WaterDash, Damage=20
+    gorlek:
+      Water, WaterDash, DoubleJump, TripleJump OR Damage=20
+      Water, WaterDash, DoubleJump, Dash, Hammer #water dash straight up, double jump, upslash, dash
   conn MarshSpawn.Main:
     moki: Water, WaterDash  # <3
 
