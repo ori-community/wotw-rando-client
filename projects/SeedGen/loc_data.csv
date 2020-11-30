@@ -25,7 +25,7 @@ MarshSpawn.FangEC, Inkwater Marsh, Resource, Energy, swampStateGroup, 21786, hal
 MarshSpawn.FangQI, Inkwater Marsh, Quest, Fang, questUberStateGroup, 14019, braveMokiItemCollected, 27539, -221, -4406
 MarshSpawn.MokkFangQuest, Inkwater Marsh, Quest, Ore, questUberStateGroup, 14019, braveMokiQuest, 15983=3, -391, -4414
 MarshSpawn.DamageTree, Inkwater Marsh, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 121, -840, -4488
-MarshSpawn.BurrowsPathEX, Inkwater Marsh, SpiritLight, 200, swampStateGroup, 21786, largeExpA, 21727, -1015, -4269
+MarshSpawn.PoolsPathEX, Inkwater Marsh, SpiritLight, 200, swampStateGroup, 21786, largeExpA, 21727, -1015, -4269
 MidnightBurrows.LeftKS, Midnight Burrows, Resource, Keystone, howlsOriginGroup, 24922, keystoneA, 60358, -800, -4580
 MidnightBurrows.RightKS, Midnight Burrows, Resource, Keystone, howlsOriginGroup, 24922, keystoneA, 47244, -597, -4548
 MidnightBurrows.UpperKS, Midnight Burrows, Resource, Keystone, howlsOriginGroup, 24922, keystoneA, 34250, -725, -4520
