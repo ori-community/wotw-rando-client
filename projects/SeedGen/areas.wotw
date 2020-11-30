@@ -890,9 +890,8 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
     moki: Launch  # paths coming from the right side are on that anchor
     gorlek:
       Bash  # bait some shots
-      DoubleJump:
-        TripleJump
-        Dash, Hammer OR Sword
+      DoubleJump, TripleJump
+      DoubleJump, Dash, Sword OR Hammer
 
   conn Teleporters: free
   conn MidnightBurrows.Central:
@@ -919,7 +918,7 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       DoubleJump, Hammer OR TripleJump
       Dash, Hammer
       Launch
-			Sword
+      Sword
 
   quest MidnightBurrows.TabletQI:
     moki, MidnightBurrows.KeystoneDoor:
@@ -936,14 +935,13 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       Launch
       MidnightBurrows.Lever, DoubleJump, Dash OR Glide
     gorlek:
-      DoubleJump:
-        TripleJump
-        MidnightBurrows.Lever, Sword OR Hammer
+      DoubleJump, TripleJump
+      MidnightBurrows.Lever, DoubleJump, Sword OR Hammer
       MidnightBurrows.Lever, Dash OR Glide
     unsafe:
-			DoubleJump, Damage=15, Hammer OR Sword
+      DoubleJump, Damage=15, Sword OR Hammer
       MidnightBurrows.Lever, DoubleJump
-      MidnightBurrows.Lever, Damage=15, Hammer OR Sword
+      MidnightBurrows.Lever, Damage=15, Sword OR Hammer
   pickup MidnightBurrows.LowerKS:
     moki:
       DoubleJump, Dash OR Glide
@@ -963,11 +961,11 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
     gorlek:
       MidnightBurrows.Lever, SentryJump=2, Dash OR DoubleJump OR Glide
       Launch
-		unsafe:
-			MidnightBurrows.Lever, SentryJump=2
-			MidnightBurrows.Lever, SentryJump=1, DoubleJump, Damage=15
-			MidnightBurrows.Lever, DoubleJump, Bash # use the slime
-			Bash, Grenade=2, DoubleJump, TripleJump OR Damage=15  # resolves for both states / with MidnightBurrows.Lever bash the slime next to the last teleporter to get above it
+    unsafe:
+      MidnightBurrows.Lever, SentryJump=2
+      MidnightBurrows.Lever, SentryJump=1, DoubleJump, Damage=15
+      MidnightBurrows.Lever, DoubleJump, Bash # use the slime
+      Bash, Grenade=2, DoubleJump, TripleJump OR Damage=15  # resolves for both states / with MidnightBurrows.Lever bash the slime next to the last teleporter to get above it
 
   conn MidnightBurrows.Teleporter: free
   conn MidnightBurrows.East:
@@ -978,8 +976,8 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
     gorlek:
       Bash, Grenade=1 # bash the lantern to reach the lever, grenade bash from there
       SentryJump=1  # use the sword to hover to the lever
-		unsafe:
-			MidnightBurrows.Lever, Sword OR Hammer
+    unsafe:
+      MidnightBurrows.Lever, Sword OR Hammer
 
 # checkpoint at -685, -4616
 # checkpoint at -707, -4588
@@ -1000,15 +998,16 @@ anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
       Sword, Damage=15
       DoubleJump, Dash OR Sword OR Hammer OR TripleJump
       Dash, Sword OR Hammer
-		unsafe:
-			DoubleJump
-			Damage=15, Dash OR Hammer
+    unsafe:
+      DoubleJump
+      Damage=15, Dash OR Hammer
   conn HowlsDen.DoubleJumpTreeArea:
     moki: BreakWall=10
 
 anchor MidnightBurrows.BelowUpperKS at -724, -4524: # Just bellow the keystone, to avoid duplicating paths to Central and UpperKS
-	pickup MidnightBurrows.UpperKS: free
-	conn MidnightBurrows.Central: free
+  pickup MidnightBurrows.UpperKS: free
+  conn MidnightBurrows.Central: free
+  # I believe connections up to here and then to the right would be always redundant currently?
 
 region WestHollow:
   moki: Danger=20
