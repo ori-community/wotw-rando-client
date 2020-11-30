@@ -2071,19 +2071,17 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
   conn GladesTown.Teleporter: free
   conn TuleyShop:
     moki: InnerWellspring.WaterEscape
-  conn LowerReach.Trial:
+    
+  conn LowerReach.TownEntry:
     moki:
-      Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
-      Glide, Launch
+      Bash, Flap OR Grenade=1  # may need to juggle the soupgrenade once
+      Launch
     gorlek:
-      Glide, SentryJump=1
-      Launch, Damage=20, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      DoubleJump, Sword OR Hammer OR TripleJump #Wall jump from the wall near the ceiling
+      SentryJump=1
     unsafe:
-      SentryJump=3, Sword, DoubleJump, Damage=20
-      Glide, Grenade=1
-      Glide, DoubleJump, TripleJump
-      Grenade=4, DoubleJump, TripleJump, Damage=20
-      Launch, Damage=40
+      Dash, Glide, Sword #Needs a ramp on the left side corner of the platform near the cauldron
+
 
 region WestGlades:
   moki: Damage=20
@@ -4113,6 +4111,17 @@ anchor LowerReach.SnowEscape:
   pickup LowerReach.EscapeRevisitEX:
     moki: LowerReach.ForestsMemory
 
+anchor LowerReach.TownEntry at -35, -4077: # Where the wind starts
+  conn GladesTown.ReachPath
+    moki: free
+  conn LowerReach.Trial
+    moki:
+      Glide
+    gorlek:
+      Launch, Damage=20 #Launch on the wall at the start of the wind cave
+      Launch, DoubleJump, Dash OR TripleJump
+      Launch, Bash, Grenade=1
+
 anchor LowerReach.Trial at 64, -4046:  # At trial start
   refill Checkpoint
 
@@ -4137,8 +4146,18 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
   pickup LowerReach.TrialEX:
     moki: Glide
 
-  conn GladesTown.ReachPath:
+  conn LowerReach.TownEntry:
     moki: Glide
+    gorlek:
+      Damage=20, Sword OR Hammer OR Dash OR DoubleJump OR Launch #sword or hammer for weapon stalling
+      Bash, Grenade=1, Sword OR Hammer OR Dash OR DoubleJump OR Launch
+      Launch, Sword OR Hammer OR Dash OR DoubleJump
+      DoubleJump, Sword OR Hammer OR Dash OR TripleJump
+      Dash, Sword OR Hammer
+      SentryJump=1
+    unsafe:
+      Damage=50
+      Bash, Grenade=1, Damage=30
 
 region UpperDepths:
   moki: Damage=40, Regenerate
