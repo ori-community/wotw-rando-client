@@ -120,9 +120,9 @@ GladesTown.LupoSwimLeftEX, Wellspring Glades, SpiritLight, 50, hubUberStateGroup
 GladesTown.UpdraftCeilingEX, Wellspring Glades, SpiritLight, 50, hubUberStateGroup, 42178, smallExpC, 63404, -240, -4130
 GladesTown.LeafPileEX, Wellspring Glades, SpiritLight, 50, hubUberStateGroup, 42178, smallExpG, 44748, -160, -4099
 GladesTown.DamageTree, Wellspring Glades, Ability, AncestralLight, treesDontWorry, 0, AncestralLight, 120, -368, -4158
-GladesTown.RebuildTheGlades, Wellspring Glades, Quest, SL1000, questUberStateGroup, 14019, rebuildGladesQuest, 44578=2, 240, -4207
+GladesTown.RebuildTheGlades, Wellspring Glades, Quest, SL1000, questUberStateGroup, 14019, rebuildGladesQuest, 44578=2, -322, -4153
 GladesTown.TwillenGemQuest, Wellspring Glades, Quest, Shard, pickupsGroup, 23987, secretShardPickup, 14832, -408, -4162
-GladesTown.RegrowTheGlades, Wellspring Glades, Quest, SL1000, questUberStateGroup, 14019, regrowGladesQuest, 26394=2, 240, -4207
+GladesTown.RegrowTheGlades, Wellspring Glades, Quest, SL1000, questUberStateGroup, 14019, regrowGladesQuest, 26394=2, -173, -4139
 WestGlades.GrappleEX, Wellspring Glades, SpiritLight, 100, wellspringGroupDescriptor, 53632, mediumExpA, 12019, -515, -4103
 WestGlades.AbovePlantEX, Wellspring Glades, SpiritLight, 100, kwolokGroupDescriptor, 937, mediumExpC, 31036, -586, -4091
 WestGlades.LowerPoolEX, Wellspring Glades, SpiritLight, 50, kwolokGroupDescriptor, 937, smallExpA, 40657, -586, -4129

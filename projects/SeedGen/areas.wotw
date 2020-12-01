@@ -540,7 +540,7 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
   conn HowlsDen.BoneBridge:
     unsafe: Hammer  # break a wall from behind
 
-anchor DenShrine at -328, -4596:
+anchor DenShrine at -328, -4569:
   refill Full
   pickup HowlsDen.CombatShrine:
     moki, Regenerate, Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis:
@@ -7054,7 +7054,7 @@ anchor OpherShop:
   pickup OpherShop.WaterBreath:
     moki: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=1200
 
-anchor TuleyShop:
+anchor TuleyShop at -173, -4139:
   quest GladesTown.RegrowTheGlades:
     moki: TuleyShop.SelaFlowers, TuleyShop.StickyGrass, TuleyShop.Lightcatchers, TuleyShop.BlueMoon, TuleyShop.SpringPlants, TuleyShop.LastTree
 
