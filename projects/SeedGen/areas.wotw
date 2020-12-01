@@ -540,7 +540,7 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
   conn HowlsDen.BoneBridge:
     unsafe: Hammer  # break a wall from behind
 
-anchor DenShrine:
+anchor DenShrine at -328, -4596:
   refill Full
   pickup HowlsDen.CombatShrine:
     moki, Regenerate, Combat=Mantis+2xLizard+4xEnergyRefill+2xSneezeSlug+Mantis+Skeeto+4xEnergyRefill+7xSmallSkeeto+2xSkeeto+4xEnergyRefill+2xLizard+2xMantis:
@@ -657,7 +657,7 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
       Combat=Mantis+SneezeSlug, Sword OR Hammer
       Launch
 
-anchor MarshShrine:
+anchor MarshShrine at -382, -4341:
   refill Full
   pickup MarshPastOpher.CombatShrine:
     moki: Regenerate, Damage=20, Combat=2xSkeeto+2xEnergyRefill+Mantis+4xSmallSkeeto+2xEnergyRefill+Mantis+Skeeto
@@ -1359,7 +1359,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   conn WestHollow.HollowDrainMiddle:
     moki: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
 
-anchor BeetleFight:
+anchor BeetleFight at -81, -4243:
   refill Full
   state EastHollow.BeetleDefeated:
     moki: Boss=250, Regenerate, Damage=35, Dash OR Launch  # Kinda tight on assumed damage, but that's literally what the base game throws you at. It isn't too difficult to avoid the beetle's attacks without Dash, but this is what the base game taught.
@@ -2345,7 +2345,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Water, Bash, Dash OR Glide OR Sword OR Damage=15
       Water, Launch, DoubleJump OR Dash OR Bash OR WaterDash OR Sword OR Hammer OR Damage=15
 
-anchor GladesShrine:
+anchor GladesShrine at -635, -4020:
   refill Full
   pickup WestGlades.CombatShrine:
     moki, Regenerate, Combat=2xCrab+Bee+3xEnergyRefill+Hornbug+2xTentacle+3xEnergyRefill+2xSpinCrab+2xBee+3xEnergyRefill+2xMantis+Tentacle+SpinCrab:
@@ -3335,7 +3335,7 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
 
 # checkpoint at -1249, -3641
 
-anchor InnerWellspring.EscapeSequence:
+anchor InnerWellspring.EscapeSequence at -1240, -3642:
   refill Full
   quest InnerWellspring.WaterEscape:
     moki:
@@ -3859,7 +3859,7 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
       SentryJump=1, DoubleJump OR Dash OR Glide
     unsafe: DoubleJump  # fall then good old glide skip
 
-anchor WoodsShrine:
+anchor WoodsShrine at 1361, -4068:
   refill Full
   pickup WoodsMain.ShrineEX: free
   pickup WoodsMain.CombatShrine:
@@ -4849,7 +4849,7 @@ anchor LowerReach.WispPath at 83, -3874:  # Halfway through the climb
 
 # checkpoint at 80, -3805
 
-anchor LowerReach.SnowEscape:
+anchor LowerReach.SnowEscape at 79, -3733:
   refill Full
   quest LowerReach.ForestsMemory:  # currently based on the requirements of getting here to simplify
     moki, LowerReach.ArenaBeaten:
@@ -5108,7 +5108,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
 
 # checkpoint at 572, -4431
 
-anchor MoraFight:
+anchor MoraFight at 674, -4385:
   refill Full
   quest UpperDepths.ForestsEyes:
     moki: Boss=330, Regenerate, Damage=95, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
@@ -5185,7 +5185,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
       BreakWall=1, DoubleJump, Dash, Bash OR Glide
       BreakWall=1, Launch, DoubleJump OR Glide
 
-anchor DepthsShrine:
+anchor DepthsShrine at 213, -4515:
   refill Full
   pickup LowerDepths.CombatShrine:
     moki, Regenerate, Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xTentacle+4xEnergyRefill+2xBat+2xTentacle+4xEnergyRefill+Bat+SneezeSlug:
@@ -6039,7 +6039,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
         Bash, Grenade=1, Dash  # bash grenade from EastPools.GrassSeed
         DoubleJump, TripleJump, Glide  # jump on a bubble, triple jump and hold glide while waiting for the next bubble which will send you a bit further than the previous one.
 
-anchor KwolokFight:
+anchor KwolokFight at -1650, -4125:
   refill Full
   quest WestPools.ForestsStrength:
     moki: Boss=250, Regenerate, Damage=95, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
@@ -6724,7 +6724,7 @@ anchor WindtornRuins.RuinsTP at 2130, -3984:  # Windtorn Ruins teleporter.
       Burrow, Dash, DoubleJump
       Burrow, Bash, Grenade=1
 
-anchor WindtornRuins.Escape:
+anchor WindtornRuins.Escape at 2021, -4026:
   refill Full
   # (yes, this has to exist apparently, because you can access the escape from all the different anchors in ruins)
   # After you complete the escape, there's a gap in the floor to its right, making the location unreachable with skillsets
