@@ -245,7 +245,7 @@ namespace
                 {},  { true, 14019, 26318, 4.f } }, // GladesTown.HandToHandSoup
             { app::WorldMapIconType__Enum_QuestItem, -385, -4161, false, true,
                 {},  { true, 14019, 27804, 2.f } }, // GladesTown.FamilyReunionKey
-            { app::WorldMapIconType__Enum_QuestItem, -10, -4551, false, true,
+            { app::WorldMapIconType__Enum_QuestItem, -366, -4185, false, true,
                 {},  { true, 14019, 2782, -1.f } }, // GladesTown.AcornQI
             { app::WorldMapIconType__Enum_QuestItem, -358, -4185, false, true,
                 {},  { true, 14019, 33776, 3.f } }, // GladesTown.IntoTheDarkness
@@ -262,7 +262,7 @@ namespace
                 {},  { true, 14019, 20667, 3.f } }, // OuterWellspring.TheLostCompass
             { app::WorldMapIconType__Enum_QuestItem, -1168, -3733, false, true,
                 {},  { true, 14019, 26318, 3.f } }, // InnerWellspring.HandToHandHerbs
-            { app::WorldMapIconType__Enum_QuestItem, -481, -3763, false, true,
+            { app::WorldMapIconType__Enum_QuestItem, -1159, -3635, false, true,
                 {},  { true, 37858, 12379, -1.f } }, // InnerWellspring.WaterEscape
         };
 
@@ -280,7 +280,7 @@ namespace
                 { true, 58674, 19769, -1.f }, {} },
             { app::WorldMapIconType__Enum_QuestItem, 513, -4158, false, true,
                 {},  { true, 14019, 59708, 1.f } }, // WoodsEntry.LastTreeBranch
-            { app::WorldMapIconType__Enum_QuestItem, 441, -4119, false, true,
+            { app::WorldMapIconType__Enum_QuestItem, 469, -4180, false, true,
                 {},  { true, 14019, 57399, -1.f } }, // WoodsEntry.DollQI
             { app::WorldMapIconType__Enum_QuestItem, 513, -4159, false, true,
                 {},  { true, 14019, 7470, -1.f } }, // WoodsEntry.TreeSeed
