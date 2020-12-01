@@ -3516,11 +3516,13 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
     gorlek, LowerReach.BearSneezed, LowerReach.BearBridgeBroken: 
       Bash #bash the enemy into the air first, may have to use the purple one
       SentryJump=1
+      Dash, DoubleJump, TripleJump # you only get one shot at these else you have to come back down from Baur
+      DoubleJump, TripleJump, Sword OR Hammer
     unsafe, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
-       Grenade=1 #GrenadeJump=1
-       # you only get one shot at these else you have to come back down from Baur
-       Dash, DoubleJump, TripleJump OR Shuriken=1 OR Flash=1 OR Spear=1 OR Sentry=1 OR Blaze=1 #A single activation of flash
-       DoubleJump, TripleJump, Sword OR Hammer OR Flash=1 OR Sentry=1 OR Shuriken=1
+      Grenade=1 #GrenadeJump=1
+      # you only get one shot at these else you have to come back down from Baur
+      Dash, DoubleJump, Shuriken=1 OR Flash=1 OR Spear=1 OR Sentry=1 OR Blaze=1 #A single activation of flash
+      DoubleJump, TripleJump, Flash=1 OR Sentry=1 OR Shuriken=1
 
   conn LowerReach.AboveEntry:
     moki:
@@ -3528,7 +3530,7 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
       Bash, DoubleJump OR Launch OR Dash OR Grenade=1
     gorlek:
       Launch # a little tight but totally doable. Jump up before launching.
-      Bash, Sword OR Glide OR Hammer OR SentryJump=1 #There is a safe spot at the left of the spike before the first lantern
+      Bash, Sword OR Glide OR Hammer OR SentryJump=1 OR Damage=20 #There is a safe spot at the left of the spike before the first lantern
       SentryJump=1, DoubleJump
     unsafe:
       SentryJump=1
@@ -3546,10 +3548,15 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
       LowerReach.HeatBaurFurnace, DoubleJump
     gorlek:
       LowerReach.HeatBaurFurnace, Dash
+      LowerReach.HeatBaurFurnace, Bash, Grenade=1
+      Bash, Grenade=1, DoubleJump OR Dash
     unsafe:
-      LowerReach.HeatBaurFurnace, Bash, Grenade=1 # weapon stall needed to reach the highest snaptrap
-      Bash, Grenade=1, DoubleJump OR Dash # gotta get plenty of height and some distance on the grenadebash. Weapon stalls help
+      LowerReach.HeatBaurFurnace, Sword OR Hammer OR Glide
       SentryJump=1 # you actually want a weaker jump to land on top of the plant, a strong one will send you sailing over it. Weapon stalls or dash/doublejump from there
+      Bash, Sword OR Hammer OR DoubleJump OR Dash OR Glide OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
+      DoubleJump, TripleJump, Damage=20 OR Sword OR Hammer #you need first to get on the first plant on the left
+      LowerReach.HeatBaurFurnace, Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
+      Dash, DoubleJump, Damage=20, Hammer OR Sword #djump+upslash+ dash in the spikes, grab the plant then djump + upslash to reach the left wall. Sword much harder, need to get a ramp
       
   pickup LowerReach.AboveBaurLowerEX: 
     moki:
