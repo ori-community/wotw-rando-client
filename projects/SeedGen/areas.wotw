@@ -2362,6 +2362,7 @@ region OuterWellspring:
 anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where you enter the first room
   refill Checkpoint
   refill Health=1:
+    gorlek: Combat=Slug
     unsafe: free  # barely out of sight, also past an enemy...
   refill Energy=3:
     unsafe: Weapon  # pretty far to the left
@@ -2371,18 +2372,21 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
     moki, BreakWall=16:
       DoubleJump, Dash OR Glide
       Dash, Glide
+      Grapple, Bash, DoubleJump OR Dash
       Grapple, Glide
-      Bash, DoubleJump OR Dash OR Glide  # use the insect
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
     gorlek, BreakWall=16:
-      Damage=15, Bash                          # Bash off slime then skito onto top wheel, then coast for the rest.  Possible without damage
-      Damage=15, DoubleJump OR Dash OR Grapple  # Dash path is possible without damage but a bit precise
-      Damage=15, SentryJump=1
-      DoubleJump, TripleJump
-      Glide                                    # Might be a bit precise for gotlek
+      DoubleJump, TripleJump OR Sword OR Hammer
+      Dash, Sword OR Hammer OR Damage=15
+      Glide, Sword OR Hammer
+      Grapple, Sword
+      Grapple, Damage=15, DoubleJump OR Hammer
+      Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=15  # different ways to solve using the many bash targets around
+      SentryJump=1, Sword OR Damage=15
     unsafe, BreakWall=16:
       Damage=15, Sword
-      Dash OR Bash
+      Dash OR Bash OR Glide
 
   pickup OuterWellspring.EntranceRoofEX:
     moki:
@@ -2390,29 +2394,30 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       Grapple, Launch
     gorlek:
       Grapple, DoubleJump, TripleJump
-      Grapple, Dash, Glide                    # Possibly a bit tight for gotlek
-      Launch, DoubleJump
-      Launch, Dash, Glide
-      Launch, Bash, Grenade=1
+      Grapple, Dash, Sword OR Hammer  # upswing into the pickup
+      Launch, Bash, Grenade=1  # other launch paths are covered from the anchor above
   pickup OuterWellspring.WheelEX:
     moki: OuterWellspring.EntranceDoorOpen
   pickup OuterWellspring.BasementEC:
     moki:
-      Water, DoubleJump, Dash OR Glide
-      Water, Dash, Glide
-      Water, Grapple, Bash, DoubleJump OR Dash
-      Water, Grapple, Glide
-      Water, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-      Water, Launch
+      Water:  # mirror of the entrancedooropen paths
+        DoubleJump, Dash OR Glide
+        Dash, Glide
+        Grapple, Bash, DoubleJump OR Dash
+        Grapple, Glide
+        Bash, Grenade=1, DoubleJump OR Dash OR Glide
+        Launch
       OuterWellspring.EntranceDoorOpen  # casual strat I guess?
     gorlek:
-      Damage=20, DoubleJump OR Dash OR Glide
-      Damage=20, Sword OR Hammer
-      Damage=20, Grapple
-      Water, DoubleJump, TripleJump
-      Water, Glide
-      Bash, Glide, DoubleJump, TripleJump
-      Bash, Glide, DoubleJump, Grapple
+      Damage=15, DoubleJump OR Dash OR Grapple OR Glide OR Sword OR Hammer  # go around the moss wheel
+      Water:  # mirror of the entrancedooropen paths
+        DoubleJump, TripleJump OR Sword OR Hammer
+        Dash, Sword OR Hammer
+        Glide, Sword OR Hammer
+        Grapple, Sword
+        Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=15  # different ways to solve using the many bash targets around
+        SentryJump=1, Sword
+      Bash, Glide, DoubleJump, TripleJump OR Grapple  # bashglide
       Bash, DoubleJump, TripleJump, Grapple
       Bash, Launch, DoubleJump OR Glide
   pickup OuterWellspring.LifeHarvestShard:
@@ -2420,11 +2425,10 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       DoubleJump, Bash
       Launch
     gorlek, BreakWall=20:
-      SentryJump=1
-      Bash, Dash OR Glide                     # Glide is a bit tight
-      Bash, Sword
-    unsafe, BreakWall=20:
+      SentryJump=1, DoubleJump OR Dash OR Glide OR Damage=15
+      Bash, Dash  # other options are somewhere on the border between difficulties
       Bash, Grenade=1  # this would be in moki if the camera didn’t put ori right at the top of the screen, making it hard to aim/catch the grenade
+    unsafe, BreakWall=20:
       Bash, Hammer     # not gorlek due to a non trivial combo attack
       DoubleJump, TripleJump
   pickup OuterWellspring.SwimEX:
@@ -2445,18 +2449,23 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
   conn OuterWellspring.AboveEntranceDoor:
     moki: DoubleJump, Grapple  # save all the other ways for gorlek...
     gorlek:
-      Grapple                                      # Grapple up using the right hanging plant
-      Launch                                       # Launch up using left side (possible with either wheel state)
-      SentryJump=1, Bash, Grenade=1                # Throw the greande, sentry jump to it, then bash off it, on right side (do a small lure on bottom slime to get to platform)
-      SentryJump=1, DoubleJump, TripleJump         # Sentry Jump up to the wheel on the left side of entrance door, then jump across and use sword or hammer stall to finish
-      SentryJump=1, Damage=15, Dash OR Glide       # Slightly different methods needed for hammer vs sentry, hammer is similar to above, sword goes left side
-      SentryJump=2, Dash OR Glide                  # Sentry Jump then Glide/Dash to finish the gap
+      Grapple                                         # Grapple up using the right hanging plant
+      Launch                                          # Launch up using left side (possible with either wheel state)
+      SentryJump=1, DoubleJump, TripleJump            # Sentry Jump up to the wheel on the left side of entrance door, then jump across and use sword or hammer stall to finish
+      Bash, Grenade=2, DoubleJump OR Dash             # Go up the left side; works for either wheel state
+      Bash, Grenade=1, Damage=15, DoubleJump OR Dash  # As above but damage boost to get to the pole
+      Bash, Grenade=3, Glide OR Damage=15             # As above but Glide needs an extra bashnade in case the wheel is down
+    unsafe:
+      SentryJump=1, Bash, Grenade=1                   # Throw the greande, sentry jump to it, then bash off it, on right side (do a small lure on bottom slime to get to platform)
+      SentryJump=1, Damage=15, Dash OR Glide          # Slightly different methods needed for hammer vs sentry, hammer is similar to above, sword goes left side
+      SentryJump=2, Dash OR Glide                     # Sentry Jump then Glide/Dash to finish the gap
       SentryJump=2, Sword
       SentryJump=2, Hammer, Damage=15
-      Bash, Grenade=1, DoubleJump                  # on right side lure bottom slime to get on platform, throw grenade, bash off top slime, bash off greande, double jump to platform
-      Bash, Grenade=1, Damage=15, Dash OR Glide    # As above but use glide or dash and a damage boost to reach pole
-      Bash, Grenade=2, Dash OR Glide               # As above but bash glide then use bash, glide, and/or dash to reach pole
-      Bash, Grenade=3                              # As above but bash glide all gaps
+  conn OuterWellspring.WestDoor:  # going directly up the left wall
+    gorlek:
+      Bash, Grenade=2, DoubleJump, Dash OR Glide
+      Bash, Grenade=3, DoubleJump
+      Launch
   # connections using the left wall wheel would be pointless
   conn WestGlades.MillApproach:
     moki:
@@ -2465,17 +2474,16 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       Launch
       Water
     gorlek:
-      DoubleJump, TripleJump
-      Damage=20, DoubleJump OR Dash
-      Grapple, Glide, DoubleJump OR Dash
-      Grapple, SentryJump=1, DoubleJump OR Dash
-      SentryJump=2, DoubleJump OR Dash OR Glide
+      DoubleJump, TripleJump OR Glide
+      Damage=20, DoubleJump OR Dash OR Glide
+      SentryJump=2, Sword OR DoubleJump OR Dash OR Glide OR Damage=20
+      Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Damage=20
+      Bash, Grenade=2
+    unsafe:
       Bash, Glide
       Bash, DoubleJump, Sword
       Bash, DoubleJump, Hammer, Damage=20
       Bash, SentryJump=1, DoubleJump OR Dash
-      Bash, Grenade=1, DoubleJump OR Dash OR Damage=20
-      Bash, Grenade=2
 
 # checkpoint at -978, -4042
 
@@ -2483,60 +2491,48 @@ anchor OuterWellspring.AboveEntranceDoor at -837, -4026:  # at the crystal above
   refill Energy=3:
     moki: Weapon
 
-  state OuterWellspring.WestDoorBlueMoonFree:
-    moki, BreakWall=3, Bow OR Spear OR Grenade:  # are we sure this parses correctly?
-      Grapple, DoubleJump, Dash
-      Grapple, Glide OR Launch
-    gorlek:
-      # DoubleJump, TripleJump, Damage=15, RangedWeapon OR Weapon  @Validator RangedWeapon obsolete, should probably be BreakWall?
-      # Grapple, DoubleJump, TripleJump, RangedWeapon OR Weapon  @Validator RangedWeapon obsolete, should probably be BreakWall?
-      # Launch, RangedWeapon OR Weapon  @Validator RangedWeapon obsolete, should probably be BreakWall?
-      Sword, Grapple, DoubleJump OR Dash
-      Hammer, Grapple, DoubleJump OR Dash
-      SentryJump=1, DoubleJump, TripleJump
-      SentryJump=1, Bash, Grenade=1, DoubleJump
-      SentryJump=2, Bash, Grenade=1, Dash OR Glide
-
+  pickup OuterWellspring.EntranceRoofEX:
+    gorlek: Launch, DoubleJump OR Dash OR Glide OR Sword OR Hammer
   pickup OuterWellspring.RightWallOre:
     moki: Grapple
     gorlek:
-      DoubleJump, TripleJump OR Bash OR Glide
-      Bash, Grenade=2, Glide
-      Bash, Grenade=1, DoubleJump
+      DoubleJump, Bash OR Glide
+      DoubleJump, TripleJump, Damage=15  # go above the wheel to the right, damage not mandatory
+      DoubleJump, Dash, Sword
+      Bash, Grenade=1, Glide
+      Bash, Grenade=2, Dash OR Sword
       SentryJump=2, Glide
-      Launch
-    unsafe:
-      Glide
+      SentryJump=2, Sword, DoubleJump OR Dash
+      SentryJump=1, Dash, Glide
+    unsafe: Glide
   pickup OuterWellspring.RightWallEC:
-    gorlek, BreakWall=20:
-      DoubleJump, TripleJump
-      DoubleJump, Damage=15, Dash OR Glide
-      DoubleJump, Damage=15, Bash, Grenade=1
-      Bash, Grenade=1, Glide              # Bash greande up to right platform, bash up to the twwo skitos, rotats bashing off them using glide to stall
+    gorlek: BreakWall=20, DoubleJump, TripleJump, Damage=15  # go above the wheel to the right, damage not mandatory
 
   conn OuterWellspring.EastDoor:  # going to the right
     moki:
       Grapple, DoubleJump, Dash OR Glide
       Launch
-    gorlek:
+    gorlek: Grapple, DoubleJump, TripleJump OR Sword OR Hammer
+    unsafe:
+      Grapple
       DoubleJump, TripleJump, Damage=15, Sword OR Hammer
-      Grapple, DoubleJump, TripleJump OR Hammer
-      Grapple, Dash, Glide OR Sword OR Hammer
-      Grapple, Bash, DoubleJump OR Glide                            # Strictly speaking should be possible without double jump or glide but much harder
       SentryJump=1, DoubleJump, Damage=15, Dash OR Glide
       SentryJump=1, Bash, Grenade=1, DoubleJump
       SentryJump=2, Bash, Grenade=1, Glide, Dash
   conn OuterWellspring.WestDoor:  # going to the left
     moki:
       Grapple, DoubleJump, Dash
-      Grapple, Glide OR Launch
+      Grapple, Glide
     gorlek:
-      DoubleJump, TripleJump, Damage=15, Sword OR Hammer
-      Grapple, DoubleJump, TripleJump OR Sword OR Hammer
-      Grapple, Dash, Sword OR Hammer
-      SentryJump=1, Bash, Grenade=1, DoubleJump
-      SentryJump=2, Bash, Grenade=1, Dash OR Glide
-      Launch
+      Grapple, DoubleJump OR Dash OR Glide OR Sword OR SentryJump=1 OR Damage=10
+      Grapple, Bash, Grenade=1
+      DoubleJump, TripleJump  # climb the far left wall
+      Bash, Grenade=1, DoubleJump, Dash, Glide
+      Bash, Grenade=2, DoubleJump, Dash OR Glide
+      Bash, Grenade=3, DoubleJump
+  conn WestGlades.MillApproach:
+    gorlek: Grapple OR Glide
+  conn OuterWellspring.EntranceDoor: free
 
 anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you exit the first room
   refill Checkpoint
@@ -2544,10 +2540,10 @@ anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you ex
   # the wheel is only a shortcut, at least in moki doesn't open up anything new
   state OuterWellspring.WestDoorBlueMoonFree:
     moki: BreakWall=3, Launch
-    gorlek:
-      Grenade=2, Bash
-      # Grenade=1, Bash, RangedWeapon OR Weapon  @Validator RangedWeapon obsolete, should probably be BreakWall?
+    gorlek, BreakWall=3, Bow OR Spear OR Shuriken OR Grenade OR Blaze OR Grapple:
+      Bash, Grenade=1
       SentryJump=1
+      Grapple, Damage=15, DoubleJump, TripleJump OR Dash  # go up on the left to get into range and then grapple to the corruption
 
   pickup OuterWellspring.HiddenHC:
     moki, OuterWellspring.WestDoorBlueMoonFree:
@@ -2555,18 +2551,15 @@ anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you ex
       Grapple, Dash, Glide
       Grapple, Launch
     gorlek:
-      Grapple, Launch
-      Grapple, Bash, Grenade=1, DoubleJump, TripleJump OR Glide OR Damage=15
-      Grapple, Bash, Grenade=1, Dash
-      Grapple, Bash, Grenade=1, Glide, Damage=15
-      Grapple, SentryJump=1, DoubleJump, TripleJump OR Glide OR Damage=15
-      Grapple, SentryJump=1, Dash
-      Grapple, SentryJump=1, Glide, Damage=15
-      Bash, Grenade=1, Launch
       OuterWellspring.WestDoorBlueMoonFree:
         Grapple, DoubleJump, TripleJump OR Damage=15
-        Grapple, Dash
-        Grapple, Glide, Damage=15
+        Grapple, Damage=15, Dash OR Glide
+      Grapple, Bash, Grenade=1, DoubleJump, TripleJump OR Glide OR Damage=15
+      Grapple, Bash, Grenade=1, Damage=15, Dash OR Glide
+      Grapple, SentryJump=1, DoubleJump, TripleJump OR Glide OR Damage=15
+      Grapple, SentryJump=1, Damage=15, Dash OR Glide
+      Bash, Grenade=1, Launch
+      SentryJump=1, Launch
     unsafe:
       Bash, Grenade=1, SentryJump=1, DoubleJump, TripleJump
   pickup OuterWellspring.EntranceRoofEX:
@@ -2576,17 +2569,23 @@ anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you ex
     moki: InnerWellspring.MiddleDoorsOpen
   conn OuterWellspring.EastDoor:
     moki:
-      Grapple, DoubleJump, Dash OR Glide
+      Bash, Grenade=1, DoubleJump, Dash OR Glide
+      Bash, Grenade=1, Launch
       Launch, DoubleJump OR Dash OR Glide
-      Launch, Grapple
+      OuterWellspring.WestDoorBlueMoonFree, Grapple, DoubleJump, Dash OR Glide
+      OuterWellspring.WestDoorBlueMoonFree, Grapple, Launch
     gorlek:
-      OuterWellspring.WestDoorBlueMoonFree, Grapple, DoubleJump
-      OuterWellspring.WestDoorBlueMoonFree, Grapple, Dash, Glide
+      Bash, Grenade=1, DoubleJump, TripleJump OR Sword OR Hammer
+      SentryJump=1, DoubleJump, TripleJump OR Dash OR Glide OR Sword OR Hammer
       Launch, Sword OR Hammer OR Damage=15
-      Bash, Grenade=1, DoubleJump
-      Bash, Grenade=1, Dash, Glide
-      SentryJump=1, DoubleJump
-      SentryJump=1, Dash, Glide
+      OuterWellspring.WestDoorBlueMoonFree, Grapple, DoubleJump, TripleJump OR Sword OR Hammer
+      Grapple, Damage=15, DoubleJump, TripleJump OR Dash  # mirror from breaking the blue moon free since you don't need wall breakage to perform this
+  conn OuterWellspring.AboveEntranceDoor:
+    moki:
+      Grapple, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      DoubleJump, Dash, Glide
+      Launch
   conn OuterWellspring.EntranceDoor: free
 
 anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to the spin puzzle
@@ -2597,39 +2596,30 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
       DoubleJump OR Dash OR Glide
       Bash, Grenade=1
       InnerWellspring.TopDoorOpen, Grapple
-    # gorlek: Weapon OR RangedWeapon  @Validator RangedWeapon obsolete, should probably be BreakWall?
+    gorlek: BreakWall=3  # each weapon has its way of dealing with the spikes below
 
   quest OuterWellspring.TheLostCompass:
     moki: InnerWellspring.NeedleQI
 
   pickup OuterWellspring.RightWallOre:
     moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
-    gorlek: Sword OR Hammer OR Damage=15
+    gorlek:
+      Sword OR Hammer
+      Bash, Grenade=1
   pickup OuterWellspring.RightWallEC:
     moki, BreakWall=20:
       DoubleJump, Dash
       Glide OR Launch
       Grapple, DoubleJump OR Dash
-    gorlek, BreakWall=20:
-      DoubleJump, TripleJump
-      DoubleJump, Sword
-      DoubleJump, Hammer, Damage=15                      # Might be a bit tight for gorlek
-      Grapple, Sword OR Hammer
-      Bash, Grenade=1, Damage=15
-      Bash, Grenade=1, DoubleJump OR Dash OR Glide       # Extra abilities in these two paths are simply to avoid the damage
-      Bash, Grenade=1, Sword OR Hammer
-  pickup OuterWellspring.RightWallEX:
-    moki:
-      DoubleJump, Grapple, Dash OR Glide
-      DoubleJump, Bash, Grenade=1, Grapple
-      Launch
+      Grapple, Bash, Grenade=1
     gorlek:
-      Grapple, DoubleJump, TripleJump
-      Grapple, Dash, Glide                                # Might be a bit tight for gorlek
-      DoubleJump, Dash, Bash, Grenade=1
-      DoubleJump, Dash, SentryJump=1
-      SentryJump=3, DoubleJump OR Dash OR Glide
-      Bash, Grenade=3, DoubleJump OR Dash OR Glide
+      BreakWall=20, DoubleJump, TripleJump
+      DoubleJump, Sword
+      Grapple, Sword OR Hammer
+      BreakWall=20, Bash, Grenade=1, DoubleJump OR Dash
+      Bash, Grenade=1, Sword OR Hammer
+      BreakWall=20, Bash, Grenade=2
+    unsafe: DoubleJump, Hammer, Damage=15
 
   conn InnerWellspring.EastDoor:
     moki: InnerWellspring.MiddleDoorsOpen
@@ -2639,38 +2629,32 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
       InnerWellspring.TopDoorOpen, Bash, Grenade=1, DoubleJump
       Bash, Grenade=1, Launch
     gorlek:
-      InnerWellspring.TopDoorOpen, SentryJump=1, DoubleJump OR Dash OR Glide
-      InnerWellspring.TopDoorOpen, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-      SentryJump=1, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      InnerWellspring.TopDoorOpen:
+        SentryJump=1, DoubleJump OR Dash OR Glide OR Sword
+        SentryJump=1, Hammer, Damage=10
+        Bash, Grenade=1, Dash OR Glide OR Sword
+        Bash, Grenade=1, Hammer, Damage=10
+      Bash, Grenade=1, DoubleJump, TripleJump
+      Bash, Grenade=1, Grapple
   conn OuterWellspring.WestDoor:
-    moki:
-      DoubleJump OR Dash OR Launch
-      InnerWellspring.TopDoorOpen, OuterWellspring.WestDoorBlueMoonFree, Grapple
+    moki: DoubleJump OR Dash OR Launch
+    gorlek: Glide OR Sword OR Hammer
+    unsafe: free
+  conn OuterWellspring.RightWall:
+    moki: Grapple OR Launch
     gorlek:
-      InnerWellspring.TopDoorOpen, Grapple
-      Sword OR Hammer
-      Glide
-  conn OuterWellspring.TrialRoom:
-    moki:
-      Grapple, DoubleJump OR Dash OR Glide
-      Launch
-    gorlek:
-      Grapple
-      DoubleJump, TripleJump
+      DoubleJump, TripleJump, Dash OR Glide OR Sword OR Hammer OR Damage=10
+      DoubleJump, TripleJump, Bash, Grenade=1
+      DoubleJump, Dash, Glide OR Sword OR Hammer OR Damage=10
       DoubleJump, Dash, Bash, Grenade=1
-      DoubleJump, Dash, SentryJump=1
-      SentryJump=3, DoubleJump OR Dash OR Glide
-      Sword, Bash, Grenade=3, DoubleJump OR Dash OR Glide
-      Hammer, Bash, Grenade=3, DoubleJump OR Dash OR Glide
-  conn OuterWellspring.EntranceDoor: free
+      DoubleJump, Glide
+      SentryJump=2  # follow up the second sentryjump with a weapon hover
+      Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+  conn OuterWellspring.AboveEntranceDoor: free
   conn WestGlades.MillApproach:
-    moki: Grapple OR Glide OR Launch
     gorlek:
-      DoubleJump OR Dash
-      Sword
+      DoubleJump OR Dash OR Sword OR Damage=20
       Bash, Grenade=1
-      SentryJump=1
-      Damage=20
 
 anchor OuterWellspring.AboveWestDoor at -866, -3949:  # on the platform arcing over west door
   refill Energy=3:
@@ -2678,45 +2662,33 @@ anchor OuterWellspring.AboveWestDoor at -866, -3949:  # on the platform arcing o
 
   pickup OuterWellspring.HiddenHC:
     moki:
-      Combat=Miner, Grapple, DoubleJump, Dash OR Glide
-      Combat=Miner, Grapple, Dash, Glide
-      Bash, Grapple, DoubleJump, Dash OR Glide
-      Bash, Grapple, Dash, Glide
-      InnerWellspring.TopDoorOpen, Grapple, DoubleJump, Dash OR Glide
-      InnerWellspring.TopDoorOpen, Grapple, Dash, Glide
+      Grapple, DoubleJump, Dash OR Glide
+      Grapple, Dash, Glide
       Launch, DoubleJump OR Dash OR Grapple OR Glide
     gorlek:
-      Combat=Miner, Grapple, DoubleJump, TripleJump OR Damage=15
-      Combat=Miner, Grapple, Dash
-      Combat=Miner, Grapple, Glide, Damage=15
-      InnerWellspring.TopDoorOpen, Grapple, Dash
-      InnerWellspring.TopDoorOpen, Grapple, Glide, Damage=15
-      Launch, Sword
-      Launch, Hammer, Damage=15
+      Grapple, DoubleJump, TripleJump OR Damage=15
+      Grapple, Damage=15, Dash OR Glide
+      Launch, Sword OR Damage=15
 
   conn OuterWellspring.TopDoor:
     moki:
-      InnerWellspring.TopDoorOpen, Grapple OR Launch
+      Grapple OR Launch
       Bash, Grenade=1
-      Launch
     gorlek:
-      Bash
-      SentryJump=1
-      InnerWellspring.TopDoorOpen, DoubleJump, TripleJump OR Dash OR Glide
+      Bash OR SentryJump=1
+      InnerWellspring.TopDoorOpen, DoubleJump
   conn OuterWellspring.WestDoor:
-    moki: DoubleJump OR Dash OR Grapple OR Glide OR Launch
-    gorlek: Combat=Miner, Sword OR Hammer OR Damage=15
-  conn OuterWellspring.EastDoor:
+    moki: Combat=Miner OR DoubleJump OR Dash OR Grapple OR Glide OR Launch
+    gorlek: Sword OR Hammer OR Damage=15
+  conn OuterWellspring.EastDoor:  # paths with top door open seem rather pointless?
     moki:
       DoubleJump, Dash
-      Glide OR Grapple OR Launch
+      Glide
     gorlek:
-      Damage=15, Sword OR Hammer
-      Damage=15, DoubleJump
-      Dash
+      Damage=15, DoubleJump OR Dash OR Sword OR Hammer
       DoubleJump, TripleJump
-      SentryJump=1
-  conn OuterWellspring.EntranceDoor: free
+      Dash, Sword OR Hammer
+  conn OuterWellspring.AboveEntranceDoor: free
 
 anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to the teleporter
   # state OuterWellspring.TrialActivation:
@@ -2728,13 +2700,14 @@ anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to th
 
   pickup OuterWellspring.UltraGrappleShard:
     moki:
-      DoubleJump, Grapple, Dash OR Glide
+      Grapple, DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch
     gorlek:
-      SentryJump=1, DoubleJump OR Dash OR Glide
-      Grapple, DoubleJump, TripleJump OR Damage=15
-      Grapple, Dash, Glide
+      SentryJump=1, DoubleJump OR Dash OR Glide  # generous extra abilities
+      Grapple, DoubleJump, TripleJump OR Sword
+      Grapple, Dash, Sword
+      Grapple, Glide
 
   conn InnerWellspring.Teleporter:
     moki: InnerWellspring.TopDoorOpen
@@ -2744,7 +2717,63 @@ anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to th
 # checkpoint at -973, -3949
 # checkpoint at -969, -3910
 # checkpoint at -902, -3895
-# checkpoint at -727, -3961
+
+anchor OuterWellspring.RightWall at -727, -3961:  # at the ledge going towards the trial room
+  refill Checkpoint
+
+  pickup OuterWellspring.RightWallEX:
+    moki:
+      Grapple, DoubleJump, Dash OR Glide
+      DoubleJump, Bash, Grenade=1
+      Launch
+    gorlek:
+      Grapple, DoubleJump, TripleJump
+      SentryJump=1, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1, Dash OR Glide
+    unsafe:
+      Grapple, Dash, Glide  # Might be a bit tight for gorlek
+  pickup OuterWellspring.RightWallOre:
+    moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+    gorlek: free
+  pickup OuterWellspring.RightWallEC:
+    moki, BreakWall=20:
+      DoubleJump, Dash
+      Glide OR Launch
+      Grapple, DoubleJump OR Dash
+    gorlek:
+      BreakWall=20, DoubleJump OR Dash
+      Sword OR Hammer
+
+  conn OuterWellspring.TrialRoom:
+    moki:
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch
+    gorlek:
+      Grapple
+      SentryJump=1
+      Bash, Grenade=1
+  conn OuterWellspring.EastDoor:
+    moki:
+      Grapple, DoubleJump OR Dash OR Glide
+      Launch
+    gorlek:
+      Grapple OR Glide
+      Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Hammer
+      DoubleJump, TripleJump OR Dash OR Sword
+      DoubleJump, Hammer, Damage=15
+      SentryJump=1, DoubleJump OR Dash
+  conn OuterWellspring.AboveEntranceDoor:
+    moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
+    gorlek:
+      Sword OR Hammer
+      Bash, Grenade=1
+      SentryJump=1
+      Damage=15
+  conn WestGlades.MillApproach:
+    gorlek:
+      Sword
+      Bash, Grenade=1
+      SentryJump=1 OR Damage=20
 
 anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to trial start
   refill Checkpoint
@@ -2757,46 +2786,11 @@ anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to tri
       Grapple, DoubleJump
       Launch
     gorlek:
-      DoubleJump OR Dash OR Glide
-      Grapple, Damage=15, Sword, SentryJump=1       # Possible without grapple but grapple makes it much easier to setup, sentry jump off spikes
-  pickup OuterWellspring.RightWallOre:
-    moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
-    gorlek: free
-  pickup OuterWellspring.RightWallEC:
-    moki, BreakWall=20:
-      DoubleJump, Dash
-      Glide OR Launch
-      Grapple, DoubleJump OR Dash
-    gorlek, BreakWall=20:
-      DoubleJump OR Dash OR Sword OR Hammer
-  # connection should cover the spirit light in moki
+      Dash OR Glide
+      DoubleJump, Sword OR Hammer
+    unsafe: DoubleJump
 
-  conn OuterWellspring.EastDoor:
-    moki:
-      Grapple, DoubleJump OR Dash OR Glide
-      Launch
-    gorlek:
-      Grapple
-      Dash, Glide
-      Bash, Grenade=1
-      DoubleJump, TripleJump OR Dash OR Glide OR Sword OR Hammer
-      Damage=15, DoubleJump OR Dash OR Glide OR Sword
-      SentryJump=1, DoubleJump OR Dash OR Glide
-  conn OuterWellspring.EntranceDoor:
-    moki: DoubleJump OR Dash OR Glide OR Grapple OR Launch
-    gorlek:
-      Sword OR Hammer
-      Bash, Grenade=1
-      SentryJump=1
-      Damage=20
-  conn WestGlades.MillApproach:
-    moki: Grapple OR Glide OR Launch
-    gorlek:
-      Sword
-      DoubleJump OR Dash
-      Bash, Grenade=1
-      SentryJump=1
-      Damage=20
+  conn OuterWellspring.RightWall: free
 
 region InnerWellspring:
   moki: Danger=25
