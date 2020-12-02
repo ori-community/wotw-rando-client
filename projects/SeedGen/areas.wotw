@@ -1372,14 +1372,6 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
 
   state EastHollow.DepthsLever:
     moki: Bash, DoubleJump OR Dash OR Glide OR Launch  # just Bash is treacherous
-  state GladesTown.EntryWallBroken:  # for the shop unlocks
-    moki: EastHollow.BeetleDefeated, EastHollow.Voice, Bash, DoubleJump OR Launch
-    gorlek: EastHollow.Voice, Bash, DoubleJump OR Launch
-    unsafe, EastHollow.Voice:
-      Bash, Grenade=1
-      Bash, Damage=10
-    # Bash, EastHollow.BeetleDefeated, Sword  # Long Squonkey Lure using Bash Climbing
-      Grenade=5, Damage=10, EastHollow.BeetleDefeated    # Grenade Redirect and Grenade Jumps
 
   quest EastHollow.HandToHandMap:
     moki, EastHollow.BeetleDefeated, EastHollow.Voice:
@@ -1433,9 +1425,14 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       DoubleJump, Dash
       Bash, DoubleJump OR Dash OR Grenade=1
       Glide OR Launch
-  conn GladesTown.Teleporter:  # using the wall state here could have relevance if it was to fall under some open mode
-    moki: EastHollow.BeetleDefeated, EastHollow.Voice, GladesTown.EntryWallBroken, Bash, DoubleJump OR Launch
-    gorlek: EastHollow.Voice, GladesTown.EntryWallBroken
+  conn GladesTown.Teleporter:
+    moki: EastHollow.BeetleDefeated, EastHollow.Voice, Bash, DoubleJump OR Launch
+    gorlek: EastHollow.Voice, Bash, DoubleJump OR Launch
+    unsafe, EastHollow.Voice:
+      Bash, Grenade=1
+      Bash, Damage=10
+      # Bash, EastHollow.BeetleDefeated, Sword  # Long Squonkey Lure using Bash Climbing
+      Grenade=5, Damage=10, EastHollow.BeetleDefeated    # Grenade Redirect and Grenade Jumps
   conn EastHollow.AboveDepths:
     moki:
       EastHollow.DepthsLever, Combat=2xSneezeSlug, DoubleJump OR Dash OR Glide  # just Bash is treacherous
@@ -7041,9 +7038,9 @@ anchor TwillenShop:
   pickup TwillenShop.Finesse:
     moki: SpiritLight=1200
   pickup TwillenShop.TripleJump:
-    moki: GladesTown.EntryWallBroken, SpiritLight=1200
+    moki: SpiritLight=1200
   pickup TwillenShop.LightHarvest:
-    moki: GladesTown.EntryWallBroken, SpiritLight=1200
+    moki: SpiritLight=1200
 
 anchor OpherShop:
   pickup OpherShop.Spike:
@@ -7057,7 +7054,7 @@ anchor OpherShop:
   pickup OpherShop.Sentry:  # used for keystones if necessary; filtered by gen
     moki: SpiritLight=1200
   pickup OpherShop.Teleport:
-    moki: GladesTown.EntryWallBroken, SpiritLight=1200
+    moki: SpiritLight=1200
   pickup OpherShop.WaterBreath:
     moki: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=1200
 
