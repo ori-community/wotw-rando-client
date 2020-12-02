@@ -853,7 +853,7 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
         Sword, Bash, Damage=10
         SentryJump=1, Hammer, Bash, Damage=10
         DoubleJump, TripleJump, Dash OR Glide OR Damage=10
-        DoubleJump, TripleJump, SentryJump=1, Sword OR Hammer
+        DoubleJump, TripleJump, SentryJump=1
         DoubleJump, Damage=10, Dash OR Glide OR Sword OR Hammer
         Dash, Damage=10, Sword OR Hammer
         Sword, Damage=10, SentryJump=1
@@ -862,7 +862,7 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
       Glide, DoubleJump, Hammer OR Spear=1  # go below and break the floor
       Glide, Dash, Hammer OR Spear=1  # go below and break the floor
     unsafe:
-      SentryJump=1, Bash, Sword OR Hammer  # Hug the wall and the SentryJump, then horizontal slashes to the lantern; weapon breaks the wall
+      SentryJump=1, Bash  # Hug the wall and the SentryJump, then horizontal slashes to the lantern; weapon breaks the wall
       Hammer, Damage=10, SentryJump=1  # hammer breaks the wall
   conn PoolsApproach.RightOfWheel:
     gorlek, ShurikenBreak=20:
@@ -1150,10 +1150,10 @@ anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock p
       WestHollow.UpperDrainLeverPulled, DoubleJump, TripleJump  # Jump to the pole, then wrap around to the eye and jump to the ground
       WestHollow.UpperDrainLeverPulled, Launch
       WestHollow.FullyDrained, Bow=1, DoubleJump  # wrap around instead of using the other tongue
-      WestHollow.FullyDrained, SentryJump=1, Sword OR Hammer  # After SentryJump you need horizontal slashes
+      WestHollow.FullyDrained, SentryJump=1  # After SentryJump you need horizontal slashes
       WestHollow.UpperDrainLeverPulled, WaterDash, Damage=20, DoubleJump, Bow=1, DoubleJump  # use the bow path if the water is gone
       WestHollow.UpperDrainLeverPulled, WaterDash, Damage=20, Dash, Bash, Grenade=1  # use the bashnade path if the water is gone
-      WestHollow.UpperDrainLeverPulled, WaterDash, Damage=20, Dash, SentryJump=1, Sword OR Hammer  # use the sjump path if the water is gone
+      WestHollow.UpperDrainLeverPulled, WaterDash, Damage=20, Dash, SentryJump=1  # use the sjump path if the water is gone
   conn WestHollow.HollowDrainLower:
     moki: WestHollow.FullyDrained
 
@@ -1688,7 +1688,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
         TuleyShop.BlueMoon, Grapple, Glide OR Sword OR Hammer  # uphammer harder than upslash
         TuleyShop.StickyGrass, Grapple, DoubleJump OR Dash OR Glide OR Sword OR Hammer
         TuleyShop.StickyGrass, Grapple, Grenade=1, Sword OR Hammer
-        TuleyShop.StickyGrass, Grapple, SentryJump=1, Sword OR Hammer
+        TuleyShop.StickyGrass, Grapple, SentryJump=1
         TuleyShop.SpringPlants
       TuleyShop.SpringPlants, SentryJump=1 OR Hammer
       GladesTown.RoofsOverHeads:
@@ -1822,7 +1822,7 @@ anchor GladesTown.West at -430, -4135:  # At Motay
       TuleyShop.StickyGrass:
         Bash, Grenade=1, DoubleJump OR Glide  # glide somehow still a bit precise even though you just hold right
         SentryJump=1, DoubleJump OR Glide  # glide somehow still a bit precise even though you just hold right
-        SentryJump=1, Dash, Sword OR Hammer
+        SentryJump=1, Dash
         DoubleJump, TripleJump, Sword OR Hammer  # upswing to the moss
         TuleyShop.Lightcatchers, Bash, Grenade=1 OR SentryJump=1  # can still do this with the huts up
         TuleyShop.Lightcatchers, Bash, DoubleJump  # wrap around
@@ -1900,7 +1900,7 @@ anchor GladesTown.West at -430, -4135:  # At Motay
         Glide
         DoubleJump, TripleJump OR Dash OR Sword OR Hammer
         Dash, Sword OR Hammer
-        SentryJump=1, Sword OR Hammer
+        SentryJump=1
         TuleyShop.StickyGrass, Grapple
       TuleyShop.BlueMoon, Grapple, Sword OR Hammer
       TuleyShop.StickyGrass:
@@ -1975,7 +1975,7 @@ anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
     moki: GladesTown.BuildHuts, Bash, Grenade=2, Dash OR Glide
     gorlek, GladesTown.BuildHuts:
       TuleyShop.StickyGrass, Grapple
-      TuleyShop.StickyGrass, SentryJump=1, Sword OR Hammer
+      TuleyShop.StickyGrass, SentryJump=1
       SentryJump=2, Sword OR Hammer
       SentryJump=1, Sword, DoubleJump, TripleJump OR Dash
     unsafe: GladesTown.BuildHuts, Grenade=2, Sentry=1 OR Spear=1 OR Flash OR Blaze=1 OR Sword OR Hammer OR Dash OR DoubleJump OR Glide
@@ -2029,7 +2029,7 @@ anchor GladesTown.HoleHut at -214, -4111:  # The ledge below Hole Hut
     gorlek:
       Launch
       DoubleJump, TripleJump
-      SentryJump=1, Sword OR Hammer  # Weapon Float, works from a standing sjump on the ledge
+      SentryJump=1  # Weapon Float, works from a standing sjump on the ledge
       TuleyShop.BlueMoon, Grapple, Glide OR Sword OR Hammer
       TuleyShop.StickyGrass, Grapple, Glide OR Sword
     unsafe:
@@ -2208,7 +2208,7 @@ anchor WestGlades.Center at -612, -4083:  # At the middle room connecting upper 
       Launch
     gorlek:
       Bash, Glide OR Sword OR Hammer OR Grenade=1
-      SentryJump=1, Dash, Sword OR Hammer
+      SentryJump=1, Dash
 
   conn WestGlades.Upper:
     moki:
@@ -2576,7 +2576,7 @@ anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you ex
       OuterWellspring.WestDoorBlueMoonFree, Grapple, Launch
     gorlek:
       Bash, Grenade=1, DoubleJump, TripleJump OR Sword OR Hammer
-      SentryJump=1, DoubleJump, TripleJump OR Dash OR Glide OR Sword OR Hammer
+      SentryJump=1, DoubleJump
       Launch, Sword OR Hammer OR Damage=15
       OuterWellspring.WestDoorBlueMoonFree, Grapple, DoubleJump, TripleJump OR Sword OR Hammer
       Grapple, Damage=15, DoubleJump, TripleJump OR Dash  # mirror from breaking the blue moon free since you don't need wall breakage to perform this
@@ -2821,7 +2821,7 @@ anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where yo
       InnerWellspring.ThreeWheels, DoubleJump OR Dash OR Glide
     gorlek:
       Bash, Grenade=1, Dash OR Glide OR Sword OR Hammer  # Bash grenade up right side, jump to left side vines, use abilities to reach platform
-      SentryJump=1, Sword OR Hammer                      # As above but use sentry jump on right side, then use sword/hammer to reach platform
+      SentryJump=1                      # As above but use sentry jump on right side, then use sword/hammer to reach platform
       DoubleJump, TripleJump
       Grapple, Sword OR Hammer
     unsafe:
@@ -2911,7 +2911,7 @@ anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can d
         Dash
         Damage=15, Sword OR Hammer
         Bash, Grenade=1, Sword OR Hammer
-        SentryJump=1, Sword OR Hammer
+        SentryJump=1
       Water, Dash  # if you drained the water, you can use the bottom of the wheel instead
       Water, Bash, Grenade=4  # if you drained the water, you can use the bottom of the wheel instead
       Water, WaterDash, Bash, Grenade=3, BreakWall=10  # if you drained the water, you can go through through the drained room instead
@@ -2960,8 +2960,7 @@ anchor InnerWellspring.DrainAreaEntrance at -1128, -3968:  # On the wall after d
       DoubleJump, Water OR TripleJump OR Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=20
       Bash, Dash, Sword OR Hammer
       Bash, Grenade=1, Water OR Dash OR Damage=20
-      Bash, SentryJump=1, Water, Sword OR Hammer
-      Bash, SentryJump=1, Damage=20, Sword OR Hammer
+      Bash, SentryJump=1, Water OR Damage=20
     unsafe: Dash, Hammer, Damage=20  # Technically possible without damage
 
 # checkpoint at -1093, -3950
@@ -3057,7 +3056,7 @@ anchor InnerWellspring.DrainRoomTop at -1086, -3908:  # At the right ledge on to
       DoubleJump, TripleJump OR Sword OR Hammer OR Damage=15
       Dash, Glide OR Sword OR Hammer OR Damage=15
       Grapple, Damage=15
-      Grapple, SentryJump=1, Sword OR Hammer
+      Grapple, SentryJump=1
       Bash, Grenade=1, DoubleJump OR Dash OR Grapple
       Bash, Grenade=1, Glide, Damage=15
       SentryJump=1, Sword, Glide
@@ -3441,7 +3440,7 @@ anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
     gorlek:
       Glide, Dash OR Sword OR Hammer  # from the kind of pillar
       DoubleJump, TripleJump, Dash, Sword OR Hammer
-      SentryJump=1, DoubleJump, Dash, Sword OR Hammer  # Dash after the apex of the sjump then sword's full combo + up slash
+      SentryJump=1, DoubleJump, Dash  # Dash after the apex of the sjump then sword's full combo + up slash
       Bash, Grenade=1, DoubleJump, TripleJump OR Sword OR Hammer
       Bash, Grenade=1, Dash
     unsafe:
@@ -3716,7 +3715,7 @@ anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
       Launch
       Bash, Grenade=1  # it's a checkpoint, you have retries to figure it out
       SentryJump=1, DoubleJump, TripleJump
-      SentryJump=1, DoubleJump, Dash, Sword OR Hammer
+      SentryJump=1, DoubleJump, Dash
   conn WoodsMain.BelowHiddenOre:
     moki:
       Glide
@@ -3767,7 +3766,7 @@ anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced How
     gorlek:
       Launch
       DoubleJump, Bash, Grenade=1
-      DoubleJump, SentryJump=1, Sword OR Hammer  # an upswing should make the final jump fine
+      DoubleJump, SentryJump=1  # an upswing should make the final jump fine
       Bash, Grenade=2
 
 # checkpoint at 873, -3980
@@ -3846,7 +3845,7 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
       Glide, Grapple, DoubleJump OR Dash
       Grapple, SentryJump=1, DoubleJump
       WindtornRuins.Seir:  # these wouldn't solve without Seir
-        SentryJump=1, DoubleJump, TripleJump, Sword OR Hammer  # tjump+up slash to reach the grappable surface
+        SentryJump=1, DoubleJump, TripleJump  # tjump+up slash to reach the grappable surface
         Bash, Grenade=1, Grapple
         Bash, Grenade=2, Dash  # Dash to get in bash range on the 2nd grenade to get on the grappable surface
         Bash, Grenade=1, DoubleJump, TripleJump, Dash OR Sword OR Hammer
@@ -4169,9 +4168,9 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
     gorlek:
       DoubleJump, TripleJump, Bash OR SentryJump=1  # triple jump to get a wall jump on the platform above
       Bash, DoubleJump, Dash OR Glide OR Sword OR Hammer  # jump on the tongue, let ori slide down then double jump again and go for the right wall with dash/up slashes/glide, climb it, grab the tongue again and jump out of it
-      SentryJump=1, DoubleJump, Dash OR Glide OR Sword OR Hammer  # jump on the tongue, let ori slide down then double jump again and go for the right wall with dash/up slashes/glide, climb it, grab the tongue again and jump out of it
+      SentryJump=1, DoubleJump  # jump on the tongue, let ori slide down then double jump again and go for the right wall with dash/up slashes/glide, climb it, grab the tongue again and jump out of it
       LowerReach.CentralFurnace, Bash, DoubleJump OR Dash OR Sword OR Hammer
-      LowerReach.CentralFurnace, SentryJump=1, DoubleJump OR Dash OR Sword OR Hammer
+      LowerReach.CentralFurnace, SentryJump=1
     unsafe:
       Bash, DoubleJump, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
       SentryJump=1, DoubleJump, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
@@ -4548,7 +4547,7 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
       DoubleJump, Sentry=1, Glide, TripleJump OR Hammer  # sentry to light the lantern
       SentryJump=1, Sentry=1, Glide
       SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
-      DoubleJump, TripleJump, SentryJump=1, Damage=20, Sword OR Hammer  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
+      DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
       Launch, DoubleJump OR Dash OR Sword
     unsafe:
       DoubleJump, TripleJump, Damage=20, Sword OR Hammer OR Bash  # tjump + upslash/bash the gorlek to climb the right wall, tjump to the left spiky wall, iframe to wjump and tjump again to wjump from the wall just above and tjump again to the ice wall<
@@ -6268,7 +6267,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
       Launch
     gorlek:
       DoubleJump, TripleJump, Hammer
-      SentryJump=1, Sword OR Hammer  # can either jump good or use the right wall and weapon float
+      SentryJump=1  # can either jump good or use the right wall and weapon float
       Bash, Grenade=1 OR DoubleJump OR Glide
     unsafe:
       Bash  # Requires you not to kill anything and hopefully not have ultra bash or whatever equipped
