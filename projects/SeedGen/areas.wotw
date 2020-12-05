@@ -3499,8 +3499,13 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
   refill Checkpoint
   refill Health=1
 
+# need to add LowerReach.ForestsMemory as alt to LowerReach.BearSneezed as the escape also gets Baur out of the way
+
   state LowerReach.BearSneezed:
-    moki: Flap
+    moki: 
+      Flap
+      LowerReach.ForestsMemory
+     
   state LowerReach.HeatBaurFurnace:
     moki, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
       Bash, Flap
