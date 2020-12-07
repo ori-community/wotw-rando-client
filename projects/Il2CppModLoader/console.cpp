@@ -195,6 +195,8 @@ namespace modloader::console
 
     void console_poll()
     {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
         if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
         {
             const auto command = console_input.get();
