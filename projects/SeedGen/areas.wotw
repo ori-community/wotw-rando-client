@@ -5972,24 +5972,25 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
       Water, WaterDash, DoubleJump, Dash  # hard on keyboard, but I guess this is intended, and no other ability would even help
       Launch
     gorlek:
-      SentryJump=1
-      WaterDash, DoubleJump, TripleJump OR Sword OR Hammer:
-        Water OR Damage=20  # dboost to waterdash
-      Bash, Grenade=1  # Stand on the left of the TP, launch the grenade with a curve so it won't touch the ceiling and bash it when it falls down
+      Water, WaterDash, DoubleJump, TripleJump
+      Damage=20, WaterDash, DoubleJump, Dash OR TripleJump
     unsafe:
+      Bash, Grenade=1  # Stand on the left of the TP, launch the grenade with a curve so it won't touch the ceiling and bash it when it falls down
       WaterDash, Dash, Hammer, Water OR Damage=20  # Already hard with analog swimming but it's a nightmare on keyboard
       DoubleJump, TripleJump OR Dash OR Sword OR Hammer  # wall jump from the right wall. With weapons, climb the right wall then djump+ upslash. TripleJump might be Gorlek
   pickup WestPools.BurrowEX:
     moki: Water, Burrow
   pickup WestPools.BurrowOre:
     moki: WestPools.ForestsStrength, Water, WaterDash, Burrow
-    gorlek: WestPools.ForestsStrength, Water, WaterDash, Burrow
+    unsafe: WestPools.ForestsStrength, Water, Burrow
   pickup WestPools.EscapeRevisitEX:
     moki, WestPools.ForestsStrength:
       Water, DoubleJump, Bash
       Water, WaterDash, Combat=Crab+SpinCrab OR Bash
-      Water, Launch
-    gorlek: WestPools.ForestsStrength, Water, Weapon OR DoubleJump OR Bash OR WaterDash OR Damage=10  # all of it beside water is to avoid the crab thingy who are a real pain to deal with
+      Water, Launch, Bash OR WaterDash
+    gorlek, WestPools.ForestsStrength:
+      Water, Bash
+      Water, WaterDash, Combat=Crab+SpinCrab OR DoubleJump OR Damage=10
 
   conn Teleporters: free
   conn KwolokFight:
@@ -6004,7 +6005,6 @@ anchor KwolokFight at -1650, -4125:
   refill Full
   quest WestPools.ForestsStrength:
     moki: Boss=250, Regenerate, Damage=95, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
-    gorlek: Combat, Water, WaterDash
     unsafe: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:
