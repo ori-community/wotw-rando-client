@@ -3871,12 +3871,8 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
   refill Checkpoint
   refill Health=1
 
-# need to add LowerReach.ForestsMemory as alt to LowerReach.BearSneezed as the escape also gets Baur out of the way
-
   state LowerReach.BearSneezed:
-    moki:
-      Flap
-      LowerReach.ForestsMemory
+    moki: Flap
   state LowerReach.HeatBaurFurnace:
     moki, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
       Bash, Flap
@@ -3977,7 +3973,7 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
     moki: Weapon
 
   state LowerReach.BearBridgeBroken:
-    moki, LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that moki
+    moki: LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that moki
   state LowerReach.LeftFurnace:
     moki:
       Grenade=1, Bash, DoubleJump OR Dash OR Glide  # Grenade to light the furnace
