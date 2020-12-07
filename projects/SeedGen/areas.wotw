@@ -4078,7 +4078,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
   refill Checkpoint
   refill Full:  # use the teleporter
     moki: Grenade=1
-    gorlek: Sentry=1
+    gorlek, glitch: Sentry=1
   refill Health=1
   refill Energy=3:
     moki: Weapon
@@ -4121,7 +4121,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
       Bash, Grenade=1 OR DoubleJump OR Dash
   conn LowerReach.Teleporter:
     moki: Grenade=1
-    gorlek: Sentry=1
+    gorlek, glitch: Sentry=1
 
 anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the teleporter pickup
   refill Full
@@ -4129,7 +4129,7 @@ anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the
   conn Teleporters: free
   conn LowerReach.OutsideTPRoom:
     moki: Grenade=1
-    gorlek: Sentry=1
+    gorlek, glitch: Sentry=1
 
 # checkpoint at -296, -3944
 
@@ -4345,7 +4345,7 @@ anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
 
   quest UpperReach.SpringSeed:
     moki: Grenade=1
-    gorlek: Sentry=1  # Use sentry to light the lantern
+    gorlek, glitch: Sentry=1  # Use sentry to light the lantern
 
   pickup UpperReach.LightBurstTree:
     moki: free
@@ -4353,7 +4353,7 @@ anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
     moki: free
   pickup UpperReach.HiddenEX:
     moki: Grenade=1
-    gorlek: Sentry=1  # Use sentry to melt the ice
+    gorlek, glitch: Sentry=1  # Use sentry to melt the ice
   pickup UpperReach.TreeOre:  # @Validator I added this path
     gorlek:
       DoubleJump, TripleJump, Glide OR Sword  # Climb the right wall then triplejump + glide (or sword combo + upslash)
@@ -4421,18 +4421,19 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
     moki: Grenade=1, Glide  # grenade to light the lantern
     gorlek:
       Grenade=1, Damage=20 OR Glide  # Pickup too close from the spikes for a TP out
-      # Sentry to light the lantern
-      Sentry=1, Glide, Launch OR SentryJump=1
-      Sentry=1, Damage=20, Launch OR SentryJump=1
-      Sentry=1, Glide, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
-      Sentry=1, Damage=20, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
+      glitch: # Sentry to light the lantern
+        Sentry=1, Glide, Launch OR SentryJump=1
+        Sentry=1, Damage=20, Launch OR SentryJump=1
+        Sentry=1, Glide, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
+        Sentry=1, Damage=20, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
     unsafe:
       Sentry=1, DoubleJump  # djump + sentry to light the lantern. The sentry need to explode when the butterfly is high (rng based?)
   pickup LowerReach.WindHiddenEX:
     moki: Grenade=1, Glide  # grenade to light the lantern
     gorlek:
-      DoubleJump, Sentry=1, Glide, TripleJump OR Hammer  # sentry to light the lantern
-      SentryJump=1, Sentry=1, Glide
+      glitch:  # sentry to light the lantern
+        DoubleJump, Sentry=1, Glide, TripleJump OR Hammer
+        SentryJump=1, Sentry=1, Glide
       SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
       DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
       Launch, DoubleJump OR Dash OR Sword
@@ -4449,8 +4450,9 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
     moki: Grenade=1, Glide  # grenade to light the lantern
     gorlek:
       Launch, DoubleJump OR Dash OR Sword OR Hammer OR Damage=20
-      DoubleJump, Sentry=1, Glide, TripleJump OR Hammer  # Sentry to light the lantern
-      SentryJump=1, Sentry=1, Glide  # Sentry to light the lantern
+      glitch:  # Sentry to light the lantern
+        DoubleJump, Sentry=1, Glide, TripleJump OR Hammer
+        SentryJump=1, Sentry=1, Glide
     unsafe: Launch  # Might be gorlek
 
 # checkpoint at -223, -4043
@@ -4492,16 +4494,17 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     gorlek:
       Bash, Grenade=2
       # Grenade=1, DoubleJump, OR Dash OR Glide OR Launch OR Sword OR Hammer  not sure which was the intent xD
-      Sentry=1, Launch OR SentryJump=1
-      Sentry=1, DoubleJump, TripleJump OR Hammer
+      glitch:
+        Sentry=1, Launch OR SentryJump=1
+        Sentry=1, DoubleJump, TripleJump OR Hammer
     unsafe:
       Grenade=1, Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
   # could be considered moving this anchor to the left, closer to the teleporter, if it gets important on higher difficulties
 
   state LowerReach.RolledSnowball:
     moki: Grenade=1, Combat=Mantis OR Bash
-    gorlek:
-      Launch, Sentry=1  # Sentry to melt the ice
+    gorlek, glitch:  # Sentry to melt the ice
+      Launch, Sentry=1
       Damage=20, SentryJump=1, Sentry=1  # Jump in the spikes (won't damage Ori afterwards), sjump then sentry to melt the ice + sword combo to return to safety
       DoubleJump, TripleJump, Sentry=1, Dash OR Glide OR Sword OR Hammer OR Damage=20  # Jump from the branch above the ice, triple jump to get close enough, sentry to melt the ice then return to safety
     unsafe:
@@ -4519,8 +4522,9 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     gorlek:
       Bash, Grenade=2
       # Grenade=1, DoubleJump, OR Dash OR Glide OR Launch OR Sword OR Hammer  not sure which one was the intent :p
-      Sentry=1, Launch OR SentryJump=1
-      Sentry=1, DoubleJump, TripleJump OR Hammer
+      glitch:
+        Sentry=1, Launch OR SentryJump=1
+        Sentry=1, DoubleJump, TripleJump OR Hammer
     unsafe:
       Grenade=1, Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
   conn LowerReach.SoupMoki: free
@@ -4542,14 +4546,16 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
       Bash, Grenade=2, DoubleJump, Dash, Glide
       Grenade=1, Launch
     gorlek:
-      Sentry=1, Launch  # Sentry to light the lantern
+      glitch:  # Sentry to light the lantern
+        Sentry=1, Launch
+        Glide, SentryJump=3, Sentry=1  # Same as above but one more sjump to get close enough to the lantern to light it with a sentry
+        Dash, SentryJump=3, Sentry=1
+        SentryJump=5, Sentry=1
+        SentryJump=1, DoubleJump, Sentry=1
       Glide, SentryJump=2, Grenade=1  # Need to use up slashes (sword not mention because of the sjumps in the rest of the path)
-      Glide, SentryJump=3, Sentry=1  # Same as above but one more sjump to get close enough to the lantern to light it with a sentry
       Dash, SentryJump=2, Grenade=1
-      Dash, SentryJump=3, Sentry=1
-      SentryJump=1, DoubleJump, Grenade=1 OR Sentry=1
+      SentryJump=1, DoubleJump, Grenade=1
       SentryJump=4, Grenade=1
-      SentryJump=5, Sentry=1
       Bash, Grenade=5, Damage=20
       Bash, Grenade=2, DoubleJump, TripleJump OR Dash OR Glide OR Sword OR Hammer
       Bash, Grenade=3, DoubleJump
