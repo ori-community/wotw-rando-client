@@ -4762,9 +4762,8 @@ anchor LowerReach.SnowEscape at 79, -3733:
     moki: LowerReach.ForestsMemory
 
 anchor LowerReach.TownEntry at -35, -4077:  # Where the wind starts
-  conn GladesTown.ReachPath
-    moki: free
-  conn LowerReach.Trial
+  conn GladesTown.ReachPath: free
+  conn LowerReach.Trial:
     moki:
       Glide
     gorlek:
