@@ -5868,7 +5868,7 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
       Water, WaterDash, Grapple, SentryJump=1, Sword OR Dash OR Glide
       Water, WaterDash, Bash, Grenade=1, DoubleJump  # launch grenade below the waterfall
 
-  conn UpperPools.RoofEX:
+  conn UpperPools.AboveTree:
     moki, UpperPools.TreeRoomLeftBubbleFree:
       Flap, DoubleJump
       Launch
