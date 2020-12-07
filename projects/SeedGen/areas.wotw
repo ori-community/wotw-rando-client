@@ -2073,19 +2073,17 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
   conn GladesTown.Teleporter: free
   conn TuleyShop:
     moki: InnerWellspring.WaterEscape
-  conn LowerReach.Trial:
+    
+  conn LowerReach.TownEntry:
     moki:
-      Glide, Bash, Flap OR Grenade=1  # derived from the catalyst path
-      Glide, Launch
+      Bash, Flap OR Grenade=1  # may need to juggle the soupgrenade once
+      Launch
     gorlek:
-      Glide, SentryJump=1
-      Launch, Damage=20, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      DoubleJump, Sword OR Hammer OR TripleJump #Wall jump from the wall near the ceiling
+      SentryJump=1
     unsafe:
-      SentryJump=3, Sword, DoubleJump, Damage=20
-      Glide, Grenade=1
-      Glide, DoubleJump, TripleJump
-      Grenade=4, DoubleJump, TripleJump, Damage=20
-      Launch, Damage=40
+      Dash, Glide, Sword #Needs a ramp on the left side corner of the platform near the cauldron
+
 
 region WestGlades:
   moki: Danger=20
@@ -3874,8 +3872,13 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
   refill Checkpoint
   refill Health=1
 
+# need to add LowerReach.ForestsMemory as alt to LowerReach.BearSneezed as the escape also gets Baur out of the way
+
   state LowerReach.BearSneezed:
-    moki: Flap
+    moki: 
+      Flap
+      LowerReach.ForestsMemory
+     
   state LowerReach.HeatBaurFurnace:
     moki, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
       Bash, Flap
@@ -3888,29 +3891,28 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
       DoubleJump, Dash, Bash, Flap
       Bash, Grenade=1
       Launch
-    gorlek, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
+    gorlek, LowerReach.BearSneezed, LowerReach.BearBridgeBroken: 
+      Bash #bash the enemy into the air first, may have to use the purple one
       SentryJump=1
-      Bash  # using the slime
-      Dash, DoubleJump, Sword OR Hammer  # Stick to the right wall, dash right when ori falls then double jump + up slash
-      DoubleJump, TripleJump, Sword
-      DoubleJump, TripleJump, Hammer, Glide
-    unsafe:
-      Dash, DoubleJump, Shuriken=1 OR Flash=1 OR Spear=1 OR Sentry=1 OR Blaze=1  # A single activation of flash
-      DoubleJump, TripleJump, Hammer OR Flash=1 OR Sentry=1 OR Shuriken=1
+      Dash, DoubleJump, TripleJump # you only get one shot at these else you have to come back down from Baur
+      DoubleJump, TripleJump, Sword OR Hammer
+    unsafe, LowerReach.BearSneezed, LowerReach.BearBridgeBroken:
+      Grenade=1 #GrenadeJump=1
+      # you only get one shot at these else you have to come back down from Baur
+      Dash, DoubleJump, Shuriken=1 OR Flash=1 OR Spear=1 OR Sentry=1 OR Blaze=1 #A single activation of flash
+      DoubleJump, TripleJump, Flash=1 OR Sentry=1 OR Shuriken=1
 
   conn LowerReach.AboveEntry:
     moki:
       DoubleJump, Launch  # Can't rely on the sleeping bear to be there
-      Bash, DoubleJump OR Launch
-      Bash, Grenade=1
-      Bash, Dash  # @Validator new path
+      Bash, DoubleJump OR Launch OR Dash OR Grenade=1
     gorlek:
-      Launch  # Launch straight up, stick to the wall then  launch again
-      Bash, Glide OR Sword OR Hammer  # There is a safe spot at the left of the spike before the first lantern
+      Launch # a little tight but totally doable. Jump up before launching.
+      Bash, Sword OR Glide OR Hammer OR SentryJump=1 OR Damage=20 #There is a safe spot at the left of the spike before the first lantern
       SentryJump=1, DoubleJump
     unsafe:
-      Bash, Shuriken=1 OR Flash=1 OR Sentry=1 OR Blaze=1 OR Spear=1
-      SentryJump=1  # Needs good sentry jump, dependent on how you cap your game
+      SentryJump=1
+      Bash # can be done damageless, but damage is likely. Keep jumping at the right wall until you go over it and bash the first latern at just the right angle to reach the second
   conn WestGlades.Upper:
     moki: LowerReach.BearSneezed
 
@@ -3922,76 +3924,55 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
       Launch
       LowerReach.HeatBaurFurnace, DoubleJump
     gorlek:
-      SentryJump=1  # Need to use the plant as a platform
-      Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer  # Use the spitter off camera on the left of the platform
-      DoubleJump, TripleJump, Damage=20
-      LowerReach.HeatBaurFurnace, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      LowerReach.HeatBaurFurnace, Dash
+      LowerReach.HeatBaurFurnace, Bash, Grenade=1
+      Bash, Grenade=1, DoubleJump OR Dash
     unsafe:
-      Dash, DoubleJump, Damage=20, Sword OR Hammer  # djump+upslash+ dash in the spikes, grab the plant then djump + upslash to reach the left wall. Sword much harder, need to get a ramp
-      Bash, Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
-      DoubleJump, TripleJump, Sword OR Hammer  # you need first to get on the first plant on the left
+      LowerReach.HeatBaurFurnace, Sword OR Hammer OR Glide
+      SentryJump=1 # you actually want a weaker jump to land on top of the plant, a strong one will send you sailing over it. Weapon stalls or dash/doublejump from there
+      Bash, Sword OR Hammer OR DoubleJump OR Dash OR Glide OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
+      DoubleJump, TripleJump, Damage=20 OR Sword OR Hammer #you need first to get on the first plant on the left
       LowerReach.HeatBaurFurnace, Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
-
-  pickup LowerReach.AboveBaurLowerEX:
+      Dash, DoubleJump, Damage=20, Hammer OR Sword #djump+upslash+ dash in the spikes, grab the plant then djump + upslash to reach the left wall. Sword much harder, need to get a ramp
+      
+  pickup LowerReach.AboveBaurLowerEX: 
     moki:
       Launch
-      LowerReach.CoolBaurFurnace, Bash, Grenade=1  # seemed a bit hectic without cooling the furnace
-      LowerReach.HeatBaurFurnace OR Grenade=1:  # these use a grenadebash if they can't use the unfrozen tongue plant
-        DoubleJump, Bash
-        Dash, Bash, Glide
+      DoubleJump, Bash, LowerReach.HeatBaurFurnace OR Grenade=1  # use a grenadebash if you can't use the tongue plant
     gorlek:
-      DoubleJump, TripleJump  # Climbing frozen tongue with TripleJump
+      LowerReach.HeatBaurFurnace, Bash, Dash OR DoubleJump OR Glide # have fun with the snaptraps
+      Bash, Grenade=1 OR SentryJump=1
       SentryJump=2
-      SentryJump=1, DoubleJump  # sjump, climb the left wall then sword combo + djump to reach the xp
-      Bash
-      DoubleJump, Dash  # Use a coyote jump from the left of the frozen tongue
-      LowerReach.HeatBaurFurnace, DoubleJump, TripleJump OR Sword OR Hammer
     unsafe:
-      LowerReach.HeatBaurFurnace, DoubleJump
+      LowerReach.HeatBaurFurnace, Bash # weapon stalling! Not really that hard, maybe gorlek ok
+      Bash # jump repeated under the left side of the snaptrap to aggro the spitter. yes, really.
   pickup LowerReach.AboveBaurUpperEX:
     moki:
       Launch
       LowerReach.HeatBaurFurnace, DoubleJump, Dash, Bash
     gorlek:
-      DoubleJump, Bash, Glide  # Hold glide, bash up and double jump
-      LowerReach.HeatBaurFurnace:
-        DoubleJump, TripleJump OR Sword OR Hammer
-        Bash  # one bash to get where LowerReach.AboveBaurLowerEX is, wait for a second mortar shot and bash it to grab the tongue
-        SentryJump=1, Dash
+      LowerReach.HeatBaurFurnace, DoubleJump, Bash
     unsafe:
-      TripleJump, DoubleJump  # TripleJump frozen tongue climbing
-      LowerReach.HeatBaurFurnace, SentryJump=2  # Sentry Jump ramp on the left wall
-      DoubleJump, Bash, Sword  # Gain height bashing a shot up and use sword to stall
+      LowerReach.HeatBaurFurnace, Dash, Bash # get up to the snaptrap with the LowerReach.AboveBaurLowerEX then dash and weapon stall to the tongue plant
+      LowerReach.HeatBaurFurnace, SentryJump=2, Damage=20 # First jump into the spikes near the shooter, can use lower jump to snaptrap - wall - weapon stall to spikes, then sentry up from spikes to the tongue plant
+      LowerReach.HeatBaurFurnace, Bash, Glide # get up to the snaptrap with the LowerReach.AboveBaurLowerEX, glide down over the shooter, bash off its projectile
+      LowerReach.HeatBaurFurnace, Bash, Grenade=1 # charge the grenade on the snaptrap by the spikes
 
   conn LowerReach.Entry: free
   conn LowerReach.Icefall:
     moki:
-      DoubleJump OR Launch
+      DoubleJump OR Launch OR Dash
       LowerReach.HeatBaurFurnace
-      # could use bashgrenades to get past the frozen tongue plant, but seems a bit unintuitive
-    gorlek:
-      Bash, Grenade=1  # a bit tricky, you throw a grenade, jump on the tongue and bash the grenade after falling off of it
-      Dash
-      Glide
-      Sword  # Stall with 2 sword hit before tongue and one after the tongue
-    unsafe:
-      Sentry=2
-      Shuriken=2
+    unsafe: Bash # jump to aggro the spitter (or use grenade) and catch high up on the frozen tongue, then jump off quickly
+
   conn LowerReach.Central:
     moki, LowerReach.Lever:
       Bash, DoubleJump OR Dash OR Glide
       Launch
     gorlek, LowerReach.Lever:
-      Bash, Sword OR Hammer OR Damage=20
-      Glide, Sword OR Hammer OR Damage=20
-      DoubleJump, TripleJump OR Glide OR Sword OR Hammer OR Damage=20
-      Dash, DoubleJump OR Glide OR Sword OR Hammer OR Damage=20
-      Sword, Damage=20
+      Bash # aim high and weapon stall
     unsafe, LowerReach.Lever:
-      Glide, Sentry=1 OR Shuriken=1
-      Dash, Shuriken=1 OR Sentry=2
-      Hammer, Damage=20
-      SentryJump=1
+      Dash # slide down the wall and dash away, then dash again and weapon stall
 
 anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's nose
   refill Checkpoint
@@ -4000,33 +3981,25 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
 
   state LowerReach.BearBridgeBroken:
     moki, LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that moki
-  state LowerReach.LeftFurnace:
+  
+  state LowerReach.LeftFurnace: 
     moki:
       Grenade=1, Bash, DoubleJump OR Dash OR Glide  # Grenade to light the furnace
       Grenade=1, Launch  # Grenade to light the furnace
-    gorlek:
-      Grenade=1, DoubleJump
-      Grenade=1, SentryJump=1
-      Grenade=1, Damage=20
-      Grenade=1, Bash
-      Grenade=1, Grapple, Dash OR Glide OR Sword OR Hammer
-    unsafe:
-      Grenade=1, Grapple, Sentry=1 OR Shuriken=1
+      Grenade=1, Grapple, DoubleJump OR Dash OR Glide # Grenade to light the furnace
+    gorlek: 
+      Grenade=1, Bash OR Grapple # grapple alone requires some weapon stalling
 
   pickup LowerReach.IcefallOre:
     moki, LowerReach.LeftFurnace:
       Bash, Grapple OR Launch  # bash the enemies
       Combat=2xSlug, Grapple, Damage=10, DoubleJump OR Dash  # grapple past the enemies and probably get hit by them
       Water, Launch  # swim past the enemies
-    gorlek, LowerReach.LeftFurnace:  # You can QTM at the checkpoint if you need to despawn the ennemies
-      Launch
+    gorlek, LowerReach.LeftFurnace:
+      Water, WaterDash, DoubleJump, TripleJump
       Bash
-      Grapple, DoubleJump OR Dash OR Glide OR Sword OR Hammer
-      SentryJump=1, DoubleJump, TripleJump  # up slash to reach the left wall
-      WaterDash, Water, DoubleJump, TripleJump OR Sword OR Hammer OR SentryJump=1  # With sjump, wdash on the plant and sjump from here. Then doublejump + upslash to reach the wall
-      WaterDash, Damage=20, DoubleJump, TripleJump OR Sword OR Hammer OR SentryJump=1  # With sjump, wdash on the plant and sjump from here. Then doublejump + upslash to reach the wall
-    unsafe:
-      SentryJump=1, DoubleJump, Dash OR Glide
+      Grapple, Damage=10 # weapon stall needed, probably get hit by wasps
+      Launch, Damage=10
   pickup LowerReach.IcefallEX:
     moki, LowerReach.LeftFurnace:
       DoubleJump, Bash  # bash the enemies
@@ -4051,84 +4024,65 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
   conn LowerReach.Entry: free
   conn LowerReach.AboveEntry:
     moki:
-      DoubleJump OR Launch
-      LowerReach.HeatBaurFurnace
-    gorlek:
-      Dash
-      Glide
-      Sword
-    unsafe:
-      Sentry=2, Shuriken=2
+      DoubleJump OR Launch OR Dash
+      LowerReach.HeatBaurFurnace 
 
 anchor LowerReach.Central at -335, -4010:  # After the lever door
   refill Checkpoint
 
   pickup LowerReach.AboveDoorEX:
     moki:
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash OR Hammer OR Spear=1
-        Bash, Grenade=1
-      Launch
-    gorlek:
-      DoubleJump, TripleJump OR LowerReach.Lever
-      SentryJump=1
+      LowerReach.CentralFurnace, DoubleJump, Dash, Bash OR Hammer OR Spear=1
       Bash, Grenade=1
-      LowerReach.CentralFurnace:
-        DoubleJump, Sword, Bash OR Spear=1
-        DoubleJump, Hammer  # use the plant up slash and directly wall jump on the left wall
-        Dash, Glide, Hammer
+      Launch
+    gorlek: 
+      Bash
+      SentryJump=1
+      DoubleJump, TripleJump
     unsafe:
-      Bash  # unsafe because the checkpoint is actually on the slime so he wont spawn if you reload from this checkpoint
-      DoubleJump, Sword  # Pogo on the slime
-      LowerReach.CentralFurnace:
-        Dash, Sword, Bash OR Hammer OR Spear=1
-        DoubleJump, Glide, Bash OR Spear=1  # Really precise wall jump
-        Dash, Glide, Sword, Bash OR Spear=1  # Need a ramp
+      DoubleJump #annoying but doable, requires upslash
+      Grenade=1 # GrenadeJump=1
+
   pickup LowerReach.LupoMap:
     moki:
       Launch
       DoubleJump, Dash
-      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      LowerReach.CentralFurnace, Bash, Grenade=1 # just land on the little wall first
     gorlek:
-      SentryJump=1
-      DoubleJump, TripleJump OR Sword OR Hammer  # With Hammer, use the plant up slash and directly wall jump on the left wall instead of air stalling
-      Bash, Grenade=1
+      DoubleJump, TripleJump
+      SentryJump=1 # from the snaptrap
     unsafe:
-      Bash  # unsafe because the checkpoint is actually on the slime so he wont spawn if you reload from this checkpoint
-      DoubleJump, Glide  # Really precise wall jump
+      Bash # move the purple slug to the right first
+      DoubleJump, Glide # from LowerReach.AboveDoorEX
+      Grenade=1 # GrenadeJump=1
+      
   pickup LowerReach.TPLeftEX:
     moki:
       Launch
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash
-        Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      LowerReach.CentralFurnace, DoubleJump, Dash
+      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Bash, Grenade=2, Hammer OR Spear=1
     gorlek:
-      SentryJump=2, Hammer OR Spear=1  # Hammer or spear to break the ceiling above LowerReach.AboveDoorEX
-      Grenade=1, Bash, Spear=1 OR Hammer  # Juggle the mortar shot to use 1 bash grenade instead of two / Hammer or spear to break the ceiling above LowerReach.AboveDoorEX
-      LowerReach.CentralFurnace:
-        DoubleJump, TripleJump OR Sword OR Hammer  # With Hammer, need to wall jump to get on the branch near the mortal then jump out of it and air stall
-        Dash, Glide, Sword OR Hammer
-        Grenade=1, Bash
+      Bash, Hammer OR Spear=1
+      SentryJump=2, Hammer OR Spear=1
+      DoubleJump, TripleJump, Hammer OR Spear=1 # finish with an upswing
     unsafe:
-      SentryJump=1, Spear=1  # Full Height Sentry Jump
+      Grenade=2, Hammer OR Spear=1 # GrenadeJump=2, Hammer OR Spear=1
+      Spear=1, SentryJump=1
 
   conn LowerReach.SecondSoup: free
   conn LowerReach.OutsideTPRoom:
     moki:
       Launch
-      LowerReach.CentralFurnace:
-        DoubleJump, Dash, Bash
-        Bash, Grenade=1
+      LowerReach.CentralFurnace, DoubleJump, Dash, Bash
+      LowerReach.CentralFurnace, Bash, Grenade=1
     gorlek:
-      DoubleJump, TripleJump, Hammer OR Spear=1
-      SentryJump=3, Hammer OR Spear=1
-      Bash, Grenade=1, Hammer OR Spear=1
-      LowerReach.CentralFurnace:
-        Bash, Grenade=1
-        SentryJump=2
-        DoubleJump, TripleJump OR Dash OR Sword OR Hammer
-    unsafe:
-      LowerReach.CentralFurnace, Dash, Sword OR Hammer
+      Bash, Hammer OR Spear=1
+      SentryJump=2, Hammer OR Spear=1
+      LowerReach.CentralFurnace, DoubleJump, TripleJump OR Dash # stand on the tongue plant
+    unsafe: 
+      LowerReach.CentralFurnace, Bash # move the purple slug to the right first
+      Grenade=2, DoubleJump, Hammer OR Spear=1 # GrenadeJump=2, DoubleJump, Hammer OR Spear=1
 
 anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter room
   refill Checkpoint
@@ -4143,57 +4097,42 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
     moki: Bash OR Hammer OR Spear=1
   pickup LowerReach.LupoMap:
     moki: DoubleJump OR Dash OR Glide OR Launch
-    gorlek: free
+    gorlek: free # not too hard to do damageless, slide down the tongue plant and land on the little wall
+
   pickup LowerReach.TPLeftEX:
     moki:
       Bash, DoubleJump OR Dash OR Glide
       Launch
-    gorlek:
-      Dash
-      Glide
-      Sword
-      Bash  # Need to bash the projectile twice
-      DoubleJump, Damage=20 OR Hammer
-    unsafe:
-      Hammer  # can barely get the pickup, too precise
-      Damage=20, Hammer  # damage boost on the wall to get a wall jump then up slash
-      DoubleJump, Sentry=1 OR Shuriken=1 OR Spear=1 OR Flash=1 OR Bow=1 OR Grenade=1 OR Blaze=1
+    gorlek: Bash OR Glide OR Dash OR DoubleJump OR SentryJump=1 # weapon stalling may be needed
+    unsafe: Grenade=1 # GrenadeJump=1
+
   pickup LowerReach.HiddenOre:
     moki:
       Launch
       LowerReach.CentralFurnace, DoubleJump, Bash, Dash OR Glide OR Grenade=1
     gorlek:
-      DoubleJump, TripleJump, Bash OR SentryJump=1  # triple jump to get a wall jump on the platform above
-      Bash, DoubleJump, Dash OR Glide OR Sword OR Hammer  # jump on the tongue, let ori slide down then double jump again and go for the right wall with dash/up slashes/glide, climb it, grab the tongue again and jump out of it
-      SentryJump=1, DoubleJump  # jump on the tongue, let ori slide down then double jump again and go for the right wall with dash/up slashes/glide, climb it, grab the tongue again and jump out of it
-      LowerReach.CentralFurnace, Bash, DoubleJump OR Dash OR Sword OR Hammer
-      LowerReach.CentralFurnace, SentryJump=1
+      LowerReach.CentralFurnace, SentryJump=1 # highest jump can go all the way, middling can reach tongue plant, low can reach snaptrap then weaponstall to tongue
+      LowerReach.CentralFurnace, Bash, Grenade=1 OR Glide OR DoubleJump OR Dash
     unsafe:
-      Bash, DoubleJump, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
-      SentryJump=1, DoubleJump, Spear=1 OR Shuriken=1 OR Flash=1 OR Sentry=1
-      LowerReach.CentralFurnace, Bash, Flap OR Sentry=1 OR Flash=1 OR Shuriken=1 OR Spear=1 OR Blaze=1
-      LowerReach.CentralFurnace, SentryJump=1, Flap OR Sentry=1 OR Flash=1 OR Shuriken=1 OR Spear=1 OR Blaze=1
+      LowerReach.CentralFurnace, Bash # stand beside the spitter, bash off it once it shoots, then again off the projectile
+      LowerReach.CentralFurnace, TripleJump, Damage=20 # jump onto the spikes then up to the snaptrap
+      SentryJump=1
 
   conn LowerReach.SecondSoup: free
   conn LowerReach.Central:
     moki: DoubleJump OR Dash OR Bash OR Glide OR Launch OR Hammer OR Spear=1
-    gorlek: free
+    unsafe: free
+
   conn UpperReach.KeystoneRoom:
     moki:
       DoubleJump, Dash, Bash  # bash the squonkey
       DoubleJump, Bash, Grenade=2  # bash the squonkey
       Launch
     gorlek:
-      SentryJump=2
-      SentryJump=1, DoubleJump, Dash
-      SentryJump=1, DoubleJump, LowerReach.CentralFurnace  # bait the last plant and double jump + sword combo
-      SentryJump=1, DoubleJump, Hammer, Glide  # double jump+upslash from the plant to get near the burrow section, climb it then glide to the right
-      DoubleJump, TripleJump  # Need to start jumping just under the energy cristal to get to the first plant
-      Bash, DoubleJump OR Dash OR Sword OR Glide  # juggle the mortar shot than bash the squonkey
-    unsafe:
-      SentryJump=1, DoubleJump, Glide  # Need to do a precise double jump + up slash to get near the burrow section, climb it then glide to the right
-      SentryJump=1, DoubleJump  # double jump + pogo the squonkey to reset your double jump
-      Bash, Hammer OR Sentry=1 OR Shuriken=1 OR Grenade=1 OR Flash=1  # Hammer/Sentry/Flash need a precise wall jump on the right to get to the squonkey platform
+      Bash, Grenade=1, Dash OR Glide OR DoubleJump # use the spitter projectile to get a higher bash off your grenade
+    unsafe: 
+      Bash, Grenade=1 OR DoubleJump OR Dash
+
   conn LowerReach.Teleporter:
     moki: Grenade=1
     gorlek: Sentry=1
@@ -4222,86 +4161,55 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
       Grenade=1  # this makes grenadebash paths meaningless
       Flap, Bash, DoubleJump OR Launch
     gorlek:
-      Flap, Bash, Dash OR Glide OR Sword OR Hammer  # Walljump on the left wall to reach the frozen waterfall
+      Flap, Bash # jump is easier than it looks, will need a weapon stall to cross
+
   state UpperReach.CoolFurnace:  # need this because the player might have to refreeze the waterfall
     moki: Flap
 
   pickup UpperReach.LifeForceShard:
-    moki, Burrow:
-      Bash, Grenade=1, DoubleJump, Dash  # Just one of djump / dash is maybe too precise for moki
-      Bash, Grenade=1, Glide
-      Launch
-    gorlek, Burrow:
-      DoubleJump, Sword, TripleJump OR Dash OR Bash OR Glide OR Damage=20
-      DoubleJump, Hammer, TripleJump OR Dash OR Bash OR Glide OR Damage=20
-      DoubleJump, TripleJump, Dash OR Bash OR Glide OR Damage=20
-      Bash, Glide OR Sword  # sword combo to get under the 3rd burrow section, upslash to get above the spikes and get bellow LifeForceEX
-      Bash, DoubleJump, TripleJump OR Damage=20
-      Bash, Grenade=1, DoubleJump OR Dash OR Hammer  # from under LifeForceEX, launch a grenade, burrow to reach it at its highest point then dash/hammer/sword/glide/djump to reach the platform near the spikes
-      SentryJump=2  # From LifeForceEX, sword combo to reach the edge of the platform near the spikes.
-      SentryJump=1, Glide OR Damage=20
-      LowerReach.CentralFurnace, DoubleJump, Dash, TripleJump OR Bash OR SentryJump=1 OR Damage=20  # sjump from bellow LifeForceEX to reach its platform then djump+dash to reach the burrow section at your right / tjump+dash to reach the wall after the bashable plant, reach the burrow section from it. djump+dash+damage boost to get to that same wall
-    unsafe, Burrow:
-      DoubleJump, TripleJump OR Hammer  # From under LifeForceEX, get out of the burrow section straight up. Hard to do on keyboard
-      SentryJump=1, Dash  # Need a precise angle to exit the burrow section under LifeForceEX
+    moki:
+      Burrow, Launch
+    gorlek:
+      Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+    unsafe:
+      Burrow, Bash, SentryJump=1
+    
   pickup UpperReach.LifeForceEX:
-    moki, Burrow:
-      Bash, Grenade=1, DoubleJump, Dash
-      Bash, Grenade=1, Glide
-      Launch
-    gorlek, Burrow:
-      DoubleJump, Sword, TripleJump OR Dash OR Bash OR Glide OR Damage=20
-      DoubleJump, Hammer, TripleJump OR Dash OR Bash OR Glide OR Damage=20
-      DoubleJump, TripleJump, Dash OR Bash OR Glide OR Damage=20
-      Bash, Glide OR Sword  # sword combo to get under the 3rd burrow section, upslash to get above the spikes and get bellow LifeForceEX
-      Bash, DoubleJump, TripleJump OR Damage=20
-      Bash, Grenade=1  # from under LifeForceEX, launch a grenade, burrow to reach it at its highest point
-      SentryJump=2  # From LifeForceEX, sword combo to reach the edge of the platform near the spikes.
-      SentryJump=1, Glide OR Damage=20
-      LowerReach.CentralFurnace, DoubleJump, Dash, TripleJump OR Bash OR SentryJump=1 OR Damage=20  # sjump from bellow LifeForceEX to reach its platform / tjump+dash to reach the wall after the bashable plant, reach the burrow section from it. djump+dash+damage boost to get to that same wall
-    unsafe, Burrow:
-      DoubleJump, TripleJump OR Hammer  # From under LifeForceEX, get out of the burrow section straight up. Hard to do on keyboard
-      SentryJump=1, Dash  # Need a precise angle to exit the burrow section under LifeForceEX
+    moki:
+      Burrow, Launch
+    gorlek:
+      Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Glide
+    unsafe:
+      Burrow, Bash, SentryJump=1
+      
   pickup UpperReach.LowerKS:
     moki:
       Launch
-      UpperReach.HeatFurnace:
-        DoubleJump
-        Bash, Grenade=1
+      UpperReach.HeatFurnace, DoubleJump
+      UpperReach.HeatFurnace, Bash, Grenade=1
+      UpperReach.HeatFurnace, Water, WaterDash
     gorlek:
-      Bash, DoubleJump, Grenade=1 OR Flap  # grenade bash from bellow the pickup or use the soup
-      DoubleJump, TripleJump OR SentryJump=1  # SentryJump from bellow / triple jump from the soup
-      DoubleJump, Dash, Sword OR Hammer  # from the the soup, stick to the wall then djump+upslash+dash
-      UpperReach.HeatFurnace:
-        SentryJump=1
-        WaterDash, Water OR Damage=20
-        Dash, Bash OR Sword OR Hammer  # Upslash then dash / bash the gorlek then dash
-        Bash, Glide OR Sword OR Hammer  # Bash the gorlek then air stall
+      UpperReach.HeatFurnace, Bash # use the gorlek
+      UpperReach.HeatFurnace, Grapple, Dash
+      Bash, Grenade=1 # use the gorlek to get a higher bash on your grenade
     unsafe:
-      DoubleJump, Sword OR Hammer
-      UpperReach.HeatFurnace, Hammer  # Stupidly precise upslash
-  pickup UpperReach.MiddleLeftKS:
+      UpperReach.HeatFurnace, Grapple, Glide
+      SentryJump=1 # need a decently high one
+      
+  pickup UpperReach.MiddleLeftKS: # I hate this pickup, there's too many ways to get it, still not done finding them all
     moki:
       Launch, DoubleJump OR Dash OR Glide
+      Launch, Bash, Flap OR Grenade=1
       UpperReach.HeatFurnace:
         DoubleJump, Bash, Grapple OR Glide
-        Dash, Bash, Grenade=1, Glide
+        Dash, Bash, Glide, Grenade=1
+        Dash, Bash, Glide, Water, WaterDash
     gorlek:
-      Launch
-      UpperReach.HeatFurnace:
-        Bash, Glide, Sword OR Hammer OR Damage=20  # bash the gorlek then glide, dboost/upslash in the spikes near the the pickup
-        Bash, Grapple, Dash OR Sword OR Hammer  # Bash the gorlek to reach the plant
-        Bash, Grapple, WaterDash, Water, Damage=20  # dboost in the spikes near the pickup
+      Launch # sideways weapon stall needed
+      Bash, Damage=20, Grenade=1 OR Flap OR Dash OR DoubleJump OR Glide # start at the soup, may need to weapon stall to land further left on the spikes
+      Bash, Grenade
     unsafe:
-      UpperReach.CoolFurnace:
-        SentryJump=1, Damage=20  #  Walljump on the left wall to reach the frozen waterfall, at the soup dboost on the spikes bellow the pickup then sjump
-        Bash, Glide  # Juggle the projetile until the ennemy shot a new one. When they do, bash upwards and juggle with the new projectile
-      UpperReach.HeatFurnace:
-        Damage=20, SentryJump=2
-        Damage=20, SentryJump=1, DoubleJump OR Grapple
-        Damage=20, SentryJump=1, Bash, Grenade=1
-        Glide, Bash
-        Bash, WaterDash, Grapple, Water OR Damage=20  #  bash glide the last projectile to avoid a damage boost in the spikes just before the pickup
+      Damage=20, Bash OR SentryJump=1 OR Grenade=1 # GrenadeJump=1 # start at the soup, may need to weapon stall to land further left on the spikes
   pickup UpperReach.UpperKS:
     moki:
       DoubleJump, Bash, Grenade=1  # go past the hidden ore
@@ -4863,6 +4771,17 @@ anchor LowerReach.SnowEscape at 79, -3733:
   pickup LowerReach.EscapeRevisitEX:
     moki: LowerReach.ForestsMemory
 
+anchor LowerReach.TownEntry at -35, -4077: # Where the wind starts
+  conn GladesTown.ReachPath
+    moki: free
+  conn LowerReach.Trial
+    moki:
+      Glide
+    gorlek:
+      Launch, Damage=20 #Launch on the wall at the start of the wind cave
+      Launch, DoubleJump, Dash OR TripleJump
+      Launch, Bash, Grenade=1
+
 anchor LowerReach.Trial at 64, -4046:  # At trial start
   refill Checkpoint
 
@@ -4900,17 +4819,18 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
     moki: Glide
     gorlek: Launch, Damage=20, DoubleJump OR Dash  # Take a damage to refresh Launch/djump in the hiden area then tp out
 
-  conn GladesTown.ReachPath:
+  conn LowerReach.TownEntry:
     moki: Glide
     gorlek:
-      Launch  # Lanch on the walls, let Ori fall in the connection path then launch before hitting the spikes
-      DoubleJump, TripleJump  # Start jumping from the highest point of the second platform, on the right. Touch the wall above the connection, let Ori fall then jump before hitting the spikes
-      Dash, Sword OR Hammer OR Damage=20
-      SentryJump=1  # sjump on the wall, climb it as high as possible then jump and do a full combo to avoid falling in the spikes
-      Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Hammer
+      Damage=20, Sword OR Hammer OR Dash OR DoubleJump OR Launch #sword or hammer for weapon stalling
+      Bash, Grenade=1, Sword OR Hammer OR Dash OR DoubleJump OR Launch
+      Launch, Sword OR Hammer OR Dash OR DoubleJump
+      DoubleJump, Sword OR Hammer OR Dash OR TripleJump
+      Dash, Sword OR Hammer
+      SentryJump=1
     unsafe:
-      Dash, Shuriken=1 OR Sentry=1
-      Bash, Grenade=1, Damage=20, Shuriken=1 OR Flash=1 OR Sentry=1  # Stall in the air to get to the 2nd platform then bash grenade to the ceiling, wall jump and damage boost
+      Damage=50
+      Bash, Grenade=1, Damage=30
 
 region UpperDepths:
   moki: Danger=40, Regenerate
