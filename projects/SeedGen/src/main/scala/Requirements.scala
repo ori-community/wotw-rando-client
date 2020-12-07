@@ -138,7 +138,7 @@ package SeedGenerator {
 
   case class BreakWallReq(wallHealth: Int) extends WallReq(wallHealth,  Map(
     Sword -> (4f, 0f), Smash -> (12f, 0f), Bow -> (4f, 0.25f),
-    Grenade -> (10f, 1f), Shuriken -> (4f, .5f), Spear -> (20f, 2f))
+    Grenade -> (10f, 1f), Shuriken -> (4f, .5f), Spear -> (20f, 2f), Blaze -> (6.6f, 1f))
   )
 
   case class BackWallBreak(wallHealth: Int) extends WallReq(wallHealth,  Map(Shuriken -> (7f, 1.5f)))
