@@ -1589,8 +1589,6 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
         TuleyShop.SpringPlants, DoubleJump
     gorlek:
       DoubleJump, TripleJump
-      SentryJump=2, Sword, DoubleJump
-      Bash, Grenade=3, Dash, DoubleJump OR Glide
       TuleyShop.Lightcatchers, Bash:  # paths are the exact same because you can get up to the shard using the lightcatcher on the right and nothing else
         Flap, Glide  # bashglide over to the other side
         SentryJump=1
@@ -2115,7 +2113,7 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Bash, Grenade=1
     gorlek:
       DoubleJump, TripleJump
-      Bash, DoubleJump
+      Bash, DoubleJump, Dash
       SentryJump=1
     unsafe:
       Grenade=1  # grenade jump
@@ -2217,7 +2215,9 @@ anchor WestGlades.Center at -612, -4083:  # At the middle room connecting upper 
       Water, DoubleJump OR Dash OR Bash OR Glide OR Damage=10
       Launch
     gorlek:
-      Water OR Bash OR Damage=10 OR Combat=Tentacle
+      Water OR Bash
+      Combat=Tentacle, Sword OR Hammer
+      Damage=10, DoubleJump OR Dash OR Glide OR Sword OR Hammer
 
 anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions to Wellspring, Reach, and Pools
   refill Checkpoint
@@ -3591,9 +3591,10 @@ anchor WoodsMain.FourKeystoneRoom at 944, -4137:  # In front of the four keyston
       Glide OR Launch
       Bash, Grenade=1, DoubleJump OR Dash
     gorlek:
-      DoubleJump, TripleJump
-      Combat=3xSkeeto, SentryJump=1, Sword OR DoubleJump OR Dash
-      Bash, Grenade=1 OR DoubleJump OR Dash
+      Flap, Glide  # lure the balloon
+      BreakWall=3, DoubleJump, TripleJump
+      BreakWall=3, Combat=3xSkeeto, SentryJump=1, Sword OR DoubleJump OR Dash
+      BreakWall=3, Bash, Grenade=1 OR DoubleJump OR Dash
     unsafe: BreakWall=3, DoubleJump OR Bash OR SentryJump=2  # start your double jump from the higher floor near the spikes / bash the mosquitos / sjump from the platform next to the door to reach the platformtform above the door, sjump from there and sword combo + up slash
   pickup WoodsMain.LeftKS:
     moki: Combat=Balloon, Glide
@@ -6049,9 +6050,10 @@ anchor LowerWastes.SandPot at 1726, -3990:  # To the left of the sand pot
 
   pickup LowerWastes.SandPotHC:
     moki:
-      Burrow  # should be fine for moki? It mostly works holding left with somewhat proper timing
+      Burrow, DoubleJump
       Launch
     gorlek:
+      Burrow  # mostly just hold left
       SentryJump=1
       DoubleJump, TripleJump OR Sword OR Hammer  # just something to help
     unsafe: DoubleJump
@@ -6208,7 +6210,9 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       LowerWastes.SandPlatformLever, Burrow, DoubleJump  # Requires a vertical burrow through a vertical sand platform
     gorlek:
       Burrow, SentryJump=1, DoubleJump
-      LowerWastes.SandPlatformLever, Burrow, Dash OR Glide OR Sword
+      LowerWastes.SandPlatformLever, Burrow, Dash OR Glide
+      LowerWastes.SandPlatformLever, Burrow, Sword, Damage=30
+    unsafe:
       LowerWastes.SandPlatformLever, Burrow, Bash, Grenade=1  # maybe nontrivial lure. The platform helps a little, and it also enables an alternate solution jumping on top of the sand.
   pickup LowerWastes.MuncherClimbEX:
     moki:
@@ -6327,7 +6331,8 @@ anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path con
     moki: Burrow
   pickup LowerWastes.UpperPathEX:
     moki: Burrow, DoubleJump OR Dash OR Glide OR Launch
-    gorlek: Burrow
+    gorlek: Burrow, Sword OR Hammer OR Damage=30
+    unsafe: Burrow
   pickup LowerWastes.UpperPathHiddenEX:
     moki: Burrow, DoubleJump OR Dash OR Glide OR Launch
     unsafe: Burrow  # precise maneuver
@@ -6358,10 +6363,11 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
     moki: Burrow
   conn LowerWastes.UpperPath:
     moki: Burrow, DoubleJump OR Dash OR Launch
-    gorlek: Burrow  # Sorta tight.
+    gorlek: Burrow  # Sorta tight, but if you fail it the weird autosave placement can save you sometimes
   conn UpperWastes.KeystoneRoom:
     moki: Burrow, DoubleJump OR Dash OR Launch
-    gorlek: Burrow  # Again pretty tight. More lenient with Damage=30
+    gorlek: Burrow, Glide OR Sword OR Damage=30
+    unsafe: Burrow
 
 region UpperWastes:
   moki: Danger=50, Regenerate
