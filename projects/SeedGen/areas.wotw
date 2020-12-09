@@ -243,7 +243,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       # could do a sentryjump into bashgrenade, but I heard that kind of thing is unwelcome ;P
     unsafe:
       Burrow, SentryJump=1  # max height
-      Burrow, Sword OR Hammer # air stall, sword or hammer solve combat requirements
+      Burrow, Sword OR Hammer  # air stall, sword or hammer solve combat requirements
   pickup MarshSpawn.LifepactShard:
     moki: Regenerate, Damage=40, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug, Bash, DoubleJump OR Launch
   pickup MarshSpawn.BurrowsApproachLedgeEX:
@@ -257,7 +257,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     unsafe:
       Bash, Sentry=3  # Use Sentry instead of DoubleJump
       Bash, Sword
-      Bash, Hammer, Damage=10 #dboost under the first lantern, too precise for gorlek
+      Bash, Hammer, Damage=10  # dboost under the first lantern, too precise for gorlek
   pickup MarshSpawn.CrusherSwimEX:
     moki: Water, WaterDash, Bash, DoubleJump OR Dash OR Launch
     gorlek:
@@ -267,7 +267,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Water, WaterDash, Launch, DoubleJump, TripleJump OR Dash OR Sword OR Hammer
     unsafe:
       Water, WaterDash, Bash, Hammer, Damage=10  # dboost at the start, too precise for gorlek
-      Water, WaterDash, Bash, Sword # too precise for gorlek
+      Water, WaterDash, Bash, Sword  # too precise for gorlek
   pickup MarshSpawn.DamageTree:
     moki:
       Bash, DoubleJump, Glide
@@ -275,7 +275,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     gorlek:
       Bash, DoubleJump OR Dash OR Glide OR Sword
     unsafe:
-      #Bash, Grenade=1, Bash, Hammer, Damage=10  # dboost at the start, bashgrenade at the end, too precise for gorlek
+      # Bash, Grenade=1, Bash, Hammer, Damage=10  # dboost at the start, bashgrenade at the end, too precise for gorlek
       Bash, Hammer, Damage=10
   conn MidnightBurrows.Teleporter:  # one of the bells is hard to reach in this sequence
     moki: Bash, DoubleJump OR Dash OR Launch
@@ -284,7 +284,7 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Bash, Grenade=1, Sword
       Bash, SentryJump=1, Sword
     unsafe:
-      #Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end, too precise for gorlek
+      # Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end, too precise for gorlek
       Bash, Hammer, Damage=10
   conn MarshSpawn.Cave: free
   conn MarshSpawn.Main:
@@ -442,8 +442,8 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
       HowlsDen.KeystoneDoor, Bash, BreakWall=20, DoubleJump OR Dash
       HowlsDen.KeystoneDoor, BreakWall=20, Launch
     gorlek:
-      HowlsDen.KeystoneDoor, BreakWall=20, Combat=SneezeSlug, Glide # hold glide before jumping from the moss
-      HowlsDen.KeystoneDoor, BreakWall=20, Damage=10, Sword OR Hammer# Possible with no damage but its much tighter, use sword combos to make the longer jumps
+      HowlsDen.KeystoneDoor, BreakWall=20, Combat=SneezeSlug, Glide  # hold glide before jumping from the moss
+      HowlsDen.KeystoneDoor, BreakWall=20, Damage=10, Sword OR Hammer  # Possible with no damage but its much tighter, use sword combos to make the longer jumps
   pickup HowlsDen.RightHC:
     moki, HowlsDen.KeystoneDoor:
       BreakWall=16, BreakWall=16, BreakWall=20, DoubleJump OR Launch
@@ -816,7 +816,7 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
       Combat=Bat, Launch, DoubleJump OR Dash
     unsafe:
       Bash, Glide
-      Combat=Bat, Launch # About a 45° angle from under the second bat to avoid a damage boost
+      Combat=Bat, Launch  # About a 45° angle from under the second bat to avoid a damage boost
   conn MarshPastOpher.MillView: free
 
 anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable floor
@@ -860,7 +860,7 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
   pickup PoolsApproach.MillPathHC:
     gorlek, ShurikenBreak=20:
       Water, Bash, DoubleJump, TripleJump
-      Water, WaterDash, Damage=20, DoubleJump OR Dash OR Glide OR Sword OR Hammer # Analog swimming can avoid the damage boost but its hard to do with keyboard swimming
+      Water, WaterDash, Damage=20, DoubleJump OR Dash OR Glide OR Sword OR Hammer  # Analog swimming can avoid the damage boost but its hard to do with keyboard swimming
       Water, Bash, Damage=20, DoubleJump
       Water, Launch
     unsafe, ShurikenBreak=20:
@@ -879,9 +879,9 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
         DoubleJump, Bash, Sword OR Hammer OR TripleJump OR Damage=10
         Dash, Bash, Glide OR Sword OR Hammer OR Damage=10
         Sword, Bash, Damage=10
-        SentryJump=1, Bash, Damage=10 # land in the spikes, bash the lantern then air combo with sword or hammer to reach the patform
+        SentryJump=1, Bash, Damage=10  # land in the spikes, bash the lantern then air combo with sword or hammer to reach the patform
         DoubleJump, TripleJump, Dash OR Glide OR Damage=10
-        DoubleJump, TripleJump, SentryJump=1 # triple jump from the left wall + air combo with sword or hammer. sjump to reach the platform
+        DoubleJump, TripleJump, SentryJump=1  # triple jump from the left wall + air combo with sword or hammer. sjump to reach the platform
         DoubleJump, Damage=10, Dash OR Glide OR Sword OR Hammer
         Dash, Damage=10, Sword OR Hammer
         Sword, Damage=10, SentryJump=1
@@ -893,7 +893,7 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPas
       BreakWall=20, Damage=10, DoubleJump OR Sword OR Dash
       BreakWall=20, Damage=10, Glide, Hammer
       BreakWall=20, Damage=10, Bash
-      BreakWall=20, Bash, Grenade=1 # bash grenade near the spikes, bash glide of the lantern
+      BreakWall=20, Bash, Grenade=1  # bash grenade near the spikes, bash glide of the lantern
       SentryJump=1, Bash  # Hug the wall and the SentryJump, then horizontal slashes to the lantern; weapon breaks the wall
       Hammer, SentryJump=1, Damage=10 OR Water  # hammer breaks the wall, can avoid the damage boost but will land in water
   conn PoolsApproach.RightOfWheel:
@@ -1289,7 +1289,7 @@ anchor WestHollow.TrialApproach at -155, -4298:  # after getting past the beetle
     gorlek:  # middle water state can softlock this, so you have to be able to fully lower the water.
       Combat=Slug, DoubleJump OR Dash
       Bash, DoubleJump OR Dash
-      Damage=10, Sword OR Hammer # Sword or hammer solve combat requirements
+      Damage=10, Sword OR Hammer  # Sword or hammer solve combat requirements
       Damage=10, Glide, Combat=Slug OR Bash
 
   conn WestHollow.HollowDrainLower:
@@ -2364,7 +2364,7 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Bash, Grenade=1, Glide OR Sword OR Damage=20
       Bash, Grenade=2
       SentryJump=1, Glide OR Sword OR Damage=20
-      SentryJump=2 # Air stall with hammer or sword
+      SentryJump=2  # Air stall with hammer or sword
       # Other Grapple options don't seem very consistent
     unsafe:
       Bash, Grenade=1, Grapple  # requires holding up, good for kii
@@ -2979,7 +2979,7 @@ anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can d
       ShurikenBreak=10, Water, Bash, Grenade=1, Damage=15  # if you drained the water, you can go through through the drained room instead
       ShurikenBreak=10, Water, Bash, Grenade=2  # if you drained the water, you can go through through the drained room instead
     unsafe:
-    ShurikenBreak=10, Damage=15, DoubleJump OR Dash # cross the gap going over
+      ShurikenBreak=10, Damage=15, DoubleJump OR Dash  # cross the gap going over
       InnerWellspring.ThreeWheels, BreakWall=16, ShurikenBreak=10, Bash, Grenade=2  # not hard, but grenades can vanish on rotating objects sometimes
 
 anchor InnerWellspring.DrainAreaEntrance at -1128, -3968:  # On the wall after dropping through the gate draining the water
@@ -3030,7 +3030,7 @@ anchor InnerWellspring.DrainAreaExit at -1064, -3961:  # At DrainEX
       Water, Grapple, Damage=15, Bash, Hammer
       Water, Bash, Grenade=1, Grapple
     unsafe:
-      Water, SentryJump=1, Damage=15 #Water, sword in gorlek / too hard with hammer for gorlek
+      Water, SentryJump=1, Damage=15  # Water, sword in gorlek / too hard with hammer for gorlek
       Water, Bash, Grenade=2
       Water, Bash, Grenade=1, Damage=15
       BreakWall=10, Water, Grapple, Damage=15, Bash OR Hammer
@@ -4477,7 +4477,7 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
     moki: Grenade=1, Glide  # grenade to light the lantern
     gorlek:
       Grenade=1, Damage=20 OR Glide  # Pickup too close from the spikes for a TP out
-      glitch: # Sentry to light the lantern
+      glitch:  # Sentry to light the lantern
         Sentry=1, Glide, Launch OR SentryJump=1
         Sentry=1, Damage=20, Launch OR SentryJump=1
         Sentry=1, Glide, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
@@ -6060,7 +6060,7 @@ anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
       SentryJump=1, DoubleJump, Hammer OR Dash OR Glide OR Damage=30
     unsafe:
       SentryJump=1, DoubleJump OR Dash
-      Bash, DoubleJump, TripleJump # bash the gorlek's projectile
+      Bash, DoubleJump, TripleJump  # bash the gorlek's projectile
 
 anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
   refill Energy=3:
