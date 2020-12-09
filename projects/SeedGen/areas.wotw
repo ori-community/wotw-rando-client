@@ -6121,8 +6121,10 @@ anchor LowerWastes.SandPot at 1726, -3990:  # To the left of the sand pot
       Burrow, Bash, Grenade=1
       Burrow, Launch
     gorlek:
-      Burrow, DoubleJump OR Dash
-      Burrow, Grapple, Glide
+      Burrow, DoubleJump, TripleJump  # either evade the coal damage or burrow on top of the sand pot
+      Burrow, Dash, DoubleJump OR Grapple
+      Burrow, Damage=30, DoubleJump
+      Burrow, Damage=30, Grapple, Glide OR Sword
       Burrow, SentryJump=1
 
   conn LowerWastes.MuncherTunnel:
@@ -6137,16 +6139,17 @@ anchor LowerWastes.SandPot at 1726, -3990:  # To the left of the sand pot
       Bash, Grenade=1, DoubleJump, Glide
       Launch
     gorlek:
-      Bash, Grenade=1:
-        Glide
-        Damage=30, Sword OR Hammer OR DoubleJump OR Grapple
-        DoubleJump, TripleJump OR Grapple OR Sword OR Hammer
-        Grapple, Sword OR Hammer
-      Bash, Grenade=2
-      Burrow, DoubleJump, TripleJump
-      SentryJump=1, Grapple OR DoubleJump OR Dash OR Glide OR Damage=30
-      SentryJump=2
-      Bash, Grenade=1, SentryJump=1
+      Burrow, DoubleJump, TripleJump  # either evade the coal damage or burrow on top of the sand pot
+      DoubleJump, Damage=30, TripleJump OR Glide OR Sword OR Hammer  # take damage in the coals
+      Grapple, Damage=30, DoubleJump OR Glide OR Sword OR Hammer
+      Damage=30, Bash, Grenade=1, DoubleJump OR Sword OR Hammer
+      SentryJump=1, Glide             # glide from the sand pot
+      SentryJump=1, Sword, Damage=30  # hover from the sand pot
+      SentryJump=1, Grapple           # grapple from the sand pot, use the weapon to hover
+      Bash, Grenade=1, Glide
+      Bash, Grenade=1, Sword, Damage=30
+      Bash, Grenade=1, Grapple, Sword OR Hammer OR Damage=30
+      Bash, Grenade=2, Sword OR Hammer OR Damage=30
     unsafe:
       DoubleJump, TripleJump OR Grapple OR Glide OR Damage=30
       Grapple, Glide OR Damage=30
