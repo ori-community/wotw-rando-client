@@ -2373,7 +2373,6 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
     gorlek, BreakWall=16:
       DoubleJump, TripleJump OR Sword OR Hammer
       Dash, Sword OR Hammer OR Damage=15
-      Glide, Sword OR Hammer
       Grapple, Sword
       Grapple, Damage=15, DoubleJump OR Hammer
       Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=15  # different ways to solve using the many bash targets around
@@ -2406,11 +2405,11 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       Damage=15, DoubleJump OR Dash OR Grapple OR Glide OR Sword OR Hammer  # go around the moss wheel
       Water:  # mirror of the entrancedooropen paths
         DoubleJump, TripleJump OR Sword OR Hammer
-        Dash, Sword OR Hammer
-        Glide, Sword OR Hammer
+        Dash, Sword OR Hammer OR Damage=15
         Grapple, Sword
+        Grapple, Damage=15, DoubleJump OR Hammer
         Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=15  # different ways to solve using the many bash targets around
-        SentryJump=1, Sword
+        SentryJump=1, Sword OR Damage=15
       Bash, Glide, DoubleJump, TripleJump OR Grapple  # bashglide
       Bash, DoubleJump, TripleJump, Grapple
       Bash, Launch, DoubleJump OR Glide
@@ -3432,7 +3431,7 @@ anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
       Bash, Grenade=1, Glide OR Launch
       DoubleJump, Dash, Launch  # coming from below you'd just need Launch
     gorlek:
-      Glide, Dash OR Sword OR Hammer  # from the kind of pillar
+      Glide, Dash
       DoubleJump, TripleJump, Dash, Sword OR Hammer
       SentryJump=1, DoubleJump, Dash  # Dash after the apex of the sjump then sword's full combo + up slash
       Bash, Grenade=1, DoubleJump, TripleJump OR Sword OR Hammer
