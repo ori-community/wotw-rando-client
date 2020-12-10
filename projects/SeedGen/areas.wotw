@@ -3555,11 +3555,13 @@ anchor WoodsMain.AfterKuMeet at 856, -4192:  # At the upper ledge opening up to 
 anchor WoodsMain.BelowFourKeystoneRoom at 951, -4210:  # At the first leaf pile after meeting Ku
   pickup WoodsMain.LowerLeafPileEX:
     moki: Flap
+  pickup WoodsMain.BehindWallOre:
+    moki: Flap, Glide  # Lure the balloon
 
   conn WoodsMain.FourKeystoneRoom:
     moki: Combat=2xBalloon, Flap, Glide
     gorlek: Flap, Glide  # Flap kills these
-  conn WoodsMain.HiddenOreLedge:
+  conn WoodsMain.WallOreLedge:
     moki, Combat=2xBalloon:
       Bash, Grenade=3, DoubleJump  # different ways to solve
       Bash, Grenade=1, DoubleJump, Dash, Glide  # different ways to solve
@@ -3589,7 +3591,7 @@ anchor WoodsMain.BelowFourKeystoneRoom at 951, -4210:  # At the first leaf pile 
       DoubleJump, Sword  # Keep hitting the tentacle with sword to reset your double jump
       Launch  # precise angle
 
-anchor WoodsMain.HiddenOreLedge at 982, -4175:  # Next to hidden ore, without the wall being broken - paths would be complicated otherwise
+anchor WoodsMain.WallOreLedge at 982, -4175:  # Next to hidden ore, without the wall being broken - paths would be complicated otherwise
   pickup WoodsMain.BehindWallOre:
     moki: BreakWall=20
   pickup WoodsMain.BelowKeystonesEX:
@@ -3671,7 +3673,7 @@ anchor WoodsMain.FourKeystoneRoom at 944, -4137:  # In front of the four keyston
 
   conn WoodsMain.GiantSkull:
     moki: WoodsMain.KeystoneDoor
-  conn WoodsMain.HiddenOreLedge:
+  conn WoodsMain.WallOreLedge:
     moki: DoubleJump OR Dash OR Glide OR Launch
     gorlek: Sword OR Hammer
     unsafe: Sentry=1 OR Flash=1 OR Blaze=1 OR Shuriken=1 OR Spear=1 OR Grenade=1 OR Bow=1
@@ -3715,7 +3717,9 @@ anchor WoodsMain.BalloonLure at 1056, -4144:  # At the bottom of the shaft you l
 
   conn WoodsMain.BelowHiddenOre:
     moki: BreakWall=3, Glide OR Launch
-    gorlek: DoubleJump, TripleJump, Sword OR Hammer  # sword or hammer implies being able to break the corruption
+    gorlek:
+      DoubleJump, TripleJump, Sword OR Hammer  # sword or hammer implies being able to break the corruption
+      Glide, Damage=20  # lure the balloon
     unsafe, BreakWall=3:
       DoubleJump, Bash, Grenade=1  # land on the ledge near the spikes bellow the breakable wall
       DoubleJump, SentryJump=1  # land on the ledge near the spikes bellow the breakable wall
