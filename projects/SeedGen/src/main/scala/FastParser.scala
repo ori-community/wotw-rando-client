@@ -48,7 +48,7 @@ package SeedGenerator {
     def damageReq[_: P]: P[Requirement] = P("Damage" ~~/ equalsNum).map(DamageReq)
     def dangerReq[_: P]: P[Requirement] = P("Danger" ~~/ equalsNum).map(DangerReq)
     def dboostReq[_: P]: P[Requirement] = dangerReq | damageReq
-    def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq) | P("ShurikenBreak" ~~/ equalsNum).map(BackWallBreak)
+    def wallReq[_: P]: P[Requirement] = P("BreakWall" ~~/ equalsNum).map(BreakWallReq) | P("ShurikenBreak" ~~/ equalsNum).map(n => if(Settings.glitchPaths) BackWallBreak(n) else Invalid)
     def sentryJumpReq[_: P]: P[Requirement] = P("SentryJump" ~~ equalsNum).map(n => if(Settings.glitchPaths) SentryJumpReq(n) else Invalid)
     def shardReq[_: P]: P[Requirement] = P("TripleJump").map(_ => TripleJump.req) // TODO: hahahaha we'll come back to this
     def ksReq[_: P]: P[Requirement] = P("Keystone" ~~/ equalsNum).map(n => if(Settings.flags.noKSDoors) Free else KeystoneReq(n))
