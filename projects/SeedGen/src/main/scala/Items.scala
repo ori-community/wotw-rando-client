@@ -178,7 +178,7 @@ package SeedGenerator {
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
     def req: Requirement = TeleReq(teleporterId)
-    override val cost: Double = Math.max(6d + (if(Settings.flags.randomSpawn && Settings.unsafePaths) 94d else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
+    override val cost: Double = Math.max(6d + (if(Settings.flags.randomSpawn) 6d + (if(Settings.unsafePaths) 50d else 0d) else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
   }
 
   object Teleporter {
