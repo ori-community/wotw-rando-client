@@ -27,20 +27,24 @@ namespace RandoMainDLL {
       }
       InitRunning = true;
       new Thread(() => {
-        if (discord == null)
-          discord = new Discord.Discord(CLIENT_ID, (UInt64)CreateFlags.Default);
-        if (UserManager == null)
-          UserManager = discord.GetUserManager();
-        if (ApplicationManager == null)
-          ApplicationManager = discord.GetApplicationManager();
-        Initialized = true;
-        if (GetUser() != null) {
-          Randomizer.Log("User already known, skipping rest of discord init", false, "DEBUG");
-          Randomizer.Client.Connect();
-          return;
+        try {
+          if (discord == null)
+            discord = new Discord.Discord(CLIENT_ID, (UInt64)CreateFlags.Default);
+          if (UserManager == null)
+            UserManager = discord.GetUserManager();
+          if (ApplicationManager == null)
+            ApplicationManager = discord.GetApplicationManager();
+          Initialized = true;
+          if (GetUser() != null) {
+            Randomizer.Log("User already known, skipping rest of discord init", false, "DEBUG");
+            Randomizer.Client.Connect();
+            return;
+          }
+          discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(LogLevel.Info) > 0, level.ToString()));
+          UserManager.OnCurrentUserUpdate += DiscordInitComplete;
+        } catch (Exception e) {
+          Randomizer.Error("DiscInitThread", e);
         }
-        discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(LogLevel.Info) > 0, level.ToString()));
-        UserManager.OnCurrentUserUpdate += DiscordInitComplete;
         InitRunning = false;
       }).Start();
     }
