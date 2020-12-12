@@ -16,7 +16,8 @@ namespace
     {
         None,
         Teleport,
-        PostTeleport
+        PostTeleport,
+        Hang
     };
 
     const app::Vector3 ORIGINAL_START = { -798.797058f, -4310.119141f, 0.f };
@@ -25,10 +26,11 @@ namespace
 
     TeleportState teleport_state = TeleportState::None;
     app::Vector3 teleport_position;
-
+    app::Vector3 hang_pos;
     bool handling_start = false;
     int cutscene_skips = 0;
     int ignore_count = 0;
+    int load_hang_count = 0;
     IL2CPP_BINDING(, ScenesManager, void, LoadScenesAtPosition,
         (app::ScenesManager* this_ptr, app::Vector3 position, bool async, bool loadingZones, bool keepPreloaded, bool forceLoad, bool loadDependantScenes));
     IL2CPP_BINDING(, SkipCutsceneController, void, SkipCutscene, (app::SkipCutsceneController* this_ptr));
@@ -61,13 +63,23 @@ namespace
             else
                 modloader::warn("teleport", "failed to refocus camera");
 
-            teleport_state = TeleportState::None;
             if(handling_start)
             {
                 save();
                 handling_start = false;
+                hang_pos = SeinCharacter::get_Position(this_ptr);
+                teleport_state = TeleportState::Hang;
+                load_hang_count = 60;
             }
-
+            else {
+                teleport_state = TeleportState::None;
+            }
+        }
+        else if (teleport_state == TeleportState::Hang) {
+            SeinCharacter::set_Position(this_ptr, hang_pos);
+            if (--load_hang_count <= 0) {
+                teleport_state = TeleportState::None;
+            }
         }
 
         if (cutscene_skips > 0)
