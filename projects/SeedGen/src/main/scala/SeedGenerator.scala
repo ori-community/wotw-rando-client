@@ -14,7 +14,6 @@ package SeedGenerator {
     val IS_DEBUG: Boolean = sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments.asScala.exists(_.contains("IntelliJ"))
     val jarDir: String = {
       val withPath = classOf[Nothing].getProtectionDomain.getCodeSource.getLocation.getPath.stripPrefix("/")
-      println(withPath.substring(0, withPath.lastIndexOf("/")))
       withPath.substring(0, withPath.lastIndexOf("/"))
     }
     val defaultPath: Path = (if(IS_DEBUG) "C:\\moon" else jarDir).f
