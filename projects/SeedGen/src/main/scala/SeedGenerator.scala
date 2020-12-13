@@ -12,12 +12,19 @@ package SeedGenerator {
   //  these are fine
   object implicits {
     val IS_DEBUG: Boolean = sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments.asScala.exists(_.contains("IntelliJ"))
+    val jarDir: String = {
+      val withPath = classOf[Nothing].getProtectionDomain.getCodeSource.getLocation.getPath.stripPrefix("/")
+      println(withPath.substring(0, withPath.lastIndexOf("/")))
+      withPath.substring(0, withPath.lastIndexOf("/"))
+    }
+    val defaultPath: Path = (if(IS_DEBUG) "C:\\moon" else jarDir).f
 
     implicit class RegexOpts(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
     implicit class StringOpts(s: =>String) {
       def f: Path = Paths.get(s) // quick convert a String to a Path
+      def jarf: Path = s.f.inJarDir // same but as though it were a Path in the jar directory
       def toIntOption: Option[Int] = Try { s.toInt } match {
         case Success(v) => Some(v)
         case _ => None
@@ -25,7 +32,6 @@ package SeedGenerator {
     }
     implicit class PathOpts(f: Path) {
       import java.nio.file.StandardOpenOption._
-      val defaultPath: Path = Paths.get("C:", "moon")
       // sugar funcs for interacting with paths and their target files
       def exists: Boolean = Files exists f
       def toOpt: Option[Path] = exists ? f
@@ -41,7 +47,7 @@ package SeedGenerator {
         bw.write(output)
         bw.close()
       }
-      def canonPath: Path = if(IS_DEBUG) defaultPath.resolve(f) else f
+      def inJarDir: Path = defaultPath.resolve(f)
     }
     implicit class BooleanOps(b: Boolean) {
       // kinda like a terinary operator, but since scala has that already,  ? means "cond+val->Opt"
@@ -117,7 +123,7 @@ package SeedGenerator {
     def spawnLoc(i: Int): LocData = LocData("Spawn", s"Item_$i", UNCAT, NOVAL, "Spawn", "control", 3, "spawn", "0", 0, 0)
     def all: Seq[LocData] = {
       val pickupReg = """^([^.]*)\.([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([^,]*), ?([-0-9]*), ?([^,]*), ?([-0-9=]*), ?([-0-9]*), ?([-0-9]*)""".r
-      val pickupsFile = "loc_data.csv".f.canonPath
+      val pickupsFile = "loc_data.csv".jarf
       Logger.debug(s"Loading loc_data from $pickupsFile")
        pickupsFile.readLines.flatMap {
         case s if s.trim == "" => None

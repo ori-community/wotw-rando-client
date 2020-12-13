@@ -120,11 +120,11 @@ package SeedGenerator {
     def macroSection[_:P]: P[Unit] = reqMacro.rep(1, sep=endl)
     def file[_:P]: P[Seq[Either[Region, Area]]] = P(endl ~ NoCut(macroSection) ~ endl ~ regionOrArea.rep(sep=endl) ~ endl ~ End)
     def input: String = {
-      val path = if(new File("areas.wotw").exists()) "areas.wotw" else "C:\\moon\\areas.wotw"
-      val src = Source.fromFile(path)
-      Logger.debug(s"Loading logic from $path")
-      val raw = src.mkString.replace("\r\n","\n")
-      src.close()
+      val afile = "areas.wotw".jarf
+      if(!afile.exists)
+        throw GeneratorError(s"Failed to locate $afile")
+      Logger.debug(s"Loading logic from $afile")
+      val raw = afile.read.mkString.replace("\r\n","\n")
       "\n *(?=\n)".r.replaceAllIn(" *#[^\n]*".r.replaceAllIn(raw,""), "")
     }
 

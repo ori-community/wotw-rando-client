@@ -69,9 +69,9 @@ package SeedGenerator {
     val WIN_W: DoublePref = DoublePref("WIN_WIDTH")
     val WIN_H: DoublePref = DoublePref("WIN_HEIGHT")
 
-    val settingsFile: Path = "SeedGenSettings.json".f.canonPath
+    val settingsFile: Path = "SeedGenSettings.json".jarf
     var currentOp: Option[Future[Unit]] = None
-    val headerFilePath: Path =  ".seedHeader".f.canonPath
+    val headerFilePath: Path =  ".seedHeader".jarf
     val settings: ObjectProperty[Settings] = new ObjectProperty(null, "settings", settingsFromFile)
     val outputDirectory: StringProperty = settings.mapStringProp(_.outputFolder, (set, path) => set.copy(outputFolder = path))
     val header = new ObjectProperty[Seq[String]](null, "header_text", headerFilePath.readLines ?? "// Replace this text with a seed header, if desired")
@@ -230,23 +230,24 @@ package SeedGenerator {
           tooltip = "build a seed with the specified parameters"
         }
         generateButton.onAction = _ => {
+          settingsFile.write(Settings.toJson)
           generateButton.disable = true
           currentOp = Some(Future {
             val succ = Try {
               Logger.info("Building...")
               if (seedName() != "") {
                 Logger.info(s"Seeded RNG with ${seedName()}")
-                SeedGenerator.Runner.setSeed(seedName().hashCode)
-              }
-              if (SeedGenerator.Runner(outputPath)) {
-                Logger.info(s"Finished generating seed!")
-                true
-              } else {
-                lastSeed = None
-                Logger.error(s"Failed to generate seed :c")
-                false
-              }
-            } match {
+            SeedGenerator.Runner.setSeed(seedName().hashCode)
+            }
+            if (SeedGenerator.Runner(outputPath)) {
+              Logger.info(s"Finished generating seed!")
+              true
+            } else {
+              lastSeed = None
+              Logger.error(s"Failed to generate seed :c")
+              false
+            }
+          } match {
               case Failure(e) => Logger.error(e); false
               case Success(_) => true
             }
