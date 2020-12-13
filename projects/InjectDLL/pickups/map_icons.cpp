@@ -556,8 +556,8 @@ namespace
     IL2CPP_INTERCEPT(, AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager* this_ptr)) {
         switch (this_ptr->fields.Filter)
         {
-        case NewFilters::Spoilers:
-        case NewFilters::InLogic:
+        case (int)NewFilters::Spoilers:
+        case (int)NewFilters::InLogic:
             uber_states::set_uber_state_value(uber_states::constants::MAP_FILTER_GROUP_ID, 70, 0);
             break;
         default:
