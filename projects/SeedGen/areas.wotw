@@ -4424,10 +4424,12 @@ anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
 
 anchor LowerReach.SecondSoup at -316, -4037:  # Next to the soup below the teleporter
   state LowerReach.CentralFurnace:
-    moki: DoubleJump, Dash, Bash, Flap
+    moki:
+      Combat=ShieldMiner, DoubleJump, Dash, Bash, Flap
+      Grenade=1, Combat=ShieldMiner OR Bash OR Burrow OR Launch
     gorlek:
-      Grenade=1
-      Bash, Flap
+      Bash, Flap, Combat=ShieldMiner OR Dash OR Launch
+      Grenade=1, DoubleJump OR Dash OR Glide
 
   pickup LowerReach.MeltIceEX:
     moki: Grenade=1
@@ -4494,11 +4496,11 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
       glitch:  # sentry to light the lantern
         DoubleJump, Sentry=1, Glide, TripleJump OR Hammer
         SentryJump=1, Sentry=1, Glide
-      SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
-      DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
       Launch, DoubleJump OR Dash OR Sword
     unsafe:
       DoubleJump, TripleJump, Damage=20, Sword OR Hammer OR Bash  # tjump + upslash/bash the gorlek to climb the right wall, tjump to the left spiky wall, iframe to wjump and tjump again to wjump from the wall just above and tjump again to the ice wall<
+      SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
+      DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
 
   conn LowerReach.SecondSoup:
     moki:
@@ -6440,7 +6442,8 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
     moki: Burrow
   conn LowerWastes.UpperPath:
     moki: Burrow, DoubleJump OR Dash OR Launch
-    gorlek: Burrow  # Sorta tight, but if you fail it the weird autosave placement can save you sometimes
+    gorlek: Burrow, Glide OR Sword OR Hammer
+    unsafe: Burrow  # hard to actually get, but the weird autosave placement can save you
   conn UpperWastes.KeystoneRoom:
     moki: Burrow, DoubleJump OR Dash OR Launch
     gorlek: Burrow, Glide OR Sword OR Damage=30
