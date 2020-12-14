@@ -831,7 +831,7 @@ anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable f
 
 # checkpoint at -740, -4168
 
-anchor MarshPastOpher.PoolsPathWest at -803, -4187:  #  Right on top of MarshPastOpher.PoolsPathEX
+anchor MarshPastOpher.PoolsPathWest at -803, -4187:  # Right on top of MarshPastOpher.PoolsPathEX
   refill Checkpoint
 
   pickup MarshPastOpher.PoolsPathEX: free
@@ -6801,20 +6801,30 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
     moki:
       Weapon, DoubleJump OR Burrow OR Launch
       Bow=1
+    gorlek: Weapon
 
   state WeepingRidge.ElevatorFightCompleted:
     moki, Combat=2xCrystalMiner+2xShieldCrystalMiner:
       DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch
+    gorlek, Combat=2xCrystalMiner+2xShieldCrystalMiner:
+      DoubleJump OR Dash OR SentryJump=1
+    unsafe:
+      Combat=2xCrystalMiner+2xShieldCrystalMiner, Hammer
 
   conn WeepingRidge.LaunchArea:
     moki, WeepingRidge.ElevatorFightCompleted:
       DoubleJump, Dash OR Glide
       Bash, Grenade=1
       Launch
+    gorlek, WeepingRidge.ElevatorFightCompleted:
+      DoubleJump OR Dash Or SentryJump=1
+    unsafe:
+      WeepingRidge.ElevatorFightCompleted, Hammer
   conn LowerWastes.WestTP:
     moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
+    gorlek: Burrow  # won't softlock if you did the cat and mouse because you'll have unlocked the teleporter
 
 anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of the elevator
   refill Checkpoint
@@ -6824,28 +6834,84 @@ anchor WeepingRidge.LaunchArea at 1189, -3716:  # After the portal at the top of
     moki:
       Glide
       Launch, Bash OR DoubleJump OR Dash
+    gorlek:
+      Launch, Combat=Mine
+      Bash, Dash, Combat=Mine
+      DoubleJump, Combat=Mine, Damage=40
+      Bash, DoubleJump, TripleJump
+      Bash, DoubleJump, Combat=Mine, Sword OR Hammer
+      DoubleJump, TripleJump, Sword OR Hammer OR Dash
     unsafe:
-      Launch                    # tricky!
-      Bash, DoubleJump, Dash    # also kinda tricky?
+      Damage=40, Sword OR Hammer
+      DoubleJump, Bash OR Sword  # Use sword on elemental to reset your djump
+      Dash, Sword OR Hammer OR DoubleJump  # Dash against the ceiling to refresh your dash
   pickup WeepingRidge.PortalEX:
     moki: Launch, Bash OR DoubleJump OR Glide OR Dash
-    unsafe: Launch
+    gorlek:
+      Launch, Combat=Mine
+      SentryJump=2, Damage=40:  # sjump, damage boost in the left spikes, sjump again
+        Glide
+        Bash, Dash, Combat=Mine
+        Bash, DoubleJump, TripleJump
+        Bash, DoubleJump, Combat=Mine, Sword OR Hammer
+        DoubleJump, TripleJump, Sword OR Hammer OR Dash
+      SentryJump=1, Bash, Grenade=1, Damage=40:  # bash grenade in the left spikes then sjump
+        Glide
+        Dash, Combat=Mine
+        DoubleJump, TripleJump
+        DoubleJump, Combat=Mine, Sword OR Hammer
+    unsafe:
+      SentryJump=2, Damage=40 OR Glide  # without glide, use weapons to stall in the air to reach the portal
+      SentryJump=2, DoubleJump, Bash
+      SentryJump=2, Dash, Sword OR Hammer OR DoubleJump  # Dash against the ceiling to refresh your dash
+      SentryJump=1, Bash, Grenade=1, DoubleJump OR Glide
+      SentryJump=1, DoubleJump, TripleJump, Damage=40
+      Bash, Grenade=1, DoubleJump, TripleJump, Damage=40
+      SentryJump=1, Damage=40, DoubleJump, Sword OR Dash OR Bash OR Glide OR TripleJump  # Reset djump with sword to reach the portal, really hard wall jump in the left spikes
   pickup WeepingRidge.SpikeClimbEX:
     moki: Launch, Bash OR DoubleJump OR Glide OR Dash
-    unsafe: Launch
+    gorlek:
+      Launch, Combat=2xMine
+      Bash, Grenade=2, DoubleJump, TripleJump
+      SentryJump=2, DoubleJump, TripleJump
+      Bash, Grenade=1, SentryJump=1, DoubleJump, TripleJump
+    unsafe:
+      Bash, Grenade=3, DoubleJump, Combat=Mine
+      SentryJump=3, DoubleJump, Bash OR Sword OR Damage=40
+      SentryJump=2, DoubleJump, TripleJump, Dash  # Dash from the wall above the tree + tjump + weapon combo to reach the right platform
   pickup WeepingRidge.Ore:
     moki: Launch, DoubleJump OR Bash
-    unsafe:
+    gorlek:  # sjump/bash grenade from the ledge near the portal below the pickup. If 2 of them, the path starts from the other side of the portal
       Launch
-      Bash, Glide              # fuck with the elemental until he gives you a shot to bash
+      Bash, DoubleJump, TripleJump, Combat=Mine
+      SentryJump=1, DoubleJump, Bash, Dash OR TripleJump OR Glide OR Combat=Mine  # With combat, use weapon stall to reasch the 2nd elemental
+      Bash, Grenade=1, DoubleJump, Dash OR TripleJump OR Glide OR Sword OR Hammer
+      SentryJump=2, DoubleJump, Combat=Mine, Damage=40
+      SentryJump=2, DoubleJump, TripleJump OR Dash OR Glide  # Use weapon stall to reach the edge below the portal
+      Bash, Grenade=2, DoubleJump, Combat=Mine, Damage=40
+    unsafe:
+      Bash, Glide OR DoubleJump OR Dash  # wait on the left wall until the elemental gives you a shot to bash
+      DoubleJump, TripleJump
+      DoubleJump, Sword, Damage=40, Combat=Mine  # Reset your jump by slashing the elemental, pogo him to reach the wall above the portal, djump + upslash from under the Mine to reach the spikes
 
   conn WillowsEnd.Entry:
     moki: WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump, Dash OR Glide
-    unsafe: WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump OR Dash OR Glide  # you really only NEED one of the 3 of em
+    gorlek:
+      WeepingRidge.ElevatorFightCompleted, Launch, DoubleJump OR Dash
+    unsafe:
+      WeepingRidge.ElevatorFightCompleted, Launch
+      WeepingRidge.ElevatorFightCompleted, SentryJump=3, DoubleJump, TripleJump, Dash
+      WeepingRidge.ElevatorFightCompleted, Bash, Grenade=3, DoubleJump, TripleJump
   conn WeepingRidge.Bottom:
     moki, WeepingRidge.ElevatorFightCompleted:
-      Bash, Grenade=1
+      Bash, Grenade=2
+      Bash, Grenade=1, Dash OR DoubleJump OR Glide
       Launch
+    gorlek, WeepingRidge.ElevatorFightCompleted:
+      SentryJump=1  # Use weapon stall to pass the last gap
+      DoubleJump OR Dash Or Glide OR Sword  # need to climb the left wall after the portal
+    unsafe:
+      WeepingRidge.ElevatorFightCompleted, Hammer
 
 # checkpoint at 1344, -3791
 
