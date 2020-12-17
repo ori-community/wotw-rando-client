@@ -269,8 +269,10 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Bash, DoubleJump OR Dash OR Glide OR Sword
       Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
 
-  conn MidnightBurrows.Teleporter:  # one of the bells is hard to reach in this sequence
-    moki: Bash, DoubleJump OR Dash OR Launch
+  conn MidnightBurrows.Teleporter:
+    moki:
+      Bash, DoubleJump, Glide
+      Bash, Launch
     gorlek:
       Bash, Glide
       Bash, Grenade=1, Sword
