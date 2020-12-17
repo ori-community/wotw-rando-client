@@ -13,8 +13,8 @@
 requirement Weapon:
   moki: Sword OR Hammer
 
-requirement DepthsLight:  # currently irrelevant since defeating mora requires flash in moki, just future proofing here
-  moki: UpperDepths.ForestsEyes OR Flash
+requirement DepthsLight:
+  moki: UpperDepths.ForestsEyes OR Flash=1
   gorlek: Bow=3  # should be good, right?
 
 anchor Teleporters:  # teleporter access
@@ -4906,11 +4906,17 @@ region UpperDepths:
 anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the entrance
   pickup UpperDepths.EntrySpikesEX:
     moki: Glide
+    unsafe: free
 
   conn UpperDepths.FirstFirefly:
     moki:
       Glide, Combat=2xBombSlug+2xBat+SneezeSlug
       Glide, Combat=2xBombSlug, Bash
+    gorlek:
+      Glide, Combat=Bat OR Bash
+      DoubleJump, Dash, Bash, Damage=30, TripleJump OR Sword OR Hammer
+      Launch, Bash, Damage=30, DoubleJump OR Dash OR Sword OR Hammer
+  # can't escape depths from inside
 
 # checkpoint at 147, -4392
 
@@ -4920,89 +4926,206 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
   pickup UpperDepths.EntryRoofEX:
     moki:
       Bash, DoubleJump OR Dash
-      DoubleJump, Dash, Grapple
+      Grapple, DoubleJump, Dash
       Launch
+    gorlek:
+      Bash, Grenade=1
+      Bash, Glide, Damage=30
+      Grapple, DoubleJump, TripleJump OR Glide OR Sword
+      SentryJump=1, Combat=Bat, DoubleJump OR Dash
+      SentryJump=1, Combat=Bat, Glide, Damage=30
   pickup UpperDepths.EntryOre:
     moki:
       Combat=Bat, Grapple, DoubleJump
       Bash, DoubleJump OR Grapple
       Launch
-  pickup UpperDepths.LeftEntryKS:
+    gorlek:
+      Grapple, DoubleJump
+      Bash OR SentryJump=1
+    unsafe:
+      DoubleJump, TripleJump
+  pickup UpperDepths.LeftEntryKS:  # paths breaking the firefly egg; others can go from the anchor below
     moki:
       BreakWall=1, Combat=Spiderling, Grapple, DoubleJump OR Dash OR Glide
       BreakWall=1, Bash, Grapple, DoubleJump OR Dash OR Glide
       BreakWall=1, Launch
       Bow=1, Combat=Spiderling OR DoubleJump OR Bash OR Launch
       Spear=1, Combat=Spiderling OR DoubleJump OR Bash OR Launch
+    gorlek:
+      BreakWall=1, Grapple
+      BreakWall=1, DoubleJump, TripleJump OR Dash OR Glide  # Glide happens to automatically line up with the safe spot, Sword doesn't
+      Bow=1 OR Spear=1
+  # a higher difficulty can put paths directly to swimec using the firefly egg here
 
   conn UpperDepths.Entry:
     moki:
       Glide, Combat=2xBombSlug+2xBat+SneezeSlug
       Glide, Combat=2xBombSlug, Bash
+    gorlek:
+      Glide, Bash, Combat=BombSlug OR Damage=10
+      Glide, Combat=BombSlug+Bat
+      Glide, Combat=Bat, Damage=10
+      Launch, DoubleJump, TripleJump, Dash, Bash, Damage=30
+    unsafe: Glide
   conn UpperDepths.FirstKSRoom: free
 
-# checkpoint at anchor below, kind of easy to miss though
-
 anchor UpperDepths.FirstKSRoom at 223, -4420:  # Below the first firefly egg
+  refill Checkpoint:  # this checkpoint is easy to walk past
+    unsafe: free
   refill Energy=3:  # this crystal is in the darkness
     unsafe: Weapon
 
-  state UpperDepths.EntryKeystoneDoor:
-    moki, Keystone=2:
+  pickup UpperDepths.LeftEntryKS:
+    moki: DepthsLight, Combat=Spiderling OR DoubleJump OR Bash OR Launch
+    gorlek: DepthsLight
+  pickup UpperDepths.SwimEC:
+    moki: DepthsLight, Water, Combat=Spiderling OR DoubleJump OR Bash OR Launch
+    gorlek:
+      DepthsLight, Water
+      DepthsLight, ShurikenBreak=20, DoubleJump OR Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=30
+
+  conn UpperDepths.FirstFirefly:
+    moki:
+      Grapple, DoubleJump, Combat=Spiderling+WeakSlug OR Bash
+      Launch, DoubleJump OR Grapple
+    gorlek:
+      Grapple, Combat=WeakSlug, DoubleJump OR Damage=30
+      Grapple, Bash, DoubleJump OR Damage=30
+      SentryJump=1, DoubleJump, Damage=30, Combat=2xSpiderling OR Bash
+      Launch
+  conn UpperDepths.KeydoorLedge:
+    moki:
       DoubleJump, Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
+    gorlek:
+      Grapple, Dash OR Glide OR Sword
+      DoubleJump, TripleJump, Dash OR Glide OR Sword
+      Bash, Grenade=1
+      SentryJump=1, DoubleJump OR Dash OR Glide OR Grapple
+  conn UpperDepths.RightKeystonePath:
+    gorlek:
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+      Glide, DoubleJump OR Dash
+
+# checkpoint at 136, -4425
+# checkpoint at 297, -4376
+
+anchor UpperDepths.KeydoorLedge at 285, -4407:  # In front of the entry keystone door
+  refill Checkpoint:
+    moki: UpperDepths.EntryKeystoneDoor
+
   state UpperDepths.LightPuzzle:  # breaking the corruption blocking the light
     moki, UpperDepths.EntryKeystoneDoor, BreakWall=16, BreakWall=16:
       DoubleJump, Bash, Grapple
       Bash, Launch
+    gorlek, UpperDepths.EntryKeystoneDoor, BreakWall=16, BreakWall=16:
+      DoubleJump, Grapple, Combat=Spiderling+SneezeSlug
+      Bash, DoubleJump, TripleJump
+      Bash, DoubleJump, Damage=30, Dash OR Glide OR Sword
+      Launch, DoubleJump OR Dash OR Glide OR Sword
+  state UpperDepths.EntryKeystoneDoor:
+    moki: Keystone=2
 
-  pickup UpperDepths.RightEntryKS:
+  conn UpperDepths.FirstKSRoom:
+    moki: DoubleJump OR Dash OR Grapple OR Glide OR Launch
+    gorlek: Sword OR Hammer OR Damage=30
+    unsafe: free
+  conn UpperDepths.RightKeystonePath:
     moki:
-      Grapple, DoubleJump
-      Launch, DoubleJump OR Dash OR Glide OR Grapple
-  pickup UpperDepths.LeftEntryKS:
-    moki: DepthsLight, Combat=Spiderling OR DoubleJump OR Bash OR Launch
-  pickup UpperDepths.SwimEC:
-    moki: DepthsLight, Water, Combat=Spiderling OR DoubleJump OR Bash OR Launch
-
-  conn UpperDepths.FirstFirefly:
-    moki:
-      Grapple, DoubleJump, Combat=Spiderling, WeakSlug OR Bash
-      Launch, DoubleJump OR Grapple
+      Grapple, DoubleJump OR Dash
+      Glide OR Launch
+    gorlek:
+      DoubleJump, TripleJump OR Dash OR Sword
+      Grapple, Sword
   conn UpperDepths.BelowHive:
     moki, UpperDepths.EntryKeystoneDoor, UpperDepths.LightPuzzle OR DepthsLight:
       Bash, DoubleJump, Grapple
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Launch
+    gorlek, UpperDepths.EntryKeystoneDoor:
+      UpperDepths.LightPuzzle OR DepthsLight:
+        DoubleJump, Grapple
+        Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
+        Launch
+      Dash, Launch
 
-# checkpoint at 136, -4425
-# checkpoint at 305, -4426
-# checkpoint at 297, -4376
+anchor UpperDepths.RightKeystonePath at 305, -4426:  # at the ledge below the entry keydoor, going towards the keystone
+  refill Checkpoint
+
+  pickup UpperDepths.RightEntryKS:
+    moki:
+      Grapple, DoubleJump
+      Launch
+    gorlek:
+      Grapple
+      DoubleJump, TripleJump
+      DepthsLight, DoubleJump OR Dash OR Glide  # use the poles hanging from the ceiling
+      DepthsLight, Bash, Grenade=1
+      DepthsLight, SentryJump=1
+
+  conn UpperDepths.FirstKSRoom:
+    moki:
+      Grapple, DoubleJump
+      Launch, DoubleJump OR Dash OR Glide
+    gorlek:
+      Grapple, Dash OR Damage=30
+      Launch
 
 anchor UpperDepths.BelowHive at 422, -4402:  # Below the Hive, on top of the tunnel leading downwards
   refill Checkpoint
-  refill Full:  # use the teleporter
-    moki: BreakWall=1, Grapple OR Launch
+  refill Full:  # use the teleporter (mirror of connecting to the teleporter and then back here)
+    moki:
+      BreakWall=1, Grapple, Bow OR Spear
+      BreakWall=1, Launch
+      DepthsLight, Grapple OR Launch
+      DepthsLight, Bash, Grenade=1
+    gorlek:
+      Grapple, BreakWall=1, Bow OR Spear OR Shuriken OR Grenade
+      DoubleJump, TripleJump, BreakWall=1, Bow OR Spear OR Shuriken OR Grenade
+      SentryJump=1, Grapple  # use the weapon to break the firefly egg
+      SentryJump=1, DoubleJump, TripleJump  # use the weapon to break the firefly egg
+      DepthsLight, Damage=30, DoubleJump OR Dash
+      DepthsLight, SentryJump=1
   refill Energy=3:
-    moki: Weapon, DoubleJump OR Launch
+    moki:
+      Weapon, DoubleJump OR Launch
+      Bow=1
 
-  state UpperDepths.EntryKeystoneDoor:
+  state UpperDepths.EntryKeystoneDoor:  # mirror of connections to keydoor ledge
     moki: Keystone=2, DepthsLight, DoubleJump OR Dash OR Glide OR Launch
+    gorlek, Keystone=2:
+      DepthsLight, Sword OR Hammer OR Damage=30
+      Dash, Launch
+
+  quest UpperDepths.LightcatcherSeed:
+    gorlek: ShurikenBreak=20, DepthsLight, DoubleJump OR Dash OR Glide OR Sword
 
   pickup UpperDepths.HiveEX:
-    moki: Bash OR Launch
-  pickup UpperDepths.RightEntryKS:
-    moki: DepthsLight, Launch
+    moki: Bash OR Launch  # bash makes paths destroying the hive redundant in moki
+    gorlek:
+      Combat=Nest, Grapple, DoubleJump  # use sword or hammer from combat to hover
+      Combat=Nest, SentryJump=1
 
-  conn UpperDepths.FirstKSRoom:
+  conn UpperDepths.KeydoorLedge:  # solving the light puzzle can't meaningfully softlock this since it means you can already access the other side
     moki: UpperDepths.EntryKeystoneDoor, DepthsLight, DoubleJump OR Dash OR Glide OR Launch
+    gorlek, UpperDepths.EntryKeystoneDoor:
+      DepthsLight, Sword OR Hammer OR Damage=30
+      Dash, Launch
   conn UpperDepths.Teleporter:
-    moki: Grapple OR Launch
-  conn UpperDepths.Central:
+    moki:
+      Grapple OR Launch
+      DepthsLight, Bash, Grenade=1
+    gorlek:
+      DoubleJump, TripleJump
+      DepthsLight, Damage=30, DoubleJump OR Dash
+      DepthsLight, SentryJump=1
+  conn UpperDepths.Central:  # paths using the firefly have to go from the teleporter
     moki: DepthsLight, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
+    gorlek: DepthsLight
   conn UpperDepths.LowerConnection:
     moki: DepthsLight  # a bit scary...
+  # so far, all connections to morapath going past the seed would be redundant with going to the teleporter first
 
 # checkpoint at 529, -4399
 
@@ -5017,15 +5140,24 @@ anchor UpperDepths.Teleporter at 513, -4361:  # The spirit well
       BreakWall=1, Bow OR Spear
       BreakWall=1, Launch
       DepthsLight
-  conn UpperDepths.Central:
+    gorlek:
+      BreakWall=1, Shuriken OR Grenade
+      SentryJump=1  # use the weapon to break the firefly egg
+      Dash, Damage=30 OR Launch  # spam and land in the spikes or catch with launch
+  conn UpperDepths.Central:  # paths using depthslight already solve connection through the midway anchor
     moki:
       BreakWall=1, Bow, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
       BreakWall=1, Spear, DoubleJump OR Dash OR Glide OR Launch  # a bit scary...
       BreakWall=1, Launch
+    gorlek:
+      BreakWall=1, Bow OR Spear OR Shuriken OR Grenade
+      SentryJump=1  # use the weapon to break the firefly egg
+  conn UpperDepths.OutsideMoraFight:
+    gorlek: ShurikenBreak=20
 
 anchor UpperDepths.Central at 464, -4484:  # The firefly egg to the right of the second keystone door
   refill Checkpoint
-  refill Energy=3:  # in the dark
+  refill Energy=3:  # in the dark above
     unsafe: Weapon, Launch
 
   state UpperDepths.CentralKeystoneDoor:
@@ -5033,62 +5165,128 @@ anchor UpperDepths.Central at 464, -4484:  # The firefly egg to the right of the
 
   conn UpperDepths.SecondKSRoom:
     moki:
-      Combat=2xSpiderling, DepthsLight OR BreakWall=1
+      Combat=2xSpiderling, BreakWall=1  # combat will provide a weapon, depthslight would be redundant here
       Bash, DepthsLight OR BreakWall=1
+    gorlek: free  # don't look behind oriLurk
   conn UpperDepths.LowerConnection:
     moki: UpperDepths.CentralKeystoneDoor
   conn UpperDepths.BelowHive:
     moki: DepthsLight, Launch
-  conn UpperDepths.Teleporter:
-    moki, BreakWall=20:
-      DepthsLight, DoubleJump, Dash, Grapple
-      DepthsLight, Launch
+    gorlek:
+      DepthsLight, Bash, Grenade=1, DoubleJump, TripleJump OR Damage=10
+      DepthsLight, SentryJump=1, DoubleJump, TripleJump, Damage=10
 
 anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circling through the keystone room
   refill Checkpoint
   refill Energy=4:
     moki: Weapon
-  # a great number of energy crystals on the way through the dark have not been considered (nor is flash consumption considered...)
-
-  quest UpperDepths.LightcatcherSeed:
-    moki:
-      DepthsLight, DoubleJump, Dash, Grapple
-      DepthsLight, Combat=2xSpiderling, DoubleJump, Dash, Bash, Grenade=1  # clear the floor to bashgrenade
-      DepthsLight, Launch
+  # a great number of energy crystals on the way through the dark have not been considered (they would probably even out since more anchors would also increase the flash cost)
 
   pickup UpperDepths.RightHealthKS:
     moki: BreakWall=1 OR DepthsLight
+    gorlek: free
   pickup UpperDepths.LeftHealthKS:
     moki:
       BreakWall=1, DoubleJump, Dash OR Glide
       DepthsLight, DoubleJump, Dash OR Glide
       DepthsLight, DoubleJump, Bash, Grenade=1
       Launch, BreakWall=1 OR DepthsLight
+    gorlek:
+      DoubleJump, TripleJump, BreakWall=1 OR DepthsLight
+      Dash, Glide, BreakWall=1 OR DepthsLight
+      Sword, DoubleJump OR Dash  # break the firefly egg and hover
+      DepthsLight, Bash, Grenade=1
+      DepthsLight, SentryJump=1
+      Launch
   pickup UpperDepths.KeystoneHC:
     moki:
       BreakWall=1, DoubleJump, Dash, Glide
       DepthsLight, DoubleJump, Dash OR Glide
       Launch, BreakWall=1 OR DepthsLight
-  pickup UpperDepths.BossPathEX:
+    gorlek:
+      BreakWall=1, DoubleJump, TripleJump OR Dash OR Glide
+      DepthsLight, DoubleJump, TripleJump
+      Dash, Launch
+  pickup UpperDepths.BossPathEX:  # saved for later to know redundancies with the new anchor
     moki:
       DepthsLight, DoubleJump, Dash
       DepthsLight, DoubleJump, Bash, Grenade=1
       DepthsLight, Launch
+    gorlek:
+      DepthsLight, SentryJump=1, DoubleJump
+      Launch
 
   conn UpperDepths.Central:
     moki:
       Combat=Spiderling, DepthsLight OR BreakWall=1
       Bash, DepthsLight OR BreakWall=1
-  conn MoraFight:
+    gorlek: DepthsLight OR BreakWall=1 OR Dash OR Bash OR Glide OR Launch OR Sword OR Hammer OR Damage=10  # with DoubleJump it's still quite easy to take damage
+  conn UpperDepths.MoraPath:
     moki:
       DepthsLight, DoubleJump, Grapple, Dash OR Glide
       DepthsLight, Launch
+    gorlek:
+      DepthsLight, DoubleJump
+      DepthsLight, Dash, Damage=30
+      DepthsLight, Bash, Grenade=1, Damage=30, Glide OR Sword
+      DepthsLight, Bash, Grenade=2
+
+anchor UpperDepths.MoraPath at 572, -4431:  # At the safe light during the dark path towards Mora
+  refill Checkpoint
+  refill Energy=3:
+    moki: Weapon
+
+  quest UpperDepths.LightcatcherSeed:
+    moki:
+      DepthsLight, Grapple, DoubleJump, Dash
+      DepthsLight, Combat=2xSpiderling, DoubleJump, Dash, Bash, Grenade=1  # clear the floor to bashgrenade
+      DepthsLight, Launch
+    gorlek:
+      DepthsLight, Bash, DoubleJump OR Dash OR Glide OR Sword OR Damage=30
+      DepthsLight, Combat=3xSpiderling, Grapple, DoubleJump OR Dash OR Glide OR Sword OR Damage=30
+      DepthsLight, SentryJump=1, Sword OR DoubleJump OR Dash OR Glide OR Damage=30  # kill the spiderlings with the weapon
+      DoubleJump, Dash, Bash, Grapple
+      Launch
+
+  conn UpperDepths.OutsideMoraFight:
+    moki:
+      DepthsLight, Grapple, DoubleJump, Dash OR Glide
+      DepthsLight, Grapple, DoubleJump, Bash, Grenade=1
+      DepthsLight, Launch
+    gorlek:
+      DepthsLight, Grapple, Dash, Damage=30, Glide OR Sword
+      DepthsLight, DoubleJump, TripleJump
+      DepthsLight, Grapple, Bash, Grenade=1, Dash OR Glide OR Sword
+      DepthsLight, Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Sword
+      DepthsLight, Bash, Grenade=3
+      DepthsLight, Grapple, SentryJump=1, DoubleJump OR Dash OR Glide OR Sword
+      DepthsLight, SentryJump=2, DoubleJump OR Dash OR Glide OR Sword
+      DepthsLight, SentryJump=3
+      Launch, DoubleJump OR Dash OR Glide
+  conn UpperDepths.SecondKSRoom:
+    moki: DepthsLight
+  conn UpperDepths.BelowHive:  # many paths would be redundant with going to the teleporter
+    gorlek, BreakWall=20:
+      DepthsLight, Bash, Grapple, DoubleJump OR Dash OR Glide OR Sword OR Damage=30
+      DepthsLight, Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword OR Damage=30
+      DepthsLight, Bash, SentryJump=1, Sword OR DoubleJump OR Dash OR Glide OR Damage=30
+      DepthsLight, Combat=3xSpiderling, Grapple, DoubleJump OR Dash OR Glide OR Sword OR Damage=30
+      DepthsLight, SentryJump=1, Grapple, Glide OR Damage=30  # kill the spiderlings with the weapon
+      DepthsLight, SentryJump=2, Glide OR Damage=30  # kill the spiderlings with the weapon
+  # going to the keydoor should always be easier through the bottom path (keystone room) than going past the seed
+
+anchor UpperDepths.OutsideMoraFight at 595, -4376:  # Directly left of Mora's lair
+  refill Checkpoint
+
+  conn MoraFight: free
   conn UpperDepths.Teleporter:
     moki, BreakWall=20:
-      DepthsLight, DoubleJump, Grapple, Dash OR Glide
-      DepthsLight, Launch
-
-# checkpoint at 572, -4431
+      DoubleJump OR Launch
+      Bash, Grenade=1
+    gorlek: BreakWall=20, Dash OR Sword OR SentryJump=1
+  conn UpperDepths.MoraPath:
+    moki: DepthsLight, DoubleJump OR Dash OR Glide
+    gorlek: free
 
 anchor MoraFight at 674, -4385:
   refill Full
@@ -5105,15 +5303,31 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
 
   pickup LowerDepths.BelowDoorOre:
     moki: DepthsLight  # It's hidden in a dark area, not hard to reach.
+    gorlek: free  # the ore is a light source, lots of time to teleport out
   pickup LowerDepths.LeftEX:
     moki:
-      BreakWall=1, DoubleJump OR Dash OR Glide OR Launch
-      DepthsLight, DoubleJump OR Dash OR Glide OR Launch
+      Glide, BreakWall=1 OR DepthsLight
+      Launch, BreakWall=1 OR DepthsLight
+      DoubleJump, Dash, BreakWall=1 OR DepthsLight
+    gorlek:
+      Sword  # break the firefly egg and hover
+      Hammer, DoubleJump OR Damage=30  # break the firefly egg and hover
+      Dash, BreakWall=1 OR DepthsLight
+      DoubleJump, Damage=30, BreakWall=1 OR DepthsLight
 
   conn UpperDepths.BelowHive:
-    moki, BreakWall=1 OR DepthsLight:
-      DoubleJump, Grapple
-      Launch
+    moki:
+      DoubleJump, Grapple, BreakWall=1 OR DepthsLight
+      Launch, BreakWall=1 OR DepthsLight
+      DepthsLight, Bash, Grenade=2, DoubleJump
+    gorlek:
+      DepthsLight, Grapple, Bash, Grenade=1, Damage=10
+      DepthsLight, Bash, Grenade=2, Damage=10, Dash OR Glide
+      DepthsLight, Bash, Grenade=3, Damage=10
+      DepthsLight, Grapple, SentryJump=1, Damage=10
+      DepthsLight, SentryJump=2, DoubleJump
+      DepthsLight, SentryJump=2, Damage=10, Dash OR Glide
+      DepthsLight, SentryJump=3, Damage=10
   conn UpperDepths.Central:
     moki: UpperDepths.CentralKeystoneDoor
   conn LowerDepths.West:
@@ -5122,14 +5336,30 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
       DepthsLight, DoubleJump, Dash
       DepthsLight, Glide
       Launch, BreakWall=1 OR DepthsLight
+    gorlek:
+      Sword  # break the firefly egg and hover
+      Dash, BreakWall=1 OR DepthsLight
+      DepthsLight, Hammer, DoubleJump OR Damage=30
+      DepthsLight, DoubleJump, Damage=30
   conn LowerDepths.Central:
     moki:  # the paths in the dark are a bit treacherous...
-      BreakWall=1, DoubleJump, Dash, Bash OR Glide
+      BreakWall=1, DoubleJump, Dash, Bash
       BreakWall=1, Launch, DoubleJump OR Glide
       DepthsLight, DoubleJump, Dash, Bash OR Glide
       DepthsLight, Bash, Glide
       DepthsLight, Bash, Grenade=1, DoubleJump OR Dash OR Glide
       DepthsLight, Launch, DoubleJump OR Dash OR Bash OR Glide
+    gorlek:
+      BreakWall=1, Dash, Glide  # take the shortcut through the darkness
+      BreakWall=1, DoubleJump, Dash, TripleJump OR Glide OR Sword OR Damage=30
+      BreakWall=1, Launch, Dash OR Bash OR Sword OR Hammer OR Damage=30
+      DepthsLight, Glide
+      DepthsLight, Bash, DoubleJump OR Dash OR Sword OR Hammer
+      DepthsLight, Damage=30, DoubleJump OR Dash OR Sword
+      DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Hammer
+      DepthsLight, DoubleJump, Dash, Hammer
+      DepthsLight, Dash, Sword
+      DepthsLight, Launch, Sword OR Hammer OR Damage=30
 
 region LowerDepths:
   moki: Danger=40, Regenerate
