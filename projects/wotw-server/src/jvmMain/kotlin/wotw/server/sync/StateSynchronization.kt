@@ -21,8 +21,8 @@ class StateSynchronization(private val server: WotwBackendServer) {
         return newValue
     }
 
-    suspend fun syncState(gameId: Long, playerId: Long, uberId: UberId, value: Float, force: Boolean = false) {
-        server.connections.toTeam(gameId, playerId) {
+    suspend fun syncState(gameId: Long, playerId: Long, uberId: UberId, value: Float, echo: Boolean = false) {
+        server.connections.toTeam(gameId, playerId, echo) {
             sendMessage(
                 UberStateUpdateMessage(
                     uberId,

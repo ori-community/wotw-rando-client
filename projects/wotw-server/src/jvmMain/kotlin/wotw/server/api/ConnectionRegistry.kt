@@ -50,14 +50,16 @@ class ConnectionRegistry {
         toPlayers(players, gameId, *messages)
     }
 
-    suspend fun toTeam(gameId: Long, playerId: Long, message: suspend SendChannel<Frame>.() -> Unit) =
-        toTeam(gameId, playerId, *arrayOf(message))
+    suspend fun toTeam(gameId: Long, playerId: Long, echo: Boolean = true, message: suspend SendChannel<Frame>.() -> Unit) =
+        toTeam(gameId, playerId, echo, *arrayOf(message))
 
-    suspend fun toTeam(gameId: Long, playerId: Long, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
-        val players = newSuspendedTransaction {
+    suspend fun toTeam(gameId: Long, playerId: Long, echo: Boolean = true, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
+        var players = newSuspendedTransaction {
             Team.find(gameId, playerId)?.members?.map { it.id.value }
         } ?: return
-        toPlayers(players, gameId, *messages)
+        if(!echo)
+            players = players.filter { it != playerId }
+        toPlayers(if(echo) players else players.filter { it != playerId }, gameId, *messages)
     }
 
     suspend fun toPlayers(

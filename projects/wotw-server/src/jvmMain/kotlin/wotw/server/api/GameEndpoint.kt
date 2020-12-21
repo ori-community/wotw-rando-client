@@ -145,6 +145,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
     fun rezero(n: Int) = if(n == -1) 0 else n
     fun zerore(n: Int) = if(n == 0) -1 else n
+    fun zerore(n: Float) = if(n == 0f) -1f else n
     private suspend fun UberStateUpdateMessage.updateUberState(gameStateId: Long, playerId: Long) {
         val uberState = rezero(uberId.state)
         val uberGroup = rezero(uberId.group)
@@ -162,7 +163,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
         }
         server.sync.syncGameProgress(game)
         server.sync.syncState(game, playerId, uberId,
-            if(newValue == 0f) -1f else newValue, newValue != value)
+            zerore(newValue), newValue != value)
     }
 
     private suspend fun UberStateBatchUpdateMessage.updateUberStates(gameStateId: Long, playerId: Long) {
