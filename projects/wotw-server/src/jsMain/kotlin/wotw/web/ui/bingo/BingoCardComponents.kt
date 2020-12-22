@@ -24,6 +24,15 @@ external interface GameIdProps : RProps {
     var gameId: Long
 }
 
+external interface PlayerIdProps : RProps {
+    var playerId: Long?
+}
+
+external interface BingoCardProps : GameIdProps {
+    var useLatest: Boolean?
+    var playerId: Long?
+}
+
 external interface BingoCardState : RState {
     var board: BingoBoard
 }
@@ -70,19 +79,25 @@ class BingoView : RComponent<GameIdProps, RState>() {
 val labelSize = 20.px
 val gapSize = 5.px
 
-class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCardState>(props) {
-    override fun BingoCardState.init(props: GameIdProps) {
+class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, BingoCardState>(props) {
+    override fun BingoCardState.init(props: BingoCardProps) {
         board = BingoBoard(size = 5)
     }
 
     override fun componentDidMount() {
         GlobalScope.launch {
-            val boardData = Application.api.get<BingoData>(path = "bingo/${props.gameId}")
+            val path = when {
+                props.useLatest != true -> "bingo/${props.gameId}"
+                props.playerId == null -> "bingo/latest"
+                else -> "bingo/latest/${props.playerId}"
+            }
+            val boardData = Application.api.get<BingoData>(path = path)
             setState {
                 this.board = boardData.board
             }
             Application.eventBus.send(SyncBingoPlayersMessage(boardData.players))
         }
+
 
         Application.eventBus.register(this, SyncBoardMessage::class) {
             setState {
@@ -172,7 +187,13 @@ class BingoCardComponent(props: GameIdProps) : RComponent<GameIdProps, BingoCard
                 }
             }
             child(WebSocketComponent::class) {
-                attrs.url = "wss://$BACKEND_HOST:$BACKEND_PORT/api/bingosync/${props.gameId}"
+                if (props.useLatest == true) {
+                    attrs.url = "wss://$BACKEND_HOST:$BACKEND_PORT/api/bingosync/latest"
+                    if (props.playerId != null)
+                        attrs.url += "/${props.playerId}"
+                } else {
+                    attrs.url = "wss://$BACKEND_HOST:$BACKEND_PORT/api/bingosync/${props.gameId}"
+                }
             }
         }
     }
@@ -206,7 +227,7 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 props.xEdge || props.yEdge -> styledP {
                     css {
                         fontWeight = FontWeight.normal
-                        marginTop  = 0.em
+                        marginTop = 0.em
                         paddingTop = 0.em
                     }
                     +props.text

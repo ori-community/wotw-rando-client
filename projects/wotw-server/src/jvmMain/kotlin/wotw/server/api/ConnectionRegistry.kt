@@ -4,6 +4,7 @@ import io.ktor.http.cio.websocket.*
 import kotlinx.coroutines.channels.SendChannel
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.server.database.model.Team
+import wotw.server.database.model.User
 import wotw.server.util.logger
 import wotw.util.MultiMap
 import java.util.*
@@ -14,12 +15,17 @@ class ConnectionRegistry {
     data class PlayerConn(val socket: WebSocketSession, val gameId: Long?)
 
     private val bingoGameConns = MultiMap<Long, WebSocketSession>(Collections.synchronizedMap(hashMapOf()))
+    /*
+    * A Map (GameId?, PlayerId) -> WebSocketSession
+    * If GameId == null then Socket listens to newest
+    * */
     private val bingoPlayerConns =
-        MultiMap<Pair<Long, Long>, WebSocketSession>(Collections.synchronizedMap(hashMapOf()))
+        MultiMap<Pair<Long?, Long>, WebSocketSession>(Collections.synchronizedMap(hashMapOf()))
     val playerConns = Collections.synchronizedMap(hashMapOf<Long, PlayerConn>())
 
-    fun registerBingoBoardConn(socket: WebSocketSession, gameId: Long, playerId: Long? = null) {
-        bingoGameConns[gameId] += socket
+    fun registerBingoBoardConn(socket: WebSocketSession, gameId: Long? = null, playerId: Long? = null) {
+        if(gameId != null)
+            bingoGameConns[gameId] += socket
         if (playerId != null)
             bingoPlayerConns[gameId to playerId] += socket
     }
@@ -34,7 +40,7 @@ class ConnectionRegistry {
         bingoPlayerConns.filterKeys { it.first == gameId }.forEach { bingoPlayerConns[it.key] -= socket }
     }
 
-    fun unregisterBingoBoardConn(socket: WebSocketSession, gameId: Long, playerId: Long) {
+    fun unregisterBingoBoardConn(socket: WebSocketSession, gameId: Long? = null, playerId: Long) {
         bingoPlayerConns[gameId to playerId] -= socket
     }
 
@@ -107,7 +113,13 @@ class ConnectionRegistry {
         toObservers(gameId, playerId, *arrayOf(message))
 
     suspend fun toObservers(gameId: Long, playerId: Long, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
-        bingoPlayerConns[gameId to playerId].forEach { conn ->
+        var conns: Set<WebSocketSession> = bingoPlayerConns[gameId to playerId]
+        if(newSuspendedTransaction {
+            User.findById(playerId)?.latestBingoGame?.id?.value == gameId
+        })
+            conns = conns + bingoPlayerConns[null to playerId]
+
+        conns.forEach { conn ->
             for (message in messages) {
                 try {
                     message(conn.outgoing)

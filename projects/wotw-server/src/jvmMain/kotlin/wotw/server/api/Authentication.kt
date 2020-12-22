@@ -85,7 +85,7 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
         val discordUserName = json["username"]?.jsonPrimitive?.contentOrNull
         return newSuspendedTransaction {
             User.findById(userId)?.also {
-                if(discordUserName != null && it.name != discordUserName)
+                if(!it.isCustomName && discordUserName != null && it.name != discordUserName)
                     it.name = discordUserName
             } ?: User.new(userId) {
                     name = discordUserName ?: "unknown"
