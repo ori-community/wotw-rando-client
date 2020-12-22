@@ -2,7 +2,7 @@ package wotw.server.api
 
 import io.ktor.application.*
 import io.ktor.auth.*
-import io.ktor.http.*
+import io.ktor.features.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -27,10 +27,15 @@ class UserEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 }
                 call.respond(user)
             }
+
             put<String>("/me/nickname") {
+                if(it.isBlank())
+                    throw BadRequestException("Nickname may not be blank!")
+
                 val user = newSuspendedTransaction {
                     sessionInfo().apply {
                         name = it
+                        isCustomName = true
                     }
                 }
                 call.respond(user)

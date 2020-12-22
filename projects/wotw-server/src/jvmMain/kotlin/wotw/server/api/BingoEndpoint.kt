@@ -1,6 +1,7 @@
 package wotw.server.api
 
 import io.ktor.application.*
+import io.ktor.auth.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.*
@@ -19,11 +20,25 @@ import wotw.server.bingo.BingoBoardGenerator
 import wotw.server.bingo.UberStateMap
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
+import wotw.server.exception.UnauthorizedException
 import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
 
 class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
     override fun Route.initRouting() {
+        get("bingo/latest/{playerId?}") {
+            val boardData = newSuspendedTransaction {
+                val player = call.parameters["playerId"]?.toLongOrNull()?.let { User.findById(it) } ?: sessionInfo()
+                val game = player.latestBingoGame ?: throw NotFoundException()
+                val board = game.board ?: throw NotFoundException()
+                val state = game.teamStates[Team.find(game.id.value, player.id.value)]?.uberStateData
+                val info = game.playerInfo()
+                BingoData(board.toBingoBoard(state), info)
+            }
+            call.respond(boardData)
+        }
+        userboardWebsocket()
+
         get("bingo/{game_id}") {
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Cannot parse game_id")
             val boardData = newSuspendedTransaction {
@@ -77,6 +92,24 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
         bingoSyncWebsocket()
     }
 
+    private fun Route.userboardWebsocket() {
+        webSocket(path = "/bingosync/latest/{playerId?}") {
+            val playerId = call.parameters["playerId"]?.toLongOrNull() ?: call.sessions.get<UserSession>()?.user
+            ?: return@webSocket this.close(
+                CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No playerId!")
+            )
+            server.connections.registerBingoBoardConn(this@webSocket, null, playerId)
+            protocol {
+                onClose {
+                    server.connections.unregisterBingoBoardConn(this@webSocket, null, playerId)
+                }
+                onError {
+                    server.connections.unregisterBingoBoardConn(this@webSocket, null, playerId)
+                }
+            }
+        }
+    }
+
     private fun Route.bingoSyncWebsocket() {
         webSocket(path = "/bingosync/{game_id}") {
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: return@webSocket this.close(
@@ -116,7 +149,6 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     server.connections.unregisterAllBingoBoardConns(this@webSocket, gameId)
                 }
                 onError {
-
                     server.connections.unregisterAllBingoBoardConns(this@webSocket, gameId)
                 }
                 onMessage(Any::class) {
