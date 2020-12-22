@@ -82,10 +82,13 @@ class AuthenticationEndpoint(server: WotwBackendServer) : Endpoint(server) {
         }
         val json = json.parseToJsonElement(jsonResponse).jsonObject
         val userId = json["id"]?.jsonPrimitive?.longOrNull ?: -1L
+        val discordUserName = json["username"]?.jsonPrimitive?.contentOrNull
         return newSuspendedTransaction {
-            User.findById(userId)
-                ?: User.new(userId) {
-                    name = json["username"]?.jsonPrimitive?.contentOrNull ?: "unknown"
+            User.findById(userId)?.also {
+                if(discordUserName != null && it.name != discordUserName)
+                    it.name = discordUserName
+            } ?: User.new(userId) {
+                    name = discordUserName ?: "unknown"
                 }
         }
     }
