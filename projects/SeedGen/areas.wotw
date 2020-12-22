@@ -1023,7 +1023,7 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
 
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     moki:
-      Combat=2xSlug, BombSlug, Bow=3, DoubleJump OR Dash  # the camera only reliably moves to the tongues if you can kill the slugs
+      Combat=2xSlug+BombSlug, Bow=3, DoubleJump OR Dash  # the camera only reliably moves to the tongues if you can kill the slugs
       Bash, Combat=BombSlug, Bow=1  # bashing up with the slug
       Bash, Combat=BombSlug, DoubleJump, Dash OR Glide  # bashing up with the slug
       Combat=BombSlug, DoubleJump, Dash, Glide
