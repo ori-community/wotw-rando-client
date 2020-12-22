@@ -1353,6 +1353,9 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
       Combat=BombSlug, DoubleJump, Damage=10, Glide OR Sword
       SentryJump=1, DoubleJump
       Bash, Grenade=1, DoubleJump
+    unsafe, WestHollow.PurpleDoorOpen:
+      Bash, Grenade=1  # Bash the slime to the platform, throw Grenade, bash from slime then Grenade
+      SentryJump=1
 
   pickup EastHollow.HornBeetleFightEX:
     moki, EastHollow.BeetleDefeated:
@@ -1364,7 +1367,12 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
       Bash, Grenade=1, DoubleJump OR Dash OR Glide  # the nearby skeeto loses interest in you if you go to the ledge below this pickup
       Launch
       SentryJump=1, DoubleJump, TripleJump
-      EastHollow.BeetleDefeated, DoubleJump, TripleJump, Dash OR Glide OR Sword
+      EastHollow.BeetleDefeated, DoubleJump, TripleJump, Dash OR Glide OR Sword OR Hammer # Dont make the third jump too quick if you have just Hammer
+    unsafe:
+      Bash
+      Hammer, DoubleJump
+      DoubleJump, Sentry=3 OR Grenade=2 # Use Sentry hops to boost the height or GrenadeJumps
+      
 
   conn Teleporters: free
   conn BeetleFight: free
@@ -1373,12 +1381,14 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
     gorlek:
       EastHollow.BeetleDefeated OR Launch
       Bash, DoubleJump OR Dash OR Glide
+      SentryJump=1, DoubleJump OR Dash OR Glide, Sword # Go down to the pit, do SentryJump and the use Sword or Hammer to get to the rope
+      SentryJump=1, DoubleJump OR Dash OR Glide, Hammer # Go down to the pit, do SentryJump and the use Sword or Hammer to get to the rope
   conn EastHollow.MapMoki:
     moki, EastHollow.BeetleDefeated, EastHollow.Voice:
       Bash, DoubleJump OR Dash OR Glide
       Launch
     gorlek, EastHollow.Voice:
-      Bash, DoubleJump OR Dash OR Glide
+      Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer
       Launch
   conn WestHollow.Entrance:
     moki, WestHollow.PurpleDoorOpen:
@@ -1388,6 +1398,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
       Launch
       Bash, Grenade=1
     gorlek: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Dash OR Glide OR Sword OR Damage=20
+    unsafe: WestHollow.PurpleDoorOpen, Sentry=2 OR Hammer OR Bash
   conn WestHollow.HollowDrainMiddle:
     moki: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
 
@@ -1410,12 +1421,12 @@ anchor EastHollow.MapMoki at -106, -4221:  # after crossing the voicelocked door
   conn GladesTown.Teleporter:
     moki: Bash, DoubleJump OR Launch
     gorlek:
-      Bash, Grenade=1, Dash OR Glide OR Damage=10
-      Bash, SentryJump=1, Dash OR Damage=10
-      Bash, Dash, Damage=10
+      Bash, Dash OR Glide OR Sword OR Hammer OR Damage=10 # Jump to the wall on the right of the pole to do this damageless
+      Bash, SentryJump=1, Dash OR Glide OR Damage=10
     unsafe:
       Bash, Grenade=1
       Bash, Damage=10
+      SentryJump=1, DoubleJump, TripleJump, Sentry=4 # Sentry redirect the shot to break the wall
       # Bash, EastHollow.BeetleDefeated, Sword  # Long Squonkey Lure using Bash Climbing
       Grenade=5, Damage=10, EastHollow.BeetleDefeated    # Grenade Redirect and Grenade Jumps
   # backwards connections can't cross the door; having Voice should always imply an easier way of getting on the other side
@@ -1443,6 +1454,8 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       Grapple, SentryJump=1  # use the weapon to scare the mortar away
       SentryJump=1, DoubleJump, TripleJump
       SentryJump=2
+    unsafe:
+      Hammer, DoubleJump
   pickup EastHollow.MortarEX:
     moki:
       Bash, DoubleJump OR Dash OR Glide
@@ -1468,7 +1481,9 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
     moki:
       DoubleJump, Bash
       Launch
-    gorlek: Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+    gorlek:
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      SentryJump=1, DoubleJump, TripleJump, Sword OR Hammer
 
   conn BeetleFight: free
   conn EastHollow.Teleporter:  # so far this seemed to cover all paths going towards glades
@@ -1490,7 +1505,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       Combat=2xSneezeSlug, DoubleJump OR Dash
       Bash, DoubleJump OR Dash  # just Bash is treacherous
       Glide OR Launch
-    gorlek: EastHollow.DepthsLever, DoubleJump OR Dash OR Bash OR Damage=10
+    gorlek: EastHollow.DepthsLever, DoubleJump OR Dash OR Bash OR Sword OR Hammer OR Damage=10
     unsafe: EastHollow.DepthsLever
   conn EastHollow.Kwolok:
     moki:
@@ -1525,6 +1540,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
     gorlek: Water
   pickup EastHollow.KwolokSwimLeftEX:
     moki: Water, WaterDash OR Launch
+    gorlek: Water, DoubleJump, TripleJump # Do a wrap around from the right wall
   pickup EastHollow.KwolokSwimRightEX:
     moki: Water
   pickup EastHollow.SecretRoofEX:  # this path can't get over the big spike wall from the left anchor
@@ -1547,12 +1563,13 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
       Water, Launch
     gorlek, Combat=Balloon:
       Water, Grapple, DoubleJump, TripleJump OR Sword OR Hammer
-      Water, Grapple, Dash, Sword OR Hammer
+      Water, Grapple, Dash # Eiher jump from the Grapple point and the Dash or use double Dash
       Water, WaterDash, DoubleJump, TripleJump
+      Water, WaterDash, DoubleJup, Dash, Damage=10 # Take boost on the left side
 
 # checkpoint at -8, -4327
 
-anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door blocking Depths access
+anchor EastHollow.AboveDepths at 47, - 4302:  # To the right of the lever door blocking Depths access
   refill Checkpoint
   refill Energy=3:
     moki: Weapon
@@ -1568,11 +1585,11 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
     gorlek:
       Bash, Grenade=1, Launch
       SentryJump=1, Launch
+      Launch, DoubleJump OR Dash # Jump to the left wall and then go to right or you can go from the ledge next to the entry if you have DoubleJump
 
   conn UpperDepths.Entry:
     moki: Glide
   # backwards paths through the door seem pointless
-
 anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   refill Full
 
