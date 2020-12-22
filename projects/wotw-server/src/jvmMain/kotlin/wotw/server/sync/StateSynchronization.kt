@@ -82,7 +82,7 @@ class StateSynchronization(private val server: WotwBackendServer) {
 
         server.connections.toObservers(gameId) { sendMessage(playerInfo) }
         stateUpdates.forEach { (players, goalStateUpdate, board) ->
-            server.connections.toPlayers(players) { sendMessage(goalStateUpdate) }
+            server.connections.toPlayers(players, gameId) { sendMessage(goalStateUpdate) }
             players.forEach { playerId ->
                 server.connections.toObservers(gameId, playerId) { sendMessage(board) }
             }
