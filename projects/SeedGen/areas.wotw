@@ -7458,13 +7458,12 @@ anchor WillowsEnd.UpperHeartPath at 506, -3711:  # Right above the exit blocked 
     moki, BreakWall=30:
       Bash, Grapple, Launch, DoubleJump, Dash
       Bash, Grapple, Launch, Glide
-    gorlek:
+    gorlek, BreakWall=30:
       Launch, Grapple, Bash
       Launch, Bash, Damage=40
       Launch, DoubleJump, TripleJump
       Launch, DoubleJump, Damage=40, Glide OR Dash OR Sword
-      WillowsEnd.SpinPortalsHeart, Launch
-    unsafe:
+    unsafe, BreakWall=30:
       Launch, Grapple, Damage=40
       Launch, DoubleJump
       DoubleJump, TripleJump, Grapple, Bash  # using the last portal without taking damage is hard
