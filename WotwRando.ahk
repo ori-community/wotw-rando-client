@@ -213,7 +213,7 @@ LaunchGame:
 if(WinStore == "false") 
     Run, *RunAs %SteamPath% -applaunch 1057090
 else 
-    Run, *RunAs shell:AppsFolder\Microsoft.Patagonia_8wekyb3d8bbwe!App
+    Run, *RunAs shell:AppsFolder\Microsoft.Patagonia_1.0.8978.0_x64__8wekyb3d8bbwe!App
 
 Run, *RunAs %INJECTOR%,,%maybehide%
 if(LaunchWithTracker != "false")
