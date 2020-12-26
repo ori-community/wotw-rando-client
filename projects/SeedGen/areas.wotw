@@ -1565,7 +1565,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
       Water, Grapple, DoubleJump, TripleJump OR Sword OR Hammer
       Water, Grapple, Dash  # Eiher jump from the Grapple point and the Dash or use double Dash
       Water, WaterDash, DoubleJump, TripleJump
-      Water, WaterDash, DoubleJup, Dash, Damage=10  # Take boost on the left side
+      Water, WaterDash, DoubleJump, Dash, Damage=10  # Take boost on the left side
 
 # checkpoint at -8, -4327
 
@@ -4735,7 +4735,7 @@ anchor LowerReach.SwimmingPool at -44, -4001:  # At the platform in the freezabl
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
     gorlek, LowerReach.EastDoorLantern:
       Launch  # Launch into the ceiling then into the wall near the energy cristal and again to the platform
-      SentryJump=1, LowerReach.CoolEastFurnaced OR Water
+      SentryJump=1, LowerReach.CoolEastFurnace OR Water
       SentryJump=1, DoubleJump, TripleJump OR Dash OR Glide          # double jump from the platform, refill dash/jumps by slashing the energy cristal then sjump on the plant
       SentryJump=2, DoubleJump OR Dash OR Glide
       Bash, Grenade=1, Water
