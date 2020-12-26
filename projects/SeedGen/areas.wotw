@@ -7168,9 +7168,9 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
       Launch, DoubleJump OR Sword OR Hammer OR Damage=40
       SentryJump=1, Grapple, DoubleJump, TripleJump, Dash
       SentryJump=2, DoubleJump, TripleJump, Dash
-      Bash, Grenade=1, Grapple DoubleJump, TripleJump, Dash
+      Bash, Grenade=1, Grapple, DoubleJump, TripleJump, Dash
     unsafe:
-      Bash, Grenade=2 DoubleJump, TripleJump, Dash
+      Bash, Grenade=2, DoubleJump, TripleJump, Dash
       SentryJump=1, Grapple, DoubleJump, TripleJump OR Dash  # land on the small floor after the portal then tjump+upslash
       SentryJump=1, Grapple, DoubleJump, Sword, Glide  # land on the small floor after the portal then tjump+upslash
       SentryJump=2, DoubleJump, TripleJump OR Dash  # land on the small floor after the portal then tjump+upslash
@@ -7181,7 +7181,7 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
       DoubleJump, Bash, Grenade=2
       Launch
     gorlek:
-      Bash, Grenade=2, Dash Or Sword OR Hammer
+      Bash, Grenade=2, Dash OR Sword OR Hammer
       SentryJump=2, Bow=1 OR Spear=1 OR Grenade=1 OR Damage=20  # Either destroy the mine or take a damage boost on it
       SentryJump=1, DoubleJump, TripleJump
       Bash, Grenade=1, DoubleJump, TripleJump
