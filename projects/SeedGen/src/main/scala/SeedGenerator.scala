@@ -14,7 +14,7 @@ package SeedGenerator {
     val IS_DEBUG: Boolean = sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments.asScala.exists(_.contains("IntelliJ"))
     val jarDir: String = {
       val withPath = classOf[Nothing].getProtectionDomain.getCodeSource.getLocation.getPath.stripPrefix("/")
-      withPath.substring(0, withPath.lastIndexOf("/"))
+      if(withPath.contains("/")) withPath.substring(0, withPath.lastIndexOf("/")) else withPath+"/"
     }
     val defaultPath: Path = (if(IS_DEBUG) "C:\\moon" else jarDir).f
 
@@ -49,7 +49,7 @@ package SeedGenerator {
       def inJarDir: Path = defaultPath.resolve(f)
     }
     implicit class BooleanOps(b: Boolean) {
-      // kinda like a terinary operator, but since scala has that already,  ? means "cond+val->Opt"
+      // kinda like a terinary operator, but since scala has that already,  ? means "cond+val->if(cond) Some(val) else None"
       def ?[T](block: => T): Option[T] = if(b) Some(block) else None
     }
     // hehe OptOpts
@@ -68,7 +68,7 @@ package SeedGenerator {
         case Nil => None
         case s => Some(s.minBy(f))
       }
-      def ??(other: => T) = if(vs.isEmpty) Seq(other) else vs
+      def ??(other: => T): Seq[T] = if(vs.isEmpty) Seq(other) else vs
       def partitionMap[T1, T2](f: T => Either[T1, T2]): (Seq[T1], Seq[T2]) = {
         val full = vs map f
         (full.collect{case Left(l) => l}, full.collect{case Right(r) => r})
