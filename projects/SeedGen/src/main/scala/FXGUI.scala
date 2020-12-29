@@ -179,12 +179,19 @@ package SeedGenerator {
       WIN_X.get.foreach(pref_c => x = pref_c)
       WIN_Y.get.foreach(pref_c => y = pref_c)
 
-      onCloseRequest = _ => {
-        settingsFile.write(Settings.toJson)
-        WIN_W.set(width())
-        WIN_H.set(height())
-        WIN_X.set(x())
-        WIN_Y.set(y())
+      onCloseRequest = event => {
+        Try {
+          settingsFile.write(Settings.toJson)
+          WIN_W.set(width())
+          WIN_H.set(height())
+          WIN_X.set(x())
+          WIN_Y.set(y())
+        } match {
+          case Failure(e) if(IS_DEBUG) =>
+            event.consume()
+            Logger.error(s"Error during shutdown: $e")
+          case _ =>
+        }
       }
 
       val mainTabPane: TabPane = getTabPane
@@ -230,42 +237,47 @@ package SeedGenerator {
           tooltip = "build a seed with the specified parameters"
         }
         generateButton.onAction = _ => {
-          settingsFile.write(Settings.toJson)
-          generateButton.disable = true
-          currentOp = Some(Future {
-            val succ = Try {
-              Logger.info("Building...")
-              if (seedName() != "") {
-                Logger.info(s"Seeded RNG with ${seedName()}")
-            SeedGenerator.Runner.setSeed(seedName().hashCode)
-            }
-            if (SeedGenerator.Runner(outputPath)) {
-              Logger.info(s"Finished generating seed!")
-              true
-            } else {
-              lastSeed = None
-              Logger.error(s"Failed to generate seed :c")
-              false
-            }
-          } match {
-              case Failure(e) => Logger.error(e); false
-              case Success(_) => true
-            }
-            Platform.runLater(() => {
-              runLastSeedButton.disable = !succ
-              generateButton.disable = false
-              lastSeed.flatMap(_.f.read) foreach (v => {
-                lastSeedText.setValue(v)
-                lastSeedName.setValue(lastSeed.get.f.getFileName.toString)
-                if (debugButton.selected()) {
-                  if (!mainTabPane.getTabs.contains(lastSeedTab))
-                    mainTabPane.getTabs.append(lastSeedTab)
-                } else if (mainTabPane.getTabs.contains(lastSeedTab))
-                  mainTabPane.getTabs.remove(lastSeedTab)
+          Try {
+            settingsFile.write(Settings.toJson)
+            generateButton.disable = true
+            currentOp = Some(Future {
+              val succ = Try {
+                Logger.info("Building...")
+                if (seedName() != "") {
+                  Logger.info(s"Seeded RNG with ${seedName()}")
+              SeedGenerator.Runner.setSeed(seedName().hashCode)
+              }
+              if (SeedGenerator.Runner(outputPath)) {
+                Logger.info(s"Finished generating seed!")
+                true
+              } else {
+                lastSeed = None
+                Logger.error(s"Failed to generate seed :c")
+                false
+              }
+            } match {
+                case Failure(e) => Logger.error(e); false
+                case Success(_) => true
+              }
+              Platform.runLater(() => {
+                runLastSeedButton.disable = !succ
+                generateButton.disable = false
+                lastSeed.flatMap(_.f.read) foreach (v => {
+                  lastSeedText.setValue(v)
+                  lastSeedName.setValue(lastSeed.get.f.getFileName.toString)
+                  if (debugButton.selected()) {
+                    if (!mainTabPane.getTabs.contains(lastSeedTab))
+                      mainTabPane.getTabs.append(lastSeedTab)
+                  } else if (mainTabPane.getTabs.contains(lastSeedTab))
+                    mainTabPane.getTabs.remove(lastSeedTab)
+                })
+                currentOp = None
               })
-              currentOp = None
             })
-          })
+          }
+        } match {
+          case Success(_) => Logger.debug("Generation Started")
+          case Failure(e) => Logger.error(s"Failed to start gen: $e")
         }
         generateButton
       }
