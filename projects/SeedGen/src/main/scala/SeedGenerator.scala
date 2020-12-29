@@ -13,7 +13,7 @@ package SeedGenerator {
   object implicits {
     val IS_DEBUG: Boolean = sun.management.ManagementFactoryHelper.getRuntimeMXBean.getInputArguments.asScala.exists(_.contains("IntelliJ"))
     val jarDir: String = {
-      val withPath = classOf[Nothing].getProtectionDomain.getCodeSource.getLocation.getPath.stripPrefix("/")
+      val withPath = classOf[Nothing].getProtectionDomain.getCodeSource.getLocation.getPath.stripPrefix("/").replace("%20", " ")
       if(withPath.contains("/")) withPath.substring(0, withPath.lastIndexOf("/")) else withPath+"/"
     }
     val defaultPath: Path = (if(IS_DEBUG) "C:\\moon" else jarDir).f
