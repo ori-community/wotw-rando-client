@@ -94,7 +94,7 @@ namespace RandoMainDLL {
     public static void OnMapPan(AreaType type) {
       if (SeedController.HintsDisabled)
         return;
-      var msg = getZoneHintMessage(type.toZone(), false) + GetKeySkillHints();
+      var msg = getZoneHintMessage(type.toZone(), isOnMap: true) + GetKeySkillHints();
       if (msg.Count(c => c == '\n') == 2) // if there's exactly 3 lines, insert an extra linebreak at the top
         msg = "\n" + msg;                 // so the middle text isn't obscured by the filter button
       InterOp.update_map_hint(msg);
@@ -117,19 +117,18 @@ namespace RandoMainDLL {
       AHK.SendPlainText(new PlainText(msg, duration), justUnlocked);
     }
 
-    private static string getZoneHintMessage(ZoneType zone, bool justUnlocked) {
-      if (zone == ZoneType.Void) return $"no hint for Void(area {InterOp.get_player_area()})";
+    private static string getZoneHintMessage(ZoneType zone, bool justUnlocked = false, bool isOnMap = false) {
+      if (zone == ZoneType.Void) return $"no hint for Void (area {InterOp.get_player_area()})";
       var items = HintObjects.GetOrElse(zone, new List<Checkable>());
       var found = items.FindAll(i => i.Has());
-      if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items (Hint not unlocked)";
-      if(items.Count > 0) {
-        var g = found.Count == items.Count ? "$" : "";
-        if (found.Count > 0)
-          return $"{zone}: {g}{found.Count}/{items.Count}{g} key items\nfound: {String.Join(", ", found.Select(i => i.DisplayName))}";
-        else
-          return $"{zone}: {found.Count}/{items.Count} key items";
-      }
-      return $"No key items in {zone}";
+      var rmsg = isOnMap ? Relic.MapMessage(zone) : "";
+      if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items{rmsg}{(isOnMap ? "\n" : " ")}(Hint not unlocked)";
+
+      var g = found.Count == items.Count ? "$" : "";
+      if (found.Count > 0)
+        return $"{zone}: {g}{found.Count}/{items.Count}{g} key items{rmsg}\nfound: {String.Join(", ", found.Select(i => i.DisplayName))}";
+      else
+        return $"{zone}: {found.Count}/{items.Count} key items{rmsg}";
     }
     public static ZoneType toZone(this AreaType t) => AreaToZone.GetOrElse(t, ZoneType.Void);
     // the two below shouldn't be properties, but i wanted to make the one above a property too?
