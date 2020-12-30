@@ -28,6 +28,21 @@ namespace RandoMainDLL {
     }
     public static HashSet<ZoneType> RelicZones { get => Counts.Where(a => a.Value > 0).Select(a => a.Key).ToHashSet(); }
 
+    public static ZoneType CurrentZone { get => InterOp.get_player_area().toZone(); }
+
+    public static String MapMessage(ZoneType zone) {
+      var rzs = RelicZones;
+      if (rzs.Count == 0)
+        return "";
+      if(rzs.Contains(zone)) {
+        if (UberGet.value(ZoneToId[zone]).Byte >= Counts[zone])
+          return " $(Relic found)$";
+        else
+          return " (Relic not found)";
+      }
+      return " (Relicless)";
+    }
+    
     public static String RelicMessage() {
       var rzs = RelicZones;
       if (rzs.Count == 0)
@@ -39,7 +54,12 @@ namespace RandoMainDLL {
         int curz = UberGet.value(ZoneToId[z]).Byte;
         cur += curz;
         tot += totz;
-        return curz >= totz ? $"@{z}@" : z.ToString();
+        var w = "";
+        if (curz >= totz)
+          w = "@";
+        else if (CurrentZone == z)
+          w = "#";
+        return $"{w}{z}{w}";
       }));
       var c = cur == tot ? "$" : "";
       return $"\n{c}Relics ({cur}/{tot}):{c} {s}";
