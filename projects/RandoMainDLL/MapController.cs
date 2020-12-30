@@ -25,7 +25,7 @@ namespace RandoMainDLL {
         Updating = true;
         var argsList = new List<string> {
           "-jar",
-          $"{Randomizer.BasePath}SeedGen.jar ",
+          $"\"{Randomizer.BasePath}SeedGen.jar\" ",
           "ReachCheck",
           $"\"{SeedController.SeedFile}\"",
           $"{InterOp.get_max_health()}",
@@ -34,8 +34,7 @@ namespace RandoMainDLL {
           $"{InterOp.get_ore()}",
           $"{InterOp.get_experience()}",
         };
-        // ^ this should probably be an array at this point...
-        // TODO: send which key doors are already open
+        // TODO: send which key doors are already open?
         argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
         argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
         if (new QuestEvent(QuestEventType.Water).Has())
