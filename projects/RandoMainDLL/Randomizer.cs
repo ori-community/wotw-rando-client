@@ -8,11 +8,11 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   public static class Randomizer {
     public static string BasePath = @"C:\moon\";
-    public static string SeedPathFile { get { return BasePath + ".currentseedpath"; } }
-    public static string MessageLog { get { return BasePath + ".messagelog"; } }
-    public static string LogFile { get { return BasePath + "cs_log.txt"; } }
-    public static string SaveFolder { get { return BasePath + "saves"; } }
-    public static string VersionFile { get { return BasePath + "VERSION"; } }
+    public static string SeedPathFile => BasePath + ".currentseedpath"; 
+    public static string MessageLog => BasePath + ".messagelog"; 
+    public static string LogFile => BasePath + "cs_log.txt"; 
+    public static string SaveFolder => BasePath + "saves"; 
+    public static string VersionFile => BasePath + "VERSION"; 
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version;
 
