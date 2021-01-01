@@ -41,6 +41,7 @@ namespace RandoMainDLL {
   public enum SysCommandType : byte {
     Save = 0,
     SetResource = 1,
+    Checkpoint = 2,
     SupressMagic = 3,
     StopIfEqual = 4,
     StopIfGreater = 5,
@@ -220,7 +221,6 @@ namespace RandoMainDLL {
       if (!NonEmpty) return;
       List<string> lines = new List<string>();
       bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
-
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
@@ -480,6 +480,9 @@ namespace RandoMainDLL {
       switch (type) {
         case SysCommandType.Save:
           InterOp.save();
+          break;
+        case SysCommandType.Checkpoint:
+          InterOp.checkpoint();
           break;
       }
     }

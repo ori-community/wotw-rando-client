@@ -63,7 +63,8 @@ namespace RandoMainDLL {
     public extern static void discover_everything();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void save();
-
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void checkpoint();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool player_can_move();
