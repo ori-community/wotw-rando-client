@@ -13,7 +13,7 @@ namespace RandoMainDLL {
       gui, add, edit, w50 h20 vextChannel gonSignalExt
       gui, show, hide, wotwRandoSecretChannel
 
-      DoIniRead(Section, Key, iniPath := ""C:/moon/settings.ini"")
+      DoIniRead(Section, Key, iniPath := ""$(BASEPATH)settings.ini"")
       {
         IniRead, out, %iniPath%, %Section%, %Key%
         return out
@@ -49,7 +49,7 @@ namespace RandoMainDLL {
     public static bool Ready = false;
 
     public static void Init() {
-      Engine.ExecRaw(Program);
+      Engine.ExecRaw(Program.Replace("$(BASEPATH)", Randomizer.BasePath));
 
       Ready = true;
       bool cursorLock = IniFlag("CursorLock");
@@ -90,6 +90,7 @@ namespace RandoMainDLL {
         switch (signal) {
           case "reload":
             if (FramesTillUnlockReload == 0) {
+
               iniFlagCache.Clear();
               FramesTillNextSend = 0;
               Randomizer.Client.Connect();
