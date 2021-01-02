@@ -1,0 +1,4 @@
+// grants launch on completing 2 bingo lines
+// also places a copy on seir for logic-sanity purposes
+
+!10|1=2|2|8 // launch from 2 bingo lines
