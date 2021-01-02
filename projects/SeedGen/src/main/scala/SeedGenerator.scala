@@ -372,14 +372,14 @@ package SeedGenerator {
         SpawnLoc("EastPools.Teleporter", 3, Teleporter(2)),
         SpawnLoc("InnerWellspring.Teleporter", 3, Teleporter(3), safe = true),
         SpawnLoc("LowerReach.Teleporter", 3, Teleporter(4)),
-        SpawnLoc("EastHollow.Teleporter", 2, Teleporter(5), safe = true),
+        SpawnLoc("EastHollow.Teleporter", 4, Teleporter(5)),
         SpawnLoc("UpperDepths.Teleporter", 3, Teleporter(6)),
         SpawnLoc("WoodsEntry.Teleporter", 3, Teleporter(7)),
         SpawnLoc("WoodsMain.Teleporter", 3, Teleporter(8)),
         SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
         SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
         SpawnLoc("UpperWastes.NorthTP", 4, Teleporter(11)),
-        SpawnLoc("MarshSpawn.Main", 0, Teleporter(16)),
+        SpawnLoc("MarshSpawn.Main", 0, Teleporter(16), safe = true),
         SpawnLoc("GladesTown.Teleporter", 3, Teleporter(17), safe = true),
       )
       def valid: Seq[SpawnLoc] = (Settings.unsafePaths || Settings.gorlekPaths) ? all ?? all.filter(_.safe)
