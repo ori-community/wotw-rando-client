@@ -29,10 +29,19 @@ package SeedGenerator {
 
   import scalafx.beans.binding.{BooleanBinding, ObjectBinding}
   import scalafx.beans.property.{BooleanProperty, ObjectProperty}
+  import scalafx.geometry.Orientation
+  import scalafx.scene.layout.HBox
   import scalafx.stage.FileChooser
   import scalafx.util.StringConverter
 
   import scala.util.{Failure, Success, Try}
+  case class Header(path: Path) {
+  val lines: Seq[String] = path.readLines
+  val name: String = path.getFileName.toString.replace(".wotwrh", "")
+  def dispname: String = name.replace("_", " ").capitalize
+  val desc: String =  lines.takeWhile(_.startsWith("//")).map(_.replace("//", "").trim).mkString("\n") ?? "No description provided"
+}
+
   object FXGUI extends JFXApp {
     implicit class ObjectPropExts[T](wrapped: ObjectProperty[T]) {
       def mapObjBind[V](f: T => V): ObjectBinding[V] = Bindings.createObjectBinding(() => f(wrapped()), wrapped)
@@ -53,7 +62,16 @@ package SeedGenerator {
       }
     }
 
-
+    object Headers {
+      val all: Seq[Header] = {
+        val dir = "headers".jarf.toFile
+        if(dir.exists() && dir.isDirectory) {
+          dir.listFiles().filter(f => f.isFile && f.toString.endsWith(".wotwrh")).toSeq.map(f => Header(f.toPath))
+        } else Seq[Header]()
+      }
+      val byName: Map[String, Header] = all.map(h => h.name -> h).toMap
+      def active: Seq[String] = settings().headerList.flatMap(hn => byName(hn).lines :+ "")
+    }
     val APP_NAME: String = "RandoSeedGen"
     val pref: Preferences = Preferences.userRoot.node(APP_NAME)
     case class DoublePref(key: String) {
@@ -74,12 +92,13 @@ package SeedGenerator {
     val headerFilePath: Path =  ".seedHeader".jarf
     val settings: ObjectProperty[Settings] = new ObjectProperty(null, "settings", settingsFromFile)
     val outputDirectory: StringProperty = settings.mapStringProp(_.outputFolder, (set, path) => set.copy(outputFolder = path))
-    val header = new ObjectProperty[Seq[String]](null, "header_text", headerFilePath.readLines ?? "// Replace this text with a seed header, if desired")
+    val customHeader = new ObjectProperty[Seq[String]](null, "header_text", headerFilePath.readLines ?? "// Replace this text with a seed header, if desired")
     val lastSeedText: StringProperty = new StringProperty(null, "last_seed")
     val seedName: StringProperty = new StringProperty(null, "seed_name", "")
     val logArea: TextArea = new TextArea { editable = false; font = Font("Monospaced").delegate}
     var lastSeed: Option[String] = None
     val lastSeedName: StringProperty = new StringProperty(null, "last_seed_name", "N/A")
+
 
     Settings.provider = FXSettingsProvider
     Logger.current  = FXLogger
@@ -162,13 +181,14 @@ package SeedGenerator {
 
 
     val headerTextArea: TextArea = new TextArea() {
-      text.bindBidirectional[Seq[String]](header, StringConverter[Seq[String]](
+      text.bindBidirectional[Seq[String]](customHeader, StringConverter[Seq[String]](
         body => body.split("\n"),
         lines => lines.mkString("\n")
       ))
         font = Font("Monospaced")
     }
-    header.addListener((_, _, newV: Seq[String]) => {
+    val currentHeader: Text = new Text(Headers.all.head.desc)
+    customHeader.addListener((_, _, newV: Seq[String]) => {
       headerFilePath.write(newV.mkString(scala.util.Properties.lineSeparator))
     })
 
@@ -211,7 +231,8 @@ package SeedGenerator {
           padding = Insets(15)
           tabs = Seq(
             getMainTab,
-            getHeaderTab
+            getHeadersTab,
+            getUserHeaderTab
           )
         }
       }
@@ -317,11 +338,54 @@ package SeedGenerator {
           center = logArea
         }
       }
-
-      private def getHeaderTab = new Tab {
+      private def getHeadersTab = new Tab {
         closable = false
-        id = "header"
-        text = "header"
+        id = "headers"
+        text = "headers"
+        tooltip = "for settings implemented as headers"
+        content = new GridPane() {
+          padding = Insets(10)
+          hgap = 5f
+          vgap = 5f
+          def mkLabel(t: String) = new Label(t) {
+            alignmentInParent = Pos.Center
+          }
+          add(Separator(Orientation.Horizontal), 0, 0, 3, 1)
+          addRow(1, mkLabel("Name"), Separator(Orientation.Vertical), mkLabel("Summary"))
+          add(Separator(Orientation.Horizontal), 0, 2, 3, 1)
+          var row = 3
+          val hList: Seq[String] = settings().headerList
+          for(h <- Headers.all) {
+            val button = new ToggleButton(h.dispname){
+              selected = hList.contains(h.name)
+              onAction = _ => {
+                val prior = settings()
+                settings.value = prior.copy(headerList =
+                  if(prior.headerList.contains(h.name))
+                    prior.headerList.filter(_ != h.name)
+                  else
+                    prior.headerList :+ h.name
+                )
+                settingsFile.write(Settings.toJson)
+              }
+              border <== when (selected) choose
+                new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
+                new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
+            }
+            addRow(row, button, Separator(Orientation.Vertical), new Text(h.desc))
+            row+=1
+            add(Separator(Orientation.Horizontal), 0, row, 3, 1)
+            row+=1
+          }
+        }
+
+      }
+
+
+      private def getUserHeaderTab = new Tab {
+        closable = false
+        id = "user_headers"
+        text = "advanced"
         tooltip = "for customizing seeds"
         content = new VBox() {
           children = Seq(
@@ -335,7 +399,7 @@ package SeedGenerator {
     }
     object FXSettingsProvider extends SettingsProvider {
       def get: Settings = settings.getValue
-      override def userHeader: Seq[String] = FXGUI.header()
+      override def headers: Seq[String] = FXGUI.Headers.active ++ FXGUI.customHeader().filterNot(_ == "// Replace this text with a seed header, if desired")
     }
     object FXLogger extends Logger {
       override def enabled: Seq[LogLevel] = Seq(INFO, WARN, ERROR) ++ Settings.debugInfo ? DEBUG
