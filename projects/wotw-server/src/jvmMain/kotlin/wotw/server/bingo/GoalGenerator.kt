@@ -269,7 +269,7 @@ fun generatePool() = mutableListOf(
     ),
     group("Break # Floor[s] or Ceiling[s]",
         bool("lumaPoolsStateGroup.breakableWall", 5377, 64337),
-        bool("swampStateGroup.boneBridgeBroken", 21786, 808),
+        bool("Den Ore Access", 21786, 808),
         bool("baursReachGroup.breakableRocksE", 28895, 38120),
         bool("swampStateGroup.breakableBridgeBroken", 21786, 59922),
         bool("inkwaterMarshStateGroup.breakableLogB", 9593, 14616),
