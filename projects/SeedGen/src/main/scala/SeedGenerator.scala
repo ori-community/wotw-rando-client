@@ -22,6 +22,7 @@ package SeedGenerator {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
     implicit class StringOpts(s: =>String) {
+      def ??(alt: => String): String = if(s.isEmpty) alt else s
       def f: Path = Paths.get(s) // quick convert a String to a Path
       def jarf: Path = s.f.inJarDir // same but as though it were a Path in the jar directory
       def toIntOption: Option[Int] = Try { s.toInt } match {
@@ -412,14 +413,17 @@ package SeedGenerator {
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
     var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
+    val prestates: MSet[FlagState] = MSet()
     val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
     val addItemRegex: Regex = """^!!add ([0-9]+\|.*?) *(//.*)?""".r
+    val setStateRegex: Regex = """^!!set ([a-zA-Z.]+) *(//.*)?""".r
 
     def regenPreplcs(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
         preplc = preplc.updated(p.loc, preplc.getOrElse(p.loc, Set()) ++ Set(p))
       }
       preplc = Map()
+      prestates.clear()
       if(Settings.flags.worldTour) {
         Logger.debug("World Tour: finding relic placements...")
         Nodes._items.values.groupBy(_.data.zone).foreach({
@@ -441,7 +445,10 @@ package SeedGenerator {
       Seq("3|0", "3|1", "3|2", "3|3", "3|4").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
-      Settings.userHeader.foreach({ // yes, this is how we nullcheck now
+      Settings.headers.foreach({
+        case  setStateRegex(stateName, _) =>
+          Logger.debug(s"Setting $stateName to true")
+          prestates += WorldState(stateName)
         case  addItemRegex(itemCode, comm) =>
           val item = poolByCode.get(itemCode) match{
             case Some(i) => i
@@ -496,6 +503,7 @@ package SeedGenerator {
       haveReached.clear()
       haveReached.add(ItemLoc.IMPLICIT)
       states.clear()
+      states ++= prestates
       var stateCount = 0
       def fullState: GameState  = s.noReached + GameState(Inv.Empty, states.toSet, haveReached.toSet)
       spawn.reached(fullState, s.inv.orbs)
@@ -791,7 +799,7 @@ package SeedGenerator {
         grps :+ bonus
       } else grps
     }
-    def seed(spoilers: Boolean = true): String = "%s\n\n// Config: %s".format((Seq(Settings.header, header) ++
+    def seed(spoilers: Boolean = true): String = "%s\n\n// Config: %s".format((Seq(Settings.internalHeader, header) ++
       groups.map(plcmnts => plcmnts.write(spoilers))).mkString("\n").stripPrefix("\n"), Settings.toJson)
 
     def desc: String = grps.map(grp => grp.desc.replace("\n", "")).mkString("\n")
@@ -829,7 +837,7 @@ package SeedGenerator {
     //noinspection FieldFromDelayedInit
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
-      val h = Settings.userHeader.filterNot(_.startsWith("!!")).map(_.stripMargin('!')).mkString("\n")
+      val h = Settings.headers.filterNot(_.startsWith("!!")).map(_.stripMargin('!')).mkString("\n")
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {

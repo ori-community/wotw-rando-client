@@ -43,16 +43,17 @@ package SeedGenerator {
                        bonusItems: Boolean = true,
                        debugInfo: Boolean = false,
                        seirLaunch: Boolean = false,
+                       headerList: Seq[String] = Nil,
                      ) extends SettingsProvider  {
     def get: Settings = this
-    def header: String = Seq(flags.line, flags.randomSpawn ? Nodes._spawn.line ?? "").filterNot(_ == "").mkString("\n")
+    def internalHeader: String = Seq(flags.line, flags.randomSpawn ? Nodes._spawn.line ?? "").filterNot(_ == "").mkString("\n")
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def toJson: String = {Serialization.write(this)}
   }
 
   trait SettingsProvider {
     def get: Settings
-    def userHeader: Seq[String] = Nil
+    def headers: Seq[String] = Nil
   }
   object DefaultSettingsProvider extends SettingsProvider {
     def get: Settings = Settings()
@@ -71,8 +72,9 @@ package SeedGenerator {
     def bonusItems: Boolean = provider.get.bonusItems
     def debugInfo: Boolean = provider.get.debugInfo
     def seirLaunch: Boolean = provider.get.seirLaunch
-    def header: String = provider.get.header
-    def userHeader: Seq[String] = provider.userHeader
+    def internalHeader: String = provider.get.internalHeader
+    def headerList: Seq[String] = provider.get.headerList
+    def headers: Seq[String] = provider.headers
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def toJson: String = {Serialization.write(provider.get)}
     def get: Settings = provider.get
