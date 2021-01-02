@@ -20,29 +20,27 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{BorderStroke, BorderStrokeStyle, BorderWidths, CornerRadii, GridPane, VBox}
 import scalafx.scene.text.{Font, TextAlignment}
 import java.util.prefs.Preferences
+import scalafx.beans.binding.{BooleanBinding, ObjectBinding}
+import scalafx.beans.property.{BooleanProperty, ObjectProperty}
+import scalafx.geometry.Orientation
+import scalafx.stage.FileChooser
+import scalafx.util.StringConverter
+
+import scala.io.Source
+import scala.util.{Failure, Success, Try}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.sys.process._
 package SeedGenerator {
 
-
-  import scalafx.beans.binding.{BooleanBinding, ObjectBinding}
-  import scalafx.beans.property.{BooleanProperty, ObjectProperty}
-  import scalafx.geometry.Orientation
-  import scalafx.scene.layout.HBox
-  import scalafx.stage.FileChooser
-  import scalafx.util.StringConverter
-
-  import scala.util.{Failure, Success, Try}
-  case class Header(path: Path) {
-  val lines: Seq[String] = path.readLines
-  val name: String = path.getFileName.toString.replace(".wotwrh", "")
+  case class Header(name: String, lines: Seq[String]) {
   def dispname: String = name.replace("_", " ").capitalize
   val desc: String =  lines.takeWhile(_.startsWith("//")).map(_.replace("//", "").trim).mkString("\n") ?? "No description provided"
 }
 
   object FXGUI extends JFXApp {
+
     implicit class ObjectPropExts[T](wrapped: ObjectProperty[T]) {
       def mapObjBind[V](f: T => V): ObjectBinding[V] = Bindings.createObjectBinding(() => f(wrapped()), wrapped)
       def mapBoolBind(f: T => Boolean): BooleanBinding = Bindings.createBooleanBinding(() => f(wrapped()), wrapped)
@@ -64,10 +62,14 @@ package SeedGenerator {
 
     object Headers {
       val all: Seq[Header] = {
-        val dir = "headers".jarf.toFile
-        if(dir.exists() && dir.isDirectory) {
-          dir.listFiles().filter(f => f.isFile && f.toString.endsWith(".wotwrh")).toSeq.map(f => Header(f.toPath))
-        } else Seq[Header]()
+        // good things happening here!
+        val headerList = Source.fromURL("https://api.github.com/repos/sparkle-preference/OriWotwRandomizerClient/contents/headers")
+        val downloadRegex = """"download_url": ?"([^"]*/([^/]*).wotwrh)"""".r
+        (for(downloadRegex(link, name) <- downloadRegex.findAllMatchIn(headerList.getLines().mkString(","))) yield {
+          val contents = Source.fromURL(link)
+          val lines = contents.mkString("").split("\n")
+          Header(name, lines)
+        }).toList
       }
       val byName: Map[String, Header] = all.map(h => h.name -> h).toMap
       def active: Seq[String] = settings().headerList.flatMap(hn => byName(hn).lines :+ "")
