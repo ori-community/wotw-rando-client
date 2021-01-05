@@ -17,6 +17,7 @@ val tpIds = mapOf(
     "savePedestalWellspring" to UberId(53632, 18181),
     "savePedestalBaursReach" to UberId(28895, 54235),
     "savePedestalKwoloksHollow" to UberId(937, 26601),
+    "kwoloksHollowBackupState" to UberId(6, 106),
     "savePedestalMouldwood" to UberId(18793, 38871),
     "savePedestalWillowsEnd" to UberId(16155, 41465),
     "savePedestalWillowsEndShriek" to UberId(16155, 50867),
@@ -84,11 +85,13 @@ val questIds = mapOf(
     "Hand to Hand" to UberId(14019, 26318),
     "Rebuilding the Glades" to UberId(14019, 44578),
     "Regrowing the Glades" to UberId(14019, 26394),
+    "FindToad" to UberId(14019, 48794),
 )
 
 
 
 val pickupIds = mapOf(
+    "NotARealPickup.VoiceOfTheWoods" to UberId(46462, 59806),
     "MarshSpawn.RockHC" to UberId(21786, 60210),
     "MarshSpawn.FirstPickupEX" to UberId(21786, 49485),
     "MarshSpawn.GrappleHC" to UberId(21786, 25761),
