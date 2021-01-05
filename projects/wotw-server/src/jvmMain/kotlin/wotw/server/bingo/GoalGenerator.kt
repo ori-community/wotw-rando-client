@@ -485,7 +485,7 @@ fun generatePool() = mutableListOf(
         bool("Howl's Den", 11666, 61594),
         bool("Wellspring", 53632, 18181),
         bool("Baur's Reach", 28895, 54235),
-        bool("Kwolok's Hollow", 937, 26601),
+        bool("Kwolok's Hollow", 6, 106),
         bool("Mouldwood Depths", 18793, 38871),
         bool("West Woods", 58674, 7071),
         bool("East Woods", 58674, 1965),
