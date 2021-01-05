@@ -267,14 +267,17 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
-    public override bool Has() => states().All((s) => s.ValueOr(new UberValue(false)).Bool);
+    public override bool Has() => states()[0].GetValue().AsFloat(states()[0].Type) != 0;
 
     public static Dictionary<TeleporterType, List<UberState>> TeleporterStates = new Dictionary<TeleporterType, List<UberState>> {
       { TeleporterType.Burrows, new List<UberState> { UberStateDefaults.savePedestalMidnightBurrows} },
       { TeleporterType.Den, new List<UberState> { UberStateDefaults.savePedestalHowlsDen} },
       { TeleporterType.Wellspring, new List<UberState> { UberStateDefaults.savePedestalWellspring} },
       { TeleporterType.Reach, new List<UberState> { UberStateDefaults.savePedestalBaursReach} },
-      { TeleporterType.Hollow, new List<UberState> { UberStateDefaults.savePedestalKwoloksHollow} },
+      { TeleporterType.Hollow, new List<UberState> {
+        new UberState() {Name = "HollowTP", ID = 106, GroupName = "rando_state", GroupID = 6, Type = UberStateType.SerializedBooleanUberState },
+        UberStateDefaults.savePedestalKwoloksHollow
+      } },
       { TeleporterType.Depths, new List<UberState> { UberStateDefaults.savePedestalMouldwood} },
       { TeleporterType.WestWoods, new List<UberState> { UberStateDefaults.savePedestalSilentWoodsA} },
       { TeleporterType.EastWoods, new List<UberState> { UberStateDefaults.savePedestalSilentWoodsB} },
@@ -294,10 +297,8 @@ namespace RandoMainDLL {
     };
 
     public override void Grant(bool skipBase = false) {
-      states().ForEach(s => {
-        if (s.GetValue().AsFloat(s.Type) == 0) // don't write to these if they're already set; on that path lies dumb-ass loops
-          s.Write(new UberValue(true));
-      });
+      if (!Has()) // don't write to these if they're already set; on that path lies dumb-ass loops
+      states().ForEach(s => s.Write(new UberValue(true)));
       base.Grant(skipBase);
     }
 
