@@ -10,6 +10,7 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class MapController {
+    public static List<ShardType> TrackedShards = new List<ShardType>() { ShardType.TripleJump }; 
     public static void UpdateReachable(int sleepTime = 30) {
       if(InterOp.get_game_state() == GameState.Game) {
       var t = new Thread(() => UpdateReachableAsync(sleepTime));
@@ -39,6 +40,7 @@ namespace RandoMainDLL {
         argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
         if (new QuestEvent(QuestEventType.Water).Has())
           argsList.Add("w:0");
+        argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = @"java.exe";
         proc.StartInfo.Arguments = String.Join(" ", argsList);

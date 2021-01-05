@@ -27,12 +27,15 @@ package SeedGenerator {
     val skills: Map[String, Int] = Skill.areaFileNames.map{case (k, v) => k.toLowerCase() -> v}
     val tps: Map[String, Int] = Teleporter.areaFileNames.map{case (k, v) => k.toLowerCase() -> v}
     val events: Map[String, Int] = WorldEvent.areaFileNames.map{case (k, v) => k.toLowerCase() -> v}
+    val shards: Map[String, Int] = Shard.poolItems.map(s => (s.name.toLowerCase.replace(" ",""), s.shardId)).toMap
     def isSkill(s: String): Boolean = skills.contains(s.toLowerCase)
     def isTp(s: String): Boolean = tps.contains(s.toLowerCase)
     def isEvent(s: String): Boolean = events.contains(s.toLowerCase)
+    def isShard(s:String): Boolean = shards.contains(s.toLowerCase)
     def mkSkill(s: String): Option[(Skill, Int)] = skills.get(s.toLowerCase).map(Skill(_) -> 1)
     def mkTp(s: String): Option[(Teleporter, Int)] = tps.get(s.toLowerCase).map(Teleporter(_) -> 1)
     def mkEvent(s: String): Option[(WorldEvent, Int)] = events.get(s.toLowerCase).map(WorldEvent(_) -> 1)
+    def mkShard(s: String): Option[(Shard, Int)] = shards.get(s.toLowerCase).map(Shard(_) -> 1)
     def settingsFromSeed(path: Path, updateSpawn: Boolean = true): Settings = Try {
       val lines = path.readLines
       val configsRaw = lines.last.replace("// Config: ", "")
@@ -68,6 +71,7 @@ package SeedGenerator {
               case s if isSkill(s)  => mkSkill(s)
               case s if isTp(s)     => mkTp(s)
               case s if isEvent(s)  => mkEvent(s)
+              case s if isShard(s)  => mkShard(s)
               case a => Logger.warn(s"unknown name $a"); None
             }):_*
           ))
@@ -97,6 +101,7 @@ package SeedGenerator {
         case s if s.startsWith("s:")  => s.stripPrefix("s:").toIntOption.map(Skill(_)->1)
         case s if s.startsWith("t:")  => s.stripPrefix("t:").toIntOption.map(Teleporter(_)->1)
         case s if s.startsWith("w:")  => s.stripPrefix("w:").toIntOption.map(WorldEvent(_)->1)
+        case s if s.startsWith("sh:")  => s.stripPrefix("sh:").toIntOption.map(Shard(_)->1)
         case a => Logger.error(s"unknown name $a"); None
         }:_*))
 //      Logger.debug(s"$args\n$st\n${Nodes.reached(st)._1.items.filterNot(_.data.category == "nullCat").map(_.data.fullName).mkString(", ")}")
