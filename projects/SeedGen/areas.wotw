@@ -1267,7 +1267,7 @@ anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
   #   moki, Combat=Slug:
   #     DoubleJump OR Dash OR Launch
   #     Bash, Grenade=1
-  #  gorlek:
+  #   gorlek:
   #     Glide OR Sword OR Hammer
   #     SentryJump=1
   state WestHollow.DoorLever:  # The door blocking Dash area
@@ -5726,7 +5726,12 @@ anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
     moki:
       Flap OR Launch  # Flap makes the bubbles spawn
       Bash, Grenade=1
-    gorlek: SentryJump=1
+    gorlek:
+      SentryJump=1
+      WaterDash, DoubleJump, Water OR Damage=20
+    unsafe:
+      WaterDash, Hammer, Water OR Damage=20
+      Water, WaterDash, Sword, Damage=20
   conn PoolsApproach.LeftOfWheel:  # should be fair to assume that if the wheel is spinning, the player has Water
     moki:
       Water
@@ -5734,12 +5739,19 @@ anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
       Glide, Launch
       DoubleJump, Dash, Launch
       Bash, Grenade=1, Launch, DoubleJump OR Dash
-    gorlek:
+    gorlek:  # Try with the spinning wheel if there is a damage boost that seems unnecessary
+      DoubleJump, Damage=20, TripleJump OR Dash OR Sword OR Hammer
       DoubleJump, TripleJump, Dash, Sword
-      Glide, DoubleJump OR Dash
+      Bash, Grenade=1, Launch
+      Bash, Grenade=1, Damage=20, Dash OR DoubleJump
+      Bash, Grenade=1, Dash, DoubleJump
+      Glide, DoubleJump OR Dash OR SentryJump=1 OR Damage=20
       WaterDash, Damage=20, DoubleJump OR Dash OR Glide
-      Launch, DoubleJump OR Dash OR Sword
-      # honestly don't feel like putting SentryJumps here for this purely horizontal path
+      Launch, DoubleJump OR Dash OR Damage=20
+      SentryJump=1, Damage=20, Dash, DoubleJump
+      SentryJump=1, Launch  # Use weapon to stall before and after the launch
+    unsafe:
+      Launch, Hammer, Sword  # climb the left wall
 
 anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
   refill Checkpoint
@@ -5749,21 +5761,34 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       Bash, DoubleJump, Dash OR Glide
       Bash, Dash, Glide
       Launch
+    gorlek:
+      Bash, DoubleJump, TripleJump OR Sword OR Hammer OR Damage=20  # wait for another bubble when on the right upper wall 
+      SentryJump=1, DoubleJump  # wait for another bubble when on the right upper wall. Use weapon stall
+    unsafe:
+      Bash, DoubleJump OR Hammer OR Damage=20  # Bash the skeeto, bash the slime twice 
   state EastPools.BelowTokkBubbleFree:
     moki:
       EastPools.EntryLever, Water, Bash
-    unsafe, EastPools.EntryLever:
+    gorlek, EastPools.EntryLever:
       Water, WaterDash
+    unsafe, EastPools.EntryLever:
       Water, Bow=1 OR Grenade=1
+      Bash, Bow=1 OR Grenade=1  # Use the Corrupted Slime to blow the wall then bow or grenade to free the bubble
 
   quest EastPools.KwolokAmuletQI: free
 
   pickup EastPools.RightOre:
     moki:
-      DoubleJump, Grapple, Flap, Dash OR Glide  # kinda weird, but I guess this is the casual way?
+      DoubleJump, Grapple, Flap, Combat=CorruptSlug, Dash OR Glide  # Need to flap from the green spot so the bubble don't go too far to the right
       Launch, Grapple
+    gorlek:
+      Launch, Flap  # Flap makes the bubbles spawn
+      Launch, DoubleJump, TripleJump, Damage=20
+      Flap, Grapple, DoubleJump, Combat=CorruptSlug, TripleJump OR Sword OR Hammer  # Need to flap from the green spot so the bubble don't go too far to the right
     unsafe:
-      Dash, Grapple, Glide, Flap
+      Bash, Grenade=1, DoubleJump, TripleJump, Damage=20
+      Flap, Bash, Grenade=1, DoubleJump, Combat=CorruptSlug, TripleJump OR Sword OR Hammer  # Flap makes the bubble spawn. Use it to reach your grenade
+      Dash, Grapple, Flap  # Need to flap from the green spot so the bubble don't go too far to the right
   pickup EastPools.CurrentEX:
     moki: Water, WaterDash
   pickup EastPools.BelowLeverEX:
@@ -5772,10 +5797,20 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       Hammer, DoubleJump OR Dash OR Glide
       Spear=1, DoubleJump OR Dash OR Glide
       Launch
+    gorlek:
+      Spear=1 OR Hammer
+      DoubleJump, TripleJump, Combat=CorruptSlug  # kill the slug on the left wall, tjump from this wall into the spikes under the pickup
+      Bash  # Bait the skeeto, bash it when it's under the hole
+    unsafe:
+      SentryJump=1, DoubleJump OR Damage=20  # The tree is swinging a bit. sjump from the left (Ori should almost fall) when the tree is swinging to the left
   pickup EastPools.AboveDoorOre:
     moki, EastPools.EntryLever:  # other paths would be redundant with the paths coming from tokk
       Bash, Grenade=2
       Bash, Grenade=1, DoubleJump OR Grapple
+    gorlek, EastPools.EntryLever:
+      SentryJump=2
+      Bash, Grenade=1, SentryJump=1
+      SentryJump=1, DoubleJump OR Grapple
 
   conn EastPools.TPArea:
     moki, EastPools.EntryLever:
@@ -5785,6 +5820,15 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       Bash, Grenade=2, Dash OR Glide  # bashgrenade above
       Bash, Grenade=2, EastPools.BelowTokkBubbleFree OR Water  # bashgrenade below
       Launch
+    gorlek, EastPools.EntryLever:
+      SentryJump=2  # weapon stall under the slug
+      DoubleJump, SentryJump=1
+      Bash, Grenade=2, Sword OR Hammer OR Damage=20
+      Bash, DoubleJump, TripleJump, Dash OR Sword OR Glide  # Possible with just bash/tjump but there is a small colider at the left that make it hard when the slug is right next to it
+      DoubleJump, TripleJump, Damage=20  # tjump in the spikes under Tokk to reset your tjump. Make sure to use your tjump before eating the spikes 
+      EastPools.BelowTokkBubbleFree, Flap, Combat=Crab, Grapple, Sword OR Hammer OR Damage=20
+    unsafe:    
+      EastPools.EntryLever, Bash, DoubleJump  # Bash the slug at the left of the spike, bash it to reach tokk
   conn EastPools.Entry: free
 
 # checkpoint at -1278, -4158
@@ -5797,10 +5841,12 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   state EastPools.BelowTokkBubbleFree:
     moki:
       Water, Bash
-    unsafe:
+    gorlek:
       Water, WaterDash
+    unsafe:
+      Bash, Bow=1 OR Grenade=1  # Use the Corrupted Slime to blow the wall then bow or grenade to free the bubble
       Water, Bow=1 OR Grenade=1
-  state EastPools.LowerWaterDrained:
+  state EastPools.LowerWaterDrained:  # @Validator unsafe have puzzle skip (which is free) but I don't know how to write it
     moki: Water OR EastPoolsTP
   # There are two Arenas here: you get one if you enter without WaterDash and another if you enter with it.
   # This path is assuming the worse case of getting the strictly harder WaterDash arena, but doesn't list WaterDash explicitly because you don't need it unless you have it.
@@ -5808,13 +5854,22 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   # Also, for now this state includes breaking the purple wall before the arena because everything else would be dumb
   state EastPools.FightArenas:
     moki: EastPools.LowerWaterDrained, Regenerate, Damage=20, Water, Bash, Combat=4xCrab+Tentacle+2xSkeeto
-    unsafe: EastPools.LowerWaterDrained, Water, Bash, Combat=4xCrab+Tentacle+2xSkeeto
+    gorlek: 
+      EastPools.LowerWaterDrained, Water, Combat=4xCrab+Tentacle+2xSkeeto, Bash
+      EastPools.LowerWaterDrained, Water, Combat=4xCrab+Tentacle+2xSkeeto, Damage=20, WaterDash OR Launch
+    unsafe:
+      EastPools.LowerWaterDrained, Water, Combat=4xCrab+Tentacle+2xSkeeto, Damage=20  # Land on the left then jump under the purple wall to correct the torpedo angle
 
   quest EastPools.HandToHandSpyglass:
     moki, LowerDepths.HandToHandSilk:
       Grapple, DoubleJump OR Dash OR Glide
       DoubleJump, Bash, Grenade=1
       Launch
+    gorlek, LowerDepths.HandToHandSilk:
+      Grapple, Sword OR Hammer
+      SentryJump=1  # sjump to reach the wall above the grapple plant then weapon stall
+      Bash, Grenade=1, Dash OR Sword OR Hammer OR Glide  # bash grenade to reach the wall above the grapple plant
+      DoubleJump, TripleJump, Dash  # climb the left wall, dash then tjump to reach the wall above the grapple plant
 
   pickup EastPools.AboveDoorOre:
     moki:
@@ -5822,29 +5877,57 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Grapple
       Bash, Grenade=2
       Launch
-  pickup EastPools.AboveTpEX:
-    moki:  # these need water to not be softlockable with the player draining the upper water
+    gorlek:
+      EastPools.BelowTokkBubbleFree, Grapple, Flap
+      Bash, Grenade=1, Sword OR Hammer
+      SentryJump=1  # Weapon stall above the spikes
+    unsafe:
+      DoubleJump, Bash  # Bash the slug when its at the right of the ceiling
+  pickup EastPools.AboveTpEX:  # these need water to not be softlockable with the player draining the upper water
+    moki: 
       Water, DoubleJump, Bash, Grenade=2
       Water, DoubleJump, Grapple, Bash, Grenade=1
+      Water, WaterDash, Grapple, DoubleJump, Dash OR Glide
       Water, Launch
+    gorlek:
+      Water, WaterDash, Grapple, DoubleJump
+      Water, WaterDash, Grapple, Dash, Sword OR Hammer OR Glide
+      Water, SentryJump=2, DoubleJump OR Dash  # sjump to reach the wall above the grapple plant then weapon stall
+      Water, Grapple, SentryJump=1, DoubleJump OR Dash
+      Water, WaterDash, SentryJump=1, DoubleJump
+      Water, WaterDash, SentryJump=1, Dash, Sword OR Hammer OR Glide
+      Water, Bash, Grenade=2, Dash, Sword OR Hammer OR Glide  # bash grenade to reach the wall above the grapple plant
+      Water, DoubleJump, TripleJump, Dash  # climb the left wall, dash then tjump to reach the wall above the grapple plant
   pickup EastPools.LupoOre:
     moki: Water
   pickup EastPools.UltraBashShard:
     moki: EastPools.LowerWaterDrained, Water, Bash
+    gorlek: EastPools.LowerWaterDrained, Water  # move a bit on the side when the torpedo is getting close to the wall
   pickup EastPools.FightRoomHC:
     moki, EastPools.FightArenas, WaterDash:  # The HC only gets unlocked if you finish the alternate WaterDash arena; FightArenas doesn't have WaterDash as requirement included for reasons explained above, so it's needed here
       DoubleJump, Dash OR Grapple
       Bash, Grenade=1
       Launch
+    gorlek: EastPools.FightArenas, WaterDash  # WaterDash on the bubble
   pickup EastPools.EnergyHarvestShard:
     moki, EastPools.FightArenas:
       Water, WaterDash, DoubleJump
       Bash, Grenade=1
       Launch
+    gorlek, EastPools.FightArenas:
+      Bash, DoubleJump  # Use the torpedo (water already in fight arena)
+      WaterDash, Bash  # Use the torpedo (water already in fight arena)
+      SentryJump=1
+      DoubleJump, TripleJump, Hammer  # tjump + upslash from the left wall
+    unsafe:
+      EastPools.FightArenas, DoubleJump, TripleJump, Sword  # tjump + upslash from the left wall
+      EastPools.FightArenas, Water, Bash  # Bash the torpedo out of the water (near the floor so you don't get too much speed), go out of the water and bash it again
   pickup EastPools.LupoEX:
     moki: EastPools.FightArenas, Water, Bash
+    gorlek: Water, ShurikenBreak=20 OR EastPools.FightArenas
   pickup EastPools.LupoMap:
     moki: EastPools.FightArenas, Water, Bash
+    gorlek: Water, ShurikenBreak=20 OR EastPools.FightArenas
   pickup EastPools.BehindCrusherEX:
     moki: EastPools.FightArenas, Water
 
@@ -5857,8 +5940,12 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
       Bash, Grenade=1  # go above
       Launch  # go above
       Grapple, Combat=Crab OR Bash  # go below
+    gorlek, EastPools.EntryLever:
+      Sword OR Hammer
+      Damage=20, Combat=Crab
   conn EastPools.CentralRoom:
     moki: EastPools.FightArenas, Water, Bash
+    gorlek: EastPools.FightArenas, Water  # Move down when the torpedo is near the wall
 
 anchor EastPools.Teleporter at -1316, -4153:  # At the teleporter after draining the water - this is to specify the refill and randos behaviour of draining the water if you grab the tp pickup
   refill Full
@@ -5877,19 +5964,27 @@ anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok 
       Water, Bash, DoubleJump OR Dash OR Glide
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch
+    gorlek:
+      WaterDash, Damage=20
+      Water, Bash  # Use the tentacle's projectile
+      Bash, Grenade=1, Sword OR Hammer
+      Bash, DoubleJump, Dash OR Sword OR Glide
+    unsafe:
+      Bash, DoubleJump, TripleJump OR Hammer
 
   conn UpperPools.KeystoneRoomEntrance:
     moki:
       Water, Bash, DoubleJump, Dash OR Glide
       Water, Bash, Launch
-    gorlek:  # paths copied from a different anchor
-      DoubleJump, TripleJump, Dash, Glide
+    gorlek:
+      DoubleJump, TripleJump, Dash, Glide, WaterDash  # wdash to free the bubbles
       Water, Bash, DoubleJump, TripleJump
       Water, Bash, Grenade=1, DoubleJump
       Water, WaterDash, Launch  # activate the bubbles with waterdash. Launch on a bubble to reach the top
       Water, WaterDash, SentryJump=1, DoubleJump, TripleJump  # sjump from EastPools.GrassSeed
   conn WestPools:
     moki: Water, WaterDash, DoubleJump OR Dash OR Glide OR Launch
+    gorlek: Water, WaterDash, Sword OR Hammer OR Damage=20 
 
 region UpperPools:
   moki: Danger=40, Regenerate
