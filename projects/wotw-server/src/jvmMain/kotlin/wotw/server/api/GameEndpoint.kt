@@ -129,7 +129,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 outgoing.sendMessage(InitGameSyncMessage(states.map {
                     UberId(zerore(it.group), zerore(it.state))
                 }))
-                outgoing.sendMessage(PrintTextMessage(text = "$user - Connected", frames = 600, ypos = 3f))
+                outgoing.sendMessage(PrintTextMessage(text = "$user - Connected", frames = 240, ypos = 3f))
 
                 protocol {
                     onMessage(UberStateUpdateMessage::class){
