@@ -7478,7 +7478,7 @@ anchor WillowsEnd.GrappleHeart at 399, -3928:  # right next to the grapple wheel
     moki:
       Weapon, Launch
       Bow=1
-  refill Health
+  refill Health=1
 
   state WillowsEnd.GrappleWheelsHeart:
     moki: BreakWall=30
@@ -7738,7 +7738,7 @@ anchor WillowsEnd.West at 437, -3840:  # To the left of the one-way above Lupo
 
 anchor WillowsEnd.GlideHeartPath at 374, -3824:  # one room before the first wind
   refill Checkpoint
-  refill Health
+  refill Health=1
 
   conn WillowsEnd.GlideRooms:
     moki: DoubleJump, Launch
