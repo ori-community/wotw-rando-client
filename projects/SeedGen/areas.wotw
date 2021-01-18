@@ -5454,7 +5454,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
       BreakWall=1, DoubleJump, Combat=Bat, Bash OR Glide OR Damage=30
       BreakWall=1, SentryJump=1, Damage=10, Bash OR Glide OR Dash  # use sjump weapon to combat the bat
       BreakWall=1, Bash, Grenade=1, Damage=10, Glide OR Dash OR Sword OR Hammer
-      DepthsLight, DoubleJump, TripleJump, Dash OR Sword Or Hammer  # 4 arrows with sword, 5 arrows with hammer
+      DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Hammer  # 4 arrows with sword, 5 arrows with hammer
       DepthsLight, DoubleJump, Combat=Bat, Bash OR Glide OR Damage=30
       DepthsLight, SentryJump=1, Damage=10, Bash OR Glide OR Dash  # use sjump weapon to kill the bat
       DepthsLight, Bash, Grenade=1, Damage=10, Glide OR Dash OR Sword OR Hammer
@@ -5511,7 +5511,7 @@ anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
     gorlek:
       DepthsLight, Launch
       DepthsLight, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-      DepthsLight, DoubleJump, Combat=WeakSlug, Dash OR Glide Or Sword OR Hammer OR Damage=30  # need 6 arrows
+      DepthsLight, DoubleJump, Combat=WeakSlug, Dash OR Glide OR Sword OR Hammer OR Damage=30  # need 6 arrows
     unsafe:
       DepthsLight, Bash, Hammer OR Sword
       DepthsLight, Bash, Dash, Grapple OR Damage=30  # Dash in the spikes, you can reach the lantern from here or grapple the grappable light to reach the trial platform
@@ -5570,7 +5570,7 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       DepthsLight, DoubleJump, Bash, Grapple
       DepthsLight, Launch
     gorlek, BreakWall=20:
-      DepthsLight, Grapple, Bash, Dash OR Glide OR Swordd
+      DepthsLight, Grapple, Bash, Dash OR Glide OR Sword
       DepthsLight, Grapple, Bash, Hammer, Damage=30
       DepthsLight, Bash, SentryJump=1, Sword OR Dash OR Glide OR DoubleJump OR Damage=30  # weapon stall to reach the jumpad
       DepthsLight, Bash, Grenade=1, Sword OR Dash OR Glide OR DoubleJump OR Damage=30
@@ -5639,7 +5639,7 @@ anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
       DepthsLight, Bash, Sword OR Hammer
       DepthsLight, Dash, DoubleJump OR Sword OR Hammer
       DepthsLight, DoubleJump, Sword OR Hammer OR TripleJump
-      DepthsLight, Damage=30, Dash OR DoubleJump OR Sword Or Hammer
+      DepthsLight, Damage=30, Dash OR DoubleJump OR Sword OR Hammer
 
 region PoolsApproach:
   moki: Danger=25
