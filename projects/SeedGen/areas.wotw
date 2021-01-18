@@ -4870,7 +4870,7 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
       SentryJump=1
       UpperReach.CoolFurnace, Dash OR Glide OR Sword OR Hammer
       UpperReach.HeatFurnace:
-        DoubleJump, Glide OR Sword OR Hammer # the doublejump+glide to catch the wall above the floating platform is precise
+        DoubleJump, Glide OR Sword OR Hammer  # the doublejump+glide to catch the wall above the floating platform is precise
         WaterDash, Sword, Water OR Damage=20  # water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy crystal
         WaterDash, Hammer, Water OR Damage=20  # water dash to get on the wall above the floating platform. wjump + precise upslash to get under the energy crystal
         Grapple, Dash OR Sword OR Hammer  # with hammer, grapple from the floating platform to avoid the water
@@ -4890,9 +4890,8 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
 # checkpoint at -216, -3877
 
 anchor UpperReach.UpperSoup at -215, -3877:  # At the soup checkpoint
-  
   pickup UpperReach.LowerKS:
-    moki: 
+    moki:
       UpperReach.HeatFurnace, Glide
     gorlek:
       Glide, DoubleJump, TripleJump
@@ -4935,6 +4934,7 @@ anchor UpperReach.UpperSoup at -215, -3877:  # At the soup checkpoint
       Hammer
       Dash, Sword, Damage=10  # upslash+dash in the icy part of the pole
   pickup UpperReach.SoupOre: free
+
   conn UpperReach.KeystoneRoom: free
 
 anchor UpperReach.OutsideTreeRoom at -169, -3911:  # In front of the keystone door
@@ -4983,7 +4983,7 @@ anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
     gorlek, glitch: Sentry=1  # Use sentry to melt the ice
   pickup UpperReach.TreeOre:
     gorlek:
-      Launch, DoubleJump OR Dash OR Glide  # djump+launch+djump from under the pickup or climb the right wall 
+      Launch, DoubleJump OR Dash OR Glide  # djump+launch+djump from under the pickup or climb the right wall
       DoubleJump, TripleJump, Bash, Grenade=1
       Launch, Bash, Grenade=1
     unsafe:
