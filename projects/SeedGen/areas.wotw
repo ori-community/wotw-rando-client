@@ -38,21 +38,21 @@ anchor Teleporters:  # teleporter access
   conn WoodsMain.Teleporter:
     moki: EastWoodsTP
   conn LowerReach.Teleporter:
-    moki: ReachTP
+    moki: ReachTP, Flap
   conn UpperDepths.Teleporter:
-    moki: DepthsTP
+    moki: DepthsTP, Glide
   conn EastPools.Teleporter:
-    moki: EastPoolsTP
+    moki: EastPoolsTP, Water
   conn WestPools:
-    moki: WestPoolsTP
+    moki: WestPoolsTP, Water
   conn LowerWastes.WestTP:
     moki: WestWastesTP
   conn LowerWastes.EastTP:
-    moki: EastWastesTP
+    moki: EastWastesTP, Burrow
   conn UpperWastes.NorthTP:
-    moki: OuterRuinsTP
+    moki: OuterRuinsTP, Burrow
   conn WindtornRuins.RuinsTP:
-    moki: InnerRuinsTP
+    moki: InnerRuinsTP, Burrow
   conn WillowsEnd.InnerTP:
     moki: WillowTP
 
