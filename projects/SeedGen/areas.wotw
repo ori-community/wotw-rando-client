@@ -415,6 +415,8 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
   state HowlsDen.KeystoneDoor:
     moki: Keystone=2
   state MarshSpawn.RainLifted: free  # the sword tree
+  state HowlsDen.BoneBarrier:  # the barrier blocking the loest part of Howl's Den
+    moki: BreakWall=16
 
   pickup HowlsDen.BoneOre:
     moki: Hammer OR Spear=1
@@ -479,7 +481,7 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
     moki: BreakWall=16, BreakWall=10
 
   conn HowlsDen.Teleporter:
-    moki: BreakWall=16
+    moki: HowlsDen.BoneBarrier
   conn HowlsDen.Entrance:
     moki, HowlsDen.KeystoneDoor, MarshSpawn.HowlBurnt:  # the path is blocked if howl fight is not done
       # breaking one wall
@@ -508,6 +510,9 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
 
 anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
   refill Full
+
+  state HowlsDen.BoneBarrier:
+    unsafe: Hammer  # break the wall from behind
 
   pickup HowlsDen.AboveTPEX:
     moki, BreakWall=10:
@@ -540,7 +545,11 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
   conn HowlsDen.DoubleJumpTreeArea:
     moki: Combat=Mantis+Lizard OR DoubleJump OR Dash OR Glide OR Launch
   conn HowlsDen.BoneBridge:
-    unsafe: Hammer  # break a wall from behind
+    moki, HowlsDen.BoneBarrier:
+      DoubleJump OR Launch
+      Bash, Grenade=1
+    gorlek: HowlsDen.BoneBarrier, Bash OR SentryJump=1
+    unsafe: HowlsDen.BoneBarrier, Sword OR Hammer
 
 anchor DenShrine at -328, -4569:
   refill Full
@@ -7022,6 +7031,11 @@ anchor UpperWastes.KeystoneRoom at 1900, -3831:  # Autosave underneath keystone 
 anchor UpperWastes.MissilePuzzleLeft at 1937, -3794:  # Immediately to the right of the sand after the keystone door
   refill Checkpoint
 
+  state UpperWastes.LeverDoor:
+    moki: Burrow, Bash
+    gorlek: Burrow, Damage=14  # take the hit
+    unsafe: Burrow, Dash OR Launch  # Dash/Launch to avoid the explosion.
+
   pickup UpperWastes.LedgeEC:
     moki:
       Burrow, Bash, DoubleJump OR Dash
@@ -7044,15 +7058,16 @@ anchor UpperWastes.MissilePuzzleLeft at 1937, -3794:  # Immediately to the right
   conn UpperWastes.KeystoneRoom:
     moki: UpperWastes.KeystoneDoor, Burrow
   conn UpperWastes.MissilePuzzleRight:
-    moki: Bash, Burrow
-    gorlek: Burrow, Damage=14  # take the hit
-    unsafe: Burrow, Dash OR Launch  # Dash/Launch to avoid the explosion.
+    moki: UpperWastes.LeverDoor, Burrow
 
 # checkpoint at 2016, -3790
 
 anchor UpperWastes.MissilePuzzleRight at 2058, -3813:  # On top of sand to the right of lever gate, underneath a laser.
   pickup UpperWastes.PurpleWallHC:
     moki: Burrow
+  pickup UpperWastes.PurpleWallEX:  # for better random spawn
+    moki: Combat=MaceMiner, Burrow
+    unsafe: Burrow  # hug the right wall before impact
 
   conn UpperWastes.RuinsApproach:  # this covers all connections to the pickups in the spinning lasers.
     moki:
@@ -7064,7 +7079,8 @@ anchor UpperWastes.MissilePuzzleRight at 2058, -3813:  # On top of sand to the r
       Burrow, Glide, DoubleJump OR Bash OR SentryJump=1 OR Damage=30  # same as above
       Burrow, DoubleJump, TripleJump OR Dash OR Glide
     unsafe: Burrow
-  # can't cross the door backwards
+  conn UpperWastes.MissilePuzzleLeft:  # for better random spawn
+    gorlek: UpperWastes.LeverDoor, Burrow, Damage=14
 
 # checkpoint at 2037, -3751
 
