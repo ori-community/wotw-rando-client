@@ -1,6 +1,10 @@
 #include <app.h>
 
+#include <area_tree.h>
+#include <area/tokenizer.h>
+
 #include <string>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #ifdef _WIN32
@@ -32,6 +36,16 @@ struct ApplicationParameters
 
     std::string_view area_path;
 };
+
+void trim_comments(std::string_view& view)
+{
+    const auto comment = view.find('#');
+    if (comment != std::string::npos)
+        view.remove_suffix(view.size() - comment);
+
+    while (!view.empty() && isspace(view.back()))
+        view.remove_suffix(1);
+}
 
 ApplicationParameters handle_arguments(const int argument_count, const char** arguments) noexcept
 {
@@ -107,6 +121,23 @@ int main(const int argument_count, const char** arguments) noexcept
     std::stringstream input;
     input << std::cin.rdbuf();
     auto header = input.str();
+
+    std::ifstream area_file(parameters.area_path.data());
+    std::string contents;
+    std::string line;
+    while (std::getline(area_file, line))
+    {
+        std::string_view view(line);
+        trim_comments(view);
+        contents += view;
+        contents.push_back('\n');
+    }
+
+    auto tokens = area::tokenize(contents);
+
+    //seedgen::AreaTree tree;
+    //seedgen::area::parse(tree, { "moki" }, area_file);
+    //area_file.close();
 
     // TODO: Parse area file.
     // TODO: Parse header.

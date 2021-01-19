@@ -9,11 +9,15 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
 	SOURCE_FILES
 	"app.cpp"
+	"area_tree.cpp"
+	"area/tokenizer.cpp"
 )
 
 set(
 	PUBLIC_HEADER_FILES
 	"app.h"
+	"area_tree.h"
+	"area/tokenizer.h"
 )
 
 set(
