@@ -7499,7 +7499,7 @@ anchor WillowsEnd.GrappleHeart at 399, -3928:  # right next to the grapple wheel
   state WillowsEnd.GrappleWheelsHeart:
     moki: BreakWall=30
 
-  pickup PoisonfallHC:
+  pickup WillowsEnd.PoisonfallHC:
     moki:
       Launch
       WillowsEnd.GrappleWheelsHeart, DoubleJump, Dash
@@ -7627,7 +7627,8 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
     moki:
       Weapon, Bash, DoubleJump OR Glide
       Bow=1, Bash, DoubleJump OR Dash OR Glide
-      Launch, Weapon OR Bow=1
+      Launch, Weapon
+      Launch, Bow=1
     gorlek:
       Weapon, Bash, Dash
       Weapon, DoubleJump, TripleJump
