@@ -5,32 +5,35 @@
 
 namespace area
 {
-    enum class TokenType
+    namespace tokenizer
     {
-        Null,
-        Error,
-        Indent,
-        Macro,
-        Anchor,
-        Connection,
-        Pickup,
-        Refill,
-        Quest,
-        State,
-        Switch,
-        Requirement,
-        RequirementValue,
-        And,
-        Or,
-        At
-    };
+        enum class TokenType
+        {
+            Null,
+            Error,
+            Indent,
+            Macro,
+            Anchor,
+            Connection,
+            Pickup,
+            Refill,
+            Quest,
+            State,
+            Switch,
+            Requirement,
+            RequirementValue,
+            And,
+            Or,
+            At
+        };
 
-    struct Token
-    {
-        TokenType type;
-        std::string value;
-        int line;
-    };
+        struct Token
+        {
+            TokenType type;
+            std::string value;
+            int line;
+        };
+    }
 
-    std::vector<Token> tokenize(const std::string& area_def);
+    std::vector<tokenizer::Token> tokenize(const std::string& area_def);
 }
