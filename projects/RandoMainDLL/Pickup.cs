@@ -258,7 +258,8 @@ namespace RandoMainDLL {
     public string Msg;
     public bool Squelch = false;
     public override void Grant(bool skipBase = false) {
-      AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _mute));
+      if(!skipBase) // don't print during multis
+       AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _mute));
       base.Grant(true);
     }
 
