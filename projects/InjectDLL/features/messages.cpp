@@ -175,7 +175,7 @@ namespace
       try
       {
         if(mute)
-          mute_for(30);
+          mute_for(15);
         if (below_hint_box && is_visible(below_hint_box)) {
           MessageBox::HideMessageScreenImmediately(below_hint_box, 0);
           below_hint_box = 0;
@@ -212,9 +212,8 @@ app::MessageBox* send_msg(const wchar_t* hint, float duration, app::Vector3 pos,
     try
     {
         if (mute)
-            mute_for(30);
+            mute_for(15);
 
-        clear_visible_hints();
         last_message = reinterpret_cast<app::String*>(il2cpp::string_new(hint));
         const auto message_controller = get_ui()->static_fields->MessageController;
         // Message box will probably take ownership of the string, so don't free it on the next call here.
@@ -262,14 +261,14 @@ INJECT_C_DLLEXPORT bool hints_ready() {
     return OnScreenPositions::get_TopCenter().y > 0;
 }
 
-INJECT_C_DLLEXPORT app::MessageBox* display_hint(const wchar_t* hint, float duration, float ypos) {
+INJECT_C_DLLEXPORT app::MessageBox* display_hint(const wchar_t* hint, float duration, float ypos, bool mute) {
     auto pos = OnScreenPositions::get_TopCenter();
     pos.y = ypos;
-    return send_msg(hint, duration, pos, false);
+    return send_msg(hint, duration, pos, mute);
 }
 
-INJECT_C_DLLEXPORT app::MessageBox * display_below(const wchar_t* hint, float duration) {
-    return display_below_helper(hint, duration, false);
+INJECT_C_DLLEXPORT app::MessageBox * display_below(const wchar_t* hint, float duration, bool mute) {
+    return display_below_helper(hint, duration, mute);
 }
 
 INJECT_C_DLLEXPORT app::MessageBox * update_map_hint(const wchar_t* info) {

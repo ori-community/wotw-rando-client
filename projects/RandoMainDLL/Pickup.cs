@@ -241,14 +241,26 @@ namespace RandoMainDLL {
 
   public class Message : Pickup {
     private int _frames;
+    private bool _clear;
+    private bool _immediate;
+    private bool _mute;
+    private float? _pos;
     public override int Frames { get => _frames; }
-    public Message(string msg, int frames = 240, bool squelch = false) {
+    public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool mute = false) {
       Msg = msg;
       _frames = frames;
+      _clear = clear;
+      _pos = pos;
+      _immediate = immediate;
+      _mute = mute;
       Squelch = squelch;
     }
     public string Msg;
     public bool Squelch = false;
+    public override void Grant(bool skipBase = false) {
+      AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _mute));
+      base.Grant(true);
+    }
 
     public override PickupType Type => PickupType.Message;
 
