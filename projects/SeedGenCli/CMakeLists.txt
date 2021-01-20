@@ -10,6 +10,7 @@ set(
 	SOURCE_FILES
 	"app.cpp"
 	"area_tree.cpp"
+	"area/parser.cpp"
 	"area/tokenizer.cpp"
 )
 
@@ -17,6 +18,7 @@ set(
 	PUBLIC_HEADER_FILES
 	"app.h"
 	"area_tree.h"
+	"area/parser.h"
 	"area/tokenizer.h"
 )
 

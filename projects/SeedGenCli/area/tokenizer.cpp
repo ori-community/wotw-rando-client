@@ -1,6 +1,7 @@
 #include <area/tokenizer.h>
 
 #include <iostream>
+#include <unordered_set>
 
 namespace area
 {
@@ -11,14 +12,14 @@ namespace area
 
         const std::pair<u64, Token> NULL_TOKEN = std::make_pair(
             0,
-            Token{ TokenType::Null, {} }
+            Token{ TokenType::Null, {}, 0 }
         );
 
         std::pair<u64, Token> create_error(std::string error)
         {
             return std::make_pair(
                 0,
-                Token{ TokenType::Error, { std::move(error) } }
+                Token{ TokenType::Error, { std::move(error) }, 0 }
             );
         }
 
@@ -29,22 +30,22 @@ namespace area
 
             return std::make_pair(
                 4,
-                Token{ TokenType::Or, {} }
+                Token{ TokenType::Or, {}, 0 }
             );
         }
 
-        std::pair<u64, Token> tokenize_and(std::string_view input)
+        std::pair<u64, Token> tokenize_and(const std::string_view input)
         {
             if (!input.starts_with(","))
                 return NULL_TOKEN;
 
             return std::make_pair(
                 1,
-                Token{ TokenType::And, {} }
+                Token{ TokenType::And, {}, 0 }
             );
         }
 
-        std::pair<u64, Token> tokenize_at(std::string_view input)
+        std::pair<u64, Token> tokenize_at(const std::string_view input)
         {
             if (!input.starts_with(" at "))
                 return NULL_TOKEN;
@@ -54,13 +55,13 @@ namespace area
                 return create_error("Syntax error at reached end of file.");
 
             const auto at_string = input.substr(4, end - 4);
-            const auto seperator = at_string.find(',');
-            if (seperator == std::string::npos)
+            const auto separator = at_string.find(',');
+            if (separator == std::string::npos)
                 return create_error("Syntax error at does not contain comma.");
             
             return std::make_pair(
                 end,
-                Token{ TokenType::At, {std::string(at_string)} }
+                Token{ TokenType::At, {std::string(at_string)}, 0 }
             );
         }
 
@@ -84,7 +85,7 @@ namespace area
 
                 return std::make_pair(
                     i,
-                    Token{ TokenType::Indent, std::to_string((i - 1) / 2) }
+                    Token{ TokenType::Indent, std::to_string((i - 1) / 2), 0 }
                 );
             }
 
@@ -95,7 +96,7 @@ namespace area
         {
             return std::make_pair(
                 isspace(input.front()) ? 1 : 0,
-                Token{ TokenType::Null, {} }
+                Token{ TokenType::Null, {}, 0 }
             );
         }
 
@@ -111,7 +112,7 @@ namespace area
 
                 return std::make_pair(
                     end + define.size() + 1,
-                    Token{ type, std::string(input.substr(0, end)) }
+                    Token{ type, std::string(input.substr(0, end)), 0 }
                 );
             }
 
@@ -121,6 +122,11 @@ namespace area
         std::pair<u64, Token> tokenize_macro(const std::string_view input)
         {
             return create_define_token(input, "requirement ", TokenType::Macro);
+        }
+
+        std::pair<u64, Token> tokenize_state(std::string_view input)
+        {
+            return create_define_token(input, "state ", TokenType::State);;
         }
 
         std::pair<u64, Token> tokenize_anchor(std::string_view input)
@@ -139,12 +145,12 @@ namespace area
                 if (at != std::string::npos)
                     return std::make_pair(
                         at + define.size() + 1,
-                        Token{ TokenType::Anchor, std::string(input.substr(0, at)) }
+                        Token{ TokenType::Anchor, std::string(input.substr(0, at)), 0 }
                     );
 
                 return std::make_pair(
                     end + define.size() + 1,
-                    Token{ TokenType::Anchor, std::string(input.substr(0, end)) }
+                    Token{ TokenType::Anchor, std::string(input.substr(0, end)), 0 }
                 );
             }
 
@@ -180,12 +186,33 @@ namespace area
                 if (isspace(c) || c == '=')
                     break;
 
-                if (input.at(end) == ':')
+                if (c == ',')
+                {
+                    auto check_end = end + 1;
+                    while(true)
+                    {
+                        const auto ce = input.at(end);
+                        if (ce == '\n')
+                            return NULL_TOKEN;
+                        if (ce == ':')
+                            return std::make_pair(
+                                end + 1,
+                                Token{
+                                    TokenType::Switch,
+                                    std::string(input.begin(), input.begin() + end),
+                                    0
+                                }
+                            );
+                    }
+                }
+
+                if (c == ':')
                     return std::make_pair(
                         end + 1,
                         Token{
                             TokenType::Switch,
-                            std::string(input.begin(), input.begin() + end)
+                            std::string(input.begin(), input.begin() + end),
+                            0
                         }
                     );
 
@@ -208,7 +235,8 @@ namespace area
                             end,
                             Token{
                                 TokenType::RequirementValue,
-                                std::string(input.begin() + 1, input.begin() + end)
+                                std::string(input.begin() + 1, input.begin() + end),
+                                0
                             }
                         );
 
@@ -219,7 +247,8 @@ namespace area
                     end - 1,
                     Token{
                         TokenType::RequirementValue,
-                        std::string(input.begin() + 1, input.begin() + end - 1)
+                        std::string(input.begin() + 1, input.begin() + end - 1),
+                        0
                     }
                 );
             }
@@ -247,18 +276,24 @@ namespace area
             }
 
             if (valid && end > 0)
+            {
+                auto type = TokenType::Requirement;
+                std::string name(input.begin(), input.begin() + end);
+
                 return std::make_pair(
                     end,
                     Token{
                         TokenType::Requirement,
-                        std::string(input.begin(), input.begin() + end)
+                        std::move(name),
+                        0
                     }
                 );
+            }
 
             return NULL_TOKEN;
         }
-
-        std::vector<tokenizer_function> tokenizers = {
+        
+        std::vector<tokenizer_function> tokenizers{
             tokenize_or,
             tokenize_and,
             tokenize_at,
@@ -270,6 +305,7 @@ namespace area
             tokenize_pickup,
             tokenize_refill,
             tokenize_quest,
+            tokenize_state,
             tokenize_switch,
             tokenize_requirement_value,
             tokenize_requirement
@@ -278,8 +314,7 @@ namespace area
 
     std::vector<Token> tokenize(const std::string& area_def)
     {
-        // TODO: Count lines and characters on line.
-
+        // TODO: Initialize types using parameter input (maybe add it as a part of area_def?).
         std::vector<Token> tokens;
         auto line = 2ull;
         std::string_view input(area_def);
@@ -289,7 +324,7 @@ namespace area
             auto tokenized = false;
             for (auto tokenizer : tokenizers)
             {
-                const auto [consumed, token] = tokenizer(input);
+                auto [consumed, token] = tokenizer(input);
                 if (token.type == TokenType::Error)
                 {
                     // TODO: Add line and character logging.
@@ -306,7 +341,10 @@ namespace area
                 }
 
                 if (token.type != TokenType::Null)
+                {
+                    token.line = line;
                     tokens.push_back(token);
+                }
 
                 if (consumed != 0)
                 {

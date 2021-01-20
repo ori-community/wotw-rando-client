@@ -29,6 +29,7 @@ namespace area
     {
         TokenType type;
         std::string value;
+        int line;
     };
 
     std::vector<Token> tokenize(const std::string& area_def);

@@ -29,6 +29,7 @@ projects/SeedGen/*.wotwr
 Web/*
 *.user
 build/*
+out/*
 projects/Injector/bin/*
 projects/Injector/obj/*
 projects/SeedGen/nofluff.wotw
