@@ -5309,6 +5309,7 @@ anchor UpperDepths.OutsideMoraFight at 595, -4376:  # Directly left of Mora's la
       DoubleJump OR Launch
       Bash, Grenade=1
     gorlek: BreakWall=20, Dash OR Sword OR SentryJump=1
+    unsafe: BreakWall=20, Glide
   conn UpperDepths.MoraPath:
     moki: DepthsLight, DoubleJump OR Dash OR Glide
     gorlek: free
@@ -5338,7 +5339,8 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
       Sword  # break the firefly egg and hover
       Hammer, DoubleJump OR Damage=30  # break the firefly egg and hover
       Dash, BreakWall=1 OR DepthsLight
-      DoubleJump, Damage=30, BreakWall=1 OR DepthsLight
+      BreakWall=1, DoubleJump OR Damage=30
+      DepthsLight, DoubleJump OR Damage=30
 
   conn UpperDepths.BelowHive:
     moki:
@@ -5353,6 +5355,9 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
       DepthsLight, SentryJump=2, DoubleJump
       DepthsLight, SentryJump=2, Damage=10, Dash OR Glide
       DepthsLight, SentryJump=3, Damage=10
+      BreakWall=1, DoubleJump, TripleJump
+      BreakWall=1, SentryJump=4
+      DepthsLight OR BreakWall=1, SentryJump=1, DoubleJump
   conn UpperDepths.Central:
     moki: UpperDepths.CentralKeystoneDoor
   conn LowerDepths.West:
@@ -5364,8 +5369,8 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
     gorlek:
       Sword  # break the firefly egg and hover
       Dash, BreakWall=1 OR DepthsLight
-      DepthsLight, Hammer, DoubleJump OR Damage=30
-      DepthsLight, DoubleJump, Damage=30
+      DepthsLight OR BreakWall=1, DoubleJump
+      DepthsLight OR BreakWall=1, Damage=30
   conn LowerDepths.Central:
     moki:  # the paths in the dark are a bit treacherous...
       BreakWall=1, DoubleJump, Dash, Bash
