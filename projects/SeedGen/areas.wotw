@@ -5397,19 +5397,19 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
   refill Checkpoint
   refill Health=1:  # to the left
     gorlek:
-      DoubleJump, Dash OR Glide OR TripleJump OR Sword
+      DoubleJump, TripleJump OR Dash OR Glide OR Sword
       Dash, Glide OR Sword
       Bash OR Launch
-      WaterDash, Water OR Damage=20
+      Water, WaterDash
     unsafe:
       Hammer, DoubleJump OR Dash
       Glide, Sword OR Hammer
   refill Energy=3:  # to the left
     gorlek, Weapon:
-      DoubleJump, Dash OR Glide OR TripleJump OR Sword
+      DoubleJump, TripleJump OR Dash OR Glide OR Sword
       Dash, Glide OR Sword
       Bash OR Launch
-      WaterDash, Water OR Damage=20
+      Water, WaterDash
     unsafe:
       Hammer, DoubleJump OR Dash
       Glide, Sword OR Hammer
@@ -5419,59 +5419,66 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
     moki: GladesTown.HandToHandLantern
 
   pickup LowerDepths.SwimEC:
-    moki: DepthsLight, Water, UpperDepths.ForestsEyes OR Flash
-  pickup LowerDepths.LeftEX:  # Check that your paths aren't redundant with the ones from UpperDepths.LowerConnection
+    moki: Water, Bash, UpperDepths.ForestsEyes OR Flash
+    gorlek: Water, Damage=10, UpperDepths.ForestsEyes OR Flash
+  pickup LowerDepths.LeftEX:
+    moki:
+      DepthsLight, DoubleJump OR Dash OR Glide
+      BreakWall=1, DoubleJump OR Dash OR Glide
     gorlek:
-      Damage=10, DepthsLight OR BreakWall=1
-      Bash, DepthsLight OR BreakWall=1  # use the bat's projectiles
-    unsafe:
-      DepthsLight OR BreakWall=1
+      DepthsLight, Sword OR Hammer
+      BreakWall=1, Sword OR Hammer
+    unsafe: DepthsLight OR BreakWall=1
 
   conn DepthsShrine:
     moki:
-      DepthsLight, Water, DoubleJump, Bash, UpperDepths.ForestsEyes OR Flash
-      DepthsLight, Water, Bash, Grenade=1, Dash, UpperDepths.ForestsEyes OR Flash
-      DepthsLight, Water, Bash, Grenade=1, Glide, UpperDepths.ForestsEyes OR Flash
-      DepthsLight, Water, Launch, UpperDepths.ForestsEyes OR Flash
+      Water, DoubleJump, Bash, UpperDepths.ForestsEyes OR Flash
+      Water, Bash, Grenade=1, Dash, UpperDepths.ForestsEyes OR Flash
+      Water, Bash, Grenade=1, Glide, UpperDepths.ForestsEyes OR Flash
+      Water, Launch, UpperDepths.ForestsEyes OR Flash
     gorlek:
       ShurikenBreak=20:
-        DoubleJump, Dash OR Glide OR TripleJump OR Sword
+        DoubleJump, TripleJump OR Dash OR Glide OR Sword
         Dash, Glide OR Sword
         Bash OR Launch
         WaterDash, Water OR Damage=20
-      Water, DepthsLight, UpperDepths.ForestsEyes OR Flash:
+      Water, UpperDepths.ForestsEyes OR Flash:
         DoubleJump, TripleJump
         SentryJump=2
-        Bash, Grenade=1
+        Bash, Dash
+        Bash, Grenade=1, DoubleJump OR Glide OR Sword OR Hammer
     unsafe:
-      Water, DepthsLight, UpperDepths.ForestsEyes OR Flash:
-        Bash  # the bash of the lantern is a bit precise
+      Water, UpperDepths.ForestsEyes OR Flash:
+        Bash  # the bash off the lantern is a bit precise
         DoubleJump, Dash, Sword OR Hammer  # djump + upslash + dash to the reach the wall before the shrine
       ShurikenBreak=20, Hammer, DoubleJump OR Dash
       ShurikenBreak=20, Glide, Sword OR Hammer
   conn UpperDepths.LowerConnection:
     moki: DepthsLight, Launch
     gorlek:  # Can make it easier by adding BreakWall=1 and using the firefly
-      DepthsLight, Damage=30, DoubleJump OR Dash  # Dash needs 4 arrows, djump needs 5
-      DepthsLight, DoubleJump, TripleJump, Dash OR Glide OR Hammer OR Sword  # hammer needs 4 arrows
-      DepthsLight, DoubleJump, Dash, Glide OR Sword OR Hammer  # hammer might be too hard for gorlek when using bow
-  conn LowerDepths.Central:
-    moki:
-      BreakWall=1, DoubleJump, Dash, Bash OR Glide
-      BreakWall=1, Launch, DoubleJump OR Glide
-    gorlek:
-      BreakWall=1, DoubleJump, Combat=Bat, Bash OR Glide OR Damage=30
-      BreakWall=1, SentryJump=1, Damage=10, Bash OR Glide OR Dash  # use sjump weapon to combat the bat
-      BreakWall=1, Bash, Grenade=1, Damage=10, Glide OR Dash OR Sword OR Hammer
-      DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Hammer  # 4 arrows with sword, 5 arrows with hammer
-      DepthsLight, DoubleJump, Combat=Bat, Bash OR Glide OR Damage=30
-      DepthsLight, SentryJump=1, Damage=10, Bash OR Glide OR Dash  # use sjump weapon to kill the bat
-      DepthsLight, Bash, Grenade=1, Damage=10, Glide OR Dash OR Sword OR Hammer
+      DepthsLight, DoubleJump, Damage=10, TripleJump OR Dash OR Glide OR Sword OR Hammer
+      DepthsLight, DoubleJump, TripleJump, Dash OR Glide OR Sword
     unsafe:
-      BreakWall=1, Bash, Grenade=1, Damage=10
-      BreakWall=1, Bash, Grenade=1, Dash, Sword OR Hammer
-      BreakWall=1, Dash, SentryJump=1
-      BreakWall=1, DoubleJump, Sword
+      DepthsLight, Damage=30, DoubleJump OR Dash  # Dash needs 4 arrows, djump needs 5
+  conn LowerDepths.Central:
+    moki, BreakWall=1 OR DepthsLight:
+      DoubleJump, Bash, Dash  # combatting the bat would need bash anyway in moki
+      Launch, DoubleJump OR Glide
+    gorlek:
+      BreakWall=1, DoubleJump, Bash, TripleJump OR Glide OR Sword OR Hammer
+      BreakWall=1, Combat=Bat, DoubleJump, Dash, Glide
+      BreakWall=1, SentryJump=1, Damage=10, Bash, Dash
+      DepthsLight, DoubleJump, Bash, TripleJump OR Glide OR Sword OR Hammer
+      DepthsLight, Combat=Bat, DoubleJump, Glide
+      DepthsLight, Combat=Bat, DoubleJump, Dash, Damage=30, Sword OR Hammer
+      DepthsLight, SentryJump=1, Damage=10, Bash, Dash OR Glide
+      DepthsLight, Bash, Grenade=1, Damage=10, Glide OR Dash OR Sword OR Hammer
+      DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Hammer  # 4 arrows with sword, 5 arrows with hammer
+    unsafe, BreakWall=1 OR DepthsLight:
+      Bash, Grenade=1, Damage=10
+      Bash, Grenade=1, Dash, Sword OR Hammer
+      Dash, SentryJump=1
+      DoubleJump, Sword
 
 anchor DepthsShrine at 213, -4515:
   refill Full
@@ -5481,7 +5488,6 @@ anchor DepthsShrine at 213, -4515:
       Damage=65
       Damage=60, DoubleJump OR Dash
       Damage=50, Launch
-    gorlek: Combat=3xBat+4xEnergyRefill+2xSneezeSlug+2xTentacle+4xEnergyRefill+2xBat+2xTentacle+4xEnergyRefill+Bat+SneezeSlug
 
 anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
   refill Checkpoint
@@ -5491,9 +5497,8 @@ anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
       DoubleJump, Grapple, Dash OR DepthsLight
       Launch
     gorlek:
-      Bash, Grenade=1, DoubleJump  # bash grenade from under the grappable light
-      Bash, Grenade=1, Dash OR DepthsLight  # use the jumpad, bash grenade on the platform at the right and climb the right wall
-      DepthsLight, SentryJump=1
+      DepthsLight, Bash, Grenade=1, DoubleJump OR Dash  # easiest from the platform right of the jump pad
+      DepthsLight, SentryJump=1, DoubleJump OR Dash
       DepthsLight, DoubleJump, TripleJump  # climb the right wall. djump might be easy enough for gorlek.
     unsafe:
       DepthsLight, DoubleJump
@@ -5505,23 +5510,24 @@ anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
       Launch, DoubleJump OR Dash OR Bash OR Glide
     gorlek:
       Bash, DoubleJump, TripleJump OR Sword OR Hammer
+      Bash, Dash, Glide OR Sword
       Launch, Damage=30
       DepthsLight, DoubleJump, Dash, Glide OR Sword
       DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Glide
-      DepthsLight, DoubleJump, TripleJump, Hammer, Flash OR UpperDepths.ForestsEyes
     unsafe:
       DepthsLight, DoubleJump, TripleJump, Hammer
       Bash, DoubleJump OR Dash OR Glide OR Sword
-      Launch  # Reset launch on the wall above the 1st lantern
+      Launch
   conn UpperDepths.LowerConnection:
     moki:
       DepthsLight, Launch, Bash
       DepthsLight, Bash, DoubleJump
     gorlek:
       DepthsLight, Launch
-      DepthsLight, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-      DepthsLight, DoubleJump, Combat=WeakSlug, Dash OR Glide OR Sword OR Hammer OR Damage=30  # need 6 arrows
+      DepthsLight, Bash, Grenade=1, DoubleJump
+      DepthsLight, Combat=WeakSlug, DoubleJump, TripleJump, Dash OR Bash OR Glide OR Sword OR Hammer OR Damage=30  # need 6 arrows
     unsafe:
+      DepthsLight, Bash, Grenade=1, Dash OR Glide
       DepthsLight, Bash, Hammer OR Sword
       DepthsLight, Bash, Dash, Grapple OR Damage=30  # Dash in the spikes, you can reach the lantern from here or grapple the grappable light to reach the trial platform
       DepthsLight, Bash, Glide, Grapple OR Damage=30
@@ -5538,7 +5544,7 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       Launch
     gorlek, Weapon:
       Bash OR SentryJump=1
-      DoubleJump, Dash OR TripleJump OR Glide OR Sword
+      DoubleJump, TripleJump OR Dash OR Glide OR Sword
     unsafe: DoubleJump, Hammer
 
   # state LowerDepths.TrialActivation:
@@ -5554,12 +5560,15 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       DoubleJump, Grapple, Dash OR Glide
       Launch, DoubleJump OR Dash OR Grapple OR Glide
     gorlek:
-      Grapple, DoubleJump OR Dash OR Glide OR Sword
-      Launch  # Launch in the blue light
-      DoubleJump, TripleJump, Glide  # Glide near the blue light
-      DepthsLight, DoubleJump, TripleJump, Dash OR Damage=30
+      DoubleJump, Grapple
+      Launch, Sword
+      DepthsLight, Grapple, Dash OR Glide OR Sword
+      DepthsLight, DoubleJump, TripleJump, Dash, Glide OR Damage=30
+      DepthsLight, Bash, Grenade=1, DoubleJump, TripleJump, Dash OR Glide OR Damage=30
+      DepthsLight, Bash, Grenade=1, DoubleJump, Dash, Damage=30
     unsafe:
       DoubleJump, TripleJump, Dash
+      Launch
   pickup LowerDepths.LupoMap:
     moki:
       Grapple, DoubleJump OR Dash OR Glide
@@ -5568,10 +5577,13 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       DepthsLight, Glide
       DepthsLight, Launch, DoubleJump OR Dash
     gorlek:
+      Grapple, Sword
       Launch
-      Grapple, Sword OR Hammer
-      DoubleJump, TripleJump  # wjump  on the left wall near the 1st grappable light above the spikes
+      DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Hammer
+      DepthsLight, DoubleJump, Dash, Sword OR Hammer
+      DepthsLight, Damage=30, DoubleJump OR Dash OR Grapple OR Sword OR Hammer
     unsafe:
+      DoubleJump, TripleJump  # wjump on the left wall near the 1st grappable light above the spikes
       DoubleJump, Hammer, Dash  # djump+upslash+dash to reach the left wall near the 1st grappable light above the spikes
 
   conn UpperDepths.SecondKSRoom:
@@ -5579,15 +5591,18 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       DepthsLight, DoubleJump, Bash, Grapple
       DepthsLight, Launch
     gorlek, BreakWall=20:
-      DepthsLight, Grapple, Bash, Dash OR Glide OR Sword
-      DepthsLight, Grapple, Bash, Hammer, Damage=30
-      DepthsLight, Bash, SentryJump=1, Sword OR Dash OR Glide OR DoubleJump OR Damage=30  # weapon stall to reach the jumpad
-      DepthsLight, Bash, Grenade=1, Sword OR Dash OR Glide OR DoubleJump OR Damage=30
-      DepthsLight, DoubleJump, TripleJump, SentryJump=1  # sjump before the lanterns, tjump+weapon stall to reach the breakable wall. Climb the right wall with tjump to reach the jumpad
-    unsafe:
-      BreakWall=20, DepthsLight, DoubleJump, TripleJump
-      BreakWall=20, DepthsLight, Grapple, Bash, Hammer
-      BreakWall=20, DepthsLight, Bash, SentryJump=1 OR Grenade=1
+      DepthsLight, Bash, Grapple, Dash OR Sword
+      DepthsLight, Bash, Grapple, Glide, Damage=30
+      DepthsLight, Bash, SentryJump=1, DoubleJump OR Dash OR Sword
+      DepthsLight, Bash, SentryJump=1, Glide, Damage=30
+      DepthsLight, Bash, Grenade=1, DoubleJump OR Dash OR Sword
+      DepthsLight, Bash, Grenade=1, Glide, Damage=30
+      DepthsLight, Bash, DoubleJump, TripleJump
+      DepthsLight, DoubleJump, TripleJump, SentryJump=1, Sword OR Dash OR Glide  # sjump before the lanterns, tjump+weapon stall to reach the breakable wall. Climb the right wall with tjump to reach the jumpad
+    unsafe, BreakWall=20:
+      DepthsLight, Bash, Grapple, Hammer
+      DepthsLight, DoubleJump, TripleJump
+      DepthsLight, Bash, SentryJump=1 OR Grenade=1
   conn LowerDepths.TreeArea:
     moki:
       BreakWall=1, DoubleJump, Bash, Grapple, Dash OR Glide
@@ -5597,14 +5612,22 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       DepthsLight, Bash, Grapple, DoubleJump OR Dash OR Glide
       DepthsLight, Launch, Bash OR Grapple
     gorlek:
-      BreakWall=1, Launch, Bash OR Grapple OR Dash OR DoubleJump OR Glide
-      BreakWall=1, Bash, DoubleJump, TripleJump, Glide
-      BreakWall=1, Bash, DoubleJump, TripleJump, Damage=30, Dash OR Sword OR Hammer
-      BreakWall=1, Bash, Grapple, Damage=30, Sword
-      BreakWall=1, Bash, Grapple, Dash OR DoubleJump OR Glide
-      DepthsLight, Launch, Damage=30
-      DepthsLight, Bash, Grapple, Sword OR Hammer OR Dash OR DoubleJump OR Glide
-      DepthsLight, Bash, DoubleJump, TripleJump, Dash OR Glide OR Sword OR Hammer OR Damage=30
+      BreakWall=1 OR DepthsLight:  # These paths go the top route, so they can use the firefly egg
+        Bash, DoubleJump, TripleJump, Damage=30, Hammer
+        Launch, Grapple
+        Launch, DoubleJump, TripleJump OR Dash OR Glide OR Bash OR Sword OR Hammer OR Damage=30
+        Launch, Dash, Glide OR Bash OR Sword OR Hammer OR Damage=30
+        Launch, Glide, Bash OR Damage=30
+        Launch, Damage=30, Bash OR Sword
+      BreakWall=1:  # These paths also go the top route, but would be redundant with other depthslight paths
+        Bash, Grapple, DoubleJump
+        Bash, Grapple, Dash, Glide OR Sword
+        Bash, DoubleJump, TripleJump, Dash, Glide OR Sword
+        Bash, DoubleJump, TripleJump, Damage=30, Dash OR Glide OR Sword
+      DepthsLight:  # These paths only work on the bottom route, so they can't use the firefly
+        Bash, Grapple, Sword
+        Bash, DoubleJump, TripleJump, Dash OR Glide OR Sword
+        Launch, Bash
     unsafe:
       BreakWall=1, Bash, Grapple, Sword OR Hammer
       Launch, DepthsLight OR BreakWall=1
@@ -5613,12 +5636,11 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       Bash, DoubleJump OR Launch
       DepthsLight, Launch, DoubleJump, Dash OR Glide
     gorlek:
+      Bash, Dash
       Launch
-      Bash, Dash OR Damage=30
-      DepthsLight, DoubleJump, TripleJump, Glide OR Sword OR Dash
-      DepthsLight, DoubleJump, Dash, Glide, Damage=30
+      DepthsLight, DoubleJump, TripleJump, Dash, Glide, Damage=30
     unsafe:
-      DepthsLight, DoubleJump, TripleJump, Hammer
+      DepthsLight, DoubleJump, TripleJump
       Bash  # make the last lantern swing to the left
 
 # checkpoint at 621, -4579
@@ -5634,9 +5656,8 @@ anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
   pickup LowerDepths.FlashTree: free
   pickup LowerDepths.RightEX:
     moki: DepthsLight OR Launch
-    gorlek:
-      SentryJump=1
-      Bash, Grenade=1
+    gorlek: Bash, Grenade=1
+    unsafe: SentryJump=1
 
   conn LowerDepths.East:
     moki:
@@ -5644,11 +5665,12 @@ anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
       DepthsLight, DoubleJump, Bash OR Grapple
       DepthsLight, Dash, Bash OR Grapple
     gorlek:
-      DepthsLight, Grapple, Sword OR Hammer
-      DepthsLight, Bash, Sword OR Hammer
-      DepthsLight, Dash, DoubleJump OR Sword OR Hammer
-      DepthsLight, DoubleJump, Sword OR Hammer OR TripleJump
-      DepthsLight, Damage=30, Dash OR DoubleJump OR Sword OR Hammer
+      DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Hammer OR Damage=30
+      DepthsLight, DoubleJump, Dash, Sword OR Hammer OR Damage=30
+      DepthsLight, DoubleJump, Damage=30, Sword OR Hammer
+    unsafe:
+      DepthsLight, Sword, Bash OR Grapple
+      DepthsLight, Hammer, Bash OR Grapple
 
 region PoolsApproach:
   moki: Danger=25
