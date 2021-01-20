@@ -4978,14 +4978,14 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
     moki:
       BreakWall=1, Combat=Spiderling, Grapple, DoubleJump OR Dash OR Glide
       BreakWall=1, Bash, Grapple, DoubleJump OR Dash OR Glide
-      BrweakWall=1, Launch
+      BreakWall=1, Launch
       Bow=1, Combat=Spiderling OR DoubleJump OR Bash OR Launch
       Spear=1, Combat=Spiderling OR DoubleJump OR Bash OR Launch
     gorlek:
       BreakWall=1, Grapple
       BreakWall=1, DoubleJump, TripleJump OR Dash OR Glide  # Glide happens to automatically line up with the safe spot, Sword doesn't
       Bow=1 OR Spear=1
-      SentryJump=1, Sword, DoubleJup OR Dash OR Glide  # Go as close to spikes as possible, do SentryJup and the Sword hower + the skill you have
+      SentryJump=1, Sword, DoubleJump OR Dash OR Glide  # Go as close to spikes as possible, do SentryJup and the Sword hower + the skill you have
   # a higher difficulty can put paths directly to swimec using the firefly egg here
 
   conn UpperDepths.Entry:
@@ -5055,7 +5055,7 @@ anchor UpperDepths.KeydoorLedge at 285, -4407:  # In front of the entry keystone
       DoubleJump, Grapple, Combat=Spiderling+SneezeSlug
       Bash, DoubleJump, TripleJump
       Bash, DoubleJump, Damage=30, Dash OR Glide OR Sword
-      Bash, Grenade=2,Combat=Spiderling+SneezeSlug, DoubleJump OR Dash
+      Bash, Grenade=2, Combat=Spiderling+SneezeSlug, DoubleJump OR Dash
       Launch, DoubleJump OR Dash OR Glide OR Sword
   state UpperDepths.EntryKeystoneDoor:
     moki: Keystone=2
@@ -5365,7 +5365,7 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
       DepthsLight, SentryJump=3, Damage=10
       BreakWall=1, DoubleJump, TripleJump
       BreakWall=1, SentryJump=4
-      DepthsLight OR BreakWall=1, SentryJump=1, DoubleJump
+      SentryJump=1, DoubleJump, DepthsLight OR BreakWall=1
   conn UpperDepths.Central:
     moki: UpperDepths.CentralKeystoneDoor
   conn LowerDepths.West:
@@ -5377,8 +5377,8 @@ anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left
     gorlek:
       Sword  # break the firefly egg and hover
       Dash, BreakWall=1 OR DepthsLight
-      DepthsLight OR BreakWall=1, DoubleJump
-      DepthsLight OR BreakWall=1, Damage=30
+      DoubleJump, DepthsLight OR BreakWall=1
+      Damage=30, DepthsLight OR BreakWall=1
   conn LowerDepths.Central:
     moki:  # the paths in the dark are a bit treacherous...
       BreakWall=1, DoubleJump, Dash, Bash
