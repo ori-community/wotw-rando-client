@@ -156,14 +156,14 @@ namespace RandoMainDLL {
       }
       FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
       if (FramesTillNextSend > 0) {
-        FramesTillNextSend--;
       } else {
+        FramesTillNextSend--;
         if (CanPrint) {
           Current = MessageQueue.Peek();
           FramesTillNextSend = Current.Frames;
           try {
-            InterOp.clear_visible_hints();
-            InterOp.display_hint(Current.Text, Current.Frames / 60f, Current.Pos);
+            if(Current.Clear) InterOp.clear_visible_hints();
+            InterOp.display_hint(Current.Text, Current.Frames / 60f, Current.Pos, Current.Mute);
             if (IniFlag("LogOnPrint")) {
               Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
             }
@@ -178,9 +178,9 @@ namespace RandoMainDLL {
 
     public static bool CanPrint { get => MessageQueue.Count > 0 && InterOp.hints_ready(); }
     // public static bool SendMessage
-    public static IMessage Current = null;
-    public static IMessage Last = new PlainText("*Good Luck! <3*");
-    public static Queue<IMessage> MessageQueue = new Queue<IMessage>();
+    public static PlainText Current = null;
+    public static PlainText Last = new PlainText("*Good Luck! <3*");
+    public static Queue<PlainText> MessageQueue = new Queue<PlainText>();
     public static int FramesTillUnlockReload = 0;
     public static int FramesTillNextSend = 0;
 
@@ -198,36 +198,47 @@ namespace RandoMainDLL {
       SendPlainText(msg);
       Last = msg;
     }
-    public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true) => SendPlainText(new PlainText(message, frames, pos), toMessageLog);
+    public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true, bool clearPrior = true) => SendPlainText(new PlainText(message, frames, pos, clearPrior), toMessageLog);
     public static void SendPlainText(PlainText p, bool logMessage = true) {
       if (logMessage)
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]", "")}\n");
 
-      if (p.Pos == -2f) {
-        InterOp.display_below(p.Text, p.Frames / 60f);
-        return;
+      if(p.Immediate) {
+        try {
+          if (p.Clear) InterOp.clear_visible_hints();
+          InterOp.display_hint(p.Text, p.Frames / 60f, p.Pos, p.Mute);
+          if (IniFlag("LogOnPrint")) {
+            Randomizer.Log($"Sending {p.Text} for {p.Frames} (skipped queue)", false);
+          }
+        } catch (Exception e) { Randomizer.Error("AHK.sendInstant", e, false); }
       }
-
-      FramesTillNextSend /= 3;
-      MessageQueue.Enqueue(p);
+      else {
+        if (p.Pos == -2f) { // todo; maybe clean this up?
+          InterOp.display_below(p.Text, p.Frames / 60f, p.Mute);
+          return;
+        }
+        if (p.Clear)
+          FramesTillNextSend /= 3;
+        MessageQueue.Enqueue(p);
+      }
     }
     private static bool tpCheatToggle = false;
     public static bool TPToPickupsEnabled { get => tpCheatToggle && InterOp.get_debug_controls(); }
   }
-  public interface IMessage {
-    float Pos { get; }
-    string Text { get; }
-    int Frames { get; }
-  };
 
-  public class PlainText : IMessage {
-    public PlainText(string text, int frames = 180, float? pos = null) {
+  public class PlainText {
+    public PlainText(string text, int frames = 180, float? pos = null, bool clear = true, bool immediate = false, bool mute = false) {
       Text = text;
       Frames = frames + (SeedController.GrantingGoalModeLoc ? 120 : 0);
       Pos = pos.HasValue ? pos.Value : (3.2f - .2f * Text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None).Length);
+      Clear = clear;
+      Immediate = immediate;
+      Mute = mute;
     }
-
     public string Text { get; }
+    public bool Clear { get; }
+    public bool Immediate { get; }
+    public bool Mute { get; }
     public int Frames { get; }
     public float Pos { get; }
   }

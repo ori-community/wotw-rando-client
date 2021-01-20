@@ -35,9 +35,9 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void clear_quest_messages();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr display_hint([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration, float ypos);
+    public extern static IntPtr display_hint([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration, float ypos, bool mute);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr display_below([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration);
+    public extern static IntPtr display_below([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration, bool mute);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr update_map_hint([MarshalAs(UnmanagedType.LPWStr)] string info);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

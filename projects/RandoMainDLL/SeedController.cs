@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using System.Threading;
 using Newtonsoft.Json;
 using RandoMainDLL.Memory;
 
@@ -332,16 +333,40 @@ namespace RandoMainDLL {
           var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None).ToList();
           List<string> msgs = new List<string>();
           int frames = 240;
+          float? pos = null;
           bool squelch = false;
+          bool clear = true;
+          bool immediate = false;
+          bool mute = false;
           foreach (string extra in extras.Prepend(messageParts[0])) {
             if (extra.StartsWith("f=")) {
               int.TryParse(extra.Replace("f=", ""), out frames);
               continue;
             }
-            else if (extra == "mute") {
+            else if(extra.StartsWith("p=")) {
+              if (float.TryParse(extra.Replace("p=", ""), out float p))
+                pos = p;
+              else 
+                Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
+              continue;
+            }
+            else if (extra.ToLowerInvariant() == "mute") {
               squelch = true;
               continue;
             }
+            else if (extra.ToLowerInvariant() == "noclear") {
+              clear = false;
+              continue;
+            }
+            else if (extra.ToLowerInvariant() == "instant") {
+              immediate = true;
+              continue;
+            }
+            else if (extra.ToLowerInvariant() == "quiet") {
+              mute = true;
+              continue;
+            }
+
             msgs.Add(extra);
           }
           var msg = String.Join("|", msgs);
@@ -352,12 +377,32 @@ namespace RandoMainDLL {
                 int.TryParse(cmd.Replace("f=", ""), out frames);
                 continue;
               }
-              if (cmd == "mute") {
+              else if (cmd.StartsWith("p=")) {
+                if (float.TryParse(cmd.Replace("p=", ""), out float p))
+                  pos = p;
+                else
+                  Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
+                continue;
+              }
+              else if (cmd.ToLowerInvariant() == "mute") {
                 squelch = true;
+                continue;
+              }
+              else if (cmd.ToLowerInvariant() == "noclear") {
+                clear = false;
+                continue;
+              }
+              else if (cmd.ToLowerInvariant() == "instant") {
+                immediate = true;
+                continue;
+              }
+              else if (cmd.ToLowerInvariant() == "quiet") {
+                mute = true;
+                continue;
               }
             }
           }
-          return new Message(msg, frames, squelch);
+          return new Message(msg, frames, squelch, pos, clear, immediate, mute);
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
           if (stateParts.Count < 4) {

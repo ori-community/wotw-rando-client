@@ -49,7 +49,7 @@ namespace RandoMainDLL {
         proc.StartInfo.RedirectStandardOutput = true;
         proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
-        if(!proc.WaitForExit(7500))
+        if(!proc.WaitForExit(10000))
           Randomizer.Warn("MapController.waitForProc", "timed out waiting for reach check", false);
         Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
