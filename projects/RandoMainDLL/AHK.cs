@@ -156,8 +156,8 @@ namespace RandoMainDLL {
       }
       FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
       if (FramesTillNextSend > 0) {
-      } else {
         FramesTillNextSend--;
+      } else {
         if (CanPrint) {
           Current = MessageQueue.Peek();
           FramesTillNextSend = Current.Frames;
@@ -218,7 +218,7 @@ namespace RandoMainDLL {
           return;
         }
         if (p.Clear)
-          FramesTillNextSend /= 3;
+        FramesTillNextSend /= 3;
         MessageQueue.Enqueue(p);
       }
     }
