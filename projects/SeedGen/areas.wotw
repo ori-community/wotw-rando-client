@@ -1764,6 +1764,12 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
       DoubleJump, TripleJump
   pickup GladesTown.LupoSoupEX:
     moki: Water OR Burrow
+  pickup LupoShop.HCMapIcon:
+    moki: SpiritLight=1200, Water OR Burrow
+  pickup LupoShop.ECMapIcon:
+    moki: SpiritLight=1200, Water OR Burrow
+  pickup LupoShop.ShardMapIcon:
+    moki: SpiritLight=1200, Water OR Burrow
   pickup GladesTown.LupoSwimHC:
     moki: Water, Burrow
   pickup GladesTown.LupoSwimMiddleEX:
