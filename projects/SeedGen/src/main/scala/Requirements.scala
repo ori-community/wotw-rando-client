@@ -136,10 +136,7 @@ package SeedGenerator {
       skills.keys.map(s => (state missing s) + energyReq(s).remaining(state).head).filter(_.inv.count <= space).toSeq
   }
 
-  case class BreakWallReq(wallHealth: Int) extends WallReq(wallHealth,  Map(
-    Sword -> (4f, 0f), Smash -> (12f, 0f), Bow -> (4f, 0.25f),
-    Grenade -> (10f, 1f), Shuriken -> (4f, .5f), Spear -> (20f, 2f), Blaze -> (6.6f, 1f))
-  )
+  case class BreakWallReq(wallHealth: Int) extends WallReq(wallHealth,  Weapons.DPE)
 
   case class BackWallBreak(wallHealth: Int) extends WallReq(wallHealth,  Map(Shuriken -> (7f, 1.5f)))
 
@@ -177,47 +174,124 @@ package SeedGenerator {
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = Seq(GameState(new Inv(Health -> Math.max(0, Math.ceil((damage + 1 - health(state))/5f).intValue()))))
   }
 
+  object Weapons {
+    val All = Seq(Sword, Smash, Bow, Grenade, Shuriken, Spear, Blaze)
+    val RANGED = Seq(Bow, Grenade, Shuriken, Spear)
+    val DPE = Map(
+      Sword -> (4f, 0f), Smash -> (12f, 0f), Bow -> (4f, 0.25f),
+      Grenade -> (10f, 1f), Shuriken -> (4f, .5f), Spear -> (20f, 2f), Blaze -> (6.6f, 1f)
+    )
+  }
   trait Enemy {
     def dodgeMultiplier = 1.0
     val health: Int
+    def weapons: Seq[Skill] = if(Settings.gorlekPaths) Weapons.All else Seq(Sword, Smash)
+    def reqs: Requirement = Free
+    def shielded: Boolean = false
   }
+
+  trait Shielded extends Enemy { override def shielded: Boolean = true }
+
+  trait Explodes extends Enemy {
+    override def weapons: Seq[Skill] = if(Settings.gorlekPaths) Seq(Spear, Shuriken, Bow, Grenade) else Seq(Bow, Spear)
+    override val health: Int = 1
+  }
+  class Flier(val health: Int) extends Enemy {
+    override val reqs: Requirement = AnyReq(Seq(DoubleJump.req, Bash.req, Launch.req) ++ (if(Settings.gorlekPaths) Weapons.RANGED.map(_.req) else Nil))
+  }
+  class MinerEnemy(val health: Int) extends Enemy {
+    override val reqs: Requirement = AnyReq(DoubleJump.req, Dash.req, Bash.req, Launch.req)
+  }
+
   case class Boss(val health: Int) extends Enemy
   case object Mantis extends Enemy { val health = 32}
   case object Slug extends Enemy { val health = 13}
   case object WeakSlug extends Enemy { val health = 12}
-  case object BombSlug extends Enemy { val health = 1}
-  case object CorruptSlug extends Enemy { val health = 1}
-  case object SneezeSlug extends Enemy { val health = 32}
-  case object ShieldSlug extends Enemy { val health = 24}
+  case object BombSlug extends Explodes
+  case object CorruptSlug extends Explodes
+  case object SneezeSlug extends Enemy {
+    val health = 32
+    override val reqs: Requirement = if(Settings.gorlekPaths) Free else AnyReq(DoubleJump.req, Dash.req, Bash.req, Launch.req)
+  }
+  case object ShieldSlug extends Shielded { val health = 24}
   case object Lizard extends Enemy { val health = 24}
-  case object Bat extends Enemy { val health = 32}
-  case object Hornbug extends Enemy { val health = 40}
-  case object Skeeto extends Enemy { val health = 20}
-  case object SmallSkeeto extends Enemy { val health = 8}
-  case object Bee extends Enemy { val health = 24}
-  case object Nest extends Enemy { val health = 25}
-  case object Fish extends Enemy { val health = 10}
-  case object Waterworm extends Enemy { val health = 20}
-  case object Crab extends Enemy { val health = 32}
-  case object SpinCrab extends Enemy { val health = 32}
-  case object Spitter extends Enemy { val health = 40}
-  case object Balloon extends Enemy { val health = 1}
-  case object Miner extends Enemy { val health = 40}
-  case object MaceMiner extends Enemy { val health = 60}
-  case object ShieldMiner extends Enemy { val health = 60}
-  case object CrystalMiner extends Enemy { val health = 80}
-  case object CrystalShieldMiner extends Enemy { val health = 80}
-  case object Sandworm extends Enemy { val health = 20}
+  case object Bat extends Enemy {
+    val health = 32
+    override val reqs: Requirement =
+      if(Settings.gorlekPaths)
+        AnyReq(Bash.req, Launch.req) or AnyReq(Weapons.RANGED.map(_.req))
+      else
+        Bash.req
+  }
+  case object Hornbug extends Shielded {
+    val health = 40
+    override val reqs: Requirement = if(Settings.gorlekPaths) Free else AnyReq(DoubleJump.req, Dash.req, Bash.req, Launch.req)
+  }
+  case object Skeeto extends Flier(health = 20)
+  case object SmallSkeeto extends Flier(health = 8)
+  case object Bee extends Flier(health = 24)
+  case object Crab extends Enemy {
+    val health = 32
+    override val reqs: Requirement = AnyReq(DoubleJump.req, Bash.req, Launch.req, Dash.req)
+  } // exact same gameplay rules as SpinCrab
+  case object Tentacle extends Enemy {
+    val health = 40
+    override val reqs: Requirement =
+      if(Settings.gorlekPaths)
+        AnyReq(DoubleJump.req, Bash.req, Launch.req) or AnyReq(Weapons.RANGED.map(_.req))
+      else
+        AnyReq(DoubleJump.req, Bash.req, Launch.req)
+  }
+  case object Balloon extends Explodes
+  case object Miner extends MinerEnemy(40)
+  case object MaceMiner extends MinerEnemy(60)
+  case object ShieldMiner extends MinerEnemy(60) with Shielded
+  case object CrystalMiner extends MinerEnemy(80)
+  case object CrystalShieldMiner extends MinerEnemy(80) with Shielded
+  case object Sandworm extends Enemy {
+    val health = 20
+    override val reqs: Requirement = if(Settings.gorlekPaths) Free else Burrow.req
+  }
   case object Spiderling extends Enemy { val health = 12}
-  case object Tentacle extends Enemy {val health = 40 } // i think? 20 on the head?
-  case object EnergyRefill extends Enemy { val health = 1 } // yes this is dumb no i don't care
+  case object Nest extends Enemy { val health = 25} // not... sure?
+  case object Fish extends Enemy { val health = 10} // unused
+  case object Waterworm extends Enemy { val health = 20} // unused
+  case object Spitter extends Enemy {val health = 20 } // Unused?
+  case object EnergyRefill extends Enemy { val health = 0 } // yes this is dumb no i don't care
 
   case class CombatReq(enemies: Seq[(Enemy, Int)]) extends Requirement {
-    val placeholder = Sword.req or Smash.req
-    override def metBy(state: GameState, orbs: Option[Orbs]): Boolean = placeholder.metBy(state, orbs)
-    override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = placeholder.remaining(state, unaffordable, space)
+    override def metBy(state: GameState, orbs: Option[Orbs]): Boolean = {
+      var energy: Double = (orbs ?? state.inv.orbs).energy / 5f
+      for((e, cnt) <- enemies) {
+        e match {
+          case EnergyRefill =>
+            energy += 10*cnt
+          case enemy if enemy.reqs.metBy(state) =>
+            val weps = enemy.weapons.filter(w => state.inv.has(w))
+            if(weps.isEmpty) return false // no valid weapon; combat not possible
+            if(enemy.shielded && !weps.contains(Smash)) {
+              if(!Settings.gorlekPaths) return false // smash is only acceptable shield break in moki
+              if(state.inv.contains(Launch)) {  } // pass
+              else if(state.inv.contains(Grenade))
+                energy -= cnt // break N shields
+              else if(state.inv.contains(Spear))
+                energy -= 2*cnt // spear costs more
+              else return false
+            }
+            if(!(weps.contains(Sword) || weps.contains(Smash))) {
+              val wep = weps.maxBy(w => { val (d,e) = Weapons.DPE(w); d/e})
+              val (damage, cost) = Weapons.DPE(wep)
+              energy -= Math.ceil(enemy.health*enemy.dodgeMultiplier/damage) * cost * cnt
+            }
+          case _ => return false
+        }
+      }
+      Logger.debug(enemies.map(e => s"${e._1}x${e._2}").mkString(", ") + s": remaining energy=$energy")
+      energy >= 0
+    }
+    override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
+      AllReqs(enemies.map(_._1.reqs)).remaining(state, unaffordable, space) // this may not work
   }
-
 
 
   class AnyReq(override val reqs: Requirement*) extends Requirement  with MultiReq {
