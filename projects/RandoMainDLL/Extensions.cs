@@ -133,6 +133,8 @@ public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(o
 
     public static Teleporter p(this TeleporterType tp) => new Teleporter(tp);
     public static Ability p(this AbilityType s) => new Ability(s);
+    public static Shard p(this ShardType s) => new Shard(s);
+    public static QuestEvent p(this QuestEventType q) => new QuestEvent(q);
     public static Resource p(this ResourceType r) => new Resource(r);
 
     /// <summary>

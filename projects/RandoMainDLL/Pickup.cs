@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic;
 using RandoMainDLL.Memory;
@@ -22,7 +23,9 @@ namespace RandoMainDLL {
     UberState = 8,
     QuestEvent = 9,
     BonusItem = 10,
-    WeaponUpgrade = 11
+    WeaponUpgrade = 11,
+    ZoneHint = 12,
+    CheckableHint = 13
   }
 
   public class DoneWithThis : Exception { };
@@ -271,9 +274,21 @@ namespace RandoMainDLL {
 
   public abstract class Checkable : Pickup {
     public abstract bool Has();
+    public override bool Equals(object obj) {
+      if ((obj == null) || !this.GetType().Equals(obj.GetType())) {
+        return false;
+      }
+      else {
+        Checkable other = (Checkable)obj;
+        return other.Name == Name;
+      }
+    }
+    public override int GetHashCode() {
+      return Name.GetHashCode();
+    }
   }
 
-  public class Teleporter : Checkable {
+    public class Teleporter : Checkable {
     public static Pickup Build(String value) => !value.StartsWith("-") ? (Pickup)new Teleporter((TeleporterType)value.ParseToByte()) : new RemoveTeleporter((TeleporterType)value.Substring(1).ParseToByte());
     public Teleporter(TeleporterType teleporter) => type = teleporter;
     public override WorldMapIconType Icon => WorldMapIconType.SavePedestal;
@@ -766,5 +781,89 @@ namespace RandoMainDLL {
       {SentryEfficiency.Id, SentryEfficiency },
     };
   }
+
+  public abstract class Hint : Pickup {
+    public abstract string Desc { get; }
+  }
+  public class ZoneHint : Hint {
+    public override PickupType Type => PickupType.ZoneHint;
+    public readonly ZoneType Zone;
+    public override WorldMapIconType Icon => WorldMapIconType.QuestItem;
+
+    public override int DefaultCost() => 200;
+
+    public override string DisplayName => $"{Zone} hint";
+    public ZoneHint(ZoneType zone) {
+      Zone = zone;
+      HintsController.ZoneHints.Add(zone);
+    }
+    public override string Desc => $"information on $Key Items$ in #{Zone.GetDescription()}#";
+    public override void Grant(bool skipBase = false) {
+      UberSet.Bool(6, 10000 + (int)Zone, true);
+      HintsController.ProgressWithHints(Zone, true);
+      base.Grant(true);
+    }
+  }
+
+  public class CheckableHint : Hint {
+    public override PickupType Type => PickupType.CheckableHint;
+    public readonly List<Checkable> targets;
+    public readonly int baseCost;
+    public readonly int costModifier;
+    public override WorldMapIconType Icon => WorldMapIconType.QuestItem;
+
+    public override string DisplayName => $"{String.Join("/", targets.Select((t) => t.Name))} hint";
+    public CheckableHint(string raw) {
+      try {
+        targets = new List<Checkable>();
+        var parts = raw.Split(',');
+        if(parts.Length < 3) {
+          Randomizer.Warn("CheckableHint.Constructor", $"Couldn't parse checkable hint {raw}; not enough pieces");
+          return;
+        }
+        baseCost = parts[0].ParseToInt("hint base cost");
+        costModifier = parts[1].ParseToInt("hint cost modifier");
+        foreach(var part in parts.Skip(2)) {
+          var itemParts = part.Split('-');
+          if(itemParts.Length != 2) {
+            Randomizer.Warn("CheckableHint.Constructor", $"Couldn't parse fragment {part}; skipping!");
+            continue;
+          }
+          switch ((PickupType)itemParts[0].ParseToByte("hint frag ptype")) {
+            case PickupType.Ability:
+              targets.Add(((AbilityType)itemParts[1].ParseToByte("hint frag ability type")).p());
+              break;
+            case PickupType.QuestEvent:
+              targets.Add(((QuestEventType)itemParts[1].ParseToByte("hint frag quest event type")).p());
+              break;
+            case PickupType.Teleporter:
+              targets.Add(((TeleporterType)itemParts[1].ParseToByte("hint frag teleporter type")).p());
+              break;
+            case PickupType.Shard:
+              targets.Add(((ShardType)itemParts[1].ParseToByte("hint frag shard type")).p());
+              break;
+            default:
+              Randomizer.Warn("CheckableHint.Constructor", $"{part} does not correspond to a checkable: skipping!");
+              break;
+          }
+      }
+      HintsController.RegisterCheckable(this);
+      } catch (Exception e) { Randomizer.Error("CheckableHint.Constructor", e); }
+    }
+    public override string Desc { get {
+        if(targets.Count == 1)
+          return $"Will tell you what Zone {targets[0].DisplayName} is in";
+        var firstN = targets.Take(targets.Count - 1);
+        return $"Will tell you what Zone {string.Join(", ", firstN.Select((t) => t.DisplayName))} and {targets.Last().DisplayName} are in";
+      } }
+    public string Hint => string.Join(", ", targets.Select((c) => c.HintFrag()));
+    public override float ModEffectiveness() => 0.0f;
+    public override int DefaultCost() => baseCost - costModifier * (targets.Count((t) => t.Has()));
+    public override void Grant(bool skipBase = false) {
+      HintsController.OnGrantCheckable(this);
+      base.Grant(true);
+    }
+  }
+
 
 }
