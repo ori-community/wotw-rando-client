@@ -93,6 +93,8 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static UberStateType get_uber_state_type(int group, int state);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void register_state_redirect(int state, int value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool get_debug_controls();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

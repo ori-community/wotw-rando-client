@@ -69,7 +69,7 @@ namespace uber_states
     void register_applier_intercept(int32_t state, applier_intercept callback)
     {
         if (applier_intercepts.find(state) != applier_intercepts.end())
-            trace(MessageType::Warning, 1, "init", "registering same applier state twice, overwriting.");
+            trace(MessageType::Info, 1, "init", "registering same applier state twice, overwriting.");
 
         applier_intercepts[state] = callback;
     }
@@ -83,7 +83,7 @@ namespace uber_states
     void register_applier_redirect(int32_t state, int32_t new_state)
     {
         if (applier_intercepts.find(state) != applier_intercepts.end())
-            trace(MessageType::Warning, 1, "init", "registering same applier state twice, overwriting.");
+            trace(MessageType::Info, 1, "init", "registering same applier state twice, overwriting.");
 
         applier_intercepts[state] = [new_state](auto, auto, auto) -> int32_t { return new_state; };
     }
@@ -93,4 +93,9 @@ namespace uber_states
         for (auto state : states)
             register_applier_redirect(state.first, state.second);
     }
+}
+
+INJECT_C_DLLEXPORT void register_state_redirect(const int state, const int value)
+{
+    uber_states::register_applier_redirect(state, value);
 }
