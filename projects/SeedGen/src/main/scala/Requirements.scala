@@ -219,7 +219,7 @@ package SeedGenerator {
     val health = 32
     override val reqs: Requirement =
       if(Settings.gorlekPaths)
-        AnyReq(Bash.req, Launch.req) or AnyReq(Weapons.RANGED.map(_.req))
+        AnyReq(Weapons.RANGED.map(_.req) ++ Seq(Bash.req, Launch.req))
       else
         Bash.req
   }
@@ -238,7 +238,7 @@ package SeedGenerator {
     val health = 40
     override val reqs: Requirement =
       if(Settings.gorlekPaths)
-        AnyReq(DoubleJump.req, Bash.req, Launch.req) or AnyReq(Weapons.RANGED.map(_.req))
+        AnyReq(Weapons.RANGED.map(_.req) ++ Seq(DoubleJump.req, Bash.req, Launch.req))
       else
         AnyReq(DoubleJump.req, Bash.req, Launch.req)
   }
@@ -259,7 +259,12 @@ package SeedGenerator {
   case object Spitter extends Enemy {val health = 20 } // Unused?
   case object EnergyRefill extends Enemy { val health = 0 } // yes this is dumb no i don't care
 
-  case class CombatReq(enemies: Seq[(Enemy, Int)]) extends Requirement {
+  object CombatReq {
+    def apply(enemies: Seq[(Enemy, Int)]): Requirement = {
+      val t = enemies.toMap.keySet
+      AllReqs(t.map(e => AnyReq(e.weapons.map(_.req))).toSeq) and AllReqs(t.map(_.reqs).toSeq)
+    }
+  } /*extends Requirement {
     override def metBy(state: GameState, orbs: Option[Orbs]): Boolean = {
       var energy: Double = (orbs ?? state.inv.orbs).energy / 5f
       for((e, cnt) <- enemies) {
@@ -291,11 +296,16 @@ package SeedGenerator {
     }
     override def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
       AllReqs(enemies.map(_._1.reqs)).remaining(state, unaffordable, space) // this may not work
-  }
+  }*/
 
 
   class AnyReq(override val reqs: Requirement*) extends Requirement  with MultiReq {
     override def builder(parts: Seq[Requirement]): Requirement = AnyReq(parts)
+
+    override def equals(obj: Any): Boolean = obj match {
+      case AnyReq(otherReqs) => reqs.toSet == otherReqs.toSet
+      case _ => false
+    }
 
     override def or(that: Requirement): Requirement = that match {
       case r: AnyReq => AnyReq(r.reqs ++ reqs )
