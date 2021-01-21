@@ -185,7 +185,7 @@ package SeedGenerator {
   trait Enemy {
     def dodgeMultiplier = 1.0
     val health: Int
-    def weapons: Seq[Skill] = if(Settings.gorlekPaths) Weapons.All else Seq(Sword, Smash)
+    def weapons: Seq[Skill] = if(Settings.unsafePaths) Weapons.All else Seq(Sword, Smash)
     def reqs: Requirement = Free
     def shielded: Boolean = false
   }
