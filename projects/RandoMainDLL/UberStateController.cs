@@ -126,7 +126,6 @@ namespace RandoMainDLL {
           var def = states[i];
           var name = Marshal.PtrToStringAnsi(def.Name);
           var groupName = Marshal.PtrToStringAnsi(def.GroupName);
-
           uberStateLookup.Add(new UberId(def.GroupID, def.ID), new UberState() {
             ID = def.ID,
             GroupID = def.GroupID,
@@ -224,8 +223,6 @@ namespace RandoMainDLL {
             }
           }
           found = SeedController.OnUberState(state);
-          if (!found)
-            HintsController.OnLupoState(id);
         }
 
         if (SyncedUberStates.Contains(key))

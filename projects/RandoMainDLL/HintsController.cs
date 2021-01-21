@@ -66,17 +66,43 @@ namespace RandoMainDLL {
       {ZoneType.Willow,  new UberState() { Name = "hasMapWillowsEnd", ID = 4045, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedBooleanUberState }  },
       {ZoneType.Glades, new UberState() { Name = "mapmakerShowMapIconEnergyUberState", ID = 19396, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
       {ZoneType.Woods, new UberState() { Name = "mapmakerShowMapIconHealthUberState", ID = 57987, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
-    }; 
+    };
     // might change later?
-    public static bool IsHintItem(this Pickup p) => (p is Ability) || (p is QuestEvent);
+    private static HashSet<AbilityType> BadSkills = new HashSet<AbilityType>() { AbilityType.DamageUpgrade1, AbilityType.DamageUpgrade2 };
+    public static bool IsKeyItem(this Pickup p) {
+      if(p is Ability a) 
+        return !BadSkills.Contains(a.type);
+      return (p is QuestEvent);
+    }
 
-    public static Dictionary<ZoneType, List<Checkable>> HintObjects = new Dictionary<ZoneType, List<Checkable>>();
+    public static Dictionary<ZoneType, List<Checkable>> KeyItemsByZone = new Dictionary<ZoneType, List<Checkable>>();
+    public static Dictionary<Checkable, ZoneType> CheckableLocs = new Dictionary<Checkable, ZoneType>();
+    public static Dictionary<CheckableHint, UberId> CheckableHints = new Dictionary<CheckableHint, UberId>();
 
     public static Dictionary<AbilityType, ZoneType> SkillLocs = new Dictionary<AbilityType, ZoneType>();
     public static ZoneType CleanWaterZone = ZoneType.Void;
+    private static int nextCheckable = 0;
+
     public static void Reset() {
-      HintObjects.Clear();
+      KeyItemsByZone.Clear();
+      CheckableLocs.Clear();
       SkillLocs.Clear();
+      CheckableHints.Clear();
+      ZoneHints.Clear();
+      nextCheckable = 10;
+    }
+
+    public static void RegisterCheckable(CheckableHint ch) {
+      if(nextCheckable == 14) {
+        Randomizer.Error("HC.RegisterCheckable", "Max 5 checkable hints supported");
+        return;
+      }
+      CheckableHints[ch] = new UberId(6, nextCheckable++);
+    }
+
+    public static void OnGrantCheckable(CheckableHint ch) {
+      CheckableHints[ch].State().Write(new UberValue(true));
+      AHK.SendPlainText(new PlainText($"Bought Hint: {ch.Hint}", 300));
     }
 
     public static void AddHint(ZoneType zone, Checkable item) {
@@ -85,15 +111,13 @@ namespace RandoMainDLL {
       else if (item is QuestEvent q && q.type == QuestEventType.Water)
         CleanWaterZone = zone;
 
-      if (HintObjects.ContainsKey(zone))
-        HintObjects[zone].Add(item);
+      if (KeyItemsByZone.ContainsKey(zone))
+        KeyItemsByZone[zone].Add(item);
       else
-        HintObjects[zone] = new List<Checkable>() { item };
+        KeyItemsByZone[zone] = new List<Checkable>() { item };
     }
 
     public static void OnMapPan(AreaType type) {
-      if (SeedController.HintsDisabled)
-        return;
       var msg = getZoneHintMessage(type.toZone(), isOnMap: true) + GetKeySkillHints();
       if (msg.Count(c => c == '\n') == 2) // if there's exactly 3 lines, insert an extra linebreak at the top
         msg = "\n" + msg;                 // so the middle text isn't obscured by the filter button
@@ -102,8 +126,8 @@ namespace RandoMainDLL {
 
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
       int duration = justUnlocked ? 300 : 240;
-      if (SeedController.HintsDisabled || InterOp.get_game_state() != GameState.Game) {
-        if (!justUnlocked )
+      if (InterOp.get_game_state() != GameState.Game) {
+        if (!justUnlocked)
           AHK.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
         return;
       }
@@ -111,15 +135,19 @@ namespace RandoMainDLL {
       var zone = _zone == ZoneType.Void ? CurrentZone : _zone;
       var msg = getZoneHintMessage(zone, justUnlocked);
       if (justUnlocked)
-        msg = $"Bought hint: {msg}";
-      else
+        msg = $"Bought hint: {msg.TrimStart()}";
+      else if(ZoneHints.Contains(zone))
         msg = $"{SeedController.Progress}\n{msg}{GetKeySkillHints()}";
+      else
+        msg = $"{SeedController.Progress}{GetKeySkillHints()}";
       AHK.SendPlainText(new PlainText(msg, duration), justUnlocked);
     }
 
     private static string getZoneHintMessage(ZoneType zone, bool justUnlocked = false, bool isOnMap = false) {
       if (zone == ZoneType.Void) return $"no hint for Void (area {InterOp.get_player_area()})";
-      var items = HintObjects.GetOrElse(zone, new List<Checkable>());
+      if (!justUnlocked && !ZoneHints.Contains(zone))
+        return "";
+      var items = KeyItemsByZone.GetOrElse(zone, new List<Checkable>());
       var found = items.FindAll(i => i.Has());
       var rmsg = isOnMap ? Relic.MapMessage(zone) : "";
       if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items{rmsg}{(isOnMap ? "\n" : " ")}(Hint not unlocked)";
@@ -147,69 +175,33 @@ namespace RandoMainDLL {
         try {
           if (zone == ZoneType.Void)
             return false;
-          if (ZoneToState.TryGetValue(zone, out UberState state)) {
-            return state.GetValue().Bool;
-          }
-          else
-            return false;
+          if (zone == ZoneType.Ruins)
+            return UberGet.value(6, 10009).Bool;
+          return UberGet.value(6, 10000 + (int)zone).Bool;
         }
         catch (Exception e) {
           Randomizer.Error("Hints.HaveHintForZone", e, false);
           return false;
         }
     }
-    public static UberId SkillHintTwoState = new UberId(48248, 41666);
       //new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
-    public static string GetKeySkillHints() {
-      String ret = "";
-      ret += GetKeySkillHintOne();
-      if (ret.Length > 0)
-        ret += "\n";
-      ret += GetKeySkillHintTwo();
+    public static string GetKeySkillHints() {  
+      foreach(var x in CheckableHints) {
+        Randomizer.Log($"{x.Key.Name}: {x.Value} ({x.Value.GetValue().Bool}, {UberGet.value(x.Value)}", false);
+      }
+      String ret = string.Join("\n", CheckableHints.Where((kv) => kv.Value.GetValue().Bool).Select(kv => kv.Key.Hint));
       if (ret.Length > 0)
         ret = "\n" + ret;
-      return ret.TrimEnd('\n');
+      return ret;
     }
 
-    static string HintFrag(this AbilityType t) {
-      var w = SaveController.HasAbility(t) ? "$" : "";
-      return $"{w}{t.GetDescription()}: {SkillLocs[t]}{w}";
-    }
-    public static string GetKeySkillHintOne() {
-      if (AbilityType.WaterBreath.Bought()) {
-        var w = QuestEventType.Water.Have() ? "$" : "";
-        return $"{AbilityType.Bash.HintFrag()}, {w}Water: {CleanWaterZone}{w}, {AbilityType.Flap.HintFrag()}, {AbilityType.Feather.HintFrag()}";
-      }
-      return "";
+    public static string HintFrag(this Checkable c) {
+      var w = c.Has() ? c.DisplayName[0].ToString() : "";
+      var loc = CheckableLocs.ContainsKey(c) ? CheckableLocs[c].ToString() : "Unknown";
+      return $"{w}{c.Name}: {loc}{w}";
     }
 
-    public static string GetKeySkillHintTwo() => UberGet.value(SkillHintTwoState).Bool ?
-        $"{AbilityType.Burrow.HintFrag()}, {AbilityType.WaterDash.HintFrag()}, {AbilityType.LightBurst.HintFrag()}, {AbilityType.Flash.HintFrag()}" : "";
-
-    public static void OnLupoState(UberId id) {
-      if (SeedController.HintsDisabled)
-        return;
-      if (LupoZoneIds.ContainsKey(id)) {
-        ProgressWithHints(LupoZoneIds[id], true);
-      } else if(id.ID == 41666) {
-        AHK.SendPlainText(new PlainText($"Bought Hint: {GetKeySkillHintTwo()}", 300));
-      }
-    }
-
-    public static Dictionary<UberId, ZoneType> LupoZoneIds = new Dictionary<UberId, ZoneType>() {
-      {new UberId(48248, 18767), ZoneType.Marsh},
-      {new UberId(48248, 45538), ZoneType.Burrows},
-      {new UberId(48248, 3638), ZoneType.Hollow},
-      {new UberId(48248, 1590), ZoneType.Wellspring},
-      {new UberId(48248, 1557), ZoneType.Pools},
-      {new UberId(48248, 48423), ZoneType.Depths},
-      {new UberId(48248, 61146), ZoneType.Wastes}, // ruins too but eh
-      {new UberId(48248, 29604), ZoneType.Reach},
-      {new UberId(48248, 4045), ZoneType.Willow},
-      {new UberId(48248, 19396), ZoneType.Glades},
-      {new UberId(48248, 57987), ZoneType.Woods},
-    };
-
+    public static HashSet<ZoneType> ZoneHints = new HashSet<ZoneType>();
 
   }
 }

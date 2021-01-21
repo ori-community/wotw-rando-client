@@ -147,10 +147,6 @@ namespace RandoMainDLL {
             if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
               if (!KSDoorsOpen && cond.Id.ID == (int)AbilityType.TeleportSpell) 
                 cond.Id.ID = (int)AbilityType.Sentry; // :upside_down: :upside_down: :upside_down:
-              else if (!HintsDisabled && cond.Id.ID == (int)AbilityType.WaterBreath) {
-                cond = new UberStateCondition(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)PsuedoLocs.GAME_START), null);
-                pickupMap[cond] = new Message("Granting pickup overwritten by hint:").Concat(cond.Pickup());
-              }
               else
                 ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
               frags.RemoveAt(frags.Count - 1);
@@ -167,8 +163,10 @@ namespace RandoMainDLL {
             }
             var pickup = BuildPickup(pickupType, frags[3], extras, cond);
             pickup.Muted = needsMute;
-            if (pickup.IsHintItem())
+            if (pickup.IsKeyItem())
               HintsController.AddHint(cond.Loc().Zone, pickup as Checkable);
+            if (pickup is Checkable c)
+              HintsController.CheckableLocs[c] = cond.Loc().Zone;
             pickupMap[cond] = cond.Pickup().Concat(pickup);
           }
           catch (Exception e) {
@@ -329,6 +327,10 @@ namespace RandoMainDLL {
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
+        case PickupType.ZoneHint:
+          return new ZoneHint((ZoneType)pickupData.ParseToByte());
+        case PickupType.CheckableHint:
+          return new CheckableHint(pickupData);
         case PickupType.Message:
           var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None).ToList();
           List<string> msgs = new List<string>();
