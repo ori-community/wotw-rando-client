@@ -89,5 +89,5 @@ namespace area
         };
     }
 
-    parser::AreaTree parse(const std::vector<Token>& tokens);
+    parser::AreaTree parse(const std::vector<tokenizer::Token>& tokens);
 }

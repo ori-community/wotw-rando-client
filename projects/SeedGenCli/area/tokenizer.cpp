@@ -186,15 +186,15 @@ namespace area
                 while (true)
                 {
                     const auto c = input.at(end);
-                    if (isspace(c) || c == '=')
+                    if (isspace(c))
                         break;
 
-                    if (c == ',')
+                    if (c == ',' || c == '=')
                     {
                         auto check_end = end + 1;
                         while (true)
                         {
-                            const auto ce = input.at(end);
+                            const auto ce = input.at(check_end);
                             if (ce == '\n')
                                 return NULL_TOKEN;
                             if (ce == ':')
@@ -206,6 +206,8 @@ namespace area
                                         0
                                     }
                                 );
+
+                            ++check_end;
                         }
                     }
 
@@ -225,7 +227,7 @@ namespace area
                 return NULL_TOKEN;
             }
 
-            std::pair<u64, Token> tokenize_requirement_value(const std::string_view input)
+            std::pair<u64, Token> tokenize_value(const std::string_view input)
             {
                 if (input.starts_with('='))
                 {
@@ -233,11 +235,11 @@ namespace area
                     while (end < input.size())
                     {
                         const auto c = input.at(end);
-                        if (isspace(c) || c == ',')
+                        if (isspace(c) || c == ',' || c == ':')
                             return std::make_pair(
                                 end,
                                 Token{
-                                    TokenType::RequirementValue,
+                                    TokenType::Value,
                                     std::string(input.begin() + 1, input.begin() + end),
                                     0
                                 }
@@ -249,7 +251,7 @@ namespace area
                     return std::make_pair(
                         end - 1,
                         Token{
-                            TokenType::RequirementValue,
+                            TokenType::Value,
                             std::string(input.begin() + 1, input.begin() + end - 1),
                             0
                         }
@@ -310,7 +312,7 @@ namespace area
                 tokenize_quest,
                 tokenize_state,
                 tokenize_switch,
-                tokenize_requirement_value,
+                tokenize_value,
                 tokenize_requirement
             };
         }

@@ -21,7 +21,7 @@ namespace area
             State,
             Switch,
             Requirement,
-            RequirementValue,
+            Value,
             And,
             Or,
             At

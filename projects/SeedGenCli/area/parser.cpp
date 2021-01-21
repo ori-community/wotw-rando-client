@@ -3,6 +3,8 @@
 #include <charconv>
 #include <iostream>
 
+using namespace area::tokenizer;
+
 namespace area
 {
     namespace parser
@@ -56,7 +58,7 @@ namespace area
                 case TokenType::Switch:
                 case TokenType::Requirement:
                     return token.value;
-                case TokenType::RequirementValue:
+                case TokenType::Value:
                     return std::string("=") + token.value;
                 case TokenType::And:
                     return ",";
