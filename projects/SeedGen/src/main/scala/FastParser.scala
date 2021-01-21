@@ -32,7 +32,7 @@ package SeedGenerator {
     val enemiesByName = Map(
       "Mantis" -> Mantis, "Slug" -> Slug, "WeakSlug" -> WeakSlug, "BombSlug" -> BombSlug, "CorruptSlug" -> CorruptSlug, "SneezeSlug" -> SneezeSlug, "ShieldSlug" -> ShieldSlug,
       "Lizard" -> Lizard, "Bat" -> Bat, "Hornbug" -> Hornbug, "Skeeto" -> Skeeto, "SmallSkeeto" -> SmallSkeeto, "Bee" -> Bee, "Nest" -> Nest, "Fish" -> Fish, "Waterworm" -> Waterworm,
-      "Crab" -> Crab, "SpinCrab" -> SpinCrab, "Spitter" -> Spitter, "Balloon" -> Balloon, "Miner" -> Miner, "MaceMiner" -> MaceMiner, "ShieldMiner" -> ShieldMiner, "BombSlime" -> BombSlug, // maybe?
+      "Crab" -> Crab, "SpinCrab" -> /*Spin*/Crab, "Spitter" -> Spitter, "Balloon" -> Balloon, "Miner" -> Miner, "MaceMiner" -> MaceMiner, "ShieldMiner" -> ShieldMiner, "BombSlime" -> BombSlug, // maybe?
       "CrystalMiner" -> CrystalMiner, "Tentacle" -> Tentacle, "ShieldCrystalMiner" -> CrystalShieldMiner, "Sandworm" -> Sandworm, "Spiderling" -> Spiderling, "EnergyRefill" -> EnergyRefill)
     val skillsWithCost = Map(
       "Bow" -> (Bow, .25f), "Spear" -> (Spear,  2f), "Flash" -> (Flash, 1f), "Shuriken" -> (Shuriken, 0.5f),
