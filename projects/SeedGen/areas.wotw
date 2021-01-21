@@ -7362,10 +7362,6 @@ anchor UpperWastes.RuinsApproach at 2002, -3684:  # Left of the teleporter, on t
   # checkpoint refill would be redundant with teleporter refill
 
   quest UpperWastes.FlowersSeed:  # most paths here would be redundant with the connection upwards
-    moki:
-      Burrow, Bash, Glide, DoubleJump OR Dash  # Dash variant slightly precise if you do it without the enemies... but you can also do it using the enemies
-      Burrow, Launch  # maybe Glide? I think this is fine tho
-      Bash, Launch
     gorlek:
       Burrow, Bash, DoubleJump OR Dash
       Burrow, Bash, Dash, Grenade=1 OR SentryJump=1 OR Damage=30  # Dash wasn't considered gorlek to climb the last part up to ruins
@@ -7431,7 +7427,7 @@ anchor UpperWastes.RuinsApproach at 2002, -3684:  # Left of the teleporter, on t
 anchor UpperWastes.OutsideRuins at 2014, -3609:  # Just outside the door
   refill Checkpoint
 
-  pickup UpperWastes.FlowersSeed: free
+  quest UpperWastes.FlowersSeed: free
   pickup UpperWastes.WallOre:
     moki:
       Burrow, DoubleJump, Dash OR Glide
