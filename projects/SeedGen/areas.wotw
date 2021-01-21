@@ -4071,8 +4071,9 @@ anchor LowerReach.Entry at -390, -4025:  # Behind Baur
   conn LowerReach.AboveEntry:
     moki:
       DoubleJump, Launch  # Can't rely on the sleeping bear to be there
-      Bash, DoubleJump OR Launch OR Dash OR Grenade=1
+      Bash, DoubleJump OR Launch OR Grenade=1
     gorlek:
+      Bash, Dash
       Launch  # a little tight but totally doable. Jump up before launching.
       Bash, Glide, Damage=20
       SentryJump=1, DoubleJump OR Bash
@@ -4104,6 +4105,7 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
   pickup LowerReach.AboveBaurLowerEX:
     moki:
       Launch
+      LowerReach.CoolBaurFurnace, Bash, Grenade=1  # seemed a bit hectic without cooling the furnace
       DoubleJump, Bash, LowerReach.HeatBaurFurnace OR Grenade=1  # use a grenadebash if you can't use the tongue plant
     gorlek:
       LowerReach.HeatBaurFurnace, Bash, Dash OR DoubleJump OR Glide  # have fun with the snaptraps
@@ -4131,9 +4133,8 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
 
   conn LowerReach.Entry: free
   conn LowerReach.Icefall:
-    moki:
-      DoubleJump OR Launch OR Dash
-      LowerReach.HeatBaurFurnace
+    moki: LowerReach.HeatBaurFurnace OR DoubleJump OR Launch
+    gorlek: Dash
     unsafe:
       Sentry=2 OR Shuriken=2
       Sword OR Hammer  # Upslash before grabing the frozen tongue, jump out of it then weapon stall
@@ -4160,15 +4161,15 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
     moki: Weapon
 
   state LowerReach.BearBridgeBroken:
-    moki: LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur, so not making that moki
+    moki: LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur
   state LowerReach.LeftFurnace:
     moki:
       Grenade=1, Bash, DoubleJump OR Dash OR Glide  # Grenade to light the furnace
       Grenade=1, Launch  # Grenade to light the furnace
-      Grenade=1, Grapple, DoubleJump OR Dash OR Glide  # Grenade to light the furnace
+      Grenade=1, Grapple, DoubleJump  # Grenade to light the furnace
     gorlek:
       Grenade=1, Bash
-      Grenade=1, Grapple, Sword OR Hammer  # Weapon stall after grabing the plant. Use sword/hammer to combat the Bees as well
+      Grenade=1, Grapple, Dash OR Glide OR Sword OR Hammer  # Weapon stall after grabing the plant. Use sword/hammer to combat the Bees as well
       Grenade=1, SentryJump=1, Combat=Nest
     unsafe:
       Grenade=1, Combat=Nest, Damage=20  # Damage boost on the spikes on the frozen waterfall
@@ -4220,11 +4221,9 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
 
   conn LowerReach.Entry: free
   conn LowerReach.AboveEntry:
-    moki:
-      DoubleJump OR Launch OR Dash
-      LowerReach.HeatBaurFurnace
-    unsafe:
-      Glide OR Sword OR Hammer  # From the same height as the water
+    moki: LowerReach.HeatBaurFurnace OR DoubleJump OR Launch
+    gorlek: Dash
+    unsafe: Glide OR Sword OR Hammer  # From the same height as the water
 
 anchor LowerReach.Central at -335, -4010:  # After the lever door
   refill Checkpoint
@@ -4232,7 +4231,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
   pickup LowerReach.AboveDoorEX:
     moki:
       LowerReach.CentralFurnace, DoubleJump, Dash, Bash OR Hammer OR Spear=1
-      Bash, Grenade=1
+      LowerReach.CentralFurnace, Bash, Grenade=1
       Launch
     gorlek:
       Bash, Grenade=1
@@ -4251,10 +4250,11 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
     moki:
       Launch
       DoubleJump, Dash
-      LowerReach.CentralFurnace, Bash, Grenade=1  # just land on the little wall first
+      LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
     gorlek:
       DoubleJump, TripleJump
       SentryJump=1  # from the snaptrap
+      LowerReach.CentralFurnace, Bash, Grenade=1  # just land on the little wall first
     unsafe:
       DoubleJump, Sword OR Hammer  # sword: weapon stalling / hammer: djump+upslash from the snaptrap
       Bash  # move the purple slug to the right first
@@ -4265,9 +4265,9 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       Launch
       LowerReach.CentralFurnace, DoubleJump, Dash
       LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-      Bash, Grenade=2, Hammer OR Spear=1
     gorlek:
       SentryJump=2, Hammer OR Spear=1
+      Bash, Grenade=2, Hammer OR Spear=1
       DoubleJump, TripleJump, LowerReach.Lever, Hammer OR Spear=1  # finish with an upswing
     unsafe:
       Bash, Hammer OR Spear=1
@@ -4947,11 +4947,10 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
   pickup UpperReach.MiddleLeftKS:
     moki:
       Launch, DoubleJump OR Dash OR Glide
-      Launch, Bash, Flap OR Grenade=1
       UpperReach.HeatFurnace:
         DoubleJump, Bash, Grapple OR Glide
-        Dash, Bash, Glide, Grenade=1
-        Dash, Bash, Glide, Water, WaterDash
+        Dash, Bash, Grenade=1, Glide
+        Dash, Bash, Water, WaterDash, Glide
     gorlek:
       Launch, Bash
       Bash, Damage=20, Grenade=1 OR Flap OR Dash OR DoubleJump OR Glide  # start at the soup, may need to weapon stall to land further left on the spikes
