@@ -264,9 +264,8 @@ package SeedGenerator {
           Logger.debug(s"pickup $name not found in loc_data.csv")
         None
       }) match {
-      case Some(ItemLoc(name, l)) if !Settings.flags.noHints && (l.value == "LupoZoneMap" || name == "OpherShop.WaterBreath") => None
       case Some(ItemLoc(_, l)) if !Settings.questLocs && l.category == "Quest" => None
-      case Some(ItemLoc(_, l)) if Settings.bonusItems && l.uberGroupId == 1 => None // TODO: change this when weapons probably
+      case Some(ItemLoc(_, l)) if Settings.bonusItems && l.uberGroupId == 1 && l.uberId != "23" => None // TODO: change this when weapons probably
       case Some(ItemLoc(name, _)) if !Settings.flags.noKSDoors && name == "OpherShop.Teleport" =>/* Logger.debug(s"Filtered out $name");*/ None
       case a => a
     }
@@ -445,7 +444,21 @@ package SeedGenerator {
       Seq("3|0", "3|1", "3|2", "3|3", "3|4").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
-      Settings.headers.foreach({
+      (Settings.headers ++ (if(!Settings.flags.noHints)  Seq(
+          "48248|18767|12|0  // Marsh Zone Hint from LupoMap.Marsh",
+          "48248|45538|12|5  // Burrows Zone Hint from LupoMap.Burrows",
+          "48248|3638|12|1   // Hollow Zone Hint from LupoMap.Hollow",
+          "48248|1590|12|3   // Wellspring Zone Hint from LupoMap.Wellspring",
+          "48248|1557|12|4   // Pools Zone Hint from LupoMap.Pools",
+          "48248|48423|12|8  // Depths Zone Hint from LupoMap.Depths",
+          "48248|61146|12|9  // Wastes Zone Hint from LupoMap.Wastes",
+          "48248|29604|12|6  // Reach Zone Hint from LupoMap.Reach",
+          "48248|4045|12|11  // Willow Zone Hint from LupoMap.Willow",
+          "48248|19396|12|2  // Glades Zone Hint from LupoMap.ECMapIcons",
+          "48248|57987|12|7  // Woods Zone Hint from LupoShop.ECMapIcons",
+          "48248|41666|13|4000,750,2-101,2-104,2-51,2-118 // key skill hint from LupoHint.Shards",
+          "1|23|13|2500,500,2-0,2-14,2-97,9-0             // key skill hint from OpherShop.WaterBreath",
+        ) else Nil)).foreach({
         case  setStateRegex(stateName, _) =>
           Logger.debug(s"Setting $stateName to true")
           prestates += WorldState(stateName)
