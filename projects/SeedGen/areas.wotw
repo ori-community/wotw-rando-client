@@ -5142,7 +5142,7 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
     gorlek:
       Bash, Grenade=1
       Bash, Damage=30, Glide OR Sword
-      Grapple, DoubleJump, TripleJump OR Glide OR Sword
+      Grapple, DoubleJump, TripleJump OR Glide
       SentryJump=1, Combat=Bat, DoubleJump OR Dash
     unsafe:
       Bash
