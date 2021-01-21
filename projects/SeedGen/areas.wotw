@@ -194,6 +194,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
   pickup MarshSpawn.FightRoomEX:
     moki: BreakWall=10
 
+  conn Tokk: free
   conn MarshSpawn.CaveEntrance:
     unsafe: Hammer  # break the wall from behind
   conn MarshSpawn.PoolsBurrowsPath:
@@ -218,13 +219,6 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     unsafe: Weapon  # slightly out of sight
 
   quest MarshSpawn.CaveKS: free
-  quest MarshSpawn.TokkTabletQuest:
-    moki: MidnightBurrows.TabletQI, Bash, DoubleJump OR Dash OR Launch
-    gorlek, MidnightBurrows.TabletQI:
-      Bash, Glide OR Sword
-      Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
-      Launch, Glide
-      Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
 
   pickup MarshSpawn.CaveOre:
     moki:
@@ -268,25 +262,14 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
     unsafe:
       Water, WaterDash, Bash, Hammer, Damage=10  # dboost at the start, too precise for gorlek
       Water, WaterDash, Bash, Sword  # too precise for gorlek
-  pickup MarshSpawn.DamageTree:
-    moki:
-      Bash, DoubleJump, Glide
-      Bash, Launch
-    gorlek:
-      Bash, DoubleJump OR Dash OR Glide OR Sword
-      Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
 
-  conn MidnightBurrows.Teleporter:
-    moki:
-      Bash, DoubleJump, Glide
-      Bash, Launch
+  conn MarshSpawn.BurrowsEntry:
+    moki: Bash, DoubleJump OR Dash OR Launch
     gorlek:
-      Bash, Glide
-      Bash, Grenade=1, Sword
-      Bash, SentryJump=1, Sword
-    unsafe:
-      # Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end, too precise for gorlek
-      Bash, Hammer, Damage=10
+      Bash, Glide OR Sword
+      Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
+      Launch, Glide
+      Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
   conn MarshSpawn.Cave: free
   conn MarshSpawn.Main:
     moki:
@@ -300,7 +283,30 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
 
 # checkpoint at -954, -4355
 # checkpoint at -1004, -4497
-# checkpoint at -931, -4494
+
+anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
+  refill Checkpoint
+
+  quest MarshSpawn.TokkTabletQuest:
+    moki: MidnightBurrows.TabletQI
+
+  pickup MarshSpawn.DamageTree:
+    moki: Bash, DoubleJump OR Dash OR Glide OR Launch
+    gorlek: Bash
+
+  conn Tokk: free
+  conn MidnightBurrows.Teleporter:
+    moki:
+      Bash, DoubleJump, Glide
+      Bash, Launch
+    gorlek:
+      Bash, Glide
+      Bash, Grenade=1, Sword
+      Bash, SentryJump=1, Sword
+    unsafe:
+      # Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end, too precise for gorlek
+      Bash, Hammer, Damage=10
+  # needs backwards connection
 
 anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
   state MarshSpawn.KeystoneDoor:
@@ -1352,7 +1358,8 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
   pickup WestHollow.DashTree: free
   pickup WestHollow.CrusherEX:
     moki: Dash
-    gorlek: Launch
+    gorlek: Launch, Burrow OR WaterDash  # hmmmmm
+    unsafe: Burrow OR WaterDash
   pickup WestHollow.DashRightEX:
     moki:
       DoubleJump, Dash
@@ -1431,8 +1438,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
     gorlek:
       EastHollow.BeetleDefeated OR Launch
       Bash, DoubleJump OR Dash OR Glide
-      SentryJump=1, Sword, DoubleJump OR Dash OR Glide  # Go down to the pit, do SentryJump and the use Sword or Hammer to get to the rope
-      SentryJump=1, Hammer, DoubleJump OR Dash OR Glide  # Go down to the pit, do SentryJump and the use Sword or Hammer to get to the rope
+      SentryJump=1, DoubleJump OR Dash OR Glide  # Go down to the pit, do SentryJump and the use Sword or Hammer to get to the rope
   conn EastHollow.MapMoki:
     moki, EastHollow.BeetleDefeated, EastHollow.Voice:
       Bash, DoubleJump OR Dash OR Glide
@@ -1670,8 +1676,6 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   #       TuleyShop.SpringPlants, Bash, Grenade=1
 
   # silent woods map quest doesn't exactly make sense
-  quest GladesTown.HandToHandPouch:
-    moki: EastHollow.HandToHandMap
   quest GladesTown.RebuildTheGlades:
     moki: Ore=40  # Eiko told me not to modify this so orishrug ~Cosmic
 
@@ -1845,6 +1849,7 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   conn GladesTown.ReachPath:
     moki: TuleyShop.Lightcatchers, TuleyShop.StickyGrass, Bash, Grapple, DoubleJump OR Dash  # other paths should be redundant with HoleHut
   conn OpherShop: free
+  conn Tokk: free
   conn TuleyShop:
     moki, InnerWellspring.WaterEscape:
       DoubleJump OR Launch
@@ -2183,7 +2188,7 @@ anchor GladesTown.HoleHut at -214, -4111:  # The ledge below Hole Hut
       TuleyShop.StickyGrass, Grapple, Sword OR Hammer OR Blaze=1 OR Shuriken=1 OR Sentry=1 OR Flash
   conn TuleyShop:
     moki: InnerWellspring.WaterEscape, Dash OR Glide  # seed paths tbd if ever necessary
-    gorlek: Sword OR Hammer  # getting up there with just a weapon from below is not written in gorlek. The weapon floats from hole hut, however, are probably gorlek difficulty.
+    gorlek: InnerWellspring.WaterEscape, Sword OR Hammer  # getting up there with just a weapon from below is not written in gorlek. The weapon floats from hole hut, however, are probably gorlek difficulty.
     # everything else is redundant
   conn GladesTown.Teleporter: free
 
@@ -2707,6 +2712,7 @@ anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you ex
   pickup OuterWellspring.EntranceRoofEX:
     moki: DoubleJump, Launch, Dash OR Glide
 
+  # this tokk disappears after the needle quest
   conn InnerWellspring.WestDoor:
     moki: InnerWellspring.MiddleDoorsOpen
   conn OuterWellspring.EastDoor:
@@ -2810,6 +2816,8 @@ anchor OuterWellspring.AboveWestDoor at -866, -3949:  # on the platform arcing o
     gorlek:
       Grapple, DoubleJump, TripleJump OR Damage=15
       Grapple, Damage=15, Dash OR Glide
+      DoubleJump, TripleJump, Dash, Glide OR Sword
+      DoubleJump, TripleJump, Glide, Damage=15
       Launch, Sword OR Damage=15
 
   conn OuterWellspring.TopDoor:
@@ -3458,7 +3466,7 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
       Launch
     gorlek:
       DoubleJump, TripleJump                 # Can be done with just double jump but the first jump is precise
-      SentryJump=1, Sword
+      SentryJump=1
     unsafe:
       DoubleJump, Sword OR Hammer            # Sword path uses platform on the right, Hammer path uses the wall to the left of tp
   pickup InnerWellspring.SwimOre:
@@ -3519,7 +3527,11 @@ anchor WoodsEntry.ShriekMeet at 391, -4198:  # The ledge after swimming through 
       Bash, DoubleJump OR Dash OR Glide
       Launch
       Bash, Grenade=2
-    gorlek: Combat=Tentacle+Balloon OR Bash OR Damage=10  # Jump on the bubble
+    gorlek:
+      Damage=10, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1
+      SentryJump=1
+    unsafe: Combat=Tentacle+Balloon OR Bash OR Damage=10
 
   conn WoodsEntry.BelowTeleporter:
     moki:
@@ -3568,9 +3580,7 @@ anchor WoodsEntry.BelowTeleporter at 591, -4198:  # Read the name
       DoubleJump, Hammer  # Double jump to the right wall, upslash to start climbing it (?)
   conn WoodsEntry.TwoKeystoneRoom:
     moki: Combat=2xBalloon, DoubleJump OR Dash OR Glide OR Launch
-    gorlek:
-      Damage=20, DoubleJump OR Dash OR Glide OR Launch  # both baloons are sort of dangerous, damage is for them
-      Combat=2xBalloon, Sword OR Hammer
+    gorlek: Combat=2xBalloon, Sword OR Hammer
 
 anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
   refill Full
@@ -4274,7 +4284,12 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       LowerReach.CentralFurnace, DoubleJump, Dash, Bash
       LowerReach.CentralFurnace, Bash, Grenade=1
     gorlek:
-      SentryJump=3, Hammer OR Spear=1
+      Spear=1, SentryJump=3
+      Hammer, SentryJump=4
+      Spear=1, Bash, Grenade=1, DoubleJump OR Dash OR Damage=20
+      Spear=1, Bash, Grenade=2
+      Hammer, Bash, Grenade=2, DoubleJump OR Dash OR Damage=20
+      Hammer, Bash, Grenade=3
       LowerReach.CentralFurnace, DoubleJump, TripleJump OR Dash  # stand on the tongue plant
     unsafe:
       DoubleJump, TripleJump, LowerReach.Lever, Hammer OR Spear=1
@@ -4950,6 +4965,7 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
     moki: UpperReach.HeatFurnace, Water, Combat=ShieldMiner OR DoubleJump OR Bash OR Launch
     gorlek: UpperReach.HeatFurnace, Water  # You can trigger the plant from the left if you stick to it from bellow
 
+  conn Tokk: free
   conn UpperReach.UpperSoup:
     moki:
       Launch
@@ -6235,6 +6251,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   pickup EastPools.LupoMap:
     gorlek: Water, ShurikenBreak=20
 
+  conn Tokk: free
   conn EastPools.Teleporter:
     moki: EastPools.LowerWaterDrained
   conn EastPools.FishingPool:
@@ -7171,6 +7188,11 @@ anchor LowerWastes.EastTP at 1992, -3902:  # Location of the east teleporter
     moki: Burrow
 
   conn Teleporters: free
+  conn Tokk:
+    moki:
+      DoubleJump OR Burrow OR Launch
+      Bash, Grenade=1
+    gorlek: Sword OR Hammer
   conn LowerWastes.LeverArea:
     moki: Burrow
   conn LowerWastes.UpperPath:
@@ -8060,6 +8082,10 @@ anchor WillowsEnd.UpperHeartPath at 506, -3711:  # Right above the exit blocked 
 
   conn WillowsEnd.Upper: free
 
+anchor Tokk:  # Tokk's talks
+  quest GladesTown.HandToHandPouch:
+    moki: EastHollow.HandToHandMap
+
 anchor TwillenShop:
   quest GladesTown.TwillenGemQuest:
     moki: LowerWastes.EerieGemQI
@@ -8081,7 +8107,7 @@ anchor TwillenShop:
   pickup TwillenShop.LightHarvest:
     moki: SpiritLight=1200
 
-anchor OpherShop:
+anchor OpherShop:  # Opher's offers
   pickup OpherShop.Spike:
     moki: SpiritLight=1200
   pickup OpherShop.SpiritSmash:
