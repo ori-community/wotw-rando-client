@@ -53,6 +53,7 @@ namespace RandoMainDLL {
     Warp = 8,
     StartTimer = 9,
     StopTimer = 10,
+    RedirectState = 11,
   }
 
   public enum TeleporterType : byte {
@@ -603,6 +604,18 @@ namespace RandoMainDLL {
           //          SeedController.HowlEscapeOverride = value > 0;
           break;
       }
+    }
+  }
+  public class RedirectStateCommand : SystemCommand {
+    int state;
+    int value;
+
+    public RedirectStateCommand(int state, int value) : base(SysCommandType.SetState) {
+      this.state = state;
+      this.value = value;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.register_state_redirect(state, value);
     }
   }
   public class WarpCommand : SystemCommand {

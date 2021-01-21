@@ -324,6 +324,14 @@ namespace RandoMainDLL {
                 t,
                 new UberId(incGroup, incState)
               );
+            case SysCommandType.RedirectState:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              var redirectState = extras[0].ParseToInt("BuildPickup.RedirectState");
+              var redirectValue = extras[1].ParseToInt("BuildPickup.RedirectValue");
+              return new RedirectStateCommand(redirectState, redirectValue);
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
