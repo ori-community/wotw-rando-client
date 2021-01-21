@@ -39,7 +39,7 @@ package SeedGenerator {
       "Blaze" -> (Blaze, 1f), "Grenade" -> (Grenade, 1f), "Sentry" -> (Sentry, 1f)
     )
     def enemyParser[_: P]: P[(Enemy, Int)] = P((num ~~ "x").? ~~ nameMapParser(enemiesByName)).map({case (None, e) => (e, 1); case (Some(i), e) => (e, i)})
-    def combatReq[_: P]: P[Requirement] = P("Combat=" ~~/ enemyParser.repX(sep="+")).map(CombatReq) | P("Boss"~~/equalsNum).map(n => CombatReq(Seq((Boss(n), 1))))
+    def combatReq[_: P]: P[Requirement] = P("Combat=" ~~/ enemyParser.repX(sep="+")).map(CombatReq.apply) | P("Boss"~~/equalsNum).map(n => CombatReq(Seq((Boss(n), 1))))
     def energySkillReq[_: P]: P[Requirement] = P(nameMapParser(skillsWithCost) ~~ equalsNum).map({case (skill, cost, count) => skill.req and EnergyReq(count * cost)})
     def equalsNum[_ :P]: P[Int] = P("=" ~ num)
     def nameParser[_: P]: P[String] = P(!("quest" | "state" | "pickup" | "conn" | "unsafe" | "Checkpoint" | "refill") ~ CharsWhileIn("a-zA-Z").! ~~ ("." ~~ CharsWhileIn("a-zA-Z").!).?.map(_.map(s => s".$s").getOrElse(""))).map(ts)
