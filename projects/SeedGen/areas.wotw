@@ -5118,6 +5118,7 @@ region UpperDepths:
 anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the entrance
   pickup UpperDepths.EntrySpikesEX:
     moki: Glide
+    gorlek: Damage=10
     unsafe: free
 
   conn UpperDepths.FirstFirefly:
@@ -5126,8 +5127,7 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
       Glide, Combat=2xBombSlug, Bash
     gorlek:
       Glide, Combat=Bat OR Bash
-      DoubleJump, Dash, Bash, Damage=30, TripleJump
-      Launch, Bash, Damage=30, DoubleJump OR Dash
+      Combat=2xBombSlug, Damage=30, Bash, DoubleJump OR Dash  # Lots of possibilities here but Bash is the most reliable way to avoid too much damage
   # can't escape depths from inside
 
 # checkpoint at 147, -4392
@@ -5145,6 +5145,8 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
       Bash, Damage=30, Glide OR Sword
       Grapple, DoubleJump, TripleJump OR Glide OR Sword
       SentryJump=1, Combat=Bat, DoubleJump OR Dash
+    unsafe:
+      Bash
       SentryJump=1, Combat=Bat, Glide, Damage=30
   pickup UpperDepths.EntryOre:
     moki:
@@ -5169,8 +5171,9 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
     gorlek:
       BreakWall=1, Grapple
       BreakWall=1, DoubleJump, TripleJump OR Dash OR Glide  # Glide happens to automatically line up with the safe spot, Sword doesn't
-      Bow=1 OR Spear=1
+      Bow=1 OR Spear=1  # break the firefly egg from a distance
       SentryJump=1, Sword, DoubleJump OR Dash OR Glide  # Go as close to spikes as possible, do SentryJup and the Sword hower + the skill you have
+    unsafe: Bash  # make friends with the spiderling
   # a higher difficulty can put paths directly to swimec using the firefly egg here
 
   conn UpperDepths.Entry:
