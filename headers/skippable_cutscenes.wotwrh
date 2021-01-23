@@ -1,6 +1,5 @@
-// skippable cutscenes v0.3c by Sirius
 // skips several cutscenes
-// occupies 9|0=1, 9|0=2, 9|1, 9|100
+// if a "Game Saved" message appears as a text box, you can reload from the menu to have the current cutscene skipped
 
 9|0|8|9|0|int|0  // for temporary usage
 
