@@ -248,22 +248,28 @@ namespace RandoMainDLL {
     private bool _clear;
     private bool _immediate;
     private bool _mute;
+    private bool _prepend;
     private float? _pos;
     public override int Frames { get => _frames; }
-    public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool mute = false) {
+    public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool mute = false, bool prepend = false) {
       Msg = msg;
       _frames = frames;
       _clear = clear;
       _pos = pos;
       _immediate = immediate;
       _mute = mute;
+      _prepend = prepend;
       Squelch = squelch;
     }
     public string Msg;
     public bool Squelch = false;
     public override void Grant(bool skipBase = false) {
-      if(!skipBase) // don't print during multis
-       AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _mute));
+      if (!skipBase) { // don't print during multis
+        if (!_prepend)
+          AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _mute));
+        else
+          AHK.PrependToNextText(DisplayName);
+      }
       base.Grant(true);
     }
 

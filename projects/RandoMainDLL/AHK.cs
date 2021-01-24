@@ -199,28 +199,34 @@ namespace RandoMainDLL {
       Last = msg;
     }
     public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true, bool clearPrior = true) => SendPlainText(new PlainText(message, frames, pos, clearPrior), toMessageLog);
+    public static string preText = String.Empty;
     public static void SendPlainText(PlainText p, bool logMessage = true) {
+      PlainText _p = new PlainText(preText + p.Text, p.Frames, p.Pos, p.Clear, p.Immediate, p.Mute);
       if (logMessage)
-        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]", "")}\n");
+        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(_p.Text, "[$#@*]", "")}\n");
 
-      if(p.Immediate) {
+      if(_p.Immediate) {
         try {
-          if (p.Clear) InterOp.clear_visible_hints();
-          InterOp.display_hint(p.Text, p.Frames / 60f, p.Pos, p.Mute);
+          if (_p.Clear) InterOp.clear_visible_hints();
+          InterOp.display_hint(_p.Text, _p.Frames / 60f, _p.Pos, _p.Mute);
           if (IniFlag("LogOnPrint")) {
-            Randomizer.Log($"Sending {p.Text} for {p.Frames} (skipped queue)", false);
+            Randomizer.Log($"Sending {_p.Text} for {_p.Frames} (skipped queue)", false);
           }
         } catch (Exception e) { Randomizer.Error("AHK.sendInstant", e, false); }
       }
       else {
-        if (p.Pos == -2f) { // todo; maybe clean this up?
-          InterOp.display_below(p.Text, p.Frames / 60f, p.Mute);
+        if (_p.Pos == -2f) { // todo; maybe clean this up?
+          InterOp.display_below(_p.Text, _p.Frames / 60f, _p.Mute);
           return;
         }
-        if (p.Clear)
+        if (_p.Clear)
         FramesTillNextSend /= 3;
-        MessageQueue.Enqueue(p);
+        MessageQueue.Enqueue(_p);
       }
+      preText = String.Empty;
+    }
+    public static void PrependToNextText(string text) {
+      preText += text;
     }
     private static bool tpCheatToggle = false;
     public static bool TPToPickupsEnabled { get => tpCheatToggle && InterOp.get_debug_controls(); }
