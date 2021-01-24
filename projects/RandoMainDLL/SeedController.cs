@@ -348,6 +348,7 @@ namespace RandoMainDLL {
           bool clear = true;
           bool immediate = false;
           bool mute = false;
+          bool prepend = false;
           foreach (string extra in extras.Prepend(messageParts[0])) {
             if (extra.StartsWith("f=")) {
               int.TryParse(extra.Replace("f=", ""), out frames);
@@ -374,6 +375,10 @@ namespace RandoMainDLL {
             }
             else if (extra.ToLowerInvariant() == "quiet") {
               mute = true;
+              continue;
+            }
+            else if (extra.ToLowerInvariant() == "prepend") {
+              prepend = true;
               continue;
             }
 
@@ -410,9 +415,13 @@ namespace RandoMainDLL {
                 mute = true;
                 continue;
               }
+              else if (cmd.ToLowerInvariant() == "prepend") {
+                prepend = true;
+                continue;
+              }
             }
           }
-          return new Message(msg, frames, squelch, pos, clear, immediate, mute);
+          return new Message(msg, frames, squelch, pos, clear, immediate, mute, prepend);
         case PickupType.UberState:
           var stateParts = pickupData.Split(',').ToList(); // support old syntax
           if (stateParts.Count < 4) {
