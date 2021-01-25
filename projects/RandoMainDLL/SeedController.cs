@@ -279,6 +279,24 @@ namespace RandoMainDLL {
                 return new Message($"Invalid command ${pickupData}!");
               }
               return new SetResource((ResourceType)extras[0].ParseToByte("BuildPickup.SetResourceType"), extras[1].ParseToInt("BuildPickup.SetResourceValue"));
+            case SysCommandType.SetHealth:
+              if (extras.Count != 1) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              return new SetHealth(extras[0].ParseToFloat("BuildPickup.SetHealthValue"));
+            case SysCommandType.SetEnergy:
+              if (extras.Count != 1) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              return new SetEnergy(extras[0].ParseToFloat("BuildPickup.SetEnergyValue"));
+            case SysCommandType.SetSpiritLight:
+              if (extras.Count != 1) {
+                Randomizer.Log($"malformed command specifier ${pickupData}", false);
+                return new Message($"Invalid command ${pickupData}!");
+              }
+              return new SetSpiritLight(extras[0].ParseToInt("BuildPickup.SetSpiritLightValue"));
             case SysCommandType.StopIfEqual:
             case SysCommandType.StopIfGreater:
             case SysCommandType.StopIfLess:
