@@ -3867,7 +3867,13 @@ anchor WoodsMain.BelowHiddenOre at 1038, -4101:  # Below and to the right of the
     gorlek: Launch  # launch on the wall just bellow the ceiling's spikes, wall jump and lauch again to get to the right wall after the ceiling's spikes
     unsafe: DoubleJump, TripleJump, Hammer, Damage=15  # Triple jump to get to the wall just bellow the ceiling's spikes, wall jump and triplejump, land on the spikes. Triple jump and up slash to get to the wall on the right.
   conn WoodsMain.BalloonLure:
-    moki: BreakWall=3, Combat=Tentacle OR Bash
+    moki:
+      Combat=Tentacle, Sword OR Hammer
+      Combat=Tentacle, BreakWall=3, Grenade OR Blaze
+      Bash, Sword OR Hammer
+      Bash, BreakWall=3, Grenade OR Blaze
+    unsafe:
+      ShurikenBreak=3 OR Sentry=1
 
 anchor WoodsMain.PetrifiedHowl at 910, -4071:  # At silenced Howl
   refill Checkpoint
@@ -3961,7 +3967,7 @@ anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
       Glide, Launch
       DoubleJump, Glide, Bash, Grenade=1
       DoubleJump, Bash, Launch  # :)
-    gorlek, Sword OR Hammer:  # these can break the corruption from behind
+    gorlek, Sword OR Hammer OR Grenade=1 OR Blaze=1:  # these can break the corruption from behind
       DoubleJump, TripleJump, Combat=2xBalloon OR Dash
       SentryJump=1, Combat=2xBalloon OR Dash
       Bash, Grenade=1, Combat=2xBalloon OR Dash
@@ -6259,7 +6265,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   pickup EastPools.LupoMap:
     gorlek: SpiritLight=250, Water, ShurikenBreak=20
 
-  conn Tokk: free
+  # this Tokk disappears after Kwolok's death
   conn EastPools.Teleporter:
     moki: EastPools.LowerWaterDrained
   conn EastPools.FishingPool:
@@ -7336,7 +7342,8 @@ anchor UpperWastes.MissilePuzzleRight at 2058, -3813:  # On top of sand to the r
       Burrow, DoubleJump, TripleJump OR Dash OR Glide
     unsafe: Burrow
   conn UpperWastes.MissilePuzzleLeft:  # for better random spawn
-    gorlek: UpperWastes.LeverDoor, Burrow, Damage=14
+    gorlek: UpperWastes.LeverDoor, Burrow, Bash
+    unsafe: UpperWastes.LeverDoor, Burrow, Damage=14
 
 # checkpoint at 2037, -3751
 
