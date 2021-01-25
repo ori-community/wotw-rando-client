@@ -54,6 +54,9 @@ namespace RandoMainDLL {
     StartTimer = 9,
     StopTimer = 10,
     RedirectState = 11,
+    SetHealth = 12,
+    SetEnergy = 13,
+    SetSpiritLight = 14,
   }
 
   public enum TeleporterType : byte {
@@ -533,10 +536,10 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       switch (resourceType) {
         case ResourceType.Health:
-          InterOp.set_health(newResourceValue);
+          InterOp.set_max_health(newResourceValue);
           break;
         case ResourceType.Energy:
-          InterOp.set_energy(newResourceValue);
+          InterOp.set_max_energy(newResourceValue);
           break;
         case ResourceType.Ore:
           InterOp.set_ore(newResourceValue);
@@ -550,6 +553,33 @@ namespace RandoMainDLL {
       }
     }
 
+  }
+  public class SetHealth : SystemCommand {
+    private readonly float newHealth;
+    public SetHealth(float v) : base(SysCommandType.SetHealth) {
+      newHealth = v;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.set_health(newHealth);
+    }
+  }
+  public class SetEnergy : SystemCommand {
+    private readonly float newEnergy;
+    public SetEnergy(float v) : base(SysCommandType.SetEnergy) {
+      newEnergy = v;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.set_energy(newEnergy);
+    }
+  }
+  public class SetSpiritLight : SystemCommand {
+    private readonly int newSL;
+    public SetSpiritLight(int v) : base(SysCommandType.SetSpiritLight) {
+      newSL = v;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.set_experience(newSL);
+    }
   }
   public class ConditionalStop : SystemCommand {
     private readonly UberId targetState;
