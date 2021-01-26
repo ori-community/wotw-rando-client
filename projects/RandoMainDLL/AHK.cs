@@ -187,13 +187,13 @@ namespace RandoMainDLL {
     public static void OnNewGame() {
       Last = new PlainText("*Good Luck! <3*");
     }
-    public static void Pickup(string message, int frames = 180) {
+    public static void Pickup(string message, int frames = 180, float? pos = null, bool clear = true, bool immediate = false, bool mute = false) {
       PlainText msg;
-      if(SeedController.GrantingGoalModeLoc) {
-        msg = new PlainText(message, frames, -2f);
+      if(SeedController.GrantingGoalModeLoc && pos == null) {
+        msg = new PlainText(message, frames, -2f, clear, immediate, mute);
         HintsController.ProgressWithHints();
       } else 
-        msg = new PlainText(message, frames);
+        msg = new PlainText(message, frames, pos, clear, immediate, mute);
       
       SendPlainText(msg);
       Last = msg;

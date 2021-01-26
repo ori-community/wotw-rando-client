@@ -114,6 +114,10 @@ namespace RandoMainDLL {
 
   public abstract class Pickup {
     public virtual int Frames { get => 240; }
+    public virtual bool Clear { get => true; }
+    public virtual bool Immediate { get => false; }
+    public virtual bool Quiet { get => false; }
+    public virtual float? Pos { get => null; }
     public bool NonEmpty = true;
     public bool Muted = false;
     public abstract PickupType Type { get; }
@@ -130,7 +134,7 @@ namespace RandoMainDLL {
       if (skipBase)
         return;
       if (Frames > 0 && DisplayName.Length > 0 && !Muted)
-        AHK.Pickup(DisplayName, Frames);
+        AHK.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
     }
     public bool Collect(UberStateCondition foundAt) {
       if (NonEmpty) {
@@ -218,6 +222,38 @@ namespace RandoMainDLL {
         return (msgs.Count > 0 ? msgs : Children).Max(p => p.Frames);
       }
     }
+    public override bool Clear {
+      get {
+        if (!NonEmpty)
+          return base.Clear;
+        var msgs = Children.Where(p => p is Message msg).ToList();
+        return msgs.Exists(p => p.Clear);
+      }
+    }
+    public override bool Immediate {
+      get {
+        if (!NonEmpty)
+          return base.Immediate;
+        var msgs = Children.Where(p => p is Message msg).ToList();
+        return msgs.Exists(p => p.Immediate);
+      }
+    }
+    public override bool Quiet {
+      get {
+        if (!NonEmpty)
+          return base.Quiet;
+        var msgs = Children.Where(p => p is Message msg).ToList();
+        return msgs.Exists(p => p.Quiet);
+      }
+    }
+    public override float? Pos {
+      get {
+        if (!NonEmpty)
+          return base.Pos;
+        var msgs = Children.Where(p => p is Message msg).ToList();
+        return (msgs.Count > 0 ? msgs : Children).Max(p => p.Pos);
+      }
+    }
 
     public static Multi Empty => new Multi(new List<Pickup>());
 
@@ -250,16 +286,20 @@ namespace RandoMainDLL {
     private int _frames;
     private bool _clear;
     private bool _immediate;
-    private bool _mute;
+    private bool _quiet;
     private float? _pos;
     public override int Frames { get => _frames; }
-    public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool mute = false, bool prepend = false) {
+    public override bool Clear { get => _clear; }
+    public override bool Immediate { get => _immediate; }
+    public override bool Quiet { get => _quiet; }
+    public override float? Pos { get => _pos; }
+    public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool quiet = false, bool prepend = false) {
       Msg = msg;
       _frames = frames;
       _clear = clear;
       _pos = pos;
       _immediate = immediate;
-      _mute = mute;
+      _quiet = quiet;
       Prepend = prepend;
       Squelch = squelch;
     }
@@ -270,7 +310,7 @@ namespace RandoMainDLL {
       if (Prepend)
         AHK.PrependToNextText(DisplayName);
       else if (!skipBase) // don't print during multis
-        AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _mute));
+        AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _quiet));
       base.Grant(true);
     }
 
