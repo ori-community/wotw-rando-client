@@ -411,7 +411,7 @@ namespace RandoMainDLL {
     }
 
     public override string Name { get => type.GetDescription() ?? $"Unknown Ability {type}"; }
-    public override string DisplayName { get => $"*{Name}*"; }
+    public override string DisplayName { get => type == AbilityType.DamageUpgrade1 || type == AbilityType.DamageUpgrade2 ? $"#{Name}#" : $"*{Name}*"; }
   }
 
   public class RemoveAbility : Pickup {
