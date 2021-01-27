@@ -423,18 +423,6 @@ package SeedGenerator {
       }
       preplc = Map()
       prestates.clear()
-      if(Settings.flags.worldTour) {
-        Logger.debug("World Tour: finding relic placements...")
-        Nodes._items.values.groupBy(_.data.zone).foreach({
-          case (zone, _) if Seq("Windtorn Ruins", "Void", "Spawn") contains zone => // no relics in these zones
-          case (_, items) =>
-            if(r.nextFloat() < .8) {
-              val slot = items.toSeq.rand
-              addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
-            }
-        })
-        Logger.debug(s"World Tour: placed ${preplc.size} relics")
-      }
       if(Settings.seirLaunch) {
         val seir = Nodes.items("WindtornRuins.Seir")
         addPreplc(ItemPlacement(Launch, seir))
@@ -474,6 +462,20 @@ package SeedGenerator {
           }
         case raw => Logger.debug(s"ignoring line $raw")
       })
+     if(Settings.flags.worldTour) {
+        var rlccnt = 0
+        Logger.debug("World Tour: finding relic placements...")
+        Nodes._items.values.filterNot(preplc.keySet.contains).groupBy(_.data.zone).foreach({
+          case (zone, _) if Seq("Windtorn Ruins", "Void", "Spawn") contains zone => // no relics in these zones
+          case (_, items) =>
+            if(r.nextFloat() < .8) {
+              val slot = items.toSeq.rand
+              addPreplc(ItemPlacement(Bonus(20, "Relic"), slot))
+              rlccnt = rlccnt + 1
+            }
+        })
+        Logger.debug(s"World Tour: placed ${rlccnt} relics")
+      }
     }  match {
       case Success(_) => Logger.debug(s"finished creating preplacements, got: $preplc")
       case Failure(f) => Logger.error(s"Failed generating preplacements, got: $preplc, error: ${f.getMessage}")
