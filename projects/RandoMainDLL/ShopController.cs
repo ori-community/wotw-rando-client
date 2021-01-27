@@ -24,7 +24,7 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = SeedController.OpherWeapon(t);
           if (pickup.NonEmpty)
-            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
+            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
         }
         else if (KSOverride(t)) {
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
