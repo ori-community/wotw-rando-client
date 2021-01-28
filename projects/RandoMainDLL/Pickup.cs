@@ -283,23 +283,18 @@ namespace RandoMainDLL {
   }
 
   public class Message : Pickup {
-    private int _frames;
-    private bool _clear;
-    private bool _immediate;
-    private bool _quiet;
-    private float? _pos;
-    public override int Frames { get => _frames; }
-    public override bool Clear { get => _clear; }
-    public override bool Immediate { get => _immediate; }
-    public override bool Quiet { get => _quiet; }
-    public override float? Pos { get => _pos; }
+    public override int Frames { get; }
+    public override bool Clear { get; }
+    public override bool Immediate { get; }
+    public override bool Quiet { get; }
+    public override float? Pos { get; }
     public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool quiet = false, bool prepend = false) {
       Msg = msg;
-      _frames = frames;
-      _clear = clear;
-      _pos = pos;
-      _immediate = immediate;
-      _quiet = quiet;
+      Frames = frames;
+      Clear = clear;
+      Pos = pos;
+      Immediate = immediate;
+      Quiet = quiet;
       Prepend = prepend;
       Squelch = squelch;
     }
@@ -310,7 +305,7 @@ namespace RandoMainDLL {
       if (Prepend)
         AHK.PrependToNextText(DisplayName);
       else if (!skipBase) // don't print during multis
-        AHK.SendPlainText(new PlainText(DisplayName, Frames, _pos, _clear, _immediate, _quiet));
+        AHK.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
       base.Grant(true);
     }
 

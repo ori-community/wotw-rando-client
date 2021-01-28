@@ -187,43 +187,42 @@ namespace RandoMainDLL {
     public static void OnNewGame() {
       Last = new PlainText("*Good Luck! <3*");
     }
+    public static string preText = String.Empty;
     public static void Pickup(string message, int frames = 180, float? pos = null, bool clear = true, bool immediate = false, bool mute = false) {
       PlainText msg;
       if(SeedController.GrantingGoalModeLoc && pos == null) {
-        msg = new PlainText(message, frames, -2f, clear, immediate, mute);
+        msg = new PlainText(preText + message, frames, -2f, clear, immediate, mute);
         HintsController.ProgressWithHints();
       } else 
-        msg = new PlainText(message, frames, pos, clear, immediate, mute);
+        msg = new PlainText(preText + message, frames, pos, clear, immediate, mute);
       
       SendPlainText(msg);
       Last = msg;
+      preText = String.Empty;
     }
     public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true, bool clearPrior = true) => SendPlainText(new PlainText(message, frames, pos, clearPrior), toMessageLog);
-    public static string preText = String.Empty;
     public static void SendPlainText(PlainText p, bool logMessage = true) {
-      PlainText _p = new PlainText(preText + p.Text, p.Frames, p.Pos, p.Clear, p.Immediate, p.Mute);
       if (logMessage)
-        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(_p.Text, "[$#@*]", "")}\n");
+        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]", "")}\n");
 
-      if(_p.Immediate) {
+      if(p.Immediate) {
         try {
-          if (_p.Clear) InterOp.clear_visible_hints();
-          InterOp.display_hint(_p.Text, _p.Frames / 60f, _p.Pos, _p.Mute);
+          if (p.Clear) InterOp.clear_visible_hints();
+          InterOp.display_hint(p.Text, p.Frames / 60f, p.Pos, p.Mute);
           if (IniFlag("LogOnPrint")) {
-            Randomizer.Log($"Sending {_p.Text} for {_p.Frames} (skipped queue)", false);
+            Randomizer.Log($"Sending {p.Text} for {p.Frames} (skipped queue)", false);
           }
         } catch (Exception e) { Randomizer.Error("AHK.sendInstant", e, false); }
       }
       else {
-        if (_p.Pos == -2f) { // todo; maybe clean this up?
-          InterOp.display_below(_p.Text, _p.Frames / 60f, _p.Mute);
+        if (p.Pos == -2f) { // todo; maybe clean this up?
+          InterOp.display_below(p.Text, p.Frames / 60f, p.Mute);
           return;
         }
-        if (_p.Clear)
+        if (p.Clear)
         FramesTillNextSend /= 3;
-        MessageQueue.Enqueue(_p);
+        MessageQueue.Enqueue(p);
       }
-      preText = String.Empty;
     }
     public static void PrependToNextText(string text) {
       preText += text;
