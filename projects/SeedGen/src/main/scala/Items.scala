@@ -178,12 +178,17 @@ package SeedGenerator {
     def code = s"$itemType|$teleporterId"
     def name: String = s"${Teleporter.names.getOrElse(teleporterId, s"Unknown ($teleporterId)")} TP"
     def req: Requirement = TeleReq(teleporterId)
-    override val cost: Double = Math.max(6d + (if(Settings.flags.randomSpawn) 6d + (if(Settings.unsafePaths) 50d else 0d) else 0d), Teleporter.costs.getOrElse(teleporterId, 0d))
+    override val cost: Double = {
+      var c = 9d
+      if (Settings.flags.randomSpawn) c += 6
+      if (Settings.unsafePaths) c+= 35
+      Math.max(c, Teleporter.costs.getOrElse(teleporterId, 0d))
+    }
   }
 
   object Teleporter {
     val itemType: Int = 5
-    val costs: Map[Int, Double] = Map(3 -> 14, 16 -> 30, 17->10)
+    val costs: Map[Int, Double] = Map(3 -> 20, 6 -> 20, 16 -> 30, 17 -> 15)
     val areaFileNames = Map("BurrowsTP" -> 0, "DenTP" -> 1, "EastPoolsTP" -> 2, "WellspringTP" -> 3, "ReachTP" -> 4, "HollowTP" -> 5, "DepthsTP" -> 6, "WestWoodsTP" -> 7, "EastWoodsTP" -> 8, "WestWastesTP" -> 9, "EastWastesTP" -> 10, "OuterRuinsTP" -> 11, "WillowTP" -> 12, "Willow'sEndTP" -> 12, "WestPoolsTP" -> 13, "InnerRuinsTP" -> 14, "MarshTP"->16, "GladesTP" -> 17)
     val names: Map[Int, String] = Map(
       0 -> "Burrows",
