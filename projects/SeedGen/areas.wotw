@@ -129,9 +129,8 @@ anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaki
     moki: BreakWall=16, Water
   pickup MarshSpawn.BashEC:
     moki: Bash OR Launch
-    gorlek:
-      SentryJump=1
-      DoubleJump, TripleJump, Sword  # Use pogo of the slime to jump to the ledge
+    gorlek: SentryJump=1
+    unsafe: DoubleJump, Sword  # Use pogo of the slime to jump to the ledge
   pickup MarshSpawn.PreLupoEX: free
   pickup MarshSpawn.LupoMap:
     moki: SpiritLight=50
@@ -431,11 +430,11 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
   state HowlsDen.KeystoneDoor:
     moki: Keystone=2
   state MarshSpawn.RainLifted: free  # the sword tree
-  state HowlsDen.BoneBarrier:  # the barrier blocking the loest part of Howl's Den
+  state HowlsDen.BoneBarrier:  # the barrier blocking the lowest part of Howl's Den
     moki: BreakWall=16
 
   pickup HowlsDen.BoneOre:
-    moki: Hammer OR Spear=1
+    moki: Hammer OR Spear=3  # spear likes to target the enemies around
   pickup HowlsDen.AboveDoorKS:
     moki: DoubleJump OR Launch
     gorlek:
@@ -678,11 +677,8 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
-    gorlek:
-      Sword  # Pogo the enemy
-      SentryJump=1, Hammer
-    unsafe:
-      Dash
+    gorlek: SentryJump=1
+    unsafe: Dash OR Sword
 
   conn MarshShrine: free
   conn MarshPastOpher.BowPath:
@@ -1381,10 +1377,10 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
       DoubleJump, Bash, Grenade=1  # There are two ledges above the tree, stand on the right one, throw Grenade from there
       SentryJump=1
       Dash, Bash, Grenade=1, Glide OR Sword OR Hammer OR Damage=10  # around the right
-      WestHollow.DoorLever, DoubleJump, Sword  # Lure and pogo the jumper
-      WestHollow.DoorLever, Bash  # Lure the mantis
     unsafe:
       Dash, Sword OR Hammer  # Take the path right from the Dash tree
+      WestHollow.DoorLever, DoubleJump, Sword  # Lure and pogo the mantis
+      WestHollow.DoorLever, Bash  # Lure the mantis
 
   # backwards connections pointless with the lever
 
@@ -1477,8 +1473,9 @@ anchor EastHollow.MapMoki at -106, -4221:  # after crossing the voicelocked door
   conn GladesTown.Teleporter:
     moki: Bash, DoubleJump OR Launch
     gorlek:
-      Bash, Dash OR Glide OR Sword OR Hammer OR Damage=10  # Jump to the wall on the right of the pole to do this damageless
-      Bash, SentryJump=1, Dash OR Glide OR Damage=10
+      Bash, Grenade=1, Dash OR Glide OR Damage=10
+      Bash, SentryJump=1, Dash OR Damage=10
+      Bash, Dash, Damage=10
     unsafe:
       Bash, Grenade=1
       Bash, Damage=10
@@ -6765,13 +6762,11 @@ anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
       Launch
     gorlek:
       Bash, Grenade=1, Damage=30
-      DoubleJump, TripleJump OR Hammer
+      DoubleJump, TripleJump
       Grapple, Dash  # done by jumping off the muncher
       Grapple, Sword, Damage=30
       SentryJump=1, Damage=30 OR DoubleJump OR Dash
       SentryJump=2, Sword OR Glide
-      Burrow, Dash, Sword OR Hammer
-      Burrow, Damage=30, Sword OR Hammer
     unsafe:
       DoubleJump  # precise....? This is another rough path. Can turn it to triple jump to make it freeTM, or can add weapons
       Burrow, Damage=30  # This is a pretty rough path. Might be too tricky. Sticky makes it a bit easier though?
