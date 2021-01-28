@@ -88,21 +88,21 @@ package SeedGenerator {
   }
 
   case class EnergyReq(count: Float) extends Requirement {
-    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = orbs - Orbs(0, Math.floor(count * 10).toInt)
+    val mod = if (Settings.unsafePaths) 1 else 2
+    override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs = orbs - Orbs(0, Math.floor(count * mod * 10).toInt)
     def energy(state: GameState): Float = state.inv(Energy)/2f
     def metBy(state: GameState, orbs: Option[Orbs] = None): Boolean =
-      orbs.map(_.energy >= count*10).getOrElse(energy(state) >= count)
+      orbs.map(_.energy >= count * mod * 10).getOrElse(energy(state) >= count * mod)
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] =
-      Seq(GameState(new Inv(Energy -> Math.ceil(Math.max(0, 2*count - state.inv(Energy))).toInt)))
+      Seq(GameState(new Inv(Energy -> Math.ceil(Math.max(0, 2 * count * mod - state.inv(Energy))).toInt)))
     override def and(that: Requirement): Requirement = that match {
-      case EnergyReq(c) => EnergyReq(c+count)
+      case EnergyReq(c) => EnergyReq(c + count)
       case r => AllReqs(this, r)
     }
   }
   object EnergyReq {
     def apply(count: Float): Requirement = if(count > 0) new EnergyReq(count) else Free
   }
-
 
   case class SentryJumpReq(count: Int) extends Requirement {
     private val er = EnergyReq(count)
@@ -179,7 +179,7 @@ package SeedGenerator {
     val RANGED = Seq(Bow, Grenade, Shuriken, Spear)
     val DPE = Map(
       Sword -> (4f, 0f), Smash -> (12f, 0f), Bow -> (4f, 0.25f),
-      Grenade -> (10f, 1f), Shuriken -> (4f, .5f), Spear -> (20f, 2f), Blaze -> (6.6f, 1f)
+      Grenade -> (12f, 1f), Shuriken -> (6f, .5f), Spear -> (20f, 2f), Blaze -> (9f, 1f)
     )
   }
   trait Enemy {
