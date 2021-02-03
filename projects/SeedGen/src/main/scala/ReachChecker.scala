@@ -39,6 +39,7 @@ package SeedGenerator {
     def settingsFromSeed(path: Path, updateSpawn: Boolean = true): Settings = Try {
       val lines = path.readLines
       val configsRaw = lines.last.replace("// Config: ", "")
+      Nodes.prestates ++= lines.filter(_.startsWith("//prestates: ")).flatMap(_.substring(13).split(',').map(name => WorldState(name)))
       if(updateSpawn) {
         val mbSpawn = lines.find(_.startsWith("Spawn: ")).flatMap(spawnLine => {
           val spawnName = spawnLine.split("//").last.trim

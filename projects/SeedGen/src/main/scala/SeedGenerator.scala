@@ -838,7 +838,8 @@ package SeedGenerator {
     //noinspection FieldFromDelayedInit
     @scala.annotation.tailrec
     def recurse(grps: Seq[PlacementGroup] = Seq(), startState: GameState = DEFAULT_INV)(implicit pool: Inv): Seed = {
-      val h = Settings.headers.filterNot(_.startsWith("!!")).map(_.stripMargin('!')).mkString("\n")
+      val h = Settings.headers.filterNot(_.startsWith("!!")).map(_.stripMargin('!')).mkString("\n") +
+      Nodes.prestates.nonEmpty ? Nodes.prestates.map(_.name).mkString("\n//prestates: ", ",", "") ?? ""
       grps.lastOption.map(_.tryNext()).getOrElse({
       PlacementGroup.trymk(DEFAULT_INV)
     }) match {
