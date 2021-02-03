@@ -359,7 +359,7 @@ package SeedGenerator {
         val spawnLine = s"Spawn: $x, $y"
         val tpLine = s"3|0|${teleporter.code}|mute"
         s"$spawnLine${" " * (30 - spawnLine.length)}// $areaName\n\n" +
-        s"3|0|6|Spawning with:|f=420    // show spawn text for longer\n" +
+        s"3|0|6|Spawning with:|instant|f=420    // show spawn text for longer\n" +
         s"$tpLine${" " * (30 - tpLine.length)}// ${teleporter.name} granted implicitly\n\n"
       }
 
