@@ -112,7 +112,7 @@ namespace uber_states
             register_applier_redirect(state.first, state.second, dynamic);
     }
 
-    void save_dynamic_intercepts()
+    void save_dynamic_redirects()
     {
         auto i = 0;
         for (auto const& pair : dynamic_applier_redirects)
@@ -140,7 +140,7 @@ namespace uber_states
         }
     }
 
-    void load_dynamic_intercepts()
+    void load_dynamic_redirects()
     {
         dynamic_applier_redirects.clear();
         auto i = 0;
