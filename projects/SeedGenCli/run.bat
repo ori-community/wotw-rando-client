@@ -1,0 +1,1 @@
+cat ./example_header.txt | ./target/debug/seed_gen_cli.exe --debug --output "C:\test.txt" --gen_flags moki --headers ./example_header.txt
