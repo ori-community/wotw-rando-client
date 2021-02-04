@@ -207,15 +207,27 @@ namespace uber_states
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false),
                 };
+
                 int i = 0;
-                for (; i < 100; i++)
-                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", "plando_vars", 9, format("%3d_int", i), i, 0));
-                for (; i < 150; i++)
-                    states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", "plando_vars", 9, format("%3d_bool", i), i, false));
+                for (; i < 100; ++i)
+                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::PLANDO_VARS_GROUP_NAME,
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_int", i), i, 0));
+                for (; i < 150; ++i)
+                    states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::PLANDO_VARS_GROUP_NAME,
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_bool", i), i, false));
+
+                for (i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
+                {
+                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
+                        constants::APPLIERS_GROUP_ID, format("%3d_id", i), i, 0));
+
+                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
+                        constants::APPLIERS_GROUP_ID, format("%3d_value", i), i, 0));
+                }
 
                 for (const auto state : states)
                     il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
-
+                
                 initialized = true;
             }
 
