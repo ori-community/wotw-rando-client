@@ -430,13 +430,13 @@ package SeedGenerator {
         addPreplc(ItemPlacement(Launch, seir))
         pool.take(Launch) // whoops
       }
-      val locsByCode = (Nodes._items.values.map(a => a.data.code -> a) ++
+      val locsByCode = (Nodes.items.values.map(a => a.data.code -> a) ++
       Seq("3|0", "3|1", "3|2", "3|3", "3|4").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
       Settings.headers.foreach {
         case rmItemRegex(rawMult, code, _) =>
-          val count = (Option(rawMult).nonEmpty ? rawMult.takeRight(1).toIntOption).flatten ?? 1
+          val count = (Option(rawMult).nonEmpty ? rawMult.dropRight(1).toIntOption).flatten ?? 1
           poolByCode.get(code) match {
             case Some(i) =>
               pool.take(i, count)
@@ -473,7 +473,7 @@ package SeedGenerator {
         case raw => Logger.debug(s"ignoring line $raw")
       }
 
-      val reachableLocs = reached(GameState(pool).withParams(SpiritLight(5000)), theoretical = true)._1.reached.collect({case i: ItemLoc => i})
+      val reachableLocs = reached(GameState(pool, prestates.toSet).withParams(SpiritLight(5000)), theoretical = true)._1.reached.collect({case i: ItemLoc => i})
       unreachableLocs = items.values.filterNot(reachableLocs.contains).toSet
       if(reachableLocs.size < pool.size)
         throw GeneratorError(s"There aren't enough locations (${reachableLocs.size}) to place all the items in the pool (${pool.size})")
