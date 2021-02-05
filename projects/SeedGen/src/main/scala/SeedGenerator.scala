@@ -411,13 +411,15 @@ package SeedGenerator {
     def spawn: Area = _spawn.area
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
+    var unreachableLocs: Set[ItemLoc] = Set()
     var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
     val prestates: MSet[FlagState] = MSet()
     val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
     val addItemRegex: Regex = """^!!add ([0-9]+\|.*?) *(//.*)?""".r
+    val rmItemRegex: Regex = """^!!remove ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
     val setStateRegex: Regex = """^!!set ([a-zA-Z.]+) *(//.*)?""".r
 
-    def regenPreplcs(pool: Inv)(implicit r: Random): Unit = Try {
+    def handleHeaders(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
         preplc = preplc.updated(p.loc, preplc.getOrElse(p.loc, Set()) ++ Set(p))
       }
@@ -432,18 +434,26 @@ package SeedGenerator {
       Seq("3|0", "3|1", "3|2", "3|3", "3|4").map(_ -> ItemLoc.IMPLICIT)).toMap
       val poolByCode = pool.asSeq.map(i => i.code -> i).toMap
       //noinspection FieldFromDelayedInit
-      Settings.headers.foreach({
-        case  setStateRegex(stateName, _) =>
+      Settings.headers.foreach {
+        case rmItemRegex(rawMult, code, _) =>
+          val count = (Option(rawMult).nonEmpty ? rawMult.takeRight(1).toIntOption).flatten ?? 1
+          poolByCode.get(code) match {
+            case Some(i) =>
+              pool.take(i, count)
+              Logger.debug(s"Removed $count of $i from the item pool")
+            case _ => Logger.warn(s"Can't remove '$code' from pool as it wasn't there")
+          }
+        case setStateRegex(stateName, _) =>
           Logger.debug(s"Setting $stateName to true")
           prestates += WorldState(stateName)
-        case  addItemRegex(itemCode, comm) =>
-          val item = poolByCode.get(itemCode) match{
+        case addItemRegex(itemCode, comm) =>
+          val item = poolByCode.get(itemCode) match {
             case Some(i) => i
-            case None =>RawItem(itemCode, Option(comm))
+            case None => RawItem(itemCode, Option(comm))
           }
           Logger.debug(s"adding $item to the item pool")
           pool.add(item)
-        case raw @ seedLineRegex(dontMergeToPool, locCode,_,_,_,itemCode,_,_,_)  =>
+        case raw@seedLineRegex(dontMergeToPool, locCode, _, _, _, itemCode, _, _, _) =>
           (dontMergeToPool == "!", locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (true, _, _) => // do nothing
             case (false, Some(loc), Some(item)) =>
@@ -461,8 +471,18 @@ package SeedGenerator {
             case (_, None, None) => Logger.debug(s"None($locCode), None($itemCode) <= $raw")
           }
         case raw => Logger.debug(s"ignoring line $raw")
-      })
-     if(Settings.flags.worldTour) {
+      }
+
+      val reachableLocs = reached(GameState(pool).withParams(SpiritLight(5000)), theoretical = true)._1.reached.collect({case i: ItemLoc => i})
+      unreachableLocs = items.values.filterNot(reachableLocs.contains).toSet
+      if(reachableLocs.size < pool.size)
+        throw GeneratorError(s"There aren't enough locations (${reachableLocs.size}) to place all the items in the pool (${pool.size})")
+      else if(unreachableLocs.nonEmpty) {
+        Logger.warn(s"Found ${unreachableLocs.size} unreachableLocs. Pruning them from the pool")
+        Logger.debug(s"Couldn't reach ${unreachableLocs.map(_.name).mkString(", ")}")
+        _items = items.filterNot({ case (_, i) => unreachableLocs.contains(i)})
+      }
+      if(Settings.flags.worldTour) {
         var rlccnt = 0
         Logger.debug("World Tour: finding relic placements...")
         Nodes._items.values.filterNot(preplc.keySet.contains).groupBy(_.data.zone).foreach({
@@ -478,7 +498,7 @@ package SeedGenerator {
       }
     }  match {
       case Success(_) => Logger.debug(s"finished creating preplacements, got: $preplc")
-      case Failure(f) => Logger.error(s"Failed generating preplacements, got: $preplc, error: ${f.getMessage}")
+      case Failure(f) => Logger.error(s"Failed generating preplacements, got: $preplc, error: ${f.getStackTrace.mkString("\n")}")
     }
     case class LocCode(ugid: String, uid: String, tailRaw: String, full: String) {
       val groupId: Int = ugid.toInt
@@ -785,25 +805,31 @@ package SeedGenerator {
     }
   }
 
-  case class Seed(grps: Seq[PlacementGroup], error: Option[GeneratorError], header: String) {
+  case class Seed(var grps: Seq[PlacementGroup], error: Option[GeneratorError], header: String) {
     def built: Boolean = error.isEmpty && grps.last.done
     val groups: Seq[PlacementGroup] = {
       if(Settings.bonusItems) {
         val last = grps.last
-        val bonus = last.copy(prog = Inv.Empty, i = last.i+1, parent = Some(last), placements = Seq(
+        grps = grps :+ last.copy(prog = Inv.Empty, i = last.i+1, parent = Some(last), placements = Seq(
           ShopPlacement(SpikeEfficiency, ItemLoc.known("OpherShop.Spike"), 0f),
           ShopPlacement(RapidSmash, ItemLoc.known("OpherShop.SpiritSmash"), 0f),
           ShopPlacement(StarEfficiency, ItemLoc.known("OpherShop.SpiritStar"), 0f),
           ShopPlacement(BlazeEfficiency, ItemLoc.known("OpherShop.Blaze"), 0f),
           ShopPlacement(SentryEfficiency, ItemLoc.known("OpherShop.Sentry"), 0f)
         ))(r, Inv.Empty)
-        grps :+ bonus
-      } else grps
+      }
+      if(Nodes.unreachableLocs.nonEmpty) {
+        val last = grps.last
+        grps = grps :+ last.copy(prog = Inv.Empty, i = last.i+1, parent = Some(last), placements =
+          Nodes.unreachableLocs.map(i => ItemPlacement(SpiritLight(200), i)).toSeq)(r, Inv.Empty)
+      }
+
+        grps
     }
     def seed(spoilers: Boolean = true): String = "%s\n\n// Config: %s".format((Seq(Settings.internalHeader, header) ++
       groups.map(plcmnts => plcmnts.write(spoilers))).mkString("\n").stripPrefix("\n"), Settings.toJson)
 
-    def desc: String = grps.map(grp => grp.desc.replace("\n", "")).mkString("\n")
+    def desc: String = groups.map(grp => grp.desc.replace("\n", "")).mkString("\n")
 
     def write(targetPath: String): Unit = {
       Try {
@@ -922,10 +948,9 @@ package SeedGenerator {
       Nodes.populate()
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Settings.flags.noKSDoors) 0 else 34)) +
         Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
-      Nodes.regenPreplcs(pool)
+      Nodes.handleHeaders(pool)
       val locs = Nodes.items.values.toSet -- Nodes.preplc.keys
-      while(pool.count < locs.size) pool.add(SpiritLight(r.between(75, 175)))
-
+      while(pool.count < locs.size) pool.add(SpiritLight(r.between(60, 175)))
       pool.merchToPop = locs.count(_.data.category == "Shop")
       pool
     }
