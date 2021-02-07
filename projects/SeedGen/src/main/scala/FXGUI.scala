@@ -170,7 +170,7 @@ package SeedGenerator {
     val teleportersButton:      ToggleButton = settingsToggle("Teleporters",        "Add items to the item pool that unlock teleporters", settings.mapBoolProp(_.tps, (s, b) => s.copy(tps = b)))
     val gorlekPathsButton:      ToggleButton = settingsToggle("Gorlek paths",       "Enable Gorlek-difficulty paths", settings.mapBoolProp(_.gorlekPaths, {
       case (s, b) if s.gorlekPaths != b =>
-        val oldSpawn = SpawnLoc.byName.get()
+        val oldSpawn = SpawnLoc.byName.get(spawnSelector.getValue)
         spawnSelector.items = b ? spawnLocs ??spawnLocs.filter(SpawnLoc.byName(_).safe)
         if(!b && !(oldSpawn.map(_.safe) ?? false)) {
           Logger.warn(s"Spawn location ${spawnSelector.getValue} requires Gorlek paths; resetting spawn to Marsh")
