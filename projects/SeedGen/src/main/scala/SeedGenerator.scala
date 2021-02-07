@@ -415,8 +415,8 @@ package SeedGenerator {
     var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
     val prestates: MSet[FlagState] = MSet()
     val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
-    val addItemRegex: Regex = """^!!add ([0-9]+\|.*?) *(//.*)?""".r
-    val rmItemRegex: Regex = """^!!remove ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
+    val addItemRegex: Regex = """^!!add ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
+    val rmItemRegex: Regex = """^!!remove ([0-9]+\|.*?) *(//.*)?""".r
     val setStateRegex: Regex = """^!!set ([a-zA-Z.]+) *(//.*)?""".r
 
     def handleHeaders(pool: Inv)(implicit r: Random): Unit = Try {
@@ -446,13 +446,14 @@ package SeedGenerator {
         case setStateRegex(stateName, _) =>
           Logger.debug(s"Setting $stateName to true")
           prestates += WorldState(stateName)
-        case addItemRegex(itemCode, comm) =>
+        case addItemRegex(rawMult, itemCode, comm) =>
+          val count = (Option(rawMult).nonEmpty ? rawMult.dropRight(1).toIntOption).flatten ?? 1
           val item = poolByCode.get(itemCode) match {
             case Some(i) => i
             case None => RawItem(itemCode, Option(comm))
           }
-          Logger.debug(s"adding $item to the item pool")
-          pool.add(item)
+          Logger.debug(s"adding $item x$count to the item pool")
+          pool.add(item, count)
         case raw@seedLineRegex(dontMergeToPool, locCode, _, _, _, itemCode, _, _, _) =>
           (dontMergeToPool == "!", locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (true, _, _) => // do nothing
