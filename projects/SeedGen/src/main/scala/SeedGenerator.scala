@@ -366,6 +366,7 @@ package SeedGenerator {
     }
     object SpawnLoc {
       val all = Seq(
+        SpawnLoc("MarshSpawn.Main", 0, Teleporter(16), safe = true),
         SpawnLoc("MidnightBurrows.Teleporter", 3, Teleporter(0), safe = true),
         SpawnLoc("HowlsDen.Teleporter", 1, Teleporter(1), safe = true),
         SpawnLoc("EastPools.Teleporter", 3, Teleporter(2)),
@@ -378,7 +379,6 @@ package SeedGenerator {
         SpawnLoc("LowerWastes.WestTP", 4, Teleporter(9)),
         SpawnLoc("LowerWastes.EastTP", 4, Teleporter(10)),
         SpawnLoc("UpperWastes.NorthTP", 4, Teleporter(11)),
-        SpawnLoc("MarshSpawn.Main", 0, Teleporter(16), safe = true),
         SpawnLoc("GladesTown.Teleporter", 3, Teleporter(17), safe = true),
       )
       def valid: Seq[SpawnLoc] = (Settings.unsafePaths || Settings.gorlekPaths) ? all ?? all.filter(_.safe)
@@ -395,8 +395,11 @@ package SeedGenerator {
             case Right(value) =>
               Logger.debug(s"parse done, ${value.size} areas")
               if(!ReachChecker.doingReachCheck)
-                _spawn = Settings.flags.randomSpawn ? SpawnLoc.valid.rand ?? SpawnLoc.default
-              Logger.debug(s"spawn loc is ${_spawn.areaName}")
+                _spawn = Settings.flags.randomSpawn ? SpawnLoc.valid.rand ?? Nodes.SpawnLoc.byName(Settings.spawnLoc)
+              if(Settings.flags.randomSpawn)
+                Logger.debug(s"spawn loc is ${_spawn.areaName}")
+              else if(_spawn.areaName != "MarshSpawn.Main")
+                Logger.info(s"spawn loc is ${_spawn.areaName}")
               _areas = Timer("FixAreas")(fixAreas(value))
               _items = _areas.flatMap(_._2.conns.collect({ case Connection(t: ItemLoc, r) if r.nonEmpty => t.name -> t }))
               Logger.debug(s"items done ${_items.size} items")

@@ -1,4 +1,5 @@
 package SeedGenerator {
+  import SeedGenerator.Nodes.SpawnLoc
   import implicits._
   import org.json4s.{Formats, NoTypeHints}
   import org.json4s.native.Serialization
@@ -43,6 +44,7 @@ package SeedGenerator {
                        bonusItems: Boolean = true,
                        debugInfo: Boolean = false,
                        seirLaunch: Boolean = false,
+                       spawnLoc: String = SpawnLoc.default.areaName,
                        headerList: Seq[String] = Nil,
                      ) extends SettingsProvider  {
     def get: Settings = this
@@ -78,6 +80,7 @@ package SeedGenerator {
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def toJson: String = {Serialization.write(provider.get)}
     def get: Settings = provider.get
+    def spawnLoc: String = provider.get.spawnLoc
   }
 
 

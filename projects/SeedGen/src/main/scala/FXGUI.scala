@@ -34,6 +34,9 @@ import scala.concurrent.Future
 import scala.sys.process._
 package SeedGenerator {
 
+  import SeedGenerator.Nodes.SpawnLoc
+  import scalafx.collections.ObservableBuffer
+
   case class Header(name: String, lines: Seq[String]) {
   def dispname: String = name.replace("_", " ").capitalize
   val desc: String =  lines.takeWhile(_.startsWith("//")).map(_.replace("//", "").trim).mkString("\n") ?? "No description provided"
@@ -150,18 +153,34 @@ package SeedGenerator {
         )
       }
     }
+    val spawnLoc: String = settings().spawnLoc
 
+    val spawnLocs: ObservableBuffer[String] = ObservableBuffer(Seq(spawnLoc) ++ SpawnLoc.byName.keys.filterNot(_ == spawnLoc))
+    val spawnSelector: ComboBox[String] = 	        new ComboBox[String] {
+      disable = settings().flags.randomSpawn
+      promptText = "Spawn Location"
+      items = settings().gorlekPaths ? spawnLocs ??spawnLocs.filter(SpawnLoc.byName(_).safe)
+      value <==> settings.mapStringProp(_.spawnLoc, (s, spLoc) => s.copy(spawnLoc = spLoc))
+    }
 
     val raceModeButton:         ToggleButton = settingsToggle("Race Mode",          "Generate a spoiler-free version of the seed for racing", settings.mapBoolProp(!_.spoilers, (s, b) => s.copy(spoilers = !b)))
     val debugButton:            ToggleButton = settingsToggle("Debug Mode",         "Outputs spoiler-containing generation info to the console, and enables the last seed tab", settings.mapBoolProp(_.debugInfo, (s, b) => s.copy(debugInfo = b)))
     val questsButton:           ToggleButton = settingsToggle("Items on Quests",    "Receive items from quest progress and completion", settings.mapBoolProp(_.questLocs, (s, b) => s.copy(questLocs = b)))
     val bonusItemsButton:       ToggleButton = settingsToggle("Bonus Items",        "Enables rando-only bonus pickups, including weapon upgrades", settings.mapBoolProp(_.bonusItems, (s, b) => s.copy(bonusItems = b)))
     val teleportersButton:      ToggleButton = settingsToggle("Teleporters",        "Add items to the item pool that unlock teleporters", settings.mapBoolProp(_.tps, (s, b) => s.copy(tps = b)))
-    val gorlekPathsButton:      ToggleButton = settingsToggle("Gorlek paths",       "Enable Gorlek-difficulty paths", settings.mapBoolProp(_.gorlekPaths, (s, b) => s.copy(gorlekPaths = b)))
+    val gorlekPathsButton:      ToggleButton = settingsToggle("Gorlek paths",       "Enable Gorlek-difficulty paths", settings.mapBoolProp(_.gorlekPaths, {
+      case (s, b) if s.gorlekPaths != b =>
+        val oldSpawn = SpawnLoc.byName.get()
+        spawnSelector.items = b ? spawnLocs ??spawnLocs.filter(SpawnLoc.byName(_).safe)
+        if(!b && !(oldSpawn.map(_.safe) ?? false)) {
+          Logger.warn(s"Spawn location ${spawnSelector.getValue} requires Gorlek paths; resetting spawn to Marsh")
+          s.copy(gorlekPaths = b, spawnLoc = "MarshSpawn.Main")
+        } else  s.copy(gorlekPaths = b)
+      case (s, _) => s
+    }))
     val uncheckedPathsButton:   ToggleButton = settingsToggle("Unsafe paths",       "Enable paths that have not yet been sorted into a difficulty group.", settings.mapBoolProp(_.unsafePaths, (s, b) => s.copy(unsafePaths = b)))
     val glitchPathsButton:      ToggleButton = settingsToggle("Glitched paths",     "Enable paths that rely on glitches, such as Sentry Jumps", settings.mapBoolProp(_.glitchPaths, (s, b) => s.copy(glitchPaths = b)))
     val seirLaunchButton:       ToggleButton = settingsToggle("Launch on Seir",     "Places launch on Seir", settings.mapBoolProp(_.seirLaunch, (s, b) => s.copy(seirLaunch = b)))
-    val randomSpawnButton:      ToggleButton = settingsToggle("Random spawn",       "Spawn at a randomly-chosen spirit well", settings.mapBoolProp(_.flags.randomSpawn, (s, b) => s.copy(flags = s.flags.copy(randomSpawn = b))))
     val rainButton:             ToggleButton = settingsToggle("Rainy Marsh",        "Start the game in the 'prologue' marsh state, with rain present and Howl enabled", settings.mapBoolProp(_.flags.rain, (s, b) => s.copy(flags = s.flags.copy(rain = b))))
     val noKSDoorsButton:        ToggleButton = settingsToggle("Remove KS doors",    "Start the game with every keystone door opened", settings.mapBoolProp(_.flags.noKSDoors, (s, b) => s.copy(flags = s.flags.copy(noKSDoors = b))))
     val forceWispsButton:       ToggleButton = settingsToggle("Force Wisps",        "Adds requirement: Collect every Wisp", settings.mapBoolProp(_.flags.forceWisps, (s, b) => s.copy(flags = s.flags.copy(forceWisps = b))))
@@ -172,6 +191,12 @@ package SeedGenerator {
     val swordSpawnButton:       ToggleButton = settingsToggle("Spawn with Sword",   "Start the game with Spirit Edge in your inventory and equipped", settings.mapBoolProp(!_.flags.noSword, (s, b) => s.copy(flags = s.flags.copy(noSword = !b))))
     val webConnButton:          ToggleButton = settingsToggle("Enable Netcode",     "Connect to the webserver (for bingo or co-op)", settings.mapBoolProp(_.webConn, (s, b) => s.copy(webConn = b)))
     val seedNameInput:          TextField    = new TextField { text <==> seedName; prefColumnCount = 10 }
+    val randomSpawnButton:      ToggleButton = settingsToggle("Random spawn",       "Spawn at a randomly-chosen spirit well", settings.mapBoolProp(_.flags.randomSpawn, {
+      case (s, b) =>
+        spawnSelector.disable = b
+        s.copy(flags = s.flags.copy(randomSpawn = b))
+    }))
+
     val outputLabel:            Label        = new Label { text <== outputDirectory }
 
     runLastSeedButton.onAction = _ => lastSeed match {
@@ -180,7 +205,6 @@ package SeedGenerator {
         Logger.warn("Last seed file not found!")
         runLastSeedButton.disable = true
     }
-
 
     val headerTextArea: TextArea = new TextArea() {
       text.bindBidirectional[Seq[String]](customHeader, StringConverter[Seq[String]](
@@ -209,7 +233,7 @@ package SeedGenerator {
           WIN_X.set(x())
           WIN_Y.set(y())
         } match {
-          case Failure(e) if(IS_DEBUG) =>
+          case Failure(e) if IS_DEBUG =>
             event.consume()
             Logger.error(s"Error during shutdown: $e")
           case _ =>
@@ -247,11 +271,12 @@ package SeedGenerator {
 
         gp.addRow(0, new Label("Logic Groups: "), gorlekPathsButton, glitchPathsButton, uncheckedPathsButton)
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
-        gp.addRow(2, new Label("Spawn Opts: "), swordSpawnButton, randomSpawnButton, rainButton, noKSDoorsButton)
-        gp.addRow(3, new Label("Misc Opts: "),  seirLaunchButton,zoneHintsButton, questsButton)
-        gp.addRow(4, new Label(""), bonusItemsButton, teleportersButton, raceModeButton, webConnButton)
-        gp.addRow(5,  new Label(s"Output folder: "), outputLabel, changeFolderButton, importSettingsButton)
-        gp.addRow(6, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton, debugButton, clearBtn)
+        gp.addRow(2, new Label("Spawn Opts: "), swordSpawnButton, rainButton, noKSDoorsButton)
+        gp.addRow(rowIndex = 3, new Label("Spawn Area: "), spawnSelector, randomSpawnButton)
+        gp.addRow(4, new Label("Misc Opts: "),  seirLaunchButton,zoneHintsButton, questsButton)
+        gp.addRow(5, new Label(""), bonusItemsButton, teleportersButton, raceModeButton, webConnButton)
+        gp.addRow(6,  new Label(s"Output folder: "), outputLabel, changeFolderButton, importSettingsButton)
+        gp.addRow(7, getGenerateButton, new Label(s"Seed Name (Optional):"), seedNameInput, runLastSeedButton, debugButton, clearBtn)
         gp
       }
 
@@ -349,7 +374,7 @@ package SeedGenerator {
           padding = Insets(10)
           hgap = 5f
           vgap = 5f
-          def mkLabel(t: String) = new Label(t) {
+          def mkLabel(t: String): Label = new Label(t) {
             alignmentInParent = Pos.Center
           }
           add(Separator(Orientation.Horizontal), 0, 0, 3, 1)
