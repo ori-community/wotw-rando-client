@@ -129,7 +129,7 @@ package SeedGenerator {
     }
     def energyReq(skill: Skill): Requirement = EnergyReq(energyCost(skill))
     override def orbsAfterMet(state: GameState, orbs: Orbs): Orbs =
-      skills.keys.collectFirst({ case s if state.inv.has(s) => energyReq(s).orbsAfterMet(state, orbs)}).get
+      skills.keys.collect({ case s if state.inv.has(s) => energyReq(s).orbsAfterMet(state, orbs) }).maxBy(_.value)
     def metBy(state: GameState, orbs: Option[Orbs] = None):Boolean =
       skills.keys.exists(s => state.inv.has(s) && energyReq(s).metBy(state, orbs))
     def remaining(state: GameState, unaffordable: Set[FlagState], space: Int): Seq[GameState] = metBy(state) ? Seq(GameState.Empty) ??
