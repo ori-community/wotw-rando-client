@@ -219,13 +219,13 @@ namespace uber_states
                 for (i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
                 {
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
-                        constants::APPLIERS_GROUP_ID, format("%3d_id", i), i, 0));
+                        constants::APPLIERS_GROUP_ID, format("%3d_id", i * 2), i * 2, 0));
 
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
-                        constants::APPLIERS_GROUP_ID, format("%3d_value", i), i, 0));
+                        constants::APPLIERS_GROUP_ID, format("%3d_value", i * 2 + 1), i * 2 + 1, 0));
                 }
 
-                for (const auto state : states)
+                for (const auto* state : states)
                     il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
                 
                 initialized = true;
