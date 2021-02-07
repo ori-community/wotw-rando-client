@@ -225,7 +225,7 @@ namespace uber_states
                         constants::APPLIERS_GROUP_ID, format("%3d_value", i * 2 + 1), i * 2 + 1, 0));
                 }
 
-                for (const auto* state : states)
+                for (auto* state : states)
                     il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
                 
                 initialized = true;
