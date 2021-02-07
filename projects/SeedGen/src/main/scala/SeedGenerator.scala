@@ -947,7 +947,7 @@ package SeedGenerator {
     def build(implicit r: Random): Inv = {
       Nodes.populate()
       val pool = new Inv(Health -> 24, Energy -> 24, Ore -> 40, ShardSlot -> 5, Keystone -> (if(Settings.flags.noKSDoors) 0 else 34)) +
-        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems:_*)
+        Inv.mk(WorldEvent.poolItems ++ Shard.poolItems ++ Skill.poolItems ++ Bonus.poolItems ++ Teleporter.poolItems.filterNot(_ == Nodes.spawnTP):_*)
       Nodes.handleHeaders(pool)
       val locs = Nodes.items.values.toSet -- Nodes.preplc.keys
       while(pool.count < locs.size) pool.add(SpiritLight(r.between(60, 175)))
