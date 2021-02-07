@@ -474,7 +474,7 @@ package SeedGenerator {
         case raw => Logger.debug(s"ignoring line $raw")
       }
 
-      val reachableLocs = reached(GameState(pool, prestates.toSet).withParams(SpiritLight(5000)), theoretical = true)._1.reached.collect({case i: ItemLoc => i})
+      val reachableLocs = reached(GameState(pool).withParams(SpiritLight(5000)), theoretical = true)._1.reached.collect({case i: ItemLoc => i})
       unreachableLocs = items.values.filterNot(reachableLocs.contains).toSet
       if(reachableLocs.size < pool.size)
         throw GeneratorError(s"There aren't enough locations (${reachableLocs.size}) to place all the items in the pool (${pool.size})")
