@@ -7,7 +7,11 @@ import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.and
+import wotw.io.messages.protobuf.UberId
+import wotw.server.api.*
+import wotw.server.api.UberStateSyncStrategy.NotificaitonGroup.NONE
 import wotw.server.bingo.UberStateMap
+import wotw.server.bingo.coopAggregation
 import wotw.server.database.jsonb
 
 object GameStates : LongIdTable() {
@@ -32,5 +36,18 @@ class GameState(id: EntityID<Long>): LongEntity(id){
         fun find(gameId: Long, playerId: Long) = find{
             (GameStates.gameId eq gameId) and (GameStates.teamId eq playerId)
         }.singleOrNull()
+    }
+
+    fun generateStateAggregationForGame(): AggregationStrategyRegistry {
+        val ids = game.board?.goals?.flatMap { it.value.keys }
+            ?.map { UberId(it.first, it.second) } ?: emptySet()
+
+        var aggr = AggregationStrategyRegistry().register(
+            sync(ids).notify(NONE)
+        )
+        if(team.members.count() > 1f)
+            aggr += coopAggregation
+
+        return aggr
     }
 }

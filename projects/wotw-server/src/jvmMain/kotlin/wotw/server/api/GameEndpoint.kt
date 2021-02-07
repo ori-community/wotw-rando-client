@@ -20,6 +20,8 @@ import wotw.server.exception.AlreadyExistsException
 import wotw.server.io.protocol
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.logger
+import wotw.server.util.rezero
+import wotw.server.util.zerore
 import kotlin.to
 
 class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
@@ -29,17 +31,14 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("")
             val playerId = call.parameters["player_id"]?.toLongOrNull() ?: throw BadRequestException("")
 
-            val newValue = newSuspendedTransaction {
+            val result = newSuspendedTransaction {
                 val game = Game.findById(gameId) ?: throw NotFoundException()
                 val team = Team.find(gameId, playerId) ?: throw NotFoundException()
                 val state = game.teamStates[team] ?: throw NotFoundException()
-
                 server.sync.aggregateState(state, message.uberId, message.value)
             }
 
-            server.sync.syncGameProgress(gameId)
-            server.sync.syncState(gameId, playerId, message.uberId, newValue)
-
+            server.sync.syncState(gameId, playerId, message.uberId, result)
             server.sync.syncGameProgress(gameId)
             call.respond(HttpStatusCode.NoContent)
         }
@@ -95,6 +94,8 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     val team = game.teams.firstOrNull { it.id.value == teamId } ?: throw NotFoundException("Team does not exist!")
                     team.members = SizedCollection(team.members + player)
                 }
+                server.sync.aggregationStrategies.remove(gameId)
+
                 call.respond(HttpStatusCode.OK)
             }
 
@@ -143,18 +144,16 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
         }
     }
 
-    fun rezero(n: Int) = if(n == -1) 0 else n
-    fun zerore(n: Int) = if(n == 0) -1 else n
-    fun zerore(n: Float) = if(n == 0f) -1f else n
     private suspend fun UberStateUpdateMessage.updateUberState(gameStateId: Long, playerId: Long) {
-        val uberState = rezero(uberId.state)
         val uberGroup = rezero(uberId.group)
-        val value = if(value == -1f) 0f else value
-        val (newValue, game) = newSuspendedTransaction {
-            logger.debug("($uberGroup, $uberState) -> $value")
+        val uberState = rezero(uberId.state)
+        val sentValue = rezero(value)
+        val (result, game) = newSuspendedTransaction {
+            logger.debug("($uberGroup, $uberState) -> $sentValue")
             val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
-            server.sync.aggregateState(playerData, UberId(uberGroup, uberState), value) to
+            server.sync.aggregateState(playerData, UberId(uberGroup, uberState), sentValue) to
                     playerData.game.id.value
+
         }
         val pc = server.connections.playerConns[playerId]!!
         if(pc.gameId != game) {
@@ -162,8 +161,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             server.connections.registerGameConn(pc.socket, playerId, game)
         }
         server.sync.syncGameProgress(game)
-        server.sync.syncState(game, playerId, uberId,
-            zerore(newValue), newValue != value)
+        server.sync.syncState(game, playerId, UberId(uberGroup, uberState), result)
     }
 
     private suspend fun UberStateBatchUpdateMessage.updateUberStates(gameStateId: Long, playerId: Long) {
@@ -171,12 +169,11 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             UberId(rezero(it.uberId.group), rezero(it.uberId.state)) to if(it.value == -1f) 0f else it.value
         }.toMap()
 
-        val game = newSuspendedTransaction {
+        val (results, game) = newSuspendedTransaction {
             val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
             updates.mapValues { (uberId, value) ->
                 server.sync.aggregateState(playerData, uberId, value)
-            }
-            playerData.game.id.value
+            } to playerData.game.id.value
         }
 
         val pc = server.connections.playerConns[playerId]!!
@@ -185,7 +182,8 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             server.connections.registerGameConn(pc.socket, playerId, game)
         }
         server.sync.syncGameProgress(game)
-        server.sync.syncStates(game, playerId, updates.mapKeys { UberId(zerore(it.key.group), zerore(it.key.state)) })
+
+        server.sync.syncStates(game, playerId, results)
     }
 
 

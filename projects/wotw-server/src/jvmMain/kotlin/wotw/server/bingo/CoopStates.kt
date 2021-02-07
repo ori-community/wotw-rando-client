@@ -1,6 +1,20 @@
 package wotw.server.bingo
 
 import wotw.io.messages.protobuf.UberId
+import wotw.server.api.AggregationStrategyRegistry
+import wotw.server.api.sync
+
+val coopAggregation = AggregationStrategyRegistry().apply {
+    register(
+        sync(tpIds.values),
+        sync(safeMaxLevers),
+        sync(seedQuestStates),
+        sync(corruptedHeartIds.values),
+        sync(questIds.values),
+        sync(pickupIds.values),
+        sync(unsortedCoop)
+    )
+}
 
 fun coopStates() = (
                 tpIds.values + /*ksDoorIds.values +*/ safeMaxLevers + seedQuestStates + corruptedHeartIds.values +
@@ -46,7 +60,7 @@ val ksDoorIds = mapOf(
     "Windswept Wastes Door" to UberId(20120, 28786),
 )
 
-val seedQuestStates = sequenceOf(
+val seedQuestStates = listOf(
     UberId(42178, 47651),
     UberId(42178, 16254),
     UberId(42178, 33011),
@@ -466,7 +480,7 @@ val pickupIds = mapOf(
     "OpherShop.Sentry" to UberId(1, 116),
 )
 
-val safeMaxLevers = sequenceOf(
+val safeMaxLevers = listOf(
     UberId(26019, 23382),  // convertedSetupsGymGroup.leverAndDoor
     UberId(37858, 34433),  // waterMillStateGroupDescriptor.wheelLever
     UberId(37858, 31187),  // waterMillStateGroupDescriptor.recedingWater
@@ -484,7 +498,7 @@ val safeMaxLevers = sequenceOf(
     UberId(937, 6778),  // kwolokGroupDescriptor.mokiGateOpened
 )
 
-val unsortedCoop = sequenceOf(
+val unsortedCoop = listOf(
     UberId(48248, 41666), // 4000 hint
     UberId(48248, 19396), // Glades hint
     UberId(48248, 57987), // Woods hint
