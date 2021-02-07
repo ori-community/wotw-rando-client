@@ -489,160 +489,161 @@ val unsortedCoop = sequenceOf(
     UberId(48248, 19396), // Glades hint
     UberId(48248, 57987), // Woods hint
 
-    UberId(10289, 3804),
-    UberId(10289, 43103),
-    UberId(16155, 18906),
-    UberId(16155, 20672),
-    UberId(16155, 21899),
-    UberId(16155, 2235),
-    UberId(16155, 3096),
-    UberId(16155, 33738),
-    UberId(16155, 36353),
-    UberId(16155, 37558),
-    UberId(18793, 11676),
-    UberId(18793, 13349),
-    UberId(18793, 15855),
-    UberId(18793, 21022),
-    UberId(18793, 21994),
-    UberId(18793, 25789),
-    UberId(18793, 29066),
-    UberId(18793, 5315),
-    UberId(18793, 64772),
-    UberId(18793, 65202),
-    UberId(20120, 1348),
-    UberId(20120, 16172),
-    UberId(20120, 33775),
-    UberId(20120, 43231),
-    UberId(20120, 51985),
-    UberId(20120, 55388),
-    UberId(20120, 60960),
-    UberId(20120, 9095),
-    UberId(21786, 10467),
-    UberId(21786, 11343),
-    UberId(21786, 22091),
-    UberId(21786, 22570),
-    UberId(21786, 23177),
-    UberId(21786, 25147),
-    UberId(21786, 25291),
-    UberId(21786, 29636),
-    UberId(21786, 30928),
-    UberId(21786, 33430),
-    UberId(21786, 34008),
-    UberId(21786, 35166),
-    UberId(21786, 35350),
-    UberId(21786, 35598),
-    UberId(21786, 35925),
-    UberId(21786, 40424),
-    UberId(21786, 41817),
-    UberId(21786, 44253),
-    UberId(21786, 45648),
-    UberId(21786, 50691),
-    UberId(21786, 53932),
-    UberId(21786, 61900),
-    UberId(21786, 6994),
-    UberId(21786, 876),
-    UberId(24922, 13349),
-    UberId(24922, 2524),
-    UberId(24922, 59146),
-    UberId(26019, 1274),
-    UberId(28895, 17510),
-    UberId(28895, 20731),
-    UberId(28895, 27787),
-    UberId(28895, 30566),
-    UberId(28895, 30794),
-    UberId(28895, 34098),
-    UberId(28895, 37287),
-    UberId(28895, 38120),
-    UberId(28895, 42209),
-    UberId(28895, 43977),
-    UberId(28895, 48757),
-    UberId(28895, 49329),
-    UberId(28895, 58337),
-    UberId(28895, 59394),
-    UberId(28895, 61789),
-    UberId(28895, 7616),
-    UberId(28895, 8664),
-    UberId(28895, 8934),
-    UberId(31136, 3441),
-    UberId(36153, 23584),
-    UberId(36153, 60795),
-    UberId(37858, 16604),
-    UberId(37858, 21874),
-    UberId(37858, 23644),
-    UberId(37858, 31104),
-    UberId(37858, 31584),
-    UberId(37858, 31962),
-    UberId(37858, 36070),
-    UberId(37858, 50902),
-    UberId(37858, 60716),
-    UberId(37858, 6338),
-    UberId(37858, 64055),
-    UberId(37858, 8487),
-    UberId(37858, 9487),
-    UberId(42178, 38905),
-    UberId(42178, 5630),
-    UberId(42178, 5815),
-    UberId(44310, 47361),
-    UberId(44310, 55192),
-    UberId(53632, 2522),
-    UberId(53632, 3382),
-    UberId(53632, 62781),
-    UberId(53632, 9366),
-    UberId(5377, 10782),
-    UberId(5377, 15402),
-    UberId(5377, 15754),
-    UberId(5377, 22978),
-    UberId(5377, 24765),
-    UberId(5377, 26170),
-    UberId(5377, 29911),
-    UberId(5377, 31145),
-    UberId(5377, 35751),
-    UberId(5377, 3831),
-    UberId(5377, 4463),
-    UberId(5377, 53480),
-    UberId(5377, 56302),
-    UberId(5377, 57453),
-    UberId(5377, 58278),
-    UberId(5377, 63922),
-    UberId(5377, 64337),
-    UberId(5377, 65413),
-    UberId(5377, 8451),
-    UberId(58674, 10877),
-    UberId(58674, 11400),
-    UberId(58674, 14313),
-    UberId(58674, 17742),
-    UberId(58674, 20143),
-    UberId(58674, 29622),
-    UberId(58674, 37037),
-    UberId(58674, 39950),
-    UberId(58674, 44324),
-    UberId(58674, 48394),
-    UberId(58674, 49272),
-    UberId(58674, 5285),
-    UberId(58674, 54686),
-    UberId(58674, 61616),
-    UberId(58674, 902),
-    UberId(58674, 9239),
-    UberId(7228, 4034),
-    UberId(937, 10140),
-    UberId(937, 22716),
-    UberId(937, 32165),
-    UberId(937, 40225),
-    UberId(937, 42245),
-    UberId(937, 45349),
-    UberId(937, 54236),
-    UberId(937, 59850),
-    UberId(945, 12852),
-    UberId(945, 28631),
-    UberId(945, 3487),
-    UberId(945, 39004),
-    UberId(945, 43451),
-    UberId(945, 55795),
-    UberId(9593, 17659),
-    UberId(9593, 23319),
-    UberId(9593, 25130),
-    UberId(9593, 26238),
-    UberId(9593, 34704),
-    UberId(9593, 47420),
-    UberId(9593, 59418),
-    UberId(9593, 9229))
+    UberId(10289, 3804),      // windtornRuinsGroup.openedDesertRuins
+    UberId(10289, 43103),      // windtornRuinsGroup.rootBreakPillarFall
+    UberId(16155, 18906),      // willowsEndGroup.fallingPortal
+    UberId(16155, 20672),      // willowsEndGroup.creepA
+    UberId(16155, 21899),      // willowsEndGroup.breakableWallC
+    UberId(16155, 2235),      // willowsEndGroup.fallingPortalB
+    UberId(16155, 3096),      // willowsEndGroup.breakableWallA
+    UberId(16155, 33738),      // willowsEndGroup.breakableWallC
+    UberId(16155, 36353),      // willowsEndGroup.secretWall
+    UberId(16155, 37558),      // willowsEndGroup.breakableWallB
+    UberId(18793, 11676),      // mouldwoodDepthsGroup.creepB
+    UberId(18793, 13349),      // mouldwoodDepthsGroup.shortcutWall
+    UberId(18793, 15855),      // mouldwoodDepthsGroup.mouldwoodDepthsHBreakableWallB
+    UberId(18793, 21022),      // mouldwoodDepthsGroup.breakableWallA
+    UberId(18793, 21994),      // mouldwoodDepthsGroup.puzzleSolvedSequenceCompleted
+    UberId(18793, 25789),      // mouldwoodDepthsGroup.mouldwoodGateOpen
+    UberId(18793, 29066),      // mouldwoodDepthsGroup.creepA
+    UberId(18793, 5315),      // mouldwoodDepthsGroup.secretWall
+    UberId(18793, 64772),      // mouldwoodDepthsGroup.mouldwoodDepthsHBreakableWallA
+    UberId(18793, 65202),      // mouldwoodDepthsGroup.secretWallA
+    UberId(20120, 1348),      // windsweptWastesGroupDescriptor.bombableWallA
+    UberId(20120, 16172),      // windsweptWastesGroupDescriptor.projectileBreakableWall
+    UberId(20120, 33775),      // windsweptWastesGroupDescriptor.bombableWallB
+    UberId(20120, 43231),      // windsweptWastesGroupDescriptor.bombableWall
+    UberId(20120, 51985),      // windsweptWastesGroupDescriptor.bombableWallA
+    UberId(20120, 55388),      // windsweptWastesGroupDescriptor.bombableWallE
+    UberId(20120, 60960),      // windsweptWastesGroupDescriptor.bombableWallD
+    UberId(20120, 9095),      // windsweptWastesGroupDescriptor.breakableWall
+    UberId(21786, 10467),      // swampStateGroup.attackableSwitchA
+    UberId(21786, 11343),      // swampStateGroup.breakableWallA
+    UberId(21786, 22091),      // swampStateGroup.pushBlockState
+    UberId(21786, 22570),      // swampStateGroup.breakableWallA
+    UberId(21786, 23177),      // swampStateGroup.creepDoor
+    UberId(21786, 25147),      // swampStateGroup.creepDoorA
+    UberId(21786, 25291),      // swampStateGroup.creepDoorE
+    UberId(21786, 29636),      // swampStateGroup.creepDoorB
+    UberId(21786, 30928),      // swampStateGroup.breakableWallA
+    UberId(21786, 33430),      // swampStateGroup.creepDoor
+    UberId(21786, 34008),      // swampStateGroup.breakableWallB
+    UberId(21786, 35166),      // swampStateGroup.creepDoorA
+    UberId(21786, 35350),      // swampStateGroup.attackableSwitchC
+    UberId(21786, 35598),      // swampStateGroup.enemyArenaComplete
+    UberId(21786, 35925),      // swampStateGroup.breakableWallA
+    UberId(21786, 40424),      // swampStateGroup.breakableWall
+    UberId(21786, 41817),      // swampStateGroup.doorBState
+    UberId(21786, 44253),      // swampStateGroup.secretWall
+    UberId(21786, 45648),      // swampStateGroup.attackableSwitchB
+    UberId(21786, 50691),      // swampStateGroup.doorAState
+    UberId(21786, 53932),      // swampStateGroup.creepDoorA
+    UberId(21786, 61900),      // swampStateGroup.stompableFloor
+    UberId(21786, 6994),      // swampStateGroup.stompableFloor
+    UberId(21786, 876),      // swampStateGroup.creepDoorD
+    UberId(24922, 13349),      // howlsOriginGroup.bellPuzzleSolved
+    UberId(24922, 2524),      // howlsOriginGroup.secretWallA
+    UberId(24922, 59146),      // howlsOriginGroup.bellPuzzleBSolved
+    UberId(26019, 1274),      // convertedSetupsGymGroup.secretWallA
+    UberId(28895, 17510),      // baursReachGroup.breakableWallA
+    UberId(28895, 20731),      // baursReachGroup.breakableRockWall
+    UberId(28895, 27787),      // baursReachGroup.firePedestalBooleanUberState
+    UberId(28895, 30566),      // baursReachGroup.firePedestalBooleanUberState
+    UberId(28895, 30794),      // baursReachGroup.breakableWall
+    UberId(28895, 34098),      // baursReachGroup.breakableWall
+    UberId(28895, 37287),      // baursReachGroup.grenadeSwitchA
+    UberId(28895, 38120),      // baursReachGroup.breakableRocksE
+    UberId(28895, 42209),      // baursReachGroup.enemyArenaComplete
+    UberId(28895, 43977),      // baursReachGroup.firePedestal
+    UberId(28895, 48757),      // baursReachGroup.grenadeSwitchA
+    UberId(28895, 49329),      // baursReachGroup.breakyBridge
+    UberId(28895, 58337),      // baursReachGroup.doorOpened
+    UberId(28895, 59394),      // baursReachGroup.grenadeSwitchA
+    UberId(28895, 61789),      // baursReachGroup.firePedestalBooleanUberState
+    UberId(28895, 7616),      // baursReachGroup.breakableRocksA
+    UberId(28895, 8664),      // baursReachGroup.stompableFloorA
+    UberId(28895, 8934),      // baursReachGroup.breakableWallB
+    UberId(31136, 3441),      // weepingRidgeElevatorFightGroup.willowsEndGateOpened
+    UberId(36153, 23584),      // corruptedPeakGroup.elevatorCompleteState
+    UberId(36153, 60795),      // corruptedPeakGroup.breakableWall
+    UberId(37858, 16604),      // waterMillStateGroupDescriptor.waterMillEntranceFallingDiscUberStateDescriptor
+    UberId(37858, 21874),      // waterMillStateGroupDescriptor.waterMillSecretWallBDestroyed
+    UberId(37858, 23644),      // waterMillStateGroupDescriptor.waterMillEntranceDoorUberStateDescriptor
+    UberId(37858, 31104),      // waterMillStateGroupDescriptor.poleLowered
+    UberId(37858, 31584),      // waterMillStateGroupDescriptor.wheelsActivated
+    UberId(37858, 31962),      // waterMillStateGroupDescriptor.waterMillBEntranceTriggerUberStateDescriptor
+    UberId(37858, 36070),      // waterMillStateGroupDescriptor.rotationState
+    UberId(37858, 50902),      // waterMillStateGroupDescriptor.wheelAActive
+    UberId(37858, 60716),      // waterMillStateGroupDescriptor.wheelBActive
+    UberId(37858, 6338),      // waterMillStateGroupDescriptor.dashDoor
+    UberId(37858, 64055),      // waterMillStateGroupDescriptor.wheelsActivatedEntry
+    UberId(37858, 8487),      // waterMillStateGroupDescriptor.rotatingEnemyArenaStates
+    UberId(37858, 9487),      // waterMillStateGroupDescriptor.exitDoorOpen
+    UberId(42178, 38905),      // hubUberStateGroup.pyreA
+    UberId(42178, 5630),      // hubUberStateGroup.leafPileC
+    UberId(42178, 5815),      // hubUberStateGroup.stompableFloorEnterHub
+    UberId(44310, 47361),      // wellspringGladesGroup.blowableFlame
+    UberId(44310, 55192),      // wellspringGladesGroup.stompableFloorA
+    UberId(53632, 2522),      // wellspringGroupDescriptor.lanternAndCreepA
+    UberId(53632, 3382),      // wellspringGroupDescriptor.secretWallB
+    UberId(53632, 62781),      // wellspringGroupDescriptor.secretWallA
+    UberId(53632, 9366),      // wellspringGroupDescriptor.secretWallC
+    UberId(5377, 10782),      // lumaPoolsStateGroup.breakableWallB
+    UberId(5377, 15402),      // lumaPoolsStateGroup.dashDoor
+    UberId(5377, 15754),      // lumaPoolsStateGroup.bubbleMakerUnblockedA
+    UberId(5377, 22978),      // lumaPoolsStateGroup.breakableWallB
+    UberId(5377, 24765),      // lumaPoolsStateGroup.bubbleMakerUnblockedA
+    UberId(5377, 26170),      // lumaPoolsStateGroup.breakableWallA
+    UberId(5377, 29911),      // lumaPoolsStateGroup.loweringWaterState
+    UberId(5377, 31145),      // lumaPoolsStateGroup.breakableWallA
+    UberId(5377, 35751),      // lumaPoolsStateGroup.bubbleMakerUnblockedB
+    UberId(5377, 3831),      // lumaPoolsStateGroup.breakableSecretWallA
+    UberId(5377, 4463),      // lumaPoolsStateGroup.breakableWallB
+    UberId(5377, 53480),      // lumaPoolsStateGroup.arenaBByteStateSerialized
+    UberId(5377, 56302),      // lumaPoolsStateGroup.secretWallA
+    UberId(5377, 57453),      // lumaPoolsStateGroup.bubbleMakerUnblocked
+    UberId(5377, 58278),      // lumaPoolsStateGroup.bubbleMakerUnblockedB
+    UberId(5377, 63922),      // lumaPoolsStateGroup.secretWallA
+    UberId(5377, 64337),      // lumaPoolsStateGroup.breakableWall
+    UberId(5377, 65413),      // lumaPoolsStateGroup.breakableWallA
+    UberId(5377, 8451),      // lumaPoolsStateGroup.breakableWallA
+    UberId(58674, 10877),      // _petrifiedForestGroup.leafPile
+    UberId(58674, 11400),      // _petrifiedForestGroup.stompableFloor
+    UberId(58674, 14313),      // _petrifiedForestGroup.hutDoorUnlocked
+    UberId(58674, 17742),      // _petrifiedForestGroup.blowableFlame
+    UberId(58674, 20143),      // _petrifiedForestGroup.leafPile
+    UberId(58674, 29622),      // _petrifiedForestGroup.stompableFloor
+    UberId(58674, 37037),      // _petrifiedForestGroup.leafPile
+    UberId(58674, 39950),      // _petrifiedForestGroup.secretWallA
+    UberId(58674, 44324),      // _petrifiedForestGroup.creepA
+    UberId(58674, 48394),      // _petrifiedForestGroup.creebBulb
+    UberId(58674, 49272),      // _petrifiedForestGroup.creepBall
+    UberId(58674, 5285),      // _petrifiedForestGroup.blowableFlameA
+    UberId(58674, 54686),      // _petrifiedForestGroup.breakableWall
+    UberId(58674, 61616),      // _petrifiedForestGroup.petrifiedOwlState
+    UberId(58674, 902),      // _petrifiedForestGroup.creepBlocker
+    UberId(58674, 9239),      // _petrifiedForestGroup.leafPileB
+    UberId(7228, 4034),      // desertAGroup.secretWall
+    UberId(937, 10140),      // kwolokGroupDescriptor.secretWallA
+    UberId(937, 22716),      // kwolokGroupDescriptor.pressurePlatePuzzle
+    UberId(937, 32165),      // kwolokGroupDescriptor.door
+    UberId(937, 40225),      // kwolokGroupDescriptor.stompableFloor
+    UberId(937, 42245),      // kwolokGroupDescriptor.recedingWaterSetup
+    UberId(937, 45349),      // kwolokGroupDescriptor.stompableFloorB
+    UberId(937, 54236),      // kwolokGroupDescriptor.brokenWallA
+    UberId(937, 59850),      // kwolokGroupDescriptor.doorA
+    UberId(945, 12852),      // lagoonStateGroup.tentacleKilled
+    UberId(945, 28631),      // lagoonStateGroup.breakableWallA
+    UberId(945, 3487),      // lagoonStateGroup.secretWallA
+    UberId(945, 39004),      // lagoonStateGroup.breakableWallB
+    UberId(945, 43451),      // lagoonStateGroup.secretWallB
+    UberId(945, 55795),      // lagoonStateGroup.breakableWallA
+    UberId(9593, 17659),      // inkwaterMarshStateGroup.stompableFloor
+    UberId(9593, 23319),      // inkwaterMarshStateGroup.breakableWall
+    UberId(9593, 25130),      // inkwaterMarshStateGroup.lizardMultiWaveArenaInt
+    UberId(9593, 26238),      // inkwaterMarshStateGroup.lanternAndCreepB
+    UberId(9593, 34704),      // inkwaterMarshStateGroup.secretWallA
+    UberId(9593, 47420),      // inkwaterMarshStateGroup.secretWallA
+    UberId(9593, 59418),      // inkwaterMarshStateGroup.enemyRoom
+    UberId(9593, 9229)      // inkwaterMarshStateGroup.lanternAndCreepA
+ )
