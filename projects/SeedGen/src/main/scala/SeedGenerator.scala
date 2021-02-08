@@ -419,7 +419,7 @@ package SeedGenerator {
     val prestates: MSet[FlagState] = MSet()
     val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
     val addItemRegex: Regex = """^!!add ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
-    val rmItemRegex: Regex = """^!!remove ([0-9]+\|.*?) *(//.*)?""".r
+    val rmItemRegex: Regex = """^!!remove ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
     val setStateRegex: Regex = """^!!set ([a-zA-Z.]+) *(//.*)?""".r
 
     def handleHeaders(pool: Inv)(implicit r: Random): Unit = Try {
