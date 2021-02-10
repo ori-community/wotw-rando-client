@@ -186,9 +186,6 @@ namespace RandoMainDLL {
     }
       //new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
     public static string GetKeySkillHints() {  
-      foreach(var x in CheckableHints) {
-        Randomizer.Log($"{x.Key.Name}: {x.Value} ({x.Value.GetValue().Bool}, {UberGet.value(x.Value)}", false);
-      }
       String ret = string.Join("\n", CheckableHints.Where((kv) => kv.Value.GetValue().Bool).Select(kv => kv.Key.Hint));
       if (ret.Length > 0)
         ret = "\n" + ret;
