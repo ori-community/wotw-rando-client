@@ -263,7 +263,8 @@ namespace RandoMainDLL {
         }
         while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
           var (id, val) = stateUpdate.FromNet();
-          InterOp.set_uber_state_value(id.GroupID, id.ID, val);
+          if (id.State().ValueAsFloat() != val) 
+            InterOp.set_uber_state_value(id.GroupID, id.ID, val);
         }
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
