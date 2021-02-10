@@ -2,19 +2,8 @@ package wotw.server.bingo
 
 import wotw.io.messages.protobuf.UberId
 import wotw.server.api.AggregationStrategyRegistry
+import wotw.server.api.on
 import wotw.server.api.sync
-
-val coopAggregation = AggregationStrategyRegistry().apply {
-    register(
-        sync(tpIds.values),
-        sync(safeMaxLevers),
-        sync(seedQuestStates),
-        sync(corruptedHeartIds.values),
-        sync(questIds.values),
-        sync(pickupIds.values),
-        sync(unsortedCoop)
-    )
-}
 
 fun coopStates() = (
                 tpIds.values + /*ksDoorIds.values +*/ safeMaxLevers + seedQuestStates + corruptedHeartIds.values +
@@ -591,7 +580,7 @@ val unsortedCoop = listOf(
     UberId(37858, 60716),      // waterMillStateGroupDescriptor.wheelBActive
     UberId(37858, 6338),      // waterMillStateGroupDescriptor.dashDoor
     UberId(37858, 64055),      // waterMillStateGroupDescriptor.wheelsActivatedEntry
-    UberId(37858, 8487),      // waterMillStateGroupDescriptor.rotatingEnemyArenaStates
+    //UberId(37858, 8487),      // waterMillStateGroupDescriptor.rotatingEnemyArenaStates
     UberId(37858, 9487),      // waterMillStateGroupDescriptor.exitDoorOpen
     UberId(42178, 38905),      // hubUberStateGroup.pyreA
     UberId(42178, 5630),      // hubUberStateGroup.leafPileC
@@ -661,3 +650,18 @@ val unsortedCoop = listOf(
     UberId(9593, 59418),      // inkwaterMarshStateGroup.enemyRoom
     UberId(9593, 9229)      // inkwaterMarshStateGroup.lanternAndCreepA
  )
+
+val coopAggregation by lazy {
+    AggregationStrategyRegistry().apply {
+        register(
+            sync(tpIds.values),
+            sync(safeMaxLevers),
+            sync(seedQuestStates),
+            sync(corruptedHeartIds.values),
+            sync(questIds.values),
+            sync(pickupIds.values),
+            sync(unsortedCoop),
+            sync(37858,8487).on(threshold = 5f) //Wellspring fight room
+        )
+    }
+}
