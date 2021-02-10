@@ -35,7 +35,7 @@ package SeedGenerator {
       // sugar funcs for interacting with paths and their target files
       def exists: Boolean = Files exists f
       def toOpt: Option[Path] = exists ? f
-      def readLines: Seq[String] = exists ? Files.readAllLines(f).asScala.toSeq ?? Seq()
+      def readLines: Seq[String] = exists ? Files.readAllLines(f).asScala.toSeq ?? Nil
       def read: Option[String] = exists ? readLines.mkString("\n")
       def write(output: => String): Unit = {
         val bw = Files.newBufferedWriter(f, StandardCharsets.UTF_8, WRITE, TRUNCATE_EXISTING, CREATE)
@@ -498,7 +498,7 @@ package SeedGenerator {
               rlccnt = rlccnt + 1
             }
         })
-        Logger.debug(s"World Tour: placed ${rlccnt} relics")
+        Logger.debug(s"World Tour: placed $rlccnt relics")
       }
     }  match {
       case Success(_) => Logger.debug(s"finished creating preplacements, got: $preplc")
