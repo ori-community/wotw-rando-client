@@ -188,6 +188,7 @@ namespace
     {
         //Weaponmasteritem$$DoPurchase
         //Do the rando purchase /after/ rollback, eiko ;3
+        WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
         const auto ability_type = item->fields.Upgrade->fields.AcquiredAbilityType;
         if (ability_type != app::AbilityType__Enum_None)
         {
@@ -205,11 +206,9 @@ namespace
             else
             {
                 csharp_bridge::opher_buy_upgrade(required_type);
-                weaponmaster_purchase_in_progress = false; // so upgrade buying isn't no-opped
             }
         }
 
-        WeaponmasterItem::DoPurchase(item, context);
         weaponmaster_purchase_in_progress = false;
     }
 
