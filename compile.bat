@@ -1,6 +1,6 @@
 :: change these if necessary
 set MSBuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MsBuild.exe"
-set JavaHome="C:\Program Files\Java\AzJDK_8\jdk1.8.0_265\"
+set JavaHome="C:\Program Files\Java\jdk1.8.0_281\"
 cd "%~dp0"
 
 
