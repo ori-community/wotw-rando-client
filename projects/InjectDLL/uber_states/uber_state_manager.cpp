@@ -144,7 +144,12 @@ namespace uber_states
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 2", 11, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 3", 12, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 4", 13, false),
-                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 5", 14, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 5",  14, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 6",  15, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 7",  16, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 8",  17, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 9",  18, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Checkable Item Hint 10", 19, false),
 
                     // hate this, hope we don't end up needing more of these!
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "HollowTP", 106, false),
