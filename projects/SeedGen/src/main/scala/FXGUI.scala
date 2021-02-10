@@ -450,12 +450,6 @@ package SeedGenerator {
       }
     }
 
-    def versionCheck(): Unit = {
-      val javaVersion = System.getProperty("java.version")
-      if(javaVersion.takeWhile(_ != '.').toIntOption ?? 0 < 11)
-      new Alert(AlertType.Warning, s"Seedgen not compatible with Java version $javaVersion.\nPlease install version 11 or higher.\nYou may need to uninstall older versions.").showAndWait()
-    }
-
     def show(): Unit = {
       main(Array.empty[String])
     }
