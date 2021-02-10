@@ -3,6 +3,7 @@ import scala.util.Random
 
 package SeedGenerator {
 
+  import SeedGenerator.Nodes.SpawnLoc
   import SeedGenerator.implicits._
 
   trait Item {
@@ -180,8 +181,9 @@ package SeedGenerator {
     def req: Requirement = TeleReq(teleporterId)
     override def cost: Double = {
       var c = 9d
-      if (Settings.flags.randomSpawn) c += 6
-      if (Settings.unsafePaths) c+= 35
+      if (Settings.nonDefaultSpawn) c += 6
+      if (Settings.gorlekPaths) c+= 10
+      if (Settings.unsafePaths) c+= 25
       Math.max(c, Teleporter.costs.getOrElse(teleporterId, 0d))
     }
   }
