@@ -93,8 +93,8 @@ namespace RandoMainDLL {
     }
 
     public static void RegisterCheckable(CheckableHint ch) {
-      if(nextCheckable == 14) {
-        Randomizer.Error("HC.RegisterCheckable", "Max 5 checkable hints supported");
+      if(nextCheckable == 20) {
+        Randomizer.Error("HC.RegisterCheckable", "Max 10 checkable hints supported");
         return;
       }
       CheckableHints[ch] = new UberId(6, nextCheckable++);
