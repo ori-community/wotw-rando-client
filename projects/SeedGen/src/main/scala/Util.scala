@@ -48,7 +48,6 @@ package SeedGenerator {
                        headerList: Seq[String] = Nil,
                      ) extends SettingsProvider  {
     def get: Settings = this
-    def internalHeader: String = Seq(flags.line, flags.randomSpawn ? Nodes._spawn.line ?? "").filterNot(_ == "").mkString("\n")
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def toJson: String = {Serialization.write(this)}
   }
@@ -74,13 +73,14 @@ package SeedGenerator {
     def bonusItems: Boolean = provider.get.bonusItems
     def debugInfo: Boolean = provider.get.debugInfo
     def seirLaunch: Boolean = provider.get.seirLaunch
-    def internalHeader: String = provider.get.internalHeader
     def headerList: Seq[String] = provider.get.headerList
     def headers: Seq[String] = provider.headers
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
     def toJson: String = {Serialization.write(provider.get)}
     def get: Settings = provider.get
     def spawnLoc: String = provider.get.spawnLoc
+    def nonDefaultSpawn: Boolean = flags.randomSpawn || spawnLoc != SpawnLoc.default.areaName
+    def internalHeader: String = Seq(flags.line, Settings.nonDefaultSpawn ? Nodes._spawn.line ?? "").filterNot(_ == "").mkString("\n")
   }
 
 
