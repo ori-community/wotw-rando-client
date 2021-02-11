@@ -415,7 +415,7 @@ package SeedGenerator {
     def spawnTP: Teleporter = _spawn.teleporter
     var _spawn: SpawnLoc = SpawnLoc.default
     var unreachableLocs: Set[ItemLoc] = Set()
-    var preplc: Map[ItemLoc, Set[Placement]] = Map[ItemLoc, Set[Placement]]()
+    var preplc: Map[ItemLoc, Seq[Placement]] = Map[ItemLoc, Seq[Placement]]()
     val prestates: MSet[FlagState] = MSet()
     val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
     val addItemRegex: Regex = """^!!add ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
@@ -424,7 +424,7 @@ package SeedGenerator {
 
     def handleHeaders(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
-        preplc = preplc.updated(p.loc, preplc.getOrElse(p.loc, Set()) ++ Set(p))
+        preplc = preplc.updated(p.loc, preplc.getOrElse(p.loc, Seq()) :+ p)
       }
       preplc = Map()
       prestates.clear()
@@ -514,16 +514,16 @@ package SeedGenerator {
     val reachCache: MMap[Area, AreaTraversalInfo] = MMap.empty[Area, AreaTraversalInfo]
     val haveReached: MSet[Node] = MSet(ItemLoc.IMPLICIT)
     val states: MSet[FlagState] = MSet.empty[FlagState]
-    def reached(s: GameState, theoretical: Boolean = false): (GameState, Set[Placement]) = Timer("Reached"){
-      val mbprplc: Option[Map[ItemLoc, Set[Placement]]] = theoretical ? Map(preplc.toSeq:_*)
-      val(rs, plcs) = Nodes.reachedRec(s, Set())
+    def reached(s: GameState, theoretical: Boolean = false): (GameState, Seq[Placement]) = Timer("Reached"){
+      val mbprplc: Option[Map[ItemLoc, Seq[Placement]]] = theoretical ? Map(preplc.toSeq:_*)
+      val(rs, plcs) = Nodes.reachedRec(s, Seq())
       mbprplc.foreach(old => {preplc = Map(old.toSeq:_*)})
       if(plcs.nonEmpty && !theoretical)
         Logger.debug(s"new placements after reachable search: $plcs")
-      (rs, theoretical ? Set[Placement]() ?? plcs)
+      (rs, theoretical ? Seq[Placement]() ?? plcs)
     }
     @scala.annotation.tailrec
-    def reachedRec(s: GameState, plcs: Set[Placement] = Set()): (GameState, Set[Placement]) = {
+    def reachedRec(s: GameState, plcs: Seq[Placement] = Seq()): (GameState, Seq[Placement]) = {
       reachCache.clear()
       haveReached.clear()
       haveReached.add(ItemLoc.IMPLICIT)
@@ -543,8 +543,10 @@ package SeedGenerator {
       } while(stateCount < states.size)
       val reached_placements = preplc.keySet.intersect(haveReached.collect({case i: ItemLoc => i}))
       if(reached_placements.nonEmpty) {
-        val new_placements = plcs ++ reached_placements.flatMap(l => preplc(l))
-        val partialState =  s.noReached + GameState(new Inv(new_placements.map(_.item -> 1).toSeq:_*), states.toSet, haveReached.toSet)
+        val new_placements = plcs ++ reached_placements.toSeq.flatMap(l => preplc(l))
+        var new_items = Map.empty[Item, Int]
+        for (plc <- new_placements) new_items += plc.item -> (new_items.getOrElse(plc.item, 0) + 1)
+        val partialState =  s.noReached + GameState(new Inv(new_items.toSeq:_*), states.toSet, haveReached.toSet)
         preplc = preplc.filterNot(kv => new_placements.map(_.loc).contains(kv._1))
         Nodes.reachedRec(partialState, new_placements)
       } else
