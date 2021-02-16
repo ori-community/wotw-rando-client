@@ -1505,12 +1505,11 @@ anchor EastHollow.MapMoki at -106, -4221:  # after crossing the voicelocked door
   conn GladesTown.Teleporter:
     moki: Bash, DoubleJump OR Launch
     gorlek:
-      Bash, Grenade=1, Dash OR Glide OR Damage=10
-      Bash, SentryJump=1, Dash OR Damage=10
-      Bash, Dash, Damage=10
+      Bash, Grenade=1, Dash
+      Bash, SentryJump=1, Dash
+      Bash, Damage=10
     unsafe:
       Bash, Grenade=1
-      Bash, Damage=10
       SentryJump=1, DoubleJump, TripleJump, Sentry=4  # Sentry redirect the shot to break the wall
       # Bash, EastHollow.BeetleDefeated, Sword  # Long Squonkey Lure using Bash Climbing
       Grenade=5, Damage=10, EastHollow.BeetleDefeated    # Grenade Redirect and Grenade Jumps
@@ -2564,7 +2563,7 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
       Dash, Sword OR Hammer OR Damage=15
       Grapple, Sword
       Grapple, Damage=15, DoubleJump OR Hammer
-      Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=15  # different ways to solve using the many bash targets around
+      Bash, DoubleJump OR Dash OR Glide OR Sword  # different ways to solve using the many bash targets around
       SentryJump=1, Sword OR Damage=15
     unsafe, BreakWall=16:
       Damage=15, Sword
@@ -4025,7 +4024,7 @@ anchor WoodsMain.AbovePit at 1234, -3985:  # To the left of the pit before feedi
       Bash, Dash OR Hammer
       Sword
   conn WoodsShrine:  # in moki these are covered by the feeding grounds connection
-    gorlek: Damage=15, DoubleJump OR Dash OR Sword OR Hammer
+    gorlek: Damage=15, DoubleJump OR Dash
 
 anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feeding grounds
   refill Checkpoint
@@ -4037,7 +4036,7 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
     moki:
       Glide OR Launch
       DoubleJump, Dash
-    gorlek: Damage=15, DoubleJump OR Dash OR Sword OR Hammer
+    gorlek: Damage=15, DoubleJump OR Dash
   conn LowerWastes.WestTP:
     moki:
       Grapple, Glide, DoubleJump OR Dash OR Launch  # this solves with Seir as well
@@ -4068,6 +4067,7 @@ anchor WoodsMain.FeedingGrounds at 1292, -3993:  # At the left entrance to feedi
 
 anchor WoodsShrine at 1361, -4068:
   refill Full
+
   pickup WoodsMain.ShrineEX: free
   pickup WoodsMain.CombatShrine:
     moki, Regenerate, Combat=Hornbug+Lizard+3xSkeeto+4xEnergyRefill+2xCrystalMiner+Bat+4xEnergyRefill+9xBalloon+4xEnergyRefill+4xMantis+Bat:  # this one has it all -_-
@@ -5182,7 +5182,6 @@ anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
       Launch
     gorlek:
       Bash, Grenade=1
-      Bash, Damage=30, Glide OR Sword
       Grapple, DoubleJump, TripleJump OR Glide
       SentryJump=1, Combat=Bat, DoubleJump OR Dash
     unsafe:
@@ -6166,6 +6165,7 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
     gorlek:
       Combat=CorruptSlug, DoubleJump, TripleJump OR Sword OR Hammer OR Damage=20  # wait for another bubble when on the right upper wall
       Bash, DoubleJump, TripleJump OR Sword OR Hammer OR Damage=20
+      DoubleJump, Damage=10, Sword OR Hammer  # tank the explosion damage from the slug
       Dash, Damage=20, Combat=CorruptSlug OR Bash
     unsafe:
       Bash  # Bash the skeeto, bash the slime twice
@@ -6871,8 +6871,9 @@ anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sa
   pickup LowerWastes.SandBridgeOre: free
 
   conn LowerWastes.SunsetView:
-    moki: Combat=MaceMiner OR Bash OR Launch
-    gorlek: free
+    moki: Combat=MaceMiner OR Bash OR Grapple OR Launch
+    gorlek: Glide
+    unsafe: free
   conn LowerWastes.TreeArea:
     moki: Burrow
   conn LowerWastes.MuncherTunnel: free
