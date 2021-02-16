@@ -415,11 +415,8 @@ anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside 
       Hammer                          # Validator moved from Gorlek to unsafe due to precision
   pickup HowlsDen.UpperEX:
     moki: MarshSpawn.HowlBurnt
-  pickup HowlsDen.RightHC:
-    moki: BreakWall=16, BreakWall=20, Combat=Slug OR Bash OR Launch
-    gorlek: BreakWall=16, BreakWall=20
 
-  conn HowlsDen.BoneBridge:
+  conn HowlsDen.AboveBoneBridge:
     moki: MarshSpawn.HowlBurnt
   conn MarshSpawn.DenApproach:
     moki, MarshSpawn.HowlBurnt:
@@ -438,6 +435,62 @@ anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside 
 
 # checkpoint at -298, -4388
 
+anchor HowlsDen.AboveBoneBridge at -446, -4436:  # After the climb up through the keydoor
+  refill Checkpoint
+
+  pickup HowlsDen.UpperEX:
+    moki: Launch
+    gorlek:
+      DoubleJump, TripleJump
+      Bash, Grenade=1
+
+  conn HowlsDen.UpperLoopEntrance: free
+  conn HowlsDen.Entrance:
+    moki: MarshSpawn.HowlBurnt, Launch
+    gorlek, MarshSpawn.HowlBurnt:
+      DoubleJump, TripleJump
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword
+  conn HowlsDen.SecretRoom:
+    gorlek: ShurikenBreak=16, BreakWall=20
+
+anchor HowlsDen.UpperLoopEntrance at -407, -4451:  # In front of the bone door blocking the loop with the right hc
+  refill Checkpoint:
+    moki: BreakWall=16
+
+  pickup HowlsDen.RightHC:
+    moki: BreakWall=16, BreakWall=20, Combat=Slug OR Bash OR Launch
+    gorlek: BreakWall=16, BreakWall=20
+
+  conn HowlsDen.BoneBridge: free
+  conn HowlsDen.AboveBoneBridge:
+    moki:
+      Bash, Grenade=1
+    gorlek:
+      Launch
+      DoubleJump, TripleJump
+  conn HowlsDen.UpperLoopExit:
+    moki:
+      BreakWall=16, BreakWall=16, Combat=Slug, DoubleJump OR Dash
+      BreakWall=16, BreakWall=16, Bash, DoubleJump OR Dash
+    gorlek:
+      BreakWall=16, BreakWall=16, DoubleJump OR Dash
+      BreakWall=16, BreakWall=16, Glide, Combat=Slug OR Bash
+      BreakWall=16, BreakWall=16, Sword OR SentryJump=1
+      BreakWall=16, BreakWall=16, WaterDash
+
+anchor HowlsDen.UpperLoopExit at -407, -4434:  # Checkpoint inside the bone door where you exit the loop with right hc (you can walk out)
+  refill Checkpoint
+
+  pickup HowlsDen.UpperEX:
+    moki: DoubleJump OR Dash
+    gorlek: Glide OR Sword
+    unsafe: free
+
+  conn HowlsDen.Entrance:
+    moki: MarshSpawn.HowlBurnt, DoubleJump OR Dash
+    gorlek: MarshSpawn.HowlBurnt, Glide OR Sword
+  conn HowlsDen.AboveBoneBridge: free
+
 anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's Den
   refill Checkpoint
 
@@ -455,99 +508,61 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
     moki: DoubleJump OR Launch
     gorlek:
       Dash
-      Bash, Damage=10                # Bash off the fronkey or slime to get to the unstable platform wall jump for the other two jumps
-      SentryJump=1                   # SentryJump onto the unstable platform, hammer/sword stall to left wall, wall jump to pickup
+      Bash, Damage=10  # Bash off the fronkey or slime to get to the unstable platform wall jump for the other two jumps
+      SentryJump=1  # SentryJump onto the unstable platform, hammer/sword stall to left wall, wall jump to pickup
     unsafe:
-      Grenade=2                      # Grenade jump onto the unstable platform then grenade jump to the pickup (requires some horizontal drifting)
-      Sword OR Hammer                # Upslash to reach the left wall, air combo to reach the floating platform, upslash again to the left wall, wjump from thereto the pickup
-  pickup HowlsDen.LeftHC:
-    moki:
-      HowlsDen.KeystoneDoor, Combat=SneezeSlug, BreakWall=20, DoubleJump OR Dash
-      HowlsDen.KeystoneDoor, Bash, BreakWall=20, DoubleJump OR Dash
-      HowlsDen.KeystoneDoor, BreakWall=20, Launch
-    gorlek:
-      HowlsDen.KeystoneDoor, BreakWall=20, Combat=SneezeSlug, Glide  # hold glide before jumping from the moss
-      HowlsDen.KeystoneDoor, BreakWall=20, Damage=10, Sword OR Hammer  # Possible with no damage but its much tighter, use sword combos to make the longer jumps
-  pickup HowlsDen.RightHC:
-    moki, HowlsDen.KeystoneDoor:
-      BreakWall=16, BreakWall=16, BreakWall=20, DoubleJump OR Launch
-      BreakWall=16, BreakWall=16, BreakWall=20, Dash, Bash, Grenade=1
-    gorlek:
-      BreakWall=16, BreakWall=20, Launch                                           # Follow door skip path with launch (done without opening the keystone door)
-      BreakWall=16, BreakWall=20, Bash, Grenade=1, DoubleJump, TripleJump          # Bash grenade from the bridge, tjump to reach the grenade and do door skip
-      HowlsDen.KeystoneDoor:
-        BreakWall=16, BreakWall=16, BreakWall=20, Dash OR Glide
-        BreakWall=16, BreakWall=16, BreakWall=20, Sword                            # Sword solves combat
-        BreakWall=16, BreakWall=16, BreakWall=20, SentryJump=3                     # Questionable relevance for anything other than 1hitko given that a sword path exists
-        BreakWall=16, BreakWall=16, BreakWall=20, Bash, Grenade=3, Damage=10       # Might be a bit precise for gorlek, pretty free with damage=20, grenade=2 works with 2 enemy manipulations
-    unsafe:
-      BreakWall=16, BreakWall=20, SentryJump=1, Hammer, DoubleJump                 # Hammer sentry jump to door skip platform, double jump up left wall, then dash/double jump across (done without opening the keystone door)
-      BreakWall=16, BreakWall=20, SentryJump=2, Hammer, Dash                       # Hammer sentry jump to door skip platform, sentry jump again to get more height, then dash jump across (done without opening the keystone door)
-      BreakWall=16, BreakWall=20, Bash, Grenade=2, DoubleJump                     # bash grenade + door skip
-      HowlsDen.KeystoneDoor:
-        BreakWall=16, BreakWall=16, BreakWall=20, Hammer                # Combination of sideways hammer thrusts and hammer upthrusts to make the jumps required
-        BreakWall=16, BreakWall=16, BreakWall=20, Bash, Grenade=2                  # Bash+Grenade the first jump, bash the slime off the wall and bash it again for second, Bash Grenade 3rd jump
-        BreakWall=16, BreakWall=16, BreakWall=20, Grenade=4                        # Grenade jump for all jumps
-  pickup HowlsDen.UpperEX:
-    moki, HowlsDen.KeystoneDoor:
-      # breaking one wall
-      Launch, BreakWall=16
-      # breaking all walls (this is good syntax!)
-      BreakWall=16, BreakWall=16, BreakWall=16, DoubleJump
-      BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
-    gorlek:
-      Launch                                                                       # Follow door skip path with launch (done without opening the keystone door)
-      Bash, Grenade=1, DoubleJump, TripleJump                                      # Bash grenade from the bridge, tjump to reach the grenade and do door skip
-      HowlsDen.KeystoneDoor:
-        BreakWall=16, BreakWall=16, BreakWall=16, Dash OR Glide
-        BreakWall=16, BreakWall=16, BreakWall=16, Sword                            # Sword solves combat requirement
-        BreakWall=16, BreakWall=16, BreakWall=16, SentryJump=4                     # Questionable relevance for anything other than 1hitko given that a sword path exists
-        BreakWall=16, Bash, Grenade=4, Damage=10                                   # Might be a bit precise for gorlek, pretty free with damage=20
-    unsafe:
-      Bash, Grenade=3, DoubleJump                                                  # Follow door skip path
-      BreakWall=16, BreakWall=16, Bash, Grenade=2, DoubleJump
-      SentryJump=2, Hammer, DoubleJump                                             # Hammer sentry jump to door skip platform, double jump up left wall, sentry jump to pickup (done without opening the keystone door)
-      SentryJump=3, Hammer, Dash                                                   # Hammer sentry jump to door skip platform, sentry jump again to get more height, then dash across, sentry jump to pickup (done without opening the keystone door)
-      HowlsDen.KeystoneDoor:
-        BreakWall=16, BreakWall=16, BreakWall=16, Hammer                          # Combination of sideways hammer thrusts and hammer upthrusts to make the jumps required
-        BreakWall=16, Bash, Grenade=2                                              # Bash+Grenade the first jump, bash the slime off the wall and bash it again for second, Bash Grenade 3rd jump, lure slime and bash off for 4th
-        BreakWall=16, Grenade=5                                                    # Grenade jump for all jumps
+      Grenade=2  # Grenade jump onto the unstable platform then grenade jump to the pickup (requires some horizontal drifting)
+      Sword OR Hammer  # Upslash to reach the left wall, air combo to reach the floating platform, upslash again to the left wall, wjump from thereto the pickup
   pickup HowlsDen.SwordTree: free
   pickup HowlsDen.MagnetShard:
     moki: BreakWall=10, BreakWall=16 OR Launch
   pickup HowlsDen.AboveTPEX:
     moki: HowlsDen.BoneBarrier, BreakWall=10
 
+  conn HowlsDen.UpperLoopEntrance:
+    gorlek:
+      Launch
+      Bash, Grenade=1, DoubleJump, TripleJump
+  conn HowlsDen.SecretRoom:
+    moki: HowlsDen.KeystoneDoor, BreakWall=20, Water OR DoubleJump OR Dash OR Glide OR Launch
+    gorlek: HowlsDen.KeystoneDoor, Sword OR Hammer  # weapon breaks the wall
+  conn HowlsDen.AboveBoneBridge:
+    moki, HowlsDen.KeystoneDoor:
+      BreakWall=16, DoubleJump, Combat=2xSlug OR Bash
+      BreakWall=16, Dash, Bash, Grenade=1
+      BreakWall=16, Glide, Bash, Grenade=2
+      BreakWall=16, Launch
+    gorlek, HowlsDen.KeystoneDoor:
+      BreakWall=16, Dash, Combat=2xSlug OR Bash
+      BreakWall=16, Glide, Bash, Grenade=1
+      BreakWall=16, Water, Bash, Grenade=3, Damage=10
+      Hammer, Bash, Grenade=3, Damage=10  # hammer breaks the wall
+      BreakWall=16, Water, WaterDash, Bash, Grenade=2, Damage=10
+      Sword, Bash, Grenade=1  # sword breaks the wall
+      SentryJump=1, Glide OR Sword  # weapon breaks the wall
+      SentryJump=3, Hammer, Damage=10  # hammer breaks the wall
+      Water, WaterDash, SentryJump=2, Hammer, Damage=10  # hammer breaks the wall
   conn HowlsDen.Teleporter:
     moki: HowlsDen.BoneBarrier
-  conn HowlsDen.Entrance:
-    moki, HowlsDen.KeystoneDoor, MarshSpawn.HowlBurnt:  # the path is blocked if howl fight is not done
-      # breaking one wall
-      Launch, BreakWall=16
-      # breaking all walls (this is good syntax!)
-      BreakWall=16, BreakWall=16, BreakWall=16, DoubleJump
-      BreakWall=16, BreakWall=16, BreakWall=16, Dash, Bash, Grenade=1
-    gorlek, MarshSpawn.HowlBurnt:
-      Launch                                                                       # Follow door skip path with launch (done without opening the keystone door)
-      Bash, Grenade=1, DoubleJump, TripleJump                                      # Bash grenade from the bridge, tjump to reach the grenade and do door skip
-      HowlsDen.KeystoneDoor:
-        BreakWall=16, BreakWall=16, BreakWall=16, Dash OR Glide
-        BreakWall=16, BreakWall=16, BreakWall=16, Sword                            # Sword solves combat requirement
-        BreakWall=16, BreakWall=16, BreakWall=16, SentryJump=4                     # Questionable relevance for anything other than 1hitko given that a sword path exists
-    unsafe, MarshSpawn.HowlBurnt:
-      Bash, Grenade=3, DoubleJump
-      BreakWall=16, BreakWall=16, Bash, Grenade=2, DoubleJump
-      SentryJump=2, Hammer, DoubleJump                                             # Hammer sentry jump to door skip platform, double jump up left wall, sentry jump to pickup (done without opening the keystone door)
-      SentryJump=3, Hammer, Dash                                                   # Hammer sentry jump to door skip platform, sentry jump again to get more height, then dash across, sentry jump to pickup (done without opening the keystone door)
-      HowlsDen.KeystoneDoor:
-        BreakWall=16, BreakWall=16, BreakWall=16, Hammer                # Combination of sideways hammer thrusts and hammer upthrusts to make the jumps required
-        BreakWall=16, Grenade=6                                                    # Grenade jump for all jumps
+
+anchor HowlsDen.SecretRoom:  # The hidden room holding left hc
+  refill Checkpoint
+
+  pickup HowlsDen.LeftHC:
+    moki:
+      Combat=SneezeSlug, DoubleJump OR Dash
+      Bash, DoubleJump OR Dash
+      Launch
+    gorlek:
+      DoubleJump OR Dash
+      Glide, Combat=SneezeSlug OR Bash  # hold glide before jumping from the moss
+      Sword, Damage=10  # just safety damage
+    unsafe:
+      Sword OR Hammer
+  # could add backwards connections someday
 
 # checkpoint at -511, -4479
 # checkpoint at -476, -4441
-# checkpoint at -446, -4436
-# checkpoint at -404, -4450
-# checkpoint at -407, -4434
 
 anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
   refill Full
