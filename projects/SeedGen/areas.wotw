@@ -1468,10 +1468,10 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
       Bash, DoubleJump OR Dash OR Glide
       SentryJump=1, DoubleJump OR Dash OR Glide  # Go down to the pit, do SentryJump and the use Sword or Hammer to get to the rope
   conn EastHollow.MapMoki:
-    moki, EastHollow.BeetleDefeated, EastHollow.Voice:
+    moki, EastHollow.BeetleDefeated, EastHollow.ForestsVoice:
       Bash, DoubleJump OR Dash OR Glide
       Launch
-    gorlek, EastHollow.Voice:
+    gorlek, EastHollow.ForestsVoice:
       Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer
       Launch
   conn WestHollow.Entrance:
@@ -1605,7 +1605,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
 anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
   refill Checkpoint
 
-  state EastHollow.Voice: free
+  quest EastHollow.ForestsVoice: free
 
   quest EastHollow.KwolokAmuletQuest:
     moki: EastPools.KwolokAmuletQI, WestPools.ForestsStrength
@@ -7482,7 +7482,7 @@ anchor UpperWastes.OutsideRuins at 2014, -3609:  # Just outside the door
       Bash, Grenade=1, Dash OR DoubleJump  # Bash glide
 
   conn WindtornRuins.UpperRuinsDoor:
-    moki: EastHollow.Voice, LowerReach.ForestsMemory, UpperDepths.ForestsEyes, WestPools.ForestsStrength
+    moki: EastHollow.ForestsVoice, LowerReach.ForestsMemory, UpperDepths.ForestsEyes, WestPools.ForestsStrength
   conn UpperWastes.RuinsApproach:
     moki: Combat=MaceMiner+Mantis OR Bash OR Launch
 
@@ -8164,7 +8164,7 @@ anchor OpherShop:  # Opher's offers
   pickup OpherShop.Teleport:
     moki: SpiritLight=1200
   pickup OpherShop.WaterBreath:
-    moki: InnerWellspring.WaterEscape, EastHollow.Voice, SpiritLight=1200
+    moki: InnerWellspring.WaterEscape, SpiritLight=1200
 
 anchor TuleyShop at -173, -4139:
   quest GladesTown.RegrowTheGlades:
