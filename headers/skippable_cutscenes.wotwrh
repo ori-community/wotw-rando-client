@@ -14,7 +14,7 @@
 9|1=1000|4|10|9|1       // .
 9|1=2000|4|2       // timed checkpoints
 9|1=2000|4|10|9|1  // .
-46462|59806|8|937|6778|bool|true  // skip voice door
+!46462|59806|8|937|6778|bool|true  // skip voice door
 !37858|12379|8|9|1|int|670      // skip water cleaned
 !37858|12379|8|937|34641|int|3  // .
 6|1014|8|18793|25789|bool|true  // skip depths gate
