@@ -73,9 +73,8 @@ package SeedGenerator {
           val lines = contents.mkString("").split("\n")
           Header(name, lines)
         }).toList ++
-          Seq(implicits.defaultPath, "headers".jarf)
-            .map(_.toFile.listFiles(_.getName.endsWith(".wotwrh")))
-            .flatMap(_.map(f => Header(f.getName.replace(".wotwrh", ""), f.toPath.readLines)))
+          implicits.defaultPath.toFile.listFiles(_.getName.endsWith(".wotwrh")).map(f => Header(f.getName.replace(".wotwrh", ""), f.toPath.readLines)) ++
+          ("headers".jarf.exists ? "headers".jarf.toFile.listFiles(_.getName.endsWith(".wotwrh")).map(f => Header(f.getName.replace(".wotwrh", ""), f.toPath.readLines)) ?? Array())
       }
       val byName: Map[String, Header] = all.map(h => h.name -> h).toMap
       def active: Seq[String] = settings().headerList.flatMap(hn => byName.get(hn).map(_.lines) ?? Nil :+ "")
