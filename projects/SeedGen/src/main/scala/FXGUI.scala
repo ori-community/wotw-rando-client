@@ -78,7 +78,7 @@ package SeedGenerator {
             .flatMap(_.map(f => Header(f.getName.replace(".wotwrh", ""), f.toPath.readLines)))
       }
       val byName: Map[String, Header] = all.map(h => h.name -> h).toMap
-      def active: Seq[String] = settings().headerList.flatMap(hn => byName(hn).lines :+ "")
+      def active: Seq[String] = settings().headerList.flatMap(hn => byName.get(hn).map(_.lines) ?? Nil :+ "")
     }
     val APP_NAME: String = "RandoSeedGen"
     val pref: Preferences = Preferences.userRoot.node(APP_NAME)
