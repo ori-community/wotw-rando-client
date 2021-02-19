@@ -3579,6 +3579,9 @@ anchor WoodsEntry.ShriekMeet at 391, -4198:  # The ledge after swimming through 
     unsafe: Sword OR Hammer  # Careful with sword and hammer because it can break bubbles
   conn EastHollow.Kwolok:
     gorlek: Water, Bash, Damage=10  # bit hard but important for random spawn
+  unsafe: 
+    Water, Spear=1  # Spear is easier than bash and could be gorlek but breaking things underwater with it isn't in gorlek logic (check Pools for reference)
+    Water, Bash OR Grenade=1 OR Sentry=1  # redirect the projectile (sentry is way harder than the others). Also works with sword+deflector
 
 # checkpoint at 478, -4205
 # checkpoint at 525, -4205
@@ -6949,8 +6952,10 @@ anchor LowerWastes.SandPot at 1726, -3990:  # To the left of the sand pot
       Bash, Grenade=1, Grapple, Sword OR Hammer OR Damage=30
       Bash, Grenade=2, Sword OR Hammer OR Damage=30
     unsafe:
-      DoubleJump, TripleJump OR Grapple OR Glide OR Damage=30
-      Grapple, Glide OR Damage=30
+      DoubleJump, TripleJump OR Grapple OR Damage=30
+      Grapple, Damage=30
+      Sword OR Glide   # climb on the sand pot from the right then hover
+      Hammer, Dash OR DoubleJump OR Damage=30
       Bash, Grenade=1  # Damageless with a bashglide.
 
 anchor LowerWastes.WoodenBridge at 1796, -3977:  # Directly above MuncherPitEX
