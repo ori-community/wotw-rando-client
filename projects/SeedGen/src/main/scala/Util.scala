@@ -38,7 +38,7 @@ package SeedGenerator {
                        gorlekPaths: Boolean = false, // todo: this better!!
                        glitchPaths: Boolean = false, // todo: this better!!
                        questLocs: Boolean = true,
-                       outputFolder: String = "".jarf.toString,
+                       outputFolder: String = "seeds".jarf.toString,
                        flags: Flags = Flags(),
                        webConn: Boolean = false,
                        bonusItems: Boolean = true,
