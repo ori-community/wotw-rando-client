@@ -72,7 +72,10 @@ package SeedGenerator {
           val contents = Source.fromURL(link)
           val lines = contents.mkString("").split("\n")
           Header(name, lines)
-        }).toList ++ implicits.defaultPath.toFile.listFiles(_.getName.endsWith(".wotwrh")).map(f => Header(f.getName.replace(".wotwrh", ""), f.toPath.readLines))
+        }).toList ++
+          Seq(implicits.defaultPath, "headers".jarf)
+            .map(_.toFile.listFiles(_.getName.endsWith(".wotwrh")))
+            .flatMap(_.map(f => Header(f.getName.replace(".wotwrh", ""), f.toPath.readLines)))
       }
       val byName: Map[String, Header] = all.map(h => h.name -> h).toMap
       def active: Seq[String] = settings().headerList.flatMap(hn => byName(hn).lines :+ "")
