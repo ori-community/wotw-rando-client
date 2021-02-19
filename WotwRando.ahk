@@ -31,7 +31,7 @@ if not A_IsAdmin
 
 ; filecreatedir silent fails if it exists, so we won't bother checking if it's already there
 FileCreateDir %INSTALL_DIR%
-
+FileCreateDir %INSTALL_DIR%seeds
 ; get the version number of the existing exe first thing
 FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
 FileRead, MY_VER, %INSTALL_DIR%.VERSION
