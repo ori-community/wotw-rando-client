@@ -417,10 +417,10 @@ package SeedGenerator {
     var unreachableLocs: Set[ItemLoc] = Set()
     var preplc: Map[ItemLoc, Seq[Placement]] = Map[ItemLoc, Seq[Placement]]()
     val prestates: MSet[FlagState] = MSet()
-    val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?)) *(//.*)?""".r
+    val seedLineRegex: Regex = """^(!)?(([0-9]+)\|([0-9]+)(=[0-9])?)\|(([0-9]+)\|(.*?))(\|[-0-9.]+)? *(//.*)?""".r
     val addItemRegex: Regex = """^!!add ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
-    val rmItemRegex: Regex = """^!!remove ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
     val setStateRegex: Regex = """^!!set ([a-zA-Z.]+) *(//.*)?""".r
+    val rmItemRegex: Regex = """^!!remove ([0-9]+x)? ?([0-9]+\|.*?) *(//.*)?""".r
 
     def handleHeaders(pool: Inv)(implicit r: Random): Unit = Try {
       def addPreplc(p: Placement): Unit = {
@@ -457,7 +457,7 @@ package SeedGenerator {
           }
           Logger.debug(s"adding $item x$count to the item pool")
           pool.add(item, count)
-        case raw@seedLineRegex(dontMergeToPool, locCode, _, _, _, itemCode, _, _, _) =>
+        case raw@seedLineRegex(dontMergeToPool, locCode, _, _, _, itemCode, _, _, _, _) =>
           (dontMergeToPool == "!", locsByCode.get(locCode), poolByCode.get(itemCode)) match {
             case (true, _, _) => // do nothing
             case (false, Some(loc), Some(item)) =>
