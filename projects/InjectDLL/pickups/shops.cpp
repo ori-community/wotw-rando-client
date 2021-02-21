@@ -188,12 +188,13 @@ namespace
     {
         //Weaponmasteritem$$DoPurchase
         //Do the rando purchase /after/ rollback, eiko ;3
+        weaponmaster_purchase_in_progress = true;
         WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
+        weaponmaster_purchase_in_progress = false;
         const auto ability_type = item->fields.Upgrade->fields.AcquiredAbilityType;
         if (ability_type != app::AbilityType__Enum_None)
         {
             csharp_bridge::opher_buy_weapon(ability_type);
-            weaponmaster_purchase_in_progress = true;
         }
         else
         {
@@ -201,7 +202,6 @@ namespace
             if (required_type == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
             {
                 csharp_bridge::opher_buy_weapon(app::AbilityType__Enum_TeleportSpell);
-                weaponmaster_purchase_in_progress = true;
             }
             else
             {
@@ -209,7 +209,6 @@ namespace
             }
         }
 
-        weaponmaster_purchase_in_progress = false;
     }
 
     //MapmakerScreen* mapMakerPtr = nullptr;
