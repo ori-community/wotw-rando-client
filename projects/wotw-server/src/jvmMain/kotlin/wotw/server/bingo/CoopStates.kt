@@ -78,7 +78,6 @@ val questIds = mapOf(
     "Family Reunion" to UberId(14019, 27804),
     "The Tree Keeper" to UberId(14019, 59708),
     "A Diamond in the Rough" to UberId(14019, 61011),
-//    "Into The Darkness" to UberId(14019, 33776), bad to sync for reasons
     "Kwolok's Wisdom" to UberId(14019, 50597),
     "The Silent Map" to UberId(14019, 24683),
     "Breaking the Mould" to UberId(14019, 45931),
@@ -90,6 +89,7 @@ val questIds = mapOf(
     "Regrowing the Glades" to UberId(14019, 26394),
     "FindToad" to UberId(14019, 48794),
 )
+//    "Into The Darkness" to UberId(14019, 33776), bad to sync for reasons
 
 
 
@@ -661,7 +661,9 @@ val coopAggregation by lazy {
             sync(questIds.values),
             sync(pickupIds.values),
             sync(unsortedCoop),
-            sync(37858,8487).on(threshold = 5f) //Wellspring fight room
+            sync(37858, 8487).on(threshold = 5f), //Wellspring fight room
+            sync(5377, 53480).on(threshold = 4f), // pools fight room 2
+            sync(9593, 25130).on(threshold = 3f) // double jump lizard fight
         )
     }
 }
