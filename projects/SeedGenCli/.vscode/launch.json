@@ -25,6 +25,8 @@
                 }
             },
             "args": [
+                "--areas",
+                "C:\\moon\\areas.wotw",
                 "--output",
                 "C:\\test",
                 "--debug",

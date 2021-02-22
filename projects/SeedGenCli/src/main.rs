@@ -7,6 +7,8 @@ use structopt::StructOpt;
 use bugsalot::debugger;
 use atty;
 
+mod tokenizer;
+
 #[derive(StructOpt)]
 struct Arguments {
     #[structopt(long = "validate")]
@@ -15,8 +17,8 @@ struct Arguments {
     wait_on_debugger: bool,
     #[structopt(long = "spoilers")]
     spoilers: bool,
-    #[structopt(parse(from_os_str), long = "area")]
-    area: PathBuf,
+    #[structopt(parse(from_os_str), long = "areas")]
+    areas: PathBuf,
     #[structopt(parse(from_os_str), long = "output")]
     output: PathBuf,
     #[structopt(long = "gen_flags", required = true, min_values = 1)]
@@ -86,5 +88,10 @@ fn main() {
         }
     }
 
-    // TODO: Call tokenizer, parser etc with arguments.
+    match tokenizer::tokenize(&args.areas) {
+        Ok(tokens) => println!("Tokenized {} tokens succesfully!", tokens.len()),
+        Err(error) => println!("{}", error),
+    }
+
+    // TODO: Call parser etc with arguments.
 }
