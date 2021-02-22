@@ -4805,7 +4805,7 @@ anchor LowerReach.WispPath at 83, -3874:  # Halfway through the climb
       SentryJump=1
       Bash, Grenade=1, Dash OR Glide OR Sword
       DoubleJump, TripleJump OR Dash
-     unsafe:
+    unsafe:
       DoubleJump, Sword OR Hammer OR Damage=20
       Dash, Hammer
 
