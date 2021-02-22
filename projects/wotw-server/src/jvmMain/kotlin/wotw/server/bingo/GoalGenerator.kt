@@ -49,6 +49,7 @@ fun generatePool() = mutableListOf(
         bool("Marsh Burrow Area Gauntlet", 9593, 59418),
         threshold("Double Jump Tree Approach", 9593, 25130, 3, hideValue=true),
         threshold("Wellspring Wheel Room Access", 37858, 8487, 2, hideValue=true),
+        threshold("Pools Water Dash Fight Room", 5377, 53480, 4, hideValue=true)
         ),
     group(
         "Buy # Weapon Upgrade[s]",
@@ -125,7 +126,7 @@ fun generatePool() = mutableListOf(
         bool("Water Dash", 6, 1104),
         bool("Flap", 6, 1118),
         bool("Clean Water", 6, 2000),
-        maxRepeats = 2
+        maxRepeats = 1
     ),
     group(
         "Collect # Wisp[s]",
