@@ -9,5 +9,3 @@ add_subdirectory("Il2CppModLoader")
 add_subdirectory("RandoMainDLL")
 add_subdirectory("InjectDLL")
 add_subdirectory("TraceServer")
-
-add_subdirectory("SeedGenCli")
