@@ -484,52 +484,51 @@ pub fn parse_areas(tokens: &[Token]) -> Result<AreaTree, ParseError> {
 
 pub struct Location {
     name: String,
-    group_id: u16,
-    uber_id: u16,
-    uber_value: Option<u16>,
+    group_id: String,
+    uber_id: String,
 }
 
 fn empty_field(name: &str, index: usize, line: &str) -> String {
     format!("Required field {} was empty at line {}: {}", name, index + 1, line)
 }
 
-pub fn parse_locations(path: &PathBuf) -> Result<Vec<Location>, String> {
+pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, String> {
     let input = fs::read_to_string(path).unwrap();
     let mut locations = Vec::with_capacity(input.lines().count());
 
     for (index, line) in input.lines().enumerate() {
         let parts: Vec::<&str> = line.split(',').collect();
-        if parts.len() != 10 {
+        if validate && parts.len() != 10 {
             return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line))
         }
 
         let (name, group_id, uber_id) = (parts[0].trim(), parts[5].trim(), parts[7].trim());
-        if name.is_empty() {
-            return Err(empty_field("name", index, line))
-        }
-        if group_id.is_empty() {
-            return Err(empty_field("group_id", index, line))
-        }
-        if uber_id.is_empty() {
-            return Err(empty_field("uber_id", index, line))
-        }
-
-        let group_id: u16 = group_id.parse().map_err(|_| format!("Failed to parse uberGroup id at line {}: {}", index + 1, line))?;
-        let mut uber_id_value = uber_id.split('=');
-        let uber_id: u16 = uber_id_value.next().unwrap().parse().map_err(|_| format!("Failed to parse uberState id at line {}: {}", index + 1, line))?;
-        let mut uber_value: Option<u16> = None;
-        if let Some(value) = uber_id_value.next() {
-            uber_value = Some(value.parse().map_err(|_| format!("Failed to parse uberState value at line {}: {}", index + 1, line))?);
-            if uber_id_value.next().is_some() {
-                return Err(format!("Multiple equal signs in uberState at line {}: {}", index + 1, line))
+        if validate {
+            if name.is_empty() {
+                return Err(empty_field("name", index, line))
+            }
+            if group_id.is_empty() {
+                return Err(empty_field("group_id", index, line))
+            }
+            if uber_id.is_empty() {
+                return Err(empty_field("uber_id", index, line))
+            }
+            
+            group_id.parse::<u16>().map_err(|_| format!("Invalid uberGroup id at line {}: {}", index + 1, line))?;
+            let mut uber_id_value = uber_id.split('=');
+            uber_id_value.next().unwrap().parse::<u16>().map_err(|_| format!("Invalid uberState id at line {}: {}", index + 1, line))?;
+            if let Some(value) = uber_id_value.next() {
+                value.parse::<u16>().map_err(|_| format!("Invalid uberState value at line {}: {}", index + 1, line))?;
+                if uber_id_value.next().is_some() {
+                    return Err(format!("Multiple equal signs in uberState at line {}: {}", index + 1, line))
+                }
             }
         }
 
         locations.push(Location {
             name: name.to_string(),
-            group_id,
-            uber_id,
-            uber_value,
+            group_id: group_id.to_string(),
+            uber_id: uber_id.to_string(),
         })
     }
 

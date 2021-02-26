@@ -95,7 +95,7 @@ fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) {
         }
     };
 
-    let locations = match parser::parse_locations(locations) {
+    let locations = match parser::parse_locations(locations, validate) {
         Ok(locations) => locations,
         Err(error) => panic!("Error parsing loc_data.csv: {}", error),
     };
