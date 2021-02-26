@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 use std::fs::File;
 use std::io::{self, Read, BufReader, Error, ErrorKind};
+// use std::io::prelude::*;
 
 use structopt::StructOpt;
 use bugsalot::debugger;
@@ -21,6 +22,8 @@ struct Arguments {
     spoilers: bool,
     #[structopt(parse(from_os_str), long = "areas")]
     areas: PathBuf,
+    #[structopt(parse(from_os_str), long = "locations")]
+    locations: PathBuf,
     #[structopt(parse(from_os_str), long = "output")]
     output: PathBuf,
     #[structopt(long = "gen_flags", required = true, min_values = 1)]
@@ -72,6 +75,32 @@ fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
     Ok(contents)
 }
 
+fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) {
+    let tokens = match tokenizer::tokenize(areas) {
+        Ok(tokens) => tokens,
+        Err(error) => panic!("Error parsing areas.wotw: {}", error),
+    };
+
+    // let mut file = File::create("tokens.txt").unwrap();
+    // for token in &tokens {
+    //     let name = format!("{}, {:?} ({}) ", token.line, token.name, token.value);
+    //     file.write_all(name.as_bytes()).unwrap();
+    // }
+
+    let areas = match parser::parse_areas(&tokens) {
+        Ok(areas) => areas,
+        Err(error) => {
+            let ParseError { description, position } = error;
+            panic!("Error parsing areas.wotw: {}: {}", description, util::trace_parse_error(areas, position));
+        }
+    };
+
+    let locations = match parser::parse_locations(locations) {
+        Ok(locations) => locations,
+        Err(error) => panic!("Error parsing loc_data.csv: {}", error),
+    };
+}
+
 fn main() {
     let mut args = Arguments::from_args();
     if args.wait_on_debugger {
@@ -90,28 +119,8 @@ fn main() {
         }
     }
 
-    let tokens = match tokenizer::tokenize(&args.areas) {
-        Ok(tokens) => tokens,
-        Err(error) => panic!("{}", error),
-    };
+    parse_logic(&args.areas, &args.locations, args.validate);
 
-    // let mut file = File::create("tokens.txt").unwrap();
-    // for token in &tokens {
-    //     let name = format!("{}, {:?} ({}) ", token.line, token.name, token.value);
-    //     file.write_all(name.as_bytes()).unwrap();
-    // }
-
-    let areas = match parser::parse_areas(&tokens) {
-        Ok(areas) => areas,
-        Err(error) => match error {
-            ParseError::WrongToken(description, position) |
-            ParseError::WrongAmount(description, position) |
-            ParseError::WrongRequirement(description, position) |
-            ParseError::ParseInt(description, position) => panic!("{}: {}", description, util::trace_parse_error(&args.areas, position)),
-        }
-    };
-
-    print!("");
-
-    // TODO: Call parser etc with arguments.
+    // TODO: Turn area tree into a graph
+    // TODO: Generate a seed
 }

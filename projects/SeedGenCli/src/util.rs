@@ -1,11 +1,13 @@
 use std::{fs, path::PathBuf};
 
+#[derive(Debug)]
 pub enum Pathset {
     Moki,
     Gorlek,
     Glitch,
     Unsafe,
 }
+#[derive(Debug)]
 pub enum Skill {
     Bash,
     WallJump,
@@ -30,6 +32,7 @@ pub enum Skill {
     Sentry,
     Flap,
 }
+#[derive(Debug)]
 pub enum Resource {
     SpiritLight,
     Health,
@@ -38,6 +41,7 @@ pub enum Resource {
     Keystone,
     ShardSlot,
 }
+#[derive(Debug)]
 pub enum Shard {
     //Overcharge,
     TripleJump,
@@ -71,6 +75,7 @@ pub enum Shard {
     Fracture,
     Arcing,
 }
+#[derive(Debug)]
 pub enum Teleporter {
     Marsh,
     Den,

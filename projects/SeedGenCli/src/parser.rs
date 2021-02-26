@@ -1,14 +1,15 @@
+use std::{fs, path::PathBuf};
+
 use crate::tokenizer::{Token, TokenType};
 use crate::util::{Pathset, Skill, Resource, Shard, Teleporter};
 
-pub enum ParseError {
-    WrongToken(String, usize),
-    WrongAmount(String, usize),
-    WrongRequirement(String, usize),
-    ParseInt(String, usize),
+pub struct ParseError {
+    pub description: String,
+    pub position: usize,
 }
 
-pub enum Requirement {
+#[derive(Debug)]
+pub enum Requirement<'a> {
     Free,
     Pathset(Pathset),
     Skill(Skill),
@@ -16,62 +17,64 @@ pub enum Requirement {
     Resource(Resource, u16),
     Shard(Shard),
     Teleporter(Teleporter),
-    State(String),
+    State(&'a str),
     Damage(u16),
     Danger(u16),
-    Combat(String),
+    Combat(&'a str),
     Boss(u16),
     BreakWall(u16),
     ShurikenBreak(u16),
     SentryJump(u16),
 }
-pub struct Line {
-    pub ands: Vec<Requirement>,
-    pub ors: Vec<Requirement>,
-    pub group: Option<Group>,
+pub struct Line<'a> {
+    pub ands: Vec<Requirement<'a>>,
+    pub ors: Vec<Requirement<'a>>,
+    pub group: Option<Group<'a>>,
 }
-pub struct Group {
-    pub lines: Vec<Line>
+pub struct Group<'a> {
+    pub lines: Vec<Line<'a>>
 }
+#[derive(Debug)]
 pub enum RefillType {
     Full,
     Checkpoint,
     Health(u16),
     Energy(u16),
 }
-pub struct Refill {
+pub struct Refill<'a> {
     pub name: RefillType,
-    pub requirements: Option<Group>,
+    pub requirements: Option<Group<'a>>,
 }
+#[derive(Debug)]
 pub enum ConnectionType {
     State,
     Quest,
     Pickup,
     Anchor,
 }
-pub struct Connection {
+pub struct Connection<'a> {
     pub name: ConnectionType,
-    pub identifier: String,
-    pub requirements: Option<Group>,
+    pub identifier: &'a str,
+    pub requirements: Option<Group<'a>>,
 }
-pub struct Definition {
-    pub identifier: String,
-    pub requirements: Group,
+pub struct Definition<'a> {
+    pub identifier: &'a str,
+    pub requirements: Group<'a>,
 }
-pub struct Region {
-    pub identifier: String,
-    pub requirements: Group,
+pub struct Region<'a> {
+    pub identifier: &'a str,
+    pub requirements: Group<'a>,
 }
-pub struct Anchor {
-    pub identifier: String,
+pub struct Anchor<'a> {
+    pub identifier: &'a str,
     pub position: Option<(i16, i16)>,
-    pub refills: Vec<Refill>,
-    pub connections: Vec<Connection>,
+    pub refills: Vec<Refill<'a>>,
+    pub connections: Vec<Connection<'a>>,
 }
-pub struct Areas {
-    pub definitions: Vec<Definition>,
-    pub regions: Vec<Region>,
-    pub anchors: Vec<Anchor>,
+pub struct AreaTree<'a> {
+    pub definitions: Vec<Definition<'a>>,
+    pub regions: Vec<Region<'a>>,
+    pub anchors: Vec<Anchor<'a>>,
 }
 
 struct ParseContext {
@@ -88,7 +91,7 @@ fn parse_requirement(token: &Token) -> Result<Requirement, ParseError> {
     match amount {
         Some(amount) => {
             if keyword == "Combat" {
-                return Ok(Requirement::Combat(amount.to_string()));
+                return Ok(Requirement::Combat(amount));
             }
             let amount: u16 = match amount.parse() {
                 Ok(result) => result,
@@ -176,19 +179,9 @@ fn parse_requirement(token: &Token) -> Result<Requirement, ParseError> {
             "WestWastesTP" => Ok(Requirement::Teleporter(Teleporter::WestWastes)),
             "WestWoodsTP" => Ok(Requirement::Teleporter(Teleporter::WestWoods)),
             "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
-            "Boss" => Err(wrong_amount(token)),
-            "BreakWall" => Err(wrong_amount(token)),
-            "Damage" => Err(wrong_amount(token)),
-            "Danger" => Err(wrong_amount(token)),
-            "Energy" => Err(wrong_amount(token)),
-            "Health" => Err(wrong_amount(token)),
-            "Keystone" => Err(wrong_amount(token)),
-            "Ore" => Err(wrong_amount(token)),
-            "SentryJump" => Err(wrong_amount(token)),
-            "ShardSlot" => Err(wrong_amount(token)),
-            "ShurikenBreak" => Err(wrong_amount(token)),
-            "SpiritLight" => Err(wrong_amount(token)),
-            _ => Ok(Requirement::State(keyword.to_string()))
+            "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
+                => Err(wrong_amount(token)),
+            _ => Ok(Requirement::State(keyword))
         }
     }
 }
@@ -202,7 +195,7 @@ fn parse_free(tokens: &[Token], context: &mut ParseContext) -> Result<(), ParseE
     Ok(())
 }
 
-fn parse_line(tokens: &[Token], context: &mut ParseContext) -> Result<Line, ParseError> {
+fn parse_line<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Line<'a>, ParseError> {
     let mut ands = Vec::<Requirement>::new();
     let mut ors = Vec::<Requirement>::new();
     let mut group = None;
@@ -263,7 +256,7 @@ fn parse_line(tokens: &[Token], context: &mut ParseContext) -> Result<Line, Pars
     })
 }
 
-fn parse_group(tokens: &[Token], context: &mut ParseContext) -> Result<Group, ParseError> {
+fn parse_group<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Group<'a>, ParseError> {
     let mut lines = Vec::<Line>::new();
     loop {
         match tokens[context.position].name {
@@ -279,7 +272,7 @@ fn parse_group(tokens: &[Token], context: &mut ParseContext) -> Result<Group, Pa
     })
 }
 
-fn parse_refill(tokens: &[Token], context: &mut ParseContext) -> Result<Refill, ParseError> {
+fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Refill<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     context.position += 1;
 
@@ -322,7 +315,7 @@ fn parse_refill(tokens: &[Token], context: &mut ParseContext) -> Result<Refill, 
         requirements,
     })
 }
-fn parse_connection(tokens: &[Token], context: &mut ParseContext, name: ConnectionType) -> Result<Connection, ParseError> {
+fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, name: ConnectionType) -> Result<Connection<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let mut requirements = None;
 
@@ -337,24 +330,24 @@ fn parse_connection(tokens: &[Token], context: &mut ParseContext, name: Connecti
     }
     Ok(Connection {
         name,
-        identifier: identifier.to_string(),
+        identifier,
         requirements,
     })
 }
-fn parse_state(tokens: &[Token], context: &mut ParseContext) -> Result<Connection, ParseError> {
+fn parse_state<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, ConnectionType::State)
 }
-fn parse_quest(tokens: &[Token], context: &mut ParseContext) -> Result<Connection, ParseError> {
+fn parse_quest<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, ConnectionType::Quest)
 }
-fn parse_pickup(tokens: &[Token], context: &mut ParseContext) -> Result<Connection, ParseError> {
+fn parse_pickup<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, ConnectionType::Pickup)
 }
-fn parse_anchor_connection(tokens: &[Token], context: &mut ParseContext) -> Result<Connection, ParseError> {
+fn parse_anchor_connection<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, ConnectionType::Anchor)
 }
 
-fn parse_definition(tokens: &[Token], context: &mut ParseContext) -> Result<Definition, ParseError> {
+fn parse_definition<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Definition<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let requirements;
     context.position += 1;
@@ -366,11 +359,11 @@ fn parse_definition(tokens: &[Token], context: &mut ParseContext) -> Result<Defi
         _ => return Err(wrong_token(&tokens[context.position], "indent")),
     }
     Ok(Definition {
-        identifier: identifier.to_string(),
+        identifier,
         requirements,
     })
 }
-fn parse_region(tokens: &[Token], context: &mut ParseContext) -> Result<Region, ParseError> {
+fn parse_region<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Region<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let requirements;
     context.position += 1;
@@ -382,11 +375,11 @@ fn parse_region(tokens: &[Token], context: &mut ParseContext) -> Result<Region, 
         _ => return Err(wrong_token(&tokens[context.position], "indent")),
     }
     Ok(Region {
-        identifier: identifier.to_string(),
+        identifier,
         requirements,
     })
 }
-fn parse_anchor(tokens: &[Token], context: &mut ParseContext) -> Result<Anchor, ParseError> {
+fn parse_anchor<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Anchor<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let mut position = None;
     context.position += 1;
@@ -431,7 +424,7 @@ fn parse_anchor(tokens: &[Token], context: &mut ParseContext) -> Result<Anchor, 
         _ => return Err(wrong_token(&tokens[context.position], "indent")),
     }
     Ok(Anchor {
-        identifier: identifier.to_string(),
+        identifier,
         position,
         refills,
         connections,
@@ -439,19 +432,31 @@ fn parse_anchor(tokens: &[Token], context: &mut ParseContext) -> Result<Anchor, 
 }
 
 fn wrong_token(token: &Token, description: &str) -> ParseError {
-    ParseError::WrongToken(format!("Expected {} at line {}, instead found {:?}", description, token.line, token.name), token.position)
+    ParseError {
+        description: format!("Expected {} at line {}, instead found {:?}", description, token.line, token.name),
+        position: token.position,
+    }
 }
 fn wrong_amount(token: &Token) -> ParseError {
-    ParseError::WrongAmount(format!("Failed to parse amount at line {}", token.line), token.position)
+    ParseError {
+        description: format!("Failed to parse amount at line {}", token.line),
+        position: token.position,
+    }
 }
 fn wrong_requirement(token: &Token) -> ParseError {
-    ParseError::WrongRequirement(format!("Failed to parse requirement at line {}", token.line), token.position)
+    ParseError {
+        description: format!("Failed to parse requirement at line {}", token.line),
+        position: token.position,
+    }
 }
 fn not_int(token: &Token) -> ParseError {
-    ParseError::ParseInt(format!("Need an integer in {:?} at line {}", token.name, token.line), token.position)
+    ParseError {
+        description: format!("Need an integer in {:?} at line {}", token.name, token.line),
+        position: token.position,
+    }
 }
 
-pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
+pub fn parse_areas(tokens: &[Token]) -> Result<AreaTree, ParseError> {
     let mut context = ParseContext {
         position: 0,
     };
@@ -470,9 +475,63 @@ pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
             _ => return Err(wrong_token(&tokens[context.position], "definition or anchor")),
         }
     }
-    Ok(Areas {
+    Ok(AreaTree {
         definitions,
         regions,
         anchors,
     })
+}
+
+pub struct Location {
+    name: String,
+    group_id: u16,
+    uber_id: u16,
+    uber_value: Option<u16>,
+}
+
+fn empty_field(name: &str, index: usize, line: &str) -> String {
+    format!("Required field {} was empty at line {}: {}", name, index + 1, line)
+}
+
+pub fn parse_locations(path: &PathBuf) -> Result<Vec<Location>, String> {
+    let input = fs::read_to_string(path).unwrap();
+    let mut locations = Vec::with_capacity(input.lines().count());
+
+    for (index, line) in input.lines().enumerate() {
+        let parts: Vec::<&str> = line.split(',').collect();
+        if parts.len() != 10 {
+            return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line))
+        }
+
+        let (name, group_id, uber_id) = (parts[0].trim(), parts[5].trim(), parts[7].trim());
+        if name.is_empty() {
+            return Err(empty_field("name", index, line))
+        }
+        if group_id.is_empty() {
+            return Err(empty_field("group_id", index, line))
+        }
+        if uber_id.is_empty() {
+            return Err(empty_field("uber_id", index, line))
+        }
+
+        let group_id: u16 = group_id.parse().map_err(|_| format!("Failed to parse uberGroup id at line {}: {}", index + 1, line))?;
+        let mut uber_id_value = uber_id.split('=');
+        let uber_id: u16 = uber_id_value.next().unwrap().parse().map_err(|_| format!("Failed to parse uberState id at line {}: {}", index + 1, line))?;
+        let mut uber_value: Option<u16> = None;
+        if let Some(value) = uber_id_value.next() {
+            uber_value = Some(value.parse().map_err(|_| format!("Failed to parse uberState value at line {}: {}", index + 1, line))?);
+            if uber_id_value.next().is_some() {
+                return Err(format!("Multiple equal signs in uberState at line {}: {}", index + 1, line))
+            }
+        }
+
+        locations.push(Location {
+            name: name.to_string(),
+            group_id,
+            uber_id,
+            uber_value,
+        })
+    }
+
+    Ok(locations)
 }
