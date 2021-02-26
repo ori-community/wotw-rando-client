@@ -4,6 +4,7 @@ use std::{fs, io, path::PathBuf};
 pub enum TokenType {
     Whitespace,
     Definition,
+    Region,
     Anchor,
     Position,
     Indent,
@@ -15,6 +16,7 @@ pub enum TokenType {
     Pickup,
     Connection,
     Requirement,
+    Free,
     Group,
     And,
     Or,
@@ -41,16 +43,16 @@ fn skip_whitespace(input: &str, context: &mut TokenContext) -> Option<(usize, To
     let mut index = input.len();
     let mut last_newline = 0;
     let mut newlines = 0;
-    for (i, c) in input.chars().enumerate() {
-        if c == '\n' {
+    for (i, c) in input.bytes().enumerate() {
+        if c == b'\n' {
             last_newline = i + 1;
             comment = false;
             newlines += 1;
         } else if comment {
             continue;
-        } else if c == '#' {
+        } else if c == b'#' {
             comment = true;
-        } else if !c.is_whitespace() {
+        } else if !(c as char).is_whitespace() {
             if last_newline == 0 {
                 index = i;
             } else {
@@ -142,6 +144,9 @@ fn tokenize_identifier(input: &str, context: &mut TokenContext, keyword: &str, n
 fn tokenize_definition(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "requirement ", TokenType::Definition)
 }
+fn tokenize_region(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
+    tokenize_identifier(input, context, "region ", TokenType::Region)
+}
 fn tokenize_anchor(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "anchor ", TokenType::Anchor)
 }
@@ -231,11 +236,16 @@ fn tokenize_requirement(input: &str, context: &mut TokenContext) -> Option<(usiz
     if delimiter == 0 {
         return None;
     }
+    let mut name = TokenType::Requirement;
+    let value = &input[..delimiter];
+    if value == "free" {
+        name = TokenType::Free;
+    }
     Some((
         delimiter,
         Token {
-            name: TokenType::Requirement,
-            value: input[..delimiter].to_string(),
+            name,
+            value: value.to_string(),
             line: context.line,
             position: context.position,
         }
@@ -248,6 +258,7 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
         skip_whitespace,
         tokenize_indent,
         tokenize_definition,
+        tokenize_region,
         tokenize_anchor,
         tokenize_position,
         tokenize_refill,
@@ -263,7 +274,7 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
 
     let input = fs::read_to_string(areas)?;
     let length = input.len();
-    let mut tokens = Vec::<Token>::new();
+    let mut tokens = Vec::<Token>::with_capacity(length / 9);
 
     let mut context = TokenContext {
         line: 1,
@@ -291,6 +302,15 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
             }
             return Err(io::Error::new(io::ErrorKind::InvalidData, format!("Failed to read line {} from {:?} (this is most likely due to a wrong indent): {}", context.line + 1, areas, failed)));
         }
+    }
+    while context.indent_stack.len() > 1 {
+        context.indent_stack.pop();
+        tokens.push(Token {
+            name: TokenType::Dedent,
+            value: String::new(),
+            line: context.line,
+            position: context.position,
+        });
     }
     Ok(tokens)
 }

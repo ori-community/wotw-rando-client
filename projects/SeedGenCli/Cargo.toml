@@ -10,3 +10,6 @@ edition = "2018"
 atty = "0.2.14"
 bugsalot = "0.1.4"
 structopt = "0.3.13"
+
+[dev-dependencies]
+bencher = "0.1"

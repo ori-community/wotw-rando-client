@@ -1,2 +1,4 @@
 target/*
 rls/*
+benches/*
+tokens.txt

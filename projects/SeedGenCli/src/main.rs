@@ -8,6 +8,10 @@ use bugsalot::debugger;
 use atty;
 
 mod tokenizer;
+mod parser;
+mod util;
+
+use parser::ParseError;
 
 #[derive(StructOpt)]
 struct Arguments {
@@ -88,10 +92,28 @@ fn main() {
         }
     }
 
-    match tokenizer::tokenize(&args.areas) {
-        Ok(tokens) => println!("Tokenized {} tokens succesfully!", tokens.len()),
-        Err(error) => println!("{}", error),
-    }
+    let tokens = match tokenizer::tokenize(&args.areas) {
+        Ok(tokens) => tokens,
+        Err(error) => panic!("{}", error),
+    };
+
+    // let mut file = File::create("tokens.txt").unwrap();
+    // for token in &tokens {
+    //     let name = format!("{}, {:?} ({}) ", token.line, token.name, token.value);
+    //     file.write_all(name.as_bytes()).unwrap();
+    // }
+
+    let areas = match parser::parse_areas(&tokens) {
+        Ok(areas) => areas,
+        Err(error) => match error {
+            ParseError::WrongToken(description, position) |
+            ParseError::WrongAmount(description, position) |
+            ParseError::WrongRequirement(description, position) |
+            ParseError::ParseInt(description, position) => panic!("{}: {}", description, util::trace_parse_error(&args.areas, position)),
+        }
+    };
+
+    print!("");
 
     // TODO: Call parser etc with arguments.
 }
