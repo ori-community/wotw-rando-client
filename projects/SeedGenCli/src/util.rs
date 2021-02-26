@@ -101,5 +101,5 @@ pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
     if let Some(index) = input.find(&['\n', '\r'][..]) {
         return input[..index].to_string();
     }
-    return input.to_string();
+    input.to_string()
 }

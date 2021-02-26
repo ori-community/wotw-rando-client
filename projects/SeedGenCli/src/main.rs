@@ -1,11 +1,9 @@
 use std::path::PathBuf;
 use std::fs::File;
 use std::io::{self, Read, BufReader, Error, ErrorKind};
-use std::io::prelude::*;
 
 use structopt::StructOpt;
 use bugsalot::debugger;
-use atty;
 
 mod tokenizer;
 mod parser;
@@ -59,7 +57,7 @@ fn read_header() -> String {
         }
     }
 
-    return output;
+    output
 }
 
 fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
@@ -71,7 +69,7 @@ fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
         return Err(Error::new(ErrorKind::InvalidData, "Empty header"));
     }
 
-    return Ok(contents);
+    Ok(contents)
 }
 
 fn main() {

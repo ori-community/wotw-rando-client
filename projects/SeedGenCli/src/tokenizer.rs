@@ -1,4 +1,4 @@
-use std::{fs, io, path::PathBuf};
+use std::{fs, io, cmp, path::PathBuf};
 
 #[derive(Debug)]
 pub enum TokenType {
@@ -90,23 +90,27 @@ fn tokenize_indent(input: &str, context: &mut TokenContext) -> Option<(usize, To
     }
     let name;
     let mut consumed = 1 + depth;
-    let last_indent = context.indent_stack.last()?;
-    if last_indent < &depth {
-        context.indent_stack.push(depth);
-        name = TokenType::Indent;
-    } else if last_indent == &depth {
-        name = TokenType::Newline;
-    } else {
-        context.indent_stack.pop();
-        name = TokenType::Dedent;
-        let last_indent = context.indent_stack.last()?;
-        if last_indent > &depth {
-            consumed = 0;
-            newlines = 0;
-        } else if last_indent < &depth {
-            // well whatever
-            return None;
-        }
+    match context.indent_stack.last()?.cmp(&depth) {
+        cmp::Ordering::Greater => {
+            context.indent_stack.pop();
+            name = TokenType::Dedent;
+            match context.indent_stack.last()?.cmp(&depth) {
+                cmp::Ordering::Greater => {
+                    consumed = 0;
+                    newlines = 0;
+                }
+                cmp::Ordering::Less => {
+                    // well whatever
+                    return None;
+                }
+                cmp::Ordering::Equal => {}
+            }
+        },
+        cmp::Ordering::Less => {
+            context.indent_stack.push(depth);
+            name = TokenType::Indent;
+        },
+        cmp::Ordering::Equal => name = TokenType::Newline,
     }
     context.line += newlines;
     Some((

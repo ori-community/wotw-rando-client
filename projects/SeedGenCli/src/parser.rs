@@ -95,100 +95,100 @@ fn parse_requirement(token: &Token) -> Result<Requirement, ParseError> {
                 Err(_) => return Err(not_int(token)),
             };
             match keyword {
-                "Blaze" => return Ok(Requirement::EnergySkill(Skill::Blaze, amount)),
-                "Boss" => return Ok(Requirement::Boss(amount)),
-                "Bow" => return Ok(Requirement::EnergySkill(Skill::Bow, amount)),
-                "BreakWall" => return Ok(Requirement::BreakWall(amount)),
-                "Damage" => return Ok(Requirement::Damage(amount)),
-                "Danger" => return Ok(Requirement::Danger(amount)),
-                "Energy" => return Ok(Requirement::Resource(Resource::Energy, amount)),
-                "Flash" => return Ok(Requirement::EnergySkill(Skill::Flash, amount)),
-                "Grenade" => return Ok(Requirement::EnergySkill(Skill::Grenade, amount)),
-                "Health" => return Ok(Requirement::Resource(Resource::Health, amount)),
-                "Keystone" => return Ok(Requirement::Resource(Resource::Keystone, amount)),
-                "Ore" => return Ok(Requirement::Resource(Resource::Ore, amount)),
-                "Sentry" => return Ok(Requirement::EnergySkill(Skill::Sentry, amount)),
-                "SentryJump" => return Ok(Requirement::SentryJump(amount)),
-                "ShardSlot" => return Ok(Requirement::Resource(Resource::ShardSlot, amount)),
-                "Shuriken" => return Ok(Requirement::EnergySkill(Skill::Shuriken, amount)),
-                "ShurikenBreak" => return Ok(Requirement::ShurikenBreak(amount)),
-                "Spear" => return Ok(Requirement::EnergySkill(Skill::Spear, amount)),
-                "SpiritLight" => return Ok(Requirement::Resource(Resource::SpiritLight, amount)),
-                _ => return Err(wrong_requirement(token))
+                "Blaze" => Ok(Requirement::EnergySkill(Skill::Blaze, amount)),
+                "Boss" => Ok(Requirement::Boss(amount)),
+                "Bow" => Ok(Requirement::EnergySkill(Skill::Bow, amount)),
+                "BreakWall" => Ok(Requirement::BreakWall(amount)),
+                "Damage" => Ok(Requirement::Damage(amount)),
+                "Danger" => Ok(Requirement::Danger(amount)),
+                "Energy" => Ok(Requirement::Resource(Resource::Energy, amount)),
+                "Flash" => Ok(Requirement::EnergySkill(Skill::Flash, amount)),
+                "Grenade" => Ok(Requirement::EnergySkill(Skill::Grenade, amount)),
+                "Health" => Ok(Requirement::Resource(Resource::Health, amount)),
+                "Keystone" => Ok(Requirement::Resource(Resource::Keystone, amount)),
+                "Ore" => Ok(Requirement::Resource(Resource::Ore, amount)),
+                "Sentry" => Ok(Requirement::EnergySkill(Skill::Sentry, amount)),
+                "SentryJump" => Ok(Requirement::SentryJump(amount)),
+                "ShardSlot" => Ok(Requirement::Resource(Resource::ShardSlot, amount)),
+                "Shuriken" => Ok(Requirement::EnergySkill(Skill::Shuriken, amount)),
+                "ShurikenBreak" => Ok(Requirement::ShurikenBreak(amount)),
+                "Spear" => Ok(Requirement::EnergySkill(Skill::Spear, amount)),
+                "SpiritLight" => Ok(Requirement::Resource(Resource::SpiritLight, amount)),
+                _ => Err(wrong_requirement(token))
             }
         }
         None => match keyword {
-            "Arcing" => return Ok(Requirement::Shard(Shard::Arcing)),
-            "Bash" => return Ok(Requirement::Skill(Skill::Bash)),
-            "Blaze" => return Ok(Requirement::Skill(Skill::Blaze)),
-            "Bow" => return Ok(Requirement::Skill(Skill::Bow)),
-            "Burrow" => return Ok(Requirement::Skill(Skill::Burrow)),
-            "BurrowsTP" => return Ok(Requirement::Teleporter(Teleporter::Burrows)),
-            "Catalyst" => return Ok(Requirement::Shard(Shard::Catalyst)),
-            "Dash" => return Ok(Requirement::Skill(Skill::Dash)),
-            "Deflector" => return Ok(Requirement::Shard(Shard::Deflector)),
-            "DenTP" => return Ok(Requirement::Teleporter(Teleporter::Den)),
-            "DepthsTP" => return Ok(Requirement::Teleporter(Teleporter::Depths)),
-            "DoubleJump" => return Ok(Requirement::Skill(Skill::DoubleJump)),
-            "EastPoolsTP" => return Ok(Requirement::Teleporter(Teleporter::EastLuma)),
-            "EastWastesTP" => return Ok(Requirement::Teleporter(Teleporter::EastWastes)),
-            "EastWoodsTP" => return Ok(Requirement::Teleporter(Teleporter::EastWoods)),
-            "EnergyHarvest" => return Ok(Requirement::Shard(Shard::EnergyHarvest)),
-            "Flap" => return Ok(Requirement::Skill(Skill::Flap)),
-            "Flash" => return Ok(Requirement::Skill(Skill::Flash)),
-            "Fracture" => return Ok(Requirement::Shard(Shard::Fracture)),
-            "free" => return Ok(Requirement::Free),
-            "GladesTP" => return Ok(Requirement::Teleporter(Teleporter::Glades)),
-            "Glide" => return Ok(Requirement::Skill(Skill::Glide)),
-            "glitch" => return Ok(Requirement::Pathset(Pathset::Glitch)),
-            "gorlek" => return Ok(Requirement::Pathset(Pathset::Gorlek)),
-            "Grapple" => return Ok(Requirement::Skill(Skill::Grapple)),
-            "Grenade" => return Ok(Requirement::Skill(Skill::Grenade)),
-            "Hammer" => return Ok(Requirement::Skill(Skill::Hammer)),
-            "HollowTP" => return Ok(Requirement::Teleporter(Teleporter::Hollow)),
-            "InnerRuinsTP" => return Ok(Requirement::Teleporter(Teleporter::InnerRuins)),
-            "Launch" => return Ok(Requirement::Skill(Skill::Launch)),
-            "LifeHarvest" => return Ok(Requirement::Shard(Shard::LifeHarvest)),
-            "Magnet" => return Ok(Requirement::Shard(Shard::Magnet)),
-            "MarshTP" => return Ok(Requirement::Teleporter(Teleporter::Marsh)),
-            "moki" => return Ok(Requirement::Pathset(Pathset::Moki)),
-            "OuterRuinsTP" => return Ok(Requirement::Teleporter(Teleporter::OuterRuins)),
-            "Overflow" => return Ok(Requirement::Shard(Shard::Overflow)),
-            "ReachTP" => return Ok(Requirement::Teleporter(Teleporter::Reach)),
-            "Regenerate" => return Ok(Requirement::Skill(Skill::Regenerate)),
-            "Seir" => return Ok(Requirement::Skill(Skill::Seir)),
-            "Sentry" => return Ok(Requirement::Skill(Skill::Sentry)),
-            "ShriekTP" => return Ok(Requirement::Teleporter(Teleporter::Shriek)),
-            "Shuriken" => return Ok(Requirement::Skill(Skill::Shuriken)),
-            "Spear" => return Ok(Requirement::Skill(Skill::Spear)),
-            "Sticky" => return Ok(Requirement::Shard(Shard::Sticky)),
-            "Sword" => return Ok(Requirement::Skill(Skill::Sword)),
-            "TripleJump" => return Ok(Requirement::Shard(Shard::TripleJump)),
-            "Thorn" => return Ok(Requirement::Shard(Shard::Thorn)),
-            "UltraBash" => return Ok(Requirement::Shard(Shard::UltraBash)),
-            "UltraGrapple" => return Ok(Requirement::Shard(Shard::UltraGrapple)),
-            "unsafe" => return Ok(Requirement::Pathset(Pathset::Unsafe)),
-            "WallJump" => return Ok(Requirement::Skill(Skill::WallJump)),
-            "WaterBreath" => return Ok(Requirement::Skill(Skill::WaterBreath)),
-            "WaterDash" => return Ok(Requirement::Skill(Skill::WaterDash)),
-            "WellspringTP" => return Ok(Requirement::Teleporter(Teleporter::Wellspring)),
-            "WestPoolsTP" => return Ok(Requirement::Teleporter(Teleporter::WestLuma)),
-            "WestWastesTP" => return Ok(Requirement::Teleporter(Teleporter::WestWastes)),
-            "WestWoodsTP" => return Ok(Requirement::Teleporter(Teleporter::WestWoods)),
-            "WillowTP" => return Ok(Requirement::Teleporter(Teleporter::Willow)),
-            "Boss" => return Err(wrong_amount(token)),
-            "BreakWall" => return Err(wrong_amount(token)),
-            "Damage" => return Err(wrong_amount(token)),
-            "Danger" => return Err(wrong_amount(token)),
-            "Energy" => return Err(wrong_amount(token)),
-            "Health" => return Err(wrong_amount(token)),
-            "Keystone" => return Err(wrong_amount(token)),
-            "Ore" => return Err(wrong_amount(token)),
-            "SentryJump" => return Err(wrong_amount(token)),
-            "ShardSlot" => return Err(wrong_amount(token)),
-            "ShurikenBreak" => return Err(wrong_amount(token)),
-            "SpiritLight" => return Err(wrong_amount(token)),
-            _ => return Ok(Requirement::State(keyword.to_string())),
+            "Arcing" => Ok(Requirement::Shard(Shard::Arcing)),
+            "Bash" => Ok(Requirement::Skill(Skill::Bash)),
+            "Blaze" => Ok(Requirement::Skill(Skill::Blaze)),
+            "Bow" => Ok(Requirement::Skill(Skill::Bow)),
+            "Burrow" => Ok(Requirement::Skill(Skill::Burrow)),
+            "BurrowsTP" => Ok(Requirement::Teleporter(Teleporter::Burrows)),
+            "Catalyst" => Ok(Requirement::Shard(Shard::Catalyst)),
+            "Dash" => Ok(Requirement::Skill(Skill::Dash)),
+            "Deflector" => Ok(Requirement::Shard(Shard::Deflector)),
+            "DenTP" => Ok(Requirement::Teleporter(Teleporter::Den)),
+            "DepthsTP" => Ok(Requirement::Teleporter(Teleporter::Depths)),
+            "DoubleJump" => Ok(Requirement::Skill(Skill::DoubleJump)),
+            "EastPoolsTP" => Ok(Requirement::Teleporter(Teleporter::EastLuma)),
+            "EastWastesTP" => Ok(Requirement::Teleporter(Teleporter::EastWastes)),
+            "EastWoodsTP" => Ok(Requirement::Teleporter(Teleporter::EastWoods)),
+            "EnergyHarvest" => Ok(Requirement::Shard(Shard::EnergyHarvest)),
+            "Flap" => Ok(Requirement::Skill(Skill::Flap)),
+            "Flash" => Ok(Requirement::Skill(Skill::Flash)),
+            "Fracture" => Ok(Requirement::Shard(Shard::Fracture)),
+            "free" => Ok(Requirement::Free),
+            "GladesTP" => Ok(Requirement::Teleporter(Teleporter::Glades)),
+            "Glide" => Ok(Requirement::Skill(Skill::Glide)),
+            "glitch" => Ok(Requirement::Pathset(Pathset::Glitch)),
+            "gorlek" => Ok(Requirement::Pathset(Pathset::Gorlek)),
+            "Grapple" => Ok(Requirement::Skill(Skill::Grapple)),
+            "Grenade" => Ok(Requirement::Skill(Skill::Grenade)),
+            "Hammer" => Ok(Requirement::Skill(Skill::Hammer)),
+            "HollowTP" => Ok(Requirement::Teleporter(Teleporter::Hollow)),
+            "InnerRuinsTP" => Ok(Requirement::Teleporter(Teleporter::InnerRuins)),
+            "Launch" => Ok(Requirement::Skill(Skill::Launch)),
+            "LifeHarvest" => Ok(Requirement::Shard(Shard::LifeHarvest)),
+            "Magnet" => Ok(Requirement::Shard(Shard::Magnet)),
+            "MarshTP" => Ok(Requirement::Teleporter(Teleporter::Marsh)),
+            "moki" => Ok(Requirement::Pathset(Pathset::Moki)),
+            "OuterRuinsTP" => Ok(Requirement::Teleporter(Teleporter::OuterRuins)),
+            "Overflow" => Ok(Requirement::Shard(Shard::Overflow)),
+            "ReachTP" => Ok(Requirement::Teleporter(Teleporter::Reach)),
+            "Regenerate" => Ok(Requirement::Skill(Skill::Regenerate)),
+            "Seir" => Ok(Requirement::Skill(Skill::Seir)),
+            "Sentry" => Ok(Requirement::Skill(Skill::Sentry)),
+            "ShriekTP" => Ok(Requirement::Teleporter(Teleporter::Shriek)),
+            "Shuriken" => Ok(Requirement::Skill(Skill::Shuriken)),
+            "Spear" => Ok(Requirement::Skill(Skill::Spear)),
+            "Sticky" => Ok(Requirement::Shard(Shard::Sticky)),
+            "Sword" => Ok(Requirement::Skill(Skill::Sword)),
+            "TripleJump" => Ok(Requirement::Shard(Shard::TripleJump)),
+            "Thorn" => Ok(Requirement::Shard(Shard::Thorn)),
+            "UltraBash" => Ok(Requirement::Shard(Shard::UltraBash)),
+            "UltraGrapple" => Ok(Requirement::Shard(Shard::UltraGrapple)),
+            "unsafe" => Ok(Requirement::Pathset(Pathset::Unsafe)),
+            "WallJump" => Ok(Requirement::Skill(Skill::WallJump)),
+            "WaterBreath" => Ok(Requirement::Skill(Skill::WaterBreath)),
+            "WaterDash" => Ok(Requirement::Skill(Skill::WaterDash)),
+            "WellspringTP" => Ok(Requirement::Teleporter(Teleporter::Wellspring)),
+            "WestPoolsTP" => Ok(Requirement::Teleporter(Teleporter::WestLuma)),
+            "WestWastesTP" => Ok(Requirement::Teleporter(Teleporter::WestWastes)),
+            "WestWoodsTP" => Ok(Requirement::Teleporter(Teleporter::WestWoods)),
+            "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
+            "Boss" => Err(wrong_amount(token)),
+            "BreakWall" => Err(wrong_amount(token)),
+            "Damage" => Err(wrong_amount(token)),
+            "Danger" => Err(wrong_amount(token)),
+            "Energy" => Err(wrong_amount(token)),
+            "Health" => Err(wrong_amount(token)),
+            "Keystone" => Err(wrong_amount(token)),
+            "Ore" => Err(wrong_amount(token)),
+            "SentryJump" => Err(wrong_amount(token)),
+            "ShardSlot" => Err(wrong_amount(token)),
+            "ShurikenBreak" => Err(wrong_amount(token)),
+            "SpiritLight" => Err(wrong_amount(token)),
+            _ => Ok(Requirement::State(keyword.to_string()))
         }
     }
 }
@@ -240,13 +240,10 @@ fn parse_line(tokens: &[Token], context: &mut ParseContext) -> Result<Line, Pars
                     TokenType::Group => {
                         context.position += 1;
                         ands.push(parse_requirement(token)?);
-                        match tokens[context.position].name {
-                            TokenType::Indent => {
-                                context.position += 1;
-                                group = Some(parse_group(tokens, context)?);
-                                break;
-                            },
-                            _ => {},
+                        if let TokenType::Indent = tokens[context.position].name {
+                            context.position += 1;
+                            group = Some(parse_group(tokens, context)?);
+                            break;
                         }
                     },
                     _ => return Err(wrong_token(token, "separator or end of line")),
@@ -302,16 +299,16 @@ fn parse_refill(tokens: &[Token], context: &mut ParseContext) -> Result<Refill, 
         name = RefillType::Checkpoint;
     } else if identifier == "Full" {
         name = RefillType::Full;
-    } else if identifier.starts_with("Health=") {
-        let amount: u16 = match identifier[7..].parse() {
+    } else if let Some(amount) = identifier.strip_prefix("Health=") {
+        let amount: u16 = match amount.parse() {
             Ok(result) => result,
             Err(_) => return Err(not_int(&tokens[context.position - 1])),
         };
         name = RefillType::Health(amount);
     } else if identifier == "Health" {
         name = RefillType::Health(1);
-    } else if identifier.starts_with("Energy=") {
-        let amount: u16 = match identifier[7..].parse() {
+    } else if let Some(amount) = identifier.strip_prefix("Energy=") {
+        let amount: u16 = match amount.parse() {
             Ok(result) => result,
             Err(_) => return Err(not_int(&tokens[context.position - 1])),
         };
@@ -395,21 +392,18 @@ fn parse_anchor(tokens: &[Token], context: &mut ParseContext) -> Result<Anchor, 
     context.position += 1;
     {
         let token = &tokens[context.position];
-        match token.name {
-            TokenType::Position => {
-                let mut coords = token.value.split(',');
-                let x: i16 = match coords.next().unwrap().parse() {
-                    Ok(result) => result,
-                    Err(_) => return Err(not_int(token)),
-                };
-                let y: i16 = match coords.next().unwrap().parse() {
-                    Ok(result) => result,
-                    Err(_) => return Err(not_int(token)),
-                };
-                position = Some((x, y));
-                context.position += 1;
-            },
-            _ => {},
+        if let TokenType::Position = token.name {
+            let mut coords = token.value.split(',');
+            let x: i16 = match coords.next().unwrap().parse() {
+                Ok(result) => result,
+                Err(_) => return Err(not_int(token)),
+            };
+            let y: i16 = match coords.next().unwrap().parse() {
+                Ok(result) => result,
+                Err(_) => return Err(not_int(token)),
+            };
+            position = Some((x, y));
+            context.position += 1;
         }
     }
 
@@ -466,10 +460,7 @@ pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
     let mut regions = Vec::<Region>::new();
     let mut anchors = Vec::<Anchor>::new();
 
-    match tokens[context.position].name {
-        TokenType::Newline => context.position += 1,
-        _ => {},
-    }
+    if let TokenType::Newline = tokens[context.position].name { context.position += 1 }
 
     while context.position < end {
         match tokens[context.position].name {
