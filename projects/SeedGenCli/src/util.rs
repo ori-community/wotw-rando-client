@@ -1,11 +1,5 @@
 use std::{fs, path::PathBuf};
 
-pub enum Pathset {
-    Moki,
-    Gorlek,
-    Glitch,
-    Unsafe,
-}
 pub enum Skill {
     Bash,
     WallJump,
