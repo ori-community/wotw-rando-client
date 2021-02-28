@@ -12,15 +12,15 @@ pub struct ParseError {
 #[derive(Debug)]
 pub enum Requirement<'a> {
     Free,
-    Definition(String),
-    Pathset(String),
+    Definition(&'a str),
+    Pathset(&'a str),
     Skill(Skill),
     EnergySkill(Skill, u16),
     Resource(Resource, u16),
     Shard(Shard),
     Teleporter(Teleporter),
     State(&'a str),
-    Quest(String),
+    Quest(&'a str),
     Damage(u16),
     Danger(u16),
     Combat(&'a str),
@@ -37,13 +37,13 @@ pub struct Line<'a> {
 pub struct Group<'a> {
     pub lines: Vec<Line<'a>>
 }
-pub struct Pathset {
-    pub identifier: String,
+pub struct Pathset<'a> {
+    pub identifier: &'a str,
     pub description: String,
 }
-pub struct Pathsets {
-    pub identifier: String,
-    pub pathsets: Vec<Pathset>,
+pub struct Pathsets<'a> {
+    pub identifier: &'a str,
+    pub pathsets: Vec<Pathset<'a>>,
 }
 #[derive(Debug)]
 pub enum RefillType {
@@ -88,12 +88,12 @@ pub struct AreaTree<'a> {
     pub anchors: Vec<Anchor<'a>>,
 }
 
-struct ParseContext {
+struct ParseContext<'a> {
     position: usize,
-    definitions: HashSet<String>,
-    pathsets: HashSet<String>,
-    quests: HashSet<String>,
-    states: HashSet<String>,
+    definitions: HashSet<&'a str>,
+    pathsets: HashSet<&'a str>,
+    quests: HashSet<&'a str>,
+    states: HashSet<&'a str>,
 }
 
 fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenType) -> Result<bool, ParseError> {
@@ -106,7 +106,7 @@ fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenT
     }
 }
 
-fn parse_requirement(token: &Token, context: &mut ParseContext) -> Result<Requirement, ParseError> {
+fn parse_requirement<'a>(token: &'a Token, context: &mut ParseContext) -> Result<Requirement<'a>, ParseError> {
     let mut parts = token.value.split('=');
     let keyword = parts.next().unwrap();
     let amount = parts.next();
@@ -203,10 +203,10 @@ fn parse_requirement(token: &Token, context: &mut ParseContext) -> Result<Requir
             "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
             "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
                 => Err(wrong_amount(token)),
-            _ if context.definitions.contains(keyword) => Ok(Requirement::Definition(keyword.to_string())),
-            _ if context.pathsets.contains(keyword) => Ok(Requirement::Pathset(keyword.to_string())),
-            _ if context.states.contains(keyword) => Ok(Requirement::State(keyword.to_string())),
-            _ if context.quests.contains(keyword) => Ok(Requirement::Quest(keyword.to_string())),
+            _ if context.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
+            _ if context.pathsets.contains(keyword) => Ok(Requirement::Pathset(keyword)),
+            _ if context.states.contains(keyword) => Ok(Requirement::State(keyword)),
+            _ if context.quests.contains(keyword) => Ok(Requirement::Quest(keyword)),
             _ => Err(wrong_requirement(token))
         }
     }
@@ -374,8 +374,8 @@ fn parse_anchor_connection<'a>(tokens: &'a [Token], context: &mut ParseContext) 
     parse_connection(tokens, context, ConnectionType::Anchor)
 }
 
-fn parse_pathset(tokens: &[Token], context: &mut ParseContext) -> Result<Pathset, ParseError> {
-    let identifier = tokens[context.position].value.clone();
+fn parse_pathset<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Pathset<'a>, ParseError> {
+    let identifier = &tokens[context.position].value;
     let mut description = String::new();
     context.position += 1;
     let test = &tokens[context.position].name;
@@ -408,8 +408,8 @@ fn parse_pathset(tokens: &[Token], context: &mut ParseContext) -> Result<Pathset
         description
     })
 }
-fn parse_pathsets(tokens: &[Token], context: &mut ParseContext) -> Result<Pathsets, ParseError> {
-    let identifier = tokens[context.position].value.clone();
+fn parse_pathsets<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Pathsets<'a>, ParseError> {
+    let identifier = &tokens[context.position].value;
     let mut pathsets = Vec::new();
     context.position += 1;
     eat(tokens, context, TokenType::Indent)?;
@@ -433,7 +433,7 @@ fn parse_pathsets(tokens: &[Token], context: &mut ParseContext) -> Result<Pathse
         })
     }
 }
-fn parse_named_group(tokens: &[Token], context: &mut ParseContext) -> Result<(String, Group), ParseError> {
+fn parse_named_group<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<(&'a str, Group<'a>), ParseError> {
     let identifier = &tokens[context.position].value;
     let requirements;
     context.position += 1;
@@ -446,19 +446,19 @@ fn parse_named_group(tokens: &[Token], context: &mut ParseContext) -> Result<(St
     }
 
     Ok((
-        identifier.clone(),
+        identifier,
         requirements,
     ))
 }
 
-fn parse_region(tokens: &[Token], context: &mut ParseContext) -> Result<Region, ParseError> {
+fn parse_region<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Region<'a>, ParseError> {
     let (identifier, requirements) = parse_named_group(tokens, context)?;
     Ok(Region {
         identifier,
         requirements,
     })
 }
-fn parse_definition(tokens: &[Token], context: &mut ParseContext) -> Result<Definition, ParseError> {
+fn parse_definition<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Definition<'a>, ParseError> {
     let (identifier, requirements) = parse_named_group(tokens, context)?;
     Ok(Definition {
         identifier,
@@ -542,24 +542,24 @@ fn not_int(token: &Token) -> ParseError {
     }
 }
 
-fn preprocess(tokens: &[Token], context: &mut ParseContext) -> Result<bool, ParseError> {
+fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext<'a>) -> Result<bool, ParseError> {
     // Find all states so we can differentiate states from pathsets.
     let end = tokens.len();
     while context.position < end {
         let token = &tokens[context.position];
         match token.name {
-            TokenType::Definition => { context.definitions.insert(token.value.clone()); },
+            TokenType::Definition => { context.definitions.insert(&token.value); },
             TokenType::Pathsets => {
                 let pathsets = parse_pathsets(tokens, context)?;
                 context.pathsets.extend(
                 pathsets.pathsets
                 .iter()
-                .map(|pathset| pathset.identifier.clone())
+                .map(|pathset| pathset.identifier)
                 );
                 context.position -= 1;
             },
-            TokenType::Quest => { context.quests.insert(token.value.clone()); },
-            TokenType::State => { context.states.insert(token.value.clone()); },
+            TokenType::Quest => { context.quests.insert(&token.value); },
+            TokenType::State => { context.states.insert(&token.value); },
             _ => {},
         }
 
@@ -569,7 +569,7 @@ fn preprocess(tokens: &[Token], context: &mut ParseContext) -> Result<bool, Pars
     Ok(true)
 }
 
-fn process(tokens: &[Token], context: &mut ParseContext) -> Result<Areas, ParseError> {
+fn process<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<AreaTree<'a>, ParseError> {
     let end = tokens.len();
     let mut definitions = Vec::<Definition>::new();
     let mut regions = Vec::<Region>::new();
@@ -595,9 +595,9 @@ fn process(tokens: &[Token], context: &mut ParseContext) -> Result<Areas, ParseE
 }
 
 pub struct Location {
-    name: String,
-    group_id: String,
-    uber_id: String,
+    pub name: String,
+    pub group_id: String,
+    pub uber_id: String,
 }
 
 fn empty_field(name: &str, index: usize, line: &str) -> String {
@@ -625,7 +625,7 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
             if uber_id.is_empty() {
                 return Err(empty_field("uber_id", index, line))
             }
-            
+
             group_id.parse::<u16>().map_err(|_| format!("Invalid uberGroup id at line {}: {}", index + 1, line))?;
             let mut uber_id_value = uber_id.split('=');
             uber_id_value.next().unwrap().parse::<u16>().map_err(|_| format!("Invalid uberState id at line {}: {}", index + 1, line))?;
@@ -647,7 +647,7 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
     Ok(locations)
 }
 
-pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
+pub fn parse_areas(tokens: &[Token]) -> Result<AreaTree, ParseError> {
     let mut context = ParseContext {
         position: 0,
         definitions: Default::default(),
