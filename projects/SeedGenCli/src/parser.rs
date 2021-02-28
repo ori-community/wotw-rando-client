@@ -11,6 +11,7 @@ pub enum ParseError {
 
 pub enum Requirement {
     Free,
+    Definition(String),
     Pathset(String),
     Skill(Skill),
     EnergySkill(Skill, u16),
@@ -18,6 +19,7 @@ pub enum Requirement {
     Shard(Shard),
     Teleporter(Teleporter),
     State(String),
+    Quest(String),
     Damage(u16),
     Danger(u16),
     Combat(String),
@@ -33,6 +35,14 @@ pub struct Line {
 }
 pub struct Group {
     pub lines: Vec<Line>
+}
+pub struct Pathset {
+    pub identifier: String,
+    pub description: String,
+}
+pub struct Pathsets {
+    pub identifier: String,
+    pub pathsets: Vec<Pathset>,
 }
 pub enum RefillType {
     Full,
@@ -77,11 +87,23 @@ pub struct Areas {
 
 struct ParseContext {
     position: usize,
+    definitions: HashSet<String>,
+    pathsets: HashSet<String>,
+    quests: HashSet<String>,
     states: HashSet<String>,
 }
 
+fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenType) -> Result<bool, ParseError> {
+    let token_type = tokens[context.position].name;
+    return if token_type == expected_token_type {
+        context.position += 1;
+        Ok(true)
+    } else {
+        Err(wrong_token(&tokens[context.position], &format!("{:?}", expected_token_type)))
+    }
+}
+
 fn parse_requirement(token: &Token, context: &mut ParseContext) -> Result<Requirement, ParseError> {
-    // TODO: Parse this from the area file and pass it to the parser as a list.
     let mut parts = token.value.split('=');
     let keyword = parts.next().unwrap();
     let amount = parts.next();
@@ -170,6 +192,7 @@ fn parse_requirement(token: &Token, context: &mut ParseContext) -> Result<Requir
             "WallJump" => Ok(Requirement::Skill(Skill::WallJump)),
             "WaterBreath" => Ok(Requirement::Skill(Skill::WaterBreath)),
             "WaterDash" => Ok(Requirement::Skill(Skill::WaterDash)),
+            "Water" => Ok(Requirement::Skill(Skill::Water)),
             "WellspringTP" => Ok(Requirement::Teleporter(Teleporter::Wellspring)),
             "WestPoolsTP" => Ok(Requirement::Teleporter(Teleporter::WestLuma)),
             "WestWastesTP" => Ok(Requirement::Teleporter(Teleporter::WestWastes)),
@@ -187,13 +210,20 @@ fn parse_requirement(token: &Token, context: &mut ParseContext) -> Result<Requir
             "ShardSlot" => Err(wrong_amount(token)),
             "ShurikenBreak" => Err(wrong_amount(token)),
             "SpiritLight" => Err(wrong_amount(token)),
-            _ => Ok(
-                if context.states.contains(&keyword.to_string()) {
-                    Requirement::State(keyword.to_string())
+            _ => {
+
+                if context.definitions.contains(keyword) {
+                    Ok(Requirement::Definition(keyword.to_string()))
+                } else if context.pathsets.contains(keyword) {
+                    Ok(Requirement::Pathset(keyword.to_string()))
+                } else if context.states.contains(keyword) {
+                    Ok(Requirement::State(keyword.to_string()))
+                } else if context.quests.contains(keyword) {
+                    Ok(Requirement::Quest(keyword.to_string()))
                 } else {
-                    Requirement::Pathset(keyword.to_string())
+                    Err(wrong_requirement(token))
                 }
-            )
+            }
         }
     }
 }
@@ -359,7 +389,65 @@ fn parse_pickup(tokens: &[Token], context: &mut ParseContext) -> Result<Connecti
 fn parse_anchor_connection(tokens: &[Token], context: &mut ParseContext) -> Result<Connection, ParseError> {
     parse_connection(tokens, context, ConnectionType::Anchor)
 }
+fn parse_pathset(tokens: &[Token], context: &mut ParseContext) -> Result<Pathset, ParseError> {
+    let identifier = tokens[context.position].value.clone();
+    let mut description = String::new();
+    context.position += 1;
+    let test = &tokens[context.position].name;
+    if eat(tokens, context, TokenType::Group).is_ok() {
+        eat(tokens, context, TokenType::Indent)?;
+        loop {
+            match tokens[context.position].name {
+                TokenType::Requirement => {
+                    if !description.is_empty() {
+                        description += "\n";
+                    }
 
+                    description += &tokens[context.position].value;
+                    context.position += 1;
+                },
+                TokenType::Dedent => break,
+                _ => return Err(wrong_token(&tokens[context.position], "pathset entry")),
+            }
+        }
+
+        // consume the dedent
+        context.position += 1;
+    } else {
+        // Try to eat a newline, we don't care if we fail.
+        let _ = eat(tokens, context, TokenType::Newline);
+    }
+
+    Ok(Pathset {
+        identifier,
+        description
+    })
+}
+fn parse_pathsets(tokens: &[Token], context: &mut ParseContext) -> Result<Pathsets, ParseError> {
+    let identifier = tokens[context.position].value.clone();
+    let mut pathsets = Vec::new();
+    context.position += 1;
+    eat(tokens, context, TokenType::Indent)?;
+    loop {
+        match tokens[context.position].name {
+            TokenType::Requirement => {
+                pathsets.push(parse_pathset(tokens, context)?);
+            },
+            TokenType::Dedent => break,
+            _ => return Err(wrong_token(&tokens[context.position], "requirement or end of group")),
+        }
+    }
+
+    eat(tokens, context, TokenType::Dedent)?;
+    return if pathsets.is_empty() {
+        Err(wrong_token(&tokens[context.position], "pathset entry"))
+    } else {
+        Ok(Pathsets {
+            identifier,
+            pathsets,
+        })
+    }
+}
 fn parse_named_group(tokens: &[Token], context: &mut ParseContext) -> Result<(String, Group), ParseError> {
     let identifier = &tokens[context.position].value;
     let requirements;
@@ -371,6 +459,7 @@ fn parse_named_group(tokens: &[Token], context: &mut ParseContext) -> Result<(St
         },
         _ => return Err(wrong_token(&tokens[context.position], "indent")),
     }
+
     Ok((
         identifier.clone(),
         requirements,
@@ -456,20 +545,34 @@ fn not_int(token: &Token) -> ParseError {
     ParseError::ParseInt(format!("Need an integer in {:?} at line {}", token.name, token.line), token.position)
 }
 
-fn preprocess(tokens: &[Token], context: &mut ParseContext) {
+fn preprocess(tokens: &[Token], context: &mut ParseContext) -> Result<bool, ParseError> {
     // Find all states so we can differentiate states from pathsets.
-    context.states = tokens
-        .iter()
-        .filter(|token| matches!(token.name, TokenType::State))
-        .map(|token| token.value.clone())
-        .collect()
+    let end = tokens.len();
+    while context.position < end {
+        let token = &tokens[context.position];
+        match token.name {
+            TokenType::Definition => { context.definitions.insert(token.value.clone()); },
+            TokenType::Pathsets => {
+                let pathsets = parse_pathsets(tokens, context)?;
+                context.pathsets.extend(
+                pathsets.pathsets
+                .iter()
+                .map(|pathset| pathset.identifier.clone())
+                );
+                context.position -= 1;
+            },
+            TokenType::Quest => { context.quests.insert(token.value.clone()); },
+            TokenType::State => { context.states.insert(token.value.clone()); },
+            _ => {},
+        }
+
+        context.position += 1;
+    }
+
+    Ok(true)
 }
 
-pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
-    let mut context = ParseContext {
-        position: 0,
-        states: Default::default()
-    };
+fn process(tokens: &[Token], context: &mut ParseContext) -> Result<Areas, ParseError> {
     let end = tokens.len();
     let mut definitions = Vec::<Definition>::new();
     let mut regions = Vec::<Region>::new();
@@ -479,10 +582,12 @@ pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
 
     while context.position < end {
         match tokens[context.position].name {
-            TokenType::Definition => definitions.push(parse_definition(tokens, &mut context)?),
-            TokenType::Region => regions.push(parse_region(tokens, &mut context)?),
-            TokenType::Anchor => anchors.push(parse_anchor(tokens, &mut context)?),
-            _ => return Err(wrong_token(&tokens[context.position], "definition or anchor")),
+            // We have already parsed the pathsets in the preprocess step so just eat here.
+            TokenType::Pathsets => { parse_pathsets(tokens, context)?; },
+            TokenType::Definition => { definitions.push(parse_definition(tokens, context)?); },
+            TokenType::Region => { regions.push(parse_region(tokens, context)?); },
+            TokenType::Anchor => { anchors.push(parse_anchor(tokens, context)?); },
+            _ => { return Err(wrong_token(&tokens[context.position], "definition or anchor")); },
         }
     }
     Ok(Areas {
@@ -490,4 +595,18 @@ pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
         regions,
         anchors,
     })
+}
+
+pub fn parse_areas(tokens: &[Token]) -> Result<Areas, ParseError> {
+    let mut context = ParseContext {
+        position: 0,
+        definitions: Default::default(),
+        pathsets: Default::default(),
+        quests: Default::default(),
+        states: Default::default(),
+    };
+
+    preprocess(tokens, &mut context)?;
+    context.position = 0;
+    return process(tokens, &mut context);
 }

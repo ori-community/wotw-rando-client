@@ -1,8 +1,9 @@
 use std::{fs, io, cmp, path::PathBuf};
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub enum TokenType {
     Whitespace,
+    Pathsets,
     Definition,
     Region,
     Anchor,
@@ -148,6 +149,9 @@ fn tokenize_identifier(input: &str, context: &mut TokenContext, keyword: &str, n
 fn tokenize_definition(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "requirement ", TokenType::Definition)
 }
+fn tokenize_pathsets(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
+    tokenize_identifier(input, context, "pathsets ", TokenType::Pathsets)
+}
 fn tokenize_region(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "region ", TokenType::Region)
 }
@@ -261,6 +265,7 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
     let tokenizers = [
         skip_whitespace,
         tokenize_indent,
+        tokenize_pathsets,
         tokenize_definition,
         tokenize_region,
         tokenize_anchor,
@@ -276,7 +281,20 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
         tokenize_requirement,
     ];
 
-    let input = fs::read_to_string(areas)?;
+    // TEMP: We want to add this to the actual areas.wotw file.
+    let mut input = String::new();
+    input += "pathsets difficulties:\n";
+    input += "    moki:\n";
+    input += "        bla\n";
+    input += "    gorlek:\n";
+    input += "        blablabla\n";
+    input += "    kii\n";
+    input += "\n";
+    input += "pathsets misc:\n";
+    input += "    unsafe\n";
+    input += "    glitch\n";
+    input += &fs::read_to_string(areas)?;
+
     let length = input.len();
     let mut tokens = Vec::<Token>::with_capacity(length / 9);
 

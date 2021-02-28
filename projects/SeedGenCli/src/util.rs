@@ -23,6 +23,7 @@ pub enum Skill {
     Blaze,
     Sentry,
     Flap,
+    Water,
 }
 pub enum Resource {
     SpiritLight,
