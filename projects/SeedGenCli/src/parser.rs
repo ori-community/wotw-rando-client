@@ -20,7 +20,6 @@ pub enum Requirement<'a> {
     Shard(Shard),
     Teleporter(Teleporter),
     State(&'a str),
-    Quest(&'a str),
     Damage(u16),
     Danger(u16),
     Combat(&'a str),
@@ -92,7 +91,6 @@ struct ParseContext<'a> {
     position: usize,
     definitions: HashSet<&'a str>,
     pathsets: HashSet<&'a str>,
-    quests: HashSet<&'a str>,
     states: HashSet<&'a str>,
 }
 
@@ -206,7 +204,6 @@ fn parse_requirement<'a>(token: &'a Token, context: &mut ParseContext) -> Result
             _ if context.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
             _ if context.pathsets.contains(keyword) => Ok(Requirement::Pathset(keyword)),
             _ if context.states.contains(keyword) => Ok(Requirement::State(keyword)),
-            _ if context.quests.contains(keyword) => Ok(Requirement::Quest(keyword)),
             _ => Err(wrong_requirement(token))
         }
     }
@@ -558,8 +555,7 @@ fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext<'a>) -> Result
                 );
                 context.position -= 1;
             },
-            TokenType::Quest => { context.quests.insert(&token.value); },
-            TokenType::State => { context.states.insert(&token.value); },
+            TokenType::Quest | TokenType::State => { context.states.insert(&token.value); },
             _ => {},
         }
 
@@ -652,7 +648,6 @@ pub fn parse_areas(tokens: &[Token]) -> Result<AreaTree, ParseError> {
         position: 0,
         definitions: Default::default(),
         pathsets: Default::default(),
-        quests: Default::default(),
         states: Default::default(),
     };
 
