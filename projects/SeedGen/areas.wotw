@@ -4723,7 +4723,7 @@ anchor LowerReach.SwimmingPool at -44, -4001:  # At the platform in the freezabl
       Launch, LowerReach.CoolEastFurnace OR DoubleJump OR Dash OR Glide
     gorlek, LowerReach.EastDoorLantern:
       Launch  # Launch into the ceiling then into the wall near the energy cristal and again to the platform
-      SentryJump=1, LowerReach.CoolEastFurnaced
+      SentryJump=1, LowerReach.CoolEastFurnace
       SentryJump=1, Water, Sword
       SentryJump=2, DoubleJump, Glide, Sword
       LowerReach.HeatEastFurnace, WaterDash, Water, DoubleJump  # Wall jump from the right wall

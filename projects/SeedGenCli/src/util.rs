@@ -1,13 +1,6 @@
 use std::{fs, path::PathBuf};
 
 #[derive(Debug)]
-pub enum Pathset {
-    Moki,
-    Gorlek,
-    Glitch,
-    Unsafe,
-}
-#[derive(Debug)]
 pub enum Skill {
     Bash,
     WallJump,
@@ -31,6 +24,7 @@ pub enum Skill {
     Blaze,
     Sentry,
     Flap,
+    Water,
 }
 #[derive(Debug)]
 pub enum Resource {
