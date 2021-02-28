@@ -198,6 +198,10 @@ fn parse_requirement(token: &Token, context: &mut ParseContext) -> Result<Requir
             "WestWastesTP" => Ok(Requirement::Teleporter(Teleporter::WestWastes)),
             "WestWoodsTP" => Ok(Requirement::Teleporter(Teleporter::WestWoods)),
             "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
+            _ if context.definitions.contains(keyword) => Ok(Requirement::Definition(keyword.to_string())),
+            _ if context.pathsets.contains(keyword) => Ok(Requirement::Pathset(keyword.to_string())),
+            _ if context.states.contains(keyword) => Ok(Requirement::State(keyword.to_string())),
+            _ if context.quests.contains(keyword) => Ok(Requirement::Quest(keyword.to_string())),
             "Boss" => Err(wrong_amount(token)),
             "BreakWall" => Err(wrong_amount(token)),
             "Damage" => Err(wrong_amount(token)),
@@ -210,20 +214,7 @@ fn parse_requirement(token: &Token, context: &mut ParseContext) -> Result<Requir
             "ShardSlot" => Err(wrong_amount(token)),
             "ShurikenBreak" => Err(wrong_amount(token)),
             "SpiritLight" => Err(wrong_amount(token)),
-            _ => {
-
-                if context.definitions.contains(keyword) {
-                    Ok(Requirement::Definition(keyword.to_string()))
-                } else if context.pathsets.contains(keyword) {
-                    Ok(Requirement::Pathset(keyword.to_string()))
-                } else if context.states.contains(keyword) {
-                    Ok(Requirement::State(keyword.to_string()))
-                } else if context.quests.contains(keyword) {
-                    Ok(Requirement::Quest(keyword.to_string()))
-                } else {
-                    Err(wrong_requirement(token))
-                }
-            }
+            _ => Err(wrong_requirement(token))
         }
     }
 }
