@@ -91,6 +91,14 @@ pub enum Teleporter {
     Shriek,
 }
 
+#[derive(Debug)]
+pub enum RefillType {
+    Full,
+    Checkpoint,
+    Health(u16),
+    Energy(u16),
+}
+
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
     let input = fs::read_to_string(areas).unwrap();
     let mut input = &input[position..];

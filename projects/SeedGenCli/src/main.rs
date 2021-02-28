@@ -8,6 +8,9 @@ use bugsalot::debugger;
 
 mod tokenizer;
 mod parser;
+mod emitter;
+mod world;
+mod requirements;
 mod util;
 
 use parser::ParseError;
@@ -87,7 +90,7 @@ fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) {
     //     file.write_all(name.as_bytes()).unwrap();
     // }
 
-    let areas = match parser::parse_areas(&tokens) {
+    let (areas, metadata) = match parser::parse_areas(&tokens) {
         Ok(areas) => areas,
         Err(error) => {
             let ParseError { description, position } = error;
@@ -99,6 +102,8 @@ fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) {
         Ok(locations) => locations,
         Err(error) => panic!("Error parsing loc_data.csv: {}", error),
     };
+
+    //emitter::emit(&areas, &metadata, &locations, validate);
 }
 
 fn main() {

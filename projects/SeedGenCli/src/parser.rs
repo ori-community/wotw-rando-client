@@ -1,8 +1,8 @@
 use std::{fs, path::PathBuf};
+use std::collections::{HashMap, HashSet};
 
 use crate::tokenizer::{Token, TokenType};
-use crate::util::{Skill, Resource, Shard, Teleporter};
-use std::collections::HashSet;
+use crate::util::{Skill, Resource, Shard, Teleporter, RefillType};
 
 pub struct ParseError {
     pub description: String,
@@ -44,13 +44,6 @@ pub struct Pathsets<'a> {
     pub identifier: &'a str,
     pub pathsets: Vec<Pathset<'a>>,
 }
-#[derive(Debug)]
-pub enum RefillType {
-    Full,
-    Checkpoint,
-    Health(u16),
-    Energy(u16),
-}
 pub struct Refill<'a> {
     pub name: RefillType,
     pub requirements: Option<Group<'a>>,
@@ -67,14 +60,6 @@ pub struct Connection<'a> {
     pub identifier: &'a str,
     pub requirements: Option<Group<'a>>,
 }
-pub struct Definition<'a> {
-    pub identifier: &'a str,
-    pub requirements: Group<'a>,
-}
-pub struct Region<'a> {
-    pub identifier: &'a str,
-    pub requirements: Group<'a>,
-}
 pub struct Anchor<'a> {
     pub identifier: &'a str,
     pub position: Option<(i16, i16)>,
@@ -82,16 +67,19 @@ pub struct Anchor<'a> {
     pub connections: Vec<Connection<'a>>,
 }
 pub struct AreaTree<'a> {
-    pub definitions: Vec<Definition<'a>>,
-    pub regions: Vec<Region<'a>>,
+    pub definitions: HashMap<&'a str, Group<'a>>,
+    pub regions: HashMap<&'a str, Group<'a>>,
     pub anchors: Vec<Anchor<'a>>,
 }
 
-struct ParseContext<'a> {
+struct ParseContext {
     position: usize,
+}
+pub struct Metadata<'a> {
     definitions: HashSet<&'a str>,
     pathsets: HashSet<&'a str>,
     states: HashSet<&'a str>,
+    quests: HashSet<&'a str>,
 }
 
 fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenType) -> Result<bool, ParseError> {
@@ -104,7 +92,7 @@ fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenT
     }
 }
 
-fn parse_requirement<'a>(token: &'a Token, context: &mut ParseContext) -> Result<Requirement<'a>, ParseError> {
+fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requirement<'a>, ParseError> {
     let mut parts = token.value.split('=');
     let keyword = parts.next().unwrap();
     let amount = parts.next();
@@ -201,9 +189,9 @@ fn parse_requirement<'a>(token: &'a Token, context: &mut ParseContext) -> Result
             "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
             "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
                 => Err(wrong_amount(token)),
-            _ if context.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
-            _ if context.pathsets.contains(keyword) => Ok(Requirement::Pathset(keyword)),
-            _ if context.states.contains(keyword) => Ok(Requirement::State(keyword)),
+            _ if metadata.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
+            _ if metadata.pathsets.contains(keyword) => Ok(Requirement::Pathset(keyword)),
+            _ if metadata.states.contains(keyword) || metadata.quests.contains(keyword) => Ok(Requirement::State(keyword)),
             _ => Err(wrong_requirement(token))
         }
     }
@@ -219,7 +207,7 @@ fn parse_free(tokens: &[Token], context: &mut ParseContext) -> Result<(), ParseE
     Ok(())
 }
 
-fn parse_line<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Line<'a>, ParseError> {
+fn parse_line<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Line<'a>, ParseError> {
     let mut ands = Vec::<Requirement>::new();
     let mut ors = Vec::<Requirement>::new();
     let mut group = None;
@@ -231,35 +219,35 @@ fn parse_line<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Lin
                 match tokens[context.position].name {
                     TokenType::And => {
                         context.position += 1;
-                        ands.push(parse_requirement(token, context)?);
+                        ands.push(parse_requirement(token, metadata)?);
                     },
                     TokenType::Or => {
                         context.position += 1;
-                        ors.push(parse_requirement(token, context)?);
+                        ors.push(parse_requirement(token, metadata)?);
                     },
                     TokenType::Newline => {
                         context.position += 1;
                         if ors.is_empty() {
-                            ands.push(parse_requirement(token, context)?);
+                            ands.push(parse_requirement(token, metadata)?);
                         } else {
-                            ors.push(parse_requirement(token, context)?);
+                            ors.push(parse_requirement(token, metadata)?);
                         }
                         break;
                     },
                     TokenType::Dedent => {
                         if ors.is_empty() {
-                            ands.push(parse_requirement(token, context)?);
+                            ands.push(parse_requirement(token, metadata)?);
                         } else {
-                            ors.push(parse_requirement(token, context)?);
+                            ors.push(parse_requirement(token, metadata)?);
                         }
                         break;
                     },
                     TokenType::Group => {
                         context.position += 1;
-                        ands.push(parse_requirement(token, context)?);
+                        ands.push(parse_requirement(token, metadata)?);
                         if let TokenType::Indent = tokens[context.position].name {
                             context.position += 1;
-                            group = Some(parse_group(tokens, context)?);
+                            group = Some(parse_group(tokens, context, metadata)?);
                             break;
                         }
                     },
@@ -280,11 +268,11 @@ fn parse_line<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Lin
     })
 }
 
-fn parse_group<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Group<'a>, ParseError> {
+fn parse_group<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Group<'a>, ParseError> {
     let mut lines = Vec::<Line>::new();
     loop {
         match tokens[context.position].name {
-            TokenType::Requirement => lines.push(parse_line(tokens, context)?),
+            TokenType::Requirement => lines.push(parse_line(tokens, context, metadata)?),
             TokenType::Dedent => break,
             _ => return Err(wrong_token(&tokens[context.position], "requirement or end of group")),
         }
@@ -296,7 +284,7 @@ fn parse_group<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Gr
     })
 }
 
-fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Refill<'a>, ParseError> {
+fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Refill<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     context.position += 1;
 
@@ -307,7 +295,7 @@ fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<R
         TokenType::Free => parse_free(tokens, context)?,
         TokenType::Indent => {
             context.position += 1;
-            requirements = Some(parse_group(tokens, context)?)
+            requirements = Some(parse_group(tokens, context, metadata)?)
         },
         _ => return Err(wrong_token(&tokens[context.position], "requirements or end of line")),
     }
@@ -339,7 +327,7 @@ fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<R
         requirements,
     })
 }
-fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, name: ConnectionType) -> Result<Connection<'a>, ParseError> {
+fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata, name: ConnectionType) -> Result<Connection<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let mut requirements = None;
 
@@ -347,7 +335,7 @@ fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, name: C
     match tokens[context.position].name {
         TokenType::Indent => {
             context.position += 1;
-            requirements = Some(parse_group(tokens, context)?)
+            requirements = Some(parse_group(tokens, context, metadata)?)
         },
         TokenType::Free => parse_free(tokens, context)?,
         _ => return Err(wrong_token(&tokens[context.position], "indent or 'free'")),
@@ -358,17 +346,17 @@ fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, name: C
         requirements,
     })
 }
-fn parse_state<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, ConnectionType::State)
+fn parse_state<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
+    parse_connection(tokens, context, metadata, ConnectionType::State)
 }
-fn parse_quest<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, ConnectionType::Quest)
+fn parse_quest<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
+    parse_connection(tokens, context, metadata, ConnectionType::Quest)
 }
-fn parse_pickup<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, ConnectionType::Pickup)
+fn parse_pickup<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
+    parse_connection(tokens, context, metadata, ConnectionType::Pickup)
 }
-fn parse_anchor_connection<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, ConnectionType::Anchor)
+fn parse_anchor_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
+    parse_connection(tokens, context, metadata, ConnectionType::Anchor)
 }
 
 fn parse_pathset<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Pathset<'a>, ParseError> {
@@ -430,14 +418,14 @@ fn parse_pathsets<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result
         })
     }
 }
-fn parse_named_group<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<(&'a str, Group<'a>), ParseError> {
+fn parse_named_group<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<(&'a str, Group<'a>), ParseError> {
     let identifier = &tokens[context.position].value;
     let requirements;
     context.position += 1;
     match tokens[context.position].name {
         TokenType::Indent => {
             context.position += 1;
-            requirements = parse_group(tokens, context)?;
+            requirements = parse_group(tokens, context, metadata)?;
         },
         _ => return Err(wrong_token(&tokens[context.position], "indent")),
     }
@@ -448,21 +436,21 @@ fn parse_named_group<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Res
     ))
 }
 
-fn parse_region<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Region<'a>, ParseError> {
-    let (identifier, requirements) = parse_named_group(tokens, context)?;
-    Ok(Region {
+fn parse_region<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<(&'a str, Group<'a>), ParseError> {
+    let (identifier, requirements) = parse_named_group(tokens, context, metadata)?;
+    Ok((
         identifier,
         requirements,
-    })
+    ))
 }
-fn parse_definition<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Definition<'a>, ParseError> {
-    let (identifier, requirements) = parse_named_group(tokens, context)?;
-    Ok(Definition {
+fn parse_definition<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<(&'a str, Group<'a>), ParseError> {
+    let (identifier, requirements) = parse_named_group(tokens, context, metadata)?;
+    Ok((
         identifier,
         requirements,
-    })
+    ))
 }
-fn parse_anchor<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Anchor<'a>, ParseError> {
+fn parse_anchor<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Anchor<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let mut position = None;
     context.position += 1;
@@ -486,25 +474,21 @@ fn parse_anchor<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<A
     let mut refills = Vec::<Refill>::new();
     let mut connections = Vec::<Connection>::new();
 
-    match tokens[context.position].name {
-        TokenType::Indent => {
-            context.position += 1;
-            loop {
-                match tokens[context.position].name {
-                    TokenType::Refill => refills.push(parse_refill(tokens, context)?),
-                    TokenType::State => connections.push(parse_state(tokens, context)?),
-                    TokenType::Quest => connections.push(parse_quest(tokens, context)?),
-                    TokenType::Pickup => connections.push(parse_pickup(tokens, context)?),
-                    TokenType::Connection => connections.push(parse_anchor_connection(tokens, context)?),
-                    TokenType::Dedent => {
-                        context.position += 1;
-                        break;
-                    },
-                    _ => return Err(wrong_token(&tokens[context.position], "refill, state, quest, pickup, connection or end of anchor")),
-                }
-            }
-        },
-        _ => return Err(wrong_token(&tokens[context.position], "indent")),
+    eat(tokens, context, TokenType::Indent)?;
+
+    loop {
+        match tokens[context.position].name {
+            TokenType::Refill => refills.push(parse_refill(tokens, context, metadata)?),
+            TokenType::State => connections.push(parse_state(tokens, context, metadata)?),
+            TokenType::Quest => connections.push(parse_quest(tokens, context, metadata)?),
+            TokenType::Pickup => connections.push(parse_pickup(tokens, context, metadata)?),
+            TokenType::Connection => connections.push(parse_anchor_connection(tokens, context, metadata)?),
+            TokenType::Dedent => {
+                context.position += 1;
+                break;
+            },
+            _ => return Err(wrong_token(&tokens[context.position], "refill, state, quest, pickup, connection or end of anchor")),
+        }
     }
     Ok(Anchor {
         identifier,
@@ -539,36 +523,47 @@ fn not_int(token: &Token) -> ParseError {
     }
 }
 
-fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext<'a>) -> Result<bool, ParseError> {
+fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Metadata<'a>, ParseError> {
     // Find all states so we can differentiate states from pathsets.
     let end = tokens.len();
+    let mut definitions = HashSet::new();
+    let mut pathsets = HashSet::new();
+    let mut states = HashSet::new();
+    let mut quests = HashSet::new();
+
     while context.position < end {
         let token = &tokens[context.position];
         match token.name {
-            TokenType::Definition => { context.definitions.insert(&token.value); },
+            TokenType::Definition => { definitions.insert(&token.value[..]); },
             TokenType::Pathsets => {
-                let pathsets = parse_pathsets(tokens, context)?;
-                context.pathsets.extend(
-                pathsets.pathsets
-                .iter()
-                .map(|pathset| pathset.identifier)
+                let sets = parse_pathsets(tokens, context)?;
+                pathsets.extend(
+                    sets.pathsets
+                        .iter()
+                        .map(|pathset| pathset.identifier)
                 );
                 context.position -= 1;
             },
-            TokenType::Quest | TokenType::State => { context.states.insert(&token.value); },
+            TokenType::Quest => { quests.insert(&token.value[..]); },
+            TokenType::State => { states.insert(&token.value[..]); },
             _ => {},
         }
 
         context.position += 1;
     }
 
-    Ok(true)
+    Ok(Metadata {
+        definitions,
+        pathsets,
+        states,
+        quests,
+    })
 }
 
-fn process<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<AreaTree<'a>, ParseError> {
+fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<AreaTree<'a>, ParseError> {
     let end = tokens.len();
-    let mut definitions = Vec::<Definition>::new();
-    let mut regions = Vec::<Region>::new();
+    let mut definitions = HashMap::new();
+    let mut regions = HashMap::new();
     let mut anchors = Vec::<Anchor>::new();
 
     if let TokenType::Newline = tokens[context.position].name { context.position += 1 }
@@ -577,10 +572,16 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<AreaTr
         match tokens[context.position].name {
             // We have already parsed the pathsets in the preprocess step so just eat here.
             TokenType::Pathsets => { parse_pathsets(tokens, context)?; },
-            TokenType::Definition => { definitions.push(parse_definition(tokens, context)?); },
-            TokenType::Region => { regions.push(parse_region(tokens, context)?); },
-            TokenType::Anchor => { anchors.push(parse_anchor(tokens, context)?); },
-            _ => { return Err(wrong_token(&tokens[context.position], "definition or anchor")); },
+            TokenType::Definition => {
+                let (key, value) = parse_definition(tokens, context, metadata)?;
+                definitions.insert(key, value);
+            },
+            TokenType::Region => {
+                let (key, value) = parse_region(tokens, context, metadata)?;
+                regions.insert(key, value);
+            },
+            TokenType::Anchor => anchors.push(parse_anchor(tokens, context, metadata)?),
+            _ => return Err(wrong_token(&tokens[context.position], "definition or anchor")),
         }
     }
     Ok(AreaTree {
@@ -643,15 +644,13 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
     Ok(locations)
 }
 
-pub fn parse_areas(tokens: &[Token]) -> Result<AreaTree, ParseError> {
+pub fn parse_areas(tokens: &[Token]) -> Result<(AreaTree, Metadata), ParseError> {
     let mut context = ParseContext {
         position: 0,
-        definitions: Default::default(),
-        pathsets: Default::default(),
-        states: Default::default(),
     };
-
-    preprocess(tokens, &mut context)?;
+    let metadata = preprocess(tokens, &mut context)?;
     context.position = 0;
-    return process(tokens, &mut context);
+
+    let tree = process(tokens, &mut context, &metadata)?;
+    Ok((tree, metadata))
 }
