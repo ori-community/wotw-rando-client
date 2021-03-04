@@ -98,7 +98,7 @@ fun generatePool() = mutableListOf(
         bool("Lower Left Heart", 16155, 60752),
         maxRepeats = 2,
         countGoal = { it.nextTriangular(2, 8, 4) },
-        ).weighted(100000000),
+        ).weighted(50),
     group(
         "Get # Tree[s]",
         bool("Sword", 0, 100),
