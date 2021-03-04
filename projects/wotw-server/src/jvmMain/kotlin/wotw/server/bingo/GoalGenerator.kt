@@ -36,7 +36,7 @@ fun generatePool() = mutableListOf(
         pickupsIn.reach,
         pickupsIn.wastes,
         pickupsIn.willow
-    ),
+    ).weighted(300),
     bool("Spin the Wheel outside Pools", 945, 12852),
 
     oneof(
@@ -63,7 +63,7 @@ fun generatePool() = mutableListOf(
         countGoal = { it.nextTriangular(1, 5, 2) },
         maxRepeats = 1
     ),
-    group("Break # Wellspring BLob[s]",
+    group("Break # Wellspring Blob[s]",
         bool("wellspringGroupDescriptor.lanternAndCreepA", 53632, 2522),
         bool("waterMillStateGroupDescriptor.waterMillEntranceFallingDiscUberStateDescriptor", 37858, 16604),
         bool("waterMillStateGroupDescriptor.wheelsActivatedEntry", 37858, 64055),
@@ -116,7 +116,7 @@ fun generatePool() = mutableListOf(
         bool("Ancestral Light (Glades)", 0, 120),
         bool("Ancestral Light (Burrows)", 0, 121),
         countGoal = { it.nextTriangular(3, 11, 6) },
-    ),
+    ).weighted(150),
     group("Activate # Spirit Trial[s]",
         threshold("Baur's Reach", 44964, 23661, threshold = 1, hideValue = true),
         threshold("Windswept Wastes", 44964, 30767, threshold = 1, hideValue = true),
@@ -400,7 +400,7 @@ fun generatePool() = mutableListOf(
             subsetGoal = false,
             maxRepeats = 1,
         )
-    ),
+    ).weighted(175),
     oneof(
         bool("Ring the Bells (forwards)", 24922, 13349),
         bool("Ring the Bells (backwards)", 24922, 59146),
@@ -489,7 +489,6 @@ fun generatePool() = mutableListOf(
         bool("InnerWellspring.SwimOre", 37858, 32932),
         countGoal = { it.nextTriangular(2, 20, 12)},
         subsetGoal = false,
-
         ),
     group(
         "Activate # Teleporter[s]",
@@ -541,7 +540,7 @@ fun generatePool() = mutableListOf(
             threshold("Rebuilding the Glades", 14019, 44578, 2, hideValue = true),
             threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true),
         maxRepeats = 1,
-    ),
+    ).weighted(10),
     group("Get # Pickup[s]",
         bool("Marsh Burrow Fight Shard", 23987, 50415),
         bool("Howl's Den Door HC", 9593, 61304),
@@ -558,11 +557,11 @@ fun generatePool() = mutableListOf(
         bool("Burrows Tablet", 14019, 52747 )
     ),
     oneof(
-        threshold("Trade for some Soup", 14019, 26318, 4, hideValue = true),
-        threshold("Trade for a Comfy Hat", 14019, 26318, 5, hideValue = true),
-        threshold("Trade for a Lantern", 14019, 26318, 6, hideValue = true),
-        threshold("Trade for some Silk", 14019, 26318, 7, hideValue = true),
-        threshold("Trade for a Spyglass (pools)", 14019, 26318, 8, hideValue = true),
+        threshold("Trade for some Soup (Glades)", 14019, 26318, 4, hideValue = true).weighted(80),
+        threshold("Trade for a Comfy Hat (Reach)", 14019, 26318, 5, hideValue = true),
+        threshold("Trade for a Lantern (Glades)", 14019, 26318, 6, hideValue = true),
+        threshold("Trade for some Silk (Depths)", 14019, 26318, 7, hideValue = true).weighted(80),
+        threshold("Trade for a Spyglass (Pools)", 14019, 26318, 8, hideValue = true).weighted(60),
     ),
     threshold("Drain Kwolok's Hollow", 937, 42245, 2, hideValue = true),
     threshold("Collect Items", 6, 2, triag(40, 240, 100)),
