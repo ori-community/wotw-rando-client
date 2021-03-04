@@ -1,10 +1,29 @@
 package wotw.server.bingo
 
-import kotlin.math.min
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 import kotlin.math.sqrt
 import kotlin.random.Random
+
+fun Collection<GeneratorWithConfig>.weightedRandom(random: Random): GeneratorWithConfig{
+    return this.map { it to it.weight }.toMap().weightedRandom(random)
+}
+fun <T> Map<T, Int>.weightedRandom(random: Random): T{
+    val totalWeight = values.sum().toDouble()
+    if(totalWeight == 0.0)
+        throw NoSuchElementException()
+
+    var currentProbability = 0.0
+    val probabilities = this.entries.sortedBy { it.value }.map{ (item, weight) ->
+        val newProbability = currentProbability + weight / totalWeight
+        val foo = item to currentProbability..newProbability
+        currentProbability = newProbability
+        foo
+    }
+
+    val chosen = random.nextDouble()
+    return probabilities.firstOrNull { chosen in it.second}?.first ?: probabilities.last().first
+}
 
 fun Random.nextTriangular(min: Int, max: Int, mode: Int): Int =
     nextTriangular(min.toDouble(), max.toDouble(), mode.toDouble()).roundToInt()
@@ -39,7 +58,9 @@ fun interface NumberGenerator : NumberStateGenerator {
 
 fun interface GoalGenerator : (GeneratorConfig, Int) -> BingoGoal?
 
-data class GeneratorWithConfig(val gen: GoalGenerator, val countOnly: Boolean = false)
+data class GeneratorWithConfig(val gen: GoalGenerator, val countOnly: Boolean = false, val weight: Int = 100){
+    fun weighted(weight: Int) = copy(weight = weight)
+}
 
 fun bool(title: String, group: Int, state: Int, countOnly: Boolean = false) = GeneratorWithConfig( { _, count ->
     when {
@@ -90,7 +111,7 @@ fun nof(n: Int, vararg goals: GeneratorWithConfig): GeneratorWithConfig {
         return GeneratorWithConfig( { config, used -> when {
             used >= n -> null
             else -> {
-                val goal = unusedGoals.random(config.random)
+                val goal = unusedGoals.weightedRandom(config.random)
                 unusedGoals.remove(goal)
                 goal.gen(config, 0)
             }
@@ -105,6 +126,7 @@ fun group(
     vararg goals: GeneratorWithConfig,
     countGoal: ((Random) -> Int)? = null,
     subsetGoal: Boolean = true,
+    orChance: Double = 0.5,
     maxRepeats: Int = 3
 ): GeneratorWithConfig {
     var countUsed = countGoal == null
@@ -125,22 +147,19 @@ fun group(
                     Difficulty.HARD -> 4
                 }
 
-//                val midpoint =  when (difficulty) {
-//                    Difficulty.EASY -> 1
-//                    Difficulty.NORMAL -> (1 + maxAmount)/2
-//                    Difficulty.HARD -> maxAmount
-//                }
-
                 val goalAmount = random.nextInt(1, maxAmount+1)
                 val requiredAmount = when (difficulty) {
                     Difficulty.EASY -> 1
-                    Difficulty.NORMAL -> if (random.nextDouble() > 0.5) goalAmount else 1
+                    Difficulty.NORMAL -> if (random.nextDouble() > orChance) goalAmount else 1
                     Difficulty.HARD -> goalAmount
                 }
                 val generatedGoals = mutableListOf<BingoGoal>()
 
                 while (generatedGoals.size < goalAmount) {
-                    val genAndConfig = remainingGoals.randomOrNull(random) ?: return@GoalGenerator null
+                    if(remainingGoals.size == 0)
+                        return@GoalGenerator null
+
+                    val genAndConfig = remainingGoals.weightedRandom(random)
                     if(!genAndConfig.countOnly) {
                         val generatedGoal = genAndConfig.gen(config, 0)
                         if (generatedGoal != null)
