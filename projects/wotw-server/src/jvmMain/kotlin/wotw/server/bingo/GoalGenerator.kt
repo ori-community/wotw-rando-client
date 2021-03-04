@@ -75,16 +75,16 @@ fun generatePool() = mutableListOf(
     ),
     group(
         "Buy # Item[s] from Twillen",
-        bool("TwillenShop.Overcharge", 2, 1),
-        bool("TwillenShop.TripleJump", 2, 2),
-        bool("TwillenShop.Wingclip", 2, 3),
-        bool("TwillenShop.Swap", 2, 5),
-        bool("TwillenShop.LightHarvest", 2, 19),
-        bool("TwillenShop.Vitality", 2, 22),
-        bool("TwillenShop.Energy", 2, 26),
-        bool("TwillenShop.Finesse", 2, 40),
+        bool("Overcharge", 2, 1),
+        bool("TripleJump", 2, 2),
+        bool("Wingclip", 2, 3),
+        bool("Swap", 2, 5),
+        bool("LightHarvest", 2, 19),
+        bool("Vitality", 2, 22),
+        bool("Energy", 2, 26),
+        bool("Finesse", 2, 40),
         countGoal = {it.nextTriangular(2, 8, 3)},
-        maxRepeats = 2
+        maxRepeats = 1
         ),
     group(
         "Break # Willow Heart[s]",
