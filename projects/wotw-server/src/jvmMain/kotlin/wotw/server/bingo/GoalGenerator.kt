@@ -98,7 +98,7 @@ fun generatePool() = mutableListOf(
         bool("Lower Left Heart", 16155, 60752),
         maxRepeats = 2,
         countGoal = { it.nextTriangular(2, 8, 4) },
-        ),
+        ).weighted(100000000),
     group(
         "Get # Tree[s]",
         bool("Sword", 0, 100),
@@ -577,38 +577,6 @@ fun generatePool() = mutableListOf(
     )
 )
 
-class BingoBoardGenerator {
-    fun generateBoard(seed: String? = null): BingoCard {
-        val random = Random(seed?.hashCode() ?: Instant.now().epochSecond.toInt())
-        val pool = generatePool()
-        val counts = (pool.map {it to 0}).toMap().toMutableMap()
-
-        val config = GeneratorConfig(random)
-
-        val card = BingoCard()
-        for (x in 1..5)
-            for (y in 1..5) {
-                var generatedGoal: BingoGoal? = null
-                while(generatedGoal == null){
-                    val goal = pool.random(random)
-                    generatedGoal = goal.gen(config, counts[goal] ?: 0)
-                    if(generatedGoal == null) {
-                        pool -= goal
-                    }  else {
-                        counts[goal] = 1 + (counts[goal] ?: 0)
-                    }
-                }
-                card.goals[x to y] = generatedGoal
-            }
-
-        return card
-    }
-}
-
-fun main(){
-    println(Json{allowStructuredMapKeys = true}.encodeToString(BingoBoardGenerator().generateBoard("roastbeef")))
-}
-
 object pickupsIn {
     val marsh = group("Collect # Pickups In Inkwater Marsh",
         bool("MarshSpawn.RockHC", 21786, 60210),
@@ -1000,4 +968,36 @@ object pickupsIn {
         subsetGoal = false
     )
 
+}
+
+class BingoBoardGenerator {
+    fun generateBoard(seed: String? = null): BingoCard {
+        val random = Random(seed?.hashCode() ?: Instant.now().epochSecond.toInt())
+        val pool = generatePool()
+        val counts = (pool.map {it to 0}).toMap().toMutableMap()
+
+        val config = GeneratorConfig(random)
+
+        val card = BingoCard()
+        for (x in (1..5).shuffled(random))
+            for (y in (1..5).shuffled(random)) {
+                var generatedGoal: BingoGoal? = null
+                while(generatedGoal == null){
+                    val goal = pool.weightedRandom(random)
+                    generatedGoal = goal.gen(config, counts[goal] ?: 0)
+                    if(generatedGoal == null) {
+                        pool -= goal
+                    }  else {
+                        counts[goal] = 1 + (counts[goal] ?: 0)
+                    }
+                }
+                card.goals[x to y] = generatedGoal
+            }
+
+        return card
+    }
+}
+
+fun main(){
+    println(Json{allowStructuredMapKeys = true}.encodeToString(BingoBoardGenerator().generateBoard("roastbeef")))
 }
