@@ -71,6 +71,7 @@ fun generatePool() = mutableListOf(
         bool("waterMillStateGroupDescriptor.wheelBActive", 37858, 60716),
         bool("waterMillStateGroupDescriptor.wheelsActivated", 37858, 31584),
         countGoal = {it.nextTriangular(2, 6, 3)},
+        subsetGoal = false,
         maxRepeats = 1
     ),
     group(
@@ -97,6 +98,7 @@ fun generatePool() = mutableListOf(
         bool("Boulder Escape Heart", 16155, 41488),
         bool("Lower Left Heart", 16155, 60752),
         maxRepeats = 2,
+        orChance = .75,
         countGoal = { it.nextTriangular(2, 8, 4) },
         ).weighted(50),
     group(
@@ -539,7 +541,7 @@ fun generatePool() = mutableListOf(
             threshold("Hand to Hand", 14019, 26318, 11, hideValue = true),
             threshold("Rebuilding the Glades", 14019, 44578, 2, hideValue = true),
             threshold("Regrowing the Glades", 14019, 26394, 2, hideValue = true),
-        maxRepeats = 1,
+        orChance = .75
     ).weighted(10),
     group("Get # Pickup[s]",
         bool("Marsh Burrow Fight Shard", 23987, 50415),
