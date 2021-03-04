@@ -71,8 +71,8 @@ fun generatePool() = mutableListOf(
         bool("TwillenShop.Vitality", 2, 22),
         bool("TwillenShop.Energy", 2, 26),
         bool("TwillenShop.Finesse", 2, 40),
-        subsetGoal = false,
-        maxRepeats = 1
+        countGoal = {it.nextTriangular(2, 8, 3)},
+        maxRepeats = 2
         ),
     group(
         "Break # Willow Heart[s]",
@@ -114,7 +114,7 @@ fun generatePool() = mutableListOf(
         threshold("Mouldwood Depths", 44964, 28552, threshold = 1, hideValue = true),
         threshold("Silent Woods", 44964, 22703, threshold = 1, hideValue = true),
         threshold("The Wellspring", 44964, 11512, threshold = 1, hideValue = true),
-        countGoal = { it.nextTriangular(2, 6, 3) },
+        countGoal = { it.nextTriangular(2, 8, 4) },
         maxRepeats = 2
     ),
     group("Find # Key Item[s]",
@@ -161,7 +161,7 @@ fun generatePool() = mutableListOf(
         bool("Wellspring Glades", 44310, 9902),
         bool("Silent Woods", 58674, 29265),
         bool("Mouldwood Depths", 18793, 31937),
-        maxRepeats = 2,
+        maxRepeats = 1,
         countGoal = { it.nextTriangular(2, 5, 3) },
     ),
     group("Plant # Seed[s]",
@@ -354,7 +354,7 @@ fun generatePool() = mutableListOf(
         bool("baursReachGroup.breakableWall", 28895, 30794),
         bool("_petrifiedForestGroup.secretWallA", 58674, 39950),
         bool("howlsOriginGroup.secretWallA", 24922, 2524),
-        countGoal = {it.nextTriangular(12, 56, 25)},
+        countGoal = {it.nextTriangular(12, 56, 23)},
         maxRepeats = 1,
         subsetGoal = false
     ),
@@ -388,7 +388,6 @@ fun generatePool() = mutableListOf(
             subsetGoal = false,
             maxRepeats = 1,
         )
-
     ),
     oneof(
         bool("Ring the Bells (forwards)", 24922, 13349),
@@ -433,7 +432,7 @@ fun generatePool() = mutableListOf(
         bool("WeepingRidge.Ore", 36153, 3013),
         bool("WillowsEnd.SpikesOre", 16155, 38979),
         bool("WillowsEnd.WindSpinOre", 16155, 9230),
-        countGoal = { it.nextTriangular(6, 36, 12)},
+        countGoal = { it.nextTriangular(6, 30, 10)},
         maxRepeats = 1,
         subsetGoal = false
     ),
@@ -483,7 +482,7 @@ fun generatePool() = mutableListOf(
     group(
         "Activate # Teleporter[s]",
         bool("Midnight Burrows", 24922, 42531),
-        bool("Howl's Den", 11666, 61594),
+        bool("Howl's Den", 11666, 61594, countOnly = true),
         bool("Wellspring", 53632, 18181),
         bool("Baur's Reach", 28895, 54235),
         bool("Kwolok's Hollow", 6, 106),
@@ -498,7 +497,7 @@ fun generatePool() = mutableListOf(
         bool("East Luma", 945, 58183),
         bool("West Luma", 945, 1370),
         bool("Shriek", 16155, 50867, countOnly = true),
-        bool("Inkwater Marsh", 21786, 10185),
+        bool("Inkwater Marsh", 21786, 10185, countOnly = true),
         bool("Glades", 42178, 42096),
         countGoal = { it.nextTriangular(4, 16, 6)},
     ),
