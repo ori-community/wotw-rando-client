@@ -37,6 +37,8 @@ fun generatePool() = mutableListOf(
         pickupsIn.wastes,
         pickupsIn.willow
     ),
+    bool("Spin the Wheel outside Pools", 945, 12852),
+
     oneof(
         bool("Drop the rock next to Baur", 28895, 49329),
         bool("Roll the snowball in Reach", 28895, 20731),
@@ -59,6 +61,16 @@ fun generatePool() = mutableListOf(
         bool("Charge Blaze", 1, 1115),
         bool("Sentry Speed", 1, 1116),
         countGoal = { it.nextTriangular(1, 5, 2) },
+        maxRepeats = 1
+    ),
+    group("Break # Wellspring BLob[s]",
+        bool("wellspringGroupDescriptor.lanternAndCreepA", 53632, 2522),
+        bool("waterMillStateGroupDescriptor.waterMillEntranceFallingDiscUberStateDescriptor", 37858, 16604),
+        bool("waterMillStateGroupDescriptor.wheelsActivatedEntry", 37858, 64055),
+        bool("waterMillStateGroupDescriptor.wheelAActive", 37858, 50902),
+        bool("waterMillStateGroupDescriptor.wheelBActive", 37858, 60716),
+        bool("waterMillStateGroupDescriptor.wheelsActivated", 37858, 31584),
+        countGoal = {it.nextTriangular(2, 6, 3)},
         maxRepeats = 1
     ),
     group(
