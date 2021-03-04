@@ -37,6 +37,8 @@ fun generatePool() = mutableListOf(
         pickupsIn.wastes,
         pickupsIn.willow
     ),
+    bool("Spin the Wheel outside Pools", 945, 12852),
+
     oneof(
         bool("Drop the rock next to Baur", 28895, 49329),
         bool("Roll the snowball in Reach", 28895, 20731),
@@ -61,6 +63,16 @@ fun generatePool() = mutableListOf(
         countGoal = { it.nextTriangular(1, 5, 2) },
         maxRepeats = 1
     ),
+    group("Break # Wellspring BLob[s]",
+        bool("wellspringGroupDescriptor.lanternAndCreepA", 53632, 2522),
+        bool("waterMillStateGroupDescriptor.waterMillEntranceFallingDiscUberStateDescriptor", 37858, 16604),
+        bool("waterMillStateGroupDescriptor.wheelsActivatedEntry", 37858, 64055),
+        bool("waterMillStateGroupDescriptor.wheelAActive", 37858, 50902),
+        bool("waterMillStateGroupDescriptor.wheelBActive", 37858, 60716),
+        bool("waterMillStateGroupDescriptor.wheelsActivated", 37858, 31584),
+        countGoal = {it.nextTriangular(2, 6, 3)},
+        maxRepeats = 1
+    ),
     group(
         "Buy # Item[s] from Twillen",
         bool("TwillenShop.Overcharge", 2, 1),
@@ -71,8 +83,8 @@ fun generatePool() = mutableListOf(
         bool("TwillenShop.Vitality", 2, 22),
         bool("TwillenShop.Energy", 2, 26),
         bool("TwillenShop.Finesse", 2, 40),
-        subsetGoal = false,
-        maxRepeats = 1
+        countGoal = {it.nextTriangular(2, 8, 3)},
+        maxRepeats = 2
         ),
     group(
         "Break # Willow Heart[s]",
@@ -86,7 +98,7 @@ fun generatePool() = mutableListOf(
         bool("Lower Left Heart", 16155, 60752),
         maxRepeats = 2,
         countGoal = { it.nextTriangular(2, 8, 4) },
-        ),
+        ).weighted(100000000),
     group(
         "Get # Tree[s]",
         bool("Sword", 0, 100),
@@ -114,7 +126,7 @@ fun generatePool() = mutableListOf(
         threshold("Mouldwood Depths", 44964, 28552, threshold = 1, hideValue = true),
         threshold("Silent Woods", 44964, 22703, threshold = 1, hideValue = true),
         threshold("The Wellspring", 44964, 11512, threshold = 1, hideValue = true),
-        countGoal = { it.nextTriangular(2, 6, 3) },
+        countGoal = { it.nextTriangular(2, 8, 4) },
         maxRepeats = 2
     ),
     group("Find # Key Item[s]",
@@ -161,7 +173,7 @@ fun generatePool() = mutableListOf(
         bool("Wellspring Glades", 44310, 9902),
         bool("Silent Woods", 58674, 29265),
         bool("Mouldwood Depths", 18793, 31937),
-        maxRepeats = 2,
+        maxRepeats = 1,
         countGoal = { it.nextTriangular(2, 5, 3) },
     ),
     group("Plant # Seed[s]",
@@ -354,7 +366,7 @@ fun generatePool() = mutableListOf(
         bool("baursReachGroup.breakableWall", 28895, 30794),
         bool("_petrifiedForestGroup.secretWallA", 58674, 39950),
         bool("howlsOriginGroup.secretWallA", 24922, 2524),
-        countGoal = {it.nextTriangular(12, 56, 25)},
+        countGoal = {it.nextTriangular(12, 56, 23)},
         maxRepeats = 1,
         subsetGoal = false
     ),
@@ -388,7 +400,6 @@ fun generatePool() = mutableListOf(
             subsetGoal = false,
             maxRepeats = 1,
         )
-
     ),
     oneof(
         bool("Ring the Bells (forwards)", 24922, 13349),
@@ -433,7 +444,7 @@ fun generatePool() = mutableListOf(
         bool("WeepingRidge.Ore", 36153, 3013),
         bool("WillowsEnd.SpikesOre", 16155, 38979),
         bool("WillowsEnd.WindSpinOre", 16155, 9230),
-        countGoal = { it.nextTriangular(6, 36, 12)},
+        countGoal = { it.nextTriangular(6, 30, 10)},
         maxRepeats = 1,
         subsetGoal = false
     ),
@@ -483,7 +494,7 @@ fun generatePool() = mutableListOf(
     group(
         "Activate # Teleporter[s]",
         bool("Midnight Burrows", 24922, 42531),
-        bool("Howl's Den", 11666, 61594),
+        bool("Howl's Den", 11666, 61594, countOnly = true),
         bool("Wellspring", 53632, 18181),
         bool("Baur's Reach", 28895, 54235),
         bool("Kwolok's Hollow", 6, 106),
@@ -498,7 +509,7 @@ fun generatePool() = mutableListOf(
         bool("East Luma", 945, 58183),
         bool("West Luma", 945, 1370),
         bool("Shriek", 16155, 50867, countOnly = true),
-        bool("Inkwater Marsh", 21786, 10185),
+        bool("Inkwater Marsh", 21786, 10185, countOnly = true),
         bool("Glades", 42178, 42096),
         countGoal = { it.nextTriangular(4, 16, 6)},
     ),
@@ -565,38 +576,6 @@ fun generatePool() = mutableListOf(
         threshold("Spend Spirit Light", 6, 4, triag(2000, 6000, 3000)),
     )
 )
-
-class BingoBoardGenerator {
-    fun generateBoard(seed: String? = null): BingoCard {
-        val random = Random(seed?.hashCode() ?: Instant.now().epochSecond.toInt())
-        val pool = generatePool()
-        val counts = (pool.map {it to 0}).toMap().toMutableMap()
-
-        val config = GeneratorConfig(random)
-
-        val card = BingoCard()
-        for (x in 1..5)
-            for (y in 1..5) {
-                var generatedGoal: BingoGoal? = null
-                while(generatedGoal == null){
-                    val goal = pool.random(random)
-                    generatedGoal = goal.gen(config, counts[goal] ?: 0)
-                    if(generatedGoal == null) {
-                        pool -= goal
-                    }  else {
-                        counts[goal] = 1 + (counts[goal] ?: 0)
-                    }
-                }
-                card.goals[x to y] = generatedGoal
-            }
-
-        return card
-    }
-}
-
-fun main(){
-    println(Json{allowStructuredMapKeys = true}.encodeToString(BingoBoardGenerator().generateBoard("roastbeef")))
-}
 
 object pickupsIn {
     val marsh = group("Collect # Pickups In Inkwater Marsh",
@@ -989,4 +968,36 @@ object pickupsIn {
         subsetGoal = false
     )
 
+}
+
+class BingoBoardGenerator {
+    fun generateBoard(seed: String? = null): BingoCard {
+        val random = Random(seed?.hashCode() ?: Instant.now().epochSecond.toInt())
+        val pool = generatePool()
+        val counts = (pool.map {it to 0}).toMap().toMutableMap()
+
+        val config = GeneratorConfig(random)
+
+        val card = BingoCard()
+        for (x in (1..5).shuffled(random))
+            for (y in (1..5).shuffled(random)) {
+                var generatedGoal: BingoGoal? = null
+                while(generatedGoal == null){
+                    val goal = pool.weightedRandom(random)
+                    generatedGoal = goal.gen(config, counts[goal] ?: 0)
+                    if(generatedGoal == null) {
+                        pool -= goal
+                    }  else {
+                        counts[goal] = 1 + (counts[goal] ?: 0)
+                    }
+                }
+                card.goals[x to y] = generatedGoal
+            }
+
+        return card
+    }
+}
+
+fun main(){
+    println(Json{allowStructuredMapKeys = true}.encodeToString(BingoBoardGenerator().generateBoard("roastbeef")))
 }

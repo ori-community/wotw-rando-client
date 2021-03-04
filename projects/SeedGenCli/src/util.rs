@@ -1,5 +1,6 @@
 use std::{fs, path::PathBuf};
 
+#[derive(Debug)]
 pub enum Skill {
     Bash,
     WallJump,
@@ -25,6 +26,7 @@ pub enum Skill {
     Flap,
     Water,
 }
+#[derive(Debug)]
 pub enum Resource {
     SpiritLight,
     Health,
@@ -33,6 +35,7 @@ pub enum Resource {
     Keystone,
     ShardSlot,
 }
+#[derive(Debug)]
 pub enum Shard {
     //Overcharge,
     TripleJump,
@@ -66,6 +69,7 @@ pub enum Shard {
     Fracture,
     Arcing,
 }
+#[derive(Debug)]
 pub enum Teleporter {
     Marsh,
     Den,
@@ -85,6 +89,14 @@ pub enum Teleporter {
     InnerRuins,
     Willow,
     Shriek,
+}
+
+#[derive(Debug)]
+pub enum RefillType {
+    Full,
+    Checkpoint,
+    Health(u16),
+    Energy(u16),
 }
 
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {

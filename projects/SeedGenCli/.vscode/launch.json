@@ -27,6 +27,8 @@
             "args": [
                 "--areas",
                 "C:\\moon\\areas.wotw",
+                "--locations",
+                "C:\\moon\\loc_data.csv",
                 "--output",
                 "C:\\test",
                 "--debug",
