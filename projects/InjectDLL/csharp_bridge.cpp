@@ -3,50 +3,51 @@
 
 namespace csharp_bridge
 {
-    signatures::f_void update;
-    signatures::f_void_at on_tree;
-    signatures::f_void on_checkpoint;
-    signatures::f_void on_goal_mode_fail;
-    signatures::f_bool_str check_ini;
+    signatures::f_void update = nullptr;
+    signatures::f_void_at on_tree = nullptr;
+    signatures::f_void on_checkpoint = nullptr;
+    signatures::f_void on_goal_mode_fail = nullptr;
+    signatures::f_bool_str check_ini = nullptr;
 
-    signatures::f_bool inject_log_enabled;
-    signatures::f_bool inject_debug_enabled;
-    signatures::f_bool tp_to_any_pickup;
-    signatures::f_bool invert_swim;
-    signatures::f_bool is_day_time;
-    signatures::f_bool does_howl_exist;
-    signatures::f_bool water_cleansed;
-    signatures::f_void_gwa on_map_pan;
+    signatures::f_bool inject_log_enabled = nullptr;
+    signatures::f_bool inject_debug_enabled = nullptr;
+    signatures::f_bool tp_to_any_pickup = nullptr;
+    signatures::f_bool invert_swim = nullptr;
+    signatures::f_bool is_day_time = nullptr;
+    signatures::f_bool does_howl_exist = nullptr;
+    signatures::f_bool water_cleansed = nullptr;
+    signatures::f_void_gwa on_map_pan = nullptr;
+    signatures::f_void_string_dt on_enemy_death = nullptr;
 
     // Save system
-    signatures::f_void_int new_game;
-    signatures::f_void_int_int on_load;
-    signatures::f_void_int_int on_save;
-    signatures::f_void_int_int on_copy;
-    signatures::f_void_int on_delete;
-    signatures::f_bool_at get_ability;
-    signatures::f_void_at_bool set_ability;
-    signatures::f_bool_at is_tree_activated;
+    signatures::f_void_int new_game = nullptr;
+    signatures::f_void_int_int on_load = nullptr;
+    signatures::f_void_int_int on_save = nullptr;
+    signatures::f_void_int_int on_copy = nullptr;
+    signatures::f_void_int on_delete = nullptr;
+    signatures::f_bool_at get_ability = nullptr;
+    signatures::f_void_at_bool set_ability = nullptr;
+    signatures::f_bool_at is_tree_activated = nullptr;
 
     // Shop system
-    signatures::f_void_at opher_buy_weapon;
-    signatures::f_void_at opher_buy_upgrade;
-    signatures::f_bool_at opher_bought_weapon;
-    signatures::f_int_at opher_weapon_cost;
-    signatures::f_bool_at opher_bought_upgrade;
-    signatures::f_void_st twillen_buy_shard;
-    signatures::f_bool_st twillen_bought_shard;
-    signatures::f_int_st twillen_shard_cost;
-    signatures::f_int_int lupo_upgrade_cost;
-    signatures::f_void update_shop_data;
-    signatures::f_void_string on_teleporter_activated;
+    signatures::f_void_at opher_buy_weapon = nullptr;
+    signatures::f_void_at opher_buy_upgrade = nullptr;
+    signatures::f_bool_at opher_bought_weapon = nullptr;
+    signatures::f_int_at opher_weapon_cost = nullptr;
+    signatures::f_bool_at opher_bought_upgrade = nullptr;
+    signatures::f_void_st twillen_buy_shard = nullptr;
+    signatures::f_bool_st twillen_bought_shard = nullptr;
+    signatures::f_int_st twillen_shard_cost = nullptr;
+    signatures::f_int_int lupo_upgrade_cost = nullptr;
+    signatures::f_void update_shop_data = nullptr;
+    signatures::f_void_string on_teleporter_activated = nullptr;
 
-    signatures::f_void_int_int_byte_float_float on_uber_state_applied;
+    signatures::f_void_int_int_byte_float_float on_uber_state_applied = nullptr;
 
-    signatures::f_bool_int_int_int filter_icon_show;
-    signatures::f_int_int_int_int filter_icon_type;
-    signatures::f_void_ptr_int_int_int_int_int filter_icon_text;
-    signatures::f_bool_int filter_enabled;
+    signatures::f_bool_int_int_int filter_icon_show = nullptr;
+    signatures::f_int_int_int_int filter_icon_type = nullptr;
+    signatures::f_void_ptr_int_int_int_int_int filter_icon_text = nullptr;
+    signatures::f_bool_int filter_enabled = nullptr;
 }
 
 INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
@@ -124,9 +125,11 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
     else if (name == "filter_icon_text")
         filter_icon_text = reinterpret_cast<f_void_ptr_int_int_int_int_int>(ptr);
     else if (name == "filter_enabled")
-      filter_enabled = reinterpret_cast<f_bool_int>(ptr);
-    else if(name == "update_shop_data")
-      update_shop_data = reinterpret_cast<f_void>(ptr);
-    else if(name == "on_teleporter_activated")
-      on_teleporter_activated = reinterpret_cast<f_void_string>(ptr);
+        filter_enabled = reinterpret_cast<f_bool_int>(ptr);
+    else if (name == "update_shop_data")
+        update_shop_data = reinterpret_cast<f_void>(ptr);
+    else if (name == "on_teleporter_activated")
+        on_teleporter_activated = reinterpret_cast<f_void_string>(ptr);
+    else if (name == "on_enemy_death")
+        on_enemy_death = reinterpret_cast<f_void_string_dt>(ptr);
 }
