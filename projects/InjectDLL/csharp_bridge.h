@@ -17,6 +17,7 @@ namespace csharp_bridge
         using f_void_ptr_int_int_int_int_int = void(*)(void*, int, int, int, int, int);
         using f_void_int_int_byte_float_float = void(*)(int, int, uint8_t, float, float);
         using f_void_string = void(*)(const char*);
+        using f_void_string_dt = void(*)(const char*, app::DamageType__Enum);
         using f_void_st = void(*)(ShardType);
         using f_bool = bool(*)();
         using f_bool_at = bool(*)(app::AbilityType__Enum);
@@ -47,6 +48,7 @@ namespace csharp_bridge
     extern signatures::f_bool is_day_time;
     extern signatures::f_bool does_howl_exist;
     extern signatures::f_void_gwa on_map_pan;
+    extern signatures::f_void_string_dt on_enemy_death;
 
     // Save system
     extern signatures::f_void_int new_game;
