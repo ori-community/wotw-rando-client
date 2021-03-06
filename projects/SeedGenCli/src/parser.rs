@@ -2,7 +2,7 @@ use std::{fs, path::PathBuf};
 use std::collections::{HashMap, HashSet};
 
 use crate::tokenizer::{Token, TokenType};
-use crate::util::{Skill, Resource, Shard, Teleporter, RefillType};
+use crate::util::{Skill, Resource, Shard, Teleporter, RefillType, NodeType};
 
 pub struct ParseError {
     pub description: String,
@@ -48,15 +48,8 @@ pub struct Refill<'a> {
     pub name: RefillType,
     pub requirements: Option<Group<'a>>,
 }
-#[derive(Debug)]
-pub enum ConnectionType {
-    State,
-    Quest,
-    Pickup,
-    Anchor,
-}
 pub struct Connection<'a> {
-    pub name: ConnectionType,
+    pub name: NodeType,
     pub identifier: &'a str,
     pub requirements: Option<Group<'a>>,
 }
@@ -78,8 +71,8 @@ struct ParseContext {
 pub struct Metadata<'a> {
     definitions: HashSet<&'a str>,
     pathsets: HashSet<&'a str>,
-    states: HashSet<&'a str>,
-    quests: HashSet<&'a str>,
+    pub states: HashSet<&'a str>,
+    pub quests: HashSet<&'a str>,
 }
 
 fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenType) -> Result<bool, ParseError> {
@@ -327,7 +320,7 @@ fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &
         requirements,
     })
 }
-fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata, name: ConnectionType) -> Result<Connection<'a>, ParseError> {
+fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata, name: NodeType) -> Result<Connection<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let mut requirements = None;
 
@@ -347,16 +340,16 @@ fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadat
     })
 }
 fn parse_state<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, metadata, ConnectionType::State)
+    parse_connection(tokens, context, metadata, NodeType::State)
 }
 fn parse_quest<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, metadata, ConnectionType::Quest)
+    parse_connection(tokens, context, metadata, NodeType::Quest)
 }
 fn parse_pickup<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, metadata, ConnectionType::Pickup)
+    parse_connection(tokens, context, metadata, NodeType::Pickup)
 }
 fn parse_anchor_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
-    parse_connection(tokens, context, metadata, ConnectionType::Anchor)
+    parse_connection(tokens, context, metadata, NodeType::Anchor)
 }
 
 fn parse_pathset<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Pathset<'a>, ParseError> {
@@ -591,9 +584,10 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
     })
 }
 
+#[derive(Default)]
 pub struct Location {
     pub name: String,
-    pub group_id: String,
+    pub uber_group: String,
     pub uber_id: String,
 }
 
@@ -611,19 +605,19 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
             return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line))
         }
 
-        let (name, group_id, uber_id) = (parts[0].trim(), parts[5].trim(), parts[7].trim());
+        let (name, uber_group, uber_id) = (parts[0].trim(), parts[5].trim(), parts[7].trim());
         if validate {
             if name.is_empty() {
                 return Err(empty_field("name", index, line))
             }
-            if group_id.is_empty() {
+            if uber_group.is_empty() {
                 return Err(empty_field("group_id", index, line))
             }
             if uber_id.is_empty() {
                 return Err(empty_field("uber_id", index, line))
             }
 
-            group_id.parse::<u16>().map_err(|_| format!("Invalid uberGroup id at line {}: {}", index + 1, line))?;
+            uber_group.parse::<u16>().map_err(|_| format!("Invalid uberGroup id at line {}: {}", index + 1, line))?;
             let mut uber_id_value = uber_id.split('=');
             uber_id_value.next().unwrap().parse::<u16>().map_err(|_| format!("Invalid uberState id at line {}: {}", index + 1, line))?;
             if let Some(value) = uber_id_value.next() {
@@ -636,7 +630,7 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
 
         locations.push(Location {
             name: name.to_string(),
-            group_id: group_id.to_string(),
+            uber_group: uber_group.to_string(),
             uber_id: uber_id.to_string(),
         })
     }

@@ -2,6 +2,7 @@ use std::path::PathBuf;
 use std::fs::File;
 use std::io::{self, Read, BufReader, Error, ErrorKind};
 // use std::io::prelude::*;
+use std::collections::HashMap;
 
 use structopt::StructOpt;
 use bugsalot::debugger;
@@ -10,10 +11,12 @@ mod tokenizer;
 mod parser;
 mod emitter;
 mod world;
+mod player;
 mod requirements;
 mod util;
 
 use parser::ParseError;
+use world::Node;
 
 #[derive(StructOpt)]
 struct Arguments {
@@ -78,7 +81,7 @@ fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
     Ok(contents)
 }
 
-fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) {
+fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) -> HashMap<String, Node> {
     let tokens = match tokenizer::tokenize(areas) {
         Ok(tokens) => tokens,
         Err(error) => panic!("Error parsing areas.wotw: {}", error),
@@ -103,7 +106,10 @@ fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) {
         Err(error) => panic!("Error parsing loc_data.csv: {}", error),
     };
 
-    //emitter::emit(&areas, &metadata, &locations, validate);
+    match emitter::emit(&areas, &metadata, &locations, validate) {
+        Ok(graph) => graph,
+        Err(error) => panic!("Error building the logic: {}", error),
+    }
 }
 
 fn main() {
@@ -124,8 +130,9 @@ fn main() {
         }
     }
 
-    parse_logic(&args.areas, &args.locations, args.validate);
+    let areas = parse_logic(&args.areas, &args.locations, args.validate);
 
-    // TODO: Turn area tree into a graph
+    // std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
+
     // TODO: Generate a seed
 }

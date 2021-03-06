@@ -30,8 +30,9 @@
                 "--locations",
                 "C:\\moon\\loc_data.csv",
                 "--output",
-                "C:\\test",
+                "C:\\moon\\test",
                 "--debug",
+                "--validate",
                 "--gen_flags",
                 "moki"
             ],

@@ -1,6 +1,6 @@
 use std::{fs, path::PathBuf};
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Skill {
     Bash,
     WallJump,
@@ -25,8 +25,10 @@ pub enum Skill {
     Sentry,
     Flap,
     Water,
+    //AncestralLightA,
+    //AncestralLightB,
 }
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Resource {
     SpiritLight,
     Health,
@@ -35,7 +37,7 @@ pub enum Resource {
     Keystone,
     ShardSlot,
 }
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Shard {
     //Overcharge,
     TripleJump,
@@ -69,7 +71,7 @@ pub enum Shard {
     Fracture,
     Arcing,
 }
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Teleporter {
     Marsh,
     Den,
@@ -90,13 +92,52 @@ pub enum Teleporter {
     Willow,
     Shriek,
 }
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum Bonus {
+    // HealthRegen,
+    // EnergyRegen,
+    // ExtraDoubleJump,
+    // ExtraAirDash,
+    // RapidHammer,
+    // RapidSword,
+    // BlazeEfficiency,
+    // SpearEfficiency,
+    // ShurikenEfficiency,
+    // SentryEfficiency,
+    // BowEfficiency,
+    // RegenerationEfficiency,
+    // FlashEfficiency,
+    // GrenadeEfficiency,
+}
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum Hint {
+    // Marsh,
+    // Hollow,
+    // Glades,
+    // Wellspring,
+    // Woods,
+    // Reach,
+    // Depths,
+    // Pools,
+    // Wastes,
+    // Ruins,
+    // Willow,
+    // Void,
+}
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum RefillType {
     Full,
     Checkpoint,
     Health(u16),
     Energy(u16),
+}
+#[derive(Debug, PartialEq)]
+pub enum NodeType {
+    Anchor,
+    Pickup,
+    State,
+    Quest,
 }
 
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
