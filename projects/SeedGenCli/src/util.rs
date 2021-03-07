@@ -1,4 +1,5 @@
 use std::{fs, path::PathBuf};
+use std::collections::HashMap;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Skill {
@@ -138,6 +139,26 @@ pub enum NodeType {
     Pickup,
     State,
     Quest,
+}
+
+#[derive(Debug, Default)]
+pub struct Orbs {
+    pub health: u16,
+    pub energy: f32,
+}
+
+pub fn energy_cost(skill: &Skill) -> f32 {
+    match skill {
+        Skill::Grenade => 1.0,
+        Skill::Flash => 1.0,
+        Skill::Spear => 2.0,
+        Skill::Regenerate => 1.0,
+        Skill::Bow => 0.25,
+        Skill::Shuriken => 0.5,
+        Skill::Blaze => 1.0,
+        Skill::Sentry => 1.0,
+        _ => 0.0,
+    }
 }
 
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {

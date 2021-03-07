@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use crate::util::{Resource, Skill, Shard, Teleporter, Bonus, Hint};
 
@@ -15,15 +15,16 @@ pub enum Item {
 }
 
 pub struct Player {
-    inventory: HashMap<Item, u16>,
+    pub inventory: HashMap<Item, u16>,
+    pub states: HashSet<String>,
 }
 impl Player {
     pub fn grant(&mut self, item: Item, amount: u16) {
         let prior = self.inventory.entry(item).or_insert(0);
         *prior += amount;
     }
-    pub fn has(&self, item: &Item, amount: u16) -> bool {
-        if let Some(owned) = self.inventory.get(item) {
+    pub fn has(&self, item: Item, amount: u16) -> bool {
+        if let Some(owned) = self.inventory.get(&item) {
             return *owned >= amount;
         }
         false
