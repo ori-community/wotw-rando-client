@@ -3,24 +3,16 @@ use std::collections::HashMap;
 use crate::requirements::Requirement;
 use crate::util::{RefillType, NodeType};
 
+#[derive(Debug)]
 pub struct Refill {
     pub name: RefillType,
-    pub requirement: Box<dyn Requirement>,
-}
-impl std::fmt::Debug for Refill {
-    fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
-        write!(fmt, "{:?}", self.name)
-    }
+    pub requirement: Requirement,
 }
 
+#[derive(Debug)]
 pub struct Connection {
     pub to: String,
-    pub requirement: Box<dyn Requirement>,
-}
-impl std::fmt::Debug for Connection {
-    fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
-        write!(fmt, "{:?}", self.to)
-    }
+    pub requirement: Requirement,
 }
 
 #[derive(Debug)]

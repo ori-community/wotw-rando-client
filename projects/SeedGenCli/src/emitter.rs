@@ -2,14 +2,10 @@ use std::collections::HashMap;
 
 use crate::parser::{self, AreaTree, Metadata, Location};
 use crate::world::{self, Node};
-use crate::requirements::{Requirement, FreeRequirement};
+use crate::requirements::{Requirement};
 
-fn build_requirement_group(req_tree: &Option<parser::Group>) -> impl Requirement {
-    if let Some(group) = req_tree {
-        FreeRequirement {}
-    } else {
-        FreeRequirement {}
-    }
+fn build_requirement_group(req_tree: &Option<parser::Group>) -> Requirement {
+    Requirement::Free
 }
 
 fn add_node(graph: &mut HashMap<String, Node>, key: String, value: Node) -> Result<(), String> {
@@ -26,13 +22,13 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], valid
         let refills: Vec<world::Refill> = anchor.refills.iter().map(|refill| {
             world::Refill {
                 name: refill.name,
-                requirement: Box::new(build_requirement_group(&refill.requirements)),
+                requirement: build_requirement_group(&refill.requirements),
             }
         }).collect();
         let connections = anchor.connections.iter().map(|connection| {
             world::Connection {
                 to: connection.identifier.to_string(),
-                requirement: Box::new(build_requirement_group(&connection.requirements)),
+                requirement: build_requirement_group(&connection.requirements),
             }
         }).collect();
         add_node(&mut graph, anchor.identifier.to_string(), Node::Anchor(world::Anchor {
