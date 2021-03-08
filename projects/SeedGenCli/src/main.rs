@@ -7,16 +7,10 @@ use std::collections::HashMap;
 use structopt::StructOpt;
 use bugsalot::debugger;
 
-mod tokenizer;
-mod parser;
-mod emitter;
-mod world;
-mod player;
-mod requirements;
-mod util;
-
 use parser::ParseError;
 use world::Node;
+
+use seed_gen_cli::*;
 
 #[derive(StructOpt)]
 struct Arguments {

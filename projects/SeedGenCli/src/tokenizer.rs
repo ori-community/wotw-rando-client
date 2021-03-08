@@ -261,23 +261,22 @@ fn tokenize_requirement(input: &str, context: &mut TokenContext) -> Option<(usiz
 }
 
 pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
-    // could optimize some here by choosing the order more deliberately
     let tokenizers = [
         skip_whitespace,
         tokenize_indent,
-        tokenize_pathsets,
-        tokenize_definition,
-        tokenize_region,
-        tokenize_anchor,
-        tokenize_position,
-        tokenize_refill,
-        tokenize_state,
-        tokenize_quest,
-        tokenize_pickup,
-        tokenize_connection,
-        tokenize_group,
-        tokenize_and,
-        tokenize_or,
+        tokenize_and,               // ~7296 occurences
+        tokenize_or,                // ~6285 occurences
+        tokenize_pathsets,          // ~2136 occurences
+        tokenize_group,             // ~1874 occurences
+        tokenize_connection,        // ~469 occurences
+        tokenize_pickup,            // ~402 occurences
+        tokenize_refill,            // ~256 occurences
+        tokenize_anchor,            // ~212 occurences
+        tokenize_position,          // ~189 occurences
+        tokenize_state,             // ~125 occurences
+        tokenize_quest,             // ~48 occurences
+        tokenize_region,            // 20 occurences
+        tokenize_definition,        // 2 occurences
         tokenize_requirement,
     ];
 

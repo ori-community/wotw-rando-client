@@ -12,4 +12,8 @@ bugsalot = "0.1.4"
 structopt = "0.3.13"
 
 [dev-dependencies]
-bencher = "0.1"
+criterion = "0.3"
+
+[[bench]]
+name = "bench"
+harness = false
