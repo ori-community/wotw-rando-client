@@ -1,9 +1,8 @@
-use std::{fs, io, cmp, path::PathBuf};
+use std::{fs, io, cmp::Ordering, path::PathBuf};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum TokenType {
     Whitespace,
-    Pathsets,
     Definition,
     Region,
     Anchor,
@@ -92,26 +91,26 @@ fn tokenize_indent(input: &str, context: &mut TokenContext) -> Option<(usize, To
     let name;
     let mut consumed = 1 + depth;
     match context.indent_stack.last()?.cmp(&depth) {
-        cmp::Ordering::Greater => {
+        Ordering::Greater => {
             context.indent_stack.pop();
             name = TokenType::Dedent;
             match context.indent_stack.last()?.cmp(&depth) {
-                cmp::Ordering::Greater => {
+                Ordering::Greater => {
                     consumed = 0;
                     newlines = 0;
                 }
-                cmp::Ordering::Less => {
+                Ordering::Less => {
                     // well whatever
                     return None;
                 }
-                cmp::Ordering::Equal => {}
+                Ordering::Equal => {}
             }
         },
-        cmp::Ordering::Less => {
+        Ordering::Less => {
             context.indent_stack.push(depth);
             name = TokenType::Indent;
         },
-        cmp::Ordering::Equal => name = TokenType::Newline,
+        Ordering::Equal => name = TokenType::Newline,
     }
     context.line += newlines;
     Some((
@@ -148,9 +147,6 @@ fn tokenize_identifier(input: &str, context: &mut TokenContext, keyword: &str, n
 }
 fn tokenize_definition(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "requirement ", TokenType::Definition)
-}
-fn tokenize_pathsets(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
-    tokenize_identifier(input, context, "pathsets ", TokenType::Pathsets)
 }
 fn tokenize_region(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "region ", TokenType::Region)
@@ -266,7 +262,6 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
         tokenize_indent,
         tokenize_and,               // ~7296 occurences
         tokenize_or,                // ~6285 occurences
-        tokenize_pathsets,          // ~2136 occurences
         tokenize_group,             // ~1874 occurences
         tokenize_connection,        // ~469 occurences
         tokenize_pickup,            // ~402 occurences
@@ -280,19 +275,7 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
         tokenize_requirement,
     ];
 
-    // TEMP: We want to add this to the actual areas.wotw file.
-    let mut input = String::new();
-    input += "pathsets difficulties:\n";
-    input += "    moki:\n";
-    input += "        bla\n";
-    input += "    gorlek:\n";
-    input += "        blablabla\n";
-    input += "    kii\n";
-    input += "\n";
-    input += "pathsets misc:\n";
-    input += "    unsafe\n";
-    input += "    glitch\n";
-    input += &fs::read_to_string(areas)?;
+    let input = fs::read_to_string(areas)?;
 
     let length = input.len();
     let mut tokens = Vec::<Token>::with_capacity(length / 9);

@@ -17,9 +17,10 @@ impl Progression {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Requirement {
     Free,
+    Impossible,
     Skill(Skill),
     EnergySkill(Skill, f32),
     Resource(Resource, u16),
@@ -36,9 +37,10 @@ pub enum Requirement {
     Or(Vec<Requirement>),
 }
 impl Requirement {
-    fn is_met(&self, player: &Player, orbs: &Orbs) -> bool {
+    pub fn is_met(&self, player: &Player, orbs: &Orbs) -> bool {
         match self {
             Requirement::Free => true,
+            Requirement::Impossible => false,
             Requirement::Skill(skill) =>
                 player.has(Item::Skill(*skill), 1),
             Requirement::EnergySkill(skill, amount) =>
@@ -63,7 +65,7 @@ impl Requirement {
                 ors.is_empty() || ors.iter().any(|req| req.is_met(player, orbs)),
         }
     }
-    fn orb_cost(&self) -> Orbs {
+    pub fn orb_cost(&self) -> Orbs {
         match self {
             Requirement::EnergySkill(skill, amount) =>
                 Orbs {
@@ -78,7 +80,7 @@ impl Requirement {
             _ => Orbs { ..Default::default() },
         }
     }
-    fn progression(&self, player: &Player, orbs: &Orbs) -> HashSet<Vec<Progression>> {
+    pub fn progression(&self, player: &Player, orbs: &Orbs) -> HashSet<Vec<Progression>> {
         match self {
             Requirement::Free => HashSet::new(),
             Requirement::Skill(skill) => {

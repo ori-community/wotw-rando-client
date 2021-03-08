@@ -7,10 +7,11 @@ use std::collections::HashMap;
 use structopt::StructOpt;
 use bugsalot::debugger;
 
+use seed_gen_cli::*;
+
 use parser::ParseError;
 use world::Node;
-
-use seed_gen_cli::*;
+use util::Pathset;
 
 #[derive(StructOpt)]
 struct Arguments {
@@ -75,7 +76,7 @@ fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
     Ok(contents)
 }
 
-fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) -> HashMap<String, Node> {
+fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &Vec<Pathset>, validate: bool) -> HashMap<String, Node> {
     let tokens = match tokenizer::tokenize(areas) {
         Ok(tokens) => tokens,
         Err(error) => panic!("Error parsing areas.wotw: {}", error),
@@ -100,7 +101,7 @@ fn parse_logic(areas: &PathBuf, locations: &PathBuf, validate: bool) -> HashMap<
         Err(error) => panic!("Error parsing loc_data.csv: {}", error),
     };
 
-    match emitter::emit(&areas, &metadata, &locations, validate) {
+    match emitter::emit(&areas, &metadata, &locations, pathsets, validate) {
         Ok(graph) => graph,
         Err(error) => panic!("Error building the logic: {}", error),
     }
@@ -124,9 +125,23 @@ fn main() {
         }
     }
 
-    let areas = parse_logic(&args.areas, &args.locations, args.validate);
+    let mut pathsets = Vec::new();
+    for flag in &args.generation_flags {
+        match &flag[..] {
+            "moki" => pathsets.push(Pathset::Moki),
+            "gorlek" => {
+                pathsets.push(Pathset::Moki);
+                pathsets.push(Pathset::Gorlek);
+            },
+            "glitch" => pathsets.push(Pathset::Glitch),
+            "unsafe" => pathsets.push(Pathset::Unsafe),
+            other => println!("Unknown generation flag '{}'", other),
+        }
+    }
 
-    // std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
+    let areas = parse_logic(&args.areas, &args.locations, &pathsets, args.validate);
+
+    std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
 
     // TODO: Generate a seed
 }

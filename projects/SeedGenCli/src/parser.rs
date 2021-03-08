@@ -2,7 +2,7 @@ use std::{fs, path::PathBuf};
 use std::collections::{HashMap, HashSet};
 
 use crate::tokenizer::{Token, TokenType};
-use crate::util::{Skill, Resource, Shard, Teleporter, RefillType, NodeType};
+use crate::util::{Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType};
 
 pub struct ParseError {
     pub description: String,
@@ -13,7 +13,7 @@ pub struct ParseError {
 pub enum Requirement<'a> {
     Free,
     Definition(&'a str),
-    Pathset(&'a str),
+    Pathset(Pathset),
     Skill(Skill),
     EnergySkill(Skill, u16),
     Resource(Resource, u16),
@@ -28,49 +28,48 @@ pub enum Requirement<'a> {
     ShurikenBreak(u16),
     SentryJump(u16),
 }
+#[derive(Debug)]
 pub struct Line<'a> {
     pub ands: Vec<Requirement<'a>>,
     pub ors: Vec<Requirement<'a>>,
     pub group: Option<Group<'a>>,
 }
+#[derive(Debug)]
 pub struct Group<'a> {
     pub lines: Vec<Line<'a>>
 }
-pub struct Pathset<'a> {
-    pub identifier: &'a str,
-    pub description: String,
-}
-pub struct Pathsets<'a> {
-    pub identifier: &'a str,
-    pub pathsets: Vec<Pathset<'a>>,
-}
+#[derive(Debug)]
 pub struct Refill<'a> {
     pub name: RefillType,
     pub requirements: Option<Group<'a>>,
 }
+#[derive(Debug)]
 pub struct Connection<'a> {
     pub name: NodeType,
     pub identifier: &'a str,
     pub requirements: Option<Group<'a>>,
 }
+#[derive(Debug)]
 pub struct Anchor<'a> {
     pub identifier: &'a str,
     pub position: Option<(i16, i16)>,
     pub refills: Vec<Refill<'a>>,
     pub connections: Vec<Connection<'a>>,
 }
+#[derive(Debug)]
 pub struct AreaTree<'a> {
     pub definitions: HashMap<&'a str, Group<'a>>,
     pub regions: HashMap<&'a str, Group<'a>>,
     pub anchors: Vec<Anchor<'a>>,
 }
 
+#[derive(Debug)]
 struct ParseContext {
     position: usize,
 }
+#[derive(Debug)]
 pub struct Metadata<'a> {
     definitions: HashSet<&'a str>,
-    pathsets: HashSet<&'a str>,
     pub states: HashSet<&'a str>,
     pub quests: HashSet<&'a str>,
 }
@@ -147,6 +146,8 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "free" => Ok(Requirement::Free),
             "GladesTP" => Ok(Requirement::Teleporter(Teleporter::Glades)),
             "Glide" => Ok(Requirement::Skill(Skill::Glide)),
+            "glitch" => Ok(Requirement::Pathset(Pathset::Glitch)),
+            "gorlek" => Ok(Requirement::Pathset(Pathset::Gorlek)),
             "Grapple" => Ok(Requirement::Skill(Skill::Grapple)),
             "Grenade" => Ok(Requirement::Skill(Skill::Grenade)),
             "Hammer" => Ok(Requirement::Skill(Skill::Hammer)),
@@ -156,6 +157,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "LifeHarvest" => Ok(Requirement::Shard(Shard::LifeHarvest)),
             "Magnet" => Ok(Requirement::Shard(Shard::Magnet)),
             "MarshTP" => Ok(Requirement::Teleporter(Teleporter::Marsh)),
+            "moki" => Ok(Requirement::Pathset(Pathset::Moki)),
             "OuterRuinsTP" => Ok(Requirement::Teleporter(Teleporter::OuterRuins)),
             "Overflow" => Ok(Requirement::Shard(Shard::Overflow)),
             "ReachTP" => Ok(Requirement::Teleporter(Teleporter::Reach)),
@@ -171,6 +173,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "Thorn" => Ok(Requirement::Shard(Shard::Thorn)),
             "UltraBash" => Ok(Requirement::Shard(Shard::UltraBash)),
             "UltraGrapple" => Ok(Requirement::Shard(Shard::UltraGrapple)),
+            "unsafe" => Ok(Requirement::Pathset(Pathset::Unsafe)),
             "WallJump" => Ok(Requirement::Skill(Skill::WallJump)),
             "WaterBreath" => Ok(Requirement::Skill(Skill::WaterBreath)),
             "WaterDash" => Ok(Requirement::Skill(Skill::WaterDash)),
@@ -183,7 +186,6 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
                 => Err(wrong_amount(token)),
             _ if metadata.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
-            _ if metadata.pathsets.contains(keyword) => Ok(Requirement::Pathset(keyword)),
             _ if metadata.states.contains(keyword) || metadata.quests.contains(keyword) => Ok(Requirement::State(keyword)),
             _ => Err(wrong_requirement(token))
         }
@@ -352,65 +354,6 @@ fn parse_anchor_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, 
     parse_connection(tokens, context, metadata, NodeType::Anchor)
 }
 
-fn parse_pathset<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Pathset<'a>, ParseError> {
-    let identifier = &tokens[context.position].value;
-    let mut description = String::new();
-    context.position += 1;
-    let test = &tokens[context.position].name;
-    if eat(tokens, context, TokenType::Group).is_ok() {
-        eat(tokens, context, TokenType::Indent)?;
-        loop {
-            match tokens[context.position].name {
-                TokenType::Requirement => {
-                    if !description.is_empty() {
-                        description += "\n";
-                    }
-
-                    description += &tokens[context.position].value;
-                    context.position += 1;
-                },
-                TokenType::Dedent => break,
-                _ => return Err(wrong_token(&tokens[context.position], "pathset entry")),
-            }
-        }
-
-        // consume the dedent
-        context.position += 1;
-    } else {
-        // Try to eat a newline, we don't care if we fail.
-        let _ = eat(tokens, context, TokenType::Newline);
-    }
-
-    Ok(Pathset {
-        identifier,
-        description
-    })
-}
-fn parse_pathsets<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Pathsets<'a>, ParseError> {
-    let identifier = &tokens[context.position].value;
-    let mut pathsets = Vec::new();
-    context.position += 1;
-    eat(tokens, context, TokenType::Indent)?;
-    loop {
-        match tokens[context.position].name {
-            TokenType::Requirement => {
-                pathsets.push(parse_pathset(tokens, context)?);
-            },
-            TokenType::Dedent => break,
-            _ => return Err(wrong_token(&tokens[context.position], "requirement or end of group")),
-        }
-    }
-
-    eat(tokens, context, TokenType::Dedent)?;
-    return if pathsets.is_empty() {
-        Err(wrong_token(&tokens[context.position], "pathset entry"))
-    } else {
-        Ok(Pathsets {
-            identifier,
-            pathsets,
-        })
-    }
-}
 fn parse_named_group<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<(&'a str, Group<'a>), ParseError> {
     let identifier = &tokens[context.position].value;
     let requirements;
@@ -520,7 +463,6 @@ fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Met
     // Find all states so we can differentiate states from pathsets.
     let end = tokens.len();
     let mut definitions = HashSet::new();
-    let mut pathsets = HashSet::new();
     let mut states = HashSet::new();
     let mut quests = HashSet::new();
 
@@ -528,15 +470,6 @@ fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Met
         let token = &tokens[context.position];
         match token.name {
             TokenType::Definition => { definitions.insert(&token.value[..]); },
-            TokenType::Pathsets => {
-                let sets = parse_pathsets(tokens, context)?;
-                pathsets.extend(
-                    sets.pathsets
-                        .iter()
-                        .map(|pathset| pathset.identifier)
-                );
-                context.position -= 1;
-            },
             TokenType::Quest => { quests.insert(&token.value[..]); },
             TokenType::State => { states.insert(&token.value[..]); },
             _ => {},
@@ -547,7 +480,6 @@ fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Met
 
     Ok(Metadata {
         definitions,
-        pathsets,
         states,
         quests,
     })
@@ -563,8 +495,6 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
 
     while context.position < end {
         match tokens[context.position].name {
-            // We have already parsed the pathsets in the preprocess step so just eat here.
-            TokenType::Pathsets => { parse_pathsets(tokens, context)?; },
             TokenType::Definition => {
                 let (key, value) = parse_definition(tokens, context, metadata)?;
                 definitions.insert(key, value);

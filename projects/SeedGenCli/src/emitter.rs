@@ -2,10 +2,99 @@ use std::collections::HashMap;
 
 use crate::parser::{self, AreaTree, Metadata, Location};
 use crate::world::{self, Node};
-use crate::requirements::{Requirement};
+use crate::requirements::Requirement;
+use crate::util::{Pathset, Skill};
 
-fn build_requirement_group(req_tree: &Option<parser::Group>) -> Requirement {
-    Requirement::Free
+fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &Vec<Pathset>) -> Requirement {
+    match requirement {
+        parser::Requirement::Free => Requirement::Free,
+        parser::Requirement::Definition(identifier) => build_requirement_group(&definitions[identifier], definitions, pathsets),
+        parser::Requirement::Pathset(pathset) =>
+            if pathsets.contains(pathset) {
+                Requirement::Free
+            } else {
+                Requirement::Impossible
+            },
+        parser::Requirement::Skill(skill) => Requirement::Skill(*skill),
+        parser::Requirement::EnergySkill(skill, amount) => Requirement::EnergySkill(*skill, (*amount).into()),
+        parser::Requirement::Resource(resource, amount) => Requirement::Resource(*resource, *amount),
+        parser::Requirement::Shard(shard) => Requirement::Shard(*shard),
+        parser::Requirement::Teleporter(teleporter) => Requirement::Teleporter(*teleporter),
+        parser::Requirement::State(state) => Requirement::State(state.to_string()),
+        parser::Requirement::Damage(amount) => Requirement::Damage(*amount),
+        parser::Requirement::Danger(amount) => Requirement::Danger(*amount),
+        parser::Requirement::Combat(enemies) => Requirement::Combat(enemies.to_string()),
+        parser::Requirement::Boss(health) => Requirement::Boss(*health),
+        parser::Requirement::BreakWall(health) => Requirement::BreakWall(*health),
+        parser::Requirement::ShurikenBreak(health) => Requirement::ShurikenBreak(*health),
+        parser::Requirement::SentryJump(amount) =>
+            Requirement::And(vec![
+                Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
+                Requirement::Or(vec![
+                    Requirement::Skill(Skill::Sword),
+                    Requirement::Skill(Skill::Hammer)
+                ])
+            ])
+    }
+}
+
+// see if filtering out redundancies is worth later
+fn build_and(mut ands: Vec<Requirement>) -> Requirement {
+    if ands.iter().any(|and| match and {
+        Requirement::Impossible => true,
+        _ => false,
+    }) {
+        return Requirement::Impossible;
+    }
+    // ands = ands.into_iter().filter(|and| match and {
+    //     Requirement::Free => false,
+    //     _ => true,
+    // }).collect();
+    if ands.len() == 1 {
+        return ands.pop().unwrap();
+    }
+    // if ands.is_empty() {
+    //     return Requirement::Free;
+    // }
+    Requirement::And(ands)
+}
+fn build_or(mut ors: Vec<Requirement>) -> Requirement {
+    if ors.iter().any(|or| match or {
+        Requirement::Free => true,
+        _ => false,
+    }) {
+        return Requirement::Free;
+    }
+    // ors = ors.into_iter().filter(|or| match or {
+    //     Requirement::Impossible => false,
+    //     _ => true,
+    // }).collect();
+    if ors.len() == 1 {
+        return ors.pop().unwrap();
+    }
+    // if ors.is_empty() {
+    //     return Requirement::Impossible;
+    // }
+    Requirement::Or(ors)
+}
+
+fn build_requirement_group<'a>(group: &parser::Group, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &Vec<Pathset>) -> Requirement {
+    let lines: Vec<Requirement> = group.lines.iter().map(|line| {
+        let mut parts = vec![];
+        if !line.ands.is_empty() {
+            let ands: Vec<Requirement> = line.ands.iter().map(|and| build_requirement(and, definitions, pathsets)).collect();
+            parts.push(build_and(ands));
+        }
+        if !line.ors.is_empty() {
+            let ors: Vec<Requirement> = line.ors.iter().map(|or| build_requirement(or, definitions, pathsets)).collect();
+            parts.push(build_or(ors));
+        }
+        if let Some(subgroup) = &line.group {
+            parts.push(build_requirement_group(subgroup, definitions, pathsets));
+        }
+        build_and(parts)
+    }).collect();
+    build_or(lines)
 }
 
 fn add_node(graph: &mut HashMap<String, Node>, key: String, value: Node) -> Result<(), String> {
@@ -15,20 +104,37 @@ fn add_node(graph: &mut HashMap<String, Node>, key: String, value: Node) -> Resu
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], validate: bool) -> Result<HashMap<String, Node>, String> {
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &Vec<Pathset>, validate: bool) -> Result<HashMap<String, Node>, String> {
     let mut graph = HashMap::with_capacity(areas.anchors.len() + locations.len() + metadata.states.len());
 
     for anchor in &areas.anchors {
+        let region = anchor.identifier.splitn(2, '.').next().unwrap();
+        let region = areas.regions.get(region);
+        let mut region_requirement = None;
+        if let Some(group) = region {
+            region_requirement = Some(build_requirement_group(&group, &areas.definitions, pathsets));
+        }
         let refills: Vec<world::Refill> = anchor.refills.iter().map(|refill| {
+            let mut requirement = Requirement::Free;
+            if let Some(group) = &refill.requirements {
+                requirement = build_requirement_group(group, &areas.definitions, pathsets);
+            }
             world::Refill {
                 name: refill.name,
-                requirement: build_requirement_group(&refill.requirements),
+                requirement,
             }
         }).collect();
         let connections = anchor.connections.iter().map(|connection| {
+            let mut requirement = Requirement::Free;
+            if let Some(group) = &connection.requirements {
+                requirement = build_requirement_group(group, &areas.definitions, pathsets);
+                if let Some(region_requirement) = &region_requirement {
+                    requirement = Requirement::And(vec![region_requirement.clone(), requirement]);
+                }
+            }
             world::Connection {
                 to: connection.identifier.to_string(),
-                requirement: build_requirement_group(&connection.requirements),
+                requirement,
             }
         }).collect();
         add_node(&mut graph, anchor.identifier.to_string(), Node::Anchor(world::Anchor {

@@ -1,6 +1,12 @@
 use std::{fs, path::PathBuf};
-use std::collections::HashMap;
 
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum Pathset {
+    Moki,
+    Gorlek,
+    Glitch,
+    Unsafe,
+}
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Skill {
     Bash,

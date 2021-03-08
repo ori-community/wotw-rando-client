@@ -1,8 +1,9 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{criterion_group, criterion_main, Criterion};
 
 use std::path::PathBuf;
 
 use seed_gen_cli::*;
+use util::Pathset;
 
 fn bench_parsing(c: &mut Criterion) {
     let areas = PathBuf::from("C:\\moon\\areas.wotw");
@@ -20,7 +21,7 @@ fn bench_parsing(c: &mut Criterion) {
     c.bench_function("parse locations", |b| b.iter(|| parser::parse_locations(&locations, false)));
     let locations = parser::parse_locations(&locations, false).unwrap();
 
-    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, false)));
+    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch, Pathset::Unsafe], false)));
 }
 
 criterion_group!(benches, bench_parsing);
