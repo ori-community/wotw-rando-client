@@ -246,7 +246,7 @@ fn parse_line<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Me
                             break;
                         }
                     },
-                    _ => return Err(wrong_token(token, "separator or end of line")),
+                    _ => return Err(wrong_token(&tokens[context.position], "separator or end of line")),
                 }
             }
             TokenType::Free => {
@@ -494,14 +494,25 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
     if let TokenType::Newline = tokens[context.position].name { context.position += 1 }
 
     while context.position < end {
-        match tokens[context.position].name {
+        let token = &tokens[context.position];
+        match token.name {
             TokenType::Definition => {
                 let (key, value) = parse_definition(tokens, context, metadata)?;
-                definitions.insert(key, value);
+                if definitions.insert(key, value).is_some() {
+                    return Err(ParseError {
+                        description: format!("Requirement name '{}' already in use at line {}", key, token.line),
+                        position: token.position,
+                    });
+                }
             },
             TokenType::Region => {
                 let (key, value) = parse_region(tokens, context, metadata)?;
-                regions.insert(key, value);
+                if regions.insert(key, value).is_some() {
+                    return Err(ParseError {
+                        description: format!("Region name '{}' already in use at line {}", key, token.line),
+                        position: token.position,
+                    });
+                }
             },
             TokenType::Anchor => anchors.push(parse_anchor(tokens, context, metadata)?),
             _ => return Err(wrong_token(&tokens[context.position], "definition or anchor")),
