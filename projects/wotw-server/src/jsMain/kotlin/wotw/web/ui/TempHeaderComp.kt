@@ -1,6 +1,7 @@
 package wotw.web.ui
 
 import io.ktor.client.request.*
+import io.ktor.http.*
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.GlobalScope
@@ -13,6 +14,7 @@ import react.dom.button
 import react.dom.p
 import styled.css
 import styled.styledDiv
+import wotw.io.messages.BingoGenProperties
 import wotw.io.messages.protobuf.UserInfo
 import wotw.web.main.Application
 
@@ -44,6 +46,19 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                             onClickFunction = {
                                 GlobalScope.launch {
                                     document.location?.href = "/bingo/${Application.api.post<String>(path = "/bingo")}"
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        +"New DISCOVERY Bingo Game"
+                        attrs {
+                            onClickFunction = {
+                                GlobalScope.launch {
+                                    document.location?.href = "/bingo/${Application.api.post<String>(path = "/bingo", body = BingoGenProperties(discovery = 2)){
+                                        contentType(ContentType.Application.Json)
+                                    }
+                                    }"
                                 }
                             }
                         }

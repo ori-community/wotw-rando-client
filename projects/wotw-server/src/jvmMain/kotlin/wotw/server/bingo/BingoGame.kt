@@ -140,15 +140,36 @@ enum class Line(val label: String, val start: Point, val direction: Point) {
     Y("TLBR", 1 to 5, 1 to -1)
 }
 @Serializable
-data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf()) {
+data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf(), val discovery: Set<Point>? = null) {
     fun Line.cards() = (1..size).map { this.direction * (it-1) + this.start }
     val allKeys
         get() = goals.values.flatMap { it.keys }.toSet()
     val size = 5 // get() = goals.keys.maxByOrNull { it.first }
     fun goalCompleted(p: Point, gs: GameState?) = goals[p]?.isCompleted(gs ?: UberStateMap.empty) ?: false
+    fun goalVisible(p: Point, gs: GameState?): Boolean {
+        if(discovery.isNullOrEmpty())
+            return true
+
+        //*why* am I doing this on every call? because here at mood studios we don't do simple!
+        var current: Set<Point> = discovery
+        var last: Set<Point>
+        do {
+            last = current
+            current = (current + current.filter { goalCompleted(it, gs) }.flatMap { setOf(
+                it + (1 to 0),
+                it + (0 to -1),
+                it + (-1 to 0),
+                it + (0 to 1)) }).toSet()
+
+            if(p in current)
+                return true
+        } while(last != current)
+
+        return false
+    }
     fun getPlayerData(gameState: GameState?): PlayerBingoData {
-        val lines = Line.values().count {l -> l.cards().all {goalCompleted(it, gameState)}}
-        val squares = goals.count { (position, _) -> goalCompleted(position, gameState)}
+        val lines = Line.values().count {l -> l.cards().all {goalCompleted(it, gameState) && goalVisible(it, gameState)}}
+        val squares = goals.count { (position, _) -> goalCompleted(position, gameState) && goalVisible(position, gameState)}
         return PlayerBingoData(lines, squares, lines*10+squares)
     }
 
@@ -161,7 +182,7 @@ data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf()) {
                 goal.printSubText(gameState)
                     .map { (text, completed) -> wotw.io.messages.protobuf.BingoGoal(text, completed) }
             )
-        }.toMap(), 5)
+        }.filter{goalVisible(it.first.x to it.first.y, gameState)}.toMap(), 5)
     }
 }
 

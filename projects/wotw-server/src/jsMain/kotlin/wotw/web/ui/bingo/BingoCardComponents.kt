@@ -154,7 +154,8 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
                                 x == 0 && y == 0 || x > size && y > size -> "X"
                                 x == 0 && y > size || x > size && y == 0 -> "Y"
                                 x !in cardRange -> y.toString()
-                                else -> (x + 64).toChar().toString()
+                                y !in cardRange -> (x + 64).toChar().toString()
+                                else -> ""
                             }
                             val completed = when {
                                 square != null -> square.completed
