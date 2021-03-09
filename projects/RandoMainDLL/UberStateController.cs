@@ -294,7 +294,7 @@ namespace RandoMainDLL {
             InterOp.save();
           }
           // should happen in both branches
-          if (SeedController.flags.Contains(Flag.ALLWISPS))
+          if (SeedController.Flags.Contains(Flag.ALLWISPS))
             HintsController.ProgressWithHints();
         };
     }
@@ -327,7 +327,7 @@ namespace RandoMainDLL {
           foreach (UberState s in LongCutscenes) { s.Write(); }
 
         InterOp.discover_everything();
-        if (!SeedController.flags.Contains(Flag.NOSWORD)) {
+        if (!SeedController.Flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
           var slotRaw = AHK.IniString("Misc", "SpawnSlot");
           var slot = 0;

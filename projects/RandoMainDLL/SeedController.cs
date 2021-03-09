@@ -92,9 +92,9 @@ namespace RandoMainDLL {
       var loc = goalCond.Loc();
       if (loc.Type == LocType.Tree /*&& flags.Contains(Flag.ALLTREES) */)
         return true;
-      if (flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
+      if (Flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
         return true;
-      if (flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target.GetValueOrDefault()))
+      if (Flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target.GetValueOrDefault()))
         return true;
       return false;
     }
@@ -103,7 +103,7 @@ namespace RandoMainDLL {
     public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
 
     public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
-    public static HashSet<Flag> flags = new HashSet<Flag>();
+    public static HashSet<Flag> Flags = new HashSet<Flag>();
     public static string SeedFile = "";
     public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
     public static void ReadSeed(bool init = false) {
@@ -112,7 +112,7 @@ namespace RandoMainDLL {
         pickupMap.Clear();
         shardNag.Clear();
         weaponNag.Clear();
-        flags.Clear();
+        Flags.Clear();
         Relic.Reset();
         HintsController.Reset();
         HasInternalSpoilers = true;
@@ -183,7 +183,7 @@ namespace RandoMainDLL {
           InterOp.clear_start_position();
         }
         if (!init) {
-          var flagPart = flags.Count > 0 ? $"\nFlags: {String.Join(", ", flags.Select((Flag flag) => flag.GetDescription()))}" : "";
+          var flagPart = Flags.Count > 0 ? $"\nFlags: {String.Join(", ", Flags.Select((Flag flag) => flag.GetDescription()))}" : "";
           AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
           MapController.UpdateReachable();
         }
@@ -196,18 +196,18 @@ namespace RandoMainDLL {
 
 
     public static bool HasInternalSpoilers = false;
-    public static bool HintsDisabled { get => flags.Contains(Flag.NOHINTS); }
-    public static bool KSDoorsOpen { get => flags.Contains(Flag.NOKEYSTONES); }
+    public static bool HintsDisabled { get => Flags.Contains(Flag.NOHINTS); }
+    public static bool KSDoorsOpen { get => Flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {
-      if (flags.Count > 0)
+      if (Flags.Count > 0)
         Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
       var enumsByName = Enum.GetValues(typeof(Flag)).Cast<Flag>().ToDictionary(f => f.GetDescription().ToLower().Replace(" ", ""));
       foreach (var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
         var flag = rawFlag.Trim().ToLower();
         if (flag == "nosword")
-          flags.Add(Flag.NOSWORD);
+          Flags.Add(Flag.NOSWORD);
         else if (enumsByName.TryGetValue(flag, out Flag f))
-          flags.Add(f);
+          Flags.Add(f);
         else
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
@@ -519,9 +519,9 @@ namespace RandoMainDLL {
       }
     }
 
-    public static bool DoesHowlExist() => flags.Contains(Flag.RAIN);
+    public static bool DoesHowlExist() => Flags.Contains(Flag.RAIN);
 
-    public static bool IsDayTime() => !flags.Contains(Flag.RAIN) || AbilityType.SpiritEdge.HaveTree();
+    public static bool IsDayTime() => !Flags.Contains(Flag.RAIN) || AbilityType.SpiritEdge.HaveTree();
 
     public static int Current { get => SaveController.FoundCount; }
     public static int Total { get => pickupMap.Count; }
@@ -532,35 +532,35 @@ namespace RandoMainDLL {
       if (InterOp.get_game_state() != GameState.Game)
         return ""; // don't even try!
       var msg = "";
-      if (flags.Contains(Flag.ALLWISPS)) {
+      if (Flags.Contains(Flag.ALLWISPS)) {
         var max = UberStateController.Wisps.Count;
         var amount = UberStateController.Wisps.Count((UberState s) => s.ValueOr(new UberValue(false)).Bool);
         var w = amount == max ? met : unmet;
         msg += $", {w}Wisps: {amount}/{max}{w}";
       }
-      if (flags.Contains(Flag.ALLTREES)) {
+      if (Flags.Contains(Flag.ALLTREES)) {
         var amount = SaveController.TreeCount;
         var w = amount == 14 ? met : unmet;
         msg += $", {w}Trees: {amount}/{14}{w}";
       }
-      if (flags.Contains(Flag.ALLQUESTS)) {
+      if (Flags.Contains(Flag.ALLQUESTS)) {
         var max = UberStateController.Quests.Count;
         var amount = UberStateController.Quests.Count((UberState s) => s.ValueOr(new UberValue(0)).Int == s.Value.Int);
         var w = amount == max ? met : unmet;
         msg += $", {w}Quests: {amount}/{max}{w}";
       }
-      if (flags.Contains(Flag.RELIC_HUNT))
+      if (Flags.Contains(Flag.RELIC_HUNT))
         msg += Relic.RelicMessage();
       return msg.StartsWith(", ") ? (progress ? "\n" : "") + msg.Substring(2) : msg;
     }
 
     public static void UpdateGoal() {
       bool finished = true;
-      if (flags.Contains(Flag.ALLTREES)) {
+      if (Flags.Contains(Flag.ALLTREES)) {
         finished = finished && SaveController.TreeCount == 14;
       }
 
-      if (finished && flags.Contains(Flag.ALLWISPS)) {
+      if (finished && Flags.Contains(Flag.ALLWISPS)) {
         foreach (var state in UberStateController.Wisps) {
           finished = finished && state.ValueOr(new UberValue(false)).Bool;
           if (!finished)
@@ -568,7 +568,7 @@ namespace RandoMainDLL {
         }
       }
 
-      if (finished && flags.Contains(Flag.ALLQUESTS)) {
+      if (finished && Flags.Contains(Flag.ALLQUESTS)) {
         foreach (var state in UberStateController.Quests) {
           finished = finished && state.ValueOr(new UberValue(0)).Int == state.Value.Int;
           if (!finished)
