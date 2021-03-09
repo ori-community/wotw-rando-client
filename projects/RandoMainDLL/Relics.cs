@@ -65,7 +65,7 @@ namespace RandoMainDLL {
       return $"\n{c}Relics ({cur}/{tot}):{c} {s}";
     }
 
-    public static bool Valid { get => !SeedController.flags.Contains(Flag.RELIC_HUNT) || RelicZones.All(z => Counts[z] <= UberGet.value(ZoneToId[z]).Byte); }
+    public static bool Valid { get => !SeedController.Flags.Contains(Flag.RELIC_HUNT) || RelicZones.All(z => Counts[z] <= UberGet.value(ZoneToId[z]).Byte); }
     public override string DisplayName { get => $"@{Zone} Relic@"; }    
 
     public static Dictionary<ZoneType, UberId> ZoneToId = new Dictionary<ZoneType, UberId>() {

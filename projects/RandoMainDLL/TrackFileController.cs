@@ -14,6 +14,9 @@ namespace RandoMainDLL {
     public HashSet<String> upgraded;
     public HashSet<String> events;
     public HashSet<String> teleporters;
+    public HashSet<String> quests;
+    public HashSet<String> flags;
+
     String trackName(AbilityType type) => ((byte)type > 119 && (byte)type < 122) ? "DamageUp" : type.GetDescription()?.Replace(" ", "") ?? $"{type}";
     public TrackData() {
       if(TrackFileController.DontTrackYet) {
@@ -34,7 +37,9 @@ namespace RandoMainDLL {
         if (SaveController.HasAbility(AbilityType.DamageUpgrade1) && SaveController.HasAbility(AbilityType.DamageUpgrade2))
           upgraded.Add(trackName(AbilityType.DamageUpgrade1));
         events = SaveController.WorldEvents.Select((QuestEventType type) => type.GetDescription()).ToHashSet();
+        quests = UberStateController.Quests.Where((UberState s) => s.ValueOr(new UberValue(0)).Int == s.Value.Int).Select(s => s.Name).ToHashSet();
         teleporters = Teleporter.TeleporterStates.Keys.Where((TeleporterType t) => (new Teleporter(t)).Has()).Select((TeleporterType t) => t.GetDescription()).ToHashSet();
+        flags = SeedController.Flags.Select(s => s.GetDescription()).ToHashSet();
       }
       catch (Exception e) {
         Randomizer.Error("TrackData()", e);
@@ -73,7 +78,7 @@ namespace RandoMainDLL {
       } catch (IOException) {
         // that's fine
       } catch (Exception e) {
-        Randomizer.Error("TrackFile.Write:", e); // less fine!
+        Randomizer.Error("TrackFile.Write: ", e); // less fine!
       }
     }
   }
