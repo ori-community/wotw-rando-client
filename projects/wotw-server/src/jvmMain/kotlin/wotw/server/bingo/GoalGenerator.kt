@@ -972,14 +972,17 @@ object pickupsIn {
 }
 
 class BingoBoardGenerator {
-    fun generateBoard(seed: String? = null): BingoCard {
+    fun generateBoard(seed: String? = null, discovery: Int? = null): BingoCard {
         val random = Random(seed?.hashCode() ?: Instant.now().epochSecond.toInt())
         val pool = generatePool()
         val counts = (pool.map {it to 0}).toMap().toMutableMap()
 
         val config = GeneratorConfig(random)
 
-        val card = BingoCard()
+        val discoverySquares = (1..5).flatMap{x -> (1..5).map { x to it }}
+            .shuffled(random).take(discovery ?: 0).toSet()
+
+        val card = BingoCard(discovery = discoverySquares)
         for (x in (1..5).shuffled(random))
             for (y in (1..5).shuffled(random)) {
                 var generatedGoal: BingoGoal? = null
@@ -1000,5 +1003,7 @@ class BingoBoardGenerator {
 }
 
 fun main(){
-    println(Json{allowStructuredMapKeys = true}.encodeToString(BingoBoardGenerator().generateBoard("roastbeef")))
+    println(System.currentTimeMillis())
+    println(Json{allowStructuredMapKeys = true}.encodeToString(BingoBoardGenerator().generateBoard("roastbeef", 2)))
+    println(System.currentTimeMillis())
 }
