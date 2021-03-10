@@ -2,7 +2,7 @@ use std::{fs, path::PathBuf};
 use std::collections::{HashMap, HashSet};
 
 use crate::tokenizer::{Token, TokenType};
-use crate::util::{Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType};
+use crate::util::{Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy};
 
 pub struct ParseError {
     pub description: String,
@@ -22,7 +22,7 @@ pub enum Requirement<'a> {
     State(&'a str),
     Damage(u16),
     Danger(u16),
-    Combat(&'a str),
+    Combat(Vec<(Enemy, u8)>),
     Boss(u16),
     BreakWall(u16),
     ShurikenBreak(u16),
@@ -76,7 +76,7 @@ pub struct Metadata<'a> {
 
 fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenType) -> Result<bool, ParseError> {
     let token_type = tokens[context.position].name;
-    return if token_type == expected_token_type {
+    if token_type == expected_token_type {
         context.position += 1;
         Ok(true)
     } else {
@@ -94,7 +94,53 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
     match amount {
         Some(amount) => {
             if keyword == "Combat" {
-                return Ok(Requirement::Combat(amount));
+                let mut enemies = Vec::new();
+                for enemy in amount.split('+') {
+                    let mut parts = enemy.split('x');
+                    let amount = parts.next().ok_or_else(|| wrong_requirement(token))?;
+                    let (enemy, amount) = match parts.next() {
+                        Some(enemy) => (enemy, amount),
+                        _ => (amount, "1"),
+                    };
+                    if parts.next().is_some() {
+                        return Err(wrong_requirement(token));
+                    }
+                    let amount: u8 = match amount.parse() {
+                        Ok(result) => result,
+                        Err(_) => return Err(not_int(token)),
+                    };
+                    let enemy = match enemy {
+                        "Mantis" => Ok(Enemy::Mantis),
+                        "Slug" => Ok(Enemy::Slug),
+                        "WeakSlug" => Ok(Enemy::WeakSlug),
+                        "BombSlug" => Ok(Enemy::BombSlug),
+                        "CorruptSlug" => Ok(Enemy::CorruptSlug),
+                        "SneezeSlug" => Ok(Enemy::SneezeSlug),
+                        "ShieldSlug" => Ok(Enemy::ShieldSlug),
+                        "Lizard" => Ok(Enemy::Lizard),
+                        "Bat" => Ok(Enemy::Bat),
+                        "Hornbug" => Ok(Enemy::Hornbug),
+                        "Skeeto" => Ok(Enemy::Skeeto),
+                        "SmallSkeeto" => Ok(Enemy::SmallSkeeto),
+                        "Bee" => Ok(Enemy::Bee),
+                        "Nest" => Ok(Enemy::Nest),
+                        "Crab" => Ok(Enemy::Crab),
+                        "SpinCrab" => Ok(Enemy::SpinCrab),
+                        "Tentacle" => Ok(Enemy::Tentacle),
+                        "Balloon" => Ok(Enemy::Balloon),
+                        "Miner" => Ok(Enemy::Miner),
+                        "MaceMiner" => Ok(Enemy::MaceMiner),
+                        "ShieldMiner" => Ok(Enemy::ShieldMiner),
+                        "CrystalMiner" => Ok(Enemy::CrystalMiner),
+                        "ShieldCrystalMiner" => Ok(Enemy::ShieldCrystalMiner),
+                        "Sandworm" => Ok(Enemy::Sandworm),
+                        "Spiderling" => Ok(Enemy::Spiderling),
+                        "EnergyRefill" => Ok(Enemy::EnergyRefill),
+                        _ => Err(wrong_requirement(token)),
+                    }?;
+                    enemies.push((enemy, amount));
+                }
+                return Ok(Requirement::Combat(enemies));
             }
             let amount: u16 = match amount.parse() {
                 Ok(result) => result,
@@ -183,7 +229,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "WestWastesTP" => Ok(Requirement::Teleporter(Teleporter::WestWastes)),
             "WestWoodsTP" => Ok(Requirement::Teleporter(Teleporter::WestWoods)),
             "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
-            "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
+            "Combat" | "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
                 => Err(wrong_amount(token)),
             _ if metadata.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
             _ if metadata.states.contains(keyword) || metadata.quests.contains(keyword) => Ok(Requirement::State(keyword)),
@@ -459,7 +505,7 @@ fn not_int(token: &Token) -> ParseError {
     }
 }
 
-fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Metadata<'a>, ParseError> {
+fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Metadata<'a> {
     // Find all states so we can differentiate states from pathsets.
     let end = tokens.len();
     let mut definitions = HashSet::new();
@@ -478,11 +524,11 @@ fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Result<Met
         context.position += 1;
     }
 
-    Ok(Metadata {
+    Metadata {
         definitions,
         states,
         quests,
-    })
+    }
 }
 
 fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<AreaTree<'a>, ParseError> {
@@ -583,7 +629,7 @@ pub fn parse_areas(tokens: &[Token]) -> Result<(AreaTree, Metadata), ParseError>
     let mut context = ParseContext {
         position: 0,
     };
-    let metadata = preprocess(tokens, &mut context)?;
+    let metadata = preprocess(tokens, &mut context);
     context.position = 0;
 
     let tree = process(tokens, &mut context, &metadata)?;

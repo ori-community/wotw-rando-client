@@ -76,7 +76,7 @@ fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
     Ok(contents)
 }
 
-fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &Vec<Pathset>, validate: bool) -> HashMap<String, Node> {
+fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> HashMap<String, Node> {
     let tokens = match tokenizer::tokenize(areas) {
         Ok(tokens) => tokens,
         Err(error) => panic!("Error parsing areas.wotw: {}", error),

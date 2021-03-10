@@ -3,9 +3,9 @@ use std::collections::{HashSet, HashMap};
 use crate::parser::{self, AreaTree, Metadata, Location};
 use crate::world::{self, Node};
 use crate::requirements::Requirement;
-use crate::util::{Pathset, Skill, NodeType};
+use crate::util::{Pathset, Skill};
 
-fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &Vec<Pathset>, validate: bool, used_states: &mut HashSet<&'a str>) -> Requirement {
+fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut HashSet<&'a str>) -> Requirement {
     match requirement {
         parser::Requirement::Free => Requirement::Free,
         parser::Requirement::Definition(identifier) => build_requirement_group(&definitions[identifier], definitions, pathsets, validate, used_states),
@@ -26,33 +26,36 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Ha
         },
         parser::Requirement::Damage(amount) => Requirement::Damage(*amount),
         parser::Requirement::Danger(amount) => Requirement::Danger(*amount),
-        parser::Requirement::Combat(enemies) => Requirement::Combat(enemies.to_string()),
-        parser::Requirement::Boss(health) => Requirement::Boss(*health),
-        parser::Requirement::BreakWall(health) => Requirement::BreakWall(*health),
-        parser::Requirement::ShurikenBreak(health) => Requirement::ShurikenBreak(*health),
+        parser::Requirement::Combat(enemies) => Requirement::Combat(enemies.clone()),
+        parser::Requirement::Boss(health) => Requirement::Boss(*health as f32),
+        parser::Requirement::BreakWall(health) => Requirement::BreakWall(*health as f32),
+        parser::Requirement::ShurikenBreak(health) =>
+            if pathsets.contains(&Pathset::Glitch) {
+                Requirement::ShurikenBreak(*health as f32)
+            } else {
+                Requirement::Impossible
+            },
         parser::Requirement::SentryJump(amount) =>
-            Requirement::And(vec![
-                Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
-                Requirement::Or(vec![
-                    Requirement::Skill(Skill::Sword),
-                    Requirement::Skill(Skill::Hammer)
+            if pathsets.contains(&Pathset::Glitch) {
+                Requirement::And(vec![
+                    Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
+                    Requirement::Or(vec![
+                        Requirement::Skill(Skill::Sword),
+                        Requirement::Skill(Skill::Hammer)
+                    ])
                 ])
-            ])
+            } else {
+                Requirement::Impossible
+            },
     }
 }
 
 // see if filtering out redundancies is worth later
 fn build_and(mut ands: Vec<Requirement>) -> Requirement {
-    if ands.iter().any(|and| match and {
-        Requirement::Impossible => true,
-        _ => false,
-    }) {
+    if ands.iter().any(|and| matches!(and, Requirement::Impossible)) {
         return Requirement::Impossible;
     }
-    // ands = ands.into_iter().filter(|and| match and {
-    //     Requirement::Free => false,
-    //     _ => true,
-    // }).collect();
+    // ands = ands.into_iter().filter(|and| !matches!(or, Requirement::Free)).collect();
     if ands.len() == 1 {
         return ands.pop().unwrap();
     }
@@ -62,16 +65,10 @@ fn build_and(mut ands: Vec<Requirement>) -> Requirement {
     Requirement::And(ands)
 }
 fn build_or(mut ors: Vec<Requirement>) -> Requirement {
-    if ors.iter().any(|or| match or {
-        Requirement::Free => true,
-        _ => false,
-    }) {
+    if ors.iter().any(|or| matches!(or, Requirement::Free)) {
         return Requirement::Free;
     }
-    // ors = ors.into_iter().filter(|or| match or {
-    //     Requirement::Impossible => false,
-    //     _ => true,
-    // }).collect();
+    // ors = ors.into_iter().filter(|or| !matches!(or, Requirement::Impossible)).collect();
     if ors.len() == 1 {
         return ors.pop().unwrap();
     }
@@ -81,7 +78,7 @@ fn build_or(mut ors: Vec<Requirement>) -> Requirement {
     Requirement::Or(ors)
 }
 
-fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &Vec<Pathset>, validate: bool, used_states: &mut HashSet<&'a str>) -> Requirement {
+fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut HashSet<&'a str>) -> Requirement {
     let lines: Vec<Requirement> = group.lines.iter().map(|line| {
         let mut parts = vec![];
         if !line.ands.is_empty() {
@@ -107,7 +104,7 @@ fn add_node(graph: &mut HashMap<String, Node>, key: String, value: Node) -> Resu
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &Vec<Pathset>, validate: bool) -> Result<HashMap<String, Node>, String> {
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<HashMap<String, Node>, String> {
     let mut graph = HashMap::with_capacity(areas.anchors.len() + locations.len() + metadata.states.len());
     let mut used_states = HashSet::new();
 

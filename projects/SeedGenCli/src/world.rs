@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use crate::requirements::Requirement;
+use crate::player::Player;
 use crate::util::{RefillType, NodeType};
 
 #[derive(Debug)]
@@ -62,18 +63,10 @@ impl Node {
             Node::Quest(quest) => &quest.identifier[..],
         }
     }
-    pub fn traverse(&self, player_id: u8) {
-        match self {
-            Node::Anchor(anchor) => {},
-            Node::Pickup(pickup) => {},
-            Node::State(state) => {},
-            Node::Quest(quest) => {},
-        }
-    }
 }
 
 #[derive(Debug)]
-pub struct World {
-    pub graph: HashMap<String, Node>,
-    pub player_id: u8,
+pub struct World<'a> {
+    pub graph: &'a HashMap<String, Node>,
+    pub player: Player,
 }
