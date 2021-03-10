@@ -46,11 +46,10 @@
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=seed_gen_cli",
-                    "--package=seed_gen_cli"
+                    "--lib=seed_gen_cli",
                 ],
                 "filter": {
-                    "kind": "bin"
+                    "kind": "lib"
                 }
             },
             "args": [],

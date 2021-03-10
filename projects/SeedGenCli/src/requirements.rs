@@ -74,7 +74,7 @@ impl Requirement {
                     for (enemy, amount) in enemies {
                         if let Enemy::EnergyRefill = enemy {
                             if energy < 0.0 { return false; }
-                            energy = player.max_energy().max(*amount as f32);
+                            energy = player.max_energy().min(energy + *amount as f32);
                             continue;
                         }
 
@@ -84,16 +84,17 @@ impl Requirement {
                             if !is_unsafe && !player.has(Item::Skill(Skill::Bash), 1) { return false; }
                         }
                         if let Enemy::Sandworm = enemy {
-                            if !is_unsafe && !player.has(Item::Skill(Skill::Burrow), 1) { return false; }
+                            if player.has(Item::Skill(Skill::Burrow), 1) { continue; }
+                            else if !is_unsafe { return false; }
                         }
 
                         if enemy.shielded() {
                             if player.has(Item::Skill(Skill::Hammer), 1) || player.has(Item::Skill(Skill::Launch), 1) {}
-                            else if player.has(Item::Skill(Skill::Grenade), 1) { energy -= energy_cost(&Skill::Grenade) * energy_mod; }
-                            else if player.has(Item::Skill(Skill::Spear), 1) { energy -= energy_cost(&Skill::Spear) * energy_mod; }
+                            else if player.has(Item::Skill(Skill::Grenade), 1) { energy -= energy_cost(&Skill::Grenade) * *amount as f32 * energy_mod; }
+                            else if player.has(Item::Skill(Skill::Spear), 1) { energy -= energy_cost(&Skill::Spear) * *amount as f32 * energy_mod; }
                             else { return false; }
                         }
-                        let armor_mod = if enemy.armored() || is_unsafe { 1.0 } else { 2.0 };
+                        let armor_mod = if enemy.armored() && !is_unsafe { 2.0 } else { 1.0 };
 
                         let ranged = enemy.ranged();
                         if ranged && ranged_weapon.is_none() { return false; }
@@ -114,7 +115,7 @@ impl Requirement {
                         player.has(Item::Skill(Skill::Launch), 1)
                     ) { return false; }
 
-                    energy > 0.0
+                    energy >= 0.0
                 } else {
                     false
                 }
@@ -181,5 +182,117 @@ impl Requirement {
                 set
             },
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn is_met() {
+        let mut player = Player { ..Default::default() };
+        let moki = vec![Pathset::Moki];
+        let unsafe_paths = vec![Pathset::Moki, Pathset::Gorlek, Pathset::Unsafe];
+
+        let req = Requirement::Skill(Skill::Blaze);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Skill(Skill::Blaze), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+
+        let req = Requirement::And(vec![req, Requirement::Free]);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+        let req = Requirement::Or(vec![req, Requirement::Impossible]);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+
+        let req = Requirement::EnergySkill(Skill::Blaze, 1.0);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Energy), 2);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 2);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+
+        let req = Requirement::State("owo".to_string());
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.states.insert("owo".to_string());
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+        let req = Requirement::State("ow".to_string());
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+
+        let req = Requirement::Damage(30);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Health), 5);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Health), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+
+        player = Player { ..Default::default() };
+        let req = Requirement::BreakWall(12.0);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Skill(Skill::Sword), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+        player = Player { ..Default::default() };
+        player.grant(Item::Skill(Skill::Grenade), 1);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Energy), 3);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Energy), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+        player = Player { ..Default::default() };
+        let req = Requirement::BreakWall(16.0);
+        player.grant(Item::Skill(Skill::Grenade), 1);
+        player.grant(Item::Resource(Resource::Energy), 2);
+        assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 2);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+
+        player = Player { ..Default::default() };
+        let req = Requirement::ShurikenBreak(12.0);
+        player.grant(Item::Skill(Skill::Shuriken), 1);
+        assert!(!req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 4);
+        assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 6);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Energy), 2);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+
+        player = Player { ..Default::default() };
+        let req = Requirement::Combat(vec![(Enemy::Slug, 2), (Enemy::Skeeto, 1)]);
+        player.grant(Item::Skill(Skill::Bow), 1);
+        assert!(!req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 7);
+        assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 6);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Skill(Skill::DoubleJump), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+        player = Player { ..Default::default() };
+        let req = Requirement::Combat(vec![(Enemy::Sandworm, 1), (Enemy::Bat, 1), (Enemy::EnergyRefill, 99), (Enemy::ShieldMiner, 2), (Enemy::EnergyRefill, 1), (Enemy::Balloon, 4)]);
+        player.grant(Item::Skill(Skill::Shuriken), 1);
+        player.grant(Item::Skill(Skill::Spear), 1);
+        player.grant(Item::Resource(Resource::Energy), 21);
+        assert!(!req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        player.grant(Item::Resource(Resource::Energy), 43);
+        player.grant(Item::Skill(Skill::Bash), 1);
+        player.grant(Item::Skill(Skill::Launch), 1);
+        player.grant(Item::Skill(Skill::Burrow), 1);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Energy), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
+        player = Player { ..Default::default() };
+        let req = Requirement::Combat(vec![(Enemy::Tentacle, 1)]);
+        player.grant(Item::Skill(Skill::Spear), 1);
+        player.grant(Item::Skill(Skill::DoubleJump), 1);
+        player.grant(Item::Resource(Resource::Energy), 4);
+        assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths));
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Energy), 11);
+        assert!(!req.is_met(&player, &player.max_orbs(), &moki));
+        player.grant(Item::Resource(Resource::Energy), 1);
+        assert!(req.is_met(&player, &player.max_orbs(), &moki));
     }
 }
