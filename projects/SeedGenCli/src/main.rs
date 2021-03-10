@@ -141,7 +141,7 @@ fn main() {
 
     let areas = parse_logic(&args.areas, &args.locations, &pathsets, args.validate);
 
-    std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
+    // std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
 
     // TODO: Generate a seed
 }

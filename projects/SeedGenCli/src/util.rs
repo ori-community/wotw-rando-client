@@ -208,7 +208,7 @@ pub enum NodeType {
     Quest,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, PartialEq)]
 pub struct Orbs {
     pub health: f32,
     pub energy: f32,
