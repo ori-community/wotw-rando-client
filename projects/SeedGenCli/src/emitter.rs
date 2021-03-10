@@ -24,8 +24,8 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Ha
             if validate { used_states.insert(state); }
             Requirement::State(state.to_string())
         },
-        parser::Requirement::Damage(amount) => Requirement::Damage(*amount),
-        parser::Requirement::Danger(amount) => Requirement::Danger(*amount),
+        parser::Requirement::Damage(amount) => Requirement::Damage(*amount as f32),
+        parser::Requirement::Danger(amount) => Requirement::Danger(*amount as f32),
         parser::Requirement::Combat(enemies) => Requirement::Combat(enemies.clone()),
         parser::Requirement::Boss(health) => Requirement::Boss(*health as f32),
         parser::Requirement::BreakWall(health) => Requirement::BreakWall(*health as f32),

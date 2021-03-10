@@ -27,8 +27,8 @@ pub enum Requirement {
     Shard(Shard),
     Teleporter(Teleporter),
     State(String),
-    Damage(u16),
-    Danger(u16),
+    Damage(f32),
+    Danger(f32),
     Combat(Vec<(Enemy, u8)>),
     Boss(f32),
     BreakWall(f32),
@@ -39,14 +39,13 @@ pub enum Requirement {
 impl Requirement {
     pub fn is_met(&self, player: &Player, orbs: &Orbs, pathsets: &[Pathset]) -> bool {
         let is_unsafe = pathsets.contains(&Pathset::Unsafe);
-        let energy_mod = if is_unsafe { 1.0 } else { 2.0 };
         match self {
             Requirement::Free => true,
             Requirement::Impossible => false,
             Requirement::Skill(skill) =>
                 player.has(Item::Skill(*skill), 1),
             Requirement::EnergySkill(skill, amount) =>
-                player.has(Item::Skill(*skill), 1) && orbs.energy >= amount * energy_cost(&skill) * energy_mod,
+                player.has(Item::Skill(*skill), 1) && orbs.energy >= player.use_cost(&skill, pathsets) * *amount,
             Requirement::Resource(resource, amount) =>
                 player.has(Item::Resource(*resource), *amount),
             Requirement::Shard(shard) =>
@@ -56,16 +55,21 @@ impl Requirement {
             Requirement::State(state) =>
                 player.states.contains(state),
             Requirement::Damage(amount) | Requirement::Danger(amount) =>
-                orbs.health >= *amount,
-            Requirement::BreakWall(health) | Requirement::Boss(health) => {
-                if let Some(weapon) = player.preferred_weapon(pathsets) {
-                    orbs.energy >= player.destroy_cost(*health, &weapon, pathsets) * energy_mod
-                } else {
-                    false
+                orbs.health >= *amount * player.defense_mod(pathsets),
+            Requirement::BreakWall(health) => {
+                if let Some(weapon) = player.preferred_weapon(pathsets, true) {
+                    return orbs.energy >= player.destroy_cost(*health, &weapon, pathsets);
                 }
+                false
+            }
+            Requirement::Boss(health) => {
+                if let Some(weapon) = player.preferred_weapon(pathsets, false) {
+                    return orbs.energy >= player.destroy_cost(*health, &weapon, pathsets);
+                }
+                false
             }
             Requirement::Combat(enemies) => {
-                if let Some(weapon) = player.preferred_weapon(pathsets) {
+                if let Some(weapon) = player.preferred_weapon(pathsets, false) {
                     let (mut aerial, mut dangerous) = (false, false);
                     let mut energy = orbs.energy;
 
@@ -78,8 +82,8 @@ impl Requirement {
                             continue;
                         }
 
-                        if enemy.aerial() { aerial = true }
-                        if enemy.dangerous() { dangerous = true }
+                        if enemy.aerial() { aerial = true; }
+                        if enemy.dangerous() { dangerous = true; }
                         if let Enemy::Bat = enemy {
                             if !is_unsafe && !player.has(Item::Skill(Skill::Bash), 1) { return false; }
                         }
@@ -90,8 +94,8 @@ impl Requirement {
 
                         if enemy.shielded() {
                             if player.has(Item::Skill(Skill::Hammer), 1) || player.has(Item::Skill(Skill::Launch), 1) {}
-                            else if player.has(Item::Skill(Skill::Grenade), 1) { energy -= energy_cost(&Skill::Grenade) * *amount as f32 * energy_mod; }
-                            else if player.has(Item::Skill(Skill::Spear), 1) { energy -= energy_cost(&Skill::Spear) * *amount as f32 * energy_mod; }
+                            else if player.has(Item::Skill(Skill::Grenade), 1) { energy -= player.use_cost(&Skill::Grenade, pathsets) * *amount as f32; }
+                            else if player.has(Item::Skill(Skill::Spear), 1) { energy -= player.use_cost(&Skill::Spear, pathsets) * *amount as f32; }
                             else { return false; }
                         }
                         let armor_mod = if enemy.armored() && !is_unsafe { 2.0 } else { 1.0 };
@@ -100,7 +104,7 @@ impl Requirement {
                         if ranged && ranged_weapon.is_none() { return false; }
                         let used_weapon = if ranged { ranged_weapon.unwrap() } else { weapon };
 
-                        energy -= player.destroy_cost(enemy.health(), &used_weapon, pathsets) * *amount as f32 * armor_mod * energy_mod;
+                        energy -= player.destroy_cost(enemy.health(), &used_weapon, pathsets) * *amount as f32 * armor_mod;
                     }
 
                     if !is_unsafe && aerial && !(
@@ -122,12 +126,12 @@ impl Requirement {
             }
             Requirement::ShurikenBreak(health) => {
                 let clip_mod = if is_unsafe { 2.0 } else { 3.0 };
-                player.has(Item::Skill(Skill::Shuriken), 1) && orbs.energy >= player.destroy_cost(*health, &Skill::Shuriken, pathsets) * clip_mod * energy_mod
+                player.has(Item::Skill(Skill::Shuriken), 1) && orbs.energy >= player.destroy_cost(*health, &Skill::Shuriken, pathsets) * clip_mod
             },
             Requirement::And(ands) =>
                 ands.iter().all(|req| req.is_met(player, orbs, pathsets)),
             Requirement::Or(ors) =>
-                ors.is_empty() || ors.iter().any(|req| req.is_met(player, orbs, pathsets)),
+                ors.iter().any(|req| req.is_met(player, orbs, pathsets)),
         }
     }
     pub fn orb_cost(&self) -> Orbs {
@@ -220,7 +224,7 @@ mod tests {
         let req = Requirement::State("ow".to_string());
         assert!(!req.is_met(&player, &player.max_orbs(), &moki));
 
-        let req = Requirement::Damage(30);
+        let req = Requirement::Damage(30.0);
         assert!(!req.is_met(&player, &player.max_orbs(), &moki));
         player.grant(Item::Resource(Resource::Health), 5);
         assert!(!req.is_met(&player, &player.max_orbs(), &moki));

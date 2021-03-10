@@ -45,23 +45,23 @@ pub enum Resource {
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Shard {
-    //Overcharge,
+    Overcharge,
     TripleJump,
-    //Wingclip,
+    Wingclip,
     //Bounty,
     //Swap,
     Magnet,
-    //Splinter,
-    //Reckless,
+    Splinter,
+    Reckless,
     //Quickshot,
-    //Resilience,
+    Resilience,
     //SpiritLightHarvest,
     //Vitality,
     LifeHarvest,
     EnergyHarvest,
     //Energy,
     //LifePact,
-    //LastStand,
+    LastStand,
     //Sense,
     UltraBash,
     UltraGrapple,
@@ -70,9 +70,9 @@ pub enum Shard {
     Catalyst,
     //Turmoil,
     Sticky,
-    //Finesse,
-    //SpiritSurge,
-    //Lifeforce,
+    Finesse,
+    SpiritSurge,
+    Lifeforce,
     Deflector,
     Fracture,
     Arcing,
@@ -210,7 +210,7 @@ pub enum NodeType {
 
 #[derive(Debug, Default)]
 pub struct Orbs {
-    pub health: u16,
+    pub health: f32,
     pub energy: f32,
 }
 
@@ -231,14 +231,14 @@ pub fn energy_cost(skill: &Skill) -> f32 {
 pub fn damage(skill: &Skill, pathsets: &[Pathset]) -> f32 {
     match skill {
         Skill::Grenade => if pathsets.contains(&Pathset::Unsafe) { 16.0 } else { 12.0 },
-        Skill::Flash => 6.0,
+        Skill::Flash => 14.0,
         Skill::Spear => 20.0,
         Skill::Bow => 4.0,
         Skill::Hammer => 12.0,
         Skill::Sword => 4.0,
-        Skill::Shuriken => if pathsets.contains(&Pathset::Unsafe) { 10.0 } else { 7.0 },
-        Skill::Blaze => 10.0,
-        Skill::Sentry => 10.0,
+        Skill::Shuriken => 7.0,
+        Skill::Blaze => 13.8,
+        Skill::Sentry => 12.0,
         _ => 0.0,
     }
 }
