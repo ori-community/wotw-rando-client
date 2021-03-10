@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 use crate::player::{Player, Item};
-use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy, energy_cost};
+use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Progression {

@@ -1,17 +1,13 @@
 use std::path::PathBuf;
 use std::fs::File;
 use std::io::{self, Read, BufReader, Error, ErrorKind};
-// use std::io::prelude::*;
-use std::collections::HashMap;
 
 use structopt::StructOpt;
 use bugsalot::debugger;
 
 use seed_gen_cli::*;
 
-use parser::ParseError;
 use player::{Player, Item};
-use world::Node;
 use util::{Pathset, Resource, Skill, Teleporter, Shard};
 
 #[derive(StructOpt)]
@@ -109,29 +105,7 @@ fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
     Ok(contents)
 }
 
-fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> HashMap<String, Node> {
-    let tokens = tokenizer::tokenize(areas).expect("Error parsing areas.wotw");
-
-    // let mut file = File::create("tokens.txt").unwrap();
-    // for token in &tokens {
-    //     let name = format!("{}, {:?} ({}) ", token.line, token.name, token.value);
-    //     file.write_all(name.as_bytes()).unwrap();
-    // }
-
-    let (areas, metadata) = match parser::parse_areas(&tokens) {
-        Ok(areas) => areas,
-        Err(error) => {
-            let ParseError { description, position } = error;
-            panic!("Error parsing areas.wotw: {}: {}", description, util::trace_parse_error(areas, position));
-        }
-    };
-
-    let locations = parser::parse_locations(locations, validate).expect("Error parsing loc_data.csv");
-
-    emitter::emit(&areas, &metadata, &locations, pathsets, validate).expect("Error building the logic")
-}
-
-fn generate_seed(validate: bool, wait_on_debugger: bool, spoilers: bool, areas: PathBuf, locations: PathBuf, output: PathBuf, generation_flags: Vec<String>, header_paths: Vec<PathBuf>, mut headers: Vec<String>) {
+fn invoke_generation(validate: bool, wait_on_debugger: bool, spoilers: bool, areas: PathBuf, locations: PathBuf, output: PathBuf, generation_flags: Vec<String>, header_paths: Vec<PathBuf>, mut headers: Vec<String>) {
     if wait_on_debugger {
         debugger::wait_until_attached(None).expect("state() not implemented on this platform");
     }
@@ -162,11 +136,7 @@ fn generate_seed(validate: bool, wait_on_debugger: bool, spoilers: bool, areas: 
         }
     }
 
-    let areas = parse_logic(&areas, &locations, &pathsets, validate);
-
-    // std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
-
-    // TODO: Generate a seed
+    generate_seed(validate, spoilers, &areas, &locations, &output, &pathsets, &headers);
 }
 
 fn invoke_reach_check(seed_file: PathBuf, health: u16, energy: f32, keystones: u16, ore: u16, spirit_light: u16, items: Vec<String>) {
@@ -178,27 +148,27 @@ fn invoke_reach_check(seed_file: PathBuf, health: u16, energy: f32, keystones: u
     player.grant(Item::Resource(Resource::SpiritLight), spirit_light);
     for item in items {
         if let Some(skill) = item.strip_prefix("s:") {
-            let id: u8 = skill.parse().expect(&format!("expected numeric skill id, except found {}", item));
-            player.grant(Item::Skill(Skill::from_id(id).expect(&format!("{} is not a valid skill id", id))), 1);
+            let id: u8 = skill.parse().unwrap_or_else(|_| panic!("expected numeric skill id, except found {}", item));
+            player.grant(Item::Skill(Skill::from_id(id).unwrap_or_else(|| panic!("{} is not a valid skill id", id))), 1);
         }
         else if let Some(teleporter) = item.strip_prefix("t:") {
-            let id: u8 = teleporter.parse().expect(&format!("expected numeric teleporter id, except found {}", item));
-            player.grant(Item::Teleporter(Teleporter::from_id(id).expect(&format!("{} is not a valid teleporter id", id))), 1);
+            let id: u8 = teleporter.parse().unwrap_or_else(|_| panic!("expected numeric teleporter id, except found {}", item));
+            player.grant(Item::Teleporter(Teleporter::from_id(id).unwrap_or_else(|| panic!("{} is not a valid teleporter id", id))), 1);
         }
         else if let Some(shard) = item.strip_prefix("sh:") {
-            let id: u8 = shard.parse().expect(&format!("expected numeric shard id, except found {}", item));
-            player.grant(Item::Shard(Shard::from_id(id).expect(&format!("{} is not a valid shard id", id))), 1);
+            let id: u8 = shard.parse().unwrap_or_else(|_| panic!("expected numeric shard id, except found {}", item));
+            player.grant(Item::Shard(Shard::from_id(id).unwrap_or_else(|| panic!("{} is not a valid shard id", id))), 1);
         }
         else {
             panic!("items have to start with s:, t: or sh: (for skill, teleporter or shard), except found {}", item);
         }
     }
-    reach_check(&seed_file, &player, &vec![Pathset::Moki]);
+    reach_check(&seed_file, &player, &[Pathset::Moki]);
 }
 
 fn main() {
     match SeedGen::from_args().command {
-        Command::Seed { validate, wait_on_debugger, spoilers, areas, locations, output, generation_flags, header_paths, headers } => generate_seed(validate, wait_on_debugger, spoilers, areas, locations, output, generation_flags, header_paths, headers),
+        Command::Seed { validate, wait_on_debugger, spoilers, areas, locations, output, generation_flags, header_paths, headers } => invoke_generation(validate, wait_on_debugger, spoilers, areas, locations, output, generation_flags, header_paths, headers),
         Command::ReachCheck { seed_file, health, energy, keystones, ore, spirit_light, items } => invoke_reach_check(seed_file, health, energy, keystones, ore, spirit_light, items),
     }
 }

@@ -7,9 +7,44 @@ pub mod requirements;
 pub mod util;
 
 use std::path::PathBuf;
+use std::collections::HashMap;
+// use std::io::prelude::*;
 
 use player::Player;
+use parser::ParseError;
+use world::Node;
 use util::Pathset;
+
+
+fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> HashMap<String, Node> {
+    let tokens = tokenizer::tokenize(areas).expect("Error parsing areas.wotw");
+
+    // let mut file = File::create("tokens.txt").unwrap();
+    // for token in &tokens {
+    //     let name = format!("{}, {:?} ({}) ", token.line, token.name, token.value);
+    //     file.write_all(name.as_bytes()).unwrap();
+    // }
+
+    let (areas, metadata) = match parser::parse_areas(&tokens) {
+        Ok(areas) => areas,
+        Err(error) => {
+            let ParseError { description, position } = error;
+            panic!("Error parsing areas.wotw: {}: {}", description, util::trace_parse_error(areas, position));
+        }
+    };
+
+    let locations = parser::parse_locations(locations, validate).expect("Error parsing loc_data.csv");
+
+    emitter::emit(&areas, &metadata, &locations, pathsets, validate).expect("Error building the logic")
+}
+
+pub fn generate_seed(validate: bool, spoilers: bool, areas: &PathBuf, locations:& PathBuf, output: &PathBuf, pathsets: &[Pathset], headers: &[String]) {
+    let areas = parse_logic(areas, locations, pathsets, validate);
+
+    // std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
+
+    // TODO: Generate a seed
+}
 
 pub fn reach_check(seed: &PathBuf, player: &Player, pathsets: &[Pathset]) {
     println!("{:?} - {:?} - {:?}", seed, player, pathsets);
