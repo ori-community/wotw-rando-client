@@ -34,6 +34,37 @@ pub enum Skill {
     Water,
     AncestralLight,
 }
+impl Skill {
+    pub fn from_id(id: u8) -> Option<Skill> {
+        match id {
+            0 => Some(Skill::Bash),
+            3 => Some(Skill::WallJump),
+            5 => Some(Skill::DoubleJump),
+            8 => Some(Skill::Launch),
+            14 => Some(Skill::Glide),
+            23 => Some(Skill::WaterBreath),
+            51 => Some(Skill::Grenade),
+            57 => Some(Skill::Grapple),
+            62 => Some(Skill::Flash),
+            74 => Some(Skill::Spear),
+            77 => Some(Skill::Regenerate),
+            97 => Some(Skill::Bow),
+            98 => Some(Skill::Hammer),
+            100 => Some(Skill::Sword),
+            101 => Some(Skill::Burrow),
+            102 => Some(Skill::Dash),
+            104 => Some(Skill::WaterDash),
+            106 => Some(Skill::Shuriken),
+            108 => Some(Skill::Seir),
+            115 => Some(Skill::Blaze),
+            116 => Some(Skill::Sentry),
+            118 => Some(Skill::Flap),
+            120 | 121 => Some(Skill::AncestralLight),
+            255 => Some(Skill::Water),
+            _ => None,
+        }
+    }
+}
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Resource {
     SpiritLight,
@@ -48,27 +79,27 @@ pub enum Shard {
     Overcharge,
     TripleJump,
     Wingclip,
-    //Bounty,
-    //Swap,
+    Bounty,
+    Swap,
     Magnet,
     Splinter,
     Reckless,
-    //Quickshot,
+    Quickshot,
     Resilience,
-    //SpiritLightHarvest,
-    //Vitality,
+    SpiritLightHarvest,
+    Vitality,
     LifeHarvest,
     EnergyHarvest,
-    //Energy,
-    //LifePact,
+    Energy,
+    LifePact,
     LastStand,
-    //Sense,
+    Sense,
     UltraBash,
     UltraGrapple,
     Overflow,
     Thorn,
     Catalyst,
-    //Turmoil,
+    Turmoil,
     Sticky,
     Finesse,
     SpiritSurge,
@@ -76,6 +107,44 @@ pub enum Shard {
     Deflector,
     Fracture,
     Arcing,
+}
+impl Shard {
+    pub fn from_id(id: u8) -> Option<Shard> {
+        match id {
+            1 => Some(Shard::Overcharge),
+            2 => Some(Shard::TripleJump),
+            3 => Some(Shard::Wingclip),
+            4 => Some(Shard::Bounty),
+            5 => Some(Shard::Swap),
+            8 => Some(Shard::Magnet),
+            9 => Some(Shard::Splinter),
+            13 => Some(Shard::Reckless),
+            14 => Some(Shard::Quickshot),
+            18 => Some(Shard::Resilience),
+            19 => Some(Shard::SpiritLightHarvest),
+            22 => Some(Shard::Vitality),
+            23 => Some(Shard::LifeHarvest),
+            25 => Some(Shard::EnergyHarvest),
+            26 => Some(Shard::Energy),
+            27 => Some(Shard::LifePact),
+            28 => Some(Shard::LastStand),
+            30 => Some(Shard::Sense),
+            32 => Some(Shard::UltraBash),
+            33 => Some(Shard::UltraGrapple),
+            34 => Some(Shard::Overflow),
+            35 => Some(Shard::Thorn),
+            36 => Some(Shard::Catalyst),
+            38 => Some(Shard::Turmoil),
+            39 => Some(Shard::Sticky),
+            40 => Some(Shard::Finesse),
+            41 => Some(Shard::SpiritSurge),
+            43 => Some(Shard::Lifeforce),
+            44 => Some(Shard::Deflector),
+            46 => Some(Shard::Fracture),
+            47 => Some(Shard::Arcing),
+            _ => None,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Teleporter {
@@ -97,6 +166,31 @@ pub enum Teleporter {
     InnerRuins,
     Willow,
     Shriek,
+}
+impl Teleporter {
+    pub fn from_id(id: u8) -> Option<Teleporter> {
+        match id {
+            0 => Some(Teleporter::Burrows),
+            1 => Some(Teleporter::Den),
+            2 => Some(Teleporter::EastLuma),
+            3 => Some(Teleporter::Wellspring),
+            4 => Some(Teleporter::Reach),
+            5 => Some(Teleporter::Hollow),
+            6 => Some(Teleporter::Depths),
+            7 => Some(Teleporter::WestWoods),
+            8 => Some(Teleporter::EastWoods),
+            9 => Some(Teleporter::WestWastes),
+            10 => Some(Teleporter::EastWastes),
+            11 => Some(Teleporter::OuterRuins),
+            12 => Some(Teleporter::Willow),
+            13 => Some(Teleporter::WestLuma),
+            14 => Some(Teleporter::InnerRuins),
+            15 => Some(Teleporter::Shriek),
+            16 => Some(Teleporter::Marsh),
+            17 => Some(Teleporter::Glades),
+            _ => None,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Bonus {

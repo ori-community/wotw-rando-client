@@ -25,12 +25,12 @@
                 }
             },
             "args": [
+                "seed",
+                "C:\\moon\\test",
                 "--areas",
                 "C:\\moon\\areas.wotw",
                 "--locations",
                 "C:\\moon\\loc_data.csv",
-                "--output",
-                "C:\\moon\\test",
                 "--debug",
                 "--validate",
                 "--gen_flags",
