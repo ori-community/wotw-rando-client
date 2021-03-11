@@ -4,6 +4,7 @@ use std::path::PathBuf;
 
 use seed_gen_cli::*;
 use player::*;
+use world::*;
 use requirements::*;
 use util::*;
 
@@ -65,7 +66,12 @@ fn requirements(c: &mut Criterion) {
 }
 
 fn reach_checking(c: &mut Criterion) {
-    let graph = parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
+    c.bench_function("config read", |b| b.iter(|| {
+        let settings = read_settings(&PathBuf::from("C:\\moon\\test")).unwrap();
+        pathsets_from_settings(&settings);
+    }));
+
+    let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player: Player = Default::default();
         player.grant(Item::Resource(Resource::Health), 40);
@@ -77,7 +83,11 @@ fn reach_checking(c: &mut Criterion) {
         player.grant(Item::Skill(Skill::Sword), 8);
         player.grant(Item::Skill(Skill::DoubleJump), 8);
         player.grant(Item::Skill(Skill::Dash), 8);
-        reach_check(&graph, &PathBuf::from("C:\\moon\\test"), player, &[Pathset::Moki])
+        let mut world = World {
+            graph,
+            player,
+        };
+        world.reached_locations("MarshSpawn.Main", &[Pathset::Moki]).unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut player: Player = Default::default();
@@ -111,9 +121,13 @@ fn reach_checking(c: &mut Criterion) {
         player.grant(Item::Skill(Skill::Flap), 1);
         player.grant(Item::Skill(Skill::Water), 1);
         player.grant(Item::Skill(Skill::AncestralLight), 1);
-        reach_check(&graph, &PathBuf::from("C:\\moon\\test"), player, &[Pathset::Moki])
+        let mut world = World {
+            graph,
+            player,
+        };
+        world.reached_locations("MarshSpawn.Main", &[Pathset::Moki]).unwrap();
     }));
 }
 
-criterion_group!(benches, reach_checking);
+criterion_group!(benches, parsing, requirements, reach_checking);
 criterion_main!(benches);

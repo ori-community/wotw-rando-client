@@ -1,5 +1,7 @@
-use std::{fs, path::PathBuf};
+use std::{fs, io, path::PathBuf};
 use std::ops::{Add, AddAssign};
+
+use serde::Deserialize;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Pathset {
@@ -390,6 +392,92 @@ pub fn damage(skill: &Skill, pathsets: &[Pathset]) -> f32 {
         Skill::Sentry => 12.0,
         _ => 0.0,
     }
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SeedFlags {
+    pub force_wisps: bool,
+    pub force_trees: bool,
+    pub force_quests: bool,
+    pub no_hints: bool,
+    pub no_sword: bool,
+    pub rain: bool,
+    pub no_k_s_doors: bool,
+    pub random_spawn: bool,
+    pub world_tour: bool,
+}
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Settings {
+    pub tps: bool,
+    pub spoilers: bool,
+    pub unsafe_paths: bool,
+    pub gorlek_paths: bool,
+    pub glitch_paths: bool,
+    pub quest_locs: bool,
+    pub output_folder: PathBuf,
+    pub flags: SeedFlags,
+    pub web_conn: bool,
+    pub bonus_items: bool,
+    pub debug_info: bool,
+    pub seir_launch: bool,
+    pub spawn_loc: String,
+    pub header_list: Vec<String>,
+}
+impl Default for Settings {
+    fn default() -> Settings {
+        Settings {
+            tps: true,
+            spoilers: true,
+            unsafe_paths: false,
+            gorlek_paths: false,
+            glitch_paths: false,
+            quest_locs: true,
+            output_folder: PathBuf::new(),
+            flags: SeedFlags {
+                force_wisps: false,
+                force_trees: false,
+                force_quests: false,
+                no_hints: false,
+                no_sword: false,
+                rain: false,
+                no_k_s_doors: false,
+                random_spawn: false,
+                world_tour: false,
+            },
+            web_conn: false,
+            bonus_items: false,
+            debug_info: false,
+            seir_launch: false,
+            spawn_loc: "MarshSpawn.Main".to_string(),
+            header_list: vec![],
+        }
+    }
+}
+pub fn read_settings(seed: &PathBuf) -> Result<Settings, io::Error> {
+    let seed = fs::read_to_string(seed)?;
+    let mut settings: Settings = Default::default();
+    for line in seed.lines() {
+        if let Some(config) = line.strip_prefix("// Config: ") {
+            settings = serde_json::from_str(&config)?;
+        }
+    }
+    Ok(settings)
+}
+
+pub fn pathsets_from_settings(settings: &Settings) -> Vec<Pathset> {
+    let mut pathsets = if settings.unsafe_paths {
+        vec![Pathset::Moki, Pathset::Gorlek, Pathset::Unsafe]
+    } else if settings.gorlek_paths {
+        vec![Pathset::Moki, Pathset::Gorlek]
+    } else {
+        vec![Pathset::Moki]
+    };
+    if settings.glitch_paths {
+        pathsets.push(Pathset::Glitch);
+    }
+    pathsets
 }
 
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {

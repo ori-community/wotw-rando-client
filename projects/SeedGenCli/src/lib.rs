@@ -10,9 +10,8 @@ use std::path::PathBuf;
 use std::collections::HashMap;
 // use std::io::prelude::*;
 
-use player::Player;
 use parser::ParseError;
-use world::{World, Node};
+use world::Node;
 use util::Pathset;
 
 pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> HashMap<String, Node> {
@@ -41,13 +40,4 @@ pub fn generate_seed(graph: &HashMap<String, Node>, output: &PathBuf, spoilers: 
     // std::fs::write(&args.output, format!("{:#?}", graph)).unwrap();
 
     // TODO: Generate a seed
-}
-
-pub fn reach_check(graph: &HashMap<String, Node>, seed: &PathBuf, player: Player, pathsets: &[Pathset]) {
-    // TODO read seed
-    let mut world = World {
-        graph,
-        player,
-    };
-    world.reached_locations("MarshSpawn.Main", pathsets).unwrap();
 }

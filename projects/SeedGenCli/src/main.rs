@@ -8,7 +8,8 @@ use bugsalot::debugger;
 use seed_gen_cli::*;
 
 use player::{Player, Item};
-use util::{Pathset, Resource, Skill, Teleporter, Shard};
+use world::{World, Node};
+use util::{Pathset, Resource, Skill, Teleporter, Shard, read_settings, pathsets_from_settings};
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer
@@ -170,8 +171,24 @@ fn invoke_reach_check(areas: PathBuf, locations: PathBuf, seed_file: PathBuf, he
             panic!("items have to start with s:, t: or sh: (for skill, teleporter or shard), except found {}", item);
         }
     }
-    let graph = parse_logic(&areas, &locations, &[Pathset::Moki], false);
-    reach_check(&graph, &seed_file, player, &[Pathset::Moki]);
+
+    let settings = read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
+    let pathsets = pathsets_from_settings(&settings);
+
+    let graph = &parse_logic(&areas, &locations, &pathsets, false);
+    let mut world = World {
+        graph,
+        player,
+    };
+
+    let reached = world.reached_locations(&settings.spawn_loc, &pathsets).expect("Invalid Reach Check");
+    let mut reached = reached.iter().fold(String::new(), |acc, node| match node {
+        Node::Pickup(pickup) => acc + &format!("{}|{}, ", pickup.uber_group, pickup.uber_id),
+        Node::Quest(quest) => acc + &format!("{}|{}, ", quest.uber_group, quest.uber_id),
+        _ => panic!("reach check returned {} which is a {:?} - this should be impossible", node.identifier(), node.node_type()),
+    });
+    for _ in 0..2 { reached.pop(); }  // remove the last comma
+    println!("{}", reached);
 }
 
 fn main() {
