@@ -148,13 +148,7 @@ impl<'a> World<'a> {
         let mut state_progressions = HashMap::<&str, HashSet<&str>>::with_capacity(10);
         let mut world_state = HashMap::<&str, Vec<Orbs>>::with_capacity(self.graph.len());
 
-        let reached = self.reach_recursion(entry, vec![self.player.max_orbs()], pathsets, &mut state_progressions, &mut world_state);
-        let mut states: Vec<_> = self.player.states.iter().collect();
-        states.sort();
-        println!("{:#?}", states);
-        println!("{:#?}", state_progressions);
-
-        Ok(reached)
+        Ok(self.reach_recursion(entry, vec![self.player.max_orbs()], pathsets, &mut state_progressions, &mut world_state))
     }
 }
 
