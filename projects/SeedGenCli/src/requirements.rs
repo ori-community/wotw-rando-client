@@ -217,6 +217,16 @@ impl Requirement {
         }
         None
     }
+
+    pub fn contained_states(&self) -> Vec<&str> {
+        match self {
+            Requirement::State(state) => vec![state],
+            Requirement::And(ands) => ands.iter().flat_map(|and| and.contained_states()).collect(),
+            Requirement::Or(ors) => ors.iter().flat_map(|or| or.contained_states()).collect(),
+            _ => vec![],
+        }
+    }
+
     pub fn progression(&self, player: &Player, orbs: &Orbs, pathsets: &[Pathset]) -> HashSet<Vec<Progression>> {
         match self {
             Requirement::Free => HashSet::new(),

@@ -129,12 +129,11 @@ fn invoke_generation(validate: bool, wait_on_debugger: bool, spoilers: bool, are
         }
     }
 
-    let mut pathsets = Vec::new();
+    let mut pathsets = vec![Pathset::Moki];
     for flag in &generation_flags {
         match &flag[..] {
-            "moki" => pathsets.push(Pathset::Moki),
+            "moki" => {},
             "gorlek" => {
-                pathsets.push(Pathset::Moki);
                 pathsets.push(Pathset::Gorlek);
             },
             "glitch" => pathsets.push(Pathset::Glitch),

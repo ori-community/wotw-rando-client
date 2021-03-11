@@ -571,7 +571,7 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
     })
 }
 
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct Location {
     pub name: String,
     pub uber_group: String,
