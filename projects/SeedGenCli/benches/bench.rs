@@ -27,7 +27,7 @@ fn parsing(c: &mut Criterion) {
 }
 
 fn requirements(c: &mut Criterion) {
-    let mut player = Player { ..Default::default() };
+    let mut player: Player = Default::default();
     let unsafe_paths = vec![Pathset::Moki, Pathset::Gorlek, Pathset::Unsafe];
     {
         let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);
@@ -40,7 +40,7 @@ fn requirements(c: &mut Criterion) {
         let req = Requirement::And(vec![Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()]), Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()])]);
         c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, &player.max_orbs(), &unsafe_paths)));
     }
-    player = Player { ..Default::default() };
+    player = Default::default();
     player.grant(Item::Skill(Skill::Bow), 1);
     player.grant(Item::Resource(Resource::Energy), 40);
     let req = Requirement::Combat(vec![
@@ -64,5 +64,56 @@ fn requirements(c: &mut Criterion) {
     c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs(), &unsafe_paths)));
 }
 
-criterion_group!(benches, parsing, requirements);
+fn reach_checking(c: &mut Criterion) {
+    let graph = parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
+    c.bench_function("short reach check", |b| b.iter(|| {
+        let mut player: Player = Default::default();
+        player.grant(Item::Resource(Resource::Health), 40);
+        player.grant(Item::Resource(Resource::Energy), 40);
+        player.grant(Item::Resource(Resource::Keystone), 34);
+        player.grant(Item::Resource(Resource::Ore), 40);
+        player.grant(Item::Resource(Resource::SpiritLight), 10000);
+        player.grant(Item::Resource(Resource::ShardSlot), 8);
+        player.grant(Item::Skill(Skill::Sword), 8);
+        player.grant(Item::Skill(Skill::DoubleJump), 8);
+        player.grant(Item::Skill(Skill::Dash), 8);
+        reach_check(&graph, &PathBuf::from("C:\\moon\\test"), player, &[Pathset::Moki])
+    }));
+    c.bench_function("long reach check", |b| b.iter(|| {
+        let mut player: Player = Default::default();
+        player.grant(Item::Resource(Resource::Health), 40);
+        player.grant(Item::Resource(Resource::Energy), 40);
+        player.grant(Item::Resource(Resource::Keystone), 34);
+        player.grant(Item::Resource(Resource::Ore), 40);
+        player.grant(Item::Resource(Resource::SpiritLight), 10000);
+        player.grant(Item::Resource(Resource::ShardSlot), 8);
+        player.grant(Item::Skill(Skill::Bash), 1);
+        player.grant(Item::Skill(Skill::WallJump), 1);
+        player.grant(Item::Skill(Skill::DoubleJump), 1);
+        player.grant(Item::Skill(Skill::Launch), 1);
+        player.grant(Item::Skill(Skill::Glide), 1);
+        player.grant(Item::Skill(Skill::WaterBreath), 1);
+        player.grant(Item::Skill(Skill::Grenade), 1);
+        player.grant(Item::Skill(Skill::Grapple), 1);
+        player.grant(Item::Skill(Skill::Flash), 1);
+        player.grant(Item::Skill(Skill::Spear), 1);
+        player.grant(Item::Skill(Skill::Regenerate), 1);
+        player.grant(Item::Skill(Skill::Bow), 1);
+        player.grant(Item::Skill(Skill::Hammer), 1);
+        player.grant(Item::Skill(Skill::Sword), 1);
+        player.grant(Item::Skill(Skill::Burrow), 1);
+        player.grant(Item::Skill(Skill::Dash), 1);
+        player.grant(Item::Skill(Skill::WaterDash), 1);
+        player.grant(Item::Skill(Skill::Shuriken), 1);
+        player.grant(Item::Skill(Skill::Seir), 1);
+        player.grant(Item::Skill(Skill::Blaze), 1);
+        player.grant(Item::Skill(Skill::Sentry), 1);
+        player.grant(Item::Skill(Skill::Flap), 1);
+        player.grant(Item::Skill(Skill::Water), 1);
+        player.grant(Item::Skill(Skill::AncestralLight), 1);
+        reach_check(&graph, &PathBuf::from("C:\\moon\\test"), player, &[Pathset::Moki])
+    }));
+}
+
+criterion_group!(benches, reach_checking);
 criterion_main!(benches);

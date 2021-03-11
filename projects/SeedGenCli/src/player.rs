@@ -43,6 +43,25 @@ impl Player<'_> {
             health: self.max_health(),
         }
     }
+    pub fn checkpoint_orbs(&self) -> Orbs {
+        let max_health = self.max_health();
+        let max_energy = self.max_energy();
+        Orbs {
+            energy: max_energy.min(10.0 * (max_energy / 50.0 + 1.0)),
+            health: max_health.min(40f32.max(((max_health / 5.0) / 0.6685 + 1.0).floor())),
+        }
+    }
+    pub fn health_orbs(&self, amount: f32) -> Orbs {
+        let mut max_health = self.max_health();
+        let moon_why = (max_health + 15.0) % 60.0;
+        if moon_why < 5.0 {
+            max_health += 5.0 - moon_why;
+        }
+        Orbs {
+            health: max_health.min(10f32.max((amount * (max_health + 10.0) / 30.0).floor() * 10.0)),
+            ..Default::default()
+        }
+    }
 
     pub fn damage_mod(&self, pathsets: &[Pathset], flying_target: bool) -> f32 {
         let is_unsafe = pathsets.contains(&Pathset::Unsafe);
@@ -76,8 +95,8 @@ impl Player<'_> {
     pub fn use_cost(&self, skill: &Skill, pathsets: &[Pathset]) -> f32 {
         energy_cost(skill) * self.energy_mod(pathsets)
     }
-    pub fn destroy_cost(&self, health: f32, skill: &Skill, pathsets: &[Pathset]) -> f32 {
-        let mut damage = damage(skill, pathsets) * self.damage_mod(pathsets, false);
+    pub fn destroy_cost(&self, health: f32, skill: &Skill, pathsets: &[Pathset], flying_target: bool) -> f32 {
+        let mut damage = damage(skill, pathsets) * self.damage_mod(pathsets, flying_target);
         if let Skill::Bow = skill { damage *= self.bow_damage_mod(pathsets); }
         (health / damage).ceil() * self.use_cost(skill, pathsets)
     }
@@ -112,7 +131,7 @@ mod tests {
 
     #[test]
     fn inventory() {
-        let mut player = Player { ..Default::default() };
+        let mut player: Player = Default::default();
         player.grant(Item::Relic, 2);
         player.grant(Item::Skill(Skill::Shuriken), 1);
         assert!(player.has(Item::Relic, 1));
@@ -123,7 +142,7 @@ mod tests {
 
     #[test]
     fn weapon_preference() {
-        let mut player = Player { ..Default::default() };
+        let mut player: Player = Default::default();
         let moki = vec![Pathset::Moki];
         let gorlek = vec![Pathset::Moki, Pathset::Gorlek];
         assert_eq!(player.preferred_weapon(&moki, true), None);
@@ -142,7 +161,7 @@ mod tests {
 
     #[test]
     fn max_energy() {
-        let mut player = Player { ..Default::default() };
+        let mut player: Player = Default::default();
         assert_eq!(player.max_energy(), 0.0);
         for _ in 0..10 { player.grant(Item::Resource(Resource::Energy), 1); }
         assert_eq!(player.max_energy(), 5.0);
@@ -150,14 +169,39 @@ mod tests {
 
     #[test]
     fn destroy_cost() {
-        let mut player = Player { ..Default::default() };
+        let mut player: Player = Default::default();
         let pathsets = vec![Pathset::Moki];
-        assert_eq!(player.destroy_cost(10.0, &Skill::Bow, &pathsets), 1.5);
-        assert_eq!(player.destroy_cost(10.0, &Skill::Spear, &pathsets), 4.0);
-        assert_eq!(player.destroy_cost(0.0, &Skill::Spear, &pathsets), 0.0);
+        assert_eq!(player.destroy_cost(10.0, &Skill::Bow, &pathsets, false), 1.5);
+        assert_eq!(player.destroy_cost(10.0, &Skill::Spear, &pathsets, true), 4.0);
+        assert_eq!(player.destroy_cost(0.0, &Skill::Spear, &pathsets, false), 0.0);
         player.grant(Item::Skill(Skill::AncestralLight), 2);
         let pathsets = vec![Pathset::Unsafe];
-        assert_eq!(player.destroy_cost(10.0, &Skill::Bow, &pathsets), 0.5);
-        assert_eq!(player.destroy_cost(1.0, &Skill::Spear, &pathsets), 2.0);
+        player.grant(Item::Shard(Shard::Wingclip), 1);
+        player.grant(Item::Resource(Resource::ShardSlot), 1);
+        assert_eq!(player.destroy_cost(10.0, &Skill::Bow, &pathsets, true), 0.25);
+        assert_eq!(player.destroy_cost(1.0, &Skill::Spear, &pathsets, false), 2.0);
+    }
+
+    #[test]
+    fn refill_orbs() {
+        let mut player: Player = Default::default();
+        let orbs: Orbs = Default::default();
+        assert_eq!(player.checkpoint_orbs(), Default::default());
+        player.grant(Item::Resource(Resource::Energy), 6);
+        player.grant(Item::Resource(Resource::Health), 6);
+        assert_eq!(player.checkpoint_orbs(), Orbs { energy: 3.0, health: 30.0});
+        assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
+        player.grant(Item::Resource(Resource::Health), 2);
+        assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
+        player.grant(Item::Resource(Resource::Health), 1);
+        assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
+        player.grant(Item::Resource(Resource::Health), 11);
+        assert_eq!(player.health_orbs(1.0), Orbs { health: 30.0, ..orbs });
+        player.grant(Item::Resource(Resource::Health), 1);
+        assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
+        player.grant(Item::Resource(Resource::Health), 6);
+        assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
+        player.grant(Item::Resource(Resource::Health), 1);
+        assert_eq!(player.health_orbs(1.0), Orbs { health: 50.0, ..orbs });
     }
 }

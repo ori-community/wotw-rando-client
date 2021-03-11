@@ -350,15 +350,15 @@ fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &
             Ok(result) => result,
             Err(_) => return Err(not_int(&tokens[context.position - 1])),
         };
-        name = RefillType::Health(amount);
+        name = RefillType::Health(amount as f32);
     } else if identifier == "Health" {
-        name = RefillType::Health(1);
+        name = RefillType::Health(1.0);
     } else if let Some(amount) = identifier.strip_prefix("Energy=") {
         let amount: u16 = match amount.parse() {
             Ok(result) => result,
             Err(_) => return Err(not_int(&tokens[context.position - 1])),
         };
-        name = RefillType::Energy(amount);
+        name = RefillType::Energy(amount as f32);
     } else {
         return Err(wrong_token(&tokens[context.position], "'Checkpoint', 'Full', 'Health' or 'Energy'"));
     }

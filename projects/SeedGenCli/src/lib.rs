@@ -12,11 +12,10 @@ use std::collections::HashMap;
 
 use player::Player;
 use parser::ParseError;
-use world::Node;
+use world::{World, Node};
 use util::Pathset;
 
-
-fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> HashMap<String, Node> {
+pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> HashMap<String, Node> {
     let tokens = tokenizer::tokenize(areas).expect("Error parsing areas.wotw");
 
     // let mut file = File::create("tokens.txt").unwrap();
@@ -38,14 +37,17 @@ fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], valid
     emitter::emit(&areas, &metadata, &locations, pathsets, validate).expect("Error building the logic")
 }
 
-pub fn generate_seed(validate: bool, spoilers: bool, areas: &PathBuf, locations:& PathBuf, output: &PathBuf, pathsets: &[Pathset], headers: &[String]) {
-    let areas = parse_logic(areas, locations, pathsets, validate);
-
-    // std::fs::write(&args.output, format!("{:#?}", areas)).unwrap();
+pub fn generate_seed(graph: &HashMap<String, Node>, output: &PathBuf, spoilers: bool, pathsets: &[Pathset], headers: &[String]) {
+    // std::fs::write(&args.output, format!("{:#?}", graph)).unwrap();
 
     // TODO: Generate a seed
 }
 
-pub fn reach_check(seed: &PathBuf, player: &Player, pathsets: &[Pathset]) {
-    println!("{:?} - {:?} - {:?}", seed, player, pathsets);
+pub fn reach_check(graph: &HashMap<String, Node>, seed: &PathBuf, player: Player, pathsets: &[Pathset]) {
+    // TODO read seed
+    let mut world = World {
+        graph,
+        player,
+    };
+    world.reached_locations("MarshSpawn.Main", pathsets).unwrap();
 }

@@ -41,6 +41,60 @@
         {
             "type": "lldb",
             "request": "launch",
+            "name": "Debug reach check",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=seed_gen_cli",
+                    "--package=seed_gen_cli"
+                ],
+                "filter": {
+                    "kind": "bin"
+                }
+            },
+            "args": [
+                "reach-check",
+                "C:\\moon\\test",
+                "200",
+                "20",
+                "34",
+                "40",
+                "10000",
+                "--areas",
+                "C:\\moon\\areas.wotw",
+                "--locations",
+                "C:\\moon\\loc_data.csv",
+                "s:0",
+                "s:3",
+                "s:5",
+                "s:8",
+                "s:14",
+                "s:23",
+                "s:51",
+                "s:57",
+                "s:62",
+                "s:74",
+                "s:77",
+                "s:97",
+                "s:98",
+                "s:100",
+                "s:101",
+                "s:102",
+                "s:104",
+                "s:106",
+                "s:108",
+                "s:115",
+                "s:116",
+                "s:118",
+                "s:120",
+                "s:121",
+                "s:255",
+            ],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
             "name": "Debug unit tests in executable 'seed_gen_cli'",
             "cargo": {
                 "args": [

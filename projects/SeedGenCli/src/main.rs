@@ -142,7 +142,8 @@ fn invoke_generation(validate: bool, wait_on_debugger: bool, spoilers: bool, are
         }
     }
 
-    generate_seed(validate, spoilers, &areas, &locations, &output, &pathsets, &headers);
+    let graph = parse_logic(&areas, &locations, &pathsets, validate);
+    generate_seed(&graph, &output, spoilers, &pathsets, &headers);
 }
 
 fn invoke_reach_check(areas: PathBuf, locations: PathBuf, seed_file: PathBuf, health: u16, energy: f32, keystones: u16, ore: u16, spirit_light: u16, items: Vec<String>) {
@@ -169,7 +170,8 @@ fn invoke_reach_check(areas: PathBuf, locations: PathBuf, seed_file: PathBuf, he
             panic!("items have to start with s:, t: or sh: (for skill, teleporter or shard), except found {}", item);
         }
     }
-    reach_check(&areas, &locations, &seed_file, &player, &[Pathset::Moki]);
+    let graph = parse_logic(&areas, &locations, &[Pathset::Moki], false);
+    reach_check(&graph, &seed_file, player, &[Pathset::Moki]);
 }
 
 fn main() {
