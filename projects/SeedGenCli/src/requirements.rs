@@ -37,53 +37,61 @@ pub enum Requirement {
     Or(Vec<Requirement>),
 }
 impl Requirement {
-    pub fn is_met(&self, player: &Player, orbs: &Orbs, pathsets: &[Pathset]) -> Option<Orbs> {
+    pub fn is_met(&self, player: &Player, orbs: &Orbs, pathsets: &[Pathset]) -> Option<Vec<Orbs>> {
         match self {
-            Requirement::Free => return Some(Orbs { ..Default::default() }),
+            Requirement::Free => return Some(Default::default()),
             Requirement::Impossible => return None,
             Requirement::Skill(skill) =>
-                if player.has(Item::Skill(*skill), 1) { return Some(Orbs { ..Default::default() }); },
+                if player.has(Item::Skill(*skill), 1) { return Some(Default::default()); },
             Requirement::EnergySkill(skill, amount) =>
                 if player.has(Item::Skill(*skill), 1) {
                     let cost = player.use_cost(&skill, pathsets) * *amount;
-                    if orbs.energy >= cost { return Some(Orbs {
-                        energy: cost,
-                        ..Default::default()
-                    })}
+                    if orbs.energy >= cost { return Some(vec![
+                        Orbs {
+                            energy: cost,
+                            ..Default::default()
+                        }
+                    ])}
                 }
             Requirement::Resource(resource, amount) =>
-                if player.has(Item::Resource(*resource), *amount) { return Some(Orbs { ..Default::default() }); },
+                if player.has(Item::Resource(*resource), *amount) { return Some(Default::default()); },
             Requirement::Shard(shard) =>
-                if player.has(Item::Shard(*shard), 1) { return Some(Orbs { ..Default::default() }); },
+                if player.has(Item::Shard(*shard), 1) { return Some(Default::default()); },
             Requirement::Teleporter(teleporter) =>
-                if player.has(Item::Teleporter(*teleporter), 1) { return Some(Orbs { ..Default::default() }); },
+                if player.has(Item::Teleporter(*teleporter), 1) { return Some(Default::default()); },
             Requirement::State(state) =>
-                if player.states.contains(state) { return Some(Orbs { ..Default::default() }); },
+                if player.states.contains(&state[..]) { return Some(Default::default()); },
             Requirement::Damage(amount) => {
                 let cost = *amount * player.defense_mod(pathsets);
-                if orbs.health >= cost { return Some(Orbs {
-                    health: cost,
-                    ..Default::default()
-                })}
+                if orbs.health >= cost { return Some(vec![
+                    Orbs {
+                        health: cost,
+                        ..Default::default()
+                    }
+                ])}
             }
             Requirement::Danger(amount) =>
-                if orbs.health >= *amount * player.defense_mod(pathsets) { return Some(Orbs { ..Default::default() })},
+                if orbs.health >= *amount * player.defense_mod(pathsets) { return Some(Default::default()); },
             Requirement::BreakWall(health) => {
                 if let Some(weapon) = player.preferred_weapon(pathsets, true) {
                     let cost =  player.destroy_cost(*health, &weapon, pathsets);
-                    if orbs.energy >= cost { return Some(Orbs {
-                        energy: cost,
-                        ..Default::default()
-                    })}
+                    if orbs.energy >= cost { return Some(vec![
+                        Orbs {
+                            energy: cost,
+                            ..Default::default()
+                        }
+                    ])}
                 }
             }
             Requirement::Boss(health) => {
                 if let Some(weapon) = player.preferred_weapon(pathsets, false) {
                     let cost =  player.destroy_cost(*health, &weapon, pathsets);
-                    if orbs.energy >= cost { return Some(Orbs {
-                        energy: cost,
-                        ..Default::default()
-                    })}
+                    if orbs.energy >= cost { return Some(vec![
+                        Orbs {
+                            energy: cost,
+                            ..Default::default()
+                        }
+                    ])}
                 }
             }
             Requirement::Combat(enemies) => {
@@ -138,26 +146,82 @@ impl Requirement {
                         player.has(Item::Skill(Skill::Launch), 1)
                     ) { return None; }
 
-                    if energy >= 0.0 { return Some(Orbs {
-                        energy: orbs.energy - energy,
-                        ..Default::default()
-                    })}
+                    if energy >= 0.0 { return Some(vec![
+                        Orbs {
+                            energy: orbs.energy - energy,
+                            ..Default::default()
+                        }
+                    ])}
                 }
             },
             Requirement::ShurikenBreak(health) => {
                 if player.has(Item::Skill(Skill::Shuriken), 1) {
                     let clip_mod = if pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 3.0 };
                     let cost = player.destroy_cost(*health, &Skill::Shuriken, pathsets) * clip_mod;
-                    if orbs.energy >= cost { return Some(Orbs {
-                        energy: cost,
-                        ..Default::default()
-                    })}
+                    if orbs.energy >= cost { return Some(vec![
+                        Orbs {
+                            energy: cost,
+                            ..Default::default()
+                        }
+                    ])}
                 }
             },
-            Requirement::And(ands) =>
-                if ands.iter().all(|req| req.is_met(player, orbs, pathsets).is_some()) { return Some(Orbs { ..Default::default() }) },
-            Requirement::Or(ors) =>
-                if ors.iter().any(|req| req.is_met(player, orbs, pathsets).is_some()) { return Some(Orbs { ..Default::default() }) },
+            Requirement::And(ands) => {
+                let mut sum = Vec::<Orbs>::new();
+
+                for and in ands {
+                    if let Some(orbcost) = and.is_met(player, orbs, pathsets) {
+                        if sum.is_empty() {
+                            sum = orbcost;
+                            continue;
+                        }
+                        let mut product = Vec::<Orbs>::with_capacity(sum.len() + orbcost.len());
+                        for old in &sum {
+                            for new in &orbcost {
+                                let orbs = *old + *new;
+                                if !product.contains(&orbs) {
+                                    product.push(*old + *new);
+                                }
+                            }
+                        }
+                        sum = product.clone().into_iter().filter(|orbs| {
+                            !product.iter().any(|other| other.energy < orbs.energy && other.health < orbs.health)
+                        }).collect();
+                    } else { return None; }
+                }
+                return Some(sum);
+            },
+            Requirement::Or(ors) => {
+                let mut cheapest = Vec::<Orbs>::new();
+
+                for or in ors {
+                    if let Some(mut orbcost) = or.is_met(player, orbs, pathsets) {
+                        if orbcost.is_empty() {
+                            cheapest = vec![Default::default()];
+                            break;
+                        } else if cheapest.is_empty() {
+                            cheapest = orbcost;
+                        } else {
+                            for new in &mut orbcost {
+                                let mut used = false;
+                                for old in &mut cheapest {
+                                    if new.energy <= old.energy && new.health <= old.health {
+                                        *old = *new;
+                                        used = true;
+                                    }
+                                }
+                                if !used && cheapest.iter().all(|old| old.energy > new.energy) || cheapest.iter().all(|old| old.health > new.health) {
+                                    cheapest.push(*new);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if !cheapest.is_empty() {
+                    return Some(cheapest);
+                }
+            },
         }
         None
     }
@@ -226,13 +290,13 @@ mod tests {
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Energy), 2);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(Orbs { energy: 1.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs {energy: 1.0, ..orbs }]));
         player.grant(Item::Resource(Resource::Energy), 2);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { energy: 2.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {energy: 2.0, ..orbs }]));
 
         let req = Requirement::State("owo".to_string());
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
-        player.states.insert("owo".to_string());
+        player.states.insert("owo");
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_some());
         let req = Requirement::State("ow".to_string());
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
@@ -242,25 +306,25 @@ mod tests {
         player.grant(Item::Resource(Resource::Health), 5);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Health), 1);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { health: 30.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {health: 30.0, ..orbs }]));
 
         player = Player { ..Default::default() };
         let req = Requirement::BreakWall(12.0);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Skill(Skill::Sword), 1);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {..orbs }]));
         player = Player { ..Default::default() };
         player.grant(Item::Skill(Skill::Grenade), 1);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Energy), 3);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { energy: 2.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {energy: 2.0, ..orbs }]));
         player = Player { ..Default::default() };
         let req = Requirement::BreakWall(16.0);
         player.grant(Item::Skill(Skill::Grenade), 1);
         player.grant(Item::Resource(Resource::Energy), 2);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(Orbs { energy: 1.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs {energy: 1.0, ..orbs }]));
         player.grant(Item::Resource(Resource::Energy), 2);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
 
@@ -269,22 +333,22 @@ mod tests {
         player.grant(Item::Skill(Skill::Shuriken), 1);
         assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths).is_none());
         player.grant(Item::Resource(Resource::Energy), 4);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(Orbs { energy: 2.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs {energy: 2.0, ..orbs }]));
         player.grant(Item::Resource(Resource::Energy), 6);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Energy), 2);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { energy: 6.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {energy: 6.0, ..orbs }]));
 
         player = Player { ..Default::default() };
         let req = Requirement::Combat(vec![(Enemy::Slug, 2), (Enemy::Skeeto, 1)]);
         player.grant(Item::Skill(Skill::Bow), 1);
         assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths).is_none());
         player.grant(Item::Resource(Resource::Energy), 7);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(Orbs { energy: 3.25, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs {energy: 3.25, ..orbs }]));
         player.grant(Item::Resource(Resource::Energy), 6);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Skill(Skill::DoubleJump), 1);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { energy: 6.5, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {energy: 6.5, ..orbs }]));
         player = Player { ..Default::default() };
         let req = Requirement::Combat(vec![(Enemy::Sandworm, 1), (Enemy::Bat, 1), (Enemy::EnergyRefill, 99), (Enemy::ShieldMiner, 2), (Enemy::EnergyRefill, 1), (Enemy::Balloon, 4)]);
         player.grant(Item::Skill(Skill::Shuriken), 1);
@@ -292,24 +356,47 @@ mod tests {
         player.grant(Item::Resource(Resource::Energy), 27);
         assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths).is_none());
         player.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(Orbs { energy: 14.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs {energy: 14.0, ..orbs }]));
         player.grant(Item::Resource(Resource::Energy), 37);
         player.grant(Item::Skill(Skill::Bash), 1);
         player.grant(Item::Skill(Skill::Launch), 1);
         player.grant(Item::Skill(Skill::Burrow), 1);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { energy: 33.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {energy: 33.0, ..orbs }]));
         player = Player { ..Default::default() };
         let req = Requirement::Combat(vec![(Enemy::Tentacle, 1)]);
         player.grant(Item::Skill(Skill::Spear), 1);
         player.grant(Item::Skill(Skill::DoubleJump), 1);
         player.grant(Item::Resource(Resource::Energy), 4);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(Orbs { energy: 2.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs {energy: 2.0, ..orbs }]));
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Energy), 11);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
         player.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(Orbs { energy: 8.0, ..orbs }));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {energy: 8.0, ..orbs }]));
+
+        player = Player { ..Default::default() };
+        let a = Requirement::EnergySkill(Skill::Blaze, 2.0);
+        let b = Requirement::Damage(20.0);
+        let c = Requirement::EnergySkill(Skill::Blaze, 1.0);
+        let d = Requirement::Damage(10.0);
+        player.grant(Item::Skill(Skill::Blaze), 1);
+        player.grant(Item::Resource(Resource::Energy), 4);
+        player.grant(Item::Resource(Resource::Health), 4);
+        let req = Requirement::And(vec![c.clone(), d.clone()]);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { health: 10.0, energy: 1.0 }]));
+        let req = Requirement::Or(vec![a.clone(), b.clone()]);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: 2.0, ..orbs }, Orbs { health: 20.0, ..orbs }]));
+        let req = Requirement::Or(vec![Requirement::And(vec![a.clone(), b.clone()]), Requirement::And(vec![c.clone(), d.clone()]), a.clone(), b.clone()]);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: 1.0, health: 10.0 }, Orbs { energy: 2.0, ..orbs }, Orbs { health: 20.0, ..orbs }]));
+        let req = Requirement::And(vec![Requirement::Or(vec![a.clone(), d.clone()]), Requirement::Or(vec![b.clone(), c.clone()])]);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: 3.0, ..orbs }, Orbs { health: 30.0, ..orbs }, Orbs { energy: 1.0, health: 10.0 }]));
+        let req = Requirement::And(vec![Requirement::Or(vec![a.clone(), d.clone()]), Requirement::Or(vec![b.clone(), c.clone()]), Requirement::Or(vec![a.clone(), d.clone()]), Requirement::Or(vec![b.clone(), c.clone()])]);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: 6.0, ..orbs }, Orbs { energy: 4.0, health: 10.0 }, Orbs { health: 60.0, ..orbs }, Orbs { energy: 1.0, health: 40.0 }, Orbs { energy: 2.0, health: 20.0 }]));
+        let req = Requirement::Or(vec![Requirement::Free, b.clone()]);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Default::default()]));
+        let req = Requirement::Or(vec![b.clone(), Requirement::Free]);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Default::default()]));
     }
 }

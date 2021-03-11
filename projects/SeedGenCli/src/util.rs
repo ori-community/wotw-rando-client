@@ -1,4 +1,5 @@
 use std::{fs, path::PathBuf};
+use std::ops::{Add, AddAssign};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Pathset {
@@ -302,10 +303,24 @@ pub enum NodeType {
     Quest,
 }
 
-#[derive(Debug, Default, PartialEq)]
+#[derive(Debug, Default, PartialEq, Clone, Copy)]
 pub struct Orbs {
     pub health: f32,
     pub energy: f32,
+}
+impl Add for Orbs {
+    type Output = Orbs;
+    fn add(self, other: Orbs) -> Orbs {
+        Orbs {
+            health: self.health + other.health,
+            energy: self.energy + other.energy,
+        }
+    }
+}
+impl AddAssign for Orbs {
+    fn add_assign(&mut self, other: Orbs) {
+        *self = *self + other;
+    }
 }
 
 pub fn energy_cost(skill: &Skill) -> f32 {

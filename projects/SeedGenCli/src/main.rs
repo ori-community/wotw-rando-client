@@ -52,6 +52,12 @@ enum Command {
     },
     /// Check which locations are in logic
     ReachCheck {
+        /// the input file representing the logic, usually called areas.wotw
+        #[structopt(parse(from_os_str), short, long)]
+        areas: PathBuf,
+        /// the input file representing pickup locations, usually called loc_data.csv
+        #[structopt(parse(from_os_str), short, long)]
+        locations: PathBuf,
         /// the seed file for which logical reach should be checked
         #[structopt(parse(from_os_str))]
         seed_file: PathBuf,
@@ -82,7 +88,7 @@ fn read_header() -> String {
 
     // Could also `match` on the `Result` if you wanted to handle `Err` 
     loop {
-        let result = stdin.read_to_string(&mut output).expect("failed to read standard input ({:?})");
+        let result = stdin.read_to_string(&mut output).expect("failed to read standard input");
         if result == 0 {
             break;
         }
@@ -139,7 +145,7 @@ fn invoke_generation(validate: bool, wait_on_debugger: bool, spoilers: bool, are
     generate_seed(validate, spoilers, &areas, &locations, &output, &pathsets, &headers);
 }
 
-fn invoke_reach_check(seed_file: PathBuf, health: u16, energy: f32, keystones: u16, ore: u16, spirit_light: u16, items: Vec<String>) {
+fn invoke_reach_check(areas: PathBuf, locations: PathBuf, seed_file: PathBuf, health: u16, energy: f32, keystones: u16, ore: u16, spirit_light: u16, items: Vec<String>) {
     let mut player: Player = Default::default();
     player.grant(Item::Resource(Resource::Health), health / 5);
     player.grant(Item::Resource(Resource::Energy), (energy * 2.0) as u16);
@@ -163,12 +169,12 @@ fn invoke_reach_check(seed_file: PathBuf, health: u16, energy: f32, keystones: u
             panic!("items have to start with s:, t: or sh: (for skill, teleporter or shard), except found {}", item);
         }
     }
-    reach_check(&seed_file, &player, &[Pathset::Moki]);
+    reach_check(&areas, &locations, &seed_file, &player, &[Pathset::Moki]);
 }
 
 fn main() {
     match SeedGen::from_args().command {
         Command::Seed { validate, wait_on_debugger, spoilers, areas, locations, output, generation_flags, header_paths, headers } => invoke_generation(validate, wait_on_debugger, spoilers, areas, locations, output, generation_flags, header_paths, headers),
-        Command::ReachCheck { seed_file, health, energy, keystones, ore, spirit_light, items } => invoke_reach_check(seed_file, health, energy, keystones, ore, spirit_light, items),
+        Command::ReachCheck { areas, locations, seed_file, health, energy, keystones, ore, spirit_light, items } => invoke_reach_check(areas, locations, seed_file, health, energy, keystones, ore, spirit_light, items),
     }
 }
