@@ -212,5 +212,21 @@ mod tests {
         }
 
         assert_eq!(reached, locations);
+
+        let mut player: Player = Default::default();
+        let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
+        player.grant(Item::Resource(Resource::Health), 7);
+        player.grant(Item::Resource(Resource::Energy), 6);
+        player.grant(Item::Skill(Skill::DoubleJump), 1);
+        player.grant(Item::Shard(Shard::TripleJump), 1);
+        let mut world = World {
+            graph,
+            player,
+        };
+
+        let reached = world.reached_locations("GladesTown.Teleporter", &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch]).unwrap();
+        let mut reached: Vec<_> = reached.iter().map(|node| node.identifier()).collect();
+        reached.sort();
+        assert_eq!(reached, vec!["GladesTown.AboveTpEX", "GladesTown.BelowHoleHutEX", "GladesTown.BountyShard", "GladesTown.UpdraftCeilingEX"]);
     }
 }

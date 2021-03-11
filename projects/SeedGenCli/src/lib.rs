@@ -37,7 +37,7 @@ pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], v
 }
 
 pub fn generate_seed(graph: &HashMap<String, Node>, output: &PathBuf, spoilers: bool, pathsets: &[Pathset], headers: &[String]) {
-    std::fs::write(output, format!("{:#?}", graph)).unwrap();
+    // std::fs::write(output, format!("{:#?}", graph)).unwrap();
 
     // TODO: Generate a seed
 }
