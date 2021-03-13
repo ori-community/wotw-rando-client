@@ -66,11 +66,6 @@ fn requirements(c: &mut Criterion) {
 }
 
 fn reach_checking(c: &mut Criterion) {
-    c.bench_function("config read", |b| b.iter(|| {
-        let settings = read_settings(&PathBuf::from("C:\\moon\\test")).unwrap();
-        pathsets_from_settings(&settings);
-    }));
-
     let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player: Player = Default::default();
