@@ -461,7 +461,7 @@ pub fn read_settings(seed: &PathBuf) -> Result<Settings, io::Error> {
     let mut actual_spawn = "MarshSpawn.Main";
     for line in seed.lines() {
         if let Some(spawn) = line.strip_prefix("Spawn:") {
-            actual_spawn = spawn[spawn.find("//").ok_or(io::Error::new(io::ErrorKind::Other, "Failed to read Spawn location"))? + 2..].trim();
+            actual_spawn = spawn[spawn.find("//").ok_or_else(|| io::Error::new(io::ErrorKind::Other, "Failed to read Spawn location"))? + 2..].trim();
         }
         if let Some(config) = line.strip_prefix("// Config: ") {
             settings = serde_json::from_str(&config)?;

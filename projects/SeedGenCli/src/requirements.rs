@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 use crate::player::{Player, Item};
-use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy, either_orbs};
+use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy, either_orbs, both_orbs};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Progression {
@@ -68,11 +68,26 @@ impl Requirement {
                         health: -cost,
                         ..Default::default()
                     }
-                ])}
-            }
-            Requirement::Danger(amount) =>
-                if orbs.health >= *amount * player.defense_mod(pathsets) { return Some(vec![Default::default()]); },
-            Requirement::BreakWall(health) => {
+                ])} else if player.has(Item::Skill(Skill::Regenerate), 1) {
+                    let regens = ((cost - orbs.health) / 30.0).ceil();
+                    let regen_cost = 1.0 * regens;
+                    if orbs.energy >= regen_cost { return Some(vec![
+                        Orbs {
+                            health: -cost + 30.0 * regens,
+                            energy: -regen_cost,
+                        }
+                    ])}
+                }
+            },
+            Requirement::Danger(amount) => {
+                let cost = *amount * player.defense_mod(pathsets);
+                if orbs.health >= cost { return Some(vec![Default::default()]); }
+                else if player.has(Item::Skill(Skill::Regenerate), 1) {
+                    let regens = ((cost - orbs.health) / 30.0).ceil();
+                    if orbs.energy >= 1.0 * regens { return Some(vec![Default::default()])}
+                }
+            },
+            Requirement::BreakWall(health) =>
                 if let Some(weapon) = player.preferred_weapon(pathsets, true) {
                     let cost =  player.destroy_cost(*health, &weapon, pathsets, false);
                     if orbs.energy >= cost { return Some(vec![
@@ -82,8 +97,7 @@ impl Requirement {
                         }
                     ])}
                 }
-            }
-            Requirement::Boss(health) => {
+            Requirement::Boss(health) =>
                 if let Some(weapon) = player.preferred_weapon(pathsets, false) {
                     let cost =  player.destroy_cost(*health, &weapon, pathsets, false);
                     if orbs.energy >= cost { return Some(vec![
@@ -93,7 +107,6 @@ impl Requirement {
                         }
                     ])}
                 }
-            }
             Requirement::Combat(enemies) => {
                 let is_unsafe = pathsets.contains(&Pathset::Unsafe);
                 if let Some(weapon) = player.preferred_weapon(pathsets, false) {
@@ -157,7 +170,7 @@ impl Requirement {
                     ])}
                 }
             },
-            Requirement::ShurikenBreak(health) => {
+            Requirement::ShurikenBreak(health) =>
                 if player.has(Item::Skill(Skill::Shuriken), 1) {
                     let clip_mod = if pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 3.0 };
                     let cost = player.destroy_cost(*health, &Skill::Shuriken, pathsets, false) * clip_mod;
@@ -168,31 +181,26 @@ impl Requirement {
                         }
                     ])}
                 }
-            },
             Requirement::And(ands) => {
-                let mut sum = Vec::<Orbs>::new();
+                let mut best_orbs = vec![*orbs];
 
                 for and in ands {
-                    if let Some(orbcost) = and.is_met(player, orbs, pathsets) {
-                        if sum.is_empty() {
-                            sum = orbcost;
-                            continue;
+                    let mut next_orbs: Vec<Orbs> = Default::default();
+                    let mut met = false;
+
+                    for orbs in &best_orbs {
+                        if let Some(orbcost) = and.is_met(player, orbs, pathsets) {
+                            next_orbs.append(&mut both_orbs(vec![*orbs], orbcost));
+                            met = true;
                         }
-                        let mut product = Vec::<Orbs>::with_capacity(sum.len() + orbcost.len());
-                        for old in &sum {
-                            for new in &orbcost {
-                                let orbs = *old + *new;
-                                if !product.contains(&orbs) {
-                                    product.push(*old + *new);
-                                }
-                            }
-                        }
-                        sum = product.clone().into_iter().filter(|orbs| {
-                            !product.iter().any(|other| other.energy > orbs.energy && other.health > orbs.health)
-                        }).collect();
-                    } else { return None; }
+                    }
+                    if !met { return None; }
+
+                    best_orbs = next_orbs;
                 }
-                return Some(sum);
+
+                let cost = both_orbs(best_orbs, vec![Orbs { health: -orbs.health, energy: -orbs.energy }]);
+                return Some(cost);
             },
             Requirement::Or(ors) => {
                 let mut cheapest = Vec::<Orbs>::new();
@@ -393,12 +401,22 @@ mod tests {
         let req = Requirement::Or(vec![Requirement::And(vec![a.clone(), b.clone()]), Requirement::And(vec![c.clone(), d.clone()]), a.clone(), b.clone()]);
         assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: -1.0, health: -10.0 }, Orbs { energy: -2.0, ..orbs }, Orbs { health: -20.0, ..orbs }]));
         let req = Requirement::And(vec![Requirement::Or(vec![a.clone(), d.clone()]), Requirement::Or(vec![b.clone(), c.clone()])]);
-        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: -3.0, ..orbs }, Orbs { health: -30.0, ..orbs }, Orbs { energy: -1.0, health: -10.0 }]));
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: -1.0, health: -10.0 }]));
+        player.grant(Item::Resource(Resource::Energy), 8);
+        player.grant(Item::Resource(Resource::Health), 8);
         let req = Requirement::And(vec![Requirement::Or(vec![a.clone(), d.clone()]), Requirement::Or(vec![b.clone(), c.clone()]), Requirement::Or(vec![a.clone(), d.clone()]), Requirement::Or(vec![b.clone(), c.clone()])]);
         assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: -6.0, ..orbs }, Orbs { energy: -4.0, health: -10.0 }, Orbs { health: -60.0, ..orbs }, Orbs { energy: -1.0, health: -40.0 }, Orbs { energy: -2.0, health: -20.0 }]));
         let req = Requirement::Or(vec![Requirement::Free, b.clone()]);
         assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Default::default()]));
         let req = Requirement::Or(vec![b.clone(), Requirement::Free]);
         assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Default::default()]));
+
+        player = Default::default();
+        player.grant(Item::Resource(Resource::Health), 7);
+        player.grant(Item::Resource(Resource::Energy), 2);
+        let req = Requirement::And(vec![Requirement::Damage(30.0), Requirement::Damage(30.0)]);
+        assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths).is_none());
+        player.grant(Item::Skill(Skill::Regenerate), 1);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: -1.0, health: -30.0 }]));
     }
 }

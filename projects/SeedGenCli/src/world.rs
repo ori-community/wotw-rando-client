@@ -65,7 +65,7 @@ impl Node {
     }
 }
 
-fn try_connection<'a>(connection: &Connection, player: &Player, best_orbs: Vec<Orbs>, pathsets: &[Pathset]) -> Vec<Orbs> {
+fn try_connection(connection: &Connection, player: &Player, best_orbs: Vec<Orbs>, pathsets: &[Pathset]) -> Vec<Orbs> {
     let mut target_orbs: Vec<Orbs> = Default::default();
     for orbs in best_orbs {
         if let Some(orbcost) = connection.requirement.is_met(player, &orbs, pathsets) {
