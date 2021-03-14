@@ -1,8 +1,8 @@
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
 use crate::requirements::Requirement;
 use crate::player::Player;
-use crate::util::{RefillType, NodeType, Orbs, Pathset, either_orbs, both_orbs};
+use crate::util::{RefillType, NodeType, Orbs, Pathset, either_single_orbs, both_orbs, both_single_orbs};
 
 #[derive(Debug)]
 pub struct Refill {
@@ -65,11 +65,11 @@ impl Node {
     }
 }
 
-fn try_connection(connection: &Connection, player: &Player, best_orbs: Vec<Orbs>, pathsets: &[Pathset]) -> Vec<Orbs> {
+fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs], pathsets: &[Pathset]) -> Vec<Orbs> {
     let mut target_orbs: Vec<Orbs> = Default::default();
     for orbs in best_orbs {
         if let Some(orbcost) = connection.requirement.is_met(player, &orbs, pathsets) {
-            target_orbs.append(&mut both_orbs(vec![orbs], orbcost));
+            target_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
         }
     }
     target_orbs
@@ -77,23 +77,23 @@ fn try_connection(connection: &Connection, player: &Player, best_orbs: Vec<Orbs>
 
 #[derive(Debug)]
 pub struct World<'a> {
-    pub graph: &'a HashMap<String, Node>,
+    pub graph: &'a FxHashMap<String, Node>,
     pub player: Player<'a>,
 }
 impl<'a> World<'a> {
-    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, pathsets: &[Pathset], state_progressions: &mut HashMap<&'a str, Vec<(&'a str, &'a Connection)>>, world_state: &mut HashMap<&'a str, Vec<Orbs>>) -> Vec<&'a Node> {
+    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, pathsets: &[Pathset], state_progressions: &mut FxHashMap<&'a str, Vec<(&'a str, &'a Connection)>>, world_state: &mut FxHashMap<&'a str, Vec<Orbs>>) -> Vec<&'a Node> {
         world_state.insert(entry.identifier(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
                 for refill in &anchor.refills {
                     for orbs in &best_orbs {
                         if let Some(orbcost) = refill.requirement.is_met(&self.player, orbs, pathsets) {
-                            best_orbs = both_orbs(best_orbs, orbcost);
+                            best_orbs = both_orbs(&best_orbs, &orbcost);
                             match refill.name {
                                 RefillType::Full => best_orbs = vec![self.player.max_orbs()],
-                                RefillType::Checkpoint => best_orbs = either_orbs(best_orbs, vec![self.player.checkpoint_orbs()]),
-                                RefillType::Health(amount) => best_orbs = both_orbs(best_orbs, vec![self.player.health_orbs(amount)]),
-                                RefillType::Energy(amount) => best_orbs = both_orbs(best_orbs, vec![Orbs { energy: amount, ..Default::default() }]),
+                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, self.player.checkpoint_orbs()),
+                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.health_orbs(amount)),
+                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, Orbs { energy: amount, ..Default::default() }),
                             }
                             break;
                         }
@@ -106,7 +106,7 @@ impl<'a> World<'a> {
                         // TODO loop with improved orbs?
                         continue;
                     }
-                    let target_orbs = try_connection(connection, &self.player, best_orbs.clone(), pathsets);
+                    let target_orbs = try_connection(connection, &self.player, &best_orbs, pathsets);
                     if !target_orbs.is_empty() {
                         reached.append(&mut self.reach_recursion(&self.graph[&connection.to], target_orbs, pathsets, state_progressions, world_state));
                     } else {
@@ -124,7 +124,7 @@ impl<'a> World<'a> {
                 let mut reached = Vec::<&Node>::new();
                 if let Some(connections) = state_progressions.get(&state.identifier[..]) {
                     for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, world_state[from].clone(), pathsets);
+                        let target_orbs = try_connection(connection, &self.player, &world_state[from], pathsets);
                         if !target_orbs.is_empty() {
                             reached.append(&mut self.reach_recursion(&self.graph[&connection.to], target_orbs, pathsets, state_progressions, world_state));
                         }
@@ -137,7 +137,7 @@ impl<'a> World<'a> {
                 let mut reached = vec![entry];
                 if let Some(connections) = state_progressions.get(&quest.identifier[..]) {
                     for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, world_state[from].clone(), pathsets);
+                        let target_orbs = try_connection(connection, &self.player, &world_state[from], pathsets);
                         if !target_orbs.is_empty() {
                             reached.append(&mut self.reach_recursion(&self.graph[&connection.to], target_orbs, pathsets, state_progressions, world_state));
                         }
@@ -152,8 +152,8 @@ impl<'a> World<'a> {
         let entry = self.graph.get(spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
 
-        let mut state_progressions = HashMap::<_, _>::with_capacity(10);
-        let mut world_state = HashMap::<_, _>::with_capacity(self.graph.len());
+        let mut state_progressions = FxHashMap::<_, _>::default();
+        let mut world_state = FxHashMap::<_, _>::default();
 
         let reached = self.reach_recursion(entry, vec![self.player.max_orbs()], pathsets, &mut state_progressions, &mut world_state);
 
@@ -167,7 +167,7 @@ mod tests {
     use super::super::*;
     use util::*;
     use player::*;
-    use std::collections::HashSet;
+    use rustc_hash::FxHashSet;
 
     #[test]
     fn reach_check() {
@@ -209,10 +209,10 @@ mod tests {
         };
 
         let reached = world.reached_locations("MarshSpawn.Main", &[Pathset::Moki]).unwrap();
-        let reached: HashSet<_> = reached.iter().map(|node| node.identifier()).collect();
+        let reached: FxHashSet<_> = reached.iter().map(|node| node.identifier()).collect();
 
         let locations = parser::parse_locations(&PathBuf::from("C:\\moon\\loc_data.csv"), false).unwrap();
-        let locations: HashSet<_> = locations.iter().map(|location| &location.name[..]).collect();
+        let locations: FxHashSet<_> = locations.iter().map(|location| &location.name[..]).collect();
 
         if !(reached == locations) {
             let mut diff: Vec<_> = locations.difference(&reached).collect();

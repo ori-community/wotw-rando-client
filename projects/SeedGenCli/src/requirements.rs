@@ -1,7 +1,7 @@
-use std::collections::HashSet;
+use rustc_hash::FxHashSet;
 
 use crate::player::{Player, Item};
-use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy, either_orbs, both_orbs};
+use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy, either_orbs, both_single_orbs};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Progression {
@@ -89,7 +89,7 @@ impl Requirement {
             },
             Requirement::BreakWall(health) =>
                 if let Some(weapon) = player.preferred_weapon(pathsets, true) {
-                    let cost =  player.destroy_cost(*health, &weapon, pathsets, false);
+                    let cost = player.destroy_cost(*health, &weapon, pathsets, false);
                     if orbs.energy >= cost { return Some(vec![
                         Orbs {
                             energy: -cost,
@@ -99,7 +99,7 @@ impl Requirement {
                 }
             Requirement::Boss(health) =>
                 if let Some(weapon) = player.preferred_weapon(pathsets, false) {
-                    let cost =  player.destroy_cost(*health, &weapon, pathsets, false);
+                    let cost = player.destroy_cost(*health, &weapon, pathsets, false);
                     if orbs.energy >= cost { return Some(vec![
                         Orbs {
                             energy: -cost,
@@ -190,7 +190,7 @@ impl Requirement {
 
                     for orbs in &best_orbs {
                         if let Some(orbcost) = and.is_met(player, orbs, pathsets) {
-                            next_orbs.append(&mut both_orbs(vec![*orbs], orbcost));
+                            next_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
                             met = true;
                         }
                     }
@@ -199,7 +199,7 @@ impl Requirement {
                     best_orbs = next_orbs;
                 }
 
-                let cost = both_orbs(best_orbs, vec![Orbs { health: -orbs.health, energy: -orbs.energy }]);
+                let cost = both_single_orbs(&best_orbs, Orbs { health: -orbs.health, energy: -orbs.energy });
                 return Some(cost);
             },
             Requirement::Or(ors) => {
@@ -210,7 +210,7 @@ impl Requirement {
                         if cheapest.is_empty() {
                             cheapest = orbcost;
                         } else {
-                            cheapest = either_orbs(cheapest, orbcost);
+                            cheapest = either_orbs(&cheapest, &orbcost);
                         }
                         if cheapest[0] == Default::default() {
                             break;
@@ -235,11 +235,11 @@ impl Requirement {
         }
     }
 
-    pub fn progression(&self, player: &Player, orbs: &Orbs, pathsets: &[Pathset]) -> HashSet<Vec<Progression>> {
+    pub fn progression(&self, player: &Player, orbs: &Orbs, pathsets: &[Pathset]) -> FxHashSet<Vec<Progression>> {
         match self {
-            Requirement::Free => HashSet::new(),
+            Requirement::Free => FxHashSet::default(),
             Requirement::Skill(skill) => {
-                let mut set = HashSet::new();
+                let mut set = FxHashSet::default();
                 if self.is_met(player, orbs, pathsets).is_some() {
                     return set;
                 }
@@ -250,7 +250,7 @@ impl Requirement {
                 let mut tail = ands.iter().map(|and| and.progression(player, orbs, pathsets));
                 let head = tail.next().unwrap_or_default();
                 tail.fold(head, |acc, next| {
-                    let mut combined = HashSet::new();
+                    let mut combined = FxHashSet::default();
                     for left in acc {
                         for right in &next {
                             let mut both = left.clone();
@@ -267,7 +267,7 @@ impl Requirement {
                     .collect()
             }
             _ => {
-                let mut set = HashSet::new();
+                let mut set = FxHashSet::default();
                 set.insert(vec![Progression::Impossible]);
                 set
             },

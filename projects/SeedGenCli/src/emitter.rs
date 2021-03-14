@@ -1,11 +1,11 @@
-use std::collections::{HashSet, HashMap};
+use rustc_hash::{FxHashSet, FxHashMap};
 
 use crate::parser::{self, AreaTree, Metadata, Location};
 use crate::world::{self, Node};
 use crate::requirements::Requirement;
 use crate::util::{Pathset, Skill};
 
-fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut HashSet<&'a str>) -> Requirement {
+fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut FxHashSet<&'a str>) -> Requirement {
     match requirement {
         parser::Requirement::Free => Requirement::Free,
         parser::Requirement::Definition(identifier) => build_requirement_group(&definitions[identifier], definitions, pathsets, validate, used_states),
@@ -78,7 +78,7 @@ fn build_or(mut ors: Vec<Requirement>) -> Requirement {
     Requirement::Or(ors)
 }
 
-fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &HashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut HashSet<&'a str>) -> Requirement {
+fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut FxHashSet<&'a str>) -> Requirement {
     let lines: Vec<Requirement> = group.lines.iter().map(|line| {
         let mut parts = vec![];
         if !line.ands.is_empty() {
@@ -97,16 +97,16 @@ fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &HashMap<
     build_or(lines)
 }
 
-fn add_node(graph: &mut HashMap<String, Node>, key: String, value: Node) -> Result<(), String> {
+fn add_node(graph: &mut FxHashMap<String, Node>, key: String, value: Node) -> Result<(), String> {
     if let Some(prior) = graph.insert(key, value) {
         return Err(format!("Name '{}' was used multiple times ambiguously", prior.identifier()));
     }
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<HashMap<String, Node>, String> {
-    let mut graph = HashMap::with_capacity(areas.anchors.len() + locations.len() + metadata.states.len());
-    let mut used_states = HashSet::new();
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<FxHashMap<String, Node>, String> {
+    let mut graph = FxHashMap::default();
+    let mut used_states = FxHashSet::default();
 
     for anchor in &areas.anchors {
         let region = anchor.identifier.splitn(2, '.').next().unwrap();

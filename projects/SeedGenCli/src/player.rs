@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::util::{Resource, Skill, Shard, Teleporter, Bonus, Hint, Pathset, Orbs, damage, energy_cost};
 
@@ -16,8 +16,8 @@ pub enum Item {
 
 #[derive(Debug, Default)]
 pub struct Player<'a> {
-    pub inventory: HashMap<Item, u16>,
-    pub states: HashSet<&'a str>,
+    pub inventory: FxHashMap<Item, u16>,
+    pub states: FxHashSet<&'a str>,
 }
 impl Player<'_> {
     pub fn grant(&mut self, item: Item, amount: u16) {

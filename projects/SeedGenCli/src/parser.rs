@@ -1,5 +1,5 @@
 use std::{fs, path::PathBuf};
-use std::collections::{HashMap, HashSet};
+use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::tokenizer::{Token, TokenType};
 use crate::util::{Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy};
@@ -58,8 +58,8 @@ pub struct Anchor<'a> {
 }
 #[derive(Debug)]
 pub struct AreaTree<'a> {
-    pub definitions: HashMap<&'a str, Group<'a>>,
-    pub regions: HashMap<&'a str, Group<'a>>,
+    pub definitions: FxHashMap<&'a str, Group<'a>>,
+    pub regions: FxHashMap<&'a str, Group<'a>>,
     pub anchors: Vec<Anchor<'a>>,
 }
 
@@ -69,9 +69,9 @@ struct ParseContext {
 }
 #[derive(Debug)]
 pub struct Metadata<'a> {
-    definitions: HashSet<&'a str>,
-    pub states: HashSet<&'a str>,
-    pub quests: HashSet<&'a str>,
+    definitions: FxHashSet<&'a str>,
+    pub states: FxHashSet<&'a str>,
+    pub quests: FxHashSet<&'a str>,
 }
 
 fn eat(tokens: &[Token], context: &mut ParseContext, expected_token_type: TokenType) -> Result<bool, ParseError> {
@@ -508,9 +508,9 @@ fn not_int(token: &Token) -> ParseError {
 fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Metadata<'a> {
     // Find all states so we can differentiate states from pathsets.
     let end = tokens.len();
-    let mut definitions = HashSet::new();
-    let mut states = HashSet::new();
-    let mut quests = HashSet::new();
+    let mut definitions = FxHashSet::default();
+    let mut states = FxHashSet::default();
+    let mut quests = FxHashSet::default();
 
     while context.position < end {
         let token = &tokens[context.position];
@@ -533,8 +533,8 @@ fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Metadata<'
 
 fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<AreaTree<'a>, ParseError> {
     let end = tokens.len();
-    let mut definitions = HashMap::new();
-    let mut regions = HashMap::new();
+    let mut definitions = FxHashMap::default();
+    let mut regions = FxHashMap::default();
     let mut anchors = Vec::<Anchor>::new();
 
     if let TokenType::Newline = tokens[context.position].name { context.position += 1 }
