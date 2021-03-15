@@ -50,31 +50,30 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
     }
 }
 
-// see if filtering out redundancies is worth later
 fn build_and(mut ands: Vec<Requirement>) -> Requirement {
     if ands.iter().any(|and| matches!(and, Requirement::Impossible)) {
         return Requirement::Impossible;
     }
-    // ands = ands.into_iter().filter(|and| !matches!(or, Requirement::Free)).collect();
+    ands.retain(|and| !matches!(and, Requirement::Free));
     if ands.len() == 1 {
         return ands.pop().unwrap();
     }
-    // if ands.is_empty() {
-    //     return Requirement::Free;
-    // }
+    if ands.is_empty() {
+        return Requirement::Free;
+    }
     Requirement::And(ands)
 }
 fn build_or(mut ors: Vec<Requirement>) -> Requirement {
     if ors.iter().any(|or| matches!(or, Requirement::Free)) {
         return Requirement::Free;
     }
-    // ors = ors.into_iter().filter(|or| !matches!(or, Requirement::Impossible)).collect();
+    ors.retain(|or| !matches!(or, Requirement::Impossible));
     if ors.len() == 1 {
         return ors.pop().unwrap();
     }
-    // if ors.is_empty() {
-    //     return Requirement::Impossible;
-    // }
+    if ors.is_empty() {
+        return Requirement::Impossible;
+    }
     Requirement::Or(ors)
 }
 
