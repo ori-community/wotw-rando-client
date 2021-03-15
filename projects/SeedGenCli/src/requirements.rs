@@ -1,21 +1,5 @@
-use rustc_hash::FxHashSet;
-
 use crate::player::{Player, Item};
 use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Enemy, either_orbs, both_orbs, both_single_orbs};
-
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
-pub enum Progression {
-    Skill(Skill),
-    Impossible,
-}
-impl Progression {
-    fn weight(&self) -> u8 {
-        match self {
-            Progression::Skill(_) => 1,
-            Progression::Impossible => u8::MAX,
-        }
-    }
-}
 
 #[derive(Debug, Clone)]
 pub enum Requirement {
@@ -223,45 +207,6 @@ impl Requirement {
             Requirement::And(ands) => ands.iter().flat_map(|and| and.contained_states()).collect(),
             Requirement::Or(ors) => ors.iter().flat_map(|or| or.contained_states()).collect(),
             _ => vec![],
-        }
-    }
-
-    pub fn progression(&self, player: &Player, orbs: &Orbs) -> FxHashSet<Vec<Progression>> {
-        match self {
-            Requirement::Free => FxHashSet::default(),
-            Requirement::Skill(skill) => {
-                let mut set = FxHashSet::default();
-                if self.is_met(player, orbs).is_some() {
-                    return set;
-                }
-                set.insert(vec![Progression::Skill(*skill)]);
-                set
-            }
-            Requirement::And(ands) => {
-                let mut tail = ands.iter().map(|and| and.progression(player, orbs));
-                let head = tail.next().unwrap_or_default();
-                tail.fold(head, |acc, next| {
-                    let mut combined = FxHashSet::default();
-                    for left in acc {
-                        for right in &next {
-                            let mut both = left.clone();
-                            both.append(&mut right.clone());
-                            combined.insert(both);
-                        }
-                    };
-                    combined
-                })
-            }
-            Requirement::Or(ors) => {
-                ors.iter()
-                    .flat_map(|or| or.progression(player, orbs))
-                    .collect()
-            }
-            _ => {
-                let mut set = FxHashSet::default();
-                set.insert(vec![Progression::Impossible]);
-                set
-            },
         }
     }
 }
