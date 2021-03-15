@@ -414,9 +414,9 @@ pub fn energy_cost(skill: &Skill) -> f32 {
     }
 }
 // too lazy to actually look these up now
-pub fn damage(skill: &Skill, pathsets: &[Pathset]) -> f32 {
+pub fn damage(skill: &Skill, unsafe_paths: bool) -> f32 {
     match skill {
-        Skill::Grenade => if pathsets.contains(&Pathset::Unsafe) { 16.0 } else { 12.0 },
+        Skill::Grenade => if unsafe_paths { 16.0 } else { 12.0 },
         Skill::Flash => 14.0,
         Skill::Spear => 20.0,
         Skill::Bow => 4.0,

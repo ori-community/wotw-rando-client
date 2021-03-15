@@ -147,7 +147,15 @@ fn invoke_generation(validate: bool, wait_on_debugger: bool, spoilers: bool, are
 }
 
 fn invoke_reach_check(areas: PathBuf, locations: PathBuf, seed_file: PathBuf, health: u16, energy: f32, keystones: u16, ore: u16, spirit_light: u16, items: Vec<String>) {
-    let mut player: Player = Default::default();
+    let settings = read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
+    let pathsets = pathsets_from_settings(&settings);
+
+    let mut player = Player {
+        inventory: Default::default(),
+        states: Default::default(),
+        gorlek_paths: pathsets.contains(&Pathset::Gorlek),
+        unsafe_paths: pathsets.contains(&Pathset::Unsafe),
+    };
     player.grant(Item::Resource(Resource::Health), health / 5);
     player.grant(Item::Resource(Resource::Energy), (energy * 2.0) as u16);
     player.grant(Item::Resource(Resource::Keystone), keystones);
@@ -171,16 +179,13 @@ fn invoke_reach_check(areas: PathBuf, locations: PathBuf, seed_file: PathBuf, he
         }
     }
 
-    let settings = read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
-    let pathsets = pathsets_from_settings(&settings);
-
     let graph = &parse_logic(&areas, &locations, &pathsets, false);
     let mut world = World {
         graph,
         player,
     };
 
-    let reached = world.reached_locations(&settings.spawn_loc, &pathsets).expect("Invalid Reach Check");
+    let reached = world.reached_locations(&settings.spawn_loc).expect("Invalid Reach Check");
     let mut reached = reached.iter().fold(String::new(), |acc, node| match node {
         Node::Pickup(pickup) => acc + &format!("{}|{}, ", pickup.uber_group, pickup.uber_id),
         Node::Quest(quest) => acc + &format!("{}|{}, ", quest.uber_group, quest.uber_id),

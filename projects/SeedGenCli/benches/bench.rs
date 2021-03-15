@@ -28,8 +28,10 @@ fn parsing(c: &mut Criterion) {
 }
 
 fn requirements(c: &mut Criterion) {
-    let mut player: Player = Default::default();
-    let unsafe_paths = vec![Pathset::Moki, Pathset::Gorlek, Pathset::Unsafe];
+    let mut player = Player {
+        unsafe_paths: true,
+        ..Default::default()
+    };
     {
         let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);
         let req_b = Requirement::Damage(20.0);
@@ -39,7 +41,7 @@ fn requirements(c: &mut Criterion) {
         player.grant(Item::Resource(Resource::Energy), 4);
         player.grant(Item::Resource(Resource::Health), 4);
         let req = Requirement::And(vec![Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()]), Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()])]);
-        c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, &player.max_orbs(&unsafe_paths), &unsafe_paths)));
+        c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, &player.max_orbs())));
     }
     player = Default::default();
     player.grant(Item::Skill(Skill::Bow), 1);
@@ -47,7 +49,7 @@ fn requirements(c: &mut Criterion) {
     let req = Requirement::Combat(vec![
         (Enemy::Lizard, 3),
     ]);
-    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs(&unsafe_paths), &unsafe_paths)));
+    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs())));
     let req = Requirement::Combat(vec![
         (Enemy::Mantis, 2),
         (Enemy::Lizard, 2),
@@ -62,7 +64,7 @@ fn requirements(c: &mut Criterion) {
         (Enemy::Lizard, 2),
         (Enemy::Mantis, 2),
     ]);
-    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs(&unsafe_paths), &unsafe_paths)));
+    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs())));
 }
 
 fn reach_checking(c: &mut Criterion) {
@@ -82,7 +84,7 @@ fn reach_checking(c: &mut Criterion) {
             graph,
             player,
         };
-        world.reached_locations("MarshSpawn.Main", &[Pathset::Moki]).unwrap();
+        world.reached_locations("MarshSpawn.Main").unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut player: Player = Default::default();
@@ -120,7 +122,7 @@ fn reach_checking(c: &mut Criterion) {
             graph,
             player,
         };
-        world.reached_locations("MarshSpawn.Main", &[Pathset::Moki]).unwrap();
+        world.reached_locations("MarshSpawn.Main").unwrap();
     }));
 }
 

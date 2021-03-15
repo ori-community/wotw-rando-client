@@ -2,7 +2,7 @@ use rustc_hash::FxHashMap;
 
 use crate::requirements::Requirement;
 use crate::player::Player;
-use crate::util::{RefillType, NodeType, Orbs, Pathset, either_single_orbs, both_orbs, both_single_orbs};
+use crate::util::{RefillType, NodeType, Orbs, either_single_orbs, both_orbs, both_single_orbs};
 
 #[derive(Debug)]
 pub struct Refill {
@@ -77,10 +77,10 @@ impl Node {
     }
 }
 
-fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs], pathsets: &[Pathset]) -> Vec<Orbs> {
+fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs]) -> Vec<Orbs> {
     let mut target_orbs: Vec<Orbs> = Default::default();
     for orbs in best_orbs {
-        if let Some(orbcost) = connection.requirement.is_met(player, &orbs, pathsets) {
+        if let Some(orbcost) = connection.requirement.is_met(player, &orbs) {
             target_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
         }
     }
@@ -93,19 +93,19 @@ pub struct World<'a> {
     pub player: Player,
 }
 impl<'a> World<'a> {
-    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, pathsets: &[Pathset], state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
+    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
         world_state.insert(entry.index(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
                 for refill in &anchor.refills {
                     for orbs in &best_orbs {
-                        if let Some(orbcost) = refill.requirement.is_met(&self.player, orbs, pathsets) {
+                        if let Some(orbcost) = refill.requirement.is_met(&self.player, orbs) {
                             best_orbs = both_orbs(&best_orbs, &orbcost);
                             match refill.name {
-                                RefillType::Full => best_orbs = vec![self.player.max_orbs(pathsets)],
-                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, self.player.checkpoint_orbs(pathsets)),
-                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.health_orbs(amount, pathsets)),
-                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.energy_orbs(amount, pathsets)),
+                                RefillType::Full => best_orbs = vec![self.player.max_orbs()],
+                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, self.player.checkpoint_orbs()),
+                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.health_orbs(amount)),
+                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.energy_orbs(amount)),
                             }
                             break;
                         }
@@ -118,9 +118,9 @@ impl<'a> World<'a> {
                         // TODO loop with improved orbs?
                         continue;
                     }
-                    let target_orbs = try_connection(connection, &self.player, &best_orbs, pathsets);
+                    let target_orbs = try_connection(connection, &self.player, &best_orbs);
                     if !target_orbs.is_empty() {
-                        reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, pathsets, state_progressions, world_state));
+                        reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
                     } else {
                         let states = connection.requirement.contained_states();
                         for state in states {
@@ -136,9 +136,9 @@ impl<'a> World<'a> {
                 let mut reached = Vec::<&Node>::new();
                 if let Some(connections) = state_progressions.get(&state.index) {
                     for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, &world_state[&from], pathsets);
+                        let target_orbs = try_connection(connection, &self.player, &world_state[&from]);
                         if !target_orbs.is_empty() {
-                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, pathsets, state_progressions, world_state));
+                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
                         }
                     }
                 }
@@ -149,9 +149,9 @@ impl<'a> World<'a> {
                 let mut reached = vec![entry];
                 if let Some(connections) = state_progressions.get(&quest.index) {
                     for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, &world_state[&from], pathsets);
+                        let target_orbs = try_connection(connection, &self.player, &world_state[&from]);
                         if !target_orbs.is_empty() {
-                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, pathsets, state_progressions, world_state));
+                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
                         }
                     }
                 }
@@ -160,14 +160,14 @@ impl<'a> World<'a> {
         }
     }
 
-    pub fn reached_locations(&mut self, spawn: &'a str, pathsets: &[Pathset]) -> Result<Vec<&Node>, String> {
+    pub fn reached_locations(&mut self, spawn: &'a str) -> Result<Vec<&Node>, String> {
         let entry = self.graph.iter().find(|node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
 
         let mut state_progressions = FxHashMap::<_, _>::default();
         let mut world_state = FxHashMap::<_, _>::default();
 
-        let reached = self.reach_recursion(entry, vec![self.player.max_orbs(pathsets)], pathsets, &mut state_progressions, &mut world_state);
+        let reached = self.reach_recursion(entry, vec![self.player.max_orbs()], &mut state_progressions, &mut world_state);
 
         Ok(reached)
     }
@@ -220,7 +220,7 @@ mod tests {
             player,
         };
 
-        let reached = world.reached_locations("MarshSpawn.Main", &[Pathset::Moki]).unwrap();
+        let reached = world.reached_locations("MarshSpawn.Main").unwrap();
         let reached: FxHashSet<_> = reached.iter().map(|node| node.identifier()).collect();
 
         let locations = parser::parse_locations(&PathBuf::from("C:\\moon\\loc_data.csv"), false).unwrap();
@@ -234,7 +234,11 @@ mod tests {
 
         assert_eq!(reached, locations);
 
-        let mut player: Player = Default::default();
+        let mut player = Player {
+            gorlek_paths: true,
+            unsafe_paths: true,
+            ..Default::default()
+        };
         let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
         player.grant(Item::Resource(Resource::Health), 7);
         player.grant(Item::Resource(Resource::Energy), 6);
@@ -245,7 +249,7 @@ mod tests {
             player,
         };
 
-        let reached = world.reached_locations("GladesTown.Teleporter", &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch]).unwrap();
+        let reached = world.reached_locations("GladesTown.Teleporter").unwrap();
         let mut reached: Vec<_> = reached.iter().map(|node| node.identifier()).collect();
         reached.sort();
         assert_eq!(reached, vec!["GladesTown.AboveTpEX", "GladesTown.BelowHoleHutEX", "GladesTown.BountyShard", "GladesTown.UpdraftCeilingEX"]);
