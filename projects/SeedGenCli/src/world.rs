@@ -102,10 +102,10 @@ impl<'a> World<'a> {
                         if let Some(orbcost) = refill.requirement.is_met(&self.player, orbs, pathsets) {
                             best_orbs = both_orbs(&best_orbs, &orbcost);
                             match refill.name {
-                                RefillType::Full => best_orbs = vec![self.player.max_orbs()],
-                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, self.player.checkpoint_orbs()),
-                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.health_orbs(amount)),
-                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, Orbs { energy: amount, ..Default::default() }),
+                                RefillType::Full => best_orbs = vec![self.player.max_orbs(pathsets)],
+                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, self.player.checkpoint_orbs(pathsets)),
+                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.health_orbs(amount, pathsets)),
+                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.energy_orbs(amount, pathsets)),
                             }
                             break;
                         }
@@ -167,7 +167,7 @@ impl<'a> World<'a> {
         let mut state_progressions = FxHashMap::<_, _>::default();
         let mut world_state = FxHashMap::<_, _>::default();
 
-        let reached = self.reach_recursion(entry, vec![self.player.max_orbs()], pathsets, &mut state_progressions, &mut world_state);
+        let reached = self.reach_recursion(entry, vec![self.player.max_orbs(pathsets)], pathsets, &mut state_progressions, &mut world_state);
 
         Ok(reached)
     }

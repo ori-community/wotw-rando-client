@@ -39,7 +39,7 @@ fn requirements(c: &mut Criterion) {
         player.grant(Item::Resource(Resource::Energy), 4);
         player.grant(Item::Resource(Resource::Health), 4);
         let req = Requirement::And(vec![Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()]), Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()])]);
-        c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, &player.max_orbs(), &unsafe_paths)));
+        c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, &player.max_orbs(&unsafe_paths), &unsafe_paths)));
     }
     player = Default::default();
     player.grant(Item::Skill(Skill::Bow), 1);
@@ -47,7 +47,7 @@ fn requirements(c: &mut Criterion) {
     let req = Requirement::Combat(vec![
         (Enemy::Lizard, 3),
     ]);
-    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs(), &unsafe_paths)));
+    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs(&unsafe_paths), &unsafe_paths)));
     let req = Requirement::Combat(vec![
         (Enemy::Mantis, 2),
         (Enemy::Lizard, 2),
@@ -62,7 +62,7 @@ fn requirements(c: &mut Criterion) {
         (Enemy::Lizard, 2),
         (Enemy::Mantis, 2),
     ]);
-    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs(), &unsafe_paths)));
+    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs(&unsafe_paths), &unsafe_paths)));
 }
 
 fn reach_checking(c: &mut Criterion) {

@@ -31,35 +31,74 @@ impl Player {
         false
     }
 
-    pub fn max_energy(&self) -> f32 {
-        *self.inventory.get(&Item::Resource(Resource::Energy)).unwrap_or(&0) as f32 * 0.5
+    pub fn max_energy(&self, pathsets: &[Pathset]) -> f32 {
+        let mut energy = *self.inventory.get(&Item::Resource(Resource::Energy)).unwrap_or(&0) as f32 * 0.5;
+        if pathsets.contains(&Pathset::Gorlek) && self.inventory.contains_key(&Item::Shard(Shard::Energy)) { energy += 1.0; }
+        energy
     }
-    pub fn max_health(&self) -> f32 {
-        (*self.inventory.get(&Item::Resource(Resource::Health)).unwrap_or(&0) * 5) as f32
+    pub fn max_health(&self, pathsets: &[Pathset]) -> f32 {
+        let mut health = (*self.inventory.get(&Item::Resource(Resource::Health)).unwrap_or(&0) * 5) as f32;
+        if pathsets.contains(&Pathset::Gorlek) && self.inventory.contains_key(&Item::Shard(Shard::Vitality)) { health += 10.0; }
+        health
     }
-    pub fn max_orbs(&self) -> Orbs {
+    pub fn max_orbs(&self, pathsets: &[Pathset]) -> Orbs {
         Orbs {
-            energy: self.max_energy(),
-            health: self.max_health(),
+            energy: self.max_energy(pathsets),
+            health: self.max_health(pathsets),
         }
     }
-    pub fn checkpoint_orbs(&self) -> Orbs {
-        let max_health = self.max_health();
-        let max_energy = self.max_energy();
+    pub fn checkpoint_orbs(&self, pathsets: &[Pathset]) -> Orbs {
+        let mut max_health = self.max_health(pathsets);
+        let mut health_refill = 40f32.max(((max_health / 5.0) / 0.6685 + 1.0).floor());
+        if pathsets.contains(&Pathset::Gorlek) && self.inventory.contains_key(&Item::Shard(Shard::Vitality)) { max_health -= 10.0; }
+
+        let mut max_energy = self.max_energy(pathsets);
+        let mut energy_refill = 10.0 * (max_energy / 50.0 + 1.0);
+        if pathsets.contains(&Pathset::Gorlek) && self.inventory.contains_key(&Item::Shard(Shard::Energy)) { max_energy -= 1.0; }
+
+        if pathsets.contains(&Pathset::Unsafe) && self.inventory.contains_key(&Item::Shard(Shard::Overflow)) {
+            if health_refill > max_health {
+                energy_refill += health_refill - max_health;
+            } else if energy_refill > max_energy {
+                health_refill += energy_refill - max_energy;
+            }
+        }
+
         Orbs {
-            energy: max_energy.min(10.0 * (max_energy / 50.0 + 1.0)),
-            health: max_health.min(40f32.max(((max_health / 5.0) / 0.6685 + 1.0).floor())),
+            health: max_health.min(health_refill),
+            energy: max_energy.min(energy_refill),
         }
     }
-    pub fn health_orbs(&self, amount: f32) -> Orbs {
-        let mut max_health = self.max_health();
-        let moon_why = (max_health + 15.0) % 60.0;
-        if moon_why < 5.0 {
-            max_health += 5.0 - moon_why;
+    pub fn health_orbs(&self, amount: f32, pathsets: &[Pathset]) -> Orbs {
+        let max_health = self.max_health(pathsets);
+        let mut moon_why = max_health;
+        let why_moon = (moon_why + 15.0) % 60.0;
+        if why_moon < 5.0 {
+            moon_why += 5.0 - why_moon;
         }
+        let health_refill = 10f32.max((amount * (moon_why + 10.0) / 30.0).floor() * 10.0);
+        let mut energy_refill = 0.0;
+
+        if pathsets.contains(&Pathset::Unsafe) && self.inventory.contains_key(&Item::Shard(Shard::Overflow)) && health_refill > max_health {
+            energy_refill += health_refill - max_health;
+        }
+
         Orbs {
-            health: max_health.min(10f32.max((amount * (max_health + 10.0) / 30.0).floor() * 10.0)),
-            ..Default::default()
+            health: max_health.min(health_refill),
+            energy: self.max_energy(pathsets).min(energy_refill),
+        }
+    }
+    pub fn energy_orbs(&self, amount: f32, pathsets: &[Pathset]) -> Orbs {
+        let max_energy = self.max_energy(pathsets);
+        let mut health_refill = 0.0;
+
+        if pathsets.contains(&Pathset::Unsafe) && self.inventory.contains_key(&Item::Shard(Shard::Overflow)) && amount > max_energy {
+            health_refill += amount - max_energy;
+        }
+
+        Orbs {
+            health: self.max_health(pathsets).min(health_refill),
+            energy: max_energy.min(amount),
         }
     }
 
@@ -162,9 +201,13 @@ mod tests {
     #[test]
     fn max_energy() {
         let mut player: Player = Default::default();
-        assert_eq!(player.max_energy(), 0.0);
+        let moki = vec![Pathset::Moki];
+        let gorlek = vec![Pathset::Gorlek];
+        assert_eq!(player.max_energy(&moki), 0.0);
         for _ in 0..10 { player.grant(Item::Resource(Resource::Energy), 1); }
-        assert_eq!(player.max_energy(), 5.0);
+        player.grant(Item::Shard(Shard::Energy), 1);
+        assert_eq!(player.max_energy(&moki), 5.0);
+        assert_eq!(player.max_energy(&gorlek), 6.0);
     }
 
     #[test]
@@ -185,23 +228,36 @@ mod tests {
     #[test]
     fn refill_orbs() {
         let mut player: Player = Default::default();
+        let pathsets = vec![Pathset::Moki];
         let orbs: Orbs = Default::default();
-        assert_eq!(player.checkpoint_orbs(), Default::default());
+        assert_eq!(player.checkpoint_orbs(&pathsets), Default::default());
         player.grant(Item::Resource(Resource::Energy), 6);
         player.grant(Item::Resource(Resource::Health), 6);
-        assert_eq!(player.checkpoint_orbs(), Orbs { energy: 3.0, health: 30.0});
-        assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
+        assert_eq!(player.checkpoint_orbs(&pathsets), Orbs { energy: 3.0, health: 30.0});
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 10.0, ..orbs });
         player.grant(Item::Resource(Resource::Health), 2);
-        assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 10.0, ..orbs });
         player.grant(Item::Resource(Resource::Health), 1);
-        assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 20.0, ..orbs });
         player.grant(Item::Resource(Resource::Health), 11);
-        assert_eq!(player.health_orbs(1.0), Orbs { health: 30.0, ..orbs });
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 30.0, ..orbs });
         player.grant(Item::Resource(Resource::Health), 1);
-        assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 40.0, ..orbs });
         player.grant(Item::Resource(Resource::Health), 6);
-        assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 40.0, ..orbs });
         player.grant(Item::Resource(Resource::Health), 1);
-        assert_eq!(player.health_orbs(1.0), Orbs { health: 50.0, ..orbs });
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 50.0, ..orbs });
+
+        player = Default::default();
+        let pathsets = vec![Pathset::Gorlek];
+        let orbs: Orbs = Default::default();
+        player.grant(Item::Shard(Shard::Energy), 1);
+        player.grant(Item::Shard(Shard::Vitality), 1);
+        assert_eq!(player.checkpoint_orbs(&pathsets), Default::default());
+        player.grant(Item::Resource(Resource::Health), 7);
+        assert_eq!(player.health_orbs(1.0, &pathsets), Orbs { health: 20.0, ..orbs });
+        assert_eq!(player.checkpoint_orbs(&pathsets), Orbs { health: 35.0, ..orbs });
+        player.grant(Item::Resource(Resource::Health), 21);
+        assert_eq!(player.checkpoint_orbs(&pathsets), Orbs { health: 45.0, ..orbs });
     }
 }
