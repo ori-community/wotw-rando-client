@@ -12,29 +12,33 @@ pub struct Refill {
 
 #[derive(Debug)]
 pub struct Connection {
-    pub to: String,
+    pub to: usize,
     pub requirement: Requirement,
 }
 
 #[derive(Debug)]
 pub struct Anchor {
     pub identifier: String,
+    pub index: usize,
     pub refills: Vec<Refill>,
-    pub connections: Vec<Connection>
+    pub connections: Vec<Connection>,
 }
 #[derive(Debug)]
 pub struct Pickup {
     pub identifier: String,
+    pub index: usize,
     pub uber_group: String,
     pub uber_id: String,
 }
 #[derive(Debug)]
 pub struct State {
     pub identifier: String,
+    pub index: usize,
 }
 #[derive(Debug)]
 pub struct Quest {
     pub identifier: String,
+    pub index: usize,
     pub uber_group: String,
     pub uber_id: String,
 }
@@ -63,6 +67,14 @@ impl Node {
             Node::Quest(quest) => &quest.identifier[..],
         }
     }
+    pub fn index(&self) -> usize {
+        match self {
+            Node::Anchor(anchor) => anchor.index,
+            Node::Pickup(pickup) => pickup.index,
+            Node::State(state) => state.index,
+            Node::Quest(quest) => quest.index,
+        }
+    }
 }
 
 fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs], pathsets: &[Pathset]) -> Vec<Orbs> {
@@ -77,12 +89,12 @@ fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs], 
 
 #[derive(Debug)]
 pub struct World<'a> {
-    pub graph: &'a FxHashMap<String, Node>,
+    pub graph: &'a Vec<Node>,
     pub player: Player<'a>,
 }
 impl<'a> World<'a> {
-    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, pathsets: &[Pathset], state_progressions: &mut FxHashMap<&'a str, Vec<(&'a str, &'a Connection)>>, world_state: &mut FxHashMap<&'a str, Vec<Orbs>>) -> Vec<&'a Node> {
-        world_state.insert(entry.identifier(), best_orbs.clone());
+    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, pathsets: &[Pathset], state_progressions: &mut FxHashMap<&'a str, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
+        world_state.insert(entry.index(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
                 for refill in &anchor.refills {
@@ -102,17 +114,17 @@ impl<'a> World<'a> {
 
                 let mut reached = Vec::<&Node>::new();
                 for connection in &anchor.connections {
-                    if world_state.contains_key(&connection.to[..]) {
+                    if world_state.contains_key(&connection.to) {
                         // TODO loop with improved orbs?
                         continue;
                     }
                     let target_orbs = try_connection(connection, &self.player, &best_orbs, pathsets);
                     if !target_orbs.is_empty() {
-                        reached.append(&mut self.reach_recursion(&self.graph[&connection.to], target_orbs, pathsets, state_progressions, world_state));
+                        reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, pathsets, state_progressions, world_state));
                     } else {
                         let states = connection.requirement.contained_states();
                         for state in states {
-                            state_progressions.entry(state).or_default().push((&anchor.identifier, connection));
+                            state_progressions.entry(state).or_default().push((anchor.index, connection));
                         }
                     }
                 }
@@ -124,9 +136,9 @@ impl<'a> World<'a> {
                 let mut reached = Vec::<&Node>::new();
                 if let Some(connections) = state_progressions.get(&state.identifier[..]) {
                     for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, &world_state[from], pathsets);
+                        let target_orbs = try_connection(connection, &self.player, &world_state[&from], pathsets);
                         if !target_orbs.is_empty() {
-                            reached.append(&mut self.reach_recursion(&self.graph[&connection.to], target_orbs, pathsets, state_progressions, world_state));
+                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, pathsets, state_progressions, world_state));
                         }
                     }
                 }
@@ -137,9 +149,9 @@ impl<'a> World<'a> {
                 let mut reached = vec![entry];
                 if let Some(connections) = state_progressions.get(&quest.identifier[..]) {
                     for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, &world_state[from], pathsets);
+                        let target_orbs = try_connection(connection, &self.player, &world_state[&from], pathsets);
                         if !target_orbs.is_empty() {
-                            reached.append(&mut self.reach_recursion(&self.graph[&connection.to], target_orbs, pathsets, state_progressions, world_state));
+                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, pathsets, state_progressions, world_state));
                         }
                     }
                 }
@@ -149,7 +161,7 @@ impl<'a> World<'a> {
     }
 
     pub fn reached_locations(&mut self, spawn: &'a str, pathsets: &[Pathset]) -> Result<Vec<&Node>, String> {
-        let entry = self.graph.get(spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
+        let entry = self.graph.iter().find(|node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
 
         let mut state_progressions = FxHashMap::<_, _>::default();

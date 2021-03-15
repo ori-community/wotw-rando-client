@@ -7,14 +7,13 @@ pub mod requirements;
 pub mod util;
 
 use std::path::PathBuf;
-use rustc_hash::FxHashMap;
 // use std::io::prelude::*;
 
 use parser::ParseError;
 use world::Node;
 use util::Pathset;
 
-pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> FxHashMap<String, Node> {
+pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> Vec<Node> {
     let tokens = tokenizer::tokenize(areas).expect("Error parsing areas.wotw");
 
     // let mut file = File::create("tokens.txt").unwrap();
@@ -36,7 +35,7 @@ pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], v
     emitter::emit(&areas, &metadata, &locations, pathsets, validate).expect("Error building the logic")
 }
 
-pub fn generate_seed(graph: &FxHashMap<String, Node>, output: &PathBuf, spoilers: bool, pathsets: &[Pathset], headers: &[String]) {
+pub fn generate_seed(graph: &[Node], output: &PathBuf, spoilers: bool, pathsets: &[Pathset], headers: &[String]) {
     // std::fs::write(output, format!("{:#?}", graph)).unwrap();
 
     // TODO: Generate a seed

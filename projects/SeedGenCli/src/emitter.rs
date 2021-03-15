@@ -97,17 +97,52 @@ fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &FxHashMa
     build_or(lines)
 }
 
-fn add_node(graph: &mut FxHashMap<String, Node>, key: String, value: Node) -> Result<(), String> {
-    if let Some(prior) = graph.insert(key, value) {
-        return Err(format!("Name '{}' was used multiple times ambiguously", prior.identifier()));
+fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, value: usize) -> Result<(), String> {
+    if graph.insert(key, value).is_some() {
+        return Err(format!("Name '{}' was used multiple times ambiguously", key));
     }
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<FxHashMap<String, Node>, String> {
-    let mut graph = FxHashMap::default();
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<Vec<Node>, String> {
+    let mut graph = Vec::<Node>::with_capacity(areas.anchors.len());  // TODO better estimate
     let mut used_states = FxHashSet::default();
+    let mut node_map = FxHashMap::<&str, usize>::default();
 
+    for location in locations {
+        let name = &location.name[..];
+        if metadata.quests.contains(name) {
+            let index = graph.len();
+            add_entry(&mut node_map, &location.name, index)?;
+            graph.push(Node::Quest(world::Quest {
+                identifier: location.name.clone(),
+                index,
+                uber_group: location.uber_group.clone(),
+                uber_id: location.uber_id.clone(),
+            }));
+        } else {
+            let index = graph.len();
+            add_entry(&mut node_map, &location.name, index)?;
+            graph.push(Node::Pickup(world::Pickup {
+                identifier: location.name.clone(),
+                index,
+                uber_group: location.uber_group.clone(),
+                uber_id: location.uber_id.clone(),
+            }));
+        }
+    }
+    for state in &metadata.states {
+        let index = graph.len();
+        add_entry(&mut node_map, state, index)?;
+        graph.push(Node::State(world::State {
+            identifier: (*state).to_string(),
+            index,
+        }));
+    }
+    let length = graph.len();
+    for (index, anchor) in areas.anchors.iter().enumerate() {
+        add_entry(&mut node_map, anchor.identifier, length + index)?;
+    }
     for anchor in &areas.anchors {
         let region = anchor.identifier.splitn(2, '.').next().unwrap();
         let region = areas.regions.get(region);
@@ -115,6 +150,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
         if let Some(group) = region {
             region_requirement = Some(build_requirement_group(&group, &areas.definitions, pathsets, validate, &mut used_states));
         }
+
         let refills: Vec<world::Refill> = anchor.refills.iter().map(|refill| {
             let mut requirement = Requirement::Free;
             if let Some(group) = &refill.requirements {
@@ -125,7 +161,9 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
                 requirement,
             }
         }).collect();
-        let connections = anchor.connections.iter().map(|connection| {
+
+        let mut connections = Vec::<world::Connection>::with_capacity(anchor.connections.len());
+        for connection in &anchor.connections {
             let mut requirement = Requirement::Free;
             if let Some(group) = &connection.requirements {
                 requirement = build_requirement_group(group, &areas.definitions, pathsets, validate, &mut used_states);
@@ -133,48 +171,30 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
                     requirement = Requirement::And(vec![region_requirement.clone(), requirement]);
                 }
             }
-            world::Connection {
-                to: connection.identifier.to_string(),
-                requirement,
+
+            let to = *node_map.get(connection.identifier).ok_or_else(|| format!("Anchor '{}' connects to {:?} '{}' which doesn't actually exist", anchor.identifier, connection.name, connection.identifier))?;
+            if validate {
+                let expected_type = graph[to].node_type();
+                if connection.name != expected_type {
+                    return Err(format!("Anchor '{}' connects to {:?} '{}' which is actually a {:?}", anchor.identifier, connection.name, connection.identifier, expected_type));
+                }
             }
-        }).collect();
-        add_node(&mut graph, anchor.identifier.to_string(), Node::Anchor(world::Anchor {
+
+            connections.push(world::Connection {
+                to,
+                requirement,
+            });
+        }
+
+        graph.push(Node::Anchor(world::Anchor {
             identifier: anchor.identifier.to_string(),
+            index: graph.len(),
             refills,
             connections,
-        }))?;
-    }
-    for location in locations {
-        let name = &location.name[..];
-        if metadata.quests.contains(name) {
-            add_node(&mut graph, location.name.clone(), Node::Quest(world::Quest {
-                identifier: location.name.clone(),
-                uber_group: location.uber_group.clone(),
-                uber_id: location.uber_id.clone(),
-            }))?;
-        } else {
-            add_node(&mut graph, location.name.clone(), Node::Pickup(world::Pickup {
-                identifier: location.name.clone(),
-                uber_group: location.uber_group.clone(),
-                uber_id: location.uber_id.clone(),
-            }))?;
-        }
-    }
-    for state in &metadata.states {
-        add_node(&mut graph, (*state).to_string(), Node::State(world::State {
-            identifier: (*state).to_string(),
-        }))?;
+        }));
     }
 
     if validate {
-        for anchor in &areas.anchors {
-            for connection in &anchor.connections {
-                let to = graph.get(connection.identifier).ok_or(format!("Anchor '{}' connects to {:?} '{}' which doesn't actually exist", anchor.identifier, connection.name, connection.identifier))?;
-                if connection.name != to.node_type() {
-                    return Err(format!("Anchor '{}' connects to {:?} '{}' which is actually a {:?}", anchor.identifier, connection.name, connection.identifier, to.node_type()));
-                }
-            }
-        }
         for region in areas.regions.keys() {
             if !areas.anchors.iter().any(|anchor| anchor.identifier.splitn(2, '.').next().unwrap() == *region) {
                 println!("Region '{}' has no anchors with a matching name.", region);
