@@ -1,7 +1,7 @@
 use rustc_hash::FxHashSet;
 
 use crate::player::{Player, Item};
-use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy, either_orbs, both_single_orbs};
+use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Pathset, Enemy, either_orbs, both_orbs, both_single_orbs};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Progression {
@@ -185,18 +185,19 @@ impl Requirement {
                 let mut best_orbs = vec![*orbs];
 
                 for and in ands {
-                    let mut next_orbs: Vec<Orbs> = Default::default();
+                    let mut orbcosts: Vec<Orbs> = Default::default();
                     let mut met = false;
 
                     for orbs in &best_orbs {
-                        if let Some(orbcost) = and.is_met(player, orbs, pathsets) {
-                            next_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
+                        if let Some(mut orbcost) = and.is_met(player, orbs, pathsets) {
+                            orbcosts.append(&mut orbcost);
                             met = true;
                         }
                     }
                     if !met { return None; }
 
-                    best_orbs = next_orbs;
+                    best_orbs = both_orbs(&best_orbs, &orbcosts);
+                    best_orbs.retain(|orbs| orbs.health >= 0.0 && orbs.energy >= 0.0);
                 }
 
                 let cost = both_single_orbs(&best_orbs, Orbs { health: -orbs.health, energy: -orbs.energy });
@@ -418,5 +419,11 @@ mod tests {
         assert!(req.is_met(&player, &player.max_orbs(), &unsafe_paths).is_none());
         player.grant(Item::Skill(Skill::Regenerate), 1);
         assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { energy: -1.0, health: -30.0 }]));
+
+        let req = Requirement::Or(vec![Requirement::Damage(10.0), Requirement::EnergySkill(Skill::Blaze, 1.0)]);
+        let req = Requirement::And(vec![req.clone(), req.clone()]);
+        player.grant(Item::Skill(Skill::Blaze), 1);
+        player.grant(Item::Resource(Resource::Energy), 2);
+        assert_eq!(req.is_met(&player, &player.max_orbs(), &unsafe_paths), Some(vec![Orbs { health: -20.0, ..orbs }, Orbs { health: -10.0, energy: -1.0 }, Orbs { energy: -2.0, ..orbs }]));
     }
 }
