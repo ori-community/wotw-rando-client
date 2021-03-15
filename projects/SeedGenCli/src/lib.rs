@@ -35,7 +35,7 @@ pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], v
     emitter::emit(&areas, &metadata, &locations, pathsets, validate).expect("Error building the logic")
 }
 
-pub fn generate_seed(graph: &[Node], output: &PathBuf, spoilers: bool, pathsets: &[Pathset], headers: &[String]) {
+pub fn generate_seed(_graph: &[Node], _output: &PathBuf, _spoilers: bool, _pathsets: &[Pathset], _headers: &[String]) {
     // std::fs::write(output, format!("{:#?}", graph)).unwrap();
 
     // TODO: Generate a seed

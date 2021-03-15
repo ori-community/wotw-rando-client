@@ -100,7 +100,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
                     let amount = parts.next().ok_or_else(|| wrong_requirement(token))?;
                     let (enemy, amount) = match parts.next() {
                         Some(enemy) => (enemy, amount),
-                        _ => (amount, "1"),
+                        None => (amount, "1"),
                     };
                     if parts.next().is_some() {
                         return Err(wrong_requirement(token));
@@ -350,7 +350,7 @@ fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &
             Ok(result) => result,
             Err(_) => return Err(not_int(&tokens[context.position - 1])),
         };
-        name = RefillType::Health(amount as f32);
+        name = RefillType::Health(f32::from(amount));
     } else if identifier == "Health" {
         name = RefillType::Health(1.0);
     } else if let Some(amount) = identifier.strip_prefix("Energy=") {
@@ -358,7 +358,7 @@ fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &
             Ok(result) => result,
             Err(_) => return Err(not_int(&tokens[context.position - 1])),
         };
-        name = RefillType::Energy(amount as f32);
+        name = RefillType::Energy(f32::from(amount));
     } else {
         return Err(wrong_token(&tokens[context.position], "'Checkpoint', 'Full', 'Health' or 'Energy'"));
     }

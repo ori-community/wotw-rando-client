@@ -30,7 +30,7 @@ fn parsing(c: &mut Criterion) {
 fn requirements(c: &mut Criterion) {
     let mut player = Player {
         unsafe_paths: true,
-        ..Default::default()
+        ..Player::default()
     };
     {
         let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);
@@ -41,15 +41,15 @@ fn requirements(c: &mut Criterion) {
         player.grant(Item::Resource(Resource::Energy), 4);
         player.grant(Item::Resource(Resource::Health), 4);
         let req = Requirement::And(vec![Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()]), Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()])]);
-        c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, &player.max_orbs())));
+        c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, player.max_orbs())));
     }
-    player = Default::default();
+    player = Player::default();
     player.grant(Item::Skill(Skill::Bow), 1);
     player.grant(Item::Resource(Resource::Energy), 40);
     let req = Requirement::Combat(vec![
         (Enemy::Lizard, 3),
     ]);
-    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs())));
+    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, player.max_orbs())));
     let req = Requirement::Combat(vec![
         (Enemy::Mantis, 2),
         (Enemy::Lizard, 2),
@@ -64,13 +64,13 @@ fn requirements(c: &mut Criterion) {
         (Enemy::Lizard, 2),
         (Enemy::Mantis, 2),
     ]);
-    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, &player.max_orbs())));
+    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, player.max_orbs())));
 }
 
 fn reach_checking(c: &mut Criterion) {
     let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
     c.bench_function("short reach check", |b| b.iter(|| {
-        let mut player: Player = Default::default();
+        let mut player = Player::default();
         player.grant(Item::Resource(Resource::Health), 40);
         player.grant(Item::Resource(Resource::Energy), 40);
         player.grant(Item::Resource(Resource::Keystone), 34);
@@ -87,7 +87,7 @@ fn reach_checking(c: &mut Criterion) {
         world.reached_locations("MarshSpawn.Main").unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
-        let mut player: Player = Default::default();
+        let mut player = Player::default();
         player.grant(Item::Resource(Resource::Health), 40);
         player.grant(Item::Resource(Resource::Energy), 40);
         player.grant(Item::Resource(Resource::Keystone), 34);

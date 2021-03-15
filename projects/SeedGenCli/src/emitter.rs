@@ -24,14 +24,14 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
             if validate { used_states.insert(state); }
             Requirement::State(node_map[state])
         },
-        parser::Requirement::Damage(amount) => Requirement::Damage(*amount as f32),
-        parser::Requirement::Danger(amount) => Requirement::Danger(*amount as f32),
+        parser::Requirement::Damage(amount) => Requirement::Damage(f32::from(*amount)),
+        parser::Requirement::Danger(amount) => Requirement::Danger(f32::from(*amount)),
         parser::Requirement::Combat(enemies) => Requirement::Combat(enemies.clone()),
-        parser::Requirement::Boss(health) => Requirement::Boss(*health as f32),
-        parser::Requirement::BreakWall(health) => Requirement::BreakWall(*health as f32),
+        parser::Requirement::Boss(health) => Requirement::Boss(f32::from(*health)),
+        parser::Requirement::BreakWall(health) => Requirement::BreakWall(f32::from(*health)),
         parser::Requirement::ShurikenBreak(health) =>
             if pathsets.contains(&Pathset::Glitch) {
-                Requirement::ShurikenBreak(*health as f32)
+                Requirement::ShurikenBreak(f32::from(*health))
             } else {
                 Requirement::Impossible
             },

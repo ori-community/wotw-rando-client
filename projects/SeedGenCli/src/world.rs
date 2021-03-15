@@ -78,9 +78,9 @@ impl Node {
 }
 
 fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs]) -> Vec<Orbs> {
-    let mut target_orbs: Vec<Orbs> = Default::default();
+    let mut target_orbs = Vec::<Orbs>::default();
     for orbs in best_orbs {
-        if let Some(orbcost) = connection.requirement.is_met(player, &orbs) {
+        if let Some(orbcost) = connection.requirement.is_met(player, *orbs) {
             target_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
         }
     }
@@ -99,7 +99,7 @@ impl<'a> World<'a> {
             Node::Anchor(anchor) => {
                 for refill in &anchor.refills {
                     for orbs in &best_orbs {
-                        if let Some(orbcost) = refill.requirement.is_met(&self.player, orbs) {
+                        if let Some(orbcost) = refill.requirement.is_met(&self.player, *orbs) {
                             best_orbs = both_orbs(&best_orbs, &orbcost);
                             match refill.name {
                                 RefillType::Full => best_orbs = vec![self.player.max_orbs()],
@@ -119,13 +119,13 @@ impl<'a> World<'a> {
                         continue;
                     }
                     let target_orbs = try_connection(connection, &self.player, &best_orbs);
-                    if !target_orbs.is_empty() {
-                        reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
-                    } else {
+                    if target_orbs.is_empty() {
                         let states = connection.requirement.contained_states();
                         for state in states {
                             state_progressions.entry(state).or_default().push((anchor.index, connection));
                         }
+                    } else {
+                        reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
                     }
                 }
                 reached
@@ -184,7 +184,7 @@ mod tests {
     #[test]
     fn reach_check() {
         let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
-        let mut player: Player = Default::default();
+        let mut player = Player::default();
         player.grant(Item::Resource(Resource::Health), 40);
         player.grant(Item::Resource(Resource::Energy), 40);
         player.grant(Item::Resource(Resource::Keystone), 34);
@@ -237,7 +237,7 @@ mod tests {
         let mut player = Player {
             gorlek_paths: true,
             unsafe_paths: true,
-            ..Default::default()
+            ..Player::default()
         };
         let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
         player.grant(Item::Resource(Resource::Health), 7);

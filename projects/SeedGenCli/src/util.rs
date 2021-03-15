@@ -257,8 +257,8 @@ pub enum Enemy {
     EnergyRefill,
 }
 impl Enemy {
-    pub fn health(&self) -> f32 {
-        match *self {
+    pub fn health(self) -> f32 {
+        match self {
             Enemy::BombSlug | Enemy::CorruptSlug | Enemy::Balloon => 1.0,
             Enemy::SmallSkeeto => 8.0,
             Enemy::WeakSlug | Enemy::Spiderling => 12.0,
@@ -273,20 +273,20 @@ impl Enemy {
             _ => 0.0,
         }
     }
-    pub fn shielded(&self) -> bool {
-        matches!(*self, Enemy::Hornbug | Enemy::ShieldSlug | Enemy::ShieldMiner | Enemy::ShieldCrystalMiner)
+    pub fn shielded(self) -> bool {
+        matches!(self, Enemy::Hornbug | Enemy::ShieldSlug | Enemy::ShieldMiner | Enemy::ShieldCrystalMiner)
     }
-    pub fn armored(&self) -> bool {
+    pub fn armored(self) -> bool {
         matches!(self, Enemy::Tentacle)
     }
-    pub fn aerial(&self) -> bool {
-        matches!(*self, Enemy::Bat | Enemy::Skeeto | Enemy::SmallSkeeto | Enemy::Bee | Enemy::Nest | Enemy::Tentacle)
+    pub fn aerial(self) -> bool {
+        matches!(self, Enemy::Bat | Enemy::Skeeto | Enemy::SmallSkeeto | Enemy::Bee | Enemy::Nest | Enemy::Tentacle)
     }
-    pub fn ranged(&self) -> bool {
-        matches!(*self, Enemy::BombSlug | Enemy::CorruptSlug | Enemy::Balloon | Enemy::Bat)
+    pub fn ranged(self) -> bool {
+        matches!(self, Enemy::BombSlug | Enemy::CorruptSlug | Enemy::Balloon | Enemy::Bat)
     }
-    pub fn dangerous(&self) -> bool {
-        matches!(*self, Enemy::SneezeSlug | Enemy::Hornbug | Enemy::Crab | Enemy::SpinCrab | Enemy::Miner | Enemy::MaceMiner | Enemy::ShieldMiner | Enemy::CrystalMiner | Enemy::ShieldCrystalMiner)
+    pub fn dangerous(self) -> bool {
+        matches!(self, Enemy::SneezeSlug | Enemy::Hornbug | Enemy::Crab | Enemy::SpinCrab | Enemy::Miner | Enemy::MaceMiner | Enemy::ShieldMiner | Enemy::CrystalMiner | Enemy::ShieldCrystalMiner)
     }
 }
 
@@ -327,7 +327,7 @@ impl AddAssign for Orbs {
 
 pub fn either_orbs(a: &[Orbs], b: &[Orbs]) -> Vec<Orbs> {
     if b.is_empty() || a.is_empty() {
-        vec![Default::default()]
+        vec![Orbs::default()]
     } else {
         let mut sum = a.to_vec();
         for b_ in b {
@@ -347,7 +347,7 @@ pub fn either_orbs(a: &[Orbs], b: &[Orbs]) -> Vec<Orbs> {
 }
 pub fn either_single_orbs(a: &[Orbs], b: Orbs) -> Vec<Orbs> {
     if a.is_empty() {
-        vec![Default::default()]
+        vec![Orbs::default()]
     } else {
         let mut sum = a.to_vec();
         let mut used = false;
@@ -400,31 +400,25 @@ pub fn both_single_orbs(a: &[Orbs], b: Orbs) -> Vec<Orbs> {
     }
 }
 
-pub fn energy_cost(skill: &Skill) -> f32 {
+pub fn energy_cost(skill: Skill) -> f32 {
     match skill {
-        Skill::Grenade => 1.0,
-        Skill::Flash => 1.0,
-        Skill::Spear => 2.0,
-        Skill::Regenerate => 1.0,
         Skill::Bow => 0.25,
         Skill::Shuriken => 0.5,
-        Skill::Blaze => 1.0,
-        Skill::Sentry => 1.0,
+        Skill::Grenade | Skill::Flash | Skill::Regenerate | Skill::Blaze | Skill::Sentry => 1.0,
+        Skill::Spear => 2.0,
         _ => 0.0,
     }
 }
 // too lazy to actually look these up now
-pub fn damage(skill: &Skill, unsafe_paths: bool) -> f32 {
+pub fn damage(skill: Skill, unsafe_paths: bool) -> f32 {
     match skill {
+        Skill::Bow | Skill::Sword => 4.0,
+        Skill::Shuriken => 7.0,
+        Skill::Hammer | Skill::Sentry => 12.0,
         Skill::Grenade => if unsafe_paths { 16.0 } else { 12.0 },
         Skill::Flash => 14.0,
-        Skill::Spear => 20.0,
-        Skill::Bow => 4.0,
-        Skill::Hammer => 12.0,
-        Skill::Sword => 4.0,
-        Skill::Shuriken => 7.0,
         Skill::Blaze => 13.8,
-        Skill::Sentry => 12.0,
+        Skill::Spear => 20.0,
         _ => 0.0,
     }
 }
@@ -492,7 +486,7 @@ impl Default for Settings {
 }
 pub fn read_settings(seed: &PathBuf) -> Result<Settings, io::Error> {
     let seed = fs::read_to_string(seed)?;
-    let mut settings: Settings = Default::default();
+    let mut settings = Settings::default();
     let mut actual_spawn = "MarshSpawn.Main";
     for line in seed.lines() {
         if let Some(spawn) = line.strip_prefix("Spawn:") {
@@ -538,7 +532,7 @@ mod tests {
 
     #[test]
     fn orb_tools() {
-        let orbs: Orbs = Default::default();
+        let orbs = Orbs::default();
         let a = vec![Orbs { energy: 2.0, ..orbs }];
         let b = vec![Orbs { health: 30.0, ..orbs }];
         assert_eq!(either_orbs(&a, &b), vec![Orbs { energy: 2.0, ..orbs }, Orbs { health: 30.0, ..orbs }]);
