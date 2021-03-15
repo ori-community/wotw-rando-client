@@ -26,7 +26,7 @@ pub enum Requirement {
     Resource(Resource, u16),
     Shard(Shard),
     Teleporter(Teleporter),
-    State(String),
+    State(usize),
     Damage(f32),
     Danger(f32),
     Combat(Vec<(Enemy, u8)>),
@@ -60,7 +60,7 @@ impl Requirement {
             Requirement::Teleporter(teleporter) =>
                 if player.has(Item::Teleporter(*teleporter), 1) { return Some(vec![Default::default()]); },
             Requirement::State(state) =>
-                if player.states.contains(&state[..]) { return Some(vec![Default::default()]); },
+                if player.states.contains(state) { return Some(vec![Default::default()]); },
             Requirement::Damage(amount) => {
                 let cost = *amount * player.defense_mod(pathsets);
                 if orbs.health >= cost { return Some(vec![
@@ -227,9 +227,9 @@ impl Requirement {
         None
     }
 
-    pub fn contained_states(&self) -> Vec<&str> {
+    pub fn contained_states(&self) -> Vec<usize> {
         match self {
-            Requirement::State(state) => vec![state],
+            Requirement::State(state) => vec![*state],
             Requirement::And(ands) => ands.iter().flat_map(|and| and.contained_states()).collect(),
             Requirement::Or(ors) => ors.iter().flat_map(|or| or.contained_states()).collect(),
             _ => vec![],
@@ -305,11 +305,11 @@ mod tests {
         player.grant(Item::Resource(Resource::Energy), 2);
         assert_eq!(req.is_met(&player, &player.max_orbs(), &moki), Some(vec![Orbs {energy: -2.0, ..orbs }]));
 
-        let req = Requirement::State("owo".to_string());
+        let req = Requirement::State(34);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
-        player.states.insert("owo");
+        player.states.insert(34);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_some());
-        let req = Requirement::State("ow".to_string());
+        let req = Requirement::State(33);
         assert!(req.is_met(&player, &player.max_orbs(), &moki).is_none());
 
         let req = Requirement::Damage(30.0);

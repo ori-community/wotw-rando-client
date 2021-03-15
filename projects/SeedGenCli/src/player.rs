@@ -15,11 +15,11 @@ pub enum Item {
 }
 
 #[derive(Debug, Default)]
-pub struct Player<'a> {
+pub struct Player {
     pub inventory: FxHashMap<Item, u16>,
-    pub states: FxHashSet<&'a str>,
+    pub states: FxHashSet<usize>,
 }
-impl Player<'_> {
+impl Player {
     pub fn grant(&mut self, item: Item, amount: u16) {
         let prior = self.inventory.entry(item).or_insert(0);
         *prior += amount;

@@ -5,10 +5,10 @@ use crate::world::{self, Node};
 use crate::requirements::Requirement;
 use crate::util::{Pathset, Skill};
 
-fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut FxHashSet<&'a str>) -> Requirement {
+fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
     match requirement {
         parser::Requirement::Free => Requirement::Free,
-        parser::Requirement::Definition(identifier) => build_requirement_group(&definitions[identifier], definitions, pathsets, validate, used_states),
+        parser::Requirement::Definition(identifier) => build_requirement_group(&definitions[identifier], definitions, pathsets, validate, node_map, used_states),
         parser::Requirement::Pathset(pathset) =>
             if pathsets.contains(pathset) {
                 Requirement::Free
@@ -22,7 +22,7 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
         parser::Requirement::Teleporter(teleporter) => Requirement::Teleporter(*teleporter),
         parser::Requirement::State(state) => {
             if validate { used_states.insert(state); }
-            Requirement::State(state.to_string())
+            Requirement::State(node_map[state])
         },
         parser::Requirement::Damage(amount) => Requirement::Damage(*amount as f32),
         parser::Requirement::Danger(amount) => Requirement::Danger(*amount as f32),
@@ -77,19 +77,19 @@ fn build_or(mut ors: Vec<Requirement>) -> Requirement {
     Requirement::Or(ors)
 }
 
-fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, used_states: &mut FxHashSet<&'a str>) -> Requirement {
+fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
     let lines: Vec<Requirement> = group.lines.iter().map(|line| {
         let mut parts = vec![];
         if !line.ands.is_empty() {
-            let ands: Vec<Requirement> = line.ands.iter().map(|and| build_requirement(and, definitions, pathsets, validate, used_states)).collect();
+            let ands: Vec<Requirement> = line.ands.iter().map(|and| build_requirement(and, definitions, pathsets, validate, node_map, used_states)).collect();
             parts.push(build_and(ands));
         }
         if !line.ors.is_empty() {
-            let ors: Vec<Requirement> = line.ors.iter().map(|or| build_requirement(or, definitions, pathsets, validate, used_states)).collect();
+            let ors: Vec<Requirement> = line.ors.iter().map(|or| build_requirement(or, definitions, pathsets, validate, node_map, used_states)).collect();
             parts.push(build_or(ors));
         }
         if let Some(subgroup) = &line.group {
-            parts.push(build_requirement_group(subgroup, definitions, pathsets, validate, used_states));
+            parts.push(build_requirement_group(subgroup, definitions, pathsets, validate, node_map, used_states));
         }
         build_and(parts)
     }).collect();
@@ -138,6 +138,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
             index,
         }));
     }
+
     let length = graph.len();
     for (index, anchor) in areas.anchors.iter().enumerate() {
         add_entry(&mut node_map, anchor.identifier, length + index)?;
@@ -147,13 +148,13 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
         let region = areas.regions.get(region);
         let mut region_requirement = None;
         if let Some(group) = region {
-            region_requirement = Some(build_requirement_group(&group, &areas.definitions, pathsets, validate, &mut used_states));
+            region_requirement = Some(build_requirement_group(&group, &areas.definitions, pathsets, validate, &node_map, &mut used_states));
         }
 
         let refills: Vec<world::Refill> = anchor.refills.iter().map(|refill| {
             let mut requirement = Requirement::Free;
             if let Some(group) = &refill.requirements {
-                requirement = build_requirement_group(group, &areas.definitions, pathsets, validate, &mut used_states);
+                requirement = build_requirement_group(group, &areas.definitions, pathsets, validate, &node_map, &mut used_states);
             }
             world::Refill {
                 name: refill.name,
@@ -165,7 +166,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
         for connection in &anchor.connections {
             let mut requirement = Requirement::Free;
             if let Some(group) = &connection.requirements {
-                requirement = build_requirement_group(group, &areas.definitions, pathsets, validate, &mut used_states);
+                requirement = build_requirement_group(group, &areas.definitions, pathsets, validate, &node_map, &mut used_states);
                 if let Some(region_requirement) = &region_requirement {
                     requirement = Requirement::And(vec![region_requirement.clone(), requirement]);
                 }

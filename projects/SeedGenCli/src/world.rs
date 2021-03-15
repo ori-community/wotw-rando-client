@@ -90,10 +90,10 @@ fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs], 
 #[derive(Debug)]
 pub struct World<'a> {
     pub graph: &'a Vec<Node>,
-    pub player: Player<'a>,
+    pub player: Player,
 }
 impl<'a> World<'a> {
-    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, pathsets: &[Pathset], state_progressions: &mut FxHashMap<&'a str, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
+    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, pathsets: &[Pathset], state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
         world_state.insert(entry.index(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
@@ -132,9 +132,9 @@ impl<'a> World<'a> {
             },
             Node::Pickup(_) => vec![entry],
             Node::State(state) => {
-                self.player.states.insert(&state.identifier);
+                self.player.states.insert(state.index);
                 let mut reached = Vec::<&Node>::new();
-                if let Some(connections) = state_progressions.get(&state.identifier[..]) {
+                if let Some(connections) = state_progressions.get(&state.index) {
                     for (from, connection) in connections.clone() {
                         let target_orbs = try_connection(connection, &self.player, &world_state[&from], pathsets);
                         if !target_orbs.is_empty() {
@@ -145,9 +145,9 @@ impl<'a> World<'a> {
                 reached
             },
             Node::Quest(quest) => {
-                self.player.states.insert(&quest.identifier);
+                self.player.states.insert(quest.index);
                 let mut reached = vec![entry];
-                if let Some(connections) = state_progressions.get(&quest.identifier[..]) {
+                if let Some(connections) = state_progressions.get(&quest.index) {
                     for (from, connection) in connections.clone() {
                         let target_orbs = try_connection(connection, &self.player, &world_state[&from], pathsets);
                         if !target_orbs.is_empty() {
