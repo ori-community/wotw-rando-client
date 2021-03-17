@@ -77,15 +77,6 @@ impl Node {
     }
 }
 
-fn try_connection(connection: &Connection, player: &Player, best_orbs: &[Orbs]) -> Vec<Orbs> {
-    let mut target_orbs = Vec::<Orbs>::default();
-    for orbs in best_orbs {
-        if let Some(orbcost) = connection.requirement.is_met(player, *orbs) {
-            target_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
-        }
-    }
-    target_orbs
-}
 
 #[derive(Debug)]
 pub struct World<'a> {
@@ -93,6 +84,32 @@ pub struct World<'a> {
     pub player: Player,
 }
 impl<'a> World<'a> {
+    fn follow_state_progressions(&mut self, index: usize, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
+        let mut reached = Vec::<&Node>::new();
+        if let Some(connections) = state_progressions.get(&index) {
+            for (from, connection) in connections.clone() {
+                if world_state.contains_key(&connection.to) {
+                    // TODO loop with improved orbs?
+                    continue;
+                }
+                let target_orbs = self.try_connection(connection, &world_state[&from]);
+                if !target_orbs.is_empty() {
+                    reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
+                }
+            }
+        }
+        reached
+    }
+    fn try_connection(&self, connection: &Connection, best_orbs: &[Orbs]) -> Vec<Orbs> {
+        let mut target_orbs = Vec::<Orbs>::default();
+        for orbs in best_orbs {
+            if let Some(orbcost) = connection.requirement.is_met(&self.player, *orbs) {
+                target_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
+            }
+        }
+        target_orbs
+    }
+
     fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
         world_state.insert(entry.index(), best_orbs.clone());
         match entry {
@@ -118,7 +135,7 @@ impl<'a> World<'a> {
                         // TODO loop with improved orbs?
                         continue;
                     }
-                    let target_orbs = try_connection(connection, &self.player, &best_orbs);
+                    let target_orbs = self.try_connection(connection, &best_orbs);
                     if target_orbs.is_empty() {
                         let states = connection.requirement.contained_states();
                         for state in states {
@@ -133,28 +150,12 @@ impl<'a> World<'a> {
             Node::Pickup(_) => vec![entry],
             Node::State(state) => {
                 self.player.states.insert(state.index);
-                let mut reached = Vec::<&Node>::new();
-                if let Some(connections) = state_progressions.get(&state.index) {
-                    for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, &world_state[&from]);
-                        if !target_orbs.is_empty() {
-                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
-                        }
-                    }
-                }
-                reached
+                self.follow_state_progressions(state.index, state_progressions, world_state)
             },
             Node::Quest(quest) => {
                 self.player.states.insert(quest.index);
-                let mut reached = vec![entry];
-                if let Some(connections) = state_progressions.get(&quest.index) {
-                    for (from, connection) in connections.clone() {
-                        let target_orbs = try_connection(connection, &self.player, &world_state[&from]);
-                        if !target_orbs.is_empty() {
-                            reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
-                        }
-                    }
-                }
+                let mut reached = self.follow_state_progressions(quest.index, state_progressions, world_state);
+                reached.push(entry);
                 reached
             },
         }

@@ -63,7 +63,6 @@ impl Skill {
             116 => Some(Skill::Sentry),
             118 => Some(Skill::Flap),
             120 | 121 => Some(Skill::AncestralLight),
-            255 => Some(Skill::Water),
             _ => None,
         }
     }

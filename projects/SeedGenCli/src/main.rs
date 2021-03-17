@@ -175,8 +175,13 @@ fn main() {
                     let id: u8 = shard.parse().unwrap_or_else(|_| panic!("expected numeric shard id, except found {}", item));
                     player.grant(Item::Shard(Shard::from_id(id).unwrap_or_else(|| panic!("{} is not a valid shard id", id))), 1);
                 }
+                else if let Some(world_event) = item.strip_prefix("w:") {
+                    let id: u8 = world_event.parse().unwrap_or_else(|_| panic!("expected numeric world event id, except found {}", item));
+                    if id != 0 { panic!("{} is not a valid world event id (only 0 is)", id); } 
+                    player.grant(Item::Skill(Skill::Water), 1);
+                }
                 else {
-                    panic!("items have to start with s:, t: or sh: (for skill, teleporter or shard), except found {}", item);
+                    panic!("items have to start with s:, t:, sh: or w: (for skill, teleporter, shard or world event), except found {}", item);
                 }
             }
         
