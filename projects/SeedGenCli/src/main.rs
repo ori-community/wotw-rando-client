@@ -1,15 +1,18 @@
 use std::path::PathBuf;
-use std::fs::File;
+use std::fs::{self, File};
 use std::io::{self, Read, BufReader, Error, ErrorKind};
 
 use structopt::StructOpt;
 use bugsalot::debugger;
 
+use rand_seeder::Seeder;
+use rand_pcg::Pcg32;
+
 use seed_gen_cli::{generate_seed, parse_logic, player, util, world};
 
 use player::{Player, Item};
 use world::{World, Node};
-use util::{Pathset, Resource, Skill, Teleporter, Shard, read_settings, pathsets_from_settings};
+use util::{Pathset, Resource, Skill, Teleporter, Shard, Settings, SeedFlags, read_settings};
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer
@@ -24,7 +27,7 @@ enum Command {
     /// 
     /// You can pipe headers, they will be added to the file and inline headers
     Seed {
-        /// the output location to write the seed into
+        /// the output location to write the seed into. The file name will also seed the rng
         #[structopt(parse(from_os_str))]
         output: PathBuf,
         /// the input file representing the logic, usually called areas.wotw
@@ -39,11 +42,21 @@ enum Command {
         /// wait for a debugger to attach before running
         #[structopt(short = "d", long = "debug")]
         wait_on_debugger: bool,
-        /// whether spoilers should be written into the seed file
+        /// hides spoilers and makes the black market more expensive
         #[structopt(short, long)]
-        spoilers: bool,
-        /// which logical pathsets and difficulties to allow
-        #[structopt(short, long = "gen_flags")]
+        race: bool,
+        /// required for coop and bingo
+        #[structopt(short, long)]
+        netcode: bool,
+        /// Where to spawn the player in, or "r" / "random" to spawn on a random teleporter, or "f" / "fullyrandom"...
+        /// 
+        /// Has to be an anchor name from the areas file, defaults to "MarshSpawn.Main"
+        #[structopt(short, long)]
+        spawn: Option<String>,
+        /// valid inputs are pathsets and goal modes
+        /// 
+        /// mo, moki, go, gorlek, gl, glitch, un, unsafe, t, trees, w, wisps, q, quests, r, relics
+        #[structopt(short = "f", long = "flags")]
         generation_flags: Vec<String>,
         /// paths to headers stored in files
         #[structopt(parse(from_os_str), short, long = "headers")]
@@ -112,48 +125,119 @@ fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
     Ok(contents)
 }
 
+struct GenFlags {
+    gorlek_paths: bool,
+    unsafe_paths: bool,
+    glitch_paths: bool,
+    force_trees: bool,
+    force_wisps: bool,
+    force_quests: bool,
+    world_tour: bool,
+}
+impl GenFlags {
+    fn pathsets(&self) -> Vec<Pathset> {
+        let mut pathsets = vec![Pathset::Moki];
+        if self.unsafe_paths {
+            pathsets.push(Pathset::Unsafe);
+            pathsets.push(Pathset::Gorlek);
+        }
+        else if self.gorlek_paths { pathsets.push(Pathset::Gorlek); }
+        if self.glitch_paths { pathsets.push(Pathset::Glitch); }
+
+        pathsets
+    }
+}
+
+fn parse_flags(generation_flags: Vec<String>) -> GenFlags {
+    let mut flags = GenFlags {
+        gorlek_paths: false,
+        unsafe_paths: false,
+        glitch_paths: false,
+        force_trees: false,
+        force_wisps: false,
+        force_quests: false,
+        world_tour: false,
+    };
+
+    for flag in &generation_flags {
+        match &flag[..] {
+            "mo" | "moki" => {},
+            "go" | "gorlek" => flags.gorlek_paths = true,
+            "un" | "unsafe" => {
+                flags.unsafe_paths = true;
+                flags.gorlek_paths = true;
+            },
+            "gl" | "glitch" => flags.glitch_paths = true,
+            "t" | "trees" => flags.force_trees = true,
+            "w" | "wisps" => flags.force_wisps = true,
+            "q" | "quests" => flags.force_quests = true,
+            "r" | "relics" => flags.world_tour = true,
+            other => println!("Unknown generation flag '{}'", other),
+        }
+    }
+
+    flags
+}
+
 fn main() {
     match SeedGen::from_args().command {
-        Command::Seed { validate, wait_on_debugger, spoilers, areas, locations, output, generation_flags, header_paths, mut headers } => {
+        Command::Seed { mut output, areas, locations, validate, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
             if wait_on_debugger {
                 debugger::wait_until_attached(None).expect("state() not implemented on this platform");
             }
-        
+
+            output.set_extension("wotwr");
+
+            let rng: Pcg32 = Seeder::from(output.file_name()).make_rng();
+
+            let mut spawn = spawn.unwrap_or_else(|| util::DEFAULTSPAWN.to_string());
+            if spawn == "r" { spawn = String::from("random"); }
+            if spawn == "f" { spawn = String::from("fullyrandom"); }
+
+            let flags = parse_flags(generation_flags);
+            let pathsets = flags.pathsets();
+
+            let graph = parse_logic(&areas, &locations, &pathsets, validate);
+
             let header = read_header();
             if !header.is_empty() {
                 headers.push(header)
             }
-        
-            for path in header_paths {
-                match read_header_from_file(&path) {
+
+            for path in &header_paths {
+                match read_header_from_file(path) {
                     Ok(header) => headers.push(header),
                     Err(error) => println!("Error from {}: {:?}", path.display(), error)
                 }
             }
-        
-            let mut pathsets = vec![Pathset::Moki];
-            for flag in &generation_flags {
-                match &flag[..] {
-                    "moki" => {},
-                    "gorlek" => {
-                        pathsets.push(Pathset::Gorlek);
-                    },
-                    "glitch" => pathsets.push(Pathset::Glitch),
-                    "unsafe" => pathsets.push(Pathset::Unsafe),
-                    other => println!("Unknown generation flag '{}'", other),
-                }
-            }
-        
-            let graph = parse_logic(&areas, &locations, &pathsets, validate);
-            generate_seed(&graph, &output, spoilers, &pathsets, &headers);
+
+            let settings = Settings {
+                spoilers: !race,
+                pathsets,
+                output_folder: output.clone(),
+                flags: SeedFlags {
+                    force_wisps: flags.force_wisps,
+                    force_trees: flags.force_trees,
+                    force_quests: flags.force_quests,
+                    world_tour: flags.world_tour,
+                    random_spawn: spawn == "random",
+                    ..SeedFlags::default()
+                },
+                web_conn: netcode,
+                spawn_loc: spawn,
+                header_list: header_paths.iter().map(|path| (*path.to_string_lossy()).to_string()).collect(),
+                ..Settings::default()
+            };
+
+            let seed = generate_seed(&graph, settings, rng).expect("Error generating seed");
+            fs::write(output, seed).expect("Failed to write seed file");
         }
         Command::ReachCheck { areas, locations, seed_file, health, energy, keystones, ore, spirit_light, items } => {
             let settings = read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
-            let pathsets = pathsets_from_settings(&settings);
-        
+
             let mut player = Player {
-                gorlek_paths: pathsets.contains(&Pathset::Gorlek),
-                unsafe_paths: pathsets.contains(&Pathset::Unsafe),
+                gorlek_paths: settings.pathsets.contains(&Pathset::Gorlek),
+                unsafe_paths: settings.pathsets.contains(&Pathset::Unsafe),
                 ..Player::default()
             };
             player.grant(Item::Resource(Resource::Health), health / 5);
@@ -184,13 +268,13 @@ fn main() {
                     panic!("items have to start with s:, t:, sh: or w: (for skill, teleporter, shard or world event), except found {}", item);
                 }
             }
-        
-            let graph = &parse_logic(&areas, &locations, &pathsets, false);
+
+            let graph = &parse_logic(&areas, &locations, &settings.pathsets, false);
             let mut world = World {
                 graph,
                 player,
             };
-        
+
             let reached = world.reached_locations(&settings.spawn_loc).expect("Invalid Reach Check");
             let mut reached = reached.iter().fold(String::new(), |acc, node| match node {
                 Node::Pickup(pickup) => acc + &format!("{}|{}, ", pickup.uber_group, pickup.uber_id),

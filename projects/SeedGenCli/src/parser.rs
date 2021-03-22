@@ -510,7 +510,9 @@ fn preprocess<'a>(tokens: &'a [Token], context: &mut ParseContext) -> Metadata<'
     let end = tokens.len();
     let mut definitions = FxHashSet::default();
     let mut states = FxHashSet::default();
+    states.reserve(end / 500);
     let mut quests = FxHashSet::default();
+    quests.reserve(end / 1000);
 
     while context.position < end {
         let token = &tokens[context.position];
@@ -535,7 +537,9 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
     let end = tokens.len();
     let mut definitions = FxHashMap::default();
     let mut regions = FxHashMap::default();
+    regions.reserve(20);
     let mut anchors = Vec::<Anchor>::new();
+    anchors.reserve(end / 200);
 
     if let TokenType::Newline = tokens[context.position].name { context.position += 1 }
 

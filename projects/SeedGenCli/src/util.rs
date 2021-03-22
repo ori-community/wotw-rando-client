@@ -1,9 +1,35 @@
 use std::{fs, io, path::PathBuf};
 use std::ops::{Add, AddAssign};
 
-use serde::Deserialize;
+use serde::{Serialize, Deserialize};
 
-#[derive(Debug, PartialEq, Clone, Copy)]
+pub const DEFAULTSPAWN: &str = "MarshSpawn.Main";
+pub const MOKI_SPAWNS: &[&str] = &[
+    "MarshSpawn.Main",
+    "HowlsDen.Teleporter",
+    "GladesTown.Teleporter",
+    "InnerWellspring.Teleporter",
+    "MidnightBurrows.Teleporter",
+];
+pub const GORLEK_SPAWNS: &[&str] = &[
+    "MarshSpawn.Main",
+    "HowlsDen.Teleporter",
+    "EastHollow.Teleporter",
+    "GladesTown.Teleporter",
+    "InnerWellspring.Teleporter",
+    "MidnightBurrows.Teleporter",
+    "WoodsEntry.Teleporter",
+    "WoodsMain.Teleporter",
+    "LowerReach.Teleporter",
+    "UpperDepths.Teleporter",
+    "EastPools.Teleporter",
+    "LowerWastes.WestTP",
+    "LowerWastes.EastTP",
+    "UpperWastes.NorthTP",
+    "WillowsEnd.InnerTP",
+];
+
+#[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Pathset {
     Moki,
     Gorlek,
@@ -408,7 +434,6 @@ pub fn energy_cost(skill: Skill) -> f32 {
         _ => 0.0,
     }
 }
-// too lazy to actually look these up now
 pub fn damage(skill: Skill, unsafe_paths: bool) -> f32 {
     match skill {
         Skill::Bow | Skill::Sword => 4.0,
@@ -422,22 +447,10 @@ pub fn damage(skill: Skill, unsafe_paths: bool) -> f32 {
     }
 }
 
-#[derive(Debug, Deserialize)]
+/// Representation of settings as they are written by the java-based seed generator
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct SeedFlags {
-    pub force_wisps: bool,
-    pub force_trees: bool,
-    pub force_quests: bool,
-    pub no_hints: bool,
-    pub no_sword: bool,
-    pub rain: bool,
-    pub no_k_s_doors: bool,
-    pub random_spawn: bool,
-    pub world_tour: bool,
-}
-#[derive(Debug, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Settings {
+pub struct OldSettings {
     pub tps: bool,
     pub spoilers: bool,
     pub unsafe_paths: bool,
@@ -453,9 +466,9 @@ pub struct Settings {
     pub spawn_loc: String,
     pub header_list: Vec<String>,
 }
-impl Default for Settings {
-    fn default() -> Settings {
-        Settings {
+impl Default for OldSettings {
+    fn default() -> OldSettings {
+        OldSettings {
             tps: true,
             spoilers: true,
             unsafe_paths: false,
@@ -463,54 +476,100 @@ impl Default for Settings {
             glitch_paths: false,
             quest_locs: true,
             output_folder: PathBuf::new(),
-            flags: SeedFlags {
-                force_wisps: false,
-                force_trees: false,
-                force_quests: false,
-                no_hints: false,
-                no_sword: false,
-                rain: false,
-                no_k_s_doors: false,
-                random_spawn: false,
-                world_tour: false,
-            },
+            flags: SeedFlags::default(),
             web_conn: false,
             bonus_items: false,
             debug_info: false,
             seir_launch: false,
-            spawn_loc: "MarshSpawn.Main".to_string(),
+            spawn_loc: DEFAULTSPAWN.to_string(),
             header_list: vec![],
+        }
+    }
+}
+fn read_old_settings(json: &str, spawn: &str) -> Result<Settings, io::Error> {
+    let old_settings: OldSettings = serde_json::from_str(json)?;
+
+    let mut pathsets = vec![Pathset::Moki];
+    if old_settings.gorlek_paths { pathsets.push(Pathset::Gorlek); }
+    if old_settings.unsafe_paths { pathsets.push(Pathset::Unsafe); }
+    if old_settings.glitch_paths { pathsets.push(Pathset::Glitch); }
+
+    let mut header_list = old_settings.header_list;
+    if old_settings.tps { header_list.push(String::from("teleporters")); }
+    if !old_settings.quest_locs { header_list.push(String::from("no_quests")); }
+    if old_settings.bonus_items { header_list.push(String::from("bonus_items")); }
+    if old_settings.seir_launch { header_list.push(String::from("launch_on_seir")); }
+
+    Ok(Settings {
+        pathsets,
+        flags: old_settings.flags,
+        spoilers: old_settings.spoilers,
+        output_folder: old_settings.output_folder,
+        web_conn: old_settings.web_conn,
+        debug_info: old_settings.debug_info,
+        spawn_loc: spawn.to_string(),
+        header_list,
+    })
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SeedFlags {
+    pub force_wisps: bool,      // compability note: used for goal mode logic
+    pub force_trees: bool,      // compability note: used for goal mode logic
+    pub force_quests: bool,     // compability note: used for goal mode logic
+    pub no_hints: bool,         // compability note: unused
+    pub no_sword: bool,         // compability note: used for sword init
+    pub rain: bool,             // compability note: used for day-night-cycle
+    pub no_k_s_doors: bool,     // compability note: used for black market
+    pub random_spawn: bool,     // compability note: unused
+    pub world_tour: bool,       // compability note: used for goal mode logic
+}
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Settings {
+    pub pathsets: Vec<Pathset>,
+    pub flags: SeedFlags,
+    pub spawn_loc: String,
+    pub output_folder: PathBuf,
+    pub spoilers: bool,
+    pub web_conn: bool,
+    pub debug_info: bool,
+    pub header_list: Vec<String>,
+}
+impl Default for Settings {
+    fn default() -> Settings {
+        Settings {
+            pathsets: vec![Pathset::Moki],
+            flags: SeedFlags::default(),
+            spawn_loc: DEFAULTSPAWN.to_string(),
+            output_folder: PathBuf::default(),
+            spoilers: true,
+            web_conn: false,
+            debug_info: false,
+            header_list: vec![String::from("Teleporters"), String::from("Hints"), String::from("Swordspawn")],
         }
     }
 }
 pub fn read_settings(seed: &PathBuf) -> Result<Settings, io::Error> {
     let seed = fs::read_to_string(seed)?;
     let mut settings = Settings::default();
-    let mut actual_spawn = "MarshSpawn.Main";
+    let mut actual_spawn = "//MarshSpawn.Main";  // hackfix for java backwards compability
     for line in seed.lines() {
         if let Some(spawn) = line.strip_prefix("Spawn:") {
-            actual_spawn = spawn[spawn.find("//").ok_or_else(|| io::Error::new(io::ErrorKind::Other, "Failed to read Spawn location"))? + 2..].trim();
+            actual_spawn = spawn;
         }
         if let Some(config) = line.strip_prefix("// Config: ") {
-            settings = serde_json::from_str(&config)?;
-            settings.spawn_loc = actual_spawn.to_string();
+            settings = serde_json::from_str(&config).or_else(|_| {  // read directly or fall back to reading old settings
+                actual_spawn = actual_spawn[actual_spawn.find("//").ok_or_else(|| io::Error::new(io::ErrorKind::Other, "Failed to read Spawn location"))? + 2..].trim();
+                read_old_settings(&config, actual_spawn)
+            })?;
         }
     }
     Ok(settings)
 }
-
-pub fn pathsets_from_settings(settings: &Settings) -> Vec<Pathset> {
-    let mut pathsets = if settings.unsafe_paths {
-        vec![Pathset::Moki, Pathset::Gorlek, Pathset::Unsafe]
-    } else if settings.gorlek_paths {
-        vec![Pathset::Moki, Pathset::Gorlek]
-    } else {
-        vec![Pathset::Moki]
-    };
-    if settings.glitch_paths {
-        pathsets.push(Pathset::Glitch);
-    }
-    pathsets
+pub fn write_settings(settings: &Settings) -> Result<String, serde_json::Error> {
+    serde_json::to_string(settings)
 }
 
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {

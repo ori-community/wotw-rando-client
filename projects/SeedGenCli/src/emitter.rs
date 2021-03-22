@@ -104,9 +104,12 @@ fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, value: usi
 }
 
 pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<Vec<Node>, String> {
-    let mut graph = Vec::<Node>::with_capacity(areas.anchors.len());  // TODO better estimate
+    let node_count = areas.anchors.len() + locations.len() + metadata.states.len();
+    let mut graph = Vec::<Node>::with_capacity(node_count);
     let mut used_states = FxHashSet::default();
+    used_states.reserve(metadata.states.len());
     let mut node_map = FxHashMap::<&str, usize>::default();
+    node_map.reserve(node_count);
 
     for location in locations {
         let name = &location.name[..];

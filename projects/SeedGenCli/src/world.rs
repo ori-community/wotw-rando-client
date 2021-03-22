@@ -166,7 +166,9 @@ impl<'a> World<'a> {
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
 
         let mut state_progressions = FxHashMap::<_, _>::default();
+        state_progressions.reserve(10);
         let mut world_state = FxHashMap::<_, _>::default();
+        world_state.reserve(self.graph.len());
 
         let reached = self.reach_recursion(entry, vec![self.player.max_orbs()], &mut state_progressions, &mut world_state);
 
