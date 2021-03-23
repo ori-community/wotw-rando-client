@@ -119,8 +119,7 @@ pub fn default_pool() -> Inventory {
     pool.insert(Item::Skill(Skill::Blaze), 1);
     pool.insert(Item::Skill(Skill::Sentry), 1);
     pool.insert(Item::Skill(Skill::Flap), 1);
-    pool.insert(Item::Skill(Skill::AncestralLight), 1);
-    pool.insert(Item::Skill(Skill::Water), 1);
+    pool.insert(Item::Skill(Skill::AncestralLight), 2);
     pool.insert(Item::Shard(Shard::Overcharge), 1);
     pool.insert(Item::Shard(Shard::TripleJump), 1);
     pool.insert(Item::Shard(Shard::Wingclip), 1);
@@ -152,6 +151,7 @@ pub fn default_pool() -> Inventory {
     pool.insert(Item::Shard(Shard::Deflector), 1);
     pool.insert(Item::Shard(Shard::Fracture), 1);
     pool.insert(Item::Shard(Shard::Arcing), 1);
+    pool.insert(Item::Water, 1);
     Inventory {
         inventory: pool,
     }
@@ -165,6 +165,11 @@ pub struct World<'a> {
     pub preplacements: FxHashMap<(i16, i16), Inventory>,
 }
 impl<'a> World<'a> {
+    pub fn grant_player(&mut self, item: Item, amount: u16) {
+        self.player.inventory.grant(item.clone(), amount);
+        self.pool.remove(item, amount);
+    }
+
     fn follow_state_progressions(&mut self, index: usize, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
         let mut reached = Vec::<&Node>::new();
         if let Some(connections) = state_progressions.get(&index) {
@@ -267,38 +272,10 @@ mod tests {
 
     #[test]
     fn reach_check() {
-        let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
+        let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
         let mut player = Player::default();
-        player.inventory.grant(Item::Resource(Resource::Health), 40);
-        player.inventory.grant(Item::Resource(Resource::Energy), 40);
-        player.inventory.grant(Item::Resource(Resource::Keystone), 34);
-        player.inventory.grant(Item::Resource(Resource::Ore), 40);
+        player.inventory = default_pool();
         player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
-        player.inventory.grant(Item::Resource(Resource::ShardSlot), 8);
-        player.inventory.grant(Item::Skill(Skill::Bash), 1);
-        player.inventory.grant(Item::Skill(Skill::WallJump), 1);
-        player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
-        player.inventory.grant(Item::Skill(Skill::Launch), 1);
-        player.inventory.grant(Item::Skill(Skill::Glide), 1);
-        player.inventory.grant(Item::Skill(Skill::WaterBreath), 1);
-        player.inventory.grant(Item::Skill(Skill::Grenade), 1);
-        player.inventory.grant(Item::Skill(Skill::Grapple), 1);
-        player.inventory.grant(Item::Skill(Skill::Flash), 1);
-        player.inventory.grant(Item::Skill(Skill::Spear), 1);
-        player.inventory.grant(Item::Skill(Skill::Regenerate), 1);
-        player.inventory.grant(Item::Skill(Skill::Bow), 1);
-        player.inventory.grant(Item::Skill(Skill::Hammer), 1);
-        player.inventory.grant(Item::Skill(Skill::Sword), 1);
-        player.inventory.grant(Item::Skill(Skill::Burrow), 1);
-        player.inventory.grant(Item::Skill(Skill::Dash), 1);
-        player.inventory.grant(Item::Skill(Skill::WaterDash), 1);
-        player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
-        player.inventory.grant(Item::Skill(Skill::Seir), 1);
-        player.inventory.grant(Item::Skill(Skill::Blaze), 1);
-        player.inventory.grant(Item::Skill(Skill::Sentry), 1);
-        player.inventory.grant(Item::Skill(Skill::Flap), 1);
-        player.inventory.grant(Item::Skill(Skill::Water), 1);
-        player.inventory.grant(Item::Skill(Skill::AncestralLight), 1);
         let mut world = World {
             graph,
             player,
@@ -309,7 +286,7 @@ mod tests {
         let reached = world.reached_locations("MarshSpawn.Main").unwrap();
         let reached: FxHashSet<_> = reached.iter().map(|node| node.identifier()).collect();
 
-        let locations = parser::parse_locations(&PathBuf::from("C:\\moon\\loc_data.csv"), false).unwrap();
+        let locations = parser::parse_locations(&PathBuf::from("loc_data.csv"), false).unwrap();
         let locations: FxHashSet<_> = locations.iter().map(|location| &location.name[..]).collect();
 
         if !(reached == locations) {
@@ -325,7 +302,7 @@ mod tests {
             unsafe_paths: true,
             ..Player::default()
         };
-        let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
+        let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
         player.inventory.grant(Item::Resource(Resource::Health), 7);
         player.inventory.grant(Item::Resource(Resource::Energy), 6);
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);

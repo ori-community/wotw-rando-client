@@ -63,7 +63,6 @@ pub enum Skill {
     Sentry,
     Flap,
     AncestralLight,
-    Water,
 }
 impl Skill {
     pub fn from_id(id: u8) -> Option<Skill> {
@@ -94,6 +93,33 @@ impl Skill {
             _ => None,
         }
     }
+    pub fn to_id(&self) -> u16 {
+        match self {
+            Skill::Bash => 0,
+            Skill::WallJump => 3,
+            Skill::DoubleJump => 5,
+            Skill::Launch => 8,
+            Skill::Glide => 14,
+            Skill::WaterBreath => 23,
+            Skill::Grenade => 51,
+            Skill::Grapple => 57,
+            Skill::Flash => 62,
+            Skill::Spear => 74,
+            Skill::Regenerate => 77,
+            Skill::Bow => 97,
+            Skill::Hammer => 98,
+            Skill::Sword => 100,
+            Skill::Burrow => 101,
+            Skill::Dash => 102,
+            Skill::WaterDash => 104,
+            Skill::Shuriken => 106,
+            Skill::Seir => 108,
+            Skill::Blaze => 115,
+            Skill::Sentry => 116,
+            Skill::Flap => 118,
+            Skill::AncestralLight => 120,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Resource {
@@ -113,6 +139,16 @@ impl Resource {
             3 => Some(Resource::Keystone),
             4 => Some(Resource::ShardSlot),
             _ => None,
+        }
+    }
+    pub fn to_id(&self) -> u16 {
+        match self {
+            Resource::SpiritLight => 255,
+            Resource::Health => 0,
+            Resource::Energy => 1,
+            Resource::Ore => 2,
+            Resource::Keystone => 3,
+            Resource::ShardSlot => 4,
         }
     }
 }
@@ -187,6 +223,41 @@ impl Shard {
             _ => None,
         }
     }
+    pub fn to_id(&self) -> u16 {
+        match self {
+            Shard::Overcharge => 1,
+            Shard::TripleJump => 2,
+            Shard::Wingclip => 3,
+            Shard::Bounty => 4,
+            Shard::Swap => 5,
+            Shard::Magnet => 8,
+            Shard::Splinter => 9,
+            Shard::Reckless => 13,
+            Shard::Quickshot => 14,
+            Shard::Resilience => 18,
+            Shard::SpiritLightHarvest => 19,
+            Shard::Vitality => 22,
+            Shard::LifeHarvest => 23,
+            Shard::EnergyHarvest => 25,
+            Shard::Energy => 26,
+            Shard::LifePact => 27,
+            Shard::LastStand => 28,
+            Shard::Sense => 30,
+            Shard::UltraBash => 32,
+            Shard::UltraGrapple => 33,
+            Shard::Overflow => 34,
+            Shard::Thorn => 35,
+            Shard::Catalyst => 36,
+            Shard::Turmoil => 38,
+            Shard::Sticky => 39,
+            Shard::Finesse => 40,
+            Shard::SpiritSurge => 41,
+            Shard::Lifeforce => 43,
+            Shard::Deflector => 44,
+            Shard::Fracture => 46,
+            Shard::Arcing => 47,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Teleporter {
@@ -233,13 +304,60 @@ impl Teleporter {
             _ => None,
         }
     }
+    pub fn to_id(&self) -> u16 {
+        match self {
+            Teleporter::Burrows => 0,
+            Teleporter::Den => 1,
+            Teleporter::EastLuma => 2,
+            Teleporter::Wellspring => 3,
+            Teleporter::Reach => 4,
+            Teleporter::Hollow => 5,
+            Teleporter::Depths => 6,
+            Teleporter::WestWoods => 7,
+            Teleporter::EastWoods => 8,
+            Teleporter::WestWastes => 9,
+            Teleporter::EastWastes => 10,
+            Teleporter::OuterRuins => 11,
+            Teleporter::Willow => 12,
+            Teleporter::WestLuma => 13,
+            Teleporter::InnerRuins => 14,
+            Teleporter::Shriek => 15,
+            Teleporter::Marsh => 16,
+            Teleporter::Glades => 17,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
-pub enum Bonus {
+pub enum BonusItem {
     HealthRegen,
     EnergyRegen,
     ExtraDoubleJump,
     ExtraAirDash,
+    Relic,
+}
+impl BonusItem {
+    pub fn from_id(id: u8) -> Option<BonusItem> {
+        match id {
+            20 => Some(BonusItem::Relic),
+            30 => Some(BonusItem::HealthRegen),
+            31 => Some(BonusItem::EnergyRegen),
+            35 => Some(BonusItem::ExtraDoubleJump),
+            36 => Some(BonusItem::ExtraAirDash),
+            _ => None,
+        }
+    }
+    pub fn to_id(&self) -> u16 {
+        match self {
+            BonusItem::Relic => 20,
+            BonusItem::HealthRegen => 30,
+            BonusItem::EnergyRegen => 31,
+            BonusItem::ExtraDoubleJump => 35,
+            BonusItem::ExtraAirDash => 36,
+        }
+    }
+}
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum BonusUpgrade {
     RapidHammer,
     RapidSword,
     BlazeEfficiency,
@@ -250,27 +368,35 @@ pub enum Bonus {
     RegenerationEfficiency,
     FlashEfficiency,
     GrenadeEfficiency,
-    Relic,
 }
-impl Bonus {
-    pub fn from_id(id: u8) -> Option<Bonus> {
+impl BonusUpgrade {
+    pub fn from_id(id: u8) -> Option<BonusUpgrade> {
         match id {
-            0 => Some(Bonus::RapidHammer),
-            1 => Some(Bonus::RapidSword),
-            2 => Some(Bonus::BlazeEfficiency),
-            3 => Some(Bonus::SpearEfficiency),
-            4 => Some(Bonus::ShurikenEfficiency),
-            5 => Some(Bonus::SentryEfficiency),
-            6 => Some(Bonus::BowEfficiency),
-            7 => Some(Bonus::RegenerationEfficiency),
-            8 => Some(Bonus::FlashEfficiency),
-            9 => Some(Bonus::GrenadeEfficiency),
-            20 => Some(Bonus::Relic),
-            30 => Some(Bonus::HealthRegen),
-            31 => Some(Bonus::EnergyRegen),
-            35 => Some(Bonus::ExtraDoubleJump),
-            36 => Some(Bonus::ExtraAirDash),
+            0 => Some(BonusUpgrade::RapidHammer),
+            1 => Some(BonusUpgrade::RapidSword),
+            2 => Some(BonusUpgrade::BlazeEfficiency),
+            3 => Some(BonusUpgrade::SpearEfficiency),
+            4 => Some(BonusUpgrade::ShurikenEfficiency),
+            5 => Some(BonusUpgrade::SentryEfficiency),
+            6 => Some(BonusUpgrade::BowEfficiency),
+            7 => Some(BonusUpgrade::RegenerationEfficiency),
+            8 => Some(BonusUpgrade::FlashEfficiency),
+            9 => Some(BonusUpgrade::GrenadeEfficiency),
             _ => None,
+        }
+    }
+    pub fn to_id(&self) -> u16 {
+        match self {
+            BonusUpgrade::RapidHammer => 0,
+            BonusUpgrade::RapidSword => 1,
+            BonusUpgrade::BlazeEfficiency => 2,
+            BonusUpgrade::SpearEfficiency => 3,
+            BonusUpgrade::ShurikenEfficiency => 4,
+            BonusUpgrade::SentryEfficiency => 5,
+            BonusUpgrade::BowEfficiency => 6,
+            BonusUpgrade::RegenerationEfficiency => 7,
+            BonusUpgrade::FlashEfficiency => 8,
+            BonusUpgrade::GrenadeEfficiency => 9,
         }
     }
 }
@@ -307,6 +433,23 @@ impl Hint {
             11 => Some(Hint::Willow),
             12 => Some(Hint::Void),
             _ => None,
+        }
+    }
+    pub fn to_id(&self) -> u16 {
+        match self {
+            Hint::Marsh => 0,
+            Hint::Hollow => 1,
+            Hint::Glades => 2,
+            Hint::Wellspring => 3,
+            Hint::Pools => 4,
+            Hint::Burrows => 5,
+            Hint::Reach => 6,
+            Hint::Woods => 7,
+            Hint::Depths => 8,
+            Hint::Wastes => 9,
+            Hint::Ruins => 10,
+            Hint::Willow => 11,
+            Hint::Void => 12,
         }
     }
 }
@@ -696,14 +839,20 @@ pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
             } else {
                 let world_event_type: u8 = world_event_type.parse().map_err(|_| format!("invalid world event type in pickup {}", pickup))?;
                 if world_event_type != 0 { return Err(format!("invalid world event type in pickup {}", pickup)); }
-                Ok((Item::Skill(Skill::Water), 1))
+                Ok((Item::Water, 1))
             }
         }
-        "10" | "11" => {
+        "10" => {
             let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
             let bonus_type: u8 = bonus_type.parse().map_err(|_| format!("invalid bonus item type in pickup {}", pickup))?;
-            let bonus = Bonus::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
-            Ok((Item::Bonus(bonus), 1))
+            let bonus = BonusItem::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
+            Ok((Item::BonusItem(bonus), 1))
+        }
+        "11" => {
+            let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
+            let bonus_type: u8 = bonus_type.parse().map_err(|_| format!("invalid bonus item type in pickup {}", pickup))?;
+            let bonus = BonusUpgrade::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
+            Ok((Item::BonusUpgrade(bonus), 1))
         }
         "12" => {
             let hint_type = parts.next().ok_or_else(|| format!("missing hint type in pickup {}", pickup))?;
@@ -769,10 +918,10 @@ mod tests {
         assert_eq!(parse_pickup("2|-9"), Ok((Item::Custom(String::from("2|-9")), 1)));
         assert_eq!(parse_pickup("3|28"), Ok((Item::Shard(Shard::LastStand), 1)));
         assert_eq!(parse_pickup("5|16"), Ok((Item::Teleporter(Teleporter::Marsh), 1)));
-        assert_eq!(parse_pickup("9|0"), Ok((Item::Skill(Skill::Water), 1)));
+        assert_eq!(parse_pickup("9|0"), Ok((Item::Water, 1)));
         assert_eq!(parse_pickup("9|-0"), Ok((Item::Custom(String::from("9|-0")), 1)));
-        assert_eq!(parse_pickup("10|0"), Ok((Item::Bonus(Bonus::RapidHammer), 1)));  // 10 and 11 are interchangable in the current implementation
-        assert_eq!(parse_pickup("10|31"), Ok((Item::Bonus(Bonus::EnergyRegen), 1)));
+        assert_eq!(parse_pickup("11|0"), Ok((Item::BonusUpgrade(BonusUpgrade::RapidHammer), 1)));
+        assert_eq!(parse_pickup("10|31"), Ok((Item::BonusItem(BonusItem::EnergyRegen), 1)));
         assert!(parse_pickup("12|13").is_err());
         assert_eq!(parse_pickup("8|5|3|6"), Ok((Item::Custom(String::from("8|5|3|6")), 1)));
         assert!(parse_pickup("12").is_err());

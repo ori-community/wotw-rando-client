@@ -4,6 +4,7 @@ pub mod emitter;
 pub mod world;
 pub mod player;
 pub mod requirements;
+pub mod generator;
 pub mod util;
 
 use std::path::PathBuf;
@@ -149,15 +150,19 @@ pub fn generate_seed(graph: &Vec<Node>, settings: &Settings, headers: &[String],
     }
 
     for header in headers {
-        seed += &parse_header(header, &mut world).unwrap_or_else(|err| panic!("{} in inline header", err));
+        seed += &parse_header(header, &mut world).map_err(|err| format!("{} in inline header", err))?;
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
-        let header = util::read_file(&path, "headers").unwrap_or_else(|err| panic!("Error reading header from {:?}: {}", path, err));
-        seed += &parse_header(&header, &mut world).unwrap_or_else(|err| panic!("{} in header '{:?}'", err, path));
+        let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
+        seed += &parse_header(&header, &mut world).map_err(|err| format!("{} in header '{:?}'", err, path))?;
     }
 
-    // TODO: Generate a seed
+    let placements = generator::generate_placements(world, settings, &mut rng).map_err(|err| format!("Error generating placements: {}", err))?;
+    for placement in placements {
+        seed += &format!("{}\n", placement);
+    }
+
     seed += &util::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?;
     Ok(seed)
 }

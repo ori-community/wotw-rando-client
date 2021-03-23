@@ -11,8 +11,8 @@ use requirements::*;
 use util::*;
 
 fn parsing(c: &mut Criterion) {
-    let areas = PathBuf::from("C:\\moon\\areas.wotw");
-    let locations = PathBuf::from("C:\\moon\\loc_data.csv");
+    let areas = PathBuf::from("areas.wotw");
+    let locations = PathBuf::from("loc_data.csv");
 
     c.bench_function("tokenize", |b| b.iter(|| tokenizer::tokenize(&areas)));
     let tokens = tokenizer::tokenize(&areas).unwrap();
@@ -70,7 +70,7 @@ fn requirements(c: &mut Criterion) {
 }
 
 fn reach_checking(c: &mut Criterion) {
-    let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
+    let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player = Player::default();
         player.inventory.grant(Item::Resource(Resource::Health), 40);
@@ -92,36 +92,8 @@ fn reach_checking(c: &mut Criterion) {
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut player = Player::default();
-        player.inventory.grant(Item::Resource(Resource::Health), 40);
-        player.inventory.grant(Item::Resource(Resource::Energy), 40);
-        player.inventory.grant(Item::Resource(Resource::Keystone), 34);
-        player.inventory.grant(Item::Resource(Resource::Ore), 40);
+        player.inventory = default_pool();
         player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
-        player.inventory.grant(Item::Resource(Resource::ShardSlot), 8);
-        player.inventory.grant(Item::Skill(Skill::Bash), 1);
-        player.inventory.grant(Item::Skill(Skill::WallJump), 1);
-        player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
-        player.inventory.grant(Item::Skill(Skill::Launch), 1);
-        player.inventory.grant(Item::Skill(Skill::Glide), 1);
-        player.inventory.grant(Item::Skill(Skill::WaterBreath), 1);
-        player.inventory.grant(Item::Skill(Skill::Grenade), 1);
-        player.inventory.grant(Item::Skill(Skill::Grapple), 1);
-        player.inventory.grant(Item::Skill(Skill::Flash), 1);
-        player.inventory.grant(Item::Skill(Skill::Spear), 1);
-        player.inventory.grant(Item::Skill(Skill::Regenerate), 1);
-        player.inventory.grant(Item::Skill(Skill::Bow), 1);
-        player.inventory.grant(Item::Skill(Skill::Hammer), 1);
-        player.inventory.grant(Item::Skill(Skill::Sword), 1);
-        player.inventory.grant(Item::Skill(Skill::Burrow), 1);
-        player.inventory.grant(Item::Skill(Skill::Dash), 1);
-        player.inventory.grant(Item::Skill(Skill::WaterDash), 1);
-        player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
-        player.inventory.grant(Item::Skill(Skill::Seir), 1);
-        player.inventory.grant(Item::Skill(Skill::Blaze), 1);
-        player.inventory.grant(Item::Skill(Skill::Sentry), 1);
-        player.inventory.grant(Item::Skill(Skill::Flap), 1);
-        player.inventory.grant(Item::Skill(Skill::Water), 1);
-        player.inventory.grant(Item::Skill(Skill::AncestralLight), 1);
         let mut world = World {
             graph,
             player,

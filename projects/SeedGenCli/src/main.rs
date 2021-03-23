@@ -244,7 +244,7 @@ fn main() {
                 else if let Some(world_event) = item.strip_prefix("w:") {
                     let id: u8 = world_event.parse().unwrap_or_else(|_| panic!("expected numeric world event id, except found {}", item));
                     if id != 0 { panic!("{} is not a valid world event id (only 0 is)", id); } 
-                    player.inventory.grant(Item::Skill(Skill::Water), 1);
+                    player.inventory.grant(Item::Water, 1);
                 }
                 else {
                     panic!("items have to start with s:, t:, sh: or w: (for skill, teleporter, shard or world event), except found {}", item);

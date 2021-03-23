@@ -10,6 +10,7 @@ pub enum Requirement {
     Resource(Resource, u16),
     Shard(Shard),
     Teleporter(Teleporter),
+    Water,
     State(usize),
     Damage(f32),
     Danger(f32),
@@ -52,6 +53,8 @@ impl Requirement {
                 if player.inventory.has(&Item::Shard(*shard), 1) { return Some(vec![Orbs::default()]); },
             Requirement::Teleporter(teleporter) =>
                 if player.inventory.has(&Item::Teleporter(*teleporter), 1) { return Some(vec![Orbs::default()]); },
+            Requirement::Water =>
+                if player.inventory.has(&Item::Water, 1) { return Some(vec![Orbs::default()]); },
             Requirement::State(state) =>
                 if player.states.contains(state) { return Some(vec![Orbs::default()]); },
             Requirement::Damage(amount) => {

@@ -20,6 +20,7 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
         parser::Requirement::Resource(resource, amount) => Requirement::Resource(*resource, *amount),
         parser::Requirement::Shard(shard) => Requirement::Shard(*shard),
         parser::Requirement::Teleporter(teleporter) => Requirement::Teleporter(*teleporter),
+        parser::Requirement::Water => Requirement::Water,
         parser::Requirement::State(state) => {
             if validate { used_states.insert(state); }
             Requirement::State(node_map[state])

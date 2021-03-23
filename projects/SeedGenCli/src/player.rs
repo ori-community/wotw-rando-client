@@ -1,6 +1,8 @@
+use std::fmt;
+
 use rustc_hash::{FxHashMap, FxHashSet};
 
-use crate::util::{Pathset, Resource, Skill, Shard, Teleporter, Bonus, Hint, Orbs, Settings, damage, energy_cost};
+use crate::util::{Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Orbs, Settings, damage, energy_cost};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Item {
@@ -8,9 +10,30 @@ pub enum Item {
     Skill(Skill),
     Shard(Shard),
     Teleporter(Teleporter),
-    Bonus(Bonus),
+    Water,
+    BonusItem(BonusItem),
+    BonusUpgrade(BonusUpgrade),
     Hint(Hint),
     Custom(String),
+}
+impl fmt::Display for Item {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Item::Resource(Resource::SpiritLight) => {
+                println!("Invoked display on Spirit Light. This doesn't make sense and will default to one Spirit Light.");
+                write!(f, "0|1")
+            },
+            Item::Resource(resource) => write!(f, "1|{}", resource.to_id()),
+            Item::Skill(skill) => write!(f, "2|{}", skill.to_id()),
+            Item::Shard(shard) => write!(f, "3|{}", shard.to_id()),
+            Item::Teleporter(teleporter) => write!(f, "5|{}", teleporter.to_id()),
+            Item::Water => write!(f, "9|0"),
+            Item::BonusItem(bonus) => write!(f, "10|{}", bonus.to_id()),
+            Item::BonusUpgrade(bonus) => write!(f, "11|{}", bonus.to_id()),
+            Item::Hint(hint) => write!(f, "12|{}", hint.to_id()),
+            Item::Custom(string) => write!(f, "{}", string),
+        }
+    }
 }
 
 #[derive(Debug, Default)]
@@ -192,10 +215,10 @@ mod tests {
     #[test]
     fn inventory() {
         let mut player = Player::default();
-        player.inventory.grant(Item::Bonus(Bonus::Relic), 2);
+        player.inventory.grant(Item::BonusItem(BonusItem::Relic), 2);
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
-        assert!(player.inventory.has(&Item::Bonus(Bonus::Relic), 1));
-        assert!(player.inventory.has(&Item::Bonus(Bonus::Relic), 2));
+        assert!(player.inventory.has(&Item::BonusItem(BonusItem::Relic), 1));
+        assert!(player.inventory.has(&Item::BonusItem(BonusItem::Relic), 2));
         assert!(player.inventory.has(&Item::Skill(Skill::Shuriken), 1));
         assert!(!player.inventory.has(&Item::Skill(Skill::Bash), 0));
     }
@@ -287,5 +310,19 @@ mod tests {
         assert_eq!(player.checkpoint_orbs(), Orbs { health: 35.0, ..orbs });
         player.inventory.grant(Item::Resource(Resource::Health), 21);
         assert_eq!(player.checkpoint_orbs(), Orbs { health: 45.0, ..orbs });
+    }
+
+    #[test]
+    fn item_display() {
+        assert_eq!(format!("{}", Item::Resource(Resource::Keystone)), "1|3");
+        assert_eq!(format!("{}", Item::Skill(Skill::Launch)), "2|8");
+        assert_eq!(format!("{}", Item::Skill(Skill::AncestralLight)), "2|120");
+        assert_eq!(format!("{}", Item::Shard(Shard::Magnet)), "3|8");
+        assert_eq!(format!("{}", Item::Teleporter(Teleporter::Marsh)), "5|16");
+        assert_eq!(format!("{}", Item::Water), "9|0");
+        assert_eq!(format!("{}", Item::BonusItem(BonusItem::Relic)), "10|20");
+        assert_eq!(format!("{}", Item::BonusUpgrade(BonusUpgrade::ShurikenEfficiency)), "11|4");
+        assert_eq!(format!("{}", Item::Hint(Hint::Void)), "12|12");
+        assert_eq!(format!("{}", Item::Custom(String::from("8|0|9|7"))), "8|0|9|7");
     }
 }
