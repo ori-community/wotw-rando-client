@@ -7,7 +7,6 @@ pub mod requirements;
 pub mod util;
 
 use std::path::PathBuf;
-// use std::io::prelude::*;
 
 use rand::seq::IteratorRandom;
 use rand_pcg::Pcg32;
@@ -17,13 +16,7 @@ use world::{Node, Anchor};
 use util::{Pathset, NodeType, Settings, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
 pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> Vec<Node> {
-    let tokens = tokenizer::tokenize(areas).expect("Error parsing areas.wotw");
-
-    // let mut file = File::create("tokens.txt").unwrap();
-    // for token in &tokens {
-    //     let name = format!("{}, {:?} ({}) ", token.line, token.name, token.value);
-    //     file.write_all(name.as_bytes()).unwrap();
-    // }
+    let tokens = tokenizer::tokenize(areas).unwrap_or_else(|err| panic!("Error parsing areas from {:?}: {}", areas, err));
 
     let (areas, metadata) = match parser::parse_areas(&tokens) {
         Ok(areas) => areas,
@@ -33,9 +26,9 @@ pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], v
         }
     };
 
-    let locations = parser::parse_locations(locations, validate).expect("Error parsing loc_data.csv");
+    let locations = parser::parse_locations(locations, validate).unwrap_or_else(|err| panic!("Error parsing locations from {:?}: {}", locations, err));
 
-    emitter::emit(&areas, &metadata, &locations, pathsets, validate).expect("Error building the logic")
+    emitter::emit(&areas, &metadata, &locations, pathsets, validate).unwrap_or_else(|err| panic!("Error building the logic: {}", err))
 }
 
 fn pick_spawn<'a>(graph: &'a [Node], settings: &'a Settings, rng: &'a mut Pcg32) -> Result<&'a Anchor, String> {

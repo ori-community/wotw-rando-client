@@ -350,6 +350,15 @@ impl AddAssign for Orbs {
     }
 }
 
+pub fn read_file(file: &PathBuf, default_folder: &str) -> Result<String, io::Error> {
+    let mut in_folder = PathBuf::new();
+    in_folder.push(default_folder);
+    in_folder.push(file);
+    fs::read_to_string(in_folder).or_else(|_| {
+        fs::read_to_string(file)
+    })
+}
+
 pub fn either_orbs(a: &[Orbs], b: &[Orbs]) -> Vec<Orbs> {
     if b.is_empty() || a.is_empty() {
         vec![Orbs::default()]
@@ -552,7 +561,7 @@ impl Default for Settings {
     }
 }
 pub fn read_settings(seed: &PathBuf) -> Result<Settings, io::Error> {
-    let seed = fs::read_to_string(seed)?;
+    let seed = read_file(seed, "seeds")?;
     let mut settings = Settings::default();
     let mut actual_spawn = "//MarshSpawn.Main";  // hackfix for java backwards compability
     for line in seed.lines() {
@@ -573,7 +582,7 @@ pub fn write_settings(settings: &Settings) -> Result<String, serde_json::Error> 
 }
 
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
-    let input = fs::read_to_string(areas).unwrap();
+    let input = read_file(areas, "logic").unwrap();
     let mut input = &input[position..];
     if input.starts_with('\n') {
         input = &input[1..];

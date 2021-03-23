@@ -1,3 +1,4 @@
 target/*
 rls/*
 tokens.txt
+*.wotwr

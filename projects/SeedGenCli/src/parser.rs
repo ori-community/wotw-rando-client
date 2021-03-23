@@ -1,8 +1,8 @@
-use std::{fs, path::PathBuf};
+use std::path::PathBuf;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::tokenizer::{Token, TokenType};
-use crate::util::{Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy};
+use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy};
 
 pub struct ParseError {
     pub description: String,
@@ -587,7 +587,7 @@ fn empty_field(name: &str, index: usize, line: &str) -> String {
 }
 
 pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, String> {
-    let input = fs::read_to_string(path).unwrap();
+    let input = util::read_file(path, "logic").map_err(|err| format!("Failed to read locations: {}", err))?;
     let mut locations = Vec::with_capacity(input.lines().count());
 
     for (index, line) in input.lines().enumerate() {

@@ -1,4 +1,6 @@
-use std::{fs, io, cmp::Ordering, path::PathBuf};
+use std::{io, cmp::Ordering, path::PathBuf};
+
+use crate::util;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum TokenType {
@@ -275,7 +277,7 @@ pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
         tokenize_requirement,
     ];
 
-    let input = fs::read_to_string(areas)?;
+    let input = util::read_file(areas, "logic")?;
 
     let length = input.len();
     let mut tokens = Vec::<Token>::with_capacity(length / 9);

@@ -12,7 +12,7 @@ use seed_gen_cli::{generate_seed, parse_logic, player, util, world};
 
 use player::{Player, Item};
 use world::{World, Node};
-use util::{Pathset, Resource, Skill, Teleporter, Shard, Settings, SeedFlags, read_settings};
+use util::{Pathset, Resource, Skill, Teleporter, Shard, Settings, SeedFlags};
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer
@@ -31,10 +31,10 @@ enum Command {
         #[structopt(parse(from_os_str))]
         output: PathBuf,
         /// the input file representing the logic, usually called areas.wotw
-        #[structopt(parse(from_os_str), short, long)]
+        #[structopt(parse(from_os_str), default_value = "areas.wotw", short, long)]
         areas: PathBuf,
         /// the input file representing pickup locations, usually called loc_data.csv
-        #[structopt(parse(from_os_str), short, long)]
+        #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
         locations: PathBuf,
         /// validate the input files at a slight performance cost
         #[structopt(short, long)]
@@ -66,15 +66,15 @@ enum Command {
     },
     /// Check which locations are in logic
     ReachCheck {
-        /// the input file representing the logic, usually called areas.wotw
-        #[structopt(parse(from_os_str), short, long)]
-        areas: PathBuf,
-        /// the input file representing pickup locations, usually called loc_data.csv
-        #[structopt(parse(from_os_str), short, long)]
-        locations: PathBuf,
         /// the seed file for which logical reach should be checked
         #[structopt(parse(from_os_str))]
         seed_file: PathBuf,
+        /// the input file representing the logic, usually called areas.wotw
+        #[structopt(parse(from_os_str), default_value = "areas.wotw", short, long)]
+        areas: PathBuf,
+        /// the input file representing pickup locations, usually called loc_data.csv
+        #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
+        locations: PathBuf,
         /// player health (one orb is 10 health)
         health: u16,
         /// player energy (one orb is 1 energy)
@@ -229,11 +229,11 @@ fn main() {
                 ..Settings::default()
             };
 
-            let seed = generate_seed(&graph, settings, rng).expect("Error generating seed");
-            fs::write(output, seed).expect("Failed to write seed file");
+            let seed = generate_seed(&graph, settings, rng).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
+            fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         }
         Command::ReachCheck { areas, locations, seed_file, health, energy, keystones, ore, spirit_light, items } => {
-            let settings = read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
+            let settings = util::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
 
             let mut player = Player {
                 gorlek_paths: settings.pathsets.contains(&Pathset::Gorlek),
