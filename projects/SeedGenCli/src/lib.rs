@@ -12,7 +12,8 @@ use rand::seq::IteratorRandom;
 use rand_pcg::Pcg32;
 
 use parser::ParseError;
-use world::{Node, Anchor};
+use world::{World, Node, Anchor};
+use player::Player;
 use util::{Pathset, NodeType, Settings, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
 pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> Vec<Node> {
@@ -75,16 +76,23 @@ fn write_flags(settings: &Settings) -> String {
     flags
 }
 
-fn parse_header(header: &str) -> Result<String, String> {
+fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
     let mut processed = String::new();
     for line in header.lines() {
         if let Some(command) = line.strip_prefix("!!") {
-            if let Some(_) = command.strip_prefix("add ") {
-                println!("Sorry but I wasn't taught to add items to the pool yet ;_;");
-            } else if let Some(_) = command.strip_prefix("remove ") {
-                println!("Sorry but I wasn't taught to remove items from the pool yet ;_;");
-            } else if let Some(_) = command.strip_prefix("set ") {
-                println!("Man I really gotta learn some stuff");
+            if let Some(pickup) = command.strip_prefix("add ") {
+                let (item, amount) = util::parse_pickup(pickup)?;
+                world.pool.grant(item, amount);
+            } else if let Some(pickup) = command.strip_prefix("remove ") {
+                let (item, amount) = util::parse_pickup(pickup)?;
+                world.pool.remove(item, amount);
+            } else if let Some(state) = command.strip_prefix("set ") {
+                let state_node = world.graph.iter().find(|node| node.identifier() == state);
+                if let Some(state_node) = state_node {
+                    world.player.states.insert(state_node.index());
+                } else {
+                    println!("couldn't find state '{}' set by a header, ignoring...", state);
+                }
             } else {
                 return Err(format!("Unknown command '{}'", command))
             }
@@ -100,8 +108,14 @@ fn parse_header(header: &str) -> Result<String, String> {
     Ok(processed)
 }
 
-pub fn generate_seed(graph: &[Node], settings: &Settings, headers: &[String], mut rng: Pcg32) -> Result<String, String> {
+pub fn generate_seed(graph: &Vec<Node>, settings: &Settings, headers: &[String], mut rng: Pcg32) -> Result<String, String> {
     let mut seed = String::new();
+    let mut world = World {
+        graph,
+        player: Player::default(),
+        pool: world::default_pool(),
+    };
+    world.player.init(settings);
 
     seed += &write_flags(settings);
     let spawn = pick_spawn(graph, &settings, &mut rng)?;
@@ -114,12 +128,12 @@ pub fn generate_seed(graph: &[Node], settings: &Settings, headers: &[String], mu
     }
 
     for header in headers {
-        seed += &parse_header(header).unwrap_or_else(|err| panic!("{} in inline header", err));
+        seed += &parse_header(header, &mut world).unwrap_or_else(|err| panic!("{} in inline header", err));
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
         let header = util::read_file(&path, "headers").unwrap_or_else(|err| panic!("Error reading header from {:?}: {}", path, err));
-        seed += &parse_header(&header).unwrap_or_else(|err| panic!("{} in header '{:?}'", err, path));
+        seed += &parse_header(&header, &mut world).unwrap_or_else(|err| panic!("{} in header '{:?}'", err, path));
     }
 
     // TODO: Generate a seed

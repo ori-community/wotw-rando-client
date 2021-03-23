@@ -1,6 +1,6 @@
 use rustc_hash::{FxHashMap, FxHashSet};
 
-use crate::util::{Resource, Skill, Shard, Teleporter, Bonus, Hint, Orbs, damage, energy_cost};
+use crate::util::{Pathset, Resource, Skill, Shard, Teleporter, Bonus, Hint, Orbs, Settings, damage, energy_cost};
 
 #[derive(Debug, PartialEq, Eq, Hash)]
 pub enum Item {
@@ -10,21 +10,25 @@ pub enum Item {
     Teleporter(Teleporter),
     Bonus(Bonus),
     Hint(Hint),
-    Relic,
     Custom(String),
 }
 
 #[derive(Debug, Default)]
-pub struct Player {
+pub struct Inventory {
     pub inventory: FxHashMap<Item, u16>,
-    pub states: FxHashSet<usize>,
-    pub gorlek_paths: bool,
-    pub unsafe_paths: bool,
 }
-impl Player {
+impl Inventory {
     pub fn grant(&mut self, item: Item, amount: u16) {
         let prior = self.inventory.entry(item).or_insert(0);
         *prior += amount;
+    }
+    pub fn remove(&mut self, item: Item, amount: u16) {
+        let prior = self.inventory.entry(item).or_insert(0);
+        if amount > *prior {
+            *prior = 0;
+        } else {
+            *prior -= amount;
+        }
     }
     pub fn has(&self, item: &Item, amount: u16) -> bool {
         if let Some(owned) = self.inventory.get(item) {
@@ -32,15 +36,34 @@ impl Player {
         }
         false
     }
+    pub fn get(&self, item: &Item) -> u16 {
+        *self.inventory.get(item).unwrap_or(&0)
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct Player {
+    pub inventory: Inventory,
+    pub states: FxHashSet<usize>,
+    pub gorlek_paths: bool,
+    pub unsafe_paths: bool,
+}
+impl Player {
+    pub fn init(&mut self, settings: &Settings) {
+        self.inventory.grant(Item::Resource(Resource::Health), 6);
+        self.inventory.grant(Item::Resource(Resource::Energy), 6);
+        if settings.pathsets.contains(&Pathset::Gorlek) { self.gorlek_paths = true; }
+        if settings.pathsets.contains(&Pathset::Unsafe) { self.unsafe_paths = true; }
+    }
 
     pub fn max_energy(&self) -> f32 {
-        let mut energy = f32::from(*self.inventory.get(&Item::Resource(Resource::Energy)).unwrap_or(&0)) * 0.5;
-        if self.gorlek_paths && self.inventory.contains_key(&Item::Shard(Shard::Energy)) { energy += 1.0; }
+        let mut energy = f32::from(self.inventory.get(&Item::Resource(Resource::Energy))) * 0.5;
+        if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Energy), 1) { energy += 1.0; }
         energy
     }
     pub fn max_health(&self) -> f32 {
-        let mut health = f32::from(*self.inventory.get(&Item::Resource(Resource::Health)).unwrap_or(&0) * 5);
-        if self.gorlek_paths && self.inventory.contains_key(&Item::Shard(Shard::Vitality)) { health += 10.0; }
+        let mut health = f32::from(self.inventory.get(&Item::Resource(Resource::Health)) * 5);
+        if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Vitality), 1) { health += 10.0; }
         health
     }
     pub fn max_orbs(&self) -> Orbs {
@@ -52,13 +75,13 @@ impl Player {
     pub fn checkpoint_orbs(&self) -> Orbs {
         let mut max_health = self.max_health();
         let mut health_refill = 40_f32.max(((max_health / 5.0) / 0.6685 + 1.0).floor());
-        if self.gorlek_paths && self.inventory.contains_key(&Item::Shard(Shard::Vitality)) { max_health -= 10.0; }
+        if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Vitality), 1) { max_health -= 10.0; }
 
         let mut max_energy = self.max_energy();
         let mut energy_refill = 10.0 * (max_energy / 50.0 + 1.0);
-        if self.gorlek_paths && self.inventory.contains_key(&Item::Shard(Shard::Energy)) { max_energy -= 1.0; }
+        if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Energy), 1) { max_energy -= 1.0; }
 
-        if self.unsafe_paths && self.inventory.contains_key(&Item::Shard(Shard::Overflow)) {
+        if self.unsafe_paths && self.inventory.has(&Item::Shard(Shard::Overflow), 1) {
             if health_refill > max_health {
                 energy_refill += health_refill - max_health;
             } else if energy_refill > max_energy {
@@ -81,7 +104,7 @@ impl Player {
         let health_refill = 10_f32.max((amount * (moon_why + 10.0) / 30.0).floor() * 10.0);
         let mut energy_refill = 0.0;
 
-        if self.unsafe_paths && self.inventory.contains_key(&Item::Shard(Shard::Overflow)) && health_refill > max_health {
+        if self.unsafe_paths && self.inventory.has(&Item::Shard(Shard::Overflow), 1) && health_refill > max_health {
             energy_refill += health_refill - max_health;
         }
 
@@ -94,7 +117,7 @@ impl Player {
         let max_energy = self.max_energy();
         let mut health_refill = 0.0;
 
-        if self.unsafe_paths && self.inventory.contains_key(&Item::Shard(Shard::Overflow)) && amount > max_energy {
+        if self.unsafe_paths && self.inventory.has(&Item::Shard(Shard::Overflow), 1) && amount > max_energy {
             health_refill += amount - max_energy;
         }
 
@@ -108,28 +131,26 @@ impl Player {
         let is_unsafe = self.unsafe_paths;
 
         let mut damage_mod = 1.0;
-        if let Some(amount) = self.inventory.get(&Item::Skill(Skill::AncestralLight)) {
-            damage_mod += 0.25 * f32::from(*amount);
-        }
-        let mut slots = *self.inventory.get(&Item::Resource(Resource::ShardSlot)).unwrap_or(&0);
-        if flying_target && slots > 0 && is_unsafe && self.inventory.contains_key(&Item::Shard(Shard::Wingclip)) { damage_mod += 1.0; slots -= 1; }
-        if slots > 0 && is_unsafe && self.inventory.contains_key(&Item::Shard(Shard::SpiritSurge)) { damage_mod += f32::from(*self.inventory.get(&Item::Resource(Resource::SpiritLight)).unwrap_or(&0) / 10000); slots -= 1; }
-        if slots > 0 && is_unsafe && self.inventory.contains_key(&Item::Shard(Shard::LastStand)) { damage_mod += 0.2; slots -= 1; }
-        if slots > 0 && is_unsafe && self.inventory.contains_key(&Item::Shard(Shard::Reckless)) { damage_mod += 0.15; slots -= 1; }
-        if slots > 0 && is_unsafe && self.inventory.contains_key(&Item::Shard(Shard::Lifeforce)) { damage_mod += 0.1; slots -= 1; }
-        if slots > 0 && is_unsafe && self.inventory.contains_key(&Item::Shard(Shard::Finesse)) { damage_mod += 0.05; }
+        damage_mod += 0.25 * f32::from(self.inventory.get(&Item::Skill(Skill::AncestralLight)));
+        let mut slots = self.inventory.get(&Item::Resource(Resource::ShardSlot));
+        if flying_target && slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Wingclip), 1) { damage_mod += 1.0; slots -= 1; }
+        if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::SpiritSurge), 1) { damage_mod += f32::from(self.inventory.get(&Item::Resource(Resource::SpiritLight)) / 10000); slots -= 1; }
+        if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::LastStand), 1) { damage_mod += 0.2; slots -= 1; }
+        if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Reckless), 1) { damage_mod += 0.15; slots -= 1; }
+        if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Lifeforce), 1) { damage_mod += 0.1; slots -= 1; }
+        if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Finesse), 1) { damage_mod += 0.05; }
         damage_mod
     }
     pub fn bow_damage_mod(&self) -> f32 {
-        if self.unsafe_paths && self.inventory.contains_key(&Item::Shard(Shard::Splinter)) { 1.5 } else { 1.0 }
+        if self.unsafe_paths && self.inventory.has(&Item::Shard(Shard::Splinter), 1) { 1.5 } else { 1.0 }
     }
     pub fn defense_mod(&self) -> f32 {
-        if self.gorlek_paths && self.inventory.contains_key(&Item::Shard(Shard::Resilience)) { 0.9 } else { 1.0 }
+        if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { 0.9 } else { 1.0 }
     }
     pub fn energy_mod(&self) -> f32 {
         let mut energy_mod = 1.0;
         if !self.unsafe_paths { energy_mod *= 2.0; }
-        else if self.inventory.contains_key(&Item::Shard(Shard::Overcharge)) { energy_mod *= 0.5; }
+        else if self.inventory.has(&Item::Shard(Shard::Overcharge), 1) { energy_mod *= 0.5; }
         energy_mod
     }
 
@@ -143,23 +164,23 @@ impl Player {
     }
 
     pub fn preferred_weapon(&self, wall: bool) -> Option<Skill> {
-        if self.inventory.get(&Item::Skill(Skill::Sword)).is_some() { Some(Skill::Sword) }
-        else if self.inventory.get(&Item::Skill(Skill::Hammer)).is_some() { Some(Skill::Hammer) }
-        else if self.inventory.get(&Item::Skill(Skill::Bow)).is_some() { Some(Skill::Bow) }
-        else if self.unsafe_paths && self.inventory.get(&Item::Skill(Skill::Grenade)).is_some() { Some(Skill::Grenade) }
-        else if self.inventory.get(&Item::Skill(Skill::Shuriken)).is_some() { Some(Skill::Shuriken) }
-        else if self.unsafe_paths && !wall && self.inventory.get(&Item::Skill(Skill::Flash)).is_some() { Some(Skill::Flash) }
-        else if self.inventory.get(&Item::Skill(Skill::Blaze)).is_some() { Some(Skill::Blaze) }
-        else if self.unsafe_paths && self.inventory.get(&Item::Skill(Skill::Sentry)).is_some() { Some(Skill::Sentry) }
-        else if !self.unsafe_paths && self.inventory.get(&Item::Skill(Skill::Grenade)).is_some() { Some(Skill::Grenade) }
-        else if self.inventory.get(&Item::Skill(Skill::Spear)).is_some() { Some(Skill::Spear) }
+        if self.inventory.has(&Item::Skill(Skill::Sword), 1) { Some(Skill::Sword) }
+        else if self.inventory.has(&Item::Skill(Skill::Hammer), 1) { Some(Skill::Hammer) }
+        else if self.inventory.has(&Item::Skill(Skill::Bow), 1) { Some(Skill::Bow) }
+        else if self.unsafe_paths && self.inventory.has(&Item::Skill(Skill::Grenade), 1) { Some(Skill::Grenade) }
+        else if self.inventory.has(&Item::Skill(Skill::Shuriken), 1) { Some(Skill::Shuriken) }
+        else if self.unsafe_paths && !wall && self.inventory.has(&Item::Skill(Skill::Flash), 1) { Some(Skill::Flash) }
+        else if self.inventory.has(&Item::Skill(Skill::Blaze), 1) { Some(Skill::Blaze) }
+        else if self.unsafe_paths && self.inventory.has(&Item::Skill(Skill::Sentry), 1) { Some(Skill::Sentry) }
+        else if !self.unsafe_paths && self.inventory.has(&Item::Skill(Skill::Grenade), 1) { Some(Skill::Grenade) }
+        else if self.inventory.has(&Item::Skill(Skill::Spear), 1) { Some(Skill::Spear) }
         else { None }
     }
     pub fn preferred_ranged_weapon(&self) -> Option<Skill> {
-        if self.inventory.get(&Item::Skill(Skill::Bow)).is_some() { Some(Skill::Bow) }
-        else if self.gorlek_paths && self.inventory.get(&Item::Skill(Skill::Shuriken)).is_some() { Some(Skill::Shuriken) }
-        else if self.gorlek_paths && self.inventory.get(&Item::Skill(Skill::Grenade)).is_some() { Some(Skill::Grenade) }
-        else if self.inventory.get(&Item::Skill(Skill::Spear)).is_some() { Some(Skill::Spear) }
+        if self.inventory.has(&Item::Skill(Skill::Bow), 1) { Some(Skill::Bow) }
+        else if self.gorlek_paths && self.inventory.has(&Item::Skill(Skill::Shuriken), 1) { Some(Skill::Shuriken) }
+        else if self.gorlek_paths && self.inventory.has(&Item::Skill(Skill::Grenade), 1) { Some(Skill::Grenade) }
+        else if self.inventory.has(&Item::Skill(Skill::Spear), 1) { Some(Skill::Spear) }
         else { None }
     }
 }
@@ -171,12 +192,12 @@ mod tests {
     #[test]
     fn inventory() {
         let mut player = Player::default();
-        player.grant(Item::Relic, 2);
-        player.grant(Item::Skill(Skill::Shuriken), 1);
-        assert!(player.has(&Item::Relic, 1));
-        assert!(player.has(&Item::Relic, 2));
-        assert!(player.has(&Item::Skill(Skill::Shuriken), 1));
-        assert!(!player.has(&Item::Skill(Skill::Bash), 0));
+        player.inventory.grant(Item::Bonus(Bonus::Relic), 2);
+        player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
+        assert!(player.inventory.has(&Item::Bonus(Bonus::Relic), 1));
+        assert!(player.inventory.has(&Item::Bonus(Bonus::Relic), 2));
+        assert!(player.inventory.has(&Item::Skill(Skill::Shuriken), 1));
+        assert!(!player.inventory.has(&Item::Skill(Skill::Bash), 0));
     }
 
     #[test]
@@ -184,7 +205,7 @@ mod tests {
         let mut player = Player::default();
         assert_eq!(player.preferred_weapon(true), None);
         assert_eq!(player.preferred_ranged_weapon(), None);
-        player.grant(Item::Skill(Skill::Shuriken), 1);
+        player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
         assert_eq!(player.preferred_ranged_weapon(), None);
         player = Player {
@@ -192,11 +213,11 @@ mod tests {
             ..player
         };
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
-        player.grant(Item::Skill(Skill::Grenade), 1);
-        player.grant(Item::Skill(Skill::Spear), 1);
+        player.inventory.grant(Item::Skill(Skill::Grenade), 1);
+        player.inventory.grant(Item::Skill(Skill::Spear), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
-        player.grant(Item::Skill(Skill::Sword), 1);
+        player.inventory.grant(Item::Skill(Skill::Sword), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Sword));
     }
 
@@ -204,8 +225,8 @@ mod tests {
     fn max_energy() {
         let mut player = Player::default();
         assert_eq!(player.max_energy(), 0.0);
-        for _ in 0..10 { player.grant(Item::Resource(Resource::Energy), 1); }
-        player.grant(Item::Shard(Shard::Energy), 1);
+        for _ in 0..10 { player.inventory.grant(Item::Resource(Resource::Energy), 1); }
+        player.inventory.grant(Item::Shard(Shard::Energy), 1);
         assert_eq!(player.max_energy(), 5.0);
         player = Player {
             gorlek_paths: true,
@@ -220,13 +241,13 @@ mod tests {
         assert_eq!(player.destroy_cost(10.0, Skill::Bow, false), 1.5);
         assert_eq!(player.destroy_cost(10.0, Skill::Spear, true), 4.0);
         assert_eq!(player.destroy_cost(0.0, Skill::Spear, false), 0.0);
-        player.grant(Item::Skill(Skill::AncestralLight), 2);
+        player.inventory.grant(Item::Skill(Skill::AncestralLight), 2);
         player = Player {
             unsafe_paths: true,
             ..player
         };
-        player.grant(Item::Shard(Shard::Wingclip), 1);
-        player.grant(Item::Resource(Resource::ShardSlot), 1);
+        player.inventory.grant(Item::Shard(Shard::Wingclip), 1);
+        player.inventory.grant(Item::Resource(Resource::ShardSlot), 1);
         assert_eq!(player.destroy_cost(10.0, Skill::Bow, true), 0.25);
         assert_eq!(player.destroy_cost(1.0, Skill::Spear, false), 2.0);
     }
@@ -236,21 +257,21 @@ mod tests {
         let mut player = Player::default();
         let orbs = Orbs::default();
         assert_eq!(player.checkpoint_orbs(), Orbs::default());
-        player.grant(Item::Resource(Resource::Energy), 6);
-        player.grant(Item::Resource(Resource::Health), 6);
+        player.inventory.grant(Item::Resource(Resource::Energy), 6);
+        player.inventory.grant(Item::Resource(Resource::Health), 6);
         assert_eq!(player.checkpoint_orbs(), Orbs { energy: 3.0, health: 30.0});
         assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
-        player.grant(Item::Resource(Resource::Health), 2);
+        player.inventory.grant(Item::Resource(Resource::Health), 2);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
-        player.grant(Item::Resource(Resource::Health), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
-        player.grant(Item::Resource(Resource::Health), 11);
+        player.inventory.grant(Item::Resource(Resource::Health), 11);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 30.0, ..orbs });
-        player.grant(Item::Resource(Resource::Health), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
-        player.grant(Item::Resource(Resource::Health), 6);
+        player.inventory.grant(Item::Resource(Resource::Health), 6);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
-        player.grant(Item::Resource(Resource::Health), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 50.0, ..orbs });
 
         player = Player {
@@ -258,13 +279,13 @@ mod tests {
             ..Player::default()
         };
         let orbs = Orbs::default();
-        player.grant(Item::Shard(Shard::Energy), 1);
-        player.grant(Item::Shard(Shard::Vitality), 1);
+        player.inventory.grant(Item::Shard(Shard::Energy), 1);
+        player.inventory.grant(Item::Shard(Shard::Vitality), 1);
         assert_eq!(player.checkpoint_orbs(), Orbs::default());
-        player.grant(Item::Resource(Resource::Health), 7);
+        player.inventory.grant(Item::Resource(Resource::Health), 7);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
         assert_eq!(player.checkpoint_orbs(), Orbs { health: 35.0, ..orbs });
-        player.grant(Item::Resource(Resource::Health), 21);
+        player.inventory.grant(Item::Resource(Resource::Health), 21);
         assert_eq!(player.checkpoint_orbs(), Orbs { health: 45.0, ..orbs });
     }
 }

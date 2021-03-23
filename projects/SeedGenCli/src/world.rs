@@ -3,8 +3,8 @@ use std::fmt;
 use rustc_hash::FxHashMap;
 
 use crate::requirements::Requirement;
-use crate::player::Player;
-use crate::util::{RefillType, NodeType, Orbs, either_single_orbs, both_orbs, both_single_orbs};
+use crate::player::{Player, Item, Inventory};
+use crate::util::{Resource, Skill, Shard, RefillType, NodeType, Orbs, either_single_orbs, both_orbs, both_single_orbs};
 
 #[derive(Debug)]
 pub struct Refill {
@@ -89,11 +89,79 @@ impl Node {
         }
     }
 }
+pub fn default_pool() -> Inventory {
+    let mut pool = FxHashMap::default();
+    pool.reserve(60);
+    pool.insert(Item::Resource(Resource::Health), 24);
+    pool.insert(Item::Resource(Resource::Energy), 24);
+    pool.insert(Item::Resource(Resource::Ore), 40);
+    pool.insert(Item::Resource(Resource::ShardSlot), 5);
+    pool.insert(Item::Resource(Resource::Keystone), 34);
+    pool.insert(Item::Skill(Skill::Bash), 1);
+    pool.insert(Item::Skill(Skill::WallJump), 1);
+    pool.insert(Item::Skill(Skill::DoubleJump), 1);
+    pool.insert(Item::Skill(Skill::Launch), 1);
+    pool.insert(Item::Skill(Skill::Glide), 1);
+    pool.insert(Item::Skill(Skill::WaterBreath), 1);
+    pool.insert(Item::Skill(Skill::Grenade), 1);
+    pool.insert(Item::Skill(Skill::Grapple), 1);
+    pool.insert(Item::Skill(Skill::Flash), 1);
+    pool.insert(Item::Skill(Skill::Spear), 1);
+    pool.insert(Item::Skill(Skill::Regenerate), 1);
+    pool.insert(Item::Skill(Skill::Bow), 1);
+    pool.insert(Item::Skill(Skill::Hammer), 1);
+    pool.insert(Item::Skill(Skill::Sword), 1);
+    pool.insert(Item::Skill(Skill::Burrow), 1);
+    pool.insert(Item::Skill(Skill::Dash), 1);
+    pool.insert(Item::Skill(Skill::WaterDash), 1);
+    pool.insert(Item::Skill(Skill::Shuriken), 1);
+    pool.insert(Item::Skill(Skill::Seir), 1);
+    pool.insert(Item::Skill(Skill::Blaze), 1);
+    pool.insert(Item::Skill(Skill::Sentry), 1);
+    pool.insert(Item::Skill(Skill::Flap), 1);
+    pool.insert(Item::Skill(Skill::AncestralLight), 1);
+    pool.insert(Item::Skill(Skill::Water), 1);
+    pool.insert(Item::Shard(Shard::Overcharge), 1);
+    pool.insert(Item::Shard(Shard::TripleJump), 1);
+    pool.insert(Item::Shard(Shard::Wingclip), 1);
+    pool.insert(Item::Shard(Shard::Bounty), 1);
+    pool.insert(Item::Shard(Shard::Swap), 1);
+    pool.insert(Item::Shard(Shard::Magnet), 1);
+    pool.insert(Item::Shard(Shard::Splinter), 1);
+    pool.insert(Item::Shard(Shard::Reckless), 1);
+    pool.insert(Item::Shard(Shard::Quickshot), 1);
+    pool.insert(Item::Shard(Shard::Resilience), 1);
+    pool.insert(Item::Shard(Shard::SpiritLightHarvest), 1);
+    pool.insert(Item::Shard(Shard::Vitality), 1);
+    pool.insert(Item::Shard(Shard::LifeHarvest), 1);
+    pool.insert(Item::Shard(Shard::EnergyHarvest), 1);
+    pool.insert(Item::Shard(Shard::Energy), 1);
+    pool.insert(Item::Shard(Shard::LifePact), 1);
+    pool.insert(Item::Shard(Shard::LastStand), 1);
+    pool.insert(Item::Shard(Shard::Sense), 1);
+    pool.insert(Item::Shard(Shard::UltraBash), 1);
+    pool.insert(Item::Shard(Shard::UltraGrapple), 1);
+    pool.insert(Item::Shard(Shard::Overflow), 1);
+    pool.insert(Item::Shard(Shard::Thorn), 1);
+    pool.insert(Item::Shard(Shard::Catalyst), 1);
+    pool.insert(Item::Shard(Shard::Turmoil), 1);
+    pool.insert(Item::Shard(Shard::Sticky), 1);
+    pool.insert(Item::Shard(Shard::Finesse), 1);
+    pool.insert(Item::Shard(Shard::SpiritSurge), 1);
+    pool.insert(Item::Shard(Shard::Lifeforce), 1);
+    pool.insert(Item::Shard(Shard::Deflector), 1);
+    pool.insert(Item::Shard(Shard::Fracture), 1);
+    pool.insert(Item::Shard(Shard::Arcing), 1);
+    Inventory {
+        inventory: pool,
+    }
+}
 
 #[derive(Debug)]
 pub struct World<'a> {
     pub graph: &'a Vec<Node>,
     pub player: Player,
+    pub pool: Inventory,
 }
 impl<'a> World<'a> {
     fn follow_state_progressions(&mut self, index: usize, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
@@ -200,39 +268,40 @@ mod tests {
     fn reach_check() {
         let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki], false);
         let mut player = Player::default();
-        player.grant(Item::Resource(Resource::Health), 40);
-        player.grant(Item::Resource(Resource::Energy), 40);
-        player.grant(Item::Resource(Resource::Keystone), 34);
-        player.grant(Item::Resource(Resource::Ore), 40);
-        player.grant(Item::Resource(Resource::SpiritLight), 10000);
-        player.grant(Item::Resource(Resource::ShardSlot), 8);
-        player.grant(Item::Skill(Skill::Bash), 1);
-        player.grant(Item::Skill(Skill::WallJump), 1);
-        player.grant(Item::Skill(Skill::DoubleJump), 1);
-        player.grant(Item::Skill(Skill::Launch), 1);
-        player.grant(Item::Skill(Skill::Glide), 1);
-        player.grant(Item::Skill(Skill::WaterBreath), 1);
-        player.grant(Item::Skill(Skill::Grenade), 1);
-        player.grant(Item::Skill(Skill::Grapple), 1);
-        player.grant(Item::Skill(Skill::Flash), 1);
-        player.grant(Item::Skill(Skill::Spear), 1);
-        player.grant(Item::Skill(Skill::Regenerate), 1);
-        player.grant(Item::Skill(Skill::Bow), 1);
-        player.grant(Item::Skill(Skill::Hammer), 1);
-        player.grant(Item::Skill(Skill::Sword), 1);
-        player.grant(Item::Skill(Skill::Burrow), 1);
-        player.grant(Item::Skill(Skill::Dash), 1);
-        player.grant(Item::Skill(Skill::WaterDash), 1);
-        player.grant(Item::Skill(Skill::Shuriken), 1);
-        player.grant(Item::Skill(Skill::Seir), 1);
-        player.grant(Item::Skill(Skill::Blaze), 1);
-        player.grant(Item::Skill(Skill::Sentry), 1);
-        player.grant(Item::Skill(Skill::Flap), 1);
-        player.grant(Item::Skill(Skill::Water), 1);
-        player.grant(Item::Skill(Skill::AncestralLight), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 40);
+        player.inventory.grant(Item::Resource(Resource::Energy), 40);
+        player.inventory.grant(Item::Resource(Resource::Keystone), 34);
+        player.inventory.grant(Item::Resource(Resource::Ore), 40);
+        player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
+        player.inventory.grant(Item::Resource(Resource::ShardSlot), 8);
+        player.inventory.grant(Item::Skill(Skill::Bash), 1);
+        player.inventory.grant(Item::Skill(Skill::WallJump), 1);
+        player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
+        player.inventory.grant(Item::Skill(Skill::Launch), 1);
+        player.inventory.grant(Item::Skill(Skill::Glide), 1);
+        player.inventory.grant(Item::Skill(Skill::WaterBreath), 1);
+        player.inventory.grant(Item::Skill(Skill::Grenade), 1);
+        player.inventory.grant(Item::Skill(Skill::Grapple), 1);
+        player.inventory.grant(Item::Skill(Skill::Flash), 1);
+        player.inventory.grant(Item::Skill(Skill::Spear), 1);
+        player.inventory.grant(Item::Skill(Skill::Regenerate), 1);
+        player.inventory.grant(Item::Skill(Skill::Bow), 1);
+        player.inventory.grant(Item::Skill(Skill::Hammer), 1);
+        player.inventory.grant(Item::Skill(Skill::Sword), 1);
+        player.inventory.grant(Item::Skill(Skill::Burrow), 1);
+        player.inventory.grant(Item::Skill(Skill::Dash), 1);
+        player.inventory.grant(Item::Skill(Skill::WaterDash), 1);
+        player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
+        player.inventory.grant(Item::Skill(Skill::Seir), 1);
+        player.inventory.grant(Item::Skill(Skill::Blaze), 1);
+        player.inventory.grant(Item::Skill(Skill::Sentry), 1);
+        player.inventory.grant(Item::Skill(Skill::Flap), 1);
+        player.inventory.grant(Item::Skill(Skill::Water), 1);
+        player.inventory.grant(Item::Skill(Skill::AncestralLight), 1);
         let mut world = World {
             graph,
             player,
+            pool: Inventory::default(),
         };
 
         let reached = world.reached_locations("MarshSpawn.Main").unwrap();
@@ -255,13 +324,14 @@ mod tests {
             ..Player::default()
         };
         let graph = &parse_logic(&PathBuf::from("C:\\moon\\areas.wotw"), &PathBuf::from("C:\\moon\\loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
-        player.grant(Item::Resource(Resource::Health), 7);
-        player.grant(Item::Resource(Resource::Energy), 6);
-        player.grant(Item::Skill(Skill::DoubleJump), 1);
-        player.grant(Item::Shard(Shard::TripleJump), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 7);
+        player.inventory.grant(Item::Resource(Resource::Energy), 6);
+        player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
+        player.inventory.grant(Item::Shard(Shard::TripleJump), 1);
         let mut world = World {
             graph,
             player,
+            pool: Inventory::default(),
         };
 
         let reached = world.reached_locations("GladesTown.Teleporter").unwrap();

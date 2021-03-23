@@ -3,6 +3,8 @@ use std::ops::{Add, AddAssign};
 
 use serde::{Serialize, Deserialize};
 
+use crate::player::Item;
+
 pub const DEFAULTSPAWN: &str = "MarshSpawn.Main";
 pub const MOKI_SPAWNS: &[&str] = &[
     "MarshSpawn.Main",
@@ -60,8 +62,8 @@ pub enum Skill {
     Blaze,
     Sentry,
     Flap,
-    Water,
     AncestralLight,
+    Water,
 }
 impl Skill {
     pub fn from_id(id: u8) -> Option<Skill> {
@@ -101,6 +103,18 @@ pub enum Resource {
     Ore,
     Keystone,
     ShardSlot,
+}
+impl Resource {
+    pub fn from_id(id: u8) -> Option<Resource> {
+        match id {
+            0 => Some(Resource::Health),
+            1 => Some(Resource::Energy),
+            2 => Some(Resource::Ore),
+            3 => Some(Resource::Keystone),
+            4 => Some(Resource::ShardSlot),
+            _ => None,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Shard {
@@ -222,35 +236,79 @@ impl Teleporter {
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Bonus {
-    // HealthRegen,
-    // EnergyRegen,
-    // ExtraDoubleJump,
-    // ExtraAirDash,
-    // RapidHammer,
-    // RapidSword,
-    // BlazeEfficiency,
-    // SpearEfficiency,
-    // ShurikenEfficiency,
-    // SentryEfficiency,
-    // BowEfficiency,
-    // RegenerationEfficiency,
-    // FlashEfficiency,
-    // GrenadeEfficiency,
+    HealthRegen,
+    EnergyRegen,
+    ExtraDoubleJump,
+    ExtraAirDash,
+    RapidHammer,
+    RapidSword,
+    BlazeEfficiency,
+    SpearEfficiency,
+    ShurikenEfficiency,
+    SentryEfficiency,
+    BowEfficiency,
+    RegenerationEfficiency,
+    FlashEfficiency,
+    GrenadeEfficiency,
+    Relic,
+}
+impl Bonus {
+    pub fn from_id(id: u8) -> Option<Bonus> {
+        match id {
+            0 => Some(Bonus::RapidHammer),
+            1 => Some(Bonus::RapidSword),
+            2 => Some(Bonus::BlazeEfficiency),
+            3 => Some(Bonus::SpearEfficiency),
+            4 => Some(Bonus::ShurikenEfficiency),
+            5 => Some(Bonus::SentryEfficiency),
+            6 => Some(Bonus::BowEfficiency),
+            7 => Some(Bonus::RegenerationEfficiency),
+            8 => Some(Bonus::FlashEfficiency),
+            9 => Some(Bonus::GrenadeEfficiency),
+            20 => Some(Bonus::Relic),
+            30 => Some(Bonus::HealthRegen),
+            31 => Some(Bonus::EnergyRegen),
+            35 => Some(Bonus::ExtraDoubleJump),
+            36 => Some(Bonus::ExtraAirDash),
+            _ => None,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Hint {
-    // Marsh,
-    // Hollow,
-    // Glades,
-    // Wellspring,
-    // Woods,
-    // Reach,
-    // Depths,
-    // Pools,
-    // Wastes,
-    // Ruins,
-    // Willow,
-    // Void,
+    Marsh,
+    Hollow,
+    Glades,
+    Wellspring,
+    Woods,
+    Reach,
+    Depths,
+    Pools,
+    Wastes,
+    Ruins,
+    Willow,
+    Burrows,
+    Void,
+}
+impl Hint {
+    pub fn from_id(id: u8) -> Option<Hint> {
+        match id {
+            0 => Some(Hint::Marsh),
+            1 => Some(Hint::Hollow),
+            2 => Some(Hint::Glades),
+            3 => Some(Hint::Wellspring),
+            4 => Some(Hint::Pools),
+            5 => Some(Hint::Burrows),
+            6 => Some(Hint::Reach),
+            7 => Some(Hint::Woods),
+            8 => Some(Hint::Depths),
+            9 => Some(Hint::Wastes),
+            10 => Some(Hint::Ruins),
+            11 => Some(Hint::Willow),
+            12 => Some(Hint::Void),
+            _ => None,
+        }
+    }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Enemy {
@@ -579,6 +637,66 @@ pub fn read_settings(seed: &PathBuf) -> Result<Settings, io::Error> {
 }
 pub fn write_settings(settings: &Settings) -> Result<String, serde_json::Error> {
     serde_json::to_string(settings)
+}
+
+// TODO -pickups
+pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
+    let pickup = pickup.trim();
+    let mut parts = pickup.split('|');
+    let pickup_type = parts.next().unwrap_or("tried to parse empty pickup");
+    match pickup_type {
+        "0" => {
+            let spirit_light = parts.next().ok_or_else(|| format!("missing spirit light amount in pickup {}", pickup))?;
+            let spirit_light: u16 = spirit_light.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
+            Ok((Item::Resource(Resource::SpiritLight), spirit_light))
+        }
+        "1" => {
+            let resource_type = parts.next().ok_or_else(|| format!("missing resource type in pickup {}", pickup))?;
+            let resource_type: u8 = resource_type.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
+            let resource = Resource::from_id(resource_type).ok_or_else(|| format!("invalid resource type in pickup {}", pickup))?;
+            Ok((Item::Resource(resource), 1))
+        },
+        "2" => {
+            let skill_type = parts.next().ok_or_else(|| format!("missing skill type in pickup {}", pickup))?;
+            let skill_type: u8 = skill_type.parse().map_err(|_| format!("invalid skill type in pickup {}", pickup))?;
+            let skill = Skill::from_id(skill_type).ok_or_else(|| format!("invalid skill type in pickup {}", pickup))?;
+            Ok((Item::Skill(skill), 1))
+        }
+        "3" => {
+            let shard_type = parts.next().ok_or_else(|| format!("missing shard type in pickup {}", pickup))?;
+            let shard_type: u8 = shard_type.parse().map_err(|_| format!("invalid shard type in pickup {}", pickup))?;
+            let shard = Shard::from_id(shard_type).ok_or_else(|| format!("invalid shard type in pickup {}", pickup))?;
+            Ok((Item::Shard(shard), 1))
+        }
+        "5" => {
+            let teleporter_type = parts.next().ok_or_else(|| format!("missing teleporter type in pickup {}", pickup))?;
+            let teleporter_type: u8 = teleporter_type.parse().map_err(|_| format!("invalid teleporter type in pickup {}", pickup))?;
+            let teleporter = Teleporter::from_id(teleporter_type).ok_or_else(|| format!("invalid teleporter type in pickup {}", pickup))?;
+            Ok((Item::Teleporter(teleporter), 1))
+        }
+        "9" => {
+            let world_event_type = parts.next().ok_or_else(|| format!("missing world event type in pickup {}", pickup))?;
+            let world_event_type: u8 = world_event_type.parse().map_err(|_| format!("invalid world event type in pickup {}", pickup))?;
+            if world_event_type != 0 { return Err(format!("invalid world event type in pickup {}", pickup)); }
+            Ok((Item::Skill(Skill::Water), 1))
+        }
+        "10" | "11" => {
+            let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
+            let bonus_type: u8 = bonus_type.parse().map_err(|_| format!("invalid bonus item type in pickup {}", pickup))?;
+            let bonus = Bonus::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
+            Ok((Item::Bonus(bonus), 1))
+        }
+        "12" => {
+            let hint_type = parts.next().ok_or_else(|| format!("missing hint type in pickup {}", pickup))?;
+            let hint_type: u8 = hint_type.parse().map_err(|_| format!("invalid hint type in pickup {}", pickup))?;
+            let hint = Hint::from_id(hint_type).ok_or_else(|| format!("invalid hint type in pickup {}", pickup))?;
+            Ok((Item::Hint(hint), 1))
+        }
+        "4" | "6" | "8" => {
+            Ok((Item::Custom(pickup.to_string()), 1))
+        }
+        _ => Err(format!("invalid pickup type in pickup {}", pickup)),
+    }
 }
 
 pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
