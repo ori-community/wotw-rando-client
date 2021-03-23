@@ -2,7 +2,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::util::{Pathset, Resource, Skill, Shard, Teleporter, Bonus, Hint, Orbs, Settings, damage, energy_cost};
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Item {
     Resource(Resource),
     Skill(Skill),

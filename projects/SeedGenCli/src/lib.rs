@@ -10,10 +10,11 @@ use std::path::PathBuf;
 
 use rand::seq::IteratorRandom;
 use rand_pcg::Pcg32;
+use rustc_hash::FxHashMap;
 
 use parser::ParseError;
 use world::{World, Node, Anchor};
-use player::Player;
+use player::{Player, Inventory};
 use util::{Pathset, NodeType, Settings, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
 pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> Vec<Node> {
@@ -96,11 +97,30 @@ fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
             } else {
                 return Err(format!("Unknown command '{}'", command))
             }
-        } else if let Some(ignored) = line.strip_prefix("!") {
+        } else if let Some(ignored) = line.strip_prefix('!') {
             processed += ignored;
             processed.push('\n');
         } else {
-            processed += line;
+            if !line.is_empty() {
+                let mut count = 0;
+                let mut parts = line.split(|c| {
+                    if c == '|' { count += 1; }
+                    count == 2
+                });
+                let location = parts.next().unwrap();
+                let item = parts.next().ok_or_else(|| format!("malformed pickup '{}'", line))?;
+                let (item, amount) = util::parse_pickup(item)?;
+                let mut location = location.split('|');
+                let x: i16 = location.next().unwrap().parse().map_err(|_| format!("invalid location of pickup '{}'", line))?;
+                let y: i16 = location.next().unwrap().parse().map_err(|_| format!("invalid location of pickup '{}'", line))?;
+
+                let preplacement = world.preplacements.entry((x, y)).or_insert(Inventory::default());
+                preplacement.grant(item.clone(), amount);
+
+                world.pool.remove(item, amount);
+
+                processed += line;
+            }
             processed.push('\n');
         }
     }
@@ -114,6 +134,7 @@ pub fn generate_seed(graph: &Vec<Node>, settings: &Settings, headers: &[String],
         graph,
         player: Player::default(),
         pool: world::default_pool(),
+        preplacements: FxHashMap::default(),
     };
     world.player.init(settings);
 

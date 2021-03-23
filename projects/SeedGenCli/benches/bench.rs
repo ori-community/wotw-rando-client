@@ -2,6 +2,8 @@ use criterion::{criterion_group, criterion_main, Criterion};
 
 use std::path::PathBuf;
 
+use rustc_hash::FxHashMap;
+
 use seed_gen_cli::*;
 use player::*;
 use world::*;
@@ -84,6 +86,7 @@ fn reach_checking(c: &mut Criterion) {
             graph,
             player,
             pool: Inventory::default(),
+            preplacements: FxHashMap::default(),
         };
         world.reached_locations("MarshSpawn.Main").unwrap();
     }));
@@ -123,6 +126,7 @@ fn reach_checking(c: &mut Criterion) {
             graph,
             player,
             pool: Inventory::default(),
+            preplacements: FxHashMap::default(),
         };
         world.reached_locations("MarshSpawn.Main").unwrap();
     }));

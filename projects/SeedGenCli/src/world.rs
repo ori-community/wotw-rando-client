@@ -162,6 +162,7 @@ pub struct World<'a> {
     pub graph: &'a Vec<Node>,
     pub player: Player,
     pub pool: Inventory,
+    pub preplacements: FxHashMap<(i16, i16), Inventory>,
 }
 impl<'a> World<'a> {
     fn follow_state_progressions(&mut self, index: usize, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
@@ -302,6 +303,7 @@ mod tests {
             graph,
             player,
             pool: Inventory::default(),
+            preplacements: FxHashMap::default(),
         };
 
         let reached = world.reached_locations("MarshSpawn.Main").unwrap();
@@ -332,6 +334,7 @@ mod tests {
             graph,
             player,
             pool: Inventory::default(),
+            preplacements: FxHashMap::default(),
         };
 
         let reached = world.reached_locations("GladesTown.Teleporter").unwrap();

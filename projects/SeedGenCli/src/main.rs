@@ -7,6 +7,7 @@ use bugsalot::debugger;
 
 use rand_seeder::Seeder;
 use rand_pcg::Pcg32;
+use rustc_hash::FxHashMap;
 
 use seed_gen_cli::{generate_seed, parse_logic, player, util, world};
 
@@ -255,6 +256,7 @@ fn main() {
                 graph,
                 player,
                 pool: Inventory::default(),
+                preplacements: FxHashMap::default(),
             };
 
             let reached = world.reached_locations(&settings.spawn_loc).expect("Invalid Reach Check");
