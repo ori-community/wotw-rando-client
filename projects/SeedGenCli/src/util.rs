@@ -639,7 +639,6 @@ pub fn write_settings(settings: &Settings) -> Result<String, serde_json::Error> 
     serde_json::to_string(settings)
 }
 
-// TODO -pickups
 pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
     let pickup = pickup.trim();
     let mut parts = pickup.split('|');
@@ -647,8 +646,12 @@ pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
     match pickup_type {
         "0" => {
             let spirit_light = parts.next().ok_or_else(|| format!("missing spirit light amount in pickup {}", pickup))?;
-            let spirit_light: u16 = spirit_light.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
-            Ok((Item::Resource(Resource::SpiritLight), spirit_light))
+            if spirit_light.starts_with('-') {
+                Ok((Item::Custom(pickup.to_string()), 1))
+            } else {
+                let spirit_light: u16 = spirit_light.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
+                Ok((Item::Resource(Resource::SpiritLight), spirit_light))
+            }
         }
         "1" => {
             let resource_type = parts.next().ok_or_else(|| format!("missing resource type in pickup {}", pickup))?;
@@ -658,27 +661,43 @@ pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
         },
         "2" => {
             let skill_type = parts.next().ok_or_else(|| format!("missing skill type in pickup {}", pickup))?;
-            let skill_type: u8 = skill_type.parse().map_err(|_| format!("invalid skill type in pickup {}", pickup))?;
-            let skill = Skill::from_id(skill_type).ok_or_else(|| format!("invalid skill type in pickup {}", pickup))?;
-            Ok((Item::Skill(skill), 1))
+            if skill_type.starts_with('-') {
+                Ok((Item::Custom(pickup.to_string()), 1))
+            } else {
+                let skill_type: u8 = skill_type.parse().map_err(|_| format!("invalid skill type in pickup {}", pickup))?;
+                let skill = Skill::from_id(skill_type).ok_or_else(|| format!("invalid skill type in pickup {}", pickup))?;
+                Ok((Item::Skill(skill), 1))
+            }
         }
         "3" => {
             let shard_type = parts.next().ok_or_else(|| format!("missing shard type in pickup {}", pickup))?;
-            let shard_type: u8 = shard_type.parse().map_err(|_| format!("invalid shard type in pickup {}", pickup))?;
-            let shard = Shard::from_id(shard_type).ok_or_else(|| format!("invalid shard type in pickup {}", pickup))?;
-            Ok((Item::Shard(shard), 1))
+            if shard_type.starts_with('-') {
+                Ok((Item::Custom(pickup.to_string()), 1))
+            } else {
+                let shard_type: u8 = shard_type.parse().map_err(|_| format!("invalid shard type in pickup {}", pickup))?;
+                let shard = Shard::from_id(shard_type).ok_or_else(|| format!("invalid shard type in pickup {}", pickup))?;
+                Ok((Item::Shard(shard), 1))
+            }
         }
         "5" => {
             let teleporter_type = parts.next().ok_or_else(|| format!("missing teleporter type in pickup {}", pickup))?;
-            let teleporter_type: u8 = teleporter_type.parse().map_err(|_| format!("invalid teleporter type in pickup {}", pickup))?;
-            let teleporter = Teleporter::from_id(teleporter_type).ok_or_else(|| format!("invalid teleporter type in pickup {}", pickup))?;
-            Ok((Item::Teleporter(teleporter), 1))
+            if teleporter_type.starts_with('-') {
+                Ok((Item::Custom(pickup.to_string()), 1))
+            } else {
+                let teleporter_type: u8 = teleporter_type.parse().map_err(|_| format!("invalid teleporter type in pickup {}", pickup))?;
+                let teleporter = Teleporter::from_id(teleporter_type).ok_or_else(|| format!("invalid teleporter type in pickup {}", pickup))?;
+                Ok((Item::Teleporter(teleporter), 1))
+            }
         }
         "9" => {
             let world_event_type = parts.next().ok_or_else(|| format!("missing world event type in pickup {}", pickup))?;
-            let world_event_type: u8 = world_event_type.parse().map_err(|_| format!("invalid world event type in pickup {}", pickup))?;
-            if world_event_type != 0 { return Err(format!("invalid world event type in pickup {}", pickup)); }
-            Ok((Item::Skill(Skill::Water), 1))
+            if world_event_type.starts_with('-') {
+                Ok((Item::Custom(pickup.to_string()), 1))
+            } else {
+                let world_event_type: u8 = world_event_type.parse().map_err(|_| format!("invalid world event type in pickup {}", pickup))?;
+                if world_event_type != 0 { return Err(format!("invalid world event type in pickup {}", pickup)); }
+                Ok((Item::Skill(Skill::Water), 1))
+            }
         }
         "10" | "11" => {
             let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
@@ -734,5 +753,33 @@ mod tests {
         assert_eq!(either_orbs(&b, &a), vec![Orbs { ..orbs }]);
         assert_eq!(both_orbs(&a, &b), vec![Orbs { energy: 2.0, ..orbs }]);
         assert_eq!(both_orbs(&b, &a), vec![Orbs { energy: 2.0, ..orbs }]);
+    }
+
+    #[test]
+    fn pickup_parsing() {
+        assert_eq!(parse_pickup("0|5000"), Ok((Item::Resource(Resource::SpiritLight), 5000)));
+        assert_eq!(parse_pickup("0|-5000"), Ok((Item::Custom(String::from("0|-5000")), 1)));
+        assert_eq!(parse_pickup("1|2"), Ok((Item::Resource(Resource::Ore), 1)));
+        assert!(parse_pickup("1|-2").is_err());
+        assert!(parse_pickup("1|5").is_err());
+        assert_eq!(parse_pickup("2|8"), Ok((Item::Skill(Skill::Launch), 1)));
+        assert_eq!(parse_pickup("2|120"), Ok((Item::Skill(Skill::AncestralLight), 1)));
+        assert_eq!(parse_pickup("2|121"), Ok((Item::Skill(Skill::AncestralLight), 1)));
+        assert!(parse_pickup("2|25").is_err());
+        assert_eq!(parse_pickup("2|-9"), Ok((Item::Custom(String::from("2|-9")), 1)));
+        assert_eq!(parse_pickup("3|28"), Ok((Item::Shard(Shard::LastStand), 1)));
+        assert_eq!(parse_pickup("5|16"), Ok((Item::Teleporter(Teleporter::Marsh), 1)));
+        assert_eq!(parse_pickup("9|0"), Ok((Item::Skill(Skill::Water), 1)));
+        assert_eq!(parse_pickup("9|-0"), Ok((Item::Custom(String::from("9|-0")), 1)));
+        assert_eq!(parse_pickup("10|0"), Ok((Item::Bonus(Bonus::RapidHammer), 1)));  // 10 and 11 are interchangable in the current implementation
+        assert_eq!(parse_pickup("10|31"), Ok((Item::Bonus(Bonus::EnergyRegen), 1)));
+        assert!(parse_pickup("12|13").is_err());
+        assert_eq!(parse_pickup("8|5|3|6"), Ok((Item::Custom(String::from("8|5|3|6")), 1)));
+        assert!(parse_pickup("12").is_err());
+        assert!(parse_pickup("").is_err());
+        assert!(parse_pickup("0|").is_err());
+        assert!(parse_pickup("0||400").is_err());
+        assert!(parse_pickup("7|3").is_err());
+        assert!(parse_pickup("-0|65").is_err());
     }
 }
