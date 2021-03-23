@@ -40,12 +40,12 @@ fn pick_spawn<'a>(graph: &'a [Node], settings: &'a Settings, rng: &'a mut Pcg32)
                 || MOKI_SPAWNS.contains(&identifier)
             })
             .choose(rng)
-            .ok_or(String::from("Tried to generate a seed on an empty logic graph."))?
+            .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?
     } else if settings.spawn_loc == "fullyrandom" {
         graph.iter()
             .filter(|node| node.node_type() == NodeType::Anchor)
             .choose(rng)
-            .ok_or(String::from("Tried to generate a seed on an empty logic graph."))?
+            .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?
     } else {
         graph.iter()
             .find(|node| node.identifier() == settings.spawn_loc)
@@ -75,14 +75,51 @@ fn write_flags(settings: &Settings) -> String {
     flags
 }
 
-pub fn generate_seed(graph: &[Node], settings: Settings, mut rng: Pcg32) -> Result<String, String> {
+fn parse_header(header: &str) -> Result<String, String> {
+    let mut processed = String::new();
+    for line in header.lines() {
+        if let Some(command) = line.strip_prefix("!!") {
+            if let Some(_) = command.strip_prefix("add ") {
+                println!("Sorry but I wasn't taught to add items to the pool yet ;_;");
+            } else if let Some(_) = command.strip_prefix("remove ") {
+                println!("Sorry but I wasn't taught to remove items from the pool yet ;_;");
+            } else if let Some(_) = command.strip_prefix("set ") {
+                println!("Man I really gotta learn some stuff");
+            } else {
+                return Err(format!("Unknown command '{}'", command))
+            }
+        } else if let Some(ignored) = line.strip_prefix("!") {
+            processed += ignored;
+            processed.push('\n');
+        } else {
+            processed += line;
+            processed.push('\n');
+        }
+    }
+    processed.push('\n');
+    Ok(processed)
+}
+
+pub fn generate_seed(graph: &[Node], settings: &Settings, headers: &[String], mut rng: Pcg32) -> Result<String, String> {
     let mut seed = String::new();
 
-    seed += &write_flags(&settings);
+    seed += &write_flags(settings);
     let spawn = pick_spawn(graph, &settings, &mut rng)?;
     if spawn.identifier != DEFAULTSPAWN {
         let position = spawn.position.as_ref().ok_or_else(|| format!("Tried to spawn on {} which has no specified coordinates", spawn.identifier))?;
         seed += &format!("Spawn: {}  // {}\n", position, spawn.identifier);
+    }
+    if !seed.is_empty() {
+        seed.push('\n');
+    }
+
+    for header in headers {
+        seed += &parse_header(header).unwrap_or_else(|err| panic!("{} in inline header", err));
+    }
+    for mut path in settings.header_list.clone() {
+        path.set_extension("wotwrh");
+        let header = util::read_file(&path, "headers").unwrap_or_else(|err| panic!("Error reading header from {:?}: {}", path, err));
+        seed += &parse_header(&header).unwrap_or_else(|err| panic!("{} in header '{:?}'", err, path));
     }
 
     // TODO: Generate a seed

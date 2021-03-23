@@ -1,6 +1,6 @@
 use std::path::PathBuf;
-use std::fs::{self, File};
-use std::io::{self, Read, BufReader, Error, ErrorKind};
+use std::fs;
+use std::io::{self, Read};
 
 use structopt::StructOpt;
 use bugsalot::debugger;
@@ -113,18 +113,6 @@ fn read_header() -> String {
     output
 }
 
-fn read_header_from_file(path: &PathBuf) -> Result<String, io::Error> {
-    let file = File::open(path)?;
-    let mut buf_reader = BufReader::new(file);
-    let mut contents = String::new();
-    buf_reader.read_to_string(&mut contents)?;
-    if contents.is_empty() {
-        return Err(Error::new(ErrorKind::InvalidData, "Empty header"));
-    }
-
-    Ok(contents)
-}
-
 struct GenFlags {
     gorlek_paths: bool,
     unsafe_paths: bool,
@@ -148,7 +136,7 @@ impl GenFlags {
     }
 }
 
-fn parse_flags(generation_flags: Vec<String>) -> GenFlags {
+fn parse_flags(generation_flags: &[String]) -> GenFlags {
     let mut flags = GenFlags {
         gorlek_paths: false,
         unsafe_paths: false,
@@ -159,7 +147,7 @@ fn parse_flags(generation_flags: Vec<String>) -> GenFlags {
         world_tour: false,
     };
 
-    for flag in &generation_flags {
+    for flag in generation_flags {
         match &flag[..] {
             "mo" | "moki" => {},
             "go" | "gorlek" => flags.gorlek_paths = true,
@@ -194,7 +182,7 @@ fn main() {
             if spawn == "r" { spawn = String::from("random"); }
             if spawn == "f" { spawn = String::from("fullyrandom"); }
 
-            let flags = parse_flags(generation_flags);
+            let flags = parse_flags(&generation_flags);
             let pathsets = flags.pathsets();
 
             let graph = parse_logic(&areas, &locations, &pathsets, validate);
@@ -202,13 +190,6 @@ fn main() {
             let header = read_header();
             if !header.is_empty() {
                 headers.push(header)
-            }
-
-            for path in &header_paths {
-                match read_header_from_file(path) {
-                    Ok(header) => headers.push(header),
-                    Err(error) => println!("Error from {}: {:?}", path.display(), error)
-                }
             }
 
             let settings = Settings {
@@ -225,13 +206,13 @@ fn main() {
                 },
                 web_conn: netcode,
                 spawn_loc: spawn,
-                header_list: header_paths.iter().map(|path| (*path.to_string_lossy()).to_string()).collect(),
+                header_list: header_paths,
                 ..Settings::default()
             };
 
-            let seed = generate_seed(&graph, settings, rng).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
+            let seed = generate_seed(&graph, &settings, &headers, rng).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
             fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
-        }
+        },
         Command::ReachCheck { areas, locations, seed_file, health, energy, keystones, ore, spirit_light, items } => {
             let settings = util::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
 
@@ -283,6 +264,6 @@ fn main() {
             });
             for _ in 0..2 { reached.pop(); }  // remove the last comma
             println!("{}", reached);
-        }
+        },
     }
 }

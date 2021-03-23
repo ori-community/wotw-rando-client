@@ -473,7 +473,7 @@ pub struct OldSettings {
     pub debug_info: bool,
     pub seir_launch: bool,
     pub spawn_loc: String,
-    pub header_list: Vec<String>,
+    pub header_list: Vec<PathBuf>,
 }
 impl Default for OldSettings {
     fn default() -> OldSettings {
@@ -504,10 +504,10 @@ fn read_old_settings(json: &str, spawn: &str) -> Result<Settings, io::Error> {
     if old_settings.glitch_paths { pathsets.push(Pathset::Glitch); }
 
     let mut header_list = old_settings.header_list;
-    if old_settings.tps { header_list.push(String::from("teleporters")); }
-    if !old_settings.quest_locs { header_list.push(String::from("no_quests")); }
-    if old_settings.bonus_items { header_list.push(String::from("bonus_items")); }
-    if old_settings.seir_launch { header_list.push(String::from("launch_on_seir")); }
+    if old_settings.tps { header_list.push(PathBuf::from("teleporters")); }
+    if !old_settings.quest_locs { header_list.push(PathBuf::from("no_quests")); }
+    if old_settings.bonus_items { header_list.push(PathBuf::from("bonus_items")); }
+    if old_settings.seir_launch { header_list.push(PathBuf::from("launch_on_seir")); }
 
     Ok(Settings {
         pathsets,
@@ -544,7 +544,7 @@ pub struct Settings {
     pub spoilers: bool,
     pub web_conn: bool,
     pub debug_info: bool,
-    pub header_list: Vec<String>,
+    pub header_list: Vec<PathBuf>,
 }
 impl Default for Settings {
     fn default() -> Settings {
@@ -556,7 +556,7 @@ impl Default for Settings {
             spoilers: true,
             web_conn: false,
             debug_info: false,
-            header_list: vec![String::from("Teleporters"), String::from("Hints"), String::from("Swordspawn")],
+            header_list: vec![PathBuf::from("Teleporters"), PathBuf::from("Hints"), PathBuf::from("Swordspawn")],
         }
     }
 }
