@@ -189,8 +189,18 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
             });
         }
 
+        let position = if let Some((x, y)) = anchor.position {
+            Some(world::Position {
+                x,
+                y,
+            })
+        } else {
+            None
+        };
+
         graph.push(Node::Anchor(world::Anchor {
             identifier: anchor.identifier.to_string(),
+            position,
             index: graph.len(),
             refills,
             connections,

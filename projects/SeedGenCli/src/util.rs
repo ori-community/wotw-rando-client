@@ -518,12 +518,12 @@ pub struct SeedFlags {
     pub force_wisps: bool,      // compability note: used for goal mode logic
     pub force_trees: bool,      // compability note: used for goal mode logic
     pub force_quests: bool,     // compability note: used for goal mode logic
+    pub world_tour: bool,       // compability note: used for goal mode logic
     pub no_hints: bool,         // compability note: unused
     pub no_sword: bool,         // compability note: used for sword init
     pub rain: bool,             // compability note: used for day-night-cycle
     pub no_k_s_doors: bool,     // compability note: used for black market
     pub random_spawn: bool,     // compability note: unused
-    pub world_tour: bool,       // compability note: used for goal mode logic
 }
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

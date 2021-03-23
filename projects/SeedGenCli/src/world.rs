@@ -1,3 +1,5 @@
+use std::fmt;
+
 use rustc_hash::FxHashMap;
 
 use crate::requirements::Requirement;
@@ -17,8 +19,19 @@ pub struct Connection {
 }
 
 #[derive(Debug)]
+pub struct Position {
+    pub x: i16,
+    pub y: i16,
+}
+impl fmt::Display for Position {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}, {}", self.x, self.y)
+    }
+}
+#[derive(Debug)]
 pub struct Anchor {
     pub identifier: String,
+    pub position: Option<Position>,
     pub index: usize,
     pub refills: Vec<Refill>,
     pub connections: Vec<Connection>,
@@ -76,7 +89,6 @@ impl Node {
         }
     }
 }
-
 
 #[derive(Debug)]
 pub struct World<'a> {
