@@ -18,23 +18,32 @@ namespace RandoMainDLL {
       }
     }
     public static bool Updating;
+    public static bool RustLogic = false;
     public static void UpdateReachableAsync(int sleepTime = 30) {
       try {
         Thread.Sleep(sleepTime); // wait to let values update
         if (Updating)
           return;
         Updating = true;
-        var argsList = new List<string> {
+        var argsList = RustLogic ? new List<string> {
+          "reach-check",
+          "--areas",
+          $"\"{Randomizer.BasePath}areas.wotw\"",
+          "--locations",
+          $"\"{Randomizer.BasePath}loc_data.csv\"",
+        } : new List<string> {
           "-jar",
           $"\"{Randomizer.BasePath}SeedGen.jar\" ",
-          "ReachCheck",
+          "ReachCheck" 
+          };
+        argsList.AddRange( new List<string> { 
           $"\"{SeedController.SeedFile}\"",
           $"{InterOp.get_max_health()}",
           $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
           $"{UberGet.value(6, 0).Int}",
           $"{InterOp.get_ore()}",
           $"{InterOp.get_experience()}",
-        };
+        });
         // TODO: send which key doors are already open?
         argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
         argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
@@ -42,11 +51,12 @@ namespace RandoMainDLL {
           argsList.Add("w:0");
         argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
         var proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = @"java.exe";
+        proc.StartInfo.FileName = RustLogic ? @"seed_gen_cli.exe" : @"java.exe";
         proc.StartInfo.Arguments = String.Join(" ", argsList);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.RedirectStandardOutput = true;
+        proc.StartInfo.RedirectStandardError = true;
         proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
         if(!proc.WaitForExit(10000))
@@ -62,8 +72,8 @@ namespace RandoMainDLL {
             }
             catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
           }
-//        else
-//          Randomizer.Log($"got output |{rawOutput}| from cmd. args: \"{String.Join(" ", argsList)}\" stderr was {proc.StandardError.ReadToEnd()}", false);
+        if(Randomizer.Dev)
+          Randomizer.Log($"Reach check:\nseed_gen_cli.exe {String.Join(" ", argsList)}\n gave output: \n{rawOutput}\n stderr was {proc.StandardError.ReadToEnd()}", false);
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }

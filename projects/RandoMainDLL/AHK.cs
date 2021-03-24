@@ -40,6 +40,7 @@ namespace RandoMainDLL {
       !^5::signal := ""test5""
       !^c::signal := ""printcoords""
       !^n::signal := ""namespoilertoggle""
+      ^!6::signal := ""logicprovidertoggle""
       onSignalExt:
       gui, submit
       signal := extChannel
@@ -147,6 +148,11 @@ namespace RandoMainDLL {
           case "namespoilertoggle":
             MapController.NameLabels = !MapController.NameLabels;
             Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
+            break;
+          case "logicprovidertoggle":
+            MapController.RustLogic = !MapController.RustLogic;
+            Print($"Logic Provider: {(MapController.RustLogic ? "Rust" : "Java")}", toMessageLog: false);
+            MapController.UpdateReachable();
             break;
 
           default:
