@@ -57,6 +57,7 @@ namespace RandoMainDLL {
     SetHealth = 12,
     SetEnergy = 13,
     SetSpiritLight = 14,
+    Bind = 15,
   }
 
   public enum TeleporterType : byte {
@@ -698,6 +699,21 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
     public override string DisplayName { get => $"Warp to {X}, {Y}"; }
+  }
+
+  public class BindCommand : SystemCommand {
+    short Slot;
+    EquipmentType Equip;
+
+    public BindCommand(short slot, EquipmentType equip) : base(SysCommandType.Bind) {
+      Slot = slot;
+      Equip = equip;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.bind(Slot, (int)Equip);
+      base.Grant(skipBase);
+    }
+    public override string DisplayName { get => $"Bind {Equip} to {Slot}"; }
   }
 
   public class TimerCommand : SystemCommand {
