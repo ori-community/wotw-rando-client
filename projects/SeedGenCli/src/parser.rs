@@ -2,6 +2,7 @@ use std::path::PathBuf;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::tokenizer::{Token, TokenType};
+use crate::world::UberState;
 use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy};
 
 pub struct ParseError {
@@ -576,11 +577,11 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
     })
 }
 
+// TODO why would location need a default?
 #[derive(Debug, Default)]
 pub struct Location {
     pub name: String,
-    pub uber_group: String,
-    pub uber_id: String,
+    pub uber_state: UberState,
 }
 
 fn empty_field(name: &str, index: usize, line: &str) -> String {
@@ -608,22 +609,11 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
             if uber_id.is_empty() {
                 return Err(empty_field("uber_id", index, line))
             }
-
-            uber_group.parse::<u16>().map_err(|_| format!("Invalid uberGroup id at line {}: {}", index + 1, line))?;
-            let mut uber_id_value = uber_id.split('=');
-            uber_id_value.next().unwrap().parse::<u16>().map_err(|_| format!("Invalid uberState id at line {}: {}", index + 1, line))?;
-            if let Some(value) = uber_id_value.next() {
-                value.parse::<u16>().map_err(|_| format!("Invalid uberState value at line {}: {}", index + 1, line))?;
-                if uber_id_value.next().is_some() {
-                    return Err(format!("Multiple equal signs in uberState at line {}: {}", index + 1, line))
-                }
-            }
         }
 
         locations.push(Location {
             name: name.to_string(),
-            uber_group: uber_group.to_string(),
-            uber_id: uber_id.to_string(),
+            uber_state: UberState::from_parts(uber_group, uber_id)?,
         })
     }
 

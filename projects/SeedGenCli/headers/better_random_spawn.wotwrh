@@ -1,0 +1,14 @@
+// opens some doors so random spawn works better, especially when used without teleporters or with Rainy Marsh:
+// the lever door in upper wastes, the lever door at pools entry, the bone door above howl's den teleporter and the Howl fight.
+!!set UpperWastes.LeverDoor
+3|0|8|20120|12902|bool|true  // .
+!!set UpperWastes.KeystoneDoor
+3|0|8|20120|28786|bool|true  // .
+!!set EastPools.EntryLever
+3|0|8|5377|14488|bool|true   // .
+!!set MarshSpawn.HowlBurnt
+3|0|8|21786|30656|bool|true  // .
+3|0|8|21786|40322|bool|true  // .
+3|0|8|21786|25095|bool|true  // .
+!!set HowlsDen.BoneBarrier
+3|0|8|21786|53932|bool|true  // .

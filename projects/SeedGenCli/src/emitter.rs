@@ -120,8 +120,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
             graph.push(Node::Quest(world::Quest {
                 identifier: location.name.clone(),
                 index,
-                uber_group: location.uber_group.clone(),
-                uber_id: location.uber_id.clone(),
+                uber_state: location.uber_state.clone(),
             }));
         } else {
             let index = graph.len();
@@ -129,8 +128,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
             graph.push(Node::Pickup(world::Pickup {
                 identifier: location.name.clone(),
                 index,
-                uber_group: location.uber_group.clone(),
-                uber_id: location.uber_id.clone(),
+                uber_state: location.uber_state.clone(),
             }));
         }
     }

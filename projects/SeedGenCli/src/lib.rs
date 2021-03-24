@@ -14,9 +14,9 @@ use rand_pcg::Pcg32;
 use rustc_hash::FxHashMap;
 
 use parser::ParseError;
-use world::{World, Node, Anchor};
+use world::{World, Node, Anchor, UberState};
 use player::{Player, Inventory};
-use util::{Pathset, NodeType, Settings, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
+use util::{Pathset, NodeType, Settings, Spawn, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
 pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> Vec<Node> {
     let tokens = tokenizer::tokenize(areas).unwrap_or_else(|err| panic!("Error parsing areas from {:?}: {}", areas, err));
@@ -35,24 +35,22 @@ pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], v
 }
 
 fn pick_spawn<'a>(graph: &'a [Node], settings: &'a Settings, rng: &'a mut Pcg32) -> Result<&'a Anchor, String> {
-    let spawn = if settings.spawn_loc == "random" {
-        graph.iter()
+    let spawn = match &settings.spawn_loc {
+        Spawn::Random => graph.iter()
             .filter(|node| {
                 let identifier = node.identifier();
                 settings.pathsets.contains(&Pathset::Gorlek) && GORLEK_SPAWNS.contains(&identifier)
                 || MOKI_SPAWNS.contains(&identifier)
             })
             .choose(rng)
-            .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?
-    } else if settings.spawn_loc == "fullyrandom" {
-        graph.iter()
+            .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?,
+        Spawn::FullyRandom => graph.iter()
             .filter(|node| node.node_type() == NodeType::Anchor)
             .choose(rng)
-            .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?
-    } else {
-        graph.iter()
-            .find(|node| node.identifier() == settings.spawn_loc)
-            .ok_or_else(|| format!("Spawn '{}' not found", settings.spawn_loc))?
+            .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?,
+        Spawn::Set(spawn_loc) => graph.iter()
+            .find(|node| node.identifier() == spawn_loc)
+            .ok_or_else(|| format!("Spawn '{}' not found", spawn_loc))?
     };
     match spawn {
         Node::Anchor(anchor) => Ok(anchor),
@@ -62,32 +60,43 @@ fn pick_spawn<'a>(graph: &'a [Node], settings: &'a Settings, rng: &'a mut Pcg32)
 
 fn write_flags(settings: &Settings) -> String {
     let mut flags = String::from("Flags: ");
-    let empty_len = flags.len();
+    // let empty_len = flags.len();
     if settings.flags.force_wisps { flags += "ForceWisps, "; }
     if settings.flags.force_trees { flags += "ForceTrees, "; }
     if settings.flags.force_quests { flags += "ForceQuests, "; }
-    if settings.flags.no_hints { flags += "NoHints, "; }
-    if settings.flags.no_sword { flags += "NoSword, "; }
-    if settings.flags.rain { flags += "RainyMarsh, "; }
-    if settings.flags.no_k_s_doors { flags += "NoKSDoors, "; }
-    if settings.flags.random_spawn { flags += "RandomSpawn, "; }
     if settings.flags.world_tour { flags += "WorldTour, "; }
-    if flags.len() == empty_len { return String::new(); }
+    if matches!(settings.spawn_loc, Spawn::Random) { flags += "RandomSpawn, "; }
+    // TODO fully random?
+    flags += "NoFreeSword, ";
+    // if flags.len() == empty_len { return String::new(); }
     for _ in 0..2 { flags.pop(); }  // remove the last comma
     flags.push('\n');
     flags
+}
+
+fn parse_count(pickup: &mut &str) -> u16 {
+    if let Some(index) = pickup.find("x") {
+        let amount = pickup[..index].trim();
+        if let Ok(amount) = amount.parse::<u16>() {
+            *pickup = &pickup[index + 1..];
+            return amount;
+        }
+    }
+    return 1;
 }
 
 fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
     let mut processed = String::new();
     for line in header.lines() {
         if let Some(command) = line.strip_prefix("!!") {
-            if let Some(pickup) = command.strip_prefix("add ") {
+            if let Some(mut pickup) = command.strip_prefix("add ") {
+                let count = parse_count(&mut pickup);
                 let (item, amount) = util::parse_pickup(pickup)?;
-                world.pool.grant(item, amount);
-            } else if let Some(pickup) = command.strip_prefix("remove ") {
+                world.pool.grant(item, count * amount);
+            } else if let Some(mut pickup) = command.strip_prefix("remove ") {
+                let count = parse_count(&mut pickup);
                 let (item, amount) = util::parse_pickup(pickup)?;
-                world.pool.remove(item, amount);
+                world.pool.remove(item, count * amount);
             } else if let Some(state) = command.strip_prefix("set ") {
                 let state_node = world.graph.iter().find(|node| node.identifier() == state);
                 if let Some(state_node) = state_node {
@@ -103,19 +112,13 @@ fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
             processed.push('\n');
         } else {
             if !line.is_empty() {
-                let mut count = 0;
-                let mut parts = line.split(|c| {
-                    if c == '|' { count += 1; }
-                    count == 2
-                });
-                let location = parts.next().unwrap();
+                let mut parts = line.splitn(3, '|');
+                let uber_group = parts.next().unwrap();
+                let uber_id = parts.next().ok_or_else(|| format!("malformed pickup '{}'", line))?;
                 let item = parts.next().ok_or_else(|| format!("malformed pickup '{}'", line))?;
                 let (item, amount) = util::parse_pickup(item)?;
-                let mut location = location.split('|');
-                let x: i16 = location.next().unwrap().parse().map_err(|_| format!("invalid location of pickup '{}'", line))?;
-                let y: i16 = location.next().unwrap().parse().map_err(|_| format!("invalid location of pickup '{}'", line))?;
 
-                let preplacement = world.preplacements.entry((x, y)).or_insert(Inventory::default());
+                let preplacement = world.preplacements.entry(UberState::from_parts(uber_group, uber_id)?).or_insert(Inventory::default());
                 preplacement.grant(item.clone(), amount);
 
                 world.pool.remove(item, amount);
@@ -163,6 +166,35 @@ pub fn generate_seed(graph: &Vec<Node>, settings: &Settings, headers: &[String],
         seed += &format!("{}\n", placement);
     }
 
+    seed += "\n// Config: ";
     seed += &util::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?;
     Ok(seed)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use player::Item;
+    use util::BonusItem;
+
+    #[test]
+    fn header_parsing() {
+        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
+        let mut world = World {
+            graph: &graph,
+            player: Player::default(),
+            pool: Inventory::default(),
+            preplacements: FxHashMap::default(),
+        };
+        let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
+        parse_header(&header, &mut world).unwrap();
+        let mut expected = Inventory::default();
+        expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
+        expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);
+        expected.grant(Item::BonusItem(BonusItem::EnergyRegen), 3);
+        expected.grant(Item::BonusItem(BonusItem::HealthRegen), 3);
+        assert_eq!(world.pool, expected);
+        assert!(world.preplacements.contains_key(&UberState::from_parts("1", "106").unwrap()));
+        assert!(!world.preplacements.contains_key(&UberState::from_parts("1", "105").unwrap()));
+    }
 }

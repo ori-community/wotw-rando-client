@@ -40,8 +40,7 @@ pub struct Anchor {
 pub struct Pickup {
     pub identifier: String,
     pub index: usize,
-    pub uber_group: String,
-    pub uber_id: String,
+    pub uber_state: UberState,
 }
 #[derive(Debug)]
 pub struct State {
@@ -52,8 +51,7 @@ pub struct State {
 pub struct Quest {
     pub identifier: String,
     pub index: usize,
-    pub uber_group: String,
-    pub uber_id: String,
+    pub uber_state: UberState,
 }
 
 #[derive(Debug)]
@@ -157,12 +155,44 @@ pub fn default_pool() -> Inventory {
     }
 }
 
+#[derive(Debug, PartialEq, Eq, Hash, Default, Clone)]
+pub struct UberState {
+    pub uber_group: u16,
+    pub uber_id: u16,
+    pub value: Option<u16>,
+}
+impl UberState {
+    pub fn from_parts(group: &str, id: &str) -> Result<UberState, String> {
+        let uber_group: u16 = group.parse().map_err(|_| format!("invalid uber group '{}'", group))?;
+        let mut id_parts = id.splitn(2, '=');
+        let uber_id: u16 = id_parts.next().unwrap().parse().map_err(|_| format!("invalid uber id '{}'", id))?;
+        let mut value = None;
+        if let Some(id_value) = id_parts.next() {
+            value = Some(id_value.parse().map_err(|_| format!("invalid uber value '{}'", id))?);
+        }
+        Ok(UberState {
+            uber_group,
+            uber_id,
+            value,
+        })
+    }
+}
+impl fmt::Display for UberState {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if let Some(value) = self.value {
+            write!(f, "{}|{}={}", self.uber_group, self.uber_id, value)
+        } else {
+            write!(f, "{}|{}", self.uber_group, self.uber_id)
+        }
+    }
+}
+
 #[derive(Debug)]
 pub struct World<'a> {
     pub graph: &'a Vec<Node>,
     pub player: Player,
     pub pool: Inventory,
-    pub preplacements: FxHashMap<(i16, i16), Inventory>,
+    pub preplacements: FxHashMap<UberState, Inventory>,
 }
 impl<'a> World<'a> {
     pub fn grant_player(&mut self, item: Item, amount: u16) {

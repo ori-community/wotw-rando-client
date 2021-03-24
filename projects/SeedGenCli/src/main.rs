@@ -13,7 +13,7 @@ use seed_gen_cli::{generate_seed, parse_logic, player, util, world};
 
 use player::{Player, Item, Inventory};
 use world::{World, Node};
-use util::{Pathset, Resource, Skill, Teleporter, Shard, Settings, SeedFlags};
+use util::{Pathset, Resource, Skill, Teleporter, Shard, Settings, Spawn, SeedFlags};
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer
@@ -179,9 +179,10 @@ fn main() {
 
             let rng: Pcg32 = Seeder::from(output.file_name()).make_rng();
 
-            let mut spawn = spawn.unwrap_or_else(|| util::DEFAULTSPAWN.to_string());
-            if spawn == "r" { spawn = String::from("random"); }
-            if spawn == "f" { spawn = String::from("fullyrandom"); }
+            let spawn = spawn.unwrap_or_else(|| util::DEFAULTSPAWN.to_string());
+            let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
+            else if spawn == "f" || spawn == "fullyrandom" { Spawn::FullyRandom }
+            else { Spawn::Set(spawn) };
 
             let flags = parse_flags(&generation_flags);
             let pathsets = flags.pathsets();
@@ -202,13 +203,11 @@ fn main() {
                     force_trees: flags.force_trees,
                     force_quests: flags.force_quests,
                     world_tour: flags.world_tour,
-                    random_spawn: spawn == "random",
-                    ..SeedFlags::default()
                 },
                 web_conn: netcode,
                 spawn_loc: spawn,
                 header_list: header_paths,
-                ..Settings::default()
+                debug_info: false,  // TODO implement
             };
 
             let seed = generate_seed(&graph, &settings, &headers, rng).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
@@ -259,10 +258,11 @@ fn main() {
                 preplacements: FxHashMap::default(),
             };
 
-            let reached = world.reached_locations(&settings.spawn_loc).expect("Invalid Reach Check");
+            let spawn = util::read_spawn(&seed_file).unwrap_or_else(|err| panic!("error reading spawn from seed: {}", err));
+            let reached = world.reached_locations(&spawn).expect("Invalid Reach Check");
             let mut reached = reached.iter().fold(String::new(), |acc, node| match node {
-                Node::Pickup(pickup) => acc + &format!("{}|{}, ", pickup.uber_group, pickup.uber_id),
-                Node::Quest(quest) => acc + &format!("{}|{}, ", quest.uber_group, quest.uber_id),
+                Node::Pickup(pickup) => acc + &format!("{}, ", pickup.uber_state),
+                Node::Quest(quest) => acc + &format!("{}, ", quest.uber_state),
                 _ => panic!("reach check returned {} which is a {:?} - this should be impossible", node.identifier(), node.node_type()),
             });
             for _ in 0..2 { reached.pop(); }  // remove the last comma

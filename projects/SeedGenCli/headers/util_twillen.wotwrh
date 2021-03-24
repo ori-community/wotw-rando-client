@@ -1,0 +1,8 @@
+// Places six guaranteed items at Twillen's shop:
+// Sticky, Magnet, Water Breath, Catalyst, Overflow, Reckless
+2|22|3|39|-0.6666     //  Sticky from TwillenShop.Vitality               (Shop) (Twillen)
+2|40|3|8|-0.3333      //  Magnet from TwillenShop.Finesse                (Shop) (Twillen)
+2|19|2|23|-0.25       //  Water Breath from TwillenShop.LightHarvest     (Shop) (Twillen)
+2|5|3|36|0.3333       //  Catalyst from TwillenShop.Swap                 (Shop) (Twillen)
+2|26|3|13|0           //  Reckless from TwillenShop.Energy               (Shop) (Twillen)
+2|1|3|34|0            //  Overflow from TwillenShop.OverCharge           (Shop) (Twillen)

@@ -1,0 +1,9 @@
+!!add 3x 10|30
+!!add 3x 10|31
+!!add 10|35
+!!add 10|36
+1|74|11|3|0.0         //  Spike Efficiency from OpherShop.Spike                    (Shop) (Opher)
+1|98|11|0|0.0         //       Rapid Smash from OpherShop.SpiritSmash              (Shop) (Opher)
+1|106|11|4|0.0        //   Star Efficiency from OpherShop.SpiritStar               (Shop) (Opher)
+1|115|11|2|0.0        //  Blaze Efficiency from OpherShop.Blaze                    (Shop) (Opher)
+1|116|11|5|0.0        // Sentry Efficiency from OpherShop.Sentry                   (Shop) (Opher)

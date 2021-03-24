@@ -36,7 +36,7 @@ impl fmt::Display for Item {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, PartialEq)]
 pub struct Inventory {
     pub inventory: FxHashMap<Item, u16>,
 }
@@ -46,6 +46,7 @@ impl Inventory {
         *prior += amount;
     }
     pub fn remove(&mut self, item: Item, amount: u16) {
+        if !self.inventory.contains_key(&item) { return; }
         let prior = self.inventory.entry(item).or_insert(0);
         if amount > *prior {
             *prior = 0;
