@@ -519,10 +519,12 @@ namespace RandoMainDLL {
       }
     }
 
-    public static bool DoesHowlExist() => Flags.Contains(Flag.RAIN);
+    public static bool DoesHowlExist() => HowlOverride || Flags.Contains(Flag.RAIN);
 
-    public static bool IsDayTime() => !Flags.Contains(Flag.RAIN) || AbilityType.SpiritEdge.HaveTree();
+    public static bool IsDayTime() => (RainOverride || !Flags.Contains(Flag.RAIN)) || AbilityType.SpiritEdge.HaveTree();
 
+    public static bool RainOverride = false;
+    public static bool HowlOverride = false;
     public static int Current { get => SaveController.FoundCount; }
     public static int Total { get => pickupMap.Count; }
     public static string Progress {
