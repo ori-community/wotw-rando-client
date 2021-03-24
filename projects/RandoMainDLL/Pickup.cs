@@ -37,7 +37,7 @@ namespace RandoMainDLL {
 
   public enum SysState : byte {
     KwolokDoorAvailable = 0,
-    DayTime = 1,
+    Rain = 1,
     HowlEscape = 2
   }
 
@@ -664,13 +664,11 @@ namespace RandoMainDLL {
         case SysState.KwolokDoorAvailable:
           InterOp.set_kvolok_door_availability(value > 0);
           break;
-        case SysState.DayTime:
-          AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
-          //          SeedController.DayTimeOverride = value > 0;
+        case SysState.Rain:
+          SeedController.RainOverride = value > 0;
           break;
         case SysState.HowlEscape:
-          AHK.Print("Disabled for now (ping eiko to talk to badwolf about how these should work)");
-          //          SeedController.HowlEscapeOverride = value > 0;
+          SeedController.HowlOverride = value > 0;
           break;
       }
     }
