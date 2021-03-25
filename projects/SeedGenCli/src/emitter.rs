@@ -1,7 +1,7 @@
 use rustc_hash::{FxHashSet, FxHashMap};
 
 use crate::parser::{self, AreaTree, Metadata, Location};
-use crate::world::{self, Node};
+use crate::world::{self, WorldGraph, Node};
 use crate::requirements::Requirement;
 use crate::util::{Pathset, Skill};
 
@@ -104,7 +104,7 @@ fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, value: usi
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<Vec<Node>, String> {
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<WorldGraph, String> {
     let node_count = areas.anchors.len() + locations.len() + metadata.states.len();
     let mut graph = Vec::<Node>::with_capacity(node_count);
     let mut used_states = FxHashSet::default();
@@ -219,5 +219,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
         }
     }
 
-    Ok(graph)
+    Ok(WorldGraph {
+        graph,
+    })
 }

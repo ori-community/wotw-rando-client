@@ -11,14 +11,14 @@ use std::path::PathBuf;
 
 use rand::seq::IteratorRandom;
 use rand_pcg::Pcg32;
-use rustc_hash::FxHashMap;
 
 use parser::ParseError;
-use world::{World, Node, Anchor, UberState};
-use player::{Player, Inventory};
+use world::{World, WorldGraph, Node, Anchor, Position, UberState};
+use player::Inventory;
+use generator::Placement;
 use util::{Pathset, NodeType, Settings, Spawn, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
-pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> Vec<Node> {
+pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> WorldGraph {
     let tokens = tokenizer::tokenize(areas).unwrap_or_else(|err| panic!("Error parsing areas from {:?}: {}", areas, err));
 
     let (areas, metadata) = match parser::parse_areas(&tokens) {
@@ -34,28 +34,32 @@ pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], v
     emitter::emit(&areas, &metadata, &locations, pathsets, validate).unwrap_or_else(|err| panic!("Error building the logic: {}", err))
 }
 
-fn pick_spawn<'a>(graph: &'a [Node], settings: &'a Settings, rng: &'a mut Pcg32) -> Result<&'a Anchor, String> {
+fn pick_spawn<'a>(graph: &'a WorldGraph, settings: &Settings, rng: &mut Pcg32) -> Result<&'a Anchor, String> {
+    let mut valid = graph.graph.iter().filter(|&node| {
+        if let Node::Anchor(anchor) = node { anchor.position.is_some() }
+        else { false }
+    });
     let spawn = match &settings.spawn_loc {
-        Spawn::Random => graph.iter()
-            .filter(|node| {
+        Spawn::Random => valid
+            .filter(|&node| {
                 let identifier = node.identifier();
                 settings.pathsets.contains(&Pathset::Gorlek) && GORLEK_SPAWNS.contains(&identifier)
                 || MOKI_SPAWNS.contains(&identifier)
             })
             .choose(rng)
             .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?,
-        Spawn::FullyRandom => graph.iter()
-            .filter(|node| node.node_type() == NodeType::Anchor)
+        Spawn::FullyRandom => valid
+            .filter(|&node| node.node_type() == NodeType::Anchor)
             .choose(rng)
             .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?,
-        Spawn::Set(spawn_loc) => graph.iter()
-            .find(|node| node.identifier() == spawn_loc)
+        Spawn::Set(spawn_loc) => valid
+            .find(|&node| node.identifier() == spawn_loc)
             .ok_or_else(|| format!("Spawn '{}' not found", spawn_loc))?
     };
-    match spawn {
-        Node::Anchor(anchor) => Ok(anchor),
-        _ => Err(String::from("Tried to spawn on a non-anchor node")),
+    if let Node::Anchor(anchor) = spawn {
+        return Ok(anchor);
     }
+    Err(String::from("Picked a non-anchor node as spawn - this should be impossible"))
 }
 
 fn write_flags(settings: &Settings) -> String {
@@ -98,9 +102,9 @@ fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
                 let (item, amount) = util::parse_pickup(pickup)?;
                 world.pool.remove(item, count * amount);
             } else if let Some(state) = command.strip_prefix("set ") {
-                let state_node = world.graph.iter().find(|node| node.identifier() == state);
+                let state_node = world.graph.graph.iter().find(|&node| node.identifier() == state);
                 if let Some(state_node) = state_node {
-                    world.player.states.insert(state_node.index());
+                    world.add_spawn_state(state_node.index());
                 } else {
                     println!("couldn't find state '{}' set by a header, ignoring...", state);
                 }
@@ -132,43 +136,58 @@ fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
     Ok(processed)
 }
 
-pub fn generate_seed(graph: &Vec<Node>, settings: &Settings, headers: &[String], mut rng: Pcg32) -> Result<String, String> {
-    let mut seed = String::new();
-    let mut world = World {
-        graph,
-        player: Player::default(),
-        pool: world::default_pool(),
-        preplacements: FxHashMap::default(),
-    };
-    world.player.init(settings);
+#[derive(Debug, Default)]
+struct SpawnLoc {
+    identifier: String,
+    position: Position,
+}
 
-    seed += &write_flags(settings);
-    let spawn = pick_spawn(graph, &settings, &mut rng)?;
-    if spawn.identifier != DEFAULTSPAWN {
-        let position = spawn.position.as_ref().ok_or_else(|| format!("Tried to spawn on {} which has no specified coordinates", spawn.identifier))?;
-        seed += &format!("Spawn: {}  // {}\n", position, spawn.identifier);
-    }
-    if !seed.is_empty() {
-        seed.push('\n');
-    }
+pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], mut rng: Pcg32) -> Result<String, String> {
+    let mut world = World::new(graph);
+    world.pool = world::default_pool();
+    world.player.spawn(settings);
 
+    let mut header_block = String::new();
     for header in headers {
-        seed += &parse_header(header, &mut world).map_err(|err| format!("{} in inline header", err))?;
+        header_block += &parse_header(header, &mut world).map_err(|err| format!("{} in inline header", err))?;
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
         let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
-        seed += &parse_header(&header, &mut world).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+        header_block += &parse_header(&header, &mut world).map_err(|err| format!("{} in header '{:?}'", err, path))?;
     }
 
-    let placements = generator::generate_placements(world, settings, &mut rng).map_err(|err| format!("Error generating placements: {}", err))?;
-    for placement in placements {
-        seed += &format!("{}\n", placement);
+    let flag_line = write_flags(settings);
+
+    let mut spawn;
+    let mut spawn_loc = SpawnLoc::default();
+
+    let mut placements = Vec::<Placement>::new();
+    for index in 1..100001 {
+        spawn = pick_spawn(graph, &settings, &mut rng)?;
+        spawn_loc = SpawnLoc {
+            identifier: spawn.identifier.clone(),
+            position: spawn.position.clone().unwrap(),
+        };
+
+        if let Ok(ok) = generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng) {
+            placements = ok;
+            println!("Generated seed after {} {}{}", index, if index == 1 { "try" } else { "tries" }, if index > 50000 { " (phew)" } else { "" });
+            break;
+        }
+    };
+    if placements.is_empty() { return Err(String::from("All 100000 attempts to generate a seed failed :(")); }
+
+    let mut spawn_line = String::new();
+    if spawn_loc.identifier != DEFAULTSPAWN {
+        spawn_line = format!("Spawn: {}  // {}\n", spawn_loc.position, spawn_loc.identifier);
     }
 
-    seed += "\n// Config: ";
-    seed += &util::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?;
-    Ok(seed)
+    let placement_block = placements.iter().fold(String::with_capacity(placements.len() * 20), |acc, placement| acc + &format!("{}\n", placement));
+
+    let config_line = format!("\n// Config: {}", util::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?);
+
+    Ok(flag_line + &spawn_line + &header_block + &placement_block + &config_line)
 }
 
 #[cfg(test)]
@@ -180,12 +199,7 @@ mod tests {
     #[test]
     fn header_parsing() {
         let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
-        let mut world = World {
-            graph: &graph,
-            player: Player::default(),
-            pool: Inventory::default(),
-            preplacements: FxHashMap::default(),
-        };
+        let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
         parse_header(&header, &mut world).unwrap();
         let mut expected = Inventory::default();

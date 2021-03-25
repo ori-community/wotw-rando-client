@@ -1,6 +1,6 @@
 use std::fmt;
 
-use rustc_hash::{FxHashMap, FxHashSet};
+use rustc_hash::FxHashMap;
 
 use crate::util::{Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Orbs, Settings, damage, energy_cost};
 
@@ -36,7 +36,7 @@ impl fmt::Display for Item {
     }
 }
 
-#[derive(Debug, Default, PartialEq)]
+#[derive(Debug, Default, PartialEq, Clone)]
 pub struct Inventory {
     pub inventory: FxHashMap<Item, u16>,
 }
@@ -63,19 +63,27 @@ impl Inventory {
     pub fn get(&self, item: &Item) -> u16 {
         *self.inventory.get(item).unwrap_or(&0)
     }
+    pub fn merge(&mut self, other: &Inventory) {
+        for item in other.inventory.keys() {
+            self.grant(item.clone(), other.inventory[item]);
+        }
+    }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct Player {
     pub inventory: Inventory,
-    pub states: FxHashSet<usize>,
     pub gorlek_paths: bool,
     pub unsafe_paths: bool,
 }
 impl Player {
-    pub fn init(&mut self, settings: &Settings) {
+    pub fn spawn(&mut self, settings: &Settings) {
         self.inventory.grant(Item::Resource(Resource::Health), 6);
         self.inventory.grant(Item::Resource(Resource::Energy), 6);
+        self.apply_pathsets(settings);
+    }
+
+    pub fn apply_pathsets(&mut self, settings: &Settings) {
         if settings.pathsets.contains(&Pathset::Gorlek) { self.gorlek_paths = true; }
         if settings.pathsets.contains(&Pathset::Unsafe) { self.unsafe_paths = true; }
     }

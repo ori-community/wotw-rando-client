@@ -1,6 +1,6 @@
 use std::fmt;
 
-use rustc_hash::FxHashMap;
+use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::requirements::Requirement;
 use crate::player::{Player, Item, Inventory};
@@ -18,7 +18,7 @@ pub struct Connection {
     pub requirement: Requirement,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default, Clone)]
 pub struct Position {
     pub x: i16,
     pub y: i16,
@@ -155,7 +155,7 @@ pub fn default_pool() -> Inventory {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Default, Clone)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct UberState {
     pub uber_group: u16,
     pub uber_id: u16,
@@ -188,107 +188,128 @@ impl fmt::Display for UberState {
 }
 
 #[derive(Debug)]
-pub struct World<'a> {
-    pub graph: &'a Vec<Node>,
-    pub player: Player,
-    pub pool: Inventory,
-    pub preplacements: FxHashMap<UberState, Inventory>,
+pub struct WorldGraph {
+    pub graph: Vec<Node>,
 }
-impl<'a> World<'a> {
-    pub fn grant_player(&mut self, item: Item, amount: u16) {
-        self.player.inventory.grant(item.clone(), amount);
-        self.pool.remove(item, amount);
-    }
-
-    fn follow_state_progressions(&mut self, index: usize, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
-        let mut reached = Vec::<&Node>::new();
+impl<'a> WorldGraph {
+    fn follow_state_progressions(&'a self, player: &Player, index: usize, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&UberState> {
+        let mut reached = Vec::<&UberState>::new();
         if let Some(connections) = state_progressions.get(&index) {
             for (from, connection) in connections.clone() {
                 if world_state.contains_key(&connection.to) {
                     // TODO loop with improved orbs?
                     continue;
                 }
-                let target_orbs = self.try_connection(connection, &world_state[&from]);
+                let target_orbs = self.try_connection(player, connection, &world_state[&from], states);
                 if !target_orbs.is_empty() {
-                    reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
+                    reached.append(&mut self.reach_recursion(player, &self.graph[connection.to], target_orbs, states, state_progressions, world_state));
                 }
             }
         }
         reached
     }
-    fn try_connection(&self, connection: &Connection, best_orbs: &[Orbs]) -> Vec<Orbs> {
+    fn try_connection(&self, player: &Player, connection: &Connection, best_orbs: &[Orbs], states: &FxHashSet<usize>) -> Vec<Orbs> {
         let mut target_orbs = Vec::<Orbs>::default();
         for orbs in best_orbs {
-            if let Some(orbcost) = connection.requirement.is_met(&self.player, *orbs) {
+            if let Some(orbcost) = connection.requirement.is_met(player, states, *orbs) {
                 target_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
             }
         }
         target_orbs
     }
 
-    fn reach_recursion(&mut self, entry: &'a Node, mut best_orbs: Vec<Orbs>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
+    fn reach_recursion(&'a self, player: &Player, entry: &'a Node, mut best_orbs: Vec<Orbs>, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a UberState> {
         world_state.insert(entry.index(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
                 for refill in &anchor.refills {
                     for orbs in &best_orbs {
-                        if let Some(orbcost) = refill.requirement.is_met(&self.player, *orbs) {
+                        if let Some(orbcost) = refill.requirement.is_met(player, states, *orbs) {
                             best_orbs = both_orbs(&best_orbs, &orbcost);
                             match refill.name {
-                                RefillType::Full => best_orbs = vec![self.player.max_orbs()],
-                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, self.player.checkpoint_orbs()),
-                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.health_orbs(amount)),
-                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, self.player.energy_orbs(amount)),
+                                RefillType::Full => best_orbs = vec![player.max_orbs()],
+                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, player.checkpoint_orbs()),
+                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, player.health_orbs(amount)),
+                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, player.energy_orbs(amount)),
                             }
                             break;
                         }
                     }
                 }
 
-                let mut reached = Vec::<&Node>::new();
+                let mut reached = Vec::<&UberState>::new();
                 for connection in &anchor.connections {
                     if world_state.contains_key(&connection.to) {
                         // TODO loop with improved orbs?
                         continue;
                     }
-                    let target_orbs = self.try_connection(connection, &best_orbs);
+                    let target_orbs = self.try_connection(player, connection, &best_orbs, states);
                     if target_orbs.is_empty() {
                         let states = connection.requirement.contained_states();
                         for state in states {
                             state_progressions.entry(state).or_default().push((anchor.index, connection));
                         }
                     } else {
-                        reached.append(&mut self.reach_recursion(&self.graph[connection.to], target_orbs, state_progressions, world_state));
+                        reached.append(&mut self.reach_recursion(player, &self.graph[connection.to], target_orbs, states, state_progressions, world_state));
                     }
                 }
                 reached
             },
-            Node::Pickup(_) => vec![entry],
+            Node::Pickup(pickup) => vec![&pickup.uber_state],
             Node::State(state) => {
-                self.player.states.insert(state.index);
-                self.follow_state_progressions(state.index, state_progressions, world_state)
+                states.insert(state.index);
+                self.follow_state_progressions(player, state.index, states, state_progressions, world_state)
             },
             Node::Quest(quest) => {
-                self.player.states.insert(quest.index);
-                let mut reached = self.follow_state_progressions(quest.index, state_progressions, world_state);
-                reached.push(entry);
+                states.insert(quest.index);
+                let mut reached = self.follow_state_progressions(player, quest.index, states, state_progressions, world_state);
+                reached.push(&quest.uber_state);
                 reached
             },
         }
     }
 
-    pub fn reached_locations(&mut self, spawn: &'a str) -> Result<Vec<&Node>, String> {
-        let entry = self.graph.iter().find(|node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
+    pub fn reached_locations(&self, player: &Player, spawn: &str, spawn_states: &Vec<usize>) -> Result<Vec<&UberState>, String> {
+        let entry = self.graph.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
 
-        let mut state_progressions = FxHashMap::<_, _>::default();
-        state_progressions.reserve(10);
-        let mut world_state = FxHashMap::<_, _>::default();
+        let mut states: FxHashSet<_> = spawn_states.iter().cloned().collect();
+        let mut state_progressions = FxHashMap::default();
+        let mut world_state = FxHashMap::default();
         world_state.reserve(self.graph.len());
 
-        let reached = self.reach_recursion(entry, vec![self.player.max_orbs()], &mut state_progressions, &mut world_state);
+        let reached = self.reach_recursion(player, entry, vec![player.max_orbs()], &mut states, &mut state_progressions, &mut world_state);
 
         Ok(reached)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct World<'a> {
+    pub graph: &'a WorldGraph,
+    pub player: Player,
+    pub pool: Inventory,
+    pub preplacements: FxHashMap<UberState, Inventory>,
+    pub spawn_states: Vec<usize>,
+}
+impl<'a> World<'a> {
+    pub fn new(graph: &WorldGraph) -> World {
+        World {
+            graph,
+            player: Player::default(),
+            pool: Inventory::default(),
+            preplacements: FxHashMap::default(),
+            spawn_states: Vec::default(),
+        }
+    }
+
+    pub fn add_spawn_state(&mut self, state: usize) {
+        self.spawn_states.push(state);
+    }
+
+    pub fn grant_player(&mut self, item: Item, amount: u16) {
+        self.player.inventory.grant(item.clone(), amount);
+        self.pool.remove(item, amount);
     }
 }
 
@@ -303,50 +324,48 @@ mod tests {
     #[test]
     fn reach_check() {
         let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
-        let mut player = Player::default();
-        player.inventory = default_pool();
-        player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
-        let mut world = World {
-            graph,
-            player,
-            pool: Inventory::default(),
-            preplacements: FxHashMap::default(),
-        };
+        let mut world = World::new(graph);
+        world.player.inventory = default_pool();
+        world.player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
 
-        let reached = world.reached_locations("MarshSpawn.Main").unwrap();
-        let reached: FxHashSet<_> = reached.iter().map(|node| node.identifier()).collect();
+        let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.spawn_states).unwrap();
+        let reached: FxHashSet<_> = reached.iter().cloned().collect();
 
         let locations = parser::parse_locations(&PathBuf::from("loc_data.csv"), false).unwrap();
-        let locations: FxHashSet<_> = locations.iter().map(|location| &location.name[..]).collect();
+        let locations: FxHashSet<_> = locations.iter().map(|location| &location.uber_state).collect();
 
         if !(reached == locations) {
-            let mut diff: Vec<_> = locations.difference(&reached).collect();
-            diff.sort();
+            let diff: Vec<_> = locations.difference(&reached).collect();
             println!("difference ({} / {} items): {:#?}", reached.len(), locations.len(), diff);
         }
 
         assert_eq!(reached, locations);
 
-        let mut player = Player {
-            gorlek_paths: true,
-            unsafe_paths: true,
-            ..Player::default()
-        };
         let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
-        player.inventory.grant(Item::Resource(Resource::Health), 7);
-        player.inventory.grant(Item::Resource(Resource::Energy), 6);
-        player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
-        player.inventory.grant(Item::Shard(Shard::TripleJump), 1);
-        let mut world = World {
-            graph,
-            player,
-            pool: Inventory::default(),
-            preplacements: FxHashMap::default(),
-        };
+        let mut world = World::new(graph);
 
-        let reached = world.reached_locations("GladesTown.Teleporter").unwrap();
-        let mut reached: Vec<_> = reached.iter().map(|node| node.identifier()).collect();
-        reached.sort();
-        assert_eq!(reached, vec!["GladesTown.AboveTpEX", "GladesTown.BelowHoleHutEX", "GladesTown.BountyShard", "GladesTown.UpdraftCeilingEX"]);
+        world.player.gorlek_paths = true;
+        world.player.unsafe_paths = true;
+        world.player.inventory.grant(Item::Resource(Resource::Health), 7);
+        world.player.inventory.grant(Item::Resource(Resource::Energy), 6);
+        world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
+        world.player.inventory.grant(Item::Shard(Shard::TripleJump), 1);
+
+        let reached = world.graph.reached_locations(&world.player, "GladesTown.Teleporter", &world.spawn_states).unwrap();
+        assert_eq!(reached, vec![&UberState::from_parts("42178", "63404").unwrap(), &UberState::from_parts("42178", "42762").unwrap(), &UberState::from_parts("23987", "14014").unwrap(), &UberState::from_parts("42178", "6117").unwrap()]);
+    }
+
+    #[test]
+    fn uber_states() {
+        let uber_state = UberState::from_parts("25432", "7854").unwrap();
+        assert_eq!(format!("{}", uber_state), "25432|7854");
+        let uber_state = UberState::from_parts("25432", "65195=11").unwrap();
+        assert_eq!(format!("{}", uber_state), "25432|65195=11");
+        assert!(UberState::from_parts("", "3").is_err());
+        assert!(UberState::from_parts("a", "3").is_err());
+        assert!(UberState::from_parts("5", "3=").is_err());
+        assert!(UberState::from_parts("5", "3=3=4").is_err());
+        assert!(UberState::from_parts("5", "3=v").is_err());
+        assert!(UberState::from_parts("5", "b=7").is_err());
     }
 }

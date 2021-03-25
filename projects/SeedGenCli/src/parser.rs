@@ -577,8 +577,7 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
     })
 }
 
-// TODO why would location need a default?
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct Location {
     pub name: String,
     pub uber_state: UberState,
