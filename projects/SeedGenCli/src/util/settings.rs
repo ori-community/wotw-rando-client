@@ -78,6 +78,7 @@ fn read_old_settings(json: &str) -> Result<Settings, io::Error> {
     let spawn_loc = if old_settings.flags.random_spawn { Spawn::Random } else { Spawn::Set(old_settings.spawn_loc) };
 
     Ok(Settings {
+        version: String::from("0.0.0"),
         pathsets,
         flags: SeedFlags {
             force_wisps: old_settings.flags.force_wisps,
@@ -110,6 +111,7 @@ pub struct SeedFlags {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
+    pub version: String,
     pub pathsets: Vec<Pathset>,
     pub flags: SeedFlags,
     pub spawn_loc: Spawn,
@@ -122,6 +124,7 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Settings {
         Settings {
+            version: env!("CARGO_PKG_VERSION").to_string(),
             pathsets: vec![Pathset::Moki],
             flags: SeedFlags::default(),
             spawn_loc: Spawn::Set(DEFAULTSPAWN.to_string()),
@@ -167,6 +170,7 @@ mod tests {
     #[test]
     fn settings_io() {
         let settings = Settings {
+            version: String::from("0.0.0"),
             pathsets: vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch],
             flags: SeedFlags {
                 force_wisps: false,

@@ -1,10 +1,11 @@
 [package]
 name = "seed_gen_cli"
-version = "0.1.0"
-authors = ["Rikhardur Bjarni Einarsson <badulf96@gmail.com>"]
+description = "Command line interface to generate seeds for the Ori and the Will of the Wisps Randomizer"
+version = "0.2.0"
+authors = ["Sirius Ashling <siriusashling@gmail.com>", "Rikhardur Bjarni Einarsson <badulf96@gmail.com>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+repository = "https://github.com/sparkle-preference/OriWotwRandomizerClient/tree/master/projects/SeedGenCli"
+publish = false
 
 [dependencies]
 atty = "0.2.14"

@@ -202,6 +202,7 @@ fn main() {
             }
 
             let settings = Settings {
+                version: env!("CARGO_PKG_VERSION").to_string(),
                 spoilers: !race,
                 pathsets,
                 output_folder: output.clone(),

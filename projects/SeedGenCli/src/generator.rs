@@ -22,8 +22,9 @@ impl fmt::Display for Placement {
 
 fn collect_preplacements(player: &mut Player, preplacements: &FxHashMap<UberState, Inventory>, reached: &[&UberState]) {
     for uber_state in reached {
-        let items = &preplacements[uber_state];
-        player.inventory.merge(items);
+        if let Some(items) = &preplacements.get(uber_state) {
+            player.inventory.merge(items);
+        }
     }
 }
 
