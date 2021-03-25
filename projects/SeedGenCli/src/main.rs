@@ -8,11 +8,12 @@ use bugsalot::debugger;
 use rand_seeder::Seeder;
 use rand_pcg::Pcg32;
 
-use seed_gen_cli::{generate_seed, parse_logic, player, util, world};
+use seed_gen_cli::{generate_seed, lexer, inventory, world, util};
 
-use player::Item;
+use inventory::Item;
 use world::{World};
-use util::{Pathset, Resource, Skill, Teleporter, Shard, Settings, Spawn, SeedFlags};
+use util::settings::{Settings, Spawn, SeedFlags};
+use util::{Pathset, Resource, Skill, Teleporter, Shard};
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer
@@ -193,7 +194,7 @@ fn main() {
             let flags = parse_flags(&generation_flags);
             let pathsets = flags.pathsets();
 
-            let graph = parse_logic(&areas, &locations, &pathsets, validate);
+            let graph = lexer::parse_logic(&areas, &locations, &pathsets, validate);
 
             let header = read_header();
             if !header.is_empty() {
@@ -220,8 +221,8 @@ fn main() {
             fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         },
         Command::ReachCheck { areas, locations, seed_file, health, energy, keystones, ore, spirit_light, items } => {
-            let settings = util::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
-            let graph = &parse_logic(&areas, &locations, &settings.pathsets, false);
+            let settings = util::settings::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
+            let graph = &lexer::parse_logic(&areas, &locations, &settings.pathsets, false);
             let mut world = World::new(graph);
 
             world.player.apply_pathsets(&settings);
@@ -254,7 +255,7 @@ fn main() {
                 }
             }
 
-            let spawn = &util::read_spawn(&seed_file).unwrap_or_else(|err| panic!("error reading spawn from seed: {}", err));
+            let spawn = &util::settings::read_spawn(&seed_file).unwrap_or_else(|err| panic!("error reading spawn from seed: {}", err));
 
             let reached = world.graph.reached_locations(&world.player, spawn, &world.spawn_states).expect("Invalid Reach Check");
             let mut reached = reached.iter().fold(String::new(), |acc, &uber_state| acc + &format!("{}, ", uber_state));

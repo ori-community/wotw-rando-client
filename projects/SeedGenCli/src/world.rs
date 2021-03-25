@@ -3,8 +3,10 @@ use std::fmt;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::requirements::Requirement;
-use crate::player::{Player, Item, Inventory};
-use crate::util::{Resource, Skill, Shard, RefillType, NodeType, Orbs, either_single_orbs, both_orbs, both_single_orbs};
+use crate::player::Player;
+use crate::inventory::{Item, Inventory};
+use crate::util::orbs::{Orbs, either_single_orbs, both_orbs, both_single_orbs};
+use crate::util::{Resource, Skill, Shard, RefillType, NodeType};
 
 #[derive(Debug)]
 pub struct Refill {
@@ -269,7 +271,7 @@ impl<'a> WorldGraph {
         }
     }
 
-    pub fn reached_locations(&self, player: &Player, spawn: &str, spawn_states: &Vec<usize>) -> Result<Vec<&UberState>, String> {
+    pub fn reached_locations(&self, player: &Player, spawn: &str, spawn_states: &[usize]) -> Result<Vec<&UberState>, String> {
         let entry = self.graph.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
 
@@ -318,12 +320,13 @@ mod tests {
     use super::*;
     use super::super::*;
     use util::*;
-    use player::*;
     use rustc_hash::FxHashSet;
+
+    use std::path::PathBuf;
 
     #[test]
     fn reach_check() {
-        let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
         let mut world = World::new(graph);
         world.player.inventory = default_pool();
         world.player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
@@ -331,7 +334,7 @@ mod tests {
         let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.spawn_states).unwrap();
         let reached: FxHashSet<_> = reached.iter().cloned().collect();
 
-        let locations = parser::parse_locations(&PathBuf::from("loc_data.csv"), false).unwrap();
+        let locations = lexer::parser::parse_locations(&PathBuf::from("loc_data.csv"), false).unwrap();
         let locations: FxHashSet<_> = locations.iter().map(|location| &location.uber_state).collect();
 
         if !(reached == locations) {
@@ -341,7 +344,7 @@ mod tests {
 
         assert_eq!(reached, locations);
 
-        let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
         let mut world = World::new(graph);
 
         world.player.gorlek_paths = true;

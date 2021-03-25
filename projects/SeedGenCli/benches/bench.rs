@@ -2,9 +2,10 @@ use criterion::{criterion_group, criterion_main, Criterion};
 
 use std::path::PathBuf;
 
-use rustc_hash::FxHashMap;
+use rustc_hash::FxHashSet;
 
 use seed_gen_cli::*;
+use lexer::*;
 use player::*;
 use world::*;
 use requirements::*;
@@ -34,24 +35,25 @@ fn requirements(c: &mut Criterion) {
         unsafe_paths: true,
         ..Player::default()
     };
-    {
-        let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);
-        let req_b = Requirement::Damage(20.0);
-        let req_c = Requirement::EnergySkill(Skill::Blaze, 1.0);
-        let req_d = Requirement::Damage(10.0);
-        player.inventory.grant(Item::Skill(Skill::Blaze), 1);
-        player.inventory.grant(Item::Resource(Resource::Energy), 4);
-        player.inventory.grant(Item::Resource(Resource::Health), 4);
-        let req = Requirement::And(vec![Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()]), Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()])]);
-        c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, player.max_orbs())));
-    }
+    let states = FxHashSet::default();
+
+    let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);
+    let req_b = Requirement::Damage(20.0);
+    let req_c = Requirement::EnergySkill(Skill::Blaze, 1.0);
+    let req_d = Requirement::Damage(10.0);
+    player.inventory.grant(Item::Skill(Skill::Blaze), 1);
+    player.inventory.grant(Item::Resource(Resource::Energy), 4);
+    player.inventory.grant(Item::Resource(Resource::Health), 4);
+    let req = Requirement::And(vec![Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()]), Requirement::Or(vec![req_a.clone(), req_d.clone()]), Requirement::Or(vec![req_b.clone(), req_c.clone()])]);
+    c.bench_function("nested ands and ors", |b| b.iter(|| req.is_met(&player, &states, player.max_orbs())));
+
     player = Player::default();
     player.inventory.grant(Item::Skill(Skill::Bow), 1);
     player.inventory.grant(Item::Resource(Resource::Energy), 40);
     let req = Requirement::Combat(vec![
         (Enemy::Lizard, 3),
     ]);
-    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, player.max_orbs())));
+    c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, &states, player.max_orbs())));
     let req = Requirement::Combat(vec![
         (Enemy::Mantis, 2),
         (Enemy::Lizard, 2),
@@ -66,7 +68,7 @@ fn requirements(c: &mut Criterion) {
         (Enemy::Lizard, 2),
         (Enemy::Mantis, 2),
     ]);
-    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, player.max_orbs())));
+    c.bench_function("long combat", |b| b.iter(|| req.is_met(&player, &states, player.max_orbs())));
 }
 
 fn reach_checking(c: &mut Criterion) {
@@ -82,25 +84,15 @@ fn reach_checking(c: &mut Criterion) {
         player.inventory.grant(Item::Skill(Skill::Sword), 8);
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 8);
         player.inventory.grant(Item::Skill(Skill::Dash), 8);
-        let mut world = World {
-            graph,
-            player,
-            pool: Inventory::default(),
-            preplacements: FxHashMap::default(),
-        };
-        world.reached_locations("MarshSpawn.Main").unwrap();
+        let world = World::new(graph);
+        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.spawn_states).unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut player = Player::default();
         player.inventory = default_pool();
         player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
-        let mut world = World {
-            graph,
-            player,
-            pool: Inventory::default(),
-            preplacements: FxHashMap::default(),
-        };
-        world.reached_locations("MarshSpawn.Main").unwrap();
+        let world = World::new(graph);
+        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.spawn_states).unwrap();
     }));
 }
 

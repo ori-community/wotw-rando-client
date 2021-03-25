@@ -5,8 +5,9 @@ use rand_pcg::Pcg32;
 use rustc_hash::FxHashMap;
 
 use crate::world::{World, UberState};
-use crate::player::{Player, Item, Inventory};
-use crate::util::{Settings, Spawn};
+use crate::player::Player;
+use crate::inventory::{Item, Inventory};
+use crate::util::settings::{Settings, Spawn};
 
 #[derive(Debug)]
 pub struct Placement {
@@ -56,25 +57,21 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             }
         }
     }
-    loop {
-        if let Some(pickup) = pickups.pop() {
-            let reachable = world.graph.reached_locations(&world.player, spawn, &world.spawn_states)?;
-            let (preplaced, needs_placement): (Vec<&UberState>, Vec<_>) = reachable.iter()
-                .filter(|&&uber_state| !placements.iter().any(|placement| placement.uber_state == *uber_state))
-                .partition(|&&uber_state| world.preplacements.contains_key(uber_state));
+    while let Some(pickup) = pickups.pop() {
+        let reachable = world.graph.reached_locations(&world.player, spawn, &world.spawn_states)?;
+        let (preplaced, needs_placement): (Vec<&UberState>, Vec<_>) = reachable.iter()
+            .filter(|&&uber_state| !placements.iter().any(|placement| placement.uber_state == *uber_state))
+            .partition(|&&uber_state| world.preplacements.contains_key(uber_state));
 
-            collect_preplacements(&mut world.player, &world.preplacements, &preplaced);
-            if let Some(uber_state) = needs_placement.choose(rng) {
-                placements.push(Placement {
-                    uber_state: (**uber_state).clone(),
-                    pickup: pickup.clone(),
-                });
-                world.player.inventory.grant(pickup, 1);
-            } else {
-                return Err(String::from("Failed to place all pickups"));
-            }
+        collect_preplacements(&mut world.player, &world.preplacements, &preplaced);
+        if let Some(uber_state) = needs_placement.choose(rng) {
+            placements.push(Placement {
+                uber_state: (**uber_state).clone(),
+                pickup: pickup.clone(),
+            });
+            world.player.inventory.grant(pickup, 1);
         } else {
-            break;
+            return Err(String::from("Failed to place all pickups"));
         }
     }
 

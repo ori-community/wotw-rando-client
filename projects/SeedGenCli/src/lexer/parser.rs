@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 use rustc_hash::{FxHashMap, FxHashSet};
 
-use crate::tokenizer::{Token, TokenType};
+use super::tokenizer::{Token, TokenType};
 use crate::world::UberState;
 use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy};
 

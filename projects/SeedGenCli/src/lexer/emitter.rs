@@ -1,6 +1,6 @@
 use rustc_hash::{FxHashSet, FxHashMap};
 
-use crate::parser::{self, AreaTree, Metadata, Location};
+use crate::lexer::parser::{self, AreaTree, Metadata, Location};
 use crate::world::{self, WorldGraph, Node};
 use crate::requirements::Requirement;
 use crate::util::{Pathset, Skill};

@@ -1,7 +1,9 @@
 use rustc_hash::FxHashSet;
 
-use crate::player::{Player, Item};
-use crate::util::{Orbs, Resource, Skill, Shard, Teleporter, Enemy, either_orbs, both_orbs, both_single_orbs};
+use crate::player::Player;
+use crate::inventory::Item;
+use crate::util::orbs::{Orbs, either_orbs, both_orbs, both_single_orbs};
+use crate::util::{Resource, Skill, Shard, Teleporter, Enemy};
 
 #[derive(Debug, Clone)]
 pub enum Requirement {

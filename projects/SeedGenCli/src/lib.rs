@@ -1,38 +1,19 @@
-pub mod tokenizer;
-pub mod parser;
-pub mod emitter;
+pub mod lexer;
 pub mod world;
 pub mod player;
+pub mod inventory;
 pub mod requirements;
 pub mod generator;
 pub mod util;
 
-use std::path::PathBuf;
-
 use rand::seq::IteratorRandom;
 use rand_pcg::Pcg32;
 
-use parser::ParseError;
 use world::{World, WorldGraph, Node, Anchor, Position, UberState};
-use player::Inventory;
+use inventory::Inventory;
 use generator::Placement;
-use util::{Pathset, NodeType, Settings, Spawn, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
-
-pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, pathsets: &[Pathset], validate: bool) -> WorldGraph {
-    let tokens = tokenizer::tokenize(areas).unwrap_or_else(|err| panic!("Error parsing areas from {:?}: {}", areas, err));
-
-    let (areas, metadata) = match parser::parse_areas(&tokens) {
-        Ok(areas) => areas,
-        Err(error) => {
-            let ParseError { description, position } = error;
-            panic!("Error parsing areas.wotw: {}: {}", description, util::trace_parse_error(areas, position));
-        }
-    };
-
-    let locations = parser::parse_locations(locations, validate).unwrap_or_else(|err| panic!("Error parsing locations from {:?}: {}", locations, err));
-
-    emitter::emit(&areas, &metadata, &locations, pathsets, validate).unwrap_or_else(|err| panic!("Error building the logic: {}", err))
-}
+use util::settings::{Settings, Spawn};
+use util::{Pathset, NodeType, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
 fn pick_spawn<'a>(graph: &'a WorldGraph, settings: &Settings, rng: &mut Pcg32) -> Result<&'a Anchor, String> {
     let mut valid = graph.graph.iter().filter(|&node| {
@@ -79,14 +60,14 @@ fn write_flags(settings: &Settings) -> String {
 }
 
 fn parse_count(pickup: &mut &str) -> u16 {
-    if let Some(index) = pickup.find("x") {
+    if let Some(index) = pickup.find('x') {
         let amount = pickup[..index].trim();
         if let Ok(amount) = amount.parse::<u16>() {
             *pickup = &pickup[index + 1..];
             return amount;
         }
     }
-    return 1;
+    1
 }
 
 fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
@@ -122,7 +103,7 @@ fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
                 let item = parts.next().ok_or_else(|| format!("malformed pickup '{}'", line))?;
                 let (item, amount) = util::parse_pickup(item)?;
 
-                let preplacement = world.preplacements.entry(UberState::from_parts(uber_group, uber_id)?).or_insert(Inventory::default());
+                let preplacement = world.preplacements.entry(UberState::from_parts(uber_group, uber_id)?).or_insert_with(Inventory::default);
                 preplacement.grant(item.clone(), amount);
 
                 world.pool.remove(item, amount);
@@ -185,7 +166,7 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
 
     let placement_block = placements.iter().fold(String::with_capacity(placements.len() * 20), |acc, placement| acc + &format!("{}\n", placement));
 
-    let config_line = format!("\n// Config: {}", util::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?);
+    let config_line = format!("\n// Config: {}", util::settings::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?);
 
     Ok(flag_line + &spawn_line + &header_block + &placement_block + &config_line)
 }
@@ -193,12 +174,14 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
 #[cfg(test)]
 mod tests {
     use super::*;
-    use player::Item;
+    use inventory::Item;
     use util::BonusItem;
+
+    use std::path::PathBuf;
 
     #[test]
     fn header_parsing() {
-        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
+        let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
         parse_header(&header, &mut world).unwrap();
