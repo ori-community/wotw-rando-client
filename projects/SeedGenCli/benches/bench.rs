@@ -4,7 +4,7 @@ use std::path::PathBuf;
 
 use rustc_hash::FxHashSet;
 
-use seed_gen_cli::*;
+use seedgen::*;
 use lexer::*;
 use player::*;
 use inventory::*;

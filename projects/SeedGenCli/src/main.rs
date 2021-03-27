@@ -12,7 +12,7 @@ use rand_pcg::Pcg32;
 use seedgen::{generate_seed, lexer, inventory, world, util};
 
 use inventory::Item;
-use world::{World};
+use world::{World, UberState, UberValue};
 use util::settings::{Settings, Spawn, SeedFlags};
 use util::{Pathset, Resource, Skill, Teleporter, Shard};
 
@@ -236,7 +236,8 @@ fn main() {
             eprintln!("Generated seed in {:?}", now.elapsed());
             fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         },
-        Command::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
+        Command::ReachCheck { mut seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
+            seed_file.set_extension("wotwr");
             let settings = util::settings::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
             let graph = &lexer::parse_logic(&areas, &locations, &uber_states, &settings.pathsets, false).unwrap();
             let mut world = World::new(graph);
@@ -248,26 +249,43 @@ fn main() {
             world.player.inventory.grant(Item::Resource(Resource::Keystone, 1), keystones);
             world.player.inventory.grant(Item::Resource(Resource::Ore, 1), ore);
             world.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), spirit_light);
+
             for item in items {
                 if let Some(skill) = item.strip_prefix("s:") {
-                    let id: u8 = skill.parse().unwrap_or_else(|_| panic!("expected numeric skill id, except found {}", item));
+                    let id: u8 = skill.parse().unwrap_or_else(|_| panic!("expected numeric skill id in {}", item));
                     world.player.inventory.grant(Item::Skill(Skill::from_id(id).unwrap_or_else(|| panic!("{} is not a valid skill id", id))), 1);
                 }
                 else if let Some(teleporter) = item.strip_prefix("t:") {
-                    let id: u8 = teleporter.parse().unwrap_or_else(|_| panic!("expected numeric teleporter id, except found {}", item));
+                    let id: u8 = teleporter.parse().unwrap_or_else(|_| panic!("expected numeric teleporter id in {}", item));
                     world.player.inventory.grant(Item::Teleporter(Teleporter::from_id(id).unwrap_or_else(|| panic!("{} is not a valid teleporter id", id))), 1);
                 }
                 else if let Some(shard) = item.strip_prefix("sh:") {
-                    let id: u8 = shard.parse().unwrap_or_else(|_| panic!("expected numeric shard id, except found {}", item));
+                    let id: u8 = shard.parse().unwrap_or_else(|_| panic!("expected numeric shard id in {}", item));
                     world.player.inventory.grant(Item::Shard(Shard::from_id(id).unwrap_or_else(|| panic!("{} is not a valid shard id", id))), 1);
                 }
                 else if let Some(world_event) = item.strip_prefix("w:") {
-                    let id: u8 = world_event.parse().unwrap_or_else(|_| panic!("expected numeric world event id, except found {}", item));
+                    let id: u8 = world_event.parse().unwrap_or_else(|_| panic!("expected numeric world event id in {}", item));
                     if id != 0 { panic!("{} is not a valid world event id (only 0 is)", id); } 
                     world.player.inventory.grant(Item::Water, 1);
                 }
+                else if let Some(uber_state) = item.strip_prefix("u:") {
+                    let mut parts = uber_state.split('|');
+                    let uber_group = parts.next().unwrap_or_else(|| panic!("expected uber group in {}", item));
+                    let uber_id = parts.next().unwrap_or_else(|| panic!("expected uber id in {}", item));
+                    if parts.next().is_some() { panic!("expected only two parts in {}", item); }
+
+                    let uber_state = UberState::from_parts(uber_group, uber_id).unwrap_or_else(|err| panic!("failed to parse uber state in {}: {}", item, err));
+                    let value = if uber_state.value.is_empty() {
+                        UberValue::Bool(true)
+                    } else {
+                        let value: i32 = uber_state.value.parse().unwrap_or_else(|_| panic!("failed to parse uber state value in {}", item));
+                        UberValue::Int(value)  // currently no floats are used in logic
+                    };
+
+                    world.uber_states.insert(uber_state.identifier, value);
+                }
                 else {
-                    panic!("items have to start with s:, t:, sh: or w: (for skill, teleporter, shard or world event), except found {}", item);
+                    panic!("items have to start with s:, t:, sh:, w: or u: (for skill, teleporter, shard, world event or uber state), except found {}", item);
                 }
             }
 
