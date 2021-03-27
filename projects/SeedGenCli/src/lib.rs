@@ -72,7 +72,11 @@ fn parse_count(pickup: &mut &str) -> u16 {
 
 fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
     let mut processed = String::new();
-    for line in header.lines() {
+    for mut line in header.lines() {
+        let comment = line.find("//");
+        if let Some(index) = comment {
+            line = &line[..index];
+        }
         if let Some(command) = line.strip_prefix("!!") {
             if let Some(mut pickup) = command.strip_prefix("add ") {
                 let count = parse_count(&mut pickup);

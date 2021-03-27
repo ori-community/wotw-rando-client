@@ -18,7 +18,7 @@ pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, states: &PathBuf, paths
 
     let locations = parser::parse_locations(locations, validate).map_err(|err| format!("Error parsing locations from {:?}: {}", locations, err))?;
 
-    let state_map = parser::parse_states(states, validate).map_err(|err| format!("Error parsing states from {:?}: {}", locations, err))?;
+    let state_map = parser::parse_states(states, validate).map_err(|err| format!("Error parsing states from {:?}: {}", states, err))?;
 
     emitter::emit(&areas, &metadata, &locations, &state_map, pathsets, validate).map_err(|err| panic!("Error building the logic: {}", err))
 }

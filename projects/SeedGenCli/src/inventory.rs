@@ -6,7 +6,7 @@ use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, H
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Item {
-    Resource(Resource),
+    Resource(Resource, u16),
     Skill(Skill),
     Shard(Shard),
     Teleporter(Teleporter),
@@ -20,11 +20,8 @@ pub enum Item {
 impl fmt::Display for Item {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Item::Resource(Resource::SpiritLight) => {
-                eprintln!("Invoked display on Spirit Light. This doesn't make sense and will default to one Spirit Light.");
-                write!(f, "0|1")
-            },
-            Item::Resource(resource) => write!(f, "1|{}", resource.to_id()),
+            Item::Resource(Resource::SpiritLight, amount) => write!(f, "0|{}", amount),
+            Item::Resource(resource, _) => write!(f, "1|{}", resource.to_id()),
             Item::Skill(skill) => write!(f, "2|{}", skill.to_id()),
             Item::Shard(shard) => write!(f, "3|{}", shard.to_id()),
             Item::Teleporter(teleporter) => write!(f, "5|{}", teleporter.to_id()),

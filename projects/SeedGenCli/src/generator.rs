@@ -5,6 +5,7 @@ use rand_pcg::Pcg32;
 
 use crate::world::{World, Node, UberState, UberIdentifier};
 use crate::inventory::Item;
+use crate::util::Resource;
 use crate::util::settings::{Settings, Spawn};
 
 #[derive(Debug)]
@@ -48,9 +49,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
         }
     }
 
-    while !world.pool.inventory.is_empty() {
-        let mut items = Vec::new();
-
+    loop {
         let reachable = world.graph.reached_locations(&world.player, spawn, &world.uber_states)?;
         let reachable = reachable.iter().filter(|&&node| {
             if let Some(uber_state) = node.uber_state() {
@@ -71,33 +70,33 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             _ => None,
         });
 
-        let mut failed = true;
-        let mut done = false;
+        let mut done = true;
 
         for uber_state in needs_placement {
-            failed = false;
-            if let Some(item) = world.pool.inventory.keys().choose(rng) {
+            done = false;
+            let (item, amount) = if let Some(item) = world.pool.inventory.keys().choose(rng) {
                 if verbose { eprintln!("Placing {} on {}", item, uber_state); }
                 placements.push(Placement {
                     uber_state: uber_state.clone(),
                     pickup: item.clone(),
                 });
-                items.push(item.clone());
+                (item.clone(), 1)
             } else {
-                done = true;
+                if verbose { eprintln!("Placing spirit light on {}", uber_state); }
+                placements.push(Placement {
+                    uber_state: uber_state.clone(),
+                    pickup: Item::Resource(Resource::SpiritLight, 100),
+                });
+                (Item::Resource(Resource::SpiritLight, 1), 100)
+            };
+            world.grant_player(item, amount, verbose);
+        }
+
+        if done {
+            if world.pool.inventory.is_empty() {
                 break;
             }
-        }
-
-        for item in items {
-            world.grant_player(item, 1, verbose);
-        }
-
-        if failed {
             return Err(String::from("Failed to place all pickups"));
-        }
-        if done {
-            break;
         }
     }
 

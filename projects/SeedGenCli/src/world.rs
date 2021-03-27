@@ -103,11 +103,11 @@ impl Node {
 pub fn default_pool() -> Inventory {
     let mut pool = FxHashMap::default();
     pool.reserve(60);
-    pool.insert(Item::Resource(Resource::Health), 24);
-    pool.insert(Item::Resource(Resource::Energy), 24);
-    pool.insert(Item::Resource(Resource::Ore), 40);
-    pool.insert(Item::Resource(Resource::ShardSlot), 5);
-    pool.insert(Item::Resource(Resource::Keystone), 34);
+    pool.insert(Item::Resource(Resource::Health, 1), 24);
+    pool.insert(Item::Resource(Resource::Energy, 1), 24);
+    pool.insert(Item::Resource(Resource::Ore, 1), 40);
+    pool.insert(Item::Resource(Resource::ShardSlot, 1), 5);
+    pool.insert(Item::Resource(Resource::Keystone, 1), 34);
     pool.insert(Item::Skill(Skill::Bash), 1);
     pool.insert(Item::Skill(Skill::WallJump), 1);
     pool.insert(Item::Skill(Skill::DoubleJump), 1);
@@ -473,7 +473,7 @@ mod tests {
         let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
         let mut world = World::new(graph);
         world.player.inventory = default_pool();
-        world.player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
+        world.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), 10000);
 
         let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
         let reached: FxHashSet<_> = reached.iter()
@@ -498,8 +498,8 @@ mod tests {
 
         world.player.gorlek_paths = true;
         world.player.unsafe_paths = true;
-        world.player.inventory.grant(Item::Resource(Resource::Health), 7);
-        world.player.inventory.grant(Item::Resource(Resource::Energy), 6);
+        world.player.inventory.grant(Item::Resource(Resource::Health, 1), 7);
+        world.player.inventory.grant(Item::Resource(Resource::Energy, 1), 6);
         world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         world.player.inventory.grant(Item::Shard(Shard::TripleJump), 1);
 
