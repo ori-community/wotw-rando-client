@@ -1,5 +1,5 @@
 [package]
-name = "seed_gen_cli"
+name = "seedgen"
 description = "Command line interface to generate seeds for the Ori and the Will of the Wisps Randomizer"
 version = "0.2.0"
 authors = ["Sirius Ashling <siriusashling@gmail.com>", "Rikhardur Bjarni Einarsson <badulf96@gmail.com>"]

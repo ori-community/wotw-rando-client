@@ -9,7 +9,7 @@ use bugsalot::debugger;
 use rand_seeder::Seeder;
 use rand_pcg::Pcg32;
 
-use seed_gen_cli::{generate_seed, lexer, inventory, world, util};
+use seedgen::{generate_seed, lexer, inventory, world, util};
 
 use inventory::Item;
 use world::{World};
