@@ -1,11 +1,9 @@
 // Removes the corrupted hearts in Willow's End
-3|0|8|16155|42976|bool|true  // .
-3|0|8|16155|54940|bool|true  // .
-3|0|8|16155|24290|bool|true  // .
-3|0|8|16155|28478|bool|true  // .
-3|0|8|16155|3588|bool|true   // .
-3|0|8|16155|65277|bool|true  // .
-3|0|8|16155|41488|bool|true  // .
-3|0|8|16155|60752|bool|true  // .
-!!set WillowsEnd.GrappleWheelsHeart
-!!set WillowsEnd.SpinPortalsHeart
+3|0|8|16155|42976|bool|true  // WillowsEnd.GlideHeart
+3|0|8|16155|54940|bool|true  // WillowsEnd.SpinLasersHeart
+3|0|8|16155|24290|bool|true  // WillowsEnd.SpinPortalsHeart
+3|0|8|16155|28478|bool|true  // WillowsEnd.ElementalDefeated
+3|0|8|16155|3588|bool|true   // WillowsEnd.BurrowHeart
+3|0|8|16155|65277|bool|true  // WillowsEnd.RedirectHeart
+3|0|8|16155|41488|bool|true  // WillowsEnd.TrapHeart
+3|0|8|16155|60752|bool|true  // WillowsEnd.GrappleWheelsHeart

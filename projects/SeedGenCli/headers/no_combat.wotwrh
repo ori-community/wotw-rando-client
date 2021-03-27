@@ -1,0 +1,29 @@
+// Skip all combat heavy parts. Shrine have their pickup floating above them before the fight,
+// all the arenas start as completed and all boss' combat phases are skipped.
+
+3|0|8|21786|2869|bool|true             // Marsh shrine start as completed
+3|0|8|24922|45011|bool|true            // Howls shrine start as completed
+3|0|8|18793|12512|bool|true            // Depths shrine start as completed
+3|0|8|58674|56043|bool|true            // Woods shrine start as completed
+3|0|8|44310|58796|bool|true            // Glades shrine start as completed 
+3|0|8|21786|35598|bool|true            // Arena before 1st keystone start as completed
+3|0|8|28895|42209|bool|true            // Baur's arena start as completed
+3|0|8|9593|59418|bool|true             // Burrow arena at Marsh start as completed
+3|0|8|9593|25130|int|3                 // Arena at double jump start as completed
+3|0|8|36153|23584|bool|true            // Weeping Ridge's elevator start as completed
+3|0|8|937|53122|bool|true              // Beetle start as defeated
+3|0|8|937|48534|int|4                  // -
+3|0|8|16155|28478|bool|true            // Rock boss start as defeated
+3|0|8|16155|12971|int|4                // -
+3|0|8|37858|8487|int|5                 // Door at Mill's puzzle room start as opened
+3|0|8|5377|53480|byte|4                // Waterdash arena at Pool start as completed
+945|58403=3|8|945|58403|int|6          // Skip Kwolok's fight
+945|58403=3|6|f=0                      // -
+945|58403=3|4|8|-1958|-4067            // -
+18793|26713=2|8|18793|26713|int|4      // Skip Mora's fight
+18793|26713=5|8|18793|26713|int|7      // -
+16155|47278=1|8|16155|47278|byte|2     // Skip Shriek's fight
+16155|47278=3|6|f=0                    // -
+16155|47278=3|4|8|-4674|-6111          // -
+16155|47278=3|8|16155|47278|byte|5     // -
+16155|47278=3|8|34543|11226|bool|true  // -

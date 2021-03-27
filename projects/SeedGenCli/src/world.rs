@@ -375,70 +375,76 @@ impl<'a> World<'a> {
     }
 
     pub fn grant_player(&mut self, item: Item, amount: u16, verbose: bool) {
-        if let Item::UberState(command) = &item {
-            let mut parts = command.split('|');
-            let uber_group = parts.next().unwrap();
-            let uber_id = parts.next().unwrap();
-            let uber_type = parts.next().unwrap();
-            let mut uber_value = parts.next().unwrap();
+        match &item {
+            Item::UberState(command) => {
+                let mut parts = command.split('|');
+                let uber_group = parts.next().unwrap();
+                let uber_id = parts.next().unwrap();
+                let uber_type = parts.next().unwrap();
+                let mut uber_value = parts.next().unwrap();
 
-            let uber_state = UberIdentifier::from_parts(uber_group, uber_id).unwrap();
+                let uber_state = UberIdentifier::from_parts(uber_group, uber_id).unwrap();
 
-            let mut sign: i8 = 0;
-            if uber_value.starts_with('+') {
-                uber_value = &uber_value[1..];
-                sign = 1;
-            } else if uber_value.starts_with('-') {
-                uber_value = &uber_value[1..];
-                sign = -1;
-            }
+                let mut sign: i8 = 0;
+                if uber_value.starts_with('+') {
+                    uber_value = &uber_value[1..];
+                    sign = 1;
+                } else if uber_value.starts_with('-') {
+                    uber_value = &uber_value[1..];
+                    sign = -1;
+                }
 
-            let entry = match uber_type {
-                "bool" | "teleporter" => {
-                    let uber_value: bool = uber_value.parse().unwrap();
+                let entry = match uber_type {
+                    "bool" | "teleporter" => {
+                        let uber_value: bool = uber_value.parse().unwrap();
 
-                    let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Bool(false));
-                    if let UberValue::Bool(prior) = entry {
-                        *prior = uber_value;
-                    } else {
-                        eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                    }
-                    entry
-                },
-                "byte" | "int" => {
-                    let uber_value: i32 = uber_value.parse().unwrap();
+                        let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Bool(false));
+                        if let UberValue::Bool(prior) = entry {
+                            *prior = uber_value;
+                        } else {
+                            eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                        }
+                        entry
+                    },
+                    "byte" | "int" => {
+                        let uber_value: i32 = uber_value.parse().unwrap();
 
-                    let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
-                    if let UberValue::Int(prior) = entry {
-                        *prior = uber_value + *prior * sign as i32;
-                    } else {
-                        eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                    }
-                    entry
-                },
-                "float" => {
-                    let uber_value: f32 = uber_value.parse().unwrap();
+                        let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
+                        if let UberValue::Int(prior) = entry {
+                            *prior = uber_value + *prior * sign as i32;
+                        } else {
+                            eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                        }
+                        entry
+                    },
+                    "float" => {
+                        let uber_value: f32 = uber_value.parse().unwrap();
 
-                    let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
-                    if let UberValue::Float(prior) = entry {
-                        *prior = uber_value + *prior * sign as f32;
-                    } else {
-                        eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                    }
-                    entry
-                },
-                _ => { panic!("Unable to grant malformed uber state pickup {}", command); },
-            };
+                        let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
+                        if let UberValue::Float(prior) = entry {
+                            *prior = uber_value + *prior * sign as f32;
+                        } else {
+                            eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                        }
+                        entry
+                    },
+                    _ => { panic!("Unable to grant malformed uber state pickup {}", command); },
+                };
 
-            let uber_state = UberState {
-                identifier: uber_state,
-                value: format!("{}", entry),
-            };
-            if verbose { eprintln!("Modified uber state to {}", uber_state); }
-            self.collect_preplacements(&[&uber_state], verbose);
-        } else {
-            if verbose { eprintln!("Granting player {}", item); }
-            self.player.inventory.grant(item.clone(), amount);
+                let uber_state = UberState {
+                    identifier: uber_state,
+                    value: format!("{}", entry),
+                };
+                if verbose { eprintln!("Modified uber state to {}", uber_state); }
+                self.collect_preplacements(&[&uber_state], verbose);
+            },
+            Item::Custom(_) => {
+                if verbose { eprintln!("Ignoring pickup {}", item); }
+            },
+            item => {
+                if verbose { eprintln!("Granting player {}", item); }
+                self.player.inventory.grant(item.clone(), amount);
+            },
         }
         self.pool.remove(item, amount);
     }
@@ -449,7 +455,6 @@ impl<'a> World<'a> {
             if let Some(items) = self.preplacements.get(&uber_state) {
                 if verbose { eprintln!("Collecting preplacements on {}", uber_state); }
                 inventory = items.clone();
-                self.preplacements.remove(&uber_state);
             }
 
             for item in inventory.inventory.keys() {

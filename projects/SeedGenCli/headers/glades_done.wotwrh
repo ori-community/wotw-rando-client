@@ -1,0 +1,18 @@
+// Block placements
+3|0|8|14019|44578|int|2     // GladesTown.RebuildTheGlades
+3|0|8|14019|26394|int|2     // GladesTown.RegrowTheGlades
+// Plant Seeds
+3|0|8|42178|33011|byte|3    // Blue Moon
+3|0|8|42178|64583|byte|3    // Sticky Grass
+3|0|8|42178|38393|byte|3    // Spring Plant
+3|0|8|42178|47651|byte|3    // Lightcatcher
+3|0|8|42178|16254|byte|3    // Sela Flowers
+3|0|8|42178|40006|byte|3    // Last Seed
+3|0|8|937|34641|int|4       // Hi Tuley
+// Build Stuff
+3|0|8|42178|51230|byte|3    // Dwelling Repairs
+3|0|8|42178|23607|byte|3    // Roofs Over Heads
+3|0|8|42178|40448|byte|3    // Onwards and Upwards
+3|0|8|42178|18751|byte|3    // Thorny Situation
+3|0|8|42178|16586|byte|3    // Clear the Cave Entrance
+!!remove 40x 1|2

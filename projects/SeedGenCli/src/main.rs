@@ -269,7 +269,7 @@ fn main() {
                     world.player.inventory.grant(Item::Water, 1);
                 }
                 else if let Some(uber_state) = item.strip_prefix("u:") {
-                    let mut parts = uber_state.split('|');
+                    let mut parts = uber_state.split(&['|', ','][..]);
                     let uber_group = parts.next().unwrap_or_else(|| panic!("expected uber group in {}", item));
                     let uber_id = parts.next().unwrap_or_else(|| panic!("expected uber id in {}", item));
                     if parts.next().is_some() { panic!("expected only two parts in {}", item); }
