@@ -7,6 +7,7 @@ use rustc_hash::FxHashSet;
 use seed_gen_cli::*;
 use lexer::*;
 use player::*;
+use inventory::*;
 use world::*;
 use requirements::*;
 use util::*;
@@ -14,6 +15,7 @@ use util::*;
 fn parsing(c: &mut Criterion) {
     let areas = PathBuf::from("areas.wotw");
     let locations = PathBuf::from("loc_data.csv");
+    let states = PathBuf::from("state_data.csv");
 
     c.bench_function("tokenize", |b| b.iter(|| tokenizer::tokenize(&areas)));
     let tokens = tokenizer::tokenize(&areas).unwrap();
@@ -27,7 +29,10 @@ fn parsing(c: &mut Criterion) {
     c.bench_function("parse locations", |b| b.iter(|| parser::parse_locations(&locations, false)));
     let locations = parser::parse_locations(&locations, false).unwrap();
 
-    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, &vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch, Pathset::Unsafe], false)));
+    c.bench_function("parse states", |b| b.iter(|| parser::parse_states(&states, false)));
+    let states = parser::parse_states(&states, false).unwrap();
+
+    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, &states, &vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch, Pathset::Unsafe], false)));
 }
 
 fn requirements(c: &mut Criterion) {
@@ -72,7 +77,7 @@ fn requirements(c: &mut Criterion) {
 }
 
 fn reach_checking(c: &mut Criterion) {
-    let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
+    let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player = Player::default();
         player.inventory.grant(Item::Resource(Resource::Health), 40);
@@ -85,14 +90,14 @@ fn reach_checking(c: &mut Criterion) {
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 8);
         player.inventory.grant(Item::Skill(Skill::Dash), 8);
         let world = World::new(graph);
-        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.spawn_states).unwrap();
+        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut player = Player::default();
         player.inventory = default_pool();
         player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
         let world = World::new(graph);
-        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.spawn_states).unwrap();
+        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));
 }
 

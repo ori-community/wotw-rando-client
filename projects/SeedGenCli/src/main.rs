@@ -40,6 +40,9 @@ enum Command {
         /// the input file representing pickup locations, usually called loc_data.csv
         #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
         locations: PathBuf,
+        /// the input file representing state namings, usually called state_data.csv
+        #[structopt(parse(from_os_str), default_value = "state_data.csv", long)]
+        states: PathBuf,
         /// validate the input files at a slight performance cost
         #[structopt(short, long)]
         validate: bool,
@@ -79,6 +82,9 @@ enum Command {
         /// the input file representing pickup locations, usually called loc_data.csv
         #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
         locations: PathBuf,
+        /// the input file representing state namings, usually called state_data.csv
+        #[structopt(parse(from_os_str), default_value = "state_data.csv", long)]
+        states: PathBuf,
         /// player health (one orb is 10 health)
         health: u16,
         /// player energy (one orb is 1 energy)
@@ -173,7 +179,7 @@ fn parse_flags(generation_flags: &[String]) -> GenFlags {
 
 fn main() {
     match SeedGen::from_args().command {
-        Command::Seed { mut output, seed, areas, locations, validate, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
+        Command::Seed { mut output, seed, areas, locations, states, validate, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
             if wait_on_debugger {
                 debugger::wait_until_attached(None).expect("state() not implemented on this platform");
             }
@@ -194,7 +200,7 @@ fn main() {
             let flags = parse_flags(&generation_flags);
             let pathsets = flags.pathsets();
 
-            let graph = lexer::parse_logic(&areas, &locations, &pathsets, validate);
+            let graph = lexer::parse_logic(&areas, &locations, &states, &pathsets, validate).unwrap();
 
             let header = read_header();
             if !header.is_empty() {
@@ -221,9 +227,9 @@ fn main() {
             let seed = generate_seed(&graph, &settings, &headers, rng).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
             fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         },
-        Command::ReachCheck { areas, locations, seed_file, health, energy, keystones, ore, spirit_light, items } => {
+        Command::ReachCheck { seed_file, areas, locations, states, health, energy, keystones, ore, spirit_light, items } => {
             let settings = util::settings::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
-            let graph = &lexer::parse_logic(&areas, &locations, &settings.pathsets, false);
+            let graph = &lexer::parse_logic(&areas, &locations, &states, &settings.pathsets, false).unwrap();
             let mut world = World::new(graph);
 
             world.player.apply_pathsets(&settings);
@@ -258,8 +264,9 @@ fn main() {
 
             let spawn = &util::settings::read_spawn(&seed_file).unwrap_or_else(|err| panic!("error reading spawn from seed: {}", err));
 
-            let reached = world.graph.reached_locations(&world.player, spawn, &world.spawn_states).expect("Invalid Reach Check");
-            let mut reached = reached.iter().fold(String::new(), |acc, &uber_state| acc + &format!("{}, ", uber_state));
+            let reached = world.graph.reached_locations(&world.player, spawn, &world.uber_states).expect("Invalid Reach Check");
+            let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).collect();
+            let mut reached = reached.iter().fold(String::new(), |acc, uber_state| acc + &format!("{}, ", uber_state));
             for _ in 0..2 { reached.pop(); }  // remove the last comma
             println!("{}", reached);
         },

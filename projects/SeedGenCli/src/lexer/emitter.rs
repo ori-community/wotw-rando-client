@@ -1,6 +1,6 @@
 use rustc_hash::{FxHashSet, FxHashMap};
 
-use crate::lexer::parser::{self, AreaTree, Metadata, Location};
+use crate::lexer::parser::{self, AreaTree, Metadata, Location, NamedState};
 use crate::world::{self, WorldGraph, Node};
 use crate::requirements::Requirement;
 use crate::util::{Pathset, Skill};
@@ -104,7 +104,7 @@ fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, value: usi
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], pathsets: &[Pathset], validate: bool) -> Result<WorldGraph, String> {
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state_map: &[NamedState], pathsets: &[Pathset], validate: bool) -> Result<WorldGraph, String> {
     let node_count = areas.anchors.len() + locations.len() + metadata.states.len();
     let mut graph = Vec::<Node>::with_capacity(node_count);
     let mut used_states = FxHashSet::default();
@@ -117,6 +117,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
         if metadata.quests.contains(name) {
             let index = graph.len();
             add_entry(&mut node_map, &location.name, index)?;
+
             graph.push(Node::Quest(world::Quest {
                 identifier: location.name.clone(),
                 index,
@@ -125,6 +126,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
         } else {
             let index = graph.len();
             add_entry(&mut node_map, &location.name, index)?;
+
             graph.push(Node::Pickup(world::Pickup {
                 identifier: location.name.clone(),
                 index,
@@ -135,9 +137,18 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
     for state in &metadata.states {
         let index = graph.len();
         add_entry(&mut node_map, state, index)?;
+
+        let mut uber_state = None;
+        if let Some(named_state) = state_map.iter().find(|named_state| &named_state.name == state) {
+            uber_state = Some(named_state.uber_state.clone());
+        } else {
+            println!("Couldn't find an entry for {} in the state table", state);
+        }
+
         graph.push(Node::State(world::State {
             identifier: (*state).to_string(),
             index,
+            uber_state,
         }));
     }
 
@@ -220,6 +231,6 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], paths
     }
 
     Ok(WorldGraph {
-        graph,
+        nodes: graph,
     })
 }

@@ -14,6 +14,7 @@ pub enum Item {
     BonusItem(BonusItem),
     BonusUpgrade(BonusUpgrade),
     Hint(Hint),
+    UberState(String),
     Custom(String),
 }
 impl fmt::Display for Item {
@@ -31,6 +32,7 @@ impl fmt::Display for Item {
             Item::BonusItem(bonus) => write!(f, "10|{}", bonus.to_id()),
             Item::BonusUpgrade(bonus) => write!(f, "11|{}", bonus.to_id()),
             Item::Hint(hint) => write!(f, "12|{}", hint.to_id()),
+            Item::UberState(command) => write!(f, "8|{}", command),
             Item::Custom(string) => write!(f, "{}", string),
         }
     }
@@ -54,6 +56,7 @@ impl Inventory {
             *prior -= amount;
         }
     }
+
     pub fn has(&self, item: &Item, amount: u16) -> bool {
         if let Some(owned) = self.inventory.get(item) {
             return *owned >= amount;
@@ -62,10 +65,5 @@ impl Inventory {
     }
     pub fn get(&self, item: &Item) -> u16 {
         *self.inventory.get(item).unwrap_or(&0)
-    }
-    pub fn merge(&mut self, other: &Inventory) {
-        for item in other.inventory.keys() {
-            self.grant(item.clone(), other.inventory[item]);
-        }
     }
 }

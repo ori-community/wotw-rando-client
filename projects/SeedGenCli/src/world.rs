@@ -48,6 +48,7 @@ pub struct Pickup {
 pub struct State {
     pub identifier: String,
     pub index: usize,
+    pub uber_state: Option<UberState>,
 }
 #[derive(Debug)]
 pub struct Quest {
@@ -86,6 +87,16 @@ impl Node {
             Node::Pickup(pickup) => pickup.index,
             Node::State(state) => state.index,
             Node::Quest(quest) => quest.index,
+        }
+    }
+    pub fn uber_state(&self) -> Option<&UberState> {
+        match self {
+            Node::Anchor(_) => None,
+            Node::Pickup(pickup) => Some(&pickup.uber_state),
+            Node::State(state) => if let Some(uber_state) = &state.uber_state {
+                Some(uber_state)
+            } else { None },
+            Node::Quest(quest) => Some(&quest.uber_state),
         }
     }
 }
@@ -158,44 +169,78 @@ pub fn default_pool() -> Inventory {
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
-pub struct UberState {
+pub struct UberIdentifier {
     pub uber_group: u16,
     pub uber_id: u16,
-    pub value: Option<u16>,
+}
+impl UberIdentifier {
+    pub fn from_parts(group: &str, id: &str) -> Result<UberIdentifier, String> {
+        let uber_group: u16 = group.parse().map_err(|_| format!("invalid uber group '{}'", group))?;
+        let uber_id: u16 = id.parse().map_err(|_| format!("invalid uber id '{}'", id))?;
+        Ok(UberIdentifier {
+            uber_group,
+            uber_id,
+        })
+    }
+}
+impl fmt::Display for UberIdentifier {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}|{}", self.uber_group, self.uber_id)
+    }
+}
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+pub struct UberState {
+    pub identifier: UberIdentifier,
+    pub value: String,
 }
 impl UberState {
     pub fn from_parts(group: &str, id: &str) -> Result<UberState, String> {
         let uber_group: u16 = group.parse().map_err(|_| format!("invalid uber group '{}'", group))?;
         let mut id_parts = id.splitn(2, '=');
         let uber_id: u16 = id_parts.next().unwrap().parse().map_err(|_| format!("invalid uber id '{}'", id))?;
-        let mut value = None;
-        if let Some(id_value) = id_parts.next() {
-            value = Some(id_value.parse().map_err(|_| format!("invalid uber value '{}'", id))?);
-        }
+        let value = id_parts.next().unwrap_or("");
         Ok(UberState {
-            uber_group,
-            uber_id,
-            value,
+            identifier: UberIdentifier {
+                uber_group,
+                uber_id,
+            },
+            value: value.to_string(),
         })
     }
 }
 impl fmt::Display for UberState {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if let Some(value) = self.value {
-            write!(f, "{}|{}={}", self.uber_group, self.uber_id, value)
+        if self.value.is_empty() {
+            write!(f, "{}", self.identifier)
         } else {
-            write!(f, "{}|{}", self.uber_group, self.uber_id)
+            write!(f, "{}={}", self.identifier, self.value)
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum UberValue {
+    Bool(bool),
+    Int(i32),
+    Float(f32),
+}
+impl fmt::Display for UberValue {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            UberValue::Bool(value) => write!(f, "{}", value),
+            UberValue::Int(value) => write!(f, "{}", value),
+            UberValue::Float(value) => write!(f, "{}", value),
         }
     }
 }
 
 #[derive(Debug)]
 pub struct WorldGraph {
-    pub graph: Vec<Node>,
+    pub nodes: Vec<Node>,
 }
 impl<'a> WorldGraph {
-    fn follow_state_progressions(&'a self, player: &Player, index: usize, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&UberState> {
-        let mut reached = Vec::<&UberState>::new();
+    fn follow_state_progressions(&'a self, player: &Player, index: usize, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&Node> {
+        let mut reached = Vec::<&Node>::new();
         if let Some(connections) = state_progressions.get(&index) {
             for (from, connection) in connections.clone() {
                 if world_state.contains_key(&connection.to) {
@@ -204,7 +249,7 @@ impl<'a> WorldGraph {
                 }
                 let target_orbs = self.try_connection(player, connection, &world_state[&from], states);
                 if !target_orbs.is_empty() {
-                    reached.append(&mut self.reach_recursion(player, &self.graph[connection.to], target_orbs, states, state_progressions, world_state));
+                    reached.append(&mut self.reach_recursion(player, &self.nodes[connection.to], target_orbs, states, state_progressions, world_state));
                 }
             }
         }
@@ -220,7 +265,7 @@ impl<'a> WorldGraph {
         target_orbs
     }
 
-    fn reach_recursion(&'a self, player: &Player, entry: &'a Node, mut best_orbs: Vec<Orbs>, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a UberState> {
+    fn reach_recursion(&'a self, player: &Player, entry: &'a Node, mut best_orbs: Vec<Orbs>, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
         world_state.insert(entry.index(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
@@ -239,7 +284,7 @@ impl<'a> WorldGraph {
                     }
                 }
 
-                let mut reached = Vec::<&UberState>::new();
+                let mut reached = Vec::<&Node>::new();
                 for connection in &anchor.connections {
                     if world_state.contains_key(&connection.to) {
                         // TODO loop with improved orbs?
@@ -252,33 +297,57 @@ impl<'a> WorldGraph {
                             state_progressions.entry(state).or_default().push((anchor.index, connection));
                         }
                     } else {
-                        reached.append(&mut self.reach_recursion(player, &self.graph[connection.to], target_orbs, states, state_progressions, world_state));
+                        reached.append(&mut self.reach_recursion(player, &self.nodes[connection.to], target_orbs, states, state_progressions, world_state));
                     }
                 }
                 reached
             },
-            Node::Pickup(pickup) => vec![&pickup.uber_state],
+            Node::Pickup(_) => vec![entry],
             Node::State(state) => {
                 states.insert(state.index);
-                self.follow_state_progressions(player, state.index, states, state_progressions, world_state)
+                let mut reached = self.follow_state_progressions(player, state.index, states, state_progressions, world_state);
+                if state.uber_state.is_some() {
+                    reached.push(entry);
+                }
+                reached
             },
             Node::Quest(quest) => {
                 states.insert(quest.index);
                 let mut reached = self.follow_state_progressions(player, quest.index, states, state_progressions, world_state);
-                reached.push(&quest.uber_state);
+                reached.push(entry);
                 reached
             },
         }
     }
 
-    pub fn reached_locations(&self, player: &Player, spawn: &str, spawn_states: &[usize]) -> Result<Vec<&UberState>, String> {
-        let entry = self.graph.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
+    pub fn reached_locations(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Vec<&Node>, String> {
+        let entry = self.nodes.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
 
-        let mut states: FxHashSet<_> = spawn_states.iter().cloned().collect();
+        let mut states = FxHashSet::default();
+
+        for node in &self.nodes {
+            let (uber_state, index) = match node {
+                Node::State(state) => {
+                    if let Some(uber_state) = &state.uber_state {
+                        (uber_state, &state.index)
+                    } else { continue; }
+                },
+                Node::Quest(quest) => {
+                    (&quest.uber_state, &quest.index)
+                }
+                _ => { continue; }
+            };
+            if let Some(value) = extra_states.get(&uber_state.identifier) {
+                if format!("{}", value) == uber_state.value {
+                    states.insert(*index);
+                }
+            }
+        }
+
         let mut state_progressions = FxHashMap::default();
         let mut world_state = FxHashMap::default();
-        world_state.reserve(self.graph.len());
+        world_state.reserve(self.nodes.len());
 
         let reached = self.reach_recursion(player, entry, vec![player.max_orbs()], &mut states, &mut state_progressions, &mut world_state);
 
@@ -292,7 +361,7 @@ pub struct World<'a> {
     pub player: Player,
     pub pool: Inventory,
     pub preplacements: FxHashMap<UberState, Inventory>,
-    pub spawn_states: Vec<usize>,
+    pub uber_states: FxHashMap<UberIdentifier, UberValue>,
 }
 impl<'a> World<'a> {
     pub fn new(graph: &WorldGraph) -> World {
@@ -301,17 +370,89 @@ impl<'a> World<'a> {
             player: Player::default(),
             pool: Inventory::default(),
             preplacements: FxHashMap::default(),
-            spawn_states: Vec::default(),
+            uber_states: FxHashMap::default(),
         }
     }
 
-    pub fn add_spawn_state(&mut self, state: usize) {
-        self.spawn_states.push(state);
+    pub fn grant_player(&mut self, item: Item, amount: u16) {
+        if let Item::UberState(command) = &item {
+            let mut parts = command.split('|');
+            let uber_group = parts.next().unwrap();
+            let uber_id = parts.next().unwrap();
+            let uber_type = parts.next().unwrap();
+            let mut uber_value = parts.next().unwrap();
+
+            let uber_state = UberIdentifier::from_parts(uber_group, uber_id).unwrap();
+
+            let mut sign: i8 = 0;
+            if uber_value.starts_with('+') {
+                uber_value = &uber_value[1..];
+                sign = 1;
+            } else if uber_value.starts_with('-') {
+                uber_value = &uber_value[1..];
+                sign = -1;
+            }
+
+            let entry = match uber_type {
+                "bool" | "teleporter" => {
+                    let uber_value: bool = uber_value.parse().unwrap();
+
+                    let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Bool(false));
+                    if let UberValue::Bool(prior) = entry {
+                        *prior = uber_value;
+                    } else {
+                        println!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                    }
+                    entry
+                },
+                "byte" | "int" => {
+                    let uber_value: i32 = uber_value.parse().unwrap();
+
+                    let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
+                    if let UberValue::Int(prior) = entry {
+                        *prior = uber_value + *prior * sign as i32;
+                    } else {
+                        println!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                    }
+                    entry
+                },
+                "float" => {
+                    let uber_value: f32 = uber_value.parse().unwrap();
+
+                    let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
+                    if let UberValue::Float(prior) = entry {
+                        *prior = uber_value + *prior * sign as f32;
+                    } else {
+                        println!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                    }
+                    entry
+                },
+                _ => { panic!("Unable to grant malformed uber state pickup {}", command); },
+            };
+
+            let uber_state = UberState {
+                identifier: uber_state,
+                value: format!("{}", entry),
+            };
+            self.collect_preplacements(&[&uber_state]);
+        } else {
+            self.player.inventory.grant(item.clone(), amount);
+        }
+        self.pool.remove(item, amount);
     }
 
-    pub fn grant_player(&mut self, item: Item, amount: u16) {
-        self.player.inventory.grant(item.clone(), amount);
-        self.pool.remove(item, amount);
+    pub fn collect_preplacements(&mut self, reached: &[&UberState]) {
+        for uber_state in reached {
+            let mut inventory = Inventory::default();
+            if let Some(items) = self.preplacements.get(&uber_state) {
+                inventory = items.clone();
+                self.preplacements.remove(&uber_state);
+            }
+
+            for item in inventory.inventory.keys() {
+                self.grant_player(item.clone(), inventory.inventory[item]);
+            }
+        }
     }
 }
 
@@ -326,16 +467,21 @@ mod tests {
 
     #[test]
     fn reach_check() {
-        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
         let mut world = World::new(graph);
         world.player.inventory = default_pool();
         world.player.inventory.grant(Item::Resource(Resource::SpiritLight), 10000);
 
-        let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.spawn_states).unwrap();
-        let reached: FxHashSet<_> = reached.iter().cloned().collect();
+        let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
+        let reached: FxHashSet<_> = reached.iter()
+            .filter_map(|node| {
+                if node.node_type() == NodeType::State { None }
+                else { node.uber_state() }
+            })
+            .cloned().collect();
 
         let locations = lexer::parser::parse_locations(&PathBuf::from("loc_data.csv"), false).unwrap();
-        let locations: FxHashSet<_> = locations.iter().map(|location| &location.uber_state).collect();
+        let locations: FxHashSet<_> = locations.iter().map(|location| &location.uber_state).cloned().collect();
 
         if !(reached == locations) {
             let diff: Vec<_> = locations.difference(&reached).collect();
@@ -344,7 +490,7 @@ mod tests {
 
         assert_eq!(reached, locations);
 
-        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false);
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false).unwrap();
         let mut world = World::new(graph);
 
         world.player.gorlek_paths = true;
@@ -354,8 +500,9 @@ mod tests {
         world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         world.player.inventory.grant(Item::Shard(Shard::TripleJump), 1);
 
-        let reached = world.graph.reached_locations(&world.player, "GladesTown.Teleporter", &world.spawn_states).unwrap();
-        assert_eq!(reached, vec![&UberState::from_parts("42178", "63404").unwrap(), &UberState::from_parts("42178", "42762").unwrap(), &UberState::from_parts("23987", "14014").unwrap(), &UberState::from_parts("42178", "6117").unwrap()]);
+        let reached = world.graph.reached_locations(&world.player, "GladesTown.Teleporter", &world.uber_states).unwrap();
+        let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).cloned().collect();
+        assert_eq!(reached, vec![UberState::from_parts("42178", "63404").unwrap(), UberState::from_parts("42178", "42762").unwrap(), UberState::from_parts("23987", "14014").unwrap(), UberState::from_parts("42178", "6117").unwrap()]);
     }
 
     #[test]
@@ -366,9 +513,5 @@ mod tests {
         assert_eq!(format!("{}", uber_state), "25432|65195=11");
         assert!(UberState::from_parts("", "3").is_err());
         assert!(UberState::from_parts("a", "3").is_err());
-        assert!(UberState::from_parts("5", "3=").is_err());
-        assert!(UberState::from_parts("5", "3=3=4").is_err());
-        assert!(UberState::from_parts("5", "3=v").is_err());
-        assert!(UberState::from_parts("5", "b=7").is_err());
     }
 }

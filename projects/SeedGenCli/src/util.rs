@@ -564,7 +564,7 @@ pub fn damage(skill: Skill, unsafe_paths: bool) -> f32 {
     }
 }
 
-pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
+pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
     let pickup = pickup.trim();
     let mut parts = pickup.split('|');
     let pickup_type = parts.next().unwrap_or("tried to parse empty pickup");
@@ -614,6 +614,29 @@ pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
                 Ok((Item::Teleporter(teleporter), 1))
             }
         }
+        "8" => {
+            // sanitize, don't know if this is user input through headers and later it would crash on malformed pickups
+            let uber_group = parts.next().ok_or_else(|| format!("missing uber group in pickup {}", pickup))?;
+            uber_group.parse::<u16>().map_err(|_| format!("invalid uber group in pickup {}", pickup))?;
+            let uber_id = parts.next().ok_or_else(|| format!("missing uber id in pickup {}", pickup))?;
+            uber_id.parse::<u16>().map_err(|_| format!("invalid uber id in pickup {}", pickup))?;
+
+            let uber_type = parts.next().ok_or_else(|| format!("missing uber state type in pickup {}", pickup))?;
+            let value = parts.next().ok_or_else(|| format!("missing uber value in pickup {}", pickup))?;
+
+            let strip_sign = |value: &'a str| -> &'a str { if value.starts_with(&['+', '-'][..]) { &value[1..] } else { value } };
+
+            match uber_type {
+                "bool" | "teleporter" => { value.parse::<bool>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
+                "byte" => { strip_sign(value).parse::<u8>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
+                "int" => { strip_sign(value).parse::<i32>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
+                "float" => { strip_sign(value).parse::<f32>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
+                _ => return Err(format!("invalid uber state type in pickup {}", pickup)),
+            }
+
+            let command = format!("{}|{}|{}|{}", uber_group, uber_id, uber_type, value);
+            Ok((Item::UberState(command), 1))
+        }
         "9" => {
             let world_event_type = parts.next().ok_or_else(|| format!("missing world event type in pickup {}", pickup))?;
             if world_event_type.starts_with('-') {
@@ -642,7 +665,7 @@ pub fn parse_pickup(pickup: &str) -> Result<(Item, u16), String> {
             let hint = Hint::from_id(hint_type).ok_or_else(|| format!("invalid hint type in pickup {}", pickup))?;
             Ok((Item::Hint(hint), 1))
         }
-        "4" | "6" | "8" => {
+        "4" | "6" => {
             Ok((Item::Custom(pickup.to_string()), 1))
         }
         _ => Err(format!("invalid pickup type in pickup {}", pickup)),
@@ -684,7 +707,13 @@ mod tests {
         assert_eq!(parse_pickup("11|0"), Ok((Item::BonusUpgrade(BonusUpgrade::RapidHammer), 1)));
         assert_eq!(parse_pickup("10|31"), Ok((Item::BonusItem(BonusItem::EnergyRegen), 1)));
         assert!(parse_pickup("12|13").is_err());
-        assert_eq!(parse_pickup("8|5|3|6"), Ok((Item::Custom(String::from("8|5|3|6")), 1)));
+        assert!(parse_pickup("8|5|3|6").is_err());
+        assert!(parse_pickup("8||||").is_err());
+        assert!(parse_pickup("8|5|3|in|3").is_err());
+        assert!(parse_pickup("8|5|3|bool|3").is_err());
+        assert!(parse_pickup("8|5|3|float|hm").is_err());
+        assert_eq!(parse_pickup("8|5|3|int|6"), Ok((Item::UberState(String::from("5|3|int|6")), 1)));
+        assert_eq!(parse_pickup("4|0"), Ok((Item::Custom(String::from("4|0")), 1)));
         assert!(parse_pickup("12").is_err());
         assert!(parse_pickup("").is_err());
         assert!(parse_pickup("0|").is_err());

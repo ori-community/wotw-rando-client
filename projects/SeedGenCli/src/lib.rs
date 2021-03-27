@@ -16,7 +16,7 @@ use util::settings::{Settings, Spawn};
 use util::{Pathset, NodeType, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
 fn pick_spawn<'a>(graph: &'a WorldGraph, settings: &Settings, rng: &mut Pcg32) -> Result<&'a Anchor, String> {
-    let mut valid = graph.graph.iter().filter(|&node| {
+    let mut valid = graph.nodes.iter().filter(|&node| {
         if let Node::Anchor(anchor) = node { anchor.position.is_some() }
         else { false }
     });
@@ -82,13 +82,8 @@ fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
                 let count = parse_count(&mut pickup);
                 let (item, amount) = util::parse_pickup(pickup)?;
                 world.pool.remove(item, count * amount);
-            } else if let Some(state) = command.strip_prefix("set ") {
-                let state_node = world.graph.graph.iter().find(|&node| node.identifier() == state);
-                if let Some(state_node) = state_node {
-                    world.add_spawn_state(state_node.index());
-                } else {
-                    println!("couldn't find state '{}' set by a header, ignoring...", state);
-                }
+            } else if command.starts_with("set ") {
+                println!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
             } else {
                 return Err(format!("Unknown command '{}'", command))
             }
@@ -181,7 +176,7 @@ mod tests {
 
     #[test]
     fn header_parsing() {
-        let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &[Pathset::Moki], false);
+        let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
         parse_header(&header, &mut world).unwrap();

@@ -592,7 +592,7 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
     let mut locations = Vec::with_capacity(input.lines().count());
 
     for (index, line) in input.lines().enumerate() {
-        let parts: Vec::<&str> = line.split(',').collect();
+        let parts: Vec<_> = line.split(',').collect();
         if validate && parts.len() != 10 {
             return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line))
         }
@@ -617,6 +617,44 @@ pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, 
     }
 
     Ok(locations)
+}
+
+#[derive(Debug)]
+pub struct NamedState {
+    pub name: String,
+    pub uber_state: UberState,
+}
+
+pub fn parse_states(path: &PathBuf, validate: bool) -> Result<Vec<NamedState>, String> {
+    let input = util::read_file(path, "logic").map_err(|err| format!("Failed to read states: {}", err))?;
+    let mut states = Vec::with_capacity(input.lines().count());
+
+    for (index, line) in input.lines().enumerate() {
+        let parts: Vec<_> = line.split(',').collect();
+        if validate && parts.len() != 3 {
+            return Err(format!("Each line must have 3 fields, found {} at line {}: {}", parts.len(), index + 1, line))
+        }
+
+        let (name, uber_group, uber_id) = (parts[0].trim(), parts[1].trim(), parts[2].trim());
+        if validate {
+            if name.is_empty() {
+                return Err(empty_field("name", index, line))
+            }
+            if uber_group.is_empty() {
+                return Err(empty_field("group_id", index, line))
+            }
+            if uber_id.is_empty() {
+                return Err(empty_field("uber_id", index, line))
+            }
+        }
+
+        states.push(NamedState {
+            name: name.to_string(),
+            uber_state: UberState::from_parts(uber_group, uber_id)?,
+        })
+    }
+
+    Ok(states)
 }
 
 pub fn parse_areas(tokens: &[Token]) -> Result<(AreaTree, Metadata), ParseError> {
