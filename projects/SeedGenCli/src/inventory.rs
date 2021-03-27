@@ -48,10 +48,9 @@ impl Inventory {
         *prior += amount;
     }
     pub fn remove(&mut self, item: Item, amount: u16) {
-        if !self.inventory.contains_key(&item) { return; }
-        let prior = self.inventory.entry(item).or_insert(0);
-        if amount > *prior {
-            *prior = 0;
+        let prior = self.inventory.entry(item.clone()).or_insert(0);
+        if amount >= *prior {
+            self.inventory.remove(&item);
         } else {
             *prior -= amount;
         }

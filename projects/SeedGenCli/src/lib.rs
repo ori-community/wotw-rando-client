@@ -162,7 +162,7 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
         spawn_line = format!("Spawn: {}  // {}\n", spawn_loc.position, spawn_loc.identifier);
     }
 
-    let placement_block = placements.iter().fold(String::with_capacity(placements.len() * 20), |acc, placement| acc + &format!("{}\n", placement));
+    let placement_block = placements.iter().fold(String::with_capacity(placements.len() * 20), |acc, placement| acc + &format!("{}//\n", placement));
 
     let config_line = format!("\n// Config: {}", util::settings::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?);
 
