@@ -142,7 +142,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
         if let Some(named_state) = state_map.iter().find(|named_state| &named_state.name == state) {
             uber_state = Some(named_state.uber_state.clone());
         } else {
-            println!("Couldn't find an entry for {} in the state table", state);
+            eprintln!("Couldn't find an entry for {} in the state table", state);
         }
 
         graph.push(Node::State(world::State {
@@ -186,12 +186,6 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             }
 
             let to = *node_map.get(connection.identifier).ok_or_else(|| format!("Anchor '{}' connects to {:?} '{}' which doesn't actually exist", anchor.identifier, connection.name, connection.identifier))?;
-            if validate {
-                let expected_type = graph[to].node_type();
-                if connection.name != expected_type {
-                    return Err(format!("Anchor '{}' connects to {:?} '{}' which is actually a {:?}", anchor.identifier, connection.name, connection.identifier, expected_type));
-                }
-            }
 
             connections.push(world::Connection {
                 to,
@@ -218,14 +212,25 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
     }
 
     if validate {
+        for anchor in &areas.anchors {
+            for connection in &anchor.connections {
+                let expected_type = graph[node_map[connection.identifier]].node_type();
+                if connection.name != expected_type {
+                    return Err(format!("Anchor '{}' connects to {:?} '{}' which is actually a {:?}", anchor.identifier, connection.name, connection.identifier, expected_type));
+                }
+            }
+        }
+    }
+
+    if validate {
         for region in areas.regions.keys() {
             if !areas.anchors.iter().any(|anchor| anchor.identifier.splitn(2, '.').next().unwrap() == *region) {
-                println!("Region '{}' has no anchors with a matching name.", region);
+                eprintln!("Region '{}' has no anchors with a matching name.", region);
             }
         }
         for state in &metadata.states {
             if !used_states.contains(state) {
-                println!("State '{}' was never used as a requirement.", state);
+                eprintln!("State '{}' was never used as a requirement.", state);
             }
         }
     }

@@ -21,7 +21,7 @@ impl fmt::Display for Item {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Item::Resource(Resource::SpiritLight) => {
-                println!("Invoked display on Spirit Light. This doesn't make sense and will default to one Spirit Light.");
+                eprintln!("Invoked display on Spirit Light. This doesn't make sense and will default to one Spirit Light.");
                 write!(f, "0|1")
             },
             Item::Resource(resource) => write!(f, "1|{}", resource.to_id()),

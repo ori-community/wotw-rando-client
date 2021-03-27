@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 use std::fs;
 use std::io::{self, Read};
+use std::time::Instant;
 
 use structopt::StructOpt;
 use bugsalot::debugger;
@@ -41,11 +42,14 @@ enum Command {
         #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
         locations: PathBuf,
         /// the input file representing state namings, usually called state_data.csv
-        #[structopt(parse(from_os_str), default_value = "state_data.csv", long)]
-        states: PathBuf,
-        /// validate the input files at a slight performance cost
+        #[structopt(parse(from_os_str), default_value = "state_data.csv", short, long)]
+        uber_states: PathBuf,
+        /// skip validating the input files for a slight performance gain
         #[structopt(short, long)]
-        validate: bool,
+        trust: bool,
+        /// print additional output detailing the generation process
+        #[structopt(short, long)]
+        verbose: bool,
         /// wait for a debugger to attach before running
         #[structopt(short = "d", long = "debug")]
         wait_on_debugger: bool,
@@ -83,8 +87,8 @@ enum Command {
         #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
         locations: PathBuf,
         /// the input file representing state namings, usually called state_data.csv
-        #[structopt(parse(from_os_str), default_value = "state_data.csv", long)]
-        states: PathBuf,
+        #[structopt(parse(from_os_str), default_value = "state_data.csv", short, long)]
+        uber_states: PathBuf,
         /// player health (one orb is 10 health)
         health: u16,
         /// player energy (one orb is 1 energy)
@@ -170,7 +174,7 @@ fn parse_flags(generation_flags: &[String]) -> GenFlags {
             "w" | "wisps" => flags.force_wisps = true,
             "q" | "quests" => flags.force_quests = true,
             "r" | "relics" => flags.world_tour = true,
-            other => println!("Unknown generation flag '{}'", other),
+            other => eprintln!("Unknown generation flag '{}'", other),
         }
     }
 
@@ -179,10 +183,19 @@ fn parse_flags(generation_flags: &[String]) -> GenFlags {
 
 fn main() {
     match SeedGen::from_args().command {
-        Command::Seed { mut output, seed, areas, locations, states, validate, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
+        Command::Seed { mut output, seed, areas, locations, uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
             if wait_on_debugger {
+                eprintln!("waiting for debugger...");
                 debugger::wait_until_attached(None).expect("state() not implemented on this platform");
             }
+
+            let now = Instant::now();
+
+            let flags = parse_flags(&generation_flags);
+            let pathsets = flags.pathsets();
+
+            let graph = lexer::parse_logic(&areas, &locations, &uber_states, &pathsets, !trust).unwrap();
+            eprintln!("Parsed logic in {:?}", now.elapsed());
 
             output.set_extension("wotwr");
 
@@ -196,11 +209,6 @@ fn main() {
             let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
             else if spawn == "f" || spawn == "fullyrandom" { Spawn::FullyRandom }
             else { Spawn::Set(spawn) };
-
-            let flags = parse_flags(&generation_flags);
-            let pathsets = flags.pathsets();
-
-            let graph = lexer::parse_logic(&areas, &locations, &states, &pathsets, validate).unwrap();
 
             let header = read_header();
             if !header.is_empty() {
@@ -221,15 +229,16 @@ fn main() {
                 web_conn: netcode,
                 spawn_loc: spawn,
                 header_list: header_paths,
-                debug_info: false,  // TODO implement
+                debug_info: verbose,
             };
 
-            let seed = generate_seed(&graph, &settings, &headers, rng).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
+            let seed = generate_seed(&graph, &settings, &headers, rng, verbose).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
+            eprintln!("Generated seed in {:?}", now.elapsed());
             fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         },
-        Command::ReachCheck { seed_file, areas, locations, states, health, energy, keystones, ore, spirit_light, items } => {
+        Command::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
             let settings = util::settings::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
-            let graph = &lexer::parse_logic(&areas, &locations, &states, &settings.pathsets, false).unwrap();
+            let graph = &lexer::parse_logic(&areas, &locations, &uber_states, &settings.pathsets, false).unwrap();
             let mut world = World::new(graph);
 
             world.player.apply_pathsets(&settings);

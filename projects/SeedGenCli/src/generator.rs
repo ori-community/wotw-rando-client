@@ -19,7 +19,7 @@ impl fmt::Display for Placement {
 }
 
 // TODO: this is a placeholder
-pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a Settings, rng: &mut Pcg32) -> Result<Vec<Placement>, String> {
+pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a Settings, rng: &mut Pcg32, verbose: bool) -> Result<Vec<Placement>, String> {
     let mut pickups: Vec<_> = world.pool.inventory.iter().flat_map(|(item, amount)| vec![item; (*amount).into()]).cloned().collect();
     pickups.shuffle(rng);
 
@@ -33,16 +33,17 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
         value: String::new(),
     };
 
-    world.collect_preplacements(&[&spawn_state]);
+    world.collect_preplacements(&[&spawn_state], verbose);
 
     if !matches!(settings.spawn_loc, Spawn::Set(_)) {
         for _ in 0..3 {
             if let Some(pickup) = pickups.pop() {
+                if verbose { eprintln!("Placing {} on spawn", pickup); }
                 placements.push(Placement {
                     uber_state: spawn_state.clone(),
                     pickup: pickup.clone(),
                 });
-                world.grant_player(pickup, 1);
+                world.grant_player(pickup, 1, verbose);
             } else {
                 break;
             }
@@ -55,6 +56,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
                 !placements.iter().any(|placement| &placement.uber_state == uber_state)
             } else { false }
         });
+        if verbose { eprintln!("Locations in reach: {:?}", reachable.clone().map(|node| node.identifier()).collect::<Vec<_>>()); }
 
         let (preplaced, needs_placement): (Vec<&Node>, Vec<_>) = reachable.partition(|&&node| world.preplacements.contains_key(&node.uber_state().unwrap()));
 
@@ -65,13 +67,14 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             _ => None,
         }).collect();
 
-        world.collect_preplacements(&preplaced);
-        if let Some(uber_state) = needs_placement.choose(rng) {
+        world.collect_preplacements(&preplaced, verbose);
+        if let Some(&uber_state) = needs_placement.choose(rng) {
+            if verbose { eprintln!("Placing {} on {}", pickup, uber_state); }
             placements.push(Placement {
-                uber_state: (*uber_state).clone(),
+                uber_state: uber_state.clone(),
                 pickup: pickup.clone(),
             });
-            world.grant_player(pickup, 1);
+            world.grant_player(pickup, 1, verbose);
         } else {
             return Err(String::from("Failed to place all pickups"));
         }

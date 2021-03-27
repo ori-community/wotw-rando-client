@@ -227,7 +227,7 @@ pub enum UberValue {
 impl fmt::Display for UberValue {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            UberValue::Bool(value) => write!(f, "{}", value),
+            UberValue::Bool(_) => write!(f, ""),
             UberValue::Int(value) => write!(f, "{}", value),
             UberValue::Float(value) => write!(f, "{}", value),
         }
@@ -374,7 +374,7 @@ impl<'a> World<'a> {
         }
     }
 
-    pub fn grant_player(&mut self, item: Item, amount: u16) {
+    pub fn grant_player(&mut self, item: Item, amount: u16, verbose: bool) {
         if let Item::UberState(command) = &item {
             let mut parts = command.split('|');
             let uber_group = parts.next().unwrap();
@@ -401,7 +401,7 @@ impl<'a> World<'a> {
                     if let UberValue::Bool(prior) = entry {
                         *prior = uber_value;
                     } else {
-                        println!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                        eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                     }
                     entry
                 },
@@ -412,7 +412,7 @@ impl<'a> World<'a> {
                     if let UberValue::Int(prior) = entry {
                         *prior = uber_value + *prior * sign as i32;
                     } else {
-                        println!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                        eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                     }
                     entry
                 },
@@ -423,7 +423,7 @@ impl<'a> World<'a> {
                     if let UberValue::Float(prior) = entry {
                         *prior = uber_value + *prior * sign as f32;
                     } else {
-                        println!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                        eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                     }
                     entry
                 },
@@ -434,23 +434,26 @@ impl<'a> World<'a> {
                 identifier: uber_state,
                 value: format!("{}", entry),
             };
-            self.collect_preplacements(&[&uber_state]);
+            if verbose { eprintln!("Modified uber state to {}", uber_state); }
+            self.collect_preplacements(&[&uber_state], verbose);
         } else {
+            if verbose { eprintln!("Granting player {}", item); }
             self.player.inventory.grant(item.clone(), amount);
         }
         self.pool.remove(item, amount);
     }
 
-    pub fn collect_preplacements(&mut self, reached: &[&UberState]) {
+    pub fn collect_preplacements(&mut self, reached: &[&UberState], verbose: bool) {
         for uber_state in reached {
             let mut inventory = Inventory::default();
             if let Some(items) = self.preplacements.get(&uber_state) {
+                if verbose { eprintln!("Collecting preplacements on {}", uber_state); }
                 inventory = items.clone();
                 self.preplacements.remove(&uber_state);
             }
 
             for item in inventory.inventory.keys() {
-                self.grant_player(item.clone(), inventory.inventory[item]);
+                self.grant_player(item.clone(), inventory.inventory[item], verbose);
             }
         }
     }
@@ -485,7 +488,7 @@ mod tests {
 
         if !(reached == locations) {
             let diff: Vec<_> = locations.difference(&reached).collect();
-            println!("difference ({} / {} items): {:#?}", reached.len(), locations.len(), diff);
+            eprintln!("difference ({} / {} items): {:#?}", reached.len(), locations.len(), diff);
         }
 
         assert_eq!(reached, locations);

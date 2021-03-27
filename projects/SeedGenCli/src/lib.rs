@@ -83,7 +83,7 @@ fn parse_header(header: &str, world: &mut World) -> Result<String, String> {
                 let (item, amount) = util::parse_pickup(pickup)?;
                 world.pool.remove(item, count * amount);
             } else if command.starts_with("set ") {
-                println!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
+                eprintln!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
             } else {
                 return Err(format!("Unknown command '{}'", command))
             }
@@ -118,7 +118,7 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], mut rng: Pcg32) -> Result<String, String> {
+pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], mut rng: Pcg32, verbose: bool) -> Result<String, String> {
     let mut world = World::new(graph);
     world.pool = world::default_pool();
     world.player.spawn(settings);
@@ -139,18 +139,21 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
     let mut spawn_loc = SpawnLoc::default();
 
     let mut placements = Vec::<Placement>::new();
-    for index in 1..100001 {
+    for index in 1..100000 {
         spawn = pick_spawn(graph, &settings, &mut rng)?;
         spawn_loc = SpawnLoc {
             identifier: spawn.identifier.clone(),
             position: spawn.position.clone().unwrap(),
         };
+        if verbose { eprintln!("Spawning on {}", spawn_loc.identifier); }
 
-        if let Ok(ok) = generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng) {
+        if let Ok(ok) = generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng, verbose) {
             placements = ok;
             println!("Generated seed after {} {}{}", index, if index == 1 { "try" } else { "tries" }, if index > 50000 { " (phew)" } else { "" });
             break;
         }
+
+        if verbose { eprintln!("Retrying..."); }
     };
     if placements.is_empty() { return Err(String::from("All 100000 attempts to generate a seed failed :(")); }
 
