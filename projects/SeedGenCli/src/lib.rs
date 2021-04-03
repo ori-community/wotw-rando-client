@@ -1,5 +1,6 @@
 pub mod lexer;
 pub mod world;
+pub mod pool;
 pub mod player;
 pub mod inventory;
 pub mod requirements;
@@ -7,15 +8,19 @@ pub mod generator;
 pub mod util;
 
 use rand::seq::IteratorRandom;
-use rand_pcg::Pcg32;
+use rand::rngs::StdRng;
 
 use world::{World, WorldGraph, Node, Anchor, Position, UberState};
 use inventory::{Inventory, Item};
+use pool::ItemPool;
 use generator::Placement;
 use util::settings::{Settings, Spawn};
 use util::{Pathset, NodeType, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
 
-fn pick_spawn<'a>(graph: &'a WorldGraph, settings: &Settings, rng: &mut Pcg32) -> Result<&'a Anchor, String> {
+// TODO centralize the scattered constants
+const RETRIES: u16 = 5;
+
+fn pick_spawn<'a>(graph: &'a WorldGraph, settings: &Settings, rng: &mut StdRng) -> Result<&'a Anchor, String> {
     let mut valid = graph.nodes.iter().filter(|&node| {
         if let Node::Anchor(anchor) = node { anchor.position.is_some() }
         else { false }
@@ -52,6 +57,7 @@ fn write_flags(settings: &Settings) -> String {
     if settings.flags.world_tour { flags += "WorldTour, "; }
     if matches!(settings.spawn_loc, Spawn::Random) { flags += "RandomSpawn, "; }
     // TODO fully random?
+    // TODO this isn't needed post the rando versioning changes
     flags += "NoFreeSword, ";
     // if flags.len() == empty_len { return String::new(); }
     for _ in 0..2 { flags.pop(); }  // remove the last comma
@@ -70,7 +76,7 @@ fn parse_count(pickup: &mut &str) -> u16 {
     1
 }
 
-fn parse_header(header: &str, world: &mut World, verbose: bool) -> Result<String, String> {
+fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[Pathset]) -> Result<String, String> {
     let mut processed = String::new();
     for line in header.lines() {
         let mut trimmed = line.trim();
@@ -83,12 +89,12 @@ fn parse_header(header: &str, world: &mut World, verbose: bool) -> Result<String
                 let count = parse_count(&mut pickup);
                 let (item, amount) = util::parse_pickup(pickup)?;
                 if verbose { eprintln!("adding {}x {} to the item pool", amount, item); }
-                world.pool.grant(item, count * amount);
+                world.pool.grant(item, count * amount, pathsets);
             } else if let Some(mut pickup) = command.strip_prefix("remove ") {
                 let count = parse_count(&mut pickup);
                 let (item, amount) = util::parse_pickup(pickup)?;
                 if verbose { eprintln!("removing {}x {} from the item pool", amount, item); }
-                world.pool.remove(item, count * amount);
+                world.pool.remove(&item, count * amount);
             } else if command.starts_with("set ") {
                 eprintln!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
             } else {
@@ -122,6 +128,7 @@ fn parse_header(header: &str, world: &mut World, verbose: bool) -> Result<String
                         }
                         let target = UberState::from_parts(uber_group, &uber_id)?;
 
+                        // TODO this happens when it shouldn't?
                         if verbose { eprintln!("adding an empty pickup at {} to prevent placements", target); }
                         let null_item = Item::Custom(String::from("6|f=0|quiet|noclear"));
 
@@ -134,7 +141,7 @@ fn parse_header(header: &str, world: &mut World, verbose: bool) -> Result<String
                 preplacement.grant(item.clone(), amount);
 
                 if verbose { eprintln!("removing {}x {} from the item pool", amount, item); }
-                world.pool.remove(item, amount);
+                world.pool.remove(&item, amount);
             }
             processed += line;
             processed.push('\n');
@@ -150,19 +157,19 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], mut rng: Pcg32, verbose: bool) -> Result<String, String> {
+pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], mut rng: StdRng, verbose: bool) -> Result<String, String> {
     let mut world = World::new(graph);
-    world.pool = world::default_pool();
+    world.pool = ItemPool::preset(&settings.pathsets);
     world.player.spawn(settings);
 
     let mut header_block = String::new();
     for header in headers {
-        header_block += &parse_header(header, &mut world, verbose).map_err(|err| format!("{} in inline header", err))?;
+        header_block += &parse_header(header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
         let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
-        header_block += &parse_header(&header, &mut world, verbose).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+        header_block += &parse_header(&header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
     }
 
     let flag_line = write_flags(settings);
@@ -171,7 +178,7 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
     let mut spawn_loc = SpawnLoc::default();
 
     let mut placements = Vec::<Placement>::new();
-    for index in 1..100000 {
+    for index in 0..RETRIES {
         spawn = pick_spawn(graph, &settings, &mut rng)?;
         spawn_loc = SpawnLoc {
             identifier: spawn.identifier.clone(),
@@ -179,15 +186,18 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
         };
         if verbose { eprintln!("Spawning on {}", spawn_loc.identifier); }
 
-        if let Ok(ok) = generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng, verbose) {
-            placements = ok;
-            println!("Generated seed after {} {}{}", index, if index == 1 { "try" } else { "tries" }, if index > 50000 { " (phew)" } else { "" });
-            break;
+        match generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng, verbose) {
+            Ok(seed) => {
+                placements = seed;
+                eprintln!("Generated seed after {} {}{}", index + 1, if index == 0 { "try" } else { "tries" }, if index > RETRIES / 2 { " (phew)" } else { "" });
+                break;
+            },
+            Err(err) => {
+                eprintln!("Failed to place items: {}\nRetrying...", err);
+            }
         }
-
-        if verbose { eprintln!("Retrying..."); }
     };
-    if placements.is_empty() { return Err(String::from("All 100000 attempts to generate a seed failed :(")); }
+    if placements.is_empty() { return Err(format!("All {} attempts to generate a seed failed :(", RETRIES)); }
 
     let mut spawn_line = String::new();
     if spawn_loc.identifier != DEFAULTSPAWN {
@@ -214,13 +224,13 @@ mod tests {
         let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut world, false).unwrap();
+        parse_header(&header, &mut world, false, &[Pathset::Moki]).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);
         expected.grant(Item::BonusItem(BonusItem::EnergyRegen), 3);
         expected.grant(Item::BonusItem(BonusItem::HealthRegen), 3);
-        assert_eq!(world.pool, expected);
+        assert_eq!(world.pool.fillers, expected);
         assert!(world.preplacements.contains_key(&UberState::from_parts("1", "106").unwrap()));
         assert!(!world.preplacements.contains_key(&UberState::from_parts("1", "105").unwrap()));
     }

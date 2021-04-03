@@ -181,7 +181,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             if let Some(group) = &connection.requirements {
                 requirement = build_requirement_group(group, &areas.definitions, pathsets, validate, &node_map, &mut used_states);
                 if let Some(region_requirement) = &region_requirement {
-                    requirement = Requirement::And(vec![region_requirement.clone(), requirement]);
+                    requirement = build_and(vec![region_requirement.clone(), requirement]);
                 }
             }
 

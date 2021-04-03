@@ -5,8 +5,9 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use crate::requirements::Requirement;
 use crate::player::Player;
 use crate::inventory::{Item, Inventory};
+use crate::pool::ItemPool;
 use crate::util::orbs::{Orbs, either_single_orbs, both_orbs, both_single_orbs};
-use crate::util::{Resource, Skill, Shard, RefillType, NodeType};
+use crate::util::{Resource, RefillType, NodeType};
 
 #[derive(Debug)]
 pub struct Refill {
@@ -100,73 +101,6 @@ impl Node {
         }
     }
 }
-pub fn default_pool() -> Inventory {
-    let mut pool = FxHashMap::default();
-    pool.reserve(60);
-    pool.insert(Item::Resource(Resource::Health, 1), 24);
-    pool.insert(Item::Resource(Resource::Energy, 1), 24);
-    pool.insert(Item::Resource(Resource::Ore, 1), 40);
-    pool.insert(Item::Resource(Resource::ShardSlot, 1), 5);
-    pool.insert(Item::Resource(Resource::Keystone, 1), 34);
-    pool.insert(Item::Skill(Skill::Bash), 1);
-    pool.insert(Item::Skill(Skill::WallJump), 1);
-    pool.insert(Item::Skill(Skill::DoubleJump), 1);
-    pool.insert(Item::Skill(Skill::Launch), 1);
-    pool.insert(Item::Skill(Skill::Glide), 1);
-    pool.insert(Item::Skill(Skill::WaterBreath), 1);
-    pool.insert(Item::Skill(Skill::Grenade), 1);
-    pool.insert(Item::Skill(Skill::Grapple), 1);
-    pool.insert(Item::Skill(Skill::Flash), 1);
-    pool.insert(Item::Skill(Skill::Spear), 1);
-    pool.insert(Item::Skill(Skill::Regenerate), 1);
-    pool.insert(Item::Skill(Skill::Bow), 1);
-    pool.insert(Item::Skill(Skill::Hammer), 1);
-    pool.insert(Item::Skill(Skill::Sword), 1);
-    pool.insert(Item::Skill(Skill::Burrow), 1);
-    pool.insert(Item::Skill(Skill::Dash), 1);
-    pool.insert(Item::Skill(Skill::WaterDash), 1);
-    pool.insert(Item::Skill(Skill::Shuriken), 1);
-    pool.insert(Item::Skill(Skill::Seir), 1);
-    pool.insert(Item::Skill(Skill::Blaze), 1);
-    pool.insert(Item::Skill(Skill::Sentry), 1);
-    pool.insert(Item::Skill(Skill::Flap), 1);
-    pool.insert(Item::Skill(Skill::AncestralLight), 2);
-    pool.insert(Item::Shard(Shard::Overcharge), 1);
-    pool.insert(Item::Shard(Shard::TripleJump), 1);
-    pool.insert(Item::Shard(Shard::Wingclip), 1);
-    pool.insert(Item::Shard(Shard::Bounty), 1);
-    pool.insert(Item::Shard(Shard::Swap), 1);
-    pool.insert(Item::Shard(Shard::Magnet), 1);
-    pool.insert(Item::Shard(Shard::Splinter), 1);
-    pool.insert(Item::Shard(Shard::Reckless), 1);
-    pool.insert(Item::Shard(Shard::Quickshot), 1);
-    pool.insert(Item::Shard(Shard::Resilience), 1);
-    pool.insert(Item::Shard(Shard::SpiritLightHarvest), 1);
-    pool.insert(Item::Shard(Shard::Vitality), 1);
-    pool.insert(Item::Shard(Shard::LifeHarvest), 1);
-    pool.insert(Item::Shard(Shard::EnergyHarvest), 1);
-    pool.insert(Item::Shard(Shard::Energy), 1);
-    pool.insert(Item::Shard(Shard::LifePact), 1);
-    pool.insert(Item::Shard(Shard::LastStand), 1);
-    pool.insert(Item::Shard(Shard::Sense), 1);
-    pool.insert(Item::Shard(Shard::UltraBash), 1);
-    pool.insert(Item::Shard(Shard::UltraGrapple), 1);
-    pool.insert(Item::Shard(Shard::Overflow), 1);
-    pool.insert(Item::Shard(Shard::Thorn), 1);
-    pool.insert(Item::Shard(Shard::Catalyst), 1);
-    pool.insert(Item::Shard(Shard::Turmoil), 1);
-    pool.insert(Item::Shard(Shard::Sticky), 1);
-    pool.insert(Item::Shard(Shard::Finesse), 1);
-    pool.insert(Item::Shard(Shard::SpiritSurge), 1);
-    pool.insert(Item::Shard(Shard::Lifeforce), 1);
-    pool.insert(Item::Shard(Shard::Deflector), 1);
-    pool.insert(Item::Shard(Shard::Fracture), 1);
-    pool.insert(Item::Shard(Shard::Arcing), 1);
-    pool.insert(Item::Water, 1);
-    Inventory {
-        inventory: pool,
-    }
-}
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct UberIdentifier {
@@ -239,8 +173,20 @@ pub struct WorldGraph {
     pub nodes: Vec<Node>,
 }
 impl<'a> WorldGraph {
-    fn follow_state_progressions(&'a self, player: &Player, index: usize, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&Node> {
+    fn follow_state_progressions(
+        &'a self,
+        player: &Player,
+        progression_check: bool,
+        index: usize,
+        states: &mut FxHashSet<usize>,
+        state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>,
+        world_state: &mut FxHashMap<usize, Vec<Orbs>>
+    ) -> (
+        Vec<&'a Node>,
+        Vec<(&'a Requirement, Vec<Orbs>)>
+    ) {
         let mut reached = Vec::<&Node>::new();
+        let mut progressions = Vec::<(&Requirement, Vec<Orbs>)>::new();
         if let Some(connections) = state_progressions.get(&index) {
             for (from, connection) in connections.clone() {
                 if world_state.contains_key(&connection.to) {
@@ -249,11 +195,13 @@ impl<'a> WorldGraph {
                 }
                 let target_orbs = self.try_connection(player, connection, &world_state[&from], states);
                 if !target_orbs.is_empty() {
-                    reached.append(&mut self.reach_recursion(player, &self.nodes[connection.to], target_orbs, states, state_progressions, world_state));
+                    let (mut child_reached, mut child_progressions) = self.reach_recursion(player, &self.nodes[connection.to], progression_check, target_orbs, states, state_progressions, world_state);
+                    reached.append(&mut child_reached);
+                    progressions.append(&mut child_progressions);
                 }
             }
         }
-        reached
+        (reached, progressions)
     }
     fn try_connection(&self, player: &Player, connection: &Connection, best_orbs: &[Orbs], states: &FxHashSet<usize>) -> Vec<Orbs> {
         let mut target_orbs = Vec::<Orbs>::default();
@@ -265,7 +213,20 @@ impl<'a> WorldGraph {
         target_orbs
     }
 
-    fn reach_recursion(&'a self, player: &Player, entry: &'a Node, mut best_orbs: Vec<Orbs>, states: &mut FxHashSet<usize>, state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>, world_state: &mut FxHashMap<usize, Vec<Orbs>>) -> Vec<&'a Node> {
+    // TODO wrap into a context struct?
+    fn reach_recursion(
+        &'a self,
+        player: &Player,
+        entry: &'a Node,
+        progression_check: bool,
+        mut best_orbs: Vec<Orbs>,
+        states: &mut FxHashSet<usize>,
+        state_progressions: &mut FxHashMap<usize, Vec<(usize, &'a Connection)>>,
+        world_state: &mut FxHashMap<usize, Vec<Orbs>>
+    ) -> (
+        Vec<&'a Node>,
+        Vec<(&'a Requirement, Vec<Orbs>)>
+    ) {
         world_state.insert(entry.index(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
@@ -285,6 +246,7 @@ impl<'a> WorldGraph {
                 }
 
                 let mut reached = Vec::<&Node>::new();
+                let mut progressions = Vec::<(&Requirement, Vec<Orbs>)>::new();
                 for connection in &anchor.connections {
                     if world_state.contains_key(&connection.to) {
                         // TODO loop with improved orbs?
@@ -293,37 +255,48 @@ impl<'a> WorldGraph {
                     let target_orbs = self.try_connection(player, connection, &best_orbs, states);
                     if target_orbs.is_empty() {
                         let states = connection.requirement.contained_states();
-                        for state in states {
-                            state_progressions.entry(state).or_default().push((anchor.index, connection));
+                        if states.is_empty() {
+                            if progression_check {
+                                progressions.push((&connection.requirement, best_orbs.clone()))
+                            }
+                        } else {
+                            for state in states {
+                                state_progressions.entry(state).or_default().push((anchor.index, connection));
+                            }
+                            // TODO unmet state connections in progression check?
                         }
                     } else {
-                        reached.append(&mut self.reach_recursion(player, &self.nodes[connection.to], target_orbs, states, state_progressions, world_state));
+                        let (mut child_reached, mut child_progressions) = self.reach_recursion(player, &self.nodes[connection.to], progression_check, target_orbs, states, state_progressions, world_state);
+                        reached.append(&mut child_reached);
+                        progressions.append(&mut child_progressions);
                     }
                 }
-                reached
+                (reached, progressions)
             },
-            Node::Pickup(_) => vec![entry],
+            Node::Pickup(_) => (vec![entry], vec![]),
             Node::State(state) => {
                 states.insert(state.index);
-                let mut reached = self.follow_state_progressions(player, state.index, states, state_progressions, world_state);
+                let (mut reached, progressions) = self.follow_state_progressions(player, progression_check, state.index, states, state_progressions, world_state);
                 if state.uber_state.is_some() {
                     reached.push(entry);
                 }
-                reached
+                (reached, progressions)
             },
             Node::Quest(quest) => {
                 states.insert(quest.index);
-                let mut reached = self.follow_state_progressions(player, quest.index, states, state_progressions, world_state);
+                let (mut reached, progressions) = self.follow_state_progressions(player, progression_check, quest.index, states, state_progressions, world_state);
                 reached.push(entry);
-                reached
+                (reached, progressions)
             },
         }
     }
 
-    pub fn reached_locations(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Vec<&Node>, String> {
+    fn find_spawn(&self, spawn: &str) -> Result<&Node, String> {
         let entry = self.nodes.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
         if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
-
+        Ok(entry)
+    }
+    fn collect_extra_states(&self, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> FxHashSet<usize> {
         let mut states = FxHashSet::default();
 
         for node in &self.nodes {
@@ -345,13 +318,35 @@ impl<'a> WorldGraph {
             }
         }
 
+        states
+    }
+
+    pub fn reached_locations(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Vec<&Node>, String> {
+        let entry = self.find_spawn(spawn)?;
+
+        let mut states = self.collect_extra_states(extra_states);
+
         let mut state_progressions = FxHashMap::default();
         let mut world_state = FxHashMap::default();
         world_state.reserve(self.nodes.len());
 
-        let reached = self.reach_recursion(player, entry, vec![player.max_orbs()], &mut states, &mut state_progressions, &mut world_state);
+        let (reached, _) = self.reach_recursion(player, entry, false, vec![player.max_orbs()], &mut states, &mut state_progressions, &mut world_state);
 
         Ok(reached)
+    }
+
+    pub fn reached_and_progressions(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<(Vec<&Node>, Vec<(&Requirement, Vec<Orbs>)>), String> {
+        let entry = self.find_spawn(spawn)?;
+
+        let mut states = self.collect_extra_states(extra_states);
+
+        let mut state_progressions = FxHashMap::default();
+        let mut world_state = FxHashMap::default();
+        world_state.reserve(self.nodes.len());
+
+        let reached_and_progressions = self.reach_recursion(player, entry, true, vec![player.max_orbs()], &mut states, &mut state_progressions, &mut world_state);
+
+        Ok(reached_and_progressions)
     }
 }
 
@@ -359,7 +354,7 @@ impl<'a> WorldGraph {
 pub struct World<'a> {
     pub graph: &'a WorldGraph,
     pub player: Player,
-    pub pool: Inventory,
+    pub pool: ItemPool,
     pub preplacements: FxHashMap<UberState, Inventory>,
     pub uber_states: FxHashMap<UberIdentifier, UberValue>,
 }
@@ -368,7 +363,7 @@ impl<'a> World<'a> {
         World {
             graph,
             player: Player::default(),
-            pool: Inventory::default(),
+            pool: ItemPool::default(),
             preplacements: FxHashMap::default(),
             uber_states: FxHashMap::default(),
         }
@@ -436,30 +431,28 @@ impl<'a> World<'a> {
                     value: format!("{}", entry),
                 };
                 if verbose { eprintln!("Modified uber state to {}", uber_state); }
-                self.collect_preplacements(&[&uber_state], verbose);
+                self.collect_preplacements(&uber_state, verbose);
             },
-            Item::Custom(_) => {
-                if verbose { eprintln!("Ignoring pickup {}", item); }
-            },
+            Item::Custom(_) => {},
+            Item::Resource(Resource::SpiritLight, stacked_amount) => {
+                self.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), amount * stacked_amount);
+            }
             item => {
-                if verbose { eprintln!("Granting player {}", item); }
                 self.player.inventory.grant(item.clone(), amount);
             },
         }
-        self.pool.remove(item, amount);
+        self.pool.remove(&item, amount);
     }
 
-    pub fn collect_preplacements(&mut self, reached: &[&UberState], verbose: bool) {
-        for uber_state in reached {
-            let mut inventory = Inventory::default();
-            if let Some(items) = self.preplacements.get(&uber_state) {
-                if verbose { eprintln!("Collecting preplacements on {}", uber_state); }
-                inventory = items.clone();
-            }
+    pub fn collect_preplacements(&mut self, reached: &UberState, verbose: bool) {
+        let mut inventory = Inventory::default();
+        if let Some(items) = self.preplacements.get(&reached) {
+            if verbose { eprintln!("Collecting preplacements on {}", reached); }
+            inventory = items.clone();
+        }
 
-            for item in inventory.inventory.keys() {
-                self.grant_player(item.clone(), inventory.inventory[item], verbose);
-            }
+        for item in inventory.inventory.keys() {
+            self.grant_player(item.clone(), inventory.inventory[item], verbose);
         }
     }
 }
@@ -468,6 +461,7 @@ impl<'a> World<'a> {
 mod tests {
     use super::*;
     use super::super::*;
+    use pool::ItemPool;
     use util::*;
     use rustc_hash::FxHashSet;
 
@@ -477,7 +471,7 @@ mod tests {
     fn reach_check() {
         let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
         let mut world = World::new(graph);
-        world.player.inventory = default_pool();
+        world.player.inventory = ItemPool::preset(&[Pathset::Moki]).progressions;
         world.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), 10000);
 
         let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();

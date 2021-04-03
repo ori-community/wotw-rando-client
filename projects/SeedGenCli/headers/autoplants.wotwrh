@@ -1,5 +1,7 @@
 9|0|8|9|0|int|0  // for temporary usage
 
+// TODO logic support?
+
 // occupies 9|0=11
 42178|33011=1|8|42178|33011|byte|3  // Blue Moon
 42178|64583=1|8|42178|64583|byte|3  // Sticky Grass

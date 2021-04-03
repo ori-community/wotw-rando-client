@@ -123,6 +123,7 @@ impl Skill {
         }
     }
 }
+// TODO maybe it would be better to add another layer of enumeration and split into "stacked" and "single"
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Resource {
     SpiritLight,
@@ -542,6 +543,7 @@ pub fn read_file(file: &PathBuf, default_folder: &str) -> Result<String, io::Err
     })
 }
 
+// TODO these are skill bound, put them in impl skill?
 pub fn energy_cost(skill: Skill) -> f32 {
     match skill {
         Skill::Bow => 0.25,
@@ -577,7 +579,7 @@ pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
                 let spirit_light: u16 = spirit_light.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
                 Ok((Item::Resource(Resource::SpiritLight, 1), spirit_light))
             }
-        }
+        },
         "1" => {
             let resource_type = parts.next().ok_or_else(|| format!("missing resource type in pickup {}", pickup))?;
             let resource_type: u8 = resource_type.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
@@ -593,7 +595,7 @@ pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
                 let skill = Skill::from_id(skill_type).ok_or_else(|| format!("invalid skill type in pickup {}", pickup))?;
                 Ok((Item::Skill(skill), 1))
             }
-        }
+        },
         "3" => {
             let shard_type = parts.next().ok_or_else(|| format!("missing shard type in pickup {}", pickup))?;
             if shard_type.starts_with('-') {
@@ -603,7 +605,7 @@ pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
                 let shard = Shard::from_id(shard_type).ok_or_else(|| format!("invalid shard type in pickup {}", pickup))?;
                 Ok((Item::Shard(shard), 1))
             }
-        }
+        },
         "5" => {
             let teleporter_type = parts.next().ok_or_else(|| format!("missing teleporter type in pickup {}", pickup))?;
             if teleporter_type.starts_with('-') {
@@ -613,7 +615,7 @@ pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
                 let teleporter = Teleporter::from_id(teleporter_type).ok_or_else(|| format!("invalid teleporter type in pickup {}", pickup))?;
                 Ok((Item::Teleporter(teleporter), 1))
             }
-        }
+        },
         "8" => {
             // sanitize, don't know if this is user input through headers and later it would crash on malformed pickups
             let uber_group = parts.next().ok_or_else(|| format!("missing uber group in pickup {}", pickup))?;
@@ -636,7 +638,7 @@ pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
 
             let command = format!("{}|{}|{}|{}", uber_group, uber_id, uber_type, value);
             Ok((Item::UberState(command), 1))
-        }
+        },
         "9" => {
             let world_event_type = parts.next().ok_or_else(|| format!("missing world event type in pickup {}", pickup))?;
             if world_event_type.starts_with('-') {
@@ -646,26 +648,27 @@ pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
                 if world_event_type != 0 { return Err(format!("invalid world event type in pickup {}", pickup)); }
                 Ok((Item::Water, 1))
             }
-        }
+        },
         "10" => {
             let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
             let bonus_type: u8 = bonus_type.parse().map_err(|_| format!("invalid bonus item type in pickup {}", pickup))?;
             let bonus = BonusItem::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
             Ok((Item::BonusItem(bonus), 1))
-        }
+        },
         "11" => {
             let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
             let bonus_type: u8 = bonus_type.parse().map_err(|_| format!("invalid bonus item type in pickup {}", pickup))?;
             let bonus = BonusUpgrade::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
             Ok((Item::BonusUpgrade(bonus), 1))
-        }
+        },
         "12" => {
             let hint_type = parts.next().ok_or_else(|| format!("missing hint type in pickup {}", pickup))?;
             let hint_type: u8 = hint_type.parse().map_err(|_| format!("invalid hint type in pickup {}", pickup))?;
             let hint = Hint::from_id(hint_type).ok_or_else(|| format!("invalid hint type in pickup {}", pickup))?;
             Ok((Item::Hint(hint), 1))
-        }
-        "4" | "6" => {
+        },
+        // TODO validate all pickup types
+        "4" | "6" | "13" => {
             Ok((Item::Custom(pickup.to_string()), 1))
         }
         _ => Err(format!("invalid pickup type in pickup {}", pickup)),

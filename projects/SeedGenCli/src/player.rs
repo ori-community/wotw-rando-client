@@ -92,6 +92,7 @@ impl Player {
         }
     }
 
+    // TODO burn damage doesn't get buffed because moonity:tm:
     pub fn damage_mod(&self, flying_target: bool) -> f32 {
         let is_unsafe = self.unsafe_paths;
 
@@ -147,6 +148,53 @@ impl Player {
         else if self.gorlek_paths && self.inventory.has(&Item::Skill(Skill::Grenade), 1) { Some(Skill::Grenade) }
         else if self.inventory.has(&Item::Skill(Skill::Spear), 1) { Some(Skill::Spear) }
         else { None }
+    }
+
+    pub fn progression_weapons(&self, wall: bool) -> Vec<Skill> {
+        let preferred = self.preferred_weapon(wall);
+        let mut weapons = vec![Skill::Sword, Skill::Hammer];
+        if preferred != Some(Skill::Sword) && preferred != Some(Skill::Hammer) {
+            weapons.push(Skill::Bow);
+        }
+        if preferred != Some(Skill::Bow) {
+            if self.unsafe_paths { weapons.push(Skill::Grenade); }
+            else { weapons.push(Skill::Shuriken); }
+        }
+        if self.unsafe_paths && preferred != Some(Skill::Grenade) { weapons.push(Skill::Shuriken); }
+        if preferred != Some(Skill::Shuriken) {
+            if self.unsafe_paths && !wall { weapons.push(Skill::Flash); }
+            else { weapons.push(Skill::Blaze); }
+        }
+        if self.unsafe_paths && !wall && preferred != Some(Skill::Flash) { weapons.push(Skill::Blaze); }
+        if preferred != Some(Skill::Blaze) {
+            if self.unsafe_paths { weapons.push(Skill::Sentry); }
+            else { weapons.push(Skill::Grenade); }
+        }
+        if self.unsafe_paths && preferred != Some(Skill::Sentry) { weapons.push(Skill::Spear); }
+        if !self.unsafe_paths && preferred != Some(Skill::Grenade) { weapons.push(Skill::Spear); }
+
+        return weapons;
+    }
+
+    pub fn missing_items(&self, needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Inventory {
+        let mut missing = needed.clone();
+
+        // TODO needed is probably smaller, iterate through that?
+        for (item, amount) in &self.inventory.inventory {
+            missing.remove(item, *amount);
+        }
+
+        let orbs = current_orbs + orb_cost;
+        if orbs.health < 0.0 {
+            let health_fragments = (-orbs.health / 5.0).ceil() as u16;
+            missing.grant(Item::Resource(Resource::Health, 1), health_fragments);
+        }
+        if orbs.energy < 0.0 {
+            let energy_fragments = (-orbs.energy * 2.0).ceil() as u16;
+            missing.grant(Item::Resource(Resource::Energy, 1), energy_fragments);
+        }
+
+        missing
     }
 }
 

@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::fs;
 use std::io::{self, Read};
 use std::time::Instant;
@@ -7,7 +7,7 @@ use structopt::StructOpt;
 use bugsalot::debugger;
 
 use rand_seeder::Seeder;
-use rand_pcg::Pcg32;
+use rand::rngs::StdRng;
 
 use seedgen::{generate_seed, lexer, inventory, world, util};
 
@@ -17,17 +17,18 @@ use util::settings::{Settings, Spawn, SeedFlags};
 use util::{Pathset, Resource, Skill, Teleporter, Shard};
 
 #[derive(StructOpt)]
-/// Generate seeds for the Ori 2 randomizer
+/// Generate seeds for the Ori 2 randomizer. Type seedgen.exe seed --help for instructions
 struct SeedGen {
     #[structopt(subcommand)]
     command: Command,
 }
 
+// TODO header tools?
 #[derive(StructOpt)]
 enum Command {
     /// Generate a seed
     /// 
-    /// You can pipe headers, they will be added to the file and inline headers
+    /// Example: seedgen.exe seed filename --spawn random --flags moki trees --headers teleporters hints skippable_cutscenes
     Seed {
         /// the output location to write the seed into. The file name will also seed the rng
         #[structopt(parse(from_os_str))]
@@ -35,13 +36,13 @@ enum Command {
         /// if you don't want the output to be used as seed, specify a seed here instead
         #[structopt(long)]
         seed: Option<String>,
-        /// the input file representing the logic, usually called areas.wotw
+        /// the input file representing the logic
         #[structopt(parse(from_os_str), default_value = "areas.wotw", short, long)]
         areas: PathBuf,
-        /// the input file representing pickup locations, usually called loc_data.csv
+        /// the input file representing pickup locations
         #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
         locations: PathBuf,
-        /// the input file representing state namings, usually called state_data.csv
+        /// the input file representing state namings
         #[structopt(parse(from_os_str), default_value = "state_data.csv", short, long)]
         uber_states: PathBuf,
         /// skip validating the input files for a slight performance gain
@@ -64,9 +65,9 @@ enum Command {
         /// Has to be an anchor name from the areas file, defaults to "MarshSpawn.Main"
         #[structopt(short, long)]
         spawn: Option<String>,
-        /// valid inputs are pathsets and goal modes
+        /// which pathsets and goal modes to use
         /// 
-        /// mo, moki, go, gorlek, gl, glitch, un, unsafe, t, trees, w, wisps, q, quests, r, relics
+        /// valid inputs are "mo", "moki", "go", "gorlek", "gl", "glitch", "un", "unsafe", "t", "trees", "w", "wisps", "q", "quests", "r", "relics"
         #[structopt(short = "f", long = "flags")]
         generation_flags: Vec<String>,
         /// paths to headers stored in files
@@ -80,13 +81,13 @@ enum Command {
         /// the seed file for which logical reach should be checked
         #[structopt(parse(from_os_str))]
         seed_file: PathBuf,
-        /// the input file representing the logic, usually called areas.wotw
+        /// the input file representing the logic
         #[structopt(parse(from_os_str), default_value = "areas.wotw", short, long)]
         areas: PathBuf,
-        /// the input file representing pickup locations, usually called loc_data.csv
+        /// the input file representing pickup locations
         #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
         locations: PathBuf,
-        /// the input file representing state namings, usually called state_data.csv
+        /// the input file representing state namings
         #[structopt(parse(from_os_str), default_value = "state_data.csv", short, long)]
         uber_states: PathBuf,
         /// player health (one orb is 10 health)
@@ -99,7 +100,7 @@ enum Command {
         ore: u16,
         /// player spirit light
         spirit_light: u16,
-        /// any additional player items in the format s:<skill id>, t:<teleporter id> or sh:<shard id>
+        /// any additional player items in the format s:<skill id>, t:<teleporter id>, sh:<shard id>, w:<world event id> or u:<ubergroup>,<uberid>
         items: Vec<String>,
     }
 }
@@ -198,8 +199,9 @@ fn main() {
             eprintln!("Parsed logic in {:?}", now.elapsed());
 
             output.set_extension("wotwr");
+            // TODO default into a seeds folder?
 
-            let rng: Pcg32 = if let Some(seed) = seed {
+            let rng: StdRng = if let Some(seed) = seed {
                 Seeder::from(seed).make_rng()
             } else {
                 Seeder::from(output.file_name()).make_rng()
@@ -219,7 +221,7 @@ fn main() {
                 version: env!("CARGO_PKG_VERSION").to_string(),
                 spoilers: !race,
                 pathsets,
-                output_folder: output.clone(),
+                output_folder: output.parent().unwrap_or(Path::new("")).to_path_buf(),
                 flags: SeedFlags {
                     force_wisps: flags.force_wisps,
                     force_trees: flags.force_trees,
@@ -234,6 +236,8 @@ fn main() {
 
             let seed = generate_seed(&graph, &settings, &headers, rng, verbose).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
             eprintln!("Generated seed in {:?}", now.elapsed());
+            // TODO spoilers
+
             fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         },
         Command::ReachCheck { mut seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {

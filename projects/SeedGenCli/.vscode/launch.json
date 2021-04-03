@@ -7,18 +7,18 @@
         {
             "type": "lldb",
             "request": "attach",
-            "name": "Attach executable 'seed_gen_cli'",
+            "name": "Attach executable 'seedgen'",
             "pid": "${command:pickMyProcess}"
         },
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'seed_gen_cli'",
+            "name": "Debug executable 'seedgen'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=seed_gen_cli",
-                    "--package=seed_gen_cli"
+                    "--bin=seedgen",
+                    "--package=seedgen"
                 ],
                 "filter": {
                     "kind": "bin"
@@ -27,14 +27,7 @@
             "args": [
                 "seed",
                 "test",
-                "--areas",
-                "areas.wotw",
-                "--locations",
-                "loc_data.csv",
                 "--debug",
-                "--validate",
-                "--gen_flags",
-                "moki"
             ],
             "cwd": "${workspaceFolder}"
         },
@@ -45,8 +38,8 @@
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=seed_gen_cli",
-                    "--package=seed_gen_cli"
+                    "--bin=seedgen",
+                    "--package=seedgen"
                 ],
                 "filter": {
                     "kind": "bin"
@@ -95,12 +88,12 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'seed_gen_cli'",
+            "name": "Debug unit tests in executable 'seedgen'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--lib=seed_gen_cli",
+                    "--lib=seedgen",
                 ],
                 "filter": {
                     "kind": "lib"

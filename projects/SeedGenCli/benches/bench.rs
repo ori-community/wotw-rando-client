@@ -8,6 +8,7 @@ use seedgen::*;
 use lexer::*;
 use player::*;
 use inventory::*;
+use pool::*;
 use world::*;
 use requirements::*;
 use util::*;
@@ -93,10 +94,9 @@ fn reach_checking(c: &mut Criterion) {
         world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
-        let mut player = Player::default();
-        player.inventory = default_pool();
-        player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), 10000);
-        let world = World::new(graph);
+        let mut world = World::new(graph);
+        world.player.inventory = ItemPool::preset(&[Pathset::Moki]).progressions;
+        world.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), 10000);
         world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));
 }
