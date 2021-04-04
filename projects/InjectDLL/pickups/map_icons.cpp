@@ -220,8 +220,8 @@ namespace
                 { true, 21786, 27433, -1.f }, {} },
             { app::WorldMapIconType__Enum_Keystone, -393.719452f, -4188.882813f, false, true,
                 { true, 21786, 37225, -1.f }, {} },
-            { app::WorldMapIconType__Enum_EnergyFragment, -421.697601f, -4273.036133f, false, true,
-                { true, 21786, 10295, -1.f }, {} },
+            //{ app::WorldMapIconType__Enum_EnergyFragment, -421.697601f, -4273.036133f, false, true,
+            //    { true, 21786, 10295, -1.f }, {} },
             { app::WorldMapIconType__Enum_AbilityPedestal, -457.110748f, -4260.f, false, true,
                 { true, uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Bow, -1.f  }, {} },
         };
