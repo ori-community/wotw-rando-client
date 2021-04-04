@@ -158,11 +158,10 @@ int actual_main()
     dev_mode = find_option(settings, "Flags", "Dev")->value.b;
 
     HWND window;
-    for (auto i = 0; i < 30; i++) {
+    for (auto i = 0; i < 300; i++) {
         window = FindWindow(nullptr, "OriAndTheWilloftheWisps");
         if (window != 0)
             break;
-
         Sleep(1000);
         logstream << "waiting for the game to start..." << std::endl;
     }
