@@ -72,8 +72,8 @@ namespace RandoMainDLL {
             }
             catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
           }
-        if(Randomizer.Dev)
-          Randomizer.Log($"Reach check:\nseed_gen_cli.exe {String.Join(" ", argsList)}\n gave output: \n{rawOutput}\n stderr was {proc.StandardError.ReadToEnd()}", false);
+/*        if(Randomizer.Dev)
+          Randomizer.Log($"Reach check:\nseed_gen_cli.exe {String.Join(" ", argsList)}\n gave output: \n{rawOutput}\n stderr was {proc.StandardError.ReadToEnd()}", false);*/
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }

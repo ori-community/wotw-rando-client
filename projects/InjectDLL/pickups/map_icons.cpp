@@ -494,7 +494,7 @@ namespace
     bool shown_by_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
     {
         // Always show warps check
-        if (icon->fields.Icon == app::WorldMapIconType__Enum_SavePedestal && csharp_bridge::check_ini("AlwaysShowWarps"))
+        if (icon->fields.Icon == app::WorldMapIconType__Enum_SavePedestal && csharp_bridge::check_ini("AlwaysShowWarps") && RuntimeWorldMapIcon::CanBeTeleportedTo(icon))
             // the icon filter here might be limiting but without it, the tpcheat spams every filter so meh
             return true;
 
