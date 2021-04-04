@@ -36,6 +36,12 @@ namespace RandoMainDLL {
     [Description("Unknown")]
     Void
   }
+  public enum HintType : byte {
+    None,
+    [Description("Skills")] Skills,
+    [Description("Teleporters")] Warps,
+    [Description("Key items")]All = 10,
+  }
 
   public static class HintsController {
     public static Dictionary<AreaType, ZoneType> AreaToZone = new Dictionary<AreaType, ZoneType>() {
@@ -72,13 +78,13 @@ namespace RandoMainDLL {
     public static bool IsKeyItem(this Pickup p) {
       if(p is Ability a) 
         return !BadSkills.Contains(a.type);
-      return (p is QuestEvent);
+      return p is QuestEvent || p is Teleporter;
     }
 
     public static Dictionary<ZoneType, List<Checkable>> KeyItemsByZone = new Dictionary<ZoneType, List<Checkable>>();
     public static Dictionary<Checkable, ZoneType> CheckableLocs = new Dictionary<Checkable, ZoneType>();
     public static Dictionary<CheckableHint, UberId> CheckableHints = new Dictionary<CheckableHint, UberId>();
-
+    public static Dictionary<TeleporterType, ZoneType> TPLocs = new Dictionary<TeleporterType, ZoneType>();
     public static Dictionary<AbilityType, ZoneType> SkillLocs = new Dictionary<AbilityType, ZoneType>();
     public static ZoneType CleanWaterZone = ZoneType.Void;
     private static int nextCheckable = 0;
@@ -87,6 +93,7 @@ namespace RandoMainDLL {
       KeyItemsByZone.Clear();
       CheckableLocs.Clear();
       SkillLocs.Clear();
+      TPLocs.Clear();
       CheckableHints.Clear();
       ZoneHints.Clear();
       nextCheckable = 10;
@@ -110,7 +117,8 @@ namespace RandoMainDLL {
         SkillLocs[abil.type] = zone;
       else if (item is QuestEvent q && q.type == QuestEventType.Water)
         CleanWaterZone = zone;
-
+      else if (item is Teleporter t)
+        TPLocs[t.type] = zone;
       if (KeyItemsByZone.ContainsKey(zone))
         KeyItemsByZone[zone].Add(item);
       else
@@ -133,30 +141,33 @@ namespace RandoMainDLL {
       }
 
       var zone = _zone == ZoneType.Void ? CurrentZone : _zone;
-      var msg = getZoneHintMessage(zone, justUnlocked);
+      var msg = getZoneHintMessage(zone);
       if (justUnlocked)
         msg = $"Bought hint: {msg.TrimStart()}";
-      else if(ZoneHints.Contains(zone))
+      else if(zone.BestHint() != HintType.None)
         msg = $"{SeedController.Progress}\n{msg}{GetKeySkillHints()}";
       else
         msg = $"{SeedController.Progress}{GetKeySkillHints()}";
       AHK.SendPlainText(new PlainText(msg, duration), justUnlocked);
     }
 
-    private static string getZoneHintMessage(ZoneType zone, bool justUnlocked = false, bool isOnMap = false) {
+    private static string getZoneHintMessage(ZoneType zone, bool isOnMap = false) {
       if (zone == ZoneType.Void) return $"no hint for Void (area {InterOp.get_player_area()})";
-      if (!justUnlocked && !ZoneHints.Contains(zone))
+      var bestHintKind = zone.BestHint();
+      if (bestHintKind == HintType.None)
         return "";
-      var items = KeyItemsByZone.GetOrElse(zone, new List<Checkable>());
+      var items = KeyItemsByZone.GetOrElse(zone, new List<Checkable>()).Where(c => bestHintKind.ValidForType(c)).ToList();
       var found = items.FindAll(i => i.Has());
       var rmsg = isOnMap ? Relic.MapMessage(zone) : "";
-      if (!justUnlocked && !HaveHintForZone(zone)) return $"{zone}: {found.Count}/?? key items{rmsg}{(isOnMap ? "\n" : " ")}(Hint not unlocked)";
-
+      var hint = zone.HintState();
+      if (hint == HintType.None) return $"{zone}: {found.Count}/?? Key items{rmsg}{(isOnMap ? "\n" : " ")}(No hint unlocked)";
+      var validForCurrent = items.Where(c => hint.ValidForType(c)).ToList();
+      found = found.Where(c => hint.ValidForType(c)).ToList();
       var g = found.Count == items.Count ? "$" : "";
       if (found.Count > 0)
-        return $"{zone}: {g}{found.Count}/{items.Count}{g} key items{rmsg}\nfound: {String.Join(", ", found.Select(i => i.DisplayName))}";
+        return $"{zone}: {g}{found.Count}/{validForCurrent.Count}{g} {hint.GetDescription()}{rmsg}\nfound: {String.Join(", ", found.Select(i => i.DisplayName))}";
       else
-        return $"{zone}: {found.Count}/{items.Count} key items{rmsg}";
+        return $"{zone}: {found.Count}/{items.Count} {hint.GetDescription()}{rmsg}";
     }
     public static ZoneType toZone(this AreaType t) => AreaToZone.GetOrElse(t, ZoneType.Void);
     // the two below shouldn't be properties, but i wanted to make the one above a property too?
@@ -171,20 +182,34 @@ namespace RandoMainDLL {
         }
       }
     }
-    public static bool HaveHintForZone(ZoneType zone) {
-        try {
-          if (zone == ZoneType.Void)
-            return false;
-          if (zone == ZoneType.Ruins)
-            return UberGet.value(6, 10009).Bool;
-          return UberGet.value(6, 10000 + (int)zone).Bool;
-        }
-        catch (Exception e) {
-          Randomizer.Error("Hints.HaveHintForZone", e, false);
-          return false;
-        }
+    public static HintType HintState(this ZoneType zone) {
+      try {
+        if (zone == ZoneType.Void)
+          return HintType.None;
+        if (zone == ZoneType.Ruins)
+          return (HintType)UberGet.Byte(6, 10009);
+        return (HintType)UberGet.Byte(6, 10000 + (int)zone);
+      }
+      catch (Exception e) {
+        Randomizer.Error("Hints.HaveHintForZone", e, false);
+        return HintType.None;
+      }
     }
-      //new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
+    public static bool ValidForType(this HintType zhs, Checkable c) {
+      switch(zhs) {
+        case HintType.Skills:
+          return c is Ability || (c is QuestEvent q && q.type == QuestEventType.Water);
+        case HintType.Warps:
+          return c is Teleporter;
+        case HintType.All:
+          return HintType.Skills.ValidForType(c) ||
+                 HintType.Warps.ValidForType(c);
+        default:
+          return false;
+      }
+    }
+    public static HintType BestHint(this ZoneType zone) => ZoneHints.GetOrElse(zone, HintType.None);
+    //new UberState() { Name = "mapmakerShowMapIconShardUberState", ID = 41666, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState };
     public static string GetKeySkillHints() {  
       String ret = string.Join("\n", CheckableHints.Where((kv) => kv.Value.GetValue().Bool).Select(kv => kv.Key.Hint));
       if (ret.Length > 0)
@@ -198,7 +223,7 @@ namespace RandoMainDLL {
       return $"{w}{c.Name}: {loc}{w}";
     }
 
-    public static HashSet<ZoneType> ZoneHints = new HashSet<ZoneType>();
+    public static Dictionary<ZoneType, HintType> ZoneHints = new Dictionary<ZoneType, HintType>();
 
   }
 }

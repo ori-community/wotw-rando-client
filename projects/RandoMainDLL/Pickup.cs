@@ -884,18 +884,19 @@ namespace RandoMainDLL {
   public class ZoneHint : Hint {
     public override PickupType Type => PickupType.ZoneHint;
     public readonly ZoneType Zone;
-    public override WorldMapIconType Icon => WorldMapIconType.QuestItem;
-
+    public readonly HintType hintType;
     public override int DefaultCost() => 200;
-
     public override string DisplayName => $"{Zone} hint";
-    public ZoneHint(ZoneType zone) {
+    public ZoneHint(ZoneType zone, HintType hint = HintType.Skills) {
       Zone = zone;
-      HintsController.ZoneHints.Add(zone);
+      HintsController.ZoneHints[zone] = hint;
+      hintType = hint;
     }
-    public override string Desc => $"information on $Key Items$ in #{Zone.GetDescription()}#";
+    public override string Desc => $"{hintType} hint for #{Zone.GetDescription()}#";
     public override void Grant(bool skipBase = false) {
-      UberSet.Bool(6, 10000 + (int)Zone, true);
+      int id = 10000 + (int)Zone;
+      byte setTo = Math.Max(UberGet.Byte(6, id), (byte)hintType);
+      UberSet.Byte(6, id, setTo);
       HintsController.ProgressWithHints(Zone, true);
       base.Grant(true);
     }
