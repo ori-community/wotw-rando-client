@@ -1,3 +1,7 @@
+/// Teleporters
+///
+/// Find teleporter activations as pickups
+
 !!add 5|0
 !!add 5|1
 !!add 5|2

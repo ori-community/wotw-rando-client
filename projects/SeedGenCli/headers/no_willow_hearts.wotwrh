@@ -1,4 +1,7 @@
-// Removes the corrupted hearts in Willow's End
+/// No Willow Hearts
+///
+/// Start with the final door in Willow's End open
+
 3|0|8|16155|42976|bool|true  // WillowsEnd.GlideHeart
 3|0|8|16155|54940|bool|true  // WillowsEnd.SpinLasersHeart
 3|0|8|16155|24290|bool|true  // WillowsEnd.SpinPortalsHeart

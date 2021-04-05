@@ -1,5 +1,7 @@
-// Skip all combat heavy parts. Shrine have their pickup floating above them before the fight,
-// all the arenas start as completed and all boss' combat phases are skipped.
+/// No Combat
+///
+/// Skip all combat heavy parts. Shrine have their pickup floating above them before the fight
+/// all the arenas start as completed and all boss' combat phases are skipped
 
 3|0|8|21786|2869|bool|true             // Marsh shrine start as completed
 3|0|8|24922|45011|bool|true            // Howls shrine start as completed

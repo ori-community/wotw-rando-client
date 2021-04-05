@@ -1,6 +1,8 @@
-9|0|8|9|0|int|0  // for temporary usage
-
+/// Autoplants
+///
+/// plants seeds in glades as you collect them
 // TODO logic support?
+!!include header_core
 
 // occupies 9|0=11
 42178|33011=1|8|42178|33011|byte|3  // Blue Moon

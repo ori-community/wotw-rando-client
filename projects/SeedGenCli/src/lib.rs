@@ -1,17 +1,20 @@
 pub mod lexer;
 pub mod world;
+pub mod uberstate;
 pub mod pool;
 pub mod player;
 pub mod inventory;
 pub mod requirements;
 pub mod generator;
+pub mod headers;
 pub mod util;
+
+use std::collections::HashSet;
 
 use rand::seq::IteratorRandom;
 use rand::rngs::StdRng;
 
-use world::{World, WorldGraph, Node, Anchor, Position, UberState};
-use inventory::{Inventory, Item};
+use world::{World, WorldGraph, Node, Anchor, Position};
 use pool::ItemPool;
 use generator::Placement;
 use util::settings::{Settings, Spawn};
@@ -65,92 +68,6 @@ fn write_flags(settings: &Settings) -> String {
     flags
 }
 
-fn parse_count(pickup: &mut &str) -> u16 {
-    if let Some(index) = pickup.find('x') {
-        let amount = pickup[..index].trim();
-        if let Ok(amount) = amount.parse::<u16>() {
-            *pickup = &pickup[index + 1..];
-            return amount;
-        }
-    }
-    1
-}
-
-fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[Pathset]) -> Result<String, String> {
-    let mut processed = String::new();
-    for line in header.lines() {
-        let mut trimmed = line.trim();
-        let comment = line.find("//");
-        if let Some(index) = comment {
-            trimmed = &line[..index];
-        }
-        if let Some(command) = trimmed.strip_prefix("!!") {
-            if let Some(mut pickup) = command.strip_prefix("add ") {
-                let count = parse_count(&mut pickup);
-                let (item, amount) = util::parse_pickup(pickup)?;
-                if verbose { eprintln!("adding {}x {} to the item pool", amount, item); }
-                world.pool.grant(item, count * amount, pathsets);
-            } else if let Some(mut pickup) = command.strip_prefix("remove ") {
-                let count = parse_count(&mut pickup);
-                let (item, amount) = util::parse_pickup(pickup)?;
-                if verbose { eprintln!("removing {}x {} from the item pool", amount, item); }
-                world.pool.remove(&item, count * amount);
-            } else if command.starts_with("set ") {
-                eprintln!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
-            } else {
-                return Err(format!("Unknown command '{}'", command))
-            }
-        } else if let Some(ignored) = trimmed.strip_prefix('!') {
-            processed += ignored;
-            processed.push('\n');
-        } else {
-            if !trimmed.is_empty() {
-                let mut parts = trimmed.splitn(3, '|');
-                let uber_group = parts.next().unwrap();
-                let uber_id = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
-                let uber_state = UberState::from_parts(uber_group, uber_id)?;
-
-                let item = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
-                let (item, amount) = util::parse_pickup(item)?;
-
-                // if someone sets an uberstate on spawn, they probably don't want a pickup placed on it
-                if let Item::UberState(command) = &item {
-                    if uber_state.identifier.uber_group == 3 && uber_state.identifier.uber_id == 0 {
-                        let mut parts = command.split('|');
-                        let uber_group = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
-                        let mut uber_id = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?.to_string();
-                        let uber_type = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
-                        let value = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
-
-                        if uber_type != "bool" {
-                            uber_id.push('=');
-                            uber_id += value;
-                        }
-                        let target = UberState::from_parts(uber_group, &uber_id)?;
-
-                        // TODO this happens when it shouldn't?
-                        if verbose { eprintln!("adding an empty pickup at {} to prevent placements", target); }
-                        let null_item = Item::Custom(String::from("6|f=0|quiet|noclear"));
-
-                        let preplacement = world.preplacements.entry(target).or_insert_with(Inventory::default);
-                        preplacement.grant(null_item, amount);
-                    }
-                }
-
-                let preplacement = world.preplacements.entry(uber_state).or_insert_with(Inventory::default);
-                preplacement.grant(item.clone(), amount);
-
-                if verbose { eprintln!("removing {}x {} from the item pool", amount, item); }
-                world.pool.remove(&item, amount);
-            }
-            processed += line;
-            processed.push('\n');
-        }
-    }
-    processed.push('\n');
-    Ok(processed)
-}
-
 #[derive(Debug, Default)]
 struct SpawnLoc {
     identifier: String,
@@ -162,17 +79,38 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
     world.pool = ItemPool::preset(&settings.pathsets);
     world.player.spawn(settings);
 
+    let flag_line = write_flags(settings);
+
     let mut header_block = String::new();
+    let mut total_dependencies = HashSet::new();
     for header in headers {
-        header_block += &parse_header(header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+        let (header, dependencies) = headers::parse_header(header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+        header_block += &header;
+        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
         let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
-        header_block += &parse_header(&header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+        let (header, dependencies) = headers::parse_header(&header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+        header_block += &header;
+        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
 
-    let flag_line = write_flags(settings);
+    let mut depth = 0;
+    while !total_dependencies.is_empty() {
+        let mut nested_dependencies = HashSet::new();
+        for dependency in total_dependencies.drain() {
+            let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {:?}: {}", dependency, err))?;
+            let (header, dependencies) = &headers::parse_header(&header, &mut world, verbose, &settings.pathsets)?;
+            header_block += &header;
+            nested_dependencies = nested_dependencies.union(&dependencies).cloned().collect();
+        }
+        total_dependencies = nested_dependencies;
+        depth += 1;
+        if depth > 100 {
+            return Err(String::from("More than 100 nested dependencies. Is there a circular !!include?"));
+        }
+    }
 
     let mut spawn;
     let mut spawn_loc = SpawnLoc::default();
@@ -199,7 +137,7 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
     };
     if placements.is_empty() { return Err(format!("All {} attempts to generate a seed failed :(", RETRIES)); }
 
-    let mut spawn_line = String::new();
+    let mut spawn_line = String::from('\n');
     if spawn_loc.identifier != DEFAULTSPAWN {
         spawn_line = format!("Spawn: {}  // {}\n", spawn_loc.position, spawn_loc.identifier);
     }
@@ -209,29 +147,4 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
     let config_line = format!("\n// Config: {}", util::settings::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?);
 
     Ok(flag_line + &spawn_line + &header_block + &placement_block + &config_line)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use inventory::Item;
-    use util::BonusItem;
-
-    use std::path::PathBuf;
-
-    #[test]
-    fn header_parsing() {
-        let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
-        let mut world = World::new(&graph);
-        let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut world, false, &[Pathset::Moki]).unwrap();
-        let mut expected = Inventory::default();
-        expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
-        expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);
-        expected.grant(Item::BonusItem(BonusItem::EnergyRegen), 3);
-        expected.grant(Item::BonusItem(BonusItem::HealthRegen), 3);
-        assert_eq!(world.pool.fillers, expected);
-        assert!(world.preplacements.contains_key(&UberState::from_parts("1", "106").unwrap()));
-        assert!(!world.preplacements.contains_key(&UberState::from_parts("1", "105").unwrap()));
-    }
 }

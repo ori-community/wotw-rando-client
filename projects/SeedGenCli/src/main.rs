@@ -9,30 +9,32 @@ use bugsalot::debugger;
 use rand_seeder::Seeder;
 use rand::rngs::StdRng;
 
-use seedgen::{generate_seed, lexer, inventory, world, util};
+use seedgen::{generate_seed, lexer, inventory, world, uberstate, headers, util};
 
 use inventory::Item;
-use world::{World, UberState, UberValue};
+use world::World;
+use uberstate::{UberState, UberValue};
 use util::settings::{Settings, Spawn, SeedFlags};
 use util::{Pathset, Resource, Skill, Teleporter, Shard};
 
 #[derive(StructOpt)]
-/// Generate seeds for the Ori 2 randomizer. Type seedgen.exe seed --help for instructions
+/// Generate seeds for the Ori 2 randomizer.
+///
+/// Type seedgen.exe seed --help for further instructions
 struct SeedGen {
     #[structopt(subcommand)]
     command: Command,
 }
 
-// TODO header tools?
 #[derive(StructOpt)]
 enum Command {
     /// Generate a seed
     /// 
-    /// Example: seedgen.exe seed filename --spawn random --flags moki trees --headers teleporters hints skippable_cutscenes
+    /// Example: seedgen.exe seed filename --flags moki trees --headers default
     Seed {
         /// the output location to write the seed into. The file name will also seed the rng
         #[structopt(parse(from_os_str))]
-        output: PathBuf,
+        filename: PathBuf,
         /// if you don't want the output to be used as seed, specify a seed here instead
         #[structopt(long)]
         seed: Option<String>,
@@ -44,7 +46,7 @@ enum Command {
         locations: PathBuf,
         /// the input file representing state namings
         #[structopt(parse(from_os_str), default_value = "state_data.csv", short, long)]
-        uber_states: PathBuf,
+        states: PathBuf,
         /// skip validating the input files for a slight performance gain
         #[structopt(short, long)]
         trust: bool,
@@ -60,7 +62,7 @@ enum Command {
         /// required for coop and bingo
         #[structopt(short, long)]
         netcode: bool,
-        /// Where to spawn the player in, or "r" / "random" to spawn on a random teleporter, or "f" / "fullyrandom"...
+        /// Where to spawn the player in (use "r" / "random" for a random teleporter and or "f" / "fullyrandom" for any location)
         /// 
         /// Has to be an anchor name from the areas file, defaults to "MarshSpawn.Main"
         #[structopt(short, long)]
@@ -70,7 +72,7 @@ enum Command {
         /// valid inputs are "mo", "moki", "go", "gorlek", "gl", "glitch", "un", "unsafe", "t", "trees", "w", "wisps", "q", "quests", "r", "relics"
         #[structopt(short = "f", long = "flags")]
         generation_flags: Vec<String>,
-        /// paths to headers stored in files
+        /// paths to headers stored in files which will be added to the seed
         #[structopt(parse(from_os_str), short, long = "headers")]
         header_paths: Vec<PathBuf>,
         /// inline headers
@@ -102,7 +104,45 @@ enum Command {
         spirit_light: u16,
         /// any additional player items in the format s:<skill id>, t:<teleporter id>, sh:<shard id>, w:<world event id> or u:<ubergroup>,<uberid>
         items: Vec<String>,
-    }
+    },
+    /// Inspect or modify the available headers
+    Headers {
+        /// headers to look at in detail
+        #[structopt(parse(from_os_str))]
+        headers: Vec<PathBuf>,
+        #[structopt(subcommand)]
+        subcommand: Option<HeaderCommand>,
+    },
+}
+
+#[derive(StructOpt)]
+enum HeaderCommand {
+    /// Inspect or modify your presets
+    Presets {
+        #[structopt(subcommand)]
+        subcommand: Option<PresetCommand>,
+    },
+    /// Check header compability
+    Validate
+}
+
+#[derive(StructOpt)]
+enum PresetCommand {
+    /// Create a preset with two or more headers
+    Create {
+        /// name of the preset
+        ///
+        /// later you can seed <name> -h <preset-name> to use this preset
+        #[structopt(parse(from_os_str))]
+        name: PathBuf,
+        /// headers to add to the preset
+        #[structopt(required = true, min_values = 2)]
+        headers: Vec<String>,
+    },
+    /// Remove a preset
+    Remove {
+        name: String,
+    },
 }
 
 fn read_header() -> String {
@@ -183,8 +223,10 @@ fn parse_flags(generation_flags: &[String]) -> GenFlags {
 }
 
 fn main() {
-    match SeedGen::from_args().command {
-        Command::Seed { mut output, seed, areas, locations, uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
+    let args = SeedGen::from_args();
+
+    match args.command {
+        Command::Seed { mut filename, seed, areas, locations, states: uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
             if wait_on_debugger {
                 eprintln!("waiting for debugger...");
                 debugger::wait_until_attached(None).expect("state() not implemented on this platform");
@@ -192,19 +234,23 @@ fn main() {
 
             let now = Instant::now();
 
+            // TODO unspecified filename
+            // TODO duplicate filenames
+            // TODO default headers
+
             let flags = parse_flags(&generation_flags);
             let pathsets = flags.pathsets();
 
             let graph = lexer::parse_logic(&areas, &locations, &uber_states, &pathsets, !trust).unwrap();
             eprintln!("Parsed logic in {:?}", now.elapsed());
 
-            output.set_extension("wotwr");
+            filename.set_extension("wotwr");
             // TODO default into a seeds folder?
 
             let rng: StdRng = if let Some(seed) = seed {
                 Seeder::from(seed).make_rng()
             } else {
-                Seeder::from(output.file_name()).make_rng()
+                Seeder::from(filename.file_name()).make_rng()
             };
 
             let spawn = spawn.unwrap_or_else(|| util::DEFAULTSPAWN.to_string());
@@ -221,7 +267,7 @@ fn main() {
                 version: env!("CARGO_PKG_VERSION").to_string(),
                 spoilers: !race,
                 pathsets,
-                output_folder: output.parent().unwrap_or(Path::new("")).to_path_buf(),
+                output_folder: filename.parent().unwrap_or(Path::new("")).to_path_buf(),
                 flags: SeedFlags {
                     force_wisps: flags.force_wisps,
                     force_trees: flags.force_trees,
@@ -238,7 +284,7 @@ fn main() {
             eprintln!("Generated seed in {:?}", now.elapsed());
             // TODO spoilers
 
-            fs::write(output, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
+            fs::write(filename, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         },
         Command::ReachCheck { mut seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
             seed_file.set_extension("wotwr");
@@ -301,5 +347,32 @@ fn main() {
             for _ in 0..2 { reached.pop(); }  // remove the last comma
             println!("{}", reached);
         },
+        Command::Headers { headers, subcommand } => {
+            match subcommand {
+                Some(HeaderCommand::Presets { subcommand }) => {
+                    match subcommand {
+                        Some(PresetCommand::Create { name, headers }) => {
+                            headers::create_preset(name, headers).unwrap();
+                        },
+                        Some(PresetCommand::Remove { name }) => {
+                            headers::remove_preset(&name).unwrap();
+                        },
+                        None => {
+                            headers::list_presets().unwrap();
+                        }
+                    }
+                },
+                Some(HeaderCommand::Validate) => {
+                    headers::validate_headers().unwrap();
+                }
+                None => {
+                    if headers.is_empty() {
+                        headers::list_headers().unwrap();
+                    } else {
+                        headers::inspect_headers(headers).unwrap();
+                    }
+                }
+            }
+        }
     }
 }

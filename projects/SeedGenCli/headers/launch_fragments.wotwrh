@@ -1,4 +1,7 @@
-9|0|8|9|0|int|0  // for temporary usage
+/// Launch Fragments
+///
+/// Five Launch Fragments are scattered around the world. The third gives Launch.
+!!include header_core
 
 // occupies 9|0=10, 9|2
 !!add 5x 8|9|2|int|+1                   // Scatter five fragments

@@ -1,6 +1,7 @@
-// Adds a dialogue when you press Ctrl+Alt+1 about which quests you still need for the Force Quests goal mode
-
-9|0|8|9|0|int|0  // for temporary usage
+/// Quest Helper
+///
+/// Adds a dialogue when you press Ctrl+Alt+1 about which quests you still need to do
+!!include header_core
 
 9|0=100|8|9|0|int|101  // .
 9|0=100|8|9|0|int|102  // .

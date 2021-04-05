@@ -1,5 +1,7 @@
-// Provides an alternate hint system where Twillen sells the Bow and Bash hints
-// Turn Zone Hints OFF
+/// Alternate Hints
+///
+/// Not compatible with the other hint system! Use one at a time.
+/// Provides an alternate hint system where Twillen sells the Bow and Bash hints
 
 48248|41666|13|4000,750,2-101,2-104,2-51,2-62  // key skill hint from LupoHint.Shards
 1|23|13|2500,500,9-0,2-118,2-14                 // key skill hint from OpherShop.WaterBreath

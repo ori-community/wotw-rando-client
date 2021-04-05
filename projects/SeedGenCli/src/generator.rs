@@ -3,7 +3,8 @@ use std::fmt;
 use rand::seq::SliceRandom;
 use rand::rngs::StdRng;
 
-use crate::world::{World, Node, UberState, UberIdentifier};
+use crate::uberstate::{UberState, UberIdentifier};
+use crate::world::{World, Node};
 use crate::inventory::Item;
 use crate::util::Resource;
 use crate::util::settings::{Settings, Spawn};

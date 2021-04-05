@@ -2,7 +2,7 @@ use std::fmt;
 
 use rustc_hash::FxHashMap;
 
-use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Pathset};
+use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Pathset, Command};
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Item {
@@ -15,6 +15,7 @@ pub enum Item {
     BonusUpgrade(BonusUpgrade),
     Hint(Hint),
     UberState(String),
+    Command(Command),
     Custom(String),
 }
 impl fmt::Display for Item {
@@ -30,6 +31,7 @@ impl fmt::Display for Item {
             Item::BonusUpgrade(bonus) => write!(f, "11|{}", bonus.to_id()),
             Item::Hint(hint) => write!(f, "12|{}", hint.to_id()),
             Item::UberState(command) => write!(f, "8|{}", command),
+            Item::Command(command) => write!(f, "4|{}", command),
             Item::Custom(string) => write!(f, "{}", string),
         }
     }
@@ -97,7 +99,7 @@ impl Item {
                 Shard::Arcing => false,
             },
             Item::Teleporter(_) | Item::Water | Item::UberState(_) => true,
-            Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Hint(_) | Item::Custom(_) => false,
+            Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Hint(_) | Item::Command(_) | Item::Custom(_) => false,
         }
     }
 
@@ -120,6 +122,7 @@ impl Item {
             Item::BonusUpgrade(_) => 6,
             Item::Hint(_) => 5,
             Item::UberState(_) => 5,
+            Item::Command(_) => 1,
             Item::Custom(_) => 5,
         }
     }
@@ -135,6 +138,7 @@ impl Item {
             Item::BonusUpgrade(bonus_upgrade) => format!("{:?}", bonus_upgrade),
             Item::Hint(hint) => format!("{:?}", hint),
             Item::UberState(command) => format!("8|{}", command),
+            Item::Command(command) => format!("4|{}", command),
             Item::Custom(string) => format!("{}", string),
         }
     }

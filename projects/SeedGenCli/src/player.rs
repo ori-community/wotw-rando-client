@@ -1,7 +1,7 @@
 use crate::inventory::{Inventory, Item};
 use crate::util::settings::Settings;
 use crate::util::orbs::Orbs;
-use crate::util::{Pathset, Resource, Skill, Shard, damage, energy_cost};
+use crate::util::{Pathset, Resource, Skill, Shard};
 
 #[derive(Debug, Default, Clone)]
 pub struct Player {
@@ -121,10 +121,10 @@ impl Player {
     }
 
     pub fn use_cost(&self, skill: Skill) -> f32 {
-        energy_cost(skill) * self.energy_mod()
+        skill.energy_cost() * self.energy_mod()
     }
     pub fn destroy_cost(&self, health: f32, skill: Skill, flying_target: bool) -> f32 {
-        let mut damage = damage(skill, self.unsafe_paths) * self.damage_mod(flying_target);
+        let mut damage = skill.damage(self.unsafe_paths) * self.damage_mod(flying_target);
         if let Skill::Bow = skill { damage *= self.bow_damage_mod(); }
         (health / damage).ceil() * self.use_cost(skill)
     }

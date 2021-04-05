@@ -1,7 +1,8 @@
-// skips several cutscenes
-// if a "Game Saved" message appears as a text box, you can reload from the menu to have the current cutscene skipped
-
-9|0|8|9|0|int|0  // for temporary usage
+/// Skippable Cutscenes
+///
+/// skips several cutscenes
+/// if a "Game Saved" message appears as a text box, you can reload from the menu to have the current cutscene skipped
+!!include header_core
 
 9|0=1|6|f=0  // manual wisp
 !9|0=1|1|0   // .

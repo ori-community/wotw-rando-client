@@ -1,11 +1,11 @@
 pub mod settings;
 pub mod orbs;
 
-use std::{fs, io, path::PathBuf};
+use std::{fmt, fs, io, path::Path, path::PathBuf};
 
 use serde::{Serialize, Deserialize};
 
-use crate::inventory::Item;
+use crate::uberstate::{UberState, UberIdentifier};
 
 pub const DEFAULTSPAWN: &str = "MarshSpawn.Main";
 pub const MOKI_SPAWNS: &[&str] = &[
@@ -120,6 +120,28 @@ impl Skill {
             Skill::Sentry => 116,
             Skill::Flap => 118,
             Skill::AncestralLight => 120,
+        }
+    }
+
+    pub fn energy_cost(&self) -> f32 {
+        match self {
+            Skill::Bow => 0.25,
+            Skill::Shuriken => 0.5,
+            Skill::Grenade | Skill::Flash | Skill::Regenerate | Skill::Blaze | Skill::Sentry => 1.0,
+            Skill::Spear => 2.0,
+            _ => 0.0,
+        }
+    }
+    pub fn damage(&self, unsafe_paths: bool) -> f32 {
+        match self {
+            Skill::Bow | Skill::Sword => 4.0,
+            Skill::Shuriken => 7.0,
+            Skill::Hammer | Skill::Sentry => 12.0,
+            Skill::Grenade => if unsafe_paths { 16.0 } else { 12.0 },
+            Skill::Flash => 14.0,
+            Skill::Blaze => 13.8,
+            Skill::Spear => 20.0,
+            _ => 0.0,
         }
     }
 }
@@ -456,6 +478,51 @@ impl Hint {
         }
     }
 }
+
+// TODO type of resource set?
+// TODO enum toggle
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+pub enum Command {
+    Autosave,
+    Resource { resource: Resource, amount: u16 },
+    Checkpoint,
+    Magic,
+    StopEqual { uber_state: UberState },
+    StopGreater { uber_state: UberState },
+    StopLess { uber_state: UberState },
+    Toggle { identifier: u8, value: u8 },
+    Warp { x: i16, y: i16 },
+    StartTimer { identifier: UberIdentifier },
+    StopTimer { identifier: UberIdentifier },
+    StateRedirect { intercept: i32, set: i32 },
+    SetHealth { amount: u16 },
+    SetEnergy { amount: u16 },
+    SetSpiritLight { amount: u16 },
+    Equip { slot: u8, ability: u16 },
+}
+impl fmt::Display for Command {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Command::Autosave => write!(f, "0"),
+            Command::Resource { resource, amount } => write!(f, "1|{}|{}", resource.to_id(), amount),
+            Command::Checkpoint => write!(f, "2"),
+            Command::Magic => write!(f, "3"),
+            Command::StopEqual { uber_state } => write!(f, "4|{}|{}", uber_state.identifier, uber_state.value),
+            Command::StopGreater { uber_state } => write!(f, "5|{}|{}", uber_state.identifier, uber_state.value),
+            Command::StopLess { uber_state } => write!(f, "6|{}|{}", uber_state.identifier, uber_state.value),
+            Command::Toggle { identifier, value } => write!(f, "7|{}|{}", identifier, value),
+            Command::Warp { x, y } => write!(f, "8|{}|{}", x, y),
+            Command::StartTimer { identifier } => write!(f, "9|{}", identifier),
+            Command::StopTimer { identifier } => write!(f, "10|{}", identifier),
+            Command::StateRedirect { intercept, set } => write!(f, "11|{}|{}", intercept, set),
+            Command::SetHealth { amount } => write!(f, "12|{}", amount),
+            Command::SetEnergy { amount } => write!(f, "13|{}", amount),
+            Command::SetSpiritLight { amount } => write!(f, "14|{}", amount),
+            Command::Equip { slot, ability } => write!(f, "15|{}|{}", slot, ability),
+        }
+    }
+}
+
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Enemy {
     Mantis,
@@ -534,7 +601,7 @@ pub enum NodeType {
     Quest,
 }
 
-pub fn read_file(file: &PathBuf, default_folder: &str) -> Result<String, io::Error> {
+pub fn read_file(file: &Path, default_folder: &str) -> Result<String, io::Error> {
     let mut in_folder = PathBuf::new();
     in_folder.push(default_folder);
     in_folder.push(file);
@@ -542,186 +609,23 @@ pub fn read_file(file: &PathBuf, default_folder: &str) -> Result<String, io::Err
         fs::read_to_string(file)
     })
 }
-
-// TODO these are skill bound, put them in impl skill?
-pub fn energy_cost(skill: Skill) -> f32 {
-    match skill {
-        Skill::Bow => 0.25,
-        Skill::Shuriken => 0.5,
-        Skill::Grenade | Skill::Flash | Skill::Regenerate | Skill::Blaze | Skill::Sentry => 1.0,
-        Skill::Spear => 2.0,
-        _ => 0.0,
-    }
-}
-pub fn damage(skill: Skill, unsafe_paths: bool) -> f32 {
-    match skill {
-        Skill::Bow | Skill::Sword => 4.0,
-        Skill::Shuriken => 7.0,
-        Skill::Hammer | Skill::Sentry => 12.0,
-        Skill::Grenade => if unsafe_paths { 16.0 } else { 12.0 },
-        Skill::Flash => 14.0,
-        Skill::Blaze => 13.8,
-        Skill::Spear => 20.0,
-        _ => 0.0,
-    }
+pub fn write_file(file: &Path, contents: &str, default_folder: &str) -> Result<(), io::Error> {
+    let mut in_folder = PathBuf::new();
+    in_folder.push(default_folder);
+    in_folder.push(file);
+    fs::write(in_folder, contents).or_else(|_| {
+        fs::write(file, contents)
+    })
 }
 
-pub fn parse_pickup<'a>(pickup: &'a str) -> Result<(Item, u16), String> {
-    let pickup = pickup.trim();
-    let mut parts = pickup.split('|');
-    let pickup_type = parts.next().unwrap_or("tried to parse empty pickup");
-    match pickup_type {
-        "0" => {
-            let spirit_light = parts.next().ok_or_else(|| format!("missing spirit light amount in pickup {}", pickup))?;
-            if spirit_light.starts_with('-') {
-                Ok((Item::Custom(pickup.to_string()), 1))
-            } else {
-                let spirit_light: u16 = spirit_light.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
-                Ok((Item::Resource(Resource::SpiritLight, 1), spirit_light))
-            }
-        },
-        "1" => {
-            let resource_type = parts.next().ok_or_else(|| format!("missing resource type in pickup {}", pickup))?;
-            let resource_type: u8 = resource_type.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
-            let resource = Resource::from_id(resource_type).ok_or_else(|| format!("invalid resource type in pickup {}", pickup))?;
-            Ok((Item::Resource(resource, 1), 1))
-        },
-        "2" => {
-            let skill_type = parts.next().ok_or_else(|| format!("missing skill type in pickup {}", pickup))?;
-            if skill_type.starts_with('-') {
-                Ok((Item::Custom(pickup.to_string()), 1))
-            } else {
-                let skill_type: u8 = skill_type.parse().map_err(|_| format!("invalid skill type in pickup {}", pickup))?;
-                let skill = Skill::from_id(skill_type).ok_or_else(|| format!("invalid skill type in pickup {}", pickup))?;
-                Ok((Item::Skill(skill), 1))
-            }
-        },
-        "3" => {
-            let shard_type = parts.next().ok_or_else(|| format!("missing shard type in pickup {}", pickup))?;
-            if shard_type.starts_with('-') {
-                Ok((Item::Custom(pickup.to_string()), 1))
-            } else {
-                let shard_type: u8 = shard_type.parse().map_err(|_| format!("invalid shard type in pickup {}", pickup))?;
-                let shard = Shard::from_id(shard_type).ok_or_else(|| format!("invalid shard type in pickup {}", pickup))?;
-                Ok((Item::Shard(shard), 1))
-            }
-        },
-        "5" => {
-            let teleporter_type = parts.next().ok_or_else(|| format!("missing teleporter type in pickup {}", pickup))?;
-            if teleporter_type.starts_with('-') {
-                Ok((Item::Custom(pickup.to_string()), 1))
-            } else {
-                let teleporter_type: u8 = teleporter_type.parse().map_err(|_| format!("invalid teleporter type in pickup {}", pickup))?;
-                let teleporter = Teleporter::from_id(teleporter_type).ok_or_else(|| format!("invalid teleporter type in pickup {}", pickup))?;
-                Ok((Item::Teleporter(teleporter), 1))
-            }
-        },
-        "8" => {
-            // sanitize, don't know if this is user input through headers and later it would crash on malformed pickups
-            let uber_group = parts.next().ok_or_else(|| format!("missing uber group in pickup {}", pickup))?;
-            uber_group.parse::<u16>().map_err(|_| format!("invalid uber group in pickup {}", pickup))?;
-            let uber_id = parts.next().ok_or_else(|| format!("missing uber id in pickup {}", pickup))?;
-            uber_id.parse::<u16>().map_err(|_| format!("invalid uber id in pickup {}", pickup))?;
+pub fn with_trailing_spaces(string: &str, target_length: usize) -> String {
+    let mut result = string.to_string();
 
-            let uber_type = parts.next().ok_or_else(|| format!("missing uber state type in pickup {}", pickup))?;
-            let value = parts.next().ok_or_else(|| format!("missing uber value in pickup {}", pickup))?;
-
-            let strip_sign = |value: &'a str| -> &'a str { if value.starts_with(&['+', '-'][..]) { &value[1..] } else { value } };
-
-            match uber_type {
-                "bool" | "teleporter" => { value.parse::<bool>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
-                "byte" => { strip_sign(value).parse::<u8>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
-                "int" => { strip_sign(value).parse::<i32>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
-                "float" => { strip_sign(value).parse::<f32>().map_err(|_| format!("invalid uber value in pickup {}", pickup))?; },
-                _ => return Err(format!("invalid uber state type in pickup {}", pickup)),
-            }
-
-            let command = format!("{}|{}|{}|{}", uber_group, uber_id, uber_type, value);
-            Ok((Item::UberState(command), 1))
-        },
-        "9" => {
-            let world_event_type = parts.next().ok_or_else(|| format!("missing world event type in pickup {}", pickup))?;
-            if world_event_type.starts_with('-') {
-                Ok((Item::Custom(pickup.to_string()), 1))
-            } else {
-                let world_event_type: u8 = world_event_type.parse().map_err(|_| format!("invalid world event type in pickup {}", pickup))?;
-                if world_event_type != 0 { return Err(format!("invalid world event type in pickup {}", pickup)); }
-                Ok((Item::Water, 1))
-            }
-        },
-        "10" => {
-            let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
-            let bonus_type: u8 = bonus_type.parse().map_err(|_| format!("invalid bonus item type in pickup {}", pickup))?;
-            let bonus = BonusItem::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
-            Ok((Item::BonusItem(bonus), 1))
-        },
-        "11" => {
-            let bonus_type = parts.next().ok_or_else(|| format!("missing bonus item type in pickup {}", pickup))?;
-            let bonus_type: u8 = bonus_type.parse().map_err(|_| format!("invalid bonus item type in pickup {}", pickup))?;
-            let bonus = BonusUpgrade::from_id(bonus_type).ok_or_else(|| format!("invalid bonus item type in pickup {}", pickup))?;
-            Ok((Item::BonusUpgrade(bonus), 1))
-        },
-        "12" => {
-            let hint_type = parts.next().ok_or_else(|| format!("missing hint type in pickup {}", pickup))?;
-            let hint_type: u8 = hint_type.parse().map_err(|_| format!("invalid hint type in pickup {}", pickup))?;
-            let hint = Hint::from_id(hint_type).ok_or_else(|| format!("invalid hint type in pickup {}", pickup))?;
-            Ok((Item::Hint(hint), 1))
-        },
-        // TODO validate all pickup types
-        "4" | "6" | "13" => {
-            Ok((Item::Custom(pickup.to_string()), 1))
-        }
-        _ => Err(format!("invalid pickup type in pickup {}", pickup)),
+    let mut length = string.len();
+    while length < target_length {
+        result.push(' ');
+        length += 1;
     }
-}
 
-pub fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
-    let input = read_file(areas, "logic").unwrap();
-    let mut input = &input[position..];
-    if input.starts_with('\n') {
-        input = &input[1..];
-    }
-    if let Some(index) = input.find(&['\n', '\r'][..]) {
-        return input[..index].to_string();
-    }
-    input.to_string()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn pickup_parsing() {
-        assert_eq!(parse_pickup("0|5000"), Ok((Item::Resource(Resource::SpiritLight, 1), 5000)));
-        assert_eq!(parse_pickup("0|-5000"), Ok((Item::Custom(String::from("0|-5000")), 1)));
-        assert_eq!(parse_pickup("1|2"), Ok((Item::Resource(Resource::Ore, 1), 1)));
-        assert!(parse_pickup("1|-2").is_err());
-        assert!(parse_pickup("1|5").is_err());
-        assert_eq!(parse_pickup("2|8"), Ok((Item::Skill(Skill::Launch), 1)));
-        assert_eq!(parse_pickup("2|120"), Ok((Item::Skill(Skill::AncestralLight), 1)));
-        assert_eq!(parse_pickup("2|121"), Ok((Item::Skill(Skill::AncestralLight), 1)));
-        assert!(parse_pickup("2|25").is_err());
-        assert_eq!(parse_pickup("2|-9"), Ok((Item::Custom(String::from("2|-9")), 1)));
-        assert_eq!(parse_pickup("3|28"), Ok((Item::Shard(Shard::LastStand), 1)));
-        assert_eq!(parse_pickup("5|16"), Ok((Item::Teleporter(Teleporter::Marsh), 1)));
-        assert_eq!(parse_pickup("9|0"), Ok((Item::Water, 1)));
-        assert_eq!(parse_pickup("9|-0"), Ok((Item::Custom(String::from("9|-0")), 1)));
-        assert_eq!(parse_pickup("11|0"), Ok((Item::BonusUpgrade(BonusUpgrade::RapidHammer), 1)));
-        assert_eq!(parse_pickup("10|31"), Ok((Item::BonusItem(BonusItem::EnergyRegen), 1)));
-        assert!(parse_pickup("12|13").is_err());
-        assert!(parse_pickup("8|5|3|6").is_err());
-        assert!(parse_pickup("8||||").is_err());
-        assert!(parse_pickup("8|5|3|in|3").is_err());
-        assert!(parse_pickup("8|5|3|bool|3").is_err());
-        assert!(parse_pickup("8|5|3|float|hm").is_err());
-        assert_eq!(parse_pickup("8|5|3|int|6"), Ok((Item::UberState(String::from("5|3|int|6")), 1)));
-        assert_eq!(parse_pickup("4|0"), Ok((Item::Custom(String::from("4|0")), 1)));
-        assert!(parse_pickup("12").is_err());
-        assert!(parse_pickup("").is_err());
-        assert!(parse_pickup("0|").is_err());
-        assert!(parse_pickup("0||400").is_err());
-        assert!(parse_pickup("7|3").is_err());
-        assert!(parse_pickup("-0|65").is_err());
-    }
+    result
 }

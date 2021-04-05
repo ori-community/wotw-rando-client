@@ -1,3 +1,8 @@
+/// No Quests
+///
+/// Don't get any items for talking to npcs
+/// Locations behind quests, such as the Last Tree in Glades, will be open from the start
+
 // Block quest item placements
 3|0|8|48248|51645|int|3         // MarshSpawn.TokkKeystoneQuest
 3|0|8|14019|15983|int|3         // MarshSpawn.MokkFangQuest
