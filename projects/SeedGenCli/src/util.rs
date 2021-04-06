@@ -145,10 +145,9 @@ impl Skill {
         }
     }
 }
-// TODO maybe it would be better to add another layer of enumeration and split into "stacked" and "single"
+
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Resource {
-    SpiritLight,
     Health,
     Energy,
     Ore,
@@ -168,7 +167,6 @@ impl Resource {
     }
     pub fn to_id(&self) -> u16 {
         match self {
-            Resource::SpiritLight => 255,
             Resource::Health => 0,
             Resource::Energy => 1,
             Resource::Ore => 2,

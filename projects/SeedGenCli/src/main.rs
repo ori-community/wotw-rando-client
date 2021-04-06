@@ -293,12 +293,12 @@ fn main() {
             let mut world = World::new(graph);
 
             world.player.apply_pathsets(&settings);
-            world.player.inventory.grant(Item::Resource(Resource::Health, 1), health / 5);
+            world.player.inventory.grant(Item::Resource(Resource::Health), health / 5);
             if energy < 0.0 { panic!("Energy has to be positive, passed {}", energy); }
-            world.player.inventory.grant(Item::Resource(Resource::Energy, 1), (energy * 2.0) as u16);
-            world.player.inventory.grant(Item::Resource(Resource::Keystone, 1), keystones);
-            world.player.inventory.grant(Item::Resource(Resource::Ore, 1), ore);
-            world.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), spirit_light);
+            world.player.inventory.grant(Item::Resource(Resource::Energy), (energy * 2.0) as u16);
+            world.player.inventory.grant(Item::Resource(Resource::Keystone), keystones);
+            world.player.inventory.grant(Item::Resource(Resource::Ore), ore);
+            world.player.inventory.grant(Item::SpiritLight(1), spirit_light);
 
             for item in items {
                 if let Some(skill) = item.strip_prefix("s:") {

@@ -8,7 +8,7 @@ use crate::player::Player;
 use crate::inventory::{Item, Inventory};
 use crate::pool::ItemPool;
 use crate::util::orbs::{Orbs, either_single_orbs, both_orbs, both_single_orbs};
-use crate::util::{Resource, RefillType, NodeType};
+use crate::util::{RefillType, NodeType};
 
 #[derive(Debug)]
 pub struct Refill {
@@ -366,8 +366,8 @@ impl<'a> World<'a> {
                 self.collect_preplacements(&uber_state, verbose);
             },
             Item::Custom(_) => {},
-            Item::Resource(Resource::SpiritLight, stacked_amount) => {
-                self.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), amount * stacked_amount);
+            Item::SpiritLight(stacked_amount) => {
+                self.player.inventory.grant(Item::SpiritLight(1), amount * stacked_amount);
             }
             item => {
                 self.player.inventory.grant(item.clone(), amount);
@@ -404,7 +404,7 @@ mod tests {
         let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
         let mut world = World::new(graph);
         world.player.inventory = ItemPool::preset(&[Pathset::Moki]).progressions;
-        world.player.inventory.grant(Item::Resource(Resource::SpiritLight, 1), 10000);
+        world.player.inventory.grant(Item::SpiritLight(1), 10000);
 
         let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
         let reached: FxHashSet<_> = reached.iter()
@@ -429,8 +429,8 @@ mod tests {
 
         world.player.gorlek_paths = true;
         world.player.unsafe_paths = true;
-        world.player.inventory.grant(Item::Resource(Resource::Health, 1), 7);
-        world.player.inventory.grant(Item::Resource(Resource::Energy, 1), 6);
+        world.player.inventory.grant(Item::Resource(Resource::Health), 7);
+        world.player.inventory.grant(Item::Resource(Resource::Energy), 6);
         world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         world.player.inventory.grant(Item::Shard(Shard::TripleJump), 1);
 

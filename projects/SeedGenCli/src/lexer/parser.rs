@@ -17,6 +17,7 @@ pub enum Requirement<'a> {
     Pathset(Pathset),
     Skill(Skill),
     EnergySkill(Skill, u16),
+    SpiritLight(u16),
     Resource(Resource, u16),
     Shard(Shard),
     Teleporter(Teleporter),
@@ -167,7 +168,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
                 "Shuriken" => Ok(Requirement::EnergySkill(Skill::Shuriken, amount)),
                 "ShurikenBreak" => Ok(Requirement::ShurikenBreak(amount)),
                 "Spear" => Ok(Requirement::EnergySkill(Skill::Spear, amount)),
-                "SpiritLight" => Ok(Requirement::Resource(Resource::SpiritLight, amount)),
+                "SpiritLight" => Ok(Requirement::SpiritLight(amount)),
                 _ => Err(wrong_requirement(token))
             }
         }

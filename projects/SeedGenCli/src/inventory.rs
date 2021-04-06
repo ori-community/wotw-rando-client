@@ -6,7 +6,8 @@ use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, H
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Item {
-    Resource(Resource, u16),
+    SpiritLight(u16),
+    Resource(Resource),
     Skill(Skill),
     Shard(Shard),
     Teleporter(Teleporter),
@@ -21,8 +22,8 @@ pub enum Item {
 impl fmt::Display for Item {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Item::Resource(Resource::SpiritLight, amount) => write!(f, "0|{}", amount),
-            Item::Resource(resource, _) => write!(f, "1|{}", resource.to_id()),
+            Item::SpiritLight(amount) => write!(f, "0|{}", amount),
+            Item::Resource(resource) => write!(f, "1|{}", resource.to_id()),
             Item::Skill(skill) => write!(f, "2|{}", skill.to_id()),
             Item::Shard(shard) => write!(f, "3|{}", shard.to_id()),
             Item::Teleporter(teleporter) => write!(f, "5|{}", teleporter.to_id()),
@@ -40,9 +41,10 @@ impl Item {
     // TODO read from logic file instead
     pub fn is_progression(&self, pathsets: &[Pathset]) -> bool {
         match self {
-            Item::Resource(resource, _) => match resource {
+            Item::SpiritLight(_) => true,
+            Item::Resource(resource) => match resource {
                 Resource::ShardSlot => pathsets.contains(&Pathset::Unsafe),
-                Resource::SpiritLight | Resource::Health | Resource::Energy | Resource::Ore | Resource::Keystone => true,
+                Resource::Health | Resource::Energy | Resource::Ore | Resource::Keystone => true,
             },
             Item::Skill(skill) => match skill {
                 Skill::AncestralLight => pathsets.contains(&Pathset::Unsafe),
@@ -105,7 +107,7 @@ impl Item {
 
     pub fn is_single_instance(&self) -> bool {
         match self {
-            Item::Resource(_, _) | Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Skill(Skill::AncestralLight) => false,
+            Item::SpiritLight(_) | Item::Resource(_) | Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Skill(Skill::AncestralLight) => false,
             _ => true,
         }
     }
@@ -113,7 +115,8 @@ impl Item {
     pub fn cost(&self) -> u16 {
         // TODO design
         match self {
-            Item::Resource(_, _) => 1,
+            Item::SpiritLight(_) => 1,
+            Item::Resource(_) => 1,
             Item::Skill(_) => 10,
             Item::Shard(_) => 6,
             Item::Teleporter(_) => 15,
@@ -129,7 +132,8 @@ impl Item {
 
     pub fn name(&self) -> String {
         match self {
-            Item::Resource(resource, _) => format!("{:?}", resource),
+            Item::SpiritLight(amount) => format!("{} Spirit Light", amount),
+            Item::Resource(resource) => format!("{:?}", resource),
             Item::Skill(skill) => format!("{:?}", skill),
             Item::Shard(shard) => format!("{:?}", shard),
             Item::Teleporter(teleporter) => format!("{:?}", teleporter),
@@ -149,10 +153,14 @@ pub struct Inventory {
     pub inventory: FxHashMap<Item, u16>,
 }
 impl Inventory {
-    pub fn grant(&mut self, item: Item, amount: u16) {
+    pub fn grant(&mut self, mut item: Item, mut amount: u16) {
         let single_instance = item.is_single_instance();
         if single_instance && amount > 1 {
             eprintln!("Granted {} more than once, but that item can only be aquired once...", item);
+        }
+        if let Item::SpiritLight(stacked_amount) = item {
+            amount *= stacked_amount;
+            item = Item::SpiritLight(1);
         }
         let prior = self.inventory.entry(item).or_insert(0);
         if single_instance {
@@ -184,7 +192,7 @@ impl Inventory {
     pub fn item_count(&self) -> usize {
         let mut count = 0;
         for item in self.inventory.keys() {
-            if let Item::Resource(Resource::SpiritLight, amount) = item {
+            if let Item::SpiritLight(amount) = item {
                 count += (self.inventory[item] * amount + 199) / 200;
             } else {
                 count += self.inventory[item];

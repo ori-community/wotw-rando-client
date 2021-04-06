@@ -37,7 +37,7 @@ pub fn parse_pickup<'a>(pickup: &'a str, shop: bool) -> Result<(Item, u16), Stri
                 Ok((Item::Custom(pickup.to_string()), 1))
             } else {
                 let spirit_light: u16 = spirit_light.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
-                Ok((Item::Resource(Resource::SpiritLight, 1), spirit_light))
+                Ok((Item::SpiritLight(1), spirit_light))
             }
         },
         "1" => {
@@ -45,7 +45,7 @@ pub fn parse_pickup<'a>(pickup: &'a str, shop: bool) -> Result<(Item, u16), Stri
             end_of_pickup(parts, shop).map_err(|err| format!("{} in pickup {}", err, pickup))?;
             let resource_type: u8 = resource_type.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
             let resource = Resource::from_id(resource_type).ok_or_else(|| format!("invalid resource type in pickup {}", pickup))?;
-            Ok((Item::Resource(resource, 1), 1))
+            Ok((Item::Resource(resource), 1))
         },
         "2" => {
             let skill_type = parts.next().ok_or_else(|| format!("missing skill type in pickup {}", pickup))?;
@@ -873,9 +873,9 @@ mod tests {
 
     #[test]
     fn pickup_parsing() {
-        assert_eq!(parse_pickup("0|5000", false), Ok((Item::Resource(Resource::SpiritLight, 1), 5000)));
+        assert_eq!(parse_pickup("0|5000", false), Ok((Item::SpiritLight(1), 5000)));
         assert_eq!(parse_pickup("0|-5000", false), Ok((Item::Custom(String::from("0|-5000")), 1)));
-        assert_eq!(parse_pickup("1|2", false), Ok((Item::Resource(Resource::Ore, 1), 1)));
+        assert_eq!(parse_pickup("1|2", false), Ok((Item::Resource(Resource::Ore), 1)));
         assert!(parse_pickup("1|-2", false).is_err());
         assert!(parse_pickup("1|5", false).is_err());
         assert_eq!(parse_pickup("2|8", false), Ok((Item::Skill(Skill::Launch), 1)));

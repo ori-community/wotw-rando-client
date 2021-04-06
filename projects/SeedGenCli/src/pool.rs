@@ -25,11 +25,11 @@ impl ItemPool {
 
         // TODO compare performance with an array and cloning
         let mut items = Vec::with_capacity(60);
-        items.push((Item::Resource(Resource::Health, 1), 24));
-        items.push((Item::Resource(Resource::Energy, 1), 24));
-        items.push((Item::Resource(Resource::Ore, 1), 40));
-        items.push((Item::Resource(Resource::Keystone, 1), 34));
-        items.push((Item::Resource(Resource::ShardSlot, 1), 5));
+        items.push((Item::Resource(Resource::Health), 24));
+        items.push((Item::Resource(Resource::Energy), 24));
+        items.push((Item::Resource(Resource::Ore), 40));
+        items.push((Item::Resource(Resource::Keystone), 34));
+        items.push((Item::Resource(Resource::ShardSlot), 5));
         items.push((Item::Skill(Skill::Bash), 1));
         items.push((Item::Skill(Skill::DoubleJump), 1));
         items.push((Item::Skill(Skill::Launch), 1));
@@ -126,7 +126,7 @@ impl ItemPool {
 
     pub fn contains(&self, other: &Inventory) -> bool {
         for item in other.inventory.keys() {
-            if matches!(item, Item::Resource(Resource::SpiritLight, _)) { continue; }
+            if let Item::SpiritLight(_) = item { continue; }
             if !self.progressions.has(item, other.inventory[item]) {
                 return false;
             }

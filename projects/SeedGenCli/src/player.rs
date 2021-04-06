@@ -11,8 +11,8 @@ pub struct Player {
 }
 impl Player {
     pub fn spawn(&mut self, settings: &Settings) {
-        self.inventory.grant(Item::Resource(Resource::Health, 1), 6);
-        self.inventory.grant(Item::Resource(Resource::Energy, 1), 6);
+        self.inventory.grant(Item::Resource(Resource::Health), 6);
+        self.inventory.grant(Item::Resource(Resource::Energy), 6);
         self.apply_pathsets(settings);
     }
 
@@ -22,12 +22,12 @@ impl Player {
     }
 
     pub fn max_energy(&self) -> f32 {
-        let mut energy = f32::from(self.inventory.get(&Item::Resource(Resource::Energy, 1))) * 0.5;
+        let mut energy = f32::from(self.inventory.get(&Item::Resource(Resource::Energy))) * 0.5;
         if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Energy), 1) { energy += 1.0; }
         energy
     }
     pub fn max_health(&self) -> f32 {
-        let mut health = f32::from(self.inventory.get(&Item::Resource(Resource::Health, 1)) * 5);
+        let mut health = f32::from(self.inventory.get(&Item::Resource(Resource::Health)) * 5);
         if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Vitality), 1) { health += 10.0; }
         health
     }
@@ -98,9 +98,9 @@ impl Player {
 
         let mut damage_mod = 1.0;
         damage_mod += 0.25 * f32::from(self.inventory.get(&Item::Skill(Skill::AncestralLight)));
-        let mut slots = self.inventory.get(&Item::Resource(Resource::ShardSlot, 1));
+        let mut slots = self.inventory.get(&Item::Resource(Resource::ShardSlot));
         if flying_target && slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Wingclip), 1) { damage_mod += 1.0; slots -= 1; }
-        if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::SpiritSurge), 1) { damage_mod += f32::from(self.inventory.get(&Item::Resource(Resource::SpiritLight, 1)) / 10000); slots -= 1; }
+        if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::SpiritSurge), 1) { damage_mod += f32::from(self.inventory.get(&Item::SpiritLight(1)) / 10000); slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::LastStand), 1) { damage_mod += 0.2; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Reckless), 1) { damage_mod += 0.15; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Lifeforce), 1) { damage_mod += 0.1; slots -= 1; }
@@ -187,11 +187,11 @@ impl Player {
         let orbs = current_orbs + orb_cost;
         if orbs.health < 0.0 {
             let health_fragments = (-orbs.health / 5.0).ceil() as u16;
-            missing.grant(Item::Resource(Resource::Health, 1), health_fragments);
+            missing.grant(Item::Resource(Resource::Health), health_fragments);
         }
         if orbs.energy < 0.0 {
             let energy_fragments = (-orbs.energy * 2.0).ceil() as u16;
-            missing.grant(Item::Resource(Resource::Energy, 1), energy_fragments);
+            missing.grant(Item::Resource(Resource::Energy), energy_fragments);
         }
 
         missing
@@ -240,7 +240,7 @@ mod tests {
     fn max_energy() {
         let mut player = Player::default();
         assert_eq!(player.max_energy(), 0.0);
-        for _ in 0..10 { player.inventory.grant(Item::Resource(Resource::Energy, 1), 1); }
+        for _ in 0..10 { player.inventory.grant(Item::Resource(Resource::Energy), 1); }
         player.inventory.grant(Item::Shard(Shard::Energy), 1);
         assert_eq!(player.max_energy(), 5.0);
         player = Player {
@@ -262,7 +262,7 @@ mod tests {
             ..player
         };
         player.inventory.grant(Item::Shard(Shard::Wingclip), 1);
-        player.inventory.grant(Item::Resource(Resource::ShardSlot, 1), 1);
+        player.inventory.grant(Item::Resource(Resource::ShardSlot), 1);
         assert_eq!(player.destroy_cost(10.0, Skill::Bow, true), 0.25);
         assert_eq!(player.destroy_cost(1.0, Skill::Spear, false), 2.0);
     }
@@ -272,21 +272,21 @@ mod tests {
         let mut player = Player::default();
         let orbs = Orbs::default();
         assert_eq!(player.checkpoint_orbs(), Orbs::default());
-        player.inventory.grant(Item::Resource(Resource::Energy, 1), 6);
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 6);
+        player.inventory.grant(Item::Resource(Resource::Energy), 6);
+        player.inventory.grant(Item::Resource(Resource::Health), 6);
         assert_eq!(player.checkpoint_orbs(), Orbs { energy: 3.0, health: 30.0});
         assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 2);
+        player.inventory.grant(Item::Resource(Resource::Health), 2);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 11);
+        player.inventory.grant(Item::Resource(Resource::Health), 11);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 30.0, ..orbs });
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 6);
+        player.inventory.grant(Item::Resource(Resource::Health), 6);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 1);
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 50.0, ..orbs });
 
         player = Player {
@@ -297,16 +297,17 @@ mod tests {
         player.inventory.grant(Item::Shard(Shard::Energy), 1);
         player.inventory.grant(Item::Shard(Shard::Vitality), 1);
         assert_eq!(player.checkpoint_orbs(), Orbs::default());
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 7);
+        player.inventory.grant(Item::Resource(Resource::Health), 7);
         assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
         assert_eq!(player.checkpoint_orbs(), Orbs { health: 35.0, ..orbs });
-        player.inventory.grant(Item::Resource(Resource::Health, 1), 21);
+        player.inventory.grant(Item::Resource(Resource::Health), 21);
         assert_eq!(player.checkpoint_orbs(), Orbs { health: 45.0, ..orbs });
     }
 
     #[test]
     fn item_display() {
-        assert_eq!(format!("{}", Item::Resource(Resource::Keystone, 1)), "1|3");
+        assert_eq!(format!("{}", Item::SpiritLight(45)), "0|45");
+        assert_eq!(format!("{}", Item::Resource(Resource::Keystone)), "1|3");
         assert_eq!(format!("{}", Item::Skill(Skill::Launch)), "2|8");
         assert_eq!(format!("{}", Item::Skill(Skill::AncestralLight)), "2|120");
         assert_eq!(format!("{}", Item::Shard(Shard::Magnet)), "3|8");

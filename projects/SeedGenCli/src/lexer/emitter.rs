@@ -17,6 +17,7 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
             },
         parser::Requirement::Skill(skill) => Requirement::Skill(*skill),
         parser::Requirement::EnergySkill(skill, amount) => Requirement::EnergySkill(*skill, (*amount).into()),
+        parser::Requirement::SpiritLight(amount) => Requirement::SpiritLight(*amount),
         parser::Requirement::Resource(resource, amount) => Requirement::Resource(*resource, *amount),
         parser::Requirement::Shard(shard) => Requirement::Shard(*shard),
         parser::Requirement::Teleporter(teleporter) => Requirement::Teleporter(*teleporter),

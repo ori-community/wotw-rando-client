@@ -6,7 +6,6 @@ use rand::rngs::StdRng;
 use crate::uberstate::{UberState, UberIdentifier};
 use crate::world::{World, Node};
 use crate::inventory::Item;
-use crate::util::Resource;
 use crate::util::settings::{Settings, Spawn};
 
 const RESERVE_SLOTS: usize = 2;
@@ -176,9 +175,9 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             if verbose { eprintln!("Chosen progression: {}", progression); }
 
             let items = progression.inventory.iter().flat_map(|(item, amount)| {
-                if let Item::Resource(Resource::SpiritLight, 1) = item {
+                if let Item::SpiritLight(1) = item {
                     // TODO randomness, or fit spirit light progression into the incremental distribution somehow
-                    vec![&Item::Resource(Resource::SpiritLight, 200); ((*amount + 199) / 200).into()]
+                    vec![&Item::SpiritLight(200); ((*amount + 199) / 200).into()]
                 } else {
                     vec![item; (*amount).into()]
                 }
@@ -244,7 +243,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             while let Some(uber_state) = placeholders.pop() {
                 placements.push(Placement {
                     uber_state,
-                    pickup: Item::Resource(Resource::SpiritLight, 100),
+                    pickup: Item::SpiritLight(100),
                 });
             }
 
