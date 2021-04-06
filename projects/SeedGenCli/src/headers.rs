@@ -896,7 +896,7 @@ mod tests {
         assert!(parse_pickup("8|5|3|bool|3", false).is_err());
         assert!(parse_pickup("8|5|3|float|hm", false).is_err());
         assert_eq!(parse_pickup("8|5|3|int|6", false), Ok((Item::UberState(String::from("5|3|int|6")), 1)));
-        assert_eq!(parse_pickup("4|0", false), Ok((Item::Custom(String::from("4|0")), 1)));
+        assert_eq!(parse_pickup("4|0", false), Ok((Item::Command(Command::Autosave), 1)));
         assert!(parse_pickup("12", false).is_err());
         assert!(parse_pickup("", false).is_err());
         assert!(parse_pickup("0|", false).is_err());
