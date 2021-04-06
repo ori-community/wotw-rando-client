@@ -2,13 +2,13 @@ pub mod tokenizer;
 pub mod parser;
 pub mod emitter;
 
-use std::path::PathBuf;
+use std::path::Path;
 
 use parser::ParseError;
 use crate::util::{self, Pathset};
 use crate::world::WorldGraph;
 
-fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
+fn trace_parse_error(areas: &Path, position: usize) -> String {
     let input = util::read_file(areas, "logic").unwrap();
     let mut input = &input[position..];
     if input.starts_with('\n') {
@@ -20,7 +20,7 @@ fn trace_parse_error(areas: &PathBuf, position: usize) -> String {
     input.to_string()
 }
 
-pub fn parse_logic(areas: &PathBuf, locations: &PathBuf, states: &PathBuf, pathsets: &[Pathset], validate: bool) -> Result<WorldGraph, String> {
+pub fn parse_logic(areas: &Path, locations: &Path, states: &Path, pathsets: &[Pathset], validate: bool) -> Result<WorldGraph, String> {
     let tokens = tokenizer::tokenize(areas).map_err(|err| format!("Error parsing areas from {:?}: {}", areas, err))?;
 
     let (areas, metadata) = parser::parse_areas(&tokens).map_err(|err| {

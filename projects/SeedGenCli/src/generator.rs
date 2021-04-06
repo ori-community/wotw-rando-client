@@ -5,7 +5,7 @@ use rand::rngs::StdRng;
 
 use crate::uberstate::{UberState, UberIdentifier};
 use crate::world::{World, Node};
-use crate::inventory::Item;
+use crate::inventory::{Inventory, Item};
 use crate::util::settings::{Settings, Spawn};
 
 const RESERVE_SLOTS: usize = 2;
@@ -78,10 +78,10 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
         let unreached_count = all_locations.len() - reachable_locations.len();
 
         let reachable = reachable.iter().filter(|&&node| {
-            if let Some(uber_state) = node.uber_state() {
+            node.uber_state().map_or(false, |uber_state|
                 !placements.iter().any(|placement| &placement.uber_state == uber_state) &&
                 !placeholders.iter().any(|placeholder| placeholder == uber_state)
-            } else { false }
+            )
         });
         if verbose {
             let identifiers: Vec<_> = reachable.clone()
@@ -153,7 +153,8 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             }
 
             // remove redundancies
-            itemsets.sort_by(|inventory, other| other.item_count().cmp(&inventory.item_count()));
+            itemsets.sort_by_key(Inventory::item_count);
+            itemsets.reverse();
             let mut index = 0;
             for _ in 0..itemsets.len() {
                 let current = &itemsets[index];
@@ -195,7 +196,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
                     uber_state: uber_state.clone(),
                     pickup: item.clone(),
                 });
-                world.grant_player(item.clone(), 1, verbose);
+                world.grant_player(item, 1, verbose);
             }
         } else {
             if verbose { eprintln!("Placing {} items randomly, reserved {} for the next placement group", needs_placement.len(), reserved_slots.len()); }
@@ -204,11 +205,11 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
                 match world.pool.choose_random(rng) {
                     PartialItem::Placeholder => placeholders.push(uber_state.clone()),
                     PartialItem::Item(item) => {
+                        world.grant_player(&item, 1, verbose);
                         placements.push(Placement {
                             uber_state: uber_state.clone(),
-                            pickup: item.clone(),
+                            pickup: item,
                         });
-                        world.grant_player(item, 1, verbose)
                     },
                 }
             }

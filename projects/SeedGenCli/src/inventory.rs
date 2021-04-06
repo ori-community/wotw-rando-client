@@ -41,7 +41,6 @@ impl Item {
     // TODO read from logic file instead
     pub fn is_progression(&self, pathsets: &[Pathset]) -> bool {
         match self {
-            Item::SpiritLight(_) => true,
             Item::Resource(resource) => match resource {
                 Resource::ShardSlot => pathsets.contains(&Pathset::Unsafe),
                 Resource::Health | Resource::Energy | Resource::Ore | Resource::Keystone => true,
@@ -100,20 +99,24 @@ impl Item {
                 Shard::Turmoil |
                 Shard::Arcing => false,
             },
-            Item::Teleporter(_) | Item::Water | Item::UberState(_) => true,
+            Item::SpiritLight(_) | Item::Teleporter(_) | Item::Water | Item::UberState(_) => true,
             Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Hint(_) | Item::Command(_) | Item::Custom(_) => false,
         }
     }
 
     pub fn is_single_instance(&self) -> bool {
-        match self {
-            Item::SpiritLight(_) | Item::Resource(_) | Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Skill(Skill::AncestralLight) => false,
-            _ => true,
-        }
+        !matches!(
+            self, Item::SpiritLight(_) |
+            Item::Resource(_) |
+            Item::BonusItem(_) |
+            Item::BonusUpgrade(_) |
+            Item::Skill(Skill::AncestralLight)
+        )
     }
 
     pub fn cost(&self) -> u16 {
         // TODO design
+        #[allow(clippy::match_same_arms)]
         match self {
             Item::SpiritLight(_) => 1,
             Item::Resource(_) => 1,
@@ -143,7 +146,7 @@ impl Item {
             Item::Hint(hint) => format!("{:?}", hint),
             Item::UberState(command) => format!("8|{}", command),
             Item::Command(command) => format!("4|{}", command),
-            Item::Custom(string) => format!("{}", string),
+            Item::Custom(string) => string.clone(),
         }
     }
 }

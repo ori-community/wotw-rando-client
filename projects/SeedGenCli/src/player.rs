@@ -173,7 +173,7 @@ impl Player {
         if self.unsafe_paths && preferred != Some(Skill::Sentry) { weapons.push(Skill::Spear); }
         if !self.unsafe_paths && preferred != Some(Skill::Grenade) { weapons.push(Skill::Spear); }
 
-        return weapons;
+        weapons
     }
 
     pub fn missing_items(&self, needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Inventory {
@@ -186,10 +186,12 @@ impl Player {
 
         let orbs = current_orbs + orb_cost;
         if orbs.health < 0.0 {
+            #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
             let health_fragments = (-orbs.health / 5.0).ceil() as u16;
             missing.grant(Item::Resource(Resource::Health), health_fragments);
         }
         if orbs.energy < 0.0 {
+            #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
             let energy_fragments = (-orbs.energy * 2.0).ceil() as u16;
             missing.grant(Item::Resource(Resource::Energy), energy_fragments);
         }

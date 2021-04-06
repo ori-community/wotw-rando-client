@@ -101,5 +101,5 @@ fn reach_checking(c: &mut Criterion) {
     }));
 }
 
-criterion_group!(benches, /*parsing, requirements, */reach_checking);
+criterion_group!(benches, parsing, requirements, reach_checking);
 criterion_main!(benches);

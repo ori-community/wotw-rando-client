@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::Path;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::tokenizer::{Token, TokenType};
@@ -588,7 +588,7 @@ fn empty_field(name: &str, index: usize, line: &str) -> String {
     format!("Required field {} was empty at line {}: {}", name, index + 1, line)
 }
 
-pub fn parse_locations(path: &PathBuf, validate: bool) -> Result<Vec<Location>, String> {
+pub fn parse_locations(path: &Path, validate: bool) -> Result<Vec<Location>, String> {
     let input = util::read_file(path, "logic").map_err(|err| format!("Failed to read locations: {}", err))?;
     let mut locations = Vec::with_capacity(input.lines().count());
 
@@ -626,7 +626,7 @@ pub struct NamedState {
     pub uber_state: UberState,
 }
 
-pub fn parse_states(path: &PathBuf, validate: bool) -> Result<Vec<NamedState>, String> {
+pub fn parse_states(path: &Path, validate: bool) -> Result<Vec<NamedState>, String> {
     let input = util::read_file(path, "logic").map_err(|err| format!("Failed to read states: {}", err))?;
     let mut states = Vec::with_capacity(input.lines().count());
 

@@ -144,7 +144,7 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
 
     let placement_block = placements.iter().fold(String::with_capacity(placements.len() * 20), |acc, placement| acc + &format!("{}//\n", placement));
 
-    let config_line = format!("\n// Config: {}", util::settings::write_settings(&settings).map_err(|_| String::from("Invalid Settings"))?);
+    let config_line = format!("\n// Config: {}", util::settings::write(&settings).map_err(|_| String::from("Invalid Settings"))?);
 
     Ok(flag_line + &spawn_line + &header_block + &placement_block + &config_line)
 }

@@ -95,7 +95,7 @@ impl Skill {
             _ => None,
         }
     }
-    pub fn to_id(&self) -> u16 {
+    pub fn to_id(self) -> u16 {
         match self {
             Skill::Bash => 0,
             Skill::WallJump => 3,
@@ -123,7 +123,7 @@ impl Skill {
         }
     }
 
-    pub fn energy_cost(&self) -> f32 {
+    pub fn energy_cost(self) -> f32 {
         match self {
             Skill::Bow => 0.25,
             Skill::Shuriken => 0.5,
@@ -132,7 +132,7 @@ impl Skill {
             _ => 0.0,
         }
     }
-    pub fn damage(&self, unsafe_paths: bool) -> f32 {
+    pub fn damage(self, unsafe_paths: bool) -> f32 {
         match self {
             Skill::Bow | Skill::Sword => 4.0,
             Skill::Shuriken => 7.0,
@@ -165,7 +165,7 @@ impl Resource {
             _ => None,
         }
     }
-    pub fn to_id(&self) -> u16 {
+    pub fn to_id(self) -> u16 {
         match self {
             Resource::Health => 0,
             Resource::Energy => 1,
@@ -246,7 +246,7 @@ impl Shard {
             _ => None,
         }
     }
-    pub fn to_id(&self) -> u16 {
+    pub fn to_id(self) -> u16 {
         match self {
             Shard::Overcharge => 1,
             Shard::TripleJump => 2,
@@ -327,7 +327,7 @@ impl Teleporter {
             _ => None,
         }
     }
-    pub fn to_id(&self) -> u16 {
+    pub fn to_id(self) -> u16 {
         match self {
             Teleporter::Burrows => 0,
             Teleporter::Den => 1,
@@ -369,7 +369,7 @@ impl BonusItem {
             _ => None,
         }
     }
-    pub fn to_id(&self) -> u16 {
+    pub fn to_id(self) -> u16 {
         match self {
             BonusItem::Relic => 20,
             BonusItem::HealthRegen => 30,
@@ -408,7 +408,7 @@ impl BonusUpgrade {
             _ => None,
         }
     }
-    pub fn to_id(&self) -> u16 {
+    pub fn to_id(self) -> u16 {
         match self {
             BonusUpgrade::RapidHammer => 0,
             BonusUpgrade::RapidSword => 1,
@@ -458,7 +458,7 @@ impl Hint {
             _ => None,
         }
     }
-    pub fn to_id(&self) -> u16 {
+    pub fn to_id(self) -> u16 {
         match self {
             Hint::Marsh => 0,
             Hint::Hollow => 1,

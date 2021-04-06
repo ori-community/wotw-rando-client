@@ -1,10 +1,11 @@
-use std::{io, path::PathBuf};
+use std::{io, path::{Path, PathBuf}};
 
 use super::{Pathset, DEFAULTSPAWN};
 
 use serde::{Serialize, Deserialize};
 
 /// Representation of settings as they are written by the java-based seed generator
+#[allow(clippy::struct_excessive_bools)]
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct OldSeedFlags {
@@ -19,6 +20,7 @@ pub struct OldSeedFlags {
     pub random_spawn: bool,     // compability note: unused
 }
 /// Representation of settings as they are written by the java-based seed generator
+#[allow(clippy::struct_excessive_bools)]
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct OldSettings {
@@ -57,7 +59,7 @@ impl Default for OldSettings {
         }
     }
 }
-fn read_old_settings(json: &str) -> Result<Settings, io::Error> {
+fn read_old(json: &str) -> Result<Settings, io::Error> {
     let old_settings: OldSettings = serde_json::from_str(json)?;
 
     let mut pathsets = vec![Pathset::Moki];
@@ -101,6 +103,7 @@ pub enum Spawn {
     Random,
     FullyRandom,
 }
+#[allow(clippy::struct_excessive_bools)]
 #[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
 pub struct SeedFlags {
     pub force_wisps: bool,      // compability note: used for goal mode logic
@@ -136,22 +139,22 @@ impl Default for Settings {
         }
     }
 }
-pub fn read_settings(seed: &PathBuf) -> Result<Settings, io::Error> {
+pub fn read(seed: &Path) -> Result<Settings, io::Error> {
     let seed = super::read_file(seed, "seeds")?;
     let mut settings = Settings::default();
     for line in seed.lines() {
         if let Some(config) = line.strip_prefix("// Config: ") {
             settings = serde_json::from_str(&config).or_else(|_| {  // read directly or fall back to reading old settings
-                read_old_settings(&config)
+                read_old(&config)
             })?;
         }
     }
     Ok(settings)
 }
-pub fn write_settings(settings: &Settings) -> Result<String, serde_json::Error> {
+pub fn write(settings: &Settings) -> Result<String, serde_json::Error> {
     serde_json::to_string(settings)
 }
-pub fn read_spawn(seed: &PathBuf) -> Result<String, io::Error> {
+pub fn read_spawn(seed: &Path) -> Result<String, io::Error> {
     let seed = super::read_file(seed, "seeds")?;
     for line in seed.lines() {
         if let Some(spawn) = line.strip_prefix("Spawn:") {
@@ -187,6 +190,6 @@ mod tests {
         };
         let json = "// Config: {\"tps\":true,\"spoilers\":true,\"unsafePaths\":false,\"gorlekPaths\":true,\"glitchPaths\":true,\"questLocs\":true,\"outputFolder\":\"seeds\",\"flags\":{\"forceWisps\":false,\"forceTrees\":true,\"forceQuests\":true,\"noHints\":true,\"noSword\":false,\"rain\":true,\"noKSDoors\":false,\"randomSpawn\":false,\"worldTour\":false},\"webConn\":false,\"bonusItems\":true,\"debugInfo\":true,\"seirLaunch\":false,\"spawnLoc\":\"InnerWellspring.Teleporter\",\"headerList\":[\"skippable_cutscenes\",\"alternate_hints\"]}";
         fs::write("temp.wotwr", json).unwrap();
-        assert_eq!(read_settings(&PathBuf::from("temp.wotwr")).unwrap(), settings);
+        assert_eq!(read(&PathBuf::from("temp.wotwr")).unwrap(), settings);
     }
 }

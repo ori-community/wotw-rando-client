@@ -398,7 +398,7 @@ fn find_headers(show_hidden: bool) -> Result<Vec<PathBuf>, String> {
 
     if !show_hidden {
         headers = headers.iter()
-            .map(|header| is_hidden(header).and_then(|hidden| if hidden { Ok(None) } else { Ok(Some(header)) }))
+            .map(|header| is_hidden(header).map(|hidden| if hidden { None } else { Some(header) }))
             .collect::<Result<Vec<_>, _>>()?
             .iter()
             .filter_map(|&header| header)
@@ -412,7 +412,7 @@ fn find_headers(show_hidden: bool) -> Result<Vec<PathBuf>, String> {
 fn find_presets() -> Result<Vec<PathBuf>, String> {
     let headers = find_headers(false)?;
     let presets = headers.iter()
-        .map(|header| is_preset(header).and_then(|preset| if preset { Ok(Some(header)) } else { Ok(None) }))
+        .map(|header| is_preset(header).map(|preset| if preset { Some(header) } else { None }))
         .collect::<Result<Vec<_>, _>>()?
         .iter()
         .filter_map(|&header| header)
@@ -464,7 +464,7 @@ pub fn list_headers() -> Result<(), String> {
     }
 
     let preset_data = headers.iter()
-        .map(|header| is_preset(header).and_then(|preset| Ok(preset)))
+        .map(|header| is_preset(header))
         .collect::<Result<Vec<_>, _>>()?;
 
     let mut index = 0;
@@ -476,14 +476,14 @@ pub fn list_headers() -> Result<(), String> {
             preset
         });
 
-    let length = presets.len();
-    output += &format!("{} preset{} found\n\n", length, if length == 1 { "" } else { "s" });
+    let presets_length = presets.len();
+    output += &format!("{} preset{} found\n\n", presets_length, if presets_length == 1 { "" } else { "s" });
 
     output += &summarize_headers(&presets)?;
     output.push('\n');
 
-    let length = headers.len();
-    output += &format!("{} header{} found\n\n", length, if length == 1 { "" } else { "s" });
+    let headers_length = headers.len();
+    output += &format!("{} header{} found\n\n", headers_length, if headers_length == 1 { "" } else { "s" });
 
     output += &summarize_headers(&headers)?;
     output.push('\n');
@@ -672,18 +672,14 @@ fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
 
     // remove redundancies, the sort beforehand put all timers, + and - commands in front
     let mut index = 0;
-    loop {
-        if let Some(current) = occupied_states.get_mut(index) {
-            if current.value.starts_with(&['+', '-'][..]) || current.value.is_empty() {
-                current.value = String::new();
-                let clone = current.clone();
+    while let Some(current) = occupied_states.get_mut(index) {
+        if current.value.starts_with(&['+', '-'][..]) || current.value.is_empty() {
+            current.value = String::new();
+            let clone = current.clone();
 
-                occupied_states.retain(|other| other == &clone || other.identifier != clone.identifier);
-            }
-            index += 1;
-        } else {
-            break;
+            occupied_states.retain(|other| other == &clone || other.identifier != clone.identifier);
         }
+        index += 1;
     }
 
     occupied_states.dedup();
@@ -809,10 +805,10 @@ pub fn validate_headers() -> Result<(), String> {
 pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), String> {
     let mut contents = String::from("#preset\n");
 
-    let existing = find_headers(true)?.iter().map(|header| header.file_stem().unwrap().to_string_lossy().to_string()).collect::<Vec<_>>();
+    let existing = find_headers(true)?;
 
     for header in headers {
-        if !existing.contains(&header) { return Err(format!("Couldn't find header '{}'", header)); }
+        if !existing.iter().any(|h| h.file_stem().unwrap().to_string_lossy() == header) { return Err(format!("Couldn't find header '{}'", header)); }
         contents.push_str(&format!("!!include {}\n", header));
     }
 

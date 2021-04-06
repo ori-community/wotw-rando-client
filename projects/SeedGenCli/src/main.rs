@@ -7,7 +7,6 @@ use structopt::StructOpt;
 use bugsalot::debugger;
 
 use rand_seeder::Seeder;
-use rand::rngs::StdRng;
 
 use seedgen::{generate_seed, lexer, inventory, world, uberstate, headers, util};
 
@@ -168,6 +167,7 @@ fn read_header() -> String {
     output
 }
 
+#[allow(clippy::struct_excessive_bools)]
 struct GenFlags {
     gorlek_paths: bool,
     unsafe_paths: bool,
@@ -247,11 +247,10 @@ fn main() {
             filename.set_extension("wotwr");
             // TODO default into a seeds folder?
 
-            let rng: StdRng = if let Some(seed) = seed {
-                Seeder::from(seed).make_rng()
-            } else {
-                Seeder::from(filename.file_name()).make_rng()
-            };
+            let rng = seed.map_or_else(
+                || Seeder::from(filename.file_name()).make_rng(),
+                |seed| Seeder::from(seed).make_rng()
+            );
 
             let spawn = spawn.unwrap_or_else(|| util::DEFAULTSPAWN.to_string());
             let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
@@ -267,7 +266,7 @@ fn main() {
                 version: env!("CARGO_PKG_VERSION").to_string(),
                 spoilers: !race,
                 pathsets,
-                output_folder: filename.parent().unwrap_or(Path::new("")).to_path_buf(),
+                output_folder: filename.parent().unwrap_or_else(|| Path::new("")).to_path_buf(),
                 flags: SeedFlags {
                     force_wisps: flags.force_wisps,
                     force_trees: flags.force_trees,
@@ -288,13 +287,14 @@ fn main() {
         },
         Command::ReachCheck { mut seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
             seed_file.set_extension("wotwr");
-            let settings = util::settings::read_settings(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
+            let settings = util::settings::read(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
             let graph = &lexer::parse_logic(&areas, &locations, &uber_states, &settings.pathsets, false).unwrap();
             let mut world = World::new(graph);
 
             world.player.apply_pathsets(&settings);
             world.player.inventory.grant(Item::Resource(Resource::Health), health / 5);
             if energy < 0.0 { panic!("Energy has to be positive, passed {}", energy); }
+            #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
             world.player.inventory.grant(Item::Resource(Resource::Energy), (energy * 2.0) as u16);
             world.player.inventory.grant(Item::Resource(Resource::Keystone), keystones);
             world.player.inventory.grant(Item::Resource(Resource::Ore), ore);

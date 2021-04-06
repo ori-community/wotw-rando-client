@@ -1,4 +1,4 @@
-use std::{io, cmp::Ordering, path::PathBuf};
+use std::{io, cmp::Ordering, path::Path};
 
 use crate::util;
 
@@ -258,7 +258,7 @@ fn tokenize_requirement(input: &str, context: &mut TokenContext) -> Option<(usiz
     ))
 }
 
-pub fn tokenize(areas: &PathBuf) -> Result<Vec<Token>, io::Error> {
+pub fn tokenize(areas: &Path) -> Result<Vec<Token>, io::Error> {
     let tokenizers = [
         skip_whitespace,
         tokenize_indent,

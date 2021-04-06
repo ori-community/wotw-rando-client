@@ -7,7 +7,7 @@ use crate::requirements::Requirement;
 use crate::player::Player;
 use crate::inventory::{Item, Inventory};
 use crate::pool::ItemPool;
-use crate::util::orbs::{Orbs, either_single_orbs, both_orbs, both_single_orbs};
+use crate::util::orbs::{self, Orbs};
 use crate::util::{RefillType, NodeType};
 
 #[derive(Debug)]
@@ -95,13 +95,14 @@ impl Node {
         match self {
             Node::Anchor(_) => None,
             Node::Pickup(pickup) => Some(&pickup.uber_state),
-            Node::State(state) => if let Some(uber_state) = &state.uber_state {
-                Some(uber_state)
-            } else { None },
+            Node::State(state) => state.uber_state.as_ref(),
             Node::Quest(quest) => Some(&quest.uber_state),
         }
     }
 }
+
+type Reached<'a> = Vec<&'a Node>;
+type Progressions<'a> = Vec<(&'a Requirement, Vec<Orbs>)>;
 
 #[derive(Debug)]
 pub struct WorldGraph {
@@ -128,7 +129,7 @@ impl<'a> WorldGraph {
                     // TODO loop with improved orbs?
                     continue;
                 }
-                let target_orbs = self.try_connection(player, connection, &world_state[&from], states);
+                let target_orbs = WorldGraph::try_connection(player, connection, &world_state[&from], states);
                 if !target_orbs.is_empty() {
                     let (mut child_reached, mut child_progressions) = self.reach_recursion(player, &self.nodes[connection.to], progression_check, target_orbs, states, state_progressions, world_state);
                     reached.append(&mut child_reached);
@@ -138,11 +139,11 @@ impl<'a> WorldGraph {
         }
         (reached, progressions)
     }
-    fn try_connection(&self, player: &Player, connection: &Connection, best_orbs: &[Orbs], states: &FxHashSet<usize>) -> Vec<Orbs> {
+    fn try_connection(player: &Player, connection: &Connection, best_orbs: &[Orbs], states: &FxHashSet<usize>) -> Vec<Orbs> {
         let mut target_orbs = Vec::<Orbs>::default();
         for orbs in best_orbs {
             if let Some(orbcost) = connection.requirement.is_met(player, states, *orbs) {
-                target_orbs.append(&mut both_single_orbs(&orbcost, *orbs));
+                target_orbs.append(&mut orbs::both_single(&orbcost, *orbs));
             }
         }
         target_orbs
@@ -168,12 +169,12 @@ impl<'a> WorldGraph {
                 for refill in &anchor.refills {
                     for orbs in &best_orbs {
                         if let Some(orbcost) = refill.requirement.is_met(player, states, *orbs) {
-                            best_orbs = both_orbs(&best_orbs, &orbcost);
+                            best_orbs = orbs::both(&best_orbs, &orbcost);
                             match refill.name {
                                 RefillType::Full => best_orbs = vec![player.max_orbs()],
-                                RefillType::Checkpoint => best_orbs = either_single_orbs(&best_orbs, player.checkpoint_orbs()),
-                                RefillType::Health(amount) => best_orbs = both_single_orbs(&best_orbs, player.health_orbs(amount)),
-                                RefillType::Energy(amount) => best_orbs = both_single_orbs(&best_orbs, player.energy_orbs(amount)),
+                                RefillType::Checkpoint => best_orbs = orbs::either_single(&best_orbs, player.checkpoint_orbs()),
+                                RefillType::Health(amount) => best_orbs = orbs::both_single(&best_orbs, player.health_orbs(amount)),
+                                RefillType::Energy(amount) => best_orbs = orbs::both_single(&best_orbs, player.energy_orbs(amount)),
                             }
                             break;
                         }
@@ -187,7 +188,7 @@ impl<'a> WorldGraph {
                         // TODO loop with improved orbs?
                         continue;
                     }
-                    let target_orbs = self.try_connection(player, connection, &best_orbs, states);
+                    let target_orbs = WorldGraph::try_connection(player, connection, &best_orbs, states);
                     if target_orbs.is_empty() {
                         let states = connection.requirement.contained_states();
                         if states.is_empty() {
@@ -253,7 +254,7 @@ impl<'a> WorldGraph {
         states
     }
 
-    pub fn reached_locations(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Vec<&Node>, String> {
+    pub fn reached_locations(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Reached, String> {
         let entry = self.find_spawn(spawn)?;
 
         let mut states = self.collect_extra_states(extra_states);
@@ -267,7 +268,7 @@ impl<'a> WorldGraph {
         Ok(reached)
     }
 
-    pub fn reached_and_progressions(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<(Vec<&Node>, Vec<(&Requirement, Vec<Orbs>)>), String> {
+    pub fn reached_and_progressions(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<(Reached, Progressions), String> {
         let entry = self.find_spawn(spawn)?;
 
         let mut states = self.collect_extra_states(extra_states);
@@ -301,7 +302,7 @@ impl<'a> World<'a> {
         }
     }
 
-    pub fn grant_player(&mut self, item: Item, amount: u16, verbose: bool) {
+    pub fn grant_player(&mut self, item: &Item, amount: u16, verbose: bool) {
         match &item {
             Item::UberState(command) => {
                 let mut parts = command.split('|');
@@ -338,7 +339,7 @@ impl<'a> World<'a> {
 
                         let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
                         if let UberValue::Int(prior) = entry {
-                            *prior = uber_value + *prior * sign as i32;
+                            *prior = uber_value + *prior * i32::from(sign);
                         } else {
                             eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                         }
@@ -349,7 +350,7 @@ impl<'a> World<'a> {
 
                         let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
                         if let UberValue::Float(prior) = entry {
-                            *prior = uber_value + *prior * sign as f32;
+                            *prior = uber_value + *prior * f32::from(sign);
                         } else {
                             eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                         }
@@ -369,7 +370,7 @@ impl<'a> World<'a> {
             Item::SpiritLight(stacked_amount) => {
                 self.player.inventory.grant(Item::SpiritLight(1), amount * stacked_amount);
             }
-            item => {
+            &item => {
                 self.player.inventory.grant(item.clone(), amount);
             },
         }
@@ -384,7 +385,7 @@ impl<'a> World<'a> {
         }
 
         for item in inventory.inventory.keys() {
-            self.grant_player(item.clone(), inventory.inventory[item], verbose);
+            self.grant_player(item, inventory.inventory[item], verbose);
         }
     }
 }

@@ -2,7 +2,7 @@ use rustc_hash::FxHashSet;
 
 use crate::player::Player;
 use crate::inventory::{Inventory, Item};
-use crate::util::orbs::{Orbs, either_orbs, both_orbs, both_single_orbs};
+use crate::util::orbs::{self, Orbs};
 use crate::util::{Resource, Skill, Shard, Teleporter, Enemy};
 
 #[derive(Debug, Clone)]
@@ -27,7 +27,7 @@ pub enum Requirement {
     Or(Vec<Requirement>),
 }
 impl Requirement {
-    fn cost_is_met(&self, cost: f32, player: &Player, orbs: Orbs) -> Option<Vec<Orbs>> {
+    fn cost_is_met(cost: f32, player: &Player, orbs: Orbs) -> Option<Vec<Orbs>> {
         if orbs.energy >= cost { Some(vec![
             Orbs {
                 energy: -cost,
@@ -50,7 +50,7 @@ impl Requirement {
             Requirement::EnergySkill(skill, amount) =>
                 if player.inventory.has(&Item::Skill(*skill), 1) {
                     let cost = player.use_cost(*skill) * *amount;
-                    return self.cost_is_met(cost, player, orbs);
+                    return Requirement::cost_is_met(cost, player, orbs);
                 }
             Requirement::SpiritLight(amount) =>
                 if player.inventory.has(&Item::SpiritLight(1), *amount) { return Some(vec![Orbs::default()]); },
@@ -95,12 +95,12 @@ impl Requirement {
             Requirement::BreakWall(health) =>
                 if let Some(weapon) = player.preferred_weapon(true) {
                     let cost = player.destroy_cost(*health, weapon, false);
-                    return self.cost_is_met(cost, player, orbs);
+                    return Requirement::cost_is_met(cost, player, orbs);
                 }
             Requirement::Boss(health) =>
                 if let Some(weapon) = player.preferred_weapon(false) {
                     let cost = player.destroy_cost(*health, weapon, false);
-                    return self.cost_is_met(cost, player, orbs);
+                    return Requirement::cost_is_met(cost, player, orbs);
                 }
             Requirement::Combat(enemies) => {
                 let is_unsafe = player.unsafe_paths;
@@ -158,14 +158,14 @@ impl Requirement {
                     ) { return None; }
 
                     let cost = orbs.energy - energy;
-                    return self.cost_is_met(cost, player, orbs);
+                    return Requirement::cost_is_met(cost, player, orbs);
                 }
             },
             Requirement::ShurikenBreak(health) =>
                 if player.inventory.has(&Item::Skill(Skill::Shuriken), 1) {
                     let clip_mod = if player.unsafe_paths { 2.0 } else { 3.0 };
                     let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
-                    return self.cost_is_met(cost, player, orbs);
+                    return Requirement::cost_is_met(cost, player, orbs);
                 }
             Requirement::And(ands) => {
                 let mut best_orbs = vec![orbs];
@@ -182,11 +182,11 @@ impl Requirement {
                     }
                     if !met { return None; }
 
-                    best_orbs = both_orbs(&best_orbs, &orbcosts);
+                    best_orbs = orbs::both(&best_orbs, &orbcosts);
                     best_orbs.retain(|orbs| orbs.health >= 0.0 && orbs.energy >= 0.0);
                 }
 
-                let cost = both_single_orbs(&best_orbs, Orbs { health: -orbs.health, energy: -orbs.energy });
+                let cost = orbs::both_single(&best_orbs, Orbs { health: -orbs.health, energy: -orbs.energy });
                 return Some(cost);
             },
             Requirement::Or(ors) => {
@@ -197,7 +197,7 @@ impl Requirement {
                         if cheapest.is_empty() {
                             cheapest = orbcost;
                         } else {
-                            cheapest = either_orbs(&cheapest, &orbcost);
+                            cheapest = orbs::either(&cheapest, &orbcost);
                         }
                         if cheapest[0] == Orbs::default() {
                             break;
@@ -213,9 +213,8 @@ impl Requirement {
         None
     }
 
-    fn needed_for_cost(&self, cost: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
-        let mut itemsets = Vec::new();
-        itemsets.push((Inventory::default(), Orbs{ energy: -cost, ..Orbs::default() }));
+    fn needed_for_cost(cost: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
+        let mut itemsets = vec![(Inventory::default(), Orbs{ energy: -cost, ..Orbs::default() })];
 
         if player.unsafe_paths && cost > 0.0 {
             itemsets.push((Inventory::from(Item::Shard(Shard::Overcharge)), Orbs{ energy: -cost / 2.0, ..Orbs::default() }));
@@ -223,15 +222,13 @@ impl Requirement {
 
         itemsets
     }
-    fn needed_for_damage(&self, amount: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
-        let mut itemsets = Vec::new();
-
-        itemsets.push((Inventory::default(), Orbs { health: -amount, ..Orbs::default() }));
+    fn needed_for_damage(amount: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
+        let mut itemsets = vec![(Inventory::default(), Orbs { health: -amount, ..Orbs::default() })];
 
         // TODO keep player's max health in mind for heals
         let regen_cost = (amount / 30.0).ceil();
 
-        let mut regen_sets = self.needed_for_cost(regen_cost, player);
+        let mut regen_sets = Requirement::needed_for_cost(regen_cost, player);
         for (inventory, _) in &mut regen_sets {
             inventory.grant(Item::Skill(Skill::Regenerate), 1);
         }
@@ -240,8 +237,8 @@ impl Requirement {
         itemsets
     }
     // TODO damage buff progression?
-    fn needed_for_weapon(&self, weapon: Skill, cost: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
-        let mut itemsets = self.needed_for_cost(cost, player);
+    fn needed_for_weapon(weapon: Skill, cost: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
+        let mut itemsets = Requirement::needed_for_cost(cost, player);
 
         for (inventory, _) in &mut itemsets {
             inventory.grant(Item::Skill(weapon), 1)
@@ -257,7 +254,7 @@ impl Requirement {
             Requirement::Skill(skill) => vec![(Inventory::from(Item::Skill(*skill)), Orbs::default())],
             Requirement::EnergySkill(skill, amount) => {
                 let cost = player.use_cost(*skill) * *amount;
-                let mut itemsets = self.needed_for_cost(cost, player);
+                let mut itemsets = Requirement::needed_for_cost(cost, player);
                 for (inventory, _) in &mut itemsets {
                     inventory.grant(Item::Skill(*skill), 1);
                 }
@@ -275,12 +272,12 @@ impl Requirement {
 
                 let cost = *amount * player.defense_mod();
 
-                itemsets.append(&mut self.needed_for_damage(cost, player));
+                itemsets.append(&mut Requirement::needed_for_damage(cost, player));
 
                 if player.gorlek_paths {
                     let resilience_cost = cost * 0.9;
 
-                    let mut resilience_sets = self.needed_for_damage(resilience_cost, player);
+                    let mut resilience_sets = Requirement::needed_for_damage(resilience_cost, player);
                     for (inventory, _) in &mut resilience_sets {
                         inventory.grant(Item::Shard(Shard::Resilience), 1);
                     }
@@ -296,7 +293,7 @@ impl Requirement {
 
                 for weapon in player.progression_weapons(true) {
                     let cost = player.destroy_cost(*health, weapon, false);
-                    itemsets.append(&mut self.needed_for_weapon(weapon, cost, player));
+                    itemsets.append(&mut Requirement::needed_for_weapon(weapon, cost, player));
                 }
 
                 itemsets
@@ -306,7 +303,7 @@ impl Requirement {
 
                 for weapon in player.progression_weapons(false) {
                     let cost = player.destroy_cost(*health, weapon, false);
-                    itemsets.append(&mut self.needed_for_weapon(weapon, cost, player));
+                    itemsets.append(&mut Requirement::needed_for_weapon(weapon, cost, player));
                 }
 
                 itemsets
@@ -314,7 +311,7 @@ impl Requirement {
             Requirement::ShurikenBreak(health) => {
                 let clip_mod = if player.unsafe_paths { 2.0 } else { 3.0 };
                 let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
-                self.needed_for_weapon(Skill::Shuriken, cost, player)
+                Requirement::needed_for_weapon(Skill::Shuriken, cost, player)
             },
             Requirement::Combat(_) => vec![(
                 Inventory::from(vec![
