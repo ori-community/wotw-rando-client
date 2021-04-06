@@ -141,7 +141,8 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
         let mut uber_state = None;
         if let Some(named_state) = state_map.iter().find(|named_state| &named_state.name == state) {
             uber_state = Some(named_state.uber_state.clone());
-        } else {
+        } else if validate {
+            // TODO this can be perfectly normal
             eprintln!("Couldn't find an entry for {} in the state table", state);
         }
 

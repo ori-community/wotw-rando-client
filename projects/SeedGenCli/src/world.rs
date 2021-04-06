@@ -236,15 +236,12 @@ impl<'a> WorldGraph {
 
         for node in &self.nodes {
             let (uber_state, index) = match node {
-                Node::State(state) => {
+                Node::State(state) =>
                     if let Some(uber_state) = &state.uber_state {
                         (uber_state, &state.index)
-                    } else { continue; }
-                },
-                Node::Quest(quest) => {
-                    (&quest.uber_state, &quest.index)
-                }
-                _ => { continue; }
+                    } else { continue; },
+                Node::Quest(quest) => (&quest.uber_state, &quest.index),
+                _ => continue,
             };
             if let Some(value) = extra_states.get(&uber_state.identifier) {
                 if format!("{}", value) == uber_state.value {

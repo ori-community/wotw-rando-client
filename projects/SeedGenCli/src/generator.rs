@@ -138,6 +138,8 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             }
 
             if itemsets.is_empty() {
+                // TODO not reaching all location can actually be desired (remove launch...)
+
                 let identifiers: Vec<_> = all_locations.iter()
                     .filter_map(|&node| {
                         let uber_state = node.uber_state().unwrap();

@@ -46,7 +46,7 @@ enum Command {
         locations: PathBuf,
         /// the input file representing state namings
         #[structopt(parse(from_os_str), default_value = "state_data.csv", short, long)]
-        states: PathBuf,
+        uber_states: PathBuf,
         /// skip validating the input files for a slight performance gain
         #[structopt(short, long)]
         trust: bool,
@@ -226,7 +226,7 @@ fn main() {
     let args = SeedGen::from_args();
 
     match args.command {
-        Command::Seed { mut filename, seed, areas, locations, states: uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
+        Command::Seed { mut filename, seed, areas, locations, uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
             if wait_on_debugger {
                 eprintln!("waiting for debugger...");
                 debugger::wait_until_attached(None).expect("state() not implemented on this platform");
