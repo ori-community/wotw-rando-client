@@ -1,0 +1,8 @@
+#preset
+/// Quality of Life headers
+///
+/// Headers that don't impact gameplay much, but can improve the experience
+/// Enables skippable cutscenes, autoplants and no branch
+!!include skippable_cutscenes
+!!include autoplants
+!!include no_branch

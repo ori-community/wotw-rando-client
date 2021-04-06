@@ -271,15 +271,15 @@ pub fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[
     let mut first_line = true;
 
     for line in header.lines() {
-        let mut trimmed = line.trim();
+        let line = line.trim();
 
         if first_line {
             first_line = false;
-            if trimmed.starts_with('#') { continue; }
+            if line.starts_with('#') { continue; }
         }
 
-        let comment = trimmed.find("//");
-        if let Some(index) = comment {
+        let mut trimmed = line;
+        if let Some(index) = line.find("//") {
             trimmed = &trimmed[..index];
         }
 
@@ -303,7 +303,7 @@ pub fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[
             } else {
                 return Err(format!("Unknown command '{}'", command))
             }
-        } else if let Some(ignored) = trimmed.strip_prefix('!') {
+        } else if let Some(ignored) = line.strip_prefix('!') {
             processed += ignored;
             processed.push('\n');
         } else {
