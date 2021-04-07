@@ -1,3 +1,5 @@
+use std::convert::TryFrom;
+
 use crate::inventory::{Inventory, Item};
 use crate::util::settings::Settings;
 use crate::util::orbs::Orbs;
@@ -186,13 +188,11 @@ impl Player {
 
         let orbs = current_orbs + orb_cost;
         if orbs.health < 0.0 {
-            #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
-            let health_fragments = (-orbs.health / 5.0).ceil() as u16;
+            let health_fragments = u16::try_from((-orbs.health / 5.0).ceil() as i32).unwrap();
             missing.grant(Item::Resource(Resource::Health), health_fragments);
         }
         if orbs.energy < 0.0 {
-            #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
-            let energy_fragments = (-orbs.energy * 2.0).ceil() as u16;
+            let energy_fragments = u16::try_from((-orbs.energy * 2.0).ceil() as i32).unwrap();
             missing.grant(Item::Resource(Resource::Energy), energy_fragments);
         }
 

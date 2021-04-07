@@ -1,3 +1,5 @@
+use std::convert::TryFrom;
+
 use rustc_hash::FxHashSet;
 
 use crate::player::Player;
@@ -71,25 +73,38 @@ impl Requirement {
                         health: -cost,
                         ..Orbs::default()
                     }
-                ])} else if player.inventory.has(&Item::Skill(Skill::Regenerate), 1) {
-                    // TODO doesn't this break if the player's max health doesn't support healing enough?
-                    let regens = ((cost - orbs.health) / 30.0).ceil();
-                    let regen_cost = 1.0 * regens;
-                    if orbs.energy >= regen_cost { return Some(vec![
-                        Orbs {
-                            health: -cost + 30.0 * regens,
-                            energy: -regen_cost,
-                        }
-                    ])}
+                ])}
+                else if player.inventory.has(&Item::Skill(Skill::Regenerate), 1) {
+                    let max_health = player.max_health();
+                    if max_health >= cost {
+                        let regens = ((cost - orbs.health) / 30.0).ceil();
+                        let max_heal = max_health - orbs.health;
+                        if orbs.energy >= regens { return Some(vec![
+                            Orbs {
+                                health: max_heal.min(-cost + 30.0 * regens),
+                                energy: -regens,
+                            }
+                        ])}
+                    }
                 }
             },
             Requirement::Danger(amount) => {
                 let cost = *amount * player.defense_mod();
-                if orbs.health >= cost { return Some(vec![Orbs::default()]); }
+                if orbs.health >= cost {
+                    return Some(vec![Orbs::default()]);
+                }
                 else if player.inventory.has(&Item::Skill(Skill::Regenerate), 1) {
-                    let regens = ((cost - orbs.health) / 30.0).ceil();
-                    // TODO this seems wrong? if the player has to heal this should be represented
-                    if orbs.energy >= 1.0 * regens { return Some(vec![Orbs::default()])}
+                    let max_health = player.max_health();
+                    if max_health >= cost {
+                        let regens = ((cost - orbs.health) / 30.0).ceil();
+                        let max_heal = max_health - orbs.health;
+                        if orbs.energy >= regens { return Some(vec![
+                            Orbs {
+                                health: max_heal.min(30.0 * regens),
+                                energy: -regens,
+                            }
+                        ])}
+                    }
                 }
             },
             Requirement::BreakWall(health) =>
@@ -98,6 +113,7 @@ impl Requirement {
                     return Requirement::cost_is_met(cost, player, orbs);
                 }
             Requirement::Boss(health) =>
+                // TODO rock boss is flying, just placing a todo in case rock boss will be logic relevant someday
                 if let Some(weapon) = player.preferred_weapon(false) {
                     let cost = player.destroy_cost(*health, weapon, false);
                     return Requirement::cost_is_met(cost, player, orbs);
@@ -139,8 +155,7 @@ impl Requirement {
                         if ranged && ranged_weapon.is_none() { return None; }
                         let used_weapon = if ranged { ranged_weapon.unwrap() } else { weapon };
 
-                        // TODO check what actually counts as airborne
-                        let flying = matches!(enemy, Enemy::Skeeto | Enemy::SmallSkeeto | Enemy::Bat | Enemy::Bee);
+                        let flying = matches!(enemy, Enemy::Skeeto | Enemy::SmallSkeeto | Enemy::Bee);
 
                         energy -= player.destroy_cost(enemy.health(), used_weapon, flying) * f32::from(*amount) * armor_mod;
                     }
@@ -223,16 +238,30 @@ impl Requirement {
         itemsets
     }
     fn needed_for_damage(amount: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
-        let mut itemsets = vec![(Inventory::default(), Orbs { health: -amount, ..Orbs::default() })];
+        let needed_health_fragments = u16::try_from((amount / 5.0).ceil() as i32).unwrap();
 
-        // TODO keep player's max health in mind for heals
-        let regen_cost = (amount / 30.0).ceil();
-
-        let mut regen_sets = Requirement::needed_for_cost(regen_cost, player);
-        for (inventory, _) in &mut regen_sets {
-            inventory.grant(Item::Skill(Skill::Regenerate), 1);
+        let mut inventory = Inventory::default();
+        if needed_health_fragments > 0 {
+            inventory.grant(Item::Resource(Resource::Health), needed_health_fragments);
         }
-        itemsets.append(&mut regen_sets);
+
+        let mut itemsets = vec![(inventory, Orbs { health: -amount, ..Orbs::default() })];
+
+        let max_regens = usize::try_from((amount / 30.0).ceil() as i32).unwrap();
+        for regens in 1..=max_regens {
+            let regens = regens as f32;
+            let health = 0_f32.min(regens * 30.0 - amount);
+
+            let mut regen_sets = Requirement::needed_for_cost(regens, player);
+            for (inventory, orbs) in &mut regen_sets {
+                inventory.grant(Item::Skill(Skill::Regenerate), 1);
+                orbs.health = health;
+                if needed_health_fragments > 0 {
+                    inventory.grant(Item::Resource(Resource::Health), needed_health_fragments);
+                }
+            }
+            itemsets.append(&mut regen_sets);
+        }
 
         itemsets
     }
@@ -359,6 +388,7 @@ impl Requirement {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::util::settings::Settings;
 
     #[test]
     fn is_met() {
@@ -381,10 +411,10 @@ mod tests {
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.unsafe_paths = true;
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -1.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -1.0, ..orbs }]));
         player.unsafe_paths = false;
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -2.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -2.0, ..orbs }]));
 
         let req = Requirement::State(34);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
@@ -398,26 +428,36 @@ mod tests {
         player.inventory.grant(Item::Resource(Resource::Health), 5);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Health), 1);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {health: -30.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { health: -30.0, ..orbs }]));
+        let req = Requirement::Damage(60.0);
+        player.inventory.grant(Item::Resource(Resource::Energy), 2);
+        player.inventory.grant(Item::Skill(Skill::Regenerate), 1);
+        assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
+        player.inventory.grant(Item::Resource(Resource::Health), 6);
+        assert_eq!(req.is_met(&player, &states, Orbs { health: 30.0, energy: player.max_energy() }), Some(vec![Orbs { health: -30.0, energy: -1.0 }]));
+        let req = Requirement::Danger(30.0);
+        assert_eq!(req.is_met(&player, &states, Orbs { health: 30.0, energy: player.max_energy() }), Some(vec![Orbs { ..orbs }]));
+        let req = Requirement::Danger(60.0);
+        assert_eq!(req.is_met(&player, &states, Orbs { health: 30.0, energy: player.max_energy() }), Some(vec![Orbs { health: 30.0, energy: -1.0 }]));
 
         player = Player::default();
         let req = Requirement::BreakWall(12.0);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Skill(Skill::Sword), 1);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { ..orbs }]));
         player = Player::default();
         player.inventory.grant(Item::Skill(Skill::Grenade), 1);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 3);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -2.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -2.0, ..orbs }]));
         player = Player::default();
         let req = Requirement::BreakWall(16.0);
         player.inventory.grant(Item::Skill(Skill::Grenade), 1);
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         player.unsafe_paths = true;
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -1.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -1.0, ..orbs }]));
         player.unsafe_paths = false;
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
@@ -428,12 +468,12 @@ mod tests {
         player.unsafe_paths = true;
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 4);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -2.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -2.0, ..orbs }]));
         player.inventory.grant(Item::Resource(Resource::Energy), 6);
         player.unsafe_paths = false;
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -6.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -6.0, ..orbs }]));
 
         player = Player::default();
         let req = Requirement::Combat(vec![(Enemy::Slug, 2), (Enemy::Skeeto, 1)]);
@@ -441,12 +481,12 @@ mod tests {
         player.unsafe_paths = true;
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 7);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -3.25, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -3.25, ..orbs }]));
         player.inventory.grant(Item::Resource(Resource::Energy), 6);
         player.unsafe_paths = false;
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -6.5, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -6.5, ..orbs }]));
         player = Player::default();
         let req = Requirement::Combat(vec![(Enemy::Sandworm, 1), (Enemy::Bat, 1), (Enemy::EnergyRefill, 99), (Enemy::ShieldMiner, 2), (Enemy::EnergyRefill, 1), (Enemy::Balloon, 4)]);
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
@@ -456,7 +496,7 @@ mod tests {
         player.unsafe_paths = true;
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -14.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -14.0, ..orbs }]));
         player.inventory.grant(Item::Resource(Resource::Energy), 37);
         player.inventory.grant(Item::Skill(Skill::Bash), 1);
         player.inventory.grant(Item::Skill(Skill::Launch), 1);
@@ -465,7 +505,7 @@ mod tests {
         player.unsafe_paths = false;
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -33.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -33.0, ..orbs }]));
         player = Player::default();
         let req = Requirement::Combat(vec![(Enemy::Tentacle, 1)]);
         player.inventory.grant(Item::Skill(Skill::Spear), 1);
@@ -473,14 +513,14 @@ mod tests {
         player.inventory.grant(Item::Resource(Resource::Energy), 4);
         player.gorlek_paths = true;
         player.unsafe_paths = true;
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -2.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -2.0, ..orbs }]));
         player.gorlek_paths = false;
         player.unsafe_paths = false;
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 11);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 1);
-        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs {energy: -8.0, ..orbs }]));
+        assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(vec![Orbs { energy: -8.0, ..orbs }]));
 
         player = Player::default();
         let a = Requirement::EnergySkill(Skill::Blaze, 2.0);
@@ -529,6 +569,7 @@ mod tests {
     #[test]
     fn items_needed() {
         let mut player = Player::default();
+        player.spawn(&Settings::default());
         let orbs = Orbs::default();
 
         let req = Requirement::Free;
@@ -567,15 +608,18 @@ mod tests {
 
         let req = Requirement::Damage(36.0);
         assert_eq!(req.items_needed(&player), vec![
-            (Inventory::default(), Orbs { health: -36.0, ..orbs }),
-            (Inventory::from(Item::Skill(Skill::Regenerate)), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from((Item::Resource(Resource::Health), 8)), Orbs { health: -36.0, ..orbs }),
+            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
+            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { energy: -2.0, ..orbs }),
         ]);
         player.gorlek_paths = true;
         assert_eq!(req.items_needed(&player), vec![
-            (Inventory::default(), Orbs { health: -36.0, ..orbs }),
-            (Inventory::from(Item::Skill(Skill::Regenerate)), Orbs { energy: -2.0, ..orbs }),  // TODO this is expected but actually wrong
-            (Inventory::from(Item::Shard(Shard::Resilience)), Orbs { health: -36.0 * 0.9, ..orbs }),
-            (Inventory::from(vec![Item::Skill(Skill::Regenerate), Item::Shard(Shard::Resilience)]), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from((Item::Resource(Resource::Health), 8)), Orbs { health: -36.0, ..orbs }),
+            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
+            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Shard(Shard::Resilience), 1)]), Orbs { health: -36.0 * 0.9, ..orbs }),
+            (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Skill(Skill::Regenerate), 1), (Item::Shard(Shard::Resilience), 1)]), Orbs { health: (-36.0 * 0.9) + 30.0, energy: -1.0 }),
+            (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Skill(Skill::Regenerate), 1), (Item::Shard(Shard::Resilience), 1)]), Orbs { energy: -2.0, ..orbs }),
         ]);
         player.gorlek_paths = false;
 

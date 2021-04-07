@@ -128,7 +128,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
                     for orbs in &best_orbs {
                         // TODO lot of redundant work here, only the orbs change!
                         let missing = world.player.missing_items(&inventory, orb_cost, *orbs);
-                        if missing.inventory.is_empty() { panic!("Failed to determine which items were needed for progression"); }  // sanity check
+                        if missing.inventory.is_empty() { panic!("Failed to determine which items were needed for progression to meet {:#?} (had {:#?})", requirement, world.player.inventory); }  // sanity check
                         if missing.item_count() > slots { continue; }
                         if !world.pool.contains(&missing) { continue; }
                         itemsets.push(missing);
@@ -174,6 +174,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
 
             let progression = itemsets.choose_weighted(rng, |inventory| 1.0 / inventory.cost()).map_err(|err| format!("Error choosing progression: {}", err))?;
             if verbose { eprintln!("Chosen progression: {}", progression); }
+            // TODO display what was progressed towards
 
             let items = progression.inventory.iter().flat_map(|(item, amount)| {
                 if let Item::SpiritLight(1) = item {

@@ -2,6 +2,7 @@ pub mod settings;
 pub mod orbs;
 
 use std::{fmt, fs, io, path::Path, path::PathBuf};
+use std::io::Write;
 
 use serde::{Serialize, Deserialize};
 
@@ -477,12 +478,11 @@ impl Hint {
     }
 }
 
-// TODO type of resource set?
 // TODO enum toggle
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Command {
     Autosave,
-    Resource { resource: Resource, amount: u16 },
+    Resource { resource: Resource, amount: i16 },
     Checkpoint,
     Magic,
     StopEqual { uber_state: UberState },
@@ -493,9 +493,9 @@ pub enum Command {
     StartTimer { identifier: UberIdentifier },
     StopTimer { identifier: UberIdentifier },
     StateRedirect { intercept: i32, set: i32 },
-    SetHealth { amount: u16 },
-    SetEnergy { amount: u16 },
-    SetSpiritLight { amount: u16 },
+    SetHealth { amount: i16 },
+    SetEnergy { amount: i16 },
+    SetSpiritLight { amount: i16 },
     Equip { slot: u8, ability: u16 },
 }
 impl fmt::Display for Command {
@@ -607,12 +607,33 @@ pub fn read_file(file: &Path, default_folder: &str) -> Result<String, io::Error>
         fs::read_to_string(file)
     })
 }
-pub fn write_file(file: &Path, contents: &str, default_folder: &str) -> Result<(), io::Error> {
+
+fn create_in_folder(file: &Path, contents: &str) -> Result<(), io::Error> {
+    let mut index = 0;
+    loop {
+        let mut filename = file.file_stem().unwrap().to_os_string();
+        if index > 0 {
+            filename.push(format!("_{}", index));
+        }
+        let mut path = file.with_file_name(filename);
+        path.set_extension(file.extension().unwrap());
+
+        match fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(path) {
+                Ok(mut file) => return file.write_all(contents.as_bytes()),
+                Err(err) if err.kind() == io::ErrorKind::AlreadyExists => index += 1,
+                Err(err) => return Err(err),
+            }
+    }
+}
+pub fn create_new_file(file: &Path, contents: &str, default_folder: &str) -> Result<(), io::Error> {
     let mut in_folder = PathBuf::new();
     in_folder.push(default_folder);
     in_folder.push(file);
-    fs::write(in_folder, contents).or_else(|_| {
-        fs::write(file, contents)
+    create_in_folder(&in_folder, contents).or_else(|_| {
+        create_in_folder(file, contents)
     })
 }
 

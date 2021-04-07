@@ -1,5 +1,5 @@
 use std::path::{Path, PathBuf};
-use std::fs;
+use std::convert::TryFrom;
 use std::io::{self, Read};
 use std::time::Instant;
 
@@ -283,7 +283,7 @@ fn main() {
             eprintln!("Generated seed in {:?}", now.elapsed());
             // TODO spoilers
 
-            fs::write(filename, seed).unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
+            util::create_new_file(&filename, &seed, "seeds").unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
         },
         Command::ReachCheck { mut seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
             seed_file.set_extension("wotwr");
@@ -293,9 +293,7 @@ fn main() {
 
             world.player.apply_pathsets(&settings);
             world.player.inventory.grant(Item::Resource(Resource::Health), health / 5);
-            if energy < 0.0 { panic!("Energy has to be positive, passed {}", energy); }
-            #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
-            world.player.inventory.grant(Item::Resource(Resource::Energy), (energy * 2.0) as u16);
+            world.player.inventory.grant(Item::Resource(Resource::Energy), u16::try_from((energy * 2.0) as i32).unwrap());
             world.player.inventory.grant(Item::Resource(Resource::Keystone), keystones);
             world.player.inventory.grant(Item::Resource(Resource::Ore), ore);
             world.player.inventory.grant(Item::SpiritLight(1), spirit_light);

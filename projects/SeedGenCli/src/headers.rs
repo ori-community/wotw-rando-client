@@ -78,10 +78,10 @@ pub fn parse_pickup<'a>(pickup: &'a str, shop: bool) -> Result<(Item, u16), Stri
                 },
                 "1" => {
                     let resource = parts.next().ok_or_else(|| format!("missing resource type in pickup {}", pickup))?;
-                    let resource = resource.parse::<u8>().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
+                    let resource: u8 = resource.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
                     let resource = Resource::from_id(resource).ok_or_else(|| format!("invalid resource type in pickup {}", pickup))?;
                     let amount = parts.next().ok_or_else(|| format!("missing resource amount in pickup {}", pickup))?;
-                    let amount = amount.parse::<u16>().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
+                    let amount: i16 = amount.parse().map_err(|_| format!("invalid resource type in pickup {}", pickup))?;
                     end_of_pickup(parts, shop).map_err(|err| format!("{} in pickup {}", err, pickup))?;
                     Ok((Item::Command(Command::Resource { resource, amount }), 1))
                 },
@@ -150,7 +150,7 @@ pub fn parse_pickup<'a>(pickup: &'a str, shop: bool) -> Result<(Item, u16), Stri
                 }
                 "12" | "13" | "14" => {
                     let amount = parts.next().ok_or_else(|| format!("missing amount in pickup {}", pickup))?;
-                    let amount: u16 = amount.parse().map_err(|_| format!("invalid amount in pickup {}", pickup))?;
+                    let amount: i16 = amount.parse().map_err(|_| format!("invalid amount in pickup {}", pickup))?;
                     end_of_pickup(parts, shop).map_err(|err| format!("{} in pickup {}", err, pickup))?;
 
                     match command_type {
@@ -814,7 +814,7 @@ pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), Stri
 
     name.set_extension("wotwrh");
 
-    util::write_file(&name, &contents, "headers").map_err(|err| format!("Failed to create preset: {}", err))?;
+    util::create_new_file(&name, &contents, "headers").map_err(|err| format!("Failed to create preset: {}", err))?;
 
     let name = name.file_stem().unwrap().to_string_lossy();
 
