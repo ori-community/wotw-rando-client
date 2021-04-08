@@ -6,7 +6,7 @@ use std::time::Instant;
 use structopt::StructOpt;
 use bugsalot::debugger;
 
-use rand_seeder::Seeder;
+use rand::distributions::{Distribution, Uniform};
 
 use seedgen::{generate_seed, lexer, inventory, world, uberstate, headers, util};
 
@@ -33,7 +33,7 @@ enum Command {
     Seed {
         /// the output location to write the seed into. The file name will also seed the rng
         #[structopt(parse(from_os_str))]
-        filename: PathBuf,
+        filename: Option<PathBuf>,
         /// if you don't want the output to be used as seed, specify a seed here instead
         #[structopt(long)]
         seed: Option<String>,
@@ -226,7 +226,7 @@ fn main() {
     let args = SeedGen::from_args();
 
     match args.command {
-        Command::Seed { mut filename, seed, areas, locations, uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
+        Command::Seed { filename, mut seed, areas, locations, uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
             if wait_on_debugger {
                 eprintln!("waiting for debugger...");
                 debugger::wait_until_attached(None).expect("state() not implemented on this platform");
@@ -234,23 +234,28 @@ fn main() {
 
             let now = Instant::now();
 
-            // TODO unspecified filename
-            // TODO duplicate filenames
             // TODO default headers
+
+            let mut filename = filename.unwrap_or_else(|| {
+                let mut generated_seed = String::new();
+                let numeric = Uniform::from('0'..='9');
+                let mut rng = rand::thread_rng();
+                for _ in 0..16 {
+                    generated_seed.push(numeric.sample(&mut rng));
+                }
+                seed = Some(generated_seed);
+                PathBuf::from("seed")
+            });
+
+            filename.set_extension("wotwr");
+
+            let seed = seed.unwrap_or_else(|| filename.file_stem().unwrap().to_string_lossy().to_string());
 
             let flags = parse_flags(&generation_flags);
             let pathsets = flags.pathsets();
 
             let graph = lexer::parse_logic(&areas, &locations, &uber_states, &pathsets, !trust).unwrap();
             eprintln!("Parsed logic in {:?}", now.elapsed());
-
-            filename.set_extension("wotwr");
-            // TODO default into a seeds folder?
-
-            let rng = seed.map_or_else(
-                || Seeder::from(filename.file_name()).make_rng(),
-                |seed| Seeder::from(seed).make_rng()
-            );
 
             let spawn = spawn.unwrap_or_else(|| util::DEFAULTSPAWN.to_string());
             let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
@@ -279,7 +284,7 @@ fn main() {
                 debug_info: verbose,
             };
 
-            let seed = generate_seed(&graph, &settings, &headers, rng, verbose).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
+            let seed = generate_seed(&graph, &settings, &headers, &seed, verbose).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
             eprintln!("Generated seed in {:?}", now.elapsed());
             // TODO spoilers
 

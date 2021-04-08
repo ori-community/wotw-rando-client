@@ -621,9 +621,10 @@ fn create_in_folder(file: &Path, contents: &str) -> Result<(), io::Error> {
         match fs::OpenOptions::new()
             .write(true)
             .create_new(true)
-            .open(path) {
+            .open(&path) {
                 Ok(mut file) => return file.write_all(contents.as_bytes()),
                 Err(err) if err.kind() == io::ErrorKind::AlreadyExists => index += 1,
+                Err(err) if err.kind() == io::ErrorKind::NotFound => fs::create_dir_all(path.parent().unwrap())?,
                 Err(err) => return Err(err),
             }
     }

@@ -11,6 +11,7 @@ pub mod util;
 
 use std::collections::HashSet;
 
+use rand_seeder::Seeder;
 use rand::seq::IteratorRandom;
 use rand::rngs::StdRng;
 
@@ -74,7 +75,9 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], mut rng: StdRng, verbose: bool) -> Result<String, String> {
+pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], seed: &str, verbose: bool) -> Result<String, String> {
+    let mut rng = Seeder::from(seed).make_rng();
+
     let mut world = World::new(graph);
     world.pool = ItemPool::preset(&settings.pathsets);
     world.player.spawn(settings);
@@ -144,7 +147,8 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
 
     let placement_block = placements.iter().fold(String::with_capacity(placements.len() * 20), |acc, placement| acc + &format!("{}//\n", placement));
 
+    let seed_line = format!("\n// Seed: {}", seed);
     let config_line = format!("\n// Config: {}", util::settings::write(&settings).map_err(|_| String::from("Invalid Settings"))?);
 
-    Ok(flag_line + &spawn_line + &header_block + &placement_block + &config_line)
+    Ok(flag_line + &spawn_line + &header_block + &placement_block + &seed_line + &config_line)
 }
