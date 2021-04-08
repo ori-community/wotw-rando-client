@@ -43,6 +43,7 @@ pub struct Anchor {
 #[derive(Debug)]
 pub struct Pickup {
     pub identifier: String,
+    pub zone: String,
     pub index: usize,
     pub uber_state: UberState,
 }
@@ -55,6 +56,7 @@ pub struct State {
 #[derive(Debug)]
 pub struct Quest {
     pub identifier: String,
+    pub zone: String,
     pub index: usize,
     pub uber_state: UberState,
 }
@@ -81,6 +83,13 @@ impl Node {
             Node::Pickup(pickup) => &pickup.identifier[..],
             Node::State(state) => &state.identifier[..],
             Node::Quest(quest) => &quest.identifier[..],
+        }
+    }
+    pub fn zone(&self) -> Option<&str> {
+        match self {
+            Node::Pickup(pickup) => Some(&pickup.zone[..]),
+            Node::Quest(quest) => Some(&quest.zone[..]),
+            _ => None,
         }
     }
     pub fn index(&self) -> usize {
@@ -380,6 +389,10 @@ impl<'a> World<'a> {
         self.pool.remove(&item, amount);
     }
 
+    pub fn preplace(&mut self, uber_state: UberState, item: Item, amount: u16) {
+        let preplacement = self.preplacements.entry(uber_state).or_insert_with(Inventory::default);
+        preplacement.grant(item, amount);
+    }
     pub fn collect_preplacements(&mut self, reached: &UberState, verbose: bool) {
         let mut inventory = Inventory::default();
         if let Some(items) = self.preplacements.get(&reached) {

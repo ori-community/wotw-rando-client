@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 
 use crate::world::World;
 use crate::uberstate::{UberState, UberIdentifier};
-use crate::inventory::{Inventory, Item};
+use crate::inventory::Item;
 use crate::util::{self, Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command};
 
 // TODO update documentation for descriptions
@@ -335,16 +335,14 @@ pub fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[
                         if verbose { eprintln!("adding an empty pickup at {} to prevent placements", target); }
                         let null_item = Item::Custom(String::from("6|f=0|quiet|noclear"));
 
-                        let preplacement = world.preplacements.entry(target).or_insert_with(Inventory::default);
-                        preplacement.grant(null_item, amount);
+                        world.preplace(target, null_item, amount);
                     }
                 }
 
-                let preplacement = world.preplacements.entry(uber_state).or_insert_with(Inventory::default);
-                preplacement.grant(item.clone(), amount);
-
                 if verbose { eprintln!("removing {}x {} from the item pool", amount, item); }
                 world.pool.remove(&item, amount);
+
+                world.preplace(uber_state, item, amount);
             }
             processed += line;
             processed.push('\n');
@@ -850,6 +848,7 @@ mod tests {
     use super::super::*;
 
     use util::*;
+    use inventory::Inventory;
 
     #[test]
     fn header_parsing() {

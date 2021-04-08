@@ -581,6 +581,7 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
 #[derive(Debug)]
 pub struct Location {
     pub name: String,
+    pub zone: String,
     pub uber_state: UberState,
 }
 
@@ -598,10 +599,13 @@ pub fn parse_locations(path: &Path, validate: bool) -> Result<Vec<Location>, Str
             return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line))
         }
 
-        let (name, uber_group, uber_id) = (parts[0].trim(), parts[5].trim(), parts[7].trim());
+        let (name, zone, uber_group, uber_id) = (parts[0].trim(), parts[1].trim(), parts[5].trim(), parts[7].trim());
         if validate {
             if name.is_empty() {
                 return Err(empty_field("name", index, line))
+            }
+            if zone.is_empty() {
+                return Err(empty_field("zone", index, line))
             }
             if uber_group.is_empty() {
                 return Err(empty_field("group_id", index, line))
@@ -613,6 +617,7 @@ pub fn parse_locations(path: &Path, validate: bool) -> Result<Vec<Location>, Str
 
         locations.push(Location {
             name: name.to_string(),
+            zone: zone.to_string(),
             uber_state: UberState::from_parts(uber_group, uber_id)?,
         })
     }

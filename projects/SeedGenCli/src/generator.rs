@@ -1,11 +1,12 @@
 use std::fmt;
 
-use rand::seq::SliceRandom;
+use rand::{Rng, seq::SliceRandom};
 use rand::rngs::StdRng;
 
 use crate::uberstate::{UberState, UberIdentifier};
 use crate::world::{World, Node};
 use crate::inventory::{Inventory, Item};
+use crate::util::{RELIC_ZONES, BonusItem};
 use crate::util::settings::{Settings, Spawn};
 
 const RESERVE_SLOTS: usize = 2;
@@ -47,13 +48,40 @@ fn format_identifiers(mut identifiers: Vec<&str>) -> String {
     identifiers
 }
 
+fn place_relics(world: &World, placements: &mut Vec<Placement>, rng: &mut StdRng) {
+    let mut relic_locations = world.graph.nodes.iter().filter_map(|node| {
+        if let Some(zone) = node.zone() {
+            if !world.preplacements.contains_key(node.uber_state().unwrap()) && RELIC_ZONES.contains(&zone) {
+                return Some((zone, node));
+            }
+        }
+        None
+    }).collect::<Vec<_>>();
+
+    relic_locations.shuffle(rng);
+
+    for &zone in RELIC_ZONES {
+        if rng.gen_bool(0.8) {
+            if let Some(&(_, location)) = relic_locations.iter().find(|&&(location_zone, _)| location_zone == zone) {
+                placements.push(Placement {
+                    uber_state: location.uber_state().unwrap().clone(),
+                    pickup: Item::BonusItem(BonusItem::Relic),
+                });
+            }
+        }
+    }
+}
+
 pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a Settings, rng: &mut StdRng, verbose: bool) -> Result<Vec<Placement>, String> {
-    // TODO relics
     // TODO keystone logic
     // TODO shop logic
     let mut placements = Vec::<Placement>::with_capacity(380);
     let mut placeholders = Vec::<UberState>::with_capacity(380);
     let mut spawn_slots = Vec::<&UberState>::new();
+
+    if settings.flags.world_tour {
+        place_relics(&world, &mut placements, rng);
+    }
 
     let spawn_state = UberState {
         identifier: UberIdentifier {

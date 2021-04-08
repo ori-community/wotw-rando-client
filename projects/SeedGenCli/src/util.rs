@@ -33,6 +33,19 @@ pub const GORLEK_SPAWNS: &[&str] = &[
     "UpperWastes.NorthTP",
     "WillowsEnd.InnerTP",
 ];
+pub const RELIC_ZONES: &[&str] = &[
+    "Inkwater Marsh",
+    "Midnight Burrows",
+    "Kwoloks Hollow",
+    "Wellspring Glades",
+    "The Wellspring",
+    "Luma Pools",
+    "Silent Woods",
+    "Baurs Reach",
+    "Mouldwood Depths",
+    "Windswept Wastes",
+    "Willows End",
+];
 
 #[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Pathset {

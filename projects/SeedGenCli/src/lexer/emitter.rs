@@ -121,6 +121,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
             graph.push(Node::Quest(world::Quest {
                 identifier: location.name.clone(),
+                zone: location.zone.clone(),
                 index,
                 uber_state: location.uber_state.clone(),
             }));
@@ -130,6 +131,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
             graph.push(Node::Pickup(world::Pickup {
                 identifier: location.name.clone(),
+                zone: location.zone.clone(),
                 index,
                 uber_state: location.uber_state.clone(),
             }));
