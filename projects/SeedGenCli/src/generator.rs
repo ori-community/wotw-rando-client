@@ -6,7 +6,7 @@ use rand::rngs::StdRng;
 use crate::uberstate::{UberState, UberIdentifier};
 use crate::world::{World, Node};
 use crate::inventory::{Inventory, Item};
-use crate::util::{RELIC_ZONES, BonusItem};
+use crate::util::{RELIC_ZONES, KEYSTONE_DOORS, Resource, BonusItem};
 use crate::util::settings::{Settings, Spawn};
 
 const RESERVE_SLOTS: usize = 2;
@@ -72,8 +72,48 @@ fn place_relics(world: &World, placements: &mut Vec<Placement>, rng: &mut StdRng
     }
 }
 
+fn force_keystones(reachable_states: Vec<&Node>, placements: &mut Vec<Placement>, world: &mut World, reserved_slots: &mut Vec<&UberState>, placeholders: &mut Vec<UberState>, verbose: bool) {
+    // TODO optimize? e.g. count placed keystones as they are placed instead of repeatedly computing them; only force placing keystones when new keydoors get into reach
+
+    let placed_keystones = placements.iter().filter(|&placement| placement.pickup == Item::Resource(Resource::Keystone)).count();
+    if placed_keystones < 2 { return; }
+
+    let required_keystones: u8 = reachable_states.iter()
+        .filter_map(|&node| {
+            if let Some((_, keystones)) = KEYSTONE_DOORS.iter().find(|&&(identifier, _)| identifier == node.identifier()) {
+                return Some(*keystones);
+            }
+            None
+        })
+        .sum();
+    let required_keystones: usize = required_keystones.into();
+    if required_keystones <= placed_keystones { return; }
+
+    let missing_keystones = required_keystones - placed_keystones;
+    if verbose { eprintln!("Force placing {} keystones to avoid keylocks", missing_keystones); }
+
+    for _ in 0..missing_keystones {
+        forced_placement(&Item::Resource(Resource::Keystone), placements, world, reserved_slots, placeholders, verbose);
+    }
+}
+
+fn forced_placement(item: &Item, placements: &mut Vec<Placement>, world: &mut World, reserved_slots: &mut Vec<&UberState>, placeholders: &mut Vec<UberState>, verbose: bool) {
+    let uber_state = if let Some(uber_state) = reserved_slots.pop() {
+        uber_state.clone()
+    } else if let Some(uber_state) = placeholders.pop() {
+        uber_state
+    } else {
+        panic!("Not enough slots to place progressions - this should be impossible") // the slot checks in missing_items guarantee this won't happen
+    };
+
+    placements.push(Placement {
+        uber_state: uber_state.clone(),
+        pickup: item.clone(),
+    });
+    world.grant_player(item, 1, verbose);
+}
+
 pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a Settings, rng: &mut StdRng, verbose: bool) -> Result<Vec<Placement>, String> {
-    // TODO keystone logic
     // TODO shop logic
     let mut placements = Vec::<Placement>::with_capacity(380);
     let mut placeholders = Vec::<UberState>::with_capacity(380);
@@ -101,10 +141,12 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
     loop {
         let (reachable, unmet) = world.graph.reached_and_progressions(&world.player, spawn, &world.uber_states)?;
 
-        let reachable_locations: Vec<_> = reachable.iter().filter(|&&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).collect();
+        let (reachable_locations, reachable_states): (Vec<&Node>, Vec<&Node>) = reachable.iter().partition(|&&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
+
         let all_locations: Vec<_> = world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).collect();
         let unreached_count = all_locations.len() - reachable_locations.len();
 
+        // TODO wouldn't retain be optimal here?
         let reachable = reachable.iter().filter(|&&node| {
             node.uber_state().map_or(false, |uber_state|
                 !placements.iter().any(|placement| &placement.uber_state == uber_state) &&
@@ -113,7 +155,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
         });
         if verbose {
             let identifiers: Vec<_> = reachable.clone()
-                .filter_map(|node| 
+                .filter_map(|&node| 
                     if matches!(node, Node::Pickup(_) | Node::Quest(_)) {
                         Some(node.identifier())
                     } else { None })
@@ -146,6 +188,8 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             }
         }
 
+        force_keystones(reachable_states, &mut placements, &mut world, &mut reserved_slots, &mut placeholders, verbose);
+
         if needs_placement.is_empty() {
             let mut itemsets = Vec::new();
             let slots = reserved_slots.len() + placeholders.len();
@@ -165,7 +209,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             }
 
             if itemsets.is_empty() {
-                // TODO not reaching all location can actually be desired (remove launch...)
+                // TODO not reaching all locations can actually be desired (remove launch...)
 
                 let identifiers: Vec<_> = all_locations.iter()
                     .filter_map(|&node| {
@@ -213,19 +257,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
                 }
             });
             for item in items {
-                let uber_state = if let Some(uber_state) = reserved_slots.pop() {
-                    uber_state.clone()
-                } else if let Some(uber_state) = placeholders.pop() {
-                    uber_state
-                } else {
-                    panic!("Not enough slots to place progressions - this should be impossible") // the slot checks in missing_items guarantee this won't happen
-                };
-
-                placements.push(Placement {
-                    uber_state: uber_state.clone(),
-                    pickup: item.clone(),
-                });
-                world.grant_player(item, 1, verbose);
+                forced_placement(item, &mut placements, &mut world, &mut reserved_slots, &mut placeholders, verbose);
             }
         } else {
             if verbose { eprintln!("Placing {} items randomly, reserved {} for the next placement group", needs_placement.len(), reserved_slots.len()); }

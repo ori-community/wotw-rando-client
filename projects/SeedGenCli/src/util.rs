@@ -46,6 +46,20 @@ pub const RELIC_ZONES: &[&str] = &[
     "Windswept Wastes",
     "Willows End",
 ];
+pub const KEYSTONE_DOORS: &[(&str, u8)] = &[
+    ("MarshSpawn.KeystoneDoor", 2),
+    ("HowlsDen.KeystoneDoor", 2),
+    ("MarshPastOpher.EyestoneDoor", 2),
+    ("MidnightBurrows.KeystoneDoor", 4),
+    ("WoodsEntry.KeystoneDoor", 2),
+    ("WoodsMain.KeystoneDoor", 4),
+    ("LowerReach.KeystoneDoor", 4),
+    ("UpperReach.KeystoneDoor", 4),
+    ("UpperDepths.EntryKeystoneDoor", 2),
+    ("UpperDepths.CentralKeystoneDoor", 2),
+    ("UpperPools.KeystoneDoor", 4),
+    ("UpperWastes.KeystoneDoor", 2),
+];
 
 #[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Pathset {

@@ -2,6 +2,8 @@
 ///
 /// Inkwater Marsh starts in a storm like in the vanilla game
 
+// TODO make rain controlled by an uberState
+
 3|0|4|7|1|1
 3|0|4|7|2|1
 !0|100|4|7|1|0

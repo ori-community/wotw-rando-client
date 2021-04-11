@@ -135,6 +135,7 @@ impl Item {
 
     pub fn name(&self) -> String {
         match self {
+            Item::SpiritLight(1) => String::from("Spirit Light"),
             Item::SpiritLight(amount) => format!("{} Spirit Light", amount),
             Item::Resource(resource) => format!("{:?}", resource),
             Item::Skill(skill) => format!("{:?}", skill),
@@ -234,7 +235,11 @@ impl Inventory {
 impl fmt::Display for Inventory {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut display = self.inventory.iter().fold(String::new(), |acc, (item, amount)| {
-            format!("{}{} {}, ", acc, amount, item.name())
+            if amount == &1 {
+                format!("{}{}, ", acc, item.name())
+            } else {
+                format!("{}{} {}, ", acc, amount, item.name())
+            }
         });
         for _ in 0..2 { display.pop(); }
         write!(f, "{}", display)

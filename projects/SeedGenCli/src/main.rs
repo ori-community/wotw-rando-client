@@ -237,6 +237,7 @@ fn main() {
             // TODO default headers
 
             let mut filename = filename.unwrap_or_else(|| {
+                // TODO reusing the generated seed does not seem to reproduce the same seed?
                 let mut generated_seed = String::new();
                 let numeric = Uniform::from('0'..='9');
                 let mut rng = rand::thread_rng();
