@@ -116,23 +116,19 @@ impl Item {
 
     pub fn cost(&self) -> u16 {
         // TODO design
-        #[allow(clippy::match_same_arms)]
         match self {
-            Item::SpiritLight(_) => 1,
-            Item::Resource(_) => 1,
-            Item::Skill(_) => 10,
-            Item::Shard(_) => 6,
-            Item::Teleporter(_) => 15,
-            Item::Water => 10,
-            Item::BonusItem(_) => 6,
-            Item::BonusUpgrade(_) => 6,
-            Item::Hint(_) => 5,
-            Item::UberState(_) => 5,
-            Item::Command(_) => 1,
-            Item::Custom(_) => 5,
+            Item::SpiritLight(amount) => *amount * 1,
+            Item::Resource(Resource::Health) => 20,
+            Item::Skill(Skill::Launch) => 5000,
+            Item::Skill(Skill::Regenerate) => 100,
+            Item::Skill(_) => 500,
+            Item::Teleporter(_) => 1000,
+            Item::Water => 700,
+            _ => 100,
         }
     }
 
+    // TODO This seems unintuitive, that's what Display *should* do!
     pub fn name(&self) -> String {
         match self {
             Item::SpiritLight(1) => String::from("Spirit Light"),

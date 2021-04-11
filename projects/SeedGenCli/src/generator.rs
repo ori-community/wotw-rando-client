@@ -103,7 +103,7 @@ fn forced_placement(item: &Item, placements: &mut Vec<Placement>, world: &mut Wo
     } else if let Some(uber_state) = placeholders.pop() {
         uber_state
     } else {
-        panic!("Not enough slots to place progressions - this should be impossible") // the slot checks in missing_items guarantee this won't happen
+        panic!("Not enough slots to place forced progression {}", item.name())  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
     };
 
     placements.push(Placement {
