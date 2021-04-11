@@ -15,6 +15,7 @@ const RANDOM_PROGRESSION: f64 = 0.1;
 pub struct Pool {
     pub progressions: Inventory,
     pub fillers: Inventory,
+    pub spirit_light: u16,
 }
 impl Pool {
     pub fn preset(pathsets: &[Pathset]) -> Pool {
@@ -105,29 +106,41 @@ impl Pool {
         Pool {
             progressions,
             fillers,
+            spirit_light: 20000,
         }
     }
 
     pub fn grant(&mut self, item: Item, amount: u16, pathsets: &[Pathset]) {
         // TODO how do you place arbitrary items as progression? :/
-        if item.is_progression(pathsets) {
+        if let Item::SpiritLight(amount) = item {
+            self.spirit_light += amount;
+        } else if item.is_progression(pathsets) {
             self.progressions.grant(item, amount);
         } else {
             self.fillers.grant(item, amount);
         }
     }
     pub fn remove(&mut self, item: &Item, amount: u16) {
-        if self.progressions.has(item, 1) {
+        if let Item::SpiritLight(stacked_amount) = item {
+            self.spirit_light -= amount * stacked_amount;
+        } else if self.progressions.has(item, 1) {
             self.progressions.remove(item, amount);
         } else {
             self.fillers.remove(item, amount);
         }
     }
 
+    pub fn inventory(&self) -> Inventory {
+        self.progressions.merge(&self.fillers)
+    }
+
     pub fn contains(&self, other: &Inventory) -> bool {
         for item in other.inventory.keys() {
-            if let Item::SpiritLight(_) = item { continue; }
-            if !self.progressions.has(item, other.inventory[item]) {
+            if let Item::SpiritLight(1) = item {
+                if self.spirit_light < other.inventory[item] {
+                    return false;
+                }
+            } else if !self.progressions.has(item, other.inventory[item]) {
                 return false;
             }
         }

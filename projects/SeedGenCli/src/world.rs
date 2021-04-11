@@ -30,7 +30,7 @@ impl<'a> World<'a> {
         }
     }
 
-    pub fn grant_player(&mut self, item: &Item, amount: u16, verbose: bool) {
+    pub fn grant_player(&mut self, item: Item, amount: u16, verbose: bool) {
         match &item {
             Item::UberState(command) => {
                 let mut parts = command.split('|');
@@ -98,7 +98,7 @@ impl<'a> World<'a> {
             Item::SpiritLight(stacked_amount) => {
                 self.player.inventory.grant(Item::SpiritLight(1), amount * stacked_amount);
             }
-            &item => {
+            item => {
                 self.player.inventory.grant(item.clone(), amount);
             },
         }
@@ -117,7 +117,7 @@ impl<'a> World<'a> {
         }
 
         for item in inventory.inventory.keys() {
-            self.grant_player(item, inventory.inventory[item], verbose);
+            self.grant_player(item.clone(), inventory.inventory[item], verbose);
         }
     }
 }

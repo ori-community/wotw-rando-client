@@ -121,6 +121,7 @@ impl Item {
         match self {
             Item::SpiritLight(amount) => *amount,
             Item::Resource(Resource::Health) => 20,
+            Item::Resource(Resource::Keystone) => 200,
             Item::Skill(Skill::Launch) => 5000,
             Item::Skill(Skill::Regenerate) => 100,
             Item::Skill(_) => 500,
@@ -195,7 +196,7 @@ impl Inventory {
         let mut count = 0;
         for item in self.inventory.keys() {
             if let Item::SpiritLight(amount) = item {
-                count += (self.inventory[item] * amount + 199) / 200;
+                count += (self.inventory[item] * amount + 49) / 50;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem
             } else {
                 count += self.inventory[item];
             }
