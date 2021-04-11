@@ -4,9 +4,9 @@ use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
 
 use crate::world::World;
-use crate::uberstate::{UberState, UberIdentifier};
 use crate::inventory::Item;
 use crate::util::{self, Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command};
+use crate::util::uberstate::{UberState, UberIdentifier};
 
 // TODO update documentation for descriptions
 
@@ -354,20 +354,20 @@ pub fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[
 
 fn is_preset(header: &Path) -> Result<bool, String> {
     let file = fs::File::open(header).map_err(|err| format!("Failed to open header from {:?}: {}", header, err))?;
-    let mut reader = BufReader::new(file);
+    let mut file = BufReader::new(file);
 
     let mut line = String::new();
-    reader.read_line(&mut line).map_err(|err| format!("Failed to read header from {:?}: {}", header, err))?;
+    file.read_line(&mut line).map_err(|err| format!("Failed to read header from {:?}: {}", header, err))?;
 
     Ok(line.trim() == "#preset")
 }
 
 fn is_hidden(header: &Path) -> Result<bool, String> {
     let file = fs::File::open(header).map_err(|err| format!("Failed to open header from {:?}: {}", header, err))?;
-    let mut reader = BufReader::new(file);
+    let mut file = BufReader::new(file);
 
     let mut line = String::new();
-    reader.read_line(&mut line).map_err(|err| format!("Failed to read header from {:?}: {}", header, err))?;
+    file.read_line(&mut line).map_err(|err| format!("Failed to read header from {:?}: {}", header, err))?;
 
     Ok(line.trim() == "#hide")
 }
@@ -451,7 +451,7 @@ fn summarize_headers(headers: &[PathBuf]) -> Result<String, String> {
     Ok(output)
 }
 
-pub fn list_headers() -> Result<(), String> {
+pub fn list() -> Result<(), String> {
     let mut output = String::new();
 
     let headers = find_headers(false)?;
@@ -508,7 +508,7 @@ pub fn list_presets() -> Result<(), String> {
     Ok(())
 }
 
-pub fn inspect_headers(headers: Vec<PathBuf>) -> Result<(), String> {
+pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
     let mut output = String::new();
 
     let hint = if headers.len() == 1 {
@@ -685,7 +685,7 @@ fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
     Ok(occupied_states)
 }
 
-pub fn validate_headers() -> Result<(), String> {
+pub fn validate() -> Result<(), String> {
     let mut output = String::new();
 
     let headers = find_headers(true)?;

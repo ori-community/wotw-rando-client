@@ -2,8 +2,7 @@ use std::path::Path;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::tokenizer::{Token, TokenType};
-use crate::uberstate::UberState;
-use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy};
+use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy, uberstate::UberState};
 
 pub struct ParseError {
     pub description: String,

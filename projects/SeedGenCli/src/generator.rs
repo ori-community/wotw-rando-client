@@ -3,11 +3,11 @@ use std::fmt;
 use rand::{Rng, seq::SliceRandom};
 use rand::rngs::StdRng;
 
-use crate::uberstate::{UberState, UberIdentifier};
-use crate::world::{World, Node};
+use crate::world::{World, graph::Node};
 use crate::inventory::{Inventory, Item};
 use crate::util::{RELIC_ZONES, KEYSTONE_DOORS, Resource, BonusItem};
 use crate::util::settings::{Settings, Spawn};
+use crate::util::uberstate::{UberState, UberIdentifier};
 
 const RESERVE_SLOTS: usize = 2;
 
@@ -72,7 +72,7 @@ fn place_relics(world: &World, placements: &mut Vec<Placement>, rng: &mut StdRng
     }
 }
 
-fn force_keystones(reachable_states: Vec<&Node>, placements: &mut Vec<Placement>, world: &mut World, reserved_slots: &mut Vec<&UberState>, placeholders: &mut Vec<UberState>, verbose: bool) {
+fn force_keystones(reachable_states: &[&Node], placements: &mut Vec<Placement>, world: &mut World, reserved_slots: &mut Vec<&UberState>, placeholders: &mut Vec<UberState>, verbose: bool) {
     // TODO optimize? e.g. count placed keystones as they are placed instead of repeatedly computing them; only force placing keystones when new keydoors get into reach
 
     let placed_keystones = placements.iter().filter(|&placement| placement.pickup == Item::Resource(Resource::Keystone)).count();
@@ -107,7 +107,7 @@ fn forced_placement(item: &Item, placements: &mut Vec<Placement>, world: &mut Wo
     };
 
     placements.push(Placement {
-        uber_state: uber_state.clone(),
+        uber_state,
         pickup: item.clone(),
     });
     world.grant_player(item, 1, verbose);
@@ -188,9 +188,10 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
             }
         }
 
-        force_keystones(reachable_states, &mut placements, &mut world, &mut reserved_slots, &mut placeholders, verbose);
+        force_keystones(&reachable_states, &mut placements, &mut world, &mut reserved_slots, &mut placeholders, verbose);
 
         if needs_placement.is_empty() {
+            // forced placements
             let mut itemsets = Vec::new();
             let slots = reserved_slots.len() + placeholders.len();
 
@@ -260,6 +261,7 @@ pub fn generate_placements<'a>(mut world: World<'a>, spawn: &str, settings: &'a 
                 forced_placement(item, &mut placements, &mut world, &mut reserved_slots, &mut placeholders, verbose);
             }
         } else {
+            // random placements
             if verbose { eprintln!("Placing {} items randomly, reserved {} for the next placement group", needs_placement.len(), reserved_slots.len()); }
             for uber_state in needs_placement {
                 // TODO maybe faster to pick all at once?

@@ -1,14 +1,14 @@
 use std::{io, path::{Path, PathBuf}};
 
-use super::{Pathset, DEFAULTSPAWN};
-
 use serde::{Serialize, Deserialize};
+
+use super::{Pathset, DEFAULTSPAWN};
 
 /// Representation of settings as they are written by the java-based seed generator
 #[allow(clippy::struct_excessive_bools)]
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct OldSeedFlags {
+struct OldSeedFlags {
     pub force_wisps: bool,      // compability note: used for goal mode logic
     pub force_trees: bool,      // compability note: used for goal mode logic
     pub force_quests: bool,     // compability note: used for goal mode logic
@@ -23,7 +23,7 @@ pub struct OldSeedFlags {
 #[allow(clippy::struct_excessive_bools)]
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct OldSettings {
+struct OldSettings {
     pub tps: bool,
     pub spoilers: bool,
     pub unsafe_paths: bool,

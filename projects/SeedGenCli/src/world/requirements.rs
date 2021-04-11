@@ -2,10 +2,10 @@ use std::convert::TryFrom;
 
 use rustc_hash::FxHashSet;
 
-use crate::player::Player;
+use super::player::Player;
 use crate::inventory::{Inventory, Item};
-use crate::util::orbs::{self, Orbs};
 use crate::util::{Resource, Skill, Shard, Teleporter, Enemy};
+use crate::util::orbs::{self, Orbs};
 
 #[derive(Debug, Clone)]
 pub enum Requirement {
@@ -238,6 +238,7 @@ impl Requirement {
         itemsets
     }
     fn needed_for_damage(amount: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
+        #[allow(clippy::cast_possible_truncation)]
         let needed_health_fragments = u16::try_from((amount / 5.0).ceil() as i32).unwrap();
 
         let mut inventory = Inventory::default();
@@ -247,8 +248,10 @@ impl Requirement {
 
         let mut itemsets = vec![(inventory, Orbs { health: -amount, ..Orbs::default() })];
 
+        #[allow(clippy::cast_possible_truncation)]
         let max_regens = usize::try_from((amount / 30.0).ceil() as i32).unwrap();
         for regens in 1..=max_regens {
+            #[allow(clippy::cast_precision_loss)]
             let regens = regens as f32;
             let health = 0_f32.min(regens * 30.0 - amount);
 

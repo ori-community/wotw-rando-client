@@ -20,6 +20,7 @@ impl fmt::Display for UberIdentifier {
         write!(f, "{}|{}", self.uber_group, self.uber_id)
     }
 }
+
 #[derive(Debug, PartialEq, Eq, Hash, Clone, PartialOrd, Ord)]
 pub struct UberState {
     pub identifier: UberIdentifier,

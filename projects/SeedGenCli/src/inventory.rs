@@ -4,6 +4,7 @@ use rustc_hash::FxHashMap;
 
 use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Pathset, Command};
 
+#[allow(clippy::pub_enum_variant_names)]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Item {
     SpiritLight(u16),
@@ -116,8 +117,9 @@ impl Item {
 
     pub fn cost(&self) -> u16 {
         // TODO design
+        #[allow(clippy::match_same_arms)]
         match self {
-            Item::SpiritLight(amount) => *amount * 1,
+            Item::SpiritLight(amount) => *amount,
             Item::Resource(Resource::Health) => 20,
             Item::Skill(Skill::Launch) => 5000,
             Item::Skill(Skill::Regenerate) => 100,

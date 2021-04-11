@@ -1,12 +1,13 @@
 pub mod settings;
 pub mod orbs;
+pub mod uberstate;
 
 use std::{fmt, fs, io, path::Path, path::PathBuf};
 use std::io::Write;
 
 use serde::{Serialize, Deserialize};
 
-use crate::uberstate::{UberState, UberIdentifier};
+use uberstate::{UberState, UberIdentifier};
 
 pub const DEFAULTSPAWN: &str = "MarshSpawn.Main";
 pub const MOKI_SPAWNS: &[&str] = &[

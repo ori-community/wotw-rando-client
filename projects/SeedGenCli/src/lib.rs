@@ -1,10 +1,6 @@
 pub mod lexer;
 pub mod world;
-pub mod uberstate;
-pub mod pool;
-pub mod player;
 pub mod inventory;
-pub mod requirements;
 pub mod generator;
 pub mod headers;
 pub mod util;
@@ -15,16 +11,15 @@ use rand_seeder::Seeder;
 use rand::seq::IteratorRandom;
 use rand::rngs::StdRng;
 
-use world::{World, WorldGraph, Node, Anchor, Position};
-use pool::ItemPool;
+use world::{World, graph::{Graph, Node, Anchor, Position}, pool::Pool};
 use generator::Placement;
-use util::settings::{Settings, Spawn};
 use util::{Pathset, NodeType, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
+use util::settings::{Settings, Spawn};
 
 // TODO centralize the scattered constants
 const RETRIES: u16 = 5;
 
-fn pick_spawn<'a>(graph: &'a WorldGraph, settings: &Settings, rng: &mut StdRng) -> Result<&'a Anchor, String> {
+fn pick_spawn<'a>(graph: &'a Graph, settings: &Settings, rng: &mut StdRng) -> Result<&'a Anchor, String> {
     let mut valid = graph.nodes.iter().filter(|&node| {
         if let Node::Anchor(anchor) = node { anchor.position.is_some() }
         else { false }
@@ -75,11 +70,11 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String], seed: &str, verbose: bool) -> Result<String, String> {
+pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str, verbose: bool) -> Result<String, String> {
     let mut rng = Seeder::from(seed).make_rng();
 
     let mut world = World::new(graph);
-    world.pool = ItemPool::preset(&settings.pathsets);
+    world.pool = Pool::preset(&settings.pathsets);
     world.player.spawn(settings);
 
     let flag_line = write_flags(settings);
@@ -123,7 +118,7 @@ pub fn generate_seed(graph: &WorldGraph, settings: &Settings, headers: &[String]
         spawn = pick_spawn(graph, &settings, &mut rng)?;
         spawn_loc = SpawnLoc {
             identifier: spawn.identifier.clone(),
-            position: spawn.position.clone().unwrap(),
+            position: spawn.position.clone().ok_or_else(|| format!("Picked {} as spawn anchor which has no specified coordinates", spawn.identifier.clone()))?,
         };
         if verbose { eprintln!("Spawning on {}", spawn_loc.identifier); }
 

@@ -12,12 +12,12 @@ const RANDOM_PROGRESSION: f64 = 0.1;
 
 // TODO check performance of vec against hashmap - vec could rely on indices to store weights as an alternative to rerolls
 #[derive(Debug, Default, Clone)]
-pub struct ItemPool {
+pub struct Pool {
     pub progressions: Inventory,
     pub fillers: Inventory,
 }
-impl ItemPool {
-    pub fn preset(pathsets: &[Pathset]) -> ItemPool {
+impl Pool {
+    pub fn preset(pathsets: &[Pathset]) -> Pool {
         let mut progressions = FxHashMap::default();
         progressions.reserve(48);
         let mut fillers = FxHashMap::default();
@@ -102,7 +102,7 @@ impl ItemPool {
             inventory: fillers,
         };
 
-        ItemPool {
+        Pool {
             progressions,
             fillers,
         }

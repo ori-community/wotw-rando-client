@@ -95,7 +95,7 @@ fn reach_checking(c: &mut Criterion) {
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut world = World::new(graph);
-        world.player.inventory = ItemPool::preset(&[Pathset::Moki]).progressions;
+        world.player.inventory = Pool::preset(&[Pathset::Moki]).progressions;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
         world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));

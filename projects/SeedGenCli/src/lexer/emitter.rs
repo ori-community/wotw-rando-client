@@ -1,8 +1,8 @@
 use rustc_hash::{FxHashSet, FxHashMap};
 
-use crate::lexer::parser::{self, AreaTree, Metadata, Location, NamedState};
-use crate::world::{self, WorldGraph, Node};
-use crate::requirements::Requirement;
+use super::parser::{self, AreaTree, Metadata, Location, NamedState};
+use crate::world::graph::{self, Graph, Node};
+use crate::world::requirements::Requirement;
 use crate::util::{Pathset, Skill};
 
 fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
@@ -105,7 +105,7 @@ fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, value: usi
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state_map: &[NamedState], pathsets: &[Pathset], validate: bool) -> Result<WorldGraph, String> {
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state_map: &[NamedState], pathsets: &[Pathset], validate: bool) -> Result<Graph, String> {
     let node_count = areas.anchors.len() + locations.len() + metadata.states.len();
     let mut graph = Vec::<Node>::with_capacity(node_count);
     let mut used_states = FxHashSet::default();
@@ -119,7 +119,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             let index = graph.len();
             add_entry(&mut node_map, &location.name, index)?;
 
-            graph.push(Node::Quest(world::Quest {
+            graph.push(Node::Quest(graph::Quest {
                 identifier: location.name.clone(),
                 zone: location.zone.clone(),
                 index,
@@ -129,7 +129,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             let index = graph.len();
             add_entry(&mut node_map, &location.name, index)?;
 
-            graph.push(Node::Pickup(world::Pickup {
+            graph.push(Node::Pickup(graph::Pickup {
                 identifier: location.name.clone(),
                 zone: location.zone.clone(),
                 index,
@@ -149,7 +149,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             eprintln!("Couldn't find an entry for {} in the state table", state);
         }
 
-        graph.push(Node::State(world::State {
+        graph.push(Node::State(graph::State {
             identifier: (*state).to_string(),
             index,
             uber_state,
@@ -168,18 +168,18 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             region_requirement = Some(build_requirement_group(&group, &areas.definitions, pathsets, validate, &node_map, &mut used_states));
         }
 
-        let refills: Vec<world::Refill> = anchor.refills.iter().map(|refill| {
+        let refills: Vec<graph::Refill> = anchor.refills.iter().map(|refill| {
             let mut requirement = Requirement::Free;
             if let Some(group) = &refill.requirements {
                 requirement = build_requirement_group(group, &areas.definitions, pathsets, validate, &node_map, &mut used_states);
             }
-            world::Refill {
+            graph::Refill {
                 name: refill.name,
                 requirement,
             }
         }).collect();
 
-        let mut connections = Vec::<world::Connection>::with_capacity(anchor.connections.len());
+        let mut connections = Vec::<graph::Connection>::with_capacity(anchor.connections.len());
         for connection in &anchor.connections {
             let mut requirement = Requirement::Free;
             if let Some(group) = &connection.requirements {
@@ -191,14 +191,14 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
             let to = *node_map.get(connection.identifier).ok_or_else(|| format!("Anchor '{}' connects to {:?} '{}' which doesn't actually exist", anchor.identifier, connection.name, connection.identifier))?;
 
-            connections.push(world::Connection {
+            connections.push(graph::Connection {
                 to,
                 requirement,
             });
         }
 
         let position = if let Some((x, y)) = anchor.position {
-            Some(world::Position {
+            Some(graph::Position {
                 x,
                 y,
             })
@@ -206,7 +206,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             None
         };
 
-        graph.push(Node::Anchor(world::Anchor {
+        graph.push(Node::Anchor(graph::Anchor {
             identifier: anchor.identifier.to_string(),
             position,
             index: graph.len(),
@@ -224,9 +224,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
                 }
             }
         }
-    }
 
-    if validate {
         for region in areas.regions.keys() {
             if !areas.anchors.iter().any(|anchor| anchor.identifier.splitn(2, '.').next().unwrap() == *region) {
                 eprintln!("Region '{}' has no anchors with a matching name.", region);
@@ -239,7 +237,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
         }
     }
 
-    Ok(WorldGraph {
+    Ok(Graph {
         nodes: graph,
     })
 }

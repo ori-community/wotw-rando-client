@@ -8,13 +8,13 @@ use bugsalot::debugger;
 
 use rand::distributions::{Distribution, Uniform};
 
-use seedgen::{generate_seed, lexer, inventory, world, uberstate, headers, util};
+use seedgen::{self, lexer, inventory, world, headers, util};
 
 use inventory::Item;
 use world::World;
-use uberstate::{UberState, UberValue};
-use util::settings::{Settings, Spawn, SeedFlags};
 use util::{Pathset, Resource, Skill, Teleporter, Shard};
+use util::settings::{Settings, Spawn, SeedFlags};
+use util::uberstate::{UberState, UberValue};
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
@@ -285,7 +285,7 @@ fn main() {
                 debug_info: verbose,
             };
 
-            let seed = generate_seed(&graph, &settings, &headers, &seed, verbose).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
+            let seed = seedgen::generate_seed(&graph, &settings, &headers, &seed, verbose).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
             eprintln!("Generated seed in {:?}", now.elapsed());
             // TODO spoilers
 
@@ -299,6 +299,7 @@ fn main() {
 
             world.player.apply_pathsets(&settings);
             world.player.inventory.grant(Item::Resource(Resource::Health), health / 5);
+            #[allow(clippy::cast_possible_truncation)]
             world.player.inventory.grant(Item::Resource(Resource::Energy), u16::try_from((energy * 2.0) as i32).unwrap());
             world.player.inventory.grant(Item::Resource(Resource::Keystone), keystones);
             world.player.inventory.grant(Item::Resource(Resource::Ore), ore);
@@ -367,13 +368,13 @@ fn main() {
                     }
                 },
                 Some(HeaderCommand::Validate) => {
-                    headers::validate_headers().unwrap();
+                    headers::validate().unwrap();
                 }
                 None => {
                     if headers.is_empty() {
-                        headers::list_headers().unwrap();
+                        headers::list().unwrap();
                     } else {
-                        headers::inspect_headers(headers).unwrap();
+                        headers::inspect(headers).unwrap();
                     }
                 }
             }
