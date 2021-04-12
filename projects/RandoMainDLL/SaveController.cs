@@ -11,19 +11,18 @@ namespace RandoMainDLL {
 
     // extensions! C:
     public static UberId State(this QuestEventType at) => new UberId(6, 2000 + (int)at);
-    public static bool Have(this QuestEventType at) => UberGet.value(at.State()).Bool;
+    public static bool Have(this QuestEventType at) => UberGet.Bool(at.State());
 
     public static UberId State(this AbilityType at) => new UberId(6, 1000 + (int)at);
-    public static bool Have(this AbilityType at) => UberGet.value(at.State()).Bool;
+    public static bool Have(this AbilityType at) => UberGet.Bool(at.State());
     public static UberId TreeState(this AbilityType at) => new UberId(0, (int)at);
-    public static bool HaveTree(this AbilityType at) => UberGet.value(at.TreeState()).Bool;
+    public static bool HaveTree(this AbilityType at) => UberGet.Bool(at.TreeState());
     public static UberId BoughtState(this AbilityType at) => new UberId(1, (int)at);
-    public static bool Bought(this AbilityType at) => UberGet.value(at.BoughtState()).Bool;
     public static UberId UpgradedState(this AbilityType at) => new UberId(1, 1000 + (int)at);
-    public static bool Upgraded(this AbilityType at) => UberGet.value(at.UpgradedState()).Bool;
+    public static bool Upgraded(this AbilityType at) => UberGet.Bool(at.UpgradedState());
 
     public static UberId BoughtState(this ShardType st) => new UberId(2, (int)st);
-    public static bool Bought(this ShardType st) => UberGet.value(st.BoughtState()).Bool;
+    public static bool Bought(this ShardType st) => UberGet.Bool(st.BoughtState());
 
     public static List<AbilityType> UpgradeableATs = new List<AbilityType>() { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, };
 
