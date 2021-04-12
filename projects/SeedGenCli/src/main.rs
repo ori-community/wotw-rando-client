@@ -15,6 +15,7 @@ use world::World;
 use util::{Pathset, Resource, Skill, Teleporter, Shard};
 use util::settings::{Settings, Spawn, SeedFlags};
 use util::uberstate::{UberState, UberValue};
+use util::constants::DEFAULT_SPAWN;
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
@@ -259,7 +260,7 @@ fn main() {
             let graph = lexer::parse_logic(&areas, &locations, &uber_states, &pathsets, !trust).unwrap();
             eprintln!("Parsed logic in {:?}", now.elapsed());
 
-            let spawn = spawn.unwrap_or_else(|| util::DEFAULTSPAWN.to_string());
+            let spawn = spawn.unwrap_or_else(|| DEFAULT_SPAWN.to_string());
             let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
             else if spawn == "f" || spawn == "fullyrandom" { Spawn::FullyRandom }
             else { Spawn::Set(spawn) };

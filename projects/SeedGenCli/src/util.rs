@@ -1,6 +1,7 @@
 pub mod settings;
 pub mod orbs;
 pub mod uberstate;
+pub mod constants;
 
 use std::{fmt, fs, io, path::Path, path::PathBuf};
 use std::io::Write;
@@ -8,59 +9,6 @@ use std::io::Write;
 use serde::{Serialize, Deserialize};
 
 use uberstate::{UberState, UberIdentifier};
-
-pub const DEFAULTSPAWN: &str = "MarshSpawn.Main";
-pub const MOKI_SPAWNS: &[&str] = &[
-    "MarshSpawn.Main",
-    "HowlsDen.Teleporter",
-    "GladesTown.Teleporter",
-    "InnerWellspring.Teleporter",
-    "MidnightBurrows.Teleporter",
-];
-pub const GORLEK_SPAWNS: &[&str] = &[
-    "MarshSpawn.Main",
-    "HowlsDen.Teleporter",
-    "EastHollow.Teleporter",
-    "GladesTown.Teleporter",
-    "InnerWellspring.Teleporter",
-    "MidnightBurrows.Teleporter",
-    "WoodsEntry.Teleporter",
-    "WoodsMain.Teleporter",
-    "LowerReach.Teleporter",
-    "UpperDepths.Teleporter",
-    "EastPools.Teleporter",
-    "LowerWastes.WestTP",
-    "LowerWastes.EastTP",
-    "UpperWastes.NorthTP",
-    "WillowsEnd.InnerTP",
-];
-pub const RELIC_ZONES: &[&str] = &[
-    "Inkwater Marsh",
-    "Midnight Burrows",
-    "Kwoloks Hollow",
-    "Wellspring Glades",
-    "The Wellspring",
-    "Luma Pools",
-    "Silent Woods",
-    "Baurs Reach",
-    "Mouldwood Depths",
-    "Windswept Wastes",
-    "Willows End",
-];
-pub const KEYSTONE_DOORS: &[(&str, u8)] = &[
-    ("MarshSpawn.KeystoneDoor", 2),
-    ("HowlsDen.KeystoneDoor", 2),
-    ("MarshPastOpher.EyestoneDoor", 2),
-    ("MidnightBurrows.KeystoneDoor", 4),
-    ("WoodsEntry.KeystoneDoor", 2),
-    ("WoodsMain.KeystoneDoor", 4),
-    ("LowerReach.KeystoneDoor", 4),
-    ("UpperReach.KeystoneDoor", 4),
-    ("UpperDepths.EntryKeystoneDoor", 2),
-    ("UpperDepths.CentralKeystoneDoor", 2),
-    ("UpperPools.KeystoneDoor", 4),
-    ("UpperWastes.KeystoneDoor", 2),
-];
 
 #[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub enum Pathset {

@@ -6,9 +6,7 @@ use rand::seq::IteratorRandom;
 
 use crate::inventory::{Inventory, Item};
 use crate::generator::PartialItem;
-use crate::util::{Resource, Skill, Shard, Pathset};
-
-const RANDOM_PROGRESSION: f64 = 0.1;
+use crate::util::{Resource, Skill, Shard, Pathset, constants::RANDOM_PROGRESSION};
 
 // TODO check performance of vec against hashmap - vec could rely on indices to store weights as an alternative to rerolls
 #[derive(Debug, Default, Clone)]

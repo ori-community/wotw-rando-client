@@ -2,7 +2,7 @@ use std::{io, path::{Path, PathBuf}};
 
 use serde::{Serialize, Deserialize};
 
-use super::{Pathset, DEFAULTSPAWN};
+use super::{Pathset, constants::DEFAULT_SPAWN};
 
 /// Representation of settings as they are written by the java-based seed generator
 #[allow(clippy::struct_excessive_bools)]
@@ -54,7 +54,7 @@ impl Default for OldSettings {
             bonus_items: false,
             debug_info: false,
             seir_launch: false,
-            spawn_loc: DEFAULTSPAWN.to_string(),
+            spawn_loc: DEFAULT_SPAWN.to_string(),
             header_list: vec![],
         }
     }
@@ -130,7 +130,7 @@ impl Default for Settings {
             version: env!("CARGO_PKG_VERSION").to_string(),
             pathsets: vec![Pathset::Moki],
             flags: SeedFlags::default(),
-            spawn_loc: Spawn::Set(DEFAULTSPAWN.to_string()),
+            spawn_loc: Spawn::Set(DEFAULT_SPAWN.to_string()),
             output_folder: PathBuf::default(),
             spoilers: true,
             web_conn: false,
@@ -161,7 +161,7 @@ pub fn read_spawn(seed: &Path) -> Result<String, io::Error> {
             return Ok(spawn[spawn.find("//").ok_or_else(|| io::Error::new(io::ErrorKind::Other, "Failed to read Spawn location"))? + 2..].trim().to_string());
         }
     }
-    Ok(DEFAULTSPAWN.to_string())
+    Ok(DEFAULT_SPAWN.to_string())
 }
 
 #[cfg(test)]

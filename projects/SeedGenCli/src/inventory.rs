@@ -131,6 +131,42 @@ impl Item {
         }
     }
 
+    pub fn shop_price(&self) -> u16 {
+        #[allow(clippy::match_same_arms)]
+        match self {
+            Item::Resource(Resource::Health) => 200,
+            Item::Resource(Resource::Energy) => 150,
+            Item::Resource(Resource::Ore) |
+            Item::Resource(Resource::Keystone) => 100,
+            Item::Resource(Resource::ShardSlot) => 400,
+            Item::Skill(Skill::Blaze) => 420,
+            Item::Skill(_) => 500,
+            Item::Water => 400,
+            Item::Teleporter(_) => 250,
+            Item::Shard(_) |
+            Item::BonusItem(_) => 300,
+            Item::BonusUpgrade(BonusUpgrade::SentryEfficiency) |
+            Item::BonusUpgrade(BonusUpgrade::RapidHammer) => 600,
+            Item::BonusUpgrade(_) => 300,
+            Item::Hint(_) => 200,
+            _ => 1,
+        }
+    }
+    pub fn random_shop_price(&self) -> bool {
+        #[allow(clippy::match_same_arms)]
+        match self {
+            Item::Resource(_) => true,
+            Item::Skill(Skill::Blaze) => false,
+            Item::Skill(_) |
+            Item::Water |
+            Item::Teleporter(_) |
+            Item::Shard(_) |
+            Item::BonusItem(_) |
+            Item::Hint(_) => true,
+            _ => false,
+        }
+    }
+
     // TODO This seems unintuitive, that's what Display *should* do!
     pub fn name(&self) -> String {
         match self {

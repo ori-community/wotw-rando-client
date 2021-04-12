@@ -91,6 +91,7 @@ impl<'a> World<'a> {
                     identifier: uber_state,
                     value: format!("{}", entry),
                 };
+                // TODO don't think this should be kept
                 if verbose { eprintln!("Modified uber state to {}", uber_state); }
                 self.collect_preplacements(&uber_state, verbose);
             },

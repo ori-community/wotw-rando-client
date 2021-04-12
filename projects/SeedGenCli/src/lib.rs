@@ -13,11 +13,9 @@ use rand::rngs::StdRng;
 
 use world::{World, graph::{Graph, Node, Anchor, Position}, pool::Pool};
 use generator::Placement;
-use util::{Pathset, NodeType, DEFAULTSPAWN, MOKI_SPAWNS, GORLEK_SPAWNS};
+use util::{Pathset, NodeType};
 use util::settings::{Settings, Spawn};
-
-// TODO centralize the scattered constants
-const RETRIES: u16 = 5;
+use util::constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES};
 
 fn pick_spawn<'a>(graph: &'a Graph, settings: &Settings, rng: &mut StdRng) -> Result<&'a Anchor, String> {
     let mut valid = graph.nodes.iter().filter(|&node| {
@@ -136,7 +134,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     if placements.is_empty() { return Err(format!("All {} attempts to generate a seed failed :(", RETRIES)); }
 
     let mut spawn_line = String::from('\n');
-    if spawn_loc.identifier != DEFAULTSPAWN {
+    if spawn_loc.identifier != DEFAULT_SPAWN {
         spawn_line = format!("Spawn: {}  // {}\n", spawn_loc.position, spawn_loc.identifier);
     }
 
