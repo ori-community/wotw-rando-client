@@ -187,13 +187,12 @@ namespace
     IL2CPP_INTERCEPT(, WeaponmasterItem, void, DoPurchase, (app::WeaponmasterItem* item, int64_t context))
     {
         //Weaponmasteritem$$DoPurchase
-        //Do the rando purchase /after/ rollback, eiko ;3
-        weaponmaster_purchase_in_progress = true;
-        WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
-        weaponmaster_purchase_in_progress = false;
         const auto ability_type = item->fields.Upgrade->fields.AcquiredAbilityType;
         if (ability_type != app::AbilityType__Enum_None)
         {
+            weaponmaster_purchase_in_progress = true;
+            WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone price purposes
+            weaponmaster_purchase_in_progress = false;
             csharp_bridge::opher_buy_weapon(ability_type);
         }
         else
@@ -201,10 +200,14 @@ namespace
             const auto required_type = item->fields.Upgrade->fields.RequiredAbility;
             if (required_type == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
             {
+                weaponmaster_purchase_in_progress = true;
+                WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
+                weaponmaster_purchase_in_progress = false;
                 csharp_bridge::opher_buy_weapon(app::AbilityType__Enum_TeleportSpell);
             }
             else
             {
+                WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
                 csharp_bridge::opher_buy_upgrade(required_type);
             }
         }
