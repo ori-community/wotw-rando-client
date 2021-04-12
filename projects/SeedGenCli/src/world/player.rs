@@ -92,23 +92,25 @@ impl Player {
         }
     }
 
-    // TODO burn damage doesn't get buffed because moonity:tm:
-    pub fn damage_mod(&self, flying_target: bool) -> f32 {
+    pub fn damage_mod(&self, flying_target: bool, bow: bool) -> f32 {
         let is_unsafe = self.unsafe_paths;
-
         let mut damage_mod = 1.0;
+
+        // TODO check how splinter stacks actually
         damage_mod += 0.25 * f32::from(self.inventory.get(&Item::Skill(Skill::AncestralLight)));
+
         let mut slots = self.inventory.get(&Item::Resource(Resource::ShardSlot));
+        let mut splinter = false;
+
         if flying_target && slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Wingclip), 1) { damage_mod += 1.0; slots -= 1; }
+        if slots > 0 && is_unsafe && bow && self.inventory.has(&Item::Shard(Shard::Splinter), 1) { splinter = true; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::SpiritSurge), 1) { damage_mod += f32::from(self.inventory.get(&Item::SpiritLight(1)) / 10000); slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::LastStand), 1) { damage_mod += 0.2; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Reckless), 1) { damage_mod += 0.15; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Lifeforce), 1) { damage_mod += 0.1; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Finesse), 1) { damage_mod += 0.05; }
+        if splinter { damage_mod *= 1.5; }
         damage_mod
-    }
-    pub fn bow_damage_mod(&self) -> f32 {
-        if self.unsafe_paths && self.inventory.has(&Item::Shard(Shard::Splinter), 1) { 1.5 } else { 1.0 }
     }
     pub fn defense_mod(&self) -> f32 {
         if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { 0.9 } else { 1.0 }
@@ -124,8 +126,7 @@ impl Player {
         skill.energy_cost() * self.energy_mod()
     }
     pub fn destroy_cost(&self, health: f32, skill: Skill, flying_target: bool) -> f32 {
-        let mut damage = skill.damage(self.unsafe_paths) * self.damage_mod(flying_target);
-        if let Skill::Bow = skill { damage *= self.bow_damage_mod(); }
+        let damage = skill.damage(self.unsafe_paths) * self.damage_mod(flying_target, matches!(skill, Skill::Bow)) + skill.burn_damage();  // Burn damage is unaffected by damage buffs
         (health / damage).ceil() * self.use_cost(skill)
     }
 
