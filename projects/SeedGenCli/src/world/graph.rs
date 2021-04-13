@@ -1,12 +1,13 @@
-
 use std::fmt;
 
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::{player::Player, requirements::Requirement};
-use crate::util::{RefillType, NodeType};
-use crate::util::orbs::{self, Orbs};
-use crate::util::uberstate::{UberState, UberValue, UberIdentifier};
+use crate::util::{
+    RefillType, NodeType,
+    orbs::{self, Orbs},
+    uberstate::{UberState, UberValue, UberIdentifier},
+};
 
 #[derive(Debug)]
 pub struct Refill {

@@ -27,7 +27,6 @@
             "args": [
                 "seed",
                 "--debug",
-                "--verbose",
             ],
             "cwd": "${workspaceFolder}"
         },

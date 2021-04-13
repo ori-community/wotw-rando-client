@@ -1,7 +1,9 @@
-use std::path::{Path, PathBuf};
-use std::convert::TryFrom;
-use std::io::{self, Read};
-use std::time::Instant;
+use std::{
+    path::{Path, PathBuf},
+    convert::TryFrom,
+    io::{self, Read},
+    time::Instant,
+};
 
 use structopt::StructOpt;
 use bugsalot::debugger;
@@ -12,16 +14,21 @@ use seedgen::{self, lexer, inventory, world, headers, util};
 
 use inventory::Item;
 use world::World;
-use util::{Pathset, Resource, Skill, Teleporter, Shard};
-use util::settings::{Settings, Spawn, SeedFlags};
-use util::uberstate::{UberState, UberValue};
-use util::constants::DEFAULT_SPAWN;
+use util::{
+    Pathset, Resource, Skill, Teleporter, Shard,
+    settings::{Settings, Spawn, SeedFlags},
+    uberstate::{UberState, UberValue},
+    constants::DEFAULT_SPAWN,
+};
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
 ///
 /// Type seedgen.exe seed --help for further instructions
 struct SeedGen {
+    /// wait for a debugger to attach before running
+    #[structopt(short = "d", long = "debug")]
+    wait_on_debugger: bool,
     #[structopt(subcommand)]
     command: Command,
 }
@@ -50,12 +57,6 @@ enum Command {
         /// skip validating the input files for a slight performance gain
         #[structopt(short, long)]
         trust: bool,
-        /// print additional output detailing the generation process
-        #[structopt(short, long)]
-        verbose: bool,
-        /// wait for a debugger to attach before running
-        #[structopt(short = "d", long = "debug")]
-        wait_on_debugger: bool,
         /// hides spoilers and makes the black market more expensive
         #[structopt(short, long)]
         race: bool,
@@ -216,167 +217,232 @@ fn parse_flags(generation_flags: &[String]) -> GenFlags {
             "w" | "wisps" => flags.force_wisps = true,
             "q" | "quests" => flags.force_quests = true,
             "r" | "relics" => flags.world_tour = true,
-            other => eprintln!("Unknown generation flag '{}'", other),
+            other => log::warn!("Unknown generation flag '{}'", other),
         }
     }
 
     flags
 }
 
+struct SeedArgs {
+    filename: Option<PathBuf>,
+    seed: Option<String>,
+    areas: PathBuf,
+    locations: PathBuf,
+    uber_states: PathBuf,
+    trust: bool,
+    race: bool,
+    netcode: bool,
+    spawn: Option<String>,
+    generation_flags: Vec<String>,
+    header_paths: Vec<PathBuf>,
+    headers: Vec<String>,
+}
+
+fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
+    let now = Instant::now();
+
+    // TODO default headers
+
+    let mut filename = args.filename.clone().unwrap_or_else(|| {
+        if args.seed.is_none() {
+            let mut generated_seed = String::new();
+            let numeric = Uniform::from('0'..='9');
+            let mut rng = rand::thread_rng();
+            for _ in 0..16 {
+                generated_seed.push(numeric.sample(&mut rng));
+            }
+            args.seed = Some(generated_seed);
+        }
+        PathBuf::from("seed")
+    });
+
+    filename.set_extension("wotwr");
+
+    let seed = args.seed.unwrap_or_else(|| filename.file_stem().unwrap().to_string_lossy().to_string());
+
+    let flags = parse_flags(&args.generation_flags);
+    let pathsets = flags.pathsets();
+
+    let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &pathsets, !args.trust)?;
+    log::info!("Parsed logic in {:?}", now.elapsed());
+
+    let spawn = args.spawn.unwrap_or_else(|| DEFAULT_SPAWN.to_string());
+    let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
+    else if spawn == "f" || spawn == "fullyrandom" { Spawn::FullyRandom }
+    else { Spawn::Set(spawn) };
+
+    let header = read_header();
+    if !header.is_empty() {
+        args.headers.push(header)
+    }
+
+    let settings = Settings {
+        version: env!("CARGO_PKG_VERSION").to_string(),
+        spoilers: !args.race,
+        pathsets,
+        output_folder: filename.parent().unwrap_or_else(|| Path::new("")).to_path_buf(),
+        flags: SeedFlags {
+            force_wisps: flags.force_wisps,
+            force_trees: flags.force_trees,
+            force_quests: flags.force_quests,
+            world_tour: flags.world_tour,
+        },
+        web_conn: args.netcode,
+        spawn_loc: spawn,
+        header_list: args.header_paths,
+    };
+
+    let seed = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
+    log::info!("Generated seed in {:?}", now.elapsed());
+    // TODO spoilers
+
+    util::create_new_file(&filename, &seed, "seeds").map_err(|err| format!("Failed to write seed file: {}", err))
+}
+
+struct ReachCheckArgs {
+    seed_file: PathBuf,
+    areas: PathBuf,
+    locations: PathBuf,
+    uber_states: PathBuf,
+    health: u16,
+    energy: f32,
+    keystones: u16,
+    ore: u16,
+    // TODO the player may have more spirit light than fits into 16 bits
+    spirit_light: u16,
+    items: Vec<String>,
+}
+
+fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
+    args.seed_file.set_extension("wotwr");
+    let settings = util::settings::read(&args.seed_file).map_err(|err| format!("Failed to read settings from {:?}: {}", args.seed_file, err))?;
+    let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, false)?;
+    let mut world = World::new(graph);
+
+    world.player.apply_pathsets(&settings);
+    world.player.inventory.grant(Item::Resource(Resource::Health), args.health / 5);
+    #[allow(clippy::cast_possible_truncation)]
+    world.player.inventory.grant(Item::Resource(Resource::Energy), u16::try_from((args.energy * 2.0) as i32).map_err(|_| format!("Invalid energy parameter {}", args.energy))?);
+    world.player.inventory.grant(Item::Resource(Resource::Keystone), args.keystones);
+    world.player.inventory.grant(Item::Resource(Resource::Ore), args.ore);
+    world.player.inventory.grant(Item::SpiritLight(1), args.spirit_light);
+
+    for item in args.items {
+        if let Some(skill) = item.strip_prefix("s:") {
+            let id: u8 = skill.parse().map_err(|_| format!("expected numeric skill id in {}", item))?;
+            world.player.inventory.grant(Item::Skill(Skill::from_id(id).ok_or_else(|| format!("{} is not a valid skill id", id))?), 1);
+        }
+        else if let Some(teleporter) = item.strip_prefix("t:") {
+            let id: u8 = teleporter.parse().map_err(|_| format!("expected numeric teleporter id in {}", item))?;
+            world.player.inventory.grant(Item::Teleporter(Teleporter::from_id(id).ok_or_else(|| format!("{} is not a valid teleporter id", id))?), 1);
+        }
+        else if let Some(shard) = item.strip_prefix("sh:") {
+            let id: u8 = shard.parse().map_err(|_| format!("expected numeric shard id in {}", item))?;
+            world.player.inventory.grant(Item::Shard(Shard::from_id(id).ok_or_else(|| format!("{} is not a valid shard id", id))?), 1);
+        }
+        else if let Some(world_event) = item.strip_prefix("w:") {
+            let id: u8 = world_event.parse().map_err(|_| format!("expected numeric world event id in {}", item))?;
+            if id != 0 { return Err(format!("{} is not a valid world event id (only 0 is)", id)); } 
+            world.player.inventory.grant(Item::Water, 1);
+        }
+        else if let Some(uber_state) = item.strip_prefix("u:") {
+            let mut parts = uber_state.split(&['|', ','][..]);
+            let uber_group = parts.next().ok_or_else(|| format!("expected uber group in {}", item))?;
+            let uber_id = parts.next().ok_or_else(|| format!("expected uber id in {}", item))?;
+            if parts.next().is_some() { return Err(format!("expected only two parts in {}", item)); }
+
+            let uber_state = UberState::from_parts(uber_group, uber_id).map_err(|err| format!("failed to parse uber state in {}: {}", item, err))?;
+            let value = if uber_state.value.is_empty() {
+                UberValue::Bool(true)
+            } else {
+                let value: i32 = uber_state.value.parse().map_err(|_| format!("failed to parse uber state value in {}", item))?;
+                UberValue::Int(value)  // currently no floats are used in logic
+            };
+
+            world.uber_states.insert(uber_state.identifier, value);
+        }
+        else {
+            return Err(format!("items have to start with s:, t:, sh:, w: or u: (for skill, teleporter, shard, world event or uber state), except found {}", item));
+        }
+    }
+
+    let spawn = util::settings::read_spawn(&args.seed_file).map_err(|err| format!("error reading spawn from seed: {}", err))?;
+
+    let reached = world.graph.reached_locations(&world.player, &spawn, &world.uber_states).expect("Invalid Reach Check");
+    let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).collect();
+    let mut reached = reached.iter().fold(String::new(), |acc, uber_state| acc + &format!("{}, ", uber_state));
+    for _ in 0..2 { reached.pop(); }  // remove the last comma
+    Ok(reached)
+}
+
 fn main() {
     let args = SeedGen::from_args();
 
+    if args.wait_on_debugger {
+        eprintln!("waiting for debugger...");
+        debugger::wait_until_attached(None).expect("state() not implemented on this platform");
+    }
+
+    seedgen::initialize_log().unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+
     match args.command {
-        Command::Seed { filename, mut seed, areas, locations, uber_states, trust, verbose, wait_on_debugger, race, netcode, spawn, generation_flags, header_paths, mut headers } => {
-            if wait_on_debugger {
-                eprintln!("waiting for debugger...");
-                debugger::wait_until_attached(None).expect("state() not implemented on this platform");
-            }
-
-            let now = Instant::now();
-
-            // TODO default headers
-
-            let mut filename = filename.unwrap_or_else(|| {
-                if seed.is_none() {
-                    let mut generated_seed = String::new();
-                    let numeric = Uniform::from('0'..='9');
-                    let mut rng = rand::thread_rng();
-                    for _ in 0..16 {
-                        generated_seed.push(numeric.sample(&mut rng));
-                    }
-                    seed = Some(generated_seed);
-                }
-                PathBuf::from("seed")
-            });
-
-            filename.set_extension("wotwr");
-
-            let seed = seed.unwrap_or_else(|| filename.file_stem().unwrap().to_string_lossy().to_string());
-
-            let flags = parse_flags(&generation_flags);
-            let pathsets = flags.pathsets();
-
-            let graph = lexer::parse_logic(&areas, &locations, &uber_states, &pathsets, !trust).unwrap();
-            eprintln!("Parsed logic in {:?}", now.elapsed());
-
-            let spawn = spawn.unwrap_or_else(|| DEFAULT_SPAWN.to_string());
-            let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
-            else if spawn == "f" || spawn == "fullyrandom" { Spawn::FullyRandom }
-            else { Spawn::Set(spawn) };
-
-            let header = read_header();
-            if !header.is_empty() {
-                headers.push(header)
-            }
-
-            let settings = Settings {
-                version: env!("CARGO_PKG_VERSION").to_string(),
-                spoilers: !race,
-                pathsets,
-                output_folder: filename.parent().unwrap_or_else(|| Path::new("")).to_path_buf(),
-                flags: SeedFlags {
-                    force_wisps: flags.force_wisps,
-                    force_trees: flags.force_trees,
-                    force_quests: flags.force_quests,
-                    world_tour: flags.world_tour,
-                },
-                web_conn: netcode,
-                spawn_loc: spawn,
-                header_list: header_paths,
-                debug_info: verbose,
-            };
-
-            let seed = seedgen::generate_seed(&graph, &settings, &headers, &seed, verbose).unwrap_or_else(|err| panic!("Error generating seed: {}", err));
-            eprintln!("Generated seed in {:?}", now.elapsed());
-            // TODO spoilers
-
-            util::create_new_file(&filename, &seed, "seeds").unwrap_or_else(|err| panic!("Failed to write seed file: {}", err));
+        Command::Seed { filename, seed, areas, locations, uber_states, trust, race, netcode, spawn, generation_flags, header_paths, headers } => {
+            generate_seed(SeedArgs {
+                filename,
+                seed,
+                areas,
+                locations,
+                uber_states,
+                trust,
+                race,
+                netcode,
+                spawn,
+                generation_flags,
+                header_paths,
+                headers,
+            }).unwrap_or_else(|err| log::error!("{}", err));
         },
-        Command::ReachCheck { mut seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
-            seed_file.set_extension("wotwr");
-            let settings = util::settings::read(&seed_file).unwrap_or_else(|err| panic!("Failed to read settings from {:?}: {}", seed_file, err));
-            let graph = &lexer::parse_logic(&areas, &locations, &uber_states, &settings.pathsets, false).unwrap();
-            let mut world = World::new(graph);
-
-            world.player.apply_pathsets(&settings);
-            world.player.inventory.grant(Item::Resource(Resource::Health), health / 5);
-            #[allow(clippy::cast_possible_truncation)]
-            world.player.inventory.grant(Item::Resource(Resource::Energy), u16::try_from((energy * 2.0) as i32).unwrap());
-            world.player.inventory.grant(Item::Resource(Resource::Keystone), keystones);
-            world.player.inventory.grant(Item::Resource(Resource::Ore), ore);
-            world.player.inventory.grant(Item::SpiritLight(1), spirit_light);
-
-            for item in items {
-                if let Some(skill) = item.strip_prefix("s:") {
-                    let id: u8 = skill.parse().unwrap_or_else(|_| panic!("expected numeric skill id in {}", item));
-                    world.player.inventory.grant(Item::Skill(Skill::from_id(id).unwrap_or_else(|| panic!("{} is not a valid skill id", id))), 1);
-                }
-                else if let Some(teleporter) = item.strip_prefix("t:") {
-                    let id: u8 = teleporter.parse().unwrap_or_else(|_| panic!("expected numeric teleporter id in {}", item));
-                    world.player.inventory.grant(Item::Teleporter(Teleporter::from_id(id).unwrap_or_else(|| panic!("{} is not a valid teleporter id", id))), 1);
-                }
-                else if let Some(shard) = item.strip_prefix("sh:") {
-                    let id: u8 = shard.parse().unwrap_or_else(|_| panic!("expected numeric shard id in {}", item));
-                    world.player.inventory.grant(Item::Shard(Shard::from_id(id).unwrap_or_else(|| panic!("{} is not a valid shard id", id))), 1);
-                }
-                else if let Some(world_event) = item.strip_prefix("w:") {
-                    let id: u8 = world_event.parse().unwrap_or_else(|_| panic!("expected numeric world event id in {}", item));
-                    if id != 0 { panic!("{} is not a valid world event id (only 0 is)", id); } 
-                    world.player.inventory.grant(Item::Water, 1);
-                }
-                else if let Some(uber_state) = item.strip_prefix("u:") {
-                    let mut parts = uber_state.split(&['|', ','][..]);
-                    let uber_group = parts.next().unwrap_or_else(|| panic!("expected uber group in {}", item));
-                    let uber_id = parts.next().unwrap_or_else(|| panic!("expected uber id in {}", item));
-                    if parts.next().is_some() { panic!("expected only two parts in {}", item); }
-
-                    let uber_state = UberState::from_parts(uber_group, uber_id).unwrap_or_else(|err| panic!("failed to parse uber state in {}: {}", item, err));
-                    let value = if uber_state.value.is_empty() {
-                        UberValue::Bool(true)
-                    } else {
-                        let value: i32 = uber_state.value.parse().unwrap_or_else(|_| panic!("failed to parse uber state value in {}", item));
-                        UberValue::Int(value)  // currently no floats are used in logic
-                    };
-
-                    world.uber_states.insert(uber_state.identifier, value);
-                }
-                else {
-                    panic!("items have to start with s:, t:, sh:, w: or u: (for skill, teleporter, shard, world event or uber state), except found {}", item);
-                }
+        Command::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
+            match reach_check(ReachCheckArgs {
+                seed_file,
+                areas,
+                locations,
+                uber_states,
+                health,
+                energy,
+                keystones,
+                ore,
+                spirit_light,
+                items,
+            }) {
+                Ok(reached) => println!("{}", reached),
+                Err(err) => log::error!("{}", err),
             }
-
-            let spawn = &util::settings::read_spawn(&seed_file).unwrap_or_else(|err| panic!("error reading spawn from seed: {}", err));
-
-            let reached = world.graph.reached_locations(&world.player, spawn, &world.uber_states).expect("Invalid Reach Check");
-            let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).collect();
-            let mut reached = reached.iter().fold(String::new(), |acc, uber_state| acc + &format!("{}, ", uber_state));
-            for _ in 0..2 { reached.pop(); }  // remove the last comma
-            println!("{}", reached);
         },
         Command::Headers { headers, subcommand } => {
             match subcommand {
                 Some(HeaderCommand::Presets { subcommand }) => {
                     match subcommand {
                         Some(PresetCommand::Create { name, headers }) => {
-                            headers::create_preset(name, headers).unwrap();
+                            headers::create_preset(name, headers).unwrap_or_else(|err| log::error!("{}", err));
                         },
                         Some(PresetCommand::Remove { name }) => {
-                            headers::remove_preset(&name).unwrap();
+                            headers::remove_preset(&name).unwrap_or_else(|err| log::error!("{}", err));
                         },
                         None => {
-                            headers::list_presets().unwrap();
+                            headers::list_presets().unwrap_or_else(|err| log::error!("{}", err));
                         }
                     }
                 },
                 Some(HeaderCommand::Validate) => {
-                    headers::validate().unwrap();
+                    headers::validate().unwrap_or_else(|err| log::error!("{}", err));
                 }
                 None => {
                     if headers.is_empty() {
-                        headers::list().unwrap();
+                        headers::list().unwrap_or_else(|err| log::error!("{}", err));
                     } else {
-                        headers::inspect(headers).unwrap();
+                        headers::inspect(headers).unwrap_or_else(|err| log::error!("{}", err));
                     }
                 }
             }

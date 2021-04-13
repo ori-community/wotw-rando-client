@@ -1,8 +1,6 @@
 use rustc_hash::FxHashMap;
 
-use rand::Rng;
-use rand::rngs::StdRng;
-use rand::seq::IteratorRandom;
+use rand::{Rng, seq::IteratorRandom};
 
 use crate::inventory::{Inventory, Item};
 use crate::generator::PartialItem;
@@ -145,7 +143,10 @@ impl Pool {
         true
     }
 
-    pub fn choose_random(&mut self, rng: &mut StdRng) -> PartialItem {
+    pub fn choose_random<R>(&mut self, rng: &mut R) -> PartialItem
+    where
+        R: Rng
+    {
         if rng.gen_bool(RANDOM_PROGRESSION) {
             // TODO weights or rerolls
             if let Some(item) = self.progressions.inventory.keys().choose(rng) {

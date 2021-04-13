@@ -4,8 +4,7 @@ use rustc_hash::FxHashSet;
 
 use super::player::Player;
 use crate::inventory::{Inventory, Item};
-use crate::util::{Resource, Skill, Shard, Teleporter, Enemy};
-use crate::util::orbs::{self, Orbs};
+use crate::util::{Resource, Skill, Shard, Teleporter, Enemy, orbs::{self, Orbs}};
 
 #[derive(Debug, Clone)]
 pub enum Requirement {

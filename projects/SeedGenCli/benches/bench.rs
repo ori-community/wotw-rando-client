@@ -3,15 +3,17 @@ use criterion::{criterion_group, criterion_main, Criterion};
 use std::path::PathBuf;
 
 use rustc_hash::FxHashSet;
+use rand::prelude::*;
 
 use seedgen::*;
 use lexer::*;
-use player::*;
-use inventory::*;
-use pool::*;
 use world::*;
 use requirements::*;
+use player::*;
+use pool::*;
+use inventory::*;
 use util::*;
+use settings::*;
 
 fn parsing(c: &mut Criterion) {
     let areas = PathBuf::from("areas.wotw");
@@ -78,7 +80,7 @@ fn requirements(c: &mut Criterion) {
 }
 
 fn reach_checking(c: &mut Criterion) {
-    let graph = &parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
+    let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player = Player::default();
         player.inventory.grant(Item::Resource(Resource::Health), 40);
@@ -90,16 +92,37 @@ fn reach_checking(c: &mut Criterion) {
         player.inventory.grant(Item::Skill(Skill::Sword), 1);
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         player.inventory.grant(Item::Skill(Skill::Dash), 1);
-        let world = World::new(graph);
+        let world = World::new(&graph);
         world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
-        let mut world = World::new(graph);
+        let mut world = World::new(&graph);
         world.player.inventory = Pool::preset(&[Pathset::Moki]).progressions;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
         world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));
 }
 
-criterion_group!(benches, parsing, requirements, reach_checking);
-criterion_main!(benches);
+fn generation(c: &mut Criterion) {
+    let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
+    let mut world = World::new(&graph);
+    world.pool = Pool::preset(&[Pathset::Moki]);
+    world.player.spawn(&Settings::default());
+    let mut rng = thread_rng();
+
+    c.bench_function("seed generation", |b| b.iter(|| {
+        loop {
+            match generator::generate_placements(world.clone(), "MarshSpawn.Main", &Settings::default(), &mut rng) {
+                Ok(_) => break,
+                Err(err) => println!("Generation failed! ({})", err),
+            }
+        }
+    }));
+}
+
+criterion_group!(all, parsing, requirements, reach_checking, generation);
+criterion_group!(only_parsing, parsing);
+criterion_group!(only_requirements, requirements);
+criterion_group!(only_reach_checking, reach_checking);
+criterion_group!(only_generation, generation);
+criterion_main!(only_generation);  // put any of the group names in here

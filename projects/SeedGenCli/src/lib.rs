@@ -8,16 +8,36 @@ pub mod util;
 use std::collections::HashSet;
 
 use rand_seeder::Seeder;
-use rand::seq::IteratorRandom;
-use rand::rngs::StdRng;
+use rand::{Rng, rngs::StdRng, seq::IteratorRandom};
 
-use world::{World, graph::{Graph, Node, Anchor, Position}, pool::Pool};
+use log::LevelFilter;
+use log4rs::{
+    append::{
+        console::{ConsoleAppender, Target},
+        file::FileAppender,
+    },
+    encode::pattern::PatternEncoder,
+    config::{Appender, Config, Root},
+    filter::threshold::ThresholdFilter,
+};
+
+use world::{
+    World,
+    graph::{Graph, Node, Anchor, Position},
+    pool::Pool
+};
 use generator::Placement;
-use util::{Pathset, NodeType};
-use util::settings::{Settings, Spawn};
-use util::constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES};
+use util::{
+    Pathset,
+    NodeType,
+    settings::{Settings, Spawn},
+    constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES},
+};
 
-fn pick_spawn<'a>(graph: &'a Graph, settings: &Settings, rng: &mut StdRng) -> Result<&'a Anchor, String> {
+fn pick_spawn<'a, R>(graph: &'a Graph, settings: &Settings, rng: &mut R) -> Result<&'a Anchor, String>
+where
+    R: Rng
+{
     let mut valid = graph.nodes.iter().filter(|&node| {
         if let Node::Anchor(anchor) = node { anchor.position.is_some() }
         else { false }
@@ -68,8 +88,40 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str, verbose: bool) -> Result<String, String> {
-    let mut rng = Seeder::from(seed).make_rng();
+pub fn initialize_log() -> Result<(), String> {
+    let stderr = ConsoleAppender::builder()
+        .target(Target::Stderr)
+        .encoder(Box::new(PatternEncoder::new("{h({l}):5}  {m}{n}")))
+        .build();
+
+    let log_file = FileAppender::builder()
+        .append(false)
+        .encoder(Box::new(PatternEncoder::new("{l:5}  {m}{n}")))
+        .build("generator.log")
+        .map_err(|err| format!("Failed to create log file: {}", err))?;
+
+    let log_config = Config::builder()
+        .appender(Appender::builder().build("log_file", Box::new(log_file)))
+        .appender(
+            Appender::builder()
+                .filter(Box::new(ThresholdFilter::new(LevelFilter::Info)))
+                .build("stderr", Box::new(stderr))
+        )
+        .build(
+            Root::builder()
+                .appender("stderr")
+                .appender("log_file")
+                .build(LevelFilter::Trace)
+        )
+        .map_err(|err| format!("Failed to configure logger: {}", err))?;
+
+    log4rs::init_config(log_config).map_err(|err| format!("Failed to initialize logger: {}", err))?;
+
+    Ok(())
+}
+
+pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str) -> Result<String, String> {
+    let mut rng: StdRng = Seeder::from(seed).make_rng();
 
     let mut world = World::new(graph);
     world.pool = Pool::preset(&settings.pathsets);
@@ -80,14 +132,14 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     let mut header_block = String::new();
     let mut total_dependencies = HashSet::new();
     for header in headers {
-        let (header, dependencies) = headers::parse_header(header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+        let (header, dependencies) = headers::parse_header(header, &mut world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
         header_block += &header;
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
         let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
-        let (header, dependencies) = headers::parse_header(&header, &mut world, verbose, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+        let (header, dependencies) = headers::parse_header(&header, &mut world, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
         header_block += &header;
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
@@ -97,7 +149,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         let mut nested_dependencies = HashSet::new();
         for dependency in total_dependencies.drain() {
             let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {:?}: {}", dependency, err))?;
-            let (header, dependencies) = &headers::parse_header(&header, &mut world, verbose, &settings.pathsets)?;
+            let (header, dependencies) = &headers::parse_header(&header, &mut world, &settings.pathsets)?;
             header_block += &header;
             nested_dependencies = nested_dependencies.union(&dependencies).cloned().collect();
         }
@@ -118,16 +170,16 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
             identifier: spawn.identifier.clone(),
             position: spawn.position.clone().ok_or_else(|| format!("Picked {} as spawn anchor which has no specified coordinates", spawn.identifier.clone()))?,
         };
-        if verbose { eprintln!("Spawning on {}", spawn_loc.identifier); }
+        log::trace!("Spawning on {}", spawn_loc.identifier);
 
-        match generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng, verbose) {
+        match generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng) {
             Ok(seed) => {
                 placements = seed;
-                eprintln!("Generated seed after {} {}{}", index + 1, if index == 0 { "try" } else { "tries" }, if index > RETRIES / 2 { " (phew)" } else { "" });
+                log::info!("Generated seed after {} {}{}", index + 1, if index == 0 { "try" } else { "tries" }, if index > RETRIES / 2 { " (phew)" } else { "" });
                 break;
             },
             Err(err) => {
-                eprintln!("Failed to place items: {}\nRetrying...", err);
+                log::info!("Failed to place items: {}\nRetrying...", err);
             }
         }
     };

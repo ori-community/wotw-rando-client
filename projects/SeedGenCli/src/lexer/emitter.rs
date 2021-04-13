@@ -1,8 +1,10 @@
 use rustc_hash::{FxHashSet, FxHashMap};
 
 use super::parser::{self, AreaTree, Metadata, Location, NamedState};
-use crate::world::graph::{self, Graph, Node};
-use crate::world::requirements::Requirement;
+use crate::world::{
+    graph::{self, Graph, Node},
+    requirements::Requirement,
+};
 use crate::util::{Pathset, Skill};
 
 fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
@@ -146,7 +148,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             uber_state = Some(named_state.uber_state.clone());
         } else if validate {
             // TODO this can be perfectly normal
-            eprintln!("Couldn't find an entry for {} in the state table", state);
+            log::warn!("Couldn't find an entry for {} in the state table", state);
         }
 
         graph.push(Node::State(graph::State {
@@ -227,12 +229,12 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
         for region in areas.regions.keys() {
             if !areas.anchors.iter().any(|anchor| anchor.identifier.splitn(2, '.').next().unwrap() == *region) {
-                eprintln!("Region '{}' has no anchors with a matching name.", region);
+                log::warn!("Region '{}' has no anchors with a matching name.", region);
             }
         }
         for state in &metadata.states {
             if !used_states.contains(state) {
-                eprintln!("State '{}' was never used as a requirement.", state);
+                log::warn!("State '{}' was never used as a requirement.", state);
             }
         }
     }

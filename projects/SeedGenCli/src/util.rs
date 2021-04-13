@@ -3,8 +3,12 @@ pub mod orbs;
 pub mod uberstate;
 pub mod constants;
 
-use std::{fmt, fs, io, path::Path, path::PathBuf};
-use std::io::Write;
+use std::{
+    fmt,
+    fs,
+    io::{self, Write},
+    path::{Path, PathBuf}
+};
 
 use serde::{Serialize, Deserialize};
 

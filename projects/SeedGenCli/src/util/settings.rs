@@ -91,7 +91,6 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
         spoilers: old_settings.spoilers,
         output_folder: old_settings.output_folder,
         web_conn: old_settings.web_conn,
-        debug_info: old_settings.debug_info,
         spawn_loc,
         header_list,
     })
@@ -105,11 +104,12 @@ pub enum Spawn {
 }
 #[allow(clippy::struct_excessive_bools)]
 #[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SeedFlags {
-    pub force_wisps: bool,      // compability note: used for goal mode logic
-    pub force_trees: bool,      // compability note: used for goal mode logic
-    pub force_quests: bool,     // compability note: used for goal mode logic
-    pub world_tour: bool,       // compability note: used for goal mode logic
+    pub force_wisps: bool,
+    pub force_trees: bool,
+    pub force_quests: bool,
+    pub world_tour: bool,
 }
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
@@ -121,7 +121,6 @@ pub struct Settings {
     pub output_folder: PathBuf,
     pub spoilers: bool,
     pub web_conn: bool,
-    pub debug_info: bool,
     pub header_list: Vec<PathBuf>,
 }
 impl Default for Settings {
@@ -134,7 +133,6 @@ impl Default for Settings {
             output_folder: PathBuf::default(),
             spoilers: true,
             web_conn: false,
-            debug_info: false,
             header_list: vec![PathBuf::from("Teleporters"), PathBuf::from("Hints"), PathBuf::from("Swordspawn")],
         }
     }
@@ -144,8 +142,8 @@ pub fn read(seed: &Path) -> Result<Settings, io::Error> {
     let mut settings = Settings::default();
     for line in seed.lines() {
         if let Some(config) = line.strip_prefix("// Config: ") {
-            settings = serde_json::from_str(&config).or_else(|_| {  // read directly or fall back to reading old settings
-                read_old(&config)
+            settings = serde_json::from_str(&config).or_else(|err| {  // read directly or fall back to reading old settings
+                read_old(&config).map_err(|_| err)
             })?;
         }
     }
@@ -185,7 +183,6 @@ mod tests {
             output_folder: PathBuf::from("seeds"),
             spoilers: true,
             web_conn: false,
-            debug_info: true,
             header_list: vec![PathBuf::from("skippable_cutscenes"), PathBuf::from("alternate_hints"), PathBuf::from("teleporters"), PathBuf::from("bonus_items"), PathBuf::from("spawn_with_sword"), PathBuf::from("rainy_marsh")],
         };
         let json = "// Config: {\"tps\":true,\"spoilers\":true,\"unsafePaths\":false,\"gorlekPaths\":true,\"glitchPaths\":true,\"questLocs\":true,\"outputFolder\":\"seeds\",\"flags\":{\"forceWisps\":false,\"forceTrees\":true,\"forceQuests\":true,\"noHints\":true,\"noSword\":false,\"rain\":true,\"noKSDoors\":false,\"randomSpawn\":false,\"worldTour\":false},\"webConn\":false,\"bonusItems\":true,\"debugInfo\":true,\"seirLaunch\":false,\"spawnLoc\":\"InnerWellspring.Teleporter\",\"headerList\":[\"skippable_cutscenes\",\"alternate_hints\"]}";

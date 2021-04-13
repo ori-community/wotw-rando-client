@@ -30,7 +30,7 @@ impl<'a> World<'a> {
         }
     }
 
-    pub fn grant_player(&mut self, item: Item, amount: u16, verbose: bool) {
+    pub fn grant_player(&mut self, item: Item, amount: u16) -> Result<(), String> {
         match &item {
             Item::UberState(command) => {
                 let mut parts = command.split('|');
@@ -58,7 +58,7 @@ impl<'a> World<'a> {
                         if let UberValue::Bool(prior) = entry {
                             *prior = uber_value;
                         } else {
-                            eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                            log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                         }
                         entry
                     },
@@ -69,7 +69,7 @@ impl<'a> World<'a> {
                         if let UberValue::Int(prior) = entry {
                             *prior = uber_value + *prior * i32::from(sign);
                         } else {
-                            eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                            log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                         }
                         entry
                     },
@@ -80,11 +80,11 @@ impl<'a> World<'a> {
                         if let UberValue::Float(prior) = entry {
                             *prior = uber_value + *prior * f32::from(sign);
                         } else {
-                            eprintln!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                            log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
                         }
                         entry
                     },
-                    _ => { panic!("Unable to grant malformed uber state pickup {}", command); },
+                    _ => { return Err(format!("Unable to grant malformed uber state pickup {}", command)); },
                 };
 
                 let uber_state = UberState {
@@ -92,8 +92,8 @@ impl<'a> World<'a> {
                     value: format!("{}", entry),
                 };
                 // TODO don't think this should be kept
-                if verbose { eprintln!("Modified uber state to {}", uber_state); }
-                self.collect_preplacements(&uber_state, verbose);
+                log::trace!("Modified uber state to {}", uber_state);
+                self.collect_preplacements(&uber_state);
             },
             Item::Custom(_) => {},
             Item::SpiritLight(stacked_amount) => {
@@ -104,21 +104,23 @@ impl<'a> World<'a> {
             },
         }
         self.pool.remove(&item, amount);
+
+        Ok(())
     }
 
     pub fn preplace(&mut self, uber_state: UberState, item: Item, amount: u16) {
         let preplacement = self.preplacements.entry(uber_state).or_insert_with(Inventory::default);
         preplacement.grant(item, amount);
     }
-    pub fn collect_preplacements(&mut self, reached: &UberState, verbose: bool) {
+    pub fn collect_preplacements(&mut self, reached: &UberState) {
         let mut inventory = Inventory::default();
         if let Some(items) = self.preplacements.get(&reached) {
-            if verbose { eprintln!("Collecting preplacements on {}", reached); }
+            log::trace!("Collecting preplacements on {}", reached);
             inventory = items.clone();
         }
 
         for item in inventory.inventory.keys() {
-            self.grant_player(item.clone(), inventory.inventory[item], verbose);
+            self.grant_player(item.clone(), inventory.inventory[item]).unwrap_or_else(|err| log::error!("{}", err));
         }
     }
 }

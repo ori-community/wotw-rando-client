@@ -1,12 +1,17 @@
-use std::fs;
-use std::collections::HashSet;
-use std::io::{BufRead, BufReader};
-use std::path::{Path, PathBuf};
+use std::{
+    fs,
+    collections::HashSet,
+    io::{BufRead, BufReader},
+    path::{Path, PathBuf},
+};
 
 use crate::world::World;
 use crate::inventory::Item;
-use crate::util::{self, Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command};
-use crate::util::uberstate::{UberState, UberIdentifier};
+use crate::util::{
+    self,
+    Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command,
+    uberstate::{UberState, UberIdentifier}
+};
 
 // TODO update documentation for descriptions
 
@@ -265,7 +270,7 @@ fn parse_count(pickup: &mut &str) -> u16 {
     1
 }
 
-pub fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[Pathset]) -> Result<(String, HashSet<PathBuf>), String> {
+pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Result<(String, HashSet<PathBuf>), String> {
     let mut processed = String::new();
     let mut dependencies = HashSet::new();
     let mut first_line = true;
@@ -291,15 +296,15 @@ pub fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[
             } else if let Some(mut pickup) = command.strip_prefix("add ") {
                 let count = parse_count(&mut pickup);
                 let (item, amount) = parse_pickup(pickup, false)?;
-                if verbose { eprintln!("adding {}x {} to the item pool", amount, item); }
+                log::trace!("adding {}x {} to the item pool", amount, item);
                 world.pool.grant(item, count * amount, pathsets);
             } else if let Some(mut pickup) = command.strip_prefix("remove ") {
                 let count = parse_count(&mut pickup);
                 let (item, amount) = parse_pickup(pickup, false)?;
-                if verbose { eprintln!("removing {}x {} from the item pool", amount, item); }
+                log::trace!("removing {}x {} from the item pool", amount, item);
                 world.pool.remove(&item, count * amount);
             } else if command.starts_with("set ") {
-                eprintln!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
+                log::warn!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
             } else {
                 return Err(format!("Unknown command '{}'", command))
             }
@@ -332,14 +337,14 @@ pub fn parse_header(header: &str, world: &mut World, verbose: bool, pathsets: &[
                         let target = UberState::from_parts(uber_group, &uber_id)?;
 
                         // TODO this happens when it shouldn't?
-                        if verbose { eprintln!("adding an empty pickup at {} to prevent placements", target); }
+                        log::trace!("adding an empty pickup at {} to prevent placements", target);
                         let null_item = Item::Custom(String::from("6|f=0|quiet|noclear"));
 
                         world.preplace(target, null_item, amount);
                     }
                 }
 
-                if verbose { eprintln!("removing {}x {} from the item pool", amount, item); }
+                log::trace!("removing {}x {} from the item pool", amount, item);
                 world.pool.remove(&item, amount);
 
                 world.preplace(uber_state, item, amount);
@@ -855,7 +860,7 @@ mod tests {
         let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut world, false, &[Pathset::Moki]).unwrap();
+        parse_header(&header, &mut world, &[Pathset::Moki]).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);

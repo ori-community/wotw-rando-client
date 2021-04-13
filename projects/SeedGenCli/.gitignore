@@ -2,3 +2,4 @@ target/*
 rls/*
 tokens.txt
 *.wotwr
+*.log

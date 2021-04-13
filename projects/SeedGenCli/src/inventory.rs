@@ -195,7 +195,7 @@ impl Inventory {
     pub fn grant(&mut self, mut item: Item, mut amount: u16) {
         let single_instance = item.is_single_instance();
         if single_instance && amount > 1 {
-            eprintln!("Granted {} more than once, but that item can only be aquired once...", item);
+            log::warn!("Granted {} more than once, but that item can only be aquired once...", item);
         }
         if let Item::SpiritLight(stacked_amount) = item {
             amount *= stacked_amount;
