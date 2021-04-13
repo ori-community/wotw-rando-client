@@ -110,8 +110,6 @@ namespace RandoMainDLL {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {
         pickupMap.Clear();
-        shardNag.Clear();
-        weaponNag.Clear();
         Flags.Clear();
         Relic.Reset();
         HintsController.Reset();
@@ -212,17 +210,11 @@ namespace RandoMainDLL {
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
     }
-    public static HashSet<ShardType> shardNag = new HashSet<ShardType>();
-    public static HashSet<AbilityType> weaponNag = new HashSet<AbilityType>();
 
     public static Pickup OpherWeapon(AbilityType ability) {
       var fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
       if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         return p;
-      }
-      if (!weaponNag.Contains(ability)) {
-        Randomizer.Log($"Couldn't find a valid Sellable for {ability}...");
-        weaponNag.Add(ability);
       }
       return Multi.Empty;
     }
@@ -233,11 +225,7 @@ namespace RandoMainDLL {
       if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
         return p;
       }
-      if (!shardNag.Contains(shard)) {
-        Randomizer.Log($"Couldn't find a valid Sellable for {shard}...");
-        shardNag.Add(shard);
-      }
-      return new Resource(ResourceType.Energy);
+      return Multi.Empty;
     }
 
     public static bool OnUberState(UberState state) {
