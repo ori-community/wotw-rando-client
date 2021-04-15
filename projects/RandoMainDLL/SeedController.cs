@@ -113,7 +113,6 @@ namespace RandoMainDLL {
         Flags.Clear();
         Relic.Reset();
         HintsController.Reset();
-        HasInternalSpoilers = true;
         string line = "";
         string coordsRaw = "";
         foreach (string rawLine in File.ReadLines(SeedFile)) {
@@ -132,10 +131,6 @@ namespace RandoMainDLL {
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
-
-            if (HasInternalSpoilers && !rawLine.Contains("//"))
-              HasInternalSpoilers = false;
-            // if we got this far and there's no comment, it's a line without a spoiler
 
             var frags = line.Split('|').ToList();
             var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
@@ -193,8 +188,7 @@ namespace RandoMainDLL {
     }
 
 
-    public static bool HasInternalSpoilers = false;
-    public static bool HintsDisabled { get => Flags.Contains(Flag.NOHINTS); }
+    public static bool HasInternalSpoilers { get => Settings.Spoilers; }
     public static bool KSDoorsOpen { get => Flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {
       if (Flags.Count > 0)
