@@ -384,10 +384,11 @@ fn main() {
         debugger::wait_until_attached(None).expect("state() not implemented on this platform");
     }
 
-    seedgen::initialize_log().unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
-
     match args.command {
         Command::Seed { filename, seed, areas, locations, uber_states, trust, race, netcode, spawn, generation_flags, header_paths, headers } => {
+            seedgen::initialize_log(true).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
+
             generate_seed(SeedArgs {
                 filename,
                 seed,
@@ -404,6 +405,9 @@ fn main() {
             }).unwrap_or_else(|err| log::error!("{}", err));
         },
         Command::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
+            seedgen::initialize_log(false).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
+
             match reach_check(ReachCheckArgs {
                 seed_file,
                 areas,
@@ -421,6 +425,9 @@ fn main() {
             }
         },
         Command::Headers { headers, subcommand } => {
+            seedgen::initialize_log(false).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
+
             match subcommand {
                 Some(HeaderCommand::Presets { subcommand }) => {
                     match subcommand {

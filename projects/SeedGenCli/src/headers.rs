@@ -5,6 +5,11 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use ansi_term::{Style, Colour};
+
+const NAME_COLOUR: Colour = Colour::Yellow;
+const UBERSTATE_COLOUR: Colour = Colour::Cyan;
+
 use crate::world::World;
 use crate::inventory::Item;
 use crate::util::{
@@ -19,6 +24,7 @@ fn end_of_pickup<'a, I>(mut parts: I, shop: bool) -> Result<(), String>
 where
     I: Iterator<Item = &'a str>,
 {
+    // TODO could support !!add with a fixed price probably? And/or an uberState based price for shuffled pickups?
     if shop {
         // TODO what were the rules here?
         if let Some(price) = parts.next() {
@@ -450,7 +456,7 @@ fn summarize_headers(headers: &[PathBuf]) -> Result<String, String> {
 
         let name = util::with_trailing_spaces(&name, 24);
 
-        output += &format!("{}  {}\n", name, description);
+        output += &format!("{}  {}\n", NAME_COLOUR.paint(name), description);
     }
 
     Ok(output)
@@ -480,13 +486,13 @@ pub fn list() -> Result<(), String> {
         });
 
     let presets_length = presets.len();
-    output += &format!("{} preset{} found\n\n", presets_length, if presets_length == 1 { "" } else { "s" });
+    output += &format!("{}", Style::new().fg(Colour::Green).bold().paint(format!("{} preset{} found\n\n", presets_length, if presets_length == 1 { "" } else { "s" })));
 
     output += &summarize_headers(&presets)?;
     output.push('\n');
 
     let headers_length = headers.len();
-    output += &format!("{} header{} found\n\n", headers_length, if headers_length == 1 { "" } else { "s" });
+    output += &format!("{}", Style::new().fg(Colour::Green).bold().paint(format!("{} header{} found\n\n", headers_length, if headers_length == 1 { "" } else { "s" })));
 
     output += &summarize_headers(&headers)?;
     output.push('\n');
@@ -518,14 +524,14 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
 
     let hint = if headers.len() == 1 {
         let name = headers[0].file_stem().unwrap().to_string_lossy();
-        format!("Use 'headers presets create {} ...' to add this and other headers to a preset", name)
+        format!("Use 'headers presets create {} ...' to add this and other headers to a preset", NAME_COLOUR.paint(name))
     } else {
         let mut arguments = headers.iter().fold(String::new(), |acc, header|
             format!("{}{} ", acc, header.file_stem().unwrap().to_string_lossy())
         );
         arguments.pop();
 
-        format!("Use 'headers presets create {}' to add these headers to a preset", arguments)
+        format!("Use 'headers presets create {}' to add these headers to a preset", NAME_COLOUR.paint(arguments))
     };
 
     for mut header in headers {
@@ -535,7 +541,7 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
         let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header '{}': {}", name, err))?;
 
         let preset = contents.trim_start().starts_with("#preset");
-        let mut description = format!("'{}' {}:\n", name, if preset { "preset" } else { "header" });
+        let mut description = NAME_COLOUR.paint(format!("'{}' {}:\n", name, if preset { "preset" } else { "header" })).to_string();
 
         for line in contents.lines() {
             if let Some(desc) = line.trim_start().strip_prefix("///") {
@@ -545,7 +551,7 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
         }
 
         if description.is_empty() {
-            output += "No description provided\n";
+            output += &Style::new().italic().paint("No description provided\n");
         } else {
             output += &description;
             output.push('\n');
@@ -697,7 +703,7 @@ pub fn validate() -> Result<(), String> {
     let mut occupation_map = Vec::new();
 
     let length = headers.len();
-    output += &format!("validating {} header{}\n", length, if length == 1 { "" } else { "s" });
+    output += &format!("{}", Style::new().italic().paint(format!("validating {} header{}\n", length, if length == 1 { "" } else { "s" })));
 
     let mut passed = Vec::new();
     let mut failed = Vec::new();
@@ -712,7 +718,7 @@ pub fn validate() -> Result<(), String> {
                 occupation_map.push((name, occupied));
             },
             Err(err) => {
-                let name = util::with_trailing_spaces(&name, 24);
+                let name = NAME_COLOUR.paint(util::with_trailing_spaces(&name, 24));
                 failed.push(format!("{}{}\n", name, err))
             },
         }
@@ -731,7 +737,11 @@ pub fn validate() -> Result<(), String> {
                     let generic = uber_state.value.is_empty() || other.value.is_empty();
                     uber_state == other || (generic && uber_state.identifier == other.identifier)
                 }) {
-                    collision_message = format!("Collision between used state {} and {} using {}", uber_state, other_name, collision);
+                    collision_message = format!("Collision between used state {} and {} using {}",
+                        UBERSTATE_COLOUR.paint(format!("{}", uber_state)),
+                        NAME_COLOUR.paint(other_name),
+                        UBERSTATE_COLOUR.paint(format!("{}", collision))
+                    );
                     break;
                 }
             }
@@ -743,7 +753,7 @@ pub fn validate() -> Result<(), String> {
             let mut last_value = i32::MIN;
             let mut range = false;
 
-            let name = util::with_trailing_spaces(name, 24);
+            let name = NAME_COLOUR.paint(util::with_trailing_spaces(name, 24));
 
             for uber_state in occupied {
                 if let Ok(value) = uber_state.value.parse::<i32>() {
@@ -751,7 +761,7 @@ pub fn validate() -> Result<(), String> {
                         range = true;
                     } else if range {
                         for _ in 0..2 { occupied_summary.pop(); }
-                        occupied_summary += &format!("..{}, ", last_value);
+                        occupied_summary += &format!("{}, ", UBERSTATE_COLOUR.paint(format!("..{}", last_value)));
                         range = false;
                     }
                     last_value = value;
@@ -760,17 +770,17 @@ pub fn validate() -> Result<(), String> {
                     }
                 } else if range {
                     for _ in 0..2 { occupied_summary.pop(); }
-                    occupied_summary += &format!("..{}, ", last_value);
+                    occupied_summary += &format!("{}, ", UBERSTATE_COLOUR.paint(format!("..{}", last_value)));
                     range = false;
                 }
 
-                occupied_summary += &format!("{}, ", uber_state);
+                occupied_summary += &format!("{}, ", UBERSTATE_COLOUR.paint(format!("{}", uber_state)));
             }
 
             for _ in 0..2 { occupied_summary.pop(); }
 
             if range {
-                occupied_summary += &format!("..{}", last_value);
+                occupied_summary += &format!("{}", UBERSTATE_COLOUR.paint(format!("..{}", last_value)));
             }
 
             if occupied_summary.is_empty() {
@@ -779,14 +789,14 @@ pub fn validate() -> Result<(), String> {
                 passed.push(format!("{}uses {}\n", name, occupied_summary));
             }
         } else {
-            let name = util::with_trailing_spaces(name, 24);
+            let name = NAME_COLOUR.paint(util::with_trailing_spaces(name, 24));
             failed.push(format!("{}{}\n", name, collision_message));
         }
     }
 
     let failed_length = failed.len();
     if failed_length > 0 {
-        output += &format!("\n{}/{} failed\n", failed_length, length);
+        output += &format!("{}", Colour::Red.paint(format!("\n{}/{} failed\n", failed_length, length)));
 
         for failed in failed {
             output += &failed;
@@ -794,7 +804,7 @@ pub fn validate() -> Result<(), String> {
     }
     let passed_length = passed.len();
     if passed_length > 0 {
-        output += &format!("\n{}/{} passed\n", passed_length, length);
+        output += &format!("{}", Colour::Green.paint(format!("\n{}/{} passed\n", passed_length, length)));
 
         for passed in passed {
             output += &passed;
