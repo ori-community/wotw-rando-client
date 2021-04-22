@@ -192,7 +192,9 @@ impl Graph {
                     }
                     let target_orbs = Graph::try_connection(context.player, connection, &best_orbs, &context.states);
                     if target_orbs.is_empty() {
-                        let states = connection.requirement.contained_states();
+                        let mut states = connection.requirement.contained_states();
+                        states.retain(|state| !context.states.contains(state));
+
                         if states.is_empty() {
                             if context.progression_check {
                                 progressions.push((&connection.requirement, best_orbs.clone()))
@@ -215,9 +217,7 @@ impl Graph {
             Node::State(state) => {
                 context.states.insert(state.index);
                 let (mut reached, progressions) = self.follow_state_progressions(state.index, context);
-                if state.uber_state.is_some() {
-                    reached.push(entry);
-                }
+                reached.push(entry);
                 (reached, progressions)
             },
             Node::Quest(quest) => {

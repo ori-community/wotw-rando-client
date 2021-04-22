@@ -278,7 +278,7 @@ impl Requirement {
         itemsets
     }
 
-    pub fn items_needed(&self, player: &Player) -> Vec<(Inventory, Orbs)> {
+    pub fn items_needed(&self, player: &Player, states: &FxHashSet<usize>) -> Vec<(Inventory, Orbs)> {
         match self {
             Requirement::Free => vec![(Inventory::default(), Orbs::default())],
             Requirement::Impossible => vec![],
@@ -297,7 +297,8 @@ impl Requirement {
             Requirement::Shard(shard) => vec![(Inventory::from(Item::Shard(*shard)), Orbs::default())],
             Requirement::Teleporter(teleporter) => vec![(Inventory::from(Item::Teleporter(*teleporter)), Orbs::default())],
             Requirement::Water => vec![(Inventory::from(Item::Water), Orbs::default())],
-            Requirement::State(_) => vec![],  // TODO hmmm oriThink
+            Requirement::State(state) =>
+                if states.contains(state) { vec![(Inventory::default(), Orbs::default())] } else { vec![] },
             Requirement::Damage(amount) | Requirement::Danger(amount) => {
                 let mut itemsets = Vec::new();
 
@@ -355,7 +356,7 @@ impl Requirement {
                 Orbs { energy: -12.0, ..Orbs::default()},
             )], // TODO sigh
             Requirement::And(ands) => {
-                let mut tail = ands.iter().map(|and| and.items_needed(player));
+                let mut tail = ands.iter().map(|and| and.items_needed(player, states));
                 let head = tail.next().unwrap_or_default();
                 tail.fold(head, |acc, next| {
                     let mut combined = Vec::default();
@@ -371,7 +372,7 @@ impl Requirement {
             }
             Requirement::Or(ors) => {
                 ors.iter()
-                    .flat_map(|or| or.items_needed(player))
+                    .flat_map(|or| or.items_needed(player, states))
                     .collect()
             },
         }
@@ -572,50 +573,51 @@ mod tests {
     fn items_needed() {
         let mut player = Player::default();
         player.spawn(&Settings::default());
+        let states = FxHashSet::default();
         let orbs = Orbs::default();
 
         let req = Requirement::Free;
-        assert_eq!(req.items_needed(&player), vec![(Inventory::default(), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::default(), orbs)]);
         let req = Requirement::Impossible;
-        assert_eq!(req.items_needed(&player), vec![]);
+        assert_eq!(req.items_needed(&player, &states), vec![]);
         let req = Requirement::Or(vec![Requirement::Free, Requirement::Impossible]);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::default(), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::default(), orbs)]);
         let req = Requirement::And(vec![Requirement::Free, Requirement::Impossible]);
-        assert_eq!(req.items_needed(&player), vec![]);
+        assert_eq!(req.items_needed(&player, &states), vec![]);
 
         let req = Requirement::Skill(Skill::Dash);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from(Item::Skill(Skill::Dash)), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Skill(Skill::Dash)), orbs)]);
         let req = Requirement::Or(vec![Requirement::Skill(Skill::Dash), Requirement::Skill(Skill::Bash)]);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from(Item::Skill(Skill::Dash)), orbs), (Inventory::from(Item::Skill(Skill::Bash)), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Skill(Skill::Dash)), orbs), (Inventory::from(Item::Skill(Skill::Bash)), orbs)]);
         let req = Requirement::And(vec![Requirement::Skill(Skill::Dash), Requirement::Skill(Skill::Bash)]);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from(vec![Item::Skill(Skill::Dash), Item::Skill(Skill::Bash)]), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(vec![Item::Skill(Skill::Dash), Item::Skill(Skill::Bash)]), orbs)]);
 
         let req = Requirement::EnergySkill(Skill::Grenade, 2.0);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -4.0, ..orbs })]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -4.0, ..orbs })]);
         player.unsafe_paths = true;
-        assert_eq!(req.items_needed(&player), vec![
+        assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Grenade), Item::Shard(Shard::Overcharge)]), Orbs { energy: -1.0, ..orbs }),
         ]);
         player.unsafe_paths = false;
 
         let req = Requirement::Resource(Resource::ShardSlot, 3);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from((Item::Resource(Resource::ShardSlot), 3)), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from((Item::Resource(Resource::ShardSlot), 3)), orbs)]);
         let req = Requirement::Shard(Shard::Overflow);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from(Item::Shard(Shard::Overflow)), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Shard(Shard::Overflow)), orbs)]);
         let req = Requirement::Teleporter(Teleporter::Glades);
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from(Item::Teleporter(Teleporter::Glades)), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Teleporter(Teleporter::Glades)), orbs)]);
         let req = Requirement::Water;
-        assert_eq!(req.items_needed(&player), vec![(Inventory::from(Item::Water), orbs)]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Water), orbs)]);
 
         let req = Requirement::Damage(36.0);
-        assert_eq!(req.items_needed(&player), vec![
+        assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from((Item::Resource(Resource::Health), 8)), Orbs { health: -36.0, ..orbs }),
             (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
             (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { energy: -2.0, ..orbs }),
         ]);
         player.gorlek_paths = true;
-        assert_eq!(req.items_needed(&player), vec![
+        assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from((Item::Resource(Resource::Health), 8)), Orbs { health: -36.0, ..orbs }),
             (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
             (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { energy: -2.0, ..orbs }),
@@ -626,7 +628,7 @@ mod tests {
         player.gorlek_paths = false;
 
         let req = Requirement::BreakWall(12.0);
-        assert_eq!(req.items_needed(&player), vec![
+        assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from(Item::Skill(Skill::Sword)), orbs),
             (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -1.5, ..orbs }),
@@ -636,7 +638,7 @@ mod tests {
             (Inventory::from(Item::Skill(Skill::Spear)), Orbs { energy: -4.0, ..orbs }),
         ]);
         player.unsafe_paths = true;
-        assert_eq!(req.items_needed(&player), vec![
+        assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from(Item::Skill(Skill::Sword)), orbs),
             (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -0.75, ..orbs }),

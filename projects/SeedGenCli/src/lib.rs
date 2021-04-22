@@ -91,7 +91,7 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn initialize_log(use_file: bool) -> Result<(), String> {
+pub fn initialize_log(use_file: bool, log_level: LevelFilter) -> Result<(), String> {
     let stderr = ConsoleAppender::builder()
         .target(Target::Stderr)
         .encoder(Box::new(PatternEncoder::new("{h({l}):5}  {m}{n}")))
@@ -108,7 +108,7 @@ pub fn initialize_log(use_file: bool) -> Result<(), String> {
             .appender(Appender::builder().build("log_file", Box::new(log_file)))
             .appender(
                 Appender::builder()
-                    .filter(Box::new(ThresholdFilter::new(LevelFilter::Info)))
+                    .filter(Box::new(ThresholdFilter::new(log_level)))
                     .build("stderr", Box::new(stderr))
             )
             .build(
@@ -121,13 +121,60 @@ pub fn initialize_log(use_file: bool) -> Result<(), String> {
     } else {
         Config::builder()
             .appender(Appender::builder().build("stderr", Box::new(stderr)))
-            .build(Root::builder().appender("stderr").build(LevelFilter::Info))
+            .build(Root::builder().appender("stderr").build(log_level))
             .map_err(|err| format!("Failed to configure logger: {}", err))?
     };
 
     log4rs::init_config(log_config).map_err(|err| format!("Failed to initialize logger: {}", err))?;
 
+    ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
+
     Ok(())
+}
+
+pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings) -> Result<String, String> {
+    let mut header_block = String::new();
+    let mut total_dependencies = HashSet::new();
+
+    for header in headers {
+        log::trace!("Parsing inline header");
+
+        let (header, dependencies) = headers::parse_header(header, world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+        header_block += &header;
+        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
+    }
+    for mut path in settings.header_list.clone() {
+        path.set_extension("wotwrh");
+
+        log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", path))?.to_string_lossy());
+
+        let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
+        let (header, dependencies) = headers::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+
+        header_block += &header;
+        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
+    }
+
+    let mut depth = 0;
+    while !total_dependencies.is_empty() {
+        let mut nested_dependencies = HashSet::new();
+        for dependency in total_dependencies.drain() {
+            log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", dependency))?.to_string_lossy());
+
+            let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {:?}: {}", dependency, err))?;
+            let (header, dependencies) = &headers::parse_header(&header, world, &settings.pathsets)?;
+
+            header_block += &header;
+            nested_dependencies = nested_dependencies.union(&dependencies).cloned().collect();
+        }
+        total_dependencies = nested_dependencies;
+        depth += 1;
+        if depth > 100 {
+            return Err(String::from("More than 100 nested dependencies. Is there a circular !!include?"));
+        }
+    }
+
+    Ok(header_block)
 }
 
 pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str) -> Result<String, String> {
@@ -140,43 +187,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
 
     let flag_line = write_flags(settings);
 
-    let mut header_block = String::new();
-    let mut total_dependencies = HashSet::new();
-    for header in headers {
-        log::trace!("Parsing inline header");
-
-        let (header, dependencies) = headers::parse_header(header, &mut world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
-        header_block += &header;
-        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
-    }
-    for mut path in settings.header_list.clone() {
-        path.set_extension("wotwrh");
-
-        log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", path))?.to_string_lossy());
-
-        let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
-        let (header, dependencies) = headers::parse_header(&header, &mut world, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
-        header_block += &header;
-        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
-    }
-
-    let mut depth = 0;
-    while !total_dependencies.is_empty() {
-        let mut nested_dependencies = HashSet::new();
-        for dependency in total_dependencies.drain() {
-            log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", dependency))?.to_string_lossy());
-
-            let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {:?}: {}", dependency, err))?;
-            let (header, dependencies) = &headers::parse_header(&header, &mut world, &settings.pathsets)?;
-            header_block += &header;
-            nested_dependencies = nested_dependencies.union(&dependencies).cloned().collect();
-        }
-        total_dependencies = nested_dependencies;
-        depth += 1;
-        if depth > 100 {
-            return Err(String::from("More than 100 nested dependencies. Is there a circular !!include?"));
-        }
-    }
+    let header_block = parse_headers(&mut world, headers, settings)?;
 
     let mut spawn;
     let mut spawn_loc = SpawnLoc::default();
@@ -197,7 +208,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
                 break;
             },
             Err(err) => {
-                log::info!("Failed to place items: {}\nRetrying...", err);
+                log::error!("Failed to place items: {}\nRetrying...", err);
             }
         }
     };

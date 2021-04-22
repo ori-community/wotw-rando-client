@@ -116,18 +116,28 @@ impl Item {
     }
 
     pub fn cost(&self) -> u16 {
-        // TODO design
         #[allow(clippy::match_same_arms)]
         match self {
             Item::SpiritLight(amount) => *amount,
-            Item::Resource(Resource::Health) => 20,
-            Item::Resource(Resource::Keystone) => 200,
-            Item::Skill(Skill::Launch) => 5000,
-            Item::Skill(Skill::Regenerate) => 100,
-            Item::Skill(_) => 500,
-            Item::Teleporter(_) => 1000,
-            Item::Water => 700,
-            _ => 100,
+            Item::Resource(Resource::Health) => 240,
+            Item::Resource(Resource::Energy) => 320,
+            Item::Resource(Resource::Ore) => 320,
+            Item::Resource(Resource::Keystone) => 320,
+            Item::Resource(Resource::ShardSlot) => 480,
+            Item::Skill(Skill::Regenerate) | Item::Skill(Skill::WaterBreath) => 400,  // Quality-of-Life Skills
+            Item::Skill(Skill::Sword) | Item::Skill(Skill::Hammer) => 600,  // Essential Weapons
+            Item::Skill(Skill::WallJump) | Item::Skill(Skill::DoubleJump) | Item::Skill(Skill::Dash) => 1200,  // Essential Movement
+            Item::Skill(Skill::Glide) | Item::Skill(Skill::Grapple) => 1400,  // Feel-Good Finds
+            Item::Skill(Skill::Bow) | Item::Skill(Skill::Shuriken) => 1600,  // Secondary Weapons
+            Item::Skill(Skill::Burrow) | Item::Skill(Skill::Bash) | Item::Skill(Skill::Flap) | Item::Skill(Skill::WaterDash) |
+            Item::Skill(Skill::Flash) | Item::Skill(Skill::Seir) | Item::Water => 1800,  // Key Skills
+            Item::Skill(Skill::Grenade) | Item::Skill(Skill::Blaze) | Item::Skill(Skill::Sentry) | Item::Skill(Skill::Spear) => 2800,  // Tedious Weapons
+            Item::Skill(Skill::AncestralLight) => 3000,  // Unhinted Skill
+            Item::Skill(Skill::Launch) => 20000,  // Absolutely Broken
+            Item::Teleporter(Teleporter::Marsh) => 20000,
+            Item::Teleporter(Teleporter::Wellspring) => 16000,
+            Item::Teleporter(_) => 8000,
+            _ => 400,
         }
     }
 
@@ -232,7 +242,7 @@ impl Inventory {
         let mut count = 0;
         for item in self.inventory.keys() {
             if let Item::SpiritLight(amount) = item {
-                count += (self.inventory[item] * amount + 49) / 50;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem
+                count += (self.inventory[item] * amount + 39) / 40;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem (and underestimating the needed slots can force a retry)
             } else {
                 count += self.inventory[item];
             }

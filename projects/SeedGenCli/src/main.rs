@@ -9,6 +9,7 @@ use structopt::StructOpt;
 use bugsalot::debugger;
 
 use rand::distributions::{Distribution, Uniform};
+use log::LevelFilter;
 
 use seedgen::{self, lexer, inventory, world, headers, util};
 
@@ -242,8 +243,6 @@ struct SeedArgs {
 fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
     let now = Instant::now();
 
-    // TODO default headers
-
     let mut filename = args.filename.clone().unwrap_or_else(|| {
         if args.seed.is_none() {
             let mut generated_seed = String::new();
@@ -277,7 +276,6 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
         args.headers.push(header)
     }
 
-    // TODO match the versions of rando and seedgen
     let settings = Settings {
         version: env!("CARGO_PKG_VERSION").to_string(),
         spoilers: !args.race,
@@ -387,8 +385,7 @@ fn main() {
 
     match args.command {
         Command::Seed { filename, seed, areas, locations, uber_states, trust, race, netcode, spawn, generation_flags, header_paths, headers } => {
-            seedgen::initialize_log(true).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
-            ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
+            seedgen::initialize_log(true, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seed(SeedArgs {
                 filename,
@@ -406,8 +403,7 @@ fn main() {
             }).unwrap_or_else(|err| log::error!("{}", err));
         },
         Command::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
-            seedgen::initialize_log(false).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
-            ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
+            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match reach_check(ReachCheckArgs {
                 seed_file,
@@ -426,8 +422,7 @@ fn main() {
             }
         },
         Command::Headers { headers, subcommand } => {
-            seedgen::initialize_log(false).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
-            ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
+            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match subcommand {
                 Some(HeaderCommand::Presets { subcommand }) => {

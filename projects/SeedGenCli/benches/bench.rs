@@ -4,6 +4,7 @@ use std::path::PathBuf;
 
 use rustc_hash::FxHashSet;
 use rand::prelude::*;
+use rand::distributions::Uniform;
 
 use seedgen::*;
 use lexer::*;
@@ -104,18 +105,22 @@ fn reach_checking(c: &mut Criterion) {
 }
 
 fn generation(c: &mut Criterion) {
+    seedgen::initialize_log(true, log::LevelFilter::Off).unwrap();
+
     let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
-    let mut world = World::new(&graph);
-    world.pool = Pool::preset(&[Pathset::Moki]);
-    world.player.spawn(&Settings::default());
-    let mut rng = thread_rng();
+    let settings = Settings::default();
 
     c.bench_function("seed generation", |b| b.iter(|| {
-        loop {
-            match generator::generate_placements(world.clone(), "MarshSpawn.Main", &Settings::default(), &mut rng) {
-                Ok(_) => break,
-                Err(err) => println!("Generation failed! ({})", err),
-            }
+        let mut generated_seed = String::new();
+        let numeric = Uniform::from('0'..='9');
+        let mut rng = rand::thread_rng();
+        for _ in 0..16 {
+            generated_seed.push(numeric.sample(&mut rng));
+        }
+
+        match seedgen::generate_seed(&graph, &settings, &vec![], &generated_seed) {
+            Ok(_) => log::info!("Generated seed"),
+            Err(err) => log::error!("Generation failed! ({})", err),
         }
     }));
 }

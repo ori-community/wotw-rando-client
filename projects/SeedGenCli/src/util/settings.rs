@@ -133,7 +133,7 @@ impl Default for Settings {
             output_folder: PathBuf::default(),
             spoilers: true,
             web_conn: false,
-            header_list: vec![PathBuf::from("Teleporters"), PathBuf::from("Hints"), PathBuf::from("Swordspawn")],
+            header_list: vec![PathBuf::from("default")],
         }
     }
 }

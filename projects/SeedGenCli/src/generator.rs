@@ -1,5 +1,7 @@
 use std::{fmt, convert::TryFrom};
 
+use rustc_hash::FxHashSet;
+
 use rand::{
     Rng,
     seq::SliceRandom,
@@ -34,8 +36,8 @@ pub enum PartialItem {
 
 fn format_identifiers(mut identifiers: Vec<&str>) -> String {
     let length = identifiers.len();
-    if length > 5 {
-        identifiers.truncate(5);
+    if length > 20 {
+        identifiers.truncate(20);
     }
 
     let mut identifiers = identifiers.iter()
@@ -45,7 +47,7 @@ fn format_identifiers(mut identifiers: Vec<&str>) -> String {
 
     for _ in 0..2 { identifiers.pop(); }
 
-    if length > 5 {
+    if length > 20 {
         identifiers.push_str(&format!("... ({} total)", length));
     }
 
@@ -59,12 +61,13 @@ where
     world: World<'a>,
     placements: Vec<Placement>,
     placeholders: Vec<UberState>,
+    collected_preplacements: Vec<&'a UberState>,
     price_range: Uniform<f32>,
     spirit_light_rng: SpiritLightAmounts,
     rng: &'a mut R,
 }
 
-fn place_item<R>(uber_state: UberState, item: Item, context: &mut GeneratorContext<R>) -> Result<(), String>
+fn place_item<R>(uber_state: UberState, was_placeholder: bool, item: Item, context: &mut GeneratorContext<R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -95,7 +98,7 @@ where
         });
     }
 
-    log::trace!("Placed {} at {}", item, uber_state);
+    log::trace!("Placed {} at {}", item, if was_placeholder { format!("placeholder {} ({} left)", uber_state, context.placeholders.len()) } else { format!("{}", uber_state) });
 
     context.placements.push(Placement {
         uber_state,
@@ -124,7 +127,7 @@ where
         if context.rng.gen_bool(0.8) {
             log::trace!("Placing Relic in {}", zone);
             if let Some(&(_, location)) = relic_locations.iter().find(|&&(location_zone, _)| location_zone == zone) {
-                place_item(location.uber_state().unwrap().clone(), Item::BonusItem(BonusItem::Relic), context)?;
+                place_item(location.uber_state().unwrap().clone(), false, Item::BonusItem(BonusItem::Relic), context)?;
             }
         }
     }
@@ -166,10 +169,10 @@ fn forced_placement<R>(item: Item, reserved_slots: &mut Vec<&UberState>, context
 where
     R: Rng
 {
-    let mut uber_state = if let Some(uber_state) = reserved_slots.pop() {
-        uber_state.clone()
+    let (mut uber_state, mut was_placeholder) = if let Some(uber_state) = reserved_slots.pop() {
+        (uber_state.clone(), false)
     } else if let Some(uber_state) = context.placeholders.pop() {
-        uber_state
+        (uber_state, true)
     } else {
         return Err(format!("Not enough slots to place forced progression {}", item.name()))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements, or very rarely spirit light
     };
@@ -182,8 +185,10 @@ where
             skipped_slots.push(uber_state);
 
             uber_state = if let Some(uber_state) = reserved_slots.pop() {
+                was_placeholder = false;
                 uber_state.clone()
             } else if let Some(uber_state) = context.placeholders.pop() {
+                was_placeholder = true;
                 uber_state
             } else {
                 return Err(format!("Not enough slots to place forced progression {}", item.name()))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements, or very rarely spirit light
@@ -193,7 +198,7 @@ where
         context.placeholders.append(&mut skipped_slots);
     }
 
-    place_item(uber_state, item.clone(), context)?;
+    place_item(uber_state, was_placeholder, item.clone(), context)?;
     context.world.grant_player(item, 1).unwrap_or_else(|err| log::error!("{}", err));
 
     Ok(())
@@ -218,7 +223,7 @@ where
             },
             PartialItem::Item(item) => {
                 context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("{}", err));
-                place_item(uber_state.clone(), item, context)?;
+                place_item(uber_state.clone(), false, item, context)?;
             },
         }
     }
@@ -266,27 +271,22 @@ fn place_remaining<R>(remaining: Inventory, context: &mut GeneratorContext<R>) -
 where
     R: Rng
 {
-    let (mut shop, mut non_shop): (Vec<UberState>, Vec<UberState>) = context.placeholders.iter().cloned().partition(|uber_state| uber_state.is_shop());
+    let (mut shop, mut non_shop): (Vec<UberState>, Vec<UberState>) = context.placeholders.drain(..).partition(|uber_state| uber_state.is_shop());
 
-    let mut open_slots = true;
-    // TODO this isn't random is it
-    for (item, amount) in remaining.inventory {
-        for _ in 0..amount {
-            let uber_state = if let Some(uber_state) = shop.pop() {
-                uber_state
-            } else if let Some(uber_state) = non_shop.pop() {
-                uber_state
-            } else {
-                open_slots = false;
-                break;
-            };
+    let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
+    remaining.shuffle(context.rng);
 
-            place_item(uber_state, item.clone(), context)?;
-        }
-        if !open_slots {
+    for item in remaining {
+        let uber_state = if let Some(uber_state) = shop.pop() {
+            uber_state
+        } else if let Some(uber_state) = non_shop.pop() {
+            uber_state
+        } else {
             log::warn!("Not enough space to place all items from the item pool or place any spirit light!");
             break;
-        }
+        };
+
+        place_item(uber_state, true, item, context)?;
     }
 
     if !shop.is_empty() {
@@ -312,6 +312,7 @@ where
     // TODO check the needed capacity on these vecs
     let placements = Vec::<Placement>::with_capacity(380);
     let placeholders = Vec::<UberState>::with_capacity(380);
+    let collected_preplacements = Vec::<&UberState>::new();
     let mut spawn_slots = Vec::<&UberState>::new();
 
     let spirit_light_slots = (world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).count() - world.pool.inventory().item_count()) as f32;
@@ -324,6 +325,7 @@ where
         world,
         placements,
         placeholders,
+        collected_preplacements,
         price_range,
         spirit_light_rng,
         rng,
@@ -360,7 +362,8 @@ where
         let reachable = reachable.iter().filter(|&&node| {
             node.uber_state().map_or(false, |uber_state|
                 !context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
-                !context.placeholders.iter().any(|placeholder| placeholder == uber_state)
+                !context.placeholders.iter().any(|placeholder| placeholder == uber_state) &&
+                !context.collected_preplacements.iter().any(|&collected| collected == uber_state)
             )
         });
 
@@ -371,12 +374,14 @@ where
                 } else { None })
             .collect();
 
-        log::trace!("Reachable free locations: {}", format_identifiers(identifiers));
+        log::trace!("{} Reachable free locations: {}", identifiers.len(), format_identifiers(identifiers));
 
         let (preplaced, needs_placement): (Vec<&Node>, Vec<_>) = reachable.partition(|&&node| context.world.preplacements.contains_key(&node.uber_state().unwrap()));
 
         preplaced.iter().for_each(|&node| {
-            context.world.collect_preplacements(node.uber_state().unwrap());
+            let uber_state = node.uber_state().unwrap();
+            context.world.collect_preplacements(uber_state);
+            context.collected_preplacements.push(uber_state);
         });
 
         // TODO maybe I didn't know retain back then lol
@@ -389,6 +394,8 @@ where
 
         needs_placement.shuffle(context.rng);
 
+        force_keystones(&reachable_states, &mut needs_placement, &mut context)?;
+
         let mut reserved_slots = Vec::<&UberState>::with_capacity(RESERVE_SLOTS);
         if unreached_count > 0 {
             for _ in 0..RESERVE_SLOTS {
@@ -398,15 +405,16 @@ where
             }
         }
 
-        force_keystones(&reachable_states, &mut reserved_slots, &mut context)?;
-
         if needs_placement.is_empty() {
             // forced placements
             let mut itemsets = Vec::new();
             let slots = reserved_slots.len() + context.placeholders.len();
 
+            // TODO compare with vec
+            let owned_states = reachable_states.iter().map(|&node| node.index()).collect::<FxHashSet<_>>();
+
             for (requirement, best_orbs) in unmet {
-                let items = requirement.items_needed(&context.world.player);
+                let items = requirement.items_needed(&context.world.player, &owned_states);
                 for (inventory, orb_cost) in items {
                     for orbs in &best_orbs {
                         // TODO lot of redundant work here, only the orbs change!
@@ -426,13 +434,15 @@ where
                     .filter_map(|&node| {
                         let uber_state = node.uber_state().unwrap();
                         if !context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
-                        !context.placeholders.iter().any(|placeholder| placeholder == uber_state) {
+                        !context.placeholders.iter().any(|placeholder| placeholder == uber_state) &&
+                        !context.collected_preplacements.iter().any(|&collected| collected == uber_state)
+                        {
                             Some(node.identifier())
                         } else { None }
                     })
                     .collect();
 
-                return Err(format!("Failed to reach all locations, missing {:?}", format_identifiers(identifiers)));
+                return Err(format!("Failed to reach all locations, missing {} - had {}", format_identifiers(identifiers), context.world.player.inventory));
             }
 
             // remove redundancies
