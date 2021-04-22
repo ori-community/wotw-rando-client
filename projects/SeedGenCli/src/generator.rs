@@ -78,6 +78,10 @@ where
             price = u16::try_from((price as f32 * context.price_range.sample(context.rng)) as i32).map_err(|_| format!("Overflowed shop price for {} after adding a random amount to it", item.name()))?;
         }
 
+        let price_setter = Item::UberState(format!("{}|int|{}  // Price for {}", price_uber_state, price, identifier));
+
+        log::trace!("Placing {} at 3|0 as price for the item below", price_setter);
+
         context.placements.push(Placement {
             uber_state: UberState {
                 identifier: UberIdentifier {
@@ -87,9 +91,11 @@ where
                 value: String::new(),
             },
             // TODO comment spacing
-            item: Item::UberState(format!("{}|int|{}  // Price for {}", price_uber_state, price, identifier)),
+            item: price_setter,
         });
     }
+
+    log::trace!("Placed {} at {}", item, uber_state);
 
     context.placements.push(Placement {
         uber_state,
@@ -116,6 +122,7 @@ where
 
     for &zone in RELIC_ZONES {
         if context.rng.gen_bool(0.8) {
+            log::trace!("Placing Relic in {}", zone);
             if let Some(&(_, location)) = relic_locations.iter().find(|&&(location_zone, _)| location_zone == zone) {
                 place_item(location.uber_state().unwrap().clone(), Item::BonusItem(BonusItem::Relic), context)?;
             }
@@ -198,11 +205,17 @@ where
 {
     // force a couple placeholders at the start
     if context.placeholders.len() < 4 {
+        log::trace!("Reserving {} as placeholder", uber_state);
+
         context.placeholders.push(uber_state.clone());
     } else {
         // TODO maybe faster to pick all at once?
         match context.world.pool.choose_random(context.rng) {
-            PartialItem::Placeholder => context.placeholders.push(uber_state.clone()),
+            PartialItem::Placeholder => {
+                log::trace!("Reserving {} as placeholder", uber_state);
+
+                context.placeholders.push(uber_state.clone())
+            },
             PartialItem::Item(item) => {
                 context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("{}", err));
                 place_item(uber_state.clone(), item, context)?;
@@ -302,6 +315,7 @@ where
     let mut spawn_slots = Vec::<&UberState>::new();
 
     let spirit_light_slots = (world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).count() - world.pool.inventory().item_count()) as f32;
+    log::trace!("Estimated {} slots for Spirit Light", spirit_light_slots);
     let spirit_light_rng = SpiritLightAmounts::new(world.pool.spirit_light as f32, spirit_light_slots, 0.75, 1.25);
 
     let price_range = Uniform::new_inclusive(0.75, 1.25);
@@ -365,6 +379,7 @@ where
             context.world.collect_preplacements(node.uber_state().unwrap());
         });
 
+        // TODO maybe I didn't know retain back then lol
         let mut needs_placement: Vec<_> = needs_placement.iter().filter_map(|&node| match node {
             Node::Pickup(pickup) => Some(&pickup.uber_state),
             Node::Quest(quest) => Some(&quest.uber_state),
@@ -433,15 +448,22 @@ where
                 }
             }
 
-            // TODO display weights
             log::trace!("{} options for forced progression:", itemsets.len());
-            for inventory in &itemsets {
-                log::trace!("{}", inventory);
-            }
 
-            let progression = itemsets.choose_weighted(context.rng, |inventory| 1.0 / inventory.cost()).map_err(|err| format!("Error choosing progression: {}", err))?;
+            let weight_sum: f32 = itemsets.iter().map(|inventory| 1.0 / inventory.cost()).sum();
+
+            let progression = itemsets
+                .choose_weighted(context.rng, |inventory| {
+                    let weight = 1.0 / inventory.cost();
+
+                    log::trace!("-> {}  ({}%)", inventory, (weight / weight_sum * 1000.0).round() / 10.0);
+
+                    weight
+                })
+                .map_err(|err| format!("Error choosing progression: {}", err))?;
+
             log::trace!("Chosen progression: {}", progression);
-            // TODO display what was progressed towards
+            // TODO display what was progressed towards?
 
             for (item, amount) in &progression.inventory {
                 let items = if let Item::SpiritLight(1) = item {

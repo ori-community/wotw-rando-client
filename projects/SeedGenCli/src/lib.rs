@@ -57,7 +57,7 @@ where
             .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?,
         Spawn::Set(spawn_loc) => valid
             .find(|&node| node.identifier() == spawn_loc)
-            .ok_or_else(|| format!("Spawn '{}' not found", spawn_loc))?
+            .ok_or_else(|| format!("Spawn {} not found", spawn_loc))?
     };
     if let Node::Anchor(anchor) = spawn {
         return Ok(anchor);
@@ -78,6 +78,9 @@ fn write_flags(settings: &Settings) -> String {
     flags += "NoFreeSword, ";
     // if flags.len() == empty_len { return String::new(); }
     for _ in 0..2 { flags.pop(); }  // remove the last comma
+
+    log::trace!("Derived Flags from Settings: {}", &flags[7..]);
+
     flags.push('\n');
     flags
 }
@@ -129,6 +132,7 @@ pub fn initialize_log(use_file: bool) -> Result<(), String> {
 
 pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str) -> Result<String, String> {
     let mut rng: StdRng = Seeder::from(seed).make_rng();
+    log::trace!("Seeded RNG with {}", seed);
 
     let mut world = World::new(graph);
     world.pool = Pool::preset(&settings.pathsets);
@@ -139,12 +143,17 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     let mut header_block = String::new();
     let mut total_dependencies = HashSet::new();
     for header in headers {
+        log::trace!("Parsing inline header");
+
         let (header, dependencies) = headers::parse_header(header, &mut world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
         header_block += &header;
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
+
+        log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", path))?.to_string_lossy());
+
         let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
         let (header, dependencies) = headers::parse_header(&header, &mut world, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
         header_block += &header;
@@ -155,6 +164,8 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     while !total_dependencies.is_empty() {
         let mut nested_dependencies = HashSet::new();
         for dependency in total_dependencies.drain() {
+            log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", dependency))?.to_string_lossy());
+
             let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {:?}: {}", dependency, err))?;
             let (header, dependencies) = &headers::parse_header(&header, &mut world, &settings.pathsets)?;
             header_block += &header;
@@ -182,7 +193,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         match generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng) {
             Ok(seed) => {
                 placements = seed;
-                log::info!("Generated seed after {} {}{}", index + 1, if index == 0 { "try" } else { "tries" }, if index > RETRIES / 2 { " (phew)" } else { "" });
+                log::info!("Generated seed after {} {}", index + 1, if index == 0 { "try" } else if index < RETRIES / 2 { "tries" } else { "tries (phew)" });
                 break;
             },
             Err(err) => {

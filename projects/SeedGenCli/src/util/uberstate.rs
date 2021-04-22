@@ -7,8 +7,8 @@ pub struct UberIdentifier {
 }
 impl UberIdentifier {
     pub fn from_parts(group: &str, id: &str) -> Result<UberIdentifier, String> {
-        let uber_group: u16 = group.parse().map_err(|_| format!("invalid uber group '{}'", group))?;
-        let uber_id: u16 = id.parse().map_err(|_| format!("invalid uber id '{}'", id))?;
+        let uber_group: u16 = group.parse().map_err(|_| format!("invalid uber group {}", group))?;
+        let uber_id: u16 = id.parse().map_err(|_| format!("invalid uber id {}", id))?;
         Ok(UberIdentifier {
             uber_group,
             uber_id,
@@ -28,9 +28,9 @@ pub struct UberState {
 }
 impl UberState {
     pub fn from_parts(group: &str, id: &str) -> Result<UberState, String> {
-        let uber_group: u16 = group.parse().map_err(|_| format!("invalid uber group '{}'", group))?;
+        let uber_group: u16 = group.parse().map_err(|_| format!("invalid uber group {}", group))?;
         let mut id_parts = id.splitn(2, '=');
-        let uber_id: u16 = id_parts.next().unwrap().parse().map_err(|_| format!("invalid uber id '{}'", id))?;
+        let uber_id: u16 = id_parts.next().unwrap().parse().map_err(|_| format!("invalid uber id {}", id))?;
         let value = id_parts.next().unwrap_or("");
         Ok(UberState {
             identifier: UberIdentifier {

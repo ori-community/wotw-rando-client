@@ -230,8 +230,8 @@ impl Graph {
     }
 
     fn find_spawn(&self, spawn: &str) -> Result<&Node, String> {
-        let entry = self.nodes.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn '{}' not found", spawn))?;
-        if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, '{}' is a {:?}", spawn, entry.node_type())); }
+        let entry = self.nodes.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn {} not found", spawn))?;
+        if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, {} is a {:?}", spawn, entry.node_type())); }
         Ok(entry)
     }
     fn collect_extra_states(&self, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> FxHashSet<usize> {

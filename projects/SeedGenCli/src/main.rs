@@ -217,7 +217,7 @@ fn parse_flags(generation_flags: &[String]) -> GenFlags {
             "w" | "wisps" => flags.force_wisps = true,
             "q" | "quests" => flags.force_quests = true,
             "r" | "relics" => flags.world_tour = true,
-            other => log::warn!("Unknown generation flag '{}'", other),
+            other => log::warn!("Unknown generation flag {}", other),
         }
     }
 
@@ -277,6 +277,7 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
         args.headers.push(header)
     }
 
+    // TODO match the versions of rando and seedgen
     let settings = Settings {
         version: env!("CARGO_PKG_VERSION").to_string(),
         spoilers: !args.race,

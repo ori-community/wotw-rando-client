@@ -552,7 +552,7 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
                 let (key, value) = parse_definition(tokens, context, metadata)?;
                 if definitions.insert(key, value).is_some() {
                     return Err(ParseError {
-                        description: format!("Requirement name '{}' already in use at line {}", key, token.line),
+                        description: format!("Requirement name {} already in use at line {}", key, token.line),
                         position: token.position,
                     });
                 }
@@ -561,7 +561,7 @@ fn process<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metad
                 let (key, value) = parse_region(tokens, context, metadata)?;
                 if regions.insert(key, value).is_some() {
                     return Err(ParseError {
-                        description: format!("Region name '{}' already in use at line {}", key, token.line),
+                        description: format!("Region name {} already in use at line {}", key, token.line),
                         position: token.position,
                     });
                 }

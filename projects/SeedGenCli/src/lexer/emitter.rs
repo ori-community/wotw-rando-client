@@ -102,7 +102,7 @@ fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &FxHashMa
 
 fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, value: usize) -> Result<(), String> {
     if graph.insert(key, value).is_some() {
-        return Err(format!("Name '{}' was used multiple times ambiguously", key));
+        return Err(format!("Name {} was used multiple times ambiguously", key));
     }
     Ok(())
 }
@@ -191,7 +191,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
                 }
             }
 
-            let to = *node_map.get(connection.identifier).ok_or_else(|| format!("Anchor '{}' connects to {:?} '{}' which doesn't actually exist", anchor.identifier, connection.name, connection.identifier))?;
+            let to = *node_map.get(connection.identifier).ok_or_else(|| format!("Anchor {} connects to {:?} {} which doesn't actually exist", anchor.identifier, connection.name, connection.identifier))?;
 
             connections.push(graph::Connection {
                 to,
@@ -222,19 +222,19 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
             for connection in &anchor.connections {
                 let expected_type = graph[node_map[connection.identifier]].node_type();
                 if connection.name != expected_type {
-                    return Err(format!("Anchor '{}' connects to {:?} '{}' which is actually a {:?}", anchor.identifier, connection.name, connection.identifier, expected_type));
+                    return Err(format!("Anchor {} connects to {:?} {} which is actually a {:?}", anchor.identifier, connection.name, connection.identifier, expected_type));
                 }
             }
         }
 
         for region in areas.regions.keys() {
             if !areas.anchors.iter().any(|anchor| anchor.identifier.splitn(2, '.').next().unwrap() == *region) {
-                log::warn!("Region '{}' has no anchors with a matching name.", region);
+                log::warn!("Region {} has no anchors with a matching name.", region);
             }
         }
         for state in &metadata.states {
             if !used_states.contains(state) {
-                log::warn!("State '{}' was never used as a requirement.", state);
+                log::warn!("State {} was never used as a requirement.", state);
             }
         }
     }

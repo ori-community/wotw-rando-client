@@ -91,15 +91,19 @@ impl<'a> World<'a> {
                     identifier: uber_state,
                     value: format!("{}", entry),
                 };
-                // TODO don't think this should be kept
-                log::trace!("Modified uber state to {}", uber_state);
+
+                log::trace!("Granting player uberState {}", uber_state);
                 self.collect_preplacements(&uber_state);
             },
             Item::Custom(_) => {},
             Item::SpiritLight(stacked_amount) => {
+                log::trace!("Granting player {} Spirit Light", stacked_amount);
+
                 self.player.inventory.grant(Item::SpiritLight(1), amount * stacked_amount);
             }
             item => {
+                log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
+
                 self.player.inventory.grant(item.clone(), amount);
             },
         }

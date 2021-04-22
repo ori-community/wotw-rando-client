@@ -290,7 +290,7 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
         }
 
         let mut trimmed = line;
-        if let Some(index) = line.find("//") {
+        if let Some(index) = trimmed.find("//") {
             trimmed = &trimmed[..index];
         }
 
@@ -301,18 +301,24 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
                 dependencies.insert(path);
             } else if let Some(mut pickup) = command.strip_prefix("add ") {
                 let count = parse_count(&mut pickup);
-                let (item, amount) = parse_pickup(pickup, false)?;
-                log::trace!("adding {}x {} to the item pool", amount, item);
-                world.pool.grant(item, count * amount, pathsets);
+                let (item, mut amount) = parse_pickup(pickup, false)?;
+                amount *= count;
+
+                log::trace!("adding {}{} to the item pool", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
+
+                world.pool.grant(item, amount, pathsets);
             } else if let Some(mut pickup) = command.strip_prefix("remove ") {
                 let count = parse_count(&mut pickup);
-                let (item, amount) = parse_pickup(pickup, false)?;
-                log::trace!("removing {}x {} from the item pool", amount, item);
-                world.pool.remove(&item, count * amount);
+                let (item, mut amount) = parse_pickup(pickup, false)?;
+                amount *= count;
+
+                log::trace!("removing {}{} from the item pool", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
+
+                world.pool.remove(&item, amount);
             } else if command.starts_with("set ") {
                 log::warn!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
             } else {
-                return Err(format!("Unknown command '{}'", command))
+                return Err(format!("Unknown command {}", command))
             }
         } else if let Some(ignored) = line.strip_prefix('!') {
             processed += ignored;
@@ -321,20 +327,20 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
             if !trimmed.is_empty() {
                 let mut parts = trimmed.splitn(3, '|');
                 let uber_group = parts.next().unwrap();
-                let uber_id = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
+                let uber_id = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
                 let uber_state = UberState::from_parts(uber_group, uber_id)?;
 
-                let item = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
+                let item = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
                 let (item, amount) = parse_pickup(item, uber_state.is_shop())?;
 
                 // if someone sets an uberstate on spawn, they probably don't want a pickup placed on it
                 if let Item::UberState(command) = &item {
                     if uber_state.identifier.uber_group == 3 && uber_state.identifier.uber_id == 0 {
                         let mut parts = command.split('|');
-                        let uber_group = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
-                        let mut uber_id = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?.to_string();
-                        let uber_type = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
-                        let value = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
+                        let uber_group = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
+                        let mut uber_id = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?.to_string();
+                        let uber_type = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
+                        let value = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
 
                         if uber_type != "bool" {
                             uber_id.push('=');
@@ -342,16 +348,25 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
                         }
                         let target = UberState::from_parts(uber_group, &uber_id)?;
 
-                        // TODO this happens when it shouldn't?
-                        log::trace!("adding an empty pickup at {} to prevent placements", target);
-                        let null_item = Item::Custom(String::from("6|f=0|quiet|noclear"));
-
-                        world.preplace(target, null_item, amount);
+                        if world.graph.nodes.iter().any(|node| {
+                            if let Some(uber_state) = node.uber_state() {
+                                uber_state == &target
+                            } else {
+                                false
+                            }
+                        }) {
+                            log::trace!("adding an empty pickup at {} to prevent placements", target);
+                            let null_item = Item::Custom(String::from("6|f=0|quiet|noclear"));
+                            world.preplace(target, null_item, amount);
+                        }
                     }
                 }
 
-                log::trace!("removing {}x {} from the item pool", amount, item);
-                world.pool.remove(&item, amount);
+                if world.pool.inventory().has(&item, 1) {
+                    log::trace!("removing {}{} from the item pool", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
+    
+                    world.pool.remove(&item, amount);
+                }
 
                 world.preplace(uber_state, item, amount);
             }
@@ -538,10 +553,10 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
         header.set_extension("wotwrh");
         let name = header.file_stem().unwrap().to_string_lossy();
 
-        let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header '{}': {}", name, err))?;
+        let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header {}: {}", name, err))?;
 
         let preset = contents.trim_start().starts_with("#preset");
-        let mut description = NAME_COLOUR.paint(format!("'{}' {}:\n", name, if preset { "preset" } else { "header" })).to_string();
+        let mut description = NAME_COLOUR.paint(format!("{} {}:\n", name, if preset { "preset" } else { "header" })).to_string();
 
         for line in contents.lines() {
             if let Some(desc) = line.trim_start().strip_prefix("///") {
@@ -607,7 +622,7 @@ fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
             } else if command.starts_with("set ") {
                 return Err(String::from("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for."));
             } else {
-                return Err(format!("Unknown command '{}'", command))
+                return Err(format!("Unknown command {}", command))
             }
         } else {
             if let Some(ignored) = trimmed.strip_prefix("!") {
@@ -615,7 +630,7 @@ fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
             }
             let mut parts = trimmed.splitn(3, '|');
             let uber_group = parts.next().unwrap();
-            let uber_id = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
+            let uber_id = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
             let uber_state = UberState::from_parts(uber_group, uber_id)?;
             let is_shop = uber_state.is_shop();
 
@@ -623,7 +638,7 @@ fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
                 occupied_states.push(uber_state);
             }
 
-            let item = parts.next().ok_or_else(|| format!("malformed pickup '{}'", trimmed))?;
+            let item = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
             let (item, _) = parse_pickup(item, is_shop)?;
 
             match item {
@@ -711,7 +726,7 @@ pub fn validate() -> Result<(), String> {
     for header in headers {
         let name = header.file_stem().unwrap().to_string_lossy().to_string();
 
-        let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header '{}': {}", name, err))?;
+        let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header {}: {}", name, err))?;
 
         match validate_header(&contents) {
             Ok(occupied) => {
@@ -821,7 +836,7 @@ pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), Stri
     let existing = find_headers(true)?;
 
     for header in headers {
-        if !existing.iter().any(|h| h.file_stem().unwrap().to_string_lossy() == header) { return Err(format!("Couldn't find header '{}'", header)); }
+        if !existing.iter().any(|h| h.file_stem().unwrap().to_string_lossy() == header) { return Err(format!("Couldn't find header {}", header)); }
         contents.push_str(&format!("!!include {}\n", header));
     }
 
@@ -831,7 +846,7 @@ pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), Stri
 
     let name = name.file_stem().unwrap().to_string_lossy();
 
-    println!("Created preset '{}'", name);
+    println!("Created preset {}", name);
     Ok(())
 }
 
@@ -845,12 +860,12 @@ pub fn remove_preset(name: &str) -> Result<(), String> {
         let current = preset.file_stem().unwrap().to_string_lossy();
         if current == name {
             fs::remove_file(preset).map_err(|err| format!("Failed to remove preset: {}", err))?;
-            output += &format!("Removed '{}'", name);
+            output += &format!("Removed {}", name);
             removed = true;
         }
     }
     if !removed {
-        return Err(format!("Couldn't find a preset called '{}'", name))
+        return Err(format!("Couldn't find a preset called {}", name))
     }
 
     println!("{}", output);
