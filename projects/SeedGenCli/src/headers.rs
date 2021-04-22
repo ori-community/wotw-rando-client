@@ -39,6 +39,7 @@ pub fn parse_pickup<'a>(pickup: &'a str, shop: bool) -> Result<(Item, u16), Stri
     // TODO extra parts like mute
     let pickup = pickup.trim();
     let mut parts = pickup.split('|');
+
     let pickup_type = parts.next().unwrap_or("tried to parse empty pickup");
     match pickup_type {
         "0" => {
@@ -196,12 +197,9 @@ pub fn parse_pickup<'a>(pickup: &'a str, shop: bool) -> Result<(Item, u16), Stri
             }
         },
         "8" => {
-            // sanitize, don't know if this is user input through headers and later it would crash on malformed pickups
-            // TODO why not use the uberstate interface?
             let uber_group = parts.next().ok_or_else(|| format!("missing uber group in pickup {}", pickup))?;
-            uber_group.parse::<u16>().map_err(|_| format!("invalid uber group in pickup {}", pickup))?;
             let uber_id = parts.next().ok_or_else(|| format!("missing uber id in pickup {}", pickup))?;
-            uber_id.parse::<u16>().map_err(|_| format!("invalid uber id in pickup {}", pickup))?;
+            UberIdentifier::from_parts(uber_group, uber_id).map_err(|err| format!("{} in pickup {}", err, pickup))?;
 
             let uber_type = parts.next().ok_or_else(|| format!("missing uber state type in pickup {}", pickup))?;
             let value = parts.next().ok_or_else(|| format!("missing uber value in pickup {}", pickup))?;
@@ -277,7 +275,7 @@ fn parse_count(pickup: &mut &str) -> u16 {
 }
 
 pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Result<(String, HashSet<PathBuf>), String> {
-    let mut processed = String::new();
+    let mut processed = String::with_capacity(header.len());
     let mut dependencies = HashSet::new();
     let mut first_line = true;
 
@@ -364,7 +362,7 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
 
                 if world.pool.inventory().has(&item, 1) {
                     log::trace!("removing {}{} from the item pool", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
-    
+
                     world.pool.remove(&item, amount);
                 }
 
@@ -375,6 +373,7 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
         }
     }
     processed.push('\n');
+    processed.shrink_to_fit();
     Ok((processed, dependencies))
 }
 

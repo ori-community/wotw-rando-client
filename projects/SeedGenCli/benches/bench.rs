@@ -5,6 +5,7 @@ use std::path::PathBuf;
 use rustc_hash::FxHashSet;
 use rand::prelude::*;
 use rand::distributions::Uniform;
+use rand_seeder::Seeder;
 
 use seedgen::*;
 use lexer::*;
@@ -104,24 +105,41 @@ fn reach_checking(c: &mut Criterion) {
     }));
 }
 
+
+
 fn generation(c: &mut Criterion) {
-    seedgen::initialize_log(true, log::LevelFilter::Off).unwrap();
+    seedgen::initialize_log(false, log::LevelFilter::Off).unwrap();
 
     let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
-    let settings = Settings::default();
+    let mut world = World::new(&graph);
+    let mut settings = Settings::default();
 
-    c.bench_function("seed generation", |b| b.iter(|| {
-        let mut generated_seed = String::new();
-        let numeric = Uniform::from('0'..='9');
-        let mut rng = rand::thread_rng();
-        for _ in 0..16 {
-            generated_seed.push(numeric.sample(&mut rng));
-        }
+    settings.header_list = vec![PathBuf::from("default"), PathBuf::from("qol"), PathBuf::from("rainy_marsh"), PathBuf::from("bonus_items"), PathBuf::from("util_twillen")];
 
-        match seedgen::generate_seed(&graph, &settings, &vec![], &generated_seed) {
-            Ok(_) => log::info!("Generated seed"),
-            Err(err) => log::error!("Generation failed! ({})", err),
-        }
+    c.bench_function("parsing headers", |b| b.iter(|| {
+        seedgen::parse_headers(&mut world, &vec![], &settings).unwrap();
+    }));
+
+    world = World::new(&graph);
+    settings = Settings::default();
+
+    parse_headers(&mut world, &vec![], &settings).unwrap();
+
+    let mut generated_seed = String::new();
+    let numeric = Uniform::from('0'..='9');
+    let mut rng = rand::thread_rng();
+    for _ in 0..16 {
+        generated_seed.push(numeric.sample(&mut rng));
+    }
+    let mut rng: StdRng = Seeder::from(generated_seed).make_rng();
+
+    c.bench_function("pickup placements", |b| b.iter(|| {
+        for _ in 0..5 {
+            match generator::generate_placements(world.clone(), "MarshSpawn.Main", &settings, &mut rng) {
+                Ok(_) => break,
+                Err(err) => log::error!("Failed to place items: {}\nRetrying...", err),
+            }
+        };
     }));
 }
 

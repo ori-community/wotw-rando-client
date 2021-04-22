@@ -40,10 +40,10 @@ enum Command {
     /// 
     /// Example: seedgen.exe seed filename --flags moki trees --headers default
     Seed {
-        /// the output location to write the seed into. The file name will also seed the rng
+        /// the seed's name and name of the file it will be written to. The name also seeds the rng.
         #[structopt(parse(from_os_str))]
         filename: Option<PathBuf>,
-        /// if you don't want the output to be used as seed, specify a seed here instead
+        /// seed the rng; without this flag it will be seeded from the filename instead
         #[structopt(long)]
         seed: Option<String>,
         /// the input file representing the logic
@@ -58,6 +58,9 @@ enum Command {
         /// skip validating the input files for a slight performance gain
         #[structopt(short, long)]
         trust: bool,
+        /// create a generator.log with verbose output about the generation process
+        #[structopt(short, long)]
+        verbose: bool,
         /// hides spoilers and makes the black market more expensive
         #[structopt(short, long)]
         race: bool,
@@ -134,7 +137,7 @@ enum PresetCommand {
     Create {
         /// name of the preset
         ///
-        /// later you can seed <name> -h <preset-name> to use this preset
+        /// later you can run seed -h <preset-name> to use this preset
         #[structopt(parse(from_os_str))]
         name: PathBuf,
         /// headers to add to the preset
@@ -383,8 +386,8 @@ fn main() {
     }
 
     match args.command {
-        Command::Seed { filename, seed, areas, locations, uber_states, trust, race, netcode, spawn, generation_flags, header_paths, headers } => {
-            seedgen::initialize_log(true, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+        Command::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, spawn, generation_flags, header_paths, headers } => {
+            seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seed(SeedArgs {
                 filename,

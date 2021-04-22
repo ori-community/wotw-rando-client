@@ -91,7 +91,7 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn initialize_log(use_file: bool, log_level: LevelFilter) -> Result<(), String> {
+pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(), String> {
     let stderr = ConsoleAppender::builder()
         .target(Target::Stderr)
         .encoder(Box::new(PatternEncoder::new("{h({l}):5}  {m}{n}")))
@@ -108,7 +108,7 @@ pub fn initialize_log(use_file: bool, log_level: LevelFilter) -> Result<(), Stri
             .appender(Appender::builder().build("log_file", Box::new(log_file)))
             .appender(
                 Appender::builder()
-                    .filter(Box::new(ThresholdFilter::new(log_level)))
+                    .filter(Box::new(ThresholdFilter::new(stderr_log_level)))
                     .build("stderr", Box::new(stderr))
             )
             .build(
@@ -121,7 +121,7 @@ pub fn initialize_log(use_file: bool, log_level: LevelFilter) -> Result<(), Stri
     } else {
         Config::builder()
             .appender(Appender::builder().build("stderr", Box::new(stderr)))
-            .build(Root::builder().appender("stderr").build(log_level))
+            .build(Root::builder().appender("stderr").build(stderr_log_level))
             .map_err(|err| format!("Failed to configure logger: {}", err))?
     };
 
