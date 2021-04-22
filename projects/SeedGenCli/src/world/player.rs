@@ -96,7 +96,6 @@ impl Player {
         let is_unsafe = self.unsafe_paths;
         let mut damage_mod = 1.0;
 
-        // TODO check how splinter stacks actually
         damage_mod += 0.25 * f32::from(self.inventory.get(&Item::Skill(Skill::AncestralLight)));
 
         let mut slots = self.inventory.get(&Item::Resource(Resource::ShardSlot));
@@ -109,7 +108,7 @@ impl Player {
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Reckless), 1) { damage_mod += 0.15; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Lifeforce), 1) { damage_mod += 0.1; slots -= 1; }
         if slots > 0 && is_unsafe && self.inventory.has(&Item::Shard(Shard::Finesse), 1) { damage_mod += 0.05; }
-        if splinter { damage_mod *= 1.5; }
+        if splinter { damage_mod *= 1.5; }  // The splinter debuff stacks multiplicatively even though other buffs stack additively
         damage_mod
     }
     pub fn defense_mod(&self) -> f32 {

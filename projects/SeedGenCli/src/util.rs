@@ -113,22 +113,22 @@ impl Skill {
             _ => 0.0,
         }
     }
-    // TODO check this in detail
+
     pub fn damage(self, unsafe_paths: bool) -> f32 {
         match self {
             Skill::Bow | Skill::Sword => 4.0,
+            Skill::Hammer | Skill::Flash => 12.0,
             Skill::Shuriken => 7.0,
-            Skill::Hammer | Skill::Sentry => 12.0,
             Skill::Grenade => if unsafe_paths { 8.0 } else { 4.0 },
-            Skill::Flash => 14.0,
-            Skill::Blaze => 3.0,
             Skill::Spear => 20.0,
+            Skill::Blaze => 3.0,
+            Skill::Sentry => 8.8,
             _ => 0.0,
         }
     }
     pub fn burn_damage(self) -> f32 {
         match self {
-            Skill::Grenade => 8.0,
+            Skill::Grenade => 9.0,
             Skill::Blaze => 10.8,
             _ => 0.0,
         }

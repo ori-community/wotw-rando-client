@@ -203,7 +203,6 @@ impl Graph {
                             for state in states {
                                 context.state_progressions.entry(state).or_default().push((anchor.index, connection));
                             }
-                            // TODO unmet state connections in progression check?
                         }
                     } else {
                         let (mut child_reached, mut child_progressions) = self.reach_recursion(&self.nodes[connection.to], target_orbs, context);

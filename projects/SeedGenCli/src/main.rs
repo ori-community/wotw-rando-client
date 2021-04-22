@@ -103,7 +103,7 @@ enum Command {
         /// player ore
         ore: u16,
         /// player spirit light
-        spirit_light: u16,
+        spirit_light: u32,
         /// any additional player items in the format s:<skill id>, t:<teleporter id>, sh:<shard id>, w:<world event id> or u:<ubergroup>,<uberid>
         items: Vec<String>,
     },
@@ -308,7 +308,6 @@ struct ReachCheckArgs {
     energy: f32,
     keystones: u16,
     ore: u16,
-    // TODO the player may have more spirit light than fits into 16 bits
     spirit_light: u16,
     items: Vec<String>,
 }
@@ -414,7 +413,7 @@ fn main() {
                 energy,
                 keystones,
                 ore,
-                spirit_light,
+                spirit_light: u16::try_from(spirit_light).unwrap_or(u16::MAX),  // Higher amounts of Spirit Light are irrelevant, just want to accept high values in case the player has that much
                 items,
             }) {
                 Ok(reached) => println!("{}", reached),
