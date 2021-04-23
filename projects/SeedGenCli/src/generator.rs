@@ -1,7 +1,5 @@
 use std::{fmt, convert::TryFrom};
 
-use rustc_hash::FxHashSet;
-
 use rand::{
     Rng,
     seq::SliceRandom,
@@ -139,12 +137,10 @@ fn force_keystones<R>(reachable_states: &[&Node], reserved_slots: &mut Vec<&Uber
 where
     R: Rng
 {
-    // TODO optimize? e.g. count placed keystones as they are placed instead of repeatedly computing them; only force placing keystones when new keydoors get into reach
-
-    let placed_keystones = context.placements.iter().filter(|&placement| placement.item == Item::Resource(Resource::Keystone)).count();
+    let placed_keystones = context.world.player.inventory.get(&Item::Resource(Resource::Keystone));
     if placed_keystones < 2 { return Ok(()); }
 
-    let required_keystones: u8 = reachable_states.iter()
+    let required_keystones: u16 = reachable_states.iter()
         .filter_map(|&node| {
             if let Some((_, keystones)) = KEYSTONE_DOORS.iter().find(|&&(identifier, _)| identifier == node.identifier()) {
                 return Some(*keystones);
@@ -152,7 +148,6 @@ where
             None
         })
         .sum();
-    let required_keystones: usize = required_keystones.into();
     if required_keystones <= placed_keystones { return Ok(()); }
 
     let missing_keystones = required_keystones - placed_keystones;
@@ -309,9 +304,8 @@ where
     R: Rng
 {
     // TODO enforce a max total price for shops
-    // TODO check the needed capacity on these vecs
-    let placements = Vec::<Placement>::with_capacity(380);
-    let placeholders = Vec::<UberState>::with_capacity(380);
+    let placements = Vec::<Placement>::with_capacity(450);
+    let placeholders = Vec::<UberState>::with_capacity(300);
     let collected_preplacements = Vec::<&UberState>::new();
     let mut spawn_slots = Vec::<&UberState>::new();
 
@@ -350,16 +344,17 @@ where
         }
     }
 
+    let all_locations: Vec<_> = context.world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).collect();
+    let total_location_count = all_locations.len();
+
     loop {
-        let (reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
+        let (mut reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
 
         let (reachable_locations, reachable_states): (Vec<&Node>, Vec<&Node>) = reachable.iter().partition(|&&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
 
-        let all_locations: Vec<_> = context.world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).collect();
-        let unreached_count = all_locations.len() - reachable_locations.len();
+        let unreached_count = total_location_count - reachable_locations.len();
 
-        // TODO wouldn't retain be optimal here?
-        let reachable = reachable.iter().filter(|&&node| {
+        reachable.retain(|&node| {
             node.uber_state().map_or(false, |uber_state|
                 !context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
                 !context.placeholders.iter().any(|placeholder| placeholder == uber_state) &&
@@ -367,7 +362,7 @@ where
             )
         });
 
-        let identifiers: Vec<_> = reachable.clone()
+        let identifiers: Vec<_> = reachable.iter()
             .filter_map(|&node| 
                 if matches!(node, Node::Pickup(_) | Node::Quest(_)) {
                     Some(node.identifier())
@@ -376,7 +371,7 @@ where
 
         log::trace!("{} Reachable free locations: {}", identifiers.len(), format_identifiers(identifiers));
 
-        let (preplaced, needs_placement): (Vec<&Node>, Vec<_>) = reachable.partition(|&&node| context.world.preplacements.contains_key(&node.uber_state().unwrap()));
+        let (preplaced, mut needs_placement): (Vec<&Node>, Vec<_>) = reachable.iter().partition(|&&node| context.world.preplacements.contains_key(&node.uber_state().unwrap()));
 
         preplaced.iter().for_each(|&node| {
             let uber_state = node.uber_state().unwrap();
@@ -384,12 +379,8 @@ where
             context.collected_preplacements.push(uber_state);
         });
 
-        // TODO maybe I didn't know retain back then lol
-        let mut needs_placement: Vec<_> = needs_placement.iter().filter_map(|&node| match node {
-            Node::Pickup(pickup) => Some(&pickup.uber_state),
-            Node::Quest(quest) => Some(&quest.uber_state),
-            _ => None,
-        }).collect();
+        needs_placement.retain(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
+        let mut needs_placement: Vec<_> = needs_placement.iter().map(|&node| node.uber_state().unwrap()).collect();
         needs_placement.append(&mut spawn_slots);
 
         needs_placement.shuffle(context.rng);
@@ -410,18 +401,21 @@ where
             let mut itemsets = Vec::new();
             let slots = reserved_slots.len() + context.placeholders.len();
 
-            // TODO compare with vec
-            let owned_states = reachable_states.iter().map(|&node| node.index()).collect::<FxHashSet<_>>();
+            let owned_states = reachable_states.iter().map(|&node| node.index()).collect::<Vec<_>>();
 
             for (requirement, best_orbs) in unmet {
                 let items = requirement.items_needed(&context.world.player, &owned_states);
-                for (inventory, orb_cost) in items {
+
+                for (mut needed, orb_cost) in items {
+                    context.world.player.missing_items(&mut needed);
+
                     for orbs in &best_orbs {
-                        // TODO lot of redundant work here, only the orbs change!
-                        let missing = context.world.player.missing_items(&inventory, orb_cost, *orbs);
+                        let missing = context.world.player.missing_for_orbs(&needed, orb_cost, *orbs);
+
                         if missing.inventory.is_empty() { return Err(format!("Failed to determine which items were needed for progression to meet {:#?} (had {:#?})", requirement, context.world.player.inventory)); }  // sanity check
                         if missing.item_count() > slots { continue; }
                         if !context.world.pool.contains(&missing) { continue; }
+
                         itemsets.push(missing);
                     }
                 }
@@ -473,7 +467,6 @@ where
                 .map_err(|err| format!("Error choosing progression: {}", err))?;
 
             log::trace!("Chosen progression: {}", progression);
-            // TODO display what was progressed towards?
 
             for (item, amount) in &progression.inventory {
                 let items = if let Item::SpiritLight(1) = item {
@@ -510,6 +503,7 @@ where
 
             place_remaining(remaining, &mut context)?;
 
+            context.placements.shrink_to_fit();
             return Ok(context.placements);
         }
     }

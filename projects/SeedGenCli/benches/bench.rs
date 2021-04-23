@@ -4,7 +4,6 @@ use std::path::PathBuf;
 
 use rustc_hash::FxHashSet;
 use rand::prelude::*;
-use rand::distributions::Uniform;
 use rand_seeder::Seeder;
 
 use seedgen::*;
@@ -105,8 +104,6 @@ fn reach_checking(c: &mut Criterion) {
     }));
 }
 
-
-
 fn generation(c: &mut Criterion) {
     seedgen::initialize_log(false, log::LevelFilter::Off).unwrap();
 
@@ -125,13 +122,7 @@ fn generation(c: &mut Criterion) {
 
     parse_headers(&mut world, &vec![], &settings).unwrap();
 
-    let mut generated_seed = String::new();
-    let numeric = Uniform::from('0'..='9');
-    let mut rng = rand::thread_rng();
-    for _ in 0..16 {
-        generated_seed.push(numeric.sample(&mut rng));
-    }
-    let mut rng: StdRng = Seeder::from(generated_seed).make_rng();
+    let mut rng: StdRng = Seeder::from("stableseedforconsistency").make_rng();
 
     c.bench_function("pickup placements", |b| b.iter(|| {
         for _ in 0..5 {

@@ -176,13 +176,14 @@ impl Player {
         weapons
     }
 
-    pub fn missing_items(&self, needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Inventory {
-        let mut missing = needed.clone();
-
+    pub fn missing_items(&self, needed: &mut Inventory) {
         // TODO needed is probably smaller, iterate through that?
         for (item, amount) in &self.inventory.inventory {
-            missing.remove(item, *amount);
+            needed.remove(item, *amount);
         }
+    }
+    pub fn missing_for_orbs(&self, needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Inventory {
+        let mut missing = needed.clone();
 
         let orbs = current_orbs + orb_cost;
         if orbs.health < 0.0 {

@@ -38,7 +38,7 @@ pub const RELIC_ZONES: &[&str] = &[
     "Windswept Wastes",
     "Willows End",
 ];
-pub const KEYSTONE_DOORS: &[(&str, u8)] = &[
+pub const KEYSTONE_DOORS: &[(&str, u16)] = &[
     ("MarshSpawn.KeystoneDoor", 2),
     ("HowlsDen.KeystoneDoor", 2),
     ("MarshPastOpher.EyestoneDoor", 2),

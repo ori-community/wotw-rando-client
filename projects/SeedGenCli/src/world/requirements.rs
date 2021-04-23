@@ -278,7 +278,7 @@ impl Requirement {
         itemsets
     }
 
-    pub fn items_needed(&self, player: &Player, states: &FxHashSet<usize>) -> Vec<(Inventory, Orbs)> {
+    pub fn items_needed(&self, player: &Player, states: &[usize]) -> Vec<(Inventory, Orbs)> {
         match self {
             Requirement::Free => vec![(Inventory::default(), Orbs::default())],
             Requirement::Impossible => vec![],
@@ -573,7 +573,7 @@ mod tests {
     fn items_needed() {
         let mut player = Player::default();
         player.spawn(&Settings::default());
-        let states = FxHashSet::default();
+        let states = Vec::default();
         let orbs = Orbs::default();
 
         let req = Requirement::Free;

@@ -346,13 +346,7 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
                         }
                         let target = UberState::from_parts(uber_group, &uber_id)?;
 
-                        if world.graph.nodes.iter().any(|node| {
-                            if let Some(uber_state) = node.uber_state() {
-                                uber_state == &target
-                            } else {
-                                false
-                            }
-                        }) {
+                        if world.graph.nodes.iter().any(|node| node.uber_state().map_or(false, |uber_state| uber_state == &target)) {
                             log::trace!("adding an empty pickup at {} to prevent placements", target);
                             let null_item = Item::Custom(String::from("6|f=0|quiet|noclear"));
                             world.preplace(target, null_item, amount);
