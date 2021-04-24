@@ -262,7 +262,7 @@ impl SpiritLightAmounts {
     }
 }
 
-fn place_remaining<R>(remaining: Inventory, context: &mut GeneratorContext<R>) -> Result<(), String>
+fn place_remaining<R>(remaining: Inventory, unreachable_locations: Vec<&Node>, context: &mut GeneratorContext<R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -288,11 +288,29 @@ where
         log::warn!("Not enough items in the pool to fill all shops!");
     }
 
+    log::trace!("Placed all items from the pool, placing Spirit Light...");
+
     for uber_state in non_shop {
         let amount = context.spirit_light_rng.sample(context.rng)?;
+        let item = Item::SpiritLight(amount);
+
+        log::trace!("Placed {} at placeholder {}", item, uber_state);
+
         context.placements.push(Placement {
             uber_state,
-            item: Item::SpiritLight(amount),
+            item,
+        });
+    }
+    for location in unreachable_locations {
+        let amount = context.spirit_light_rng.sample(context.rng)?;
+        let item = Item::SpiritLight(amount);
+        let uber_state = location.uber_state().unwrap().clone();
+
+        log::trace!("Placed {} at unreachable location {}", item, uber_state);
+
+        context.placements.push(Placement {
+            uber_state,
+            item,
         });
     }
 
@@ -344,15 +362,28 @@ where
         }
     }
 
-    let all_locations: Vec<_> = context.world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).collect();
-    let total_location_count = all_locations.len();
+    let mut finished_player = context.world.player.clone();
+    finished_player.inventory = context.world.pool.progressions.clone();
+    finished_player.inventory.grant(Item::SpiritLight(1), u16::MAX);
+
+    let mut all_reachable_locations = context.world.graph.reached_locations(&finished_player, spawn, &context.world.uber_states)?;
+    all_reachable_locations.retain(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
+    let total_reachable_count = all_reachable_locations.len();
+
+    let all_locations = context.world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).collect::<Vec<_>>();
+    let unreachable_locations = all_locations.into_iter().filter(|&node| !all_reachable_locations.iter().any(|&reachable| reachable.index() == node.index())).collect::<Vec<_>>();
+    if !unreachable_locations.is_empty() {
+        let identifiers = unreachable_locations.iter().map(|&node| node.identifier()).collect::<Vec<_>>();
+        log::warn!("Some locations are unreachable with this item pool! These will only hold Spirit Light.");
+        log::trace!("Unreachable locations with this item pool: {}", format_identifiers(identifiers));
+    }
 
     loop {
         let (mut reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
 
         let (reachable_locations, reachable_states): (Vec<&Node>, Vec<&Node>) = reachable.iter().partition(|&&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
 
-        let unreached_count = total_location_count - reachable_locations.len();
+        let unreached_count = total_reachable_count - reachable_locations.len();
 
         reachable.retain(|&node| {
             node.uber_state().map_or(false, |uber_state|
@@ -427,7 +458,7 @@ where
             if itemsets.is_empty() {
                 // TODO not reaching all locations can actually be desired (remove launch...)
 
-                let identifiers: Vec<_> = all_locations.iter()
+                let identifiers: Vec<_> = all_reachable_locations.iter()
                     .filter_map(|&node| {
                         let uber_state = node.uber_state().unwrap();
                         if !context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
@@ -504,7 +535,7 @@ where
             let remaining = context.world.pool.inventory();
             log::trace!("Placing the remaining {} items randomly", remaining.item_count());
 
-            place_remaining(remaining, &mut context)?;
+            place_remaining(remaining, unreachable_locations, &mut context)?;
 
             context.placements.shrink_to_fit();
             return Ok(context.placements);

@@ -233,7 +233,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
         }
         for state in &metadata.states {
             if !used_states.contains(state) {
-                log::warn!("State {} was never used as a requirement.", state);
+                log::trace!("State {} was never used as a requirement.", state);
             }
         }
     }
