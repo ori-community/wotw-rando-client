@@ -228,7 +228,7 @@ impl Requirement {
     fn needed_for_cost(cost: f32, player: &Player) -> Itemset {
         let mut itemsets = vec![(Inventory::default(), Orbs{ energy: -cost, ..Orbs::default() })];
 
-        if player.unsafe_paths && cost > 0.0 {
+        if player.unsafe_paths && cost > 0.0 && !player.inventory.has(&Item::Shard(Shard::Overcharge), 1) {
             itemsets.push((Inventory::from(Item::Shard(Shard::Overcharge)), Orbs{ energy: -cost / 2.0, ..Orbs::default() }));
         }
 
@@ -298,6 +298,11 @@ impl Requirement {
         };
         combined
     }
+    fn combine_itemset_item(left: &mut Itemset, right: Item) {
+        for (left_inventory, _) in left {
+            left_inventory.grant(right.clone(), 1);
+        };
+    }
 
     pub fn items_needed(&self, player: &Player, states: &[usize]) -> Itemset {
         match self {
@@ -307,9 +312,7 @@ impl Requirement {
             Requirement::EnergySkill(skill, amount) => {
                 let cost = player.use_cost(*skill) * *amount;
                 let mut itemsets = Requirement::needed_for_cost(cost, player);
-                for (inventory, _) in &mut itemsets {
-                    inventory.grant(Item::Skill(*skill), 1);
-                }
+                Requirement::combine_itemset_item(&mut itemsets, Item::Skill(*skill));
 
                 itemsets
             },
@@ -323,18 +326,15 @@ impl Requirement {
             Requirement::Damage(amount) | Requirement::Danger(amount) => {
                 let mut itemsets = Vec::new();
 
-                // TODO maybe carry the practice from combat over and optimize based on player inventory?
-                let cost = *amount;
+                let cost = *amount * player.defense_mod();
 
                 itemsets.append(&mut Requirement::needed_for_damage(cost, player));
 
-                if player.gorlek_paths {
+                if player.gorlek_paths && !player.inventory.has(&Item::Shard(Shard::Resilience), 1) {
                     let resilience_cost = cost * 0.9;
 
                     let mut resilience_sets = Requirement::needed_for_damage(resilience_cost, player);
-                    for (inventory, _) in &mut resilience_sets {
-                        inventory.grant(Item::Shard(Shard::Resilience), 1);
-                    }
+                    Requirement::combine_itemset_item(&mut resilience_sets, Item::Shard(Shard::Resilience));
 
                     itemsets.append(&mut resilience_sets);
                 }

@@ -3,8 +3,6 @@ use criterion::{criterion_group, criterion_main, Criterion};
 use std::path::PathBuf;
 
 use rustc_hash::FxHashSet;
-use rand::prelude::*;
-use rand_seeder::Seeder;
 
 use seedgen::*;
 use lexer::*;
@@ -105,34 +103,16 @@ fn reach_checking(c: &mut Criterion) {
 }
 
 fn generation(c: &mut Criterion) {
-    seedgen::initialize_log(false, log::LevelFilter::Off).unwrap();
+    // seedgen::initialize_log(false, log::LevelFilter::Off).unwrap();
 
-    let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
-    let mut world = World::new(&graph);
-    let mut settings = Settings::default();
+    let pathsets = vec![Pathset::Moki];
 
-    settings.header_list = vec![PathBuf::from("default"), PathBuf::from("qol"), PathBuf::from("rainy_marsh"), PathBuf::from("bonus_items"), PathBuf::from("util_twillen")];
+    c.bench_function("seed generation", |b| b.iter(|| {
+        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &pathsets, false).unwrap();
+        let mut settings = Settings::default();
+        settings.pathsets = pathsets.clone();
 
-    c.bench_function("parsing headers", |b| b.iter(|| {
-        seedgen::parse_headers(&mut world, &vec![], &settings).unwrap();
-    }));
-
-    world = World::new(&graph);
-    settings = Settings::default();
-    settings.pathsets = vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch, Pathset::Unsafe];
-    world.pool = Pool::preset(&settings.pathsets);
-
-    parse_headers(&mut world, &vec![], &settings).unwrap();
-
-    let mut rng: StdRng = Seeder::from("stableseedforconsistency").make_rng();
-
-    c.bench_function("pickup placements", |b| b.iter(|| {
-        for _ in 0..5 {
-            match generator::generate_placements(world.clone(), "MarshSpawn.Main", &settings, &mut rng) {
-                Ok(_) => break,
-                Err(err) => log::error!("{}\nRetrying...", err),
-            }
-        };
+        seedgen::generate_seed(&graph, &settings, &vec![], "stableseedforconsistency").unwrap();
     }));
 }
 
