@@ -109,6 +109,11 @@ impl Node {
         }
     }
 }
+impl fmt::Display for Node {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        write!(fmt, "{}", self.identifier())
+    }
+}
 
 type Reached<'a> = Vec<&'a Node>;
 type Progressions<'a> = Vec<(&'a Requirement, Vec<Orbs>)>;

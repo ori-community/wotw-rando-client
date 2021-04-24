@@ -6,7 +6,11 @@ use rand::{
     distributions::{Distribution, Uniform},
 };
 
-use crate::world::{World, graph::Node, player::Player};
+use crate::world::{
+    World,
+    graph::{Node, Pickup},
+    player::Player
+};
 use crate::inventory::{Inventory, Item};
 use crate::util::{
     Resource, BonusItem,
@@ -22,7 +26,7 @@ pub struct Placement {
 }
 impl fmt::Display for Placement {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}|{}", self.uber_state, self.item)
+        write!(f, "{}|{}", self.uber_state, self.item.code())
     }
 }
 
@@ -58,55 +62,51 @@ where
 {
     world: World<'a>,
     placements: Vec<Placement>,
-    placeholders: Vec<UberState>,
-    collected_preplacements: Vec<&'a UberState>,
+    placeholders: Vec<&'a Node>,
+    collected_preplacements: Vec<&'a Node>,
     price_range: Uniform<f32>,
     spirit_light_rng: SpiritLightAmounts,
     rng: &'a mut R,
 }
 
-fn place_item<R>(uber_state: UberState, was_placeholder: bool, item: Item, context: &mut GeneratorContext<R>) -> Result<(), String>
+fn place_item<'a, R>(node: &'a Node, was_placeholder: bool, item: Item, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
 where
     R: Rng
 {
+    let uber_state = node.uber_state().unwrap().clone();
+
     if uber_state.is_shop() {
         let (identifier, _, price_uber_state) = SHOP_PRICES.iter()
             .find(|(_, location, _)| &uber_state.identifier == location)
-            .ok_or_else(|| format!("Uber State {} claims to be a shop location, but doesn't have an entry in the shop prices table!", uber_state))?;
+            .ok_or_else(|| format!("Uber State {} claims to be a shop location, but doesn't have an entry in the shop prices table!", node))?;
 
         let mut price = item.shop_price();
         if item.random_shop_price() {
-            price = u16::try_from((price as f32 * context.price_range.sample(context.rng)) as i32).map_err(|_| format!("Overflowed shop price for {} after adding a random amount to it", item.name()))?;
+            price = u16::try_from((price as f32 * context.price_range.sample(context.rng)) as i32).map_err(|_| format!("Overflowed shop price for {} after adding a random amount to it", item))?;
         }
 
         let price_setter = Item::UberState(format!("{}|int|{}  // Price for {}", price_uber_state, price, identifier));
 
         log::trace!("Placing {} at 3|0 as price for the item below", price_setter);
 
-        context.placements.push(Placement {
-            uber_state: UberState {
-                identifier: UberIdentifier {
-                    uber_group: 3,
-                    uber_id: 0,
-                },
-                value: String::new(),
-            },
-            // TODO comment spacing
-            item: price_setter,
-        });
+        // context.placements.push(Placement {
+        //     node: &context.world.spawn_node,
+        //     // TODO comment spacing
+        //     item: price_setter,
+        // });
     }
 
-    log::trace!("Placed {} at {}", item, if was_placeholder { format!("placeholder {} ({} left)", uber_state, context.placeholders.len()) } else { format!("{}", uber_state) });
+    log::trace!("Placed {} at {}", item, if was_placeholder { format!("placeholder {} ({} left)", node, context.placeholders.len()) } else { format!("{}", node) });
 
     context.placements.push(Placement {
-        uber_state,
+        uber_state: node.uber_state().unwrap().clone(),
         item,
     });
 
     Ok(())
 }
 
-fn place_relics<R>(context: &mut GeneratorContext<R>) -> Result<(), String>
+fn place_relics<'a, R>(context: &mut GeneratorContext<'a, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -125,7 +125,7 @@ where
         if context.rng.gen_bool(0.8) {
             log::trace!("Placing Relic in {}", zone);
             if let Some(&(_, location)) = relic_locations.iter().find(|&&(location_zone, _)| location_zone == zone) {
-                place_item(location.uber_state().unwrap().clone(), false, Item::BonusItem(BonusItem::Relic), context)?;
+                place_item(location, false, Item::BonusItem(BonusItem::Relic), context)?;
             }
         }
     }
@@ -133,7 +133,7 @@ where
     Ok(())
 }
 
-fn force_keystones<R>(reachable_states: &[&Node], reserved_slots: &mut Vec<&UberState>, context: &mut GeneratorContext<R>) -> Result<(), String>
+fn force_keystones<'a, R>(reachable_states: &[&Node], reserved_slots: &mut Vec<&'a Node>, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -160,65 +160,65 @@ where
     Ok(())
 }
 
-fn forced_placement<R>(item: Item, reserved_slots: &mut Vec<&UberState>, context: &mut GeneratorContext<R>) -> Result<(), String>
+fn forced_placement<'a, R>(item: Item, reserved_slots: &mut Vec<&'a Node>, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
 where
     R: Rng
 {
-    let (mut uber_state, mut was_placeholder) = if let Some(uber_state) = reserved_slots.pop() {
-        (uber_state.clone(), false)
-    } else if let Some(uber_state) = context.placeholders.pop() {
-        (uber_state, true)
+    let (mut node, mut was_placeholder) = if let Some(node) = reserved_slots.pop() {
+        (node, false)
+    } else if let Some(node) = context.placeholders.pop() {
+        (node, true)
     } else {
-        return Err(format!("Not enough slots to place forced progression {}", item.name()))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements, or very rarely spirit light
+        return Err(format!("Not enough slots to place forced progression {}", item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements, or very rarely spirit light
     };
 
     // Don't place Spirit Light in shops
     if matches!(item, Item::SpiritLight(_)) {
         let mut skipped_slots = Vec::new();
 
-        while uber_state.is_shop() {
-            skipped_slots.push(uber_state);
+        while node.uber_state().unwrap().is_shop() {
+            skipped_slots.push(node);
 
-            uber_state = if let Some(uber_state) = reserved_slots.pop() {
+            node = if let Some(node) = reserved_slots.pop() {
                 was_placeholder = false;
-                uber_state.clone()
-            } else if let Some(uber_state) = context.placeholders.pop() {
+                node
+            } else if let Some(node) = context.placeholders.pop() {
                 was_placeholder = true;
-                uber_state
+                node
             } else {
-                return Err(format!("Not enough slots to place forced progression {}", item.name()))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements, or very rarely spirit light
+                return Err(format!("Not enough slots to place forced progression {}", item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements, or very rarely spirit light
             };
         }
 
         context.placeholders.append(&mut skipped_slots);
     }
 
-    place_item(uber_state, was_placeholder, item.clone(), context)?;
+    place_item(node, was_placeholder, item.clone(), context)?;
     context.world.grant_player(item, 1).unwrap_or_else(|err| log::error!("{}", err));
 
     Ok(())
 }
 
-fn random_placement<R>(uber_state: &UberState, context: &mut GeneratorContext<R>) -> Result<(), String>
+fn random_placement<'a, R>(node: &'a Node, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
 where
     R: Rng
 {
     // force a couple placeholders at the start
     if context.placeholders.len() < 4 {
-        log::trace!("Reserving {} as forced placeholder", uber_state);
+        log::trace!("Reserving {} as forced placeholder", node);
 
-        context.placeholders.push(uber_state.clone());
+        context.placeholders.push(node);
     } else {
         // TODO maybe faster to pick all at once?
         match context.world.pool.choose_random(context.rng) {
             PartialItem::Placeholder => {
-                log::trace!("Reserving {} as placeholder", uber_state);
+                log::trace!("Reserving {} as placeholder", node);
 
-                context.placeholders.push(uber_state.clone())
+                context.placeholders.push(node)
             },
             PartialItem::Item(item) => {
                 context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("{}", err));
-                place_item(uber_state.clone(), false, item, context)?;
+                place_item(node, false, item, context)?;
             },
         }
     }
@@ -262,11 +262,11 @@ impl SpiritLightAmounts {
     }
 }
 
-fn place_remaining<R>(remaining: Inventory, unreachable_locations: Vec<&Node>, context: &mut GeneratorContext<R>) -> Result<(), String>
+fn place_remaining<'a, R>(remaining: Inventory, unreachable_locations: Vec<&'a Node>, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
 where
     R: Rng
 {
-    let (mut shop, mut non_shop): (Vec<UberState>, Vec<UberState>) = context.placeholders.drain(..).partition(|uber_state| uber_state.is_shop());
+    let (mut shop, mut non_shop): (Vec<&Node>, Vec<&Node>) = context.placeholders.drain(..).partition(|&node| node.uber_state().unwrap().is_shop());
 
     let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
     remaining.shuffle(context.rng);
@@ -290,26 +290,25 @@ where
 
     log::trace!("Placed all items from the pool, placing Spirit Light...");
 
-    for uber_state in non_shop {
+    for node in non_shop {
         let amount = context.spirit_light_rng.sample(context.rng)?;
         let item = Item::SpiritLight(amount);
 
-        log::trace!("Placed {} at placeholder {}", item, uber_state);
+        log::trace!("Placed {} at placeholder {}", item, node);
 
         context.placements.push(Placement {
-            uber_state,
+            uber_state: node.uber_state().unwrap().clone(),
             item,
         });
     }
-    for location in unreachable_locations {
+    for node in unreachable_locations {
         let amount = context.spirit_light_rng.sample(context.rng)?;
         let item = Item::SpiritLight(amount);
-        let uber_state = location.uber_state().unwrap().clone();
 
-        log::trace!("Placed {} at unreachable location {}", item, uber_state);
+        log::trace!("Placed {} at unreachable location {}", item, node);
 
         context.placements.push(Placement {
-            uber_state,
+            uber_state: node.uber_state().unwrap().clone(),
             item,
         });
     }
@@ -317,15 +316,15 @@ where
     Ok(())
 }
 
-pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, settings: &'a Settings, rng: &mut R) -> Result<Vec<Placement>, String>
+pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, settings: &'a Settings, rng: &'a mut R) -> Result<Vec<Placement>, String>
 where
     R: Rng
 {
     // TODO enforce a max total price for shops
     let placements = Vec::<Placement>::with_capacity(450);
-    let placeholders = Vec::<UberState>::with_capacity(300);
-    let collected_preplacements = Vec::<&UberState>::new();
-    let mut spawn_slots = Vec::<&UberState>::new();
+    let placeholders = Vec::<&Node>::with_capacity(300);
+    let collected_preplacements = Vec::<&Node>::new();
+    let mut spawn_slots = Vec::<&Node>::new();
 
     let spirit_light_slots = (world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).count() - world.pool.inventory().item_count()) as f32;
     log::trace!("Estimated {} slots for Spirit Light", spirit_light_slots);
@@ -354,11 +353,18 @@ where
         },
         value: String::new(),
     };
-    context.world.collect_preplacements(&spawn_state);
+    let spawn_location = Node::Pickup(Pickup {
+        identifier: String::from("Spawn"),
+        zone: String::new(),
+        index: usize::MAX,
+        uber_state: spawn_state,
+    });
+
+    context.world.collect_preplacements(&spawn_location.uber_state().unwrap());
 
     if !matches!(settings.spawn_loc, Spawn::Set(_)) {
         for _ in 0..3 {
-            spawn_slots.push(&spawn_state);
+            spawn_slots.push(&spawn_location);
         }
     }
 
@@ -379,7 +385,7 @@ where
         log::trace!("Unreachable locations with this item pool: {}", format_identifiers(identifiers));
     }
 
-    let mut reserved_slots = Vec::<&UberState>::with_capacity(RESERVE_SLOTS);
+    let mut reserved_slots = Vec::<&Node>::with_capacity(RESERVE_SLOTS);
 
     loop {
         let (mut reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
@@ -392,11 +398,13 @@ where
         let unreached_count = total_reachable_count - reachable_locations.len();
 
         reachable.retain(|&node| {
-            node.uber_state().map_or(false, |uber_state|
+            node.uber_state().map_or(false, |uber_state| {
+                let index = node.index();
+
                 !context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
-                !context.placeholders.iter().any(|placeholder| placeholder == uber_state) &&
-                !context.collected_preplacements.iter().any(|&collected| collected == uber_state)
-            )
+                !context.placeholders.iter().any(|&placeholder| placeholder.index() == index) &&
+                !context.collected_preplacements.iter().any(|&collected| collected.index() == index)
+            })
         });
 
         let identifiers: Vec<_> = reachable.iter()
@@ -411,13 +419,11 @@ where
         let (preplaced, mut needs_placement): (Vec<&Node>, Vec<_>) = reachable.iter().partition(|&&node| context.world.preplacements.contains_key(&node.uber_state().unwrap()));
 
         preplaced.iter().for_each(|&node| {
-            let uber_state = node.uber_state().unwrap();
-            context.world.collect_preplacements(uber_state);
-            context.collected_preplacements.push(uber_state);
+            context.world.collect_preplacements(node.uber_state().unwrap());
+            context.collected_preplacements.push(node);
         });
 
         needs_placement.retain(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
-        let mut needs_placement: Vec<_> = needs_placement.iter().map(|&node| node.uber_state().unwrap()).collect();
         needs_placement.append(&mut spawn_slots);
 
         needs_placement.shuffle(context.rng);
@@ -462,10 +468,11 @@ where
             if itemsets.is_empty() {
                 let identifiers: Vec<_> = all_reachable_locations.iter()
                     .filter_map(|&node| {
-                        let uber_state = node.uber_state().unwrap();
-                        if !context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
-                        !context.placeholders.iter().any(|placeholder| placeholder == uber_state) &&
-                        !context.collected_preplacements.iter().any(|&collected| collected == uber_state)
+                        let index = node.index();
+
+                        if !context.placements.iter().any(|placement| &placement.uber_state == node.uber_state().unwrap()) &&
+                        !context.placeholders.iter().any(|&placeholder| placeholder.index() == index) &&
+                        !context.collected_preplacements.iter().any(|&collected| collected.index() == index)
                         {
                             Some(node.identifier())
                         } else { None }

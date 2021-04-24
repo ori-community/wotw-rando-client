@@ -92,7 +92,7 @@ impl<'a> World<'a> {
                     value: format!("{}", entry),
                 };
 
-                log::trace!("Granting player uberState {}", uber_state);
+                log::trace!("Granting player UberState {}", uber_state);
                 self.collect_preplacements(&uber_state);
             },
             Item::Custom(_) => {},
@@ -118,7 +118,7 @@ impl<'a> World<'a> {
     }
     pub fn collect_preplacements(&mut self, reached: &UberState) {
         let mut inventory = Inventory::default();
-        if let Some(items) = self.preplacements.get(&reached) {
+        if let Some(items) = self.preplacements.get(reached) {
             log::trace!("Collecting preplacements on {}", reached);
             inventory = items.clone();
         }

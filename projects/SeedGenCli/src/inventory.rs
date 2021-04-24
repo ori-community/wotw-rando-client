@@ -23,15 +23,16 @@ pub enum Item {
 impl fmt::Display for Item {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Item::SpiritLight(amount) => write!(f, "0|{}", amount),
-            Item::Resource(resource) => write!(f, "1|{}", resource.to_id()),
-            Item::Skill(skill) => write!(f, "2|{}", skill.to_id()),
-            Item::Shard(shard) => write!(f, "3|{}", shard.to_id()),
-            Item::Teleporter(teleporter) => write!(f, "5|{}", teleporter.to_id()),
-            Item::Water => write!(f, "9|0"),
-            Item::BonusItem(bonus) => write!(f, "10|{}", bonus.to_id()),
-            Item::BonusUpgrade(bonus) => write!(f, "11|{}", bonus.to_id()),
-            Item::Hint(hint) => write!(f, "12|{}", hint.to_id()),
+            Item::SpiritLight(1) => write!(f, "Spirit Light"),
+            Item::SpiritLight(amount) => write!(f, "{} Spirit Light", amount),
+            Item::Resource(resource) => write!(f, "{:?}", resource),
+            Item::Skill(skill) => write!(f, "{:?}", skill),
+            Item::Shard(shard) => write!(f, "{:?}", shard),
+            Item::Teleporter(teleporter) => write!(f, "{:?}TP", teleporter),
+            Item::Water => write!(f, "Water"),
+            Item::BonusItem(bonus_item) => write!(f, "{:?}", bonus_item),
+            Item::BonusUpgrade(bonus_upgrade) => write!(f, "{:?}", bonus_upgrade),
+            Item::Hint(hint) => write!(f, "{:?} Hint", hint),
             Item::UberState(command) => write!(f, "8|{}", command),
             Item::Command(command) => write!(f, "4|{}", command),
             Item::Custom(string) => write!(f, "{}", string),
@@ -177,19 +178,17 @@ impl Item {
         }
     }
 
-    // TODO This seems unintuitive, that's what Display *should* do!
-    pub fn name(&self) -> String {
+    pub fn code(&self) -> String {
         match self {
-            Item::SpiritLight(1) => String::from("Spirit Light"),
-            Item::SpiritLight(amount) => format!("{} Spirit Light", amount),
-            Item::Resource(resource) => format!("{:?}", resource),
-            Item::Skill(skill) => format!("{:?}", skill),
-            Item::Shard(shard) => format!("{:?}", shard),
-            Item::Teleporter(teleporter) => format!("{:?}", teleporter),
-            Item::Water => String::from("Water"),
-            Item::BonusItem(bonus_item) => format!("{:?}", bonus_item),
-            Item::BonusUpgrade(bonus_upgrade) => format!("{:?}", bonus_upgrade),
-            Item::Hint(hint) => format!("{:?}", hint),
+            Item::SpiritLight(amount) => format!("0|{}", amount),
+            Item::Resource(resource) => format!("1|{}", resource.to_id()),
+            Item::Skill(skill) => format!("2|{}", skill.to_id()),
+            Item::Shard(shard) => format!("3|{}", shard.to_id()),
+            Item::Teleporter(teleporter) => format!("5|{}", teleporter.to_id()),
+            Item::Water => String::from("9|0"),
+            Item::BonusItem(bonus) => format!("10|{}", bonus.to_id()),
+            Item::BonusUpgrade(bonus) => format!("11|{}", bonus.to_id()),
+            Item::Hint(hint) => format!("12|{}", hint.to_id()),
             Item::UberState(command) => format!("8|{}", command),
             Item::Command(command) => format!("4|{}", command),
             Item::Custom(string) => string.clone(),
@@ -281,9 +280,9 @@ impl fmt::Display for Inventory {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut display = self.inventory.iter().fold(String::new(), |acc, (item, amount)| {
             if amount == &1 {
-                format!("{}{}, ", acc, item.name())
+                format!("{}{}, ", acc, item)
             } else {
-                format!("{}{} {}, ", acc, amount, item.name())
+                format!("{}{} {}, ", acc, amount, item)
             }
         });
         for _ in 0..2 { display.pop(); }
@@ -322,5 +321,25 @@ impl From<Vec<(Item, u16)>> for Inventory {
             inventory.grant(item, amount);
         }
         inventory
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn item_display() {
+        assert_eq!(Item::SpiritLight(45).code(), "0|45");
+        assert_eq!(Item::Resource(Resource::Keystone).code(), "1|3");
+        assert_eq!(Item::Skill(Skill::Launch).code(), "2|8");
+        assert_eq!(Item::Skill(Skill::AncestralLight).code(), "2|120");
+        assert_eq!(Item::Shard(Shard::Magnet).code(), "3|8");
+        assert_eq!(Item::Teleporter(Teleporter::Marsh).code(), "5|16");
+        assert_eq!(Item::Water.code(), "9|0");
+        assert_eq!(Item::BonusItem(BonusItem::Relic).code(), "10|20");
+        assert_eq!(Item::BonusUpgrade(BonusUpgrade::ShurikenEfficiency).code(), "11|4");
+        assert_eq!(Item::Hint(Hint::Void).code(), "12|12");
+        assert_eq!(Item::Custom(String::from("8|0|9|7")).code(), "8|0|9|7");
     }
 }

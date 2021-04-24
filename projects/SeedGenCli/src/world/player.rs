@@ -367,19 +367,4 @@ mod tests {
         player.inventory.grant(Item::Resource(Resource::Health), 21);
         assert_eq!(player.checkpoint_orbs(), Orbs { health: 45.0, ..orbs });
     }
-
-    #[test]
-    fn item_display() {
-        assert_eq!(format!("{}", Item::SpiritLight(45)), "0|45");
-        assert_eq!(format!("{}", Item::Resource(Resource::Keystone)), "1|3");
-        assert_eq!(format!("{}", Item::Skill(Skill::Launch)), "2|8");
-        assert_eq!(format!("{}", Item::Skill(Skill::AncestralLight)), "2|120");
-        assert_eq!(format!("{}", Item::Shard(Shard::Magnet)), "3|8");
-        assert_eq!(format!("{}", Item::Teleporter(Teleporter::Marsh)), "5|16");
-        assert_eq!(format!("{}", Item::Water), "9|0");
-        assert_eq!(format!("{}", Item::BonusItem(BonusItem::Relic)), "10|20");
-        assert_eq!(format!("{}", Item::BonusUpgrade(BonusUpgrade::ShurikenEfficiency)), "11|4");
-        assert_eq!(format!("{}", Item::Hint(Hint::Void)), "12|12");
-        assert_eq!(format!("{}", Item::Custom(String::from("8|0|9|7"))), "8|0|9|7");
-    }
 }
