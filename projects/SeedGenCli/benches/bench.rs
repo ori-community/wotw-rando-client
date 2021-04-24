@@ -119,6 +119,7 @@ fn generation(c: &mut Criterion) {
 
     world = World::new(&graph);
     settings = Settings::default();
+    world.pool = Pool::preset(&settings.pathsets);
 
     parse_headers(&mut world, &vec![], &settings).unwrap();
 
@@ -128,7 +129,7 @@ fn generation(c: &mut Criterion) {
         for _ in 0..5 {
             match generator::generate_placements(world.clone(), "MarshSpawn.Main", &settings, &mut rng) {
                 Ok(_) => break,
-                Err(err) => log::error!("Failed to place items: {}\nRetrying...", err),
+                Err(err) => log::error!("{}\nRetrying...", err),
             }
         };
     }));

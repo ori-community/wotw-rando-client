@@ -208,7 +208,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
                 break;
             },
             Err(err) => {
-                log::error!("Failed to place items: {}\nRetrying...", err);
+                log::error!("{}\nRetrying...", err);
             }
         }
     };

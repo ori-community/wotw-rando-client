@@ -412,7 +412,10 @@ where
                     for orbs in &best_orbs {
                         let missing = context.world.player.missing_for_orbs(&needed, orb_cost, *orbs);
 
-                        if missing.inventory.is_empty() { return Err(format!("Failed to determine which items were needed for progression to meet {:#?} (had {:#?})", requirement, context.world.player.inventory)); }  // sanity check
+                        if missing.inventory.is_empty() {  // sanity check
+                            log::trace!("Failed to determine which items were needed for progression to meet {:?} (had {:?})", requirement, context.world.player.inventory);
+                            return Err(String::from("Failed to determine which items were needed for progression"));
+                        }
                         if missing.item_count() > slots { continue; }
                         if !context.world.pool.contains(&missing) { continue; }
 

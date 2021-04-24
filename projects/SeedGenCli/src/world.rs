@@ -159,7 +159,7 @@ mod tests {
 
         if !(reached == locations) {
             let diff: Vec<_> = locations.difference(&reached).collect();
-            eprintln!("difference ({} / {} items): {:#?}", reached.len(), locations.len(), diff);
+            eprintln!("difference ({} / {} items): {:?}", reached.len(), locations.len(), diff);
         }
 
         assert_eq!(reached, locations);

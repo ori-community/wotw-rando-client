@@ -6,6 +6,8 @@ use super::player::Player;
 use crate::inventory::{Inventory, Item};
 use crate::util::{Resource, Skill, Shard, Teleporter, Enemy, orbs::{self, Orbs}};
 
+type Itemset = Vec<(Inventory, Orbs)>;
+
 #[derive(Debug, Clone)]
 pub enum Requirement {
     Free,
@@ -118,13 +120,14 @@ impl Requirement {
                     return Requirement::cost_is_met(cost, player, orbs);
                 }
             Requirement::Combat(enemies) => {
-                let is_unsafe = player.unsafe_paths;
                 if let Some(weapon) = player.preferred_weapon(false) {
                     let (mut aerial, mut dangerous) = (false, false);
                     let mut energy = orbs.energy;
 
                     let ranged_weapon = player.preferred_ranged_weapon();
+                    let shield_weapon = player.preferred_shield_weapon();
 
+                    // TODO how much would it save to do all the has calls ahead of time?
                     for (enemy, amount) in enemies {
                         if let Enemy::EnergyRefill = enemy {
                             if energy < 0.0 { return None; }
@@ -134,37 +137,32 @@ impl Requirement {
 
                         if enemy.aerial() { aerial = true; }
                         if enemy.dangerous() { dangerous = true; }
-                        if let Enemy::Bat = enemy {
-                            if !is_unsafe && !player.inventory.has(&Item::Skill(Skill::Bash), 1) { return None; }
-                        }
-                        if let Enemy::Sandworm = enemy {
+                        if !player.unsafe_paths && enemy == &Enemy::Bat && !player.inventory.has(&Item::Skill(Skill::Bash), 1) { return None; }
+                        if enemy == &Enemy::Sandworm {
                             if player.inventory.has(&Item::Skill(Skill::Burrow), 1) { continue; }
-                            else if !is_unsafe { return None; }
+                            else if !player.unsafe_paths { return None; }
                         }
 
                         if enemy.shielded() {
-                            if player.inventory.has(&Item::Skill(Skill::Hammer), 1) || player.inventory.has(&Item::Skill(Skill::Launch), 1) {}
-                            else if player.inventory.has(&Item::Skill(Skill::Grenade), 1) { energy -= player.use_cost(Skill::Grenade) * f32::from(*amount); }
-                            else if player.inventory.has(&Item::Skill(Skill::Spear), 1) { energy -= player.use_cost(Skill::Spear) * f32::from(*amount); }
-                            else { return None; }
+                            if let Some(weapon) = shield_weapon {
+                                energy -= player.use_cost(weapon) * f32::from(*amount);
+                            } else { return None; }
                         }
-                        let armor_mod = if enemy.armored() && !is_unsafe { 2.0 } else { 1.0 };
+                        let armor_mod = if enemy.armored() && !player.unsafe_paths { 2.0 } else { 1.0 };
 
                         let ranged = enemy.ranged();
                         if ranged && ranged_weapon.is_none() { return None; }
                         let used_weapon = if ranged { ranged_weapon.unwrap() } else { weapon };
 
-                        let flying = matches!(enemy, Enemy::Skeeto | Enemy::SmallSkeeto | Enemy::Bee);
-
-                        energy -= player.destroy_cost(enemy.health(), used_weapon, flying) * f32::from(*amount) * armor_mod;
+                        energy -= player.destroy_cost(enemy.health(), used_weapon, enemy.flying()) * f32::from(*amount) * armor_mod;
                     }
 
-                    if !is_unsafe && aerial && !(
+                    if !player.unsafe_paths && aerial && !(
                         player.inventory.has(&Item::Skill(Skill::DoubleJump), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Launch), 1) ||
                         player.gorlek_paths && player.inventory.has(&Item::Skill(Skill::Bash), 1)
                     ) { return None; }
-                    if !is_unsafe && dangerous && !(
+                    if !player.unsafe_paths && dangerous && !(
                         player.inventory.has(&Item::Skill(Skill::DoubleJump), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Dash), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Bash), 1) ||
@@ -227,7 +225,7 @@ impl Requirement {
         None
     }
 
-    fn needed_for_cost(cost: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
+    fn needed_for_cost(cost: f32, player: &Player) -> Itemset {
         let mut itemsets = vec![(Inventory::default(), Orbs{ energy: -cost, ..Orbs::default() })];
 
         if player.unsafe_paths && cost > 0.0 {
@@ -236,7 +234,7 @@ impl Requirement {
 
         itemsets
     }
-    fn needed_for_damage(amount: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
+    fn needed_for_damage(amount: f32, player: &Player) -> Itemset {
         #[allow(clippy::cast_possible_truncation)]
         let needed_health_fragments = u16::try_from((amount / 5.0).ceil() as i32).unwrap();
 
@@ -268,7 +266,7 @@ impl Requirement {
         itemsets
     }
     // TODO damage buff progression?
-    fn needed_for_weapon(weapon: Skill, cost: f32, player: &Player) -> Vec<(Inventory, Orbs)> {
+    fn needed_for_weapon(weapon: Skill, cost: f32, player: &Player) -> Itemset {
         let mut itemsets = Requirement::needed_for_cost(cost, player);
 
         for (inventory, _) in &mut itemsets {
@@ -278,7 +276,30 @@ impl Requirement {
         itemsets
     }
 
-    pub fn items_needed(&self, player: &Player, states: &[usize]) -> Vec<(Inventory, Orbs)> {
+    fn combine_itemsets(left: Itemset, right: &Itemset) -> Itemset {
+        let mut combined = Vec::new();
+        for (left_inventory, left_orbs) in left {
+            for (right_inventory, right_orbs) in right {
+                let inventory = left_inventory.merge(right_inventory);
+                let orbs = left_orbs + *right_orbs;
+                combined.push((inventory, orbs));
+            }
+        };
+        combined
+    }
+    fn combine_itemset_items(left: Itemset, right: &[Item]) -> Itemset {
+        let mut combined = Vec::new();
+        for (left_inventory, left_orbs) in left {
+            for item in right {
+                let mut inventory = left_inventory.clone();
+                inventory.grant(item.clone(), 1);
+                combined.push((inventory, left_orbs));
+            }
+        };
+        combined
+    }
+
+    pub fn items_needed(&self, player: &Player, states: &[usize]) -> Itemset {
         match self {
             Requirement::Free => vec![(Inventory::default(), Orbs::default())],
             Requirement::Impossible => vec![],
@@ -345,29 +366,118 @@ impl Requirement {
                 let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                 Requirement::needed_for_weapon(Skill::Shuriken, cost, player)
             },
-            Requirement::Combat(_) => vec![(
-                Inventory::from(vec![
-                    Item::Skill(Skill::Hammer),
-                    Item::Skill(Skill::Bow),
-                    Item::Skill(Skill::Launch),
-                    Item::Skill(Skill::Burrow),
-                    Item::Skill(Skill::Bash),
-                ]),
-                Orbs { energy: -12.0, ..Orbs::default()},
-            )], // TODO sigh
+            Requirement::Combat(enemies) => {
+                let mut itemsets = Vec::<(Inventory, Orbs)>::new();
+
+                let (mut aerial, mut dangerous, mut ranged, mut melee, mut shielded, mut bash, mut burrow) = (false, false, false, false, false, false, false);
+
+                for (enemy, _) in enemies {
+                    if enemy.aerial() { aerial = true; }
+                    if enemy.dangerous() { dangerous = true; }
+                    if enemy.ranged() { ranged = true; }
+                    else { melee = true; }
+                    if enemy.shielded() { shielded = true; }
+                    if !player.unsafe_paths && enemy == &Enemy::Bat { bash = true; }
+                    if enemy == &Enemy::Sandworm { burrow = true; }
+                }
+
+                // Skip unneccesary iterations over weapons that are redundant anyway
+                let weapons = if melee {
+                    player.progression_weapons(false)
+                } else { vec![Skill::Sword] };
+                let ranged_weapons = if ranged {
+                    player.ranged_progression_weapons()
+                } else { vec![Skill::Bow] };
+                let shield_weapons = if shielded {
+                    player.shield_progression_weapons()
+                } else { vec![Skill::Hammer] };
+                let use_burrow = if burrow {
+                    if !player.unsafe_paths || player.inventory.has(&Item::Skill(Skill::Burrow), 1) {
+                        vec![true]
+                    } else {
+                        vec![true, false]
+                    }
+                } else { vec![false] };
+
+                // TODO there are redundancies here...
+                for weapon in weapons {
+                    for ranged_weapon in &ranged_weapons {
+                        for shield_weapon in &shield_weapons {
+                            for burrow in &use_burrow {
+                                let (mut cost, mut highest_cost) = (0.0, 0.0);
+
+                                for (enemy, amount) in enemies {
+                                    if let Enemy::EnergyRefill = enemy {
+                                        if cost > highest_cost { highest_cost = cost; }
+                                        cost = 0_f32.max(cost - f32::from(*amount));
+                                        continue;
+                                    }
+
+                                    if enemy == &Enemy::Sandworm && *burrow { continue; }
+
+                                    if enemy.shielded() {
+                                        cost += player.use_cost(*shield_weapon) * f32::from(*amount);
+                                    }
+                                    let armor_mod = if enemy.armored() && !player.unsafe_paths { 2.0 } else { 1.0 };
+
+                                    let used_weapon = if enemy.ranged() { ranged_weapon } else { &weapon };
+
+                                    cost += player.destroy_cost(enemy.health(), *used_weapon, enemy.flying()) * f32::from(*amount) * armor_mod;
+                                }
+                                if cost > highest_cost { highest_cost = cost; }
+
+                                let mut itemset = Requirement::needed_for_cost(highest_cost, player);
+                                for (inventory, _) in &mut itemset {
+                                    if melee { inventory.grant(Item::Skill(weapon), 1) }
+                                    if ranged { inventory.grant(Item::Skill(*ranged_weapon), 1) }
+                                    if shielded && !inventory.has(&Item::Skill(*shield_weapon), 1) { inventory.grant(Item::Skill(*shield_weapon), 1) }
+                                    if *burrow { inventory.grant(Item::Skill(Skill::Burrow), 1) }
+                                }
+
+                                itemsets.append(&mut itemset);
+                            }
+                        }
+                    }
+                }
+
+                if !player.unsafe_paths && aerial {
+                    let mut ranged_skills = vec![
+                        Item::Skill(Skill::DoubleJump),
+                        Item::Skill(Skill::Launch),
+                    ];
+                    if player.gorlek_paths { ranged_skills.push(Item::Skill(Skill::Bash)); }
+
+                    if !ranged_skills.iter().any(|skill| player.inventory.has(skill, 1)) {
+                        itemsets = Requirement::combine_itemset_items(itemsets, &ranged_skills);
+                    }
+                }
+                if !player.unsafe_paths && dangerous {
+                    let evasion_skills = [
+                        Item::Skill(Skill::DoubleJump),
+                        Item::Skill(Skill::DoubleJump),
+                        Item::Skill(Skill::Bash),
+                        Item::Skill(Skill::Launch),
+                    ];
+
+                    if !evasion_skills.iter().any(|skill| player.inventory.has(skill, 1)) {
+                        itemsets = Requirement::combine_itemset_items(itemsets, &evasion_skills);
+                    }
+                }
+                if !player.unsafe_paths && bash {
+                    let bash = [Item::Skill(Skill::Bash)];
+
+                    if !player.inventory.has(&bash[0], 1) {
+                        itemsets = Requirement::combine_itemset_items(itemsets, &bash);
+                    }
+                }
+
+                itemsets
+            },
             Requirement::And(ands) => {
                 let mut tail = ands.iter().map(|and| and.items_needed(player, states));
                 let head = tail.next().unwrap_or_default();
                 tail.fold(head, |acc, next| {
-                    let mut combined = Vec::default();
-                    for (left_inventory, left_orbs) in acc {
-                        for (right_inventory, right_orbs) in &next {
-                            let inventory = left_inventory.merge(right_inventory);
-                            let orbs = left_orbs + *right_orbs;
-                            combined.push((inventory, orbs));
-                        }
-                    };
-                    combined
+                    Requirement::combine_itemsets(acc, &next)
                 })
             }
             Requirement::Or(ors) => {
@@ -629,8 +739,8 @@ mod tests {
 
         let req = Requirement::BreakWall(12.0);
         assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from(Item::Skill(Skill::Sword)), orbs),
             (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
+            (Inventory::from(Item::Skill(Skill::Sword)), orbs),
             (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -1.5, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Shuriken)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Blaze)), Orbs { energy: -2.0, ..orbs }),
@@ -639,20 +749,43 @@ mod tests {
         ]);
         player.unsafe_paths = true;
         assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from(Item::Skill(Skill::Sword)), orbs),
             (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
-            (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -0.75, ..orbs }),
-            (Inventory::from(vec![Item::Skill(Skill::Bow), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.75 * 0.5, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Sword)), orbs),
             (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -1.0, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Grenade), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -0.75, ..orbs }),
+            (Inventory::from(vec![Item::Skill(Skill::Bow), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.75 * 0.5, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Shuriken)), Orbs { energy: -1.0, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Shuriken), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Blaze)), Orbs { energy: -1.0, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Blaze), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
-            (Inventory::from(Item::Skill(Skill::Sentry)), Orbs { energy: -2.0, ..orbs }),
-            (Inventory::from(vec![Item::Skill(Skill::Sentry), Item::Shard(Shard::Overcharge)]), Orbs { energy: -1.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Spear)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Spear), Item::Shard(Shard::Overcharge)]), Orbs { energy: -1.0, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Sentry)), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from(vec![Item::Skill(Skill::Sentry), Item::Shard(Shard::Overcharge)]), Orbs { energy: -1.0, ..orbs }),
+        ]);
+        player.inventory.grant(Item::Skill(Skill::Bow), 1);
+        assert_eq!(req.items_needed(&player, &states), vec![
+            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
+            (Inventory::from(Item::Skill(Skill::Sword)), orbs),
+            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -1.0, ..orbs }),
+            (Inventory::from(vec![Item::Skill(Skill::Grenade), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -0.75, ..orbs }),
+            (Inventory::from(vec![Item::Skill(Skill::Bow), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.75 * 0.5, ..orbs }),
+        ]);
+
+        let req = Requirement::Combat(vec![(Enemy::Slug, 1)]);
+        player = Player::default();
+
+        assert_eq!(req.items_needed(&player, &states), vec![
+            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
+            (Inventory::from(Item::Skill(Skill::Sword)), orbs),
+            (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Shuriken)), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Blaze)), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Flash)), Orbs { energy: -4.0, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Spear)), Orbs { energy: -4.0, ..orbs }),
         ]);
     }
 }

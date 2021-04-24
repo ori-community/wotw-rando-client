@@ -117,6 +117,7 @@ impl Skill {
     pub fn damage(self, unsafe_paths: bool) -> f32 {
         match self {
             Skill::Bow | Skill::Sword => 4.0,
+            Skill::Launch => 5.0,
             Skill::Hammer | Skill::Flash => 12.0,
             Skill::Shuriken => 7.0,
             Skill::Grenade => if unsafe_paths { 8.0 } else { 4.0 },
@@ -132,6 +133,10 @@ impl Skill {
             Skill::Blaze => 10.8,
             _ => 0.0,
         }
+    }
+
+    pub fn damage_per_energy(self, unsafe_paths: bool) -> f32 {
+        (self.damage(unsafe_paths) + self.burn_damage()) / self.energy_cost()
     }
 }
 
@@ -561,10 +566,13 @@ impl Enemy {
     pub fn armored(self) -> bool {
         matches!(self, Enemy::Tentacle)
     }
-    pub fn aerial(self) -> bool {
+    pub fn aerial(self) -> bool {  // whether we consider the enemy flying for movement restriction purposes
         matches!(self, Enemy::Bat | Enemy::Skeeto | Enemy::SmallSkeeto | Enemy::Bee | Enemy::Nest | Enemy::Tentacle)
     }
-    pub fn ranged(self) -> bool {
+    pub fn flying(self) -> bool {  // whether the game considers the enemy flying for wingclip
+        matches!(self, Enemy::Skeeto | Enemy::SmallSkeeto | Enemy::Bee)
+    }
+    pub fn ranged(self) -> bool {  // whether you need a ranged weapon
         matches!(self, Enemy::BombSlug | Enemy::CorruptSlug | Enemy::Balloon | Enemy::Bat)
     }
     pub fn dangerous(self) -> bool {

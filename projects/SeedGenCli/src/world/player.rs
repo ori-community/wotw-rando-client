@@ -129,51 +129,88 @@ impl Player {
         (health / damage).ceil() * self.use_cost(skill)
     }
 
+    fn weapons_by_dpe(&self, wall: bool) -> Vec<Skill> {
+        let mut weapons = vec![
+            Skill::Sword,
+            Skill::Hammer,
+            Skill::Bow,
+            Skill::Grenade,
+            Skill::Shuriken,
+            Skill::Blaze,
+            Skill::Spear,
+        ];
+        if !wall { weapons.push(Skill::Flash); }
+        if self.unsafe_paths { weapons.push(Skill::Sentry); }
+
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
+        weapons.reverse();
+        weapons
+    }
+    fn ranged_weapons_by_dpe(&self) -> Vec<Skill> {
+        let mut weapons = vec![
+            Skill::Bow,
+            Skill::Spear,
+        ];
+        if self.gorlek_paths {
+            weapons.push(Skill::Grenade);
+            weapons.push(Skill::Shuriken);
+        }
+
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
+        weapons.reverse();
+        weapons
+    }
+    fn shield_weapons_by_dpe(&self) -> Vec<Skill> {
+        let mut weapons = vec![
+            Skill::Hammer,
+            Skill::Launch,
+            Skill::Grenade,
+            Skill::Spear,
+        ];
+
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
+        weapons.reverse();
+        weapons
+    }
+
+    fn preferred_among_weapons(&self, weapons: Vec<Skill>) -> Option<Skill> {
+        for weapon in weapons {
+            if self.inventory.has(&Item::Skill(weapon), 1) {
+                return Some(weapon);
+            }
+        }
+        None
+    }
     pub fn preferred_weapon(&self, wall: bool) -> Option<Skill> {
-        if self.inventory.has(&Item::Skill(Skill::Sword), 1) { Some(Skill::Sword) }
-        else if self.inventory.has(&Item::Skill(Skill::Hammer), 1) { Some(Skill::Hammer) }
-        else if self.inventory.has(&Item::Skill(Skill::Bow), 1) { Some(Skill::Bow) }
-        else if self.unsafe_paths && self.inventory.has(&Item::Skill(Skill::Grenade), 1) { Some(Skill::Grenade) }
-        else if self.inventory.has(&Item::Skill(Skill::Shuriken), 1) { Some(Skill::Shuriken) }
-        else if self.unsafe_paths && !wall && self.inventory.has(&Item::Skill(Skill::Flash), 1) { Some(Skill::Flash) }
-        else if self.inventory.has(&Item::Skill(Skill::Blaze), 1) { Some(Skill::Blaze) }
-        else if self.unsafe_paths && self.inventory.has(&Item::Skill(Skill::Sentry), 1) { Some(Skill::Sentry) }
-        else if !self.unsafe_paths && self.inventory.has(&Item::Skill(Skill::Grenade), 1) { Some(Skill::Grenade) }
-        else if self.inventory.has(&Item::Skill(Skill::Spear), 1) { Some(Skill::Spear) }
-        else { None }
+        self.preferred_among_weapons(self.weapons_by_dpe(wall))
     }
     pub fn preferred_ranged_weapon(&self) -> Option<Skill> {
-        if self.inventory.has(&Item::Skill(Skill::Bow), 1) { Some(Skill::Bow) }
-        else if self.gorlek_paths && self.inventory.has(&Item::Skill(Skill::Shuriken), 1) { Some(Skill::Shuriken) }
-        else if self.gorlek_paths && self.inventory.has(&Item::Skill(Skill::Grenade), 1) { Some(Skill::Grenade) }
-        else if self.inventory.has(&Item::Skill(Skill::Spear), 1) { Some(Skill::Spear) }
-        else { None }
+        self.preferred_among_weapons(self.ranged_weapons_by_dpe())
+    }
+    pub fn preferred_shield_weapon(&self) -> Option<Skill> {
+        self.preferred_among_weapons(self.shield_weapons_by_dpe())
     }
 
-    pub fn progression_weapons(&self, wall: bool) -> Vec<Skill> {
-        let preferred = self.preferred_weapon(wall);
-        let mut weapons = vec![Skill::Sword, Skill::Hammer];
-        if preferred != Some(Skill::Sword) && preferred != Some(Skill::Hammer) {
-            weapons.push(Skill::Bow);
-        }
-        if preferred != Some(Skill::Bow) {
-            if self.unsafe_paths { weapons.push(Skill::Grenade); }
-            else { weapons.push(Skill::Shuriken); }
-        }
-        if self.unsafe_paths && preferred != Some(Skill::Grenade) { weapons.push(Skill::Shuriken); }
-        if preferred != Some(Skill::Shuriken) {
-            if self.unsafe_paths && !wall { weapons.push(Skill::Flash); }
-            else { weapons.push(Skill::Blaze); }
-        }
-        if self.unsafe_paths && !wall && preferred != Some(Skill::Flash) { weapons.push(Skill::Blaze); }
-        if preferred != Some(Skill::Blaze) {
-            if self.unsafe_paths { weapons.push(Skill::Sentry); }
-            else { weapons.push(Skill::Grenade); }
-        }
-        if self.unsafe_paths && preferred != Some(Skill::Sentry) { weapons.push(Skill::Spear); }
-        if !self.unsafe_paths && preferred != Some(Skill::Grenade) { weapons.push(Skill::Spear); }
+    fn progression_among_weapons(&self, weapons: Vec<Skill>) -> Vec<Skill> {
+        let mut progression_weapons = Vec::new();
 
-        weapons
+        for weapon in weapons {
+            progression_weapons.push(weapon);
+            if self.inventory.has(&Item::Skill(weapon), 1) {
+                break;
+            }
+        }
+
+        progression_weapons
+    }
+    pub fn progression_weapons(&self, wall: bool) -> Vec<Skill> {
+        self.progression_among_weapons(self.weapons_by_dpe(wall))
+    }
+    pub fn ranged_progression_weapons(&self) -> Vec<Skill> {
+        self.progression_among_weapons(self.ranged_weapons_by_dpe())
+    }
+    pub fn shield_progression_weapons(&self) -> Vec<Skill> {
+        self.progression_among_weapons(self.shield_weapons_by_dpe())
     }
 
     pub fn missing_items(&self, needed: &mut Inventory) {
@@ -226,10 +263,7 @@ mod tests {
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
         assert_eq!(player.preferred_ranged_weapon(), None);
-        player = Player {
-            gorlek_paths: true,
-            ..player
-        };
+        player.gorlek_paths = true;
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
         player.inventory.grant(Item::Skill(Skill::Grenade), 1);
         player.inventory.grant(Item::Skill(Skill::Spear), 1);
@@ -237,6 +271,33 @@ mod tests {
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
         player.inventory.grant(Item::Skill(Skill::Sword), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Sword));
+
+        player = Player::default();
+        assert_eq!(player.progression_weapons(false), vec![
+            Skill::Hammer,
+            Skill::Sword,
+            Skill::Bow,
+            Skill::Shuriken,
+            Skill::Blaze,
+            Skill::Grenade,
+            Skill::Flash,
+            Skill::Spear,
+        ]);
+        player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
+        assert_eq!(player.progression_weapons(false), vec![
+            Skill::Hammer,
+            Skill::Sword,
+            Skill::Bow,
+            Skill::Shuriken,
+        ]);
+        player.unsafe_paths = true;
+        assert_eq!(player.progression_weapons(false), vec![
+            Skill::Hammer,
+            Skill::Sword,
+            Skill::Grenade,  // TODO this is technically true but not very realistic?
+            Skill::Bow,
+            Skill::Shuriken,
+        ]);
     }
 
     #[test]
