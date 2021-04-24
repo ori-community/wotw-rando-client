@@ -14,6 +14,7 @@ use crate::world::World;
 use crate::inventory::Item;
 use crate::util::{
     self,
+    constants::HEADER_INDENT,
     Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command,
     uberstate::{UberState, UberIdentifier}
 };
@@ -442,7 +443,7 @@ fn summarize_headers(headers: &[PathBuf]) -> Result<String, String> {
     let mut output = String::new();
 
     for header in headers {
-        let name = header.file_stem().unwrap().to_string_lossy().into_owned();
+        let mut name = header.file_stem().unwrap().to_string_lossy().into_owned();
         let header = fs::read_to_string(header).map_err(|err| format!("Error reading header from {:?}: {}", header, err))?;
 
         let mut description = "no description";
@@ -462,7 +463,7 @@ fn summarize_headers(headers: &[PathBuf]) -> Result<String, String> {
             }
         }
 
-        let name = util::with_trailing_spaces(&name, 24);
+        util::add_trailing_spaces(&mut name, HEADER_INDENT);
 
         output += &format!("{}  {}\n", NAME_COLOUR.paint(name), description);
     }
@@ -717,7 +718,7 @@ pub fn validate() -> Result<(), String> {
     let mut failed = Vec::new();
 
     for header in headers {
-        let name = header.file_stem().unwrap().to_string_lossy().to_string();
+        let mut name = header.file_stem().unwrap().to_string_lossy().to_string();
 
         let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header {}: {}", name, err))?;
 
@@ -726,8 +727,8 @@ pub fn validate() -> Result<(), String> {
                 occupation_map.push((name, occupied));
             },
             Err(err) => {
-                let name = NAME_COLOUR.paint(util::with_trailing_spaces(&name, 24));
-                failed.push(format!("{}{}\n", name, err))
+                util::add_trailing_spaces(&mut name, HEADER_INDENT);
+                failed.push(format!("{}{}\n", NAME_COLOUR.paint(name), err))
             },
         }
     }
@@ -761,8 +762,6 @@ pub fn validate() -> Result<(), String> {
             let mut last_value = i32::MIN;
             let mut range = false;
 
-            let name = NAME_COLOUR.paint(util::with_trailing_spaces(name, 24));
-
             for uber_state in occupied {
                 if let Ok(value) = uber_state.value.parse::<i32>() {
                     if value == last_value + 1 {
@@ -791,14 +790,18 @@ pub fn validate() -> Result<(), String> {
                 occupied_summary += &format!("{}", UBERSTATE_COLOUR.paint(format!("..{}", last_value)));
             }
 
+            let mut name = name.clone();
+            util::add_trailing_spaces(&mut name, HEADER_INDENT);
+
             if occupied_summary.is_empty() {
-                passed.push(format!("{}--\n", name));
+                passed.push(format!("{}--\n", NAME_COLOUR.paint(name)));
             } else {
-                passed.push(format!("{}uses {}\n", name, occupied_summary));
+                passed.push(format!("{}uses {}\n", NAME_COLOUR.paint(name), occupied_summary));
             }
         } else {
-            let name = NAME_COLOUR.paint(util::with_trailing_spaces(name, 24));
-            failed.push(format!("{}{}\n", name, collision_message));
+            let mut name = name.clone();
+            util::add_trailing_spaces(&mut name, HEADER_INDENT);
+            failed.push(format!("{}{}\n", NAME_COLOUR.paint(name), collision_message));
         }
     }
 

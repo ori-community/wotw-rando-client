@@ -5,6 +5,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use super::{player::Player, requirements::Requirement};
 use crate::util::{
     RefillType, NodeType,
+    Position,
     orbs::{self, Orbs},
     uberstate::{UberState, UberValue, UberIdentifier},
 };
@@ -21,17 +22,6 @@ pub struct Connection {
     pub requirement: Requirement,
 }
 
-#[derive(Debug, Default, Clone)]
-pub struct Position {
-    pub x: i16,
-    pub y: i16,
-}
-impl fmt::Display for Position {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}, {}", self.x, self.y)
-    }
-}
-
 #[derive(Debug)]
 pub struct Anchor {
     pub identifier: String,
@@ -43,6 +33,7 @@ pub struct Anchor {
 #[derive(Debug)]
 pub struct Pickup {
     pub identifier: String,
+    pub position: Position,
     pub zone: String,
     pub index: usize,
     pub uber_state: UberState,
@@ -56,6 +47,7 @@ pub struct State {
 #[derive(Debug)]
 pub struct Quest {
     pub identifier: String,
+    pub position: Position,
     pub zone: String,
     pub index: usize,
     pub uber_state: UberState,
@@ -106,6 +98,14 @@ impl Node {
             Node::Pickup(pickup) => Some(&pickup.uber_state),
             Node::State(state) => state.uber_state.as_ref(),
             Node::Quest(quest) => Some(&quest.uber_state),
+        }
+    }
+    pub fn position(&self) -> Option<&Position> {
+        match self {
+            Node::Anchor(anchor) => anchor.position.as_ref(),
+            Node::Pickup(pickup) => Some(&pickup.position),
+            Node::State(_) => None,
+            Node::Quest(quest) => Some(&quest.position),
         }
     }
 }

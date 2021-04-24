@@ -2,7 +2,7 @@ use std::path::Path;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::tokenizer::{Token, TokenType};
-use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy, uberstate::UberState};
+use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy, Position, uberstate::UberState};
 
 pub struct ParseError {
     pub description: String,
@@ -582,6 +582,7 @@ pub struct Location {
     pub name: String,
     pub zone: String,
     pub uber_state: UberState,
+    pub position: Position,
 }
 
 fn empty_field(name: &str, index: usize, line: &str) -> String {
@@ -595,29 +596,39 @@ pub fn parse_locations(path: &Path, validate: bool) -> Result<Vec<Location>, Str
     for (index, line) in input.lines().enumerate() {
         let parts: Vec<_> = line.split(',').collect();
         if validate && parts.len() != 10 {
-            return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line))
+            return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line));
         }
 
-        let (name, zone, uber_group, uber_id) = (parts[0].trim(), parts[1].trim(), parts[5].trim(), parts[7].trim());
+        let (name, zone, uber_group, uber_id, x, y) = (parts[0].trim(), parts[1].trim(), parts[5].trim(), parts[7].trim(), parts[8].trim(), parts[9].trim());
         if validate {
             if name.is_empty() {
-                return Err(empty_field("name", index, line))
+                return Err(empty_field("name", index, line));
             }
             if zone.is_empty() {
-                return Err(empty_field("zone", index, line))
+                return Err(empty_field("zone", index, line));
             }
             if uber_group.is_empty() {
-                return Err(empty_field("group_id", index, line))
+                return Err(empty_field("group_id", index, line));
             }
             if uber_id.is_empty() {
-                return Err(empty_field("uber_id", index, line))
+                return Err(empty_field("uber_id", index, line));
+            }
+            if x.is_empty() {
+                return Err(empty_field("x position", index, line));
+            }
+            if y.is_empty() {
+                return Err(empty_field("y position", index, line));
             }
         }
+
+        let x: i16 = x.parse().map_err(|_| format!("Invalid x position at line {}: {}", index, line))?;
+        let y: i16 = y.parse().map_err(|_| format!("Invalid y position at line {}: {}", index, line))?;
 
         locations.push(Location {
             name: name.to_string(),
             zone: zone.to_string(),
             uber_state: UberState::from_parts(uber_group, uber_id)?,
+            position: Position { x, y },
         })
     }
 

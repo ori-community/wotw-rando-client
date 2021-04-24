@@ -8,25 +8,24 @@ use rand::{
 
 use crate::world::{
     World,
-    graph::{Node, Pickup},
-    player::Player
+    graph::Node,
+    player::Player,
 };
 use crate::inventory::{Inventory, Item};
 use crate::util::{
     Resource, BonusItem,
     settings::{Settings, Spawn},
-    uberstate::{UberState, UberIdentifier},
     constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES},
 };
 
 #[derive(Debug)]
-pub struct Placement {
-    pub uber_state: UberState,
+pub struct Placement<'a> {
+    pub node: &'a Node,
     pub item: Item,
 }
-impl fmt::Display for Placement {
+impl fmt::Display for Placement<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}|{}", self.uber_state, self.item.code())
+        write!(f, "{}|{}", self.node.uber_state().unwrap(), self.item.code())
     }
 }
 
@@ -56,20 +55,20 @@ fn format_identifiers(mut identifiers: Vec<&str>) -> String {
     identifiers
 }
 
-struct GeneratorContext<'a, R>
+struct GeneratorContext<'a, 'b, R>
 where
     R: Rng
 {
     world: World<'a>,
-    placements: Vec<Placement>,
+    placements: Vec<Placement<'a>>,
     placeholders: Vec<&'a Node>,
     collected_preplacements: Vec<&'a Node>,
     price_range: Uniform<f32>,
     spirit_light_rng: SpiritLightAmounts,
-    rng: &'a mut R,
+    rng: &'b mut R,
 }
 
-fn place_item<'a, R>(node: &'a Node, was_placeholder: bool, item: Item, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
+fn place_item<'a, R>(node: &'a Node, was_placeholder: bool, item: Item, context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -99,14 +98,14 @@ where
     log::trace!("Placed {} at {}", item, if was_placeholder { format!("placeholder {} ({} left)", node, context.placeholders.len()) } else { format!("{}", node) });
 
     context.placements.push(Placement {
-        uber_state: node.uber_state().unwrap().clone(),
+        node,
         item,
     });
 
     Ok(())
 }
 
-fn place_relics<'a, R>(context: &mut GeneratorContext<'a, R>) -> Result<(), String>
+fn place_relics<'a, R>(context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -133,7 +132,7 @@ where
     Ok(())
 }
 
-fn force_keystones<'a, R>(reachable_states: &[&Node], reserved_slots: &mut Vec<&'a Node>, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
+fn force_keystones<'a, R>(reachable_states: &[&Node], reserved_slots: &mut Vec<&'a Node>, context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -160,7 +159,7 @@ where
     Ok(())
 }
 
-fn forced_placement<'a, R>(item: Item, reserved_slots: &mut Vec<&'a Node>, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
+fn forced_placement<'a, R>(item: Item, reserved_slots: &mut Vec<&'a Node>, context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -199,7 +198,7 @@ where
     Ok(())
 }
 
-fn random_placement<'a, R>(node: &'a Node, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
+fn random_placement<'a, R>(node: &'a Node, context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -262,7 +261,7 @@ impl SpiritLightAmounts {
     }
 }
 
-fn place_remaining<'a, R>(remaining: Inventory, unreachable_locations: Vec<&'a Node>, context: &mut GeneratorContext<'a, R>) -> Result<(), String>
+fn place_remaining<'a, R>(remaining: Inventory, unreachable_locations: Vec<&'a Node>, context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -297,7 +296,7 @@ where
         log::trace!("Placed {} at placeholder {}", item, node);
 
         context.placements.push(Placement {
-            uber_state: node.uber_state().unwrap().clone(),
+            node,
             item,
         });
     }
@@ -308,7 +307,7 @@ where
         log::trace!("Placed {} at unreachable location {}", item, node);
 
         context.placements.push(Placement {
-            uber_state: node.uber_state().unwrap().clone(),
+            node,
             item,
         });
     }
@@ -316,7 +315,7 @@ where
     Ok(())
 }
 
-pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, settings: &'a Settings, rng: &'a mut R) -> Result<Vec<Placement>, String>
+pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, spawn_location: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Placement<'a>>, String>
 where
     R: Rng
 {
@@ -345,20 +344,6 @@ where
     if settings.flags.world_tour {
         place_relics(&mut context)?;
     }
-
-    let spawn_state = UberState {
-        identifier: UberIdentifier {
-            uber_group: 3,
-            uber_id: 0,
-        },
-        value: String::new(),
-    };
-    let spawn_location = Node::Pickup(Pickup {
-        identifier: String::from("Spawn"),
-        zone: String::new(),
-        index: usize::MAX,
-        uber_state: spawn_state,
-    });
 
     context.world.collect_preplacements(&spawn_location.uber_state().unwrap());
 
@@ -398,13 +383,12 @@ where
         let unreached_count = total_reachable_count - reachable_locations.len();
 
         reachable.retain(|&node| {
-            node.uber_state().map_or(false, |uber_state| {
-                let index = node.index();
+            let index = node.index();
 
-                !context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
-                !context.placeholders.iter().any(|&placeholder| placeholder.index() == index) &&
-                !context.collected_preplacements.iter().any(|&collected| collected.index() == index)
-            })
+            node.uber_state().is_some() &&
+            !context.placements.iter().any(|placement| placement.node.index() == index) &&
+            !context.placeholders.iter().any(|&placeholder| placeholder.index() == index) &&
+            !context.collected_preplacements.iter().any(|&collected| collected.index() == index)
         });
 
         let identifiers: Vec<_> = reachable.iter()
@@ -470,7 +454,7 @@ where
                     .filter_map(|&node| {
                         let index = node.index();
 
-                        if !context.placements.iter().any(|placement| &placement.uber_state == node.uber_state().unwrap()) &&
+                        if !context.placements.iter().any(|placement| placement.node.index() == index) &&
                         !context.placeholders.iter().any(|&placeholder| placeholder.index() == index) &&
                         !context.collected_preplacements.iter().any(|&collected| collected.index() == index)
                         {

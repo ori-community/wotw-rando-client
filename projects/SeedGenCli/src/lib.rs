@@ -23,14 +23,16 @@ use log4rs::{
 
 use world::{
     World,
-    graph::{Graph, Node, Anchor, Position},
+    graph::{Graph, Node, Anchor, Pickup},
     pool::Pool
 };
 use generator::Placement;
 use util::{
     Pathset,
     NodeType,
+    Position,
     settings::{Settings, Spawn},
+    uberstate::{UberState, UberIdentifier},
     constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES},
 };
 
@@ -192,6 +194,21 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     let mut spawn;
     let mut spawn_loc = SpawnLoc::default();
 
+    let spawn_state = UberState {
+        identifier: UberIdentifier {
+            uber_group: 3,
+            uber_id: 0,
+        },
+        value: String::new(),
+    };
+    let spawn_location = Node::Pickup(Pickup {
+        identifier: String::from("Spawn"),
+        zone: String::new(),
+        index: usize::MAX,
+        uber_state: spawn_state,
+        position: Position { x: 0, y: 0 },
+    });
+
     let mut placements = Vec::<Placement>::new();
     for index in 0..RETRIES {
         spawn = pick_spawn(graph, &settings, &mut rng)?;
@@ -201,7 +218,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         };
         log::trace!("Spawning on {}", spawn_loc.identifier);
 
-        match generator::generate_placements(world.clone(), &spawn_loc.identifier, settings, &mut rng) {
+        match generator::generate_placements(world.clone(), &spawn_loc.identifier, &spawn_location, settings, &mut rng) {
             Ok(seed) => {
                 placements = seed;
                 log::info!("Generated seed after {} {}", index + 1, if index == 0 { "try" } else if index < RETRIES / 2 { "tries" } else { "tries (phew)" });
@@ -219,7 +236,21 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         spawn_line = format!("Spawn: {}  // {}\n", spawn_loc.position, spawn_loc.identifier);
     }
 
-    let placement_block = placements.iter().fold(String::with_capacity(placements.len() * 20), |acc, placement| acc + &format!("{}//\n", placement));
+    let init = String::with_capacity(placements.len() * 20);
+    let placement_block = placements.iter().fold(init, |acc, placement| {
+        let mut placement_line = format!("{}", placement);
+        if settings.spoilers {
+            util::add_trailing_spaces(&mut placement_line, 23);
+            let item = util::with_leading_spaces(&format!("{}", placement.item), 16);
+            let mut location = format!("{}", placement.node);
+            util::add_trailing_spaces(&mut location, 33);
+            let mut position = format!("({})", placement.node.position().unwrap());
+            util::add_trailing_spaces(&mut position, 15);
+            placement_line += &format!("  // {} from {}  {} {}", item, location, position, placement.node.zone().unwrap());
+        }
+        placement_line.push('\n');
+        acc + &placement_line
+    });
 
     let seed_line = format!("\n// Seed: {}", seed);
     let config_line = format!("\n// Config: {}", util::settings::write(&settings).map_err(|_| String::from("Invalid Settings"))?);

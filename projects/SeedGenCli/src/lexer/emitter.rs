@@ -5,7 +5,7 @@ use crate::world::{
     graph::{self, Graph, Node},
     requirements::Requirement,
 };
-use crate::util::{Pathset, Skill};
+use crate::util::{Pathset, Skill, Position};
 
 fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
     match requirement {
@@ -115,6 +115,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
     let mut node_map = FxHashMap::<&str, usize>::default();
     node_map.reserve(node_count);
 
+    // TODO why is everything cloned here?
     for location in locations {
         let name = &location.name[..];
         if metadata.quests.contains(name) {
@@ -126,6 +127,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
                 zone: location.zone.clone(),
                 index,
                 uber_state: location.uber_state.clone(),
+                position: location.position.clone(),
             }));
         } else {
             let index = graph.len();
@@ -136,6 +138,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
                 zone: location.zone.clone(),
                 index,
                 uber_state: location.uber_state.clone(),
+                position: location.position.clone(),
             }));
         }
     }
@@ -199,10 +202,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
         }
 
         let position = if let Some((x, y)) = anchor.position {
-            Some(graph::Position {
-                x,
-                y,
-            })
+            Some(Position { x, y })
         } else {
             None
         };

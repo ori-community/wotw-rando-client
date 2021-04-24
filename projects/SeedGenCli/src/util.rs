@@ -595,6 +595,17 @@ pub enum NodeType {
     Quest,
 }
 
+#[derive(Debug, Default, Clone)]
+pub struct Position {
+    pub x: i16,
+    pub y: i16,
+}
+impl fmt::Display for Position {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}, {}", self.x, self.y)
+    }
+}
+
 pub fn read_file(file: &Path, default_folder: &str) -> Result<String, io::Error> {
     let mut in_folder = PathBuf::new();
     in_folder.push(default_folder);
@@ -634,14 +645,20 @@ pub fn create_new_file(file: &Path, contents: &str, default_folder: &str) -> Res
     })
 }
 
-pub fn with_trailing_spaces(string: &str, target_length: usize) -> String {
-    let mut result = string.to_string();
-
+pub fn add_trailing_spaces(string: &mut String, target_length: usize) {
     let mut length = string.len();
-    while length < target_length {
-        result.push(' ');
+    while target_length > length {
+        string.push(' ');
         length += 1;
     }
-
-    result
+}
+pub fn with_leading_spaces(string: &str, target_length: usize) -> String {
+    let mut length = string.len();
+    let mut out = String::with_capacity(length);
+    while target_length > length {
+        out.push(' ');
+        length += 1;
+    }
+    out += string;
+    out
 }
