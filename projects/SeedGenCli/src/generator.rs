@@ -379,11 +379,15 @@ where
         log::trace!("Unreachable locations with this item pool: {}", format_identifiers(identifiers));
     }
 
+    let mut reserved_slots = Vec::<&UberState>::with_capacity(RESERVE_SLOTS);
+
     loop {
         let (mut reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
         let reachable_count = reachable.len();
 
         let (reachable_locations, reachable_states): (Vec<&Node>, Vec<&Node>) = reachable.iter().partition(|&&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
+
+        force_keystones(&reachable_states, &mut reserved_slots, &mut context)?;
 
         let unreached_count = total_reachable_count - reachable_locations.len();
 
@@ -418,9 +422,7 @@ where
 
         needs_placement.shuffle(context.rng);
 
-        force_keystones(&reachable_states, &mut needs_placement, &mut context)?;
-
-        let mut reserved_slots = Vec::<&UberState>::with_capacity(RESERVE_SLOTS);
+        reserved_slots = Vec::new();
         if unreached_count > 0 {
             for _ in 0..RESERVE_SLOTS {
                 if let Some(uber_state) = needs_placement.pop() {
