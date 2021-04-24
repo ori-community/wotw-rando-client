@@ -323,7 +323,8 @@ impl Requirement {
             Requirement::Damage(amount) | Requirement::Danger(amount) => {
                 let mut itemsets = Vec::new();
 
-                let cost = *amount * player.defense_mod();
+                // TODO maybe carry the practice from combat over and optimize based on player inventory?
+                let cost = *amount;
 
                 itemsets.append(&mut Requirement::needed_for_damage(cost, player));
 

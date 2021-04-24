@@ -6,7 +6,7 @@ use rand::{
     distributions::{Distribution, Uniform},
 };
 
-use crate::world::{World, graph::Node};
+use crate::world::{World, graph::Node, player::Player};
 use crate::inventory::{Inventory, Item};
 use crate::util::{
     Resource, BonusItem,
@@ -205,7 +205,7 @@ where
 {
     // force a couple placeholders at the start
     if context.placeholders.len() < 4 {
-        log::trace!("Reserving {} as placeholder", uber_state);
+        log::trace!("Reserving {} as forced placeholder", uber_state);
 
         context.placeholders.push(uber_state.clone());
     } else {
@@ -362,7 +362,8 @@ where
         }
     }
 
-    let mut finished_player = context.world.player.clone();
+    let mut finished_player = Player::default();
+    finished_player.apply_pathsets(settings);
     finished_player.inventory = context.world.pool.progressions.clone();
     finished_player.inventory.grant(Item::SpiritLight(1), u16::MAX);
 
@@ -380,6 +381,7 @@ where
 
     loop {
         let (mut reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
+        let reachable_count = reachable.len();
 
         let (reachable_locations, reachable_states): (Vec<&Node>, Vec<&Node>) = reachable.iter().partition(|&&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
 
@@ -444,7 +446,7 @@ where
                         let missing = context.world.player.missing_for_orbs(&needed, orb_cost, *orbs);
 
                         if missing.inventory.is_empty() {  // sanity check
-                            log::trace!("Failed to determine which items were needed for progression to meet {:?} (had {:?})", requirement, context.world.player.inventory);
+                            log::trace!("Failed to determine which items were needed for progression to meet {:?} (had {})", requirement, context.world.player.inventory);
                             return Err(String::from("Failed to determine which items were needed for progression"));
                         }
                         if missing.item_count() > slots { continue; }
@@ -456,8 +458,6 @@ where
             }
 
             if itemsets.is_empty() {
-                // TODO not reaching all locations can actually be desired (remove launch...)
-
                 let identifiers: Vec<_> = all_reachable_locations.iter()
                     .filter_map(|&node| {
                         let uber_state = node.uber_state().unwrap();
@@ -470,11 +470,12 @@ where
                     })
                     .collect();
 
-                return Err(format!("Failed to reach all locations, missing {} - had {}", format_identifiers(identifiers), context.world.player.inventory));
+                log::trace!("Failed to reach all locations with inventory: {}", context.world.player.inventory);
+                return Err(format!("Failed to reach all locations, missing {}", format_identifiers(identifiers)));
             }
 
             // remove redundancies
-            itemsets.sort_by_key(Inventory::item_count);
+            itemsets.sort_unstable_by_key(Inventory::item_count);
             itemsets.reverse();
             let mut index = 0;
             for _ in 0..itemsets.len() {
@@ -488,12 +489,26 @@ where
 
             log::trace!("{} options for forced progression:", itemsets.len());
 
-            let weight_sum: f32 = itemsets.iter().map(|inventory| 1.0 / inventory.cost()).sum();
+            let weight = |inventory: &Inventory| -> Result<f32, String> {
+                let base_weight = 1.0 / inventory.cost();
 
-            let progression = itemsets
-                .choose_weighted(context.rng, |inventory| {
-                    let weight = 1.0 / inventory.cost();
+                let lookahead_player = Player {
+                    inventory: context.world.player.inventory.merge(inventory),
+                    ..context.world.player
+                };
+                let lookahead_reachable = context.world.graph.reached_locations(&lookahead_player, spawn, &context.world.uber_states)?;
 
+                let newly_reached = lookahead_reachable.len() - reachable_count;
+
+                Ok(base_weight * (newly_reached + 1) as f32)
+            };
+            let with_weights = itemsets.iter()
+                .map::<Result<(&Inventory, f32), String>, _>(|inventory| Ok((inventory, weight(inventory)?)))
+                .collect::<Result<Vec<_>, _>>()?;
+            let weight_sum: f32 = with_weights.iter().map(|(_, weight)| weight).sum();
+
+            let (progression, _) = with_weights
+                .choose_weighted(context.rng, |&(inventory, weight)| {
                     log::trace!("-> {}  ({}%)", inventory, (weight / weight_sum * 1000.0).round() / 10.0);
 
                     weight

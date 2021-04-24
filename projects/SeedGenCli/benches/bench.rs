@@ -119,6 +119,7 @@ fn generation(c: &mut Criterion) {
 
     world = World::new(&graph);
     settings = Settings::default();
+    settings.pathsets = vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch, Pathset::Unsafe];
     world.pool = Pool::preset(&settings.pathsets);
 
     parse_headers(&mut world, &vec![], &settings).unwrap();

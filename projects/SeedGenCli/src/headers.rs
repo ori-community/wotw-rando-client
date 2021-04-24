@@ -684,7 +684,7 @@ fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
         }
     }
 
-    occupied_states.sort();
+    occupied_states.sort_unstable();
     occupied_states.dedup();
 
     // remove redundancies, the sort beforehand put all timers, + and - commands in front
