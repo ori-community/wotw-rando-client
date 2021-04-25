@@ -44,7 +44,7 @@ package SeedGenerator {
                        bonusItems: Boolean = true,
                        debugInfo: Boolean = false,
                        seirLaunch: Boolean = false,
-                       version: String = "0.0.0",
+                       version: String = Version(),
                        spawnLoc: String = SpawnLoc.default.areaName,
                        headerList: Seq[String] = Nil,
                      ) extends SettingsProvider  {
@@ -77,7 +77,7 @@ package SeedGenerator {
     def headerList: Seq[String] = provider.get.headerList
     def headers: Seq[String] = provider.headers
     implicit val formats: Formats = Serialization.formats(NoTypeHints)
-    def toJson: String = {Serialization.write(provider.get)}
+    def toJson: String = {Serialization.write(provider.get.copy(version = Version()))}
     def get: Settings = provider.get
     def spawnLoc: String = provider.get.spawnLoc
     def nonDefaultSpawn: Boolean = flags.randomSpawn || spawnLoc != SpawnLoc.default.areaName

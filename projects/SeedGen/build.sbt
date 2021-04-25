@@ -16,6 +16,24 @@ assemblyMergeStrategy in assembly := {
   case x => (assemblyMergeStrategy in assembly).value(x)
 }
 
+sourceGenerators in Compile += Def.task {
+  import scala.io.Source
+  val file = (sourceDirectory in Compile).value / "scala" / "Version.scala"
+  IO.write(file,
+    """package SeedGenerator {
+      |  object Version {
+      |    def apply(): String = """".stripMargin + {
+    val src = Source.fromFile("C:\\moon\\VERSION")
+    val ret = src.mkString
+    ret
+    } + """"
+        |  }
+        |}
+        |""".stripMargin)
+  Seq(file)
+}.taskValue
+
+
 libraryDependencies += "org.json4s" %% "json4s-native" % "3.6.9"
 libraryDependencies += "com.lihaoyi" %% "fastparse" % "2.2.2" // SBT
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-feature")
