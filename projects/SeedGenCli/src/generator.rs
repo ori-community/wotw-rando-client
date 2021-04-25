@@ -60,6 +60,7 @@ where
     R: Rng
 {
     world: World<'a>,
+    spawn_location: &'a Node,
     placements: Vec<Placement<'a>>,
     placeholders: Vec<&'a Node>,
     collected_preplacements: Vec<&'a Node>,
@@ -75,7 +76,7 @@ where
     let uber_state = node.uber_state().unwrap().clone();
 
     if uber_state.is_shop() {
-        let (identifier, _, price_uber_state) = SHOP_PRICES.iter()
+        let (_, _, price_uber_state) = SHOP_PRICES.iter()
             .find(|(_, location, _)| &uber_state.identifier == location)
             .ok_or_else(|| format!("Uber State {} claims to be a shop location, but doesn't have an entry in the shop prices table!", node))?;
 
@@ -84,15 +85,14 @@ where
             price = u16::try_from((price as f32 * context.price_range.sample(context.rng)) as i32).map_err(|_| format!("Overflowed shop price for {} after adding a random amount to it", item))?;
         }
 
-        let price_setter = Item::UberState(format!("{}|int|{}  // Price for {}", price_uber_state, price, identifier));
+        let price_setter = Item::UberState(format!("{}|int|{}", price_uber_state, price));
 
         log::trace!("Placing {} at 3|0 as price for the item below", price_setter);
 
-        // context.placements.push(Placement {
-        //     node: &context.world.spawn_node,
-        //     // TODO comment spacing
-        //     item: price_setter,
-        // });
+        context.placements.push(Placement {
+            node: context.spawn_location,
+            item: price_setter,
+        });
     }
 
     log::trace!("Placed {} at {}", item, if was_placeholder { format!("placeholder {} ({} left)", node, context.placeholders.len()) } else { format!("{}", node) });
@@ -333,6 +333,7 @@ where
 
     let mut context = GeneratorContext {
         world,
+        spawn_location,
         placements,
         placeholders,
         collected_preplacements,
@@ -345,11 +346,11 @@ where
         place_relics(&mut context)?;
     }
 
-    context.world.collect_preplacements(&spawn_location.uber_state().unwrap());
+    context.world.collect_preplacements(&context.spawn_location.uber_state().unwrap());
 
     if !matches!(settings.spawn_loc, Spawn::Set(_)) {
         for _ in 0..3 {
-            spawn_slots.push(&spawn_location);
+            spawn_slots.push(&context.spawn_location);
         }
     }
 
