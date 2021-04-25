@@ -11,6 +11,14 @@ namespace RandoMainDLL {
     public Boolean Spoilers { get; set; }
     [JsonIgnore]
     public Boolean RaceMode { get => !Spoilers; }
+    [JsonProperty("version")]
+    private string version { get; set; }
+    [JsonIgnore]
+    public Version Version {
+      get {
+        return new Version(version);
+      }
+    }
     [JsonProperty("unsafePaths")]
     public Boolean UnsafePaths { get; set; }
     [JsonProperty("gorlekPaths")]
