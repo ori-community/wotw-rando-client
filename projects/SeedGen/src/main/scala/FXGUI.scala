@@ -423,6 +423,7 @@ package SeedGenerator {
           )
         }
       }
+      Logger.info(s"Seedgen version ${Settings.get.version}")
     }
     object FXSettingsProvider extends SettingsProvider {
       def get: Settings = settings.getValue
