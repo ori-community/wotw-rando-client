@@ -390,10 +390,8 @@ package SeedGenerator {
               onAction = _ => {
                 val prior = settings()
                 settings.value = prior.copy(headerList =
-                  if(prior.headerList.contains(h.name))
-                    prior.headerList.filter(_ != h.name)
-                  else
-                    prior.headerList :+ h.name
+                  (prior.headerList.contains(h.name) ? prior.headerList.filter(_ != h.name) ?? prior.headerList :+ h.name)
+                    .filter(Headers.byName.contains)
                 )
                 settingsFile.write(Settings.toJson)
               }
