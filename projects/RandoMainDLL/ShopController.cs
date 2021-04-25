@@ -4,6 +4,11 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class ShopController {
+    public static UberId PriceState(this AbilityType at) => new UberId(1, 10000 + (int)at);
+    public static int Cost(this AbilityType at) => UberGet.Int(at.PriceState());
+    public static UberId PriceState(this ShardType st) => new UberId(1, 100 + (int)st);
+    public static int Cost(this ShardType st) => UberGet.Int(st.PriceState());
+
     private static int KSBought { get => Math.Min(KS_MAX, SaveController.KSBought); }
     private static int KS_MAX { get => !SeedController.HasInternalSpoilers ? 4 : 8; }
     private static int KS_INC { get => !SeedController.HasInternalSpoilers ? 200 : 50; }
@@ -24,22 +29,22 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = SeedController.OpherWeapon(t);
           if (pickup.NonEmpty)
-            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
+            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability s && costsEnergy.Contains(s.type), t.Cost());
         }
         else if (KSOverride(t)) {
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false, KS_PRICE);
+          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false, t.Cost());
         }
         else {
           var pickup = SeedController.OpherWeapon(t);
           if (pickup.NonEmpty)
-            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), pickup.CostWithMod(GetCostMod(t)));
+            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), t.Cost());
         }
       }
       foreach (ShardType s in twillenShardInv) {
         var pickup = SeedController.TwillenShard(s);
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s, pickup.ShopName, Chatter(), lockedTillGlades, pickup.CostWithMod(GetCostMod(s)));
+          InterOp.set_twillen_item((int)s, pickup.ShopName, Chatter(), lockedTillGlades, s.Cost());
       }
       foreach (var luid in LupoUberIds) {
         var cond = luid.toCond();
@@ -88,8 +93,8 @@ namespace RandoMainDLL {
       "I used to give out\ncoupons for these",
     };
 
-    private static Dictionary<AbilityType, float> weaponCostMods = new Dictionary<AbilityType, float>();
-    private static Dictionary<ShardType, float> shardCostMods = new Dictionary<ShardType, float>();
+    private static Dictionary<AbilityType, float> WepCostOverrides = new Dictionary<AbilityType, float>();
+    private static Dictionary<ShardType, float> ShardCostOverrides = new Dictionary<ShardType, float>();
 
     public static void SetCostMod(AbilityType type, float multi) => weaponCostMods[type] = multi;
     public static void SetCostMod(ShardType type, float multi) => shardCostMods[type] = multi;
@@ -102,14 +107,26 @@ namespace RandoMainDLL {
         (new Resource(ResourceType.Keystone)).Grant();
         SaveController.KSBought++;
         SaveController.FoundCount--;
+        UberSet.Int(slot.PriceState(), KS_PRICE);
         InterOp.set_opher_item(255, 255, bmKeysName, bmKeysDesc, "", false, KS_PRICE);
         return;
       }
       UberSet.Bool(slot.BoughtState(), true);
 
       Pickup item = SeedController.OpherWeapon(slot);
-      Randomizer.Log($"sold {item} from {slot} for ${SeedController.OpherWeapon(slot).CostWithMod(GetCostMod(slot))}", false);
+      Randomizer.Log($"sold {item} from {slot} for ${slot.Cost()}", false);
       return;
+    }
+
+    public static void SetCostsAfterLoad() {
+      foreach(var at in opherWeaponInv) {
+        if (KSOverride(at))
+          UberSet.Int(at.PriceState(), KS_PRICE);
+        else
+          UberSet.Int(at.PriceState(), SeedController.OpherWeapon(at).CostWithMod(GetCostMod(at)));
+      }
+      foreach(var st in twillenShardInv)
+        UberSet.Int(st.PriceState(), SeedController.TwillenShard(st).CostWithMod(GetCostMod(st)));
     }
 
     public static void OnBuyOpherUpgrade(AbilityType slot) => UberSet.Bool(slot.UpgradedState(), true);
@@ -118,15 +135,15 @@ namespace RandoMainDLL {
 
     public static void OnBuyTwillenShard(ShardType slot) {
       Pickup item = SeedController.TwillenShard(slot);
-      Randomizer.Log($"sold {item} from {slot} for ${SeedController.TwillenShard(slot).CostWithMod(GetCostMod(slot))}", false);
+      Randomizer.Log($"sold {item} from {slot} for ${slot.Cost()}", false);
       UberSet.Bool(slot.BoughtState(), true);
       return;
     }
     public static bool OpherBoughtWeapon(AbilityType granted) => granted.Bought();
     public static bool TwillenBoughtShard(ShardType shard) => shard.Bought();
     public static bool OpherBoughtUpgrade(AbilityType slot) => slot.Upgraded();
-    public static int TwillenShardCost(ShardType shard) => SeedController.TwillenShard(shard).CostWithMod(GetCostMod(shard));
-    public static int OpherWeaponCost(AbilityType ability) => KSOverride(ability) ? KS_PRICE : SeedController.OpherWeapon(ability).CostWithMod(GetCostMod(ability));
+    public static int TwillenShardCost(ShardType shard) => shard.Cost();
+    public static int OpherWeaponCost(AbilityType ability) => ability.Cost();
 
     private static HashSet<UberId> LupoUberIds = new HashSet<UberId>() {
        new UberId(48248, 19396),
