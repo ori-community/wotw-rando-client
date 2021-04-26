@@ -233,6 +233,10 @@ namespace uber_states
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "prevent_map_reactivate_tps", 1, false),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "show_spoiler", 70, false),
+
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "HCMapIconCost", 19397,  0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ECMapIconCost", 57988,  0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ShardMapIconCost", 41667,  0),
                 };
 
                 int i = 0;

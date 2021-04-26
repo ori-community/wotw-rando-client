@@ -3,12 +3,86 @@ using System.Collections.Generic;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
-  public static class ShopController {
-    public static UberId PriceState(this AbilityType at) => new UberId(1, 10000 + (int)at);
-    public static int Cost(this AbilityType at) => UberGet.Int(at.PriceState());
-    public static UberId PriceState(this ShardType st) => new UberId(1, 100 + (int)st);
-    public static int Cost(this ShardType st) => UberGet.Int(st.PriceState());
 
+  public abstract class ShopSlot {
+    public abstract UberId State { get; }
+    public abstract UberId CostState { get; }
+    public int Cost {
+      get => UberGet.Int(CostState);  // TODO; overriding
+      set => UberSet.Int(CostState, value);
+    }
+    public Pickup Contents => State.toCond().Pickup();
+
+
+    public static OpherSlot Sentry = new OpherSlot(AbilityType.Sentry);
+    public static OpherSlot Star = new OpherSlot(AbilityType.SpiritStar);
+    public static OpherSlot Smash = new OpherSlot(AbilityType.SpiritSmash);
+    public static OpherSlot Spike = new OpherSlot(AbilityType.Spike);
+    public static OpherSlot Blaze = new OpherSlot(AbilityType.Blaze);
+    public static OpherSlot Teleport = new OpherSlot(AbilityType.TeleportSpell);
+    public static OpherSlot WaterBreath = new OpherSlot(AbilityType.WaterBreath);
+
+    public static List<OpherSlot> Opher = new List<OpherSlot> { Sentry, Star, Smash, Spike, Blaze, Teleport, WaterBreath };
+
+    public static TwillenSlot Overcharge = new TwillenSlot(ShardType.Overcharge);
+    public static TwillenSlot Energy = new TwillenSlot(ShardType.Energy);
+    public static TwillenSlot Vitality = new TwillenSlot(ShardType.Vitality);
+    public static TwillenSlot Wingclip = new TwillenSlot(ShardType.Wingclip);
+    public static TwillenSlot TripleJump = new TwillenSlot(ShardType.TripleJump);
+    public static TwillenSlot Finesse = new TwillenSlot(ShardType.Finesse);
+    public static TwillenSlot Swap = new TwillenSlot(ShardType.Swap);
+    public static TwillenSlot LightHarvest = new TwillenSlot(ShardType.LightHarvest);
+
+    public static List<TwillenSlot> Twillen = new List<TwillenSlot> { Overcharge, Energy, Vitality, Wingclip, TripleJump, Finesse, Swap, LightHarvest };
+
+    public static LupoStoreSlot HealthIcons = new LupoStoreSlot(19396);
+    public static LupoStoreSlot EnergyIcons = new LupoStoreSlot(57987);
+    public static LupoStoreSlot ShardIcons = new LupoStoreSlot(41666);
+
+    public static List<LupoStoreSlot> LupoStore = new List<LupoStoreSlot> { HealthIcons, EnergyIcons, ShardIcons };
+  }
+  public class OpherSlot : ShopSlot {
+    public readonly AbilityType Weapon;
+    public readonly bool IsUpgrade;
+    public override UberId CostState => new UberId(1, 10000 + (int)Weapon);
+    public override UberId State => new UberId(1, (int)Weapon);
+    public OpherSlot(AbilityType at, bool upgrade = false) => (Weapon, IsUpgrade) = (at, upgrade);
+  }
+  public class LupoStoreSlot : ShopSlot {
+    private readonly int id;
+    public override UberId CostState => new UberId(48248, id + 1);
+    public override UberId State => new UberId(48248, id);
+    public LupoStoreSlot(int _id) => id = _id;
+  }
+
+  public class TwillenSlot : ShopSlot {
+    public readonly ShardType Shard;
+    public override UberId CostState => new UberId(2, 100 + (int)Shard);
+    public override UberId State => new UberId(2, (int)Shard);
+    public TwillenSlot(ShardType st) => Shard = st;
+  }
+
+  public static class ShopController {
+    public static ShopSlot Slot(this AbilityType at) {
+    switch(at) {
+        case AbilityType.WaterBreath:
+          return ShopSlot.WaterBreath;
+        case AbilityType.Sentry:
+          return ShopSlot.Sentry;
+        case AbilityType.SpiritStar:
+          return ShopSlot.Star;
+        case AbilityType.SpiritSmash:
+          return ShopSlot.Smash;
+        case AbilityType.Spike:
+          return ShopSlot.Spike;
+        case AbilityType.Blaze:
+          return ShopSlot.Blaze;
+        case AbilityType.TeleportSpell:
+          return ShopSlot.Teleport;
+        default:
+          throw new ArgumentException($"{at} has no associated shop slot");
+      }
+    }
     private static int KSBought { get => Math.Min(KS_MAX, SaveController.KSBought); }
     private static int KS_MAX { get => !SeedController.HasInternalSpoilers ? 4 : 8; }
     private static int KS_INC { get => !SeedController.HasInternalSpoilers ? 200 : 50; }
@@ -25,33 +99,32 @@ namespace RandoMainDLL {
 
     public static string DescOrChatter(this Pickup pickup) => pickup is WeaponUpgrade wu ? wu.Desc : (pickup is Hint ch ? ch.Desc : Chatter());
     public static void UpdateShopData() {
-      foreach (AbilityType t in opherWeaponInv) {
+      foreach (var s in ShopSlot.Opher) {
+        var t = s.Weapon;
         if (t == AbilityType.WaterBreath) {
-          var pickup = SeedController.OpherWeapon(t);
+          var pickup = s.Contents;
           if (pickup.NonEmpty)
-            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability s && costsEnergy.Contains(s.type), t.Cost());
+            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type), s.Cost);
         }
         else if (KSOverride(t)) {
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false, t.Cost());
+          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false, KS_PRICE);
         }
         else {
-          var pickup = SeedController.OpherWeapon(t);
+          var pickup = s.Contents;
+          var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
-            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability s && costsEnergy.Contains(s.type), t.Cost());
+            InterOp.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type), s.Cost);
         }
       }
-      foreach (ShardType s in twillenShardInv) {
-        var pickup = SeedController.TwillenShard(s);
+      foreach (var s in ShopSlot.Twillen) {
+        var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s, pickup.ShopName, Chatter(), lockedTillGlades, s.Cost());
+          InterOp.set_twillen_item((int)s.Shard, pickup.ShopName, Chatter(), lockedTillGlades, s.Cost);
       }
-      foreach (var luid in LupoUberIds) {
-        var cond = luid.toCond();
-        if (cond.HasPickup()) {
-          var pickup = cond.Pickup();
-          InterOp.set_lupo_item(luid.GroupID, luid.ID, pickup.ShopName, pickup.DescOrChatter(), "n/a");
-        }
+      foreach (var s in ShopSlot.LupoStore) {
+        var pickup = s.Contents;
+        InterOp.set_lupo_item(s.State.GroupID, s.State.ID, pickup.ShopName, pickup.DescOrChatter(), "n/a");
       }
     }
 
@@ -93,8 +166,8 @@ namespace RandoMainDLL {
       "I used to give out\ncoupons for these",
     };
 
-    private static Dictionary<AbilityType, float> WepCostOverrides = new Dictionary<AbilityType, float>();
-    private static Dictionary<ShardType, float> ShardCostOverrides = new Dictionary<ShardType, float>();
+    private static Dictionary<AbilityType, int> WepCostOverrides = new Dictionary<AbilityType, int>();
+    private static Dictionary<ShardType, int> ShardCostOverrides = new Dictionary<ShardType, int>();
 
     public static void SetCostMod(AbilityType type, float multi) => weaponCostMods[type] = multi;
     public static void SetCostMod(ShardType type, float multi) => shardCostMods[type] = multi;
@@ -151,6 +224,6 @@ namespace RandoMainDLL {
        new UberId(48248, 41666),
     };
 
-    public static int LupoUpgradeCost(int id) => new UberId(48248, id).toCond().Pickup()?.DefaultCost() ?? 250;
+    public static int LupoUpgradeCost(int id) => new LupoStoreSlot(id).Cost;
   }
 }
