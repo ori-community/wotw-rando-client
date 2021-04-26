@@ -128,7 +128,7 @@ impl Pool {
     }
     pub fn remove(&mut self, item: &Item, amount: u16) {
         if let Item::SpiritLight(stacked_amount) = item {
-            self.spirit_light -= amount * stacked_amount;
+            self.spirit_light -= self.spirit_light.min(amount * stacked_amount);
         } else if self.progressions.has(item, 1) {
             self.progressions.remove(item, amount);
         } else {

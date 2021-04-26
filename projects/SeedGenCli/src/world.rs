@@ -31,7 +31,8 @@ impl<'a> World<'a> {
     }
 
     pub fn grant_player(&mut self, item: Item, amount: u16) -> Result<(), String> {
-        match &item {
+        self.pool.remove(&item, amount);
+        match item {
             Item::UberState(command) => {
                 let mut parts = command.split('|');
                 let uber_group = parts.next().unwrap();
@@ -50,50 +51,52 @@ impl<'a> World<'a> {
                     sign = -1;
                 }
 
-                let entry = match uber_type {
-                    "bool" | "teleporter" => {
-                        let uber_value: bool = uber_value.parse().unwrap();
-
-                        let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Bool(false));
-                        if let UberValue::Bool(prior) = entry {
-                            *prior = uber_value;
-                        } else {
-                            log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                        }
-                        entry
-                    },
-                    "byte" | "int" => {
-                        let uber_value: i32 = uber_value.parse().unwrap();
-
-                        let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
-                        if let UberValue::Int(prior) = entry {
-                            *prior = uber_value + *prior * i32::from(sign);
-                        } else {
-                            log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                        }
-                        entry
-                    },
-                    "float" => {
-                        let uber_value: f32 = uber_value.parse().unwrap();
-
-                        let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
-                        if let UberValue::Float(prior) = entry {
-                            *prior = uber_value + *prior * f32::from(sign);
-                        } else {
-                            log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                        }
-                        entry
-                    },
-                    _ => { return Err(format!("Unable to grant malformed uber state pickup {}", command)); },
-                };
-
-                let uber_state = UberState {
-                    identifier: uber_state,
-                    value: format!("{}", entry),
-                };
-
-                log::trace!("Granting player UberState {}", uber_state);
-                self.collect_preplacements(&uber_state);
+                for _ in 0..amount {
+                    let entry = match uber_type {
+                        "bool" | "teleporter" => {
+                            let uber_value: bool = uber_value.parse().unwrap();
+    
+                            let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Bool(false));
+                            if let UberValue::Bool(prior) = entry {
+                                *prior = uber_value;
+                            } else {
+                                log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                            }
+                            entry
+                        },
+                        "byte" | "int" => {
+                            let uber_value: i32 = uber_value.parse().unwrap();
+    
+                            let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
+                            if let UberValue::Int(prior) = entry {
+                                *prior += uber_value * i32::from(sign);
+                            } else {
+                                log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                            }
+                            entry
+                        },
+                        "float" => {
+                            let uber_value: f32 = uber_value.parse().unwrap();
+    
+                            let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
+                            if let UberValue::Float(prior) = entry {
+                                *prior += uber_value * f32::from(sign);
+                            } else {
+                                log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                            }
+                            entry
+                        },
+                        _ => { return Err(format!("Unable to grant malformed uber state pickup {}", command)); },
+                    };
+    
+                    let uber_state = UberState {
+                        identifier: uber_state.clone(),
+                        value: format!("{}", entry),
+                    };
+    
+                    log::trace!("Granting player UberState {}", uber_state);
+                    self.collect_preplacements(&uber_state);
+                }
             },
             Item::SpiritLight(stacked_amount) => {
                 log::trace!("Granting player {} Spirit Light", stacked_amount);
@@ -104,11 +107,10 @@ impl<'a> World<'a> {
                 if item.is_progression(&self.player.pathsets) {
                     log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
     
-                    self.player.inventory.grant(item.clone(), amount);
+                    self.player.inventory.grant(item, amount);
                 }
             },
         }
-        self.pool.remove(&item, amount);
 
         Ok(())
     }

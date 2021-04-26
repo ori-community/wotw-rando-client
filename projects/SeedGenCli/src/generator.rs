@@ -349,12 +349,13 @@ where
         }
     }
 
-    let mut finished_player = Player::default();
-    finished_player.apply_pathsets(settings);
-    finished_player.inventory = context.world.pool.progressions.clone();
-    finished_player.inventory.grant(Item::SpiritLight(1), u16::MAX);
+    let mut finished_world = context.world.clone();
+    for (item, amount) in context.world.pool.progressions.inventory.iter() {
+        finished_world.grant_player(item.clone(), *amount)?;
+    }
+    finished_world.grant_player(Item::SpiritLight(1), u16::MAX)?;
 
-    let mut all_reachable_locations = context.world.graph.reached_locations(&finished_player, spawn, &context.world.uber_states)?;
+    let mut all_reachable_locations = finished_world.graph.reached_locations(&finished_world.player, spawn, &finished_world.uber_states)?;
     all_reachable_locations.retain(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
     let total_reachable_count = all_reachable_locations.len();
 

@@ -121,11 +121,11 @@ impl Item {
 
     pub fn is_single_instance(&self) -> bool {
         !matches!(self,
-            Item::SpiritLight(_) |
+            Item::SpiritLight(_) | Item::RemoveSpiritLight(_) |
             Item::Resource(_) |
-            Item::BonusItem(_) |
-            Item::BonusUpgrade(_) |
-            Item::Skill(Skill::AncestralLight)
+            Item::Skill(Skill::AncestralLight) |
+            Item::BonusItem(_) | Item::BonusUpgrade(_) |
+            Item::UberState(_) | Item::Command(_) | Item::Message(_)
         )
     }
     pub fn is_checkable(&self) -> bool {
@@ -310,9 +310,9 @@ impl fmt::Display for Inventory {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let display = self.inventory.iter().map(|(item, amount)| {
             if amount == &1 {
-                format!("{}, ", item)
+                format!("{}", item)
             } else {
-                format!("{} {}, ", amount, item)
+                format!("{} {}", amount, item)
             }
         }).collect::<Vec<_>>();
         write!(f, "{}", display.join(", "))
