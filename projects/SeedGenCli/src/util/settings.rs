@@ -92,6 +92,7 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
         output_folder: old_settings.output_folder,
         web_conn: old_settings.web_conn,
         spawn_loc,
+        hard: false,
         header_list,
     })
 }
@@ -121,6 +122,7 @@ pub struct Settings {
     pub output_folder: PathBuf,
     pub spoilers: bool,
     pub web_conn: bool,
+    pub hard: bool,
     pub header_list: Vec<PathBuf>,
 }
 impl Default for Settings {
@@ -133,6 +135,7 @@ impl Default for Settings {
             output_folder: PathBuf::default(),
             spoilers: true,
             web_conn: false,
+            hard: false,
             header_list: vec![PathBuf::from("default")],
         }
     }
@@ -160,33 +163,4 @@ pub fn read_spawn(seed: &Path) -> Result<String, io::Error> {
         }
     }
     Ok(DEFAULT_SPAWN.to_string())
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    use std::fs;
-
-    #[test]
-    fn settings_io() {
-        let settings = Settings {
-            version: String::from("0.0.0"),
-            pathsets: vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch],
-            flags: SeedFlags {
-                force_wisps: false,
-                force_trees: true,
-                force_quests: true,
-                world_tour: false,
-            },
-            spawn_loc: Spawn::Set(String::from("InnerWellspring.Teleporter")),
-            output_folder: PathBuf::from("seeds"),
-            spoilers: true,
-            web_conn: false,
-            header_list: vec![PathBuf::from("skippable_cutscenes"), PathBuf::from("alternate_hints"), PathBuf::from("teleporters"), PathBuf::from("bonus_items"), PathBuf::from("spawn_with_sword"), PathBuf::from("rainy_marsh")],
-        };
-        let json = "// Config: {\"tps\":true,\"spoilers\":true,\"unsafePaths\":false,\"gorlekPaths\":true,\"glitchPaths\":true,\"questLocs\":true,\"outputFolder\":\"seeds\",\"flags\":{\"forceWisps\":false,\"forceTrees\":true,\"forceQuests\":true,\"noHints\":true,\"noSword\":false,\"rain\":true,\"noKSDoors\":false,\"randomSpawn\":false,\"worldTour\":false},\"webConn\":false,\"bonusItems\":true,\"debugInfo\":true,\"seirLaunch\":false,\"spawnLoc\":\"InnerWellspring.Teleporter\",\"headerList\":[\"skippable_cutscenes\",\"alternate_hints\"]}";
-        fs::write("temp.wotwr", json).unwrap();
-        assert_eq!(read(&PathBuf::from("temp.wotwr")).unwrap(), settings);
-    }
 }

@@ -8,19 +8,21 @@ pub struct Player {
     pub inventory: Inventory,
     pub gorlek_paths: bool,
     pub unsafe_paths: bool,
+    pub hard: bool,
     pub pathsets: Vec<Pathset>,
 }
 impl Player {
     pub fn spawn(&mut self, settings: &Settings) {
         self.inventory.grant(Item::Resource(Resource::Health), 6);
         self.inventory.grant(Item::Resource(Resource::Energy), 6);
-        self.apply_pathsets(settings);
+        self.apply_settings(settings);
     }
 
-    pub fn apply_pathsets(&mut self, settings: &Settings) {
+    pub fn apply_settings(&mut self, settings: &Settings) {
         self.pathsets = settings.pathsets.clone();
         if self.pathsets.contains(&Pathset::Gorlek) { self.gorlek_paths = true; }
         if self.pathsets.contains(&Pathset::Unsafe) { self.unsafe_paths = true; }
+        self.hard = settings.hard;
     }
 
     pub fn max_energy(&self) -> f32 {
@@ -114,7 +116,10 @@ impl Player {
         damage_mod
     }
     pub fn defense_mod(&self) -> f32 {
-        if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { 0.9 } else { 1.0 }
+        let mut defense_mod = 1.0;
+        if self.gorlek_paths && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { defense_mod = 0.9; }
+        if self.hard { defense_mod *= 2.0; }
+        defense_mod
     }
     pub fn energy_mod(&self) -> f32 {
         let mut energy_mod = 1.0;

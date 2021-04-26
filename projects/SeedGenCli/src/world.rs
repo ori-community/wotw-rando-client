@@ -99,7 +99,7 @@ impl<'a> World<'a> {
                 }
             },
             Item::SpiritLight(stacked_amount) => {
-                log::trace!("Granting player {} Spirit Light", stacked_amount);
+                log::trace!("Granting player {} Spirit Light", amount * stacked_amount);
 
                 self.player.inventory.grant(Item::SpiritLight(1), amount * stacked_amount);
             }

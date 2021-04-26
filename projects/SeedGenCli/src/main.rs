@@ -70,6 +70,9 @@ enum Command {
         /// required for coop and bingo
         #[structopt(short, long)]
         netcode: bool,
+        /// play this seed on hard (in-game) difficulty
+        #[structopt(long)]
+        hard: bool,
         /// Where to spawn the player in (use "r" / "random" for a random teleporter and or "f" / "fullyrandom" for any location)
         /// 
         /// Has to be an anchor name from the areas file, defaults to "MarshSpawn.Main"
@@ -240,6 +243,7 @@ struct SeedArgs {
     trust: bool,
     race: bool,
     netcode: bool,
+    hard: bool,
     spawn: Option<String>,
     generation_flags: Vec<String>,
     header_paths: Vec<PathBuf>,
@@ -295,6 +299,7 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
         },
         web_conn: args.netcode,
         spawn_loc: spawn,
+        hard: args.hard,
         header_list: args.header_paths,
     };
 
@@ -323,7 +328,7 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, false)?;
     let mut world = World::new(graph);
 
-    world.player.apply_pathsets(&settings);
+    world.player.apply_settings(&settings);
     world.player.inventory.grant(Item::Resource(Resource::Health), args.health / 5);
     #[allow(clippy::cast_possible_truncation)]
     world.player.inventory.grant(Item::Resource(Resource::Energy), u16::try_from((args.energy * 2.0) as i32).map_err(|_| format!("Invalid energy parameter {}", args.energy))?);
@@ -387,7 +392,7 @@ fn main() {
     }
 
     match args.command {
-        Command::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, spawn, generation_flags, header_paths, headers } => {
+        Command::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, generation_flags, header_paths, headers } => {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seed(SeedArgs {
@@ -399,6 +404,7 @@ fn main() {
                 trust,
                 race,
                 netcode,
+                hard,
                 spawn,
                 generation_flags,
                 header_paths,
