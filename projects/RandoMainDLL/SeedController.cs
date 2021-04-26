@@ -135,13 +135,9 @@ namespace RandoMainDLL {
             var frags = line.Split('|').ToList();
             var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
             var pickupType = (PickupType)frags[2].ParseToByte();
-            // Randomizer.Log($"uberId {uberId} -> {pickupType} {frags[3]}");
 
             if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
-              if (!KSDoorsOpen && cond.Id.ID == (int)AbilityType.TeleportSpell) 
-                cond.Id.ID = (int)AbilityType.Sentry; // :upside_down: :upside_down: :upside_down:
-              else
-                ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
+              ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
               frags.RemoveAt(frags.Count - 1);
             }
             if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
