@@ -12,6 +12,7 @@ namespace RandoMainDLL {
     [JsonIgnore]
     public Boolean RaceMode { get => !Spoilers; }
     [JsonProperty("version")]
+    [DefaultValue("0.0.0")]
     private string version { get; set; }
     [JsonIgnore]
     public Version Version {
@@ -19,6 +20,8 @@ namespace RandoMainDLL {
         return new Version(version);
       }
     }
+    [JsonIgnore]
+    public bool OldShopCosts => 0 >= Version.CompareTo(new Version("0.12.6"));
     [JsonProperty("unsafePaths")]
     public Boolean UnsafePaths { get; set; }
     [JsonProperty("gorlekPaths")]
