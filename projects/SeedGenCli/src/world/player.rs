@@ -143,7 +143,6 @@ impl Player {
         if self.unsafe_paths { weapons.push(Skill::Sentry); }
 
         weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
-        weapons.reverse();
         weapons
     }
     fn ranged_weapons_by_dpe(&self) -> Vec<Skill> {
@@ -157,7 +156,6 @@ impl Player {
         }
 
         weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
-        weapons.reverse();
         weapons
     }
     fn shield_weapons_by_dpe(&self) -> Vec<Skill> {
@@ -169,7 +167,6 @@ impl Player {
         ];
 
         weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
-        weapons.reverse();
         weapons
     }
 
@@ -265,7 +262,6 @@ mod tests {
         assert_eq!(player.preferred_ranged_weapon(), None);
         player.gorlek_paths = true;
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
-        player.inventory.grant(Item::Skill(Skill::Grenade), 1);
         player.inventory.grant(Item::Skill(Skill::Spear), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
@@ -274,28 +270,29 @@ mod tests {
 
         player = Player::default();
         assert_eq!(player.progression_weapons(false), vec![
-            Skill::Hammer,
             Skill::Sword,
+            Skill::Hammer,
             Skill::Bow,
+            Skill::Grenade,
             Skill::Shuriken,
             Skill::Blaze,
-            Skill::Grenade,
             Skill::Flash,
             Skill::Spear,
         ]);
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
         assert_eq!(player.progression_weapons(false), vec![
-            Skill::Hammer,
             Skill::Sword,
+            Skill::Hammer,
             Skill::Bow,
+            Skill::Grenade,
             Skill::Shuriken,
         ]);
         player.unsafe_paths = true;
         assert_eq!(player.progression_weapons(false), vec![
-            Skill::Hammer,
             Skill::Sword,
-            Skill::Grenade,  // TODO this is technically true but not very realistic?
+            Skill::Hammer,
             Skill::Bow,
+            Skill::Grenade,
             Skill::Shuriken,
         ]);
     }

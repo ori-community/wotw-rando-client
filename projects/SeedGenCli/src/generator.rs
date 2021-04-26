@@ -60,7 +60,7 @@ where
     R: Rng
 {
     world: World<'a>,
-    spawn_location: &'a Node,
+    spawn_node: &'a Node,
     placements: Vec<Placement<'a>>,
     placeholders: Vec<&'a Node>,
     collected_preplacements: Vec<&'a Node>,
@@ -90,7 +90,7 @@ where
         log::trace!("Placing {} at 3|0 as price for the item below", price_setter);
 
         context.placements.push(Placement {
-            node: context.spawn_location,
+            node: context.spawn_node,
             item: price_setter,
         });
     }
@@ -105,7 +105,7 @@ where
     Ok(())
 }
 
-fn place_relics<'a, R>(context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
+fn place_relics<R>(context: &mut GeneratorContext<'_, '_, R>) -> Result<(), String>
 where
     R: Rng
 {
@@ -315,7 +315,7 @@ where
     Ok(())
 }
 
-pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, spawn_location: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Placement<'a>>, String>
+pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, spawn_node: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Placement<'a>>, String>
 where
     R: Rng
 {
@@ -333,7 +333,7 @@ where
 
     let mut context = GeneratorContext {
         world,
-        spawn_location,
+        spawn_node,
         placements,
         placeholders,
         collected_preplacements,
@@ -346,11 +346,11 @@ where
         place_relics(&mut context)?;
     }
 
-    context.world.collect_preplacements(&context.spawn_location.uber_state().unwrap());
+    context.world.collect_preplacements(&context.spawn_node.uber_state().unwrap());
 
     if !matches!(settings.spawn_loc, Spawn::Set(_)) {
         for _ in 0..3 {
-            spawn_slots.push(&context.spawn_location);
+            spawn_slots.push(&context.spawn_node);
         }
     }
 

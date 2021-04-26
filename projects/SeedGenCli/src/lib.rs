@@ -201,7 +201,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         },
         value: String::new(),
     };
-    let spawn_location = Node::Pickup(Pickup {
+    let spawn_node = Node::Pickup(Pickup {
         identifier: String::from("Spawn"),
         zone: String::new(),
         index: usize::MAX,
@@ -218,7 +218,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         };
         log::trace!("Spawning on {}", spawn_loc.identifier);
 
-        match generator::generate_placements(world.clone(), &spawn_loc.identifier, &spawn_location, settings, &mut rng) {
+        match generator::generate_placements(world.clone(), &spawn_loc.identifier, &spawn_node, settings, &mut rng) {
             Ok(seed) => {
                 placements = seed;
                 log::info!("Generated seed after {} {}", index + 1, if index == 0 { "try" } else if index < RETRIES / 2 { "tries" } else { "tries (phew)" });

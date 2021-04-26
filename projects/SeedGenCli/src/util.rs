@@ -136,7 +136,8 @@ impl Skill {
     }
 
     pub fn damage_per_energy(self, unsafe_paths: bool) -> f32 {
-        (self.damage(unsafe_paths) + self.burn_damage()) / self.energy_cost()
+        // (self.damage(unsafe_paths) + self.burn_damage()) / self.energy_cost()
+        (10.0 / (self.damage(unsafe_paths) + self.burn_damage())).ceil() * self.energy_cost()  // "how much energy do you need to deal 10 damage" leads to a more realistic ordering than pure damage per energy
     }
 }
 

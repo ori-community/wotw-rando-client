@@ -740,22 +740,22 @@ mod tests {
 
         let req = Requirement::BreakWall(12.0);
         assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Sword)), orbs),
+            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -1.5, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Shuriken)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Blaze)), Orbs { energy: -2.0, ..orbs }),
-            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Spear)), Orbs { energy: -4.0, ..orbs }),
         ]);
         player.unsafe_paths = true;
         assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Sword)), orbs),
-            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -1.0, ..orbs }),
-            (Inventory::from(vec![Item::Skill(Skill::Grenade), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -0.75, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Bow), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.75 * 0.5, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -1.0, ..orbs }),
+            (Inventory::from(vec![Item::Skill(Skill::Grenade), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Shuriken)), Orbs { energy: -1.0, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Shuriken), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Blaze)), Orbs { energy: -1.0, ..orbs }),
@@ -767,10 +767,8 @@ mod tests {
         ]);
         player.inventory.grant(Item::Skill(Skill::Bow), 1);
         assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Sword)), orbs),
-            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -1.0, ..orbs }),
-            (Inventory::from(vec![Item::Skill(Skill::Grenade), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.5, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -0.75, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Bow), Item::Shard(Shard::Overcharge)]), Orbs { energy: -0.75 * 0.5, ..orbs }),
         ]);
@@ -779,12 +777,12 @@ mod tests {
         player = Player::default();
 
         assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Sword)), orbs),
+            (Inventory::from(Item::Skill(Skill::Hammer)), orbs),
             (Inventory::from(Item::Skill(Skill::Bow)), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Shuriken)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Blaze)), Orbs { energy: -2.0, ..orbs }),
-            (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Flash)), Orbs { energy: -4.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Spear)), Orbs { energy: -4.0, ..orbs }),
         ]);

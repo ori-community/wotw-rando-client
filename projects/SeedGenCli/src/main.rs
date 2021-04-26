@@ -300,7 +300,6 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
 
     let seed = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
     log::info!("Generated seed in {:?}", now.elapsed());
-    // TODO spoilers
 
     util::create_new_file(&filename, &seed, "seeds").map_err(|err| format!("Failed to write seed file: {}", err))
 }

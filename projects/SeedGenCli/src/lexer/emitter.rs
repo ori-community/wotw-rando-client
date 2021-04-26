@@ -115,7 +115,6 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
     let mut node_map = FxHashMap::<&str, usize>::default();
     node_map.reserve(node_count);
 
-    // TODO why is everything cloned here?
     for location in locations {
         let name = &location.name[..];
         if metadata.quests.contains(name) {
