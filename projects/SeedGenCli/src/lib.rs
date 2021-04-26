@@ -68,23 +68,21 @@ where
 }
 
 fn write_flags(settings: &Settings) -> String {
-    let mut flags = String::from("Flags: ");
-    // let empty_len = flags.len();
-    if settings.flags.force_wisps { flags += "ForceWisps, "; }
-    if settings.flags.force_trees { flags += "ForceTrees, "; }
-    if settings.flags.force_quests { flags += "ForceQuests, "; }
-    if settings.flags.world_tour { flags += "WorldTour, "; }
-    if matches!(settings.spawn_loc, Spawn::Random) { flags += "RandomSpawn, "; }
+    let mut flags = vec![];
+    if settings.flags.force_wisps { flags.push("ForceWisps"); }
+    if settings.flags.force_trees { flags.push("ForceTrees"); }
+    if settings.flags.force_quests { flags.push("ForceQuests"); }
+    if settings.flags.world_tour { flags.push("WorldTour"); }
+    if matches!(settings.spawn_loc, Spawn::Random) { flags.push("RandomSpawn"); }
     // TODO fully random?
     // TODO this isn't needed post the rando versioning changes
-    flags += "NoFreeSword, ";
-    // if flags.len() == empty_len { return String::new(); }
-    for _ in 0..2 { flags.pop(); }  // remove the last comma
+    flags.push("NoFreeSword");
 
-    log::trace!("Derived Flags from Settings: {}", &flags[7..]);
+    let flags = flags.join(", ");
 
-    flags.push('\n');
-    flags
+    log::trace!("Derived Flags from Settings: {}", flags);
+
+    format!("Flags: {}\n", flags)
 }
 
 #[derive(Debug, Default)]
@@ -141,7 +139,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let (header, dependencies) = headers::parse_header(header, world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+        let (header, dependencies) = headers::parser::parse_header(header, world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
         header_block += &header;
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
@@ -151,7 +149,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
         log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", path))?.to_string_lossy());
 
         let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
-        let (header, dependencies) = headers::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+        let (header, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
 
         header_block += &header;
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
@@ -164,7 +162,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
             log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", dependency))?.to_string_lossy());
 
             let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {:?}: {}", dependency, err))?;
-            let (header, dependencies) = &headers::parse_header(&header, world, &settings.pathsets)?;
+            let (header, dependencies) = &headers::parser::parse_header(&header, world, &settings.pathsets)?;
 
             header_block += &header;
             nested_dependencies = nested_dependencies.union(&dependencies).cloned().collect();
@@ -221,7 +219,9 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         match generator::generate_placements(world.clone(), &spawn_loc.identifier, &spawn_node, settings, &mut rng) {
             Ok(seed) => {
                 placements = seed;
-                log::info!("Generated seed after {} {}", index + 1, if index == 0 { "try" } else if index < RETRIES / 2 { "tries" } else { "tries (phew)" });
+                if index > 1 {
+                    log::info!("Generated seed after {} {}", index + 1, if index < RETRIES / 2 { "tries" } else { "tries (phew)" });
+                }
                 break;
             },
             Err(err) => {

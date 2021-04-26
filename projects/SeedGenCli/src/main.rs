@@ -374,9 +374,8 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
 
     let reached = world.graph.reached_locations(&world.player, &spawn, &world.uber_states).expect("Invalid Reach Check");
     let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).collect();
-    let mut reached = reached.iter().fold(String::new(), |acc, uber_state| acc + &format!("{}, ", uber_state));
-    for _ in 0..2 { reached.pop(); }  // remove the last comma
-    Ok(reached)
+    let reached = reached.iter().map(|uber_state| format!("{}", uber_state)).collect::<Vec<_>>();
+    Ok(reached.join(", "))
 }
 
 fn main() {

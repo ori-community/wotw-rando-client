@@ -127,7 +127,6 @@ impl Requirement {
                     let ranged_weapon = player.preferred_ranged_weapon();
                     let shield_weapon = player.preferred_shield_weapon();
 
-                    // TODO how much would it save to do all the has calls ahead of time?
                     for (enemy, amount) in enemies {
                         if let Enemy::EnergyRefill = enemy {
                             if energy < 0.0 { return None; }

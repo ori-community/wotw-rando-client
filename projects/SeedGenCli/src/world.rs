@@ -24,7 +24,7 @@ impl<'a> World<'a> {
         World {
             graph,
             player: Player::default(),
-            pool: Pool::default(),
+            pool: Pool::new(),
             preplacements: FxHashMap::default(),
             uber_states: FxHashMap::default(),
         }
@@ -95,16 +95,17 @@ impl<'a> World<'a> {
                 log::trace!("Granting player UberState {}", uber_state);
                 self.collect_preplacements(&uber_state);
             },
-            Item::Custom(_) => {},
             Item::SpiritLight(stacked_amount) => {
                 log::trace!("Granting player {} Spirit Light", stacked_amount);
 
                 self.player.inventory.grant(Item::SpiritLight(1), amount * stacked_amount);
             }
             item => {
-                log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
-
-                self.player.inventory.grant(item.clone(), amount);
+                if item.is_progression(&self.player.pathsets) {
+                    log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
+    
+                    self.player.inventory.grant(item.clone(), amount);
+                }
             },
         }
         self.pool.remove(&item, amount);

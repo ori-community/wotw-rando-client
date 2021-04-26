@@ -1,4 +1,5 @@
 use super::uberstate::UberIdentifier;
+use ansi_term::Colour;
 
 pub const DEFAULT_SPAWN: &str = "MarshSpawn.Main";
 pub const MOKI_SPAWNS: &[&str] = &[
@@ -55,7 +56,11 @@ pub const KEYSTONE_DOORS: &[(&str, u16)] = &[
 pub const RESERVE_SLOTS: usize = 2;  // how many slots to reserve after ranodm placements for the next iteration
 pub const RETRIES: u16 = 5;  // How many retries to allow when generating a seed
 pub const RANDOM_PROGRESSION: f64 = 0.1;  // How likely to choose a progression item as random placement
+
 pub const HEADER_INDENT: usize = 24;  // Which column to align header descriptions on
+pub const NAME_COLOUR: Colour = Colour::Yellow;
+pub const UBERSTATE_COLOUR: Colour = Colour::Cyan;
+
 pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
     (
         "TwillenShop.Overcharge",

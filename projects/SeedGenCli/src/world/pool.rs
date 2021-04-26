@@ -1,19 +1,29 @@
 use rustc_hash::FxHashMap;
 
-use rand::{Rng, seq::IteratorRandom};
+use rand::{Rng, distributions::Bernoulli, prelude::Distribution, seq::IteratorRandom};
 
 use crate::inventory::{Inventory, Item};
 use crate::generator::PartialItem;
 use crate::util::{Resource, Skill, Shard, Pathset, constants::RANDOM_PROGRESSION};
 
 // TODO check performance of vec against hashmap - vec could rely on indices to store weights as an alternative to rerolls
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Clone)]
 pub struct Pool {
     pub progressions: Inventory,
     pub fillers: Inventory,
     pub spirit_light: u16,
+    random_progression: Bernoulli,
 }
 impl Pool {
+    pub fn new() -> Pool {
+        Pool {
+            progressions: Inventory::default(),
+            fillers: Inventory::default(),
+            spirit_light: 0,
+            random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
+        }
+    }
+
     pub fn preset(pathsets: &[Pathset]) -> Pool {
         let mut progressions = FxHashMap::default();
         progressions.reserve(48);
@@ -103,11 +113,11 @@ impl Pool {
             progressions,
             fillers,
             spirit_light: 20000,
+            random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
         }
     }
 
     pub fn grant(&mut self, item: Item, amount: u16, pathsets: &[Pathset]) {
-        // TODO how do you place arbitrary items as progression? :/
         if let Item::SpiritLight(amount) = item {
             self.spirit_light += amount;
         } else if item.is_progression(pathsets) {
@@ -147,7 +157,7 @@ impl Pool {
     where
         R: Rng
     {
-        if rng.gen_bool(RANDOM_PROGRESSION) {
+        if self.random_progression.sample(rng) {
             // TODO weights or rerolls
             if let Some(item) = self.progressions.inventory.keys().choose(rng) {
                 return PartialItem::Item(item.clone());

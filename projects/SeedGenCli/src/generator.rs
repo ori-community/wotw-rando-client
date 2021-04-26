@@ -41,12 +41,7 @@ fn format_identifiers(mut identifiers: Vec<&str>) -> String {
         identifiers.truncate(20);
     }
 
-    let mut identifiers = identifiers.iter()
-        .fold(String::new(), |acc, next| {
-            acc + next + ", "
-        });
-
-    for _ in 0..2 { identifiers.pop(); }
+    let mut identifiers = identifiers.join(", ");
 
     if length > 20 {
         identifiers.push_str(&format!("... ({} total)", length));
@@ -488,7 +483,7 @@ where
 
                 let lookahead_player = Player {
                     inventory: context.world.player.inventory.merge(inventory),
-                    ..context.world.player
+                    ..context.world.player.clone()
                 };
                 let lookahead_reachable = context.world.graph.reached_locations(&lookahead_player, spawn, &context.world.uber_states)?;
 

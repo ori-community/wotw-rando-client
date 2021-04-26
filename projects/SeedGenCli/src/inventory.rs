@@ -8,34 +8,46 @@ use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, H
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Item {
     SpiritLight(u16),
+    RemoveSpiritLight(u16),
     Resource(Resource),
     Skill(Skill),
+    RemoveSkill(Skill),
     Shard(Shard),
+    RemoveShard(Shard),
     Teleporter(Teleporter),
+    RemoveTeleporter(Teleporter),
     Water,
+    RemoveWater,
     BonusItem(BonusItem),
     BonusUpgrade(BonusUpgrade),
     Hint(Hint),
+    CheckableHint(u16, u16, Vec<Item>),
     UberState(String),
     Command(Command),
-    Custom(String),
+    Message(String),
 }
 impl fmt::Display for Item {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Item::SpiritLight(1) => write!(f, "Spirit Light"),
             Item::SpiritLight(amount) => write!(f, "{} Spirit Light", amount),
+            Item::RemoveSpiritLight(amount) => write!(f, "Remove {} Spirit Light", amount),
             Item::Resource(resource) => write!(f, "{:?}", resource),
             Item::Skill(skill) => write!(f, "{:?}", skill),
+            Item::RemoveSkill(skill) => write!(f, "Remove {:?}", skill),
             Item::Shard(shard) => write!(f, "{:?}", shard),
+            Item::RemoveShard(shard) => write!(f, "Remove {:?}", shard),
             Item::Teleporter(teleporter) => write!(f, "{:?}TP", teleporter),
+            Item::RemoveTeleporter(teleporter) => write!(f, "Remove {:?}TP", teleporter),
             Item::Water => write!(f, "Water"),
+            Item::RemoveWater => write!(f, "Remove Water"),
             Item::BonusItem(bonus_item) => write!(f, "{:?}", bonus_item),
             Item::BonusUpgrade(bonus_upgrade) => write!(f, "{:?}", bonus_upgrade),
             Item::Hint(hint) => write!(f, "{:?} Hint", hint),
+            Item::CheckableHint(_, _, hint) => write!(f, "Checkable Hint for {:?}", hint),
             Item::UberState(command) => write!(f, "8|{}", command),
             Item::Command(command) => write!(f, "4|{}", command),
-            Item::Custom(string) => write!(f, "{}", string),
+            Item::Message(string) => write!(f, "{}", string),
         }
     }
 }
@@ -102,17 +114,26 @@ impl Item {
                 Shard::Arcing => false,
             },
             Item::SpiritLight(_) | Item::Teleporter(_) | Item::Water | Item::UberState(_) => true,
-            Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Hint(_) | Item::Command(_) | Item::Custom(_) => false,
+            Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Hint(_) | Item::CheckableHint(_, _, _) | Item::Command(_) | Item::Message(_) |
+            Item::RemoveSpiritLight(_) | Item::RemoveSkill(_) | Item::RemoveShard(_) | Item::RemoveTeleporter(_) | Item::RemoveWater => false,
         }
     }
 
     pub fn is_single_instance(&self) -> bool {
-        !matches!(
-            self, Item::SpiritLight(_) |
+        !matches!(self,
+            Item::SpiritLight(_) |
             Item::Resource(_) |
             Item::BonusItem(_) |
             Item::BonusUpgrade(_) |
             Item::Skill(Skill::AncestralLight)
+        )
+    }
+    pub fn is_checkable(&self) -> bool {
+        matches!(self,
+            Item::Skill(_) |
+            Item::Shard(_) |
+            Item::Teleporter(_) |
+            Item::Water
         )
     }
 
@@ -181,17 +202,26 @@ impl Item {
     pub fn code(&self) -> String {
         match self {
             Item::SpiritLight(amount) => format!("0|{}", amount),
+            Item::RemoveSpiritLight(amount) => format!("0|-{}", amount),
             Item::Resource(resource) => format!("1|{}", resource.to_id()),
             Item::Skill(skill) => format!("2|{}", skill.to_id()),
+            Item::RemoveSkill(skill) => format!("2|-{}", skill.to_id()),
             Item::Shard(shard) => format!("3|{}", shard.to_id()),
+            Item::RemoveShard(shard) => format!("3|-{}", shard.to_id()),
             Item::Teleporter(teleporter) => format!("5|{}", teleporter.to_id()),
+            Item::RemoveTeleporter(teleporter) => format!("5|-{}", teleporter.to_id()),
             Item::Water => String::from("9|0"),
+            Item::RemoveWater => String::from("9|-0"),
             Item::BonusItem(bonus) => format!("10|{}", bonus.to_id()),
             Item::BonusUpgrade(bonus) => format!("11|{}", bonus.to_id()),
             Item::Hint(hint) => format!("12|{}", hint.to_id()),
+            Item::CheckableHint(base_price, price_modifier, hint) => {
+                let hint = hint.iter().map(|item| str::replace(&item.code(), '-', "|")).collect::<Vec<_>>();
+                format!("13|{}|{}|{}", base_price, price_modifier, hint.join(","))
+            },
             Item::UberState(command) => format!("8|{}", command),
             Item::Command(command) => format!("4|{}", command),
-            Item::Custom(string) => string.clone(),
+            Item::Message(string) => string.clone(),
         }
     }
 }
@@ -278,15 +308,14 @@ impl Inventory {
 
 impl fmt::Display for Inventory {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let mut display = self.inventory.iter().fold(String::new(), |acc, (item, amount)| {
+        let display = self.inventory.iter().map(|(item, amount)| {
             if amount == &1 {
-                format!("{}{}, ", acc, item)
+                format!("{}, ", item)
             } else {
-                format!("{}{} {}, ", acc, amount, item)
+                format!("{} {}, ", amount, item)
             }
-        });
-        for _ in 0..2 { display.pop(); }
-        write!(f, "{}", display)
+        }).collect::<Vec<_>>();
+        write!(f, "{}", display.join(", "))
     }
 }
 
@@ -340,6 +369,6 @@ mod tests {
         assert_eq!(Item::BonusItem(BonusItem::Relic).code(), "10|20");
         assert_eq!(Item::BonusUpgrade(BonusUpgrade::ShurikenEfficiency).code(), "11|4");
         assert_eq!(Item::Hint(Hint::Void).code(), "12|12");
-        assert_eq!(Item::Custom(String::from("8|0|9|7")).code(), "8|0|9|7");
+        assert_eq!(Item::Message(String::from("8|0|9|7")).code(), "8|0|9|7");
     }
 }

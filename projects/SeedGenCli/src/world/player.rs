@@ -8,6 +8,7 @@ pub struct Player {
     pub inventory: Inventory,
     pub gorlek_paths: bool,
     pub unsafe_paths: bool,
+    pub pathsets: Vec<Pathset>,
 }
 impl Player {
     pub fn spawn(&mut self, settings: &Settings) {
@@ -17,8 +18,9 @@ impl Player {
     }
 
     pub fn apply_pathsets(&mut self, settings: &Settings) {
-        if settings.pathsets.contains(&Pathset::Gorlek) { self.gorlek_paths = true; }
-        if settings.pathsets.contains(&Pathset::Unsafe) { self.unsafe_paths = true; }
+        self.pathsets = settings.pathsets.clone();
+        if self.pathsets.contains(&Pathset::Gorlek) { self.gorlek_paths = true; }
+        if self.pathsets.contains(&Pathset::Unsafe) { self.unsafe_paths = true; }
     }
 
     pub fn max_energy(&self) -> f32 {
