@@ -7,7 +7,7 @@ use crate::world::World;
 use crate::inventory::Item;
 use crate::util::{
     self,
-    Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command,
+    Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand,
     uberstate::{UberState, UberIdentifier}
 };
 
@@ -140,14 +140,18 @@ where P: Iterator<Item=&'a str>
 fn parse_toggle<'a, P>(mut parts: P, shop: bool) -> Result<(Item, u16), String>
 where P: Iterator<Item=&'a str>
 {
-    let identifier = parts.next().ok_or_else(|| String::from("missing command toggle identifier"))?;
-    let identifier: u8 = identifier.parse().map_err(|_| String::from("invalid command toggle identifier"))?;
-    if identifier > 2 { return Err(String::from("invalid command toggle identifier")); };
-    let value = parts.next().ok_or_else(|| String::from("missing command toggle value"))?;
-    let value: u8 = value.parse().map_err(|_| String::from("invalid command toggle value"))?;
+    let toggle_type = parts.next().ok_or_else(|| String::from("missing toggle command type"))?;
+    let toggle_type: u8 = toggle_type.parse().map_err(|_| String::from("invalid toggle command type"))?;
+    let toggle_type = ToggleCommand::from_id(toggle_type).ok_or_else(|| String::from("invalid toggle command type"))?;
+    let on = parts.next().ok_or_else(|| String::from("missing toggle command value"))?;
+    let on = match on {
+        "0" => false,
+        "1" => true,
+        _ => return Err(String::from("invalid toggle command value")),
+    };
     end_of_pickup(parts, shop)?;
 
-    Ok((Item::Command(Command::Toggle { identifier, value }), 1))
+    Ok((Item::Command(Command::Toggle { target: toggle_type, on }), 1))
 }
 fn parse_warp<'a, P>(mut parts: P, shop: bool) -> Result<(Item, u16), String>
 where P: Iterator<Item=&'a str>

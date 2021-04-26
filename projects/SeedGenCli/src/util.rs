@@ -472,7 +472,38 @@ impl Hint {
     }
 }
 
-// TODO enum toggle
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+pub enum ToggleCommand {
+    KwolokDoor,
+    Rain,
+    Howl,
+}
+impl fmt::Display for ToggleCommand {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            ToggleCommand::KwolokDoor => write!(f, "0"),
+            ToggleCommand::Rain => write!(f, "1"),
+            ToggleCommand::Howl => write!(f, "2"),
+        }
+    }
+}
+impl ToggleCommand {
+    pub fn from_id(id: u8) -> Option<ToggleCommand> {
+        match id {
+            0 => Some(ToggleCommand::KwolokDoor),
+            1 => Some(ToggleCommand::Rain),
+            2 => Some(ToggleCommand::Howl),
+            _ => None,
+        }
+    }
+    pub fn to_id(self) -> u16 {
+        match self {
+            ToggleCommand::KwolokDoor => 0,
+            ToggleCommand::Rain => 1,
+            ToggleCommand::Howl => 2,
+        }
+    }
+}
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub enum Command {
     Autosave,
@@ -482,7 +513,7 @@ pub enum Command {
     StopEqual { uber_state: UberState },
     StopGreater { uber_state: UberState },
     StopLess { uber_state: UberState },
-    Toggle { identifier: u8, value: u8 },
+    Toggle { target: ToggleCommand, on: bool },
     Warp { x: i16, y: i16 },
     StartTimer { identifier: UberIdentifier },
     StopTimer { identifier: UberIdentifier },
@@ -502,7 +533,7 @@ impl fmt::Display for Command {
             Command::StopEqual { uber_state } => write!(f, "4|{}|{}", uber_state.identifier, uber_state.value),
             Command::StopGreater { uber_state } => write!(f, "5|{}|{}", uber_state.identifier, uber_state.value),
             Command::StopLess { uber_state } => write!(f, "6|{}|{}", uber_state.identifier, uber_state.value),
-            Command::Toggle { identifier, value } => write!(f, "7|{}|{}", identifier, value),
+            Command::Toggle { target, on } => write!(f, "7|{}|{}", target, u8::from(*on)),
             Command::Warp { x, y } => write!(f, "8|{}|{}", x, y),
             Command::StartTimer { identifier } => write!(f, "9|{}", identifier),
             Command::StopTimer { identifier } => write!(f, "10|{}", identifier),
