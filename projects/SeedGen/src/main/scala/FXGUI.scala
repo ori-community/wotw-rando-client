@@ -189,7 +189,7 @@ package SeedGenerator {
     val worldTourButton:        ToggleButton = settingsToggle("World Tour",         "Adds requirement: Collect a Relic from every zone with one", settings.mapBoolProp(_.flags.worldTour, (s, b) => s.copy(flags = s.flags.copy(worldTour = b))))
     val forceQuestsButton:      ToggleButton = settingsToggle("Force Quests",       "Adds requirement: Complete every Quest", settings.mapBoolProp(_.flags.forceQuests, (s, b) => s.copy(flags = s.flags.copy(forceQuests = b))))
     val forceTreesButton:       ToggleButton = settingsToggle("Force Trees",        "Adds requirement: Collect all Ancestral Trees", settings.mapBoolProp(_.flags.forceTrees, (s, b) => s.copy(flags = s.flags.copy(forceTrees = b))))
-    val zoneHintsButton:        ToggleButton = settingsToggle("Zone Hints",         "Lupo sells the hints", settings.mapBoolProp(!_.flags.noHints, (s, b) => s.copy(flags = s.flags.copy(noHints = !b))))
+    val zoneHintsButton:        ToggleButton = settingsToggle("Hints",              "Hints can be bought from Lupo in each area, as well as from shop vendors", settings.mapBoolProp(!_.flags.noHints, (s, b) => s.copy(flags = s.flags.copy(noHints = !b))))
     val swordSpawnButton:       ToggleButton = settingsToggle("Spawn with Sword",   "Start the game with Spirit Edge in your inventory and equipped", settings.mapBoolProp(!_.flags.noSword, (s, b) => s.copy(flags = s.flags.copy(noSword = !b))))
     val webConnButton:          ToggleButton = settingsToggle("Enable Netcode",     "Connect to the webserver (for bingo or co-op)", settings.mapBoolProp(_.webConn, (s, b) => s.copy(webConn = b)))
     val seedNameInput:          TextField    = new TextField { text <==> seedName; prefColumnCount = 10 }
@@ -439,8 +439,9 @@ package SeedGenerator {
         "48248|4045|12|11  // Willow Zone Hint from LupoMap.Willow",
         "48248|19396|12|2  // Glades Zone Hint from LupoMap.HCMapIcons",
         "48248|57987|12|7  // Woods Zone Hint from LupoShop.ECMapIcons",
-        "48248|41666|13|4000,750,2-101,2-104,2-51,2-118 // key skill hint from LupoHint.Shards",
-        "1|23|13|2500,500,2-0,2-14,2-97,9-0             // key skill hint from OpherShop.WaterBreath",
+        "48248|41666|13|4000,750,2-101,2-104,2-51,2-62   // key skill hint from LupoHint.Shards",
+        "1|23|13|2500,500,9-0,2-118,2-14                 // key skill hint from OpherShop.WaterBreath",
+        "2|2|13|1500,500,2-97,2-0                        // key skill hint from TwillenShop.TripleJump",
       ) else Nil)
     }
     object FXLogger extends Logger {
