@@ -891,7 +891,7 @@ namespace RandoMainDLL {
       HintsController.ZoneHints[zone] = hint;
       hintType = hint;
     }
-    public override string Desc => $"{hintType} hint for #{Zone.GetDescription()}#";
+    public override string Desc => $"{hintType.GetDescription()} hint for #{Zone.GetDescription()}#";
     public override void Grant(bool skipBase = false) {
       int id = 10000 + (int)Zone;
       byte setTo = Math.Max(UberGet.Byte(6, id), (byte)hintType);
