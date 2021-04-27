@@ -427,7 +427,7 @@ package SeedGenerator {
     }
     object FXSettingsProvider extends SettingsProvider {
       def get: Settings = settings.getValue
-      override def headers: Seq[String] = FXGUI.Headers.active ++ FXGUI.customHeader().filterNot(_ == "// Replace this text with a seed header, if desired") ++ (if(!settings().flags.noHints)  Seq(
+      override def headers: Seq[String] = FXGUI.Headers.active ++ FXGUI.customHeader().filterNot(_ == "// Replace this text with a seed header, if desired") ++ (if(!settings().flags.noHints && !settings().headerList.exists(_.contains("hints"))) Seq(
         "48248|18767|12|0  // Marsh Zone Hint from LupoMap.Marsh",
         "48248|45538|12|5  // Burrows Zone Hint from LupoMap.Burrows",
         "48248|3638|12|1   // Hollow Zone Hint from LupoMap.Hollow",
