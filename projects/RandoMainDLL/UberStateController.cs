@@ -232,7 +232,7 @@ namespace RandoMainDLL {
         var zone = ZoneType.Void;
         if (InterOp.get_game_state() == GameState.Game)
           zone = InterOp.get_player_area().toZone();
-        if ((value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10))
+        if (!NeedsNewGameInit && (value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10))
           Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {oldValFmt}->{state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
           //Randomizer.Debug($"{state.GroupName}.{state.Name}, {state.GroupID}, {state.ID}, {state.Type}, {oldValFmt}, {state.FmtVal()}, {zone}, {Math.Round(pos.X)},{Math.Round(pos.Y)}");
       }
@@ -311,7 +311,7 @@ namespace RandoMainDLL {
     public static void NewGameInit() {
       if (!InterOp.is_loading_game()) {
         InterOp.clear_quest_messages();
-        Randomizer.Log("New Game Init", false);
+        Randomizer.Log($"New Game Init - {SeedController.SeedName}", false);
         ShopController.SetCostsAfterInit();
 
         foreach (UberState s in DefaultUberStates) { s.Write(); }
