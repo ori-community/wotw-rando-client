@@ -12,8 +12,7 @@ namespace RandoMainDLL {
     [JsonIgnore]
     public Boolean RaceMode { get => !Spoilers; }
     [JsonProperty("version")]
-    [DefaultValue("0.0.0")]
-    private string version { get; set; }
+    private string version { get; set; } = "0.0.0";
     [JsonIgnore]
     public Version Version {
       get {
