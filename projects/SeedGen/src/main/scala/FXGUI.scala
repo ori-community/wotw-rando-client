@@ -390,9 +390,10 @@ package SeedGenerator {
               onAction = _ => {
                 val prior = settings()
                 settings.value = prior.copy(headerList =
-                  (prior.headerList.contains(h.name) ? prior.headerList.filter(_ != h.name) ?? prior.headerList :+ h.name)
+                  (prior.headerList.contains(h.name) ? prior.headerList.filter(_ != h.name) ?? (prior.headerList :+ h.name))
                     .filter(Headers.byName.contains)
                 )
+                Logger.debug(s"Headers were ${prior.headerList}, ${h.name} are now: ${settings.value.headerList}")
                 settingsFile.write(Settings.toJson)
               }
               border <== when (selected) choose
@@ -440,8 +441,23 @@ package SeedGenerator {
         "48248|19396|12|2  // Glades Zone Hint from LupoMap.HCMapIcons",
         "48248|57987|12|7  // Woods Zone Hint from LupoShop.ECMapIcons",
         "48248|41666|13|4000,750,2-101,2-104,2-51,2-62   // key skill hint from LupoHint.Shards",
+        "3|0|8|48248|41667|int|4000                      // price initialization for ^",
+        "6|1101|8|48248|41667|int|-750                   // price reduction: Burrow -750",
+        "6|1104|8|48248|41667|int|-750                   // price reduction: Water Dash -750",
+        "6|1051|8|48248|41667|int|-750                   // price reduction: Light Burst -750",
+        "6|1062|8|48248|41667|int|-750                   // price reduction: Flash -750",
+        "48248|41667=1000|8|48248|41667|int|0            // set price to zero if nothing left to hint",
         "1|23|13|2500,500,9-0,2-118,2-14                 // key skill hint from OpherShop.WaterBreath",
+        "3|0|8|1|10023|int|2500                          // price initialization for ^",
+        "6|2000|8|1|10023|int|-500                       // price reduction: Clean Water -500",
+        "6|1118|8|1|10023|int|-500                       // price reduction: Flap -500",
+        "6|1014|8|1|10023|int|-500                       // price reduction: Glide -500",
+        "1|10023=1000|8|1|10023|int|0                    // set price to zero if nothing left to hint",
         "2|2|13|1500,500,2-97,2-0                        // key skill hint from TwillenShop.TripleJump",
+        "3|0|8|2|113|int|2500                            // price initialization for ^",
+        "6|1000|8|2|113|int|-500                         // price reduction: Bash -500",
+        "6|1097|8|2|113|int|-500                         // price reduction: Bow -500",
+        "2|113=500|8|2|113|int|0                         // set price to zero if nothing left to hint",
       ) else Nil)
     }
     object FXLogger extends Logger {
