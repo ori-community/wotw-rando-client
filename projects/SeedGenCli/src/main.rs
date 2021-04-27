@@ -84,7 +84,7 @@ enum Command {
         #[structopt(short = "f", long = "flags")]
         generation_flags: Vec<String>,
         /// paths to headers stored in files which will be added to the seed
-        #[structopt(parse(from_os_str), short, long = "headers")]
+        #[structopt(parse(from_os_str), short, long = "headers", default_value = "default")]
         header_paths: Vec<PathBuf>,
         /// inline headers
         headers: Vec<String>

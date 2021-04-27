@@ -149,7 +149,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
         if let Some(named_state) = state_map.iter().find(|named_state| &named_state.name == state) {
             uber_state = Some(named_state.uber_state.clone());
         } else if validate {
-            log::trace!("Couldn't find an entry for {} in the state table, skipping...", state);
+            log::trace!("Couldn't find an entry for {} in the state table", state);
         }
 
         graph.push(Node::State(graph::State {

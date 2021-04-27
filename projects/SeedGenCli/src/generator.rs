@@ -349,6 +349,7 @@ where
         }
     }
 
+    log::trace!("Creating a player with everything to determine reachable locations");
     let mut finished_world = context.world.clone();
     for (item, amount) in context.world.pool.progressions.inventory.iter() {
         finished_world.grant_player(item.clone(), *amount)?;
