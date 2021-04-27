@@ -21,6 +21,9 @@ if "%1"=="compileonly" (
 	timeout /t 3
 	exit 0
 )
+
+copy "VERSION" "C:\moon\VERSION" /Y
+
 if NOT "%1"=="buildonly" (
 	cd "projects\SeedGen"
 	call sbt assembly --java-home=%JavaHome%
@@ -40,7 +43,6 @@ if NOT "%1"=="nobuild" (
 
 copy "projects\SeedGen\loc_data.csv" "C:\moon\loc_data.csv" /Y
 copy "projects\SeedGen\areas.wotw" "C:\moon\areas.wotw" /Y
-copy "VERSION" "C:\moon\VERSION" /Y
 
 if NOT "%1"=="buildonly" (
 	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
