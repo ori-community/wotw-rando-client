@@ -17,8 +17,6 @@ namespace RandoMainDLL {
     public static bool Have(this AbilityType at) => UberGet.Bool(at.State());
     public static UberId TreeState(this AbilityType at) => new UberId(0, (int)at);
     public static bool HaveTree(this AbilityType at) => UberGet.Bool(at.TreeState());
-    public static UberId BoughtState(this AbilityType at) => new UberId(1, (int)at);
-    public static bool Bought(this AbilityType at) => UberGet.Bool(at.BoughtState());
     public static UberId UpgradedState(this AbilityType at) => new UberId(1, 1000 + (int)at);
     public static bool Upgraded(this AbilityType at) => UberGet.Bool(at.UpgradedState());
 

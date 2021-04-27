@@ -128,8 +128,6 @@ namespace RandoMainDLL {
     public override string ToString() => Name;
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
-    public virtual float ModEffectiveness() => 1.0f;
-    public virtual int CostWithMod(float mod) => Convert.ToInt32(DefaultCost() * (1f + mod * ModEffectiveness()));
 
     public virtual void Grant(bool skipBase = false) {
       if (skipBase)
@@ -278,6 +276,8 @@ namespace RandoMainDLL {
     }
 
     public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName; }
+
+    public override int DefaultCost() => Children.Sum(p => p.DefaultCost());
     public override string DisplayName { get => _lastDispName; }
 
     public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
@@ -399,7 +399,6 @@ namespace RandoMainDLL {
     public readonly AbilityType type;
     public override bool Has() => SaveController.HasAbility(type);
     public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
-    public override float ModEffectiveness() => (type == AbilityType.Blaze) ? 0f : 1f;
 
     public override void Grant(bool skipBase = false) {
       SaveController.SetAbility(type);
@@ -825,7 +824,7 @@ namespace RandoMainDLL {
     public readonly string Desc;
     public readonly AbilityType Weapon;
     public readonly WeaponUpgradeType Id;
-    public override int CostWithMod(float mod) {
+    public override int DefaultCost() {
       switch(Id) {
         case WeaponUpgradeType.RapidSmash:
         case WeaponUpgradeType.SentryEfficiency:
@@ -954,7 +953,6 @@ namespace RandoMainDLL {
         return $"Will tell you what Zone {string.Join(", ", firstN.Select((t) => t.DisplayName))} and {targets.Last().DisplayName} are in";
       } }
     public string Hint => string.Join(", ", targets.Select((c) => c.HintFrag()));
-    public override float ModEffectiveness() => 0.0f;
     public override int DefaultCost() => baseCost - costModifier * (targets.Count((t) => t.Has()));
     public override void Grant(bool skipBase = false) {
       HintsController.OnGrantCheckable(this);
