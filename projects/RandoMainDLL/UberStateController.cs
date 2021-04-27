@@ -312,6 +312,7 @@ namespace RandoMainDLL {
       if (!InterOp.is_loading_game()) {
         InterOp.clear_quest_messages();
         Randomizer.Log("New Game Init", false);
+        ShopController.SetCostsAfterInit();
 
         foreach (UberState s in DefaultUberStates) { s.Write(); }
         foreach (UberState s in Kuberstates) { s.Write(); }

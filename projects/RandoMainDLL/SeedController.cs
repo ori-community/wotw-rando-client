@@ -136,14 +136,16 @@ namespace RandoMainDLL {
             var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
             var pickupType = (PickupType)frags[2].ParseToByte();
 
+            // legacy shop cost support
             if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
-              ShopController.SetCostMod((AbilityType)cond.Id.ID, oMulti);
+              ((AbilityType)cond.Id.ID).Slot().CostMultiplier = oMulti + 1; 
               frags.RemoveAt(frags.Count - 1);
             }
             if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
-              ShopController.SetCostMod((ShardType)cond.Id.ID, tMulti);
+              ((ShardType)cond.Id.ID).Slot().CostMultiplier = tMulti + 1;
               frags.RemoveAt(frags.Count - 1);
             }
+
             var extras = frags.Skip(4).ToList();
             bool needsMute = false;
             if(pickupType != PickupType.Message && extras.Contains("mute")) {
@@ -162,6 +164,7 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
+        Total = pickupMap.Count(p => p.Key.Loc() != LocData.Void);
         if (coordsRaw != "") {
           var coords = coordsRaw.Split(',').ToList();
           var x = coords[0].ParseToFloat("SpawnX");
@@ -199,23 +202,6 @@ namespace RandoMainDLL {
         else
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
-    }
-
-    public static Pickup OpherWeapon(AbilityType ability) {
-      var fakeId = new UberId((int)FakeUberGroups.OPHER_WEAPON, (int)ability);
-      if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
-        return p;
-      }
-      return Multi.Empty;
-    }
-
-
-    public static Pickup TwillenShard(ShardType shard) {
-      var fakeId = new UberId((int)FakeUberGroups.TWILLEN_SHARD, (int)shard);
-      if (pickupMap.TryGetValue(fakeId.toCond(), out Pickup p)) {
-        return p;
-      }
-      return Multi.Empty;
     }
 
     public static bool OnUberState(UberState state) {
@@ -518,9 +504,9 @@ namespace RandoMainDLL {
     public static bool RainOverride = false;
     public static bool HowlOverride = false;
     public static int Current { get => SaveController.FoundCount; }
-    public static int Total { get => pickupMap.Count; }
+    public static int Total = 0;
     public static string Progress {
-      get => "Pickups: " + (Current == Total ? $"{Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages(progress: true);
+      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages(progress: true);
     }
     public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false) {
       if (InterOp.get_game_state() != GameState.Game)

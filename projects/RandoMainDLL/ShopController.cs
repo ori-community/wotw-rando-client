@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -7,10 +8,16 @@ namespace RandoMainDLL {
   public abstract class ShopSlot {
     public abstract UberId State { get; }
     public abstract UberId CostState { get; }
+    public abstract String Name { get;  }
+
+    public float CostMultiplier = 1.0f; // legacy support
     public int Cost {
-      get => UberGet.Int(CostState);  // TODO; overriding
+      get => UberGet.Int(CostState);
       set => UberSet.Int(CostState, value);
     }
+
+    public bool Bought { get => UberGet.Bool(State); }
+     
     public Pickup Contents => State.toCond().Pickup();
 
 
@@ -35,53 +42,56 @@ namespace RandoMainDLL {
 
     public static List<TwillenSlot> Twillen = new List<TwillenSlot> { Overcharge, Energy, Vitality, Wingclip, TripleJump, Finesse, Swap, LightHarvest };
 
-    public static LupoStoreSlot HealthIcons = new LupoStoreSlot(19396);
-    public static LupoStoreSlot EnergyIcons = new LupoStoreSlot(57987);
-    public static LupoStoreSlot ShardIcons = new LupoStoreSlot(41666);
+    public static LupoStoreSlot HealthIcons = new LupoStoreSlot(19396, "Health Icons");
+    public static LupoStoreSlot EnergyIcons = new LupoStoreSlot(57987, "Energy Icons");
+    public static LupoStoreSlot ShardIcons = new LupoStoreSlot(41666, "Shard Icons");
 
     public static List<LupoStoreSlot> LupoStore = new List<LupoStoreSlot> { HealthIcons, EnergyIcons, ShardIcons };
+    public static List<ShopSlot> All = new List<List<ShopSlot>>() { Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
   }
   public class OpherSlot : ShopSlot {
     public readonly AbilityType Weapon;
     public readonly bool IsUpgrade;
     public override UberId CostState => new UberId(1, 10000 + (int)Weapon);
     public override UberId State => new UberId(1, (int)Weapon);
+    public override String Name => $"OpherBuy-{Weapon.GetDescription()}";
     public OpherSlot(AbilityType at, bool upgrade = false) => (Weapon, IsUpgrade) = (at, upgrade);
   }
   public class LupoStoreSlot : ShopSlot {
     private readonly int id;
-    public override UberId CostState => new UberId(48248, id + 1);
+    private readonly string name;
+    public override String Name => $"LupoMap-{name}";
+    public override UberId CostState => new UberId(48248, id + 1); // these have been added as fake uberstates!
     public override UberId State => new UberId(48248, id);
-    public LupoStoreSlot(int _id) => id = _id;
+    public LupoStoreSlot(int _id, string _name) => (id, name) = (_id, _name);
   }
 
   public class TwillenSlot : ShopSlot {
     public readonly ShardType Shard;
+    public override String Name => $"Twillen-{Shard.GetDescription()}";
     public override UberId CostState => new UberId(2, 100 + (int)Shard);
     public override UberId State => new UberId(2, (int)Shard);
     public TwillenSlot(ShardType st) => Shard = st;
   }
 
   public static class ShopController {
-    public static ShopSlot Slot(this AbilityType at) {
-    switch(at) {
-        case AbilityType.WaterBreath:
-          return ShopSlot.WaterBreath;
-        case AbilityType.Sentry:
-          return ShopSlot.Sentry;
-        case AbilityType.SpiritStar:
-          return ShopSlot.Star;
-        case AbilityType.SpiritSmash:
-          return ShopSlot.Smash;
-        case AbilityType.Spike:
-          return ShopSlot.Spike;
-        case AbilityType.Blaze:
-          return ShopSlot.Blaze;
-        case AbilityType.TeleportSpell:
-          return ShopSlot.Teleport;
-        default:
-          throw new ArgumentException($"{at} has no associated shop slot");
-      }
+    public static OpherSlot Slot(this AbilityType at) {
+      var slot = ShopSlot.Opher.FindIndex(a => a.Weapon == at);
+      if (slot == -1)
+        throw new ArgumentException($"{at} has no associated shop slot");
+      return ShopSlot.Opher[slot];
+    }
+    public static TwillenSlot Slot(this ShardType st) {
+      var slot = ShopSlot.Twillen.FindIndex(s => s.Shard == st);
+      if (slot == -1)
+        throw new ArgumentException($"{st} has no associated shop slot");
+      return ShopSlot.Twillen[slot];
+    }
+    public static LupoStoreSlot LupoSlot(int lupoItemStateId) {
+      var slot = ShopSlot.LupoStore.FindIndex(s => s.State.ID == lupoItemStateId);
+      if (slot == -1)
+        throw new ArgumentException($"{lupoItemStateId} is not a lupo id");
+      return ShopSlot.LupoStore[slot];
     }
     private static int KSBought { get => Math.Min(KS_MAX, SaveController.KSBought); }
     private static int KS_MAX { get => !SeedController.HasInternalSpoilers ? 4 : 8; }
@@ -169,61 +179,51 @@ namespace RandoMainDLL {
     private static Dictionary<AbilityType, int> WepCostOverrides = new Dictionary<AbilityType, int>();
     private static Dictionary<ShardType, int> ShardCostOverrides = new Dictionary<ShardType, int>();
 
-    public static void SetCostMod(AbilityType type, float multi) => weaponCostMods[type] = multi;
-    public static void SetCostMod(ShardType type, float multi) => shardCostMods[type] = multi;
-
-    public static float GetCostMod(AbilityType type) => weaponCostMods.ContainsKey(type) ? weaponCostMods[type] : 0f;
-    public static float GetCostMod(ShardType type) => shardCostMods.ContainsKey(type) ? shardCostMods[type] : 0f;
-
-    public static void OnBuyOpherWeapon(AbilityType slot) {
-      if (KSOverride(slot)) {
+    public static void OnBuyOpherWeapon(AbilityType at) {
+      var slot = at.Slot();
+      if (KSOverride(at)) {
         (new Resource(ResourceType.Keystone)).Grant();
         SaveController.KSBought++;
         SaveController.FoundCount--;
-        UberSet.Int(slot.PriceState(), KS_PRICE);
+        slot.Cost = KS_PRICE;
         InterOp.set_opher_item(255, 255, bmKeysName, bmKeysDesc, "", false, KS_PRICE);
         return;
       }
-      UberSet.Bool(slot.BoughtState(), true);
+      UberSet.Bool(slot.State, true);
 
-      Pickup item = SeedController.OpherWeapon(slot);
-      Randomizer.Log($"sold {item} from {slot} for ${slot.Cost()}", false);
+      Pickup item = slot.Contents;
+      Randomizer.Log($"sold {item} from {at} for ${slot.Cost}", false);
       return;
     }
 
-    public static void SetCostsAfterLoad() {
-      foreach(var at in opherWeaponInv) {
-        if (KSOverride(at))
-          UberSet.Int(at.PriceState(), KS_PRICE);
+    public static void SetCostsAfterInit() {
+      if (!SeedController.Settings.OldShopCosts)
+        return;
+      foreach(var slot in ShopSlot.All) {
+        if (slot is OpherSlot ws && KSOverride(ws.Weapon))
+          slot.Cost = KS_PRICE;
         else
-          UberSet.Int(at.PriceState(), SeedController.OpherWeapon(at).CostWithMod(GetCostMod(at)));
+          slot.Cost = (int)Math.Floor(slot.CostMultiplier * slot.Contents.DefaultCost());
+        Randomizer.Log($"Legacy costs: set {slot.Name} to {slot.Cost}", false);
       }
-      foreach(var st in twillenShardInv)
-        UberSet.Int(st.PriceState(), SeedController.TwillenShard(st).CostWithMod(GetCostMod(st)));
     }
 
     public static void OnBuyOpherUpgrade(AbilityType slot) => UberSet.Bool(slot.UpgradedState(), true);
 
-    private static bool KSOverride(AbilityType a) => a == AbilityType.TeleportSpell && !SeedController.KSDoorsOpen;
+    public static bool KSOverride(AbilityType a) => SeedController.Settings.OldShopCosts && a == AbilityType.TeleportSpell && !SeedController.KSDoorsOpen;
 
-    public static void OnBuyTwillenShard(ShardType slot) {
-      Pickup item = SeedController.TwillenShard(slot);
-      Randomizer.Log($"sold {item} from {slot} for ${slot.Cost()}", false);
-      UberSet.Bool(slot.BoughtState(), true);
-      return;
+    public static void OnBuyTwillenShard(ShardType st) {
+      var slot = st.Slot();
+      var item = slot.Contents;
+      Randomizer.Log($"sold {item} from {slot} for ${slot.Cost}", false);
+      UberSet.Bool(slot.State, true);
     }
-    public static bool OpherBoughtWeapon(AbilityType granted) => granted.Bought();
-    public static bool TwillenBoughtShard(ShardType shard) => shard.Bought();
+    public static bool OpherBoughtWeapon(AbilityType granted) => granted.Slot().Bought;
+    public static bool TwillenBoughtShard(ShardType shard) => shard.Slot().Bought;
     public static bool OpherBoughtUpgrade(AbilityType slot) => slot.Upgraded();
-    public static int TwillenShardCost(ShardType shard) => shard.Cost();
-    public static int OpherWeaponCost(AbilityType ability) => ability.Cost();
+    public static int TwillenShardCost(ShardType shard) => shard.Slot().Cost;
+    public static int OpherWeaponCost(AbilityType ability) => ability.Slot().Cost;
 
-    private static HashSet<UberId> LupoUberIds = new HashSet<UberId>() {
-       new UberId(48248, 19396),
-       new UberId(48248, 57987),
-       new UberId(48248, 41666),
-    };
-
-    public static int LupoUpgradeCost(int id) => new LupoStoreSlot(id).Cost;
+    public static int LupoUpgradeCost(int id) => LupoSlot(id).Cost;
   }
 }
