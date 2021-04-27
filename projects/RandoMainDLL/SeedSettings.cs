@@ -34,7 +34,6 @@ namespace RandoMainDLL {
     [JsonProperty("randomSpawn")]
     public Boolean RandomSpawn { get; set; }
     [JsonProperty("webConn")]
-    [DefaultValue(true)]
     public Boolean NetcodeEnabled { get; set; }
   }
 }
