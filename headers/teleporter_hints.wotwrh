@@ -1,8 +1,24 @@
 // Adds Teleporter tracking to Lupo's Zone Hints
 
-48248|41666|13|4000,750,2-101,2-104,2-51,2-62  // key skill hint from LupoHint.Shards
-1|23|13|2500,500,9-0,2-118,2-14                 // key skill hint from OpherShop.WaterBreath
-2|2|13|1500,500,2-97,2-0                       // key skill hint from TwillenShop.TripleJump
+48248|41666|13|4000,750,2-101,2-104,2-51,2-62   // key skill hint from LupoHint.Shards (Burrow, Water Dash, Light Burst, Flash)
+3|0|8|48248|41667|int|4000                      // price initialization for ^
+6|1101|8|48248|41667|int|-750                   // price reduction: Burrow -750
+6|1104|8|48248|41667|int|-750                   // price reduction: Water Dash -750
+6|1051|8|48248|41667|int|-750                   // price reduction: Light Burst -750
+6|1062|8|48248|41667|int|-750                   // price reduction: Flash -750
+48248|41667=1000|8|48248|41667|int|0            // set price to zero if nothing left to hint
+1|23|13|2500,500,9-0,2-118,2-14                 // key skill hint from OpherShop.WaterBreath (Water, Flap, Feather)
+3|0|8|1|10023|int|2500                          // price initialization for ^
+6|2000|8|1|10023|int|-500                       // price reduction: Clean Water -500
+6|1118|8|1|10023|int|-500                       // price reduction: Flap -500
+6|1014|8|1|10023|int|-500                       // price reduction: Glide -500
+1|10023=1000|8|1|10023|int|0                    // set price to zero if nothing left to hint
+2|2|13|1500,500,2-97,2-0                        // key skill hint from TwillenShop.TripleJump (Bash, Bow)
+3|0|8|2|102|int|2500                            // price initialization for ^
+6|1000|8|2|102|int|-500                         // price reduction: Bash -500
+6|1097|8|2|102|int|-500                         // price reduction: Bow -500
+2|102=500|8|2|102|int|0                         // set price to zero if nothing left to hint
+
 48248|18767|12|0|10  // Marsh Skill + Teleporter Zone Hint from LupoMap.Marsh
 48248|45538|12|5|10  // Burrows Skill + Teleporter Zone Hint from LupoMap.Burrows
 48248|3638|12|1|10   // Hollow Skill + Teleporter Zone Hint from LupoMap.Hollow
