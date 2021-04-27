@@ -5,7 +5,7 @@ using System;
 namespace RandoMainDLL {
 
   public class SeedGenSettings {
-    private Version legacyShopVer = new Version("0.12.7");
+    private Version legacyShopVer = new Version("0.12.8");
     [JsonProperty("tps")]
     public Boolean Teleporters { get; set; }
     [JsonProperty("spoilers")]
