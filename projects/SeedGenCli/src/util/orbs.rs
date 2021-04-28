@@ -1,5 +1,7 @@
 use std::ops::{Add, AddAssign};
 
+use smallvec::{SmallVec, smallvec, ToSmallVec};
+
 #[derive(Debug, Default, PartialEq, Clone, Copy)]
 pub struct Orbs {
     pub health: f32,
@@ -20,11 +22,11 @@ impl AddAssign for Orbs {
     }
 }
 
-pub fn either(a: &[Orbs], b: &[Orbs]) -> Vec<Orbs> {
+pub fn either(a: &[Orbs], b: &[Orbs]) -> SmallVec<[Orbs; 3]> {
     if b.is_empty() || a.is_empty() {
-        vec![Orbs::default()]
+        smallvec![Orbs::default()]
     } else {
-        let mut sum = a.to_vec();
+        let mut sum: SmallVec<[Orbs; 3]> = a.to_smallvec();
         for b_ in b {
             let mut used = false;
             for a_ in &mut sum {
@@ -40,11 +42,11 @@ pub fn either(a: &[Orbs], b: &[Orbs]) -> Vec<Orbs> {
         sum
     }
 }
-pub fn either_single(a: &[Orbs], b: Orbs) -> Vec<Orbs> {
+pub fn either_single(a: &[Orbs], b: Orbs) -> SmallVec<[Orbs; 3]> {
     if a.is_empty() {
-        vec![Orbs::default()]
+        smallvec![Orbs::default()]
     } else {
-        let mut sum = a.to_vec();
+        let mut sum: SmallVec<[Orbs; 3]> = a.to_smallvec();
         let mut used = false;
         for a_ in &mut sum {
             if b.energy >= a_.energy && b.health >= a_.health {
@@ -58,13 +60,13 @@ pub fn either_single(a: &[Orbs], b: Orbs) -> Vec<Orbs> {
         sum
     }
 }
-pub fn both(a: &[Orbs], b: &[Orbs]) -> Vec<Orbs> {
+pub fn both(a: &[Orbs], b: &[Orbs]) -> SmallVec<[Orbs; 3]> {
     if b.is_empty() {
-        a.to_vec()
+        a.to_smallvec()
     } else if a.is_empty() {
-        b.to_vec()
+        b.to_smallvec()
     } else {
-        let mut product = Vec::<Orbs>::with_capacity(a.len());
+        let mut product = SmallVec::<[Orbs; 3]>::with_capacity(a.len());
         for a_ in a {
             for b_ in b {
                 let orbs = *a_ + *b_;
@@ -78,11 +80,11 @@ pub fn both(a: &[Orbs], b: &[Orbs]) -> Vec<Orbs> {
         }).collect()
     }
 }
-pub fn both_single(a: &[Orbs], b: Orbs) -> Vec<Orbs> {
+pub fn both_single(a: &[Orbs], b: Orbs) -> SmallVec<[Orbs; 3]> {
     if a.is_empty() {
-        vec![b]
+        smallvec![b]
     } else {
-        let mut product = Vec::<Orbs>::with_capacity(a.len());
+        let mut product = SmallVec::<[Orbs; 3]>::with_capacity(a.len());
         for a_ in a {
             let orbs = *a_ + b;
             if !product.contains(&orbs) {
@@ -98,25 +100,32 @@ pub fn both_single(a: &[Orbs], b: Orbs) -> Vec<Orbs> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn orb_tools() {
         let orbs = Orbs::default();
-        let a = vec![Orbs { energy: 2.0, ..orbs }];
-        let b = vec![Orbs { health: 30.0, ..orbs }];
-        assert_eq!(either(&a, &b), vec![Orbs { energy: 2.0, ..orbs }, Orbs { health: 30.0, ..orbs }]);
-        assert_eq!(both(&a, &b), vec![Orbs { health: 30.0, energy: 2.0 }]);
-        let a = vec![Orbs { energy: 3.0, health: 10.0 }, Orbs { health: 20.0, ..orbs }];
-        assert_eq!(either(&a, &b), vec![Orbs { energy: 3.0, health: 10.0 }, Orbs { health: 30.0, ..orbs }]);
-        assert_eq!(both(&a, &b), vec![Orbs { health: 40.0, energy: 3.0 }, Orbs { health: 50.0, ..orbs }]);
-        let a = vec![Orbs { energy: 30.0, health: 100.0 }, Orbs { health: 200.0, energy: 10.0 }];
-        let b = vec![Orbs { energy: -10.0, ..orbs }, Orbs { energy: -3.0, health: -50.0 }, Orbs { health: -10.0, energy: -5.0 }, Orbs { health: -20.0, energy: -4.0 }];
-        assert_eq!(both(&a, &b), vec![Orbs { health: 100.0, energy: 20.0 }, Orbs { health: 50.0, energy: 27.0 }, Orbs { health: 90.0, energy: 25.0 }, Orbs { health: 80.0, energy: 26.0 }, Orbs { health: 200.0, energy: 0.0 }, Orbs { health: 150.0, energy: 7.0 }, Orbs { health: 190.0, energy: 5.0 }, Orbs { health: 180.0, energy: 6.0 }]);
-        let a = vec![Orbs { energy: 2.0, ..orbs }];
-        let b = vec![];
-        assert_eq!(either(&a, &b), vec![Orbs { ..orbs }]);
-        assert_eq!(either(&b, &a), vec![Orbs { ..orbs }]);
-        assert_eq!(both(&a, &b), vec![Orbs { energy: 2.0, ..orbs }]);
-        assert_eq!(both(&b, &a), vec![Orbs { energy: 2.0, ..orbs }]);
+        let a: SmallVec<[_; 3]>= smallvec![Orbs { energy: 2.0, ..orbs }];
+        let b: SmallVec<[_; 3]> = smallvec![Orbs { health: 30.0, ..orbs }];
+        let either_orbs: SmallVec<[_; 3]> = smallvec![Orbs { energy: 2.0, ..orbs }, Orbs { health: 30.0, ..orbs }];
+        let both_orbs: SmallVec<[_; 3]> = smallvec![Orbs { health: 30.0, energy: 2.0 }];
+        assert_eq!(either(&a, &b), either_orbs);
+        assert_eq!(both(&a, &b), both_orbs);
+        let a: SmallVec<[_; 3]> = smallvec![Orbs { energy: 3.0, health: 10.0 }, Orbs { health: 20.0, ..orbs }];
+        let either_orbs: SmallVec<[_; 3]> = smallvec![Orbs { energy: 3.0, health: 10.0 }, Orbs { health: 30.0, ..orbs }];
+        let both_orbs: SmallVec<[_; 3]> = smallvec![Orbs { health: 40.0, energy: 3.0 }, Orbs { health: 50.0, ..orbs }];
+        assert_eq!(either(&a, &b), either_orbs);
+        assert_eq!(both(&a, &b), both_orbs);
+        let a: SmallVec<[_; 3]> = smallvec![Orbs { energy: 30.0, health: 100.0 }, Orbs { health: 200.0, energy: 10.0 }];
+        let b: SmallVec<[_; 3]> = smallvec![Orbs { energy: -10.0, ..orbs }, Orbs { energy: -3.0, health: -50.0 }, Orbs { health: -10.0, energy: -5.0 }, Orbs { health: -20.0, energy: -4.0 }];
+        let both_orbs: SmallVec<[_; 3]> = smallvec![Orbs { health: 100.0, energy: 20.0 }, Orbs { health: 50.0, energy: 27.0 }, Orbs { health: 90.0, energy: 25.0 }, Orbs { health: 80.0, energy: 26.0 }, Orbs { health: 200.0, energy: 0.0 }, Orbs { health: 150.0, energy: 7.0 }, Orbs { health: 190.0, energy: 5.0 }, Orbs { health: 180.0, energy: 6.0 }];
+        assert_eq!(both(&a, &b), both_orbs);
+        let a: SmallVec<[_; 3]> = smallvec![Orbs { energy: 2.0, ..orbs }];
+        let b: SmallVec<[_; 3]> = smallvec![];
+        let either_orbs: SmallVec<[_; 3]> = smallvec![Orbs { ..orbs }];
+        let both_orbs: SmallVec<[_; 3]> = smallvec![Orbs { energy: 2.0, ..orbs }];
+        assert_eq!(either(&a, &b), either_orbs);
+        assert_eq!(either(&b, &a), either_orbs);
+        assert_eq!(both(&a, &b), both_orbs);
+        assert_eq!(both(&b, &a), both_orbs);
     }
 }

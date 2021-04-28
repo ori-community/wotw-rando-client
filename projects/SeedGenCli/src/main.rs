@@ -37,11 +37,6 @@ struct SeedGen {
 #[derive(StructOpt)]
 enum Command {
     /// Generate a seed
-    /// 
-    /// Examples:
-    /// Starter seed:       seed --flags wisps --headers default
-    /// Random Spawn seed:  seed --flags gorlek trees --spawn random --headers hints teleporters qol better_random_spawn
-    /// Bingo seed:         seed --netcode --flags gorlek --spawn random --headers 3_line_bingo hints teleporter qol better_random_spawn launch_from_bingo
     Seed {
         /// the seed's name and name of the file it will be written to. The name also seeds the rng.
         #[structopt(parse(from_os_str))]

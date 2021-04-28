@@ -1,5 +1,7 @@
 use std::path::Path;
+
 use rustc_hash::{FxHashMap, FxHashSet};
+use smallvec::SmallVec;
 
 use super::tokenizer::{Token, TokenType};
 use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy, Position, uberstate::UberState};
@@ -24,7 +26,7 @@ pub enum Requirement<'a> {
     State(&'a str),
     Damage(u16),
     Danger(u16),
-    Combat(Vec<(Enemy, u8)>),
+    Combat(SmallVec<[(Enemy, u8); 12]>),
     Boss(u16),
     BreakWall(u16),
     ShurikenBreak(u16),
@@ -96,7 +98,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
     match amount {
         Some(amount) => {
             if keyword == "Combat" {
-                let mut enemies = Vec::new();
+                let mut enemies = SmallVec::new();
                 for enemy in amount.split('+') {
                     let mut parts = enemy.split('x');
                     let amount = parts.next().ok_or_else(|| wrong_requirement(token))?;
@@ -250,6 +252,7 @@ fn parse_free(tokens: &[Token], context: &mut ParseContext) -> Result<(), ParseE
     Ok(())
 }
 
+#[inline]
 fn parse_line<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Line<'a>, ParseError> {
     let mut ands = Vec::<Requirement>::new();
     let mut ors = Vec::<Requirement>::new();
@@ -327,6 +330,7 @@ fn parse_group<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &M
     })
 }
 
+#[inline]
 fn parse_refill<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Refill<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     context.position += 1;
@@ -389,15 +393,19 @@ fn parse_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadat
         requirements,
     })
 }
+#[inline]
 fn parse_state<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, metadata, NodeType::State)
 }
+#[inline]
 fn parse_quest<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, metadata, NodeType::Quest)
 }
+#[inline]
 fn parse_pickup<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, metadata, NodeType::Pickup)
 }
+#[inline]
 fn parse_anchor_connection<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Connection<'a>, ParseError> {
     parse_connection(tokens, context, metadata, NodeType::Anchor)
 }
@@ -420,6 +428,7 @@ fn parse_named_group<'a>(tokens: &'a [Token], context: &mut ParseContext, metada
     ))
 }
 
+#[inline]
 fn parse_region<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<(&'a str, Group<'a>), ParseError> {
     let (identifier, requirements) = parse_named_group(tokens, context, metadata)?;
     Ok((
@@ -427,6 +436,7 @@ fn parse_region<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &
         requirements,
     ))
 }
+#[inline]
 fn parse_definition<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<(&'a str, Group<'a>), ParseError> {
     let (identifier, requirements) = parse_named_group(tokens, context, metadata)?;
     Ok((
@@ -434,6 +444,7 @@ fn parse_definition<'a>(tokens: &'a [Token], context: &mut ParseContext, metadat
         requirements,
     ))
 }
+#[inline]
 fn parse_anchor<'a>(tokens: &'a [Token], context: &mut ParseContext, metadata: &Metadata) -> Result<Anchor<'a>, ParseError> {
     let identifier = &tokens[context.position].value;
     let mut position = None;
@@ -594,7 +605,7 @@ pub fn parse_locations(path: &Path, validate: bool) -> Result<Vec<Location>, Str
     let mut locations = Vec::with_capacity(input.lines().count());
 
     for (index, line) in input.lines().enumerate() {
-        let parts: Vec<_> = line.split(',').collect();
+        let parts: SmallVec<[_; 10]> = line.split(',').collect();
         if validate && parts.len() != 10 {
             return Err(format!("Each line must have 10 fields, found {} at line {}: {}", parts.len(), index + 1, line));
         }
@@ -646,7 +657,7 @@ pub fn parse_states(path: &Path, validate: bool) -> Result<Vec<NamedState>, Stri
     let mut states = Vec::with_capacity(input.lines().count());
 
     for (index, line) in input.lines().enumerate() {
-        let parts: Vec<_> = line.split(',').collect();
+        let parts: SmallVec<[_; 3]> = line.split(',').collect();
         if validate && parts.len() != 3 {
             return Err(format!("Each line must have 3 fields, found {} at line {}: {}", parts.len(), index + 1, line))
         }

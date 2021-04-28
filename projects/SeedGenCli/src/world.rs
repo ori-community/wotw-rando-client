@@ -127,15 +127,18 @@ impl<'a> World<'a> {
         let preplacement = self.preplacements.entry(uber_state).or_insert_with(Inventory::default);
         preplacement.grant(item, amount);
     }
-    pub fn collect_preplacements(&mut self, reached: &UberState) {
-        let mut inventory = Inventory::default();
+    pub fn collect_preplacements(&mut self, reached: &UberState) -> bool {
         if let Some(items) = self.preplacements.get(reached) {
             log::trace!("Collecting preplacements on {}", reached);
-            inventory = items.clone();
-        }
+            let inventory = items.clone();
 
-        for item in inventory.inventory.keys() {
-            self.grant_player(item.clone(), inventory.inventory[item]).unwrap_or_else(|err| log::error!("{}", err));
+            for item in inventory.inventory.keys() {
+                self.grant_player(item.clone(), inventory.inventory[item]).unwrap_or_else(|err| log::error!("{}", err));
+            }
+
+            true
+        } else {
+            false
         }
     }
 }

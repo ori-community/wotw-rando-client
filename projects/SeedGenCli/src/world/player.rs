@@ -1,5 +1,7 @@
 use std::convert::TryFrom;
 
+use smallvec::{SmallVec, smallvec};
+
 use crate::inventory::{Inventory, Item};
 use crate::util::{Pathset, Resource, Skill, Shard, orbs::Orbs, settings::Settings};
 
@@ -136,8 +138,8 @@ impl Player {
         (health / damage).ceil() * self.use_cost(skill)
     }
 
-    fn weapons_by_dpe(&self, wall: bool) -> Vec<Skill> {
-        let mut weapons = vec![
+    fn weapons_by_dpe(&self, wall: bool) -> SmallVec<[Skill; 8]> {
+        let mut weapons: SmallVec<[_; 8]>= smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
@@ -152,8 +154,8 @@ impl Player {
         weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
         weapons
     }
-    fn ranged_weapons_by_dpe(&self) -> Vec<Skill> {
-        let mut weapons = vec![
+    fn ranged_weapons_by_dpe(&self) -> SmallVec<[Skill; 2]> {
+        let mut weapons: SmallVec<[_; 2]>= smallvec![
             Skill::Bow,
             Skill::Spear,
         ];
@@ -165,8 +167,8 @@ impl Player {
         weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.unsafe_paths) * 10.0) as u8);
         weapons
     }
-    fn shield_weapons_by_dpe(&self) -> Vec<Skill> {
-        let mut weapons = vec![
+    fn shield_weapons_by_dpe(&self) -> SmallVec<[Skill; 4]> {
+        let mut weapons: SmallVec<[_; 4]>= smallvec![
             Skill::Hammer,
             Skill::Launch,
             Skill::Grenade,
@@ -177,7 +179,9 @@ impl Player {
         weapons
     }
 
-    fn preferred_among_weapons(&self, weapons: Vec<Skill>) -> Option<Skill> {
+    fn preferred_among_weapons<W>(&self, weapons: W) -> Option<Skill>
+    where W: IntoIterator<Item=Skill>,
+    {
         for weapon in weapons {
             if self.inventory.has(&Item::Skill(weapon), 1) {
                 return Some(weapon);
@@ -195,8 +199,10 @@ impl Player {
         self.preferred_among_weapons(self.shield_weapons_by_dpe())
     }
 
-    fn progression_among_weapons(&self, weapons: Vec<Skill>) -> Vec<Skill> {
-        let mut progression_weapons = Vec::new();
+    fn progression_among_weapons<W>(&self, weapons: W) -> SmallVec<[Skill; 8]>
+    where W: IntoIterator<Item=Skill>,
+    {
+        let mut progression_weapons = SmallVec::new();
 
         for weapon in weapons {
             progression_weapons.push(weapon);
@@ -207,13 +213,13 @@ impl Player {
 
         progression_weapons
     }
-    pub fn progression_weapons(&self, wall: bool) -> Vec<Skill> {
+    pub fn progression_weapons(&self, wall: bool) -> SmallVec<[Skill; 8]> {
         self.progression_among_weapons(self.weapons_by_dpe(wall))
     }
-    pub fn ranged_progression_weapons(&self) -> Vec<Skill> {
+    pub fn ranged_progression_weapons(&self) -> SmallVec<[Skill; 8]> {
         self.progression_among_weapons(self.ranged_weapons_by_dpe())
     }
-    pub fn shield_progression_weapons(&self) -> Vec<Skill> {
+    pub fn shield_progression_weapons(&self) -> SmallVec<[Skill; 8]> {
         self.progression_among_weapons(self.shield_weapons_by_dpe())
     }
 
@@ -276,7 +282,7 @@ mod tests {
         assert_eq!(player.preferred_weapon(true), Some(Skill::Sword));
 
         player = Player::default();
-        assert_eq!(player.progression_weapons(false), vec![
+        let weapons: SmallVec<[_; 8]>= smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
@@ -285,23 +291,26 @@ mod tests {
             Skill::Blaze,
             Skill::Flash,
             Skill::Spear,
-        ]);
+        ];
+        assert_eq!(player.progression_weapons(false), weapons);
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
-        assert_eq!(player.progression_weapons(false), vec![
+        let weapons: SmallVec<[_; 5]>= smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
             Skill::Grenade,
             Skill::Shuriken,
-        ]);
+        ];
+        assert_eq!(player.progression_weapons(false), weapons);
         player.unsafe_paths = true;
-        assert_eq!(player.progression_weapons(false), vec![
+        let weapons: SmallVec<[_; 5]>= smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
             Skill::Grenade,
             Skill::Shuriken,
-        ]);
+        ];
+        assert_eq!(player.progression_weapons(false), weapons);
     }
 
     #[test]

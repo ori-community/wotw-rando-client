@@ -1,5 +1,7 @@
 use std::{io, cmp::Ordering, path::Path};
 
+use smallvec::{SmallVec, smallvec};
+
 use crate::util;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -33,9 +35,10 @@ pub struct Token {
 struct TokenContext {
     line: usize,
     position: usize,
-    indent_stack: Vec<usize>,
+    indent_stack: SmallVec<[usize; 8]>,
 }
 
+#[inline]
 fn skip_whitespace(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     if !input.starts_with(|c: char| c.is_whitespace() || c == '#') {
         return None;
@@ -81,6 +84,7 @@ fn skip_whitespace(input: &str, context: &mut TokenContext) -> Option<(usize, To
     ))
 }
 
+#[inline]
 fn tokenize_indent(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     if !input.starts_with('\n') {
         return None;
@@ -147,31 +151,40 @@ fn tokenize_identifier(input: &str, context: &mut TokenContext, keyword: &str, n
         },
     ))
 }
+#[inline]
 fn tokenize_definition(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "requirement ", TokenType::Definition)
 }
+#[inline]
 fn tokenize_region(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "region ", TokenType::Region)
 }
+#[inline]
 fn tokenize_anchor(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "anchor ", TokenType::Anchor)
 }
+#[inline]
 fn tokenize_refill(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "refill ", TokenType::Refill)
 }
+#[inline]
 fn tokenize_state(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "state ", TokenType::State)
 }
+#[inline]
 fn tokenize_quest(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "quest ", TokenType::Quest)
 }
+#[inline]
 fn tokenize_pickup(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "pickup ", TokenType::Pickup)
 }
+#[inline]
 fn tokenize_connection(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     tokenize_identifier(input, context, "conn ", TokenType::Connection)
 }
 
+#[inline]
 fn tokenize_position(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     if !input.starts_with("at ") {
         return None;
@@ -194,6 +207,7 @@ fn tokenize_position(input: &str, context: &mut TokenContext) -> Option<(usize, 
     ))
 }
 
+#[inline]
 fn tokenize_group(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     if !input.starts_with(':') {
         return None;
@@ -208,6 +222,7 @@ fn tokenize_group(input: &str, context: &mut TokenContext) -> Option<(usize, Tok
         }
     ))
 }
+#[inline]
 fn tokenize_and(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     if !input.starts_with(',') {
         return None;
@@ -222,6 +237,7 @@ fn tokenize_and(input: &str, context: &mut TokenContext) -> Option<(usize, Token
         }
     ))
 }
+#[inline]
 fn tokenize_or(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     if !input.starts_with("OR ") {
         return None;
@@ -237,6 +253,7 @@ fn tokenize_or(input: &str, context: &mut TokenContext) -> Option<(usize, Token)
     ))
 }
 
+#[inline]
 fn tokenize_requirement(input: &str, context: &mut TokenContext) -> Option<(usize, Token)> {
     let delimiter = input.find(|c: char| c.is_whitespace() || c == ',' || c == ':' || c == '#')?;
     if delimiter == 0 {
@@ -285,7 +302,7 @@ pub fn tokenize(areas: &Path) -> Result<Vec<Token>, io::Error> {
     let mut context = TokenContext {
         line: 1,
         position: 0,
-        indent_stack: vec![0],
+        indent_stack: smallvec![0],
     };
 
     while context.position < length {

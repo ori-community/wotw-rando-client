@@ -449,6 +449,7 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Re
                 return Err(format!("Unknown command {}", command))
             }
         } else if let Some(ignored) = line.strip_prefix('!') {
+            // TODO should this be completely ignored? This way the preplacement isn't collected either...
             processed += ignored;
             processed.push('\n');
         } else {

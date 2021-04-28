@@ -3,6 +3,7 @@ use criterion::{criterion_group, criterion_main, Criterion};
 use std::path::PathBuf;
 
 use rustc_hash::FxHashSet;
+use smallvec::smallvec;
 
 use seedgen::*;
 use lexer::*;
@@ -57,11 +58,11 @@ fn requirements(c: &mut Criterion) {
     player = Player::default();
     player.inventory.grant(Item::Skill(Skill::Bow), 1);
     player.inventory.grant(Item::Resource(Resource::Energy), 40);
-    let req = Requirement::Combat(vec![
+    let req = Requirement::Combat(smallvec![
         (Enemy::Lizard, 3),
     ]);
     c.bench_function("short combat", |b| b.iter(|| req.is_met(&player, &states, player.max_orbs())));
-    let req = Requirement::Combat(vec![
+    let req = Requirement::Combat(smallvec![
         (Enemy::Mantis, 2),
         (Enemy::Lizard, 2),
         (Enemy::EnergyRefill, 4),
@@ -121,4 +122,4 @@ criterion_group!(only_parsing, parsing);
 criterion_group!(only_requirements, requirements);
 criterion_group!(only_reach_checking, reach_checking);
 criterion_group!(only_generation, generation);
-criterion_main!(only_generation);  // put any of the group names in here
+criterion_main!(all);  // put any of the group names in here

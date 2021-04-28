@@ -1,6 +1,7 @@
 use std::fmt;
 
 use rustc_hash::{FxHashMap, FxHashSet};
+use smallvec::{SmallVec, smallvec};
 
 use super::{player::Player, requirements::Requirement};
 use crate::util::{
@@ -108,6 +109,9 @@ impl Node {
             Node::Quest(quest) => Some(&quest.position),
         }
     }
+    pub fn can_place(&self) -> bool {
+        matches!(self, Node::Pickup(_) | Node::Quest(_))
+    }
 }
 impl fmt::Display for Node {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
@@ -116,14 +120,14 @@ impl fmt::Display for Node {
 }
 
 type Reached<'a> = Vec<&'a Node>;
-type Progressions<'a> = Vec<(&'a Requirement, Vec<Orbs>)>;
+type Progressions<'a> = Vec<(&'a Requirement, SmallVec<[Orbs; 3]>)>;
 
 struct ReachContext<'a, 'b> {
     player: &'b Player,
     progression_check: bool,
     states: FxHashSet<usize>,
     state_progressions: FxHashMap<usize, Vec<(usize, &'a Connection)>>,
-    world_state: FxHashMap<usize, Vec<Orbs>>
+    world_state: FxHashMap<usize, SmallVec<[Orbs; 3]>>
 }
 
 #[derive(Debug)]
@@ -137,7 +141,7 @@ impl Graph {
         context: &mut ReachContext<'a, '_>,
     ) -> (Reached<'a>, Progressions<'a>) {
         let mut reached = Vec::<&Node>::new();
-        let mut progressions = Vec::<(&Requirement, Vec<Orbs>)>::new();
+        let mut progressions = Vec::<(&Requirement, SmallVec<[Orbs; 3]>)>::new();
         if let Some(connections) = context.state_progressions.get(&index) {
             for (from, connection) in connections.clone() {
                 if context.world_state.contains_key(&connection.to) {
@@ -154,8 +158,8 @@ impl Graph {
         }
         (reached, progressions)
     }
-    fn try_connection(player: &Player, connection: &Connection, best_orbs: &[Orbs], states: &FxHashSet<usize>) -> Vec<Orbs> {
-        let mut target_orbs = Vec::<Orbs>::default();
+    fn try_connection(player: &Player, connection: &Connection, best_orbs: &[Orbs], states: &FxHashSet<usize>) -> SmallVec<[Orbs; 3]> {
+        let mut target_orbs = SmallVec::<[Orbs; 3]>::default();
         for orbs in best_orbs {
             if let Some(orbcost) = connection.requirement.is_met(player, states, *orbs) {
                 target_orbs.append(&mut orbs::both_single(&orbcost, *orbs));
@@ -167,7 +171,7 @@ impl Graph {
     fn reach_recursion<'a>(
         &'a self,
         entry: &'a Node,
-        mut best_orbs: Vec<Orbs>,
+        mut best_orbs: SmallVec<[Orbs; 3]>,
         context: &mut ReachContext<'a, '_>,
     ) -> (Reached<'a>, Progressions<'a>) {
         context.world_state.insert(entry.index(), best_orbs.clone());
@@ -178,7 +182,7 @@ impl Graph {
                         if let Some(orbcost) = refill.requirement.is_met(context.player, &context.states, *orbs) {
                             best_orbs = orbs::both(&best_orbs, &orbcost);
                             match refill.name {
-                                RefillType::Full => best_orbs = vec![context.player.max_orbs()],
+                                RefillType::Full => best_orbs = smallvec![context.player.max_orbs()],
                                 RefillType::Checkpoint => best_orbs = orbs::either_single(&best_orbs, context.player.checkpoint_orbs()),
                                 RefillType::Health(amount) => best_orbs = orbs::both_single(&best_orbs, context.player.health_orbs(amount)),
                                 RefillType::Energy(amount) => best_orbs = orbs::both_single(&best_orbs, context.player.energy_orbs(amount)),
@@ -189,7 +193,7 @@ impl Graph {
                 }
 
                 let mut reached = Vec::<&Node>::new();
-                let mut progressions = Vec::<(&Requirement, Vec<Orbs>)>::new();
+                let mut progressions = Vec::<(&Requirement, SmallVec<[Orbs; 3]>)>::new();
                 for connection in &anchor.connections {
                     if context.world_state.contains_key(&connection.to) {
                         // TODO loop with improved orbs?
@@ -271,7 +275,7 @@ impl Graph {
             world_state: FxHashMap::default(),
         };
 
-        let (reached, _) = self.reach_recursion(entry, vec![player.max_orbs()], &mut context);
+        let (reached, _) = self.reach_recursion(entry, smallvec![player.max_orbs()], &mut context);
 
         Ok(reached)
     }
@@ -287,7 +291,7 @@ impl Graph {
             world_state: FxHashMap::default(),
         };
 
-        let reached_and_progressions = self.reach_recursion(entry, vec![player.max_orbs()], &mut context);
+        let reached_and_progressions = self.reach_recursion(entry, smallvec![player.max_orbs()], &mut context);
 
         Ok(reached_and_progressions)
     }

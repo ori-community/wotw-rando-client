@@ -127,6 +127,7 @@ where
     Ok(())
 }
 
+#[inline]
 fn force_keystones<'a, R>(reachable_states: &[&Node], reserved_slots: &mut Vec<&'a Node>, context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
@@ -193,6 +194,7 @@ where
     Ok(())
 }
 
+#[inline]
 fn random_placement<'a, R>(node: &'a Node, context: &mut GeneratorContext<'a, '_, R>) -> Result<(), String>
 where
     R: Rng
@@ -320,7 +322,7 @@ where
     let collected_preplacements = Vec::<&Node>::new();
     let mut spawn_slots = Vec::<&Node>::new();
 
-    let spirit_light_slots = (world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).count() - world.pool.inventory().item_count()) as f32;
+    let spirit_light_slots = (world.graph.nodes.iter().filter(|&node| node.can_place()).count() - world.pool.inventory().item_count()) as f32;
     log::trace!("Estimated {} slots for Spirit Light", spirit_light_slots);
     let spirit_light_rng = SpiritLightAmounts::new(world.pool.spirit_light as f32, spirit_light_slots, 0.75, 1.25);
 
@@ -356,12 +358,15 @@ where
     }
     finished_world.grant_player(Item::SpiritLight(1), u16::MAX)?;
 
+    // TODO this misses preplacements collected along the way
+    // TODO wisps exist...
     let mut all_reachable_locations = finished_world.graph.reached_locations(&finished_world.player, spawn, &finished_world.uber_states)?;
-    all_reachable_locations.retain(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
+    all_reachable_locations.retain(|&node| node.can_place());
     let total_reachable_count = all_reachable_locations.len();
 
-    let all_locations = context.world.graph.nodes.iter().filter(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_))).collect::<Vec<_>>();
-    let unreachable_locations = all_locations.into_iter().filter(|&node| !all_reachable_locations.iter().any(|&reachable| reachable.index() == node.index())).collect::<Vec<_>>();
+    let unreachable_locations = context.world.graph.nodes.iter()
+        .filter(|&node| node.can_place() && !all_reachable_locations.iter().any(|&reachable| reachable.index() == node.index()))
+        .collect::<Vec<_>>();
     if !unreachable_locations.is_empty() {
         let identifiers = unreachable_locations.iter().map(|&node| node.identifier()).collect::<Vec<_>>();
         log::warn!("Some locations are unreachable with this item pool! These will only hold Spirit Light.");
@@ -374,11 +379,11 @@ where
         let (mut reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
         let reachable_count = reachable.len();
 
-        let (reachable_locations, reachable_states): (Vec<&Node>, Vec<&Node>) = reachable.iter().partition(|&&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
+        let reachable_states = reachable.iter().filter(|&&node| !node.can_place()).cloned().collect::<Vec<_>>();
 
         force_keystones(&reachable_states, &mut reserved_slots, &mut context)?;
 
-        let unreached_count = total_reachable_count - reachable_locations.len();
+        let unreached_count = total_reachable_count - reachable.len() + reachable_states.len();
 
         reachable.retain(|&node| {
             let index = node.index();
@@ -391,26 +396,30 @@ where
 
         let identifiers: Vec<_> = reachable.iter()
             .filter_map(|&node| 
-                if matches!(node, Node::Pickup(_) | Node::Quest(_)) {
+                if node.can_place() {
                     Some(node.identifier())
                 } else { None })
             .collect();
 
         log::trace!("{} Reachable free locations: {}", identifiers.len(), format_identifiers(identifiers));
 
-        let (preplaced, mut needs_placement): (Vec<&Node>, Vec<_>) = reachable.iter().partition(|&&node| context.world.preplacements.contains_key(&node.uber_state().unwrap()));
+        let mut needs_placement = Vec::with_capacity(reachable.len());
 
-        preplaced.iter().for_each(|&node| {
-            context.world.collect_preplacements(node.uber_state().unwrap());
-            context.collected_preplacements.push(node);
-        });
+        for node in reachable {
+            let preplaced = context.world.collect_preplacements(node.uber_state().unwrap());
+            if preplaced {
+                context.collected_preplacements.push(node);
+            } else {
+                needs_placement.push(node);
+            }
+        }
 
-        needs_placement.retain(|&node| matches!(node, Node::Pickup(_) | Node::Quest(_)));
+        needs_placement.retain(|&node| node.can_place());
         needs_placement.append(&mut spawn_slots);
 
         needs_placement.shuffle(context.rng);
 
-        reserved_slots = Vec::new();
+        reserved_slots = Vec::with_capacity(RESERVE_SLOTS);
         if unreached_count > 0 {
             for _ in 0..RESERVE_SLOTS {
                 if let Some(uber_state) = needs_placement.pop() {
