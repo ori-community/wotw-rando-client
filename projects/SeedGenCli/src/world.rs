@@ -9,7 +9,11 @@ use graph::Graph;
 use pool::Pool;
 use player::Player;
 use crate::inventory::{Item, Inventory};
-use crate::util::uberstate::{UberState, UberValue, UberIdentifier};
+use crate::util::{
+    Resource,
+    uberstate::{UberState, UberValue, UberIdentifier},
+    constants::WISP_STATES,
+};
 
 #[derive(Debug, Clone)]
 pub struct World<'a> {
@@ -137,6 +141,12 @@ impl<'a> World<'a> {
             }
 
             true
+        } else if WISP_STATES.contains(&reached.identifier) {
+            log::trace!("Granting player Wisp");
+            self.player.inventory.grant(Item::Resource(Resource::Health), 2);
+            self.player.inventory.grant(Item::Resource(Resource::Energy), 2);
+
+            false
         } else {
             false
         }

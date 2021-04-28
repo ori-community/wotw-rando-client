@@ -5555,7 +5555,7 @@ anchor UpperDepths.OutsideMoraFight at 595, -4376:  # Directly left of Mora's la
 anchor MoraFight at 674, -4385:
   refill Full
   quest UpperDepths.ForestsEyes:
-    moki: Boss=330, Regenerate, Damage=95, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
+    moki: Boss=330, Regenerate, Damage=85, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
     unsafe: Boss=330, Flash, Bash, Grapple, DoubleJump OR Dash OR Launch
 
 anchor UpperDepths.LowerConnection at 423, -4475:  # The firefly egg to the left of the second keystone door
@@ -6771,7 +6771,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
 anchor KwolokFight at -1650, -4125:
   refill Full
   quest WestPools.ForestsStrength:
-    moki: Boss=250, Regenerate, Damage=95, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
+    moki: Boss=250, Regenerate, Damage=85, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
     unsafe: Boss=250, Water, WaterDash, Bash, DoubleJump, Dash OR Launch
 
 region LowerWastes:

@@ -53,6 +53,34 @@ pub const KEYSTONE_DOORS: &[(&str, u16)] = &[
     ("UpperPools.KeystoneDoor", 4),
     ("UpperWastes.KeystoneDoor", 2),
 ];
+
+pub const WISP_STATES: &[UberIdentifier] = &[
+    UberIdentifier {
+        uber_group: 46462,
+        uber_id: 59806,
+    },
+    UberIdentifier {
+        uber_group: 945,
+        uber_id: 49747,
+    },
+    UberIdentifier {
+        uber_group: 28895,
+        uber_id: 25522,
+    },
+    UberIdentifier {
+        uber_group: 18793,
+        uber_id: 63291,
+    },
+    UberIdentifier {
+        uber_group: 18793,
+        uber_id: 63291,
+    },
+    UberIdentifier {
+        uber_group: 10289,
+        uber_id: 22102,
+    },
+];
+
 pub const RESERVE_SLOTS: usize = 2;  // how many slots to reserve after ranodm placements for the next iteration
 pub const RETRIES: u16 = 5;  // How many retries to allow when generating a seed
 pub const RANDOM_PROGRESSION: f64 = 0.1;  // How likely to choose a progression item as random placement
