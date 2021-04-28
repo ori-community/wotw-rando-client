@@ -186,7 +186,7 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
         },
         UberIdentifier {
             uber_group: 1,
-            uber_id: 11023,
+            uber_id: 10023,
         }
     ),
     (

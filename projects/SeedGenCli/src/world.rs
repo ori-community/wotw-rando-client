@@ -20,6 +20,7 @@ pub struct World<'a> {
     pub graph: &'a Graph,
     pub player: Player,
     pub pool: Pool,
+    // TODO the inventory being unordered actually means it's not suited to hold multipickups like this, multipickups are ordered!
     pub preplacements: FxHashMap<UberState, Inventory>,
     pub uber_states: FxHashMap<UberIdentifier, UberValue>,
 }
@@ -101,13 +102,28 @@ impl<'a> World<'a> {
                         _ => { return Err(format!("Unable to grant malformed uber state pickup {}", command)); },
                     };
 
+                    if match entry {
+                        UberValue::Bool(false) | UberValue::Int(0) => true,
+                        UberValue::Float(float) if *float == 0.0 => true,
+                        _ => false,
+                    } { break; }
+                    let is_bool = matches!(entry, UberValue::Bool(_));
+
                     let uber_state = UberState {
                         identifier: uber_state.clone(),
                         value: format!("{}", entry),
                     };
 
+                    // TODO don't trigger on unchanged values
                     log::trace!("Granting player UberState {}", uber_state);
                     self.collect_preplacements(&uber_state);
+                    if !is_bool {
+                        let without_value = UberState {
+                            value: String::new(),
+                            ..uber_state
+                        };
+                        self.collect_preplacements(&without_value);
+                    }
                 }
             },
             Item::SpiritLight(stacked_amount) => {
@@ -134,10 +150,10 @@ impl<'a> World<'a> {
     pub fn collect_preplacements(&mut self, reached: &UberState) -> bool {
         if let Some(items) = self.preplacements.get(reached) {
             log::trace!("Collecting preplacements on {}", reached);
-            let inventory = items.clone();
+            let items = items.clone();
 
-            for item in inventory.inventory.keys() {
-                self.grant_player(item.clone(), inventory.inventory[item]).unwrap_or_else(|err| log::error!("{}", err));
+            for (item, amount) in items.inventory {
+                self.grant_player(item, amount).unwrap_or_else(|err| log::error!("{}", err));
             }
 
             true
