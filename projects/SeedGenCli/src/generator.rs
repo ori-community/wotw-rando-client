@@ -319,6 +319,7 @@ where
     // TODO enforce a max total price for shops
     let placements = Vec::<Placement>::with_capacity(450);
     let placeholders = Vec::<&Node>::with_capacity(300);
+    // TODO why nodes below?
     let collected_preplacements = Vec::<&Node>::new();
     let mut spawn_slots = Vec::<&Node>::new();
 
@@ -358,19 +359,41 @@ where
     }
     finished_world.grant_player(Item::SpiritLight(1), u16::MAX)?;
 
-    // TODO this misses preplacements collected along the way
     // TODO wisps exist...
-    let mut all_reachable_locations = finished_world.graph.reached_locations(&finished_world.player, spawn, &finished_world.uber_states)?;
-    all_reachable_locations.retain(|&node| node.can_place());
-    let total_reachable_count = all_reachable_locations.len();
+    let mut collected_preplacements = Vec::new();
+    let mut total_reachable_count = 0;
+
+    let all_reachable_locations = loop {
+        let mut reachable_locations = finished_world.graph.reached_locations(&finished_world.player, spawn, &finished_world.uber_states)?;
+        let new_reachable_count = reachable_locations.len();
+
+        if new_reachable_count > total_reachable_count {
+            total_reachable_count = new_reachable_count;
+        } else {
+            reachable_locations.retain(|&node| node.can_place());
+            break reachable_locations;
+        }
+
+        reachable_locations.retain(|&node| {
+            node.uber_state().is_some() &&
+            !collected_preplacements.iter().any(|&index| index == node.index())
+        });
+
+        for node in &reachable_locations {
+            let preplaced = finished_world.collect_preplacements(node.uber_state().unwrap());
+            if preplaced {
+                collected_preplacements.push(node.index());
+            }
+        }
+    };
 
     let unreachable_locations = context.world.graph.nodes.iter()
         .filter(|&node| node.can_place() && !all_reachable_locations.iter().any(|&reachable| reachable.index() == node.index()))
         .collect::<Vec<_>>();
     if !unreachable_locations.is_empty() {
         let identifiers = unreachable_locations.iter().map(|&node| node.identifier()).collect::<Vec<_>>();
-        log::warn!("Some locations are unreachable with this item pool! These will only hold Spirit Light.");
-        log::trace!("Unreachable locations with this item pool: {}", format_identifiers(identifiers));
+        log::warn!("Some locations are unreachable on these settings! These will only hold Spirit Light.");
+        log::trace!("Unreachable locations on these settings: {}", format_identifiers(identifiers));
     }
 
     let mut reserved_slots = Vec::<&Node>::with_capacity(RESERVE_SLOTS);
@@ -383,7 +406,7 @@ where
 
         force_keystones(&reachable_states, &mut reserved_slots, &mut context)?;
 
-        let unreached_count = total_reachable_count - reachable.len() + reachable_states.len();
+        let unreached_count = total_reachable_count - reachable.len();
 
         reachable.retain(|&node| {
             let index = node.index();

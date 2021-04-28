@@ -122,4 +122,4 @@ criterion_group!(only_parsing, parsing);
 criterion_group!(only_requirements, requirements);
 criterion_group!(only_reach_checking, reach_checking);
 criterion_group!(only_generation, generation);
-criterion_main!(all);  // put any of the group names in here
+criterion_main!(only_generation);  // put any of the group names in here

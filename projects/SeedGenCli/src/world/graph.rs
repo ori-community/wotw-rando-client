@@ -183,9 +183,9 @@ impl Graph {
                             best_orbs = orbs::both(&best_orbs, &orbcost);
                             match refill.name {
                                 RefillType::Full => best_orbs = smallvec![context.player.max_orbs()],
-                                RefillType::Checkpoint => best_orbs = orbs::either_single(&best_orbs, context.player.checkpoint_orbs()),
-                                RefillType::Health(amount) => best_orbs = orbs::both_single(&best_orbs, context.player.health_orbs(amount)),
-                                RefillType::Energy(amount) => best_orbs = orbs::both_single(&best_orbs, context.player.energy_orbs(amount)),
+                                RefillType::Checkpoint => best_orbs = context.player.checkpoint_orbs(&best_orbs),
+                                RefillType::Health(amount) => best_orbs = context.player.health_orbs(&best_orbs, amount),
+                                RefillType::Energy(amount) => best_orbs = context.player.energy_orbs(&best_orbs, amount),
                             }
                             break;
                         }
