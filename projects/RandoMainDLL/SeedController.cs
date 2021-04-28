@@ -65,6 +65,11 @@ namespace RandoMainDLL {
         Target = null;
       }
     }
+    public bool Met() {
+      var value = InterOp.get_uber_state_value(Id.GroupID, Id.ID);
+      return Target.HasValue ? Target.Value >= value : value > 0;
+    }
+    
     public override string ToString() => $"({Id.GroupID}, {Id.ID}){(Target.HasValue ?  $"={Target.Value}" : "")}";
     public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);

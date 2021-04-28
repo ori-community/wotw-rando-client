@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
@@ -10,6 +11,24 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class MapController {
+
+    public static void PopulateTrackedConds() {
+      try {
+        foreach (var line in File.ReadAllLines(Randomizer.BasePath + "state_data.csv")) {
+          var data = line.Split(',');
+          _trackedConds.Add(new UberStateCondition(data[1].ParseToInt("PopulateTrackedConds.GID"), data[2]));
+        }
+      } catch (Exception e) { Randomizer.Error("PopulateTrackedConds", e);  }
+    }
+    private static List<UberStateCondition> _trackedConds = new List<UberStateCondition>();
+    public static List<UberStateCondition> TrackedConds {
+      get {
+        if (_trackedConds.Count == 0)
+          PopulateTrackedConds();
+        return _trackedConds;
+      }
+    }
+
     public static List<ShardType> TrackedShards = new List<ShardType>() { ShardType.TripleJump }; 
     public static void UpdateReachable(int sleepTime = 30) {
       if(InterOp.get_game_state() == GameState.Game) {
@@ -27,10 +46,14 @@ namespace RandoMainDLL {
         Updating = true;
         var argsList = RustLogic ? new List<string> {
           "reach-check",
+          // TODO maybe we won't pass these explicitly? since it's samefolder shit
           "--areas",
           $"\"{Randomizer.BasePath}areas.wotw\"",
           "--locations",
           $"\"{Randomizer.BasePath}loc_data.csv\"",
+          "--uber-states",
+          $"\"{Randomizer.BasePath}state_data.csv\"",
+
         } : new List<string> {
           "-jar",
           $"\"{Randomizer.BasePath}SeedGen.jar\" ",
@@ -44,14 +67,15 @@ namespace RandoMainDLL {
           $"{InterOp.get_ore()}",
           $"{InterOp.get_experience()}",
         });
-        // TODO: send which key doors are already open?
+        if(RustLogic) 
+          argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
         argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
         argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
         if (new QuestEvent(QuestEventType.Water).Has())
           argsList.Add("w:0");
         argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
         var proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = RustLogic ? @"seed_gen_cli.exe" : @"java.exe";
+        proc.StartInfo.FileName = RustLogic ? @"seedgen.exe" : @"java.exe";
         proc.StartInfo.Arguments = String.Join(" ", argsList);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
