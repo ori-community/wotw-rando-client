@@ -419,7 +419,7 @@ impl BonusUpgrade {
     }
 }
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
-pub enum Hint {
+pub enum Zone {
     Marsh,
     Hollow,
     Glades,
@@ -434,41 +434,87 @@ pub enum Hint {
     Burrows,
     Void,
 }
-impl Hint {
-    pub fn from_id(id: u8) -> Option<Hint> {
+impl Zone {
+    pub fn from_id(id: u8) -> Option<Zone> {
         match id {
-            0 => Some(Hint::Marsh),
-            1 => Some(Hint::Hollow),
-            2 => Some(Hint::Glades),
-            3 => Some(Hint::Wellspring),
-            4 => Some(Hint::Pools),
-            5 => Some(Hint::Burrows),
-            6 => Some(Hint::Reach),
-            7 => Some(Hint::Woods),
-            8 => Some(Hint::Depths),
-            9 => Some(Hint::Wastes),
-            10 => Some(Hint::Ruins),
-            11 => Some(Hint::Willow),
-            12 => Some(Hint::Void),
+            0 => Some(Zone::Marsh),
+            1 => Some(Zone::Hollow),
+            2 => Some(Zone::Glades),
+            3 => Some(Zone::Wellspring),
+            4 => Some(Zone::Pools),
+            5 => Some(Zone::Burrows),
+            6 => Some(Zone::Reach),
+            7 => Some(Zone::Woods),
+            8 => Some(Zone::Depths),
+            9 => Some(Zone::Wastes),
+            10 => Some(Zone::Ruins),
+            11 => Some(Zone::Willow),
+            12 => Some(Zone::Void),
             _ => None,
         }
     }
     pub fn to_id(self) -> u16 {
         match self {
-            Hint::Marsh => 0,
-            Hint::Hollow => 1,
-            Hint::Glades => 2,
-            Hint::Wellspring => 3,
-            Hint::Pools => 4,
-            Hint::Burrows => 5,
-            Hint::Reach => 6,
-            Hint::Woods => 7,
-            Hint::Depths => 8,
-            Hint::Wastes => 9,
-            Hint::Ruins => 10,
-            Hint::Willow => 11,
-            Hint::Void => 12,
+            Zone::Marsh => 0,
+            Zone::Hollow => 1,
+            Zone::Glades => 2,
+            Zone::Wellspring => 3,
+            Zone::Pools => 4,
+            Zone::Burrows => 5,
+            Zone::Reach => 6,
+            Zone::Woods => 7,
+            Zone::Depths => 8,
+            Zone::Wastes => 9,
+            Zone::Ruins => 10,
+            Zone::Willow => 11,
+            Zone::Void => 12,
         }
+    }
+}
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum ZoneHintType {
+    Skills,
+    Warps,
+    All,
+}
+impl ZoneHintType {
+    pub fn from_id(id: u8) -> Option<ZoneHintType> {
+        match id {
+            1 => Some(ZoneHintType::Skills),
+            2 => Some(ZoneHintType::Warps),
+            10 => Some(ZoneHintType::All),
+            _ => None,
+        }
+    }
+    pub fn to_id(self) -> u16 {
+        match self {
+            ZoneHintType::Skills => 1,
+            ZoneHintType::Warps => 2,
+            ZoneHintType::All => 10,
+        }
+    }
+}
+impl fmt::Display for ZoneHintType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            ZoneHintType::All => write!(f, ""),
+            _ => write!(f, "{:?}", self),
+        }
+    }
+}
+impl Default for ZoneHintType {
+    fn default() -> ZoneHintType {
+        ZoneHintType::Skills
+    }
+}
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub struct Hint {
+    pub zone: Zone,
+    pub hint_type: ZoneHintType,
+}
+impl fmt::Display for Hint {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?} {} hint", self.zone, self.hint_type)
     }
 }
 

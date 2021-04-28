@@ -1,18 +1,6 @@
+#preset
 /// Hints
 ///
-/// Buy hints from merchants
-/// Lupo sells hints for the zone he's currently in, Opher and Lupo in Glades sell hints about the location of important items
-
-48248|18767|12|0  // Marsh Zone Hint from LupoMap.Marsh
-48248|45538|12|5  // Burrows Zone Hint from LupoMap.Burrows
-48248|3638|12|1   // Hollow Zone Hint from LupoMap.Hollow
-48248|1590|12|3   // Wellspring Zone Hint from LupoMap.Wellspring
-48248|1557|12|4   // Pools Zone Hint from LupoMap.Pools
-48248|48423|12|8  // Depths Zone Hint from LupoMap.Depths
-48248|61146|12|9  // Wastes Zone Hint from LupoMap.Wastes
-48248|29604|12|6  // Reach Zone Hint from LupoMap.Reach
-48248|4045|12|11  // Willow Zone Hint from LupoMap.Willow
-48248|19396|12|2  // Glades Zone Hint from LupoMap.HCMapIcons
-48248|57987|12|7  // Woods Zone Hint from LupoShop.ECMapIcons
-48248|41666|13|4000,750,2-101,2-104,2-51,2-118 // key skill hint from LupoHint.Shards
-1|23|13|2500,500,2-0,2-14,2-97,9-0             // key skill hint from OpherShop.WaterBreath
+/// The default set of hints
+!!include key_hints
+!!include zone_hints

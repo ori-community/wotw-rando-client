@@ -97,8 +97,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 1,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 0,
+            uber_group: 2,
+            uber_id: 101,
         }
     ),
     (
@@ -108,8 +108,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 2,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 1,
+            uber_group: 2,
+            uber_id: 102,
         }
     ),
     (
@@ -119,8 +119,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 3,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 2,
+            uber_group: 2,
+            uber_id: 103,
         }
     ),
     (
@@ -130,8 +130,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 5,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 3,
+            uber_group: 2,
+            uber_id: 105,
         }
     ),
     (
@@ -141,8 +141,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 19,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 4,
+            uber_group: 2,
+            uber_id: 119,
         }
     ),
     (
@@ -152,8 +152,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 22,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 5,
+            uber_group: 2,
+            uber_id: 122,
         }
     ),
     (
@@ -163,8 +163,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 26,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 6,
+            uber_group: 2,
+            uber_id: 126,
         }
     ),
     (
@@ -174,8 +174,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 40,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 7,
+            uber_group: 2,
+            uber_id: 140,
         }
     ),
     (
@@ -185,8 +185,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 23,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 8,
+            uber_group: 1,
+            uber_id: 11023,
         }
     ),
     (
@@ -196,8 +196,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 74,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 9,
+            uber_group: 1,
+            uber_id: 10074,
         }
     ),
     (
@@ -207,8 +207,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 98,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 10,
+            uber_group: 1,
+            uber_id: 10098,
         }
     ),
     (
@@ -218,8 +218,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 105,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 11,
+            uber_group: 1,
+            uber_id: 10105,
         }
     ),
     (
@@ -229,8 +229,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 106,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 12,
+            uber_group: 1,
+            uber_id: 10106,
         }
     ),
     (
@@ -240,8 +240,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 115,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 13,
+            uber_group: 1,
+            uber_id: 10115,
         }
     ),
     (
@@ -251,8 +251,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 116,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 14,
+            uber_group: 1,
+            uber_id: 10116,
         }
     ),
     (
@@ -262,8 +262,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 19396,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 15,
+            uber_group: 48248,
+            uber_id: 19397,
         }
     ),
     (
@@ -273,8 +273,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 57987,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 16,
+            uber_group: 48248,
+            uber_id: 57988,
         }
     ),
     (
@@ -284,8 +284,8 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
             uber_id: 41666,
         },
         UberIdentifier {
-            uber_group: 12,
-            uber_id: 17,
+            uber_group: 48248,
+            uber_id: 41667,
         }
     ),
 ];

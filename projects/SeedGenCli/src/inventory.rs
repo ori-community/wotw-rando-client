@@ -43,7 +43,7 @@ impl fmt::Display for Item {
             Item::RemoveWater => write!(f, "Remove Water"),
             Item::BonusItem(bonus_item) => write!(f, "{:?}", bonus_item),
             Item::BonusUpgrade(bonus_upgrade) => write!(f, "{:?}", bonus_upgrade),
-            Item::Hint(hint) => write!(f, "{:?} Hint", hint),
+            Item::Hint(hint) => write!(f, "{}", hint),
             Item::CheckableHint(_, _, hint) => write!(f, "Checkable Hint for {:?}", hint),
             Item::UberState(command) => write!(f, "8|{}", command),
             Item::Command(command) => write!(f, "4|{}", command),
@@ -214,7 +214,7 @@ impl Item {
             Item::RemoveWater => String::from("9|-0"),
             Item::BonusItem(bonus) => format!("10|{}", bonus.to_id()),
             Item::BonusUpgrade(bonus) => format!("11|{}", bonus.to_id()),
-            Item::Hint(hint) => format!("12|{}", hint.to_id()),
+            Item::Hint(hint) => format!("12|{}|{}", hint.zone.to_id(), hint.hint_type.to_id()),
             Item::CheckableHint(base_price, price_modifier, hint) => {
                 let hint = hint.iter().map(|item| str::replace(&item.code(), '-', "|")).collect::<Vec<_>>();
                 format!("13|{}|{}|{}", base_price, price_modifier, hint.join(","))
@@ -356,6 +356,7 @@ impl From<Vec<(Item, u16)>> for Inventory {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::util::{Zone, ZoneHintType};
 
     #[test]
     fn item_display() {
@@ -368,7 +369,7 @@ mod tests {
         assert_eq!(Item::Water.code(), "9|0");
         assert_eq!(Item::BonusItem(BonusItem::Relic).code(), "10|20");
         assert_eq!(Item::BonusUpgrade(BonusUpgrade::ShurikenEfficiency).code(), "11|4");
-        assert_eq!(Item::Hint(Hint::Void).code(), "12|12");
+        assert_eq!(Item::Hint(Hint { zone: Zone::Void, hint_type: ZoneHintType::Skills }).code(), "12|12|1");
         assert_eq!(Item::Message(String::from("8|0|9|7")).code(), "8|0|9|7");
     }
 }

@@ -58,7 +58,7 @@ where
     spawn_node: &'a Node,
     placements: Vec<Placement<'a>>,
     placeholders: Vec<&'a Node>,
-    collected_preplacements: Vec<&'a Node>,
+    collected_preplacements: Vec<usize>,
     price_range: Uniform<f32>,
     spirit_light_rng: SpiritLightAmounts,
     rng: &'b mut R,
@@ -319,8 +319,7 @@ where
     // TODO enforce a max total price for shops
     let placements = Vec::<Placement>::with_capacity(450);
     let placeholders = Vec::<&Node>::with_capacity(300);
-    // TODO why nodes below?
-    let collected_preplacements = Vec::<&Node>::new();
+    let collected_preplacements = Vec::<usize>::new();
     let mut spawn_slots = Vec::<&Node>::new();
 
     let spirit_light_slots = (world.graph.nodes.iter().filter(|&node| node.can_place()).count() - world.pool.inventory().item_count()) as f32;
@@ -359,7 +358,6 @@ where
     }
     finished_world.grant_player(Item::SpiritLight(1), u16::MAX)?;
 
-    // TODO wisps exist...
     let mut collected_preplacements = Vec::new();
     let mut total_reachable_count = 0;
 
@@ -414,7 +412,7 @@ where
             node.uber_state().is_some() &&
             !context.placements.iter().any(|placement| placement.node.index() == index) &&
             !context.placeholders.iter().any(|&placeholder| placeholder.index() == index) &&
-            !context.collected_preplacements.iter().any(|&collected| collected.index() == index)
+            !context.collected_preplacements.iter().any(|&collected| collected == index)
         });
 
         let identifiers: Vec<_> = reachable.iter()
@@ -431,7 +429,7 @@ where
         for node in reachable {
             let preplaced = context.world.collect_preplacements(node.uber_state().unwrap());
             if preplaced {
-                context.collected_preplacements.push(node);
+                context.collected_preplacements.push(node.index());
             } else {
                 needs_placement.push(node);
             }
@@ -486,7 +484,7 @@ where
 
                         if !context.placements.iter().any(|placement| placement.node.index() == index) &&
                         !context.placeholders.iter().any(|&placeholder| placeholder.index() == index) &&
-                        !context.collected_preplacements.iter().any(|&collected| collected.index() == index)
+                        !context.collected_preplacements.iter().any(|&collected| collected == index)
                         {
                             Some(node.identifier())
                         } else { None }

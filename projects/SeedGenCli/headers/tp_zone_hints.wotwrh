@@ -1,0 +1,19 @@
+/// Teleporter Zone Hints
+///
+/// Lupo's maps give information about the number of skills and teleporters in the current zone. Lupo in Glades sells the maps for Woods and Glades.
+
+48248|18767|12|0|10         // Marsh Teleporter Zone Hint from LupoMap.Marsh
+48248|45538|12|5|10         // Burrows Teleporter Zone Hint from LupoMap.Burrows
+48248|3638|12|1|10          // Hollow Teleporter Zone Hint from LupoMap.Hollow
+48248|1590|12|3|10          // Wellspring Teleporter Zone Hint from LupoMap.Wellspring
+48248|1557|12|4|10          // Pools Teleporter Zone Hint from LupoMap.Pools
+48248|48423|12|8|10         // Depths Teleporter Zone Hint from LupoMap.Depths
+48248|61146|12|9|10         // Wastes Teleporter Zone Hint from LupoMap.Wastes
+48248|29604|12|6|10         // Reach Teleporter Zone Hint from LupoMap.Reach
+48248|4045|12|11|10         // Willow Teleporter Zone Hint from LupoMap.Willow
+48248|19396|12|2|10         // Glades Teleporter Zone Hint from LupoMap.HCMapIcons
+3|0|8|48248|19397|int|200   // Price on spawn
+3|1|8|48248|19397|int|200   // Price on load
+48248|57987|12|7|10         // Woods Teleporter Zone Hint from LupoShop.ECMapIcons
+3|0|8|48248|57988|int|200   // Price on spawn
+3|1|8|48248|57988|int|200   // Price on load

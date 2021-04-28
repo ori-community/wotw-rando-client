@@ -7,7 +7,7 @@ use crate::world::World;
 use crate::inventory::Item;
 use crate::util::{
     self,
-    Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand,
+    Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType,
     uberstate::{UberState, UberIdentifier}
 };
 
@@ -339,10 +339,22 @@ where P: Iterator<Item=&'a str>
 fn parse_zone_hint<'a, P>(mut parts: P, shop: bool) -> Result<(Item, u16), String>
 where P: Iterator<Item=&'a str>
 {
-    let hint_type = parts.next().ok_or_else(|| String::from("missing hint type"))?;
+    let zone = parts.next().ok_or_else(|| String::from("missing hint zone"))?;
+    let zone: u8 = zone.parse().map_err(|_| String::from("invalid hint zone"))?;
+    let zone = Zone::from_id(zone).ok_or_else(|| String::from("invalid hint zone"))?;
+
+    let hint_type = parts.next().map_or_else::<Result<ZoneHintType, String>, _, _>(|| Ok(ZoneHintType::default()), |hint_type| {
+        let hint_type: u8 = hint_type.parse().map_err(|_| String::from("invalid hint type"))?;
+        Ok(ZoneHintType::from_id(hint_type).ok_or_else(|| String::from("invalid hint type"))?)
+    })?;
+
     end_of_pickup(parts, shop)?;
-    let hint_type: u8 = hint_type.parse().map_err(|_| String::from("invalid hint type"))?;
-    let hint = Hint::from_id(hint_type).ok_or_else(|| String::from("invalid hint type"))?;
+
+    let hint = Hint {
+        zone,
+        hint_type,
+    };
+
     Ok((Item::Hint(hint), 1))
 }
 fn parse_checkable_hint<'a, P>(mut parts: P, shop: bool) -> Result<(Item, u16), String>
@@ -691,5 +703,7 @@ mod tests {
         assert!(parse_pickup("0||400", false).is_err());
         assert!(parse_pickup("7|3", false).is_err());
         assert!(parse_pickup("-0|65", false).is_err());
+        assert_eq!(parse_pickup("12|11|10", false), Ok((Item::Hint(Hint { zone: Zone::Willow, hint_type: ZoneHintType::All }), 1)));
+        assert_eq!(parse_pickup("12|11", false), Ok((Item::Hint(Hint { zone: Zone::Willow, hint_type: ZoneHintType::Skills }), 1)));
     }
 }
