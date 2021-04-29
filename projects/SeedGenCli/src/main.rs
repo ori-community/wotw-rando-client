@@ -22,6 +22,8 @@ use util::{
     constants::DEFAULT_SPAWN,
 };
 
+// TODO investigate seed -h fav -f go gl t -s f -t -v --seed 0382844288717805
+
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
 ///
@@ -59,7 +61,7 @@ enum Command {
         /// create a generator.log with verbose output about the generation process
         #[structopt(short, long)]
         verbose: bool,
-        /// hides spoilers and makes the black market more expensive
+        /// hides spoilers
         #[structopt(short, long)]
         race: bool,
         /// required for coop and bingo

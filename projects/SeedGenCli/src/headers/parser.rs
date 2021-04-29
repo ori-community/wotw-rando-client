@@ -19,8 +19,9 @@ where
 {
     // TODO could support !!add with a fixed price probably? And/or an uberState based price for shuffled pickups?
     if shop {
-        if let Some(price) = parts.next() {
-            price.parse::<f32>().map_err(|_| String::from("invalid price"))?;
+        if parts.next().is_some() {
+            return Err(String::from("Shop prices in pickups are obsolete! Use the assigned uberStates for shop prices instead"));
+            // price.parse::<f32>().map_err(|_| String::from("invalid price"))?;
         }
     }
     if parts.next().is_some() { return Err(String::from("too many parts")); }

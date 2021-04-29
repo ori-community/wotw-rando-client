@@ -339,6 +339,10 @@ pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), Stri
 
     let existing = find_headers(true)?;
 
+    for header in &headers {
+        contents.push_str(&format!("/// {}\n", header));
+    }
+
     for header in headers {
         if !existing.iter().any(|h| h.file_stem().unwrap().to_string_lossy() == header) { return Err(format!("Couldn't find header {}", header)); }
         contents.push_str(&format!("!!include {}\n", header));

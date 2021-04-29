@@ -72,10 +72,6 @@ pub const WISP_STATES: &[UberIdentifier] = &[
         uber_id: 63291,
     },
     UberIdentifier {
-        uber_group: 18793,
-        uber_id: 63291,
-    },
-    UberIdentifier {
         uber_group: 10289,
         uber_id: 22102,
     },
