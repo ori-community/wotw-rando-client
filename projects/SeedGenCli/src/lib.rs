@@ -74,7 +74,7 @@ fn write_flags(settings: &Settings) -> String {
     if settings.flags.force_quests { flags.push("ForceQuests"); }
     if settings.flags.world_tour { flags.push("WorldTour"); }
     if matches!(settings.spawn_loc, Spawn::Random) { flags.push("RandomSpawn"); }
-    // TODO fully random?
+    // TODO fully random? headers?
     // TODO this isn't needed post the rando versioning changes
     flags.push("NoFreeSword");
 
@@ -240,8 +240,8 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     let placement_block = placements.iter().fold(init, |acc, placement| {
         let mut placement_line = format!("{}", placement);
         if settings.spoilers {
-            util::add_trailing_spaces(&mut placement_line, 23);
-            let item = util::with_leading_spaces(&format!("{}", placement.item), 16);
+            util::add_trailing_spaces(&mut placement_line, 28);
+            let item = util::with_leading_spaces(&format!("{}", placement.item), 28);
             let mut location = format!("{}", placement.node);
             util::add_trailing_spaces(&mut location, 33);
             let mut position = format!("({})", placement.node.position().unwrap());
