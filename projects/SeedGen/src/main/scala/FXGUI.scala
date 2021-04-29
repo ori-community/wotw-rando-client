@@ -454,7 +454,7 @@ package SeedGenerator {
         "6|1014|8|1|10023|int|-500                       // price reduction: Glide -500",
         "1|10023=1000|8|1|10023|int|0                    // set price to zero if nothing left to hint",
         "2|2|13|1500,500,2-97,2-0                        // key skill hint from TwillenShop.TripleJump",
-        "3|0|8|2|113|int|2500                            // price initialization for ^",
+        "3|0|8|2|113|int|1500                            // price initialization for ^",
         "6|1000|8|2|113|int|-500                         // price reduction: Bash -500",
         "6|1097|8|2|113|int|-500                         // price reduction: Bow -500",
         "2|113=500|8|2|113|int|0                         // set price to zero if nothing left to hint",
