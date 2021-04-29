@@ -255,5 +255,5 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     let seed_line = format!("\n// Seed: {}", seed);
     let config_line = format!("\n// Config: {}", util::settings::write(&settings).map_err(|_| String::from("Invalid Settings"))?);
 
-    Ok(flag_line + &spawn_line + &header_block + &placement_block + &seed_line + &config_line)
+    Ok(flag_line + &spawn_line + &placement_block + &header_block + &seed_line + &config_line)
 }

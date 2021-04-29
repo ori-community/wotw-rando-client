@@ -31,6 +31,8 @@ pub enum Requirement<'a> {
     BreakWall(u16),
     ShurikenBreak(u16),
     SentryJump(u16),
+    SwordSentryJump(u16),
+    HammerSentryJump(u16),
 }
 #[derive(Debug)]
 pub struct Line<'a> {
@@ -165,6 +167,8 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
                 "Ore" => Ok(Requirement::Resource(Resource::Ore, amount)),
                 "Sentry" => Ok(Requirement::EnergySkill(Skill::Sentry, amount)),
                 "SentryJump" => Ok(Requirement::SentryJump(amount)),
+                "SwordSJump" => Ok(Requirement::SwordSentryJump(amount)),
+                "HammerSJump" => Ok(Requirement::HammerSentryJump(amount)),
                 "ShardSlot" => Ok(Requirement::Resource(Resource::ShardSlot, amount)),
                 "Shuriken" => Ok(Requirement::EnergySkill(Skill::Shuriken, amount)),
                 "ShurikenBreak" => Ok(Requirement::ShurikenBreak(amount)),
@@ -233,10 +237,10 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "WestWastesTP" => Ok(Requirement::Teleporter(Teleporter::WestWastes)),
             "WestWoodsTP" => Ok(Requirement::Teleporter(Teleporter::WestWoods)),
             "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
-            "Combat" | "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
-                => Err(wrong_amount(token)),
             _ if metadata.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
             _ if metadata.states.contains(keyword) || metadata.quests.contains(keyword) => Ok(Requirement::State(keyword)),
+            "Combat" | "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump"| "SwordSJump" | "HammerSJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
+                => Err(wrong_amount(token)),
             _ => Err(wrong_requirement(token))
         }
     }

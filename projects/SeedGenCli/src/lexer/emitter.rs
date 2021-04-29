@@ -51,6 +51,24 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
             } else {
                 Requirement::Impossible
             },
+        parser::Requirement::SwordSentryJump(amount) =>
+            if pathsets.contains(&Pathset::Glitch) {
+                Requirement::And(vec![
+                    Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
+                    Requirement::Skill(Skill::Sword),
+                ])
+            } else {
+                Requirement::Impossible
+            },
+        parser::Requirement::HammerSentryJump(amount) =>
+            if pathsets.contains(&Pathset::Glitch) {
+                Requirement::And(vec![
+                    Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
+                    Requirement::Skill(Skill::Hammer),
+                ])
+            } else {
+                Requirement::Impossible
+            },
     }
 }
 
