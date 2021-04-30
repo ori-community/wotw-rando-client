@@ -548,7 +548,7 @@ pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
              if let Some(include) = command.strip_prefix("include ") {
                 let mut path = PathBuf::from(include);
                 path.set_extension("wotwrh");
-                util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {}: {}", path.display(), err))?;
+                util::read_file(&path, "headers")?;
             } else if let Some(mut pickup) = command.strip_prefix("add ") {
                 parse_count(&mut pickup);
                 parse_pickup(pickup, false)?;

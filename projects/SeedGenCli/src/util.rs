@@ -684,15 +684,35 @@ impl fmt::Display for Position {
     }
 }
 
-pub fn read_file<P>(file: &Path, default_folder: P) -> Result<String, io::Error>
+fn in_folder<P>(file: &Path, folder: P) -> Result<Option<PathBuf>, String>
 where P: AsRef<Path>
 {
-    let mut in_folder = PathBuf::new();
-    in_folder.push(default_folder);
-    in_folder.push(file);
-    fs::read_to_string(in_folder).or_else(|_| {
-        fs::read_to_string(file)
-    })
+    let file_name = file.file_name().ok_or_else(|| format!("Invalid file path {}", file.display()))?;
+    let file_location = file.parent().ok_or_else(|| format!("Invalid file path {}", file.display()))?;
+
+    if let Some(file_folder) = file_location.file_name() {
+        if folder.as_ref() == file_folder {
+            return Ok(None);
+        }
+    }
+
+    let mut in_folder = PathBuf::from(file_location);
+    in_folder.push(folder);
+    in_folder.push(file_name);
+
+    Ok(Some(in_folder))
+}
+
+pub fn read_file<P>(file: &Path, default_folder: P) -> Result<String, String>
+where P: AsRef<Path>
+{
+    if let Some(in_folder) = in_folder(file, default_folder)? {
+        fs::read_to_string(in_folder).or_else(|_| {
+            fs::read_to_string(file).map_err(|err| format!("Failed to read file {}: {}", file.display(), err))
+        })
+    } else {
+        fs::read_to_string(file).map_err(|err| format!("Failed to read file {}: {}", file.display(), err))
+    }
 }
 
 fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
@@ -719,14 +739,16 @@ fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
             }
     }
 }
-pub fn create_new_file(file: &Path, contents: &str, default_folder: &str) -> Result<PathBuf, io::Error> {
-    // TODO what if the path already specifies the folder?
-    let mut in_folder = PathBuf::new();
-    in_folder.push(default_folder);
-    in_folder.push(file);
-    create_in_folder(&in_folder, contents).or_else(|_| {
-        create_in_folder(file, contents)
-    })
+pub fn create_new_file<P>(file: &Path, contents: &str, default_folder: P) -> Result<PathBuf, String>
+where P: AsRef<Path>
+{
+    if let Some(in_folder) = in_folder(file, default_folder)? {
+        create_in_folder(&in_folder, contents).or_else(|_| {
+            create_in_folder(file, contents).map_err(|err| format!("Failed to create {}: {}", file.display(), err))
+        })
+    } else {
+        create_in_folder(file, contents).map_err(|err| format!("Failed to create {}: {}", file.display(), err))
+    }
 }
 
 pub fn add_trailing_spaces(string: &mut String, target_length: usize) {

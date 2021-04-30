@@ -605,7 +605,7 @@ fn empty_field(name: &str, index: usize, line: &str) -> String {
 }
 
 pub fn parse_locations(path: &Path, validate: bool) -> Result<Vec<Location>, String> {
-    let input = util::read_file(path, "logic").map_err(|err| format!("Failed to read locations: {}", err))?;
+    let input = util::read_file(path, "logic")?;
     let mut locations = Vec::with_capacity(input.lines().count());
 
     for (index, line) in input.lines().enumerate() {
@@ -657,7 +657,7 @@ pub struct NamedState {
 }
 
 pub fn parse_states(path: &Path, validate: bool) -> Result<Vec<NamedState>, String> {
-    let input = util::read_file(path, "logic").map_err(|err| format!("Failed to read states: {}", err))?;
+    let input = util::read_file(path, "logic")?;
     let mut states = Vec::with_capacity(input.lines().count());
 
     for (index, line) in input.lines().enumerate() {

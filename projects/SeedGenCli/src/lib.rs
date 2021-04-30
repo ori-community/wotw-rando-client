@@ -148,7 +148,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
 
         log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {}", path.display()))?.to_string_lossy());
 
-        let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {}: {}", path.display(), err))?;
+        let header = util::read_file(&path, "headers")?;
         let (header, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
 
         header_block += &header;
@@ -161,7 +161,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
         for dependency in total_dependencies.drain() {
             log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {}", dependency.display()))?.to_string_lossy());
 
-            let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {}: {}", dependency.display(), err))?;
+            let header = util::read_file(&dependency, "headers")?;
             let (header, dependencies) = &headers::parser::parse_header(&header, world, &settings.pathsets)?;
 
             header_block += &header;

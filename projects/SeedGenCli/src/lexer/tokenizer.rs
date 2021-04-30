@@ -1,4 +1,4 @@
-use std::{io, cmp::Ordering, path::Path};
+use std::{cmp::Ordering, path::Path};
 
 use smallvec::{SmallVec, smallvec};
 
@@ -275,7 +275,7 @@ fn tokenize_requirement(input: &str, context: &mut TokenContext) -> Option<(usiz
     ))
 }
 
-pub fn tokenize(areas: &Path) -> Result<Vec<Token>, io::Error> {
+pub fn tokenize(areas: &Path) -> Result<Vec<Token>, String> {
     let tokenizers = [
         skip_whitespace,
         tokenize_indent,
@@ -323,7 +323,7 @@ pub fn tokenize(areas: &Path) -> Result<Vec<Token>, io::Error> {
             if let Some(index) = failed[1..].find('\n') {
                 failed = &failed[..index - 1];
             }
-            return Err(io::Error::new(io::ErrorKind::InvalidData, format!("Failed to read line {} from {} (this is most likely due to a wrong indent): {}", context.line + 1, areas.display(), failed)));
+            return Err(format!("Failed to read line {} from {} (this is most likely due to a wrong indent): {}", context.line + 1, areas.display(), failed));
         }
     }
     while context.indent_stack.len() > 1 {

@@ -23,8 +23,6 @@ use util::{
     uberstate::{UberState, UberValue},
 };
 
-// TODO investigate seed -h fav -f go gl t -s f -t -v --seed 0382844288717805
-
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
 ///
@@ -306,7 +304,7 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
     let seed = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
     log::info!("Generated seed in {:?}", now.elapsed());
 
-    let file = util::create_new_file(&filename, &seed, "seeds").map_err(|err| format!("Failed to write seed file: {}", err))?;
+    let file = util::create_new_file(&filename, &seed, "seeds")?;
     log::info!("Wrote seed to {}", file.display());
 
     fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
@@ -328,7 +326,7 @@ struct ReachCheckArgs {
 
 fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     args.seed_file.set_extension("wotwr");
-    let settings = util::settings::read(&args.seed_file).map_err(|err| format!("Failed to read settings from {}: {}", args.seed_file.display(), err))?;
+    let settings = util::settings::read(&args.seed_file)?;
     let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, false)?;
     let mut world = World::new(graph);
 
@@ -379,7 +377,7 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
         }
     }
 
-    let spawn = util::settings::read_spawn(&args.seed_file).map_err(|err| format!("Failed to read spawn from seed: {}", err))?;
+    let spawn = util::settings::read_spawn(&args.seed_file)?;
 
     let reached = world.graph.reached_locations(&world.player, &spawn, &world.uber_states).expect("Invalid Reach Check");
     let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).collect();

@@ -188,7 +188,7 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
         header.set_extension("wotwrh");
         let name = header.file_stem().unwrap().to_string_lossy();
 
-        let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header {}: {}", name, err))?;
+        let contents = util::read_file(&header, "headers")?;
 
         let preset = contents.trim_start().starts_with("#preset");
         let mut description = NAME_COLOUR.paint(format!("{} {}:\n", name, if preset { "preset" } else { "header" })).to_string();
@@ -228,7 +228,7 @@ pub fn validate() -> Result<(), String> {
     for header in headers {
         let mut name = header.file_stem().unwrap().to_string_lossy().into_owned();
 
-        let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header {}: {}", name, err))?;
+        let contents = util::read_file(&header, "headers")?;
 
         match parser::validate_header(&contents) {
             Ok(occupied) => {
@@ -350,7 +350,7 @@ pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), Stri
 
     name.set_extension("wotwrh");
 
-    let name = util::create_new_file(&name, &contents, "headers").map_err(|err| format!("Failed to create preset: {}", err))?;
+    let name = util::create_new_file(&name, &contents, "headers")?;
 
     println!("Created preset {}", name.display());
     Ok(())
