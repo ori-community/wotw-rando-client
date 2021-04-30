@@ -5,7 +5,8 @@ using System;
 namespace RandoMainDLL {
 
   public class SeedGenSettings {
-    private Version legacyShopVer = new Version("0.12.8");
+    [JsonIgnore]
+    private static Version rustGenVersion = new Version("0.13.0");
     [JsonProperty("tps")]
     public Boolean Teleporters { get; set; }
     [JsonProperty("spoilers")]
@@ -21,7 +22,7 @@ namespace RandoMainDLL {
       }
     }
     [JsonIgnore]
-    public bool OldShopCosts => 0 >= Version.CompareTo(legacyShopVer);
+    public bool LegacySeedgen => 0 > Version.CompareTo(rustGenVersion);
     [JsonProperty("unsafePaths")]
     public Boolean UnsafePaths { get; set; }
     [JsonProperty("gorlekPaths")]
