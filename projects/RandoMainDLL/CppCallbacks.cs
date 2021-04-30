@@ -114,10 +114,6 @@ namespace RandoMainDLL {
             CallbackName = "opher_bought_weapon"
           },
           new Method() {
-            Delegate = new f_int_at(ShopController.OpherWeaponCost),
-            CallbackName = "opher_weapon_cost"
-          },
-          new Method() {
             Delegate = new f_bool_at(ShopController.OpherBoughtUpgrade),
             CallbackName = "opher_bought_upgrade"
           },

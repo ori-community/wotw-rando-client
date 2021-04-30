@@ -33,7 +33,6 @@ namespace csharp_bridge
     signatures::f_void_at opher_buy_weapon = nullptr;
     signatures::f_void_at opher_buy_upgrade = nullptr;
     signatures::f_bool_at opher_bought_weapon = nullptr;
-    signatures::f_int_at opher_weapon_cost = nullptr;
     signatures::f_bool_at opher_bought_upgrade = nullptr;
     signatures::f_void_st twillen_buy_shard = nullptr;
     signatures::f_bool_st twillen_bought_shard = nullptr;
@@ -104,8 +103,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         opher_buy_upgrade = reinterpret_cast<f_void_at>(ptr);
     else if (name == "opher_bought_weapon")
         opher_bought_weapon = reinterpret_cast<f_bool_at>(ptr);
-    else if (name == "opher_weapon_cost")
-        opher_weapon_cost = reinterpret_cast<f_int_at>(ptr);
     else if (name == "opher_bought_upgrade")
         opher_bought_upgrade = reinterpret_cast<f_bool_at>(ptr);
     else if (name == "twillen_buy_shard")

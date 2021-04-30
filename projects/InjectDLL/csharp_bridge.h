@@ -64,7 +64,6 @@ namespace csharp_bridge
     extern signatures::f_void_at opher_buy_weapon;
     extern signatures::f_void_at opher_buy_upgrade;
     extern signatures::f_bool_at opher_bought_weapon;
-    extern signatures::f_int_at opher_weapon_cost;
     extern signatures::f_bool_at opher_bought_upgrade;
     extern signatures::f_void_st twillen_buy_shard;
     extern signatures::f_bool_st twillen_bought_shard;

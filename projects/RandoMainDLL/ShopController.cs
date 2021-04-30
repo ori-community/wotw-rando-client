@@ -222,8 +222,6 @@ namespace RandoMainDLL {
     public static bool TwillenBoughtShard(ShardType shard) => shard.Slot().Bought;
     public static bool OpherBoughtUpgrade(AbilityType slot) => slot.Upgraded();
     public static int TwillenShardCost(ShardType shard) => shard.Slot().Cost;
-    public static int OpherWeaponCost(AbilityType ability) => ability.Slot().Cost;
-
     public static int LupoUpgradeCost(int id) => LupoSlot(id).Cost;
   }
 }
