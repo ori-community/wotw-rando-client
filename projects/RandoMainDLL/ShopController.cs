@@ -26,10 +26,16 @@ namespace RandoMainDLL {
     public static OpherSlot Smash = new OpherSlot(AbilityType.SpiritSmash);
     public static OpherSlot Spike = new OpherSlot(AbilityType.Spike);
     public static OpherSlot Blaze = new OpherSlot(AbilityType.Blaze);
+    public static OpherUpgrade SentrySpeed = new OpherUpgrade(AbilityType.Sentry, "Sentry Speed");
+    public static OpherUpgrade StaticStar = new OpherUpgrade(AbilityType.SpiritStar, "Static Star");
+    public static OpherUpgrade ShockSmash = new OpherUpgrade(AbilityType.SpiritSmash, "Shock Smash");
+    public static OpherUpgrade ExplosiveSpike = new OpherUpgrade(AbilityType.Spike, "Explosive Spike");
+    public static OpherUpgrade ChargeBlaze = new OpherUpgrade(AbilityType.Blaze, "Charge Blaze");
     public static OpherSlot Teleport = new OpherSlot(AbilityType.TeleportSpell);
     public static OpherSlot WaterBreath = new OpherSlot(AbilityType.WaterBreath);
 
     public static List<OpherSlot> Opher = new List<OpherSlot> { Sentry, Star, Smash, Spike, Blaze, Teleport, WaterBreath };
+    public static List<OpherSlot> OpherUpgrades = new List<OpherSlot> { SentrySpeed, StaticStar, ShockSmash, ExplosiveSpike, ChargeBlaze };
 
     public static TwillenSlot Overcharge = new TwillenSlot(ShardType.Overcharge);
     public static TwillenSlot Energy = new TwillenSlot(ShardType.Energy);
@@ -47,15 +53,21 @@ namespace RandoMainDLL {
     public static LupoStoreSlot ShardIcons = new LupoStoreSlot(41666, "Shard Icons");
 
     public static List<LupoStoreSlot> LupoStore = new List<LupoStoreSlot> { HealthIcons, EnergyIcons, ShardIcons };
-    public static List<ShopSlot> All = new List<List<ShopSlot>>() { Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
+    public static List<ShopSlot> All = new List<List<ShopSlot>>() {/* once these are items lol OpherUpgrades.ToList<ShopSlot>(), */Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
   }
   public class OpherSlot : ShopSlot {
     public readonly AbilityType Weapon;
-    public readonly bool IsUpgrade;
     public override UberId CostState => new UberId(1, 10000 + (int)Weapon);
     public override UberId State => new UberId(1, (int)Weapon);
     public override String Name => $"OpherBuy-{Weapon.GetDescription()}";
-    public OpherSlot(AbilityType at, bool upgrade = false) => (Weapon, IsUpgrade) = (at, upgrade);
+    public OpherSlot(AbilityType at) => Weapon = at;
+  }
+  public class OpherUpgrade : OpherSlot {
+    private readonly string name;
+    public override UberId CostState => new UberId(1, 11000 + (int)Weapon);
+    public override UberId State => new UberId(1, 1000 + (int)Weapon);
+    public OpherUpgrade(AbilityType at, string _name) : base(at) => name = _name;
+    public override String Name => name;
   }
   public class LupoStoreSlot : ShopSlot {
     private readonly int id;
@@ -127,6 +139,10 @@ namespace RandoMainDLL {
             InterOp.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type), s.Cost);
         }
       }
+      foreach(var s in ShopSlot.OpherUpgrades) {
+        // TODO: change once these are actually slots
+        InterOp.set_opher_cost(255, (int)s.Weapon, s.Cost);
+      }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
@@ -197,7 +213,7 @@ namespace RandoMainDLL {
     }
 
     public static void SetCostsAfterInit() {
-      if (!SeedController.Settings.OldShopCosts)
+      if (!SeedController.Settings.LegacySeedgen)
         return;
       foreach(var slot in ShopSlot.All) {
         if (slot is OpherSlot ws && KSOverride(ws.Weapon))
@@ -210,7 +226,7 @@ namespace RandoMainDLL {
 
     public static void OnBuyOpherUpgrade(AbilityType slot) => UberSet.Bool(slot.UpgradedState(), true);
 
-    public static bool KSOverride(AbilityType a) => SeedController.Settings.OldShopCosts && a == AbilityType.TeleportSpell && !SeedController.KSDoorsOpen;
+    public static bool KSOverride(AbilityType a) => SeedController.Settings.LegacySeedgen && a == AbilityType.TeleportSpell && !SeedController.KSDoorsOpen;
 
     public static void OnBuyTwillenShard(ShardType st) {
       var slot = st.Slot();
