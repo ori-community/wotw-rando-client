@@ -33,7 +33,7 @@ namespace RandoMainDLL {
         spiritLight = InterOp.get_experience();
         ore = InterOp.get_ore();
         skills = SaveController.SkillsFound.Select((AbilityType type) => trackName(type)).ToHashSet();
-        upgraded = SaveController.UpgradedWeapons.Select((AbilityType type) => $"{type.GetDescription().Replace(" ", "")}").ToHashSet();
+        upgraded = ShopController.UpgradedWeapons.Select((AbilityType type) => $"{type.GetDescription().Replace(" ", "")}").ToHashSet();
         if (SaveController.HasAbility(AbilityType.DamageUpgrade1) && SaveController.HasAbility(AbilityType.DamageUpgrade2))
           upgraded.Add(trackName(AbilityType.DamageUpgrade1));
         events = SaveController.WorldEvents.Select((QuestEventType type) => type.GetDescription()).ToHashSet();
