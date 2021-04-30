@@ -37,3 +37,4 @@ fun <K, V> mutableBiMapOf(vararg pairs: Pair<K, V>): MutableBiMap<K, V> = BiHash
     .apply {
     putAll(pairs)
 }
+fun <K, V> Iterable<Pair<K,V>>.toBiMap() = mutableBiMapOf(*this.toList().toTypedArray())

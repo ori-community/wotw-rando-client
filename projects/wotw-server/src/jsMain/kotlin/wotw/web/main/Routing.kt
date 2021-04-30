@@ -35,9 +35,16 @@ class RootComponent : RComponent<RProps, RState>() {
                         }
                     }
                 }
+                route<GameIdProps>("/bingo/:gameId/spectate") { props ->
+                    child(BingoView::class) {
+                        attrs.gameId = props.match.params.gameId
+                        attrs.spectate = true
+                    }
+                }
                 route<GameIdProps>("/bingo/:gameId") { props ->
                     child(BingoView::class) {
                         attrs.gameId = props.match.params.gameId
+                        attrs.spectate = false
                     }
                 }
                 route<GameIdProps>("/game/:gameId") { props ->

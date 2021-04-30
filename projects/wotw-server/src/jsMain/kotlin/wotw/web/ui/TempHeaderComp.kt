@@ -51,11 +51,24 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                         }
                     }
                     button {
-                        +"New DISCOVERY Bingo Game"
+                        +"New Discovery Bingo Game"
                         attrs {
                             onClickFunction = {
                                 GlobalScope.launch {
                                     document.location?.href = "/bingo/${Application.api.post<String>(path = "/bingo", body = BingoGenProperties(discovery = 2)){
+                                        contentType(ContentType.Application.Json)
+                                    }
+                                    }"
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        +"New LOCKOUT Bingo Game"
+                        attrs {
+                            onClickFunction = {
+                                GlobalScope.launch {
+                                    document.location?.href = "/bingo/${Application.api.post<String>(path = "/bingo", body = BingoGenProperties(lockout = true)){
                                         contentType(ContentType.Application.Json)
                                     }
                                     }"

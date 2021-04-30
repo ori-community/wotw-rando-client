@@ -35,7 +35,9 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 val game = Game.findById(gameId) ?: throw NotFoundException()
                 val team = Team.find(gameId, playerId) ?: throw NotFoundException()
                 val state = game.teamStates[team] ?: throw NotFoundException()
-                server.sync.aggregateState(state, message.uberId, message.value)
+                val result = server.sync.aggregateState(state, message.uberId, message.value)
+                game.updateCompletions(team)
+                result
             }
 
             server.sync.syncState(gameId, playerId, message.uberId, result)
@@ -151,9 +153,10 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
         val (result, game) = newSuspendedTransaction {
             logger.debug("($uberGroup, $uberState) -> $sentValue")
             val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
-            server.sync.aggregateState(playerData, UberId(uberGroup, uberState), sentValue) to
+            val result = server.sync.aggregateState(playerData, UberId(uberGroup, uberState), sentValue) to
                     playerData.game.id.value
-
+            playerData.game.updateCompletions(playerData.team)
+            result
         }
         val pc = server.connections.playerConns[playerId]!!
         if(pc.gameId != game) {
@@ -171,9 +174,11 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
         val (results, game) = newSuspendedTransaction {
             val playerData = GameState.findById(gameStateId) ?: error("Inconsistent game state")
-            updates.mapValues { (uberId, value) ->
+            val result = updates.mapValues { (uberId, value) ->
                 server.sync.aggregateState(playerData, uberId, value)
             } to playerData.game.id.value
+            playerData.game.updateCompletions(playerData.team)
+            result
         }
 
         val pc = server.connections.playerConns[playerId]!!
@@ -182,7 +187,6 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             server.connections.registerGameConn(pc.socket, playerId, game)
         }
         server.sync.syncGameProgress(game)
-
         server.sync.syncStates(game, playerId, results)
     }
 
