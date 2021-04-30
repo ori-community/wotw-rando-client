@@ -68,15 +68,11 @@ where
 }
 
 fn write_flags(settings: &Settings) -> String {
-    let mut flags = vec![];
-    if settings.goalmodes.force_wisps { flags.push("ForceWisps"); }
-    if settings.goalmodes.force_trees { flags.push("ForceTrees"); }
-    if settings.goalmodes.force_quests { flags.push("ForceQuests"); }
-    if settings.goalmodes.world_tour { flags.push("WorldTour"); }
-    if matches!(settings.spawn_loc, Spawn::Random) { flags.push("RandomSpawn"); }
+    let mut flags = settings.goalmodes.iter().map(|goal| format!("{}", goal)).collect::<Vec<_>>();
+    if matches!(settings.spawn_loc, Spawn::Random) { flags.push(String::from("RandomSpawn")); }
     // TODO fully random? headers?
     // TODO this isn't needed post the rando versioning changes
-    flags.push("NoFreeSword");
+    flags.push(String::from("NoFreeSword"));
 
     let flags = flags.join(", ");
 
@@ -199,7 +195,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         },
         value: String::new(),
     };
-    let spawn_node = Node::Pickup(Pickup {
+    let spawn_pickup_node = Node::Pickup(Pickup {
         identifier: String::from("Spawn"),
         zone: String::new(),
         index: usize::MAX,
@@ -216,7 +212,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         };
         log::trace!("Spawning on {}", spawn_loc.identifier);
 
-        match generator::generate_placements(world.clone(), &spawn_loc.identifier, &spawn_node, settings, &mut rng) {
+        match generator::generate_placements(world.clone(), &spawn_loc.identifier, &spawn_pickup_node, settings, &mut rng) {
             Ok(seed) => {
                 placements = seed;
                 if index > 1 {
@@ -237,7 +233,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     }
 
     let init = String::with_capacity(placements.len() * 20);
-    let placement_block = placements.iter().fold(init, |acc, placement| {
+    let mut placement_block = placements.iter().fold(init, |acc, placement| {
         let mut placement_line = format!("{}", placement);
         if settings.spoilers {
             util::add_trailing_spaces(&mut placement_line, 28);
@@ -251,9 +247,10 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         placement_line.push('\n');
         acc + &placement_line
     });
+    placement_block.push('\n');
 
     let seed_line = format!("\n// Seed: {}", seed);
-    let config_line = format!("\n// Config: {}", util::settings::write(&settings).map_err(|_| String::from("Invalid Settings"))?);
+    let config_line = format!("\n// Config: {}", util::settings::write(&settings).map_err(|err| format!("Invalid Settings: {}", err))?);
 
     Ok(flag_line + &spawn_line + &placement_block + &header_block + &seed_line + &config_line)
 }

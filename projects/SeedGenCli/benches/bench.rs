@@ -48,7 +48,7 @@ fn parsing(c: &mut Criterion) {
 
 fn requirements(c: &mut Criterion) {
     let mut player = Player::default();
-    player.pathsets.unsafe_paths = true;
+    player.pathsets.add(Pathset::Unsafe);
     let states = FxHashSet::default();
 
     let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);

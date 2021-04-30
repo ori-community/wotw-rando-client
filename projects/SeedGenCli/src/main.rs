@@ -10,6 +10,7 @@ use std::{
 use structopt::StructOpt;
 use bugsalot::debugger;
 
+use rustc_hash::FxHashSet;
 use rand::distributions::{Distribution, Uniform};
 use log::LevelFilter;
 
@@ -18,8 +19,8 @@ use seedgen::{self, lexer, inventory, world, headers, util};
 use inventory::Item;
 use world::World;
 use util::{
-    Pathsets, Pathset, Resource, Skill, Teleporter, Shard,
-    settings::{Settings, Spawn, GoalModes},
+    Pathsets, Pathset, GoalMode, Resource, Skill, Teleporter, Shard,
+    settings::{Settings, Spawn},
     uberstate::{UberState, UberValue},
 };
 
@@ -207,15 +208,15 @@ fn parse_pathsets(names: &[String]) -> Pathsets {
     pathsets
 }
 
-fn parse_goalmodes(names: &[String]) -> GoalModes {
-    let mut goalmodes = GoalModes::default();
+fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
+    let mut goalmodes = FxHashSet::default();
 
     for goalmode in names {
         match &goalmode[..] {
-            "t" | "trees" => goalmodes.force_trees = true,
-            "w" | "wisps" => goalmodes.force_wisps = true,
-            "q" | "quests" => goalmodes.force_quests = true,
-            "r" | "relics" => goalmodes.world_tour = true,
+            "t" | "trees" => { goalmodes.insert(GoalMode::Trees); },
+            "w" | "wisps" => { goalmodes.insert(GoalMode::Wisps); },
+            "q" | "quests" => { goalmodes.insert(GoalMode::Quests); },
+            "r" | "relics" => { goalmodes.insert(GoalMode::Relics); },
             other => log::warn!("Unknown goal mode {}", other),
         }
     }
@@ -366,7 +367,7 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     let spawn = util::settings::read_spawn(&args.seed_file)?;
 
     let reached = world.graph.reached_locations(&world.player, &spawn, &world.uber_states).expect("Invalid Reach Check");
-    let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).collect();
+    let reached: Vec<_> = reached.iter().filter(|&&node| node.can_place()).filter_map(|&node| node.uber_state()).collect();
     let reached = reached.iter().map(|uber_state| format!("{}", uber_state)).collect::<Vec<_>>();
     Ok(reached.join(", "))
 }

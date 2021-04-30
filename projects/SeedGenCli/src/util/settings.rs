@@ -1,8 +1,9 @@
 use std::{io, path::{Path, PathBuf}};
 
+use rustc_hash::FxHashSet;
 use serde::{Serialize, Deserialize};
 
-use super::{Pathsets, Pathset, constants::DEFAULT_SPAWN};
+use super::{Pathsets, Pathset, GoalMode, constants::DEFAULT_SPAWN};
 
 /// Representation of settings as they are written by the java-based seed generator
 #[allow(clippy::struct_excessive_bools)]
@@ -79,15 +80,16 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
 
     let spawn_loc = if old_settings.flags.random_spawn { Spawn::Random } else { Spawn::Set(old_settings.spawn_loc) };
 
+    let mut goalmodes = FxHashSet::default();
+    if old_settings.flags.force_wisps { goalmodes.insert(GoalMode::Wisps); }
+    if old_settings.flags.force_trees { goalmodes.insert(GoalMode::Trees); }
+    if old_settings.flags.force_quests { goalmodes.insert(GoalMode::Quests); }
+    if old_settings.flags.world_tour { goalmodes.insert(GoalMode::Relics); }
+
     Ok(Settings {
         version: String::from("0.0.0"),
         pathsets,
-        goalmodes: GoalModes {
-            force_wisps: old_settings.flags.force_wisps,
-            force_trees: old_settings.flags.force_trees,
-            force_quests: old_settings.flags.force_quests,
-            world_tour: old_settings.flags.world_tour,
-        },
+        goalmodes,
         spoilers: old_settings.spoilers,
         output_folder: old_settings.output_folder,
         web_conn: old_settings.web_conn,
@@ -97,29 +99,20 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     })
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize)]
 pub enum Spawn {
     Set(String),
     Random,
     FullyRandom,
 }
-// TODO same as pathsets?
-#[allow(clippy::struct_excessive_bools)]
-#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
-pub struct GoalModes {
-    pub force_wisps: bool,
-    pub force_trees: bool,
-    pub force_quests: bool,
-    pub world_tour: bool,
-}
-// TODO why partialeq?
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
     pub version: String,
+    #[serde(flatten)]
     pub pathsets: Pathsets,
-    pub goalmodes: GoalModes,
+    pub goalmodes: FxHashSet<GoalMode>,
     pub spawn_loc: Spawn,
     pub output_folder: PathBuf,
     pub spoilers: bool,
@@ -132,7 +125,7 @@ impl Default for Settings {
         Settings {
             version: env!("CARGO_PKG_VERSION").to_string(),
             pathsets: Pathsets::default(),
-            goalmodes: GoalModes::default(),
+            goalmodes: FxHashSet::default(),
             spawn_loc: Spawn::Set(DEFAULT_SPAWN.to_string()),
             output_folder: PathBuf::default(),
             spoilers: true,

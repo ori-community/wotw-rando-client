@@ -15,11 +15,9 @@ use serde::{Serialize, Deserialize};
 
 use uberstate::{UberState, UberIdentifier};
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Pathsets {
     pub pathsets: FxHashSet<Pathset>,
-    pub gorlek: bool,
-    pub unsafe_paths: bool,
 }
 impl Default for Pathsets {
     fn default() -> Pathsets {
@@ -28,8 +26,6 @@ impl Default for Pathsets {
 
         Pathsets {
             pathsets,
-            gorlek: false,
-            unsafe_paths: false,
         }
     }
 }
@@ -64,7 +60,6 @@ impl From<Vec<Pathset>> for Pathsets {
         result
     }
 }
-
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize, Deserialize)]
 pub enum Pathset {
     Moki,               // Lowest difficulty
@@ -75,6 +70,24 @@ pub enum Pathset {
     ShurikenBreak,      // Breaking Walls from behind with Shuriken
     SentryBurn,         // Melting Ice using Sentries
     RemoveKillPlane,    // Removing Shriek's Killplane at Feeding Grounds
+}
+
+#[derive(Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub enum GoalMode {
+    Wisps,
+    Trees,
+    Quests,
+    Relics,
+}
+impl fmt::Display for GoalMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            GoalMode::Wisps => write!(f, "ForceWisps"),
+            GoalMode::Trees => write!(f, "ForceTrees"),
+            GoalMode::Quests => write!(f, "ForceQuests"),
+            GoalMode::Relics => write!(f, "WorldTour"),
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]

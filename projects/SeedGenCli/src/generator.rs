@@ -13,7 +13,7 @@ use crate::world::{
 };
 use crate::inventory::{Inventory, Item};
 use crate::util::{
-    Resource, BonusItem,
+    Resource, BonusItem, GoalMode,
     settings::Settings,
     constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN},
 };
@@ -55,7 +55,7 @@ where
     R: Rng
 {
     world: World<'a>,
-    spawn_node: &'a Node,
+    spawn_pickup_node: &'a Node,
     placements: Vec<Placement<'a>>,
     placeholders: Vec<&'a Node>,
     collected_preplacements: Vec<usize>,
@@ -85,7 +85,7 @@ where
         log::trace!("Placing {} at 3|0 as price for the item below", price_setter);
 
         context.placements.push(Placement {
-            node: context.spawn_node,
+            node: context.spawn_pickup_node,
             item: price_setter,
         });
     }
@@ -312,7 +312,7 @@ where
     Ok(())
 }
 
-pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, spawn_node: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Placement<'a>>, String>
+pub fn generate_placements<'a, R>(world: World<'a>, spawn: &str, spawn_pickup_node: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Placement<'a>>, String>
 where
     R: Rng
 {
@@ -330,7 +330,7 @@ where
 
     let mut context = GeneratorContext {
         world,
-        spawn_node,
+        spawn_pickup_node,
         placements,
         placeholders,
         collected_preplacements,
@@ -339,15 +339,15 @@ where
         rng,
     };
 
-    if settings.goalmodes.world_tour {
+    if settings.goalmodes.contains(&GoalMode::Relics) {
         place_relics(&mut context)?;
     }
 
-    context.world.collect_preplacements(&context.spawn_node.uber_state().unwrap());
+    context.world.collect_preplacements(&context.spawn_pickup_node.uber_state().unwrap());
 
     if spawn != DEFAULT_SPAWN {
         for _ in 0..3 {
-            spawn_slots.push(&context.spawn_node);
+            spawn_slots.push(&context.spawn_pickup_node);
         }
     }
 

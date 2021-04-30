@@ -4,7 +4,7 @@ use smallvec::{SmallVec, smallvec};
 
 use crate::inventory::{Inventory, Item};
 use crate::util::{
-    Pathsets, Resource, Skill, Shard,
+    Pathset, Pathsets, Resource, Skill, Shard,
     orbs::{self, Orbs},
     settings::Settings
 };
@@ -29,12 +29,12 @@ impl Player {
 
     pub fn max_energy(&self) -> f32 {
         let mut energy = f32::from(self.inventory.get(&Item::Resource(Resource::Energy))) * 0.5;
-        if self.pathsets.gorlek && self.inventory.has(&Item::Shard(Shard::Energy), 1) { energy += 1.0; }
+        if self.pathsets.contains(&Pathset::Gorlek) && self.inventory.has(&Item::Shard(Shard::Energy), 1) { energy += 1.0; }
         energy
     }
     pub fn max_health(&self) -> f32 {
         let mut health = f32::from(self.inventory.get(&Item::Resource(Resource::Health)) * 5);
-        if self.pathsets.gorlek && self.inventory.has(&Item::Shard(Shard::Vitality), 1) { health += 10.0; }
+        if self.pathsets.contains(&Pathset::Gorlek) && self.inventory.has(&Item::Shard(Shard::Vitality), 1) { health += 10.0; }
         health
     }
     pub fn max_orbs(&self) -> Orbs {
@@ -43,11 +43,15 @@ impl Player {
             health: self.max_health(),
         }
     }
-    fn cap_orbs(&self, mut orbs: SmallVec<[Orbs; 3]>) -> SmallVec<[Orbs; 3]>{
-        let max_health = self.max_health();
+    fn cap_orbs(&self, mut orbs: SmallVec<[Orbs; 3]>, checkpoint: bool) -> SmallVec<[Orbs; 3]>{
+        let max_health = if checkpoint {
+            f32::from(self.inventory.get(&Item::Resource(Resource::Health)) * 5)  // checkpoint don't fill orbs given by the Vitality shard (but they do energy from the energy shard...)
+        } else {
+            self.max_health()
+        };
         let max_energy = self.max_energy();
 
-        if self.pathsets.unsafe_paths && self.inventory.has(&Item::Shard(Shard::Overflow), 1) {
+        if self.pathsets.contains(&Pathset::Unsafe) && self.inventory.has(&Item::Shard(Shard::Overflow), 1) {
             for orbs in &mut orbs {
                 if orbs.health > max_health {
                     orbs.energy += orbs.health - max_health;
@@ -70,10 +74,10 @@ impl Player {
     }
     #[inline]
     pub fn checkpoint_orbs(&self, prior: &[Orbs]) -> SmallVec<[Orbs; 3]> {
-        let max_health = f32::from(self.inventory.get(&Item::Resource(Resource::Health)) * 5);  // checkpoints ignore shard buffs for the refill
+        let max_health = self.max_health();
         let health_refill = 40_f32.max(((max_health / 5.0) / 0.6685 + 1.0).floor());
 
-        let max_energy = f32::from(self.inventory.get(&Item::Resource(Resource::Energy))) * 0.5;
+        let max_energy = self.max_energy();
         let energy_refill = 10.0 * (max_energy / 50.0 + 1.0);
 
         let orbs = Orbs {
@@ -82,7 +86,7 @@ impl Player {
         };
         let orbs = orbs::either_single(prior, orbs);
 
-        self.cap_orbs(orbs)
+        self.cap_orbs(orbs, true)
     }
     #[inline]
     pub fn health_orbs(&self, prior: &[Orbs], amount: f32) -> SmallVec<[Orbs; 3]> {
@@ -101,7 +105,7 @@ impl Player {
         };
         let orbs = orbs::both_single(prior, orbs);
 
-        self.cap_orbs(orbs)
+        self.cap_orbs(orbs, false)
     }
     #[inline]
     pub fn energy_orbs(&self, prior: &[Orbs], amount: f32) -> SmallVec<[Orbs; 3]> {
@@ -111,11 +115,11 @@ impl Player {
         };
         let orbs = orbs::both_single(prior, orbs);
 
-        self.cap_orbs(orbs)
+        self.cap_orbs(orbs, false)
     }
 
     pub fn damage_mod(&self, flying_target: bool, bow: bool) -> f32 {
-        let is_unsafe = self.pathsets.unsafe_paths;
+        let is_unsafe = self.pathsets.contains(&Pathset::Unsafe);
         let mut damage_mod = 1.0;
 
         damage_mod += 0.25 * f32::from(self.inventory.get(&Item::Skill(Skill::AncestralLight)));
@@ -135,13 +139,13 @@ impl Player {
     }
     pub fn defense_mod(&self) -> f32 {
         let mut defense_mod = 1.0;
-        if self.pathsets.gorlek && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { defense_mod = 0.9; }
+        if self.pathsets.contains(&Pathset::Gorlek) && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { defense_mod = 0.9; }
         if self.hard { defense_mod *= 2.0; }
         defense_mod
     }
     pub fn energy_mod(&self) -> f32 {
         let mut energy_mod = 1.0;
-        if !self.pathsets.unsafe_paths { energy_mod *= 2.0; }
+        if !self.pathsets.contains(&Pathset::Unsafe) { energy_mod *= 2.0; }
         else if self.inventory.has(&Item::Shard(Shard::Overcharge), 1) { energy_mod *= 0.5; }
         energy_mod
     }
@@ -150,7 +154,7 @@ impl Player {
         skill.energy_cost() * self.energy_mod()
     }
     pub fn destroy_cost(&self, health: f32, skill: Skill, flying_target: bool) -> f32 {
-        let damage = skill.damage(self.pathsets.unsafe_paths) * self.damage_mod(flying_target, matches!(skill, Skill::Bow)) + skill.burn_damage();  // Burn damage is unaffected by damage buffs
+        let damage = skill.damage(self.pathsets.contains(&Pathset::Unsafe)) * self.damage_mod(flying_target, matches!(skill, Skill::Bow)) + skill.burn_damage();  // Burn damage is unaffected by damage buffs
         (health / damage).ceil() * self.use_cost(skill)
     }
 
@@ -165,9 +169,9 @@ impl Player {
             Skill::Spear,
         ];
         if !wall { weapons.push(Skill::Flash); }
-        if self.pathsets.unsafe_paths { weapons.push(Skill::Sentry); }
+        if self.pathsets.contains(&Pathset::Unsafe) { weapons.push(Skill::Sentry); }
 
-        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.unsafe_paths) * 10.0) as u8);
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.contains(&Pathset::Unsafe)) * 10.0) as u8);
         weapons
     }
     fn ranged_weapons_by_dpe(&self) -> SmallVec<[Skill; 2]> {
@@ -175,12 +179,12 @@ impl Player {
             Skill::Bow,
             Skill::Spear,
         ];
-        if self.pathsets.gorlek {
+        if self.pathsets.contains(&Pathset::Gorlek) {
             weapons.push(Skill::Grenade);
             weapons.push(Skill::Shuriken);
         }
 
-        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.unsafe_paths) * 10.0) as u8);
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.contains(&Pathset::Unsafe)) * 10.0) as u8);
         weapons
     }
     fn shield_weapons_by_dpe(&self) -> SmallVec<[Skill; 4]> {
@@ -191,7 +195,7 @@ impl Player {
             Skill::Spear,
         ];
 
-        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.unsafe_paths) * 10.0) as u8);
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.contains(&Pathset::Unsafe)) * 10.0) as u8);
         weapons
     }
 
@@ -289,7 +293,7 @@ mod tests {
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
         assert_eq!(player.preferred_ranged_weapon(), None);
-        player.pathsets.gorlek = true;
+        player.pathsets.add(Pathset::Gorlek);
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
         player.inventory.grant(Item::Skill(Skill::Spear), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
@@ -318,7 +322,7 @@ mod tests {
             Skill::Shuriken,
         ];
         assert_eq!(player.progression_weapons(false), weapons);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         let weapons: SmallVec<[_; 5]>= smallvec![
             Skill::Sword,
             Skill::Hammer,
@@ -336,7 +340,7 @@ mod tests {
         for _ in 0..10 { player.inventory.grant(Item::Resource(Resource::Energy), 1); }
         player.inventory.grant(Item::Shard(Shard::Energy), 1);
         assert_eq!(player.max_energy(), 5.0);
-        player.pathsets.gorlek = true;
+        player.pathsets.add(Pathset::Gorlek);
         assert_eq!(player.max_energy(), 6.0);
     }
 
@@ -347,7 +351,7 @@ mod tests {
         assert_eq!(player.destroy_cost(10.0, Skill::Spear, true), 4.0);
         assert_eq!(player.destroy_cost(0.0, Skill::Spear, false), 0.0);
         player.inventory.grant(Item::Skill(Skill::AncestralLight), 2);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         player.inventory.grant(Item::Shard(Shard::Wingclip), 1);
         player.inventory.grant(Item::Resource(Resource::ShardSlot), 1);
         assert_eq!(player.destroy_cost(10.0, Skill::Bow, true), 0.25);
@@ -356,39 +360,64 @@ mod tests {
 
     #[test]
     fn refill_orbs() {
-        // TODO changed semantics
-        // let mut player = Player::default();
-        // let orbs = Orbs::default();
-        // assert_eq!(player.checkpoint_orbs(&[orbs]), Orbs::default());
-        // player.inventory.grant(Item::Resource(Resource::Energy), 6);
-        // player.inventory.grant(Item::Resource(Resource::Health), 6);
-        // assert_eq!(player.checkpoint_orbs(&[orbs]), Orbs { energy: 3.0, health: 30.0});
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
-        // player.inventory.grant(Item::Resource(Resource::Health), 2);
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 10.0, ..orbs });
-        // player.inventory.grant(Item::Resource(Resource::Health), 1);
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
-        // player.inventory.grant(Item::Resource(Resource::Health), 11);
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 30.0, ..orbs });
-        // player.inventory.grant(Item::Resource(Resource::Health), 1);
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
-        // player.inventory.grant(Item::Resource(Resource::Health), 6);
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 40.0, ..orbs });
-        // player.inventory.grant(Item::Resource(Resource::Health), 1);
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 50.0, ..orbs });
-// 
-        // player = Player {
-        //     gorlek_paths: true,
-        //     ..Player::default()
-        // };
-        // let orbs = Orbs::default();
-        // player.inventory.grant(Item::Shard(Shard::Energy), 1);
-        // player.inventory.grant(Item::Shard(Shard::Vitality), 1);
-        // assert_eq!(player.checkpoint_orbs(&[orbs]), Orbs::default());
-        // player.inventory.grant(Item::Resource(Resource::Health), 7);
-        // assert_eq!(player.health_orbs(1.0), Orbs { health: 20.0, ..orbs });
-        // assert_eq!(player.checkpoint_orbs(&[orbs]), Orbs { health: 35.0, ..orbs });
-        // player.inventory.grant(Item::Resource(Resource::Health), 21);
-        // assert_eq!(player.checkpoint_orbs(&[orbs]), Orbs { health: 45.0, ..orbs });
+        let mut player = Player::default();
+        let orbs = Orbs::default();
+
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![orbs];
+        assert_eq!(player.checkpoint_orbs(&[orbs]), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Energy), 6);
+        player.inventory.grant(Item::Resource(Resource::Health), 6);
+
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { energy: 3.0, health: 30.0}];
+        assert_eq!(player.checkpoint_orbs(&[orbs]), orbvec);
+
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 10.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 2);
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 10.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 20.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 11);
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 30.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 40.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 6);
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 40.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 50.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+
+        player = Player::default();
+        player.pathsets.add(Pathset::Gorlek);
+
+        player.inventory.grant(Item::Shard(Shard::Energy), 1);
+        player.inventory.grant(Item::Shard(Shard::Vitality), 1);
+
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { energy: 1.0, ..orbs }];
+        assert_eq!(player.checkpoint_orbs(&[orbs]), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 7);
+
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 20.0, ..orbs }];
+        assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 35.0, energy: 1.0 }];
+        assert_eq!(player.checkpoint_orbs(&[orbs]), orbvec);
+
+        player.inventory.grant(Item::Resource(Resource::Health), 21);
+
+        let orbvec: SmallVec<[Orbs; 3]> = smallvec![Orbs { health: 45.0, energy: 1.0 }];
+        assert_eq!(player.checkpoint_orbs(&[orbs]), orbvec);
     }
 }

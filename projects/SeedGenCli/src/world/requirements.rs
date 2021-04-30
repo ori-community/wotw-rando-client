@@ -5,7 +5,7 @@ use smallvec::{SmallVec, smallvec};
 
 use super::player::Player;
 use crate::inventory::{Inventory, Item};
-use crate::util::{Resource, Skill, Shard, Teleporter, Enemy, orbs::{self, Orbs}};
+use crate::util::{Pathset, Resource, Skill, Shard, Teleporter, Enemy, orbs::{self, Orbs}};
 
 type Itemset = Vec<(Inventory, Orbs)>;
 
@@ -37,7 +37,7 @@ impl Requirement {
                 energy: -cost,
                 ..Orbs::default()
             }
-        ])} else if player.pathsets.unsafe_paths && player.inventory.has(&Item::Shard(Shard::LifePact), 1) && orbs.energy + orbs.health >= cost { Some(smallvec![
+        ])} else if player.pathsets.contains(&Pathset::Unsafe) && player.inventory.has(&Item::Shard(Shard::LifePact), 1) && orbs.energy + orbs.health >= cost { Some(smallvec![
             Orbs {
                 health: cost - orbs.energy,
                 energy: -orbs.energy,
@@ -137,10 +137,10 @@ impl Requirement {
 
                         if enemy.aerial() { aerial = true; }
                         if enemy.dangerous() { dangerous = true; }
-                        if !player.pathsets.unsafe_paths && enemy == &Enemy::Bat && !player.inventory.has(&Item::Skill(Skill::Bash), 1) { return None; }
+                        if !player.pathsets.contains(&Pathset::Unsafe) && enemy == &Enemy::Bat && !player.inventory.has(&Item::Skill(Skill::Bash), 1) { return None; }
                         if enemy == &Enemy::Sandworm {
                             if player.inventory.has(&Item::Skill(Skill::Burrow), 1) { continue; }
-                            else if !player.pathsets.unsafe_paths { return None; }
+                            else if !player.pathsets.contains(&Pathset::Unsafe) { return None; }
                         }
 
                         if enemy.shielded() {
@@ -148,7 +148,7 @@ impl Requirement {
                                 energy -= player.use_cost(weapon) * f32::from(*amount);
                             } else { return None; }
                         }
-                        let armor_mod = if enemy.armored() && !player.pathsets.unsafe_paths { 2.0 } else { 1.0 };
+                        let armor_mod = if enemy.armored() && !player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 1.0 };
 
                         let ranged = enemy.ranged();
                         if ranged && ranged_weapon.is_none() { return None; }
@@ -157,12 +157,12 @@ impl Requirement {
                         energy -= player.destroy_cost(enemy.health(), used_weapon, enemy.flying()) * f32::from(*amount) * armor_mod;
                     }
 
-                    if !player.pathsets.unsafe_paths && aerial && !(
+                    if !player.pathsets.contains(&Pathset::Unsafe) && aerial && !(
                         player.inventory.has(&Item::Skill(Skill::DoubleJump), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Launch), 1) ||
-                        player.pathsets.gorlek && player.inventory.has(&Item::Skill(Skill::Bash), 1)
+                        player.pathsets.contains(&Pathset::Gorlek) && player.inventory.has(&Item::Skill(Skill::Bash), 1)
                     ) { return None; }
-                    if !player.pathsets.unsafe_paths && dangerous && !(
+                    if !player.pathsets.contains(&Pathset::Unsafe) && dangerous && !(
                         player.inventory.has(&Item::Skill(Skill::DoubleJump), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Dash), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Bash), 1) ||
@@ -175,7 +175,7 @@ impl Requirement {
             },
             Requirement::ShurikenBreak(health) =>
                 if player.inventory.has(&Item::Skill(Skill::Shuriken), 1) {
-                    let clip_mod = if player.pathsets.unsafe_paths { 2.0 } else { 3.0 };
+                    let clip_mod = if player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 3.0 };
                     let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                     return Requirement::cost_is_met(cost, player, orbs);
                 }
@@ -228,7 +228,7 @@ impl Requirement {
     fn needed_for_cost(cost: f32, player: &Player) -> Itemset {
         let mut itemsets = vec![(Inventory::default(), Orbs{ energy: -cost, ..Orbs::default() })];
 
-        if player.pathsets.unsafe_paths && cost > 0.0 && !player.inventory.has(&Item::Shard(Shard::Overcharge), 1) {
+        if player.pathsets.contains(&Pathset::Unsafe) && cost > 0.0 && !player.inventory.has(&Item::Shard(Shard::Overcharge), 1) {
             itemsets.push((Inventory::from(Item::Shard(Shard::Overcharge)), Orbs{ energy: -cost / 2.0, ..Orbs::default() }));
         }
 
@@ -330,7 +330,7 @@ impl Requirement {
 
                 itemsets.append(&mut Requirement::needed_for_damage(cost, player));
 
-                if player.pathsets.gorlek && !player.inventory.has(&Item::Shard(Shard::Resilience), 1) {
+                if player.pathsets.contains(&Pathset::Gorlek) && !player.inventory.has(&Item::Shard(Shard::Resilience), 1) {
                     let resilience_cost = cost * 0.9;
 
                     let mut resilience_sets = Requirement::needed_for_damage(resilience_cost, player);
@@ -363,7 +363,7 @@ impl Requirement {
                 itemsets
             },
             Requirement::ShurikenBreak(health) => {
-                let clip_mod = if player.pathsets.unsafe_paths { 2.0 } else { 3.0 };
+                let clip_mod = if player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 3.0 };
                 let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                 Requirement::needed_for_weapon(Skill::Shuriken, cost, player)
             },
@@ -378,7 +378,7 @@ impl Requirement {
                     if enemy.ranged() { ranged = true; }
                     else { melee = true; }
                     if enemy.shielded() { shielded = true; }
-                    if !player.pathsets.unsafe_paths && enemy == &Enemy::Bat { bash = true; }
+                    if !player.pathsets.contains(&Pathset::Unsafe) && enemy == &Enemy::Bat { bash = true; }
                     if enemy == &Enemy::Sandworm { burrow = true; }
                 }
 
@@ -393,7 +393,7 @@ impl Requirement {
                     player.shield_progression_weapons()
                 } else { smallvec![Skill::Hammer] };
                 let use_burrow: SmallVec<[_; 2]>= if burrow {
-                    if !player.pathsets.unsafe_paths || player.inventory.has(&Item::Skill(Skill::Burrow), 1) {
+                    if !player.pathsets.contains(&Pathset::Unsafe) || player.inventory.has(&Item::Skill(Skill::Burrow), 1) {
                         smallvec![true]
                     } else {
                         smallvec![true, false]
@@ -419,7 +419,7 @@ impl Requirement {
                                     if enemy.shielded() {
                                         cost += player.use_cost(*shield_weapon) * f32::from(*amount);
                                     }
-                                    let armor_mod = if enemy.armored() && !player.pathsets.unsafe_paths { 2.0 } else { 1.0 };
+                                    let armor_mod = if enemy.armored() && !player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 1.0 };
 
                                     let used_weapon = if enemy.ranged() { ranged_weapon } else { &weapon };
 
@@ -441,18 +441,18 @@ impl Requirement {
                     }
                 }
 
-                if !player.pathsets.unsafe_paths && aerial {
+                if !player.pathsets.contains(&Pathset::Unsafe) && aerial {
                     let mut ranged_skills = vec![
                         Item::Skill(Skill::DoubleJump),
                         Item::Skill(Skill::Launch),
                     ];
-                    if player.pathsets.gorlek { ranged_skills.push(Item::Skill(Skill::Bash)); }
+                    if player.pathsets.contains(&Pathset::Gorlek) { ranged_skills.push(Item::Skill(Skill::Bash)); }
 
                     if !ranged_skills.iter().any(|skill| player.inventory.has(skill, 1)) {
                         itemsets = Requirement::combine_itemset_items(itemsets, &ranged_skills);
                     }
                 }
-                if !player.pathsets.unsafe_paths && dangerous {
+                if !player.pathsets.contains(&Pathset::Unsafe) && dangerous {
                     let evasion_skills = [
                         Item::Skill(Skill::DoubleJump),
                         Item::Skill(Skill::DoubleJump),
@@ -464,7 +464,7 @@ impl Requirement {
                         itemsets = Requirement::combine_itemset_items(itemsets, &evasion_skills);
                     }
                 }
-                if !player.pathsets.unsafe_paths && bash {
+                if !player.pathsets.contains(&Pathset::Unsafe) && bash {
                     let bash = [Item::Skill(Skill::Bash)];
 
                     if !player.inventory.has(&bash[0], 1) {
@@ -502,7 +502,7 @@ impl Requirement {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::settings::Settings;
+    use crate::util::{Pathsets, settings::Settings};
 
     #[test]
     fn is_met() {
@@ -524,9 +524,9 @@ mod tests {
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -1.0, ..orbs }]));
-        player.pathsets.unsafe_paths = false;
+        player.pathsets = Pathsets::default();
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -2.0, ..orbs }]));
 
@@ -570,21 +570,21 @@ mod tests {
         let req = Requirement::BreakWall(16.0);
         player.inventory.grant(Item::Skill(Skill::Grenade), 1);
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -1.0, ..orbs }]));
-        player.pathsets.unsafe_paths = false;
+        player.pathsets = Pathsets::default();
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
 
         player = Player::default();
         let req = Requirement::ShurikenBreak(12.0);
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 4);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -2.0, ..orbs }]));
         player.inventory.grant(Item::Resource(Resource::Energy), 6);
-        player.pathsets.unsafe_paths = false;
+        player.pathsets = Pathsets::default();
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -6.0, ..orbs }]));
@@ -592,12 +592,12 @@ mod tests {
         player = Player::default();
         let req = Requirement::Combat(smallvec![(Enemy::Slug, 2), (Enemy::Skeeto, 1)]);
         player.inventory.grant(Item::Skill(Skill::Bow), 1);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 7);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -3.25, ..orbs }]));
         player.inventory.grant(Item::Resource(Resource::Energy), 6);
-        player.pathsets.unsafe_paths = false;
+        player.pathsets = Pathsets::default();
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -6.5, ..orbs }]));
@@ -606,8 +606,8 @@ mod tests {
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
         player.inventory.grant(Item::Skill(Skill::Spear), 1);
         player.inventory.grant(Item::Resource(Resource::Energy), 27);
-        player.pathsets.gorlek = true;
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Gorlek);
+        player.pathsets.add(Pathset::Unsafe);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 1);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -14.0, ..orbs }]));
@@ -615,8 +615,7 @@ mod tests {
         player.inventory.grant(Item::Skill(Skill::Bash), 1);
         player.inventory.grant(Item::Skill(Skill::Launch), 1);
         player.inventory.grant(Item::Skill(Skill::Burrow), 1);
-        player.pathsets.gorlek = false;
-        player.pathsets.unsafe_paths = false;
+        player.pathsets = Pathsets::default();
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 1);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -33.0, ..orbs }]));
@@ -625,11 +624,10 @@ mod tests {
         player.inventory.grant(Item::Skill(Skill::Spear), 1);
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         player.inventory.grant(Item::Resource(Resource::Energy), 4);
-        player.pathsets.gorlek = true;
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Gorlek);
+        player.pathsets.add(Pathset::Unsafe);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -2.0, ..orbs }]));
-        player.pathsets.gorlek = false;
-        player.pathsets.unsafe_paths = false;
+        player.pathsets = Pathsets::default();
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
         player.inventory.grant(Item::Resource(Resource::Energy), 11);
         assert!(req.is_met(&player, &states, player.max_orbs()).is_none());
@@ -645,7 +643,7 @@ mod tests {
         player.inventory.grant(Item::Resource(Resource::Energy), 4);
         player.inventory.grant(Item::Resource(Resource::Health), 4);
         let req = Requirement::And(vec![c.clone(), d.clone()]);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { health: -10.0, energy: -1.0 }]));
         let req = Requirement::Or(vec![a.clone(), b.clone()]);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { energy: -2.0, ..orbs }, Orbs { health: -20.0, ..orbs }]));
@@ -663,7 +661,7 @@ mod tests {
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs::default()]));
 
         player = Player::default();
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         player.inventory.grant(Item::Resource(Resource::Health), 7);
         player.inventory.grant(Item::Resource(Resource::Energy), 2);
         let req = Requirement::And(vec![Requirement::Damage(30.0), Requirement::Damage(30.0)]);
@@ -703,12 +701,12 @@ mod tests {
 
         let req = Requirement::EnergySkill(Skill::Grenade, 2.0);
         assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -4.0, ..orbs })]);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from(Item::Skill(Skill::Grenade)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(vec![Item::Skill(Skill::Grenade), Item::Shard(Shard::Overcharge)]), Orbs { energy: -1.0, ..orbs }),
         ]);
-        player.pathsets.unsafe_paths = false;
+        player.pathsets = Pathsets::default();
 
         let req = Requirement::Resource(Resource::ShardSlot, 3);
         assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from((Item::Resource(Resource::ShardSlot), 3)), orbs)]);
@@ -725,7 +723,7 @@ mod tests {
             (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
             (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { energy: -2.0, ..orbs }),
         ]);
-        player.pathsets.gorlek = true;
+        player.pathsets.add(Pathset::Gorlek);
         assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from((Item::Resource(Resource::Health), 8)), Orbs { health: -36.0, ..orbs }),
             (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
@@ -734,7 +732,7 @@ mod tests {
             (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Skill(Skill::Regenerate), 1), (Item::Shard(Shard::Resilience), 1)]), Orbs { health: (-36.0 * 0.9) + 30.0, energy: -1.0 }),
             (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Skill(Skill::Regenerate), 1), (Item::Shard(Shard::Resilience), 1)]), Orbs { energy: -2.0, ..orbs }),
         ]);
-        player.pathsets.gorlek = false;
+        player.pathsets = Pathsets::default();
 
         let req = Requirement::BreakWall(12.0);
         assert_eq!(req.items_needed(&player, &states), vec![
@@ -746,7 +744,7 @@ mod tests {
             (Inventory::from(Item::Skill(Skill::Blaze)), Orbs { energy: -2.0, ..orbs }),
             (Inventory::from(Item::Skill(Skill::Spear)), Orbs { energy: -4.0, ..orbs }),
         ]);
-        player.pathsets.unsafe_paths = true;
+        player.pathsets.add(Pathset::Unsafe);
         assert_eq!(req.items_needed(&player, &states), vec![
             (Inventory::from(Item::Skill(Skill::Sword)), orbs),
             (Inventory::from(Item::Skill(Skill::Hammer)), orbs),

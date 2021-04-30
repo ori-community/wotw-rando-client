@@ -207,8 +207,7 @@ mod tests {
         let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::from(vec![Pathset::Moki, Pathset::Gorlek]), false).unwrap();
         let mut world = World::new(graph);
 
-        world.player.pathsets.gorlek = true;
-        world.player.pathsets.unsafe_paths = true;
+        world.player.pathsets.add(Pathset::Unsafe);
         world.player.inventory.grant(Item::Resource(Resource::Health), 7);
         world.player.inventory.grant(Item::Resource(Resource::Energy), 6);
         world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
