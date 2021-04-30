@@ -15,7 +15,7 @@ use crate::inventory::{Inventory, Item};
 use crate::util::{
     Resource, BonusItem,
     settings::{Settings, Spawn},
-    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES},
+    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN},
 };
 
 #[derive(Debug)]
@@ -362,7 +362,7 @@ where
     let mut total_reachable_count = 0;
 
     let all_reachable_locations = loop {
-        let mut reachable_locations = finished_world.graph.reached_locations(&finished_world.player, spawn, &finished_world.uber_states)?;
+        let mut reachable_locations = finished_world.graph.reached_locations(&finished_world.player, DEFAULT_SPAWN, &finished_world.uber_states)?;
         let new_reachable_count = reachable_locations.len();
 
         if new_reachable_count > total_reachable_count {
@@ -478,6 +478,10 @@ where
             }
 
             if itemsets.is_empty() {
+                if context.placements.is_empty() {
+                    return Err(format!("Failed to reach anything from spawn location {}", spawn));
+                }
+
                 let identifiers: Vec<_> = all_reachable_locations.iter()
                     .filter_map(|&node| {
                         let index = node.index();

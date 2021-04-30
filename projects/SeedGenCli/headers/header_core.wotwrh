@@ -4,4 +4,4 @@
 /// shared uber state used by many headers
 
 // skip-validate
-9|0|8|9|0|int|0  // for temporary usage
+!9|0|8|9|0|int|0  // for temporary usage
