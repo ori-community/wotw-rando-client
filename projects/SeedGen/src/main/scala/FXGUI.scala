@@ -34,6 +34,8 @@ import scala.concurrent.Future
 import scala.sys.process._
 package SeedGenerator {
 
+  import java.nio.file.Files
+
   import SeedGenerator.Nodes.SpawnLoc
   import javafx.scene.control.ScrollPane.ScrollBarPolicy
   import scalafx.collections.ObservableBuffer
@@ -297,6 +299,10 @@ package SeedGenerator {
                 if (seedName() != "") {
                   Logger.info(s"Seeded RNG with ${seedName()}")
               SeedGenerator.Runner.setSeed(seedName().hashCode)
+              }
+              if(!outputDirectory().f.toAbsolutePath.exists) {
+                Logger.info(s"Creating seed directory at ${outputDirectory()}")
+                Files.createDirectories(outputDirectory().f.toAbsolutePath)
               }
               if (SeedGenerator.Runner(outputPath)) {
                 Logger.info(s"Finished generating seed!")
