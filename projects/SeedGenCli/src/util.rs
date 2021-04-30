@@ -10,17 +10,73 @@ use std::{
     path::{Path, PathBuf}
 };
 
+use rustc_hash::FxHashSet;
 use serde::{Serialize, Deserialize};
 
 use uberstate::{UberState, UberIdentifier};
 
-#[derive(Debug, PartialEq, Clone, Copy, Serialize, Deserialize)]
-pub enum Pathset {
-    Moki,
-    Gorlek,
-    Glitch,
-    Unsafe,
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
+pub struct Pathsets {
+    pub pathsets: FxHashSet<Pathset>,
+    pub gorlek: bool,
+    pub unsafe_paths: bool,
 }
+impl Default for Pathsets {
+    fn default() -> Pathsets {
+        let mut pathsets = FxHashSet::default();
+        pathsets.insert(Pathset::Moki);
+
+        Pathsets {
+            pathsets,
+            gorlek: false,
+            unsafe_paths: false,
+        }
+    }
+}
+impl Pathsets {
+    pub fn add(&mut self, pathset: Pathset) {
+        match pathset {
+            Pathset::Unsafe => {
+                self.pathsets.insert(Pathset::Gorlek);
+            },
+            _ => {},
+        }
+        self.pathsets.insert(pathset);
+    }
+    pub fn add_glitches(&mut self) {
+        self.pathsets.insert(Pathset::SwordSentryJump);
+        self.pathsets.insert(Pathset::HammerSentryJump);
+        self.pathsets.insert(Pathset::ShurikenBreak);
+        self.pathsets.insert(Pathset::SentryBurn);
+    }
+
+    pub fn contains(&self, pathset: &Pathset) -> bool {
+        self.pathsets.contains(pathset)
+    }
+}
+impl From<Vec<Pathset>> for Pathsets {
+    fn from(pathsets: Vec<Pathset>) -> Pathsets {
+        let mut result = Pathsets::default();
+        for pathset in pathsets {
+            result.add(pathset);
+        }
+
+        result
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize, Deserialize)]
+pub enum Pathset {
+    Moki,               // Lowest difficulty
+    Gorlek,             // Second difficulty
+    Unsafe,             // Unvalidated difficulty
+    SwordSentryJump,    // Grounded Sentry Jumps with Sword
+    HammerSentryJump,   // Grounded Sentry Jump with Hammer
+    ShurikenBreak,      // Breaking Walls from behind with Shuriken
+    SentryBurn,         // Melting Ice using Sentries
+    RemoveKillPlane,    // Removing Shriek's Killplane at Feeding Grounds
+}
+
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Skill {
     Bash,

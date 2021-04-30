@@ -33,6 +33,7 @@ pub enum Requirement<'a> {
     SentryJump(u16),
     SwordSentryJump(u16),
     HammerSentryJump(u16),
+    SentryBurn(u16),
 }
 #[derive(Debug)]
 pub struct Line<'a> {
@@ -169,6 +170,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
                 "SentryJump" => Ok(Requirement::SentryJump(amount)),
                 "SwordSJump" => Ok(Requirement::SwordSentryJump(amount)),
                 "HammerSJump" => Ok(Requirement::HammerSentryJump(amount)),
+                "SentryBurn" => Ok(Requirement::SentryBurn(amount)),
                 "ShardSlot" => Ok(Requirement::Resource(Resource::ShardSlot, amount)),
                 "Shuriken" => Ok(Requirement::EnergySkill(Skill::Shuriken, amount)),
                 "ShurikenBreak" => Ok(Requirement::ShurikenBreak(amount)),
@@ -200,7 +202,6 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "free" => Ok(Requirement::Free),
             "GladesTP" => Ok(Requirement::Teleporter(Teleporter::Glades)),
             "Glide" => Ok(Requirement::Skill(Skill::Glide)),
-            "glitch" => Ok(Requirement::Pathset(Pathset::Glitch)),
             "gorlek" => Ok(Requirement::Pathset(Pathset::Gorlek)),
             "Grapple" => Ok(Requirement::Skill(Skill::Grapple)),
             "Grenade" => Ok(Requirement::Skill(Skill::Grenade)),
@@ -215,6 +216,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "OuterRuinsTP" => Ok(Requirement::Teleporter(Teleporter::OuterRuins)),
             "Overflow" => Ok(Requirement::Shard(Shard::Overflow)),
             "ReachTP" => Ok(Requirement::Teleporter(Teleporter::Reach)),
+            "RemoveKillPlane" => Ok(Requirement::Pathset(Pathset::RemoveKillPlane)),
             "Regenerate" => Ok(Requirement::Skill(Skill::Regenerate)),
             "Seir" => Ok(Requirement::Skill(Skill::Seir)),
             "Sentry" => Ok(Requirement::Skill(Skill::Sentry)),
@@ -239,7 +241,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "WillowTP" => Ok(Requirement::Teleporter(Teleporter::Willow)),
             _ if metadata.definitions.contains(keyword) => Ok(Requirement::Definition(keyword)),
             _ if metadata.states.contains(keyword) || metadata.quests.contains(keyword) => Ok(Requirement::State(keyword)),
-            "Combat" | "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryJump"| "SwordSJump" | "HammerSJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
+            "Combat" | "Boss" | "BreakWall" | "Damage" | "Danger" | "Energy" | "Health" | "Keystone" | "Ore" | "SentryBurn" | "SentryJump"| "SwordSJump" | "HammerSJump" | "ShardSlot" | "ShurikenBreak" | "SpiritLight"
                 => Err(wrong_amount(token)),
             _ => Err(wrong_requirement(token))
         }

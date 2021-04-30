@@ -18,8 +18,8 @@ use seedgen::{self, lexer, inventory, world, headers, util};
 use inventory::Item;
 use world::World;
 use util::{
-    Pathset, Resource, Skill, Teleporter, Shard,
-    settings::{Settings, Spawn, SeedFlags},
+    Pathsets, Pathset, Resource, Skill, Teleporter, Shard,
+    settings::{Settings, Spawn, GoalModes},
     uberstate::{UberState, UberValue},
 };
 
@@ -69,17 +69,21 @@ enum SeedGenCommand {
         /// play this seed on hard (in-game) difficulty
         #[structopt(long)]
         hard: bool,
-        /// Where to spawn the player
+        /// where to spawn the player
         /// 
         /// Use an anchor name from the areas file, "r" / "random" for a random teleporter or "f" / "fullyrandom" for any location
         #[structopt(short, long, default_value = "MarshSpawn.Main")]
         spawn: String,
-        /// which pathsets and goal modes to use
+        /// which goal modes to use
         /// 
-        /// valid inputs are "mo", "moki", "go", "gorlek", "gl", "glitch", "un", "unsafe", "t", "trees", "w", "wisps", "q", "quests", "r", "relics"
-        // TODO more granular pathset toggles
-        #[structopt(short = "f", long = "flags")]
-        generation_flags: Vec<String>,
+        /// goal modes are trees, wisps, quests, relics
+        #[structopt(short, long)]
+        goals: Vec<String>,
+        /// which pathsets to use
+        /// 
+        /// pathsets are moki, gorlek, glitch, unsafe, sjump, swordsjump, hammersjump, shurikenbreak, sentryburn, removekillplane
+        #[structopt(short, long)]
+        paths: Vec<String>,
         /// paths to headers stored in files which will be added to the seed
         #[structopt(parse(from_os_str), short, long = "headers", default_value = "default")]
         header_paths: Vec<PathBuf>,
@@ -178,59 +182,45 @@ fn read_header() -> String {
     output
 }
 
-#[allow(clippy::struct_excessive_bools)]
-struct GenFlags {
-    gorlek_paths: bool,
-    unsafe_paths: bool,
-    glitch_paths: bool,
-    force_trees: bool,
-    force_wisps: bool,
-    force_quests: bool,
-    world_tour: bool,
-}
-impl GenFlags {
-    fn pathsets(&self) -> Vec<Pathset> {
-        let mut pathsets = vec![Pathset::Moki];
-        if self.unsafe_paths {
-            pathsets.push(Pathset::Unsafe);
-            pathsets.push(Pathset::Gorlek);
-        }
-        else if self.gorlek_paths { pathsets.push(Pathset::Gorlek); }
-        if self.glitch_paths { pathsets.push(Pathset::Glitch); }
+fn parse_pathsets(names: &[String]) -> Pathsets {
+    let mut pathsets = Pathsets::default();
 
-        pathsets
-    }
-}
-
-fn parse_flags(generation_flags: &[String]) -> GenFlags {
-    let mut flags = GenFlags {
-        gorlek_paths: false,
-        unsafe_paths: false,
-        glitch_paths: false,
-        force_trees: false,
-        force_wisps: false,
-        force_quests: false,
-        world_tour: false,
-    };
-
-    for flag in generation_flags {
-        match &flag[..] {
+    for pathset in names {
+        match &pathset[..] {
             "mo" | "moki" => {},
-            "go" | "gorlek" => flags.gorlek_paths = true,
-            "un" | "unsafe" => {
-                flags.unsafe_paths = true;
-                flags.gorlek_paths = true;
+            "go" | "gorlek" => pathsets.add(Pathset::Gorlek),
+            "un" | "unsafe" => pathsets.add(Pathset::Unsafe),
+            "gl" | "glitch" => pathsets.add_glitches(),
+            "shurikenbreak" => pathsets.add(Pathset::ShurikenBreak),
+            "sjump" | "sentryjump" => {
+                pathsets.add(Pathset::SwordSentryJump);
+                pathsets.add(Pathset::HammerSentryJump);
             },
-            "gl" | "glitch" => flags.glitch_paths = true,
-            "t" | "trees" => flags.force_trees = true,
-            "w" | "wisps" => flags.force_wisps = true,
-            "q" | "quests" => flags.force_quests = true,
-            "r" | "relics" => flags.world_tour = true,
-            other => log::warn!("Unknown generation flag {}", other),
+            "swordsjump" | "swordsentryjump" => pathsets.add(Pathset::SwordSentryJump),
+            "hammersjump" | "hammersentryjump" => pathsets.add(Pathset::HammerSentryJump),
+            "sentryburn" => pathsets.add(Pathset::SentryBurn),
+            "removekillplane" => pathsets.add(Pathset::RemoveKillPlane),
+            other => log::warn!("Unknown pathset {}", other),
         }
     }
 
-    flags
+    pathsets
+}
+
+fn parse_goalmodes(names: &[String]) -> GoalModes {
+    let mut goalmodes = GoalModes::default();
+
+    for goalmode in names {
+        match &goalmode[..] {
+            "t" | "trees" => goalmodes.force_trees = true,
+            "w" | "wisps" => goalmodes.force_wisps = true,
+            "q" | "quests" => goalmodes.force_quests = true,
+            "r" | "relics" => goalmodes.world_tour = true,
+            other => log::warn!("Unknown goal mode {}", other),
+        }
+    }
+
+    goalmodes
 }
 
 struct SeedArgs {
@@ -244,7 +234,8 @@ struct SeedArgs {
     netcode: bool,
     hard: bool,
     spawn: String,
-    generation_flags: Vec<String>,
+    paths: Vec<String>,
+    goals: Vec<String>,
     header_paths: Vec<PathBuf>,
     headers: Vec<String>,
 }
@@ -269,8 +260,8 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
 
     let seed = args.seed.unwrap_or_else(|| filename.file_stem().unwrap().to_string_lossy().to_string());
 
-    let flags = parse_flags(&args.generation_flags);
-    let pathsets = flags.pathsets();
+    let pathsets = parse_pathsets(&args.paths);
+    let goalmodes = parse_goalmodes(&args.goals);
 
     let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &pathsets, !args.trust)?;
     log::info!("Parsed logic in {:?}", now.elapsed());
@@ -288,13 +279,8 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
         version: env!("CARGO_PKG_VERSION").to_string(),
         spoilers: !args.race,
         pathsets,
+        goalmodes,
         output_folder: filename.parent().unwrap_or_else(|| Path::new("")).to_path_buf(),
-        flags: SeedFlags {
-            force_wisps: flags.force_wisps,
-            force_trees: flags.force_trees,
-            force_quests: flags.force_quests,
-            world_tour: flags.world_tour,
-        },
         web_conn: args.netcode,
         spawn_loc: spawn,
         hard: args.hard,
@@ -404,7 +390,7 @@ fn main() {
     }
 
     match args.command {
-        SeedGenCommand::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, generation_flags, header_paths, headers } => {
+        SeedGenCommand::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, paths, goals, header_paths, headers } => {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seed(SeedArgs {
@@ -418,7 +404,8 @@ fn main() {
                 netcode,
                 hard,
                 spawn,
-                generation_flags,
+                paths,
+                goals,
                 header_paths,
                 headers,
             }).unwrap_or_else(|err| log::error!("{}", err));

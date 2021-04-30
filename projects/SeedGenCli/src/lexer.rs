@@ -6,7 +6,7 @@ use std::path::Path;
 
 use parser::ParseError;
 use crate::world::graph::Graph;
-use crate::util::{self, Pathset};
+use crate::util::{self, Pathsets};
 
 fn trace_parse_error(areas: &Path, position: usize) -> String {
     let input = util::read_file(areas, "logic").unwrap();
@@ -20,7 +20,7 @@ fn trace_parse_error(areas: &Path, position: usize) -> String {
     input.to_string()
 }
 
-pub fn parse_logic(areas: &Path, locations: &Path, states: &Path, pathsets: &[Pathset], validate: bool) -> Result<Graph, String> {
+pub fn parse_logic(areas: &Path, locations: &Path, states: &Path, pathsets: &Pathsets, validate: bool) -> Result<Graph, String> {
     let tokens = tokenizer::tokenize(areas).map_err(|err| format!("Error parsing areas from {}: {}", areas.display(), err))?;
 
     let (areas, metadata) = parser::parse_areas(&tokens).map_err(|err| {

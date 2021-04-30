@@ -2,7 +2,7 @@ use std::fmt;
 
 use rustc_hash::FxHashMap;
 
-use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Pathset, Command};
+use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Pathsets, Pathset, Command};
 
 #[allow(clippy::pub_enum_variant_names)]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
@@ -53,7 +53,7 @@ impl fmt::Display for Item {
 }
 impl Item {
     // TODO read from logic file instead
-    pub fn is_progression(&self, pathsets: &[Pathset]) -> bool {
+    pub fn is_progression(&self, pathsets: &Pathsets) -> bool {
         match self {
             Item::Resource(resource) => match resource {
                 Resource::ShardSlot => pathsets.contains(&Pathset::Unsafe),

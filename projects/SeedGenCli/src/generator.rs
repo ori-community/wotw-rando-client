@@ -14,7 +14,7 @@ use crate::world::{
 use crate::inventory::{Inventory, Item};
 use crate::util::{
     Resource, BonusItem,
-    settings::{Settings, Spawn},
+    settings::Settings,
     constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN},
 };
 
@@ -339,13 +339,13 @@ where
         rng,
     };
 
-    if settings.flags.world_tour {
+    if settings.goalmodes.world_tour {
         place_relics(&mut context)?;
     }
 
     context.world.collect_preplacements(&context.spawn_node.uber_state().unwrap());
 
-    if !matches!(settings.spawn_loc, Spawn::Set(_)) {
+    if spawn != DEFAULT_SPAWN {
         for _ in 0..3 {
             spawn_slots.push(&context.spawn_node);
         }

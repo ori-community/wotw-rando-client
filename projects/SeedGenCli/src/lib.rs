@@ -69,10 +69,10 @@ where
 
 fn write_flags(settings: &Settings) -> String {
     let mut flags = vec![];
-    if settings.flags.force_wisps { flags.push("ForceWisps"); }
-    if settings.flags.force_trees { flags.push("ForceTrees"); }
-    if settings.flags.force_quests { flags.push("ForceQuests"); }
-    if settings.flags.world_tour { flags.push("WorldTour"); }
+    if settings.goalmodes.force_wisps { flags.push("ForceWisps"); }
+    if settings.goalmodes.force_trees { flags.push("ForceTrees"); }
+    if settings.goalmodes.force_quests { flags.push("ForceQuests"); }
+    if settings.goalmodes.world_tour { flags.push("WorldTour"); }
     if matches!(settings.spawn_loc, Spawn::Random) { flags.push("RandomSpawn"); }
     // TODO fully random? headers?
     // TODO this isn't needed post the rando versioning changes

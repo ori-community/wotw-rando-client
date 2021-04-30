@@ -134,7 +134,7 @@ impl<'a> World<'a> {
             item => {
                 if item.is_progression(&self.player.pathsets) {
                     log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{} ", amount) }, item);
-    
+
                     self.player.inventory.grant(item, amount);
                 }
             },
@@ -181,9 +181,9 @@ mod tests {
 
     #[test]
     fn reach_check() {
-        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
         let mut world = World::new(graph);
-        world.player.inventory = Pool::preset(&[Pathset::Moki]).progressions;
+        world.player.inventory = Pool::preset(&Pathsets::default()).progressions;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
 
         let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
@@ -204,11 +204,11 @@ mod tests {
 
         assert_eq!(reached, locations);
 
-        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki, Pathset::Gorlek, Pathset::Glitch], false).unwrap();
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::from(vec![Pathset::Moki, Pathset::Gorlek]), false).unwrap();
         let mut world = World::new(graph);
 
-        world.player.gorlek_paths = true;
-        world.player.unsafe_paths = true;
+        world.player.pathsets.gorlek = true;
+        world.player.pathsets.unsafe_paths = true;
         world.player.inventory.grant(Item::Resource(Resource::Health), 7);
         world.player.inventory.grant(Item::Resource(Resource::Energy), 6);
         world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);

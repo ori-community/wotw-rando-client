@@ -7,7 +7,7 @@ use crate::world::World;
 use crate::inventory::Item;
 use crate::util::{
     self,
-    Pathset, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType,
+    Pathsets, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType,
     uberstate::{UberState, UberIdentifier}
 };
 
@@ -417,7 +417,7 @@ fn parse_count(pickup: &mut &str) -> u16 {
     1
 }
 
-pub fn parse_header(header: &str, world: &mut World, pathsets: &[Pathset]) -> Result<(String, HashSet<PathBuf>), String> {
+pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Result<(String, HashSet<PathBuf>), String> {
     let mut processed = String::with_capacity(header.len());
     let mut dependencies = HashSet::new();
     let mut first_line = true;
@@ -657,10 +657,10 @@ mod tests {
 
     #[test]
     fn header_parsing() {
-        let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
+        let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut world, &[Pathset::Moki]).unwrap();
+        parse_header(&header, &mut world, &Pathsets::default()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);

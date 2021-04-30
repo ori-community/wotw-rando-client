@@ -5,9 +5,9 @@ use crate::world::{
     graph::{self, Graph, Node},
     requirements::Requirement,
 };
-use crate::util::{Pathset, Skill, Position};
+use crate::util::{Pathsets, Pathset, Skill, Position};
 
-fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
+fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &Pathsets, validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
     match requirement {
         parser::Requirement::Free => Requirement::Free,
         parser::Requirement::Definition(identifier) => build_requirement_group(&definitions[identifier], definitions, pathsets, validate, node_map, used_states),
@@ -34,25 +34,32 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
         parser::Requirement::Boss(health) => Requirement::Boss(f32::from(*health)),
         parser::Requirement::BreakWall(health) => Requirement::BreakWall(f32::from(*health)),
         parser::Requirement::ShurikenBreak(health) =>
-            if pathsets.contains(&Pathset::Glitch) {
+            if pathsets.contains(&Pathset::ShurikenBreak) {
                 Requirement::ShurikenBreak(f32::from(*health))
             } else {
                 Requirement::Impossible
             },
-        parser::Requirement::SentryJump(amount) =>
-            if pathsets.contains(&Pathset::Glitch) {
+        parser::Requirement::SentryJump(amount) => {
+            let mut allowed_weapons = Vec::new();
+            if pathsets.contains(&Pathset::SwordSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Sword)); }
+            if pathsets.contains(&Pathset::HammerSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Hammer)); }
+
+            if allowed_weapons.len() > 1 {
                 Requirement::And(vec![
                     Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
-                    Requirement::Or(vec![
-                        Requirement::Skill(Skill::Sword),
-                        Requirement::Skill(Skill::Hammer)
-                    ])
+                    Requirement::Or(allowed_weapons),
+                ])
+            } else if let Some(single) = allowed_weapons.pop() {
+                Requirement::And(vec![
+                    Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
+                    single,
                 ])
             } else {
                 Requirement::Impossible
-            },
+            }
+        },
         parser::Requirement::SwordSentryJump(amount) =>
-            if pathsets.contains(&Pathset::Glitch) {
+            if pathsets.contains(&Pathset::SwordSentryJump) {
                 Requirement::And(vec![
                     Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
                     Requirement::Skill(Skill::Sword),
@@ -61,11 +68,17 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, definitions: &Fx
                 Requirement::Impossible
             },
         parser::Requirement::HammerSentryJump(amount) =>
-            if pathsets.contains(&Pathset::Glitch) {
+            if pathsets.contains(&Pathset::HammerSentryJump) {
                 Requirement::And(vec![
                     Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
                     Requirement::Skill(Skill::Hammer),
                 ])
+            } else {
+                Requirement::Impossible
+            },
+        parser::Requirement::SentryBurn(amount) =>
+            if pathsets.contains(&Pathset::SentryBurn) {
+                Requirement::EnergySkill(Skill::Sentry, (*amount).into())
             } else {
                 Requirement::Impossible
             },
@@ -99,7 +112,7 @@ fn build_or(mut ors: Vec<Requirement>) -> Requirement {
     Requirement::Or(ors)
 }
 
-fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &[Pathset], validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
+fn build_requirement_group<'a>(group: &parser::Group<'a>, definitions: &FxHashMap<&'a str, parser::Group<'a>>, pathsets: &Pathsets, validate: bool, node_map: &FxHashMap::<&'a str, usize>, used_states: &mut FxHashSet<&'a str>) -> Requirement {
     let lines: Vec<Requirement> = group.lines.iter().map(|line| {
         let mut parts = vec![];
         if !line.ands.is_empty() {
@@ -125,7 +138,7 @@ fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, value: usi
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state_map: &[NamedState], pathsets: &[Pathset], validate: bool) -> Result<Graph, String> {
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state_map: &[NamedState], pathsets: &Pathsets, validate: bool) -> Result<Graph, String> {
     let node_count = areas.anchors.len() + locations.len() + metadata.states.len();
     let mut graph = Vec::<Node>::with_capacity(node_count);
     let mut used_states = FxHashSet::default();

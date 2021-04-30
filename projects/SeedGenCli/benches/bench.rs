@@ -39,14 +39,16 @@ fn parsing(c: &mut Criterion) {
     c.bench_function("parse states", |b| b.iter(|| parser::parse_states(&states, false)));
     let states = parser::parse_states(&states, false).unwrap();
 
-    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, &states, &vec![Pathset::Moki, Pathset::Gorlek, Pathset::Glitch, Pathset::Unsafe], false)));
+    let mut pathsets = Pathsets::default();
+    pathsets.add(Pathset::Unsafe);
+    pathsets.add_glitches();
+
+    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, &states, &pathsets, false)));
 }
 
 fn requirements(c: &mut Criterion) {
-    let mut player = Player {
-        unsafe_paths: true,
-        ..Player::default()
-    };
+    let mut player = Player::default();
+    player.pathsets.unsafe_paths = true;
     let states = FxHashSet::default();
 
     let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);
@@ -84,7 +86,7 @@ fn requirements(c: &mut Criterion) {
 }
 
 fn reach_checking(c: &mut Criterion) {
-    let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &[Pathset::Moki], false).unwrap();
+    let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player = Player::default();
         player.inventory.grant(Item::Resource(Resource::Health), 40);
@@ -101,7 +103,7 @@ fn reach_checking(c: &mut Criterion) {
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut world = World::new(&graph);
-        world.player.inventory = Pool::preset(&[Pathset::Moki]).progressions;
+        world.player.inventory = Pool::preset(&Pathsets::default()).progressions;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
         world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
     }));
@@ -110,7 +112,7 @@ fn reach_checking(c: &mut Criterion) {
 fn generation(c: &mut Criterion) {
     // seedgen::initialize_log(false, log::LevelFilter::Off).unwrap();
 
-    let pathsets = vec![Pathset::Moki];
+    let pathsets = Pathsets::default();
     let mut rng: StdRng = Seeder::from("stableseedforconsistency").make_rng();
 
     let mut seeds = std::iter::from_fn(|| {

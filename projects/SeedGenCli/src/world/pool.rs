@@ -4,7 +4,7 @@ use rand::{Rng, distributions::Bernoulli, prelude::Distribution, seq::IteratorRa
 
 use crate::inventory::{Inventory, Item};
 use crate::generator::PartialItem;
-use crate::util::{Resource, Skill, Shard, Pathset, constants::RANDOM_PROGRESSION};
+use crate::util::{Resource, Skill, Shard, Pathsets, constants::RANDOM_PROGRESSION};
 
 #[derive(Debug, Clone)]
 pub struct Pool {
@@ -23,7 +23,7 @@ impl Pool {
         }
     }
 
-    pub fn preset(pathsets: &[Pathset]) -> Pool {
+    pub fn preset(pathsets: &Pathsets) -> Pool {
         let mut progressions = FxHashMap::default();
         progressions.reserve(48);
         let mut fillers = FxHashMap::default();
@@ -116,7 +116,7 @@ impl Pool {
         }
     }
 
-    pub fn grant(&mut self, item: Item, amount: u16, pathsets: &[Pathset]) {
+    pub fn grant(&mut self, item: Item, amount: u16, pathsets: &Pathsets) {
         if let Item::SpiritLight(amount) = item {
             self.spirit_light += amount;
         } else if item.is_progression(pathsets) {

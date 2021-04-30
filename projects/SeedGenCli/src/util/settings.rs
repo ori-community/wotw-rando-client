@@ -2,7 +2,7 @@ use std::{io, path::{Path, PathBuf}};
 
 use serde::{Serialize, Deserialize};
 
-use super::{Pathset, constants::DEFAULT_SPAWN};
+use super::{Pathsets, Pathset, constants::DEFAULT_SPAWN};
 
 /// Representation of settings as they are written by the java-based seed generator
 #[allow(clippy::struct_excessive_bools)]
@@ -62,10 +62,10 @@ impl Default for OldSettings {
 fn read_old(json: &str) -> Result<Settings, io::Error> {
     let old_settings: OldSettings = serde_json::from_str(json)?;
 
-    let mut pathsets = vec![Pathset::Moki];
-    if old_settings.gorlek_paths { pathsets.push(Pathset::Gorlek); }
-    if old_settings.unsafe_paths { pathsets.push(Pathset::Unsafe); }
-    if old_settings.glitch_paths { pathsets.push(Pathset::Glitch); }
+    let mut pathsets = Pathsets::default();
+    if old_settings.gorlek_paths { pathsets.add(Pathset::Gorlek); }
+    if old_settings.unsafe_paths { pathsets.add(Pathset::Unsafe); }
+    if old_settings.glitch_paths { pathsets.add_glitches(); }
 
     let mut header_list = old_settings.header_list;
     if old_settings.tps { header_list.push(PathBuf::from("teleporters")); }
@@ -82,7 +82,7 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     Ok(Settings {
         version: String::from("0.0.0"),
         pathsets,
-        flags: SeedFlags {
+        goalmodes: GoalModes {
             force_wisps: old_settings.flags.force_wisps,
             force_trees: old_settings.flags.force_trees,
             force_quests: old_settings.flags.force_quests,
@@ -103,21 +103,23 @@ pub enum Spawn {
     Random,
     FullyRandom,
 }
+// TODO same as pathsets?
 #[allow(clippy::struct_excessive_bools)]
 #[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
-pub struct SeedFlags {
+pub struct GoalModes {
     pub force_wisps: bool,
     pub force_trees: bool,
     pub force_quests: bool,
     pub world_tour: bool,
 }
+// TODO why partialeq?
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
     pub version: String,
-    pub pathsets: Vec<Pathset>,
-    pub flags: SeedFlags,
+    pub pathsets: Pathsets,
+    pub goalmodes: GoalModes,
     pub spawn_loc: Spawn,
     pub output_folder: PathBuf,
     pub spoilers: bool,
@@ -129,8 +131,8 @@ impl Default for Settings {
     fn default() -> Settings {
         Settings {
             version: env!("CARGO_PKG_VERSION").to_string(),
-            pathsets: vec![Pathset::Moki],
-            flags: SeedFlags::default(),
+            pathsets: Pathsets::default(),
+            goalmodes: GoalModes::default(),
             spawn_loc: Spawn::Set(DEFAULT_SPAWN.to_string()),
             output_folder: PathBuf::default(),
             spoilers: true,
