@@ -1,8 +1,10 @@
 use std::{
+    fs,
     path::{Path, PathBuf},
     convert::TryFrom,
     io::{self, Read},
     time::Instant,
+    process::Command,
 };
 
 use structopt::StructOpt;
@@ -32,11 +34,11 @@ struct SeedGen {
     #[structopt(short = "d", long = "debug")]
     wait_on_debugger: bool,
     #[structopt(subcommand)]
-    command: Command,
+    command: SeedGenCommand,
 }
 
 #[derive(StructOpt)]
-enum Command {
+enum SeedGenCommand {
     /// Generate a seed
     Seed {
         /// the seed's name and name of the file it will be written to. The name also seeds the rng.
@@ -77,6 +79,7 @@ enum Command {
         /// which pathsets and goal modes to use
         /// 
         /// valid inputs are "mo", "moki", "go", "gorlek", "gl", "glitch", "un", "unsafe", "t", "trees", "w", "wisps", "q", "quests", "r", "relics"
+        // TODO more granular pathset toggles
         #[structopt(short = "f", long = "flags")]
         generation_flags: Vec<String>,
         /// paths to headers stored in files which will be added to the seed
@@ -85,6 +88,8 @@ enum Command {
         /// inline headers
         headers: Vec<String>
     },
+    /// Play the most recent generated seed
+    Play,
     /// Check which locations are in logic
     ReachCheck {
         /// the seed file for which logical reach should be checked
@@ -301,7 +306,11 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
     let seed = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
     log::info!("Generated seed in {:?}", now.elapsed());
 
-    util::create_new_file(&filename, &seed, "seeds").map_err(|err| format!("Failed to write seed file: {}", err))
+    let file = util::create_new_file(&filename, &seed, "seeds").map_err(|err| format!("Failed to write seed file: {}", err))?;
+    log::info!("Wrote seed to {}", file.display());
+
+    fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
+    Ok(())
 }
 
 struct ReachCheckArgs {
@@ -319,7 +328,7 @@ struct ReachCheckArgs {
 
 fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     args.seed_file.set_extension("wotwr");
-    let settings = util::settings::read(&args.seed_file).map_err(|err| format!("Failed to read settings from {:?}: {}", args.seed_file, err))?;
+    let settings = util::settings::read(&args.seed_file).map_err(|err| format!("Failed to read settings from {}: {}", args.seed_file.display(), err))?;
     let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, false)?;
     let mut world = World::new(graph);
 
@@ -370,12 +379,22 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
         }
     }
 
-    let spawn = util::settings::read_spawn(&args.seed_file).map_err(|err| format!("error reading spawn from seed: {}", err))?;
+    let spawn = util::settings::read_spawn(&args.seed_file).map_err(|err| format!("Failed to read spawn from seed: {}", err))?;
 
     let reached = world.graph.reached_locations(&world.player, &spawn, &world.uber_states).expect("Invalid Reach Check");
     let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).collect();
     let reached = reached.iter().map(|uber_state| format!("{}", uber_state)).collect::<Vec<_>>();
     Ok(reached.join(", "))
+}
+
+fn play_last_seed() -> Result<(), String> {
+    let last_seed = fs::read_to_string(".currentseedpath").map_err(|err| format!("Failed to read last generated seed from .currentseedpath: {}", err))?;
+    log::info!("Launching seed {}", last_seed);
+    Command::new("WotwRando.exe")
+        .arg(last_seed)
+        .spawn()
+        .map_err(|err| format!("Failed to launch WotwRando.exe with the seed: {}", err))?;
+    Ok(())
 }
 
 fn main() {
@@ -387,7 +406,7 @@ fn main() {
     }
 
     match args.command {
-        Command::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, generation_flags, header_paths, headers } => {
+        SeedGenCommand::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, generation_flags, header_paths, headers } => {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seed(SeedArgs {
@@ -406,7 +425,7 @@ fn main() {
                 headers,
             }).unwrap_or_else(|err| log::error!("{}", err));
         },
-        Command::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
+        SeedGenCommand::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match reach_check(ReachCheckArgs {
@@ -425,7 +444,7 @@ fn main() {
                 Err(err) => log::error!("{}", err),
             }
         },
-        Command::Headers { headers, subcommand } => {
+        SeedGenCommand::Headers { headers, subcommand } => {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match subcommand {
@@ -453,6 +472,11 @@ fn main() {
                     }
                 }
             }
-        }
+        },
+        SeedGenCommand::Play => {
+            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+
+            play_last_seed().unwrap_or_else(|err| log::error!("{}", err));
+        },
     }
 }

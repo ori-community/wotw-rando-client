@@ -146,10 +146,10 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
 
-        log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", path))?.to_string_lossy());
+        log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {}", path.display()))?.to_string_lossy());
 
-        let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {:?}: {}", path, err))?;
-        let (header, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{:?}'", err, path))?;
+        let header = util::read_file(&path, "headers").map_err(|err| format!("Error reading header from {}: {}", path.display(), err))?;
+        let (header, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
 
         header_block += &header;
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
@@ -159,9 +159,9 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
     while !total_dependencies.is_empty() {
         let mut nested_dependencies = HashSet::new();
         for dependency in total_dependencies.drain() {
-            log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {:?}", dependency))?.to_string_lossy());
+            log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {}", dependency.display()))?.to_string_lossy());
 
-            let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {:?}: {}", dependency, err))?;
+            let header = util::read_file(&dependency, "headers").map_err(|err| format!("Error reading header from {}: {}", dependency.display(), err))?;
             let (header, dependencies) = &headers::parser::parse_header(&header, world, &settings.pathsets)?;
 
             header_block += &header;

@@ -273,7 +273,7 @@ where
         } else if let Some(uber_state) = non_shop.pop() {
             uber_state
         } else {
-            log::warn!("Not enough space to place all items from the item pool or place any spirit light!");
+            log::warn!("Not enough space to place all items from the item pool!");
             break;
         };
 

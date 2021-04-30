@@ -684,7 +684,9 @@ impl fmt::Display for Position {
     }
 }
 
-pub fn read_file(file: &Path, default_folder: &str) -> Result<String, io::Error> {
+pub fn read_file<P>(file: &Path, default_folder: P) -> Result<String, io::Error>
+where P: AsRef<Path>
+{
     let mut in_folder = PathBuf::new();
     in_folder.push(default_folder);
     in_folder.push(file);
@@ -693,7 +695,7 @@ pub fn read_file(file: &Path, default_folder: &str) -> Result<String, io::Error>
     })
 }
 
-fn create_in_folder(file: &Path, contents: &str) -> Result<(), io::Error> {
+fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
     let mut index = 0;
     loop {
         let mut filename = file.file_stem().unwrap().to_os_string();
@@ -707,14 +709,18 @@ fn create_in_folder(file: &Path, contents: &str) -> Result<(), io::Error> {
             .write(true)
             .create_new(true)
             .open(&path) {
-                Ok(mut file) => return file.write_all(contents.as_bytes()),
+                Ok(mut file) => {
+                    file.write_all(contents.as_bytes())?;
+                    return Ok(path);
+                },
                 Err(err) if err.kind() == io::ErrorKind::AlreadyExists => index += 1,
                 Err(err) if err.kind() == io::ErrorKind::NotFound => fs::create_dir_all(path.parent().unwrap())?,
                 Err(err) => return Err(err),
             }
     }
 }
-pub fn create_new_file(file: &Path, contents: &str, default_folder: &str) -> Result<(), io::Error> {
+pub fn create_new_file(file: &Path, contents: &str, default_folder: &str) -> Result<PathBuf, io::Error> {
+    // TODO what if the path already specifies the folder?
     let mut in_folder = PathBuf::new();
     in_folder.push(default_folder);
     in_folder.push(file);

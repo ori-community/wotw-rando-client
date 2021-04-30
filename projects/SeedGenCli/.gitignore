@@ -3,3 +3,4 @@ rls/*
 tokens.txt
 *.wotwr
 *.log
+.currentseedpath

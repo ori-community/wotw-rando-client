@@ -226,7 +226,7 @@ pub fn validate() -> Result<(), String> {
     let mut failed = Vec::new();
 
     for header in headers {
-        let mut name = header.file_stem().unwrap().to_string_lossy().to_string();
+        let mut name = header.file_stem().unwrap().to_string_lossy().into_owned();
 
         let contents = util::read_file(&header, "headers").map_err(|err| format!("Failed to read header {}: {}", name, err))?;
 
@@ -350,11 +350,9 @@ pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), Stri
 
     name.set_extension("wotwrh");
 
-    util::create_new_file(&name, &contents, "headers").map_err(|err| format!("Failed to create preset: {}", err))?;
+    let name = util::create_new_file(&name, &contents, "headers").map_err(|err| format!("Failed to create preset: {}", err))?;
 
-    let name = name.file_stem().unwrap().to_string_lossy();
-
-    println!("Created preset {}", name);
+    println!("Created preset {}", name.display());
     Ok(())
 }
 

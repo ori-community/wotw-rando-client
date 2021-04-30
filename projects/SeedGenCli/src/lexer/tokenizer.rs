@@ -323,7 +323,7 @@ pub fn tokenize(areas: &Path) -> Result<Vec<Token>, io::Error> {
             if let Some(index) = failed[1..].find('\n') {
                 failed = &failed[..index - 1];
             }
-            return Err(io::Error::new(io::ErrorKind::InvalidData, format!("Failed to read line {} from {:?} (this is most likely due to a wrong indent): {}", context.line + 1, areas, failed)));
+            return Err(io::Error::new(io::ErrorKind::InvalidData, format!("Failed to read line {} from {} (this is most likely due to a wrong indent): {}", context.line + 1, areas.display(), failed)));
         }
     }
     while context.indent_stack.len() > 1 {
