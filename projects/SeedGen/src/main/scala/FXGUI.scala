@@ -277,7 +277,7 @@ package SeedGenerator {
         gp.addRow(0, new Label("Logic Groups: "), gorlekPathsButton, glitchPathsButton, uncheckedPathsButton)
         gp.addRow(1, new Label("Goal Modes: "), forceTreesButton, forceWispsButton, forceQuestsButton, worldTourButton)
         gp.addRow(2, new Label("Spawn Opts: "), swordSpawnButton, rainButton, noKSDoorsButton)
-        gp.addRow(rowIndex = 3, new Label("Spawn Area: "), spawnSelector, randomSpawnButton)
+        gp.addRow(3, new Label("Spawn Area: "), spawnSelector, randomSpawnButton)
         gp.addRow(4, new Label("Misc Opts: "),  seirLaunchButton,zoneHintsButton, questsButton)
         gp.addRow(5, new Label(""), bonusItemsButton, teleportersButton, raceModeButton, webConnButton)
         gp.addRow(6,  new Label(s"Output folder: "), outputLabel, changeFolderButton, importSettingsButton)
