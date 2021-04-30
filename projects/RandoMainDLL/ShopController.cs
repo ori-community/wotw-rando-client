@@ -87,6 +87,10 @@ namespace RandoMainDLL {
   }
 
   public static class ShopController {
+    public static UberId UpgradedState(this AbilityType at) => new UberId(1, 1000 + (int)at);
+    public static bool Upgraded(this AbilityType at) => UberGet.Bool(at.UpgradedState());
+    public static List<AbilityType> UpgradeableATs = new List<AbilityType>() { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, };
+    public static List<AbilityType> UpgradedWeapons { get => UpgradeableATs.Where(at => at.Upgraded()).ToList(); }
     public static OpherSlot Slot(this AbilityType at) {
       var slot = ShopSlot.Opher.FindIndex(a => a.Weapon == at);
       if (slot == -1)

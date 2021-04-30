@@ -17,15 +17,8 @@ namespace RandoMainDLL {
     public static bool Have(this AbilityType at) => UberGet.Bool(at.State());
     public static UberId TreeState(this AbilityType at) => new UberId(0, (int)at);
     public static bool HaveTree(this AbilityType at) => UberGet.Bool(at.TreeState());
-    public static UberId UpgradedState(this AbilityType at) => new UberId(1, 1000 + (int)at);
-    public static bool Upgraded(this AbilityType at) => UberGet.Bool(at.UpgradedState());
-
     public static UberId BoughtState(this ShardType st) => new UberId(2, (int)st);
     public static bool Bought(this ShardType st) => UberGet.Bool(st.BoughtState());
-
-    public static List<AbilityType> UpgradeableATs = new List<AbilityType>() { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, };
-
-    public static List<AbilityType> UpgradedWeapons { get => UpgradeableATs.Where(at => at.Upgraded()).ToList(); }
 
     public static List<AbilityType> SkillsFound { get => ((AbilityType[])Enum.GetValues(typeof(AbilityType))).Where(at => at != AbilityType.NONE && at != AbilityType.TeleportSpell && at.Have()).ToList(); }
     public static List<QuestEventType> WorldEvents { get => ((QuestEventType[])Enum.GetValues(typeof(QuestEventType))).Where(at => at.Have()).ToList(); }
