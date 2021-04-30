@@ -15,13 +15,11 @@ import wotw.io.messages.protobuf.*
 import wotw.io.messages.protobuf.Position
 import wotw.web.io.WebSocketComponent
 import wotw.web.main.Application
-import wotw.web.util.BACKEND_HOST
-import wotw.web.util.BACKEND_PORT
-import wotw.web.util.hbox
-import wotw.web.util.vbox
+import wotw.web.util.*
 
 external interface GameIdProps : RProps {
     var gameId: Long
+    var spectate: Boolean
 }
 
 external interface PlayerIdProps : RProps {
@@ -30,6 +28,7 @@ external interface PlayerIdProps : RProps {
 
 external interface BingoCardProps : GameIdProps {
     var useLatest: Boolean?
+    var sortedPlayerList: List<Long>?
     var playerId: Long?
 }
 
@@ -42,7 +41,7 @@ external interface BingoSquareProps : RProps {
     var size: Pair<LinearDimension?, LinearDimension?>?
     var boardSize: Int
     var text: String
-    var completed: Boolean
+    var completedColors: List<Color>?
     var goals: List<BingoGoal>
     var xEdge: Boolean
     var yEdge: Boolean
@@ -57,7 +56,12 @@ external interface BingoGoalProps : RProps {
     var completed: Boolean
 }
 
-class BingoView : RComponent<GameIdProps, RState>() {
+external interface BingoViewState: RState{
+    var trackedPlayer: Long?
+    var sortedPlayerList: List<Long>?
+}
+
+class BingoView : RComponent<GameIdProps, BingoViewState>() {
     override fun RBuilder.render() {
         vbox {
             hbox {
@@ -66,9 +70,25 @@ class BingoView : RComponent<GameIdProps, RState>() {
                 }
                 child(BingoCardComponent::class) {
                     attrs.gameId = props.gameId
+                    attrs.playerId = state.trackedPlayer
+                    attrs.spectate = props.spectate
+                    attrs.sortedPlayerList = state.sortedPlayerList
                 }
                 child(BingoPlayersComponent::class) {
                     attrs.gameId = props.gameId
+                    attrs.spectate = props.spectate
+                    if(props.spectate) {
+                        attrs.highlightCallback = {
+                            setState {
+                                trackedPlayer = it
+                            }
+                        }
+                    }
+                    attrs.listChangedCallback = {
+                        setState{
+                            sortedPlayerList = it
+                        }
+                    }
                 }
             }
         }
@@ -86,11 +106,13 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
 
     override fun componentDidMount() {
         GlobalScope.launch {
-            val path = when {
+            var path = when {
                 props.useLatest != true -> "bingo/${props.gameId}"
                 props.playerId == null -> "bingo/latest"
                 else -> "bingo/latest/${props.playerId}"
             }
+            if(props.spectate)
+                path += "?spectate=true"
             val boardData = Application.api.get<BingoData>(path = path)
             setState {
                 this.board = boardData.board
@@ -157,19 +179,31 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
                                 y !in cardRange -> (x + 64).toChar().toString()
                                 else -> ""
                             }
-                            val completed = when {
-                                square != null -> square.completed
-                                x == 0 && y == 0 || x > size && y > size -> cardRange.all {
-                                    state.board[Position(it, it)]?.completed == true
+                            val completedBy: Set<Long> = when {
+                                square != null -> square.completedBy.toSet()
+                                x == 0 && y == 0 || x > size && y > size -> cardRange.map {
+                                    state.board[Position(it, it)]?.completedBy?.toSet() ?: emptySet()
+                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                                x == 0 && y > size || x > size && y == 0 -> cardRange.map {
+                                    state.board[Position(size + 1 - it, it)]?.completedBy?.toSet() ?: emptySet()
+                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                                x !in cardRange -> cardRange.map {
+                                    state.board[Position(it, y)]?.completedBy?.toSet() ?: emptySet()
+                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                                else -> cardRange.map {
+                                    state.board[Position(x, it)]?.completedBy?.toSet() ?: emptySet()
+                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                            }
+
+                            val squareColors = when {
+                                (props.sortedPlayerList?.size ?: 0) in 1..8 -> {
+                                    completedBy.mapNotNull {props.sortedPlayerList?.indexOf(it)}.sorted().map { bingoPlayerColors[it] }
                                 }
-                                x == 0 && y > size || x > size && y == 0 -> cardRange.all {
-                                    state.board[Position(size + 1 - it, it)]?.completed == true
+                                props.playerId in completedBy -> {
+                                    listOf(Color.green)
                                 }
-                                x !in cardRange -> cardRange.all {
-                                    state.board[Position(it, y)]?.completed == true
-                                }
-                                else -> cardRange.all {
-                                    state.board[Position(x, it)]?.completed == true
+                                else -> {
+                                    emptyList()
                                 }
                             }
 
@@ -179,7 +213,7 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
                                 attrs.gridPosition = gridPos
                                 attrs.size = width to height
                                 attrs.boardSize = size
-                                attrs.completed = completed
+                                attrs.completedColors = squareColors
                                 attrs.goals = square?.goals ?: emptyList()
                                 attrs.text = text
                             }
@@ -189,11 +223,13 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
             }
             child(WebSocketComponent::class) {
                 if (props.useLatest == true) {
-                    attrs.url = "wss://$BACKEND_HOST:$BACKEND_PORT/api/bingosync/latest"
+                    attrs.url = "ws://$BACKEND_HOST:80/api/bingosync/latest"
                     if (props.playerId != null)
                         attrs.url += "/${props.playerId}"
                 } else {
-                    attrs.url = "wss://$BACKEND_HOST:$BACKEND_PORT/api/bingosync/${props.gameId}"
+                    attrs.url = "ws://$BACKEND_HOST:80/api/bingosync/${props.gameId}"
+                    if(props.spectate)
+                        attrs.url += "?spectate=true"
                 }
             }
         }
@@ -213,8 +249,32 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                 height = 100.pct
                 textAlign = TextAlign.center
                 fontWeight = FontWeight.bold
-                backgroundColor =
-                    if (props.completed) Color.green else if (state.marked) Color.lightBlue else Color.lightGray
+
+                val completedColors = props.completedColors
+                if(completedColors != null && completedColors.isNotEmpty()){
+                    val step = 100.0 / completedColors.size
+                    var current = 0.0
+                    var bgString = "linear-gradient(to bottom right, "
+                    for (color in completedColors){
+                        if(current != 0.0 && current < 100){
+                            bgString += "black " + (current - 0.5).pct.toString() + " " + current.pct.toString()  + ","
+                        }
+                        bgString += color.toString() + " " + current.pct.toString() + " "
+                        current += step
+                        if(current >= 100){
+                            bgString += current.pct.toString()
+                        }else {
+                            bgString += (current - 0.5).pct.toString() + ", "
+                        }
+                    }
+                    bgString += ")"
+                    background = bgString
+                    color = Color.white
+                }else {
+                    backgroundColor =
+                        if (state.marked) Color.lightBlue else Color.lightGray
+                    color = Color.black
+                }
             }
             when {
                 props.xEdge && !props.yEdge -> styledP {
@@ -266,6 +326,7 @@ class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RSt
             if (props.completed) {
                 css {
                     backgroundColor = Color.greenYellow
+                    color = Color.black
                 }
             }
         }

@@ -14,7 +14,7 @@ class ConnectionRegistry {
 
     data class PlayerConn(val socket: WebSocketSession, val gameId: Long?)
 
-    private val bingoGameConns = MultiMap<Long, WebSocketSession>(Collections.synchronizedMap(hashMapOf()))
+    private val bingoGameConns = MultiMap<Long, Pair<WebSocketSession, Boolean>>(Collections.synchronizedMap(hashMapOf()))
     /*
     * A Map (GameId?, PlayerId) -> WebSocketSession
     * If GameId == null then Socket listens to newest
@@ -23,9 +23,9 @@ class ConnectionRegistry {
         MultiMap<Pair<Long?, Long>, WebSocketSession>(Collections.synchronizedMap(hashMapOf()))
     val playerConns = Collections.synchronizedMap(hashMapOf<Long, PlayerConn>())
 
-    fun registerBingoBoardConn(socket: WebSocketSession, gameId: Long? = null, playerId: Long? = null) {
+    fun registerBingoBoardConn(socket: WebSocketSession, gameId: Long? = null, playerId: Long? = null, spectator: Boolean = false) {
         if(gameId != null)
-            bingoGameConns[gameId] += socket
+            bingoGameConns[gameId] += socket to spectator
         if (playerId != null)
             bingoPlayerConns[gameId to playerId] += socket
     }
@@ -36,7 +36,7 @@ class ConnectionRegistry {
     fun unregisterGameConn(playerId: Long) = playerConns.remove(playerId)
 
     fun unregisterAllBingoBoardConns(socket: WebSocketSession, gameId: Long) {
-        bingoGameConns[gameId] -= socket
+        bingoGameConns[gameId].removeIf { it.first == socket }
         bingoPlayerConns.filterKeys { it.first == gameId }.forEach { bingoPlayerConns[it.key] -= socket }
     }
 
@@ -94,11 +94,11 @@ class ConnectionRegistry {
         }
     }
 
-    suspend fun toObservers(gameId: Long, message: suspend SendChannel<Frame>.() -> Unit) =
-        toObservers(gameId, *arrayOf(message))
+    suspend fun toObservers(gameId: Long, spectatorsOnly: Boolean = false, message: suspend SendChannel<Frame>.() -> Unit) =
+        toObservers(gameId, spectatorsOnly, *arrayOf(message))
 
-    suspend fun toObservers(gameId: Long, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
-        bingoGameConns[gameId].forEach { conn ->
+    suspend fun toObservers(gameId: Long, spectatorsOnly: Boolean, vararg messages: suspend SendChannel<Frame>.() -> Unit) {
+        bingoGameConns[gameId].filter { !spectatorsOnly || it.second}.forEach { (conn, _) ->
             for (message in messages) {
                 try {
                     message(conn.outgoing)

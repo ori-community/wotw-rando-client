@@ -137,21 +137,24 @@ enum class Line(val label: String, val start: Point, val direction: Point) {
     ROW_4("Row 4", 1 to 4, 1 to 0),
     ROW_5("Row 5", 1 to 5, 1 to 0),
     X("TLBR", 1 to 1, 1 to 1),
-    Y("TLBR", 1 to 5, 1 to -1)
+    Y("TLBR", 1 to 5, 1 to -1);
+
+    fun cards(size: Int) = (1..size).map { this.direction * (it-1) + this.start }
 }
 @Serializable
-data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf(), val discovery: Set<Point>? = null) {
-    fun Line.cards() = (1..size).map { this.direction * (it-1) + this.start }
+data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf(), val config: BingoConfig? = null) {
+    fun Line.cards() = cards(size)
     val allKeys
         get() = goals.values.flatMap { it.keys }.toSet()
     val size = 5 // get() = goals.keys.maxByOrNull { it.first }
     fun goalCompleted(p: Point, gs: GameState?) = goals[p]?.isCompleted(gs ?: UberStateMap.empty) ?: false
     fun goalVisible(p: Point, gs: GameState?): Boolean {
-        if(discovery.isNullOrEmpty())
+        val first = config?.discovery
+        if(first.isNullOrEmpty())
             return true
 
         //*why* am I doing this on every call? because here at mood studios we don't do simple!
-        var current: Set<Point> = discovery
+        var current: Set<Point> = first
         var last: Set<Point>
         do {
             last = current
@@ -167,24 +170,22 @@ data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf(), val 
 
         return false
     }
-    fun getPlayerData(gameState: GameState?): PlayerBingoData {
-        val lines = Line.values().count {l -> l.cards().all {goalCompleted(it, gameState) && goalVisible(it, gameState)}}
-        val squares = goals.count { (position, _) -> goalCompleted(position, gameState) && goalVisible(position, gameState)}
-        return PlayerBingoData(lines, squares, lines*10+squares)
-    }
 
     fun toBingoBoard(gameState: GameState?): BingoBoard {
         val gameState = gameState ?: UberStateMap.empty
         return BingoBoard(goals.map { (position, goal) ->
             Position(position.first, position.second) to BingoSquare(
                 goal.title,
-                goal.isCompleted(gameState),
                 goal.printSubText(gameState)
                     .map { (text, completed) -> wotw.io.messages.protobuf.BingoGoal(text, completed) }
             )
         }.filter{goalVisible(it.first.x to it.first.y, gameState)}.toMap(), 5)
     }
 }
+@Serializable
+data class BingoConfig(val lockout: Boolean = false,
+                       val manualSquareCompletion: Boolean = false,
+                       val discovery: Set<Point>? = null)
 
 @Serializable
 sealed class StateExpression{

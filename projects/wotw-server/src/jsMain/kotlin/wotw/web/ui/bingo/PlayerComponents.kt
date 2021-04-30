@@ -19,6 +19,7 @@ import styled.styledP
 import wotw.io.messages.protobuf.*
 import wotw.web.main.Application
 import wotw.web.ui.TempHeaderComp
+import wotw.web.util.bingoPlayerColors
 
 
 external interface BingoPlayerProps : GameIdProps {
@@ -36,54 +37,61 @@ external interface BingoListState : RState {
     var highlighted: Long?
 }
 
+external interface BingoListProps : GameIdProps {
+    var listChangedCallback: ((List<Long>?) -> Unit)?
+    var highlightCallback: ((Long?) -> Unit)?
+}
+
 class PlayersComponent : RComponent<GameIdProps, TeamListState>() {
     override fun TeamListState.init() {
         teams = emptyList()
     }
+
     override fun componentDidMount() {
         GlobalScope.launch {
             val gameInfo = Application.api.get<GameInfo>("/games/${props.gameId}/teams")
             console.log(gameInfo)
-            setState {teams = gameInfo.teams }
+            setState { teams = gameInfo.teams }
         }
 
-        GlobalScope.launch {
-            val maybeInfo = Application.user.await()
-            if (maybeInfo != null) {
-                setState { user = maybeInfo.id }
+        if (!props.spectate)
+            GlobalScope.launch {
+                val maybeInfo = Application.user.await()
+                if (maybeInfo != null) {
+                    setState { user = maybeInfo.id }
+                }
             }
-        }
     }
 
     override fun RBuilder.render() {
         console.log(state)
-            div {
-                child(TempHeaderComp::class) {}
+        div {
+            child(TempHeaderComp::class) {}
 
-                styledP {
-                    css {
-                        marginTop = 1.em
-                        fontSize = 2.em
-                    }
-                    +"Teams: "
+            styledP {
+                css {
+                    marginTop = 1.em
+                    fontSize = 2.em
                 }
-                styledDiv {
-                    css {
-                        marginBottom = 1.em
-                    }
-                    state.teams.forEach {
-                        styledDiv {
-                            css {
-                                backgroundColor = Color.white
-                                color = Color.black
-                            }
+                +"Teams: "
+            }
+            styledDiv {
+                css {
+                    marginBottom = 1.em
+                }
+                state.teams.forEach {
+                    styledDiv {
+                        css {
+                            backgroundColor = Color.white
+                            color = Color.black
+                        }
 
-                            if(it.members.isEmpty())
-                                +it.leader.name
-                            else
-                                +"${it.name} (${it.leader.name}, ${it.members.joinToString(", ", transform = {it.name})})"
+                        if (it.members.isEmpty())
+                            +it.leader.name
+                        else
+                            +"${it.name} (${it.leader.name}, ${it.members.joinToString(", ", transform = { it.name })})"
 
-                            if(state.user != it.leader.id)
+                        if (state.user != it.leader.id)
                             child(JoinTeamComponent::class) {
                                 attrs {
                                     gameId = props.gameId
@@ -91,40 +99,44 @@ class PlayersComponent : RComponent<GameIdProps, TeamListState>() {
                                     afterJoin = { componentDidMount() }
                                 }
                             }
-                        }
                     }
                 }
-                child(JoinGameComponent::class) {
-                    attrs {
-                        userId = state.user
-                        gameId = props.gameId
-                        afterJoin = { componentDidMount() }
-                    }
-                }
-
             }
+            child(JoinGameComponent::class) {
+                attrs {
+                    userId = state.user
+                    gameId = props.gameId
+                    afterJoin = { componentDidMount() }
+                }
+            }
+
+        }
     }
 
 
-        }
-class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
+}
+
+class BingoPlayersComponent : RComponent<BingoListProps, BingoListState>() {
     override fun BingoListState.init() {
         players = emptyList()
         highlighted = null
     }
 
     override fun componentDidMount() {
-        GlobalScope.launch {
-            val maybeInfo = Application.user.await()
-            if(maybeInfo != null) {
-                setState { highlighted = maybeInfo.id }
-                Application.eventBus.send(Packet.from(RequestUpdatesMessage(maybeInfo.id)))
+        if (!props.spectate)
+            GlobalScope.launch {
+                val maybeInfo = Application.user.await()
+                if (maybeInfo != null) {
+                    setState { highlighted = maybeInfo.id }
+                    props.highlightCallback?.invoke(maybeInfo.id)
+                    Application.eventBus.send(Packet.from(RequestUpdatesMessage(maybeInfo.id)))
+                }
             }
-        }
 
         Application.eventBus.register(this, SyncBingoPlayersMessage::class) {
             setState {
                 players = it.players
+                props.listChangedCallback?.invoke(players.map { it.playerId })
             }
         }
     }
@@ -134,6 +146,9 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
     }
 
     override fun RBuilder.render() {
+        if (props.spectate)
+            return
+        val order = state.players//.sortedBy { it.playerId }
         div {
             child(TempHeaderComp::class) {}
 
@@ -146,7 +161,7 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
                 }
                 +"Players"
             }
-            styledDiv{
+            styledDiv {
                 css {
                     marginBottom = 1.em
                 }
@@ -156,16 +171,25 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
                             backgroundColor = if (it.playerId == state.highlighted) Color.lightGray else Color.white
                             color = Color.black
                             fontWeight = if (it.playerId == state.highlighted) FontWeight.bold else FontWeight.normal
+                            if (state.players.size <= bingoPlayerColors.size) {
+                                after {
+                                    backgroundColor = bingoPlayerColors[order.indexOf(it)]
+                                    content = "__".quoted
+                                    marginLeft = 10.px
+                                }
+                            }
                         }
                         +"${it.name} | ${it.score}"
                         attrs.onClickFunction = { _ ->
                             setState {
                                 highlighted = it.playerId
+                                props.highlightCallback?.invoke(it.playerId)
                             }
                             GlobalScope.launch {
                                 Application.eventBus.send(Packet.from(RequestUpdatesMessage(it.playerId)))
                             }
                         }
+
                     }
                 }
             }
@@ -177,6 +201,7 @@ class BingoPlayersComponent : RComponent<GameIdProps, BingoListState>() {
                     afterJoin = {
                         setState {
                             highlighted = it
+                            props.highlightCallback?.invoke(it)
                         }
                     }
                 }
@@ -190,6 +215,7 @@ external interface JoinBingoProps : GameIdProps {
     var afterJoin: (Long) -> Unit
     var userId: Long?
 }
+
 external interface JoinGameProps : GameIdProps {
     var afterJoin: () -> Unit
     var userId: Long?
@@ -207,7 +233,8 @@ class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
             attrs {
                 onClickFunction = {
                     GlobalScope.launch {
-                        val response = Application.api.post<HttpResponse>(path = "games/${props.gameId}/teams/${props.teamId}")
+                        val response =
+                            Application.api.post<HttpResponse>(path = "games/${props.gameId}/teams/${props.teamId}")
                         if (response.status == HttpStatusCode.OK || response.status == HttpStatusCode.Created || response.status == HttpStatusCode.Companion.Conflict) {
                             props.afterJoin()
                         } else {
@@ -219,6 +246,7 @@ class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
         }
     }
 }
+
 class JoinGameComponent : RComponent<JoinGameProps, RState>() {
     override fun RBuilder.render() {
         button {

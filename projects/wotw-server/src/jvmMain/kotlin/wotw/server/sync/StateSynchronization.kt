@@ -7,6 +7,7 @@ import wotw.server.api.AggregationStrategyRegistry
 import wotw.server.api.UberStateSyncStrategy
 import wotw.server.database.model.Game
 import wotw.server.database.model.GameState
+import wotw.server.database.model.Team
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.zerore
 import java.util.*
@@ -128,18 +129,17 @@ class StateSynchronization(private val server: WotwBackendServer) {
     }
 
     suspend fun syncGameProgress(gameId: Long) {
-        val (playerInfo, stateUpdates) = newSuspendedTransaction {
+        val (playerInfo, spectatorBoard, stateUpdates) = newSuspendedTransaction {
             val game = Game.findById(gameId) ?: return@newSuspendedTransaction null
-            val board = game.board ?: return@newSuspendedTransaction null
+            game.board ?: return@newSuspendedTransaction null
 
             val info = game.playerInfo()
             val playerInfo = SyncBingoPlayersMessage(info)
-            val teamUpdates = game.teams.mapNotNull {
-                val state = game.teamStates[it] ?: return@mapNotNull null
-                val bingoPlayerData = board.getPlayerData(state.uberStateData)
-
+            val teamUpdates = game.teams.map { team ->
+                val bingoPlayerData = game.playerInfo(team)
                 Triple(
-                    it.members.map { it.id.value }, UberStateBatchUpdateMessage(
+                    team.members.map { it.id.value },
+                    UberStateBatchUpdateMessage(
                         UberStateUpdateMessage(
                             UberId(10, 0),
                             bingoPlayerData.squares.toFloat()
@@ -151,16 +151,20 @@ class StateSynchronization(private val server: WotwBackendServer) {
                             bingoPlayerData.rank.toFloat()
                         )
                     ), SyncBoardMessage(
-                        board.toBingoBoard(state.uberStateData),
+                        game.createSyncableBoard(team),
                         true
                     )
                 )
             }
 
-            playerInfo to teamUpdates
+            Triple(playerInfo,SyncBoardMessage(
+                game.createSyncableBoard(null, true),
+                true
+            ),  teamUpdates)
         } ?: return
 
         server.connections.toObservers(gameId) { sendMessage(playerInfo) }
+        server.connections.toObservers(gameId, true) { sendMessage(spectatorBoard) }
         stateUpdates.forEach { (players, goalStateUpdate, board) ->
             server.connections.toPlayers(players, gameId) { sendMessage(goalStateUpdate) }
             players.forEach { playerId ->

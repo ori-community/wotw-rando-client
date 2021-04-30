@@ -31,10 +31,9 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
             val boardData = newSuspendedTransaction {
                 val player = call.parameters["playerId"]?.toLongOrNull()?.let { User.findById(it) } ?: sessionInfo()
                 val game = player.latestBingoGame ?: throw NotFoundException()
-                val board = game.board ?: throw NotFoundException()
-                val state = game.teamStates[Team.find(game.id.value, player.id.value)]?.uberStateData
+                game.board ?: throw NotFoundException()
                 val info = game.playerInfo()
-                BingoData(board.toBingoBoard(state), info)
+                BingoData(game.createSyncableBoard(Team.find(game.id.value, player.id.value)), info)
             }
             call.respond(boardData)
         }
@@ -42,11 +41,12 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
         get("bingo/{game_id}") {
             val gameId = call.parameters["game_id"]?.toLongOrNull() ?: throw BadRequestException("Cannot parse game_id")
+            val spectate = call.request.queryParameters["spectate"] == "true"
             val boardData = newSuspendedTransaction {
                 val game = Game.findById(gameId) ?: throw NotFoundException()
-                val board = game.board ?: throw NotFoundException()
+                game.board ?: throw NotFoundException()
                 val info = game.playerInfo()
-                BingoData(board.toBingoBoard(UberStateMap.empty), info)
+                BingoData(game.createSyncableBoard(null, spectate), info)
             }
             call.respond(boardData)
         }
@@ -54,7 +54,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
             val props = call.receiveOrNull<BingoGenProperties>()
             val game = newSuspendedTransaction {
                 Game.new {
-                    board = BingoBoardGenerator().generateBoard(props?.seed, props?.discovery)
+                    board = BingoBoardGenerator().generateBoard(props)
                 }
             }
             call.respondText("${game.id.value}", status = HttpStatusCode.Created)
@@ -120,6 +120,7 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     "Game-ID is required"
                 )
             )
+            val spectate = call.request.queryParameters["spectate"] == "true"
             val (game, board) = newSuspendedTransaction {
                 val game = Game.findById(gameId)
                 game to game?.board
@@ -133,18 +134,23 @@ class BingoEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 )
 
             var playerId = -1L
-            server.connections.registerBingoBoardConn(this@webSocket, gameId)
+            server.connections.registerBingoBoardConn(this@webSocket, gameId, spectator = spectate)
             protocol {
                 onMessage(RequestUpdatesMessage::class) {
+                    if(spectate)
+                        return@onMessage close(CloseReason(
+                            CloseReason.Codes.VIOLATED_POLICY,
+                            "Cannot track individual player progress on a spectating connection"
+                        ))
                     if (this.playerId != playerId) {
                         server.connections.unregisterBingoBoardConn(this@webSocket, gameId, playerId)
                         playerId = this.playerId
                         server.connections.registerBingoBoardConn(this@webSocket, gameId, playerId)
 
-                        val gameState = newSuspendedTransaction {
-                            game.teamStates[Team.find(gameId, playerId)]?.uberStateData
+                        val syncBoard = newSuspendedTransaction {
+                            game.createSyncableBoard(Team.find(gameId, playerId))
                         }
-                        outgoing.sendMessage(SyncBoardMessage(board.toBingoBoard(gameState), true))
+                        outgoing.sendMessage(SyncBoardMessage(syncBoard, true))
                     }
                 }
                 onClose {

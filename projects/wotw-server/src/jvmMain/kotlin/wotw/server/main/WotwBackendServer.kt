@@ -24,6 +24,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.event.Level
 import wotw.server.api.*
+import wotw.server.database.GameStateCache
 import wotw.server.sync.StateSynchronization
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
@@ -63,7 +64,7 @@ class WotwBackendServer {
         this.db =
             Database.connect(ds)//"jdbc:postgresql://$host:$port/$db?user=$user&password=$password", "org.postgresql.Driver")
         transaction {
-            SchemaUtils.createMissingTablesAndColumns(Games, Users, GameStates, TeamMemberships, Teams)
+            SchemaUtils.createMissingTablesAndColumns(Games, Users, GameStates, TeamMemberships, Teams, BingoEvents)
         }
 
     }
@@ -74,6 +75,7 @@ class WotwBackendServer {
     val userEndpoint = UserEndpoint(this)
     val connections = ConnectionRegistry()
     val sync = StateSynchronization(this)
+    val gameState = GameStateCache()
 
     private fun startServer(args: Array<String>) {
         val cmd = commandLineEnvironment(args)
@@ -84,10 +86,19 @@ class WotwBackendServer {
                 install(WebSockets) {
                     maxFrameSize = Long.MAX_VALUE
                 }
-                install(HttpsRedirect)
+                //install(HttpsRedirect)
                 install(CallLogging) {
                     level = Level.INFO
                 }
+                /*install(Compression) {
+                    gzip {
+                        condition {
+                            request.uri.startsWith("http") && !request.uri.startsWith("https")
+                                    || request.headers[HttpHeaders.Referrer]?.startsWith("https://wotw.orirando.com/") == true
+                                    || request.headers[HttpHeaders.Referrer]?.startsWith("https://discord.com/oauth2/authorize") == true
+                        }
+                    }
+                }*/
                 install(CORS) {
                     method(HttpMethod.Options)
                     allowNonSimpleContentTypes = true
