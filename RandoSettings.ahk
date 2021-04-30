@@ -18,6 +18,7 @@ IniRead, varCursorLock, %inipath%, Flags, CursorLock, false
 IniRead, varInvertSwim, %inipath%, Flags, InvertSwim, false
 IniRead, varDisableDebug, %inipath%, Flags, DisableDebugControls, false
 IniRead, varDisableQuestSnap, %inipath%, Flags, QuestFocusOnAbility3, false
+IniRead, varRandomCurrencyNames, %inipath%, Flags, BoringMoney, true
 IniRead, varMouseBurrow, %inipath%, Flags, BurrowMouseControl, false
 IniRead, varMouseWDash, %inipath%, Flags, WaterDashMouseControl, false
 IniRead, varMouseGrapple, %inipath%, Flags, GrappleMouseControl, false
@@ -51,6 +52,7 @@ ahkvarUseWinStore := parseBooltoNum(varUseWinStore)
 ahkvarCursorLock := parseBooltoNum(varCursorLock)
 ahkvarInvertSwim := parseBooltoNum(varInvertSwim)
 ahkvarDisableDebug := parseBooltoNum(varDisableDebug)
+ahkvarRandomCurrencyNames := 1-parseBooltoNum(varRandomCurrencyNames)
 ahkvarAutoUpdate := 1-parseBooltoNum(varSkipUpdate)
 ahkvarDisableQuestSnap := parseBooltoNum(varDisableQuestSnap)
 ahkVarLaunchTracker := parseBooltoNum(varLaunchTracker)
@@ -88,6 +90,9 @@ Gui, Add, Checkbox, x%col2% ys checked%ahkvarDisableQuestSnap% vahkvarDisableQue
 
 Gui, Add, Text, x20 section, Disable Debug Controls
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarDisableDebug% vahkvarDisableDebug gwritetofile
+
+Gui, Add, Text, x20 section, Random Currency Names
+Gui, Add, Checkbox, x%col2% ys checked%ahkvarRandomCurrencyNames% vahkvarRandomCurrencyNames gwritetofile
 
 Gui, Add, Text, x20 y+30 section, Mouse Aiming: Grapple
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarMouseGrapple% vahkvarMouseGrapple gwritetofile
@@ -172,6 +177,7 @@ writetofile:
     varInvertSwim := parseNumtoBool(ahkvarInvertSwim)
     varDisableDebug := parseNumToBool(ahkvarDisableDebug)
     varDisableQuestSnap := parseNumtoBool(ahkvarDisableQuestSnap)
+    varRandomCurrencyNames := parseNumtoBool(1-ahkvarRandomCurrencyNames)
     varLaunchTracker := parseNumtoBool(ahkvarLaunchTracker)
     varSkipUpdate := parseNumtoBool(1-ahkvarAutoUpdate)
     varMouseBurrow := parseNumtoBool(ahkvarMouseBurrow) 
@@ -184,7 +190,7 @@ writetofile:
     varAlwaysShowWarps := parseNumtoBool(ahkvarAlwaysShowWarps)
     varDisableNetcode := parseNumtoBool(ahkvarDisableNetcode)
     ; Writing the new values to file.
-    IniWrite, %varSkipUpdate%, %inispath%, Flags, SkipUpdate
+    IniWrite, %varSkipUpdate%, %inipath%, Flags, SkipUpdate
     IniWrite, %varShowShortCutscenes%, %inipath%, Flags, ShowShortCutscenes
     IniWrite, %varShowLongCutscenes%, %inipath%, Flags, ShowLongCutscenes
     IniWrite, %varUseWinStore%, %inipath%, Flags, UseWinStore
@@ -192,6 +198,7 @@ writetofile:
     IniWrite, %varInvertSwim%, %inipath%, Flags, InvertSwim
     IniWrite, %varDisableDebug%, %inipath%, Flags, DisableDebugControls
     IniWrite, %varDisableQuestSnap%, %inipath%, Flags, QuestFocusOnAbility3
+    IniWrite, %varRandomCurrencyNames%, %inipath%, Flags, BoringMoney
     IniWrite, %varLaunchTracker%, %inipath%, Flags, LaunchWithTracker
     IniWrite, %varMouseBurrow%, %inipath%, Flags, BurrowMouseControl
     IniWrite, %varMouseWDash%, %inipath%, Flags, WaterDashMouseControl
@@ -261,6 +268,8 @@ Help(wParam, lParam, Msg) {
     else IfEqual, HoverText, Disable Netcode
         Help := "Checking this option prevents the randomizer from communicating with the rando server.`nWith netcode disabled, bingo autotracking and other networked features will be unavailable.`nNote: Netcode uses Discord OAuth to identify users to the webserver."
 
+    else IfEqual, HoverText, Random Currency Names
+        Help := "This option changes the text of Spirit Light pickups to a random currency name.`nIt has no impact on gameplay."
 
     SetTimer, DisableTT, -3000
     ToolTip % Help
