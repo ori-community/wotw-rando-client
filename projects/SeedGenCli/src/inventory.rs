@@ -155,7 +155,7 @@ impl Item {
             Item::Skill(Skill::Flash) | Item::Skill(Skill::Seir) | Item::Water => 1800,  // Key Skills
             Item::Skill(Skill::Grenade) | Item::Skill(Skill::Blaze) | Item::Skill(Skill::Sentry) | Item::Skill(Skill::Spear) => 2800,  // Tedious Weapons
             Item::Skill(Skill::AncestralLight) => 3000,  // Unhinted Skill
-            Item::Skill(Skill::Launch) => 20000,  // Absolutely Broken
+            Item::Skill(Skill::Launch) => 30000,  // Absolutely Broken
             Item::Teleporter(Teleporter::Marsh) => 20000,
             Item::Teleporter(Teleporter::Wellspring) => 16000,
             Item::Teleporter(_) => 8000,

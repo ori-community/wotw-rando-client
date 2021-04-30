@@ -133,7 +133,7 @@ impl<'a> World<'a> {
             }
             item => {
                 if item.is_progression(&self.player.pathsets) {
-                    log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{}x ", amount) }, item);
+                    log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{} ", amount) }, item);
     
                     self.player.inventory.grant(item, amount);
                 }

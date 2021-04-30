@@ -6,7 +6,6 @@ use crate::inventory::{Inventory, Item};
 use crate::generator::PartialItem;
 use crate::util::{Resource, Skill, Shard, Pathset, constants::RANDOM_PROGRESSION};
 
-// TODO check performance of vec against hashmap - vec could rely on indices to store weights as an alternative to rerolls
 #[derive(Debug, Clone)]
 pub struct Pool {
     pub progressions: Inventory,
@@ -158,8 +157,18 @@ impl Pool {
         R: Rng
     {
         if self.random_progression.sample(rng) {
-            // TODO weights or rerolls
-            if let Some(item) = self.progressions.inventory.keys().choose(rng) {
+            while let Some(item) = self.progressions.inventory.keys().choose(rng) {
+                let cost = item.cost();
+
+                if cost > 5000 {
+                    let reroll_chance = -5000.0 / f64::from(item.cost()) + 1.0;
+
+                    if rng.gen_bool(reroll_chance) {
+                        log::trace!("Rerolling random placement {}", item);
+                        continue;
+                    }
+                }
+
                 return PartialItem::Item(item.clone());
             }
         }
