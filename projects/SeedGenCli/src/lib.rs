@@ -126,7 +126,7 @@ pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(
     };
 
     log4rs::init_config(log_config).map_err(|err| format!("Failed to initialize logger: {}", err))?;
-
+    #[cfg(target_os = "windows")]
     ansi_term::enable_ansi_support().unwrap_or_else(|err| log::warn!("Failed to enable ansi support: {}", err));
 
     Ok(())
