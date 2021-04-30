@@ -4,7 +4,9 @@ SetWorkingDir, %A_ScriptDir%
 #Include WatchFolder.ahk
 #Include JSON.ahk
 SetBatchLines, -1
-
+Menu, Tray, NoStandard
+Menu, Tray, Add, Recenter, Recenter
+Menu, Tray, Add, Exit, mainGuiClose
 ; Reading the settings file and setting variables
 inipath = settings.ini
 IniRead, launchWithTracker, %inipath%, Flags, LaunchWithTracker, false
@@ -564,6 +566,11 @@ MainGuiClose: ; Exit the app when the main window closes
     IniWrite, %ypos%, %inipath%, Tracker, ypos
     ExitApp
 
+
+Recenter:
+Gui, Main:Hide
+Gui, Main:Show, xCenter yCenter
+return
 ; -------------------------------------
 ; ColourPicker Subroutines
 ; -------------------------------------
