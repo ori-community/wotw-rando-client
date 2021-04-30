@@ -19,7 +19,6 @@ use util::{
     Pathset, Resource, Skill, Teleporter, Shard,
     settings::{Settings, Spawn, SeedFlags},
     uberstate::{UberState, UberValue},
-    constants::DEFAULT_SPAWN,
 };
 
 // TODO investigate seed -h fav -f go gl t -s f -t -v --seed 0382844288717805
@@ -70,11 +69,11 @@ enum Command {
         /// play this seed on hard (in-game) difficulty
         #[structopt(long)]
         hard: bool,
-        /// Where to spawn the player in (use "r" / "random" for a random teleporter and or "f" / "fullyrandom" for any location)
+        /// Where to spawn the player
         /// 
-        /// Has to be an anchor name from the areas file, defaults to "MarshSpawn.Main"
-        #[structopt(short, long)]
-        spawn: Option<String>,
+        /// Use an anchor name from the areas file, "r" / "random" for a random teleporter or "f" / "fullyrandom" for any location
+        #[structopt(short, long, default_value = "MarshSpawn.Main")]
+        spawn: String,
         /// which pathsets and goal modes to use
         /// 
         /// valid inputs are "mo", "moki", "go", "gorlek", "gl", "glitch", "un", "unsafe", "t", "trees", "w", "wisps", "q", "quests", "r", "relics"
@@ -241,7 +240,7 @@ struct SeedArgs {
     race: bool,
     netcode: bool,
     hard: bool,
-    spawn: Option<String>,
+    spawn: String,
     generation_flags: Vec<String>,
     header_paths: Vec<PathBuf>,
     headers: Vec<String>,
@@ -273,10 +272,9 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
     let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &pathsets, !args.trust)?;
     log::info!("Parsed logic in {:?}", now.elapsed());
 
-    let spawn = args.spawn.unwrap_or_else(|| DEFAULT_SPAWN.to_string());
-    let spawn = if spawn == "r" || spawn == "random" { Spawn::Random }
-    else if spawn == "f" || spawn == "fullyrandom" { Spawn::FullyRandom }
-    else { Spawn::Set(spawn) };
+    let spawn = if args.spawn == "r" || args.spawn == "random" { Spawn::Random }
+    else if args.spawn == "f" || args.spawn == "fullyrandom" { Spawn::FullyRandom }
+    else { Spawn::Set(args.spawn) };
 
     let header = read_header();
     if !header.is_empty() {

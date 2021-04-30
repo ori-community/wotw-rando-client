@@ -2,6 +2,7 @@ use super::uberstate::UberIdentifier;
 use ansi_term::Colour;
 
 pub const DEFAULT_SPAWN: &str = "MarshSpawn.Main";
+pub const TP_ANCHOR: &str = "Teleporters";
 pub const MOKI_SPAWNS: &[&str] = &[
     "MarshSpawn.Main",
     "HowlsDen.Teleporter",
@@ -77,7 +78,8 @@ pub const WISP_STATES: &[UberIdentifier] = &[
     },
 ];
 
-pub const RESERVE_SLOTS: usize = 2;  // how many slots to reserve after ranodm placements for the next iteration
+// TODO fix spawn slots breaking by being swallowed as reserve slots and then filtered out as having placements already
+pub const RESERVE_SLOTS: usize = 0;  // how many slots to reserve after random placements for the next iteration
 pub const RETRIES: u16 = 10;  // How many retries to allow when generating a seed
 pub const RANDOM_PROGRESSION: f64 = 0.1;  // How likely to choose a progression item as random placement
 

@@ -9,6 +9,7 @@ use crate::util::{
     Position,
     orbs::{self, Orbs},
     uberstate::{UberState, UberValue, UberIdentifier},
+    constants::TP_ANCHOR,
 };
 
 #[derive(Debug)]
@@ -150,7 +151,7 @@ impl Graph {
                 }
                 let target_orbs = Graph::try_connection(context.player, connection, &context.world_state[&from], &context.states);
                 if !target_orbs.is_empty() {
-                    let (mut child_reached, mut child_progressions) = self.reach_recursion(&self.nodes[connection.to], target_orbs, context);
+                    let (mut child_reached, mut child_progressions) = self.reach_recursion(&self.nodes[connection.to], false, target_orbs, context);
                     reached.append(&mut child_reached);
                     progressions.append(&mut child_progressions);
                 }
@@ -171,6 +172,7 @@ impl Graph {
     fn reach_recursion<'a>(
         &'a self,
         entry: &'a Node,
+        is_spawn: bool,
         mut best_orbs: SmallVec<[Orbs; 3]>,
         context: &mut ReachContext<'a, '_>,
     ) -> (Reached<'a>, Progressions<'a>) {
@@ -214,9 +216,18 @@ impl Graph {
                             }
                         }
                     } else {
-                        let (mut child_reached, mut child_progressions) = self.reach_recursion(&self.nodes[connection.to], target_orbs, context);
+                        let (mut child_reached, mut child_progressions) = self.reach_recursion(&self.nodes[connection.to], false, target_orbs, context);
                         reached.append(&mut child_reached);
                         progressions.append(&mut child_progressions);
+                    }
+                }
+                if is_spawn {
+                    if let Some(tp_anchor) = self.nodes.iter().find(|&node| node.identifier() == TP_ANCHOR) {
+                        if !anchor.connections.iter().any(|connection| connection.to == tp_anchor.index()) {
+                            let (mut tp_reached, mut tp_progressions) = self.reach_recursion(&tp_anchor, false, best_orbs, context);
+                            reached.append(&mut tp_reached);
+                            progressions.append(&mut tp_progressions);
+                        }
                     }
                 }
                 (reached, progressions)
@@ -275,7 +286,7 @@ impl Graph {
             world_state: FxHashMap::default(),
         };
 
-        let (reached, _) = self.reach_recursion(entry, smallvec![player.max_orbs()], &mut context);
+        let (reached, _) = self.reach_recursion(entry, true, smallvec![player.max_orbs()], &mut context);
 
         Ok(reached)
     }
@@ -291,7 +302,7 @@ impl Graph {
             world_state: FxHashMap::default(),
         };
 
-        let reached_and_progressions = self.reach_recursion(entry, smallvec![player.max_orbs()], &mut context);
+        let reached_and_progressions = self.reach_recursion(entry, true, smallvec![player.max_orbs()], &mut context);
 
         Ok(reached_and_progressions)
     }
