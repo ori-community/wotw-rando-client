@@ -130,7 +130,7 @@ namespace RandoMainDLL {
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s.Shard, pickup.ShopName, Chatter(), lockedTillGlades, s.Cost);
+          InterOp.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, s.Cost);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
