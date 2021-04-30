@@ -25,6 +25,8 @@ namespace RandoMainDLL {
     public extern static void set_opher_item(int acquired, int required, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string locked, bool uses_energy, int cost);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_opher_cost(int acquired, int required, int cost);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void refresh_inlogic_filter();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

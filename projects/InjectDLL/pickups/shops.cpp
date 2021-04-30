@@ -690,6 +690,12 @@ INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t
     opher_weapon_costs[key] = cost;
 }
 
+INJECT_C_DLLEXPORT void set_opher_cost(int acquired, int required, int cost) { // TODO: remove once the vanilla upgrades are their own items and set via header, probably?
+    const auto key = opher_key(acquired, required);
+    opher_weapon_costs[key] = cost;
+}
+
+
 INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked, int cost)
 {
     const auto key = static_cast<uint8_t>(shard);
