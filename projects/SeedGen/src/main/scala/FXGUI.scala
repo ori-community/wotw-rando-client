@@ -35,6 +35,7 @@ import scala.sys.process._
 package SeedGenerator {
 
   import SeedGenerator.Nodes.SpawnLoc
+  import javafx.scene.control.ScrollPane.ScrollBarPolicy
   import scalafx.collections.ObservableBuffer
 
   case class Header(name: String, lines: Seq[String]) {
@@ -372,40 +373,45 @@ package SeedGenerator {
         id = "headers"
         text = "headers"
         tooltip = "for settings implemented as headers"
-        content = new GridPane() {
-          padding = Insets(10)
-          hgap = 5f
-          vgap = 5f
-          def mkLabel(t: String): Label = new Label(t) {
-            alignmentInParent = Pos.Center
-          }
-          add(Separator(Orientation.Horizontal), 0, 0, 3, 1)
-          addRow(1, mkLabel("Name"), Separator(Orientation.Vertical), mkLabel("Summary"))
-          add(Separator(Orientation.Horizontal), 0, 2, 3, 1)
-          var row = 3
-          val hList: Seq[String] = settings().headerList
-          for(h <- Headers.all) {
-            val button = new ToggleButton(h.dispname){
-              selected = hList.contains(h.name)
-              onAction = _ => {
-                val prior = settings()
-                settings.value = prior.copy(headerList =
-                  (prior.headerList.contains(h.name) ? prior.headerList.filter(_ != h.name) ?? (prior.headerList :+ h.name))
-                    .filter(Headers.byName.contains)
-                )
-                Logger.debug(s"Headers were ${prior.headerList}, ${h.name} are now: ${settings.value.headerList}")
-                settingsFile.write(Settings.toJson)
-              }
-              border <== when (selected) choose
-                new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default))  otherwise
-                new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
+        content = new ScrollPane() {
+          vbarPolicy = ScrollBarPolicy.AS_NEEDED
+          content = new GridPane() {
+            padding = Insets(10)
+            hgap = 5f
+            vgap = 5f
+
+            def mkLabel(t: String): Label = new Label(t) {
+              alignmentInParent = Pos.Center
             }
-            addRow(row, button, Separator(Orientation.Vertical), new Text(h.desc))
-            row+=1
-            add(Separator(Orientation.Horizontal), 0, row, 3, 1)
-            row+=1
+
+            add(Separator(Orientation.Horizontal), 0, 0, 3, 1)
+            addRow(1, mkLabel("Name"), Separator(Orientation.Vertical), mkLabel("Summary"))
+            add(Separator(Orientation.Horizontal), 0, 2, 3, 1)
+            var row = 3
+            val hList: Seq[String] = settings().headerList
+            for (h <- Headers.all) {
+              val button = new ToggleButton(h.dispname) {
+                selected = hList.contains(h.name)
+                onAction = _ => {
+                  val prior = settings()
+                  settings.value = prior.copy(headerList =
+                    (prior.headerList.contains(h.name) ? prior.headerList.filter(_ != h.name) ?? (prior.headerList :+ h.name))
+                      .filter(Headers.byName.contains)
+                  )
+                  Logger.debug(s"Headers were ${prior.headerList}, ${h.name} are now: ${settings.value.headerList}")
+                  settingsFile.write(Settings.toJson)
+                }
+                border <== when(selected) choose
+                  new JBorder(new BorderStroke(stroke = SkyBlue, BorderStrokeStyle.Solid, new CornerRadii(4f), BorderWidths.Default)) otherwise
+                  new JBorder(new BorderStroke(stroke = Black, BorderStrokeStyle.None, new CornerRadii(3f), BorderWidths.Default))
+              }
+              addRow(row, button, Separator(Orientation.Vertical), new Text(h.desc))
+              row += 1
+              add(Separator(Orientation.Horizontal), 0, row, 3, 1)
+              row += 1
+            }
           }
-        }
+      }
 
       }
 
