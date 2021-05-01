@@ -98,10 +98,10 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     SplashTextOn,,,Installing, please wait...
     gosub, ExtractFiles
     if(A_IsCompiled) {
-        FileInstall, redis\VC_redist.x64.exe, %VCR_FILE%, 1
+        UrlDownloadToFile, https://aka.ms/vs/16/release/vc_redist.x64.exe, %VCR_FILE%
         ; install the vs c++ redistributable
         RunWait, *RunAs %VCR_FILE% /install /quiet /norestart
-        FileDelete, %VCR_FILE%      
+        FileDelete, %VCR_FILE%
     }
     ; set filetype assocation
     FileDelete, %INSTALL_DIR%associateFileTypes.bat
