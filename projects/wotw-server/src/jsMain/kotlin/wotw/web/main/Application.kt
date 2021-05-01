@@ -22,9 +22,12 @@ object Application {
         }
         //TODO: config
         defaultRequest {
-            url.protocol = if(url.protocol ==  URLProtocol.HTTP) URLProtocol.HTTPS else url.protocol
-            url.host = BACKEND_HOST
-            url.port = BACKEND_PORT
+            url.protocol = if(url.protocol ==  URLProtocol.HTTP) URLProtocol.HTTPS else url.protocol //if(url.protocol ==  URLProtocol.HTTPS) URLProtocol.HTTP else url.protocol
+            url.protocol = if(url.protocol ==  URLProtocol.WS) URLProtocol.WSS  else url.protocol  //if(url.protocol ==  URLProtocol.WSS) URLProtocol.WS else url.protocol
+            url.host = window.location.hostname
+            url.port = window.location.port.toIntOrNull() ?: if(url.protocol == URLProtocol.HTTP || url.protocol == URLProtocol.WS) 80 else 443
+            //url.host = BACKEND_HOST
+            //url.port = BACKEND_PORT
             if(!(url.encodedPath.startsWith("/api/") || url.encodedPath.startsWith("api/")))
                 url.encodedPath = "/api/" + url.encodedPath
 
