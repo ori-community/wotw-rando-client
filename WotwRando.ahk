@@ -29,16 +29,13 @@ if not A_IsAdmin
    ExitApp
 }
 
-; filecreatedir silent fails if it exists, so we won't bother checking if it's already there
-FileCreateDir %INSTALL_DIR%
-FileCreateDir %INSTALL_DIR%seeds
-; get the version number of the existing exe first thing
-FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
-FileRead, MY_VER, %INSTALL_DIR%.VERSION
 
 ; check for an existing installation by seeing if
 ; there's a VERSION  file in the install directory
 if(FileExist(INSTALL_DIR . "VERSION")) {
+    FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
+    ; get the version number of the existing exe first thing
+    FileRead, MY_VER, %INSTALL_DIR%.VERSION
     FileRead, INSTALL_VER, %INSTALL_DIR%VERSION
     ; check if this exe is a newer version from the one installed
     if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and semver_compare(MY_VER, INSTALL_VER) == 1) or (A_ScriptFullPath != WOTWREXE)) {
@@ -77,6 +74,9 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     ; installation code
     
     gosub AskForInstallPath ; Asks the user for the install path, sets a number of file paths accordingly and shows a confirmation box.
+    FileCreateDir %INSTALL_DIR%
+    FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
+    FileRead, MY_VER, %INSTALL_DIR%.VERSION
     
     FirstLaunch := True
 
@@ -234,12 +234,12 @@ Msgbox The installer will now exit without installing
 ExitApp
 
 AskForInstallPath:
-FileSelectFolder, INSTALL_DIR, ,, Select installation folder for the Ori Randomiser:
+FileSelectFolder, INSTALL_DIR,, 3, Select installation folder for the Ori Randomizer:
 if (ErrorLevel == 1)
 {
     gosub ExitInstaller
 }
-INSTALL_DIR := INSTALL_DIR . "\"
+INSTALL_DIR := INSTALL_DIR . "\WotwRando\"
 gosub SetCommonVariables
 
 Msgbox 3, Ori WOTW Randomizer Installer, Ready to install the WOTW Randomizer into %INSTALL_DIR%? `nPress No to change the install path.
