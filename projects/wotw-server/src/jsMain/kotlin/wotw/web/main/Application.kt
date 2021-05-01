@@ -7,6 +7,7 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.browser.window
 import kotlinx.coroutines.*
 import wotw.io.messages.protobuf.UserInfo
 import wotw.util.EventBus
