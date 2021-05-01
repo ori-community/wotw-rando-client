@@ -302,6 +302,7 @@ fun generatePool() = mutableListOf(
         bool("lumaPoolsStateGroup.breakableWallB", 5377, 4463),
         bool("lumaPoolsStateGroup.breakableWallB", 5377, 22978),
         bool("lumaPoolsStateGroup.breakableWallA", 5377, 8451),
+        bool("baursReachGroup.stompableFloorA", 28895, 8664),
         countGoal = {it.nextTriangular(4, 6, 9)},
         maxRepeats = 1,
         subsetGoal = false
@@ -373,6 +374,7 @@ fun generatePool() = mutableListOf(
         bool("_petrifiedForestGroup.secretWallA", 58674, 39950),
         bool("_petrifiedForestGroup.breakableWall", 58674, 54686),
         bool("howlsOriginGroup.secretWallA", 24922, 2524),
+        bool("_petrifiedForestGroup.stompableFloor", 58674, 29622),
         countGoal = {it.nextTriangular(12, 56, 23)},
         maxRepeats = 1,
         subsetGoal = false
