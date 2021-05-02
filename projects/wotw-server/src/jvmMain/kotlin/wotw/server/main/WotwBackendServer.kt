@@ -86,7 +86,7 @@ class WotwBackendServer {
                 install(WebSockets) {
                     maxFrameSize = Long.MAX_VALUE
                 }
-                //install(HttpsRedirect)
+                install(HttpsRedirect)
                 install(CallLogging) {
                     level = Level.INFO
                 }
