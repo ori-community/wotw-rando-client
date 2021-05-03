@@ -59,14 +59,6 @@ IL2CPP_BINDING(, SpellInventory, app::InventoryItem*, AddNewSpellToInventory, (a
 app::Vector3 last_position;
 __int8 set_to_last_position = 0;
 
-INJECT_C_DLLEXPORT void start_credits() {
-    auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")->static_fields->Instance;
-    auto timeline = cred_cont->fields.CreditsTimeline;
-    il2cpp::invoke_virtual(timeline, il2cpp::get_class("Moon.Timeline", "TimelineEntity"), "StartPlayback");
-/*    auto timelineClass = il2cpp::get_class("Moon.Timeline", "TimelineEntity");
-    il2cpp::invoke_virtual(timeline, timelineClass, "StartPlayback")*/;
-}
-
 INJECT_C_DLLEXPORT void warp_to(int x, int y, __int8 frames)
 {
     last_position.x = x;
