@@ -50,6 +50,8 @@ namespace RandoMainDLL {
     public extern static void shake_keystone();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void shake_ore();
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void start_credits();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_ability(AbilityType ability, bool value);
