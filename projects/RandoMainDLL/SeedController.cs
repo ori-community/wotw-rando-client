@@ -260,6 +260,12 @@ namespace RandoMainDLL {
                 return new Message($"Invalid command {pickupData}!");
               }
               return new SetEnergy(extras[0].ParseToFloat("BuildPickup.SetEnergyValue"));
+            case SysCommandType.AHKSignal:
+              if (extras.Count != 1) {
+                Randomizer.Log($"malformed command specifier {pickupData}", false);
+                return new Message($"Invalid command {pickupData}!");
+              }
+              return new SendAHKSignal(extras[0]);
             case SysCommandType.SetSpiritLight:
               if (extras.Count != 1) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
