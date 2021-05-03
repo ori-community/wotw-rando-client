@@ -58,6 +58,7 @@ namespace RandoMainDLL {
     SetEnergy = 13,
     SetSpiritLight = 14,
     Bind = 15,
+    AHKSignal = 16,
   }
 
   public enum TeleporterType : byte {
@@ -561,6 +562,7 @@ namespace RandoMainDLL {
     public override string Name { get => type.ToString(); }
     public override string DisplayName { get => ""; }
   }
+
   public class SetResource : SystemCommand {
     private readonly int newResourceValue;
     private readonly ResourceType resourceType;
@@ -597,6 +599,16 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       InterOp.set_health(newHealth);
     }
+  }
+  public class SendAHKSignal : SystemCommand {
+    private readonly string signal;
+    public SendAHKSignal(string v) : base(SysCommandType.AHKSignal) {
+      signal = v;
+    }
+    public override void Grant(bool skipBase = false) {
+      AHK.HandleSignal(signal);
+    }
+    public override string Name => $"ahkSignal(\"{signal}\")";
   }
   public class SetEnergy : SystemCommand {
     private readonly float newEnergy;

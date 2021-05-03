@@ -84,82 +84,86 @@ namespace RandoMainDLL {
       return Falsey.Contains(raw) ? def : raw;
     }
 
+    public static void HandleSignal(string signal) {
+      switch (signal) {
+        case "reload":
+          if (FramesTillUnlockReload == 0) {
+
+            iniFlagCache.Clear();
+            FramesTillNextSend = 0;
+            Randomizer.Client.Connect();
+            SeedController.ReadSeed();
+            if (InterOp.get_game_state() == GameState.Game)
+              PsuedoLocs.RELOAD_SEED.OnCollect();
+            FramesTillUnlockReload = 120;
+          }
+          break;
+        case "lastPickup":
+          FramesTillNextSend = 1; // the only reason this isn't = 0 is that spamming this could get really annoying
+          MessageQueue.Enqueue(Last);
+          break;
+        case "hintMessage":
+          HintsController.ProgressWithHints();
+          break;
+        case "dev":
+          Randomizer.Dev = !Randomizer.Dev;
+          Randomizer.Log($"Dev: {Randomizer.Dev}");
+          break;
+        case "exitapp":
+          Environment.Exit(Environment.ExitCode);
+          break;
+        case "toggleDebug":
+          InterOp.set_debug_controls(!InterOp.get_debug_controls());
+          Print($"Debug {(InterOp.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
+          break;
+        case "toggleCursorLock":
+          Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
+          break;
+        case "binding1":
+          PsuedoLocs.BINDING_ONE.OnCollect();
+          break;
+        case "binding2":
+          PsuedoLocs.BINDING_TWO.OnCollect();
+          break;
+        case "binding3":
+          PsuedoLocs.BINDING_THREE.OnCollect();
+          break;
+        case "test4":
+          if (SeedController.HasInternalSpoilers) {
+            UberSet.Bool(34543, 11226, true);
+            Print("spoiler unlocked", toMessageLog: false);
+          }
+          break;
+        case "test5":
+          tpCheatToggle = !tpCheatToggle;
+          Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
+          break;
+        case "printcoords":
+          InterOp.start_credits();
+          var pos = InterOp.get_position();
+          Print($"{pos.X}, {pos.Y}", toMessageLog: false);
+          break;
+        case "namespoilertoggle":
+          MapController.NameLabels = !MapController.NameLabels;
+          Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
+          break;
+        case "logicprovidertoggle":
+          MapController.RustLogic = !MapController.RustLogic;
+          Print($"Logic Provider: {(MapController.RustLogic ? "Rust" : "Java")}", toMessageLog: false);
+          MapController.UpdateReachable();
+          break;
+
+        default:
+          Randomizer.Log($"Recieved unknown signal {signal}");
+          break;
+      }
+    }
+
     public static void Tick() {
       var signal = Engine.ExecFunction("Tick");
       if (signal != null && signal != "none") {
         Engine.SetVar("signal", "none");
-        switch (signal) {
-          case "reload":
-            if (FramesTillUnlockReload == 0) {
-
-              iniFlagCache.Clear();
-              FramesTillNextSend = 0;
-              Randomizer.Client.Connect();
-              SeedController.ReadSeed();
-              if (InterOp.get_game_state() == GameState.Game)
-                PsuedoLocs.RELOAD_SEED.OnCollect();
-              FramesTillUnlockReload = 120;
-            }
-            break;
-          case "lastPickup":
-            FramesTillNextSend = 1; // the only reason this isn't = 0 is that spamming this could get really annoying
-            MessageQueue.Enqueue(Last);
-            break;
-          case "hintMessage":
-            HintsController.ProgressWithHints();
-            break;
-          case "dev":
-            Randomizer.Dev = !Randomizer.Dev;
-            Randomizer.Log($"Dev: {Randomizer.Dev}");
-            break;
-          case "exitapp":
-            Environment.Exit(Environment.ExitCode);
-            break;
-          case "toggleDebug":
-            InterOp.set_debug_controls(!InterOp.get_debug_controls());
-            Print($"Debug {(InterOp.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
-            break;
-          case "toggleCursorLock":
-            Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
-            break;
-          case "binding1":
-            PsuedoLocs.BINDING_ONE.OnCollect();
-            break;
-          case "binding2":
-            PsuedoLocs.BINDING_TWO.OnCollect();
-            break;
-          case "binding3":
-            PsuedoLocs.BINDING_THREE.OnCollect();
-            break;
-          case "test4":
-            if (SeedController.HasInternalSpoilers) {
-              UberSet.Bool(34543, 11226, true);
-              Print("spoiler unlocked", toMessageLog: false);
-            }
-            break;
-          case "test5":
-            tpCheatToggle = !tpCheatToggle;
-            Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
-            break;
-          case "printcoords":
-            InterOp.start_credits();
-            var pos = InterOp.get_position();
-            Print($"{pos.X}, {pos.Y}", toMessageLog: false);
-            break;
-          case "namespoilertoggle":
-            MapController.NameLabels = !MapController.NameLabels;
-            Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
-            break;
-          case "logicprovidertoggle":
-            MapController.RustLogic = !MapController.RustLogic;
-            Print($"Logic Provider: {(MapController.RustLogic ? "Rust" : "Java")}", toMessageLog: false);
-            MapController.UpdateReachable();
-            break;
-
-          default:
-            Randomizer.Log($"Recieved unknown signal {signal}");
-            break;
-        }
+        HandleSignal(signal);
       }
       FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
       if (FramesTillNextSend > 0) {
