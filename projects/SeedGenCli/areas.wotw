@@ -575,10 +575,9 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
     moki, BreakWall=10:
       DoubleJump OR Launch
       Bash  # bash the slime
-    gorlek, BreakWall=10:
-      Dash
-      SentryJump=1
+    gorlek: BreakWall=10, SentryJump=1
     unsafe, BreakWall=10:
+      Dash
       Grenade=1              # Grenade jump to platform
       Hammer                 # Very precise hammer upslash
       Sword

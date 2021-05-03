@@ -273,6 +273,17 @@ where P: Iterator<Item=&'a str>
         Ok(Item::Teleporter(teleporter))
     }
 }
+fn parse_message<'a, P>(parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let parts = parts.collect::<Vec<&str>>();
+    if parts.is_empty() {
+        return Err(String::from("missing message"));
+    }
+
+    let message = parts.join("|");
+    Ok(Item::Message(message))
+}
 fn parse_set_uber_state<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
@@ -392,7 +403,7 @@ pub fn parse_pickup(pickup: &str, shop: bool) -> Result<Item, String> {
         "3" => parse_shard(parts, shop),
         "4" => parse_command(parts, shop),
         "5" => parse_teleporter(parts, shop),
-        "6" => Ok(Item::Message(pickup.to_string())),
+        "6" => parse_message(parts),
         "8" => parse_set_uber_state(parts, shop),
         "9" => parse_world_event(parts, shop),
         "10" => parse_bonus_item(parts, shop),

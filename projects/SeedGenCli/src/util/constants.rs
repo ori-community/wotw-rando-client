@@ -24,8 +24,6 @@ pub const GORLEK_SPAWNS: &[&str] = &[
     "EastPools.Teleporter",
     "LowerWastes.WestTP",
     "LowerWastes.EastTP",
-    "UpperWastes.NorthTP",
-    "WillowsEnd.InnerTP",
 ];
 pub const RELIC_ZONES: &[&str] = &[
     "Inkwater Marsh",
@@ -78,7 +76,7 @@ pub const WISP_STATES: &[UberIdentifier] = &[
     },
 ];
 
-pub const RESERVE_SLOTS: usize = 2;  // how many slots to reserve after random placements for the next iteration
+pub const RESERVE_SLOTS: usize = 0;  // how many slots to reserve after random placements for the next iteration
 pub const RETRIES: u16 = 10;  // How many retries to allow when generating a seed
 pub const RANDOM_PROGRESSION: f64 = 0.1;  // How likely to choose a progression item as random placement
 

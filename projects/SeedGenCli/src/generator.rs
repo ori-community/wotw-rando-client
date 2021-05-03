@@ -353,6 +353,10 @@ where
         for _ in 0..3 {
             spawn_slots.push(&context.spawn_pickup_node);
         }
+        context.placements.push(Placement {
+            node: &context.spawn_pickup_node,
+            item: Item::Message(String::from("f=420|instant")),
+        });
     }
 
     log::trace!("Creating a player with everything to determine reachable locations");

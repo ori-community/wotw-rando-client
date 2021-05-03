@@ -47,7 +47,7 @@ impl fmt::Display for Item {
             Item::CheckableHint(_, _, hint) => write!(f, "Checkable Hint for {:?}", hint),
             Item::UberState(command) => write!(f, "8|{}", command),
             Item::Command(command) => write!(f, "4|{}", command),
-            Item::Message(string) => write!(f, "{}", string),
+            Item::Message(message) => write!(f, "6|{}", message),
         }
     }
 }
@@ -146,7 +146,7 @@ impl Item {
             Item::Resource(Resource::Ore) => 320,
             Item::Resource(Resource::Keystone) => 320,
             Item::Resource(Resource::ShardSlot) => 480,
-            Item::Skill(Skill::Regenerate) | Item::Skill(Skill::WaterBreath) => 400,  // Quality-of-Life Skills
+            Item::Skill(Skill::Regenerate) | Item::Skill(Skill::WaterBreath) => 200,  // Quality-of-Life Skills
             Item::Skill(Skill::Sword) | Item::Skill(Skill::Hammer) => 600,  // Essential Weapons
             Item::Skill(Skill::WallJump) | Item::Skill(Skill::DoubleJump) | Item::Skill(Skill::Dash) => 1200,  // Essential Movement
             Item::Skill(Skill::Glide) | Item::Skill(Skill::Grapple) => 1400,  // Feel-Good Finds
@@ -158,7 +158,7 @@ impl Item {
             Item::Skill(Skill::Launch) => 30000,  // Absolutely Broken
             Item::Teleporter(Teleporter::Marsh) => 20000,
             Item::Teleporter(Teleporter::Wellspring) => 16000,
-            Item::Teleporter(_) => 8000,
+            Item::Teleporter(_) => 12000,
             _ => 400,
         }
     }
@@ -221,7 +221,7 @@ impl Item {
             },
             Item::UberState(command) => format!("8|{}", command),
             Item::Command(command) => format!("4|{}", command),
-            Item::Message(string) => string.clone(),
+            Item::Message(message) => format!("6|{}", message),
         }
     }
 }
@@ -370,6 +370,6 @@ mod tests {
         assert_eq!(Item::BonusItem(BonusItem::Relic).code(), "10|20");
         assert_eq!(Item::BonusUpgrade(BonusUpgrade::ShurikenEfficiency).code(), "11|4");
         assert_eq!(Item::Hint(Hint { zone: Zone::Void, hint_type: ZoneHintType::Skills }).code(), "12|12|1");
-        assert_eq!(Item::Message(String::from("8|0|9|7")).code(), "8|0|9|7");
+        assert_eq!(Item::Message(String::from("8|0|9|7")).code(), "6|8|0|9|7");
     }
 }
