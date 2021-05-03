@@ -33,9 +33,9 @@ namespace RandoMainDLL {
       !p::signal := ""hintMessage""
       !^d::signal := ""toggleDebug""
       !^l::signal := ""toggleCursorLock""
-      !^1::signal := ""test1""
-      !^2::signal := ""test2""
-      !^3::signal := ""test3""
+      !^1::signal := ""binding1""
+      !^2::signal := ""binding2""
+      !^3::signal := ""binding3""
       !^4::signal := ""test4""
       !^5::signal := ""test5""
       !^c::signal := ""printcoords""
@@ -122,13 +122,13 @@ namespace RandoMainDLL {
           case "toggleCursorLock":
             Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
             break;
-          case "test1":
+          case "binding1":
             PsuedoLocs.BINDING_ONE.OnCollect();
             break;
-          case "test2":
+          case "binding2":
             PsuedoLocs.BINDING_TWO.OnCollect();
             break;
-          case "test3":
+          case "binding3":
             PsuedoLocs.BINDING_THREE.OnCollect();
             break;
           case "test4":
@@ -142,6 +142,7 @@ namespace RandoMainDLL {
             Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
             break;
           case "printcoords":
+            InterOp.start_credits();
             var pos = InterOp.get_position();
             Print($"{pos.X}, {pos.Y}", toMessageLog: false);
             break;
