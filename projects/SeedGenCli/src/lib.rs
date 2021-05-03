@@ -65,16 +65,22 @@ where
     Err(String::from("Picked a non-anchor node as spawn - this should be impossible"))
 }
 
-fn write_flags(settings: &Settings) -> String {
-    let mut flags = settings.goalmodes.iter().map(|goal| format!("{}", goal)).collect::<Vec<_>>();
-    if matches!(settings.spawn_loc, Spawn::Random) { flags.push(String::from("RandomSpawn")); }
-    // TODO fully random? headers?
+fn write_flags(settings: &Settings, mut flags: Vec<String>) -> String {
+    for flag in settings.goalmodes.iter().map(|goal| format!("{}", goal)) {
+        flags.push(flag);
+    }
+
+    if matches!(settings.spawn_loc, Spawn::Random | Spawn::FullyRandom) { flags.push(String::from("RandomSpawn")); }
     // TODO this isn't needed post the rando versioning changes
     flags.push(String::from("NoFreeSword"));
 
     let flags = flags.join(", ");
 
     log::trace!("Derived Flags from Settings: {}", flags);
+
+    if flags.is_empty() {
+        return String::default();
+    }
 
     format!("Flags: {}\n", flags)
 }
@@ -126,15 +132,18 @@ pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(
     Ok(())
 }
 
-pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings) -> Result<String, String> {
+pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings) -> Result<(String, Vec<String>), String> {
     let mut header_block = String::new();
+    let mut custom_flags = Vec::new();
     let mut total_dependencies = HashSet::new();
 
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let (header, dependencies) = headers::parser::parse_header(header, world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+        let (header, mut flags, dependencies) = headers::parser::parse_header(header, world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+
         header_block += &header;
+        custom_flags.append(&mut flags);
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
     for mut path in settings.header_list.clone() {
@@ -143,9 +152,10 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
         log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {}", path.display()))?.to_string_lossy());
 
         let header = util::read_file(&path, "headers")?;
-        let (header, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
+        let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
 
         header_block += &header;
+        custom_flags.append(&mut flags);
         total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
 
@@ -156,19 +166,21 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
             log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {}", dependency.display()))?.to_string_lossy());
 
             let header = util::read_file(&dependency, "headers")?;
-            let (header, dependencies) = &headers::parser::parse_header(&header, world, &settings.pathsets)?;
+            let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets)?;
 
             header_block += &header;
+            custom_flags.append(&mut flags);
             nested_dependencies = nested_dependencies.union(&dependencies).cloned().collect();
         }
         total_dependencies = nested_dependencies;
+
         depth += 1;
         if depth > 100 {
             return Err(String::from("More than 100 nested dependencies. Is there a circular !!include?"));
         }
     }
 
-    Ok(header_block)
+    Ok((header_block, custom_flags))
 }
 
 pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str) -> Result<String, String> {
@@ -179,9 +191,9 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     world.pool = Pool::preset(&settings.pathsets);
     world.player.spawn(settings);
 
-    let flag_line = write_flags(settings);
+    let (header_block, custom_flags) = parse_headers(&mut world, headers, settings)?;
 
-    let header_block = parse_headers(&mut world, headers, settings)?;
+    let flag_line = write_flags(settings, custom_flags);
 
     let mut spawn;
     let mut spawn_loc = SpawnLoc::default();

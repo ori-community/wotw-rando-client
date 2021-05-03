@@ -414,8 +414,9 @@ fn parse_count(pickup: &mut &str) -> u16 {
     1
 }
 
-pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Result<(String, HashSet<PathBuf>), String> {
+pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Result<(String, Vec<String>, HashSet<PathBuf>), String> {
     let mut processed = String::with_capacity(header.len());
+    let mut flags = Vec::new();
     let mut dependencies = HashSet::new();
     let mut first_line = true;
 
@@ -432,7 +433,11 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Res
             trimmed = &trimmed[..index];
         }
 
-        if let Some(command) = trimmed.strip_prefix("!!") {
+        if let Some(flagline) = trimmed.strip_prefix("Flags:") {
+            for flag in flagline.split(',') {
+                flags.push(flag.trim().to_string());
+            }
+        } else if let Some(command) = trimmed.strip_prefix("!!") {
              if let Some(include) = command.strip_prefix("include ") {
                 let mut path = PathBuf::from(include);
                 path.set_extension("wotwrh");
@@ -506,7 +511,7 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Res
     }
     processed.push('\n');
     processed.shrink_to_fit();
-    Ok((processed, dependencies))
+    Ok((processed, flags, dependencies))
 }
 
 pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {

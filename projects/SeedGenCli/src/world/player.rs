@@ -247,10 +247,12 @@ impl Player {
     }
 
     pub fn missing_items(&self, needed: &mut Inventory) {
-        // TODO needed is probably smaller, iterate through that?
-        for (item, amount) in &self.inventory.inventory {
-            needed.remove(item, *amount);
+        for (item, amount) in &mut needed.inventory {
+            let owned = self.inventory.get(item);
+            *amount -= owned.min(*amount);
         }
+
+        needed.inventory.retain(|_, amount| *amount > 0);
     }
     pub fn missing_for_orbs(needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Inventory {
         let mut missing = needed.clone();
