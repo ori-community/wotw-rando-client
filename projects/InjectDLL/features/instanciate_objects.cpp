@@ -1,4 +1,5 @@
 #include <constants.h>
+#include <macros.h>
 #include <dev/object_visualizer.h>
 
 #include <Common/ext.h>
@@ -50,14 +51,17 @@ namespace
         app::Vector3 rotation;
     };
 
+    using loaded_callback = void(*)();
+
     std::regex replace_clone("(Clone)");
     std::unordered_map<std::string, std::unordered_set<std::string>> not_found_areas;
     std::unordered_map<std::string, uint32_t> entries;
     std::vector<ObjectSpawn> spawns;
 
     std::vector<std::string> preload_areas;
-    std::vector<std::string> preload_areas_wait;
+    std::unordered_set<std::string> preload_areas_wait;
     std::unordered_set<std::string> preload_areas_cache;
+    std::unordered_map<std::string, std::vector<loaded_callback>> load_callbacks;
 
     void find_objects(app::GameObject* root)
     {
@@ -144,19 +148,17 @@ namespace
         for (auto name : preload_areas)
         {
             preload_areas_cache.emplace(name);
-            preload_areas_wait.push_back(name);
+            preload_areas_wait.emplace(name);
             load_scene(manager, name);
         }
 
         preload_areas.clear();
     }
-    
-    IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
-    {
-        GameController::FixedUpdate(this_ptr);
 
+    void enable_scenes()
+    {
         // Enable scenes we just preloaded.
-        auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
         auto it = preload_areas_wait.begin();
         while (it != preload_areas_wait.end())
         {
@@ -168,15 +170,20 @@ namespace
                 if (scene->fields.SceneRoot != nullptr)
                 {
                     ScenesManager::EnableDisabledScene(scenes->static_fields->Manager, scene, true);
+                    ScenesManager::PreventUnloading(scenes->static_fields->Manager, meta, true);
                     it = preload_areas_wait.erase(it);
                     continue;
                 }
             }
-            
+
             ++it;
         }
+    }
 
-        // Soawn spawns that haven't been spawned and we can spawn.
+    void spawn_spawns()
+    {
+        // Spawn spawns that haven't been spawned and we can spawn.
+        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
         for (auto& spawn : spawns)
         {
             if (!spawn.spawned && (entries.find(spawn.name) != entries.end()))
@@ -200,6 +207,28 @@ namespace
                 GameObject::SetActive(reinterpret_cast<app::GameObject*>(object), true);
             }
         }
+    }
+
+    void handle_callbacks()
+    {
+        for (auto const& entry : load_callbacks)
+        {
+            if (preload_areas_wait.find(entry.first) == preload_areas_wait.end())
+            {
+                for (auto callback : entry.second)
+                    callback();
+
+                load_callbacks[entry.first].clear();
+            }
+        }
+    }
+
+    IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
+    {
+        GameController::FixedUpdate(this_ptr);
+        enable_scenes();
+        spawn_spawns();
+        handle_callbacks();
     }
 
     void visualizer_setup(dev::Visualizer& visualizer, std::vector<console::CommandParam> const& params, int default_level = 1, int default_depth = 200000)
@@ -302,10 +331,34 @@ namespace
     }
 
     CALL_ON_INIT(initialize);
+
+    void credits_callback()
+    {
+        // Need to teleport to a good location and wait for everything to be fine there (see start_anywhere)
+        // for example if you do this in glades you will get flickering (credits keep fading to black and back up again).
+        // right before shriek has no flickering but there is a small purple tint on the credits.
+        auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")->static_fields->Instance;
+        auto timeline = cred_cont->fields.CreditsTimeline;
+        il2cpp::invoke_virtual(timeline, il2cpp::get_class("Moon.Timeline", "TimelineEntity"), "StartPlayback");
+    }
+}
+
+void force_load_area(std::string name, loaded_callback callback)
+{
+    preload_areas_cache.emplace(name);
+    preload_areas_wait.emplace(name);
+    auto* scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+    load_scene(scenes->static_fields->Manager, name);
+    auto& entry = load_callbacks[name];
+    entry.push_back(callback);
 }
 
 void perform_preload()
 {
-    auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+    auto* scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
     preload_scenes(scenes->static_fields->Manager);
+}
+
+INJECT_C_DLLEXPORT void start_credits() {
+    force_load_area("creditsScreen", &credits_callback);
 }
