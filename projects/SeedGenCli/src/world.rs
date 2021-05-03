@@ -62,6 +62,8 @@ impl<'a> World<'a> {
 
                             let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Bool(false));
                             if let UberValue::Bool(prior) = entry {
+                                if prior == &uber_value { break; }
+
                                 *prior = uber_value;
                             } else {
                                 log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
@@ -73,6 +75,8 @@ impl<'a> World<'a> {
 
                             let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
                             if let UberValue::Int(prior) = entry {
+                                if prior == &uber_value { break; }
+
                                 if sign == 0 {
                                     *prior = uber_value
                                 } else {
@@ -88,6 +92,8 @@ impl<'a> World<'a> {
 
                             let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
                             if let UberValue::Float(prior) = entry {
+                                if prior == &uber_value { break; }
+
                                 if sign == 0 {
                                     *prior = uber_value
                                 } else {
@@ -113,7 +119,6 @@ impl<'a> World<'a> {
                         value: format!("{}", entry),
                     };
 
-                    // TODO don't trigger on unchanged values
                     log::trace!("Granting player UberState {}", uber_state);
                     self.collect_preplacements(&uber_state);
                     if !is_bool {
