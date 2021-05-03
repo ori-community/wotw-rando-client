@@ -337,9 +337,6 @@ namespace
 
     void credits_callback()
     {
-        // Need to teleport to a good location and wait for everything to be fine there (see start_anywhere)
-        // for example if you do this in glades you will get flickering (credits keep fading to black and back up again).
-        // right before shriek has no flickering but there is a small purple tint on the credits.
         auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")->static_fields->Instance;
         auto timeline = cred_cont->fields.CreditsTimeline;
         il2cpp::invoke_virtual(timeline, il2cpp::get_class("Moon.Timeline", "TimelineEntity"), "StartPlayback");
