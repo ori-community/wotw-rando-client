@@ -519,8 +519,6 @@ where
             log::trace!("{} options for forced progression:", itemsets.len());
 
             let weight = |inventory: &Inventory| -> Result<f32, String> {
-                let base_weight = 1.0 / inventory.cost();
-
                 let lookahead_player = Player {
                     inventory: context.world.player.inventory.merge(inventory),
                     ..context.world.player.clone()
@@ -528,6 +526,12 @@ where
                 let lookahead_reachable = context.world.graph.reached_locations(&lookahead_player, spawn, &context.world.uber_states)?;
 
                 let newly_reached = lookahead_reachable.len() - reachable_count;
+
+                if slots < 4 && newly_reached == 0 {
+                    return Ok(0.0);
+                }
+
+                let base_weight = 1.0 / inventory.cost();
 
                 #[allow(clippy::cast_precision_loss)]
                 Ok(base_weight * (newly_reached + 1) as f32)
