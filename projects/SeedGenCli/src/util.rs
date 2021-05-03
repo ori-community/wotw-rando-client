@@ -50,8 +50,10 @@ impl Pathsets {
         self.pathsets.contains(&pathset)
     }
 }
-impl From<Vec<Pathset>> for Pathsets {
-    fn from(pathsets: Vec<Pathset>) -> Pathsets {
+impl<P> From<P> for Pathsets
+where P: IntoIterator<Item=Pathset>
+{
+    fn from(pathsets: P) -> Pathsets {
         let mut result = Pathsets::default();
         for pathset in pathsets {
             result.add(pathset);

@@ -69,7 +69,7 @@ fn place_item<'a, R>(node: &'a Node, was_placeholder: bool, item: Item, context:
 where
     R: Rng
 {
-    let uber_state = node.uber_state().unwrap().clone();
+    let uber_state = node.uber_state().unwrap();
 
     if uber_state.is_shop() {
         let (_, _, price_uber_state) = SHOP_PRICES.iter()
@@ -84,7 +84,7 @@ where
 
         let price_setter = Item::UberState(format!("{}|int|{}", price_uber_state, price));
 
-        log::trace!("Placing {} at 3|0 as price for the item below", price_setter);
+        log::trace!("Placing {} at Spawn as price for the item below", price_setter);
 
         context.placements.push(Placement {
             node: context.spawn_pickup_node,
@@ -207,7 +207,6 @@ where
 
         context.placeholders.push(node);
     } else {
-        // TODO maybe faster to pick all at once?
         match context.world.pool.choose_random(context.rng) {
             PartialItem::Placeholder => {
                 log::trace!("Reserving {} as placeholder", node);
@@ -399,7 +398,7 @@ where
         log::trace!("Unreachable locations on these settings: {}", format_identifiers(identifiers));
     }
 
-    let mut reserved_slots = Vec::<&Node>::with_capacity(RESERVE_SLOTS);
+    let mut reserved_slots = Vec::with_capacity(RESERVE_SLOTS);
 
     loop {
         let (mut reachable, unmet) = context.world.graph.reached_and_progressions(&context.world.player, spawn, &context.world.uber_states)?;
@@ -445,15 +444,14 @@ where
 
         needs_placement.shuffle(context.rng);
 
-        reserved_slots = Vec::with_capacity(RESERVE_SLOTS);
-        // TODO see note on reserve slots
-        // if unreached_count > 0 {
-        //     for _ in 0..RESERVE_SLOTS {
-        //         if let Some(uber_state) = needs_placement.pop() {
-        //             reserved_slots.push(uber_state);
-        //         }
-        //     }
-        // }
+        let reserved = reserved_slots.len();
+        if unreached_count > 0 && reserved < RESERVE_SLOTS {
+            for _ in 0..RESERVE_SLOTS - reserved {
+                if let Some(uber_state) = needs_placement.pop() {
+                    reserved_slots.push(uber_state);
+                }
+            }
+        }
 
         if needs_placement.is_empty() {
             // forced placements

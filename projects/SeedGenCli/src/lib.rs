@@ -28,9 +28,7 @@ use world::{
 };
 use generator::Placement;
 use util::{
-    Pathset,
-    NodeType,
-    Position,
+    Pathset, NodeType, Position,
     settings::{Settings, Spawn},
     uberstate::{UberState, UberIdentifier},
     constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES},
