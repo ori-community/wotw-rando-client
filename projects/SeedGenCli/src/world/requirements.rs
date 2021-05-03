@@ -37,7 +37,7 @@ impl Requirement {
                 energy: -cost,
                 ..Orbs::default()
             }
-        ])} else if player.pathsets.contains(&Pathset::Unsafe) && player.inventory.has(&Item::Shard(Shard::LifePact), 1) && orbs.energy + orbs.health >= cost { Some(smallvec![
+        ])} else if player.pathsets.contains(Pathset::Unsafe) && player.inventory.has(&Item::Shard(Shard::LifePact), 1) && orbs.energy + orbs.health >= cost { Some(smallvec![
             Orbs {
                 health: cost - orbs.energy,
                 energy: -orbs.energy,
@@ -137,10 +137,10 @@ impl Requirement {
 
                         if enemy.aerial() { aerial = true; }
                         if enemy.dangerous() { dangerous = true; }
-                        if !player.pathsets.contains(&Pathset::Unsafe) && enemy == &Enemy::Bat && !player.inventory.has(&Item::Skill(Skill::Bash), 1) { return None; }
+                        if !player.pathsets.contains(Pathset::Unsafe) && enemy == &Enemy::Bat && !player.inventory.has(&Item::Skill(Skill::Bash), 1) { return None; }
                         if enemy == &Enemy::Sandworm {
                             if player.inventory.has(&Item::Skill(Skill::Burrow), 1) { continue; }
-                            else if !player.pathsets.contains(&Pathset::Unsafe) { return None; }
+                            else if !player.pathsets.contains(Pathset::Unsafe) { return None; }
                         }
 
                         if enemy.shielded() {
@@ -148,7 +148,7 @@ impl Requirement {
                                 energy -= player.use_cost(weapon) * f32::from(*amount);
                             } else { return None; }
                         }
-                        let armor_mod = if enemy.armored() && !player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 1.0 };
+                        let armor_mod = if enemy.armored() && !player.pathsets.contains(Pathset::Unsafe) { 2.0 } else { 1.0 };
 
                         let ranged = enemy.ranged();
                         if ranged && ranged_weapon.is_none() { return None; }
@@ -157,12 +157,12 @@ impl Requirement {
                         energy -= player.destroy_cost(enemy.health(), used_weapon, enemy.flying()) * f32::from(*amount) * armor_mod;
                     }
 
-                    if !player.pathsets.contains(&Pathset::Unsafe) && aerial && !(
+                    if !player.pathsets.contains(Pathset::Unsafe) && aerial && !(
                         player.inventory.has(&Item::Skill(Skill::DoubleJump), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Launch), 1) ||
-                        player.pathsets.contains(&Pathset::Gorlek) && player.inventory.has(&Item::Skill(Skill::Bash), 1)
+                        player.pathsets.contains(Pathset::Gorlek) && player.inventory.has(&Item::Skill(Skill::Bash), 1)
                     ) { return None; }
-                    if !player.pathsets.contains(&Pathset::Unsafe) && dangerous && !(
+                    if !player.pathsets.contains(Pathset::Unsafe) && dangerous && !(
                         player.inventory.has(&Item::Skill(Skill::DoubleJump), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Dash), 1) ||
                         player.inventory.has(&Item::Skill(Skill::Bash), 1) ||
@@ -175,7 +175,7 @@ impl Requirement {
             },
             Requirement::ShurikenBreak(health) =>
                 if player.inventory.has(&Item::Skill(Skill::Shuriken), 1) {
-                    let clip_mod = if player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 3.0 };
+                    let clip_mod = if player.pathsets.contains(Pathset::Unsafe) { 2.0 } else { 3.0 };
                     let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                     return Requirement::cost_is_met(cost, player, orbs);
                 }
@@ -228,7 +228,7 @@ impl Requirement {
     fn needed_for_cost(cost: f32, player: &Player) -> Itemset {
         let mut itemsets = vec![(Inventory::default(), Orbs{ energy: -cost, ..Orbs::default() })];
 
-        if player.pathsets.contains(&Pathset::Unsafe) && cost > 0.0 && !player.inventory.has(&Item::Shard(Shard::Overcharge), 1) {
+        if player.pathsets.contains(Pathset::Unsafe) && cost > 0.0 && !player.inventory.has(&Item::Shard(Shard::Overcharge), 1) {
             itemsets.push((Inventory::from(Item::Shard(Shard::Overcharge)), Orbs{ energy: -cost / 2.0, ..Orbs::default() }));
         }
 
@@ -276,7 +276,7 @@ impl Requirement {
         itemsets
     }
 
-    fn combine_itemsets(left: Itemset, right: &Itemset) -> Itemset {
+    fn combine_itemsets(left: Itemset, right: &[(Inventory, Orbs)]) -> Itemset {
         let mut combined = Vec::new();
         for (left_inventory, left_orbs) in left {
             for (right_inventory, right_orbs) in right {
@@ -298,7 +298,7 @@ impl Requirement {
         };
         combined
     }
-    fn combine_itemset_item(left: &mut Itemset, right: Item) {
+    fn combine_itemset_item(left: &mut Itemset, right: &Item) {
         for (left_inventory, _) in left {
             left_inventory.grant(right.clone(), 1);
         };
@@ -312,7 +312,7 @@ impl Requirement {
             Requirement::EnergySkill(skill, amount) => {
                 let cost = player.use_cost(*skill) * *amount;
                 let mut itemsets = Requirement::needed_for_cost(cost, player);
-                Requirement::combine_itemset_item(&mut itemsets, Item::Skill(*skill));
+                Requirement::combine_itemset_item(&mut itemsets, &Item::Skill(*skill));
 
                 itemsets
             },
@@ -330,11 +330,11 @@ impl Requirement {
 
                 itemsets.append(&mut Requirement::needed_for_damage(cost, player));
 
-                if player.pathsets.contains(&Pathset::Gorlek) && !player.inventory.has(&Item::Shard(Shard::Resilience), 1) {
+                if player.pathsets.contains(Pathset::Gorlek) && !player.inventory.has(&Item::Shard(Shard::Resilience), 1) {
                     let resilience_cost = cost * 0.9;
 
                     let mut resilience_sets = Requirement::needed_for_damage(resilience_cost, player);
-                    Requirement::combine_itemset_item(&mut resilience_sets, Item::Shard(Shard::Resilience));
+                    Requirement::combine_itemset_item(&mut resilience_sets, &Item::Shard(Shard::Resilience));
 
                     itemsets.append(&mut resilience_sets);
                 }
@@ -363,7 +363,7 @@ impl Requirement {
                 itemsets
             },
             Requirement::ShurikenBreak(health) => {
-                let clip_mod = if player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 3.0 };
+                let clip_mod = if player.pathsets.contains(Pathset::Unsafe) { 2.0 } else { 3.0 };
                 let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                 Requirement::needed_for_weapon(Skill::Shuriken, cost, player)
             },
@@ -378,7 +378,7 @@ impl Requirement {
                     if enemy.ranged() { ranged = true; }
                     else { melee = true; }
                     if enemy.shielded() { shielded = true; }
-                    if !player.pathsets.contains(&Pathset::Unsafe) && enemy == &Enemy::Bat { bash = true; }
+                    if !player.pathsets.contains(Pathset::Unsafe) && enemy == &Enemy::Bat { bash = true; }
                     if enemy == &Enemy::Sandworm { burrow = true; }
                 }
 
@@ -393,7 +393,7 @@ impl Requirement {
                     player.shield_progression_weapons()
                 } else { smallvec![Skill::Hammer] };
                 let use_burrow: SmallVec<[_; 2]>= if burrow {
-                    if !player.pathsets.contains(&Pathset::Unsafe) || player.inventory.has(&Item::Skill(Skill::Burrow), 1) {
+                    if !player.pathsets.contains(Pathset::Unsafe) || player.inventory.has(&Item::Skill(Skill::Burrow), 1) {
                         smallvec![true]
                     } else {
                         smallvec![true, false]
@@ -419,7 +419,7 @@ impl Requirement {
                                     if enemy.shielded() {
                                         cost += player.use_cost(*shield_weapon) * f32::from(*amount);
                                     }
-                                    let armor_mod = if enemy.armored() && !player.pathsets.contains(&Pathset::Unsafe) { 2.0 } else { 1.0 };
+                                    let armor_mod = if enemy.armored() && !player.pathsets.contains(Pathset::Unsafe) { 2.0 } else { 1.0 };
 
                                     let used_weapon = if enemy.ranged() { ranged_weapon } else { &weapon };
 
@@ -441,18 +441,18 @@ impl Requirement {
                     }
                 }
 
-                if !player.pathsets.contains(&Pathset::Unsafe) && aerial {
+                if !player.pathsets.contains(Pathset::Unsafe) && aerial {
                     let mut ranged_skills = vec![
                         Item::Skill(Skill::DoubleJump),
                         Item::Skill(Skill::Launch),
                     ];
-                    if player.pathsets.contains(&Pathset::Gorlek) { ranged_skills.push(Item::Skill(Skill::Bash)); }
+                    if player.pathsets.contains(Pathset::Gorlek) { ranged_skills.push(Item::Skill(Skill::Bash)); }
 
                     if !ranged_skills.iter().any(|skill| player.inventory.has(skill, 1)) {
                         itemsets = Requirement::combine_itemset_items(itemsets, &ranged_skills);
                     }
                 }
-                if !player.pathsets.contains(&Pathset::Unsafe) && dangerous {
+                if !player.pathsets.contains(Pathset::Unsafe) && dangerous {
                     let evasion_skills = [
                         Item::Skill(Skill::DoubleJump),
                         Item::Skill(Skill::DoubleJump),
@@ -464,12 +464,8 @@ impl Requirement {
                         itemsets = Requirement::combine_itemset_items(itemsets, &evasion_skills);
                     }
                 }
-                if !player.pathsets.contains(&Pathset::Unsafe) && bash {
-                    let bash = [Item::Skill(Skill::Bash)];
-
-                    if !player.inventory.has(&bash[0], 1) {
-                        itemsets = Requirement::combine_itemset_items(itemsets, &bash);
-                    }
+                if !player.pathsets.contains(Pathset::Unsafe) && bash && !player.inventory.has(&Item::Skill(Skill::Bash), 1) {
+                    Requirement::combine_itemset_item(&mut itemsets, &Item::Skill(Skill::Bash));
                 }
 
                 itemsets

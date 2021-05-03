@@ -46,8 +46,8 @@ impl Pathsets {
         self.pathsets.insert(Pathset::SentryBurn);
     }
 
-    pub fn contains(&self, pathset: &Pathset) -> bool {
-        self.pathsets.contains(pathset)
+    pub fn contains(&self, pathset: Pathset) -> bool {
+        self.pathsets.contains(&pathset)
     }
 }
 impl From<Vec<Pathset>> for Pathsets {
@@ -587,7 +587,7 @@ impl fmt::Display for Hint {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum ToggleCommand {
     KwolokDoor,
     Rain,
@@ -775,13 +775,12 @@ where P: AsRef<Path>
 pub fn read_file<P>(file: &Path, default_folder: P) -> Result<String, String>
 where P: AsRef<Path>
 {
-    if let Some(in_folder) = in_folder(file, default_folder)? {
-        fs::read_to_string(in_folder).or_else(|_| {
+    in_folder(file, default_folder)?.map_or_else(
+        || fs::read_to_string(file).map_err(|err| format!("Failed to read file {}: {}", file.display(), err)),
+        |in_folder| fs::read_to_string(in_folder).or_else(|_| {
             fs::read_to_string(file).map_err(|err| format!("Failed to read file {}: {}", file.display(), err))
         })
-    } else {
-        fs::read_to_string(file).map_err(|err| format!("Failed to read file {}: {}", file.display(), err))
-    }
+    )
 }
 
 fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
@@ -811,13 +810,12 @@ fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
 pub fn create_new_file<P>(file: &Path, contents: &str, default_folder: P) -> Result<PathBuf, String>
 where P: AsRef<Path>
 {
-    if let Some(in_folder) = in_folder(file, default_folder)? {
-        create_in_folder(&in_folder, contents).or_else(|_| {
+    in_folder(file, default_folder)?.map_or_else(
+        || create_in_folder(file, contents).map_err(|err| format!("Failed to create {}: {}", file.display(), err)),
+        |in_folder| create_in_folder(&in_folder, contents).or_else(|_| {
             create_in_folder(file, contents).map_err(|err| format!("Failed to create {}: {}", file.display(), err))
         })
-    } else {
-        create_in_folder(file, contents).map_err(|err| format!("Failed to create {}: {}", file.display(), err))
-    }
+    )
 }
 
 pub fn add_trailing_spaces(string: &mut String, target_length: usize) {

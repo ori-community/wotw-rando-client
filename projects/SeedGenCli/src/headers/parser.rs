@@ -18,11 +18,9 @@ where
     I: Iterator<Item = &'a str>,
 {
     // TODO could support !!add with a fixed price probably? And/or an uberState based price for shuffled pickups?
-    if shop {
-        if parts.next().is_some() {
-            return Err(String::from("Shop prices in pickups are obsolete! Use the assigned uberStates for shop prices instead"));
-            // price.parse::<f32>().map_err(|_| String::from("invalid price"))?;
-        }
+    if shop && parts.next().is_some() {
+        return Err(String::from("Shop prices in pickups are obsolete! Use the assigned uberStates for shop prices instead"));
+        // price.parse::<f32>().map_err(|_| String::from("invalid price"))?;
     }
     if parts.next().is_some() { return Err(String::from("too many parts")); }
     Ok(())
@@ -239,7 +237,7 @@ where P: Iterator<Item=&'a str>
 fn parse_command<'a, P>(mut parts: P, shop: bool) -> Result<(Item, u16), String>
 where P: Iterator<Item=&'a str>
 {
-    let command_type = parts.next().ok_or_else(|| format!("missing command pickup type"))?;
+    let command_type = parts.next().ok_or_else(|| String::from("missing command pickup type"))?;
     match command_type {
         "0" => parse_autosave(parts, shop),
         "1" => parse_set_resource(parts, shop),
@@ -346,7 +344,7 @@ where P: Iterator<Item=&'a str>
 
     let hint_type = parts.next().map_or_else::<Result<ZoneHintType, String>, _, _>(|| Ok(ZoneHintType::default()), |hint_type| {
         let hint_type: u8 = hint_type.parse().map_err(|_| String::from("invalid hint type"))?;
-        Ok(ZoneHintType::from_id(hint_type).ok_or_else(|| String::from("invalid hint type"))?)
+        ZoneHintType::from_id(hint_type).ok_or_else(|| String::from("invalid hint type"))
     })?;
 
     end_of_pickup(parts, shop)?;
@@ -383,7 +381,7 @@ where P: Iterator<Item=&'a str>
     Ok((Item::CheckableHint(base_price, price_modifier, hinted_items), 1))
 }
 
-pub fn parse_pickup<'a>(pickup: &'a str, shop: bool) -> Result<(Item, u16), String> {
+pub fn parse_pickup(pickup: &str, shop: bool) -> Result<(Item, u16), String> {
     let pickup = pickup.trim();
     let mut parts = pickup.split('|');
 

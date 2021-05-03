@@ -224,6 +224,7 @@ fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
     goalmodes
 }
 
+#[allow(clippy::struct_excessive_bools)]
 struct SeedArgs {
     filename: Option<PathBuf>,
     seed: Option<String>,

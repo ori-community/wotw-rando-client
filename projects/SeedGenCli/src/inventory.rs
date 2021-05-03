@@ -56,12 +56,12 @@ impl Item {
     pub fn is_progression(&self, pathsets: &Pathsets) -> bool {
         match self {
             Item::Resource(resource) => match resource {
-                Resource::ShardSlot => pathsets.contains(&Pathset::Unsafe),
+                Resource::ShardSlot => pathsets.contains(Pathset::Unsafe),
                 Resource::Health | Resource::Energy | Resource::Ore | Resource::Keystone => true,
             },
             Item::Skill(skill) => match skill {
-                Skill::AncestralLight => pathsets.contains(&Pathset::Unsafe),
-                Skill::Shuriken | Skill::Blaze | Skill::Sentry => pathsets.contains(&Pathset::Gorlek),
+                Skill::AncestralLight => pathsets.contains(Pathset::Unsafe),
+                Skill::Shuriken | Skill::Blaze | Skill::Sentry => pathsets.contains(Pathset::Gorlek),
                 Skill::WaterBreath | Skill::Seir | Skill::WallJump => false,
                 Skill::Bash |
                 Skill::DoubleJump |
@@ -98,11 +98,11 @@ impl Item {
                 Shard::SpiritSurge |
                 Shard::Lifeforce |
                 Shard::Deflector |
-                Shard::Fracture => pathsets.contains(&Pathset::Unsafe),
+                Shard::Fracture => pathsets.contains(Pathset::Unsafe),
                 Shard::TripleJump |
                 Shard::Resilience |
                 Shard::Vitality |
-                Shard::Energy => pathsets.contains(&Pathset::Gorlek),
+                Shard::Energy => pathsets.contains(Pathset::Gorlek),
                 Shard::Bounty |
                 Shard::Swap |
                 Shard::Quickshot |

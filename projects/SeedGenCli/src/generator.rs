@@ -13,6 +13,7 @@ use crate::world::{
 };
 use crate::inventory::{Inventory, Item};
 use crate::util::{
+    self,
     Resource, BonusItem, GoalMode,
     settings::Settings,
     constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN},
@@ -77,7 +78,8 @@ where
 
         let mut price = item.shop_price();
         if item.random_shop_price() {
-            price = u16::try_from((price as f32 * context.price_range.sample(context.rng)) as i32).map_err(|_| format!("Overflowed shop price for {} after adding a random amount to it", item))?;
+            let modified_price = f32::from(price) * context.price_range.sample(context.rng);
+            price = u16::try_from(modified_price as i32).map_err(|_| format!("Overflowed shop price for {} after adding a random amount to it", item))?;
         }
 
         let price_setter = Item::UberState(format!("{}|int|{}", price_uber_state, price));
@@ -251,9 +253,11 @@ impl SpiritLightAmounts {
     where
         R: Rng + ?Sized
     {
+        #[allow(clippy::cast_precision_loss)]
         let amount = (self.factor * self.index.pow(2) as f32 + 50.0 * self.noise.sample(rng)).round();
         self.index += 1;
 
+        #[allow(clippy::cast_possible_truncation)]
         u16::try_from(amount as i32).map_err(|_| format!("Tried to place {} Spirit Light which is more than one item can hold", amount))
     }
 }
@@ -322,9 +326,10 @@ where
     let collected_preplacements = Vec::<usize>::new();
     let mut spawn_slots = Vec::<&Node>::new();
 
+    #[allow(clippy::cast_precision_loss)]
     let spirit_light_slots = (world.graph.nodes.iter().filter(|&node| node.can_place()).count() - world.pool.inventory().item_count()) as f32;
     log::trace!("Estimated {} slots for Spirit Light", spirit_light_slots);
-    let spirit_light_rng = SpiritLightAmounts::new(world.pool.spirit_light as f32, spirit_light_slots, 0.75, 1.25);
+    let spirit_light_rng = SpiritLightAmounts::new(f32::from(world.pool.spirit_light), spirit_light_slots, 0.75, 1.25);
 
     let price_range = Uniform::new_inclusive(0.75, 1.25);
 
@@ -353,7 +358,7 @@ where
 
     log::trace!("Creating a player with everything to determine reachable locations");
     let mut finished_world = context.world.clone();
-    for (item, amount) in context.world.pool.progressions.inventory.iter() {
+    for (item, amount) in &context.world.pool.progressions.inventory {
         finished_world.grant_player(item.clone(), *amount)?;
     }
     finished_world.grant_player(Item::SpiritLight(1), u16::MAX)?;
@@ -441,13 +446,14 @@ where
         needs_placement.shuffle(context.rng);
 
         reserved_slots = Vec::with_capacity(RESERVE_SLOTS);
-        if unreached_count > 0 {
-            for _ in 0..RESERVE_SLOTS {
-                if let Some(uber_state) = needs_placement.pop() {
-                    reserved_slots.push(uber_state);
-                }
-            }
-        }
+        // TODO see note on reserve slots
+        // if unreached_count > 0 {
+        //     for _ in 0..RESERVE_SLOTS {
+        //         if let Some(uber_state) = needs_placement.pop() {
+        //             reserved_slots.push(uber_state);
+        //         }
+        //     }
+        // }
 
         if needs_placement.is_empty() {
             // forced placements
@@ -463,7 +469,7 @@ where
                     context.world.player.missing_items(&mut needed);
 
                     for orbs in &best_orbs {
-                        let missing = context.world.player.missing_for_orbs(&needed, orb_cost, *orbs);
+                        let missing = Player::missing_for_orbs(&needed, orb_cost, *orbs);
 
                         if missing.inventory.is_empty() {  // sanity check
                             log::trace!("Failed to determine which items were needed for progression to meet {:?} (had {})", requirement, context.world.player.inventory);
@@ -525,6 +531,7 @@ where
 
                 let newly_reached = lookahead_reachable.len() - reachable_count;
 
+                #[allow(clippy::cast_precision_loss)]
                 Ok(base_weight * (newly_reached + 1) as f32)
             };
             let with_weights = itemsets.iter()
@@ -534,6 +541,8 @@ where
 
             let (progression, _) = with_weights
                 .choose_weighted(context.rng, |&(inventory, weight)| {
+                    let mut inventory = format!("{}", inventory);
+                    util::add_trailing_spaces(&mut inventory, 20);
                     log::trace!("-> {}  ({}%)", inventory, (weight / weight_sum * 1000.0).round() / 10.0);
 
                     weight

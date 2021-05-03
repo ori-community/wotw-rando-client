@@ -13,8 +13,8 @@ pub struct Pool {
     pub spirit_light: u16,
     random_progression: Bernoulli,
 }
-impl Pool {
-    pub fn new() -> Pool {
+impl Default for Pool {
+    fn default() -> Pool {
         Pool {
             progressions: Inventory::default(),
             fillers: Inventory::default(),
@@ -22,7 +22,8 @@ impl Pool {
             random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
         }
     }
-
+}
+impl Pool {
     pub fn preset(pathsets: &Pathsets) -> Pool {
         let mut progressions = FxHashMap::default();
         progressions.reserve(48);

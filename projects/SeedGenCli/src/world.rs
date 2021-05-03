@@ -29,7 +29,7 @@ impl<'a> World<'a> {
         World {
             graph,
             player: Player::default(),
-            pool: Pool::new(),
+            pool: Pool::default(),
             preplacements: FxHashMap::default(),
             uber_states: FxHashMap::default(),
         }

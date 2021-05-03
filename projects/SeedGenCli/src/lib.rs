@@ -48,7 +48,7 @@ where
         Spawn::Random => valid
             .filter(|&node| {
                 let identifier = node.identifier();
-                settings.pathsets.contains(&Pathset::Gorlek) && GORLEK_SPAWNS.contains(&identifier)
+                settings.pathsets.contains(Pathset::Gorlek) && GORLEK_SPAWNS.contains(&identifier)
                 || MOKI_SPAWNS.contains(&identifier)
             })
             .choose(rng)
@@ -227,10 +227,11 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     };
     if placements.is_empty() { return Err(format!("All {} attempts to generate a seed failed :(", RETRIES)); }
 
-    let mut spawn_line = String::from('\n');
+    let mut spawn_line = String::new();
     if spawn_loc.identifier != DEFAULT_SPAWN {
-        spawn_line = format!("Spawn: {}  // {}\n", spawn_loc.position, spawn_loc.identifier);
+        spawn_line = format!("Spawn: {}  // {}", spawn_loc.position, spawn_loc.identifier);
     }
+    spawn_line += "\n\n";
 
     let init = String::with_capacity(placements.len() * 20);
     let mut placement_block = placements.iter().fold(init, |acc, placement| {
