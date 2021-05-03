@@ -747,9 +747,9 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
   conn MarshPastOpher.BowApproach:
     moki: DoubleJump OR Launch
     gorlek:
-      Dash OR Sword
+      Dash
       Bash, Grenade=2
-    unsafe: Hammer OR Sentry=1
+    unsafe: Sword OR Hammer OR Sentry=1
   conn MarshPastOpher.MillView:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
