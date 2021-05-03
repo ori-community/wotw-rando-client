@@ -16,6 +16,9 @@
 #include <unordered_set>
 #include <unordered_map>
 
+// header files WHOMST?
+INJECT_C_DLLEXPORT void teleport(float x, float y, bool wait_for_load);
+
 using namespace modloader;
 
 namespace
@@ -360,5 +363,7 @@ void perform_preload()
 }
 
 INJECT_C_DLLEXPORT void start_credits() {
+
+    teleport(-4627.817, -6759.598, true);
     force_load_area("creditsScreen", &credits_callback);
 }
