@@ -8,7 +8,7 @@ use rustc_hash::FxHashMap;
 use graph::Graph;
 use pool::Pool;
 use player::Player;
-use crate::inventory::{Item, Inventory};
+use crate::inventory::Item;
 use crate::util::{
     Resource,
     uberstate::{UberState, UberValue, UberIdentifier},
@@ -20,8 +20,7 @@ pub struct World<'a> {
     pub graph: &'a Graph,
     pub player: Player,
     pub pool: Pool,
-    // TODO the inventory being unordered actually means it's not suited to hold multipickups like this, multipickups are ordered!
-    pub preplacements: FxHashMap<UberState, Inventory>,
+    pub preplacements: FxHashMap<UberState, Vec<Item>>,
     pub uber_states: FxHashMap<UberIdentifier, UberValue>,
 }
 impl<'a> World<'a> {
@@ -143,17 +142,17 @@ impl<'a> World<'a> {
         Ok(())
     }
 
-    pub fn preplace(&mut self, uber_state: UberState, item: Item, amount: u16) {
-        let preplacement = self.preplacements.entry(uber_state).or_insert_with(Inventory::default);
-        preplacement.grant(item, amount);
+    pub fn preplace(&mut self, uber_state: UberState, item: Item) {
+        let preplacement = self.preplacements.entry(uber_state).or_insert_with(Vec::default);
+        preplacement.push(item);
     }
     pub fn collect_preplacements(&mut self, reached: &UberState) -> bool {
         if let Some(items) = self.preplacements.get(reached) {
             log::trace!("Collecting preplacements on {}", reached);
             let items = items.clone();
 
-            for (item, amount) in items.inventory {
-                self.grant_player(item, amount).unwrap_or_else(|err| log::error!("{}", err));
+            for item in items {
+                self.grant_player(item, 1).unwrap_or_else(|err| log::error!("{}", err));
             }
 
             true
