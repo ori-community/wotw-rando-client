@@ -17,6 +17,9 @@ namespace RandoMainDLL {
     BINDING_ONE = 2,
     BINDING_TWO = 3,
     BINDING_THREE = 4,
+    BINDING_FOUR = 5,
+    BINDING_FIVE = 6,
+    LOAD_FILE  = 7,  // TODO: implement this lmao
     GOAL_MODES_COMPLETED = 11
   }
   public enum Flag {
