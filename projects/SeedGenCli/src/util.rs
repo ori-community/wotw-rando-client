@@ -44,6 +44,7 @@ impl Pathsets {
         self.pathsets.insert(Pathset::HammerSentryJump);
         self.pathsets.insert(Pathset::ShurikenBreak);
         self.pathsets.insert(Pathset::SentryBurn);
+        self.pathsets.insert(Pathset::RemoveKillPlane);
     }
 
     pub fn contains(&self, pathset: Pathset) -> bool {

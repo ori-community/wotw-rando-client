@@ -1,6 +1,8 @@
+mod presets;
+
 use std::{
     fs,
-    path::{Path, PathBuf},
+    path::PathBuf,
     convert::TryFrom,
     io::{self, Read},
     time::Instant,
@@ -43,17 +45,22 @@ enum SeedGenCommand {
         /// the seed's name and name of the file it will be written to. The name also seeds the rng.
         #[structopt(parse(from_os_str))]
         filename: Option<PathBuf>,
+        /// derive the settings from one or more presets
+        ///
+        /// presets later in the list override earlier ones, and flags from the command override any preset
+        #[structopt(short, long)]
+        preset: Vec<String>,
         /// seed the rng; without this flag it will be seeded from the filename instead
         #[structopt(long)]
         seed: Option<String>,
         /// the input file representing the logic
-        #[structopt(parse(from_os_str), default_value = "areas.wotw", short, long)]
+        #[structopt(parse(from_os_str), default_value = "areas.wotw", long)]
         areas: PathBuf,
         /// the input file representing pickup locations
-        #[structopt(parse(from_os_str), default_value = "loc_data.csv", short, long)]
+        #[structopt(parse(from_os_str), default_value = "loc_data.csv", long)]
         locations: PathBuf,
         /// the input file representing state namings
-        #[structopt(parse(from_os_str), default_value = "state_data.csv", short, long)]
+        #[structopt(parse(from_os_str), default_value = "state_data.csv", long)]
         uber_states: PathBuf,
         /// skip validating the input files for a slight performance gain
         #[structopt(short, long)]
@@ -84,15 +91,50 @@ enum SeedGenCommand {
         /// 
         /// pathsets are moki, gorlek, glitch, unsafe, sjump, swordsjump, hammersjump, shurikenbreak, sentryburn, removekillplane
         #[structopt(short, long)]
-        paths: Vec<String>,
+        logic: Vec<String>,
         /// paths to headers stored in files which will be added to the seed
-        #[structopt(parse(from_os_str), short, long = "headers", default_value = "default")]
+        #[structopt(parse(from_os_str), short, long = "headers")]
         header_paths: Vec<PathBuf>,
         /// inline headers
         headers: Vec<String>
     },
     /// Play the most recent generated seed
     Play,
+    /// Create a preset of the given settings
+    Preset {
+        /// name of the preset
+        ///
+        /// later you can run seed -p <preset-name> to use this preset
+        #[structopt(parse(from_os_str))]
+        name: PathBuf,
+        /// hides spoilers
+        #[structopt(short, long)]
+        race: bool,
+        /// required for coop and bingo
+        #[structopt(short, long)]
+        netcode: bool,
+        /// play this seed on hard (in-game) difficulty
+        #[structopt(long)]
+        hard: bool,
+        /// where to spawn the player
+        /// 
+        /// Use an anchor name from the areas file, "r" / "random" for a random teleporter or "f" / "fullyrandom" for any location
+        #[structopt(short, long, default_value = "MarshSpawn.Main")]
+        spawn: String,
+        /// which goal modes to use
+        /// 
+        /// goal modes are trees, wisps, quests, relics
+        #[structopt(short, long)]
+        goals: Vec<String>,
+        /// which pathsets to use
+        /// 
+        /// pathsets are moki, gorlek, glitch, unsafe, sjump, swordsjump, hammersjump, shurikenbreak, sentryburn, removekillplane
+        #[structopt(short, long)]
+        logic: Vec<String>,
+        /// paths to headers stored in files which will be added to the seed
+        #[structopt(parse(from_os_str), short, long = "headers")]
+        header_paths: Vec<PathBuf>,
+    },
     /// Check which locations are in logic
     ReachCheck {
         /// the seed file for which logical reach should be checked
@@ -120,7 +162,7 @@ enum SeedGenCommand {
         /// any additional player items in the format s:<skill id>, t:<teleporter id>, sh:<shard id>, w:<world event id> or u:<ubergroup>,<uberid>
         items: Vec<String>,
     },
-    /// Inspect or modify the available headers
+    /// Inspect the available headers
     Headers {
         /// headers to look at in detail
         #[structopt(parse(from_os_str))]
@@ -207,7 +249,6 @@ fn parse_pathsets(names: &[String]) -> Pathsets {
 
     pathsets
 }
-
 fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
     let mut goalmodes = FxHashSet::default();
 
@@ -223,22 +264,66 @@ fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
 
     goalmodes
 }
+fn parse_spawn(spawn: String) -> Spawn {
+    match &spawn[..] {
+        "r" | "random" => Spawn::Random,
+        "f" | "fullyrandom" => Spawn::FullyRandom,
+        _ => Spawn::Set(spawn),
+    }
+}
+fn parse_settings(settings: SeedSettings) -> Settings {
+    let pathsets = parse_pathsets(&settings.logic);
+    let goalmodes = parse_goalmodes(&settings.goals);
+    let spawn = parse_spawn(settings.spawn);
+
+    Settings {
+        version: None,
+        spoilers: !settings.race,
+        pathsets,
+        goalmodes,
+        web_conn: settings.netcode,
+        spawn_loc: spawn,
+        hard: settings.hard,
+        header_list: settings.header_paths,
+    }
+}
+
+fn merge_settings(current: &mut Settings, mut other: Settings) {
+    if other.version.is_some() {
+        current.version = other.version;
+    }
+    for pathset in other.pathsets.pathsets {
+        current.pathsets.add(pathset);
+    }
+    current.goalmodes.extend(other.goalmodes);
+    if other.spawn_loc != Spawn::default() {
+        current.spawn_loc = other.spawn_loc;
+    }
+    current.spoilers = current.spoilers && other.spoilers;
+    current.web_conn = current.web_conn || other.web_conn;
+    current.hard = current.hard || other.hard;
+    current.header_list.append(&mut other.header_list);
+}
 
 #[allow(clippy::struct_excessive_bools)]
+struct SeedSettings {
+    race: bool,
+    netcode: bool,
+    hard: bool,
+    spawn: String,
+    logic: Vec<String>,
+    goals: Vec<String>,
+    header_paths: Vec<PathBuf>,
+}
 struct SeedArgs {
     filename: Option<PathBuf>,
+    preset: Vec<String>,
     seed: Option<String>,
     areas: PathBuf,
     locations: PathBuf,
     uber_states: PathBuf,
     trust: bool,
-    race: bool,
-    netcode: bool,
-    hard: bool,
-    spawn: String,
-    paths: Vec<String>,
-    goals: Vec<String>,
-    header_paths: Vec<PathBuf>,
+    settings: SeedSettings,
     headers: Vec<String>,
 }
 
@@ -262,32 +347,32 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
 
     let seed = args.seed.unwrap_or_else(|| filename.file_stem().unwrap().to_string_lossy().to_string());
 
-    let pathsets = parse_pathsets(&args.paths);
-    let goalmodes = parse_goalmodes(&args.goals);
+    let mut settings = Settings::default();
+    for preset in args.preset {
+        let preset_settings = match &preset[..] {
+            "moki" => presets::moki(),
+            "gorlek" => presets::gorlek(),
+            "gorlekg" | "gorlek_glitch" => presets::gorlek_glitch(),
+            _ => {
+                let mut preset = PathBuf::from(preset);
+                preset.set_extension("json");
+                Settings::from_preset(&preset)?
+            }
+        };
 
-    let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &pathsets, !args.trust)?;
+        merge_settings(&mut settings, preset_settings);
+    }
+
+    merge_settings(&mut settings, parse_settings(args.settings));
+    settings.version = Some(env!("CARGO_PKG_VERSION").to_string());
+
+    let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;
     log::info!("Parsed logic in {:?}", now.elapsed());
-
-    let spawn = if args.spawn == "r" || args.spawn == "random" { Spawn::Random }
-    else if args.spawn == "f" || args.spawn == "fullyrandom" { Spawn::FullyRandom }
-    else { Spawn::Set(args.spawn) };
 
     let header = read_header();
     if !header.is_empty() {
         args.headers.push(header)
     }
-
-    let settings = Settings {
-        version: env!("CARGO_PKG_VERSION").to_string(),
-        spoilers: !args.race,
-        pathsets,
-        goalmodes,
-        output_folder: filename.parent().unwrap_or_else(|| Path::new("")).to_path_buf(),
-        web_conn: args.netcode,
-        spawn_loc: spawn,
-        hard: args.hard,
-        header_list: args.header_paths,
-    };
 
     let seed = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
     log::info!("Generated seed in {:?}", now.elapsed());
@@ -296,6 +381,32 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
     log::info!("Wrote seed to {}", file.display());
 
     fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
+    Ok(())
+}
+
+fn play_last_seed() -> Result<(), String> {
+    let last_seed = fs::read_to_string(".currentseedpath").map_err(|err| format!("Failed to read last generated seed from .currentseedpath: {}", err))?;
+    log::info!("Launching seed {}", last_seed);
+    Command::new("WotwRando.exe")
+        .arg(last_seed)
+        .spawn()
+        .map_err(|err| format!("Failed to launch WotwRando.exe with the seed: {}", err))?;
+    Ok(())
+}
+
+#[allow(clippy::struct_excessive_bools)]
+struct PresetArgs {
+    name: PathBuf,
+    settings: SeedSettings,
+}
+fn create_preset(mut args: PresetArgs) -> Result<(), String> {
+    let settings = parse_settings(args.settings);
+    let settings = Settings::write(&settings)?;
+
+    args.name.set_extension("json");
+
+    util::create_new_file(&args.name, &settings, "presets")?;
+
     Ok(())
 }
 
@@ -314,7 +425,7 @@ struct ReachCheckArgs {
 
 fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     args.seed_file.set_extension("wotwr");
-    let settings = util::settings::read(&args.seed_file)?;
+    let settings = Settings::from_seed(&args.seed_file)?;
     let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, false)?;
     let mut world = World::new(graph);
 
@@ -373,16 +484,6 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     Ok(reached.join(", "))
 }
 
-fn play_last_seed() -> Result<(), String> {
-    let last_seed = fs::read_to_string(".currentseedpath").map_err(|err| format!("Failed to read last generated seed from .currentseedpath: {}", err))?;
-    log::info!("Launching seed {}", last_seed);
-    Command::new("WotwRando.exe")
-        .arg(last_seed)
-        .spawn()
-        .map_err(|err| format!("Failed to launch WotwRando.exe with the seed: {}", err))?;
-    Ok(())
-}
-
 fn main() {
     let args = SeedGen::from_args();
 
@@ -392,44 +493,49 @@ fn main() {
     }
 
     match args.command {
-        SeedGenCommand::Seed { filename, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, paths, goals, header_paths, headers } => {
+        SeedGenCommand::Seed { filename, preset, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, logic, goals, header_paths, headers } => {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seed(SeedArgs {
                 filename,
+                preset,
                 seed,
                 areas,
                 locations,
                 uber_states,
                 trust,
-                race,
-                netcode,
-                hard,
-                spawn,
-                paths,
-                goals,
-                header_paths,
+                settings: SeedSettings {
+                    race,
+                    netcode,
+                    hard,
+                    spawn,
+                    logic,
+                    goals,
+                    header_paths,
+                },
                 headers,
             }).unwrap_or_else(|err| log::error!("{}", err));
         },
-        SeedGenCommand::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
+        SeedGenCommand::Play => {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
-            match reach_check(ReachCheckArgs {
-                seed_file,
-                areas,
-                locations,
-                uber_states,
-                health,
-                energy,
-                keystones,
-                ore,
-                spirit_light: u16::try_from(spirit_light).unwrap_or(u16::MAX),  // Higher amounts of Spirit Light are irrelevant, just want to accept high values in case the player has that much
-                items,
-            }) {
-                Ok(reached) => println!("{}", reached),
-                Err(err) => log::error!("{}", err),
-            }
+            play_last_seed().unwrap_or_else(|err| log::error!("{}", err));
+        },
+        SeedGenCommand::Preset { name, race, netcode, hard, spawn, logic, goals, header_paths } => {
+            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+
+            create_preset(PresetArgs {
+                name,
+                settings: SeedSettings {
+                    race,
+                    netcode,
+                    hard,
+                    spawn,
+                    logic,
+                    goals,
+                    header_paths,
+                },
+            }).unwrap_or_else(|err| log::error!("{}", err));
         },
         SeedGenCommand::Headers { headers, subcommand } => {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
@@ -460,10 +566,24 @@ fn main() {
                 }
             }
         },
-        SeedGenCommand::Play => {
+        SeedGenCommand::ReachCheck { seed_file, areas, locations, uber_states, health, energy, keystones, ore, spirit_light, items } => {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
-            play_last_seed().unwrap_or_else(|err| log::error!("{}", err));
+            match reach_check(ReachCheckArgs {
+                seed_file,
+                areas,
+                locations,
+                uber_states,
+                health,
+                energy,
+                keystones,
+                ore,
+                spirit_light: u16::try_from(spirit_light).unwrap_or(u16::MAX),  // Higher amounts of Spirit Light are irrelevant, just want to accept high values in case the player has that much
+                items,
+            }) {
+                Ok(reached) => println!("{}", reached),
+                Err(err) => log::error!("{}", err),
+            }
         },
     }
 }

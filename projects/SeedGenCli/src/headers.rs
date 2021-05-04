@@ -13,14 +13,16 @@ use crate::util::{
     constants::{HEADER_INDENT, NAME_COLOUR, UBERSTATE_COLOUR},
 };
 
-fn is_preset(header: &Path) -> Result<bool, String> {
-    let file = fs::File::open(header).map_err(|err| format!("Failed to open header from {:?}: {}", header, err))?;
-    let mut file = BufReader::new(file);
+fn is_preset(header: &str) -> bool {
+    for line in header.lines() {
+        let line = line.trim();
 
-    let mut line = String::new();
-    file.read_line(&mut line).map_err(|err| format!("Failed to read header from {:?}: {}", header, err))?;
+        if !(line.is_empty() || line.starts_with("#") || line.starts_with("//") || line.starts_with("!!include ")) {
+            return false;
+        }
+    }
 
-    Ok(line.trim() == "#preset")
+    true
 }
 
 fn is_hidden(header: &Path) -> Result<bool, String> {
@@ -70,12 +72,18 @@ fn find_headers(show_hidden: bool) -> Result<Vec<PathBuf>, String> {
 
 fn find_presets() -> Result<Vec<PathBuf>, String> {
     let headers = find_headers(false)?;
-    let presets = headers.iter()
-        .map(|header| is_preset(header).map(|preset| if preset { Some(header) } else { None }))
+    let presets = headers.into_iter()
+        .map(|header| {
+            util::read_file(&header, "headers").map(|contents| {
+                if is_preset(&contents) {
+                    return Some(header);
+                }
+                None
+            })
+        })
         .collect::<Result<Vec<_>, _>>()?
-        .iter()
-        .filter_map(|&header| header)
-        .cloned()
+        .into_iter()
+        .filter_map(|header| header)
         .collect::<Vec<_>>();
     Ok(presets)
 }
@@ -115,25 +123,24 @@ fn summarize_headers(headers: &[PathBuf]) -> Result<String, String> {
 pub fn list() -> Result<(), String> {
     let mut output = String::new();
 
-    let headers = find_headers(false)?;
+    let mut headers = find_headers(false)?;
 
     if headers.is_empty() {
         println!("No headers found. Try moving into the script directory");
         return Ok(());
     }
 
-    let preset_data = headers.iter()
-        .map(|header| is_preset(header))
-        .collect::<Result<Vec<_>, _>>()?;
+    let mut presets = Vec::new();
 
-    let mut index = 0;
-    let (presets, headers): (Vec<_>, Vec<_>) = headers.iter()
-        .cloned()
-        .partition(|_| {
-            let preset = preset_data[index];
-            index += 1;
-            preset
-        });
+    headers.retain(|header| {
+        util::read_file(&header, "headers").map_or(false, |contents| {
+            if is_preset(&contents) {
+                presets.push(header.clone());
+                return false;
+            }
+            true
+        })
+    });
 
     let presets_length = presets.len();
     output += &format!("{}", Style::new().fg(Colour::Green).bold().paint(format!("{} preset{} found\n\n", presets_length, if presets_length == 1 { "" } else { "s" })));
@@ -190,8 +197,7 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
 
         let contents = util::read_file(&header, "headers")?;
 
-        let preset = contents.trim_start().starts_with("#preset");
-        let mut description = NAME_COLOUR.paint(format!("{} {}:\n", name, if preset { "preset" } else { "header" })).to_string();
+        let mut description = NAME_COLOUR.paint(format!("{} {}:\n", name, if is_preset(&contents) { "preset" } else { "header" })).to_string();
 
         for line in contents.lines() {
             if let Some(desc) = line.trim_start().strip_prefix("///") {
@@ -335,7 +341,7 @@ pub fn validate() -> Result<(), String> {
 }
 
 pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), String> {
-    let mut contents = String::from("#preset\n");
+    let mut contents = String::new();
 
     let existing = find_headers(true)?;
 

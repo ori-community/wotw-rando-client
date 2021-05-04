@@ -1,6 +1,6 @@
 target/*
 rls/*
-tokens.txt
+presets/
 *.wotwr
 *.log
 .currentseedpath

@@ -87,11 +87,10 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     if old_settings.flags.world_tour { goalmodes.insert(GoalMode::Relics); }
 
     Ok(Settings {
-        version: String::from("0.0.0"),
+        version: None,
         pathsets,
         goalmodes,
         spoilers: old_settings.spoilers,
-        output_folder: old_settings.output_folder,
         web_conn: old_settings.web_conn,
         spawn_loc,
         hard: false,
@@ -99,22 +98,28 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     })
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum Spawn {
     Set(String),
     Random,
     FullyRandom,
 }
+impl Default for Spawn {
+    fn default() -> Spawn {
+        Spawn::Set(DEFAULT_SPAWN.to_string())
+    }
+}
 
+// TODO output folder?
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
-    pub version: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub version: Option<String>,
     #[serde(flatten)]
     pub pathsets: Pathsets,
     pub goalmodes: FxHashSet<GoalMode>,
     pub spawn_loc: Spawn,
-    pub output_folder: PathBuf,
     pub spoilers: bool,
     pub web_conn: bool,
     pub hard: bool,
@@ -123,33 +128,39 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Settings {
         Settings {
-            version: env!("CARGO_PKG_VERSION").to_string(),
+            version: None,
             pathsets: Pathsets::default(),
             goalmodes: FxHashSet::default(),
-            spawn_loc: Spawn::Set(DEFAULT_SPAWN.to_string()),
-            output_folder: PathBuf::default(),
+            spawn_loc: Spawn::default(),
             spoilers: true,
             web_conn: false,
             hard: false,
-            header_list: vec![PathBuf::from("default")],
+            header_list: Vec::default(),
         }
     }
 }
-pub fn read(seed: &Path) -> Result<Settings, String> {
-    let content = super::read_file(seed, "seeds")?;
-    let mut settings = Settings::default();
-    for line in content.lines() {
-        if let Some(config) = line.strip_prefix("// Config: ") {
-            settings = serde_json::from_str(&config).or_else(|err| {  // read directly or fall back to reading old settings
-                read_old(&config).map_err(|_| format!("Failed to read settings from {}: {}", seed.display(), err))
-            })?;
+impl Settings {
+    pub fn from_seed(seed: &Path) -> Result<Settings, String> {
+        let content = super::read_file(seed, "seeds")?;
+        let mut settings = Settings::default();
+        for line in content.lines() {
+            if let Some(config) = line.strip_prefix("// Config: ") {
+                settings = serde_json::from_str(&config).or_else(|err| {  // read directly or fall back to reading old settings
+                    read_old(&config).map_err(|_| format!("Failed to read settings from {}: {}", seed.display(), err))
+                })?;
+            }
         }
+        Ok(settings)
     }
-    Ok(settings)
+    pub fn from_preset(preset: &Path) -> Result<Settings, String> {
+        let content = super::read_file(preset, "presets")?;
+        serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
+    }
+    pub fn write(settings: &Settings) -> Result<String, String> {
+        serde_json::to_string(settings).map_err(|err| format!("Invalid Settings: {}", err))
+    }
 }
-pub fn write(settings: &Settings) -> Result<String, serde_json::Error> {
-    serde_json::to_string(settings)
-}
+
 pub fn read_spawn(seed: &Path) -> Result<String, String> {
     let content = super::read_file(seed, "seeds")?;
     for line in content.lines() {

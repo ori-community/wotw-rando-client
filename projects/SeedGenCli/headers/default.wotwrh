@@ -1,8 +1,7 @@
-#preset
 /// Default Headers
 ///
-/// the recommended default for beginners
+/// headers which are almost always used
 !!include hints
-!!include spawn_with_sword
 !!include teleporters
 !!include black_market
+!!include qol
