@@ -70,7 +70,7 @@ namespace RandoMainDLL {
 !p::signal := ""progressAndHints""         ; shows your progress on completing the seed (# of pickups, 
                                        ; goal mode progress) and any hints you've purchased 
 ; !c => alt + c
-^c::signal := ""warpCredits""              ; skips the ending cutscene/crawl and warps you to the credits
+!c::signal := ""warpCredits""              ; skips the ending cutscene/crawl and warps you to the credits
                                        ; will not work if you haven't beaten the game yet
                                     
 ;; ====== variable function hotkeys ======
