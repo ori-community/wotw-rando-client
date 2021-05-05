@@ -1,0 +1,195 @@
+﻿using RandoMainDLL.Memory;
+
+namespace RandoMainDLL {
+  public enum EnemyType {
+    Mantis,
+    ShockMantis,
+    Slime,
+    SpikeSlime,
+    DropSlime,
+    BombSlime,
+    ShellSlime,
+    SneezeSlug,
+    SpiderBat,
+    Hornbug,
+    Lizard,
+    Sandworm,
+    Waterworm,
+    SmallSkeeto,
+    Skeeto,
+    MortarSlug,
+    Fish,
+    Bee,
+    Crab,
+    SpinningCrab,
+    Tentacle,
+    Spiderling,
+    Balloon,
+    Miner,
+    ShieldMiner,
+    Elemental,
+    Baneling,
+    Scourge,
+    Unknown
+  }
+
+  public static class StatsTracking {
+    public static void OnKill(string name, DamageType dt) {
+      name = name.Replace("(Clone)", "");
+      var et = EnemyFromName(name);
+      if (et == EnemyType.Unknown && Randomizer.Dev)
+        Randomizer.Log($"Unknown Enemy {name}");
+      UberInc.Int(10, 10); // enemies killed
+      switch(et) {
+        case EnemyType.Miner:
+        case EnemyType.ShieldMiner:
+          UberInc.Int(10, 40);
+          break;
+        case EnemyType.Skeeto:
+        case EnemyType.SmallSkeeto:
+        case EnemyType.Bee:
+          UberInc.Int(10, 41);
+          break;
+        case EnemyType.Tentacle:
+          UberInc.Int(10, 42);
+          break;
+        case EnemyType.DropSlime:
+        case EnemyType.ShellSlime:
+        case EnemyType.Slime:
+        case EnemyType.SpikeSlime:
+          UberInc.Int(10, 43);
+          break;
+        case EnemyType.Fish:
+        case EnemyType.Waterworm:
+          UberInc.Int(10, 44);
+          break;
+        case EnemyType.Balloon:
+        case EnemyType.Baneling:
+          UberInc.Int(10, 45);
+          break;
+        case EnemyType.Scourge: // is both a flier and explosive
+          UberInc.Int(10, 41);
+          UberInc.Int(10, 45);
+          break;
+        case EnemyType.BombSlime: // is both a slime and explosive
+          UberInc.Int(10, 43);
+          UberInc.Int(10, 45);
+          break;
+
+        default:
+          break;
+      }
+      switch(dt) {
+        case DamageType.Sword:
+          UberInc.Int(10, 11);
+          break;
+        case DamageType.Hammer:
+          UberInc.Int(10, 12);
+          break;
+        case DamageType.Bow:
+          UberInc.Int(10, 13);
+          break;
+        case DamageType.SpiritSpear:
+          UberInc.Int(10, 14);
+          break;
+        case DamageType.SpiritSentry:
+          UberInc.Int(10, 15);
+          break;
+        case DamageType.Blaze:
+          UberInc.Int(10, 16);
+          break;
+        case DamageType.Grenade:
+          UberInc.Int(10, 17);
+          break;
+        case DamageType.Heat:
+          UberInc.Int(10, 18);
+          break;
+        case DamageType.Chakram:
+          UberInc.Int(10, 19);
+          break;
+        case DamageType.ChargeJump:
+          UberInc.Int(10, 20);
+          break;
+        case DamageType.Glow:
+          UberInc.Int(10, 21);
+          break;
+        case DamageType.Projectile:
+          UberInc.Int(10, 22);
+          break;
+        case DamageType.Water:
+          UberInc.Int(10, 23);
+          break;
+        default:
+          break;
+
+      }
+    } 
+    public static EnemyType EnemyFromName(string name) {
+      switch(name) {
+        case "mantisEntity":
+          return EnemyType.Mantis;
+        case "slugEntity":
+          return EnemyType.Slime;
+        case "spikeSlugEntity":
+          return EnemyType.SpikeSlime;
+        case "spiderBatEntity":
+          return EnemyType.SpiderBat;
+        case "hornBugEntity":
+          return EnemyType.Hornbug;
+        case "sandWormEntity":
+          return EnemyType.Sandworm;
+        case "skeetoEntity":
+          return EnemyType.Skeeto;
+        case "sneezeSlugEntity":
+          return EnemyType.SneezeSlug;
+        case "shellSlugEntity":
+          return EnemyType.ShellSlime;
+        case "bombSlugEntity":
+          return EnemyType.DropSlime;
+        case "dropSlugEntity":
+          return EnemyType.BombSlime;
+        case "mortarEntity":
+          return EnemyType.MortarSlug;
+        case "piranhaEntity":
+          return EnemyType.Fish;
+        case "turtleLizardEntity":
+          return EnemyType.Lizard;
+        case "waterWormEntity":
+          return EnemyType.Waterworm;
+        case "smallSkeetoEntity":
+          return EnemyType.SmallSkeeto;
+        case "shockwaveMantis":
+          return EnemyType.ShockMantis;
+        case "scaredySkeetoEntity":
+          return EnemyType.Bee;
+        case "spinningCrabEntity":
+          return EnemyType.SpinningCrab;
+        case "tentacleVariationEntity":
+        case "tentacleEntity":
+          return EnemyType.Tentacle;
+        case "crabEntity":
+          return EnemyType.Crab;
+        case "spiderlingEntity":
+          return EnemyType.Spiderling;
+        case "gasballEntity":
+          return EnemyType.Balloon;
+        case "corruptPickaxeShieldMinerEntity":
+        case "icyFeralPickaxeShieldMinerEntity":
+          return EnemyType.ShieldMiner;
+        case "corruptShockwaveMinerEntity":
+        case "corruptPickaxeGrenadeMinerEntity":
+        case "feralPickaxeGrenadeMinerEntity":
+        case "feralPickaxeMinerEntity":
+          return EnemyType.Miner;
+        case "laserShooterEntity":
+          return EnemyType.Elemental;
+        case "rollingTurtleEntity":
+          return EnemyType.Baneling;
+        case "kamikazeSkeetoEntity":
+          return EnemyType.Scourge;
+        default:
+          return EnemyType.Unknown;
+      }
+    }
+  }
+}
