@@ -3,6 +3,8 @@ use std::{
     path::PathBuf,
 };
 
+use rand::Rng;
+
 use crate::world::World;
 use crate::inventory::Item;
 use crate::util::{
@@ -425,21 +427,156 @@ fn parse_count(pickup: &mut &str) -> u16 {
     1
 }
 
-pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Result<(String, Vec<String>, HashSet<PathBuf>), String> {
+#[inline]
+fn apply_take_commands<R>(line: &str, pool: &mut Vec<String>, rng: &mut R) -> Result<String, String>
+where R: Rng + ?Sized
+{
+    let mut parts = line.split("!!take");
+
+    let mut processed = parts.next().unwrap().to_string();
+
+    for part in parts {
+        let length = pool.len();
+        if length == 0 {
+            return Err(format!("Tried to !!take on an empty !!pool in line {}", line));
+        }
+        let index = rng.gen_range(0..length);
+        let item = pool.remove(index);
+        processed += &item;
+        processed += part;
+    }
+
+    Ok(processed)
+}
+
+#[inline]
+fn include_command(include: &str, dependencies: &mut HashSet<PathBuf>) {
+    let mut path = PathBuf::from(include);
+    path.set_extension("wotwrh");
+    dependencies.insert(path);
+}
+#[inline]
+fn add_command(mut pickup: &str, world: &mut World, pathsets: &Pathsets) -> Result<(), String> {
+    let count = parse_count(&mut pickup);
+    let item = parse_pickup(pickup, false)?;
+
+    log::trace!("adding {}{} to the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
+
+    world.pool.grant(item, count, pathsets);
+
+    Ok(())
+}
+#[inline]
+fn remove_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
+    let count = parse_count(&mut pickup);
+    let item = parse_pickup(pickup, false)?;
+
+    log::trace!("removing {}{} from the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
+
+    world.pool.remove(&item, count);
+
+    Ok(())
+}
+// TODO documentation
+#[inline]
+fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
+    let count = parse_count(&mut string);
+
+    let mut variants = vec![string.to_string()];
+
+    loop {
+        let mut next_variants = Vec::new();
+
+        for variant in variants.iter() {
+            if let Some(end_index) = variant.find('}') {
+                if let Some(start_index) = variant[..end_index].rfind('{') {
+                    let mut bounds = variant[start_index + 1..end_index].split('-');
+
+                    let lower = bounds.next().unwrap();
+                    let upper = bounds.next().unwrap_or(lower);
+                    let lower = lower.parse::<char>().map_err(|_| format!("Invalid range boundary {} in pool command {}", lower, string))?;
+                    let upper = upper.parse::<char>().map_err(|_| format!("Invalid range boundary {} in pool command {}", upper, string))?;
+
+                    let mut results = Vec::new();
+                    for item in lower..=upper {
+                        let mut result = variant[..start_index].to_string();
+                        result.push(item);
+                        result += &variant[end_index + 1..];
+                        results.push(result);
+                    }
+
+                    next_variants.append(&mut results);
+                } else { break; }
+            } else { break; }
+        }
+
+        if next_variants.is_empty() {
+            break;
+        } else {
+            variants = next_variants;
+        }
+    }
+
+    variants.reserve(usize::from(count - 1) * variants.len());
+    for _ in 1..count {
+        variants.append(&mut variants.clone());
+    }
+
+    pool.append(&mut variants);
+
+    Ok(())
+}
+#[inline]
+fn addpool_command<R>(mut amount: &str, world: &mut World, pathsets: &Pathsets, pool: &mut Vec<String>, rng: &mut R) -> Result<(), String>
+where R: Rng + ?Sized
+{
+    let count = parse_count(&mut amount);
+
+    if !amount.trim().is_empty() {
+        return Err(format!("Invalid amount in addpool command {}", amount));
+    }
+
+    for _ in 0..count {
+        let length = pool.len();
+        if length == 0 {
+            return Err(format!("Tried to !!take on an empty !!pool in addpool command {}", amount));
+        }
+        let index = rng.gen_range(0..length);
+        let item = pool.remove(index);
+
+        add_command(&item, world, pathsets).map_err(|err| format!("{} (from addpool command)", err))?;
+    }
+
+    Ok(())
+}
+#[inline]
+fn flush_command(pool: &mut Vec<String>) {
+    pool.clear();
+}
+#[inline]
+fn set_command() {
+    log::warn!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
+}
+
+pub fn parse_header<R>(header: &str, world: &mut World, pathsets: &Pathsets, rng: &mut R) -> Result<(String, Vec<String>, HashSet<PathBuf>), String>
+where R: Rng + ?Sized
+{
     let mut processed = String::with_capacity(header.len());
     let mut flags = Vec::new();
     let mut dependencies = HashSet::new();
+    let mut pool = Vec::new();
     let mut first_line = true;
 
     for line in header.lines() {
-        let line = line.trim();
+        let line = apply_take_commands(line, &mut pool, rng)?;
+
+        let mut trimmed = line.trim();
 
         if first_line {
             first_line = false;
             if line.starts_with('#') { continue; }
         }
 
-        let mut trimmed = line;
         if let Some(index) = trimmed.find("//") {
             trimmed = &trimmed[..index];
         }
@@ -449,28 +586,22 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Res
                 flags.push(flag.trim().to_string());
             }
         } else if let Some(command) = trimmed.strip_prefix("!!") {
-             if let Some(include) = command.strip_prefix("include ") {
-                let mut path = PathBuf::from(include);
-                path.set_extension("wotwrh");
-                dependencies.insert(path);
-            } else if let Some(mut pickup) = command.strip_prefix("add ") {
-                let count = parse_count(&mut pickup);
-                let item = parse_pickup(pickup, false)?;
-
-                log::trace!("adding {}{} to the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
-
-                world.pool.grant(item, count, pathsets);
-            } else if let Some(mut pickup) = command.strip_prefix("remove ") {
-                let count = parse_count(&mut pickup);
-                let item = parse_pickup(pickup, false)?;
-
-                log::trace!("removing {}{} from the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
-
-                world.pool.remove(&item, count);
+            if let Some(include) = command.strip_prefix("include ") {
+                include_command(include, &mut dependencies);
+            } else if let Some(pickup) = command.strip_prefix("add ") {
+                add_command(pickup, world, pathsets)?;
+            } else if let Some(pickup) = command.strip_prefix("remove ") {
+                remove_command(pickup, world)?;
+            } else if let Some(string) = command.strip_prefix("pool ") {
+                pool_command(string, &mut pool)?;
+            } else if let Some(amount) = command.strip_prefix("addpool ") {
+                addpool_command(amount, world, pathsets, &mut pool, rng)?;
+            } else if command.trim() == "flush" {
+                flush_command(&mut pool);
             } else if command.starts_with("set ") {
-                log::warn!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
+                set_command();
             } else {
-                return Err(format!("Unknown command {}", command))
+                return Err(format!("Unknown command {}", command));
             }
         } else if let Some(ignored) = line.strip_prefix('!') {
             processed += ignored;
@@ -516,7 +647,7 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Res
 
                 world.preplace(uber_state, item);
             }
-            processed += line;
+            processed += &line;
             processed.push('\n');
         }
     }
@@ -526,7 +657,9 @@ pub fn parse_header(header: &str, world: &mut World, pathsets: &Pathsets) -> Res
 }
 
 pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
+    // TODO the black market variants collide, maybe some kind of #exclude?
     let mut occupied_states = Vec::new();
+    let mut pool = Vec::new();
 
     let mut first_line = true;
     let mut skip_line = false;
@@ -556,7 +689,7 @@ pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
         }
 
         if let Some(command) = trimmed.strip_prefix("!!") {
-             if let Some(include) = command.strip_prefix("include ") {
+            if let Some(include) = command.strip_prefix("include ") {
                 let mut path = PathBuf::from(include);
                 path.set_extension("wotwrh");
                 util::read_file(&path, "headers")?;
@@ -566,6 +699,12 @@ pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
             } else if let Some(mut pickup) = command.strip_prefix("remove ") {
                 parse_count(&mut pickup);
                 parse_pickup(pickup, false)?;
+            } else if let Some(string) = command.strip_prefix("pool ") {
+                // TODO determinate validation would be nice?
+                pool_command(string, &mut pool)?;
+            } else if let Some(_) = command.strip_prefix("addpool ") {
+            } else if command.trim() == "flush" {
+                flush_command(&mut pool);
             } else if command.starts_with("set ") {
                 return Err(String::from("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for."));
             } else {
@@ -663,6 +802,8 @@ mod tests {
     use super::*;
     use crate::*;
 
+    use rand::thread_rng;
+
     use util::*;
     use inventory::Inventory;
 
@@ -671,7 +812,7 @@ mod tests {
         let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut world, &Pathsets::default()).unwrap();
+        parse_header(&header, &mut world, &Pathsets::default(), &mut thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);

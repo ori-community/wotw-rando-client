@@ -132,7 +132,9 @@ pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(
     Ok(())
 }
 
-pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings) -> Result<(String, Vec<String>), String> {
+fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Vec<String>), String>
+where R: Rng + ?Sized
+{
     let mut header_block = String::new();
     let mut custom_flags = Vec::new();
     let mut total_dependencies = HashSet::new();
@@ -140,7 +142,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let (header, mut flags, dependencies) = headers::parser::parse_header(header, world, &settings.pathsets).map_err(|err| format!("{} in inline header", err))?;
+        let (header, mut flags, dependencies) = headers::parser::parse_header(header, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
         custom_flags.append(&mut flags);
@@ -152,7 +154,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
         log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {}", path.display()))?.to_string_lossy());
 
         let header = util::read_file(&path, "headers")?;
-        let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
+        let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets, rng).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
 
         header_block += &header;
         custom_flags.append(&mut flags);
@@ -166,7 +168,7 @@ pub fn parse_headers(world: &mut World, headers: &[String], settings: &Settings)
             log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {}", dependency.display()))?.to_string_lossy());
 
             let header = util::read_file(&dependency, "headers")?;
-            let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets)?;
+            let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets, rng)?;
 
             header_block += &header;
             custom_flags.append(&mut flags);
@@ -191,7 +193,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     world.pool = Pool::preset(&settings.pathsets);
     world.player.spawn(settings);
 
-    let (header_block, custom_flags) = parse_headers(&mut world, headers, settings)?;
+    let (header_block, custom_flags) = parse_headers(&mut world, headers, settings, &mut rng)?;
 
     let flag_line = write_flags(settings, custom_flags);
 
