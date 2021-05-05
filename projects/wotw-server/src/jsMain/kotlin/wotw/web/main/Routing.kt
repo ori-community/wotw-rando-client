@@ -1,8 +1,6 @@
 package wotw.web.main
 
 import kotlinx.browser.window
-import kotlinx.css.Gap
-import kotlinx.css.gap
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -14,25 +12,21 @@ import react.dom.ol
 import react.router.dom.browserRouter
 import react.router.dom.route
 import react.router.dom.switch
-import styled.css
 import styled.styledP
 import wotw.web.ui.TempHeaderComp
-import wotw.web.ui.bingo.*
-import wotw.web.util.hbox
+import wotw.web.ui.bingo.BingoView
+import wotw.web.ui.bingo.GameIdProps
+import wotw.web.ui.bingo.PlayerIdProps
+import wotw.web.ui.bingo.PlayersComponent
 
 class RootComponent : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         browserRouter {
             switch {
                 route<PlayerIdProps>("/bingo/latest/:playerId?") { props ->
-                    hbox {
-                        css {
-                            gap = Gap("10px")
-                        }
-                        child(BingoCardComponent::class) {
-                            attrs.useLatest = true
-                            attrs.playerId = props.match.params.playerId
-                        }
+                    child(BingoView::class) {
+                        attrs.useLatest = true
+                        attrs.playerId = props.match.params.playerId
                     }
                 }
                 route<GameIdProps>("/bingo/:gameId/spectate") { props ->

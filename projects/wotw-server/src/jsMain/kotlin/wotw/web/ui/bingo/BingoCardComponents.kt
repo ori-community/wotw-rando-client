@@ -22,14 +22,19 @@ external interface GameIdProps : RProps {
     var spectate: Boolean
 }
 
+external interface BingoViewProps: GameIdProps{
+    var useLatest: Boolean
+    var playerId: Long?
+}
+
 external interface PlayerIdProps : RProps {
     var playerId: Long?
 }
 
 external interface BingoCardProps : GameIdProps {
     var useLatest: Boolean?
-    var sortedPlayerList: List<Long>?
     var playerId: Long?
+    var sortedPlayerList: List<Long>?
 }
 
 external interface BingoCardState : RState {
@@ -61,7 +66,11 @@ external interface BingoViewState: RState{
     var sortedPlayerList: List<Long>?
 }
 
-class BingoView : RComponent<GameIdProps, BingoViewState>() {
+class BingoView : RComponent<BingoViewProps, BingoViewState>() {
+    override fun BingoViewState.init(props: BingoViewProps){
+        trackedPlayer = props.playerId
+    }
+
     override fun RBuilder.render() {
         vbox {
             hbox {
@@ -70,14 +79,15 @@ class BingoView : RComponent<GameIdProps, BingoViewState>() {
                 }
                 child(BingoCardComponent::class) {
                     attrs.gameId = props.gameId
-                    attrs.playerId = state.trackedPlayer
+                    attrs.playerId = state.trackedPlayer ?: props.playerId
                     attrs.spectate = props.spectate
                     attrs.sortedPlayerList = state.sortedPlayerList
+                    attrs.useLatest = props.useLatest
                 }
                 child(BingoPlayersComponent::class) {
                     attrs.gameId = props.gameId
-                    attrs.spectate = props.spectate
-                    if(props.spectate) {
+                    attrs.spectate = props.spectate || props.useLatest
+                    if(!props.spectate && !props.useLatest) {
                         attrs.highlightCallback = {
                             setState {
                                 trackedPlayer = it
