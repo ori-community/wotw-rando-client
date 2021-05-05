@@ -1,6 +1,7 @@
 #include <dll_main.h>
 #include <Common/ext.h>
 #include <csharp_bridge.h>
+#include <unordered_map>
 #include <features/input_poller.h>
 #include <features/messages.h>
 
@@ -11,11 +12,22 @@ using namespace modloader;
 
 namespace
 {
-    IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, int32_t areaID))
+    IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, app::GameWorldAreaID__Enum areaID))
     IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
     IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));
 
     app::GameWorld* game_world_instance = 0;
+    std::unordered_map<app::GameWorldAreaID__Enum, int> saved_area_prices;
+
+    void set_lupo_price(app::GameWorldAreaID__Enum area, int32_t price)
+    {
+        auto* gw_area = GameWorld::GetArea(game_world_instance, area);
+        if (gw_area != nullptr)
+        {
+            gw_area->fields.LupoData.AreaMapSpiritLevelCost = price;
+            gw_area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = price;
+        }
+    }
 
     bool found_game_world()
     {
@@ -27,10 +39,12 @@ namespace
 	    {
             trace(MessageType::Debug, 5, "game", "Found GameWorld instance!");
 		    game_world_instance = thisPtr;
+            for (const auto& pair : saved_area_prices)
+                set_lupo_price(pair.first, pair.second);
 	    }
 	    GameWorld::Awake(thisPtr);
     }
-
+    
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon* thisPtr, app::AreaMapUI* areaMap)) {
         return true;
     }
@@ -39,9 +53,10 @@ namespace
     bool discover_everything() {
 	    if (game_world_instance)
 	    {
+            // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
 		    for (int32_t i = 0; i <= 15; i++)
 		    {
-			    auto area = GameWorld::GetArea(game_world_instance, i);
+			    auto area = GameWorld::GetArea(game_world_instance, static_cast<app::GameWorldAreaID__Enum>(i));
 			    if (!area) {
 				    //Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
 				    continue;
@@ -138,4 +153,11 @@ namespace
             //quest_cache = nullptr;
         }
     }
+}
+
+INJECT_C_DLLEXPORT void set_lupo_area_price(app::GameWorldAreaID__Enum area, int32_t price)
+{
+    saved_area_prices[area] = price;
+    if (game_world_instance != nullptr)
+        set_lupo_price(area, price);
 }
