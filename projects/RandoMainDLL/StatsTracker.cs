@@ -127,6 +127,7 @@ namespace RandoMainDLL {
     public static EnemyType EnemyFromName(string name) {
       switch(name) {
         case "mantisEntity":
+        case "multiJumpMantis":
           return EnemyType.Mantis;
         case "slugEntity":
           return EnemyType.Slime;
@@ -158,6 +159,7 @@ namespace RandoMainDLL {
           return EnemyType.Waterworm;
         case "smallSkeetoEntity":
           return EnemyType.SmallSkeeto;
+        case "multiJumpShockwaveMantis":
         case "shockwaveMantis":
           return EnemyType.ShockMantis;
         case "scaredySkeetoEntity":
