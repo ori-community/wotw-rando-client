@@ -18,6 +18,7 @@ namespace csharp_bridge
     signatures::f_bool water_cleansed = nullptr;
     signatures::f_void_gwa on_map_pan = nullptr;
     signatures::f_void_string_dt on_enemy_death = nullptr;
+    signatures::f_void_string_dt on_player_death = nullptr;
 
     // Save system
     signatures::f_void_int new_game = nullptr;
@@ -129,4 +130,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_teleporter_activated = reinterpret_cast<f_void_string>(ptr);
     else if (name == "on_enemy_death")
         on_enemy_death = reinterpret_cast<f_void_string_dt>(ptr);
+    else if (name == "on_player_death")
+        on_player_death = reinterpret_cast<f_void_string_dt>(ptr);
 }
