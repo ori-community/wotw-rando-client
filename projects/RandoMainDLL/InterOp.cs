@@ -59,6 +59,9 @@ namespace RandoMainDLL {
     public extern static void set_equipment(EquipmentType ability, bool value);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_lupo_area_price(AreaType area, int price);
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr get_current_hint();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
