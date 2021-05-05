@@ -170,39 +170,28 @@ namespace RandoMainDLL {
     }
   }
 
-  public class UberStateSetter : Pickup {
-    public readonly UberState State;
+  public class UberStateModifier : Pickup {
+    public readonly UberId Id;
     public override PickupType Type => PickupType.UberState;
     public override int Frames { get => 0; }
-    public int supCount = 0;
-    public UberStateSetter(UberState state, int sup = 0) {
-      State = state;
-      supCount = sup;
-    }
-    public override void Grant(bool skipBase = false) {
-      var id = State.GetUberId();
-      UberStateController.SkipUberStateMapCount[id] = supCount;
-      InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
-    }
-    public override string DisplayName { get => ""; }
-    public override string Name { get => $"{State.GroupID},{State.ID} -> {State.FmtVal()}"; }
-  }
+    public int SupCount = 0;
 
-  public class UberStateModifier : UberStateSetter {
-    Func<UberValue, UberValue> Modifier;
+    Func<UberValue, float> Modifier;
+
     string ModStr;
 
-    public UberStateModifier(UberState state, Func<UberValue, UberValue> modifier, String modstr, int supCount = 0) : base(state, supCount) {
+    public UberStateModifier(UberId id, Func<UberValue, float> modifier, String modstr, int supCount = 0) {
+      Id = id;
+      SupCount = supCount;
       Modifier = modifier;
       ModStr = modstr;
     }
     public override void Grant(bool skipBase = false) {
-      var id = State.GetUberId();
-      UberStateController.SkipUberStateMapCount[id] = supCount;
-      State.Value = Modifier(State.ValueOr(State.Value));
-      InterOp.set_uber_state_value(State.GroupID, State.ID, State.ValueAsFloat());
+      UberStateController.SkipUberStateMapCount[Id] = SupCount;
+      InterOp.set_uber_state_value(Id.GroupID, Id.ID, Modifier(UberGet.value(Id)));
     }
-    public override string Name { get => $"{State.GroupID},{State.ID} -> {ModStr}"; }
+    public override string DisplayName { get => ""; }
+    public override string Name { get => $"{Id.GroupID},{Id.ID} -> {ModStr}"; }
   }
 
 
@@ -313,7 +302,7 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Message;
 
-    private static Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,]([0-9]+)\)");
+    private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)\)", RegexOptions.Compiled);
     public override string DisplayName { get => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal()); }
   }
 

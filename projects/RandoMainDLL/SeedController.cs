@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Configuration;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Newtonsoft.Json;
 using RandoMainDLL.Memory;
@@ -139,7 +141,10 @@ namespace RandoMainDLL {
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
-
+            var ptrRegex = new Regex(@"\$\(([0-9]+)\|([0-9]+)\)", RegexOptions.Compiled);
+            if(ptrRegex.IsMatch(line)) {
+              line = Regex.Replace(line, @"\$\(([0-9]+)\|([0-9]+)\)", "$($1;$2)");
+            }
             var frags = line.Split('|').ToList();
             var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
             var pickupType = (PickupType)frags[2].ParseToByte();
@@ -225,6 +230,7 @@ namespace RandoMainDLL {
 
 
     public static Pickup BuildPickup(PickupType type, string pickupData, List<String> extras, UberStateCondition cond) {
+      
       switch (type) {
         case PickupType.Ability:
           return Ability.Build(pickupData);
@@ -446,48 +452,9 @@ namespace RandoMainDLL {
               stateParts[0].ParseToInt("BuildPickup.UberGroupId"),
               stateParts[1].ParseToInt("BuildPickup.UberId")
             );
-          UberValue val = new UberValue();
-          bool isModifier = stateParts[3].StartsWith("+") || stateParts[3].StartsWith("-");
-          int sign = stateParts[3].StartsWith("-") ? -1 : 1;
-          Func<UberValue, UberValue> modifier = null;
-          var rawVal = isModifier ? stateParts[3].Substring(1) : stateParts[3];
           var stateType = uberTypeFromString(stateParts[2]);
-          switch (stateType) {
-            case UberStateType.SerializedBooleanUberState:
-              if (isModifier)
-                Randomizer.Warn("BuildPickup.UberValue", $"Error parsing {pickupData}: {stateParts[2]} is not a valid modifier type");
-              val.Bool = rawVal.ParseToBool("BuildPickup.UberValue<Bool>");
-              break;
-            case UberStateType.SerializedByteUberState:
-              val.Byte = rawVal.ParseToByte("BuildPickup.UberValue<Byte>");
-              if (isModifier)
-                modifier = (UberValue old) => new UberValue(old.Byte + sign * val.Byte);
-              break;
-            case UberStateType.SavePedestalUberState:
-              if (isModifier)
-                Randomizer.Warn("BuildPickup.UberValue", $"Error parsing {pickupData}: {stateParts[2]} is not a valid modifier type");
-              val.Byte = rawVal.ParseToBool("BuildPickup.UberValue<Teleporter>") ? (byte)1 : (byte)0;
-              break;
-            case UberStateType.SerializedIntUberState:
-              val.Int = rawVal.ParseToInt("BuildPickup.UberValue<Int>");
-              if (isModifier)
-                modifier = (UberValue old) => new UberValue(old.Int + sign * val.Int);
-              break;
-            case UberStateType.SerializedFloatUberState:
-              val.Float = rawVal.ParseToFloat("BuildPickup.UberValue<Float>");
-              if (isModifier)
-                modifier = (UberValue old) => new UberValue(old.Float + sign * val.Float);
-              break;
-            default:
-              Randomizer.Warn("BuildPickup", $"unknown ubervalue type {stateParts[2]}, assuming Int");
-              val.Int = rawVal.ParseToInt("BuildPickup.UberValue<Int>");
-              break;
-          }
-          var state = new UberState() { ID = uberId.ID, GroupID = uberId.GroupID, Type = stateType, Value = val };
-          var supCount = stateParts.Count > 4 ? stateParts[4].Replace("skip=", "").ParseToInt("SuppressionCounter") : 0;
-          if (isModifier && modifier != null)
-            return new UberStateModifier(state, modifier, stateParts[3]);
-          return new UberStateSetter(state, supCount);
+          Func<UberValue, float> modifier = GetUberSetter(stateType, stateParts[3]);
+          return new UberStateModifier(uberId, modifier, stateParts[3]);
         default:
           Randomizer.Error("BuildPickup", $"seed parse failure: unknown pickup {type}|{pickupData}!!!", false);
           return new Message($"Unknown pickup {type}|{pickupData}!!!");
@@ -510,6 +477,118 @@ namespace RandoMainDLL {
           return UberStateType.SerializedIntUberState;
       }
     }
+
+    private static Random UberRand = new Random();
+
+    private static Func<UberValue, float> GetUberSetter(UberStateType type, string mod) {
+      bool isModifier = mod.StartsWith("+") || mod.StartsWith("-");
+      int sign = mod.StartsWith("-") ? -1 : 1;
+      if (isModifier)
+        mod = mod.Substring(1);
+      Regex rangeRegex = new Regex(@"\[([^,\]]+),([^,\]]+)\]");
+      var m = rangeRegex.Match(mod);
+      var start = genFromFrag(m.Groups[1].Value, type);
+      var end = genFromFrag(m.Groups[2].Value, type);
+
+      if (m.Success) {
+        switch(type) {
+          case UberStateType.SerializedBooleanUberState:
+          case UberStateType.SavePedestalUberState:
+            if (isModifier)
+              Randomizer.Warn("GetUberSetter.Rand", $"Error parsing {mod}: {type} is binary and can't be modded. Randomizing...");
+            return (UberValue v) => UberRand.Next(1) > 0 ? 1f : 0f;
+          case UberStateType.SerializedByteUberState:
+            return (UberValue old) => {
+              byte lo = Convert.ToByte(start());
+              byte hi = Convert.ToByte(end());
+              if (lo > hi)
+                (lo, hi) = (hi, lo);
+              byte rval = (byte)UberRand.Next(lo, hi);
+              if (isModifier)
+                return Convert.ToSingle(old.Byte + sign * rval);
+              return Convert.ToSingle(rval);
+            };
+          case UberStateType.SerializedIntUberState:
+            return (UberValue old) => {
+              int lo = Convert.ToInt32(start());
+              int hi = Convert.ToInt32(end());
+              if (lo > hi)
+                (lo, hi) = (hi, lo);
+              int rval = UberRand.Next(lo, hi);
+              if (isModifier)
+                return Convert.ToSingle(old.Int + sign * rval);
+              return Convert.ToSingle(rval);
+            };
+          case UberStateType.SerializedFloatUberState:
+              return (UberValue old) => {
+                float lo = start();
+                float hi = end();
+                if(lo > hi) 
+                  (lo, hi) = (hi, lo);
+                float rval = lo + (float)UberRand.NextDouble() * (hi - lo);
+                if (isModifier)
+                  return old.Float + sign * rval;
+                return rval;
+              };
+        }
+      }
+      var target = genFromFrag(mod, type);
+      switch (type) {
+        case UberStateType.SerializedBooleanUberState:
+        case UberStateType.SavePedestalUberState:
+          if (isModifier)
+            Randomizer.Warn("GetUberSetter.Rand", $"Error parsing {mod}: {type} is binary and can't be modded. Randomizing...");
+          return (UberValue v) => target() > 0 ? 1f : 0f;
+        case UberStateType.SerializedByteUberState:
+          return (UberValue old) => {
+            byte rval = Convert.ToByte(target());
+            if (isModifier)
+              return Convert.ToSingle(old.Byte + sign * rval);
+            return Convert.ToSingle(rval);
+          };
+        case UberStateType.SerializedIntUberState:
+          return (UberValue old) => {
+            int rval = Convert.ToInt32(target());
+            if (isModifier)
+              return Convert.ToSingle(old.Int + sign * rval);
+            return Convert.ToSingle(rval);
+          };
+        case UberStateType.SerializedFloatUberState:
+          return (UberValue old) => {
+            float rval = target();
+            if (isModifier)
+              return old.Float + sign * rval;
+            return rval;
+          };
+      }
+      Randomizer.Error($"GetUberSetter({type}, {mod})", "fell through all cases, zeroing out...");
+      return (UberValue old) => 0f;
+    }
+
+    private static Func<float> genFromFrag(string frag, UberStateType targetType) {
+      Regex uberMsg = new Regex(@"\$\(([0-9]+);([0-9]+)\)", RegexOptions.Compiled);
+      var m = uberMsg.Match(frag);
+      if (m.Success) {
+        var uid = new UberId(m.Groups[1].Value.ParseToInt("genFromFrag.GID"), m.Groups[2].Value.ParseToInt("genFromFrag.GID"));
+        return () => UberGet.AsFloat(uid);
+      }
+      float ret;
+      switch (targetType) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return () => frag.ParseToBool("genFromFragRaw<Bool>") ? 1f : 0f;
+        case UberStateType.SerializedByteUberState:
+          return () => Convert.ToSingle(frag.ParseToByte("genFromFragRaw<Byte>"));
+        case UberStateType.SerializedIntUberState:
+          return () => Convert.ToSingle(frag.ParseToInt("genFromFragRaw<Int>"));
+        case UberStateType.SerializedFloatUberState:
+          return () => frag.ParseToFloat("genFromFragRaw<Float>");
+        default:
+          Randomizer.Warn("genFromFrag", $"unknown type {targetType}, can't meaningfully parse {frag}");
+          return () => 0f;
+      }
+    }
+
 
     public static bool DoesHowlExist() => HowlOverride || Flags.Contains(Flag.RAIN);
 
