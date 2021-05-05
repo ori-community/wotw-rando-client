@@ -176,9 +176,6 @@ namespace RandoMainDLL {
       switch (signal) {
         case "reload":
           if (FramesTillUnlockReload == 0) {
-            Engine.ExecRaw("Reload");
-            Engine.ExecRaw(Binds);
-
             iniFlagCache.Clear();
             FramesTillNextSend = 0;
             Randomizer.Client.Connect();
