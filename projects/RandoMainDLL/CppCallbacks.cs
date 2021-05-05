@@ -164,6 +164,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_str(UberStateController.OnTeleporterActivated),
             CallbackName = "on_teleporter_activated"
+          },
+          new Method() {
+            Delegate = new f_void_str_dt(StatsTracking.OnKill),
+            CallbackName = "on_enemy_death"
           }
         };
       }
@@ -177,6 +181,7 @@ namespace RandoMainDLL {
     public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
     public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
     public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);
+    public delegate void f_void_str_dt([MarshalAs(UnmanagedType.LPStr)] string str, DamageType dt);
     public delegate void f_void_st(ShardType st);
     public delegate void f_void_gwa(AreaType at);
     public delegate bool f_bool();
@@ -195,3 +200,5 @@ namespace RandoMainDLL {
     public delegate ulong f_ull_str_bool([MarshalAs(UnmanagedType.LPStr)] string str, bool b);
   }
 }
+
+

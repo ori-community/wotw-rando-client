@@ -229,6 +229,29 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "Squares", 0, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "Lines", 1, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "Rank", 2, 0),
+                    
+                    // murder tracking
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "Kills", 10, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "SwordKills", 11, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "HammerKills", 12, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "BowKills", 13, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "SpearKills", 14, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "SentryKills", 15, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "BlazeKills", 16, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "GrenadeKills", 17, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "BurnDoTKills", 18, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "ShurikenKills", 19, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "LaunchKills", 20, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "FlashKills", 21, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "BashKills", 22, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "DrownedEnemies", 23, 0),
+
+
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "MinerKills", 40, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "FlierKills", 41, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "TentaKills", 42, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "SlimeKills", 43, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::BINGO_STATE_GROUP_NAME, constants::BINGO_STATE_GROUP_ID, "FishKills", 44, 0),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "glades_tp_fix", 0, true),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "prevent_map_reactivate_tps", 1, false),
