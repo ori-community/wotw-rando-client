@@ -100,6 +100,8 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "Charge Blaze cost", 11115, 300),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "Rapid Sentry cost", 11116, 300),
 
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::OPHER_WEAPON_GROUP_NAME, constants::OPHER_WEAPON_GROUP_ID, "Has bought everything", 20000, false),
+
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "Energy", 26, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "Vitality", 22, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "Overcharge", 1, false),
@@ -117,6 +119,8 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "Finesse cost", 140, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "Swap cost", 105, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "LightHarvest cost", 119, 0),
+
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "Has bought everything", 20000, false),
 
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Rapid Smash", 0, 1),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Rapid Sword", 1, 1),
@@ -262,6 +266,7 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "HCMapIconCost", 19397,  0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ECMapIconCost", 57988,  0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ShardMapIconCost", 41667,  0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", "npcsStateGroup", 48248, "Has bought everything", 20000, false),
                 };
 
                 int i = 0;
