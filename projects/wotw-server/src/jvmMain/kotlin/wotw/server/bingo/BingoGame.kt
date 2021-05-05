@@ -2,9 +2,8 @@ package wotw.server.bingo
 
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable
-import wotw.io.messages.protobuf.BingoBoard
-import wotw.io.messages.protobuf.BingoSquare
-import wotw.io.messages.protobuf.Position
+import kotlin.math.max
+import kotlin.math.min
 
 typealias GameState = UberStateMap //These have changed *4 times* now, I'm keeping the typealiases :D
 
@@ -102,18 +101,28 @@ data class BoolGoal(override val title: String, private val key: Pair<Int, Int>)
 }
 
 @Serializable
-data class NumberThresholdGoal(override val title: String, private val expression: StateExpression, private val threshold: StateExpression, private val hide: Boolean = false) :
+data class NumberThresholdGoal(val text: String, private val expression: StateExpression, private val threshold: StateExpression, private val hide: Boolean = false) :
     BingoGoal() {
     override val keys = expression.keys + threshold.keys
     override fun isCompleted(state: GameState): Boolean {
         return expression.calc(state) >= threshold.calc(state)
     }
 
+    override val title: String by lazy{
+        val replacements = if(expression is AggregationExpression){
+            expression.names ?: emptyList()
+        }else emptyList()
+        text.replace("<\\d*>".toRegex()){
+            val index = it.groups[1]?.value?.toIntOrNull() ?: return@replace ""
+            replacements.getOrNull(index) ?: ""
+        }
+    }
+
     override fun printSubText(state: GameState):  Iterable<Pair<String, Boolean>>{
         return if (hide)
             emptyList()
         else{
-            listOf((expression.calc(state).toString().replace("NaN", "0") + " / " + threshold.calc(state).toString().replace("NaN", "0")) to false)
+            listOf((expression.calc(state).toLong().toString() + " / " + threshold.calc(state).toLong().toString()) to false)
         }
     }
 }
@@ -170,17 +179,6 @@ data class BingoCard(val goals: MutableMap<Point, BingoGoal> = hashMapOf(), val 
 
         return false
     }
-
-    fun toBingoBoard(gameState: GameState?): BingoBoard {
-        val gameState = gameState ?: UberStateMap.empty
-        return BingoBoard(goals.map { (position, goal) ->
-            Position(position.first, position.second) to BingoSquare(
-                goal.title,
-                goal.printSubText(gameState)
-                    .map { (text, completed) -> wotw.io.messages.protobuf.BingoGoal(text, completed) }
-            )
-        }.filter{goalVisible(it.first.x to it.first.y, gameState)}.toMap(), 5)
-    }
 }
 @Serializable
 data class BingoConfig(val lockout: Boolean = false,
@@ -203,6 +201,27 @@ sealed class StateExpression{
     operator fun times(other: StateExpression): StateExpression {
         return OperatorExpression(this, other, OperatorExpression.OPERATOR.TIMES)
     }
+}
+
+@Serializable
+class AggregationExpression(val aggr: Aggregation, val expressions: List<StateExpression>, val names: List<String>? = null): StateExpression(){
+    enum class Aggregation{
+        SUM, PRODUCT, MAX, MIN
+    }
+
+    override fun calc(state: GameState): Float {
+        val children = expressions.map { it.calc(state) }
+        val aggregationFunction: (Float, Float) -> Float = when(aggr){
+            Aggregation.SUM -> {a, b -> a + b}
+            Aggregation.PRODUCT -> {a, b -> a * b}
+            Aggregation.MAX -> {a, b -> max(a,b) }
+            Aggregation.MIN -> {a, b -> min(a,b) }
+        }
+        return children.reduce(aggregationFunction)
+    }
+
+    override val keys: Set<Pair<Int, Int>>
+        get() = expressions.map { it.keys }.reduce{first, second -> first.union(second)}
 }
 
 @Serializable

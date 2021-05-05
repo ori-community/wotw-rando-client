@@ -619,7 +619,7 @@ fun generatePool() = mutableListOf(
     oneof(
         threshold("Collect Spirit Light", 6, 3, triag(2000, 6000, 4000)),
         threshold("Spend Spirit Light", 6, 4, triag(2000, 6000, 3000)),
-    )
+    ),
 )
 
 object pickupsIn {
