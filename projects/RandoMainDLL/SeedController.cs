@@ -591,7 +591,7 @@ namespace RandoMainDLL {
 
     public static bool DoesHowlExist() => HowlOverride || Flags.Contains(Flag.RAIN);
 
-    public static bool IsDayTime() => (RainOverride || !Flags.Contains(Flag.RAIN)) || AbilityType.SpiritEdge.HaveTree();
+    public static bool IsDayTime() => AbilityType.SpiritEdge.HaveTree() || RainOverride || (SeedController.Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
 
     public static bool RainOverride = false;
     public static bool HowlOverride = false;
