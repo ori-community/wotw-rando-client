@@ -328,7 +328,7 @@ namespace RandoMainDLL {
           foreach (UberState s in LongCutscenes) { s.Write(); }
 
         InterOp.discover_everything();
-        if (!SeedController.Flags.Contains(Flag.NOSWORD)) {
+        if (SeedController.Settings.LegacySeedgen && !SeedController.Flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
           var slotRaw = AHK.IniString("Misc", "SpawnSlot");
           var slot = 0;
