@@ -572,7 +572,6 @@ namespace RandoMainDLL {
         var uid = new UberId(m.Groups[1].Value.ParseToInt("genFromFrag.GID"), m.Groups[2].Value.ParseToInt("genFromFrag.GID"));
         return () => UberGet.AsFloat(uid);
       }
-      float ret;
       switch (targetType) {
         case UberStateType.SavePedestalUberState:
         case UberStateType.SerializedBooleanUberState:
