@@ -342,7 +342,9 @@ fun generatePool() = mutableListOf(
         bool("lumaPoolsStateGroup.breakableWallB", 5377, 22978),
         bool("lumaPoolsStateGroup.breakableWallA", 5377, 8451),
         bool("baursReachGroup.stompableFloorA", 28895, 8664),
-        countGoal = {it.nextTriangular(4, 6, 9)},
+        bool("wellspringGladesGroup.stompableFloorA", 44310, 55192),
+
+        countGoal = {it.nextTriangular(4, 16, 8)},
         maxRepeats = 1,
         subsetGoal = false
     ),
@@ -425,7 +427,8 @@ fun generatePool() = mutableListOf(
             bool("baursReachGroup.breakableWallA", 28895, 17510),
             bool("baursReachGroup.breakableWallB", 28895, 8934),
             bool("baursReachGroup.breakableRocksA", 28895, 7616),
-            countGoal = { it.nextTriangular(1,4, 2)},
+            bool("baursReachGroup.breakableRockWall", 28895, 20731),
+            countGoal = { it.nextTriangular(1,5, 2)},
             subsetGoal = false,
             maxRepeats = 1,
             ),
