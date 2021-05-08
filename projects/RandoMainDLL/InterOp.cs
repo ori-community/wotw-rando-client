@@ -152,6 +152,8 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_shard_slots(int value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_multi_bool_count(int value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool has_shard(ShardType type);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
