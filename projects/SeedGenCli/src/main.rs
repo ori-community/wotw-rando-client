@@ -26,6 +26,8 @@ use util::{
     uberstate::{UberState, UberValue},
 };
 
+// TODO logic bug with reckless shard?
+
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
 ///
@@ -62,6 +64,9 @@ enum SeedGenCommand {
         /// the input file representing state namings
         #[structopt(parse(from_os_str), default_value = "state_data.csv", long)]
         uber_states: PathBuf,
+        /// How many (multi)worlds to generate
+        #[structopt(short, long, default_value = "1")]
+        worlds: u8,
         /// skip validating the input files for a slight performance gain
         #[structopt(short, long)]
         trust: bool,
@@ -107,6 +112,9 @@ enum SeedGenCommand {
         /// later you can run seed -p <preset-name> to use this preset
         #[structopt(parse(from_os_str))]
         name: PathBuf,
+        /// How many (multi)worlds to generate
+        #[structopt(short, long, default_value = "1")]
+        worlds: u8,
         /// hides spoilers
         #[structopt(short, long)]
         race: bool,
@@ -278,6 +286,7 @@ fn parse_settings(settings: SeedSettings) -> Settings {
 
     Settings {
         version: None,
+        worlds: settings.worlds,
         spoilers: !settings.race,
         pathsets,
         goalmodes,
@@ -292,6 +301,7 @@ fn merge_settings(current: &mut Settings, mut other: Settings) {
     if other.version.is_some() {
         current.version = other.version;
     }
+    current.worlds = current.worlds.max(other.worlds);
     for pathset in other.pathsets.pathsets {
         current.pathsets.add(pathset);
     }
@@ -307,6 +317,7 @@ fn merge_settings(current: &mut Settings, mut other: Settings) {
 
 #[allow(clippy::struct_excessive_bools)]
 struct SeedSettings {
+    worlds: usize,
     race: bool,
     netcode: bool,
     hard: bool,
@@ -374,13 +385,23 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
         args.headers.push(header)
     }
 
-    let seed = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
-    log::info!("Generated seed in {:?}", now.elapsed());
+    let seeds = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
+    if settings.worlds == 1 {
+        log::info!("Generated seed in {:?}", now.elapsed());
+    } else {
+        log::info!("Generated {} worlds in {:?}", settings.worlds, now.elapsed());
+    }
 
-    let file = util::create_new_file(&filename, &seed, "seeds")?;
-    log::info!("Wrote seed to {}", file.display());
+    // TODO reasonable filenames for multiworld
+    for seed in seeds {
+        let file = util::create_new_file(&filename, &seed, "seeds")?;
+        log::info!("Wrote seed to {}", file.display());
 
-    fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
+        if settings.worlds == 1 {
+            fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
+        }
+    }
+
     Ok(())
 }
 
@@ -394,7 +415,6 @@ fn play_last_seed() -> Result<(), String> {
     Ok(())
 }
 
-#[allow(clippy::struct_excessive_bools)]
 struct PresetArgs {
     name: PathBuf,
     settings: SeedSettings,
@@ -493,7 +513,7 @@ fn main() {
     }
 
     match args.command {
-        SeedGenCommand::Seed { filename, preset, seed, areas, locations, uber_states, trust, verbose, race, netcode, hard, spawn, logic, goals, header_paths, headers } => {
+        SeedGenCommand::Seed { filename, preset, seed, areas, locations, uber_states, worlds, trust, verbose, race, netcode, hard, spawn, logic, goals, header_paths, headers } => {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seed(SeedArgs {
@@ -505,6 +525,7 @@ fn main() {
                 uber_states,
                 trust,
                 settings: SeedSettings {
+                    worlds: worlds.into(),
                     race,
                     netcode,
                     hard,
@@ -521,12 +542,13 @@ fn main() {
 
             play_last_seed().unwrap_or_else(|err| log::error!("{}", err));
         },
-        SeedGenCommand::Preset { name, race, netcode, hard, spawn, logic, goals, header_paths } => {
+        SeedGenCommand::Preset { name, worlds, race, netcode, hard, spawn, logic, goals, header_paths } => {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             create_preset(PresetArgs {
                 name,
                 settings: SeedSettings {
+                    worlds: worlds.into(),
                     race,
                     netcode,
                     hard,

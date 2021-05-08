@@ -88,6 +88,7 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
 
     Ok(Settings {
         version: None,
+        worlds: 1,
         pathsets,
         goalmodes,
         spoilers: old_settings.spoilers,
@@ -116,6 +117,7 @@ impl Default for Spawn {
 pub struct Settings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
+    pub worlds: usize,
     #[serde(flatten)]
     pub pathsets: Pathsets,
     pub goalmodes: FxHashSet<GoalMode>,
@@ -129,6 +131,7 @@ impl Default for Settings {
     fn default() -> Settings {
         Settings {
             version: None,
+            worlds: 1,
             pathsets: Pathsets::default(),
             goalmodes: FxHashSet::default(),
             spawn_loc: Spawn::default(),

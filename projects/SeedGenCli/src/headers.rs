@@ -251,7 +251,7 @@ pub fn validate() -> Result<(), String> {
         let (name, occupied) = &occupation_map[index];
         let mut collision_message = String::new();
 
-        for uber_state in occupied {
+        'outer: for uber_state in occupied {
             for (other_name, other_occupied) in &occupation_map {
                 if name == other_name {
                     continue;
@@ -265,10 +265,9 @@ pub fn validate() -> Result<(), String> {
                         NAME_COLOUR.paint(other_name),
                         UBERSTATE_COLOUR.paint(format!("{}", collision))
                     );
-                    break;
+                    break 'outer;
                 }
             }
-            if !collision_message.is_empty() { break; }
         }
 
         if collision_message.is_empty() {

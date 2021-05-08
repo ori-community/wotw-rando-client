@@ -4,7 +4,7 @@ use rustc_hash::FxHashSet;
 
 use crate::util::{
     Pathsets, Pathset, GoalMode,
-    settings::{Settings, Spawn},
+    settings::Settings,
 };
 
 pub fn moki() -> Settings {
@@ -12,14 +12,9 @@ pub fn moki() -> Settings {
     goalmodes.insert(GoalMode::Wisps);
 
     Settings {
-        version: None,
-        pathsets: Pathsets::default(),
         goalmodes,
-        spawn_loc: Spawn::default(),
-        spoilers: true,
-        web_conn: false,
-        hard: false,
         header_list: vec![PathBuf::from("default"), PathBuf::from("spawn_with_sword")],
+        ..Settings::default()
     }
 }
 pub fn gorlek() -> Settings {
@@ -27,14 +22,9 @@ pub fn gorlek() -> Settings {
     pathsets.add(Pathset::Gorlek);
 
     Settings {
-        version: None,
         pathsets,
-        goalmodes: FxHashSet::default(),
-        spawn_loc: Spawn::default(),
-        spoilers: true,
-        web_conn: false,
-        hard: false,
         header_list: vec![PathBuf::from("default")],
+        ..Settings::default()
     }
 }
 pub fn gorlek_glitch() -> Settings {

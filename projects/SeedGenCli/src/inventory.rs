@@ -53,6 +53,7 @@ impl fmt::Display for Item {
 }
 impl Item {
     // TODO read from logic file instead
+    #[inline]
     pub fn is_progression(&self, pathsets: &Pathsets) -> bool {
         match self {
             Item::Resource(resource) => match resource {
@@ -118,7 +119,18 @@ impl Item {
             Item::RemoveSpiritLight(_) | Item::RemoveSkill(_) | Item::RemoveShard(_) | Item::RemoveTeleporter(_) | Item::RemoveWater => false,
         }
     }
+    #[inline]
+    pub fn is_multiworld_spread(&self) -> bool {
+        matches!(self,
+            Item::Resource(_) |
+            Item::Skill(_) |
+            Item::Shard(_) |
+            Item::Teleporter(_) |
+            Item::Water
+        )
+    }
 
+    #[inline]
     pub fn is_single_instance(&self) -> bool {
         !matches!(self,
             Item::SpiritLight(_) | Item::RemoveSpiritLight(_) |
@@ -128,6 +140,7 @@ impl Item {
             Item::UberState(_) | Item::Command(_) | Item::Message(_)
         )
     }
+    #[inline]
     pub fn is_checkable(&self) -> bool {
         matches!(self,
             Item::Skill(_) |
@@ -137,6 +150,7 @@ impl Item {
         )
     }
 
+    #[inline]
     pub fn cost(&self) -> u16 {
         #[allow(clippy::match_same_arms)]
         match self {
@@ -163,6 +177,7 @@ impl Item {
         }
     }
 
+    #[inline]
     pub fn shop_price(&self) -> u16 {
         #[allow(clippy::match_same_arms)]
         match self {
@@ -184,6 +199,7 @@ impl Item {
             _ => 1,
         }
     }
+    #[inline]
     pub fn random_shop_price(&self) -> bool {
         #[allow(clippy::match_same_arms)]
         match self {
@@ -269,16 +285,29 @@ impl Inventory {
 
     pub fn item_count(&self) -> usize {
         let mut count = 0;
-        for item in self.inventory.keys() {
-            if let Item::SpiritLight(amount) = item {
-                count += (self.inventory[item] * amount + 39) / 40;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem (and underestimating the needed slots can force a retry)
+        for (item, amount) in &self.inventory {
+            if let Item::SpiritLight(stacked_amount) = item {
+                count += (amount * stacked_amount + 39) / 40;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem (and underestimating the needed slots can force a retry)
             } else {
-                count += self.inventory[item];
+                count += amount;
             }
         }
 
         count.into()
     }
+    pub fn world_item_count(&self) -> usize {
+        let mut count = 0;
+        for (item, amount) in self.inventory.iter().filter(|&(item, _)| !item.is_multiworld_spread()) {
+            if let Item::SpiritLight(stacked_amount) = item {
+                count += (amount * stacked_amount + 39) / 40;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem (and underestimating the needed slots can force a retry)
+            } else {
+                count += amount;
+            }
+        }
+
+        count.into()
+    }
+
     pub fn cost(&self) -> f32 {
         let mut cost = 0;
         for item in self.inventory.keys() {
