@@ -36,5 +36,5 @@ projects/SeedGen/nofluff.wotw
 projects/wotw-server/gradle/*
 projects/wotw-server/gradlew
 projects/wotw-server/gradlew.bat
-projects/wotw-server/*
+projects/wotw-server/.sessions*
 projects/SeedGen/src/main/scala/Version.scala
