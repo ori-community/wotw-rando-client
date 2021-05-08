@@ -53,6 +53,10 @@ namespace uber_states
         NAMED_IL2CPP_INTERCEPT(Moon, UberStateCollection, void, .ctor, ctor, (app::UberStateCollection* this_ptr)) {
             UberStateCollection::ctor(this_ptr);
             initialized = false;
+        int multi_bool_count = 0;
+        INJECT_C_DLLEXPORT void set_multi_bool_count(int count) {
+            multi_bool_count = count;
+        }
         }
 
         IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
@@ -284,6 +288,10 @@ namespace uber_states
 
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
                         constants::APPLIERS_GROUP_ID, format("%3d_value", i * 2 + 1), i * 2 + 1, 0));
+                }
+                for (i = 0; i < multi_bool_count; ++i) {
+                    states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MULTI_VARS_GROUP_NAME,
+                        constants::MULTI_VARS_GROUP_ID, format("%3d_multi", i), i, false));
                 }
 
                 for (auto* state : states)
