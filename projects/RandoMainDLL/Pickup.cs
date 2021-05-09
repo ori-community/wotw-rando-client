@@ -885,7 +885,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.ZoneHint;
     public readonly ZoneType Zone;
     public readonly HintType hintType;
-    public override int DefaultCost() => 200;
+    public override int DefaultCost() => Zone == ZoneType.Woods ? 150 : 200;
     public override string DisplayName => $"{Zone} hint";
     public ZoneHint(ZoneType zone, HintType hint = HintType.Skills) {
       Zone = zone;

@@ -37,6 +37,7 @@ namespace RandoMainDLL {
         UberStateController.UberStates.Clear();
         UberStateController.TickingUberStates.Clear();
         AHK.OnNewGame();
+        MapController.InitLupoPrices();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
         Client.Connect();

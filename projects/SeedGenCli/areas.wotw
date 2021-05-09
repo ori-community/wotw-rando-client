@@ -135,7 +135,7 @@ anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaki
     unsafe: DoubleJump, Sword  # Use pogo of the slime to jump to the ledge
   pickup MarshSpawn.PreLupoEX: free
   pickup MarshSpawn.LupoMap:
-    moki: SpiritLight=50
+    moki: SpiritLight=200
 
   conn MarshSpawn.CaveEntrance: free
 
@@ -967,8 +967,8 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
     moki: DoubleJump OR Dash OR Glide OR Launch
     gorlek: Sword OR Hammer OR Damage=15
   pickup MidnightBurrows.LupoMap:
-    moki: SpiritLight=250, Launch  # paths coming from the right side are on that anchor
-    gorlek, SpiritLight=250:
+    moki: SpiritLight=50, Launch  # paths coming from the right side are on that anchor
+    gorlek, SpiritLight=50:
       Bash  # bait some shots
       DoubleJump, TripleJump
       DoubleJump, Dash, Sword OR Hammer
@@ -1008,8 +1008,8 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
     unsafe: MidnightBurrows.KeystoneDoor, DoubleJump, TripleJump, Damage=15
 
   pickup MidnightBurrows.LupoMap:
-    moki: SpiritLight=250, DoubleJump OR Dash OR Glide
-    gorlek: SpiritLight=250
+    moki: SpiritLight=50, DoubleJump OR Dash OR Glide
+    gorlek: SpiritLight=50
   pickup MidnightBurrows.DeflectorShard:
     moki:
       Launch
@@ -1286,14 +1286,14 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
   pickup WestHollow.SwimEC:
     moki: Water
   pickup WestHollow.LupoMap:
-    moki, SpiritLight=100:  # All the path options here include a way to get past the enemy
+    moki, SpiritLight=150:  # All the path options here include a way to get past the enemy
       DoubleJump, Dash
       Bash  # bash off the slug
       Launch
-    gorlek, SpiritLight=100:  # All the path options here include a way to get past the enemy
+    gorlek, SpiritLight=150:  # All the path options here include a way to get past the enemy
       DoubleJump, TripleJump OR Sword OR Hammer  # all have alternate paths from the right or from below
       SentryJump=1
-    unsafe: SpiritLight=100, Sword  # Pogo the slug
+    unsafe: SpiritLight=150, Sword  # Pogo the slug
   pickup WestHollow.BelowLupoEX:
     moki:  # All the path options here include a way to get past the enemies
       DoubleJump, Dash
@@ -4290,15 +4290,15 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
         Dash, Glide, Hammer  # jump->up slash->dash->glide
         Dash, Sword, Hammer OR Spear=1  # Dash ramp from under the pickup then dash again and weapon stall
   pickup LowerReach.LupoMap:
-    moki, SpiritLight=250:
+    moki, SpiritLight=150:
       Launch
       DoubleJump, Dash
       LowerReach.CentralFurnace, Bash, Grenade=1, DoubleJump OR Dash OR Glide
-    gorlek, SpiritLight=250:
+    gorlek, SpiritLight=150:
       DoubleJump, TripleJump
       SentryJump=1  # from the snaptrap
       LowerReach.CentralFurnace, Bash, Grenade=1  # just land on the little wall first
-    unsafe, SpiritLight=250:
+    unsafe, SpiritLight=150:
       DoubleJump, Sword OR Hammer  # sword: weapon stalling / hammer: djump+upslash from the snaptrap
       Bash  # move the purple slug to the right first
       DoubleJump, Glide, LowerReach.Lever  # from LowerReach.AboveDoorEX
@@ -4356,8 +4356,8 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
   pickup LowerReach.AboveDoorEX:
     moki: Bash OR Hammer OR Spear=1
   pickup LowerReach.LupoMap:
-    moki: SpiritLight=250, DoubleJump OR Dash OR Glide OR Launch
-    gorlek: SpiritLight=250  # not too hard to do damageless, slide down the tongue plant and land on the little wall
+    moki: SpiritLight=150, DoubleJump OR Dash OR Glide OR Launch
+    gorlek: SpiritLight=150  # not too hard to do damageless, slide down the tongue plant and land on the little wall
   pickup LowerReach.TPLeftEX:
     moki:
       Bash, DoubleJump OR Dash OR Glide
@@ -5803,19 +5803,19 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
       DoubleJump, TripleJump, Dash
       Launch
   pickup LowerDepths.LupoMap:
-    moki, SpiritLight=250:
+    moki, SpiritLight=150:
       Grapple, DoubleJump OR Dash OR Glide
       Launch, DoubleJump, Dash
       Launch, Glide
       DepthsLight, Glide
       DepthsLight, Launch, DoubleJump OR Dash
-    gorlek, SpiritLight=250:
+    gorlek, SpiritLight=150:
       Grapple, Sword
       Launch
       DepthsLight, DoubleJump, TripleJump, Dash OR Sword OR Hammer
       DepthsLight, DoubleJump, Dash, Sword OR Hammer
       DepthsLight, Damage=30, DoubleJump OR Dash OR Grapple OR Sword OR Hammer
-    unsafe, SpiritLight=250:
+    unsafe, SpiritLight=150:
       DoubleJump, TripleJump  # wjump on the left wall near the 1st grappable light above the spikes
       DoubleJump, Hammer, Dash  # djump+upslash+dash to reach the left wall near the 1st grappable light above the spikes
 
@@ -6287,7 +6287,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
   pickup EastPools.LupoEX:
     gorlek: Water, ShurikenBreak=20
   pickup EastPools.LupoMap:
-    gorlek: SpiritLight=250, Water, ShurikenBreak=20
+    gorlek: SpiritLight=150, Water, ShurikenBreak=20
 
   # this Tokk disappears after Kwolok's death
   conn EastPools.Teleporter:
@@ -6371,8 +6371,8 @@ anchor EastPools.MissilePuzzle at -1425, -4144:  # Below where the trial starts
     moki: Water, Bash
     gorlek: Water
   pickup EastPools.LupoMap:
-    moki: SpiritLight=250, Water, Bash
-    gorlek: SpiritLight=250, Water
+    moki: SpiritLight=150, Water, Bash
+    gorlek: SpiritLight=150, Water
   pickup EastPools.BehindCrusherEX:
     moki: Water
 
@@ -7147,17 +7147,17 @@ anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
     moki: Burrow, DoubleJump OR Dash OR Glide OR Launch
     gorlek: Burrow
   pickup LowerWastes.LupoMap:
-    moki, SpiritLight=300:
+    moki, SpiritLight=150:
       Burrow OR Launch
       Bash, Grenade=4  # literally never going to get used but you can do it
-    gorlek, SpiritLight=300:
+    gorlek, SpiritLight=150:
       Bash, Grenade=3
       Bash, Grenade=2, Grapple
       SentryJump=4
       SentryJump=3, Bash OR Grapple
       SentryJump=2, Bash, Grapple
       DoubleJump, TripleJump, Hammer
-    unsafe: SpiritLight=300, DoubleJump, TripleJump, Sword  # requires advanced knowlegde
+    unsafe: SpiritLight=150, DoubleJump, TripleJump, Sword  # requires advanced knowlegde
   pickup LowerWastes.BurrowTree:
     moki:
       DoubleJump OR Burrow OR Launch
@@ -7843,8 +7843,8 @@ anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
   refill Full
 
   pickup WillowsEnd.LupoMap:
-    moki: DoubleJump OR Dash OR Launch OR Bow=1
-    gorlek: free  # jump to trigger the mine, back off to avoid taking damages
+    moki: SpiritLight=50, DoubleJump OR Dash OR Launch OR Bow=1
+    gorlek: SpiritLight=50  # jump to trigger the mine, back off to avoid taking damages
 
   conn Teleporters: free
   conn WillowsEnd.Entry:
