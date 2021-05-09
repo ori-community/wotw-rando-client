@@ -250,7 +250,7 @@ namespace
                 {}, { true, 14019, 50597, 4.f } }, // EastHollow.KwoloksWisdom,
             { app::WorldMapIconType__Enum_Mapmaker, -146.f, -4321.f, false, ExtraIconCreation::Spoiler,
                 { true, 48248, 3638, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_Shardtrader, -204.f, -4147.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Shardtrader, -281.f, -4239.f, false, ExtraIconCreation::Spoiler,
                 { true, uber_states::constants::TWILLEN_SHARD_GROUP_ID, 20000, -1.f  }, {} },
         };
 
