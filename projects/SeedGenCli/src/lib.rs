@@ -67,8 +67,6 @@ fn write_flags(settings: &Settings, mut flags: Vec<String>) -> String {
     }
 
     if matches!(settings.spawn_loc, Spawn::Random | Spawn::FullyRandom) { flags.push(String::from("RandomSpawn")); }
-    // TODO this isn't needed post the rando versioning changes
-    flags.push(String::from("NoFreeSword"));
 
     let flags = flags.join(", ");
 
