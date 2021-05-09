@@ -16,7 +16,7 @@ namespace RandoMainDLL {
           var data = line.Split(',');
           _trackedConds.Add(new UberStateCondition(data[1].ParseToInt("PopulateTrackedConds.GID"), data[2]));
         }
-      } catch (Exception e) { Randomizer.Error("PopulateTrackedConds", e);  }
+      } catch (Exception e) { Randomizer.Error("PopulateTrackedConds", e); }
     }
     private static List<UberStateCondition> _trackedConds = new List<UberStateCondition>();
     public static List<UberStateCondition> TrackedConds {
@@ -27,11 +27,11 @@ namespace RandoMainDLL {
       }
     }
 
-    public static List<ShardType> TrackedShards = new List<ShardType>() { ShardType.TripleJump }; 
+    public static List<ShardType> TrackedShards = new List<ShardType>() { ShardType.TripleJump };
     public static void UpdateReachable(int sleepTime = 30) {
-      if(InterOp.get_game_state() == GameState.Game) {
-      var t = new Thread(() => UpdateReachableAsync(sleepTime));
-      t.Start();
+      if (InterOp.get_game_state() == GameState.Game) {
+        var t = new Thread(() => UpdateReachableAsync(sleepTime));
+        t.Start();
       }
     }
     public static bool Updating;
@@ -55,9 +55,9 @@ namespace RandoMainDLL {
         } : new List<string> {
           "-jar",
           $"\"{Randomizer.BasePath}SeedGen.jar\" ",
-          "ReachCheck" 
+          "ReachCheck"
           };
-        argsList.AddRange( new List<string> { 
+        argsList.AddRange(new List<string> {
           $"\"{SeedController.SeedFile}\"",
           $"{InterOp.get_max_health()}",
           $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
@@ -65,7 +65,7 @@ namespace RandoMainDLL {
           $"{InterOp.get_ore()}",
           $"{InterOp.get_experience()}",
         });
-        if(RustLogic) 
+        if (RustLogic)
           argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
         argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
         argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
@@ -81,7 +81,7 @@ namespace RandoMainDLL {
         proc.StartInfo.RedirectStandardError = true;
         proc.StartInfo.WorkingDirectory = Randomizer.BasePath;
         proc.Start();
-        if(!proc.WaitForExit(10000))
+        if (!proc.WaitForExit(10000))
           Randomizer.Warn("MapController.waitForProc", "timed out waiting for reach check", false);
         Reachable.Clear();
         var rawOutput = proc.StandardOutput.ReadToEnd();
@@ -90,17 +90,30 @@ namespace RandoMainDLL {
             try {
               var frags = rawCond.Split('|');
               var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
+              if (cond.Loc().Type == LocType.Shop) {
+                if (cond.Met() || hintTypes.Contains(cond.Pickup().Type))
+                  continue; // bought it or it's a hint. Either way it's known to be non progression, so it does not show on the map
+                if(ShopSlot.Twillen.Any(e => e.State.Equals(cond.Id))) 
+                  Reachable.Add(new UberStateCondition(2, "20000"));
+                 else if (ShopSlot.Opher.Any(e => e.State.Equals(cond.Id))) 
+                  Reachable.Add(new UberStateCondition(1, "20000"));
+                 else if (ShopSlot.LupoStore.Any(e => e.State.Equals(cond.Id))) 
+                  Reachable.Add(new UberStateCondition(48248, "20000"));
+              }
               Reachable.Add(cond);
             }
             catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
           }
-/*        if(Randomizer.Dev)
-          Randomizer.Log($"Reach check:\nseed_gen_cli.exe {String.Join(" ", argsList)}\n gave output: \n{rawOutput}\n stderr was {proc.StandardError.ReadToEnd()}", false);*/
+        /*
+        if(Randomizer.Dev)
+          Randomizer.Log($"Reach check:\nseed_gen_cli.exe {String.Join(" ", argsList)}\n gave output: \n{rawOutput}\n stderr was {proc.StandardError.ReadToEnd()}\nReachable after: {String.Join(" ", Reachable.Select(r => r.ToString()))}", false);
+        */
         InterOp.refresh_inlogic_filter();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
       Updating = false;
     }
+    private static readonly List<PickupType> hintTypes = new List<PickupType>() { PickupType.CheckableHint, PickupType.ZoneHint };
     public static int FilterIconType(int groupId, int id, int value) {
       var cond = new UberStateCondition(groupId, id, value);
       if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)
