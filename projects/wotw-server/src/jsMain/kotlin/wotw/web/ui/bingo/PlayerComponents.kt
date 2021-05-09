@@ -6,12 +6,15 @@ import io.ktor.http.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.css.*
+import kotlinx.html.classes
 import kotlinx.html.js.onClickFunction
 import react.RBuilder
 import react.RComponent
 import react.RState
 import react.dom.button
 import react.dom.div
+import react.dom.h1
+import react.dom.p
 import react.setState
 import styled.css
 import styled.styledDiv
@@ -136,7 +139,7 @@ class BingoPlayersComponent : RComponent<BingoListProps, BingoListState>() {
         Application.eventBus.register(this, SyncBingoPlayersMessage::class) {
             setState {
                 players = it.players
-                props.listChangedCallback?.invoke(players.map { it.playerId })
+                props.listChangedCallback?.invoke(players.map { it.playerId }.sorted())
             }
         }
     }
@@ -148,67 +151,60 @@ class BingoPlayersComponent : RComponent<BingoListProps, BingoListState>() {
     override fun RBuilder.render() {
         if (props.spectate)
             return
-        val order = state.players//.sortedBy { it.playerId }
+        val order = state.players.sortedBy { it.playerId }
         div {
             child(TempHeaderComp::class) {}
+            div {
+                attrs.classes = setOf("bingo-players")
+                h1 {
+                    +"Players"
+                }
+                div {
+                    attrs.classes = setOf("bingo-players-list")
+                    state.players.sortedBy { it.rank }.forEach {
+                        styledDiv {
+                            attrs.classes = setOf("bingo-player")
+                            if (it.playerId == state.highlighted)
+                                attrs.classes += "highlighted"
 
-            styledP {
-                css {
-                    marginTop = 1.em
-                    textAlign = TextAlign.center
-                    fontSize = 2.em
-                    fontWeight = FontWeight.bold
-                }
-                +"Players"
-            }
-            styledDiv {
-                css {
-                    marginBottom = 1.em
-                }
-                state.players.sortedBy { it.rank }.forEach {
-                    styledDiv {
-                        css {
-                            backgroundColor = if (it.playerId == state.highlighted) Color.lightGray else Color.white
-                            color = Color.black
-                            fontWeight = if (it.playerId == state.highlighted) FontWeight.bold else FontWeight.normal
-                            if (state.players.size <= bingoPlayerColors.size) {
-                                after {
-                                    backgroundColor = bingoPlayerColors[order.indexOf(it)]
-                                    content = "__".quoted
-                                    marginLeft = 10.px
+                            if (state.players.size <= bingoPlayerColors.size)
+                                css {
+                                    background =
+                                        "linear-gradient(135deg, var(--bg) 70%, var(--bingo-colour-${order.indexOf(it)}) 75% 100%)"
+                                }
+
+                            p {
+                                +"${it.name} | ${it.score}"
+                            }
+                            attrs.onClickFunction = { _ ->
+                                setState {
+                                    highlighted = it.playerId
+                                    props.highlightCallback?.invoke(it.playerId)
+                                }
+                                GlobalScope.launch {
+                                    Application.eventBus.send(Packet.from(RequestUpdatesMessage(it.playerId)))
                                 }
                             }
-                        }
-                        +"${it.name} | ${it.score}"
-                        attrs.onClickFunction = { _ ->
-                            setState {
-                                highlighted = it.playerId
-                                props.highlightCallback?.invoke(it.playerId)
-                            }
-                            GlobalScope.launch {
-                                Application.eventBus.send(Packet.from(RequestUpdatesMessage(it.playerId)))
-                            }
-                        }
 
+                        }
                     }
-                }
-            }
 
-            child(JoinBingoComponent::class) {
-                attrs {
-                    userId = state.highlighted
-                    gameId = props.gameId
-                    afterJoin = {
-                        setState {
-                            highlighted = it
-                            props.highlightCallback?.invoke(it)
+                    child(JoinBingoComponent::class) {
+                        attrs {
+                            userId = state.highlighted
+                            gameId = props.gameId
+                            afterJoin = {
+                                setState {
+                                    highlighted = it
+                                    props.highlightCallback?.invoke(it)
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
-
 }
 
 external interface JoinBingoProps : GameIdProps {
@@ -229,6 +225,7 @@ external interface JoinTeamProps : GameIdProps {
 class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
     override fun RBuilder.render() {
         button {
+            attrs.classes = setOf("join-button")
             +"Join"
             attrs {
                 onClickFunction = {
@@ -250,6 +247,7 @@ class JoinTeamComponent : RComponent<JoinTeamProps, RState>() {
 class JoinGameComponent : RComponent<JoinGameProps, RState>() {
     override fun RBuilder.render() {
         button {
+            attrs.classes = setOf("join-button")
             +"Join game on new team"
             attrs {
                 onClickFunction = {
@@ -272,6 +270,7 @@ class JoinGameComponent : RComponent<JoinGameProps, RState>() {
 class JoinBingoComponent : RComponent<JoinBingoProps, RState>() {
     override fun RBuilder.render() {
         button {
+            attrs.classes = setOf("join-button")
             +"Join"
             attrs {
                 onClickFunction = {

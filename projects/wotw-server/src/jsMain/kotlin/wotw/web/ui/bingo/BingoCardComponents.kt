@@ -5,8 +5,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.css.*
 import kotlinx.css.properties.border
+import kotlinx.html.classes
 import kotlinx.html.js.onClickFunction
 import react.*
+import react.dom.div
 import react.dom.p
 import styled.css
 import styled.styledDiv
@@ -22,7 +24,7 @@ external interface GameIdProps : RProps {
     var spectate: Boolean
 }
 
-external interface BingoViewProps: GameIdProps{
+external interface BingoViewProps : GameIdProps {
     var useLatest: Boolean
     var playerId: Long?
 }
@@ -46,7 +48,7 @@ external interface BingoSquareProps : RProps {
     var size: Pair<LinearDimension?, LinearDimension?>?
     var boardSize: Int
     var text: String
-    var completedColors: List<Color>?
+    var completedColors: List<Int>?
     var goals: List<BingoGoal>
     var xEdge: Boolean
     var yEdge: Boolean
@@ -59,15 +61,16 @@ external interface BingoSquareState : RState {
 external interface BingoGoalProps : RProps {
     var text: String
     var completed: Boolean
+    var numSiblings: Int
 }
 
-external interface BingoViewState: RState{
+external interface BingoViewState : RState {
     var trackedPlayer: Long?
     var sortedPlayerList: List<Long>?
 }
 
 class BingoView : RComponent<BingoViewProps, BingoViewState>() {
-    override fun BingoViewState.init(props: BingoViewProps){
+    override fun BingoViewState.init(props: BingoViewProps) {
         trackedPlayer = props.playerId
     }
 
@@ -87,7 +90,7 @@ class BingoView : RComponent<BingoViewProps, BingoViewState>() {
                 child(BingoPlayersComponent::class) {
                     attrs.gameId = props.gameId
                     attrs.spectate = props.spectate || props.useLatest
-                    if(!props.spectate && !props.useLatest) {
+                    if (!props.spectate && !props.useLatest) {
                         attrs.highlightCallback = {
                             setState {
                                 trackedPlayer = it
@@ -95,7 +98,7 @@ class BingoView : RComponent<BingoViewProps, BingoViewState>() {
                         }
                     }
                     attrs.listChangedCallback = {
-                        setState{
+                        setState {
                             sortedPlayerList = it
                         }
                     }
@@ -121,7 +124,7 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
                 props.playerId == null -> "bingo/latest"
                 else -> "bingo/latest/${props.playerId}"
             }
-            if(props.spectate)
+            if (props.spectate)
                 path += "?spectate=true"
             val boardData = Application.api.get<BingoData>(path = path)
             setState {
@@ -146,35 +149,15 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
 
     override fun RBuilder.render() {
         styledDiv {
-            css {
-                border(width = 2.px, style = BorderStyle.solid, color = Color.aqua)
-                marginRight = 3.em
-                position = kotlinx.css.Position.relative
-                width = LinearDimension("min(80%, 95vh)")
-                before {
-                    content = QuotedString("")
-                    float = Float.left
-                    paddingTop = 100.pct
-                }
-            }
+            attrs.classes = setOf("bingo-card")
             vbox {
-                css {
-                    gap = Gap(gapSize.toString())
-                    float = Float.left
-                    width = 100.pct
-                    height = 100.pct
-                }
                 val size = state.board.size
                 val cardRange = 1..size
                 for (y: Int in 0..size + 1) {
                     hbox {
-                        css {
-                            gap = Gap(gapSize.toString())
-                            width = 100.pct
-                            height =
-                                if (y !in cardRange) labelSize else LinearDimension("calc((100% - 2 * $labelSize - ${size + 1} * $gapSize) / $size)")
-                            textAlign = TextAlign.center
-                        }
+                        attrs.classes += setOf("bingo-row")
+                        if (y !in cardRange)
+                            attrs.classes += "y-edge"
                         for (x: Int in 0..size + 1) {
                             //why are grids not 0-based again? :<
                             val gridPos = Position(x + 1, y + 1)
@@ -193,24 +176,24 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
                                 square != null -> square.completedBy.toSet()
                                 x == 0 && y == 0 || x > size && y > size -> cardRange.map {
                                     state.board[Position(it, it)]?.completedBy?.toSet() ?: emptySet()
-                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                                }.reduce { l1, l2 -> l1.intersect(l2) }
                                 x == 0 && y > size || x > size && y == 0 -> cardRange.map {
                                     state.board[Position(size + 1 - it, it)]?.completedBy?.toSet() ?: emptySet()
-                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                                }.reduce { l1, l2 -> l1.intersect(l2) }
                                 x !in cardRange -> cardRange.map {
                                     state.board[Position(it, y)]?.completedBy?.toSet() ?: emptySet()
-                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                                }.reduce { l1, l2 -> l1.intersect(l2) }
                                 else -> cardRange.map {
                                     state.board[Position(x, it)]?.completedBy?.toSet() ?: emptySet()
-                                }.reduce{ l1, l2 -> l1.intersect(l2)}
+                                }.reduce { l1, l2 -> l1.intersect(l2) }
                             }
 
                             val squareColors = when {
                                 (props.sortedPlayerList?.size ?: 0) in 1..8 -> {
-                                    completedBy.mapNotNull {props.sortedPlayerList?.indexOf(it)}.sorted().map { bingoPlayerColors[it] }
+                                    completedBy.mapNotNull { props.sortedPlayerList?.indexOf(it) }.sorted()
                                 }
                                 props.playerId in completedBy -> {
-                                    listOf(Color.green)
+                                    listOf(1)
                                 }
                                 else -> {
                                     emptyList()
@@ -238,7 +221,7 @@ class BingoCardComponent(props: BingoCardProps) : RComponent<BingoCardProps, Bin
                         attrs.url += "/${props.playerId}"
                 } else {
                     attrs.url = "ws://$BACKEND_HOST:80/api/bingosync/${props.gameId}"
-                    if(props.spectate)
+                    if (props.spectate)
                         attrs.url += "?spectate=true"
                 }
             }
@@ -253,61 +236,40 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
 
     override fun RBuilder.render() {
         styledDiv {
-            css {
-                width = props.size?.first
-                    ?: LinearDimension("calc((100% - 2 * $labelSize  - ${props.boardSize + 1} * $gapSize) / ${props.boardSize})")
-                height = 100.pct
-                textAlign = TextAlign.center
-                fontWeight = FontWeight.bold
+            attrs.classes = setOf("bingo-square")
+            if (props.xEdge)
+                attrs.classes += "x-edge"
+            if (props.yEdge)
+                attrs.classes += "y-edge"
 
+            css {
                 val completedColors = props.completedColors
-                if(completedColors != null && completedColors.isNotEmpty()){
+                if (completedColors != null && completedColors.isNotEmpty()) {
+                    attrs.classes += "completed"
                     val step = 100.0 / completedColors.size
                     var current = 0.0
                     var bgString = "linear-gradient(to bottom right, "
-                    for (color in completedColors){
-                        if(current != 0.0 && current < 100){
-                            bgString += "black " + (current - 0.5).pct.toString() + " " + current.pct.toString()  + ","
+                    for (color in completedColors) {
+                        if (current != 0.0 && current < 100) {
+                            bgString += "black " + (current - 0.5).pct.toString() + " " + current.pct.toString() + ","
                         }
-                        bgString += color.toString() + " " + current.pct.toString() + " "
+                        bgString += "var(--bingo-colour-$color) " + current.pct.toString() + " "
                         current += step
-                        if(current >= 100){
-                            bgString += current.pct.toString()
-                        }else {
-                            bgString += (current - 0.5).pct.toString() + ", "
+                        bgString += if (current >= 100) {
+                            current.pct.toString()
+                        } else {
+                            (current - 0.5).pct.toString() + ", "
                         }
                     }
                     bgString += ")"
                     background = bgString
-                    color = Color.white
-                }else {
-                    backgroundColor =
-                        if (state.marked) Color.lightBlue else Color.lightGray
-                    color = Color.black
                 }
             }
-            when {
-                props.xEdge && !props.yEdge -> styledP {
-                    css {
-                        fontWeight = FontWeight.normal
-                        marginTop = 0.em
-                        paddingTop = 4.em // TODO: actually center
-                    }
-                    +props.text
-                }
-                props.xEdge || props.yEdge -> styledP {
-                    css {
-                        fontWeight = FontWeight.normal
-                        marginTop = 0.em
-                        paddingTop = 0.em
-                    }
-                    +props.text
-                }
-                else -> p {
-                    +props.text
-                }
+            if (state.marked) attrs.classes += "marked"
+            div {
+                attrs.classes += "bingo-goal"
+                +props.text
             }
-
             attrs {
                 onClickFunction = {
                     it.preventDefault()
@@ -316,10 +278,16 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
                     }
                 }
             }
-            for (it in props.goals) {
-                child(BingoGoalComponent::class) {
-                    attrs.text = it.text
-                    attrs.completed = it.completed
+            div {
+                attrs.classes += "bingo-sub-goals"
+                div {
+                    for (it in props.goals) {
+                        child(BingoGoalComponent::class) {
+                            attrs.text = it.text
+                            attrs.completed = it.completed
+                            attrs.numSiblings = props.goals.size
+                        }
+                    }
                 }
             }
         }
@@ -328,17 +296,18 @@ class BingoSquareComponent : RComponent<BingoSquareProps, BingoSquareState>() {
 
 class BingoGoalComponent(props: BingoGoalProps) : RComponent<BingoGoalProps, RState>(props) {
     override fun RBuilder.render() {
-        styledP {
-            css {
-                fontWeight = FontWeight.normal
+        styledDiv {
+            attrs.classes = setOf("bingo-sub-goal")
+            p{
+                +props.text
             }
-            +props.text
             if (props.completed) {
-                css {
-                    backgroundColor = Color.greenYellow
-                    color = Color.black
-                }
+                attrs.classes += "completed"
             }
+            if (props.numSiblings != 0)
+                css {
+                    height = 100.pct / (props.numSiblings)
+                }
         }
     }
 }
