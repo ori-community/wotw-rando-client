@@ -53,10 +53,10 @@ namespace uber_states
         NAMED_IL2CPP_INTERCEPT(Moon, UberStateCollection, void, .ctor, ctor, (app::UberStateCollection* this_ptr)) {
             UberStateCollection::ctor(this_ptr);
             initialized = false;
+        }
         int multi_bool_count = 0;
         INJECT_C_DLLEXPORT void set_multi_bool_count(int count) {
             multi_bool_count = count;
-        }
         }
 
         IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
