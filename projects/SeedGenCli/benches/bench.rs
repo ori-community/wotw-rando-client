@@ -87,6 +87,7 @@ fn requirements(c: &mut Criterion) {
 
 fn reach_checking(c: &mut Criterion) {
     let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
+
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player = Player::default();
         player.inventory.grant(Item::Resource(Resource::Health), 40);
@@ -99,13 +100,15 @@ fn reach_checking(c: &mut Criterion) {
         player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         player.inventory.grant(Item::Skill(Skill::Dash), 1);
         let world = World::new(&graph);
-        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
+        let spawn = world.graph.find_spawn("MarshSpawn.Main").unwrap();
+        world.graph.reached_locations(&world.player, spawn, &world.uber_states).unwrap();
     }));
     c.bench_function("long reach check", |b| b.iter(|| {
         let mut world = World::new(&graph);
         world.player.inventory = Pool::preset(&Pathsets::default()).progressions;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
-        world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
+        let spawn = world.graph.find_spawn("MarshSpawn.Main").unwrap();
+        world.graph.reached_locations(&world.player, spawn, &world.uber_states).unwrap();
     }));
 }
 
@@ -125,10 +128,19 @@ fn generation(c: &mut Criterion) {
         Some(generated_seed)
     });
 
-    c.bench_function("seed generation", |b| b.iter(|| {
+    c.bench_function("singleplayer", |b| b.iter(|| {
         let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &pathsets, false).unwrap();
         let mut settings = Settings::default();
         settings.pathsets = pathsets.clone();
+
+        seedgen::generate_seed(&graph, &settings, &vec![], &seeds.next().unwrap()).unwrap();
+    }));
+
+    c.bench_function("two worlds", |b| b.iter(|| {
+        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &pathsets, false).unwrap();
+        let mut settings = Settings::default();
+        settings.pathsets = pathsets.clone();
+        settings.worlds = 2;
 
         seedgen::generate_seed(&graph, &settings, &vec![], &seeds.next().unwrap()).unwrap();
     }));

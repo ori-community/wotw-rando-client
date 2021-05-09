@@ -497,8 +497,9 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     }
 
     let spawn = util::settings::read_spawn(&args.seed_file)?;
+    let spawn = world.graph.find_spawn(&spawn)?;
 
-    let reached = world.graph.reached_locations(&world.player, &spawn, &world.uber_states).expect("Invalid Reach Check");
+    let reached = world.graph.reached_locations(&world.player, spawn, &world.uber_states).expect("Invalid Reach Check");
     let reached: Vec<_> = reached.iter().filter(|&&node| node.can_place()).filter_map(|&node| node.uber_state()).collect();
     let reached = reached.iter().map(|uber_state| format!("{}", uber_state)).collect::<Vec<_>>();
     Ok(reached.join(", "))

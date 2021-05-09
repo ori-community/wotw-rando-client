@@ -63,6 +63,7 @@ struct WorldContext<'a> {
     reachable_locations: Vec<&'a Node>,
     reachable_count: usize,
     unreachable_locations: Vec<&'a Node>,
+    spirit_light_rng: SpiritLightAmounts,
 }
 
 struct GeneratorContext<'a, R, I>
@@ -73,7 +74,6 @@ where
     world_count: usize,
     multiworld_state_index: I,
     price_range: Uniform<f32>,
-    spirit_light_rng: SpiritLightAmounts,
     rng: &'a mut R,
 }
 
@@ -392,56 +392,20 @@ where
         log::warn!("(World {}): Not enough items in the pool to fill all shops!", world_index);
     }
 
-    Ok(())
-}
+    log::trace!("(World {}): Placed all items, from the pool, placing Spirit Light...", world_index);
 
-// TODO this would be more straightforward if each world had its own spirit light generator
-fn place_spirit_light<'a, R, I>(world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, R, I>) -> Result<(), String>
-where
-    R: Rng,
-    I: Iterator<Item=usize>,
-{
-    log::trace!("Placed all items from the pool, placing Spirit Light...");
+    for placeholder in world_contexts[world_index].placeholders.clone() {
+        let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+        let item = Item::SpiritLight(amount);
 
-    for world_context in world_contexts.iter_mut() {
-        world_context.placeholders.reverse();
-        world_context.unreachable_locations.reverse();
+        place_item(world_index, world_index, placeholder, true, item, world_contexts, context)?;
     }
 
-    'placeholders: loop {
-        let mut world_indices = (0..context.world_count).collect::<Vec<_>>();
-        world_indices.shuffle(context.rng);
+    for unreachable in world_contexts[world_index].unreachable_locations.clone() {
+        let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+        let item = Item::SpiritLight(amount);
 
-        for world_index in world_indices {
-            if let Some(node) = world_contexts[world_index].placeholders.pop() {
-                let amount = context.spirit_light_rng.sample(context.rng)?;
-                let item = Item::SpiritLight(amount);
-
-                place_item(world_index, world_index, node, true, item, world_contexts, context)?;
-
-                continue 'placeholders;
-            }
-        }
-
-        break;
-    }
-
-    'unreachables: loop {
-        let mut world_indices = (0..context.world_count).collect::<Vec<_>>();
-        world_indices.shuffle(context.rng);
-
-        for world_index in world_indices {
-            if let Some(node) = world_contexts[world_index].unreachable_locations.pop() {
-                let amount = context.spirit_light_rng.sample(context.rng)?;
-                let item = Item::SpiritLight(amount);
-
-                place_item(world_index, world_index, node, false, item, world_contexts, context)?;
-
-                continue 'unreachables;
-            }
-        }
-
-        break;
+        place_item(world_index, world_index, unreachable, false, item, world_contexts, context)?;
     }
 
     Ok(())
@@ -459,8 +423,10 @@ fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<(Vec<&
     let mut collected_preplacements = Vec::new();
     let mut total_reachable_count = 0;
 
+    let spawn = finished_world.graph.find_spawn(DEFAULT_SPAWN)?;
+
     loop {
-        let mut reachable_locations = finished_world.graph.reached_locations(&finished_world.player, DEFAULT_SPAWN, &finished_world.uber_states)?;
+        let mut reachable_locations = finished_world.graph.reached_locations(&finished_world.player, spawn, &finished_world.uber_states)?;
         let new_reachable_count = reachable_locations.len();
 
         if new_reachable_count > total_reachable_count {
@@ -484,24 +450,12 @@ fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<(Vec<&
     };
 }
 
-// TODO sometimes locations get double-placed?
-
 pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &Vec<&'a Node>, spawn_pickup_node: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Vec<Placement<'a>>>, String>
 where
     R: Rng,
 {
     // TODO enforce a max total price for shops
     let price_range = Uniform::new_inclusive(0.75, 1.25);
-
-    #[allow(clippy::cast_precision_loss)]
-    let spirit_light_slots: usize = worlds.iter()
-        .map(|world| world.graph.nodes.iter().filter(|&node| node.can_place()).count() - world.pool.inventory().item_count())
-        .sum();
-    let spirit_light_pool: f32 = worlds.iter().map(|world| f32::from(world.pool.spirit_light)).sum();
-
-    log::trace!("Estimated {} slots for Spirit Light", spirit_light_slots);
-
-    let spirit_light_rng = SpiritLightAmounts::new(spirit_light_pool, spirit_light_slots as f32, 0.75, 1.25);
 
     let mut world_contexts = worlds.into_iter().enumerate().map(|(world_index, mut world)| {
         world.collect_preplacements(spawn_pickup_node.uber_state().unwrap());
@@ -531,6 +485,11 @@ where
             log::trace!("(World {}): Unreachable locations on these settings: {}", world_index, format_identifiers(identifiers));
         }
 
+        let spirit_light_slots = world.graph.nodes.iter().filter(|&node| node.can_place()).count() - world.pool.inventory().item_count();
+        log::trace!("(World {}): Estimated {} slots for Spirit Light", world_index, spirit_light_slots);
+
+        let spirit_light_rng = SpiritLightAmounts::new(f32::from(world.pool.spirit_light), spirit_light_slots as f32, 0.75, 1.25);
+
         Ok(WorldContext {
             world,
             spawn: spawns[world_index],
@@ -541,6 +500,7 @@ where
             reachable_locations,
             reachable_count,
             unreachable_locations,
+            spirit_light_rng,
         })
     }).collect::<Result<Vec<_>, String>>()?;
 
@@ -548,7 +508,6 @@ where
         world_count: settings.worlds,
         multiworld_state_index: 0..,
         price_range,
-        spirit_light_rng,
         rng,
     };
 
@@ -565,8 +524,7 @@ where
         let mut unmet = Vec::new();
 
         for world_context in &world_contexts {
-            // TODO pass the node to the reach check
-            let (world_reachable, world_unmet) = world_context.world.graph.reached_and_progressions(&world_context.world.player, world_context.spawn.identifier(), &world_context.world.uber_states)?;
+            let (world_reachable, world_unmet) = world_context.world.graph.reached_and_progressions(&world_context.world.player, world_context.spawn, &world_context.world.uber_states)?;
             reachable_states.push(world_reachable.iter().filter(|&&node| !node.can_place()).cloned().collect::<Vec<_>>());
             reachable.push(world_reachable);
             unmet.push(world_unmet);
@@ -733,7 +691,7 @@ where
                         inventory: world_context.world.player.inventory.merge(inventory),
                         ..world_context.world.player.clone()
                     };
-                    let lookahead_reachable = world_context.world.graph.reached_locations(&lookahead_player, world_context.spawn.identifier(), &world_context.world.uber_states)?;
+                    let lookahead_reachable = world_context.world.graph.reached_locations(&lookahead_player, world_context.spawn, &world_context.world.uber_states)?;
 
                     newly_reached += lookahead_reachable.len() - reachable_counts[world_index];
                 }
@@ -770,7 +728,7 @@ where
                     let mut amount_placed = 0;
 
                     while &amount_placed < amount {
-                        let stacked_amount = context.spirit_light_rng.sample(context.rng)?;
+                        let stacked_amount = world_contexts[chosen_world_index].spirit_light_rng.sample(context.rng)?;
                         amount_placed += stacked_amount;
                         spirit_light_items.push(Item::SpiritLight(stacked_amount));
                     }
@@ -806,8 +764,6 @@ where
 
                 world_contexts[world_index].placements.shrink_to_fit();
             }
-
-            place_spirit_light(&mut world_contexts, &mut context)?;
 
             let placements = world_contexts.into_iter().map(|world_context| world_context.placements).collect::<Vec<_>>();
             return Ok(placements);

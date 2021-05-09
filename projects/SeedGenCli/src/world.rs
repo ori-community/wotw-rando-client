@@ -190,7 +190,8 @@ mod tests {
         world.player.inventory = Pool::preset(&Pathsets::default()).progressions;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
 
-        let reached = world.graph.reached_locations(&world.player, "MarshSpawn.Main", &world.uber_states).unwrap();
+        let spawn = world.graph.find_spawn("MarshSpawn.Main").unwrap();
+        let reached = world.graph.reached_locations(&world.player, spawn, &world.uber_states).unwrap();
         let reached: FxHashSet<_> = reached.iter()
             .filter_map(|node| {
                 if node.node_type() == NodeType::State { None }
@@ -217,7 +218,8 @@ mod tests {
         world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);
         world.player.inventory.grant(Item::Shard(Shard::TripleJump), 1);
 
-        let reached = world.graph.reached_locations(&world.player, "GladesTown.Teleporter", &world.uber_states).unwrap();
+        let spawn = world.graph.find_spawn("GladesTown.Teleporter").unwrap();
+        let reached = world.graph.reached_locations(&world.player, spawn, &world.uber_states).unwrap();
         let reached: Vec<_> = reached.iter().filter_map(|node| node.uber_state()).cloned().collect();
         assert_eq!(reached, vec![UberState::from_parts("42178", "63404").unwrap(), UberState::from_parts("42178", "42762").unwrap(), UberState::from_parts("23987", "14014").unwrap(), UberState::from_parts("42178", "6117").unwrap()]);
     }

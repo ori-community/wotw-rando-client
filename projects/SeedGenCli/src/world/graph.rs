@@ -248,11 +248,6 @@ impl Graph {
         }
     }
 
-    fn find_spawn(&self, spawn: &str) -> Result<&Node, String> {
-        let entry = self.nodes.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn {} not found", spawn))?;
-        if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, {} is a {:?}", spawn, entry.node_type())); }
-        Ok(entry)
-    }
     fn collect_extra_states(&self, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> FxHashSet<usize> {
         let mut states = FxHashSet::default();
 
@@ -275,9 +270,14 @@ impl Graph {
         states
     }
 
-    pub fn reached_locations(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Reached, String> {
-        let entry = self.find_spawn(spawn)?;
+    #[inline]
+    pub fn find_spawn(&self, spawn: &str) -> Result<&Node, String> {
+        let entry = self.nodes.iter().find(|&node| node.identifier() == spawn).ok_or_else(|| format!("Spawn {} not found", spawn))?;
+        if !matches!(entry, Node::Anchor(_)) { return Err(format!("Spawn has to be an anchor, {} is a {:?}", spawn, entry.node_type())); }
+        Ok(entry)
+    }
 
+    pub fn reached_locations<'a>(&'a self, player: &Player, spawn: &'a Node, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Reached<'a>, String> {
         let mut context = ReachContext {
             player,
             progression_check: false,
@@ -286,14 +286,11 @@ impl Graph {
             world_state: FxHashMap::default(),
         };
 
-        let (reached, _) = self.reach_recursion(entry, true, smallvec![player.max_orbs()], &mut context);
+        let (reached, _) = self.reach_recursion(spawn, true, smallvec![player.max_orbs()], &mut context);
 
         Ok(reached)
     }
-
-    pub fn reached_and_progressions(&self, player: &Player, spawn: &str, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<(Reached, Progressions), String> {
-        let entry = self.find_spawn(spawn)?;
-
+    pub fn reached_and_progressions<'a>(&'a self, player: &Player, spawn: &'a Node, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<(Reached<'a>, Progressions<'a>), String> {
         let mut context = ReachContext {
             player,
             progression_check: true,
@@ -302,7 +299,7 @@ impl Graph {
             world_state: FxHashMap::default(),
         };
 
-        let reached_and_progressions = self.reach_recursion(entry, true, smallvec![player.max_orbs()], &mut context);
+        let reached_and_progressions = self.reach_recursion(spawn, true, smallvec![player.max_orbs()], &mut context);
 
         Ok(reached_and_progressions)
     }
