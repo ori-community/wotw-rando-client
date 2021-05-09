@@ -573,7 +573,7 @@ fun generatePool() = mutableListOf(
         threshold("A Diamond in the Rough", 14019, 61011, 5, hideValue = true),
         threshold("Into The Darkness", 14019, 33776, 3, hideValue = true),
         threshold("Kwolok's Wisdom", 14019, 50597, 4, hideValue = true),
-        threshold("The Silent Map", 14019, 24683, 5, hideValue = true),
+//        threshold("The Silent Map", 14019, 24683, 5, hideValue = true),
         threshold("Breaking the Mould", 14019, 45931, 3, hideValue = true, countOnly = true),
         threshold("Lost in Paradise", 14019, 35087, 3, hideValue = true, countOnly = true),
         threshold("The Highest Reach", 14019, 8973, 3, hideValue = true, countOnly = true),
