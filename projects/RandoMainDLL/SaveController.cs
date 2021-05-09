@@ -61,6 +61,7 @@ namespace RandoMainDLL {
 
     public static void NewGame(int slot) {
       CurrentSlot = slot;
+      MapController.InitLupoPrices();
     }
 
     public static void OnLoad(int slot, int backupSlot = -1) {
@@ -73,6 +74,7 @@ namespace RandoMainDLL {
           // slot swap
           CurrentSlot = slot;
         }
+        MapController.InitLupoPrices();
         UberStateController.SkipListeners = true;
         UberStateController.UberStates.Clear();
         UberStateController.TickingUberStates.Clear();
