@@ -185,6 +185,7 @@ class WotwBackendServer {
                     }
                     static("static") {
                         resource("flex-helper.css")
+                        resource("style.css")
                         resource("wotw-server.js")
                         resource("wotw-server.js.map")
                         defaultResource("index.html")
@@ -193,6 +194,7 @@ class WotwBackendServer {
                         call.respondHtml {
                             head {
                                 link("/static/flex-helper.css", rel = "stylesheet")
+                                link("/static/style.css", rel = "stylesheet")
                             }
                             body {
                                 div {

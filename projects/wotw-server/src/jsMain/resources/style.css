@@ -1,0 +1,176 @@
+:root{
+    --bingo-colour-0: #7d2a2a;
+    --bingo-colour-1: #2d2db0;
+    --bingo-colour-2: #c6a81c;
+    --bingo-colour-3: #2c842c;
+    --bingo-colour-4: #703099;
+    --bingo-colour-5: #385b94;
+    --bingo-colour-6: #707070;
+
+    --bingo-gap-size: 5px;
+    --bingo-board-card-size: 5;
+    --bingo-board-edge-size: 20px;
+    --bingo-board-size: 95vh;
+}
+body{
+    background-color: #222;
+    color: white;
+}
+a{
+    color: lightblue;
+}
+button{
+    color: lightgrey;
+    background-color: #333;
+}
+
+.bingo-square:before,.bingo-card:before{
+    content: " ";
+    float: left;
+    padding-top: 100%;
+}
+.bingo-card{
+    /*border: 2px solid aqua;*/
+    margin-right: 3em;
+    position: relative;
+    width: var(--bingo-board-size);
+    height: var(--bingo-board-size);
+}
+.bingo-card .vbox{
+    gap: var(--bingo-gap-size);
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.bingo-row{
+    gap: var(--bingo-gap-size);
+    width: 100%;
+    height: calc(((var(--bingo-board-size) - 2 * var(--bingo-board-edge-size)) - (var(--bingo-board-card-size) + 1) * var(--bingo-gap-size)) / var(--bingo-board-card-size));
+    text-align: center;
+}
+.bingo-square{
+    width: calc(((var(--bingo-board-size) - 2 * var(--bingo-board-edge-size)) - 30px) / var(--bingo-board-card-size) - 2px);
+    height: calc(100% - 2px);
+    max-height: 100%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #303030;
+    color: white;
+    text-shadow: 2px 2px #303030;
+    border-radius: 5px;
+    border: white solid 1px;
+}
+.bingo-square.marked{
+    background-color: dodgerblue;
+}
+
+.bingo-square.completed{
+    color: white;
+}
+.bingo-square:not(.x-edge,.y-edge) .bingo-goal{
+    height: 25%;
+    background-color: #FFFFFF18;
+    border-bottom: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 3px;
+    padding-right: 3px;
+
+}
+.bingo-sub-goals{
+    height: 75%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bingo-sub-goals > div{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.bingo-sub-goal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal;
+    width: 100%;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.bingo-sub-goal.completed p{
+    width: 100%;
+    text-decoration: line-through;
+    color: lightgrey;
+}
+.x-edge,.y-edge{
+    border: 1px;
+    background: none !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.y-edge{
+    height: 20px !important;
+}
+.x-edge{
+    width: 20px !important;
+}
+
+.x-edge p,.y-edge p{
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+.x-edge .bingo-sub-goals,.y-edge .bingo-sub-goals{
+    display: none;
+}
+
+.bingo-players{
+    border-radius: 5px;
+    border: white solid 1px;
+    color: #CCCCCC;
+
+}
+.bingo-players h1{
+    text-align: center;
+    width: 100%;
+}
+.bingo-players-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.bingo-player{
+    width: 95%;
+    --bg: #FFFFFF18;
+    background-color: var(--bg);
+    height: 50px;
+    border: 2px darkgray solid;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bingo-player::after{
+    color: transparent;
+    content: "__";
+    width: 28%;
+}
+
+.bingo-player.highlighted{
+    font-weight: bold;
+    --bg: #ffffff30;
+}
+.join-button{
+    margin-bottom: 10px;
+}
