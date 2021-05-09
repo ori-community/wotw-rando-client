@@ -450,7 +450,8 @@ fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<(Vec<&
     };
 }
 
-pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &Vec<&'a Node>, spawn_pickup_node: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Vec<Placement<'a>>>, String>
+// TODO reset multiworld bools somehow
+pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &Vec<&'a Node>, spawn_pickup_node: &'a Node, settings: &Settings, rng: &mut R) -> Result<(Vec<Vec<Placement<'a>>>, usize), String>
 where
     R: Rng,
 {
@@ -766,7 +767,8 @@ where
             }
 
             let placements = world_contexts.into_iter().map(|world_context| world_context.placements).collect::<Vec<_>>();
-            return Ok(placements);
+            let state_index = context.multiworld_state_index.next().unwrap();
+            return Ok((placements, state_index));
         }
     }
 }
