@@ -130,6 +130,25 @@ namespace RandoMainDLL {
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
 
+    public static void InitLupoPrices() {
+      foreach (var lp in lupoPrices)
+        InterOp.set_lupo_area_price(lp.Key, lp.Value);
+    }
+
+    private static readonly Dictionary<AreaType, int> lupoPrices = new Dictionary<AreaType, int>() {
+      {AreaType.InkwaterMarsh, 200},
+      {AreaType.KwoloksHollow, 150},
+      {AreaType.WellspringGlades, 200},
+      {AreaType.WaterMill, 150},
+      {AreaType.MidnightBurrow, 50},
+      {AreaType.SilentWoodland, 150},
+      {AreaType.BaursReach, 150},
+      {AreaType.LumaPools, 150},
+      {AreaType.MouldwoodDepths, 150},
+      {AreaType.WindsweptWastes, 150},
+      {AreaType.WillowsEnd, 50},
+    };
+
 
     public static string SpoilerName(this UberStateCondition cond) {
       var pick = cond.Pickup();
