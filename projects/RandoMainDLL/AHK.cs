@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using AutoHotkey.Interop;
 using RandoMainDLL.Memory;
+using System.Linq;
 
 namespace RandoMainDLL {
   public static class AHK {
@@ -145,13 +146,18 @@ namespace RandoMainDLL {
         Randomizer.TitleScreenCallback = () => {
           if (disableDebug)
             InterOp.set_debug_controls(false);
-          if(cursorLock)
+          if (cursorLock)
             InterOp.toggle_cursorlock();
         };
       }
 
       if (IniFlag("dev"))
         Randomizer.Dev = true;
+      int maxLogLines = Randomizer.Dev ? 1000 : 100;
+      var logLines = File.ReadAllLines(Randomizer.LogFile);
+      if (logLines.Length > maxLogLines) {
+        File.WriteAllLines(Randomizer.LogFile, logLines.Skip(logLines.Length / 2));
+      }
     }
 
     private static readonly HashSet<string> Falsey = new HashSet<string>() { "false", "False", "no", "", "0", "ERROR", null };

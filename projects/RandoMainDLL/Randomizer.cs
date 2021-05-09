@@ -37,7 +37,6 @@ namespace RandoMainDLL {
         UberStateController.UberStates.Clear();
         UberStateController.TickingUberStates.Clear();
         AHK.OnNewGame();
-        MapController.InitLupoPrices();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
         Client.Connect();
@@ -83,6 +82,7 @@ namespace RandoMainDLL {
 
         AHK.Init();
         SeedController.ReadSeed(true);
+        MapController.InitLupoPrices();
 
         Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
         DiscordController.Initialize();
