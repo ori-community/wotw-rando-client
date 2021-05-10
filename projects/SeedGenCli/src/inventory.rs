@@ -121,13 +121,7 @@ impl Item {
     }
     #[inline]
     pub fn is_multiworld_spread(&self) -> bool {
-        matches!(self,
-            Item::Resource(_) |
-            Item::Skill(_) |
-            Item::Shard(_) |
-            Item::Teleporter(_) |
-            Item::Water
-        )
+        !matches!(self, Item::SpiritLight(_))
     }
 
     #[inline]

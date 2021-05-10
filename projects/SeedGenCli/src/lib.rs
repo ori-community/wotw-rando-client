@@ -5,7 +5,7 @@ pub mod generator;
 pub mod headers;
 pub mod util;
 
-use std::collections::HashSet;
+use std::collections::{HashSet, HashMap};
 
 use rand_seeder::Seeder;
 use rand::{Rng, rngs::StdRng, seq::IteratorRandom};
@@ -126,21 +126,20 @@ pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(
     Ok(())
 }
 
-fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Vec<String>), String>
+fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Vec<String>, HashMap<String, String>), String>
 where R: Rng + ?Sized
 {
     let mut header_block = String::new();
     let mut custom_flags = Vec::new();
     let mut total_dependencies = HashSet::new();
+    let mut custom_names = HashMap::new();
 
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let (header, mut flags, dependencies) = headers::parser::parse_header(header, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = headers::parser::parse_header(header, &mut custom_flags, &mut total_dependencies, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
-        custom_flags.append(&mut flags);
-        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
     for mut path in settings.header_list.clone() {
         path.set_extension("wotwrh");
@@ -148,11 +147,9 @@ where R: Rng + ?Sized
         log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {}", path.display()))?.to_string_lossy());
 
         let header = util::read_file(&path, "headers")?;
-        let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets, rng).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
+        let header = headers::parser::parse_header(&header, &mut custom_flags, &mut total_dependencies, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
 
         header_block += &header;
-        custom_flags.append(&mut flags);
-        total_dependencies = total_dependencies.union(&dependencies).cloned().collect();
     }
 
     let mut depth = 0;
@@ -162,11 +159,9 @@ where R: Rng + ?Sized
             log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {}", dependency.display()))?.to_string_lossy());
 
             let header = util::read_file(&dependency, "headers")?;
-            let (header, mut flags, dependencies) = headers::parser::parse_header(&header, world, &settings.pathsets, rng)?;
+            let header = headers::parser::parse_header(&header, &mut custom_flags, &mut nested_dependencies, &mut custom_names, world, &settings.pathsets, rng)?;
 
             header_block += &header;
-            custom_flags.append(&mut flags);
-            nested_dependencies = nested_dependencies.union(&dependencies).cloned().collect();
         }
         total_dependencies = nested_dependencies;
 
@@ -176,7 +171,7 @@ where R: Rng + ?Sized
         }
     }
 
-    Ok((header_block, custom_flags))
+    Ok((header_block, custom_flags, custom_names))
 }
 
 pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str) -> Result<Vec<String>, String> {
@@ -187,7 +182,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     world.pool = Pool::preset(&settings.pathsets);
     world.player.spawn(settings);
 
-    let (header_block, custom_flags) = parse_headers(&mut world, headers, settings, &mut rng)?;
+    let (header_block, custom_flags, custom_names) = parse_headers(&mut world, headers, settings, &mut rng)?;
 
     let flag_line = write_flags(settings, custom_flags);
 
@@ -213,7 +208,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         let identifiers = spawn_locs.iter().map(|spawn_loc| spawn_loc.identifier()).collect::<Vec<_>>();
         log::trace!("Spawning on {}", identifiers.join(", "));
 
-        match generator::generate_placements(worlds.clone(), &spawn_locs, &spawn_pickup_node, settings, &mut rng) {
+        match generator::generate_placements(worlds.clone(), &spawn_locs, &spawn_pickup_node, &custom_names, settings, &mut rng) {
             Ok(seed) => {
                 if index > 0 {
                     log::info!("Generated seed after {} tries{}", index + 1, if index < RETRIES / 2 { "" } else { " (phew)" });
@@ -256,7 +251,9 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
                 );
 
                 util::add_trailing_spaces(&mut placement_line, 42);
-                let item = util::with_leading_spaces(&format!("{}", placement.item), 30);
+                let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", placement.item));
+                let item = util::with_leading_spaces(&item, 30);
+
                 placement_line += &format!("  // {} from {}", item, location);
             }
 

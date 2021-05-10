@@ -4,6 +4,7 @@
 !!include header_core
 
 !!add 5x 8|9|2|int|+1                   // Scatter five fragments
+!!name 8|9|2|int|+1 Launch Fragment
 9|2|8|9|0|int|3                        // On each collected Fragment
 9|0=3|4|5|9|2|2                        // If the player has two or less
 9|0=3|6|*Launch* Fragment ($(9|2)/3)   // Show status message

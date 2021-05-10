@@ -1,5 +1,5 @@
 use std::{
-    collections::HashSet,
+    collections::{HashSet, HashMap},
     path::PathBuf,
 };
 
@@ -479,6 +479,17 @@ fn remove_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
 }
 // TODO documentation
 #[inline]
+fn name_command(naming: &str, namings: &mut HashMap<String, String>) -> Result<(), String> {
+    let mut parts = naming.splitn(2, ' ');
+    let pickup = parts.next().unwrap();
+    let name = parts.next().ok_or_else(|| format!("Missing name in name command {}", naming))?;
+
+    namings.insert(pickup.to_string(), name.to_string());
+
+    Ok(())
+}
+// TODO documentation
+#[inline]
 fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
     let count = parse_count(&mut string);
 
@@ -558,12 +569,10 @@ fn set_command() {
     log::warn!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
 }
 
-pub fn parse_header<R>(header: &str, world: &mut World, pathsets: &Pathsets, rng: &mut R) -> Result<(String, Vec<String>, HashSet<PathBuf>), String>
+pub fn parse_header<R>(header: &str, flags: &mut Vec<String>, dependencies: &mut HashSet<PathBuf>, namings: &mut HashMap<String, String>, world: &mut World, pathsets: &Pathsets, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
-    let mut flags = Vec::new();
-    let mut dependencies = HashSet::new();
     let mut pool = Vec::new();
     let mut first_line = true;
 
@@ -587,11 +596,13 @@ where R: Rng + ?Sized
             }
         } else if let Some(command) = trimmed.strip_prefix("!!") {
             if let Some(include) = command.strip_prefix("include ") {
-                include_command(include, &mut dependencies);
+                include_command(include, dependencies);
             } else if let Some(pickup) = command.strip_prefix("add ") {
                 add_command(pickup, world, pathsets)?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
                 remove_command(pickup, world)?;
+            } else if let Some(naming) = command.strip_prefix("name ") {
+                name_command(naming, namings)?;
             } else if let Some(string) = command.strip_prefix("pool ") {
                 pool_command(string, &mut pool)?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {
@@ -653,7 +664,7 @@ where R: Rng + ?Sized
     }
     processed.push('\n');
     processed.shrink_to_fit();
-    Ok((processed, flags, dependencies))
+    Ok(processed)
 }
 
 pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
@@ -812,7 +823,7 @@ mod tests {
         let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut world, &Pathsets::default(), &mut thread_rng()).unwrap();
+        parse_header(&header, &mut Vec::new(), &mut HashSet::default(), &mut HashMap::default(), &mut world, &Pathsets::default(), &mut thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);

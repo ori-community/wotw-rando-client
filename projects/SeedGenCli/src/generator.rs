@@ -1,4 +1,8 @@
-use std::{fmt, convert::TryFrom};
+use std::{
+    fmt,
+    convert::TryFrom,
+    collections::HashMap,
+};
 
 use rand::{
     Rng,
@@ -66,18 +70,19 @@ struct WorldContext<'a> {
     spirit_light_rng: SpiritLightAmounts,
 }
 
-struct GeneratorContext<'a, R, I>
+struct GeneratorContext<'a, 'b, R, I>
 where
     R: Rng,
     I: Iterator<Item=usize>,
 {
     world_count: usize,
+    custom_names: &'b HashMap<String, String>,
     multiworld_state_index: I,
     price_range: Uniform<f32>,
     rng: &'a mut R,
 }
 
-fn place_item<'a, R, I>(origin_world_index: usize, target_world_index: usize, node: &'a Node, was_placeholder: bool, item: Item, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, R, I>) -> Result<(), String>
+fn place_item<'a, R, I>(origin_world_index: usize, target_world_index: usize, node: &'a Node, was_placeholder: bool, item: Item, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -121,7 +126,8 @@ where
 
         let state_index = context.multiworld_state_index.next().unwrap();
 
-        let message = Item::Message(format!("{} for Player {}", item, target_world_index));
+        let item_name = context.custom_names.get(&item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", item));
+        let message = Item::Message(format!("{} for Player {}", item_name, target_world_index));
         let setter = Item::UberState(format!("12|{}|bool|true", state_index));
         let target_uber_state = UberState::from_parts("12", &state_index.to_string())?;
 
@@ -145,7 +151,7 @@ where
     Ok(())
 }
 
-fn place_relics<'a, R, I>(world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, R, I>) -> Result<(), String>
+fn place_relics<'a, R, I>(world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -185,7 +191,7 @@ where
 }
 
 #[inline]
-fn force_keystones<'a, R, I>(reachable_states: &[Vec<&Node>], reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, R, I>) -> Result<(), String>
+fn force_keystones<'a, R, I>(reachable_states: &[Vec<&Node>], reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -220,7 +226,7 @@ where
     Ok(())
 }
 
-fn forced_placement<'a, R, I>(world_index: usize, item: Item, reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, R, I>) -> Result<(), String>
+fn forced_placement<'a, R, I>(world_index: usize, item: Item, reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -279,7 +285,7 @@ where
 }
 
 #[inline]
-fn random_placement<'a, R, I>(world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, R, I>) -> Result<(), String>
+fn random_placement<'a, R, I>(world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -352,7 +358,7 @@ impl SpiritLightAmounts {
     }
 }
 
-fn place_remaining<'a, R, I>(world_index: usize, remaining: Inventory, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, R, I>) -> Result<(), String>
+fn place_remaining<'a, R, I>(world_index: usize, remaining: Inventory, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -450,7 +456,7 @@ fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<(Vec<&
     };
 }
 
-pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &Vec<&'a Node>, spawn_pickup_node: &'a Node, settings: &Settings, rng: &mut R) -> Result<Vec<Vec<Placement<'a>>>, String>
+pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &Vec<&'a Node>, spawn_pickup_node: &'a Node, custom_names: &HashMap<String, String>, settings: &Settings, rng: &mut R) -> Result<Vec<Vec<Placement<'a>>>, String>
 where
     R: Rng,
 {
@@ -506,6 +512,7 @@ where
 
     let mut context = GeneratorContext {
         world_count: settings.worlds,
+        custom_names,
         multiworld_state_index: 0..,
         price_range,
         rng,
