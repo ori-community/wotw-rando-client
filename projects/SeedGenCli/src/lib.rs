@@ -206,7 +206,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     });
 
     let mut index = 0;
-    let (placements, state_index, spawn_locs) = loop {
+    let (placements, spawn_locs) = loop {
         let spawn_locs = (0..settings.worlds)
             .map(|_| pick_spawn(graph, &settings, &mut rng))
             .collect::<Result<Vec<_>, String>>()?;
@@ -214,11 +214,11 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         log::trace!("Spawning on {}", identifiers.join(", "));
 
         match generator::generate_placements(worlds.clone(), &spawn_locs, &spawn_pickup_node, settings, &mut rng) {
-            Ok((seeds, state_index)) => {
+            Ok(seed) => {
                 if index > 0 {
-                    log::info!("Generated after {} tries{}", index + 1, if index < RETRIES / 2 { "" } else { " (phew)" });
+                    log::info!("Generated seed after {} tries{}", index + 1, if index < RETRIES / 2 { "" } else { " (phew)" });
                 }
-                break (seeds, state_index, spawn_locs);
+                break (seed, spawn_locs);
             },
             Err(err) => log::error!("{}\nRetrying...", err),
         }
@@ -236,10 +236,6 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         }
         Ok(String::new())
     }).collect::<Result<Vec<_>, String>>()?;
-
-    let multistate_line = if state_index > 0 {
-        format!("MULTISTATE: {}\n\n", state_index)
-    } else { String::new() };
 
     let placement_blocks = placements.into_iter().map(|world_placements| {
         let mut placement_block = String::with_capacity(world_placements.len() * 20);
@@ -275,7 +271,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     let config_line = format!("// Config: {}", Settings::write(&settings)?);
 
     let seeds = (0..settings.worlds).map(|index| {
-        format!("{}{}\n{}{}\n{}{}\n{}", flag_line, &spawn_lines[index], multistate_line, &placement_blocks[index], &header_block, &seed_line, &config_line)
+        format!("{}{}\n{}\n{}{}\n{}", flag_line, &spawn_lines[index], &placement_blocks[index], &header_block, &seed_line, &config_line)
     }).collect::<Vec<_>>();
 
     Ok(seeds)
