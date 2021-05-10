@@ -26,8 +26,6 @@ use util::{
     uberstate::{UberState, UberValue},
 };
 
-// TODO logic bug with reckless shard?
-
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
 ///

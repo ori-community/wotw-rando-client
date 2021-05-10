@@ -340,6 +340,7 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       DoubleJump OR Launch
       Dash, Glide
       Bash, Grenade=1
+      WaterDash  # water always clean
     gorlek: BreakWall=10, SentryJump=1
     unsafe: BreakWall=10, Dash OR Sword OR Hammer
 
