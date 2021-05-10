@@ -119,12 +119,15 @@ struct SeedSettings {
     /// How many (multi)worlds to generate
     #[structopt(short, long, default_value = "1")]
     worlds: usize,
+    /// Player names in multiworld
+    #[structopt(short, long)]
+    names: Vec<String>,
     /// hides spoilers
     #[structopt(short, long)]
     race: bool,
     /// required for coop and bingo
     #[structopt(short, long)]
-    netcode: bool,
+    multiplayer: bool,
     /// play this seed on hard (in-game) difficulty
     #[structopt(long)]
     hard: bool,
@@ -276,39 +279,34 @@ fn parse_spawn(spawn: String) -> Spawn {
     }
 }
 fn parse_settings(settings: SeedSettings) -> Settings {
-    let pathsets = parse_pathsets(&settings.logic);
-    let goalmodes = parse_goalmodes(&settings.goals);
-    let spawn = parse_spawn(settings.spawn);
+    let SeedSettings {
+        worlds,
+        names,
+        race,
+        multiplayer,
+        hard,
+        spawn,
+        goals,
+        logic,
+        header_paths,
+    } = settings;
+
+    let pathsets = parse_pathsets(&logic);
+    let goalmodes = parse_goalmodes(&goals);
+    let spawn = parse_spawn(spawn);
 
     Settings {
         version: None,
-        worlds: settings.worlds,
-        spoilers: !settings.race,
+        worlds,
+        players: names,
+        spoilers: !race,
         pathsets,
         goalmodes,
-        web_conn: settings.netcode,
+        web_conn: multiplayer,
         spawn_loc: spawn,
-        hard: settings.hard,
-        header_list: settings.header_paths,
+        hard,
+        header_list: header_paths,
     }
-}
-
-fn merge_settings(current: &mut Settings, mut other: Settings) {
-    if other.version.is_some() {
-        current.version = other.version;
-    }
-    current.worlds = current.worlds.max(other.worlds);
-    for pathset in other.pathsets.pathsets {
-        current.pathsets.add(pathset);
-    }
-    current.goalmodes.extend(other.goalmodes);
-    if other.spawn_loc != Spawn::default() {
-        current.spawn_loc = other.spawn_loc;
-    }
-    current.spoilers = current.spoilers && other.spoilers;
-    current.web_conn = current.web_conn || other.web_conn;
-    current.hard = current.hard || other.hard;
-    current.header_list.append(&mut other.header_list);
 }
 
 fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
@@ -344,10 +342,10 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
             }
         };
 
-        merge_settings(&mut settings, preset_settings);
+        settings.merge(preset_settings);
     }
 
-    merge_settings(&mut settings, parse_settings(args.settings));
+    settings.merge(parse_settings(args.settings));
     settings.version = Some(env!("CARGO_PKG_VERSION").to_string());
 
     let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;

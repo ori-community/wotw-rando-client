@@ -87,15 +87,13 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     if old_settings.flags.world_tour { goalmodes.insert(GoalMode::Relics); }
 
     Ok(Settings {
-        version: None,
-        worlds: 1,
         pathsets,
         goalmodes,
         spoilers: old_settings.spoilers,
         web_conn: old_settings.web_conn,
         spawn_loc,
-        hard: false,
         header_list,
+        ..Settings::default()
     })
 }
 
@@ -118,6 +116,7 @@ pub struct Settings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
     pub worlds: usize,
+    pub players: Vec<String>,
     #[serde(flatten)]
     pub pathsets: Pathsets,
     pub goalmodes: FxHashSet<GoalMode>,
@@ -132,6 +131,7 @@ impl Default for Settings {
         Settings {
             version: None,
             worlds: 1,
+            players: Vec::default(),
             pathsets: Pathsets::default(),
             goalmodes: FxHashSet::default(),
             spawn_loc: Spawn::default(),
@@ -162,6 +162,28 @@ impl Settings {
     pub fn write(settings: &Settings) -> Result<String, String> {
         serde_json::to_string(settings).map_err(|err| format!("Invalid Settings: {}", err))
     }
+
+    pub fn merge(&mut self, mut other: Settings) {
+        if other.version.is_some() {
+            self.version = other.version;
+        }
+        if self.worlds < other.worlds {
+            self.worlds = other.worlds;
+            self.players = other.players;
+        }
+        for pathset in other.pathsets.pathsets {
+            self.pathsets.add(pathset);
+        }
+        self.goalmodes.extend(other.goalmodes);
+        if other.spawn_loc != Spawn::default() {
+            self.spawn_loc = other.spawn_loc;
+        }
+        self.spoilers = self.spoilers && other.spoilers;
+        self.web_conn = self.web_conn || other.web_conn;
+        self.hard = self.hard || other.hard;
+        self.header_list.append(&mut other.header_list);
+    }
+    
 }
 
 pub fn read_spawn(seed: &Path) -> Result<String, String> {

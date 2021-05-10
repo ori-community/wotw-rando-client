@@ -59,6 +59,7 @@ fn format_identifiers(mut identifiers: Vec<&str>) -> String {
 
 struct WorldContext<'a> {
     world: World<'a>,
+    player_name: String,
     spawn: &'a Node,
     placements: Vec<Placement<'a>>,
     placeholders: Vec<&'a Node>,
@@ -87,6 +88,8 @@ where
     R: Rng,
     I: Iterator<Item=usize>,
 {
+    let player_name = world_contexts[target_world_index].player_name.clone();
+
     let origin_world_context = &mut world_contexts[origin_world_index];
 
     let uber_state = node.uber_state().unwrap();
@@ -122,12 +125,12 @@ where
             item,
         });
     } else {
-        log::trace!("(World {}): Placed {} for Player {} at {}", origin_world_index, item, target_world_index, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("(World {}): Placed {} for {} at {}", origin_world_index, item, player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         let state_index = context.multiworld_state_index.next().unwrap();
 
         let item_name = context.custom_names.get(&item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", item));
-        let message = Item::Message(format!("{} for Player {}", item_name, target_world_index));
+        let message = Item::Message(format!("{} for {}", item_name, player_name));
         let setter = Item::UberState(format!("12|{}|bool|true", state_index));
         let target_uber_state = UberState::from_parts("12", &state_index.to_string())?;
 
@@ -464,6 +467,8 @@ where
     let price_range = Uniform::new_inclusive(0.75, 1.25);
 
     let mut world_contexts = worlds.into_iter().enumerate().map(|(world_index, mut world)| {
+        let player_name = settings.players.get(world_index).map(|name| name.clone()).unwrap_or_else(|| format!("Player {}", world_index + 1));
+
         world.collect_preplacements(spawn_pickup_node.uber_state().unwrap());
 
         let mut placements = Vec::with_capacity(450);
@@ -498,6 +503,7 @@ where
 
         Ok(WorldContext {
             world,
+            player_name,
             spawn: spawns[world_index],
             placements,
             placeholders: Vec::with_capacity(300),
