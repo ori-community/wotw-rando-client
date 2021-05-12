@@ -85,7 +85,7 @@ namespace RandoMainDLL {
 
     public static bool GrantingGoalModeLoc = false;
 
-    public static SeedGenSettings Settings;
+    public static SeedGenSettings Settings = new SeedGenSettings();
     public enum FakeUberGroups {
       TREE = 0,
       OPHER_WEAPON = 1,
