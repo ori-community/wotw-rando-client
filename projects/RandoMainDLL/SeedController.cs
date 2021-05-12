@@ -592,8 +592,7 @@ namespace RandoMainDLL {
     }
 
 
-    public static bool DoesHowlExist() => UberGet.Bool(7, 3) || (SeedController.Settings.LegacySeedgen && Flags.Contains(Flag.RAIN));
-
+    public static bool IsHowlDead() => UberGet.Bool(7, 3) || (SeedController.Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
     public static bool IsDayTime() => AbilityType.SpiritEdge.HaveTree() || UberGet.Bool(7,2) || (SeedController.Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
     public static int Current { get => SaveController.FoundCount; }
     public static int Total = 0;

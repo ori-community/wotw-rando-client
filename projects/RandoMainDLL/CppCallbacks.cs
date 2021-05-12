@@ -142,7 +142,7 @@ namespace RandoMainDLL {
             CallbackName = "is_day_time"
           },
           new Method() {
-            Delegate = new f_bool(SeedController.DoesHowlExist),
+            Delegate = new f_bool(() => !SeedController.IsHowlDead()),
             CallbackName = "does_howl_exist"
           },
           new Method() {
