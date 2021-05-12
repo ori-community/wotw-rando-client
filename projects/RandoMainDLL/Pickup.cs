@@ -666,10 +666,10 @@ namespace RandoMainDLL {
           InterOp.set_kvolok_door_availability(value > 0);
           break;
         case SysState.Rain:
-          SeedController.RainOverride = value > 0;
+          AHK.Print("Deprecated: use Uberstate 7|2");
           break;
         case SysState.HowlEscape:
-          SeedController.HowlOverride = value > 0;
+          AHK.Print("Deprecated: use Uberstate 7|3");
           break;
       }
     }
