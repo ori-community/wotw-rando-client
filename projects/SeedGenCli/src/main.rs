@@ -47,6 +47,9 @@ enum SeedGenCommand {
         /// create a generator.log with verbose output about the generation process
         #[structopt(short, long)]
         verbose: bool,
+        /// write the seed to stdout instead of a file
+        #[structopt(long)]
+        tostdout: bool,
     },
     /// Play the most recent generated seed
     Play,
@@ -283,25 +286,24 @@ fn parse_settings(settings: SeedSettings) -> Settings {
     }
 }
 
-fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
+fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
     let now = Instant::now();
 
-    let mut filename = args.filename.clone().unwrap_or_else(|| {
-        if args.seed.is_none() {
+    let seed = args.seed.clone().unwrap_or_else(|| {
+        if let Some(filename) = &args.filename {
+            filename.file_stem().unwrap().to_string_lossy().to_string()
+        } else {
             let mut generated_seed = String::new();
             let numeric = Uniform::from('0'..='9');
             let mut rng = rand::thread_rng();
+
             for _ in 0..16 {
                 generated_seed.push(numeric.sample(&mut rng));
             }
-            args.seed = Some(generated_seed);
+
+            generated_seed
         }
-        PathBuf::from("seed")
     });
-
-    filename.set_extension("wotwr");
-
-    let seed = args.seed.unwrap_or_else(|| filename.file_stem().unwrap().to_string_lossy().to_string());
 
     let mut settings = Settings::default();
     for preset in args.preset {
@@ -337,6 +339,13 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
         log::info!("Generated {} worlds in {:?}", settings.worlds, now.elapsed());
     }
 
+    Ok(seeds)
+}
+
+fn write_seeds_to_files(seeds: Vec<String>, filename: Option<PathBuf>) -> Result<(), String> {
+    let mut filename = filename.unwrap_or_else(|| PathBuf::from("seed"));
+    filename.set_extension("wotwr");
+
     let mut first = true;
     for seed in seeds {
         let file = util::create_new_file(&filename, &seed, "seeds", true)?;
@@ -347,6 +356,12 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
             first = false;
         }
     }
+
+    Ok(())
+}
+
+fn write_seeds_to_stdout(seeds: Vec<String>) -> Result<(), String> {
+    println!("{}", seeds.join("\n======= END SEED ========\n"));
 
     Ok(())
 }
@@ -445,10 +460,20 @@ fn main() {
     }
 
     match args.command {
-        SeedGenCommand::Seed { args, verbose } => {
+        SeedGenCommand::Seed { args, verbose, tostdout } => {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
-            generate_seed(args).unwrap_or_else(|err| log::error!("{}", err));
+            let filename = args.filename.clone();
+            match generate_seeds(args) {
+                Ok(seeds) => {
+                    if tostdout {
+                        write_seeds_to_stdout(seeds).unwrap_or_else(|err| log::error!("{}", err));
+                    } else {
+                        write_seeds_to_files(seeds, filename).unwrap_or_else(|err| log::error!("{}", err));
+                    }
+                },
+                Err(err) =>  log::error!("{}", err),
+            }
         },
         SeedGenCommand::Play => {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
