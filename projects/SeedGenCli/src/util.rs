@@ -786,7 +786,7 @@ where P: AsRef<Path>
     )
 }
 
-fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
+fn create_in_folder(file: &Path, contents: &str, create_new: bool) -> Result<PathBuf, io::Error> {
     let mut index = 0;
     loop {
         let mut filename = file.file_stem().unwrap().to_os_string();
@@ -798,7 +798,9 @@ fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
 
         match fs::OpenOptions::new()
             .write(true)
-            .create_new(true)
+            .truncate(true)
+            .create(true)
+            .create_new(create_new)
             .open(&path) {
                 Ok(mut file) => {
                     file.write_all(contents.as_bytes())?;
@@ -810,13 +812,13 @@ fn create_in_folder(file: &Path, contents: &str) -> Result<PathBuf, io::Error> {
             }
     }
 }
-pub fn create_new_file<P>(file: &Path, contents: &str, default_folder: P) -> Result<PathBuf, String>
+pub fn create_new_file<P>(file: &Path, contents: &str, default_folder: P, create_new: bool) -> Result<PathBuf, String>
 where P: AsRef<Path>
 {
     in_folder(file, default_folder)?.map_or_else(
-        || create_in_folder(file, contents).map_err(|err| format!("Failed to create {}: {}", file.display(), err)),
-        |in_folder| create_in_folder(&in_folder, contents).or_else(|_| {
-            create_in_folder(file, contents).map_err(|err| format!("Failed to create {}: {}", file.display(), err))
+        || create_in_folder(file, contents, create_new).map_err(|err| format!("Failed to create {}: {}", file.display(), err)),
+        |in_folder| create_in_folder(&in_folder, contents, create_new).or_else(|_| {
+            create_in_folder(file, contents, create_new).map_err(|err| format!("Failed to create {}: {}", file.display(), err))
         })
     )
 }

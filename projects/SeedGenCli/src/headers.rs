@@ -355,7 +355,7 @@ pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), Stri
 
     name.set_extension("wotwrh");
 
-    let name = util::create_new_file(&name, &contents, "headers")?;
+    let name = util::create_new_file(&name, &contents, "headers", false)?;
 
     println!("Created preset {}", name.display());
     Ok(())

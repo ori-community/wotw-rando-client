@@ -141,8 +141,8 @@ impl Graph {
         index: usize,
         context: &mut ReachContext<'a, '_>,
     ) -> (Reached<'a>, Progressions<'a>) {
-        let mut reached = Vec::<&Node>::new();
-        let mut progressions = Vec::<(&Requirement, SmallVec<[Orbs; 3]>)>::new();
+        let mut reached = Vec::new();
+        let mut progressions = Vec::new();
         if let Some(connections) = context.state_progressions.get(&index) {
             for (from, connection) in connections.clone() {
                 if context.world_state.contains_key(&connection.to) {
@@ -194,8 +194,8 @@ impl Graph {
                     }
                 }
 
-                let mut reached = Vec::<&Node>::new();
-                let mut progressions = Vec::<(&Requirement, SmallVec<[Orbs; 3]>)>::new();
+                let mut reached = Vec::new();
+                let mut progressions = Vec::new();
                 for connection in &anchor.connections {
                     if context.world_state.contains_key(&connection.to) {
                         // TODO loop with improved orbs?
@@ -299,8 +299,17 @@ impl Graph {
             world_state: FxHashMap::default(),
         };
 
-        let reached_and_progressions = self.reach_recursion(spawn, true, smallvec![player.max_orbs()], &mut context);
+        let (reached, mut progressions) = self.reach_recursion(spawn, true, smallvec![player.max_orbs()], &mut context);
 
-        Ok(reached_and_progressions)
+        // add progressions containing states that were never met
+        for (_, state_progressions) in context.state_progressions {
+            for (from, connection) in state_progressions {
+                if !context.world_state.contains_key(&connection.to) {
+                    progressions.push((&connection.requirement, context.world_state[&from].clone()))
+                }
+            }
+        }
+
+        Ok((reached, progressions))
     }
 }

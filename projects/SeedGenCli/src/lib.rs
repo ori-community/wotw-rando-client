@@ -175,6 +175,9 @@ where R: Rng + ?Sized
 }
 
 pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str) -> Result<Vec<String>, String> {
+    let config = Settings::write(&settings)?;
+    log::trace!("Generating with Settings: {}", config);
+
     let mut rng: StdRng = Seeder::from(seed).make_rng();
     log::trace!("Seeded RNG with {}", seed);
 
@@ -265,7 +268,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
     }).collect::<Vec<_>>();
 
     let seed_line = format!("// Seed: {}", seed);
-    let config_line = format!("// Config: {}", Settings::write(&settings)?);
+    let config_line = format!("// Config: {}", config);
 
     let seeds = (0..settings.worlds).map(|index| {
         format!("{}{}\n{}\n{}{}\n{}", flag_line, &spawn_lines[index], &placement_blocks[index], &header_block, &seed_line, &config_line)

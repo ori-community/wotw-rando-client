@@ -116,8 +116,10 @@ where
         });
     }
 
+    let item_name = context.custom_names.get(&item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", item));
+
     if origin_world_index == target_world_index {
-        log::trace!("(World {}): Placed {} at {}", origin_world_index, item, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("(World {}): Placed {} at {}", origin_world_index, item_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         origin_world_context.placements.push(Placement {
             node: Some(node),
@@ -125,11 +127,10 @@ where
             item,
         });
     } else {
-        log::trace!("(World {}): Placed {} for {} at {}", origin_world_index, item, player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("(World {}): Placed {} for {} at {}", origin_world_index, item_name, player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         let state_index = context.multiworld_state_index.next().unwrap();
 
-        let item_name = context.custom_names.get(&item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", item));
         let message = Item::Message(format!("{} for {}", item_name, player_name));
         let setter = Item::UberState(format!("12|{}|bool|true", state_index));
         let target_uber_state = UberState::from_parts("12", &state_index.to_string())?;
@@ -621,8 +622,10 @@ where
 
                     for (requirement, best_orbs) in &unmet[chosen_world_index] {
                         let items = requirement.items_needed(&world_context.world.player, &owned_states);
+                        // TODO this is a giant mess of redundancies
 
                         for (mut needed, orb_cost) in items {
+                            // log::trace!("missing items: {}", needed);
                             world_context.world.player.missing_items(&mut needed);
 
                             for orbs in best_orbs {
@@ -710,7 +713,7 @@ where
                 }
 
                 if slots < 4 && newly_reached == 0 {
-                    return Ok(0.0);
+                    return Ok(0.00001);
                 }
 
                 let base_weight = 1.0 / inventory.cost();

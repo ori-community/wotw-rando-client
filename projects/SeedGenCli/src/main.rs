@@ -361,13 +361,14 @@ fn generate_seed(mut args: SeedArgs) -> Result<(), String> {
         log::info!("Generated {} worlds in {:?}", settings.worlds, now.elapsed());
     }
 
-    // TODO reasonable filenames for multiworld
+    let mut first = true;
     for seed in seeds {
-        let file = util::create_new_file(&filename, &seed, "seeds")?;
+        let file = util::create_new_file(&filename, &seed, "seeds", true)?;
         log::info!("Wrote seed to {}", file.display());
 
-        if settings.worlds == 1 {
+        if first {
             fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
+            first = false;
         }
     }
 
@@ -390,7 +391,8 @@ fn create_preset(mut args: PresetArgs) -> Result<(), String> {
 
     args.name.set_extension("json");
 
-    util::create_new_file(&args.name, &settings, "presets")?;
+    let path = util::create_new_file(&args.name, &settings, "presets", false)?;
+    log::info!("Created preset {}", path.display());
 
     Ok(())
 }

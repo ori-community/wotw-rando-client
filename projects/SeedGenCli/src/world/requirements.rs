@@ -476,7 +476,7 @@ impl Requirement {
                 tail.fold(head, |acc, next| {
                     Requirement::combine_itemsets(acc, &next)
                 })
-            }
+            },
             Requirement::Or(ors) => {
                 ors.iter()
                     .flat_map(|or| or.items_needed(player, states))

@@ -642,7 +642,7 @@ where R: Rng + ?Sized
                         }
                         let target = UberState::from_parts(uber_group, &uber_id)?;
 
-                        if world.graph.nodes.iter().any(|node| node.uber_state().map_or(false, |uber_state| uber_state == &target)) {
+                        if world.graph.nodes.iter().filter(|node| node.can_place()).any(|node| node.uber_state().map_or(false, |uber_state| uber_state == &target)) {
                             log::trace!("adding an empty pickup at {} to prevent placements", target);
                             let null_item = Item::Message(String::from("6|f=0|quiet|noclear"));
                             world.preplace(target, null_item);
