@@ -1,7 +1,0 @@
-/// Default Headers
-///
-/// headers which are almost always used
-!!include hints
-!!include teleporters
-!!include black_market
-!!include qol

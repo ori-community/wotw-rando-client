@@ -1,6 +1,5 @@
 target/*
 rls/*
-presets/
 *.wotwr
 *.log
 .currentseedpath

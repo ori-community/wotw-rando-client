@@ -1,5 +1,0 @@
-/// Hints
-///
-/// The default set of hints, but with teleporter hints on Lupo maps
-!!include key_hints
-!!include tp_zone_hints

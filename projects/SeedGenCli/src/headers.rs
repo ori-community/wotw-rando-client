@@ -13,18 +13,6 @@ use crate::util::{
     constants::{HEADER_INDENT, NAME_COLOUR, UBERSTATE_COLOUR},
 };
 
-fn is_preset(header: &str) -> bool {
-    for line in header.lines() {
-        let line = line.trim();
-
-        if !(line.is_empty() || line.starts_with("#") || line.starts_with("//") || line.starts_with("!!include ")) {
-            return false;
-        }
-    }
-
-    true
-}
-
 fn is_hidden(header: &Path) -> Result<bool, String> {
     let file = fs::File::open(header).map_err(|err| format!("Failed to open header from {:?}: {}", header, err))?;
     let mut file = BufReader::new(file);
@@ -70,24 +58,6 @@ fn find_headers(show_hidden: bool) -> Result<Vec<PathBuf>, String> {
     Ok(headers)
 }
 
-fn find_presets() -> Result<Vec<PathBuf>, String> {
-    let headers = find_headers(false)?;
-    let presets = headers.into_iter()
-        .map(|header| {
-            util::read_file(&header, "headers").map(|contents| {
-                if is_preset(&contents) {
-                    return Some(header);
-                }
-                None
-            })
-        })
-        .collect::<Result<Vec<_>, _>>()?
-        .into_iter()
-        .filter_map(|header| header)
-        .collect::<Vec<_>>();
-    Ok(presets)
-}
-
 fn summarize_headers(headers: &[PathBuf]) -> Result<String, String> {
     let mut output = String::new();
 
@@ -123,30 +93,12 @@ fn summarize_headers(headers: &[PathBuf]) -> Result<String, String> {
 pub fn list() -> Result<(), String> {
     let mut output = String::new();
 
-    let mut headers = find_headers(false)?;
+    let headers = find_headers(false)?;
 
     if headers.is_empty() {
-        println!("No headers found. Try moving into the script directory");
+        println!("No headers found");
         return Ok(());
     }
-
-    let mut presets = Vec::new();
-
-    headers.retain(|header| {
-        util::read_file(&header, "headers").map_or(false, |contents| {
-            if is_preset(&contents) {
-                presets.push(header.clone());
-                return false;
-            }
-            true
-        })
-    });
-
-    let presets_length = presets.len();
-    output += &format!("{}", Style::new().fg(Colour::Green).bold().paint(format!("{} preset{} found\n\n", presets_length, if presets_length == 1 { "" } else { "s" })));
-
-    output += &summarize_headers(&presets)?;
-    output.push('\n');
 
     let headers_length = headers.len();
     output += &format!("{}", Style::new().fg(Colour::Green).bold().paint(format!("{} header{} found\n\n", headers_length, if headers_length == 1 { "" } else { "s" })));
@@ -154,23 +106,7 @@ pub fn list() -> Result<(), String> {
     output += &summarize_headers(&headers)?;
     output.push('\n');
 
-    output += "Use 'headers <name>...' for details about one or more headers or 'headers presets' to manage your personal presets";
-
-    println!("{}", output);
-    Ok(())
-}
-
-pub fn list_presets() -> Result<(), String> {
-    let mut output = String::new();
-
-    let presets = find_presets()?;
-
-    let length = presets.len();
-    output += &format!("{} preset{} found\n\n", length, if length == 1 { "" } else { "s" });
-
-    output += &summarize_headers(&presets)?;
-
-    output += "\nUse 'headers presets create' and 'headers presets remove' to manage your presets";
+    output += "Use 'headers <name>...' for details about one or more headers";
 
     println!("{}", output);
     Ok(())
@@ -181,14 +117,14 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
 
     let hint = if headers.len() == 1 {
         let name = headers[0].file_stem().unwrap().to_string_lossy();
-        format!("Use 'headers presets create {} ...' to add this and other headers to a preset", NAME_COLOUR.paint(name))
+        format!("Use 'preset <name> -h {} ...' to add this and other headers to a preset", NAME_COLOUR.paint(name))
     } else {
         let mut arguments = headers.iter().fold(String::new(), |acc, header|
             format!("{}{} ", acc, header.file_stem().unwrap().to_string_lossy())
         );
         arguments.pop();
 
-        format!("Use 'headers presets create {}' to add these headers to a preset", NAME_COLOUR.paint(arguments))
+        format!("Use 'preset <name> -h {} ...' to add these headers to a preset", NAME_COLOUR.paint(arguments))
     };
 
     for mut header in headers {
@@ -197,7 +133,7 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
 
         let contents = util::read_file(&header, "headers")?;
 
-        let mut description = NAME_COLOUR.paint(format!("{} {}:\n", name, if is_preset(&contents) { "preset" } else { "header" })).to_string();
+        let mut description = NAME_COLOUR.paint(format!("{} header:\n", name)).to_string();
 
         for line in contents.lines() {
             if let Some(desc) = line.trim_start().strip_prefix("///") {
@@ -333,50 +269,6 @@ pub fn validate() -> Result<(), String> {
         for passed in passed {
             output += &passed;
         }
-    }
-
-    println!("{}", output);
-    Ok(())
-}
-
-pub fn create_preset(mut name: PathBuf, headers: Vec<String>) -> Result<(), String> {
-    let mut contents = String::new();
-
-    let existing = find_headers(true)?;
-
-    for header in &headers {
-        contents.push_str(&format!("/// {}\n", header));
-    }
-
-    for header in headers {
-        if !existing.iter().any(|h| h.file_stem().unwrap().to_string_lossy() == header) { return Err(format!("Couldn't find header {}", header)); }
-        contents.push_str(&format!("!!include {}\n", header));
-    }
-
-    name.set_extension("wotwrh");
-
-    let name = util::create_new_file(&name, &contents, "headers", false)?;
-
-    println!("Created preset {}", name.display());
-    Ok(())
-}
-
-pub fn remove_preset(name: &str) -> Result<(), String> {
-    let mut output = String::new();
-
-    let presets: Vec<_> = find_presets()?;
-
-    let mut removed = false;
-    for preset in presets {
-        let current = preset.file_stem().unwrap().to_string_lossy();
-        if current == name {
-            fs::remove_file(preset).map_err(|err| format!("Failed to remove preset: {}", err))?;
-            output += &format!("Removed {}", name);
-            removed = true;
-        }
-    }
-    if !removed {
-        return Err(format!("Couldn't find a preset called {}", name))
     }
 
     println!("{}", output);

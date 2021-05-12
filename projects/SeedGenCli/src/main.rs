@@ -179,32 +179,8 @@ struct ReachCheckArgs {
 
 #[derive(StructOpt)]
 enum HeaderCommand {
-    /// Inspect or modify your presets
-    Presets {
-        #[structopt(subcommand)]
-        subcommand: Option<PresetCommand>,
-    },
     /// Check header compability
     Validate
-}
-
-#[derive(StructOpt)]
-enum PresetCommand {
-    /// Create a preset with two or more headers
-    Create {
-        /// name of the preset
-        ///
-        /// later you can run seed -h <preset-name> to use this preset
-        #[structopt(parse(from_os_str))]
-        name: PathBuf,
-        /// headers to add to the preset
-        #[structopt(required = true, min_values = 2)]
-        headers: Vec<String>,
-    },
-    /// Remove a preset
-    Remove {
-        name: String,
-    },
 }
 
 fn read_header() -> String {
@@ -488,19 +464,6 @@ fn main() {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match subcommand {
-                Some(HeaderCommand::Presets { subcommand }) => {
-                    match subcommand {
-                        Some(PresetCommand::Create { name, headers }) => {
-                            headers::create_preset(name, headers).unwrap_or_else(|err| log::error!("{}", err));
-                        },
-                        Some(PresetCommand::Remove { name }) => {
-                            headers::remove_preset(&name).unwrap_or_else(|err| log::error!("{}", err));
-                        },
-                        None => {
-                            headers::list_presets().unwrap_or_else(|err| log::error!("{}", err));
-                        }
-                    }
-                },
                 Some(HeaderCommand::Validate) => {
                     headers::validate().unwrap_or_else(|err| log::error!("{}", err));
                 }
