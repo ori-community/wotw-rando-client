@@ -619,6 +619,9 @@ anchor DenShrine at -328, -4569:
 # checkpoint at -514, -4549
 
 anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
+  state HowlsDen.BoneBarrier:
+    unsafe: free  # good game yes
+
   pickup HowlsDen.DoubleJumpTree: free
   pickup HowlsDen.StickyShard: free  # origlow
   pickup HowlsDen.DoubleJumpEX:
