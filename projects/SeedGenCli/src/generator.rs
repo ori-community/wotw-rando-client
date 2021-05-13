@@ -66,7 +66,6 @@ struct WorldContext<'a> {
     collected_preplacements: Vec<usize>,
     spawn_slots: Vec<&'a Node>,
     reachable_locations: Vec<&'a Node>,
-    reachable_count: usize,
     unreachable_locations: Vec<&'a Node>,
     spirit_light_rng: SpiritLightAmounts,
 }
@@ -375,6 +374,8 @@ where
             false
         } else { true }
     });
+    world_contexts[world_index].placeholders.shuffle(context.rng);
+    world_contexts[world_index].unreachable_locations.shuffle(context.rng);
 
     let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
     remaining.shuffle(context.rng);
@@ -404,14 +405,14 @@ where
 
     log::trace!("(World {}): Placed all items, from the pool, placing Spirit Light...", world_index);
 
-    for placeholder in world_contexts[world_index].placeholders.clone() {
+    while let Some(placeholder) = world_contexts[world_index].placeholders.pop() {
         let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
         let item = Item::SpiritLight(amount);
 
         place_item(world_index, world_index, placeholder, true, item, world_contexts, context)?;
     }
 
-    for unreachable in world_contexts[world_index].unreachable_locations.clone() {
+    while let Some(unreachable) = world_contexts[world_index].unreachable_locations.pop() {
         let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
         let item = Item::SpiritLight(amount);
 
@@ -422,7 +423,7 @@ where
 }
 
 #[inline]
-fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<(Vec<&'a Node>, usize), String> {
+fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<Vec<&'a Node>, String> {
     log::trace!("(World {}): Creating a player with everything to determine reachable locations", world_index);
     let mut finished_world = world.clone();
     for (item, amount) in &world.pool.progressions.inventory {
@@ -443,7 +444,7 @@ fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<(Vec<&
             total_reachable_count = new_reachable_count;
         } else {
             reachable_locations.retain(|&node| node.can_place());
-            return Ok((reachable_locations, total_reachable_count));
+            return Ok(reachable_locations);
         }
 
         reachable_locations.retain(|&node| {
@@ -486,7 +487,7 @@ where
             });
         }
 
-        let (reachable_locations, reachable_count) = total_reach_check(world_index, &world)?;
+        let reachable_locations = total_reach_check(world_index, &world)?;
 
         let unreachable_locations = world.graph.nodes.iter()
             .filter(|&node| node.can_place() && !reachable_locations.iter().any(|&reachable| reachable.index() == node.index()))
@@ -511,7 +512,6 @@ where
             collected_preplacements: Vec::new(),
             spawn_slots,
             reachable_locations,
-            reachable_count,
             unreachable_locations,
             spirit_light_rng,
         })
@@ -530,7 +530,7 @@ where
     }
 
     let mut reserved_slots = vec![Vec::with_capacity(RESERVE_SLOTS); context.world_count];
-    let total_reachable_count: usize = world_contexts.iter().map(|world_context| world_context.reachable_count).sum();
+    let total_reachable_count: usize = world_contexts.iter().map(|world_context| world_context.reachable_locations.len()).sum();
 
     loop {
         let mut reachable = Vec::new();
@@ -544,7 +544,9 @@ where
             unmet.push(world_unmet);
         }
 
-        let reachable_counts = reachable.iter().map(|world_reachable| world_reachable.len()).collect::<Vec<_>>();
+        let reachable_counts = reachable.iter()
+            .map(|world_reachable| world_reachable.iter().filter(|node| node.can_place()).count())
+            .collect::<Vec<_>>();
         let unreached_count = total_reachable_count - reachable_counts.iter().sum::<usize>();
 
         force_keystones(&reachable_states, &mut reserved_slots, &mut world_contexts, &mut context)?;
@@ -707,13 +709,14 @@ where
                         inventory: world_context.world.player.inventory.merge(inventory),
                         ..world_context.world.player.clone()
                     };
-                    let lookahead_reachable = world_context.world.graph.reached_locations(&lookahead_player, world_context.spawn, &world_context.world.uber_states)?;
+                    let mut lookahead_reachable = world_context.world.graph.reached_locations(&lookahead_player, world_context.spawn, &world_context.world.uber_states)?;
+                    lookahead_reachable.retain(|&node| node.can_place());
 
                     newly_reached += lookahead_reachable.len() - reachable_counts[world_index];
                 }
 
                 if slots < 4 && newly_reached == 0 {
-                    return Ok(0.00001);
+                    return Ok(0.000001);
                 }
 
                 let base_weight = 1.0 / inventory.cost();

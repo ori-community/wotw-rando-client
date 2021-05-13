@@ -360,10 +360,8 @@ fn write_seeds_to_files(seeds: Vec<String>, filename: Option<PathBuf>) -> Result
     Ok(())
 }
 
-fn write_seeds_to_stdout(seeds: Vec<String>) -> Result<(), String> {
+fn write_seeds_to_stdout(seeds: Vec<String>) {
     println!("{}", seeds.join("\n======= END SEED ========\n"));
-
-    Ok(())
 }
 
 fn play_last_seed() -> Result<(), String> {
@@ -467,7 +465,7 @@ fn main() {
             match generate_seeds(args) {
                 Ok(seeds) => {
                     if tostdout {
-                        write_seeds_to_stdout(seeds).unwrap_or_else(|err| log::error!("{}", err));
+                        write_seeds_to_stdout(seeds);
                     } else {
                         write_seeds_to_files(seeds, filename).unwrap_or_else(|err| log::error!("{}", err));
                     }
