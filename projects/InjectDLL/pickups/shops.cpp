@@ -14,8 +14,9 @@ using namespace modloader;
 
 namespace
 {
+    STATIC_IL2CPP_BINDING(, WeaponmasterScreen, app::WeaponmasterScreen*, get_Instance, ());
+
     IL2CPP_BINDING(, SeinCharacter, bool, get_Active, (app::SeinCharacter*));
-    IL2CPP_BINDING(, WeaponmasterScreen, app::WeaponmasterScreen*, get_Instance, ());
     IL2CPP_BINDING(, GameController, bool, get_GameInTitleScreen, (app::GameController*));
     IL2CPP_BINDING(, PurchaseThingScreen, bool, get_IsShopOpen, (app::PurchaseThingScreen*));
 
