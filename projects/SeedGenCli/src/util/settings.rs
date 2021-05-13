@@ -143,13 +143,12 @@ impl Default for Settings {
     }
 }
 impl Settings {
-    pub fn from_seed(seed: &Path) -> Result<Settings, String> {
-        let content = super::read_file(seed, "seeds")?;
+    pub fn from_seed(seed: &str) -> Result<Settings, String> {
         let mut settings = Settings::default();
-        for line in content.lines() {
+        for line in seed.lines() {
             if let Some(config) = line.strip_prefix("// Config: ") {
                 settings = serde_json::from_str(&config).or_else(|err| {  // read directly or fall back to reading old settings
-                    read_old(&config).map_err(|_| format!("Failed to read settings from {}: {}", seed.display(), err))
+                    read_old(&config).map_err(|_| format!("Failed to read settings: {}", err))
                 })?;
             }
         }
@@ -186,11 +185,10 @@ impl Settings {
     
 }
 
-pub fn read_spawn(seed: &Path) -> Result<String, String> {
-    let content = super::read_file(seed, "seeds")?;
-    for line in content.lines() {
+pub fn read_spawn(seed: &str) -> Result<String, String> {
+    for line in seed.lines() {
         if let Some(spawn) = line.strip_prefix("Spawn:") {
-            return Ok(spawn[spawn.find("//").ok_or_else(|| format!("Failed to read Spawn location from {}", seed.display()))? + 2..].trim().to_string());
+            return Ok(spawn[spawn.find("//").ok_or_else(|| String::from("Failed to read Spawn location"))? + 2..].trim().to_string());
         }
     }
     Ok(DEFAULT_SPAWN.to_string())

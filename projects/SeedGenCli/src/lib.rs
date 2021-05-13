@@ -8,7 +8,12 @@ pub mod util;
 use std::collections::{HashSet, HashMap};
 
 use rand_seeder::Seeder;
-use rand::{Rng, rngs::StdRng, seq::IteratorRandom};
+use rand::{
+    Rng,
+    rngs::StdRng,
+    distributions::{Distribution, Uniform},
+    seq::IteratorRandom
+};
 
 use log::LevelFilter;
 use log4rs::{
@@ -174,11 +179,23 @@ where R: Rng + ?Sized
     Ok((header_block, custom_flags, custom_names))
 }
 
-pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: &str) -> Result<Vec<String>, String> {
+pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: Option<String>) -> Result<Vec<String>, String> {
     let config = Settings::write(&settings)?;
     log::trace!("Generating with Settings: {}", config);
 
-    let mut rng: StdRng = Seeder::from(seed).make_rng();
+    let seed = seed.unwrap_or_else(|| {
+        let mut generated_seed = String::new();
+        let numeric = Uniform::from('0'..='9');
+        let mut rng = rand::thread_rng();
+
+        for _ in 0..16 {
+            generated_seed.push(numeric.sample(&mut rng));
+        }
+
+        generated_seed
+    });
+
+    let mut rng: StdRng = Seeder::from(&seed).make_rng();
     log::trace!("Seeded RNG with {}", seed);
 
     let mut world = World::new(graph);

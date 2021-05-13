@@ -2,10 +2,6 @@ use criterion::{criterion_group, criterion_main, Criterion};
 
 use std::path::PathBuf;
 
-use rand_seeder::Seeder;
-use rand::rngs::StdRng;
-use rand::distributions::{Distribution, Uniform};
-
 use rustc_hash::FxHashSet;
 use smallvec::smallvec;
 
@@ -116,24 +112,13 @@ fn generation(c: &mut Criterion) {
     // seedgen::initialize_log(false, log::LevelFilter::Off).unwrap();
 
     let pathsets = Pathsets::default();
-    let mut rng: StdRng = Seeder::from("stableseedforconsistency").make_rng();
-
-    let mut seeds = std::iter::from_fn(|| {
-        let mut generated_seed = String::new();
-        let numeric = Uniform::from('0'..='9');
-        for _ in 0..16 {
-            generated_seed.push(numeric.sample(&mut rng));
-        }
-
-        Some(generated_seed)
-    });
 
     c.bench_function("singleplayer", |b| b.iter(|| {
         let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &pathsets, false).unwrap();
         let mut settings = Settings::default();
         settings.pathsets = pathsets.clone();
 
-        seedgen::generate_seed(&graph, &settings, &vec![], &seeds.next().unwrap()).unwrap();
+        seedgen::generate_seed(&graph, &settings, &vec![], None).unwrap();
     }));
 
     c.bench_function("two worlds", |b| b.iter(|| {
@@ -142,7 +127,7 @@ fn generation(c: &mut Criterion) {
         settings.pathsets = pathsets.clone();
         settings.worlds = 2;
 
-        seedgen::generate_seed(&graph, &settings, &vec![], &seeds.next().unwrap()).unwrap();
+        seedgen::generate_seed(&graph, &settings, &vec![], None).unwrap();
     }));
 }
 

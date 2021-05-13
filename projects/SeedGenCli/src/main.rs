@@ -13,7 +13,6 @@ use structopt::StructOpt;
 use bugsalot::debugger;
 
 use rustc_hash::FxHashSet;
-use rand::distributions::{Distribution, Uniform};
 use log::LevelFilter;
 
 use seedgen::{self, lexer, inventory, world, headers, util};
@@ -289,21 +288,10 @@ fn parse_settings(settings: SeedSettings) -> Settings {
 fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
     let now = Instant::now();
 
-    let seed = args.seed.clone().unwrap_or_else(|| {
-        if let Some(filename) = &args.filename {
-            filename.file_stem().unwrap().to_string_lossy().to_string()
-        } else {
-            let mut generated_seed = String::new();
-            let numeric = Uniform::from('0'..='9');
-            let mut rng = rand::thread_rng();
-
-            for _ in 0..16 {
-                generated_seed.push(numeric.sample(&mut rng));
-            }
-
-            generated_seed
-        }
-    });
+    let seed = args.seed.as_ref().map_or_else(
+        || args.filename.as_ref().map(|filename| filename.file_stem().unwrap().to_string_lossy().to_string()),
+        |seed| Some(seed.clone()),
+    );
 
     let mut settings = Settings::default();
     for preset in args.preset {
@@ -332,7 +320,7 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
         args.headers.push(header)
     }
 
-    let seeds = seedgen::generate_seed(&graph, &settings, &args.headers, &seed).map_err(|err| format!("Error generating seed: {}", err))?;
+    let seeds = seedgen::generate_seed(&graph, &settings, &args.headers, seed).map_err(|err| format!("Error generating seed: {}", err))?;
     if settings.worlds == 1 {
         log::info!("Generated seed in {:?}", now.elapsed());
     } else {
@@ -388,7 +376,9 @@ fn create_preset(mut args: PresetArgs) -> Result<(), String> {
 
 fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     args.seed_file.set_extension("wotwr");
-    let settings = Settings::from_seed(&args.seed_file)?;
+    let contents = util::read_file(&args.seed_file, "seeds")?;
+
+    let settings = Settings::from_seed(&contents)?;
     let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, false)?;
     let mut world = World::new(graph);
 
@@ -440,7 +430,7 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
         }
     }
 
-    let spawn = util::settings::read_spawn(&args.seed_file)?;
+    let spawn = util::settings::read_spawn(&contents)?;
     let spawn = world.graph.find_spawn(&spawn)?;
 
     let reached = world.graph.reached_locations(&world.player, spawn, &world.uber_states).expect("Invalid Reach Check");
