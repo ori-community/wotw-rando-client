@@ -37,7 +37,7 @@ impl Requirement {
                 energy: -cost,
                 ..Orbs::default()
             }
-        ])} else if player.pathsets.contains(Pathset::Unsafe) && player.inventory.has(&Item::Shard(Shard::LifePact), 1) && orbs.energy + orbs.health >= cost { Some(smallvec![
+        ])} else if player.pathsets.contains(Pathset::Unsafe) && player.inventory.has(&Item::Shard(Shard::LifePact), 1) && orbs.energy + orbs.health > cost { Some(smallvec![
             Orbs {
                 health: cost - orbs.energy,
                 energy: -orbs.energy,
@@ -70,7 +70,7 @@ impl Requirement {
                 if states.contains(state) { return Some(smallvec![Orbs::default()]); },
             Requirement::Damage(amount) => {
                 let cost = *amount * player.defense_mod();
-                if orbs.health >= cost { return Some(smallvec![
+                if orbs.health > cost { return Some(smallvec![
                     Orbs {
                         health: -cost,
                         ..Orbs::default()
@@ -78,7 +78,7 @@ impl Requirement {
                 ])}
                 else if player.inventory.has(&Item::Skill(Skill::Regenerate), 1) {
                     let max_health = player.max_health();
-                    if max_health >= cost {
+                    if max_health > cost {
                         let regens = ((cost - orbs.health) / 30.0).ceil();
                         let max_heal = max_health - orbs.health;
                         if orbs.energy >= regens { return Some(smallvec![
@@ -92,12 +92,12 @@ impl Requirement {
             },
             Requirement::Danger(amount) => {
                 let cost = *amount * player.defense_mod();
-                if orbs.health >= cost {
+                if orbs.health > cost {
                     return Some(smallvec![Orbs::default()]);
                 }
                 else if player.inventory.has(&Item::Skill(Skill::Regenerate), 1) {
                     let max_health = player.max_health();
-                    if max_health >= cost {
+                    if max_health > cost {
                         let regens = ((cost - orbs.health) / 30.0).ceil();
                         let max_heal = max_health - orbs.health;
                         if orbs.energy >= regens { return Some(smallvec![
@@ -195,7 +195,7 @@ impl Requirement {
                     if !met { return None; }
 
                     best_orbs = orbs::both(&best_orbs, &orbcosts);
-                    best_orbs.retain(|orbs| orbs.health >= 0.0 && orbs.energy >= 0.0);
+                    best_orbs.retain(|orbs| orbs.health > 0.0 && orbs.energy >= 0.0);
                 }
 
                 let cost = orbs::both_single(&best_orbs, Orbs { health: -orbs.health, energy: -orbs.energy });
@@ -236,7 +236,7 @@ impl Requirement {
     }
     fn needed_for_damage(amount: f32, player: &Player) -> Itemset {
         #[allow(clippy::cast_possible_truncation)]
-        let needed_health_fragments = u16::try_from((amount / 5.0).ceil() as i32).unwrap();
+        let needed_health_fragments = u16::try_from(((amount + 0.1) / 5.0).ceil() as i32).unwrap();
 
         let mut inventory = Inventory::default();
         if needed_health_fragments > 0 {
@@ -392,7 +392,7 @@ impl Requirement {
                 let shield_weapons = if shielded {
                     player.shield_progression_weapons()
                 } else { smallvec![Skill::Hammer] };
-                let use_burrow: SmallVec<[_; 2]>= if burrow {
+                let use_burrow: SmallVec<[_; 2]> = if burrow {
                     if !player.pathsets.contains(Pathset::Unsafe) || player.inventory.has(&Item::Skill(Skill::Burrow), 1) {
                         smallvec![true]
                     } else {
@@ -503,6 +503,7 @@ mod tests {
     #[test]
     fn is_met() {
         let mut player = Player::default();
+        player.inventory.grant(Item::Resource(Resource::Health), 1);
         let mut states = FxHashSet::default();
         let orbs = Orbs::default();
 
@@ -637,7 +638,7 @@ mod tests {
         let d = Requirement::Damage(10.0);
         player.inventory.grant(Item::Skill(Skill::Blaze), 1);
         player.inventory.grant(Item::Resource(Resource::Energy), 4);
-        player.inventory.grant(Item::Resource(Resource::Health), 4);
+        player.inventory.grant(Item::Resource(Resource::Health), 5);
         let req = Requirement::And(vec![c.clone(), d.clone()]);
         player.pathsets.add(Pathset::Unsafe);
         assert_eq!(req.is_met(&player, &states, player.max_orbs()), Some(smallvec![Orbs { health: -10.0, energy: -1.0 }]));

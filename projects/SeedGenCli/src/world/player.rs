@@ -159,7 +159,7 @@ impl Player {
     }
 
     fn weapons_by_dpe(&self, wall: bool) -> SmallVec<[Skill; 8]> {
-        let mut weapons: SmallVec<[_; 8]>= smallvec![
+        let mut weapons: SmallVec<[_; 8]> = smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
@@ -176,7 +176,7 @@ impl Player {
         weapons
     }
     fn ranged_weapons_by_dpe(&self) -> SmallVec<[Skill; 2]> {
-        let mut weapons: SmallVec<[_; 2]>= smallvec![
+        let mut weapons: SmallVec<[_; 2]> = smallvec![
             Skill::Bow,
             Skill::Spear,
         ];
@@ -190,7 +190,7 @@ impl Player {
         weapons
     }
     fn shield_weapons_by_dpe(&self) -> SmallVec<[Skill; 4]> {
-        let mut weapons: SmallVec<[_; 4]>= smallvec![
+        let mut weapons: SmallVec<[_; 4]> = smallvec![
             Skill::Hammer,
             Skill::Launch,
             Skill::Grenade,
@@ -260,7 +260,7 @@ impl Player {
         let orbs = current_orbs + orb_cost;
         if orbs.health < 0.0 {
             #[allow(clippy::cast_possible_truncation)]
-            let health_fragments = u16::try_from((-orbs.health / 5.0).ceil() as i32).unwrap();
+            let health_fragments = u16::try_from(((-orbs.health + 0.1) / 5.0).ceil() as i32).unwrap();
             missing.grant(Item::Resource(Resource::Health), health_fragments);
         }
         if orbs.energy < 0.0 {
@@ -307,7 +307,7 @@ mod tests {
         assert_eq!(player.preferred_weapon(true), Some(Skill::Sword));
 
         player = Player::default();
-        let weapons: SmallVec<[_; 8]>= smallvec![
+        let weapons: SmallVec<[_; 8]> = smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
@@ -319,7 +319,7 @@ mod tests {
         ];
         assert_eq!(player.progression_weapons(false), weapons);
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
-        let weapons: SmallVec<[_; 5]>= smallvec![
+        let weapons: SmallVec<[_; 5]> = smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
@@ -328,7 +328,7 @@ mod tests {
         ];
         assert_eq!(player.progression_weapons(false), weapons);
         player.pathsets.add(Pathset::Unsafe);
-        let weapons: SmallVec<[_; 5]>= smallvec![
+        let weapons: SmallVec<[_; 5]> = smallvec![
             Skill::Sword,
             Skill::Hammer,
             Skill::Bow,
