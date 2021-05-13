@@ -235,7 +235,7 @@ namespace modloader
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
 
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
-        auto settings = create_randomizer_settings();
+        auto settings = create_randomizer_settings(base_path);
         load_settings_from_file(settings);
 
         trace_enabled = find_option(settings, "Flags", "TraceEnabled")->value.b;

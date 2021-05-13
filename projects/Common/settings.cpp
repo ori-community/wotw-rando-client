@@ -124,10 +124,10 @@ IniOption* find_option(IniSettings& settings, std::string const& section, std::s
     return nullptr;
 }
 
-IniSettings create_randomizer_settings()
+IniSettings create_randomizer_settings(const std::string& path)
 {
     IniSettings file;
-    file.path = "C:\\moon\\settings.ini";
+    file.path = path + "settings.ini";
 
     IniOption option;
     option.section = "Paths";
