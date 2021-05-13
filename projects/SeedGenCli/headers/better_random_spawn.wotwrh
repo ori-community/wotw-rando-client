@@ -1,6 +1,6 @@
 /// Better Random Spawn
 ///
-/// opens some doors so random spawn works better, especially with no teleporters or Rainy Marsh
+/// opens some doors so random spawn works better, especially with no teleporters
 /// the lever door in upper wastes, the lever door at pools entry, the bone door above howl's den teleporter and the Howl fight.
 
 3|0|8|20120|12902|bool|true  // UpperWastes.LeverDoor

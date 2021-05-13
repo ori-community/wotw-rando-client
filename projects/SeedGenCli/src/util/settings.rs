@@ -75,7 +75,7 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     if old_settings.seir_launch { header_list.push(PathBuf::from("launch_on_seir")); }
     if !old_settings.flags.no_hints { header_list.push(PathBuf::from("hints")); }
     if !old_settings.flags.no_sword { header_list.push(PathBuf::from("spawn_with_sword")); }
-    if old_settings.flags.rain { header_list.push(PathBuf::from("rainy_marsh")); }
+    if !old_settings.flags.rain { header_list.push(PathBuf::from("no_rain")); }
     if old_settings.flags.no_k_s_doors { header_list.push(PathBuf::from("no_ks_doors")); }
 
     let spawn_loc = if old_settings.flags.random_spawn { Spawn::Random } else { Spawn::Set(old_settings.spawn_loc) };
