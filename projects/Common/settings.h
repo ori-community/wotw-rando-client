@@ -34,7 +34,7 @@ struct IniSettings
     std::vector<IniOption> options;
 };
 
-IniSettings create_randomizer_settings();
+IniSettings create_randomizer_settings(const std::string& path);
 
 void load_settings_from_file(IniSettings& settings);
 void save_settings_to_file(IniSettings& settings);
