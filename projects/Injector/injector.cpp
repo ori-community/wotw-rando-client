@@ -150,7 +150,7 @@ int actual_main()
 {
     find_base_path(base_path);
 
-    IniSettings settings(create_randomizer_settings());
+    IniSettings settings(create_randomizer_settings(base_path));
     settings.path = base_path + "\\" + settings_name;
     load_settings_from_file(settings);
 
