@@ -640,6 +640,7 @@ namespace RandoMainDLL {
           break;
         case SysCommandType.StopIfLess:
           Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
+          Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}", false);
           if (state.ValueAsFloat() < targetValue)
             return true;
           break;
