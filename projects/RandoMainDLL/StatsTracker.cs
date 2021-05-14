@@ -197,6 +197,7 @@ namespace RandoMainDLL {
         case "kamikazeSkeetoEntity":
           return EnemyType.Scourge;
         case "kwolok":
+        case "petrifiedOwlBossEntity":
           return EnemyType.Misc;
         default:
           return EnemyType.Unknown;
