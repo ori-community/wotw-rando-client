@@ -59,6 +59,9 @@ namespace RandoMainDLL {
     SetSpiritLight = 14,
     Bind = 15,
     AHKSignal = 16,
+    GrantIfEqual = 17,
+    GrantIfGreater = 18,
+    GrantIfLess = 19
   }
 
   public enum TeleporterType : byte {
@@ -639,7 +642,6 @@ namespace RandoMainDLL {
             return true;
           break;
         case SysCommandType.StopIfLess:
-          Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}");
           Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}", false);
           if (state.ValueAsFloat() < targetValue)
             return true;
@@ -651,8 +653,43 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       base.Grant(skipBase);
     }
-
   }
+  public class GrantIf : SystemCommand {
+    private readonly Pickup pickup;
+    private readonly UberId targetState;
+    private readonly float targetValue;
+    public GrantIf(SysCommandType command, UberId s, float v, Pickup p) : base(command) {
+      targetState = s;
+      targetValue = v;
+      pickup = p;
+    }
+    public override void Grant(bool skipBase = false) {
+      var state = targetState.State();
+      switch (type) {
+        case SysCommandType.GrantIfEqual:
+          Randomizer.Debug($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue} => {pickup.Name}", false);
+      if (state.ValueAsFloat() == targetValue)
+        pickup.Grant(true);
+      break;
+        case SysCommandType.GrantIfGreater:
+          Randomizer.Debug($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue} => {pickup.Name}", false);
+      if (state.ValueAsFloat() > targetValue)
+        pickup.Grant(true);
+      break;
+        case SysCommandType.GrantIfLess:
+          Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue} => {pickup.Name}", false);
+      if (state.ValueAsFloat() < targetValue)
+        pickup.Grant(true);
+      break;
+    }
+  }
+    public override string Name { get => type.ToString(); }
+    public override string DisplayName { get => ""; }
+  }
+
+
+
+
   public class SetStateCommand : SystemCommand {
     SysState state;
     int value;
