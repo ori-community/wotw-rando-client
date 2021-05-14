@@ -126,7 +126,7 @@ namespace RandoMainDLL {
           Randomizer.Log("Wrote default binds file", false, "DEBUG");
           File.WriteAllText(BindsFile, DefaultBinds);
         }
-        return File.ReadAllText(BindsFile);
+        return String.Join("\n", File.ReadAllLines(BindsFile).Where(l => l != "" && !l.StartsWith(";")));
        }
     }
 
