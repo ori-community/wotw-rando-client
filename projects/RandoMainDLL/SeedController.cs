@@ -153,13 +153,13 @@ namespace RandoMainDLL {
             var pickupType = (PickupType)frags[2].ParseToByte();
 
             // legacy shop cost support
-            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && cond.Id.ID < 10000 && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
+            if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && cond.Id.ID < 10000 && frags.Count() > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
               ((AbilityType)cond.Id.ID).Slot().CostMultiplier = oMulti + 1; 
-              frags.RemoveAt(frags.Count - 1);
+              frags.RemoveAt(frags.Count() - 1);
             }
-            if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && cond.Id.ID < 100 && frags.Count > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
+            if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && cond.Id.ID < 100 && frags.Count() > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
               ((ShardType)cond.Id.ID).Slot().CostMultiplier = tMulti + 1;
-              frags.RemoveAt(frags.Count - 1);
+              frags.RemoveAt(frags.Count() - 1);
             }
 
             var extras = frags.Skip(4).ToList();
@@ -296,6 +296,20 @@ namespace RandoMainDLL {
                 extras[1].ParseToInt("BuildPickup.UberId")
               );
               return new ConditionalStop(t, uid, extras[2].ParseToFloat("BuildPickup.InterruptCondValue"));
+            case SysCommandType.GrantIfEqual:
+            case SysCommandType.GrantIfGreater:
+            case SysCommandType.GrantIfLess:
+              if (extras.Count < 5) {
+                Randomizer.Log($"malformed command specifier {pickupData}", false);
+                return new Message($"Invalid command {pickupData}!");
+              }
+              var guid = new UberId(
+                extras[0].ParseToInt("BuildPickup.UberGroupId"),
+                extras[1].ParseToInt("BuildPickup.UberId")
+              );
+              var p = BuildPickup((PickupType)extras[3].ParseToByte("BuildPickup.GrantIfType"), extras[4], extras.Skip(5).ToList(), cond);
+              return new GrantIf(t, guid, extras[2].ParseToFloat("BuildPickup.GrantIfTargetValue"), p);
+
             case SysCommandType.SetState:
               if (extras.Count != 2) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
