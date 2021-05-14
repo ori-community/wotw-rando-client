@@ -120,6 +120,15 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
         }
     }
 
+    viruswarningmsg = 
+    (
+Due to the way the randomizer works, your virusscanner might see part of it as malware and will quarantine or remove it.
+This will prevent you from playing.
+
+Please add the Injector.exe file in your installation folder to the whitelist of your virusscanner before starting the randomizer.
+    )
+    MsgBox, 48 , Important warning! , %viruswarningmsg%
+
     GoSub, PromptAfterInstall
 }
 gosub, ReadIniVals
