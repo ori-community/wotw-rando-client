@@ -360,7 +360,6 @@ void perform_preload()
 }
 
 INJECT_C_DLLEXPORT void start_credits() {
-
-    teleport(-4627.817, -6759.598, true);
+    teleport(-3537, -5881, true); // actual magic coordinates found by cosmic
     force_load_area("creditsScreen", &credits_callback);
 }
