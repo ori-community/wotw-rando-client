@@ -40,7 +40,8 @@ void initalize(GuiData& gui)
 {
     //init_test_data(gui);
     ExtraGuiData& extra = *static_cast<ExtraGuiData*>(gui.extra);
-    extra.randomizer_settings = create_randomizer_settings();
+    // Nobody but me uses this program anyway :orilurk:
+    extra.randomizer_settings = create_randomizer_settings("C:/moon/");
     load_settings_from_file(extra.randomizer_settings);
     extra.randomizer_settings_backup = extra.randomizer_settings;
 
