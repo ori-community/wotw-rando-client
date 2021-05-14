@@ -23,13 +23,14 @@ namespace RandoMainDLL {
     Crab,
     SpinningCrab,
     Tentacle,
-    Spiderling,
+    Spider,
     Balloon,
     Miner,
     ShieldMiner,
     Elemental,
     Baneling,
     Scourge,
+    Misc,
     Unknown
   }
 
@@ -130,12 +131,14 @@ namespace RandoMainDLL {
         case "multiJumpMantis":
           return EnemyType.Mantis;
         case "slugEntity":
+        case "acidSlugEntity":
           return EnemyType.Slime;
         case "spikeSlugEntity":
           return EnemyType.SpikeSlime;
         case "spiderBatEntity":
           return EnemyType.SpiderBat;
         case "hornBugEntity":
+        case "hornBugBossEntity":
           return EnemyType.Hornbug;
         case "sandWormEntity":
           return EnemyType.Sandworm;
@@ -172,7 +175,8 @@ namespace RandoMainDLL {
         case "crabEntity":
           return EnemyType.Crab;
         case "spiderlingEntity":
-          return EnemyType.Spiderling;
+        case "spiderBossEntity":
+          return EnemyType.Spider;
         case "gasballEntity":
           return EnemyType.Balloon;
         case "corruptPickaxeShieldMinerEntity":
@@ -180,8 +184,11 @@ namespace RandoMainDLL {
           return EnemyType.ShieldMiner;
         case "corruptShockwaveMinerEntity":
         case "corruptPickaxeGrenadeMinerEntity":
+        case "corruptGrenadeMinerEntity":
         case "feralPickaxeGrenadeMinerEntity":
         case "feralPickaxeMinerEntity":
+        case "icyFeralPickaxeMinerEntity":
+        case "feralUnarmedMinerEntity":
           return EnemyType.Miner;
         case "laserShooterEntity":
           return EnemyType.Elemental;
@@ -189,6 +196,8 @@ namespace RandoMainDLL {
           return EnemyType.Baneling;
         case "kamikazeSkeetoEntity":
           return EnemyType.Scourge;
+        case "kwolok":
+          return EnemyType.Misc;
         default:
           return EnemyType.Unknown;
       }
