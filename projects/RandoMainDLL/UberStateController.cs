@@ -210,10 +210,9 @@ namespace RandoMainDLL {
 
         HandleSpecial(state);
         UberStates[key].Value = state.Value;
-        var pos = InterOp.get_position();
+        var id = state.GetUberId();
         bool found = false;
         if (value.Int > 0) {
-          var id = state.GetUberId();
           if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
             var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
             if (p.NonEmpty) {
@@ -232,9 +231,11 @@ namespace RandoMainDLL {
         var zone = ZoneType.Void;
         if (InterOp.get_game_state() == GameState.Game)
           zone = InterOp.get_player_area().toZone();
-        if (!NeedsNewGameInit && (value.Int == 0 || !found) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10))
+        if (!NeedsNewGameInit && (value.Int == 0 || !found) && Randomizer.Dev && !TickingUberStates.Contains(id) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10)) {
+          var pos = InterOp.get_position();
           Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {oldValFmt}->{state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
-          //Randomizer.Debug($"{state.GroupName}.{state.Name}, {state.GroupID}, {state.ID}, {state.Type}, {oldValFmt}, {state.FmtVal()}, {zone}, {Math.Round(pos.X)},{Math.Round(pos.Y)}");
+        }
+        //Randomizer.Debug($"{state.GroupName}.{state.Name}, {state.GroupID}, {state.ID}, {state.Type}, {oldValFmt}, {state.FmtVal()}, {zone}, {Math.Round(pos.X)},{Math.Round(pos.Y)}");
       }
       catch (Exception e) {
         Randomizer.Error($"USC.Update {state}", e);
