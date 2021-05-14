@@ -131,6 +131,20 @@ if(dev == "false")
 if(skipUpdate == "false")
     GoSub CheckForUpdates
 
+InjectorNotFoundMessage=
+(
+It looks like the file called 'Injector.exe' is no longer there. There is a good chance your virusscanner ate it.
+This file will now be created again, but to prevent further issues you should add an exception to your virusscanner for the file 'Injector.exe'
+
+Please do so now and restart the randomizer.
+)
+
+if not FileExist(INSTALL_DIR . "Injector.exe") {
+    MsgBox, 16, Injector.exe not found! , %InjectorNotFoundMessage%
+    FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe, 1
+    ExitApp
+}
+
 argc = %0%
 seedfile = %1%
 if(argc > 0 and seedfile != "")  {
