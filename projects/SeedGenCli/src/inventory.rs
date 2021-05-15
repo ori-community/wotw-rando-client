@@ -2,7 +2,7 @@ use std::fmt;
 
 use rustc_hash::FxHashMap;
 
-use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Pathsets, Pathset, Command};
+use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Pathsets, Pathset, Command};
 
 #[allow(clippy::pub_enum_variant_names)]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
@@ -188,7 +188,11 @@ impl Item {
             Item::BonusUpgrade(BonusUpgrade::SentryEfficiency) |
             Item::BonusUpgrade(BonusUpgrade::RapidHammer) => 600,
             Item::BonusUpgrade(_) => 300,
-            Item::Hint(_) => 200,
+            Item::Hint(hint) => match hint.zone {
+                Zone::Burrows | Zone::Willow => 50,
+                Zone::Hollow | Zone::Wellspring | Zone::Woods | Zone::Reach | Zone::Depths | Zone::Pools | Zone::Wastes | Zone::Ruins | Zone::Void => 150,
+                Zone::Marsh | Zone::Glades => 200,
+            },
             _ => 1,
         }
     }
