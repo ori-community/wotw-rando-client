@@ -236,6 +236,47 @@ where P: Iterator<Item=&'a str>
 
     Ok(Item::Command(Command::Equip { slot, ability }))
 }
+fn parse_ahk_signal<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let signal = parts.next().ok_or_else(|| String::from("missing ahk signal specifier"))?;
+    end_of_pickup(parts, shop)?;
+
+    Ok(Item::Command(Command::AHKSignal { signal: signal.to_string() }))
+}
+fn parse_if<'a, P>(mut parts: P, shop: bool) -> Result<(UberState, Item), String>
+where P: Iterator<Item=&'a str>
+{
+    let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
+    let uber_id = parts.next().ok_or_else(|| String::from("missing uber id"))?;
+    let value = parts.next().ok_or_else(|| String::from("missing uber value"))?;
+
+    let uber_id = format!("{}={}", uber_id, value);
+    let uber_state = UberState::from_parts(uber_group, &uber_id)?;
+
+    let item = parts.collect::<Vec<_>>().join("|");
+    let item = parse_pickup(&item, shop)?;
+
+    Ok((uber_state, item))
+}
+fn parse_if_equal<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (uber_state, item) = parse_if(parts, shop)?;
+    Ok(Item::Command(Command::IfEqual { uber_state, item: Box::new(item) }))
+}
+fn parse_if_greater<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (uber_state, item) = parse_if(parts, shop)?;
+    Ok(Item::Command(Command::IfGreater { uber_state, item: Box::new(item) }))
+}
+fn parse_if_less<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (uber_state, item) = parse_if(parts, shop)?;
+    Ok(Item::Command(Command::IfLess { uber_state, item: Box::new(item) }))
+}
 fn parse_command<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
@@ -257,6 +298,10 @@ where P: Iterator<Item=&'a str>
         "13" => parse_set_energy(parts, shop),
         "14" => parse_set_spirit_light(parts, shop),
         "15" => parse_equip(parts, shop),
+        "16" => parse_ahk_signal(parts, shop),
+        "17" => parse_if_equal(parts, shop),
+        "18" => parse_if_greater(parts, shop),
+        "19" => parse_if_less(parts, shop),
         _ => Err(String::from("invalid command type")),
     }
 }
@@ -709,6 +754,11 @@ pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
                 parse_pickup(pickup, false)?;
             } else if let Some(mut pickup) = command.strip_prefix("remove ") {
                 parse_count(&mut pickup);
+                parse_pickup(pickup, false)?;
+            } else if let Some(naming) = command.strip_prefix("name ") {
+                let mut parts = naming.splitn(2, ' ');
+                let pickup = parts.next().unwrap();
+                parts.next().ok_or_else(|| format!("Missing name in name command {}", naming))?;
                 parse_pickup(pickup, false)?;
             } else if let Some(string) = command.strip_prefix("pool ") {
                 // TODO determinate validation would be nice?

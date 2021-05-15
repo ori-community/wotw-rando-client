@@ -13,6 +13,7 @@ use std::{
 use rustc_hash::FxHashSet;
 use serde::{Serialize, Deserialize};
 
+use crate::inventory::Item;
 use uberstate::{UberState, UberIdentifier};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -640,6 +641,10 @@ pub enum Command {
     SetEnergy { amount: i16 },
     SetSpiritLight { amount: i16 },
     Equip { slot: u8, ability: u16 },
+    AHKSignal { signal: String },
+    IfEqual { uber_state: UberState, item: Box<Item> },
+    IfGreater { uber_state: UberState, item: Box<Item> },
+    IfLess { uber_state: UberState, item: Box<Item> },
 }
 impl fmt::Display for Command {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -660,6 +665,10 @@ impl fmt::Display for Command {
             Command::SetEnergy { amount } => write!(f, "13|{}", amount),
             Command::SetSpiritLight { amount } => write!(f, "14|{}", amount),
             Command::Equip { slot, ability } => write!(f, "15|{}|{}", slot, ability),
+            Command::AHKSignal { signal } => write!(f, "16|{}", signal),
+            Command::IfEqual { uber_state, item } => write!(f, "17|{}|{}|{}", uber_state.identifier, uber_state.value, item.code()),
+            Command::IfGreater { uber_state, item } => write!(f, "18|{}|{}|{}", uber_state.identifier, uber_state.value, item.code()),
+            Command::IfLess { uber_state, item } => write!(f, "19|{}|{}|{}", uber_state.identifier, uber_state.value, item.code()),
         }
     }
 }
