@@ -469,8 +469,9 @@ namespace RandoMainDLL {
           Func<UberValue, float> modifier = GetUberSetter(stateType, stateParts[3]);
           return new UberStateModifier(uberId, modifier, stateParts[3]);
         default:
-          Randomizer.Error("BuildPickup", $"seed parse failure: unknown pickup {type}|{pickupData}!!!", false);
-          return new Message($"Unknown pickup {type}|{pickupData}!!!");
+          var err = "Unknown pickup {type}|{pickupData}|{String.Join("|", extras}";
+          Randomizer.Error("BuildPickup", err, false);
+          return new Message(err);
       }
     }
     public static UberStateType uberTypeFromString(String raw) {
