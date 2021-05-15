@@ -160,13 +160,12 @@ impl Item {
             Item::Skill(Skill::Glide) | Item::Skill(Skill::Grapple) => 1400,  // Feel-Good Finds
             Item::Skill(Skill::Bow) | Item::Skill(Skill::Shuriken) => 1600,  // Secondary Weapons
             Item::Skill(Skill::Burrow) | Item::Skill(Skill::Bash) | Item::Skill(Skill::Flap) | Item::Skill(Skill::WaterDash) |
-            Item::Skill(Skill::Flash) | Item::Skill(Skill::Seir) | Item::Water => 1800,  // Key Skills
-            Item::Skill(Skill::Grenade) | Item::Skill(Skill::Blaze) | Item::Skill(Skill::Sentry) | Item::Skill(Skill::Spear) => 2800,  // Tedious Weapons
+            Item::Skill(Skill::Grenade) | Item::Skill(Skill::Flash) | Item::Skill(Skill::Seir) | Item::Water => 1800,  // Key Skills
+            Item::Skill(Skill::Blaze) | Item::Skill(Skill::Sentry) | Item::Skill(Skill::Spear) => 2800,  // Tedious Weapons
             Item::Skill(Skill::AncestralLight) => 3000,  // Unhinted Skill
-            Item::Skill(Skill::Launch) => 30000,  // Absolutely Broken
-            Item::Teleporter(Teleporter::Marsh) => 20000,
-            Item::Teleporter(Teleporter::Wellspring) => 16000,
-            Item::Teleporter(_) => 12000,
+            Item::Skill(Skill::Launch) => 40000,  // Absolutely Broken
+            Item::Teleporter(Teleporter::Marsh) => 30000,
+            Item::Teleporter(_) => 25000,
             _ => 400,
         }
     }
