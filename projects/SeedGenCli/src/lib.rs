@@ -66,7 +66,7 @@ where
     return Ok(spawn);
 }
 
-fn write_flags(settings: &Settings, mut flags: Vec<String>) -> String {
+pub fn write_flags(settings: &Settings, mut flags: Vec<String>) -> String {
     for flag in settings.goalmodes.iter().map(|goal| format!("{}", goal)) {
         flags.push(flag);
     }
@@ -135,44 +135,34 @@ fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, 
 where R: Rng + ?Sized
 {
     let mut header_block = String::new();
+    let mut header_list = settings.header_list.iter().cloned().collect::<HashSet<_>>();
     let mut custom_flags = Vec::new();
-    let mut total_dependencies = HashSet::new();
     let mut custom_names = HashMap::new();
 
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = headers::parser::parse_header(header, &mut custom_flags, &mut total_dependencies, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
-
-        header_block += &header;
-    }
-    for mut path in settings.header_list.clone() {
-        path.set_extension("wotwrh");
-
-        log::trace!("Parsing header {}", path.file_stem().ok_or_else(|| format!("Invalid Header path: {}", path.display()))?.to_string_lossy());
-
-        let header = util::read_file(&path, "headers")?;
-        let header = headers::parser::parse_header(&header, &mut custom_flags, &mut total_dependencies, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in header '{}'", err, path.display()))?;
+        let header = headers::parser::parse_header(header, &mut custom_flags, &mut header_list, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
 
-    let mut depth = 0;
-    while !total_dependencies.is_empty() {
-        let mut nested_dependencies = HashSet::new();
-        for dependency in total_dependencies.into_iter() {
-            log::trace!("Parsing included header {}", dependency.file_stem().ok_or_else(|| format!("Invalid Header path: {}", dependency.display()))?.to_string_lossy());
+    let mut parsed = HashSet::new();
+    loop {
+        let unparsed = header_list.difference(&parsed).cloned().collect::<Vec<_>>();
+        if unparsed.is_empty() { break; }
 
-            let header = util::read_file(&dependency, "headers")?;
-            let header = headers::parser::parse_header(&header, &mut custom_flags, &mut nested_dependencies, &mut custom_names, world, &settings.pathsets, rng)?;
+        parsed = header_list.clone();
+
+        for mut path in unparsed {
+            path.set_extension("wotwrh");
+
+            log::trace!("Parsing header {}", path.display());
+
+            let header = util::read_file(&path, "headers")?;
+            let header = headers::parser::parse_header(&header, &mut custom_flags, &mut header_list, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
-        }
-        total_dependencies = nested_dependencies;
-
-        depth += 1;
-        if depth > 100 {
-            return Err(String::from("More than 100 nested dependencies. Is there a circular !!include?"));
         }
     }
 

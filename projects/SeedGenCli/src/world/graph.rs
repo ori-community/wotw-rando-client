@@ -131,7 +131,7 @@ struct ReachContext<'a, 'b> {
     world_state: FxHashMap<usize, SmallVec<[Orbs; 3]>>
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Graph {
     pub nodes: Vec<Node>,
 }

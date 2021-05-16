@@ -5,6 +5,7 @@ use std::{
     io::{self, Read},
     time::Instant,
     process::Command,
+    collections::{HashSet, HashMap},
 };
 
 use structopt::StructOpt;
@@ -16,7 +17,10 @@ use log::LevelFilter;
 use seedgen::{self, lexer, inventory, world, headers, util};
 
 use inventory::Item;
-use world::World;
+use world::{
+    World,
+    graph::Graph,
+};
 use util::{
     Pathsets, Pathset, GoalMode, Resource, Skill, Teleporter, Shard,
     settings::{Settings, Spawn},
@@ -180,7 +184,17 @@ struct ReachCheckArgs {
 #[derive(StructOpt)]
 enum HeaderCommand {
     /// Check header compability
-    Validate
+    Validate {
+        /// A file to validate, or leave empty to validate all headers in the directory
+        #[structopt(parse(from_os_str))]
+        path: Option<PathBuf>,
+    },
+    /// Parse a header or plandomizer into the seed format
+    Parse {
+        /// The file to parse
+        #[structopt(parse(from_os_str))]
+        path: PathBuf,
+    }
 }
 
 fn read_header() -> String {
@@ -320,7 +334,7 @@ fn write_seeds_to_files(seeds: Vec<String>, filename: Option<PathBuf>) -> Result
 
     let mut first = true;
     for seed in seeds {
-        let file = util::create_new_file(&filename, &seed, "seeds", true)?;
+        let file = util::create_file(&filename, &seed, "seeds", true)?;
         log::info!("Wrote seed to {}", file.display());
 
         if first {
@@ -352,7 +366,7 @@ fn create_preset(mut args: PresetArgs) -> Result<(), String> {
 
     args.name.set_extension("json");
 
-    let path = util::create_new_file(&args.name, &settings, "presets", false)?;
+    let path = util::create_file(&args.name, &settings, "presets", false)?;
     log::info!("Created preset {}", path.display());
 
     Ok(())
@@ -418,9 +432,38 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     let spawn = world.graph.find_spawn(&spawn)?;
 
     let reached = world.graph.reached_locations(&world.player, spawn, &world.uber_states).expect("Invalid Reach Check");
-    let reached: Vec<_> = reached.iter().filter(|&&node| node.can_place()).filter_map(|&node| node.uber_state()).collect();
-    let reached = reached.iter().map(|uber_state| format!("{}", uber_state)).collect::<Vec<_>>();
+    let reached = reached.iter()
+        .filter(|&&node| node.can_place())
+        .filter_map(|&node| node.uber_state())
+        .map(|uber_state| format!("{}", uber_state))
+        .collect::<Vec<_>>();
     Ok(reached.join(", "))
+}
+
+fn compile_seed(mut path: PathBuf) -> Result<(), String> {
+    if path.extension().is_none() {
+        path.set_extension("wotwrh");
+    }
+
+    let header = fs::read_to_string(path.clone()).map_err(|err| format!("Failed to read {}: {}", path.display(), err))?;
+
+    let graph = Graph::default();
+    let mut world = World::new(&graph);
+    let settings = Settings::default();
+    let mut rng = rand::thread_rng();
+
+    let mut flags = Vec::new();
+
+    let header_block = headers::parser::parse_header(&header, &mut flags, &mut HashSet::default(), &mut HashMap::default(), &mut world, &settings.pathsets, &mut rng)?;
+    let flag_line = seedgen::write_flags(&settings, flags);
+
+    let compiled = format!("{}{}", flag_line, header_block);
+
+    path.set_extension("wotwr");
+    let path = util::create_file(&path, &compiled, "target", false)?;
+    log::info!("Compiled to target/{}", path.display());
+
+    Ok(())
 }
 
 fn main() {
@@ -461,16 +504,19 @@ fn main() {
             seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match subcommand {
-                Some(HeaderCommand::Validate) => {
-                    headers::validate().unwrap_or_else(|err| log::error!("{}", err));
-                }
+                Some(HeaderCommand::Validate { path }) => {
+                    headers::validate(path).unwrap_or_else(|err| log::error!("{}", err));
+                },
+                Some(HeaderCommand::Parse { path }) => {
+                    compile_seed(path).unwrap_or_else(|err| log::error!("{}", err));
+                },
                 None => {
                     if headers.is_empty() {
                         headers::list().unwrap_or_else(|err| log::error!("{}", err));
                     } else {
                         headers::inspect(headers).unwrap_or_else(|err| log::error!("{}", err));
                     }
-                }
+                },
             }
         },
         SeedGenCommand::ReachCheck { args } => {

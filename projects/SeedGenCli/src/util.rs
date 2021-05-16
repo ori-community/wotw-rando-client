@@ -821,7 +821,7 @@ fn create_in_folder(file: &Path, contents: &str, create_new: bool) -> Result<Pat
             }
     }
 }
-pub fn create_new_file<P>(file: &Path, contents: &str, default_folder: P, create_new: bool) -> Result<PathBuf, String>
+pub fn create_file<P>(file: &Path, contents: &str, default_folder: P, create_new: bool) -> Result<PathBuf, String>
 where P: AsRef<Path>
 {
     in_folder(file, default_folder)?.map_or_else(

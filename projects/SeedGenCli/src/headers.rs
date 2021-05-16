@@ -155,10 +155,14 @@ pub fn inspect(headers: Vec<PathBuf>) -> Result<(), String> {
     Ok(())
 }
 
-pub fn validate() -> Result<(), String> {
+pub fn validate(path: Option<PathBuf>) -> Result<(), String> {
     let mut output = String::new();
 
-    let headers = find_headers(true)?;
+    let headers = match path {
+        Some(path) => vec![path],
+        None => find_headers(true)?,
+    };
+
     let mut occupation_map = Vec::new();
 
     let length = headers.len();
