@@ -179,7 +179,9 @@ where R: Rng + ?Sized
     Ok((header_block, custom_flags, custom_names))
 }
 
-pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], seed: Option<String>) -> Result<Vec<String>, String> {
+pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<Vec<String>, String> {
+    let settings = settings.apply_presets()?;
+
     let config = Settings::write(&settings)?;
     log::trace!("Generating with Settings: {}", config);
 
@@ -200,11 +202,11 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
 
     let mut world = World::new(graph);
     world.pool = Pool::preset(&settings.pathsets);
-    world.player.spawn(settings);
+    world.player.spawn(&settings);
 
-    let (header_block, custom_flags, custom_names) = parse_headers(&mut world, headers, settings, &mut rng)?;
+    let (header_block, custom_flags, custom_names) = parse_headers(&mut world, headers, &settings, &mut rng)?;
 
-    let flag_line = write_flags(settings, custom_flags);
+    let flag_line = write_flags(&settings, custom_flags);
 
     let mut worlds = vec![world];
     for _ in 1..settings.worlds {
@@ -228,7 +230,7 @@ pub fn generate_seed(graph: &Graph, settings: &Settings, headers: &[String], see
         let identifiers = spawn_locs.iter().map(|spawn_loc| spawn_loc.identifier()).collect::<Vec<_>>();
         log::trace!("Spawning on {}", identifiers.join(", "));
 
-        match generator::generate_placements(worlds.clone(), &spawn_locs, &spawn_pickup_node, &custom_names, settings, &mut rng) {
+        match generator::generate_placements(worlds.clone(), &spawn_locs, &spawn_pickup_node, &custom_names, &settings, &mut rng) {
             Ok(seed) => {
                 if index > 0 {
                     log::info!("Generated seed after {} tries{}", index + 1, if index < RETRIES / 2 { "" } else { " (phew)" });

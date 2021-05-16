@@ -1,1 +1,1 @@
-{"worlds":1,"players":[],"pathsets":["Moki"],"goalmodes":[],"spawnLoc":{"Set":"MarshSpawn.Main"},"spoilers":true,"webConn":false,"hard":false,"headerList":["key_hints","zone_hints"]}
+{"version":"0.13.0","worlds":1,"players":[],"pathsets":["Moki"],"goalmodes":[],"spawnLoc":{"Set":"MarshSpawn.Main"},"spoilers":true,"webConn":false,"hard":false,"headerList":["key_hints","zone_hints"]}

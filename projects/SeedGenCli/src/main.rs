@@ -1,5 +1,3 @@
-mod presets;
-
 use std::{
     fs,
     path::PathBuf,
@@ -77,11 +75,6 @@ struct SeedArgs {
     /// the seed's name and name of the file it will be written to. The name also seeds the rng.
     #[structopt(parse(from_os_str))]
     filename: Option<PathBuf>,
-    /// derive the settings from one or more presets
-    ///
-    /// presets later in the list override earlier ones, and flags from the command override any preset
-    #[structopt(short, long)]
-    preset: Vec<String>,
     /// seed the rng; without this flag it will be seeded from the filename instead
     #[structopt(long)]
     seed: Option<String>,
@@ -116,6 +109,11 @@ struct PresetArgs {
 
 #[derive(StructOpt)]
 struct SeedSettings {
+    /// derive the settings from one or more presets
+    ///
+    /// presets later in the list override earlier ones, and flags from the command override any preset
+    #[structopt(parse(from_os_str), short, long)]
+    preset: Vec<PathBuf>,
     /// How many (multi)worlds to generate
     #[structopt(short, long, default_value = "1")]
     worlds: usize,
@@ -256,6 +254,7 @@ fn parse_spawn(spawn: String) -> Spawn {
 }
 fn parse_settings(settings: SeedSettings) -> Settings {
     let SeedSettings {
+        preset,
         worlds,
         names,
         race,
@@ -272,7 +271,8 @@ fn parse_settings(settings: SeedSettings) -> Settings {
     let spawn = parse_spawn(spawn);
 
     Settings {
-        version: None,
+        version: Some(env!("CARGO_PKG_VERSION").to_string()),
+        presets: preset,
         worlds,
         players: names,
         spoilers: !race,
@@ -293,24 +293,7 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
         |seed| Some(seed.clone()),
     );
 
-    let mut settings = Settings::default();
-    for preset in args.preset {
-        let preset_settings = match &preset[..] {
-            "moki" => presets::moki(),
-            "gorlek" => presets::gorlek(),
-            "gorlekg" | "gorlek_glitch" => presets::gorlek_glitch(),
-            _ => {
-                let mut preset = PathBuf::from(preset);
-                preset.set_extension("json");
-                Settings::from_preset(&preset)?
-            }
-        };
-
-        settings.merge(preset_settings);
-    }
-
-    settings.merge(parse_settings(args.settings));
-    settings.version = Some(env!("CARGO_PKG_VERSION").to_string());
+    let settings = parse_settings(args.settings);
 
     let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;
     log::info!("Parsed logic in {:?}", now.elapsed());
@@ -320,11 +303,12 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
         args.headers.push(header)
     }
 
-    let seeds = seedgen::generate_seed(&graph, &settings, &args.headers, seed).map_err(|err| format!("Error generating seed: {}", err))?;
-    if settings.worlds == 1 {
+    let worlds = settings.worlds;
+    let seeds = seedgen::generate_seed(&graph, settings, &args.headers, seed).map_err(|err| format!("Error generating seed: {}", err))?;
+    if worlds == 1 {
         log::info!("Generated seed in {:?}", now.elapsed());
     } else {
-        log::info!("Generated {} worlds in {:?}", settings.worlds, now.elapsed());
+        log::info!("Generated {} worlds in {:?}", worlds, now.elapsed());
     }
 
     Ok(seeds)

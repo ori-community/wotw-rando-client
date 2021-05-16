@@ -118,7 +118,7 @@ fn generation(c: &mut Criterion) {
         let mut settings = Settings::default();
         settings.pathsets = pathsets.clone();
 
-        seedgen::generate_seed(&graph, &settings, &vec![], None).unwrap();
+        seedgen::generate_seed(&graph, settings, &vec![], None).unwrap();
     }));
 
     c.bench_function("two worlds", |b| b.iter(|| {
@@ -127,7 +127,7 @@ fn generation(c: &mut Criterion) {
         settings.pathsets = pathsets.clone();
         settings.worlds = 2;
 
-        seedgen::generate_seed(&graph, &settings, &vec![], None).unwrap();
+        seedgen::generate_seed(&graph, settings, &vec![], None).unwrap();
     }));
 }
 

@@ -1,3 +1,5 @@
+mod presets;
+
 use std::{io, path::{Path, PathBuf}};
 
 use rustc_hash::FxHashSet;
@@ -115,6 +117,7 @@ impl Default for Spawn {
 pub struct Settings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
+    pub presets: Vec<PathBuf>,
     pub worlds: usize,
     pub players: Vec<String>,
     #[serde(flatten)]
@@ -130,6 +133,7 @@ impl Default for Settings {
     fn default() -> Settings {
         Settings {
             version: None,
+            presets: Vec::default(),
             worlds: 1,
             players: Vec::default(),
             pathsets: Pathsets::default(),
@@ -155,14 +159,29 @@ impl Settings {
         Ok(settings)
     }
     pub fn from_preset(preset: &Path) -> Result<Settings, String> {
-        let content = super::read_file(preset, "presets")?;
-        serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
+        let mut settings = None;
+
+        if let Some(path) = preset.to_str() {
+            settings = match path {
+                "moki" => Some(Ok(presets::moki())),
+                "gorlek" => Some(Ok(presets::gorlek())),
+                "gorlekg" | "gorlek_glitch" => Some(Ok(presets::gorlek_glitch())),
+                _ => None,
+            }
+        }
+
+        settings.unwrap_or_else(|| {
+            let mut preset = preset.to_owned();
+            preset.set_extension("json");
+            let content = super::read_file(&preset, "presets")?;
+            serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
+        })
     }
     pub fn write(settings: &Settings) -> Result<String, String> {
         serde_json::to_string(settings).map_err(|err| format!("Invalid Settings: {}", err))
     }
 
-    pub fn merge(&mut self, mut other: Settings) {
+    fn merge(&mut self, mut other: Settings) {
         if other.version.is_some() {
             self.version = other.version;
         }
@@ -182,7 +201,19 @@ impl Settings {
         self.hard = self.hard || other.hard;
         self.header_list.append(&mut other.header_list);
     }
-    
+    pub fn apply_presets(self) -> Result<Settings, String> {
+        let mut merged_settings = Settings::default();
+
+        for preset in &self.presets {
+            let preset = Settings::from_preset(preset)?;
+            let preset = preset.apply_presets()?;
+
+            merged_settings.merge(preset);
+        }
+        merged_settings.merge(self);
+
+        Ok(merged_settings)
+    }
 }
 
 pub fn read_spawn(seed: &str) -> Result<String, String> {
