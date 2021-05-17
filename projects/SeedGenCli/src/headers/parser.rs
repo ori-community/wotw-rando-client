@@ -5,7 +5,10 @@ use std::{
 
 use rand::Rng;
 
-use crate::world::World;
+use crate::world::{
+    World,
+    graph::Graph,
+};
 use crate::inventory::Item;
 use crate::util::{
     self,
@@ -501,6 +504,12 @@ fn include_command(include: &str, dependencies: &mut HashSet<PathBuf>) {
     dependencies.insert(path);
 }
 #[inline]
+fn exclude_command(exclude: &str, excludes: &mut HashSet<String>) {
+    let path = PathBuf::from(exclude);
+    let name = path.file_stem().unwrap().to_string_lossy().to_string();
+    excludes.insert(name);
+}
+#[inline]
 fn add_command(mut pickup: &str, world: &mut World, pathsets: &Pathsets) -> Result<(), String> {
     let count = parse_count(&mut pickup);
     let item = parse_pickup(pickup, false)?;
@@ -614,7 +623,7 @@ fn set_command() {
     log::warn!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
 }
 
-pub fn parse_header<R>(header: &str, flags: &mut Vec<String>, dependencies: &mut HashSet<PathBuf>, namings: &mut HashMap<String, String>, world: &mut World, pathsets: &Pathsets, rng: &mut R) -> Result<String, String>
+pub fn parse_header<R>(header: &str, flags: &mut Vec<String>, dependencies: &mut HashSet<PathBuf>, excludes: &mut HashSet<String>, namings: &mut HashMap<String, String>, world: &mut World, pathsets: &Pathsets, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
@@ -642,6 +651,8 @@ where R: Rng + ?Sized
         } else if let Some(command) = trimmed.strip_prefix("!!") {
             if let Some(include) = command.strip_prefix("include ") {
                 include_command(include, dependencies);
+            } else if let Some(exclude) = command.strip_prefix("exclude ") {
+                exclude_command(exclude, excludes);
             } else if let Some(pickup) = command.strip_prefix("add ") {
                 add_command(pickup, world, pathsets)?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
@@ -670,6 +681,7 @@ where R: Rng + ?Sized
                 let uber_state = UberState::from_parts(uber_group, uber_id)?;
 
                 let item = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
+                // TODO just obsolete inline shops already
                 let item = parse_pickup(item, uber_state.is_shop())?;
 
                 // if someone sets an uberstate on spawn, they probably don't want a pickup placed on it
@@ -712,8 +724,15 @@ where R: Rng + ?Sized
     Ok(processed)
 }
 
-pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
-    // TODO the black market variants collide, maybe some kind of #exclude?
+pub fn validate_header(contents: &str) -> Result<(Vec<UberState>, HashSet<String>), String> {
+    let mut dependencies = HashSet::new();
+    let mut excludes = HashSet::new();
+    parse_header(contents, &mut Vec::new(), &mut dependencies, &mut excludes, &mut HashMap::new(), &mut World::new(&Graph::default()), &Pathsets::default(), &mut rand::thread_rng())?;
+
+    for dependency in dependencies {
+        util::read_file(&dependency, "headers")?;
+    }
+
     let mut occupied_states = Vec::new();
     let mut pool = Vec::new();
 
@@ -745,31 +764,12 @@ pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
         }
 
         if let Some(command) = trimmed.strip_prefix("!!") {
-            if let Some(include) = command.strip_prefix("include ") {
-                let mut path = PathBuf::from(include);
-                path.set_extension("wotwrh");
-                util::read_file(&path, "headers")?;
-            } else if let Some(mut pickup) = command.strip_prefix("add ") {
-                parse_count(&mut pickup);
-                parse_pickup(pickup, false)?;
-            } else if let Some(mut pickup) = command.strip_prefix("remove ") {
-                parse_count(&mut pickup);
-                parse_pickup(pickup, false)?;
-            } else if let Some(naming) = command.strip_prefix("name ") {
-                let mut parts = naming.splitn(2, ' ');
-                let pickup = parts.next().unwrap();
-                parts.next().ok_or_else(|| format!("Missing name in name command {}", naming))?;
-                parse_pickup(pickup, false)?;
-            } else if let Some(string) = command.strip_prefix("pool ") {
+            if let Some(string) = command.strip_prefix("pool ") {
                 // TODO determinate validation would be nice?
                 pool_command(string, &mut pool)?;
             } else if let Some(_) = command.strip_prefix("addpool ") {
             } else if command.trim() == "flush" {
                 flush_command(&mut pool);
-            } else if command.starts_with("set ") {
-                return Err(String::from("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for."));
-            } else {
-                return Err(format!("Unknown command {}", command))
             }
         } else {
             if let Some(ignored) = trimmed.strip_prefix("!") {
@@ -855,7 +855,7 @@ pub fn validate_header(contents: &str) -> Result<Vec<UberState>, String> {
 
     occupied_states.dedup();
 
-    Ok(occupied_states)
+    Ok((occupied_states, excludes))
 }
 
 #[cfg(test)]
@@ -873,7 +873,7 @@ mod tests {
         let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut Vec::new(), &mut HashSet::default(), &mut HashMap::default(), &mut world, &Pathsets::default(), &mut thread_rng()).unwrap();
+        parse_header(&header, &mut Vec::new(), &mut HashSet::default(), &mut HashSet::default(), &mut HashMap::default(), &mut world, &Pathsets::default(), &mut thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);

@@ -3,6 +3,7 @@
 /// Opher sells Keystones from the Black Market. These Keystones are never required to beat the seed.
 /// Supply lasts indefinitely, but the price grows with the demand.
 !!include header_core
+!!exclude black_market
 
 1|105|6|Black Market Keystone|mute|f=0  // Black Market Keystones from OpherShop.Teleport
 1|105|8|1|105|bool|false                // Never lock purchase

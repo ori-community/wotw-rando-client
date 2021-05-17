@@ -454,7 +454,7 @@ fn compile_seed(mut path: PathBuf) -> Result<(), String> {
 
     let mut flags = Vec::new();
 
-    let header_block = headers::parser::parse_header(&header, &mut flags, &mut HashSet::default(), &mut HashMap::default(), &mut world, &settings.pathsets, &mut rng)?;
+    let header_block = headers::parser::parse_header(&header, &mut flags, &mut HashSet::default(), &mut HashSet::default(), &mut HashMap::default(), &mut world, &settings.pathsets, &mut rng)?;
     let flag_line = seedgen::write_flags(&settings, flags);
 
     let compiled = format!("{}{}", flag_line, header_block);

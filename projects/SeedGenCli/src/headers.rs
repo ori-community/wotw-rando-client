@@ -29,7 +29,7 @@ fn headers_in_directory(directory: &Path) -> Result<Vec<PathBuf>, String> {
             if let Ok(entry) = entry {
                 let path = entry.path();
                 if let Some(extension) = path.extension() {
-                    if extension.to_string_lossy() == "wotwrh" {
+                    if let Some("wotwrh") = extension.to_str() {
                         return Some(path);
                     }
                 }
@@ -172,28 +172,27 @@ pub fn validate(path: Option<PathBuf>) -> Result<(), String> {
     let mut failed = Vec::new();
 
     for header in headers {
+        let contents = util::read_file(&header, "headers")?;
         let mut name = header.file_stem().unwrap().to_string_lossy().into_owned();
 
-        let contents = util::read_file(&header, "headers")?;
-
         match parser::validate_header(&contents) {
-            Ok(occupied) => {
-                occupation_map.push((name, occupied));
+            Ok((occupied, excludes)) => {
+                occupation_map.push((name, occupied, excludes));
             },
             Err(err) => {
                 util::add_trailing_spaces(&mut name, HEADER_INDENT);
-                failed.push(format!("{}{}\n", NAME_COLOUR.paint(name), err))
+                failed.push(format!("{}  {}\n", NAME_COLOUR.paint(name), err))
             },
         }
     }
 
     for index in 0..occupation_map.len() {
-        let (name, occupied) = &occupation_map[index];
+        let (header, occupied, excludes) = &occupation_map[index];
         let mut collision_message = String::new();
 
         'outer: for uber_state in occupied {
-            for (other_name, other_occupied) in &occupation_map {
-                if name == other_name {
+            for (other_header, other_occupied, _) in &occupation_map {
+                if header == other_header || excludes.contains(other_header) {
                     continue;
                 }
                 if let Some(collision) = other_occupied.iter().find(|&other| {
@@ -202,7 +201,7 @@ pub fn validate(path: Option<PathBuf>) -> Result<(), String> {
                 }) {
                     collision_message = format!("Collision between used state {} and {} using {}",
                         UBERSTATE_COLOUR.paint(format!("{}", uber_state)),
-                        NAME_COLOUR.paint(other_name),
+                        NAME_COLOUR.paint(other_header),
                         UBERSTATE_COLOUR.paint(format!("{}", collision))
                     );
                     break 'outer;
@@ -243,18 +242,18 @@ pub fn validate(path: Option<PathBuf>) -> Result<(), String> {
                 occupied_summary += &format!("{}", UBERSTATE_COLOUR.paint(format!("..{}", last_value)));
             }
 
-            let mut name = name.clone();
+            let mut name = header.clone();
             util::add_trailing_spaces(&mut name, HEADER_INDENT);
 
             if occupied_summary.is_empty() {
-                passed.push(format!("{}--\n", NAME_COLOUR.paint(name)));
+                passed.push(format!("{}  --\n", NAME_COLOUR.paint(name)));
             } else {
-                passed.push(format!("{}uses {}\n", NAME_COLOUR.paint(name), occupied_summary));
+                passed.push(format!("{}  uses {}\n", NAME_COLOUR.paint(name), occupied_summary));
             }
         } else {
-            let mut name = name.clone();
+            let mut name = header.clone();
             util::add_trailing_spaces(&mut name, HEADER_INDENT);
-            failed.push(format!("{}{}\n", NAME_COLOUR.paint(name), collision_message));
+            failed.push(format!("{}  {}\n", NAME_COLOUR.paint(name), collision_message));
         }
     }
 

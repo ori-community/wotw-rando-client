@@ -136,13 +136,14 @@ where R: Rng + ?Sized
 {
     let mut header_block = String::new();
     let mut header_list = settings.header_list.iter().cloned().collect::<HashSet<_>>();
+    let mut excludes = HashSet::new();
     let mut custom_flags = Vec::new();
     let mut custom_names = HashMap::new();
 
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = headers::parser::parse_header(header, &mut custom_flags, &mut header_list, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = headers::parser::parse_header(header, &mut custom_flags, &mut header_list, &mut excludes, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
@@ -160,9 +161,17 @@ where R: Rng + ?Sized
             log::trace!("Parsing header {}", path.display());
 
             let header = util::read_file(&path, "headers")?;
-            let header = headers::parser::parse_header(&header, &mut custom_flags, &mut header_list, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
+            let header = headers::parser::parse_header(&header, &mut custom_flags, &mut header_list, &mut excludes, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
+        }
+    }
+
+    for header in header_list {
+        let name = header.file_stem().unwrap().to_string_lossy().to_string();
+
+        if let Some(incompability) = excludes.get(&name) {
+            return Err(format!("{} and {} are incompatible", header.display(), incompability));
         }
     }
 
