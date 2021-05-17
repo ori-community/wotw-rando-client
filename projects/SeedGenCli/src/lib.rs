@@ -31,6 +31,7 @@ use world::{
     graph::{Graph, Node, Pickup},
     pool::Pool
 };
+use headers::parser::{self, HeaderContext};
 use util::{
     Pathset, NodeType, Position,
     settings::{Settings, Spawn},
@@ -135,25 +136,27 @@ fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, 
 where R: Rng + ?Sized
 {
     let mut header_block = String::new();
-    let mut header_list = settings.header_list.iter().cloned().collect::<HashSet<_>>();
-    let mut excludes = HashSet::new();
-    let mut custom_flags = Vec::new();
-    let mut custom_names = HashMap::new();
+    let mut context = HeaderContext {
+        dependencies: settings.header_list.iter().cloned().collect::<HashSet<_>>(),
+        excludes: HashSet::new(),
+        flags: Vec::new(),
+        names: HashMap::new(),
+    };
 
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = headers::parser::parse_header(header, &mut custom_flags, &mut header_list, &mut excludes, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = parser::parse_header(header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
 
     let mut parsed = HashSet::new();
     loop {
-        let unparsed = header_list.difference(&parsed).cloned().collect::<Vec<_>>();
+        let unparsed = context.dependencies.difference(&parsed).cloned().collect::<Vec<_>>();
         if unparsed.is_empty() { break; }
 
-        parsed = header_list.clone();
+        parsed = context.dependencies.clone();
 
         for mut path in unparsed {
             path.set_extension("wotwrh");
@@ -161,21 +164,21 @@ where R: Rng + ?Sized
             log::trace!("Parsing header {}", path.display());
 
             let header = util::read_file(&path, "headers")?;
-            let header = headers::parser::parse_header(&header, &mut custom_flags, &mut header_list, &mut excludes, &mut custom_names, world, &settings.pathsets, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
+            let header = parser::parse_header(&header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
         }
     }
 
-    for header in header_list {
+    for header in context.dependencies {
         let name = header.file_stem().unwrap().to_string_lossy().to_string();
 
-        if let Some(incompability) = excludes.get(&name) {
+        if let Some(incompability) = context.excludes.get(&name) {
             return Err(format!("{} and {} are incompatible", header.display(), incompability));
         }
     }
 
-    Ok((header_block, custom_flags, custom_names))
+    Ok((header_block, context.flags, context.names))
 }
 
 pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<Vec<String>, String> {

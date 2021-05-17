@@ -5,7 +5,6 @@ use std::{
     io::{self, Read},
     time::Instant,
     process::Command,
-    collections::{HashSet, HashMap},
 };
 
 use structopt::StructOpt;
@@ -21,11 +20,14 @@ use world::{
     World,
     graph::Graph,
 };
+use headers::parser::HeaderContext;
 use util::{
     Pathsets, Pathset, GoalMode, Resource, Skill, Teleporter, Shard,
     settings::{Settings, Spawn},
-    uberstate::{UberState, UberValue},
+    uberstate::UberState,
 };
+
+// TODO investigate seed -v -s HowlsDen.Teleporter -h no_rain -l go shurikenbreak
 
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
@@ -408,20 +410,9 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
             world.player.inventory.grant(Item::Water, 1);
         }
         else if let Some(uber_state) = item.strip_prefix("u:") {
-            let mut parts = uber_state.split(&['|', ','][..]);
-            let uber_group = parts.next().ok_or_else(|| format!("expected uber group in {}", item))?;
-            let uber_id = parts.next().ok_or_else(|| format!("expected uber id in {}", item))?;
-            if parts.next().is_some() { return Err(format!("expected only two parts in {}", item)); }
+            let uber_state = UberState::from_str(uber_state).map_err(|err| format!("failed to parse uber state in {}: {}", item, err))?;
 
-            let uber_state = UberState::from_parts(uber_group, uber_id).map_err(|err| format!("failed to parse uber state in {}: {}", item, err))?;
-            let value = if uber_state.value.is_empty() {
-                UberValue::Bool(true)
-            } else {
-                let value: i32 = uber_state.value.parse().map_err(|_| format!("failed to parse uber state value in {}", item))?;
-                UberValue::Int(value)  // currently no floats are used in logic
-            };
-
-            world.uber_states.insert(uber_state.identifier, value);
+            world.uber_states.insert(uber_state.identifier, uber_state.value);
         }
         else {
             return Err(format!("items have to start with s:, t:, sh:, w: or u: (for skill, teleporter, shard, world event or uber state), except found {}", item));
@@ -452,10 +443,10 @@ fn compile_seed(mut path: PathBuf) -> Result<(), String> {
     let settings = Settings::default();
     let mut rng = rand::thread_rng();
 
-    let mut flags = Vec::new();
+    let mut context = HeaderContext::default();
 
-    let header_block = headers::parser::parse_header(&header, &mut flags, &mut HashSet::default(), &mut HashSet::default(), &mut HashMap::default(), &mut world, &settings.pathsets, &mut rng)?;
-    let flag_line = seedgen::write_flags(&settings, flags);
+    let header_block = headers::parser::parse_header(&header, &mut world, &settings.pathsets, &mut context, &mut rng)?;
+    let flag_line = seedgen::write_flags(&settings, context.flags);
 
     let compiled = format!("{}{}", flag_line, header_block);
 

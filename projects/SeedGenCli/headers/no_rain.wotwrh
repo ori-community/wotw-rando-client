@@ -2,7 +2,7 @@
 ///
 /// Marsh starts sunny as it usually is after getting the sword tree. Also Howl is dead
 
-// TODO logic support?
-
 3|0|8|7|2|bool|true
+!!set MarshSpawn.RainLifted
 3|0|8|7|3|bool|true
+!!set MarshSpawn.HowlBurnt

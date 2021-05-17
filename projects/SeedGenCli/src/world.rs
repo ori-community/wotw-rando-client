@@ -11,7 +11,7 @@ use player::Player;
 use crate::inventory::Item;
 use crate::util::{
     Resource,
-    uberstate::{UberState, UberValue, UberIdentifier},
+    uberstate::{UberState, UberIdentifier},
     constants::WISP_STATES,
 };
 
@@ -21,7 +21,7 @@ pub struct World<'a> {
     pub player: Player,
     pub pool: Pool,
     pub preplacements: FxHashMap<UberState, Vec<Item>>,
-    pub uber_states: FxHashMap<UberIdentifier, UberValue>,
+    pub uber_states: FxHashMap<UberIdentifier, String>,
 }
 impl<'a> World<'a> {
     pub fn new(graph: &Graph) -> World {
@@ -44,8 +44,9 @@ impl<'a> World<'a> {
                 let uber_type = parts.next().unwrap();
                 let mut uber_value = parts.next().unwrap();
 
-                let uber_state = UberIdentifier::from_parts(uber_group, uber_id).unwrap();
+                let uber_identifier = UberIdentifier::from_parts(uber_group, uber_id)?;
 
+                let mut is_bool = false;
                 let mut sign: i8 = 0;
                 if uber_value.starts_with('+') {
                     uber_value = &uber_value[1..];
@@ -56,67 +57,46 @@ impl<'a> World<'a> {
                 }
 
                 for _ in 0..amount {
-                    let entry = match uber_type {
+                    let entry = self.uber_states.entry(uber_identifier.clone()).or_insert_with(|| String::from("0"));
+                    if entry == uber_value && sign == 0 { return Ok(()); }
+
+                    let uber_value = match uber_type {
                         "bool" | "teleporter" => {
-                            let uber_value: bool = uber_value.parse().unwrap();
-
-                            let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Bool(false));
-                            if let UberValue::Bool(prior) = entry {
-                                if prior == &uber_value && sign == 0 { break; }
-
-                                *prior = uber_value;
-                            } else {
-                                log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                            }
-                            entry
+                            is_bool = true;
+                            String::new()
                         },
                         "byte" | "int" => {
-                            let uber_value: i32 = uber_value.parse().unwrap();
-
-                            let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Int(0));
-                            if let UberValue::Int(prior) = entry {
-                                if prior == &uber_value && sign == 0 { break; }
-
-                                if sign == 0 {
-                                    *prior = uber_value
-                                } else {
-                                    *prior += uber_value * i32::from(sign);
-                                }
+                            if sign == 0 {
+                                uber_value.to_string()
                             } else {
-                                log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
+                                let uber_value = uber_value.parse::<i32>().unwrap();
+                                let mut prior = entry.parse::<i32>().map_err(|_| format!("Failed to apply uberState command {} because the current state ({}) doesn't match the specified type", command, entry))?;
+
+                                prior += uber_value * i32::from(sign);
+
+                                prior.to_string()
                             }
-                            entry
                         },
                         "float" => {
-                            let uber_value: f32 = uber_value.parse().unwrap();
-
-                            let entry = self.uber_states.entry(uber_state.clone()).or_insert(UberValue::Float(0.0));
-                            if let UberValue::Float(prior) = entry {
-                                if prior == &uber_value && sign == 0 { break; }
-
-                                if sign == 0 {
-                                    *prior = uber_value
-                                } else {
-                                    *prior += uber_value * f32::from(sign);
-                                }
+                            if sign == 0 {
+                                uber_value.to_string()
                             } else {
-                                log::warn!("Unable to grant uber state pickup {} because the uber state type didn't match", command);
-                            }
-                            entry
-                        },
-                        _ => { return Err(format!("Unable to grant malformed uber state pickup {}", command)); },
-                    };
+                                let uber_value = uber_value.parse::<f32>().unwrap();
+                                let mut prior = entry.parse::<f32>().map_err(|_| format!("Failed to apply uberState command {} because the current state ({}) doesn't match the specified type", command, entry))?;
 
-                    if match entry {
-                        UberValue::Bool(false) | UberValue::Int(0) => true,
-                        UberValue::Float(float) if *float == 0.0 => true,
-                        _ => false,
-                    } { break; }
-                    let is_bool = matches!(entry, UberValue::Bool(_));
+                                prior += uber_value * f32::from(sign);
+                                prior.to_string()
+                            }
+                        },
+                        _ => { return Err(format!("Invalid uberState type in command {}", command)); }
+                    };
+                    *entry = uber_value;
+
+                    if entry == "false" || entry == "0" { return Ok(()); }
 
                     let uber_state = UberState {
-                        identifier: uber_state.clone(),
-                        value: format!("{}", entry),
+                        identifier: uber_identifier.clone(),
+                        value: entry.clone(),
                     };
 
                     log::trace!("Granting player UberState {}", uber_state);

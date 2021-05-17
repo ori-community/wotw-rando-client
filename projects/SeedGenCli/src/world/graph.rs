@@ -8,7 +8,7 @@ use crate::util::{
     RefillType, NodeType,
     Position,
     orbs::{self, Orbs},
-    uberstate::{UberState, UberValue, UberIdentifier},
+    uberstate::{UberState, UberIdentifier},
     constants::TP_ANCHOR,
 };
 
@@ -136,11 +136,7 @@ pub struct Graph {
     pub nodes: Vec<Node>,
 }
 impl Graph {
-    fn follow_state_progressions<'a>(
-        &'a self,
-        index: usize,
-        context: &mut ReachContext<'a, '_>,
-    ) -> (Reached<'a>, Progressions<'a>) {
+    fn follow_state_progressions<'a>(&'a self, index: usize, context: &mut ReachContext<'a, '_>) -> (Reached<'a>, Progressions<'a>) {
         let mut reached = Vec::new();
         let mut progressions = Vec::new();
         if let Some(connections) = context.state_progressions.get(&index) {
@@ -169,13 +165,7 @@ impl Graph {
         target_orbs
     }
 
-    fn reach_recursion<'a>(
-        &'a self,
-        entry: &'a Node,
-        is_spawn: bool,
-        mut best_orbs: SmallVec<[Orbs; 3]>,
-        context: &mut ReachContext<'a, '_>,
-    ) -> (Reached<'a>, Progressions<'a>) {
+    fn reach_recursion<'a>(&'a self, entry: &'a Node, is_spawn: bool, mut best_orbs: SmallVec<[Orbs; 3]>, context: &mut ReachContext<'a, '_>) -> (Reached<'a>, Progressions<'a>) {
         context.world_state.insert(entry.index(), best_orbs.clone());
         match entry {
             Node::Anchor(anchor) => {
@@ -248,7 +238,7 @@ impl Graph {
         }
     }
 
-    fn collect_extra_states(&self, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> FxHashSet<usize> {
+    fn collect_extra_states(&self, extra_states: &FxHashMap<UberIdentifier, String>) -> FxHashSet<usize> {
         let mut states = FxHashSet::default();
 
         for node in &self.nodes {
@@ -261,7 +251,7 @@ impl Graph {
                 _ => continue,
             };
             if let Some(value) = extra_states.get(&uber_state.identifier) {
-                if format!("{}", value) == uber_state.value {
+                if value == &uber_state.value {
                     states.insert(*index);
                 }
             }
@@ -277,7 +267,7 @@ impl Graph {
         Ok(entry)
     }
 
-    pub fn reached_locations<'a>(&'a self, player: &Player, spawn: &'a Node, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<Reached<'a>, String> {
+    pub fn reached_locations<'a>(&'a self, player: &Player, spawn: &'a Node, extra_states: &FxHashMap<UberIdentifier, String>) -> Result<Reached<'a>, String> {
         let mut context = ReachContext {
             player,
             progression_check: false,
@@ -290,7 +280,7 @@ impl Graph {
 
         Ok(reached)
     }
-    pub fn reached_and_progressions<'a>(&'a self, player: &Player, spawn: &'a Node, extra_states: &FxHashMap<UberIdentifier, UberValue>) -> Result<(Reached<'a>, Progressions<'a>), String> {
+    pub fn reached_and_progressions<'a>(&'a self, player: &Player, spawn: &'a Node, extra_states: &FxHashMap<UberIdentifier, String>) -> Result<(Reached<'a>, Progressions<'a>), String> {
         let mut context = ReachContext {
             player,
             progression_check: true,

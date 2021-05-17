@@ -533,12 +533,12 @@ fn remove_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
 }
 // TODO documentation
 #[inline]
-fn name_command(naming: &str, namings: &mut HashMap<String, String>) -> Result<(), String> {
+fn name_command(naming: &str, names: &mut HashMap<String, String>) -> Result<(), String> {
     let mut parts = naming.splitn(2, ' ');
     let pickup = parts.next().unwrap();
     let name = parts.next().ok_or_else(|| format!("Missing name in name command {}", naming))?;
 
-    namings.insert(pickup.to_string(), name.to_string());
+    names.insert(pickup.to_string(), name.to_string());
 
     Ok(())
 }
@@ -619,11 +619,30 @@ fn flush_command(pool: &mut Vec<String>) {
     pool.clear();
 }
 #[inline]
-fn set_command() {
-    log::warn!("!!set commands are obsolete, uber state pickups given on spawn are automatically accounted for.");
+fn set_command(identifier: &str, world: &mut World) -> Result<(), String> {
+    if world.graph.nodes.is_empty() { return Ok(()); }  // Pass if not actually generating a seed
+
+    let node = world.graph.nodes.iter().find(|&node| node.identifier() == identifier).ok_or_else(|| format!("!!set target {} not found", identifier))?;
+    if let Some(uber_state) = node.uber_state() {
+        let uber_state = uber_state.clone();
+        log::trace!("Universally setting state {}", uber_state);
+        world.uber_states.insert(uber_state.identifier, uber_state.value);
+    } else {
+        return Err(format!("{} is not a valid !!set target", identifier));
+    }
+
+    Ok(())
 }
 
-pub fn parse_header<R>(header: &str, flags: &mut Vec<String>, dependencies: &mut HashSet<PathBuf>, excludes: &mut HashSet<String>, namings: &mut HashMap<String, String>, world: &mut World, pathsets: &Pathsets, rng: &mut R) -> Result<String, String>
+#[derive(Debug, Default)]
+pub struct HeaderContext {
+    pub dependencies: HashSet<PathBuf>,
+    pub excludes: HashSet<String>,
+    pub flags: Vec<String>,
+    pub names: HashMap<String, String>,
+}
+
+pub fn parse_header<R>(header: &str, world: &mut World, pathsets: &Pathsets, context: &mut HeaderContext, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
@@ -646,27 +665,27 @@ where R: Rng + ?Sized
 
         if let Some(flagline) = trimmed.strip_prefix("Flags:") {
             for flag in flagline.split(',') {
-                flags.push(flag.trim().to_string());
+                context.flags.push(flag.trim().to_string());
             }
         } else if let Some(command) = trimmed.strip_prefix("!!") {
             if let Some(include) = command.strip_prefix("include ") {
-                include_command(include, dependencies);
+                include_command(include, &mut context.dependencies);
             } else if let Some(exclude) = command.strip_prefix("exclude ") {
-                exclude_command(exclude, excludes);
+                exclude_command(exclude, &mut context.excludes);
             } else if let Some(pickup) = command.strip_prefix("add ") {
                 add_command(pickup, world, pathsets)?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
                 remove_command(pickup, world)?;
             } else if let Some(naming) = command.strip_prefix("name ") {
-                name_command(naming, namings)?;
+                name_command(naming, &mut context.names)?;
             } else if let Some(string) = command.strip_prefix("pool ") {
                 pool_command(string, &mut pool)?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {
                 addpool_command(amount, world, pathsets, &mut pool, rng)?;
             } else if command.trim() == "flush" {
                 flush_command(&mut pool);
-            } else if command.starts_with("set ") {
-                set_command();
+            } else if let Some(identifier) = command.strip_prefix("set ") {
+                set_command(identifier, world)?;
             } else {
                 return Err(format!("Unknown command {}", command));
             }
@@ -725,11 +744,10 @@ where R: Rng + ?Sized
 }
 
 pub fn validate_header(contents: &str) -> Result<(Vec<UberState>, HashSet<String>), String> {
-    let mut dependencies = HashSet::new();
-    let mut excludes = HashSet::new();
-    parse_header(contents, &mut Vec::new(), &mut dependencies, &mut excludes, &mut HashMap::new(), &mut World::new(&Graph::default()), &Pathsets::default(), &mut rand::thread_rng())?;
+    let mut context = HeaderContext::default();
+    parse_header(contents, &mut World::new(&Graph::default()), &Pathsets::default(), &mut context, &mut rand::thread_rng())?;
 
-    for dependency in dependencies {
+    for dependency in context.dependencies {
         util::read_file(&dependency, "headers")?;
     }
 
@@ -855,15 +873,13 @@ pub fn validate_header(contents: &str) -> Result<(Vec<UberState>, HashSet<String
 
     occupied_states.dedup();
 
-    Ok((occupied_states, excludes))
+    Ok((occupied_states, context.excludes))
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::*;
-
-    use rand::thread_rng;
 
     use util::*;
     use inventory::Inventory;
@@ -873,7 +889,8 @@ mod tests {
         let graph = lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
-        parse_header(&header, &mut Vec::new(), &mut HashSet::default(), &mut HashSet::default(), &mut HashMap::default(), &mut world, &Pathsets::default(), &mut thread_rng()).unwrap();
+        let mut context = HeaderContext::default();
+        parse_header(&header, &mut world, &Pathsets::default(), &mut context, &mut rand::thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);

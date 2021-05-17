@@ -40,6 +40,14 @@ impl UberState {
             value: value.to_string(),
         })
     }
+    pub fn from_str(uber_state: &str) -> Result<UberState, String> {
+        let mut parts = uber_state.split(&['|', ','][..]);
+        let uber_group = parts.next().ok_or_else(|| String::from("expected uber group"))?;
+        let uber_id = parts.next().ok_or_else(|| String::from("expected uber id"))?;
+        if parts.next().is_some() { return Err(String::from("expected only two parts")); }
+
+        UberState::from_parts(uber_group, uber_id)
+    }
 
     #[inline]
     pub fn spawn() -> UberState {
@@ -68,22 +76,6 @@ impl fmt::Display for UberState {
             write!(f, "{}", self.identifier)
         } else {
             write!(f, "{}={}", self.identifier, self.value)
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub enum UberValue {
-    Bool(bool),
-    Int(i32),
-    Float(f32),
-}
-impl fmt::Display for UberValue {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            UberValue::Bool(_) => write!(f, ""),
-            UberValue::Int(value) => write!(f, "{}", value),
-            UberValue::Float(value) => write!(f, "{}", value),
         }
     }
 }
