@@ -469,7 +469,7 @@ namespace RandoMainDLL {
           Func<UberValue, float> modifier = GetUberSetter(stateType, stateParts[3]);
           return new UberStateModifier(uberId, modifier, stateParts[3]);
         default:
-          var err = "Unknown pickup {type}|{pickupData}|{String.Join("|", extras}";
+          var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
           Randomizer.Error("BuildPickup", err, false);
           return new Message(err);
       }
