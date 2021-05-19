@@ -120,6 +120,15 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
         }
     }
 
+    viruswarningmsg = 
+    (
+Due to the way the randomizer works, your virusscanner might see part of it as malware and will quarantine or remove it.
+This will prevent you from playing.
+
+Please add the Injector.exe file in your installation folder to the whitelist of your virusscanner before starting the randomizer.
+    )
+    MsgBox, 48 , Important warning! , %viruswarningmsg%
+
     GoSub, PromptAfterInstall
 }
 gosub, ReadIniVals
@@ -130,6 +139,20 @@ if(dev == "false")
 ; ---------- check for updates ---------------
 if(skipUpdate == "false")
     GoSub CheckForUpdates
+
+InjectorNotFoundMessage=
+(
+It looks like the file called 'Injector.exe' is no longer there. There is a good chance your virusscanner ate it.
+This file will now be created again, but to prevent further issues you should add an exception to your virusscanner for the file 'Injector.exe'
+
+Please do so now and restart the randomizer.
+)
+
+if not FileExist(INSTALL_DIR . "Injector.exe") {
+    MsgBox, 16, Injector.exe not found! , %InjectorNotFoundMessage%
+    FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe, 1
+    ExitApp
+}
 
 argc = %0%
 seedfile = %1%
