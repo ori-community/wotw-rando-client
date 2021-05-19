@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using RandoMainDLL.Memory;
 using System.Collections.Concurrent;
+using System.Globalization;
 
 namespace RandoMainDLL {
   public static class Extensions {
@@ -111,7 +112,7 @@ public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(o
     // some fun string parsers with warnings
     public static int ParseToInt(this string val, string caller = "ParseToInt") => int.TryParse(val, out int ret) ? ret : Warn<int>(val, caller);
     public static byte ParseToByte(this string val, string caller = "ParseToByte") => byte.TryParse(val, out byte ret) ? ret : Warn<byte>(val, caller);
-    public static float ParseToFloat(this string val, string caller = "ParseToFloat") => float.TryParse(val, out float ret) ? ret : Warn<float>(val, caller);
+    public static float ParseToFloat(this string val, string caller = "ParseToFloat") => float.TryParse(val, NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float ret) ? ret : Warn<float>(val, caller);
     public static bool ParseToBool(this string val, string caller = "ParseToBool") => bool.TryParse(val, out bool ret) ? ret : Warn<bool>(val, caller);
 
     public static TVal? Get<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key) where TVal : struct => self.TryGetValue(key, out TVal ret) ? ret : (TVal?)null;
