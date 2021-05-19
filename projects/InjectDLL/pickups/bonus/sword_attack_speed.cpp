@@ -15,7 +15,7 @@ namespace
         if (initial_charge_time < 0)
             initial_charge_time = this_ptr->fields.ChargeTime;
 
-        auto sword_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 1);
+        float sword_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 1);
         this_ptr->fields.ChargeTime = initial_charge_time * sword_speed_multiplier;
         if (this_ptr->fields._.AttackTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields._.AttackTimeline, "SetTimeScale", &sword_speed_multiplier);
@@ -24,7 +24,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, MeleeComboMoveSwordAirDown, void, EnterMove, (app::MeleeComboMoveSwordAirDown* this_ptr)) {
-        auto sword_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 1);
+        float sword_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 1);
         if (this_ptr->fields._.AttackTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields._.AttackTimeline, "SetTimeScale", &sword_speed_multiplier);
 
@@ -32,7 +32,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, MeleeComboMoveSword, void, EnterMove, (app::MeleeComboMoveSword* this_ptr)) {
-        auto sword_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 1);
+        float sword_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 1);
         if (this_ptr->fields.AttackTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.AttackTimeline, "SetTimeScale", &sword_speed_multiplier);
 
