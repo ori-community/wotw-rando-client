@@ -58,7 +58,7 @@ namespace RandoMainDLL {
       SyncedUberStates.Add(id);
     }
 
-    public static void HandleSyncedUberStateChange(UberId id, float value) {
+    public static void HandleSyncedUberStateChange(UberId id, double value) {
       InterOp.set_uber_state_value(id.GroupID, id.ID, value);
     }
 

@@ -476,8 +476,11 @@ namespace uber_states
         {
             int cast_value = static_cast<int>(value);
             il2cpp::invoke<>(uber_state, "set_Value", &cast_value);
-        } else if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState"))
-            il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class<>("Moon", "IGenericUberState"), "set_GenericValue", &value);
+        }
+        else if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState")) {
+            float cast_value = static_cast<float>(value);
+            il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class<>("Moon", "IGenericUberState"), "set_GenericValue", &cast_value);
+        }
         else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState"))
         {
             auto ivalue = static_cast<uint8_t>(value);

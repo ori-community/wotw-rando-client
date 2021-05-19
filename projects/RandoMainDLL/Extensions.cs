@@ -11,7 +11,7 @@ namespace RandoMainDLL {
     public static UberStateCondition toCond(this UberId id, int? target = null) => new UberStateCondition(id, target);
     public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
 
-    public static Network.UberStateUpdateMessage MakeUpdateMsg(this UberId id, float value) => new Network.UberStateUpdateMessage {
+    public static Network.UberStateUpdateMessage MakeUpdateMsg(this UberId id, double value) => new Network.UberStateUpdateMessage {
       State = new Network.UberId {
         // wolf started it :D
         Group = id.GroupID == 0 ? -1 : id.GroupID,
@@ -20,7 +20,7 @@ namespace RandoMainDLL {
       Value = value == 0f ? -1f : value
     };
     public static UberId IdFromMsg(this Network.UberId n) => new UberId(n.Group == -1 ? 0 : n.Group, n.State == -1 ? 0 : n.State);
-    public static (UberId, float) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value == -1f ? 0f : n.Value);
+    public static (UberId, double) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value == -1d ? 0d : n.Value);
 
 public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
 
@@ -113,6 +113,7 @@ public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(o
     public static int ParseToInt(this string val, string caller = "ParseToInt") => int.TryParse(val, out int ret) ? ret : Warn<int>(val, caller);
     public static byte ParseToByte(this string val, string caller = "ParseToByte") => byte.TryParse(val, out byte ret) ? ret : Warn<byte>(val, caller);
     public static float ParseToFloat(this string val, string caller = "ParseToFloat") => float.TryParse(val, NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float ret) ? ret : Warn<float>(val, caller);
+    public static double ParseToDouble(this string val, string caller = "ParseToFloat") => double.TryParse(val, NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out double ret) ? ret : Warn<float>(val, caller);
     public static bool ParseToBool(this string val, string caller = "ParseToBool") => bool.TryParse(val, out bool ret) ? ret : Warn<bool>(val, caller);
 
     public static TVal? Get<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key) where TVal : struct => self.TryGetValue(key, out TVal ret) ? ret : (TVal?)null;
