@@ -22,7 +22,7 @@ object Games : LongIdTable("game") {
     override val primaryKey = PrimaryKey(id)
     val seed = reference("seed", Seeds).nullable()
     val board = jsonb("board", BingoCard.serializer()).nullable()
-    val props = jsonb("props", GameProperties.serializer())
+    val props = jsonb("props", GameProperties.serializer()).nullable()
 }
 
 class Game(id: EntityID<Long>) : LongEntity(id) {
