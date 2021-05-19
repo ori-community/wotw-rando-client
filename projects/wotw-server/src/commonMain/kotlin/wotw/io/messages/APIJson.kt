@@ -4,3 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class BingoGenProperties(val seed: String? = null, val discovery: Int? = null, val lockout: Boolean? = false, val manualGoalCompletion: Boolean? = false)
+
+@Serializable
+data class GameProperties(val isMulti: Boolean = false, val isCoop: Boolean = false)

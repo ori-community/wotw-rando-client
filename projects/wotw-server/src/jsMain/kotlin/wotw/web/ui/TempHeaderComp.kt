@@ -15,6 +15,7 @@ import react.dom.p
 import styled.css
 import styled.styledDiv
 import wotw.io.messages.BingoGenProperties
+import wotw.io.messages.GameProperties
 import wotw.io.messages.protobuf.UserInfo
 import wotw.web.main.Application
 
@@ -81,7 +82,17 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                         attrs {
                             onClickFunction = {
                                 GlobalScope.launch {
-                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games")}"
+                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games", body = GameProperties(isCoop = true))}"
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        +"New Multiworld Game"
+                        attrs {
+                            onClickFunction = {
+                                GlobalScope.launch {
+                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games", body = GameProperties(isMulti = true))}"
                                 }
                             }
                         }
