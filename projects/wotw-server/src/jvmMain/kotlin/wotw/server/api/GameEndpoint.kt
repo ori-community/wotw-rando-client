@@ -6,6 +6,7 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.CloseReason
 import io.ktor.http.cio.websocket.close
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
@@ -15,6 +16,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import wotw.io.messages.protobuf.*
 import wotw.io.messages.sendMessage
 import wotw.server.bingo.coopStates
+import wotw.server.bingo.multiStates
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.io.protocol
@@ -124,11 +126,14 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 val isCoop = newSuspendedTransaction {
                     GameState.findById(gameStateId)?.team?.members?.count() ?:1 > 1
                 }
+                val isMultiWhitelisted = newSuspendedTransaction {
+                    GameState.findById(gameStateId)?.team?.members?.find { it.id.value == 120961295666118656 }
+                } != null
                 val user = newSuspendedTransaction {  User.find{
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
 
-                val states = if(isCoop) coopStates().plus(initData) else initData // don't sync new data 
+                val states = if(isCoop) (if(isMultiWhitelisted) multiStates() else coopStates()).plus(initData) else initData // don't sync new data
                 outgoing.sendMessage(InitGameSyncMessage(states.map {
                     UberId(zerore(it.group), zerore(it.state))
                 }))

@@ -9,7 +9,7 @@ fun coopStates() = (
                 tpIds.values + /*ksDoorIds.values +*/ safeMaxLevers + seedQuestStates + corruptedHeartIds.values +
                 questIds.values + pickupIds.values + unsortedCoop
         )
-
+fun multiStates() = (0..2000).map{UberId(12, it)}
 val tpIds = mapOf(
     "savePedestalMidnightBurrows" to UberId(24922, 42531),
     "savePedestalInkwaterMarsh" to UberId(21786, 10185),
