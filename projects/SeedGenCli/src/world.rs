@@ -46,7 +46,6 @@ impl<'a> World<'a> {
 
                 let uber_identifier = UberIdentifier::from_parts(uber_group, uber_id)?;
 
-                let mut is_bool = false;
                 let mut sign: i8 = 0;
                 if uber_value.starts_with('+') {
                     uber_value = &uber_value[1..];
@@ -61,10 +60,7 @@ impl<'a> World<'a> {
                     if entry == uber_value && sign == 0 { return Ok(()); }
 
                     let uber_value = match uber_type {
-                        "bool" | "teleporter" => {
-                            is_bool = true;
-                            String::new()
-                        },
+                        "bool" | "teleporter" => uber_value.to_string(),
                         "byte" | "int" => {
                             if sign == 0 {
                                 uber_value.to_string()
@@ -101,13 +97,11 @@ impl<'a> World<'a> {
 
                     log::trace!("Granting player UberState {}", uber_state);
                     self.collect_preplacements(&uber_state);
-                    if !is_bool {
-                        let without_value = UberState {
-                            value: String::new(),
-                            ..uber_state
-                        };
-                        self.collect_preplacements(&without_value);
-                    }
+                    let without_value = UberState {
+                        value: String::new(),
+                        ..uber_state
+                    };
+                    self.collect_preplacements(&without_value);
                 }
             },
             Item::SpiritLight(stacked_amount) => {
