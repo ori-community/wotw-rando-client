@@ -84,6 +84,53 @@ pub const HEADER_INDENT: usize = 24;  // Which column to align header descriptio
 pub const NAME_COLOUR: Colour = Colour::Yellow;
 pub const UBERSTATE_COLOUR: Colour = Colour::Cyan;
 
+pub const SLUGSTRINGS: &[&[&str]] = &[
+    &[
+        "Shining", "Exhilerating", "Shimmering", "Beautiful",
+        "Polished", "Raw", "Worn", "Used",
+        "Tricky", "Ancient", "Unusual", "Simple",
+        "Giant", "Surprising", "Common", "Impossible",
+    ],
+    &[
+        "Outrageous", "Dusty", "Petrified", "Favourite",
+        "Broken", "Repaired", "Restored", "Absurd",
+        "Terrifying", "Withered", "Crumbling", "Flawless",
+        "Hostile", "Overgrown", "Buried", "Rare",
+    ],
+    &[
+        "Vine", "Heart", "Tree", "Wisp",
+        "Marsh", "Mill", "Wastes", "Keystone",
+        "Desert", "Glades", "Reach", "Forest",
+        "Depths", "Grove", "Burrows", "Ore",
+        "Ruins", "Pools", "Woods", "Graveyard",
+        "Shrine", "Trial", "Leaf", "Shard",
+        "Willow", "Relic", "Feather", "Soup",
+        "Bow", "Hammer", "Shuriken", "Fragment",
+    ],
+    &[
+        "Wild", "Foolish", "Nasty", "Tasty",
+        "Sleepy", "Angry", "Howling", "Sneaky",
+        "Aggressive", "Lurking", "Careful", "Brave",
+        "Silent", "Playful", "Naive", "Noisy",
+    ],
+    &[
+        "Snoring", "Lazy", "Shy", "Grumpy",
+        "Lost", "Irritated", "Friendly", "Wise",
+        "Old", "Young", "Hasty", "Hopeful",
+        "Helpful", "Wandering", "Dangerous", "Bad",
+    ],
+    &[
+        "Grom", "Motay", "Veral", "Tuley",
+        "Baur", "Shriek", "Ku", "Mokk",
+        "Mantis", "Hornbug", "Skeeto", "Kii",
+        "Miner", "Tokk", "Lupo", "Mora",
+        "Howl", "Bear", "Light", "Gorlek",
+        "Opher", "Lupo", "Kwolok", "Moki",
+        "Worm", "Owl", "Gumo", "Naru",
+        "Spirit", "Wolf", "Twillen", "Seir",
+    ],
+];
+
 pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
     (
         "TwillenShop.Overcharge",

@@ -1,11 +1,19 @@
 mod presets;
 
-use std::{io, path::{Path, PathBuf}};
+use std::{
+    io,
+    path::{Path, PathBuf},
+    collections::hash_map::DefaultHasher,
+    hash::Hasher,
+};
 
 use rustc_hash::FxHashSet;
 use serde::{Serialize, Deserialize};
 
-use super::{Pathsets, Pathset, GoalMode, constants::DEFAULT_SPAWN};
+use super::{
+    Pathsets, Pathset, GoalMode,
+    constants::{DEFAULT_SPAWN, SLUGSTRINGS}
+};
 
 /// Representation of settings as they are written by the java-based seed generator
 #[allow(clippy::struct_excessive_bools)]
@@ -214,6 +222,37 @@ impl Settings {
 
         Ok(merged_settings)
     }
+
+    pub fn slugify(&self, seed: &str) -> String {
+        let string = serde_json::to_string(&self).unwrap();
+
+        let mut hasher = DefaultHasher::new();
+        hasher.write(string.as_bytes());
+        hasher.write(seed.as_bytes());
+        let hash = hasher.finish();
+
+        let mut slug = String::new();
+
+        for index in 0..SLUGSTRINGS.len() {
+            let slug_strings = SLUGSTRINGS[index];
+            let length = slug_strings.len();
+
+            let mut shift = 1;
+            loop {
+                if length < 2_usize.pow(shift) {
+                    shift -= 1;
+                    break;
+                }
+                shift += 1;
+            };
+
+            let word_index = (hash >> (index as u32 * shift)) & (2_u32.pow(shift) - 1) as u64;
+
+            slug += slug_strings[word_index as usize];
+        }
+
+        slug
+    }
 }
 
 pub fn read_spawn(seed: &str) -> Result<String, String> {
@@ -223,4 +262,44 @@ pub fn read_spawn(seed: &str) -> Result<String, String> {
         }
     }
     Ok(DEFAULT_SPAWN.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use rand::{
+        Rng,
+        distributions::{Distribution, Alphanumeric},
+    };
+
+    #[test]
+    fn slugification() {
+        let mut rng = rand::thread_rng();
+        let mut slugs = FxHashSet::default();
+
+        for _ in 0..10000 {
+            let mut settings = Settings::default();
+
+            let goalmodes = vec![GoalMode::Wisps,GoalMode::Trees,GoalMode::Quests,GoalMode::Relics];
+            for goalmode in goalmodes {
+                if rng.gen_bool(0.25) {
+                    settings.goalmodes.insert(goalmode);
+                }
+            }
+
+            let mut seed = String::new();
+            for _ in 0.. rng.gen_range(8..20) {
+                seed.push(char::from(Alphanumeric.sample(&mut rng)));
+            }
+
+            let slug = settings.slugify(&seed);
+
+            if slugs.contains(&slug) {
+                panic!("After {} settings, two had the same slug: {}", slugs.len(), slug);
+            } else {
+                slugs.insert(slug);
+            }
+        }
+    }
 }
