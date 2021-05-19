@@ -42,7 +42,7 @@ namespace csharp_bridge
     signatures::f_void update_shop_data = nullptr;
     signatures::f_void_string on_teleporter_activated = nullptr;
 
-    signatures::f_void_int_int_byte_float_float on_uber_state_applied = nullptr;
+    signatures::f_void_int_int_byte_double_double on_uber_state_applied = nullptr;
 
     signatures::f_bool_int_int_int filter_icon_show = nullptr;
     signatures::f_int_int_int_int filter_icon_type = nullptr;
@@ -115,7 +115,7 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
     else if (name == "lupo_upgrade_cost")
         lupo_upgrade_cost = reinterpret_cast<f_int_int>(ptr);
     else if (name == "on_uber_state_applied")
-        on_uber_state_applied = reinterpret_cast<f_void_int_int_byte_float_float>(ptr);
+        on_uber_state_applied = reinterpret_cast<f_void_int_int_byte_double_double>(ptr);
     else if (name == "filter_icon_show")
         filter_icon_show = reinterpret_cast<f_bool_int_int_int>(ptr);
     else if (name == "filter_icon_type")
