@@ -5,6 +5,7 @@ import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import wotw.io.messages.GameProperties
 import wotw.io.messages.protobuf.*
 import wotw.server.bingo.BingoCard
 import wotw.server.bingo.Line
@@ -21,11 +22,13 @@ object Games : LongIdTable("game") {
     override val primaryKey = PrimaryKey(id)
     val seed = reference("seed", Seeds).nullable()
     val board = jsonb("board", BingoCard.serializer()).nullable()
+    val props = jsonb("props", GameProperties.serializer())
 }
 
 class Game(id: EntityID<Long>) : LongEntity(id) {
     //    var seed by Games.seed
     var board by Games.board
+    var props by Games.props
     val teams by Team referrersOn Teams.gameId
     private val states by GameState referrersOn GameStates.gameId
     private val events by BingoEvent referrersOn BingoEvents.gameId

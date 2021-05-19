@@ -13,6 +13,7 @@ import io.ktor.sessions.*
 import io.ktor.websocket.webSocket
 import org.jetbrains.exposed.sql.SizedCollection
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import wotw.io.messages.GameProperties
 import wotw.io.messages.protobuf.*
 import wotw.io.messages.sendMessage
 import wotw.server.bingo.coopStates
@@ -47,7 +48,10 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
             call.respond(HttpStatusCode.NoContent)
         }
         post("games") {
-            val game = newSuspendedTransaction {Game.new {} }
+            val propsIn = call.receiveOrNull<GameProperties>()  ?: GameProperties()
+            val game = newSuspendedTransaction {Game.new {
+                props = propsIn
+            } }
             call.respondText("${game.id.value}", status = HttpStatusCode.Created)
         }
         authenticate(SESSION_AUTH) {
@@ -123,15 +127,16 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                     GameState.findById(gameStateId)?.game?.board?.goals?.flatMap { it.value.keys }
                         ?.map { UberId(it.first, it.second) }
                 }.orEmpty()
-                val isCoop = newSuspendedTransaction {
-                    GameState.findById(gameStateId)?.team?.members?.count() ?:1 > 1
+                val gameProps = newSuspendedTransaction {
+                    GameState.findById(gameStateId)?.game?.props ?: GameProperties()
                 }
-                val isMultiWhitelisted = true // SORRY XEM
                 val user = newSuspendedTransaction {  User.find{
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
 
-                val states = if(isCoop) (if(isMultiWhitelisted) multiStates() else coopStates()).plus(initData) else initData // don't sync new data
+                val states = (if(gameProps.isMulti) multiStates() else emptyList())
+                    .plus(if(gameProps.isCoop) coopStates() else emptyList())
+                    .plus(initData)  // don't sync new data
                 outgoing.sendMessage(InitGameSyncMessage(states.map {
                     UberId(zerore(it.group), zerore(it.state))
                 }))
