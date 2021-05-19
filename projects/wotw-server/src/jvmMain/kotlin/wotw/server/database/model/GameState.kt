@@ -9,7 +9,7 @@ import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.and
 import wotw.io.messages.protobuf.UberId
 import wotw.server.api.*
-import wotw.server.api.UberStateSyncStrategy.NotificaitonGroup.NONE
+import wotw.server.api.UberStateSyncStrategy.NotificationGroup.NONE
 import wotw.server.bingo.UberStateMap
 import wotw.server.bingo.coopAggregation
 import wotw.server.database.jsonb

@@ -172,7 +172,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
 
     private suspend fun UberStateBatchUpdateMessage.updateUberStates(gameStateId: Long, playerId: Long) {
         val updates = updates.map {
-            UberId(rezero(it.uberId.group), rezero(it.uberId.state)) to if(it.value == -1f) 0f else it.value
+            UberId(rezero(it.uberId.group), rezero(it.uberId.state)) to if(it.value == -1.0) 0.0 else it.value
         }.toMap()
 
         val (results, game) = newSuspendedTransaction {

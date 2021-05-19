@@ -37,7 +37,7 @@ data class UberStateBatchUpdateMessage(
 @Serializable
 data class UberStateUpdateMessage(
     @ProtoNumber(1) val uberId: UberId,
-    @ProtoNumber(2) val value: Float
+    @ProtoNumber(2) val value: Double
 )
 
 @Serializable
