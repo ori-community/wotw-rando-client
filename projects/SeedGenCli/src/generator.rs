@@ -229,7 +229,7 @@ where
     Ok(())
 }
 
-fn forced_placement<'a, R, I>(world_index: usize, item: Item, reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+fn forced_placement<'a, R, I>(target_world_index: usize, item: Item, reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -252,15 +252,15 @@ where
                 }
             }
 
-            return Err(format!("(World {}): Not enough slots to place forced progression {}", world_index, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
+            return Err(format!("(World {}): Not enough slots to place forced progression {}", target_world_index, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
         } else {
-            if let Some(node) = reserved_slots[world_index].pop() {
-                return Ok((world_index, node, false));
-            } else if let Some(node) = world_contexts[world_index].placeholders.pop() {
-                return Ok((world_index, node, true));
+            if let Some(node) = reserved_slots[target_world_index].pop() {
+                return Ok((target_world_index, node, false));
+            } else if let Some(node) = world_contexts[target_world_index].placeholders.pop() {
+                return Ok((target_world_index, node, true));
             }
 
-            return Err(format!("(World {}): Not enough slots to place forced progression {}", world_index, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
+            return Err(format!("(World {}): Not enough slots to place forced progression {}", target_world_index, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
         }
     };
 
@@ -281,41 +281,44 @@ where
         }
     }
 
-    place_item(node.0, world_index, node.1, node.2, item.clone(), world_contexts, context)?;
-    world_contexts[world_index].world.grant_player(item, 1).unwrap_or_else(|err| log::error!("{}", err));
+    let world_context = &mut world_contexts[target_world_index];
+    world_context.world.pool.remove(&item, 1);
+    world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("(World {}): {}", target_world_index, err));
+    place_item(node.0, target_world_index, node.1, node.2, item, world_contexts, context)?;
 
     Ok(())
 }
 
 #[inline]
-fn random_placement<'a, R, I>(world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+fn random_placement<'a, R, I>(target_world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
 {
-    let world_context = &mut world_contexts[world_index];
+    let world_context = &mut world_contexts[target_world_index];
 
     // force a couple placeholders at the start
     if world_context.placeholders.len() < 4 {
-        log::trace!("(World {}): Reserving {} as forced placeholder", world_index, node);
+        log::trace!("(World {}): Reserving {} as forced placeholder", target_world_index, node);
 
         world_context.placeholders.push(node);
     } else {
         match world_context.world.pool.choose_random(context.rng) {
             PartialItem::Placeholder => {
-                log::trace!("(World {}): Reserving {} as placeholder", world_index, node);
+                log::trace!("(World {}): Reserving {} as placeholder", target_world_index, node);
 
                 world_context.placeholders.push(node)
             },
             PartialItem::Item(item) => {
-                let target_world_index = if item.is_multiworld_spread() {
+                let origin_world_index = if item.is_multiworld_spread() {
                     context.rng.gen_range(0..context.world_count)
                 } else {
-                    world_index
+                    target_world_index
                 };
 
-                world_contexts[target_world_index].world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("(World {}): {}", target_world_index, err));
-                place_item(world_index, target_world_index, node, false, item, world_contexts, context)?;
+                world_context.world.pool.remove(&item, 1);
+                world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("(World {}): {}", target_world_index, err));
+                place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
             },
         }
     }
@@ -361,62 +364,77 @@ impl SpiritLightAmounts {
     }
 }
 
-fn place_remaining<'a, R, I>(world_index: usize, remaining: Inventory, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+fn place_remaining<'a, R, I>(world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
 {
-    let mut shop = Vec::new();
+    let mut shop_placeholders = vec![Vec::new(); context.world_count];
 
-    world_contexts[world_index].placeholders.retain(|&node| {
-        if node.uber_state().unwrap().is_shop() {
-            shop.push(node);
-            false
-        } else { true }
-    });
-    world_contexts[world_index].placeholders.shuffle(context.rng);
-    world_contexts[world_index].unreachable_locations.shuffle(context.rng);
+    for world_index in 0..context.world_count {
+        world_contexts[world_index].placeholders.retain(|&node| {
+            if node.uber_state().unwrap().is_shop() {
+                shop_placeholders[world_index].push(node);
+                false
+            } else { true }
+        });
 
-    let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
-    remaining.shuffle(context.rng);
-
-    for item in remaining {
-        let node = if let Some(node) = shop.pop() {
-            node
-        } else if let Some(node) = world_contexts[world_index].placeholders.pop() {
-            node
-        } else {
-            log::warn!("(World {}): Not enough space to place all items from the item pool!", world_index);
-            break;
-        };
-
-        let origin_world_index = if item.is_multiworld_spread() {
-            context.rng.gen_range(0..context.world_count)
-        } else {
-            world_index
-        };
-
-        place_item(origin_world_index, world_index, node, true, item, world_contexts, context)?;
+        shop_placeholders[world_index].shuffle(context.rng);
+        world_contexts[world_index].placeholders.shuffle(context.rng);
+        world_contexts[world_index].unreachable_locations.shuffle(context.rng);
     }
 
-    if !shop.is_empty() {
-        log::warn!("(World {}): Not enough items in the pool to fill all shops!", world_index);
+    for target_world_index in 0..context.world_count {
+        let remaining = world_contexts[target_world_index].world.pool.inventory();
+        log::trace!("(World {}): Placing the remaining {} items randomly", target_world_index, remaining.item_count());
+
+        let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
+        remaining.shuffle(context.rng);
+
+        for item in remaining {
+            let origin_world_index = if item.is_multiworld_spread() {
+                context.rng.gen_range(0..context.world_count)
+            } else {
+                target_world_index
+            };
+
+            let node = if let Some(node) = shop_placeholders[origin_world_index].pop() {
+                node
+            } else if let Some(node) = world_contexts[origin_world_index].placeholders.pop() {
+                node
+            } else {
+                log::warn!("(World {}): Not enough space to place all items from the item pool!", origin_world_index);
+                break;
+            };
+
+            place_item(origin_world_index, target_world_index, node, true, item, world_contexts, context)?;
+        }
     }
 
-    log::trace!("(World {}): Placed all items, from the pool, placing Spirit Light...", world_index);
-
-    while let Some(placeholder) = world_contexts[world_index].placeholders.pop() {
-        let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
-        let item = Item::SpiritLight(amount);
-
-        place_item(world_index, world_index, placeholder, true, item, world_contexts, context)?;
+    for world_index in 0..context.world_count {
+        if !shop_placeholders[world_index].is_empty() {
+            log::warn!("(World {}): Not enough items in the pool to fill all shops!", world_index);
+        }
     }
 
-    while let Some(unreachable) = world_contexts[world_index].unreachable_locations.pop() {
-        let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
-        let item = Item::SpiritLight(amount);
+    for world_index in 0..context.world_count {
+        log::trace!("(World {}): Placed all items, from the pool, placing Spirit Light...", world_index);
 
-        place_item(world_index, world_index, unreachable, false, item, world_contexts, context)?;
+        while let Some(placeholder) = world_contexts[world_index].placeholders.pop() {
+            let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+            let item = Item::SpiritLight(amount);
+
+            place_item(world_index, world_index, placeholder, true, item, world_contexts, context)?;
+        }
+
+        while let Some(unreachable) = world_contexts[world_index].unreachable_locations.pop() {
+            let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+            let item = Item::SpiritLight(amount);
+
+            place_item(world_index, world_index, unreachable, false, item, world_contexts, context)?;
+        }
+
+        world_contexts[world_index].placements.shrink_to_fit();
     }
 
     Ok(())
@@ -775,14 +793,7 @@ where
         if unreached_count == 0 {
             log::trace!("All locations reached");
 
-            for world_index in 0..context.world_count {
-                let remaining = world_contexts[world_index].world.pool.inventory();
-                log::trace!("(World {}): Placing the remaining {} items randomly", world_index, remaining.item_count());
-
-                place_remaining(world_index, remaining, &mut world_contexts, &mut context)?;
-
-                world_contexts[world_index].placements.shrink_to_fit();
-            }
+            place_remaining(&mut world_contexts, &mut context)?;
 
             let placements = world_contexts.into_iter().map(|world_context| world_context.placements).collect::<Vec<_>>();
             return Ok(placements);

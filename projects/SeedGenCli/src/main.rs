@@ -272,7 +272,7 @@ fn parse_settings(settings: SeedSettings) -> Settings {
         worlds,
         names,
         race,
-        multiplayer,
+        mut multiplayer,
         hard,
         spawn,
         goals,
@@ -283,6 +283,10 @@ fn parse_settings(settings: SeedSettings) -> Settings {
     let pathsets = parse_pathsets(&logic);
     let goalmodes = parse_goalmodes(&goals);
     let spawn = parse_spawn(spawn);
+
+    if worlds > 1 {
+        multiplayer = true;
+    }
 
     Settings {
         version: Some(env!("CARGO_PKG_VERSION").to_string()),

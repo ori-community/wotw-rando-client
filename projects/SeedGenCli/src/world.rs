@@ -35,7 +35,6 @@ impl<'a> World<'a> {
     }
 
     pub fn grant_player(&mut self, item: Item, amount: u16) -> Result<(), String> {
-        self.pool.remove(&item, amount);
         match item {
             Item::UberState(command) => {
                 let mut parts = command.split('|');
