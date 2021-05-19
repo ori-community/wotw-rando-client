@@ -97,17 +97,17 @@ where
     if uber_state.is_shop() {
         let (_, _, price_uber_state) = SHOP_PRICES.iter()
             .find(|(_, location, _)| &uber_state.identifier == location)
-            .ok_or_else(|| format!("(World {}): Uber State {} claims to be a shop location, but doesn't have an entry in the shop prices table!", origin_world_index, node))?;
+            .ok_or_else(|| format!("({}): Uber State {} claims to be a shop location, but doesn't have an entry in the shop prices table!", origin_player_name, node))?;
 
         let mut price = item.shop_price();
         if item.random_shop_price() {
             let modified_price = f32::from(price) * context.price_range.sample(context.rng);
-            price = u16::try_from(modified_price as i32).map_err(|_| format!("(World {}): Overflowed shop price for {} after adding a random amount to it", origin_world_index, item))?;
+            price = u16::try_from(modified_price as i32).map_err(|_| format!("({}): Overflowed shop price for {} after adding a random amount to it", origin_player_name, item))?;
         }
 
         let price_setter = Item::UberState(format!("{}|int|{}", price_uber_state, price));
 
-        log::trace!("(World {}): Placing {} at Spawn as price for the item below", origin_world_index, price_setter);
+        log::trace!("({}): Placing {} at Spawn as price for the item below", origin_player_name, price_setter);
 
         origin_world_context.placements.push(Placement {
             node: None,
@@ -124,7 +124,7 @@ where
     let item_name = context.custom_names.get(&item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", item));
 
     if origin_world_index == target_world_index {
-        log::trace!("(World {}): Placed {} at {}", origin_world_index, item_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("({}): Placed {} at {}", origin_player_name, item_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         origin_world_context.placements.push(Placement {
             node: Some(node),
@@ -132,7 +132,7 @@ where
             item,
         });
     } else {
-        log::trace!("(World {}): Placed {} for {} at {}", origin_world_index, item_name, target_player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("({}): Placed {} for {} at {}", origin_player_name, item_name, target_player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         let state_index = context.multiworld_state_index.next().unwrap();
 
@@ -191,7 +191,7 @@ where
     for &zone in RELIC_ZONES {
         for world_index in 0..context.world_count {
             if context.rng.gen_bool(0.8) {
-                log::trace!("(World {}): Placing Relic in {}", world_index, zone);
+                log::trace!("({}): Placing Relic in {}", world_contexts[world_index].player_name, zone);
 
                 let target_world_index = context.rng.gen_range(0..context.world_count);
 
@@ -231,7 +231,7 @@ where
 
         missing_keystones += required_keystones - placed_keystones;
 
-        log::trace!("(World {}): Force placing {} keystones to avoid keylocks", world_index, missing_keystones);
+        log::trace!("({}): Force placing {} keystones to avoid keylocks", world_contexts[world_index].player_name, missing_keystones);
 
         for _ in 0..missing_keystones {
             forced_placement(world_index, Item::Resource(Resource::Keystone), reserved_slots, world_contexts, context)?;
@@ -264,7 +264,7 @@ where
                 }
             }
 
-            return Err(format!("(World {}): Not enough slots to place forced progression {}", target_world_index, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
+            return Err(format!("({}): Not enough slots to place forced progression {}", world_contexts[target_world_index].player_name, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
         } else {
             if let Some(node) = reserved_slots[target_world_index].pop() {
                 return Ok((target_world_index, node, false));
@@ -272,7 +272,7 @@ where
                 return Ok((target_world_index, node, true));
             }
 
-            return Err(format!("(World {}): Not enough slots to place forced progression {}", target_world_index, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
+            return Err(format!("({}): Not enough slots to place forced progression {}", world_contexts[target_world_index].player_name, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
         }
     };
 
@@ -295,7 +295,7 @@ where
 
     let world_context = &mut world_contexts[target_world_index];
     world_context.world.pool.remove(&item, 1);
-    world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("(World {}): {}", target_world_index, err));
+    world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", world_contexts[target_world_index].player_name, err));
     place_item(node.0, target_world_index, node.1, node.2, item, world_contexts, context)?;
 
     Ok(())
@@ -311,13 +311,13 @@ where
 
     // force a couple placeholders at the start
     if world_context.placeholders.len() < 4 {
-        log::trace!("(World {}): Reserving {} as forced placeholder", target_world_index, node);
+        log::trace!("({}): Reserving {} as forced placeholder", world_context.player_name, node);
 
         world_context.placeholders.push(node);
     } else {
         match world_context.world.pool.choose_random(context.rng) {
             PartialItem::Placeholder => {
-                log::trace!("(World {}): Reserving {} as placeholder", target_world_index, node);
+                log::trace!("({}): Reserving {} as placeholder", world_context.player_name, node);
 
                 world_context.placeholders.push(node)
             },
@@ -329,7 +329,7 @@ where
                 };
 
                 world_context.world.pool.remove(&item, 1);
-                world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("(World {}): {}", target_world_index, err));
+                world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", world_context.player_name, err));
                 place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
             },
         }
@@ -398,7 +398,7 @@ where
 
     for target_world_index in 0..context.world_count {
         let remaining = world_contexts[target_world_index].world.pool.inventory();
-        log::trace!("(World {}): Placing the remaining {} items randomly", target_world_index, remaining.item_count());
+        log::trace!("({}): Placing the remaining {} items randomly", world_contexts[target_world_index].player_name, remaining.item_count());
 
         let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
         remaining.shuffle(context.rng);
@@ -415,7 +415,7 @@ where
             } else if let Some(node) = world_contexts[origin_world_index].placeholders.pop() {
                 node
             } else {
-                log::warn!("(World {}): Not enough space to place all items from the item pool!", origin_world_index);
+                log::warn!("({}): Not enough space to place all items from the item pool!", world_contexts[origin_world_index].player_name);
                 break;
             };
 
@@ -425,12 +425,12 @@ where
 
     for world_index in 0..context.world_count {
         if !shop_placeholders[world_index].is_empty() {
-            log::warn!("(World {}): Not enough items in the pool to fill all shops!", world_index);
+            log::warn!("({}): Not enough items in the pool to fill all shops!", world_contexts[world_index].player_name);
         }
     }
 
     for world_index in 0..context.world_count {
-        log::trace!("(World {}): Placed all items, from the pool, placing Spirit Light...", world_index);
+        log::trace!("({}): Placed all items, from the pool, placing Spirit Light...", world_contexts[world_index].player_name);
 
         while let Some(placeholder) = world_contexts[world_index].placeholders.pop() {
             let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
@@ -453,8 +453,8 @@ where
 }
 
 #[inline]
-fn total_reach_check<'a>(world_index: usize, world: &World<'a>) -> Result<Vec<&'a Node>, String> {
-    log::trace!("(World {}): Creating a player with everything to determine reachable locations", world_index);
+fn total_reach_check<'a>(world: &World<'a>, player_name: &str) -> Result<Vec<&'a Node>, String> {
+    log::trace!("({}): Creating a player with everything to determine reachable locations", player_name);
     let mut finished_world = world.clone();
     for (item, amount) in &world.pool.progressions.inventory {
         finished_world.grant_player(item.clone(), *amount)?;
@@ -517,19 +517,19 @@ where
             });
         }
 
-        let reachable_locations = total_reach_check(world_index, &world)?;
+        let reachable_locations = total_reach_check(&world, &player_name)?;
 
         let unreachable_locations = world.graph.nodes.iter()
             .filter(|&node| node.can_place() && !reachable_locations.iter().any(|&reachable| reachable.index() == node.index()))
             .collect::<Vec<_>>();
         if !unreachable_locations.is_empty() {
             let identifiers = unreachable_locations.iter().map(|&node| node.identifier()).collect::<Vec<_>>();
-            log::warn!("(World {}): Some locations are unreachable on these settings! These will only hold Spirit Light.", world_index);
-            log::trace!("(World {}): Unreachable locations on these settings: {}", world_index, format_identifiers(identifiers));
+            log::warn!("({}): Some locations are unreachable on these settings! These will only hold Spirit Light.", player_name);
+            log::trace!("({}): Unreachable locations on these settings: {}", player_name, format_identifiers(identifiers));
         }
 
         let spirit_light_slots = world.graph.nodes.iter().filter(|&node| node.can_place()).count() - world.pool.inventory().item_count();
-        log::trace!("(World {}): Estimated {} slots for Spirit Light", world_index, spirit_light_slots);
+        log::trace!("({}): Estimated {} slots for Spirit Light", player_name, spirit_light_slots);
 
         let spirit_light_rng = SpiritLightAmounts::new(f32::from(world.pool.spirit_light), spirit_light_slots as f32, 0.75, 1.25);
 
@@ -602,7 +602,7 @@ where
                     } else { None })
                 .collect();
 
-            log::trace!("(World {}): {} Reachable free locations: {}", world_index, identifiers.len(), format_identifiers(identifiers));
+            log::trace!("({}): {} Reachable free locations: {}", world_context.player_name, identifiers.len(), format_identifiers(identifiers));
 
             let mut world_needs_placement = Vec::with_capacity(world_reachable.len());
 
@@ -664,7 +664,7 @@ where
                                 let missing = Player::missing_for_orbs(&needed, orb_cost, *orbs);
 
                                 if missing.inventory.is_empty() {  // sanity check
-                                    log::trace!("(World {}): Failed to determine which items were needed for progression to meet {:?} (had {})", chosen_world_index, requirement, world_context.world.player.inventory);
+                                    log::trace!("({}): Failed to determine which items were needed for progression to meet {:?} (had {})", world_context.player_name, requirement, world_context.world.player.inventory);
                                     return Err(String::from("Failed to determine which items were needed for progression"));
                                 }
                                 if missing.item_count() > slots { continue; }
@@ -677,14 +677,15 @@ where
                     }
 
                     if itemsets.is_empty() {
-                        log::trace!("(World {}): No progressions found", chosen_world_index);
+                        log::trace!("({}): No progressions found", world_context.player_name);
                     } else {
                         break (chosen_world_index, itemsets);
                     }
                 } else {
                     if world_contexts.iter().all(|world_context| world_context.placements.is_empty()) {
                         for world_index in 0..context.world_count {
-                            return Err(format!("(World {}): Failed to reach anything from spawn location {}", world_index, world_contexts[world_index].spawn));
+                            let world_context = &world_contexts[world_index];
+                            return Err(format!("({}): Failed to reach anything from spawn location {}", world_context.player_name, world_context.spawn));
                         }
                     }
 
@@ -706,8 +707,8 @@ where
                             })
                             .collect();
 
-                        log::trace!("(World {}): Failed to reach all locations with inventory: {}", world_index, world_context.world.player.inventory);
-                        log::error!("(World {}): Couldn't reach locations {}", world_index, format_identifiers(identifiers));
+                        log::trace!("({}): Failed to reach all locations with inventory: {}", world_context.player_name, world_context.world.player.inventory);
+                        log::error!("({}): Couldn't reach locations {}", world_context.player_name, format_identifiers(identifiers));
                     }
 
                     return Err(String::from("Failed to reach all locations"));
@@ -727,7 +728,8 @@ where
                 }
             }
 
-            log::trace!("(World {}): {} options for forced progression:", chosen_world_index, itemsets.len());
+            let world_context = &world_contexts[chosen_world_index];
+            log::trace!("({}): {} options for forced progression:", world_context.player_name, itemsets.len());
 
             let weight = |inventory: &Inventory| -> Result<f32, String> {
                 let mut newly_reached = 0;
@@ -767,9 +769,9 @@ where
 
                     weight
                 })
-                .map_err(|err| format!("(World {}): Error choosing progression: {}", chosen_world_index, err))?;
+                .map_err(|err| format!("({}): Error choosing progression: {}", world_context.player_name, err))?;
 
-            log::trace!("(World {}): Chosen progression: {}", chosen_world_index, progression);
+            log::trace!("({}): Chosen progression: {}", world_context.player_name, progression);
 
             for (item, amount) in &progression.inventory {
                 let items = if let Item::SpiritLight(1) = item {

@@ -103,7 +103,9 @@ where D: fmt::Debug
     let mut indices = Vec::new();
 
     for (index, _) in debug.match_indices(char::is_uppercase) {
-        indices.push(index);
+        if index > 0 {
+            indices.push(index);
+        }
     }
     for index in indices {
         debug.insert(index, ' ');
