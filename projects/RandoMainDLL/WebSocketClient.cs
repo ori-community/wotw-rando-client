@@ -30,7 +30,7 @@ namespace RandoMainDLL {
 
     public static int FramesTillReconnectAttempt = 420;
 
-    public static bool WantConnection { get => !DiscordController.Disabled && (SeedController.Settings?.NetcodeEnabled ?? false); }
+    public static bool WantConnection { get => true || !DiscordController.Disabled && (SeedController.Settings?.NetcodeEnabled ?? false); }
 
     private WebSocket socket;
     public bool IsConnected { get { return socket != null && socket.IsConnected; } }

@@ -142,7 +142,7 @@ namespace RandoMainDLL.Memory {
     public string GroupName;
     public UberValue Value;
 
-    public float ValueAsFloat() => Value.AsFloat(Type);
+    public double ValueAsDouble() => Value.AsDouble(Type);
     public int ValueAsInt() => Value.AsInt(Type);
     public UberId GetUberId() => new UberId(GroupID, ID);
     public UberState Clone() => new UberState() { Type = Type, ID = ID, Name = Name, GroupID = GroupID, GroupName = GroupName, Value = Value };

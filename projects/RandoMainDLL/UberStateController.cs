@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
@@ -121,7 +122,7 @@ namespace RandoMainDLL {
 
     public static bool Write(this UberState state, UberValue value) {
       state.Value = value;
-      InterOp.set_uber_state_value(state.GroupID, state.ID, state.ValueAsFloat());
+      InterOp.set_uber_state_value(state.GroupID, state.ID, state.ValueAsDouble());
       return true;
     }
 
@@ -161,7 +162,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public static UberValue CreateValue(UberStateType type, float value) {
+    public static UberValue CreateValue(UberStateType type, double value) {
       switch (type) {
         case UberStateType.PlayerUberStateDescriptor:
         case UberStateType.SavePedestalUberState:
@@ -172,11 +173,11 @@ namespace RandoMainDLL {
         case UberStateType.SerializedIntUberState:
           return new UberValue((int)value);
         default:
-          return new UberValue(value);
+          return new UberValue((float)value);
       }
     }
 
-    public static void OnUberStateChanged(int groupID, int stateID, byte type, float oldValue, float newValue) {
+    public static void OnUberStateChanged(int groupID, int stateID, byte type, double oldValue, double newValue) {
       if (uberStateLookup == null) {
         PopulateUberStates();
       }
@@ -233,8 +234,10 @@ namespace RandoMainDLL {
           found = SeedController.OnUberState(state);
         }
 
-        if (SyncedUberStates.Contains(key))
-          Randomizer.Client.SendUpdate(key, state.ValueAsFloat());
+        if (SyncedUberStates.Contains(key)) {
+          Randomizer.Debug($"{key}, {state.ValueAsDouble()}");
+          Randomizer.Client.SendUpdate(key, state.ValueAsDouble());
+        }
 
         BonusItemController.OnUberState(state);
         var zone = ZoneType.Void;
@@ -267,13 +270,15 @@ namespace RandoMainDLL {
 
         if (FullSyncNextUpdate) {
           FullSyncNextUpdate = false;
-          Randomizer.Client.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsFloat()));
+          Randomizer.Debug($"Syncing {SyncedUberStates.Count} states", false);
+          Randomizer.Client.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsDouble()));
           var bad = SyncedUberStates.Where(uid => uid.State() == null).ToList();
+          Randomizer.Debug($"Not sending {bad.Count} bad states", false);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
         while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
           var (id, val) = stateUpdate.FromNet();
-          if (id.State().ValueAsFloat() != val) 
+          if (id.State().ValueAsDouble() != val) 
             InterOp.set_uber_state_value(id.GroupID, id.ID, val);
         }
       }

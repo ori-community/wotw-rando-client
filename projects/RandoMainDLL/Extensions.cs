@@ -58,21 +58,21 @@ public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(o
       }
     }
 
-    public static float AsFloat(this UberValue v, UberStateType t) {
+    public static double AsDouble(this UberValue v, UberStateType t) {
       switch (t) {
         case UberStateType.SavePedestalUberState:
         case UberStateType.ByteUberState:
         case UberStateType.SerializedByteUberState:
-          return Convert.ToSingle(v.Byte);
+          return Convert.ToDouble(v.Byte);
         case UberStateType.BooleanUberState:
         case UberStateType.SerializedBooleanUberState:
           return v.Bool ? 1.0f : 0.0f;
         case UberStateType.SerializedFloatUberState:
-          return v.Float;
+          return Convert.ToDouble(v.Float);
         case UberStateType.IntUberState:
         case UberStateType.SerializedIntUberState:
         default:
-          return Convert.ToSingle(v.Int);
+          return Convert.ToDouble(v.Int);
       }
     }
     public static void Refresh(this UberId id) => InterOp.refresh_uber_state(id.GroupID, id.ID);
