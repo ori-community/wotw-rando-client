@@ -126,9 +126,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 val isCoop = newSuspendedTransaction {
                     GameState.findById(gameStateId)?.team?.members?.count() ?:1 > 1
                 }
-                val isMultiWhitelisted = newSuspendedTransaction {
-                    GameState.findById(gameStateId)?.team?.members?.find { it.id.value == 120961295666118656 }
-                } != null
+                val isMultiWhitelisted = true // SORRY XEM
                 val user = newSuspendedTransaction {  User.find{
                     Users.id eq playerId
                 }.firstOrNull()?.name } ?: "Mystery User"
