@@ -266,7 +266,7 @@ fn parse_spawn(spawn: String) -> Spawn {
         _ => Spawn::Set(spawn),
     }
 }
-fn parse_settings(settings: SeedSettings) -> Settings {
+fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
     let SeedSettings {
         preset,
         worlds,
@@ -284,11 +284,13 @@ fn parse_settings(settings: SeedSettings) -> Settings {
     let goalmodes = parse_goalmodes(&goals);
     let spawn = parse_spawn(spawn);
 
-    if worlds > 1 {
+    if worlds == 0 {
+        return Err(String::from("Tried to create a seed with zero worlds"));
+    } else if worlds > 1 {
         multiplayer = true;
     }
 
-    Settings {
+    Ok(Settings {
         version: Some(env!("CARGO_PKG_VERSION").to_string()),
         presets: preset,
         worlds,
@@ -300,7 +302,7 @@ fn parse_settings(settings: SeedSettings) -> Settings {
         spawn_loc: spawn,
         hard,
         header_list: header_paths,
-    }
+    })
 }
 
 fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
@@ -311,7 +313,7 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
         |seed| Some(seed.clone()),
     );
 
-    let settings = parse_settings(args.settings);
+    let settings = parse_settings(args.settings)?;
 
     let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;
     log::info!("Parsed logic in {:?}", now.elapsed());
@@ -334,14 +336,25 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
 
 fn write_seeds_to_files(seeds: &[String], filename: Option<PathBuf>, players: &[String]) -> Result<(), String> {
     let mut filename = filename.unwrap_or_else(|| PathBuf::from("seed"));
-    filename.set_extension("wotwr");
+    let file_stem = filename.file_stem().unwrap().to_os_string();
+
+    let seed_count = seeds.len();
+    let multiworld = seed_count > 1;
 
     let mut first = true;
-    for index in 0..seeds.len() {
+    for index in 0..seed_count {
         let seed = &seeds[index];
         let player = players.get(index).cloned().unwrap_or_else(|| format!("Player {}", index + 1));
 
+        if multiworld {
+            let mut player_filename = file_stem.clone();
+            player_filename.push(format!("_{}", player));
+            filename.set_file_name(player_filename);
+        }
+        filename.set_extension("wotwr");
+
         let file = util::create_file(&filename, seed, "seeds", true)?;
+
         log::info!("Wrote seed for {} to {}", player, file.display());
 
         if first {
@@ -368,7 +381,7 @@ fn play_last_seed() -> Result<(), String> {
 }
 
 fn create_preset(mut args: PresetArgs) -> Result<(), String> {
-    let settings = parse_settings(args.settings);
+    let settings = parse_settings(args.settings)?;
     let settings = Settings::write(&settings)?;
 
     args.name.set_extension("json");
