@@ -100,8 +100,8 @@ namespace RandoMainDLL.Memory {
   public static class UberGet {
     public static UberValue value(int groupId, int id) => value(new UberId(groupId, id));
     public static UberValue value(UberId id) => id.GetValue();
-    public static float AsFloat(int groupId, int id) => AsFloat(new UberId(groupId, id));
-    public static float AsFloat(UberId id) => InterOp.get_uber_state_value(id.GroupID, id.ID);
+    public static double AsDouble(int groupId, int id) => AsDouble(new UberId(groupId, id));
+    public static double AsDouble(UberId id) => InterOp.get_uber_state_value(id.GroupID, id.ID);
     public static byte Byte(int groupId, int id) => value(new UberId(groupId, id)).Byte;
     public static byte Byte(UberId id) => value(id).Byte;
     public static int Int(int groupId, int id) => value(new UberId(groupId, id)).Int;

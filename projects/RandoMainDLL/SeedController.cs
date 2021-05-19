@@ -291,7 +291,7 @@ namespace RandoMainDLL {
                 extras[0].ParseToInt("BuildPickup.UberGroupId"),
                 extras[1].ParseToInt("BuildPickup.UberId")
               );
-              return new ConditionalStop(t, uid, extras[2].ParseToFloat("BuildPickup.InterruptCondValue"));
+              return new ConditionalStop(t, uid, extras[2].ParseToDouble("BuildPickup.InterruptCondValue"));
             case SysCommandType.GrantIfEqual:
             case SysCommandType.GrantIfGreater:
             case SysCommandType.GrantIfLess:
@@ -304,7 +304,7 @@ namespace RandoMainDLL {
                 extras[1].ParseToInt("BuildPickup.UberId")
               );
               var p = BuildPickup((PickupType)extras[3].ParseToByte("BuildPickup.GrantIfType"), extras[4], extras.Skip(5).ToList(), cond);
-              return new GrantIf(t, guid, extras[2].ParseToFloat("BuildPickup.GrantIfTargetValue"), p);
+              return new GrantIf(t, guid, extras[2].ParseToDouble("BuildPickup.GrantIfTargetValue"), p);
 
             case SysCommandType.SetState:
               if (extras.Count != 2) {
@@ -466,7 +466,7 @@ namespace RandoMainDLL {
               stateParts[1].ParseToInt("BuildPickup.UberId")
             );
           var stateType = uberTypeFromString(stateParts[2]);
-          Func<UberValue, float> modifier = GetUberSetter(stateType, stateParts[3]);
+          Func<UberValue, double> modifier = GetUberSetter(stateType, stateParts[3]);
           return new UberStateModifier(uberId, modifier, stateParts[3]);
         default:
           var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
@@ -494,7 +494,7 @@ namespace RandoMainDLL {
 
     private static Random UberRand = new Random();
 
-    private static Func<UberValue, float> GetUberSetter(UberStateType type, string mod) {
+    private static Func<UberValue, double> GetUberSetter(UberStateType type, string mod) {
       bool isModifier = mod.StartsWith("+") || mod.StartsWith("-");
       int sign = mod.StartsWith("-") ? -1 : 1;
       if (isModifier)
@@ -519,8 +519,8 @@ namespace RandoMainDLL {
                 (lo, hi) = (hi, lo);
               byte rval = (byte)UberRand.Next(lo, hi);
               if (isModifier)
-                return Convert.ToSingle(old.Byte + sign * rval);
-              return Convert.ToSingle(rval);
+                return Convert.ToDouble(old.Byte + sign * rval);
+              return Convert.ToDouble(rval);
             };
           case UberStateType.SerializedIntUberState:
             return (UberValue old) => {
@@ -530,16 +530,16 @@ namespace RandoMainDLL {
                 (lo, hi) = (hi, lo);
               int rval = UberRand.Next(lo, hi);
               if (isModifier)
-                return Convert.ToSingle(old.Int + sign * rval);
-              return Convert.ToSingle(rval);
+                return Convert.ToDouble(old.Int + sign * rval);
+              return Convert.ToDouble(rval);
             };
           case UberStateType.SerializedFloatUberState:
               return (UberValue old) => {
-                float lo = start();
-                float hi = end();
+                double lo = start();
+                double hi = end();
                 if(lo > hi) 
                   (lo, hi) = (hi, lo);
-                float rval = lo + (float)UberRand.NextDouble() * (hi - lo);
+                double rval = lo + (float)UberRand.NextDouble() * (hi - lo);
                 if (isModifier)
                   return old.Float + sign * rval;
                 return rval;
@@ -557,19 +557,19 @@ namespace RandoMainDLL {
           return (UberValue old) => {
             byte rval = Convert.ToByte(target());
             if (isModifier)
-              return Convert.ToSingle(old.Byte + sign * rval);
-            return Convert.ToSingle(rval);
+              return Convert.ToDouble(old.Byte + sign * rval);
+            return Convert.ToDouble(rval);
           };
         case UberStateType.SerializedIntUberState:
           return (UberValue old) => {
             int rval = Convert.ToInt32(target());
             if (isModifier)
-              return Convert.ToSingle(old.Int + sign * rval);
-            return Convert.ToSingle(rval);
+              return Convert.ToDouble(old.Int + sign * rval);
+            return Convert.ToDouble(rval);
           };
         case UberStateType.SerializedFloatUberState:
           return (UberValue old) => {
-            float rval = target();
+            double rval = target();
             if (isModifier)
               return old.Float + sign * rval;
             return rval;
@@ -579,23 +579,23 @@ namespace RandoMainDLL {
       return (UberValue old) => 0f;
     }
 
-    private static Func<float> genFromFrag(string frag, UberStateType targetType) {
+    private static Func<double> genFromFrag(string frag, UberStateType targetType) {
       Regex uberMsg = new Regex(@"\$\(([0-9]+);([0-9]+)\)", RegexOptions.Compiled);
       var m = uberMsg.Match(frag);
       if (m.Success) {
         var uid = new UberId(m.Groups[1].Value.ParseToInt("genFromFrag.GID"), m.Groups[2].Value.ParseToInt("genFromFrag.GID"));
-        return () => UberGet.AsFloat(uid);
+        return () => UberGet.AsDouble(uid);
       }
       switch (targetType) {
         case UberStateType.SavePedestalUberState:
         case UberStateType.SerializedBooleanUberState:
           return () => frag.ParseToBool("genFromFragRaw<Bool>") ? 1f : 0f;
         case UberStateType.SerializedByteUberState:
-          return () => Convert.ToSingle(frag.ParseToByte("genFromFragRaw<Byte>"));
+          return () => Convert.ToDouble(frag.ParseToByte("genFromFragRaw<Byte>"));
         case UberStateType.SerializedIntUberState:
-          return () => Convert.ToSingle(frag.ParseToInt("genFromFragRaw<Int>"));
+          return () => Convert.ToDouble(frag.ParseToInt("genFromFragRaw<Int>"));
         case UberStateType.SerializedFloatUberState:
-          return () => frag.ParseToFloat("genFromFragRaw<Float>");
+          return () => frag.ParseToDouble("genFromFragRaw<Float>");
         default:
           Randomizer.Warn("genFromFrag", $"unknown type {targetType}, can't meaningfully parse {frag}");
           return () => 0f;

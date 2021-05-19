@@ -13,7 +13,7 @@ message UberStateBatchUpdateMessage{
 
 message UberStateUpdateMessage{
     UberId state = 1;
-    float value = 2;
+    double value = 2;
 }
 
 message UberId{
