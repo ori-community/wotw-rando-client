@@ -94,6 +94,24 @@ impl fmt::Display for GoalMode {
     }
 }
 
+#[inline]
+fn auto_display<D>(debug: D) -> String
+where D: fmt::Debug
+{
+    let mut debug = format!("{:?}", debug);
+
+    let mut indices = Vec::new();
+
+    for (index, _) in debug.match_indices(char::is_uppercase) {
+        indices.push(index);
+    }
+    for index in indices {
+        debug.insert(index, ' ');
+    }
+
+    debug
+}
+
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 pub enum Skill {
     Bash,
@@ -119,6 +137,11 @@ pub enum Skill {
     Sentry,
     Flap,
     AncestralLight,
+}
+impl fmt::Display for Skill {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", auto_display(self))
+    }
 }
 impl Skill {
     pub fn from_id(id: u8) -> Option<Skill> {
@@ -222,6 +245,17 @@ pub enum Resource {
     Keystone,
     ShardSlot,
 }
+impl fmt::Display for Resource {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Resource::Health => write!(f, "Health Fragment"),
+            Resource::Energy => write!(f, "Energy Fragment"),
+            Resource::Ore => write!(f, "Gorlek Ore"),
+            Resource::Keystone => write!(f, "Keystone"),
+            Resource::ShardSlot => write!(f, "Shard Slot"),
+        }
+    }
+}
 impl Resource {
     pub fn from_id(id: u8) -> Option<Resource> {
         match id {
@@ -276,6 +310,11 @@ pub enum Shard {
     Deflector,
     Fracture,
     Arcing,
+}
+impl fmt::Display for Shard {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", auto_display(self))
+    }
 }
 impl Shard {
     pub fn from_id(id: u8) -> Option<Shard> {
@@ -371,6 +410,11 @@ pub enum Teleporter {
     Willow,
     Shriek,
 }
+impl fmt::Display for Teleporter {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{} TP", auto_display(self))
+    }
+}
 impl Teleporter {
     pub fn from_id(id: u8) -> Option<Teleporter> {
         match id {
@@ -426,6 +470,15 @@ pub enum BonusItem {
     ExtraAirDash,
     Relic,
 }
+impl fmt::Display for BonusItem {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            BonusItem::HealthRegen => write!(f, "Health Regeneration"),
+            BonusItem::EnergyRegen => write!(f, "Energy Regeneration"),
+            _ => write!(f, "{}", auto_display(self)),
+        }
+    }
+}
 impl BonusItem {
     pub fn from_id(id: u8) -> Option<BonusItem> {
         match id {
@@ -459,6 +512,11 @@ pub enum BonusUpgrade {
     RegenerationEfficiency,
     FlashEfficiency,
     GrenadeEfficiency,
+}
+impl fmt::Display for BonusUpgrade {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", auto_display(self))
+    }
 }
 impl BonusUpgrade {
     pub fn from_id(id: u8) -> Option<BonusUpgrade> {
@@ -506,6 +564,11 @@ pub enum Zone {
     Willow,
     Burrows,
     Void,
+}
+impl fmt::Display for Zone {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", auto_display(self))
+    }
 }
 impl Zone {
     pub fn from_id(id: u8) -> Option<Zone> {

@@ -59,6 +59,16 @@ impl UberState {
             value: String::new(),
         }
     }
+    #[inline]
+    pub fn load() -> UberState {
+        UberState {
+            identifier: UberIdentifier {
+                uber_group: 3,
+                uber_id: 1,
+            },
+            value: String::new(),
+        }
+    }
 
     pub fn is_shop(&self) -> bool {
         self.identifier.uber_group == 1 ||

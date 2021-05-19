@@ -87,7 +87,8 @@ where
     R: Rng,
     I: Iterator<Item=usize>,
 {
-    let player_name = world_contexts[target_world_index].player_name.clone();
+    let origin_player_name = world_contexts[origin_world_index].player_name.clone();
+    let target_player_name = world_contexts[target_world_index].player_name.clone();
 
     let origin_world_context = &mut world_contexts[origin_world_index];
 
@@ -111,6 +112,11 @@ where
         origin_world_context.placements.push(Placement {
             node: None,
             uber_state: UberState::spawn(),
+            item: price_setter.clone(),
+        });
+        origin_world_context.placements.push(Placement {
+            node: None,
+            uber_state: UberState::load(),
             item: price_setter,
         });
     }
@@ -126,23 +132,29 @@ where
             item,
         });
     } else {
-        log::trace!("(World {}): Placed {} for {} at {}", origin_world_index, item_name, player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("(World {}): Placed {} for {} at {}", origin_world_index, item_name, target_player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         let state_index = context.multiworld_state_index.next().unwrap();
 
-        let message = Item::Message(format!("{} for {}", item_name, player_name));
-        let setter = Item::UberState(format!("12|{}|bool|true", state_index));
+        let origin_message = Item::Message(format!("{} for {}", item_name, target_player_name));
+        let send_item = Item::UberState(format!("12|{}|bool|true", state_index));
+        let target_message = Item::Message(format!("{} from {}|mute", item_name, origin_player_name));
         let target_uber_state = UberState::from_parts("12", &state_index.to_string())?;
 
         origin_world_context.placements.push(Placement {
             node: Some(node),
             uber_state: node.uber_state().unwrap().clone(),
-            item: message,
+            item: origin_message,
         });
         origin_world_context.placements.push(Placement {
             node: Some(node),
             uber_state: node.uber_state().unwrap().clone(),
-            item: setter,
+            item: send_item,
+        });
+        world_contexts[target_world_index].placements.push(Placement {
+            node: None,
+            uber_state: target_uber_state.clone(),
+            item: target_message,
         });
         world_contexts[target_world_index].placements.push(Placement {
             node: None,
