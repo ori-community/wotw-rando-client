@@ -291,9 +291,9 @@ namespace uber_states
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
                         constants::APPLIERS_GROUP_ID, format("%3d_value", i * 2 + 1), i * 2 + 1, 0));
                 }
-                for (i = 0; i < multi_bool_count; ++i) {
-                    states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MULTI_VARS_GROUP_NAME,
-                        constants::MULTI_VARS_GROUP_ID, format("%3d_multi", i), i, false));
+                for (i = 0; i < 100; ++i) {
+                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::MULTI_VARS_GROUP_NAME,
+                        constants::MULTI_VARS_GROUP_ID, format("%3d_multi", i), i, 0));
                 }
 
                 for (auto* state : states)
@@ -308,8 +308,18 @@ namespace uber_states
 
         void notify_uber_state_change(app::IUberState* uber_state, float prev, float current)
         {
+            if (prev == current) return; // :upside_clown:
             const auto state = get_uber_state_id(uber_state);
             const auto group = get_uber_state_group_id(uber_state);
+            if (group->fields.m_id == 12) {
+                int delta = static_cast<int>(prev) ^ static_cast<int>(current);
+                int real_state = static_cast<int>(log2(delta)) + 32 * state->fields.m_id;
+                if (current > prev)
+                    csharp_bridge::on_uber_state_applied(group->fields.m_id, real_state, 3, 0.0f, 1.0f);
+                else
+                    csharp_bridge::on_uber_state_applied(group->fields.m_id, real_state, 3, 1.0f, 0.0f);
+                return;
+            }
             auto type = resolve_type(uber_state);
             csharp_bridge::on_uber_state_applied(group->fields.m_id, state->fields.m_id, static_cast<uint8_t>(type), prev, current);
         }
@@ -494,13 +504,23 @@ namespace uber_states
         }
     }
 
+
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, float value)
     {
         auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id(state);
+        auto state_id = create_uber_id((group == 12) ? state / 32 : state);
         auto uber_state = get_uber_state(group_id, state_id);
         if (uber_state != nullptr)
-            set_uber_state_value(uber_state, value);
+            if (group == 12) {
+                int curr = static_cast<int>(get_uber_state_value(uber_state));
+                int8_t offset = state % 32;
+                if (value)
+                    curr |= 1 << offset; // or if it's true
+                else 
+                    curr ^= ((curr >> offset) % 2) << offset; // xor the bit with itself if it's true
+                set_uber_state_value(uber_state, static_cast<float>(curr));
+            } else 
+                set_uber_state_value(uber_state, value);
         else
             trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) not found", group, state));
     }
@@ -510,8 +530,13 @@ namespace uber_states
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id(state);
         auto uber_state = get_uber_state(group_id, state_id);
-        if (uber_state != nullptr)
+        if (uber_state != nullptr) {
+            if (group == 12) {
+                int raw = static_cast<int>(get_uber_state_value(uber_state));
+                return (raw >> (state % 32)) % 2 ? 1.0f : 0.0f;
+            }
             return get_uber_state_value(uber_state);
+        }
         else
         {
             trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) not found", group, state));
