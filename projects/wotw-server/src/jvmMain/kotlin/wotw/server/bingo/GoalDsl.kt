@@ -88,7 +88,7 @@ fun interface NumberStateGenerator {
 
 fun interface NumberGenerator : NumberStateGenerator {
     override fun invoke(config: GeneratorConfig): StateExpression? = get(config)?.let { ConstExpression(it) }
-    fun get(generatorConfig: GeneratorConfig): Float?
+    fun get(generatorConfig: GeneratorConfig): Double?
 }
 
 fun interface GoalGenerator : (GeneratorConfig, Int) -> BingoGoal?
@@ -104,11 +104,11 @@ fun bool(title: String, group: Int, state: Int, countOnly: Boolean = false) = Ge
     }
 }, countOnly)
 
-fun fixed(number: Number) = NumberGenerator { number.toFloat() }
+fun fixed(number: Number) = NumberGenerator { number.toDouble() }
 fun triag(min: Int, max: Int, mode: Int = (min + max) / 2) =
-    NumberGenerator { it.random.nextTriangular(min, max, mode).toFloat() }
+    NumberGenerator { it.random.nextTriangular(min, max, mode).toDouble() }
 
-fun rand(min: Int, max: Int) = NumberGenerator { it.random.nextInt(min, max).toFloat() }
+fun rand(min: Int, max: Int) = NumberGenerator { it.random.nextInt(min, max).toDouble() }
 
 fun uber(group: Int, state: Int) = NumberStateGenerator {
     UberStateExpression(group, state)

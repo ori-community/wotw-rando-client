@@ -3,12 +3,12 @@ package wotw.server.api
 import wotw.io.messages.protobuf.UberId
 import kotlin.math.max
 import kotlin.math.min
-import wotw.server.api.UberStateSyncStrategy.NotificaitonGroup.*
+import wotw.server.api.UberStateSyncStrategy.NotificationGroup.*
 
 
-data class UberStateSyncStrategy(val aggregation: (Float, Float) -> Float,
-                   val trigger: (Float?, Float) -> Boolean = {_, _ -> true},
-                   val group: NotificaitonGroup = DIFFERENT){
+data class UberStateSyncStrategy(val aggregation: (Double, Double) -> Double,
+                   val trigger: (Double?, Double) -> Boolean = {_, _ -> true},
+                   val group: NotificationGroup = DIFFERENT){
     companion object{
         val MAX = UberStateSyncStrategy(::max)
         val MIN = UberStateSyncStrategy(::min)
@@ -16,7 +16,7 @@ data class UberStateSyncStrategy(val aggregation: (Float, Float) -> Float,
         val KEEP = UberStateSyncStrategy({ v, _ -> v })
         val AVG = UberStateSyncStrategy({ o, n -> (o + n) / 2 })
     }
-    enum class NotificaitonGroup{
+    enum class NotificationGroup{
         /**
          * Only listen for updates
          * */
@@ -64,4 +64,4 @@ fun sync(ids: Collection<UberId>, strategy: UberStateSyncStrategy? = null): Uber
 
 fun UberStateRegistration.with(strategy: UberStateSyncStrategy) = first to strategy
 fun UberStateRegistration.on(threshold: Float) = first to (second ?: UberStateSyncStrategy.MAX).copy(trigger = { o, n -> n >= threshold})
-fun UberStateRegistration.notify(group: UberStateSyncStrategy.NotificaitonGroup) = first to (second ?: UberStateSyncStrategy.MAX).copy(group = group)
+fun UberStateRegistration.notify(group: UberStateSyncStrategy.NotificationGroup) = first to (second ?: UberStateSyncStrategy.MAX).copy(group = group)

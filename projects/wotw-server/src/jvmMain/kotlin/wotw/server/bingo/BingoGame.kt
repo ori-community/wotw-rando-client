@@ -8,7 +8,7 @@ import kotlin.math.min
 typealias GameState = UberStateMap //These have changed *4 times* now, I'm keeping the typealiases :D
 
 @Serializable //Type-erasure forces a compiled class for type-safe serialization
-class UberStateMap(private val map: MutableMap<Pair<Int, Int>, Float>): MutableMap<Pair<Int, Int>, Float> by map{
+class UberStateMap(private val map: MutableMap<Pair<Int, Int>, Double>): MutableMap<Pair<Int, Int>, Double> by map{
     constructor(): this(mutableMapOf())
 
     companion object{
@@ -97,7 +97,7 @@ data class CountGoal(
 @Serializable
 data class BoolGoal(override val title: String, private val key: Pair<Int, Int>) : BingoGoal() {
     override val keys = setOf(key)
-    override fun isCompleted(state: GameState) = state[key]?.equals(0.toFloat()) == false
+    override fun isCompleted(state: GameState) = state[key]?.equals(0.toDouble()) == false
 }
 
 @Serializable
@@ -187,7 +187,7 @@ data class BingoConfig(val lockout: Boolean = false,
 
 @Serializable
 sealed class StateExpression{
-    abstract fun calc(state: GameState) : Float
+    abstract fun calc(state: GameState) : Double
     abstract val keys: Set<Pair<Int, Int>>
 
     operator fun plus(other: StateExpression): StateExpression {
@@ -209,9 +209,9 @@ class AggregationExpression(val aggr: Aggregation, val expressions: List<StateEx
         SUM, PRODUCT, MAX, MIN
     }
 
-    override fun calc(state: GameState): Float {
+    override fun calc(state: GameState): Double {
         val children = expressions.map { it.calc(state) }
-        val aggregationFunction: (Float, Float) -> Float = when(aggr){
+        val aggregationFunction: (Double, Double) -> Double = when(aggr){
             Aggregation.SUM -> {a, b -> a + b}
             Aggregation.PRODUCT -> {a, b -> a * b}
             Aggregation.MAX -> {a, b -> max(a,b) }
@@ -228,14 +228,14 @@ class AggregationExpression(val aggr: Aggregation, val expressions: List<StateEx
 class UberStateExpression(val uberId: Pair<Int, Int>): StateExpression() {
     constructor(group: Int, state: Int): this(group to state)
 
-    override fun calc(state: GameState) : Float = state[uberId] ?: Float.NaN
+    override fun calc(state: GameState) : Double = state[uberId] ?: Double.NaN
     override val keys: Set<Pair<Int, Int>>
         get() = setOf(uberId)
 }
 
 @Serializable
-class ConstExpression(val value: Float): StateExpression(){
-    override fun calc(state: GameState): Float = value
+class ConstExpression(val value: Double): StateExpression(){
+    override fun calc(state: GameState): Double = value
     override val keys: Set<Pair<Int, Int>>
         get() = emptySet()
 }
@@ -246,7 +246,7 @@ class OperatorExpression(val first: StateExpression, val second: StateExpression
         PLUS, MINUS, TIMES, DIV
     }
 
-    override fun calc(state: GameState): Float {
+    override fun calc(state: GameState): Double {
         return when(op){
             OPERATOR.PLUS -> first.calc(state) + second.calc(state)
             OPERATOR.MINUS -> first.calc(state) - second.calc(state)

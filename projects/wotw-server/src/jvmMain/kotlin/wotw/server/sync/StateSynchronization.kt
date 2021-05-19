@@ -7,7 +7,6 @@ import wotw.server.api.AggregationStrategyRegistry
 import wotw.server.api.UberStateSyncStrategy
 import wotw.server.database.model.Game
 import wotw.server.database.model.GameState
-import wotw.server.database.model.Team
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.zerore
 import java.util.*
@@ -18,7 +17,7 @@ class StateSynchronization(private val server: WotwBackendServer) {
     //gameId to syncing rules
     val aggregationStrategies: MutableMap<Long, AggregationStrategyRegistry> = Collections.synchronizedMap(hashMapOf())
 
-    fun aggregateState(state: GameState, uberId: UberId, value: Float): AggregationResult {
+    fun aggregateState(state: GameState, uberId: UberId, value: Double): AggregationResult {
         val data = state.uberStateData
         val oldValue = data[uberId.group to uberId.state]
 
@@ -39,25 +38,25 @@ class StateSynchronization(private val server: WotwBackendServer) {
 
     suspend fun syncState(gameId: Long, playerId: Long, uberId: UberId, aggregationResult: AggregationResult) {
         val strategy = aggregationStrategies[gameId]?.getStrategy(uberId) ?: return
-        if (!aggregationResult.triggered || strategy.group == UberStateSyncStrategy.NotificaitonGroup.NONE)
+        if (!aggregationResult.triggered || strategy.group == UberStateSyncStrategy.NotificationGroup.NONE)
             return
 
         val uberId = UberId(zerore(uberId.group), zerore(uberId.state))
-        val echo = strategy.group == UberStateSyncStrategy.NotificaitonGroup.ALL
-                || aggregationResult.sentValue != aggregationResult.newValue && strategy.group == UberStateSyncStrategy.NotificaitonGroup.DIFFERENT
+        val echo = strategy.group == UberStateSyncStrategy.NotificationGroup.ALL
+                || aggregationResult.sentValue != aggregationResult.newValue && strategy.group == UberStateSyncStrategy.NotificationGroup.DIFFERENT
 
         val team = strategy.group ==
-                UberStateSyncStrategy.NotificaitonGroup.ALL ||
+                UberStateSyncStrategy.NotificationGroup.ALL ||
                 aggregationResult.oldValue != aggregationResult.newValue &&
-                (strategy.group == UberStateSyncStrategy.NotificaitonGroup.OTHERS ||
-                        strategy.group == UberStateSyncStrategy.NotificaitonGroup.DIFFERENT)
+                (strategy.group == UberStateSyncStrategy.NotificationGroup.OTHERS ||
+                        strategy.group == UberStateSyncStrategy.NotificationGroup.DIFFERENT)
 
         if (team) {
             server.connections.toTeam(gameId, playerId, echo) {
                 sendMessage(
                     UberStateUpdateMessage(
                         uberId,
-                        zerore(aggregationResult.newValue ?: 0f)
+                        zerore(aggregationResult.newValue ?: 0.0)
                     )
                 )
             }
@@ -66,7 +65,7 @@ class StateSynchronization(private val server: WotwBackendServer) {
                 sendMessage(
                     UberStateUpdateMessage(
                         uberId,
-                        zerore(aggregationResult.newValue ?: 0f)
+                        zerore(aggregationResult.newValue ?: 0.0)
                     )
                 )
             }
@@ -77,15 +76,15 @@ class StateSynchronization(private val server: WotwBackendServer) {
         val triggered = updates.filter { it.value.triggered }
         val forPlayer = triggered.filter {
             val strategy = aggregationStrategies[gameId]?.getStrategy(it.key)
-            strategy?.group == UberStateSyncStrategy.NotificaitonGroup.ALL
-                    || it.value.sentValue != it.value.newValue && strategy?.group == UberStateSyncStrategy.NotificaitonGroup.DIFFERENT
+            strategy?.group == UberStateSyncStrategy.NotificationGroup.ALL
+                    || it.value.sentValue != it.value.newValue && strategy?.group == UberStateSyncStrategy.NotificationGroup.DIFFERENT
         }
         val forTeam = triggered.filter {
             val strategy = aggregationStrategies[gameId]?.getStrategy(it.key)
-            strategy?.group == UberStateSyncStrategy.NotificaitonGroup.ALL ||
+            strategy?.group == UberStateSyncStrategy.NotificationGroup.ALL ||
                     it.value.oldValue != it.value.newValue &&
-                    (strategy?.group == UberStateSyncStrategy.NotificaitonGroup.OTHERS ||
-                            strategy?.group == UberStateSyncStrategy.NotificaitonGroup.DIFFERENT)
+                    (strategy?.group == UberStateSyncStrategy.NotificationGroup.OTHERS ||
+                            strategy?.group == UberStateSyncStrategy.NotificationGroup.DIFFERENT)
         }
         server.connections.toTeam(gameId, playerId, false) {
             sendMessage(
@@ -93,7 +92,7 @@ class StateSynchronization(private val server: WotwBackendServer) {
                     forTeam.map { (uberId, result) ->
                         UberStateUpdateMessage(
                             UberId(zerore(uberId.group), zerore(uberId.state)),
-                            zerore(result.newValue ?: 0f)
+                            zerore(result.newValue ?: 0.0)
                         )
                     }
                 )
@@ -105,7 +104,7 @@ class StateSynchronization(private val server: WotwBackendServer) {
                     forPlayer.map { (uberId, result) ->
                         UberStateUpdateMessage(
                             UberId(zerore(uberId.group), zerore(uberId.state)),
-                            zerore(result.newValue ?: 0f)
+                            zerore(result.newValue ?: 0.0)
                         )
                     }
                 )
@@ -113,7 +112,7 @@ class StateSynchronization(private val server: WotwBackendServer) {
         }
     }
 
-    suspend fun forceSyncStates(gameId: Long, playerId: Long, updates: Map<UberId, Float>) {
+    suspend fun forceSyncStates(gameId: Long, playerId: Long, updates: Map<UberId, Double>) {
         server.connections.toTeam(gameId, playerId) {
             sendMessage(
                 UberStateBatchUpdateMessage(
@@ -142,13 +141,13 @@ class StateSynchronization(private val server: WotwBackendServer) {
                     UberStateBatchUpdateMessage(
                         UberStateUpdateMessage(
                             UberId(10, 0),
-                            bingoPlayerData.squares.toFloat()
+                            bingoPlayerData.squares.toDouble()
                         ), UberStateUpdateMessage(
                             UberId(10, 1),
-                            bingoPlayerData.lines.toFloat()
+                            bingoPlayerData.lines.toDouble()
                         ), UberStateUpdateMessage(
                             UberId(10, 2),
-                            bingoPlayerData.rank.toFloat()
+                            bingoPlayerData.rank.toDouble()
                         )
                     ), SyncBoardMessage(
                         game.createSyncableBoard(team),
@@ -175,9 +174,9 @@ class StateSynchronization(private val server: WotwBackendServer) {
     }
 
     data class AggregationResult(
-        val oldValue: Float?,
-        val newValue: Float?,
-        val sentValue: Float,
+        val oldValue: Double?,
+        val newValue: Double?,
+        val sentValue: Double,
         val triggered: Boolean
     )
 }
