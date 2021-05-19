@@ -13,7 +13,8 @@ pub fn moki() -> Settings {
 
     Settings {
         goalmodes,
-        header_list: vec![PathBuf::from("hints"), PathBuf::from("teleporters"), PathBuf::from("black_market"), PathBuf::from("qol"), PathBuf::from("spawn_with_sword")],
+        presets: vec![PathBuf::from("default")],
+        header_list: vec![PathBuf::from("teleporters"), PathBuf::from("black_market"), PathBuf::from("spawn_with_sword")],
         ..Settings::default()
     }
 }
@@ -23,7 +24,8 @@ pub fn gorlek() -> Settings {
 
     Settings {
         pathsets,
-        header_list: vec![PathBuf::from("hints"), PathBuf::from("teleporters"), PathBuf::from("black_market"), PathBuf::from("qol")],
+        presets: vec![PathBuf::from("default")],
+        header_list: vec![PathBuf::from("teleporters"), PathBuf::from("black_market")],
         ..Settings::default()
     }
 }

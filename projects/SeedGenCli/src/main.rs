@@ -27,8 +27,6 @@ use util::{
     uberstate::UberState,
 };
 
-// TODO investigate seed -v -s HowlsDen.Teleporter -h no_rain -l go shurikenbreak
-
 #[derive(StructOpt)]
 /// Generate seeds for the Ori 2 randomizer.
 ///
@@ -330,14 +328,17 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
     Ok(seeds)
 }
 
-fn write_seeds_to_files(seeds: Vec<String>, filename: Option<PathBuf>) -> Result<(), String> {
+fn write_seeds_to_files(seeds: &[String], filename: Option<PathBuf>, players: &[String]) -> Result<(), String> {
     let mut filename = filename.unwrap_or_else(|| PathBuf::from("seed"));
     filename.set_extension("wotwr");
 
     let mut first = true;
-    for seed in seeds {
-        let file = util::create_file(&filename, &seed, "seeds", true)?;
-        log::info!("Wrote seed to {}", file.display());
+    for index in 0..seeds.len() {
+        let seed = &seeds[index];
+        let player = players.get(index).cloned().unwrap_or_else(|| format!("Player {}", index + 1));
+
+        let file = util::create_file(&filename, seed, "seeds", true)?;
+        log::info!("Wrote seed for {} to {}", player, file.display());
 
         if first {
             fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
@@ -470,12 +471,13 @@ fn main() {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             let filename = args.filename.clone();
+            let players = args.settings.names.clone();
             match generate_seeds(args) {
                 Ok(seeds) => {
                     if tostdout {
                         write_seeds_to_stdout(seeds);
                     } else {
-                        write_seeds_to_files(seeds, filename).unwrap_or_else(|err| log::error!("{}", err));
+                        write_seeds_to_files(&seeds, filename, &players).unwrap_or_else(|err| log::error!("{}", err));
                     }
                 },
                 Err(err) =>  log::error!("{}", err),
