@@ -359,7 +359,7 @@ namespace uber_states
         double convert_pedestal_state(app::SavePedestalUberState_PedestalState* state)
         {
             if (state == nullptr)
-                return 0;
+                return 0.0;
 
             const auto active = static_cast<int>(state->fields.IsTeleporterActive != 0);
             const auto save = static_cast<int>(state->fields.HasGameBeenSaved != 0) << 1;
@@ -501,9 +501,9 @@ namespace uber_states
     double get_uber_state_value(app::IUberState* uber_state)
     {
         if (il2cpp::is_assignable(uber_state, "Moon", "SerializedIntUberState"))
-            return il2cpp::invoke<app::Int32__Boxed>(uber_state, "get_Value")->fields;
+            return static_cast<double>(il2cpp::invoke<app::Int32__Boxed>(uber_state, "get_Value")->fields);
         else if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState"))
-            return il2cpp::invoke<app::Single__Boxed>(uber_state, "get_GenericValue")->fields;
+            return static_cast<double>(il2cpp::invoke<app::Single__Boxed>(uber_state, "get_GenericValue")->fields);
         else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState"))
         {
             auto is_teleporter_active = static_cast<int>(il2cpp::invoke<app::Boolean__Boxed>(uber_state, "get_IsTeleporterActive")->fields);
@@ -511,13 +511,20 @@ namespace uber_states
             uint32_t value = is_teleporter_active | (has_been_saved << 1);
             return static_cast<double>(value);
         }
-        else
-        {
-            auto state_id = il2cpp::invoke<app::UberID>(uber_state, "get_StateID")->fields.m_id;
-            auto group_id = il2cpp::invoke<app::UberID>(uber_state, "get_GroupID")->fields.m_id;
-            trace(MessageType::Warning, 2, "uber_state",
-                format("uber state (%d, %d) does not implement IGenericUberState", state_id, group_id));
-            return 0.f;
+        else if (il2cpp::is_assignable(uber_state, "Moon.UberStateVisualization", "SerializedBoolUberStateWrapper")) {
+            auto wrapped = reinterpret_cast<app::IUberState*>(reinterpret_cast<app::SerializedBoolUberStateWrapper*>(uber_state)->fields.m_state);
+            return get_uber_state_value(reinterpret_cast<app::IUberState*>(reinterpret_cast<app::SerializedBoolUberStateWrapper*>(uber_state)->fields.m_state));
+        } else {
+            auto state_id = il2cpp::invoke<app::UberID>(uber_state, "get_StateID");
+            auto group_id = il2cpp::invoke<app::UberID>(uber_state, "get_GroupID");
+            if(state_id != nullptr && group_id != nullptr)
+                trace(MessageType::Warning, 2, "uber_state",
+                    format("uber state (%d, %d) does not implement IGenericUberState", group_id->fields.m_id, state_id->fields.m_id));
+            else
+                trace(MessageType::Warning, 2, "uber_state",
+                    format("unknown uber state at %d does not implement IGenericUberState ", uber_state));
+
+            return 0.0;
         }
     }
 
@@ -550,14 +557,14 @@ namespace uber_states
         if (uber_state != nullptr) {
             if (group == 12) {
                 int raw = static_cast<int>(get_uber_state_value(uber_state));
-                return (raw >> (state % 32)) % 2 ? 1.0f : 0.0f;
+                return (raw >> (state % 32)) % 2 ? 1.0 : 0.0;
             }
             return get_uber_state_value(uber_state);
         }
         else
         {
             trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) not found", group, state));
-            return 0.f;
+            return 0.0;
         }
     }
 
