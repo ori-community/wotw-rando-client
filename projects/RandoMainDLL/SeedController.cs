@@ -133,7 +133,9 @@ namespace RandoMainDLL {
             }
             else if (rawLine.StartsWith("// Config: ")) {
               var configRaw = rawLine.Replace("// Config: ", "");
-              Settings = JsonConvert.DeserializeObject<SeedGenSettings>(configRaw);
+              try {
+                Settings = JsonConvert.DeserializeObject<SeedGenSettings>(configRaw);
+              } catch(Exception e) { Randomizer.Error("SeedController.ReadSeed<Settings>", e, true); }
             } else if (rawLine.StartsWith("MULTISTATES: ")) {
               InterOp.set_multi_bool_count(rawLine.Replace("MULTISTATES: ", "").ParseToInt("ReadSeed.Multistates"));
               continue;
