@@ -30,7 +30,7 @@ namespace RandoMainDLL {
 
     public static int FramesTillReconnectAttempt = 420;
 
-    public static bool WantConnection { get => !DiscordController.Disabled && (SeedController.Settings?.NetcodeEnabled ?? false); }
+    public static bool WantConnection { get => true || !DiscordController.Disabled && (SeedController.Settings?.NetcodeEnabled ?? false); }
 
     private WebSocket socket;
     public bool IsConnected { get { return socket != null && socket.IsConnected; } }
@@ -156,7 +156,7 @@ namespace RandoMainDLL {
       UberStateQueue.Clear();
     }
 
-    public void SendBulk(Dictionary<Memory.UberId, float> updates) {
+    public void SendBulk(Dictionary<Memory.UberId, double> updates) {
       try {
         var batch = new UberStateBatchUpdateMessage();
         batch.Updates.AddRange(updates.Select((kv) => kv.Key.MakeUpdateMsg(kv.Value)));
@@ -170,7 +170,7 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendBulk", e, false);  }
 
 }
-public void SendUpdate(Memory.UberId id, float value) {
+public void SendUpdate(Memory.UberId id, double value) {
       try {
         Packet packet = new Packet {
           Id = 3,

@@ -134,7 +134,7 @@ namespace RandoMainDLL {
             CallbackName = "lupo_upgrade_cost"
           },
           new Method() {
-            Delegate = new f_void_int_int_byte_float_float(UberStateController.OnUberStateChanged),
+            Delegate = new f_void_int_int_byte_double_double(UberStateController.OnUberStateChanged),
             CallbackName = "on_uber_state_applied"
           },
           new Method() {
@@ -179,7 +179,7 @@ namespace RandoMainDLL {
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
     public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
-    public delegate void f_void_int_int_byte_float_float(int i, int j, byte b, float f, float g);
+    public delegate void f_void_int_int_byte_double_double(int i, int j, byte b, double f, double g);
     public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate void f_void_str_dt([MarshalAs(UnmanagedType.LPStr)] string str, DamageType dt);
     public delegate void f_void_st(ShardType st);

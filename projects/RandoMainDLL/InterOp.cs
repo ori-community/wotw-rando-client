@@ -85,9 +85,9 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void refresh_uber_state(int group_id, int id);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_uber_state_value(int group, int state, float value);
+    public extern static void set_uber_state_value(int group, int state, double value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static float get_uber_state_value(int group, int state);
+    public extern static double get_uber_state_value(int group, int state);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     unsafe public extern static UberStateDef* get_uber_states(ref int size);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

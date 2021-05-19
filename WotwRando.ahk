@@ -113,21 +113,21 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     ; Check Java Installation and prompt if not found.
     javaTest := ComObjCreate("WScript.Shell").Exec("cmd.exe /c java -jar """ . INSTALL_DIR . "SeedGen.jar"" test").StdOut.ReadAll()
     If !InStr(javaTest, "tested") {
-        MsgBox, 4, Java not installed, Java was not found on your system, which is required to run the seedgen and generate your own seeds.`nGet it from: https://www.java.com/en/download/. `n`nOpen URL now?
+        MsgBox, 4, Java not found!, Java was not found on your system. Java 8 is required to run the seedgen and generate your own seeds.`nGet it from: https://www.java.com/en/download/. `n`nOpen URL now?
         IfMsgBox, Yes, {
             Run, https://www.java.com/en/download/
             MsgBox,, Java not installed, After the java install has finished, press OK to continue.
         }
     }
 
-    viruswarningmsg = 
-    (
-Due to the way the randomizer works, your virusscanner might see part of it as malware and will quarantine or remove it.
-This will prevent you from playing.
+;     viruswarningmsg = 
+;     (
+; Due to the way the randomizer works, your virusscanner might see part of it as malware and will quarantine or remove it.
+; This will prevent you from playing.
 
-Please add the Injector.exe file in your installation folder to the whitelist of your virusscanner before starting the randomizer.
-    )
-    MsgBox, 48 , Important warning! , %viruswarningmsg%
+; Please add the Injector.exe file in your installation folder to the whitelist of your virusscanner before starting the randomizer.
+;     )
+;     MsgBox, 48 , Important warning! , %viruswarningmsg%
 
     GoSub, PromptAfterInstall
 }
@@ -140,18 +140,10 @@ if(dev == "false")
 if(skipUpdate == "false")
     GoSub CheckForUpdates
 
-InjectorNotFoundMessage=
-(
-It looks like the file called 'Injector.exe' is no longer there. There is a good chance your virusscanner ate it.
-This file will now be created again, but to prevent further issues you should add an exception to your virusscanner for the file 'Injector.exe'
-
-Please do so now and restart the randomizer.
-)
 
 if not FileExist(INSTALL_DIR . "Injector.exe") {
-    MsgBox, 16, Injector.exe not found! , %InjectorNotFoundMessage%
+    MsgBox, 16, Injector.exe not found! ,"%INSTALL_DIR%Injector.exe" could not be found! This is most commonly caused by an antivirus.`nConsider adding an exception to your antivirus for Injector.exe
     FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe, 1
-    ExitApp
 }
 
 argc = %0%

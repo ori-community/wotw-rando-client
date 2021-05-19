@@ -9,7 +9,7 @@ fun coopStates() = (
                 tpIds.values + /*ksDoorIds.values +*/ safeMaxLevers + seedQuestStates + corruptedHeartIds.values +
                 questIds.values + pickupIds.values + unsortedCoop
         )
-
+fun multiStates() = (0..1500).map{UberId(12, it)}
 val tpIds = mapOf(
     "savePedestalMidnightBurrows" to UberId(24922, 42531),
     "savePedestalInkwaterMarsh" to UberId(21786, 10185),
@@ -661,6 +661,7 @@ val coopAggregation by lazy {
             sync(questIds.values),
             sync(pickupIds.values),
             sync(unsortedCoop),
+            sync(multiStates()),
             sync(37858, 8487).on(threshold = 5f), //Wellspring fight room
             sync(5377, 53480).on(threshold = 4f), // pools fight room 2
             sync(9593, 25130).on(threshold = 3f) // double jump lizard fight

@@ -179,11 +179,11 @@ namespace RandoMainDLL {
     public override int Frames { get => 0; }
     public int SupCount = 0;
 
-    Func<UberValue, float> Modifier;
+    Func<UberValue, double> Modifier;
 
     string ModStr;
 
-    public UberStateModifier(UberId id, Func<UberValue, float> modifier, String modstr, int supCount = 0) {
+    public UberStateModifier(UberId id, Func<UberValue, double> modifier, String modstr, int supCount = 0) {
       Id = id;
       SupCount = supCount;
       Modifier = modifier;
@@ -332,7 +332,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
-    public override bool Has() => states()[0].GetValue().AsFloat(states()[0].Type) != 0;
+    public override bool Has() => states()[0].GetValue().AsDouble(states()[0].Type) != 0;
 
     public static Dictionary<TeleporterType, List<UberState>> TeleporterStates = new Dictionary<TeleporterType, List<UberState>> {
       { TeleporterType.Burrows, new List<UberState> { UberStateDefaults.savePedestalMidnightBurrows} },
@@ -622,8 +622,8 @@ namespace RandoMainDLL {
   }
   public class ConditionalStop : SystemCommand {
     private readonly UberId targetState;
-    private readonly float targetValue;
-    public ConditionalStop(SysCommandType type, UberId s, float v) : base(type) {
+    private readonly double targetValue;
+    public ConditionalStop(SysCommandType type, UberId s, double v) : base(type) {
       targetState = s;
       targetValue = v;
     }
@@ -632,18 +632,18 @@ namespace RandoMainDLL {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.StopIfEqual:
-          Randomizer.Debug($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue}", false);
-          if (state.ValueAsFloat() == targetValue)
+          Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue}", false);
+          if (state.ValueAsDouble() == targetValue)
             return true;
           break;
         case SysCommandType.StopIfGreater:
-          Randomizer.Debug($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue}", false);
-          if (state.ValueAsFloat() > targetValue)
+          Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue}", false);
+          if (state.ValueAsDouble() > targetValue)
             return true;
           break;
         case SysCommandType.StopIfLess:
-          Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue}", false);
-          if (state.ValueAsFloat() < targetValue)
+          Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue}", false);
+          if (state.ValueAsDouble() < targetValue)
             return true;
           break;
       }
@@ -657,8 +657,8 @@ namespace RandoMainDLL {
   public class GrantIf : SystemCommand {
     private readonly Pickup pickup;
     private readonly UberId targetState;
-    private readonly float targetValue;
-    public GrantIf(SysCommandType command, UberId s, float v, Pickup p) : base(command) {
+    private readonly double targetValue;
+    public GrantIf(SysCommandType command, UberId s, double v, Pickup p) : base(command) {
       targetState = s;
       targetValue = v;
       pickup = p;
@@ -667,18 +667,18 @@ namespace RandoMainDLL {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.GrantIfEqual:
-          Randomizer.Debug($"{state.ValueAsFloat()} ?= {targetValue} -> {state.ValueAsFloat() == targetValue} => {pickup.Name}", false);
-      if (state.ValueAsFloat() == targetValue)
+          Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue} => {pickup.Name}", false);
+      if (state.ValueAsDouble() == targetValue)
         pickup.Grant(true);
       break;
         case SysCommandType.GrantIfGreater:
-          Randomizer.Debug($"{state.ValueAsFloat()} ?> {targetValue} -> {state.ValueAsFloat() > targetValue} => {pickup.Name}", false);
-      if (state.ValueAsFloat() > targetValue)
+          Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {pickup.Name}", false);
+      if (state.ValueAsDouble() > targetValue)
         pickup.Grant(true);
       break;
         case SysCommandType.GrantIfLess:
-          Randomizer.Debug($"{state.ValueAsFloat()} ?< {targetValue} -> {state.ValueAsFloat() < targetValue} => {pickup.Name}", false);
-      if (state.ValueAsFloat() < targetValue)
+          Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue} => {pickup.Name}", false);
+      if (state.ValueAsDouble() < targetValue)
         pickup.Grant(true);
       break;
     }

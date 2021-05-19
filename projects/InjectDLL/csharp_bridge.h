@@ -15,7 +15,7 @@ namespace csharp_bridge
         using f_void_int = void(*)(int);
         using f_void_int_int = void(*)(int, int);
         using f_void_ptr_int_int_int_int_int = void(*)(void*, int, int, int, int, int);
-        using f_void_int_int_byte_float_float = void(*)(int, int, uint8_t, float, float);
+        using f_void_int_int_byte_double_double = void(*)(int, int, uint8_t, double, double);
         using f_void_string = void(*)(const char*);
         using f_void_string_dt = void(*)(const char*, app::DamageType__Enum);
         using f_void_st = void(*)(ShardType);
@@ -72,7 +72,7 @@ namespace csharp_bridge
     extern signatures::f_int_int lupo_upgrade_cost;
     extern signatures::f_void update_shop_data;
 
-    extern signatures::f_void_int_int_byte_float_float on_uber_state_applied;
+    extern signatures::f_void_int_int_byte_double_double on_uber_state_applied;
 
     extern signatures::f_void_string on_teleporter_activated;
     extern signatures::f_bool_int_int_int filter_icon_show;
