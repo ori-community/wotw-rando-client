@@ -82,7 +82,9 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                         attrs {
                             onClickFunction = {
                                 GlobalScope.launch {
-                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games", body = GameProperties(isCoop = true))}"
+                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games", body = GameProperties(isCoop = true)){
+                                        contentType(ContentType.Application.Json)
+                                    }}"
                                 }
                             }
                         }
@@ -92,7 +94,9 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                         attrs {
                             onClickFunction = {
                                 GlobalScope.launch {
-                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games", body = GameProperties(isMulti = true))}"
+                                    document.location?.href = "/game/${Application.api.post<String>(path = "/games", body = GameProperties(isMulti = true)){
+                                        contentType(ContentType.Application.Json)
+                                    }}"
                                 }
                             }
                         }
