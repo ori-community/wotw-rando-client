@@ -11,7 +11,7 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   public enum PsuedoLocs {
     GAME_START = 0,
-    RELOAD_SEED = 1,
+    LOAD_SEED = 1,
     BINDING_ONE = 2,
     BINDING_TWO = 3,
     BINDING_THREE = 4,
@@ -153,13 +153,11 @@ namespace RandoMainDLL {
             // legacy shop cost support
             if (cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && cond.Id.ID < 10000 && frags.Count() > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
               ((AbilityType)cond.Id.ID).Slot().CostMultiplier = oMulti + 1; 
-              if(pickupType != PickupType.UberState)
-                frags.RemoveAt(frags.Count() - 1);
+              frags.RemoveAt(frags.Count() - 1);
             }
             if (cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && cond.Id.ID < 100 && frags.Count() > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
               ((ShardType)cond.Id.ID).Slot().CostMultiplier = tMulti + 1;
-              if (pickupType != PickupType.UberState)
-                frags.RemoveAt(frags.Count() - 1);
+              frags.RemoveAt(frags.Count() - 1);
             }
 
             var extras = frags.Skip(4).ToList();
@@ -388,7 +386,7 @@ namespace RandoMainDLL {
               continue;
             }
             else if(extra.StartsWith("p=")) {
-              if (float.TryParse(extra.Replace("p=", ""), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float p))
+              if (float.TryParse(extra.Replace("p=", ""), out float p))
                 pos = p;
               else 
                 Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
@@ -426,7 +424,7 @@ namespace RandoMainDLL {
                 continue;
               }
               else if (cmd.StartsWith("p=")) {
-                if (float.TryParse(cmd.Replace("p=", ""), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float p))
+                if (float.TryParse(cmd.Replace("p=", ""), out float p))
                   pos = p;
                 else
                   Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");

@@ -354,10 +354,11 @@ namespace RandoMainDLL {
           }
           InterOp.bind(slot, 1002);
         }
-        if (PsuedoLocs.GAME_START.Pickup().NonEmpty) {
+        if (PsuedoLocs.GAME_START.Pickup().NonEmpty || PsuedoLocs.LOAD_SEED.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback = () => {
             MapController.UpdateReachable(2000);
             PsuedoLocs.GAME_START.OnCollect();
+            PsuedoLocs.LOAD_SEED.OnCollect();
             InterOp.save();
           };
         }
