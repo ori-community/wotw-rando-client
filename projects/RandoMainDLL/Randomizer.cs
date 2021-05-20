@@ -82,7 +82,6 @@ namespace RandoMainDLL {
 
         AHK.Init();
         SeedController.ReadSeed(true);
-
         Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
         DiscordController.Initialize();
 
