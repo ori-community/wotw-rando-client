@@ -22,9 +22,13 @@ namespace RandoMainDLL {
     public static UberId IdFromMsg(this Network.UberId n) => new UberId(n.Group == -1 ? 0 : n.Group, n.State == -1 ? 0 : n.State);
     public static (UberId, double) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value == -1d ? 0d : n.Value);
 
-public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
+    public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
 
-  public static string FmtVal(this UberValue Value, UberStateType t) {
+    public static int MaxOrElse<TSource>(this IEnumerable<TSource> l, Func<TSource, int> selector, int def) => l.Count() > 0 ? l.Max(selector) : def;
+    public static T FirstOrElse<T>(this IEnumerable<T> l, T def) => l.Count() > 0 ? l.First() : def;
+    public static T FirstOrElse<T>(this IEnumerable<T> l, Func<T, bool> selector, T def) => l.Count() > 0 ? l.First(selector) : def;
+
+    public static string FmtVal(this UberValue Value, UberStateType t) {
       switch (t) {
         case UberStateType.SavePedestalUberState:
         case UberStateType.SerializedBooleanUberState:
