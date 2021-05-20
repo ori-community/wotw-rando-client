@@ -353,6 +353,7 @@ fn write_seeds_to_files(seeds: &[String], filename: Option<PathBuf>, players: &[
         }
         filename.set_extension("wotwr");
 
+        // TODO would be nicer to have the number first and then the player?
         let file = util::create_file(&filename, seed, "seeds", true)?;
 
         log::info!("Wrote seed for {} to {}", player, file.display());

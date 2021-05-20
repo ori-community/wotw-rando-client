@@ -107,6 +107,7 @@ where D: fmt::Debug
             indices.push(index);
         }
     }
+    indices.reverse();
     for index in indices {
         debug.insert(index, ' ');
     }

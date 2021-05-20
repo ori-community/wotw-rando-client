@@ -302,34 +302,35 @@ where
 }
 
 #[inline]
-fn random_placement<'a, R, I>(target_world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+fn random_placement<'a, R, I>(origin_world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
 {
-    let world_context = &mut world_contexts[target_world_index];
+    let origin_world_context = &mut world_contexts[origin_world_index];
 
     // force a couple placeholders at the start
-    if world_context.placeholders.len() < 4 {
-        log::trace!("({}): Reserving {} as forced placeholder", world_context.player_name, node);
+    if origin_world_context.placeholders.len() < 4 {
+        log::trace!("({}): Reserving {} as forced placeholder", origin_world_context.player_name, node);
 
-        world_context.placeholders.push(node);
+        origin_world_context.placeholders.push(node);
     } else {
-        match world_context.world.pool.choose_random(context.rng) {
+        match origin_world_context.world.pool.choose_random(context.rng) {
             PartialItem::Placeholder => {
-                log::trace!("({}): Reserving {} as placeholder", world_context.player_name, node);
+                log::trace!("({}): Reserving {} as placeholder", origin_world_context.player_name, node);
 
-                world_context.placeholders.push(node)
+                origin_world_context.placeholders.push(node)
             },
             PartialItem::Item(item) => {
-                let origin_world_index = if item.is_multiworld_spread() {
+                let target_world_index = if item.is_multiworld_spread() {
                     context.rng.gen_range(0..context.world_count)
                 } else {
-                    target_world_index
+                    origin_world_index
                 };
+                let target_world_context = &mut world_contexts[target_world_index];
 
-                world_context.world.pool.remove(&item, 1);
-                world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", world_context.player_name, err));
+                target_world_context.world.pool.remove(&item, 1);
+                target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
                 place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
             },
         }
@@ -797,9 +798,9 @@ where
             let placement_count: usize = needs_placement.iter().map(|world_needs_placement| world_needs_placement.len()).sum();
             log::trace!("Placing {} items randomly, reserved {} for the next placement group", placement_count, reserved);
 
-            for world_index in 0..context.world_count {
-                for &node in &needs_placement[world_index] {
-                    random_placement(world_index, node, &mut world_contexts, &mut context)?;
+            for origin_world_index in 0..context.world_count {
+                for &node in &needs_placement[origin_world_index] {
+                    random_placement(origin_world_index, node, &mut world_contexts, &mut context)?;
                 }
             }
         }

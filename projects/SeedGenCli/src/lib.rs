@@ -276,9 +276,9 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
                     }
                 );
 
-                util::add_trailing_spaces(&mut placement_line, 42);
+                util::add_trailing_spaces(&mut placement_line, 46);
                 let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", placement.item));
-                let item = util::with_leading_spaces(&item, 30);
+                let item = util::with_leading_spaces(&item, 36);
 
                 placement_line += &format!("  // {} from {}", item, location);
             }
