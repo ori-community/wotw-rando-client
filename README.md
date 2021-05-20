@@ -1,5 +1,9 @@
 # OriWotwRandomizerClient
- game client repo for the ori wotw randomizer
+repo for the ori wotw randomizer
+
+## Discord links:
+orirando.com/discord for the main ori speedrunning discord
+https://discord.gg/Ahwh4Na for the development discord
 
 ## Dev instructions
 First you will have to generate the solution file, for this you will need cmake version 3.17 or higher
