@@ -187,7 +187,7 @@ namespace RandoMainDLL {
             Randomizer.Client.Connect();
             SeedController.ReadSeed();
             if (InterOp.get_game_state() == GameState.Game)
-              PsuedoLocs.RELOAD_SEED.OnCollect();
+              PsuedoLocs.LOAD_SEED.OnCollect();
             FramesTillUnlockReload = 120;
           }
           break;

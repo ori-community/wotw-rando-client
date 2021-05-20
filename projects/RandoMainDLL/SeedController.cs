@@ -11,7 +11,7 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   public enum PsuedoLocs {
     GAME_START = 0,
-    RELOAD_SEED = 1,
+    LOAD_SEED = 1,
     BINDING_ONE = 2,
     BINDING_TWO = 3,
     BINDING_THREE = 4,
