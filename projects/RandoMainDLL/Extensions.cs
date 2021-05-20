@@ -26,7 +26,7 @@ namespace RandoMainDLL {
 
     public static int MaxOrElse<TSource>(this IEnumerable<TSource> l, Func<TSource, int> selector, int def) => l.Count() > 0 ? l.Max(selector) : def;
     public static T FirstOrElse<T>(this IEnumerable<T> l, T def) => l.Count() > 0 ? l.First() : def;
-    public static T FirstOrElse<T>(this IEnumerable<T> l, Func<T, bool> selector, T def) => l.Count() > 0 ? l.First(selector) : def;
+    public static T FirstOrElse<T>(this IEnumerable<T> l, Func<T, bool> selector, T def) => l.Where(selector).FirstOrElse(def);
 
     public static string FmtVal(this UberValue Value, UberStateType t) {
       switch (t) {
