@@ -234,10 +234,8 @@ namespace RandoMainDLL {
           found = SeedController.OnUberState(state);
         }
 
-        if (SyncedUberStates.Contains(key)) {
-          Randomizer.Debug($"{key}, {state.ValueAsDouble()}");
+        if (SyncedUberStates.Contains(key)) 
           Randomizer.Client.SendUpdate(key, state.ValueAsDouble());
-        }
 
         BonusItemController.OnUberState(state);
         var zone = ZoneType.Void;
