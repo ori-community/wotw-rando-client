@@ -7322,11 +7322,6 @@ anchor UpperWastes.KeystoneRoom at 1900, -3831:  # Autosave underneath keystone 
 anchor UpperWastes.MissilePuzzleLeft at 1937, -3794:  # Immediately to the right of the sand after the keystone door
   refill Checkpoint
 
-  state UpperWastes.LeverDoor:
-    moki: Burrow, Bash
-    gorlek: Burrow, Damage=14  # take the hit
-    unsafe: Burrow, Dash OR Launch  # Dash/Launch to avoid the explosion.
-
   pickup UpperWastes.LedgeEC:
     moki:
       Burrow, Bash, DoubleJump OR Dash
@@ -7340,25 +7335,37 @@ anchor UpperWastes.MissilePuzzleLeft at 1937, -3794:  # Immediately to the right
       SentryJump=1
   pickup UpperWastes.MissileSpawnEX:
     moki: Burrow
-  pickup UpperWastes.PurpleWallEX:
-    moki: Combat=MaceMiner, Burrow
-    unsafe: Burrow  # hug the right wall before impact
   pickup UpperWastes.KSDoorEX:
     moki: UpperWastes.KeystoneDoor, Burrow
 
   conn UpperWastes.KeystoneRoom:
     moki: UpperWastes.KeystoneDoor, Burrow
+  conn UpperWastes.MissilePuzzleMiddle:
+    moki: Burrow
+
+anchor UpperWastes.MissilePuzzleMiddle at 2005, -3802:  # On top of the sand beneath the lever
+  refill Checkpoint:
+    gorlek: Burrow, Bash OR Damage=14
+    unsafe: Burrow, Dash OR Launch
+
+  state UpperWastes.LeverDoor:
+    moki: Burrow, Bash
+    gorlek: Burrow, Damage=14  # take the hit
+    unsafe: Burrow, Dash OR Launch  # Dash/Launch to avoid the explosion.
+
+  pickup UpperWastes.PurpleWallEX:
+    moki: Combat=MaceMiner, Burrow
+    unsafe: Burrow  # hug the right wall before impact
+
+  conn UpperWastes.MissilePuzzleLeft:  # for better random spawn
+    gorlek: Burrow, Bash
+    unsafe: Burrow, Damage=14
   conn UpperWastes.MissilePuzzleRight:
     moki: UpperWastes.LeverDoor, Burrow
-
-# checkpoint at 2016, -3790
 
 anchor UpperWastes.MissilePuzzleRight at 2058, -3813:  # On top of sand to the right of lever gate, underneath a laser.
   pickup UpperWastes.PurpleWallHC:
     moki: Burrow
-  pickup UpperWastes.PurpleWallEX:  # for better random spawn
-    moki: Combat=MaceMiner, Burrow
-    unsafe: Burrow  # hug the right wall before impact
 
   conn UpperWastes.RuinsApproach:  # this covers all connections to the pickups in the spinning lasers.
     moki:
@@ -7370,9 +7377,8 @@ anchor UpperWastes.MissilePuzzleRight at 2058, -3813:  # On top of sand to the r
       Burrow, Glide, DoubleJump OR Bash OR SentryJump=1 OR Damage=30  # same as above
       Burrow, DoubleJump, TripleJump OR Dash OR Glide
     unsafe: Burrow
-  conn UpperWastes.MissilePuzzleLeft:  # for better random spawn
-    gorlek: UpperWastes.LeverDoor, Burrow, Bash
-    unsafe: UpperWastes.LeverDoor, Burrow, Damage=14
+  conn UpperWastes.MissilePuzzleMiddle:  # for better random spawn
+    moki: UpperWastes.LeverDoor, Burrow
 
 # checkpoint at 2037, -3751
 

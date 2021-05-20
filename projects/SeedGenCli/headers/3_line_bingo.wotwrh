@@ -3,6 +3,7 @@
 /// prints updates on line completion; sets the "game complete" state once 3 lines have been achieved
 /// (remember to enable netcode in options when rolling the seed)
 
-10|1|6|$(10|1) line(s) completed!               // announce line completion
-10|1|4|18|10|1|2|8|34543|11226|bool|true        // set game complete uberstate
-10|1|4|18|10|1|2|6|Bingo goal achieved! GGWP    // announce victory
+10|1|6|$(10|1) line(s) completed!                               // announce line completion
+10|1|4|18|10|1|2|8|9|104|bool|true
+9|104|8|34543|11226|bool|true                                   // set game complete uberstate
+9|104|6|Bingo goal achieved! Press alt+c to warp to credits     // announce victory
