@@ -7,7 +7,7 @@ namespace
 {
     int extra_jumps = 0;
     IL2CPP_INTERCEPT(, SeinDoubleJump, int32_t, get_ExtraJumpsAvailable, (app::SeinDoubleJump* this_ptr)) {
-        return uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 35) + get_ExtraJumpsAvailable(this_ptr);
+        return static_cast<int>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 35)) + get_ExtraJumpsAvailable(this_ptr);
     }
 
     int extra_dashes = 0;
@@ -24,7 +24,7 @@ namespace
         if (this_ptr->fields.m_allowDash)
             dashes_used = 0;
         else
-            this_ptr->fields.m_allowDash = dashes_used <= uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 36);
+            this_ptr->fields.m_allowDash = dashes_used <= static_cast<int>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 36));
     }
 
     IL2CPP_INTERCEPT(, SeinDashNew, void, OnResetAirLimits, (app::SeinDashNew* this_ptr)) {
@@ -42,14 +42,4 @@ namespace
         ResetMovementAbilities(this_ptr);
         dashes_used = 0;
     }
-}
-
-INJECT_C_DLLEXPORT void set_extra_jumps(int value)
-{
-    extra_jumps = value;
-}
-
-INJECT_C_DLLEXPORT void set_extra_dashes(int value)
-{
-    extra_dashes = value;
 }
