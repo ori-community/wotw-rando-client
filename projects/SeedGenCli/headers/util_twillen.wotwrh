@@ -10,11 +10,10 @@
 2|19|2|23           //  Water Breath from TwillenShop.LightHarvest
 2|5|3|36            //  Catalyst from TwillenShop.Swap
 
-3|0|8|9|0|int|6   // Set prices on spawn
-3|1|8|9|0|int|6   // Set prices on load
-9|0=6|8|2|122|int|100
-9|0=6|8|2|140|int|200
-9|0=6|8|2|126|int|300
-9|0=6|8|2|101|int|300
-9|0=6|8|2|119|int|375
-9|0=6|8|2|105|int|400
+// Set prices on load
+3|1|8|2|122|int|100
+3|1|8|2|140|int|200
+3|1|8|2|126|int|300
+3|1|8|2|101|int|300
+3|1|8|2|119|int|375
+3|1|8|2|105|int|400

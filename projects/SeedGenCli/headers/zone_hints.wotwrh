@@ -12,8 +12,6 @@
 48248|29604|12|6            // Reach Zone Hint from LupoMap.Reach
 48248|4045|12|11            // Willow Zone Hint from LupoMap.Willow
 48248|19396|12|2            // Glades Zone Hint from LupoMap.HCMapIcons
-3|0|8|48248|19397|int|200   // Price on spawn
 3|1|8|48248|19397|int|200   // Price on load
 48248|57987|12|7            // Woods Zone Hint from LupoShop.ECMapIcons
-3|0|8|48248|57988|int|200   // Price on spawn
 3|1|8|48248|57988|int|200   // Price on load

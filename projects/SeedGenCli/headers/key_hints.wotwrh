@@ -7,7 +7,6 @@
 !!include header_core
 
 48248|41666|13|4000,750,2-101,2-104,2-51,2-62       // key skill hint from LupoHint.Shards
-3|0|8|9|0|int|30                                    // set price on spawn
 3|1|8|9|0|int|30                                    // set price on load
 6|1101|8|9|0|int|30                                 // set price on Burrow find
 6|1104|8|9|0|int|30                                 // set price on Water Dash find
@@ -21,7 +20,6 @@
 9|0=30|4|17|48248|41667|1000|8|48248|41667|int|0    // set price to zero with nothing left to hint
 
 1|23|13|2500,500,9-0,2-118,2-14                     // key skill hint from OpherShop.WaterBreath
-3|0|8|9|0|int|31                                    // set price on spawn
 3|1|8|9|0|int|31                                    // set price on load
 6|2000|8|9|0|int|31                                 // set price on Clean Water find
 6|1118|8|9|0|int|31                                 // set price on Flap find
@@ -33,7 +31,6 @@
 9|0=31|4|17|1|10023|1000|8|1|10023|int|0            // set price to zero with nothing left to hint
 
 2|2|13|1500,500,2-97,2-0                            // key skill hint from TwillenShop.TripleJump
-3|0|8|9|0|int|32                                    // set price on spawn
 3|1|8|9|0|int|32                                    // set price on load
 6|1000|8|9|0|int|32                                 // set price on Bash find
 6|1097|8|9|0|int|32                                 // set price on Bow find
