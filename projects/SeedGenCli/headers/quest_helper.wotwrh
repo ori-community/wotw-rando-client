@@ -1,8 +1,9 @@
 /// Quest Helper
 ///
 /// Adds a dialogue when you press Ctrl+Alt+1 about which quests you still need to do
+!!include header_core
 
-3|2|6|Quest objectives:|instant|p=1
+3|2|6|instant|p=2
 3|2|4|17|937|34641|0|6|#Silent Teeth# - Meet Kwolok
 3|2|4|17|937|34641|1|6|#Silent Teeth# - Restart the Mill
 3|2|4|17|937|34641|2|6|#Silent Teeth# - Search the Mill
@@ -41,51 +42,47 @@
 3|2|4|17|14019|15983|1|6|#Little Braver# - Find a Howl fang near where you fought Howl
 3|2|4|17|14019|15983|2|6|#Little Braver# - Give the Howl fang to Mokk the Brave
 3|2|4|17|14019|15983|3|6|#Little Braver# - $Complete$
-3|2|4|17|14019|27804|0|6|#Family Reunion# - Meet a father Moki in the Wellspring Glades
-3|2|4|17|14019|27804|1|6|#Family Reunion# - Talk to Grom about building a home
-3|2|4|17|14019|27804|2|6|#Family Reunion# - Find the Moki family near the Silent Woods
-3|2|4|17|14019|27804|3|6|#Family Reunion# - Return to the Moki father with the bad news
-3|2|4|17|14019|27804|4|6|#Family Reunion# - @Complete@
-3|2|4|17|14019|59708|0|6|#Tree Keeper# - Meet the Tree Keeper in the Silent Woods
-3|2|4|17|14019|59708|1|6|#Tree Keeper# - Find someone who knows a lot about plants
-3|2|4|17|14019|59708|2|6|#Tree Keeper# - Bring the Tree Keeper the bad news
-3|2|4|17|14019|59708|3|6|#Tree Keeper# - $Complete$
-3|2|4|17|14019|61011|0|6|#Rough Diamond# - Explore the Windswept Wastes near the Shovel
-3|2|4|17|14019|61011|1|6|#Rough Diamond# - Explore the Windswept Wastes near the Shovel
-3|2|4|17|14019|61011|2|6|#Rough Diamond# - Find a use for the metal cog
-3|2|4|17|14019|61011|3|6|#Rough Diamond# - Go treasure hunting in the Gorlek Mines
-3|2|4|17|14019|61011|4|6|#Rough Diamond# - Take the eerie gem to a specialist (Twillen)
-3|2|4|17|14019|61011|5|6|#Rough Diamond# - $Complete$
-3|2|4|17|14019|26318|0|6|#Hand to Hand# - Meet a Moki near where you fought 
-3|2|4|17|14019|26318|1|6|#Hand to Hand# - Find a wanderer with an interest in maps (Tokk)
-3|2|4|17|14019|26318|2|6|#Hand to Hand# - Find an aspiring adventurer who might need a small bag (Moki in Wellspring)
-3|2|4|17|14019|26318|3|6|#Hand to Hand# - Find someone who might have a use for herbs (Veral in Glades)
-3|2|4|17|14019|26318|4|6|#Hand to Hand# - Find someone in need of a warm meal (Moki in Reach)
-3|2|4|17|14019|26318|5|6|#Hand to Hand# - Find someone who needs a hat (Moki in Glades)
-3|2|4|17|14019|26318|6|6|#Hand to Hand# - Find someone in need of light (Moki in Depths)
-3|2|4|17|14019|26318|7|6|#Hand to Hand# - Find someone who needs string (Moki in Pools)
-3|2|4|17|14019|26318|8|6|#Hand to Hand# - Find someone who needs a spyglass (Motay in Glades)
-3|2|4|17|14019|26318|9|6|#Hand to Hand# - Find someone in need of drinking water (Gorlek Miner in Wastes)
-3|2|4|17|14019|26318|10|6|#Hand to Hand# - Find the ancient Map Stone
-3|2|4|17|14019|26318|11|6|#Hand to Hand# - $Complete$
-3|2|4|17|14019|33776|0|6|#Into Darkness# - Meet the Moki in front of a cave in Glades
-3|2|4|17|14019|33776|1|6|#Into Darkness# - Find a way into the Cave to retrieve the Moki's keepsake
-3|2|4|17|14019|33776|2|6|#Into Darkness# - Return the acorn to the Moki
-3|2|4|17|14019|33776|3|6|#Into Darkness# - $Complete$
-3|2|4|17|14019|50597|0|6|#Kwolok's Wisdom# - Meet a Moki in Luma Pools
-3|2|4|17|14019|50597|1|6|#Kwolok's Wisdom# - Find Kwolok and report back
-3|2|4|17|14019|50597|2|6|#Kwolok's Wisdom# - Give the Amulet to Kwolok
-3|2|4|17|14019|50597|3|6|#Kwolok's Wisdom# - Take the Amulet to Kwolok's Altar
-3|2|4|17|14019|50597|4|6|#Kwolok's Wisdom# - $Complete$
-3|2|4|17|14019|24683|0|6|#Silent Map# - Meet Lupo in Glades
-3|2|4|17|14019|24683|1|6|#Silent Map# - Explore the Silent Woods and bring anything of interest to Lupo
-3|2|4|17|14019|24683|2|6|#Silent Map# - Explore the Silent Woods more and bring anything of interest to Lupo
-3|2|4|17|14019|24683|3|6|#Silent Map# - Explore the Silent Woods more and bring anything of interest to Lupo
-3|2|4|17|14019|24683|4|6|#Silent Map# - Explore the Silent Woods more and bring anything of interest to Lupo
-3|2|4|17|14019|24683|5|6|#Silent Map# - $Complete$
-3|2|4|17|14019|44578|0|6|#Rebuilding the Glades# - Help Grom rebuild the Wellspring Glades
-3|2|4|17|14019|44578|1|6|#Rebuilding the Glades# - Help Grom rebuild the Wellspring Glades
-3|2|4|17|14019|44578|2|6|#Rebuilding the Glades# - $Complete$
-3|2|4|17|14019|26394|0|6|#Regrowing the Glades# - Help Tuley regrow the flora of the Wellspring Glades
-3|2|4|17|14019|26394|1|6|#Regrowing the Glades# - Help Tuley regrow the flora of the Wellspring Glades
-3|2|4|17|14019|26394|2|6|#Regrowing the Glades# - $Complete$
+3|2|8|9|0|int|9
+9|0=9|6|instant|p=-1.45
+9|0=9|4|17|14019|27804|0|6|#Family Reunion# - Meet a father Moki in the Wellspring Glades
+9|0=9|4|17|14019|27804|1|6|#Family Reunion# - Talk to Grom about building a home
+9|0=9|4|17|14019|27804|2|6|#Family Reunion# - Find the Moki family near the Silent Woods
+9|0=9|4|17|14019|27804|3|6|#Family Reunion# - Return to the Moki father with the bad news
+9|0=9|4|17|14019|27804|4|6|#Family Reunion# - @Complete@
+9|0=9|4|17|14019|59708|0|6|#Tree Keeper# - Meet the Tree Keeper in the Silent Woods
+9|0=9|4|17|14019|59708|1|6|#Tree Keeper# - Find someone who knows a lot about plants
+9|0=9|4|17|14019|59708|2|6|#Tree Keeper# - Bring the Tree Keeper the bad news
+9|0=9|4|17|14019|59708|3|6|#Tree Keeper# - $Complete$
+9|0=9|4|17|14019|61011|0|6|#Rough Diamond# - Explore the Windswept Wastes near the Shovel
+9|0=9|4|17|14019|61011|1|6|#Rough Diamond# - Explore the Windswept Wastes near the Shovel
+9|0=9|4|17|14019|61011|2|6|#Rough Diamond# - Find a use for the metal cog
+9|0=9|4|17|14019|61011|3|6|#Rough Diamond# - Go treasure hunting in the Gorlek Mines
+9|0=9|4|17|14019|61011|4|6|#Rough Diamond# - Take the eerie gem to a specialist (Twillen)
+9|0=9|4|17|14019|61011|5|6|#Rough Diamond# - $Complete$
+9|0=9|4|17|14019|26318|0|6|#Hand to Hand# - Meet a Moki near where you fought Hornbeetle
+9|0=9|4|17|14019|26318|1|6|#Hand to Hand# - Find a wanderer with an interest in maps (Tokk)
+9|0=9|4|17|14019|26318|2|6|#Hand to Hand# - Find an aspiring adventurer who might need a small bag (Moki in Wellspring)
+9|0=9|4|17|14019|26318|3|6|#Hand to Hand# - Find someone who might have a use for herbs (Veral in Glades)
+9|0=9|4|17|14019|26318|4|6|#Hand to Hand# - Find someone in need of a warm meal (Moki in Reach)
+9|0=9|4|17|14019|26318|5|6|#Hand to Hand# - Find someone who needs a hat (Moki in Glades)
+9|0=9|4|17|14019|26318|6|6|#Hand to Hand# - Find someone in need of light (Moki in Depths)
+9|0=9|4|17|14019|26318|7|6|#Hand to Hand# - Find someone who needs string (Moki in Pools)
+9|0=9|4|17|14019|26318|8|6|#Hand to Hand# - Find someone who needs a spyglass (Motay in Glades)
+9|0=9|4|17|14019|26318|9|6|#Hand to Hand# - Find someone in need of drinking water (Gorlek Miner in Wastes)
+9|0=9|4|17|14019|26318|10|6|#Hand to Hand# - Find the ancient Map Stone
+9|0=9|4|17|14019|26318|11|6|#Hand to Hand# - $Complete$
+9|0=9|4|17|14019|33776|0|6|#Into Darkness# - Meet the Moki in front of a cave in Glades
+9|0=9|4|17|14019|33776|1|6|#Into Darkness# - Find a way into the Cave to retrieve the Moki's keepsake
+9|0=9|4|17|14019|33776|2|6|#Into Darkness# - Return the acorn to the Moki
+9|0=9|4|17|14019|33776|3|6|#Into Darkness# - $Complete$
+9|0=9|4|17|14019|50597|0|6|#Kwolok's Wisdom# - Meet a Moki in Luma Pools
+9|0=9|4|17|14019|50597|1|6|#Kwolok's Wisdom# - Find Kwolok and report back
+9|0=9|4|17|14019|50597|2|6|#Kwolok's Wisdom# - Give the Amulet to Kwolok
+9|0=9|4|17|14019|50597|3|6|#Kwolok's Wisdom# - Take the Amulet to Kwolok's Altar
+9|0=9|4|17|14019|50597|4|6|#Kwolok's Wisdom# - $Complete$
+9|0=9|4|17|14019|44578|0|6|#Rebuilding the Glades# - Help Grom rebuild the Wellspring Glades
+9|0=9|4|17|14019|44578|1|6|#Rebuilding the Glades# - Help Grom rebuild the Wellspring Glades
+9|0=9|4|17|14019|44578|2|6|#Rebuilding the Glades# - $Complete$
+9|0=9|4|17|14019|26394|0|6|#Regrowing the Glades# - Help Tuley regrow the flora of the Wellspring Glades
+9|0=9|4|17|14019|26394|1|6|#Regrowing the Glades# - Help Tuley regrow the flora of the Wellspring Glades
+9|0=9|4|17|14019|26394|2|6|#Regrowing the Glades# - $Complete$

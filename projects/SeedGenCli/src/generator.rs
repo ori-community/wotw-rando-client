@@ -189,14 +189,14 @@ where
         }).collect::<Vec<_>>();
 
     for &zone in RELIC_ZONES {
-        for world_index in 0..context.world_count {
+        for target_world_index in 0..context.world_count {
             if context.rng.gen_bool(0.8) {
-                log::trace!("({}): Placing Relic in {}", world_contexts[world_index].player_name, zone);
+                log::trace!("({}): Placing Relic in {}", world_contexts[target_world_index].player_name, zone);
 
-                let target_world_index = context.rng.gen_range(0..context.world_count);
+                let origin_world_index = context.rng.gen_range(0..context.world_count);
 
-                if let Some(&(_, location)) = relic_locations[world_index].iter().find(|&&(location_zone, _)| location_zone == zone) {
-                    place_item(world_index, target_world_index, location, false, Item::BonusItem(BonusItem::Relic), world_contexts, context)?;
+                if let Some(&(_, location)) = relic_locations[origin_world_index].iter().find(|&&(location_zone, _)| location_zone == zone) {
+                    place_item(origin_world_index, target_world_index, location, false, Item::BonusItem(BonusItem::Relic), world_contexts, context)?;
                 }
             }
         }
@@ -213,13 +213,13 @@ where
 {
     let mut missing_keystones = 0;
 
-    for world_index in 0..context.world_count {
-        let world_context = &mut world_contexts[world_index];
+    for target_world_index in 0..context.world_count {
+        let world_context = &mut world_contexts[target_world_index];
 
         let placed_keystones = world_context.world.player.inventory.get(&Item::Resource(Resource::Keystone));
         if placed_keystones < 2 { return Ok(()); }
 
-        let required_keystones: u16 = reachable_states[world_index].iter()
+        let required_keystones: u16 = reachable_states[target_world_index].iter()
             .filter_map(|&node| {
                 if let Some((_, keystones)) = KEYSTONE_DOORS.iter().find(|&&(identifier, _)| identifier == node.identifier()) {
                     return Some(*keystones);
@@ -231,10 +231,10 @@ where
 
         missing_keystones += required_keystones - placed_keystones;
 
-        log::trace!("({}): Force placing {} keystones to avoid keylocks", world_contexts[world_index].player_name, missing_keystones);
+        log::trace!("({}): Force placing {} keystones to avoid keylocks", world_context.player_name, missing_keystones);
 
         for _ in 0..missing_keystones {
-            forced_placement(world_index, Item::Resource(Resource::Keystone), reserved_slots, world_contexts, context)?;
+            forced_placement(target_world_index, Item::Resource(Resource::Keystone), reserved_slots, world_contexts, context)?;
         }
     }
 
@@ -385,7 +385,9 @@ where
     let mut shop_placeholders = vec![Vec::new(); context.world_count];
 
     for world_index in 0..context.world_count {
-        world_contexts[world_index].placeholders.retain(|&node| {
+        let world_context = &mut world_contexts[world_index];
+
+        world_context.placeholders.retain(|&node| {
             if node.uber_state().unwrap().is_shop() {
                 shop_placeholders[world_index].push(node);
                 false
@@ -393,8 +395,8 @@ where
         });
 
         shop_placeholders[world_index].shuffle(context.rng);
-        world_contexts[world_index].placeholders.shuffle(context.rng);
-        world_contexts[world_index].unreachable_locations.shuffle(context.rng);
+        world_context.placeholders.shuffle(context.rng);
+        world_context.unreachable_locations.shuffle(context.rng);
     }
 
     for target_world_index in 0..context.world_count {

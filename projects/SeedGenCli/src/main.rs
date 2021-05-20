@@ -371,6 +371,7 @@ fn write_seeds_to_stdout(seeds: Vec<String>) {
     println!("{}", seeds.join("\n======= END SEED ========\n"));
 }
 
+// TODO launch the seed not the rando?
 fn play_last_seed() -> Result<(), String> {
     let last_seed = fs::read_to_string(".currentseedpath").map_err(|err| format!("Failed to read last generated seed from .currentseedpath: {}", err))?;
     log::info!("Launching seed {}", last_seed);
