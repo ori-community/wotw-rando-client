@@ -659,7 +659,7 @@ namespace RandoMainDLL {
     }
     public override void Grant(bool skipBase = false) {
       if (IsCondMet())
-        Pickup.Grant(true);
+        Pickup.Grant(skipBase);
     }
     public override string Name { get => type.ToString(); }
     public override string DisplayName => IsCondMet() ? Pickup.DisplayName : "";
