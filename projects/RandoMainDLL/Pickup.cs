@@ -231,17 +231,18 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
-      List<string> lines = new List<string>();
       bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+      _lastDispName = "";
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
         child.Grant(true);
         if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
           continue;
-        lines.Add(child.DisplayName);
+        _lastDispName += child.DisplayName + (child.DisplayName.EndsWith("</>") ? "" : "/n");
+
       }
-      _lastDispName = string.Join("\n", lines);
+      _lastDispName = _lastDispName.TrimEnd('\n');
       base.Grant(false);
     }
 
