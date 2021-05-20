@@ -201,10 +201,9 @@ public void SendUpdate(Memory.UberId id, double value) {
             break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
-            foreach (var state in init.UberId) {
-//            Randomizer.Log(state.ToString(), false);
+            UberStateController.SyncedUberStates.Clear();
+            foreach (var state in init.UberId) 
               UberStateRegistered(state.IdFromMsg());
-            }
             break;
           case 3:
             try {
