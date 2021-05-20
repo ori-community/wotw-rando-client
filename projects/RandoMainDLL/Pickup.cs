@@ -205,48 +205,25 @@ namespace RandoMainDLL {
       Children = children;
       NonEmpty = children.Count > 0;
     }
+    private List<Pickup> messages => Children.SelectMany(p => {
+      switch(p.Type) {
+        case PickupType.Message:
+          return new List<Pickup>() { p };
+        case PickupType.SystemCommand:
+          var sc = p as SystemCommand;
+          if (p is GrantIf g && g.IsCondMet() && g.Pickup is Message m) return new List<Pickup>() { m };
+          return new List<Pickup>();
+        default:
+          return new List<Pickup>();
+      }
+    }).ToList();
 
-    public override int Frames {
-      get {
-        if (!NonEmpty)
-          return base.Frames;
-        var msgs = Children.Where(p => p is Message msg).ToList();
-        return (msgs.Count > 0 ? msgs : Children).Max(p => p.Frames);
-      }
-    }
-    public override bool Clear {
-      get {
-        if (!NonEmpty)
-          return base.Clear;
-        var msgs = Children.Where(p => p is Message msg).ToList();
-        return msgs.Exists(p => p.Clear);
-      }
-    }
-    public override bool Immediate {
-      get {
-        if (!NonEmpty)
-          return base.Immediate;
-        var msgs = Children.Where(p => p is Message msg).ToList();
-        return msgs.Exists(p => p.Immediate);
-      }
-    }
-    public override bool Quiet {
-      get {
-        if (!NonEmpty)
-          return base.Quiet;
-        var msgs = Children.Where(p => p is Message msg).ToList();
-        return msgs.Exists(p => p.Quiet);
-      }
-    }
-    public override float? Pos {
-      get {
-        if (!NonEmpty)
-          return base.Pos;
-        var msgs = Children.Where(p => p is Message msg).ToList();
-        return (msgs.Count > 0 ? msgs : Children).Max(p => p.Pos);
-      }
-    }
-
+    public override int Frames => messages.MaxOrElse(p => p.Frames, base.Frames);     // highest frame count of any message
+    public override float? Pos => messages.Select(p => p.Pos).FirstOrElse(pos => pos != base.Pos, base.Pos); // use the first non-default position
+    // these are true if they're true for any message
+    public override bool Clear => NonEmpty ? messages.Exists(p => p.Clear) : base.Clear;
+    public override bool Immediate => NonEmpty ? messages.Exists(p => p.Immediate) : base.Immediate;
+    public override bool Quiet => NonEmpty ? messages.Exists(p => p.Quiet) : base.Quiet;
     public static Multi Empty => new Multi(new List<Pickup>());
 
     public List<Pickup> Children;
@@ -655,36 +632,42 @@ namespace RandoMainDLL {
     }
   }
   public class GrantIf : SystemCommand {
-    private readonly Pickup pickup;
+    public readonly Pickup Pickup;
     private readonly UberId targetState;
     private readonly double targetValue;
     public GrantIf(SysCommandType command, UberId s, double v, Pickup p) : base(command) {
       targetState = s;
       targetValue = v;
-      pickup = p;
+      Pickup = p;
     }
-    public override void Grant(bool skipBase = false) {
+    public bool IsCondMet() {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.GrantIfEqual:
-          Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue} => {pickup.Name}", false);
-      if (state.ValueAsDouble() == targetValue)
-        pickup.Grant(true);
-      break;
+          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);
+          return state.ValueAsDouble() == targetValue;
         case SysCommandType.GrantIfGreater:
-          Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {pickup.Name}", false);
-      if (state.ValueAsDouble() > targetValue)
-        pickup.Grant(true);
-      break;
+          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);
+          return state.ValueAsDouble() > targetValue;
         case SysCommandType.GrantIfLess:
-          Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue} => {pickup.Name}", false);
-      if (state.ValueAsDouble() < targetValue)
-        pickup.Grant(true);
-      break;
+          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue} => {Pickup.Name}", false);
+          return state.ValueAsDouble() < targetValue;
+        default:
+          Randomizer.Error("IsCondMet", "this should literally never happen");
+          return false;
+      }
     }
-  }
+    public override void Grant(bool skipBase = false) {
+      if (IsCondMet())
+        Pickup.Grant(true);
+    }
     public override string Name { get => type.ToString(); }
-    public override string DisplayName { get => ""; }
+    public override string DisplayName => IsCondMet() ? Pickup.DisplayName : "";
+    public override int Frames => IsCondMet() ? Pickup.Frames : base.Frames;
+    public override float? Pos => IsCondMet() ? Pickup.Pos: base.Pos;
+    public override bool Clear => IsCondMet() ? Pickup.Clear : base.Clear;
+    public override bool Immediate => IsCondMet() ? Pickup.Immediate : base.Immediate;
+    public override bool Quiet => IsCondMet() ? Pickup.Quiet : base.Quiet;
   }
 
 
