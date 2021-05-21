@@ -213,9 +213,9 @@ where
     R: Rng,
     I: Iterator<Item=usize>,
 {
-    let mut missing_keystones = 0;
-
     for target_world_index in 0..context.world_count {
+        let mut missing_keystones = 0;
+
         let world_context = &mut world_contexts[target_world_index];
 
         let placed_keystones = world_context.world.player.inventory.get(&Item::Resource(Resource::Keystone));
