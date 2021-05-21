@@ -193,7 +193,9 @@ where
             if context.rng.gen_bool(0.8) {
                 log::trace!("({}): Placing Relic in {}", world_contexts[target_world_index].player_name, zone);
 
-                let origin_world_index = context.rng.gen_range(0..context.world_count);
+                // TODO wait for alt+p control
+                // let origin_world_index = context.rng.gen_range(0..context.world_count);
+                let origin_world_index = target_world_index;
 
                 if let Some(&(_, location)) = relic_locations[origin_world_index].iter().find(|&&(location_zone, _)| location_zone == zone) {
                     place_item(origin_world_index, target_world_index, location, false, Item::BonusItem(BonusItem::Relic), world_contexts, context)?;
