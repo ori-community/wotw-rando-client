@@ -385,7 +385,7 @@ namespace uber_states
         }
         
         IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedBoolUberStateWrapper, void, SetValue, (app::SerializedBoolUberStateWrapper* this_ptr, bool value)) {
-            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr);
+            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state);
             const auto prev = get_uber_state_value(cast_ptr);
             SetValue(this_ptr, value);
             const auto current = get_uber_state_value(cast_ptr);
@@ -393,7 +393,7 @@ namespace uber_states
         }
 
         IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedByteUberStateWrapper, void, SetValue, (app::SerializedByteUberStateWrapper* this_ptr, uint8_t value)) {
-            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr);
+            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state);
             const auto prev = get_uber_state_value(cast_ptr);
             SetValue(this_ptr, value);
             const auto current = get_uber_state_value(cast_ptr);
@@ -401,7 +401,7 @@ namespace uber_states
         }
 
         IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedFloatUberStateWrapper, void, SetValue, (app::SerializedFloatUberStateWrapper* this_ptr, float value)) {
-            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr);
+            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state);
             const auto prev = get_uber_state_value(cast_ptr);
             SetValue(this_ptr, value);
             const auto current = get_uber_state_value(cast_ptr);
@@ -409,7 +409,7 @@ namespace uber_states
         }
 
         IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedIntUberStateWrapper, void, SetValue, (app::SerializedIntUberStateWrapper* this_ptr, int value)) {
-            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr);
+            const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state);
             const auto prev = get_uber_state_value(cast_ptr);
             SetValue(this_ptr, value);
             const auto current = get_uber_state_value(cast_ptr);
@@ -512,10 +512,6 @@ namespace uber_states
             auto has_been_saved = static_cast<int>(il2cpp::invoke<app::Boolean__Boxed>(uber_state, "get_HasGameBeenSaved")->fields);
             uint32_t value = is_teleporter_active | (has_been_saved << 1);
             return static_cast<double>(value);
-        }
-        else if (il2cpp::is_assignable(uber_state, "Moon.UberStateVisualization", "SerializedBoolUberStateWrapper")) {
-            auto wrapped = reinterpret_cast<app::IUberState*>(reinterpret_cast<app::SerializedBoolUberStateWrapper*>(uber_state)->fields.m_state);
-            return get_uber_state_value(reinterpret_cast<app::IUberState*>(reinterpret_cast<app::SerializedBoolUberStateWrapper*>(uber_state)->fields.m_state));
         } else {
             auto state_id = il2cpp::invoke<app::UberID>(uber_state, "get_StateID");
             auto group_id = il2cpp::invoke<app::UberID>(uber_state, "get_GroupID");
