@@ -645,7 +645,7 @@ namespace RandoMainDLL {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.GrantIfEqual:
-          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);
+          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue} => {Pickup.Name}", false);
           return state.ValueAsDouble() == targetValue;
         case SysCommandType.GrantIfGreater:
           if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);

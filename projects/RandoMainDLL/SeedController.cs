@@ -386,7 +386,7 @@ namespace RandoMainDLL {
               continue;
             }
             else if(extra.StartsWith("p=")) {
-              if (float.TryParse(extra.Replace("p=", ""), out float p))
+              if (float.TryParse(extra.Replace("p=", ""), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float p))
                 pos = p;
               else 
                 Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
@@ -424,7 +424,7 @@ namespace RandoMainDLL {
                 continue;
               }
               else if (cmd.StartsWith("p=")) {
-                if (float.TryParse(cmd.Replace("p=", ""), out float p))
+                if (float.TryParse(cmd.Replace("p=", ""), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float p))
                   pos = p;
                 else
                   Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
