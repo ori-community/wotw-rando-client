@@ -16,8 +16,6 @@ use crate::util::{
     uberstate::{UberState, UberIdentifier}
 };
 
-// TODO update documentation for descriptions
-
 fn end_of_pickup<'a, I>(mut parts: I, shop: bool) -> Result<(), String>
 where
     I: Iterator<Item = &'a str>,
@@ -530,18 +528,17 @@ fn remove_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
 
     Ok(())
 }
-// TODO documentation
 #[inline]
 fn name_command(naming: &str, names: &mut HashMap<String, String>) -> Result<(), String> {
     let mut parts = naming.splitn(2, ' ');
     let pickup = parts.next().unwrap();
+    parse_pickup(pickup, false)?;
     let name = parts.next().ok_or_else(|| format!("Missing name in name command {}", naming))?;
 
     names.insert(pickup.to_string(), name.to_string());
 
     Ok(())
 }
-// TODO documentation
 #[inline]
 fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
     let count = parse_count(&mut string);
@@ -668,23 +665,23 @@ where R: Rng + ?Sized
             }
         } else if let Some(command) = trimmed.strip_prefix("!!") {
             if let Some(include) = command.strip_prefix("include ") {
-                include_command(include, &mut context.dependencies);
+                include_command(include.trim(), &mut context.dependencies);
             } else if let Some(exclude) = command.strip_prefix("exclude ") {
-                exclude_command(name, exclude, &mut context.excludes);
+                exclude_command(name, exclude.trim(), &mut context.excludes);
             } else if let Some(pickup) = command.strip_prefix("add ") {
-                add_command(pickup, world, pathsets)?;
+                add_command(pickup.trim(), world, pathsets)?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
-                remove_command(pickup, world)?;
+                remove_command(pickup.trim(), world)?;
             } else if let Some(naming) = command.strip_prefix("name ") {
-                name_command(naming, &mut context.names)?;
+                name_command(naming.trim(), &mut context.names)?;
             } else if let Some(string) = command.strip_prefix("pool ") {
-                pool_command(string, &mut pool)?;
+                pool_command(string.trim(), &mut pool)?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {
-                addpool_command(amount, world, pathsets, &mut pool, rng)?;
-            } else if command.trim() == "flush" {
+                addpool_command(amount.trim(), world, pathsets, &mut pool, rng)?;
+            } else if command.trim_end() == "flush" {
                 flush_command(&mut pool);
             } else if let Some(identifier) = command.strip_prefix("set ") {
-                set_command(identifier, world)?;
+                set_command(identifier.trim(), world)?;
             } else {
                 return Err(format!("Unknown command {}", command));
             }
