@@ -1,6 +1,7 @@
 /// Teleporter Zone Hints
 ///
 /// Lupo's maps give information about the number of skills and teleporters in the current zone. Lupo in Glades sells the maps for Woods and Glades.
+!!exclude zone_hints
 
 48248|18767|12|0|10         // Marsh Teleporter Zone Hint from LupoMap.Marsh
 48248|45538|12|5|10         // Burrows Teleporter Zone Hint from LupoMap.Burrows

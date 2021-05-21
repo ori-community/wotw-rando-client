@@ -175,7 +175,7 @@ pub fn validate(path: Option<PathBuf>) -> Result<(), String> {
         let contents = util::read_file(&header, "headers")?;
         let mut name = header.file_stem().unwrap().to_string_lossy().into_owned();
 
-        match parser::validate_header(&contents) {
+        match parser::validate_header(&header, &contents) {
             Ok((occupied, excludes)) => {
                 occupation_map.push((name, occupied, excludes));
             },
@@ -192,7 +192,7 @@ pub fn validate(path: Option<PathBuf>) -> Result<(), String> {
 
         'outer: for uber_state in occupied {
             for (other_header, other_occupied, _) in &occupation_map {
-                if header == other_header || excludes.contains(other_header) {
+                if header == other_header || excludes.contains_key(other_header) {
                     continue;
                 }
                 if let Some(collision) = other_occupied.iter().find(|&other| {

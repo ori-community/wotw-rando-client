@@ -5,7 +5,10 @@ pub mod generator;
 pub mod headers;
 pub mod util;
 
-use std::collections::{HashSet, HashMap};
+use std::{
+    collections::{HashSet, HashMap},
+    path::PathBuf,
+};
 
 use rand_seeder::Seeder;
 use rand::{
@@ -138,7 +141,7 @@ where R: Rng + ?Sized
     let mut header_block = String::new();
     let mut context = HeaderContext {
         dependencies: settings.header_list.iter().cloned().collect::<HashSet<_>>(),
-        excludes: HashSet::new(),
+        excludes: HashMap::new(),
         flags: Vec::new(),
         names: HashMap::new(),
     };
@@ -146,7 +149,7 @@ where R: Rng + ?Sized
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = parser::parse_header(header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = parser::parse_header(&PathBuf::from("inline header"), header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
@@ -162,9 +165,8 @@ where R: Rng + ?Sized
             path.set_extension("wotwrh");
 
             log::trace!("Parsing header {}", path.display());
-
             let header = util::read_file(&path, "headers")?;
-            let header = parser::parse_header(&header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
+            let header = parser::parse_header(&path, &header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
         }

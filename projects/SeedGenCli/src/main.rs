@@ -465,7 +465,7 @@ fn compile_seed(mut path: PathBuf) -> Result<(), String> {
 
     let mut context = HeaderContext::default();
 
-    let header_block = headers::parser::parse_header(&header, &mut world, &settings.pathsets, &mut context, &mut rng)?;
+    let header_block = headers::parser::parse_header(&path, &header, &mut world, &settings.pathsets, &mut context, &mut rng)?;
     let flag_line = seedgen::write_flags(&settings, context.flags);
 
     let compiled = format!("{}{}", flag_line, header_block);

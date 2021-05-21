@@ -1,6 +1,7 @@
 /// Zone Hints
 ///
 /// Lupo's maps give information about the number of skills in the current zone. Lupo in Glades sells the maps for Woods and Glades.
+!!exclude tp_zone_hints
 
 48248|18767|12|0            // Marsh Zone Hint from LupoMap.Marsh
 48248|45538|12|5            // Burrows Zone Hint from LupoMap.Burrows

@@ -1,6 +1,6 @@
 use std::{
     collections::{HashSet, HashMap},
-    path::PathBuf,
+    path::{Path, PathBuf},
 };
 
 use rand::Rng;
@@ -504,10 +504,9 @@ fn include_command(include: &str, dependencies: &mut HashSet<PathBuf>) {
     dependencies.insert(path);
 }
 #[inline]
-fn exclude_command(exclude: &str, excludes: &mut HashSet<String>) {
-    let path = PathBuf::from(exclude);
-    let name = path.file_stem().unwrap().to_string_lossy().to_string();
-    excludes.insert(name);
+fn exclude_command(name: &Path, exclude: &str, excludes: &mut HashMap<String, String>) {
+    let name = name.file_stem().unwrap().to_string_lossy().to_string();
+    excludes.insert(exclude.to_string(), name);
 }
 #[inline]
 fn add_command(mut pickup: &str, world: &mut World, pathsets: &Pathsets) -> Result<(), String> {
@@ -637,12 +636,12 @@ fn set_command(identifier: &str, world: &mut World) -> Result<(), String> {
 #[derive(Debug, Default)]
 pub struct HeaderContext {
     pub dependencies: HashSet<PathBuf>,
-    pub excludes: HashSet<String>,
+    pub excludes: HashMap<String, String>,
     pub flags: Vec<String>,
     pub names: HashMap<String, String>,
 }
 
-pub fn parse_header<R>(header: &str, world: &mut World, pathsets: &Pathsets, context: &mut HeaderContext, rng: &mut R) -> Result<String, String>
+pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, pathsets: &Pathsets, context: &mut HeaderContext, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
@@ -671,7 +670,7 @@ where R: Rng + ?Sized
             if let Some(include) = command.strip_prefix("include ") {
                 include_command(include, &mut context.dependencies);
             } else if let Some(exclude) = command.strip_prefix("exclude ") {
-                exclude_command(exclude, &mut context.excludes);
+                exclude_command(name, exclude, &mut context.excludes);
             } else if let Some(pickup) = command.strip_prefix("add ") {
                 add_command(pickup, world, pathsets)?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
@@ -743,9 +742,9 @@ where R: Rng + ?Sized
     Ok(processed)
 }
 
-pub fn validate_header(contents: &str) -> Result<(Vec<UberState>, HashSet<String>), String> {
+pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, HashMap<String, String>), String> {
     let mut context = HeaderContext::default();
-    parse_header(contents, &mut World::new(&Graph::default()), &Pathsets::default(), &mut context, &mut rand::thread_rng())?;
+    parse_header(name, contents, &mut World::new(&Graph::default()), &Pathsets::default(), &mut context, &mut rand::thread_rng())?;
 
     for dependency in context.dependencies {
         util::read_file(&dependency, "headers")?;
@@ -890,7 +889,7 @@ mod tests {
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
         let mut context = HeaderContext::default();
-        parse_header(&header, &mut world, &Pathsets::default(), &mut context, &mut rand::thread_rng()).unwrap();
+        parse_header(&PathBuf::from("test header"), &header, &mut world, &Pathsets::default(), &mut context, &mut rand::thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);
