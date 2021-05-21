@@ -1,5 +1,3 @@
-mod presets;
-
 use std::{
     io,
     path::{Path, PathBuf},
@@ -167,23 +165,10 @@ impl Settings {
         Ok(settings)
     }
     pub fn from_preset(preset: &Path) -> Result<Settings, String> {
-        let mut settings = None;
-
-        if let Some(path) = preset.to_str() {
-            settings = match path {
-                "moki" => Some(Ok(presets::moki())),
-                "gorlek" => Some(Ok(presets::gorlek())),
-                "gorlekg" | "gorlek_glitch" => Some(Ok(presets::gorlek_glitch())),
-                _ => None,
-            }
-        }
-
-        settings.unwrap_or_else(|| {
-            let mut preset = preset.to_owned();
-            preset.set_extension("json");
-            let content = super::read_file(&preset, "presets")?;
-            serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
-        })
+        let mut preset = preset.to_owned();
+        preset.set_extension("json");
+        let content = super::read_file(&preset, "presets")?;
+        serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
     }
     pub fn write(settings: &Settings) -> Result<String, String> {
         serde_json::to_string(settings).map_err(|err| format!("Invalid Settings: {}", err))
