@@ -459,6 +459,16 @@ namespace il2cpp
         return il2cpp_string_new_utf16(reinterpret_cast<const Il2CppChar*>(str.data()), str.length());
     }
 
+    void trace_overloads(Il2CppClass* klass)
+    {
+        if (klass->parent != nullptr)
+            trace_overloads(klass->parent);
+
+        auto method_overloads = resolved_klass_overloads.find(klass);
+        for (const auto& info : method_overloads->second)
+            trace(modloader::MessageType::Error, 5, "il2cpp", format(" - %s.%s:%d", klass->name, info.name.data(), info.param_count));
+    }
+
     KlassOverloadInfo const* get_method_info_internal(Il2CppClass* klass, std::string_view method, int param_count)
     {
         auto method_overloads = resolved_klass_overloads.find(klass);
@@ -483,6 +493,7 @@ namespace il2cpp
             }
 
             trace(modloader::MessageType::Error, 1, "il2cpp", format("Could not find method '%s:%d' in klass '%s'", method.data(), param_count, klass->name));
+            trace_overloads(klass);
             return nullptr;
         }
 

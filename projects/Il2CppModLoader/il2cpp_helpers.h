@@ -149,9 +149,9 @@ namespace il2cpp
     }
 
     template<typename Return = Il2CppObject>
-    Return* invoke_virtual(void* obj, Il2CppClass* base)
+    Return* invoke_virtual(void* obj, Il2CppClass* base, std::string_view method)
     {
-        std::vector<void*> collected_params;
+        std::vector<void*> collected_params{};
         return reinterpret_cast<Return*>(invoke_virtual_v(obj, base, method, collected_params));
     }
 
