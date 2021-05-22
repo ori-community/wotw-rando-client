@@ -261,7 +261,10 @@ where
                 }
             }
             for world_index in world_indices {
-                if let Some(node) = world_contexts[world_index].placeholders.pop() {
+                let placeholders = &mut world_contexts[world_index].placeholders;
+                if !placeholders.is_empty() {
+                    let index = context.rng.gen_range(0..placeholders.len());
+                    let node = placeholders.remove(index);
                     return Ok((world_index, node, true));
                 }
             }
@@ -270,7 +273,12 @@ where
         } else {
             if let Some(node) = reserved_slots[target_world_index].pop() {
                 return Ok((target_world_index, node, false));
-            } else if let Some(node) = world_contexts[target_world_index].placeholders.pop() {
+            }
+
+            let placeholders = &mut world_contexts[target_world_index].placeholders;
+            if !placeholders.is_empty() {
+                let index = context.rng.gen_range(0..placeholders.len());
+                let node = placeholders.remove(index);
                 return Ok((target_world_index, node, true));
             }
 
