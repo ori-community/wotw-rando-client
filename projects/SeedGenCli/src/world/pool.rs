@@ -1,17 +1,15 @@
 use rustc_hash::FxHashMap;
 
-use rand::{Rng, distributions::Bernoulli, prelude::Distribution, seq::IteratorRandom};
+use rand::{Rng, seq::IteratorRandom};
 
 use crate::inventory::{Inventory, Item};
-use crate::generator::PartialItem;
-use crate::util::{Resource, Skill, Shard, Pathsets, constants::RANDOM_PROGRESSION};
+use crate::util::{Resource, Skill, Shard, Pathsets};
 
 #[derive(Debug, Clone)]
 pub struct Pool {
     pub progressions: Inventory,
     pub fillers: Inventory,
     pub spirit_light: u16,
-    random_progression: Bernoulli,
 }
 impl Default for Pool {
     fn default() -> Pool {
@@ -19,7 +17,6 @@ impl Default for Pool {
             progressions: Inventory::default(),
             fillers: Inventory::default(),
             spirit_light: 0,
-            random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
         }
     }
 }
@@ -113,7 +110,6 @@ impl Pool {
             progressions,
             fillers,
             spirit_light: 20000,
-            random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
         }
     }
 
@@ -153,26 +149,29 @@ impl Pool {
         true
     }
 
-    pub fn choose_random<R>(&mut self, rng: &mut R) -> PartialItem
+    pub fn choose_random<R>(&mut self, multiworld_spread: bool, rng: &mut R) -> Result<Item, String>
     where
         R: Rng
     {
-        if self.random_progression.sample(rng) {
-            while let Some(item) = self.progressions.inventory.keys().choose(rng) {
-                let cost = item.cost();
+        while let Some(item) = if multiworld_spread {
+            self.progressions.inventory.keys().filter(|&item| item.is_multiworld_spread()).choose(rng)
+        } else {
+            self.progressions.inventory.keys().choose(rng)
+        } {
+            let cost = item.cost();
 
-                if cost > 5000 {
-                    let reroll_chance = -5000.0 / f64::from(item.cost()) + 1.0;
+            if cost > 5000 {
+                let reroll_chance = -5000.0 / f64::from(item.cost()) + 1.0;
 
-                    if rng.gen_bool(reroll_chance) {
-                        log::trace!("Rerolling random placement {}", item);
-                        continue;
-                    }
+                if rng.gen_bool(reroll_chance) {
+                    log::trace!("Rerolling random placement {}", item);
+                    continue;
                 }
-
-                return PartialItem::Item(item.clone());
             }
+
+            return Ok(item.clone());
         }
-        PartialItem::Placeholder
+
+        Err(String::from("Nothing left in the pool"))
     }
 }

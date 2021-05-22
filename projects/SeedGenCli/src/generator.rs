@@ -7,7 +7,7 @@ use std::{
 use rand::{
     Rng,
     seq::SliceRandom,
-    distributions::{Distribution, Uniform},
+    distributions::{Distribution, Uniform, Bernoulli},
 };
 
 use crate::world::{
@@ -21,7 +21,7 @@ use crate::util::{
     Resource, BonusItem, GoalMode,
     settings::Settings,
     uberstate::UberState,
-    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN},
+    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION},
 };
 
 #[derive(Debug, Clone)]
@@ -79,6 +79,7 @@ where
     custom_names: &'b HashMap<String, String>,
     multiworld_state_index: I,
     price_range: Uniform<f32>,
+    random_progression: Bernoulli,
     rng: &'a mut R,
 }
 
@@ -325,25 +326,23 @@ where
 
         origin_world_context.placeholders.push(node);
     } else {
-        match origin_world_context.world.pool.choose_random(context.rng) {
-            PartialItem::Placeholder => {
-                log::trace!("({}): Reserving {} as placeholder", origin_world_context.player_name, node);
+        if context.random_progression.sample(context.rng) {
+            let target_world_index = context.rng.gen_range(0..context.world_count);
+            let target_world_context = &mut world_contexts[target_world_index];
 
-                origin_world_context.placeholders.push(node)
-            },
-            PartialItem::Item(item) => {
-                let target_world_index = if item.is_multiworld_spread() {
-                    context.rng.gen_range(0..context.world_count)
-                } else {
-                    origin_world_index
-                };
-                let target_world_context = &mut world_contexts[target_world_index];
-
+            if let Ok(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
                 target_world_context.world.pool.remove(&item, 1);
                 target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
                 place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
-            },
+
+                return Ok(());
+            }
         }
+
+        let origin_world_context = &mut world_contexts[origin_world_index];
+        log::trace!("({}): Reserving {} as placeholder", origin_world_context.player_name, node);
+
+        origin_world_context.placeholders.push(node)
     }
 
     Ok(())
@@ -565,6 +564,7 @@ where
         custom_names,
         multiworld_state_index: 0..,
         price_range,
+        random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
         rng,
     };
 
