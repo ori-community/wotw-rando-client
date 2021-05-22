@@ -198,6 +198,7 @@ namespace RandoMainDLL {
           return EnemyType.Scourge;
         case "kwolok":
         case "petrifiedOwlBossEntity":
+        case "laserShooterMinibossEntity":
           return EnemyType.Misc;
         default:
           return EnemyType.Unknown;
