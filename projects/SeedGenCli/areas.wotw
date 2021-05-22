@@ -305,12 +305,11 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
       Bash, DoubleJump, Glide
       Bash, Launch
     gorlek:
+      Bash, DoubleJump, Dash
       Bash, Glide
       Bash, Grenade=1, Sword
       Bash, SentryJump=1, Sword
-    unsafe:
-      # Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end, too precise for gorlek
-      Bash, Hammer, Damage=10
+    unsafe: Bash  # fun
   # needs backwards connection
 
 anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
@@ -1505,18 +1504,31 @@ anchor EastHollow.MapMoki at -106, -4221:  # after crossing the voicelocked door
     moki: Bash, DoubleJump OR Dash OR Glide OR Launch
     gorlek: Bash
 
-  conn GladesTown.Teleporter:
-    moki: Bash, DoubleJump OR Launch
+  conn EastHollow.OutsideGlades:
+    moki:
+      DoubleJump, Bash
+      Launch
     gorlek:
       Bash, Grenade=1, Dash
       Bash, SentryJump=1, Dash
       Bash, Damage=10
     unsafe:
       Bash, Grenade=1
-      SentryJump=1, DoubleJump, TripleJump, Sentry=4  # Sentry redirect the shot to break the wall
+      SentryJump=1, DoubleJump, TripleJump
       # Bash, EastHollow.BeetleDefeated, Sword  # Long Squonkey Lure using Bash Climbing
       Grenade=5, Damage=10, EastHollow.BeetleDefeated    # Grenade Redirect and Grenade Jumps
   # backwards connections can't cross the door; having Voice should always imply an easier way of getting on the other side
+
+anchor EastHollow.OutsideGlades at -152, -4164:  # Outside Grom's Wall
+  state GladesTown.GromsWall:
+    moki: Bash
+    unsafe:
+      Deflector, Sword OR Hammer
+      Grenade=1 OR Sentry=1
+
+  conn GladesTown.Teleporter:
+    moki: GladesTown.GromsWall
+  conn EastHollow.MapMoki: free
 
 anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tree
   refill Checkpoint
@@ -1813,6 +1825,8 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
     unsafe, GladesTown.ClearThorns:
       Water, Bash, Grenade=1  # unsafe because of precision. Good for kii.
       Water, Grenade=2  # Grenade Water Jumps
+  pickup GladesTown.CaveBurrowEX:
+    unsafe: free  # heehee
 
   conn Teleporters: free
   conn GladesTown.TwillenHome: free
@@ -1894,8 +1908,9 @@ anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
       Bash, Grenade=1
     gorlek: InnerWellspring.WaterEscape, SentryJump=1 OR Burrow OR Dash
     unsafe: InnerWellspring.WaterEscape, Shuriken=1 OR Sword OR Hammer OR Grenade=1 OR Sentry=1 OR Flash OR Spear=1
-    # seed paths tbd if ever necessary
-# connection to hollow currently redundant with the wall in the way
+    # seed paths tbd if ever Necessary
+  conn EastHollow.OutsideGlades:
+    moki: GladesTown.GromsWall
 
 # checkpoint at -297, -4139
 
@@ -2295,7 +2310,10 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
 #       Sword, RangedWeapon OR Sentry=1  # Sword Float over then back
 #       Hammer, Sentry=2
 #       Hammer, RangedWeapon, Sentry=1  # Midair Hammer Sentry
-# procrastinating these a bit
+# procrastinating these a bit //TODO
+
+  state GladesTown.GromsWall:
+    unsafe: Bash, Launch
 
   pickup WestGlades.GrappleEX:
     moki:
