@@ -23,6 +23,8 @@ namespace uber_states
 
         STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, int32_t context), (Moon:IUberState, Moon:UberStateApplyContext));
 
+        IL2CPP_BINDING(Moon, SerializedIntUberState, int32_t, get_Value, (app::SerializedIntUberState* this_ptr));
+
         app::UberID* create_uber_id_ptr(int id)
         {
             auto uber_id = il2cpp::create_object<app::UberID>("Moon", "UberID");
@@ -475,13 +477,11 @@ namespace uber_states
     void set_uber_state_value(app::IUberState* uber_state, double value)
     {
         if (il2cpp::is_assignable(uber_state, "Moon", "SerializedIntUberState"))
+            SerializedIntUberState::set_Value_intercept(reinterpret_cast<app::SerializedIntUberState*>(uber_state), value);
+        else if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState"))
         {
-            int cast_value = static_cast<int>(value);
-            il2cpp::invoke<>(uber_state, "set_Value", &cast_value);
-        }
-        else if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState")) {
             float cast_value = static_cast<float>(value);
-            il2cpp::invoke_virtual<>(uber_state, il2cpp::get_class<>("Moon", "IGenericUberState"), "set_GenericValue", &cast_value);
+            il2cpp::invoke_virtual(uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "set_GenericValue", &cast_value);
         }
         else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState"))
         {
@@ -503,9 +503,10 @@ namespace uber_states
     double get_uber_state_value(app::IUberState* uber_state)
     {
         if (il2cpp::is_assignable(uber_state, "Moon", "SerializedIntUberState"))
-            return static_cast<double>(il2cpp::invoke<app::Int32__Boxed>(uber_state, "get_Value")->fields);
+            return static_cast<double>(SerializedIntUberState::get_Value(reinterpret_cast<app::SerializedIntUberState*>(uber_state)));
         else if (il2cpp::is_assignable(uber_state, "Moon", "IGenericUberState"))
-            return static_cast<double>(il2cpp::invoke<app::Single__Boxed>(uber_state, "get_GenericValue")->fields);
+            return static_cast<double>(il2cpp::invoke_virtual<app::Single__Boxed>(
+                uber_state, il2cpp::get_class("Moon", "IGenericUberState"), "get_GenericValue")->fields);
         else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState"))
         {
             auto is_teleporter_active = static_cast<int>(il2cpp::invoke<app::Boolean__Boxed>(uber_state, "get_IsTeleporterActive")->fields);
