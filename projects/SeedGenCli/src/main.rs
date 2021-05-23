@@ -313,7 +313,7 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
         |seed| Some(seed.clone()),
     );
 
-    let settings = parse_settings(args.settings)?;
+    let settings = parse_settings(args.settings)?.apply_presets()?;
 
     let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;
     log::info!("Parsed logic in {:?}", now.elapsed());
