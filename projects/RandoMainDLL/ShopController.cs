@@ -13,7 +13,10 @@ namespace RandoMainDLL {
     public float CostMultiplier = 1.0f; // legacy support
     public int Cost {
       get => UberGet.Int(CostState);
-      set => UberSet.Int(CostState, value);
+      set { 
+        UberSet.Int(CostState, value);
+        ShopController.UpdateShopData();
+      }
     }
 
     public bool Bought { get => UberGet.Bool(State); }
