@@ -19,6 +19,15 @@ namespace
     app::GameWorld* game_world_instance = 0;
     std::unordered_map<app::GameWorldAreaID__Enum, int> saved_area_prices;
 
+    NESTED_IL2CPP_INTERCEPT(, GameWorldArea, LupoAreaData, int, GetAreaMapSpiritLevelCost, (app::GameWorldArea_LupoAreaData* this_ptr)) {
+        return this_ptr->AreaMapSpiritLevelCost;
+    }
+
+    IL2CPP_INTERCEPT(, CartographerEntity, int, get_MapCost, (app::CartographerEntity* this_ptr)) {
+        this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
+        return CartographerEntity::get_MapCost(this_ptr);
+    }
+
     void set_lupo_price(app::GameWorldAreaID__Enum area, int32_t price)
     {
         auto* gw_area = GameWorld::GetArea(game_world_instance, area);
