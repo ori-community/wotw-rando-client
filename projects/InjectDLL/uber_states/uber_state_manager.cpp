@@ -311,13 +311,13 @@ namespace uber_states
         void notify_uber_state_change(app::IUberState* uber_state, double prev, double current)
         {
             if (prev == current) return; // :upside_clown:
-            auto uprev = static_cast<uint32_t>(prev);
-            auto ucurr = static_cast<uint32_t>(current);
+            auto uprev = static_cast<int>(prev);
+            auto ucurr = static_cast<int>(current);
             const auto state = get_uber_state_id(uber_state);
             const auto group = get_uber_state_group_id(uber_state);
             if (group->fields.m_id == 12) {
-                uint32_t delta = uprev ^ ucurr;
-                int real_state = static_cast<int>(log2(delta)) + 32 * state->fields.m_id;
+                int delta = uprev ^ ucurr;
+                int real_state = static_cast<int>(log2(delta)) + 31 * state->fields.m_id;
                 if (ucurr > uprev)
                     csharp_bridge::on_uber_state_applied(12, real_state, 3, 0.0, 1.0);
                 else
@@ -531,12 +531,12 @@ namespace uber_states
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, double value)
     {
         auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id((group == 12) ? state / 32 : state);
+        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);
         if (uber_state != nullptr)
             if (group == 12) {
-                uint32_t curr = static_cast<uint32_t>(get_uber_state_value(uber_state));
-                int8_t offset = state % 32;
+                int curr = static_cast<int>(get_uber_state_value(uber_state));
+                int8_t offset = state % 31;
                 if (value)
                     curr |= 1 << offset; // or if it's true
                 else 
@@ -555,8 +555,8 @@ namespace uber_states
         auto uber_state = get_uber_state(group_id, state_id);
         if (uber_state != nullptr) {
             if (group == 12) {
-                uint32_t raw = static_cast<uint32_t>(get_uber_state_value(uber_state));
-                return (raw >> (state % 32)) % 2 ? 1.0 : 0.0;
+                int raw = static_cast<int>(get_uber_state_value(uber_state));
+                return (raw >> (state % 31)) % 2 ? 1.0 : 0.0;
             }
             return get_uber_state_value(uber_state);
         }
