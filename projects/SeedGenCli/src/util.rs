@@ -48,6 +48,7 @@ impl Pathsets {
         self.pathsets.insert(Pathset::RemoveKillPlane);
     }
 
+    #[inline]
     pub fn contains(&self, pathset: Pathset) -> bool {
         self.pathsets.contains(&pathset)
     }

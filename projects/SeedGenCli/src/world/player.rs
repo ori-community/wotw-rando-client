@@ -254,22 +254,65 @@ impl Player {
 
         needed.inventory.retain(|_, amount| *amount > 0);
     }
-    pub fn missing_for_orbs(needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Inventory {
-        let mut missing = needed.clone();
-
+    pub fn missing_for_orbs(&self, needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Vec<Inventory> {
         let orbs = current_orbs + orb_cost;
-        if orbs.health < 0.0 {
+        let mut inventories = Vec::new();
+
+        if orbs.health <= 0.0 {
             #[allow(clippy::cast_possible_truncation)]
             let health_fragments = u16::try_from(((-orbs.health + 0.1) / 5.0).ceil() as i32).unwrap();
-            missing.grant(Item::Resource(Resource::Health), health_fragments);
+            inventories.push(Inventory::from((Item::Resource(Resource::Health), health_fragments)));
+
+            let max_heal = self.max_health() - current_orbs.health;
+            if max_heal > -orbs.health {
+                let has_regen = self.inventory.has(&Item::Skill(Skill::Regenerate), 1);
+                let max_regens = (-orbs.health / 30.0).ceil();
+
+                let mut regens = 1.0;
+                while regens <= max_regens {
+                    let mut regen_inventory = Inventory::default();
+                    if !has_regen {
+                        regen_inventory.grant(Item::Skill(Skill::Regenerate), 1);
+                    }
+
+                    let regen_orbs = orbs + Orbs { health: (30.0 * regens), energy: -1.0 * regens };
+
+                    if regen_orbs.health <= 0.0 {
+                        #[allow(clippy::cast_possible_truncation)]
+                        let health_fragments = u16::try_from(((-regen_orbs.health + 0.1) / 5.0).ceil() as i32).unwrap();
+                        regen_inventory.grant(Item::Resource(Resource::Health), health_fragments);
+                    }
+                    if regen_orbs.energy < 0.0 {
+                        #[allow(clippy::cast_possible_truncation)]
+                        let energy_fragments = u16::try_from((-regen_orbs.energy * 2.0).ceil() as i32).unwrap();
+                        regen_inventory.grant(Item::Resource(Resource::Energy), energy_fragments);
+                    }
+
+                    inventories.push(regen_inventory);
+
+                    regens += 1.0;
+                }
+            }
+        } else {
+            inventories.push(Inventory::default());
         }
+
         if orbs.energy < 0.0 {
             #[allow(clippy::cast_possible_truncation)]
             let energy_fragments = u16::try_from((-orbs.energy * 2.0).ceil() as i32).unwrap();
-            missing.grant(Item::Resource(Resource::Energy), energy_fragments);
+
+            for inventory in &mut inventories {
+                inventory.grant(Item::Resource(Resource::Energy), energy_fragments);
+            }
         }
 
-        missing
+        for inventory in &mut inventories {
+            for (item, amount) in needed.inventory.clone() {
+                inventory.grant(item, amount);
+            }
+        }
+
+        inventories
     }
 }
 

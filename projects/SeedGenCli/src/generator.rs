@@ -668,23 +668,27 @@ where
                     for (requirement, best_orbs) in &unmet[chosen_world_index] {
                         let items = requirement.items_needed(&world_context.world.player, &owned_states);
                         // TODO this is a giant mess of redundancies
+                        // log::trace!("requirement: {:?}", requirement);
 
                         for (mut needed, orb_cost) in items {
-                            // log::trace!("missing items: {}", needed);
                             world_context.world.player.missing_items(&mut needed);
 
                             for orbs in best_orbs {
-                                let missing = Player::missing_for_orbs(&needed, orb_cost, *orbs);
+                                let orb_variants = world_context.world.player.missing_for_orbs(&needed, orb_cost, *orbs);
 
-                                if missing.inventory.is_empty() {  // sanity check
-                                    log::trace!("({}): Failed to determine which items were needed for progression to meet {:?} (had {})", world_context.player_name, requirement, world_context.world.player.inventory);
-                                    return Err(String::from("Failed to determine which items were needed for progression"));
+                                for missing in orb_variants {
+                                    // log::trace!("missing items: {}", missing);
+
+                                    if missing.inventory.is_empty() {  // sanity check
+                                        log::trace!("({}): Failed to determine which items were needed for progression to meet {:?} (had {})", world_context.player_name, requirement, world_context.world.player.inventory);
+                                        return Err(String::from("Failed to determine which items were needed for progression"));
+                                    }
+                                    if missing.item_count() > slots { continue; }
+                                    if missing.world_item_count() > world_slots { continue; }
+                                    if !world_context.world.pool.contains(&missing) { continue; }
+
+                                    itemsets.push(missing);
                                 }
-                                if missing.item_count() > slots { continue; }
-                                if missing.world_item_count() > world_slots { continue; }
-                                if !world_context.world.pool.contains(&missing) { continue; }
-
-                                itemsets.push(missing);
                             }
                         }
                     }

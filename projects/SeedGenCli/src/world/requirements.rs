@@ -1,5 +1,3 @@
-use std::convert::TryFrom;
-
 use rustc_hash::FxHashSet;
 use smallvec::{SmallVec, smallvec};
 
@@ -234,37 +232,6 @@ impl Requirement {
 
         itemsets
     }
-    fn needed_for_damage(amount: f32, player: &Player) -> Itemset {
-        #[allow(clippy::cast_possible_truncation)]
-        let needed_health_fragments = u16::try_from(((amount + 0.1) / 5.0).ceil() as i32).unwrap();
-
-        let mut inventory = Inventory::default();
-        if needed_health_fragments > 0 {
-            inventory.grant(Item::Resource(Resource::Health), needed_health_fragments);
-        }
-
-        let mut itemsets = vec![(inventory, Orbs { health: -amount, ..Orbs::default() })];
-
-        #[allow(clippy::cast_possible_truncation)]
-        let max_regens = usize::try_from((amount / 30.0).ceil() as i32).unwrap();
-        for regens in 1..=max_regens {
-            #[allow(clippy::cast_precision_loss)]
-            let regens = regens as f32;
-            let health = 0_f32.min(regens * 30.0 - amount);
-
-            let mut regen_sets = Requirement::needed_for_cost(regens, player);
-            for (inventory, orbs) in &mut regen_sets {
-                inventory.grant(Item::Skill(Skill::Regenerate), 1);
-                orbs.health = health;
-                if needed_health_fragments > 0 {
-                    inventory.grant(Item::Resource(Resource::Health), needed_health_fragments);
-                }
-            }
-            itemsets.append(&mut regen_sets);
-        }
-
-        itemsets
-    }
     // TODO damage buff progression?
     fn needed_for_weapon(weapon: Skill, cost: f32, player: &Player) -> Itemset {
         let mut itemsets = Requirement::needed_for_cost(cost, player);
@@ -328,15 +295,12 @@ impl Requirement {
 
                 let cost = *amount * player.defense_mod();
 
-                itemsets.append(&mut Requirement::needed_for_damage(cost, player));
+                itemsets.push((Inventory::default(), Orbs { health: -cost, ..Orbs::default() }));
 
                 if player.pathsets.contains(Pathset::Gorlek) && !player.inventory.has(&Item::Shard(Shard::Resilience), 1) {
                     let resilience_cost = cost * 0.9;
 
-                    let mut resilience_sets = Requirement::needed_for_damage(resilience_cost, player);
-                    Requirement::combine_itemset_item(&mut resilience_sets, &Item::Shard(Shard::Resilience));
-
-                    itemsets.append(&mut resilience_sets);
+                    itemsets.push((Inventory::from(Item::Shard(Shard::Resilience)), Orbs { health: -resilience_cost, ..Orbs::default() }));
                 }
 
                 itemsets
@@ -455,7 +419,7 @@ impl Requirement {
                 if !player.pathsets.contains(Pathset::Unsafe) && dangerous {
                     let evasion_skills = [
                         Item::Skill(Skill::DoubleJump),
-                        Item::Skill(Skill::DoubleJump),
+                        Item::Skill(Skill::Dash),
                         Item::Skill(Skill::Bash),
                         Item::Skill(Skill::Launch),
                     ];

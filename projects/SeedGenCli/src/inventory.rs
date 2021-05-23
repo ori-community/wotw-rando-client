@@ -258,6 +258,7 @@ impl Inventory {
         }
         let prior = self.inventory.entry(item).or_insert(0);
         if single_instance {
+            // TODO I feel like in an efficient implementation this shouldn't exist...
             *prior = amount;
         } else {
             *prior += amount;
@@ -318,8 +319,8 @@ impl Inventory {
     }
 
     pub fn contains(&self, other: &Inventory) -> bool {
-        for item in other.inventory.keys() {
-            if !self.has(item, other.inventory[item]) {
+        for (item, amount) in &other.inventory {
+            if !self.has(item, *amount) {
                 return false;
             }
         }
@@ -328,8 +329,8 @@ impl Inventory {
 
     pub fn merge(&self, other: &Inventory) -> Inventory {
         let mut merged = self.clone();
-        for item in other.inventory.keys() {
-            merged.grant(item.clone(), other.inventory[item]);
+        for (item, amount) in other.inventory.clone() {
+            merged.grant(item, amount);
         }
         merged
     }
