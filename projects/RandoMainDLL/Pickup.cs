@@ -144,8 +144,9 @@ namespace RandoMainDLL {
         SeedController.GrantingGoalModeLoc = foundAt.IsGoal();
         Grant();
         SeedController.GrantingGoalModeLoc = false;
-        if (foundAt.Loc().Type != LocType.Unknown) {
-          SaveController.FoundCount++;
+        if (foundAt.Loc().Type != LocType.Unknown || foundAt.Id.GroupID == 12) {
+          if(foundAt.Loc().Type != LocType.Unknown)
+            SaveController.FoundCount++;
           MapController.UpdateReachable();
         }
       }
