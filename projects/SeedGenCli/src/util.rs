@@ -51,6 +51,12 @@ impl Pathsets {
     pub fn contains(&self, pathset: Pathset) -> bool {
         self.pathsets.contains(&pathset)
     }
+    pub fn difficulty(&self) -> Pathset {
+        for pathset in &[Pathset::Unsafe, Pathset::Gorlek] {
+            if self.pathsets.contains(pathset) { return *pathset; }
+        }
+        return Pathset::Moki;
+    }
 }
 impl<P> From<P> for Pathsets
 where P: IntoIterator<Item=Pathset>
