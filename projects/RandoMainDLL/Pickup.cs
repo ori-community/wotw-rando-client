@@ -285,7 +285,16 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Message;
 
     private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)\)", RegexOptions.Compiled);
-    public override string DisplayName { get => uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal()); }
+    private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)\|(.*)\]", RegexOptions.Compiled);
+    public override string DisplayName { get {
+      var withStateRepl = uberMsg.Replace(Msg, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
+        return nameFrag.Replace(withStateRepl, (Match m) => {
+          var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
+          var rest = m.Groups[2].Value.Split('|').ToList();
+          return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
+        });
+      }
+}
   }
 
   public abstract class Checkable : Pickup {
