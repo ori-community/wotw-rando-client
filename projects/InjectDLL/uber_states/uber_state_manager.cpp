@@ -537,10 +537,10 @@ namespace uber_states
             if (group == 12) {
                 int curr = static_cast<int>(get_uber_state_value(uber_state));
                 int8_t offset = state % 31;
-                if (value)
+                if (value > 0.1f)
                     curr |= 1 << offset; // or if it's true
-                else 
-                    curr ^= ((curr >> offset) % 2) << offset; // xor the bit with itself if it's true
+                else
+                    curr &= ~(1 << offset); // invert bit then and it
                 set_uber_state_value(uber_state, static_cast<double>(curr));
             } else 
                 set_uber_state_value(uber_state, value);
