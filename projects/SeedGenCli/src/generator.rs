@@ -112,20 +112,18 @@ where
 
         origin_world_context.placements.push(Placement {
             node: None,
-            uber_state: UberState::spawn(),
-            item: price_setter.clone(),
-        });
-        origin_world_context.placements.push(Placement {
-            node: None,
             uber_state: UberState::load(),
             item: price_setter,
         });
     }
 
-    let item_name = context.custom_names.get(&item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", item));
+    let code = item.code();
+    let custom_name = context.custom_names.get(&code).map(|name| name.clone());
+    let item_name = custom_name.clone().unwrap_or_else(|| format!("$[{}]", code));
+    let item_display = custom_name.unwrap_or_else(|| format!("{}", item));
 
     if origin_world_index == target_world_index {
-        log::trace!("({}): Placed {} at {}", origin_player_name, item_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("({}): Placed {} at {}", origin_player_name, item_display, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         origin_world_context.placements.push(Placement {
             node: Some(node),
@@ -133,13 +131,13 @@ where
             item,
         });
     } else {
-        log::trace!("({}): Placed {} for {} at {}", origin_player_name, item_name, target_player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("({}): Placed {} -> {} at {}", origin_player_name, item_display, target_player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         let state_index = context.multiworld_state_index.next().unwrap();
 
-        let origin_message = Item::Message(format!("{} for {}", item_name, target_player_name));
+        let origin_message = Item::Message(format!("{} -> {}", item_name, target_player_name));
         let send_item = Item::UberState(format!("12|{}|bool|true", state_index));
-        let target_message = Item::Message(format!("{} from {}|mute", item_name, origin_player_name));
+        let target_message = Item::Message(format!("{} -> {}|mute", origin_player_name, item_name));
         let target_uber_state = UberState::from_parts("12", &state_index.to_string())?;
 
         origin_world_context.placements.push(Placement {
