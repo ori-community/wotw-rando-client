@@ -143,9 +143,8 @@ namespace RandoMainDLL {
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
             var ptrRegex = new Regex(@"\$\(([0-9]+)\|([0-9]+)\)", RegexOptions.Compiled);
-            if(ptrRegex.IsMatch(line)) {
-              line = Regex.Replace(line, @"\$\(([0-9]+)\|([0-9]+)\)", "$($1;$2)");
-            }
+            ptrRegex.Replace(line, (Match m) => m.Groups[1].Value.Replace("|", ";"));
+            line = ptrRegex.Replace(line, "$($1;$2)");
             var frags = line.Split('|').ToList();
             var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
             var pickupType = (PickupType)frags[2].ParseToByte();
@@ -248,6 +247,8 @@ namespace RandoMainDLL {
         case PickupType.WeaponUpgrade:
           return WeaponUpgrade.ById[(WeaponUpgradeType)pickupData.ParseToInt()];
         case PickupType.BonusItem:
+          if(cond == null)
+            return BonusItem.Build((BonusType)pickupData.ParseToInt(), ZoneType.Void);
           return BonusItem.Build((BonusType)pickupData.ParseToInt(), cond.Loc().Zone);
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
