@@ -153,7 +153,7 @@ namespace RandoMainDLL {
 
       if (IniFlag("dev"))
         Randomizer.Dev = true;
-      int maxLogLines = Randomizer.Dev ? 1000 : 100;
+      int maxLogLines = Randomizer.Dev ? 1000 : 500;
       var logLines = File.ReadAllLines(Randomizer.LogFile);
       if (logLines.Length > maxLogLines) {
         File.WriteAllLines(Randomizer.LogFile, logLines.Skip(logLines.Length / 2));
