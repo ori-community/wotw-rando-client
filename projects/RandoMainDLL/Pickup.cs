@@ -240,7 +240,7 @@ namespace RandoMainDLL {
         child.Grant(true);
         if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
           continue;
-        _lastDispName += child.DisplayName + (child.DisplayName.EndsWith("</>") ? "" : "\n");
+        _lastDispName += child.DisplayName + (child.DisplayName.EndsWith("<\>") ? "" : "\n");
 
       }
       _lastDispName = _lastDispName.TrimEnd('\n');
