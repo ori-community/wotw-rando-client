@@ -18,6 +18,7 @@ import wotw.web.ui.bingo.BingoView
 import wotw.web.ui.bingo.GameIdProps
 import wotw.web.ui.bingo.PlayerIdProps
 import wotw.web.ui.bingo.PlayersComponent
+import wotw.web.ui.seedgen.SeedGenUI
 
 class RootComponent : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
@@ -46,6 +47,12 @@ class RootComponent : RComponent<RProps, RState>() {
                         child(PlayersComponent::class) {
                             attrs.gameId = props.match.params.gameId
                         }
+                    }
+                }
+                route("/seedgen"){
+                    div{
+                        child(TempHeaderComp::class){}
+                        child(SeedGenUI::class){}
                     }
                 }
                 route("/", exact = true) {

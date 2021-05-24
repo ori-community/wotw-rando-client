@@ -16,7 +16,7 @@ class CertificateGenerator {
                 parentFile.mkdirs()
             }
             if (!jksFile.exists()) {
-                generateCertificate(jksFile, keyAlias = "wotwrcert", jksPassword = jkspw, keyPassword = keypw)
+                generateCertificate(jksFile, keyAlias = "wotwserverkey", jksPassword = jkspw, keyPassword = keypw)
             }
         }
     }

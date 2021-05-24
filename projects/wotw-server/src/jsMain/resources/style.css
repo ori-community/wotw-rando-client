@@ -11,9 +11,10 @@
     --bingo-board-card-size: 5;
     --bingo-board-edge-size: 20px;
     --bingo-board-size: 95vh;
+    --background-color: #222;
 }
 body{
-    background-color: #222;
+    background-color: var(--background-color);
     color: white;
 }
 a{
@@ -24,13 +25,132 @@ button{
     background-color: #333;
 }
 
+input[type=text]{
+    padding: 12px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+
+.tabBar{
+    border-bottom: #AAA solid 1px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+}
+.tabBar .tab{
+    border-bottom: #AAA solid 1px;
+    margin-bottom: -1px;
+
+    background-color: var(--background-color);
+}
+.tabBar .tab:not(.selected,:hover){
+    padding: 20px;
+}
+.tabBar .tab.selected{
+    border: #AAA solid 1px;
+    border-bottom: none;
+    padding: 19px;
+    border-radius: 1px;
+    border-bottom: none;
+    background-color: var(--background-color);
+}
+.tabBar .tab:not(.selected):hover{
+    cursor: pointer;
+    border: #AAA solid 1px;
+    border-bottom: none;
+    padding: 19px;
+    border-radius: 1px;
+    border-bottom: none;
+    background-color: #444;
+}
+
+.option-buttons{
+    border: white 1px solid;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 33fr);
+    padding: 10px;
+    margin-top: 20px;
+    width: 70%;
+
+}
+.option-buttons .option-button {
+    border: white 1px solid;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.option-buttons .option-button.selected{
+    background-color: #444;
+}
+.option-buttons .option-button:hover{
+    cursor: pointer;
+    background-color: #555;
+}
+.seedgen{
+    justify-content: center;
+    align-items: center;
+}
+.seedgen-content{
+    justify-content: space-between;
+    height: 60%;
+    width:80%;
+}
+.description-box:empty:before{
+    content: " ";
+}
+.description-box{
+    width: 25%;
+    border: white 1px solid;
+    border-radius: 5px;
+    text-align: justify;
+    padding: 10px;
+    margin-top: 20px;
+}
+.seedgen-footer{
+    display: flex;
+    align-items: start;
+    width: 80%;
+}
+.seedgen-generate{
+    width: 250px;
+    height: 100%;
+    padding: 12px;
+    margin: 10px;
+    background: linear-gradient(90deg,  #dd00f3 0, #ff2400 10%, #e81d1d 20%, #e8b71d 30%,
+    #e3e81d 40%, #1de840 50%, #1ddde8 60%,
+    #2b1de8 70%, #dd00f3 80%, #ff2400 90%);
+    background-size: 1800% 1800%;
+    font-weight: bold;
+    text-shadow: 2px 2px black;
+
+    border-radius: 5px;
+    animation: rainbow 20s ease infinite ;
+}
+.seedgen-seed-text{
+    padding: 10px 50px 10px 50px;
+    margin: 10px;
+    text-align: center;
+
+    border: white 1px solid;
+    border-radius: 5px;
+}
+@keyframes rainbow {
+    0%{background-position:10% 0%}
+    100%{background-position:93% 0%}
+}
+/*----------------------------------------bongos------------------------------------------*/
 .bingo-square:before,.bingo-card:before{
     content: " ";
     float: left;
     padding-top: 100%;
 }
 .bingo-card{
-    /*border: 2px solid aqua;*/
     margin-right: 3em;
     position: relative;
     width: var(--bingo-board-size);

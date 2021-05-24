@@ -108,6 +108,7 @@ kotlin {
                 implementation(npm("react-dom", "16.13.1"))
                 implementation(npm("react-is", "16.13.1"))
                 implementation(npm("react-router-dom", "5.1.2"))
+                implementation(npm("file-saver", "2.0.5"))
 
             }
         }
