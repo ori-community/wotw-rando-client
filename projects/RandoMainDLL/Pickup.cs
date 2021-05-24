@@ -294,7 +294,7 @@ namespace RandoMainDLL {
           return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
         });
       }
-}
+    }
   }
 
   public abstract class Checkable : Pickup {
