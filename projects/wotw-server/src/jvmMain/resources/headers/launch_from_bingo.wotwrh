@@ -1,0 +1,6 @@
+/// Launch from Bingo
+///
+/// grants launch on completing 2 bingo lines
+
+10|1|4|18|10|1|1|8|9|105|bool|true  // launch from 2 bingo lines
+9|105|2|8

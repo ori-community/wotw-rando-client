@@ -71,6 +71,7 @@ class WotwBackendServer {
 
     val bingoEndpoint = BingoEndpoint(this)
     val gameEndpoint = GameEndpoint(this)
+    val seedGenEndpoint = SeedGenEndpoint(this)
     val authEndpoint = AuthenticationEndpoint(this)
     val userEndpoint = UserEndpoint(this)
     val connections = ConnectionRegistry()
@@ -179,6 +180,7 @@ class WotwBackendServer {
                         gameEndpoint.init(this)
                         authEndpoint.init(this)
                         userEndpoint.init(this)
+                        seedGenEndpoint.init(this)
                         get("/") {
                             call.respondText("WOTW-Backend running")
                         }
