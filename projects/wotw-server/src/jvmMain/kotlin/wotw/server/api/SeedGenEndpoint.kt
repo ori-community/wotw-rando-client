@@ -17,7 +17,7 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
             val result = jar.entries().asSequence().filter {
                 it.name.endsWith("wotwrh")
             }.map {
-                val lines = SeedGenEndpoint::class.java.classLoader.getResource(it.name).readText().split("\r\n")
+                val lines = SeedGenEndpoint::class.java.classLoader.getResource(it.name).readText().split(System.lineSeparator())
                 val descrLines = lines.filter { it.startsWith("/// ") }.map { it.substringAfter("/// ") }
 
                 FileEntry(it.name.substringAfterLast("/"), descrLines.firstOrNull(), descrLines)
