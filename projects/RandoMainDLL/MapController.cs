@@ -30,48 +30,19 @@ namespace RandoMainDLL {
     public static List<ShardType> TrackedShards = new List<ShardType>() { ShardType.TripleJump };
     public static void UpdateReachable(int sleepTime = 30) {
       if (InterOp.get_game_state() == GameState.Game) {
-        var t = new Thread(() => UpdateReachableAsync(sleepTime));
+        var args = GetArgs();
+        var t = new Thread(() => UpdateReachableAsync(args, sleepTime));
         t.Start();
       }
     }
     public static bool Updating;
     public static bool RustLogic = false;
-    public static void UpdateReachableAsync(int sleepTime = 30) {
+    public static void UpdateReachableAsync(List<String> argsList, int sleepTime = 30) {
       try {
         Thread.Sleep(sleepTime); // wait to let values update
         if (Updating)
           return;
         Updating = true;
-        var argsList = RustLogic ? new List<string> {
-          "reach-check",
-          // TODO maybe we won't pass these explicitly? since it's samefolder shit
-          "--areas",
-          $"\"{Randomizer.BasePath}areas.wotw\"",
-          "--locations",
-          $"\"{Randomizer.BasePath}loc_data.csv\"",
-          "--uber-states",
-          $"\"{Randomizer.BasePath}state_data.csv\"",
-
-        } : new List<string> {
-          "-jar",
-          $"\"{Randomizer.BasePath}SeedGen.jar\" ",
-          "ReachCheck"
-          };
-        argsList.AddRange(new List<string> {
-          $"\"{SeedController.SeedFile}\"",
-          $"{InterOp.get_max_health()}",
-          $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
-          $"{UberGet.value(6, 0).Int}",
-          $"{InterOp.get_ore()}",
-          $"{InterOp.get_experience()}",
-        });
-        if (RustLogic)
-          argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
-        argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
-        argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
-        if (new QuestEvent(QuestEventType.Water).Has())
-          argsList.Add("w:0");
-        argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = RustLogic ? @"seedgen.exe" : @"java.exe";
         proc.StartInfo.Arguments = String.Join(" ", argsList);
@@ -112,6 +83,39 @@ namespace RandoMainDLL {
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
       Updating = false;
+    }
+    private static List<String> GetArgs() {
+      var argsList = RustLogic ? new List<string> {
+          "reach-check",
+          // TODO maybe we won't pass these explicitly? since it's samefolder shit
+          "--areas",
+          $"\"{Randomizer.BasePath}areas.wotw\"",
+          "--locations",
+          $"\"{Randomizer.BasePath}loc_data.csv\"",
+          "--uber-states",
+          $"\"{Randomizer.BasePath}state_data.csv\"",
+
+        } : new List<string> {
+          "-jar",
+          $"\"{Randomizer.BasePath}SeedGen.jar\" ",
+          "ReachCheck"
+          };
+      argsList.AddRange(new List<string> {
+          $"\"{SeedController.SeedFile}\"",
+          $"{InterOp.get_max_health()}",
+          $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
+          $"{UberGet.value(6, 0).Int}",
+          $"{InterOp.get_ore()}",
+          $"{InterOp.get_experience()}",
+        });
+      if (RustLogic)
+        argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
+      argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
+      argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
+      if (new QuestEvent(QuestEventType.Water).Has())
+        argsList.Add("w:0");
+      argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
+      return argsList;
     }
     private static readonly List<PickupType> hintTypes = new List<PickupType>() { PickupType.CheckableHint, PickupType.ZoneHint };
     public static int FilterIconType(int groupId, int id, int value) {
