@@ -471,8 +471,8 @@ fn compile_seed(mut path: PathBuf) -> Result<(), String> {
     let compiled = format!("{}{}", flag_line, header_block);
 
     path.set_extension("wotwr");
-    let path = util::create_file(&path, &compiled, "target", false)?;
-    log::info!("Compiled to target/{}", path.display());
+    let path = util::create_file(&PathBuf::from(path.file_name().unwrap()), &compiled, "target", false)?;
+    log::info!("Compiled to {}", path.display());
 
     Ok(())
 }

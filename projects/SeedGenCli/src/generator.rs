@@ -635,8 +635,8 @@ where
         }).collect::<Vec<_>>();
 
         let mut reserved: usize = reserved_slots.iter().map(|world_reserved| world_reserved.len()).sum();
-        if unreached_count > 0 && reserved < RESERVE_SLOTS {
-            for _ in 0..RESERVE_SLOTS - reserved {
+        if unreached_count > 0 {
+            while reserved < RESERVE_SLOTS {
                 let world_index = context.rng.gen_range(0..context.world_count);
 
                 if let Some(node) = needs_placement[world_index].pop() {

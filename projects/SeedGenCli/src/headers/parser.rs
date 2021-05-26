@@ -579,8 +579,9 @@ fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
     }
 
     variants.reserve(usize::from(count - 1) * variants.len());
+    let blueprint = variants.clone();
     for _ in 1..count {
-        variants.append(&mut variants.clone());
+        variants.append(&mut blueprint.clone());
     }
 
     pool.append(&mut variants);
@@ -759,6 +760,10 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
         if first_line {
             first_line = false;
             if trimmed.starts_with('#') { continue; }
+        }
+
+        if line.starts_with("Flags: ") {
+            continue;
         }
 
         let comment = trimmed.find("//");
