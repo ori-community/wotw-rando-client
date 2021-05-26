@@ -90,8 +90,8 @@ namespace RandoMainDLL {
     }
 
 
-    public static bool HasPickup(this UberStateCondition cond) => pickupMap.ContainsKey(cond);
-    public static Pickup Pickup(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty);
+    public static bool HasPickup(this UberStateCondition cond) => PickupMap.ContainsKey(cond);
+    public static Pickup Pickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond, Multi.Empty);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
 
     public static bool IsGoal(this UberStateCondition goalCond) {
@@ -105,17 +105,17 @@ namespace RandoMainDLL {
       return false;
     }
 
-    public static bool OnCollect(this UberStateCondition cond) => pickupMap.GetOrElse(cond, Multi.Empty).Collect(cond);
+    public static bool OnCollect(this UberStateCondition cond) => PickupMap.GetOrElse(cond, Multi.Empty).Collect(cond);
     public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
 
-    public static Dictionary<UberStateCondition, Pickup> pickupMap = new Dictionary<UberStateCondition, Pickup>();
+    public static Dictionary<UberStateCondition, Pickup> PickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static HashSet<Flag> Flags = new HashSet<Flag>();
     public static string SeedFile = "";
     public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
     public static void ReadSeed(bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {
-        pickupMap.Clear();
+        PickupMap.Clear();
         Flags.Clear();
         Relic.Reset();
         HintsController.Reset();
@@ -171,13 +171,13 @@ namespace RandoMainDLL {
               HintsController.AddHint(cond.Loc().Zone, pickup as Checkable);
             if (pickup is Checkable c)
               HintsController.CheckableLocs[c] = cond.Loc().Zone;
-            pickupMap[cond] = cond.Pickup().Concat(pickup);
+            PickupMap[cond] = cond.Pickup().Concat(pickup);
           }
           catch (Exception e) {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
-        Total = pickupMap.Count(p => p.Key.Loc() != LocData.Void);
+        Total = PickupMap.Count(p => p.Key.Loc() != LocData.Void);
         if (coordsRaw != "") {
           var coords = coordsRaw.Split(',').ToList();
           var x = coords[0].ParseToFloat("SpawnX");
