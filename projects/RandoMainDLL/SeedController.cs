@@ -67,7 +67,7 @@ namespace RandoMainDLL {
       }
     }
     public bool Met() {
-      var value = InterOp.get_uber_state_value(Id.GroupID, Id.ID);
+      var value = UberGet.AsDouble(Id);
       return Target.HasValue ? Target.Value >= value : value > 0;
     }
     
