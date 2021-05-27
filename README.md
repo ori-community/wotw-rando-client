@@ -1,6 +1,10 @@
 # OriWotwRandomizerClient
 repo for the ori wotw randomizer
 
+## Wiki
+If you need help on how to install the randomizer, tutorials or other randomizer-related information, you can
+read the wiki: https://sparkle-preference.github.io/WotwRandoWiki/
+
 ## Discord links:
 orirando.com/discord for the main ori speedrunning discord
 https://discord.gg/Ahwh4Na for the development discord
