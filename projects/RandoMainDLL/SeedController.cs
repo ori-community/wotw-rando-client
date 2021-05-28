@@ -178,6 +178,12 @@ namespace RandoMainDLL {
           }
         }
         Total = PickupMap.Count(p => p.Key.Loc() != LocData.Void);
+        if(Settings.NetcodeEnabled) {
+          if(AHK.IniFlag("DisableNetcode")) {
+            AHK.Print("Warning: can't connect because netcode is disabled via settings");
+          }
+          WebSocketClient.Connect();
+        }
         if (coordsRaw != "") {
           var coords = coordsRaw.Split(',').ToList();
           var x = coords[0].ParseToFloat("SpawnX");
