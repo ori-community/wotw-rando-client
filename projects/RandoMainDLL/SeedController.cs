@@ -374,6 +374,8 @@ namespace RandoMainDLL {
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
+        case PickupType.SysMessage:
+          return new SysMessage((SysMessageType)pickupData.ParseToByte());
         case PickupType.ZoneHint:
           if (extras.Count == 1) return new ZoneHint((ZoneType)pickupData.ParseToByte(), (HintType)extras[0].ParseToByte()); // 12|x|y, y is hint type
           return new ZoneHint((ZoneType)pickupData.ParseToByte());
@@ -621,31 +623,30 @@ namespace RandoMainDLL {
 
     public static string PickupCount => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
     public static string Progress => PickupCount + GoalModeMessages(progress: true);
-    
-    public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false) {
+    public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false, bool withRelics = true) {
       if (InterOp.get_game_state() != GameState.Game)
         return ""; // don't even try!
-      var msg = "";
+      var msg = new List<String>();
       if (Flags.Contains(Flag.ALLWISPS)) {
         var max = UberStateController.Wisps.Count;
         var amount = UberStateController.Wisps.Count((UberState s) => s.ValueOr(new UberValue(false)).Bool);
         var w = amount == max ? met : unmet;
-        msg += $", {w}Wisps: {amount}/{max}{w}";
+        msg.Add($"{w}Wisps: {amount}/{max}{w}");
       }
       if (Flags.Contains(Flag.ALLTREES)) {
         var amount = SaveController.TreeCount;
         var w = amount == 14 ? met : unmet;
-        msg += $", {w}Trees: {amount}/{14}{w}";
+        msg.Add($"{w}Trees: {amount}/{14}{w}");
       }
       if (Flags.Contains(Flag.ALLQUESTS)) {
         var max = UberStateController.Quests.Count;
         var amount = UberStateController.Quests.Count((UberState s) => s.ValueOr(new UberValue(0)).Int == s.Value.Int);
         var w = amount == max ? met : unmet;
-        msg += $", {w}Quests: {amount}/{max}{w}";
+        msg.Add($"{w}Quests: {amount}/{max}{w}");
       }
-      if (Flags.Contains(Flag.RELIC_HUNT))
-        msg += Relic.RelicMessage();
-      return msg.StartsWith(", ") ? (progress ? "\n" : "") + msg.Substring(2) : msg;
+      if (withRelics && Flags.Contains(Flag.RELIC_HUNT))
+        msg.Add(Relic.RelicMessage());
+      return msg.Count > 0 ? (progress ? "\n" : "") + String.Join("\n", msg) : "";
     }
 
     public static void UpdateGoal() {

@@ -122,7 +122,7 @@ namespace RandoMainDLL {
     RelicList = 0,
     MapRelicList = 1,
     PickupCount = 2,
-    GoalMode = 3,
+    GoalProgress = 3,
   }
 
   public abstract class Pickup {
@@ -943,6 +943,8 @@ namespace RandoMainDLL {
             return Relic.MapMessage(InterOp.get_player_area().toZone());
           case SysMessageType.PickupCount:
             return SeedController.PickupCount;
+          case SysMessageType.GoalProgress:
+            return SeedController.GoalModeMessages(withRelics: false);
           default:
             return "";
         }
