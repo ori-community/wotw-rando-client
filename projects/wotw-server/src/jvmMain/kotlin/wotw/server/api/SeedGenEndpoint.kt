@@ -1,12 +1,18 @@
 package wotw.server.api
 
 import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.io.messages.FileEntry
 import wotw.io.messages.SeedGenConfig
+import wotw.server.database.model.Seed
 import wotw.server.main.WotwBackendServer
 import java.io.File
+import java.nio.charset.Charset
+import java.nio.file.Path
 import java.util.jar.JarFile
 
 
@@ -37,41 +43,35 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
             }.toList()
             call.respond(result)
         }
-        get("seeds/{id}") {}
+        get("seeds/{id}") {
+            val id = call.parameters["id"] ?: throw BadRequestException("No Seed ID found")
+            call.respond(seedFile(id).readBytes())
+        }
         post<SeedGenConfig>("seeds") { config ->
             //TODO: Input validation
-            val path = System.getenv("SEEDGEN_PATH")
-            var command = "$path seed --verbose --tostdout".split(" ").toTypedArray() + config.flags.flatMap { it.split(" ") }
-            if (config.goals.isNotEmpty()) {
-                command += "--goals"
-                command += config.goals
-            }
-            if (config.logic.isNotEmpty()) {
-                command += "--logic"
-                command += config.logic
-            }
-            if (config.presets.isNotEmpty()) {
-                command += "--presets"
-                command += config.presets
-            }
-            if (config.headers.isNotEmpty()) {
-                command += "--headers"
-                command += config.headers
-            }
-            if (!config.multiNames.isNullOrEmpty()) {
-                command += "--names"
-                command += config.multiNames
-                command += "--worlds"
-                command += config.multiNames.size.toString()
-            }
+            val seed = newSuspendedTransaction { Seed.new {} }
+            val seedgenExec = System.getenv("SEEDGEN_PATH")
+            var command = "$seedgenExec seed --verbose".split(" ").toTypedArray() + config.flags.flatMap { it.split(" ") }
+            if (config.goals.isNotEmpty())           command += "--goals ${config.goals}"
+            if (config.logic.isNotEmpty())           command += "--logic ${config.logic}"
+            if (config.presets.isNotEmpty())         command += "--presets ${config.presets}"
+            if (config.headers.isNotEmpty())         command += "--headers ${config.headers}"
+            if (!config.multiNames.isNullOrEmpty())  command += "--names ${config.multiNames} --worlds ${config.multiNames.size}"
+
+            command += "-- ${seed.id.value}"
             val process = ProcessBuilder(*command)
-                .directory(File(path.substringBeforeLast(File.separator)))
+                .directory(File(seedgenExec.substringBeforeLast(File.separator)))
                 .redirectOutput(ProcessBuilder.Redirect.PIPE)
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
                 .start()
             process.outputStream.close()
-            val response = process.inputStream.readAllBytes()
-            call.respondBytes(response)
+            val err = process.errorStream.readAllBytes().toString(Charsets.UTF_8)
+            if(!seedFile(seed).exists()) {
+                call.respondText(err, ContentType.Text.Plain, HttpStatusCode.InternalServerError)
+            }
+            call.respond(HttpStatusCode.Created)
         }
     }
+    fun seedFile(seedId: String) = Path.of("${System.getenv("SEED_DIR")}\\${seedId}.wotwr").toFile()
+    fun seedFile(seed: Seed) = seedFile(seed.id.value.toString())
 }
