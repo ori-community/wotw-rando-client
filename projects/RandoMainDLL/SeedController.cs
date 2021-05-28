@@ -618,9 +618,10 @@ namespace RandoMainDLL {
     public static bool IsDayTime() => AbilityType.SpiritEdge.HaveTree() || UberGet.Bool(7,2) || (SeedController.Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
     public static int Current { get => SaveController.FoundCount; }
     public static int Total = 0;
-    public static string Progress {
-      get => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}") + GoalModeMessages(progress: true);
-    }
+
+    public static string PickupCount => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
+    public static string Progress => PickupCount + GoalModeMessages(progress: true);
+    
     public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false) {
       if (InterOp.get_game_state() != GameState.Game)
         return ""; // don't even try!

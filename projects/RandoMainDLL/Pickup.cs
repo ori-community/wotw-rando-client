@@ -27,6 +27,7 @@ namespace RandoMainDLL {
     ZoneHint = 12,
     CheckableHint = 13,
     Relic = 14,
+    SysMessage = 15,
   }
 
   public class DoneWithThis : Exception { };
@@ -117,6 +118,12 @@ namespace RandoMainDLL {
     ShardSlot = 4
   }
 
+  public enum SysMessageType : byte {
+    RelicList = 0,
+    MapRelicList = 1,
+    PickupCount = 2,
+    GoalMode = 3,
+  }
 
   public abstract class Pickup {
     public virtual int Frames { get => 240; }
@@ -921,6 +928,27 @@ namespace RandoMainDLL {
   public abstract class Hint : Pickup {
     public abstract string Desc { get; }
   }
+
+  public class SysMessage : Pickup {
+    public override PickupType Type => PickupType.SysMessage;
+    public readonly SysMessageType messageType;
+    public SysMessage(SysMessageType mt) => messageType = mt;
+
+    public override string Name => messageType.GetDescription();
+    public override string DisplayName { get {
+        switch(messageType) {
+          case SysMessageType.RelicList:
+            return Relic.RelicMessage();
+          case SysMessageType.MapRelicList:
+            return Relic.MapMessage(InterOp.get_player_area().toZone());
+          case SysMessageType.PickupCount:
+            return SeedController.PickupCount;
+          default:
+            return "";
+        }
+      }
+    }
+  }
   public class ZoneHint : Hint {
     public override PickupType Type => PickupType.ZoneHint;
     public readonly ZoneType Zone;
@@ -1000,6 +1028,8 @@ namespace RandoMainDLL {
       base.Grant(true);
     }
   }
+
+
 
 
 }
