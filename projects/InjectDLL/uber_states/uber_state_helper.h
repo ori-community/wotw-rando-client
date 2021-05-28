@@ -36,6 +36,7 @@ INJECT_C_DLLEXPORT int32_t get_shard_slots();
 INJECT_C_DLLEXPORT void set_shard_slots(int32_t value);
 INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type);
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value);
+INJECT_C_DLLEXPORT void set_ability_level(app::AbilityType__Enum type, int value);
 INJECT_C_DLLEXPORT app::Vector2 get_position();
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state();
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area();

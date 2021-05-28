@@ -30,6 +30,7 @@ namespace
     IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
     IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory,
         (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type), (SpiritShardType));
+    IL2CPP_BINDING(, PlayerUberStateAbilities, void, SetAbilityLevel, (app::PlayerUberStateAbilities* this_ptr, app::AbilityType__Enum type, int level));
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
 
@@ -54,6 +55,12 @@ namespace
     {
         app::PlayerUberStateGroup* player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
         return player_group->fields.PlayerUberState->fields.m_state->fields.Shards;
+    }
+
+    app::PlayerUberStateAbilities* get_abilities()
+    {
+        app::PlayerUberStateGroup* player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
+        return player_group->fields.PlayerUberState->fields.m_state->fields.Abilities;
     }
 
     struct UberStateTypeResolver
@@ -292,6 +299,12 @@ INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
         auto shard = PlayerUberStateShards::SetAbility(shards, static_cast<uint8_t>(type), value);
         il2cpp::invoke(player_shards->fields.OnInventoryUpdated, "Invoke", shard);
     }
+}
+
+INJECT_C_DLLEXPORT void set_ability_level(app::AbilityType__Enum type, int value)
+{
+    auto* abilities = get_abilities();
+    PlayerUberStateAbilities::SetAbilityLevel(abilities, type, value);
 }
 
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area()
