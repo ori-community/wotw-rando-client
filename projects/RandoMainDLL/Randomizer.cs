@@ -18,8 +18,6 @@ namespace RandoMainDLL {
 
     private static BlockingCollection<String> logQueue = new BlockingCollection<string>();
 
-    public static WebSocketClient Client = new WebSocketClient();
-
     public static int Bootstrap(string dllPath) {
        if (!Initialize())
         return 1;
@@ -39,7 +37,6 @@ namespace RandoMainDLL {
         AHK.OnNewGame();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
-        Client.Connect();
       }
       catch (Exception e) {
         Randomizer.Error("OnNewGame", e);
@@ -82,9 +79,6 @@ namespace RandoMainDLL {
 
         AHK.Init();
         SeedController.ReadSeed(true);
-        Client.UberStateRegistered = UberStateController.RegisterSyncedUberState;
-        DiscordController.Initialize();
-
         Debug("Init: Complete", false);
         return true;
       } catch (Exception e) {
@@ -111,7 +105,7 @@ namespace RandoMainDLL {
         AHK.Tick();
         BonusItemController.Update();
         DiscordController.Update();
-        Client.Update();
+        WebSocketClient.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Security.Cryptography;
 using System.Threading;
@@ -7,7 +8,6 @@ using Discord;
 namespace RandoMainDLL {
   public static class DiscordController {
     private static long CLIENT_ID = 751523174767919195;
-    public static bool Disabled = true;
     public static UserManager UserManager;
     public static bool Initialized = false;
     public static User User;
@@ -16,11 +16,6 @@ namespace RandoMainDLL {
     public static bool InitRunning = false;
     public static Discord.Discord discord;
     public static void Initialize() {
-      Disabled = AHK.IniFlag("DisableNetcode");
-      if (Disabled) {
-        Randomizer.Log("Netcode disabled, skipping discord init", false, "DEBUG");
-        return;
-      }
       if (InitRunning) {
         Randomizer.Log("Init running already, skipping", false, "DEBUG");
         return;
@@ -28,6 +23,12 @@ namespace RandoMainDLL {
       InitRunning = true;
       new Thread(() => {
         try {
+          if(Process.GetProcessesByName("Discord").Length == 0) {
+            AHK.Print("Error: Can't initialize netcode: Discord.exe not found!\nWeb-based features will not work.\nPlease launch Discord to enable them.");
+            WebSocketClient.FramesTillReconnectAttempt = 3600;
+            InitRunning = false;
+            return;
+          } 
           if (discord == null)
             discord = new Discord.Discord(CLIENT_ID, (UInt64)CreateFlags.Default);
           if (UserManager == null)
@@ -37,7 +38,7 @@ namespace RandoMainDLL {
           Initialized = true;
           if (GetUser() != null) {
             Randomizer.Log("User already known, skipping rest of discord init", false, "DEBUG");
-            Randomizer.Client.Connect();
+            WebSocketClient.Connect();
             return;
           }
           discord.SetLogHook(LogLevel.Debug, (level, message) => Randomizer.Log($"discord: {message}", level.CompareTo(LogLevel.Info) > 0, level.ToString()));
@@ -50,7 +51,8 @@ namespace RandoMainDLL {
     }
 
     public static void Update() {
-        try {
+      if (!WebSocketClient.WantConnection || InitRunning || !Initialized) return;
+      try {
           discord?.RunCallbacks();
         } catch (Exception e) {
         if (e is NullReferenceException)
@@ -60,7 +62,7 @@ namespace RandoMainDLL {
     }
 
     public static User? GetUser() {
-      if (Disabled || InitRunning) return null;
+      if (!WebSocketClient.WantConnection || InitRunning || !Initialized) return null;
       try {
         return UserManager.GetCurrentUser();
       }
@@ -83,7 +85,7 @@ namespace RandoMainDLL {
     public static bool CanTryToken = true;
 
     public static void TryGetToken() {
-      if (Disabled || InitRunning) return;
+      if (!WebSocketClient.WantConnection || InitRunning || !Initialized) return;
       CanTryToken = false;
       ApplicationManager.GetOAuth2Token((Result result, ref OAuth2Token token) => {
         try {
@@ -107,11 +109,11 @@ namespace RandoMainDLL {
     }
 
     public static void DiscordInitComplete() {
-      if (Disabled) return;
+      if (!WebSocketClient.WantConnection) return;
       User = UserManager.GetCurrentUser();
       InitRunning = false;
       Randomizer.Log($"have user UID: {User.Id}", false);
-      Randomizer.Client.Connect();
+      WebSocketClient.Connect();
 
     }
   }

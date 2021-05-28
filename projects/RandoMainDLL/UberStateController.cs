@@ -54,10 +54,6 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
     }
 
-    public static void RegisterSyncedUberState(UberId id) {
-      SyncedUberStates.Add(id);
-    }
-
     public static void HandleSyncedUberStateChange(UberId id, double value) {
       InterOp.set_uber_state_value(id.GroupID, id.ID, value);
     }
@@ -234,8 +230,8 @@ namespace RandoMainDLL {
           found = SeedController.OnUberState(state);
         }
 
-        if (SyncedUberStates.Contains(key)) 
-          Randomizer.Client.SendUpdate(key, state.ValueAsDouble());
+        if (SyncedUberStates.Contains(key))
+          WebSocketClient.SendUpdate(key, state.ValueAsDouble());
 
         BonusItemController.OnUberState(state);
         var zone = ZoneType.Void;
@@ -269,12 +265,12 @@ namespace RandoMainDLL {
         if (FullSyncNextUpdate) {
           FullSyncNextUpdate = false;
           Randomizer.Debug($"Syncing {SyncedUberStates.Count} states", false);
-          Randomizer.Client.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsDouble()));
+          WebSocketClient.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsDouble()));
           var bad = SyncedUberStates.Where(uid => uid.State() == null).ToList();
           Randomizer.Debug($"Not sending {bad.Count} bad states", false);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
-        while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
+        while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate)) {
           var (id, val) = stateUpdate.FromNet();
           if (id.State().ValueAsDouble() != val) 
             InterOp.set_uber_state_value(id.GroupID, id.ID, val);

@@ -10,32 +10,29 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace RandoMainDLL {
-  public class WebSocketClient {
-    public delegate void UberStateRegistrationHandler(Memory.UberId id);
-    public BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
-    public BlockingCollection<UberStateUpdateMessage> UberStateQueue = new BlockingCollection<UberStateUpdateMessage>();
-
-    public UberStateRegistrationHandler UberStateRegistered;
+  public static class WebSocketClient {
+    public static BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
+    public static BlockingCollection<UberStateUpdateMessage> UberStateQueue = new BlockingCollection<UberStateUpdateMessage>();
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
     public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
     public static string SessionId;
 
-    public bool ExpectingDisconnect = false;
-    public int ReconnectCooldown = 0;
-    public int FramesSinceLastCheck = 0;
-    private string ServerAddress => $"ws{S}://{Domain}/api/game_sync/";
+    public static bool ExpectingDisconnect = false;
+    public static int ReconnectCooldown = 0;
+    public static int FramesSinceLastCheck = 0;
+    private static string ServerAddress => $"ws{S}://{Domain}/api/game_sync/";
 
-    private Thread updateThread;
-    private Thread connectThread;
+    private static Thread updateThread;
+    private static Thread connectThread;
 
     public static int FramesTillReconnectAttempt = 420;
 
-    public static bool WantConnection { get => !DiscordController.Disabled && (SeedController.Settings?.NetcodeEnabled ?? false); }
+    public static bool WantConnection { get => !AHK.IniFlag("DisableNetcode") && (SeedController.Settings?.NetcodeEnabled ?? false); }
 
-    private WebSocket socket;
-    public bool IsConnected { get { return socket != null && socket.IsConnected; } }
-    public bool Connecting { get => connectThread?.IsAlive ?? false; }
-    public void Connect() {
+    private static WebSocket socket;
+    public static bool IsConnected { get { return socket != null && socket.IsConnected; } }
+    public static bool Connecting { get => connectThread?.IsAlive ?? false; }
+    public static void Connect() {
       if (!WantConnection) return;
       setupUpdateThread();
 
@@ -53,7 +50,7 @@ namespace RandoMainDLL {
         var user = DiscordController.GetUser();
         try {
           if (user == null) {
-            Randomizer.Log("Have no user ID; reattempting discord auth", false, "WARN");
+            Randomizer.Log("Have no user ID; reattempting discord auth", false, "DEBUG");
             DiscordController.Initialize();
             FramesTillReconnectAttempt = 60;
             return;
@@ -96,7 +93,7 @@ namespace RandoMainDLL {
           };
           socket.OnError += (sender, e) => {
             Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
-            FramesTillReconnectAttempt = 300;
+            FramesTillReconnectAttempt = 600;
           };
           socket.OnClose += (sender, e) => {
             if(!ExpectingDisconnect)
@@ -118,7 +115,7 @@ namespace RandoMainDLL {
       connectThread.Start();
     }
 
-    public void Update() {
+    public static void Update() {
       if (WantConnection && !IsConnected && !Connecting) {
         if (FramesTillReconnectAttempt-- <= 0) {
           FramesTillReconnectAttempt = 600;
@@ -128,7 +125,7 @@ namespace RandoMainDLL {
       }
     }
 
-    private void setupUpdateThread() {
+    private static void setupUpdateThread() {
       if (updateThread == null) {
         updateThread = new Thread(() => {
           while (true) {
@@ -145,7 +142,7 @@ namespace RandoMainDLL {
         updateThread.Start();
       }
     }
-    public void Disconnect() {
+    public static void Disconnect() {
       if (socket == null) {
         return;
       }
@@ -156,7 +153,7 @@ namespace RandoMainDLL {
       UberStateQueue.Clear();
     }
 
-    public void SendBulk(Dictionary<Memory.UberId, double> updates) {
+    public static void SendBulk(Dictionary<Memory.UberId, double> updates) {
       try {
         var batch = new UberStateBatchUpdateMessage();
         batch.Updates.AddRange(updates.Select((kv) => kv.Key.MakeUpdateMsg(kv.Value)));
@@ -170,7 +167,7 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendBulk", e, false);  }
 
 }
-public void SendUpdate(Memory.UberId id, double value) {
+public static void SendUpdate(Memory.UberId id, double value) {
       try {
         Packet packet = new Packet {
           Id = 3,
@@ -180,7 +177,7 @@ public void SendUpdate(Memory.UberId id, double value) {
       } catch(Exception e) { Randomizer.Error("SendUpdate", e, false);  }
     }
 
-    public void HandleMessage(object sender, MessageEventArgs args) {
+    public static void HandleMessage(object sender, MessageEventArgs args) {
       try {
         var data = args.RawData;
         if (data == null) {
@@ -200,9 +197,7 @@ public void SendUpdate(Memory.UberId id, double value) {
             break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
-            UberStateController.SyncedUberStates.Clear();
-            foreach (var state in init.UberId) 
-              UberStateRegistered(state.IdFromMsg());
+            UberStateController.SyncedUberStates = init.UberId.Select(s => s.IdFromMsg()).ToHashSet(); // LINQ BAAAYBEEEEEE
             break;
           case 3:
             try {
