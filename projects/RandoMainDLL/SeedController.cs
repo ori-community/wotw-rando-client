@@ -256,6 +256,8 @@ namespace RandoMainDLL {
           if(cond == null)
             return BonusItem.Build((BonusType)pickupData.ParseToInt(), ZoneType.Void);
           return BonusItem.Build((BonusType)pickupData.ParseToInt(), cond.Loc().Zone);
+        case PickupType.Relic:
+          return Relic.Build((ZoneType)pickupData.ParseToByte("BuildPickup.RelicZone"), extras.FirstOrElse(""));
         case PickupType.SystemCommand:
           var t = (SysCommandType)pickupData.ParseToByte();
           switch (t) {
