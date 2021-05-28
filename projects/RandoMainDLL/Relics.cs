@@ -8,14 +8,16 @@ using Newtonsoft.Json;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
-  public class Relic : BonusItem {
+  public class Relic : Pickup {
+
     private readonly UberId zoneId;
     public readonly ZoneType Zone;
-    public Relic(ZoneType zone) : base(BonusType.Relic) {
+    private readonly string flavorName;
+    public Relic(ZoneType zone)  {
       zoneId = ZoneToId[zone];
       Zone = zone;
     }
-    public static Relic Build(ZoneType zone) {
+    public static Relic Build(ZoneType zone, string flavorRelicName = "") {
       var ret = new Relic(zone);
       Counts[zone] += 1;
       return ret;
@@ -26,6 +28,8 @@ namespace RandoMainDLL {
       state.Write(state.Value);
       base.Grant(skipBase);
     }
+    public override string DisplayName { get => flavorName == "" ? $"@{Zone} Relic@" : flavorName; }
+
     public static HashSet<ZoneType> RelicZones { get => Counts.Where(a => a.Value > 0).Select(a => a.Key).ToHashSet(); }
 
     public static ZoneType CurrentZone { get => InterOp.get_player_area().toZone(); }
@@ -34,7 +38,7 @@ namespace RandoMainDLL {
       var rzs = RelicZones;
       if (rzs.Count == 0)
         return "";
-      if(rzs.Contains(zone)) {
+      if (rzs.Contains(zone)) {
         if (UberGet.value(ZoneToId[zone]).Byte >= Counts[zone])
           return " $(Relic found)$";
         else
@@ -42,7 +46,7 @@ namespace RandoMainDLL {
       }
       return " (Relicless)";
     }
-    
+
     public static String RelicMessage() {
       var rzs = RelicZones;
       if (rzs.Count == 0)
@@ -66,7 +70,8 @@ namespace RandoMainDLL {
     }
 
     public static bool Valid { get => !SeedController.Flags.Contains(Flag.RELIC_HUNT) || RelicZones.All(z => Counts[z] <= UberGet.value(ZoneToId[z]).Byte); }
-    public override string DisplayName { get => $"@{Zone} Relic@"; }    
+
+    public override PickupType Type => PickupType.Relic;
 
     public static Dictionary<ZoneType, UberId> ZoneToId = new Dictionary<ZoneType, UberId>() {
       { ZoneType.Marsh, new UberId(4, 100) },
@@ -86,7 +91,25 @@ namespace RandoMainDLL {
     public static void Reset() {
       Counts = ZoneToId.Select(k => k.Key).ToDictionary(a => a, a => 0);
     }
-
   }
-
+  public class LegacyRelic : BonusItem {
+    private readonly UberId zoneId;
+    public readonly ZoneType Zone;
+    public LegacyRelic(ZoneType zone) : base(BonusType.Relic) {
+      zoneId = Relic.ZoneToId[zone];
+      Zone = zone;
+    }
+    public static LegacyRelic Build(ZoneType zone) {
+      var ret = new LegacyRelic(zone);
+      Relic.Counts[zone] += 1;
+      return ret;
+    }
+    public override void Grant(bool skipBase = false) {
+      var state = zoneId.State();
+      state.Value.Byte += 1;
+      state.Write(state.Value);
+      base.Grant(skipBase);
+    }
+    public override string DisplayName { get => $"@{Zone} Relic@"; }
+  }
 }

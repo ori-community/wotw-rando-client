@@ -25,7 +25,8 @@ namespace RandoMainDLL {
     BonusItem = 10,
     WeaponUpgrade = 11,
     ZoneHint = 12,
-    CheckableHint = 13
+    CheckableHint = 13,
+    Relic = 14,
   }
 
   public class DoneWithThis : Exception { };
@@ -520,7 +521,7 @@ namespace RandoMainDLL {
       type = t;
       stateId = new UberId(4, (int)type);
     }
-    public static BonusItem Build(BonusType t, ZoneType z) => t == BonusType.Relic ? Relic.Build(z) : new BonusItem(t);
+    public static BonusItem Build(BonusType t, ZoneType z) => t == BonusType.Relic ? LegacyRelic.Build(z) : new BonusItem(t);
 
     public override void Grant(bool skipBase = false) {
       var state = stateId.State();
