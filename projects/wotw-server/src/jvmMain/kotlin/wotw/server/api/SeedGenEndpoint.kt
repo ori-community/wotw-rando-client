@@ -5,9 +5,9 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import wotw.io.messages.FileEntry
-import wotw.io.messages.SeedGenConfig
+import wotw.io.messages.*
 import wotw.server.database.model.Seed
 import wotw.server.main.WotwBackendServer
 import java.io.File
@@ -32,15 +32,13 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
         }
         get("seedgen/presets") {
             val jar = JarFile(File(SeedGenEndpoint::class.java.protectionDomain.codeSource.location.toURI()).path)
-            val result = jar.entries().asSequence().filter {
+            val presetMap = jar.entries().asSequence().filter {
                 it.name.startsWith("presets") && it.name.endsWith("json")
             }.map {
-                FileEntry(
-                    it.name.substringAfterLast("/"),
-                    it.name.substringAfterLast("/").substringBeforeLast(".json"),
-                    null
-                )
-            }.toList()
+                it.name.substringAfterLast("/").substringBeforeLast(".json") to
+                        relaxedJson.decodeFromString(Preset.serializer(), SeedGenEndpoint::class.java.classLoader.getResource(it.name).readText())
+            }.toMap()
+            val result = presetMap.mapValues { it.value.fullResolve(presetMap) }
             call.respond(result)
         }
         get("seeds/{id}") {
