@@ -200,8 +200,6 @@ namespace RandoMainDLL {
 
 
   public class Multi : Pickup {
-
-    private string _lastDispName = "Empty";
     public Multi(List<Pickup> children) {
       Children = children;
       NonEmpty = children.Count > 0;
@@ -232,25 +230,32 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
-      bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
-      _lastDispName = "";
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
         child.Grant(true);
-        if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
-          continue;
-        _lastDispName += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
-
       }
-      _lastDispName = _lastDispName.TrimEnd('\n');
       base.Grant(false);
+    }
+
+    public override string DisplayName {
+      get {
+        bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+        var ret = "";
+        foreach (var child in Children) {
+          if (child is ConditionalStop s && s.StopActive())
+            break;
+          if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
+            continue;
+          ret += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
+        }
+        return ret.TrimEnd('\n');
+      }
     }
 
     public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName; }
 
     public override int DefaultCost() => Children.Sum(p => p.DefaultCost());
-    public override string DisplayName { get => _lastDispName; }
 
     public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
   }
