@@ -192,9 +192,16 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                             ) {
                                 contentType(ContentType.Application.Json)
                             }
-                            val stringArray: Array<String> = arrayOf(response.readText())
-                            val blob = Blob(blobParts = stringArray, BlobPropertyBag(type = "text/plain;charset=utf-8"))
-                            saveAs(blob, state.seed + ".wotwr")
+                            if(response.status == HttpStatusCode.Created) {
+                                val id: String = response.readText()
+                                val seedResp = Application.api.get<HttpResponse>(path = "seeds/${id}")
+                                val stringArray = seedResp.readText()
+                                console.log(stringArray)
+                                val blob = Blob(blobParts = arrayOf(stringArray), BlobPropertyBag(type = "text/plain;charset=utf-8"))
+                                saveAs(blob, (if(state.seed.isNullOrEmpty()) "seed" else state.seed) + ".wotwr")
+                            } else {
+                                console.log(response.readText())
+                            }
                             Unit
                         }
                     }
