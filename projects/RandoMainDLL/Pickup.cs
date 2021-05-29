@@ -932,7 +932,11 @@ namespace RandoMainDLL {
   public class SysMessage : Pickup {
     public override PickupType Type => PickupType.SysMessage;
     public readonly SysMessageType messageType;
-    public SysMessage(SysMessageType mt) => messageType = mt;
+    public readonly string extraData;
+    public SysMessage(SysMessageType mt, string extra = "") {
+      messageType = mt;
+      extraData = extra;
+    }
 
     public override string Name => messageType.GetDescription();
     public override string DisplayName { get {
@@ -940,7 +944,7 @@ namespace RandoMainDLL {
           case SysMessageType.RelicList:
             return Relic.RelicMessage();
           case SysMessageType.MapRelicList:
-            return Relic.MapMessage(InterOp.get_player_area().toZone());
+            return Relic.MapMessage((ZoneType)extraData.ParseToByte("SysMessage.MapRelicList: ZoneType"));
           case SysMessageType.PickupCount:
             return SeedController.PickupCount;
           case SysMessageType.GoalProgress:
