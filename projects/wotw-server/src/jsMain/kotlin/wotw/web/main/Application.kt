@@ -29,9 +29,9 @@ object Application {
             else
                 if(url.protocol ==  URLProtocol.HTTP) URLProtocol.HTTPS else url.protocol
             url.protocol = if(is_dev)
-                if(url.protocol ==  URLProtocol.WS) URLProtocol.WSS  else url.protocol
-            else
                 if(url.protocol ==  URLProtocol.WSS) URLProtocol.WS else url.protocol
+            else
+                if(url.protocol ==  URLProtocol.WS) URLProtocol.WSS  else url.protocol
             url.host = window.location.hostname
             url.port = window.location.port.toIntOrNull() ?: if(url.protocol == URLProtocol.HTTP || url.protocol == URLProtocol.WS) 80 else 443
             //url.host = BACKEND_HOST
