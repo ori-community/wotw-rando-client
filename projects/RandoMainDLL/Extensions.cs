@@ -17,7 +17,7 @@ namespace RandoMainDLL {
         Group = id.GroupID == 0 ? -1 : id.GroupID,
         State = id.ID == 0 ? -1 : id.ID
       },
-      Value = value == 0f ? -1f : value
+      Value = value == 0d ? -1d : value
     };
     public static UberId IdFromMsg(this Network.UberId n) => new UberId(n.Group == -1 ? 0 : n.Group, n.State == -1 ? 0 : n.State);
     public static (UberId, double) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value == -1d ? 0d : n.Value);
