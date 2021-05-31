@@ -181,7 +181,7 @@ int actual_main()
 
     if (process_id == 0)
     {
-        logstream << "failed to find process" << GetLastError() << std::endl;
+        logstream << "failed to find process " << GetLastError() << std::endl;
         return -1;
     }
 
@@ -192,8 +192,7 @@ int actual_main()
     auto process_handle = OpenProcess(PROCESS_ALL_ACCESS, 1, process_id);
     if (process_handle == nullptr)
     {
-        CloseHandle(process_handle);
-        logstream << "failed to open process" << GetLastError() << std::endl;
+        logstream << "failed to open process " << GetLastError() << std::endl;
         return -1;
     }
 

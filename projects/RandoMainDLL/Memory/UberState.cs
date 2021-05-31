@@ -101,7 +101,7 @@ namespace RandoMainDLL.Memory {
     public static UberValue value(int groupId, int id) => value(new UberId(groupId, id));
     public static UberValue value(UberId id) => id.GetValue();
     public static double AsDouble(int groupId, int id) => AsDouble(new UberId(groupId, id));
-    public static double AsDouble(UberId id) => InterOp.get_uber_state_value(id.GroupID, id.ID);
+    public static double AsDouble(UberId id) => value(id.GroupID, id.ID).AsDouble(id.State().Type);
     public static byte Byte(int groupId, int id) => value(new UberId(groupId, id)).Byte;
     public static byte Byte(UberId id) => value(id).Byte;
     public static int Int(int groupId, int id) => value(new UberId(groupId, id)).Int;
@@ -110,8 +110,6 @@ namespace RandoMainDLL.Memory {
     public static float Float(UberId id) => value(id).Float;
     public static bool Bool(int groupId, int id) => value(new UberId(groupId, id)).Bool;
     public static bool Bool(UberId id) => value(id).Bool;
-
-
   }
   public static class UberSet {
     public static void Bool(UberId id, bool val) => id.State().Write(new UberValue(val));

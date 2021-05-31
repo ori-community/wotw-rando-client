@@ -184,7 +184,7 @@ namespace RandoMainDLL {
           if (FramesTillUnlockReload == 0) {
             iniFlagCache.Clear();
             FramesTillNextSend = 0;
-            Randomizer.Client.Connect();
+            WebSocketClient.Connect();
             SeedController.ReadSeed();
             if (InterOp.get_game_state() == GameState.Game)
               PsuedoLocs.LOAD_SEED.OnCollect();

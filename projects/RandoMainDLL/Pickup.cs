@@ -25,7 +25,9 @@ namespace RandoMainDLL {
     BonusItem = 10,
     WeaponUpgrade = 11,
     ZoneHint = 12,
-    CheckableHint = 13
+    CheckableHint = 13,
+    Relic = 14,
+    SysMessage = 15,
   }
 
   public class DoneWithThis : Exception { };
@@ -116,6 +118,12 @@ namespace RandoMainDLL {
     ShardSlot = 4
   }
 
+  public enum SysMessageType : byte {
+    RelicList = 0,
+    MapRelicList = 1,
+    PickupCount = 2,
+    GoalProgress = 3,
+  }
 
   public abstract class Pickup {
     public virtual int Frames { get => 240; }
@@ -200,8 +208,6 @@ namespace RandoMainDLL {
 
 
   public class Multi : Pickup {
-
-    private string _lastDispName = "Empty";
     public Multi(List<Pickup> children) {
       Children = children;
       NonEmpty = children.Count > 0;
@@ -232,25 +238,32 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
-      bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
-      _lastDispName = "";
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
         child.Grant(true);
-        if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
-          continue;
-        _lastDispName += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
-
       }
-      _lastDispName = _lastDispName.TrimEnd('\n');
       base.Grant(false);
+    }
+
+    public override string DisplayName {
+      get {
+        bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+        var ret = "";
+        foreach (var child in Children) {
+          if (child is ConditionalStop s && s.StopActive())
+            break;
+          if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
+            continue;
+          ret += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
+        }
+        return ret.TrimEnd('\n');
+      }
     }
 
     public override string ShopName { get => Children.Exists(p => p is Message) ? Children.Find(p => p is Message).DisplayName : DisplayName; }
 
     public override int DefaultCost() => Children.Sum(p => p.DefaultCost());
-    public override string DisplayName { get => _lastDispName; }
 
     public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
   }
@@ -452,13 +465,15 @@ namespace RandoMainDLL {
 
     private static readonly List<string> MoneyNames = new List<string>() {
       "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo",
-     "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets",
-      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells",
+      "Experience", "Gil", "GP", "Dollars", "Tokens", "Tickets",
+      "Pounds Sterling", "BTC", "Euros", "Credits", "Bells", "Fish",
       "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
       "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
       "Money", "Cash", "ISK", "Munny", "Nuyen", "Rings", "Rupees", "Coins",
-      "Echoes", "Sovereigns", "Vbucks", "Robux"
+      "Echoes", "Sovereigns", "Vbucks", "Robux", "Doubloons", "Spheres",
+      "Silver", "Slivers", "Rubies", "Emeralds", "Notes", "Yen", "Zloty",
+      "Likes", "Comments", "Subs", "Bananas", "Sapphires", "Diamonds"
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
     public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}"; }
@@ -515,7 +530,7 @@ namespace RandoMainDLL {
       type = t;
       stateId = new UberId(4, (int)type);
     }
-    public static BonusItem Build(BonusType t, ZoneType z) => t == BonusType.Relic ? Relic.Build(z) : new BonusItem(t);
+    public static BonusItem Build(BonusType t, ZoneType z) => t == BonusType.Relic ? LegacyRelic.Build(z) : new BonusItem(t);
 
     public override void Grant(bool skipBase = false) {
       var state = stateId.State();
@@ -915,6 +930,33 @@ namespace RandoMainDLL {
   public abstract class Hint : Pickup {
     public abstract string Desc { get; }
   }
+
+  public class SysMessage : Pickup {
+    public override PickupType Type => PickupType.SysMessage;
+    public readonly SysMessageType messageType;
+    public readonly string extraData;
+    public SysMessage(SysMessageType mt, string extra = "") {
+      messageType = mt;
+      extraData = extra;
+    }
+
+    public override string Name => messageType.GetDescription();
+    public override string DisplayName { get {
+        switch(messageType) {
+          case SysMessageType.RelicList:
+            return Relic.RelicMessage();
+          case SysMessageType.MapRelicList:
+            return Relic.MapMessage((ZoneType)extraData.ParseToByte("SysMessage.MapRelicList: ZoneType"));
+          case SysMessageType.PickupCount:
+            return SeedController.PickupCount;
+          case SysMessageType.GoalProgress:
+            return SeedController.GoalModeMessages(withRelics: false);
+          default:
+            return "";
+        }
+      }
+    }
+  }
   public class ZoneHint : Hint {
     public override PickupType Type => PickupType.ZoneHint;
     public readonly ZoneType Zone;
@@ -994,6 +1036,8 @@ namespace RandoMainDLL {
       base.Grant(true);
     }
   }
+
+
 
 
 }

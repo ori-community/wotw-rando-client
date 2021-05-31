@@ -1,16 +1,24 @@
 package wotw.server.api
 
 import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import wotw.io.messages.FileEntry
-import wotw.io.messages.SeedGenConfig
+import kotlinx.serialization.json.Json
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import wotw.io.messages.*
+import wotw.server.database.model.Seed
 import wotw.server.main.WotwBackendServer
+import wotw.server.util.logger
 import java.io.File
+import java.nio.charset.Charset
+import java.nio.file.Path
 import java.util.jar.JarFile
 
 
 class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
+    val logger = logger()
     override fun Route.initRouting() {
         get("seedgen/headers") {
             val jar = JarFile(File(SeedGenEndpoint::class.java.protectionDomain.codeSource.location.toURI()).path)
@@ -26,22 +34,24 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
         }
         get("seedgen/presets") {
             val jar = JarFile(File(SeedGenEndpoint::class.java.protectionDomain.codeSource.location.toURI()).path)
-            val result = jar.entries().asSequence().filter {
+            val presetMap = jar.entries().asSequence().filter {
                 it.name.startsWith("presets") && it.name.endsWith("json")
             }.map {
-                FileEntry(
-                    it.name.substringAfterLast("/"),
-                    it.name.substringAfterLast("/").substringBeforeLast(".json"),
-                    null
-                )
-            }.toList()
+                it.name.substringAfterLast("/").substringBeforeLast(".json") to
+                        relaxedJson.decodeFromString(Preset.serializer(), SeedGenEndpoint::class.java.classLoader.getResource(it.name).readText())
+            }.toMap()
+            val result = presetMap.mapValues { it.value.fullResolve(presetMap) }
             call.respond(result)
         }
-        get("seeds/{id}") {}
+        get("seeds/{id}") {
+            val id = call.parameters["id"] ?: throw BadRequestException("No Seed ID found")
+            call.respond(seedFile(id).readBytes())
+        }
         post<SeedGenConfig>("seeds") { config ->
             //TODO: Input validation
-            val path = System.getenv("SEEDGEN_PATH")
-            var command = "$path seed --verbose --tostdout".split(" ").toTypedArray() + config.flags.flatMap { it.split(" ") }
+            val seed = newSuspendedTransaction { Seed.new {} }
+            val seedgenExec = System.getenv("SEEDGEN_PATH")
+            var command = "$seedgenExec seed --verbose".split(" ").toTypedArray() + config.flags.flatMap { it.split(" ") }
             if (config.goals.isNotEmpty()) {
                 command += "--goals"
                 command += config.goals
@@ -64,14 +74,24 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 command += "--worlds"
                 command += config.multiNames.size.toString()
             }
+
+            command += "--"
+            command += "${seed.id.value}"
+
             val process = ProcessBuilder(*command)
-                .directory(File(path.substringBeforeLast(File.separator)))
+                .directory(File(seedgenExec.substringBeforeLast(File.separator)))
                 .redirectOutput(ProcessBuilder.Redirect.PIPE)
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
                 .start()
             process.outputStream.close()
-            val response = process.inputStream.readAllBytes()
-            call.respondBytes(response)
+            process.inputStream.readAllBytes()
+            val err = process.errorStream.readAllBytes().toString(Charsets.UTF_8)
+            if(!seedFile(seed).exists())
+                call.respondText(err, ContentType.Text.Plain, HttpStatusCode.InternalServerError)
+            else
+                call.respondText(seed.id.value.toString(), ContentType.Text.Plain, HttpStatusCode.Created)
         }
     }
+    fun seedFile(seedId: String) = Path.of("${System.getenv("SEED_DIR")}\\${seedId}.wotwr").toFile()
+    fun seedFile(seed: Seed) = seedFile(seed.id.value.toString())
 }

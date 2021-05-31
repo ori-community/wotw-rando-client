@@ -22,3 +22,8 @@ val json = Json{
     prettyPrint = true
     allowStructuredMapKeys = true
 }
+val relaxedJson = Json{
+    prettyPrint = true
+    allowStructuredMapKeys = true
+    ignoreUnknownKeys = true
+}

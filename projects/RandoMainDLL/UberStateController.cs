@@ -54,10 +54,6 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
     }
 
-    public static void RegisterSyncedUberState(UberId id) {
-      SyncedUberStates.Add(id);
-    }
-
     public static void HandleSyncedUberStateChange(UberId id, double value) {
       InterOp.set_uber_state_value(id.GroupID, id.ID, value);
     }
@@ -81,12 +77,16 @@ namespace RandoMainDLL {
         Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
         return null;
       }
-
-      byte[] buffer = new byte[256];
-      int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
-      string name = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
-      len = InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
-      string groupName = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
+      string name = "";
+      string groupName = ""; 
+      
+      if(Randomizer.Dev) {
+        byte[] buffer = new byte[256];
+        int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
+        name = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
+        len = InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
+        groupName = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
+      }
 
       var s = new UberState() {
         ID = id.ID,
@@ -234,8 +234,8 @@ namespace RandoMainDLL {
           found = SeedController.OnUberState(state);
         }
 
-        if (SyncedUberStates.Contains(key)) 
-          Randomizer.Client.SendUpdate(key, state.ValueAsDouble());
+        if (SyncedUberStates.Contains(key))
+          WebSocketClient.SendUpdate(key, state.ValueAsDouble());
 
         BonusItemController.OnUberState(state);
         var zone = ZoneType.Void;
@@ -269,12 +269,12 @@ namespace RandoMainDLL {
         if (FullSyncNextUpdate) {
           FullSyncNextUpdate = false;
           Randomizer.Debug($"Syncing {SyncedUberStates.Count} states", false);
-          Randomizer.Client.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsDouble()));
+          WebSocketClient.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsDouble()));
           var bad = SyncedUberStates.Where(uid => uid.State() == null).ToList();
           Randomizer.Debug($"Not sending {bad.Count} bad states", false);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
-        while (Randomizer.Client.UberStateQueue.TryTake(out var stateUpdate)) {
+        while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate)) {
           var (id, val) = stateUpdate.FromNet();
           if (id.State().ValueAsDouble() != val) 
             InterOp.set_uber_state_value(id.GroupID, id.ID, val);
@@ -283,17 +283,19 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
     }
     private static void HandleSpecial(UberState state) {
-      if (state.Name == "arenaBByteStateSerialized" && state.Value.Byte == 4)
+      // lumaPoolsStateGroup.arenaBByteStateSerialized ; water dash version of the fight room
+      if (state.GroupID == 5377 && state.ID == 53480 && state.Value.Byte == 4)
         // lumaPoolsStateGroup.arenaByteStateSerialized
-        new UberId(5377, 1373).State().Write(state.Value);
-      else if (state.Name == "craftCutsceneState" && 0 < state.Value.Byte && state.Value.Byte < 3) {
+        UberSet.Byte(5377, 1373, 4);
+      // hubUberStateGroup.craftCutsceneState ; diamond in the rough
+      else if (state.GroupID == 42178 && state.ID == 2654 && 0 < state.Value.Byte && state.Value.Byte < 3) {
         state.Write(new UberValue((byte)3));
         // Give diamond in the rough pickup.
-        new UberId(23987, 14832).State().Write(new UberValue(true));
+        UberSet.Bool(23987, 14832, true);
       }
       // the below is a fix for a vanilla bug where you can just miss getting voice if you
       else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2 ||        // (a) skip the kwolok cutscene too fast
-               state.Name == "cleanseWellspringQuestUberState" && state.Value.Int == 4  // (b) come to kwolok after wellspring and get the cutscenes stacked awkwardly
+               state.GroupID == 937 && state.ID == 34641 && state.Value.Int == 4  // (b) come to kwolok after wellspring and get the cutscenes stacked awkwardly
         )
         Randomizer.InputUnlockCallback = () => {
           // this is really questionable!!
@@ -314,7 +316,7 @@ namespace RandoMainDLL {
     private static bool ShouldRevert(UberState state) {
       if (NeedsNewGameInit || SkipListeners)
         return false;
-      if (state.Name == "cleanseWellspringQuestUberState" && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes"))
+      if (state.GroupID == 937 && state.ID == 34641 && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes"))
         return true;
       else if (state.Name == "findKuQuest" && state.Value.Int < 4)
         return true;
