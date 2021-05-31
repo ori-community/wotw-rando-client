@@ -207,7 +207,7 @@ where
 }
 
 #[inline]
-fn force_keystones<'a, R, I>(reachable_states: &[Vec<&Node>], reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+fn force_keystones<'a, R, I>(reachable_states: &[Vec<&Node>], reserved_slots: &mut Vec<(usize, &'a Node)>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -242,7 +242,7 @@ where
     Ok(())
 }
 
-fn forced_placement<'a, R, I>(target_world_index: usize, item: Item, reserved_slots: &mut Vec<Vec<&'a Node>>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+fn forced_placement<'a, R, I>(target_world_index: usize, item: Item, reserved_slots: &mut Vec<(usize, &'a Node)>, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -254,23 +254,22 @@ where
             let mut world_indices = (0..context.world_count).collect::<Vec<_>>();
             world_indices.shuffle(context.rng);
 
-            for world_index in &world_indices {
-                if let Some(node) = reserved_slots[*world_index].pop() {
-                    return Ok((*world_index, node, false));
-                }
+            if let Some((origin_world_index, node)) = reserved_slots.pop() {
+                return Ok((origin_world_index, node, false));
             }
-            for world_index in world_indices {
-                let placeholders = &mut world_contexts[world_index].placeholders;
+            for origin_world_index in world_indices {
+                let placeholders = &mut world_contexts[origin_world_index].placeholders;
                 if !placeholders.is_empty() {
                     let index = context.rng.gen_range(0..placeholders.len());
                     let node = placeholders.remove(index);
-                    return Ok((world_index, node, true));
+                    return Ok((origin_world_index, node, true));
                 }
             }
 
             return Err(format!("({}): Not enough slots to place forced progression {}", world_contexts[target_world_index].player_name, item))  // due to the slot checks in missing_items this should only ever happen for forced keystone placements
         } else {
-            if let Some(node) = reserved_slots[target_world_index].pop() {
+            if let Some((index, _)) = reserved_slots.iter().enumerate().find(|(_, (world_index, _))| world_index == &target_world_index) {
+                let (_, node) = reserved_slots.remove(index);
                 return Ok((target_world_index, node, false));
             }
 
@@ -570,7 +569,7 @@ where
         place_relics(&mut world_contexts, &mut context)?;
     }
 
-    let mut reserved_slots = vec![Vec::with_capacity(RESERVE_SLOTS); context.world_count];
+    let mut reserved_slots = Vec::with_capacity(RESERVE_SLOTS);
     let total_reachable_count: usize = world_contexts.iter().map(|world_context| world_context.reachable_locations.len()).sum();
 
     loop {
@@ -602,7 +601,8 @@ where
                 node.uber_state().map_or(false, |uber_state|
                     !world_context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
                     !world_context.placeholders.iter().any(|&placeholder| placeholder.index() == node_index) &&
-                    !world_context.collected_preplacements.iter().any(|&collected| collected == node_index)
+                    !world_context.collected_preplacements.iter().any(|&collected| collected == node_index) &&
+                    !reserved_slots.iter().any(|&(reserved_world, node)| reserved_world == world_index && node.index() == node_index)
                 )
             });
 
@@ -634,16 +634,24 @@ where
             world_needs_placement
         }).collect::<Vec<_>>();
 
-        let mut reserved: usize = reserved_slots.iter().map(|world_reserved| world_reserved.len()).sum();
-        if unreached_count > 0 {
-            while reserved < RESERVE_SLOTS {
+        let mut reserved = reserved_slots.len();
+        if unreached_count > 0 && reserved < RESERVE_SLOTS {
+            loop {
                 let world_index = context.rng.gen_range(0..context.world_count);
 
                 if let Some(node) = needs_placement[world_index].pop() {
-                    reserved_slots[world_index].push(node);
+                    reserved_slots.push((world_index, node));
                     reserved += 1;
+
+                    if reserved == RESERVE_SLOTS {
+                        break;
+                    }
+                } else {
+                    break;
                 }
             }
+
+            reserved_slots.shuffle(context.rng);
         }
 
         if needs_placement.iter().all(|world_needs_placement| world_needs_placement.is_empty()) {
@@ -697,6 +705,8 @@ where
                         break (chosen_world_index, itemsets);
                     }
                 } else {
+                    // TODO flush launch fragments since those can't be rolled as progression
+
                     if world_contexts.iter().all(|world_context| world_context.placements.is_empty()) {
                         for world_index in 0..context.world_count {
                             let world_context = &world_contexts[world_index];
