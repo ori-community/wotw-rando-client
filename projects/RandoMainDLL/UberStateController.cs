@@ -294,8 +294,8 @@ namespace RandoMainDLL {
         UberSet.Bool(23987, 14832, true);
       }
       // the below is a fix for a vanilla bug where you can just miss getting voice if you
-      else if (state.Name == "findToadQuestUberState" && state.Value.Int == 2 ||        // (a) skip the kwolok cutscene too fast
-               state.GroupID == 937 && state.ID == 34641 && state.Value.Int == 4  // (b) come to kwolok after wellspring and get the cutscenes stacked awkwardly
+      else if (state.GroupID == 14019 && state.ID == 48794 && state.Value.Int == 2 ||  // (a) skip the kwolok cutscene too fast
+               state.GroupID == 937 && state.ID == 34641 && state.Value.Int == 4       // (b) come to kwolok after wellspring and get the cutscenes stacked awkwardly
         )
         Randomizer.InputUnlockCallback = () => {
           // this is really questionable!!
@@ -318,7 +318,8 @@ namespace RandoMainDLL {
         return false;
       if (state.GroupID == 937 && state.ID == 34641 && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes"))
         return true;
-      else if (state.Name == "findKuQuest" && state.Value.Int < 4)
+      // questUberStateGroup.findKuQuest
+      else if (state.GroupID == 14019 && state.ID == 34504 && state.Value.Int < 4)
         return true;
       return false;
     }
