@@ -66,7 +66,7 @@ namespace RandoMainDLL {
         return $"{w}{z}{w}";
       }));
       var c = cur == tot ? "$" : "";
-      return $"\n{c}Relics ({cur}/{tot}):{c} {s}";
+      return $"{c}Relics ({cur}/{tot}):{c} {s}";
     }
 
     public static bool Valid { get => !SeedController.Flags.Contains(Flag.RELIC_HUNT) || RelicZones.All(z => Counts[z] <= UberGet.value(ZoneToId[z]).Byte); }

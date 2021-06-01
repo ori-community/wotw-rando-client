@@ -626,27 +626,28 @@ namespace RandoMainDLL {
     public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false, bool withRelics = true) {
       if (InterOp.get_game_state() != GameState.Game)
         return ""; // don't even try!
-      var msg = new List<String>();
+      var goalMsgs = new List<String>();
       if (Flags.Contains(Flag.ALLWISPS)) {
         var max = UberStateController.Wisps.Count;
         var amount = UberStateController.Wisps.Count((UberState s) => s.ValueOr(new UberValue(false)).Bool);
         var w = amount == max ? met : unmet;
-        msg.Add($"{w}Wisps: {amount}/{max}{w}");
+        goalMsgs.Add($"{w}Wisps: {amount}/{max}{w}");
       }
       if (Flags.Contains(Flag.ALLTREES)) {
         var amount = SaveController.TreeCount;
         var w = amount == 14 ? met : unmet;
-        msg.Add($"{w}Trees: {amount}/{14}{w}");
+        goalMsgs.Add($"{w}Trees: {amount}/{14}{w}");
       }
       if (Flags.Contains(Flag.ALLQUESTS)) {
         var max = UberStateController.Quests.Count;
         var amount = UberStateController.Quests.Count((UberState s) => s.ValueOr(new UberValue(0)).Int == s.Value.Int);
         var w = amount == max ? met : unmet;
-        msg.Add($"{w}Quests: {amount}/{max}{w}");
+        goalMsgs.Add($"{w}Quests: {amount}/{max}{w}");
       }
+      var msg = String.Join(", ", goalMsgs);
       if (withRelics && Flags.Contains(Flag.RELIC_HUNT))
-        msg.Add(Relic.RelicMessage());
-      return msg.Count > 0 ? String.Join(", ", msg) : "";
+        msg += "\n"+Relic.RelicMessage();
+      return goalMsgs.Count > 0 ? (progress ? "\n" : "") + msg : msg;
     }
 
     public static void UpdateGoal() {
