@@ -135,7 +135,8 @@ namespace RandoMainDLL {
     }
 
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
-      var pp = new UberId(13, (int)_zone).toCond().Pickup();
+      var zone = _zone == ZoneType.Void ? CurrentZone : _zone;
+      var pp = new UberId(13, (int)zone).toCond().Pickup();
       int duration = justUnlocked ? 300 : 240;
       if (pp.NonEmpty) {
         AHK.SendPlainText(new PlainText(pp.DisplayName, duration), justUnlocked);
@@ -147,7 +148,6 @@ namespace RandoMainDLL {
         return;
       }
 
-      var zone = _zone == ZoneType.Void ? CurrentZone : _zone;
       var msg = getZoneHintMessage(zone);
       if (justUnlocked)
         msg = $"Bought hint: {msg.TrimStart()}";

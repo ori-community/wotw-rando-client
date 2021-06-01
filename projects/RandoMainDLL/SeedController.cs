@@ -646,7 +646,7 @@ namespace RandoMainDLL {
       }
       if (withRelics && Flags.Contains(Flag.RELIC_HUNT))
         msg.Add(Relic.RelicMessage());
-      return msg.Count > 0 ? (progress ? "\n" : "") + String.Join("\n", msg) : "";
+      return msg.Count > 0 ? String.Join(", ", msg) : "";
     }
 
     public static void UpdateGoal() {
