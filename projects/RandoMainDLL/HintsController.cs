@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Lifetime;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Net.Configuration;
 
 namespace RandoMainDLL {
   public enum ZoneType : byte {
@@ -126,14 +127,20 @@ namespace RandoMainDLL {
     }
 
     public static void OnMapPan(AreaType type) {
-      var msg = getZoneHintMessage(type.toZone(), isOnMap: true) + GetKeySkillHints();
+      var pp = new UberId(13, 100 + (int)type.toZone()).toCond().Pickup();
+      var msg = pp.NonEmpty ? pp.DisplayName : (getZoneHintMessage(type.toZone(), isOnMap: true) + GetKeySkillHints());
       if (msg.Count(c => c == '\n') == 2) // if there's exactly 3 lines, insert an extra linebreak at the top
         msg = "\n" + msg;                 // so the middle text isn't obscured by the filter button
       InterOp.update_map_hint(msg);
     }
 
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
+      var pp = new UberId(13, (int)_zone).toCond().Pickup();
       int duration = justUnlocked ? 300 : 240;
+      if (pp.NonEmpty) {
+        AHK.SendPlainText(new PlainText(pp.DisplayName, duration), justUnlocked);
+        return;
+      }
       if (InterOp.get_game_state() != GameState.Game) {
         if (!justUnlocked)
           AHK.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
