@@ -21,6 +21,7 @@ namespace uber_states
         constexpr int BINGO_STATE_GROUP_ID = 10;
         constexpr int APPLIERS_GROUP_ID = 11;
         constexpr int MULTI_VARS_GROUP_ID = 12;
+        constexpr int PSEUDO_LOCS_GROUP_ID = 13;
 
         const std::string TREE_GROUP_NAME = "trees";
         const std::string OPHER_WEAPON_GROUP_NAME = "opher_weapons";

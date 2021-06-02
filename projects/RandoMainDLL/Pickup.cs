@@ -299,7 +299,7 @@ namespace RandoMainDLL {
 
     private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)\)", RegexOptions.Compiled);
     private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)\|(.*)\]", RegexOptions.Compiled);
-    private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*)\)\]", RegexOptions.Compiled);
+    private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
     public override string DisplayName { get {
       var withUberNameRepl = uberNameFrag.Replace(Msg, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
       var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
