@@ -56,8 +56,8 @@ namespace RandoMainDLL {
     public UberStateCondition(int groupId, string rawTarget) {
       if (rawTarget.Contains("=")) {
         var idAndTarget = rawTarget.Split('=');
-        Id = new UberId(groupId, int.Parse(idAndTarget[0]));
-        Target = int.Parse(idAndTarget[1]);
+        Id = new UberId(groupId,idAndTarget[0].ParseToInt("UberStateCondition.Id"));
+        Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
         if (Target == 0)
           Target = null;
       }
