@@ -13,12 +13,13 @@ namespace RandoMainDLL {
     private readonly UberId zoneId;
     public readonly ZoneType Zone;
     private readonly string flavorName;
-    public Relic(ZoneType zone)  {
+    public Relic(ZoneType zone, string fn)  {
       zoneId = ZoneToId[zone];
+      flavorName = fn;
       Zone = zone;
     }
     public static Relic Build(ZoneType zone, string flavorRelicName = "") {
-      var ret = new Relic(zone);
+      var ret = new Relic(zone, flavorRelicName);
       Counts[zone] += 1;
       return ret;
     }
