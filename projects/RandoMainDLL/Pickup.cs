@@ -127,7 +127,8 @@ namespace RandoMainDLL {
   }
 
   public abstract class Pickup {
-    public virtual int Frames { get => 240; }
+    public virtual int Frames { get => _frames; set => _frames = value; }
+    private int _frames = 240;
     public virtual bool Clear { get => true; }
     public virtual bool Immediate { get => false; }
     public virtual bool Quiet { get => false; }
@@ -142,6 +143,12 @@ namespace RandoMainDLL {
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
 
+    public virtual void Grant(int framesOverride, bool skipBase = false) {
+      var origFrames = Frames;
+      Frames = framesOverride;
+      Grant(skipBase);
+      Frames = origFrames;
+    }
     public virtual void Grant(bool skipBase = false) {
       if (skipBase)
         return;
@@ -277,7 +284,7 @@ namespace RandoMainDLL {
   }
 
   public class Message : Pickup {
-    public override int Frames { get; }
+    public override int Frames { get; set; }
     public override bool Clear { get; }
     public override bool Immediate { get; }
     public override bool Quiet { get; }
