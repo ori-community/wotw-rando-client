@@ -139,7 +139,7 @@ namespace RandoMainDLL {
       var pp = new UberId(13, (int)zone).toCond().Pickup();
       int duration = justUnlocked ? 300 : 240;
       if (pp.NonEmpty) {
-        AHK.SendPlainText(new PlainText(pp.DisplayName, duration), justUnlocked);
+        AHK.SendPlainText(new PlainText(pp.DisplayName, duration, pp.Pos, pp.Clear, pp.Immediate, pp.Quiet), justUnlocked);
         return;
       }
       if (InterOp.get_game_state() != GameState.Game) {
