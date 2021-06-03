@@ -235,9 +235,10 @@ namespace RandoMainDLL {
 
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
-    private string nameAfterGrant = "";
+    private string nameAfterGrant = null;
     public override void Grant(bool skipBase = false) {
       if (!NonEmpty) return;
+      nameAfterGrant = "";
       bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
@@ -248,12 +249,12 @@ namespace RandoMainDLL {
         nameAfterGrant += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
       }
       base.Grant(false);
-      nameAfterGrant = "";
+      nameAfterGrant = null;
     }
 
     public override string DisplayName {
       get {
-        if(nameAfterGrant != "") return nameAfterGrant.TrimEnd('\n');
+        if (nameAfterGrant != null) return nameAfterGrant.TrimEnd('\n');
         bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
         var ret = "";
         foreach (var child in Children) {
