@@ -68,7 +68,7 @@ namespace RandoMainDLL {
     }
     public bool Met() {
       var value = UberGet.AsDouble(Id);
-      return Target.HasValue ? Target.Value >= value : value > 0;
+      return Target.HasValue ? value >= Target.Value : value > 0;
     }
     
     public override string ToString() => $"({Id.GroupID}, {Id.ID}){(Target.HasValue ?  $"={Target.Value}" : "")}";
