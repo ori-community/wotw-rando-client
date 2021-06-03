@@ -2,7 +2,7 @@ use std::fmt;
 
 use rustc_hash::FxHashMap;
 
-use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Pathsets, Pathset, Command};
+use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Pathsets, Pathset, Command, SysMessage};
 
 #[allow(clippy::pub_enum_variant_names)]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
@@ -14,17 +14,19 @@ pub enum Item {
     RemoveSkill(Skill),
     Shard(Shard),
     RemoveShard(Shard),
+    Command(Command),
     Teleporter(Teleporter),
     RemoveTeleporter(Teleporter),
+    Message(String),
+    UberState(String),
     Water,
     RemoveWater,
     BonusItem(BonusItem),
     BonusUpgrade(BonusUpgrade),
     Hint(Hint),
     CheckableHint(u16, u16, Vec<Item>),
-    UberState(String),
-    Command(Command),
-    Message(String),
+    Relic(Zone),
+    SysMessage(SysMessage),
 }
 impl fmt::Display for Item {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -37,8 +39,11 @@ impl fmt::Display for Item {
             Item::RemoveSkill(skill) => write!(f, "Remove {}", skill),
             Item::Shard(shard) => write!(f, "{}", shard),
             Item::RemoveShard(shard) => write!(f, "Remove {}", shard),
+            Item::Command(command) => write!(f, "4|{}", command),
             Item::Teleporter(teleporter) => write!(f, "{}", teleporter),
             Item::RemoveTeleporter(teleporter) => write!(f, "Remove {}", teleporter),
+            Item::Message(message) => write!(f, "{}", message),
+            Item::UberState(command) => write!(f, "8|{}", command),
             Item::Water => write!(f, "Clean Water"),
             Item::RemoveWater => write!(f, "Remove Clean Water"),
             Item::BonusItem(bonus_item) => write!(f, "{}", bonus_item),
@@ -48,9 +53,8 @@ impl fmt::Display for Item {
                 let hints = hints.iter().map(|hint| hint.to_string()).collect::<Vec<_>>();
                 write!(f, "{}", hints.join(", "))
             },
-            Item::UberState(command) => write!(f, "8|{}", command),
-            Item::Command(command) => write!(f, "4|{}", command),
-            Item::Message(message) => write!(f, "6|{}", message),
+            Item::Relic(zone) => write!(f, "{} Relic", zone),
+            Item::SysMessage(message) => write!(f, "{}", message),
         }
     }
 }
@@ -118,8 +122,7 @@ impl Item {
                 Shard::Arcing => false,
             },
             Item::SpiritLight(_) | Item::Teleporter(_) | Item::Water | Item::UberState(_) => true,
-            Item::BonusItem(_) | Item::BonusUpgrade(_) | Item::Hint(_) | Item::CheckableHint(_, _, _) | Item::Command(_) | Item::Message(_) |
-            Item::RemoveSpiritLight(_) | Item::RemoveSkill(_) | Item::RemoveShard(_) | Item::RemoveTeleporter(_) | Item::RemoveWater => false,
+            _ => false,
         }
     }
     #[inline]
@@ -224,8 +227,11 @@ impl Item {
             Item::RemoveSkill(skill) => format!("2|-{}", skill.to_id()),
             Item::Shard(shard) => format!("3|{}", shard.to_id()),
             Item::RemoveShard(shard) => format!("3|-{}", shard.to_id()),
+            Item::Command(command) => format!("4|{}", command),
             Item::Teleporter(teleporter) => format!("5|{}", teleporter.to_id()),
             Item::RemoveTeleporter(teleporter) => format!("5|-{}", teleporter.to_id()),
+            Item::Message(message) => format!("6|{}", message),
+            Item::UberState(command) => format!("8|{}", command),
             Item::Water => String::from("9|0"),
             Item::RemoveWater => String::from("9|-0"),
             Item::BonusItem(bonus) => format!("10|{}", bonus.to_id()),
@@ -235,9 +241,11 @@ impl Item {
                 let hint = hint.iter().map(|item| str::replace(&item.code(), '-', "|")).collect::<Vec<_>>();
                 format!("13|{}|{}|{}", base_price, price_modifier, hint.join(","))
             },
-            Item::UberState(command) => format!("8|{}", command),
-            Item::Command(command) => format!("4|{}", command),
-            Item::Message(message) => format!("6|{}", message),
+            Item::Relic(zone) => format!("14|{}", zone.to_id()),
+            Item::SysMessage(message) => match message {
+                    SysMessage::MapRelicList(zone) => format!("15|{}|{}", zone.to_id(), message.to_id()),
+                    _ => format!("15|{}", message.to_id()),
+                },
         }
     }
 }

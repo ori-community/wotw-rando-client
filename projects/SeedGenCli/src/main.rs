@@ -77,6 +77,7 @@ enum SeedGenCommand {
 #[derive(StructOpt)]
 struct SeedArgs {
     /// the seed's name and name of the file it will be written to. The name also seeds the rng.
+    // TODO better io, separate this from the folder
     #[structopt(parse(from_os_str))]
     filename: Option<PathBuf>,
     /// seed the rng; without this flag it will be seeded from the filename instead

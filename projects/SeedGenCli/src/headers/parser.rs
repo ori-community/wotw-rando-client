@@ -12,7 +12,7 @@ use crate::world::{
 use crate::inventory::Item;
 use crate::util::{
     self,
-    Pathsets, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType,
+    Pathsets, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
     uberstate::{UberState, UberIdentifier}
 };
 
@@ -438,6 +438,28 @@ where P: Iterator<Item=&'a str>
 
     Ok(Item::CheckableHint(base_price, price_modifier, hinted_items))
 }
+fn parse_relic<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let zone = parts.next().ok_or_else(|| String::from("missing relic zone"))?;
+    end_of_pickup(parts, shop)?;
+
+    let zone: u8 = zone.parse().map_err(|_| String::from("invalid relic zone"))?;
+    let zone = Zone::from_id(zone).ok_or_else(|| String::from("invalid relic zone"))?;
+
+    Ok(Item::Relic(zone))
+}
+fn parse_sysmessage<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let message = parts.next().ok_or_else(|| String::from("missing sysmessage type"))?;
+    end_of_pickup(parts, shop)?;
+
+    let message: u8 = message.parse().map_err(|_| String::from("invalid sysmessage type"))?;
+    let message = SysMessage::from_id(message).ok_or_else(|| String::from("invalid sysmessage type"))?;
+
+    Ok(Item::SysMessage(message))
+}
 
 pub fn parse_pickup(pickup: &str, shop: bool) -> Result<Item, String> {
     let pickup = pickup.trim();
@@ -458,6 +480,8 @@ pub fn parse_pickup(pickup: &str, shop: bool) -> Result<Item, String> {
         "11" => parse_bonus_upgrade(parts, shop),
         "12" => parse_zone_hint(parts, shop),
         "13" => parse_checkable_hint(parts, shop),
+        "14" => parse_relic(parts, shop),
+        "15" => parse_sysmessage(parts, shop),
         _ => Err(String::from("invalid pickup type")),
     }.map_err(|err| format!("{} in pickup {}", err, pickup))
 }

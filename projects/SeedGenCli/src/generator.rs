@@ -192,7 +192,7 @@ where
             if context.rng.gen_bool(0.8) {
                 log::trace!("({}): Placing Relic in {}", world_contexts[target_world_index].player_name, zone);
 
-                // TODO wait for alt+p control
+                // TODO implement the new relics
                 // let origin_world_index = context.rng.gen_range(0..context.world_count);
                 let origin_world_index = target_world_index;
 

@@ -5,8 +5,7 @@ use smallvec::{SmallVec, smallvec};
 
 use super::{player::Player, requirements::Requirement};
 use crate::util::{
-    RefillType, NodeType,
-    Position,
+    RefillType, NodeType, Position, Zone,
     orbs::{self, Orbs},
     uberstate::{UberState, UberIdentifier},
     constants::TP_ANCHOR,
@@ -36,7 +35,7 @@ pub struct Anchor {
 pub struct Pickup {
     pub identifier: String,
     pub position: Position,
-    pub zone: String,
+    pub zone: Zone,
     pub index: usize,
     pub uber_state: UberState,
 }
@@ -50,7 +49,7 @@ pub struct State {
 pub struct Quest {
     pub identifier: String,
     pub position: Position,
-    pub zone: String,
+    pub zone: Zone,
     pub index: usize,
     pub uber_state: UberState,
 }
@@ -79,10 +78,10 @@ impl Node {
             Node::Quest(quest) => &quest.identifier[..],
         }
     }
-    pub fn zone(&self) -> Option<&str> {
+    pub fn zone(&self) -> Option<Zone> {
         match self {
-            Node::Pickup(pickup) => Some(&pickup.zone[..]),
-            Node::Quest(quest) => Some(&quest.zone[..]),
+            Node::Pickup(pickup) => Some(pickup.zone),
+            Node::Quest(quest) => Some(quest.zone),
             _ => None,
         }
     }

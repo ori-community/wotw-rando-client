@@ -754,6 +754,7 @@ dependencies = [
  "log4rs",
  "rand",
  "rand_seeder",
+ "regex",
  "rustc-hash",
  "serde",
  "serde_json",

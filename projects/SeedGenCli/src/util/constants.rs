@@ -1,4 +1,7 @@
-use super::uberstate::UberIdentifier;
+use super::{
+    Zone,
+    uberstate::UberIdentifier,
+};
 use ansi_term::Colour;
 
 pub const DEFAULT_SPAWN: &str = "MarshSpawn.Main";
@@ -25,18 +28,17 @@ pub const GORLEK_SPAWNS: &[&str] = &[
     "LowerWastes.WestTP",
     "LowerWastes.EastTP",
 ];
-pub const RELIC_ZONES: &[&str] = &[
-    "Inkwater Marsh",
-    "Midnight Burrows",
-    "Kwoloks Hollow",
-    "Wellspring Glades",
-    "The Wellspring",
-    "Luma Pools",
-    "Silent Woods",
-    "Baurs Reach",
-    "Mouldwood Depths",
-    "Windswept Wastes",
-    "Willows End",
+pub const RELIC_ZONES: &[Zone] = &[
+    Zone::Marsh,
+    Zone::Burrows,
+    Zone::Hollow,
+    Zone::Glades,
+    Zone::Wellspring,
+    Zone::Pools,
+    Zone::Reach,
+    Zone::Depths,
+    Zone::Wastes,
+    Zone::Willow,
 ];
 pub const KEYSTONE_DOORS: &[(&str, u16)] = &[
     ("MarshSpawn.KeystoneDoor", 2),

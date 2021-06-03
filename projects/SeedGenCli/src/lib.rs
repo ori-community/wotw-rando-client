@@ -34,9 +34,10 @@ use world::{
     graph::{Graph, Node, Pickup},
     pool::Pool
 };
-use headers::parser::{self, HeaderContext};
+use generator::Placement;
+use headers::parser::HeaderContext;
 use util::{
-    Pathset, NodeType, Position,
+    Pathset, NodeType, Position, Zone,
     settings::{Settings, Spawn},
     uberstate::UberState,
     constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES},
@@ -149,7 +150,7 @@ where R: Rng + ?Sized
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = parser::parse_header(&PathBuf::from("inline header"), header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = headers::parser::parse_header(&PathBuf::from("inline header"), header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
@@ -166,7 +167,7 @@ where R: Rng + ?Sized
 
             log::trace!("Parsing header {}", path.display());
             let header = util::read_file(&path, "headers")?;
-            let header = parser::parse_header(&path, &header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
+            let header = headers::parser::parse_header(&path, &header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
         }
@@ -181,6 +182,34 @@ where R: Rng + ?Sized
     }
 
     Ok((header_block, context.flags, context.names))
+}
+
+fn generate_placements<'a, R>(graph: &'a Graph, worlds: Vec<World<'a>>, settings: &Settings, spawn_pickup_node: &'a Node, custom_names: &HashMap<String, String>, rng: &mut R) -> Result<(Vec<Vec<Placement<'a>>>, Vec<&'a Node>), String>
+where R: Rng
+{
+    let mut index = 0;
+    loop {
+        let spawn_locs = (0..settings.worlds)
+            .map(|_| pick_spawn(graph, &settings, rng))
+            .collect::<Result<Vec<_>, String>>()?;
+        let identifiers = spawn_locs.iter().map(|spawn_loc| spawn_loc.identifier()).collect::<Vec<_>>();
+        log::trace!("Spawning on {}", identifiers.join(", "));
+
+        match generator::generate_placements(worlds.clone(), &spawn_locs, spawn_pickup_node, custom_names, settings, rng) {
+            Ok(seed) => {
+                if index > 0 {
+                    log::info!("Generated seed after {} tries{}", index + 1, if index < RETRIES / 2 { "" } else { " (phew)" });
+                }
+                return Ok((seed, spawn_locs));
+            },
+            Err(err) => log::error!("{}\nRetrying...", err),
+        }
+
+        index += 1;
+        if index == RETRIES {
+            return Err(format!("All {} attempts to generate a seed failed :(", RETRIES));
+        }
+    };
 }
 
 pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<Vec<String>, String> {
@@ -222,35 +251,13 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     let spawn_state = UberState::spawn();
     let spawn_pickup_node = Node::Pickup(Pickup {
         identifier: String::from("Spawn"),
-        zone: String::new(),
+        zone: Zone::Void,
         index: usize::MAX,
         uber_state: spawn_state,
         position: Position { x: 0, y: 0 },
     });
 
-    let mut index = 0;
-    let (placements, spawn_locs) = loop {
-        let spawn_locs = (0..settings.worlds)
-            .map(|_| pick_spawn(graph, &settings, &mut rng))
-            .collect::<Result<Vec<_>, String>>()?;
-        let identifiers = spawn_locs.iter().map(|spawn_loc| spawn_loc.identifier()).collect::<Vec<_>>();
-        log::trace!("Spawning on {}", identifiers.join(", "));
-
-        match generator::generate_placements(worlds.clone(), &spawn_locs, &spawn_pickup_node, &custom_names, &settings, &mut rng) {
-            Ok(seed) => {
-                if index > 0 {
-                    log::info!("Generated seed after {} tries{}", index + 1, if index < RETRIES / 2 { "" } else { " (phew)" });
-                }
-                break (seed, spawn_locs);
-            },
-            Err(err) => log::error!("{}\nRetrying...", err),
-        }
-
-        index += 1;
-        if index == RETRIES {
-            return Err(format!("All {} attempts to generate a seed failed :(", RETRIES));
-        }
-    };
+    let (placements, spawn_locs) = generate_placements(graph, worlds, &settings, &spawn_pickup_node, &custom_names, &mut rng)?;
 
     let spawn_lines = spawn_locs.into_iter().map(|spawn_loc| {
         if spawn_loc.identifier() != DEFAULT_SPAWN {
@@ -279,7 +286,7 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
                 );
 
                 util::add_trailing_spaces(&mut placement_line, 46);
-                let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| format!("{}", placement.item));
+                let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| placement.item.to_string());
                 let item = util::with_leading_spaces(&item, 36);
 
                 placement_line += &format!("  // {} from {}", item, location);
@@ -296,9 +303,11 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     let seed_line = format!("// Seed: {}", seed);
     let config_line = format!("// Config: {}", config);
 
-    let seeds = (0..settings.worlds).map(|index| {
+    let mut seeds = (0..settings.worlds).map(|index| {
         format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &placement_blocks[index], &header_block, &slug_line, &seed_line, &config_line)
     }).collect::<Vec<_>>();
+
+    headers::postprocess(&mut seeds, graph, &settings)?;
 
     Ok(seeds)
 }

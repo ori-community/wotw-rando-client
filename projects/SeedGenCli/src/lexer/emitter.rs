@@ -5,7 +5,7 @@ use crate::world::{
     graph::{self, Graph, Node},
     requirements::Requirement,
 };
-use crate::util::{Pathsets, Pathset, Skill, Position};
+use crate::util::{Pathsets, Pathset, Skill, Position, Zone};
 
 struct EmitterContext<'a> {
     definitions: &'a FxHashMap<&'a str, parser::Group<'a>>,
@@ -162,13 +162,29 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
     for location in locations {
         let name = &location.name[..];
+        let zone = match &location.zone[..] {
+            "Inkwater Marsh" => Zone::Marsh,
+            "Midnight Burrows" => Zone::Burrows,
+            "Kwoloks Hollow" => Zone::Hollow,
+            "Wellspring Glades" => Zone::Glades,
+            "The Wellspring" => Zone::Wellspring,
+            "Luma Pools" => Zone::Pools,
+            "Silent Woods" => Zone::Woods,
+            "Baurs Reach" => Zone::Reach,
+            "Mouldwood Depths" => Zone::Depths,
+            "Windswept Wastes" => Zone::Wastes,
+            "Windtorn Ruins" => Zone::Ruins,
+            "Willows End" => Zone::Willow,
+            _ => Zone::Void,
+        };
+
         if metadata.quests.contains(name) {
             let index = graph.len();
             add_entry(&mut node_map, &location.name, index)?;
 
             graph.push(Node::Quest(graph::Quest {
                 identifier: location.name.clone(),
-                zone: location.zone.clone(),
+                zone,
                 index,
                 uber_state: location.uber_state.clone(),
                 position: location.position.clone(),
@@ -179,7 +195,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
             graph.push(Node::Pickup(graph::Pickup {
                 identifier: location.name.clone(),
-                zone: location.zone.clone(),
+                zone,
                 index,
                 uber_state: location.uber_state.clone(),
                 position: location.position.clone(),

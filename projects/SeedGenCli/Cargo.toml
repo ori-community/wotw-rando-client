@@ -20,6 +20,7 @@ log = "0.4"
 log4rs = "1.0.0"
 ansi_term = "0.12.1"
 smallvec = "1.6.1"
+regex = "1"
 
 [dev-dependencies]
 criterion = "0.3"
