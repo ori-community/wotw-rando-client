@@ -375,7 +375,7 @@ namespace RandoMainDLL {
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
         case PickupType.SysMessage:
-          return new SysMessage((SysMessageType)pickupData.ParseToByte(), extras.FirstOrElse(""));
+          return SysMessage.Build((SysMessageType)pickupData.ParseToByte(), extras.FirstOrElse(""));
         case PickupType.ZoneHint:
           if (extras.Count == 1) return new ZoneHint((ZoneType)pickupData.ParseToByte(), (HintType)extras[0].ParseToByte()); // 12|x|y, y is hint type
           return new ZoneHint((ZoneType)pickupData.ParseToByte());

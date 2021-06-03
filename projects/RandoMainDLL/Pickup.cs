@@ -123,6 +123,7 @@ namespace RandoMainDLL {
     MapRelicList = 1,
     PickupCount = 2,
     GoalProgress = 3,
+    ListHint = 4,
   }
 
   public abstract class Pickup {
@@ -942,6 +943,12 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.SysMessage;
     public readonly SysMessageType messageType;
     public readonly string extraData;
+
+    public static Pickup Build(SysMessageType mt, string extra = "") {
+      if (mt == SysMessageType.ListHint)
+        return new ListHint(mt, extra);
+      return new SysMessage(mt, extra);
+    }
     public SysMessage(SysMessageType mt, string extra = "") {
       messageType = mt;
       extraData = extra;
@@ -963,6 +970,31 @@ namespace RandoMainDLL {
         }
       }
     }
+  }
+  public class ListHint : SysMessage {
+    public List<UberStateCondition> targets;
+    public ListHint(SysMessageType mt, string extra = "") : base(mt, extra) {
+      targets = new List<UberStateCondition>();
+      var pieces = extra.Split(',').ToList();
+      if (pieces.Count % 2 != 0)
+        Randomizer.Warn("ListHint.Init", $"{extra} has an odd number of parts; the last one will be ignored");
+      while (pieces.Count > 1) {
+        targets.Add(new UberStateCondition(pieces[0].ParseToInt("ListHint.GID"), pieces[1]));
+        pieces = pieces.Skip(2).ToList();
+      }
+    }
+    public override string DisplayName {
+      get {
+        var tc = targets.Count;
+        var found = targets.Where(uc => uc.Met()).ToList();
+        var fc = found.Count;
+        if (found.Count == 0)
+          return $"0/{tc}";
+        var cnt = fc == tc ? $"${tc}/{tc}$" : $"{fc}/{tc}";
+        return $"{cnt}: {String.Join(", ", found.Select(uc => uc.Pickup().DisplayName))}";
+      }
+    }
+
   }
   public class ZoneHint : Hint {
     public override PickupType Type => PickupType.ZoneHint;
