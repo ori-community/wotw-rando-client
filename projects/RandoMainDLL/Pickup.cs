@@ -982,6 +982,7 @@ namespace RandoMainDLL {
     public List<UberStateCondition> targets;
     public ListHint(SysMessageType mt, string extra = "") : base(mt, extra) {
       targets = new List<UberStateCondition>();
+      if (extra == "") return;
       var pieces = extra.Split(',').ToList();
       if (pieces.Count % 2 != 0)
         Randomizer.Warn("ListHint.Init", $"{extra} has an odd number of parts; the last one will be ignored");
