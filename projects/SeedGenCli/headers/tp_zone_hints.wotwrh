@@ -1,18 +1,34 @@
 /// Teleporter Zone Hints
 ///
-/// Lupo's maps give information about the number of skills and teleporters in the current zone. Lupo in Glades sells the maps for Woods and Glades.
-!!exclude zone_hints
+/// Lupo's maps give information about the number of teleporters in the current zone. Lupo in Glades sells the hints for Woods and Glades.
+!!include progress_helper
 
-48248|18767|12|0|10         // Marsh Teleporter Zone Hint from LupoMap.Marsh
-48248|45538|12|5|10         // Burrows Teleporter Zone Hint from LupoMap.Burrows
-48248|3638|12|1|10          // Hollow Teleporter Zone Hint from LupoMap.Hollow
-48248|1590|12|3|10          // Wellspring Teleporter Zone Hint from LupoMap.Wellspring
-48248|1557|12|4|10          // Pools Teleporter Zone Hint from LupoMap.Pools
-48248|48423|12|8|10         // Depths Teleporter Zone Hint from LupoMap.Depths
-48248|61146|12|9|10         // Wastes Teleporter Zone Hint from LupoMap.Wastes
-48248|29604|12|6|10         // Reach Teleporter Zone Hint from LupoMap.Reach
-48248|4045|12|11|10         // Willow Teleporter Zone Hint from LupoMap.Willow
-48248|19396|12|2|10         // Glades Teleporter Zone Hint from LupoMap.HCMapIcons
-3|1|8|48248|19397|int|200   // Price on load
-48248|57987|12|7|10         // Woods Teleporter Zone Hint from LupoShop.ECMapIcons
-3|1|8|48248|57988|int|200   // Price on load
+9|999=1|4|17|48248|18767|1|6|Marsh TPs - $HOWMANY(0, 5\|.*)
+9|999=4|4|17|48248|3638|1|6|Hollow TPs - $HOWMANY(1, 5\|.*)
+9|999=7|4|17|48248|19396|1|6|Glades TPs - $HOWMANY(2, 5\|.*)
+9|999=10|4|17|48248|1590|1|6|Wellspring TPs - $HOWMANY(3, 5\|.*)
+9|999=13|4|17|48248|1557|1|6|Pools TPs - $HOWMANY(4, 5\|.*)
+9|999=16|4|17|48248|45538|1|6|Burrows TPs - $HOWMANY(5, 5\|.*)
+9|999=19|4|17|48248|29604|1|6|Reach TPs - $HOWMANY(6, 5\|.*)
+9|999=22|4|17|48248|57987|1|6|Woods TPs - $HOWMANY(7, 5\|.*)
+9|999=25|4|17|48248|48423|1|6|Depths TPs - $HOWMANY(8, 5\|.*)
+9|999=28|4|17|48248|61146|1|6|Wastes TPs - $HOWMANY(9, 5\|.*)
+9|999=34|4|17|48248|4045|1|6|Willow TPs - $HOWMANY(11, 5\|.*)
+
+48248|18767|6|$[(9|999=1)]                  // Marsh Zone Hint from LupoMap.Marsh
+48248|3638|6|$[(9|999=4)]                   // Hollow Zone Hint from LupoMap.Hollow
+48248|19396|6|f=0|Glades Teleporters Hint   // Glades Zone Hint from LupoMap.HCMapIcons
+48248|19396|8|9|0|int|38
+9|0=38|6|$[(9|999=7)]
+3|1|8|48248|19397|int|200                   // Price for Glades Zone Hint
+48248|1590|6|$[(9|999=10)]                  // Wellspring Zone Hint from LupoMap.Wellspring
+48248|1557|6|$[(9|999=13)]                  // Pools Zone Hint from LupoMap.Pools
+48248|45538|6|$[(9|999=16)]                 // Burrows Zone Hint from LupoMap.Burrows
+48248|29604|6|$[(9|999=19)]                 // Reach Zone Hint from LupoMap.Reach
+48248|57987|6|f=0|Woods Teleporters Hint    // Woods Zone Hint from LupoMap.HCMapIcons
+48248|57987|8|9|0|int|39
+9|0=39|6|$[(9|999=22)]
+3|1|8|48248|57988|int|200                   // Price for Woods Zone Hint
+48248|48423|6|$[(9|999=25)]                 // Depths Zone Hint from LupoMap.Depths
+48248|61146|6|$[(9|999=28)]                 // Wastes Zone Hint from LupoMap.Wastes
+48248|4045|6|$[(9|999=34)]                  // Willow Zone Hint from LupoMap.Willow

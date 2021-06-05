@@ -5,6 +5,7 @@
 /// Lupo in Glades tells the zones holding Burrow, Water Dash, Grenade and Flash
 /// Twillen tells the zones holding Bow and Bash
 !!include header_core
+!!include progress_helper
 
 48248|41666|6|f=0|Burrow, Water Dash, Light Burst, Flash hint   // key skill hint from LupoHint.Shards
 48248|41666|8|9|0|int|33

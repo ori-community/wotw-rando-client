@@ -285,7 +285,7 @@ pub fn validate(path: Option<PathBuf>) -> Result<(), String> {
 }
 
 fn where_is(pattern: &str, world_index: usize, seeds: &[String], graph: &Graph, settings: &Settings) -> Result<String, String> {
-    let re = Regex::new(&format!(r"^{}$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
+    let re = Regex::new(&format!(r"^({})$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
 
     for mut line in seeds[world_index].lines() {
         if let Some(index) = line.find("//") {
@@ -331,10 +331,9 @@ fn where_is(pattern: &str, world_index: usize, seeds: &[String], graph: &Graph, 
     Ok(String::from("Unknown"))
 }
 
-// TODO WIP
-fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], graph: &Graph) -> Result<String, String> {
-    let mut count = 0;
-    let re = Regex::new(&format!(r"^{}$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
+fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], graph: &Graph) -> Result<Vec<UberState>, String> {
+    let mut locations = Vec::new();
+    let re = Regex::new(&format!(r"^({})$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
 
     for mut line in seeds[world_index].lines() {
         if let Some(index) = line.find("//") {
@@ -354,7 +353,7 @@ fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], gra
         let uber_state = UberState::from_parts(uber_group, uber_id)?;
         if graph.nodes.iter().any(|node| node.zone() == Some(zone) && node.uber_state() == Some(&uber_state)) {
             if re.is_match(pickup) {
-                count += 1;
+                locations.push(uber_state);
             } else {  // if multiworld shared
                 let mut pickup_parts = pickup.split('|');
                 if pickup_parts.next() != Some("8") { continue; }
@@ -365,13 +364,19 @@ fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], gra
                 let mut other_worlds = (0..seeds.len()).collect::<Vec<_>>();
                 other_worlds.remove(world_index);
 
-                for other_world_index in other_worlds {
+                'outer: for other_world_index in other_worlds {
                     let other_seed = &seeds[other_world_index];
 
                     for other_seed_line in other_seed.lines() {
-                        if let Some(actual_pickup) = other_seed_line.strip_prefix(&share_state) {
+                        if let Some(mut actual_pickup) = other_seed_line.strip_prefix(&share_state) {
+                            if let Some(index) = actual_pickup.find("//") {
+                                actual_pickup = &actual_pickup[..index];
+                            }
+                            actual_pickup = actual_pickup.trim();
+
                             if re.is_match(actual_pickup) {
-                                count += 1;
+                                locations.push(uber_state);
+                                break 'outer;
                             }
                         }
                     }
@@ -380,7 +385,20 @@ fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], gra
         }
     }
 
-    Ok(count.to_string())
+    Ok(locations)
+}
+
+fn read_args(seed: &str, start_index: usize) -> Option<usize> {
+    let mut depth: u8 = 1;
+    for (index, char) in seed[start_index..].chars().enumerate() {
+        if char == '(' { depth += 1; }
+        else if char == ')' { depth -= 1; }
+        if depth == 0 {
+            return Some(start_index + index);
+        }
+    }
+
+    return None;
 }
 
 pub fn postprocess(seeds: &mut Vec<String>, graph: &Graph, settings: &Settings) -> Result<(), String> {
@@ -395,9 +413,8 @@ pub fn postprocess(seeds: &mut Vec<String>, graph: &Graph, settings: &Settings) 
 
                 let after_bracket = start_index + 9;
 
-                if let Some(mut end_index) = seed[after_bracket..].find(")") {
-                    end_index += after_bracket;
-                    let pattern = &seed[after_bracket..end_index];
+                if let Some(end_index) = read_args(seed, after_bracket) {
+                    let pattern = seed[after_bracket..end_index].trim();
 
                     let zone = where_is(pattern, world_index, &clone, graph, settings)?;
                     seed.replace_range(start_index..=end_index, &zone);
@@ -416,16 +433,20 @@ pub fn postprocess(seeds: &mut Vec<String>, graph: &Graph, settings: &Settings) 
 
                 let after_bracket = start_index + 9;
 
-                if let Some(mut end_index) = seed[after_bracket..].find(")") {
-                    end_index += after_bracket;
+                if let Some(end_index) = read_args(seed, after_bracket) {
                     let mut args = seed[after_bracket..end_index].splitn(2, ',');
-                    let zone = args.next().unwrap();
+                    let zone = args.next().unwrap().trim();
                     let zone: u8 = zone.parse().map_err(|_| format!("expected numeric zone, got {}", zone))?;
                     let zone = Zone::from_id(zone).ok_or_else(|| format!("invalid zone {}", zone))?;
-                    let pattern = args.next().unwrap_or("");
+                    let pattern = args.next().unwrap_or("").trim();
 
-                    let count = how_many(pattern, zone, world_index, &clone, graph)?;
-                    seed.replace_range(start_index..=end_index, &count);
+                    let locations = how_many(pattern, zone, world_index, &clone, graph)?;
+                    let locations = locations.into_iter().map(|uber_state| uber_state.to_string()).collect::<Vec<_>>();
+                    let locations = locations.join(",").replace('|', ",");
+
+                    let sysmessage = format!("$[15|4|{}]", locations);
+
+                    seed.replace_range(start_index..=end_index, &sysmessage);
 
                     continue;
                 }

@@ -1,18 +1,34 @@
 /// Zone Hints
 ///
-/// Lupo's maps give information about the number of skills in the current zone. Lupo in Glades sells the maps for Woods and Glades.
-!!exclude tp_zone_hints
+/// Lupo's maps give information about the number of skills in the current zone. Lupo in Glades sells the hints for Woods and Glades.
+!!include progress_helper
 
-48248|18767|12|0            // Marsh Zone Hint from LupoMap.Marsh
-48248|45538|12|5            // Burrows Zone Hint from LupoMap.Burrows
-48248|3638|12|1             // Hollow Zone Hint from LupoMap.Hollow
-48248|1590|12|3             // Wellspring Zone Hint from LupoMap.Wellspring
-48248|1557|12|4             // Pools Zone Hint from LupoMap.Pools
-48248|48423|12|8            // Depths Zone Hint from LupoMap.Depths
-48248|61146|12|9            // Wastes Zone Hint from LupoMap.Wastes
-48248|29604|12|6            // Reach Zone Hint from LupoMap.Reach
-48248|4045|12|11            // Willow Zone Hint from LupoMap.Willow
-48248|19396|12|2            // Glades Zone Hint from LupoMap.HCMapIcons
-3|1|8|48248|19397|int|200   // Price on load
-48248|57987|12|7            // Woods Zone Hint from LupoShop.ECMapIcons
-3|1|8|48248|57988|int|200   // Price on load
+9|999=0|4|17|48248|18767|1|6|Marsh Skills - $HOWMANY(0, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=3|4|17|48248|3638|1|6|Hollow Skills - $HOWMANY(1, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=6|4|17|48248|19396|1|6|Glades Skills - $HOWMANY(2, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=9|4|17|48248|1590|1|6|Wellspring Skills - $HOWMANY(3, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=12|4|17|48248|1557|1|6|Pools Skills - $HOWMANY(4, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=15|4|17|48248|45538|1|6|Burrows Skills - $HOWMANY(5, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=18|4|17|48248|29604|1|6|Reach Skills - $HOWMANY(6, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=21|4|17|48248|57987|1|6|Woods Skills - $HOWMANY(7, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=24|4|17|48248|48423|1|6|Depths Skills - $HOWMANY(8, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=27|4|17|48248|61146|1|6|Wastes Skills - $HOWMANY(9, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+9|999=33|4|17|48248|4045|1|6|Willow Skills - $HOWMANY(11, 2\|(\d{1,2}|1[0-1]\d)|9\|0)
+
+48248|18767|6|$[(9|999=0)]              // Marsh Zone Hint from LupoMap.Marsh
+48248|3638|6|$[(9|999=3)]               // Hollow Zone Hint from LupoMap.Hollow
+48248|19396|6|f=0|Glades Skills Hint    // Glades Zone Hint from LupoMap.HCMapIcons
+48248|19396|8|9|0|int|36
+9|0=36|6|$[(9|999=6)]
+3|1|8|48248|19397|int|200               // Price for Glades Zone Hint
+48248|1590|6|$[(9|999=9)]               // Wellspring Zone Hint from LupoMap.Wellspring
+48248|1557|6|$[(9|999=12)]              // Pools Zone Hint from LupoMap.Pools
+48248|45538|6|$[(9|999=15)]             // Burrows Zone Hint from LupoMap.Burrows
+48248|29604|6|$[(9|999=18)]             // Reach Zone Hint from LupoMap.Reach
+48248|57987|6|f=0|Woods Skills Hint     // Woods Zone Hint from LupoMap.HCMapIcons
+48248|57987|8|9|0|int|37
+9|0=37|6|$[(9|999=21)]
+3|1|8|48248|57988|int|200               // Price for Woods Zone Hint
+48248|48423|6|$[(9|999=24)]             // Depths Zone Hint from LupoMap.Depths
+48248|61146|6|$[(9|999=27)]             // Wastes Zone Hint from LupoMap.Wastes
+48248|4045|6|$[(9|999=33)]              // Willow Zone Hint from LupoMap.Willow
