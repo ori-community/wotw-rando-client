@@ -525,10 +525,10 @@ where
         target_world_indices.shuffle(context.rng);
 
         for target_world_index in target_world_indices {
-            let target_world_context = &mut world_contexts[target_world_index];
+            let origin_world_index = context.rng.gen_range(0..context.world_count);
 
-            if let Some(node) = target_world_context.placeholders.pop() {
-                let origin_world_index = context.rng.gen_range(0..context.world_count);
+            if let Some(node) = world_contexts[origin_world_index].placeholders.pop() {
+                let target_world_context = &mut world_contexts[target_world_index];
 
                 if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
                     target_world_context.world.pool.remove(&item, 1);
@@ -711,7 +711,7 @@ where
                 if let Some(chosen_world_index) = world_indices.pop() {
                     let world_context = &world_contexts[chosen_world_index];
 
-                    let world_slots = reserved + world_context.placeholders.len();
+                    let world_slots = reserved_slots.iter().filter(|(world_index, _)| *world_index == chosen_world_index).count() + world_context.placeholders.len();
 
                     let mut itemsets = Vec::new();
 
