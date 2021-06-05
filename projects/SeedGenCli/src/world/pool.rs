@@ -149,7 +149,7 @@ impl Pool {
         true
     }
 
-    pub fn choose_random<R>(&mut self, multiworld_spread: bool, rng: &mut R) -> Result<Item, String>
+    pub fn choose_random<R>(&mut self, multiworld_spread: bool, rng: &mut R) -> Option<Item>
     where
         R: Rng
     {
@@ -170,9 +170,9 @@ impl Pool {
                 }
             }
 
-            return Ok(item.clone());
+            return Some(item.clone());
         }
 
-        Err(String::from("Nothing left in the pool"))
+        None
     }
 }

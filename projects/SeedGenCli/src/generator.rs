@@ -339,7 +339,7 @@ where
             let target_world_index = context.rng.gen_range(0..context.world_count);
             let target_world_context = &mut world_contexts[target_world_index];
 
-            if let Ok(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
+            if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
                 target_world_context.world.pool.remove(&item, 1);
                 target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
                 place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
@@ -512,6 +512,40 @@ fn total_reach_check<'a>(world: &World<'a>, player_name: &str) -> Result<Vec<&'a
     };
 }
 
+fn flush_item_pool<'a, R, I>(world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+where
+    R: Rng,
+    I: Iterator<Item=usize>,
+{
+    log::trace!("Got stuck. Trying to flush the item pool to recover...");
+    // TODO not flushing literally everything would result in better seeds probably
+
+    'outer: loop {
+        let mut target_world_indices = (0..context.world_count).collect::<Vec<_>>();
+        target_world_indices.shuffle(context.rng);
+
+        for target_world_index in target_world_indices {
+            let target_world_context = &mut world_contexts[target_world_index];
+
+            if let Some(node) = target_world_context.placeholders.pop() {
+                let origin_world_index = context.rng.gen_range(0..context.world_count);
+
+                if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
+                    target_world_context.world.pool.remove(&item, 1);
+                    target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
+                    place_item(origin_world_index, target_world_index, node, true, item, world_contexts, context)?;
+
+                    continue 'outer;
+                }
+            }
+        }
+
+        break;
+    }
+
+    Ok(())
+}
+
 pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &Vec<&'a Node>, spawn_pickup_node: &'a Node, custom_names: &HashMap<String, String>, settings: &Settings, rng: &mut R) -> Result<Vec<Vec<Placement<'a>>>, String>
 where
     R: Rng,
@@ -584,7 +618,7 @@ where
     let mut reserved_slots = Vec::with_capacity(RESERVE_SLOTS);
     let total_reachable_count: usize = world_contexts.iter().map(|world_context| world_context.reachable_locations.len()).sum();
 
-    loop {
+    'main: loop {
         let mut reachable = Vec::new();
         let mut reachable_states = Vec::new();
         let mut unmet = Vec::new();
@@ -717,7 +751,11 @@ where
                         break (chosen_world_index, itemsets);
                     }
                 } else {
-                    // TODO flush launch fragments since those can't be rolled as progression
+                    if world_contexts.iter().any(|world_context| !world_context.placeholders.is_empty()) &&
+                    world_contexts.iter().any(|world_context| !world_context.world.pool.progressions.inventory.is_empty()) {
+                        flush_item_pool(&mut world_contexts, &mut context)?;
+                        continue 'main;
+                    }
 
                     if world_contexts.iter().all(|world_context| world_context.placements.is_empty()) {
                         for world_index in 0..context.world_count {
