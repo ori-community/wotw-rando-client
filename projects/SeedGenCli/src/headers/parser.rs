@@ -709,7 +709,7 @@ where R: Rng + ?Sized
                 set_command(identifier.trim(), world)?;
             } else {
                 return Err(format!("Unknown command {}", command));
-            }
+            } // TODO !!price command?
         } else if let Some(ignored) = line.strip_prefix('!') {
             processed += ignored;
             processed.push('\n');

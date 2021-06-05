@@ -199,7 +199,7 @@ impl Item {
                 Zone::Hollow | Zone::Wellspring | Zone::Woods | Zone::Reach | Zone::Depths | Zone::Pools | Zone::Wastes | Zone::Ruins | Zone::Void => 150,
                 Zone::Marsh | Zone::Glades => 200,
             },
-            _ => 1,
+            _ => 200,
         }
     }
     #[inline]

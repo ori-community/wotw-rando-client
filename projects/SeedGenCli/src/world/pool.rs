@@ -158,6 +158,7 @@ impl Pool {
         } else {
             self.progressions.inventory.keys().choose(rng)
         } {
+            // TODO think weights would be better here. Random progression is almost never a resource this way!
             let cost = item.cost();
 
             if cost > 5000 {
