@@ -141,15 +141,14 @@ where
             }
         }
     } else {
-        let item_name = custom_name.unwrap_or_else(|| format!("$[{}]", code));
-
-        log::trace!("({}): Placed {} -> {} at {}", origin_player_name, item_display, target_player_name, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
+        log::trace!("({}): Placed {}'s {} at {}", origin_player_name, target_player_name, item_display, if was_placeholder { format!("placeholder {} ({} left)", node, origin_world_context.placeholders.len()) } else { format!("{}", node) });
 
         let state_index = context.multiworld_state_index.next().unwrap();
 
-        let origin_message = Item::Message(format!("{} -> {}", item_name, target_player_name));
+        let item_name = custom_name.unwrap_or_else(|| format!("$[{}]", code));
+        let origin_message = Item::Message(format!("{}'s {}", target_player_name, item_name));
         let send_item = Item::UberState(format!("12|{}|bool|true", state_index));
-        let target_message = Item::Message(format!("{} -> {}|mute", origin_player_name, item_name));
+        let target_message = Item::Message(format!("{} from {}|mute", item_name, origin_player_name));
         let target_uber_state = UberState::from_parts("12", &state_index.to_string())?;
 
         origin_world_context.placements.push(Placement {
