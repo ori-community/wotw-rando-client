@@ -562,7 +562,7 @@ where
         let mut spawn_slots = Vec::new();
 
         if spawns[world_index].identifier() != DEFAULT_SPAWN {
-            for _ in 0..3 {
+            for _ in 0..3 {  // TODO maybe don't put shared stuff on spawn slots
                 spawn_slots.push(spawn_pickup_node);
             }
             placements.push(Placement {
@@ -575,8 +575,11 @@ where
         let reachable_locations = total_reach_check(&world, &player_name)?;
 
         let unreachable_locations = world.graph.nodes.iter()
-            .filter(|&node| node.can_place() && !reachable_locations.iter().any(|&reachable| reachable.index() == node.index()))
-            .collect::<Vec<_>>();
+            .filter(|&node|
+                node.can_place() &&
+                !reachable_locations.iter().any(|&reachable| reachable.index() == node.index()) &&
+                !world.preplacements.iter().any(|(uber_state, _)| uber_state == node.uber_state().unwrap())
+            ).collect::<Vec<_>>();
         if !unreachable_locations.is_empty() {
             let identifiers = unreachable_locations.iter().map(|&node| node.identifier()).collect::<Vec<_>>();
             log::warn!("({}): Some locations are unreachable on these settings! These will only hold Spirit Light.", player_name);
