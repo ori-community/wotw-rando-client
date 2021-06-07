@@ -24,7 +24,27 @@ namespace RandoMainDLL {
 
       return s;
     }
-
+    public static Dictionary<Tuple<int, int>, TeleporterType> TPsByPos = new Dictionary<Tuple<int, int>, TeleporterType>() {
+      { Tuple.Create(-798, -4308), TeleporterType.Spawn },
+      { Tuple.Create(-328, -4534), TeleporterType.Den},
+      { Tuple.Create(-1308, -3672), TeleporterType.Wellspring},
+      { Tuple.Create(-944, -4580), TeleporterType.Burrows},
+      { Tuple.Create(-150, -4236), TeleporterType.Hollow },
+      { Tuple.Create(-307, -4151), TeleporterType.Glades },
+      { Tuple.Create(-259, -3959), TeleporterType.Reach},
+      { Tuple.Create(513, -4359), TeleporterType.Depths},
+      { Tuple.Create(611, -4159), TeleporterType.WestWoods},
+      { Tuple.Create(1082, -4050), TeleporterType.EastWoods},
+      { Tuple.Create(1456, -3995), TeleporterType.WestWastes},
+      { Tuple.Create(1992, -3900), TeleporterType.EastWastes},
+      { Tuple.Create(2043, -3677), TeleporterType.OuterRuins},
+      { Tuple.Create(2130, -3982), TeleporterType.InnerRuins},
+      { Tuple.Create(-1316, -4151), TeleporterType.EastPools },
+      { Tuple.Create(554, -3605), TeleporterType.Shriek },
+      { Tuple.Create(421, -3862), TeleporterType.WillowsEnd },
+      { Tuple.Create(-1656, -4168), TeleporterType.WestPools},
+    };
+    public static HashSet<TeleporterType> GrantOnNextUpdate = new HashSet<TeleporterType>();
     public static Dictionary<String, TeleporterType> TpsByID = new Dictionary<String, TeleporterType>() {
       { "howlsOriginA", TeleporterType.Burrows},
       { "howlsDenSaveRoom", TeleporterType.Den},
@@ -44,12 +64,18 @@ namespace RandoMainDLL {
       { "swampIntroTop", TeleporterType.Spawn},
     };
 
+    public static void MapTPActivated(float x, float y) {
+      if (TPsByPos.TryGetValue(Tuple.Create((int)Math.Truncate(x), (int)Math.Truncate(y)), out var tpt))
+        GrantOnNextUpdate.Add(tpt);
+      else
+        Randomizer.Log($"unknown tp at {(int)Math.Truncate(x)}, {(int)Math.Truncate(y)}", false);
+    }
     public static void OnTeleporterActivated(String identifier) {
       try {
         if (identifier == "kwoloksCavernSaveRoomA")
-          (HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow).p().Grant(true);
+          GrantOnNextUpdate.Add(HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow);
         else
-          TpsByID[identifier].p().Grant(true);
+          GrantOnNextUpdate.Add(TpsByID[identifier]);
       }
       catch (Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
     }
@@ -256,7 +282,8 @@ namespace RandoMainDLL {
       try {
         if (NeedsNewGameInit)
           NewGameInit();
-
+        foreach(var tpt in GrantOnNextUpdate) tpt.p().Grant(true);
+        GrantOnNextUpdate.Clear();
         if (!SkipListeners) {
           // We do ToArray here so we can change the hashset while we are looping.
           foreach (var state in TickingUberStates.ToArray()) {

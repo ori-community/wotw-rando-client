@@ -349,8 +349,8 @@ namespace RandoMainDLL {
     public override WorldMapIconType Icon => WorldMapIconType.SavePedestal;
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
-    private List<UberState> states() => TeleporterStates.GetOrElse(type, new List<UberState>());
-    public override bool Has() => states()[0].GetValue().AsDouble(states()[0].Type) != 0;
+    private List<UberState> states => TeleporterStates.GetOrElse(type, new List<UberState>());
+    public override bool Has() => states[0].GetValue().AsDouble(states[0].Type) != 0;
 
     public static Dictionary<TeleporterType, List<UberState>> TeleporterStates = new Dictionary<TeleporterType, List<UberState>> {
       { TeleporterType.Burrows, new List<UberState> { UberStateDefaults.savePedestalMidnightBurrows} },
@@ -381,7 +381,7 @@ namespace RandoMainDLL {
 
     public override void Grant(bool skipBase = false) {
       if (!Has()) // don't write to these if they're already set; on that path lies dumb-ass loops
-      states().ForEach(s => s.Write(new UberValue(true)));
+        states.ForEach(s => s.Write(s.Type == UberStateType.SerializedBooleanUberState ? new UberValue(true) : new UberValue((byte)3)));
       base.Grant(skipBase);
     }
 
