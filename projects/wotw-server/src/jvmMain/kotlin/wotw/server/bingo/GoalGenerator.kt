@@ -137,7 +137,7 @@ fun generatePool() = mutableListOf(
     ),
     group("Find # Key Item[s]",
         bool("Bash", 6, 1000),
-        bool("Feather", 6, 1014),
+        bool("Glide", 6, 1014),
         bool("Light Burst", 6, 1051),
         bool("Flash", 6, 1062),
         bool("Burrow", 6, 1101),
