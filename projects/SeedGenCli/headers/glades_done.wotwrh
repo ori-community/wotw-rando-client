@@ -1,7 +1,6 @@
 /// Glades Done
 ///
 /// start with glades rebuilt and regrown
-// TODO apparently talking to the moki locks the cave
 
 // Block placements
 3|0|8|14019|44578|int|2     // GladesTown.RebuildTheGlades
@@ -20,4 +19,5 @@
 3|0|8|42178|40448|byte|3    // Onwards and Upwards
 3|0|8|42178|18751|byte|3    // Thorny Situation
 3|0|8|42178|16586|byte|3    // Clear the Cave Entrance
+3|0|8|14019|33776|int|1     // Cave Entrance Quest
 !!remove 40x 1|2
