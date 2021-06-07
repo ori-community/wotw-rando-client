@@ -166,6 +166,10 @@ namespace RandoMainDLL {
             CallbackName = "on_teleporter_activated"
           },
           new Method() {
+            Delegate = new f_void_float_float(UberStateController.MapTPActivated),
+            CallbackName = "on_map_tp_active"
+          },
+          new Method() {
             Delegate = new f_void_str_dt(StatsTracking.OnKill),
             CallbackName = "on_enemy_death"
           }
@@ -178,6 +182,7 @@ namespace RandoMainDLL {
     public delegate void f_void_at_bool(AbilityType at, bool b);
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
+    public delegate void f_void_float_float(float i, float j);
     public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
     public delegate void f_void_int_int_byte_double_double(int i, int j, byte b, double f, double g);
     public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);
