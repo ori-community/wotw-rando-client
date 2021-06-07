@@ -250,7 +250,7 @@ impl Graph {
                 _ => continue,
             };
             if let Some(value) = extra_states.get(&uber_state.identifier) {
-                if value == &uber_state.value {
+                if value == &uber_state.value || value == "true" {
                     states.insert(*index);
                 }
             }

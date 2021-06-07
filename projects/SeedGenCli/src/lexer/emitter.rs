@@ -207,7 +207,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
         add_entry(&mut node_map, state, index)?;
 
         let mut uber_state = None;
-        if let Some(named_state) = state_map.iter().find(|named_state| &named_state.name == state) {
+        if let Some(named_state) = state_map.iter().find(|&named_state| named_state.name == state) {
             uber_state = Some(named_state.uber_state.clone());
         } else if validate {
             log::trace!("Couldn't find an entry for {} in the state table", state);
