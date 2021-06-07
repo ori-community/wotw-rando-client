@@ -511,7 +511,7 @@ fun generatePool() = mutableListOf(
         bool("Silent Woods West Door", 58674, 21500),
         bool("Silent Woods East Door", 18793, 41544),
         bool("Midnight Burrows Door",  18793, 3171),
-        bool("Windswept Wastes Door", 20120, 28786),
+//        bool("Windswept Wastes Door", 20120, 28786), currently removed bc it starts open
         countGoal = { it.nextTriangular(2, 10, 5)},
     ),
     group("Find # Underwater Pickup[s]",
