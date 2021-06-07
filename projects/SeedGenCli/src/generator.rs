@@ -18,7 +18,7 @@ use crate::world::{
 use crate::inventory::{Inventory, Item};
 use crate::util::{
     self,
-    Resource, BonusItem, GoalMode,
+    Resource, GoalMode,
     settings::Settings,
     uberstate::UberState,
     constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION},
@@ -199,17 +199,16 @@ where
             world_relic_locations
         }).collect::<Vec<_>>();
 
-    for &zone in RELIC_ZONES {
+    for zone in RELIC_ZONES {
         for target_world_index in 0..context.world_count {
             if context.rng.gen_bool(0.8) {
                 log::trace!("({}): Placing Relic in {}", world_contexts[target_world_index].player_name, zone);
 
-                // TODO implement the new relics
                 // let origin_world_index = context.rng.gen_range(0..context.world_count);
                 let origin_world_index = target_world_index;
 
-                if let Some(&(_, location)) = relic_locations[origin_world_index].iter().find(|&&(location_zone, _)| location_zone == zone) {
-                    place_item(origin_world_index, target_world_index, location, false, Item::BonusItem(BonusItem::Relic), world_contexts, context)?;
+                if let Some(&(_, location)) = relic_locations[origin_world_index].iter().find(|(location_zone, _)| location_zone == zone) {
+                    place_item(origin_world_index, target_world_index, location, false, Item::Relic(*zone), world_contexts, context)?;
                 }
             }
         }
