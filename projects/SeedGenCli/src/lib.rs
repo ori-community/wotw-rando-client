@@ -251,7 +251,7 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     let spawn_state = UberState::spawn();
     let spawn_pickup_node = Node::Pickup(Pickup {
         identifier: String::from("Spawn"),
-        zone: Zone::Void,
+        zone: Zone::Spawn,
         index: usize::MAX,
         uber_state: spawn_state,
         position: Position { x: 0, y: 0 },

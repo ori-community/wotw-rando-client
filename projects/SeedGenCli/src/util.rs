@@ -573,6 +573,7 @@ pub enum Zone {
     Ruins,
     Willow,
     Burrows,
+    Spawn,
     Void,
 }
 impl fmt::Display for Zone {
@@ -613,7 +614,7 @@ impl Zone {
             Zone::Wastes => 9,
             Zone::Ruins => 10,
             Zone::Willow => 11,
-            Zone::Void => 12,
+            Zone::Spawn | Zone::Void => 12,
         }
     }
 }

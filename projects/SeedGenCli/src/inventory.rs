@@ -196,8 +196,9 @@ impl Item {
             Item::BonusUpgrade(_) => 300,
             Item::Hint(hint) => match hint.zone {
                 Zone::Burrows | Zone::Willow => 50,
-                Zone::Hollow | Zone::Wellspring | Zone::Woods | Zone::Reach | Zone::Depths | Zone::Pools | Zone::Wastes | Zone::Ruins | Zone::Void => 150,
+                Zone::Hollow | Zone::Wellspring | Zone::Woods | Zone::Reach | Zone::Depths | Zone::Pools | Zone::Wastes | Zone::Ruins => 150,
                 Zone::Marsh | Zone::Glades => 200,
+                _ => 150,
             },
             _ => 200,
         }

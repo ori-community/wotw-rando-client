@@ -317,6 +317,8 @@ fn where_is(pattern: &str, world_index: usize, seeds: &[String], graph: &Graph, 
                         return Ok(format!("{}'s {}", player_name, actual_zone));
                     }
                 }
+            } else if uber_group == "3" && (uber_id == "0" || uber_id == "1") {
+                return Ok(String::from("Spawn"));
             } else {
                 let uber_state = UberState::from_parts(uber_group, uber_id)?;
                 if let Some(node) = graph.nodes.iter().find(|&node| node.uber_state() == Some(&uber_state)) {
