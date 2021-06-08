@@ -162,9 +162,7 @@ where R: Rng + ?Sized
 
     let mut parsed = HashSet::new();
     loop {
-        println!("parsed {:?}", parsed);
         let unparsed = context.dependencies.difference(&parsed).cloned().collect::<Vec<_>>();
-        println!("unparsed {:?}", unparsed);
         if unparsed.is_empty() { break; }
 
         parsed = context.dependencies.clone();
