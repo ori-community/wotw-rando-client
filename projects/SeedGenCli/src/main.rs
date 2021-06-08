@@ -385,7 +385,7 @@ fn play_last_seed() -> Result<(), String> {
 
 fn create_preset(mut args: PresetArgs) -> Result<(), String> {
     let settings = parse_settings(args.settings)?;
-    let settings = Settings::write(&settings)?;
+    let settings = settings.write()?;
 
     args.name.set_extension("json");
 

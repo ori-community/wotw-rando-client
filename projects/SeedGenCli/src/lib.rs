@@ -139,9 +139,14 @@ pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(
 fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Vec<String>, HashMap<String, String>), String>
 where R: Rng + ?Sized
 {
+    let mut dependencies = settings.header_list.clone();
+    for dependency in &mut dependencies {
+        dependency.set_extension("wotwrh");
+    }
+
     let mut header_block = String::new();
     let mut context = HeaderContext {
-        dependencies: settings.header_list.iter().cloned().collect::<HashSet<_>>(),
+        dependencies: dependencies.into_iter().collect::<HashSet<_>>(),
         excludes: HashMap::new(),
         flags: Vec::new(),
         names: HashMap::new(),
@@ -157,7 +162,9 @@ where R: Rng + ?Sized
 
     let mut parsed = HashSet::new();
     loop {
+        println!("parsed {:?}", parsed);
         let unparsed = context.dependencies.difference(&parsed).cloned().collect::<Vec<_>>();
+        println!("unparsed {:?}", unparsed);
         if unparsed.is_empty() { break; }
 
         parsed = context.dependencies.clone();
@@ -229,7 +236,7 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
 
     let slug = settings.slugify(&seed);
 
-    let config = Settings::write(&settings)?;
+    let config = settings.write()?;
     log::trace!("Generating with Settings: {}", config);
 
     let mut rng: StdRng = Seeder::from(&seed).make_rng();

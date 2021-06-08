@@ -170,8 +170,8 @@ impl Settings {
         let content = super::read_file(&preset, "presets")?;
         serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
     }
-    pub fn write(settings: &Settings) -> Result<String, String> {
-        serde_json::to_string(settings).map_err(|err| format!("Invalid Settings: {}", err))
+    pub fn write(&self) -> Result<String, String> {
+        serde_json::to_string(&self).map_err(|err| format!("Invalid Settings: {}", err))
     }
 
     fn merge(&mut self, mut other: Settings) {
