@@ -44,7 +44,7 @@ namespace RandoMainDLL {
           return;
         Updating = true;
         var proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = RustLogic ? @"seedgen.exe" : @"java.exe";
+        proc.StartInfo.FileName = RustLogic ? $"{Randomizer.BasePath}\\seedgen.exe" : @"java.exe";
         proc.StartInfo.Arguments = String.Join(" ", argsList);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
