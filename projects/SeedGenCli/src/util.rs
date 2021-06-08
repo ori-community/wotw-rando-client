@@ -940,6 +940,23 @@ where P: AsRef<Path>
         })
     )
 }
+pub fn create_folder(file: &Path) -> Result<PathBuf, io::Error> {
+    let mut index = 0;
+    loop {
+        let mut filename = file.file_stem().unwrap().to_os_string();
+        if index > 0 {
+            filename.push(format!("_{}", index));
+        }
+        let path = file.with_file_name(filename);
+
+        match fs::create_dir(&path) {
+            Ok(_) => return Ok(path),
+            Err(err) if err.kind() == io::ErrorKind::AlreadyExists => index += 1,
+            Err(err) if err.kind() == io::ErrorKind::NotFound => fs::create_dir_all(path.parent().unwrap())?,
+            Err(err) => return Err(err),
+        }
+    }
+}
 
 pub fn add_trailing_spaces(string: &mut String, target_length: usize) {
     let mut length = string.len();

@@ -77,9 +77,11 @@ enum SeedGenCommand {
 #[derive(StructOpt)]
 struct SeedArgs {
     /// the seed's name and name of the file it will be written to. The name also seeds the rng.
-    // TODO better io, separate this from the folder
-    #[structopt(parse(from_os_str))]
-    filename: Option<PathBuf>,
+    #[structopt()]
+    filename: Option<String>,
+    /// which folder to write the seed into
+    #[structopt(parse(from_os_str), default_value = "seeds", long = "seeddir")]
+    seed_folder: PathBuf,
     /// seed the rng; without this flag it will be seeded from the filename instead
     #[structopt(long)]
     seed: Option<String>,
@@ -310,9 +312,9 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
     let now = Instant::now();
 
     let seed = args.seed.as_ref().map_or_else(
-        || args.filename.as_ref().map(|filename| filename.file_stem().unwrap().to_string_lossy().to_string()),
-        |seed| Some(seed.clone()),
-    );
+        || args.filename.as_ref(),
+        |seed| Some(seed),
+    ).cloned();
 
     let settings = parse_settings(args.settings)?.apply_presets()?;
 
@@ -335,12 +337,17 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
     Ok(seeds)
 }
 
-fn write_seeds_to_files(seeds: &[String], filename: Option<PathBuf>, players: &[String]) -> Result<(), String> {
-    let mut filename = filename.unwrap_or_else(|| PathBuf::from("seed"));
-    let file_stem = filename.file_stem().unwrap().to_os_string();
+fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: PathBuf, players: &[String]) -> Result<(), String> {
+    let mut filename = filename.unwrap_or_else(|| String::from("seed"));
 
     let seed_count = seeds.len();
     let multiworld = seed_count > 1;
+
+    if multiworld {
+        let mut multi_folder = folder.clone();
+        multi_folder.push(filename.clone());
+        folder = util::create_folder(&multi_folder).map_err(|err| format!("Error creating seed folder: {}", err))?;
+    }
 
     let mut first = true;
     for index in 0..seed_count {
@@ -348,14 +355,13 @@ fn write_seeds_to_files(seeds: &[String], filename: Option<PathBuf>, players: &[
         let player = players.get(index).cloned().unwrap_or_else(|| format!("Player {}", index + 1));
 
         if multiworld {
-            let mut player_filename = file_stem.clone();
-            player_filename.push(format!("_{}", player));
-            filename.set_file_name(player_filename);
+            filename = player.clone();
         }
-        filename.set_extension("wotwr");
+        let mut path = folder.clone();
+        path.push(filename.clone());
+        path.set_extension("wotwr");
 
-        // TODO would be nicer to have the number first and then the player?
-        let file = util::create_file(&filename, seed, "seeds", true)?;
+        let file = util::create_file(&path, seed, "", true)?;
 
         log::info!("Wrote seed for {} to {}", player, file.display());
 
@@ -491,13 +497,14 @@ fn main() {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             let filename = args.filename.clone();
+            let folder = args.seed_folder.clone();
             let players = args.settings.names.clone();
             match generate_seeds(args) {
                 Ok(seeds) => {
                     if tostdout {
                         write_seeds_to_stdout(seeds);
                     } else {
-                        write_seeds_to_files(&seeds, filename, &players).unwrap_or_else(|err| log::error!("{}", err));
+                        write_seeds_to_files(&seeds, filename, folder, &players).unwrap_or_else(|err| log::error!("{}", err));
                     }
                 },
                 Err(err) =>  log::error!("{}", err),
