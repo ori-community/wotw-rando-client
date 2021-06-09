@@ -4,7 +4,6 @@
 /// the lever door in upper wastes, the lever door at pools entry, the bone door above howl's den teleporter and the Howl fight.
 
 3|0|8|20120|12902|bool|true  // UpperWastes.LeverDoor
-3|0|8|20120|28786|bool|true  // UpperWastes.KeystoneDoor
 3|0|8|5377|14488|bool|true   // EastPools.EntryLever
 3|0|8|21786|30656|bool|true  // \
 3|0|8|21786|40322|bool|true  // | MarshSpawn.HowlBurnt
