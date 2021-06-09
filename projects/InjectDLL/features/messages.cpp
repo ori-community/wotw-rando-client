@@ -68,12 +68,10 @@ namespace
         return nullptr;
     }
 
+    // Noop default zone hints.
+    IL2CPP_INTERCEPT(, MessageZoneB, void, FixedUpdate, (app::MessageZoneB* this_ptr)) {
 
-
-
-
-
-
+    }
 
     std::set<app::MessageBox*> tracked_boxes;
     app::MessageBox* npc_box = nullptr;
