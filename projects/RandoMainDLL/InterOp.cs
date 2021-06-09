@@ -183,6 +183,9 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void toggle_always_show_keystones();
 
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_autoaim(bool enabled);
+
     private static List<GCHandle> handles;
     public static void RegisterCSharpBindings() {
       handles = new List<GCHandle>();
