@@ -7,6 +7,15 @@ namespace
 {
     bool kwolok_door_available = true;
 
+    IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle* this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
+    IL2CPP_INTERCEPT(, SeinLogicCycle, bool, get_AllowInteraction, (app::SeinLogicCycle* this_ptr)) {
+        // Override this for the keystone door in wastes.
+        if (SeinLogicCycle::GetFlags(this_ptr, app::SeinLogicCycle_StateFlags__Enum_IsDigging) != 0)
+            return true;
+
+        return SeinLogicCycle::get_AllowInteraction(this_ptr);
+    }
+
     //No it's not KeystoneDoor
     IL2CPP_INTERCEPT(, MoonDoorWithSlots, bool, get_SeinInRange, (app::MoonDoorWithSlots* this_ptr)) {
         //We could do something position based, but that would be actual work :>
