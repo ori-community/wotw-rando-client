@@ -11,6 +11,7 @@ set(
     "csharp_bridge.cpp"
 	"dll_main.cpp"
 	"dev/object_visualizer.cpp"
+	"features/autoaim.cpp"
 	"features/day_night_logic.cpp"
 	"features/death_listener.cpp"
 	"features/difficulty.cpp"
