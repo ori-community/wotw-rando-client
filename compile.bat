@@ -44,6 +44,7 @@ if NOT "%1"=="nobuild" (
 copy "projects\SeedGen\loc_data.csv" "C:\moon\loc_data.csv" /Y
 copy "projects\SeedGen\areas.wotw" "C:\moon\areas.wotw" /Y
 
+
 if NOT "%1"=="buildonly" (
 	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
 	echo built RandoSettings.exe
@@ -53,5 +54,10 @@ if NOT "%1"=="buildonly" (
 	echo built WotwRando.exe
 
 	echo BUILD SUCCESS!
+	if "%1"=="release" (
+		"C:\Program Files\7-Zip\7z.exe" a -tzip C:\moon\pdbs\pdbs.zip  C:\moon\InjectDLL.pdb C:\moon\RandoMainDLL.pdb C:\moon\Il2CppModLoader.pdb C:\moon\Common.pdb
+		echo wrote pdbs to C:\moon\pdbs\pdbs.zip
+	)
 	timeout /t 10
 )
+
