@@ -15,6 +15,7 @@ IniRead, varShowShortCutscenes, %inipath%, Flags, ShowShortCutscenes, false
 IniRead, varShowLongCutscenes, %inipath%, Flags, ShowLongCutscenes, false
 IniRead, varUseWinStore, %inipath%, Flags, UseWinStore, false
 IniRead, varCursorLock, %inipath%, Flags, CursorLock, false
+IniRead, varAlwaysShowKS, %inipath%, Flags, AlwaysShowKeystones, false
 IniRead, varInvertSwim, %inipath%, Flags, InvertSwim, false
 IniRead, varDisableDebug, %inipath%, Flags, DisableDebugControls, false
 IniRead, varDisableQuestSnap, %inipath%, Flags, QuestFocusOnAbility3, false
@@ -50,6 +51,7 @@ ahkvarShowShortCutscenes := parseBooltoNum(varShowShortCutscenes)
 ahkvarShowLongCutscenes := parseBooltoNum(varShowLongCutscenes)
 ahkvarUseWinStore := parseBooltoNum(varUseWinStore)
 ahkvarCursorLock := parseBooltoNum(varCursorLock)
+ahkVarAlwaysShowKS := parseBooltoNum(varAlwaysShowKS)
 ahkvarInvertSwim := parseBooltoNum(varInvertSwim)
 ahkvarDisableDebug := parseBooltoNum(varDisableDebug)
 ahkvarRandomCurrencyNames := 1-parseBooltoNum(varRandomCurrencyNames)
@@ -81,6 +83,9 @@ Gui, Add, Text, x%col2% ys, Enabled
 
 Gui, Add, Text, x20 y+20 section, Cursor Lock
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarCursorLock% vahkvarCursorLock gwritetofile
+
+Gui, Add, Text, x20 section, Always Show Keystones
+Gui, Add, Checkbox, x%col2% ys checked%ahkVarAlwaysShowKS% vahkVarAlwaysShowKS gwritetofile
 
 Gui, Add, Text, x20 section, Invert Swim Speeds
 Gui, Add, Checkbox, x%col2% ys checked%ahkvarInvertSwim% vahkvarInvertSwim gwritetofile
@@ -174,6 +179,7 @@ writetofile:
     varShowLongCutscenes := parseNumtoBool(ahkvarShowLongCutscenes)
     varUseWinStore := parseNumtoBool(ahkvarUseWinStore)
     varCursorLock := parseNumtoBool(ahkvarCursorLock)
+    varAlwaysShowKS := parseNumtoBool(ahkvarAlwaysShowKS)
     varInvertSwim := parseNumtoBool(ahkvarInvertSwim)
     varDisableDebug := parseNumToBool(ahkvarDisableDebug)
     varDisableQuestSnap := parseNumtoBool(ahkvarDisableQuestSnap)
@@ -195,6 +201,7 @@ writetofile:
     IniWrite, %varShowLongCutscenes%, %inipath%, Flags, ShowLongCutscenes
     IniWrite, %varUseWinStore%, %inipath%, Flags, UseWinStore
     IniWrite, %varCursorLock%, %inipath%, Flags, CursorLock
+    IniWrite, %varAlwaysShowWarps%, %inipath%, Flags, AlwaysShowKeystones
     IniWrite, %varInvertSwim%, %inipath%, Flags, InvertSwim
     IniWrite, %varDisableDebug%, %inipath%, Flags, DisableDebugControls
     IniWrite, %varDisableQuestSnap%, %inipath%, Flags, QuestFocusOnAbility3
@@ -270,6 +277,9 @@ Help(wParam, lParam, Msg) {
 
     else IfEqual, HoverText, Random Currency Names
         Help := "This option changes the text of Spirit Light pickups to a random currency name.`nIt has no impact on gameplay."
+
+    else IfEqual, HoverText, Always Show Keystones
+        Help := "Always display your keystone count in the top right corner."
 
     SetTimer, DisableTT, -3000
     ToolTip % Help
