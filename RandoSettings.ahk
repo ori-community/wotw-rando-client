@@ -279,7 +279,7 @@ Help(wParam, lParam, Msg) {
         Help := "This option changes the text of Spirit Light pickups to a random currency name.`nIt has no impact on gameplay."
 
     else IfEqual, HoverText, Always Show Keystones
-        Help := "Always display your keystone count in the top right corner."
+        Help := "Always display your keystone count in the top left corner."
 
     SetTimer, DisableTT, -3000
     ToolTip % Help
