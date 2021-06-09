@@ -1,5 +1,6 @@
 #include <macros.h>
 #include <csharp_bridge.h>
+#include <dll_main.h>
 #include <uber_states/state_applier.h>
 
 #include <Il2CppModLoader/common.h>
@@ -38,36 +39,50 @@ namespace
         return ret;
     }
 
+    // This is stupid and bad code but who cares nowdays.
+    app::HasAbilityCondition* sword_wheel_condition = nullptr;
+    IL2CPP_INTERCEPT(, CleverMenuItem, bool, get_IsVisible, (app::CleverMenuItem* this_ptr)) {
+        auto* condition = this_ptr->fields.Visible;
+        if (condition != nullptr && il2cpp::is_assignable(condition, "", "HasAbilityCondition"))
+        {
+            auto c = reinterpret_cast<app::HasAbilityCondition*>(condition);
+            if (c->fields.AbilityType == app::AbilityType__Enum_Sword)
+                sword_wheel_condition = c;
+        }
+
+        return CleverMenuItem::get_IsVisible(this_ptr);
+    }
+
+    
     IL2CPP_INTERCEPT(, SeinAbilityCondition, bool, Validate, (app::SeinAbilityCondition* this_ptr, app::IContext* context)) {
-        if (this_ptr->fields.Ability == app::AbilityType__Enum_Sword)
+        if (!disable_has_ability_overwrite && this_ptr->fields.Ability == app::AbilityType__Enum_Sword)
             return is_day();
-        else
-            return SeinAbilityCondition::Validate(this_ptr, context);
+
+        return has_ability(this_ptr->fields.Ability);
     }
 
     IL2CPP_INTERCEPT(, HasAbilityCondition, bool, Validate, (app::HasAbilityCondition* this_ptr, app::IContext* context)) {
-        if (!disable_has_ability_overwrite && this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
+        if (sword_wheel_condition != this_ptr && !disable_has_ability_overwrite && this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
             return is_day();
-        else
-            return HasAbilityCondition::Validate(this_ptr, context);
+
+        return has_ability(this_ptr->fields.AbilityType);
     }
 
     IL2CPP_BINDING(, HasAbilityUberStateCondition, app::AbilityType__Enum, get_AbilityType, (app::HasAbilityUberStateCondition* this_ptr));
     IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, get_HasAbility, (app::HasAbilityUberStateCondition* this_ptr)) {
-        if (HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
+        if (!disable_has_ability_overwrite && HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
             return is_day();
-        else
-            return HasAbilityUberStateCondition::get_HasAbility(this_ptr);
+
+        return has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
     }
 
     IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, Validate, (app::HasAbilityUberStateCondition* this_ptr)) {
-        if (HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
-        {
-            auto booleans = this_ptr->fields._.Data->fields.Booleans;
-            return booleans->fields._items->vector[0] == is_day();
-        }
-        else
-            return HasAbilityUberStateCondition::Validate(this_ptr);
+        const auto booleans = this_ptr->fields._.Data->fields.Booleans;
+        const auto comparator = booleans->fields._items->vector[0];
+        if (!disable_has_ability_overwrite && HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
+            return comparator == is_day();
+
+        return comparator == has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
     }
 
     void find_day_night(app::List_1_SetupStateModifier___Fields& modifiers, app::GameObject*& day, app::GameObject*& night)
@@ -286,8 +301,8 @@ namespace
     IL2CPP_INTERCEPT(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability)) {
         if (override_has_ability && ability == app::AbilityType__Enum_Sword)
             return is_day();
-        else
-            return PlayerAbilities::HasAbility(this_ptr, ability);
+
+        return PlayerAbilities::HasAbility(this_ptr, ability);
     }
 
     CALL_ON_INIT(initialize_day_night_logic);
