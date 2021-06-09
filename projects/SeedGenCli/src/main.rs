@@ -4,7 +4,6 @@ use std::{
     convert::TryFrom,
     io::{self, Read},
     time::Instant,
-    process::Command,
 };
 
 use structopt::StructOpt;
@@ -366,8 +365,12 @@ fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: 
         log::info!("Wrote seed for {} to {}", player, file.display());
 
         if first {
-            fs::write(".currentseedpath", file.to_string_lossy().into_owned()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
             first = false;
+            if let Some(path) = file.to_str() {
+                fs::write(".currentseedpath", path.to_string()).unwrap_or_else(|err| log::warn!("Unable to write .currentseedpath: {}", err));
+            } else {
+                log::warn!("Unable to write .currentseedpath: path is not valid unicode");
+            }
         }
     }
 
@@ -375,17 +378,13 @@ fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: 
 }
 
 fn write_seeds_to_stdout(seeds: Vec<String>) {
-    println!("{}", seeds.join("\n======= END SEED ========\n"));
+    println!("{}", seeds.join("\n======= END SEED =======\n"));
 }
 
-// TODO launch the seed not the rando?
 fn play_last_seed() -> Result<(), String> {
     let last_seed = fs::read_to_string(".currentseedpath").map_err(|err| format!("Failed to read last generated seed from .currentseedpath: {}", err))?;
     log::info!("Launching seed {}", last_seed);
-    Command::new("WotwRando.exe")
-        .arg(last_seed)
-        .spawn()
-        .map_err(|err| format!("Failed to launch WotwRando.exe with the seed: {}", err))?;
+    open::that(last_seed).map_err(|err| format!("Failed to launch seed: {}", err))?;
     Ok(())
 }
 
