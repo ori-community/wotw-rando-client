@@ -151,6 +151,9 @@ namespace RandoMainDLL {
         };
       }
 
+      if (IniFlag("AlwaysShowKeystones"))
+        InterOp.toggle_always_show_keystones();
+
       if (IniFlag("dev"))
         Randomizer.Dev = true;
       int maxLogLines = Randomizer.Dev ? 1000 : 500;
@@ -211,6 +214,9 @@ namespace RandoMainDLL {
           break;
         case "toggleCursorLock":
           Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
+          break;
+        case "toggleAlwaysShowKeystones":
+          InterOp.toggle_always_show_keystones();
           break;
         case "binding1":
           PsuedoLocs.BINDING_ONE.OnCollect();

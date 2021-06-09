@@ -178,7 +178,11 @@ namespace RandoMainDLL {
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);
-    
+
+
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void toggle_always_show_keystones();
+
     private static List<GCHandle> handles;
     public static void RegisterCSharpBindings() {
       handles = new List<GCHandle>();
