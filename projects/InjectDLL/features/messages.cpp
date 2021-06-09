@@ -112,7 +112,7 @@ namespace
             if (arr->max_length > 0)
             {
                 auto name = convert_csstring(arr->vector[0]);
-                if (name == "Gorlek Ore" || name == "Spirit Light")
+                if (name == "Gorlek Ore" || name == "Giant Spirit Light Container")
                     return nullptr;
             }
         }
