@@ -28,6 +28,7 @@ set(
 	"features/invert_swim.cpp"
 	"features/input_poller.cpp"
 	"features/no_energy.cpp"
+	"features/race_overwrite.cpp"
 	"features/sein_ui.cpp"
 	"features/start_anywhere.cpp"
 	"features/water.cpp"
