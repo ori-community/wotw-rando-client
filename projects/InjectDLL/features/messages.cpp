@@ -129,6 +129,40 @@ namespace
 
     std::vector<RandoMessage> messages;
 
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_MainMenuVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_WorldMapVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_ShardShopVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_WeaponmasterScreenVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_BuilderScreenVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_GardenerScreenVisible, ());
+
+    bool should_handle_messages()
+    {
+        reinterpret_cast<app::UI*>(il2cpp::get_class("Game", "UI"));
+        if (UI::get_MainMenuVisible())
+        {
+            const auto map_is_open = UI::get_WorldMapVisible();
+            const auto shard_is_open = UI::get_ShardShopVisible();
+            const auto weapon_is_open = UI::get_WeaponmasterScreenVisible();
+            const auto builder_is_open = UI::get_BuilderScreenVisible();
+            const auto gardener_is_open = UI::get_GardenerScreenVisible();
+
+            if (map_is_open ||
+                shard_is_open ||
+                weapon_is_open ||
+                builder_is_open ||
+                gardener_is_open)
+                return true;
+
+            return false;
+        }
+
+        if (SeinLogicCycle::GetFlags(get_sein()->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_IsInteracting) == 0)
+            return true;
+
+        return false;
+    }
+
     uint32_t set_box(app::MessageBox** box, const RandoMessage& message)
     {
         auto msg = reinterpret_cast<app::String*>(il2cpp::string_new(message.text));
@@ -186,7 +220,7 @@ namespace
             clear_on_next_update = false;
         }
 
-        if (SeinLogicCycle::GetFlags(get_sein()->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_IsInteracting) == 0)
+        if (should_handle_messages())
         {
             for (const auto& message : messages)
                 show_msg(message);
@@ -210,11 +244,12 @@ namespace
             tracked_boxes.insert(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, NPCMessageBox, void, FixedUpdate, (app::NPCMessageBox* this_ptr)) {
-        NPCMessageBox::FixedUpdate(this_ptr);
-        if (this_ptr->fields.MessageBox != npc_box && is_visible(this_ptr->fields.MessageBox))
-            npc_box = this_ptr->fields.MessageBox;
-    }
+    // Probably not needed anymore?
+    //IL2CPP_INTERCEPT(, NPCMessageBox, void, FixedUpdate, (app::NPCMessageBox* this_ptr)) {
+    //    NPCMessageBox::FixedUpdate(this_ptr);
+    //    if (this_ptr->fields.MessageBox != npc_box && is_visible(this_ptr->fields.MessageBox))
+    //        npc_box = this_ptr->fields.MessageBox;
+    //}
 
     IL2CPP_INTERCEPT(, MessageBox, void, OnDestroy, (app::MessageBox* this_ptr)) {
         MessageBox::OnDestroy(this_ptr);
@@ -227,7 +262,7 @@ namespace
 }
 
 void hide_below_hint() {
-    if (SeinLogicCycle::GetFlags(get_sein()->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_IsInteracting) != 0)
+    if (should_handle_messages())
         return;
 
     if (below_hint_box != nullptr)
@@ -236,7 +271,7 @@ void hide_below_hint() {
 
 INJECT_C_DLLEXPORT void clear_visible_hints()
 {
-    if (SeinLogicCycle::GetFlags(get_sein()->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_IsInteracting) != 0)
+    if (should_handle_messages())
         return;
 
     for (auto* box : tracked_boxes)
@@ -254,7 +289,8 @@ INJECT_C_DLLEXPORT void clear_visible_hints()
 }
 
 INJECT_C_DLLEXPORT bool hints_ready() {
-    return OnScreenPositions::get_TopCenter().y > 0;
+    return OnScreenPositions::get_TopCenter().y > 0 &&
+        should_handle_messages();
 }
 
 INJECT_C_DLLEXPORT void display_hint(const wchar_t* hint, float duration, float ypos, bool mute)
