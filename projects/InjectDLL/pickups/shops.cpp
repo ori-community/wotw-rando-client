@@ -75,16 +75,16 @@ namespace
             fun(reinterpret_cast<int64_t>(il2cpp::invoke<>(ptr, "get_Item", &i)), i);
     }
 
-    void initShardDescription(unsigned __int8 shard, int64_t spiritShardDescription)
+    void initShardDescription(app::SpiritShardType__Enum shard, app::SpiritShardDescription* spiritShardDescription)
     {
         //Set purchase cost (normal):
         if (!is_twillen_shard(shard))
             return;
-        *reinterpret_cast<int*>(spiritShardDescription + 0x38) = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard));
 
-        const auto upgradable_ability_list = *reinterpret_cast<int64_t*>(spiritShardDescription + 0x40);
+        spiritShardDescription->fields.InitialBuyCost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard));
+        const auto upgradable_ability_list = spiritShardDescription->fields.UpgradablePropertyLevels;
         for_each_indexed(
-            upgradable_ability_list,
+            reinterpret_cast<int64_t>(upgradable_ability_list),
             [shard](int64_t upgradableAbilityLevel, int index) -> void
         {
             if (upgradableAbilityLevel)
@@ -97,17 +97,17 @@ namespace
         );
     }
 
-    INTERNAL_INTERCEPT(27145792, int64_t, enumDictGetValue, (int64_t dict, unsigned __int8 enumKey, int64_t impl))
+    INTERNAL_INTERCEPT(27145792, app::SpiritShardDescription*, enumDictGetValue, (int64_t dict, app::SpiritShardType__Enum key, int64_t impl))
     {
         //EnumDictionary<ENUMTYPE, VALUETYPE>$$GetValue
-        const int64_t value = enumDictGetValue(dict, enumKey, impl);
+        app::SpiritShardDescription* value = enumDictGetValue(dict, key, impl);
 
         //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
         //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
         //update: something broke! It's been touched
         //if (impl == *reinterpret_cast<int64_t*>(intercept::resolve_rva(74897664)))
         if (value)
-            initShardDescription(enumKey, value);
+            initShardDescription(key, value);
 
         return value;
     }
@@ -265,7 +265,30 @@ namespace
         // TODO: Add input provider and message provider with different color.
 
         auto* item = il2cpp::create_object<app::TranslatedMessageProvider_MessageItem>("", "TranslatedMessageProvider", "MessageItem");
+
+        // Maybe add actual localization?
         item->fields.English = reinterpret_cast<app::String*>(message);
+        item->fields.French = reinterpret_cast<app::String*>(message);
+        item->fields.Italian = reinterpret_cast<app::String*>(message);
+        item->fields.German = reinterpret_cast<app::String*>(message);
+        item->fields.Spanish = reinterpret_cast<app::String*>(message);
+        item->fields.Japanese = reinterpret_cast<app::String*>(message);
+        item->fields.Portuguese = reinterpret_cast<app::String*>(message);
+        item->fields.Chinese = reinterpret_cast<app::String*>(message);
+        item->fields.Russian = reinterpret_cast<app::String*>(message);
+        item->fields.TraditionalChinese = reinterpret_cast<app::String*>(message);
+        item->fields.Czech = reinterpret_cast<app::String*>(message);
+        item->fields.Danish = reinterpret_cast<app::String*>(message);
+        item->fields.Dutch = reinterpret_cast<app::String*>(message);
+        item->fields.Finnish = reinterpret_cast<app::String*>(message);
+        item->fields.Hungarian = reinterpret_cast<app::String*>(message);
+        item->fields.Korean = reinterpret_cast<app::String*>(message);
+        item->fields.Norwegian = reinterpret_cast<app::String*>(message);
+        item->fields.Polish = reinterpret_cast<app::String*>(message);
+        item->fields.SpanishSpain = reinterpret_cast<app::String*>(message);
+        item->fields.Swedish = reinterpret_cast<app::String*>(message);
+        item->fields.Turkish = reinterpret_cast<app::String*>(message);
+
         item->fields.Sound = nullptr;
         item->fields.WWiseEvent = nullptr;
         item->fields.Emotion = app::EmotionType__Enum_Neutral;
@@ -420,6 +443,9 @@ namespace
     bool locked_shop_overwrite = false;
     IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails* this_ptr))
     {
+        if (this_ptr->fields.m_item == nullptr)
+            return;
+
         app::MessageProvider* name_provider = nullptr;
         app::MessageProvider* description_provider = nullptr;
         app::MessageProvider* locked_provider = nullptr;
