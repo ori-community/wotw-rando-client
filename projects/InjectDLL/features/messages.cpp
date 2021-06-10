@@ -16,7 +16,7 @@
 using namespace modloader;
 
 IL2CPP_BINDING(System, String, app::Char__Array*, ToCharArray, (app::String* this_ptr))
-
+bool area_map_open = false;
 std::string convert_csstring(app::String* str)
 {
     std::string cppstr;
@@ -147,7 +147,8 @@ namespace
             const auto builder_is_open = UI::get_BuilderScreenVisible();
             const auto gardener_is_open = UI::get_GardenerScreenVisible();
 
-            if (map_is_open ||
+            if (area_map_open ||
+                map_is_open ||
                 shard_is_open ||
                 weapon_is_open ||
                 builder_is_open ||
