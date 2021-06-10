@@ -262,9 +262,6 @@ namespace
 }
 
 void hide_below_hint() {
-    if (!should_handle_messages())
-        return;
-
     if (below_hint_box != nullptr)
         MessageBox::HideMessageScreenImmediately(below_hint_box, 0);
 }
