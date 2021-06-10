@@ -89,16 +89,6 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
     moki, Regenerate, Damage=40, Combat=Hornbug+Bat+2xSandworm+2xLizard+3xSkeeto+SneezeSlug:
       Water, Burrow, DoubleJump OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
-  pickup MarshSpawn.PoolsPathEX:
-    moki:
-      DoubleJump, Bash, Glide
-      Bash, Launch
-    gorlek:
-      DoubleJump, Bash, TripleJump OR Dash OR Sword OR Hammer OR Damage=10
-      Bash, Glide, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
-      Launch, Damage=10, DoubleJump OR Dash OR Glide OR Sword
-    unsafe:
-      Bash, Dash, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
   conn Teleporters: free
   conn MarshSpawn.BrokenBridge: free
   conn MarshSpawn.PoolsBurrowsPath:
@@ -108,16 +98,17 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
     gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   conn MarshPastOpher.MillView:
     moki: BreakWall=16
-  conn PoolsApproach.LeftOfWheel:
+  conn MarshSpawn.PoolsPath:
     moki:
-      Water, DoubleJump, Bash, Glide
-      Water, Bash, Launch
+      DoubleJump, Bash, Glide
+      Bash, Launch
     gorlek:
-      Water, DoubleJump, Bash, TripleJump OR Dash OR Sword OR Hammer OR Damage=10
-      Water, Bash, Glide, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
-      Water, Launch, Damage=10, DoubleJump OR Dash OR Glide OR Sword
+      DoubleJump, Bash, TripleJump OR Dash OR Sword OR Hammer OR Damage=10
+      Bash, Glide, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
+      Launch, Damage=10, DoubleJump OR Dash OR Glide OR Sword
     unsafe:
-      Water, Bash, Dash, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
+	  Launch, DoubleJump OR Damage=10  # Land on the first turret
+      Bash, Dash, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
 
 # checkpoint at -1021, -4305
 # checkpoint at -1068, -4274
@@ -289,6 +280,50 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
 # checkpoint at -954, -4355
 # checkpoint at -1004, -4497
 
+anchors MarshSpawn.BeforeBurrows at -1006, -4497:  # On the island before the Burrows entry
+  refill Checkpoint
+  
+  pickup MarshSpawn.CrusherSwimEX:
+    moki: Water, WaterDash
+  pickup MarshSpawn.BurrowsApproachLedgeEX:
+    moki:
+	  Launch
+	  Bash, DoubleJump, Dash OR Glide
+    gorlek:
+      Bash, DoubleJump, TripleJump OR Sword OR Hammer
+	  SentryJump=1, Damage=10, DoubleJump, TripleJump  # Land in the spikes under the pickup and triple jump to the left platform
+    unsafe:
+	  Bash, Hammer OR DoubleJump
+      Bash, Dash OR Glide
+	  SentryJump=1, Damage=10, DoubleJump  # Land in the spikes under the pickup and doublejump + upslash to reach the right platform. Hammer upslash is enough to reach the platform, sword upslash the ennemy to refresh your double jump
+
+  conn MarshSpawn.BurrowsEntry:
+	moki:
+	  Water, WaterDash, DoubleJump, Dash OR Glide
+	  Water, WaterDash, Launch
+	  Launch, Bash OR Glide OR DoubleJump OR Dash
+	  Bash, DoubleJump, Glide OR Dash
+	gorlek:
+	  Launch
+	  Bash, DoubleJump
+	  Bash, Dash, Glide OR Sword OR Hammer
+	  Water, WaterDash, DoubleJump OR Dash OR SentryJump=1  # With sjump, weapon hover as well
+	  SentryJump=1, Dash, DoubleJump, TripleJump
+	  SentryJump=1, DoubleJump, Sword, Damage=10  # Sword hover and damage boost in the first spikes
+	unsafe:
+	  SentryJump=1, DoubleJump, Damage=10  # Weapon hover and damage boost in the first spikes
+  conn MarshSpawn.PoolsBurrowsPath:
+    moki:
+	  Launch, Bash
+	  Bash, DoubleJump, Dash OR Glide
+	gorlek:
+      Bash, DoubleJump, TripleJump OR Sword OR Hammer
+	  Launch, Damage=10, Glide OR DoubleJump OR Dash OR Sword OR Hammer
+	  Launch, DoubleJump, TripleJump
+	unsafe:
+	  Launch, DoubleJump, Dash
+	  Launch, Glide  # Reset your launch by touching the wallunder the spikes
+
 anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
   refill Checkpoint
 
@@ -310,7 +345,50 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
       Bash, Grenade=1, Sword
       Bash, SentryJump=1, Sword
     unsafe: Bash  # fun
-  # needs backwards connection
+  conn MarshSpawn.BeforeBurrows:
+    moki:
+	  Glide
+	  Launch
+	  Water, WaterDash
+	  DoubleJump, Dash
+	gorlek:
+	  DoubleJump
+	  Dash
+	  Sword
+	  Hammer
+	  Water, Damage=10
+	  
+# checkpoint at -1067, -4274
+
+anchor MarshSpawn.PoolsPath at -1070, -4275:  # Above the turrets at the left of spawn
+  refill Checkpoint
+  
+  pickup MarshSpawn.PoolsPathEX:
+    moki:
+      DoubleJump, Bash, Glide
+      Bash, Launch
+    gorlek:
+	  Launch
+	  Glide, Sword OR Hammer OR DoubleJump OR Dash OR Bash
+      DoubleJump, TripleJump OR Dash
+	  DoubleJump, Bash, Sword OR Hammer OR Damage=10
+    unsafe:
+      Bash, Dash OR Sword OR Hammer OR DoubleJump  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
+
+  conn PoolsApproach.LeftOfWheel:
+    moki: Water
+  conn MarshSpawn.Main:
+    moki:
+	  Water, WaterDash OR Launch
+	  Glide, Bash OR Launch
+    gorlek:
+      Launch
+	  Water, DoubleJump OR Bash
+	  Glide, Dash OR DoubleJump
+	  DoubleJump, Sword OR Dash
+	unsafe:
+	  DoubleJump, Hammer OR TripleJump
+      Dash  #Reset your dash on the ceiling
 
 anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
   state MarshSpawn.KeystoneDoor:
