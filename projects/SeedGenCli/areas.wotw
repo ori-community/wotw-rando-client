@@ -17,10 +17,6 @@
 # Combat=x: An enemy has to be defeated. For a list of enemies visit https://docs.google.com/spreadsheets/d/1AE_ctym6WAwltGK-r6w58ARq0ym2MU4MzFiwg328kjM/view?usp=sharing
 
 # requirement macros. must go at the top of the file!
-requirement Weapon:
-  moki: Sword OR Hammer
-  # gorlek: Bow=5 maybe?
-  # unsafe: Blaze OR Spear OR Flash OR Shuriken OR Bow OR UltraBash OR UltraGrapple whatever will do damage
 
 requirement DepthsLight:
   moki: UpperDepths.ForestsEyes OR Flash=1
@@ -220,7 +216,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
 anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools, burrows and marsh
   refill Checkpoint
   refill Energy=1:
-    unsafe: Weapon  # slightly out of sight
+    unsafe: BreakCrystal  # slightly out of sight
 
   quest MarshSpawn.CaveKS: free
 
@@ -744,7 +740,7 @@ anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
 anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, looking at the Millstone
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon  # to the left
+    moki: BreakCrystal  # to the left
 
   pickup MarshPastOpher.TrialLeftEX:
     moki: BreakWall=20, DoubleJump OR Dash OR Glide OR Launch
@@ -826,7 +822,7 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
   refill Checkpoint
   refill Health=1
   refill Energy=1:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup MarshPastOpher.SwingPoleEX:
     moki:
@@ -882,11 +878,11 @@ anchor MarshPastOpher.BowApproach at -490, -4245:  # On the right ledge above th
       Bow=2, DoubleJump, Bash, TripleJump OR Dash OR Glide
       Launch, DoubleJump OR Dash OR Glide  # For the last part reset your Launch on the wall above the lantern
     unsafe:
-      Bow=2, Bash, DoubleJump, Weapon
+      Bow=2, Bash, DoubleJump, Sword OR Hammer
 
 anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit with bow tree.
   refill Energy=1:
-    moki: Weapon
+    moki: BreakCrystal
 
   state MarshPastOpher.EyestoneDoor:
     moki: Keystone=2  # crosses where the water would usually be
@@ -913,7 +909,7 @@ anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit wi
 anchor MarshPastOpher.UpperBowArea at -437, -4211:  # Between the eyestones
   refill Checkpoint
   refill Energy=1:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup MarshPastOpher.LeftEyestone:
     moki: Combat=Skeeto, Bow=1
@@ -933,8 +929,8 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
     moki: Combat=Mantis+Bat
     gorlek: free
   refill Energy=3:
-    moki: Weapon, Combat=Mantis+Bat
-    gorlek: Weapon
+    moki: BreakCrystal, Combat=Mantis+Bat
+    gorlek: BreakCrystal
 
   pickup MarshPastOpher.CeilingEX:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki:
@@ -1192,7 +1188,7 @@ region WestHollow:
 anchor WestHollow.Entrance at -303, -4238:  # At Twillen
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
     moki:
@@ -1289,9 +1285,9 @@ anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple do
 anchor WestHollow.HollowDrainMiddle at -197, -4275:  # At the crystal below the purple eye
   refill Checkpoint
   refill Energy=3:
-    moki: WestHollow.UpperDrainLeverPulled, Weapon
+    moki: WestHollow.UpperDrainLeverPulled, BreakCrystal
   refill Energy=1:  # no matter which direction you come to or go from here, you should be able to grab this crystal without having to go back
-    moki: WestHollow.FullyDrained, Weapon
+    moki: WestHollow.FullyDrained, BreakCrystal
 
   # this anchor doesn't assume drained water because that should make it usable for weird dirty water swim paths
   pickup WestHollow.HiddenEC:
@@ -1323,8 +1319,8 @@ anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock p
   refill Checkpoint
   refill Health=1
   refill Energy=3:
-    moki: Weapon, DoubleJump OR Dash OR Bash OR Glide OR Launch
-    gorlek: Weapon
+    moki: BreakCrystal, DoubleJump OR Dash OR Bash OR Glide OR Launch
+    gorlek: BreakCrystal
 
   state WestHollow.RockPuzzleSolved:  # You can get the puzzle into some weird constellations, but teleporting out works in the worst cases
     moki, WestHollow.UpperDrainLeverPulled:
@@ -1370,7 +1366,7 @@ anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock p
 
 anchor WestHollow.FarLeftRoom at -357, -4284:  # ledge below and to the right of second drain lever
   refill Energy=3:  # fast respawning crystal
-    moki: Weapon
+    moki: BreakCrystal
   # energy crystal below not considered because it doesn't seem relevant for anything
 
   state WestHollow.FullyDrained:
@@ -1472,9 +1468,7 @@ anchor WestHollow.TrialApproach at -155, -4298:  # after getting past the beetle
 anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
   refill Checkpoint
   refill Energy=3:
-    moki:
-      Weapon
-      Bow=1
+    moki: BreakCrystal
 
   # state WestHollow.TrialActivation:
   #   moki, Combat=Slug:
@@ -1772,7 +1766,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
 anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door blocking Depths access
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup EastHollow.BashHC:
     moki: Bash OR Launch
@@ -2397,7 +2391,7 @@ region WestGlades:
 anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past glades
   refill Checkpoint
   refill Energy=3:
-    moki, Weapon:
+    moki, BreakCrystal:
       DoubleJump, Dash OR Glide
       Launch
 #     gorlek:
@@ -2670,7 +2664,7 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
     gorlek: Combat=Slug
     unsafe: free  # barely out of sight, also past an enemy...
   refill Energy=3:
-    unsafe: Weapon  # pretty far to the left
+    unsafe: BreakCrystal  # pretty far to the left
 
   # ommited a lot of paths in moki including most bash-related paths because of how complex this place is to navigate (as in, more paths were omitted than were taken into moki...)
   state OuterWellspring.EntranceDoorOpen:
@@ -2796,7 +2790,7 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
 
 anchor OuterWellspring.AboveEntranceDoor at -837, -4026:  # at the crystal above the entrance door
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup OuterWellspring.EntranceRoofEX:
     gorlek: Launch, DoubleJump OR Dash OR Glide OR Sword OR Hammer
@@ -2966,7 +2960,7 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
 
 anchor OuterWellspring.AboveWestDoor at -866, -3949:  # on the platform arcing over west door
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup OuterWellspring.HiddenHC:
     moki:
@@ -3089,7 +3083,7 @@ anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to tri
   refill Checkpoint
   refill Health=1
   refill Energy=1:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup OuterWellspring.TrialOre:
     moki:
@@ -3110,7 +3104,7 @@ region InnerWellspring:
 anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where you enter the first room
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   state InnerWellspring.ShortCutWheel:
     moki:
@@ -3194,7 +3188,7 @@ anchor InnerWellspring.EntranceDoor at -1263, -3952:  # Inside the door where yo
 anchor InnerWellspring.DrainRoom at -1167, -3946:  # Left of the water you can drain
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   conn InnerWellspring.EntranceDoor:
     moki:
@@ -3448,7 +3442,7 @@ anchor InnerWellspring.WestDoor at -1216, -3897:  # Inside the door where you ex
   refill Checkpoint
   refill Health=2
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   state InnerWellspring.MiddleDoorsOpen:
     moki:
@@ -3501,7 +3495,7 @@ anchor InnerWellspring.EastDoor at -1190, -3733:  # Inside the door leading to t
   refill Checkpoint
   refill Health=1
   refill Energy=4:
-    moki: Weapon
+    moki: BreakCrystal
 
   state InnerWellspring.SpinArena:  # finishing the arena and destroying the corruption that open the door to spin puzzle
     moki: Combat=2xLizard+3xMantis+Miner, DoubleJump OR Dash OR Glide OR Launch
@@ -3779,7 +3773,7 @@ anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
 anchor WoodsEntry.TwoKeystoneRoom at 672, -4183:  # In front of the keystone door
   refill Checkpoint
   refill Energy=3:
-    moki: WoodsEntry.KeystoneDoor, Weapon
+    moki: WoodsEntry.KeystoneDoor, BreakCrystal
 
   state WoodsEntry.KeystoneDoor:
     moki: Keystone=2
@@ -4136,7 +4130,7 @@ anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
 
 anchor WoodsMain.AbovePit at 1234, -3985:  # To the left of the pit before feeding grounds
   refill Energy=3:  # the crystal in the pit
-    unsafe: Weapon, Bash, DoubleJump OR Dash OR Glide OR Launch  # technically just Bash
+    unsafe: BreakCrystal, Bash, DoubleJump OR Dash OR Glide OR Launch  # technically just Bash
 
   conn WoodsMain.Teleporter:  # a dead end in moki
     gorlek: DoubleJump OR Dash OR Glide OR Launch OR Sword OR Damage=15
@@ -4330,7 +4324,7 @@ anchor LowerReach.AboveEntry at -401, -4000:  # On the platform above Baur insid
 anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's nose
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   state LowerReach.BearBridgeBroken:
     moki: LowerReach.BearSneezed  # the game behaves weird when dropping the rock on Baur
@@ -4482,7 +4476,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
     gorlek: SentryBurn=1
   refill Health=1
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup LowerReach.AboveDoorEX:
     moki: Bash OR Hammer OR Spear=1
@@ -4587,10 +4581,10 @@ anchor LowerReach.SecondSoup at -316, -4037:  # Next to the soup below the telep
 anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind channel connecting to east reach
   refill Checkpoint
   refill Energy=3:
-    moki, Weapon:
+    moki, BreakCrystal:
       Combat=ShieldMiner, DoubleJump OR Dash
       Bash OR Launch
-    gorlek: Weapon
+    gorlek: BreakCrystal
 
   state LowerReach.CentralFurnace:
     moki: Grenade=1
@@ -4660,7 +4654,7 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
 
 anchor LowerReach.SoupMoki at -240, -3989:  # Below the reach teleporter, where you hand delicious marshclam soup to a moki (or alternatively extuingish his fireplace...)
   refill Energy=4:
-    moki: Weapon
+    moki: BreakCrystal
 
   quest LowerReach.HandToHandHat:
     moki: GladesTown.HandToHandSoup
@@ -4745,7 +4739,7 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
 anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after rolling the snowball
   refill Checkpoint
   refill Energy=4:  # fast respawning crystal
-    moki: Weapon
+    moki: BreakCrystal
 
   state LowerReach.EastDoorLantern:
     moki:
@@ -4818,7 +4812,7 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
 
 anchor LowerReach.SwimmingPool at -44, -4001:  # At the platform in the freezable water
   refill Energy=4:
-    moki: Weapon, LowerReach.CoolEastFurnace OR Water
+    moki: BreakCrystal, LowerReach.CoolEastFurnace OR Water
 
   state LowerReach.HeatEastFurnace:
     moki:
@@ -4878,10 +4872,9 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
   refill Checkpoint
   refill Health=1
   refill Energy=3:
-    moki:
-      Weapon, DoubleJump, Dash
-      Weapon, Launch
-      Bow=1 OR Spear=1 OR Grenade=1
+    moki, BreakCrystal:
+      DoubleJump, Dash
+      Launch
 
   state LowerReach.ArenaBeaten:
     moki: Regenerate, Damage=40, Combat=3xShieldMiner+Hornbug+2xBee
@@ -5230,7 +5223,7 @@ anchor UpperReach.UpperSoup at -215, -3877:  # At the soup checkpoint
 anchor UpperReach.OutsideTreeRoom at -169, -3911:  # In front of the keystone door
   refill Checkpoint
   refill Energy=3:
-    moki, UpperReach.HeatFurnace, Weapon:
+    moki, UpperReach.HeatFurnace, BreakCrystal:
       Water, Grapple, DoubleJump OR Dash OR Glide
       Launch
 
@@ -5258,7 +5251,7 @@ anchor UpperReach.OutsideTreeRoom at -169, -3911:  # In front of the keystone do
 
 anchor UpperReach.TreeRoom at -107, -3933:  # At the tree
   refill Energy=4:  # fast respawning crystal
-    moki: Weapon
+    moki: BreakCrystal
 
   quest UpperReach.SpringSeed:
     moki: Grenade=1
@@ -5362,7 +5355,7 @@ anchor UpperDepths.FirstKSRoom at 223, -4420:  # Below the first firefly egg
   refill Checkpoint:  # this checkpoint is easy to walk past
     unsafe: free
   refill Energy=3:  # this crystal is in the darkness
-    unsafe: Weapon
+    unsafe: BreakCrystal
 
   pickup UpperDepths.LeftEntryKS:
     moki: DepthsLight, Combat=Spiderling OR DoubleJump OR Bash OR Launch
@@ -5480,9 +5473,7 @@ anchor UpperDepths.BelowHive at 422, -4402:  # Below the Hive, on top of the tun
       DepthsLight, Damage=30, DoubleJump OR Dash
       DepthsLight, SentryJump=1
   refill Energy=3:
-    moki:
-      Weapon, DoubleJump OR Launch
-      Bow=1
+    moki: BreakCrystal, DoubleJump OR Launch
 
   state UpperDepths.EntryKeystoneDoor:  # mirror of connections to keydoor ledge
     moki: Keystone=2, DepthsLight, DoubleJump OR Dash OR Glide OR Launch
@@ -5550,7 +5541,7 @@ anchor UpperDepths.Teleporter at 513, -4361:  # The spirit well
 anchor UpperDepths.Central at 464, -4484:  # The firefly egg to the right of the second keystone door
   refill Checkpoint
   refill Energy=3:  # in the dark above
-    unsafe: Weapon, Launch
+    unsafe: BreakCrystal, Launch
 
   state UpperDepths.CentralKeystoneDoor:
     moki: Keystone=2
@@ -5571,7 +5562,7 @@ anchor UpperDepths.Central at 464, -4484:  # The firefly egg to the right of the
 anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circling through the keystone room
   refill Checkpoint
   refill Energy=4:
-    moki: Weapon
+    moki: BreakCrystal
   # a great number of energy crystals on the way through the dark have not been considered (they would probably even out since more anchors would also increase the flash cost)
 
   pickup UpperDepths.RightHealthKS:
@@ -5626,7 +5617,7 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
 anchor UpperDepths.MoraPath at 572, -4431:  # At the safe light during the dark path towards Mora
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   quest UpperDepths.LightcatcherSeed:
     moki:
@@ -5779,7 +5770,7 @@ anchor LowerDepths.West at 322, -4510:  # At the Moki needing a Lantern
       Hammer, DoubleJump OR Dash
       Glide, Sword OR Hammer
   refill Energy=3:  # to the left
-    gorlek, Weapon:
+    gorlek, BreakCrystal:
       DoubleJump, TripleJump OR Dash OR Glide OR Sword
       Dash, Glide OR Sword
       Bash OR Launch
@@ -5911,12 +5902,12 @@ anchor LowerDepths.Central at 482, -4536:  # Below where the trial starts
 anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
   refill Energy=3:
-    moki, Weapon:
+    moki, BreakCrystal:
       Bash, DoubleJump OR Dash OR Glide
       Launch
-    gorlek, Weapon:
+    gorlek, BreakCrystal:
       Bash OR SentryJump=1
       DoubleJump, TripleJump OR Dash OR Glide OR Sword
     unsafe: DoubleJump, Hammer
@@ -6025,7 +6016,7 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
 anchor LowerDepths.TreeArea at 776, -4542:  # The flash tree
   refill Checkpoint
   refill Energy=4:
-    moki: Weapon
+    moki: BreakCrystal
 
   # there could be a path to activate the trial here, but these aren't used currently...
 
@@ -6652,7 +6643,7 @@ anchor UpperPools.KeystoneRoomBubbleSpawner at -1566, -4115:  # Between the bubb
 anchor UpperPools.KeystoneRoom at -1540, -4095:  # Autosave below the two upper left keystones
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup UpperPools.UpperLeftKS:
     moki:
@@ -7016,7 +7007,7 @@ anchor LowerWastes.SunsetView at 1552, -3984:  # At the Sunset View checkpoint
 
 anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sand Bridge
   refill Energy=3:
-    moki, Weapon:
+    moki, BreakCrystal:
       DoubleJump OR Launch
       Bash, Grenade=1
 
@@ -7036,7 +7027,7 @@ anchor LowerWastes.Shovel at 1634, -3981:  # On the ground to the left of the Sa
 anchor LowerWastes.MuncherTunnel at 1681, -4002:  # Above the sand/muncher tunnel
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup LowerWastes.MuncherTunnelEC:
     moki: Burrow
@@ -7201,7 +7192,7 @@ anchor LowerWastes.MinesEntrance at 1921, -4001:  # To the left of the lower bre
 anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the lever
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   state LowerWastes.SandPlatformLever:
     moki:
@@ -7354,7 +7345,7 @@ anchor LowerWastes.TreeArea at 1715, -3936:  # The ledge right of SkeetoHive
 anchor LowerWastes.UpperPath at 1761, -3898:  # on the left side of the path connecting tree and east teleporter
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   pickup LowerWastes.UpperPathEC:
     moki: Burrow
@@ -7654,7 +7645,7 @@ anchor UpperWastes.OutsideRuins at 2014, -3609:  # Just outside the door
 anchor WindtornRuins.UpperRuinsDoor at 2163, -3835:  # Just inside the door.
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   state WindtornRuins.RuinsLever:
     moki: Burrow, BreakWall=6, BreakWall=6
@@ -7777,7 +7768,7 @@ anchor WeepingRidge.Bottom at 1210, -3830:  # After crossing the portal to weepi
   refill Checkpoint
   refill Health=1
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   state WeepingRidge.ElevatorFightCompleted:
     moki, Combat=2xCrystalMiner+2xShieldCrystalMiner:
@@ -7873,7 +7864,7 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
   refill Checkpoint
   refill Energy=4:
     moki:
-      Weapon, Launch
+      BreakCrystal, Launch
       Bow=1
   # a lot of energy crystals not considered, mostly because they are on the way to hearts which aren't currently tracked
 
@@ -7948,7 +7939,7 @@ anchor WillowsEnd.GrappleHeart at 399, -3928:  # right next to the grapple wheel
   refill Checkpoint
   refill Energy=3:
     moki:
-      Weapon, Launch
+      BreakCrystal, Launch
       Bow=1
   refill Health=1
 
@@ -7977,7 +7968,7 @@ anchor WillowsEnd.GrappleHeart at 399, -3928:  # right next to the grapple wheel
 anchor WillowsEnd.TrapHeartPath at 555, -3939:  # below the shortcut back from trap heart
   refill Checkpoint
   refill Energy=3:
-    moki: Weapon
+    moki: BreakCrystal
 
   # state WillowsEnd.TrapHeart:
   #   moki: BreakWall=30, Launch, DoubleJump, Dash
@@ -8044,8 +8035,8 @@ anchor WillowsEnd.AboveInnerTP at 530, -3844:  # at the lava pit before bash puz
   refill Checkpoint
   refill Energy=4:
     moki:
-      Weapon, Launch
-      Bow=1, Combat=CrystalMiner OR Bash OR Launch
+      BreakCrystal, Launch
+      Bow=1, Combat=CrystalMiner OR Bash
 
   conn WillowsEnd.InnerTP:
     moki: Combat=CrystalMiner OR Bash OR Launch
@@ -8081,14 +8072,12 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
     unsafe: Damage=20, Glide OR Dash OR Sword OR Hammer  # dboost through the laser
   refill Energy=4:
     moki:
-      Weapon, Bash, DoubleJump OR Glide
-      Bow=1, Bash, DoubleJump OR Dash OR Glide
-      Launch, Weapon
-      Launch, Bow=1
+      BreakCrystal, Bash, DoubleJump OR Glide
+      Bow=1, Bash, Dash
+      BreakCrystal, Launch
     gorlek:
-      Weapon, Bash, Dash
-      Weapon, DoubleJump, TripleJump
-      Bash, Bow=1 OR Spear=1 OR Sentry=1 OR Shuriken=1 OR Grenade=1 OR Sword OR Hammer
+      BreakCrystal, Bash
+      BreakCrystal, DoubleJump, TripleJump
     unsafe:
       Damage=20, Sword OR Hammer
       Damage=20, Glide, Bow=1 OR Spear=1 OR Sentry=1 OR Shuriken=1 OR Grenade=1  # dboost through the laser
@@ -8132,7 +8121,7 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
 anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
   refill Checkpoint
   refill Energy=4:  # on the way to burrow heart
-    gorlek, Weapon:
+    gorlek, BreakCrystal:
       Bash OR Launch
       Combat=CrystalMiner, SentryJump=1
       Combat=CrystalMiner, DoubleJump, TripleJump
@@ -8176,7 +8165,7 @@ anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
 anchor WillowsEnd.West at 437, -3840:  # To the left of the one-way above Lupo
   refill Checkpoint
   refill Energy=4:
-    moki: Weapon
+    moki: BreakCrystal
 
   # state WillowsEnd.SpinLasersHeart:
   #   moki: BreakWall=30, Launch, DoubleJump OR Dash OR Glide
@@ -8225,7 +8214,7 @@ anchor WillowsEnd.GlideRooms at 360, -3861:  # At the first wind
   refill Checkpoint
   refill Energy=4:
     moki:
-      Weapon, Launch
+      BreakCrystal, Launch
       Bow=1
 
   # state WillowsEnd.GlideHeart:
@@ -8249,7 +8238,7 @@ anchor WillowsEnd.UpperHeartPath at 506, -3711:  # Right above the exit blocked 
   refill Checkpoint
   refill Energy=4:
     moki:
-      Weapon, Launch
+      BreakCrystal, Launch
       Bow=1
 
   state WillowsEnd.SpinPortalsHeart:
