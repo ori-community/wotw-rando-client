@@ -6,10 +6,15 @@
 # Special Syntax:
 # BreakWall=x: A wall or corruption with x Health is broken
 # ShurikenBreak=x: A wall with x Health is broken from behind using Shuriken
-# SentryJump=x: short for Energy=1, Sword OR Hammer
+# SentryBreak=x: A wall with x Health is broken from behind using Sentry
+# HammerBreak: A wall with is broken from behind using Hammer
+# SpearBreak: A wall with is broken from behind using one Spear
+# SentryJump=x: Short for Sentry=1, Sword OR Hammer
+# SwordSJump=x: Short for Sentry=1, Sword
+# HammerSJump=x: Short for Sentry=1, Hammer
+# SentryBurn=x: Use x Sentries to melt ice or light lanterns
+# RemoveKillPlane: Remove the kill plane at feeding grounds
 # Combat=x: An enemy has to be defeated. For a list of enemies visit https://docs.google.com/spreadsheets/d/1AE_ctym6WAwltGK-r6w58ARq0ym2MU4MzFiwg328kjM/view?usp=sharing
-# SentryBurn=x and GrenadeJump=x should be defined here
-# Need to add HammerBreak, SpearBreak and SentryBreak for walls, or just BackBreak rather than ShurikenBreak since there are multiple ways to break a wall from behind 
 
 # requirement macros. must go at the top of the file!
 requirement Weapon:
@@ -628,7 +633,7 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
   conn HowlsDen.Teleporter:
     moki: HowlsDen.BoneBarrier
 
-anchor HowlsDen.SecretRoom:  # The hidden room holding left hc
+anchor HowlsDen.SecretRoom at -515, -4479:  # The hidden room holding left hc
   refill Checkpoint
 
   pickup HowlsDen.LeftHC:
@@ -1772,6 +1777,7 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
   conn UpperDepths.Entry:
     moki: Glide
   # backwards paths through the door seem pointless
+
 anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   refill Full
 
