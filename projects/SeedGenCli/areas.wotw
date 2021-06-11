@@ -290,9 +290,9 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
 # checkpoint at -954, -4355
 # checkpoint at -1004, -4497
 
-anchors MarshSpawn.BeforeBurrows at -1006, -4497:  # On the island before the Burrows entry
+anchor MarshSpawn.BeforeBurrows at -1006, -4497:  # On the island before the Burrows entry
   refill Checkpoint
-  
+
   pickup MarshSpawn.CrusherSwimEX:
     moki: Water, WaterDash
   pickup MarshSpawn.BurrowsApproachLedgeEX:
@@ -369,12 +369,12 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
       Sword
       Hammer
       Water, Damage=10
-      
+
 # checkpoint at -1067, -4274
 
 anchor MarshSpawn.PoolsPath at -1070, -4275:  # Above the turrets at the left of spawn
   refill Checkpoint
-  
+
   pickup MarshSpawn.PoolsPathEX:
     moki:
       DoubleJump, Bash, Glide
@@ -1271,7 +1271,7 @@ anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple do
     unsafe:
       Bash, Grenade=1  # Bash the slime to the platform, throw Grenade, bash from slime then Grenade
       SentryJump=1
-    
+
   conn WestHollow.Entrance:
     moki:
       Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
@@ -1586,7 +1586,7 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
       Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer
       Launch
   conn WestHollow.InFrontPurpleDoor:
-    moki: WestHollow.PurpleDoorOpen:
+    moki: WestHollow.PurpleDoorOpen
 
 anchor BeetleFight at -81, -4243:
   refill Full
@@ -2847,7 +2847,7 @@ anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you ex
   # the wheel is only a shortcut, at least in moki doesn't open up anything new
   state OuterWellspring.WestDoorBlueMoonFree:
     moki: BreakWall=3, Launch
-    gorlek, BreakWall=3, Bow OR Spear OR Shuriken OR Grenade OR Blaze OR Grapple:  // TODO account for this kind of syntax
+    gorlek, BreakWall=3, Bow OR Spear OR Shuriken OR Grenade OR Blaze OR Grapple:  # // TODO account for this kind of syntax
       Bash, Grenade=1
       SentryJump=1
       Grapple, Damage=15, DoubleJump, TripleJump OR Dash  # go up on the left to get into range and then grapple to the corruption
@@ -4597,11 +4597,11 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
 
   state LowerReach.WindLantern:
     moki: Grenade=1, Combat=ShieldMiner
-    gorlek: 
+    gorlek:
       Grenade=1 # wait for the gorlek to get closer to the platform
       SentryBurn=1, DoubleJump OR Bash OR Hammer OR Launch # may require a little luck to get the sentry close enough
       SentryJump=1
-    unsafe: 
+    unsafe:
       Flap, Bash, Dash # Juggle the soup projectile
       # SentryBurn=1 only must be done before breaking the wall
 
@@ -4626,14 +4626,14 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
     unsafe:
       BreakWall=20  # jump over the gorlek when it's near the anchor
   pickup LowerReach.WindBottomEX:
-        moki, LowerReach.WindLantern: Glide
+    moki: LowerReach.WindLantern, Glide
     gorlek, LowerReach.WindLantern:
       Damage=20, Launch OR SentryJump=1
       Damage=20, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
     unsafe, LowerReach.WindLantern:
       Damage=20 # Pickup very close to the spikes for a TP out without damage, but possible
   pickup LowerReach.WindHiddenEX:
-    moki, LowerReach.WindLantern: Glide
+    moki: LowerReach.WindLantern, Glide
     gorlek:
       Launch, Damage=20, Glide
       SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
@@ -4644,13 +4644,13 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
       DoubleJump, TripleJump, Damage=20, Sword OR Hammer OR Bash  # tjump + upslash/bash the gorlek to climb the right wall, tjump to the left spiky wall, iframe to wjump and tjump again to wjump from the wall just above and tjump again to the ice wall<
       SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
       DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
-    
+
   conn LowerReach.SecondSoup:
     moki:
       Combat=ShieldMiner, DoubleJump OR Dash OR Glide
       Bash, Grenade=1
       Launch
-    gorlek: Bash or Combat=ShieldMiner
+    gorlek: Bash OR Combat=ShieldMiner
   conn LowerReach.SoupMoki:
     moki, LowerReach.WindLantern: Glide # grenade to light the lantern
     gorlek: Launch, DoubleJump OR Dash OR Sword OR Hammer OR Damage=20
@@ -6495,7 +6495,7 @@ anchor EastPools.FishingPool at -1278, -4124:  # At the fisher moki
       DoubleJump, TripleJump  # ceiling jump on the wall above the fishing pond
   conn EastPools.TPArea: free
   # can't get into the swimdash puzzle from here
-  
+
 anchor EastPools.SlimeWaterfall at -1300, -4102:  # Above the fishing Moki
   pickup EastPools.AboveTpEX:  # these need water to not be softlockable with the player draining the upper water
     moki: Water
