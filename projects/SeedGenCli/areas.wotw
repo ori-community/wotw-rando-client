@@ -8,14 +8,19 @@
 # ShurikenBreak=x: A wall with x Health is broken from behind using Shuriken
 # SentryJump=x: short for Energy=1, Sword OR Hammer
 # Combat=x: An enemy has to be defeated. For a list of enemies visit https://docs.google.com/spreadsheets/d/1AE_ctym6WAwltGK-r6w58ARq0ym2MU4MzFiwg328kjM/view?usp=sharing
+# SentryBurn=x and GrenadeJump=x should be defined here
+# Need to add HammerBreak, SpearBreak and SentryBreak for walls, or just BackBreak rather than ShurikenBreak since there are multiple ways to break a wall from behind 
 
 # requirement macros. must go at the top of the file!
 requirement Weapon:
   moki: Sword OR Hammer
+  # gorlek: Bow=5 maybe?
+  # unsafe: Blaze OR Spear OR Flash OR Shuriken OR Bow OR UltraBash OR UltraGrapple whatever will do damage
 
 requirement DepthsLight:
   moki: UpperDepths.ForestsEyes OR Flash=1
   gorlek: Bow=3  # should be good, right?
+  # unsafe: Grenade=3 # probably enough
 
 anchor Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
