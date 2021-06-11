@@ -25,7 +25,6 @@ pub enum Requirement {
     Boss(f32),
     BreakWall(f32),
     ShurikenBreak(f32),
-    HammerBreak,
     And(Vec<Requirement>),
     Or(Vec<Requirement>),
 }
@@ -178,8 +177,6 @@ impl Requirement {
                     let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                     return Requirement::cost_is_met(cost, player, orbs);
                 }
-            Requirement::HammerBreak =>
-                if player.inventory.has(&Item::Skill(Skill::Hammer), 1) { return Some(smallvec![Orbs::default()]); },
             Requirement::And(ands) => {
                 let mut best_orbs = smallvec![orbs];
 
@@ -334,7 +331,6 @@ impl Requirement {
                 let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                 Requirement::needed_for_weapon(Skill::Shuriken, cost, player)
             },
-            Requirement::HammerBreak => vec![(Inventory::from(Item::Skill(Skill::Hammer)), Orbs::default())],
             Requirement::Combat(enemies) => {
                 let mut itemsets = Vec::<(Inventory, Orbs)>::new();
 

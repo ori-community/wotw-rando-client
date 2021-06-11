@@ -55,7 +55,13 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
             },
         parser::Requirement::HammerBreak =>
             if context.pathsets.contains(Pathset::HammerBreak) {
-                Requirement::HammerBreak
+                Requirement::Skill(Skill::Hammer)
+            } else {
+                Requirement::Impossible
+            },
+        parser::Requirement::SpearBreak =>
+            if context.pathsets.contains(Pathset::SpearBreak) {
+                Requirement::Skill(Skill::Spear)
             } else {
                 Requirement::Impossible
             },
