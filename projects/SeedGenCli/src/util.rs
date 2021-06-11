@@ -79,6 +79,7 @@ pub enum Pathset {
     SwordSentryJump,    // Grounded Sentry Jumps with Sword
     HammerSentryJump,   // Grounded Sentry Jump with Hammer
     ShurikenBreak,      // Breaking Walls from behind with Shuriken
+    HammerBreak,        // Breaking Walls from behind with Hammer
     SentryBurn,         // Melting Ice using Sentries
     RemoveKillPlane,    // Removing Shriek's Killplane at Feeding Grounds
 }

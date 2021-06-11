@@ -42,7 +42,7 @@ impl fmt::Display for Item {
             Item::Command(command) => write!(f, "4|{}", command),
             Item::Teleporter(teleporter) => write!(f, "{}", teleporter),
             Item::RemoveTeleporter(teleporter) => write!(f, "Remove {}", teleporter),
-            Item::Message(message) => write!(f, "{}", message),
+            Item::Message(message) => write!(f, "{}", message),  // TODO parse $[2|5] for better spoiler logs
             Item::UberState(command) => write!(f, "8|{}", command),
             Item::Water => write!(f, "Clean Water"),
             Item::RemoveWater => write!(f, "Remove Clean Water"),

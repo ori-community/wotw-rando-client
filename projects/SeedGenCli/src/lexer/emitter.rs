@@ -53,6 +53,12 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
             } else {
                 Requirement::Impossible
             },
+        parser::Requirement::HammerBreak =>
+            if context.pathsets.contains(Pathset::HammerBreak) {
+                Requirement::HammerBreak
+            } else {
+                Requirement::Impossible
+            },
         parser::Requirement::SentryJump(amount) => {
             let mut allowed_weapons = Vec::new();
             if context.pathsets.contains(Pathset::SwordSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Sword)); }
