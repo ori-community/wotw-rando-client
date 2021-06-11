@@ -4564,6 +4564,16 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
   state LowerReach.CentralFurnace:
     moki: Grenade=1
 
+  state LowerReach.WindLantern:
+    moki: Grenade=1, Combat=ShieldMiner
+    gorlek: 
+      Grenade=1 # wait for the gorlek to get closer to the platform
+      SentryBurn=1, DoubleJump OR Bash OR Hammer OR Launch # may require a little luck to get the sentry close enough
+      SentryJump=1
+    unsafe: 
+      Flap, Bash, Dash # Juggle the soup projectile
+      # SentryBurn=1 only must be done before breaking the wall
+
   pickup LowerReach.BelowLupoEX:
     moki:
       DoubleJump, Bash, Grenade=1
@@ -4585,44 +4595,35 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
     unsafe:
       BreakWall=20  # jump over the gorlek when it's near the anchor
   pickup LowerReach.WindBottomEX:
-    moki: Grenade=1, Glide  # grenade to light the lantern
-    gorlek:
-      Grenade=1, Damage=20  # TP out
-      SentryBurn=1, Glide, Launch OR SentryJump=1
-      SentryBurn=1, Damage=20, Launch OR SentryJump=1  # without launch, tp out
-      SentryBurn=1, DoubleJump, TripleJump, Glide OR Damage=20  # jump bellow the lantern, don't need any wall jump
-    unsafe:
-      Grenade=1  # TP out
-      SentryBurn=1, DoubleJump  # djump + sentry to light the lantern. The sentry need to explode when the butterfly is high (rng based?)
+        moki, LowerReach.WindLantern: Glide
+    gorlek, LowerReach.WindLantern:
+      Damage=20, Launch OR SentryJump=1
+      Damage=20, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
+    unsafe, LowerReach.WindLantern:
+      Damage=20 # Pickup very close to the spikes for a TP out without damage, but possible
   pickup LowerReach.WindHiddenEX:
-    moki: Grenade=1, Glide  # grenade to light the lantern
+    moki, LowerReach.WindLantern: Glide
     gorlek:
-      Launch, Damage=20, DoubleJump OR Dash
-      Launch, DoubleJump, Dash OR Glide
-      SentryBurn=1, DoubleJump, TripleJump, Glide
-      SentryBurn=1, Glide, SentryJump=1 OR Launch
+      Launch, Damage=20, Glide
+      SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
+      DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
+      Launch, DoubleJump OR Dash OR Sword
     unsafe:
-      Launch, Sword OR Dash OR DoubleJump
+      Launch, Glide
       DoubleJump, TripleJump, Damage=20, Sword OR Hammer OR Bash  # tjump + upslash/bash the gorlek to climb the right wall, tjump to the left spiky wall, iframe to wjump and tjump again to wjump from the wall just above and tjump again to the ice wall<
       SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
       DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
-      SentryBurn=1, DoubleJump, Glide, Hammer
-
+    
   conn LowerReach.SecondSoup:
     moki:
       Combat=ShieldMiner, DoubleJump OR Dash OR Glide
       Bash, Grenade=1
       Launch
-    gorlek: Combat=ShieldMiner
+    gorlek: Bash or Combat=ShieldMiner
   conn LowerReach.SoupMoki:
-    moki: Grenade=1, Glide  # grenade to light the lantern
-    gorlek:
-      Launch, DoubleJump OR Dash OR Damage=20
-      SentryBurn=1, DoubleJump, TripleJump, Glide
-      SentryBurn=1, Glide, SentryJump=1 OR Launch
-    unsafe:
-      Launch
-      SentryBurn=1, DoubleJump, Hammer, Glide
+    moki, LowerReach.WindLantern: Glide # grenade to light the lantern
+    gorlek: Launch, DoubleJump OR Dash OR Sword OR Hammer OR Damage=20
+    unsafe: Launch
 
 # checkpoint at -223, -4043
 
