@@ -117,7 +117,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Bash, Glide, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer
       Launch, Damage=10, DoubleJump OR Dash OR Glide OR Sword
     unsafe:
-	  Launch, DoubleJump OR Damage=10  # Land on the first turret
+      Launch, DoubleJump OR Damage=10  # Land on the first turret
       Bash, Dash, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
 
 # checkpoint at -1021, -4305
@@ -269,11 +269,11 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Water, WaterDash, Bash, Hammer, Damage=10  # dboost at the start, too precise for gorlek
       Water, WaterDash, Bash, Sword  # too precise for gorlek
 
-  conn MarshSpawn.BurrowsEntry:
+  conn MarshSpawn.BeforeBurrows:
     moki: Bash, DoubleJump OR Dash OR Launch
     gorlek:
       Bash, Glide OR Sword
-      Bash, Grenade=1, Hammer, Damage=10  # dboost at the start, bashgrenade at the end
+      Bash, Hammer, Damage=10  # dboost at the start
       Launch, Glide
       Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
   conn MarshSpawn.Cave: free
@@ -297,42 +297,44 @@ anchors MarshSpawn.BeforeBurrows at -1006, -4497:  # On the island before the Bu
     moki: Water, WaterDash
   pickup MarshSpawn.BurrowsApproachLedgeEX:
     moki:
-	  Launch
-	  Bash, DoubleJump, Dash OR Glide
+      Launch
+      Bash, DoubleJump, Dash OR Glide
     gorlek:
       Bash, DoubleJump, TripleJump OR Sword OR Hammer
-	  SentryJump=1, Damage=10, DoubleJump, TripleJump  # Land in the spikes under the pickup and triple jump to the left platform
+      SentryJump=1, Damage=10, DoubleJump, TripleJump  # Land in the spikes under the pickup and triple jump to the left platform
     unsafe:
-	  Bash, Hammer OR DoubleJump
+      Bash, Hammer OR DoubleJump
       Bash, Dash OR Glide
-	  SentryJump=1, Damage=10, DoubleJump  # Land in the spikes under the pickup and doublejump + upslash to reach the right platform. Hammer upslash is enough to reach the platform, sword upslash the ennemy to refresh your double jump
+      SentryJump=1, Damage=10, DoubleJump  # Land in the spikes under the pickup and doublejump + upslash to reach the right platform. Hammer upslash is enough to reach the platform, sword upslash the ennemy to refresh your double jump
 
   conn MarshSpawn.BurrowsEntry:
-	moki:
-	  Water, WaterDash, DoubleJump, Dash OR Glide
-	  Water, WaterDash, Launch
-	  Launch, Bash OR Glide OR DoubleJump OR Dash
-	  Bash, DoubleJump, Glide OR Dash
-	gorlek:
-	  Launch
-	  Bash, DoubleJump
-	  Bash, Dash, Glide OR Sword OR Hammer
-	  Water, WaterDash, DoubleJump OR Dash OR SentryJump=1  # With sjump, weapon hover as well
-	  SentryJump=1, Dash, DoubleJump, TripleJump
-	  SwordSJump=1, DoubleJump, Damage=10  # Sword hover and damage boost in the first spikes
-	unsafe:
-	  SentryJump=1, DoubleJump, Damage=10  # Weapon hover and damage boost in the first spikes
+    moki:
+      Water, WaterDash, Launch
+      Water, WaterDash, Bash, Grenade=1
+      Water, WaterDash, DoubleJump, Dash OR Glide
+      Launch, Bash OR Glide OR DoubleJump OR Dash
+      Bash, DoubleJump, Glide OR Dash
+    gorlek:
+      Launch
+      Bash, DoubleJump
+      Bash, Dash, Glide OR Sword OR Hammer
+      Water, WaterDash, DoubleJump OR Dash OR SentryJump=1  # With sjump, weapon hover as well
+      SentryJump=1, Dash, DoubleJump, TripleJump
+      SentryJump=1, DoubleJump, Sword, Damage=10  # Sword hover and damage boost in the first spikes
+    unsafe:
+      SentryJump=1, DoubleJump, Damage=10  # Weapon hover and damage boost in the first spikes
+      Bash, Dash OR Glide OR Hammer OR Sword  # Use the projectile from the ennemy at the left then bash the the tentacle and land directly on the last platform
   conn MarshSpawn.PoolsBurrowsPath:
     moki:
-	  Launch, Bash
-	  Bash, DoubleJump, Dash OR Glide
-	gorlek:
+      Launch, Bash
+      Bash, DoubleJump, Dash OR Glide
+    gorlek:
       Bash, DoubleJump, TripleJump OR Sword OR Hammer
-	  Launch, Damage=10, Glide OR DoubleJump OR Dash OR Sword OR Hammer
-	  Launch, DoubleJump, TripleJump
-	unsafe:
-	  Launch, DoubleJump, Dash
-	  Launch, Glide  # Reset your launch by touching the wallunder the spikes
+      Launch, Damage=10, Glide OR DoubleJump OR Dash OR Sword OR Hammer
+      Launch, DoubleJump, TripleJump
+    unsafe:
+      Launch, DoubleJump, Dash
+      Launch, Glide  # Reset your launch by touching the wallunder the spikes
 
 anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
   refill Checkpoint
@@ -357,17 +359,17 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
     unsafe: Bash  # fun
   conn MarshSpawn.BeforeBurrows:
     moki:
-	  Glide
-	  Launch
-	  Water, WaterDash
-	  DoubleJump, Dash
-	gorlek:
-	  DoubleJump
-	  Dash
-	  Sword
-	  Hammer
-	  Water, Damage=10
-	  
+      Glide
+      Launch
+      Water, WaterDash
+      DoubleJump, Dash
+    gorlek:
+      DoubleJump
+      Dash
+      Sword
+      Hammer
+      Water, Damage=10
+      
 # checkpoint at -1067, -4274
 
 anchor MarshSpawn.PoolsPath at -1070, -4275:  # Above the turrets at the left of spawn
@@ -378,10 +380,10 @@ anchor MarshSpawn.PoolsPath at -1070, -4275:  # Above the turrets at the left of
       DoubleJump, Bash, Glide
       Bash, Launch
     gorlek:
-	  Launch
-	  Glide, Sword OR Hammer OR DoubleJump OR Dash OR Bash
+      Launch
+      Glide, Sword OR Hammer OR DoubleJump OR Dash OR Bash
       DoubleJump, TripleJump OR Dash
-	  DoubleJump, Bash, Sword OR Hammer OR Damage=10
+      DoubleJump, Bash, Sword OR Hammer OR Damage=10
     unsafe:
       Bash, Dash OR Sword OR Hammer OR DoubleJump  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
 
@@ -389,15 +391,15 @@ anchor MarshSpawn.PoolsPath at -1070, -4275:  # Above the turrets at the left of
     moki: Water
   conn MarshSpawn.Main:
     moki:
-	  Water, WaterDash OR Launch
-	  Glide, Bash OR Launch
+      Water, WaterDash OR Launch
+      Glide, Bash OR Launch
     gorlek:
       Launch
-	  Water, DoubleJump OR Bash
-	  Glide, Dash OR DoubleJump
-	  DoubleJump, Sword OR Dash
-	unsafe:
-	  DoubleJump, Hammer OR TripleJump
+      Water, DoubleJump OR Bash
+      Glide, Dash OR DoubleJump
+      DoubleJump, Sword OR Dash
+    unsafe:
+      DoubleJump, Hammer OR TripleJump
       Dash  #Reset your dash on the ceiling
 
 anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
@@ -1233,23 +1235,56 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
       Dash OR Glide OR Sword OR Hammer OR Damage=10  # Go through the lower part
     unsafe:
       Bash
-  conn EastHollow.Teleporter:
-    moki, WestHollow.PurpleDoorOpen:
+  conn WestHollow.InFrontPurpleDoor:
+    moki:
       Combat=2xSlug, Bow=1, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
       DoubleJump, Dash OR Glide
       Bash, Combat=BombSlug OR DoubleJump OR Dash OR Glide  # bashing up with the slug
       Launch
-    gorlek, WestHollow.PurpleDoorOpen:
+    gorlek:
       Bow=1, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=10  # deal with the camera
       DoubleJump, TripleJump OR Sword
       SentryJump=1  # Go up to the moki, then poles and then jump down
       Bash  # bash the slime to get up
-    unsafe, WestHollow.PurpleDoorOpen:
+    unsafe:
       Dash, Sword  # Easier with upslash
       Hammer, DoubleJump OR Dash  # Easier with upslash
       Hammer, Glide  # Press Glide then before reaching the wall upslash with Hammer and hold Glide again
   conn WestHollow.HollowDrainMiddle:
     moki: WestHollow.UpperDrainLeverPulled
+
+anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple door, before the TP
+  state WestHollow.PurpleDoorOpen:
+    unsafe: Bow=1  # Drop shot
+  state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
+    moki:
+      Combat=Slug, Bow=3, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
+      Combat=BombSlug, DoubleJump, Dash, Glide
+      Launch
+    gorlek:
+      Bow=3
+      DoubleJump, Dash
+      Combat=BombSlug, DoubleJump, TripleJump
+      Combat=BombSlug, DoubleJump, Damage=10, Glide OR Sword
+      SentryJump=1, DoubleJump
+      Bash, Grenade=1, DoubleJump
+    unsafe:
+      Bash, Grenade=1  # Bash the slime to the platform, throw Grenade, bash from slime then Grenade
+      SentryJump=1
+    
+  conn WestHollow.Entrance:
+    moki:
+      Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
+      Bash, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
+      Bow=1, Combat=Slug OR Bash
+      Launch
+      Bash, Grenade=1
+    gorlek: WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Dash OR Glide OR Sword OR Damage=20
+    unsafe: Sentry=2 OR Hammer OR Bash
+  conn WestHollow.HollowDrainMiddle:
+    moki: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
+  conn EastHollow.Teleporter:
+    moki: WestHollow.PurpleDoorOpen
 
 anchor WestHollow.HollowDrainMiddle at -197, -4275:  # At the crystal below the purple eye
   refill Checkpoint
@@ -1519,23 +1554,6 @@ region EastHollow:
 anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   refill Full
 
-  # paths through the purple door exist mainly because of historical reasons, but might be a candidate for future open mode as well
-  state WestHollow.UpperDrainLeverPulled:  # Lever that drains the first section of the hollow
-    moki, WestHollow.PurpleDoorOpen:
-      Combat=Slug, Bow=3, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
-      Combat=BombSlug, DoubleJump, Dash, Glide
-      Launch
-    gorlek, WestHollow.PurpleDoorOpen:
-      Bow=3
-      DoubleJump, Dash
-      Combat=BombSlug, DoubleJump, TripleJump
-      Combat=BombSlug, DoubleJump, Damage=10, Glide OR Sword
-      SentryJump=1, DoubleJump
-      Bash, Grenade=1, DoubleJump
-    unsafe, WestHollow.PurpleDoorOpen:
-      Bash, Grenade=1  # Bash the slime to the platform, throw Grenade, bash from slime then Grenade
-      SentryJump=1
-
   pickup EastHollow.HornBeetleFightEX:
     moki, EastHollow.BeetleDefeated:
       DoubleJump, Dash, Bash
@@ -1567,17 +1585,8 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
     gorlek, EastHollow.ForestsVoice:
       Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer
       Launch
-  conn WestHollow.Entrance:
-    moki, WestHollow.PurpleDoorOpen:
-      Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
-      Bash, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
-      Bow=1, Combat=Slug OR Bash
-      Launch
-      Bash, Grenade=1
-    gorlek: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Dash OR Glide OR Sword OR Damage=20
-    unsafe: WestHollow.PurpleDoorOpen, Sentry=2 OR Hammer OR Bash
-  conn WestHollow.HollowDrainMiddle:
-    moki: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
+  conn WestHollow.InFrontPurpleDoor:
+    moki: WestHollow.PurpleDoorOpen:
 
 anchor BeetleFight at -81, -4243:
   refill Full
@@ -6467,25 +6476,39 @@ anchor EastPools.Teleporter at -1316, -4153:  # At the teleporter after draining
   conn EastPools.TPArea: free
 
 anchor EastPools.FishingPool at -1278, -4124:  # At the fisher moki
-  pickup EastPools.AboveTpEX:  # these need water to not be softlockable with the player draining the upper water
-    moki:
-      Water, DoubleJump, Bash, Grenade=1
-      Water, WaterDash, DoubleJump, Dash, Combat=CorruptSlug OR Bash
-      Water, WaterDash, DoubleJump, Glide, Combat=CorruptSlug OR Bash
-      Water, Launch
-    gorlek:
-      Water, WaterDash, DoubleJump
-      Water, WaterDash, Dash, Sword OR Hammer  # upslash makes it easier to reach the wall above the water
-      Water, SentryJump=1, DoubleJump OR Dash
-      Water, Bash, Grenade=1, Dash
-    unsafe:
-      Water, DoubleJump, TripleJump, Dash
-
   quest EastPools.HandToHandSpyglass:
     moki: LowerDepths.HandToHandSilk
 
+  conn EastPools.SlimeWaterfall:  # these need water to not be softlockable with the player draining the upper water
+    moki:
+      Launch
+      DoubleJump, Bash, Grenade=1
+      Water, WaterDash, DoubleJump, Dash, Combat=CorruptSlug OR Bash
+      Water, WaterDash, DoubleJump, Glide, Combat=CorruptSlug OR Bash
+    gorlek:
+      WaterDash, DoubleJump, Water OR Damage=20
+      Water, WaterDash, Dash, Sword OR Hammer  # upslash makes it easier to reach the wall above the water
+      WaterDash, Dash, Damage=20, Sword OR Hammer  # same path as above, without Clean Water
+      SentryJump=1, DoubleJump OR Dash
+      Bash, Grenade=1, Dash
+    unsafe:
+      DoubleJump, TripleJump  # ceiling jump on the wall above the fishing pond
   conn EastPools.TPArea: free
   # can't get into the swimdash puzzle from here
+  
+anchor EastPools.SlimeWaterfall at -1300, -4102:  # Above the fishing Moki
+  pickup EastPools.AboveTpEX:  # these need water to not be softlockable with the player draining the upper water
+    moki: Water
+  pickup EastPools.PurpleWallHC:
+    moki, UpperPools.UpperWaterDrained:
+      Water, Bash, WaterDash, Launch
+      Water, Bash, WaterDash, DoubleJump, Dash OR Glide
+    gorlek, UpperPools.UpperWaterDrained:
+      Water, Bash, WaterDash, DoubleJump OR Dash
+    unsafe, UpperPools.UpperWaterDrained:
+      Bash, Launch OR SentryJump=1 OR Grenade=1  # Use the slime to break the purple wall
+      Bash, DoubleJump, TripleJump, Damage=20, Sword OR Hammer # use the slime to break the purple wall, dboost to climb the left wall
+  conn EastPools.FishingPool: free
 
 anchor EastPools.MissilePuzzle at -1425, -4144:  # Below where the trial starts
   refill Checkpoint
@@ -6804,10 +6827,8 @@ anchor UpperPools.SolvedDrainPuzzle at -1319, -4081:  # At the ledge above east 
       Water, DoubleJump OR Dash OR Glide OR Bash OR Launch OR Sword OR Hammer OR Shuriken=2
       Damage=20, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Shuriken=2
       Damage=40, Bash
-  pickup EastPools.AboveTpEX:
-    moki: UpperPools.UpperWaterDrained, Water
 
-  conn EastPools.TPArea:
+  conn EastPools.SlimeWaterfall:
     moki: UpperPools.UpperWaterDrained
 
 anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all the bubbles rise
