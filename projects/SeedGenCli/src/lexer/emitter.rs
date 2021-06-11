@@ -53,6 +53,24 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
             } else {
                 Requirement::Impossible
             },
+        parser::Requirement::SentryBreak(health) =>
+            if context.pathsets.contains(Pathset::SentryBreak) {
+                Requirement::SentryBreak(f32::from(*health))
+            } else {
+                Requirement::Impossible
+            },
+        parser::Requirement::HammerBreak =>
+            if context.pathsets.contains(Pathset::HammerBreak) {
+                Requirement::Skill(Skill::Hammer)
+            } else {
+                Requirement::Impossible
+            },
+        parser::Requirement::SpearBreak =>
+            if context.pathsets.contains(Pathset::SpearBreak) {
+                Requirement::Skill(Skill::Spear)
+            } else {
+                Requirement::Impossible
+            },
         parser::Requirement::SentryJump(amount) => {
             let mut allowed_weapons = Vec::new();
             if context.pathsets.contains(Pathset::SwordSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Sword)); }

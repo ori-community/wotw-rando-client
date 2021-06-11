@@ -147,7 +147,7 @@ struct SeedSettings {
     goals: Vec<String>,
     /// which pathsets to use
     /// 
-    /// pathsets are moki, gorlek, glitch, unsafe, sjump, swordsjump, hammersjump, shurikenbreak, sentryburn, removekillplane
+    /// pathsets are moki, gorlek, glitch, unsafe, sjump, swordsjump, hammersjump, shurikenbreak, hammerbreak, sentryburn, removekillplane
     #[structopt(short, long)]
     logic: Vec<String>,
     /// paths to headers stored in files which will be added to the seed
@@ -232,6 +232,9 @@ fn parse_pathsets(names: &[String]) -> Pathsets {
             "un" | "unsafe" => pathsets.add(Pathset::Unsafe),
             "gl" | "glitch" => pathsets.add_glitches(),
             "shurikenbreak" => pathsets.add(Pathset::ShurikenBreak),
+            "sentrybreak" => pathsets.add(Pathset::SentryBreak),
+            "hammerbreak" => pathsets.add(Pathset::HammerBreak),
+            "spearbreak" => pathsets.add(Pathset::SpearBreak),
             "sjump" | "sentryjump" => {
                 pathsets.add(Pathset::SwordSentryJump);
                 pathsets.add(Pathset::HammerSentryJump);
