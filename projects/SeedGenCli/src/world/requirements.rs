@@ -25,6 +25,7 @@ pub enum Requirement {
     Boss(f32),
     BreakWall(f32),
     ShurikenBreak(f32),
+    SentryBreak(f32),
     And(Vec<Requirement>),
     Or(Vec<Requirement>),
 }
@@ -176,7 +177,13 @@ impl Requirement {
                     let clip_mod = if player.pathsets.contains(Pathset::Unsafe) { 2.0 } else { 3.0 };
                     let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                     return Requirement::cost_is_met(cost, player, orbs);
-                }
+                },
+            Requirement::SentryBreak(health) =>
+                if player.inventory.has(&Item::Skill(Skill::Sentry), 1) {
+                    let clip_mod = 0.16;
+                    let cost = player.destroy_cost(*health, Skill::Sentry, false) * clip_mod;
+                    return Requirement::cost_is_met(cost, player, orbs);
+                },
             Requirement::And(ands) => {
                 let mut best_orbs = smallvec![orbs];
 
@@ -330,6 +337,11 @@ impl Requirement {
                 let clip_mod = if player.pathsets.contains(Pathset::Unsafe) { 2.0 } else { 3.0 };
                 let cost = player.destroy_cost(*health, Skill::Shuriken, false) * clip_mod;
                 Requirement::needed_for_weapon(Skill::Shuriken, cost, player)
+            },
+            Requirement::SentryBreak(health) => {
+                let clip_mod = 0.16;
+                let cost = player.destroy_cost(*health, Skill::Sentry, false) * clip_mod;
+                Requirement::needed_for_weapon(Skill::Sentry, cost, player)
             },
             Requirement::Combat(enemies) => {
                 let mut itemsets = Vec::<(Inventory, Orbs)>::new();

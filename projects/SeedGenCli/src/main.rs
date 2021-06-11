@@ -232,6 +232,7 @@ fn parse_pathsets(names: &[String]) -> Pathsets {
             "un" | "unsafe" => pathsets.add(Pathset::Unsafe),
             "gl" | "glitch" => pathsets.add_glitches(),
             "shurikenbreak" => pathsets.add(Pathset::ShurikenBreak),
+            "sentrybreak" => pathsets.add(Pathset::SentryBreak),
             "hammerbreak" => pathsets.add(Pathset::HammerBreak),
             "spearbreak" => pathsets.add(Pathset::SpearBreak),
             "sjump" | "sentryjump" => {
