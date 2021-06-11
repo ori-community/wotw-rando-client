@@ -47,6 +47,21 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
         parser::Requirement::Combat(enemies) => Requirement::Combat(enemies.clone()),
         parser::Requirement::Boss(health) => Requirement::Boss(f32::from(*health)),
         parser::Requirement::BreakWall(health) => Requirement::BreakWall(f32::from(*health)),
+        parser::Requirement::BreakCrystal => {
+            let mut allowed_weapons = vec![
+                Requirement::Skill(Skill::Sword),
+                Requirement::Skill(Skill::Hammer),
+                Requirement::EnergySkill(Skill::Bow, 1.0),
+            ];
+            if context.pathsets.contains(Pathset::Gorlek) {
+                allowed_weapons.push(Requirement::EnergySkill(Skill::Shuriken, 1.0));
+                allowed_weapons.push(Requirement::EnergySkill(Skill::Grenade, 1.0));
+            }
+            if context.pathsets.contains(Pathset::Unsafe) {
+                allowed_weapons.push(Requirement::EnergySkill(Skill::Spear, 1.0));
+            }
+            Requirement::Or(allowed_weapons)
+        },
         parser::Requirement::ShurikenBreak(health) =>
             if context.pathsets.contains(Pathset::ShurikenBreak) {
                 Requirement::ShurikenBreak(f32::from(*health))
