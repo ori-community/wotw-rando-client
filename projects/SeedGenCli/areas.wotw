@@ -196,7 +196,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
   conn Tokk: free  # this one is tokk anywhere'd
   conn MarshSpawn.CaveEntrance:
     gorlek: ShurikenBreak=16
-    unsafe: Hammer OR Spear=1  # break the wall from behind
+    unsafe: HammerBreak OR SpearBreak
   conn MarshSpawn.PoolsBurrowsPath:
     moki:
       DoubleJump, Dash OR Grapple
@@ -538,6 +538,9 @@ anchor HowlsDen.AboveBoneBridge at -446, -4436:  # After the climb up through th
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword
   conn HowlsDen.SecretRoom:
     gorlek: ShurikenBreak=16, BreakWall=20
+    unsafe:
+      HammerBreak
+      SpearBreak, BreakWall=20
 
 anchor HowlsDen.UpperLoopEntrance at -407, -4451:  # In front of the bone door blocking the loop with the right hc
   refill Checkpoint:
@@ -656,7 +659,7 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
 
   state HowlsDen.BoneBarrier:
     gorlek: ShurikenBreak=16
-    unsafe: Hammer OR Spear=1  # break the wall from behind
+    unsafe: HammerBreak OR SpearBreak
 
   pickup HowlsDen.AboveTPEX:
     moki, BreakWall=10:
@@ -757,7 +760,7 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
     gorlek: free
   conn MarshSpawn.Main:
     gorlek: ShurikenBreak=16
-    unsafe: Hammer OR Spear=1  # break the wall from behind using clipping techniques
+    unsafe: HammerBreak OR SpearBreak
   conn MarshPastOpher.PoolsPathEast:
     gorlek: Water, Bash, Launch  # the enemies appear once you have water
 
