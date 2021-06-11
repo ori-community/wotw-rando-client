@@ -10,6 +10,32 @@ namespace RandoMainDLL {
 
   public static class MapController {
 
+    public static void Update() {
+      if(reachCheckResult != "") {
+        Reachable.Clear();
+        foreach (var rawCond in reachCheckResult.Split(',')) {
+          try {
+            var frags = rawCond.Split('|');
+            var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
+            if (cond.Loc().Type == LocType.Shop) {
+              if (cond.Pickup().isHint() || cond.Met())
+                continue; // bought it or it's a hint. Either way it's known to be non progression, so it does not show on the map
+              if (ShopSlot.Twillen.Any(e => e.State.Equals(cond.Id)))
+                Reachable.Add(new UberStateCondition(2, "20000"));
+              else if (ShopSlot.Opher.Any(e => e.State.Equals(cond.Id)))
+                Reachable.Add(new UberStateCondition(1, "20000"));
+              else if (ShopSlot.LupoStore.Any(e => e.State.Equals(cond.Id)))
+                Reachable.Add(new UberStateCondition(48248, "20000"));
+            }
+            Reachable.Add(cond);
+          }
+          catch (Exception e) { Randomizer.Error($"MapController.Update, while parsing |{rawCond}|", e); }
+        }
+        InterOp.refresh_inlogic_filter();
+        reachCheckResult = "";
+      }
+    }
+
     public static void PopulateTrackedConds() {
       try {
         foreach (var line in File.ReadAllLines(Randomizer.BasePath + "state_data.csv")) {
@@ -54,36 +80,12 @@ namespace RandoMainDLL {
         proc.Start();
         if (!proc.WaitForExit(10000))
           Randomizer.Warn("MapController.waitForProc", "timed out waiting for reach check", false);
-        Reachable.Clear();
-        var rawOutput = proc.StandardOutput.ReadToEnd();
-        if (rawOutput.Trim() != "")
-          foreach (var rawCond in rawOutput.Split(',')) {
-            try {
-              var frags = rawCond.Split('|');
-              var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
-              if (cond.Loc().Type == LocType.Shop) {
-                if (cond.Met() || hintTypes.Contains(cond.Pickup().Type))
-                  continue; // bought it or it's a hint. Either way it's known to be non progression, so it does not show on the map
-                if(ShopSlot.Twillen.Any(e => e.State.Equals(cond.Id))) 
-                  Reachable.Add(new UberStateCondition(2, "20000"));
-                 else if (ShopSlot.Opher.Any(e => e.State.Equals(cond.Id))) 
-                  Reachable.Add(new UberStateCondition(1, "20000"));
-                 else if (ShopSlot.LupoStore.Any(e => e.State.Equals(cond.Id))) 
-                  Reachable.Add(new UberStateCondition(48248, "20000"));
-              }
-              Reachable.Add(cond);
-            }
-            catch (Exception e) { Randomizer.Error($"GetReachableAsync (post-return) while parsing |{rawCond}|", e); }
-          }
-        /*
-        if(Randomizer.Dev)
-          Randomizer.Log($"Reach check:\nseed_gen_cli.exe {String.Join(" ", argsList)}\n gave output: \n{rawOutput}\n stderr was {proc.StandardError.ReadToEnd()}\nReachable after: {String.Join(" ", Reachable.Select(r => r.ToString()))}", false);
-        */
-        InterOp.refresh_inlogic_filter();
+        reachCheckResult = proc.StandardOutput.ReadToEnd().Trim();
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
       Updating = false;
     }
+    private static string reachCheckResult = "";
     private static List<String> GetArgs() {
       var argsList = RustLogic ? new List<string> {
           "reach-check",
@@ -117,7 +119,7 @@ namespace RandoMainDLL {
       argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
       return argsList;
     }
-    private static readonly List<PickupType> hintTypes = new List<PickupType>() { PickupType.CheckableHint, PickupType.ZoneHint };
+    private static bool isHint(this Pickup p) => p is CheckableHint || p is ZoneHint || (p is SysMessage s && s.messageType == SysMessageType.ListHint);
     public static int FilterIconType(int groupId, int id, int value) {
       var cond = new UberStateCondition(groupId, id, value);
       if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)

@@ -103,16 +103,12 @@ namespace RandoMainDLL {
         Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
         return null;
       }
-      string name = "";
-      string groupName = ""; 
       
-      if(Randomizer.Dev) {
-        byte[] buffer = new byte[256];
-        int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
-        name = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
-        len = InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
-        groupName = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
-      }
+      byte[] buffer = new byte[256];
+      int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string name = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
+      len = InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
+      string groupName = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
 
       var s = new UberState() {
         ID = id.ID,

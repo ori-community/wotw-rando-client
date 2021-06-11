@@ -114,6 +114,7 @@ namespace
             cached = this_ptr->fields._Navigation_k__BackingField;
             register_input_callback(FOCUS_BUTTON, update_map_focus);
         }
+        area_map_open = true;
     }
         
     IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
@@ -125,6 +126,7 @@ namespace
                 trace(MessageType::Error, 2, "game", "Failed to unregister map focus callback.");
             cached = nullptr;
         }
+        area_map_open = false;
     }
 
     app::Quest* quest_cache;

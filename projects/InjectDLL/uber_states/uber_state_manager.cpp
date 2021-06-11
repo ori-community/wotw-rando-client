@@ -436,6 +436,7 @@ namespace uber_states
     }
     
     std::string get_uber_state_name(app::IUberState* uber_state) {
+        if (uber_state == nullptr) return "Null";
         auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
         return il2cpp::convert_csstring(csstring);
     }
