@@ -2,6 +2,7 @@ use std::fmt;
 
 use rustc_hash::FxHashMap;
 
+use crate::headers;
 use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Pathsets, Pathset, Command, SysMessage};
 
 #[allow(clippy::pub_enum_variant_names)]
@@ -42,7 +43,36 @@ impl fmt::Display for Item {
             Item::Command(command) => write!(f, "4|{}", command),
             Item::Teleporter(teleporter) => write!(f, "{}", teleporter),
             Item::RemoveTeleporter(teleporter) => write!(f, "Remove {}", teleporter),
-            Item::Message(message) => write!(f, "{}", message),  // TODO parse $[2|5] for better spoiler logs
+            Item::Message(message) => {
+                let mut message = message.clone();
+                let mut last_index = 0;
+
+                while let Some(mut start_index) = message[last_index..].find("$[") {
+                    start_index += last_index;
+                    let after_bracket = start_index + 2;
+                    let mut end_index = 0;
+
+                    let mut depth = 1;
+                    for (index, byte) in message[after_bracket..].bytes().enumerate() {
+                        if byte == b'[' { depth += 1; }
+                        if byte == b']' { depth -= 1; }
+                        if depth == 0 {
+                            end_index = after_bracket + index;
+                            break;
+                        }
+                    }
+                    if end_index == 0 { break; }
+
+                    let pickup = &message[after_bracket..end_index];
+                    if let Ok(pickup) = headers::parser::parse_pickup(pickup, false) {
+                        message.replace_range(start_index..=end_index, &pickup.to_string());
+                    }
+
+                    last_index = start_index;
+                }
+
+                write!(f, "{}", message)
+            },
             Item::UberState(command) => write!(f, "8|{}", command),
             Item::Water => write!(f, "Clean Water"),
             Item::RemoveWater => write!(f, "Remove Clean Water"),

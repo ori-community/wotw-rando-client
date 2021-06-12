@@ -392,9 +392,9 @@ fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], gra
 
 fn read_args(seed: &str, start_index: usize) -> Option<usize> {
     let mut depth: u8 = 1;
-    for (index, char) in seed[start_index..].chars().enumerate() {
-        if char == '(' { depth += 1; }
-        else if char == ')' { depth -= 1; }
+    for (index, byte) in seed[start_index..].bytes().enumerate() {
+        if byte == b'(' { depth += 1; }
+        else if byte == b')' { depth -= 1; }
         if depth == 0 {
             return Some(start_index + index);
         }
