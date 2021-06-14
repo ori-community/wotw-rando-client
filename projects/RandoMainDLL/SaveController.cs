@@ -83,7 +83,9 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
           UberStateController.QueueSyncedStateUpdate();
-      }
+        } else {
+          PsuedoLocs.LOAD_SEED.Pickup().Grant();
+        }
         BonusItemController.Refresh();
         MapController.UpdateReachable();
       }
