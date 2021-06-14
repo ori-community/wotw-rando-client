@@ -121,6 +121,8 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
 
 anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaking bridge
   refill Checkpoint
+  
+  # add conn to MarshSpawn.Main using state MarshSpawn.LogBroken txm
 
   pickup MarshSpawn.ResilienceShard:
     moki: BreakWall=16
@@ -711,6 +713,8 @@ anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
   state HowlsDen.BoneBarrier:
     unsafe: free  # good game yes
 
+  # add conn to MidnightBurrows.East using state MidnightBurrows.HowlsDenShortcut txm
+
   pickup HowlsDen.DoubleJumpTree: free
   pickup HowlsDen.StickyShard: free  # origlow
   pickup HowlsDen.DoubleJumpEX:
@@ -1056,6 +1060,8 @@ region MidnightBurrows:
 
 anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
   refill Full
+
+# add conn to MarshSpawn.BurrowsEntry using state MarshSpawn.BurrowsOpen txm
 
   pickup MidnightBurrows.LeftKS:
     moki: DoubleJump OR Dash OR Glide OR Launch
@@ -1770,6 +1776,8 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
   refill Checkpoint
   refill Energy=3:
     moki: BreakCrystal
+
+# add conn to EastHollow.AboveBash using EastHollow.DepthsLever txm
 
   pickup EastHollow.BashHC:
     moki: Bash OR Launch
@@ -5337,6 +5345,8 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
     moki: Glide
     gorlek: Damage=10
     unsafe: free
+
+  # add conn to EastHollow.AboveDepths using state EastHollow.DepthsOpen txm
 
   conn UpperDepths.FirstFirefly:
     moki:
