@@ -340,7 +340,7 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
   refill Checkpoint
   
   state MarshSpawn.BurrowsOpen:
-     moki:
+    moki:
       Bash, DoubleJump, Glide
       Bash, Launch
     gorlek:
