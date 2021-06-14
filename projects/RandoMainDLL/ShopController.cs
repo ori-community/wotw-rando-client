@@ -133,27 +133,23 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = s.Contents;
           if (pickup.NonEmpty)
-            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type), s.Cost);
+            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
         }
         else if (KSOverride(t)) {
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false, KS_PRICE);
+          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false);
         }
         else {
           var pickup = s.Contents;
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
-            InterOp.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type), s.Cost);
+            InterOp.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type));
         }
-      }
-      foreach(var s in ShopSlot.OpherUpgrades) {
-        // TODO: change once these are actually slots
-        InterOp.set_opher_cost(255, (int)s.Weapon, s.Cost);
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, s.Cost);
+          InterOp.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
@@ -209,7 +205,7 @@ namespace RandoMainDLL {
         SaveController.KSBought++;
         SaveController.FoundCount--;
         slot.Cost = KS_PRICE;
-        InterOp.set_opher_item(255, 255, bmKeysName, bmKeysDesc, "", false, KS_PRICE);
+        InterOp.set_opher_item(255, 255, bmKeysName, bmKeysDesc, "", false);
         return;
       }
       UberSet.Bool(slot.State, true);
