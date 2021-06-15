@@ -54,7 +54,7 @@ anchor Teleporters:  # teleporter access
   conn WindtornRuins.RuinsTP:
     moki: InnerRuinsTP, Burrow
   conn WillowsEnd.InnerTP:
-    moki: WillowTP
+    moki: WillowTP, Burrow
 
 anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
   refill Full
