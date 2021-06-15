@@ -340,7 +340,7 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
   refill Checkpoint
   
   state MarshSpawn.BurrowsOpen:
-     moki:
+    moki:
       Bash, DoubleJump, Glide
       Bash, Launch
     gorlek:
@@ -358,7 +358,8 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
     gorlek: Bash
 
   conn Tokk: free
-  conn MidnightBurrows.Teleporter: MarshSpawn.BurrowsOpen
+  conn MidnightBurrows.Teleporter: 
+    moki: MarshSpawn.BurrowsOpen
   conn MarshSpawn.BeforeBurrows:
     moki:
       Glide
@@ -1169,8 +1170,8 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
 
 anchor MidnightBurrows.East at -597, -4549:  # At the wall connecting to Den
   refill Checkpoint
-  
-  state: MidnightBurrows.HowlsDenShortcut
+
+  state MidnightBurrows.HowlsDenShortcut:
     moki: BreakWall=10
 
   pickup MidnightBurrows.RightKS: free
@@ -6625,7 +6626,8 @@ anchor EastPools.MissilePuzzle at -1425, -4144:  # Below where the trial starts
   pickup EastPools.BehindCrusherEX:
     moki: Water
 
-  conn EastPools.CentralRoom: EastPools.PurpleWall
+  conn EastPools.CentralRoom: 
+    moki: EastPools.PurpleWall
   # can't reliably enter the arena from behind
 
 anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok when he's still fine
