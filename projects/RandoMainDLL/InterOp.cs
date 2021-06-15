@@ -183,6 +183,8 @@ namespace RandoMainDLL {
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_autoaim(bool enabled);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void explode_grenades();
 
     private static List<GCHandle> handles;
     public static void RegisterCSharpBindings() {
