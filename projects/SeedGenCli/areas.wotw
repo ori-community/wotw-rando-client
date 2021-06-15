@@ -6581,6 +6581,10 @@ anchor EastPools.FishingPool at -1278, -4124:  # At the fisher moki
   # can't get into the swimdash puzzle from here
 
 anchor EastPools.SlimeWaterfall at -1300, -4102:  # Above the fishing Moki
+
+    # add conn to UpperPools.TreeArea using UpperPools.UpperWaterDrained and UpperPools.ButtonDoorAboveTree txm
+	# add conn to UpperPools.SolvedDrainPuzzle using UpperPools.UpperWaterDrained txm
+
   pickup EastPools.AboveTpEX:  # these need water to not be softlockable with the player draining the upper water
     moki: Water
   pickup EastPools.PurpleWallHC:
@@ -6911,6 +6915,8 @@ anchor UpperPools.AboveTree at -1450, -4053:  # Paths to simplify the xp pickup 
 
 anchor UpperPools.SolvedDrainPuzzle at -1319, -4081:  # At the ledge above east teleporter (this is inside a rock if you haven't solved the puzzle)
   refill Checkpoint
+  
+  # add conn to UpperPools.TreeArea using UpperPools.UpperWaterDrained and UpperPools.ButtonDoorAboveTree txm
 
   pickup EastPools.PurpleWallHC:
     moki, UpperPools.UpperWaterDrained:
@@ -8025,7 +8031,7 @@ anchor WillowsEnd.Entry at 495, -3951:  # At the lower door
         Sword, DoubleJump, Bash, Grenade=1  # djump, pogo the mine, djump+upslash to reach the floating platform
         SentryJump=1, DoubleJump, Damage=20  # use the iframes from the mine to use the lava thingy as a platform then djump+weapon combo to the left floating platform
         Bash, Grenade=1, DoubleJump, Damage=20  # use the iframes from the mine to use the lava thingy as a platform then djump+weapon combo to the left floating platform
-  conn WillowsEnd.TrapHeartPath:
+  conn WillowsEnd.BoulderHeartPath:
     moki:
       Launch
       Bash, Grenade=1, DoubleJump
@@ -8068,12 +8074,12 @@ anchor WillowsEnd.GrappleHeart at 399, -3928:  # right next to the grapple wheel
       Bash, Grenade=1, DoubleJump OR Dash OR Glide
       Launch, Sword OR Hammer
 
-anchor WillowsEnd.TrapHeartPath at 555, -3939:  # below the shortcut back from trap heart
+anchor WillowsEnd.BoulderHeartPath at 555, -3939:  # below the shortcut back from boulder heart
   refill Checkpoint
   refill Energy=3:
     moki: BreakCrystal
 
-  # state WillowsEnd.TrapHeart:
+  # state WillowsEnd.BoulderHeart:
   #   moki: BreakWall=30, Launch, DoubleJump, Dash
 
   pickup WillowsEnd.SpikesOre:
@@ -8163,7 +8169,7 @@ anchor WillowsEnd.AboveInnerTP at 530, -3844:  # at the lava pit before bash puz
       Launch
 
 anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
-  refill Checkpoint:  # at the bash puzzle heart room
+  refill Checkpoint:  # at the redirect heart room
     moki: Launch
   refill Health=1:
     moki:
@@ -8221,7 +8227,7 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
 
 # checkpoint at 614, -3836
 
-anchor WillowsEnd.UpperSand at 595,-3739:  # In between the cristal and the checkpoint in front of the sand before BurrowsHearth
+anchor WillowsEnd.UpperSand at 595,-3739:  # In between the crystal and the checkpoint in front of the sand before BurrowHeart
   refill Checkpoint
   refill Energy=4:
     moki: BreakCrystal
@@ -8237,7 +8243,7 @@ anchor WillowsEnd.UpperSand at 595,-3739:  # In between the cristal and the chec
 anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
   refill Checkpoint
 
-  # conn LaserRockFight:
+  # conn MiniBossFight:
   #   moki:
   #     Launch, DoubleJump
   #     Launch, Dash, Glide

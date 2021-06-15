@@ -67,6 +67,7 @@ UpperPools.KeystoneDoor, 5377, 47621
 UpperPools.KeystoneRoomBubbleFree, 5377, 15754
 UpperPools.TreeRoomLeftBubbleFree, 5377, 24765
 UpperPools.UpperWaterDrained, 5377, 29911
+UpperPools.ButtonDoorAboveTree, 5377, 15402
 LowerWastes.SandPlatformLever, 20120, 48009
 UpperWastes.KeystoneDoor, 20120, 28786
 UpperWastes.LeverDoor, 20120, 12902
@@ -75,9 +76,17 @@ WindtornRuins.RuinsLever, 10289, 41277
 WeepingRidge.ElevatorFightCompleted, 36153, 23584
 WillowsEnd.GrappleWheelsHeart, 16155, 60752
 WillowsEnd.BoulderHeart, 16155, 41488
-WillowsEnd.BashHeart, 16155, 65277
+WillowsEnd.RedirectHeart, 16155, 65277
 WillowsEnd.BurrowHeart, 16155, 3588
 WillowsEnd.MinibossHeart, 16155, 28478
-WillowsEnd.TriLaserHeart, 16155, 54940
+WillowsEnd.SpinLasersHeart, 16155, 54940
 WillowsEnd.GlideHeart, 16155, 42976
 WillowsEnd.SpinPortalsHeart, 16155, 24290
+MarshPastOpher.TrialActivation, 44964, 45951
+WestHollow.TrialActivation, 44964, 25545
+OuterWellspring.TrialActivation, 44964, 11512
+WoodsMain.TrialActivation, 44964, 22703
+LowerReach.TrialActivation, 44964, 23661
+LowerDepths.TrialActivation, 44964, 28552
+UpperPools.TrialActivation, 44964, 54686
+LowerWastes.TrialActivation, 44964, 30767
