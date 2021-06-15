@@ -23,6 +23,22 @@ namespace
     bool override_on_ground = false;
     bool is_charged = false;
 
+    IL2CPP_BINDING(, SeinGrenadeAttack, bool, IsFracturedPiece, (app::SeinGrenadeAttack* this_ptr, app::IGreanade* grenade));
+
+    int count_grenades(app::SeinGrenadeAttack* this_ptr)
+    {
+        auto grenade_count = 0;
+        const auto count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
+        for (auto i = 0; i < count; ++i)
+        {
+            auto* grenade = this_ptr->fields.m_grenades->fields._items->vector[i];
+            if (SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade))
+                ++grenade_count;
+        }
+
+        return grenade_count;
+    }
+
     IL2CPP_INTERCEPT(, SpiritGrenade, bool, CanBeBashed, (app::SpiritGrenade* this_ptr)) {
         if (uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, BASHABLE_GRENADE_ID) > 0.1f)
             return true;
@@ -57,10 +73,17 @@ namespace
             uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, EXTRA_GRENADES_ID) > 0.1f;
         if (custom_explode && explode)
         {
+            std::vector<app::IGreanade*> grenades;
             const auto grenade_count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
             for (auto i = 0; i < grenade_count; ++i)
             {
                 auto* grenade = this_ptr->fields.m_grenades->fields._items->vector[i];
+                if (!SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade))
+                    grenades.push_back(grenade);
+            }
+
+            for (auto grenade : grenades)
+            {
                 il2cpp::invoke(grenade, "Explode");
                 il2cpp::invoke(this_ptr->fields.m_grenades, "Remove", grenade);
             }
@@ -94,8 +117,7 @@ namespace
     
     IL2CPP_INTERCEPT(, SeinGrenadeAttack, bool, get_CanAim, (app::SeinGrenadeAttack * this_ptr)) {
         const auto grenade_limit = static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, EXTRA_GRENADES_ID)) + 1;
-        const auto grenade_count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
-        return grenade_count < grenade_limit;
+        return count_grenades(this_ptr) < grenade_limit && this_ptr->fields.m_timeTillProjectileSpawn <= 0.0f;
     }
 }
 
