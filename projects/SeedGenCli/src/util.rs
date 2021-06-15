@@ -33,9 +33,7 @@ impl Default for Pathsets {
 impl Pathsets {
     pub fn add(&mut self, pathset: Pathset) {
         match pathset {
-            Pathset::Unsafe => {
-                self.pathsets.insert(Pathset::Gorlek);
-            },
+            Pathset::Unsafe => { self.pathsets.insert(Pathset::Gorlek); },
             _ => {},
         }
         self.pathsets.insert(pathset);
@@ -44,6 +42,9 @@ impl Pathsets {
         self.pathsets.insert(Pathset::SwordSentryJump);
         self.pathsets.insert(Pathset::HammerSentryJump);
         self.pathsets.insert(Pathset::ShurikenBreak);
+        self.pathsets.insert(Pathset::HammerBreak);
+        self.pathsets.insert(Pathset::SpearBreak);
+        self.pathsets.insert(Pathset::SentryBreak);
         self.pathsets.insert(Pathset::SentryBurn);
         self.pathsets.insert(Pathset::RemoveKillPlane);
     }
