@@ -79,6 +79,10 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
         Bash, Launch, Damage=10
         Bash, Launch, DoubleJump, TripleJump OR Glide OR Sword OR Hammer
         Bash, Launch, Dash
+    unsafe:
+      Grapple, Bash, Grenade=1
+      Launch, Damage=10  # Jump off the wall next to the ceiling plant and then dmg-boost on the left side of the spikes to get another launch
+      MarshSpawn.RainLifted, Launch, Sword  # Hit the mantis midair to use launch again
   pickup MarshSpawn.BridgeEX:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
@@ -117,6 +121,10 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
     unsafe:
       Launch, DoubleJump OR Damage=10  # Land on the first turret
       Bash, Dash, Damage=10, Sword OR Hammer  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
+      Launch, Deflector, Sword OR Hammer
+      DoubleJump, TripleJump, Deflector, Sword OR Hammer # Land on first turret
+      DoubleJump, TripleJump, Deflector, Damage=10, Sword OR Hammer # Able to dmg boost on spikes
+      DoubleJump, TripleJump, Deflector, Damage=10, Glide, Sword OR Hammer
 
 # checkpoint at -1021, -4305
 # checkpoint at -1068, -4274
@@ -133,7 +141,7 @@ anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaki
   pickup MarshSpawn.BashEC:
     moki: Bash OR Launch
     gorlek: SentryJump=1
-    unsafe: DoubleJump, Sword  # Use pogo of the slime to jump to the ledge
+    unsafe: MarshSpawn.RainLifted, DoubleJump, Sword  # Use pogo of the slime to jump to the ledge
   pickup MarshSpawn.PreLupoEX: free
   pickup MarshSpawn.LupoMap:
     moki: SpiritLight=200
@@ -161,6 +169,9 @@ anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen
       SentryJump=1  # max height
       DoubleJump, TripleJump, Sword OR Hammer
       MarshSpawn.RainLifted, Bash  # Lure the Jumper, then bash off him
+      Grapple, Dash  # Swing the plant with Grapple
+      DoubleJump, TripleJump  # Jump from the door frame
+      DoubleJump, Sword  # Jump from the door frame and pogo on Jumper
 
   conn MarshSpawn.DenApproach:
     moki: MarshSpawn.KeystoneDoor
@@ -188,6 +199,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Launch
       Combat=3xLizard  # go through the fight room (at day there's two extra lizards)
     gorlek: DoubleJump OR Bash OR Grapple  # basically the moki paths without assisting abilities
+    unsafe: Sword  # Pogo on the slime and slash to the left
 
   quest MarshSpawn.TokkKeystoneQuest:
     moki: MarshSpawn.CaveKS
@@ -214,6 +226,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
       Bash, Grenade=1
       Combat=3xLizard, SentryJump=1  # go through the fight room, makes other sentryjump paths unnecessary
       # weapon floats maybe too precise for gorlek
+    unsafe: Sword  # Pogo on the slime and slash to the left, Upslash to reach the branch
 
 # checkpoint at -845, -4438
 
@@ -258,6 +271,8 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
       Bash, Sentry=3  # Use Sentry instead of DoubleJump
       Bash, Sword
       Bash, Hammer, Damage=10  # dboost under the first lantern, too precise for gorlek
+      Launch # Enough ledges to regain launch
+
   pickup MarshSpawn.CrusherSwimEX:
     moki: Water, WaterDash, Bash, DoubleJump OR Dash OR Launch
     gorlek:
@@ -389,6 +404,7 @@ anchor MarshSpawn.PoolsPath at -1070, -4275:  # Above the turrets at the left of
       DoubleJump, Bash, Sword OR Hammer OR Damage=10
     unsafe:
       Bash, Dash OR Sword OR Hammer OR DoubleJump  # While waiting for 3rd shot do two neutral slashes to stay in the air longer / Sometimes the cycle are off making it too hard for gorlek
+      DoubleJump, Deflector
 
   conn PoolsApproach.LeftOfWheel:
     moki: Water
@@ -417,6 +433,9 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       SentryJump=1  # weapon float after the sjump
     unsafe, Keystone=2:
       MarshSpawn.RainLifted, Sword OR Hammer  # Use the platform appearing at day
+      MarshSpawn.RainLifted, Dash  # Stand on the left of the platform to tilt it slightly, Dashcancel to the right with jump and Dash back left
+      WaterDash, DoubleJump
+
   state MarshSpawn.HowlBurnt:
     moki:
       DoubleJump OR Launch
@@ -455,6 +474,8 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       SentryJump=1  # can do one of a good sjump, a good positioning, pressing left quickly after the sentryjump or spending an extra energy
     unsafe, MarshSpawn.KeystoneDoor:
       MarshSpawn.RainLifted, Sword OR Hammer  # Use an upswing to get to the door
+      MarshSpawn.RainLifted, Dash  # Stand on the left of the platform to tilt it slightly, Dashcancel to the right with jump and Dash back left
+      WaterDash, DoubleJump
 
 # checkpoint at -500, -4395
 
