@@ -32,7 +32,7 @@ namespace
         for (auto i = 0; i < count; ++i)
         {
             auto* grenade = this_ptr->fields.m_grenades->fields._items->vector[i];
-            if (SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade))
+            if (!SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade))
                 ++grenade_count;
         }
 
