@@ -496,6 +496,8 @@ anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside 
       Bash, Glide                     # Bash off the enemy to get to the vine, then jump right. Glide/Bash+Grenade over the last gap
       Grenade=1, Damage=10            # Grenade jump to get to the vine, then jump right. Dboost the last gap.
       Grenade=2                       # Grenade jump to get to the vine, then jump right. Grenade jump the last gap.
+      Sword                           # With upslash on the right wall, jump off it close to the ceiling and slash sword
+
   quest MarshSpawn.MokkFangQuest:
     moki: MarshSpawn.HowlBurnt, MarshSpawn.FangQI
 
@@ -557,6 +559,8 @@ anchor HowlsDen.AboveBoneBridge at -446, -4436:  # After the climb up through th
     gorlek:
       DoubleJump, TripleJump
       Bash, Grenade=1
+    unsafe:
+      Bash  # use the slime
 
   conn HowlsDen.UpperLoopEntrance: free
   conn HowlsDen.Entrance:
@@ -564,6 +568,10 @@ anchor HowlsDen.AboveBoneBridge at -446, -4436:  # After the climb up through th
     gorlek, MarshSpawn.HowlBurnt:
       DoubleJump, TripleJump
       Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword
+    unsafe, MarshSpawn.HowlBurnt:
+      Bash, DoubleJump OR Dash OR Glide OR Sword # use the slime
+      Bash  # use the slime, tight coyote jump
+
   conn HowlsDen.SecretRoom:
     gorlek: ShurikenBreak=16, BreakWall=20
     unsafe:
@@ -606,6 +614,8 @@ anchor HowlsDen.UpperLoopExit at -407, -4434:  # Checkpoint inside the bone door
   conn HowlsDen.Entrance:
     moki: MarshSpawn.HowlBurnt, DoubleJump OR Dash
     gorlek: MarshSpawn.HowlBurnt, Glide OR Sword
+    unsafe: MarshSpawn.HowlBurnt  #  tight jumps
+
   conn HowlsDen.AboveBoneBridge: free
 
 anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's Den
@@ -630,9 +640,11 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
     unsafe:
       Grenade=2  # Grenade jump onto the unstable platform then grenade jump to the pickup (requires some horizontal drifting)
       Sword OR Hammer  # Upslash to reach the left wall, air combo to reach the floating platform, upslash again to the left wall, wjump from thereto the pickup
+      Bash  # Bash on the left wall above the spikes
   pickup HowlsDen.SwordTree: free
   pickup HowlsDen.MagnetShard:
     moki: BreakWall=10, BreakWall=16 OR Launch
+    unsafe: BreakWall=10, DoubleJump, TripleJump
   pickup HowlsDen.AboveTPEX:
     moki: HowlsDen.BoneBarrier, BreakWall=10
 
@@ -640,6 +652,7 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
     gorlek:
       Launch
       Bash, Grenade=1, DoubleJump, TripleJump
+    unsafe: DoubleJump, Sword  #  Door skip
   conn HowlsDen.SecretRoom:
     moki: HowlsDen.KeystoneDoor, BreakWall=20, Water OR DoubleJump OR Dash OR Glide OR Launch
     gorlek: HowlsDen.KeystoneDoor, Sword OR Hammer  # weapon breaks the wall
@@ -660,6 +673,7 @@ anchor HowlsDen.BoneBridge at -371, -4468:  # After the long drop into Howl's De
       HammerSJump=1, Glide  # weapon breaks the wall
       SentryJump=3, Hammer, Damage=10  # hammer breaks the wall
       Water, WaterDash, HammerSJump=2, Damage=10  # hammer breaks the wall
+    unsafe, HowlsDen.KeystoneDoor, Sword OR Hammer
   conn HowlsDen.Teleporter:
     moki: HowlsDen.BoneBarrier
 
@@ -754,6 +768,7 @@ anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
       DoubleJump, TripleJump          # Triple jump from the right wall
       Grenade=2
       Bash
+      DoubleJump, Sword               # Jump/Sword combo or pogo on the enemy
 
   conn HowlsDen.Teleporter:
     moki:
@@ -763,7 +778,7 @@ anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
     gorlek:
       SentryJump=1                    # Sword combo from sticky shard to get over the initial gap
     unsafe:
-      Sword                           # Sword combo from sticky shard to get over the initial gap
+      Sword OR Hammer                 # combo from sticky shard to get over the initial gap
       Dash                            # As above but use Dash
       Glide                           # As above but use Glide
       Grenade=1                       # Grenade jump to get over initial gap
