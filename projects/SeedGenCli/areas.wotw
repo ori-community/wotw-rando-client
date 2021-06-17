@@ -124,8 +124,6 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
 anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaking bridge
   refill Checkpoint
   
-  # add conn to MarshSpawn.Main using state MarshSpawn.LogBroken txm
-
   pickup MarshSpawn.ResilienceShard:
     moki: BreakWall=16
   pickup MarshSpawn.ResilienceOre:
@@ -139,6 +137,13 @@ anchor MarshSpawn.BrokenBridge at -643, -4352:  # after dropping down the breaki
     moki: SpiritLight=200
 
   conn MarshSpawn.CaveEntrance: free
+  conn MarshSpawn.Main:
+    moki, MarshSpawn.LogBroken:
+      Combat=Mantis, DoubleJump OR Bash OR Dash OR Launch
+    gorlek, MarshSpawn.LogBroken:
+      SentryJump=1
+      Hammer, Glide
+    unsafe, MarshSpawn.LogBroken: Sword OR Grenade # pogo OR GrenadeJump=1
 
 anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen tree
   refill Checkpoint
@@ -718,8 +723,6 @@ anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
   state HowlsDen.BoneBarrier:
     unsafe: free  # good game yes
 
-  # add conn to MidnightBurrows.East using state MidnightBurrows.HowlsDenShortcut txm
-
   pickup HowlsDen.DoubleJumpTree: free
   pickup HowlsDen.StickyShard: free  # origlow
   pickup HowlsDen.DoubleJumpEX:
@@ -746,6 +749,9 @@ anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
       Dash                            # As above but use Dash
       Glide                           # As above but use Glide
       Grenade=1                       # Grenade jump to get over initial gap
+	  
+  conn MidnightBurrows.East:
+    moki: MidnightBurrows.HowlsDenShortcut
 
 # checkpoint at -682, -4309
 
@@ -1066,7 +1072,7 @@ region MidnightBurrows:
 anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
   refill Full
 
-# add conn to MarshSpawn.BurrowsEntry using state MarshSpawn.BurrowsOpen txm
+# validate conn paths to MarshSpawn.BurrowsEntry using state MarshSpawn.BurrowsOpen txm
 
   pickup MidnightBurrows.LeftKS:
     moki: DoubleJump OR Dash OR Glide OR Launch
@@ -1082,6 +1088,13 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
   conn MidnightBurrows.Central:
     moki: DoubleJump OR Launch
     gorlek: Dash OR Bash OR Glide OR Sword OR Hammer
+  conn MarshSpawn.BurrowsEntry:
+    moki, MarshSpawn.BurrowsOpen: 
+      Launch
+      Bash, Grenade, DoubleJump OR Dash OR Glide
+    gorlek, MarshSpawn.BurrowsOpen:
+      Bash, Sword OR Hammer OR DoubleJump OR Dash OR Glide
+      SentryJump=2
 
 anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big portal room
   refill Checkpoint
@@ -1521,8 +1534,6 @@ anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
 
 anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
   refill Checkpoint
-  
-  # add conn to WestHollow.DashApproach using WestHollow.DoorLever txm
 
   pickup WestHollow.DashTree: free
   pickup WestHollow.CrusherEX:
@@ -1555,7 +1566,8 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
       WestHollow.DoorLever, DoubleJump, Sword  # Lure and pogo the mantis
       WestHollow.DoorLever, Bash  # Lure the mantis
 
-  # backwards connections pointless with the lever
+  conn WestHollow.DashApproach:
+    moki: WestHollow.DoorLever
 
 # checkpoint at -21, -4411
 
@@ -1787,7 +1799,7 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
   refill Energy=3:
     moki: BreakCrystal
 
-# add conn to EastHollow.AboveBash using EastHollow.DepthsLever txm
+# add/validate conn paths to pickups on the way to EastHollow.AboveBash using EastHollow.DepthsLever txm
 
   state EastHollow.DepthsOpen:
     moki: Glide
@@ -1806,8 +1818,13 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
       Launch, DoubleJump OR Dash  # Jump to the left wall and then go to right or you can go from the ledge next to the entry if you have DoubleJump
 
   conn UpperDepths.Entry:
-    moki: Glide
-  # backwards paths through the door seem pointless
+    moki: EastHollow.DepthsOpen
+  conn EastHollow.AboveBash:
+    moki, EastHollow.DepthsLever:
+      Launch, Bash OR Hammer OR Spear=1 #unsure if any paths actually fit moki, because of the camera
+      Bash, Dash OR DoubleJump OR Glide
+    gorlek, EastHollow.DepthsLever:
+      Bash, Sword OR Hammer OR Grenade=2
 
 anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   refill Full
@@ -4469,7 +4486,7 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
 anchor LowerReach.Central at -335, -4010:  # After the lever door
   refill Checkpoint
 
-  # add conn to LowerReach.Entry and LowerReach.AboveEntry using LowerReach.Lever txm
+  # validate conn paths to LowerReach.Entry and LowerReach.AboveEntry using LowerReach.Lever txm
 
   pickup LowerReach.AboveDoorEX:
     moki:
@@ -4544,7 +4561,18 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       LowerReach.CentralFurnace, SentryJump=2
       LowerReach.CentralFurnace, DoubleJump, Hammer OR Sword
       LowerReach.CentralFurnace, Dash, Hammer  # dash ramp->up slash->dash->weapon stall to grab the tongue
-
+  conn LowerReach.Entry:
+    moki, LowerReach.Lever:
+      Launch OR Dash OR DoubleJump
+    gorlek, LowerReach.Lever:
+      Damage=20
+  conn LowerReach.AboveEntry:
+    moki, LowerReach.Lever:
+      Launch, Dash OR Bash OR DoubleJump OR Glide
+    gorlek, LowerReach.Lever:
+      Launch # hit the small sloped wall the bash plant is hanging from
+      Bash, DoubleJump OR Dash
+	  
 anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter room
   refill Checkpoint
   refill Full:  # use the teleporter
@@ -4608,12 +4636,19 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
 anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the teleporter pickup
   refill Full
   
-  # add conn LowerReach.East to using LowerReach.TPLantern txm
+  # validate conn to LowerReach.East to using LowerReach.TPLantern txm
 
   conn Teleporters: free
   conn LowerReach.OutsideTPRoom:
     moki: Grenade=1
     gorlek: SentryBurn=1
+  conn LowerReach.East:
+    moki, LowerReach.TPLantern:
+      Launch
+      Bash, DoubleJump OR Glide OR Dash OR Grenade=1
+    gorlek, LowerReach.TPLantern:
+      Bash, Sword OR Hammer
+      TripleJump, Dash OR Glide
 
 # checkpoint at -296, -3944
 
@@ -4769,7 +4804,7 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
     gorlek:
       Bash, Grenade=2
-      Grenade=1, DoubleJump OR Dash OR Glide OR Launch OR Sword  # Grenade to light the lanterne, use the rest to pass the gap
+      Grenade=1, DoubleJump OR Dash OR Glide OR Launch OR Sword  # Grenade to light the lantern, use the rest to pass the gap
       SentryBurn=1, Launch
       SentryBurn=1, SwordSJump=1
       SentryBurn=1, DoubleJump, TripleJump
@@ -4780,7 +4815,17 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
   # could be considered moving this anchor to the left, closer to the teleporter, if it gets important on higher difficulties
 
   state LowerReach.TPLantern:
-      moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
+    moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
+    gorlek:
+      Bash, Grenade=2
+      Grenade=1, DoubleJump OR Dash OR Glide OR Launch OR Sword  # Grenade to light the lantern, use the rest to pass the gap
+      SentryBurn=1, Launch
+      SentryBurn=1, SwordSJump=1
+      SentryBurn=1, DoubleJump, TripleJump
+    unsafe:
+      Grenade=1, Hammer OR Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
+      SentryBurn=1, SentryJump=1
+      SentryBurn=1, DoubleJump, Hammer
       # added this path to not break the syntax, but will need to repath the whole area using LowerReach.TPLantern txm
 
   state LowerReach.RolledSnowball:
@@ -4824,7 +4869,7 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
   refill Energy=4:  # fast respawning crystal
     moki: BreakCrystal
 
-  # add conn to LowerReach.East using LowerReach.RolledSnowball txm
+  # validate conn to LowerReach.East using LowerReach.RolledSnowball txm
 
   state LowerReach.EastDoorLantern:
     moki:
@@ -4891,7 +4936,14 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
       DoubleJump, TripleJump  # Need to get a really precise wall jump to get to the plants
       Bash, Grenade=1, Dash, Sword OR Hammer OR Sentry=1 OR Flash=1 OR LowerReach.HeatEastFurnace  # Need to walljump on the wall above the 2nd plant then dash, get a reset by touching the ceilin and dash a second time
     # shuriken break note: this wall has 20 health
-  # backwards path can't get past the snowball
+  conn LowerReach.East:
+    moki, LowerReach.RolledSnowball:
+      DoubleJump OR Launch OR LowerReach.CentralFurnace
+      Bash, Grenade=1
+    gorlek, LowerReach.RolledSnowball:
+      SentryJump=1 OR Hammer 
+    unsafe, LowerReach.RolledSnowball:
+      Bash # use the lizard
 
 # checkpoint at -60, -3987
 
@@ -4983,7 +5035,13 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
       Launch, Dash OR Sword OR Shuriken=1 OR Sentry=1 OR Spear=1 OR Flash=1 OR Damage=20  # Pass the 3 first spinner, wall jump on the right wall, stall, launch into the ceiling, relaunch on the left wall
       DoubleJump, TripleJump, Damage=20, Dash OR Sword OR Hammer OR Shuriken=2 OR Sentry=2 OR Flash=2 OR Blaze=2 OR Spear=2  # Climb the right wall, triple jump + stall to the left wall, return to the right before the 2nd spinner, climb  the left wall after the 3rd spinner, stall as much possible in the air, take a damage boost on the spike floor then go to the right wall. You can saty on the right wall and climb to the energy cristal with triple jump
       Bash, Grenade=2, DoubleJump, TripleJump, Damage=20  # Same as above. 1st bash grenade to access directly to the left wall in the arena and second one just after the 3rd spinner
-  # backwards path can't get through the door
+  conn LowerReach.SwimmingPool:
+    moki, LowerReach.EastDoorLantern:
+      Water
+      Launch, Dash OR Glide OR DoubleJump
+    gorlek, LowerReach.EastDoorLantern: 
+      Launch # refresh on wall above crystal
+      # other possibilities include landing in the dirty water, unsure if gorlek
 
 # checkpoint at just kidding, placed this mark because the refill logic below kind of sucks
 
@@ -5076,7 +5134,7 @@ anchor LowerReach.TownEntry at -35, -4077:  # Where the wind starts
 anchor LowerReach.Trial at 64, -4046:  # At trial start
   refill Checkpoint
 
-  # add conn to LowerReach.ArenaArea using LowerReach.ArenaBeaten txm
+  # validate conn to LowerReach.ArenaArea using LowerReach.ArenaBeaten txm
 
   state LowerReach.KeystoneDoor:
     moki: Keystone=4
@@ -5125,6 +5183,9 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
       Damage=20, Hammer
       Damage=50
       Bash, Grenade=1, Damage=30
+	  
+  conn LowerReach.ArenaArea:
+    moki, LowerReach.ArenaBeaten: Glide
 
 region UpperReach:
   moki: Danger=40, Regenerate
@@ -5374,7 +5435,7 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
     gorlek: Damage=10
     unsafe: free
 
-  # add conn to EastHollow.AboveDepths using state EastHollow.DepthsOpen txm
+  # validate conn to EastHollow.AboveDepths using state EastHollow.DepthsOpen txm
 
   conn UpperDepths.FirstFirefly:
     moki:
@@ -5383,7 +5444,8 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
     gorlek:
       Glide, Combat=Bat OR Bash
       Combat=2xBombSlug, Damage=30, Bash, DoubleJump OR Dash  # Lots of possibilities here but Bash is the most reliable way to avoid too much damage
-  # can't escape depths from inside
+  conn EastHollow.AboveDepths:
+    moki, EastHollow.DepthsOpen: Glide OR Launch
 
 # checkpoint at 147, -4392
 
@@ -6632,12 +6694,15 @@ anchor EastPools.MissilePuzzle at -1425, -4144:  # Below where the trial starts
 
   conn EastPools.CentralRoom: 
     moki: EastPools.PurpleWall
-  # can't reliably enter the arena from behind
-
+  conn EastPools.TPArea:
+    moki: EastPools.LupoPurpleFloor
+  conn EastPools.Teleporter:
+    moki: EastPools.LupoPurpleFloor
+	
 anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok when he's still fine
   refill Checkpoint
   
-  # add conn to EastPools.MissilePuzzle using EastPools.PurpleWall txm
+  # add conn to EastPools.MissilePuzzle using  txm
 
   quest EastPools.GrassSeed:
     moki:
@@ -6669,6 +6734,8 @@ anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok 
   conn WestPools:
     moki: Water, WaterDash, DoubleJump OR Dash OR Glide OR Launch
     gorlek: Water, WaterDash, Sword OR Hammer OR Damage=20
+  conn EastPools.MissilePuzzle:
+    moki, EastPools.PurpleWall: Water
 
 region UpperPools:
   moki: Danger=40, Regenerate
