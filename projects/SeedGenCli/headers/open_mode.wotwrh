@@ -26,3 +26,4 @@
 3|0|8|37858|23644|bool|true  // Wellspring Bottom Door		OuterWellspring.EntranceDoorOpen, 37858, 23644
 3|0|8|37858|9487|bool|true  // Wellspring Middle Doors		InnerWellspring.MiddleDoorsOpen, 37858, 9487
 3|0|8|37858|31962|bool|true  // Wellspring Top Door	Inner	Wellspring.TopDoorOpen, 37858, 31962
+3|0|8|937|6778|bool|true  // Door above Hornbug				EastHollow.HornbugDoor, 937, 6778

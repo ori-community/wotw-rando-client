@@ -1643,7 +1643,12 @@ anchor EastHollow.MapMoki at -106, -4221:  # after crossing the voicelocked door
       # Bash, EastHollow.BeetleDefeated, Sword  # Long Squonkey Lure using Bash Climbing
       Grenade=5, Damage=10, EastHollow.BeetleDefeated    # Grenade Redirect and Grenade Jumps
   # backwards connections can't cross the door; having Voice should always imply an easier way of getting on the other side
-
+  
+  conn EastHollow.Teleporter:
+    moki, EastHollow.HornbugDoor: 
+      Glide OR Dash OR Bash OR Launch
+    gorlek: EastHollow.HornbugDoor
+	
 anchor EastHollow.OutsideGlades at -152, -4164:  # Outside Grom's Wall
   state GladesTown.GromsWall:
     moki: Bash
@@ -1750,6 +1755,9 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
 
   quest EastHollow.KwolokAmuletQuest:
     moki: EastPools.KwolokAmuletQI, WestPools.ForestsStrength
+
+  state EastHollow.HornbugDoor: 
+    moki: EastHollow.ForestsVoice
 
   pickup EastHollow.RightKwolokEX:
     moki: Bash OR Launch
