@@ -1,7 +1,9 @@
 use super::{
-    Zone,
+    Zone, Teleporter,
     uberstate::UberIdentifier,
 };
+use crate::inventory::Item;
+
 use ansi_term::Colour;
 
 pub const DEFAULT_SPAWN: &str = "MarshSpawn.Main";
@@ -27,6 +29,9 @@ pub const GORLEK_SPAWNS: &[&str] = &[
     "EastPools.Teleporter",
     "LowerWastes.WestTP",
     "LowerWastes.EastTP",
+];
+pub const SPAWN_GRANTS: &[(&str, Item)] = &[
+    ("EastPools.Teleporter", Item::Teleporter(Teleporter::EastLuma)),
 ];
 pub const RELIC_ZONES: &[Zone] = &[
     Zone::Marsh,

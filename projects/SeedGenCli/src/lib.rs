@@ -40,7 +40,7 @@ use util::{
     Pathset, NodeType, Position, Zone,
     settings::{Settings, Spawn},
     uberstate::UberState,
-    constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES},
+    constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, SPAWN_GRANTS, RETRIES},
 };
 
 fn pick_spawn<'a, R>(graph: &'a Graph, settings: &Settings, rng: &mut R) -> Result<&'a Node, String>
@@ -55,8 +55,11 @@ where
         Spawn::Random => valid
             .filter(|&node| {
                 let identifier = node.identifier();
-                settings.pathsets.contains(Pathset::Gorlek) && GORLEK_SPAWNS.contains(&identifier)
-                || MOKI_SPAWNS.contains(&identifier)
+                if settings.pathsets.contains(Pathset::Gorlek) {
+                    GORLEK_SPAWNS.contains(&identifier)
+                } else {
+                    MOKI_SPAWNS.contains(&identifier)
+                }
             })
             .choose(rng)
             .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?,
@@ -253,21 +256,27 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
         worlds.push(worlds[0].clone());
     }
 
-    let spawn_state = UberState::spawn();
     let spawn_pickup_node = Node::Pickup(Pickup {
         identifier: String::from("Spawn"),
         zone: Zone::Spawn,
         index: usize::MAX,
-        uber_state: spawn_state,
+        uber_state: UberState::spawn(),
         position: Position { x: 0, y: 0 },
     });
 
     let (placements, spawn_locs) = generate_placements(graph, worlds, &settings, &spawn_pickup_node, &custom_names, &mut rng)?;
 
     let spawn_lines = spawn_locs.into_iter().map(|spawn_loc| {
-        if spawn_loc.identifier() != DEFAULT_SPAWN {
-            let position = spawn_loc.position().ok_or_else(|| format!("Tried to spawn on {} which has no specified coordinates", spawn_loc.identifier()))?;
-            return Ok(format!("Spawn: {}  // {}\n", position, spawn_loc.identifier()));
+        let identifier = spawn_loc.identifier();
+
+        if identifier != DEFAULT_SPAWN {
+            let mut spawn_item = String::new();
+            if let Some(spawn_grant) = SPAWN_GRANTS.iter().find_map(|(spawn, item)| if *spawn == identifier { Some(item) } else { None }) {
+                spawn_item = format!("{}|{}|mute\n", UberState::spawn(), spawn_grant.code());
+            }
+
+            let position = spawn_loc.position().ok_or_else(|| format!("Tried to spawn on {} which has no specified coordinates", identifier))?;
+            return Ok(format!("Spawn: {}  // {}\n{}", position, identifier, spawn_item));
         }
         Ok(String::new())
     }).collect::<Result<Vec<_>, String>>()?;
