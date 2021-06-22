@@ -328,7 +328,7 @@ where
 {
     let origin_world_context = &mut world_contexts[origin_world_index];
 
-    if context.random_spirit_light.sample(context.rng) && origin_world_context.world.pool.spirit_light > 1000 {  // a bit of buffer seems to be needed so spirit light doesn't push out actual item placements
+    if !node.uber_state().map_or(false, UberState::is_shop) && context.random_spirit_light.sample(context.rng) && origin_world_context.world.pool.spirit_light > 1000 {  // a bit of buffer seems to be needed so spirit light doesn't push out actual item placements
         let amount = origin_world_context.spirit_light_rng.sample(context.rng)?;
         let item = Item::SpiritLight(amount);
 
