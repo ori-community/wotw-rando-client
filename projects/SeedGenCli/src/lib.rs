@@ -220,7 +220,42 @@ where R: Rng
     };
 }
 
-pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<Vec<String>, String> {
+#[inline]
+fn format_placements(world_placements: Vec<Placement>, custom_names: &HashMap<String, String>, spoilers: bool) -> String {
+    let mut placement_block = String::with_capacity(world_placements.len() * 20);
+
+    for placement in world_placements {
+        let mut placement_line = format!("{}", placement);
+
+        if spoilers {
+            let location = placement.node.map_or_else(
+                || placement.uber_state.to_string(),
+                |node| {
+                    let mut location = node.to_string();
+                    util::add_trailing_spaces(&mut location, 33);
+                    let mut position = format!("({})", node.position().unwrap());
+                    util::add_trailing_spaces(&mut position, 15);
+                    format!("{}  {} {}", location, position, node.zone().unwrap())
+                }
+            );
+
+            util::add_trailing_spaces(&mut placement_line, 46);
+            let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| placement.item.to_string());
+            let item = util::with_leading_spaces(&item, 36);
+
+            placement_line += &format!("  // {} from {}", item, location);
+        }
+
+        placement_line.push('\n');
+        placement_block.push_str(&placement_line);
+    }
+
+    placement_block
+}
+
+type Seeds = Vec<String>;
+type Spoilers = Vec<String>;
+pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<(Seeds, Spoilers), String> {
     let settings = settings.apply_presets()?;
 
     let seed = seed.unwrap_or_else(|| {
@@ -281,37 +316,14 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
         Ok(String::new())
     }).collect::<Result<Vec<_>, String>>()?;
 
-    let placement_blocks = placements.into_iter().map(|world_placements| {
-        let mut placement_block = String::with_capacity(world_placements.len() * 20);
-
-        for placement in world_placements {
-            let mut placement_line = format!("{}", placement);
-
-            if settings.spoilers {
-                let location = placement.node.map_or_else(
-                    || placement.uber_state.to_string(),
-                    |node| {
-                        let mut location = node.to_string();
-                        util::add_trailing_spaces(&mut location, 33);
-                        let mut position = format!("({})", node.position().unwrap());
-                        util::add_trailing_spaces(&mut position, 15);
-                        format!("{}  {} {}", location, position, node.zone().unwrap())
-                    }
-                );
-
-                util::add_trailing_spaces(&mut placement_line, 46);
-                let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| placement.item.to_string());
-                let item = util::with_leading_spaces(&item, 36);
-
-                placement_line += &format!("  // {} from {}", item, location);
-            }
-
-            placement_line.push('\n');
-            placement_block.push_str(&placement_line);
-        }
-
-        placement_block
-    }).collect::<Vec<_>>();
+    let spoiler_blocks = if !settings.spoilers {
+        Some(placements.iter()
+            .map(|world_placements| format_placements(world_placements.clone(), &custom_names, true))
+            .collect::<Vec<_>>())
+    } else { None };
+    let placement_blocks = placements.into_iter()
+        .map(|world_placements| format_placements(world_placements, &custom_names, settings.spoilers))
+        .collect::<Vec<_>>();
 
     let slug_line = format!("// Slug: {}", slug);
     let seed_line = format!("// Seed: {}", seed);
@@ -320,8 +332,18 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     let mut seeds = (0..settings.worlds).map(|index| {
         format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &placement_blocks[index], &header_block, &slug_line, &seed_line, &config_line)
     }).collect::<Vec<_>>();
-
     headers::postprocess(&mut seeds, graph, &settings)?;
 
-    Ok(seeds)
+    let spoilers = spoiler_blocks.map_or_else::<Result<_, String>, _, _>(
+        || Ok(Vec::new()),
+        |spoiler_blocks| {
+            let mut spoiler_seeds = (0..settings.worlds).map(|index| {
+                format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &spoiler_blocks[index], &header_block, &slug_line, &seed_line, &config_line)
+            }).collect::<Vec<_>>();
+            headers::postprocess(&mut spoiler_seeds, graph, &settings)?;
+
+            Ok(spoiler_seeds)
+        })?;
+
+    Ok((seeds, spoilers))
 }

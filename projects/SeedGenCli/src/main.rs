@@ -310,7 +310,7 @@ fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
     })
 }
 
-fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
+fn generate_seeds(mut args: SeedArgs) -> Result<(Vec<String>, Vec<String>), String> {
     let now = Instant::now();
 
     let seed = args.seed.as_ref().map_or_else(
@@ -339,9 +339,7 @@ fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
     Ok(seeds)
 }
 
-fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: PathBuf, players: &[String]) -> Result<(), String> {
-    let mut filename = filename.unwrap_or_else(|| String::from("seed"));
-
+fn write_seeds_to_files(seeds: &[String], spoilers: &[String], mut filename: String, mut folder: PathBuf, players: &[String], race: bool) -> Result<(), String> {
     let seed_count = seeds.len();
     let multiworld = seed_count > 1;
 
@@ -364,8 +362,18 @@ fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: 
         path.set_extension("wotwr");
 
         let file = util::create_file(&path, seed, "", true)?;
-
         log::info!("Wrote seed for {} to {}", player, file.display());
+
+        if race {
+            let spoiler = &spoilers[index];
+
+            let spoiler_filename = format!("{}_spoiler", file.with_extension("").file_name().unwrap().to_string_lossy());
+            path.set_file_name(spoiler_filename);
+            path.set_extension("wotwr");
+
+            let file = util::create_file(&path, spoiler, "", true)?;
+            log::info!("Wrote spoiler for {} to {}", player, file.display());
+        }
 
         if first {
             first = false;
@@ -498,15 +506,20 @@ fn main() {
         SeedGenCommand::Seed { args, verbose, tostdout } => {
             seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
-            let filename = args.filename.clone();
+            let filename = args.filename.clone().unwrap_or_else(|| String::from("seed"));
             let folder = args.seed_folder.clone();
             let players = args.settings.names.clone();
+            let race = args.settings.race;
             match generate_seeds(args) {
-                Ok(seeds) => {
+                Ok((seeds, spoilers)) => {
                     if tostdout {
                         write_seeds_to_stdout(seeds);
+                        if race {
+                            println!("\n======= SPOILERS =======\n");
+                            write_seeds_to_stdout(spoilers);
+                        }
                     } else {
-                        write_seeds_to_files(&seeds, filename, folder, &players).unwrap_or_else(|err| log::error!("{}", err));
+                        write_seeds_to_files(&seeds, &spoilers, filename, folder, &players, race).unwrap_or_else(|err| log::error!("{}", err));
                     }
                 },
                 Err(err) =>  log::error!("{}", err),
