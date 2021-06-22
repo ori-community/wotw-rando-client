@@ -21,7 +21,7 @@ use crate::util::{
     Resource, GoalMode,
     settings::Settings,
     uberstate::UberState,
-    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION},
+    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, PLACEHOLDER_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION, RANDOM_SPIRIT_LIGHT},
 };
 
 #[derive(Debug, Clone)]
@@ -80,6 +80,7 @@ where
     multiworld_state_index: I,
     price_range: Uniform<f32>,
     random_progression: Bernoulli,
+    random_spirit_light: Bernoulli,
     rng: &'a mut R,
 }
 
@@ -320,7 +321,38 @@ where
 }
 
 #[inline]
-fn random_placement<'a, R, I>(origin_world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+fn random_item_placement<'a, R, I>(origin_world_index: usize, node: &'a Node, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<bool, String>
+where
+    R: Rng,
+    I: Iterator<Item=usize>,
+{
+    let origin_world_context = &mut world_contexts[origin_world_index];
+
+    if context.random_spirit_light.sample(context.rng) && origin_world_context.world.pool.spirit_light > 1000 {  // a bit of buffer seems to be needed so spirit light doesn't push out actual item placements
+        let amount = origin_world_context.spirit_light_rng.sample(context.rng)?;
+        let item = Item::SpiritLight(amount);
+
+        origin_world_context.world.pool.remove(&item, 1);
+        origin_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", origin_world_context.player_name, err));
+        place_item(origin_world_index, origin_world_index, node, false, item, world_contexts, context)?;
+    } else {
+        let target_world_index = context.rng.gen_range(0..context.world_count);
+        let target_world_context = &mut world_contexts[target_world_index];
+
+        if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
+            target_world_context.world.pool.remove(&item, 1);
+            target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
+            place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
+        } else {
+            world_contexts[origin_world_index].placeholders.push(node);  // If the pool is empty, fill the placeholders so seedgen can exit
+        }
+    }
+
+    Ok(true)
+}
+
+#[inline]
+fn random_placement<'a, R, I>(origin_world_index: usize, node: &'a Node, allow_placeholder: bool, world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<bool, String>
 where
     R: Rng,
     I: Iterator<Item=usize>,
@@ -328,31 +360,24 @@ where
     let origin_world_context = &mut world_contexts[origin_world_index];
 
     // force a couple placeholders at the start
+    let mut force = false;
     if origin_world_context.placeholders.len() < 4 {
-        log::trace!("({}): Reserving {} as forced placeholder", origin_world_context.player_name, node);
-
-        origin_world_context.placeholders.push(node);
-    } else {
-        if context.random_progression.sample(context.rng) {
-            let target_world_index = context.rng.gen_range(0..context.world_count);
-            let target_world_context = &mut world_contexts[target_world_index];
-
-            if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
-                target_world_context.world.pool.remove(&item, 1);
-                target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
-                place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
-
-                return Ok(());
-            }
-        }
-
-        let origin_world_context = &mut world_contexts[origin_world_index];
-        log::trace!("({}): Reserving {} as placeholder", origin_world_context.player_name, node);
-
-        origin_world_context.placeholders.push(node)
+        force = true;
+    } else if context.random_progression.sample(context.rng) {
+        return random_item_placement(origin_world_index, node, world_contexts, context);
     }
 
-    Ok(())
+    let origin_world_context = &mut world_contexts[origin_world_index];
+    log::trace!("({}): Reserving {} as {}placeholder", origin_world_context.player_name, node, if force { "forced " } else { "" });
+
+    origin_world_context.placeholders.push(node);
+    if !allow_placeholder {
+        let placeholder_index = context.rng.gen_range(0..origin_world_context.placeholders.len());
+        let placeholder = origin_world_context.placeholders.remove(placeholder_index);
+        return random_item_placement(origin_world_index, placeholder, world_contexts, context);
+    }
+
+    Ok(false)
 }
 
 /* proposed per-pickup exp formula:
@@ -422,23 +447,31 @@ where
         let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
         remaining.shuffle(context.rng);
 
-        for item in remaining {
-            let origin_world_index = if item.is_multiworld_spread() {
-                context.rng.gen_range(0..context.world_count)
-            } else {
-                target_world_index
-            };
+        let mut out_of_space = false;
+        'outer: for item in remaining {
+            if !out_of_space {
+                let origin_world_indices = if item.is_multiworld_spread() {
+                    let mut indices = (0..context.world_count).collect::<Vec<_>>();
+                    indices.shuffle(context.rng);
+                    indices
+                } else {
+                    vec![target_world_index]
+                };
 
-            let node = if let Some(node) = shop_placeholders[origin_world_index].pop() {
-                node
-            } else if let Some(node) = world_contexts[origin_world_index].placeholders.pop() {
-                node
-            } else {
-                log::warn!("({}): Not enough space to place all items from the item pool!", world_contexts[origin_world_index].player_name);
-                break;
-            };
+                for origin_world_index in origin_world_indices {
+                    if let Some(node) = shop_placeholders[origin_world_index].pop().or_else(|| world_contexts[origin_world_index].placeholders.pop()) {
+                        place_item(origin_world_index, target_world_index, node, true, item, world_contexts, context)?;
+                        continue 'outer;
+                    }
+                }
 
-            place_item(origin_world_index, target_world_index, node, true, item, world_contexts, context)?;
+                out_of_space = true;
+
+                log::warn!("({}): Not enough space to place all items from the item pool!", world_contexts[target_world_index].player_name);
+                log::trace!("Unable to place {}", item);
+            } else {
+                log::trace!("Unable to place {}", item);
+            }
         }
     }
 
@@ -584,7 +617,13 @@ where
             log::trace!("({}): Unreachable locations on these settings: {}", player_name, format_identifiers(identifiers));
         }
 
-        let spirit_light_slots = world.graph.nodes.iter().filter(|&node| node.can_place()).count() - world.pool.inventory().item_count();
+        let world_slots = world.graph.nodes.iter()
+            .filter(|&node| {
+                node.can_place() &&
+                !world.preplacements.contains_key(node.uber_state().unwrap())
+            })
+            .count();
+        let spirit_light_slots = world_slots - world.pool.inventory().item_count();
         log::trace!("({}): Estimated {} slots for Spirit Light", player_name, spirit_light_slots);
 
         let spirit_light_rng = SpiritLightAmounts::new(f32::from(world.pool.spirit_light), spirit_light_slots as f32, 0.75, 1.25);
@@ -609,6 +648,7 @@ where
         multiworld_state_index: 0..,
         price_range,
         random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
+        random_spirit_light: Bernoulli::new(RANDOM_SPIRIT_LIGHT).unwrap(),
         rng,
     };
 
@@ -873,9 +913,14 @@ where
             let placement_count: usize = needs_placement.iter().map(|world_needs_placement| world_needs_placement.len()).sum();
             log::trace!("Placing {} items randomly, reserved {} for the next placement group", placement_count, reserved);
 
+            let mut total_placeholders = world_contexts.iter().map(|world_context| world_context.placeholders.len()).sum::<usize>();
+
             for origin_world_index in 0..context.world_count {
                 for &node in &needs_placement[origin_world_index] {
-                    random_placement(origin_world_index, node, &mut world_contexts, &mut context)?;
+                    let allow_placeholder = total_placeholders < PLACEHOLDER_SLOTS;
+                    if !random_placement(origin_world_index, node, allow_placeholder, &mut world_contexts, &mut context)? {
+                        total_placeholders += 1;
+                    }
                 }
             }
         }

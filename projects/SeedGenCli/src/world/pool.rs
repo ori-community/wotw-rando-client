@@ -1,6 +1,6 @@
 use rustc_hash::FxHashMap;
 
-use rand::{Rng, seq::IteratorRandom};
+use rand::{Rng, seq::SliceRandom};
 
 use crate::inventory::{Inventory, Item};
 use crate::util::{Resource, Skill, Shard, Pathsets};
@@ -153,26 +153,12 @@ impl Pool {
     where
         R: Rng
     {
-        while let Some(item) = if multiworld_spread {
-            self.progressions.inventory.keys().filter(|&item| item.is_multiworld_spread()).choose(rng)
+        if multiworld_spread {
+            self.progressions.inventory.keys().filter(|&item| item.is_multiworld_spread()).collect::<Vec<_>>()
         } else {
-            self.progressions.inventory.keys().choose(rng)
-        } {
-            // TODO think weights would be better here. Random progression is almost never a resource this way!
-            let cost = item.cost();
-
-            if cost > 5000 {
-                let reroll_chance = -5000.0 / f64::from(item.cost()) + 1.0;
-
-                if rng.gen_bool(reroll_chance) {
-                    log::trace!("Rerolling random placement {}", item);
-                    continue;
-                }
-            }
-
+            self.progressions.inventory.keys().collect::<Vec<_>>()
+        }.choose_weighted(rng, |&item| 1.0 / f32::from(item.cost())).map_or(None, |&item| {
             return Some(item.clone());
-        }
-
-        None
+        })
     }
 }

@@ -185,10 +185,10 @@ impl Item {
         #[allow(clippy::match_same_arms)]
         match self {
             Item::SpiritLight(amount) => *amount,
+            Item::Resource(Resource::Keystone) => 160,
             Item::Resource(Resource::Health) => 240,
             Item::Resource(Resource::Energy) => 320,
             Item::Resource(Resource::Ore) => 320,
-            Item::Resource(Resource::Keystone) => 320,
             Item::Resource(Resource::ShardSlot) => 480,
             Item::Skill(Skill::Regenerate) | Item::Skill(Skill::WaterBreath) => 200,  // Quality-of-Life Skills
             Item::Skill(Skill::Sword) | Item::Skill(Skill::Hammer) => 600,  // Essential Weapons

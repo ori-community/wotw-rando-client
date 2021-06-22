@@ -83,9 +83,11 @@ pub const WISP_STATES: &[UberIdentifier] = &[
     },
 ];
 
-pub const RESERVE_SLOTS: usize = 5;  // how many slots to reserve after random placements for the next iteration
+pub const RESERVE_SLOTS: usize = 1;  // how many slots to reserve after random placements for the next iteration
+pub const PLACEHOLDER_SLOTS: usize = 25;  // how many slots to keep as placeholders for bigger progressions
 pub const RETRIES: u16 = 10;  // How many retries to allow when generating a seed
-pub const RANDOM_PROGRESSION: f64 = 0.1;  // How likely to choose a progression item as random placement
+pub const RANDOM_PROGRESSION: f64 = 0.4;  // How likely to choose a progression item as random placement
+pub const RANDOM_SPIRIT_LIGHT: f64 = 0.5;  // How likely to place spirit light as a random progression placement
 
 pub const HEADER_INDENT: usize = 24;  // Which column to align header descriptions on
 pub const NAME_COLOUR: Colour = Colour::Yellow;
