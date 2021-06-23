@@ -264,7 +264,7 @@ fn format_placements(world_placements: Vec<Placement>, custom_names: &HashMap<St
 type Seeds = Vec<String>;
 type Spoilers = Vec<String>;
 pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<(Seeds, Spoilers), String> {
-    let settings = settings.apply_presets()?;
+    let mut settings = settings.apply_presets()?;
 
     let seed = seed.unwrap_or_else(|| {
         let mut generated_seed = String::new();
@@ -345,8 +345,12 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     let spoilers = spoiler_blocks.map_or_else::<Result<_, String>, _, _>(
         || Ok(Vec::new()),
         |spoiler_blocks| {
+            settings.spoilers = true;
+            let spoiler_config = settings.write()?;
+            let spoiler_config_line = format!("// Config: {}", spoiler_config);
+
             let mut spoiler_seeds = (0..settings.worlds).map(|index| {
-                format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &spoiler_blocks[index], &header_block, &slug_line, &seed_line, &config_line)
+                format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &spoiler_blocks[index], &header_block, &slug_line, &seed_line, &spoiler_config_line)
             }).collect::<Vec<_>>();
             headers::parser::postprocess(&mut spoiler_seeds, graph, &settings)?;
 
