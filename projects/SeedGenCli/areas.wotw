@@ -8188,6 +8188,16 @@ anchor OpherShop:  # Opher's offers
     moki: SpiritLight=1200
   pickup OpherShop.Teleport:
     moki: SpiritLight=1200
+  pickup OpherShop.ShockSmash:
+    moki: SpiritLight=1200
+  pickup OpherShop.StaticStar:
+    moki: SpiritLight=1200
+  pickup OpherShop.ExplodingSpike:
+    moki: SpiritLight=1200
+  pickup OpherShop.RapidSentry:
+    moki: SpiritLight=1200
+  pickup OpherShop.ChargeBlaze:
+    moki: SpiritLight=1200
   pickup OpherShop.WaterBreath:
     moki: InnerWellspring.WaterEscape, SpiritLight=1200
 

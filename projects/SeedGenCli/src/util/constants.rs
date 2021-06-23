@@ -252,6 +252,17 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
         }
     ),
     (
+        "OpherShop.ExplodingSpike",
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 1074,
+        },
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 11074,
+        }
+    ),
+    (
         "OpherShop.SpiritSmash",
         UberIdentifier {
             uber_group: 1,
@@ -260,6 +271,17 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
         UberIdentifier {
             uber_group: 1,
             uber_id: 10098,
+        }
+    ),
+    (
+        "OpherShop.ShockSmash",
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 1098,
+        },
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 11098,
         }
     ),
     (
@@ -285,6 +307,17 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
         }
     ),
     (
+        "OpherShop.StaticStar",
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 1106,
+        },
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 11106,
+        }
+    ),
+    (
         "OpherShop.Blaze",
         UberIdentifier {
             uber_group: 1,
@@ -296,6 +329,17 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
         }
     ),
     (
+        "OpherShop.ChargeBlaze",
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 1115,
+        },
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 11115,
+        }
+    ),
+    (
         "OpherShop.Sentry",
         UberIdentifier {
             uber_group: 1,
@@ -304,6 +348,17 @@ pub const SHOP_PRICES: &[(&str, UberIdentifier, UberIdentifier)] = &[
         UberIdentifier {
             uber_group: 1,
             uber_id: 10116,
+        }
+    ),
+    (
+        "OpherShop.RapidSentry",
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 1116,
+        },
+        UberIdentifier {
+            uber_group: 1,
+            uber_id: 11116,
         }
     ),
     (

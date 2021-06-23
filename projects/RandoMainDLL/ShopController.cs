@@ -56,7 +56,7 @@ namespace RandoMainDLL {
     public static LupoStoreSlot ShardIcons = new LupoStoreSlot(41666, "Shard Icons");
 
     public static List<LupoStoreSlot> LupoStore = new List<LupoStoreSlot> { HealthIcons, EnergyIcons, ShardIcons };
-    public static List<ShopSlot> All = new List<List<ShopSlot>>() {/* once these are items lol OpherUpgrades.ToList<ShopSlot>(), */Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
+    public static List<ShopSlot> All = new List<List<ShopSlot>>() {OpherUpgrades.ToList<ShopSlot>(), Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
   }
   public class OpherSlot : ShopSlot {
     public readonly AbilityType Weapon;
@@ -118,9 +118,7 @@ namespace RandoMainDLL {
     private static int KS_START { get => !SeedController.HasInternalSpoilers ? 200 : 100; }
     private static int KS_PRICE { get => KS_START + KS_INC * KSBought; }
     public static HashSet<string> Strings = new HashSet<string>();
-    private static readonly HashSet<AbilityType> opherWeaponInv = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritSmash, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.TeleportSpell, AbilityType.WaterBreath };
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
-    private static readonly HashSet<ShardType> twillenShardInv = new HashSet<ShardType> { ShardType.Energy, ShardType.Vitality, ShardType.Overcharge, ShardType.Wingclip, ShardType.TripleJump, ShardType.Finesse, ShardType.Swap, ShardType.LightHarvest };
     private static string bmKeysDesc { get => $"Never logically required\\nNext will cost: {(KSBought == KS_MAX ? $"@{KS_PRICE}@" : $"{KS_PRICE + KS_INC}" /* look at this! the function-y props? the inline teriary? the nested string interpolations? this awful comment dragging it out? *chef's kiss */ )}"; }
     private static readonly string bmKeysName = "Black Market Keystone";
     // can actually use this for all of them besides the water one since they're either unlocked at spawn
@@ -145,6 +143,11 @@ namespace RandoMainDLL {
           if (pickup.NonEmpty)
             InterOp.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type));
         }
+      }
+      foreach(var s in ShopSlot.OpherUpgrades) {
+        var pickup = s.Contents;
+        if (pickup.NonEmpty)
+          InterOp.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type), s.Cost);
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
