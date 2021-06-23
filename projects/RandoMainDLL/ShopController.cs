@@ -147,7 +147,7 @@ namespace RandoMainDLL {
       foreach(var s in ShopSlot.OpherUpgrades) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type), s.Cost);
+          InterOp.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
