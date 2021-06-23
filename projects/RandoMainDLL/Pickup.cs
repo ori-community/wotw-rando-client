@@ -877,10 +877,17 @@ namespace RandoMainDLL {
     RegenerationEfficiency = 7,
     FlashEfficiency = 8,
     LightBurstEfficiency = 9,
+
+    ExplodingSpike = 45,
+    ShockSmash = 46,
+    StaticStar = 47,
+    ChargeBlaze = 48,
+    RapidSentry = 49,
+
   }
   public class WeaponUpgrade : Pickup {
     public override PickupType Type => PickupType.WeaponUpgrade;
-    public override string DisplayName { get => _name; }
+    public override string DisplayName { get => $"#{_name}{(Value() > 1 ? $" x{Value()}" : "")}#"; }
     private readonly string _name;
     public readonly string Desc;
     public readonly AbilityType Weapon;
@@ -900,19 +907,31 @@ namespace RandoMainDLL {
       Weapon = weapon;
       Desc = desc;
     }
-    public UberId UberId() => new UberId(4, (int)Id);
-    public float Value() => UberId().ValueOpt().Value.Float;
+    public UberId UberId() => new UberId(4, (int)Id + 50);
+    public byte Value() => UberGet.Byte(UberId());
     public override void Grant(bool skipBase = false) {
+      UberInc.Byte(UberId());
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:
         case WeaponUpgradeType.RapidSword:
-          UberId().State().Write(new UberValue(Value() * 1.25f));
+          UberSet.Float(4, (int)Id, Convert.ToSingle(Math.Pow(1.25f, Value())));
           break;
         case WeaponUpgradeType.SpikeEfficiency:
         case WeaponUpgradeType.StarEfficiency:
         case WeaponUpgradeType.SentryEfficiency:
         case WeaponUpgradeType.BlazeEfficiency:
-          UberId().State().Write(new UberValue(Value() * 0.5f));
+        case WeaponUpgradeType.BowEfficiency:
+        case WeaponUpgradeType.RegenerationEfficiency:
+        case WeaponUpgradeType.LightBurstEfficiency:
+        case WeaponUpgradeType.FlashEfficiency:
+          UberSet.Float(4, (int)Id, Convert.ToSingle(Math.Pow(0.5f, Value())));
+          break;
+        case WeaponUpgradeType.ExplodingSpike:
+        case WeaponUpgradeType.ShockSmash:
+        case WeaponUpgradeType.StaticStar:
+        case WeaponUpgradeType.ChargeBlaze:
+        case WeaponUpgradeType.RapidSentry:
+          InterOp.set_ability_level(Weapon, Value());
           break;
         default:
           Randomizer.Log($"Unknown upgrade {Id}, can't apply");
@@ -928,6 +947,15 @@ namespace RandoMainDLL {
       new WeaponUpgrade(WeaponUpgradeType.SpikeEfficiency, AbilityType.Spike, "Spike Efficiency", "*Spike* costs 50% less energy"),
       new WeaponUpgrade(WeaponUpgradeType.StarEfficiency, AbilityType.SpiritStar, "Star Efficiency", "*Shuriken* costs 50% less energy"),
       new WeaponUpgrade(WeaponUpgradeType.SentryEfficiency, AbilityType.Sentry, "Sentry Efficiency", "*Sentry* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.BowEfficiency, AbilityType.SpiritArc, "Bow Efficiency", "*Spirit Arc* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.RegenerationEfficiency, AbilityType.Regenerate, "Regen Efficiency", "*Regenerate* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.FlashEfficiency, AbilityType.Flash, "Flash Efficiency", "*Flash* uses 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.LightBurstEfficiency, AbilityType.LightBurst, "Grenade Efficiency", "*Grenade* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.ShockSmash, AbilityType.SpiritSmash, "Shock Smash", "Drop attacks with *Hammer* create a shockwave"),
+      new WeaponUpgrade(WeaponUpgradeType.StaticStar, AbilityType.SpiritStar, "Static Star", "Tap to pause the *Shuriken*'s flight and spin it in place"),
+      new WeaponUpgrade(WeaponUpgradeType.RapidSentry, AbilityType.Sentry, "Sentry Speed", "Doubles *Sentry* attack speed"),
+      new WeaponUpgrade(WeaponUpgradeType.ChargeBlaze, AbilityType.Blaze, "Charge Blaze", "Charge up *Blaze* to damage and set all enemies in sight on fire"),
+      new WeaponUpgrade(WeaponUpgradeType.ExplodingSpike, AbilityType.Spike, "Exploding Spike", "*Spike* explodes on hit"),
     }.ToDictionary(e => e.Id, e => e);
   }
 
