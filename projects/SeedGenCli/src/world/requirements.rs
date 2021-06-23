@@ -691,19 +691,11 @@ mod tests {
         assert_eq!(req.items_needed(&player, &states), vec![(Inventory::from(Item::Water), orbs)]);
 
         let req = Requirement::Damage(36.0);
-        assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from((Item::Resource(Resource::Health), 8)), Orbs { health: -36.0, ..orbs }),
-            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
-            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { energy: -2.0, ..orbs }),
-        ]);
+        assert_eq!(req.items_needed(&player, &states), vec![(Inventory::default(), Orbs { health: -36.0, ..orbs })]);
         player.pathsets.add(Pathset::Gorlek);
         assert_eq!(req.items_needed(&player, &states), vec![
-            (Inventory::from((Item::Resource(Resource::Health), 8)), Orbs { health: -36.0, ..orbs }),
-            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { health: -6.0, energy: -1.0 }),
-            (Inventory::from(vec![(Item::Resource(Resource::Health), 8), (Item::Skill(Skill::Regenerate), 1)]), Orbs { energy: -2.0, ..orbs }),
-            (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Shard(Shard::Resilience), 1)]), Orbs { health: -36.0 * 0.9, ..orbs }),
-            (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Skill(Skill::Regenerate), 1), (Item::Shard(Shard::Resilience), 1)]), Orbs { health: (-36.0 * 0.9) + 30.0, energy: -1.0 }),
-            (Inventory::from(vec![(Item::Resource(Resource::Health), 7), (Item::Skill(Skill::Regenerate), 1), (Item::Shard(Shard::Resilience), 1)]), Orbs { energy: -2.0, ..orbs }),
+            (Inventory::default(), Orbs { health: -36.0, ..orbs }),
+            (Inventory::from(Item::Shard(Shard::Resilience)), Orbs { health: -36.0 * 0.9, ..orbs }),
         ]);
         player.pathsets = Pathsets::default();
 
