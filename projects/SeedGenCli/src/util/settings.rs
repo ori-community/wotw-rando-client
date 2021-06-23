@@ -1,6 +1,6 @@
 use std::{
     io,
-    path::{Path, PathBuf},
+    path::PathBuf,
     collections::hash_map::DefaultHasher,
     hash::Hasher,
 };
@@ -166,8 +166,7 @@ impl Settings {
         }
         Ok(settings)
     }
-    pub fn from_preset(preset: &Path) -> Result<Settings, String> {
-        let mut preset = preset.to_owned();
+    pub fn from_preset(mut preset: PathBuf) -> Result<Settings, String> {
         preset.set_extension("json");
         let content = super::read_file(&preset, "presets")?;
         serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
@@ -213,15 +212,16 @@ impl Settings {
         self.header_list.append(&mut other_header_list);
         self.header_args.append(&mut other_header_args);
     }
-    pub fn apply_presets(self) -> Result<Settings, String> {
+    pub fn apply_presets(mut self) -> Result<Settings, String> {
         let mut merged_settings = Settings::default();
 
-        for preset in &self.presets {
+        for preset in self.presets {
             let preset = Settings::from_preset(preset)?;
             let preset = preset.apply_presets()?;
 
             merged_settings.merge(preset);
         }
+        self.presets = Vec::new();
         merged_settings.merge(self);
 
         Ok(merged_settings)
