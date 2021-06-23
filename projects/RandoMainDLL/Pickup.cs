@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
 using System.Text.RegularExpressions;
-using Microsoft.VisualBasic;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
