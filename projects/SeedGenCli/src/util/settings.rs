@@ -134,6 +134,7 @@ pub struct Settings {
     pub web_conn: bool,
     pub hard: bool,
     pub header_list: Vec<PathBuf>,
+    pub header_args: Vec<String>,
 }
 impl Default for Settings {
     fn default() -> Settings {
@@ -149,6 +150,7 @@ impl Default for Settings {
             web_conn: false,
             hard: false,
             header_list: Vec::default(),
+            header_args: Vec::default(),
         }
     }
 }
@@ -174,25 +176,42 @@ impl Settings {
         serde_json::to_string(&self).map_err(|err| format!("Invalid Settings: {}", err))
     }
 
-    fn merge(&mut self, mut other: Settings) {
-        if other.version.is_some() {
-            self.version = other.version;
+    fn merge(&mut self, other: Settings) {
+        let Settings {
+            version: other_version,
+            presets: mut other_presets,
+            worlds: other_worlds,
+            players: other_players,
+            pathsets: other_pathsets,
+            goalmodes: other_goalmodes,
+            spawn_loc: other_spawn_loc,
+            spoilers: other_spoilers,
+            web_conn: other_web_conn,
+            hard: other_hard,
+            header_list: mut other_header_list,
+            header_args: mut other_header_args,
+        } = other;
+
+        if other_version.is_some() {
+            self.version = other_version;
         }
-        if self.worlds < other.worlds {
-            self.worlds = other.worlds;
-            self.players = other.players;
+        self.presets.append(&mut other_presets);
+        if self.worlds < other_worlds {
+            self.worlds = other_worlds;
+            self.players = other_players;
         }
-        for pathset in other.pathsets.pathsets {
+        for pathset in other_pathsets.pathsets {
             self.pathsets.add(pathset);
         }
-        self.goalmodes.extend(other.goalmodes);
-        if other.spawn_loc != Spawn::default() {
-            self.spawn_loc = other.spawn_loc;
+        self.goalmodes.extend(other_goalmodes);
+        if other_spawn_loc != Spawn::default() {
+            self.spawn_loc = other_spawn_loc;
         }
-        self.spoilers = self.spoilers && other.spoilers;
-        self.web_conn = self.web_conn || other.web_conn;
-        self.hard = self.hard || other.hard;
-        self.header_list.append(&mut other.header_list);
+        self.spoilers = self.spoilers && other_spoilers;
+        self.web_conn = self.web_conn || other_web_conn;
+        self.hard = self.hard || other_hard;
+        self.header_list.append(&mut other_header_list);
+        self.header_args.append(&mut other_header_args);
     }
     pub fn apply_presets(self) -> Result<Settings, String> {
         let mut merged_settings = Settings::default();

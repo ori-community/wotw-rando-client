@@ -4,6 +4,7 @@ use std::{
     convert::TryFrom,
     io::{self, Read},
     time::Instant,
+    collections::HashMap,
 };
 
 use structopt::StructOpt;
@@ -153,6 +154,9 @@ struct SeedSettings {
     /// paths to headers stored in files which will be added to the seed
     #[structopt(parse(from_os_str), short, long = "headers")]
     header_paths: Vec<PathBuf>,
+    /// configuration variables for headers
+    #[structopt(short = "a", long = "args")]
+    header_args: Vec<String>,
 }
 
 #[derive(StructOpt)]
@@ -283,6 +287,7 @@ fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
         goals,
         logic,
         header_paths,
+        header_args,
     } = settings;
 
     let pathsets = parse_pathsets(&logic);
@@ -307,6 +312,7 @@ fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
         spawn_loc: spawn,
         hard,
         header_list: header_paths,
+        header_args,
     })
 }
 
@@ -482,7 +488,7 @@ fn compile_seed(mut path: PathBuf) -> Result<(), String> {
 
     let mut context = HeaderContext::default();
 
-    let header_block = headers::parser::parse_header(&path, &header, &mut world, &settings.pathsets, &mut context, &mut rng)?;
+    let header_block = headers::parser::parse_header(&path, &header, &mut world, &settings.pathsets, &mut context, &HashMap::default(), &mut rng)?;
     let flag_line = seedgen::write_flags(&settings, context.flags);
 
     let compiled = format!("{}{}", flag_line, header_block);

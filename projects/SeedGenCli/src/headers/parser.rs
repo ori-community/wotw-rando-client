@@ -4,6 +4,7 @@ use std::{
 };
 
 use rand::Rng;
+use regex::Regex;
 
 use crate::world::{
     World,
@@ -11,9 +12,9 @@ use crate::world::{
 };
 use crate::inventory::Item;
 use crate::util::{
-    self,
-    Pathsets, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
-    uberstate::{UberState, UberIdentifier}
+    self, Pathsets, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
+    settings::Settings,
+    uberstate::{UberState, UberIdentifier},
 };
 
 fn end_of_pickup<'a, I>(mut parts: I, shop: bool) -> Result<(), String>
@@ -497,6 +498,19 @@ fn parse_count(pickup: &mut &str) -> u16 {
     1
 }
 
+fn read_args(seed: &str, start_index: usize) -> Option<usize> {
+    let mut depth: u8 = 1;
+    for (index, byte) in seed[start_index..].bytes().enumerate() {
+        if byte == b'(' { depth += 1; }
+        else if byte == b')' { depth -= 1; }
+        if depth == 0 {
+            return Some(start_index + index);
+        }
+    }
+
+    return None;
+}
+
 #[inline]
 fn apply_take_commands<R>(line: &str, pool: &mut Vec<String>, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
@@ -517,6 +531,36 @@ where R: Rng + ?Sized
     }
 
     Ok(processed)
+}
+#[inline]
+fn apply_parameters(line: &mut String, parameters: &HashMap<String, String>, param_values: &HashMap<String, String>) -> Result<(), String> {
+    let mut last_index = 0;
+    loop {
+        if let Some(mut start_index) = line[last_index..].find("$PARAM(") {
+            start_index += last_index;
+            last_index = start_index;
+
+            let after_bracket = start_index + 7;
+
+            if let Some(end_index) = read_args(line, after_bracket) {
+                let identifier = line[after_bracket..end_index].trim();
+
+                let default = parameters
+                    .get(identifier)
+                    .ok_or_else(|| format!("Unknown parameter {}", identifier))?;
+                let value = param_values
+                    .get(identifier)
+                    .unwrap_or(default);
+
+                line.replace_range(start_index..=end_index, value);
+
+                continue;
+            }
+        }
+        break;
+    }
+
+    Ok(())
 }
 
 #[inline]
@@ -557,9 +601,21 @@ fn name_command(naming: &str, names: &mut HashMap<String, String>) -> Result<(),
     let mut parts = naming.splitn(2, ' ');
     let pickup = parts.next().unwrap();
     parse_pickup(pickup, false)?;
-    let name = parts.next().ok_or_else(|| format!("Missing name in name command {}", naming))?;
+    let name = parts.next().ok_or_else(|| String::from("Missing name"))?;
 
     names.insert(pickup.to_string(), name.to_string());
+
+    Ok(())
+}
+#[inline]
+fn parameter_command(parameter: &str, parameters: &mut HashMap<String, String>) -> Result<(), String> {
+    let mut parts = parameter.splitn(2, ' ');
+    let identifier = parts.next().unwrap();
+    let default = parts.next().ok_or_else(|| String::from("Missing default value"))?;
+
+    if parameters.insert(identifier.to_string(), default.to_string()).is_some() {
+        log::warn!("Parameter {} already declared", identifier);
+    }
 
     Ok(())
 }
@@ -579,8 +635,8 @@ fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
 
                     let lower = bounds.next().unwrap();
                     let upper = bounds.next().unwrap_or(lower);
-                    let lower = lower.parse::<char>().map_err(|_| format!("Invalid range boundary {} in pool command {}", lower, string))?;
-                    let upper = upper.parse::<char>().map_err(|_| format!("Invalid range boundary {} in pool command {}", upper, string))?;
+                    let lower = lower.parse::<char>().map_err(|_| format!("Invalid range boundary {}", lower))?;
+                    let upper = upper.parse::<char>().map_err(|_| format!("Invalid range boundary {}", upper))?;
 
                     let mut results = Vec::new();
                     for item in lower..=upper {
@@ -619,18 +675,18 @@ where R: Rng + ?Sized
     let count = parse_count(&mut amount);
 
     if !amount.trim().is_empty() {
-        return Err(format!("Invalid amount in addpool command {}", amount));
+        return Err(String::from("Invalid amount"));
     }
 
     for _ in 0..count {
         let length = pool.len();
         if length == 0 {
-            return Err(format!("Tried to !!take on an empty !!pool in addpool command {}", amount));
+            return Err(String::from("Tried to !!take on an empty !!pool"));
         }
         let index = rng.gen_range(0..length);
         let item = pool.remove(index);
 
-        add_command(&item, world, pathsets).map_err(|err| format!("{} (from addpool command)", err))?;
+        add_command(&item, world, pathsets)?;
     }
 
     Ok(())
@@ -643,13 +699,13 @@ fn flush_command(pool: &mut Vec<String>) {
 fn set_command(identifier: &str, world: &mut World) -> Result<(), String> {
     if world.graph.nodes.is_empty() { return Ok(()); }  // Pass if not actually generating a seed
 
-    let node = world.graph.nodes.iter().find(|&node| node.identifier() == identifier).ok_or_else(|| format!("!!set target {} not found", identifier))?;
+    let node = world.graph.nodes.iter().find(|&node| node.identifier() == identifier).ok_or_else(|| format!("target {} not found", identifier))?;
     if let Some(uber_state) = node.uber_state() {
         let uber_state = uber_state.clone();
         log::trace!("Universally setting state {}", uber_state);
         world.uber_states.insert(uber_state.identifier, uber_state.value);
     } else {
-        return Err(format!("{} is not a valid !!set target", identifier));
+        return Err(format!("{} is not a valid target", identifier));
     }
 
     Ok(())
@@ -663,15 +719,17 @@ pub struct HeaderContext {
     pub names: HashMap<String, String>,
 }
 
-pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, pathsets: &Pathsets, context: &mut HeaderContext, rng: &mut R) -> Result<String, String>
+pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, pathsets: &Pathsets, context: &mut HeaderContext, param_values: &HashMap<String, String>, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
     let mut pool = Vec::new();
+    let mut parameters = HashMap::new();
     let mut first_line = true;
 
     for line in header.lines() {
-        let line = apply_take_commands(line, &mut pool, rng)?;
+        let mut line = apply_take_commands(line, &mut pool, rng)?;
+        apply_parameters(&mut line, &parameters, param_values)?;
 
         let mut trimmed = line.trim();
 
@@ -694,19 +752,21 @@ where R: Rng + ?Sized
             } else if let Some(exclude) = command.strip_prefix("exclude ") {
                 exclude_command(name, exclude.trim(), &mut context.excludes);
             } else if let Some(pickup) = command.strip_prefix("add ") {
-                add_command(pickup.trim(), world, pathsets)?;
+                add_command(pickup.trim(), world, pathsets).map_err(|err| format!("{} in add command {}", err, line))?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
-                remove_command(pickup.trim(), world)?;
+                remove_command(pickup.trim(), world).map_err(|err| format!("{} in remove command {}", err, line))?;
             } else if let Some(naming) = command.strip_prefix("name ") {
-                name_command(naming.trim(), &mut context.names)?;
+                name_command(naming.trim(), &mut context.names).map_err(|err| format!("{} in name command {}", err, line))?;
+            } else if let Some(parameter) = command.strip_prefix("parameter ") {
+                parameter_command(parameter.trim(), &mut parameters).map_err(|err| format!("{} in parameter command {}", err, line))?;
             } else if let Some(string) = command.strip_prefix("pool ") {
-                pool_command(string.trim(), &mut pool)?;
+                pool_command(string.trim(), &mut pool).map_err(|err| format!("{} in pool command {}", err, line))?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {
-                addpool_command(amount.trim(), world, pathsets, &mut pool, rng)?;
+                addpool_command(amount.trim(), world, pathsets, &mut pool, rng).map_err(|err| format!("{} in addpool command {}", err, line))?;
             } else if command.trim_end() == "flush" {
                 flush_command(&mut pool);
             } else if let Some(identifier) = command.strip_prefix("set ") {
-                set_command(identifier.trim(), world)?;
+                set_command(identifier.trim(), world).map_err(|err| format!("{} in set command {}", err, line))?;
             } else {
                 return Err(format!("Unknown command {}", command));
             } // TODO !!price command?
@@ -759,6 +819,7 @@ where R: Rng + ?Sized
             processed.push('\n');
         }
     }
+
     processed.push('\n');
     processed.shrink_to_fit();
     Ok(processed)
@@ -766,7 +827,7 @@ where R: Rng + ?Sized
 
 pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, HashMap<String, String>), String> {
     let mut context = HeaderContext::default();
-    parse_header(name, contents, &mut World::new(&Graph::default()), &Pathsets::default(), &mut context, &mut rand::thread_rng())?;
+    parse_header(name, contents, &mut World::new(&Graph::default()), &Pathsets::default(), &mut context, &HashMap::default(), &mut rand::thread_rng())?;
 
     for dependency in context.dependencies {
         util::read_file(&dependency, "headers")?;
@@ -774,11 +835,17 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
 
     let mut occupied_states = Vec::new();
     let mut pool = Vec::new();
+    let mut parameters = HashMap::new();
+    let param_values = HashMap::new();
+    let mut rng = rand::thread_rng();
 
     let mut first_line = true;
     let mut skip_line = false;
 
     for line in contents.lines() {
+        let mut line = apply_take_commands(line, &mut pool, &mut rng)?;
+        apply_parameters(&mut line, &parameters, &param_values)?;
+
         let mut trimmed = line.trim();
 
         if first_line {
@@ -807,7 +874,9 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
         }
 
         if let Some(command) = trimmed.strip_prefix("!!") {
-            if let Some(string) = command.strip_prefix("pool ") {
+            if let Some(parameter) = command.strip_prefix("parameter ") {
+                parameter_command(parameter.trim(), &mut parameters).map_err(|err| format!("{} in parameter command {}", err, line))?;
+            } else if let Some(string) = command.strip_prefix("pool ") {
                 // TODO determinate validation would be nice?
                 pool_command(string, &mut pool)?;
             } else if let Some(_) = command.strip_prefix("addpool ") {
@@ -901,6 +970,169 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
     Ok((occupied_states, context.excludes))
 }
 
+fn where_is(pattern: &str, world_index: usize, seeds: &[String], graph: &Graph, settings: &Settings) -> Result<String, String> {
+    let re = Regex::new(&format!(r"^({})$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
+
+    for mut line in seeds[world_index].lines() {
+        if let Some(index) = line.find("//") {
+            line = &line[..index];
+        }
+        line = line.trim();
+
+        if line.is_empty() || line.starts_with("Flags") || line.starts_with("Spawn") {
+            continue;
+        }
+
+        let mut parts = line.splitn(3, '|');
+        let uber_group = parts.next().unwrap();
+        let uber_id = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+        let pickup = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+
+        if re.is_match(pickup) {
+            if uber_group == "12" {  // if multiworld shared
+                let actual_pickup = format!(r"8\|12\|{}\|bool\|true", uber_id);
+
+                let mut other_worlds = (0..seeds.len()).collect::<Vec<_>>();
+                other_worlds.remove(world_index);
+
+                for other_world_index in other_worlds {
+                    let actual_zone = where_is(&actual_pickup, other_world_index, seeds, graph, settings)?;
+                    if &actual_zone != "Unknown" {
+                        let player_name = settings.players.get(other_world_index).map(|name| name.clone()).unwrap_or_else(|| format!("Player {}", other_world_index + 1));
+
+                        return Ok(format!("{}'s {}", player_name, actual_zone));
+                    }
+                }
+            } else if uber_group == "3" && (uber_id == "0" || uber_id == "1") {
+                return Ok(String::from("Spawn"));
+            } else {
+                let uber_state = UberState::from_parts(uber_group, uber_id)?;
+                if let Some(node) = graph.nodes.iter().find(|&node| node.uber_state() == Some(&uber_state)) {
+                    if let Some(zone) = node.zone() {
+                        return Ok(zone.to_string());
+                    }
+                }
+            }
+        }
+    }
+
+    Ok(String::from("Unknown"))
+}
+
+fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], graph: &Graph) -> Result<Vec<UberState>, String> {
+    let mut locations = Vec::new();
+    let re = Regex::new(&format!(r"^({})$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
+
+    for mut line in seeds[world_index].lines() {
+        if let Some(index) = line.find("//") {
+            line = &line[..index];
+        }
+        line = line.trim();
+
+        if line.is_empty() || line.starts_with("Flags") || line.starts_with("Spawn") {
+            continue;
+        }
+
+        let mut parts = line.splitn(3, '|');
+        let uber_group = parts.next().unwrap();
+        let uber_id = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+        let pickup = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+
+        let uber_state = UberState::from_parts(uber_group, uber_id)?;
+        if graph.nodes.iter().any(|node| node.zone() == Some(zone) && node.uber_state() == Some(&uber_state)) {
+            if re.is_match(pickup) {
+                locations.push(uber_state);
+            } else {  // if multiworld shared
+                let mut pickup_parts = pickup.split('|');
+                if pickup_parts.next() != Some("8") { continue; }
+                if pickup_parts.next() != Some("12") { continue; }
+                let share_id = pickup_parts.next().unwrap();
+                let share_state = format!("12|{}|", share_id);
+
+                let mut other_worlds = (0..seeds.len()).collect::<Vec<_>>();
+                other_worlds.remove(world_index);
+
+                'outer: for other_world_index in other_worlds {
+                    let other_seed = &seeds[other_world_index];
+
+                    for other_seed_line in other_seed.lines() {
+                        if let Some(mut actual_pickup) = other_seed_line.strip_prefix(&share_state) {
+                            if let Some(index) = actual_pickup.find("//") {
+                                actual_pickup = &actual_pickup[..index];
+                            }
+                            actual_pickup = actual_pickup.trim();
+
+                            if re.is_match(actual_pickup) {
+                                locations.push(uber_state);
+                                break 'outer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Ok(locations)
+}
+
+pub fn postprocess(seeds: &mut Vec<String>, graph: &Graph, settings: &Settings) -> Result<(), String> {
+    let clone = seeds.clone();
+
+    for (world_index, seed) in seeds.into_iter().enumerate() {
+        let mut last_index = 0;
+        loop {
+            if let Some(mut start_index) = seed[last_index..].find("$WHEREIS(") {
+                start_index += last_index;
+                last_index = start_index;
+
+                let after_bracket = start_index + 9;
+
+                if let Some(end_index) = read_args(seed, after_bracket) {
+                    let pattern = seed[after_bracket..end_index].trim();
+
+                    let zone = where_is(pattern, world_index, &clone, graph, settings)?;
+                    seed.replace_range(start_index..=end_index, &zone);
+
+                    continue;
+                }
+            }
+            break;
+        }
+
+        last_index = 0;
+        loop {
+            if let Some(mut start_index) = seed[last_index..].find("$HOWMANY(") {
+                start_index += last_index;
+                last_index = start_index;
+
+                let after_bracket = start_index + 9;
+
+                if let Some(end_index) = read_args(seed, after_bracket) {
+                    let mut args = seed[after_bracket..end_index].splitn(2, ',');
+                    let zone = args.next().unwrap().trim();
+                    let zone: u8 = zone.parse().map_err(|_| format!("expected numeric zone, got {}", zone))?;
+                    let zone = Zone::from_id(zone).ok_or_else(|| format!("invalid zone {}", zone))?;
+                    let pattern = args.next().unwrap_or("").trim();
+
+                    let locations = how_many(pattern, zone, world_index, &clone, graph)?;
+                    let locations = locations.into_iter().map(|uber_state| uber_state.to_string()).collect::<Vec<_>>();
+                    let locations = locations.join(",").replace('|', ",");
+
+                    let sysmessage = format!("$[15|4|{}]", locations);
+
+                    seed.replace_range(start_index..=end_index, &sysmessage);
+
+                    continue;
+                }
+            }
+            break;
+        }
+    }
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -915,7 +1147,7 @@ mod tests {
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
         let mut context = HeaderContext::default();
-        parse_header(&PathBuf::from("test header"), &header, &mut world, &Pathsets::default(), &mut context, &mut rand::thread_rng()).unwrap();
+        parse_header(&PathBuf::from("test header"), &header, &mut world, &Pathsets::default(), &mut context, &HashMap::default(), &mut rand::thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);

@@ -148,17 +148,25 @@ where R: Rng + ?Sized
     }
 
     let mut header_block = String::new();
-    let mut context = HeaderContext {
-        dependencies: dependencies.into_iter().collect::<HashSet<_>>(),
-        excludes: HashMap::new(),
-        flags: Vec::new(),
-        names: HashMap::new(),
-    };
+    let mut context = HeaderContext::default();
+    context.dependencies = dependencies.into_iter().collect::<HashSet<_>>();
+
+    let mut param_values = HashMap::new();
+
+    for header_arg in &settings.header_args {
+        let mut parts = header_arg.splitn(2, '=');
+        let identifier = parts.next().unwrap();
+        let value = parts.next().unwrap_or("1");
+
+        if let Some(prior) = param_values.insert(identifier.to_string(), value.to_string()) {
+            log::warn!("Overwriting {} with {} for header argument {}", prior, value, identifier);
+        }
+    }
 
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = headers::parser::parse_header(&PathBuf::from("inline header"), header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = headers::parser::parse_header(&PathBuf::from("inline header"), header, world, &settings.pathsets, &mut context, &param_values, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
@@ -175,7 +183,7 @@ where R: Rng + ?Sized
 
             log::trace!("Parsing header {}", path.display());
             let header = util::read_file(&path, "headers")?;
-            let header = headers::parser::parse_header(&path, &header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
+            let header = headers::parser::parse_header(&path, &header, world, &settings.pathsets, &mut context, &param_values, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
         }
@@ -332,7 +340,7 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     let mut seeds = (0..settings.worlds).map(|index| {
         format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &placement_blocks[index], &header_block, &slug_line, &seed_line, &config_line)
     }).collect::<Vec<_>>();
-    headers::postprocess(&mut seeds, graph, &settings)?;
+    headers::parser::postprocess(&mut seeds, graph, &settings)?;
 
     let spoilers = spoiler_blocks.map_or_else::<Result<_, String>, _, _>(
         || Ok(Vec::new()),
@@ -340,7 +348,7 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
             let mut spoiler_seeds = (0..settings.worlds).map(|index| {
                 format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &spoiler_blocks[index], &header_block, &slug_line, &seed_line, &config_line)
             }).collect::<Vec<_>>();
-            headers::postprocess(&mut spoiler_seeds, graph, &settings)?;
+            headers::parser::postprocess(&mut spoiler_seeds, graph, &settings)?;
 
             Ok(spoiler_seeds)
         })?;

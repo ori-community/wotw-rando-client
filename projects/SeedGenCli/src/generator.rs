@@ -511,7 +511,7 @@ fn total_reach_check<'a>(world: &World<'a>, player_name: &str) -> Result<Vec<&'a
     for (item, amount) in &world.pool.progressions.inventory {
         finished_world.grant_player(item.clone(), *amount)?;
     }
-    finished_world.grant_player(Item::SpiritLight(1), u16::MAX)?;
+    finished_world.grant_player(Item::SpiritLight(1), 10000)?;
 
     let mut collected_preplacements = Vec::new();
     let mut total_reachable_count = 0;
