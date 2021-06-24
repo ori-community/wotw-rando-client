@@ -927,11 +927,19 @@ namespace RandoMainDLL {
           UberSet.Float(4, (int)Id, Convert.ToSingle(Math.Pow(0.5f, Value())));
           break;
         case WeaponUpgradeType.ExplodingSpike:
+          UberSet.Byte(3440, 5687, 1);
+          break;
         case WeaponUpgradeType.ShockSmash:
+          UberSet.Byte(3440, 46488, 1);
+          break;
         case WeaponUpgradeType.StaticStar:
+          UberSet.Byte(3440, 10776, 1);
+          break;
         case WeaponUpgradeType.ChargeBlaze:
+          UberSet.Byte(3440, 61898, 1);
+          break;
         case WeaponUpgradeType.RapidSentry:
-          InterOp.set_ability_level(Weapon, Value());
+          UberSet.Byte(3440, 57376, 1);
           break;
         default:
           Randomizer.Log($"Unknown upgrade {Id}, can't apply");
