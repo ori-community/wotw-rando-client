@@ -511,7 +511,7 @@ fn total_reach_check<'a>(world: &World<'a>, player_name: &str) -> Result<Vec<&'a
     for (item, amount) in &world.pool.progressions.inventory {
         finished_world.grant_player(item.clone(), *amount)?;
     }
-    finished_world.grant_player(Item::SpiritLight(1), 10000)?;
+    finished_world.grant_player(Item::SpiritLight(1), world.pool.spirit_light)?;
 
     let mut collected_preplacements = Vec::new();
     let mut total_reachable_count = 0;
@@ -534,7 +534,7 @@ fn total_reach_check<'a>(world: &World<'a>, player_name: &str) -> Result<Vec<&'a
             !collected_preplacements.iter().any(|&index| index == node.index())
         });
 
-        for node in &reachable_locations {
+        for node in reachable_locations {
             let preplaced = finished_world.collect_preplacements(node.uber_state().unwrap());
             if preplaced {
                 collected_preplacements.push(node.index());
@@ -930,6 +930,10 @@ where
 
         if unreached_count == 0 {
             log::trace!("All locations reached");
+
+            for (world_index, reserved) in reserved_slots {
+                world_contexts[world_index].placeholders.push(reserved);
+            }
 
             place_remaining(&mut world_contexts, &mut context)?;
 
