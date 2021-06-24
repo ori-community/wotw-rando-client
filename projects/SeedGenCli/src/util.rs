@@ -526,6 +526,11 @@ pub enum BonusUpgrade {
     RegenerationEfficiency,
     FlashEfficiency,
     GrenadeEfficiency,
+    ExplodingSpike,
+    ShockSmash,
+    StaticStar,
+    ChargeBlaze,
+    RapidSentry,
 }
 impl fmt::Display for BonusUpgrade {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -545,6 +550,11 @@ impl BonusUpgrade {
             7 => Some(BonusUpgrade::RegenerationEfficiency),
             8 => Some(BonusUpgrade::FlashEfficiency),
             9 => Some(BonusUpgrade::GrenadeEfficiency),
+            45 => Some(BonusUpgrade::ExplodingSpike),
+            46 => Some(BonusUpgrade::ShockSmash),
+            47 => Some(BonusUpgrade::StaticStar),
+            48 => Some(BonusUpgrade::ChargeBlaze),
+            49 => Some(BonusUpgrade::RapidSentry),
             _ => None,
         }
     }
@@ -560,6 +570,11 @@ impl BonusUpgrade {
             BonusUpgrade::RegenerationEfficiency => 7,
             BonusUpgrade::FlashEfficiency => 8,
             BonusUpgrade::GrenadeEfficiency => 9,
+            BonusUpgrade::ExplodingSpike => 45,
+            BonusUpgrade::ShockSmash => 46,
+            BonusUpgrade::StaticStar => 47,
+            BonusUpgrade::ChargeBlaze => 48,
+            BonusUpgrade::RapidSentry => 49,
         }
     }
 }

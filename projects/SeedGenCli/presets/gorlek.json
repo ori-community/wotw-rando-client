@@ -1,1 +1,1 @@
-{"version":"0.13.0","presets":["hints", "qol"],"worlds":1,"players":[],"pathsets":["Gorlek"],"goalmodes":[],"spawnLoc":{"Set":"MarshSpawn.Main"},"spoilers":true,"webConn":false,"hard":false,"headerList":["progress_helper", "teleporters", "black_market"],"headerArgs":[]}
+{"version":"0.13.0","presets":["hints", "qol"],"worlds":1,"players":[],"pathsets":["Gorlek"],"goalmodes":[],"spawnLoc":{"Set":"MarshSpawn.Main"},"spoilers":true,"webConn":false,"hard":false,"headerList":["progress_helper", "teleporters", "black_market", "opher_upgrades"],"headerArgs":[]}
