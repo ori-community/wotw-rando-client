@@ -328,7 +328,7 @@ where
 {
     let origin_world_context = &mut world_contexts[origin_world_index];
 
-    if !node.uber_state().map_or(false, UberState::is_shop) && origin_world_context.random_spirit_light.sample(context.rng) && origin_world_context.world.pool.spirit_light > 1000 {  // a bit of buffer seems to be needed so spirit light doesn't push out actual item placements
+    if !node.uber_state().map_or(false, UberState::is_shop) && origin_world_context.random_spirit_light.sample(context.rng) {
         let amount = origin_world_context.spirit_light_rng.sample(context.rng)?;
         let item = Item::SpiritLight(amount);
 
@@ -583,6 +583,7 @@ where
 {
     // TODO enforce a max total price for shops
     let price_range = Uniform::new_inclusive(0.75, 1.25);
+    let world_tour = settings.goalmodes.contains(&GoalMode::Relics);
 
     let mut world_contexts = worlds.into_iter().enumerate().map(|(world_index, mut world)| {
         let player_name = settings.players.get(world_index).map(|name| name.clone()).unwrap_or_else(|| format!("Player {}", world_index + 1));
@@ -623,7 +624,8 @@ where
                 !world.preplacements.contains_key(node.uber_state().unwrap())
             })
             .count();
-        let spirit_light_slots = world_slots - world.pool.inventory().item_count();
+        let mut spirit_light_slots = world_slots - world.pool.inventory().item_count();
+        if world_tour { spirit_light_slots -= 10; }
         log::trace!("({}): Estimated {}/{} slots for Spirit Light", player_name, spirit_light_slots, world_slots);
 
         let spirit_light_rng = SpiritLightAmounts::new(f32::from(world.pool.spirit_light), spirit_light_slots as f32, 0.75, 1.25);
@@ -653,7 +655,7 @@ where
         rng,
     };
 
-    if settings.goalmodes.contains(&GoalMode::Relics) {
+    if world_tour {
         place_relics(&mut world_contexts, &mut context)?;
     }
 
