@@ -482,7 +482,7 @@ where
     }
 
     for world_index in 0..context.world_count {
-        log::trace!("({}): Placed all items, from the pool, placing Spirit Light...", world_contexts[world_index].player_name);
+        log::trace!("({}): Placed all items from the pool, placing Spirit Light...", world_contexts[world_index].player_name);
 
         while let Some(placeholder) = world_contexts[world_index].placeholders.pop() {
             let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
@@ -860,7 +860,9 @@ where
                     let mut lookahead_reachable = world_context.world.graph.reached_locations(&lookahead_player, world_context.spawn, &world_context.world.uber_states)?;
                     lookahead_reachable.retain(|&node| node.can_place());
 
-                    newly_reached += lookahead_reachable.len() - reachable_counts[world_index];
+                    newly_reached += lookahead_reachable.len().checked_sub(reachable_counts[world_index]).unwrap_or(0);
+                    // Resource tracking can result in reaching less locations with an added teleporter, so prevent any overflows.
+                    // This is very rare and usually means the granted teleporter doesn't actually lead anywhere new, so 0 newly reached is accurate enough.
                 }
 
                 if slots < 4 && newly_reached == 0 {
