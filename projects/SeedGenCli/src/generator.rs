@@ -21,7 +21,7 @@ use crate::util::{
     Resource, GoalMode,
     settings::Settings,
     uberstate::UberState,
-    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, PLACEHOLDER_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION, RANDOM_SPIRIT_LIGHT},
+    constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, PLACEHOLDER_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION},
 };
 
 #[derive(Debug, Clone)]
@@ -68,6 +68,7 @@ struct WorldContext<'a> {
     reachable_locations: Vec<&'a Node>,
     unreachable_locations: Vec<&'a Node>,
     spirit_light_rng: SpiritLightAmounts,
+    random_spirit_light: Bernoulli,
 }
 
 struct GeneratorContext<'a, 'b, R, I>
@@ -80,7 +81,6 @@ where
     multiworld_state_index: I,
     price_range: Uniform<f32>,
     random_progression: Bernoulli,
-    random_spirit_light: Bernoulli,
     rng: &'a mut R,
 }
 
@@ -328,7 +328,7 @@ where
 {
     let origin_world_context = &mut world_contexts[origin_world_index];
 
-    if !node.uber_state().map_or(false, UberState::is_shop) && context.random_spirit_light.sample(context.rng) && origin_world_context.world.pool.spirit_light > 1000 {  // a bit of buffer seems to be needed so spirit light doesn't push out actual item placements
+    if !node.uber_state().map_or(false, UberState::is_shop) && origin_world_context.random_spirit_light.sample(context.rng) && origin_world_context.world.pool.spirit_light > 1000 {  // a bit of buffer seems to be needed so spirit light doesn't push out actual item placements
         let amount = origin_world_context.spirit_light_rng.sample(context.rng)?;
         let item = Item::SpiritLight(amount);
 
@@ -624,9 +624,10 @@ where
             })
             .count();
         let spirit_light_slots = world_slots - world.pool.inventory().item_count();
-        log::trace!("({}): Estimated {} slots for Spirit Light", player_name, spirit_light_slots);
+        log::trace!("({}): Estimated {}/{} slots for Spirit Light", player_name, spirit_light_slots, world_slots);
 
         let spirit_light_rng = SpiritLightAmounts::new(f32::from(world.pool.spirit_light), spirit_light_slots as f32, 0.75, 1.25);
+        let random_spirit_light = Bernoulli::new(spirit_light_slots as f64 / world_slots as f64).unwrap();
 
         Ok(WorldContext {
             world,
@@ -639,6 +640,7 @@ where
             reachable_locations,
             unreachable_locations,
             spirit_light_rng,
+            random_spirit_light,
         })
     }).collect::<Result<Vec<_>, String>>()?;
 
@@ -648,7 +650,6 @@ where
         multiworld_state_index: 0..,
         price_range,
         random_progression: Bernoulli::new(RANDOM_PROGRESSION).unwrap(),
-        random_spirit_light: Bernoulli::new(RANDOM_SPIRIT_LIGHT).unwrap(),
         rng,
     };
 
