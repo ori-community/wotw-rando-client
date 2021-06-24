@@ -64,7 +64,7 @@ impl fmt::Display for Item {
                     if end_index == 0 { break; }
 
                     let pickup = &message[after_bracket..end_index];
-                    if let Ok(pickup) = headers::parser::parse_pickup(pickup, false) {
+                    if let Ok(pickup) = headers::parser::parse_pickup(pickup) {
                         message.replace_range(start_index..=end_index, &pickup.to_string());
                     }
 
