@@ -877,7 +877,6 @@ namespace RandoMainDLL {
     RegenerationEfficiency = 7,
     FlashEfficiency = 8,
     LightBurstEfficiency = 9,
-
     ExplodingSpike = 45,
     ShockSmash = 46,
     StaticStar = 47,
