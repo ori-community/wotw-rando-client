@@ -98,17 +98,17 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(), String> {
+pub fn initialize_log(use_file: Option<&str>, stderr_log_level: LevelFilter) -> Result<(), String> {
     let stderr = ConsoleAppender::builder()
         .target(Target::Stderr)
         .encoder(Box::new(PatternEncoder::new("{h({l}):5}  {m}{n}")))
         .build();
 
-    let log_config = if use_file {
+    let log_config = if let Some(path) = use_file {
         let log_file = FileAppender::builder()
         .append(false)
         .encoder(Box::new(PatternEncoder::new("{l:5}  {m}{n}")))
-        .build("generator.log")
+        .build(path)
         .map_err(|err| format!("Failed to create log file: {}", err))?;
 
         Config::builder()
@@ -156,7 +156,7 @@ where R: Rng + ?Sized
     for header_arg in &settings.header_args {
         let mut parts = header_arg.splitn(2, '=');
         let identifier = parts.next().unwrap();
-        let value = parts.next().unwrap_or("1");
+        let value = parts.next().unwrap_or("true");
 
         if let Some(prior) = param_values.insert(identifier.to_string(), value.to_string()) {
             log::warn!("Overwriting {} with {} for header argument {}", prior, value, identifier);

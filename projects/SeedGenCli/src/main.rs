@@ -524,22 +524,23 @@ fn main() {
 
     match args.command {
         SeedGenCommand::Seed { args, verbose, tostdout } => {
-            seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            let use_file = if verbose { Some("generator.log") } else { None };
+            seedgen::initialize_log(use_file, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             generate_seeds(args, tostdout).unwrap_or_else(|err| log::error!("{}", err));
         },
         SeedGenCommand::Play => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(None, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             play_last_seed().unwrap_or_else(|err| log::error!("{}", err));
         },
         SeedGenCommand::Preset { args } => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(None, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             create_preset(args).unwrap_or_else(|err| log::error!("{}", err));
         },
         SeedGenCommand::Headers { headers, subcommand } => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(None, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match subcommand {
                 Some(HeaderCommand::Validate { path }) => {
@@ -558,7 +559,7 @@ fn main() {
             }
         },
         SeedGenCommand::ReachCheck { args } => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(Some("reach_log.txt"), LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match reach_check(args) {
                 Ok(reached) => println!("{}", reached),

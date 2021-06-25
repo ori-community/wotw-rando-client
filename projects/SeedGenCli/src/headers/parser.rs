@@ -528,7 +528,7 @@ where R: Rng + ?Sized
     Ok(processed)
 }
 #[inline]
-fn apply_parameters(line: &mut String, parameters: &HashMap<String, String>, param_values: &HashMap<String, String>) -> Result<(), String> {
+fn apply_parameters(line: &mut String, parameters: &HashMap<String, String>) -> Result<(), String> {
     let mut last_index = 0;
     loop {
         if let Some(mut start_index) = line[last_index..].find("$PARAM(") {
@@ -540,12 +540,9 @@ fn apply_parameters(line: &mut String, parameters: &HashMap<String, String>, par
             if let Some(end_index) = read_args(line, after_bracket) {
                 let identifier = line[after_bracket..end_index].trim();
 
-                let default = parameters
+                let value = parameters
                     .get(identifier)
                     .ok_or_else(|| format!("Unknown parameter {}", identifier))?;
-                let value = param_values
-                    .get(identifier)
-                    .unwrap_or(default);
 
                 line.replace_range(start_index..=end_index, value);
 
@@ -603,12 +600,29 @@ fn name_command(naming: &str, names: &mut HashMap<String, String>) -> Result<(),
     Ok(())
 }
 #[inline]
-fn parameter_command(parameter: &str, parameters: &mut HashMap<String, String>) -> Result<(), String> {
+fn parameter_command(parameter: &str, parameters: &mut HashMap<String, String>, param_values: &HashMap<String, String>) -> Result<(), String> {
     let mut parts = parameter.splitn(2, ' ');
     let identifier = parts.next().unwrap();
     let default = parts.next().ok_or_else(|| String::from("Missing default value"))?;
 
-    if parameters.insert(identifier.to_string(), default.to_string()).is_some() {
+    let mut default_parts = default.splitn(2, ':');
+    let first_part = default_parts.next().unwrap();
+    let (parameter_type, default) = if let Some(default) = default_parts.next() {
+        (first_part, default)
+    } else {
+        ("string", first_part)
+    };
+    let value = param_values.get(identifier).map_or(default, |value| &value[..]);
+
+    match parameter_type {
+        "bool" => { value.parse::<bool>().map_err(|_| format!("Invalid value {} for boolean {}", value, identifier))?; },
+        "int" => { value.parse::<i64>().map_err(|_| format!("Invalid value {} for integer {}", value, identifier))?; },
+        "float" => { value.parse::<f32>().map_err(|_| format!("Invalid value {} for float {}", value, identifier))?; },
+        "string" => {},
+        _ => return Err(format!("Invalid parameter type {}", parameter_type)),
+    }
+
+    if parameters.insert(identifier.to_string(), value.to_string()).is_some() {
         log::warn!("Parameter {} already declared", identifier);
     }
 
@@ -705,6 +719,18 @@ fn set_command(identifier: &str, world: &mut World) -> Result<(), String> {
 
     Ok(())
 }
+#[inline]
+fn if_command(comparison: &str, parameters: &HashMap<String, String>) -> Result<bool, String> {
+    let mut parts = comparison.splitn(2, ' ');
+    let identifier = parts.next().unwrap();
+    let compare_value = parts.next().ok_or_else(|| format!("Missing comparison value"))?;
+
+    let parameter_value = parameters
+        .get(identifier)
+        .ok_or_else(|| format!("Unknown parameter {}", identifier))?;
+
+    Ok(compare_value == parameter_value)
+}
 
 #[derive(Debug, Default)]
 pub struct HeaderContext {
@@ -720,11 +746,13 @@ where R: Rng + ?Sized
     let mut processed = String::with_capacity(header.len());
     let mut pool = Vec::new();
     let mut parameters = HashMap::new();
+    let mut skip_until = -1;
+    let mut depth = 0;
     let mut first_line = true;
 
     for line in header.lines() {
         let mut line = apply_take_commands(line, &mut pool, rng)?;
-        apply_parameters(&mut line, &parameters, param_values)?;
+        apply_parameters(&mut line, &parameters)?;
 
         let mut trimmed = line.trim();
 
@@ -733,8 +761,24 @@ where R: Rng + ?Sized
             if line.starts_with('#') { continue; }
         }
 
+        if trimmed.starts_with("////") {
+            continue;
+        }
+
         if let Some(index) = trimmed.find("//") {
             trimmed = &trimmed[..index];
+        }
+
+        if skip_until > -1 {
+            if trimmed.trim_end() == "!!endif" {
+                depth -= 1;
+            } else if trimmed.starts_with("!!if ") {
+                depth += 1;
+            }
+            if depth == skip_until {
+                skip_until = -1;
+            }
+            continue;
         }
 
         if let Some(flagline) = trimmed.strip_prefix("Flags:") {
@@ -753,7 +797,7 @@ where R: Rng + ?Sized
             } else if let Some(naming) = command.strip_prefix("name ") {
                 name_command(naming.trim(), &mut context.names).map_err(|err| format!("{} in name command {}", err, line))?;
             } else if let Some(parameter) = command.strip_prefix("parameter ") {
-                parameter_command(parameter.trim(), &mut parameters).map_err(|err| format!("{} in parameter command {}", err, line))?;
+                parameter_command(parameter.trim(), &mut parameters, param_values).map_err(|err| format!("{} in parameter command {}", err, line))?;
             } else if let Some(string) = command.strip_prefix("pool ") {
                 pool_command(string.trim(), &mut pool).map_err(|err| format!("{} in pool command {}", err, line))?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {
@@ -762,6 +806,16 @@ where R: Rng + ?Sized
                 flush_command(&mut pool);
             } else if let Some(identifier) = command.strip_prefix("set ") {
                 set_command(identifier.trim(), world).map_err(|err| format!("{} in set command {}", err, line))?;
+            } else if let Some(comparison) = command.strip_prefix("if ") {
+                if !if_command(comparison.trim(), &parameters).map_err(|err| format!("{} in if command {}", err, line))? {
+                    skip_until = depth;
+                }
+                depth += 1;
+            } else if command.trim_end() == "endif" {
+                if depth == 0 {
+                    return Err(String::from("!!endif without !!if"));
+                }
+                depth -= 1;
             } else {
                 return Err(format!("Unknown command {}", command));
             } // TODO !!price command?
@@ -838,7 +892,7 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
 
     for line in contents.lines() {
         let mut line = apply_take_commands(line, &mut pool, &mut rng)?;
-        apply_parameters(&mut line, &parameters, &param_values)?;
+        apply_parameters(&mut line, &parameters)?;
 
         let mut trimmed = line.trim();
 
@@ -869,7 +923,7 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
 
         if let Some(command) = trimmed.strip_prefix("!!") {
             if let Some(parameter) = command.strip_prefix("parameter ") {
-                parameter_command(parameter.trim(), &mut parameters).map_err(|err| format!("{} in parameter command {}", err, line))?;
+                parameter_command(parameter.trim(), &mut parameters, &param_values).map_err(|err| format!("{} in parameter command {}", err, line))?;
             } else if let Some(string) = command.strip_prefix("pool ") {
                 // TODO determinate validation would be nice?
                 pool_command(string, &mut pool)?;
