@@ -6653,7 +6653,7 @@ anchor EastPools.FishingPool at -1278, -4124:  # At the fisher moki
 anchor EastPools.SlimeWaterfall at -1300, -4102:  # Above the fishing Moki
 
     # add conn to UpperPools.TreeArea using UpperPools.UpperWaterDrained and UpperPools.ButtonDoorAboveTree txm
-	# add conn to UpperPools.SolvedDrainPuzzle using UpperPools.UpperWaterDrained txm
+	# add conn to UpperPools.DrainPuzzle using UpperPools.UpperWaterDrained txm
 
   pickup EastPools.AboveTpEX:  # these need water to not be softlockable with the player draining the upper water
     moki: Water
@@ -6728,7 +6728,7 @@ anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok 
     unsafe:
       Bash, DoubleJump, TripleJump OR Hammer
 
-  conn UpperPools.KeystoneRoomEntrance:
+  conn UpperPools.KeystoneRoomEntrance: # you can use sword deflector to free the bubble without bash or wdash
     moki:
       Water, Bash, DoubleJump, Dash OR Glide
       Water, Bash, Launch
@@ -6975,7 +6975,7 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
     unsafe: UpperPools.TreeRoomLeftBubbleFree, Dash, DoubleJump OR Damage=20  # Dash on the bubble
   conn UpperPools.BeforeKeystoneDoor:
     moki: UpperPools.KeystoneDoor
-  conn UpperPools.SolvedDrainPuzzle:
+  conn UpperPools.DrainPuzzle:
     moki: UpperPools.UpperWaterDrained
 
 anchor UpperPools.AboveTree at -1450, -4053:  # Paths to simplify the xp pickup above swimdash tree
@@ -6988,7 +6988,7 @@ anchor UpperPools.AboveTree at -1450, -4053:  # Paths to simplify the xp pickup 
       Damage=20, WaterDash
       SentryJump=1
 
-anchor UpperPools.SolvedDrainPuzzle at -1319, -4081:  # At the ledge above east teleporter (this is inside a rock if you haven't solved the puzzle)
+anchor UpperPools.DrainPuzzle at -1313, -4083:  # At the ledge above east teleporter (moved the anchor point outside the rock)
   refill Checkpoint
   
   # add conn to UpperPools.TreeArea using UpperPools.UpperWaterDrained and UpperPools.ButtonDoorAboveTree txm
