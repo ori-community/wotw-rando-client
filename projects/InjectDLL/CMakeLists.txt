@@ -13,6 +13,7 @@ set(
 	"dev/object_visualizer.cpp"
 	"features/autoaim.cpp"
 	"features/bingo_tracking.cpp"
+	"features/custom_fire_sources.cpp"
 	"features/day_night_logic.cpp"
 	"features/death_listener.cpp"
 	"features/difficulty.cpp"
