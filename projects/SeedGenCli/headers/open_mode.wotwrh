@@ -27,3 +27,7 @@
 3|0|8|37858|9487|bool|true  // Wellspring Middle Doors		InnerWellspring.MiddleDoorsOpen, 37858, 9487
 3|0|8|37858|31962|bool|true  // Wellspring Top Door	Inner	Wellspring.TopDoorOpen, 37858, 31962
 3|0|8|937|6778|bool|true  // Door above Hornbug				EastHollow.HornbugDoor, 937, 6778
+3|0|8|21786|25095|bool|true // Howl Burnt					MarshSpawn.HowlBurnt, 21786, 25095
+3|0|8|21786|40322|bool|true // Howl Fight					
+3|0|8|7|2|bool|true // rain lifted
+3|0|8|0|100|bool|true // rain lifted
