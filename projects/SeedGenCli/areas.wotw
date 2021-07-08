@@ -4530,8 +4530,6 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
 anchor LowerReach.Central at -335, -4010:  # After the lever door
   refill Checkpoint
 
-  # validate conn paths to LowerReach.Entry and LowerReach.AboveEntry using LowerReach.Lever txm
-
   pickup LowerReach.AboveDoorEX:
     moki:
       LowerReach.CentralFurnace, DoubleJump, Dash, Bash OR Hammer OR Spear=1
@@ -4607,15 +4605,12 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       LowerReach.CentralFurnace, Dash, Hammer  # dash ramp->up slash->dash->weapon stall to grab the tongue
   conn LowerReach.Entry:
     moki, LowerReach.Lever:
-      Launch OR Dash OR DoubleJump
+      Launch
+      Dash, DoubleJump
     gorlek, LowerReach.Lever:
-      Damage=20
-  conn LowerReach.AboveEntry:
-    moki, LowerReach.Lever:
-      Launch, Dash OR Bash OR DoubleJump OR Glide
-    gorlek, LowerReach.Lever:
-      Launch # hit the small sloped wall the bash plant is hanging from
-      Bash, DoubleJump OR Dash
+      Dash OR DoubleJump OR Damage=20
+    unsafe, LowerReach.Lever:
+      Hammer OR Sword  # upslash + hover
 	  
 anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter room
   refill Checkpoint
@@ -4679,20 +4674,26 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
 
 anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the teleporter pickup
   refill Full
-  
-  # validate conn to LowerReach.East to using LowerReach.TPLantern txm
 
   conn Teleporters: free
   conn LowerReach.OutsideTPRoom:
     moki: Grenade=1
     gorlek: SentryBurn=1
+  conn LowerReach.SoupMoki:
+    moki: LowerReach.TPLantern
   conn LowerReach.East:
     moki, LowerReach.TPLantern:
       Launch
-      Bash, DoubleJump OR Glide OR Dash OR Grenade=1
+      Bash, Grenade=1, DoubleJump OR Glide OR Dash
     gorlek, LowerReach.TPLantern:
-      Bash, Sword OR Hammer
-      TripleJump, Dash OR Glide
+      Bash, Grenade=1, Sword OR Hammer
+      DoubleJump, TripleJump, Bash OR Dash OR Glide OR Sword OR Hammer
+      HammerSJump=1, DoubleJump, Dash OR TripleJump OR Glide
+      SwordSJump=1, DoubleJump OR Dash  # sword hover as well
+    unsafe, LowerReach.TPLantern:
+      Bash, Grenade=1
+      SentryJump=1  # sjump from the right frozen plant
+      Bash, Dash, SentryBurn=1  # Melt the ice, bring the tentacle shot to the right to pass over the gap
 
 # checkpoint at -296, -3944
 
@@ -4746,15 +4747,15 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
   state LowerReach.CentralFurnace:
     moki: Grenade=1
 
-  state LowerReach.WindLantern: # everything using LowerReach.WindLantern needs validation txm
+  state LowerReach.WindLantern:
     moki: Grenade=1, Combat=ShieldMiner
     gorlek:
       Grenade=1 # wait for the gorlek to get closer to the platform
-      SentryBurn=1, DoubleJump OR Bash OR Hammer OR Launch # may require a little luck to get the sentry close enough
+      SentryBurn=1, DoubleJump OR Launch OR SentryJump=1 # may require a little luck to get the sentry close enough
       SentryJump=1
     unsafe:
       Flap, Bash, Dash # Juggle the soup projectile
-      # SentryBurn=1 only must be done before breaking the wall
+      SentryBurn=1, Bash OR Hammer
 
   pickup LowerReach.BelowLupoEX:
     moki:
@@ -4777,17 +4778,15 @@ anchor LowerReach.WindChannel at -256, -4035:  # The furnace left of the wind ch
     unsafe:
       BreakWall=20  # jump over the gorlek when it's near the anchor
   pickup LowerReach.WindBottomEX:
-    moki: LowerReach.WindLantern, Glide
+    moki, LowerReach.WindLantern: Glide
     gorlek, LowerReach.WindLantern:
       Damage=20, Launch OR SentryJump=1
-      Damage=20, DoubleJump, TripleJump OR Hammer  # jump bellow the lantern, don't need any wall jump
-    unsafe, LowerReach.WindLantern:
-      Damage=20 # Pickup very close to the spikes for a TP out without damage, but possible
+    unsafe, LowerReach.WindLantern: free  # TP out
   pickup LowerReach.WindHiddenEX:
     moki: LowerReach.WindLantern, Glide
     gorlek:
       Launch, Damage=20, Glide
-      SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wond t hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
+      SentryJump=2, Damage=20, DoubleJump OR Dash  # sjump, damage boost (the spikes wont hit Ori after landing on them), sjump again then upsalsh to reach the right wall then sword combo to reach the pickup and tp out
       DoubleJump, TripleJump, SentryJump=1, Damage=20  # same as above, triple jump + up slash to get to the right wall then jump into the spikes to avoid the first sjump
       Launch, DoubleJump OR Dash OR Sword
     unsafe:
@@ -4843,34 +4842,17 @@ anchor LowerReach.SoupMoki at -240, -3989:  # Below the reach teleporter, where 
 
 anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp room
   refill Checkpoint
-  refill Full:  # use the teleporter
-    # need to repath all of this using LowerReach.TPLantern txm
-    moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
-    gorlek:
-      Bash, Grenade=2
-      Grenade=1, DoubleJump OR Dash OR Glide OR Launch OR Sword  # Grenade to light the lantern, use the rest to pass the gap
-      SentryBurn=1, Launch
-      SentryBurn=1, SwordSJump=1
-      SentryBurn=1, DoubleJump, TripleJump
-    unsafe:
-      Grenade=1, Hammer OR Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
-      SentryBurn=1, SentryJump=1
-      SentryBurn=1, DoubleJump, Hammer
   # could be considered moving this anchor to the left, closer to the teleporter, if it gets important on higher difficulties
 
   state LowerReach.TPLantern:
-    moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
+    moki: Grenade=1, Combat=WeakSlug OR Bash
     gorlek:
-      Bash, Grenade=2
-      Grenade=1, DoubleJump OR Dash OR Glide OR Launch OR Sword  # Grenade to light the lantern, use the rest to pass the gap
       SentryBurn=1, Launch
       SentryBurn=1, SwordSJump=1
       SentryBurn=1, DoubleJump, TripleJump
     unsafe:
-      Grenade=1, Hammer OR Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
       SentryBurn=1, SentryJump=1
       SentryBurn=1, DoubleJump, Hammer
-      # added this path to not break the syntax, but will need to repath the whole area using LowerReach.TPLantern txm
 
   state LowerReach.RolledSnowball:
     moki: Grenade=1, Combat=Mantis OR Bash
@@ -4887,18 +4869,14 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     moki: LowerReach.RolledSnowball, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Damage=20
     gorlek: LowerReach.RolledSnowball, Burrow  # Dash in the snow before exiting the burrow section to get momentum
 
-  conn LowerReach.Teleporter: # need to repath all of this using LowerReach.TPLantern
-    moki: Bash, Grenade=2, DoubleJump OR Dash OR Glide OR Launch
-    gorlek:
-      Bash, Grenade=2
-      Grenade=1, DoubleJump OR Dash OR Glide OR Launch OR Sword  # Grenade to light the lanterne, use the rest to pass the gap
-      SentryBurn=1, Launch
-      SentryBurn=1, SwordSJump=1
-      SentryBurn=1, DoubleJump, TripleJump
-    unsafe:
-      Grenade=1, Hammer OR Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
-      SentryBurn=1, SentryJump=1
-      SentryBurn=1, DoubleJump, Hammer
+  conn LowerReach.Teleporter:
+    moki, LowerReach.TPLantern: Combat=WeakSlug, DoubleJump OR Dash OR Glide OR Launch
+    gorlek, LowerReach.TPLantern:
+      Bash, Grenade=1
+      Sword OR Hammer
+    unsafe, LowerReach.TPLantern: 
+      Bash  # Bash glide the slime
+      Sentry=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Spear=1
   conn LowerReach.SoupMoki: free
   conn LowerReach.PastSnowball:
     moki, LowerReach.RolledSnowball:
@@ -4912,8 +4890,6 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
   refill Checkpoint
   refill Energy=4:  # fast respawning crystal
     moki: BreakCrystal
-
-  # validate conn to LowerReach.East using LowerReach.RolledSnowball txm
 
   state LowerReach.EastDoorLantern:
     moki:
@@ -4982,11 +4958,11 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
     # shuriken break note: this wall has 20 health
   conn LowerReach.East:
     moki, LowerReach.RolledSnowball:
-      DoubleJump OR Launch OR LowerReach.CentralFurnace
+      Combat=Lizard, DoubleJump OR Launch OR LowerReach.CentralFurnace
       Bash, Grenade=1
-    gorlek, LowerReach.RolledSnowball:
-      SentryJump=1 OR Hammer 
+    gorlek, LowerReach.RolledSnowball: SentryJump=1
     unsafe, LowerReach.RolledSnowball:
+      Hammer
       Bash # use the lizard
 
 # checkpoint at -60, -3987
@@ -5060,8 +5036,6 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
   state LowerReach.ArenaBeaten:
     moki: Regenerate, Damage=40, Combat=3xShieldMiner+Hornbug+2xBee
     unsafe: Combat=3xShieldMiner+Hornbug+2xBee
-    
-  # add conn to LowerReach.SwimmingPool using LowerReach.EastDoorLantern txm
 
   conn LowerReach.Trial:
     moki: LowerReach.ArenaBeaten
@@ -5082,10 +5056,15 @@ anchor LowerReach.ArenaArea at 44, -3992:  # To the left of the combat arena
   conn LowerReach.SwimmingPool:
     moki, LowerReach.EastDoorLantern:
       Water
-      Launch, Dash OR Glide OR DoubleJump
+      Launch, DoubleJump, Dash OR Glide
     gorlek, LowerReach.EastDoorLantern: 
       Launch # refresh on wall above crystal
-      # other possibilities include landing in the dirty water, unsure if gorlek
+      DoubleJump, TripleJump, Glide
+      Damage=20, DoubleJump OR Dash OR Glide OR Sword  # Swim in dirty water
+      WaterDash, Damage=20, Hammer
+    unsafe, LowerReach.EastDoorLantern:
+      Sword, DoubleJump OR Dash OR Glide  # Pogo something in the water
+      DoubleJump, TripleJump, Dash
 
 # checkpoint at just kidding, placed this mark because the refill logic below kind of sucks
 
@@ -5177,8 +5156,6 @@ anchor LowerReach.TownEntry at -35, -4077:  # Where the wind starts
 
 anchor LowerReach.Trial at 64, -4046:  # At trial start
   refill Checkpoint
-
-  # validate conn to LowerReach.ArenaArea using LowerReach.ArenaBeaten txm
 
   state LowerReach.KeystoneDoor:
     moki: Keystone=4
