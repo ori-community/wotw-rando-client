@@ -1127,10 +1127,13 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
   conn MarshSpawn.BurrowsEntry:
     moki, MarshSpawn.BurrowsOpen: 
       Launch
-      Bash, Grenade, DoubleJump OR Dash OR Glide
+      Bash, DoubleJump, Dash OR Glide OR Grenade=1
     gorlek, MarshSpawn.BurrowsOpen:
-      Bash, Sword OR Hammer OR DoubleJump OR Dash OR Glide
-      SentryJump=2
+      Bash, DoubleJump
+      HammerSJump=3
+      SwordSJump=3, Damage=15
+    unsafe, MarshSpawn.BurrowsOpen:
+      Bash, Dash OR Glide OR Grenade=1
 
 anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big portal room
   refill Checkpoint
