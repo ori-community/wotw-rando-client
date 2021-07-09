@@ -5456,8 +5456,6 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
     gorlek: Damage=10
     unsafe: free
 
-  # validate conn to EastHollow.AboveDepths using state EastHollow.DepthsOpen txm
-
   conn UpperDepths.FirstFirefly:
     moki:
       Glide, Combat=2xBombSlug+2xBat+SneezeSlug
@@ -5466,8 +5464,16 @@ anchor UpperDepths.Entry at 161, -4340:  # The little standable ground below the
       Glide, Combat=Bat OR Bash
       Combat=2xBombSlug, Damage=30, Bash, DoubleJump OR Dash  # Lots of possibilities here but Bash is the most reliable way to avoid too much damage
   conn EastHollow.AboveDepths:
-    moki, EastHollow.DepthsOpen: Glide OR Launch
-
+    moki, EastHollow.DepthsOpen: Glide
+    gorlek, EastHollow.DepthsOpen:
+      Launch, DoubleJump OR Damage=10
+      Bash, Grenade=1, DoubleJump, TripleJump
+      SentryJump=1, DoubleJump, TripleJump
+    unsafe, EastHollow.DepthsOpen:
+      Launch
+      Bash, Grenade=2, DoubleJump  # wall jump on the right wall, go to the safe spot in the spikes, grenade bash again from here
+      SentryJump=2, DoubleJump  # same as above
+      
 # checkpoint at 147, -4392
 
 anchor UpperDepths.FirstFirefly at 211, -4391:  # Where the Voice dialogue plays
