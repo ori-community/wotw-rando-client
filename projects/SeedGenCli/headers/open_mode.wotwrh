@@ -2,6 +2,7 @@
 /// opens many doors so random spawn works better, especially with no teleporters
 /// 
 
+!!include no_rain
 3|0|8|21786|59922|bool|true  // Marsh Broken Log			MarshSpawn.LogBroken, 21786, 59922
 3|0|8|24922|13349|bool|true  // Burrows Entry				MarshSpawn.BurrowsOpen, 24922, 13349
 3|0|8|24922|2524|bool|true  // Burrows to Howl Shortcut		MidnightBurrows.HowlsDenShortcut, 24922, 2524
@@ -27,7 +28,4 @@
 3|0|8|37858|9487|bool|true  // Wellspring Middle Doors		InnerWellspring.MiddleDoorsOpen, 37858, 9487
 3|0|8|37858|31962|bool|true  // Wellspring Top Door	Inner	Wellspring.TopDoorOpen, 37858, 31962
 3|0|8|937|6778|bool|true  // Door above Hornbug				EastHollow.HornbugDoor, 937, 6778
-3|0|8|21786|25095|bool|true // Howl Burnt					MarshSpawn.HowlBurnt, 21786, 25095
-3|0|8|21786|40322|bool|true // Howl Fight					
-3|0|8|7|2|bool|true // rain lifted
-3|0|8|0|100|bool|true // rain lifted
+3|0|4|11|631536139|1230316956 // Flap Bubble				EastPools.FlapBubble
