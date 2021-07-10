@@ -1108,8 +1108,6 @@ region MidnightBurrows:
 anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
   refill Full
 
-# validate conn paths to MarshSpawn.BurrowsEntry using state MarshSpawn.BurrowsOpen txm
-
   pickup MidnightBurrows.LeftKS:
     moki: DoubleJump OR Dash OR Glide OR Launch
     gorlek: Sword OR Hammer OR Damage=15
@@ -1846,8 +1844,6 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
   refill Energy=3:
     moki: BreakCrystal
 
-# add/validate conn paths to pickups on the way to EastHollow.AboveBash using EastHollow.DepthsLever txm
-
   state EastHollow.DepthsOpen:
     moki: Glide
 
@@ -1866,12 +1862,18 @@ anchor EastHollow.AboveDepths at 47, -4302:  # To the right of the lever door bl
 
   conn UpperDepths.Entry:
     moki: EastHollow.DepthsOpen
-  conn EastHollow.AboveBash:
+  conn EastHollow.AboveBash:  # If you don't collect bash's tree, the camera is stuck. These paths ignore this issue.
     moki, EastHollow.DepthsLever:
-      Launch, Bash OR Hammer OR Spear=1 #unsure if any paths actually fit moki, because of the camera
+      Launch, Bash OR Hammer OR Spear=1
       Bash, Dash OR DoubleJump OR Glide
     gorlek, EastHollow.DepthsLever:
-      Bash, Sword OR Hammer OR Grenade=2
+      Launch  # The mortar will break the ceiling for you
+      SwordSJump=5, Dash OR Glide  # The mortar will break the ceiling for you
+      SwordSJump=4, DoubleJump  # The mortar will break the ceiling for you
+      Bash, Sword
+      Bash, Grenade=1, Damage=10  # Bash the slug to reach the first lantern, dboost in the spikes, grenade bash from the ledge
+    unsafe, EastHollow.DepthsLever:
+      Bash  # Bash the lantern next to the door and bait the slug to shoot at you so you can bash its projectile
 
 anchor GladesTown.Teleporter at -307, -4153:  # The glades teleporter
   refill Full
