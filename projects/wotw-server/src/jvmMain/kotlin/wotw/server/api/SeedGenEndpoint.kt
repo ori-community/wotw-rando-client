@@ -5,42 +5,37 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.io.messages.*
 import wotw.server.database.model.Seed
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.logger
 import java.io.File
-import java.nio.charset.Charset
 import java.nio.file.Path
 import java.util.jar.JarFile
+import kotlin.io.path.Path
 
 
 class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
     val logger = logger()
     override fun Route.initRouting() {
         get("seedgen/headers") {
-            val jar = JarFile(File(SeedGenEndpoint::class.java.protectionDomain.codeSource.location.toURI()).path)
-            val result = jar.entries().asSequence().filter {
-                it.name.endsWith("wotwrh")
-            }.map {
-                val lines = SeedGenEndpoint::class.java.classLoader.getResource(it.name).readText().split(System.lineSeparator())
+            val dir = Path(System.getenv("SEEDGEN_PATH")).parent.resolve("headers")
+            val result = dir.toFile().listFiles()?.map {
+                val lines = it.readText().split(System.lineSeparator())
                 val descrLines = lines.filter { it.startsWith("/// ") }.map { it.substringAfter("/// ") }
 
-                FileEntry(it.name.substringAfterLast("/"), descrLines.firstOrNull(), descrLines)
-            }.toList()
+                HeaderFileEntry(it.name.substringAfterLast("/"), descrLines.firstOrNull(), descrLines)
+            }?.toList() ?: emptyList()
             call.respond(result)
         }
         get("seedgen/presets") {
-            val jar = JarFile(File(SeedGenEndpoint::class.java.protectionDomain.codeSource.location.toURI()).path)
-            val presetMap = jar.entries().asSequence().filter {
-                it.name.startsWith("presets") && it.name.endsWith("json")
-            }.map {
+            val dir = Path(System.getenv("SEEDGEN_PATH")).parent.resolve("presets")
+            val presetMap = dir.toFile().listFiles()?.map {
                 it.name.substringAfterLast("/").substringBeforeLast(".json") to
-                        relaxedJson.decodeFromString(Preset.serializer(), SeedGenEndpoint::class.java.classLoader.getResource(it.name).readText())
-            }.toMap()
-            val result = presetMap.mapValues { it.value.fullResolve(presetMap) }
+                        relaxedJson.decodeFromString(PresetFile.serializer(), it.readText())
+            }?.toMap() ?: emptyMap()
+            val result = presetMap.map { it.value.fullResolve(presetMap).toPreset(it.key) }
             call.respond(result)
         }
         get("seeds/{id}") {
@@ -54,11 +49,11 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
             var command = "$seedgenExec seed --verbose".split(" ").toTypedArray() + config.flags.flatMap { it.split(" ") }
             if (config.goals.isNotEmpty()) {
                 command += "--goals"
-                command += config.goals
+                command += config.goals.map { it.name }
             }
             if (config.logic.isNotEmpty()) {
                 command += "--logic"
-                command += config.logic
+                command += config.logic.map { it.name.lowercase() }
             }
             if (config.presets.isNotEmpty()) {
                 command += "--presets"

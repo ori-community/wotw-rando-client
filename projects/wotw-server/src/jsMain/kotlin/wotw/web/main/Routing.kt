@@ -13,12 +13,15 @@ import react.router.dom.browserRouter
 import react.router.dom.route
 import react.router.dom.switch
 import styled.styledP
+import wotw.io.messages.Preset
 import wotw.web.ui.TempHeaderComp
 import wotw.web.ui.bingo.BingoView
 import wotw.web.ui.bingo.GameIdProps
 import wotw.web.ui.bingo.PlayerIdProps
 import wotw.web.ui.bingo.PlayersComponent
-import wotw.web.ui.seedgen.SeedGenUI
+import wotw.web.ui.seedgen.SeedGenComponent
+import wotw.web.util.RSelect
+import wotw.web.util.RSelectOption
 
 class RootComponent : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
@@ -52,7 +55,7 @@ class RootComponent : RComponent<RProps, RState>() {
                 route("/seedgen"){
                     div{
                         child(TempHeaderComp::class){}
-                        child(SeedGenUI::class){}
+                        child(SeedGenComponent::class){}
                     }
                 }
                 route("/", exact = true) {

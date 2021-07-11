@@ -11,10 +11,7 @@ import kotlinx.html.js.onClickFunction
 import react.RBuilder
 import react.RComponent
 import react.RState
-import react.dom.button
-import react.dom.div
-import react.dom.h1
-import react.dom.p
+import react.dom.*
 import react.setState
 import styled.css
 import styled.styledDiv
