@@ -43,9 +43,7 @@ class SeedGenComponent : RComponent<SeedGenProps, SeedGenState>() {
                 renderToggle(component.toPresetable(state.possiblePresets, state.possibleHeaders))
             }
             is ChoiceComponent -> {
-                renderDropdown(
-                    component.multi,
-                    component.components.map { it.toPresetable(state.possiblePresets, state.possibleHeaders) })
+                renderDropdown(component)
             }
         }
     }
@@ -163,52 +161,61 @@ class SeedGenComponent : RComponent<SeedGenProps, SeedGenState>() {
         }
     }
 
-    fun RBuilder.renderDropdown(multi: Boolean, options: List<Presetable>) {
-        val options = options.map { it.preset }
+    fun RBuilder.renderDropdown(cc: ChoiceComponent) {
+        val multi = cc.multi
+        val options = cc.components.map { it.toPresetable(state.possiblePresets, state.possibleHeaders).preset }
         val rSelectOptions = options.map { RSelectOption(it, it.name) }
-        child(RSelect::class) {
-            attrs.options = rSelectOptions.toTypedArray()
-            attrs.className = "seedgen-dropdown"
-            attrs.isMulti = multi
-            attrs.value = rSelectOptions.filter { state.implies(it.value as Preset) }.toTypedArray()
-            if (!multi && attrs.value.size > 1) {
-                val superset =
-                    attrs.value.firstOrNull { f -> attrs.value.all { setOf((f.value as Preset)).implies(it.value as Preset) } }
-                if (superset != null) {
-                    attrs.value = arrayOf(superset)
-                } else {
-                    attrs.options = arrayOf(RSelectOption("multiple", "multiple"))
-                    attrs.value = attrs.options
-                    attrs.isDisabled = true
-                }
+        hbox {
+            attrs.classes += "seedgen-dropdown-holder"
+            div {
+                attrs.classes += "seedgen-dropdown-label"
+                +"${cc.name}: "
             }
-            attrs.onChange = { newValue, change ->
-                console.log(newValue, change)
-                if (newValue != null) {
-                    (newValue.value as? Preset)?.let {
-                        setState {
-                            if (!multi) {
-                                (attrs.value.firstOrNull()?.value as? Preset)?.let {
-                                    remove(it)
-                                }
-                            }
-                            add(it)
-                        }
-                    }
-                    (newValue as? Array<dynamic>)?.let {
-                        setState {
-                            for (elem in it) {
-                                (elem.value as? Preset)?.let {
-                                    add(it)
-                                }
-                            }
-                        }
+            child(RSelect::class) {
+                attrs.options = rSelectOptions.toTypedArray()
+//            attrs.label =
+                attrs.className = "seedgen-dropdown"
+                attrs.isMulti = multi
+                attrs.value = rSelectOptions.filter { state.implies(it.value as Preset) }.toTypedArray()
+                if (!multi && attrs.value.size > 1) {
+                    val superset =
+                        attrs.value.firstOrNull { f -> attrs.value.all { setOf((f.value as Preset)).implies(it.value as Preset) } }
+                    if (superset != null) {
+                        attrs.value = arrayOf(superset)
+                    } else {
+                        attrs.options = arrayOf(RSelectOption("multiple", "multiple"))
+                        attrs.value = attrs.options
+                        attrs.isDisabled = true
                     }
                 }
-                (change.removedValue?.value as? Preset)?.let {
-                    console.log("removing??")
-                    setState {
-                        remove(it)
+                attrs.onChange = { newValue, change ->
+                    console.log(newValue, change)
+                    if (newValue != null) {
+                        (newValue.value as? Preset)?.let {
+                            setState {
+                                if (!multi) {
+                                    (attrs.value.firstOrNull()?.value as? Preset)?.let {
+                                        remove(it)
+                                    }
+                                }
+                                add(it)
+                            }
+                        }
+                        (newValue as? Array<dynamic>)?.let {
+                            setState {
+                                for (elem in it) {
+                                    (elem.value as? Preset)?.let {
+                                        add(it)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    (change.removedValue?.value as? Preset)?.let {
+                        console.log("removing??")
+                        setState {
+                            remove(it)
+                        }
                     }
                 }
             }

@@ -57,8 +57,8 @@ val DEFAULT_LAYOUT = SeedGenLayout(
         ),
         SingleComponent("f:multiplayer"),
         ChoiceComponent(
-            "Goals",
-            listOf(SingleComponent("g:trees"), SingleComponent("g:wisps"), SingleComponent("g:quests")),
+            "Goal Mode",
+            listOf(SingleComponent("g:trees"), SingleComponent("g:wisps"), SingleComponent("g:quests"), SingleComponent("g:relics")),
             true
         )
     ),
