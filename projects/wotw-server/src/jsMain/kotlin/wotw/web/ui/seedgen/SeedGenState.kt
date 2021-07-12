@@ -80,7 +80,7 @@ val SeedGenState.flags: Set<String>
     }
 
 fun SeedGenState.toConfig(): SeedGenConfig {
-    return SeedGenConfig(flags.toList(), headers.toList(), emptyList(), paths.toList(), goals.toList(), null, seed)
+    return SeedGenConfig()//flags.toList(), headers.toList(), emptyList(), paths.toList(), goals.toList(), null, seed)
 }
 
 enum class Flag : Presetable {

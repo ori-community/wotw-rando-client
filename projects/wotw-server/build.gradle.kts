@@ -113,6 +113,7 @@ kotlin {
                 implementation(npm("react-router-dom", "5.1.2"))
                 implementation(npm("react-select", "4.3.1"))
                 implementation(npm("file-saver", "2.0.5"))
+                implementation(npm("react-modal", "3.14.3"))
 
             }
         }

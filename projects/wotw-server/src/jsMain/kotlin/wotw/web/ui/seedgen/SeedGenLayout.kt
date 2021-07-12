@@ -22,7 +22,7 @@ value class SingleComponent(val component: String) : Comp {
     fun toPresetable(presets: Collection<Preset>, headers: Collection<HeaderFileEntry>): Presetable {
         if (component.startsWith("h:")) {
             val header = headers.firstOrNull {
-                it.fileName.substringBefore(".wotwrh") == component.substringAfter("h:")
+                it.headerName == component.substringAfter("h:")
             }
             if (header != null) return header
         }

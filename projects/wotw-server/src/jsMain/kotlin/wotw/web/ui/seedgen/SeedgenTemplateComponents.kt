@@ -3,7 +3,6 @@ package wotw.web.ui.seedgen
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.browser.window
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -12,11 +11,13 @@ import kotlinx.html.js.onClickFunction
 import org.w3c.files.Blob
 import org.w3c.files.BlobPropertyBag
 import react.*
-import react.dom.br
 import react.dom.button
 import react.dom.div
 import react.dom.p
 import wotw.io.messages.*
+import wotw.web.bindings.RSelect
+import wotw.web.bindings.RSelectOption
+import wotw.web.bindings.saveAs
 import wotw.web.main.Application
 import wotw.web.ui.ButtonComponent
 import wotw.web.ui.TabBar

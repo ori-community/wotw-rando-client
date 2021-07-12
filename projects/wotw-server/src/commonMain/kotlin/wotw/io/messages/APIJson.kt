@@ -16,15 +16,15 @@ data class BingoGenProperties(
 data class GameProperties(val isMulti: Boolean = false, val isCoop: Boolean = false)
 
 @Serializable
-data class HeaderFileEntry(val fileName: String, val name: String?, val description: List<String>?) : Presetable {
+data class HeaderFileEntry(val headerName: String, val name: String?, val description: List<String>?) : Presetable {
 
     @Transient
     private var lazyWorkaround: Preset? = null
     override val preset: Preset
         get() {
             if (lazyWorkaround == null) lazyWorkaround = Preset(
-                name = name ?: fileName,
-                headerList = setOf(fileName.substringBeforeLast(".")),
+                name = name ?: headerName,
+                headerList = setOf(headerName),
                 description = description ?: emptyList(),
                 wrapper = true
             )
@@ -163,8 +163,8 @@ data class SeedGenConfig(
     val flags: List<String> = emptyList(),
     val headers: List<String> = emptyList(),
     val presets: List<String> = emptyList(),
-    val logic: List<PathSet> = emptyList(),
-    val goals: List<GoalMode> = emptyList(),
+    val logic: List<String> = emptyList(),
+    val goals: List<String> = emptyList(),
     val multiNames: List<String>? = null,
     val seed: String? = null,
 )

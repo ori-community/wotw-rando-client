@@ -1,8 +1,7 @@
 @file:JsModule("react-select")
 @file:JsNonModule
-package wotw.web.util
+package wotw.web.bindings
 
-import kotlinext.js.Object
 import react.*
 
 external interface RSelectChange{

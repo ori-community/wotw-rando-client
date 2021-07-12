@@ -15,7 +15,6 @@ import java.nio.file.Path
 import java.util.jar.JarFile
 import kotlin.io.path.Path
 
-
 class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
     val logger = logger()
     override fun Route.initRouting() {
@@ -25,7 +24,7 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 val lines = it.readText().split(System.lineSeparator())
                 val descrLines = lines.filter { it.startsWith("/// ") }.map { it.substringAfter("/// ") }
 
-                HeaderFileEntry(it.name.substringAfterLast("/"), descrLines.firstOrNull(), descrLines)
+                HeaderFileEntry(it.name.substringAfterLast("/").substringBeforeLast("."), descrLines.firstOrNull(), descrLines)
             }?.toList() ?: emptyList()
             call.respond(result)
         }
@@ -38,55 +37,41 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
             val result = presetMap.map { it.value.fullResolve(presetMap).toPreset(it.key) }
             call.respond(result)
         }
-        get("seeds/{id}") {
+        get("seeds/{id}/{player?}") {
             val id = call.parameters["id"] ?: throw BadRequestException("No Seed ID found")
-            call.respond(seedFile(id).readBytes())
+            val player = call.parameters["player"]
+            call.respond(seedFile(id, player).readBytes())
         }
         post<SeedGenConfig>("seeds") { config ->
-            //TODO: Input validation
+
             val seed = newSuspendedTransaction { Seed.new {} }
-            val seedgenExec = System.getenv("SEEDGEN_PATH")
-            var command = "$seedgenExec seed --verbose".split(" ").toTypedArray() + config.flags.flatMap { it.split(" ") }
-            if (config.goals.isNotEmpty()) {
-                command += "--goals"
-                command += config.goals.map { it.name }
-            }
-            if (config.logic.isNotEmpty()) {
-                command += "--logic"
-                command += config.logic.map { it.name.lowercase() }
-            }
-            if (config.presets.isNotEmpty()) {
-                command += "--presets"
-                command += config.presets
-            }
-            if (config.headers.isNotEmpty()) {
-                command += "--headers"
-                command += config.headers
-            }
-            if (!config.multiNames.isNullOrEmpty()) {
-                command += "--names"
-                command += config.multiNames
-                command += "--worlds"
-                command += config.multiNames.size.toString()
-            }
+            val result = server.seedGeneratorService.generate("seed-${seed.id.value}", config)
 
-            command += "--"
-            command += "${seed.id.value}"
-
-            val process = ProcessBuilder(*command)
-                .directory(File(seedgenExec.substringBeforeLast(File.separator)))
-                .redirectOutput(ProcessBuilder.Redirect.PIPE)
-                .redirectError(ProcessBuilder.Redirect.INHERIT)
-                .start()
-            process.outputStream.close()
-            process.inputStream.readAllBytes()
-            val err = process.errorStream.readAllBytes().toString(Charsets.UTF_8)
-            if(!seedFile(seed).exists())
-                call.respondText(err, ContentType.Text.Plain, HttpStatusCode.InternalServerError)
-            else
+            if (result.isSuccess) {
                 call.respondText(seed.id.value.toString(), ContentType.Text.Plain, HttpStatusCode.Created)
+            } else {
+                call.respondText(
+                    result.exceptionOrNull()?.message ?: "Unknown seedgen error",
+                    ContentType.Text.Plain,
+                    HttpStatusCode.InternalServerError
+                )
+            }
         }
     }
-    fun seedFile(seedId: String) = Path.of("${System.getenv("SEED_DIR")}\\${seedId}.wotwr").toFile()
+
+    fun seedFile(seedId: String, player: String? = null): File {
+        var pathString = "${System.getenv("SEED_DIR")}\\seed-${seedId}"
+        if(player != null){
+            val sanitized = server.seedGeneratorService.sanitizedPlayerName(player)
+            pathString += "\\$sanitized"
+        }
+        pathString += ".wotwr"
+        val file =  Path.of(pathString).toFile()
+        if(!file.exists() || file.isDirectory)
+            throw NotFoundException()
+        return file
+    }
     fun seedFile(seed: Seed) = seedFile(seed.id.value.toString())
 }
+
+

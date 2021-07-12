@@ -24,7 +24,7 @@ import wotw.web.ui.SelectComponent
 import wotw.web.ui.TabBar
 import wotw.web.ui.TextFieldComponent
 import wotw.web.util.hbox
-import wotw.web.util.saveAs
+import wotw.web.bindings.saveAs
 import wotw.web.util.vbox
 
 
