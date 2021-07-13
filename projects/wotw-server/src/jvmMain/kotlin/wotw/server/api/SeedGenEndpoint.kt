@@ -60,10 +60,10 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
     }
 
     fun seedFile(seedId: String, player: String? = null): File {
-        var pathString = "${System.getenv("SEED_DIR")}\\seed-${seedId}"
+        var pathString = "${System.getenv("SEED_DIR")}${File.separator}seed-${seedId}"
         if(player != null){
             val sanitized = server.seedGeneratorService.sanitizedPlayerName(player)
-            pathString += "\\$sanitized"
+            pathString += "${File.separator}$sanitized"
         }
         pathString += ".wotwr"
         val file =  Path.of(pathString).toFile()
