@@ -8,6 +8,7 @@ import kotlinx.css.properties.border
 import kotlinx.html.classes
 import kotlinx.html.js.onClickFunction
 import react.*
+import react.dom.attrs
 import react.dom.div
 import react.dom.p
 import styled.css
@@ -78,7 +79,7 @@ class BingoView : RComponent<BingoViewProps, BingoViewState>() {
         vbox {
             hbox {
                 css {
-                    gap = Gap("10px")
+                    gap = 10.px
                 }
                 child(BingoCardComponent::class) {
                     attrs.gameId = props.gameId

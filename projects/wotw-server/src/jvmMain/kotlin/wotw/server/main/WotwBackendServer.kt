@@ -29,6 +29,7 @@ import wotw.server.sync.StateSynchronization
 import wotw.server.database.model.*
 import wotw.server.exception.AlreadyExistsException
 import wotw.server.exception.UnauthorizedException
+import wotw.server.seedgen.SeedGeneratorService
 import wotw.server.util.logger
 import java.io.File
 
@@ -68,14 +69,16 @@ class WotwBackendServer {
         }
 
     }
-
+    val proxyEndpoint = ProxyEndpoint(this)
     val bingoEndpoint = BingoEndpoint(this)
     val gameEndpoint = GameEndpoint(this)
     val seedGenEndpoint = SeedGenEndpoint(this)
     val authEndpoint = AuthenticationEndpoint(this)
     val userEndpoint = UserEndpoint(this)
+
     val connections = ConnectionRegistry()
     val sync = StateSynchronization(this)
+    val seedGeneratorService = SeedGeneratorService(this)
     val gameState = GameStateCache()
 
     private fun startServer(args: Array<String>) {
@@ -176,6 +179,7 @@ class WotwBackendServer {
                     }
                 }
                 routing {
+                    proxyEndpoint.init(this)
                     route("api") {
                         bingoEndpoint.init(this)
                         gameEndpoint.init(this)

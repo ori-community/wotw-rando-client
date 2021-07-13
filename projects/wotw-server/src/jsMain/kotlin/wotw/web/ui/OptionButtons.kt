@@ -9,7 +9,7 @@ import react.RProps
 import react.RState
 import react.dom.div
 
-
+/*
 external interface ButtonViewProps : RProps {
     var options: List<String>
     var selected: Set<String>
@@ -40,4 +40,4 @@ class ButtonComponent : RComponent<ButtonViewProps, RState>() {
             }
         }
     }
-}
+}*/
