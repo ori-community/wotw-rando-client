@@ -664,7 +664,8 @@ val coopAggregation by lazy {
             sync(multiStates()),
             sync(37858, 8487).on(threshold = 5f), //Wellspring fight room
             sync(5377, 53480).on(threshold = 4f), // pools fight room 2
-            sync(9593, 25130).on(threshold = 3f) // double jump lizard fight
+            sync(9593, 25130).on(threshold = 3f), // double jump lizard fight
+            sync(945, 58403).on(threshold = 7f) // kwolok fight
         )
     }
 }
