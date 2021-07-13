@@ -179,6 +179,7 @@ class WotwBackendServer {
                     }
                 }
                 routing {
+                    trace { application.log.trace(it.buildText()) }
                     proxyEndpoint.init(this)
                     route("api") {
                         bingoEndpoint.init(this)
