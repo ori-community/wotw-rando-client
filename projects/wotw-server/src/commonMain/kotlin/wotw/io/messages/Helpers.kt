@@ -21,9 +21,11 @@ val protoBuf = ProtoBuf {
 val json = Json{
     prettyPrint = true
     allowStructuredMapKeys = true
+    encodeDefaults = true
 }
 val relaxedJson = Json{
     prettyPrint = true
     allowStructuredMapKeys = true
     ignoreUnknownKeys = true
+    encodeDefaults = true
 }
