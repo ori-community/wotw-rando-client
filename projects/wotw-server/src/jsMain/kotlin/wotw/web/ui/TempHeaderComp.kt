@@ -10,6 +10,7 @@ import kotlinx.css.TextAlign
 import kotlinx.css.textAlign
 import kotlinx.html.js.onClickFunction
 import react.*
+import react.dom.attrs
 import react.dom.button
 import react.dom.p
 import styled.css

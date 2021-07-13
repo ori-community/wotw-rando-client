@@ -1,4 +1,4 @@
-package wotw.web.util
+package wotw.web.bindings
 
 import org.w3c.files.Blob
 

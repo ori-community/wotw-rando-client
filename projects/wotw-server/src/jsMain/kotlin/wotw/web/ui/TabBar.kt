@@ -25,7 +25,7 @@ class TabBar : RComponent<TabBarProps, RState>() {
                     attrs.classes = setOf("tab")
                     if (tab == props.selected)
                         attrs.classes += "selected"
-                    +tab.toString()
+                    +tab
                     attrs.onClickFunction = {
                         props.onSelect(tab)
                     }

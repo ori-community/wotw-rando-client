@@ -1,5 +1,5 @@
 package wotw.web.ui.seedgen
-
+/*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -14,72 +14,20 @@ import react.*
 import react.dom.button
 import react.dom.div
 import styled.StyledDOMBuilder
-import wotw.io.messages.FileEntry
+import wotw.io.messages.HeaderFileEntry
+import wotw.io.messages.GOAL_MODE
 import wotw.io.messages.Preset
 import wotw.io.messages.SeedGenConfig
 import wotw.util.biMapOf
 import wotw.web.main.Application
-import wotw.web.ui.ButtonComponent
 import wotw.web.ui.SelectComponent
 import wotw.web.ui.TabBar
 import wotw.web.ui.TextFieldComponent
 import wotw.web.util.hbox
-import wotw.web.util.saveAs
+import wotw.web.bindings.saveAs
 import wotw.web.util.vbox
 
-external interface SeedGenState : RState {
-    var possibleHeaders: Set<FileEntry>
-    var possiblePresets: Map<String, Preset>
 
-    var headers: Set<FileEntry>
-    var selectedTab: SeedGenTab
-    var paths: Set<String>
-    var goals: Set<String>
-    var flags: Set<String>
-    var currentDescription: String?
-    var seed: String?
-}
-
-fun SeedGenState.applyPreset(
-    preset: Preset,
-    replacePaths: Boolean = false,
-    replaceGoals: Boolean = false,
-    replaceHeaders: Boolean = false
-) {
-    if (replacePaths) {
-        paths = preset.pathsets.map { it.toLowerCase() }.toMutableSet()
-    } else {
-        paths += preset.pathsets.map { it.toLowerCase() }
-    }
-
-    if (replaceGoals) {
-        goals = preset.goalmodes.map { it.toLowerCase() }.toMutableSet()
-    } else {
-        goals += preset.goalmodes.map { it.toLowerCase() }
-    }
-
-    if (replaceHeaders) {
-        headers = possibleHeaders.filter { it.fileName.substringBefore(".wotwrh") in preset.headerList }.toMutableSet()
-    } else {
-        headers += possibleHeaders.filter { it.fileName.substringBefore(".wotwrh")  in preset.headerList }
-    }
-
-    if (preset.hard) {
-        flags += "--hard"
-    } else {
-        flags -= "--hard"
-    }
-    if (!preset.spoilers) {
-        flags += "--race"
-    } else {
-        flags -= "--race"
-    }
-    if (preset.webConn) {
-        flags += "--multiplayer"
-    } else {
-        flags -= "--multiplayer"
-    }
-}
 
 val PATH_SETS = mapOf(
     "moki" to "",
@@ -101,25 +49,25 @@ val FLAGS = mapOf(
 )
 
 val GOALS = mapOf(
-    "All Trees" to ("trees" to "Requires all Ancestral Trees to be activated before finishing the game."),
-    "All Wisps" to ("wisps" to "Requires all Wisps to be collected before finishing the game."),
-    "All Quests" to ("quests" to "Requires all Quests to be completed before finishing the game."),
-    "World Tour" to ("relics" to "Spreads special relic pickups throughout certain zones. All relics must be collected before finishing the game"),
+    GOAL_MODE.TREES to ("All Trees" to "Requires all Ancestral Trees to be activated before finishing the game."),
+    GOAL_MODE.WISPS to ("All Wisps" to "Requires all Wisps to be collected before finishing the game."),
+    GOAL_MODE.QUESTS to ("All Quests" to "Requires all Quests to be completed before finishing the game."),
+    GOAL_MODE.RELICS to ("World Tour" to "Spreads special relic pickups throughout certain zones. All relics must be collected before finishing the game"),
 )
 val DIFFICULTIES = biMapOf(
     "Moki" to "moki",
-    "Gorlek" to "gorlek"
+    "Gorlek" to "gorlek",
+    "Gorlek glitched" to "gorlek_glitch",
+    "Unsafe" to "",
 )
 
 class SeedGenUI : RComponent<RProps, SeedGenState>() {
     override fun SeedGenState.init() {
         selectedTab = SeedGenTab.PATHS
-        paths = mutableSetOf()
-        goals = mutableSetOf()
         flags = mutableSetOf()
         possibleHeaders = emptySet()
-        headers = mutableSetOf()
         possiblePresets = emptyMap()
+
     }
 
     override fun SeedGenState.init(props: RProps) {
@@ -128,13 +76,16 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
 
     override fun componentDidMount() {
         GlobalScope.launch {
-            val headers = Application.api.get<List<FileEntry>>("/seedgen/headers")
+            val headers = Application.api.get<List<HeaderFileEntry>>("/seedgen/headers")
             setState {
                 possibleHeaders = headers.toSet()
             }
             val presets = Application.api.get<Map<String, Preset>>("/seedgen/presets")
             setState {
                 possiblePresets = presets
+                possiblePresets["moki"]?.also {
+                    selectedPresets += it
+                }
             }
         }
 
@@ -143,6 +94,7 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
     override fun RBuilder.render() {
         vbox {
             attrs.classes += "seedgen"
+            header()
             child(TabBar::class) {
                 attrs.onSelect = {
                     setState {
@@ -153,7 +105,6 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                 attrs.tabs = SeedGenTab.values().toList().map { it.toString() }
                 attrs.onHover = {}
             }
-            header()
             hbox {
                 attrs.classes += "seedgen-content"
                 buttons()
@@ -184,7 +135,7 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                                 body = SeedGenConfig(
                                     flags = state.flags.mapNotNull { FLAGS[it]?.first },
                                     goals = state.goals.mapNotNull { GOALS[it]?.first },
-                                    headers = state.headers.map { it.fileName },
+                                 //   headers = state.headers.map { it.fileName },
                                     logic = state.paths.toList(),
                                     multiNames = null,
                                     seed = state.seed
@@ -192,13 +143,16 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                             ) {
                                 contentType(ContentType.Application.Json)
                             }
-                            if(response.status == HttpStatusCode.Created) {
+                            if (response.status == HttpStatusCode.Created) {
                                 val id: String = response.readText()
                                 val seedResp = Application.api.get<HttpResponse>(path = "seeds/${id}")
                                 val stringArray = seedResp.readText()
                                 console.log(stringArray)
-                                val blob = Blob(blobParts = arrayOf(stringArray), BlobPropertyBag(type = "text/plain;charset=utf-8"))
-                                saveAs(blob, (if(state.seed.isNullOrEmpty()) "seed" else state.seed) + ".wotwr")
+                                val blob = Blob(
+                                    blobParts = arrayOf(stringArray),
+                                    BlobPropertyBag(type = "text/plain;charset=utf-8")
+                                )
+                                saveAs(blob, (if (state.seed.isNullOrEmpty()) "seed" else state.seed) + ".wotwr")
                             } else {
                                 console.log(response.readText())
                             }
@@ -214,11 +168,12 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
         hbox {
             attrs.classes += "seedgen-header"
             child(SelectComponent::class) {
-                attrs.onSelect = {
+                attrs.onSelect = { old, new ->
                     setState {
-                        val newDifficulty = it.firstOrNull() ?: return@setState
+                        val newDifficulty = new.firstOrNull() ?: return@setState
                         possiblePresets[DIFFICULTIES[newDifficulty]]?.also {
-                            applyPreset(it, replacePaths = true, replaceGoals = true, replaceHeaders = true)
+                         //   selectedPresets -= DIFFICULTIES[old.firstOrNull()]?.toPre
+
                         }
                     }
                 }
@@ -226,12 +181,23 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                 attrs.values = DIFFICULTIES.keys.toList()
                 attrs.multiselect = false
             }
+            child(SelectComponent::class) {
+                attrs.onSelect = { _, new ->
+                    setState {
+                        //goals = new.toMutableSet()
+                    }
+                }
+                attrs.initalSelection = setOf("wisps")
+                attrs.values = GOALS.values.map { it.first }.toList()
+                attrs.multiselect = true
+            }
+
         }
     }
 
     fun StyledDOMBuilder<DIV>.buttons() {
         when (state.selectedTab) {
-            SeedGenTab.PATHS -> child(ButtonComponent::class) {
+            /*SeedGenTab.PATHS -> child(ButtonComponent::class) {
                 attrs.options = PATH_SETS.keys.toList()
                 attrs.selected = state.paths
                 attrs.onSelect = {
@@ -260,7 +226,7 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                     }
                 }
             }
-            SeedGenTab.GOALS -> child(ButtonComponent::class) {
+            /*SeedGenTab.GOALS -> child(ButtonComponent::class) {
                 attrs.options = GOALS.keys.toList()
                 attrs.selected = state.goals
                 attrs.onSelect = {
@@ -273,7 +239,7 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                         currentDescription = GOALS[it]?.second
                     }
                 }
-            }
+            }*/
             SeedGenTab.FLAGS -> child(ButtonComponent::class) {
                 attrs.options = FLAGS.keys.toList()
                 attrs.selected = state.flags
@@ -287,16 +253,16 @@ class SeedGenUI : RComponent<RProps, SeedGenState>() {
                         currentDescription = FLAGS[it]?.second
                     }
                 }
-            }
+            }*/
         }
     }
 }
 
 enum class SeedGenTab {
-    PATHS, HEADERS, FLAGS, GOALS;
+    PATHS, HEADERS, FLAGS;
 
     override fun toString(): String {
-        return super.toString().toLowerCase().capitalize()
+        return super.toString().lowercase().capitalize()
     }
 }
 
@@ -314,4 +280,4 @@ class DescriptionBox : RComponent<DescriptionProps, RState>() {
             }
         }
     }
-}
+}*/

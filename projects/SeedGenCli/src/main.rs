@@ -5,6 +5,7 @@ use std::{
     io::{self, Read},
     time::Instant,
     collections::HashMap,
+    process,
 };
 
 use structopt::StructOpt;
@@ -527,7 +528,10 @@ fn main() {
             let use_file = if verbose { Some("generator.log") } else { None };
             seedgen::initialize_log(use_file, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
-            generate_seeds(args, tostdout).unwrap_or_else(|err| log::error!("{}", err));
+            generate_seeds(args, tostdout).unwrap_or_else(|err| {
+              log::error!("{}", err);
+              process::exit(2);
+            });
         },
         SeedGenCommand::Play => {
             seedgen::initialize_log(None, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));

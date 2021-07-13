@@ -21,7 +21,7 @@ object Application {
         install(JsonFeature){
             serializer = KotlinxSerializer(wotw.io.messages.json)
         }
-        val is_dev = false
+        val is_dev = true
         //TODO: config
         defaultRequest {
             url.protocol = if(is_dev)
@@ -34,12 +34,8 @@ object Application {
                 if(url.protocol ==  URLProtocol.WS) URLProtocol.WSS  else url.protocol
             url.host = window.location.hostname
             url.port = window.location.port.toIntOrNull() ?: if(url.protocol == URLProtocol.HTTP || url.protocol == URLProtocol.WS) 80 else 443
-            //url.host = BACKEND_HOST
-            //url.port = BACKEND_PORT
             if(!(url.encodedPath.startsWith("/api/") || url.encodedPath.startsWith("api/")))
                 url.encodedPath = "/api/" + url.encodedPath
-
-            console.log(url)
         }
     }
 

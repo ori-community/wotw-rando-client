@@ -34,6 +34,16 @@ input[type=text]{
     color: white;
 }
 
+select{
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+    border: white solid 1px;
+    color: white;
+    text-align: center;
+    text-align-last: center;
+}
+
 .tabBar{
     border-bottom: #AAA solid 1px;
     display: flex;
@@ -77,7 +87,7 @@ input[type=text]{
     width: 70%;
 
 }
-.option-buttons .option-button {
+.option-button {
     border: white 1px solid;
     padding: 10px;
     margin: 10px;
@@ -85,10 +95,10 @@ input[type=text]{
     text-align: center;
 }
 
-.option-buttons .option-button.selected{
+.option-button.selected{
     background-color: #444;
 }
-.option-buttons .option-button:hover{
+.option-button:hover{
     cursor: pointer;
     background-color: #555;
 }
@@ -99,8 +109,22 @@ input[type=text]{
 .seedgen-content{
     justify-content: space-between;
     height: 60%;
-    width:80%;
+    width: 80%;
 }
+.seedgen-dropdown-holder{
+    border: white 1px solid;
+    border-radius: 5px;
+}
+.seedgen-dropdown-label{
+    padding: 10px 50px 10px 50px;
+    margin: 10px;
+    text-align: center;
+}
+.seedgen-dropdown{
+    background-color: var(--background-color);
+    border-color: white;
+}
+
 .description-box:empty:before{
     content: " ";
 }

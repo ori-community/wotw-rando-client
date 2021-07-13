@@ -3,7 +3,6 @@ package wotw.server.database
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
-import kotlinx.serialization.stringify
 import wotw.server.database.JsonbColumnType.Companion.JSONB
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.Function
