@@ -69,7 +69,7 @@ class WotwBackendServer {
         }
 
     }
-
+    val proxyEndpoint = ProxyEndpoint(this)
     val bingoEndpoint = BingoEndpoint(this)
     val gameEndpoint = GameEndpoint(this)
     val seedGenEndpoint = SeedGenEndpoint(this)
@@ -179,6 +179,7 @@ class WotwBackendServer {
                     }
                 }
                 routing {
+                    proxyEndpoint.init(this)
                     route("api") {
                         bingoEndpoint.init(this)
                         gameEndpoint.init(this)
