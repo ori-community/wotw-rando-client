@@ -179,8 +179,7 @@ class WotwBackendServer {
                     }
                 }
                 routing {
-                    trace { application.log.trace(it.buildText()) }
-                    proxyEndpoint.init(this)
+                    trace { logger.trace(it.buildText()) }
                     route("api") {
                         bingoEndpoint.init(this)
                         gameEndpoint.init(this)
@@ -191,6 +190,7 @@ class WotwBackendServer {
                             call.respondText("WOTW-Backend running")
                         }
                     }
+                    proxyEndpoint.init(this)
                     static("static") {
                         resource("flex-helper.css")
                         resource("style.css")
