@@ -7,6 +7,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import wotw.io.messages.*
+import wotw.server.database.model.Game
 import wotw.server.database.model.Seed
 import wotw.server.main.WotwBackendServer
 import wotw.server.util.logger
@@ -48,7 +49,13 @@ class SeedGenEndpoint(server: WotwBackendServer) : Endpoint(server) {
             val result = server.seedGeneratorService.generate("seed-${seed.id.value}", config)
 
             if (result.isSuccess) {
-                call.respondText(seed.id.value.toString(), ContentType.Text.Plain, HttpStatusCode.Created)
+                call.respond(HttpStatusCode.Created, SeedGenResponse(
+                    seedId = seed.id.value,
+                    playerList = config.multiNames?: emptyList(),
+                    gameId = if(config.isCoop || config.isMulti) {
+                        newSuspendedTransaction { Game.new {props = GameProperties(config.isMulti, config.isCoop)} }.id.value
+                    } else null
+                ))
             } else {
                 call.respondText(
                     result.exceptionOrNull()?.message ?: "Unknown seedgen error",

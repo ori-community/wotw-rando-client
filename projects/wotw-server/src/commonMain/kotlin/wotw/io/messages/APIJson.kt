@@ -166,5 +166,14 @@ data class SeedGenConfig(
     val logic: List<String> = emptyList(),
     val goals: List<String> = emptyList(),
     val multiNames: List<String>? = null,
+    val isMulti: Boolean = false,
+    val isCoop: Boolean = false,
     val seed: String? = null,
+)
+
+@Serializable
+data class SeedGenResponse(
+    val seedId: Long,
+    val playerList: List<String> = emptyList(),
+    val gameId: Long? = null,
 )
