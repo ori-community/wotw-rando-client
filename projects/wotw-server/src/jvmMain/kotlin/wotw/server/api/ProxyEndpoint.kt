@@ -15,6 +15,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
+import io.ktor.util.*
 import io.ktor.utils.io.*
 import io.ktor.websocket.webSocket
 import org.jetbrains.exposed.sql.SizedCollection
@@ -45,7 +46,8 @@ class ProxyEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 }"
             val response = client.request<HttpStatement>(url).execute()
 
-            val proxiedHeaders = response.headers
+            val proxiedHeaders = response.headers.filter{ key, _ -> !listOf("contentType", "contentLength", "transferEncoding").contains(key) }
+
             val location = proxiedHeaders[HttpHeaders.Location]
             val contentType = proxiedHeaders[HttpHeaders.ContentType]
             val contentLength = proxiedHeaders[HttpHeaders.ContentLength]
