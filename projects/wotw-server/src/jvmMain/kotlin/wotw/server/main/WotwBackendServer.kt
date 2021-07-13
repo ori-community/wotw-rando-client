@@ -179,7 +179,7 @@ class WotwBackendServer {
                     }
                 }
                 routing {
-                    trace { logger.trace(it.buildText()) }
+                    trace { logger.warn(it.buildText()) }
                     route("api") {
                         bingoEndpoint.init(this)
                         gameEndpoint.init(this)
