@@ -21,7 +21,7 @@ object Application {
         install(JsonFeature){
             serializer = KotlinxSerializer(wotw.io.messages.json)
         }
-        val is_dev = true
+        val is_dev = false
         //TODO: config
         defaultRequest {
             url.protocol = if(is_dev)
