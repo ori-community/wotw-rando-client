@@ -110,16 +110,6 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     SplashTextOff
     FileDelete, %INSTALL_DIR%.VERSION
 
-    ; Check Java Installation and prompt if not found.
-    javaTest := ComObjCreate("WScript.Shell").Exec("cmd.exe /c java -jar """ . INSTALL_DIR . "SeedGen.jar"" test").StdOut.ReadAll()
-    If !InStr(javaTest, "tested") {
-        MsgBox, 4, Java not found!, Java was not found on your system. Java 8 is required to run the seedgen and generate your own seeds.`nGet it from: https://www.java.com/en/download/. `n`nOpen URL now?
-        IfMsgBox, Yes, {
-            Run, https://www.java.com/en/download/
-            MsgBox,, Java not installed, After the java install has finished, press OK to continue.
-        }
-    }
-
 ;     viruswarningmsg = 
 ;     (
 ; Due to the way the randomizer works, your virusscanner might see part of it as malware and will quarantine or remove it.
@@ -184,9 +174,9 @@ ExitApp
 
 PromptAfterInstall:
 SetTimer, ChangeButtonNames, 25 
-Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`n> Launch the randomizer by running %INSTALL_DIR%WotwRando.exe`n  or by double-clicking a .wotwr file`n> Generate Seeds by running %INSTALL_DIR%SeedGen.jar`n> Change settings using %INSTALL_DIR%RandoSettings.exe
+Msgbox 3, WOTW Rando v%MY_VER% Installer, Installation complete!`n`n> Launch the randomizer by running %INSTALL_DIR%WotwRando.exe`n  or by double-clicking a .wotwr file`n> Generate Seeds at https://wotw.orirando.com/seedgen Change settings using %INSTALL_DIR%RandoSettings.exe
 IfMsgBox, Yes 
-    Run, java -jar "%INSTALL_DIR%\SeedGen.jar" , %INSTALL_DIR%
+    Run, "https://wotw.orirando.com/seedgen"
 IfMsgBox, No 
     Run,  %INSTALL_DIR%RandoSettings.exe
 ExitApp
@@ -202,14 +192,6 @@ ControlSetText, Button2, &Settings
 ControlSetText, Button3, &Exit 
 return
 
-ChangeButtonNames_JavaInstaller: 
-IfWinNotExist, Java not installed
-    return  ; Keep waiting.
-SetTimer, ChangeButtonNames_JavaInstaller, Off 
-WinActivate 
-ControlSetText, Button1, &Open URL 
-ControlSetText, Button2, &Continue 
-return
 
 CheckSteamPath:
 if(not FileExist(SteamPath)) {
@@ -344,7 +326,7 @@ FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
 FileInstall, C:\moon\Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
 FileInstall, C:\moon\seedgen.exe, %INSTALL_DIR%seedgen.exe, 1
-FileInstall, C:\moon\headers_presets.zip, %INSTALL_DIR%headers_presets.zip, 1
+FileInstall, C:\moon\headers_presets.zip, %INSTALL_DIR%headers_presets.zip  , 1
 FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe, 1
 FileInstall, C:\moon\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
 FileInstall, C:\moon\state_data.csv, %INSTALL_DIR%state_data.csv, 1
