@@ -314,6 +314,9 @@ return
 
 ExtractFiles:
 TryDelete(INSTALL_DIR . "SeedGen.jar")
+;TryDelete(INSTALL_DIR . "seedgen.exe")
+;TryDelete(INSTALL_DIR . "state_data.csv")
+;TryDelete(INSTALL_DIR . "headers_presets.zip")
 TryDelete(INSTALL_DIR . "RandoSettings.exe")
 TryDelete(INSTALL_DIR . "ItemTracker.exe")
 TryDelete(INSTALL_DIR . "Injector.exe")
@@ -340,9 +343,11 @@ FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
 FileInstall, C:\moon\Il2CppModLoader.dll, %INSTALL_DIR%Il2CppModLoader.dll, 1
-FileInstall, C:\moon\SeedGen.jar, %INSTALL_DIR%SeedGen.jar, 1
+FileInstall, C:\moon\seedgen.exe, %INSTALL_DIR%seedgen.exe, 1
+FileInstall, C:\moon\headers_presets.zip, %INSTALL_DIR%headers_presets.zip, 1
 FileInstall, C:\moon\Injector.exe, %INSTALL_DIR%Injector.exe, 1
 FileInstall, C:\moon\loc_data.csv, %INSTALL_DIR%loc_data.csv, 1
+FileInstall, C:\moon\state_data.csv, %INSTALL_DIR%state_data.csv, 1
 FileInstall, C:\moon\areas.wotw, %INSTALL_DIR%areas.wotw, 1
 FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
 FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
