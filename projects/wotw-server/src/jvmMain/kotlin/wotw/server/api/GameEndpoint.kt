@@ -107,7 +107,7 @@ class GameEndpoint(server: WotwBackendServer) : Endpoint(server) {
                 call.respond(HttpStatusCode.OK)
             }
 
-            webSocket("game_sync") {
+            webSocket("game_sync/") {
                 val playerId = call.sessions.get<UserSession>()?.user ?: return@webSocket this.close(
                     CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session active!")
                 )
