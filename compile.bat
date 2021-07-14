@@ -1,16 +1,13 @@
 :: change these if necessary
 set MSBuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MsBuild.exe"
-set JavaHome="C:\Program Files\Java\jdk1.8.0_281\"
 cd "%~dp0"
 
+copy ".\VERSION" "C:\moon\VERSION" /Y
 
 if "%1"=="compileonly" (
-	cd "projects"
-	cd "SeedGen"
-	copy ".\loc_data.csv" "C:\moon\loc_data.csv" /Y
-	copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
-	cd "..\.."
-	copy ".\VERSION" "C:\moon\VERSION" /Y
+	copy ".\projects\SeedGenCli\loc_data.csv" "C:\moon\loc_data.csv" /Y
+	copy ".\projects\SeedGenCli\state_data.csv" "C:\moon\state_data.csv" /Y
+	copy ".\projects\SeedGenCli\areas.wotw" "C:\moon\areas.wotw" /Y
 	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
 	echo built RandoSettings.exe
 	".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
@@ -21,15 +18,19 @@ if "%1"=="compileonly" (
 	timeout /t 3
 	exit 0
 )
-
-copy "VERSION" "C:\moon\VERSION" /Y
+cd "%~dp0"
 
 if NOT "%1"=="buildonly" (
-	cd "projects\SeedGen"
-	call sbt assembly --java-home=%JavaHome%
-	cd "..\.."
-	timeout /t 3
+	cd ".\projects\SeedGenCli"
+	echo building rust seedgen :D
+	call compile.bat
+	copy ".\target\release\seedgen.exe" "C:\moon\seedgen.exe"
+	if "%1"=="release" (
+		"C:\Program Files\7-Zip\7z.exe" a -tzip C:\moon\headers_presets.zip headers presets
+		echo updated headers_presets.zip
+	)
 )
+cd "%~dp0"
 
 :: Either change paths or build yourself and run with nobuild
 if NOT "%1"=="nobuild" (
@@ -41,8 +42,11 @@ if NOT "%1"=="nobuild" (
 	)
 )
 
-copy "projects\SeedGen\loc_data.csv" "C:\moon\loc_data.csv" /Y
-copy "projects\SeedGen\areas.wotw" "C:\moon\areas.wotw" /Y
+cd "%~dp0"
+copy ".\projects\SeedGenCli\loc_data.csv" "C:\moon\loc_data.csv" /Y
+copy ".\projects\SeedGenCli\state_data.csv" "C:\moon\state_data.csv" /Y
+copy ".\projects\SeedGenCli\areas.wotw" "C:\moon\areas.wotw" /Y
+
 
 
 if NOT "%1"=="buildonly" (
