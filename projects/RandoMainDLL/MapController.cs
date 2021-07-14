@@ -62,7 +62,6 @@ namespace RandoMainDLL {
       }
     }
     public static bool Updating;
-    public static bool RustLogic = false;
     public static void UpdateReachableAsync(List<String> argsList, int sleepTime = 30) {
       try {
         Thread.Sleep(sleepTime); // wait to let values update
@@ -70,7 +69,7 @@ namespace RandoMainDLL {
           return;
         Updating = true;
         var proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = RustLogic ? $"{Randomizer.BasePath}\\seedgen.exe" : @"java.exe";
+        proc.StartInfo.FileName = $"{Randomizer.BasePath}\\seedgen.exe";
         proc.StartInfo.Arguments = String.Join(" ", argsList);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
@@ -87,7 +86,7 @@ namespace RandoMainDLL {
     }
     private static string reachCheckResult = "";
     private static List<String> GetArgs() {
-      var argsList = RustLogic ? new List<string> {
+      var argsList = new List<string> {
           "reach-check",
           // TODO maybe we won't pass these explicitly? since it's samefolder shit
           "--areas",
@@ -96,22 +95,14 @@ namespace RandoMainDLL {
           $"\"{Randomizer.BasePath}loc_data.csv\"",
           "--uber-states",
           $"\"{Randomizer.BasePath}state_data.csv\"",
-
-        } : new List<string> {
-          "-jar",
-          $"\"{Randomizer.BasePath}SeedGen.jar\" ",
-          "ReachCheck"
-          };
-      argsList.AddRange(new List<string> {
           $"\"{SeedController.SeedFile}\"",
           $"{InterOp.get_max_health()}",
           $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
           $"{UberGet.value(6, 0).Int}",
           $"{InterOp.get_ore()}",
           $"{InterOp.get_experience()}",
-        });
-      if (RustLogic)
-        argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
+        };
+      argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
       argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
       argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
       if (new QuestEvent(QuestEventType.Water).Has())
