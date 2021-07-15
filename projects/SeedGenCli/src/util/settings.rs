@@ -237,8 +237,7 @@ impl Settings {
 
         let mut slug = String::new();
 
-        for index in 0..SLUGSTRINGS.len() {
-            let slug_strings = SLUGSTRINGS[index];
+        for (index, slug_strings) in SLUGSTRINGS.iter().enumerate() {
             let length = slug_strings.len();
 
             let mut shift = 1;

@@ -67,7 +67,7 @@ struct WorldContext<'a> {
     spawn_slots: Vec<&'a Node>,
     reachable_locations: Vec<&'a Node>,
     unreachable_locations: Vec<&'a Node>,
-    spirit_light_rng: SpiritLightAmounts,
+    spirit_light_rng: SpiritLightAmounts,  // TODO this can get kinda weird maybe have a shared spirit light rng instead
     random_spirit_light: Bernoulli,
 }
 
@@ -120,7 +120,7 @@ where
     }
 
     let code = item.code();
-    let custom_name = context.custom_names.get(&code).map(|name| name.clone());
+    let custom_name = context.custom_names.get(&code).cloned();
     let item_display = custom_name.clone().unwrap_or_else(|| format!("{}", item));
 
     if origin_world_index == target_world_index {
@@ -340,6 +340,7 @@ where
         let target_world_context = &mut world_contexts[target_world_index];
 
         if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
+            let item = item.clone();
             target_world_context.world.pool.remove(&item, 1);
             target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
             place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
@@ -441,10 +442,11 @@ where
     }
 
     for target_world_index in 0..context.world_count {
-        let remaining = world_contexts[target_world_index].world.pool.inventory();
-        log::trace!("({}): Placing the remaining {} items randomly", world_contexts[target_world_index].player_name, remaining.item_count());
+        let mut remaining = world_contexts[target_world_index].world.pool.inventory.items.drain()
+            .flat_map(|(item, amount)| vec![item; amount.into()])
+            .collect::<Vec<_>>();
+        log::trace!("({}): Placing the remaining {} items randomly", world_contexts[target_world_index].player_name, remaining.len());
 
-        let mut remaining = remaining.inventory.into_iter().flat_map(|(item, amount)| vec![item; amount.into()]).collect::<Vec<_>>();
         remaining.shuffle(context.rng);
 
         let mut out_of_space = false;
@@ -508,8 +510,10 @@ where
 fn total_reach_check<'a>(world: &World<'a>, player_name: &str) -> Result<Vec<&'a Node>, String> {
     log::trace!("({}): Creating a player with everything to determine reachable locations", player_name);
     let mut finished_world = world.clone();
-    for (item, amount) in &world.pool.progressions.inventory {
-        finished_world.grant_player(item.clone(), *amount)?;
+    for (item, amount) in &world.pool.inventory.items {
+        if item.is_progression(&world.player.pathsets) {
+            finished_world.grant_player(item.clone(), *amount)?;
+        }
     }
     finished_world.grant_player(Item::SpiritLight(1), world.pool.spirit_light)?;
 
@@ -562,6 +566,7 @@ where
                 let target_world_context = &mut world_contexts[target_world_index];
 
                 if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
+                    let item = item.clone();
                     target_world_context.world.pool.remove(&item, 1);
                     target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
                     place_item(origin_world_index, target_world_index, node, true, item, world_contexts, context)?;
@@ -577,7 +582,7 @@ where
     Ok(())
 }
 
-pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &Vec<&'a Node>, spawn_pickup_node: &'a Node, custom_names: &HashMap<String, String>, settings: &Settings, rng: &mut R) -> Result<Vec<Vec<Placement<'a>>>, String>
+pub fn generate_placements<'a, R>(worlds: Vec<World<'a>>, spawns: &[&'a Node], spawn_pickup_node: &'a Node, custom_names: &HashMap<String, String>, settings: &Settings, rng: &mut R) -> Result<Vec<Vec<Placement<'a>>>, String>
 where
     R: Rng,
 {
@@ -586,7 +591,7 @@ where
     let world_tour = settings.goalmodes.contains(&GoalMode::Relics);
 
     let mut world_contexts = worlds.into_iter().enumerate().map(|(world_index, mut world)| {
-        let player_name = settings.players.get(world_index).map(|name| name.clone()).unwrap_or_else(|| format!("Player {}", world_index + 1));
+        let player_name = settings.players.get(world_index).cloned().unwrap_or_else(|| format!("Player {}", world_index + 1));
 
         world.collect_preplacements(spawn_pickup_node.uber_state().unwrap());
 
@@ -624,7 +629,7 @@ where
                 !world.preplacements.contains_key(node.uber_state().unwrap())
             })
             .count();
-        let mut spirit_light_slots = world_slots - world.pool.inventory().item_count();
+        let mut spirit_light_slots = world_slots - world.pool.inventory.item_count();
         if world_tour { spirit_light_slots -= 10; }
         log::trace!("({}): Estimated {}/{} slots for Spirit Light", player_name, spirit_light_slots, world_slots);
 
@@ -775,7 +780,7 @@ where
                                 for missing in orb_variants {
                                     // log::trace!("missing items: {}", missing);
 
-                                    if missing.inventory.is_empty() {  // sanity check
+                                    if missing.items.is_empty() {  // sanity check
                                         log::trace!("({}): Failed to determine which items were needed for progression to meet {:?} (had {})", world_context.player_name, requirement, world_context.world.player.inventory);
                                         return Err(String::from("Failed to determine which items were needed for progression"));
                                     }
@@ -796,26 +801,24 @@ where
                     }
                 } else {
                     if world_contexts.iter().any(|world_context| !world_context.placeholders.is_empty()) &&
-                    world_contexts.iter().any(|world_context| !world_context.world.pool.progressions.inventory.is_empty()) {
+                    world_contexts.iter().any(|world_context| !world_context.world.pool.inventory.items.iter().all(|(item, _)| !item.is_progression(&world_context.world.player.pathsets))) {
                         flush_item_pool(&mut world_contexts, &mut context)?;
                         continue 'main;
                     }
 
                     if world_contexts.iter().all(|world_context| world_context.placements.is_empty()) {
-                        for world_index in 0..context.world_count {
-                            let world_context = &world_contexts[world_index];
-                            return Err(format!("({}): Failed to reach anything from spawn location {}", world_context.player_name, world_context.spawn));
+                        for world_context in &world_contexts {
+                            log::trace!("({}): Failed to reach anything from spawn location {}", world_context.player_name, world_context.spawn);
                         }
+                        return Err(String::from("Failed to reach anything from spawn location"));
                     }
 
-                    for world_index in 0..context.world_count {
-                        let world_context = &world_contexts[world_index];
-
+                    for world_context in &world_contexts {
                         let identifiers: Vec<_> = world_context.reachable_locations.iter()
                             .filter_map(|&node| {
                                 let node_index = node.index();
 
-                                node.uber_state().map_or(None, |uber_state|
+                                node.uber_state().and_then(|uber_state|
                                     if !world_context.placements.iter().any(|placement| &placement.uber_state == uber_state) &&
                                     !world_context.placeholders.iter().any(|&placeholder| placeholder.index() == node_index) &&
                                     !world_context.collected_preplacements.iter().any(|&collected| collected == node_index)
@@ -863,7 +866,7 @@ where
                     let mut lookahead_reachable = world_context.world.graph.reached_locations(&lookahead_player, world_context.spawn, &world_context.world.uber_states)?;
                     lookahead_reachable.retain(|&node| node.can_place());
 
-                    newly_reached += lookahead_reachable.len().checked_sub(reachable_counts[world_index]).unwrap_or(0);
+                    newly_reached += lookahead_reachable.len().saturating_sub(reachable_counts[world_index]);
                     // Resource tracking can result in reaching less locations with an added teleporter, so prevent any overflows.
                     // This is very rare and usually means the granted teleporter doesn't actually lead anywhere new, so 0 newly reached is accurate enough.
                 }
@@ -894,7 +897,7 @@ where
 
             log::trace!("({}): Chosen progression: {}", world_context.player_name, progression);
 
-            for (item, amount) in &progression.inventory {
+            for (item, amount) in &progression.items {
                 let items = if let Item::SpiritLight(1) = item {
                     let mut spirit_light_items = Vec::with_capacity(1);
                     let mut amount_placed = 0;
@@ -920,8 +923,8 @@ where
 
             let mut total_placeholders = world_contexts.iter().map(|world_context| world_context.placeholders.len()).sum::<usize>();
 
-            for origin_world_index in 0..context.world_count {
-                for &node in &needs_placement[origin_world_index] {
+            for (origin_world_index, world_needs_placement) in needs_placement.iter().enumerate() {
+                for &node in world_needs_placement {
                     let allow_placeholder = total_placeholders < PLACEHOLDER_SLOTS;
                     if !random_placement(origin_world_index, node, allow_placeholder, &mut world_contexts, &mut context)? {
                         total_placeholders += 1;

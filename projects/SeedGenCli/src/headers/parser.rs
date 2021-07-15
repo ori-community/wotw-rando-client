@@ -12,7 +12,7 @@ use crate::world::{
 };
 use crate::inventory::Item;
 use crate::util::{
-    self, Pathsets, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
+    self, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
     settings::Settings,
     uberstate::{UberState, UberIdentifier},
 };
@@ -239,7 +239,7 @@ where P: Iterator<Item=&'a str>
     let signal = parts.next().ok_or_else(|| String::from("missing ahk signal specifier"))?;
     end_of_pickup(parts)?;
 
-    Ok(Item::Command(Command::AHKSignal { signal: signal.to_string() }))
+    Ok(Item::Command(Command::AhkSignal { signal: signal.to_string() }))
 }
 fn parse_if<'a, P>(mut parts: P) -> Result<(UberState, Item), String>
 where P: Iterator<Item=&'a str>
@@ -503,7 +503,7 @@ fn read_args(seed: &str, start_index: usize) -> Option<usize> {
         }
     }
 
-    return None;
+    None
 }
 
 #[inline]
@@ -567,13 +567,13 @@ fn exclude_command(name: &Path, exclude: &str, excludes: &mut HashMap<String, St
     excludes.insert(exclude.to_string(), name);
 }
 #[inline]
-fn add_command(mut pickup: &str, world: &mut World, pathsets: &Pathsets) -> Result<(), String> {
+fn add_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
     let count = parse_count(&mut pickup);
     let item = parse_pickup(pickup)?;
 
     log::trace!("adding {}{} to the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
 
-    world.pool.grant(item, count, pathsets);
+    world.pool.grant(item, count);
 
     Ok(())
 }
@@ -678,7 +678,7 @@ fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
     Ok(())
 }
 #[inline]
-fn addpool_command<R>(mut amount: &str, world: &mut World, pathsets: &Pathsets, pool: &mut Vec<String>, rng: &mut R) -> Result<(), String>
+fn addpool_command<R>(mut amount: &str, world: &mut World, pool: &mut Vec<String>, rng: &mut R) -> Result<(), String>
 where R: Rng + ?Sized
 {
     let count = parse_count(&mut amount);
@@ -695,7 +695,7 @@ where R: Rng + ?Sized
         let index = rng.gen_range(0..length);
         let item = pool.remove(index);
 
-        add_command(&item, world, pathsets)?;
+        add_command(&item, world)?;
     }
 
     Ok(())
@@ -723,7 +723,7 @@ fn set_command(identifier: &str, world: &mut World) -> Result<(), String> {
 fn if_command(comparison: &str, parameters: &HashMap<String, String>) -> Result<bool, String> {
     let mut parts = comparison.splitn(2, ' ');
     let identifier = parts.next().unwrap();
-    let compare_value = parts.next().ok_or_else(|| format!("Missing comparison value"))?;
+    let compare_value = parts.next().ok_or_else(|| String::from("Missing comparison value"))?;
 
     let parameter_value = parameters
         .get(identifier)
@@ -740,7 +740,7 @@ pub struct HeaderContext {
     pub names: HashMap<String, String>,
 }
 
-pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, pathsets: &Pathsets, context: &mut HeaderContext, param_values: &HashMap<String, String>, rng: &mut R) -> Result<String, String>
+pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, context: &mut HeaderContext, param_values: &HashMap<String, String>, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
@@ -791,7 +791,7 @@ where R: Rng + ?Sized
             } else if let Some(exclude) = command.strip_prefix("exclude ") {
                 exclude_command(name, exclude.trim(), &mut context.excludes);
             } else if let Some(pickup) = command.strip_prefix("add ") {
-                add_command(pickup.trim(), world, pathsets).map_err(|err| format!("{} in add command {}", err, line))?;
+                add_command(pickup.trim(), world).map_err(|err| format!("{} in add command {}", err, line))?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
                 remove_command(pickup.trim(), world).map_err(|err| format!("{} in remove command {}", err, line))?;
             } else if let Some(naming) = command.strip_prefix("name ") {
@@ -801,7 +801,7 @@ where R: Rng + ?Sized
             } else if let Some(string) = command.strip_prefix("pool ") {
                 pool_command(string.trim(), &mut pool).map_err(|err| format!("{} in pool command {}", err, line))?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {
-                addpool_command(amount.trim(), world, pathsets, &mut pool, rng).map_err(|err| format!("{} in addpool command {}", err, line))?;
+                addpool_command(amount.trim(), world, &mut pool, rng).map_err(|err| format!("{} in addpool command {}", err, line))?;
             } else if command.trim_end() == "flush" {
                 flush_command(&mut pool);
             } else if let Some(identifier) = command.strip_prefix("set ") {
@@ -855,11 +855,7 @@ where R: Rng + ?Sized
                     }
                 }
 
-                if world.pool.inventory().has(&item, 1) {
-                    log::trace!("removing {} from the item pool", item);
-
-                    world.pool.remove(&item, 1);
-                }
+                world.pool.remove(&item, 1);
 
                 world.preplace(uber_state, item);
             }
@@ -875,7 +871,7 @@ where R: Rng + ?Sized
 
 pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, HashMap<String, String>), String> {
     let mut context = HeaderContext::default();
-    parse_header(name, contents, &mut World::new(&Graph::default()), &Pathsets::default(), &mut context, &HashMap::default(), &mut rand::thread_rng())?;
+    parse_header(name, contents, &mut World::new(&Graph::default()), &mut context, &HashMap::default(), &mut rand::thread_rng())?;
 
     for dependency in context.dependencies {
         util::read_file(&dependency, "headers")?;
@@ -1045,7 +1041,7 @@ fn where_is(pattern: &str, world_index: usize, seeds: &[String], graph: &Graph, 
                 for other_world_index in other_worlds {
                     let actual_zone = where_is(&actual_pickup, other_world_index, seeds, graph, settings)?;
                     if &actual_zone != "Unknown" {
-                        let player_name = settings.players.get(other_world_index).map(|name| name.clone()).unwrap_or_else(|| format!("Player {}", other_world_index + 1));
+                        let player_name = settings.players.get(other_world_index).cloned().unwrap_or_else(|| format!("Player {}", other_world_index + 1));
 
                         return Ok(format!("{}'s {}", player_name, actual_zone));
                     }
@@ -1126,7 +1122,7 @@ fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], gra
 pub fn postprocess(seeds: &mut Vec<String>, graph: &Graph, settings: &Settings) -> Result<(), String> {
     let clone = seeds.clone();
 
-    for (world_index, seed) in seeds.into_iter().enumerate() {
+    for (world_index, seed) in seeds.iter_mut().enumerate() {
         let mut last_index = 0;
         loop {
             if let Some(mut start_index) = seed[last_index..].find("$WHEREIS(") {
@@ -1194,13 +1190,13 @@ mod tests {
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
         let mut context = HeaderContext::default();
-        parse_header(&PathBuf::from("test header"), &header, &mut world, &Pathsets::default(), &mut context, &HashMap::default(), &mut rand::thread_rng()).unwrap();
+        parse_header(&PathBuf::from("test header"), &header, &mut world, &mut context, &HashMap::default(), &mut rand::thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);
         expected.grant(Item::BonusItem(BonusItem::EnergyRegen), 3);
         expected.grant(Item::BonusItem(BonusItem::HealthRegen), 3);
-        assert_eq!(world.pool.fillers, expected);
+        assert_eq!(world.pool.inventory, expected);
         assert!(world.preplacements.contains_key(&UberState::from_parts("1", "106").unwrap()));
         assert!(!world.preplacements.contains_key(&UberState::from_parts("1", "105").unwrap()));
     }

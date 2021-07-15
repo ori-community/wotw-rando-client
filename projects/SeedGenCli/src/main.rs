@@ -1,5 +1,6 @@
 use std::{
     fs,
+    str::FromStr,
     path::PathBuf,
     convert::TryFrom,
     io::{self, Read},
@@ -503,7 +504,7 @@ fn compile_seed(mut path: PathBuf) -> Result<(), String> {
 
     let mut context = HeaderContext::default();
 
-    let header_block = headers::parser::parse_header(&path, &header, &mut world, &settings.pathsets, &mut context, &HashMap::default(), &mut rng)?;
+    let header_block = headers::parser::parse_header(&path, &header, &mut world, &mut context, &HashMap::default(), &mut rng)?;
     let flag_line = seedgen::write_flags(&settings, context.flags);
 
     let compiled = format!("{}{}", flag_line, header_block);

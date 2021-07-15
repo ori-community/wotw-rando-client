@@ -1,164 +1,136 @@
+use rand::{Rng, seq::SliceRandom};
 use rustc_hash::FxHashMap;
 
-use rand::{Rng, seq::SliceRandom};
-
 use crate::inventory::{Inventory, Item};
-use crate::util::{Resource, Skill, Shard, Pathsets};
+use crate::util::{Resource, Skill, Shard};
 
-#[derive(Debug, Clone)]
+#[derive(Default, Debug, Clone)]
 pub struct Pool {
-    pub progressions: Inventory,
-    pub fillers: Inventory,
+    pub inventory: Inventory,
     pub spirit_light: u16,
 }
-impl Default for Pool {
-    fn default() -> Pool {
-        Pool {
-            progressions: Inventory::default(),
-            fillers: Inventory::default(),
-            spirit_light: 0,
-        }
-    }
-}
 impl Pool {
-    pub fn preset(pathsets: &Pathsets) -> Pool {
-        let mut progressions = FxHashMap::default();
-        progressions.reserve(48);
-        let mut fillers = FxHashMap::default();
-        fillers.reserve(37);
+    pub fn preset() -> Pool {
+        let mut items = FxHashMap::default();
 
-        let items = [
-            (Item::Resource(Resource::Health), 24),
-            (Item::Resource(Resource::Energy), 24),
-            (Item::Resource(Resource::Ore), 40),
-            (Item::Resource(Resource::Keystone), 34),
-            (Item::Resource(Resource::ShardSlot), 5),
-            (Item::Skill(Skill::Bash), 1),
-            (Item::Skill(Skill::DoubleJump), 1),
-            (Item::Skill(Skill::Launch), 1),
-            (Item::Skill(Skill::Glide), 1),
-            (Item::Skill(Skill::WaterBreath), 1),
-            (Item::Skill(Skill::Grenade), 1),
-            (Item::Skill(Skill::Grapple), 1),
-            (Item::Skill(Skill::Flash), 1),
-            (Item::Skill(Skill::Spear), 1),
-            (Item::Skill(Skill::Regenerate), 1),
-            (Item::Skill(Skill::Bow), 1),
-            (Item::Skill(Skill::Hammer), 1),
-            (Item::Skill(Skill::Sword), 1),
-            (Item::Skill(Skill::Burrow), 1),
-            (Item::Skill(Skill::Dash), 1),
-            (Item::Skill(Skill::WaterDash), 1),
-            (Item::Skill(Skill::Shuriken), 1),
-            (Item::Skill(Skill::Blaze), 1),
-            (Item::Skill(Skill::Sentry), 1),
-            (Item::Skill(Skill::Flap), 1),
-            (Item::Skill(Skill::AncestralLight), 2),
-            (Item::Water, 1),
-            (Item::Shard(Shard::Overcharge), 1),
-            (Item::Shard(Shard::TripleJump), 1),
-            (Item::Shard(Shard::Wingclip), 1),
-            (Item::Shard(Shard::Bounty), 1),
-            (Item::Shard(Shard::Swap), 1),
-            (Item::Shard(Shard::Magnet), 1),
-            (Item::Shard(Shard::Splinter), 1),
-            (Item::Shard(Shard::Reckless), 1),
-            (Item::Shard(Shard::Quickshot), 1),
-            (Item::Shard(Shard::Resilience), 1),
-            (Item::Shard(Shard::SpiritLightHarvest), 1),
-            (Item::Shard(Shard::Vitality), 1),
-            (Item::Shard(Shard::LifeHarvest), 1),
-            (Item::Shard(Shard::EnergyHarvest), 1),
-            (Item::Shard(Shard::Energy), 1),
-            (Item::Shard(Shard::LifePact), 1),
-            (Item::Shard(Shard::LastStand), 1),
-            (Item::Shard(Shard::Sense), 1),
-            (Item::Shard(Shard::UltraBash), 1),
-            (Item::Shard(Shard::UltraGrapple), 1),
-            (Item::Shard(Shard::Overflow), 1),
-            (Item::Shard(Shard::Thorn), 1),
-            (Item::Shard(Shard::Catalyst), 1),
-            (Item::Shard(Shard::Turmoil), 1),
-            (Item::Shard(Shard::Sticky), 1),
-            (Item::Shard(Shard::Finesse), 1),
-            (Item::Shard(Shard::SpiritSurge), 1),
-            (Item::Shard(Shard::Lifeforce), 1),
-            (Item::Shard(Shard::Deflector), 1),
-            (Item::Shard(Shard::Fracture), 1),
-            (Item::Shard(Shard::Arcing), 1),
-        ];
-
-        for (item, amount) in items.iter().cloned() {
-            if item.is_progression(pathsets) {
-                progressions.insert(item, amount);
-            } else {
-                fillers.insert(item, amount);
-            }
-        }
-
-        progressions.shrink_to_fit();
-        fillers.shrink_to_fit();
-
-        let progressions = Inventory {
-            inventory: progressions,
-        };
-        let fillers = Inventory {
-            inventory: fillers,
-        };
+        items.insert(Item::Resource(Resource::Health), 24);
+        items.insert(Item::Resource(Resource::Energy), 24);
+        items.insert(Item::Resource(Resource::Ore), 40);
+        items.insert(Item::Resource(Resource::Keystone), 34);
+        items.insert(Item::Resource(Resource::ShardSlot), 5);
+        items.insert(Item::Skill(Skill::Bash), 1);
+        items.insert(Item::Skill(Skill::DoubleJump), 1);
+        items.insert(Item::Skill(Skill::Launch), 1);
+        items.insert(Item::Skill(Skill::Glide), 1);
+        items.insert(Item::Skill(Skill::WaterBreath), 1);
+        items.insert(Item::Skill(Skill::Grenade), 1);
+        items.insert(Item::Skill(Skill::Grapple), 1);
+        items.insert(Item::Skill(Skill::Flash), 1);
+        items.insert(Item::Skill(Skill::Spear), 1);
+        items.insert(Item::Skill(Skill::Regenerate), 1);
+        items.insert(Item::Skill(Skill::Bow), 1);
+        items.insert(Item::Skill(Skill::Hammer), 1);
+        items.insert(Item::Skill(Skill::Sword), 1);
+        items.insert(Item::Skill(Skill::Burrow), 1);
+        items.insert(Item::Skill(Skill::Dash), 1);
+        items.insert(Item::Skill(Skill::WaterDash), 1);
+        items.insert(Item::Skill(Skill::Shuriken), 1);
+        items.insert(Item::Skill(Skill::Blaze), 1);
+        items.insert(Item::Skill(Skill::Sentry), 1);
+        items.insert(Item::Skill(Skill::Flap), 1);
+        items.insert(Item::Skill(Skill::AncestralLight), 2);
+        items.insert(Item::Water, 1);
+        items.insert(Item::Shard(Shard::Overcharge), 1);
+        items.insert(Item::Shard(Shard::TripleJump), 1);
+        items.insert(Item::Shard(Shard::Wingclip), 1);
+        items.insert(Item::Shard(Shard::Bounty), 1);
+        items.insert(Item::Shard(Shard::Swap), 1);
+        items.insert(Item::Shard(Shard::Magnet), 1);
+        items.insert(Item::Shard(Shard::Splinter), 1);
+        items.insert(Item::Shard(Shard::Reckless), 1);
+        items.insert(Item::Shard(Shard::Quickshot), 1);
+        items.insert(Item::Shard(Shard::Resilience), 1);
+        items.insert(Item::Shard(Shard::SpiritLightHarvest), 1);
+        items.insert(Item::Shard(Shard::Vitality), 1);
+        items.insert(Item::Shard(Shard::LifeHarvest), 1);
+        items.insert(Item::Shard(Shard::EnergyHarvest), 1);
+        items.insert(Item::Shard(Shard::Energy), 1);
+        items.insert(Item::Shard(Shard::LifePact), 1);
+        items.insert(Item::Shard(Shard::LastStand), 1);
+        items.insert(Item::Shard(Shard::Sense), 1);
+        items.insert(Item::Shard(Shard::UltraBash), 1);
+        items.insert(Item::Shard(Shard::UltraGrapple), 1);
+        items.insert(Item::Shard(Shard::Overflow), 1);
+        items.insert(Item::Shard(Shard::Thorn), 1);
+        items.insert(Item::Shard(Shard::Catalyst), 1);
+        items.insert(Item::Shard(Shard::Turmoil), 1);
+        items.insert(Item::Shard(Shard::Sticky), 1);
+        items.insert(Item::Shard(Shard::Finesse), 1);
+        items.insert(Item::Shard(Shard::SpiritSurge), 1);
+        items.insert(Item::Shard(Shard::Lifeforce), 1);
+        items.insert(Item::Shard(Shard::Deflector), 1);
+        items.insert(Item::Shard(Shard::Fracture), 1);
+        items.insert(Item::Shard(Shard::Arcing), 1);
 
         Pool {
-            progressions,
-            fillers,
+            inventory: Inventory {
+                items,
+            },
             spirit_light: 20000,
         }
     }
 
-    pub fn grant(&mut self, item: Item, amount: u16, pathsets: &Pathsets) {
+    pub fn grant(&mut self, item: Item, amount: u16) {
         if let Item::SpiritLight(amount) = item {
             self.spirit_light += amount;
-        } else if item.is_progression(pathsets) {
-            self.progressions.grant(item, amount);
         } else {
-            self.fillers.grant(item, amount);
+            self.inventory.grant(item, amount);
         }
     }
     pub fn remove(&mut self, item: &Item, amount: u16) {
         if let Item::SpiritLight(stacked_amount) = item {
             self.spirit_light -= self.spirit_light.min(amount * stacked_amount);
-        } else if self.progressions.has(item, 1) {
-            self.progressions.remove(item, amount);
         } else {
-            self.fillers.remove(item, amount);
+            self.inventory.remove(item, amount);
         }
     }
 
-    pub fn inventory(&self) -> Inventory {
-        self.progressions.merge(&self.fillers)
-    }
-
     pub fn contains(&self, other: &Inventory) -> bool {
-        for item in other.inventory.keys() {
+        for (item, amount) in &other.items {
             if let Item::SpiritLight(1) = item {
-                if self.spirit_light < other.inventory[item] {
+                if &self.spirit_light < amount {
                     return false;
                 }
-            } else if !self.progressions.has(item, other.inventory[item]) {
+            } else if !self.inventory.has(item, *amount) {
                 return false;
             }
         }
         true
     }
 
-    pub fn choose_random<R>(&mut self, multiworld_spread: bool, rng: &mut R) -> Option<Item>
+    pub fn choose_random<R>(&mut self, multiworld_spread: bool, rng: &mut R) -> Option<&Item>
     where
         R: Rng
     {
+        let mut items = self.inventory.items.iter().collect::<Vec<_>>();
         if multiworld_spread {
-            self.progressions.inventory.keys().filter(|&item| item.is_multiworld_spread()).collect::<Vec<_>>()
-        } else {
-            self.progressions.inventory.keys().collect::<Vec<_>>()
-        }.choose_weighted(rng, |&item| 1.0 / f32::from(item.cost())).map_or(None, |&item| {
-            return Some(item.clone());
-        })
+            items.retain(|&(item, _)| item.is_multiworld_spread());
+        }
+
+        loop {
+            let (item, _) = *items.choose_weighted(rng, |&(_, amount)| amount).ok()?;
+            let cost = item.cost();
+
+            if cost > 10000 {
+                let reroll_chance = -10000.0 / f64::from(item.cost()) + 1.0;
+
+                if rng.gen_bool(reroll_chance) {
+                    log::trace!("Rerolling random placement {}", item);
+                    continue;
+                }
+            }
+
+            return Some(item)
+        }
     }
 }

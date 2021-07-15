@@ -71,7 +71,7 @@ where
             .find(|&node| node.identifier() == spawn_loc)
             .ok_or_else(|| format!("Spawn {} not found", spawn_loc))?
     };
-    return Ok(spawn);
+    Ok(spawn)
 }
 
 pub fn write_flags(settings: &Settings, mut flags: Vec<String>) -> String {
@@ -139,7 +139,9 @@ pub fn initialize_log(use_file: Option<&str>, stderr_log_level: LevelFilter) -> 
     Ok(())
 }
 
-fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Vec<String>, HashMap<String, String>), String>
+type Flags = Vec<String>;
+type Names = HashMap<String, String>;
+fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Flags, Names), String>
 where R: Rng + ?Sized
 {
     let mut dependencies = settings.header_list.clone();
@@ -148,8 +150,10 @@ where R: Rng + ?Sized
     }
 
     let mut header_block = String::new();
-    let mut context = HeaderContext::default();
-    context.dependencies = dependencies.into_iter().collect::<HashSet<_>>();
+    let mut context = HeaderContext {
+        dependencies: dependencies.into_iter().collect::<HashSet<_>>(),
+        ..HeaderContext::default()
+    };
 
     let mut param_values = HashMap::new();
 
@@ -166,7 +170,7 @@ where R: Rng + ?Sized
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = headers::parser::parse_header(&PathBuf::from("inline header"), header, world, &settings.pathsets, &mut context, &param_values, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = headers::parser::parse_header(&PathBuf::from("inline header"), header, world, &mut context, &param_values, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
@@ -183,7 +187,7 @@ where R: Rng + ?Sized
 
             log::trace!("Parsing header {}", path.display());
             let header = util::read_file(&path, "headers")?;
-            let header = headers::parser::parse_header(&path, &header, world, &settings.pathsets, &mut context, &param_values, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
+            let header = headers::parser::parse_header(&path, &header, world, &mut context, &param_values, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
         }
@@ -248,7 +252,7 @@ fn format_placements(world_placements: Vec<Placement>, custom_names: &HashMap<St
             );
 
             util::add_trailing_spaces(&mut placement_line, 46);
-            let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| placement.item.to_string());
+            let item = custom_names.get(&placement.item.code()).cloned().unwrap_or_else(|| placement.item.to_string());
             let item = util::with_leading_spaces(&item, 36);
 
             placement_line += &format!("  // {} from {}", item, location);
@@ -287,7 +291,7 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     log::trace!("Seeded RNG with {}", seed);
 
     let mut world = World::new(graph);
-    world.pool = Pool::preset(&settings.pathsets);
+    world.pool = Pool::preset();
     world.player.spawn(&settings);
 
     let (header_block, custom_flags, custom_names) = parse_headers(&mut world, headers, &settings, &mut rng)?;

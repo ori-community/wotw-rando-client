@@ -40,14 +40,6 @@ impl UberState {
             value: value.to_string(),
         })
     }
-    pub fn from_str(uber_state: &str) -> Result<UberState, String> {
-        let mut parts = uber_state.split(&['|', ','][..]);
-        let uber_group = parts.next().ok_or_else(|| String::from("expected uber group"))?;
-        let uber_id = parts.next().ok_or_else(|| String::from("expected uber id"))?;
-        if parts.next().is_some() { return Err(String::from("expected only two parts")); }
-
-        UberState::from_parts(uber_group, uber_id)
-    }
 
     #[inline]
     pub fn spawn() -> UberState {
@@ -87,6 +79,18 @@ impl fmt::Display for UberState {
         } else {
             write!(f, "{}={}", self.identifier, self.value)
         }
+    }
+}
+impl std::str::FromStr for UberState {
+    type Err = String;
+
+    fn from_str(uber_state: &str) -> Result<UberState, String> {
+        let mut parts = uber_state.split(&['|', ','][..]);
+        let uber_group = parts.next().ok_or_else(|| String::from("expected uber group"))?;
+        let uber_id = parts.next().ok_or_else(|| String::from("expected uber id"))?;
+        if parts.next().is_some() { return Err(String::from("expected only two parts")); }
+
+        UberState::from_parts(uber_group, uber_id)
     }
 }
 
