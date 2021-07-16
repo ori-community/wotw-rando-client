@@ -108,7 +108,7 @@ impl Pool {
         true
     }
 
-    pub fn choose_random<R>(&mut self, multiworld_spread: bool, rng: &mut R) -> Option<&Item>
+    pub fn choose_random<R>(&self, multiworld_spread: bool, rng: &mut R) -> Option<&Item>
     where
         R: Rng
     {

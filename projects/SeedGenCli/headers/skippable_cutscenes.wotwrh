@@ -19,6 +19,7 @@
 9|1=2000|4|10|9|1
 // skips
 !46462|59806|8|937|6778|bool|true   // voice door
+42178|18751=3|8|42178|16586|byte|1  // cave project
 !37858|12379|8|9|1|int|670          // water cleaned
 !37858|12379|8|937|34641|int|3
 6|1014|8|18793|25789|bool|true      // depths gate
