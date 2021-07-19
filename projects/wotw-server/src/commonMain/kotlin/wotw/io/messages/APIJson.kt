@@ -2,6 +2,10 @@ package wotw.io.messages
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.math.max
 
 @Serializable
@@ -60,7 +64,13 @@ data class PresetFile(
     val spoilers: Boolean,
     val webConn: Boolean,
     val hard: Boolean,
+    val spawnLoc: JsonElement,
 ) {
+    private val spawnLocString: String = if (spawnLoc is JsonPrimitive) {
+        spawnLoc.content.lowercase() // Random → random
+    } else {
+        spawnLoc.jsonObject["Set"]!!.jsonPrimitive.content
+    }
 
     fun fullResolve(presets: Map<String, PresetFile>): PresetFile {
         val merged = this.presets.mapNotNull {
@@ -80,6 +90,7 @@ data class PresetFile(
             spoilers or other.spoilers,
             webConn or other.webConn,
             hard or other.hard,
+            spawnLoc,
         )
     }
 
@@ -95,7 +106,8 @@ data class PresetFile(
             webConn,
             hard,
             name = name,
-            wrapper = false
+            wrapper = false,
+            spawnLoc = spawnLocString,
         )
     }
 
@@ -115,6 +127,7 @@ data class Preset(
     val description: List<String> = emptyList(),
     val name: String = "",
     val wrapper: Boolean = false,
+    val spawnLoc: String = "MarshSpawn.Main",
 ) : Presetable {
     @Transient
     override val preset = this
