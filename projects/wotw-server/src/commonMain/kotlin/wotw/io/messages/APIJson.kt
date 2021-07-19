@@ -169,6 +169,7 @@ data class SeedGenConfig(
     val isMulti: Boolean = false,
     val isCoop: Boolean = false,
     val seed: String? = null,
+    val spawn: String? = null,
 )
 
 @Serializable
