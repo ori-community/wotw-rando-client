@@ -67,6 +67,14 @@ class SeedGeneratorService(private val server: WotwBackendServer) {
             command += "--worlds"
             command += config.multiNames.size.toString()
         }
+        if (!config.seed.isNullOrBlank()) {
+            command += "--seed"
+            command += config.seed
+        }
+        if (!config.spawn.isNullOrBlank()) {
+            command += "--spawn"
+            command += config.spawn
+        }
 
         command += "--"
         command += fileName
