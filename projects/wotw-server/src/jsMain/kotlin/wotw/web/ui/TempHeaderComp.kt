@@ -43,6 +43,12 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                 +"Welcome, $name "
                 p {
                     button {
+                        attrs.onClickFunction = {
+                            document.location?.href = "/seedgen"
+                        }
+                        +"Seedgen"
+                    }
+                    button {
                         +"New Bingo Game"
                         attrs {
                             onClickFunction = {
@@ -110,6 +116,12 @@ class TempHeaderComp: RComponent<RProps, UserInfoState>(){
                     }
                 }
             }else{
+                button {
+                    attrs.onClickFunction = {
+                        document.location?.href = "/seedgen"
+                    }
+                    +"Seedgen"
+                }
                 button {
                     attrs.onClickFunction = {
                         document.location?.href = "/api/login?redir=${window.location.pathname}"
