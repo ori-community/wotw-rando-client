@@ -67,9 +67,19 @@ class RootComponent : RComponent<RProps, RState>() {
                                         +" (Uses discord)"
                                     }
                                 }
+                                li {
+                                    div {
+                                        +"Roll a seed using the "
+                                        a {
+                                            attrs.href = "/seedgen"
+                                            +"seed generator"
+                                        }
+                                        +" and enable netcode in the generator tab"
+                                    }
+                                }
                                 li { +"Click the \"New Bingo Game\" button" }
                                 li { +"On the Bingo page, click the \"Join Game\" button" }
-                                li { +"Launch the Randomizer, " }
+                                li { +"Launch the randomizer and start playing your netcode seed" }
                             }
                         }
 
