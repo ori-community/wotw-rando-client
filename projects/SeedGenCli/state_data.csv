@@ -3,6 +3,8 @@ MarshSpawn.KeystoneDoor, 21786, 42309
 MarshSpawn.RainLifted, 0, 100
 MarshSpawn.LogBroken, 21786, 59922
 MarshSpawn.BurrowsOpen, 24922, 13349
+MarshSpawn.ToOpherBarrier, 21786, 23177
+MarshSpawn.TokkBarrier, 21786, 35166
 HowlsDen.BoneBarrier, 21786, 53932
 HowlsDen.KeystoneDoor, 21786, 47445
 MarshPastOpher.EyestoneDoor, 937, 64003

@@ -109,7 +109,9 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Water, Burrow, Dash, Bash, Grenade=1
     gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   conn MarshPastOpher.MillView:
-    moki: BreakWall=16
+    moki: 
+      BreakWall=16
+	  MarshSpawn.ToOpherBarrier
   conn MarshSpawn.PoolsPath:
     moki:
       DoubleJump, Bash, Glide
@@ -191,11 +193,17 @@ anchor MarshSpawn.CaveEntrance at -588, -4393:  # before the door blocking regen
       Sword OR Hammer
       Bash  # at night there's a slime that works too
   conn MarshSpawn.Cave:
-    moki: BreakWall=16
+    moki: 
+      BreakWall=16
+      MarshSpawn.TokkBarrier
 
 anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
   refill Checkpoint
   refill Health=1
+  
+  state MarshSpawn.TokkBarrier:
+    gorlek: ShurikenBreak=16
+    unsafe: HammerBreak OR SpearBreak
 
   quest MarshSpawn.CaveKS:
     moki:
@@ -216,8 +224,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
 
   conn Tokk: free  # this one is tokk anywhere'd
   conn MarshSpawn.CaveEntrance:
-    gorlek: ShurikenBreak=16
-    unsafe: HammerBreak OR SpearBreak
+    moki: MarshSpawn.TokkBarrier
   conn MarshSpawn.PoolsBurrowsPath:
     moki:
       DoubleJump, Dash OR Grapple
@@ -796,6 +803,10 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
   refill Energy=3:
     moki: BreakCrystal  # to the left
 
+  state MarshSpawn.ToOpherBarrier:
+    gorlek: ShurikenBreak=16
+    unsafe: HammerBreak OR SpearBreak
+
   pickup MarshPastOpher.TrialLeftEX:
     moki: BreakWall=20, DoubleJump OR Dash OR Glide OR Launch
     gorlek:
@@ -810,8 +821,7 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
     moki: DoubleJump OR Dash OR Glide OR Launch
     gorlek: free
   conn MarshSpawn.Main:
-    gorlek: ShurikenBreak=16
-    unsafe: HammerBreak OR SpearBreak
+    moki: MarshSpawn.ToOpherBarrier
   conn MarshPastOpher.PoolsPathEast:
     gorlek: Water, Bash, Launch  # the enemies appear once you have water
 
@@ -848,7 +858,6 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
     unsafe: Hammer OR Sentry=1
   pickup MarshPastOpher.TrialHC:
     moki: Hammer OR Spear=1
-    gorlek: Combat=Slug OR Bash OR Launch  # lure stomp
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
@@ -6812,13 +6821,13 @@ anchor UpperPools.KeystoneRoomEntrance at -1535, -4115:  # At the bottom entranc
       Dash, Glide OR Sword
       Bash, DoubleJump OR Dash OR Glide  # bashes interfere with weapons weirdly; it can easily happen in this scenario
 
+
 anchor UpperPools.KeystoneRoomBubbleSpawner at -1566, -4115:  # Between the bubble spawner and the bounce pad
   refill Checkpoint
 
   state UpperPools.KeystoneRoomBubbleFree:
     moki: Water, WaterDash OR Bash
-    gorlek: Bow=1  # little piece of gorlek spice
-    unsafe: Grenade=1 OR Spear=1 OR Shuriken=1
+    unsafe: Grenade=1 OR Spear=1 OR Shuriken=1 OR Bow=1
 
   pickup UpperPools.UpperLeftKS:  # connections using the bubble have to start from here, others use the higher anchor
     moki: UpperPools.KeystoneRoomBubbleFree, Flap, DoubleJump
@@ -6848,6 +6857,7 @@ anchor UpperPools.KeystoneRoomBubbleSpawner at -1566, -4115:  # Between the bubb
       Dash, Glide
     gorlek:  # almost always easier to go over the top
       Damage=20, Bash OR Sword OR Hammer  # the enemy likes to get in the way
+
 
 anchor UpperPools.KeystoneRoom at -1540, -4095:  # Autosave below the two upper left keystones
   refill Checkpoint
