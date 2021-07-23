@@ -574,21 +574,22 @@ where
     R: Rng,
     I: Iterator<Item=usize>,
 {
-    log::trace!("Got stuck. Trying to flush the item pool to recover...");
-    // TODO not flushing literally everything would result in better seeds probably
+    log::trace!("Got stuck. Trying to flush uberState pickups from the item pool to recover...");
 
-    'outer: loop {
-        let mut target_world_indices = (0..context.world_count).collect::<Vec<_>>();
-        target_world_indices.shuffle(context.rng);
+    for target_world_index in 0..context.world_count {
+        let uber_state_items = world_contexts[target_world_index].world.pool.inventory.items.iter()
+            .filter(|(item, _)| matches!(item, Item::UberState(_)))
+            .flat_map(|(item, amount)| vec![item.clone(); (*amount).into()])
+            .collect::<Vec<_>>();
 
-        for target_world_index in target_world_indices {
-            let origin_world_index = context.rng.gen_range(0..context.world_count);
+        'outer: for item in uber_state_items {
+            let mut origin_world_indices = (0..context.world_count).collect::<Vec<_>>();
+            origin_world_indices.shuffle(context.rng);
 
-            if let Some(node) = world_contexts[origin_world_index].placeholders.pop() {
-                let target_world_context = &mut world_contexts[target_world_index];
+            for origin_world_index in origin_world_indices {
+                if let Some(node) = world_contexts[origin_world_index].placeholders.pop() {
+                    let target_world_context = &mut world_contexts[target_world_index];
 
-                if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
-                    let item = item.clone();
                     target_world_context.world.pool.remove(&item, 1);
                     target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
                     place_item(origin_world_index, target_world_index, node, true, item, world_contexts, context)?;
@@ -597,8 +598,6 @@ where
                 }
             }
         }
-
-        break;
     }
 
     Ok(())
