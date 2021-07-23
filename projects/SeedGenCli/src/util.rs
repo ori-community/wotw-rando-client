@@ -87,7 +87,7 @@ pub enum Pathset {
     RemoveKillPlane,    // Removing Shriek's Killplane at Feeding Grounds
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Hash, Serialize, Deserialize, Clone)]
 pub enum GoalMode {
     Wisps,
     Trees,

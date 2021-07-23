@@ -69,6 +69,7 @@ struct WorldContext<'a> {
     unreachable_locations: Vec<&'a Node>,
     spirit_light_rng: SpiritLightAmounts,  // TODO this can get kinda weird maybe have a shared spirit light rng instead
     random_spirit_light: Bernoulli,
+    shop_slots: usize,
 }
 
 struct GeneratorContext<'a, 'b, R, I>
@@ -112,6 +113,7 @@ where
 
         log::trace!("({}): Placing {} at Spawn as price for the item below", origin_player_name, price_setter);
 
+        origin_world_context.shop_slots -= 1;
         origin_world_context.placements.push(Placement {
             node: None,
             uber_state: UberState::load(),
@@ -328,26 +330,33 @@ where
 {
     let origin_world_context = &mut world_contexts[origin_world_index];
 
-    if !node.uber_state().map_or(false, UberState::is_shop) && origin_world_context.random_spirit_light.sample(context.rng) {
-        let amount = origin_world_context.spirit_light_rng.sample(context.rng)?;
-        let item = Item::SpiritLight(amount);
-
-        origin_world_context.world.pool.remove(&item, 1);
-        origin_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", origin_world_context.player_name, err));
-        place_item(origin_world_index, origin_world_index, node, false, item, world_contexts, context)?;
-    } else {
+    if node.uber_state().map_or(false, UberState::is_shop) || !origin_world_context.random_spirit_light.sample(context.rng) {
         let target_world_index = context.rng.gen_range(0..context.world_count);
-        let target_world_context = &mut world_contexts[target_world_index];
 
-        if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
-            let item = item.clone();
-            target_world_context.world.pool.remove(&item, 1);
-            target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
-            place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
+        if origin_world_context.shop_slots < world_contexts[target_world_index].world.pool.inventory.items.len() {
+            let target_world_context = &mut world_contexts[target_world_index];
+
+            if let Some(item) = target_world_context.world.pool.choose_random(origin_world_index != target_world_index, context.rng) {
+                let item = item.clone();
+                target_world_context.world.pool.remove(&item, 1);
+                target_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", target_world_context.player_name, err));
+                place_item(origin_world_index, target_world_index, node, false, item, world_contexts, context)?;
+
+                return Ok(true);
+            }
         } else {
-            world_contexts[origin_world_index].placeholders.push(node);  // If the pool is empty, fill the placeholders so seedgen can exit
+            log::trace!("({}) Forcing spirit light placement to preserve items for shop slots", world_contexts[origin_world_index].player_name);
         }
     }
+
+    let origin_world_context = &mut world_contexts[origin_world_index];
+
+    let amount = origin_world_context.spirit_light_rng.sample(context.rng)?;
+    let item = Item::SpiritLight(amount);
+
+    origin_world_context.world.pool.remove(&item, 1);
+    origin_world_context.world.grant_player(item.clone(), 1).unwrap_or_else(|err| log::error!("({}): {}", origin_world_context.player_name, err));
+    place_item(origin_world_index, origin_world_index, node, false, item, world_contexts, context)?;
 
     Ok(true)
 }
@@ -478,13 +487,19 @@ where
     }
 
     for world_index in 0..context.world_count {
-        if !shop_placeholders[world_index].is_empty() {
-            log::warn!("({}): Not enough items in the pool to fill all shops!", world_contexts[world_index].player_name);
+        let world_shop_placeholders = &shop_placeholders[world_index];
+
+        if !world_shop_placeholders.is_empty() {
+            log::warn!("({}): Not enough items in the pool to fill all shops! Filling with extra Gorlek Ore", world_contexts[world_index].player_name);
+
+            for &world_shop_placeholder in world_shop_placeholders {
+                place_item(world_index, world_index, world_shop_placeholder, true, Item::Resource(Resource::Ore), world_contexts, context)?;
+            }
         }
     }
 
     for world_index in 0..context.world_count {
-        log::trace!("({}): Placed all items from the pool, placing Spirit Light...", world_contexts[world_index].player_name);
+        log::trace!("({}): Placed all items from the pool, placing Spirit Light", world_contexts[world_index].player_name);
 
         while let Some(placeholder) = world_contexts[world_index].placeholders.pop() {
             let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
@@ -493,9 +508,16 @@ where
             place_item(world_index, world_index, placeholder, true, item, world_contexts, context)?;
         }
 
+        if !world_contexts[world_index].unreachable_locations.is_empty() {
+            log::trace!("({}): Filling unreachable locations", world_contexts[world_index].player_name);
+        }
         while let Some(unreachable) = world_contexts[world_index].unreachable_locations.pop() {
-            let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
-            let item = Item::SpiritLight(amount);
+            let item = if unreachable.uber_state().map_or(false, UberState::is_shop) {
+                Item::Resource(Resource::Ore)
+            } else {
+                let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+                Item::SpiritLight(amount)
+            };
 
             place_item(world_index, world_index, unreachable, false, item, world_contexts, context)?;
         }
@@ -636,6 +658,8 @@ where
         let spirit_light_rng = SpiritLightAmounts::new(f32::from(world.pool.spirit_light), spirit_light_slots as f32, 0.75, 1.25);
         let random_spirit_light = Bernoulli::new(spirit_light_slots as f64 / world_slots as f64).unwrap();
 
+        let shop_slots = world.graph.nodes.iter().filter(|&node| node.uber_state().map_or(false, UberState::is_shop)).count();
+
         Ok(WorldContext {
             world,
             player_name,
@@ -648,6 +672,7 @@ where
             unreachable_locations,
             spirit_light_rng,
             random_spirit_light,
+            shop_slots,
         })
     }).collect::<Result<Vec<_>, String>>()?;
 

@@ -105,7 +105,7 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     })
 }
 
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub enum Spawn {
     Set(String),
     Random,
@@ -118,7 +118,7 @@ impl Default for Spawn {
 }
 
 // TODO output folder?
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
     #[serde(skip_serializing_if = "Option::is_none")]
