@@ -1138,6 +1138,8 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
   conn MidnightBurrows.Central:
     moki: DoubleJump OR Launch
     gorlek: Dash OR Bash OR Glide OR Sword OR Hammer
+    unsafe:
+        Damage=15   # Land on spikes to go into the lower left portal
   conn MarshSpawn.BurrowsEntry:
     moki, MarshSpawn.BurrowsOpen: 
       Launch
@@ -1148,6 +1150,7 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
       SwordSJump=3, Damage=15
     unsafe, MarshSpawn.BurrowsOpen:
       Bash, Dash OR Glide OR Grenade=1
+      Bash  #  using the projectiles efficiently
 
 anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big portal room
   refill Checkpoint
@@ -1207,6 +1210,8 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       Dash, Sword OR Hammer
       SentryJump=1  # use the sword for movement as well
       Launch
+    unsafe:
+      Sword
   conn MidnightBurrows.BelowUpperKS:
     moki: MidnightBurrows.Lever, Launch  # paths coming from the right side are on that anchor
     gorlek:
@@ -1217,6 +1222,7 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       MidnightBurrows.Lever, SentryJump=1, DoubleJump, Damage=15
       MidnightBurrows.Lever, DoubleJump, Bash  # use the slime
       Bash, Grenade=2, DoubleJump, TripleJump OR Damage=15  # resolves for both states / with MidnightBurrows.Lever bash the slime next to the last teleporter to get above it
+      MidnightBurrows.Lever, DoubleJump, Sword OR Damage=15
 
   conn MidnightBurrows.Teleporter: free
   conn MidnightBurrows.East:
