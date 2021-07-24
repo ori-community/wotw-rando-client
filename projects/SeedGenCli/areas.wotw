@@ -1318,8 +1318,8 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
       Bash, Grenade=1
     gorlek, MarshPastOpher.EyestoneDoor:
       Dash OR Glide OR Sword OR Hammer OR Damage=10  # Go through the lower part
-    unsafe:
-      Bash
+    unsafe: MarshPastOpher.EyestoneDoor # (free with tight platforming)
+      # Bash # putting this here for now
   conn WestHollow.InFrontPurpleDoor:
     moki:
       Combat=2xSlug, Bow=1, DoubleJump OR Dash  # the camera only reliably moves to the tongue if you can kill the slug
@@ -1356,7 +1356,7 @@ anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple do
     unsafe:
       Bash, Grenade=1  # Bash the slime to the platform, throw Grenade, bash from slime then Grenade
       SentryJump=1
-
+      Dash, Sword OR Hammer      # Upslash between dashes to gain a bit more hight
   conn WestHollow.Entrance:
     moki:
       Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
@@ -1395,6 +1395,7 @@ anchor WestHollow.HollowDrainMiddle at -197, -4275:  # At the crystal below the 
       Damage=20  # dboost on the water if it's there and on the spikes of not
     unsafe, WestHollow.UpperDrainLeverPulled:
       Sword OR Hammer
+      DoubleJump    #  Jump from the ledge left to the spikes
   conn WestHollow.HollowDrainLower:
     moki: WestHollow.FullyDrained
   conn WestHollow.Entrance:
@@ -1434,8 +1435,8 @@ anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock p
       Combat=Skeeto+Slug, Bow=1, Glide OR Sword
       Combat=Skeeto, SentryJump=1
       DoubleJump, Combat=Slug OR Damage=10  # Jump to the left wall and wrap around to the top
-    unsafe:
-      Sword  # Pogo the skeeto
+    unsafe, WestHollow.UpperDrainLeverPulled, WestHollow.RockPuzzleSolved:
+      Sword OR Hammer # Upslash and swing left, Sword can also Pogo the skeeto
   conn WestHollow.HollowDrainMiddle:
     moki:
       WestHollow.UpperDrainLeverPulled, Launch, DoubleJump OR Dash OR Glide OR Bow=1
@@ -1450,6 +1451,9 @@ anchor WestHollow.RockPuzzle at -249, -4275:  # At the right ledge of the rock p
       WestHollow.UpperDrainLeverPulled, WaterDash, Damage=20, DoubleJump, Bow=1  # use the bow path if the water is gone
       WestHollow.UpperDrainLeverPulled, WaterDash, Damage=20, Dash, Bash, Grenade=1  # use the bashnade path if the water is gone
       WestHollow.UpperDrainLeverPulled, WaterDash, Damage=20, Dash, SentryJump=1  # use the sjump path if the water is gone
+    unsafe:
+      WestHollow.UpperDrainLeverPulled, Dash, DoubleJump
+      WestHollow.UpperDrainLeverPulled, Sword    #  pogo on the energy crystal
   conn WestHollow.HollowDrainLower:
     moki: WestHollow.FullyDrained
 
@@ -1467,11 +1471,14 @@ anchor WestHollow.FarLeftRoom at -357, -4284:  # ledge below and to the right of
       Bow=1, DoubleJump, Sword OR Hammer  # DoubleJump and upslash to get on the wall to the right
       Bow=1, Bash, Grenade=1
       Bow=2, Sword OR Hammer
-      DoubleJump, TripleJump  # Jump off the exe to the left
-      DoubleJump, Damage=10, Dash  # You can jump on the top of the exe on the left and use BashGrenade
+      DoubleJump, TripleJump  # Jump off the eye to the left
+      DoubleJump, Damage=10, Dash  # You can jump on the top of the eye on the left and use BashGrenade
       Damage=20, WaterDash, DoubleJump OR Dash OR Glide OR Sword OR Hammer  # these paths aren't meaningful anymore if the water is gone, so this does not softlock
-    unsafe:
-      WestHollow.UpperDrainLeverPulled, DoubleJump, Dash
+    unsafe, WestHollow.UpperDrainLeverPulled:
+      DoubleJump, Dash
+      DoubleJump, Bash, Grenade=1         # BashGrenade and dj to the right wall 
+      # DoubleJump, Bash, Grenade=2       # BashGrenade on to the eye and then BashGrenade up
+      # DoubleJump, Dash, SentryJump=1    # SentryJump on the eye
 
   pickup WestHollow.FarLeftEX:
     moki, WestHollow.FullyDrained:
@@ -1482,7 +1489,9 @@ anchor WestHollow.FarLeftRoom at -357, -4284:  # ledge below and to the right of
       Bow=1, Dash OR DoubleJump  # there are more options, this was the most lenient
       SentryJump=1
     unsafe:
-      WestHollow.FullyDrained, Bow=1, Glide OR Sword
+      WestHollow.FullyDrained:
+        Bow=1, Glide OR Sword
+        Sword     # Pogo the shot of the slug
   # backwards connection blocked by the door
 
 # checkpoint at -356, -4306
@@ -1497,6 +1506,8 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
     gorlek, WestHollow.FullyDrained:  # middle water state can softlock this, so you have to be able to fully lower the water.
       Bow=1, Dash OR Launch
       Bow=1, Water, WaterDash  # opted against writing the equivalent dboost path because it would be more obscure
+    unsafe, WestHollow.FullyDrained:
+      Bow=1  # Lower each crusher from above the previous one
   pickup WestHollow.SwimEC:
     moki: Water
   pickup WestHollow.LupoMap:
@@ -1518,6 +1529,8 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
       DoubleJump
       Damage=10, SwordSJump=1
       Dash, Sword OR Hammer
+      Hammer    # upswing to get onto the right side of the spikes (you can touch them)
+      Dash      # max jump without hitting the spike hitbox, dash to the small ledge
 
   conn WestHollow.TrialApproach:
     moki, WestHollow.FullyDrained:  # middle water state can softlock this, so you have to be able to fully lower the water.
@@ -1533,6 +1546,8 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
       SentryJump=1
   conn WestHollow.DashApproach:
     moki: Combat=SneezeSlug OR DoubleJump OR Bash OR Launch
+    unsafe: free
+      # Dash    # putting it here for now
   # no backwards connection through the water
 
 anchor WestHollow.TrialApproach at -155, -4298:  # after getting past the beetle, at the bottom of the shaft next to trial start
@@ -1546,8 +1561,11 @@ anchor WestHollow.TrialApproach at -155, -4298:  # after getting past the beetle
     gorlek:  # middle water state can softlock this, so you have to be able to fully lower the water.
       Combat=Slug, DoubleJump OR Dash
       Bash, DoubleJump OR Dash
-      Damage=10, Sword OR Hammer  # Sword or hammer solve combat requirements
+      Damage=10, Sword OR Hammer  # Sword or hammer solve combat requirements and easier movement
       Damage=10, Glide, Combat=Slug OR Bash
+    unsafe:
+      Sword OR Hammer OR Bash       # Sword or hammer movement to avoid damage; Bash using the slug
+      Damage=10, Combat=Slug
 
   conn WestHollow.HollowDrainLower:
     moki: WestHollow.FullyDrained
@@ -1587,7 +1605,9 @@ anchor WestHollow.DashApproach at -111, -4429:  # To the left of the lever door
       Combat=Slug, DoubleJump, TripleJump OR Glide OR Sword OR Hammer  # Take the vanilla path up, but use Sword or Hammer slashes as a substitute to Dash/DoubleJump
       Bash, Grenade=2, Damage=10, Glide OR Sword
     unsafe:
-      Dash, Sword OR Hammer  # Take the vanilla path up, but use Sword or Hammer slashes as a substitute to Dash/DoubleJump
+      Dash, Sword OR Hammer           # Take the vanilla path up, but use Sword or Hammer slashes as a substitute to Dash/DoubleJump
+      Dash                            # avoiding slugs is hard and might take patience
+      DoubleJump, Damage=10 OR Glide  # Jump into the first spike wall or glide over it and then avoid the slugs
   conn WestHollow.DashArea:
     moki: WestHollow.DoorLever
 
@@ -1598,7 +1618,9 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
   pickup WestHollow.CrusherEX:
     moki: Dash
     gorlek: Launch, Burrow OR WaterDash  # hmmmmm
-    unsafe: Burrow OR WaterDash
+    unsafe:
+        Burrow OR WaterDash
+        # Bash, Grenade=1, Burrow OR WaterDash  # Bash to the platform
   pickup WestHollow.DashRightEX:
     moki:
       DoubleJump, Dash
@@ -1612,6 +1634,8 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
       DoubleJump, TripleJump, Bash, Grenade=1, Damage=10 OR Hammer  # There are two ledges above the tree, stand on the right one, throw Grenade from there
       Damage=10, SentryJump=2, Dash
       SentryJump=2, DoubleJump, Damage=10  # Go up with the first SentryJump, then jump into spikes, SentryJump over and continue
+      DoubleJump, Damage=10 OR TripleJump    # lower the crusher from above the previous one
+      Bash, Grenade=1           # using the enemies to bash onto the hanging log
   pickup WestHollow.AboveDashEX:
     moki:  # there's some funny Bashgrenade paths here, but they're not moki-safe
       DoubleJump, Dash
@@ -1624,6 +1648,9 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
       Dash, Sword OR Hammer  # Take the path right from the Dash tree
       WestHollow.DoorLever, DoubleJump, Sword  # Lure and pogo the mantis
       WestHollow.DoorLever, Bash  # Lure the mantis
+      DoubleJump, Damage=10 OR TripleJump    # lower the crusher from above the previous one
+      Bash, Grenade=1  # There are two ledges above the tree, stand on the right one, throw Grenade from there
+      # Bash    #  Bash the slug twice
 
   conn WestHollow.DashApproach:
     moki: WestHollow.DoorLever
