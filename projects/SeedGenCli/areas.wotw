@@ -66,6 +66,8 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
   refill Full
   
   state MarshSpawn.LogBroken: free
+  state MarshSpawn.ToOpherBarrier:
+    moki: BreakWall=16
 
   pickup MarshSpawn.RockHC: free
   pickup MarshSpawn.FirstPickupEX: free
@@ -110,8 +112,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
     gorlek: Water, Burrow, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Damage=10
   conn MarshPastOpher.MillView:
     moki: 
-      BreakWall=16
-	  MarshSpawn.ToOpherBarrier
+      MarshSpawn.ToOpherBarrier
   conn MarshSpawn.PoolsPath:
     moki:
       DoubleJump, Bash, Glide
@@ -6444,7 +6445,9 @@ anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
   # The first bubbles here only spawn if you have Flap!
   pickup EastPools.TwoCrushersEX:
     moki: Water, WaterDash
-    unsafe: Water
+    unsafe: 
+      Water
+      WaterDash, Damage=60 # 80 is more likely
 
   conn EastPools.LeverRoom:
     moki:
@@ -6456,6 +6459,7 @@ anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
     unsafe:
       WaterDash, Hammer, Water OR Damage=20
       Water, WaterDash, Sword, Damage=20
+      Hammer, TripleJump #TripleHammerJump
   conn PoolsApproach.LeftOfWheel:  # should be fair to assume that if the wheel is spinning, the player has Water
     moki:
       Water
