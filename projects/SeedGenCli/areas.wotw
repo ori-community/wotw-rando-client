@@ -447,6 +447,7 @@ anchor MarshSpawn.DenApproach at -540, -4406:  # at regen tree
       MarshSpawn.RainLifted, Sword OR Hammer  # Use the platform appearing at day
       MarshSpawn.RainLifted, Dash  # Stand on the left of the platform to tilt it slightly, Dashcancel to the right with jump and Dash back left
       WaterDash, DoubleJump
+      DoubleJump
 
   state MarshSpawn.HowlBurnt:
     moki:
@@ -817,6 +818,7 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
   conn OpherShop: free
   conn MarshPastOpher.TrialArea:
     moki: BreakWall=20
+    unsafe: free  # let the mantis jump on the left edge of the log multiple times
   conn MarshPastOpher.BowPath:
     moki: DoubleJump OR Dash OR Glide OR Launch
     gorlek: free
@@ -824,6 +826,7 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
     moki: MarshSpawn.ToOpherBarrier
   conn MarshPastOpher.PoolsPathEast:
     gorlek: Water, Bash, Launch  # the enemies appear once you have water
+    unsafe: Launch
 
 # checkpoint at -603, -4316
 # checkpoint at -573, -4339
@@ -855,14 +858,16 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
     gorlek:
       Sword  # Horizontal slashes
       Hammer, Damage=10
-    unsafe: Hammer OR Sentry=1
+    unsafe:
+      Hammer OR Sentry=1
+      Grenade=1, Bash   #  Throw Grenade up at the lower jumppad (right side and aim up ori facing right), use it and then bash
   pickup MarshPastOpher.TrialHC:
     moki: Hammer OR Spear=1
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
     gorlek: SentryJump=1
-    unsafe: Dash OR Sword
+    unsafe: Dash OR Sword OR Hammer # Sword: pogo on enemy, Hammer: upswing to reach ledge
 
   conn MarshShrine: free
   conn MarshPastOpher.BowPath:
@@ -942,6 +947,7 @@ anchor MarshPastOpher.BowApproach at -490, -4245:  # On the right ledge above th
       Launch, DoubleJump OR Dash OR Glide  # For the last part reset your Launch on the wall above the lantern
     unsafe:
       Bow=2, Bash, DoubleJump, Sword OR Hammer
+      Launch, Bash  # You can bash the lanterns without freeing them from the blob)
 
 anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit with bow tree.
   refill Energy=1:
@@ -1015,6 +1021,7 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
     unsafe:
       Bash, Glide
       Combat=Bat, Launch  # About a 45° angle from under the second bat to avoid a damage boost
+      DoubleJump, TripleJump, Sword #  Use Sword on bats to regain TrippleJump. Jump at the tiny ledges of the branches. Pogo on Crab
   conn MarshPastOpher.MillView: free
 
 anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable floor
@@ -1042,6 +1049,7 @@ anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable f
       ShurikenBreak=20, Launch
       Hammer, Bash                    # Fairly precise air combos needed
       Hammer, Sword, Bash             # Fairly precise air combos needed
+      Hammer, Launch                  # Launch at ceiling above water
   conn MarshPastOpher.PoolsPathEast:
     moki: Bash
     gorlek:
@@ -1103,11 +1111,10 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  # Right on top of MarshPast
       Water, Launch, DoubleJump, Dash
       Water, Launch, DoubleJump, Sword OR Hammer
       Water, Launch, Dash, Sword OR Hammer
-      Water, WaterDash, Hammer, Damage=20
-    unsafe:
-      ShurikenBreak=20, Water, Launch
-      Water, WaterDash, Hammer
-      Water, Grapple, Glide OR Sword
+      Water, Grapple, WaterDash, Hammer, Damage=20
+    unsafe, ShurikenBreak=20:
+      Water, Launch
+      Water, Grapple, Hammer OR Glide OR Sword
 
 region MidnightBurrows:
   moki: Danger=25
