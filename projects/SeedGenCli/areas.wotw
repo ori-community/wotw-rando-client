@@ -2473,6 +2473,8 @@ anchor GladesTown.HoleHut at -214, -4111:  # The ledge below Hole Hut
       TuleyShop.Lightcatchers, Bash, Grenade=1
       TuleyShop.SpringPlants, Hammer  # Uphammer Bounce
       TuleyShop.StickyGrass, Grapple, Sword OR Hammer OR Blaze=1 OR Shuriken=1 OR Sentry=1 OR Flash
+      DoubleJump, Glide
+
   conn TuleyShop:
     moki: InnerWellspring.WaterEscape, Dash OR Glide  # seed paths tbd if ever necessary
     gorlek: InnerWellspring.WaterEscape, Sword OR Hammer  # getting up there with just a weapon from below is not written in gorlek. The weapon floats from hole hut, however, are probably gorlek difficulty.
@@ -2520,6 +2522,7 @@ anchor GladesTown.ReachPath at -140, -4096:  # At the soup
       SentryJump=1
     unsafe:
       Dash, Glide, Sword  # Needs a ramp on the left side corner of the platform near the cauldron
+      DoubleJump, Glide  # Wall jump from the wall near the ceiling 
 
 
 region WestGlades:
@@ -2712,7 +2715,10 @@ anchor WestGlades.ShrineArea at -664, -4026:
       Grapple, DoubleJump, TripleJump
       SentryJump=1
     unsafe:
-      Bash, DoubleJump OR Dash OR Glide OR Sword  # use the shrine enemies
+      # Bash, DoubleJump OR Dash OR Glide OR Sword  # use the shrine enemies
+      Bash                                          # using shrine enemies (crab and bee)
+      DoubleJump, TripleJump
+      Grapple, Hammer, Dash                         # upswing after grapple plant, regaining dash when dashing into the corner/ceiling
 
   conn GladesShrine: free
   conn WestGlades.MillApproach: free
@@ -3782,7 +3788,7 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
     gorlek:
       DoubleJump, TripleJump OR Glide OR Sword OR Hammer
       SentryJump=1
-    unsafe: Dash, Hammer
+    unsafe: Dash, Hammer OR Sword           # Upswing and then dash, Sword can use a downslash at the end to gain a bit more height
 
   pickup InnerWellspring.LibraryEX: free
   pickup InnerWellspring.AboveTpEX:
@@ -3795,6 +3801,7 @@ anchor InnerWellspring.Teleporter at -1308, -3675:  # At the teleporter
       SentryJump=1
     unsafe:
       DoubleJump, Sword OR Hammer            # Sword path uses platform on the right, Hammer path uses the wall to the left of tp
+      Dash, Sword OR Hammer                   # path from the right, tight combos to reach the platform
   pickup InnerWellspring.SwimOre:
     moki: Water
 
@@ -6578,6 +6585,8 @@ anchor EastPools.LeverRoom at -1160, -4152:  # At the amulet Moki
       SentryJump=2, Damage=20  # damage if you sjump into the spikes
       Bash, Grenade=1, SentryJump=1
       SentryJump=1, DoubleJump OR Grapple
+    unsafe, EastPools.EntryLever:
+      Hammer, Bash              # using upswing to get below slug, hit it off the ceiling and then bash it
 
   conn EastPools.TPArea:
     moki, EastPools.EntryLever:
@@ -6640,6 +6649,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
       SentryJump=1  # Weapon stall above the spikes
     unsafe:
       DoubleJump, Bash  # Bash the slug when its at the right of the ceiling
+      Sword, Bash       # Hit slug with sword to hit it off the ceiling and then bash it
   pickup EastPools.LupoOre:
     moki: Water
   pickup EastPools.UltraBashShard:
@@ -7801,6 +7811,7 @@ anchor UpperWastes.MissilePuzzleLeft at 1937, -3794:  # Immediately to the right
     unsafe:
       Burrow, Bash
       SentryJump=1
+      Bash, DoubleJump, TripleJump  # Lure the miner on higher ground to the left
   pickup UpperWastes.MissileSpawnEX:
     moki: Burrow
   pickup UpperWastes.KSDoorEX:
