@@ -583,7 +583,7 @@ namespace uber_states
     INJECT_C_DLLEXPORT double get_uber_state_value(int group, int state)
     {
         auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id(state);
+        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);
         if (uber_state != nullptr) {
             if (group == 12) {
