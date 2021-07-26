@@ -191,6 +191,7 @@ namespace RandoMainDLL {
         case "feralUnarmedMinerEntity":
           return EnemyType.Miner;
         case "laserShooterEntity":
+        case "projectileShooterEntity":
           return EnemyType.Elemental;
         case "rollingTurtleEntity":
           return EnemyType.Baneling;
