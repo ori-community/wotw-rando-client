@@ -3,6 +3,7 @@
 #NoEnv                          ; don't populate environment variables automatically
 SetWorkingDir, %A_ScriptDir%    ; start where we at
 SetTitleMatchMode, 3            ; require a full match of window name
+FileEncoding, UTF-8
 #SingleInstance, force
 
 ; script variables (mostly file paths)
