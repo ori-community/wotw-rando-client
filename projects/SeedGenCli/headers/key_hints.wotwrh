@@ -24,11 +24,11 @@
 6|1051|8|9|0|int|30                                             // set price on Light Burst find
 6|1062|8|9|0|int|30                                             // set price on Flash find
 9|0=30|8|48248|41667|int|4000                                   // base price
-9|0=30|4|17|6|1101|1|8|48248|41667|int|-750                     // reduce for Burrow
-9|0=30|4|17|6|1104|1|8|48248|41667|int|-750                     // reduce for Water Dash
-9|0=30|4|17|6|1051|1|8|48248|41667|int|-750                     // reduce for Light Burst
-9|0=30|4|17|6|1062|1|8|48248|41667|int|-750                     // reduce for Flash
-9|0=30|4|17|48248|41667|1000|8|48248|41667|int|0                // set price to zero with nothing left to hint
+9|0=30|4|17|6|1101|1|8|48248|41667|int|-500                     // reduce for Burrow
+9|0=30|4|17|6|1104|1|8|48248|41667|int|-500                     // reduce for Water Dash
+9|0=30|4|17|6|1051|1|8|48248|41667|int|-500                     // reduce for Light Burst
+9|0=30|4|17|6|1062|1|8|48248|41667|int|-500                     // reduce for Flash
+9|0=30|4|17|48248|41667|2000|8|48248|41667|int|0                // set price to zero with nothing left to hint
 
 1|23|6|f=0|Clean Water, Flap, Glide hint                        // key skill hint from OpherShop.WaterBreath
 1|23|8|9|0|int|34
