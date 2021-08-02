@@ -53,7 +53,31 @@ namespace RandoMainDLL {
       }
     }
 
-    public static List<ShardType> TrackedShards = new List<ShardType>() { ShardType.TripleJump };
+    public static List<ShardType> TrackedShards = new List<ShardType>() {
+      ShardType.TripleJump,
+      ShardType.Overcharge,
+      ShardType.TripleJump,
+      ShardType.Wingclip,
+      ShardType.Magnet,
+      ShardType.Splinter,
+      ShardType.Reckless,
+      ShardType.Resilience,
+      ShardType.Vitality,
+      ShardType.Energy,
+      ShardType.LifePact,
+      ShardType.LastStand,
+      ShardType.UltraBash,
+      ShardType.UltraGrapple,
+      ShardType.Overflow,
+      ShardType.Thorn,
+      ShardType.Catalyst,
+      ShardType.Sticky,
+      ShardType.Finesse,
+      ShardType.SpiritSurge,
+      ShardType.Lifeforce,
+      ShardType.Deflector,
+      ShardType.Fracture,
+    };
     public static void UpdateReachable(int sleepTime = 30) {
       if (InterOp.get_game_state() == GameState.Game) {
         var args = GetArgs();
@@ -97,7 +121,7 @@ namespace RandoMainDLL {
           $"\"{Randomizer.BasePath}state_data.csv\"",
           $"\"{SeedController.SeedFile}\"",
           $"{InterOp.get_max_health()}",
-          $"{Convert.ToInt32(10*InterOp.get_max_energy())}",
+          InterOp.get_max_energy().ToString(System.Globalization.CultureInfo.InvariantCulture),
           $"{UberGet.value(6, 0).Int}",
           $"{InterOp.get_ore()}",
           $"{InterOp.get_experience()}",
