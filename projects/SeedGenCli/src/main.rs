@@ -232,7 +232,7 @@ fn parse_pathsets(names: &[String]) -> Pathsets {
     let mut pathsets = Pathsets::default();
 
     for pathset in names {
-        match &pathset[..] {
+        match &pathset.to_lowercase()[..] {
             "mo" | "moki" => {},
             "go" | "gorlek" => pathsets.add(Pathset::Gorlek),
             "un" | "unsafe" => pathsets.add(Pathset::Unsafe),
@@ -259,7 +259,7 @@ fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
     let mut goalmodes = FxHashSet::default();
 
     for goalmode in names {
-        match &goalmode[..] {
+        match &goalmode.to_lowercase()[..] {
             "t" | "trees" => { goalmodes.insert(GoalMode::Trees); },
             "w" | "wisps" => { goalmodes.insert(GoalMode::Wisps); },
             "q" | "quests" => { goalmodes.insert(GoalMode::Quests); },
@@ -271,7 +271,7 @@ fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
     goalmodes
 }
 fn parse_spawn(spawn: String) -> Spawn {
-    match &spawn[..] {
+    match &spawn.to_lowercase()[..] {
         "r" | "random" => Spawn::Random,
         "f" | "fullyrandom" => Spawn::FullyRandom,
         _ => Spawn::Set(spawn),
