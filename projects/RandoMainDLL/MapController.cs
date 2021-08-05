@@ -167,7 +167,7 @@ namespace RandoMainDLL {
       {AreaType.LumaPools, 150},
       {AreaType.MouldwoodDepths, 150},
       {AreaType.WindsweptWastes, 150},
-      {AreaType.WillowsEnd, 50},
+      {AreaType.WillowsEnd, 0},
     };
 
 
