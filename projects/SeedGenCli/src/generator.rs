@@ -494,21 +494,20 @@ where
     I: Iterator<Item=usize>,
 {
     'outer: for world_index in 0..context.world_count {
-        let mut reserved_slots = 2;
+        let mut random_slots = 2;
 
         loop {
             let available_spawn_slots = world_contexts[world_index].spawn_slots.len();
-            if available_spawn_slots <= reserved_slots {
+            if available_spawn_slots <= random_slots {
                 continue 'outer;
             }
 
             log::trace!("({}): Placing spawn progression", world_contexts[world_index].player_name);
-            let slots = available_spawn_slots - reserved_slots;
 
             let reach_context = progression_check(world_contexts, context)?;  // TODO This is inefficient! The problem here is that the ReachContext always holds all worlds at once. Maybe it should be a Vec of per-world Reach contexts?
             let world_context = &world_contexts[world_index];
 
-            let mut itemsets = determine_progressions(world_index, slots, slots, &reach_context, world_context)?;
+            let mut itemsets = determine_progressions(world_index, available_spawn_slots, available_spawn_slots, &reach_context, world_context)?;
 
             if itemsets.is_empty() {
                 log::trace!("({}): No progressions found", world_context.player_name);
@@ -516,7 +515,7 @@ where
             }
 
             filter_itemsets(&mut itemsets);
-            let progression = pick_progression(world_index, &itemsets, slots, &reach_context, world_contexts, context)?;
+            let progression = pick_progression(world_index, &itemsets, available_spawn_slots, &reach_context, world_contexts, context)?;
 
             for (item, amount) in &progression.items {
                 let items = split_progression_item(world_index, item, amount, world_contexts, context)?;
@@ -529,7 +528,7 @@ where
                     log::trace!("({}): Placed {} as spawn progression", world_contexts[world_index].player_name, item);
 
                     if matches!(item, Item::Skill(Skill::Regenerate)) {
-                        reserved_slots -= 1;
+                        random_slots -= 1;
                     }
                     world_contexts[world_index].placements.push(Placement {
                         node: world_contexts[world_index].spawn_slots.pop(),
