@@ -568,7 +568,7 @@ where
             }
         } else {
             if world_contexts.iter().any(|world_context| !world_context.placeholders.is_empty()) &&
-            world_contexts.iter().any(|world_context| !world_context.world.pool.inventory.items.iter().all(|(item, _)| !item.is_progression(&world_context.world.player.pathsets))) {
+            world_contexts.iter().any(|world_context| world_context.world.pool.inventory.items.iter().any(|(item, _)| matches!(item, Item::UberState(_)))) {
                 flush_item_pool(world_contexts, context)?;
                 return Ok(());
             }
