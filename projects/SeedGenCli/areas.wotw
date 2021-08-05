@@ -7871,8 +7871,8 @@ anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
   refill Full
 
   pickup WillowsEnd.LupoMap:
-    moki: SpiritLight=50, DoubleJump OR Dash OR Launch OR Bow=1
-    gorlek: SpiritLight=50  # jump to trigger the mine, back off to avoid taking damages
+    moki: DoubleJump OR Dash OR Launch OR Bow=1
+    gorlek: free  # jump to trigger the mine, back off to avoid taking damages
 
   conn Teleporters: free
   conn WillowsEnd.Entry:
