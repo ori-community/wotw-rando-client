@@ -4660,6 +4660,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       Bash
       DoubleJump, LowerReach.Lever OR Sword  # With sword, pogo the slime
       Grenade=1  # GrenadeJump=1
+      Dash, DoubleJump, Sentry=1 OR Blaze=1 OR Spear=1 OR Flash=1 OR Shuriken=1  # Dash ramp from the ramp near the spikes otw to Lupo
       LowerReach.CentralFurnace:
         DoubleJump, Sword, Bash OR Spear=1
         DoubleJump, Hammer  # use the plant up slash and directly wall jump on the left wall
@@ -4679,6 +4680,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       Bash  # move the purple slug to the right first
       DoubleJump, Glide, LowerReach.Lever  # from LowerReach.AboveDoorEX
       Grenade=1  # GrenadeJump=1
+      Dash, Sword  # Dash ramp under AboveDoorEX->upslash->dash->sword hover
   pickup LowerReach.TPLeftEX:
     moki:
       Launch
@@ -4719,7 +4721,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       LowerReach.CentralFurnace, Bash  # move the purple slug to the right first
       LowerReach.CentralFurnace, SentryJump=2
       LowerReach.CentralFurnace, DoubleJump, Hammer OR Sword
-      LowerReach.CentralFurnace, Dash, Hammer  # dash ramp->up slash->dash->weapon stall to grab the tongue
+      LowerReach.CentralFurnace, Dash, Hammer OR Sword  # dash ramp->up slash->dash->weapon stall to grab the tongue. With sword, pass through the tongue ennemy from the right with downslashes
   conn LowerReach.Entry:
     moki, LowerReach.Lever:
       Launch
@@ -4740,6 +4742,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
 
   pickup LowerReach.AboveDoorEX:
     moki: Bash OR Hammer OR Spear=1
+    unsafe: Sentry=1  #Sentry redirect
   pickup LowerReach.LupoMap:
     moki: SpiritLight=150, DoubleJump OR Dash OR Glide OR Launch
     gorlek: SpiritLight=150  # not too hard to do damageless, slide down the tongue plant and land on the little wall
@@ -4751,9 +4754,9 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
       Glide OR SentryJump=1
       DoubleJump, Dash OR TripleJump OR Sword OR Hammer
       Dash, Sword OR Hammer
-    unsafe:
-      Grenade=1  # GrenadeJump=1
-      Bash OR Sword OR Hammer OR DoubleJump OR Dash
+    unsafe: free  # Pause float
+      #Grenade=1  # GrenadeJump=1
+      #Bash OR Sword OR Hammer OR DoubleJump OR Dash
   pickup LowerReach.HiddenOre:
     moki:
       Launch
