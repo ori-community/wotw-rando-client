@@ -22,12 +22,25 @@ namespace
 
     bool weaponmaster_purchase_in_progress = false;
     const std::set<char> TWILLEN_SHARDS{ 1, 2, 3, 5, 19, 22, 26, 40 };
-    std::unordered_map<uint16_t, int> opher_weapon_costs;
-    std::unordered_map<uint8_t, int> twillen_shard_costs;
 
     uint16_t opher_key(int acq, int req) {
         return static_cast<uint16_t>(acq & 0xFF) | (static_cast<uint16_t>(req & 0xFF) << 8);
     }
+
+    std::unordered_map<uint16_t, int> opher_weapon_costs {
+        { opher_key(app::AbilityType__Enum_WaterBreath, 255), 10023 },          // Water breath
+        { opher_key(app::AbilityType__Enum_SpiritSpearSpell, 255), 10074 },     // Spike
+        { opher_key(app::AbilityType__Enum_Hammer, 255), 10098 },               // Hammer
+        { opher_key(255, 255), 10105 },                                         // Fast Travel
+        { opher_key(app::AbilityType__Enum_ChakramSpell, 255), 10106 },         // Shuriken
+        { opher_key(app::AbilityType__Enum_Blaze, 255), 10115 },                // Blaze
+        { opher_key(app::AbilityType__Enum_TurretSpell, 255), 10116 },          // Sentry
+        { opher_key(255, app::AbilityType__Enum_SpiritSpearSpell), 11074 },     // Exploding Spike
+        { opher_key(255, app::AbilityType__Enum_Hammer), 11098 },               // Shock Smash
+        { opher_key(255, app::AbilityType__Enum_ChakramSpell), 11106 },         // Static Shuriken
+        { opher_key(255, app::AbilityType__Enum_Blaze), 11115 },                // Charged Blaze
+        { opher_key(255, app::AbilityType__Enum_TurretSpell), 11116 },          // Rapid Sentry
+    };
 
     bool is_twillen_shard(const uint8_t shard)
     {
@@ -161,7 +174,8 @@ namespace
             const auto req = static_cast<int>(item->fields.Upgrade->fields.RequiredAbility);
             const auto key = opher_key(acq, req);
             if(opher_weapon_costs.find(key) != opher_weapon_costs.end())
-                return opher_weapon_costs[opher_key(acq, req)];
+                return uber_states::get_uber_state_value(uber_states::constants::OPHER_WEAPON_GROUP_ID, opher_weapon_costs[opher_key(acq, req)]);
+
             return 300; // todo; maybe a bit smarter than this?
          }
 
@@ -187,32 +201,20 @@ namespace
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, void, DoPurchase, (app::WeaponmasterItem* item, int64_t context))
     {
+        weaponmaster_purchase_in_progress = true;
+        WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
+        weaponmaster_purchase_in_progress = false;
         //Weaponmasteritem$$DoPurchase
         const auto ability_type = item->fields.Upgrade->fields.AcquiredAbilityType;
-        if (ability_type != app::AbilityType__Enum_None)
-        {
-            weaponmaster_purchase_in_progress = true;
-            WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone price purposes
-            weaponmaster_purchase_in_progress = false;
+        if (ability_type != app::AbilityType__Enum_None) {
             csharp_bridge::opher_buy_weapon(ability_type);
-        }
-        else
-        {
+        } else {
             const auto required_type = item->fields.Upgrade->fields.RequiredAbility;
             if (required_type == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
-            {
-                weaponmaster_purchase_in_progress = true;
-                WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
-                weaponmaster_purchase_in_progress = false;
                 csharp_bridge::opher_buy_weapon(app::AbilityType__Enum_TeleportSpell);
-            }
             else
-            {
-                WeaponmasterItem::DoPurchase(item, context); // purchase first for keystone purposes
                 csharp_bridge::opher_buy_upgrade(required_type);
-            }
         }
-
     }
 
     //MapmakerScreen* mapMakerPtr = nullptr;
@@ -710,25 +712,17 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy, int cost) {
+INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy) {
     const auto key = opher_key(acquired, required);
     auto& item = opher_overrides[key];
     set_item(item, name, description, locked, uses_energy);
-    opher_weapon_costs[key] = cost;
 }
 
-INJECT_C_DLLEXPORT void set_opher_cost(int acquired, int required, int cost) { // TODO: remove once the vanilla upgrades are their own items and set via header, probably?
-    const auto key = opher_key(acquired, required);
-    opher_weapon_costs[key] = cost;
-}
-
-
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked, int cost)
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
 {
     const auto key = static_cast<uint8_t>(shard);
     auto& item = twillen_overrides[key];
     set_item(item, name, description, locked, false);
-    twillen_shard_costs[key] = cost;
 }
 
 INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* locked)

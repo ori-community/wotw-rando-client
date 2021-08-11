@@ -201,7 +201,7 @@ writetofile:
     IniWrite, %varShowLongCutscenes%, %inipath%, Flags, ShowLongCutscenes
     IniWrite, %varUseWinStore%, %inipath%, Flags, UseWinStore
     IniWrite, %varCursorLock%, %inipath%, Flags, CursorLock
-    IniWrite, %varAlwaysShowWarps%, %inipath%, Flags, AlwaysShowKeystones
+    IniWrite, %varAlwaysShowKS%, %inipath%, Flags, AlwaysShowKeystones
     IniWrite, %varInvertSwim%, %inipath%, Flags, InvertSwim
     IniWrite, %varDisableDebug%, %inipath%, Flags, DisableDebugControls
     IniWrite, %varDisableQuestSnap%, %inipath%, Flags, QuestFocusOnAbility3
