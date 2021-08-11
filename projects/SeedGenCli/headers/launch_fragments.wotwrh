@@ -7,6 +7,8 @@
 !!name 8|9|2|int|+1 Launch Fragment
 9|2|4|19|9|2|3|6|*Launch Fragment* ($(9|2)/3)           // Show status message
 9|2|4|18|9|2|2|6|*Launch Fragment* $($(9|2)/3)$         // Show it in green if the player found enough
-9|2=3|2|8                                               // Give Launch on three fragments
+!9|2=3|2|8                                              // Give Launch on three fragments (out of logic)
+9|2=5|6|f=0
+9|2=5|2|8                                               // Give logical Launch on five fragments
 9|999=200|4|19|9|2|3|6|*Launch Fragments* ($(9|2)/3)    // Progress message
 9|999=200|4|18|9|2|2|6|*Launch Fragments* $($(9|2)/3)$

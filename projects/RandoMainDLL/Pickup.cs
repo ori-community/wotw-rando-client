@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
 using System.Text.RegularExpressions;
-using Microsoft.VisualBasic;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -316,8 +311,8 @@ namespace RandoMainDLL {
     private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)\|(.*?)\]", RegexOptions.Compiled);
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
     public override string DisplayName { get {
-      var withUberNameRepl = uberNameFrag.Replace(Msg, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
-      var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
+        var withUberNameRepl = uberNameFrag.Replace(Msg, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
+        var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
         return nameFrag.Replace(withStateRepl, (Match m) => {
           var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
           var rest = m.Groups[2].Value.Split('|').ToList();
@@ -882,10 +877,16 @@ namespace RandoMainDLL {
     RegenerationEfficiency = 7,
     FlashEfficiency = 8,
     LightBurstEfficiency = 9,
+    ExplodingSpike = 45,
+    ShockSmash = 46,
+    StaticStar = 47,
+    ChargeBlaze = 48,
+    RapidSentry = 49,
+
   }
   public class WeaponUpgrade : Pickup {
     public override PickupType Type => PickupType.WeaponUpgrade;
-    public override string DisplayName { get => _name; }
+    public override string DisplayName { get => $"#{_name}{(Value() > 1 ? $" x{Value()}" : "")}#"; }
     private readonly string _name;
     public readonly string Desc;
     public readonly AbilityType Weapon;
@@ -905,19 +906,39 @@ namespace RandoMainDLL {
       Weapon = weapon;
       Desc = desc;
     }
-    public UberId UberId() => new UberId(4, (int)Id);
-    public float Value() => UberId().ValueOpt().Value.Float;
+    public UberId UberId() => new UberId(4, (int)Id + 50);
+    public byte Value() => UberGet.Byte(UberId());
     public override void Grant(bool skipBase = false) {
+      UberInc.Byte(UberId());
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:
         case WeaponUpgradeType.RapidSword:
-          UberId().State().Write(new UberValue(Value() * 1.25f));
+          UberSet.Float(4, (int)Id, Convert.ToSingle(Math.Pow(1.25f, Value())));
           break;
         case WeaponUpgradeType.SpikeEfficiency:
         case WeaponUpgradeType.StarEfficiency:
         case WeaponUpgradeType.SentryEfficiency:
         case WeaponUpgradeType.BlazeEfficiency:
-          UberId().State().Write(new UberValue(Value() * 0.5f));
+        case WeaponUpgradeType.BowEfficiency:
+        case WeaponUpgradeType.RegenerationEfficiency:
+        case WeaponUpgradeType.LightBurstEfficiency:
+        case WeaponUpgradeType.FlashEfficiency:
+          UberSet.Float(4, (int)Id, Convert.ToSingle(Math.Pow(0.5f, Value())));
+          break;
+        case WeaponUpgradeType.ExplodingSpike:
+          UberSet.Byte(3440, 5687, 1);
+          break;
+        case WeaponUpgradeType.ShockSmash:
+          UberSet.Byte(3440, 46488, 1);
+          break;
+        case WeaponUpgradeType.StaticStar:
+          UberSet.Byte(3440, 10776, 1);
+          break;
+        case WeaponUpgradeType.ChargeBlaze:
+          UberSet.Byte(3440, 61898, 1);
+          break;
+        case WeaponUpgradeType.RapidSentry:
+          UberSet.Byte(3440, 57376, 1);
           break;
         default:
           Randomizer.Log($"Unknown upgrade {Id}, can't apply");
@@ -925,22 +946,24 @@ namespace RandoMainDLL {
       }
       base.Grant(skipBase);
     }
-//    public override string DisplayName { get => $"{Name}{(Value() > 1 ? $" x{Value()}" : "")}"; }
-    public static WeaponUpgrade RapidSmash = new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Spirit Smash* attacks are 25% faster");
-    public static WeaponUpgrade RapidSword = new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are 25% faster");
-    public static WeaponUpgrade BlazeEfficiency = new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs 50% less energy");
-    public static WeaponUpgrade SpikeEfficiency = new WeaponUpgrade(WeaponUpgradeType.SpikeEfficiency, AbilityType.Spike, "Spike Efficiency", "*Spike* costs 50% less energy");
-    public static WeaponUpgrade StarEfficiency = new WeaponUpgrade(WeaponUpgradeType.StarEfficiency, AbilityType.SpiritStar, "Star Efficiency", "*Spirit Star* costs 50% less energy");
-    public static WeaponUpgrade SentryEfficiency = new WeaponUpgrade(WeaponUpgradeType.SentryEfficiency, AbilityType.Sentry, "Sentry Efficiency", "*Sentry* costs 50% less energy");
 
-    public static Dictionary<WeaponUpgradeType, WeaponUpgrade> ById = new Dictionary<WeaponUpgradeType, WeaponUpgrade>() {
-      {RapidSmash.Id,       RapidSmash },
-      {RapidSword.Id,       RapidSword },
-      {BlazeEfficiency.Id,  BlazeEfficiency },
-      {SpikeEfficiency.Id,  SpikeEfficiency },
-      {StarEfficiency.Id,   StarEfficiency },
-      {SentryEfficiency.Id, SentryEfficiency },
-    };
+    public static Dictionary<WeaponUpgradeType, WeaponUpgrade> ById = new List<WeaponUpgrade> {
+      new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Hammer* attacks are 25% faster"),
+      new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are 25% faster"),
+      new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.SpikeEfficiency, AbilityType.Spike, "Spike Efficiency", "*Spike* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.StarEfficiency, AbilityType.SpiritStar, "Star Efficiency", "*Shuriken* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.SentryEfficiency, AbilityType.Sentry, "Sentry Efficiency", "*Sentry* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.BowEfficiency, AbilityType.SpiritArc, "Bow Efficiency", "*Spirit Arc* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.RegenerationEfficiency, AbilityType.Regenerate, "Regen Efficiency", "*Regenerate* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.FlashEfficiency, AbilityType.Flash, "Flash Efficiency", "*Flash* uses 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.LightBurstEfficiency, AbilityType.LightBurst, "Grenade Efficiency", "*Grenade* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.ShockSmash, AbilityType.SpiritSmash, "Shock Smash", "Drop attacks with *Hammer* create a shockwave"),
+      new WeaponUpgrade(WeaponUpgradeType.StaticStar, AbilityType.SpiritStar, "Static Star", "Tap to pause the *Shuriken*'s flight and spin it in place"),
+      new WeaponUpgrade(WeaponUpgradeType.RapidSentry, AbilityType.Sentry, "Sentry Speed", "Doubles *Sentry* attack speed"),
+      new WeaponUpgrade(WeaponUpgradeType.ChargeBlaze, AbilityType.Blaze, "Charge Blaze", "Charge up *Blaze* to damage and set all enemies in sight on fire"),
+      new WeaponUpgrade(WeaponUpgradeType.ExplodingSpike, AbilityType.Spike, "Exploding Spike", "*Spike* explodes on hit"),
+    }.ToDictionary(e => e.Id, e => e);
   }
 
   public abstract class Hint : Pickup {

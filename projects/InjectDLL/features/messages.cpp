@@ -36,7 +36,6 @@ std::string convert_csstring(app::String* str)
 }
 
 INJECT_C_DLLEXPORT void clear_visible_hints();
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description);
 
 namespace
 {

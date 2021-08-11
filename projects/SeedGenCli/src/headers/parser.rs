@@ -4,6 +4,7 @@ use std::{
 };
 
 use rand::Rng;
+use regex::Regex;
 
 use crate::world::{
     World,
@@ -11,29 +12,24 @@ use crate::world::{
 };
 use crate::inventory::Item;
 use crate::util::{
-    self,
-    Pathsets, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
-    uberstate::{UberState, UberIdentifier}
+    self, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
+    settings::Settings,
+    uberstate::{UberState, UberIdentifier},
 };
 
-fn end_of_pickup<'a, I>(mut parts: I, shop: bool) -> Result<(), String>
+fn end_of_pickup<'a, I>(mut parts: I) -> Result<(), String>
 where
     I: Iterator<Item = &'a str>,
 {
-    // TODO could support !!add with a fixed price probably? And/or an uberState based price for shuffled pickups?
-    if shop && parts.next().is_some() {
-        return Err(String::from("Shop prices in pickups are obsolete! Use the assigned uberStates for shop prices instead"));
-        // price.parse::<f32>().map_err(|_| String::from("invalid price"))?;
-    }
     if parts.next().is_some() { return Err(String::from("too many parts")); }
     Ok(())
 }
 
-fn parse_spirit_light<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_spirit_light<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let spirit_light = parts.next().ok_or_else(|| String::from("missing spirit light amount"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     if let Some(spirit_light) = spirit_light.strip_prefix('-') {
         let spirit_light: u16 = spirit_light.parse().map_err(|_| String::from("invalid spirit light amount"))?;
         Ok(Item::RemoveSpiritLight(spirit_light))
@@ -42,20 +38,20 @@ where P: Iterator<Item=&'a str>
         Ok(Item::SpiritLight(spirit_light))
     }
 }
-fn parse_resource<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_resource<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let resource_type = parts.next().ok_or_else(|| String::from("missing resource type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     let resource_type: u8 = resource_type.parse().map_err(|_| String::from("invalid resource type"))?;
     let resource = Resource::from_id(resource_type).ok_or_else(|| String::from("invalid resource type"))?;
     Ok(Item::Resource(resource))
 }
-fn parse_skill<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_skill<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let skill_type = parts.next().ok_or_else(|| String::from("missing skill type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     if let Some(skill_type) = skill_type.strip_prefix('-') {
         let skill_type: u8 = skill_type.parse().map_err(|_| String::from("invalid skill type"))?;
         let skill = Skill::from_id(skill_type).ok_or_else(|| String::from("invalid skill type"))?;
@@ -66,11 +62,11 @@ where P: Iterator<Item=&'a str>
         Ok(Item::Skill(skill))
     }
 }
-fn parse_shard<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_shard<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let shard_type = parts.next().ok_or_else(|| String::from("missing shard type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     if let Some(shard_type) = shard_type.strip_prefix('-') {
         let shard_type: u8 = shard_type.parse().map_err(|_| String::from("invalid shard type"))?;
         let shard = Shard::from_id(shard_type).ok_or_else(|| String::from("invalid shard type"))?;
@@ -81,13 +77,13 @@ where P: Iterator<Item=&'a str>
         Ok(Item::Shard(shard))
     }
 }
-fn parse_autosave<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_autosave<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     Ok(Item::Command(Command::Autosave))
 }
-fn parse_set_resource<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_set_resource<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let resource = parts.next().ok_or_else(|| String::from("missing resource type"))?;
@@ -95,51 +91,51 @@ where P: Iterator<Item=&'a str>
     let resource = Resource::from_id(resource).ok_or_else(|| String::from("invalid resource type"))?;
     let amount = parts.next().ok_or_else(|| String::from("missing resource amount"))?;
     let amount: i16 = amount.parse().map_err(|_| String::from("invalid resource type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     Ok(Item::Command(Command::Resource { resource, amount }))
 }
-fn parse_checkpoint<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_checkpoint<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     Ok(Item::Command(Command::Checkpoint))
 }
-fn parse_magic<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_magic<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     Ok(Item::Command(Command::Magic))
 }
-fn parse_stop<'a, P>(mut parts: P, shop: bool) -> Result<UberState, String>
+fn parse_stop<'a, P>(mut parts: P) -> Result<UberState, String>
 where P: Iterator<Item=&'a str>
 {
     let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
     let uber_id = parts.next().ok_or_else(|| String::from("missing uber id"))?;
     let value = parts.next().ok_or_else(|| String::from("missing uber value"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     let uber_id = format!("{}={}", uber_id, value);
     UberState::from_parts(uber_group, &uber_id)
 }
-fn parse_stop_equal<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_stop_equal<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let uber_state = parse_stop(parts, shop)?;
+    let uber_state = parse_stop(parts)?;
     Ok(Item::Command(Command::StopEqual { uber_state }))
 }
-fn parse_stop_greater<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_stop_greater<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let uber_state = parse_stop(parts, shop)?;
+    let uber_state = parse_stop(parts)?;
     Ok(Item::Command(Command::StopGreater { uber_state }))
 }
-fn parse_stop_less<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_stop_less<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let uber_state = parse_stop(parts, shop)?;
+    let uber_state = parse_stop(parts)?;
     Ok(Item::Command(Command::StopLess { uber_state }))
 }
-fn parse_toggle<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_toggle<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let toggle_type = parts.next().ok_or_else(|| String::from("missing toggle command type"))?;
@@ -151,81 +147,81 @@ where P: Iterator<Item=&'a str>
         "1" => true,
         _ => return Err(String::from("invalid toggle command value")),
     };
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     Ok(Item::Command(Command::Toggle { target: toggle_type, on }))
 }
-fn parse_warp<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_warp<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let x = parts.next().ok_or_else(|| String::from("missing x coordinate"))?;
     let x: i16 = x.parse().map_err(|_| String::from("invalid x coordinate"))?;
     let y = parts.next().ok_or_else(|| String::from("missing x coordinate"))?;
     let y: i16 = y.parse().map_err(|_| String::from("invalid x coordinate"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     Ok(Item::Command(Command::Warp { x, y }))
 }
-fn parse_timer<'a, P>(mut parts: P, shop: bool) -> Result<UberIdentifier, String>
+fn parse_timer<'a, P>(mut parts: P) -> Result<UberIdentifier, String>
 where P: Iterator<Item=&'a str>
 {
     let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
     let uber_id = parts.next().ok_or_else(|| String::from("missing uber id"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     Ok(UberState::from_parts(uber_group, uber_id)?.identifier)
 }
-fn parse_start_timer<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_start_timer<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let identifier = parse_timer(parts, shop)?;
+    let identifier = parse_timer(parts)?;
     Ok(Item::Command(Command::StartTimer { identifier }))
 }
-fn parse_stop_timer<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_stop_timer<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let identifier = parse_timer(parts, shop)?;
+    let identifier = parse_timer(parts)?;
     Ok(Item::Command(Command::StopTimer { identifier }))
 }
-fn parse_intercept<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_intercept<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let intercept = parts.next().ok_or_else(|| String::from("missing intercept"))?;
     let intercept: i32 = intercept.parse().map_err(|_| String::from("invalid intercept"))?;
     let set = parts.next().ok_or_else(|| String::from("missing set"))?;
     let set: i32 = set.parse().map_err(|_| String::from("invalid set"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     Ok(Item::Command(Command::StateRedirect { intercept, set }))
 }
-fn parse_set_player<'a, P>(mut parts: P, shop: bool) -> Result<i16, String>
+fn parse_set_player<'a, P>(mut parts: P) -> Result<i16, String>
 where P: Iterator<Item=&'a str>
 {
     let amount = parts.next().ok_or_else(|| String::from("missing amount"))?;
     let amount: i16 = amount.parse().map_err(|_| String::from("invalid amount"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     Ok(amount)
 }
-fn parse_set_health<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_set_health<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let amount = parse_set_player(parts, shop)?;
+    let amount = parse_set_player(parts)?;
     Ok(Item::Command(Command::SetHealth { amount }))
 }
-fn parse_set_energy<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_set_energy<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let amount = parse_set_player(parts, shop)?;
+    let amount = parse_set_player(parts)?;
     Ok(Item::Command(Command::SetEnergy { amount }))
 }
-fn parse_set_spirit_light<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_set_spirit_light<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let amount = parse_set_player(parts, shop)?;
+    let amount = parse_set_player(parts)?;
     Ok(Item::Command(Command::SetSpiritLight { amount }))
 }
-fn parse_equip<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_equip<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let slot = parts.next().ok_or_else(|| String::from("missing equip slot"))?;
@@ -233,19 +229,19 @@ where P: Iterator<Item=&'a str>
     if slot > 2 { return Err(String::from("invalid equip slot")); }
     let ability = parts.next().ok_or_else(|| String::from("missing ability to equip"))?;
     let ability: u16 = ability.parse().map_err(|_| String::from("invalid ability to equip"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     Ok(Item::Command(Command::Equip { slot, ability }))
 }
-fn parse_ahk_signal<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_ahk_signal<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let signal = parts.next().ok_or_else(|| String::from("missing ahk signal specifier"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
-    Ok(Item::Command(Command::AHKSignal { signal: signal.to_string() }))
+    Ok(Item::Command(Command::AhkSignal { signal: signal.to_string() }))
 }
-fn parse_if<'a, P>(mut parts: P, shop: bool) -> Result<(UberState, Item), String>
+fn parse_if<'a, P>(mut parts: P) -> Result<(UberState, Item), String>
 where P: Iterator<Item=&'a str>
 {
     let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
@@ -256,61 +252,61 @@ where P: Iterator<Item=&'a str>
     let uber_state = UberState::from_parts(uber_group, &uber_id)?;
 
     let item = parts.collect::<Vec<_>>().join("|");
-    let item = parse_pickup(&item, shop)?;
+    let item = parse_pickup(&item)?;
 
     Ok((uber_state, item))
 }
-fn parse_if_equal<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_if_equal<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let (uber_state, item) = parse_if(parts, shop)?;
+    let (uber_state, item) = parse_if(parts)?;
     Ok(Item::Command(Command::IfEqual { uber_state, item: Box::new(item) }))
 }
-fn parse_if_greater<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_if_greater<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let (uber_state, item) = parse_if(parts, shop)?;
+    let (uber_state, item) = parse_if(parts)?;
     Ok(Item::Command(Command::IfGreater { uber_state, item: Box::new(item) }))
 }
-fn parse_if_less<'a, P>(parts: P, shop: bool) -> Result<Item, String>
+fn parse_if_less<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
-    let (uber_state, item) = parse_if(parts, shop)?;
+    let (uber_state, item) = parse_if(parts)?;
     Ok(Item::Command(Command::IfLess { uber_state, item: Box::new(item) }))
 }
-fn parse_command<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_command<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let command_type = parts.next().ok_or_else(|| String::from("missing command pickup type"))?;
     match command_type {
-        "0" => parse_autosave(parts, shop),
-        "1" => parse_set_resource(parts, shop),
-        "2" => parse_checkpoint(parts, shop),
-        "3" => parse_magic(parts, shop),
-        "4" => parse_stop_equal(parts, shop),
-        "5" => parse_stop_greater(parts, shop),
-        "6" => parse_stop_less(parts, shop),
-        "7" => parse_toggle(parts, shop),
-        "8" => parse_warp(parts, shop),
-        "9" => parse_start_timer(parts, shop),
-        "10" => parse_stop_timer(parts, shop),
-        "11" => parse_intercept(parts, shop),
-        "12" => parse_set_health(parts, shop),
-        "13" => parse_set_energy(parts, shop),
-        "14" => parse_set_spirit_light(parts, shop),
-        "15" => parse_equip(parts, shop),
-        "16" => parse_ahk_signal(parts, shop),
-        "17" => parse_if_equal(parts, shop),
-        "18" => parse_if_greater(parts, shop),
-        "19" => parse_if_less(parts, shop),
+        "0" => parse_autosave(parts),
+        "1" => parse_set_resource(parts),
+        "2" => parse_checkpoint(parts),
+        "3" => parse_magic(parts),
+        "4" => parse_stop_equal(parts),
+        "5" => parse_stop_greater(parts),
+        "6" => parse_stop_less(parts),
+        "7" => parse_toggle(parts),
+        "8" => parse_warp(parts),
+        "9" => parse_start_timer(parts),
+        "10" => parse_stop_timer(parts),
+        "11" => parse_intercept(parts),
+        "12" => parse_set_health(parts),
+        "13" => parse_set_energy(parts),
+        "14" => parse_set_spirit_light(parts),
+        "15" => parse_equip(parts),
+        "16" => parse_ahk_signal(parts),
+        "17" => parse_if_equal(parts),
+        "18" => parse_if_greater(parts),
+        "19" => parse_if_less(parts),
         _ => Err(String::from("invalid command type")),
     }
 }
-fn parse_teleporter<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_teleporter<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let teleporter_type = parts.next().ok_or_else(|| String::from("missing teleporter type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     if let Some(teleporter_type) = teleporter_type.strip_prefix('-') {
         let teleporter_type: u8 = teleporter_type.parse().map_err(|_| String::from("invalid teleporter type"))?;
         let teleporter = Teleporter::from_id(teleporter_type).ok_or_else(|| String::from("invalid teleporter type"))?;
@@ -332,7 +328,7 @@ where P: Iterator<Item=&'a str>
     let message = parts.join("|");
     Ok(Item::Message(message))
 }
-fn parse_set_uber_state<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_set_uber_state<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
@@ -346,7 +342,7 @@ where P: Iterator<Item=&'a str>
         suppress.parse::<u16>().map_err(|_| String::from("invalid suppress count"))?;
     }
 
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     let strip_sign = |value: &'a str| -> &'a str { if value.starts_with(&['+', '-'][..]) { &value[1..] } else { value } };
 
@@ -361,11 +357,11 @@ where P: Iterator<Item=&'a str>
     let command = format!("{}|{}|{}|{}", uber_group, uber_id, uber_type, value);
     Ok(Item::UberState(command))
 }
-fn parse_world_event<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_world_event<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let world_event_type = parts.next().ok_or_else(|| String::from("missing world event type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     if let Some(world_event_type) = world_event_type.strip_prefix('-') {
         let world_event_type: u8 = world_event_type.parse().map_err(|_| String::from("invalid world event type"))?;
         if world_event_type != 0 { return Err(String::from("invalid world event type")); }
@@ -376,25 +372,25 @@ where P: Iterator<Item=&'a str>
         Ok(Item::Water)
     }
 }
-fn parse_bonus_item<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_bonus_item<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let bonus_type = parts.next().ok_or_else(|| String::from("missing bonus item type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     let bonus_type: u8 = bonus_type.parse().map_err(|_| String::from("invalid bonus item type"))?;
     let bonus = BonusItem::from_id(bonus_type).ok_or_else(|| String::from("invalid bonus item type"))?;
     Ok(Item::BonusItem(bonus))
 }
-fn parse_bonus_upgrade<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_bonus_upgrade<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let bonus_type = parts.next().ok_or_else(|| String::from("missing bonus upgrade type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
     let bonus_type: u8 = bonus_type.parse().map_err(|_| String::from("invalid bonus upgrade type"))?;
     let bonus = BonusUpgrade::from_id(bonus_type).ok_or_else(|| String::from("invalid bonus upgrade type"))?;
     Ok(Item::BonusUpgrade(bonus))
 }
-fn parse_zone_hint<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_zone_hint<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let zone = parts.next().ok_or_else(|| String::from("missing hint zone"))?;
@@ -406,7 +402,7 @@ where P: Iterator<Item=&'a str>
         ZoneHintType::from_id(hint_type).ok_or_else(|| String::from("invalid hint type"))
     })?;
 
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     let hint = Hint {
         zone,
@@ -415,11 +411,11 @@ where P: Iterator<Item=&'a str>
 
     Ok(Item::Hint(hint))
 }
-fn parse_checkable_hint<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_checkable_hint<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let hint_parts = parts.next().ok_or_else(|| String::from("missing hint descriptor"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     let mut parts = hint_parts.split(',');
     let base_price = parts.next().ok_or_else(|| String::from("missing base price"))?;
@@ -430,7 +426,7 @@ where P: Iterator<Item=&'a str>
     let mut hinted_items = Vec::new();
     for part in parts {
         let pickup_parts = part.split('-').collect::<Vec<_>>();
-        let pickup = parse_pickup(&pickup_parts.join("|"), shop)?;
+        let pickup = parse_pickup(&pickup_parts.join("|"))?;
         if pickup.is_checkable() {
             hinted_items.push(pickup)
         }
@@ -438,22 +434,22 @@ where P: Iterator<Item=&'a str>
 
     Ok(Item::CheckableHint(base_price, price_modifier, hinted_items))
 }
-fn parse_relic<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_relic<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let zone = parts.next().ok_or_else(|| String::from("missing relic zone"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     let zone: u8 = zone.parse().map_err(|_| String::from("invalid relic zone"))?;
     let zone = Zone::from_id(zone).ok_or_else(|| String::from("invalid relic zone"))?;
 
     Ok(Item::Relic(zone))
 }
-fn parse_sysmessage<'a, P>(mut parts: P, shop: bool) -> Result<Item, String>
+fn parse_sysmessage<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let message = parts.next().ok_or_else(|| String::from("missing sysmessage type"))?;
-    end_of_pickup(parts, shop)?;
+    end_of_pickup(parts)?;
 
     let message: u8 = message.parse().map_err(|_| String::from("invalid sysmessage type"))?;
     let message = SysMessage::from_id(message).ok_or_else(|| String::from("invalid sysmessage type"))?;
@@ -461,27 +457,27 @@ where P: Iterator<Item=&'a str>
     Ok(Item::SysMessage(message))
 }
 
-pub fn parse_pickup(pickup: &str, shop: bool) -> Result<Item, String> {
+pub fn parse_pickup(pickup: &str) -> Result<Item, String> {
     let pickup = pickup.trim();
     let mut parts = pickup.split('|');
 
     let pickup_type = parts.next().unwrap_or("tried to parse empty pickup");
     match pickup_type {
-        "0" => parse_spirit_light(parts, shop),
-        "1" => parse_resource(parts, shop),
-        "2" => parse_skill(parts, shop),
-        "3" => parse_shard(parts, shop),
-        "4" => parse_command(parts, shop),
-        "5" => parse_teleporter(parts, shop),
+        "0" => parse_spirit_light(parts),
+        "1" => parse_resource(parts),
+        "2" => parse_skill(parts),
+        "3" => parse_shard(parts),
+        "4" => parse_command(parts),
+        "5" => parse_teleporter(parts),
         "6" => parse_message(parts),
-        "8" => parse_set_uber_state(parts, shop),
-        "9" => parse_world_event(parts, shop),
-        "10" => parse_bonus_item(parts, shop),
-        "11" => parse_bonus_upgrade(parts, shop),
-        "12" => parse_zone_hint(parts, shop),
-        "13" => parse_checkable_hint(parts, shop),
-        "14" => parse_relic(parts, shop),
-        "15" => parse_sysmessage(parts, shop),
+        "8" => parse_set_uber_state(parts),
+        "9" => parse_world_event(parts),
+        "10" => parse_bonus_item(parts),
+        "11" => parse_bonus_upgrade(parts),
+        "12" => parse_zone_hint(parts),
+        "13" => parse_checkable_hint(parts),
+        "14" => parse_relic(parts),
+        "15" => parse_sysmessage(parts),
         _ => Err(String::from("invalid pickup type")),
     }.map_err(|err| format!("{} in pickup {}", err, pickup))
 }
@@ -495,6 +491,19 @@ fn parse_count(pickup: &mut &str) -> u16 {
         }
     }
     1
+}
+
+fn read_args(seed: &str, start_index: usize) -> Option<usize> {
+    let mut depth: u8 = 1;
+    for (index, byte) in seed[start_index..].bytes().enumerate() {
+        if byte == b'(' { depth += 1; }
+        else if byte == b')' { depth -= 1; }
+        if depth == 0 {
+            return Some(start_index + index);
+        }
+    }
+
+    None
 }
 
 #[inline]
@@ -518,6 +527,33 @@ where R: Rng + ?Sized
 
     Ok(processed)
 }
+#[inline]
+fn apply_parameters(line: &mut String, parameters: &HashMap<String, String>) -> Result<(), String> {
+    let mut last_index = 0;
+    loop {
+        if let Some(mut start_index) = line[last_index..].find("$PARAM(") {
+            start_index += last_index;
+            last_index = start_index;
+
+            let after_bracket = start_index + 7;
+
+            if let Some(end_index) = read_args(line, after_bracket) {
+                let identifier = line[after_bracket..end_index].trim();
+
+                let value = parameters
+                    .get(identifier)
+                    .ok_or_else(|| format!("Unknown parameter {}", identifier))?;
+
+                line.replace_range(start_index..=end_index, value);
+
+                continue;
+            }
+        }
+        break;
+    }
+
+    Ok(())
+}
 
 #[inline]
 fn include_command(include: &str, dependencies: &mut HashSet<PathBuf>) {
@@ -531,20 +567,20 @@ fn exclude_command(name: &Path, exclude: &str, excludes: &mut HashMap<String, St
     excludes.insert(exclude.to_string(), name);
 }
 #[inline]
-fn add_command(mut pickup: &str, world: &mut World, pathsets: &Pathsets) -> Result<(), String> {
+fn add_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
     let count = parse_count(&mut pickup);
-    let item = parse_pickup(pickup, false)?;
+    let item = parse_pickup(pickup)?;
 
     log::trace!("adding {}{} to the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
 
-    world.pool.grant(item, count, pathsets);
+    world.pool.grant(item, count);
 
     Ok(())
 }
 #[inline]
 fn remove_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
     let count = parse_count(&mut pickup);
-    let item = parse_pickup(pickup, false)?;
+    let item = parse_pickup(pickup)?;
 
     log::trace!("removing {}{} from the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
 
@@ -556,10 +592,39 @@ fn remove_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
 fn name_command(naming: &str, names: &mut HashMap<String, String>) -> Result<(), String> {
     let mut parts = naming.splitn(2, ' ');
     let pickup = parts.next().unwrap();
-    parse_pickup(pickup, false)?;
-    let name = parts.next().ok_or_else(|| format!("Missing name in name command {}", naming))?;
+    parse_pickup(pickup)?;
+    let name = parts.next().ok_or_else(|| String::from("Missing name"))?;
 
     names.insert(pickup.to_string(), name.to_string());
+
+    Ok(())
+}
+#[inline]
+fn parameter_command(parameter: &str, parameters: &mut HashMap<String, String>, param_values: &HashMap<String, String>) -> Result<(), String> {
+    let mut parts = parameter.splitn(2, ' ');
+    let identifier = parts.next().unwrap();
+    let default = parts.next().ok_or_else(|| String::from("Missing default value"))?;
+
+    let mut default_parts = default.splitn(2, ':');
+    let first_part = default_parts.next().unwrap();
+    let (parameter_type, default) = if let Some(default) = default_parts.next() {
+        (first_part, default)
+    } else {
+        ("string", first_part)
+    };
+    let value = param_values.get(identifier).map_or(default, |value| &value[..]);
+
+    match parameter_type {
+        "bool" => { value.parse::<bool>().map_err(|_| format!("Invalid value {} for boolean {}", value, identifier))?; },
+        "int" => { value.parse::<i64>().map_err(|_| format!("Invalid value {} for integer {}", value, identifier))?; },
+        "float" => { value.parse::<f32>().map_err(|_| format!("Invalid value {} for float {}", value, identifier))?; },
+        "string" => {},
+        _ => return Err(format!("Invalid parameter type {}", parameter_type)),
+    }
+
+    if parameters.insert(identifier.to_string(), value.to_string()).is_some() {
+        log::warn!("Parameter {} already declared", identifier);
+    }
 
     Ok(())
 }
@@ -579,8 +644,8 @@ fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
 
                     let lower = bounds.next().unwrap();
                     let upper = bounds.next().unwrap_or(lower);
-                    let lower = lower.parse::<char>().map_err(|_| format!("Invalid range boundary {} in pool command {}", lower, string))?;
-                    let upper = upper.parse::<char>().map_err(|_| format!("Invalid range boundary {} in pool command {}", upper, string))?;
+                    let lower = lower.parse::<char>().map_err(|_| format!("Invalid range boundary {}", lower))?;
+                    let upper = upper.parse::<char>().map_err(|_| format!("Invalid range boundary {}", upper))?;
 
                     let mut results = Vec::new();
                     for item in lower..=upper {
@@ -613,24 +678,24 @@ fn pool_command(mut string: &str, pool: &mut Vec<String>) -> Result<(), String>{
     Ok(())
 }
 #[inline]
-fn addpool_command<R>(mut amount: &str, world: &mut World, pathsets: &Pathsets, pool: &mut Vec<String>, rng: &mut R) -> Result<(), String>
+fn addpool_command<R>(mut amount: &str, world: &mut World, pool: &mut Vec<String>, rng: &mut R) -> Result<(), String>
 where R: Rng + ?Sized
 {
     let count = parse_count(&mut amount);
 
     if !amount.trim().is_empty() {
-        return Err(format!("Invalid amount in addpool command {}", amount));
+        return Err(String::from("Invalid amount"));
     }
 
     for _ in 0..count {
         let length = pool.len();
         if length == 0 {
-            return Err(format!("Tried to !!take on an empty !!pool in addpool command {}", amount));
+            return Err(String::from("Tried to !!take on an empty !!pool"));
         }
         let index = rng.gen_range(0..length);
         let item = pool.remove(index);
 
-        add_command(&item, world, pathsets).map_err(|err| format!("{} (from addpool command)", err))?;
+        add_command(&item, world)?;
     }
 
     Ok(())
@@ -643,16 +708,28 @@ fn flush_command(pool: &mut Vec<String>) {
 fn set_command(identifier: &str, world: &mut World) -> Result<(), String> {
     if world.graph.nodes.is_empty() { return Ok(()); }  // Pass if not actually generating a seed
 
-    let node = world.graph.nodes.iter().find(|&node| node.identifier() == identifier).ok_or_else(|| format!("!!set target {} not found", identifier))?;
+    let node = world.graph.nodes.iter().find(|&node| node.identifier() == identifier).ok_or_else(|| format!("target {} not found", identifier))?;
     if let Some(uber_state) = node.uber_state() {
         let uber_state = uber_state.clone();
         log::trace!("Universally setting state {}", uber_state);
         world.uber_states.insert(uber_state.identifier, uber_state.value);
     } else {
-        return Err(format!("{} is not a valid !!set target", identifier));
+        return Err(format!("{} is not a valid target", identifier));
     }
 
     Ok(())
+}
+#[inline]
+fn if_command(comparison: &str, parameters: &HashMap<String, String>) -> Result<bool, String> {
+    let mut parts = comparison.splitn(2, ' ');
+    let identifier = parts.next().unwrap();
+    let compare_value = parts.next().ok_or_else(|| String::from("Missing comparison value"))?;
+
+    let parameter_value = parameters
+        .get(identifier)
+        .ok_or_else(|| format!("Unknown parameter {}", identifier))?;
+
+    Ok(compare_value == parameter_value)
 }
 
 #[derive(Debug, Default)]
@@ -663,15 +740,19 @@ pub struct HeaderContext {
     pub names: HashMap<String, String>,
 }
 
-pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, pathsets: &Pathsets, context: &mut HeaderContext, rng: &mut R) -> Result<String, String>
+pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, context: &mut HeaderContext, param_values: &HashMap<String, String>, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
     let mut pool = Vec::new();
+    let mut parameters = HashMap::new();
+    let mut skip_until = -1;
+    let mut depth = 0;
     let mut first_line = true;
 
     for line in header.lines() {
-        let line = apply_take_commands(line, &mut pool, rng)?;
+        let mut line = apply_take_commands(line, &mut pool, rng)?;
+        apply_parameters(&mut line, &parameters)?;
 
         let mut trimmed = line.trim();
 
@@ -680,8 +761,24 @@ where R: Rng + ?Sized
             if line.starts_with('#') { continue; }
         }
 
+        if trimmed.starts_with("////") {
+            continue;
+        }
+
         if let Some(index) = trimmed.find("//") {
             trimmed = &trimmed[..index];
+        }
+
+        if skip_until > -1 {
+            if trimmed.trim_end() == "!!endif" {
+                depth -= 1;
+            } else if trimmed.starts_with("!!if ") {
+                depth += 1;
+            }
+            if depth == skip_until {
+                skip_until = -1;
+            }
+            continue;
         }
 
         if let Some(flagline) = trimmed.strip_prefix("Flags:") {
@@ -694,19 +791,31 @@ where R: Rng + ?Sized
             } else if let Some(exclude) = command.strip_prefix("exclude ") {
                 exclude_command(name, exclude.trim(), &mut context.excludes);
             } else if let Some(pickup) = command.strip_prefix("add ") {
-                add_command(pickup.trim(), world, pathsets)?;
+                add_command(pickup.trim(), world).map_err(|err| format!("{} in add command {}", err, line))?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
-                remove_command(pickup.trim(), world)?;
+                remove_command(pickup.trim(), world).map_err(|err| format!("{} in remove command {}", err, line))?;
             } else if let Some(naming) = command.strip_prefix("name ") {
-                name_command(naming.trim(), &mut context.names)?;
+                name_command(naming.trim(), &mut context.names).map_err(|err| format!("{} in name command {}", err, line))?;
+            } else if let Some(parameter) = command.strip_prefix("parameter ") {
+                parameter_command(parameter.trim(), &mut parameters, param_values).map_err(|err| format!("{} in parameter command {}", err, line))?;
             } else if let Some(string) = command.strip_prefix("pool ") {
-                pool_command(string.trim(), &mut pool)?;
+                pool_command(string.trim(), &mut pool).map_err(|err| format!("{} in pool command {}", err, line))?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {
-                addpool_command(amount.trim(), world, pathsets, &mut pool, rng)?;
+                addpool_command(amount.trim(), world, &mut pool, rng).map_err(|err| format!("{} in addpool command {}", err, line))?;
             } else if command.trim_end() == "flush" {
                 flush_command(&mut pool);
             } else if let Some(identifier) = command.strip_prefix("set ") {
-                set_command(identifier.trim(), world)?;
+                set_command(identifier.trim(), world).map_err(|err| format!("{} in set command {}", err, line))?;
+            } else if let Some(comparison) = command.strip_prefix("if ") {
+                if !if_command(comparison.trim(), &parameters).map_err(|err| format!("{} in if command {}", err, line))? {
+                    skip_until = depth;
+                }
+                depth += 1;
+            } else if command.trim_end() == "endif" {
+                if depth == 0 {
+                    return Err(String::from("!!endif without !!if"));
+                }
+                depth -= 1;
             } else {
                 return Err(format!("Unknown command {}", command));
             } // TODO !!price command?
@@ -721,8 +830,7 @@ where R: Rng + ?Sized
                 let uber_state = UberState::from_parts(uber_group, uber_id)?;
 
                 let item = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
-                // TODO just obsolete inline shops already
-                let item = parse_pickup(item, uber_state.is_shop())?;
+                let item = parse_pickup(item)?;
 
                 // if someone sets an uberstate on spawn, they probably don't want a pickup placed on it
                 if let Item::UberState(command) = &item {
@@ -747,11 +855,7 @@ where R: Rng + ?Sized
                     }
                 }
 
-                if world.pool.inventory().has(&item, 1) {
-                    log::trace!("removing {} from the item pool", item);
-
-                    world.pool.remove(&item, 1);
-                }
+                world.pool.remove(&item, 1);
 
                 world.preplace(uber_state, item);
             }
@@ -759,6 +863,7 @@ where R: Rng + ?Sized
             processed.push('\n');
         }
     }
+
     processed.push('\n');
     processed.shrink_to_fit();
     Ok(processed)
@@ -766,7 +871,7 @@ where R: Rng + ?Sized
 
 pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, HashMap<String, String>), String> {
     let mut context = HeaderContext::default();
-    parse_header(name, contents, &mut World::new(&Graph::default()), &Pathsets::default(), &mut context, &mut rand::thread_rng())?;
+    parse_header(name, contents, &mut World::new(&Graph::default()), &mut context, &HashMap::default(), &mut rand::thread_rng())?;
 
     for dependency in context.dependencies {
         util::read_file(&dependency, "headers")?;
@@ -774,11 +879,17 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
 
     let mut occupied_states = Vec::new();
     let mut pool = Vec::new();
+    let mut parameters = HashMap::new();
+    let param_values = HashMap::new();
+    let mut rng = rand::thread_rng();
 
     let mut first_line = true;
     let mut skip_line = false;
 
     for line in contents.lines() {
+        let mut line = apply_take_commands(line, &mut pool, &mut rng)?;
+        apply_parameters(&mut line, &parameters)?;
+
         let mut trimmed = line.trim();
 
         if first_line {
@@ -807,7 +918,9 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
         }
 
         if let Some(command) = trimmed.strip_prefix("!!") {
-            if let Some(string) = command.strip_prefix("pool ") {
+            if let Some(parameter) = command.strip_prefix("parameter ") {
+                parameter_command(parameter.trim(), &mut parameters, &param_values).map_err(|err| format!("{} in parameter command {}", err, line))?;
+            } else if let Some(string) = command.strip_prefix("pool ") {
                 // TODO determinate validation would be nice?
                 pool_command(string, &mut pool)?;
             } else if let Some(_) = command.strip_prefix("addpool ") {
@@ -822,14 +935,13 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
             let uber_group = parts.next().unwrap();
             let uber_id = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
             let uber_state = UberState::from_parts(uber_group, uber_id)?;
-            let is_shop = uber_state.is_shop();
 
             if uber_group == "9" {
                 occupied_states.push(uber_state);
             }
 
             let item = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
-            let item = parse_pickup(item, is_shop)?;
+            let item = parse_pickup(item)?;
 
             match item {
                 Item::UberState(command) => {
@@ -901,6 +1013,169 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
     Ok((occupied_states, context.excludes))
 }
 
+fn where_is(pattern: &str, world_index: usize, seeds: &[String], graph: &Graph, settings: &Settings) -> Result<String, String> {
+    let re = Regex::new(&format!(r"^({})$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
+
+    for mut line in seeds[world_index].lines() {
+        if let Some(index) = line.find("//") {
+            line = &line[..index];
+        }
+        line = line.trim();
+
+        if line.is_empty() || line.starts_with("Flags") || line.starts_with("Spawn") {
+            continue;
+        }
+
+        let mut parts = line.splitn(3, '|');
+        let uber_group = parts.next().unwrap();
+        let uber_id = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+        let pickup = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+
+        if re.is_match(pickup) {
+            if uber_group == "12" {  // if multiworld shared
+                let actual_pickup = format!(r"8\|12\|{}\|bool\|true", uber_id);
+
+                let mut other_worlds = (0..seeds.len()).collect::<Vec<_>>();
+                other_worlds.remove(world_index);
+
+                for other_world_index in other_worlds {
+                    let actual_zone = where_is(&actual_pickup, other_world_index, seeds, graph, settings)?;
+                    if &actual_zone != "Unknown" {
+                        let player_name = settings.players.get(other_world_index).cloned().unwrap_or_else(|| format!("Player {}", other_world_index + 1));
+
+                        return Ok(format!("{}'s {}", player_name, actual_zone));
+                    }
+                }
+            } else if uber_group == "3" && (uber_id == "0" || uber_id == "1") {
+                return Ok(String::from("Spawn"));
+            } else {
+                let uber_state = UberState::from_parts(uber_group, uber_id)?;
+                if let Some(node) = graph.nodes.iter().find(|&node| node.uber_state() == Some(&uber_state)) {
+                    if let Some(zone) = node.zone() {
+                        return Ok(zone.to_string());
+                    }
+                }
+            }
+        }
+    }
+
+    Ok(String::from("Unknown"))
+}
+
+fn how_many(pattern: &str, zone: Zone, world_index: usize, seeds: &[String], graph: &Graph) -> Result<Vec<UberState>, String> {
+    let mut locations = Vec::new();
+    let re = Regex::new(&format!(r"^({})$", pattern)).map_err(|err| format!("Invalid regex {}: {}", pattern, err))?;
+
+    for mut line in seeds[world_index].lines() {
+        if let Some(index) = line.find("//") {
+            line = &line[..index];
+        }
+        line = line.trim();
+
+        if line.is_empty() || line.starts_with("Flags") || line.starts_with("Spawn") {
+            continue;
+        }
+
+        let mut parts = line.splitn(3, '|');
+        let uber_group = parts.next().unwrap();
+        let uber_id = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+        let pickup = parts.next().ok_or_else(|| format!("failed to read line {} in seed", line))?;
+
+        let uber_state = UberState::from_parts(uber_group, uber_id)?;
+        if graph.nodes.iter().any(|node| node.zone() == Some(zone) && node.uber_state() == Some(&uber_state)) {
+            if re.is_match(pickup) {
+                locations.push(uber_state);
+            } else {  // if multiworld shared
+                let mut pickup_parts = pickup.split('|');
+                if pickup_parts.next() != Some("8") { continue; }
+                if pickup_parts.next() != Some("12") { continue; }
+                let share_id = pickup_parts.next().unwrap();
+                let share_state = format!("12|{}|", share_id);
+
+                let mut other_worlds = (0..seeds.len()).collect::<Vec<_>>();
+                other_worlds.remove(world_index);
+
+                'outer: for other_world_index in other_worlds {
+                    let other_seed = &seeds[other_world_index];
+
+                    for other_seed_line in other_seed.lines() {
+                        if let Some(mut actual_pickup) = other_seed_line.strip_prefix(&share_state) {
+                            if let Some(index) = actual_pickup.find("//") {
+                                actual_pickup = &actual_pickup[..index];
+                            }
+                            actual_pickup = actual_pickup.trim();
+
+                            if re.is_match(actual_pickup) {
+                                locations.push(uber_state);
+                                break 'outer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Ok(locations)
+}
+
+pub fn postprocess(seeds: &mut Vec<String>, graph: &Graph, settings: &Settings) -> Result<(), String> {
+    let clone = seeds.clone();
+
+    for (world_index, seed) in seeds.iter_mut().enumerate() {
+        let mut last_index = 0;
+        loop {
+            if let Some(mut start_index) = seed[last_index..].find("$WHEREIS(") {
+                start_index += last_index;
+                last_index = start_index;
+
+                let after_bracket = start_index + 9;
+
+                if let Some(end_index) = read_args(seed, after_bracket) {
+                    let pattern = seed[after_bracket..end_index].trim();
+
+                    let zone = where_is(pattern, world_index, &clone, graph, settings)?;
+                    seed.replace_range(start_index..=end_index, &zone);
+
+                    continue;
+                }
+            }
+            break;
+        }
+
+        last_index = 0;
+        loop {
+            if let Some(mut start_index) = seed[last_index..].find("$HOWMANY(") {
+                start_index += last_index;
+                last_index = start_index;
+
+                let after_bracket = start_index + 9;
+
+                if let Some(end_index) = read_args(seed, after_bracket) {
+                    let mut args = seed[after_bracket..end_index].splitn(2, ',');
+                    let zone = args.next().unwrap().trim();
+                    let zone: u8 = zone.parse().map_err(|_| format!("expected numeric zone, got {}", zone))?;
+                    let zone = Zone::from_id(zone).ok_or_else(|| format!("invalid zone {}", zone))?;
+                    let pattern = args.next().unwrap_or("").trim();
+
+                    let locations = how_many(pattern, zone, world_index, &clone, graph)?;
+                    let locations = locations.into_iter().map(|uber_state| uber_state.to_string()).collect::<Vec<_>>();
+                    let locations = locations.join(",").replace('|', ",");
+
+                    let sysmessage = format!("$[15|4|{}]", locations);
+
+                    seed.replace_range(start_index..=end_index, &sysmessage);
+
+                    continue;
+                }
+            }
+            break;
+        }
+    }
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -915,50 +1190,50 @@ mod tests {
         let mut world = World::new(&graph);
         let header = util::read_file(&PathBuf::from("bonus_items.wotwrh"), "headers").unwrap();
         let mut context = HeaderContext::default();
-        parse_header(&PathBuf::from("test header"), &header, &mut world, &Pathsets::default(), &mut context, &mut rand::thread_rng()).unwrap();
+        parse_header(&PathBuf::from("test header"), &header, &mut world, &mut context, &HashMap::default(), &mut rand::thread_rng()).unwrap();
         let mut expected = Inventory::default();
         expected.grant(Item::BonusItem(BonusItem::ExtraDoubleJump), 1);
         expected.grant(Item::BonusItem(BonusItem::ExtraAirDash), 1);
         expected.grant(Item::BonusItem(BonusItem::EnergyRegen), 3);
         expected.grant(Item::BonusItem(BonusItem::HealthRegen), 3);
-        assert_eq!(world.pool.fillers, expected);
+        assert_eq!(world.pool.inventory, expected);
         assert!(world.preplacements.contains_key(&UberState::from_parts("1", "106").unwrap()));
         assert!(!world.preplacements.contains_key(&UberState::from_parts("1", "105").unwrap()));
     }
 
     #[test]
     fn pickup_parsing() {
-        assert_eq!(parse_pickup("0|5000", false), Ok(Item::SpiritLight(5000)));
-        assert_eq!(parse_pickup("0|-5000", false), Ok(Item::RemoveSpiritLight(5000)));
-        assert_eq!(parse_pickup("1|2", false), Ok(Item::Resource(Resource::Ore)));
-        assert!(parse_pickup("1|-2", false).is_err());
-        assert!(parse_pickup("1|5", false).is_err());
-        assert_eq!(parse_pickup("2|8", false), Ok(Item::Skill(Skill::Launch)));
-        assert_eq!(parse_pickup("2|120", false), Ok(Item::Skill(Skill::AncestralLight)));
-        assert_eq!(parse_pickup("2|121", false), Ok(Item::Skill(Skill::AncestralLight)));
-        assert!(parse_pickup("2|25", false).is_err());
-        assert!(parse_pickup("2|-9", false).is_err());
-        assert_eq!(parse_pickup("3|28", false), Ok(Item::Shard(Shard::LastStand)));
-        assert_eq!(parse_pickup("5|16", false), Ok(Item::Teleporter(Teleporter::Marsh)));
-        assert_eq!(parse_pickup("9|0", false), Ok(Item::Water));
-        assert_eq!(parse_pickup("9|-0", false), Ok(Item::RemoveWater));
-        assert_eq!(parse_pickup("11|0", false), Ok(Item::BonusUpgrade(BonusUpgrade::RapidHammer)));
-        assert_eq!(parse_pickup("10|31", false), Ok(Item::BonusItem(BonusItem::EnergyRegen)));
-        assert!(parse_pickup("12|13", false).is_err());
-        assert!(parse_pickup("8|5|3|6", false).is_err());
-        assert!(parse_pickup("8||||", false).is_err());
-        assert!(parse_pickup("8|5|3|in|3", false).is_err());
-        assert!(parse_pickup("8|5|3|bool|3", false).is_err());
-        assert!(parse_pickup("8|5|3|float|hm", false).is_err());
-        assert_eq!(parse_pickup("8|5|3|int|6", false), Ok(Item::UberState(String::from("5|3|int|6"))));
-        assert_eq!(parse_pickup("4|0", false), Ok(Item::Command(Command::Autosave)));
-        assert!(parse_pickup("12", false).is_err());
-        assert!(parse_pickup("", false).is_err());
-        assert!(parse_pickup("0|", false).is_err());
-        assert!(parse_pickup("0||400", false).is_err());
-        assert!(parse_pickup("7|3", false).is_err());
-        assert!(parse_pickup("-0|65", false).is_err());
-        assert_eq!(parse_pickup("12|11|10", false), Ok(Item::Hint(Hint { zone: Zone::Willow, hint_type: ZoneHintType::All })));
-        assert_eq!(parse_pickup("12|11", false), Ok(Item::Hint(Hint { zone: Zone::Willow, hint_type: ZoneHintType::Skills })));
+        assert_eq!(parse_pickup("0|5000"), Ok(Item::SpiritLight(5000)));
+        assert_eq!(parse_pickup("0|-5000"), Ok(Item::RemoveSpiritLight(5000)));
+        assert_eq!(parse_pickup("1|2"), Ok(Item::Resource(Resource::Ore)));
+        assert!(parse_pickup("1|-2").is_err());
+        assert!(parse_pickup("1|5").is_err());
+        assert_eq!(parse_pickup("2|8"), Ok(Item::Skill(Skill::Launch)));
+        assert_eq!(parse_pickup("2|120"), Ok(Item::Skill(Skill::AncestralLight)));
+        assert_eq!(parse_pickup("2|121"), Ok(Item::Skill(Skill::AncestralLight)));
+        assert!(parse_pickup("2|25").is_err());
+        assert!(parse_pickup("2|-9").is_err());
+        assert_eq!(parse_pickup("3|28"), Ok(Item::Shard(Shard::LastStand)));
+        assert_eq!(parse_pickup("5|16"), Ok(Item::Teleporter(Teleporter::Marsh)));
+        assert_eq!(parse_pickup("9|0"), Ok(Item::Water));
+        assert_eq!(parse_pickup("9|-0"), Ok(Item::RemoveWater));
+        assert_eq!(parse_pickup("11|0"), Ok(Item::BonusUpgrade(BonusUpgrade::RapidHammer)));
+        assert_eq!(parse_pickup("10|31"), Ok(Item::BonusItem(BonusItem::EnergyRegen)));
+        assert!(parse_pickup("12|13").is_err());
+        assert!(parse_pickup("8|5|3|6").is_err());
+        assert!(parse_pickup("8||||").is_err());
+        assert!(parse_pickup("8|5|3|in|3").is_err());
+        assert!(parse_pickup("8|5|3|bool|3").is_err());
+        assert!(parse_pickup("8|5|3|float|hm").is_err());
+        assert_eq!(parse_pickup("8|5|3|int|6"), Ok(Item::UberState(String::from("5|3|int|6"))));
+        assert_eq!(parse_pickup("4|0"), Ok(Item::Command(Command::Autosave)));
+        assert!(parse_pickup("12").is_err());
+        assert!(parse_pickup("").is_err());
+        assert!(parse_pickup("0|").is_err());
+        assert!(parse_pickup("0||400").is_err());
+        assert!(parse_pickup("7|3").is_err());
+        assert!(parse_pickup("-0|65").is_err());
+        assert_eq!(parse_pickup("12|11|10"), Ok(Item::Hint(Hint { zone: Zone::Willow, hint_type: ZoneHintType::All })));
+        assert_eq!(parse_pickup("12|11"), Ok(Item::Hint(Hint { zone: Zone::Willow, hint_type: ZoneHintType::Skills })));
     }
 }

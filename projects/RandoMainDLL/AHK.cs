@@ -258,8 +258,7 @@ namespace RandoMainDLL {
           Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
           break;
         case "logicprovidertoggle":
-          MapController.RustLogic = !MapController.RustLogic;
-          Print($"Logic Provider: {(MapController.RustLogic ? "Rust" : "Java")}", toMessageLog: false);
+          Print($"Refreshing logic", toMessageLog: false);
           MapController.UpdateReachable();
           break;
 

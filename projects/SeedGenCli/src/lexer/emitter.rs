@@ -287,12 +287,12 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
         let mut connections = Vec::<graph::Connection>::with_capacity(anchor.connections.len());
         for connection in &anchor.connections {
-            let mut requirement = Requirement::Free;
-            if let Some(group) = &connection.requirements {
-                requirement = build_requirement_group(group, false, &mut context);
-                if let Some(region_requirement) = &region_requirement {
-                    requirement = build_and(vec![region_requirement.clone(), requirement]);
-                }
+            let mut requirement = connection.requirements.as_ref().map_or(
+                Requirement::Free,
+                |group| build_requirement_group(group, false, &mut context)
+            );
+            if let Some(region_requirement) = &region_requirement {
+                requirement = build_and(vec![region_requirement.clone(), requirement]);
             }
 
             let to = *context.node_map.get(connection.identifier).ok_or_else(|| format!("Anchor {} connects to {:?} {} which doesn't actually exist", anchor.identifier, connection.name, connection.identifier))?;

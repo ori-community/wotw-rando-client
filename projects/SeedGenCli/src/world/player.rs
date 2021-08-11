@@ -247,12 +247,12 @@ impl Player {
     }
 
     pub fn missing_items(&self, needed: &mut Inventory) {
-        for (item, amount) in &mut needed.inventory {
+        for (item, amount) in &mut needed.items {
             let owned = self.inventory.get(item);
             *amount -= owned.min(*amount);
         }
 
-        needed.inventory.retain(|_, amount| *amount > 0);
+        needed.items.retain(|_, amount| *amount > 0);
     }
     pub fn missing_for_orbs(&self, needed: &Inventory, orb_cost: Orbs, current_orbs: Orbs) -> Vec<Inventory> {
         let orbs = current_orbs + orb_cost;
@@ -307,7 +307,7 @@ impl Player {
         }
 
         for inventory in &mut inventories {
-            for (item, amount) in needed.inventory.clone() {
+            for (item, amount) in needed.items.clone() {
                 inventory.grant(item, amount);
             }
         }

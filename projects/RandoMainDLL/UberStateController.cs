@@ -90,15 +90,6 @@ namespace RandoMainDLL {
     }
 
     private static UberState createUberStateEntry(UberId id) {
-      if (id.GroupID == 12) {
-        return new UberState() {
-          ID = id.ID,
-          GroupID = id.GroupID,
-          Name = $"fake_{id.ID}",
-          GroupName = "multi_vars",
-          Type = UberStateType.SerializedBooleanUberState
-        };
-      }
       if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
         Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
         return null;
@@ -113,12 +104,22 @@ namespace RandoMainDLL {
       var s = new UberState() {
         ID = id.ID,
         GroupID = id.GroupID,
-        Name = name,
-        GroupName = groupName,
-        Type = InterOp.get_uber_state_type(id.GroupID, id.ID),
       };
 
+      if (id.GroupID == 12) {
+        s.Name = $"fake_{id.ID}";
+        s.GroupName = "multi_vars";
+        s.Type = UberStateType.SerializedBooleanUberState;
+      }
+      else {
+        s.Name = name;
+        s.GroupName = groupName;
+        s.Type = InterOp.get_uber_state_type(id.GroupID, id.ID);
+      }
+
       s.Value = CreateValue(s.Type, InterOp.get_uber_state_value(id.GroupID, id.ID));
+
+
       return s;
     }
 
