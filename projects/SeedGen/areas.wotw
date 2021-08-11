@@ -19,7 +19,7 @@ requirement DepthsLight:
 
 anchor Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
-    moki: BurrowsTP, Keystone=2
+    moki: BurrowsTP, Bash, Keystone=2
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
     # It also makes a 4 keystone door available! Without the Keystone=2 line here, the seed generator
     # picks this path, unlocking 4 pickups, then immediately fills those with keystones and gets stuck
