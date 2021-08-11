@@ -160,7 +160,7 @@ mod tests {
     fn reach_check() {
         let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
         let mut world = World::new(graph);
-        world.player.inventory = Pool::preset(&Pathsets::default()).progressions;
+        world.player.inventory = Pool::preset().inventory;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
 
         let spawn = world.graph.find_spawn("MarshSpawn.Main").unwrap();

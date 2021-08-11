@@ -269,11 +269,11 @@ namespace
                 {}, { true, 14019, 2782, -1.f } }, // GladesTown.AcornQI
             { app::WorldMapIconType__Enum_QuestItem, -358, -4185, false, ExtraIconCreation::SpoilerAndNormal,
                 {}, { true, 14019, 33776, 3.f } }, // GladesTown.IntoTheDarkness
-            { app::WorldMapIconType__Enum_QuestItem, 240, -4207, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -320, -4152, false, ExtraIconCreation::SpoilerAndNormal,
                 {}, { true, 14019, 44578, 2.f } }, // GladesTown.RebuildTheGlades
             { app::WorldMapIconType__Enum_QuestItem, -408, -4162, false, ExtraIconCreation::SpoilerAndNormal,
                 {}, { true, 23987, 14832, -1.f } }, // GladesTown.ADiamondInTheRough
-            { app::WorldMapIconType__Enum_QuestItem, 240, -4207, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -170, -4138, false, ExtraIconCreation::SpoilerAndNormal,
                 {}, { true, 14019, 26394, 2.f } }, // GladesTown.RegrowTheGlades
             { app::WorldMapIconType__Enum_Weaponmaster, -204.f, -4147.f, false, ExtraIconCreation::Spoiler,
                 { true, uber_states::constants::OPHER_WEAPON_GROUP_ID, 20000, -1.f  }, {} },

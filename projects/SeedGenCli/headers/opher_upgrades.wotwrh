@@ -1,0 +1,16 @@
+/// Opher Upgrades
+///
+/// Places the vanilla weapon upgrades on their vanilla locations in Opher's shop
+
+1|1074|11|45    // Exploding Spike from OpherShop.ExplodingSpike
+1|1098|11|46    // Shock Smash from OpherShop.ShockSmash
+1|1106|11|47    // Static Star from OpherShop.StaticStar
+1|1115|11|48    // Charge Blaze from OpherShop.ChargeBlaze
+1|1116|11|49    // Rapid Sentry from OpherShop.RapidSentry
+
+// Set prices on load
+3|1|8|1|11074|int|300
+3|1|8|1|11098|int|300
+3|1|8|1|11106|int|300
+3|1|8|1|11115|int|300
+3|1|8|1|11116|int|300

@@ -1,6 +1,6 @@
 use std::{
     io,
-    path::{Path, PathBuf},
+    path::PathBuf,
     collections::hash_map::DefaultHasher,
     hash::Hasher,
 };
@@ -105,7 +105,7 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     })
 }
 
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub enum Spawn {
     Set(String),
     Random,
@@ -118,7 +118,7 @@ impl Default for Spawn {
 }
 
 // TODO output folder?
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -134,6 +134,7 @@ pub struct Settings {
     pub web_conn: bool,
     pub hard: bool,
     pub header_list: Vec<PathBuf>,
+    pub header_args: Vec<String>,
 }
 impl Default for Settings {
     fn default() -> Settings {
@@ -149,6 +150,7 @@ impl Default for Settings {
             web_conn: false,
             hard: false,
             header_list: Vec::default(),
+            header_args: Vec::default(),
         }
     }
 }
@@ -164,8 +166,7 @@ impl Settings {
         }
         Ok(settings)
     }
-    pub fn from_preset(preset: &Path) -> Result<Settings, String> {
-        let mut preset = preset.to_owned();
+    pub fn from_preset(mut preset: PathBuf) -> Result<Settings, String> {
         preset.set_extension("json");
         let content = super::read_file(&preset, "presets")?;
         serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
@@ -174,35 +175,53 @@ impl Settings {
         serde_json::to_string(&self).map_err(|err| format!("Invalid Settings: {}", err))
     }
 
-    fn merge(&mut self, mut other: Settings) {
-        if other.version.is_some() {
-            self.version = other.version;
+    fn merge(&mut self, other: Settings) {
+        let Settings {
+            version: other_version,
+            presets: mut other_presets,
+            worlds: other_worlds,
+            players: other_players,
+            pathsets: other_pathsets,
+            goalmodes: other_goalmodes,
+            spawn_loc: other_spawn_loc,
+            spoilers: other_spoilers,
+            web_conn: other_web_conn,
+            hard: other_hard,
+            header_list: mut other_header_list,
+            header_args: mut other_header_args,
+        } = other;
+
+        if other_version.is_some() {
+            self.version = other_version;
         }
-        if self.worlds < other.worlds {
-            self.worlds = other.worlds;
-            self.players = other.players;
+        self.presets.append(&mut other_presets);
+        if self.worlds < other_worlds {
+            self.worlds = other_worlds;
+            self.players = other_players;
         }
-        for pathset in other.pathsets.pathsets {
+        for pathset in other_pathsets.pathsets {
             self.pathsets.add(pathset);
         }
-        self.goalmodes.extend(other.goalmodes);
-        if other.spawn_loc != Spawn::default() {
-            self.spawn_loc = other.spawn_loc;
+        self.goalmodes.extend(other_goalmodes);
+        if other_spawn_loc != Spawn::default() {
+            self.spawn_loc = other_spawn_loc;
         }
-        self.spoilers = self.spoilers && other.spoilers;
-        self.web_conn = self.web_conn || other.web_conn;
-        self.hard = self.hard || other.hard;
-        self.header_list.append(&mut other.header_list);
+        self.spoilers = self.spoilers && other_spoilers;
+        self.web_conn = self.web_conn || other_web_conn;
+        self.hard = self.hard || other_hard;
+        self.header_list.append(&mut other_header_list);
+        self.header_args.append(&mut other_header_args);
     }
-    pub fn apply_presets(self) -> Result<Settings, String> {
+    pub fn apply_presets(mut self) -> Result<Settings, String> {
         let mut merged_settings = Settings::default();
 
-        for preset in &self.presets {
+        for preset in self.presets {
             let preset = Settings::from_preset(preset)?;
             let preset = preset.apply_presets()?;
 
             merged_settings.merge(preset);
         }
+        self.presets = Vec::new();
         merged_settings.merge(self);
 
         Ok(merged_settings)
@@ -218,8 +237,7 @@ impl Settings {
 
         let mut slug = String::new();
 
-        for index in 0..SLUGSTRINGS.len() {
-            let slug_strings = SLUGSTRINGS[index];
+        for (index, slug_strings) in SLUGSTRINGS.iter().enumerate() {
             let length = slug_strings.len();
 
             let mut shift = 1;

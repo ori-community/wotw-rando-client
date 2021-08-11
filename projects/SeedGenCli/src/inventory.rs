@@ -2,6 +2,7 @@ use std::fmt;
 
 use rustc_hash::FxHashMap;
 
+use crate::headers;
 use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Pathsets, Pathset, Command, SysMessage};
 
 #[allow(clippy::pub_enum_variant_names)]
@@ -42,7 +43,36 @@ impl fmt::Display for Item {
             Item::Command(command) => write!(f, "4|{}", command),
             Item::Teleporter(teleporter) => write!(f, "{}", teleporter),
             Item::RemoveTeleporter(teleporter) => write!(f, "Remove {}", teleporter),
-            Item::Message(message) => write!(f, "{}", message),  // TODO parse $[2|5] for better spoiler logs
+            Item::Message(message) => {
+                let mut message = message.clone();
+                let mut last_index = 0;
+
+                while let Some(mut start_index) = message[last_index..].find("$[") {
+                    start_index += last_index;
+                    let after_bracket = start_index + 2;
+                    let mut end_index = 0;
+
+                    let mut depth = 1;
+                    for (index, byte) in message[after_bracket..].bytes().enumerate() {
+                        if byte == b'[' { depth += 1; }
+                        if byte == b']' { depth -= 1; }
+                        if depth == 0 {
+                            end_index = after_bracket + index;
+                            break;
+                        }
+                    }
+                    if end_index == 0 { break; }
+
+                    let pickup = &message[after_bracket..end_index];
+                    if let Ok(pickup) = headers::parser::parse_pickup(pickup) {
+                        message.replace_range(start_index..=end_index, &pickup.to_string());
+                    }
+
+                    last_index = start_index;
+                }
+
+                write!(f, "{}", message)
+            },
             Item::UberState(command) => write!(f, "8|{}", command),
             Item::Water => write!(f, "Clean Water"),
             Item::RemoveWater => write!(f, "Remove Clean Water"),
@@ -156,9 +186,9 @@ impl Item {
         match self {
             Item::SpiritLight(amount) => *amount,
             Item::Resource(Resource::Health) => 240,
+            Item::Resource(Resource::Keystone) => 320,
             Item::Resource(Resource::Energy) => 320,
             Item::Resource(Resource::Ore) => 320,
-            Item::Resource(Resource::Keystone) => 320,
             Item::Resource(Resource::ShardSlot) => 480,
             Item::Skill(Skill::Regenerate) | Item::Skill(Skill::WaterBreath) => 200,  // Quality-of-Life Skills
             Item::Skill(Skill::Sword) | Item::Skill(Skill::Hammer) => 600,  // Essential Weapons
@@ -170,6 +200,7 @@ impl Item {
             Item::Skill(Skill::Blaze) | Item::Skill(Skill::Sentry) | Item::Skill(Skill::Spear) => 2800,  // Tedious Weapons
             Item::Skill(Skill::AncestralLight) => 3000,  // Unhinted Skill
             Item::Skill(Skill::Launch) => 40000,  // Absolutely Broken
+            Item::Shard(_) => 1000,
             Item::Teleporter(Teleporter::Marsh) => 30000,
             Item::Teleporter(_) => 25000,
             _ => 400,
@@ -253,7 +284,7 @@ impl Item {
 
 #[derive(Debug, Default, PartialEq, Clone)]
 pub struct Inventory {
-    pub inventory: FxHashMap<Item, u16>,
+    pub items: FxHashMap<Item, u16>,
 }
 impl Inventory {
     pub fn grant(&mut self, mut item: Item, mut amount: u16) {
@@ -265,7 +296,7 @@ impl Inventory {
             amount *= stacked_amount;
             item = Item::SpiritLight(1);
         }
-        let prior = self.inventory.entry(item).or_insert(0);
+        let prior = self.items.entry(item).or_insert(0);
         if single_instance {
             // TODO I feel like in an efficient implementation this shouldn't exist...
             *prior = amount;
@@ -274,28 +305,28 @@ impl Inventory {
         }
     }
     pub fn remove(&mut self, item: &Item, amount: u16) {
-        let prior = self.inventory.entry(item.clone()).or_insert(0);
+        let prior = self.items.entry(item.clone()).or_insert(0);
         if amount >= *prior {
             // remove zero and smaller entries to support randomly picking from the map's keys
-            self.inventory.remove(item);
+            self.items.remove(item);
         } else {
             *prior -= amount;
         }
     }
 
     pub fn has(&self, item: &Item, amount: u16) -> bool {
-        if let Some(owned) = self.inventory.get(item) {
+        if let Some(owned) = self.items.get(item) {
             return *owned >= amount;
         }
         false
     }
     pub fn get(&self, item: &Item) -> u16 {
-        *self.inventory.get(item).unwrap_or(&0)
+        *self.items.get(item).unwrap_or(&0)
     }
 
     pub fn item_count(&self) -> usize {
         let mut count = 0;
-        for (item, amount) in &self.inventory {
+        for (item, amount) in &self.items {
             if let Item::SpiritLight(stacked_amount) = item {
                 count += (amount * stacked_amount + 39) / 40;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem (and underestimating the needed slots can force a retry)
             } else {
@@ -307,7 +338,7 @@ impl Inventory {
     }
     pub fn world_item_count(&self) -> usize {
         let mut count = 0;
-        for (item, amount) in self.inventory.iter().filter(|&(item, _)| !item.is_multiworld_spread()) {
+        for (item, amount) in self.items.iter().filter(|&(item, _)| !item.is_multiworld_spread()) {
             if let Item::SpiritLight(stacked_amount) = item {
                 count += (amount * stacked_amount + 39) / 40;  // this will usually demand more than necessary, but with the placeholder system that shouldn't be a problem (and underestimating the needed slots can force a retry)
             } else {
@@ -320,15 +351,15 @@ impl Inventory {
 
     pub fn cost(&self) -> f32 {
         let mut cost = 0;
-        for item in self.inventory.keys() {
-            cost += item.cost() * self.inventory[item];
+        for item in self.items.keys() {
+            cost += item.cost() * self.items[item];
         }
 
         cost.into()
     }
 
     pub fn contains(&self, other: &Inventory) -> bool {
-        for (item, amount) in &other.inventory {
+        for (item, amount) in &other.items {
             if !self.has(item, *amount) {
                 return false;
             }
@@ -338,7 +369,7 @@ impl Inventory {
 
     pub fn merge(&self, other: &Inventory) -> Inventory {
         let mut merged = self.clone();
-        for (item, amount) in other.inventory.clone() {
+        for (item, amount) in other.items.clone() {
             merged.grant(item, amount);
         }
         merged
@@ -347,7 +378,7 @@ impl Inventory {
 
 impl fmt::Display for Inventory {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let display = self.inventory.iter().map(|(item, amount)| {
+        let display = self.items.iter().map(|(item, amount)| {
             if amount == &1 {
                 format!("{}", item)
             } else {

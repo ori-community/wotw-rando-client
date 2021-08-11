@@ -25,7 +25,7 @@ requirement DepthsLight:
 
 anchor Teleporters:  # teleporter access
   conn MidnightBurrows.Teleporter:
-    moki: BurrowsTP, Keystone=2
+    moki: BurrowsTP, Bash, Keystone=2
     # okay, soooo: this TP frequently unlocks exactly 4 pickups (the vanilla keystones in that area)
     # It also makes a 4 keystone door available! Without the Keystone=2 line here, the seed generator
     # picks this path, unlocking 4 pickups, then immediately fills those with keystones and gets stuck
@@ -60,7 +60,7 @@ anchor Teleporters:  # teleporter access
   conn WindtornRuins.RuinsTP:
     moki: InnerRuinsTP, Burrow
   conn WillowsEnd.InnerTP:
-    moki: WillowTP
+    moki: WillowTP, Burrow
 
 anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
   refill Full
@@ -8430,8 +8430,8 @@ anchor WillowsEnd.InnerTP at 422, -3864:  # The teleporter inside
   refill Full
 
   pickup WillowsEnd.LupoMap:
-    moki: SpiritLight=50, DoubleJump OR Dash OR Launch OR Bow=1
-    gorlek: SpiritLight=50  # jump to trigger the mine, back off to avoid taking damages
+    moki: DoubleJump OR Dash OR Launch OR Bow=1
+    gorlek: free  # jump to trigger the mine, back off to avoid taking damages
 
   conn Teleporters: free
   conn WillowsEnd.Entry:
@@ -8747,6 +8747,16 @@ anchor OpherShop:  # Opher's offers
   pickup OpherShop.Sentry:  # used for keystones if necessary; filtered by gen
     moki: SpiritLight=1200
   pickup OpherShop.Teleport:
+    moki: SpiritLight=1200
+  pickup OpherShop.ShockSmash:
+    moki: SpiritLight=1200
+  pickup OpherShop.StaticStar:
+    moki: SpiritLight=1200
+  pickup OpherShop.ExplodingSpike:
+    moki: SpiritLight=1200
+  pickup OpherShop.RapidSentry:
+    moki: SpiritLight=1200
+  pickup OpherShop.ChargeBlaze:
     moki: SpiritLight=1200
   pickup OpherShop.WaterBreath:
     moki: InnerWellspring.WaterEscape, SpiritLight=1200

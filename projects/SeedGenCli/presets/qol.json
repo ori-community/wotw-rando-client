@@ -1,1 +1,1 @@
-{"version":"0.13.0","presets":[],"worlds":1,"players":[],"pathsets":[],"goalmodes":[],"spawnLoc":{"Set":"MarshSpawn.Main"},"spoilers":true,"webConn":false,"hard":false,"headerList":["skippable_cutscenes","autoplants","no_branch"]}
+{"version":"0.13.0","presets":[],"worlds":1,"players":[],"pathsets":[],"goalmodes":[],"spawnLoc":{"Set":"MarshSpawn.Main"},"spoilers":true,"webConn":false,"hard":false,"headerList":["skippable_cutscenes","autoplants","no_branch","spawn_tuley"],"headerArgs":[]}

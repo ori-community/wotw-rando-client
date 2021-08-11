@@ -40,7 +40,7 @@ use util::{
     Pathset, NodeType, Position, Zone,
     settings::{Settings, Spawn},
     uberstate::UberState,
-    constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, RETRIES},
+    constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, SPAWN_GRANTS, RETRIES},
 };
 
 fn pick_spawn<'a, R>(graph: &'a Graph, settings: &Settings, rng: &mut R) -> Result<&'a Node, String>
@@ -55,8 +55,11 @@ where
         Spawn::Random => valid
             .filter(|&node| {
                 let identifier = node.identifier();
-                settings.pathsets.contains(Pathset::Gorlek) && GORLEK_SPAWNS.contains(&identifier)
-                || MOKI_SPAWNS.contains(&identifier)
+                if settings.pathsets.contains(Pathset::Gorlek) {
+                    GORLEK_SPAWNS.contains(&identifier)
+                } else {
+                    MOKI_SPAWNS.contains(&identifier)
+                }
             })
             .choose(rng)
             .ok_or_else(|| String::from("Tried to generate a seed on an empty logic graph."))?,
@@ -68,7 +71,7 @@ where
             .find(|&node| node.identifier() == spawn_loc)
             .ok_or_else(|| format!("Spawn {} not found", spawn_loc))?
     };
-    return Ok(spawn);
+    Ok(spawn)
 }
 
 pub fn write_flags(settings: &Settings, mut flags: Vec<String>) -> String {
@@ -95,17 +98,17 @@ struct SpawnLoc {
     position: Position,
 }
 
-pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(), String> {
+pub fn initialize_log(use_file: Option<&str>, stderr_log_level: LevelFilter) -> Result<(), String> {
     let stderr = ConsoleAppender::builder()
         .target(Target::Stderr)
         .encoder(Box::new(PatternEncoder::new("{h({l}):5}  {m}{n}")))
         .build();
 
-    let log_config = if use_file {
+    let log_config = if let Some(path) = use_file {
         let log_file = FileAppender::builder()
         .append(false)
         .encoder(Box::new(PatternEncoder::new("{l:5}  {m}{n}")))
-        .build("generator.log")
+        .build(path)
         .map_err(|err| format!("Failed to create log file: {}", err))?;
 
         Config::builder()
@@ -136,7 +139,9 @@ pub fn initialize_log(use_file: bool, stderr_log_level: LevelFilter) -> Result<(
     Ok(())
 }
 
-fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Vec<String>, HashMap<String, String>), String>
+type Flags = Vec<String>;
+type Names = HashMap<String, String>;
+fn parse_headers<R>(world: &mut World, headers: &[String], settings: &Settings, rng: &mut R) -> Result<(String, Flags, Names), String>
 where R: Rng + ?Sized
 {
     let mut dependencies = settings.header_list.clone();
@@ -147,15 +152,25 @@ where R: Rng + ?Sized
     let mut header_block = String::new();
     let mut context = HeaderContext {
         dependencies: dependencies.into_iter().collect::<HashSet<_>>(),
-        excludes: HashMap::new(),
-        flags: Vec::new(),
-        names: HashMap::new(),
+        ..HeaderContext::default()
     };
+
+    let mut param_values = HashMap::new();
+
+    for header_arg in &settings.header_args {
+        let mut parts = header_arg.splitn(2, '=');
+        let identifier = parts.next().unwrap();
+        let value = parts.next().unwrap_or("true");
+
+        if let Some(prior) = param_values.insert(identifier.to_string(), value.to_string()) {
+            log::warn!("Overwriting {} with {} for header argument {}", prior, value, identifier);
+        }
+    }
 
     for header in headers {
         log::trace!("Parsing inline header");
 
-        let header = headers::parser::parse_header(&PathBuf::from("inline header"), header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in inline header", err))?;
+        let header = headers::parser::parse_header(&PathBuf::from("inline header"), header, world, &mut context, &param_values, rng).map_err(|err| format!("{} in inline header", err))?;
 
         header_block += &header;
     }
@@ -172,7 +187,7 @@ where R: Rng + ?Sized
 
             log::trace!("Parsing header {}", path.display());
             let header = util::read_file(&path, "headers")?;
-            let header = headers::parser::parse_header(&path, &header, world, &settings.pathsets, &mut context, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
+            let header = headers::parser::parse_header(&path, &header, world, &mut context, &param_values, rng).map_err(|err| format!("{} in header {}", err, path.display()))?;
 
             header_block += &header;
         }
@@ -217,8 +232,43 @@ where R: Rng
     };
 }
 
-pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<Vec<String>, String> {
-    let settings = settings.apply_presets()?;
+#[inline]
+fn format_placements(world_placements: Vec<Placement>, custom_names: &HashMap<String, String>, spoilers: bool) -> String {
+    let mut placement_block = String::with_capacity(world_placements.len() * 20);
+
+    for placement in world_placements {
+        let mut placement_line = format!("{}", placement);
+
+        if spoilers {
+            let location = placement.node.map_or_else(
+                || placement.uber_state.to_string(),
+                |node| {
+                    let mut location = node.to_string();
+                    util::add_trailing_spaces(&mut location, 33);
+                    let mut position = format!("({})", node.position().unwrap());
+                    util::add_trailing_spaces(&mut position, 15);
+                    format!("{}  {} {}", location, position, node.zone().unwrap())
+                }
+            );
+
+            util::add_trailing_spaces(&mut placement_line, 46);
+            let item = custom_names.get(&placement.item.code()).cloned().unwrap_or_else(|| placement.item.to_string());
+            let item = util::with_leading_spaces(&item, 36);
+
+            placement_line += &format!("  // {} from {}", item, location);
+        }
+
+        placement_line.push('\n');
+        placement_block.push_str(&placement_line);
+    }
+
+    placement_block
+}
+
+type Seeds = Vec<String>;
+type Spoilers = Vec<String>;
+pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed: Option<String>) -> Result<(Seeds, Spoilers), String> {
+    let mut settings = settings.apply_presets()?;
 
     let seed = seed.unwrap_or_else(|| {
         let mut generated_seed = String::new();
@@ -241,7 +291,7 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     log::trace!("Seeded RNG with {}", seed);
 
     let mut world = World::new(graph);
-    world.pool = Pool::preset(&settings.pathsets);
+    world.pool = Pool::preset();
     world.player.spawn(&settings);
 
     let (header_block, custom_flags, custom_names) = parse_headers(&mut world, headers, &settings, &mut rng)?;
@@ -253,56 +303,39 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
         worlds.push(worlds[0].clone());
     }
 
-    let spawn_state = UberState::spawn();
     let spawn_pickup_node = Node::Pickup(Pickup {
         identifier: String::from("Spawn"),
         zone: Zone::Spawn,
         index: usize::MAX,
-        uber_state: spawn_state,
+        uber_state: UberState::spawn(),
         position: Position { x: 0, y: 0 },
     });
 
     let (placements, spawn_locs) = generate_placements(graph, worlds, &settings, &spawn_pickup_node, &custom_names, &mut rng)?;
 
     let spawn_lines = spawn_locs.into_iter().map(|spawn_loc| {
-        if spawn_loc.identifier() != DEFAULT_SPAWN {
-            let position = spawn_loc.position().ok_or_else(|| format!("Tried to spawn on {} which has no specified coordinates", spawn_loc.identifier()))?;
-            return Ok(format!("Spawn: {}  // {}\n", position, spawn_loc.identifier()));
+        let identifier = spawn_loc.identifier();
+
+        if identifier != DEFAULT_SPAWN {
+            let mut spawn_item = String::new();
+            if let Some(spawn_grant) = SPAWN_GRANTS.iter().find_map(|(spawn, item)| if *spawn == identifier { Some(item) } else { None }) {
+                spawn_item = format!("{}|{}|mute\n", UberState::spawn(), spawn_grant.code());
+            }
+
+            let position = spawn_loc.position().ok_or_else(|| format!("Tried to spawn on {} which has no specified coordinates", identifier))?;
+            return Ok(format!("Spawn: {}  // {}\n{}", position, identifier, spawn_item));
         }
         Ok(String::new())
     }).collect::<Result<Vec<_>, String>>()?;
 
-    let placement_blocks = placements.into_iter().map(|world_placements| {
-        let mut placement_block = String::with_capacity(world_placements.len() * 20);
-
-        for placement in world_placements {
-            let mut placement_line = format!("{}", placement);
-
-            if settings.spoilers {
-                let location = placement.node.map_or_else(
-                    || placement.uber_state.to_string(),
-                    |node| {
-                        let mut location = node.to_string();
-                        util::add_trailing_spaces(&mut location, 33);
-                        let mut position = format!("({})", node.position().unwrap());
-                        util::add_trailing_spaces(&mut position, 15);
-                        format!("{}  {} {}", location, position, node.zone().unwrap())
-                    }
-                );
-
-                util::add_trailing_spaces(&mut placement_line, 46);
-                let item = custom_names.get(&placement.item.code()).map(|code| code.clone()).unwrap_or_else(|| placement.item.to_string());
-                let item = util::with_leading_spaces(&item, 36);
-
-                placement_line += &format!("  // {} from {}", item, location);
-            }
-
-            placement_line.push('\n');
-            placement_block.push_str(&placement_line);
-        }
-
-        placement_block
-    }).collect::<Vec<_>>();
+    let spoiler_blocks = if !settings.spoilers {
+        Some(placements.iter()
+            .map(|world_placements| format_placements(world_placements.clone(), &custom_names, true))
+            .collect::<Vec<_>>())
+    } else { None };
+    let placement_blocks = placements.into_iter()
+        .map(|world_placements| format_placements(world_placements, &custom_names, settings.spoilers))
+        .collect::<Vec<_>>();
 
     let slug_line = format!("// Slug: {}", slug);
     let seed_line = format!("// Seed: {}", seed);
@@ -311,8 +344,22 @@ pub fn generate_seed(graph: &Graph, settings: Settings, headers: &[String], seed
     let mut seeds = (0..settings.worlds).map(|index| {
         format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &placement_blocks[index], &header_block, &slug_line, &seed_line, &config_line)
     }).collect::<Vec<_>>();
+    headers::parser::postprocess(&mut seeds, graph, &settings)?;
 
-    headers::postprocess(&mut seeds, graph, &settings)?;
+    let spoilers = spoiler_blocks.map_or_else::<Result<_, String>, _, _>(
+        || Ok(Vec::new()),
+        |spoiler_blocks| {
+            settings.spoilers = true;
+            let spoiler_config = settings.write()?;
+            let spoiler_config_line = format!("// Config: {}", spoiler_config);
 
-    Ok(seeds)
+            let mut spoiler_seeds = (0..settings.worlds).map(|index| {
+                format!("{}{}\n{}\n{}{}\n{}\n{}", flag_line, &spawn_lines[index], &spoiler_blocks[index], &header_block, &slug_line, &seed_line, &spoiler_config_line)
+            }).collect::<Vec<_>>();
+            headers::parser::postprocess(&mut spoiler_seeds, graph, &settings)?;
+
+            Ok(spoiler_seeds)
+        })?;
+
+    Ok((seeds, spoilers))
 }

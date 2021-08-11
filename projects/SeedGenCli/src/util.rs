@@ -33,9 +33,7 @@ impl Default for Pathsets {
 impl Pathsets {
     pub fn add(&mut self, pathset: Pathset) {
         match pathset {
-            Pathset::Unsafe => {
-                self.pathsets.insert(Pathset::Gorlek);
-            },
+            Pathset::Unsafe => { self.pathsets.insert(Pathset::Gorlek); },
             _ => {},
         }
         self.pathsets.insert(pathset);
@@ -44,6 +42,9 @@ impl Pathsets {
         self.pathsets.insert(Pathset::SwordSentryJump);
         self.pathsets.insert(Pathset::HammerSentryJump);
         self.pathsets.insert(Pathset::ShurikenBreak);
+        self.pathsets.insert(Pathset::HammerBreak);
+        self.pathsets.insert(Pathset::SpearBreak);
+        self.pathsets.insert(Pathset::SentryBreak);
         self.pathsets.insert(Pathset::SentryBurn);
         self.pathsets.insert(Pathset::RemoveKillPlane);
     }
@@ -56,7 +57,7 @@ impl Pathsets {
         for pathset in &[Pathset::Unsafe, Pathset::Gorlek] {
             if self.pathsets.contains(pathset) { return *pathset; }
         }
-        return Pathset::Moki;
+        Pathset::Moki
     }
 }
 impl<P> From<P> for Pathsets
@@ -86,7 +87,7 @@ pub enum Pathset {
     RemoveKillPlane,    // Removing Shriek's Killplane at Feeding Grounds
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Hash, Serialize, Deserialize, Clone)]
 pub enum GoalMode {
     Wisps,
     Trees,
@@ -525,6 +526,11 @@ pub enum BonusUpgrade {
     RegenerationEfficiency,
     FlashEfficiency,
     GrenadeEfficiency,
+    ExplodingSpike,
+    ShockSmash,
+    StaticStar,
+    ChargeBlaze,
+    RapidSentry,
 }
 impl fmt::Display for BonusUpgrade {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -544,6 +550,11 @@ impl BonusUpgrade {
             7 => Some(BonusUpgrade::RegenerationEfficiency),
             8 => Some(BonusUpgrade::FlashEfficiency),
             9 => Some(BonusUpgrade::GrenadeEfficiency),
+            45 => Some(BonusUpgrade::ExplodingSpike),
+            46 => Some(BonusUpgrade::ShockSmash),
+            47 => Some(BonusUpgrade::StaticStar),
+            48 => Some(BonusUpgrade::ChargeBlaze),
+            49 => Some(BonusUpgrade::RapidSentry),
             _ => None,
         }
     }
@@ -559,6 +570,11 @@ impl BonusUpgrade {
             BonusUpgrade::RegenerationEfficiency => 7,
             BonusUpgrade::FlashEfficiency => 8,
             BonusUpgrade::GrenadeEfficiency => 9,
+            BonusUpgrade::ExplodingSpike => 45,
+            BonusUpgrade::ShockSmash => 46,
+            BonusUpgrade::StaticStar => 47,
+            BonusUpgrade::ChargeBlaze => 48,
+            BonusUpgrade::RapidSentry => 49,
         }
     }
 }
@@ -718,7 +734,7 @@ pub enum Command {
     SetEnergy { amount: i16 },
     SetSpiritLight { amount: i16 },
     Equip { slot: u8, ability: u16 },
-    AHKSignal { signal: String },
+    AhkSignal { signal: String },
     IfEqual { uber_state: UberState, item: Box<Item> },
     IfGreater { uber_state: UberState, item: Box<Item> },
     IfLess { uber_state: UberState, item: Box<Item> },
@@ -742,7 +758,7 @@ impl fmt::Display for Command {
             Command::SetEnergy { amount } => write!(f, "13|{}", amount),
             Command::SetSpiritLight { amount } => write!(f, "14|{}", amount),
             Command::Equip { slot, ability } => write!(f, "15|{}|{}", slot, ability),
-            Command::AHKSignal { signal } => write!(f, "16|{}", signal),
+            Command::AhkSignal { signal } => write!(f, "16|{}", signal),
             Command::IfEqual { uber_state, item } => write!(f, "17|{}|{}|{}", uber_state.identifier, uber_state.value, item.code()),
             Command::IfGreater { uber_state, item } => write!(f, "18|{}|{}|{}", uber_state.identifier, uber_state.value, item.code()),
             Command::IfLess { uber_state, item } => write!(f, "19|{}|{}|{}", uber_state.identifier, uber_state.value, item.code()),

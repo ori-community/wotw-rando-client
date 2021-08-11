@@ -1,9 +1,12 @@
 use std::{
     fs,
+    str::FromStr,
     path::PathBuf,
     convert::TryFrom,
     io::{self, Read},
     time::Instant,
+    collections::HashMap,
+    process,
 };
 
 use structopt::StructOpt;
@@ -153,6 +156,9 @@ struct SeedSettings {
     /// paths to headers stored in files which will be added to the seed
     #[structopt(parse(from_os_str), short, long = "headers")]
     header_paths: Vec<PathBuf>,
+    /// configuration variables for headers
+    #[structopt(short = "a", long = "args")]
+    header_args: Vec<String>,
 }
 
 #[derive(StructOpt)]
@@ -226,7 +232,7 @@ fn parse_pathsets(names: &[String]) -> Pathsets {
     let mut pathsets = Pathsets::default();
 
     for pathset in names {
-        match &pathset[..] {
+        match &pathset.to_lowercase()[..] {
             "mo" | "moki" => {},
             "go" | "gorlek" => pathsets.add(Pathset::Gorlek),
             "un" | "unsafe" => pathsets.add(Pathset::Unsafe),
@@ -253,7 +259,7 @@ fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
     let mut goalmodes = FxHashSet::default();
 
     for goalmode in names {
-        match &goalmode[..] {
+        match &goalmode.to_lowercase()[..] {
             "t" | "trees" => { goalmodes.insert(GoalMode::Trees); },
             "w" | "wisps" => { goalmodes.insert(GoalMode::Wisps); },
             "q" | "quests" => { goalmodes.insert(GoalMode::Quests); },
@@ -265,7 +271,7 @@ fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
     goalmodes
 }
 fn parse_spawn(spawn: String) -> Spawn {
-    match &spawn[..] {
+    match &spawn.to_lowercase()[..] {
         "r" | "random" => Spawn::Random,
         "f" | "fullyrandom" => Spawn::FullyRandom,
         _ => Spawn::Set(spawn),
@@ -283,6 +289,7 @@ fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
         goals,
         logic,
         header_paths,
+        header_args,
     } = settings;
 
     let pathsets = parse_pathsets(&logic);
@@ -307,41 +314,11 @@ fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
         spawn_loc: spawn,
         hard,
         header_list: header_paths,
+        header_args,
     })
 }
 
-fn generate_seeds(mut args: SeedArgs) -> Result<Vec<String>, String> {
-    let now = Instant::now();
-
-    let seed = args.seed.as_ref().map_or_else(
-        || args.filename.as_ref(),
-        |seed| Some(seed),
-    ).cloned();
-
-    let settings = parse_settings(args.settings)?.apply_presets()?;
-
-    let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;
-    log::info!("Parsed logic in {:?}", now.elapsed());
-
-    let header = read_header();
-    if !header.is_empty() {
-        args.headers.push(header)
-    }
-
-    let worlds = settings.worlds;
-    let seeds = seedgen::generate_seed(&graph, settings, &args.headers, seed).map_err(|err| format!("Error generating seed: {}", err))?;
-    if worlds == 1 {
-        log::info!("Generated seed in {:?}", now.elapsed());
-    } else {
-        log::info!("Generated {} worlds in {:?}", worlds, now.elapsed());
-    }
-
-    Ok(seeds)
-}
-
-fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: PathBuf, players: &[String]) -> Result<(), String> {
-    let mut filename = filename.unwrap_or_else(|| String::from("seed"));
-
+fn write_seeds_to_files(seeds: &[String], spoilers: &[String], mut filename: String, mut folder: PathBuf, players: &[String], race: bool) -> Result<(), String> {
     let seed_count = seeds.len();
     let multiworld = seed_count > 1;
 
@@ -364,8 +341,18 @@ fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: 
         path.set_extension("wotwr");
 
         let file = util::create_file(&path, seed, "", true)?;
-
         log::info!("Wrote seed for {} to {}", player, file.display());
+
+        if race {
+            let spoiler = &spoilers[index];
+
+            let spoiler_filename = format!("{}_spoiler", file.with_extension("").file_name().unwrap().to_string_lossy());
+            path.set_file_name(spoiler_filename);
+            path.set_extension("wotwr");
+
+            let file = util::create_file(&path, spoiler, "", true)?;
+            log::info!("Wrote spoiler for {} to {}", player, file.display());
+        }
 
         if first {
             first = false;
@@ -382,6 +369,49 @@ fn write_seeds_to_files(seeds: &[String], filename: Option<String>, mut folder: 
 
 fn write_seeds_to_stdout(seeds: Vec<String>) {
     println!("{}", seeds.join("\n======= END SEED =======\n"));
+}
+
+fn generate_seeds(mut args: SeedArgs, tostdout: bool) -> Result<(), String> {
+    let now = Instant::now();
+
+    let seed = args.seed.as_ref().map_or_else(
+        || args.filename.as_ref(),
+        |seed| Some(seed),
+    ).cloned();
+
+    let settings = parse_settings(args.settings)?.apply_presets()?;
+
+    let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;
+    log::info!("Parsed logic in {:?}", now.elapsed());
+
+    let header = read_header();
+    if !header.is_empty() {
+        args.headers.push(header)
+    }
+
+    let worlds = settings.worlds;
+    let race = !settings.spoilers;
+    let players = settings.players.clone();
+    let (seeds, spoilers) = seedgen::generate_seed(&graph, settings, &args.headers, seed).map_err(|err| format!("Error generating seed: {}", err))?;
+    if worlds == 1 {
+        log::info!("Generated seed in {:?}", now.elapsed());
+    } else {
+        log::info!("Generated {} worlds in {:?}", worlds, now.elapsed());
+    }
+
+    if tostdout {
+        write_seeds_to_stdout(seeds);
+        if race {
+            println!("\n======= SPOILERS =======\n");
+            write_seeds_to_stdout(spoilers);
+        }
+    } else {
+        let filename = args.filename.unwrap_or_else(|| String::from("seed"));
+
+        write_seeds_to_files(&seeds, &spoilers, filename, args.seed_folder, &players, race).unwrap_or_else(|err| log::error!("{}", err));
+    }
+
+    Ok(())
 }
 
 fn play_last_seed() -> Result<(), String> {
@@ -474,7 +504,7 @@ fn compile_seed(mut path: PathBuf) -> Result<(), String> {
 
     let mut context = HeaderContext::default();
 
-    let header_block = headers::parser::parse_header(&path, &header, &mut world, &settings.pathsets, &mut context, &mut rng)?;
+    let header_block = headers::parser::parse_header(&path, &header, &mut world, &mut context, &HashMap::default(), &mut rng)?;
     let flag_line = seedgen::write_flags(&settings, context.flags);
 
     let compiled = format!("{}{}", flag_line, header_block);
@@ -496,34 +526,26 @@ fn main() {
 
     match args.command {
         SeedGenCommand::Seed { args, verbose, tostdout } => {
-            seedgen::initialize_log(verbose, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            let use_file = if verbose { Some("generator.log") } else { None };
+            seedgen::initialize_log(use_file, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
-            let filename = args.filename.clone();
-            let folder = args.seed_folder.clone();
-            let players = args.settings.names.clone();
-            match generate_seeds(args) {
-                Ok(seeds) => {
-                    if tostdout {
-                        write_seeds_to_stdout(seeds);
-                    } else {
-                        write_seeds_to_files(&seeds, filename, folder, &players).unwrap_or_else(|err| log::error!("{}", err));
-                    }
-                },
-                Err(err) =>  log::error!("{}", err),
-            }
+            generate_seeds(args, tostdout).unwrap_or_else(|err| {
+              log::error!("{}", err);
+              process::exit(2);
+            });
         },
         SeedGenCommand::Play => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(None, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             play_last_seed().unwrap_or_else(|err| log::error!("{}", err));
         },
         SeedGenCommand::Preset { args } => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(None, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             create_preset(args).unwrap_or_else(|err| log::error!("{}", err));
         },
         SeedGenCommand::Headers { headers, subcommand } => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(None, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match subcommand {
                 Some(HeaderCommand::Validate { path }) => {
@@ -542,7 +564,7 @@ fn main() {
             }
         },
         SeedGenCommand::ReachCheck { args } => {
-            seedgen::initialize_log(false, LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
+            seedgen::initialize_log(Some("reach_log.txt"), LevelFilter::Info).unwrap_or_else(|err| eprintln!("Failed to initialize log: {}", err));
 
             match reach_check(args) {
                 Ok(reached) => println!("{}", reached),
