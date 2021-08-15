@@ -1356,7 +1356,8 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
       Launch
     gorlek:
       Bow=1, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=10  # deal with the camera
-      DoubleJump, TripleJump OR Sword
+      DoubleJump, TripleJump OR Sword OR Hammer
+	  DoubleJump, WaterDash, Damage=20
       SentryJump=1  # Go up to the moki, then poles and then jump down
       Bash  # bash the slime to get up
     unsafe:
@@ -1375,10 +1376,10 @@ anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple do
       Combat=BombSlug, DoubleJump, Dash, Glide
       Launch
     gorlek:
-      Bow=3
+      Bow=2
       DoubleJump, Dash
       Combat=BombSlug, DoubleJump, TripleJump
-      Combat=BombSlug, DoubleJump, Damage=10, Glide OR Sword
+      Combat=BombSlug, DoubleJump, Damage=10, Glide OR Sword OR Hammer
       SentryJump=1, DoubleJump
       Bash, Grenade=1, DoubleJump
     unsafe:
@@ -1387,15 +1388,13 @@ anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple do
       Dash, Sword OR Hammer      # Upslash between dashes to gain a bit more hight
   conn WestHollow.Entrance:
     moki:
-      Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
-      Bash, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
-      Bow=1, Combat=Slug OR Bash
+      Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Bow=1
+      Bash, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Bow=1 OR Grenade=1
       Launch
-      Bash, Grenade=1
     gorlek: WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Dash OR Glide OR Sword OR Damage=20
     unsafe: Sentry=2 OR Hammer OR Bash
   conn WestHollow.HollowDrainMiddle:
-    moki: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
+    moki: WestHollow.UpperDrainLeverPulled
   conn EastHollow.Teleporter:
     moki: WestHollow.PurpleDoorOpen
 
