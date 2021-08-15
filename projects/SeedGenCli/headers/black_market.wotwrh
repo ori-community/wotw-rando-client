@@ -6,6 +6,7 @@
 //// Greatly reduces the cost of black market keystones
 !!parameter cheap bool:false
 
+3|0|4|20|1|105                          // Add OpherShop.Teleport to the unsyncable list
 1|105|6|Black Market Keystone|mute|f=0  // Black Market Keystones from OpherShop.Teleport
 1|105|8|1|105|bool|false                // Never lock purchase
 1|105|8|9|0|int|5
