@@ -832,8 +832,9 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
   conn MarshPastOpher.PoolsPathEast:
     gorlek: 
       Water, Bash, Launch  # the enemies appear once you have water
+    unsafe: 
+      Launch
       SentryJump=2 # first one maxheight
-    unsafe: Launch
 
 # checkpoint at -603, -4316
 # checkpoint at -573, -4339
