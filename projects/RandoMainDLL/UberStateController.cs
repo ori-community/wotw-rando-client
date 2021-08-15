@@ -257,7 +257,7 @@ namespace RandoMainDLL {
           found = SeedController.OnUberState(state);
         }
 
-        if (SyncedUberStates.Contains(key))
+        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key))
           WebSocketClient.SendUpdate(key, state.ValueAsDouble());
 
         BonusItemController.OnUberState(state);
@@ -350,6 +350,7 @@ namespace RandoMainDLL {
 
     public static void NewGameInit() {
       if (!InterOp.is_loading_game()) {
+        UnsharableIds.Clear();
         InterOp.clear_quest_messages();
         Randomizer.Log($"New Game Init - {SeedController.SeedName}", false);
         ShopController.SetCostsAfterInit();
@@ -397,6 +398,8 @@ namespace RandoMainDLL {
         NeedsNewGameInit = false;
       }
     }
+
+    public static HashSet<UberId> UnsharableIds = new HashSet<UberId>();
 
     public static Dictionary<UberId, int> SkipUberStateMapCount = new Dictionary<UberId, int>();
 
