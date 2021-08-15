@@ -300,8 +300,8 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
   conn MarshSpawn.BeforeBurrows:
     moki: Bash, DoubleJump OR Dash OR Launch
     gorlek:
-      Bash, Glide OR Sword
-      Bash, Hammer, Damage=10  # dboost at the start
+      Bash, Glide
+      Bash, Damage=10, Hammer OR Sword  # dboost at the start
       Launch, Glide
       Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
   conn MarshSpawn.Cave: free
@@ -337,18 +337,15 @@ anchor MarshSpawn.BeforeBurrows at -1006, -4497:  # On the island before the Bur
 
   conn MarshSpawn.BurrowsEntry:
     moki:
-      Water, WaterDash, Launch
       Water, WaterDash, Bash, Grenade=1
       Water, WaterDash, DoubleJump, Dash OR Glide
-      Launch, Bash OR Glide OR DoubleJump OR Dash
+      Launch
       Bash, DoubleJump, Glide OR Dash
     gorlek:
-      Launch
-      Bash, DoubleJump
-      Bash, Dash, Glide OR Sword OR Hammer
+      Bash, DoubleJump OR Dash
       Water, WaterDash, DoubleJump OR Dash OR SentryJump=1  # With sjump, weapon hover as well
       SentryJump=1, Dash, DoubleJump, TripleJump
-      SentryJump=1, DoubleJump, Sword, Damage=10  # Sword hover and damage boost in the first spikes
+      SwordSJump=1, DoubleJump, Damage=10  # Sword hover and damage boost in the first spikes
     unsafe:
       SentryJump=1, DoubleJump, Damage=10  # Weapon hover and damage boost in the first spikes
       Bash, Dash OR Glide OR Hammer OR Sword  # Use the projectile from the ennemy at the left then bash the the tentacle and land directly on the last platform
@@ -1356,8 +1353,7 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
       Launch
     gorlek:
       Bow=1, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=10  # deal with the camera
-      DoubleJump, TripleJump OR Sword OR Hammer
-	  DoubleJump, WaterDash, Damage=20
+      DoubleJump, TripleJump OR Sword
       SentryJump=1  # Go up to the moki, then poles and then jump down
       Bash  # bash the slime to get up
     unsafe:
@@ -1376,10 +1372,10 @@ anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple do
       Combat=BombSlug, DoubleJump, Dash, Glide
       Launch
     gorlek:
-      Bow=2
+      Bow=3
       DoubleJump, Dash
       Combat=BombSlug, DoubleJump, TripleJump
-      Combat=BombSlug, DoubleJump, Damage=10, Glide OR Sword OR Hammer
+      Combat=BombSlug, DoubleJump, Damage=10, Glide OR Sword
       SentryJump=1, DoubleJump
       Bash, Grenade=1, DoubleJump
     unsafe:
@@ -1388,13 +1384,15 @@ anchor WestHollow.InFrontPurpleDoor at -181, -4240:  # In front of the purple do
       Dash, Sword OR Hammer      # Upslash between dashes to gain a bit more hight
   conn WestHollow.Entrance:
     moki:
-      Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Bow=1
-      Bash, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide OR Bow=1 OR Grenade=1
+      Combat=2xSlug, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
+      Bash, WestHollow.UpperDrainLeverPulled OR DoubleJump OR Dash OR Glide
+      Bow=1, Combat=Slug OR Bash
       Launch
+      Bash, Grenade=1
     gorlek: WestHollow.UpperDrainLeverPulled OR Bow=1 OR DoubleJump OR Dash OR Glide OR Sword OR Damage=20
     unsafe: Sentry=2 OR Hammer OR Bash
   conn WestHollow.HollowDrainMiddle:
-    moki: WestHollow.UpperDrainLeverPulled
+    moki: WestHollow.PurpleDoorOpen, WestHollow.UpperDrainLeverPulled
   conn EastHollow.Teleporter:
     moki: WestHollow.PurpleDoorOpen
 
