@@ -9,7 +9,7 @@ use rustc_hash::FxHashSet;
 use serde::{Serialize, Deserialize};
 
 use super::{
-    Pathsets, Pathset, GoalMode,
+    Difficulty, Glitch, GoalMode,
     constants::{DEFAULT_SPAWN, SLUGSTRINGS}
 };
 
@@ -30,9 +30,9 @@ struct OldSeedFlags {
 }
 /// Representation of settings as they are written by the java-based seed generator
 #[allow(clippy::struct_excessive_bools)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-struct OldSettings {
+struct PreRustSettings {
     pub tps: bool,
     pub spoilers: bool,
     pub unsafe_paths: bool,
@@ -48,33 +48,29 @@ struct OldSettings {
     pub spawn_loc: String,
     pub header_list: Vec<PathBuf>,
 }
-impl Default for OldSettings {
-    fn default() -> OldSettings {
-        OldSettings {
-            tps: true,
-            spoilers: true,
-            unsafe_paths: false,
-            gorlek_paths: false,
-            glitch_paths: false,
-            quest_locs: true,
-            output_folder: PathBuf::new(),
-            flags: OldSeedFlags::default(),
-            web_conn: false,
-            bonus_items: false,
-            debug_info: false,
-            seir_launch: false,
-            spawn_loc: DEFAULT_SPAWN.to_string(),
-            header_list: vec![],
-        }
-    }
-}
-fn read_old(json: &str) -> Result<Settings, io::Error> {
-    let old_settings: OldSettings = serde_json::from_str(json)?;
+fn read_pre_rustgen(json: &str) -> Result<Settings, io::Error> {
+    let old_settings: PreRustSettings = serde_json::from_str(json)?;
 
-    let mut pathsets = Pathsets::default();
-    if old_settings.gorlek_paths { pathsets.add(Pathset::Gorlek); }
-    if old_settings.unsafe_paths { pathsets.add(Pathset::Unsafe); }
-    if old_settings.glitch_paths { pathsets.add_glitches(); }
+    let difficulty = if old_settings.unsafe_paths {
+        Difficulty::Unsafe
+    } else if old_settings.gorlek_paths {
+        Difficulty::Gorlek
+    } else {
+        Difficulty::Moki
+    };
+
+    let glitches = if old_settings.glitch_paths {
+        vec![
+            Glitch::SwordSentryJump,
+            Glitch::HammerSentryJump,
+            Glitch::ShurikenBreak,
+            Glitch::SentryBreak,
+            Glitch::HammerBreak,
+            Glitch::SpearBreak,
+            Glitch::SentryBurn,
+            Glitch::RemoveKillPlane,
+        ]
+    } else { Vec::default() };
 
     let mut header_list = old_settings.header_list;
     if old_settings.tps { header_list.push(PathBuf::from("teleporters")); }
@@ -95,13 +91,68 @@ fn read_old(json: &str) -> Result<Settings, io::Error> {
     if old_settings.flags.world_tour { goalmodes.insert(GoalMode::Relics); }
 
     Ok(Settings {
-        pathsets,
+        difficulty,
+        glitches,
         goalmodes,
         spoilers: old_settings.spoilers,
         web_conn: old_settings.web_conn,
         spawn_loc,
         header_list,
         ..Settings::default()
+    })
+}
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Pre0_13_2Settings {
+    pub version: Option<String>,
+    pub presets: Vec<PathBuf>,
+    pub worlds: usize,
+    pub players: Vec<String>,
+    pub pathsets: Vec<String>,
+    pub goalmodes: FxHashSet<GoalMode>,
+    pub spawn_loc: Spawn,
+    pub spoilers: bool,
+    pub web_conn: bool,
+    pub hard: bool,
+    pub header_list: Vec<PathBuf>,
+    pub header_args: Vec<String>,
+}
+fn read_pre_0_13_2(json: &str) -> Result<Settings, io::Error> {
+    let old_settings: Pre0_13_2Settings = serde_json::from_str(json)?;
+
+    let mut difficulty = Difficulty::Moki;
+    let mut glitches = Vec::new();
+
+    for pathset in old_settings.pathsets {
+        match &pathset[..] {
+            "Gorlek" => if difficulty < Difficulty::Gorlek { difficulty = Difficulty::Gorlek },
+            "Unsafe" => if difficulty < Difficulty::Unsafe { difficulty = Difficulty::Unsafe },
+            "SwordSentryJump" => glitches.push(Glitch::SwordSentryJump),
+            "HammerSentryJump" => glitches.push(Glitch::HammerSentryJump),
+            "ShurikenBreak" => glitches.push(Glitch::ShurikenBreak),
+            "SentryBreak" => glitches.push(Glitch::SentryBreak),
+            "HammerBreak" => glitches.push(Glitch::HammerBreak),
+            "SpearBreak" => glitches.push(Glitch::SpearBreak),
+            "SentryBurn" => glitches.push(Glitch::SentryBurn),
+            "RemoveKillPlane" => glitches.push(Glitch::RemoveKillPlane),
+            _ => {},
+        }
+    }
+
+    Ok(Settings {
+        version: old_settings.version,
+        presets: old_settings.presets,
+        worlds: old_settings.worlds,
+        players: old_settings.players,
+        difficulty,
+        glitches,
+        goalmodes: old_settings.goalmodes,
+        spawn_loc: old_settings.spawn_loc,
+        spoilers: old_settings.spoilers,
+        web_conn: old_settings.web_conn,
+        hard: old_settings.hard,
+        header_list: old_settings.header_list,
+        header_args: old_settings.header_args,
     })
 }
 
@@ -126,8 +177,8 @@ pub struct Settings {
     pub presets: Vec<PathBuf>,
     pub worlds: usize,
     pub players: Vec<String>,
-    #[serde(flatten)]
-    pub pathsets: Pathsets,
+    pub difficulty: Difficulty,
+    pub glitches: Vec<Glitch>,
     pub goalmodes: FxHashSet<GoalMode>,
     pub spawn_loc: Spawn,
     pub spoilers: bool,
@@ -143,7 +194,8 @@ impl Default for Settings {
             presets: Vec::default(),
             worlds: 1,
             players: Vec::default(),
-            pathsets: Pathsets::default(),
+            difficulty: Difficulty::default(),
+            glitches: Vec::default(),
             goalmodes: FxHashSet::default(),
             spawn_loc: Spawn::default(),
             spoilers: true,
@@ -155,13 +207,18 @@ impl Default for Settings {
     }
 }
 impl Settings {
+    pub fn compability_parse(json: &str) -> Result<Settings, String> {
+        serde_json::from_str(&json).or_else(|err| {  // current
+            read_pre_0_13_2(&json).or_else(|_| {  // < 0.13.2
+                read_pre_rustgen(&json).map_err(|_| format!("Failed to read settings: {}", err))  // javagen
+            })
+        })
+    }
     pub fn from_seed(seed: &str) -> Result<Settings, String> {
         let mut settings = Settings::default();
         for line in seed.lines() {
             if let Some(config) = line.strip_prefix("// Config: ") {
-                settings = serde_json::from_str(&config).or_else(|err| {  // read directly or fall back to reading old settings
-                    read_old(&config).map_err(|_| format!("Failed to read settings: {}", err))
-                })?;
+                settings = Settings::compability_parse(&config)?;
             }
         }
         Ok(settings)
@@ -169,7 +226,7 @@ impl Settings {
     pub fn from_preset(mut preset: PathBuf) -> Result<Settings, String> {
         preset.set_extension("json");
         let content = super::read_file(&preset, "presets")?;
-        serde_json::from_str(&content).map_err(|err| format!("Failed to read settings from {}: {}", preset.display(), err))
+        Settings::compability_parse(&content)
     }
     pub fn write(&self) -> Result<String, String> {
         serde_json::to_string(&self).map_err(|err| format!("Invalid Settings: {}", err))
@@ -181,7 +238,8 @@ impl Settings {
             presets: mut other_presets,
             worlds: other_worlds,
             players: other_players,
-            pathsets: other_pathsets,
+            difficulty: other_difficulty,
+            glitches: other_glitches,
             goalmodes: other_goalmodes,
             spawn_loc: other_spawn_loc,
             spoilers: other_spoilers,
@@ -199,8 +257,11 @@ impl Settings {
             self.worlds = other_worlds;
             self.players = other_players;
         }
-        for pathset in other_pathsets.pathsets {
-            self.pathsets.add(pathset);
+        if self.difficulty < other_difficulty {
+            self.difficulty = other_difficulty;
+        }
+        for glitch in other_glitches {
+            self.glitches.push(glitch);
         }
         self.goalmodes.extend(other_goalmodes);
         if other_spawn_loc != Spawn::default() {

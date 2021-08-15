@@ -828,7 +828,7 @@ fn total_reach_check<'a>(world: &World<'a>, player_name: &str) -> Result<Vec<&'a
     log::trace!("({}): Creating a player with everything to determine reachable locations", player_name);
     let mut finished_world = world.clone();
     for (item, amount) in &world.pool.inventory.items {
-        if item.is_progression(&world.player.pathsets) {
+        if item.is_progression(world.player.difficulty) {
             finished_world.grant_player(item.clone(), *amount)?;
         }
     }

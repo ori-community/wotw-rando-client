@@ -109,7 +109,7 @@ impl<'a> World<'a> {
                 self.player.inventory.grant(Item::SpiritLight(1), amount * stacked_amount);
             }
             item => {
-                if item.is_progression(&self.player.pathsets) {
+                if item.is_progression(self.player.difficulty) {
                     log::trace!("Granting player {}{}", if amount == 1 { String::new() } else { format!("{} ", amount) }, item);
 
                     self.player.inventory.grant(item, amount);
@@ -158,7 +158,7 @@ mod tests {
 
     #[test]
     fn reach_check() {
-        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Settings::default(), false).unwrap();
         let mut world = World::new(graph);
         world.player.inventory = Pool::preset().inventory;
         world.player.inventory.grant(Item::SpiritLight(1), 10000);
@@ -182,10 +182,13 @@ mod tests {
 
         assert_eq!(reached, locations);
 
-        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::from(vec![Pathset::Moki, Pathset::Gorlek]), false).unwrap();
+        let mut settings = Settings::default();
+        settings.difficulty = Difficulty::Gorlek;
+
+        let graph = &lexer::parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &settings, false).unwrap();
         let mut world = World::new(graph);
 
-        world.player.pathsets.add(Pathset::Unsafe);
+        world.player.difficulty = Difficulty::Unsafe;
         world.player.inventory.grant(Item::Resource(Resource::Health), 7);
         world.player.inventory.grant(Item::Resource(Resource::Energy), 6);
         world.player.inventory.grant(Item::Skill(Skill::DoubleJump), 1);

@@ -37,7 +37,7 @@ use world::{
 use generator::Placement;
 use headers::parser::HeaderContext;
 use util::{
-    Pathset, NodeType, Position, Zone,
+    Difficulty, NodeType, Position, Zone,
     settings::{Settings, Spawn},
     uberstate::UberState,
     constants::{DEFAULT_SPAWN, MOKI_SPAWNS, GORLEK_SPAWNS, SPAWN_GRANTS, RETRIES},
@@ -55,7 +55,7 @@ where
         Spawn::Random => valid
             .filter(|&node| {
                 let identifier = node.identifier();
-                if settings.pathsets.contains(Pathset::Gorlek) {
+                if settings.difficulty >= Difficulty::Gorlek {
                     GORLEK_SPAWNS.contains(&identifier)
                 } else {
                     MOKI_SPAWNS.contains(&identifier)

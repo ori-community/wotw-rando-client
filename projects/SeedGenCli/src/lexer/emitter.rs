@@ -5,11 +5,14 @@ use crate::world::{
     graph::{self, Graph, Node},
     requirements::Requirement,
 };
-use crate::util::{Pathsets, Pathset, Skill, Position, Zone};
+use crate::util::{
+    Difficulty, Glitch, Skill, Position, Zone,
+    settings::Settings,
+};
 
 struct EmitterContext<'a> {
     definitions: &'a FxHashMap<&'a str, parser::Group<'a>>,
-    pathsets: &'a Pathsets,
+    settings: &'a Settings,
     validate: bool,
     node_map: FxHashMap<&'a str, usize>,
     used_states: FxHashSet<&'a str>,
@@ -19,14 +22,20 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
     match requirement {
         parser::Requirement::Free => Requirement::Free,
         parser::Requirement::Definition(identifier) => build_requirement_group(&context.definitions[identifier], region, context),
-        parser::Requirement::Pathset(pathset) =>
+        parser::Requirement::Difficulty(difficulty) =>
             if region {
-                if context.pathsets.difficulty() == *pathset {
+                if context.settings.difficulty == *difficulty {
                     Requirement::Free
                 } else {
                     Requirement::Impossible
                 }
-            } else if context.pathsets.contains(*pathset) {
+            } else if context.settings.difficulty >= *difficulty {
+                Requirement::Free
+            } else {
+                Requirement::Impossible
+            },
+        parser::Requirement::Glitch(glitch) =>
+            if context.settings.glitches.contains(glitch) {
                 Requirement::Free
             } else {
                 Requirement::Impossible
@@ -53,43 +62,43 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
                 Requirement::Skill(Skill::Hammer),
                 Requirement::EnergySkill(Skill::Bow, 1.0),
             ];
-            if context.pathsets.contains(Pathset::Gorlek) {
+            if context.settings.difficulty >= Difficulty::Gorlek {
                 allowed_weapons.push(Requirement::EnergySkill(Skill::Shuriken, 1.0));
                 allowed_weapons.push(Requirement::EnergySkill(Skill::Grenade, 1.0));
             }
-            if context.pathsets.contains(Pathset::Unsafe) {
+            if context.settings.difficulty >= Difficulty::Unsafe {
                 allowed_weapons.push(Requirement::EnergySkill(Skill::Spear, 1.0));
             }
             Requirement::Or(allowed_weapons)
         },
         parser::Requirement::ShurikenBreak(health) =>
-            if context.pathsets.contains(Pathset::ShurikenBreak) {
+            if context.settings.glitches.contains(&Glitch::ShurikenBreak) {
                 Requirement::ShurikenBreak(f32::from(*health))
             } else {
                 Requirement::Impossible
             },
         parser::Requirement::SentryBreak(health) =>
-            if context.pathsets.contains(Pathset::SentryBreak) {
+            if context.settings.glitches.contains(&Glitch::SentryBreak) {
                 Requirement::SentryBreak(f32::from(*health))
             } else {
                 Requirement::Impossible
             },
         parser::Requirement::HammerBreak =>
-            if context.pathsets.contains(Pathset::HammerBreak) {
+            if context.settings.glitches.contains(&Glitch::HammerBreak) {
                 Requirement::Skill(Skill::Hammer)
             } else {
                 Requirement::Impossible
             },
         parser::Requirement::SpearBreak =>
-            if context.pathsets.contains(Pathset::SpearBreak) {
+            if context.settings.glitches.contains(&Glitch::SpearBreak) {
                 Requirement::Skill(Skill::Spear)
             } else {
                 Requirement::Impossible
             },
         parser::Requirement::SentryJump(amount) => {
             let mut allowed_weapons = Vec::new();
-            if context.pathsets.contains(Pathset::SwordSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Sword)); }
-            if context.pathsets.contains(Pathset::HammerSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Hammer)); }
+            if context.settings.glitches.contains(&Glitch::SwordSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Sword)); }
+            if context.settings.glitches.contains(&Glitch::HammerSentryJump) { allowed_weapons.push(Requirement::Skill(Skill::Hammer)); }
 
             if allowed_weapons.len() > 1 {
                 Requirement::And(vec![
@@ -106,7 +115,7 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
             }
         },
         parser::Requirement::SwordSentryJump(amount) =>
-            if context.pathsets.contains(Pathset::SwordSentryJump) {
+            if context.settings.glitches.contains(&Glitch::SwordSentryJump) {
                 Requirement::And(vec![
                     Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
                     Requirement::Skill(Skill::Sword),
@@ -115,7 +124,7 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
                 Requirement::Impossible
             },
         parser::Requirement::HammerSentryJump(amount) =>
-            if context.pathsets.contains(Pathset::HammerSentryJump) {
+            if context.settings.glitches.contains(&Glitch::HammerSentryJump) {
                 Requirement::And(vec![
                     Requirement::EnergySkill(Skill::Sentry, (*amount).into()),
                     Requirement::Skill(Skill::Hammer),
@@ -124,7 +133,7 @@ fn build_requirement<'a>(requirement: &parser::Requirement<'a>, region: bool, co
                 Requirement::Impossible
             },
         parser::Requirement::SentryBurn(amount) =>
-            if context.pathsets.contains(Pathset::SentryBurn) {
+            if context.settings.glitches.contains(&Glitch::SentryBurn) {
                 Requirement::EnergySkill(Skill::Sentry, (*amount).into())
             } else {
                 Requirement::Impossible
@@ -185,7 +194,7 @@ fn add_entry<'a>(graph: &mut FxHashMap<&'a str, usize>, key: &'a str, index: usi
     Ok(())
 }
 
-pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state_map: &[NamedState], pathsets: &Pathsets, validate: bool) -> Result<Graph, String> {
+pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state_map: &[NamedState], settings: &Settings, validate: bool) -> Result<Graph, String> {
     let node_count = areas.anchors.len() + locations.len() + metadata.states.len();
     let mut graph = Vec::with_capacity(node_count);
     let mut used_states = FxHashSet::default();
@@ -260,7 +269,7 @@ pub fn emit(areas: &AreaTree, metadata: &Metadata, locations: &[Location], state
 
     let mut context = EmitterContext {
         definitions: &areas.definitions,
-        pathsets,
+        settings,
         validate,
         node_map,
         used_states,
