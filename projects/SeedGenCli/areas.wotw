@@ -4332,7 +4332,7 @@ anchor WoodsMain.AboveHowl at 916, -4047:  # At the semisolid above silenced How
     gorlek:
       Launch
       DoubleJump, Bash, Grenade=1
-      DoubleJump, SentryJump=1, Combat=3xSkeeto  # an upswing should make the final jump fine
+      DoubleJump, SentryJump=1
       Bash, Grenade=2
 
 # checkpoint at 873, -3980
@@ -4349,30 +4349,32 @@ anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
       DoubleJump, Bash, Launch  # :)
     gorlek: Launch, Damage=15
     unsafe: DoubleJump, TripleJump, Hammer, Damage=15  # climb the right wall, triple jump in the spikes, triple jump + up slash to climb the right wall
-  conn WoodsMain.OrangeTree:  # moki paths are solved with the AbovePit connection
-    gorlek, Sword OR Hammer OR Grenade=1 OR Blaze=1:  # these can break the corruption from behind
-      DoubleJump, TripleJump, Combat=2xBalloon OR Dash
+  conn WoodsMain.AboveHowl:  # moki paths are solved with the AbovePit - OrangeTree connection
+    gorlek, Sword OR Hammer OR Grenade=1 OR Blaze=1 OR Sentry=1:  # these can break the corruption from behind
+      DoubleJump, Combat=2xBalloon, Hammer OR Sword OR TripleJump
+      DoubleJump, Dash
       SentryJump=1, Combat=2xBalloon OR Dash
       Bash, Grenade=1, Combat=2xBalloon OR Dash
-      Launch, Combat=2xBalloon OR Dash
+      Launch
       
 anchor WoodsMain.OrangeTree at 1030, -4010:  # At the right of the tree above the teleporter
-    conn WoodsMain.Teleporter:  # a dead end in moki
-      gorlek: DoubleJump OR Dash OR Glide OR Launch OR Sword OR Damage=15
+    conn WoodsMain.Teleporter:
+      moki: Glide
+      gorlek: DoubleJump OR Dash OR Launch OR Sword
     conn WoodsMain.AbovePit:
       moki: Bash OR Glide OR Launch
       gorlek:
-        DoubleJump, Dash OR TripleJump OR Sword OR Hammer
-      unsafe:
         DoubleJump
         Dash
+      unsafe:
         Sword  # Pogo the plant
     conn WoodsMain.AboveHowl:
       moki:
         Launch
+      gorlek:
+        SentryJump=1, DoubleJump
         DoubleJump, Bash, Grenade=1
-      gorlek: SentryJump=1, DoubleJump, TripleJump  # also able to kill enemies if you wish to
-
+        
 # checkpoint at the anchor below, could split another anchor off for the crystal and move it over
 
 anchor WoodsMain.AbovePit at 1234, -3985:  # To the left of the pit before feeding grounds
