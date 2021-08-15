@@ -1164,7 +1164,7 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
     gorlek: Dash OR Bash OR Glide OR Sword OR Hammer
     unsafe:
         Damage=15   # Land on spikes to go into the lower left portal
-	Grenade=1   # Grenade while in right Teleporter to get to the left ceiling
+        Grenade=1   # Grenade while in right Teleporter to get to the left ceiling
   conn MarshSpawn.BurrowsEntry:
     moki, MarshSpawn.BurrowsOpen: 
       Launch
