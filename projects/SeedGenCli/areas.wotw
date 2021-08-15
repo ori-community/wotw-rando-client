@@ -529,6 +529,7 @@ anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside 
       Bash, Grenade=1, DoubleJump OR Dash OR Glide   # Bash up off the enemy and Dash/Djump/Glide to the fang. Grenade+bash up from the fang
       Bash, Grenade=1, Sword OR Hammer               # As above, but sword/hammer upslash to cross the last gap
       Grenade=2, DoubleJump            # Grenade jump to get to the vine, then jump right. Dboost the last gap. Grenade jump to EC.
+      Dash, Sword, Regenerate OR Blaze  # wavedash
   pickup MarshSpawn.RecklessShard:
     moki, MarshSpawn.HowlBurnt, BreakWall=10:
       DoubleJump OR Launch
@@ -705,6 +706,7 @@ anchor HowlsDen.SecretRoom at -515, -4479:  # The hidden room holding left hc
       Sword, Damage=10  # just safety damage
     unsafe:
       Sword OR Hammer
+      Grenade=1, Damage=50  # 30dmg get to slime, 10dmg set-up grenade jump, 10mg close gap to HC
   # could add backwards connections someday
 
 # checkpoint at -511, -4479
@@ -766,6 +768,8 @@ anchor DenShrine at -328, -4569:
 anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
   state HowlsDen.BoneBarrier:
     unsafe: free  # good game yes
+  state MidnightBurrows.HowlsDenShortcut:
+    unsafe: ShurikenBreak=10
 
   pickup HowlsDen.DoubleJumpTree: free
   pickup HowlsDen.StickyShard: free  # origlow
@@ -826,7 +830,9 @@ anchor MarshPastOpher.MillView at -596, -4293:  # Standing next to Opher, lookin
   conn MarshSpawn.Main:
     moki: MarshSpawn.ToOpherBarrier
   conn MarshPastOpher.PoolsPathEast:
-    gorlek: Water, Bash, Launch  # the enemies appear once you have water
+    gorlek: 
+      Water, Bash, Launch  # the enemies appear once you have water
+      SentryJump=2 # first one maxheight
     unsafe: Launch
 
 # checkpoint at -603, -4316
@@ -852,7 +858,9 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
     gorlek:
       DoubleJump
       Damage=10, Dash OR Glide OR Sword OR Hammer
-    unsafe: Sentry=1, Damage=10
+    unsafe: 
+      Sentry=1, Damage=10
+      Damage=20
   pickup MarshPastOpher.TrialOre: free
   pickup MarshPastOpher.TrialEC:
     moki: DoubleJump OR Dash OR Glide OR Launch
@@ -862,13 +870,14 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
     unsafe:
       Hammer OR Sentry=1
       Grenade=1, Bash   #  Throw Grenade up at the lower jumppad (right side and aim up ori facing right), use it and then bash
+      Damage=10
   pickup MarshPastOpher.TrialHC:
     moki: Hammer OR Spear=1
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
     gorlek: SentryJump=1
-    unsafe: Dash OR Sword OR Hammer # Sword: pogo on enemy, Hammer: upswing to reach ledge
+    unsafe: Dash OR Sword OR Hammer OR Grenade=1 # Sword: pogo on enemy, Hammer: upswing to reach ledge
 
   conn MarshShrine: free
   conn MarshPastOpher.BowPath:
@@ -900,14 +909,18 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
     gorlek:
       DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Launch  # it's notably harder to get without taking a hit. Up and/or Side combos with sword or hammer can make it to the horizontal branch from the launch pad.
       Bash, Grenade=1
-    unsafe: Bash  # the mantis disappears if you die
+    unsafe: 
+      Bash  # the mantis disappears if you die
+      Damage=10, Grenade=1  # GrenadeJump onto the pole; may be possible without taking damage
 
   conn MarshPastOpher.BowApproach:
     moki: DoubleJump OR Launch
     gorlek:
       Dash
       Bash, Grenade=2
-    unsafe: Sword OR Hammer OR Sentry=1
+    unsafe: 
+      Sword OR Hammer OR Sentry=1
+      Grenade=2, Damage=10
   conn MarshPastOpher.MillView:
     moki:
       DoubleJump OR Dash OR Glide OR Launch
@@ -915,7 +928,9 @@ anchor MarshPastOpher.BowPath at -494, -4294:  # checkpoint climbing up to Bow t
     gorlek:
       Sword OR Hammer
       Bash, Grenade=1
-    unsafe: Bash  # befriend the slug
+    unsafe: 
+      Bash  # befriend the slug
+      Grenade=1  # Running GrenadeJump
   conn MarshPastOpher.TrialArea:
     moki:
       BreakWall=20, DoubleJump OR Dash OR Glide OR Launch
@@ -948,7 +963,9 @@ anchor MarshPastOpher.BowApproach at -490, -4245:  # On the right ledge above th
       Launch, DoubleJump OR Dash OR Glide  # For the last part reset your Launch on the wall above the lantern
     unsafe:
       Bow=2, Bash, DoubleJump, Sword OR Hammer
-      Launch, Bash  # You can bash the lanterns without freeing them from the blob)
+      Launch, Bash  # You can bash the lanterns without freeing them from the blob
+      Dash, Regenerate, DoubleJump, TripleJump, SentryJump=1 OR Damage=20  # wavedash off health plant
+      Dash, Regenerate, DoubleJump, Glide, SentryJump=1 OR Damage=40  # wavedash off health plant
 
 anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit with bow tree.
   refill Energy=1:
@@ -969,10 +986,13 @@ anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit wi
       Combat=Skeeto, Bow=2, Dash OR Glide OR Sword OR Hammer
       Bash, Bow=2, Dash OR Glide OR Sword OR Hammer
       Bash, Grenade=2
+    unsafe:
+      Bash  # Repositioning the Skeeto
+      Bow=2, Sticky  # maybe possible without Sticky
   conn WestHollow.Entrance:
     moki: MarshPastOpher.EyestoneDoor  # crosses where the water would usually be
   conn MarshPastOpher.BowApproach:
-    moki: DoubleJump OR Dash OR Launch
+    moki: DoubleJump OR Dash OR Launch OR Bow=1
     gorlek: Bash OR Sword OR Damage=10
     unsafe: Glide OR Hammer
 
@@ -1013,6 +1033,7 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
       HammerSJump=1, DoubleJump OR Dash
     unsafe:
       Bash, Dash              # Pretty precise to do without damage
+      Bash		      # Repositioning the squonkey: squonkey respawns when u jump off to the east and back on the ledge
 
   conn MarshPastOpher.PoolsPathMiddle:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
@@ -1020,7 +1041,7 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
       Bash, Dash  # the bat is weird
       Combat=Bat, Launch, DoubleJump OR Dash
     unsafe:
-      Bash, Glide
+      Bash
       Combat=Bat, Launch  # About a 45° angle from under the second bat to avoid a damage boost
       DoubleJump, TripleJump, Sword #  Use Sword on bats to regain TripleJump. Jump at the tiny ledges of the branches. Pogo on Crab
   conn MarshPastOpher.MillView: free
@@ -1033,7 +1054,7 @@ anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable f
       Bash, DoubleJump OR Dash OR Glide OR Grenade=1
       Launch
     gorlek:
-      Bash
+      Bash OR Dash OR Glide OR Sword OR DoubleJump
       SentryJump=1  # Sword should be fine for the enemy
 
   conn MarshPastOpher.PoolsPathWest:  # the squonkey doesn't reappear if you respawn on this checkpoint
@@ -1051,6 +1072,7 @@ anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable f
       Hammer, Bash                    # Fairly precise air combos needed
       Hammer, Sword, Bash             # Fairly precise air combos needed
       Hammer, Launch                  # Launch at ceiling above water
+      Hammer, Damage=70		      # It's possible with 60dmg, but really precise
   conn MarshPastOpher.PoolsPathEast:
     moki: Bash
     gorlek:
@@ -1074,7 +1096,7 @@ anchor MarshPastOpher.PoolsPathWest at -803, -4187:  # Right on top of MarshPast
       Water, WaterDash
       Water, Bash, Damage=20, Sword
       Water, Bash
-      Water, DoubleJump, TripleJump
+      Water, DoubleJump, TripleJump OR Sticky
 
   conn MarshPastOpher.PoolsPathMiddle:
     moki, BreakWall=20:
@@ -1141,6 +1163,7 @@ anchor MidnightBurrows.Teleporter at -945, -4582:  # At the teleporter
     gorlek: Dash OR Bash OR Glide OR Sword OR Hammer
     unsafe:
         Damage=15   # Land on spikes to go into the lower left portal
+	Grenade=1   # Grenade while in right Teleporter to get to the left ceiling
   conn MarshSpawn.BurrowsEntry:
     moki, MarshSpawn.BurrowsOpen: 
       Launch
@@ -1161,7 +1184,9 @@ anchor MidnightBurrows.Central at -781, -4564:  # The ledge left of the big port
       Bash, DoubleJump OR Dash OR Glide
       Launch
     gorlek: Keystone=4, Bash OR SentryJump=2
-    unsafe: Keystone=4, DoubleJump, TripleJump, Damage=15
+    unsafe: 
+      Keystone=4, DoubleJump, TripleJump, Damage=15
+      Keystone=4, Grenade=1 # Grenade while in right Teleporter to get to the left ceiling, use vSpeed to get to KS.Door
   state MidnightBurrows.Lever:
     moki:
       Glide
