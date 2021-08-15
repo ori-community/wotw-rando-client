@@ -371,6 +371,18 @@ namespace RandoMainDLL {
               var redirectState = extras[0].ParseToInt("BuildPickup.RedirectState");
               var redirectValue = extras[1].ParseToInt("BuildPickup.RedirectValue");
               return new RedirectStateCommand(redirectState, redirectValue);
+            case SysCommandType.EnableSync:
+            case SysCommandType.DisableSync:
+              if (extras.Count != 2) {
+                Randomizer.Log($"malformed command specifier {pickupData}", false);
+                return new Message($"Invalid command {pickupData}!");
+              }
+              var suid = new UberId(
+                extras[0].ParseToInt("BuildPickup.UberGroupId"),
+                extras[1].ParseToInt("BuildPickup.UberId")
+              );
+              return new SyncToggler(t, suid);
+
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }

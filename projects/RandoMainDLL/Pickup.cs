@@ -58,7 +58,9 @@ namespace RandoMainDLL {
     AHKSignal = 16,
     GrantIfEqual = 17,
     GrantIfGreater = 18,
-    GrantIfLess = 19
+    GrantIfLess = 19,
+    DisableSync = 20,
+    EnableSync = 21
   }
 
   public enum TeleporterType : byte {
@@ -636,6 +638,22 @@ namespace RandoMainDLL {
       InterOp.set_experience(newSL);
     }
   }
+  public class SyncToggler : SystemCommand {
+    private readonly UberId state;
+    public SyncToggler(SysCommandType type, UberId s) : base(type) => state = s;
+    public override void Grant(bool skipBase = false) {
+      switch (type) {
+        case SysCommandType.DisableSync:
+          UberStateController.UnsharableIds.Add(state);
+          break;
+        case SysCommandType.EnableSync:
+          UberStateController.UnsharableIds.Remove(state);
+          break;
+      }
+      base.Grant(skipBase);
+    }
+  }
+
   public class ConditionalStop : SystemCommand {
     private readonly UberId targetState;
     private readonly double targetValue;
