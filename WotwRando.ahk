@@ -296,10 +296,9 @@ IniWrite, %ShowLongCutscenes%, %INI_FILE%, Flags, ShowLongCutscenes
 return
 
 ExtractFiles:
-TryDelete(INSTALL_DIR . "SeedGen.jar")
-;TryDelete(INSTALL_DIR . "seedgen.exe")
-;TryDelete(INSTALL_DIR . "state_data.csv")
-;TryDelete(INSTALL_DIR . "headers_presets.zip")
+TryDelete(INSTALL_DIR . "seedgen.exe")
+TryDelete(INSTALL_DIR . "state_data.csv")
+TryDelete(INSTALL_DIR . "headers_presets.zip")
 TryDelete(INSTALL_DIR . "RandoSettings.exe")
 TryDelete(INSTALL_DIR . "ItemTracker.exe")
 TryDelete(INSTALL_DIR . "Injector.exe")
