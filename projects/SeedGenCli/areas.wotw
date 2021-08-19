@@ -798,7 +798,7 @@ anchor HowlsDen.DoubleJumpTreeArea at -555, -4552:  # At the Double Jump Tree
       Dash                            # As above but use Dash
       Glide                           # As above but use Glide
       Grenade=1                       # Grenade jump to get over initial gap
-	  
+      
   conn MidnightBurrows.East:
     moki: MidnightBurrows.HowlsDenShortcut
 
@@ -1034,7 +1034,7 @@ anchor MarshPastOpher.PoolsPathEast at -662, -4241:  # On the wood sticking out 
       HammerSJump=1, DoubleJump OR Dash
     unsafe:
       Bash, Dash              # Pretty precise to do without damage
-      Bash		      # Repositioning the squonkey: squonkey respawns when u jump off to the east and back on the ledge
+      Bash              # Repositioning the squonkey: squonkey respawns when u jump off to the east and back on the ledge
 
   conn MarshPastOpher.PoolsPathMiddle:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
@@ -1073,7 +1073,7 @@ anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable f
       Hammer, Bash                    # Fairly precise air combos needed
       Hammer, Sword, Bash             # Fairly precise air combos needed
       Hammer, Launch                  # Launch at ceiling above water
-      Hammer, Damage=70		      # It's possible with 60dmg, but really precise
+      Hammer, Damage=70              # It's possible with 60dmg, but really precise
   conn MarshPastOpher.PoolsPathEast:
     moki: Bash
     gorlek:
@@ -1769,7 +1769,7 @@ anchor EastHollow.MapMoki at -106, -4221:  # after crossing the voicelocked door
     moki, EastHollow.HornbugDoor: 
       Glide OR Dash OR Bash OR Launch
     gorlek: EastHollow.HornbugDoor
-	
+    
 anchor EastHollow.OutsideGlades at -152, -4164:  # Outside Grom's Wall
   state GladesTown.GromsWall:
     moki: Bash
@@ -4758,7 +4758,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
       Dash OR DoubleJump OR Damage=20
     unsafe, LowerReach.Lever:
       Hammer OR Sword  # upslash + hover
-	  
+      
 anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter room
   refill Checkpoint
   refill Full:  # use the teleporter
@@ -5352,7 +5352,7 @@ anchor LowerReach.Trial at 64, -4046:  # At trial start
       Damage=20, Hammer
       Damage=50
       Bash, Grenade=1, Damage=30
-	  
+      
   conn LowerReach.ArenaArea:
     moki, LowerReach.ArenaBeaten: Glide
 
@@ -6884,7 +6884,7 @@ anchor EastPools.MissilePuzzle at -1425, -4144:  # Below where the trial starts
     moki: EastPools.PurpleWall
   conn EastPools.TPArea:
     moki: EastPools.LupoPurpleFloor, BreakWall=20
-	
+    
 anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok when he's still fine
   refill Checkpoint
 
