@@ -24,6 +24,15 @@ where
     if parts.next().is_some() { return Err(String::from("too many parts")); }
     Ok(())
 }
+fn parse_uber_state<'a, I>(parts: &mut I) -> Result<UberState, String>
+where
+    I: Iterator<Item = &'a str>,
+{
+    let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
+    let uber_id = parts.next().ok_or_else(|| String::from("missing uber id"))?;
+
+    Ok(UberState::from_parts(uber_group, uber_id)?)
+}
 
 fn parse_spirit_light<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
@@ -165,11 +174,10 @@ where P: Iterator<Item=&'a str>
 fn parse_timer<'a, P>(mut parts: P) -> Result<UberIdentifier, String>
 where P: Iterator<Item=&'a str>
 {
-    let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
-    let uber_id = parts.next().ok_or_else(|| String::from("missing uber id"))?;
+    let uber_state = parse_uber_state(&mut parts)?;
     end_of_pickup(parts)?;
 
-    Ok(UberState::from_parts(uber_group, uber_id)?.identifier)
+    Ok(uber_state.identifier)
 }
 fn parse_start_timer<'a, P>(parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
@@ -274,6 +282,22 @@ where P: Iterator<Item=&'a str>
     let (uber_state, item) = parse_if(parts)?;
     Ok(Item::Command(Command::IfLess { uber_state, item: Box::new(item) }))
 }
+fn parse_disable_sync<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let uber_state = parse_uber_state(&mut parts)?;
+    end_of_pickup(parts)?;
+
+    Ok(Item::Command(Command::DisableSync { uber_state }))
+}
+fn parse_enable_sync<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let uber_state = parse_uber_state(&mut parts)?;
+    end_of_pickup(parts)?;
+
+    Ok(Item::Command(Command::DisableSync { uber_state }))
+}
 fn parse_command<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
@@ -299,6 +323,8 @@ where P: Iterator<Item=&'a str>
         "17" => parse_if_equal(parts),
         "18" => parse_if_greater(parts),
         "19" => parse_if_less(parts),
+        "20" => parse_disable_sync(parts),
+        "21" => parse_enable_sync(parts),
         _ => Err(String::from("invalid command type")),
     }
 }
@@ -825,9 +851,7 @@ where R: Rng + ?Sized
         } else {
             if !trimmed.is_empty() {
                 let mut parts = trimmed.splitn(3, '|');
-                let uber_group = parts.next().unwrap();
-                let uber_id = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
-                let uber_state = UberState::from_parts(uber_group, uber_id)?;
+                let uber_state = parse_uber_state(&mut parts).map_err(|err| format!("malformed pickup {}: {}", trimmed, err))?;
 
                 let item = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
                 let item = parse_pickup(item)?;
@@ -932,11 +956,10 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
                 trimmed = ignored;
             }
             let mut parts = trimmed.splitn(3, '|');
-            let uber_group = parts.next().unwrap();
-            let uber_id = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
-            let uber_state = UberState::from_parts(uber_group, uber_id)?;
+            let uber_state = parse_uber_state(&mut parts).map_err(|err| format!("malformed pickup {}: {}", trimmed, err))?;
+            let uber_group = uber_state.identifier.uber_group;
 
-            if uber_group == "9" {
+            if uber_group == 9 {
                 occupied_states.push(uber_state);
             }
 
@@ -980,7 +1003,7 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
                 Item::Command(Command::StopEqual { uber_state }) |
                 Item::Command(Command::StopGreater { uber_state }) |
                 Item::Command(Command::StopLess { uber_state }) => {
-                    if uber_group == "9" {
+                    if uber_group == 9 {
                         if uber_state.identifier.uber_group == 9 {
                             occupied_states.push(uber_state);
                         }
