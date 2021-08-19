@@ -80,6 +80,7 @@ namespace RandoMainDLL {
         try {
           socket = new WebSocket(ServerAddress, null);
           socket.CookieCollection.Add(new WebSocketSharp.Net.Cookie("sessionid", SessionId, "/", Domain));
+          socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
           socket.Log.Level = LogLevel.Info;
           socket.Log.Output = (logdata, output) => {
             try {
