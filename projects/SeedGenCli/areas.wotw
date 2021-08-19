@@ -716,7 +716,7 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
   refill Full
 
   state HowlsDen.BoneBarrier:
-    gorlek: ShurikenBreak=16
+    gorlek: ShurikenBreak=16  # // TODO wait what
     unsafe: HammerBreak OR SpearBreak
 
   pickup HowlsDen.AboveTPEX:
@@ -2984,9 +2984,8 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
     unsafe:
       SentryJump=1, Bash, Grenade=1                   # Throw the greande, sentry jump to it, then bash off it, on right side (do a small lure on bottom slime to get to platform)
       SentryJump=1, Damage=15, Dash OR Glide          # Slightly different methods needed for hammer vs sentry, hammer is similar to above, sword goes left side
-      SentryJump=2, Dash OR Glide                     # Sentry Jump then Glide/Dash to finish the gap
       SwordSJump=2
-      HammerSJump=2, Damage=15
+      HammerSJump=2, Dash OR Glide OR Damage=15
   conn OuterWellspring.WestDoor:  # going directly up the left wall
     gorlek:
       Bash, Grenade=2, DoubleJump, Dash OR Glide
@@ -2995,17 +2994,20 @@ anchor OuterWellspring.EntranceDoor at -856, -4058:  # Outside the door where yo
   # connections using the left wall wheel would be pointless
   conn WestGlades.MillApproach:
     moki:
-      DoubleJump, Dash
+      DoubleJump, Dash, Glide
+      Bash, Grenade=1, DoubleJump, Dash OR Glide
+      Bash, Grenade=1, Dash, Glide
       Bash, Grenade=2, DoubleJump OR Dash OR Glide
-      Launch
-      Water
+      Water OR Launch
     gorlek:
-      DoubleJump, TripleJump OR Glide
-      Damage=20, DoubleJump OR Dash OR Glide
+      DoubleJump, TripleJump OR Dash OR Glide OR Sword
+      DoubleJump, Hammer, Damage=20
+      Glide, Damage=20
       SwordSJump=2
+      HammerSJump=1, Glide
       HammerSJump=2, DoubleJump OR Dash OR Glide OR Damage=20
-      Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Damage=20
-      Bash, Grenade=2
+      Bash, Grenade=1, Glide
+      Bash, Grenade=2, Sword OR Damage=20
     unsafe:
       Bash, Glide
       Bash, DoubleJump, Sword
@@ -3060,7 +3062,6 @@ anchor OuterWellspring.AboveEntranceDoor at -837, -4026:  # at the crystal above
   conn WestGlades.MillApproach:
     gorlek: Grapple OR Glide
   conn OuterWellspring.EntranceDoor: free
-  
 
 anchor OuterWellspring.WestDoor at -892, -3992:  # Outside the door where you exit the first room
   refill Checkpoint
@@ -3164,7 +3165,7 @@ anchor OuterWellspring.EastDoor at -814, -3973:  # Outside the door leading to t
     moki: DoubleJump OR Dash OR Launch
     gorlek: Glide OR Sword OR Hammer
     unsafe: free
-  conn OuterWellspring.RightWall:
+  conn OuterWellspring.TrialApproach:
     moki: Grapple OR Launch
     gorlek:
       DoubleJump, TripleJump, Dash OR Glide OR Sword OR Hammer OR Damage=10
@@ -3249,43 +3250,44 @@ anchor OuterWellspring.TopDoor at -836, -3927:  # Outside the door leading to th
 # checkpoint at -969, -3910
 # checkpoint at -902, -3895
 
-anchor OuterWellspring.RightWallMidpoint at -743, -4019:  # Next to OuterWellspring.RightWallOre
+anchor OuterWellspring.RightWallMidpoint at -746, -4019:  # Next to OuterWellspring.RightWallOre
   pickup OuterWellspring.RightWallOre: free
-  
+
   conn WestGlades.MillApproach:
+    moki: Grapple OR Glide  # Others are redundant with EntranceDoor
     gorlek:
-      Sword
-      Bash, Grenade=1
-      SentryJump=1 OR Damage=20
-    unsafe: Hammer OR Dash OR DoubleJump
+      Sword OR Damage=20
+      HammerSJump=1, DoubleJump OR Dash OR Damage=20
+      Bash, Grenade=1, DoubleJump OR Dash OR Sword OR Damage=20
+    unsafe: DoubleJump OR Dash OR Hammer
   conn OuterWellspring.EntranceDoor:
+    moki: Water OR Glide OR Launch  # Grapple paths are redundant with AboveEntranceDoor
     gorlek:
-      Sword
-      Bash, Grenade=1
+      DoubleJump, TripleJump OR Dash OR Sword OR Hammer
+      Dash, Sword OR Hammer
       Damage=20 OR SentryJump=1
-    unsafe: Hammer OR Dash OR DoubleJump
+      Bash, Grenade=1
+    unsafe: DoubleJump OR Dash OR Hammer
   conn OuterWellspring.AboveEntranceDoor:
     moki:
-      Grapple, Combat=2xBee
-      Launch, Glide
-    gorlek:
-      Launch, DoubleJump OR Dash
-      DoubleJump, TripleJump, Glide, Combat=Slug, Combat=Bee, Hammer OR Dash
-      Bash, Grenade=1, Glide OR Dash
-      Bash, Grenade=1, DoubleJump, TripleJump
-      SentryJump=1, Glide OR Dash OR DoubleJump  # Weapon hover with dash and djump
+      Grapple, DoubleJump OR Dash OR Glide OR Launch
+      Launch, DoubleJump OR Dash OR Glide
+    gorlek:  # Launch is redundant with EntranceDoor
+      Grapple
+      Bash, Grenade=1, Glide
+      Bash, Grenade=1, DoubleJump, TripleJump OR Dash OR Sword OR Hammer
+      Bash, Grenade=1, Dash, Sword OR Hammer
+      SentryJump=1, Glide
+      SwordSJump=1, DoubleJump, TripleJump OR Dash  # Weapon hover
+      HammerSJump=1, DoubleJump, TripleJump, Dash  # Weapon hover
     unsafe:
+      DoubleJump, TripleJump, Dash
       Bash, Grenade=1, Sword OR Hammer OR DoubleJump
       Launch
-  conn OuterWellspring.RightWall:  # no moki path because the camera makes the connection hard to see
-    gorlek:
-      Grapple, Combat=Bee OR Bash
-      Launch, Bash
-      Launch, SentryJump=1, Combat=Bee
-    unsafe:
-      Launch, Sword OR Combat=Bee # reset Launch by hitting the bee or kill it and walljump from the wall above the grapple plant
+  conn OuterWellspring.TrialApproach:  # no moki path because the camera makes the connection hard to see
+    gorlek: Grapple, Combat=Bee OR Bash  # Launch is redundant with EntranceDoor -> AboveEntranceDoor -> EastDoor
 
-anchor OuterWellspring.RightWall at -727, -3961:  # at the ledge going towards the trial room
+anchor OuterWellspring.TrialApproach at -727, -3961:  # at the ledge going towards the trial room
   refill Checkpoint
 
   pickup OuterWellspring.RightWallEX:
@@ -3352,7 +3354,7 @@ anchor OuterWellspring.TrialRoom at -684, -3947:  # checkpoint on the way to tri
       DoubleJump, Sword OR Hammer
     unsafe: DoubleJump
 
-  conn OuterWellspring.RightWall: free
+  conn OuterWellspring.TrialApproach: free
 
 region InnerWellspring:
   moki: Danger=25
@@ -4381,7 +4383,7 @@ anchor WoodsMain.Teleporter at 1083, -4052:  # At the East Woods Teleporter
       SentryJump=1, Combat=2xBalloon OR Dash
       Bash, Grenade=1, Combat=2xBalloon OR Dash
       Launch
-      
+
 anchor WoodsMain.OrangeTree at 1030, -4010:  # At the right of the tree above the teleporter
     conn WoodsMain.Teleporter:
       moki: Glide
@@ -4417,7 +4419,7 @@ anchor WoodsMain.AbovePit at 1234, -3985:  # To the left of the pit before feedi
       Sword  # Pogo the plant
       Hammer, DoubleJump
       Dash, Sword OR Hammer  # dash+upslash. Easier if you wall jump on the right wall instead of jumping directly towards the pit
-    
+
   conn WoodsMain.FeedingGrounds:
     moki:
       DoubleJump, Dash OR Bash
@@ -8542,12 +8544,12 @@ anchor WillowsEnd.UpperSand at 595,-3739:  # In between the crystal and the chec
   refill Checkpoint
   refill Energy=4:
     moki: BreakCrystal
-    
+
   # state WillowsEnd.BurrowHeart:
   #   moki, BreakWall=30:
   #     Burrow, DoubleJump, Dash, Bash, Grapple, Glide
   #     Burrow, Bash, Grapple, Launch, DoubleJump OR Glide
-  
+
   conn WillowsEnd.Upper:
     moki: Combat=CrystalMiner OR Bash OR Launch
 
