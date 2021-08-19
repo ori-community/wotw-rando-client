@@ -707,7 +707,6 @@ anchor MarshPastOpher.TrialArea at -427, -4343:  # Next to the shrine
     unsafe: Hammer OR Sentry=1
   pickup MarshPastOpher.TrialHC:
     moki: Hammer OR Spear=1
-    gorlek: Combat=Slug OR Bash OR Launch  # lure stomp
     unsafe: free  # lure stomp
   pickup MarshPastOpher.TrialRightEX:
     moki: DoubleJump OR Bash OR Launch  # bash uses the enemy
