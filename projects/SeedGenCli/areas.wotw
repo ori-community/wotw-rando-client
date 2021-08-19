@@ -1357,13 +1357,12 @@ anchor WestHollow.Entrance at -303, -4238:  # At Twillen
     gorlek:
       Bow=1, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Damage=10  # deal with the camera
       DoubleJump, TripleJump OR Sword OR Hammer
-	  DoubleJump, WaterDash, Damage=20
+      DoubleJump, WaterDash, Damage=20
       SentryJump=1  # Go up to the moki, then poles and then jump down
       Bash  # bash the slime to get up
     unsafe:
       Dash, Sword  # Easier with upslash
-      Hammer, DoubleJump OR Dash  # Easier with upslash
-      Hammer, Glide  # Press Glide then before reaching the wall upslash with Hammer and hold Glide again
+      Hammer, DoubleJump OR Dash OR Glide  # use upslash
   conn WestHollow.HollowDrainMiddle:
     moki: WestHollow.UpperDrainLeverPulled
 
@@ -6919,6 +6918,11 @@ anchor EastPools.CentralRoom at -1485, -4148:  # The room where you meet Kwolok 
   conn WestPools:
     moki: Water, WaterDash, DoubleJump OR Dash OR Glide OR Launch
     gorlek: Water, WaterDash, Sword OR Hammer OR Damage=20
+    unsafe: 
+      Water, WaterBreath, Launch
+      Water, WaterBreath, DoubleJump, Grenade OR Hammer  # greande/hammer jumps. With grenade jumps, start a grenade jump while in the water then use your doublejump
+      Water, WaterBreath, DoubleJump, TripleJump, Damage=20
+      Water, WaterBreath, DoubleJump, Sword, Damage=20  # sword jump in the left munchers, walljump then sword jump+ uplash on the right wall
   conn EastPools.MissilePuzzle:
     moki, EastPools.PurpleWall: Water
 
@@ -7327,6 +7331,7 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
     gorlek: Water
   conn EastPools.CentralRoom:
     moki: Water, WaterDash
+    unsafe: Water, WaterBreath
   conn UpperPools.KeystoneRoomEntrance:
     moki: WestPools.ForestsStrength, Water, WaterDash
 
