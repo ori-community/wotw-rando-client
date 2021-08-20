@@ -6745,7 +6745,7 @@ anchor EastPools.TPArea at -1297, -4143:  # Where Tokk stands
     moki: Water
   pickup EastPools.UltraBashShard:
     moki: EastPools.LowerWaterDrained, Water, Bash
-    gorlek: EastPools.LowerWaterDrained, Water  # move a bit on the side when the torpedo is getting close to the wall
+    unsafe: EastPools.LowerWaterDrained, Water  # move a bit on the side when the torpedo is getting close to the wall
   pickup EastPools.FightRoomHC:
     moki, EastPools.FightArenas, WaterDash:  # The HC only gets unlocked if you finish the alternate WaterDash arena; FightArenas doesn't have WaterDash as requirement included for reasons explained above, so it's needed here
       DoubleJump, Dash OR Grapple
@@ -6848,11 +6848,11 @@ anchor EastPools.MissilePuzzle at -1425, -4144:  # Below where the trial starts
 
   state EastPools.PurpleWall:
     moki: Water, Bash
-    gorlek: Water
+    unsafe: Water
 
   state EastPools.LupoPurpleFloor:
     moki: Water, Bash
-    gorlek: Water
+    unsafe: Water
 
   pickup EastPools.EnergyHarvestShard:
     moki:
