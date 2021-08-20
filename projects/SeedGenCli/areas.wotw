@@ -105,7 +105,7 @@ anchor MarshSpawn.Main at -799, -4310:  # spawn location / inkwater well
       Water, Burrow, Dash, Bash, Grenade=1
   conn Teleporters: free
   conn MarshSpawn.BrokenBridge: free
-  conn MarshSpawn.PoolsBurrowsPath:
+  conn MarshSpawn.PoolsBurrowsSignpost:
     moki:
       Water, Burrow, DoubleJump OR Glide OR Launch
       Water, Burrow, Dash, Bash, Grenade=1
@@ -226,7 +226,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
   conn Tokk: free  # this one is tokk anywhere'd
   conn MarshSpawn.CaveEntrance:
     moki: MarshSpawn.TokkBarrier
-  conn MarshSpawn.PoolsBurrowsPath:
+  conn MarshSpawn.PoolsBurrowsSignpost:
     moki:
       DoubleJump, Dash OR Grapple
       Bash, DoubleJump OR Dash
@@ -243,7 +243,7 @@ anchor MarshSpawn.Cave at -707, -4419:  # At Tokk in the Cave
 
 # checkpoint at -845, -4438
 
-anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools, burrows and marsh
+anchor MarshSpawn.PoolsBurrowsSignpost at -898, -4436:  # the waypoint between pools, burrows and marsh
   refill Checkpoint
   refill Energy=1:
     unsafe: BreakCrystal  # slightly out of sight
@@ -300,10 +300,12 @@ anchor MarshSpawn.PoolsBurrowsPath at -898, -4436:  # the waypoint between pools
   conn MarshSpawn.BeforeBurrows:
     moki: Bash, DoubleJump OR Dash OR Launch
     gorlek:
-      Bash, Glide OR Sword
-      Bash, Hammer, Damage=10  # dboost at the start
+      Bash, Glide
+      Bash, Sword, Damage=10  # dboost at the start
       Launch, Glide
       Launch, Damage=10, DoubleJump OR Dash OR Sword OR Hammer
+      Launch, DoubleJump, TripleJump OR Dash OR Sword
+      Launch, Dash, Sword
   conn MarshSpawn.Cave: free
   conn MarshSpawn.Main:
     moki:
@@ -324,12 +326,8 @@ anchor MarshSpawn.BeforeBurrows at -1006, -4497:  # On the island before the Bur
   pickup MarshSpawn.CrusherSwimEX:
     moki: Water, WaterDash
   pickup MarshSpawn.BurrowsApproachLedgeEX:
-    moki:
-      Launch
-      Bash, DoubleJump, Dash OR Glide
-    gorlek:
-      Bash, DoubleJump, TripleJump OR Sword OR Hammer
-      SentryJump=1, Damage=10, DoubleJump, TripleJump  # Land in the spikes under the pickup and triple jump to the left platform
+    moki: Launch  # Bash paths redundant with PoolsBurrowsSignpost
+    gorlek: SentryJump=1, Damage=10, DoubleJump, TripleJump  # Land in the spikes under the pickup and triple jump to the left platform
     unsafe:
       Bash, Hammer OR DoubleJump
       Bash, Dash OR Glide
@@ -337,29 +335,26 @@ anchor MarshSpawn.BeforeBurrows at -1006, -4497:  # On the island before the Bur
 
   conn MarshSpawn.BurrowsEntry:
     moki:
-      Water, WaterDash, Launch
+      Bash, DoubleJump, Dash OR Glide
       Water, WaterDash, Bash, Grenade=1
       Water, WaterDash, DoubleJump, Dash OR Glide
-      Launch, Bash OR Glide OR DoubleJump OR Dash
-      Bash, DoubleJump, Glide OR Dash
-    gorlek:
       Launch
+    gorlek:
       Bash, DoubleJump
       Bash, Dash, Glide OR Sword OR Hammer
       Water, WaterDash, DoubleJump OR Dash OR SentryJump=1  # With sjump, weapon hover as well
-      SentryJump=1, Dash, DoubleJump, TripleJump
-      SentryJump=1, DoubleJump, Sword, Damage=10  # Sword hover and damage boost in the first spikes
+      SentryJump=1, DoubleJump, TripleJump, Dash OR Glide
     unsafe:
       SentryJump=1, DoubleJump, Damage=10  # Weapon hover and damage boost in the first spikes
       Bash, Dash OR Glide OR Hammer OR Sword  # Use the projectile from the ennemy at the left then bash the the tentacle and land directly on the last platform
-  conn MarshSpawn.PoolsBurrowsPath:
+  conn MarshSpawn.PoolsBurrowsSignpost:
     moki:
+      Bash, DoubleJump, Dash
       Launch, Bash
-      Bash, DoubleJump, Dash OR Glide
     gorlek:
-      Bash, DoubleJump, TripleJump OR Sword OR Hammer
-      Launch, Damage=10, Glide OR DoubleJump OR Dash OR Sword OR Hammer
-      Launch, DoubleJump, TripleJump
+      Bash, DoubleJump, TripleJump OR Glide OR Sword OR Hammer
+      Launch, DoubleJump, TripleJump OR Dash OR Glide
+      Launch, Damage=10, DoubleJump OR Dash OR Glide OR Sword
     unsafe:
       Launch, DoubleJump, Dash
       Launch, Glide  # Reset your launch by touching the wallunder the spikes
@@ -390,16 +385,15 @@ anchor MarshSpawn.BurrowsEntry at -931, -4494:  # At the bells puzzle
     moki: MarshSpawn.BurrowsOpen
   conn MarshSpawn.BeforeBurrows:
     moki:
-      Glide
-      Launch
-      Water, WaterDash
+      Glide OR Launch
       DoubleJump, Dash
+      Water, DoubleJump OR Dash
+      Water, WaterDash
     gorlek:
-      DoubleJump
-      Dash
       Sword
-      Hammer
-      Water, Damage=10
+      Hammer, DoubleJump OR Dash
+      Damage=10, DoubleJump OR Dash OR Hammer  # splash the water if needed
+      Water, DoubleJump OR Dash OR Hammer OR Damage=10
 
 # checkpoint at -1067, -4274
 
