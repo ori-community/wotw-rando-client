@@ -6806,50 +6806,42 @@ anchor EastPools.FishingPool at -1278, -4124:  # At the fisher moki
   quest EastPools.HandToHandSpyglass:
     moki: LowerDepths.HandToHandSilk
 
-  conn EastPools.SlimeWaterfall:  # these need water to not be softlockable with the player draining the upper water
+  conn EastPools.AboveFishingPool:
     moki:
-      Launch
-      DoubleJump, Bash, Grenade=1
       Water, WaterDash, DoubleJump, Dash, Combat=CorruptSlug OR Bash
       Water, WaterDash, DoubleJump, Glide, Combat=CorruptSlug OR Bash
+      Bash, Grenade=1, DoubleJump
+      Launch
     gorlek:
       WaterDash, DoubleJump, Water OR Damage=20
-      Water, WaterDash, Dash, Sword OR Hammer  # upslash makes it easier to reach the wall above the water
-      WaterDash, Dash, Damage=20, Sword OR Hammer  # same path as above, without Clean Water
-      SentryJump=1, DoubleJump OR Dash
+      WaterDash, Dash, Sword, Water OR Damage=20  # upslash makes it easier to reach the wall above the water
       Bash, Grenade=1, Dash
+      SentryJump=1, DoubleJump OR Dash
     unsafe:
       DoubleJump, TripleJump  # ceiling jump on the wall above the fishing pond
   conn EastPools.TPArea: free
-  # can't get into the swimdash puzzle from here
 
-anchor EastPools.SlimeWaterfall at -1300, -4102:  # Above the fishing Moki
-
-  pickup EastPools.AboveTpEX:  # these need water to not be softlockable with the player draining the upper water
+anchor EastPools.AboveFishingPool at -1300, -4102:  # Above the fishing Moki
+  pickup EastPools.AboveTpEX:  # this needs water to not softlock when the player drains the upper water
     moki: Water
-  pickup EastPools.PurpleWallHC:
-    moki, UpperPools.UpperWaterDrained:
-      Water, Bash, WaterDash, Launch
-      Water, Bash, WaterDash, DoubleJump, Dash OR Glide
-    gorlek, UpperPools.UpperWaterDrained:
-      Water, Bash, WaterDash, DoubleJump OR Dash
+  pickup EastPools.PurpleWallHC:  # paths using the slime to break the purple wall
     unsafe:
-      Bash, Launch OR SentryJump=1 OR Grenade=1  # Use the slime to break the purple wall
-      Bash, DoubleJump, TripleJump, Damage=20, Sword OR Hammer # use the slime to break the purple wall, dboost to climb the left wall
+      Bash, Launch OR SentryJump=1 OR Grenade=1
+      Bash, DoubleJump, TripleJump, Damage=20, Sword OR Hammer # dboost to climb the left wall
+
   conn EastPools.FishingPool: free
   conn UpperPools.DrainPuzzleExit:
     moki, UpperPools.UpperWaterDrained:
       Launch
-      Bash, Grenade=1, DoubleJump, Dash OR Glide
+      Bash, Grenade=1, DoubleJump
     gorlek, UpperPools.UpperWaterDrained:
       Bash, Grenade=2
-      Bash, Grenade=1, DoubleJump
-      Bash, Grenade=1, WaterDash, Water OR Damage=20
       SentryJump=1, DoubleJump
     unsafe, UpperPools.UpperWaterDrained:
       WaterDash, DoubleJump, TripleJump, Water, Dash OR Sword OR Hammer
       DoubleJump, TripleJump, Damage=20  # climb the left wall
       Bash, DoubleJump  # Bash the slime
+      Bash, Grenade=1, WaterDash, Water OR Damage=20
 
 anchor EastPools.MissilePuzzle at -1425, -4144:  # Below where the trial starts
   refill Checkpoint
@@ -7081,7 +7073,7 @@ anchor UpperPools.BeforeKeystoneDoor at -1506, -4068:  # In front of the door bl
   pickup UpperPools.UpperLeftKS:
     gorlek: DoubleJump, TripleJump
 
-  conn UpperPools.TreeArea:
+  conn UpperPools.TreeRoomEntrance:
     moki: UpperPools.KeystoneDoor
   conn UpperPools.KeystoneRoom: free
   conn UpperPools.BubbleSpamRoom:
@@ -7098,21 +7090,28 @@ anchor UpperPools.BeforeKeystoneDoor at -1506, -4068:  # In front of the door bl
       DoubleJump, TripleJump  # come from the trial start
       Bash, Grenade=1  # Bash grenade to reach the slime, bash glide from it
 
-anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
+anchor UpperPools.TreeRoomEntrance at -1467, -4075:  # The ledge to the left of Waterdash tree
   refill Checkpoint
 
   state UpperPools.KeystoneDoor:
     moki: Keystone=4
   state UpperPools.TreeRoomLeftBubbleFree:
+    unsafe: Bow=1 OR Grenade=1 OR Spear=1
+
+  conn UpperPools.BeforeKeystoneDoor:
+    moki: UpperPools.KeystoneDoor
+  conn UpperPools.TreeRoom:
+    moki: Water OR DoubleJump OR Dash OR Glide
+    gorlek: free
+
+anchor UpperPools.TreeRoom at -1429, -4081:  # At Waterdash tree
+  state UpperPools.TreeRoomLeftBubbleFree:
     moki: Water, WaterDash
-    gorlek: Bow=1
-    unsafe: Grenade=1 OR Spear=1
+    unsafe: Bow=1 OR Grenade=1 OR Spear=1
   state UpperPools.ButtonDoorAboveTree:
     moki: Water, WaterDash
 
-  pickup UpperPools.SwimDashTree:
-    moki: Water OR DoubleJump OR Dash OR Glide
-    gorlek: free
+  pickup UpperPools.SwimDashTree: free
   pickup UpperPools.CurrentEX:
     moki: Water, WaterDash
   pickup UpperPools.RoofEX:  # only for paths using the bubble all the way
@@ -7131,21 +7130,26 @@ anchor UpperPools.TreeArea at -1467, -4075:  # The ledge left of waterdash tree
       SentryJump=1, DoubleJump, TripleJump, Dash, Damage=20  # same path as above, replace bash grenade by sentry jump
       Launch  # use the small bubbles for a launch reset or use the wall above the trees
     unsafe: UpperPools.TreeRoomLeftBubbleFree, Dash, DoubleJump OR Damage=20  # Dash on the bubble
-  conn UpperPools.BeforeKeystoneDoor:
-    moki: UpperPools.KeystoneDoor
+  conn UpperPools.TreeRoomEntrance:
+    moki:
+      Launch
+      Water, WaterDash
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide
+    gorlek:
+      SwordSJump=1  # Weapon hover as well
+      HammerSJump=1, DoubleJump OR Dash OR Glide
+      Bash, Grenade=1
+      UpperPools.TreeRoomLeftBubbleFree
   conn UpperPools.DrainPuzzleEntrance:
     moki, UpperPools.ButtonDoorAboveTree:
       Water, WaterDash, DoubleJump
-    gorlek, UpperPools.ButtonDoorAboveTree:
       Launch
-      Bow=1, SentryJump=1, DoubleJump  # Bow to free the bubbles
-      Bow=1, Bash, Grenade=1, DoubleJump  # Bow to free the bubbles
+    gorlek: UpperPools.ButtonDoorAboveTree, Water, WaterDash, Sword OR Hammer
     unsafe, UpperPools.ButtonDoorAboveTree:
       Bow=1 OR Grenade=1 OR Spear=1  # free the bubbles, let one bubble go out of the water, jump on the next one and use it to land on the first bubble
       HammerSJump=1
 
 anchor UpperPools.AboveTree at -1450, -4053:  # Paths to simplify the xp pickup above swimdash tree
-  # not making this a proper anchor
   pickup UpperPools.RoofEX:
     moki:
       Water, WaterDash
@@ -7154,99 +7158,119 @@ anchor UpperPools.AboveTree at -1450, -4053:  # Paths to simplify the xp pickup 
       Damage=20, WaterDash
       SentryJump=1
 
+  conn UpperPools.TreeRoom: free
+  conn UpperPools.TreeRoomEntrance:
+    moki: DoubleJump OR Dash OR Glide
+    gorlek: Sword OR Hammer
+
 anchor UpperPools.DrainPuzzleEntrance at -1313, -4083:  # At the right of the door opened by the water dash button in the tree room
   refill Checkpoint
 
   # Be careful because solving that puzzle room is a huuuge negative that has to be taken into account
   state UpperPools.UpperWaterDrained:
     moki:
-      Water, Launch, Grapple
-      Water, WaterDash, DoubleJump, Grapple
+      Water, WaterDash, Grapple, DoubleJump OR Dash
       Water, WaterDash, Launch, DoubleJump, Dash OR Glide
+      Water, Launch, Grapple
     gorlek:
-      Water, WaterDash, Launch
+      Water, WaterDash, Grapple, Glide OR Sword OR Hammer
+      Water, Grapple, DoubleJump, TripleJump
       Water, Launch, Damage=20, DoubleJump OR Dash OR Glide
       Water, Launch, Bash OR Damage=14  # Break the purple wall, do the right side then the left side
-      Water, WaterDash, Grapple, DoubleJump OR Dash OR Glide OR Sword OR Hammer
-      Water, Grapple, DoubleJump, TripleJump
+      Water, WaterDash, Launch, DoubleJump OR Dash OR Sword OR Damage=20
     unsafe:
-      Water, Launch  # Break the purple wall, do the right side then the left side
+      Water, DoubleJump, Sword, Damage=20
       Water, DoubleJump, Dash, Grapple
+      Water, Launch  # Break the purple wall, do the right side then the left side
 
   pickup UpperPools.WaterfallEC:  # have to solve with and without the water drained so it doesn't softlock
     moki:
-      Launch
-      Bash, Grenade=1, DoubleJump, Dash, Grapple
+      DoubleJump, Dash, Grapple
       Bash, Grenade=1, Grapple, Glide
+      Launch
     gorlek:
-      DoubleJump, Grapple
+      DoubleJump, Grapple, TripleJump OR Glide OR Sword OR Hammer
       Bash, Grenade=1, DoubleJump
-      SentryJump=1, Grapple, Glide OR DoubleJump OR Dash
+      Bash, Grenade=1, Grapple, Dash OR Sword
+      SentryJump=1, Grapple, Dash OR Glide
+      SwordSJump=1, Grapple
     unsafe:
       SentryJump=1, Grapple
 
-  conn UpperPools.TreeArea:
-    moki, UpperPools.ButtonDoorAboveTree:
-      Launch
-      Water, WaterDash
-      Bash, Grenade=1, DoubleJump OR Glide OR Dash
-    gorlek, UpperPools.ButtonDoorAboveTree:
-      SentryJump=1  # Weapon hover as well
-      Bash, Grenade=1
-      UpperPools.TreeRoomLeftBubbleFree
+  conn UpperPools.TreeRoom:
+    moki: UpperPools.ButtonDoorAboveTree
   conn UpperPools.DrainPuzzleExit:
     moki, UpperPools.UpperWaterDrained:
-      Launch, Grapple OR UpperPools.DrainRoomPurpleWall
-      Bash, Grenade=1, DoubleJump, Dash, Grapple
-      Bash, Grenade=1, Grapple, Glide
-      UpperPools.DrainRoomPurpleWall, Glide, DoubleJump OR Dash
-      UpperPools.DrainRoomPurpleWall, DoubleJump, Dash
-      UpperPools.DrainRoomPurpleWall, Water, WaterDash, DoubleJump, Dash  # Fall at the puddle at the end of the waterfall
-      UpperPools.DrainRoomPurpleWall, Water, Bash, Grenade=1  # Fall at the puddle at the end of the waterfall
+      DoubleJump, Dash, Grapple
+      Bash, Grenade=1, Grapple, DoubleJump OR Dash OR Glide
+      Launch, DoubleJump OR Dash OR Glide OR Grapple
+      UpperPools.DrainRoomPurpleWall:
+        DoubleJump, Dash OR Glide
+        Dash, Glide
+        Water, Bash, Grenade=1  # Fall at the puddle at the end of the waterfall
+        Launch
     gorlek, UpperPools.UpperWaterDrained:
+      DoubleJump, Grapple, TripleJump OR Glide OR Sword OR Hammer
+      Bash, Grenade=1, Grapple, Water OR Sword OR Hammer OR Damage=20
+      Bash, Grenade=1, DoubleJump, Damage=20, TripleJump OR Dash OR Glide OR Sword OR Hammer
+      SentryJump=1, Grapple
+      SentryJump=1, DoubleJump, TripleJump, Dash, Glide, Damage=20
       Launch
-      Bash, Grenade=1, Grapple
-      UpperPools.DrainRoomPurpleWall, Glide OR Dash OR DoubleJump OR Sword
-      UpperPools.DrainRoomPurpleWall, SentryJump=1  # Fall at the puddle at the end of the waterfall
+      UpperPools.DrainRoomPurpleWall, DoubleJump OR Dash OR Glide OR Sword OR HammerSJump=1
     unsafe, UpperPools.UpperWaterDrained:
       UpperPools.DrainRoomPurpleWall, Hammer
 
-anchor UpperPools.DrainPuzzleExit at -1318, -4081:  # At the ledge above east teleporter
+anchor UpperPools.DrainPuzzleExit at -1318, -4081:  # After solving the Drain Puzzle, on the ledge before dropping down
   refill Checkpoint
 
-  state UpperPools.DrainRoomPurpleWall:  # Have to solve with and without the water drained so it doesn't softlock
-    moki, UpperPools.DrainRoomPurpleWall: Bash, Water, WaterDash OR Launch
-    gorlek, UpperPools.DrainRoomPurpleWall:
-      Bash, Launch, Damage=20
-      Bash, WaterDash, Glide, Damage=20  # wdash out of dirty water, glide while waiting for the torpedo
-    unsafe, UpperPools.DrainRoomPurpleWall: Water, Bash
+  # This is inside a rock, but you can just kinda walk out of it so it's not a problem
+  # Keep in mind that for all paths involving the puzzle room you have to consider both states of the water being drained or not
+
+  state UpperPools.DrainRoomPurpleWall:
+    moki: Bash, Water, WaterDash OR Launch
+    gorlek:
+      Water, Bash
+      UpperPools.UpperWaterDrained, Bash, Launch, Damage=20
 
   pickup EastPools.PurpleWallHC:
     moki, UpperPools.UpperWaterDrained:
       Water, Bash, Glide OR Launch
       Water, Bash, DoubleJump, Dash
-    gorlek: UpperPools.UpperWaterDrained, Water, Bash, DoubleJump OR Dash OR Sword OR Grenade=1
+    gorlek, UpperPools.UpperWaterDrained:
+      Water, Bash, Dash OR Sword OR Grenade=1
+      Water, Bash, DoubleJump, Hammer
     unsafe, UpperPools.UpperWaterDrained:  # You can manipulate the torpedo enemy in a way that it hits the purple wall without needing any skills
       Water, DoubleJump OR Dash OR Glide OR Bash OR Launch OR Sword OR Hammer OR Shuriken=2
       Damage=20, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer OR Shuriken=2
       Damage=40, Bash
 
-  conn EastPools.SlimeWaterfall:
-    moki: UpperPools.UpperWaterDrained
+  conn EastPools.AboveFishingPool: free
   conn UpperPools.DrainPuzzleEntrance:
-    moki, UpperPools.UpperWaterDrained:
-      Water, Launch, DoubleJump, Grapple OR Glide
-      Water, Launch, UpperPools.DrainRoomPurpleWall
-      Water, WaterDash, DoubleJump, Dash, UpperPools.DrainRoomPurpleWall
-    gorlek, UpperPools.UpperWaterDrained:
-      Launch, UpperPools.DrainRoomPurpleWall OR Grapple OR Glide OR Damage=20
-      Launch, DoubleJump, Dash
-      Launch, Sword, Dash OR DoubleJump
-      Launch, Hammer, Dash OR DoubleJump
-      UpperPools.DrainRoomPurpleWall, Bash, Grenade=1, DoubleJump, Dash OR TripleJump OR Glide OR Sword
-      UpperPools.DrainRoomPurpleWall, Bash, Grenade=1, DoubleJump, Hammer, Damage=20
-      UpperPools.DrainRoomPurpleWall, Water, Bash, DoubleJump, Dash OR TripleJump OR Glide OR Sword
-      UpperPools.DrainRoomPurpleWall, Water, Bash, DoubleJump, Hammer, Damage=20
+    moki:
+      UpperPools.UpperWaterDrained OR Water:  # These paths have to cross Water unless you drained it already
+        Launch, DoubleJump, Dash OR Glide
+        Launch, Dash, Glide
+      Water, Launch, Grapple
+      UpperPools.DrainRoomPurpleWall:
+        Water, Launch
+        Water, WaterDash, DoubleJump, Dash
+    gorlek:
+      UpperPools.UpperWaterDrained OR Water:  # These paths have to cross Water unless you drained it already
+        Launch, Glide OR Damage=20
+        Launch, DoubleJump, Sword OR Hammer
+        Launch, Dash, Sword OR Hammer
+        UpperPools.DrainRoomPurpleWall:
+          Bash, Grenade=1, DoubleJump, TripleJump OR Dash OR Glide OR Sword OR Damage=20
+          Bash, Grenade=1, Dash, Glide OR Sword OR Damage=20
+          Bash, Grenade=1, Hammer, Damage=20, DoubleJump OR Dash
+          Launch
+      UpperPools.UpperWaterDrained:  # For these paths the Water variants would be redundant
+        Launch, Grapple
+        Bash, Grenade=1, DoubleJump, Glide OR Damage=20
+        Bash, Grenade=1, DoubleJump, Dash, Sword OR Hammer
+      UpperPools.DrainRoomPurpleWall:
+        Water, Bash, DoubleJump, Dash OR TripleJump OR Glide OR Sword
+        Water, Bash, DoubleJump, Hammer, Damage=20
 
 anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all the bubbles rise
   refill Checkpoint
