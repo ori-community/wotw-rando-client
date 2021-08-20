@@ -1801,7 +1801,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       SentryJump=3                                  # pogo on the last mortar
       SentryJump=4
       # SentryJump=3, DoubleJump
-      # Grapple, Dash, DoubleJump, TrippleJump
+      # Grapple, Dash, DoubleJump, TripleJump
   pickup EastHollow.BashEC:
     moki:
       Bash, DoubleJump, Dash
@@ -2654,6 +2654,10 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       SentryJump=1
     unsafe:
       Grenade=1  # grenade jump
+      Bash:
+        Dash OR Bow=2                   # Bow to aggro the tentacle
+        WaterDash, Water OR Damage=20
+        Glide, Water OR Damage=20
   pickup WestGlades.AbovePlantEX:
     moki:
       Bash, DoubleJump, Dash OR Glide
@@ -2669,6 +2673,7 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       SentryJump=2, Glide, Combat=Tentacle
     unsafe:
       SwordSJump=1, Damage=20  # defeating the enemy. Should replace with Combat= once applicable
+      Bash, Glide, Water OR Damage=20
       # DiveLaunch, DoubleJump OR Dash OR Glide OR Sword OR Hammer OR Flap OR Spear=1 OR Shuriken=1 OR Blaze=1 OR Flash=1 OR Sentry=1
   pickup WestGlades.LowerPoolEX:
     moki: Water
@@ -2696,7 +2701,8 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Bash, Grenade=1, DoubleJump, Dash, Damage=10
       Bash, Damage=10, DoubleJump, TripleJump, Dash OR Glide
       Water, Grapple, Sentry=1 OR Flash OR Shuriken=1 OR Blaze=1 OR Damage=30
-
+      Water, Bash, Glide, SwordSJump=1
+      Water, SentryJump=1, DoubleJump, TripleJump
   conn WestGlades.Center:
     moki:
       DoubleJump, Bash, Water OR Dash OR Glide OR Grenade=1
@@ -2710,6 +2716,8 @@ anchor WestGlades.Lower at -545, -4113:  # The right edge of the first pool past
       Bash  # verified
       SwordSJump=2, Damage=20  # defeating the enemy and sword floating, FANTASTIC for kii
       DoubleJump, TripleJump, Grapple, Dash, Damage=10  # verified
+      DoubleJump, TripleJump, Dash, Water OR Combat=Tentacle
+      DoubleJump, TripleJump, Grapple, Water, Sword OR Hammer  # Upswing at the end of the glide
   conn GladesTown.West:
     moki:
       Bash, DoubleJump OR Dash OR Glide
@@ -2731,7 +2739,9 @@ anchor WestGlades.Center at -612, -4083:  # At the middle room connecting upper 
   pickup WestGlades.LeftOre:
     moki: Grapple, DoubleJump OR Dash OR Glide OR Launch
     gorlek: Grapple, Sword OR Hammer
-    unsafe: Grapple, Sentry=1 OR Flash OR Shuriken=1 OR Blaze=1 OR Damage=30
+    unsafe:
+      Grapple, Sentry=1 OR Flash OR Shuriken=1 OR Blaze=1 OR Damage=30
+      Glide, Damage=10, SwordSJump=1
   pickup WestGlades.RightOre:
     moki:
       Bash, DoubleJump OR Dash
@@ -2739,6 +2749,9 @@ anchor WestGlades.Center at -612, -4083:  # At the middle room connecting upper 
     gorlek:
       Bash, Glide OR Sword OR Hammer OR Grenade=1
       SentryJump=1, Dash
+    unsafe:
+      SentryJump=1   # pogo on tentacle
+      Bash, Damage=20
 
   conn WestGlades.Upper:
     moki:
@@ -2777,6 +2790,7 @@ anchor WestGlades.Upper at -618, -4054:  # At the sign that gives you directions
     unsafe:
       Bash
       Glide, Shuriken=1 OR Sword OR Hammer OR Flash OR Sentry=1
+      # Sword     # Swordhover to the log, pogo the tentacle
 
   conn WestGlades.Center: free
   conn LowerReach.Entry:
@@ -2832,7 +2846,11 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       SentryJump=1, DoubleJump, TripleJump
       Launch
     unsafe:
-      Bash, Grenade=1, Grapple  # Grenadebash
+      Bash
+      Grapple, Hammer
+      DoubleJump, TripleJump, Sword
+      # Bash, Grenade=1           # Throw Grenade, Bash mortar and then Bash Grenade
+      # Bash, Grenade=1, Grapple  # Grenadebash
   conn WestGlades.Upper:
     moki:  # realizing the semisolid not considered for moki
       Bash, DoubleJump OR Dash OR Glide OR Grenade=1
@@ -2879,7 +2897,9 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Water, Bash, DoubleJump, TripleJump
       Water, Bash, Dash OR Glide OR Sword OR Damage=15
       Water, Launch, DoubleJump OR Dash OR Bash OR WaterDash OR Sword OR Hammer OR Damage=15
-
+    unsafe:
+      Water, Bash, Hammer OR DoubleJump 
+      Water, WaterDash, Hammer OR DoubleJump 
 anchor GladesShrine at -635, -4020:
   refill Full
   pickup WestGlades.CombatShrine:
