@@ -4,17 +4,20 @@
 # All pickups are tied to an anchor, a point on the map. The requirements listed under a pickup are what you need to get from that anchor to that pickup. For more details on this visit https://docs.google.com/document/d/1XAiL4GbyYGr2_PobxWajrOPO9kQ5UOSf4KrbI1rsOBM/view?usp=sharing
 
 # Special Syntax:
+# Moki and above:
 # BreakWall=x: A wall or corruption with x Health is broken
+# Combat=x: An enemy has to be defeated. For a list of enemies visit https://docs.google.com/spreadsheets/d/1AE_ctym6WAwltGK-r6w58ARq0ym2MU4MzFiwg328kjM/view?usp=sharing
+# Gorlek and above:
 # ShurikenBreak=x: A wall with x Health is broken from behind using Shuriken
-# SentryBreak=x: A wall with x Health is broken from behind using Sentry
-# HammerBreak: A wall with is broken from behind using Hammer
-# SpearBreak: A wall with is broken from behind using one Spear
 # SentryJump=x: Short for Sentry=1, Sword OR Hammer
 # SwordSJump=x: Short for Sentry=1, Sword
 # HammerSJump=x: Short for Sentry=1, Hammer
 # SentryBurn=x: Use x Sentries to melt ice or light lanterns
 # RemoveKillPlane: Remove the kill plane at feeding grounds
-# Combat=x: An enemy has to be defeated. For a list of enemies visit https://docs.google.com/spreadsheets/d/1AE_ctym6WAwltGK-r6w58ARq0ym2MU4MzFiwg328kjM/view?usp=sharing
+# Unsafe:
+# SentryBreak=x: A wall with x Health is broken from behind using Sentry
+# HammerBreak: A wall with is broken from behind using Hammer
+# SpearBreak: A wall with is broken from behind using one Spear
 
 # requirement macros. must go at the top of the file!
 
@@ -710,8 +713,12 @@ anchor HowlsDen.Teleporter at -328, -4536:  # At the teleporter
   refill Full
 
   state HowlsDen.BoneBarrier:
-    gorlek: ShurikenBreak=16  # // TODO wait what
-    unsafe: HammerBreak OR SpearBreak
+    gorlek: ShurikenBreak=16, DoubleJump OR Launch OR Bash OR SentryJump=1
+    unsafe:
+      ShurikenBreak=16, DoubleJump OR Launch OR Bash OR Sword OR Hammer
+      SentryBreak=16, DoubleJump OR Launch OR Bash OR Sword OR Hammer
+      HammerBreak, DoubleJump OR Launch OR Bash OR Sword OR Hammer
+      SpearBreak, DoubleJump OR Launch OR Bash OR Sword OR Hammer
 
   pickup HowlsDen.AboveTPEX:
     moki, BreakWall=10:
