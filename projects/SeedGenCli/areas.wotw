@@ -994,7 +994,9 @@ anchor MarshPastOpher.BowArea at -443, -4236:  # Ledge to the left of the pit wi
   conn WestHollow.Entrance:
     moki: MarshPastOpher.EyestoneDoor  # crosses where the water would usually be
   conn MarshPastOpher.BowApproach:
-    moki: DoubleJump OR Dash OR Launch OR Bow=1
+    moki:
+      DoubleJump OR Dash OR Launch
+      Combat=Skeeto, Bow=1
     gorlek: Bash OR Sword OR Damage=10
     unsafe: Glide OR Hammer
 
@@ -1053,11 +1055,14 @@ anchor MarshPastOpher.PoolsPathMiddle at -709, -4181:  # Next to the breakable f
 
   pickup MarshPastOpher.PoolsPathEC:
     moki:
+      DoubleJump, Dash OR Glide
       Bash, DoubleJump OR Dash OR Glide OR Grenade=1
       Launch
     gorlek:
-      Bash OR Dash OR Glide OR Sword OR DoubleJump
-      SentryJump=1  # Sword should be fine for the enemy
+      DoubleJump, TripleJump OR Sword OR Hammer
+      Dash, Glide OR Sword OR Hammer
+      Bash
+      Combat=SpinCrab, SentryJump=1
 
   conn MarshPastOpher.PoolsPathWest:  # the squonkey doesn't reappear if you respawn on this checkpoint
     moki: Bash, DoubleJump OR Launch
@@ -2394,7 +2399,7 @@ anchor GladesTown.West at -430, -4135:  # At Motay
       Bash  # slime lure
       TuleyShop.SpringPlants, Hammer, Dash  # uphammer bounce
       Dash                                  # late coyote
-      Sword                                 # high jump, full combo, upslash and then downslash (all while holding right) 
+      Sword                                 # high jump, full combo, upslash and then downslash (all while holding right)
       # Dash, Glide OR Sword OR Hammer
   pickup WestGlades.GrappleEX:
     unsafe: SwordSJump=1, Damage=10
@@ -2467,7 +2472,7 @@ anchor GladesTown.West at -430, -4135:  # At Motay
         Bash, Grenade=1  # Grenade Jump that auto-cancels by entering the hut
         Grenade=1, DoubleJump OR Dash  # Midair Grenade Jump with auto-cancel  # dash is much harder
         SentryJump=1, Dash                  # Downslash at the Bridge
-        TuleyShop.Lightcatchers, Bash, Sword OR Hammer  
+        TuleyShop.Lightcatchers, Bash, Sword OR Hammer
   # all other paths should be redundant with the connection to tp
 
 anchor GladesTown.UpperWest at -357, -4126:  # Where Mokk lives
@@ -2923,8 +2928,9 @@ anchor WestGlades.MillApproach at -703, -4064:  # At the ledge of the room openi
       Water, Bash, Dash OR Glide OR Sword OR Damage=15
       Water, Launch, DoubleJump OR Dash OR Bash OR WaterDash OR Sword OR Hammer OR Damage=15
     unsafe:
-      Water, Bash, Hammer OR DoubleJump 
-      Water, WaterDash, Hammer OR DoubleJump 
+      Water, Bash, Hammer OR DoubleJump
+      Water, WaterDash, Hammer OR DoubleJump
+
 anchor GladesShrine at -635, -4020:
   refill Full
   pickup WestGlades.CombatShrine:
