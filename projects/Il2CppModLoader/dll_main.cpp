@@ -230,6 +230,9 @@ namespace modloader
 
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path)
     {
+        //while (!::IsDebuggerPresent())
+        //    ::Sleep(100); // to avoid 100% CPU load
+
         base_path = path;
         initialize_trace_file();
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");

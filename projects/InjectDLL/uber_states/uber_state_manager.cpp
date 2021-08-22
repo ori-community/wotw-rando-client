@@ -174,8 +174,8 @@ namespace uber_states
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Bash Speed", 82, 1.0),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Burrow Speed", 83, 1.0),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Burrow Dash Speed", 84, 1.0),
-                        add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Swim Speed", 85, 1.0),
-                        add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Swim Dash Speed", 86, 1.0),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Swim Speed", 85, 1.0),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Swim Dash Speed", 86, 1.0),
                         
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Exploding Spike", 95, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Shock Smash", 96, 0),

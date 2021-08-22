@@ -64,6 +64,16 @@ namespace RandoMainDLL {
       { "swampIntroTop", TeleporterType.Spawn},
     };
 
+    public static bool DoingTrial = false;
+
+    public static void OnRaceStart() {
+      DoingTrial = true;
+    }
+
+    public static void OnRaceEnd() {
+      DoingTrial = false;
+    }
+
     public static void MapTPActivated(float x, float y) {
       if (TPsByPos.TryGetValue(Tuple.Create((int)Math.Truncate(x), (int)Math.Truncate(y)), out var tpt))
         GrantOnNextUpdate.Add(tpt);
@@ -200,7 +210,17 @@ namespace RandoMainDLL {
       }
     }
 
+
+
     public static void OnUberStateChanged(int groupID, int stateID, byte type, double oldValue, double newValue) {
+      if (DoingTrial) {
+        // Special case for reach trial.
+        if (groupID == 28895 && (stateID == 29898 || stateID == 10823 || stateID == 37444 || stateID == 18358))
+          InterOp.set_keystones(InterOp.get_keystones() + 1);
+
+        return;
+      }
+
       if (uberStateLookup == null) {
         PopulateUberStates();
       }
