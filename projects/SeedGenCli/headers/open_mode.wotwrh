@@ -1,35 +1,35 @@
 /// Open Mode
+///
 /// opens many doors so random spawn works better, especially with no teleporters
-/// 
 
 !!include no_rain
-3|0|8|21786|53932|bool|true  // Barrier Above Den TP 		HowlsDen.BoneBarrier, 21786, 53932
-3|0|8|21786|23177|bool|true  // Marsh to Opher Barrier		MarshSpawn.ToOpherBarrier, 21786, 23177
-3|0|8|21786|35166|bool|true  // Marsh Tokk Barrier  		MarshSpawn.TokkBarrier, 21786, 35166
-3|0|8|21786|59922|bool|true  // Marsh Broken Log			MarshSpawn.LogBroken, 21786, 59922
-3|0|8|24922|13349|bool|true  // Burrows Entry				MarshSpawn.BurrowsOpen, 24922, 13349
-3|0|8|24922|2524|bool|true  // Burrows to Howl Shortcut		MidnightBurrows.HowlsDenShortcut, 24922, 2524
-3|0|8|937|64003|bool|true  // Eyestone Door					MarshPastOpher.EyestoneDoor, 937, 64003
-3|0|8|937|59850|bool|true  // Purple Bow Door        		WestHollow.PurpleDoorOpen, 937, 59850
-3|0|8|937|6778|bool|true  // Door above Hornbug				EastHollow.HornbugDoor, 937, 6778
-3|0|8|937|22419|bool|true  // Lever Door near Bash Tree 	EastHollow.DepthsLever, 937, 22419
-3|0|8|42178|5815|bool|true  // Glades Entry Purple Wall		GladesTown.GromsWall, 42178, 5815
-3|0|8|37858|23644|bool|true  // Wellspring Bottom Door		OuterWellspring.EntranceDoorOpen, 37858, 23644
-3|0|8|37858|9487|bool|true  // Wellspring Middle Doors		InnerWellspring.MiddleDoorsOpen, 37858, 9487
-3|0|8|37858|31962|bool|true  // Wellspring Top Door			InnerWellspring.TopDoorOpen, 37858, 31962
-3|0|8|18793|25789|bool|true  // Depths Entry				EastHollow.DepthsOpen, 18793, 25789
-3|0|8|28895|62198|bool|true  // Lever Door near Baur		LowerReach.Lever, 28895, 62198
-3|0|8|28895|48757|bool|true  // Reach TP Lantern Door	 	LowerReach.TPLantern, 28895, 48757
-3|0|8|28895|20731|bool|true  // Reach Snowball				LowerReach.RolledSnowball, 28895, 20731
-3|0|8|28895|37287|bool|true  // Reach East Lantern Door 	LowerReach.EastDoorLantern, 28895, 37287
-3|0|8|28895|42209|bool|true  // Reach Fight					LowerReach.ArenaBeaten, 28895, 42209
-3|0|8|20120|12902|bool|true  // Upper Wastes Lever Door		UpperWastes.LeverDoor, 20120, 12902
-3|0|8|10289|41277|bool|true  // Windtorn Ruins Lever		WindtornRuins.RuinsLever, 10289, 41277
-3|0|8|10289|43103|bool|true  // Windtorn Ruins TP Pillar	WindtornRuins.PillarBroken, 10289, 43103
-3|0|8|36153|23584|bool|true  // Elevator Fight				WeepingRidge.ElevatorFightCompleted, 36153, 23584
-3|0|8|5377|14488|bool|true  // Pools Entry Lever Door		EastPools.EntryLever, 5377, 14488
-3|0|8|5377|10782|bool|true  // Pools Breakable Wall 		EastPools.CentralRoomPurpleWall, 5377, 10782
-3|0|8|5377|29911|bool|true  // Lantern Plant Puzzle			UpperPools.UpperWaterDrained, 5377, 29911
-3|0|8|5377|15402|bool|true  // Button Door Above WDTree		UpperPools.ButtonDoorAboveTree, 5377, 15402
-3|0|4|11|631536139|1230316956 // Flap Bubble				EastPools.FlapBubble
+3|0|8|21786|53932|bool|true     // Barrier Above Den TP         HowlsDen.BoneBarrier, 21786, 53932
+3|0|8|21786|23177|bool|true     // Marsh to Opher Barrier       MarshSpawn.ToOpherBarrier, 21786, 23177
+3|0|8|21786|35166|bool|true     // Marsh Tokk Barrier           MarshSpawn.TokkBarrier, 21786, 35166
+3|0|8|21786|59922|bool|true     // Marsh Broken Log             MarshSpawn.LogBroken, 21786, 59922
+3|0|8|24922|13349|bool|true     // Burrows Entry                MarshSpawn.BurrowsOpen, 24922, 13349
+3|0|8|24922|2524|bool|true      // Burrows to Howl Shortcut     MidnightBurrows.HowlsDenShortcut, 24922, 2524
+3|0|8|937|64003|bool|true       // Eyestone Door                MarshPastOpher.EyestoneDoor, 937, 64003
+3|0|8|937|59850|bool|true       // Purple Bow Door              WestHollow.PurpleDoorOpen, 937, 59850
+3|0|8|937|6778|bool|true        // Door above Hornbug           EastHollow.HornbugDoor, 937, 6778
+3|0|8|937|22419|bool|true       // Lever Door near Bash Tree    EastHollow.DepthsLever, 937, 22419
+3|0|8|42178|5815|bool|true      // Glades Entry Purple Wall     GladesTown.GromsWall, 42178, 5815
+3|0|8|37858|23644|bool|true     // Wellspring Bottom Door       OuterWellspring.EntranceDoorOpen, 37858, 23644
+3|0|8|37858|9487|bool|true      // Wellspring Middle Doors      InnerWellspring.MiddleDoorsOpen, 37858, 9487
+3|0|8|37858|31962|bool|true     // Wellspring Top Door          InnerWellspring.TopDoorOpen, 37858, 31962
+3|0|8|18793|25789|bool|true     // Depths Entry                 EastHollow.DepthsOpen, 18793, 25789
+3|0|8|28895|62198|bool|true     // Lever Door near Baur         LowerReach.Lever, 28895, 62198
+3|0|8|28895|48757|bool|true     // Reach TP Lantern Door        LowerReach.TPLantern, 28895, 48757
+3|0|8|28895|20731|bool|true     // Reach Snowball               LowerReach.RolledSnowball, 28895, 20731
+3|0|8|28895|37287|bool|true     // Reach East Lantern Door      LowerReach.EastDoorLantern, 28895, 37287
+3|0|8|28895|42209|bool|true     // Reach Fight                  LowerReach.ArenaBeaten, 28895, 42209
+3|0|8|20120|12902|bool|true     // Upper Wastes Lever Door      UpperWastes.LeverDoor, 20120, 12902
+3|0|8|10289|41277|bool|true     // Windtorn Ruins Lever         WindtornRuins.RuinsLever, 10289, 41277
+3|0|8|10289|43103|bool|true     // Windtorn Ruins TP Pillar     WindtornRuins.PillarBroken, 10289, 43103
+3|0|8|36153|23584|bool|true     // Elevator Fight               WeepingRidge.ElevatorFightCompleted, 36153, 23584
+3|0|8|5377|14488|bool|true      // Pools Entry Lever Door       EastPools.EntryLever, 5377, 14488
+3|0|8|5377|10782|bool|true      // Pools Breakable Wall         EastPools.CentralRoomPurpleWall, 5377, 10782
+3|0|8|5377|29911|bool|true      // Lantern Plant Puzzle         UpperPools.UpperWaterDrained, 5377, 29911
+3|0|8|5377|15402|bool|true      // Button Door Above WDTree     UpperPools.ButtonDoorAboveTree, 5377, 15402
+3|0|4|11|631536139|1230316956   // Flap Bubble                  EastPools.EntryBubblesFree
 !!set EastPools.EntryBubblesFree
