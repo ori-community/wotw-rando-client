@@ -140,14 +140,16 @@ namespace
         SeinJump::UpdateCharacterState(this_ptr);
     }
 
+    bool initialized = false;
     float double_jump_strength;
 
-    IL2CPP_INTERCEPT(, SeinDoubleJump, void, Start, (app::SeinDoubleJump* this_ptr)) {
-        SeinDoubleJump::Start(this_ptr);
-        double_jump_strength = this_ptr->fields.JumpStrength;
-    }
-
     IL2CPP_INTERCEPT(, SeinDoubleJump, void, UpdateCharacterState, (app::SeinDoubleJump* this_ptr)) {
+        if (!initialized)
+        {
+            double_jump_strength = this_ptr->fields.JumpStrength;
+            initialized = true;
+        }
+
         float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, JUMP_HEIGHT_MULTIPLIER_ID);
         this_ptr->fields.JumpStrength = double_jump_strength * modifier;
         SeinDoubleJump::UpdateCharacterState(this_ptr);

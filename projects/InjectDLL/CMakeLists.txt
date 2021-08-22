@@ -53,6 +53,7 @@ set(
 	"pickups/shops.cpp"
 	"pickups/spirit_shard.cpp"
 	"pickups/tree.cpp"
+	"pickups/bonus/bow_attack_speed.cpp"
 	"pickups/bonus/energy_cost_upgrades.cpp"
 	"pickups/bonus/extra_ability_activations.cpp"
 	"pickups/bonus/hammer_attack_speed.cpp"
