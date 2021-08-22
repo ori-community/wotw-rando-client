@@ -35,16 +35,15 @@ fn parsing(c: &mut Criterion) {
     c.bench_function("parse states", |b| b.iter(|| parser::parse_states(&states, false)));
     let states = parser::parse_states(&states, false).unwrap();
 
-    let mut pathsets = Pathsets::default();
-    pathsets.add(Pathset::Unsafe);
-    pathsets.add_glitches();
+    let mut settings = Settings::default();
+    settings.difficulty = Difficulty::Unsafe;
 
-    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, &states, &pathsets, false)));
+    c.bench_function("emit", |b| b.iter(|| emitter::emit(&areas, &metadata, &locations, &states, &settings, false)));
 }
 
 fn requirements(c: &mut Criterion) {
     let mut player = Player::default();
-    player.pathsets.add(Pathset::Unsafe);
+    player.difficulty = Difficulty::Unsafe;
     let states = FxHashSet::default();
 
     let req_a = Requirement::EnergySkill(Skill::Blaze, 2.0);
@@ -82,7 +81,7 @@ fn requirements(c: &mut Criterion) {
 }
 
 fn reach_checking(c: &mut Criterion) {
-    let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Pathsets::default(), false).unwrap();
+    let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &Settings::default(), false).unwrap();
 
     c.bench_function("short reach check", |b| b.iter(|| {
         let mut player = Player::default();
@@ -111,23 +110,18 @@ fn reach_checking(c: &mut Criterion) {
 fn generation(c: &mut Criterion) {
     // seedgen::initialize_log(false, log::LevelFilter::Off).unwrap();
 
-    let pathsets = Pathsets::default();
+    let mut settings = Settings::default();
 
     c.bench_function("singleplayer", |b| b.iter(|| {
-        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &pathsets, false).unwrap();
-        let mut settings = Settings::default();
-        settings.pathsets = pathsets.clone();
-
-        seedgen::generate_seed(&graph, settings, &vec![], None).unwrap();
+        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &settings, false).unwrap();
+        seedgen::generate_seed(&graph, settings.clone(), &vec![], None).unwrap();
     }));
 
-    c.bench_function("two worlds", |b| b.iter(|| {
-        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &pathsets, false).unwrap();
-        let mut settings = Settings::default();
-        settings.pathsets = pathsets.clone();
-        settings.worlds = 2;
+    settings.worlds = 2;
 
-        seedgen::generate_seed(&graph, settings, &vec![], None).unwrap();
+    c.bench_function("two worlds", |b| b.iter(|| {
+        let graph = parse_logic(&PathBuf::from("areas.wotw"), &PathBuf::from("loc_data.csv"), &PathBuf::from("state_data.csv"), &settings, false).unwrap();
+        seedgen::generate_seed(&graph, settings.clone(), &vec![], None).unwrap();
     }));
 }
 

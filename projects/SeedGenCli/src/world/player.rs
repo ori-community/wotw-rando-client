@@ -4,7 +4,7 @@ use smallvec::{SmallVec, smallvec};
 
 use crate::inventory::{Inventory, Item};
 use crate::util::{
-    Pathset, Pathsets, Resource, Skill, Shard,
+    Difficulty, Resource, Skill, Shard,
     orbs::{self, Orbs},
     settings::Settings
 };
@@ -12,7 +12,7 @@ use crate::util::{
 #[derive(Debug, Default, Clone)]
 pub struct Player {
     pub inventory: Inventory,
-    pub pathsets: Pathsets,
+    pub difficulty: Difficulty,
     pub hard: bool,
 }
 impl Player {
@@ -23,18 +23,18 @@ impl Player {
     }
 
     pub fn apply_settings(&mut self, settings: &Settings) {
-        self.pathsets = settings.pathsets.clone();
+        self.difficulty = settings.difficulty;
         self.hard = settings.hard;
     }
 
     pub fn max_energy(&self) -> f32 {
         let mut energy = f32::from(self.inventory.get(&Item::Resource(Resource::Energy))) * 0.5;
-        if self.pathsets.contains(Pathset::Gorlek) && self.inventory.has(&Item::Shard(Shard::Energy), 1) { energy += 1.0; }
+        if self.difficulty >= Difficulty::Gorlek && self.inventory.has(&Item::Shard(Shard::Energy), 1) { energy += 1.0; }
         energy
     }
     pub fn max_health(&self) -> f32 {
         let mut health = f32::from(self.inventory.get(&Item::Resource(Resource::Health)) * 5);
-        if self.pathsets.contains(Pathset::Gorlek) && self.inventory.has(&Item::Shard(Shard::Vitality), 1) { health += 10.0; }
+        if self.difficulty >= Difficulty::Gorlek && self.inventory.has(&Item::Shard(Shard::Vitality), 1) { health += 10.0; }
         health
     }
     pub fn max_orbs(&self) -> Orbs {
@@ -51,7 +51,7 @@ impl Player {
         };
         let max_energy = self.max_energy();
 
-        if self.pathsets.contains(Pathset::Unsafe) && self.inventory.has(&Item::Shard(Shard::Overflow), 1) {
+        if self.difficulty >= Difficulty::Unsafe && self.inventory.has(&Item::Shard(Shard::Overflow), 1) {
             for orbs in &mut orbs {
                 if orbs.health > max_health {
                     orbs.energy += orbs.health - max_health;
@@ -119,7 +119,7 @@ impl Player {
     }
 
     pub fn damage_mod(&self, flying_target: bool, bow: bool) -> f32 {
-        let is_unsafe = self.pathsets.contains(Pathset::Unsafe);
+        let is_unsafe = self.difficulty >= Difficulty::Unsafe;
         let mut damage_mod = 1.0;
 
         damage_mod += 0.25 * f32::from(self.inventory.get(&Item::Skill(Skill::AncestralLight)));
@@ -138,14 +138,13 @@ impl Player {
         damage_mod
     }
     pub fn defense_mod(&self) -> f32 {
-        let mut defense_mod = 1.0;
-        if self.pathsets.contains(Pathset::Gorlek) && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { defense_mod = 0.9; }
+        let mut defense_mod = if self.difficulty >= Difficulty::Gorlek && self.inventory.has(&Item::Shard(Shard::Resilience), 1) { 0.9 } else { 1.0 };
         if self.hard { defense_mod *= 2.0; }
         defense_mod
     }
     pub fn energy_mod(&self) -> f32 {
         let mut energy_mod = 1.0;
-        if !self.pathsets.contains(Pathset::Unsafe) { energy_mod *= 2.0; }
+        if self.difficulty < Difficulty::Unsafe { energy_mod *= 2.0; }
         else if self.inventory.has(&Item::Shard(Shard::Overcharge), 1) { energy_mod *= 0.5; }
         energy_mod
     }
@@ -154,7 +153,7 @@ impl Player {
         skill.energy_cost() * self.energy_mod()
     }
     pub fn destroy_cost(&self, health: f32, skill: Skill, flying_target: bool) -> f32 {
-        let damage = skill.damage(self.pathsets.contains(Pathset::Unsafe)) * self.damage_mod(flying_target, matches!(skill, Skill::Bow)) + skill.burn_damage();  // Burn damage is unaffected by damage buffs
+        let damage = skill.damage(Difficulty::Unsafe) * self.damage_mod(flying_target, matches!(skill, Skill::Bow)) + skill.burn_damage();  // Burn damage is unaffected by damage buffs
         (health / damage).ceil() * self.use_cost(skill)
     }
 
@@ -169,10 +168,10 @@ impl Player {
             Skill::Spear,
         ];
         if !wall { weapons.push(Skill::Flash); }
-        if self.pathsets.contains(Pathset::Unsafe) { weapons.push(Skill::Sentry); }
+        if self.difficulty >= Difficulty::Unsafe { weapons.push(Skill::Sentry); }
 
         #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
-        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.contains(Pathset::Unsafe)) * 10.0) as u16);
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.difficulty) * 10.0) as u16);
         weapons
     }
     fn ranged_weapons_by_dpe(&self) -> SmallVec<[Skill; 2]> {
@@ -180,13 +179,13 @@ impl Player {
             Skill::Bow,
             Skill::Spear,
         ];
-        if self.pathsets.contains(Pathset::Gorlek) {
+        if self.difficulty >= Difficulty::Gorlek {
             weapons.push(Skill::Grenade);
             weapons.push(Skill::Shuriken);
         }
 
         #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
-        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.contains(Pathset::Unsafe)) * 10.0) as u16);
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.difficulty) * 10.0) as u16);
         weapons
     }
     fn shield_weapons_by_dpe(&self) -> SmallVec<[Skill; 4]> {
@@ -198,7 +197,7 @@ impl Player {
         ];
 
         #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
-        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.pathsets.contains(Pathset::Unsafe)) * 10.0) as u16);
+        weapons.sort_unstable_by_key(|&weapon| (weapon.damage_per_energy(self.difficulty) * 10.0) as u16);
         weapons
     }
 
@@ -341,7 +340,7 @@ mod tests {
         player.inventory.grant(Item::Skill(Skill::Shuriken), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
         assert_eq!(player.preferred_ranged_weapon(), None);
-        player.pathsets.add(Pathset::Gorlek);
+        player.difficulty = Difficulty::Gorlek;
         assert_eq!(player.preferred_ranged_weapon(), Some(Skill::Shuriken));
         player.inventory.grant(Item::Skill(Skill::Spear), 1);
         assert_eq!(player.preferred_weapon(true), Some(Skill::Shuriken));
@@ -370,7 +369,7 @@ mod tests {
             Skill::Shuriken,
         ];
         assert_eq!(player.progression_weapons(false), weapons);
-        player.pathsets.add(Pathset::Unsafe);
+        player.difficulty = Difficulty::Unsafe;
         let weapons: SmallVec<[_; 5]> = smallvec![
             Skill::Sword,
             Skill::Hammer,
@@ -388,7 +387,7 @@ mod tests {
         for _ in 0..10 { player.inventory.grant(Item::Resource(Resource::Energy), 1); }
         player.inventory.grant(Item::Shard(Shard::Energy), 1);
         assert_eq!(player.max_energy(), 5.0);
-        player.pathsets.add(Pathset::Gorlek);
+        player.difficulty = Difficulty::Gorlek;
         assert_eq!(player.max_energy(), 6.0);
     }
 
@@ -399,7 +398,7 @@ mod tests {
         assert_eq!(player.destroy_cost(10.0, Skill::Spear, true), 4.0);
         assert_eq!(player.destroy_cost(0.0, Skill::Spear, false), 0.0);
         player.inventory.grant(Item::Skill(Skill::AncestralLight), 2);
-        player.pathsets.add(Pathset::Unsafe);
+        player.difficulty = Difficulty::Unsafe;
         player.inventory.grant(Item::Shard(Shard::Wingclip), 1);
         player.inventory.grant(Item::Resource(Resource::ShardSlot), 1);
         assert_eq!(player.destroy_cost(10.0, Skill::Bow, true), 0.25);
@@ -448,7 +447,7 @@ mod tests {
         assert_eq!(player.health_orbs(&[orbs], 1.0), orbvec);
 
         player = Player::default();
-        player.pathsets.add(Pathset::Gorlek);
+        player.difficulty = Difficulty::Gorlek;
 
         player.inventory.grant(Item::Shard(Shard::Energy), 1);
         player.inventory.grant(Item::Shard(Shard::Vitality), 1);

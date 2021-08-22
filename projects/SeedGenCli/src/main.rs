@@ -24,7 +24,7 @@ use world::{
 };
 use headers::parser::HeaderContext;
 use util::{
-    Pathsets, Pathset, GoalMode, Resource, Skill, Teleporter, Shard,
+    Difficulty, Glitch, GoalMode, Resource, Skill, Teleporter, Shard,
     settings::{Settings, Spawn},
     uberstate::UberState,
 };
@@ -129,6 +129,26 @@ struct SeedSettings {
     /// Player names in multiworld
     #[structopt(short, long)]
     names: Vec<String>,
+    /// difficulty of execution you may be required to perform
+    ///
+    /// one of moki, gorlek, unsafe
+    #[structopt(short, long, default_value = "moki")]
+    difficulty: String,
+    /// glitches you may be required to use
+    ///
+    /// glitches are swordsjump, hammersjump, shurikenbreak, hammerbreak, sentryburn, removekillplane
+    #[structopt(short = "G", long)]
+    glitches: Vec<String>,
+    /// which goal modes to use
+    /// 
+    /// goal modes are trees, wisps, quests, relics
+    #[structopt(short, long)]
+    goals: Vec<String>,
+    /// where to spawn the player
+    /// 
+    /// Use an anchor name from the areas file, "r" / "random" for a random teleporter or "f" / "fullyrandom" for any location
+    #[structopt(short, long, default_value = "MarshSpawn.Main")]
+    spawn: String,
     /// hides spoilers
     #[structopt(short, long)]
     race: bool,
@@ -138,21 +158,6 @@ struct SeedSettings {
     /// play this seed on hard (in-game) difficulty
     #[structopt(long)]
     hard: bool,
-    /// where to spawn the player
-    /// 
-    /// Use an anchor name from the areas file, "r" / "random" for a random teleporter or "f" / "fullyrandom" for any location
-    #[structopt(short, long, default_value = "MarshSpawn.Main")]
-    spawn: String,
-    /// which goal modes to use
-    /// 
-    /// goal modes are trees, wisps, quests, relics
-    #[structopt(short, long)]
-    goals: Vec<String>,
-    /// which pathsets to use
-    /// 
-    /// pathsets are moki, gorlek, glitch, unsafe, sjump, swordsjump, hammersjump, shurikenbreak, hammerbreak, sentryburn, removekillplane
-    #[structopt(short, long)]
-    logic: Vec<String>,
     /// paths to headers stored in files which will be added to the seed
     #[structopt(parse(from_os_str), short, long = "headers")]
     header_paths: Vec<PathBuf>,
@@ -228,32 +233,33 @@ fn read_header() -> String {
     output
 }
 
-fn parse_pathsets(names: &[String]) -> Pathsets {
-    let mut pathsets = Pathsets::default();
+fn parse_difficulty(difficulty: &str) -> Result<Difficulty, String> {
+    match &difficulty.to_lowercase()[..] {
+        "moki" => Ok(Difficulty::Moki),
+        "gorlek" => Ok(Difficulty::Gorlek),
+        "unsafe" => Ok(Difficulty::Unsafe),
+        _ => Err(format!("Unknown difficulty {}", difficulty)),
+    }
+}
 
-    for pathset in names {
-        match &pathset.to_lowercase()[..] {
-            "mo" | "moki" => {},
-            "go" | "gorlek" => pathsets.add(Pathset::Gorlek),
-            "un" | "unsafe" => pathsets.add(Pathset::Unsafe),
-            "gl" | "glitch" => pathsets.add_glitches(),
-            "shurikenbreak" => pathsets.add(Pathset::ShurikenBreak),
-            "sentrybreak" => pathsets.add(Pathset::SentryBreak),
-            "hammerbreak" => pathsets.add(Pathset::HammerBreak),
-            "spearbreak" => pathsets.add(Pathset::SpearBreak),
-            "sjump" | "sentryjump" => {
-                pathsets.add(Pathset::SwordSentryJump);
-                pathsets.add(Pathset::HammerSentryJump);
-            },
-            "swordsjump" | "swordsentryjump" => pathsets.add(Pathset::SwordSentryJump),
-            "hammersjump" | "hammersentryjump" => pathsets.add(Pathset::HammerSentryJump),
-            "sentryburn" => pathsets.add(Pathset::SentryBurn),
-            "removekillplane" => pathsets.add(Pathset::RemoveKillPlane),
+fn parse_glitches(names: &[String]) -> Vec<Glitch> {
+    let mut glitches = Vec::default();
+
+    for glitch in names {
+        match &glitch.to_lowercase()[..] {
+            "shurikenbreak" => glitches.push(Glitch::ShurikenBreak),
+            "sentrybreak" => glitches.push(Glitch::SentryBreak),
+            "hammerbreak" => glitches.push(Glitch::HammerBreak),
+            "spearbreak" => glitches.push(Glitch::SpearBreak),
+            "swordsjump" | "swordsentryjump" => glitches.push(Glitch::SwordSentryJump),
+            "hammersjump" | "hammersentryjump" => glitches.push(Glitch::HammerSentryJump),
+            "sentryburn" => glitches.push(Glitch::SentryBurn),
+            "removekillplane" => glitches.push(Glitch::RemoveKillPlane),
             other => log::warn!("Unknown pathset {}", other),
         }
     }
 
-    pathsets
+    glitches
 }
 fn parse_goalmodes(names: &[String]) -> FxHashSet<GoalMode> {
     let mut goalmodes = FxHashSet::default();
@@ -282,17 +288,19 @@ fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
         preset,
         worlds,
         names,
+        difficulty,
+        glitches,
         race,
         mut multiplayer,
         hard,
         spawn,
         goals,
-        logic,
         header_paths,
         header_args,
     } = settings;
 
-    let pathsets = parse_pathsets(&logic);
+    let difficulty = parse_difficulty(&difficulty)?;
+    let glitches = parse_glitches(&glitches);
     let goalmodes = parse_goalmodes(&goals);
     let spawn = parse_spawn(spawn);
 
@@ -307,8 +315,9 @@ fn parse_settings(settings: SeedSettings) -> Result<Settings, String> {
         presets: preset,
         worlds,
         players: names,
+        difficulty,
+        glitches,
         spoilers: !race,
-        pathsets,
         goalmodes,
         web_conn: multiplayer,
         spawn_loc: spawn,
@@ -381,7 +390,7 @@ fn generate_seeds(mut args: SeedArgs, tostdout: bool) -> Result<(), String> {
 
     let settings = parse_settings(args.settings)?.apply_presets()?;
 
-    let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, !args.trust)?;
+    let graph = lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings, !args.trust)?;
     log::info!("Parsed logic in {:?}", now.elapsed());
 
     let header = read_header();
@@ -438,7 +447,7 @@ fn reach_check(mut args: ReachCheckArgs) -> Result<String, String> {
     let contents = util::read_file(&args.seed_file, "seeds")?;
 
     let settings = Settings::from_seed(&contents)?;
-    let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings.pathsets, false)?;
+    let graph = &lexer::parse_logic(&args.areas, &args.locations, &args.uber_states, &settings, false)?;
     let mut world = World::new(graph);
 
     world.player.apply_settings(&settings);

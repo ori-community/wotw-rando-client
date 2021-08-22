@@ -6,7 +6,7 @@ use std::path::Path;
 
 use parser::ParseError;
 use crate::world::graph::Graph;
-use crate::util::{self, Pathsets};
+use crate::util::{self, settings::Settings};
 
 fn trace_parse_error(areas: &Path, position: usize) -> String {
     let input = util::read_file(areas, "logic").unwrap();
@@ -20,7 +20,7 @@ fn trace_parse_error(areas: &Path, position: usize) -> String {
     input.to_string()
 }
 
-pub fn parse_logic(areas: &Path, locations: &Path, states: &Path, pathsets: &Pathsets, validate: bool) -> Result<Graph, String> {
+pub fn parse_logic(areas: &Path, locations: &Path, states: &Path, settings: &Settings, validate: bool) -> Result<Graph, String> {
     let tokens = tokenizer::tokenize(areas).map_err(|err| format!("Error parsing areas from {}: {}", areas.display(), err))?;
 
     let (areas, metadata) = parser::parse_areas(&tokens).map_err(|err| {
@@ -32,5 +32,5 @@ pub fn parse_logic(areas: &Path, locations: &Path, states: &Path, pathsets: &Pat
 
     let state_map = parser::parse_states(states, validate).map_err(|err| format!("Error parsing states from {}: {}", states.display(), err))?;
 
-    emitter::emit(&areas, &metadata, &locations, &state_map, pathsets, validate).map_err(|err| format!("Error building the logic: {}", err))
+    emitter::emit(&areas, &metadata, &locations, &state_map, settings, validate).map_err(|err| format!("Error building the logic: {}", err))
 }

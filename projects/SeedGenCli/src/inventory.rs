@@ -3,7 +3,7 @@ use std::fmt;
 use rustc_hash::FxHashMap;
 
 use crate::headers;
-use crate::util::{Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Pathsets, Pathset, Command, SysMessage};
+use crate::util::{Difficulty, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Command, SysMessage};
 
 #[allow(clippy::pub_enum_variant_names)]
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
@@ -91,15 +91,15 @@ impl fmt::Display for Item {
 impl Item {
     // TODO read from logic file instead
     #[inline]
-    pub fn is_progression(&self, pathsets: &Pathsets) -> bool {
+    pub fn is_progression(&self, difficulty: Difficulty) -> bool {
         match self {
             Item::Resource(resource) => match resource {
-                Resource::ShardSlot => pathsets.contains(Pathset::Unsafe),
+                Resource::ShardSlot => difficulty >= Difficulty::Unsafe,
                 Resource::Health | Resource::Energy | Resource::Ore | Resource::Keystone => true,
             },
             Item::Skill(skill) => match skill {
-                Skill::AncestralLight => pathsets.contains(Pathset::Unsafe),
-                Skill::Shuriken | Skill::Blaze | Skill::Sentry => pathsets.contains(Pathset::Gorlek),
+                Skill::AncestralLight => difficulty >= Difficulty::Unsafe,
+                Skill::Shuriken | Skill::Blaze | Skill::Sentry => difficulty >= Difficulty::Gorlek,
                 Skill::Seir | Skill::WallJump => false,
                 Skill::Bash |
                 Skill::DoubleJump |
@@ -137,11 +137,11 @@ impl Item {
                 Shard::SpiritSurge |
                 Shard::Lifeforce |
                 Shard::Deflector |
-                Shard::Fracture => pathsets.contains(Pathset::Unsafe),
+                Shard::Fracture => difficulty >= Difficulty::Unsafe,
                 Shard::TripleJump |
                 Shard::Resilience |
                 Shard::Vitality |
-                Shard::Energy => pathsets.contains(Pathset::Gorlek),
+                Shard::Energy => difficulty >= Difficulty::Gorlek,
                 Shard::Bounty |
                 Shard::Swap |
                 Shard::Quickshot |

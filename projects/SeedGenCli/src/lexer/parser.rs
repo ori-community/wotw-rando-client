@@ -4,7 +4,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use smallvec::SmallVec;
 
 use super::tokenizer::{Token, TokenType};
-use crate::util::{self, Pathset, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy, Position, uberstate::UberState};
+use crate::util::{self, Difficulty, Glitch, Skill, Resource, Shard, Teleporter, RefillType, NodeType, Enemy, Position, uberstate::UberState};
 
 pub struct ParseError {
     pub description: String,
@@ -15,7 +15,8 @@ pub struct ParseError {
 pub enum Requirement<'a> {
     Free,
     Definition(&'a str),
-    Pathset(Pathset),
+    Difficulty(Difficulty),
+    Glitch(Glitch),
     Skill(Skill),
     EnergySkill(Skill, u16),
     SpiritLight(u16),
@@ -208,7 +209,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "free" => Ok(Requirement::Free),
             "GladesTP" => Ok(Requirement::Teleporter(Teleporter::Glades)),
             "Glide" => Ok(Requirement::Skill(Skill::Glide)),
-            "gorlek" => Ok(Requirement::Pathset(Pathset::Gorlek)),
+            "gorlek" => Ok(Requirement::Difficulty(Difficulty::Gorlek)),
             "Grapple" => Ok(Requirement::Skill(Skill::Grapple)),
             "Grenade" => Ok(Requirement::Skill(Skill::Grenade)),
             "Hammer" => Ok(Requirement::Skill(Skill::Hammer)),
@@ -219,11 +220,11 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "LifeHarvest" => Ok(Requirement::Shard(Shard::LifeHarvest)),
             "Magnet" => Ok(Requirement::Shard(Shard::Magnet)),
             "MarshTP" => Ok(Requirement::Teleporter(Teleporter::Marsh)),
-            "moki" => Ok(Requirement::Pathset(Pathset::Moki)),
+            "moki" => Ok(Requirement::Difficulty(Difficulty::Moki)),
             "OuterRuinsTP" => Ok(Requirement::Teleporter(Teleporter::OuterRuins)),
             "Overflow" => Ok(Requirement::Shard(Shard::Overflow)),
             "ReachTP" => Ok(Requirement::Teleporter(Teleporter::Reach)),
-            "RemoveKillPlane" => Ok(Requirement::Pathset(Pathset::RemoveKillPlane)),
+            "RemoveKillPlane" => Ok(Requirement::Glitch(Glitch::RemoveKillPlane)),
             "Regenerate" => Ok(Requirement::Skill(Skill::Regenerate)),
             "Seir" => Ok(Requirement::Skill(Skill::Seir)),
             "Sentry" => Ok(Requirement::Skill(Skill::Sentry)),
@@ -237,7 +238,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "Thorn" => Ok(Requirement::Shard(Shard::Thorn)),
             "UltraBash" => Ok(Requirement::Shard(Shard::UltraBash)),
             "UltraGrapple" => Ok(Requirement::Shard(Shard::UltraGrapple)),
-            "unsafe" => Ok(Requirement::Pathset(Pathset::Unsafe)),
+            "unsafe" => Ok(Requirement::Difficulty(Difficulty::Unsafe)),
             "WallJump" => Ok(Requirement::Skill(Skill::WallJump)),
             "WaterBreath" => Ok(Requirement::Skill(Skill::WaterBreath)),
             "WaterDash" => Ok(Requirement::Skill(Skill::WaterDash)),

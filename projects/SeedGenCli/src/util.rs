@@ -10,73 +10,23 @@ use std::{
     path::{Path, PathBuf}
 };
 
-use rustc_hash::FxHashSet;
 use serde::{Serialize, Deserialize};
 
 use crate::inventory::Item;
 use uberstate::{UberState, UberIdentifier};
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Pathsets {
-    pub pathsets: FxHashSet<Pathset>,
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy, Serialize, Deserialize)]
+pub enum Difficulty {
+    Moki,
+    Gorlek,
+    Unsafe,
 }
-impl Default for Pathsets {
-    fn default() -> Pathsets {
-        let mut pathsets = FxHashSet::default();
-        pathsets.insert(Pathset::Moki);
+impl Default for Difficulty {
+    fn default() -> Difficulty { Difficulty::Moki }
+}
 
-        Pathsets {
-            pathsets,
-        }
-    }
-}
-impl Pathsets {
-    pub fn add(&mut self, pathset: Pathset) {
-        match pathset {
-            Pathset::Unsafe => { self.pathsets.insert(Pathset::Gorlek); },
-            _ => {},
-        }
-        self.pathsets.insert(pathset);
-    }
-    pub fn add_glitches(&mut self) {
-        self.pathsets.insert(Pathset::SwordSentryJump);
-        self.pathsets.insert(Pathset::HammerSentryJump);
-        self.pathsets.insert(Pathset::ShurikenBreak);
-        self.pathsets.insert(Pathset::HammerBreak);
-        self.pathsets.insert(Pathset::SpearBreak);
-        self.pathsets.insert(Pathset::SentryBreak);
-        self.pathsets.insert(Pathset::SentryBurn);
-        self.pathsets.insert(Pathset::RemoveKillPlane);
-    }
-
-    #[inline]
-    pub fn contains(&self, pathset: Pathset) -> bool {
-        self.pathsets.contains(&pathset)
-    }
-    pub fn difficulty(&self) -> Pathset {
-        for pathset in &[Pathset::Unsafe, Pathset::Gorlek] {
-            if self.pathsets.contains(pathset) { return *pathset; }
-        }
-        Pathset::Moki
-    }
-}
-impl<P> From<P> for Pathsets
-where P: IntoIterator<Item=Pathset>
-{
-    fn from(pathsets: P) -> Pathsets {
-        let mut result = Pathsets::default();
-        for pathset in pathsets {
-            result.add(pathset);
-        }
-
-        result
-    }
-}
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize, Deserialize)]
-pub enum Pathset {
-    Moki,               // Lowest difficulty
-    Gorlek,             // Second difficulty
-    Unsafe,             // Unvalidated difficulty
+pub enum Glitch {
     SwordSentryJump,    // Grounded Sentry Jumps with Sword
     HammerSentryJump,   // Grounded Sentry Jump with Hammer
     ShurikenBreak,      // Breaking Walls from behind with Shuriken
@@ -224,13 +174,13 @@ impl Skill {
         }
     }
 
-    pub fn damage(self, unsafe_paths: bool) -> f32 {
+    pub fn damage(self, difficulty: Difficulty) -> f32 {
         match self {
             Skill::Bow | Skill::Sword => 4.0,
             Skill::Launch => 5.0,
             Skill::Hammer | Skill::Flash => 12.0,
             Skill::Shuriken => 7.0,
-            Skill::Grenade => if unsafe_paths { 8.0 } else { 4.0 },
+            Skill::Grenade => if difficulty >= Difficulty::Unsafe { 8.0 } else { 4.0 },
             Skill::Spear => 20.0,
             Skill::Blaze => 3.0,
             Skill::Sentry => 8.8,
@@ -245,9 +195,9 @@ impl Skill {
         }
     }
 
-    pub fn damage_per_energy(self, unsafe_paths: bool) -> f32 {
+    pub fn damage_per_energy(self, difficulty: Difficulty) -> f32 {
         // (self.damage(unsafe_paths) + self.burn_damage()) / self.energy_cost()
-        (10.0 / (self.damage(unsafe_paths) + self.burn_damage())).ceil() * self.energy_cost()  // "how much energy do you need to deal 10 damage" leads to a more realistic ordering than pure damage per energy
+        (10.0 / (self.damage(difficulty) + self.burn_damage())).ceil() * self.energy_cost()  // "how much energy do you need to deal 10 damage" leads to a more realistic ordering than pure damage per energy
     }
 }
 
