@@ -51,6 +51,8 @@ namespace csharp_bridge
     extern signatures::f_void_gwa on_map_pan;
     extern signatures::f_void_string_dt on_enemy_death;
     extern signatures::f_void_string_dt on_player_death;
+    extern signatures::f_void on_race_start;
+    extern signatures::f_void on_race_end;
 
     // Save system
     extern signatures::f_void_int new_game;

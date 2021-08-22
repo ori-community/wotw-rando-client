@@ -41,6 +41,7 @@ set(
 	"fixes/feedinggrounds.cpp"
 	"fixes/flap.cpp"
 	"fixes/teleporters.cpp"
+	"fixes/trials.cpp"
 	"pickups/pickups.cpp"
 	"pickups/energy_cell.cpp"
 	"pickups/experience.cpp"
