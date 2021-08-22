@@ -8651,7 +8651,7 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
     unsafe:
       DoubleJump, Sword
       Dash, Bash OR Sword
-  conn WillowsEnd.UpperSand:
+  conn WillowsEnd.Upper:
     moki: Bash, Launch  # some other paths would be possible, but with how far back the last checkpoint is...
     gorlek:
       Launch
@@ -8661,21 +8661,18 @@ anchor WillowsEnd.East at 547, -3805:  # To the left of the redirect puzzle
 
 # checkpoint at 614, -3836
 
-anchor WillowsEnd.UpperSand at 595,-3739:  # In between the crystal and the checkpoint in front of the sand before BurrowHeart
+anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
   refill Checkpoint
-  refill Energy=4:
-    moki: BreakCrystal
+  refill Energy=4:  # on the way to burrow heart
+    gorlek, BreakCrystal:
+      Bash OR Launch
+      Combat=CrystalMiner, SentryJump=1
+      Combat=CrystalMiner, DoubleJump, TripleJump
 
   # state WillowsEnd.BurrowHeart:
   #   moki, BreakWall=30:
   #     Burrow, DoubleJump, Dash, Bash, Grapple, Glide
   #     Burrow, Bash, Grapple, Launch, DoubleJump OR Glide
-
-  conn WillowsEnd.Upper:
-    moki: Combat=CrystalMiner OR Bash OR Launch
-
-anchor WillowsEnd.Upper at 499, -3748:  # At the upper door
-  refill Checkpoint
 
   # conn MiniBossFight:
   #   moki:
