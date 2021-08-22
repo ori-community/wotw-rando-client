@@ -5142,11 +5142,11 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
       SentryBurn=1, SwordSJump=1, DoubleJump
 
   pickup LowerReach.RoofLeftEX:
-    moki:
-      LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash, Glide  # blame moon
+    moki:  # intended path omitted in moki
       Launch, DoubleJump, Dash OR Glide
       Bash, Grenade=1, Launch
     gorlek:
+      LowerReach.CoolEastFurnace, Bash, Grenade=2, DoubleJump, Dash, Glide  # intended path?
       Launch, DoubleJump  # Easier from under the snaptrap
     unsafe:
       SwordSJump=1, DoubleJump, TripleJump
@@ -5155,10 +5155,9 @@ anchor LowerReach.PastSnowball at -99, -3982:  # At the bashnade pedestal after 
       SentryJump=1, DoubleJump, Dash
       Launch, Shuriken=2 OR Sentry=2  # Launch on the ceiling, sentry/shuriken -> launch -> sentry/shuriken again
   pickup LowerReach.RoofRightEX:
-    moki:
-      LowerReach.CoolEastFurnace, Bash, Grenade=2
-      Launch
+    moki: Launch  # intended path omitted in moki
     gorlek:
+      LowerReach.CoolEastFurnace, Bash, Grenade=2
       SwordSJump=2
     unsafe:
       Bash, Grenade=2
@@ -5458,9 +5457,8 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
   state UpperReach.CoolFurnace:  # need this because the player might have to refreeze the waterfall
     moki: Flap
 
-  pickup UpperReach.LifeForceShard:
+  pickup UpperReach.LifeForceShard:  # intended path omitted in moki
     moki:
-      Burrow, Bash, Grenade=1, Glide, DoubleJump
       Burrow, Launch
     gorlek:
       Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Glide
@@ -5478,9 +5476,8 @@ anchor UpperReach.KeystoneRoom at -298, -3919:  # At Tokk
       Burrow, Bash, Glide OR Sword
       Burrow, Bash, Grenade=1, Sword OR Hammer  # grenade from under LifeForceEX, burrow to reach it it then land near the pickup
       Burrow, DoubleJump, TripleJump OR Hammer OR Sword  # From under LifeForceEX, get out of the burrow section straight up. Hard to do on keyboard
-  pickup UpperReach.LifeForceEX:
+  pickup UpperReach.LifeForceEX:  # intended path omitted in moki
     moki:
-      Burrow, Bash, Grenade=1, Glide, DoubleJump
       Burrow, Launch
     gorlek:
       Burrow, Bash, Grenade=1, DoubleJump OR Dash OR Glide
@@ -7433,8 +7430,8 @@ anchor WestPools at -1656, -4171:  # the west Pools TP
       DoubleJump, TripleJump OR Dash OR Sword OR Hammer  # wall jump from the right wall. With weapons, climb the right wall then djump+ upslash. TripleJump might be Gorlek
   pickup WestPools.BurrowEX:
     moki: Water, Burrow
-  pickup WestPools.BurrowOre:
-    moki: WestPools.ForestsStrength, Water, WaterDash, Burrow
+  pickup WestPools.BurrowOre:  # intended path omitted in moki
+    gorlek: WestPools.ForestsStrength, Water, WaterDash, Burrow
     unsafe: WestPools.ForestsStrength, Water, Burrow
   pickup WestPools.EscapeRevisitEX:
     moki, WestPools.ForestsStrength:
@@ -7978,13 +7975,11 @@ anchor UpperWastes.KeystoneRoom at 1900, -3831:  # Autosave underneath keystone 
     moki: Burrow, DoubleJump OR Dash OR Glide OR Launch
     gorlek: Burrow  # land on the right platform, burrow the sandbag from there
   pickup UpperWastes.TurmoilShard:
-    moki:  # this area seems a bit hard, not sure what intended is like.
-      Burrow, Bash, DoubleJump, Dash  # intended way?
-      Burrow, Bash, Launch
+    moki: Burrow, Bash, Launch  # intended path omitted in moki
     gorlek:
+      Burrow, Bash, DoubleJump, Dash OR TripleJump
       Burrow, Launch, DoubleJump
       Burrow, Launch, Damage=30, Dash OR Glide OR Sword OR Hammer
-      Burrow, Bash, DoubleJump, TripleJump
     unsafe:
       Burrow, DoubleJump, Bash, SentryJump=1, Damage=30  # sjump in the spikes below the 3rd projectile
       Burrow, DoubleJump, TripleJump, Dash, Damage=30, Hammer OR Sword  # tjump + upslash, immediatly dash and start air combo. Precise tjump to get a walljump, tjump in the spikes above.
