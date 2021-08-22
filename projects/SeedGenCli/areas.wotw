@@ -7385,13 +7385,13 @@ anchor UpperPools.BubbleSpamRoom at -1586, -4053:  # To the right of where all t
     moki:
       Water, Bash, DoubleJump OR Launch
       Water, WaterDash
-    gorlek:  # The torpedo won't hit you if you are touching the breakable wall
+    gorlek:
       Water, Bash, Grenade=1
-      Water, Launch, Damage=20
-      Water, DoubleJump, TripleJump, Sword OR Hammer
-    unsafe:
+    unsafe:  # The torpedo won't hit you if you are touching the breakable wall
       Water, Grenade=1
+      Water, DoubleJump, TripleJump, Sword OR Hammer
       Water, SwordSJump=1  # sword combo before hitting the spikes
+      Water, Launch, Damage=20
   pickup UpperPools.BubblesEC:
     moki:
       Combat=Bee+Skeeto, DoubleJump, Dash OR Glide
