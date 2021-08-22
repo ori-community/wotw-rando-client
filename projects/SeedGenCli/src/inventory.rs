@@ -100,11 +100,12 @@ impl Item {
             Item::Skill(skill) => match skill {
                 Skill::AncestralLight => pathsets.contains(Pathset::Unsafe),
                 Skill::Shuriken | Skill::Blaze | Skill::Sentry => pathsets.contains(Pathset::Gorlek),
-                Skill::WaterBreath | Skill::Seir | Skill::WallJump => false,
+                Skill::Seir | Skill::WallJump => false,
                 Skill::Bash |
                 Skill::DoubleJump |
                 Skill::Launch |
                 Skill::Glide |
+                Skill::WaterBreath |
                 Skill::Grenade |
                 Skill::Grapple |
                 Skill::Flash |
