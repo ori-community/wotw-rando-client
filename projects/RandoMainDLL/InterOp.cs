@@ -182,8 +182,6 @@ namespace RandoMainDLL {
     public extern static void toggle_always_show_keystones();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_autoaim(bool enabled);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void explode_grenades();
 
     private static List<GCHandle> handles;
