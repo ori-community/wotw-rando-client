@@ -8,10 +8,10 @@
 !!exclude opher_upgrades
 !!exclude bonus_items
 
-!!add 3x 10|30	// Health Regen
-!!add 3x 10|31	// Energy Regen
-!!add 2x 10|35	// Extra Double Jump
-!!add 2x 10|36	// Extra Air Dash
+!!add 3x 10|30  // Health Regen
+!!add 3x 10|31  // Energy Regen
+!!add 2x 10|35  // Extra Double Jump
+!!add 2x 10|36  // Extra Air Dash
 
 !!add 11|2      // Blaze Efficiency
 !!add 11|3      // Spike Efficiency

@@ -5,29 +5,26 @@
 !!exclude opher_upgrades
 !!exclude bonus_items
 
-!!pool 10|30 	//Health Regen
-!!pool 10|31	//Energy Regen
-!!pool 10|35	//Extra Double Jump
-!!pool 10|36	//Extra Airdash
-
-!!pool 11|0 	//Rapid Hammer
-!!pool 11|1 	//Rapid Sword
-!!pool 11|2 	//Blaze Efficiency
-!!pool 11|3 	//Spike Efficiency
-!!pool 11|4 	//Shuriken Efficiency
-!!pool 11|5 	//Sentry Efficiency
-!!pool 11|6 	//Bow Efficiency
-!!pool 11|7 	//Regeneration Efficiency
-!!pool 11|8 	//Flash Efficiency
-!!pool 11|9 	//Grenade Efficiency
-!!pool 11|45 	//Exploding Spike
-!!pool 11|46 	//Shock Smash
-!!pool 11|47 	//Static Star
-!!pool 11|48 	//Charge Blaze
-!!pool 11|49 	//Rapid Sentry
-
-
-//place upgrades in OpherShop
+!!pool 10|30    // Health Regen
+!!pool 10|31    // Energy Regen
+!!pool 10|35    // Extra Double Jump
+!!pool 10|36    // Extra Airdash
+!!pool 11|0     // Rapid Hammer
+!!pool 11|1     // Rapid Sword
+!!pool 11|2     // Blaze Efficiency
+!!pool 11|3     // Spike Efficiency
+!!pool 11|4     // Shuriken Efficiency
+!!pool 11|5     // Sentry Efficiency
+!!pool 11|6     // Bow Efficiency
+!!pool 11|7     // Regeneration Efficiency
+!!pool 11|8     // Flash Efficiency
+!!pool 11|9     // Grenade Efficiency
+!!pool 11|45    // Exploding Spike
+!!pool 11|46    // Shock Smash
+!!pool 11|47    // Static Star
+!!pool 11|48    // Charge Blaze
+!!pool 11|49    // Rapid Sentry
+// place upgrades in OpherShop
 1|74|!!take
 1|1074|!!take
 1|98|!!take
@@ -38,23 +35,12 @@
 1|1115|!!take
 1|116|!!take
 1|1116|!!take
-
-//place remaining upgrades in pool
-!!add !!take
-!!add !!take
-!!add !!take
-!!add !!take
-!!add !!take
-!!add !!take
-!!add !!take
-!!add !!take
-!!add !!take
-
-!!add 2x 10|30 //health regen
-!!add 2x 10|31 //energy regen
+// place remaining upgrades in pool
+!!addpool 9x
+!!add 2x 10|30  // health regen
+!!add 2x 10|31  // energy regen
 
 // Set prices on load
-
 3|1|8|1|10074|int|300
 3|1|8|1|11074|int|300
 3|1|8|1|10098|int|300
