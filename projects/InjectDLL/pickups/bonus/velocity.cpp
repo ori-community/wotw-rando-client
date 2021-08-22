@@ -38,6 +38,7 @@ namespace
         SeinDashNew::OnProcessRootMotion(this_ptr, root_velocity);
     }
 
+    bool override_animation = false;
     float initial_bash_speed;
     float initial_bash_force;
     float initial_bash_enemy_force;
@@ -53,6 +54,20 @@ namespace
         this_ptr->fields.BashVelocity = initial_bash_speed * modifier;
         this_ptr->fields.EnemyThrowForce = initial_bash_enemy_force * modifier;
         SeinBashAttack::BeginBash(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, SeinBashAttack, void, UpdateCharacterState, (app::SeinBashAttack* this_ptr)) {
+        override_animation = true;
+        SeinBashAttack::UpdateCharacterState(this_ptr);
+        override_animation = false;
+    }
+
+    IL2CPP_INTERCEPT(UnityEngine, AnimationCurve, float, Evaluate, (app::SeinBashAttack* this_ptr, float value)) {
+        auto output = AnimationCurve::Evaluate(this_ptr, value);
+        if (override_animation)
+            output *= uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, BASH_SPEED_MULTIPLIER);
+
+        return output;
     }
 
     float initial_burrow_speed;
