@@ -1,0 +1,29 @@
+/// Shopsanity
+///
+/// Puts all Opher upgrades and bonus items in the pool
+/// Random items will spawn in Opher's Shop
+/// Not compatible with opher_upgrades or bonus_items
+/// works fine with hints and black market
+
+!!exclude opher_upgrades
+!!exclude bonus_items
+
+!!add 3x 10|30  // Health Regen
+!!add 3x 10|31  // Energy Regen
+!!add 2x 10|35  // Extra Double Jump
+!!add 2x 10|36  // Extra Air Dash
+
+!!add 11|2      // Blaze Efficiency
+!!add 11|3      // Spike Efficiency
+!!add 11|4      // Shuriken Efficiency
+!!add 11|5      // Sentry Efficiency
+!!add 11|6      // Bow Efficiency
+!!add 11|7      // Regeneration Efficiency
+!!add 11|8      // Flash Efficiency
+!!add 11|9      // Grenade Efficiency
+
+!!add 11|45    	// Exploding Spike
+!!add 11|46    	// Shock Smash
+!!add 11|47    	// Static Star
+!!add 11|48    	// Charge Blaze
+!!add 11|49    	// Rapid Sentry
