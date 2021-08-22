@@ -28,7 +28,8 @@
 3|0|8|10289|43103|bool|true  // Windtorn Ruins TP Pillar	WindtornRuins.PillarBroken, 10289, 43103
 3|0|8|36153|23584|bool|true  // Elevator Fight				WeepingRidge.ElevatorFightCompleted, 36153, 23584
 3|0|8|5377|14488|bool|true  // Pools Entry Lever Door		EastPools.EntryLever, 5377, 14488
-3|0|8|5377|10782|bool|true  // Pools Breakable Wall 		EastPools.PurpleWall, 5377, 10782
+3|0|8|5377|10782|bool|true  // Pools Breakable Wall 		EastPools.CentralRoomPurpleWall, 5377, 10782
 3|0|8|5377|29911|bool|true  // Lantern Plant Puzzle			UpperPools.UpperWaterDrained, 5377, 29911
 3|0|8|5377|15402|bool|true  // Button Door Above WDTree		UpperPools.ButtonDoorAboveTree, 5377, 15402
 3|0|4|11|631536139|1230316956 // Flap Bubble				EastPools.FlapBubble
+!!set EastPools.EntryBubblesFree

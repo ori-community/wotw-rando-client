@@ -1707,7 +1707,7 @@ region EastHollow:
 anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
   refill Full
 
-  state EastHollow.HornbugDoor:
+  state EastHollow.VoiceDoor:
     moki: EastHollow.ForestsVoice
 
   pickup EastHollow.HornBeetleFightEX:
@@ -1740,13 +1740,13 @@ anchor EastHollow.Teleporter at -150, -4238:  # the teleporter
       Hammer, DoubleJump                         # HammerJump
       # WaveDash, DoubleJump                     # wavedash off the teleporter
   conn EastHollow.MapMoki:
-    moki, EastHollow.BeetleDefeated, EastHollow.HornbugDoor:
+    moki, EastHollow.BeetleDefeated, EastHollow.VoiceDoor:
       Bash, DoubleJump OR Dash OR Glide
       Launch
-    gorlek, EastHollow.HornbugDoor:
+    gorlek, EastHollow.VoiceDoor:
       Bash, DoubleJump OR Dash OR Glide OR Sword OR Hammer
       Launch
-    unsafe, EastHollow.HornbugDoor:
+    unsafe, EastHollow.VoiceDoor:
       Bash
       Hammer, DoubleJump  # HammerJump
       # Bash, Grenade=1
@@ -1785,8 +1785,8 @@ anchor EastHollow.MapMoki at -106, -4221:  # after crossing the voicelocked door
   # backwards connections can't cross the door; having Voice should always imply an easier way of getting on the other side
 
   conn EastHollow.Teleporter:
-    moki: EastHollow.HornbugDoor, DoubleJump OR Dash OR Glide OR Bash OR Launch
-    gorlek: EastHollow.HornbugDoor
+    moki: EastHollow.VoiceDoor, DoubleJump OR Dash OR Glide OR Bash OR Launch
+    gorlek: EastHollow.VoiceDoor
 
 anchor EastHollow.OutsideGlades at -152, -4164:  # Outside Grom's Wall
   state GladesTown.GromsWall:
@@ -1808,7 +1808,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
     unsafe:
         Launch      # launch at touch the breakable ceiling when the slug shoots so it shoots its pojectile at the ceiling
         Hammer, DoubleJump OR Dash    # Hammer onto the jumppad when the slug is shooting. DJ or Dash to stay at the ceiling longer
-  state EastHollow.HornbugDoor:
+  state EastHollow.VoiceDoor:
     moki: EastHollow.ForestsVoice
 
   pickup EastHollow.SpikeLanternEX:
@@ -4893,7 +4893,7 @@ anchor LowerReach.OutsideTPRoom at -311, -3970:  # To the left of the teleporter
     moki: Grenade=1
     gorlek: SentryBurn=1
 
-anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the teleporter pickup
+anchor LowerReach.Teleporter at -259, -3962:
   refill Full
 
   conn Teleporters: free
@@ -4904,14 +4904,16 @@ anchor LowerReach.Teleporter at -259, -3962:  # This has to exist to support the
     moki: LowerReach.TPLantern
   conn LowerReach.East:
     moki, LowerReach.TPLantern:
+      Bash, Grenade=2, DoubleJump OR Dash OR Glide  # The first Grenade may hit the enemy
       Launch
-      Bash, Grenade=1, DoubleJump OR Glide OR Dash
     gorlek, LowerReach.TPLantern:
-      Bash, Grenade=1, Sword OR Hammer
-      DoubleJump, TripleJump, Bash OR Dash OR Glide OR Sword OR Hammer
-      HammerSJump=1, DoubleJump, Dash OR TripleJump OR Glide
-      SwordSJump=1, DoubleJump OR Dash  # sword hover as well
+      Bash, Grenade=1, DoubleJump OR Dash OR Glide OR Sword OR Hammer
+      Grenade=1 OR Spear=1:  # drop the slime for leniency
+        HammerSJump=1, DoubleJump, TripleJump OR Dash OR Glide
+        HammerSJump=1, Dash, Glide
+        SwordSJump=1, DoubleJump OR Dash
     unsafe, LowerReach.TPLantern:
+      DoubleJump, TripleJump
       Bash, Grenade=1
       SentryJump=1  # sjump from the right frozen plant
       Bash, Dash, SentryBurn=1  # Melt the ice, bring the tentacle shot to the right to pass over the gap
@@ -5051,28 +5053,30 @@ anchor LowerReach.SoupMoki at -240, -3989:  # Below the reach teleporter, where 
     unsafe: free
   conn LowerReach.East:
     moki:
-      DoubleJump, Dash, Bash, Grenade=2
+      Bash, Grenade=2, DoubleJump, Dash
       Launch
     gorlek:
-      SwordSJump=2, DoubleJump
-      DoubleJump, TripleJump, Bash, Grenade=2
+      SentryJump=2, DoubleJump, TripleJump, Grenade=1 OR Spear=1  # drop the slime for leniency
+      SentryJump=2, DoubleJump, Dash, Grenade=1 OR Spear=1  # drop the slime for leniency
+      Bash, Grenade=2, DoubleJump, TripleJump
     unsafe:
       Bash, Grenade=1  # Bash the slime
       SentryJump=2
       DoubleJump, TripleJump, Dash OR Sword  # climb the wall near the moki, dash then triple jump to the wall to reset your jumps and dash + triple jump to reach the plant. With sword, pogo the fire, triple jump + upslash to reach the wall to reset your jumps then sword jump to the plant
+  # TODO connect to teleporter + relatedly TPLantern
 
 anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp room
   refill Checkpoint
   # could be considered moving this anchor to the left, closer to the teleporter, if it gets important on higher difficulties
 
-  state LowerReach.TPLantern:
+  state LowerReach.TPLantern:  # The slug despawns from the nearby checkpoint
     moki: Grenade=1, Combat=WeakSlug OR Bash
     gorlek:
-      SentryBurn=1, Launch
-      SentryBurn=1, SwordSJump=1
-      SentryBurn=1, DoubleJump, TripleJump
-    unsafe:
+      Grenade=1
       SentryBurn=1, SentryJump=1
+      SentryBurn=1, DoubleJump, TripleJump
+      SentryBurn=1, Launch
+    unsafe:
       SentryBurn=1, DoubleJump, Hammer
 
   state LowerReach.RolledSnowball:
@@ -5091,7 +5095,10 @@ anchor LowerReach.East at -182, -3968:  # Right of the Lantern opening the Tp ro
     gorlek: LowerReach.RolledSnowball, Burrow  # Dash in the snow before exiting the burrow section to get momentum
 
   conn LowerReach.Teleporter:
-    moki: LowerReach.TPLantern, Combat=WeakSlug, DoubleJump OR Dash OR Glide OR Launch
+    moki, LowerReach.TPLantern:
+      Combat=WeakSlug, DoubleJump OR Dash OR Glide
+      Bash, DoubleJump OR Dash OR Glide
+      Launch
     gorlek, LowerReach.TPLantern:
       Bash, Grenade=1
       Sword OR Hammer
@@ -6653,7 +6660,9 @@ anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
   refill Checkpoint
   refill Health=1
 
-  # The first bubbles here only spawn if you have Flap!
+  state EastPools.EntryBubblesFree:  # these spawn once you have Flap
+    moki: Flap
+
   pickup EastPools.TwoCrushersEX:
     moki: Water, WaterDash
     unsafe:
@@ -6662,7 +6671,7 @@ anchor EastPools.Entry at -1122, -4166:  # At the Voice dialogue
 
   conn EastPools.LeverRoom:
     moki:
-      Flap OR Launch  # Flap makes the bubbles spawn
+      EastPools.EntryBubblesFree OR Launch
       Bash, Grenade=1
     gorlek:
       SentryJump=1
