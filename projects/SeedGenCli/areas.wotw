@@ -3114,7 +3114,7 @@ anchor OuterWellspring.AboveEntranceDoor at -837, -4026:  # at the crystal above
       Grapple, DoubleJump, Dash
       Grapple, Glide
     gorlek:
-      Grapple, DoubleJump OR Dash OR Glide OR Sword OR HammerSJump=1 OR Damage=10
+      Grapple, DoubleJump OR Dash OR Glide OR Sword OR HammerSJump=1 OR Damage=15  # depending on the spikes you hit, you may take 10 or 15 damage oriShrug
       Grapple, Bash, Grenade=1
       DoubleJump, TripleJump  # climb the far left wall
       Bash, Grenade=1, DoubleJump, Dash, Glide
