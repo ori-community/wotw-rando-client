@@ -62,6 +62,5 @@ if NOT "%1"=="buildonly" (
 		"C:\Program Files\7-Zip\7z.exe" a -tzip C:\moon\pdbs\pdbs.zip  C:\moon\InjectDLL.pdb C:\moon\RandoMainDLL.pdb C:\moon\Il2CppModLoader.pdb C:\moon\Common.pdb
 		echo wrote pdbs to C:\moon\pdbs\pdbs.zip
 	)
-	timeout /t 10
 )
 
