@@ -51,16 +51,6 @@ jobs:
           copy ".\loc_data.csv" "C:\moon\loc_data.csv" /Y
           copy ".\state_data.csv" "C:\moon\state_data.csv" /Y
           copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
-      - name: Extract tag
-        uses: olegtarasov/get-tag@v2.1
-        id: tagName
-        with:
-          tagRegex: "v?([^-]*)"
-      - name: Write version file
-        shell: cmd
-        run: |
-          echo Writing version file...
-          echo %GIT_TAG_NAME%> C:\moon\VERSION
       - name: Compiling AHK scripts
         shell: cmd
         timeout-minutes: 1
