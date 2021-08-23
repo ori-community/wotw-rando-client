@@ -13,6 +13,8 @@ jobs:
     outputs:
       branch: ${{ steps.get_branch.outputs.branch }}
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - name: Get Branch
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
