@@ -526,6 +526,7 @@ anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside 
       Bash, Grenade=1, Sword OR Hammer               # As above, but sword/hammer upslash to cross the last gap
       Grenade=2, DoubleJump            # Grenade jump to get to the vine, then jump right. Dboost the last gap. Grenade jump to EC.
       Dash, Sword, Regenerate OR Blaze  # wavedash
+      DoubleJump, Hammer              # HammerJump
   pickup MarshSpawn.RecklessShard:
     moki, MarshSpawn.HowlBurnt, BreakWall=10:
       DoubleJump OR Launch
