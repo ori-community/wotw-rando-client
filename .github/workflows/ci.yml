@@ -32,7 +32,7 @@ jobs:
       - name: Compile Solution
         shell: cmd
         run: |
-          msbuild -t:INSTALL_RUNTIME -p:Configuration=RelWithDebInfo -p:Platform=x64 build\win64\WotWRandomizer.sln
+          msbuild -t:CMakePredefinedTargets\INSTALL_RUNTIME -p:Configuration=RelWithDebInfo -p:Platform=x64 build\win64\WotWRandomizer.sln
           IF ERRORLEVEL 1 (
             echo BUILD FAILED
             exit 1
