@@ -19,6 +19,8 @@ jobs:
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw/origin\/}
+          echo branch=$branch
+          echo ref=${{ github.ref }}
           echo ::set-output name=branch::$branch
   build:
     runs-on: windows-2019
