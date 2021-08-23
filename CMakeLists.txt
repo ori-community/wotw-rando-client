@@ -113,6 +113,7 @@ add_custom_target(
 	ALL
 	cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
 	DEPENDS Il2CppModLoader InjectDLL WinNetwork InjectLoader Injector RandoMainDLL TraceClientManaged SeedGenCli
+	COMMAND cmake -E copy ${CMAKE_ROOT_DIRECTORY}/ext/lib/discord_game_sdk.dll c:/moon
 )
 
 set_target_properties(
