@@ -2,11 +2,25 @@ name: Build WotW Rando
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+    tags:
+      - '*'
 
 jobs:
+  meta:
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.get_branch.outputs.branch }}
+    steps:
+      - name: Get Branch
+        run: |
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw/origin\/}
+          echo ::set-output name=branch::$branch
   build:
     runs-on: windows-2019
+    needs: meta
     steps:
       - name: Set up directories
         run: "md -Path 'C:\\moon'"
@@ -73,7 +87,7 @@ jobs:
           name: pdbs
           path: 'C:\moon\pdbs.zip'
       - name: Create draft release
-        if: ${{ startsWith('refs/tags/', github.ref) }}
+        if: ${{ needs.meta.outputs.branch == 'master' && startsWith('refs/tags/', github.ref) }}
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -85,7 +99,7 @@ jobs:
           draft: true
           prerelease: false
       - name: Release WotwRando.exe
-        if: ${{ startsWith('refs/tags/', github.ref) }}
+        if: ${{ needs.meta.outputs.branch == 'master' && startsWith('refs/tags/', github.ref) }}
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -95,7 +109,7 @@ jobs:
           asset_name: WotwRando.exe
           asset_content_type: application/octet-stream
       - name: Release VERSION
-        if: ${{ startsWith('refs/tags/', github.ref) }}
+        if: ${{ needs.meta.outputs.branch == 'master' && startsWith('refs/tags/', github.ref) }}
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
