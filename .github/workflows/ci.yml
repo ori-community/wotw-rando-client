@@ -28,6 +28,12 @@ jobs:
     runs-on: windows-2019
     needs: meta
     steps:
+      - name: Meta info
+        run: |
+          echo branch=${{ needs.meta.outputs.branch }}
+          echo ref=${{ github.ref }}
+      - name: Set up directories
+        run: "md -Path 'C:\\moon'"
       - name: Extract tag
         uses: olegtarasov/get-tag@v2.1
         id: tagName
@@ -38,12 +44,6 @@ jobs:
         run: |
           echo Writing version file...
           if "%GIT_TAG_NAME%" == "" ( echo develop> C:\moon\VERSION ) else ( echo %GIT_TAG_NAME%> C:\moon\VERSION )
-      - name: Meta info
-        run: |
-          echo branch=${{ needs.meta.outputs.branch }}
-          echo ref=${{ github.ref }}
-      - name: Set up directories
-        run: "md -Path 'C:\\moon'"
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Install MSVC developer tools
