@@ -27,6 +27,10 @@ jobs:
     runs-on: windows-2019
     needs: meta
     steps:
+      - name: Meta info
+        run: |
+          echo branch=${{ needs.meta.outputs.branch }}
+          echo ref=${{ github.ref }}
       - name: Set up directories
         run: "md -Path 'C:\\moon'"
       - name: Check out repository code
