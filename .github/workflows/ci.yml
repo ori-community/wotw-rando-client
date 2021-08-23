@@ -29,7 +29,7 @@ jobs:
       - name: Generate solution
         shell: cmd
         run: "gen_win64_vs2019.bat"
-      - name: Compile Solution
+      - name: Compile Wotw Rando
         shell: cmd
         run: |
           msbuild -t:CMakePredefinedTargets\INSTALL_RUNTIME -p:Configuration=RelWithDebInfo -p:Platform=x64 build\win64\WotWRandomizer.sln
@@ -37,6 +37,34 @@ jobs:
             echo BUILD FAILED
             exit 1
           )
-      - name: Build dependencies and package
+      - name: Build Seedgen
         shell: cmd
-        run: "compile.bat nobuild"
+        run: |
+          cd projects/SeedgenCli
+          cargo build --release
+          copy ".\target\release\seedgen.exe" "C:\moon\seedgen.exe"
+          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\headers_presets.zip headers presets
+          copy ".\loc_data.csv" "C:\moon\loc_data.csv" /Y
+          copy ".\state_data.csv" "C:\moon\state_data.csv" /Y
+          copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
+      - name: Compiling AHK scripts
+        shell: cmd
+        timeout-minutes: 1
+        run: |
+          ".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
+          ".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
+          ".\ext\ahk\Ahk2Exe.exe" /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
+      - name: Compressing PDBs
+        shell: cmd
+        run: |
+          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\pdbs.zip  C:\moon\InjectDLL.pdb C:\moon\RandoMainDLL.pdb C:\moon\Il2CppModLoader.pdb C:\moon\Common.pdb
+      - name: Archive WotwRando.exe
+        uses: actions/upload-artifact@v2
+        with:
+          name: wotw-rando-exe
+          path: 'C:\moon\WotwRando.exe'
+      - name: Archive PDBs
+        uses: actions/upload-artifact@v2
+        with:
+          name: pdbs
+          path: 'C:\moon\pdbs.zip'
