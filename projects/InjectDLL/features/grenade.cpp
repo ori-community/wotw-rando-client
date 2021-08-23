@@ -20,6 +20,7 @@ namespace
     const int GRENADE_CHARGE_TIME_MODIFIER_ID = 44;
     const int GRENADE_MULTISHOT_ID = 45;
 
+    constexpr float MULTI_GRENADE_OFFSET_MAGNITUDE = 2.0f;
     constexpr float MULTI_GRENADE_ANGLE = PI / 32.0f;
 
     bool explode = false;
@@ -49,6 +50,24 @@ namespace
         return SpiritGrenade::CanBeBashed(this_ptr);
     }
 
+    //IL2CPP_BINDING(UnityEngine, Collision, app::GameObject*, get_gameObject, (app::Collision* this_ptr))
+    //IL2CPP_INTERCEPT(, SpiritGrenade, void, OnCollisionEnter, (app::SpiritGrenade* this_ptr, app::Collision* collision)) {
+    //    auto* go = Collision::get_gameObject(collision);
+    //    auto grenades = il2cpp::unity::get_components(go, "", "SpiritGrenade");
+    //    if (!grenades.empty())
+    //        return;
+    //
+    //    SpiritGrenade::OnCollisionEnter(this_ptr, collision);
+    //}
+    //
+    //IL2CPP_INTERCEPT(, SpiritGrenade, bool, ShouldDealDamage, (app::SpiritGrenade* this_ptr, app::GameObject* go)) {
+    //    auto grenades = il2cpp::unity::get_components(go, "", "SpiritGrenade");
+    //    if (grenades.empty())
+    //        return false;
+    //
+    //    return SpiritGrenade::ShouldDealDamage(this_ptr, go);
+    //}
+
     IL2CPP_INTERCEPT(, SeinGrenadeAttack, void, Start, (app::SeinGrenadeAttack* this_ptr)) {
         this_ptr->fields.m_explodeWithSecondButtonPress =
             !(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, EXTRA_GRENADES_ID) > 0.1f);
@@ -66,16 +85,13 @@ namespace
         const auto multi_grenade = static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, GRENADE_MULTISHOT_ID));
         if (!is_fractured_piece && multi_grenade > 0)
         {
-            MULTI_GRENADE_ANGLE;
-            float magnitude = std::sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
-            float angle = std::atan2(velocity.y, velocity.x);
+            float angle_increment = 2 * PI / multi_grenade;
             for (int i = 0; i < multi_grenade; ++i)
             {
-                float dir = i % 2 == 0 ? -1 : 1;
-                float angle_offset = angle + (i / 2 + 1) * dir * MULTI_GRENADE_ANGLE;
+                float angle_offset = i * angle_increment;
                 app::Vector2 new_velocity;
-                new_velocity.x = magnitude * cosf(angle_offset);
-                new_velocity.y = magnitude * sinf(angle_offset);
+                new_velocity.x = velocity.x + MULTI_GRENADE_OFFSET_MAGNITUDE * cosf(angle_offset);
+                new_velocity.y = velocity.y + MULTI_GRENADE_OFFSET_MAGNITUDE * sinf(angle_offset);
                 SeinGrenadeAttack::SpawnGrenadeInternal(this_ptr, new_velocity, bashable, damage, position, can_fracture, is_fractured_piece);
             }
         }
@@ -110,7 +126,8 @@ namespace
     
         if (SHOULD_EXPLODE_WHEN_GOING_OVER_LIMIT)
         {
-            const auto grenade_limit = static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, EXTRA_GRENADES_ID)) + 1;
+            auto grenade_limit = static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, EXTRA_GRENADES_ID)) + 1;
+            grenade_limit *= (static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, GRENADE_MULTISHOT_ID)) + 1);
             const auto grenade_count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
             this_ptr->fields.m_explodeWithSecondButtonPress = grenade_count >= grenade_limit;
         }
@@ -136,7 +153,7 @@ namespace
     
     IL2CPP_INTERCEPT(, SeinGrenadeAttack, bool, get_CanAim, (app::SeinGrenadeAttack * this_ptr)) {
         auto grenade_limit = static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, EXTRA_GRENADES_ID)) + 1;
-        grenade_limit *= static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, GRENADE_MULTISHOT_ID));
+        grenade_limit *= (static_cast<int32_t>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, GRENADE_MULTISHOT_ID)) + 1);
         return count_grenades(this_ptr) < grenade_limit && this_ptr->fields.m_timeTillProjectileSpawn <= 0.0f;
     }
 }
