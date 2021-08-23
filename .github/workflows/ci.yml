@@ -18,6 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Get Branch
+        id: get_branch
         run: |
           branch=$(git branch -r --contains ${{ github.ref }} | grep -oP 'origin/\K\w+' | tail -1)
           echo branch=$branch
