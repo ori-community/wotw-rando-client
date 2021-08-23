@@ -1,0 +1,42 @@
+name: Build WotW Rando
+on: [push]
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - name: Set up directories
+        run: "md -Path 'C:\\moon'"
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install MSVC developer tools
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "12.0.1"
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+      - name: Setup Rust
+        uses: ATiltedTree/setup-rust@v1
+        with:
+          rust-version: stable
+      - name: Generate solution
+        shell: cmd
+        run: "gen_win64_vs2019.bat"
+      - name: Compile Solution
+        shell: cmd
+        run: |
+          msbuild -t:INSTALL_RUNTIME -p:Configuration=RelWithDebInfo -p:Platform=x64 build\win64\WotWRandomizer.sln
+          IF ERRORLEVEL 1 (
+            echo BUILD FAILED
+            exit 1
+          )
+      - name: Build dependencies and package
+        shell: cmd
+        run: "compile.bat nobuild"
