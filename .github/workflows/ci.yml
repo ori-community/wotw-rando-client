@@ -1,5 +1,9 @@
 name: Build WotW Rando
-on: [push]
+
+on:
+  push:
+    branches: [master]
+
 jobs:
   build:
     runs-on: windows-2019
@@ -47,6 +51,16 @@ jobs:
           copy ".\loc_data.csv" "C:\moon\loc_data.csv" /Y
           copy ".\state_data.csv" "C:\moon\state_data.csv" /Y
           copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
+      - name: Extract tag
+        uses: olegtarasov/get-tag@v2.1
+        id: tagName
+        with:
+          tagRegex: "v?([^-]*)"
+      - name: Write version file
+        shell: cmd
+        run: |
+          echo Writing version file...
+          echo %GIT_TAG_NAME%> C:\moon\VERSION
       - name: Compiling AHK scripts
         shell: cmd
         timeout-minutes: 1
@@ -68,3 +82,37 @@ jobs:
         with:
           name: pdbs
           path: 'C:\moon\pdbs.zip'
+      - name: Create draft release
+        if: ${{ startsWith('refs/tags/', github.ref) }}
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: v${{ github.ref }}
+          body: TODO
+          draft: true
+          prerelease: false
+      - name: Release WotwRando.exe
+        if: ${{ startsWith('refs/tags/', github.ref) }}
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: 'C:\moon\WotwRando.exe'
+          asset_name: WotwRando.exe
+          asset_content_type: application/octet-stream
+      - name: Release VERSION
+        if: ${{ startsWith('refs/tags/', github.ref) }}
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: 'C:\moon\VERSION'
+          asset_name: VERSION
+          asset_content_type: text/plain
