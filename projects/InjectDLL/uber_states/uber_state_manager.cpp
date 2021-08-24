@@ -320,16 +320,19 @@ namespace uber_states
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", "npcsStateGroup", 48248, "Has bought everything", 20000, false),
                 };
 
-                int i = 0;
-                for (; i < 100; ++i)
+                const int PLANDO_INT_COUNT = 100;
+                const int PLANDO_BOOL_COUNT = 50;
+                const int PLANDO_FLOAT_COUNT = 25;
+
+                for (int i = 0; i < PLANDO_INT_COUNT; ++i)
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::PLANDO_VARS_GROUP_NAME,
                         constants::PLANDO_VARS_GROUP_ID, format("%3d_int", i), i, 0));
-                for (; i < 150; ++i)
+                for (int i = 0; i < PLANDO_BOOL_COUNT; ++i)
                     states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::PLANDO_VARS_GROUP_NAME,
-                        constants::PLANDO_VARS_GROUP_ID, format("%3d_bool", i), i, false));
-                for (; i < 25; ++i)
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_bool", i), i + PLANDO_INT_COUNT, false));
+                for (int i = 0; i < PLANDO_FLOAT_COUNT; ++i)
                     states.push_back(add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::PLANDO_VARS_GROUP_NAME,
-                        constants::PLANDO_VARS_GROUP_ID, format("%3d_float", i), i, false));
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_float", i), i + PLANDO_INT_COUNT + PLANDO_BOOL_COUNT, false));
 
                 for (i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
                 {
