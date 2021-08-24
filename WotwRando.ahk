@@ -342,12 +342,6 @@ Else
 return
 
 CheckForUpdates:
-FileGetTime, LastModified, %INSTALL_DIR%VERSION, M
-minSinceLastCheck := A_Now
-EnvSub, minSinceLastCheck, LastModified, Minutes
-if(minSinceLastCheck < 15)  ; don't check updates more than once every 15 minutes
-    return
-
 SplashTextOn,,,Checking for updates...
 Try {
     whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
@@ -370,13 +364,13 @@ Try {
     whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
     whr.Send() ; second
 
-    latest := whr.ResponseText
+    latest := Trim(whr.ResponseText, " \t\r\n")
     if((BetaVersions == "false") and RegExMatch(latest, "\.0$") == 0) {
         SplashTextOff
         return
     }
 
-    if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
+    if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(MY_VER, latest) == 1)) 
     {
         SplashTextOff
         Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%? `n`n %ReleaseNotes%
