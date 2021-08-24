@@ -367,13 +367,13 @@ Try {
     whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
     whr.Send() ; second
 
-    latest := Trim(whr.ResponseText, " \t\r\n")
+    latest := Trim(whr.ResponseText, " `t`r`n")
     if((BetaVersions == "false") and RegExMatch(latest, "\.0$") == 0) {
         SplashTextOff
         return
     }
 
-    if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(MY_VER, latest) == 1)) 
+    if(!semver_validate(MY_VER) Or (semver_validate(latest) and  semver_compare(latest, MY_VER) == 1)) 
     {
         SplashTextOff
         Msgbox 4, Ori WOTW Rando v%MY_VER%, Update to new Version %latest%? `n`n %ReleaseNotes%
