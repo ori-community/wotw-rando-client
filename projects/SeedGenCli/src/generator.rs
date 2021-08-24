@@ -20,7 +20,7 @@ use crate::util::{
     self,
     Resource, Skill, GoalMode,
     settings::Settings,
-    uberstate::UberState,
+    uberstate::{UberState, UberType},
     constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, PLACEHOLDER_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION},
 };
 
@@ -148,7 +148,10 @@ where
             price = u16::try_from(modified_price as i32).map_err(|_| format!("({}): Overflowed shop price for {} after adding a random amount to it", origin_player_name, item))?;
         }
 
-        let price_setter = Item::UberState(format!("{}|int|{}", price_uber_state, price));
+        let price_setter = UberState {
+            identifier: price_uber_state.clone(),
+            value: price.to_string(),
+        }.to_item(UberType::Int);
 
         log::trace!("({}): Placing {} at Spawn as price for the item below", origin_player_name, price_setter);
 
@@ -189,7 +192,7 @@ where
 
         let item_name = custom_name.unwrap_or_else(|| format!("$[{}]", code));
         let origin_message = Item::Message(format!("{}'s {}", target_player_name, item_name));
-        let send_item = Item::UberState(format!("12|{}|bool|true", state_index));
+        let send_item = UberState::from_parts("12" , &state_index.to_string())?.to_item(UberType::Bool);
         let target_message = Item::Message(format!("{} from {}|mute", item_name, origin_player_name));
         let target_uber_state = UberState::from_parts("12", &state_index.to_string())?;
 

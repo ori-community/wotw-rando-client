@@ -1,6 +1,7 @@
 use std::{
     collections::{HashSet, HashMap},
     path::{Path, PathBuf},
+    str::FromStr,
 };
 
 use rand::Rng;
@@ -10,11 +11,11 @@ use crate::world::{
     World,
     graph::Graph,
 };
-use crate::inventory::Item;
+use crate::inventory::{Item, UberStateItem, UberStateOperator, UberStateRange, UberStateRangeBoundary};
 use crate::util::{
     self, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
     settings::Settings,
-    uberstate::{UberState, UberIdentifier},
+    uberstate::{UberState, UberType, UberIdentifier},
 };
 
 fn end_of_pickup<'a, I>(mut parts: I) -> Result<(), String>
@@ -354,34 +355,104 @@ where P: Iterator<Item=&'a str>
     let message = parts.join("|");
     Ok(Item::Message(message))
 }
+fn parse_pointer(str: &str) -> Option<Result<UberIdentifier, String>> {
+    if let Some(str) = str.strip_prefix("$(") {
+        if let Some(pointer) = str.strip_suffix(")") {
+            let mut parts = pointer.splitn(2, '|');
+            let uber_group = parts.next().unwrap();
+            if let Some(uber_id) = parts.next() {
+                return Some(UberIdentifier::from_parts(uber_group, uber_id));
+            } else {
+                return Some(Err(String::from("Invalid uber identifier in pointer")));
+            }
+        } else {
+            return Some(Err(String::from("unmatched brackets")))
+        }
+    }
+
+    None
+}
 fn parse_set_uber_state<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
 {
     let uber_group = parts.next().ok_or_else(|| String::from("missing uber group"))?;
     let uber_id = parts.next().ok_or_else(|| String::from("missing uber id"))?;
-    UberIdentifier::from_parts(uber_group, uber_id)?;
+    let uber_identifier = UberIdentifier::from_parts(uber_group, uber_id)?;
 
     let uber_type = parts.next().ok_or_else(|| String::from("missing uber state type"))?;
-    let value = parts.next().ok_or_else(|| String::from("missing uber value"))?;
+    let uber_type = UberType::from_str(uber_type)?;
 
-    if let Some(suppress) = parts.next() {
-        suppress.parse::<u16>().map_err(|_| String::from("invalid suppress count"))?;
+    let mut remaining = &parts.into_iter().collect::<Vec<_>>().join("|")[..];
+
+    let mut signed = false;
+    let mut sign = false;
+    if remaining.starts_with('+') {
+        signed = true;
+        sign = true;
+    } else if remaining.starts_with('-') {
+        signed = true;
+    }
+    if signed {
+        if matches!(uber_type, UberType::Bool) { return Err(String::from("can't math with bools")); }
+        remaining = &remaining[1..];
     }
 
-    end_of_pickup(parts)?;
-
-    let strip_sign = |value: &'a str| -> &'a str { if value.starts_with(&['+', '-'][..]) { &value[1..] } else { value } };
-
-    match uber_type {
-        "bool" | "teleporter" => { value.parse::<bool>().map_err(|_| String::from("invalid uber value"))?; },
-        "byte" => { strip_sign(value).parse::<u8>().map_err(|_| String::from("invalid uber value"))?; },
-        "int" => { strip_sign(value).parse::<i32>().map_err(|_| String::from("invalid uber value"))?; },
-        "float" => { strip_sign(value).parse::<f32>().map_err(|_| String::from("invalid uber value"))?; },
-        _ => return Err(String::from("invalid uber state type")),
+    // TODO simulate suppress
+    if let Some(last) = remaining.rfind('|') {
+        let last_part = &remaining[last + 1..];
+        if last_part.parse::<u32>().is_ok() {
+            remaining = &remaining[..last];
+        }
     }
 
-    let command = format!("{}|{}|{}|{}", uber_group, uber_id, uber_type, value);
-    Ok(Item::UberState(command))
+    let parse_by_value = |value: &str| -> Result<(), String> {
+        match uber_type {
+            UberType::Bool | UberType::Teleporter => { value.parse::<bool>().map_err(|_| format!("failed to parse {} as boolean", value))?; },
+            UberType::Byte => { value.parse::<u8>().map_err(|_| format!("failed to parse {} as byte", value))?; },
+            UberType::Int => { value.parse::<i32>().map_err(|_| format!("failed to parse {} as integer", value))?; },
+            UberType::Float => { value.parse::<f32>().map_err(|_| format!("failed to parse {} as floating point", value))?; },
+        }
+        Ok(())
+    };
+
+    let operator = if let Some(range) = remaining.strip_prefix('[') {
+        if let Some(range) = range.strip_suffix(']') {
+            let mut parts = range.splitn(2, ',');
+            let start = parts.next().unwrap().trim();
+            let end = parts.next().ok_or_else(|| format!("missing range end"))?.trim();
+
+            let parse_boundary = |value: &str| -> Result<UberStateRangeBoundary, String> {
+                if let Some(uber_identifier) = parse_pointer(value) {
+                    Ok(UberStateRangeBoundary::Pointer(uber_identifier?))
+                } else {
+                    parse_by_value(value)?;
+                    Ok(UberStateRangeBoundary::Value(value.to_owned()))
+                }
+            };
+
+            let start = parse_boundary(start)?;
+            let end = parse_boundary(end)?;
+            Ok(UberStateOperator::Range(UberStateRange {
+                start,
+                end,
+            }))
+        } else {
+            Err(String::from("unmatched brackets"))
+        }
+    } else if let Some(pointer) = parse_pointer(remaining) {
+        Ok(UberStateOperator::Pointer(pointer?))
+    } else {
+        parse_by_value(remaining)?;
+        Ok(UberStateOperator::Value(remaining.to_owned()))
+    }?;
+
+    Ok(Item::UberState(UberStateItem {
+        uber_identifier,
+        uber_type,
+        signed,
+        sign,
+        operator,
+    }))
 }
 fn parse_world_event<'a, P>(mut parts: P) -> Result<Item, String>
 where P: Iterator<Item=&'a str>
@@ -859,22 +930,17 @@ where R: Rng + ?Sized
                 // if someone sets an uberstate on spawn, they probably don't want a pickup placed on it
                 if let Item::UberState(command) = &item {
                     if uber_state.identifier.uber_group == 3 && uber_state.identifier.uber_id == 0 {
-                        let mut parts = command.split('|');
-                        let uber_group = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
-                        let mut uber_id = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?.to_string();
-                        let uber_type = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
-                        let value = parts.next().ok_or_else(|| format!("malformed pickup {}", trimmed))?;
+                        if let UberStateOperator::Value(value) = &command.operator {
+                            let target = UberState {
+                                identifier: command.uber_identifier.clone(),
+                                value: value.to_owned(),
+                            };
 
-                        if uber_type != "bool" {
-                            uber_id.push('=');
-                            uber_id += value;
-                        }
-                        let target = UberState::from_parts(uber_group, &uber_id)?;
-
-                        if world.graph.nodes.iter().filter(|node| node.can_place()).any(|node| node.uber_state().map_or(false, |uber_state| uber_state == &target)) {
-                            log::trace!("adding an empty pickup at {} to prevent placements", target);
-                            let null_item = Item::Message(String::from("6|f=0|quiet|noclear"));
-                            world.preplace(target, null_item);
+                            if world.graph.nodes.iter().filter(|node| node.can_place()).any(|node| node.uber_state().map_or(false, |uber_state| uber_state == &target)) {
+                                log::trace!("adding an empty pickup at {} to prevent placements", command);
+                                let null_item = Item::Message(String::from("6|f=0|quiet|noclear"));
+                                world.preplace(target, null_item);
+                            }
                         }
                     }
                 }
@@ -968,28 +1034,33 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
 
             match item {
                 Item::UberState(command) => {
-                    let mut parts = command.split('|');
-                    let uber_group = parts.next().unwrap();
+                    if command.uber_identifier.uber_group != 9 { continue; }
 
-                    if uber_group != "9" { continue; }
-                    let uber_id = parts.next().unwrap();
-                    parts.next().unwrap();
-                    let mut uber_value = parts.next().unwrap();
+                    match command.operator {
+                        UberStateOperator::Value(mut value) => {
+                            if value == "true" {
+                                value = String::from("1");
+                            } else if value == "false" {
+                                value = String::from("0");
+                            }
 
-                    if uber_value == "true" {
-                        uber_value = "1";
-                    } else if uber_value == "false" {
-                        uber_value = "0";
+                            let uber_state = UberState {
+                                identifier: command.uber_identifier,
+                                value,
+                            };
+
+                            occupied_states.push(uber_state);
+                        },
+                        UberStateOperator::Pointer(_) | UberStateOperator::Range(_) => {
+                            let uber_state = UberState {
+                                identifier: command.uber_identifier,
+                                value: String::from("++"),  // represent a timer so that the sort will put it alongside + and - commands
+                            };
+
+                            occupied_states.push(uber_state);
+                        },
                     }
 
-                    let uber_state = UberIdentifier::from_parts(uber_group, uber_id).unwrap();
-
-                    let uber_state = UberState {
-                        identifier: uber_state,
-                        value: uber_value.to_string(),
-                    };
-
-                    occupied_states.push(uber_state);
                 },
                 Item::Command(Command::StartTimer { identifier }) |
                 Item::Command(Command::StopTimer { identifier }) => {
@@ -1248,7 +1319,7 @@ mod tests {
         assert!(parse_pickup("8|5|3|in|3").is_err());
         assert!(parse_pickup("8|5|3|bool|3").is_err());
         assert!(parse_pickup("8|5|3|float|hm").is_err());
-        assert_eq!(parse_pickup("8|5|3|int|6"), Ok(Item::UberState(String::from("5|3|int|6"))));
+        assert_eq!(parse_pickup("8|5|3|int|6"), Ok(UberState::from_parts("5", "3=6").unwrap().to_item(UberType::Int)));
         assert_eq!(parse_pickup("4|0"), Ok(Item::Command(Command::Autosave)));
         assert!(parse_pickup("12").is_err());
         assert!(parse_pickup("").is_err());
