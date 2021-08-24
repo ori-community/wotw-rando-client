@@ -86,11 +86,11 @@ jobs:
           echo Copying areas.wotw
           copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
       - name: Write version file
-        shell: cmd
+        shell: bash
         run: |
           echo Writing version file...
-          if "%GIT_TAG_NAME%" == "" ( echo develop> .\VERSION ) else ( echo %GIT_TAG_NAME%> .\VERSION )
-          copy .\VERSION C:\moon\VERSION
+          (if [[ -n "$GIT_TAG_NAME" ]]; then echo -n "$GIT_TAG_NAME"; else echo -n "develop"; fi) > VERSION
+          cp -f VERSION /c/moon/VERSION
       - name: Compiling AHK scripts
         shell: cmd
         timeout-minutes: 1
