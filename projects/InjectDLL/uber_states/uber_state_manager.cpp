@@ -334,7 +334,7 @@ namespace uber_states
                     states.push_back(add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::PLANDO_VARS_GROUP_NAME,
                         constants::PLANDO_VARS_GROUP_ID, format("%3d_float", i), i + PLANDO_INT_COUNT + PLANDO_BOOL_COUNT, false));
 
-                for (i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
+                for (int i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
                 {
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
                         constants::APPLIERS_GROUP_ID, format("%3d_id", i * 2), i * 2, 0));
@@ -342,7 +342,7 @@ namespace uber_states
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,
                         constants::APPLIERS_GROUP_ID, format("%3d_value", i * 2 + 1), i * 2 + 1, 0));
                 }
-                for (i = 0; i < 100; ++i) {
+                for (int i = 0; i < 100; ++i) {
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::MULTI_VARS_GROUP_NAME,
                         constants::MULTI_VARS_GROUP_ID, format("%3d_multi", i), i, 0));
                 }
