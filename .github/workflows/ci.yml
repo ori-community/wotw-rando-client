@@ -81,18 +81,26 @@ jobs:
         run: |
           cd projects/SeedgenCli
           cargo build --release
+          echo Copying seedgen.exe
           copy ".\target\release\seedgen.exe" "C:\moon\seedgen.exe"
+          echo Zipping headers_presets.zip
           C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\headers_presets.zip headers presets
+          echo Copying loc_data.csv
           copy ".\loc_data.csv" "C:\moon\loc_data.csv" /Y
+          echo Copying state_data.csv
           copy ".\state_data.csv" "C:\moon\state_data.csv" /Y
+          echo Copying areas.wotw
           copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
       - name: Compiling AHK scripts
         shell: cmd
         timeout-minutes: 1
         run: |
-          ".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
-          ".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
-          ".\ext\ahk\Ahk2Exe.exe" /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
+          ".\ext\ahk\Ahk2Exe.exe" /silent /verbose /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe" > error.txt
+          type error.txt
+          ".\ext\ahk\Ahk2Exe.exe" /silent /verbose /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe" > error.txt
+          type error.txt
+          ".\ext\ahk\Ahk2Exe.exe" /silent /verbose /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe" > error.txt
+          type error.txt
       - name: Compressing PDBs
         shell: cmd
         run: |
