@@ -39,13 +39,6 @@ jobs:
         id: tagName
         with:
           tagRegex: "v?([^-]*)"
-      - name: Write version file
-        shell: cmd
-        run: |
-          echo Writing version file...
-          if "%GIT_TAG_NAME%" == "" ( echo develop> .\VERSION ) else ( echo %GIT_TAG_NAME%> .\VERSION )
-          copy .\VERSION C:\moon\VERSION
-          dir
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Install MSVC developer tools
@@ -77,7 +70,6 @@ jobs:
             echo BUILD FAILED
             exit 1
           )
-          dir
       - name: Build Seedgen
         shell: cmd
         run: |
@@ -93,7 +85,12 @@ jobs:
           copy ".\state_data.csv" "C:\moon\state_data.csv" /Y
           echo Copying areas.wotw
           copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
-          dir
+      - name: Write version file
+        shell: cmd
+        run: |
+          echo Writing version file...
+          if "%GIT_TAG_NAME%" == "" ( echo develop> .\VERSION ) else ( echo %GIT_TAG_NAME%> .\VERSION )
+          copy .\VERSION C:\moon\VERSION
       - name: Compiling AHK scripts
         shell: cmd
         timeout-minutes: 1
