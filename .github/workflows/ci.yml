@@ -43,7 +43,8 @@ jobs:
         shell: cmd
         run: |
           echo Writing version file...
-          if "%GIT_TAG_NAME%" == "" ( echo develop> C:\moon\VERSION ) else ( echo %GIT_TAG_NAME%> C:\moon\VERSION )
+          if "%GIT_TAG_NAME%" == "" ( echo develop> .\VERSION ) else ( echo %GIT_TAG_NAME%> .\VERSION )
+          copy .\VERSION C:\moon\VERSION
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Install MSVC developer tools
