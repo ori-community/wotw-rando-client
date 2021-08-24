@@ -118,7 +118,7 @@ namespace RandoMainDLL {
     public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
 
     public static Dictionary<UberStateCondition, Pickup> PickupMap = new Dictionary<UberStateCondition, Pickup>();
-    public static List<TimerDefinition> TimerList;
+    public static List<TimerDefinition> TimerList = new List<TimerDefinition>();
     public static HashSet<Flag> Flags = new HashSet<Flag>();
     public static string SeedFile = "";
     public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
