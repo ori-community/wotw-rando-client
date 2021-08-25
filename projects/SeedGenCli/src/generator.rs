@@ -6,7 +6,7 @@ use std::{
 
 use rand::{
     Rng,
-    seq::SliceRandom,
+    seq::{SliceRandom, IteratorRandom},
     distributions::{Distribution, Uniform, Bernoulli},
 };
 
@@ -18,7 +18,7 @@ use crate::world::{
 use crate::inventory::{Inventory, Item};
 use crate::util::{
     self,
-    Resource, Skill, GoalMode,
+    Resource, Skill, Teleporter, GoalMode,
     settings::Settings,
     uberstate::{UberState, UberType},
     constants::{RELIC_ZONES, KEYSTONE_DOORS, RESERVE_SLOTS, PLACEHOLDER_SLOTS, SHOP_PRICES, DEFAULT_SPAWN, RANDOM_PROGRESSION},
@@ -688,6 +688,26 @@ where
     Ok(false)
 }
 
+#[inline]
+fn one_xp<'a, R, I>(world_contexts: &mut [WorldContext<'a>], context: &mut GeneratorContext<'_, '_, R, I>) -> Result<(), String>
+where
+    R: Rng,
+    I: Iterator<Item=usize>,
+{
+    for world_index in 0..context.world_count {
+        let world_context = &world_contexts[world_index];
+
+        if let Some(node) = world_context.world.graph.nodes.iter()
+            .filter(|&node| node.can_place())
+            .choose(context.rng)
+        {
+            place_item(world_index, world_index, node, false, Item::SpiritLight(1), world_contexts, context)?;
+        }
+    }
+
+    Ok(())
+}
+
 /* proposed per-pickup exp formula:
  * exp = M * (n^2) + base*roll
  * where:
@@ -917,7 +937,8 @@ where
         let mut placements = Vec::with_capacity(450);
         let mut spawn_slots = Vec::new();
 
-        if spawns[world_index].identifier() != DEFAULT_SPAWN {
+        let spawn_identifier = spawns[world_index].identifier();
+        if spawn_identifier != DEFAULT_SPAWN {
             for _ in 0..3 {
                 spawn_slots.push(spawn_pickup_node);
             }
@@ -927,6 +948,28 @@ where
                 item: Item::Message(String::from("f=420|instant")),
             });
         }
+
+        // Remove spawn tp from the pool
+        if let Some(spawn_tp) = match spawn_identifier {
+            "MarshSpawn.Main" => Some(Item::Teleporter(Teleporter::Marsh)),
+            "HowlsDen.Teleporter" => Some(Item::Teleporter(Teleporter::Den)),
+            "EastHollow.Teleporter" => Some(Item::Teleporter(Teleporter::Hollow)),
+            "GladesTown.Teleporter" => Some(Item::Teleporter(Teleporter::Glades)),
+            "InnerWellspring.Teleporter" => Some(Item::Teleporter(Teleporter::Wellspring)),
+            "MidnightBurrows.Teleporter" => Some(Item::Teleporter(Teleporter::Burrows)),
+            "WoodsEntry.Teleporter" => Some(Item::Teleporter(Teleporter::EastWoods)),
+            "WoodsMain.Teleporter" => Some(Item::Teleporter(Teleporter::WestWoods)),
+            "LowerReach.Teleporter" => Some(Item::Teleporter(Teleporter::Reach)),
+            "UpperDepths.Teleporter" => Some(Item::Teleporter(Teleporter::Depths)),
+            "EastPools.Teleporter" => Some(Item::Teleporter(Teleporter::EastLuma)),
+            "WestPools" => Some(Item::Teleporter(Teleporter::WestLuma)),
+            "LowerWastes.WestTP" => Some(Item::Teleporter(Teleporter::WestWastes)),
+            "LowerWastes.EastTP" => Some(Item::Teleporter(Teleporter::EastWastes)),
+            "UpperWastes.NorthTP" => Some(Item::Teleporter(Teleporter::OuterRuins)),
+            "WindtornRuins.RuinsTP" => Some(Item::Teleporter(Teleporter::InnerRuins)),
+            "WillowsEnd.InnerTP" => Some(Item::Teleporter(Teleporter::Willow)),
+            _ => None,
+        } { world.pool.inventory.remove(&spawn_tp, 1) }
 
         let reachable_locations = total_reach_check(&world, &player_name)?;
 
@@ -947,7 +990,7 @@ where
                 node.can_place() &&
                 !world.preplacements.contains_key(node.uber_state().unwrap())
             })
-            .count();
+            .count() - 1;  // 1 will be 1xp
         let mut spirit_light_slots = world_slots - world.pool.inventory.item_count();
         if world_tour { spirit_light_slots -= 10; }
         log::trace!("({}): Estimated {}/{} slots for Spirit Light", player_name, spirit_light_slots, world_slots);
@@ -985,6 +1028,7 @@ where
         rng,
     };
 
+    one_xp(&mut world_contexts, &mut context)?;
     spawn_progressions(&mut world_contexts, &mut context)?;
 
     if world_tour {

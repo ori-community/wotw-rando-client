@@ -366,13 +366,16 @@ impl Inventory {
         }
     }
     pub fn remove(&mut self, item: &Item, amount: u16) {
-        let prior = self.items.entry(item.clone()).or_insert(0);
-        if amount >= *prior {
-            // remove zero and smaller entries to support randomly picking from the map's keys
-            self.items.remove(item);
-        } else {
-            *prior -= amount;
-        }
+        let mut remove = false;
+        self.items.entry(item.clone()).and_modify(|prior|
+            if amount >= *prior {
+                // remove zero and smaller entries to support randomly picking from the map's keys
+                remove = true;
+            } else {
+                *prior -= amount;
+            }
+        );
+        if remove { self.items.remove(item); }
     }
 
     pub fn has(&self, item: &Item, amount: u16) -> bool {

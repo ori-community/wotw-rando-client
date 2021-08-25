@@ -1055,12 +1055,7 @@ pub fn validate_header(name: &Path, contents: &str) -> Result<(Vec<UberState>, H
                             occupied_states.push(uber_state);
                         },
                         UberStateOperator::Pointer(_) | UberStateOperator::Range(_) => {
-                            let uber_state = UberState {
-                                identifier: command.uber_identifier,
-                                value: String::from("++"),  // represent a timer so that the sort will put it alongside + and - commands
-                            };
-
-                            occupied_states.push(uber_state);
+                            // Just kind of have to trust the author here...
                         },
                     }
 
