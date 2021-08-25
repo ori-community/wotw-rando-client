@@ -1,3 +1,7 @@
+/// Bonus+
+///
+/// Break the game with overpowered Bonus Upgrades
+
 !!add 4x 10|35  // Extra Double Jumps
 !!add 2x 10|36  // Extra Air Dashes
 !!add 3x 11|0   // Rapid Hammers
