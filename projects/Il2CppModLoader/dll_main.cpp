@@ -292,6 +292,7 @@ namespace modloader
         if (write_to_csv)
             csv_file.close();
 
+        intercept::interception_detach();
         bootstrap_shutdown();
         FreeLibraryAndExitThread(GetModuleHandleA("Il2CppModLoader.dll"), 0);
     }
