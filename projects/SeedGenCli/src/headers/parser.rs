@@ -399,7 +399,10 @@ where P: Iterator<Item=&'a str>
 
     // TODO simulate suppress
     if let Some(last) = remaining.rfind('|') {
-        let last_part = &remaining[last + 1..];
+        let mut last_part = &remaining[last + 1..];
+        if let Some(skip) = last_part.strip_prefix("skip=") {
+            last_part = skip;
+        }
         if last_part.parse::<u32>().is_ok() {
             remaining = &remaining[..last];
         }
