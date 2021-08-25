@@ -1,0 +1,128 @@
+#hide
+/// Bonus Core
+///
+/// A menu bonus headers can subscribe to for an interface to toggle something on or off
+!!include header_core
+
+// To subscribe:
+// Show your display name in the menu at one of the display locations (9|999=400, 401, ..., 409)
+// Set the corresponding subscription boolean (109, 111, ..., 127) to true once you want to appear in the selection menu.
+// By default it will start on disabled, you can override this manually using the corresponding status boolean (110, 112, ..., 128)
+// Set it to false to unsubscribe again
+// Place your routine at the corresponding enable callback (9|0=100, 102, ..., 118)
+// Place your routine at the corresponding disable callback (9|0=101, 103, ..., 119)
+
+// Cycle
+3|5|8|9|0|int|49                                        // redirect trigger to call it manually later
+9|0=49|8|9|0|int|+$(9|109)|skip=1                       // sum up all subscription booleans to check if any are on
+9|0=49|8|9|0|int|+$(9|111)|skip=1
+9|0=49|8|9|0|int|+$(9|113)|skip=1
+9|0=49|8|9|0|int|+$(9|115)|skip=1
+9|0=49|8|9|0|int|+$(9|117)|skip=1
+9|0=49|8|9|0|int|+$(9|119)|skip=1
+9|0=49|8|9|0|int|+$(9|121)|skip=1
+9|0=49|8|9|0|int|+$(9|123)|skip=1
+9|0=49|8|9|0|int|+$(9|125)|skip=1
+9|0=49|8|9|0|int|+$(9|127)|skip=1
+9|0=49|4|17|9|0|0|6|instant|No Bonus Skills collected   // otherwise show a tooltip
+9|0=49|4|18|9|0|0|8|9|7|int|+1                          // 9|7 represents the current selection
+9|0=49|8|9|0|int|0
+9|7|4|17|9|7|1|4|17|9|109|0|8|9|7|int|+1|skip=1         // skip if unsubscribed
+9|7|4|17|9|7|1|4|17|9|110|1|6|$[(9|999=400)] Enabled    // show current status
+9|7|4|17|9|7|1|4|17|9|110|0|6|$[(9|999=400)] Disabled
+9|7|4|17|9|7|2|4|17|9|111|0|8|9|7|int|+1|skip=1         // repeat
+9|7|4|17|9|7|2|4|17|9|112|1|6|$[(9|999=401)] Enabled
+9|7|4|17|9|7|2|4|17|9|112|0|6|$[(9|999=401)] Disabled
+9|7|4|17|9|7|3|4|17|9|113|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|3|4|17|9|114|1|6|$[(9|999=402)] Enabled
+9|7|4|17|9|7|3|4|17|9|114|0|6|$[(9|999=402)] Disabled
+9|7|4|17|9|7|4|4|17|9|115|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|4|4|17|9|116|1|6|$[(9|999=403)] Enabled
+9|7|4|17|9|7|4|4|17|9|116|0|6|$[(9|999=403)] Disabled
+9|7|4|17|9|7|5|4|17|9|117|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|5|4|17|9|118|1|6|$[(9|999=404)] Enabled
+9|7|4|17|9|7|5|4|17|9|118|0|6|$[(9|999=404)] Disabled
+9|7|4|17|9|7|6|4|17|9|119|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|6|4|17|9|120|1|6|$[(9|999=405)] Enabled
+9|7|4|17|9|7|6|4|17|9|120|0|6|$[(9|999=405)] Disabled
+9|7|4|17|9|7|7|4|17|9|121|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|7|4|17|9|122|1|6|$[(9|999=406)] Enabled
+9|7|4|17|9|7|7|4|17|9|122|0|6|$[(9|999=406)] Disabled
+9|7|4|17|9|7|8|4|17|9|123|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|8|4|17|9|124|1|6|$[(9|999=407)] Enabled
+9|7|4|17|9|7|8|4|17|9|124|0|6|$[(9|999=407)] Disabled
+9|7|4|17|9|7|9|4|17|9|125|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|9|4|17|9|126|1|6|$[(9|999=408)] Enabled
+9|7|4|17|9|7|9|4|17|9|126|0|6|$[(9|999=408)] Disabled
+9|7|4|17|9|7|10|4|17|9|127|0|8|9|7|int|+1|skip=1
+9|7|4|17|9|7|10|4|17|9|128|1|6|$[(9|999=409)] Enabled
+9|7|4|17|9|7|10|4|17|9|128|0|6|$[(9|999=409)] Disabled
+9|7|4|19|9|7|11|4|17|9|0|1|6|instant|<icon>DA5</> Toggle\n<icon>DA4</> Cycle (1 page)  // tooltip
+9|7|4|19|9|7|11|4|18|9|0|1|6|instant|<icon>DA5</> Toggle\n<icon>DA4</> Cycle ($(9|0) pages)
+9|7|4|17|9|7|11|8|9|7|int|1                             // cycle back to start
+
+// Toggle
+3|6|8|9|0|int|50|skip=1                                 // split by current selection
+3|6|8|9|0|int|+$(9|7)
+9|0=51|4|17|9|110|0|8|9|100|bool|true                   // invert enabled/disabled state
+9|0=51|4|17|9|110|1|8|9|110|bool|false
+9|0=51|4|17|9|100|1|8|9|110|bool|true
+9|0=51|8|9|100|bool|false
+9|0=51|4|17|9|110|1|8|9|0|int|100                       // trigger the header's individual action on enable
+9|0=51|4|17|9|110|0|8|9|0|int|101                       // trigger the header's individual action on disable
+9|0=52|4|17|9|112|0|8|9|100|bool|true                   // repeat
+9|0=52|4|17|9|112|1|8|9|112|bool|false
+9|0=52|4|17|9|100|1|8|9|112|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|112|1|8|9|0|int|102
+9|0=52|4|17|9|112|0|8|9|0|int|103
+9|0=52|4|17|9|114|0|8|9|100|bool|true
+9|0=52|4|17|9|114|1|8|9|114|bool|false
+9|0=52|4|17|9|100|1|8|9|114|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|114|1|8|9|0|int|104
+9|0=52|4|17|9|114|0|8|9|0|int|105
+9|0=52|4|17|9|116|0|8|9|100|bool|true
+9|0=52|4|17|9|116|1|8|9|116|bool|false
+9|0=52|4|17|9|100|1|8|9|116|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|116|1|8|9|0|int|106
+9|0=52|4|17|9|116|0|8|9|0|int|107
+9|0=52|4|17|9|118|0|8|9|100|bool|true
+9|0=52|4|17|9|118|1|8|9|118|bool|false
+9|0=52|4|17|9|100|1|8|9|118|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|118|1|8|9|0|int|108
+9|0=52|4|17|9|118|0|8|9|0|int|109
+9|0=52|4|17|9|120|0|8|9|100|bool|true
+9|0=52|4|17|9|120|1|8|9|120|bool|false
+9|0=52|4|17|9|100|1|8|9|120|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|120|1|8|9|0|int|110
+9|0=52|4|17|9|120|0|8|9|0|int|111
+9|0=52|4|17|9|122|0|8|9|100|bool|true
+9|0=52|4|17|9|122|1|8|9|122|bool|false
+9|0=52|4|17|9|100|1|8|9|122|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|122|1|8|9|0|int|112
+9|0=52|4|17|9|122|0|8|9|0|int|113
+9|0=52|4|17|9|124|0|8|9|100|bool|true
+9|0=52|4|17|9|124|1|8|9|124|bool|false
+9|0=52|4|17|9|100|1|8|9|124|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|124|1|8|9|0|int|114
+9|0=52|4|17|9|124|0|8|9|0|int|115
+9|0=52|4|17|9|126|0|8|9|100|bool|true
+9|0=52|4|17|9|126|1|8|9|126|bool|false
+9|0=52|4|17|9|100|1|8|9|126|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|126|1|8|9|0|int|116
+9|0=52|4|17|9|126|0|8|9|0|int|117
+9|0=52|4|17|9|128|0|8|9|100|bool|true
+9|0=52|4|17|9|128|1|8|9|128|bool|false
+9|0=52|4|17|9|100|1|8|9|128|bool|true
+9|0=52|8|9|100|bool|false
+9|0=52|4|17|9|128|1|8|9|0|int|118
+9|0=52|4|17|9|128|0|8|9|0|int|119
+3|6|4|18|9|7|0|8|9|7|int|-1|skip=1                      // retrigger message
+3|6|8|9|0|int|49
