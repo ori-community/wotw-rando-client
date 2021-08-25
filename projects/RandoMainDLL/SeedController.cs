@@ -513,22 +513,19 @@ namespace RandoMainDLL {
           }
           return new Message(msg, frames, squelch, pos, clear, immediate, mute, prepend);
         case PickupType.UberState:
-          var stateParts = pickupData.Split(',').ToList(); // support old syntax
-          if (stateParts.Count < 4) {
-            if (extras.Count < 3) {
-              Randomizer.Log($"malformed Uberstate specifier {pickupData}", false);
-              return new Message($"Invalid UberState {pickupData}!");
-            }
-            stateParts = stateParts.Take(1).ToList();
-            stateParts.AddRange(extras);
+          extras.Insert(0, pickupData);
+          if (extras.Count < 4 || extras.Count > 5) {
+              var bad = String.Join("|", extras);
+              Randomizer.Log($"malformed UberModifier specifier {bad}", false);
+              return new Message($"Invalid UberModifier specifier {bad}!");
           }
           var uberId = new UberId(
-              stateParts[0].ParseToInt("BuildPickup.UberGroupId"),
-              stateParts[1].ParseToInt("BuildPickup.UberId")
+              extras[0].ParseToInt("BuildPickup.UberGroupId"),
+              extras[1].ParseToInt("BuildPickup.UberId")
             );
-          var stateType = uberTypeFromString(stateParts[2]);
-          Func<UberValue, double> modifier = GetUberSetter(stateType, stateParts[3]);
-          return new UberStateModifier(uberId, modifier, stateParts[3]);
+          var stateType = uberTypeFromString(extras[2]);
+          Func<UberValue, double> modifier = GetUberSetter(stateType, extras[3]);
+          return new UberStateModifier(uberId, modifier, extras[3], extras.Count == 5 ? extras[4].Replace("skip=", "").ParseToInt("BuildPickup.SupCount") : 0);
         default:
           var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
           Randomizer.Error("BuildPickup", err, false);
