@@ -329,10 +329,10 @@ namespace uber_states
                         constants::PLANDO_VARS_GROUP_ID, format("%3d_int", i), i, 0));
                 for (int i = 0; i < PLANDO_BOOL_COUNT; ++i)
                     states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::PLANDO_VARS_GROUP_NAME,
-                        constants::PLANDO_VARS_GROUP_ID, format("%3d_bool", i), i + PLANDO_INT_COUNT, false));
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_bool", i + PLANDO_INT_COUNT), i + PLANDO_INT_COUNT, false));
                 for (int i = 0; i < PLANDO_FLOAT_COUNT; ++i)
                     states.push_back(add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::PLANDO_VARS_GROUP_NAME,
-                        constants::PLANDO_VARS_GROUP_ID, format("%3d_float", i), i + PLANDO_INT_COUNT + PLANDO_BOOL_COUNT, false));
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_float", i + PLANDO_INT_COUNT + PLANDO_BOOL_COUNT), i + PLANDO_INT_COUNT + PLANDO_BOOL_COUNT, false));
 
                 for (int i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
                 {
