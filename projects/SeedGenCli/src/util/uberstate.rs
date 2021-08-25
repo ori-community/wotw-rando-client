@@ -27,6 +27,7 @@ impl std::str::FromStr for UberType {
     fn from_str(uber_type: &str) -> Result<UberType, String> {
         match uber_type {
             "bool" | "teleporter" => Ok(UberType::Bool),
+            "byte" => Ok(UberType::Byte),
             "int" => Ok(UberType::Int),
             "float" => Ok(UberType::Float),
             _ => Err(format!("Invalid uberState type {}", uber_type)),
