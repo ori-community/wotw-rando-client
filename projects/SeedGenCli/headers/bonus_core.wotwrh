@@ -27,6 +27,7 @@
 9|0=49|4|17|9|0|0|6|instant|No Bonus Skills collected   // otherwise show a tooltip
 9|0=49|4|18|9|0|0|8|9|7|int|+1                          // 9|7 represents the current selection
 9|0=49|8|9|0|int|0
+9|7|6|instant
 9|7|4|17|9|7|1|4|17|9|109|0|8|9|7|int|+1|skip=1         // skip if unsubscribed
 9|7|4|17|9|7|1|4|17|9|110|1|6|$[(9|999=400)] Enabled    // show current status
 9|7|4|17|9|7|1|4|17|9|110|0|6|$[(9|999=400)] Disabled
@@ -57,8 +58,8 @@
 9|7|4|17|9|7|10|4|17|9|127|0|8|9|7|int|+1|skip=1
 9|7|4|17|9|7|10|4|17|9|128|1|6|$[(9|999=409)] Enabled
 9|7|4|17|9|7|10|4|17|9|128|0|6|$[(9|999=409)] Disabled
-9|7|4|19|9|7|11|4|17|9|0|1|6|instant|<icon>DA5</> Toggle\n<icon>DA4</> Cycle (1 page)  // tooltip
-9|7|4|19|9|7|11|4|18|9|0|1|6|instant|<icon>DA5</> Toggle\n<icon>DA4</> Cycle ($(9|0) pages)
+9|7|4|19|9|7|11|4|17|9|0|1|6|<icon>DA5</> Toggle\n<icon>DA4</> Cycle (1 page)  // tooltip
+9|7|4|19|9|7|11|4|18|9|0|1|6|<icon>DA5</> Toggle\n<icon>DA4</> Cycle ($(9|0) pages)
 9|7|4|17|9|7|11|8|9|7|int|1                             // cycle back to start
 
 // Toggle
