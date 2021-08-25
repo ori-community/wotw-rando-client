@@ -22,6 +22,7 @@ namespace modloader
     IL2CPP_MODLOADER_DLLEXPORT void debug(std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void send_trace(MessageType type, int level, std::string const& group, std::string const& message);
 
+    IL2CPP_MODLOADER_DLLEXPORT void shutdown();
 }
 
 #define CALL_ON_INIT(func) modloader::Initialization func##_init_struct(&func)
