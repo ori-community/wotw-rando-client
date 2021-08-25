@@ -4251,7 +4251,7 @@ anchor LowerReach.Icefall at -448, -3999:  # Where you drop the rock on Baur's n
       Bash
       Grapple, Damage=10, Sword OR Hammer OR DoubleJump OR Dash OR Glide  # weapon stall needed, probably get hit by wasps
       Launch, Damage=10
-    unsafe:
+    unsafe, LowerReach.LeftFurnace:
       WaterDash, DoubleJump, TripleJump, Damage=20
       WaterDash, DoubleJump, Water, Sword OR Hammer
       WaterDash, DoubleJump, Damage=20, Sword OR Hammer
