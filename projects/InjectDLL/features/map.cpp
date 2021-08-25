@@ -7,6 +7,7 @@
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader\il2cpp_helpers.h>
 
 using namespace modloader;
 
@@ -162,6 +163,21 @@ namespace
             AreaMapNavigation::SetTarget(cached, quest_cache);
             AreaMapNavigation::UpdateMapTarget(cached);
             //quest_cache = nullptr;
+        }
+    }
+
+    STATIC_IL2CPP_BINDING(Game, UI, app::MenuScreenManager*, get_Menu, ());
+    IL2CPP_BINDING(, MenuScreenManager, void, HideMenuScreen, (app::MenuScreenManager* this_ptr, bool immediate, bool fade));
+    IL2CPP_INTERCEPT(Moon.Timeline, DiscoverAreasEntity, void, ChangeState, (app::DiscoverAreasEntity* this_ptr, app::DiscoverAreasEntity_State__Enum value)) {
+        DiscoverAreasEntity::ChangeState(this_ptr, value);
+
+        // Since we don't want the map to show up, lets speedrun the timeline entity.
+        if (value == app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_Start) {
+            ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_Reveal);
+            ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_Fade);
+            ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_WaitForInput);
+            auto menu = UI::get_Menu();
+            MenuScreenManager::HideMenuScreen(menu, true, false);
         }
     }
 }
