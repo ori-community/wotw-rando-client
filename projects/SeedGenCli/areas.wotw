@@ -1571,6 +1571,7 @@ anchor WestHollow.HollowDrainLower at -216, -4329:  # Next to the jumppad left o
       DoubleJump
       Damage=10, SwordSJump=1
       Dash, Sword OR Hammer
+      DoubleJump, Sword # swordjump
       Hammer    # upswing to get onto the right side of the spikes (you can touch them)
       Dash      # max jump without hitting the spike hitbox, dash to the small ledge
 
@@ -1670,7 +1671,7 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
     gorlek:
       Dash, Bash, Grenade=2, Glide OR Sword OR Hammer OR Damage=10  # around the right
     unsafe:
-      WestHollow.DoorLever, DoubleJump, TripleJump, Sword  # Lure and pogo the jumper
+      WestHollow.DoorLever, DoubleJump, TripleJump, Sword  # Lure and pogo the jumper / swordjumping through the path above the tree
       WestHollow.DoorLever, DoubleJump, TripleJump, Bash, Damage=10 OR Hammer  # Lure the mantis
       DoubleJump, TripleJump, SentryJump=1
       DoubleJump, TripleJump, Bash, Grenade=1, Damage=10 OR Hammer  # There are two ledges above the tree, stand on the right one, throw Grenade from there
@@ -1689,6 +1690,7 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
     unsafe:
       Dash, Sword OR Hammer  # Take the path right from the Dash tree
       WestHollow.DoorLever, DoubleJump, Sword  # Lure and pogo the mantis
+       WestHollow.DoorLever, DoubleJump, TripleJump, Sword # swordjump from the doorframe
       WestHollow.DoorLever, Bash  # Lure the mantis
       DoubleJump, Damage=10 OR TripleJump    # lower the crusher from above the previous one
       Bash, Grenade=1  # There are two ledges above the tree, stand on the right one, throw Grenade from there
@@ -1821,6 +1823,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       Launch
       DoubleJump, TripleJump OR SentryJump=1 OR Dash
       Bash
+      DoubleJump, TripleJump, Sword
       # Bash, Dash        # Juggle the projectile from the spitter
   pickup EastHollow.SecretRoofEX:
     moki:
@@ -1835,6 +1838,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
     unsafe:
       Hammer, DoubleJump  # HammerJump
       DoubleJump, TripleJump OR SentryJump=1
+      DoubleJump, TripleJump, Sword
   pickup EastHollow.MortarEX:
     moki:
       Bash, DoubleJump OR Dash OR Glide
@@ -1845,6 +1849,7 @@ anchor EastHollow.AboveBash at -28, -4233:  # At the breakable floor to Bash tre
       SentryJump=2, Grapple
       SentryJump=3                                  # pogo on the last mortar
       SentryJump=4
+      DoubleJump, TripleJump, Sword # 2 swordjumps from the friendly spikes then pogo on the mortar to get the EX
       # SentryJump=3, DoubleJump
       # Grapple, Dash, DoubleJump, TripleJump
   pickup EastHollow.BashEC:
@@ -1955,6 +1960,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
     moki: Water
   pickup EastHollow.SecretRoofEX:  # this path can't get over the big spike wall from the left anchor
     gorlek: DoubleJump, TripleJump, Dash
+    unsafe: DoubleJump, TripleJump, Sword
 
   conn EastHollow.AboveBash:
     moki:  # since the ability bottleneck is right at the start, most paths to the pickups on the way are covered in this connection
@@ -4348,6 +4354,7 @@ anchor WoodsMain.BelowHiddenOre at 1038, -4101:  # Below and to the right of the
       DoubleJump, TripleJump, Bash, Damage=15  # can either use the plant or the skeeto
     unsafe:
       SentryJump=1, DoubleJump, TripleJump, Damage=15  # sjump from a micro ledge at very edge of the fire pit
+      Sword, DoubleJump, TripleJump, Damage=15 # double jump onto the wall, then double sword jump into the spikes.
 
   conn WoodsMain.PetrifiedHowl:
     moki: Glide
@@ -5999,6 +6006,8 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
       BreakWall=1, DoubleJump, TripleJump OR Dash OR Glide
       DepthsLight, DoubleJump, TripleJump
       Dash, Launch
+    unsafe:
+      DepthsLight, DoubleJump, Sword
   pickup UpperDepths.BossPathEX:  # saved for later to know redundancies with the new anchor
     moki:
       DepthsLight, DoubleJump, Dash
@@ -6007,6 +6016,8 @@ anchor UpperDepths.SecondKSRoom at 542, -4467:  # The egg of the firefly circlin
     gorlek:
       DepthsLight, SentryJump=1, DoubleJump
       Launch
+    unsafe:
+      DepthsLight, DoubleJump, Sword
 
   conn UpperDepths.Central:
     moki:
@@ -6407,6 +6418,8 @@ anchor LowerDepths.East at 570, -4550:  # The lit up room on the trial path
     unsafe:
       BreakWall=1, Bash, Grapple, Sword OR Hammer
       Launch, DepthsLight OR BreakWall=1
+      DepthsLight, DoubleJump, TripleJump, Grapple, Sword
+      
   conn LowerDepths.Central:
     moki:
       Bash, DoubleJump OR Launch
@@ -7493,6 +7506,7 @@ anchor LowerWastes.WestTP at 1456, -3997:  # At the Western Wastes TP
       DoubleJump  # precise....? This is another rough path. Can turn it to triple jump to make it freeTM, or can add weapons
       Burrow, Damage=30  # This is a pretty rough path. Might be too tricky. Sticky makes it a bit easier though?
       Grapple, Glide, Sword OR Hammer  # kicked out of gorlek for combining too many abilities
+      DoubleJump, Sword # swordjump off the wall on the right
   conn WoodsMain.FeedingGrounds:
     moki: WindtornRuins.Seir, Burrow  # Seir to make it a safe path
     gorlek: Burrow
