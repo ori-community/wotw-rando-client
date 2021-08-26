@@ -3,6 +3,7 @@
 /// Adds Skill Velocity pickups into the item pool that make you more speedy
 /// Use Ctrl+Alt+5 to toggle this on or off
 !!include bonus_core
+//// How many Skill Velocities to shuffle in
 !!parameter sv_count int:5
 
 9|999=400|6|#Skill Velocity x$(9|5)#    // display name

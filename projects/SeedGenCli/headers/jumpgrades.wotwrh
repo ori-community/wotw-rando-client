@@ -3,6 +3,7 @@
 /// Adds Jumpgrades into the item pool that make you jump higher
 /// Use Ctrl+Alt+5 to toggle this on or off
 !!include bonus_core
+//// How many Jumpgrades to shuffle in
 !!parameter jg_count int:3
 
 9|999=401|6|#Jumpgrade x$(9|8)#         // display name
