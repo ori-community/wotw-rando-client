@@ -1,11 +1,13 @@
 /// Bonus+
 ///
 /// Break the game with overpowered Bonus Upgrades
+!!exclude bonus_items
 
 !!add 4x 10|35  // Extra Double Jumps
 !!add 2x 10|36  // Extra Air Dashes
 !!add 3x 11|0   // Rapid Hammers
 !!add 3x 11|1   // Rapid Swords
+// TODO toggle sword/hammer upgrades
 !!add 2x 11|2   // Blaze Efficiency
 !!add 2x 11|3   // Spike Efficiency
 !!add 2x 11|4   // Shuriken Efficiency
