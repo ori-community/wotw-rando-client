@@ -19,18 +19,16 @@ namespace
         // NOOP
     }
 
-    IL2CPP_INTERCEPT(, RaceHandler, void, OnStart, (app::RaceHandler* this_ptr, bool spectate)) {
-        csharp_bridge::on_race_start();
-        RaceHandler::OnStart(this_ptr, spectate);
+    STATIC_IL2CPP_INTERCEPT(Moon.Race.Networking, WebService, void, UploadData, (app::String* site_id, app::ReplayData* data)) {
+
     }
 
-    IL2CPP_INTERCEPT(, RaceHandler, void, OnFinished, (app::RaceHandler* this_ptr)) {
-        csharp_bridge::on_race_end();
-        RaceHandler::OnFinished(this_ptr);
+    IL2CPP_INTERCEPT(, RaceHandler, void, SetRaceInProgressState, (app::RaceHandler* this_ptr, bool in_progress)) {
+        if (in_progress)
+            csharp_bridge::on_race_start();
+        else
+            csharp_bridge::on_race_end();
+
+        RaceHandler::SetRaceInProgressState(this_ptr, in_progress);
     }
-    
-    //IL2CPP_INTERCEPT(, RaceHandler, void, OnRaceFailed, (app::RaceHandler* this_ptr)) {
-    //    //csharp_bridge::on_race_end();
-    //    RaceHandler::OnRaceFailed(this_ptr);
-    //}
 }
