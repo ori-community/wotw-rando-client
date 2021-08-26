@@ -2,7 +2,7 @@ use rand::{Rng, seq::SliceRandom};
 use rustc_hash::FxHashMap;
 
 use crate::inventory::{Inventory, Item};
-use crate::util::{Resource, Skill, Shard};
+use crate::util::{Resource, Skill, Shard, BonusUpgrade};
 
 #[derive(Default, Debug, Clone)]
 pub struct Pool {
@@ -71,6 +71,11 @@ impl Pool {
         items.insert(Item::Shard(Shard::Deflector), 1);
         items.insert(Item::Shard(Shard::Fracture), 1);
         items.insert(Item::Shard(Shard::Arcing), 1);
+        items.insert(Item::BonusUpgrade(BonusUpgrade::ExplodingSpike), 1);
+        items.insert(Item::BonusUpgrade(BonusUpgrade::ShockSmash), 1);
+        items.insert(Item::BonusUpgrade(BonusUpgrade::StaticStar), 1);
+        items.insert(Item::BonusUpgrade(BonusUpgrade::ChargeBlaze), 1);
+        items.insert(Item::BonusUpgrade(BonusUpgrade::RapidSentry), 1);
 
         Pool {
             inventory: Inventory {
