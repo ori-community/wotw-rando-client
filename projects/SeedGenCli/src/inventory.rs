@@ -52,6 +52,7 @@ impl fmt::Display for Item {
 
                 while let Some(mut start_index) = message[last_index..].find("$[") {
                     start_index += last_index;
+                    last_index = start_index;
                     let after_bracket = start_index + 2;
                     let mut end_index = 0;
 
@@ -69,9 +70,8 @@ impl fmt::Display for Item {
                     let pickup = &message[after_bracket..end_index];
                     if let Ok(pickup) = headers::parser::parse_pickup(pickup) {
                         message.replace_range(start_index..=end_index, &pickup.to_string());
-                    }
-
-                    last_index = start_index;
+                        log::trace!("changed message: {}", message);
+                    } else { last_index = end_index; } // if nothing ends up getting replaced, move on
                 }
 
                 write!(f, "{}", message)
