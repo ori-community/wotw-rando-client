@@ -7812,7 +7812,8 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       HammerSJump=1, Grapple, DoubleJump OR Dash OR Glide
       LowerWastes.SandPlatformLever, DoubleJump, Grapple
       LowerWastes.SandPlatformLever, Burrow, Grapple, Dash OR Glide OR Sword
-    unsafe: Launch
+      Launch, DoubleJump, TripleJump # Can do it with just double jump but the timing is tight
+    unsafe: Launch # Assumes you know you can land on the wall directly to the left when you come into the spike corridor
   conn LowerWastes.MinesEntrance:
     moki:
       Combat=MaceMiner+Mantis, DoubleJump OR Dash OR Glide OR Grapple
