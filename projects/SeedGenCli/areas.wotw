@@ -4072,7 +4072,10 @@ anchor WoodsEntry.BelowTeleporter at 591, -4198:  # Read the name
       DoubleJump, Hammer  # Double jump to the right wall, upslash to start climbing it (?)
   conn WoodsEntry.TwoKeystoneRoom:
     moki: Combat=2xBalloon, DoubleJump OR Dash OR Glide OR Launch
-    gorlek: Combat=2xBalloon, Sword OR Hammer
+    gorlek:
+      Damage=20, DoubleJump OR Dash OR Glide OR Launch  # both baloons are sort of dangerous, damage is for them
+      Combat=2xBalloon, Sword OR Hammer
+    unsafe: Launch
 
 anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
   refill Full
@@ -4308,6 +4311,7 @@ anchor WoodsMain.GiantSkull at 957, -4138:  # Behind the four keystone room door
     gorlek, Combat=Balloon:
       Bash, Sword
       Bash, HammerSJump=1
+    unsafe: Launch
   conn WoodsMain.FourKeystoneRoom:
     moki: WoodsMain.KeystoneDoor
 
@@ -4319,7 +4323,9 @@ anchor WoodsMain.BalloonLure at 1056, -4144:  # At the bottom of the shaft you l
     gorlek:  # sword or hammer implies being able to break the corruption
       DoubleJump, TripleJump, Sword, Combat=Balloon OR Flap OR Damage=20
       DoubleJump, TripleJump, Hammer, Combat=Balloon OR Flap OR Damage=20
-    unsafe: BreakWall=3, DoubleJump, Dash, Bash, Grenade=1  # Bait the enemy by jumping and imediately dashing against the left wall, double wall off the wall to  get to the edge near the spikes and bash grenade. Launch the grenade near the right edge and bash it to get to the left edge. If you are too slow, the enemy will die from the explosion after your bash
+    unsafe:
+      BreakWall=3, DoubleJump, Dash, Bash, Grenade=1  # Bait the enemy by jumping and imediately dashing against the left wall, double wall off the wall to  get to the edge near the spikes and bash grenade. Launch the grenade near the right edge and bash it to get to the left edge. If you are too slow, the enemy will die from the explosion after your bash
+      Launch
 
   conn WoodsMain.BelowHiddenOre:
     moki: BreakWall=3, Glide OR Launch
@@ -4332,6 +4338,7 @@ anchor WoodsMain.BalloonLure at 1056, -4144:  # At the bottom of the shaft you l
       Dash, Bash, Grenade=2
       Bash, Grenade=3  # bash grenade to get on the skull, bash a tentacle projectile and the bashable plant to get to the blowing enemy level, 2nd bash grenade to get near the spikes and last one to reach the connection
       SentryJump=3  # jump + sword combo to reach the skull, sword combo to reach the tentacle. use your sjumps to get to the connection
+    unsafe: Launch
   conn WoodsMain.GiantSkull:
     moki:
       Glide OR Launch
@@ -4408,6 +4415,8 @@ anchor WoodsMain.TrialStart at 848, -4052:  # At the collapsing petrified Owl
       DoubleJump, Bash, Grapple, Burrow, TripleJump OR Sword
       DoubleJump, Bash, Grapple, Burrow, Hammer, Damage=15
       DoubleJump, Bash, Grapple, Grenade=2, Damage=15, TripleJump OR Dash OR Glide OR Sword  # You can either damage boost at the first sand ball or grenade bash from below
+    unsafe:
+      Launch
 
   conn WoodsMain.AboveHowl:
     moki:
@@ -7803,6 +7812,7 @@ anchor LowerWastes.LeverArea at 1833, -3959:  # At the arrow sign below the leve
       HammerSJump=1, Grapple, DoubleJump OR Dash OR Glide
       LowerWastes.SandPlatformLever, DoubleJump, Grapple
       LowerWastes.SandPlatformLever, Burrow, Grapple, Dash OR Glide OR Sword
+    unsafe: Launch
   conn LowerWastes.MinesEntrance:
     moki:
       Combat=MaceMiner+Mantis, DoubleJump OR Dash OR Glide OR Grapple
