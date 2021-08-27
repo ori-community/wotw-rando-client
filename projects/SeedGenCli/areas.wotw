@@ -4325,7 +4325,7 @@ anchor WoodsMain.BalloonLure at 1056, -4144:  # At the bottom of the shaft you l
       DoubleJump, TripleJump, Hammer, Combat=Balloon OR Flap OR Damage=20
     unsafe:
       BreakWall=3, DoubleJump, Dash, Bash, Grenade=1  # Bait the enemy by jumping and imediately dashing against the left wall, double wall off the wall to  get to the edge near the spikes and bash grenade. Launch the grenade near the right edge and bash it to get to the left edge. If you are too slow, the enemy will die from the explosion after your bash
-      Launch
+      Launch, Damage=20, Damage=20
 
   conn WoodsMain.BelowHiddenOre:
     moki: BreakWall=3, Glide OR Launch
@@ -4338,7 +4338,7 @@ anchor WoodsMain.BalloonLure at 1056, -4144:  # At the bottom of the shaft you l
       Dash, Bash, Grenade=2
       Bash, Grenade=3  # bash grenade to get on the skull, bash a tentacle projectile and the bashable plant to get to the blowing enemy level, 2nd bash grenade to get near the spikes and last one to reach the connection
       SentryJump=3  # jump + sword combo to reach the skull, sword combo to reach the tentacle. use your sjumps to get to the connection
-    unsafe: Launch
+    unsafe: Launch, Damage=20
   conn WoodsMain.GiantSkull:
     moki:
       Glide OR Launch
