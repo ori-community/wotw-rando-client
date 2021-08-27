@@ -1690,7 +1690,7 @@ anchor WestHollow.DashArea at -88, -4423:  # To the right of the lever door
     unsafe:
       Dash, Sword OR Hammer  # Take the path right from the Dash tree
       WestHollow.DoorLever, DoubleJump, Sword  # Lure and pogo the mantis
-       WestHollow.DoorLever, DoubleJump, TripleJump, Sword # swordjump from the doorframe
+      WestHollow.DoorLever, DoubleJump, TripleJump, Sword # swordjump from the doorframe
       WestHollow.DoorLever, Bash  # Lure the mantis
       DoubleJump, Damage=10 OR TripleJump    # lower the crusher from above the previous one
       Bash, Grenade=1  # There are two ledges above the tree, stand on the right one, throw Grenade from there
