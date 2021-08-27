@@ -934,9 +934,15 @@ where R: Rng + ?Sized
                 if let Item::UberState(command) = &item {
                     if uber_state.identifier.uber_group == 3 && uber_state.identifier.uber_id == 0 {
                         if let UberStateOperator::Value(value) = &command.operator {
+                            let value = if value == "true" {
+                                String::new()
+                            } else {
+                                value.to_owned()
+                            };
+
                             let target = UberState {
                                 identifier: command.uber_identifier.clone(),
-                                value: value.to_owned(),
+                                value,
                             };
 
                             if world.graph.nodes.iter().filter(|node| node.can_place()).any(|node| node.uber_state().map_or(false, |uber_state| uber_state == &target)) {
