@@ -1,0 +1,34 @@
+/// Skill Velocity
+///
+/// Adds Skill Velocity pickups into the item pool that make you more speedy
+/// Use Ctrl+Alt+5 to toggle this on or off
+!!include bonus_core
+//// How many Skill Velocities to shuffle in
+!!parameter sv_count int:5
+
+9|999=400|6|#Skill Velocity x$(9|5)#    // display name
+
+!!add $PARAM(sv_count)x 8|9|5|int|+1
+!!name 8|9|5|int|+1 Skill Velocity
+9|5=1|8|9|109|bool|true                 // subscribe to bonus core
+9|5=1|8|9|110|bool|true                 // set to default enabled
+9|5|4|18|9|5|100|8|9|5|int|100|skip=1   // cap at 100
+9|5|6|$[(9|999=400)]
+9|5|4|17|9|110|0|8|9|6|int|1            // grant on pickup if enabled
+
+9|0=100|8|9|6|int|$(9|5)                // enable callback
+9|0=101|8|9|6|int|101|skip=1            // disable callback
+9|0=101|8|9|6|int|+$(9|5)
+// Apply speed factors in a loop
+9|6|4|19|9|6|101|8|4|80|float|+0.25
+9|6|4|19|9|6|101|8|4|81|float|+0.25
+9|6|4|19|9|6|101|8|4|82|float|+0.25
+9|6|4|19|9|6|101|8|4|84|float|+0.25
+9|6|4|19|9|6|101|8|4|86|float|+0.25
+9|6|4|18|9|6|101|8|4|80|float|-0.25
+9|6|4|18|9|6|101|8|4|81|float|-0.25
+9|6|4|18|9|6|101|8|4|82|float|-0.25
+9|6|4|18|9|6|101|8|4|84|float|-0.25
+9|6|4|18|9|6|101|8|4|86|float|-0.25
+9|6|4|17|9|6|101|8|9|6|int|0
+9|6|8|9|6|int|-1

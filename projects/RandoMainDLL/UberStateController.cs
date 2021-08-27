@@ -308,6 +308,13 @@ namespace RandoMainDLL {
             var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
             InterOp.set_uber_state_value(state.GroupID, state.ID, value + 1);
           }
+
+          foreach (var timer in SeedController.TimerList) {
+            if (timer.Toggle.GetValue().Bool) {
+              var value = InterOp.get_uber_state_value(timer.Increment.GroupID, timer.Increment.ID);
+              InterOp.set_uber_state_value(timer.Increment.GroupID, timer.Increment.ID, value + 1);
+            }
+          }
         }
 
         if (FullSyncNextUpdate) {

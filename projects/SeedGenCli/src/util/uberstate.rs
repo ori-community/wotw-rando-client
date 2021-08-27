@@ -1,5 +1,40 @@
 use std::fmt;
 
+use crate::inventory::{Item, UberStateItem, UberStateOperator};
+
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+pub enum UberType {
+    Bool,
+    Teleporter,
+    Byte,
+    Int,
+    Float,
+}
+impl fmt::Display for UberType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            UberType::Bool => write!(f, "bool"),
+            UberType::Teleporter => write!(f, "teleporter"),
+            UberType::Byte => write!(f, "byte"),
+            UberType::Int => write!(f, "int"),
+            UberType::Float => write!(f, "float"),
+        }
+    }
+}
+impl std::str::FromStr for UberType {
+    type Err = String;
+
+    fn from_str(uber_type: &str) -> Result<UberType, String> {
+        match uber_type {
+            "bool" | "teleporter" => Ok(UberType::Bool),
+            "byte" => Ok(UberType::Byte),
+            "int" => Ok(UberType::Int),
+            "float" => Ok(UberType::Float),
+            _ => Err(format!("Invalid uberState type {}", uber_type)),
+        }
+    }
+}
+
 #[derive(Debug, PartialEq, Eq, Hash, Clone, PartialOrd, Ord)]
 pub struct UberIdentifier {
     pub uber_group: u16,
@@ -38,6 +73,20 @@ impl UberState {
                 uber_id,
             },
             value: value.to_string(),
+        })
+    }
+
+    pub fn to_item(self, uber_type: UberType) -> Item {
+        let value = if matches!(uber_type, UberType::Bool | UberType::Teleporter) {
+            String::from("true")
+        } else { self.value };
+
+        Item::UberState(UberStateItem {
+            uber_identifier: self.identifier,
+            uber_type,
+            signed: false,
+            sign: false,
+            operator: UberStateOperator::Value(value),
         })
     }
 

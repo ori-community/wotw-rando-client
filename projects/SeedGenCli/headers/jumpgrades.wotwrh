@@ -1,0 +1,26 @@
+/// Jumpgrades
+///
+/// Adds Jumpgrades into the item pool that make you jump higher
+/// Use Ctrl+Alt+5 to toggle this on or off
+!!include bonus_core
+//// How many Jumpgrades to shuffle in
+!!parameter jg_count int:3
+
+9|999=401|6|#Jumpgrade x$(9|8)#         // display name
+
+!!add $PARAM(jg_count)x 8|9|8|int|+1
+!!name 8|9|8|int|+1 Jumpgrade
+9|8=1|8|9|111|bool|true                 // subscribe to bonus core
+9|8=1|8|9|112|bool|true                 // set to default enabled
+9|8|4|18|9|8|100|8|9|8|int|100|skip=1   // cap at 100
+9|8|6|$[(9|999=401)]
+9|8|4|17|9|112|0|8|9|9|int|1            // grant on pickup if enabled
+
+9|0=102|8|9|9|int|$(9|8)                // enable callback
+9|0=103|8|9|9|int|101|skip=1            // disable callback
+9|0=103|8|9|9|int|+$(9|8)
+// Apply speed factors in a loop
+9|9|4|19|9|9|101|8|4|87|float|+0.33
+9|9|4|18|9|9|101|8|4|87|float|-0.33
+9|9|4|17|9|9|101|8|9|9|int|0
+9|9|8|9|9|int|-1

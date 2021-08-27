@@ -1,6 +1,6 @@
-/// Opher Upgrades
+/// Vanilla Opher Upgrades
 ///
-/// Places the vanilla weapon upgrades on their vanilla locations in Opher's shop
+/// Places the five vanilla weapon upgrades on their vanilla locations in Opher's shop
 
 1|1074|11|45    // Exploding Spike from OpherShop.ExplodingSpike
 1|1098|11|46    // Shock Smash from OpherShop.ShockSmash

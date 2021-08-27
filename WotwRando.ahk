@@ -37,7 +37,9 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
     ; get the version number of the existing exe first thing
     FileRead, MY_VER, %INSTALL_DIR%.VERSION
+    MY_VER := Trim(MY_VER, " `t`r`n")
     FileRead, INSTALL_VER, %INSTALL_DIR%VERSION
+    INSTALL_VER := Trim(INSTALL_VER, " `t`r`n")
     ; check if this exe is a newer version from the one installed
     if(!semver_validate(INSTALL_VER) Or (semver_validate(MY_VER) and semver_compare(MY_VER, INSTALL_VER) == 1) or (A_ScriptFullPath != WOTWREXE)) {
         ; update; write ini defaults, extract new versions of files
@@ -78,6 +80,7 @@ if(FileExist(INSTALL_DIR . "VERSION")) {
     FileCreateDir %INSTALL_DIR%
     FileInstall, VERSION, %INSTALL_DIR%.VERSION, 1
     FileRead, MY_VER, %INSTALL_DIR%.VERSION
+    MY_VER := Trim(MY_VER, " \t\r\n")
     
     FirstLaunch := True
 
@@ -342,12 +345,6 @@ Else
 return
 
 CheckForUpdates:
-FileGetTime, LastModified, %INSTALL_DIR%VERSION, M
-minSinceLastCheck := A_Now
-EnvSub, minSinceLastCheck, LastModified, Minutes
-if(minSinceLastCheck < 15)  ; don't check updates more than once every 15 minutes
-    return
-
 SplashTextOn,,,Checking for updates...
 Try {
     whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
@@ -370,7 +367,7 @@ Try {
     whr.Open("GET", "https://github.com/sparkle-preference/OriWotwRandomizerClient/releases/download/" . tag . "/VERSION" , false)
     whr.Send() ; second
 
-    latest := whr.ResponseText
+    latest := Trim(whr.ResponseText, " `t`r`n")
     if((BetaVersions == "false") and RegExMatch(latest, "\.0$") == 0) {
         SplashTextOff
         return

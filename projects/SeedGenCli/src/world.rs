@@ -8,10 +8,10 @@ use rustc_hash::FxHashMap;
 use graph::Graph;
 use pool::Pool;
 use player::Player;
-use crate::inventory::Item;
+use crate::inventory::{Item, UberStateOperator, UberStateRangeBoundary};
 use crate::util::{
     Resource,
-    uberstate::{UberState, UberIdentifier},
+    uberstate::{UberState, UberIdentifier, UberType},
     constants::WISP_STATES,
 };
 
@@ -37,60 +37,59 @@ impl<'a> World<'a> {
     pub fn grant_player(&mut self, item: Item, amount: u16) -> Result<(), String> {
         match item {
             Item::UberState(command) => {
-                let mut parts = command.split('|');
-                let uber_group = parts.next().unwrap();
-                let uber_id = parts.next().unwrap();
-                let uber_type = parts.next().unwrap();
-                let mut uber_value = parts.next().unwrap();
-
-                let uber_identifier = UberIdentifier::from_parts(uber_group, uber_id)?;
-
-                let mut sign: i8 = 0;
-                if uber_value.starts_with('+') {
-                    uber_value = &uber_value[1..];
-                    sign = 1;
-                } else if uber_value.starts_with('-') {
-                    uber_value = &uber_value[1..];
-                    sign = -1;
-                }
-
                 for _ in 0..amount {
-                    let entry = self.uber_states.entry(uber_identifier.clone()).or_insert_with(|| String::from("0"));
-                    if entry == uber_value && sign == 0 { return Ok(()); }
+                    let default = String::from("0");
+                    let uber_value = match &command.operator {
+                        UberStateOperator::Value(value) => value,
+                        UberStateOperator::Pointer(uber_identifier) => self.uber_states.get(&uber_identifier).unwrap_or(&default),
+                        UberStateOperator::Range(range) => match &range.start {
+                            UberStateRangeBoundary::Value(value) => value,
+                            UberStateRangeBoundary::Pointer(uber_identifier) => self.uber_states.get(&uber_identifier).unwrap_or(&default),
+                        },
+                    }.to_owned();
 
-                    let uber_value = match uber_type {
-                        "bool" | "teleporter" => uber_value.to_string(),
-                        "byte" | "int" => {
-                            if sign == 0 {
-                                uber_value.to_string()
-                            } else {
+                    let entry = self.uber_states.entry(command.uber_identifier.to_owned()).or_insert_with(|| String::from("0"));
+                    if !command.signed && entry == &uber_value { return Ok(()); }
+
+                    let uber_value = match command.uber_type {
+                        UberType::Bool | UberType::Teleporter => uber_value.to_string(),
+                        UberType::Byte | UberType::Int => {
+                            if command.signed {
                                 let uber_value = uber_value.parse::<i32>().unwrap();
                                 let mut prior = entry.parse::<i32>().map_err(|_| format!("Failed to apply uberState command {} because the current state ({}) doesn't match the specified type", command, entry))?;
 
-                                prior += uber_value * i32::from(sign);
-
+                                if command.sign {
+                                    prior += uber_value;
+                                } else {
+                                    prior -= uber_value;
+                                }
                                 prior.to_string()
+                            } else {
+                                uber_value.to_string()
                             }
                         },
-                        "float" => {
-                            if sign == 0 {
-                                uber_value.to_string()
-                            } else {
+                        UberType::Float => {
+                            if command.signed {
                                 let uber_value = uber_value.parse::<f32>().unwrap();
                                 let mut prior = entry.parse::<f32>().map_err(|_| format!("Failed to apply uberState command {} because the current state ({}) doesn't match the specified type", command, entry))?;
 
-                                prior += uber_value * f32::from(sign);
+                                if command.sign {
+                                    prior += uber_value;
+                                } else {
+                                    prior -= uber_value;
+                                }
                                 prior.to_string()
+                            } else {
+                                uber_value.to_string()
                             }
                         },
-                        _ => { return Err(format!("Invalid uberState type in command {}", command)); }
                     };
                     *entry = uber_value;
 
                     if entry == "false" || entry == "0" { return Ok(()); }
 
                     let uber_state = UberState {
-                        identifier: uber_identifier.clone(),
+                        identifier: command.uber_identifier.to_owned(),
                         value: entry.clone(),
                     };
 

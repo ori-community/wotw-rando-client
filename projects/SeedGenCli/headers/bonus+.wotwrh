@@ -1,0 +1,46 @@
+/// Bonus+
+///
+/// Break the game with overpowered Bonus Upgrades
+!!exclude bonus_items
+
+!!add 4x 10|35  // Extra Double Jumps
+!!add 2x 10|36  // Extra Air Dashes
+!!add 3x 11|0   // Rapid Hammers
+!!add 3x 11|1   // Rapid Swords
+// TODO toggle sword/hammer upgrades
+!!add 2x 11|2   // Blaze Efficiency
+!!add 2x 11|3   // Spike Efficiency
+!!add 2x 11|4   // Shuriken Efficiency
+!!add 2x 11|5   // Sentry Efficiency
+!!add 2x 11|6   // Bow Efficiency
+!!add 2x 11|7   // Regeneration Efficiency
+!!add 2x 11|8   // Flash Efficiency
+!!add 2x 11|9   // Grenade Efficiency
+
+// Melting Upgrades
+!!add 8|4|71|bool|true
+!!name 8|4|71|bool|true Melting Blaze
+4|71|6|#Melting Blaze#
+!!add 8|4|72|bool|true
+!!name 8|4|72|bool|true Melting Sword
+4|72|6|#Melting Sword#
+!!add 8|4|75|bool|true
+!!name 8|4|75|bool|true Melting Shuriken
+4|75|6|#Melting Shuriken#
+// Grenade Upgrades
+!!add 8|4|42|bool|true
+!!name 8|4|42|bool|true Uncharged Bashgrenades
+4|42|6|#Uncharged Bashgrenades#
+!!add 8|4|40|byte|+1
+!!name 8|4|40|byte|+1 Extra Grenade
+4|40|6|#Extra Grenade x$(4|40)#
+!!add 8|4|45|byte|+2
+!!name 8|4|45|byte|+2 Splinter Grenade
+4|45|6|#Splinter Grenade#
+!!add 2x 8|4|44|float|-0.5
+!!name 8|4|44|float|-0.5 Rapid Grenade
+4|45|6|#Rapid Grenade#
+// Bow Upgrade
+!!add 2x 8|4|10|float|-0.4
+!!name 8|4|10|float|-0.4 Quickshot Upgrade
+4|10|6|#Quickshot Upgrade#

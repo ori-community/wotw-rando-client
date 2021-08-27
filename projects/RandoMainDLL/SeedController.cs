@@ -76,6 +76,15 @@ namespace RandoMainDLL {
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
   }
 
+  public class TimerDefinition {
+    public TimerDefinition(int toggleGroup, int toggleState, int incGroup, int incState) {
+      Toggle = new UberId(toggleGroup, toggleState);
+      Increment = new UberId(incGroup, incState);
+    }
+
+    public UberId Toggle;
+    public UberId Increment;
+  }
 
   public static class SeedController {
 
@@ -109,6 +118,7 @@ namespace RandoMainDLL {
     public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
 
     public static Dictionary<UberStateCondition, Pickup> PickupMap = new Dictionary<UberStateCondition, Pickup>();
+    public static List<TimerDefinition> TimerList = new List<TimerDefinition>();
     public static HashSet<Flag> Flags = new HashSet<Flag>();
     public static string SeedFile = "";
     public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
@@ -116,6 +126,7 @@ namespace RandoMainDLL {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {
         PickupMap.Clear();
+        TimerList.Clear();
         Flags.Clear();
         Relic.Reset();
         HintsController.Reset();
@@ -139,6 +150,8 @@ namespace RandoMainDLL {
             } else if (rawLine.StartsWith("MULTISTATES: ")) {
               InterOp.set_multi_bool_count(rawLine.Replace("MULTISTATES: ", "").ParseToInt("ReadSeed.Multistates"));
               continue;
+            } else if (rawLine.StartsWith("timer: ")) {
+              ProcessTimer(rawLine.Substring("timer: ".Length));
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
@@ -221,6 +234,29 @@ namespace RandoMainDLL {
         else
           Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
       }
+    }
+
+    public static void ProcessTimer(string timer) {
+      var entries = timer.Split('|');
+      if (entries.Length != 4)
+        throw new Exception("Malformed timer expression: Too many |");
+
+      if (!int.TryParse(entries[0], out int toggleGroup))
+        throw new Exception("Malformed timer expression: non integer group");
+
+      if (!int.TryParse(entries[1], out int toggleState))
+        throw new Exception("Malformed timer expression: non integer state");
+
+      if (!int.TryParse(entries[2], out int incGroup))
+        throw new Exception("Malformed timer expression: non integer group");
+
+      if (!int.TryParse(entries[3], out int incState))
+        throw new Exception("Malformed timer expression: non integer state");
+
+      if (InterOp.get_uber_state_type(toggleGroup, toggleState) != UberStateType.SerializedBooleanUberState)
+        throw new Exception("Malformed timer expression: toggle state not a boolean");
+
+      TimerList.Add(new TimerDefinition(toggleGroup, toggleState, incGroup, incState));
     }
 
     public static bool OnUberState(UberState state) {
@@ -477,22 +513,19 @@ namespace RandoMainDLL {
           }
           return new Message(msg, frames, squelch, pos, clear, immediate, mute, prepend);
         case PickupType.UberState:
-          var stateParts = pickupData.Split(',').ToList(); // support old syntax
-          if (stateParts.Count < 4) {
-            if (extras.Count < 3) {
-              Randomizer.Log($"malformed Uberstate specifier {pickupData}", false);
-              return new Message($"Invalid UberState {pickupData}!");
-            }
-            stateParts = stateParts.Take(1).ToList();
-            stateParts.AddRange(extras);
+          extras.Insert(0, pickupData);
+          if (extras.Count < 4 || extras.Count > 5) {
+              var bad = String.Join("|", extras);
+              Randomizer.Log($"malformed UberModifier specifier {bad}", false);
+              return new Message($"Invalid UberModifier specifier {bad}!");
           }
           var uberId = new UberId(
-              stateParts[0].ParseToInt("BuildPickup.UberGroupId"),
-              stateParts[1].ParseToInt("BuildPickup.UberId")
+              extras[0].ParseToInt("BuildPickup.UberGroupId"),
+              extras[1].ParseToInt("BuildPickup.UberId")
             );
-          var stateType = uberTypeFromString(stateParts[2]);
-          Func<UberValue, double> modifier = GetUberSetter(stateType, stateParts[3]);
-          return new UberStateModifier(uberId, modifier, stateParts[3]);
+          var stateType = uberTypeFromString(extras[2]);
+          Func<UberValue, double> modifier = GetUberSetter(stateType, extras[3]);
+          return new UberStateModifier(uberId, modifier, extras[3], extras.Count == 5 ? extras[4].Replace("skip=", "").ParseToInt("BuildPickup.SupCount") : 0);
         default:
           var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
           Randomizer.Error("BuildPickup", err, false);

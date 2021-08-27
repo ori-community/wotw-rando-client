@@ -6,9 +6,9 @@ include(CSharpUtilities)
 file(MAKE_DIRECTORY ${PROJECT_DIR}/Generated/)
 execute_process(
 	COMMAND ${CMAKE_ROOT_DIRECTORY}/ext/protobuf-3.13.0/bin/protoc
-		-I=${WOTWR_PROJECTS_DIR}/wotw-server/docs/
+		-I=${PROJECT_DIR}/proto/
 		--csharp_out=${PROJECT_DIR}/Generated/
-		${WOTWR_PROJECTS_DIR}/wotw-server/docs/packets.proto
+		${PROJECT_DIR}/proto/packets.proto
 )
 
 FILE(GLOB_RECURSE SOURCE_FILES RELATIVE ${PROJECT_DIR} "*.cs")

@@ -1,0 +1,16 @@
+/// Bonus Opher Upgrades
+///
+/// Opher sells five weapon upgrades unique to the randomizer
+
+1|74|11|3       // Spike Efficiency from OpherShop.Spike
+1|98|11|0       // Rapid Smash from OpherShop.SpiritSmash
+1|106|11|4      // Star Efficiency from OpherShop.SpiritStar
+1|115|11|2      // Blaze Efficiency from OpherShop.Blaze
+1|116|11|5      // Sentry Efficiency from OpherShop.Sentry
+
+// Set prices on load
+3|1|8|1|10074|int|300
+3|1|8|1|10098|int|600
+3|1|8|1|10106|int|300
+3|1|8|1|10115|int|300
+3|1|8|1|10116|int|600

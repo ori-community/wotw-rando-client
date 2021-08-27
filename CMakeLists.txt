@@ -86,19 +86,8 @@ else()
 	execute_process(COMMAND ${GIT} submodule update --init --recursive)
 endif()
 
-file(READ "VERSION" ver)
-
-string(REGEX MATCH "([0-9]*).([0-9]*).([0-9]*)" _ ${ver})
-set(WOTWR_MAJOR_VERSION ${CMAKE_MATCH_1})
-set(WOTWR_MINOR_VERSION ${CMAKE_MATCH_2})
-set(WOTWR_PATCH_VERSION ${CMAKE_MATCH_3})
-
-message("-- version: ${WOTWR_MAJOR_VERSION}.${WOTWR_MINOR_VERSION}.${WOTWR_PATCH_VERSION}")
-
-set(WOTWR_VERSION ${WOTWR_MAJOR_VERSION}.${WOTWR_MINOR_VERSION}.${WOTWR_PATCH_VERSION})
-
 set(SLN_NAME WotWRandomizer)
-project (${SLN_NAME} VERSION ${WOTWR_VERSION} DESCRIPTION "WOTW Randomizer Base")
+project (${SLN_NAME})
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 set(
@@ -113,6 +102,7 @@ add_custom_target(
 	ALL
 	cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
 	DEPENDS Il2CppModLoader InjectDLL WinNetwork InjectLoader Injector RandoMainDLL TraceClientManaged SeedGenCli
+	COMMAND cmake -E copy ${CMAKE_ROOT_DIRECTORY}/ext/lib/discord_game_sdk.dll c:/moon
 )
 
 set_target_properties(

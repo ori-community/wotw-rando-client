@@ -172,7 +172,7 @@ namespace modloader
         return csharp_bootstrap();
     }
 
-    void shutdown()
+    void bootstrap_shutdown()
     {
         runtime_info->Release();
         meta_host->Release();

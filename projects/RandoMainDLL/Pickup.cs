@@ -22,7 +22,7 @@ namespace RandoMainDLL {
     ZoneHint = 12,
     CheckableHint = 13,
     Relic = 14,
-    SysMessage = 15,
+    SysMessage = 15
   }
 
   public class DoneWithThis : Exception { };

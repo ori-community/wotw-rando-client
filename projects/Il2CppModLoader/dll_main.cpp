@@ -227,6 +227,7 @@ namespace modloader
     bool shutdown_thread = false;
 
     extern bool bootstrap();
+    extern void bootstrap_shutdown();
 
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path)
     {
@@ -290,6 +291,10 @@ namespace modloader
 
         if (write_to_csv)
             csv_file.close();
+
+        intercept::interception_detach();
+        bootstrap_shutdown();
+        FreeLibraryAndExitThread(GetModuleHandleA("Il2CppModLoader.dll"), 0);
     }
 
     STATIC_IL2CPP_BINDING(UnityEngine, Cursor, int32_t, get_lockState, ());
@@ -305,5 +310,10 @@ namespace modloader
     IL2CPP_MODLOADER_C_DLLEXPORT const char* get_base_path()
     {
         return base_path.c_str();
+    }
+
+    IL2CPP_MODLOADER_DLLEXPORT void shutdown()
+    {
+        shutdown_thread = true;
     }
 }

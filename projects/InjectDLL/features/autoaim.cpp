@@ -29,7 +29,7 @@ namespace
     }
 
     uint32_t handle = 0;
-    IL2CPP_INTERCEPT_OVERLOAD(Game, Targets, app::IEnumerable_1_IAttackable_*, get_Attackables, (app::Targets* this_ptr)) {
+    IL2CPP_INTERCEPT(Game, Targets, app::IEnumerable_1_IAttackable_*, get_Attackables, (app::Targets* this_ptr)) {
         if (overwrite_attackables)
         {
             Il2CppArray* arr = nullptr;

@@ -8,11 +8,11 @@ if "%1"=="compileonly" (
 	copy ".\projects\SeedGenCli\loc_data.csv" "C:\moon\loc_data.csv" /Y
 	copy ".\projects\SeedGenCli\state_data.csv" "C:\moon\state_data.csv" /Y
 	copy ".\projects\SeedGenCli\areas.wotw" "C:\moon\areas.wotw" /Y
-	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
+	".\ext\ahk\Ahk2Exe.exe" /silent /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
 	echo built RandoSettings.exe
-	".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
+	".\ext\ahk\Ahk2Exe.exe" /silent /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
 	echo built ItemTracker.exe
-	".\ext\ahk\Ahk2Exe.exe" /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
+	".\ext\ahk\Ahk2Exe.exe" /silent /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
 	echo built WotwRando.exe
 	echo AHK compile complete!
 	timeout /t 3
@@ -50,11 +50,11 @@ copy ".\projects\SeedGenCli\areas.wotw" "C:\moon\areas.wotw" /Y
 
 
 if NOT "%1"=="buildonly" (
-	".\ext\ahk\Ahk2Exe.exe" /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
+	".\ext\ahk\Ahk2Exe.exe" /silent /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe"
 	echo built RandoSettings.exe
-	".\ext\ahk\Ahk2Exe.exe" /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
+	".\ext\ahk\Ahk2Exe.exe" /silent /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe"
 	echo built ItemTracker.exe
-	".\ext\ahk\Ahk2Exe.exe" /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
+	".\ext\ahk\Ahk2Exe.exe" /silent /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe"
 	echo built WotwRando.exe
 
 	echo BUILD SUCCESS!
@@ -62,6 +62,5 @@ if NOT "%1"=="buildonly" (
 		"C:\Program Files\7-Zip\7z.exe" a -tzip C:\moon\pdbs\pdbs.zip  C:\moon\InjectDLL.pdb C:\moon\RandoMainDLL.pdb C:\moon\Il2CppModLoader.pdb C:\moon\Common.pdb
 		echo wrote pdbs to C:\moon\pdbs\pdbs.zip
 	)
-	timeout /t 10
 )
 
