@@ -70,7 +70,6 @@ impl fmt::Display for Item {
                     let pickup = &message[after_bracket..end_index];
                     if let Ok(pickup) = headers::parser::parse_pickup(pickup) {
                         message.replace_range(start_index..=end_index, &pickup.to_string());
-                        log::trace!("changed message: {}", message);
                     } else { last_index = end_index; } // if nothing ends up getting replaced, move on
                 }
 
