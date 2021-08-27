@@ -4072,9 +4072,7 @@ anchor WoodsEntry.BelowTeleporter at 591, -4198:  # Read the name
       DoubleJump, Hammer  # Double jump to the right wall, upslash to start climbing it (?)
   conn WoodsEntry.TwoKeystoneRoom:
     moki: Combat=2xBalloon, DoubleJump OR Dash OR Glide OR Launch
-    gorlek:
-      Damage=20, DoubleJump OR Dash OR Glide OR Launch  # both baloons are sort of dangerous, damage is for them
-      Combat=2xBalloon, Sword OR Hammer
+    gorlek: Combat=2xBalloon, DoubleJump OR Dash OR Glide OR Launch OR Sword OR Hammer
     unsafe: Launch
 
 anchor WoodsEntry.Teleporter at 611, -4162:  # At the West Woods Teleporter
