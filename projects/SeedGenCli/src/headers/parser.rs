@@ -408,18 +408,14 @@ where P: Iterator<Item=&'a str>
         }
     }
 
-    let parse_by_value = |value: &str| -> Result<String, String> {
+    let parse_by_value = |value: &str| -> Result<(), String> {
         match uber_type {
-            UberType::Bool | UberType::Teleporter => {
-                if value.parse::<bool>().map_err(|_| format!("failed to parse {} as boolean", value))? {
-                    return Ok(String::new());  // trim =true
-                }
-            },
+            UberType::Bool | UberType::Teleporter => { value.parse::<bool>().map_err(|_| format!("failed to parse {} as boolean", value))?; },
             UberType::Byte => { value.parse::<u8>().map_err(|_| format!("failed to parse {} as byte", value))?; },
             UberType::Int => { value.parse::<i32>().map_err(|_| format!("failed to parse {} as integer", value))?; },
             UberType::Float => { value.parse::<f32>().map_err(|_| format!("failed to parse {} as floating point", value))?; },
         }
-        Ok(value.to_owned())
+        Ok(())
     };
 
     let operator = if let Some(range) = remaining.strip_prefix('[') {
@@ -432,8 +428,8 @@ where P: Iterator<Item=&'a str>
                 if let Some(uber_identifier) = parse_pointer(value) {
                     Ok(UberStateRangeBoundary::Pointer(uber_identifier?))
                 } else {
-                    let value = parse_by_value(value)?;
-                    Ok(UberStateRangeBoundary::Value(value))
+                    parse_by_value(value)?;
+                    Ok(UberStateRangeBoundary::Value(value.to_owned()))
                 }
             };
 
@@ -449,8 +445,8 @@ where P: Iterator<Item=&'a str>
     } else if let Some(pointer) = parse_pointer(remaining) {
         Ok(UberStateOperator::Pointer(pointer?))
     } else {
-        let value = parse_by_value(remaining)?;
-        Ok(UberStateOperator::Value(value))
+        parse_by_value(remaining)?;
+        Ok(UberStateOperator::Value(remaining.to_owned()))
     }?;
 
     Ok(Item::UberState(UberStateItem {
