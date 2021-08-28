@@ -1945,7 +1945,7 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
       Water, WaterDash OR Launch
       Combat=Balloon, Water, DoubleJump, TripleJump, Damage=10
       Water, DoubleJump, TripleJump, Damage=20
-    unsafe: Damage=20, DoubleJump OR SentryJump=1
+    unsafe: Water, Damage=20, DoubleJump OR SentryJump=1
   pickup EastHollow.KwolokSwimOre:
     moki: Water, Bash OR Damage=10  # enemy in the way
     gorlek: Water
@@ -1953,9 +1953,9 @@ anchor EastHollow.Kwolok at 177, -4215:  # Between Ku and Kwolok
     moki: Water, WaterDash OR Launch
     gorlek: Water, DoubleJump, TripleJump  # Do a wrap around from the right wall
     unsafe:
-      Bash                                 # Bash the fish
-      DoubleJump                           # At left wall, with quick jumps sliding up the wall you can keepp the dj
-      # DoubleJump, Hammer                 # upswing to gain a bit more hight. Standig on the left ledge to regain upswing after fail.
+      Water, Bash                                 # Bash the fish
+      Water, DoubleJump                           # At left wall, with quick jumps sliding up the wall you can keepp the dj
+      # Water, DoubleJump, Hammer                 # upswing to gain a bit more hight. Standig on the left ledge to regain upswing after fail.
   pickup EastHollow.KwolokSwimRightEX:
     moki: Water
   pickup EastHollow.SecretRoofEX:  # this path can't get over the big spike wall from the left anchor
