@@ -6635,19 +6635,6 @@ anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the
 
   pickup PoolsApproach.CurrentEX:
     moki: Water, WaterDash
-  pickup MarshSpawn.PoolsPathEX:
-    moki:
-      Water, WaterDash, Glide, DoubleJump OR Dash
-      Water, WaterDash, Bash, DoubleJump OR Glide
-      Water, WaterDash, Launch, DoubleJump OR Dash OR Bash OR Glide
-    gorlek:
-      Water, WaterDash, DoubleJump, TripleJump, Dash OR Sword OR Hammer OR Damage=10
-      Water, WaterDash, DoubleJump, Dash, Sword OR Hammer
-      Water, WaterDash, Bash, Dash
-      Water, WaterDash, Bash, Damage=10  # Jump in the spikes then jump to reach the projectile. It's easier if you initially also bash a projectile instead of jumping off
-      Water, WaterDash, Launch
-    unsafe:
-      Water, WaterDash, Bash, Sword OR Hammer  # stall in the air in order to wait for a projectile to bash
 
   conn PoolsApproach.RightOfWheel:  # grenadebash doesn't work when the wheel spins
     moki:
@@ -6664,7 +6651,7 @@ anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the
     unsafe:
       Water, WaterDash, DoubleJump, Dash, Hammer  # water dash straight up, double jump, upslash, dash
       WaterDash, Water OR Damage=20  # :3
-  conn MarshSpawn.Main:
+  conn MarshSpawn.PoolsPath:
     moki: Water, WaterDash  # <3
 
 region EastPools:
