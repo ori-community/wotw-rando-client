@@ -154,8 +154,12 @@ namespace RandoMainDLL {
       if (IniFlag("AlwaysShowKeystones"))
         InterOp.toggle_always_show_keystones();
 
+      if (IniFlag("DisableUberstateNames"))
+        InterOp.set_real_uberstate_names(false);
+
       if (IniFlag("dev"))
         Randomizer.Dev = true;
+
       int maxLogLines = Randomizer.Dev ? 1000 : 500;
       var logLines = File.ReadAllLines(Randomizer.LogFile);
       if (logLines.Length > maxLogLines) {

@@ -14,6 +14,8 @@ namespace uber_states
 {
     namespace
     {
+        bool enable_real_uberstate_names = true;
+
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, void, Add, (app::UberID* groupID, app::UberStateCollectionGroup* group));
 
@@ -484,12 +486,23 @@ namespace uber_states
     }
     
     std::string get_uber_state_name(app::IUberState* uber_state) {
-        if (uber_state == nullptr) return "Null";
+        if (uber_state == nullptr)
+            return "Null";
+
+        if (!enable_real_uberstate_names)
+            return std::to_string(uber_states::get_uber_state_id(uber_state)->fields.m_id);
+
         auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
         return il2cpp::convert_csstring(csstring);
     }
 
     std::string get_uber_state_group_name(app::IUberState* uber_state) {
+        if (uber_state == nullptr)
+            return "Null";
+
+        if (!enable_real_uberstate_names)
+            return std::to_string(uber_states::get_uber_state_group_id(uber_state)->fields.m_id);
+
         auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
         auto csstring = il2cpp::invoke<app::String>(group, "get_GroupName");
         return il2cpp::convert_csstring(csstring);
@@ -640,5 +653,9 @@ namespace uber_states
     INJECT_C_DLLEXPORT void refresh_uber_state(int group_id, int id) {
       auto uber_state = uber_states::get_uber_state(group_id, id);
       uber_states::apply_uber_state_no_notify(uber_state);
+    }
+
+    INJECT_C_DLLEXPORT void set_real_uberstate_names(bool value) {
+        enable_real_uberstate_names = value;
     }
 }
