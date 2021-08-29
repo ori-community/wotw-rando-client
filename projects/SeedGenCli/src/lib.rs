@@ -211,6 +211,10 @@ where R: Rng + ?Sized
         }
     }
 
+    for (item, amount) in context.negative_inventory.items {
+        world.pool.inventory.remove(&item, amount);
+    }
+
     Ok((header_block, context.flags, context.names))
 }
 

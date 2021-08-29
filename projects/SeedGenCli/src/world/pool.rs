@@ -92,11 +92,18 @@ impl Pool {
             self.inventory.grant(item, amount);
         }
     }
-    pub fn remove(&mut self, item: &Item, amount: u16) {
+    pub fn remove(&mut self, item: &Item, amount: u16) -> u16 {
         if let Item::SpiritLight(stacked_amount) = item {
-            self.spirit_light -= self.spirit_light.min(amount * stacked_amount);
+            let amount = amount * stacked_amount;
+            if self.spirit_light > amount {
+                self.spirit_light -= amount;
+                0
+            } else {
+                self.spirit_light = 0;
+                amount - self.spirit_light
+            }
         } else {
-            self.inventory.remove(item, amount);
+            self.inventory.remove(item, amount)
         }
     }
 

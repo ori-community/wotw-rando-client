@@ -11,7 +11,7 @@ use crate::world::{
     World,
     graph::Graph,
 };
-use crate::inventory::{Item, UberStateItem, UberStateOperator, UberStateRange, UberStateRangeBoundary};
+use crate::inventory::{Inventory, Item, UberStateItem, UberStateOperator, UberStateRange, UberStateRangeBoundary};
 use crate::util::{
     self, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
     settings::Settings,
@@ -678,13 +678,20 @@ fn add_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
     Ok(())
 }
 #[inline]
-fn remove_command(mut pickup: &str, world: &mut World) -> Result<(), String> {
+fn remove_command(mut pickup: &str, world: &mut World, negative_inventory: &mut Inventory) -> Result<(), String> {
     let count = parse_count(&mut pickup);
-    let item = parse_pickup(pickup)?;
+    let mut item = parse_pickup(pickup)?;
 
     log::trace!("removing {}{} from the item pool", if count == 1 { String::new() } else { format!("{}x ", count) }, item);
 
-    world.pool.remove(&item, count);
+    let negative = world.pool.remove(&item, count);
+    if negative > 0 {
+        if matches!(item, Item::SpiritLight(_)) {
+            item = Item::SpiritLight(1);
+        }
+
+        negative_inventory.grant(item, negative);
+    }
 
     Ok(())
 }
@@ -838,6 +845,7 @@ pub struct HeaderContext {
     pub excludes: HashMap<String, String>,
     pub flags: Vec<String>,
     pub names: HashMap<String, String>,
+    pub negative_inventory: Inventory,
 }
 
 pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, context: &mut HeaderContext, param_values: &HashMap<&str, HashMap<&str, &str>>, rng: &mut R) -> Result<String, String>
@@ -896,7 +904,7 @@ where R: Rng + ?Sized
             } else if let Some(pickup) = command.strip_prefix("add ") {
                 add_command(pickup.trim(), world).map_err(|err| format!("{} in add command {}", err, line))?;
             } else if let Some(pickup) = command.strip_prefix("remove ") {
-                remove_command(pickup.trim(), world).map_err(|err| format!("{} in remove command {}", err, line))?;
+                remove_command(pickup.trim(), world, &mut context.negative_inventory).map_err(|err| format!("{} in remove command {}", err, line))?;
             } else if let Some(naming) = command.strip_prefix("name ") {
                 name_command(naming.trim(), &mut context.names).map_err(|err| format!("{} in name command {}", err, line))?;
             } else if let Some(parameter) = command.strip_prefix("parameter ") {

@@ -969,7 +969,7 @@ where
             "WindtornRuins.RuinsTP" => Some(Item::Teleporter(Teleporter::InnerRuins)),
             "WillowsEnd.InnerTP" => Some(Item::Teleporter(Teleporter::Willow)),
             _ => None,
-        } { world.pool.inventory.remove(&spawn_tp, 1) }
+        } { world.pool.inventory.remove(&spawn_tp, 1); }
 
         let reachable_locations = total_reach_check(&world, &player_name)?;
 

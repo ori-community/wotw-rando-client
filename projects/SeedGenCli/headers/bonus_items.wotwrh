@@ -6,4 +6,8 @@
 !!add 3x 10|31  // Energy Regen
 !!add 10|35     // Extra Double Jump
 !!add 10|36     // Extra Air Dash
-// TODO add efficiencies
+!!add 11|2      // Blaze Efficiency
+!!add 11|3      // Spike Efficiency
+!!add 11|4      // Shuriken Efficiency
+!!add 11|5      // Sentry Efficiency
+!!add 11|9      // Grenade Efficiency
