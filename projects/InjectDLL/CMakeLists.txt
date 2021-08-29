@@ -80,7 +80,6 @@ set(
 	"features/messages.h"
 	"features/mouse_control.h"
 	"input/controller_bindings.h"
-	"input/enums.h"
 	"input/enums/actions.h"
 	"input/enums/buttons.h"
 	"pickups/ore.h"
