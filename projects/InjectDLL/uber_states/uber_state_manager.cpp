@@ -14,7 +14,7 @@ namespace uber_states
 {
     namespace
     {
-        bool enable_real_uberstate_names = true;
+        bool enable_real_uberstate_names = false;
 
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, void, Add, (app::UberID* groupID, app::UberStateCollectionGroup* group));
