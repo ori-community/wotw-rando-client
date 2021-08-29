@@ -109,7 +109,7 @@ namespace
         std::ifstream file(base_path + CONTROLLER_REBIND_FILE);
         while (std::getline(file, line))
         {
-            trim(line);
+            line = trim(line.substr(0, line.find('#')));
             if (!line.empty())
             {
                 auto index = line.find('=');
