@@ -7,6 +7,8 @@
 
 namespace modloader
 {
+    extern IL2CPP_MODLOADER_DLLEXPORT std::string base_path;
+
     struct IL2CPP_MODLOADER_DLLEXPORT Initialization
     {
         using init = void (*)();

@@ -2,7 +2,6 @@
 #include <Common/ext.h>
 #include <csharp_bridge.h>
 #include <unordered_map>
-#include <features/input_poller.h>
 #include <features/messages.h>
 
 #include <Il2CppModLoader/common.h>
@@ -88,8 +87,6 @@ namespace
 	    }
     }
 
-    constexpr InputButton FOCUS_BUTTON = InputButton::Ability3;
-    void update_map_focus(InputState const& state);
     app::AreaMapNavigation* cached = nullptr;
     app::GameWorldAreaID__Enum area_id = app::GameWorldAreaID__Enum_None;
 
@@ -113,7 +110,7 @@ namespace
         if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
         {
             cached = this_ptr->fields._Navigation_k__BackingField;
-            register_input_callback(FOCUS_BUTTON, update_map_focus);
+            //register_input_callback(FOCUS_BUTTON, update_map_focus);
         }
         area_map_open = true;
     }
@@ -123,8 +120,8 @@ namespace
         hide_below_hint();
         if (cached != nullptr)
         {
-            if (!unregister_input_callback(FOCUS_BUTTON, update_map_focus))
-                trace(MessageType::Error, 2, "game", "Failed to unregister map focus callback.");
+            //if (!unregister_input_callback(FOCUS_BUTTON, update_map_focus))
+            //    trace(MessageType::Error, 2, "game", "Failed to unregister map focus callback.");
             cached = nullptr;
         }
         area_map_open = false;
@@ -149,22 +146,22 @@ namespace
         disable_next_update_map_target = false;
     }
 
-    void update_map_focus(InputState const& state)
-    {
-        if (cached == nullptr)
-        {
-            unregister_input_callback(FOCUS_BUTTON, update_map_focus);
-            trace(MessageType::Error, 2, "game", "Unregistering callback now, registration order may have been bad.");
-            return;
-        }
-
-        if (get_input_state(FOCUS_BUTTON).just_pressed && quest_cache != nullptr)
-        {
-            AreaMapNavigation::SetTarget(cached, quest_cache);
-            AreaMapNavigation::UpdateMapTarget(cached);
-            //quest_cache = nullptr;
-        }
-    }
+    //void update_map_focus(InputState const& state)
+    //{
+    //    if (cached == nullptr)
+    //    {
+    //        unregister_input_callback(FOCUS_BUTTON, update_map_focus);
+    //        trace(MessageType::Error, 2, "game", "Unregistering callback now, registration order may have been bad.");
+    //        return;
+    //    }
+    //
+    //    if (get_input_state(FOCUS_BUTTON).just_pressed && quest_cache != nullptr)
+    //    {
+    //        AreaMapNavigation::SetTarget(cached, quest_cache);
+    //        AreaMapNavigation::UpdateMapTarget(cached);
+    //        //quest_cache = nullptr;
+    //    }
+    //}
 
     STATIC_IL2CPP_BINDING(Game, UI, app::MenuScreenManager*, get_Menu, ());
     IL2CPP_BINDING(, MenuScreenManager, void, HideMenuScreen, (app::MenuScreenManager* this_ptr, bool immediate, bool fade));
