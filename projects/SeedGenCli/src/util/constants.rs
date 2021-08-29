@@ -35,15 +35,16 @@ pub const SPAWN_GRANTS: &[(&str, Item)] = &[
 ];
 pub const RELIC_ZONES: &[Zone] = &[
     Zone::Marsh,
-    Zone::Burrows,
     Zone::Hollow,
     Zone::Glades,
     Zone::Wellspring,
-    Zone::Pools,
+    Zone::Woods,
     Zone::Reach,
     Zone::Depths,
+    Zone::Pools,
     Zone::Wastes,
     Zone::Willow,
+    Zone::Burrows,
 ];
 pub const KEYSTONE_DOORS: &[(&str, u16)] = &[
     ("MarshSpawn.KeystoneDoor", 2),
