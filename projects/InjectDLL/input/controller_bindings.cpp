@@ -67,7 +67,7 @@ namespace
         axis_map[app::XboxControllerInput_Axis__Enum_LeftStickY] = create_axis_input(app::XboxControllerInput_Axis__Enum_LeftStickY);
         axis_map[app::XboxControllerInput_Axis__Enum_RightStickX] = create_axis_input(app::XboxControllerInput_Axis__Enum_RightStickX);
         axis_map[app::XboxControllerInput_Axis__Enum_RightStickY] = create_axis_input(app::XboxControllerInput_Axis__Enum_RightStickY);
-        axis_map[app::XboxControllerInput_Axis__Enum_DpadX] = create_axis_input(app::XboxControllerInput_Axis__Enum_LeftStickX);
+        axis_map[app::XboxControllerInput_Axis__Enum_DpadX] = create_axis_input(app::XboxControllerInput_Axis__Enum_DpadX);
         axis_map[app::XboxControllerInput_Axis__Enum_DpadY] = create_axis_input(app::XboxControllerInput_Axis__Enum_DpadY);
         axis_map[app::XboxControllerInput_Axis__Enum_LeftTrigger] = create_axis_input(app::XboxControllerInput_Axis__Enum_LeftTrigger);
         axis_map[app::XboxControllerInput_Axis__Enum_RightTrigger] = create_axis_input(app::XboxControllerInput_Axis__Enum_RightTrigger);
