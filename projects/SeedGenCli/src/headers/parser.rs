@@ -700,7 +700,7 @@ fn name_command(naming: &str, names: &mut HashMap<String, String>) -> Result<(),
     Ok(())
 }
 #[inline]
-fn parameter_command(parameter: &str, parameters: &mut HashMap<String, String>, param_values: &HashMap<String, String>) -> Result<(), String> {
+fn parameter_command(parameter: &str, parameters: &mut HashMap<String, String>, param_values: &HashMap<&str, &str>) -> Result<(), String> {
     let mut parts = parameter.splitn(2, ' ');
     let identifier = parts.next().unwrap();
     let default = parts.next().ok_or_else(|| String::from("Missing default value"))?;
@@ -840,15 +840,18 @@ pub struct HeaderContext {
     pub names: HashMap<String, String>,
 }
 
-pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, context: &mut HeaderContext, param_values: &HashMap<String, String>, rng: &mut R) -> Result<String, String>
+pub fn parse_header<R>(name: &Path, header: &str, world: &mut World, context: &mut HeaderContext, param_values: &HashMap<&str, HashMap<&str, &str>>, rng: &mut R) -> Result<String, String>
 where R: Rng + ?Sized
 {
     let mut processed = String::with_capacity(header.len());
     let mut pool = Vec::new();
     let mut parameters = HashMap::new();
     let mut skip_until = -1;
-    let mut depth = 0;
+    let mut depth: i8 = 0;
     let mut first_line = true;
+
+    let default = HashMap::default();
+    let header_param_values = param_values.get(&name.file_stem().unwrap().to_string_lossy().to_string()[..]).unwrap_or(&default);
 
     for line in header.lines() {
         let mut line = apply_take_commands(line, &mut pool, rng)?;
@@ -897,7 +900,7 @@ where R: Rng + ?Sized
             } else if let Some(naming) = command.strip_prefix("name ") {
                 name_command(naming.trim(), &mut context.names).map_err(|err| format!("{} in name command {}", err, line))?;
             } else if let Some(parameter) = command.strip_prefix("parameter ") {
-                parameter_command(parameter.trim(), &mut parameters, param_values).map_err(|err| format!("{} in parameter command {}", err, line))?;
+                parameter_command(parameter.trim(), &mut parameters, header_param_values).map_err(|err| format!("{} in parameter command {}", err, line))?;
             } else if let Some(string) = command.strip_prefix("pool ") {
                 pool_command(string.trim(), &mut pool).map_err(|err| format!("{} in pool command {}", err, line))?;
             } else if let Some(amount) = command.strip_prefix("addpool ") {

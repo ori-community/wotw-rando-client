@@ -4,11 +4,11 @@
 /// Use Ctrl+Alt+5 to toggle this on or off
 !!include bonus_core
 //// How many Jumpgrades to shuffle in
-!!parameter jg_count int:3
+!!parameter count int:3
 
 9|999=401|6|#Jumpgrade x$(9|8)#         // display name
 
-!!add $PARAM(jg_count)x 8|9|8|int|+1
+!!add $PARAM(count)x 8|9|8|int|+1
 !!name 8|9|8|int|+1 Jumpgrade
 9|8=1|8|9|111|bool|true                 // subscribe to bonus core
 9|8=1|8|9|112|bool|true                 // set to default enabled

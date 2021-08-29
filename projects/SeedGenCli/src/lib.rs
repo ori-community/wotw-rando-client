@@ -160,10 +160,20 @@ where R: Rng + ?Sized
     for header_arg in &settings.header_args {
         let mut parts = header_arg.splitn(2, '=');
         let identifier = parts.next().unwrap();
+        let mut identifier_parts = identifier.splitn(2, '.');
+        let header = identifier_parts.next().unwrap();
+        let identifier = identifier_parts.next().ok_or_else(|| format!("Expected <header>.<parameter> in header arg {}", header_arg))?;
         let value = parts.next().unwrap_or("true");
 
-        if let Some(prior) = param_values.insert(identifier.to_string(), value.to_string()) {
-            log::warn!("Overwriting {} with {} for header argument {}", prior, value, identifier);
+        let prior = param_values.entry(header).or_insert_with(HashMap::new);
+        if let Some(lost) = prior.insert(identifier, value) {
+            log::warn!("Overwriting duplicate header argument {}", lost);
+        }
+    }
+
+    for &header_with_parameters in param_values.keys() {
+        if !settings.header_list.iter().any(|header| header.to_str().map_or(false, |header| header == header_with_parameters)) {
+            log::warn!("The header {} referenced in a header argument isn't active", header_with_parameters);
         }
     }
 

@@ -161,7 +161,7 @@ struct SeedSettings {
     /// paths to headers stored in files which will be added to the seed
     #[structopt(parse(from_os_str), short, long = "headers")]
     header_paths: Vec<PathBuf>,
-    /// configuration variables for headers
+    /// configuration variables for headers in the format <headername>.<variablename>
     #[structopt(short = "a", long = "args")]
     header_args: Vec<String>,
 }

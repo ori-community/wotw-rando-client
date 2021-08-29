@@ -4,11 +4,11 @@
 /// Use Ctrl+Alt+5 to toggle this on or off
 !!include bonus_core
 //// How many Skill Velocities to shuffle in
-!!parameter sv_count int:5
+!!parameter count int:5
 
 9|999=400|6|#Skill Velocity x$(9|5)#    // display name
 
-!!add $PARAM(sv_count)x 8|9|5|int|+1
+!!add $PARAM(count)x 8|9|5|int|+1
 !!name 8|9|5|int|+1 Skill Velocity
 9|5=1|8|9|109|bool|true                 // subscribe to bonus core
 9|5=1|8|9|110|bool|true                 // set to default enabled
