@@ -526,6 +526,7 @@ anchor HowlsDen.Entrance at -376, -4413:  # Next to Mokk the Brave, but outside 
       Bash, Grenade=1, Sword OR Hammer               # As above, but sword/hammer upslash to cross the last gap
       Grenade=2, DoubleJump            # Grenade jump to get to the vine, then jump right. Dboost the last gap. Grenade jump to EC.
       Dash, Sword, Regenerate OR Blaze  # wavedash
+      DoubleJump, Hammer              # HammerJump
   pickup MarshSpawn.RecklessShard:
     moki, MarshSpawn.HowlBurnt, BreakWall=10:
       DoubleJump OR Launch
@@ -6491,6 +6492,10 @@ anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfwa
     unsafe:
       Water, Grapple, Dash OR Glide OR Sword OR DoubleJump  # grapple the plant then let you fall under it and regrapple it from bellow to have more height
       Water, Grapple, Hammer, Damage=15
+      Water, Launch
+      Water, DoubleJump, TripleJump, Sword  # Sword hover. Possible without an upslash too.
+      Water, DoubleJump, Sword, Damage=15  # Sword jumps
+      Water, DoubleJump, Hammer  # Hammer jumps
   conn PoolsApproach.MillPath:
     moki, Damage=20:  # severe enemy spam
       Bash, Grapple OR Launch  # this is probably actually closest to how you'd traverse this naturally
@@ -6504,6 +6509,8 @@ anchor PoolsApproach.MillPathCheckpoint at -826, -4130:  # The checkpoint halfwa
       Bash, Grenade=1, DoubleJump
     unsafe:
       Bash  # Bash the ennemies but they don't really like being on the right position for you to bash them
+      DoubleJump, Hammer, Dash OR TripleJump  # Hammer jumps
+      DoubleJump, TripleJump, Sword  # Reset your jumps by hitting/pogoing the ennemies
 
 anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three paths merge
   refill Checkpoint
@@ -6519,7 +6526,11 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
       DoubleJump, TripleJump  # gives some room to maneuver around the corrupted slug
       Combat=SpinCrab+CorruptSlug, DoubleJump, Grapple OR Glide OR Sword OR Hammer
     unsafe:
-      Dash, Sword OR Hammer OR Grapple  # Dash upslash / grapple the right plant, and spam dash to reach the wall where the slime is
+      Bash
+      SwordSJump=1
+      Combat=SpinCrab+CorruptSlug, DoubleJump
+      Combat=SpinCrab+CorruptSlug, Glide, Dash  # Glide jump
+      Dash, Sword OR Hammer OR Grapple  # Dash upslash / grapple the right plant, and spam dash to reach the wall where the slime is      
   pickup PoolsApproach.MillPathEC:
     moki: Water  # again not really a reason to even use Bash
 
@@ -6535,6 +6546,11 @@ anchor PoolsApproach.MillPath at -873, -4146:  # above the water where the three
       Grapple, DoubleJump OR SentryJump=1
       DoubleJump, TripleJump, Combat=CorruptSlug OR SentryJump=1  # climb the wall bellow the checkpoint
       Launch
+    unsafe:
+      Dash, Grapple, Combat=Crab
+      DoubleJump, Hammer OR Sword
+      DoubleJump, Glide, Combat=CorruptSlug  # kill the first CorruptSlug then wall jump to the left wall. Climbing that wall is a bit precise. Can make it easier with a glide jump, which means killing the second CorruptSlug
+      Grenade=1, Grapple, Combat=Crab, Sword OR Hammer OR Glide OR Damage=20  # Grenade jump from 
   conn PoolsApproach.RightOfWheel:
     moki: Water, Combat=SpinCrab OR DoubleJump OR Bash OR Launch  # bashing to break the wall on the way is much harder than just swimming at it and letting it happen, so didn't make Bash a requirement.
     gorlek: Water
@@ -6554,6 +6570,9 @@ anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of t
     unsafe:
       Bash, Grenade=1, DoubleJump OR SentryJump=1
       Bash, Grenade=1, Hammer, Dash
+      Glide, Hammer OR DoubleJump  # Glide jumps
+      DoubleJump, Sword  #  Sword jumps
+      Grenade=3  #  2 gjump then cancel the second on and start a grenade float (which you al need to cancel so you can wjump)
   pickup PoolsApproach.MillPathHC:
     moki:
       Water, DoubleJump, Dash, WaterDash, Grapple
@@ -6570,6 +6589,8 @@ anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of t
       Water, DoubleJump, Bash, Grapple, Sword OR Hammer  # the air stalling to skip grapple is quite hard + need an upslash and a precise shot to get to the HC but you can't refill your upsash anywhere
       Water, DoubleJump, Bash, Damage=20, Sword OR Hammer  # the air stalling to skip grapple is quite hard + need an upslash and a precise shot to get to the HC but you can't refill your upsash anywhere
       Water, WaterDash, DoubleJump, Grapple  # the waterdash to get to the hc is really hard with keyboard swimming
+      Water, DoubleJump, Hammer, Damage=20, Dash OR TripleJump  # Hammer jumps
+      Water, DoubleJump, Hammer, Grapple OR Glide  # Hammer jumps
   pickup PoolsApproach.MillPathEC:
     moki: Water, Bash, Damage=10
     gorlek: Water, Bash
@@ -6596,6 +6617,8 @@ anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of t
       Water, Grapple, WaterDash, Sword OR Hammer  # Need an upslash but you can't refill it anywhere near
       Water, Grapple, Bash, Sword OR Hammer  # Need an upslash but you can't refill it anywhere near
       Water, Launch  # Launch boost on the ceiling
+      Water, DoubleJump, Hammer, Damage=20, Dash OR TripleJump  # Hammer jumps
+      Water, DoubleJump, Hammer, Grapple OR Glide  # Hammer jumps
   conn PoolsApproach.LeftOfWheel:
     moki:
       PoolsApproach.WheelFreed OR DoubleJump OR Grapple OR Launch
@@ -6632,6 +6655,7 @@ anchor PoolsApproach.RightOfWheel at -948, -4184:  # The rightmost platform of t
 anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the static wheel
   state PoolsApproach.WheelFreed:
     moki: Water, Bash
+    unsafe: Spear=1
 
   pickup PoolsApproach.CurrentEX:
     moki: Water, WaterDash
@@ -6651,7 +6675,8 @@ anchor PoolsApproach.LeftOfWheel at -995, -4184:  # The leftmost platform of the
     unsafe:
       Water, WaterDash, DoubleJump, Dash, Hammer  # water dash straight up, double jump, upslash, dash
       WaterDash, Water OR Damage=20  # :3
-  conn MarshSpawn.PoolsPath:
+      Water, DoubleJump, TripleJump, Hammer  # Hammer jumps
+  conn MarshSpawn.Main:
     moki: Water, WaterDash  # <3
 
 region EastPools:
