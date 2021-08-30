@@ -216,6 +216,7 @@ fn parse_requirement<'a>(token: &'a Token, metadata: &Metadata) -> Result<Requir
             "HammerBreak" => Ok(Requirement::HammerBreak),
             "HollowTP" => Ok(Requirement::Teleporter(Teleporter::Hollow)),
             "InnerRuinsTP" => Ok(Requirement::Teleporter(Teleporter::InnerRuins)),
+            "kii" => Ok(Requirement::Difficulty(Difficulty::Kii)),
             "Launch" => Ok(Requirement::Skill(Skill::Launch)),
             "LifeHarvest" => Ok(Requirement::Shard(Shard::LifeHarvest)),
             "Magnet" => Ok(Requirement::Shard(Shard::Magnet)),

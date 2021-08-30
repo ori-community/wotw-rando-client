@@ -19,6 +19,7 @@ use uberstate::{UberState, UberIdentifier};
 pub enum Difficulty {
     Moki,
     Gorlek,
+    Kii,
     Unsafe,
 }
 impl Default for Difficulty {
