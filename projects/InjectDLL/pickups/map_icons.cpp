@@ -579,12 +579,19 @@ namespace
 
         return CanBeTeleportedTo(this_ptr);
     }
+
+    bool should_always_show_teleporters(app::AreaMapIconManager* manager)
+    {
+        return csharp_bridge::check_ini("AlwaysShowWarps") || (static_cast<NewFilters>(manager->fields.Filter) > NewFilters::Collectibles);
+    }
+
     bool shown_by_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
     {
         // Always show warps check
         if(
             icon->fields.IsCollectedState == nullptr && // the icons of actual warps can't be collected and have no IsCollectedState; the same cannot be said for spoiler icons
-            icon->fields.Icon == app::WorldMapIconType__Enum_SavePedestal && csharp_bridge::check_ini("AlwaysShowWarps"))
+            icon->fields.Icon == app::WorldMapIconType__Enum_SavePedestal &&
+            should_always_show_teleporters(manager))
             return true;
 
         const auto filter = static_cast<NewFilters>(manager->fields.Filter);
@@ -693,27 +700,27 @@ namespace
         return label;
     }
 
-    void check_and_initialize_filter_labels(app::AreaMapIconManager* this_ptr)
+    bool ignore_filter_input = false;
+    IL2CPP_INTERCEPT(, AreaMapUI, void, set_IconFilter, (app::AreaMapUI* this_ptr, app::AreaMapIconFilter__Enum value)) {
+        if (!ignore_filter_input)
+            AreaMapUI::set_IconFilter(this_ptr, value);
+    }
+
+    void check_and_initialize_filter_labels(app::AreaMapIconManager* icon_manager)
     {
-        if (il2cpp::is_assignable(this_ptr, "", "AreaMapIconManager") && this_ptr->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
+        if (il2cpp::is_assignable(icon_manager, "", "AreaMapIconManager") && icon_manager->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
             auto arr = reinterpret_cast<app::AreaMapIconFilterFooterLabel__Array*>(il2cpp::untyped::array_new(
                 il2cpp::get_class("", "AreaMapIconFilterFooterLabel"), static_cast<int>(NewFilters::COUNT)));
 
             for (auto i = 0; i < static_cast<int>(app::AreaMapIconFilter__Enum_COUNT); ++i)
-                arr->vector[i] = this_ptr->fields.Labels->vector[i];
+                arr->vector[i] = icon_manager->fields.Labels->vector[i];
 
             // Add extra labels.
             arr->vector[static_cast<int>(NewFilters::InLogic)]  = create_filter(NewFilters::InLogic, "In Logic");
             arr->vector[static_cast<int>(NewFilters::Spoilers)] = create_filter(NewFilters::Spoilers, "Spoilers");
 
-            this_ptr->fields.Labels = arr;
+            icon_manager->fields.Labels = arr;
         }
-    }
-
-    bool ignore_filter_input = false;
-    IL2CPP_INTERCEPT(, AreaMapUI, void, set_IconFilter, (app::AreaMapUI* this_ptr, app::AreaMapIconFilter__Enum value)) {
-        if (!ignore_filter_input)
-            AreaMapUI::set_IconFilter(this_ptr, value);
     }
 
     void cycle_filter(app::AreaMapUI* map)
@@ -729,7 +736,20 @@ namespace
         AreaMapUI::set_IconFilter(map, static_cast<app::AreaMapIconFilter__Enum>(current_filter));
     }
 
+    bool dirty_filter = false;
     std::atomic<bool> refresh = false;
+
+    IL2CPP_INTERCEPT(, AreaMapUI, void, Init, (app::AreaMapUI* this_ptr)) {
+        AreaMapUI::Init(this_ptr);
+        auto icon_manager = this_ptr->fields._IconManager_k__BackingField;
+        check_and_initialize_filter_labels(icon_manager);
+        if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::InLogic)))
+        {
+            AreaMapUI::set_IconFilter(this_ptr, static_cast<app::AreaMapIconFilter__Enum>(NewFilters::InLogic));
+            dirty_filter = true;
+        }
+    }
+
     IL2CPP_BINDING(, GameMapUI, void, UpdateFilterText, (app::GameMapUI* this_ptr));
     IL2CPP_BINDING(, GameMapUI, void, UpdateQuests, (app::GameMapUI* this_ptr));
     IL2CPP_INTERCEPT(, GameMapUI, void, NormalInput, (app::GameMapUI* this_ptr)) {
@@ -741,6 +761,11 @@ namespace
         if (input_cmd->static_fields->MapFilter->fields.IsPressed && !input_cmd->static_fields->MapFilter->fields.WasPressed)
         {
             cycle_filter(this_ptr->fields.m_areaMap);
+            dirty_filter = true;
+        }
+
+        if (dirty_filter)
+        {
             GameMapUI::UpdateFilterText(this_ptr);
             GameMapUI::UpdateQuests(this_ptr);
         }
@@ -758,7 +783,6 @@ namespace
     IL2CPP_INTERCEPT(, AreaMapUI, void, CycleFilter, (app::AreaMapUI* this_ptr)) {
         cycle_filter(this_ptr);
     }
-
 }
 
 INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, app::WorldMapIconType__Enum icon, float x, float y, int group_id, int state_id, bool allow_teleport)
