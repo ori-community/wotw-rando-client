@@ -8,7 +8,7 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
 	SOURCE_FILES
-    "csharp_bridge.cpp"
+	"csharp_bridge.cpp"
 	"dll_main.cpp"
 	"dev/object_visualizer.cpp"
 	"features/autoaim.cpp"
@@ -33,6 +33,7 @@ set(
 	"features/sein_ui.cpp"
 	"features/start_anywhere.cpp"
 	"features/water.cpp"
+	"features/wheel.cpp"
 	"fixes/blaze_environment.cpp"
 	"fixes/dash.cpp"
 	"fixes/deflector.cpp"
@@ -41,6 +42,7 @@ set(
 	"fixes/teleporters.cpp"
 	"fixes/trials.cpp"
 	"input/controller_bindings.cpp"
+	"input/rando_bindings.cpp"
 	"pickups/pickups.cpp"
 	"pickups/energy_cell.cpp"
 	"pickups/experience.cpp"
@@ -65,21 +67,25 @@ set(
 	"uber_states/uber_state_manager.cpp"
 	"uber_states/uber_state_helper.cpp"
 	"uber_states/state_applier.cpp"
+	"utils/messaging.cpp"
+	"utils/shaders.cpp"
+	"utils/textures.cpp"
 )
 
 set(
 	PUBLIC_HEADER_FILES
 	"constants.h"
-    "csharp_bridge.h"
+    	"csharp_bridge.h"
 	"dll_main.h"
-    "enum_definitions.h"
-    "macros.h"
+    	"enum_definitions.h"
+    	"macros.h"
 	"dev/object_visualizer.h"
 	"features/death_listener.h"
 	"features/invert_swim.h"
 	"features/messages.h"
 	"features/mouse_control.h"
 	"input/controller_bindings.h"
+	"input/rando_bindings.h"
 	"input/enums/actions.h"
 	"input/enums/buttons.h"
 	"pickups/ore.h"
@@ -89,6 +95,9 @@ set(
 	"uber_states/state_applier.h"
 	"uber_states/uber_state_manager.h"
 	"uber_states/uber_state_helper.h"
+	"utils/messaging.h"
+	"utils/shaders.h"
+	"utils/textures.h"
 )
 
 set(

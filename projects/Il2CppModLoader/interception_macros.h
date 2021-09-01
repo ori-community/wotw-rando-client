@@ -2,6 +2,15 @@
 
 #include "interception.h"
 
+#define DECLARE_BINDING(namezpace, klass_name, return_type, name, params) \
+namespace klass_name { \
+extern return_type (*(name)) params; \
+}
+
+#define DECLARE_INTERCEPT(namezpace, klass_name, return_type, name, params) \
+namespace klass_name { \
+return_type name##_intercept params; \
+}
 // Named Overloads
 
 #define NAMED_STATIC_IL2CPP_INTERCEPT_OVERLOAD(namezpace, klass_name, return_type, method_name, name, params, overloads) \

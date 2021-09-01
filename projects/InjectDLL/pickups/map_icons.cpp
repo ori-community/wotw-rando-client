@@ -1,4 +1,5 @@
 #include <uber_states/uber_state_manager.h>
+#include <utils\messaging.h>
 
 #include <csharp_bridge.h>
 
@@ -126,21 +127,6 @@ namespace
     NAMED_IL2CPP_BINDING(, RuntimeWorldMapIcon, void, .ctor, ctor, (app::RuntimeWorldMapIcon* this_ptr, app::GameWorldArea_WorldMapIcon* icon, app::RuntimeGameWorldArea* area));
     IL2CPP_BINDING(, AreaMapIcon, void, SetMessageProvider, (app::AreaMapIcon* this_ptr, app::MessageProvider* provider));
 
-    app::MessageProvider* create_message_provider(Il2CppString* message)
-    {
-        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
-        il2cpp::invoke(provider, ".ctor");
-        // TODO: Add input provider and message provider with different color.
-
-        auto item = il2cpp::create_object<app::TranslatedMessageProvider_MessageItem>("", "TranslatedMessageProvider", "MessageItem");
-        item->fields.English = reinterpret_cast<app::String*>(message);
-        item->fields.Sound = nullptr;
-        item->fields.WWiseEvent = nullptr;
-        item->fields.Emotion = app::EmotionType__Enum_Neutral;
-        il2cpp::invoke(provider->fields.Messages, "Add", item);
-        return reinterpret_cast<app::MessageProvider*>(provider);
-    }
-
     app::WorldMapIconType__Enum get_base_icon(app::RuntimeWorldMapIcon* icon)
     {
         auto base_icons = icon->fields.Area->fields.Area->fields.Icons;
@@ -201,7 +187,7 @@ namespace
             {
                 wchar_t buffer[128] = { 0 };
                 csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, static_cast<int>(it->second.value), current_filter);
-                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, create_message_provider(il2cpp::string_new(buffer)));
+                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(il2cpp::string_new(buffer)));
                 const auto spoiler_active = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
                 if (spoiler_active ^ it->second.has_spoiler_icon)
                 {
@@ -696,7 +682,7 @@ namespace
     {
         app::AreaMapIconFilterFooterLabel label;
         label.Filter = static_cast<app::AreaMapIconFilter__Enum>(filter);
-        label.Footer = reinterpret_cast<app::MessageProvider*>(create_message_provider(il2cpp::string_new("Filter: " + message)));
+        label.Footer = reinterpret_cast<app::MessageProvider*>(utils::create_message_provider(il2cpp::string_new("Filter: " + message)));
         return label;
     }
 
