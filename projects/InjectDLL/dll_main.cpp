@@ -124,7 +124,6 @@ app::GameSettings* get_settings()
 
 INJECT_C_DLLEXPORT void bind(int slot, int equip_type)
 {
-    app::SpellInventory_Binding__Enum;
     SpellInventory::UpdateBinding(get_sein()->fields.PlayerSpells, static_cast<app::SpellInventory_Binding__Enum>(slot), static_cast<app::EquipmentType__Enum>(equip_type));
 }
 

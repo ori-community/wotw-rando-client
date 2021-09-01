@@ -5,6 +5,7 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <utils\messaging.h>
 
 #include <functional>
 #include <set>
@@ -75,54 +76,6 @@ namespace
         //SpiritShardsShopScreen$$CanPurchase
         const auto result = SpiritShardsShopScreen::CanPurchase(this_ptr);
         return result;
-    }
-
-    void for_each_indexed(const int64_t list, const std::function<void(int64_t, int)> fun)
-    {
-        const auto ptr = reinterpret_cast<void*>(list);
-        if (ptr == nullptr)
-            return;
-
-        const int size = static_cast<int>(il2cpp::invoke<app::Int64__Boxed>(ptr, "get_Count")->fields);
-        for (int i = 0; i < size; i++)
-            fun(reinterpret_cast<int64_t>(il2cpp::invoke<>(ptr, "get_Item", &i)), i);
-    }
-
-    void initShardDescription(app::SpiritShardType__Enum shard, app::SpiritShardDescription* spiritShardDescription)
-    {
-        //Set purchase cost (normal):
-        if (!is_twillen_shard(shard))
-            return;
-
-        spiritShardDescription->fields.InitialBuyCost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard));
-        const auto upgradable_ability_list = spiritShardDescription->fields.UpgradablePropertyLevels;
-        for_each_indexed(
-            reinterpret_cast<int64_t>(upgradable_ability_list),
-            [shard](int64_t upgradableAbilityLevel, int index) -> void
-        {
-            if (upgradableAbilityLevel)
-            {
-                //Set upgrade cost (normal):
-                // *(int*)(upgradableAbilityLevel + 0x18) = 10;// 1337 * 2;
-                //TODO: @Eiko: Get this from c# too
-            }
-        }
-        );
-    }
-
-    INTERNAL_INTERCEPT(27145792, app::SpiritShardDescription*, enumDictGetValue, (int64_t dict, app::SpiritShardType__Enum key, int64_t impl))
-    {
-        //EnumDictionary<ENUMTYPE, VALUETYPE>$$GetValue
-        app::SpiritShardDescription* value = enumDictGetValue(dict, key, impl);
-
-        //Method$EnumDictionary<SpiritShardType, SpiritShardDescription>.GetValue()
-        //Also, this should do like... nothing? But hey, it works, so I won't touch it until something breaks
-        //update: something broke! It's been touched
-        //if (impl == *reinterpret_cast<int64_t*>(intercept::resolve_rva(74897664)))
-        if (value)
-            initShardDescription(key, value);
-
-        return value;
     }
 
     NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, int, GetCostForLevel, (app::PlayerUberStateShards_Shard* this_ptr, int level))
@@ -258,44 +211,6 @@ namespace
         }
 
         PurchaseThingScreen::PurchaseInput(this_ptr);
-    }
-
-    app::MessageProvider* create_message_provider(Il2CppString* message)
-    {
-        auto* const provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
-        il2cpp::invoke(provider, ".ctor");
-        // TODO: Add input provider and message provider with different color.
-
-        auto* item = il2cpp::create_object<app::TranslatedMessageProvider_MessageItem>("", "TranslatedMessageProvider", "MessageItem");
-
-        // Maybe add actual localization?
-        item->fields.English = reinterpret_cast<app::String*>(message);
-        item->fields.French = reinterpret_cast<app::String*>(message);
-        item->fields.Italian = reinterpret_cast<app::String*>(message);
-        item->fields.German = reinterpret_cast<app::String*>(message);
-        item->fields.Spanish = reinterpret_cast<app::String*>(message);
-        item->fields.Japanese = reinterpret_cast<app::String*>(message);
-        item->fields.Portuguese = reinterpret_cast<app::String*>(message);
-        item->fields.Chinese = reinterpret_cast<app::String*>(message);
-        item->fields.Russian = reinterpret_cast<app::String*>(message);
-        item->fields.TraditionalChinese = reinterpret_cast<app::String*>(message);
-        item->fields.Czech = reinterpret_cast<app::String*>(message);
-        item->fields.Danish = reinterpret_cast<app::String*>(message);
-        item->fields.Dutch = reinterpret_cast<app::String*>(message);
-        item->fields.Finnish = reinterpret_cast<app::String*>(message);
-        item->fields.Hungarian = reinterpret_cast<app::String*>(message);
-        item->fields.Korean = reinterpret_cast<app::String*>(message);
-        item->fields.Norwegian = reinterpret_cast<app::String*>(message);
-        item->fields.Polish = reinterpret_cast<app::String*>(message);
-        item->fields.SpanishSpain = reinterpret_cast<app::String*>(message);
-        item->fields.Swedish = reinterpret_cast<app::String*>(message);
-        item->fields.Turkish = reinterpret_cast<app::String*>(message);
-
-        item->fields.Sound = nullptr;
-        item->fields.WWiseEvent = nullptr;
-        item->fields.Emotion = app::EmotionType__Enum_Neutral;
-        il2cpp::invoke(provider->fields.Messages, "Add", item);
-        return reinterpret_cast<app::MessageProvider*>(provider);
     }
 
     struct ShopItem
@@ -667,11 +582,11 @@ namespace
         if (item.locked != 0)
             il2cpp::gchandle_free(item.locked);
 
-        auto* provider = create_message_provider(il2cpp::string_new(name));
+        auto* provider = utils::create_message_provider(il2cpp::string_new(name));
         item.name = il2cpp::gchandle_new(provider, false);
-        provider = create_message_provider(il2cpp::string_new(description));
+        provider = utils::create_message_provider(il2cpp::string_new(description));
         item.description = il2cpp::gchandle_new(provider, false);
-        provider = create_message_provider(il2cpp::string_new(locked));
+        provider = utils::create_message_provider(il2cpp::string_new(locked));
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }
