@@ -44,5 +44,6 @@ namespace input
         MapFocusObjective,
 
         OpenRandoWheel,
+        TOTAL
     };
 }

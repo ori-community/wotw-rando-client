@@ -9,6 +9,41 @@ namespace RandoMainDLL {
     QuestComplete
   }
 
+  static class InterOpWeaponWheel {
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool set_wheel_item_name(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string name);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool set_wheel_item_description(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string description);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool set_wheel_item_texture(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string texture);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool set_wheel_item_color(int wheel, int item, int r, int g, int b, int a);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool set_wheel_item_enabled(int wheel, int item, bool enabled);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool set_wheel_item_callback(int wheel, int item, IntPtr callback);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool clear_wheel_item(int wheel, int item);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool set_active_wheel(int wheel);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_active_wheel_sticky(bool value);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_wheel_behavior(int behavior);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void refresh_wheel();
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void clear_wheels();
+  }
+
   static class InterOp {
     [DllImport("Il2CppModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr get_base_path();

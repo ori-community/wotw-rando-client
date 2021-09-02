@@ -1,8 +1,9 @@
 #pragma once
 
-#include <input/enums/buttons.h>
+#include <input/enums/actions.h>
 
 namespace input
 {
-    bool is_pressed(ControllerButton button);
+    void refresh_controller_controls();
+    bool is_controller_pressed(Action action);
 }

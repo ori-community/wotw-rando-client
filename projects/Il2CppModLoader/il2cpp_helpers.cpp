@@ -39,6 +39,7 @@ namespace il2cpp
 
         IL2CPP_BINDING(UnityEngine, Transform, int32_t, GetChildCount, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int32_t index));
+        IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, Find, (app::Transform* this_ptr, app::String* name));
 
         STATIC_IL2CPP_BINDING(UnityEngine.SceneManagement, SceneManager, int32_t, get_sceneCount, ());
         STATIC_IL2CPP_BINDING(UnityEngine.SceneManagement, SceneManager, app::Scene, GetActiveScene, ());
@@ -183,10 +184,31 @@ namespace il2cpp
             auto transform = GameObject::get_transform(game_object);
             auto count = Transform::GetChildCount(transform);
             for (auto i = 0; i < count; ++i)
-                children.push_back(Component::get_gameObject(
-                    reinterpret_cast<app::Component*>(Transform::GetChild(transform, i))));
+                children.push_back(get_game_object(Transform::GetChild(transform, i)));
 
             return children;
+        }
+
+        app::GameObject* find_child(app::GameObject* game_object, std::string_view name)
+        {
+            std::vector<app::GameObject*> children;
+            auto transform = GameObject::get_transform(game_object);
+            auto str = reinterpret_cast<app::String*>(il2cpp::string_new(name));
+            transform = Transform::Find(transform, str);
+            return transform != nullptr ? get_game_object(transform) : nullptr;
+        }
+
+        app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path)
+        {
+            for (auto const& name : path)
+            {
+                if (game_object == nullptr)
+                    break;
+
+                game_object = find_child(game_object, name);
+            }
+
+            return game_object;
         }
 
         app::Type* get_type(std::string_view namezpace, std::string_view name)
