@@ -12,6 +12,7 @@
 #include <fstream>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <Common\ext.h>
 
 #include <magic_enum/include/magic_enum.hpp>
@@ -142,12 +143,6 @@ namespace input
             }
         }
 
-        void add_bindings(Action action)
-        {
-            for (auto button : bindings[action])
-                add_controller_binding(action, button);
-        }
-
         bool initialized = false;
         IL2CPP_INTERCEPT(, PlayerInput, void, AddControllerControls, (app::PlayerInput* this_ptr)) {
             auto* player_input_rebinding_klass = il2cpp::get_class<app::PlayerInputRebinding__Class>("", "PlayerInputRebinding");
@@ -231,84 +226,32 @@ namespace input
             add_bindings(this_ptr->fields.MapDetails, Action::MapDetails);
             add_bindings(this_ptr->fields.MapFocusOri, Action::MapFocusOri);
             add_bindings(this_ptr->fields.MapFocusObjective, Action::MapFocusObjective);
+        }
 
-            // Rando bindings.
-            add_bindings(Action::OpenRandoWheel);
+    }
+
+    void refresh_controller_controls()
+    {
+        for (auto action = Action::OpenRandoWheel; action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
+        {
+            auto& buttons = bindings[action];
+            for (auto& button : buttons)
+            {
+                auto input = il2cpp::gchandle_target(buttons_map[button]);
+                il2cpp::invoke(input, "Refresh");
+            }
         }
     }
 
     IL2CPP_BINDING(SmartInput, CompoundAxisInput, float, GetValue, (app::CompoundAxisInput* this_ptr));
     IL2CPP_BINDING(SmartInput, CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput* this_ptr));
-    bool is_pressed(ControllerButton button)
+    bool is_controller_pressed(Action action)
     {
-        static auto* player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
-        bool value = false;
-        switch (button)
+        auto& buttons = bindings[action];
+        for (auto& button : buttons)
         {
-        case ControllerButton::ButtonA:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.ActionButtonA);
-            break;
-        case ControllerButton::ButtonB:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.ActionButtonB);
-            break;
-        case ControllerButton::ButtonX:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.ActionButtonX);
-            break;
-        case ControllerButton::ButtonY:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.ActionButtonY);
-            break;
-        case ControllerButton::LeftShoulder:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.LeftShoulder);
-            break;
-        case ControllerButton::LeftStick:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.LeftStick);
-            break;
-        case ControllerButton::LeftTrigger:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.LeftTrigger);
-            break;
-        case ControllerButton::RightShoulder:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.RightShoulder);
-            break;
-        case ControllerButton::RightStick:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.RightStick);
-            break;
-        case ControllerButton::RightTrigger:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.RightTrigger);
-            break;
-        case ControllerButton::Select:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.Select);
-            break;
-        case ControllerButton::Start:
-            value = input::CompoundButtonInput::GetValue(player_input->fields.Start);
-            break;
-
-        case ControllerButton::DPadLeft:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.HorizontalDigiPad) < -0.5f;
-        case ControllerButton::DPadRight:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.HorizontalDigiPad) > 0.5f;
-        case ControllerButton::DPadDown:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.VerticalDigiPad) < -0.5f;
-        case ControllerButton::DPadUp:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.VerticalDigiPad) > 0.5f;
-        case ControllerButton::LeftStickLeft:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.HorizontalAnalogLeft) < -0.5f;
-        case ControllerButton::LeftStickRight:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.HorizontalAnalogLeft) > 0.5f;
-        case ControllerButton::LeftStickDown:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.VerticalAnalogLeft) < -0.5f;
-        case ControllerButton::LeftStickUp:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.VerticalAnalogLeft) > 0.5f;
-        case ControllerButton::RightStickLeft:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.HorizontalAnalogRight) < -0.5f;
-        case ControllerButton::RightStickRight:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.HorizontalAnalogRight) > 0.5f;
-        case ControllerButton::RightStickDown:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.VerticalAnalogRight) < -0.5f;
-        case ControllerButton::RightStickUp:
-            value = input::CompoundAxisInput::GetValue(player_input->fields.VerticalAnalogRight) > 0.5f;
-        };
-
-        // TODO: Implement handling using the PlayerInput class.
-        return value;
+            auto input = il2cpp::gchandle_target(buttons_map[button]);
+            return il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields;
+        }
     }
 }

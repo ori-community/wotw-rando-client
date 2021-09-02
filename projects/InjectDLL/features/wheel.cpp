@@ -13,6 +13,7 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include <utils\textures.h>
 
 using namespace modloader;
 
@@ -24,6 +25,8 @@ enum class WheelBehavior
 };
 
 WheelBehavior wheel_behavior = WheelBehavior::Modifier;
+
+INJECT_C_DLLEXPORT void refresh_wheel();
 
 namespace
 {
@@ -81,16 +84,34 @@ namespace
             MoonTimelineUiFader::FadeIn(this_ptr);
     }
 
-    IL2CPP_BINDING(, EquipmentWheel, void, ShowImmediate, (app::EquipmentWheel* this_ptr));
-    IL2CPP_INTERCEPT(, MenuScreenManager, void, OnEquipmentWheelKeyPress, (app::MenuScreenManager* this_ptr)) {
+    IL2CPP_INTERCEPT(, EquipmentWheel, void, Show, (app::EquipmentWheel* this_ptr)) {
         is_wheel_visible = true;
-        MenuScreenManager::OnEquipmentWheelKeyPress(this_ptr);
+        EquipmentWheel::Show(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, MenuScreenManager, void, OnEquipmentWheelKeyRelease, (app::MenuScreenManager* this_ptr)) {
-        MenuScreenManager::OnEquipmentWheelKeyRelease(this_ptr);
+    IL2CPP_INTERCEPT(, EquipmentWheel, void, ShowImmediate, (app::EquipmentWheel* this_ptr)) {
+        is_wheel_visible = true;
+        EquipmentWheel::ShowImmediate(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, EquipmentWheel, void, Hide, (app::EquipmentWheel* this_ptr, bool change)) {
+        EquipmentWheel::Hide(this_ptr, change);
         is_wheel_visible = false;
         custom_wheel_on = false;
+    }
+
+    IL2CPP_INTERCEPT(, EquipmentWheel, void, HideImmediate, (app::EquipmentWheel* this_ptr)) {
+        EquipmentWheel::HideImmediate(this_ptr);
+        is_wheel_visible = false;
+        custom_wheel_on = false;
+    }
+
+    IL2CPP_BINDING(, MenuScreenManager, void, ShowEquipmentWheel, (app::MenuScreenManager* this_ptr));
+    IL2CPP_INTERCEPT(, MenuScreenManager, void, HideEquipmentWhell, (app::MenuScreenManager* this_ptr)) {
+        if (wheel_behavior == WheelBehavior::Standalone && custom_wheel_input)
+            return;
+
+        return MenuScreenManager::HideEquipmentWhell(this_ptr);
     }
 
     void show_custom_wheel()
@@ -102,15 +123,11 @@ namespace
         case WheelBehavior::Modifier:
             custom_wheel_input = true;
             if (is_wheel_visible)
-            {
-                dont_fade = true;
-                EquipmentWheel::ShowImmediate(wheel);
-                dont_fade = false;
-            }
+                refresh_wheel();
             else if (wheel_behavior == WheelBehavior::Standalone)
             {
                 auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
-                MenuScreenManager::OnEquipmentWheelKeyPress(msm);
+                MenuScreenManager::ShowEquipmentWheel(msm);
             }
             break;
         case WheelBehavior::Toggle:
@@ -124,25 +141,22 @@ namespace
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
         switch (wheel_behavior)
         {
-        case WheelBehavior::Standalone:
         case WheelBehavior::Modifier:
             custom_wheel_input = false;
             if (is_wheel_visible)
-            {
-                dont_fade = true;
-                EquipmentWheel::ShowImmediate(wheel);
-                dont_fade = false;
-            }
-            else if (wheel_behavior == WheelBehavior::Standalone)
-            {
-                auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
-                MenuScreenManager::OnEquipmentWheelKeyRelease(msm);
-            }
+                refresh_wheel();
 
             if (!sticky_wheel)
                 wheel_index = 0;
 
             break;
+        case WheelBehavior::Standalone:
+        {
+            custom_wheel_input = false;
+            auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
+            MenuScreenManager::HideEquipmentWhell(msm);
+            break;
+        }
         case WheelBehavior::Toggle:
             // TODO: implement toggle behavior
             break;
@@ -446,6 +460,22 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
         return false;
     }
 
+    std::wstring texture_name(texture);
+    auto& entry = wheels[wheel].entries[item];
+    if (texture_name.empty())
+        entry.texture = nullptr;
+    else
+    {
+        auto* actual_texture = textures::get_texture(texture);
+        if (!is_valid_wheel_index(wheel, item))
+        {
+            warn("wheel", format("failed to find texture"));
+            return false;
+        }
+
+        entry.texture = actual_texture;
+    }
+
     return true;
 }
 
@@ -531,7 +561,7 @@ INJECT_C_DLLEXPORT void refresh_wheel()
 {
     auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
     dont_fade = true;
-    EquipmentWheel::ShowImmediate(wheel);
+    EquipmentWheel::ShowImmediate_intercept(wheel);
     dont_fade = false;
 }
 

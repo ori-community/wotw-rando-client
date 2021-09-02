@@ -7,6 +7,7 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <uber_states/uber_state_manager.h>
+#include <utils/shaders.h>
 
 using namespace modloader;
 
@@ -48,8 +49,6 @@ namespace
 
     bool set_camera_next_update = false;
     IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter* this_ptr)) {
-        
-        //add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Goal Modes Complete", 11, false),
         if (uber_states::get_uber_state_value(uber_states::constants::GAME_STATE_GROUP_ID, 11) < 0.5f) {
             auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (set_camera_next_update) {
