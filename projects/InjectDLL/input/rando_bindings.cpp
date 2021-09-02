@@ -21,7 +21,7 @@ namespace input
         std::vector<rando_input_callback> on_pressed_actions;
         std::vector<rando_input_callback> on_release_actions;
         std::vector<KeyboardMouseInput> kbm_bindings;
-        std::vector<bool> simulated_actions;
+        bool simulated_state = false;
 
         bool is_pressed = false;
         bool is_just_pressed = false;
@@ -108,6 +108,8 @@ namespace input
                 }
             }
 
+            pressed |= binding.second.simulated_state;
+
             auto is_just_released = !pressed && binding.second.is_pressed;
             binding.second.is_just_pressed = pressed && !binding.second.is_pressed;
             binding.second.is_pressed = pressed;
@@ -118,15 +120,20 @@ namespace input
             if (is_just_released)
                 for (auto action : binding.second.on_release_actions)
                     action();
+        }
+    }
 
-            for (auto& value : binding.second.simulated_actions)
-            {
-                auto actions = value ? binding.second.on_pressed_actions : binding.second.on_release_actions;
-                for (auto action : binding.second.on_pressed_actions)
-                    action();
-            }
-
-            binding.second.simulated_actions.clear();
+    void simulate_action(Action action, bool value)
+    {
+        auto& binding = input::bindings[action];
+        binding.simulated_state = value;
+        if (binding.is_pressed != value)
+        {
+            binding.is_pressed = value;
+            binding.is_just_pressed = value;
+            auto& actions = value ? binding.on_pressed_actions : binding.on_release_actions;
+            for (auto action : actions)
+                action();
         }
     }
 }
@@ -136,7 +143,7 @@ INJECT_C_DLLEXPORT bool action_pressed(input::Action action)
     if (action < input::Action::OpenRandoWheel)
         return false;
 
-    input::bindings[action].simulated_actions.push_back(true);
+    simulate_action(action, true);
     return true;
 }
 
@@ -145,6 +152,6 @@ INJECT_C_DLLEXPORT bool action_released(input::Action action)
     if (action < input::Action::OpenRandoWheel)
         return false;
 
-    input::bindings[action].simulated_actions.push_back(false);
+    simulate_action(action, false);
     return true;
 }
