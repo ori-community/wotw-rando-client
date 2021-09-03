@@ -47,15 +47,15 @@ bool find_base_path(std::string& output_path)
     return true;
 }
 
-DWORD find_process_id(const char* processname)
+std::vector<DWORD> find_process_id(const char* processname)
 {
     HANDLE hProcessSnap;
     PROCESSENTRY32 pe32;
-    DWORD result = 0;
+    std::vector<DWORD> results;
     
     hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (INVALID_HANDLE_VALUE == hProcessSnap)
-        return 0;
+        return results;
 
     pe32.dwSize = sizeof(PROCESSENTRY32); // <----- IMPORTANT
     
@@ -63,21 +63,19 @@ DWORD find_process_id(const char* processname)
     {
         CloseHandle(hProcessSnap);
         logstream << "failed to gather information on system processes!" << pe32.szExeFile << std::endl;
-        return 0;
+        return results;
     }
 
     do
     {
         if (0 == strcmp(processname, pe32.szExeFile))
-        {
-            result = pe32.th32ProcessID;
-            break;
-        }
+            results.push_back(pe32.th32ProcessID);
+
     } while (Process32Next(hProcessSnap, &pe32));
 
     CloseHandle(hProcessSnap);
 
-    return result;
+    return results;
 }
 
 bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const char* path, int length)
@@ -157,13 +155,19 @@ int actual_main()
     auto use_win_store = find_option(settings, "Flags", "UseWinStore")->value.b;
     dev_mode = find_option(settings, "Flags", "Dev")->value.b;
 
-    HWND window;
-    for (auto i = 0; i < 300; i++) {
-        window = FindWindow(nullptr, "OriAndTheWilloftheWisps");
-        if (window != 0)
+    auto i = 0;
+    for (; i < 300; i++) {
+        if (FindWindow(nullptr, "OriAndTheWilloftheWisps") != nullptr)
             break;
         Sleep(1000);
         logstream << "waiting for the game to start..." << std::endl;
+    }
+
+    // We hit the end of the loop.
+    if (i == 300)
+    {
+        logstream << "failed to find window" << std::endl;
+        return -1;
     }
 
     auto load_function = reinterpret_cast<PTHREAD_START_ROUTINE>(GetProcAddress(GetModuleHandle("Kernel32"), "LoadLibraryA"));
@@ -173,26 +177,38 @@ int actual_main()
         return -1;
     }
 
-    auto process_id = find_process_id(
+    auto process_ids = find_process_id(
         use_win_store ?
         store_process_name.c_str() :
         steam_process_name.c_str()
     );
 
-    if (process_id == 0)
+    if (process_ids.empty())
     {
         logstream << "failed to find process " << GetLastError() << std::endl;
         return -1;
     }
 
-    DWORD access =
-        PROCESS_VM_OPERATION |
-        PROCESS_VM_WRITE |
-        PROCESS_CREATE_THREAD;
-    auto process_handle = OpenProcess(PROCESS_ALL_ACCESS, 1, process_id);
+    HANDLE process_handle = nullptr;
+    for (auto id : process_ids)
+    {
+        DWORD access =
+            PROCESS_VM_OPERATION |
+            PROCESS_VM_WRITE |
+            PROCESS_CREATE_THREAD |
+            PROCESS_QUERY_INFORMATION |
+            PROCESS_VM_READ |
+            SYNCHRONIZE;
+        process_handle = OpenProcess(access, 1, id);
+        if (process_handle != nullptr)
+            break;
+        else
+            logstream << "failed to open process [" << id << "] error " << GetLastError() << std::endl;
+    }
+
     if (process_handle == nullptr)
     {
-        logstream << "failed to open process " << GetLastError() << std::endl;
+        logstream << "failed to open processes for injection, terminating." << std::endl;
         return -1;
     }
 
