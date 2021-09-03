@@ -253,5 +253,7 @@ namespace input
             auto input = il2cpp::gchandle_target(buttons_map[button]);
             return il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields;
         }
+
+        return false;
     }
 }
