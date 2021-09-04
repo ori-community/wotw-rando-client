@@ -253,7 +253,7 @@ where
             if context.rng.gen_bool(0.8) {
                 log::trace!("({}): Placing Relic in {}", world_contexts[world_index].player_name, zone);
 
-                if let Some(location) = relic_locations.pop() {
+                if let Some(&location) = relic_locations.choose(context.rng) {
                     place_item(world_index, world_index, location, false, Item::Relic(*zone), world_contexts, context)?;
                 }
             }
