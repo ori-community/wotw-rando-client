@@ -226,33 +226,35 @@ where
     R: Rng,
     I: Iterator<Item=usize>,
 {
-    let relic_locations = world_contexts.iter()
-        .map(|world_context| {
-            let mut world_relic_locations = world_context.world.graph.nodes.iter()
-                .filter_map(|node| {
-                    if let Some(zone) = node.zone() {
-                        if !world_context.world.preplacements.contains_key(node.uber_state().unwrap()) && RELIC_ZONES.contains(&zone) {
-                            return Some((zone, node));
-                        }
+    let mut world_relic_locations = HashMap::with_capacity(RELIC_ZONES.len());
+
+    for world_index in 0..context.world_count {
+        for zone in RELIC_ZONES {
+            world_relic_locations.insert(zone, Vec::with_capacity(60));
+        }
+
+        let world_context = &world_contexts[world_index];
+
+        for node in &world_context.world.graph.nodes {
+            if let Some(zone) = node.zone() {
+                let uber_state = node.uber_state().unwrap();
+
+                if RELIC_ZONES.contains(&zone)
+                && !world_context.world.preplacements.contains_key(uber_state)
+                && !world_context.placements.iter().any(|placement| &placement.uber_state == uber_state) {
+                    if let Some(zone_relic_locations) = world_relic_locations.get_mut(&zone) {
+                        zone_relic_locations.push(node);
                     }
-                    None
-                }).collect::<Vec<_>>();
+                }
+            }
+        }
 
-            world_relic_locations.shuffle(context.rng);
-
-            world_relic_locations
-        }).collect::<Vec<_>>();
-
-    for zone in RELIC_ZONES {
-        for target_world_index in 0..context.world_count {
+        for (&zone, relic_locations) in &mut world_relic_locations {
             if context.rng.gen_bool(0.8) {
-                log::trace!("({}): Placing Relic in {}", world_contexts[target_world_index].player_name, zone);
+                log::trace!("({}): Placing Relic in {}", world_contexts[world_index].player_name, zone);
 
-                // let origin_world_index = context.rng.gen_range(0..context.world_count);
-                let origin_world_index = target_world_index;
-
-                if let Some(&(_, location)) = relic_locations[origin_world_index].iter().find(|(location_zone, _)| location_zone == zone) {
-                    place_item(origin_world_index, target_world_index, location, false, Item::Relic(*zone), world_contexts, context)?;
+                if let Some(location) = relic_locations.pop() {
+                    place_item(world_index, world_index, location, false, Item::Relic(*zone), world_contexts, context)?;
                 }
             }
         }
@@ -1029,11 +1031,11 @@ where
     };
 
     one_xp(&mut world_contexts, &mut context)?;
-    spawn_progressions(&mut world_contexts, &mut context)?;
-
     if world_tour {
         place_relics(&mut world_contexts, &mut context)?;
     }
+
+    spawn_progressions(&mut world_contexts, &mut context)?;
 
     let mut reserved_slots = Vec::with_capacity(RESERVE_SLOTS);
 
