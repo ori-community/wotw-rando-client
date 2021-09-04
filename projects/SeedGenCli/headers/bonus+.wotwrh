@@ -39,7 +39,7 @@
 4|45|6|#Splinter Grenade#
 !!add 2x 8|4|44|float|-0.5
 !!name 8|4|44|float|-0.5 Rapid Grenade
-4|45|6|#Rapid Grenade#
+4|44|6|#Rapid Grenade#
 // Bow Upgrade
 !!add 2x 8|4|10|float|-0.4
 !!name 8|4|10|float|-0.4 Quickshot Upgrade
