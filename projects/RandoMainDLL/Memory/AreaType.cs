@@ -15,6 +15,7 @@
     GorlekMines,
     WindtornRuins,
     WillowsEnd,
-    Riverlands
+    Riverlands,
+    TOTAL
   }
 }

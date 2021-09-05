@@ -133,7 +133,7 @@ namespace
         uber_states::set_uber_state_value(group, state, static_cast<float>(value));
     }
 
-    void check_appliers(std::string const& command, std::vector<console::CommandParam> const& params)
+    void check_appliers(std::vector<console::CommandParam> const& params)
     {
         auto uber_state_controller = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController");
         int state = 0;
@@ -164,7 +164,7 @@ namespace
         output_visualizer(visualizer, params);
     }
 
-    void check_all_appliers(std::string const& command, std::vector<console::CommandParam> const& params)
+    void check_all_appliers(std::vector<console::CommandParam> const& params)
     {
         auto uber_state_controller = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController");
         dev::Visualizer visualizer;
@@ -185,7 +185,7 @@ namespace
         output_visualizer(visualizer, params);
     }
 
-    void dump_scene(std::string const& command, std::vector<console::CommandParam> const& params)
+    void dump_scene(std::vector<console::CommandParam> const& params)
     {
         dev::Visualizer visualizer;
         visualizer_setup(visualizer, params);
@@ -205,13 +205,57 @@ namespace
         output_visualizer(visualizer, params);
     }
 
+    enum class Command
+    {
+        None,
+        CheckAppliers,
+        CheckAllAppliers,
+        DumpScene
+    };
+
+    Command queued;
+    std::vector<console::CommandParam> saved_params;
+    IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr)) {
+        switch (queued)
+        {
+        case Command::None:
+            break;
+        case Command::CheckAppliers:
+            check_appliers(saved_params);
+            queued = Command::None;
+            break;
+        case Command::CheckAllAppliers:
+            check_all_appliers(saved_params);
+            queued = Command::None;
+            break;
+        case Command::DumpScene:
+            dump_scene(saved_params);
+            queued = Command::None;
+            break;
+        }
+
+        GameController::FixedUpdate(this_ptr);
+    }
+
+    void queue_command(std::string const& command, std::vector<console::CommandParam> const& params)
+    {
+        saved_params = params;
+        if (command == "debug.check_appliers")
+            queued = Command::CheckAppliers;
+        else if (command == "debug.check_all_appliers")
+            queued = Command::CheckAllAppliers;
+        else
+            queued = Command::DumpScene;
+    }
+
+
     void add_uber_state_commands()
     {
         console::register_command({ "uber_state", "set_bool" }, set_us_bool);
         console::register_command({ "uber_state", "set_int" }, set_us_int);
-        console::register_command({ "debug", "check_appliers" }, check_appliers);
-        console::register_command({ "debug", "check_all_appliers" }, check_all_appliers);
-        console::register_command({ "debug", "dump_scene" }, dump_scene);
+        console::register_command({ "debug", "check_appliers" }, queue_command);
+        console::register_command({ "debug", "check_all_appliers" }, queue_command);
+        console::register_command({ "debug", "dump_scene" }, queue_command);
     }
 
     CALL_ON_INIT(add_uber_state_commands);

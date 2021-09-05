@@ -418,7 +418,27 @@ namespace RandoMainDLL {
                 extras[1].ParseToInt("BuildPickup.UberId")
               );
               return new SyncToggler(t, suid);
-
+            case SysCommandType.CreateWarp:
+            case SysCommandType.DestroyWarp: {
+                if (extras.Count != (t == SysCommandType.CreateWarp ? 4 : 2)) {
+                  Randomizer.Log($"malformed command specifier {pickupData}", false);
+                  return new Message($"Invalid command {pickupData}!");
+                }
+                var area = (AreaType)extras[0].ParseToInt("BuildPickup.AreaType");
+                if (area <= AreaType.None || area >= AreaType.TOTAL) {
+                  Randomizer.Log($"invalid area {pickupData}", false);
+                  return new Message($"Invalid command {pickupData}!");
+                }
+                var id = extras[1].ParseToInt("BuildPickup.Id");
+                if (t == SysCommandType.CreateWarp) {
+                  var x = extras[2].ParseToFloat("BuildPickup.X");
+                  var y = extras[3].ParseToFloat("BuildPickup.Y");
+                  return new Icon(area, id, x, y);
+                }
+                else {
+                  return new Icon(area, id);
+                }
+              }
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
           }
