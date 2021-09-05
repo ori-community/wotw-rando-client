@@ -18,7 +18,8 @@ namespace RandoMainDLL {
     BINDING_FOUR = 5,
     BINDING_FIVE = 6,
     LOAD_FILE  = 7,  // TODO: implement this lmao
-    GOAL_MODES_COMPLETED = 11
+    GOAL_MODES_COMPLETED = 11,
+    ON_TELEPORT = 20
   }
   public enum Flag {
     [Description("No Hints")]

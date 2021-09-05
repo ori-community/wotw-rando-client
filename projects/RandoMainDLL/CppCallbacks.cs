@@ -180,6 +180,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void(UberStateController.OnRaceEnd),
             CallbackName = "on_race_end"
+          },
+          new Method() {
+            Delegate = new f_void(UberStateController.OnTeleporting),
+            CallbackName = "on_teleporting"
           }
         };
       }
