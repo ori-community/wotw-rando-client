@@ -21,6 +21,7 @@ namespace csharp_bridge
     signatures::f_void_string_dt on_player_death = nullptr;
     signatures::f_void on_race_start = nullptr;
     signatures::f_void on_race_end = nullptr;
+    signatures::f_void on_teleporting = nullptr;
 
     // Save system
     signatures::f_void_int new_game = nullptr;
@@ -141,4 +142,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_race_start = reinterpret_cast<f_void>(ptr);
     else if (name == "on_race_end")
         on_race_end = reinterpret_cast<f_void>(ptr);
+    else if (name == "on_teleporting")
+        on_teleporting = reinterpret_cast<f_void>(ptr);
 }

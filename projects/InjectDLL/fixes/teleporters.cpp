@@ -49,4 +49,9 @@ namespace
         overwrite_is_visited = false;
         return ret;
     }
+
+    STATIC_IL2CPP_INTERCEPT(, SavePedestalController, void, OnFinishedTeleportingStartAnimation, ()) {
+        csharp_bridge::on_teleporting();
+        SavePedestalController::OnFinishedTeleportingStartAnimation();
+    }
 }

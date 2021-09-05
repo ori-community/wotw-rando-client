@@ -74,6 +74,10 @@ namespace RandoMainDLL {
       DoingTrial = false;
     }
 
+    public static void OnTeleporting() {
+      PsuedoLocs.ON_TELEPORT.OnCollect();
+    }
+
     public static void MapTPActivated(float x, float y) {
       if (TPsByPos.TryGetValue(Tuple.Create((int)Math.Truncate(x), (int)Math.Truncate(y)), out var tpt))
         GrantOnNextUpdate.Add(tpt);

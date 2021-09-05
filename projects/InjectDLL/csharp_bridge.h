@@ -53,6 +53,7 @@ namespace csharp_bridge
     extern signatures::f_void_string_dt on_player_death;
     extern signatures::f_void on_race_start;
     extern signatures::f_void on_race_end;
+    extern signatures::f_void on_teleporting;
 
     // Save system
     extern signatures::f_void_int new_game;
