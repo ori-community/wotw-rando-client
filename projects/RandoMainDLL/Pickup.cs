@@ -60,7 +60,9 @@ namespace RandoMainDLL {
     GrantIfGreater = 18,
     GrantIfLess = 19,
     DisableSync = 20,
-    EnableSync = 21
+    EnableSync = 21,
+    CreateWarp = 22,
+    DestroyWarp = 23,
   }
 
   public enum TeleporterType : byte {
@@ -648,6 +650,36 @@ namespace RandoMainDLL {
           break;
         case SysCommandType.EnableSync:
           UberStateController.UnsharableIds.Remove(state);
+          break;
+      }
+      base.Grant(skipBase);
+    }
+  }
+  public class Icon : SystemCommand {
+    private readonly AreaType area;
+    private readonly int id;
+    private readonly float x;
+    private readonly float y;
+
+    public Icon(AreaType area, int id, float x, float y) : base(SysCommandType.CreateWarp) {
+      this.area = area;
+      this.id = id;
+      this.x = x;
+      this.y = y;
+    }
+
+    public Icon(AreaType area, int id) : base(SysCommandType.DestroyWarp) {
+      this.area = area;
+      this.id = id;
+    }
+
+    public override void Grant(bool skipBase = false) {
+      switch (type) {
+        case SysCommandType.CreateWarp:
+          InterOp.add_icon(area, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
+          break;
+        case SysCommandType.DestroyWarp:
+          InterOp.remove_icon(area, id);
           break;
       }
       base.Grant(skipBase);

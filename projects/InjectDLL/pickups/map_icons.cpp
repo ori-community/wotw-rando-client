@@ -1,5 +1,5 @@
 #include <uber_states/uber_state_manager.h>
-#include <utils\messaging.h>
+#include <utils/messaging.h>
 
 #include <csharp_bridge.h>
 
@@ -68,6 +68,9 @@ namespace
         
         ExtraState collected;
         ExtraState custom;
+
+        app::RuntimeWorldMapIcon* runtime_icon = nullptr;
+        app::RuntimeWorldMapIcon* spoiler_icon = nullptr;
     };
 
     struct SpoilerState
@@ -83,6 +86,8 @@ namespace
     {
         ExtraIcon* parent;
     };
+
+    std::unordered_map<app::GameWorldAreaID__Enum, std::unordered_map<int, ExtraIcon>> header_icons;
 
     std::unordered_map<std::string, SpoilerState> spoiler_states;
     std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_icons;
@@ -353,6 +358,137 @@ namespace
 
         initialized = true;
     }
+
+    IL2CPP_BINDING(, RuntimeWorldMapIcon, void, SetIconActiveMode, (app::RuntimeWorldMapIcon* this_ptr, bool active));
+    void icon_resolver(app::RuntimeGameWorldArea* area, ExtraIcon& icon)
+    {
+        auto* runtime_icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
+        runtime_icon->fields.Guid = create_guid();
+        auto guid = stringify_guid(runtime_icon->fields.Guid);
+
+        extra_icons_map[guid] = &icon;
+
+        // Custom spoiler state.
+        runtime_icon->fields.Icon = icon.icon;
+        if (icon.collected.valid && icon.collected.group == uber_states::constants::MAP_FILTER_GROUP_ID && icon.collected.state == 70)
+        {
+            if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+                runtime_icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(icon.custom.group, icon.custom.state, static_cast<int>(icon.custom.value)));
+
+            auto& state = spoiler_states[guid];
+            state.group_id = icon.custom.group;
+            state.state_id = icon.custom.state;
+            state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
+        }
+        else if (icon.custom.valid)
+            extra_states[stringify_guid(runtime_icon->fields.Guid)] = &icon;
+
+        runtime_icon->fields.Position.x = icon.x;
+        runtime_icon->fields.Position.y = icon.y;
+        runtime_icon->fields.Area = area;
+        runtime_icon->fields.IsSecret = false;
+        runtime_icon->fields.IsCollectedState = icon.collected.valid ? uber_states::get_uber_state<app::SerializedBooleanUberState>(icon.collected.group, icon.collected.state) : nullptr;
+        runtime_icon->fields.Condition = nullptr;
+        runtime_icon->fields.SpecialState = nullptr;
+
+        il2cpp::invoke(area->fields.Icons, "Add", runtime_icon);
+        RuntimeWorldMapIcon::Show_intercept(runtime_icon);
+        icon.runtime_icon = runtime_icon;
+    }
+
+    void spoiler_resolver(app::RuntimeGameWorldArea* area, app::RuntimeWorldMapIcon* runtime_icon)
+    {
+        auto group_id = 0;
+        auto state_id = 0;
+        auto value = -1.f;
+
+        auto it = extra_icons_map.find(stringify_guid(runtime_icon->fields.Guid));
+        if (it != extra_icons_map.end())
+        {
+            if (!should_create(it->second->creation, ExtraIconCreation::Spoiler))
+                return;
+
+            if (it->second->custom.valid)
+            {
+                group_id = it->second->custom.group;
+                state_id = it->second->custom.state;
+                value = it->second->custom.value;
+            }
+            else
+            {
+                group_id = it->second->collected.group;
+                state_id = it->second->collected.state;
+                value = it->second->collected.value;
+            }
+        }
+        else if (runtime_icon->fields.IsCollectedState != nullptr)
+        {
+            group_id = runtime_icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id;
+            state_id = runtime_icon->fields.IsCollectedState->fields._.m_id->fields.m_id;
+        }
+        else
+            return;
+
+        auto* icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
+
+        // TODO: get icon.
+        if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+            icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(group_id, state_id, static_cast<int>(value)));
+        else
+            icon->fields.Icon = runtime_icon->fields.Icon;
+
+        icon->fields.Guid = create_guid();
+        icon->fields.Position.x = runtime_icon->fields.Position.x;
+        icon->fields.Position.y = runtime_icon->fields.Position.y;
+        icon->fields.Area = area;
+        icon->fields.IsSecret = false;
+        icon->fields.IsCollectedState = uber_states::get_uber_state<app::SerializedBooleanUberState>(uber_states::constants::MAP_FILTER_GROUP_ID, 70);
+        icon->fields.Condition = nullptr;
+        icon->fields.SpecialState = nullptr;
+
+        auto& state = spoiler_states[stringify_guid(icon->fields.Guid)];
+        state.icon = runtime_icon->fields.Icon;
+        state.group_id = group_id;
+        state.state_id = state_id;
+        state.value = value;
+        state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
+
+        il2cpp::invoke(area->fields.Icons, "Add", icon);
+        RuntimeWorldMapIcon::Show_intercept(icon);
+    }
+
+    void spoiler_resolver(app::RuntimeGameWorldArea* area, ExtraIcon& extra_icon)
+    {
+        if (!should_create(extra_icon.creation, ExtraIconCreation::Spoiler))
+            return;
+
+        ExtraState actual_state = extra_icon.custom.valid ? extra_icon.custom : extra_icon.collected;
+        auto* icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
+
+        if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
+            icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(actual_state.group, actual_state.state, static_cast<int>(actual_state.value)));
+        else
+            icon->fields.Icon = extra_icon.icon;
+
+        icon->fields.Guid = create_guid();
+        icon->fields.Position.x = extra_icon.x;
+        icon->fields.Position.y = extra_icon.y;
+        icon->fields.Area = area;
+        icon->fields.IsSecret = false;
+        icon->fields.IsCollectedState = uber_states::get_uber_state<app::SerializedBooleanUberState>(uber_states::constants::MAP_FILTER_GROUP_ID, 70);
+        icon->fields.Condition = nullptr;
+        icon->fields.SpecialState = nullptr;
+
+        auto& state = spoiler_states[stringify_guid(icon->fields.Guid)];
+        state.icon = extra_icon.icon;
+        state.group_id = actual_state.group;
+        state.state_id = actual_state.state;
+        state.value = actual_state.value;
+        state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
+
+        il2cpp::invoke(area->fields.Icons, "Add", icon);
+        RuntimeWorldMapIcon::Show_intercept(icon);
+    }
     
     void resolve_icons(app::RuntimeGameWorldArea* area)
     {
@@ -391,143 +527,31 @@ namespace
             }
         }
 
-        std::vector<ExtraIcon> spoilers_only;
-        for (auto& item : extra_icons[area->fields.Area->fields.WorldMapAreaUniqueID])
-        {
-            if (!should_create(item.creation, ExtraIconCreation::Normal))
-            {
-                spoilers_only.push_back(item);
-                continue;
-            }
-
-            auto* icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
-            icon->fields.Guid = create_guid();
-            auto guid = stringify_guid(icon->fields.Guid);
-
-            extra_icons_map[guid] = &item;
-
-            // Custom spoiler state.
-            icon->fields.Icon = item.icon;
-            if (item.collected.valid && item.collected.group == uber_states::constants::MAP_FILTER_GROUP_ID && item.collected.state == 70)
-            {
-                if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
-                    icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(item.custom.group, item.custom.state, static_cast<int>(item.custom.value)));
-
-                auto& state = spoiler_states[guid];
-                state.group_id = item.custom.group;
-                state.state_id = item.custom.state;
-                state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
-            }
-            else if (item.custom.valid)
-                extra_states[stringify_guid(icon->fields.Guid)] = &item;
-
-            icon->fields.Position.x = item.x;
-            icon->fields.Position.y = item.y;
-            icon->fields.Area = area;
-            icon->fields.IsSecret = false;
-            icon->fields.IsCollectedState = item.collected.valid ? uber_states::get_uber_state<app::SerializedBooleanUberState>(item.collected.group, item.collected.state) : nullptr;
-            icon->fields.Condition = nullptr;
-            icon->fields.SpecialState = nullptr;
-
-            il2cpp::invoke(area->fields.Icons, "Add", icon);
-            RuntimeWorldMapIcon::Show_intercept(icon);
-        }
-
-        auto* spoiler_state = uber_states::get_uber_state<app::SerializedBooleanUberState>(uber_states::constants::MAP_FILTER_GROUP_ID, 70);
+        // Handle all the default spoiler icons first.
         const auto old_size = area->fields.Icons->fields._size;
         for (auto i = 0; i < old_size; ++i)
         {
-            auto group_id = 0;
-            auto state_id = 0;
-            auto value = -1.f;
-
             auto* item = area->fields.Icons->fields._items->vector[i];
-            auto it = extra_icons_map.find(stringify_guid(item->fields.Guid));
-            if (it != extra_icons_map.end())
-            {
-                if (!should_create(it->second->creation, ExtraIconCreation::Spoiler))
-                    continue;
-
-                if (it->second->custom.valid)
-                {
-                    group_id = it->second->custom.group;
-                    state_id = it->second->custom.state;
-                    value = it->second->custom.value;
-                }
-                else
-                {
-                    group_id = it->second->collected.group;
-                    state_id = it->second->collected.state;
-                    value = it->second->collected.value;
-                }
-            }
-            else if (item->fields.IsCollectedState != nullptr)
-            {
-                group_id = item->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id;
-                state_id = item->fields.IsCollectedState->fields._.m_id->fields.m_id;
-            }
-            else
-                continue;
-
-            auto* icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
-
-            // TODO: get icon.
-            if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
-                icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(group_id, state_id, static_cast<int>(value)));
-            else
-                icon->fields.Icon = item->fields.Icon;
-
-            icon->fields.Guid = create_guid();
-            icon->fields.Position.x = item->fields.Position.x;
-            icon->fields.Position.y = item->fields.Position.y;
-            icon->fields.Area = area;
-            icon->fields.IsSecret = false;
-            icon->fields.IsCollectedState = spoiler_state;
-            icon->fields.Condition = nullptr;
-            icon->fields.SpecialState = nullptr;
-
-            auto& state = spoiler_states[stringify_guid(icon->fields.Guid)];
-            state.icon = item->fields.Icon;
-            state.group_id = group_id;
-            state.state_id = state_id;
-            state.value = value;
-            state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
-
-            il2cpp::invoke(area->fields.Icons, "Add", icon);
-            RuntimeWorldMapIcon::Show_intercept(icon);
+            spoiler_resolver(area, item);
         }
 
-        for (auto& item : spoilers_only)
+        // Add extra icons
+        for (auto& icon : extra_icons[area->fields.Area->fields.WorldMapAreaUniqueID])
         {
-            if (!should_create(item.creation, ExtraIconCreation::Spoiler))
-                continue;
+            if (should_create(icon.creation, ExtraIconCreation::Normal))
+                icon_resolver(area, icon);
+            if (should_create(icon.creation, ExtraIconCreation::Spoiler))
+                spoiler_resolver(area, icon);
+        }
 
-            ExtraState actual_state = item.custom.valid ? item.custom : item.collected;
-            auto* icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
-
-            if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
-                icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(actual_state.group, actual_state.state, static_cast<int>(actual_state.value)));
-            else
-                icon->fields.Icon = item.icon;
-
-            icon->fields.Guid = create_guid();
-            icon->fields.Position.x = item.x;
-            icon->fields.Position.y = item.y;
-            icon->fields.Area = area;
-            icon->fields.IsSecret = false;
-            icon->fields.IsCollectedState = spoiler_state;
-            icon->fields.Condition = nullptr;
-            icon->fields.SpecialState = nullptr;
-
-            auto& state = spoiler_states[stringify_guid(icon->fields.Guid)];
-            state.icon = item.icon;
-            state.group_id = actual_state.group;
-            state.state_id = actual_state.state;
-            state.value = actual_state.value;
-            state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
-
-            il2cpp::invoke(area->fields.Icons, "Add", icon);
-            RuntimeWorldMapIcon::Show_intercept(icon);
+        // Add header icons
+        for (auto& pair : header_icons[area->fields.Area->fields.WorldMapAreaUniqueID])
+        {
+            auto& icon = pair.second;
+            if (should_create(icon.creation, ExtraIconCreation::Normal))
+                icon_resolver(area, icon);
+            if (should_create(icon.creation, ExtraIconCreation::Spoiler))
+                spoiler_resolver(area, icon);
         }
     }
 
@@ -561,7 +585,10 @@ namespace
 
         auto it = extra_icons_map.find(stringify_guid(this_ptr->fields.Guid));
         if (it != extra_icons_map.end() && it->second->can_teleport)
+        {
+            RuntimeWorldMapIcon::SetIconActiveMode(this_ptr, true);
             return true;
+        }
 
         return CanBeTeleportedTo(this_ptr);
     }
@@ -646,6 +673,28 @@ namespace
             uber_states::set_uber_state_value(uber_states::constants::MAP_FILTER_GROUP_ID, 70, 1);
             break;
         }
+
+        //auto* game_world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+        //for (auto i = 0; i < game_world->fields.RuntimeAreas->fields._size; ++i)
+        //{
+        //    auto area = game_world->fields.RuntimeAreas->fields._items->vector[i];
+        //
+        //    // I doubt we will ever have a lot of icons to go through here,
+        //    // if it ever happens we may want a separate map only holding the dirty ones.
+        //    std::vector<ExtraIcon> spoilers_only;
+        //    for (auto& pair : header_icons[area->fields.Area->fields.WorldMapAreaUniqueID])
+        //    {
+        //        if (pair.second.dirty)
+        //        {
+        //            icon_resolver(area, spoilers_only, pair.second);
+        //            if (pair.second.creation == ExtraIconCreation::SpoilerAndNormal)
+        //                spoiler_resolver(area, pair.second.runtime_icon);
+        //        }
+        //    }
+        //
+        //    for (auto& item : spoilers_only)
+        //        spoiler_resolver(area, item);
+        //}
 
         // Start ShowAreaIcons function.
         auto world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
@@ -771,17 +820,77 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, app::WorldMapIconType__Enum icon, float x, float y, int group_id, int state_id, bool allow_teleport)
+INJECT_C_DLLEXPORT void remove_icon(app::GameWorldAreaID__Enum area, int id)
 {
-    extra_icons[area].push_back({
+    auto& area_header_icons = header_icons[area];
+    auto it = area_header_icons.find(id);
+    if (it == area_header_icons.end())
+        return;
+
+    if (initialized)
+    {
+        if (it->second.runtime_icon != nullptr)
+        {
+            RuntimeWorldMapIcon::Hide(it->second.runtime_icon);
+            il2cpp::invoke(it->second.runtime_icon->fields.Area->fields.Icons, "Remove", it->second.runtime_icon);
+        }
+        if (it->second.spoiler_icon != nullptr)
+        {
+            RuntimeWorldMapIcon::Hide(it->second.spoiler_icon);
+            il2cpp::invoke(it->second.spoiler_icon->fields.Area->fields.Icons, "Remove", it->second.spoiler_icon);
+        }
+    }
+
+    header_icons[area].erase(id);
+}
+
+INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::WorldMapIconType__Enum icon, float x, float y, int group_id, int state_id, bool allow_teleport)
+{
+    auto& area_header_icons = header_icons[area];
+    if (area_header_icons.find(id) != area_header_icons.end())
+        remove_icon(area, id);
+
+    ExtraState state = { true, group_id, state_id, 1.f };
+    if (group_id < 0 || state_id < 0)
+        state.valid = false;
+
+    area_header_icons[id] = {
         icon,
         x,
         y,
         allow_teleport,
         ExtraIconCreation::Normal,
-        { true, group_id, state_id, 1.f },
+        state,
         {}
-    });
+    };
+
+    if (initialized)
+    {
+        auto* game_world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+        for (auto i = 0; i < game_world->fields.RuntimeAreas->fields._size; ++i)
+        {
+            auto* runtime_area = game_world->fields.RuntimeAreas->fields._items->vector[i];
+            if (runtime_area->fields.Area->fields.WorldMapAreaUniqueID == area)
+            {
+                auto& icon = area_header_icons[id];
+                if (should_create(icon.creation, ExtraIconCreation::Normal))
+                    icon_resolver(runtime_area, icon);
+                if (should_create(icon.creation, ExtraIconCreation::Spoiler))
+                    spoiler_resolver(runtime_area, icon);
+
+                auto* icon_manager = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")
+                    ->static_fields->Instance->fields._IconManager_k__BackingField;
+
+                if (icon.runtime_icon != nullptr && !shown_by_filter(icon_manager, icon.runtime_icon))
+                    RuntimeWorldMapIcon::Hide(icon.runtime_icon);
+
+                if (icon.spoiler_icon != nullptr && !shown_by_filter(icon_manager, icon.spoiler_icon))
+                    RuntimeWorldMapIcon::Hide(icon.spoiler_icon);
+
+                break;
+            }
+        }
+    }
 }
 
 INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
