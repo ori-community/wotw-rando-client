@@ -803,6 +803,7 @@ namespace
         {
             GameMapUI::UpdateFilterText(this_ptr);
             GameMapUI::UpdateQuests(this_ptr);
+            dirty_filter = false;
         }
 
         if (refresh)
