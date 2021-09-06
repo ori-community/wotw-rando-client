@@ -159,6 +159,9 @@ namespace RandoMainDLL {
         Randomizer.Dev = true;
       }
 
+      InterOp.set_start_in_logic_filter(IniFlag("DisableStartingInLogicFilter"));
+        
+
       int maxLogLines = Randomizer.Dev ? 1000 : 500;
       var logLines = File.ReadAllLines(Randomizer.LogFile);
       if (logLines.Length > maxLogLines) {

@@ -87,6 +87,7 @@ namespace
         ExtraIcon* parent;
     };
 
+    bool start_in_logic_filter = true;
     std::unordered_map<app::GameWorldAreaID__Enum, std::unordered_map<int, ExtraIcon>> header_icons;
 
     std::unordered_map<std::string, SpoilerState> spoiler_states;
@@ -778,7 +779,7 @@ namespace
         AreaMapUI::Init(this_ptr);
         auto icon_manager = this_ptr->fields._IconManager_k__BackingField;
         check_and_initialize_filter_labels(icon_manager);
-        if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::InLogic)))
+        if (start_in_logic_filter && csharp_bridge::filter_enabled(static_cast<int>(NewFilters::InLogic)))
         {
             AreaMapUI::set_IconFilter(this_ptr, static_cast<app::AreaMapIconFilter__Enum>(NewFilters::InLogic));
             dirty_filter = true;
@@ -896,4 +897,8 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
 
 INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
     refresh = true;
+}
+
+INJECT_C_DLLEXPORT void set_start_in_logic_filter(bool value) {
+    start_in_logic_filter = value;
 }
