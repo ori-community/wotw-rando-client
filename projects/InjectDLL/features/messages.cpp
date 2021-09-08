@@ -156,8 +156,11 @@ namespace
 
             return false;
         }
+        auto* sein = get_sein();
+        if (sein == nullptr || sein->fields.LogicCycle == nullptr)
+            return false;
 
-        if (SeinLogicCycle::GetFlags(get_sein()->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_IsInteracting) == 0)
+        if (SeinLogicCycle::GetFlags(sein->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_IsInteracting) == 0)
             return true;
 
         return false;
