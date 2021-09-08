@@ -65,6 +65,8 @@ namespace input
                 else
                     input.codes.push_back(static_cast<app::KeyCode__Enum>(value));
             }
+
+            return input;
         }
 
         void read_bindings()
