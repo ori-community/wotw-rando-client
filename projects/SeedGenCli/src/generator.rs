@@ -426,23 +426,23 @@ I: Iterator<Item=usize>,
     let weight = |inventory: &Inventory| -> Result<f32, String> {
         let mut newly_reached = 0;
 
-        // TODO what?
-        for world_index in 0..context.world_count {
-            let world_context = &world_contexts[world_index];
+        let target_world_context = &world_contexts[target_world_index];
 
-            let lookahead_player = Player {
-                inventory: world_context.world.player.inventory.merge(inventory),
-                ..world_context.world.player.clone()
-            };
-            let mut lookahead_reachable = world_context.world.graph.reached_locations(&lookahead_player, world_context.spawn, &world_context.world.uber_states)?;
-            lookahead_reachable.retain(|&node| node.can_place());
+        let lookahead_player = Player {
+            inventory: target_world_context.world.player.inventory.merge(inventory),
+            ..target_world_context.world.player.clone()
+        };
+        let mut lookahead_reachable = target_world_context.world.graph.reached_locations(&lookahead_player, target_world_context.spawn, &target_world_context.world.uber_states)?;
+        lookahead_reachable.retain(|&node| node.can_place());
 
-            newly_reached += lookahead_reachable.len().saturating_sub(reach_context.reachable_counts[world_index]);
-            // Resource tracking can result in reaching less locations with an added teleporter, so prevent any overflows.
-            // This is very rare and usually means the granted teleporter doesn't actually lead anywhere new, so 0 newly reached is accurate enough.
-        }
+        newly_reached += lookahead_reachable.len().saturating_sub(reach_context.reachable_counts[target_world_index]);
+        // Resource tracking can result in reaching less locations with an added teleporter, so prevent any overflows.
+        // This is very rare and usually means the granted teleporter doesn't actually lead anywhere new, so 0 newly reached is accurate enough.
 
-        if slots < 4 && newly_reached == 0 {
+        lookahead_reachable.retain(|&node| node.uber_state().map_or(false, |reached| target_world_context.world.preplacements.keys().any(|preplaced| reached == preplaced)));
+        let preplaced_reached = lookahead_reachable.len();
+
+        if slots - inventory.item_count() < 3 && newly_reached <= preplaced_reached {
             return Ok(0.000001);
         }
 
