@@ -1296,7 +1296,14 @@ namespace RandoMainDLL {
       }
       public override void Grant(bool skipBase = false) {
         InterOpWeaponWheel.clear_wheel_item(wheel, item);
-        ActionCommand.linkedPickups.Remove(new KeyValuePair<int, int>(wheel, item));
+        var key = new ActionCommand.ActionKey(wheel, item, 0);
+        ActionCommand.linkedPickups.Remove(key);
+        key.binding = 1;
+        ActionCommand.linkedPickups.Remove(key);
+        key.binding = 2;
+        ActionCommand.linkedPickups.Remove(key);
+        key.binding = 3;
+        ActionCommand.linkedPickups.Remove(key);
       }
     }
 
