@@ -69,7 +69,6 @@ set(
 	"uber_states/state_applier.cpp"
 	"utils/messaging.cpp"
 	"utils/shaders.cpp"
-	"utils/textures.cpp"
 )
 
 set(
@@ -97,7 +96,6 @@ set(
 	"uber_states/uber_state_helper.h"
 	"utils/messaging.h"
 	"utils/shaders.h"
-	"utils/textures.h"
 )
 
 set(

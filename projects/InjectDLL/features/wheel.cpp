@@ -13,7 +13,7 @@
 
 #include <unordered_map>
 #include <unordered_set>
-#include <utils\textures.h>
+#include <system\textures.h>
 
 using namespace modloader;
 
@@ -33,12 +33,12 @@ namespace
     struct CustomWheelEntry
     {
         using binding_action = void(*)(CustomWheelEntry const& entry, app::SpellUIItem* item, int binding);
-        using csharp_callback = void(*)(int binding);
+        using csharp_callback = void(*)(int wheel, int item, int binding);
 
         std::wstring name = L"";
         std::wstring description = L"";
         app::Texture* texture = nullptr;
-        app::Color color{ 0.0, 0.0, 0.0, 0.0 };
+        app::Color color{ 0.0f, 0.0f, 0.0f, 0.0f };
         binding_action action = nullptr;
         csharp_callback callback = nullptr;
         bool enabled = false;
@@ -173,16 +173,6 @@ namespace
 
         input::add_on_pressed_callback(input::Action::OpenRandoWheel, show_custom_wheel);
         input::add_on_released_callback(input::Action::OpenRandoWheel, hide_custom_wheel);
-
-        // Test code.
-        //for (int i = 0; i < 12; i += 2)
-        //{
-        //    auto& entry = wheels[0].entries[i];
-        //    entry.enabled = true;
-        //    entry.name = std::wstring(L"hello ") + std::to_wstring(i);
-        //    entry.description = L"bye";
-        //    entry.color = { 1.0f, 1.0f, 0.5f, 1.0f };
-        //}
     }
 
     DECLARE_INTERCEPT(, CleverMenuItem, void, RefreshVisible, (app::CleverMenuItem* this_ptr));
@@ -338,7 +328,7 @@ namespace
             EquipmentWheelUIDetails::UpdateContext(this_ptr, to_right);
     }
 
-    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetColor, (app::Renderer* renderer, app::UberShaderProperty_Color__Enum prop, const app::Color* color));
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetColor, (app::Renderer* renderer, app::UberShaderProperty_Color__Enum prop, app::Color* color));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
     IL2CPP_INTERCEPT(, SpellUIItem, void, UpdateSpellIcon, (app::SpellUIItem* this_ptr)) {
         if (custom_wheel_on)
@@ -352,7 +342,11 @@ namespace
             auto texture = entry == nullptr || entry->texture == nullptr ? default_texture : entry->texture;
             app::Color color = entry == nullptr ? app::Color{ 1.0f, 1.0f, 1.0f, 1.0f } : entry->color;
 
-            UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
+            try
+            {
+                UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
+            }
+            catch (std::exception e) { warn("wheel", format("Unable to set texture of wheel icon (%s)", e.what())); }
             UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
         }
         else
@@ -412,7 +406,8 @@ namespace
     //}
 
     void csharp_action(CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) {
-        entry.callback(binding);
+        auto index = EquipmentRadialSelection::GetWheelIndex(item->fields.m_spell->fields.m_type);
+        entry.callback(wheel_index, index, binding);
 
         // Refresh things.
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
@@ -466,7 +461,7 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
         entry.texture = nullptr;
     else
     {
-        auto* actual_texture = textures::get_texture(texture);
+        auto* actual_texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture));
         if (!is_valid_wheel_index(wheel, item))
         {
             warn("wheel", format("failed to find texture"));
@@ -487,7 +482,7 @@ INJECT_C_DLLEXPORT bool set_wheel_item_color(int wheel, int item, int r, int g, 
         return false;
     }
 
-    if (0 <= r && r < 256 && 0 <= g && g < 256 && 0 <= b && b < 256 && 0 <= a && a < 256)
+    if (0 < r && r < 256 && 0 < g && g < 256 && 0 < b && b < 256 && 0 < a && a < 256)
     {
         warn("wheel", format("invalid color passed to wheel [%d, %d]: (%d, %d, %d, %d)", wheel, item, r, g, b, a));
         r = std::max(std::min(r, 255), 0);
@@ -496,7 +491,7 @@ INJECT_C_DLLEXPORT bool set_wheel_item_color(int wheel, int item, int r, int g, 
         a = std::max(std::min(a, 255), 0);
     }
 
-    wheels[wheel].entries[item].color = app::Color{ 255.0f / r, 255.0f / g, 255.0f / b, 255.0f / a };
+    wheels[wheel].entries[item].color = app::Color{ r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f };
     return true;
 }
 
@@ -560,9 +555,12 @@ INJECT_C_DLLEXPORT void set_active_wheel_sticky(bool value)
 INJECT_C_DLLEXPORT void refresh_wheel()
 {
     auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
-    dont_fade = true;
-    EquipmentWheel::ShowImmediate_intercept(wheel);
-    dont_fade = false;
+    if (is_wheel_visible)
+    {
+        dont_fade = true;
+        EquipmentWheel::ShowImmediate_intercept(wheel);
+        dont_fade = false;
+    }
 }
 
 INJECT_C_DLLEXPORT void set_wheel_behavior(int behavior)

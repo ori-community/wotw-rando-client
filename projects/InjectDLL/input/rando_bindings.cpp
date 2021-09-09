@@ -71,10 +71,9 @@ namespace input
 
         void read_bindings()
         {
-            bindings.clear();
             std::string line;
             std::ifstream file(base_path + KEYBOARD_REBIND_FILE);
-            while (std::getline(file, line))
+            while (std::getline(file, line)) 
             {
                 line = trim(line.substr(0, line.find('#')));
                 if (!line.empty())
@@ -85,18 +84,18 @@ namespace input
                         auto action = magic_enum::enum_cast<Action>(trim(line.substr(0, index)));
                         if (!action.has_value())
                         {
-                            modloader::warn("bindings", format("Invalid action in binding file (%s), skipping.", line));
+                            modloader::warn("bindings", format("Invalid action in binding file (%s), skipping.", line.c_str()));
                             continue;
                         }
 
                         try
                         {
-                            add_keyboard_binding(action.value(), parse_input(line));
+                            add_keyboard_binding(action.value(), parse_input(trim(line.substr(index + 1))));
                         }
-                        catch (std::exception e) { modloader::warn("bindings", format("Invalid keys in binding file (%s), skipping. [%s]", line, e.what())); }
+                        catch (std::exception e) { modloader::warn("bindings", format("Invalid keys in binding file (%s), skipping. [%s]", line.c_str(), e.what())); }
                     }
                     else
-                        modloader::warn("bindings", format("Invalid line in binding file (%s), skipping.", line));
+                        modloader::warn("bindings", format("Invalid line in binding file (%s), skipping.", line.c_str()));
                 }
             }
         }
