@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using RandoMainDLL.Memory;
 
@@ -22,7 +23,8 @@ namespace RandoMainDLL {
     ZoneHint = 12,
     CheckableHint = 13,
     Relic = 14,
-    SysMessage = 15
+    SysMessage = 15,
+    Wheel = 16
   }
 
   public class DoneWithThis : Exception { };
@@ -63,6 +65,21 @@ namespace RandoMainDLL {
     EnableSync = 21,
     CreateWarp = 22,
     DestroyWarp = 23,
+  }
+
+  public enum WheelCommandType : byte {
+    SetName = 0,
+    SetDescription = 1,
+    SetTexture = 2,
+    SetColor = 3,
+    SetActive = 4,
+    SetSticky = 5,
+    LinkState = 6,
+    ClearItem = 7,
+    SetActiveWheel = 8,
+    Refresh = 9,
+    ClearAll = 10,
+    SetBehavior = 11,
   }
 
   public enum TeleporterType : byte {
@@ -1158,7 +1175,169 @@ namespace RandoMainDLL {
     }
   }
 
+  namespace Wheel {
+    public class WheelCommand : Pickup {
+      public override PickupType Type => PickupType.Wheel;
+      public readonly WheelCommandType type;
+      public WheelCommand(WheelCommandType command) => type = command;
+      public override void Grant(bool skipBase = false) {
+        switch (type) {
+          case WheelCommandType.ClearAll:
+            InterOpWeaponWheel.clear_wheels();
+            LinkStateCommand.linkedIds.Clear();
+            break;
+          case WheelCommandType.Refresh:
+            InterOpWeaponWheel.refresh_wheel();
+            break;
+        }
+      }
+      public override string Name { get => type.ToString(); }
+      public override string DisplayName { get => ""; }
+    }
 
+    public class SetActiveWheelCommand : WheelCommand {
+      public readonly int wheel;
+      public SetActiveWheelCommand(int wheel) : base(WheelCommandType.SetActiveWheel) => this.wheel = wheel;
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_active_wheel(wheel);
+      }
+    }
 
+    public class SetStickyWheelCommand : WheelCommand {
+      public readonly bool sticky;
+      public SetStickyWheelCommand(bool sticky) : base(WheelCommandType.SetSticky) => this.sticky = sticky;
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_active_wheel_sticky(sticky);
+      }
+    }
 
+    public class SetNameCommand : WheelCommand {
+      public readonly int wheel;
+      public readonly int item;
+      public readonly string name;
+      public SetNameCommand(int wheel, int item, string name) : base(WheelCommandType.SetName) {
+        this.wheel = wheel;
+        this.item = item;
+        this.name = name;
+      }
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_wheel_item_name(wheel, item, name);
+      }
+    }
+
+    public class SetDescriptionCommand : WheelCommand {
+      public readonly int wheel;
+      public readonly int item;
+      public readonly string description;
+      public SetDescriptionCommand(int wheel, int item, string description) : base(WheelCommandType.SetDescription) {
+        this.wheel = wheel;
+        this.item = item;
+        this.description = description;
+      }
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_wheel_item_description(wheel, item, description);
+      }
+    }
+
+    public class SetTextureCommand : WheelCommand {
+      public readonly int wheel;
+      public readonly int item;
+      public readonly string texture;
+      public SetTextureCommand(int wheel, int item, string texture) : base(WheelCommandType.SetTexture) {
+        this.wheel = wheel;
+        this.item = item;
+        this.texture = texture;
+      }
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_wheel_item_texture(wheel, item, texture);
+      }
+    }
+
+    public class SetColorCommand : WheelCommand {
+      public readonly int wheel;
+      public readonly int item;
+      public readonly byte r;
+      public readonly byte g;
+      public readonly byte b;
+      public readonly byte a;
+      public SetColorCommand(int wheel, int item, byte r, byte g, byte b, byte a) : base(WheelCommandType.SetColor) {
+        this.wheel = wheel;
+        this.item = item;
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+      }
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_wheel_item_color(wheel, item, r, g, b, a);
+      }
+    }
+
+    public class SetActiveCommand : WheelCommand {
+      public readonly int wheel;
+      public readonly int item;
+      public readonly bool active;
+      public SetActiveCommand(int wheel, int item, bool active) : base(WheelCommandType.SetActive) {
+        this.wheel = wheel;
+        this.item = item;
+        this.active = active;
+      }
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_wheel_item_enabled(wheel, item, active);
+      }
+    }
+
+    public class ClearCommand : WheelCommand {
+      public readonly int wheel;
+      public readonly int item;
+      public ClearCommand(int wheel, int item) : base(WheelCommandType.ClearItem) {
+        this.wheel = wheel;
+        this.item = item;
+      }
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.clear_wheel_item(wheel, item);
+        LinkStateCommand.linkedIds.Remove(new KeyValuePair<int, int>(wheel, item));
+      }
+    }
+
+    public class SetBehaviorCommand : WheelCommand {
+      public readonly int behavior;
+      public SetBehaviorCommand(int behavior) : base(WheelCommandType.SetBehavior) {
+        this.behavior = behavior;
+      }
+      public override void Grant(bool skipBase = false) {
+        InterOpWeaponWheel.set_wheel_behavior(behavior);
+      }
+    }
+
+    public class LinkStateCommand : WheelCommand {
+      public static readonly Dictionary<KeyValuePair<int, int>, UberId> linkedIds;
+      private static callback callbackDelegate;
+      private static GCHandle callbackHandle;
+
+      public delegate void callback(int wheel, int item, int binding);
+
+      public readonly KeyValuePair<int, int> wheelItem;
+      public readonly UberId linkedId;
+
+      static LinkStateCommand() {
+        linkedIds = new Dictionary<KeyValuePair<int, int>, UberId>();
+        callbackDelegate = new callback(Callback);
+        callbackHandle = GCHandle.Alloc(callbackDelegate, GCHandleType.Normal);
+      }
+
+      public LinkStateCommand(int wheel, int item, UberId linkedId) : base(WheelCommandType.LinkState) {
+        wheelItem = new KeyValuePair<int, int>(wheel, item);
+        this.linkedId = linkedId;
+      }
+      public override void Grant(bool skipBase = false) {
+        linkedIds[wheelItem] = linkedId;
+        InterOpWeaponWheel.set_wheel_item_callback(wheelItem.Key, wheelItem.Value, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
+      }
+      private static void Callback(int wheel, int item, int binding) {
+        var id = linkedIds[new KeyValuePair<int, int>(wheel, item)];
+        InterOp.set_uber_state_value(id.GroupID, id.ID, binding);
+      }
+    }
+  }
 }
