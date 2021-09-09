@@ -198,7 +198,8 @@ int actual_main()
             PROCESS_CREATE_THREAD |
             PROCESS_QUERY_INFORMATION |
             PROCESS_VM_READ |
-            SYNCHRONIZE;
+            SYNCHRONIZE |
+            PROCESS_TERMINATE;
         process_handle = OpenProcess(access, 1, id);
         if (process_handle != nullptr)
             break;
