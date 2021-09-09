@@ -7,6 +7,7 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class Randomizer {
+    public static Random R;
     public static string BasePath = @"C:\moon\";
     public static string SeedPathFile => BasePath + ".currentseedpath"; 
     public static string MessageLog => BasePath + ".messagelog"; 
@@ -60,6 +61,8 @@ namespace RandoMainDLL {
           });
           logThread.Start();
         }
+
+        R = new Random();
 
         BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.get_base_path());
         Debug($"Init: set base path to {BasePath}");
