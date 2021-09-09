@@ -74,7 +74,7 @@ namespace RandoMainDLL {
     SetColor = 3,
     SetActive = 4,
     SetSticky = 5,
-    LinkState = 6,
+    Action = 6,
     ClearItem = 7,
     SetActiveWheel = 8,
     Refresh = 9,
@@ -1184,7 +1184,7 @@ namespace RandoMainDLL {
         switch (type) {
           case WheelCommandType.ClearAll:
             InterOpWeaponWheel.clear_wheels();
-            LinkStateCommand.linkedIds.Clear();
+            ActionCommand.linkedPickups.Clear();
             break;
           case WheelCommandType.Refresh:
             InterOpWeaponWheel.refresh_wheel();
@@ -1296,7 +1296,7 @@ namespace RandoMainDLL {
       }
       public override void Grant(bool skipBase = false) {
         InterOpWeaponWheel.clear_wheel_item(wheel, item);
-        LinkStateCommand.linkedIds.Remove(new KeyValuePair<int, int>(wheel, item));
+        ActionCommand.linkedPickups.Remove(new KeyValuePair<int, int>(wheel, item));
       }
     }
 
@@ -1310,33 +1310,50 @@ namespace RandoMainDLL {
       }
     }
 
-    public class LinkStateCommand : WheelCommand {
-      public static readonly Dictionary<KeyValuePair<int, int>, UberId> linkedIds;
+    public class ActionCommand : WheelCommand {
+      public struct ActionKey {
+        public ActionKey(int wheel, int item, int binding) {
+          this.wheel = wheel;
+          this.item = item;
+          this.binding = binding;
+        }
+
+        public int wheel;
+        public int item;
+        public int binding;
+      }
+
+      public static readonly Dictionary<ActionKey, Pickup> linkedPickups;
       private static callback callbackDelegate;
       private static GCHandle callbackHandle;
 
       public delegate void callback(int wheel, int item, int binding);
 
-      public readonly KeyValuePair<int, int> wheelItem;
-      public readonly UberId linkedId;
+      public readonly ActionKey key;
+      public readonly Pickup pickup;
 
-      static LinkStateCommand() {
-        linkedIds = new Dictionary<KeyValuePair<int, int>, UberId>();
+      static ActionCommand() {
+        linkedPickups = new Dictionary<ActionKey, Pickup>();
         callbackDelegate = new callback(Callback);
         callbackHandle = GCHandle.Alloc(callbackDelegate, GCHandleType.Normal);
       }
 
-      public LinkStateCommand(int wheel, int item, UberId linkedId) : base(WheelCommandType.LinkState) {
-        wheelItem = new KeyValuePair<int, int>(wheel, item);
-        this.linkedId = linkedId;
+      public ActionCommand(int wheel, int item, int binding, Pickup pickup) : base(WheelCommandType.Action) {
+        key = new ActionKey(wheel, item, binding);
+        this.pickup = pickup;
       }
       public override void Grant(bool skipBase = false) {
-        linkedIds[wheelItem] = linkedId;
-        InterOpWeaponWheel.set_wheel_item_callback(wheelItem.Key, wheelItem.Value, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
+        linkedPickups[key] = pickup;
+        InterOpWeaponWheel.set_wheel_item_callback(key.wheel, key.item, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
       }
       private static void Callback(int wheel, int item, int binding) {
-        var id = linkedIds[new KeyValuePair<int, int>(wheel, item)];
-        InterOp.set_uber_state_value(id.GroupID, id.ID, binding);
+        var key = new ActionKey(wheel, item, binding);
+        if (linkedPickups.ContainsKey(key))
+          linkedPickups[key].Grant();
+
+        key.binding = 0;
+        if (linkedPickups.ContainsKey(key))
+          linkedPickups[key].Grant();
       }
     }
   }
