@@ -584,18 +584,18 @@ namespace RandoMainDLL {
                 var sticky = extras[0].ParseToBool("BuildPickup.Active");
                 return new Wheel.SetStickyWheelCommand(sticky);
               }
-            case WheelCommandType.LinkState: {
-                if (extras.Count != 4) {
+            case WheelCommandType.Action: {
+                // Check if we have everything before the pickup part.
+                if (extras.Count < 5) {
                   Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
                   return new Message($"Invalid wheel command {pickupData}!");
                 }
+
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
                 var item = extras[1].ParseToInt("BuildPickup.Item");
-                var state = new UberId(
-                  extras[2].ParseToInt("BuildPickup.UberGroupId"),
-                  extras[3].ParseToInt("BuildPickup.UberId")
-                );
-                return new Wheel.LinkStateCommand(wheel, item, state);
+                var binding = extras[2].ParseToInt("BuildPickup.Binding");
+                var p = BuildPickup((PickupType)extras[3].ParseToByte("BuildPickup.WheelAction"), extras[4], extras.Skip(5).ToList(), cond);
+                return new Wheel.ActionCommand(wheel, item, binding, p);
               }
             case WheelCommandType.ClearItem: {
                 if (extras.Count != 2) {
