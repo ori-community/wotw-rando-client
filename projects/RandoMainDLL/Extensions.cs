@@ -120,6 +120,88 @@ namespace RandoMainDLL {
     public static double ParseToDouble(this string val, string caller = "ParseToFloat") => double.TryParse(val, NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out double ret) ? ret : Warn<float>(val, caller);
     public static bool ParseToBool(this string val, string caller = "ParseToBool") => bool.TryParse(val, out bool ret) ? ret : Warn<bool>(val, caller);
 
+
+    private static UberId ParsePointer(this string val, string caller = "ParsePointer") {
+      var parts = val.Substring(2, val.Length - 3).Split('|');
+      if (parts.Length != 2) {
+        Randomizer.Warn(caller, $"{val} is not a valid pointer.");
+        return null;
+      }
+
+      var group = ParseToInt(parts[0], caller + ".Group");
+      var state = ParseToInt(parts[1], caller + ".State");
+      return new UberId(group, state);
+    }
+    public static IValue<int> ParseToIntValue(this string val, string caller = "ParseToIntValue") {
+      if (val.StartsWith("[") && val.EndsWith("]")) {
+        var parts = val.Substring(1, val.Length - 2).Split(',');
+        if (parts.Length != 2) {
+          Randomizer.Warn(caller, $"{val} is not a valid random range.");
+          return new ConstantValue<int>(0);
+        }
+
+        return new IntRandomValue(ParseToIntValue(parts[0], caller), ParseToIntValue(parts[1], caller));
+      } else if (val.StartsWith("$(") && val.EndsWith(")")) {
+        var id = ParsePointer(val);
+        if (id == null)
+          return new ConstantValue<int>(0);
+
+        return new IntPointerValue(id);
+      } else
+        return new ConstantValue<int>(ParseToInt(val, caller));
+    }
+    public static IValue<byte> ParseToByteValue(this string val, string caller = "ParseToByteValue") {
+      if (val.StartsWith("[") && val.EndsWith("]")) {
+        var parts = val.Substring(1, val.Length - 2).Split(',');
+        if (parts.Length != 2) {
+          Randomizer.Warn(caller, $"{val} is not a valid random range.");
+          return new ConstantValue<byte>(0);
+        }
+
+        return new ByteRandomValue(ParseToByteValue(parts[0], caller), ParseToByteValue(parts[1], caller));
+      }
+      else if (val.StartsWith("$(") && val.EndsWith(")")) {
+        var id = ParsePointer(val);
+        if (id == null)
+          return new ConstantValue<byte>(0);
+
+        return new BytePointerValue(id);
+      }
+      else
+        return new ConstantValue<byte>(ParseToByte(val, caller));
+    }
+    public static IValue<float> ParseToFloatValue(this string val, string caller = "ParseToFloatValue") {
+      if (val.StartsWith("[") && val.EndsWith("]")) {
+        var parts = val.Substring(1, val.Length - 2).Split(',');
+        if (parts.Length != 2) {
+          Randomizer.Warn(caller, $"{val} is not a valid random range.");
+          return new ConstantValue<float>(0);
+        }
+
+        return new FloatRandomValue(ParseToFloatValue(parts[0], caller), ParseToFloatValue(parts[1], caller));
+      }
+      else if (val.StartsWith("$(") && val.EndsWith(")")) {
+        var id = ParsePointer(val);
+        if (id == null)
+          return new ConstantValue<float>(0);
+
+        return new FloatPointerValue(id);
+      }
+      else
+        return new ConstantValue<float>(ParseToFloat(val, caller));
+    }
+    public static IValue<bool> ParseToBoolValue(this string val, string caller = "ParseToBoolValue") {
+      if (val.StartsWith("$(") && val.EndsWith(")")) {
+        var id = ParsePointer(val);
+        if (id == null)
+          return new ConstantValue<bool>(false);
+
+        return new BoolPointerValue(id);
+      }
+      else
+        return new ConstantValue<bool>(ParseToBool(val, caller));
+    }
+
     public static TVal? Get<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key) where TVal : struct => self.TryGetValue(key, out TVal ret) ? ret : (TVal?)null;
 
     public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt) => self.TryGetValue(key, out TVal ret) ? ret : alt;
