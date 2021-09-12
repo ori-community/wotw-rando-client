@@ -352,21 +352,22 @@ namespace RandoMainDLL {
       else if (state.GroupID == 14019 && state.ID == 48794 && state.Value.Int == 2 ||  // (a) skip the kwolok cutscene too fast
                state.GroupID == 937 && state.ID == 34641 && state.Value.Int == 4       // (b) come to kwolok after wellspring and get the cutscenes stacked awkwardly
         )
-        Randomizer.InputUnlockCallback = () => {
-          // this is really questionable!!
-          var voiceState = new UberId(46462, 59806).State();
-          if (!voiceState.Value.Bool) {
-            voiceState.Write(new UberValue(true));
-            InterOp.set_max_health(InterOp.get_max_health() + 10);
-            InterOp.set_max_energy(InterOp.get_max_energy() + 1);
-            InterOp.fill_health();
-            InterOp.fill_energy();
-            InterOp.save();
-          }
-          // should happen in both branches
-          if (SeedController.Flags.Contains(Flag.ALLWISPS))
-            HintsController.ProgressWithHints();
-        };
+        Randomizer.InputUnlockCallback.Add(GiveVoice);
+    }
+    private static void GiveVoice() {
+      // this is really questionable!!
+      var voiceState = new UberId(46462, 59806).State();
+      if (!voiceState.Value.Bool) {
+        voiceState.Write(new UberValue(true));
+        InterOp.set_max_health(InterOp.get_max_health() + 10);
+        InterOp.set_max_energy(InterOp.get_max_energy() + 1);
+        InterOp.fill_health();
+        InterOp.fill_energy();
+        InterOp.save();
+      }
+      // should happen in both branches
+      if (SeedController.Flags.Contains(Flag.ALLWISPS))
+        HintsController.ProgressWithHints();
     }
     private static bool ShouldRevert(UberState state) {
       if (NeedsNewGameInit || SkipListeners)
@@ -414,12 +415,12 @@ namespace RandoMainDLL {
           InterOp.bind(slot, 1002);
         }
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty || PsuedoLocs.LOAD_SEED.Pickup().NonEmpty) {
-          Randomizer.InputUnlockCallback = () => {
+          Randomizer.InputUnlockCallback.Add(() => {
             MapController.UpdateReachable(2000);
             PsuedoLocs.GAME_START.OnCollect();
             PsuedoLocs.LOAD_SEED.OnCollect();
             InterOp.save();
-          };
+          });
         }
         else
           MapController.UpdateReachable();
