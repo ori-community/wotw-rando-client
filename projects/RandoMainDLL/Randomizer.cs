@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -100,7 +101,7 @@ namespace RandoMainDLL {
         } else if (gs == GameState.Game) {
           UberStateController.SkipListeners = false;
           UberStateController.Update();
-          if (InputUnlockCallback != null && InterOp.player_can_move())
+          if (InputUnlockCallback.Count != 0 && InterOp.player_can_move())
             OnInputUnlock();
           SeedController.UpdateGoal();
           MapController.Update();
@@ -140,15 +141,19 @@ namespace RandoMainDLL {
 
 
     public delegate void Callback();
-    public static Callback InputUnlockCallback;
+    public static HashSet<Callback> InputUnlockCallback = new HashSet<Callback>();
     public static Callback TitleScreenCallback;
     public static void OnTitleScreen() {
       TitleScreenCallback?.Invoke();
       TitleScreenCallback = null;
     }
     public static void OnInputUnlock() {
-      InputUnlockCallback?.Invoke();
-      InputUnlockCallback = null;
+      foreach (var Callback in InputUnlockCallback) {
+        Callback?.Invoke();
+        InputUnlockCallback = null;
+      }
+
+      InputUnlockCallback.Clear();
     }
   }
 
