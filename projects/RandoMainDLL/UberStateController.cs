@@ -348,10 +348,10 @@ namespace RandoMainDLL {
         // Give diamond in the rough pickup.
         UberSet.Bool(23987, 14832, true);
       }
+      else if (state.GroupID == 937 && state.ID == 34641 && state.Value.Int == 3)
+        UberSet.Int(937, 34641, 4);
       // the below is a fix for a vanilla bug where you can just miss getting voice if you
-      else if (state.GroupID == 14019 && state.ID == 48794 && state.Value.Int == 2 ||  // (a) skip the kwolok cutscene too fast
-               state.GroupID == 937 && state.ID == 34641 && state.Value.Int == 4       // (b) come to kwolok after wellspring and get the cutscenes stacked awkwardly
-        )
+      else if (state.GroupID == 14019 && state.ID == 48794 && state.Value.Int == 2) // (a) skip the kwolok cutscene too fast
         Randomizer.InputUnlockCallback.Add(GiveVoice);
     }
     private static void GiveVoice() {

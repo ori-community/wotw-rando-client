@@ -141,16 +141,16 @@ namespace RandoMainDLL {
 
 
     public delegate void Callback();
-    public static HashSet<Callback> InputUnlockCallback = new HashSet<Callback>();
+    public static List<Callback> InputUnlockCallback = new List<Callback>();
     public static Callback TitleScreenCallback;
     public static void OnTitleScreen() {
       TitleScreenCallback?.Invoke();
       TitleScreenCallback = null;
     }
     public static void OnInputUnlock() {
-      foreach (var Callback in InputUnlockCallback) {
-        Callback?.Invoke();
-        InputUnlockCallback = null;
+      for (var i = 0; i < InputUnlockCallback.Count; ++i) {
+        var callback = InputUnlockCallback[i];
+        callback.Invoke();
       }
 
       InputUnlockCallback.Clear();
