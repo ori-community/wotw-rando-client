@@ -629,15 +629,15 @@ namespace RandoMainDLL {
       InterOp.set_health(newHealth);
     }
   }
-  public class SendAHKSignal : SystemCommand {
-    private readonly string signal;
-    public SendAHKSignal(string v) : base(SysCommandType.AHKSignal) {
-      signal = v;
+  public class SendInputSignal : SystemCommand {
+    private readonly Input.Action action;
+    public SendInputSignal(Input.Action a) : base(SysCommandType.AHKSignal) {
+      action = a;
     }
     public override void Grant(bool skipBase = false) {
-      AHK.HandleSignal(signal);
+      Input.OnActionTriggered(action);
     }
-    public override string Name => $"ahkSignal(\"{signal}\")";
+    public override string Name => $"ahkSignal(\"{Enum.GetName(typeof(Input.Action), action)}\")";
   }
   public class SetEnergy : SystemCommand {
     private readonly float newEnergy;

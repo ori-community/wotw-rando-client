@@ -45,6 +45,7 @@ namespace csharp_bridge
     signatures::f_void update_shop_data = nullptr;
 
     signatures::f_void_int_int_byte_double_double on_uber_state_applied = nullptr;
+    signatures::f_void_a on_action_triggered = nullptr;
 
     signatures::f_void_float_float on_map_tp_active = nullptr;
     signatures::f_void_string on_teleporter_activated = nullptr;
@@ -144,4 +145,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_race_end = reinterpret_cast<f_void>(ptr);
     else if (name == "on_teleporting")
         on_teleporting = reinterpret_cast<f_void>(ptr);
+    else if (name == "on_action_triggered")
+        on_action_triggered = reinterpret_cast<f_void_a>(ptr);
 }

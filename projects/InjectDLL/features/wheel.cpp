@@ -114,7 +114,7 @@ namespace
         return MenuScreenManager::HideEquipmentWhell(this_ptr);
     }
 
-    void show_custom_wheel()
+    void show_custom_wheel(input::Action action)
     {
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
         switch (wheel_behavior)
@@ -136,7 +136,7 @@ namespace
         }
     }
 
-    void hide_custom_wheel()
+    void hide_custom_wheel(input::Action action)
     {
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
         switch (wheel_behavior)
