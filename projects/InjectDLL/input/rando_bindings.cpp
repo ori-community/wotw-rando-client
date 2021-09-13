@@ -1,6 +1,7 @@
 #include <input/rando_bindings.h>
 #include <input/controller_bindings.h>
 #include <macros.h>
+#include <csharp_bridge.h>
 
 #include <Common/ext.h>
 
@@ -160,11 +161,11 @@ namespace input
                 binding.second.is_pressed = pressed;
                 if (binding.second.is_just_pressed)
                     for (auto action : binding.second.on_pressed_actions)
-                        action();
+                        action(binding.first);
 
                 if (is_just_released)
                     for (auto action : binding.second.on_release_actions)
-                        action();
+                        action(binding.first);
             }
         }
     }
@@ -193,11 +194,39 @@ namespace input
         {
             binding.is_pressed = value;
             binding.is_just_pressed = value;
-            auto& actions = value ? binding.on_pressed_actions : binding.on_release_actions;
-            for (auto action : actions)
-                action();
+            auto& callbacks = value ? binding.on_pressed_actions : binding.on_release_actions;
+            for (auto callback : callbacks)
+                callback(action);
         }
     }
+
+    void csharp_callback(Action action)
+    {
+        csharp_bridge::on_action_triggered(action);
+    }
+
+    void initialize()
+    {
+        add_on_pressed_callback(Action::Binding1, csharp_callback);
+        add_on_pressed_callback(Action::Binding2, csharp_callback);
+        add_on_pressed_callback(Action::Binding3, csharp_callback);
+        add_on_pressed_callback(Action::Binding4, csharp_callback);
+        add_on_pressed_callback(Action::Binding5, csharp_callback);
+        add_on_pressed_callback(Action::Reload, csharp_callback);
+        add_on_pressed_callback(Action::ShowLastPickup, csharp_callback);
+        add_on_pressed_callback(Action::ShowProgressWithHints, csharp_callback);
+        add_on_pressed_callback(Action::WarpToCredits, csharp_callback);
+        add_on_pressed_callback(Action::ToggleCursorLock, csharp_callback);
+        add_on_pressed_callback(Action::ToggleAlwaysShowKeystones, csharp_callback);
+        add_on_pressed_callback(Action::ShowDevFlag, csharp_callback);
+        add_on_pressed_callback(Action::ToggleDebug, csharp_callback);
+        add_on_pressed_callback(Action::PrintCoordinates, csharp_callback);
+        add_on_pressed_callback(Action::TeleportCheat, csharp_callback);
+        add_on_pressed_callback(Action::UnlockSpoilers, csharp_callback);
+        add_on_pressed_callback(Action::TogglePickupNamesOnSpoiler, csharp_callback);
+    }
+
+    CALL_ON_INIT(initialize);
 }
 
 INJECT_C_DLLEXPORT bool action_pressed(input::Action action)

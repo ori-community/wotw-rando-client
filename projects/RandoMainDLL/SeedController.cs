@@ -316,12 +316,14 @@ namespace RandoMainDLL {
                 return new Message($"Invalid command {pickupData}!");
               }
               return new SetEnergy(extras[0].ParseToFloat("BuildPickup.SetEnergyValue"));
-            case SysCommandType.AHKSignal:
-              if (extras.Count != 1) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+            case SysCommandType.AHKSignal: {
+                if (extras.Count != 1) {
+                  Randomizer.Log($"malformed command specifier {pickupData}", false);
+                  return new Message($"Invalid command {pickupData}!");
+                }
+                var value = (Input.Action)Enum.Parse(typeof(Input.Action), extras[0]);
+                return new SendInputSignal(value);
               }
-              return new SendAHKSignal(extras[0]);
             case SysCommandType.SetSpiritLight:
               if (extras.Count != 1) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
@@ -354,19 +356,20 @@ namespace RandoMainDLL {
               var p = BuildPickup((PickupType)extras[3].ParseToByte("BuildPickup.GrantIfType"), extras[4], extras.Skip(5).ToList(), cond);
               return new GrantIf(t, guid, extras[2].ParseToDouble("BuildPickup.GrantIfTargetValue"), p);
 
-            case SysCommandType.SetState:
-              if (extras.Count != 2) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
-              }
-              var sysState = extras[0].ParseToByte("BuildPickup.SysState");
-              if (!Enum.IsDefined(typeof(SysState), sysState)) {
-                Randomizer.Log($"invalid state {sysState}", false);
-                return new Message($"Invalid command {pickupData}!");
-              }
+            case SysCommandType.SetState: {
+                if (extras.Count != 2) {
+                  Randomizer.Log($"malformed command specifier {pickupData}", false);
+                  return new Message($"Invalid command {pickupData}!");
+                }
+                var sysState = extras[0].ParseToByte("BuildPickup.SysState");
+                if (!Enum.IsDefined(typeof(SysState), sysState)) {
+                  Randomizer.Log($"invalid state {sysState}", false);
+                  return new Message($"Invalid command {pickupData}!");
+                }
 
-              var value = extras[1].ParseToInt("BuildPickup.Value");
-              return new SetStateCommand((SysState)sysState, value);
+                var value = extras[1].ParseToInt("BuildPickup.Value");
+                return new SetStateCommand((SysState)sysState, value);
+              }
             case SysCommandType.Warp:
               if (extras.Count != 2) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);

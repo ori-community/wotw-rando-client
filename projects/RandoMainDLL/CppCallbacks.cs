@@ -57,7 +57,7 @@ namespace RandoMainDLL {
             CallbackName = "inject_debug_enabled"
           },
           new Method() {
-            Delegate = new f_bool(() => AHK.TPToPickupsEnabled),
+            Delegate = new f_bool(() => Input.TPToPickupsEnabled),
             CallbackName = "tp_to_any_pickup"
           },
           // This one as well.
@@ -184,12 +184,17 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void(UberStateController.OnTeleporting),
             CallbackName = "on_teleporting"
+          },
+          new Method() {
+            Delegate = new f_void_a(Input.OnActionTriggered),
+            CallbackName = "on_action_triggered"
           }
         };
       }
     }
 
     public delegate void f_void();
+    public delegate void f_void_a(Input.Action a);
     public delegate void f_void_at(AbilityType at);
     public delegate void f_void_at_bool(AbilityType at, bool b);
     public delegate void f_void_int(int i);

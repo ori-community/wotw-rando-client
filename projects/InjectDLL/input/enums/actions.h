@@ -44,6 +44,29 @@ namespace input
         MapFocusObjective,
 
         OpenRandoWheel,
+
+        // Legacy actions.
+        Binding1,
+        Binding2,
+        Binding3,
+        Binding4,
+        Binding5,
+        Reload,
+        ShowLastPickup,
+        ShowProgressWithHints,
+        WarpToCredits,
+
+        ToggleCursorLock,
+        ToggleAlwaysShowKeystones,
+
+        ShowDevFlag,
+        ToggleDebug,
+        PrintCoordinates,
+        TeleportCheat,
+        UnlockSpoilers,
+        TogglePickupNamesOnSpoiler,
+        ForceExit,
+
         TOTAL
     };
 }
