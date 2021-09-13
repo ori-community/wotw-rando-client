@@ -4772,7 +4772,7 @@ anchor LowerReach.Central at -335, -4010:  # After the lever door
     gorlek:
       Bash, Grenade=1
       SentryJump=1
-      DoubleJump, TripleJump
+      LowerReach.Lever, DoubleJump, TripleJump
     unsafe:
       Bash
       DoubleJump, LowerReach.Lever OR Sword  # With sword, pogo the slime
