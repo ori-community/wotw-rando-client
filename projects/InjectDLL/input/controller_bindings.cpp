@@ -111,6 +111,7 @@ namespace input
         void handle_binding(Action action, std::vector<int> const& buttons)
         {
             auto& binding = bindings[action].emplace_back();
+            binding.resize(buttons.size());
             std::transform(buttons.begin(), buttons.end(), binding.begin(), [](int button) {
                 return static_cast<ControllerButton>(button);
             });
