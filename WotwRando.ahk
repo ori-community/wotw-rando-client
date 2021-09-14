@@ -336,7 +336,7 @@ FileInstall, C:\moon\state_data.csv, %INSTALL_DIR%state_data.csv, 1
 FileInstall, C:\moon\areas.wotw, %INSTALL_DIR%areas.wotw, 1
 FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
 FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
-FileInstall, controller_bindings.cfg, %INSTALL_DIR%controller_bindings.cfg, 0
+FileInstall, controller_bindings.rkbn, %INSTALL_DIR%controller_bindings.rkbn, 0
 FileInstall, modloader_config.json, %INSTALL_DIR%modloader_config.json, 1
 FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
