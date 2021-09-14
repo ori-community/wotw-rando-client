@@ -1,7 +1,9 @@
 #include <input/rando_bindings.h>
-#include <input/controller_bindings.h>
-#include <macros.h>
+
 #include <csharp_bridge.h>
+#include <macros.h>
+#include <input/controller_bindings.h>
+#include <input/helpers.h>
 
 #include <Common/ext.h>
 
@@ -53,52 +55,18 @@ namespace input
             bindings[action].kbm_bindings.push_back(input);
         }
 
-        KeyboardMouseInput parse_input(std::string const& line)
+        void handle_binding(Action action, std::vector<int> const& buttons)
         {
             KeyboardMouseInput input;
-            std::vector<std::string> elements;
-            split_str(line, elements, ',');
-            for (auto const& element : elements)
+            for (auto const& button : buttons)
             {
-                int value = std::stoi(element);
-                if (value < 0)
-                    input.mouse_buttons.push_back(-value);
+                if (button < 0)
+                    input.mouse_buttons.push_back(-button);
                 else
-                    input.codes.push_back(static_cast<app::KeyCode__Enum>(value));
+                    input.codes.push_back(static_cast<app::KeyCode__Enum>(button));
             }
 
-            return input;
-        }
-
-        void read_bindings()
-        {
-            std::string line;
-            std::ifstream file(base_path + KEYBOARD_REBIND_FILE);
-            while (std::getline(file, line)) 
-            {
-                line = trim(line.substr(0, line.find('#')));
-                if (!line.empty())
-                {
-                    auto index = line.find('=');
-                    if (index != std::string::npos)
-                    {
-                        auto action = magic_enum::enum_cast<Action>(trim(line.substr(0, index)));
-                        if (!action.has_value())
-                        {
-                            modloader::warn("bindings", format("Invalid action in binding file (%s), skipping.", line.c_str()));
-                            continue;
-                        }
-
-                        try
-                        {
-                            add_keyboard_binding(action.value(), parse_input(trim(line.substr(index + 1))));
-                        }
-                        catch (std::exception e) { modloader::warn("bindings", format("Invalid keys in binding file (%s), skipping. [%s]", line.c_str(), e.what())); }
-                    }
-                    else
-                        modloader::warn("bindings", format("Invalid line in binding file (%s), skipping.", line.c_str()));
-                }
-            }
+            add_keyboard_binding(action, input);
         }
 
         IL2CPP_INTERCEPT(, PlayerInput, void, ClearControls, (app::PlayerInput* this_ptr)) {
@@ -109,7 +77,7 @@ namespace input
 
         IL2CPP_INTERCEPT(, PlayerInput, void, AddKeyboardControls, (app::PlayerInput* this_ptr)) {
             PlayerInput::AddKeyboardControls(this_ptr);
-            read_bindings();
+            read_bindings(base_path + KEYBOARD_REBIND_FILE, handle_binding);
         }
 
         bool is_pressed(Action action)
