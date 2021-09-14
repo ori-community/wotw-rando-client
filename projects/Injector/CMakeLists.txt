@@ -34,6 +34,7 @@ set_target_properties(
 		VERSION ${WORWR_VERSION}
 		SOVERSION ${WORWR_MAJOR_VERSION}
 		FOLDER cpp
+		LINK_FLAGS "/level='requireAdministrator' /uiAccess='false'"
 )
 
 target_include_directories(
