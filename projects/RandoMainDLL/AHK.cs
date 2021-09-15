@@ -20,6 +20,11 @@ namespace RandoMainDLL {
         IniRead, out, %iniPath%, %Section%, %Key%
         return out
       }
+      Tick() 
+      {
+        global signal
+        return signal
+      }
       return	
       onSignalExt:
       gui, submit
@@ -97,6 +102,13 @@ namespace RandoMainDLL {
     }
 
     public static void Tick() {
+      var signal = Engine.ExecFunction("Tick");
+      if (signal != null && signal != "none") {
+        Engine.SetVar("signal", "none");
+        if (signal == "reload") {
+          Input.OnActionTriggered(Input.Action.Reload);
+        }
+      }
       FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
       if (FramesTillNextSend > 0) {
         FramesTillNextSend--;
