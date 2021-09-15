@@ -25,6 +25,7 @@
 #include <Common/ext.h>
 
 #include <csharp_bridge.h>
+#include <system/ipc.h>
 
 using namespace modloader;
 
@@ -97,6 +98,7 @@ INJECT_C_DLLEXPORT void set_equipment(int32_t equip, bool value)
 IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
 {
     GameController::FixedUpdate(this_ptr);
+    ipc::update_pipe();
     on_fixed_update(this_ptr);
 }
 
@@ -207,6 +209,7 @@ void Initialize()
 {
     set_mouse_controls();
     set_no_pause(true);
+    ipc::start_pipe();
 }
 
 CALL_ON_INIT(Initialize);

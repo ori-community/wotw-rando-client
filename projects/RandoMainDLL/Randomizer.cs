@@ -129,8 +129,6 @@ namespace RandoMainDLL {
       Log(message, printIfDev, "DEBUG");
     }
 
-
-
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
       if (AHK.IniFlag("MuteCSLogs"))
         return;
