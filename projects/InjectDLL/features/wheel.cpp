@@ -19,12 +19,11 @@ using namespace modloader;
 
 enum class WheelBehavior
 {
-    Modifier,
     Standalone,
     Toggle
 };
 
-WheelBehavior wheel_behavior = WheelBehavior::Modifier;
+WheelBehavior wheel_behavior = WheelBehavior::Standalone;
 
 INJECT_C_DLLEXPORT void refresh_wheel();
 
@@ -120,15 +119,15 @@ namespace
         switch (wheel_behavior)
         {
         case WheelBehavior::Standalone:
-        case WheelBehavior::Modifier:
             custom_wheel_input = true;
             if (is_wheel_visible)
                 refresh_wheel();
-            else if (wheel_behavior == WheelBehavior::Standalone)
+            else
             {
                 auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
                 MenuScreenManager::ShowEquipmentWheel(msm);
             }
+
             break;
         case WheelBehavior::Toggle:
             // TODO: implement toggle behavior
@@ -136,32 +135,32 @@ namespace
         }
     }
 
+    STATIC_IL2CPP_BINDING(, MenuScreenManager, bool, get_EquipmentWheelKeyDown, ());
     void hide_custom_wheel(input::Action action)
     {
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
         switch (wheel_behavior)
         {
-        case WheelBehavior::Modifier:
+        case WheelBehavior::Standalone:
+        {
             custom_wheel_input = false;
-            if (is_wheel_visible)
+            if (!il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->OpenWeaponWheel->fields.IsPressed)
+            {
+                auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
+                MenuScreenManager::HideEquipmentWhell(msm);
+            }
+            else
                 refresh_wheel();
 
             if (!sticky_wheel)
                 wheel_index = 0;
 
             break;
-        case WheelBehavior::Standalone:
-        {
-            custom_wheel_input = false;
-            auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
-            MenuScreenManager::HideEquipmentWhell(msm);
-            break;
         }
         case WheelBehavior::Toggle:
             // TODO: implement toggle behavior
             break;
         }
-
     }
 
     uint32_t empty_name = 0;

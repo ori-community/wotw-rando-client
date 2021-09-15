@@ -67,9 +67,9 @@ namespace RandoMainDLL {
     public static void OnLoad(int slot, int backupSlot = -1) {
       try {
         if (slot != CurrentSlot) {
-          if (Randomizer.InputUnlockCallback != null) {
+          if (Randomizer.InputUnlockCallback.Count != 0) {
             AHK.Print("Warning: Callback overwritten on slot change!", 240);
-            Randomizer.InputUnlockCallback = null;
+            Randomizer.InputUnlockCallback.Clear();
           }
           // slot swap
           CurrentSlot = slot;
@@ -105,9 +105,9 @@ namespace RandoMainDLL {
       if (slot != CurrentSlot) {
         // this is a slot swap and not a save
         CurrentSlot = slot;
-        if (Randomizer.InputUnlockCallback != null) {
+        if (Randomizer.InputUnlockCallback.Count != 0) {
           AHK.Print("Warning: Callback overwritten on slot change!", 240);
-          Randomizer.InputUnlockCallback = null;
+          Randomizer.InputUnlockCallback.Clear();
         }
         return;
       }
