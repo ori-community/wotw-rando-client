@@ -11,6 +11,6 @@ namespace multiplayer
         app::Vector3 position;
     };
 
-    std::vector<PlayerInfo> const& get_player_infos();
+    std::vector<PlayerInfo> const& get_players();
 }
 

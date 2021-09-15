@@ -8,7 +8,7 @@ namespace multiplayer
     std::vector<PlayerInfo> players;
     std::unordered_map<std::string, int> player_map;
 
-    std::vector<PlayerInfo> const& get_player_infos()
+    std::vector<PlayerInfo> const& get_players()
     {
         return players;
     }
