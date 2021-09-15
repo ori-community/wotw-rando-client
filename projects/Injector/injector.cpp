@@ -239,8 +239,5 @@ int main(int, char**)
 {
     auto ret = actual_main();
     logstream << "main return was " << ret << std::endl;
-    if (ret != 0)
-        system("pause");
-
     return ret;
 }

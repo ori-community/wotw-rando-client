@@ -9,6 +9,15 @@ namespace RandoMainDLL {
     QuestComplete
   }
 
+  static class InterOpMultiplayer {
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string name);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string name);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string name, float x, float y, float z);
+  }
+
   static class InterOpWeaponWheel {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
