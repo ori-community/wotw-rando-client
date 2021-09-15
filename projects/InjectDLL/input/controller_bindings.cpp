@@ -25,7 +25,7 @@ namespace input
 {
     namespace
     {
-        const std::string CONTROLLER_REBIND_FILE = "controller_bindings.rkbn";
+        const std::string CONTROLLER_REBIND_FILE = "controller_bindings.json";
 
         std::unordered_map<app::XboxControllerInput_Axis__Enum, uint32_t> axis_map;
         std::unordered_map<ControllerButton, uint32_t> buttons_map;

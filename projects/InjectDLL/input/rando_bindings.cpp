@@ -23,7 +23,7 @@ namespace input
 {
     namespace
     {
-        const std::string KEYBOARD_REBIND_FILE = "keyboard_bindings.rkbn";
+        const std::string KEYBOARD_REBIND_FILE = "keyboard_bindings.json";
 
         struct KeyboardMouseInput
         {
