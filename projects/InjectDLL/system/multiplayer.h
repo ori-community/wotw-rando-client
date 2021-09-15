@@ -7,6 +7,7 @@ namespace multiplayer
 {
     struct PlayerInfo
     {
+        std::string id;
         std::string name;
         app::Vector2 position;
     };

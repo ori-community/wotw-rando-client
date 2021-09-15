@@ -11,11 +11,11 @@ namespace RandoMainDLL {
 
   static class InterOpMultiplayer {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string name);
+    public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string name);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string name);
+    public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string id);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string name, float x, float y);
+    public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
   }
 
   static class InterOpWeaponWheel {
