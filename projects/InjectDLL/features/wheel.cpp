@@ -115,6 +115,9 @@ namespace
 
     void show_custom_wheel(input::Action action)
     {
+        if (wheels.empty() || wheels[wheel_index].entries.empty())
+            return;
+
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
         switch (wheel_behavior)
         {
@@ -135,9 +138,11 @@ namespace
         }
     }
 
-    STATIC_IL2CPP_BINDING(, MenuScreenManager, bool, get_EquipmentWheelKeyDown, ());
     void hide_custom_wheel(input::Action action)
     {
+        if (wheels.empty() || wheels[wheel_index].entries.empty())
+            return;
+
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
         switch (wheel_behavior)
         {
