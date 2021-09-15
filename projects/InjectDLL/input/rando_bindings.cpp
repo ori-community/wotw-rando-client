@@ -192,6 +192,7 @@ namespace input
         add_on_pressed_callback(Action::TeleportCheat, csharp_callback);
         add_on_pressed_callback(Action::UnlockSpoilers, csharp_callback);
         add_on_pressed_callback(Action::TogglePickupNamesOnSpoiler, csharp_callback);
+        add_on_pressed_callback(Action::ForceExit, csharp_callback);
     }
 
     CALL_ON_INIT(initialize);
