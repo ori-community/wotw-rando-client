@@ -33,7 +33,7 @@ INJECT_C_DLLEXPORT void remove_player(const char* name)
     }
 }
 
-INJECT_C_DLLEXPORT void update_player_position(const char* name, float x, float y, float z)
+INJECT_C_DLLEXPORT void update_player_position(const char* name, float x, float y)
 {
     auto it = multiplayer::player_map.find(name);
     if (it != multiplayer::player_map.end())
@@ -41,6 +41,5 @@ INJECT_C_DLLEXPORT void update_player_position(const char* name, float x, float 
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
         info.position.x = x;
         info.position.y = y;
-        info.position.z = z;
     }
 }

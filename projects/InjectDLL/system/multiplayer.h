@@ -8,7 +8,7 @@ namespace multiplayer
     struct PlayerInfo
     {
         std::string name;
-        app::Vector3 position;
+        app::Vector2 position;
     };
 
     std::vector<PlayerInfo> const& get_players();
