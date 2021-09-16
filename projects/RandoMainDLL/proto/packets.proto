@@ -31,6 +31,10 @@ message PrintTextMessage {
   string text = 3;
 }
 
+message Authenticate {
+  string jwt = 1;
+}
+
 message UDPEncryptionKeyMessage {
   int32 udpId = 1;
   bytes key = 2;
