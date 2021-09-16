@@ -85,8 +85,11 @@ namespace RandoMainDLL {
             AHK.Reload();
             WebSocketClient.Connect();
             SeedController.ReadSeed();
-            if (InterOp.get_game_state() == GameState.Game)
+            if (InterOp.get_game_state() == GameState.Game) {
+              InterOpWeaponWheel.clear_wheels();
+              InterOpWeaponWheel.initialize_default_wheel();
               PsuedoLocs.LOAD_SEED.OnCollect();
+            }
           }
           break;
         case Action.ShowLastPickup:

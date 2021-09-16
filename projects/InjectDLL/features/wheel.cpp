@@ -424,6 +424,21 @@ namespace
         return wheel >= 0 && item >= 0 && item < 12;
     }
 
+    void add_wheel_item(int wheel, int item, std::wstring_view name, std::wstring_view description, std::wstring_view texture, CustomWheelEntry::binding_action action)
+    {
+        auto& entry = wheels[wheel].entries[item];
+        entry.name = name;
+        entry.description = description;
+        entry.enabled = true;
+        entry.color.a = 1.0f;
+        entry.color.r = 1.0f;
+        entry.color.g = 1.0f;
+        entry.color.b = 1.0f;
+        entry.texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture));
+        entry.callback = nullptr;
+        entry.action = action;
+    }
+
     CALL_ON_INIT(initialize_wheel);
 }
 
@@ -466,7 +481,7 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
     else
     {
         auto* actual_texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture));
-        if (!is_valid_wheel_index(wheel, item))
+        if (actual_texture == nullptr)
         {
             warn("wheel", format("failed to find texture"));
             return false;
@@ -537,6 +552,17 @@ INJECT_C_DLLEXPORT bool clear_wheel_item(int wheel, int item)
     return true;
 }
 
+INJECT_C_DLLEXPORT void refresh_wheel()
+{
+    auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+    if (is_wheel_visible)
+    {
+        dont_fade = true;
+        EquipmentWheel::ShowImmediate_intercept(wheel);
+        dont_fade = false;
+    }
+}
+
 INJECT_C_DLLEXPORT bool set_active_wheel(int wheel)
 {
     auto it = wheels.find(wheel);
@@ -548,23 +574,13 @@ INJECT_C_DLLEXPORT bool set_active_wheel(int wheel)
 
     sticky_wheel = false;
     wheel_index = wheel;
+    refresh_wheel();
     return true;
 }
 
 INJECT_C_DLLEXPORT void set_active_wheel_sticky(bool value)
 {
     sticky_wheel = value;
-}
-
-INJECT_C_DLLEXPORT void refresh_wheel()
-{
-    auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
-    if (is_wheel_visible)
-    {
-        dont_fade = true;
-        EquipmentWheel::ShowImmediate_intercept(wheel);
-        dont_fade = false;
-    }
 }
 
 INJECT_C_DLLEXPORT void set_wheel_behavior(int behavior)
@@ -580,4 +596,52 @@ INJECT_C_DLLEXPORT void clear_wheels()
     custom_wheel_on = false;
     wheel_index = 0;
     wheels.clear();
+}
+
+INJECT_C_DLLEXPORT void initialize_default_wheel()
+{
+    add_wheel_item(0, 11, L"Rando Actions", L"Contains default\nrandomizer actions", L"spirit_shard:13",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { set_active_wheel(9000); });
+
+    add_wheel_item(9000, 0, L"Binding 1", L"Activate header action", L"spirit_shard:1",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Binding1); });
+    add_wheel_item(9000, 1, L"Binding 2", L"Activate header action", L"spirit_shard:1",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Binding2); });
+    add_wheel_item(9000, 2, L"Binding 3", L"Activate header action", L"spirit_shard:1",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Binding3); });
+    add_wheel_item(9000, 3, L"Binding 4", L"Activate header action", L"spirit_shard:1",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Binding4); });
+    add_wheel_item(9000, 4, L"Binding 5", L"Activate header action", L"spirit_shard:1",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Binding5); });
+    add_wheel_item(9000, 5, L"Show last pickup", L"Displays the message associated\nwith the last pickup.", L"spirit_shard:4",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowLastPickup); });
+    add_wheel_item(9000, 6, L"Show progress, with hints.", L"Displays current goal mode progress and bought hints.", L"spirit_shard:5",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowProgressWithHints); });
+    add_wheel_item(9000, 9, L"Warp to credits", L"Warp directly to the credits,\nonly works if you have finished the bingo.", L"spirit_shard:6",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::WarpToCredits); });
+    add_wheel_item(9000, 10, L"Reload", L"Reloads the seed file", L"spirit_shard:2",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Reload); });
+    add_wheel_item(9000, 11, L"Next", L"Go to next page of actions", L"spirit_shard:3",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { set_active_wheel(9001); });
+
+    add_wheel_item(9001, 0, L"Toggle keystones", L"Toggle to always show the keystone ui.", L"spirit_shard:1",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleAlwaysShowKeystones); } );
+    add_wheel_item(9001, 1, L"Toggle cursor lock", L"Toggle to confine the mouse cursor to the window.", L"spirit_shard:2",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleCursorLock); });
+    add_wheel_item(9001, 2, L"Show dev", L"Displays what the dev flag is set to.", L"spirit_shard:4",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowDevFlag); });
+    add_wheel_item(9001, 3, L"Toggle debug", L"Toggle debug controls", L"spirit_shard:5",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleDebug); });
+    add_wheel_item(9001, 4, L"Display coordinates", L"Displays your current/ncoordinates as a messahe", L"spirit_shard:6",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::PrintCoordinates); });
+    add_wheel_item(9001, 5, L"Teleport cheat", L"Toggles teleport cheat to teleport\nanywhere on the map.", L"spirit_shard:7",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::TeleportCheat); });
+    add_wheel_item(9001, 6, L"Unlock spoilers", L"Unlock spoilers filter on the map", L"spirit_shard:8",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::UnlockSpoilers); });
+    add_wheel_item(9001, 7, L"Toggle pickup names", L"Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", L"spirit_shard:9",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::TogglePickupNamesOnSpoiler); });
+    add_wheel_item(9001, 9, L"Force Exit", L"Forcibly exit the game.", L"spirit_shard:10",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ForceExit); });
+    add_wheel_item(9001, 11, L"Next", L"Go to next page of actions", L"spirit_shard:3",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { set_active_wheel(9000); });
 }
