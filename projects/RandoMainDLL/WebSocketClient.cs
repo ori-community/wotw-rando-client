@@ -30,12 +30,12 @@ namespace RandoMainDLL {
     public static bool WantConnection { get => !AHK.IniFlag("DisableNetcode") && (SeedController.Settings?.NetcodeEnabled ?? false); }
 
     private static WebSocket socket;
+
     public static bool IsConnected { get { return socket != null && socket.IsConnected; } }
     public static bool Connecting { get => connectThread?.IsAlive ?? false; }
     public static void Connect() {
       if (!WantConnection) return;
       setupUpdateThread();
-
       if (Connecting) {
         Randomizer.Log("Skipping connection request as one is in-progress", false, "DEBUG");
         FramesTillReconnectAttempt = 120;
@@ -136,7 +136,7 @@ namespace RandoMainDLL {
                 socket.Send(packet.ToByteArray());
               }
               catch (Exception e) {
-                Randomizer.Warn("UpdateThread", $"caught error {e}");
+                Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
               }
           }
         });
@@ -168,7 +168,7 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendBulk", e, false);  }
 
 }
-public static void SendUpdate(Memory.UberId id, double value) {
+    public static void SendUpdate(Memory.UberId id, double value) {
       try {
         Packet packet = new Packet {
           Id = 3,
@@ -178,7 +178,20 @@ public static void SendUpdate(Memory.UberId id, double value) {
       } catch(Exception e) { Randomizer.Error("SendUpdate", e, false);  }
     }
 
-    public static void HandleMessage(object sender, MessageEventArgs args) {
+    public static void SendAuthenticate(string jwt) {
+      try {
+        var authenticate = new AuthenticateMessage();
+        authenticate.Jwt = jwt;
+        Packet packet = new Packet {
+          Id = 9,
+          Packet_ = authenticate.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("SendAuthenticate", e, false); }
+    }
+
+    private static void HandleMessage(object sender, MessageEventArgs args) {
       try {
         var data = args.RawData;
         if (data == null) {
@@ -204,6 +217,14 @@ public static void SendUpdate(Memory.UberId id, double value) {
             try {
               UberStateQueue.Add(UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_));
             } catch(Exception e) { Randomizer.Error("UberStateQueue.Add", e); }
+            break;
+          case 12:
+            var authenticated = AuthenticatedMessage.Parser.ParseFrom(packet.Packet_);
+            UDPSocketClient.Start(authenticated.UdpId, authenticated.UdpKey.ToByteArray());
+            Multiplayer.Queue.Add(packet);
+            break;
+          case 8:
+            Multiplayer.Queue.Add(packet);
             break;
           default:
             break;
