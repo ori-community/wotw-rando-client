@@ -35,6 +35,10 @@ message Authenticate {
   string jwt = 1;
 }
 
+message AuthenticatedMessage {
+  UserInfo user = 1;
+}
+
 message UDPEncryptionKeyMessage {
   int32 udpId = 1;
   bytes key = 2;
