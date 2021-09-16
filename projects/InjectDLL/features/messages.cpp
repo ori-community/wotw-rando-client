@@ -134,33 +134,6 @@ namespace
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_WeaponmasterScreenVisible, ());
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_BuilderScreenVisible, ());
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_GardenerScreenVisible, ());
-
-    //public enum MenuScreenManager.Screens // TypeDefIndex: 12290
-    //{
-    //    // Fields
-    //    public int value__; // 0x0
-    //    public const MenuScreenManager.Screens None = -1; // 0x0
-    //    public const MenuScreenManager.Screens Pause = 0; // 0x0
-    //    public const MenuScreenManager.Screens SkillTree = 1; // 0x0
-    //    public const MenuScreenManager.Screens WorldMap = 2; // 0x0
-    //    public const MenuScreenManager.Screens Options = 3; // 0x0
-    //    public const MenuScreenManager.Screens Inventory = 4; // 0x0
-    //    public const MenuScreenManager.Screens Spells = 5; // 0x0
-    //    public const MenuScreenManager.Screens Shards = 6; // 0x0
-    //    public const MenuScreenManager.Screens LegacyEquipmentScreen = 7; // 0x0
-    //    public const MenuScreenManager.Screens ShardsShop = 200; // 0x0
-    //    public const MenuScreenManager.Screens EquipmentWheel = 201; // 0x0
-    //    public const MenuScreenManager.Screens Stats = 202; // 0x0
-    //    public const MenuScreenManager.Screens SkillUpgrade = 203; // 0x0
-    //    public const MenuScreenManager.Screens BuilderProjects = 204; // 0x0
-    //    public const MenuScreenManager.Screens GardenerProjects = 205; // 0x0
-    //    public const MenuScreenManager.Screens RacePause = 206; // 0x0
-    //    public const MenuScreenManager.Screens Loremaster = 207; // 0x0
-    //    public const MenuScreenManager.Screens RaceScreen = 208; // 0x0
-    //    public const MenuScreenManager.Screens MapmakerShop = 209; // 0x0
-    //    public const MenuScreenManager.Screens ShardUpgradeShop = 210; // 0x0
-    //}
-
     IL2CPP_BINDING(, MenuScreenManager, bool, IsVisible, (app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen));
     bool should_handle_messages()
     {
