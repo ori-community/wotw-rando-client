@@ -20,6 +20,8 @@ namespace RandoMainDLL {
 
   static class InterOpWeaponWheel {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void initialize_default_wheel();
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool set_wheel_item_name(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string name);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

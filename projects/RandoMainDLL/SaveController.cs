@@ -74,6 +74,7 @@ namespace RandoMainDLL {
           // slot swap
           CurrentSlot = slot;
         }
+
         MapController.InitLupoPrices();
         UberStateController.SkipListeners = true;
         UberStateController.UberStates.Clear();
@@ -84,6 +85,8 @@ namespace RandoMainDLL {
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
           UberStateController.QueueSyncedStateUpdate();
         } else {
+          InterOpWeaponWheel.clear_wheels();
+          InterOpWeaponWheel.initialize_default_wheel();
           PsuedoLocs.LOAD_SEED.Pickup().Grant();
         }
         BonusItemController.Refresh();
