@@ -37,11 +37,8 @@ message Authenticate {
 
 message AuthenticatedMessage {
   UserInfo user = 1;
-}
-
-message UDPEncryptionKeyMessage {
-  int32 udpId = 1;
-  bytes key = 2;
+  int32 udpId = 2;
+  bytes udpKey = 3;
 }
 
 message PlayerPositionMessage  {
