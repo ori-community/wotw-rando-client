@@ -31,7 +31,7 @@ message PrintTextMessage {
   string text = 3;
 }
 
-message Authenticate {
+message AuthenticateMessage {
   string jwt = 1;
 }
 
@@ -70,7 +70,7 @@ message UniverseInfo {
   repeated WorldInfo worlds = 3;
 }
 
-message MultiverseInfo {
+message MultiverseInfoMessage {
   int64 id = 1;
   repeated UniverseInfo universes = 2;
   bool hasBingoBoard = 3;
