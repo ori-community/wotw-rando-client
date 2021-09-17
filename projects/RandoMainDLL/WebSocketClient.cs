@@ -15,7 +15,7 @@ namespace RandoMainDLL {
     public static BlockingCollection<UberStateUpdateMessage> UberStateQueue = new BlockingCollection<UberStateUpdateMessage>();
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
     public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
-    public static string SessionId;
+    private static readonly string JWTFile = ".jwt";
 
     public static bool ExpectingDisconnect = false;
     public static int ReconnectCooldown = 0;
@@ -42,44 +42,12 @@ namespace RandoMainDLL {
         return;
       }
       connectThread = new Thread(() => {
-        //      PlayerId = player;
-        if (socket != null) {
+        if (socket != null)
           Disconnect();
-        }
+
         ExpectingDisconnect = false;
-        var user = DiscordController.GetUser();
-        try {
-          if (user == null) {
-            Randomizer.Log("Have no user ID; reattempting discord auth", false, "DEBUG");
-            DiscordController.Initialize();
-            FramesTillReconnectAttempt = 60;
-            return;
-          }
-          var client = new WebClient();
-
-          if(AHK.IniFlag("Insecure")) // don't try this at home!
-            ServicePointManager.ServerCertificateValidationCallback = (_, __, ___, ____) => true;
-
-          client.UploadString($"http{S}://{Domain}/api/sessions/uid", $"{user?.Id}");
-          var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
-          try {
-            SessionId = rawCookie.Split(';')[0].Split('=')[1];
-          } catch (Exception e2) {
-            Randomizer.Error($"Failed to parse cookie {rawCookie} (response headers: {client.ResponseHeaders})", e2);
-            FramesTillReconnectAttempt = 120;
-            return;
-          }
-        }
-        catch (Exception e) { 
-          Randomizer.Error($"Connect (UploadString, user had id {user?.Id}", e);
-          FramesTillReconnectAttempt = 120;
-          return;
-        }
-
-
         try {
           socket = new WebSocket(ServerAddress, null);
-          socket.CookieCollection.Add(new WebSocketSharp.Net.Cookie("sessionid", SessionId, "/", Domain));
           socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
           socket.Log.Level = LogLevel.Info;
           socket.Log.Output = (logdata, output) => {
@@ -103,6 +71,8 @@ namespace RandoMainDLL {
           socket.OnMessage += HandleMessage;
           socket.OnOpen += (sender, args) => {
             Randomizer.Log($"Connected to server", false);
+            string jwt = System.IO.File.ReadAllText(Randomizer.BasePath + JWTFile).Trim();
+            SendAuthenticate(jwt);
             UberStateController.QueueSyncedStateUpdate();
           };
           Randomizer.Log($"Attempting to connect to {Domain}", false);
