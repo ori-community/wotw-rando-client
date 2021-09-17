@@ -15,7 +15,7 @@ namespace RandoMainDLL {
     public static BlockingCollection<UberStateUpdateMessage> UberStateQueue = new BlockingCollection<UberStateUpdateMessage>();
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
     public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
-    public static string SessionId;
+    private static readonly string JWTFile = ".jwt";
 
     public static bool ExpectingDisconnect = false;
     public static int ReconnectCooldown = 0;
@@ -30,56 +30,24 @@ namespace RandoMainDLL {
     public static bool WantConnection { get => !AHK.IniFlag("DisableNetcode") && (SeedController.Settings?.NetcodeEnabled ?? false); }
 
     private static WebSocket socket;
+
     public static bool IsConnected { get { return socket != null && socket.IsConnected; } }
     public static bool Connecting { get => connectThread?.IsAlive ?? false; }
     public static void Connect() {
       if (!WantConnection) return;
       setupUpdateThread();
-
       if (Connecting) {
         Randomizer.Log("Skipping connection request as one is in-progress", false, "DEBUG");
         FramesTillReconnectAttempt = 120;
         return;
       }
       connectThread = new Thread(() => {
-        //      PlayerId = player;
-        if (socket != null) {
+        if (socket != null)
           Disconnect();
-        }
+
         ExpectingDisconnect = false;
-        var user = DiscordController.GetUser();
-        try {
-          if (user == null) {
-            Randomizer.Log("Have no user ID; reattempting discord auth", false, "DEBUG");
-            DiscordController.Initialize();
-            FramesTillReconnectAttempt = 60;
-            return;
-          }
-          var client = new WebClient();
-
-          if(AHK.IniFlag("Insecure")) // don't try this at home!
-            ServicePointManager.ServerCertificateValidationCallback = (_, __, ___, ____) => true;
-
-          client.UploadString($"http{S}://{Domain}/api/sessions/uid", $"{user?.Id}");
-          var rawCookie = client.ResponseHeaders.Get("Set-Cookie");
-          try {
-            SessionId = rawCookie.Split(';')[0].Split('=')[1];
-          } catch (Exception e2) {
-            Randomizer.Error($"Failed to parse cookie {rawCookie} (response headers: {client.ResponseHeaders})", e2);
-            FramesTillReconnectAttempt = 120;
-            return;
-          }
-        }
-        catch (Exception e) { 
-          Randomizer.Error($"Connect (UploadString, user had id {user?.Id}", e);
-          FramesTillReconnectAttempt = 120;
-          return;
-        }
-
-
         try {
           socket = new WebSocket(ServerAddress, null);
-          socket.CookieCollection.Add(new WebSocketSharp.Net.Cookie("sessionid", SessionId, "/", Domain));
           socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
           socket.Log.Level = LogLevel.Info;
           socket.Log.Output = (logdata, output) => {
@@ -97,12 +65,15 @@ namespace RandoMainDLL {
             FramesTillReconnectAttempt = 600;
           };
           socket.OnClose += (sender, e) => {
-            if(!ExpectingDisconnect)
+            Randomizer.Log($"{e?.Code}: {e?.Reason}");
+            if (!ExpectingDisconnect)
               Randomizer.Log("Disconnected! Retrying in 5s");
           };
           socket.OnMessage += HandleMessage;
           socket.OnOpen += (sender, args) => {
             Randomizer.Log($"Connected to server", false);
+            string jwt = System.IO.File.ReadAllText(Randomizer.BasePath + JWTFile).Trim();
+            SendAuthenticate(jwt);
             UberStateController.QueueSyncedStateUpdate();
           };
           Randomizer.Log($"Attempting to connect to {Domain}", false);
@@ -136,7 +107,7 @@ namespace RandoMainDLL {
                 socket.Send(packet.ToByteArray());
               }
               catch (Exception e) {
-                Randomizer.Warn("UpdateThread", $"caught error {e}");
+                Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
               }
           }
         });
@@ -168,7 +139,7 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendBulk", e, false);  }
 
 }
-public static void SendUpdate(Memory.UberId id, double value) {
+    public static void SendUpdate(Memory.UberId id, double value) {
       try {
         Packet packet = new Packet {
           Id = 3,
@@ -178,7 +149,20 @@ public static void SendUpdate(Memory.UberId id, double value) {
       } catch(Exception e) { Randomizer.Error("SendUpdate", e, false);  }
     }
 
-    public static void HandleMessage(object sender, MessageEventArgs args) {
+    public static void SendAuthenticate(string jwt) {
+      try {
+        var authenticate = new AuthenticateMessage();
+        authenticate.Jwt = jwt;
+        Packet packet = new Packet {
+          Id = 9,
+          Packet_ = authenticate.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("SendAuthenticate", e, false); }
+    }
+
+    private static void HandleMessage(object sender, MessageEventArgs args) {
       try {
         var data = args.RawData;
         if (data == null) {
@@ -204,6 +188,14 @@ public static void SendUpdate(Memory.UberId id, double value) {
             try {
               UberStateQueue.Add(UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_));
             } catch(Exception e) { Randomizer.Error("UberStateQueue.Add", e); }
+            break;
+          case 12:
+            var authenticated = AuthenticatedMessage.Parser.ParseFrom(packet.Packet_);
+            UDPSocketClient.Start(authenticated.UdpId, authenticated.UdpKey.ToByteArray());
+            Multiplayer.Queue.Add(packet);
+            break;
+          case 8:
+            Multiplayer.Queue.Add(packet);
             break;
           default:
             break;

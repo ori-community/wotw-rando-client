@@ -50,8 +50,6 @@ namespace
 
     app::EquipmentRadialSelection* radial_selection = nullptr;
     app::CleverMenuItemSelectionManager* wheel_selection_manager = nullptr;
-    std::unordered_map<app::CleverMenuItem*, int> menu_item_to_index;
-    std::unordered_map<int, app::CleverMenuItem*> index_to_menu_item;
 
     bool sticky_wheel = false;
     bool is_wheel_visible = false;
@@ -63,9 +61,9 @@ namespace
     IL2CPP_BINDING(, CleverMenuItemSelectionManager, int, get_MenuItemsCount, (app::CleverMenuItemSelectionManager* this_ptr));
     IL2CPP_BINDING(, CleverMenuItemSelectionManager, app::CleverMenuItem*, GetMenuItem, (app::CleverMenuItemSelectionManager* this_ptr, int index));
     STATIC_IL2CPP_BINDING(, EquipmentRadialSelection, int, GetWheelIndex, (app::EquipmentType__Enum type));
-    CustomWheelEntry* get_wheel_entry(app::EquipmentType__Enum type)
+
+    CustomWheelEntry* get_wheel_entry(int index)
     {
-        auto index = EquipmentRadialSelection::GetWheelIndex(type);
         auto it = wheels.find(wheel_index);
         if (it == wheels.end())
             return nullptr;
@@ -75,6 +73,12 @@ namespace
             return nullptr;
 
         return &entry->second;
+    }
+    
+    CustomWheelEntry* get_wheel_entry(app::EquipmentType__Enum type)
+    {
+        auto index = EquipmentRadialSelection::GetWheelIndex(type);
+        return get_wheel_entry(index);
     }
 
     bool dont_fade = false;
@@ -179,7 +183,19 @@ namespace
         input::add_on_released_callback(input::Action::OpenRandoWheel, hide_custom_wheel);
     }
 
-    DECLARE_INTERCEPT(, CleverMenuItem, void, RefreshVisible, (app::CleverMenuItem* this_ptr));
+    bool override_set_active = false;
+    bool override_set_active_value = false;
+    IL2CPP_INTERCEPT(, CleverMenuItem, void, RefreshVisible, (app::CleverMenuItem* this_ptr)) {
+        if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager)
+        {
+            override_set_active = true;
+            override_set_active_value = true;
+        }
+
+        CleverMenuItem::RefreshVisible(this_ptr);
+        override_set_active = false;
+    }
+
     DECLARE_INTERCEPT(, EquipmentWheelUIDetails, void, UpdateContext, (app::EquipmentWheelUIDetails* this_ptr, bool to_right));
     IL2CPP_INTERCEPT(, EquipmentRadialSelection, void, Populate, (app::EquipmentRadialSelection* this_ptr, app::List_1_System_Object_ inventory_items, app::Object* grid_context)) {
         wheel_selection_manager = this_ptr->fields.m_navigationManager;
@@ -192,8 +208,6 @@ namespace
             wheel_selection_manager->fields.KeepMouseInteractionsWhenInactive = false;
             wheel_selection_manager->fields.AlwaysHighlightCurrentMenuItem = false;
             wheel_selection_manager->fields.CheckIfActiveWhenSettingIndexToFirst = true;
-            menu_item_to_index.clear();
-            index_to_menu_item.clear();
         }
 
         EquipmentRadialSelection::Populate(this_ptr, inventory_items, grid_context);
@@ -206,30 +220,9 @@ namespace
             for (int i = 0; i < count; ++i)
             {
                 auto* menu_item = CleverMenuItemSelectionManager::GetMenuItem(wheel_selection_manager, i);
-                menu_item_to_index[menu_item] = i;
-                index_to_menu_item[i] = menu_item;
                 menu_item->fields.m_selectionManager = wheel_selection_manager;
             }
         }
-
-        for (int i = 0; i < count; ++i)
-        {
-            auto* menu_item = CleverMenuItemSelectionManager::GetMenuItem(wheel_selection_manager, i);
-            CleverMenuItem::RefreshVisible_intercept(menu_item);
-        }
-    }
-
-    bool override_set_active = false;
-    bool override_set_active_value = false;
-    IL2CPP_INTERCEPT(, CleverMenuItem, void, RefreshVisible, (app::CleverMenuItem* this_ptr)) {
-        if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager)
-        {
-            override_set_active = true;
-            override_set_active_value = true;
-        }
-
-        CleverMenuItem::RefreshVisible(this_ptr);
-        override_set_active = false;
     }
 
     IL2CPP_INTERCEPT(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value)) {
@@ -258,7 +251,7 @@ namespace
         if (custom_wheel_on)
         {
             auto* entry = get_wheel_entry(type);
-            return entry != nullptr;
+            return entry != nullptr && entry->enabled;
         }
 
         return EquipmentWheel::HasElement(type);
@@ -632,9 +625,9 @@ INJECT_C_DLLEXPORT void initialize_default_wheel()
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowDevFlag); });
     add_wheel_item(9001, 3, L"Toggle debug", L"Toggle debug controls", L"spirit_shard:5",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleDebug); });
-    add_wheel_item(9001, 4, L"Display coordinates", L"Displays your current/ncoordinates as a messahe", L"spirit_shard:6",
+    add_wheel_item(9001, 4, L"Display coordinates", L"Displays your current/ncoordinates as a message", L"spirit_shard:6",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::PrintCoordinates); });
-    add_wheel_item(9001, 5, L"Teleport cheat", L"Toggles teleport cheat to teleport\nanywhere on the map.", L"spirit_shard:7",
+    add_wheel_item(9001, 5, L"Teleport cheat", L"Toggles cheat to teleport\nanywhere on the map", L"spirit_shard:7",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::TeleportCheat); });
     add_wheel_item(9001, 6, L"Unlock spoilers", L"Unlock spoilers filter on the map", L"spirit_shard:8",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::UnlockSpoilers); });

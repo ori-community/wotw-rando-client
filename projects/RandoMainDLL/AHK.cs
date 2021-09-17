@@ -101,6 +101,11 @@ namespace RandoMainDLL {
       return Falsey.Contains(raw) ? def : raw;
     }
 
+    public static int IniInt(string section, string name, int def = 0) {
+      var raw = Engine.ExecFunction("DoIniRead", section, name);
+      return int.TryParse(raw, out var result) ? result : def;
+    }
+
     public static void Tick() {
       var signal = Engine.ExecFunction("Tick");
       if (signal != null && signal != "none") {
@@ -155,7 +160,8 @@ namespace RandoMainDLL {
       Last = msg;
       preText = String.Empty;
     }
-    public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true, bool clearPrior = true) => SendPlainText(new PlainText(message, frames, pos, clearPrior), toMessageLog);
+    public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true, bool clearPrior = true)
+      => SendPlainText(new PlainText(message, frames, pos, clearPrior), toMessageLog);
     public static void SendPlainText(PlainText p, bool logMessage = true) {
       if (logMessage)
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]", "")}\n");

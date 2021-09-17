@@ -12,7 +12,8 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void toggle_always_show_keystones()
+INJECT_C_DLLEXPORT bool toggle_always_show_keystones()
 {
     always_show_keystones = !always_show_keystones;
+    return always_show_keystones;
 }

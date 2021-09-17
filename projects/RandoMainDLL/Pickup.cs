@@ -481,11 +481,11 @@ namespace RandoMainDLL {
   }
 
   public class Cash : Pickup {
-    public Cash(int amount) => Amount = amount;
-
+    public Cash(int amount, int hash) => (Amount, Hash) = (amount, hash);
     public override PickupType Type => PickupType.SpiritLight;
     public override WorldMapIconType Icon => WorldMapIconType.Experience;
     public readonly int Amount;
+    public readonly int Hash;
 
     public override void Grant(bool skipBase = false) {
       InterOp.set_experience(InterOp.get_experience() + Amount);
@@ -508,7 +508,7 @@ namespace RandoMainDLL {
       "Minerals", "Vespine Gas", "Sheep", "Brick", "Wheat", "Wood"
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
-    public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}"; }
+    public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random(Hash).Next(MoneyNames.Count)]}"; }
   }
   public class QuestEvent : Checkable {
     public QuestEvent(QuestEventType ev) => type = ev;
@@ -1354,13 +1354,15 @@ namespace RandoMainDLL {
         InterOpWeaponWheel.set_wheel_item_callback(key.wheel, key.item, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
       }
       private static void Callback(int wheel, int item, int binding) {
-        var key = new ActionKey(wheel, item, binding);
+        // We offset binding by 1 here because we want to have 0 be 'Any' binding.
+        var key = new ActionKey(wheel, item, binding + 1);
         if (linkedPickups.ContainsKey(key))
           linkedPickups[key].Grant();
-
-        key.binding = 0;
-        if (linkedPickups.ContainsKey(key))
-          linkedPickups[key].Grant();
+        else {
+          key.binding = 0;
+          if (linkedPickups.ContainsKey(key))
+            linkedPickups[key].Grant();
+        }
       }
     }
   }
