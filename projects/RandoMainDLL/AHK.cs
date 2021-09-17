@@ -101,6 +101,11 @@ namespace RandoMainDLL {
       return Falsey.Contains(raw) ? def : raw;
     }
 
+    public static int IniInt(string section, string name, int def = 0) {
+      var raw = Engine.ExecFunction("DoIniRead", section, name);
+      return int.TryParse(raw, out var result) ? result : def;
+    }
+
     public static void Tick() {
       var signal = Engine.ExecFunction("Tick");
       if (signal != null && signal != "none") {
