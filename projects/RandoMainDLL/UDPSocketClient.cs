@@ -53,9 +53,10 @@ namespace RandoMainDLL {
     private static TimeSpan time;
     private static void setupUpdateThread() {
       if (updateThread == null) {
+        IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, Port);
         time = DateTime.Now.TimeOfDay;
         updateThread = new Thread(() => {
-          Task<UdpReceiveResult> task = client.ReceiveAsync();
+          bool isReceiving = false;
           while (true) {
             if (IsStarted) {
               try {
@@ -81,20 +82,12 @@ namespace RandoMainDLL {
                 }
 
                 // Receive
-                if (task.IsCompleted || task.IsCanceled) {
-                  if (task.IsCompleted) {
-                    var data = task.Result.Buffer;
-                    for (var i = 0; i < data.Length; ++i)
-                      data[i] = (byte)(data[i] ^ key[i % key.Length]);
-
-                    HandleMessage(data);
-                  }
-
-                  task = client.ReceiveAsync();
-                  task.Start();
-                }
-                else if (task.IsFaulted) {
-                  throw task.Exception;
+                if (!isReceiving) {
+                  client.BeginReceive((IAsyncResult result) => {
+                    UdpClient c = (UdpClient)result.AsyncState;
+                    HandleMessage(c.EndReceive(result, ref endPoint));
+                    isReceiving = false;
+                  }, client);
                 }
               }
               catch (Exception e) {
@@ -108,6 +101,9 @@ namespace RandoMainDLL {
     }
 
     public static void SendPlayerPosition(float x, float y) {
+      if (!IsStarted)
+        return;
+
       try {
         var playerPosition = new PlayerPositionMessage();
         playerPosition.X = x;
