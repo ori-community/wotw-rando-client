@@ -88,6 +88,7 @@ namespace RandoMainDLL {
                     HandleMessage(c.EndReceive(result, ref endPoint));
                     isReceiving = false;
                   }, client);
+                  isReceiving = true;
                 }
               }
               catch (Exception e) {
