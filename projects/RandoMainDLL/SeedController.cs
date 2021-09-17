@@ -117,7 +117,8 @@ namespace RandoMainDLL {
 
     public static bool OnCollect(this UberStateCondition cond) => PickupMap.GetOrElse(cond, Multi.Empty).Collect(cond);
     public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
-
+    private static string slug = "";
+    private static string seedName = "";
     public static Dictionary<UberStateCondition, Pickup> PickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static List<TimerDefinition> TimerList = new List<TimerDefinition>();
     public static HashSet<Flag> Flags = new HashSet<Flag>();
@@ -143,15 +144,26 @@ namespace RandoMainDLL {
               coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
               continue;
             }
+            else if (rawLine.StartsWith("// Seed: ")) {
+              seedName = rawLine.Replace("// Seed: ", "");
+              continue;
+            }
+            else if (rawLine.StartsWith("// Slug: ")) {
+              slug = rawLine.Replace("// Slug: ", "");
+              continue;
+            }
             else if (rawLine.StartsWith("// Config: ")) {
               var configRaw = rawLine.Replace("// Config: ", "");
               try {
                 Settings = JsonConvert.DeserializeObject<SeedGenSettings>(configRaw);
-              } catch(Exception e) { Randomizer.Error("SeedController.ReadSeed<Settings>", e, true); }
-            } else if (rawLine.StartsWith("MULTISTATES: ")) {
+              }
+              catch (Exception e) { Randomizer.Error("SeedController.ReadSeed<Settings>", e, true); }
+            }
+            else if (rawLine.StartsWith("MULTISTATES: ")) {
               InterOp.set_multi_bool_count(rawLine.Replace("MULTISTATES: ", "").ParseToInt("ReadSeed.Multistates"));
               continue;
-            } else if (rawLine.StartsWith("timer: ")) {
+            }
+            else if (rawLine.StartsWith("timer: ")) {
               ProcessTimer(rawLine.Substring("timer: ".Length));
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
@@ -284,7 +296,7 @@ namespace RandoMainDLL {
         case PickupType.QuestEvent:
           return QuestEvent.Build(pickupData);
         case PickupType.SpiritLight:
-          return new Cash(pickupData.ParseToInt());
+          return new Cash(pickupData.ParseToInt(), cond.GetHashCode() + seedName.GetHashCode() + slug.GetHashCode());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
         case PickupType.WeaponUpgrade:
