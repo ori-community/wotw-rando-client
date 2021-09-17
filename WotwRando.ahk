@@ -336,6 +336,7 @@ FileInstall, C:\moon\areas.wotw, %INSTALL_DIR%areas.wotw, 1
 FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
 FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
 FileInstall, controller_bindings.json, %INSTALL_DIR%controller_bindings.json, 0
+FileInstall, keyboard_bindings.json, %INSTALL_DIR%keyboard_bindings.json, 0
 FileInstall, modloader_config.json, %INSTALL_DIR%modloader_config.json, 1
 FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
