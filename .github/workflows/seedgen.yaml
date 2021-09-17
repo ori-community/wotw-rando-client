@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'projects/**'
+  workflow_dispatch: {}
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1.10.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3.4.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}{% raw %}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.6.1
+        with:
+          context: .
+          push: true
+          dockerfile: seedgen.dockerfile
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:seedgen
+          labels: ${{ steps.meta.outputs.labels }}
+
