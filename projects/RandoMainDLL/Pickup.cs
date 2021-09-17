@@ -481,11 +481,11 @@ namespace RandoMainDLL {
   }
 
   public class Cash : Pickup {
-    public Cash(int amount) => Amount = amount;
-
+    public Cash(int amount, int hash) => (Amount, Hash) = (amount, hash);
     public override PickupType Type => PickupType.SpiritLight;
     public override WorldMapIconType Icon => WorldMapIconType.Experience;
     public readonly int Amount;
+    public readonly int Hash;
 
     public override void Grant(bool skipBase = false) {
       InterOp.set_experience(InterOp.get_experience() + Amount);
@@ -508,7 +508,7 @@ namespace RandoMainDLL {
       "Minerals", "Vespine Gas", "Sheep", "Brick", "Wheat", "Wood"
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
-    public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random().Next(MoneyNames.Count)]}"; }
+    public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random(Hash).Next(MoneyNames.Count)]}"; }
   }
   public class QuestEvent : Checkable {
     public QuestEvent(QuestEventType ev) => type = ev;
