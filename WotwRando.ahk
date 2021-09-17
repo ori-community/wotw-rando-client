@@ -323,7 +323,6 @@ FileInstall, C:\moon\System.Threading.Tasks.Extensions.dll, %INSTALL_DIR%System.
 FileInstall, C:\moon\Websocket.Client.dll, %INSTALL_DIR%Websocket.Client.dll
 */
 
-FileInstall, C:\moon\discord_game_sdk.dll, %INSTALL_DIR%discord_game_sdk.dll, 1
 FileInstall, C:\moon\RandoMainDLL.dll, %INSTALL_DIR%RandoMainDLL.dll, 1
 FileInstall, C:\moon\InjectDLL.dll, %INSTALL_DIR%InjectDLL.dll, 1
 FileInstall, C:\moon\InjectLoader.dll, %INSTALL_DIR%InjectLoader.dll, 1
@@ -336,7 +335,7 @@ FileInstall, C:\moon\state_data.csv, %INSTALL_DIR%state_data.csv, 1
 FileInstall, C:\moon\areas.wotw, %INSTALL_DIR%areas.wotw, 1
 FileInstall, C:\moon\RandoSettings.exe, %INSTALL_DIR%RandoSettings.exe, 1
 FileInstall, C:\moon\ItemTracker.exe, %INSTALL_DIR%ItemTracker.exe, 1
-FileInstall, controller_bindings.rkbn, %INSTALL_DIR%controller_bindings.rkbn, 0
+FileInstall, controller_bindings.json, %INSTALL_DIR%controller_bindings.json, 0
 FileInstall, modloader_config.json, %INSTALL_DIR%modloader_config.json, 1
 FileInstall, VERSION, %INSTALL_DIR%VERSION, 1
 If(A_IsCompiled)
