@@ -15,15 +15,15 @@ namespace RandoMainDLL {
     public static BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
 
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
+    public static bool IsStarted { get; private set; }
 
     private static UdpClient client;
     private static byte[] udpId;
     private static byte[] udpKey;
-    private static readonly int port = 31415;
     private static Thread updateThread;
-    private static Mutex mutex;
 
-    public static bool IsStarted { get; private set; }
+    private static readonly int port = 31415;
+    private static readonly Mutex mutex = new Mutex();
 
     public static void Start(int id, byte[] key) {
       mutex.WaitOne();
