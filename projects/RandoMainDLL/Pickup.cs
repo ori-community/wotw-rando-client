@@ -1354,13 +1354,15 @@ namespace RandoMainDLL {
         InterOpWeaponWheel.set_wheel_item_callback(key.wheel, key.item, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
       }
       private static void Callback(int wheel, int item, int binding) {
-        var key = new ActionKey(wheel, item, binding);
+        // We offset binding by 1 here because we want to have 0 be 'Any' binding.
+        var key = new ActionKey(wheel, item, binding + 1);
         if (linkedPickups.ContainsKey(key))
           linkedPickups[key].Grant();
-
-        key.binding = 0;
-        if (linkedPickups.ContainsKey(key))
-          linkedPickups[key].Grant();
+        else {
+          key.binding = 0;
+          if (linkedPickups.ContainsKey(key))
+            linkedPickups[key].Grant();
+        }
       }
     }
   }
