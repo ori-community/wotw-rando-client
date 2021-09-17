@@ -632,9 +632,9 @@ INJECT_C_DLLEXPORT void initialize_default_wheel()
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowDevFlag); });
     add_wheel_item(9001, 3, L"Toggle debug", L"Toggle debug controls", L"spirit_shard:5",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleDebug); });
-    add_wheel_item(9001, 4, L"Display coordinates", L"Displays your current/ncoordinates as a messahe", L"spirit_shard:6",
+    add_wheel_item(9001, 4, L"Display coordinates", L"Displays your current/ncoordinates as a message", L"spirit_shard:6",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::PrintCoordinates); });
-    add_wheel_item(9001, 5, L"Teleport cheat", L"Toggles teleport cheat to teleport\nanywhere on the map.", L"spirit_shard:7",
+    add_wheel_item(9001, 5, L"Teleport cheat", L"Toggles cheat to teleport\nanywhere on the map", L"spirit_shard:7",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::TeleportCheat); });
     add_wheel_item(9001, 6, L"Unlock spoilers", L"Unlock spoilers filter on the map", L"spirit_shard:8",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::UnlockSpoilers); });
