@@ -100,7 +100,8 @@ namespace RandoMainDLL {
           break;
         case Action.ShowDevFlag:
           Randomizer.Dev = !Randomizer.Dev;
-          Randomizer.Log($"Dev: {Randomizer.Dev}");
+          Randomizer.Log($"Dev: {Randomizer.Dev}", false);
+          AHK.Print($"Dev: {Randomizer.Dev}", toMessageLog: false);
           break;
         case Action.ForceExit:
           Environment.Exit(Environment.ExitCode);
@@ -113,7 +114,7 @@ namespace RandoMainDLL {
           AHK.Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
           break;
         case Action.ToggleAlwaysShowKeystones:
-          InterOp.toggle_always_show_keystones();
+          AHK.Print($"Always show keystones: {InterOp.toggle_always_show_keystones()}", toMessageLog: false);
           break;
         case Action.Binding1:
           PsuedoLocs.BINDING_ONE.OnCollect();
