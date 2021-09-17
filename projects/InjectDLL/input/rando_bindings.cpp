@@ -29,11 +29,6 @@ namespace input
         {
             std::vector<app::KeyCode__Enum> codes;
             std::vector<int> mouse_buttons;
-
-            // Set when binding is added.
-            bool shift;
-            bool ctrl;
-            bool alt;
         };
 
         struct ControlInfo
@@ -56,28 +51,6 @@ namespace input
 
             if (input.codes.empty() && input.mouse_buttons.empty())
                 return;
-
-            input.shift = false;
-            input.ctrl = false;
-            input.alt = false;
-            for (auto const& code : input.codes)
-            {
-                switch (code)
-                {
-                case app::KeyCode__Enum_LeftShift:
-                case app::KeyCode__Enum_RightShift:
-                    input.shift = true;
-                    break;
-                case app::KeyCode__Enum_LeftControl:
-                case app::KeyCode__Enum_RightControl:
-                    input.ctrl = true;
-                    break;
-                case app::KeyCode__Enum_LeftAlt:
-                case app::KeyCode__Enum_RightAlt:
-                    input.alt = true;
-                    break;
-                }
-            }
 
             bindings[action].kbm_bindings.push_back(input);
         }
@@ -119,13 +92,6 @@ namespace input
         STATIC_IL2CPP_BINDING(UnityEngine, Input, bool, GetMouseButton, (int button));
         bool is_pressed(KeyboardMouseInput const& input)
         {
-            // Special case modifier keys.
-            bool shift = Input::GetKeyInt(app::KeyCode__Enum_LeftShift) || Input::GetKeyInt(app::KeyCode__Enum_RightShift);
-            bool ctrl = Input::GetKeyInt(app::KeyCode__Enum_LeftControl) || Input::GetKeyInt(app::KeyCode__Enum_RightControl);
-            bool alt = Input::GetKeyInt(app::KeyCode__Enum_LeftAlt) || Input::GetKeyInt(app::KeyCode__Enum_RightAlt);
-            if (input.shift != shift || input.ctrl != ctrl || input.alt != alt)
-                return false;
-
             for (auto code : input.codes)
                 if (!Input::GetKeyInt(code))
                     return false;
