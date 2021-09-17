@@ -15,14 +15,13 @@ namespace RandoMainDLL {
     public static BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
 
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
+    public static int Port { get => AHK.IniInt("Ints", "UdpPort", 31415); }
     public static bool IsStarted { get; private set; }
 
     private static UdpClient client;
     private static byte[] udpId;
     private static byte[] udpKey;
     private static Thread updateThread;
-
-    private static readonly int port = 31415;
     private static readonly Mutex mutex = new Mutex();
 
     public static void Start(int id, byte[] key) {
@@ -34,9 +33,9 @@ namespace RandoMainDLL {
       if (IsStarted)
         return;
 
-      client = new UdpClient(port);
+      client = new UdpClient(Port);
       try {
-        client.Connect(Domain, port);
+        client.Connect(Domain, Port);
         IsStarted = true;
         IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
         setupUpdateThread();
