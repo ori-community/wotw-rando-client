@@ -155,7 +155,8 @@ namespace RandoMainDLL {
       Last = msg;
       preText = String.Empty;
     }
-    public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true, bool clearPrior = true) => SendPlainText(new PlainText(message, frames, pos, clearPrior), toMessageLog);
+    public static void Print(string message, int frames = 180, float pos = 3f, bool toMessageLog = true, bool clearPrior = true)
+      => SendPlainText(new PlainText(message, frames, pos, clearPrior), toMessageLog);
     public static void SendPlainText(PlainText p, bool logMessage = true) {
       if (logMessage)
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(p.Text, "[$#@*]", "")}\n");
