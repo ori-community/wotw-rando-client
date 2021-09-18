@@ -60,7 +60,7 @@ namespace RandoMainDLL {
       Reload,
       ShowLastPickup,
       ShowProgressWithHints,
-      WarpToCredits,
+      WarpCredits,
 
       ToggleCursorLock,
       ToggleAlwaysShowKeystones,
@@ -141,7 +141,7 @@ namespace RandoMainDLL {
           tpCheatToggle = !tpCheatToggle;
           AHK.Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
           break;
-        case Action.WarpToCredits:
+        case Action.WarpCredits:
           if (UberGet.Bool(GameComplete))
             InterOp.start_credits();
           else

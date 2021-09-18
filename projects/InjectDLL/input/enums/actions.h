@@ -54,7 +54,7 @@ namespace input
         Reload,
         ShowLastPickup,
         ShowProgressWithHints,
-        WarpToCredits,
+        WarpCredits,
 
         ToggleCursorLock,
         ToggleAlwaysShowKeystones,
