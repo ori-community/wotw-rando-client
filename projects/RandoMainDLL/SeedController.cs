@@ -333,7 +333,7 @@ namespace RandoMainDLL {
                   Randomizer.Log($"malformed command specifier {pickupData}", false);
                   return new Message($"Invalid command {pickupData}!");
                 }
-                var value = (Input.Action)Enum.Parse(typeof(Input.Action), extras[0]);
+                var value = (Input.Action)Enum.Parse(typeof(Input.Action), extras[0], true);
                 return new SendInputSignal(value);
               }
             case SysCommandType.SetSpiritLight:
