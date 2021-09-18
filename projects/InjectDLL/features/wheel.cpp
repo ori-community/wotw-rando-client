@@ -46,12 +46,12 @@ namespace
     struct CustomWheel
     {
         std::unordered_map<int, CustomWheelEntry> entries;
+        bool sticky = false;
     };
 
     app::EquipmentRadialSelection* radial_selection = nullptr;
     app::CleverMenuItemSelectionManager* wheel_selection_manager = nullptr;
 
-    bool sticky_wheel = false;
     bool is_wheel_visible = false;
     bool custom_wheel_input = false;
     bool custom_wheel_on = false;
@@ -161,7 +161,7 @@ namespace
             else
                 refresh_wheel();
 
-            if (!sticky_wheel)
+            if (!wheels[wheel_index].sticky)
                 wheel_index = 0;
 
             break;
@@ -565,15 +565,14 @@ INJECT_C_DLLEXPORT bool set_active_wheel(int wheel)
         return false;
     }
 
-    sticky_wheel = false;
     wheel_index = wheel;
     refresh_wheel();
     return true;
 }
 
-INJECT_C_DLLEXPORT void set_active_wheel_sticky(bool value)
+INJECT_C_DLLEXPORT void set_wheel_sticky(int wheel, bool value)
 {
-    sticky_wheel = value;
+    wheels[wheel].sticky = value;
 }
 
 INJECT_C_DLLEXPORT void set_wheel_behavior(int behavior)
@@ -584,7 +583,6 @@ INJECT_C_DLLEXPORT void set_wheel_behavior(int behavior)
 // For cleanup.
 INJECT_C_DLLEXPORT void clear_wheels()
 {
-    sticky_wheel = false;
     custom_wheel_input = false;
     custom_wheel_on = false;
     wheel_index = 0;

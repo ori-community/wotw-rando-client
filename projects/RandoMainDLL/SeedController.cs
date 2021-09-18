@@ -17,7 +17,7 @@ namespace RandoMainDLL {
     BINDING_THREE = 4,
     BINDING_FOUR = 5,
     BINDING_FIVE = 6,
-    LOAD_FILE  = 7,  // TODO: implement this lmao
+    LOAD_FILE = 7,  // TODO: implement this lmao
     GOAL_MODES_COMPLETED = 11,
     ON_TELEPORT = 20
   }
@@ -51,13 +51,13 @@ namespace RandoMainDLL {
     }
     public UberStateCondition(int groupId, int id, int target) {
       Id = new UberId(groupId, id);
-      if(target > 0)
+      if (target > 0)
         Target = target;
     }
     public UberStateCondition(int groupId, string rawTarget) {
       if (rawTarget.Contains("=")) {
         var idAndTarget = rawTarget.Split('=');
-        Id = new UberId(groupId,idAndTarget[0].ParseToInt("UberStateCondition.Id"));
+        Id = new UberId(groupId, idAndTarget[0].ParseToInt("UberStateCondition.Id"));
         Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
         if (Target == 0)
           Target = null;
@@ -71,8 +71,8 @@ namespace RandoMainDLL {
       var value = UberGet.AsDouble(Id);
       return Target.HasValue ? value >= Target.Value : value > 0;
     }
-    
-    public override string ToString() => $"({Id.GroupID}, {Id.ID}){(Target.HasValue ?  $"={Target.Value}" : "")}";
+
+    public override string ToString() => $"({Id.GroupID}, {Id.ID}){(Target.HasValue ? $"={Target.Value}" : "")}";
     public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
   }
@@ -177,7 +177,7 @@ namespace RandoMainDLL {
 
             // legacy shop cost support
             if (pickupType != PickupType.UberState && cond.Id.GroupID == (int)FakeUberGroups.OPHER_WEAPON && cond.Id.ID < 10000 && frags.Count() > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float oMulti)) {
-              ((AbilityType)cond.Id.ID).Slot().CostMultiplier = oMulti + 1; 
+              ((AbilityType)cond.Id.ID).Slot().CostMultiplier = oMulti + 1;
               frags.RemoveAt(frags.Count() - 1);
             }
             if (pickupType != PickupType.UberState && cond.Id.GroupID == (int)FakeUberGroups.TWILLEN_SHARD && cond.Id.ID < 100 && frags.Count() > 4 && float.TryParse(frags.Last(), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float tMulti)) {
@@ -187,7 +187,7 @@ namespace RandoMainDLL {
 
             var extras = frags.Skip(4).ToList();
             bool needsMute = false;
-            if(pickupType != PickupType.Message && extras.Contains("mute")) {
+            if (pickupType != PickupType.Message && extras.Contains("mute")) {
               extras.Remove("mute");
               needsMute = true;
             }
@@ -204,8 +204,8 @@ namespace RandoMainDLL {
           }
         }
         Total = PickupMap.Count(p => p.Key.Loc() != LocData.Void);
-        if(Settings.NetcodeEnabled) {
-          if(AHK.IniFlag("DisableNetcode")) {
+        if (Settings.NetcodeEnabled) {
+          if (AHK.IniFlag("DisableNetcode")) {
             AHK.Print("Warning: can't connect because netcode is disabled via settings");
           }
           WebSocketClient.Connect();
@@ -285,7 +285,7 @@ namespace RandoMainDLL {
 
 
     public static Pickup BuildPickup(PickupType type, string pickupData, List<String> extras, UberStateCondition cond) {
-      
+
       switch (type) {
         case PickupType.Ability:
           return Ability.Build(pickupData);
@@ -302,7 +302,7 @@ namespace RandoMainDLL {
         case PickupType.WeaponUpgrade:
           return WeaponUpgrade.ById[(WeaponUpgradeType)pickupData.ParseToInt()];
         case PickupType.BonusItem:
-          if(cond == null)
+          if (cond == null)
             return BonusItem.Build((BonusType)pickupData.ParseToInt(), ZoneType.Void);
           return BonusItem.Build((BonusType)pickupData.ParseToInt(), cond.Loc().Zone);
         case PickupType.Relic:
@@ -480,10 +480,10 @@ namespace RandoMainDLL {
               int.TryParse(extra.Replace("f=", ""), out frames);
               continue;
             }
-            else if(extra.StartsWith("p=")) {
+            else if (extra.StartsWith("p=")) {
               if (float.TryParse(extra.Replace("p=", ""), NumberStyles.Number, CultureInfo.GetCultureInfo("en-US"), out float p))
                 pos = p;
-              else 
+              else
                 Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
               continue;
             }
@@ -581,23 +581,14 @@ namespace RandoMainDLL {
                 var a = extras[5].ParseToByte("BuildPickup.A");
                 return new Wheel.SetColorCommand(wheel, item, r, g, b, a);
               }
-            case WheelCommandType.SetActive: {
-                if (extras.Count != 3) {
+            case WheelCommandType.SetSticky: {
+                if (extras.Count != 2) {
                   Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
                   return new Message($"Invalid wheel command {pickupData}!");
                 }
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
-                var item = extras[1].ParseToInt("BuildPickup.Item");
-                var active = extras[2].ParseToBool("BuildPickup.Active");
-                return new Wheel.SetActiveCommand(wheel, item, active);
-              }
-            case WheelCommandType.SetSticky: {
-                if (extras.Count != 1) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
-                }
-                var sticky = extras[0].ParseToBool("BuildPickup.Active");
-                return new Wheel.SetStickyWheelCommand(sticky);
+                var sticky = extras[1].ParseToBool("BuildPickup.Sticky");
+                return new Wheel.SetStickyWheelCommand(wheel, sticky);
               }
             case WheelCommandType.Action: {
                 // Check if we have everything before the pickup part.
@@ -629,17 +620,7 @@ namespace RandoMainDLL {
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
                 return new Wheel.SetActiveWheelCommand(wheel);
               }
-            case WheelCommandType.SetBehavior: {
-                if (extras.Count != 1) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
-                }
-                var behavior = extras[0].ParseToInt("BuildPickup.Behavior");
-                return new Wheel.SetBehaviorCommand(behavior);
-              }
             case WheelCommandType.ClearAll:
-            case WheelCommandType.Refresh:
-              return new Wheel.WheelCommand(w);
             default: {
                 var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
                 Randomizer.Error("BuildPickup", err, false);
@@ -649,9 +630,9 @@ namespace RandoMainDLL {
         case PickupType.UberState:
           extras.Insert(0, pickupData);
           if (extras.Count < 4 || extras.Count > 5) {
-              var bad = String.Join("|", extras);
-              Randomizer.Log($"malformed UberModifier specifier {bad}", false);
-              return new Message($"Invalid UberModifier specifier {bad}!");
+            var bad = String.Join("|", extras);
+            Randomizer.Log($"malformed UberModifier specifier {bad}", false);
+            return new Message($"Invalid UberModifier specifier {bad}!");
           }
           var uberId = new UberId(
               extras[0].ParseToInt("BuildPickup.UberGroupId"),
@@ -698,7 +679,7 @@ namespace RandoMainDLL {
       var end = genFromFrag(m.Groups[2].Value, type);
 
       if (m.Success) {
-        switch(type) {
+        switch (type) {
           case UberStateType.SerializedBooleanUberState:
           case UberStateType.SavePedestalUberState:
             if (isModifier)
@@ -727,16 +708,16 @@ namespace RandoMainDLL {
               return Convert.ToDouble(rval);
             };
           case UberStateType.SerializedFloatUberState:
-              return (UberValue old) => {
-                double lo = start();
-                double hi = end();
-                if(lo > hi) 
-                  (lo, hi) = (hi, lo);
-                double rval = lo + (float)UberRand.NextDouble() * (hi - lo);
-                if (isModifier)
-                  return old.Float + sign * rval;
-                return rval;
-              };
+            return (UberValue old) => {
+              double lo = start();
+              double hi = end();
+              if (lo > hi)
+                (lo, hi) = (hi, lo);
+              double rval = lo + (float)UberRand.NextDouble() * (hi - lo);
+              if (isModifier)
+                return old.Float + sign * rval;
+              return rval;
+            };
         }
       }
       var target = genFromFrag(mod, type);
@@ -797,7 +778,7 @@ namespace RandoMainDLL {
 
 
     public static bool IsHowlDead() => UberGet.Bool(7, 3) || (Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
-    public static bool IsDayTime() => AbilityType.SpiritEdge.HaveTree() || UberGet.Bool(7,2) || (Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
+    public static bool IsDayTime() => AbilityType.SpiritEdge.HaveTree() || UberGet.Bool(7, 2) || (Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
     public static int Current { get => SaveController.FoundCount; }
     public static int Total = 0;
 
@@ -826,7 +807,7 @@ namespace RandoMainDLL {
       }
       var msg = String.Join(", ", goalMsgs);
       if (withRelics && Flags.Contains(Flag.RELIC_HUNT))
-        msg += "\n"+Relic.RelicMessage();
+        msg += "\n" + Relic.RelicMessage();
       return goalMsgs.Count > 0 ? (progress ? "\n" : "") + msg : msg;
     }
 
