@@ -76,3 +76,8 @@ message MultiverseInfoMessage {
   bool hasBingoBoard = 3;
   repeated UserInfo spectators = 4;
 }
+
+message UdpPacket {
+  int32 udpId = 1;
+  bytes encryptedPacket = 2;
+}
