@@ -40,7 +40,7 @@ namespace
         app::Color color{ 0.0f, 0.0f, 0.0f, 0.0f };
         binding_action action = nullptr;
         csharp_callback callback = nullptr;
-        bool enabled = false;
+        bool enabled = true;
     };
 
     struct CustomWheel
