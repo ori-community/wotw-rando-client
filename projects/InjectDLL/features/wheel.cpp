@@ -609,7 +609,7 @@ INJECT_C_DLLEXPORT void initialize_default_wheel()
     add_wheel_item(9000, 6, L"Show progress, with hints.", L"Displays current goal mode progress and bought hints.", L"spirit_shard:5",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowProgressWithHints); });
     add_wheel_item(9000, 9, L"Warp to credits", L"Warp directly to the credits,\nonly works if you have finished the bingo.", L"spirit_shard:6",
-        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::WarpToCredits); });
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::WarpCredits); });
     add_wheel_item(9000, 10, L"Reload", L"Reloads the seed file", L"spirit_shard:2",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Reload); });
     add_wheel_item(9000, 11, L"Next", L"Go to next page of actions", L"spirit_shard:3",
