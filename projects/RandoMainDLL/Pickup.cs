@@ -72,14 +72,11 @@ namespace RandoMainDLL {
     SetDescription = 1,
     SetTexture = 2,
     SetColor = 3,
-    SetActive = 4,
+    Action = 4,
     SetSticky = 5,
-    Action = 6,
+    SetActiveWheel = 6,
     ClearItem = 7,
-    SetActiveWheel = 8,
-    Refresh = 9,
-    ClearAll = 10,
-    SetBehavior = 11,
+    ClearAll = 8,
   }
 
   public enum TeleporterType : byte {
@@ -1186,9 +1183,6 @@ namespace RandoMainDLL {
             InterOpWeaponWheel.clear_wheels();
             ActionCommand.linkedPickups.Clear();
             break;
-          case WheelCommandType.Refresh:
-            InterOpWeaponWheel.refresh_wheel();
-            break;
         }
       }
       public override string Name { get => type.ToString(); }
@@ -1204,10 +1198,14 @@ namespace RandoMainDLL {
     }
 
     public class SetStickyWheelCommand : WheelCommand {
+      public readonly int wheel;
       public readonly bool sticky;
-      public SetStickyWheelCommand(bool sticky) : base(WheelCommandType.SetSticky) => this.sticky = sticky;
+      public SetStickyWheelCommand(int wheel, bool sticky) : base(WheelCommandType.SetSticky) {
+        this.wheel = wheel;
+        this.sticky = sticky;
+      }
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_active_wheel_sticky(sticky);
+        InterOpWeaponWheel.set_wheel_sticky(wheel, sticky);
       }
     }
 
@@ -1273,20 +1271,6 @@ namespace RandoMainDLL {
       }
     }
 
-    public class SetActiveCommand : WheelCommand {
-      public readonly int wheel;
-      public readonly int item;
-      public readonly bool active;
-      public SetActiveCommand(int wheel, int item, bool active) : base(WheelCommandType.SetActive) {
-        this.wheel = wheel;
-        this.item = item;
-        this.active = active;
-      }
-      public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_wheel_item_enabled(wheel, item, active);
-      }
-    }
-
     public class ClearCommand : WheelCommand {
       public readonly int wheel;
       public readonly int item;
@@ -1304,16 +1288,6 @@ namespace RandoMainDLL {
         ActionCommand.linkedPickups.Remove(key);
         key.binding = 3;
         ActionCommand.linkedPickups.Remove(key);
-      }
-    }
-
-    public class SetBehaviorCommand : WheelCommand {
-      public readonly int behavior;
-      public SetBehaviorCommand(int behavior) : base(WheelCommandType.SetBehavior) {
-        this.behavior = behavior;
-      }
-      public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_wheel_behavior(behavior);
       }
     }
 

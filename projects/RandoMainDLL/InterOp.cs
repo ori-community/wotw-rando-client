@@ -46,7 +46,7 @@ namespace RandoMainDLL {
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool set_active_wheel(int wheel);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_active_wheel_sticky(bool value);
+    public extern static void set_wheel_sticky(int wheel, bool value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_wheel_behavior(int behavior);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
