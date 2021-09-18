@@ -74,8 +74,7 @@ namespace RandoMainDLL {
                 Packet packet;
                 if (SendQueue.TryTake(out packet)) {
                   var data = packet.ToByteArray();
-                  for (var i = 0; i < data.Length; ++i)
-                    data[i] = (byte)(data[i] ^ key[i % key.Length]);
+                  EncryptDecrypt(ref data, key);
 
                   var udpPacket = new UdpPacket();
                   udpPacket.UdpId = id;
@@ -104,6 +103,11 @@ namespace RandoMainDLL {
       }
     }
 
+    public static void EncryptDecrypt(ref byte[] data, byte[] key) {
+      for (var i = 0; i < data.Length; ++i)
+        data[i] = (byte)(data[i] ^ key[i % key.Length]);
+    }
+
     public static void SendPlayerPosition(float x, float y) {
       if (!IsStarted)
         return;
@@ -128,6 +132,13 @@ namespace RandoMainDLL {
           return;
         }
         if (data.Length > 0) {
+          mutex.WaitOne();
+          var key = udpKey;
+          mutex.ReleaseMutex();
+
+          var udp = UdpPacket.Parser.ParseFrom(data);
+          data = udp.EncryptedPacket.ToArray();
+          EncryptDecrypt(ref data, key);
           var packet = Packet.Parser.ParseFrom(data);
           switch (packet.Id) {
             case 11:

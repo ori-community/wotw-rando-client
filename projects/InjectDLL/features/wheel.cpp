@@ -619,7 +619,7 @@ INJECT_C_DLLEXPORT void initialize_default_wheel()
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleAlwaysShowKeystones); } );
     add_wheel_item(9001, 1, L"Toggle cursor lock", L"Toggle to confine the mouse cursor to the window.", L"spirit_shard:2",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleCursorLock); });
-    add_wheel_item(9001, 2, L"Show dev", L"Displays what the dev flag is set to.", L"spirit_shard:4",
+    add_wheel_item(9001, 2, L"Toggle dev", L"Toggles the dev flag.", L"spirit_shard:4",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowDevFlag); });
     add_wheel_item(9001, 3, L"Toggle debug", L"Toggle debug controls", L"spirit_shard:5",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleDebug); });
