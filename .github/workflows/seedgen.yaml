@@ -42,7 +42,7 @@ jobs:
         with:
           context: .
           push: true
-          dockerfile: seedgen.dockerfile
+          file: seedgen.dockerfile
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:seedgen
           labels: ${{ steps.meta.outputs.labels }}
 
