@@ -37,7 +37,7 @@ namespace
         std::wstring name = L"";
         std::wstring description = L"";
         app::Texture* texture = nullptr;
-        app::Color color{ 0.0f, 0.0f, 0.0f, 0.0f };
+        app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
         binding_action action = nullptr;
         csharp_callback callback = nullptr;
         bool enabled = true;

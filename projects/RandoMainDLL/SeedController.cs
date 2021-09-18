@@ -621,6 +621,7 @@ namespace RandoMainDLL {
                 return new Wheel.SetActiveWheelCommand(wheel);
               }
             case WheelCommandType.ClearAll:
+              return new Wheel.WheelCommand(w);
             default: {
                 var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
                 Randomizer.Error("BuildPickup", err, false);
