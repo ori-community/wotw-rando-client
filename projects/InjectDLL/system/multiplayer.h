@@ -7,11 +7,13 @@ namespace multiplayer
 {
     struct PlayerInfo
     {
-        std::string id;
-        std::string name;
+        std::wstring id;
+        std::wstring name;
         app::Vector2 position;
+        bool online;
     };
 
     std::vector<PlayerInfo> const& get_players();
+    PlayerInfo const& get_player(std::wstring str);
 }
 
