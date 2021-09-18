@@ -63,7 +63,8 @@ namespace ipc
         if (connected)
             return false;
 
-        switch (GetLastError())
+        int error = GetLastError();
+        switch (error)
         {
         case ERROR_IO_PENDING:
             return true;
@@ -71,7 +72,7 @@ namespace ipc
             if (SetEvent(overlapped.hEvent))
                 break;
         default:
-            warn("ipc", "get_state() failure.");
+            warn("ipc", format("get_state failure: %d", error));
             break;
         }
 
