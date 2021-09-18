@@ -78,6 +78,6 @@ message MultiverseInfoMessage {
 }
 
 message UdpPacket {
-  int32 udpId = 1;
+  optional int32 udpId = 1;
   bytes encryptedPacket = 2;
 }

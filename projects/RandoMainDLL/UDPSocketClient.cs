@@ -19,14 +19,14 @@ namespace RandoMainDLL {
     public static bool IsStarted { get; private set; }
 
     private static UdpClient client;
-    private static byte[] udpId;
+    private static int udpId;
     private static byte[] udpKey;
     private static Thread updateThread;
     private static readonly Mutex mutex = new Mutex();
 
     public static void Start(int id, byte[] key) {
       mutex.WaitOne();
-      udpId = BitConverter.GetBytes(id);
+      udpId = id;
       udpKey = key;
       mutex.ReleaseMutex();
 
@@ -77,7 +77,10 @@ namespace RandoMainDLL {
                   for (var i = 0; i < data.Length; ++i)
                     data[i] = (byte)(data[i] ^ key[i % key.Length]);
 
-                  data = id.Concat(data).ToArray();
+                  var udpPacket = new UdpPacket();
+                  udpPacket.UdpId = id;
+                  udpPacket.EncryptedPacket = ByteString.CopyFrom(data);
+                  data = udpPacket.ToByteArray();
                   client.Send(data, data.Length);
                 }
 
@@ -110,7 +113,7 @@ namespace RandoMainDLL {
         playerPosition.X = x;
         playerPosition.Y = y;
         Packet packet = new Packet {
-          Id = 9,
+          Id = 10,
           Packet_ = playerPosition.ToByteString()
         };
         SendQueue.Add(packet);

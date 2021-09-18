@@ -110,6 +110,7 @@ namespace RandoMainDLL {
         AHK.Tick();
         BonusItemController.Update();
         WebSocketClient.Update();
+        Multiplayer.Update();
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }
