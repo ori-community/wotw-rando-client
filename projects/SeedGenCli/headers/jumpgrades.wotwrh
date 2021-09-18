@@ -6,6 +6,16 @@
 //// How many Jumpgrades to shuffle in
 !!parameter count int:3
 
+// skip-validate
+9|0=199|4|17|9|111|1|8|9|0|int|201      // Add wheel toggle
+9|0=201|16|0|1|1|Toggle Jumpgrades
+9|0=201|4|17|9|112|1|16|1|1|1|[Ability1]Toggle off
+9|0=201|4|17|9|112|0|16|1|1|1|[Ability1]Toggle on
+9|0=201|16|2|1|1|spell:2019
+9|0=201|4|17|9|112|1|16|3|1|1|128|255|128|255
+9|0=201|4|17|9|112|0|16|3|1|1|255|128|128|255
+9|0=201|16|4|1|1|0|8|9|0|int|52
+
 9|999=401|6|#Jumpgrade x$(9|8)#         // display name
 
 !!add $PARAM(count)x 8|9|8|int|+1

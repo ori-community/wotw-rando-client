@@ -6,6 +6,18 @@
 //// How many Skill Velocities to shuffle in
 !!parameter count int:5
 
+3|1|8|9|5|int|+1
+
+// skip-validate
+9|0=199|4|17|9|109|1|8|9|0|int|200      // Add wheel toggle
+9|0=200|16|0|1|0|Toggle Skill Velocity
+9|0=200|4|17|9|110|1|16|1|1|0|[Ability1]Toggle off
+9|0=200|4|17|9|110|0|16|1|1|0|[Ability1]Toggle on
+9|0=200|16|2|1|0|spirit_shard:6
+9|0=200|4|17|9|110|1|16|3|1|0|128|255|128|255
+9|0=200|4|17|9|110|0|16|3|1|0|255|128|128|255
+9|0=200|16|4|1|0|0|8|9|0|int|51
+
 9|999=400|6|#Skill Velocity x$(9|5)#    // display name
 
 !!add $PARAM(count)x 8|9|5|int|+1

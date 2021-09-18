@@ -4,7 +4,7 @@ use rustc_hash::FxHashMap;
 
 use crate::headers;
 use crate::util::{
-    Difficulty, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Command, SysMessage,
+    Difficulty, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Zone, Command, SysMessage, WheelCommand,
     uberstate::{UberIdentifier, UberType},
 };
 
@@ -31,6 +31,7 @@ pub enum Item {
     CheckableHint(u16, u16, Vec<Item>),
     Relic(Zone),
     SysMessage(SysMessage),
+    WheelCommand(WheelCommand),
 }
 impl fmt::Display for Item {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -87,6 +88,7 @@ impl fmt::Display for Item {
             },
             Item::Relic(zone) => write!(f, "{} Relic", zone),
             Item::SysMessage(message) => write!(f, "{}", message),
+            Item::WheelCommand(command) => write!(f, "{}", command),
         }
     }
 }
@@ -281,6 +283,7 @@ impl Item {
                     SysMessage::MapRelicList(zone) => format!("15|{}|{}", zone.to_id(), message.to_id()),
                     _ => format!("15|{}", message.to_id()),
                 },
+            Item::WheelCommand(command) => format!("16|{}", command),
         }
     }
 }

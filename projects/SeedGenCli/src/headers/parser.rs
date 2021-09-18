@@ -13,7 +13,7 @@ use crate::world::{
 };
 use crate::inventory::{Inventory, Item, UberStateItem, UberStateOperator, UberStateRange, UberStateRangeBoundary};
 use crate::util::{
-    self, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage,
+    self, Resource, Skill, Shard, Teleporter, BonusItem, BonusUpgrade, Hint, Command, ToggleCommand, Zone, ZoneHintType, SysMessage, WheelCommand, WheelIcon, WheelBind,
     settings::Settings,
     uberstate::{UberState, UberType, UberIdentifier},
 };
@@ -556,6 +556,141 @@ where P: Iterator<Item=&'a str>
 
     Ok(Item::SysMessage(message))
 }
+fn parse_wheel_item_position<'a, P>(parts: &mut P) -> Result<(u16, u8), String>
+where P: Iterator<Item=&'a str>
+{
+    let wheel = parts.next().ok_or_else(|| String::from("missing wheel id"))?;
+    let wheel: u16 = wheel.parse().map_err(|_| String::from("invalid wheel id"))?;
+    let position = parts.next().ok_or_else(|| String::from("missing wheel item position"))?;
+    let position: u8 = position.parse().map_err(|_| String::from("invalid wheel item position"))?;
+
+    Ok((wheel, position))
+}
+fn parse_wheel_set_name<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (wheel, position) = parse_wheel_item_position(&mut parts)?;
+    let name = parts.next().ok_or_else(|| String::from("missing name"))?.to_owned();
+    end_of_pickup(parts)?;
+
+    Ok(Item::WheelCommand(WheelCommand::SetName { wheel, position, name }))
+}
+fn parse_wheel_set_description<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (wheel, position) = parse_wheel_item_position(&mut parts)?;
+    let description = parts.next().ok_or_else(|| String::from("missing description"))?.to_owned();
+    end_of_pickup(parts)?;
+
+    Ok(Item::WheelCommand(WheelCommand::SetDescription { wheel, position, description }))
+}
+fn parse_wheel_set_icon<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (wheel, position) = parse_wheel_item_position(&mut parts)?;
+    let icon = parts.next().ok_or_else(|| String::from("missing icon"))?;
+    end_of_pickup(parts)?;
+
+    let mut icon_parts = icon.splitn(2, ':');
+
+    let icon_type = icon_parts.next().unwrap();
+    let icon_id = icon_parts.next().ok_or_else(|| String::from("invalid wheel icon syntax"))?;
+    let icon_id: u16 = icon_id.parse().map_err(|_| String::from("invalid wheel icon id"))?;
+    let icon = match icon_type {
+        "spirit_shard" => WheelIcon::Shard(icon_id),
+        "spell" => WheelIcon::Spell(icon_id),
+        _ => return Err(String::from("invalid wheel icon type")),
+    };
+
+    Ok(Item::WheelCommand(WheelCommand::SetIcon { wheel, position, icon }))
+}
+fn parse_wheel_set_color<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (wheel, position) = parse_wheel_item_position(&mut parts)?;
+    let r = parts.next().ok_or_else(|| String::from("missing red channel"))?;
+    let r: u8 = r.parse().map_err(|_| String::from("invalid red channel"))?;
+    let g = parts.next().ok_or_else(|| String::from("missing green channel"))?;
+    let g: u8 = g.parse().map_err(|_| String::from("invalid green channel"))?;
+    let b = parts.next().ok_or_else(|| String::from("missing blue channel"))?;
+    let b: u8 = b.parse().map_err(|_| String::from("invalid blue channel"))?;
+    let a = parts.next().ok_or_else(|| String::from("missing alpha channel"))?;
+    let a: u8 = a.parse().map_err(|_| String::from("invalid alpha channel"))?;
+    end_of_pickup(parts)?;
+
+    Ok(Item::WheelCommand(WheelCommand::SetColor { wheel, position, r, g, b, a }))
+
+}
+fn parse_wheel_set_pickup<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (wheel, position) = parse_wheel_item_position(&mut parts)?;
+    let bind = parts.next().ok_or_else(|| String::from("missing bind"))?;
+    let bind = match bind {
+        "0" => WheelBind::All,
+        "1" => WheelBind::Ability1,
+        "2" => WheelBind::Ability2,
+        "3" => WheelBind::Ability3,
+        _ => return Err(String::from("invalid bind")),
+    };
+
+    let pickup = parts.collect::<Vec<_>>().join("|");
+    let pickup = Box::new(parse_pickup(&pickup)?);
+
+    Ok(Item::WheelCommand(WheelCommand::SetPickup { wheel, position, bind, pickup }))
+}
+fn parse_wheel_set_sticky<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let wheel = parts.next().ok_or_else(|| String::from("missing wheel id"))?;
+    let wheel: u16 = wheel.parse().map_err(|_| String::from("invalid wheel id"))?;
+    let sticky = parts.next().ok_or_else(|| String::from("missing sticky boolean"))?;
+    let sticky: bool = sticky.parse().map_err(|_| String::from("invalid sticky boolean"))?;
+    end_of_pickup(parts)?;
+
+    Ok(Item::WheelCommand(WheelCommand::SetSticky { wheel, sticky }))
+}
+fn parse_wheel_switch_wheel<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let wheel = parts.next().ok_or_else(|| String::from("missing wheel id"))?;
+    let wheel: u16 = wheel.parse().map_err(|_| String::from("invalid wheel id"))?;
+    end_of_pickup(parts)?;
+
+    Ok(Item::WheelCommand(WheelCommand::SwitchWheel { wheel }))
+}
+fn parse_wheel_remove_item<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let (wheel, position) = parse_wheel_item_position(&mut parts)?;
+    end_of_pickup(parts)?;
+
+    Ok(Item::WheelCommand(WheelCommand::RemoveItem { wheel, position }))
+}
+fn parse_wheel_clear_all<'a, P>(parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    end_of_pickup(parts)?;
+
+    Ok(Item::WheelCommand(WheelCommand::ClearAll))
+}
+fn parse_wheelcommand<'a, P>(mut parts: P) -> Result<Item, String>
+where P: Iterator<Item=&'a str>
+{
+    let command_type = parts.next().ok_or_else(|| String::from("missing wheel command type"))?;
+    match command_type {
+        "0" => parse_wheel_set_name(parts),
+        "1" => parse_wheel_set_description(parts),
+        "2" => parse_wheel_set_icon(parts),
+        "3" => parse_wheel_set_color(parts),
+        "4" => parse_wheel_set_pickup(parts),
+        "5" => parse_wheel_set_sticky(parts),
+        "6" => parse_wheel_switch_wheel(parts),
+        "7" => parse_wheel_remove_item(parts),
+        "8" => parse_wheel_clear_all(parts),
+        _ => Err(String::from("invalid wheel command type")),
+    }
+}
 
 pub fn parse_pickup(pickup: &str) -> Result<Item, String> {
     let pickup = pickup.trim();
@@ -578,6 +713,7 @@ pub fn parse_pickup(pickup: &str) -> Result<Item, String> {
         "13" => parse_checkable_hint(parts),
         "14" => parse_relic(parts),
         "15" => parse_sysmessage(parts),
+        "16" => parse_wheelcommand(parts),
         _ => Err(String::from("invalid pickup type")),
     }.map_err(|err| format!("{} in pickup {}", err, pickup))
 }
@@ -877,6 +1013,9 @@ where R: Rng + ?Sized
         }
 
         if let Some(index) = trimmed.find("//") {
+            if trimmed[index..].contains("skip-validate") {
+                continue;
+            }
             trimmed = &trimmed[..index];
         }
 

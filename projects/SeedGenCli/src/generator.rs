@@ -481,7 +481,7 @@ where
         let mut amount_placed = 0;
 
         while &amount_placed < amount {
-            let stacked_amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+            let stacked_amount = world_contexts[world_index].spirit_light_rng.sample(context.rng);
             amount_placed += stacked_amount;
             spirit_light_items.push(Item::SpiritLight(stacked_amount));
         }
@@ -651,7 +651,7 @@ where
 
     let origin_world_context = &mut world_contexts[origin_world_index];
 
-    let amount = origin_world_context.spirit_light_rng.sample(context.rng)?;
+    let amount = origin_world_context.spirit_light_rng.sample(context.rng);
     let item = Item::SpiritLight(amount);
 
     origin_world_context.world.pool.remove(&item, 1);
@@ -735,7 +735,7 @@ impl SpiritLightAmounts {
             index: 0,
         }
     }
-    fn sample<R>(&mut self, rng: &mut R) -> Result<u16, String>
+    fn sample<R>(&mut self, rng: &mut R) -> u16
     where
         R: Rng + ?Sized
     {
@@ -744,7 +744,7 @@ impl SpiritLightAmounts {
         self.index += 1;
 
         #[allow(clippy::cast_possible_truncation)]
-        u16::try_from(amount as i32).map_err(|_| format!("Tried to place {} Spirit Light which is more than one item can hold", amount))
+        u16::try_from(amount as i32).unwrap_or(u16::MAX)
     }
 }
 
@@ -822,7 +822,7 @@ where
         log::trace!("({}): Placed all items from the pool, placing Spirit Light", world_contexts[world_index].player_name);
 
         while let Some(placeholder) = world_contexts[world_index].placeholders.pop() {
-            let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+            let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng);
             let item = Item::SpiritLight(amount);
 
             place_item(world_index, world_index, placeholder, true, item, world_contexts, context)?;
@@ -835,7 +835,7 @@ where
             let item = if unreachable.uber_state().map_or(false, UberState::is_shop) {
                 Item::Resource(Resource::Ore)
             } else {
-                let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng)?;
+                let amount = world_contexts[world_index].spirit_light_rng.sample(context.rng);
                 Item::SpiritLight(amount)
             };
 
@@ -993,7 +993,7 @@ where
                 !world.preplacements.contains_key(node.uber_state().unwrap())
             })
             .count() - 1;  // 1 will be 1xp
-        let mut spirit_light_slots = world_slots - world.pool.inventory.item_count();
+        let mut spirit_light_slots = world_slots.saturating_sub(world.pool.inventory.item_count());
         if world_tour { spirit_light_slots -= 10; }
         log::trace!("({}): Estimated {}/{} slots for Spirit Light", player_name, spirit_light_slots, world_slots);
 
