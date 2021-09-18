@@ -59,6 +59,9 @@ namespace RandoMainDLL {
     }
 
     public static void Update() {
+      var playerPosition = InterOp.get_position();
+      UDPSocketClient.SendPlayerPosition(playerPosition.X, playerPosition.Y);
+
       while (Queue.TryTake(out var packet)) {
         switch (packet.Id) {
           case 8:
