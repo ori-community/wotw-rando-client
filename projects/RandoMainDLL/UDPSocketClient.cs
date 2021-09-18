@@ -85,12 +85,12 @@ namespace RandoMainDLL {
 
                 // Receive
                 if (!isReceiving) {
+                  isReceiving = true;
                   client.BeginReceive((IAsyncResult result) => {
                     UdpClient c = (UdpClient)result.AsyncState;
                     HandleMessage(c.EndReceive(result, ref endPoint));
                     isReceiving = false;
                   }, client);
-                  isReceiving = true;
                 }
               }
               catch (Exception e) {
