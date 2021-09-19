@@ -89,7 +89,7 @@ namespace
     };
 
     constexpr int DOT_COUNT = 64;
-    constexpr float DOT_TIMEOUT = 1.0f;
+    constexpr float DOT_TIMEOUT = 0.25f;
     constexpr float DOT_MIN_DISTANCE = 2.0f;
     struct PlayerMapInfo
     {
@@ -604,6 +604,11 @@ namespace
         // Add multiplayer icons
         if (area->fields.Area->fields.WorldMapAreaUniqueID == app::GameWorldAreaID__Enum_InkwaterMarsh)
         {
+            // Destroy the dots.
+            for (auto& p : player_icon_map)
+                for (auto& dot : p.second.dots)
+                    il2cpp::unity::destroy_object(dot.dot);
+
             player_map.clear();
             player_icon_map.clear();
             auto const& players = multiplayer::get_players();
@@ -911,7 +916,7 @@ namespace
         const int HALF_DOTS = DOT_COUNT / 2;
         for (int i = 0; i < HALF_DOTS; ++i)
         {
-            color.a = static_cast<float>(HALF_DOTS - i - 1) / HALF_DOTS;
+            color.a = static_cast<float>(i) / HALF_DOTS;
             auto& dot = info.dots[(info.next_index + HALF_DOTS + i) % DOT_COUNT];
             UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
         }
