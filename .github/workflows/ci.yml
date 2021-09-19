@@ -33,7 +33,7 @@ jobs:
           echo branch=${{ needs.meta.outputs.branch }}
           echo ref=${{ github.ref }}
       - name: Set up directories
-        run: "md -Path 'C:\\moon'"
+        run: "md -Path 'C:\\moon\\randomizer'"
       - name: Extract tag
         uses: olegtarasov/get-tag@v2.1
         id: tagName
@@ -76,74 +76,33 @@ jobs:
           cd projects/SeedgenCli
           cargo build --release
           echo Copying seedgen.exe
-          copy ".\target\release\seedgen.exe" "C:\moon\seedgen.exe"
+          copy ".\target\release\seedgen.exe" "C:\moon\randomizer\seedgen.exe"
           echo Zipping headers_presets.zip
-          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\headers_presets.zip headers presets
+          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\randomizer\headers_presets.zip headers presets
           echo Copying loc_data.csv
-          copy ".\loc_data.csv" "C:\moon\loc_data.csv" /Y
+          copy ".\loc_data.csv" "C:\moon\randomizer\loc_data.csv" /Y
           echo Copying state_data.csv
-          copy ".\state_data.csv" "C:\moon\state_data.csv" /Y
+          copy ".\state_data.csv" "C:\moon\randomizer\state_data.csv" /Y
           echo Copying areas.wotw
-          copy ".\areas.wotw" "C:\moon\areas.wotw" /Y
+          copy ".\areas.wotw" "C:\moon\randomizer\areas.wotw" /Y
       - name: Write version file
         shell: bash
         run: |
           echo Writing version file...
           (if [[ -n "$GIT_TAG_NAME" ]]; then echo -n "$GIT_TAG_NAME"; else echo -n "develop"; fi) > VERSION
-          cp -f VERSION /c/moon/VERSION
+          cp -f VERSION /c/moon/randomizer/VERSION
       - name: Compiling AHK scripts
         shell: cmd
         timeout-minutes: 1
         run: |
-          ".\ext\ahk\Ahk2Exe.exe" /silent /verbose /in ".\RandoSettings.ahk" /icon ".\WotwRando.ico" /out "C:\moon\RandoSettings.exe" > error.txt
-          type error.txt
           ".\ext\ahk\Ahk2Exe.exe" /silent /verbose /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe" > error.txt
-          type error.txt
-          ".\ext\ahk\Ahk2Exe.exe" /silent /verbose /in ".\WotwRando.ahk" /icon ".\WotwRando.ico" /out "C:\moon\WotwRando.exe" > error.txt
           type error.txt
       - name: Compressing PDBs
         shell: cmd
         run: |
-          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\pdbs.zip  C:\moon\InjectDLL.pdb C:\moon\RandoMainDLL.pdb C:\moon\Il2CppModLoader.pdb C:\moon\Common.pdb
-      - name: Archive WotwRando.exe
+          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\randomizer.zip  C:\moon\randomizer\*
+      - name: Archive randomizer.zip
         uses: actions/upload-artifact@v2
         with:
-          name: wotw-rando-exe
-          path: 'C:\moon\WotwRando.exe'
-      - name: Archive PDBs
-        uses: actions/upload-artifact@v2
-        with:
-          name: pdbs
-          path: 'C:\moon\pdbs.zip'
-      - name: Create draft release
-        if: ${{ needs.meta.outputs.branch == 'master' && startsWith(github.ref, 'refs/tags/') }}
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: TODO
-          draft: true
-          prerelease: false
-      - name: Release WotwRando.exe
-        if: ${{ needs.meta.outputs.branch == 'master' && startsWith(github.ref, 'refs/tags/') }}
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: 'C:\moon\WotwRando.exe'
-          asset_name: WotwRando.exe
-          asset_content_type: application/octet-stream
-      - name: Release VERSION
-        if: ${{ needs.meta.outputs.branch == 'master' && startsWith(github.ref, 'refs/tags/') }}
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: 'C:\moon\VERSION'
-          asset_name: VERSION
-          asset_content_type: text/plain
+          name: randomizer-zip
+          path: 'C:\moon\randomizer.zip'
