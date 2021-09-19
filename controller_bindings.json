@@ -36,5 +36,6 @@
 	"MapFilter": [[ 10 ]],
 	"MapDetails": [[ 11 ]],
 	"MapFocusOri": [[ 6 ]],
-	"MapFocusObjective": [[ 6 ]]
+	"MapFocusObjective": [[ 6 ]],
+	"OpenWeaponWheel": [[ 2, 3 ]]
 }
