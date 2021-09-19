@@ -104,6 +104,7 @@ namespace
         app::Vector2 pos;
         app::RuntimeWorldMapIcon* icon;
         std::vector<Dot> dots;
+        std::wstring name;
     };
 
     bool start_in_logic_filter = true;
@@ -209,7 +210,11 @@ namespace
 
         auto it = player_map.find(this_ptr);
         if (it != player_map.end())
-            AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(il2cpp::string_new(it->second.c_str())));
+        {
+            auto& name = player_icon_map[it->second].name;
+            AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon,
+                utils::create_message_provider(il2cpp::string_new(name.c_str())));
+        }
         else if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
             auto it = spoiler_states.find(stringify_guid(this_ptr->fields.Guid));
@@ -533,8 +538,8 @@ namespace
         il2cpp::invoke(area->fields.Icons, "Add", runtime_icon);
         RuntimeWorldMapIcon::Show_intercept(runtime_icon);
 
-        player_map[runtime_icon] = player.name;
-        player_icon_map[player.name] = { 0, 0.0f, { 0.0f, 0.0f }, runtime_icon, {} };
+        player_map[runtime_icon] = player.id;
+        player_icon_map[player.id] = { 0, 0.0f, { 0.0f, 0.0f }, runtime_icon, {}, player.name };
     }
     
     void resolve_icons(app::RuntimeGameWorldArea* area)
@@ -956,7 +961,7 @@ namespace
         auto const& players = multiplayer::get_players();
         for (auto const& player : players)
         {
-            auto it = player_icon_map.find(player.name);
+            auto it = player_icon_map.find(player.id);
             if (it != player_icon_map.end())
             {
                 auto icon = it->second.icon;

@@ -10,7 +10,7 @@ namespace multiplayer
         std::wstring id;
         std::wstring name;
         app::Vector2 position;
-        bool online;
+        bool online = true;
     };
 
     std::vector<PlayerInfo> const& get_players();
