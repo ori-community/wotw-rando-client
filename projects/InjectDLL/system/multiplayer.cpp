@@ -1,7 +1,12 @@
 #include <multiplayer.h>
 #include <macros.h>
 
+#include <Common/ext.h>
+#include <Il2CppModLoader/common.h>
+
 #include <unordered_map>
+
+using namespace modloader;
 
 namespace multiplayer
 {
@@ -13,20 +18,34 @@ namespace multiplayer
         return players;
     }
 
-    PlayerInfo const& get_player(std::wstring str)
+    PlayerInfo const* get_player(std::wstring str)
     {
-        return players[multiplayer::player_map[str]];
+        auto it = multiplayer::player_map.find(str);
+        if (it == player_map.end())
+            return nullptr;
+        return &players[it->second];
     }
 }
 
 INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name)
 {
-    multiplayer::PlayerInfo& info = multiplayer::players.emplace_back();
-    info.id = id;
-    info.name = name;
-    info.position = { 0 };
-    info.online = true;
-    multiplayer::player_map[id] = multiplayer::players.size() - 1;
+    auto it = multiplayer::player_map.find(id);
+    if (it != multiplayer::player_map.end())
+    {
+        warn("multiplayer", "duplicate player added, updating instead.");
+        auto& info = multiplayer::players[it->second];
+        info.name = name;
+        info.online = true;
+    }
+    else
+    {
+        multiplayer::PlayerInfo& info = multiplayer::players.emplace_back();
+        info.id = id;
+        info.name = name;
+        info.position = { 0 };
+        info.online = true;
+        multiplayer::player_map[id] = multiplayer::players.size() - 1;
+    }
 }
 
 INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
@@ -38,6 +57,8 @@ INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
         for (; player_it != multiplayer::players.end(); ++player_it)
             --multiplayer::player_map[player_it->id];
     }
+    else
+        warn("multiplayer", "Failed to find player to remove.");
 }
 
 INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float y)

@@ -1,4 +1,5 @@
 #include <csharp_bridge.h>
+#include <dll_main.h>
 #include <system/multiplayer.h>
 #include <utils/messaging.h>
 #include <uber_states/uber_state_manager.h>
@@ -87,10 +88,28 @@ namespace
         ExtraIcon* parent;
     };
 
+    constexpr int DOT_COUNT = 64;
+    constexpr float DOT_TIMEOUT = 1.0f;
+    constexpr float DOT_MIN_DISTANCE = 2.0f;
+    struct PlayerMapInfo
+    {
+        struct Dot
+        {
+            app::GameObject* dot;
+            app::Renderer* renderer;
+        };
+
+        int next_index;
+        float time = 0.0f;
+        app::Vector2 pos;
+        app::RuntimeWorldMapIcon* icon;
+        std::vector<Dot> dots;
+    };
+
     bool start_in_logic_filter = true;
     std::unordered_map<app::GameWorldAreaID__Enum, std::unordered_map<int, ExtraIcon>> header_icons;
     std::unordered_map<app::RuntimeWorldMapIcon*, std::wstring> player_map;
-    std::unordered_map<std::wstring, app::RuntimeWorldMapIcon*> player_icon_map;
+    std::unordered_map<std::wstring, PlayerMapInfo> player_icon_map;
 
     std::unordered_map<std::string, SpoilerState> spoiler_states;
     std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_icons;
@@ -515,7 +534,7 @@ namespace
         RuntimeWorldMapIcon::Show_intercept(runtime_icon);
 
         player_map[runtime_icon] = player.name;
-        player_icon_map[player.name] = runtime_icon;
+        player_icon_map[player.name] = { 0, 0.0f, { 0.0f, 0.0f }, runtime_icon, {} };
     }
     
     void resolve_icons(app::RuntimeGameWorldArea* area)
@@ -847,17 +866,84 @@ namespace
         auto it = player_map.find(this_ptr);
         if (it != player_map.end())
         {
-            auto const& player = multiplayer::get_player(it->second);
-            if (player.online)
+            auto const* player = multiplayer::get_player(it->second);
+            if (player != nullptr && player->online)
                 GameObject::SetActive(this_ptr->fields.m_areaMapIcon->fields.Label, true);
+            else
+                GameObject::SetActive(this_ptr->fields.m_areaMapIcon->fields.Label, false);
         }
     }
 
+    IL2CPP_BINDING(, IconPlacementScaler, void, PlaceIcon, (app::IconPlacementScaler* this_ptr, app::GameObject* icon, app::Vector3* location, bool is_teleportable));
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetColor, (app::Renderer* renderer, app::UberShaderProperty_Color__Enum prop, app::Color* color));
+    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
+    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (app::Object* object), (UnityEngine:Object));
+    void initialize_dots(multiplayer::PlayerInfo const& player, PlayerMapInfo& info)
+    {
+        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        while (info.dots.size() <= DOT_COUNT)
+        {
+            auto& dot = info.dots.emplace_back();
+            dot.dot = reinterpret_cast<app::GameObject*>(Object::Instantiate(
+                reinterpret_cast<app::Object*>(area_map->fields.TrailPrefab)));
+            dot.renderer = il2cpp::unity::get_components<app::Renderer>(
+                il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer")[0];
+            GameObject::SetActive(dot.dot, false);
+            app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
+            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
+            info.pos = player.position;
+        }
+    }
+
+    void add_dot(multiplayer::PlayerInfo const& player, PlayerMapInfo& info)
+    {
+        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+
+        {
+            auto& dot = info.dots[info.next_index];
+            GameObject::SetActive(dot.dot, true);
+            app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
+            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
+        }
+
+        // TODO: Add stuff like normal.
+        app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
+        const int HALF_DOTS = DOT_COUNT / 2;
+        for (int i = 0; i < HALF_DOTS; ++i)
+        {
+            color.a = static_cast<float>(HALF_DOTS - i - 1) / HALF_DOTS;
+            auto& dot = info.dots[(info.next_index + HALF_DOTS + i) % DOT_COUNT];
+            UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+        }
+
+        info.next_index = (info.next_index + 1) % DOT_COUNT;
+    }
+
+    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
+    void update_dots(multiplayer::PlayerInfo const& player, PlayerMapInfo& info)
+    {
+        std::vector<PlayerMapInfo::Dot>& dots = info.dots;
+        if (player.online)
+        {
+            initialize_dots(player, info);
+            info.time -= TimeUtility::get_fixedDeltaTime();
+            auto dx = info.pos.x - player.position.x;
+            auto dy = info.pos.y - player.position.y;
+            auto squared_distance = dx * dx + dy * dy;
+            if (squared_distance >= DOT_MIN_DISTANCE * DOT_MIN_DISTANCE && info.time < 0.0f)
+            {
+                add_dot(player, info);
+                info.time = DOT_TIMEOUT;
+                info.pos = player.position;
+            }
+        }
+        else
+            for (auto& dot : dots)
+                GameObject::SetActive(dot.dot, false);
+    }
+
+    IL2CPP_BINDING(, AreaMapUI, void, PlaceDot, (app::AreaMapUI* this_ptr, int dot_index, int time_since_creation, const app::Vector2* point));
     IL2CPP_BINDING(, AreaMapUI, void, AddIcon, (app::AreaMapUI* this_ptr, app::GameObject* icon, app::Vector3* location, bool convert, bool isTeleportable));
-    IL2CPP_BINDING(, AreaMapNavigation, app::Vector3*, MapToWorldPosition, (app::AreaMapNavigation* this_ptr, app::Vector2* position));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3 value));
-    IL2CPP_BINDING(, IconPlacementScaler, void, PlaceIcon, (app::IconPlacementScaler* this_ptr, app::GameObject* icon, app::Vector3* location, bool isTeleportable));
-    IL2CPP_BINDING(, IconPlacementScaler, void, RemoveIcon, (app::IconPlacementScaler* this_ptr, app::GameObject* icon));
     IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
         GameMapUI::FixedUpdate(this_ptr);
 
@@ -868,12 +954,13 @@ namespace
             auto it = player_icon_map.find(player.name);
             if (it != player_icon_map.end())
             {
-                it->second->fields.Position.x = player.position.x;
-                it->second->fields.Position.y = player.position.y;
-                if (it->second->fields.IconGameObject != nullptr && Object::op_Implicit(it->second->fields.IconGameObject))
+                auto icon = it->second.icon;
+                icon->fields.Position.x = player.position.x;
+                icon->fields.Position.y = player.position.y;
+                if (icon->fields.IconGameObject != nullptr && Object::op_Implicit(icon->fields.IconGameObject))
                 {
                     app::Vector3 position{ player.position.x, player.position.y, 0.0f };
-                    AreaMapUI::AddIcon(area_map, it->second->fields.IconGameObject, &position, false, false);
+                    AreaMapUI::AddIcon(area_map, icon->fields.IconGameObject, &position, false, false);
                 }
             }
             else
@@ -882,6 +969,8 @@ namespace
                 if (area != areas.end())
                     resolve_player_icon(area->second, player);
             }
+
+            update_dots(player, it->second);
         }
     }
 }
