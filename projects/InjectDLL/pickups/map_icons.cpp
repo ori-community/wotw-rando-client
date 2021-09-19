@@ -987,6 +987,9 @@ void refresh_icon_alphas(bool is_map_visible)
         app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
         if (is_map_visible)
         {
+            if (p.second.dots.empty())
+                return;
+
             const int HALF_DOTS = DOT_COUNT / 2;
             for (int i = 0; i < HALF_DOTS; ++i)
             {
