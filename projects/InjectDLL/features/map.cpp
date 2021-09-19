@@ -104,6 +104,8 @@ namespace
       }
 
     }
+
+    extern void refresh_icon_alphas(bool is_map_visible);
     IL2CPP_INTERCEPT(, AreaMapUI, void, Show, (app::AreaMapUI* this_ptr, bool set_menu_audio_state)) {
         AreaMapUI::Show(this_ptr, set_menu_audio_state);
         area_id = app::GameWorldAreaID__Enum_None;
@@ -113,6 +115,7 @@ namespace
             //register_input_callback(FOCUS_BUTTON, update_map_focus);
         }
         area_map_open = true;
+        refresh_icon_alphas(true);
     }
         
     IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
@@ -125,6 +128,7 @@ namespace
             cached = nullptr;
         }
         area_map_open = false;
+        refresh_icon_alphas(false);
     }
 
     app::Quest* quest_cache;

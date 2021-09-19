@@ -980,6 +980,30 @@ namespace
     }
 }
 
+void refresh_icon_alphas(bool is_map_visible)
+{
+    for (auto& p : player_icon_map)
+    {
+        app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
+        if (is_map_visible)
+        {
+            const int HALF_DOTS = DOT_COUNT / 2;
+            for (int i = 0; i < HALF_DOTS; ++i)
+            {
+                color.a = static_cast<float>(i) / HALF_DOTS;
+                auto& dot = p.second.dots[(p.second.next_index + HALF_DOTS + i) % DOT_COUNT];
+                UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            }
+        }
+        else
+        {
+            color.a = 0.0f;
+            for (auto dot : p.second.dots)
+                UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+        }
+    }
+}
+
 INJECT_C_DLLEXPORT void remove_icon(app::GameWorldAreaID__Enum area, int id)
 {
     auto& area_header_icons = header_icons[area];
