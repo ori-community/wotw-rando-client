@@ -48,7 +48,9 @@ namespace RandoMainDLL {
         ExpectingDisconnect = false;
         try {
           socket = new WebSocket(ServerAddress, null);
-          socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+          if (!AHK.IniFlag("Insecure"))
+            socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+
           socket.Log.Level = LogLevel.Info;
           socket.Log.Output = (logdata, output) => {
             try {
