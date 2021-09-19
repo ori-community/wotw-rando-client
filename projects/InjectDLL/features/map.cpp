@@ -10,6 +10,8 @@
 
 using namespace modloader;
 
+extern void refresh_icon_alphas(bool is_map_visible);
+
 namespace
 {
     IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, app::GameWorldAreaID__Enum areaID))
@@ -105,7 +107,6 @@ namespace
 
     }
 
-    extern void refresh_icon_alphas(bool is_map_visible);
     IL2CPP_INTERCEPT(, AreaMapUI, void, Show, (app::AreaMapUI* this_ptr, bool set_menu_audio_state)) {
         AreaMapUI::Show(this_ptr, set_menu_audio_state);
         area_id = app::GameWorldAreaID__Enum_None;
