@@ -97,12 +97,8 @@ jobs:
         run: |
           ".\ext\ahk\Ahk2Exe.exe" /silent /verbose /in ".\projects/AutoTracker/OriAutoTracker.ahk" /icon ".\WotwRando.ico" /out "C:\moon\ItemTracker.exe" > error.txt
           type error.txt
-      - name: Compressing PDBs
-        shell: cmd
-        run: |
-          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\randomizer.zip  C:\moon\randomizer\*
-      - name: Archive randomizer.zip
+      - name: Archive randomizer
         uses: actions/upload-artifact@v2
         with:
-          name: randomizer-zip
-          path: 'C:\moon\randomizer.zip'
+          name: randomizer
+          path: 'C:\moon\randomizer\*'
