@@ -107,6 +107,7 @@ namespace
         std::wstring name;
     };
 
+    bool map_visible = false;
     bool start_in_logic_filter = true;
     std::unordered_map<app::GameWorldAreaID__Enum, std::unordered_map<int, ExtraIcon>> header_icons;
     std::unordered_map<app::RuntimeWorldMapIcon*, std::wstring> player_map;
@@ -917,13 +918,16 @@ namespace
         }
 
         // TODO: Add stuff like normal.
-        app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
-        const int HALF_DOTS = DOT_COUNT / 2;
-        for (int i = 0; i < HALF_DOTS; ++i)
+        if (map_visible)
         {
-            color.a = static_cast<float>(i) / HALF_DOTS;
-            auto& dot = info.dots[(info.next_index + HALF_DOTS + i) % DOT_COUNT];
-            UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
+            const int HALF_DOTS = DOT_COUNT / 2;
+            for (int i = 0; i < HALF_DOTS; ++i)
+            {
+                color.a = static_cast<float>(i) / HALF_DOTS;
+                auto& dot = info.dots[(info.next_index + HALF_DOTS + i) % DOT_COUNT];
+                UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            }
         }
 
         info.next_index = (info.next_index + 1) % DOT_COUNT;
@@ -987,6 +991,7 @@ namespace
 
 void refresh_icon_alphas(bool is_map_visible)
 {
+    map_visible = is_map_visible;
     for (auto& p : player_icon_map)
     {
         app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
