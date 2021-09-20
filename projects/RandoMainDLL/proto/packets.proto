@@ -56,6 +56,7 @@ message UserInfo {
   string id = 1;
   string name = 2;
   optional string avatarId = 3;
+  optional int64 connectedMultiverseId = 4;
 }
 
 message WorldInfo {

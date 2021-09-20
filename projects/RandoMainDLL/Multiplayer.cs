@@ -29,11 +29,11 @@ namespace RandoMainDLL {
     public static void UpdateMultivere(MultiverseInfoMessage multiverse) {
       lastMultiverseInfo = multiverse;
       var universe = multiverse.Universes.First(u => u.Worlds.Any(w => w.Members.Any(m => m.Id == Id)));
-      var players = new Dictionary<string, string>();
+      var players = new Dictionary<string, UserInfo>();
       foreach (var world in universe.Worlds)
         foreach (var member in world.Members)
           if (member.Id != Id)
-            players.Add(member.Id, member.Name);
+            players.Add(member.Id, member);
 
       var toAdd = players.Keys.Except(currentPlayers);
       var toRemove = currentPlayers.Except(players.Keys);
@@ -42,9 +42,11 @@ namespace RandoMainDLL {
         InterOpMultiplayer.remove_player(player);
 
       foreach (var player in toAdd)
-        InterOpMultiplayer.add_player(player, players[player]);
+        InterOpMultiplayer.add_player(player, players[player].Name);
 
-      currentPlayers = toAdd.ToHashSet();
+      currentPlayers = players.Keys.ToHashSet();
+      foreach (var player in players)
+        InterOpMultiplayer.set_player_online(player.Key, player.Value.HasConnectedMultiverseId);
     }
 
     public static void UpdatePlayerPosition(string id, float x, float y) {

@@ -16,6 +16,8 @@ namespace RandoMainDLL {
     public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string id);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
   }
 
   static class InterOpWeaponWheel {
