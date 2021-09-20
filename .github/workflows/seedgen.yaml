@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'projects/SeedgenCli/**'
+      - 'projects/SeedGenCli/**'
   workflow_dispatch: {}
 
 env:
