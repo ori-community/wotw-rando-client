@@ -33,7 +33,7 @@ namespace RandoMainDLL {
       if (IsStarted)
         return;
 
-      client = new UdpClient(Port);
+      client = new UdpClient();
       try {
         client.Connect(Domain, Port);
         IsStarted = true;

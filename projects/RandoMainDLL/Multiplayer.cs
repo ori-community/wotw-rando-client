@@ -28,7 +28,7 @@ namespace RandoMainDLL {
 
     public static void UpdateMultivere(MultiverseInfoMessage multiverse) {
       lastMultiverseInfo = multiverse;
-      var universe = multiverse.Universes.First(u => u.Worlds.Any(w => w.Members.Any(m => m.Id == Id)));
+      var universe = multiverse.Universes.FirstOrDefault(u => u.Worlds.Any(w => w.Members.Any(m => m.Id == Id)));
       if (universe != null) {
         var players = new Dictionary<string, string>();
         foreach (var world in universe.Worlds)
