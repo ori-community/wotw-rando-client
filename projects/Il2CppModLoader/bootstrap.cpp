@@ -138,7 +138,7 @@ namespace modloader
     std::wstring convert(std::string str)
     {
         CA2W ca2w(str.c_str());
-        return ca2w;
+        return std::wstring(ca2w);
     }
 
     bool bootstrap()
