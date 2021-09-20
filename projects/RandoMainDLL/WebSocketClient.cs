@@ -67,7 +67,7 @@ namespace RandoMainDLL {
             FramesTillReconnectAttempt = 600;
           };
           socket.OnClose += (sender, e) => {
-            Randomizer.Log($"{e?.Code}: {e?.Reason}");
+            Randomizer.Log($"Closing socket ({e?.Code}: {e?.Reason})");
             if (!ExpectingDisconnect)
               Randomizer.Log("Disconnected! Retrying in 5s");
           };

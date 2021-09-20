@@ -45,9 +45,15 @@ namespace RandoMainDLL {
       }
     }
 
+
+    private static bool stopping = false;
+    private static ManualResetEvent stopEvent = new ManualResetEvent(false);
     public static void Stop() {
-      if (IsStarted)
-        client.Close();
+      if (IsStarted) {
+        stopping = true;
+        stopEvent.WaitOne();
+        stopEvent.Reset();
+      }
     }
 
     private static TimeSpan time;
@@ -91,6 +97,13 @@ namespace RandoMainDLL {
                     HandleMessage(c.EndReceive(result, ref endPoint));
                     isReceiving = false;
                   }, client);
+                }
+
+                if (stopping) {
+                  stopping = false;
+                  IsStarted = false;
+                  client.Close();
+                  stopEvent.Set();
                 }
               }
               catch (Exception e) {

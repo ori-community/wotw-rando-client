@@ -27,15 +27,15 @@ std::string settings_name = "settings.ini";
 
 bool find_base_path(std::string& output_path)
 {
-    char path[MAX_PATH];
+    wchar_t path[MAX_PATH];
     HMODULE handle = nullptr;
-    if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&find_base_path, &handle) == 0)
+    if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCWSTR)&find_base_path, &handle) == 0)
     {
         std::cout << "failed to GetModuleHandle, error: " << GetLastError() << std::endl;
         return false;
     }
 
-    if (GetModuleFileName(handle, path, sizeof(path)) == 0)
+    if (GetModuleFileNameW(handle, path, sizeof(path)) == 0)
     {
         std::cout << "failed to GetModuleFileName, error: " << GetLastError() << std::endl;
         return false;
@@ -235,7 +235,7 @@ int actual_main()
     return 0;
 }
 
-int main(int, char**)
+int main(int, char** argc)
 {
     auto ret = actual_main();
     logstream << "main return was " << ret << std::endl;

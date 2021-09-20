@@ -2,6 +2,8 @@
 #include <mscoree.h>
 #include <comdef.h>
 #include <stdio.h>
+#include <AtlBase.h>
+#include <atlconv.h>
 #pragma comment(lib, "mscoree.lib") 
 
 #include <common.h>
@@ -133,6 +135,12 @@ namespace modloader
         }
     }
 
+    std::wstring convert(std::string str)
+    {
+        CA2W ca2w(str.c_str());
+        return ca2w;
+    }
+
     bool bootstrap()
     {
         std::ifstream stream(base_path + modloader_path);
@@ -159,18 +167,21 @@ namespace modloader
 
             if (j.contains("csharp") && j["csharp"].is_array())
             {
-                std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
                 csharp_dlls.clear();
                 auto csharp = j["csharp"];
                 for (auto it = csharp.begin(); it != csharp.end(); ++it)
                 {
                     if (it->is_object() && it->contains("dll") && it->contains("class") && it->contains("method") &&
                         (*it)["dll"].is_string() && (*it)["class"].is_string() && (*it)["method"].is_string())
-                        csharp_dlls.push_back(CSharpDll{
-                            converter.from_bytes(base_path + (*it)["dll"].get<std::string>()),
-                            converter.from_bytes((*it)["class"].get<std::string>()),
-                            converter.from_bytes((*it)["method"].get<std::string>())
-                            });
+                    {
+                        csharp_dlls.push_back(
+                            CSharpDll{
+                                convert(base_path + (*it)["dll"].get<std::string>()),
+                                convert((*it)["class"].get<std::string>()),
+                                convert((*it)["method"].get<std::string>())
+                            }
+                        );
+                    }
                 }
             }
         }
