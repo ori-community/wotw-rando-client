@@ -1,5 +1,6 @@
 #include <metahost.h>
 #include <mscoree.h>
+#include <comdef.h>
 #include <stdio.h>
 #pragma comment(lib, "mscoree.lib") 
 
@@ -81,28 +82,36 @@ namespace modloader
             HRESULT hr = CLRCreateInstance(CLSID_CLRMetaHost, IID_ICLRMetaHost, (LPVOID*)&meta_host);
             if (hr != S_OK)
             {
-                trace(MessageType::Error, 2, "initialize", "failed to create clr instance");
+                _com_error err(hr);
+                LPCTSTR err_msg = err.ErrorMessage();
+                trace(MessageType::Error, 2, "initialize", format("failed to create clr instance (%s)", err_msg));
                 return false;
             }
 
             hr = meta_host->GetRuntime(L"v4.0.30319", IID_ICLRRuntimeInfo, (LPVOID*)&runtime_info);
             if (hr != S_OK)
             {
-                trace(MessageType::Error, 2, "initialize", "failed to find csharp runtime");
+                _com_error err(hr);
+                LPCTSTR err_msg = err.ErrorMessage();
+                trace(MessageType::Error, 2, "initialize", format("failed to find csharp runtime (%s)", err_msg));
                 return false;
             }
 
             hr = runtime_info->GetInterface(CLSID_CLRRuntimeHost, IID_ICLRRuntimeHost, (LPVOID*)&runtime_host);
             if (hr != S_OK)
             {
-                trace(MessageType::Error, 2, "initialize", "failed get runtime interface");
+                _com_error err(hr);
+                LPCTSTR err_msg = err.ErrorMessage();
+                trace(MessageType::Error, 2, "initialize", format("failed get runtime interface (%s)", err_msg));
                 return false;
             }
 
             hr = runtime_host->Start();
             if (hr != S_OK)
             {
-                trace(MessageType::Error, 2, "initialize", "failed to start csharp runtime.");
+                _com_error err(hr);
+                LPCTSTR err_msg = err.ErrorMessage();
+                trace(MessageType::Error, 2, "initialize", format("failed to start csharp runtime (%s).", err_msg));
                 return false;
             }
 
