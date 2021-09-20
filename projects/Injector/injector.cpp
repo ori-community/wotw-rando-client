@@ -152,8 +152,8 @@ int actual_main()
     settings.path = base_path + "\\" + settings_name;
     load_settings_from_file(settings);
 
-    auto use_win_store = find_option(settings, "Flags", "UseWinStore")->value.b;
-    dev_mode = find_option(settings, "Flags", "Dev")->value.b;
+    auto use_win_store = check_option_flag(settings, "Flags", "UseWinStore");
+    dev_mode = check_option_flag(settings, "Flags", "Dev");
 
     auto i = 0;
     for (; i < 300; i++) {

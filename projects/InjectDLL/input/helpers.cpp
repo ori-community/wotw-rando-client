@@ -13,6 +13,32 @@ using namespace modloader;
 
 namespace input
 {
+    namespace
+    {
+        std::vector<int> handle_keys(std::string const& path, std::string const& name, const nlohmann::json& keys)
+        {
+            std::vector<int> buttons;
+            if (!keys.is_array())
+            {
+                warn("input", format("failed to parse '%s' entry %s keys not an array, skipping.", path.c_str(), name.c_str()));
+                return {};
+            }
+
+            for (auto const& key : keys)
+            {
+                if (!key.is_number_integer())
+                {
+                    warn("input", format("failed to parse '%s' entry %s key not a string, skipping.", path.c_str(), name.c_str()));
+                    return {};
+                }
+
+                buttons.push_back(key.get<int>());
+            }
+
+            return buttons;
+        }
+    }
+
     bool read_bindings(std::string const& path, handle_binding_callback callback)
     {
         std::ifstream file(path);
@@ -53,27 +79,34 @@ namespace input
 
                 for (auto const& bind : entry.value())
                 {
-                    if (!bind.is_array())
-                    {
-                        warn("input", format("failed to parse '%s' entry %s bind not an array, skipping.", path.c_str(), name.c_str()));
-                        continue;
-                    }
-
+                    bool does_respect_modifiers = false;
                     std::vector<int> buttons;
-                    for (auto const& key : bind)
+                    if (bind.is_array())
+                        buttons = handle_keys(path, name, bind);
+                    else if (bind.is_object())
                     {
-                        if (!key.is_number_integer())
+                        auto keys = bind.find("keys");
+                        if (keys == bind.end())
                         {
-                            warn("input", format("failed to parse '%s' entry %s key not a string, skipping.", path.c_str(), name.c_str()));
-                            buttons.clear();
-                            break;
+                            warn("input", format("failed to parse '%s' entry %s keys doesn't exist, skipping.", path.c_str(), name.c_str()));
+                            continue;
                         }
 
-                        buttons.push_back(key.get<int>());
+                        auto respects_modifiers = bind.find("respects_modifiers");
+                        if (respects_modifiers != bind.end() && !respects_modifiers->is_boolean())
+                        {
+                            warn("input", format("failed to parse '%s' entry %s respects_modifiers not a bool, skipping.", path.c_str(), name.c_str()));
+                            continue;
+                        }
+
+                        does_respect_modifiers = respects_modifiers != bind.end() && respects_modifiers->get<bool>();
+                        buttons = handle_keys(path, name, keys.value());
                     }
+                    else
+                        warn("input", format("failed to parse '%s' entry %s bind not an object or an array, skipping.", path.c_str(), name.c_str()));
 
                     if (!buttons.empty())
-                        callback(action.value(), buttons);
+                        callback(action.value(), buttons, does_respect_modifiers);
                 }
             }
         }

@@ -14,11 +14,4 @@ namespace
 
         return SeinEnergy::get_EnergyCostMultiplier(this_ptr);
     }
-
-    void initialize_no_energy()
-    {
-        no_energy = csharp_bridge::check_ini("NoEnergyCost");
-    }
-
-    CALL_ON_INIT(initialize_no_energy);
 }

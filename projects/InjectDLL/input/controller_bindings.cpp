@@ -108,7 +108,7 @@ namespace input
         }
 
         std::unordered_map<Action, std::vector<std::vector<ControllerButton>>> bindings;
-        void handle_binding(Action action, std::vector<int> const& buttons)
+        void handle_binding(Action action, std::vector<int> const& buttons, bool respects_modifiers)
         {
             auto& binding = bindings[action].emplace_back();
             binding.resize(buttons.size());

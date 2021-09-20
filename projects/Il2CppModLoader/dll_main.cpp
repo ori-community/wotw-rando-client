@@ -32,6 +32,7 @@ namespace modloader
     std::string mod_title = "Randomizer";
     std::string modloader_path = "modloader_config.json";
     std::string csv_path = "inject_log.csv";
+    bool shutdown_thread = false;
 
     namespace
     {
@@ -224,26 +225,25 @@ namespace modloader
     }
 
     bool attached = false;
-    bool shutdown_thread = false;
 
     extern bool bootstrap();
     extern void bootstrap_shutdown();
 
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path)
     {
-        //while (!::IsDebuggerPresent())
-        //    ::Sleep(100); // to avoid 100% CPU load
-
         base_path = path;
-        initialize_trace_file();
-        trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
-
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
         auto settings = create_randomizer_settings(base_path);
         load_settings_from_file(settings);
+        auto wait_for_debugger = check_option_flag(settings, "Flags", "WaitForDebugger");
+        while (wait_for_debugger && !::IsDebuggerPresent())
+            ::Sleep(100); // to avoid 100% CPU load
 
-        trace_enabled = find_option(settings, "Flags", "TraceEnabled")->value.b;
-        trace_pinging_enabled = !find_option(settings, "Flags", "TracePingingDisabled")->value.b;
+        initialize_trace_file();
+        trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
+
+        trace_enabled = check_option_flag(settings, "Flags", "TraceEnabled");
+        trace_pinging_enabled = !check_option_flag(settings, "Flags", "TracePingingDisabled", true);
         if (trace_enabled)
         {
             trace(MessageType::Info, 5, "initialize", "Initializing network tracing.");
@@ -257,7 +257,7 @@ namespace modloader
             network::start_peer(network_data);
         }
 
-        if (find_option(settings, "Flags", "Dev")->value.b)
+        if (check_option_flag(settings, "Flags", "Dev"))
         {
             trace(MessageType::Info, 5, "initialize", "Initializing console.");
             console::console_initialize();

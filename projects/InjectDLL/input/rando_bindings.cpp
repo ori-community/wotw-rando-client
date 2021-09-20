@@ -29,6 +29,12 @@ namespace input
         {
             std::vector<app::KeyCode__Enum> codes;
             std::vector<int> mouse_buttons;
+
+            bool respects_modifiers = false;
+            bool shift = false;
+            bool ctrl = false;
+            bool alt = false;
+            bool altgr = false;
         };
 
         struct ControlInfo
@@ -55,15 +61,23 @@ namespace input
             bindings[action].kbm_bindings.push_back(input);
         }
 
-        void handle_binding(Action action, std::vector<int> const& buttons)
+        void handle_binding(Action action, std::vector<int> const& buttons, bool respects_modifiers)
         {
             KeyboardMouseInput input;
+            input.respects_modifiers = respects_modifiers;
             for (auto const& button : buttons)
             {
                 if (button < 0)
                     input.mouse_buttons.push_back(-button);
                 else
-                    input.codes.push_back(static_cast<app::KeyCode__Enum>(button));
+                {
+                    auto code = static_cast<app::KeyCode__Enum>(button);
+                    input.codes.push_back(code);
+                    input.shift |= code == app::KeyCode__Enum_LeftShift || code == app::KeyCode__Enum_RightShift;
+                    input.ctrl |= code == app::KeyCode__Enum_LeftControl || code == app::KeyCode__Enum_RightControl;
+                    input.alt |= code == app::KeyCode__Enum_LeftAlt || code == app::KeyCode__Enum_RightAlt;
+                    input.altgr |= code == app::KeyCode__Enum_AltGr;
+                }
             }
 
             add_keyboard_binding(action, input);
@@ -92,6 +106,17 @@ namespace input
         STATIC_IL2CPP_BINDING(UnityEngine, Input, bool, GetMouseButton, (int button));
         bool is_pressed(KeyboardMouseInput const& input)
         {
+            if (input.respects_modifiers)
+            {
+                auto shift = Input::GetKeyInt(app::KeyCode__Enum_LeftShift) || Input::GetKeyInt(app::KeyCode__Enum_RightShift);
+                auto ctrl = Input::GetKeyInt(app::KeyCode__Enum_LeftControl) || Input::GetKeyInt(app::KeyCode__Enum_RightControl);
+                auto alt = Input::GetKeyInt(app::KeyCode__Enum_LeftAlt) || Input::GetKeyInt(app::KeyCode__Enum_RightAlt);
+                auto altgr = Input::GetKeyInt(app::KeyCode__Enum_AltGr);
+
+                if (input.shift != shift || input.ctrl != ctrl || input.alt != alt || input.altgr != altgr)
+                    return false;
+            }
+
             for (auto code : input.codes)
                 if (!Input::GetKeyInt(code))
                     return false;

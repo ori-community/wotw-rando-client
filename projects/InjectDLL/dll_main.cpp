@@ -205,11 +205,10 @@ void set_no_pause(bool value)
     no_pause = value;
 }
 
-void Initialize()
+void initialize_main()
 {
     set_mouse_controls();
     set_no_pause(true);
-    ipc::start_pipe();
 }
 
-CALL_ON_INIT(Initialize);
+CALL_ON_INIT(initialize_main);

@@ -124,6 +124,12 @@ IniOption* find_option(IniSettings& settings, std::string const& section, std::s
     return nullptr;
 }
 
+bool check_option_flag(IniSettings& settings, std::string const& section, std::string const& name, bool default_value)
+{
+    auto option = find_option(settings, section, name);
+    return (option != nullptr && option->type == IniVarType::Bool) ? option->value.b : default_value;
+}
+
 IniSettings create_randomizer_settings(const std::string& path)
 {
     IniSettings file;
@@ -176,10 +182,6 @@ IniSettings create_randomizer_settings(const std::string& path)
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "NoEnergyCost";
-    option.value.b = false;
-    file.options.push_back(option);
-
     option.name = "Dev";
     option.value.b = false;
     file.options.push_back(option);
@@ -201,6 +203,10 @@ IniSettings create_randomizer_settings(const std::string& path)
     file.options.push_back(option);
 
     option.name = "GrappleMouseControl";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "WaitForDebugger";
     option.value.b = false;
     file.options.push_back(option);
 
