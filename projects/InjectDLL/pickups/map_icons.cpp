@@ -984,7 +984,9 @@ namespace
                     resolve_player_icon(area->second, player);
             }
 
-            update_dots(player, it->second);
+            it = player_icon_map.find(player.id);
+            if (it != player_icon_map.end())
+                update_dots(player, it->second);
         }
     }
 }

@@ -89,9 +89,7 @@ namespace
 	    }
     }
 
-    app::AreaMapNavigation* cached = nullptr;
     app::GameWorldAreaID__Enum area_id = app::GameWorldAreaID__Enum_None;
-
 
     IL2CPP_BINDING(, GameMapUI, app::RuntimeGameWorldArea*, get_CurrentHighlightedArea, (app::GameMapUI* this_ptr));
     IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
@@ -110,11 +108,6 @@ namespace
     IL2CPP_INTERCEPT(, AreaMapUI, void, Show, (app::AreaMapUI* this_ptr, bool set_menu_audio_state)) {
         AreaMapUI::Show(this_ptr, set_menu_audio_state);
         area_id = app::GameWorldAreaID__Enum_None;
-        if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
-        {
-            cached = this_ptr->fields._Navigation_k__BackingField;
-            //register_input_callback(FOCUS_BUTTON, update_map_focus);
-        }
         area_map_open = true;
         refresh_icon_alphas(true);
     }
@@ -122,24 +115,14 @@ namespace
     IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
         AreaMapUI::Hide(this_ptr);
         hide_below_hint();
-        if (cached != nullptr)
-        {
-            //if (!unregister_input_callback(FOCUS_BUTTON, update_map_focus))
-            //    trace(MessageType::Error, 2, "game", "Failed to unregister map focus callback.");
-            cached = nullptr;
-        }
         area_map_open = false;
         refresh_icon_alphas(false);
     }
 
-    app::Quest* quest_cache;
     bool disable_next_update_map_target = false;
     IL2CPP_INTERCEPT(, AreaMapNavigation, void, SetTarget, (app::AreaMapNavigation* this_ptr, app::Quest* quest)) {
-        if (csharp_bridge::check_ini("QuestFocusOnAbility3"))
-        {
-            quest_cache = quest;
+        if (csharp_bridge::check_ini("DisableQuestFocus"))
             disable_next_update_map_target = true;
-        }
         else
             AreaMapNavigation::SetTarget(this_ptr, quest);
     }
@@ -150,23 +133,6 @@ namespace
 
         disable_next_update_map_target = false;
     }
-
-    //void update_map_focus(InputState const& state)
-    //{
-    //    if (cached == nullptr)
-    //    {
-    //        unregister_input_callback(FOCUS_BUTTON, update_map_focus);
-    //        trace(MessageType::Error, 2, "game", "Unregistering callback now, registration order may have been bad.");
-    //        return;
-    //    }
-    //
-    //    if (get_input_state(FOCUS_BUTTON).just_pressed && quest_cache != nullptr)
-    //    {
-    //        AreaMapNavigation::SetTarget(cached, quest_cache);
-    //        AreaMapNavigation::UpdateMapTarget(cached);
-    //        //quest_cache = nullptr;
-    //    }
-    //}
 
     STATIC_IL2CPP_BINDING(Game, UI, app::MenuScreenManager*, get_Menu, ());
     IL2CPP_BINDING(, MenuScreenManager, void, HideMenuScreen, (app::MenuScreenManager* this_ptr, bool immediate, bool fade));
@@ -181,6 +147,23 @@ namespace
             auto menu = UI::get_Menu();
             MenuScreenManager::HideMenuScreen(menu, true, false);
         }
+    }
+
+    float scaling_factor = 2.0f;
+    float original_zoom = -1.0f;
+    float original_scale = -1.0f;
+    IL2CPP_INTERCEPT(, AreaMapUI, void, Awake, (app::AreaMapUI* this_ptr)) {
+        AreaMapUI::Awake(this_ptr);
+        auto transition = il2cpp::get_class<app::GameMapTransitionManager__Class>("", "GameMapTransitionManager");
+        transition->static_fields->WorldMapEnabled = false;
+        if (original_zoom < 0.0f)
+            original_zoom = this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel;
+        if (original_scale < 0.0f)
+            original_scale = this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor;
+
+        this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel = original_zoom / scaling_factor;
+        this_ptr->fields._Navigation_k__BackingField->fields.WorldMapZoomLevel = original_zoom / scaling_factor;
+        this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor = original_scale / scaling_factor;
     }
 }
 
