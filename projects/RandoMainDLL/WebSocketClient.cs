@@ -99,6 +99,8 @@ namespace RandoMainDLL {
       }
     }
 
+    private static bool stopping = false;
+    private static ManualResetEvent stopEvent = new ManualResetEvent(false);
     private static void setupUpdateThread() {
       if (updateThread == null) {
         updateThread = new Thread(() => {
@@ -107,6 +109,15 @@ namespace RandoMainDLL {
               try {
                 var packet = SendQueue.Take();
                 socket.Send(packet.ToByteArray());
+
+                if (stopping) {
+                  ExpectingDisconnect = true;
+                  socket.Close();
+                  socket = null;
+                  SendQueue.Clear();
+                  UberStateQueue.Clear();
+                  stopEvent.Set();
+                }
               }
               catch (Exception e) {
                 Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
@@ -116,15 +127,13 @@ namespace RandoMainDLL {
         updateThread.Start();
       }
     }
+
     public static void Disconnect() {
-      if (socket == null) {
-        return;
+      if (IsConnected) {
+        stopping = true;
+        stopEvent.WaitOne();
+        stopEvent.Reset();
       }
-      ExpectingDisconnect = true;
-      socket.Close();
-      socket = null;
-      SendQueue.Clear();
-      UberStateQueue.Clear();
     }
 
     public static void SendBulk(Dictionary<Memory.UberId, double> updates) {
