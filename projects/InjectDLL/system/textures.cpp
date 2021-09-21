@@ -87,6 +87,8 @@ namespace textures
                 Texture2D::LoadRawTextureData(texture, data, x * y * n);
                 Texture2D::Apply(texture, true, false);
                 stbi_image_free(data);
+                files[value] = il2cpp::gchandle_new(texture, false);
+
                 return texture;
             }
             else
