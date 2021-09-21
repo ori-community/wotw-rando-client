@@ -87,6 +87,7 @@ namespace RandoMainDLL {
           UberStateController.QueueSyncedStateUpdate();
         } else {
           WheelCommand.ClearWheels();
+          InterOpWeaponWheel.initialize_default_wheel();
           PsuedoLocs.LOAD_SEED.Pickup().Grant();
         }
         BonusItemController.Refresh();
