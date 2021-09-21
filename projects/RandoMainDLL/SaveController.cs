@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
 using RandoMainDLL.Memory;
+using RandoMainDLL.Wheel;
 
 namespace RandoMainDLL {
   public static class SaveController {
@@ -85,8 +86,7 @@ namespace RandoMainDLL {
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
           UberStateController.QueueSyncedStateUpdate();
         } else {
-          InterOpWeaponWheel.clear_wheels();
-          InterOpWeaponWheel.initialize_default_wheel();
+          WheelCommand.ClearWheels();
           PsuedoLocs.LOAD_SEED.Pickup().Grant();
         }
         BonusItemController.Refresh();

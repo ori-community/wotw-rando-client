@@ -5,6 +5,7 @@ using System.IO;
 using AutoHotkey.Interop;
 using RandoMainDLL.Memory;
 using System.Linq;
+using RandoMainDLL.Wheel;
 
 namespace RandoMainDLL {
   public static class Input {
@@ -88,7 +89,7 @@ namespace RandoMainDLL {
             WebSocketClient.Connect();
             SeedController.ReadSeed();
             if (InterOp.get_game_state() == GameState.Game) {
-              InterOpWeaponWheel.clear_wheels();
+              WheelCommand.ClearWheels();
               InterOpWeaponWheel.initialize_default_wheel();
               PsuedoLocs.LOAD_SEED.OnCollect();
             }

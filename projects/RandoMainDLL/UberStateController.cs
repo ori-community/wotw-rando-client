@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Threading;
 using RandoMainDLL.Memory;
+using RandoMainDLL.Wheel;
 
 namespace RandoMainDLL {
   public static class UberStateController {
@@ -415,7 +416,7 @@ namespace RandoMainDLL {
           InterOp.bind(slot, 1002);
         }
 
-        InterOpWeaponWheel.clear_wheels();
+        WheelCommand.ClearWheels();
         InterOpWeaponWheel.initialize_default_wheel();
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty || PsuedoLocs.LOAD_SEED.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback.Add(() => {
