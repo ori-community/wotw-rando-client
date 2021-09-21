@@ -229,6 +229,10 @@ namespace modloader
     extern bool bootstrap();
     extern void bootstrap_shutdown();
 
+    STATIC_IL2CPP_BINDING(UnityEngine, Application, app::String*, get_version, ());
+    STATIC_IL2CPP_BINDING(UnityEngine, Application, app::String*, get_unityVersion, ());
+    STATIC_IL2CPP_BINDING(UnityEngine, Application, app::String*, get_productName, ());
+    
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path)
     {
         base_path = path;
@@ -274,6 +278,12 @@ namespace modloader
 
         trace(MessageType::Info, 5, "initialize", "Performing intercepts.");
         intercept::interception_init();
+
+        auto product = il2cpp::convert_csstring(Application::get_productName());
+        auto version = il2cpp::convert_csstring(Application::get_version());
+        auto unity_version = il2cpp::convert_csstring(Application::get_unityVersion());
+        trace(MessageType::Info, 5, "initialize", format(
+            "Application %s injected (%s)[%s].", product.c_str(), version.c_str(), unity_version.c_str()));
 
         trace(MessageType::Info, 5, "initialize", "Calling initialization callbacks.");
         initialization_callbacks();

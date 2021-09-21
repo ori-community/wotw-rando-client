@@ -14,15 +14,8 @@ namespace il2cpp
 {
     namespace
     {
-        struct KlassOverloadInfo
-        {
-            std::string name;
-            int param_count;
-            std::vector<MethodInfo const*> methods;
-        };
-
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
-        std::unordered_map<Il2CppClass*, std::vector<KlassOverloadInfo>> resolved_klass_overloads;
+        std::unordered_map<Il2CppClass*, std::vector<MethodOverloadInfo>> resolved_klass_overloads;
 
         STATIC_IL2CPP_BINDING(UnityEngine, ScriptableObject, app::ScriptableObject*, CreateInstance, (app::Type* type));
 
@@ -117,18 +110,18 @@ namespace il2cpp
 
         void resolve_overloads(Il2CppClass* klass)
         {
-            std::vector<KlassOverloadInfo> overloads;
+            std::vector<MethodOverloadInfo> overloads;
             void* it = nullptr;
             for (auto i = 0; i < klass->method_count; ++i)
             {
                 auto method = il2cpp_class_get_methods(klass, &it);
-                auto method_overload_info = std::find_if(overloads.begin(), overloads.end(), [method](KlassOverloadInfo const& info) -> bool {
+                auto method_overload_info = std::find_if(overloads.begin(), overloads.end(), [method](MethodOverloadInfo const& info) -> bool {
                     return info.name == method->name && info.param_count == method->parameters_count;
                 });
 
                 if (method_overload_info == overloads.end())
                 {
-                    KlassOverloadInfo info;
+                    MethodOverloadInfo info;
                     info.name = method->name;
                     info.param_count = method->parameters_count;
                     info.methods.push_back(method);
@@ -144,7 +137,7 @@ namespace il2cpp
                 auto prop = il2cpp_class_get_properties(klass, &it);
                 if (prop->get != nullptr)
                 {
-                    KlassOverloadInfo info;
+                    MethodOverloadInfo info;
                     info.name = prop->get->name;
                     info.param_count = 0;
                     info.methods.push_back(prop->get);
@@ -153,7 +146,7 @@ namespace il2cpp
 
                 if (prop->set != nullptr)
                 {
-                    KlassOverloadInfo info;
+                    MethodOverloadInfo info;
                     info.name = prop->set->name;
                     info.param_count = 1;
                     info.methods.push_back(prop->set);
@@ -491,7 +484,7 @@ namespace il2cpp
             trace(modloader::MessageType::Error, 5, "il2cpp", format(" - %s.%s:%d", klass->name, info.name.data(), info.param_count));
     }
 
-    KlassOverloadInfo const* get_method_info_internal(Il2CppClass* klass, std::string_view method, int param_count)
+    MethodOverloadInfo const* get_method_info_internal(Il2CppClass* klass, std::string_view method, int param_count)
     {
         auto method_overloads = resolved_klass_overloads.find(klass);
         if (method_overloads == resolved_klass_overloads.end())
@@ -500,8 +493,8 @@ namespace il2cpp
             method_overloads = resolved_klass_overloads.find(klass);
         }
 
-        std::vector<KlassOverloadInfo> const& methods = method_overloads->second;
-        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](KlassOverloadInfo const& info) -> bool {
+        std::vector<MethodOverloadInfo> const& methods = method_overloads->second;
+        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](MethodOverloadInfo const& info) -> bool {
             return info.name == method && info.param_count == param_count;
         });
 
@@ -522,6 +515,19 @@ namespace il2cpp
         return (&*method_overload_info);
     }
 
+    std::vector<MethodOverloadInfo> const& get_all_methods(void* klass)
+    {
+        auto cast_klass = reinterpret_cast<Il2CppClass*>(klass);
+        auto it = resolved_klass_overloads.find(cast_klass);
+        if (it == resolved_klass_overloads.end())
+        {
+            resolve_overloads(cast_klass);
+            it = resolved_klass_overloads.find(cast_klass);
+        }
+
+        return it->second;
+    }
+
     int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count)
     {
         auto method_overloads = resolved_klass_overloads.find(klass);
@@ -531,8 +537,8 @@ namespace il2cpp
             method_overloads = resolved_klass_overloads.find(klass);
         }
 
-        std::vector<KlassOverloadInfo> const& methods = method_overloads->second;
-        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](KlassOverloadInfo const& info) -> bool {
+        std::vector<MethodOverloadInfo> const& methods = method_overloads->second;
+        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](MethodOverloadInfo const& info) -> bool {
             return info.name == method && info.param_count == param_count;
         });
 

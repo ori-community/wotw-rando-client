@@ -2,8 +2,6 @@
 #include <mscoree.h>
 #include <comdef.h>
 #include <stdio.h>
-#include <AtlBase.h>
-#include <atlconv.h>
 #pragma comment(lib, "mscoree.lib") 
 
 #include <common.h>
@@ -135,12 +133,6 @@ namespace modloader
         }
     }
 
-    std::wstring convert(std::string str)
-    {
-        CA2W ca2w(str.c_str());
-        return std::wstring(ca2w);
-    }
-
     bool bootstrap()
     {
         std::ifstream stream(base_path + modloader_path);
@@ -176,9 +168,9 @@ namespace modloader
                     {
                         csharp_dlls.push_back(
                             CSharpDll{
-                                convert(base_path + (*it)["dll"].get<std::string>()),
-                                convert((*it)["class"].get<std::string>()),
-                                convert((*it)["method"].get<std::string>())
+                                convert_string_to_wstring(base_path + (*it)["dll"].get<std::string>()),
+                                convert_string_to_wstring((*it)["class"].get<std::string>()),
+                                convert_string_to_wstring((*it)["method"].get<std::string>())
                             }
                         );
                     }

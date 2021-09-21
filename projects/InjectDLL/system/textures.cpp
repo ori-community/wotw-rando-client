@@ -6,13 +6,25 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <unordered_map>
+#include <utils\stb_image.h>
+
+#include <fstream>
 #include <string>
+#include <unordered_map>
+
+using namespace modloader;
 
 namespace textures
 {
     std::unordered_map<std::wstring, uint32_t> files;
 
+    NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Texture2D, void, .ctor, ctor,
+        (app::Texture2D* this_ptr, int width, int height, app::TextureFormat__Enum format, bool mip_chain, bool linear),
+        (System:Int32, System:Int32, UnityEngine:TextureFormat, System:Boolean, System:Boolean))
+    IL2CPP_BINDING(UnityEngine, Texture2D, void, LoadRawTextureData, (app::Texture2D* this_ptr, void* data, int size));
+    IL2CPP_BINDING(UnityEngine, Texture2D, void, Apply, (app::Texture2D* this_ptr, bool update_mipmaps, bool no_longer_readable));
+    IL2CPP_BINDING(UnityEngine, Texture2D, app::Byte__Array*, GetRawTextureData, (app::Texture2D* this_ptr));
+    STATIC_IL2CPP_BINDING(UnityEngine, ImageConversion, bool, LoadImage, (app::Texture2D* texture, app::Byte__Array* data, bool non_readable));
     app::Texture2D* get_texture(std::wstring_view path)
     {
         try
@@ -55,15 +67,31 @@ namespace textures
                 auto it = files.find(value);
                 if (it != files.end())
                     return reinterpret_cast<app::Texture2D*>(il2cpp::gchandle_target(it->second));
-                else
+
+                auto path = base_path + convert_wstring_to_string(value);
+                replace_all(path, "/", "\\");
+
+                int x;
+                int y;
+                int n = 4;
+                stbi_set_flip_vertically_on_load(true);
+                unsigned char* data = stbi_load(path.c_str(), &x, &y, &n, STBI_rgb_alpha);
+                if (data == nullptr)
                 {
-                    // TODO: Load file.
+                    modloader::warn("textures", format("failed to load texture %s (%s).", path.c_str(), stbi_failure_reason()));
                     return nullptr;
                 }
+
+                auto texture = il2cpp::create_object<app::Texture2D>("UnityEngine", "Texture2D");
+                Texture2D::ctor(texture, x, y, app::TextureFormat__Enum_RGBA32, false, false);
+                Texture2D::LoadRawTextureData(texture, data, x * y * n);
+                Texture2D::Apply(texture, true, false);
+                stbi_image_free(data);
+                return texture;
             }
             else
             {
-                // Trace error
+                modloader::warn("textures", "unknown texture protocol used when loading texture.");
                 return nullptr;
             }
         }

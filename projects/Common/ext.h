@@ -53,3 +53,8 @@ void split_str(std::string const& str, Container& cont, char delim = ' ')
     while (std::getline(ss, token, delim))
         cont.push_back(token);
 }
+
+void replace_all(std::string& str, std::string_view find, std::string_view replace);
+void replace_all(std::wstring& str, std::wstring_view find, std::wstring_view replace);
+std::wstring convert_string_to_wstring(std::string const& str);
+std::string convert_wstring_to_string(std::wstring const& str);

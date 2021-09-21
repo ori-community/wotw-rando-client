@@ -7,6 +7,13 @@
 
 namespace il2cpp
 {
+    struct MethodOverloadInfo
+    {
+        std::string name;
+        int param_count;
+        std::vector<MethodInfo const*> methods;
+    };
+
     namespace unity
     {
         IL2CPP_MODLOADER_DLLEXPORT app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name);
@@ -88,6 +95,7 @@ namespace il2cpp
         Il2CppClass* klass;
     };
 
+    IL2CPP_MODLOADER_DLLEXPORT std::vector<MethodOverloadInfo> const& get_all_methods(void* klass);
     IL2CPP_MODLOADER_DLLEXPORT int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_overloaded(Il2CppClass* klass, std::string_view method, int param_count, int overload);
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_params(Il2CppClass* klass, std::string_view method, std::vector<void*> const& params);
