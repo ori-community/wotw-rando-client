@@ -633,6 +633,8 @@ INJECT_C_DLLEXPORT void initialize_default_wheel()
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::TogglePickupNamesOnSpoiler); });
     add_wheel_item(9001, 9, L"Force Exit", L"Forcibly exit the game.", L"spirit_shard:10",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ForceExit); });
+    add_wheel_item(9001, 10, L"Clear messages", L"Clears the message queue.", L"spirit_shard:11",
+        [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ClearMessages); });
     add_wheel_item(9001, 11, L"Next", L"Go to next page of actions", L"spirit_shard:3",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { set_active_wheel(9000); });
 }

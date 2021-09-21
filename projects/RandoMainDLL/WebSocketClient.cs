@@ -189,7 +189,7 @@ namespace RandoMainDLL {
             break;
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-            AHK.Print(printMsg.Text, printMsg.Frames, printMsg.Ypos, true);
+            Msg.Print(printMsg.Text, printMsg.Frames, printMsg.Ypos, true);
             break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);

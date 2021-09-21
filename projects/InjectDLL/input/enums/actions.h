@@ -62,6 +62,7 @@ namespace input
         ShowDevFlag,
         ToggleDebug,
         PrintCoordinates,
+        ClearMessages,
         TeleportCheat,
         UnlockSpoilers,
         TogglePickupNamesOnSpoiler,

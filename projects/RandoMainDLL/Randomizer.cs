@@ -36,7 +36,7 @@ namespace RandoMainDLL {
         UberStateController.NeedsNewGameInit = true;
         UberStateController.UberStates.Clear();
         UberStateController.TickingUberStates.Clear();
-        AHK.OnNewGame();
+        Msg.OnNewGame();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
       }
@@ -56,7 +56,7 @@ namespace RandoMainDLL {
                   txt += line;
                 File.AppendAllText(LogFile, txt);
               } catch (Exception e) {
-                if (Dev) AHK.Print($"error logging: {e}", toMessageLog: false);
+                if (Dev) Msg.Print($"error logging: {e}", toMessageLog: false);
               }
             }
           });
@@ -82,6 +82,7 @@ namespace RandoMainDLL {
         }
 
         AHK.Init();
+        Msg.Init();
         SeedController.ReadSeed(true);
         Debug("Init: Complete", false);
         return true;
@@ -103,11 +104,14 @@ namespace RandoMainDLL {
           UberStateController.Update();
           if (InputUnlockCallback.Count != 0 && InterOp.player_can_move())
             OnInputUnlock();
+
           SeedController.UpdateGoal();
           MapController.Update();
           TrackFileController.Update();
         }
+
         AHK.Tick();
+        Msg.Tick();
         BonusItemController.Update();
         WebSocketClient.Update();
         Multiplayer.Update();
@@ -134,7 +138,7 @@ namespace RandoMainDLL {
         return;
       logQueue.Add($"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       if (Dev && printIfDev)
-        AHK.Print(message, 180, toMessageLog: false);
+        Msg.Print(message, 180, toMessageLog: false);
     }
 
 

@@ -110,7 +110,7 @@ namespace RandoMainDLL {
 
     public static void OnGrantCheckable(CheckableHint ch) {
       CheckableHints[ch].State().Write(new UberValue(true));
-      AHK.SendPlainText(new PlainText($"Bought Hint: {ch.Hint}", 300));
+      Msg.SendPlainText(new PlainText($"Bought Hint: {ch.Hint}", 300));
     }
 
     public static void AddHint(ZoneType zone, Checkable item) {
@@ -139,12 +139,12 @@ namespace RandoMainDLL {
       var pp = new UberId(13, (int)zone).toCond().Pickup();
       int duration = justUnlocked ? 300 : 240;
       if (pp.NonEmpty) {
-        AHK.SendPlainText(new PlainText(pp.DisplayName, duration, pp.Pos, pp.Clear, pp.Immediate, pp.Quiet), justUnlocked);
+        Msg.SendPlainText(new PlainText(pp.DisplayName, duration, pp.Pos, pp.Clear, pp.Immediate, pp.Quiet), justUnlocked);
         return;
       }
       if (InterOp.get_game_state() != GameState.Game) {
         if (!justUnlocked)
-          AHK.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
+          Msg.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
         return;
       }
 
@@ -155,7 +155,7 @@ namespace RandoMainDLL {
         msg = $"{SeedController.Progress}\n{msg}{GetKeySkillHints()}";
       else
         msg = $"{SeedController.Progress}{GetKeySkillHints()}";
-      AHK.SendPlainText(new PlainText(msg, duration), justUnlocked);
+      Msg.SendPlainText(new PlainText(msg, duration), justUnlocked);
     }
 
     private static string getZoneHintMessage(ZoneType zone, bool isOnMap = false) {

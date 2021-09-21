@@ -206,7 +206,7 @@ namespace RandoMainDLL {
         Total = PickupMap.Count(p => p.Key.Loc() != LocData.Void);
         if (Settings.NetcodeEnabled) {
           if (AHK.IniFlag("DisableNetcode")) {
-            AHK.Print("Warning: can't connect because netcode is disabled via settings");
+            Msg.Print("Warning: can't connect because netcode is disabled via settings");
           }
           WebSocketClient.Connect();
         }
@@ -221,13 +221,13 @@ namespace RandoMainDLL {
         }
         if (!init) {
           var flagPart = Flags.Count > 0 ? $"\nFlags: {String.Join(", ", Flags.Select((Flag flag) => flag.GetDescription()))}" : "";
-          AHK.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
+          Msg.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
           MapController.UpdateReachable();
         }
 
       }
       else {
-        AHK.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
+        Msg.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
       }
     }
 

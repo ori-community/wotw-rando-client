@@ -68,6 +68,7 @@ namespace RandoMainDLL {
       ShowDevFlag,
       ToggleDebug,
       PrintCoordinates,
+      ClearMessages,
       TeleportCheat,
       UnlockSpoilers,
       TogglePickupNamesOnSpoiler,
@@ -83,6 +84,7 @@ namespace RandoMainDLL {
         case Action.Reload:
           if (AHK.CanReload()) {
             AHK.Reload();
+            Msg.Reload();
             WebSocketClient.Connect();
             SeedController.ReadSeed();
             if (InterOp.get_game_state() == GameState.Game) {
@@ -93,7 +95,7 @@ namespace RandoMainDLL {
           }
           break;
         case Action.ShowLastPickup:
-          AHK.ShowLastPickup();
+          Msg.ShowLastPickup();
           break;
         case Action.ShowProgressWithHints:
           HintsController.ProgressWithHints();
@@ -101,20 +103,20 @@ namespace RandoMainDLL {
         case Action.ShowDevFlag:
           Randomizer.Dev = !Randomizer.Dev;
           Randomizer.Log($"Dev: {Randomizer.Dev}", false);
-          AHK.Print($"Dev: {Randomizer.Dev}", toMessageLog: false);
+          Msg.Print($"Dev: {Randomizer.Dev}", toMessageLog: false);
           break;
         case Action.ForceExit:
           Environment.Exit(Environment.ExitCode);
           break;
         case Action.ToggleDebug:
           InterOp.set_debug_controls(!InterOp.get_debug_controls());
-          AHK.Print($"Debug {(InterOp.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
+          Msg.Print($"Debug {(InterOp.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
           break;
         case Action.ToggleCursorLock:
-          AHK.Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
+          Msg.Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
           break;
         case Action.ToggleAlwaysShowKeystones:
-          AHK.Print($"Always show keystones: {InterOp.toggle_always_show_keystones()}", toMessageLog: false);
+          Msg.Print($"Always show keystones: {InterOp.toggle_always_show_keystones()}", toMessageLog: false);
           break;
         case Action.Binding1:
           PsuedoLocs.BINDING_ONE.OnCollect();
@@ -134,26 +136,29 @@ namespace RandoMainDLL {
         case Action.UnlockSpoilers:
           if (SeedController.Settings.RaceMode) return; // no cheat
           UberSet.Bool(GameComplete, true);
-          AHK.Print("spoiler unlocked", toMessageLog: false);
+          Msg.Print("spoiler unlocked", toMessageLog: false);
           break;
         case Action.TeleportCheat:
           if (SeedController.Settings.RaceMode) return; // no cheat
           tpCheatToggle = !tpCheatToggle;
-          AHK.Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
+          Msg.Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
           break;
         case Action.WarpCredits:
           if (UberGet.Bool(GameComplete))
             InterOp.start_credits();
           else
-            AHK.Print($"Credit warp not unlocked!", toMessageLog: false);
+            Msg.Print($"Credit warp not unlocked!", toMessageLog: false);
           break;
         case Action.PrintCoordinates:
           var pos = InterOp.get_position();
-          AHK.Print($"{pos.X}, {pos.Y}", toMessageLog: false);
+          Msg.Print($"{pos.X}, {pos.Y}", toMessageLog: false);
           break;
         case Action.TogglePickupNamesOnSpoiler:
           MapController.NameLabels = !MapController.NameLabels;
-          AHK.Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
+          Msg.Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
+          break;
+        case Action.ClearMessages:
+          Msg.Clear();
           break;
         default:
           Randomizer.Log("Unhandled action triggered.");

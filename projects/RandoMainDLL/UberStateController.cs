@@ -408,7 +408,7 @@ namespace RandoMainDLL {
           if (slotRaw != string.Empty) {
             slot = slotRaw.ParseToInt("Spawn Slot Ini") - 1;
             if (slot > 2 || slot < 0) {
-              AHK.Print($"Ignoring invalid slot specifier {slotRaw}", toMessageLog: false);
+              Msg.Print($"Ignoring invalid slot specifier {slotRaw}", toMessageLog: false);
               slot = 0;
             }
           }

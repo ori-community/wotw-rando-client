@@ -163,10 +163,8 @@ namespace RandoMainDLL {
       Frames = origFrames;
     }
     public virtual void Grant(bool skipBase = false) {
-      if (skipBase)
-        return;
-      if (Frames > 0 && DisplayName.Length > 0 && !Muted)
-        AHK.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
+      if (!skipBase && Frames > 0 && DisplayName.Length > 0 && !Muted)
+        Msg.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
     }
     public bool Collect(UberStateCondition foundAt) {
       if (NonEmpty) {
@@ -303,7 +301,7 @@ namespace RandoMainDLL {
     public override bool Quiet { get; }
     public override float? Pos { get; }
     public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool quiet = false, bool prepend = false) {
-      Msg = msg;
+      MessageStr = msg;
       Frames = frames;
       Clear = clear;
       Pos = pos;
@@ -313,13 +311,14 @@ namespace RandoMainDLL {
       Squelch = squelch;
     }
     public bool Prepend { get; }
-    public string Msg;
+    public string MessageStr;
     public bool Squelch = false;
     public override void Grant(bool skipBase = false) {
       if (Prepend)
-        AHK.PrependToNextText(DisplayName);
+        Msg.PrependToNextText(DisplayName);
       else if (!skipBase) // don't print during multis
-        AHK.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
+        Msg.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
+
       base.Grant(true);
     }
 
@@ -329,7 +328,7 @@ namespace RandoMainDLL {
     private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)\|(.*?)\]", RegexOptions.Compiled);
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
     public override string DisplayName { get {
-        var withUberNameRepl = uberNameFrag.Replace(Msg, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
+        var withUberNameRepl = uberNameFrag.Replace(MessageStr, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
         var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
         return nameFrag.Replace(withStateRepl, (Match m) => {
           var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
@@ -790,10 +789,10 @@ namespace RandoMainDLL {
           InterOp.set_kvolok_door_availability(value > 0);
           break;
         case SysState.Rain:
-          AHK.Print("Deprecated: use Uberstate 7|2");
+          Msg.Print("Deprecated: use Uberstate 7|2");
           break;
         case SysState.HowlEscape:
-          AHK.Print("Deprecated: use Uberstate 7|3");
+          Msg.Print("Deprecated: use Uberstate 7|3");
           break;
       }
     }
