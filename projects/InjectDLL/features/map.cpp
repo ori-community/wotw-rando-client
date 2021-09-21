@@ -155,7 +155,7 @@ namespace
     IL2CPP_INTERCEPT(, AreaMapUI, void, Awake, (app::AreaMapUI* this_ptr)) {
         AreaMapUI::Awake(this_ptr);
         auto transition = il2cpp::get_class<app::GameMapTransitionManager__Class>("", "GameMapTransitionManager");
-        transition->static_fields->WorldMapEnabled = false;
+        transition->static_fields->WorldMapEnabled = csharp_bridge::check_ini("WorldMapEnabled");
         if (original_zoom < 0.0f)
             original_zoom = this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel;
         if (original_scale < 0.0f)
