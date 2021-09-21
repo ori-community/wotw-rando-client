@@ -32,6 +32,7 @@ namespace RandoMainDLL {
     private static WebSocket socket;
 
     public static bool IsConnected { get { return socket != null && socket.IsConnected; } }
+    public static bool CanSend { get { return IsConnected && socket.ReadyState == WebSocketState.Open; } }
     public static bool Connecting { get => connectThread?.IsAlive ?? false; }
     public static void Connect() {
       if (!WantConnection) return;
@@ -105,7 +106,7 @@ namespace RandoMainDLL {
       if (updateThread == null) {
         updateThread = new Thread(() => {
           while (true) {
-            if (IsConnected)
+            if (CanSend)
               try {
                 var packet = SendQueue.Take();
                 socket.Send(packet.ToByteArray());
@@ -116,6 +117,7 @@ namespace RandoMainDLL {
                   socket = null;
                   SendQueue.Clear();
                   UberStateQueue.Clear();
+                  stopping = false;
                   stopEvent.Set();
                 }
               }

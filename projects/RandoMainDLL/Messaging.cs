@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace RandoMainDLL {
   public static class Msg {
+    public static readonly int BatchThreshold = 5;
+    public static readonly int BatchSize = 5;
+
     public static PlainText Current = null;
     public static PlainText Last = new PlainText("*Good Luck! <3*");
     public static Queue<PlainText> MessageQueue = new Queue<PlainText>();
@@ -38,17 +41,43 @@ namespace RandoMainDLL {
       if (FramesTillNextSend > 0)
         FramesTillNextSend--;
       else if (CanPrint) {
-        Current = MessageQueue.Peek();
-        FramesTillNextSend = Current.Frames;
         try {
+          if (MessageQueue.Count >= BatchThreshold) {
+            var text = "";
+            var mute = false;
+            var frames = 0;
+            var clear = false;
+            for (var i = 0; i < BatchSize; ++i) {
+              Current = MessageQueue.Peek();
+              if (Current.CanBatch) {
+                if (text != string.Empty)
+                  text += "\n";
+
+                text += Current.Text;
+                mute |= Current.Mute;
+                frames = Math.Max(frames, Current.Frames);
+                clear |= Current.Clear;
+                MessageQueue.Dequeue();
+              }
+              else
+                break;
+            }
+
+            if (text != string.Empty)
+              Current = new PlainText(text, frames, null, clear, false, mute);
+            else
+              MessageQueue.Dequeue();
+          }
+          else
+            Current = MessageQueue.Dequeue();
+
+          FramesTillNextSend = Current.Frames;
           if (Current.Clear)
             InterOp.clear_visible_hints();
 
           InterOp.display_hint(Current.Text, Current.Frames / 60f, Current.Pos, Current.Mute);
           if (AHK.IniFlag("LogOnPrint"))
             Randomizer.Log($"Sending {Current.Text} for {Current.Frames} ({MessageQueue.Count} remaining in queue)", false);
-
-          MessageQueue.Dequeue();
         }
         catch (Exception e) { Randomizer.Error("Msg.sendMsg", e, false); }
       }
@@ -113,10 +142,15 @@ namespace RandoMainDLL {
   }
 
   public class PlainText {
+    public static float DefaultPosition(string text) {
+      var lines = text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None).Length;
+      return Math.Max((3.2f - .2f * lines), 0.2f);
+    }
+
     public PlainText(string text, int frames = 180, float? pos = null, bool clear = true, bool immediate = false, bool mute = false) {
       Text = text;
       Frames = frames + (SeedController.GrantingGoalModeLoc ? 120 : 0);
-      Pos = pos.HasValue ? pos.Value : (3.2f - .2f * Text.Split(new string[] { "\n", Environment.NewLine }, StringSplitOptions.None).Length);
+      Pos = pos.HasValue ? pos.Value : DefaultPosition(text);
       Clear = clear;
       Immediate = immediate;
       Mute = mute;
@@ -128,6 +162,12 @@ namespace RandoMainDLL {
     public bool Mute { get; }
     public int Frames { get; }
     public float Pos { get; }
+
+    public bool CanBatch {
+      get {
+        return !Immediate;
+      }
+    }
   }
 
 }
