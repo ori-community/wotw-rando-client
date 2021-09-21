@@ -1179,13 +1179,17 @@ namespace RandoMainDLL {
       public override void Grant(bool skipBase = false) {
         switch (type) {
           case WheelCommandType.ClearAll:
-            InterOpWeaponWheel.clear_wheels();
-            ActionCommand.linkedPickups.Clear();
+            ClearWheels();
             break;
         }
       }
       public override string Name { get => type.ToString(); }
       public override string DisplayName { get => ""; }
+
+      public static void ClearWheels() {
+        InterOpWeaponWheel.clear_wheels();
+        ActionCommand.linkedPickups.Clear();
+      }
     }
 
     public class SetActiveWheelCommand : WheelCommand {
