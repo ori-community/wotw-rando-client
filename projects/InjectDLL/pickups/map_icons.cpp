@@ -105,6 +105,7 @@ namespace
         app::RuntimeWorldMapIcon* icon;
         std::vector<Dot> dots;
         std::wstring name;
+        bool shown;
     };
 
     bool map_visible = false;
@@ -153,6 +154,7 @@ namespace
         return guid;
     }
 
+    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
     NAMED_IL2CPP_BINDING(, RuntimeWorldMapIcon, void, .ctor, ctor, (app::RuntimeWorldMapIcon* this_ptr, app::GameWorldArea_WorldMapIcon* icon, app::RuntimeGameWorldArea* area));
     IL2CPP_BINDING(, AreaMapIcon, void, SetMessageProvider, (app::AreaMapIcon* this_ptr, app::MessageProvider* provider));
 
@@ -212,9 +214,14 @@ namespace
         auto it = player_map.find(this_ptr);
         if (it != player_map.end())
         {
-            auto& name = player_icon_map[it->second].name;
+            auto& info = player_icon_map[it->second];
+            info.shown = true;
+            auto& name = info.name;
             AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon,
                 utils::create_message_provider(il2cpp::string_new(name.c_str())));
+
+            for (auto& dot : info.dots)
+                GameObject::SetActive(dot.dot, false);
         }
         else if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
@@ -521,7 +528,7 @@ namespace
         RuntimeWorldMapIcon::Show_intercept(icon);
     }
 
-    void resolve_player_icon(app::RuntimeGameWorldArea* area, multiplayer::PlayerInfo const& player) {
+    PlayerMapInfo& resolve_player_icon(app::RuntimeGameWorldArea* area, multiplayer::PlayerInfo const& player) {
         auto* runtime_icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
         runtime_icon->fields.Guid = create_guid();
         auto guid = stringify_guid(runtime_icon->fields.Guid);
@@ -540,7 +547,8 @@ namespace
         RuntimeWorldMapIcon::Show_intercept(runtime_icon);
 
         player_map[runtime_icon] = player.id;
-        player_icon_map[player.id] = { 0, 0.0f, { 0.0f, 0.0f }, runtime_icon, {}, player.name };
+        player_icon_map[player.id] = { 0, 0.0f, { 0.0f, 0.0f }, runtime_icon, {}, player.name, true };
+        return player_icon_map[player.id];
     }
     
     void resolve_icons(app::RuntimeGameWorldArea* area)
@@ -646,8 +654,19 @@ namespace
         }
     }
 
+    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, void, Hide, (app::RuntimeWorldMapIcon* this_ptr)) {
+        RuntimeWorldMapIcon::Hide(this_ptr);
+        auto it = player_map.find(this_ptr);
+        if (it != player_map.end())
+        {
+            auto& info = player_icon_map[it->second];
+            info.shown = false;
+            for (auto& dot : info.dots)
+                GameObject::SetActive(dot.dot, false);
+        }
+    }
+
     STATIC_IL2CPP_BINDING(, AreaMapIconManager, bool, IsIconShownByFilter, (app::WorldMapIconType__Enum icon, app::AreaMapIconFilter__Enum filter));
-    IL2CPP_BINDING(, RuntimeWorldMapIcon, void, Hide, (app::RuntimeWorldMapIcon* this_ptr));
     STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Inequality, (void* o1, void* o2));
     STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* this_ptr)) {
@@ -755,7 +774,7 @@ namespace
             for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j)
             {
                 auto icon = runtime_area->fields.Icons->fields._items->vector[j];
-                RuntimeWorldMapIcon::Hide(icon);
+                RuntimeWorldMapIcon::Hide_intercept(icon);
             }
 
             if (Object::op_Inequality(reinterpret_cast<app::Object*>(runtime_area->fields.Area), nullptr))
@@ -772,7 +791,7 @@ namespace
                     if (shown_by_filter(this_ptr, icon))
                         RuntimeWorldMapIcon::Show_intercept(icon);
                     else
-                        RuntimeWorldMapIcon::Hide(icon);
+                        RuntimeWorldMapIcon::Hide_intercept(icon);
                 }
             }
         }
@@ -871,7 +890,6 @@ namespace
         cycle_filter(this_ptr);
     }
 
-    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, void, UpdateLabelState, (app::RuntimeWorldMapIcon* this_ptr)) {
         RuntimeWorldMapIcon::UpdateLabelState(this_ptr);
         auto it = player_map.find(this_ptr);
@@ -951,9 +969,6 @@ namespace
                 info.pos = player.position;
             }
         }
-        else
-            for (auto& dot : dots)
-                GameObject::SetActive(dot.dot, false);
     }
 
     IL2CPP_BINDING(, AreaMapUI, void, PlaceDot, (app::AreaMapUI* this_ptr, int dot_index, int time_since_creation, const app::Vector2* point));
@@ -968,6 +983,11 @@ namespace
             auto it = player_icon_map.find(player.id);
             if (it != player_icon_map.end())
             {
+                if (!it->second.shown && player.online)
+                    RuntimeWorldMapIcon::Show_intercept(it->second.icon);
+                else if (it->second.shown && !player.online)
+                    RuntimeWorldMapIcon::Hide_intercept(it->second.icon);
+
                 auto icon = it->second.icon;
                 icon->fields.Position.x = player.position.x;
                 icon->fields.Position.y = player.position.y;
@@ -981,12 +1001,33 @@ namespace
             {
                 auto area = areas.find(app::GameWorldAreaID__Enum_InkwaterMarsh);
                 if (area != areas.end())
-                    resolve_player_icon(area->second, player);
+                {
+                    auto& info = resolve_player_icon(area->second, player);
+                    if (!info.shown && player.online)
+                        RuntimeWorldMapIcon::Show_intercept(info.icon);
+                    else if (info.shown && !player.online)
+                        RuntimeWorldMapIcon::Hide_intercept(info.icon);
+                }
             }
 
             it = player_icon_map.find(player.id);
             if (it != player_icon_map.end())
                 update_dots(player, it->second);
+        }
+
+        // We have players that have left the game.
+        if (players.size() < player_icon_map.size())
+        {
+            // Hide removed players.
+            for (auto& player_pair : player_icon_map)
+            {
+                if (player_pair.second.shown)
+                {
+                    auto player = multiplayer::get_player(player_pair.first);
+                    if (player == nullptr)
+                        RuntimeWorldMapIcon::Hide_intercept(player_pair.second.icon);
+                }
+            }
         }
     }
 }
@@ -1030,12 +1071,12 @@ INJECT_C_DLLEXPORT void remove_icon(app::GameWorldAreaID__Enum area, int id)
     {
         if (it->second.runtime_icon != nullptr)
         {
-            RuntimeWorldMapIcon::Hide(it->second.runtime_icon);
+            RuntimeWorldMapIcon::Hide_intercept(it->second.runtime_icon);
             il2cpp::invoke(it->second.runtime_icon->fields.Area->fields.Icons, "Remove", it->second.runtime_icon);
         }
         if (it->second.spoiler_icon != nullptr)
         {
-            RuntimeWorldMapIcon::Hide(it->second.spoiler_icon);
+            RuntimeWorldMapIcon::Hide_intercept(it->second.spoiler_icon);
             il2cpp::invoke(it->second.spoiler_icon->fields.Area->fields.Icons, "Remove", it->second.spoiler_icon);
         }
     }
@@ -1081,10 +1122,10 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
                     ->static_fields->Instance->fields._IconManager_k__BackingField;
 
                 if (icon.runtime_icon != nullptr && !shown_by_filter(icon_manager, icon.runtime_icon))
-                    RuntimeWorldMapIcon::Hide(icon.runtime_icon);
+                    RuntimeWorldMapIcon::Hide_intercept(icon.runtime_icon);
 
                 if (icon.spoiler_icon != nullptr && !shown_by_filter(icon_manager, icon.spoiler_icon))
-                    RuntimeWorldMapIcon::Hide(icon.spoiler_icon);
+                    RuntimeWorldMapIcon::Hide_intercept(icon.spoiler_icon);
 
                 break;
             }
