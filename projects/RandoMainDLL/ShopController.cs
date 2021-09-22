@@ -121,6 +121,7 @@ namespace RandoMainDLL {
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
     private static string bmKeysDesc { get => $"Never logically required\\nNext will cost: {(KSBought == KS_MAX ? $"@{KS_PRICE}@" : $"{KS_PRICE + KS_INC}" /* look at this! the function-y props? the inline teriary? the nested string interpolations? this awful comment dragging it out? *chef's kiss */ )}"; }
     private static readonly string bmKeysName = "Black Market Keystone";
+    private static readonly string bmKeysTexture = "";
     // can actually use this for all of them besides the water one since they're either unlocked at spawn
     private static readonly string lockedTillGlades = "Locked: enter Glades\nfrom Hollow to unlock";
 
@@ -131,32 +132,32 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = s.Contents;
           if (pickup.NonEmpty)
-            InterOp.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
+            InterOpShop.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), "", "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
         }
         else if (KSOverride(t)) {
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-          InterOp.set_opher_item(i, 255, bmKeysName, bmKeysDesc, "", false);
+          InterOpShop.set_opher_item(i, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
         }
         else {
           var pickup = s.Contents;
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
-            InterOp.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type));
+            InterOpShop.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), "", lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type));
         }
       }
       foreach(var s in ShopSlot.OpherUpgrades) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
+          InterOpShop.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), "", "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), lockedTillGlades);
+          InterOpShop.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), "", lockedTillGlades);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
-        InterOp.set_lupo_item(s.State.GroupID, s.State.ID, pickup.ShopName, pickup.DescOrChatter(), "n/a");
+        InterOpShop.set_lupo_item(s.State.GroupID, s.State.ID, pickup.ShopName, pickup.DescOrChatter(), "", "n/a");
       }
     }
 
@@ -208,7 +209,7 @@ namespace RandoMainDLL {
         SaveController.KSBought++;
         SaveController.FoundCount--;
         slot.Cost = KS_PRICE;
-        InterOp.set_opher_item(255, 255, bmKeysName, bmKeysDesc, "", false);
+        InterOpShop.set_opher_item(255, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
         return;
       }
       UberSet.Bool(slot.State, true);

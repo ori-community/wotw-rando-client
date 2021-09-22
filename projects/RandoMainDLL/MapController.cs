@@ -153,7 +153,7 @@ namespace RandoMainDLL {
 
     public static void InitLupoPrices() {
       foreach (var lp in lupoPrices)
-        InterOp.set_lupo_area_price(lp.Key, lp.Value);
+        InterOpShop.set_lupo_area_price(lp.Key, lp.Value);
     }
 
     private static readonly Dictionary<AreaType, int> lupoPrices = new Dictionary<AreaType, int>() {

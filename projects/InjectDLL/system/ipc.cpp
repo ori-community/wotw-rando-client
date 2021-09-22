@@ -30,17 +30,15 @@ namespace ipc
         std::vector<std::string> messages;
         std::vector<std::string> local_messages;
 
-        void pipe_handler()
+        HANDLE connect(int buffer_size)
         {
-            DWORD bytes_read = 0;
-            std::array<char, 64> message;
             HANDLE pipe = CreateNamedPipeA(
                 "\\\\.\\pipe\\wotw_rando",
-                PIPE_ACCESS_INBOUND | FILE_FLAG_FIRST_PIPE_INSTANCE,
+                PIPE_ACCESS_DUPLEX | FILE_FLAG_FIRST_PIPE_INSTANCE,
                 PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT | PIPE_REJECT_REMOTE_CLIENTS,
                 1,
                 0,
-                message.size() * sizeof(char),
+                buffer_size * sizeof(char),
                 0,
                 nullptr
             );
@@ -48,7 +46,8 @@ namespace ipc
             if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
             {
                 warn("ipc", "Failed to create pipe.");
-                return;
+                CloseHandle(pipe);
+                return nullptr;
             }
 
             auto result = ConnectNamedPipe(pipe, nullptr);
@@ -56,31 +55,71 @@ namespace ipc
             {
                 warn("ipc", "Failed to connect to pipe.");
                 CloseHandle(pipe);
-                return;
+                return nullptr;
             }
+
+            return pipe;
+        }
+
+        void disconnect(HANDLE pipe)
+        {
+            CloseHandle(pipe);
+        }
+
+        void pipe_handler()
+        {
+            DWORD bytes_read = 0;
+            std::array<char, 64> message;
+            HANDLE pipe = connect(message.size());
+            if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
+                return;
 
             while (!shutdown_thread)
             {
-                result = ReadFile(
-                    pipe,
-                    message.data(),
-                    message.size() - 1,
-                    &bytes_read,
-                    nullptr
-                );
-
-                if (result)
+                DWORD bytes_available = 0;
+                if (!PeekNamedPipe(pipe, nullptr, 0, nullptr, &bytes_available, nullptr))
                 {
-                    message[bytes_read + 1] = '\0';
-                    message_mutex.lock();
-                    messages.push_back(message.data());
-                    message_mutex.unlock();
+                    auto error = GetLastError();
+                    if (error == ERROR_BROKEN_PIPE ||
+                        error == ERROR_PIPE_NOT_CONNECTED ||
+                        error == ERROR_INVALID_HANDLE)
+                    {
+                        warn("ipc", format("Failed to peek at pipe (%d).", error));
+                        disconnect(pipe);
+                        pipe = connect(message.size());
+                        if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
+                            return;
+                    }
                 }
-                else
-                    warn("ipc", format("Failed to read data (%d: %d).", result, GetLastError()));
+
+                if (bytes_available != 0)
+                {
+                    auto result = ReadFile(
+                        pipe,
+                        message.data(),
+                        message.size() - 1,
+                        &bytes_read,
+                        nullptr
+                    );
+
+                    if (!result || bytes_read == 0)
+                    {
+                        auto error = GetLastError();
+                        warn("ipc", format("Failed to read data (%d).", error));
+                    }
+                    else
+                    {
+                        message[bytes_read] = '\0';
+                        std::string str = message.data();
+                        trim(str);
+                        message_mutex.lock();
+                        messages.push_back(std::move(str));
+                        message_mutex.unlock();
+                    }
+                }
             }
 
-            CloseHandle(pipe);
+            disconnect(pipe);
         }
 
         void start_ipc_thread()
@@ -95,7 +134,10 @@ namespace ipc
     {
         message_mutex.lock();
         if (!messages.empty())
+        {
             local_messages = messages;
+            messages.clear();
+        }
         message_mutex.unlock();
 
         for (auto const& message : local_messages)

@@ -10,6 +10,7 @@
 #include <functional>
 #include <set>
 #include <map>
+#include <system\textures.h>
 
 using namespace modloader;
 
@@ -218,6 +219,7 @@ namespace
         uint32_t name = 0;
         uint32_t description = 0;
         uint32_t locked = 0;
+        std::wstring texture;
         bool uses_energy = false;
     };
 
@@ -301,16 +303,11 @@ namespace
 
     // Generic --------------------------------
 
-    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
-
-    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
-
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
-
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
+    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_Upgradable, (app::PlayerUberStateShards_Shard* this_ptr));
-
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_UpgradeAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
-
     IL2CPP_BINDING(, SpellUIShardEquipStatus, void, SetEquipment, (app::SpellUIShardEquipStatus* this_ptr, app::EquipmentType__Enum type));
 
     enum class ShopTypeOverwrite
@@ -322,26 +319,39 @@ namespace
     };
 
     ShopTypeOverwrite overwrite_shop_text = ShopTypeOverwrite::None;
-    app::ShopkeeperItem* selected_item;
-    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, UpdateContextCanvasShards, (app::ShopkeeperScreen* this_ptr))
-    {
+    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Show, (app::ShopkeeperScreen* this_ptr)) {
         if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterScreen"))
             overwrite_shop_text = ShopTypeOverwrite::Opher;
 
+        csharp_bridge::update_shop_data();
+        ShopkeeperScreen::Show(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Hide, (app::ShopkeeperScreen* this_ptr, bool change)) {
+        ShopkeeperScreen::Hide(this_ptr, change);
+        overwrite_shop_text = ShopTypeOverwrite::None;
+    }
+
+    app::ShopkeeperItem* selected_item;
+    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, UpdateContextCanvasShards, (app::ShopkeeperScreen* this_ptr)) {
         selected_item = get_SelectedUpgradeItem(this_ptr);
         UpdateContextCanvasShards(this_ptr);
-        overwrite_shop_text = ShopTypeOverwrite::None;
     }
 
     IL2CPP_BINDING(, ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails* this_ptr));
 
-    void set_providers(app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
+    void set_providers(
+        ShopTypeOverwrite overwrite,
+        app::ShopkeeperItem* shop_item,
+        app::MessageProvider*& name_provider,
+        app::MessageProvider*& description_provider,
+        app::MessageProvider*& locked_provider)
     {
         switch (overwrite_shop_text)
         {
         case ShopTypeOverwrite::Opher:
         {
-            auto* const item = reinterpret_cast<app::WeaponmasterItem*>(selected_item);
+            auto* const item = reinterpret_cast<app::WeaponmasterItem*>(shop_item);
             const auto key = get_key(item);
             const auto it = opher_overrides.find(key);
             if (it != opher_overrides.end())
@@ -357,6 +367,40 @@ namespace
         }
     }
 
+    app::Texture* get_icon(ShopTypeOverwrite overwrite, app::ShopkeeperItem* shop_item)
+    {
+        switch (overwrite)
+        {
+        case ShopTypeOverwrite::Opher:
+        {
+            auto* const item = reinterpret_cast<app::WeaponmasterItem*>(shop_item);
+            const auto key = get_key(item);
+            const auto it = opher_overrides.find(key);
+            if (it != opher_overrides.end() && !it->second.texture.empty())
+            {
+                auto texture = textures::get_texture(it->second.texture);
+                if (texture != nullptr)
+                    return reinterpret_cast<app::Texture*>(texture);
+            }
+
+            auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
+                ->static_fields->Instance->fields.Icons;
+            auto icon = 0;
+            auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
+            return reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon);
+        }
+        default:
+            return il2cpp::invoke<app::Texture>(shop_item, "get_ItemIcon");
+        }
+    }
+
+    IL2CPP_INTERCEPT(, WeaponmasterItem, app::Texture*, get_ItemIcon, (app::WeaponmasterItem* this_ptr)) {
+        if (overwrite_shop_text == ShopTypeOverwrite::Opher)
+            return get_icon(overwrite_shop_text, reinterpret_cast<app::ShopkeeperItem*>(this_ptr));
+        
+        return WeaponmasterItem::get_ItemIcon(this_ptr);
+    }
+
     bool locked_shop_overwrite = false;
     IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails* this_ptr))
     {
@@ -367,13 +411,15 @@ namespace
         app::MessageProvider* description_provider = nullptr;
         app::MessageProvider* locked_provider = nullptr;
 
-        set_providers(name_provider, description_provider, locked_provider);
+        set_providers(overwrite_shop_text, this_ptr->fields.m_item, name_provider, description_provider, locked_provider);
 
         auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
         auto* const renderer = renderer_components[0];
-        auto* const texture = il2cpp::invoke<app::Texture>(this_ptr->fields.m_item, "get_ItemIcon");
 
+        auto* texture = get_icon(overwrite_shop_text, this_ptr->fields.m_item);
         UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
+        if (overwrite_shop_text == ShopTypeOverwrite::Opher)
+            GameObject::SetActive(this_ptr->fields.IconGO, true);
 
         auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
         auto* const name_box = message_box_components[0];
@@ -476,6 +522,21 @@ namespace
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
 
+    app::Texture2D* get_shard_icon(app::SpiritShardType__Enum shard)
+    {
+        const auto it = twillen_overrides.find(static_cast<uint8_t>(shard));
+        if (it == twillen_overrides.end() || it->second.texture.empty())
+        {
+            auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
+                ->static_fields->Instance->fields.Icons;
+            auto icon = 0;
+            auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
+            return icons->fields.InventoryIcon;
+        }
+
+        return textures::get_texture(it->second.texture);
+    }
+
     bool locked_shard_overwrite = false;
     IL2CPP_INTERCEPT(, SpiritShardUIShardDetails, void, UpdateDetails, (app::SpiritShardUIShardDetails* this_ptr))
     {
@@ -507,8 +568,19 @@ namespace
         if (settings != nullptr)
         {
             auto* const empty_str = reinterpret_cast<app::String*>(il2cpp::string_new(""));
-            auto* const icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &type);
-            UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, reinterpret_cast<app::Texture*>(icons->fields.HeaderIcon));
+            if (overwrite_shard_text)
+            {
+                auto texture = get_shard_icon(type);
+                UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture,
+                    reinterpret_cast<app::Texture*>(texture));
+            }
+            else
+            {
+                auto* const icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(
+                    settings->fields.Icons, "GetValue", &type);
+                UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture,
+                    reinterpret_cast<app::Texture*>(icons->fields.HeaderIcon));
+            }
 
             auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
             auto* const name_box = message_box_components[0];
@@ -561,8 +633,10 @@ namespace
         ShowEmptyDetails(this_ptr);
     }
 
+    bool showing_shard_screen = false;
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen* this_ptr))
     {
+        showing_shard_screen = true;
         csharp_bridge::update_shop_data();
         // Set twillen prices.
         auto sein = get_sein();
@@ -581,13 +655,43 @@ namespace
         SpiritShardsShopScreen::Show(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Show, (app::ShopkeeperScreen* this_ptr))
-    {
-        csharp_bridge::update_shop_data();
-        ShopkeeperScreen::Show(this_ptr);
+    IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Hide, (app::SpiritShardsShopScreen* this_ptr, bool change)) {
+        SpiritShardsShopScreen::Hide(this_ptr, change);
+        showing_shard_screen = false;
     }
 
-    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy)
+    bool not_found = false;
+    IL2CPP_INTERCEPT(, SpiritShardUIItem, void, UpdateShardIcon, (app::SpiritShardUIItem* this_ptr)) {
+        if (showing_shard_screen)
+        {
+            GameObject::SetActive(this_ptr->fields.IconGO, true);
+            auto renderer = il2cpp::unity::get_components<app::Renderer>(
+                this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
+            auto shard = this_ptr->fields.m_spiritShard != nullptr ?
+                this_ptr->fields.m_spiritShard->fields.m_type : app::SpiritShardType__Enum_None;
+
+            auto texture = get_shard_icon(shard);
+            if (texture != nullptr)
+            {
+                UberShaderAPI::SetTexture(
+                    renderer,
+                    app::UberShaderProperty_Texture__Enum_MainTexture,
+                    reinterpret_cast<app::Texture*>(texture)
+                );
+            }
+        }
+        else
+            SpiritShardUIItem::UpdateShardIcon(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop* this_ptr, int actual, int total)) {
+        if (showing_shard_screen)
+            SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, 0, 0);
+        else
+            SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, actual, total);
+    }
+
+    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy)
     {
         if (item.name != 0)
             il2cpp::gchandle_free(item.name);
@@ -601,6 +705,7 @@ namespace
         provider = utils::create_message_provider(il2cpp::string_new(description));
         item.description = il2cpp::gchandle_new(provider, false);
         provider = utils::create_message_provider(il2cpp::string_new(locked));
+        item.texture = texture;
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }
@@ -641,23 +746,23 @@ namespace
     }
 }
 
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* locked, bool uses_energy) {
+INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy) {
     const auto key = opher_key(acquired, required);
     auto& item = opher_overrides[key];
-    set_item(item, name, description, locked, uses_energy);
+    set_item(item, name, description, texture, locked, uses_energy);
 }
 
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked)
 {
     const auto key = static_cast<uint8_t>(shard);
     auto& item = twillen_overrides[key];
-    set_item(item, name, description, locked, false);
+    set_item(item, name, description, texture, locked, false);
 }
 
-INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* locked)
+INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked)
 {
     const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
     const auto it = lupo_overrides.find(key);
     auto& item = lupo_overrides[key];
-    set_item(item, name, description, locked, false);
+    set_item(item, name, description, texture, locked, false);
 }

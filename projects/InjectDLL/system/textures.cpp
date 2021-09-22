@@ -23,8 +23,6 @@ namespace textures
         (System:Int32, System:Int32, UnityEngine:TextureFormat, System:Boolean, System:Boolean))
     IL2CPP_BINDING(UnityEngine, Texture2D, void, LoadRawTextureData, (app::Texture2D* this_ptr, void* data, int size));
     IL2CPP_BINDING(UnityEngine, Texture2D, void, Apply, (app::Texture2D* this_ptr, bool update_mipmaps, bool no_longer_readable));
-    IL2CPP_BINDING(UnityEngine, Texture2D, app::Byte__Array*, GetRawTextureData, (app::Texture2D* this_ptr));
-    STATIC_IL2CPP_BINDING(UnityEngine, ImageConversion, bool, LoadImage, (app::Texture2D* texture, app::Byte__Array* data, bool non_readable));
     app::Texture2D* get_texture(std::wstring_view path)
     {
         try
@@ -38,7 +36,7 @@ namespace textures
 
             auto type = path.substr(0, separator);
             auto value = std::wstring(path.substr(separator + 1));
-            if (type == L"spirit_shard")
+            if (type == L"shard")
             {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
