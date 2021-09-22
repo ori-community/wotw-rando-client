@@ -5,70 +5,84 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
 
-  enum SoundEvent {
+  public enum SoundEvent {
     QuestComplete
   }
 
-  static class InterOpMultiplayer {
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string name);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string id);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
-  }
+  public static class InterOp {
 
-  static class InterOpWeaponWheel {
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void initialize_default_wheel();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool set_wheel_item_name(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string name);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool set_wheel_item_description(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string description);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool set_wheel_item_texture(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string texture);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool set_wheel_item_color(int wheel, int item, int r, int g, int b, int a);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool set_wheel_item_enabled(int wheel, int item, bool enabled);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool set_wheel_item_callback(int wheel, int item, IntPtr callback);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool clear_wheel_item(int wheel, int item);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool set_active_wheel(int wheel);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_wheel_sticky(int wheel, bool value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_wheel_behavior(int behavior);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void refresh_wheel();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clear_wheels();
-  }
+    public static class Messaging {
 
-  static class InterOpShop {
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_twillen_item(int shard_type, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_lupo_item(int group_id, int state_id, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_opher_item(int acquired, int required, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked, bool uses_energy);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_lupo_area_price(AreaType area, int price);
-  }
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool create_text_box(int id, [MarshalAs(UnmanagedType.LPWStr)] string text, float x, float y, float fadein, float fadeout, bool should_show_box);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool move_text_box(int id, float x, float y);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool destroy_text_box(int id);
+    }
 
-  static class InterOp {
+    public static class Multiplayer {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string name);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
+    }
+
+    public static class Shop {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_twillen_item(int shard_type, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_lupo_item(int group_id, int state_id, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_opher_item(int acquired, int required, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked, bool uses_energy);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_lupo_area_price(AreaType area, int price);
+    }
+
+    public static class Wheel {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void initialize_default_wheel();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool set_wheel_item_name(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string name);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool set_wheel_item_description(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string description);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool set_wheel_item_texture(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string texture);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool set_wheel_item_color(int wheel, int item, int r, int g, int b, int a);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool set_wheel_item_enabled(int wheel, int item, bool enabled);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool set_wheel_item_callback(int wheel, int item, IntPtr callback);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool clear_wheel_item(int wheel, int item);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool set_active_wheel(int wheel);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_wheel_sticky(int wheel, bool value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_wheel_behavior(int behavior);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void refresh_wheel();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void clear_wheels();
+    }
+
     [DllImport("Il2CppModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static IntPtr get_base_path();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -39,19 +39,19 @@ namespace RandoMainDLL {
       var toRemove = currentPlayers.Except(players.Keys);
 
       foreach (var player in toRemove)
-        InterOpMultiplayer.remove_player(player);
+        InterOp.Multiplayer.remove_player(player);
 
       foreach (var player in toAdd)
-        InterOpMultiplayer.add_player(player, players[player].Name);
+        InterOp.Multiplayer.add_player(player, players[player].Name);
 
       currentPlayers = players.Keys.ToHashSet();
       foreach (var player in players)
-        InterOpMultiplayer.set_player_online(player.Key, player.Value.HasConnectedMultiverseId);
+        InterOp.Multiplayer.set_player_online(player.Key, player.Value.HasConnectedMultiverseId);
     }
 
     public static void UpdatePlayerPosition(string id, float x, float y) {
       if (currentPlayers.Any(p => p == id)) {
-        InterOpMultiplayer.update_player_position(id, x, y);
+        InterOp.Multiplayer.update_player_position(id, x, y);
       }
       else {
         Randomizer.Log($"Got player position from unknown player {id}: {x}, {y}");

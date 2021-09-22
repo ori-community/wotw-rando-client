@@ -88,7 +88,7 @@ namespace RandoMainDLL {
         } else {
           ShopSlot.ResetSlotData();
           WheelCommand.ClearWheels();
-          InterOpWeaponWheel.initialize_default_wheel();
+          InterOp.Wheel.initialize_default_wheel();
           PsuedoLocs.LOAD_SEED.Pickup().Grant();
         }
         BonusItemController.Refresh();

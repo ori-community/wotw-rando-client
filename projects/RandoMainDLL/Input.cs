@@ -91,7 +91,7 @@ namespace RandoMainDLL {
             SeedController.ReadSeed();
             if (InterOp.get_game_state() == GameState.Game) {
               WheelCommand.ClearWheels();
-              InterOpWeaponWheel.initialize_default_wheel();
+              InterOp.Wheel.initialize_default_wheel();
               PsuedoLocs.LOAD_SEED.OnCollect();
             }
           }

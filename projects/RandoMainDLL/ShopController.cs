@@ -151,32 +151,32 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = s.Contents;
           if (pickup.NonEmpty)
-            InterOpShop.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
+            InterOp.Shop.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
         }
         else if (KSOverride(t)) {
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
-          InterOpShop.set_opher_item(i, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
+          InterOp.Shop.set_opher_item(i, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
         }
         else {
           var pickup = s.Contents;
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
-            InterOpShop.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), s.Texture, lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type));
+            InterOp.Shop.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), s.Texture, lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type));
         }
       }
       foreach(var s in ShopSlot.OpherUpgrades) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOpShop.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
+          InterOp.Shop.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOpShop.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), s.Texture, lockedTillGlades);
+          InterOp.Shop.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), s.Texture, lockedTillGlades);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
-        InterOpShop.set_lupo_item(s.State.GroupID, s.State.ID, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "n/a");
+        InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "n/a");
       }
     }
 
@@ -228,7 +228,7 @@ namespace RandoMainDLL {
         SaveController.KSBought++;
         SaveController.FoundCount--;
         slot.Cost = KS_PRICE;
-        InterOpShop.set_opher_item(255, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
+        InterOp.Shop.set_opher_item(255, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
         return;
       }
       UberSet.Bool(slot.State, true);

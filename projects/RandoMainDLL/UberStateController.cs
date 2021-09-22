@@ -418,7 +418,7 @@ namespace RandoMainDLL {
 
         WheelCommand.ClearWheels();
         ShopSlot.ResetSlotData();
-        InterOpWeaponWheel.initialize_default_wheel();
+        InterOp.Wheel.initialize_default_wheel();
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty || PsuedoLocs.LOAD_SEED.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback.Add(() => {
             MapController.UpdateReachable(2000);

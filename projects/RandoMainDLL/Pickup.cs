@@ -1192,7 +1192,7 @@ namespace RandoMainDLL {
       public override string DisplayName { get => ""; }
 
       public static void ClearWheels() {
-        InterOpWeaponWheel.clear_wheels();
+        InterOp.Wheel.clear_wheels();
         ActionCommand.linkedPickups.Clear();
       }
     }
@@ -1201,7 +1201,7 @@ namespace RandoMainDLL {
       public readonly int wheel;
       public SetActiveWheelCommand(int wheel) : base(WheelCommandType.SetActiveWheel) => this.wheel = wheel;
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_active_wheel(wheel);
+        InterOp.Wheel.set_active_wheel(wheel);
       }
     }
 
@@ -1213,7 +1213,7 @@ namespace RandoMainDLL {
         this.sticky = sticky;
       }
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_wheel_sticky(wheel, sticky);
+        InterOp.Wheel.set_wheel_sticky(wheel, sticky);
       }
     }
 
@@ -1227,7 +1227,7 @@ namespace RandoMainDLL {
         this.name = name;
       }
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_wheel_item_name(wheel, item, name);
+        InterOp.Wheel.set_wheel_item_name(wheel, item, name);
       }
     }
 
@@ -1241,7 +1241,7 @@ namespace RandoMainDLL {
         this.description = description;
       }
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_wheel_item_description(wheel, item, description);
+        InterOp.Wheel.set_wheel_item_description(wheel, item, description);
       }
     }
 
@@ -1255,7 +1255,7 @@ namespace RandoMainDLL {
         this.texture = texture;
       }
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_wheel_item_texture(wheel, item, texture);
+        InterOp.Wheel.set_wheel_item_texture(wheel, item, texture);
       }
     }
 
@@ -1275,7 +1275,7 @@ namespace RandoMainDLL {
         this.a = a;
       }
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.set_wheel_item_color(wheel, item, r, g, b, a);
+        InterOp.Wheel.set_wheel_item_color(wheel, item, r, g, b, a);
       }
     }
 
@@ -1287,7 +1287,7 @@ namespace RandoMainDLL {
         this.item = item;
       }
       public override void Grant(bool skipBase = false) {
-        InterOpWeaponWheel.clear_wheel_item(wheel, item);
+        InterOp.Wheel.clear_wheel_item(wheel, item);
         var key = new ActionCommand.ActionKey(wheel, item, 0);
         ActionCommand.linkedPickups.Remove(key);
         key.binding = 1;
@@ -1333,7 +1333,7 @@ namespace RandoMainDLL {
       }
       public override void Grant(bool skipBase = false) {
         linkedPickups[key] = pickup;
-        InterOpWeaponWheel.set_wheel_item_callback(key.wheel, key.item, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
+        InterOp.Wheel.set_wheel_item_callback(key.wheel, key.item, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
       }
       private static void Callback(int wheel, int item, int binding) {
         // We offset binding by 1 here because we want to have 0 be 'Any' binding.
