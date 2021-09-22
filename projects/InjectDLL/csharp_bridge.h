@@ -22,6 +22,7 @@ namespace csharp_bridge
         using f_void_string = void(*)(const char*);
         using f_void_string_dt = void(*)(const char*, app::DamageType__Enum);
         using f_void_st = void(*)(ShardType);
+        using f_void_st_int_int = void(*)(ShardType, int, int);
         using f_bool = bool(*)();
         using f_bool_at = bool(*)(app::AbilityType__Enum);
         using f_bool_int = bool(*)(int);
@@ -74,6 +75,7 @@ namespace csharp_bridge
     extern signatures::f_bool_at opher_bought_upgrade;
     extern signatures::f_void_st twillen_buy_shard;
     extern signatures::f_bool_st twillen_bought_shard;
+    extern signatures::f_void_st_int_int twillen_shard_upgraded;
     extern signatures::f_int_st twillen_shard_cost;
     extern signatures::f_int_int lupo_upgrade_cost;
     extern signatures::f_void update_shop_data;

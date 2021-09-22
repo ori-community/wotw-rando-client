@@ -40,6 +40,7 @@ namespace csharp_bridge
     signatures::f_bool_at opher_bought_upgrade = nullptr;
     signatures::f_void_st twillen_buy_shard = nullptr;
     signatures::f_bool_st twillen_bought_shard = nullptr;
+    signatures::f_void_st_int_int twillen_shard_upgraded = nullptr;
     signatures::f_int_st twillen_shard_cost = nullptr;
     signatures::f_int_int lupo_upgrade_cost = nullptr;
     signatures::f_void update_shop_data = nullptr;
@@ -147,4 +148,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_teleporting = reinterpret_cast<f_void>(ptr);
     else if (name == "on_action_triggered")
         on_action_triggered = reinterpret_cast<f_void_a>(ptr);
+    else if (name == "twillen_shard_upgraded")
+        twillen_shard_upgraded = reinterpret_cast<f_void_st_int_int>(ptr);
 }

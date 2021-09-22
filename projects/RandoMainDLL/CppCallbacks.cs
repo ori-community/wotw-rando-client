@@ -98,7 +98,7 @@ namespace RandoMainDLL {
             CallbackName = "is_tree_activated"
           },
           new Method() {
-            Delegate = new f_void_gwa((AreaType at) => HintsController.OnMapPan(at)),
+            Delegate = new f_void_gwa(HintsController.OnMapPan),
             CallbackName = "on_map_pan"
           },
           new Method() {
@@ -188,6 +188,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_a(Input.OnActionTriggered),
             CallbackName = "on_action_triggered"
+          },
+          new Method() {
+            Delegate = new f_void_st_int_int(ShopController.OnUpgradeTwillenShard),
+            CallbackName = "twillen_shard_upgraded"
           }
         };
       }
@@ -205,6 +209,7 @@ namespace RandoMainDLL {
     public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate void f_void_str_dt([MarshalAs(UnmanagedType.LPStr)] string str, DamageType dt);
     public delegate void f_void_st(ShardType st);
+    public delegate void f_void_st_int_int(ShardType t, int l, int s);
     public delegate void f_void_gwa(AreaType at);
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);

@@ -547,8 +547,16 @@ namespace
         UpdateContextCanvasShards(this_ptr);
     }
 
-    IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
+    IL2CPP_BINDING(, UpgradableShardItem, int, get_ItemCurrentLevel, (app::UpgradableShardItem* item));
+    IL2CPP_BINDING(, UpgradableShardItem, int, GetCostForLevel, (app::UpgradableShardItem* item, int level));
+    IL2CPP_INTERCEPT(, UpgradableShardItem, void, DoPurchase, (app::UpgradableShardItem* this_ptr, app::PurchaseContext* context)) {
+        UpgradableShardItem::DoPurchase(this_ptr, context);
+        auto level = UpgradableShardItem::get_ItemCurrentLevel(this_ptr);
+        auto cost = UpgradableShardItem::GetCostForLevel(this_ptr, level - 1);
+        csharp_bridge::twillen_shard_upgraded(static_cast<csharp_bridge::ShardType>(this_ptr->fields.Shard), level, cost);
+    }
 
+    IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
     app::Texture2D* get_shard_icon(app::SpiritShardType__Enum shard)
     {
         const auto it = twillen_overrides.find(static_cast<uint8_t>(shard));

@@ -260,6 +260,11 @@ namespace RandoMainDLL {
       Randomizer.Log($"sold {item} from {slot} for ${slot.Cost}", false);
       UberSet.Bool(slot.State, true);
     }
+
+    public static void OnUpgradeTwillenShard(ShardType st, int level, int cost) {
+
+    }
+
     public static bool OpherBoughtWeapon(AbilityType granted) => granted.Slot().Bought;
     public static bool TwillenBoughtShard(ShardType shard) => shard.Slot().Bought;
     public static bool OpherBoughtUpgrade(AbilityType slot) => slot.Upgraded();
