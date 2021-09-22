@@ -628,20 +628,48 @@ namespace RandoMainDLL {
                 return new Message(err);
               }
           }
-        case PickupType.UberState:
-          extras.Insert(0, pickupData);
-          if (extras.Count < 4 || extras.Count > 5) {
-            var bad = String.Join("|", extras);
-            Randomizer.Log($"malformed UberModifier specifier {bad}", false);
-            return new Message($"Invalid UberModifier specifier {bad}!");
+        case PickupType.Shop: {
+            var s = (ShopCommandType)pickupData.ParseToByte();
+            switch (s) {
+              case ShopCommandType.Icon: {
+                  if (extras.Count < 3) {
+                    Randomizer.Log($"malformed shop command specifier {pickupData}", false);
+                    return new Message($"Invalid shop command {pickupData}!");
+                  }
+
+                  var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
+                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
+                  var texture = extras[2];
+                  var uberId = new UberId(group, state);
+                  if (ShopSlot.GetSlot(uberId) == null) {
+                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
+                    return new Message($"Invalid shop command {pickupData}!");
+                  }
+
+                  return new Shop.IconCommand(uberId, texture);
+                }
+              default: {
+                  var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
+                  Randomizer.Error("BuildPickup", err, false);
+                  return new Message(err);
+                }
+            }
           }
-          var uberId = new UberId(
-              extras[0].ParseToInt("BuildPickup.UberGroupId"),
-              extras[1].ParseToInt("BuildPickup.UberId")
-            );
-          var stateType = uberTypeFromString(extras[2]);
-          Func<UberValue, double> modifier = GetUberSetter(stateType, extras[3]);
-          return new UberStateModifier(uberId, modifier, extras[3], extras.Count == 5 ? extras[4].Replace("skip=", "").ParseToInt("BuildPickup.SupCount") : 0);
+        case PickupType.UberState: {
+            extras.Insert(0, pickupData);
+            if (extras.Count < 4 || extras.Count > 5) {
+              var bad = String.Join("|", extras);
+              Randomizer.Log($"malformed UberModifier specifier {bad}", false);
+              return new Message($"Invalid UberModifier specifier {bad}!");
+            }
+            var uberId = new UberId(
+                extras[0].ParseToInt("BuildPickup.UberGroupId"),
+                extras[1].ParseToInt("BuildPickup.UberId")
+              );
+            var stateType = uberTypeFromString(extras[2]);
+            Func<UberValue, double> modifier = GetUberSetter(stateType, extras[3]);
+            return new UberStateModifier(uberId, modifier, extras[3], extras.Count == 5 ? extras[4].Replace("skip=", "").ParseToInt("BuildPickup.SupCount") : 0);
+          }
         default: {
             var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
             Randomizer.Error("BuildPickup", err, false);

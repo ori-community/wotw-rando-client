@@ -86,6 +86,7 @@ namespace RandoMainDLL {
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
           UberStateController.QueueSyncedStateUpdate();
         } else {
+          ShopSlot.ResetSlotData();
           WheelCommand.ClearWheels();
           InterOpWeaponWheel.initialize_default_wheel();
           PsuedoLocs.LOAD_SEED.Pickup().Grant();

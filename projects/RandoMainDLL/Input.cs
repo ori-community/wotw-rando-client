@@ -86,6 +86,7 @@ namespace RandoMainDLL {
           if (AHK.CanReload()) {
             AHK.Reload();
             Msg.Reload();
+            ShopSlot.ResetSlotData();
             WebSocketClient.Connect();
             SeedController.ReadSeed();
             if (InterOp.get_game_state() == GameState.Game) {

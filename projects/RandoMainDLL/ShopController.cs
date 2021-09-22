@@ -20,9 +20,13 @@ namespace RandoMainDLL {
     }
 
     public bool Bought { get => UberGet.Bool(State); }
-     
+    
+    public string Texture { get; set; }
     public Pickup Contents => State.toCond().Pickup();
 
+    public void Reset() {
+      Texture = "";
+    }
 
     public static OpherSlot Sentry = new OpherSlot(AbilityType.Sentry);
     public static OpherSlot Star = new OpherSlot(AbilityType.SpiritStar);
@@ -57,6 +61,21 @@ namespace RandoMainDLL {
 
     public static List<LupoStoreSlot> LupoStore = new List<LupoStoreSlot> { HealthIcons, EnergyIcons, ShardIcons };
     public static List<ShopSlot> All = new List<List<ShopSlot>>() {OpherUpgrades.ToList<ShopSlot>(), Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
+
+    public static void ResetSlotData() {
+      foreach (var slot in All) {
+        slot.Reset();
+      }
+    }
+
+    public static ShopSlot GetSlot(UberId id) {
+      foreach (var slot in All) {
+        if (slot.State == id)
+          return slot;
+      }
+
+      return null;
+    }
   }
   public class OpherSlot : ShopSlot {
     public readonly AbilityType Weapon;

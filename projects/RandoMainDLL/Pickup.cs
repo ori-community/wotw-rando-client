@@ -24,7 +24,8 @@ namespace RandoMainDLL {
     CheckableHint = 13,
     Relic = 14,
     SysMessage = 15,
-    Wheel = 16
+    Wheel = 16,
+    Shop = 17
   }
 
   public class DoneWithThis : Exception { };
@@ -77,6 +78,10 @@ namespace RandoMainDLL {
     SetActiveWheel = 6,
     ClearItem = 7,
     ClearAll = 8,
+  }
+
+  public enum ShopCommandType : byte {
+    Icon = 0
   }
 
   public enum TeleporterType : byte {
@@ -1339,6 +1344,37 @@ namespace RandoMainDLL {
           key.binding = 0;
           if (linkedPickups.ContainsKey(key))
             linkedPickups[key].Grant();
+        }
+      }
+    }
+  }
+
+  namespace Shop {
+    public class ShopCommand : Pickup {
+      public readonly UberId SlotId;
+
+      public override PickupType Type => PickupType.Shop;
+      public ShopCommandType CommandType { get; }
+
+      public ShopCommand(ShopCommandType type, UberId slotId) {
+        CommandType = type;
+        SlotId = slotId;
+      }
+    }
+
+    public class IconCommand : ShopCommand {
+      public readonly string Texture;
+
+      public IconCommand(UberId slotId, string texture) : base(ShopCommandType.Icon, slotId) {
+        Texture = texture;
+      }
+
+      public override void Grant(bool skipBase = false) {
+        switch (CommandType) {
+          case ShopCommandType.Icon:
+            var slot = ShopSlot.GetSlot(SlotId);
+            slot.Texture = Texture;
+            break;
         }
       }
     }
