@@ -154,7 +154,7 @@ namespace RandoMainDLL {
     public bool NonEmpty = true;
     public bool Muted = false;
     public abstract PickupType Type { get; }
-    public virtual string DisplayName { get; }
+    public abstract string DisplayName { get; }
     public virtual string ShopName { get => DisplayName; }
     public virtual string Name { get => DisplayName; }
     public override string ToString() => Name;
@@ -1350,9 +1350,8 @@ namespace RandoMainDLL {
   }
 
   namespace Shop {
-    public class ShopCommand : Pickup {
+    public abstract class ShopCommand : Pickup {
       public readonly UberId SlotId;
-
       public override PickupType Type => PickupType.Shop;
       public ShopCommandType CommandType { get; }
 
@@ -1363,7 +1362,11 @@ namespace RandoMainDLL {
     }
 
     public class IconCommand : ShopCommand {
+
       public readonly string Texture;
+
+      public override string Name { get => $"{Texture} icon for {SlotId}"; }
+      public override string DisplayName { get => ""; }
 
       public IconCommand(UberId slotId, string texture) : base(ShopCommandType.Icon, slotId) {
         Texture = texture;

@@ -318,18 +318,39 @@ namespace
         Grom
     };
 
+    bool stop_shop_overwrite = false;
     ShopTypeOverwrite overwrite_shop_text = ShopTypeOverwrite::None;
     IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Show, (app::ShopkeeperScreen* this_ptr)) {
         if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterScreen"))
+        {
+            stop_shop_overwrite = false;
             overwrite_shop_text = ShopTypeOverwrite::Opher;
+        }
 
         csharp_bridge::update_shop_data();
         ShopkeeperScreen::Show(this_ptr);
     }
 
+    // This is horrendous, needed because of fade out of shop icons.
+    float stop_overwrite_time = 4.0f;
+    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
+    IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr)) {
+        GameController::FixedUpdate(this_ptr);
+        if (stop_shop_overwrite)
+        {
+            stop_overwrite_time -= TimeUtility::get_fixedDeltaTime();
+            if (stop_overwrite_time < 0.0f)
+            {
+                stop_shop_overwrite = false;
+                overwrite_shop_text = ShopTypeOverwrite::None;
+            }
+        }
+    }
+
     IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Hide, (app::ShopkeeperScreen* this_ptr, bool change)) {
         ShopkeeperScreen::Hide(this_ptr, change);
-        overwrite_shop_text = ShopTypeOverwrite::None;
+        stop_overwrite_time = 1.0f;
+        stop_shop_overwrite = true;
     }
 
     app::ShopkeeperItem* selected_item;
