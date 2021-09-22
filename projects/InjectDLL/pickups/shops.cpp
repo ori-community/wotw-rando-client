@@ -239,6 +239,12 @@ namespace
         {
             item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
             item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+            if (!it->second.texture.empty())
+            {
+                auto texture = textures::get_texture(it->second.texture);
+                if (texture)
+                    item->fields.Icon = texture;
+            }
         }
 
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
