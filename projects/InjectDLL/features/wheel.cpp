@@ -595,44 +595,44 @@ INJECT_C_DLLEXPORT void clear_wheels()
 app::GameObject* go = nullptr;
 INJECT_C_DLLEXPORT void initialize_default_wheel()
 {
-    add_wheel_item(0, 11, L"Rando Actions", L"Contains default\nrandomizer actions", L"spirit_shard:13",
+    add_wheel_item(0, 11, L"Rando Actions", L"Contains default\nrandomizer actions", L"shard:13",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { set_active_wheel(9000); });
 
-    add_wheel_item(9000, 0, L"Show last pickup", L"Displays the message associated\nwith the last pickup.", L"spirit_shard:4",
+    add_wheel_item(9000, 0, L"Show last pickup", L"Displays the message associated\nwith the last pickup.", L"shard:4",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowLastPickup); });
-    add_wheel_item(9000, 1, L"Show progress, with hints.", L"Displays current goal mode progress and bought hints.", L"spirit_shard:5",
+    add_wheel_item(9000, 1, L"Show progress, with hints.", L"Displays current goal mode progress and bought hints.", L"shard:5",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowProgressWithHints); });
-    add_wheel_item(9000, 2, L"Warp to credits", L"Warp directly to the credits,\nonly works if you have finished the bingo.", L"spirit_shard:6",
+    add_wheel_item(9000, 2, L"Warp to credits", L"Warp directly to the credits,\nonly works if you have finished the bingo.", L"shard:6",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::WarpCredits); });
-    add_wheel_item(9000, 10, L"Reload", L"Reloads the seed file", L"spirit_shard:2",
+    add_wheel_item(9000, 10, L"Reload", L"Reloads the seed file", L"shard:2",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::Reload); });
-    add_wheel_item(9000, 11, L"Next", L"Go to next page of actions", L"spirit_shard:3",
+    add_wheel_item(9000, 11, L"Next", L"Go to next page of actions", L"shard:3",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { set_active_wheel(9001); });
 
-    add_wheel_item(9001, 0, L"Toggle keystones", L"Toggle to always show the keystone ui.", L"spirit_shard:1",
+    add_wheel_item(9001, 0, L"Toggle keystones", L"Toggle to always show the keystone ui.", L"shard:1",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleAlwaysShowKeystones); } );
-    add_wheel_item(9001, 1, L"Toggle cursor lock", L"Toggle to confine the mouse cursor to the window.", L"spirit_shard:2",
+    add_wheel_item(9001, 1, L"Toggle cursor lock", L"Toggle to confine the mouse cursor to the window.", L"shard:2",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleCursorLock); });
-    add_wheel_item(9001, 2, L"Toggle dev", L"Toggles the dev flag.", L"spirit_shard:4",
+    add_wheel_item(9001, 2, L"Toggle dev", L"Toggles the dev flag.", L"shard:4",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ShowDevFlag); });
-    add_wheel_item(9001, 3, L"Toggle debug", L"Toggle debug controls", L"spirit_shard:5",
+    add_wheel_item(9001, 3, L"Toggle debug", L"Toggle debug controls", L"shard:5",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ToggleDebug); });
-    add_wheel_item(9001, 4, L"Display coordinates", L"Displays your current/ncoordinates as a message", L"spirit_shard:6",
+    add_wheel_item(9001, 4, L"Display coordinates", L"Displays your current/ncoordinates as a message", L"shard:6",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::PrintCoordinates); });
-    add_wheel_item(9001, 5, L"Teleport cheat", L"Toggles cheat to teleport\nanywhere on the map", L"spirit_shard:7",
+    add_wheel_item(9001, 5, L"Teleport cheat", L"Toggles cheat to teleport\nanywhere on the map", L"shard:7",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::TeleportCheat); });
-    add_wheel_item(9001, 6, L"Unlock spoilers", L"Unlock spoilers filter on the map", L"spirit_shard:8",
+    add_wheel_item(9001, 6, L"Unlock spoilers", L"Unlock spoilers filter on the map", L"shard:8",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::UnlockSpoilers); });
-    add_wheel_item(9001, 7, L"Toggle pickup names", L"Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", L"spirit_shard:9",
+    add_wheel_item(9001, 7, L"Toggle pickup names", L"Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", L"shard:9",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::TogglePickupNamesOnSpoiler); });
-    add_wheel_item(9001, 9, L"Force Exit", L"Forcibly exit the game.", L"spirit_shard:10",
+    add_wheel_item(9001, 9, L"Force Exit", L"Forcibly exit the game.", L"shard:10",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ForceExit); });
-    add_wheel_item(9001, 10, L"Clear messages", L"Clears the message queue.", L"spirit_shard:11",
+    add_wheel_item(9001, 10, L"Clear messages", L"Clears the message queue.", L"shard:11",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { csharp_bridge::on_action_triggered(input::Action::ClearMessages); });
-    add_wheel_item(9001, 11, L"Next", L"Go to next page of actions", L"spirit_shard:3",
+    add_wheel_item(9001, 11, L"Next", L"Go to next page of actions", L"shard:3",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) { set_active_wheel(9000); });
 
-    add_wheel_item(9001, 8, L"Test texture", L"oriLurk", L"spirit_shard:14",
+    add_wheel_item(9001, 8, L"Test texture", L"oriLurk", L"shard:14",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) {
             //if (go == nullptr)
             //{
