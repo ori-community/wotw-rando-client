@@ -29,6 +29,7 @@ namespace il2cpp
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Component*, AddComponent, (app::GameObject* this_ptr, app::Type* type));
         IL2CPP_BINDING_OVERLOAD(UnityEngine, GameObject, app::IComponent__Array*, GetComponents, (app::GameObject* this_ptr, app::Type* type), (System:Type));
+        IL2CPP_BINDING_OVERLOAD(UnityEngine, GameObject, app::IComponent__Array*, GetComponentInChildren, (app::GameObject* this_ptr, app::Type* type), (System:Type));
 
         IL2CPP_BINDING(UnityEngine, Transform, int32_t, GetChildCount, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int32_t index));
@@ -222,6 +223,14 @@ namespace il2cpp
                 components.push_back(reinterpret_cast<app::Component*>(c_array->vector[i]));
 
             return components;
+        }
+
+        app::Component* get_component_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
+        {
+            auto qualified = get_qualified(namezpace, name);
+            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto runtime_type = Type::GetType(type_str, false);
+            return reinterpret_cast<app::Component*>(GameObject::GetComponentInChildren(game_object, runtime_type));
         }
 
         app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name)

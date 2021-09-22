@@ -24,6 +24,7 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_transform(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* get_game_object(void* component);
         IL2CPP_MODLOADER_DLLEXPORT app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
+        IL2CPP_MODLOADER_DLLEXPORT app::Component* get_component_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_children(app::GameObject* game_object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path);
@@ -54,6 +55,12 @@ namespace il2cpp
                 output.push_back(reinterpret_cast<Return*>(component));
 
             return output;
+        }
+
+        template<typename Return = app::Component>
+        Return* get_component_in_children(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
+        {
+            return reinterpret_cast<Return*>(get_component_in_children_untyped(game_object, namezpace, name));
         }
 
         template<typename Return = app::ScriptableObject>

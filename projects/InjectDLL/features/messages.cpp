@@ -1,6 +1,7 @@
+#include <csharp_bridge.h>
 #include <dll_main.h>
 #include <features/messages.h>
-#include <csharp_bridge.h>
+#include <utils/messaging.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -11,6 +12,7 @@
 #include <locale>
 #include <codecvt>
 #include <unordered_map>
+#include <unordered_set>
 #include <xstring>
 
 using namespace modloader;
@@ -126,6 +128,19 @@ namespace
         bool below;
     };
 
+    struct PermanentRandoMessage
+    {
+        int id;
+        app::Vector3 pos;
+        std::wstring text;
+        bool should_show_box = true;
+        bool alive = true;
+        float fadein = 0.5f;
+        float fadeout = 0.5f;
+        uint32_t handle = -1;
+    };
+
+    std::unordered_map<int, PermanentRandoMessage> permanent_messages;
     std::vector<RandoMessage> messages;
 
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_MainMenuVisible, ());
@@ -179,18 +194,18 @@ namespace
         return false;
     }
 
-    uint32_t set_box(app::MessageBox** box, const RandoMessage& message)
+    uint32_t set_box(const RandoMessage& message)
     {
         auto msg = reinterpret_cast<app::String*>(il2cpp::string_new(message.text));
         const auto message_controller = get_ui()->static_fields->MessageController;
-        *box = MessageControllerB::ShowHintSmallMessage(
+        app::MessageBox* box = MessageControllerB::ShowHintSmallMessage(
             message_controller,
             app::MessageDescriptor{ msg, app::EmotionType__Enum_Neutral, nullptr, nullptr },
             message.pos,
             message.duration
         );
-        (*box)->fields.MessageIndex = 1;
-        return il2cpp::gchandle_new_weak((Il2CppObject*)(*box), true);
+        box->fields.MessageIndex = 1;
+        return il2cpp::gchandle_new_weak(box, true);
     }
 
     void show_msg(const RandoMessage& message)
@@ -212,13 +227,14 @@ namespace
                 }
             }
 
-            below_box_handle = set_box(&below_hint_box, message);
+            below_box_handle = set_box(message);
+            below_hint_box = reinterpret_cast<app::MessageBox*>(il2cpp::gchandle_target(last_handle));
         }
         else
         {
-            app::MessageBox* box = nullptr;
-            last_handle = set_box(&box, message);
-            last_message = box->fields.m_currentMessage.Message;;
+            last_handle = set_box(message);
+            app::MessageBox* box = reinterpret_cast<app::MessageBox*>(il2cpp::gchandle_target(last_handle));
+            last_message = box->fields.m_currentMessage.Message;
             tracked_boxes.insert(box);
         }
     }
@@ -227,6 +243,57 @@ namespace
     INJECT_C_DLLEXPORT void clear_quest_messages()
     {
         clear_on_next_update = true;
+    }
+
+    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
+    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* this_ptr, void* obj));
+    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
+    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
+    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
+    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform* this_ptr));
+    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int index));
+    IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
+    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
+    app::GameObject* create_permanent_box(PermanentRandoMessage& message)
+    {
+        auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
+        auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate(controller->fields.HintSmallMessage));
+        message.handle = il2cpp::gchandle_new(go, false);
+        auto parent = Transform::get_parent(il2cpp::unity::get_transform(controller->fields.HintSmallMessage));
+        Transform::set_parent(il2cpp::unity::get_transform(go), parent);
+
+        auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(go, "", "MessageBox");
+        message_box->fields.ShouldWriteOut = true;
+
+        message_box->fields.Visibility->fields.TransitionInDuration = message.fadein;
+        message_box->fields.Visibility->fields.TransitionOutDuration = message.fadeout;
+        message_box->fields.Visibility->fields.WaitDuration = 1.0f;
+        message_box->fields.Visibility->fields.m_delayTime = 1.0f;
+        message_box->fields.Visibility->fields.m_timeSpeed = 1.00000000 / message.fadein;
+        
+        message_box->fields.Visibility->fields.DestroyOnHide = true;
+
+        message_box->fields.StartId = 0;
+        message_box->fields.LockInput = false;
+        message_box->fields.EndId = 0;
+        message_box->fields.IsInteractive = false;
+        message_box->fields.MessageIndex = 0;
+
+        auto empty = il2cpp::get_class<app::String__Class>("System", "String")->static_fields->Empty;
+        message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(message.text));
+        MessageBox::RefreshText(message_box, empty, empty);
+
+        auto transform = il2cpp::unity::get_transform(go);
+        if (!message.should_show_box)
+        {
+            auto background = il2cpp::unity::get_game_object(Transform::GetChild(transform, 2));
+            GameObject::SetActive(background, false);
+        }
+
+        Transform::set_position(transform, &message.pos);
+        GameObject::SetActive(go, true);
+
+        return go;
     }
 
     IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController* this_ptr)) {
@@ -244,6 +311,39 @@ namespace
             messages.clear();
         }
 
+        std::unordered_set<int> dead_messages;
+        for (auto& message : permanent_messages)
+        {
+            if (message.second.handle == -1)
+                create_permanent_box(message.second);
+
+            auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.second.handle));
+            if (!Object::op_Implicit(go))
+            {
+                // Something else killed this game object.
+                il2cpp::gchandle_free(message.second.handle);
+                dead_messages.emplace(message.second.id);
+                continue;
+            }
+
+            auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
+            message_box->fields.Visibility->fields.m_delayTime = 1.0f;
+            if (!message.second.alive)
+            {
+                message_box->fields.Visibility->fields.m_delayTime = 0.0f;
+                message_box->fields.Visibility->fields.m_timeSpeed = 1.00000000 / message.second.fadeout;
+                il2cpp::gchandle_free(message.second.handle);
+                dead_messages.emplace(message.second.id);
+                continue;
+            }
+
+            auto transform = il2cpp::unity::get_transform(go);
+            Transform::set_position(transform, &message.second.pos);
+        }
+
+        for (auto id : dead_messages)
+            permanent_messages.erase(id);
+
         QuestsController::Update(this_ptr);
     }
 
@@ -259,13 +359,6 @@ namespace
         if (tracked_boxes.find(this_ptr) == tracked_boxes.end() && is_visible(this_ptr))
             tracked_boxes.insert(this_ptr);
     }
-
-    // Probably not needed anymore?
-    //IL2CPP_INTERCEPT(, NPCMessageBox, void, FixedUpdate, (app::NPCMessageBox* this_ptr)) {
-    //    NPCMessageBox::FixedUpdate(this_ptr);
-    //    if (this_ptr->fields.MessageBox != npc_box && is_visible(this_ptr->fields.MessageBox))
-    //        npc_box = this_ptr->fields.MessageBox;
-    //}
 
     IL2CPP_INTERCEPT(, MessageBox, void, OnDestroy, (app::MessageBox* this_ptr)) {
         MessageBox::OnDestroy(this_ptr);
@@ -321,6 +414,47 @@ INJECT_C_DLLEXPORT void display_below(const wchar_t* hint, float duration, bool 
 INJECT_C_DLLEXPORT void update_map_hint(const wchar_t* info)
 {
     messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
+}
+
+INJECT_C_DLLEXPORT bool create_text_box(int id, const wchar_t* text, float x, float y, float fadein, float fadeout, bool should_show_box)
+{
+    if (permanent_messages.find(id) != permanent_messages.end())
+        return false;
+
+    PermanentRandoMessage message;
+    message.id = id;
+    message.text = text;
+    message.should_show_box = false;
+    message.pos = { x, y, 0.0f };
+    message.alive = true;
+    message.fadein = fadein;
+    message.fadeout = fadeout;
+    message.should_show_box = should_show_box;
+    message.handle = -1;
+    permanent_messages.emplace(id, std::move(message));
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool move_text_box(int id, float x, float y)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.pos.x = x;
+    message->second.pos.y = y;
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool destroy_text_box(int id)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.alive = false;
+    return true;
 }
 
 INJECT_C_DLLEXPORT app::String* get_current_hint()

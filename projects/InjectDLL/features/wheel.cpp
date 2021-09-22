@@ -479,7 +479,8 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
         auto* actual_texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture));
         if (actual_texture == nullptr)
         {
-            warn("wheel", format("failed to find texture"));
+            auto texture_str = convert_wstring_to_string(texture);
+            warn("wheel", format("failed to find texture %s", texture_str.c_str()));
             return false;
         }
 
@@ -592,6 +593,9 @@ INJECT_C_DLLEXPORT void clear_wheels()
     wheels.clear();
 }
 
+INJECT_C_DLLEXPORT extern bool create_text_box(int id, const wchar_t* text, float x, float y, float fadein, float fadeout, bool should_show_box);
+INJECT_C_DLLEXPORT extern bool destroy_text_box(int id);
+
 app::GameObject* go = nullptr;
 INJECT_C_DLLEXPORT void initialize_default_wheel()
 {
@@ -634,19 +638,17 @@ INJECT_C_DLLEXPORT void initialize_default_wheel()
 
     add_wheel_item(9001, 8, L"Test texture", L"oriLurk", L"shard:14",
         [](CustomWheelEntry const& entry, app::SpellUIItem* item, int binding) {
-            //if (go == nullptr)
-            //{
-            //    go = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
-            //    auto renderer = il2cpp::unity::add_component<app::Renderer>(go, "UnityEngine", "Renderer");
-            //    auto material = il2cpp::create_object<app::Material>("UnityEngine", "Material");
-            //    il2cpp::invoke(renderer, "set_material", material);
-            //
-            //    auto pos = SeinCharacter::get_Position(get_sein());
-            //    auto trans = il2cpp::unity::get_transform(go);
-            //    il2cpp::invoke(trans, "set_position", &pos);
-            //}
-            //
-            //auto renderer = il2cpp::unity::get_components<app::Renderer>(go, "UnityEngine", "Renderer")[0];
+            static bool initialized = false;
+            if (initialized)
+            {
+                destroy_text_box(0);
+                initialized = false;
+            }
+            else
+            {
+                create_text_box(0, L"This is a test", 0.0f, 0.0f, 0.5f, 0.5f, false);
+                initialized = true;
+            }
         }
     );
 }
