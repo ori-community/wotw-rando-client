@@ -59,6 +59,7 @@ set(
     "pickups/bonus/energy_cost_upgrades.cpp"
     "pickups/bonus/extra_ability_activations.cpp"
     "pickups/bonus/hammer_attack_speed.cpp"
+    "pickups/bonus/spear_attack_speed.cpp"
     "pickups/bonus/sword_attack_speed.cpp"
     "pickups/bonus/velocity.cpp"
     "system/ipc.cpp"
