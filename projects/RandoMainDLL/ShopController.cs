@@ -6,6 +6,10 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public abstract class ShopSlot {
+    public ShopSlot() {
+      Texture = "";
+    }
+
     public abstract UberId State { get; }
     public abstract UberId CostState { get; }
     public abstract String Name { get;  }
