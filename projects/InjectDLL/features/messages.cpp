@@ -318,7 +318,11 @@ namespace
         style->fields.hasColor = true;
 
         char* out = nullptr;
-        style->fields.color.rgba = std::strtoul(text.c_str(), &out, 16);
+        auto color_channels = std::strtoul(text.c_str(), &out, 16);
+        style->fields.color.rgba = ((color_channels >> 24) & 0xff) |
+            ((color_channels << 8) & 0xff0000) |
+            ((color_channels >> 8) & 0xff00) |
+            ((color_channels << 24) & 0xff000000);
 
         // Set everything to good values.
         style->fields.rendererId = -1;
