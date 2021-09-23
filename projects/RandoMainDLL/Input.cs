@@ -90,8 +90,7 @@ namespace RandoMainDLL {
             WebSocketClient.Connect();
             SeedController.ReadSeed();
             if (InterOp.get_game_state() == GameState.Game) {
-              WheelCommand.ClearWheels();
-              InterOp.Wheel.initialize_default_wheel();
+              WheelManager.ResetWheels();
               PsuedoLocs.LOAD_SEED.OnCollect();
             }
           }
@@ -106,6 +105,7 @@ namespace RandoMainDLL {
           Randomizer.Dev = !Randomizer.Dev;
           Randomizer.Log($"Dev: {Randomizer.Dev}", false);
           Msg.Print($"Dev: {Randomizer.Dev}", toMessageLog: false);
+          WheelManager.OnDevChanged();
           break;
         case Action.ForceExit:
           Environment.Exit(Environment.ExitCode);

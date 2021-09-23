@@ -416,7 +416,7 @@ INJECT_C_DLLEXPORT void update_map_hint(const wchar_t* info)
     messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
 }
 
-INJECT_C_DLLEXPORT bool create_text_box(int id, const wchar_t* text, float x, float y, float fadein, float fadeout, bool should_show_box)
+INJECT_C_DLLEXPORT bool text_box_create(int id, const wchar_t* text, float x, float y, float fadein, float fadeout, bool should_show_box)
 {
     if (permanent_messages.find(id) != permanent_messages.end())
         return false;
@@ -436,7 +436,24 @@ INJECT_C_DLLEXPORT bool create_text_box(int id, const wchar_t* text, float x, fl
     return true;
 }
 
-INJECT_C_DLLEXPORT bool move_text_box(int id, float x, float y)
+INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.text = text;
+    if (message->second.handle != -1) {
+        auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message->second.handle));
+        auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
+        message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(text));
+        auto empty = il2cpp::get_class<app::String__Class>("System", "String")->static_fields->Empty;
+        MessageBox::RefreshText(message_box, empty, empty);
+    }
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y)
 {
     auto& message = permanent_messages.find(id);
     if (message == permanent_messages.end())
@@ -447,7 +464,7 @@ INJECT_C_DLLEXPORT bool move_text_box(int id, float x, float y)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool destroy_text_box(int id)
+INJECT_C_DLLEXPORT bool text_box_destroy(int id)
 {
     auto& message = permanent_messages.find(id);
     if (message == permanent_messages.end())

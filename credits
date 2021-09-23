@@ -1,0 +1,7 @@
+// Create text entry:	1|<start_time>|<length>|<x>|<y>|<text>
+// Lerp text entry:		2|<start_time>|<length>|<start_x>|<start_y>|<end_x>|<end_y>
+
+1|8.0|4.0|1|1.0|-2.0|from Mood Studios!
+2|8.0|4.0|1|1.0|-2.0|3.0|1.0
+1|8.0|4.0|2|1.0|-2.0|And WotW Randomizer
+2|8.0|4.0|2|-1.0|-2.0|-3.0|1.0

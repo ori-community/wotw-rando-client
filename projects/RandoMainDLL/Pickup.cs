@@ -1184,17 +1184,12 @@ namespace RandoMainDLL {
       public override void Grant(bool skipBase = false) {
         switch (type) {
           case WheelCommandType.ClearAll:
-            ClearWheels();
+            WheelManager.ResetWheels();
             break;
         }
       }
       public override string Name { get => type.ToString(); }
       public override string DisplayName { get => ""; }
-
-      public static void ClearWheels() {
-        InterOp.Wheel.clear_wheels();
-        ActionCommand.linkedPickups.Clear();
-      }
     }
 
     public class SetActiveWheelCommand : WheelCommand {
@@ -1313,8 +1308,6 @@ namespace RandoMainDLL {
       }
 
       public static readonly Dictionary<ActionKey, Pickup> linkedPickups;
-      private static callback callbackDelegate;
-      private static GCHandle callbackHandle;
 
       public delegate void callback(int wheel, int item, int binding);
 
@@ -1323,8 +1316,6 @@ namespace RandoMainDLL {
 
       static ActionCommand() {
         linkedPickups = new Dictionary<ActionKey, Pickup>();
-        callbackDelegate = new callback(Callback);
-        callbackHandle = GCHandle.Alloc(callbackDelegate, GCHandleType.Normal);
       }
 
       public ActionCommand(int wheel, int item, int binding, Pickup pickup) : base(WheelCommandType.Action) {
@@ -1333,7 +1324,7 @@ namespace RandoMainDLL {
       }
       public override void Grant(bool skipBase = false) {
         linkedPickups[key] = pickup;
-        InterOp.Wheel.set_wheel_item_callback(key.wheel, key.item, Marshal.GetFunctionPointerForDelegate(callbackDelegate));
+        InterOp.Wheel.set_wheel_item_callback(key.wheel, key.item, WheelManager.CallbackHandle(Callback));
       }
       private static void Callback(int wheel, int item, int binding) {
         // We offset binding by 1 here because we want to have 0 be 'Any' binding.

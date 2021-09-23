@@ -1,14 +1,14 @@
-#include <Il2CppModLoader/common.h>
 #include <dll_main.h>
 #include <macros.h>
-#include <Il2CppModLoader/interception_macros.h>
 #include <csharp_bridge.h>
+#include <features/instantiate_objects.h>
 #include <pickups/pickups.h>
 #include <uber_states/state_applier.h>
 
-using namespace modloader;
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
 
-void perform_preload();
+using namespace modloader;
 
 namespace
 {

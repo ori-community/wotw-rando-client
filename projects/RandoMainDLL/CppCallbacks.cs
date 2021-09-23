@@ -192,6 +192,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_st_int_int(ShopController.OnUpgradeTwillenShard),
             CallbackName = "twillen_shard_upgraded"
+          },
+          new Method() {
+            Delegate = new f_void_float(CreditsController.CreditsProgress),
+            CallbackName = "credits_progress"
           }
         };
       }
@@ -203,6 +207,7 @@ namespace RandoMainDLL {
     public delegate void f_void_at_bool(AbilityType at, bool b);
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
+    public delegate void f_void_float(float i);
     public delegate void f_void_float_float(float i, float j);
     public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
     public delegate void f_void_int_int_byte_double_double(int i, int j, byte b, double f, double g);

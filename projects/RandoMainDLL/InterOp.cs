@@ -12,16 +12,18 @@ namespace RandoMainDLL {
   public static class InterOp {
 
     public static class Messaging {
-
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool create_text_box(int id, [MarshalAs(UnmanagedType.LPWStr)] string text, float x, float y, float fadein, float fadeout, bool should_show_box);
+      public extern static bool text_box_create(int id, [MarshalAs(UnmanagedType.LPWStr)] string text, float x, float y, float fadein, float fadeout, bool should_show_box);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool move_text_box(int id, float x, float y);
+      public extern static bool text_box_text(int id, [MarshalAs(UnmanagedType.LPWStr)] string text);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool destroy_text_box(int id);
+      public extern static bool text_box_position(int id, float x, float y);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_destroy(int id);
     }
 
     public static class Multiplayer {
@@ -47,8 +49,6 @@ namespace RandoMainDLL {
     }
 
     public static class Wheel {
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void initialize_default_wheel();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool set_wheel_item_name(int wheel, int item, [MarshalAs(UnmanagedType.LPWStr)] string name);

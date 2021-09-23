@@ -16,6 +16,7 @@ namespace csharp_bridge
         using f_void_at_bool = void(*)(app::AbilityType__Enum, bool);
         using f_void_int = void(*)(int);
         using f_void_int_int = void(*)(int, int);
+        using f_void_float = void(*)(float);
         using f_void_float_float = void(*)(float, float);
         using f_void_ptr_int_int_int_int_int = void(*)(void*, int, int, int, int, int);
         using f_void_int_int_byte_double_double = void(*)(int, int, uint8_t, double, double);
@@ -89,4 +90,6 @@ namespace csharp_bridge
     extern signatures::f_int_int_int_int filter_icon_type;
     extern signatures::f_void_ptr_int_int_int_int_int filter_icon_text;
     extern signatures::f_bool_int filter_enabled;
+
+    extern signatures::f_void_float credits_progress;
 }

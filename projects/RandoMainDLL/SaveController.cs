@@ -87,8 +87,7 @@ namespace RandoMainDLL {
           UberStateController.QueueSyncedStateUpdate();
         } else {
           ShopSlot.ResetSlotData();
-          WheelCommand.ClearWheels();
-          InterOp.Wheel.initialize_default_wheel();
+          WheelManager.ResetWheels();
           PsuedoLocs.LOAD_SEED.Pickup().Grant();
         }
         BonusItemController.Refresh();

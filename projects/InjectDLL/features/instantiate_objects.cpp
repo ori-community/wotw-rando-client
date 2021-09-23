@@ -1,5 +1,6 @@
+#include <features/instantiate_objects.h>
+
 #include <constants.h>
-#include <macros.h>
 #include <dev/object_visualizer.h>
 
 #include <Common/ext.h>
@@ -16,10 +17,8 @@
 #include <unordered_set>
 #include <unordered_map>
 
-// header files WHOMST?
-INJECT_C_DLLEXPORT void teleport(float x, float y, bool wait_for_load);
-
 using namespace modloader;
+
 
 namespace
 {
@@ -53,8 +52,6 @@ namespace
         app::Vector3 position;
         app::Vector3 rotation;
     };
-
-    using loaded_callback = void(*)();
 
     std::regex replace_clone("(Clone)");
     std::unordered_map<std::string, std::unordered_set<std::string>> not_found_areas;
@@ -334,13 +331,6 @@ namespace
     }
 
     CALL_ON_INIT(initialize);
-
-    void credits_callback()
-    {
-        auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")->static_fields->Instance;
-        auto timeline = cred_cont->fields.CreditsTimeline;
-        il2cpp::invoke_virtual(timeline, il2cpp::get_class("Moon.Timeline", "TimelineEntity"), "StartPlayback");
-    }
 }
 
 void force_load_area(std::string name, loaded_callback callback)
@@ -357,9 +347,4 @@ void perform_preload()
 {
     auto* scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
     preload_scenes(scenes->static_fields->Manager);
-}
-
-INJECT_C_DLLEXPORT void start_credits() {
-    teleport(-3537, -5881, true); // actual magic coordinates found by cosmic
-    force_load_area("creditsScreen", &credits_callback);
 }

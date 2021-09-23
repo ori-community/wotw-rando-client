@@ -83,6 +83,7 @@ namespace RandoMainDLL {
 
         AHK.Init();
         Msg.Init();
+        CreditsController.ReloadFile();
         SeedController.ReadSeed(true);
         Debug("Init: Complete", false);
         return true;

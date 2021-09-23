@@ -54,6 +54,8 @@ namespace csharp_bridge
     signatures::f_int_int_int_int filter_icon_type = nullptr;
     signatures::f_void_ptr_int_int_int_int_int filter_icon_text = nullptr;
     signatures::f_bool_int filter_enabled = nullptr;
+
+    signatures::f_void_float credits_progress = nullptr;
 }
 
 INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
@@ -150,4 +152,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         on_action_triggered = reinterpret_cast<f_void_a>(ptr);
     else if (name == "twillen_shard_upgraded")
         twillen_shard_upgraded = reinterpret_cast<f_void_st_int_int>(ptr);
+    else if (name == "credits_progress")
+        credits_progress = reinterpret_cast<f_void_float>(ptr);
 }
