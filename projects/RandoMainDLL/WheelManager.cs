@@ -26,36 +26,40 @@ namespace RandoMainDLL {
 
     public static void CreateWheelItem(int wheel, int item, string name, string desc, string texture, Color color, Callback callback) {
       handles.Add(GCHandle.Alloc(callback));
-      CreateWheelItemInternal(wheel, item, name, desc, texture, color, callback);
+      CreateWheelItemInternal(wheel, item, name, desc, texture, color, Marshal.GetFunctionPointerForDelegate(callback));
     }
 
-    private static void CreateWheelItemInternal(int wheel, int item, string name, string desc, string texture, Color color, Callback callback) {
+    private static void CreateWheelItemInternal(int wheel, int item, string name, string desc, string texture, Color color, IntPtr callback) {
       InterOp.Wheel.set_wheel_item_name(wheel, item, name);
       InterOp.Wheel.set_wheel_item_description(wheel, item, desc);
       InterOp.Wheel.set_wheel_item_texture(wheel, item, texture);
       InterOp.Wheel.set_wheel_item_color(wheel, item, color.R, color.G, color.B, color.A);
-      InterOp.Wheel.set_wheel_item_callback(wheel, item, Marshal.GetFunctionPointerForDelegate(callback));
+      InterOp.Wheel.set_wheel_item_callback(wheel, item, callback);
     }
 
     public static void InitializeDefaultWheels() {
-      CreateWheelItemInternal(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "shard:13", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "shard:4", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "shard:5", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "shard:6", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9000, 10, "Reload", "Reloads the seed file", "shard:2", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9000, 11, "Next", "Go to next page of actions", "shard:3", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 0, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 1, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "shard:2", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 2, "Toggle dev", "Toggles the dev flag.", "shard:4", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 3, "Toggle debug", "Toggle debug controls", "shard:5", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 4, "Display coordinates", "Displays your current/ncoordinates as a message", "shard:6", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "shard:7", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "shard:8", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 7, "Toggle pickup names", "Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", "shard:9", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 8, "Reload credits", "Reloads the credits file", "shard:12", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 9, "Force Exit", "Forcibly exit the game.", "shard:10", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 10, "Clear messages", "Clears the message queue.", "shard:11", Color.White, handleDefaultActions);
-      CreateWheelItemInternal(9001, 11, "Next", "Go to next page of actions", "shard:3", Color.White, handleDefaultActions);
+      var callback = new Callback(handleDefaultActions);
+      handles.Add(GCHandle.Alloc(callback));
+      var ptr = Marshal.GetFunctionPointerForDelegate(callback);
+
+      CreateWheelItemInternal(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "shard:13", Color.White, ptr);
+      CreateWheelItemInternal(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "shard:4", Color.White, ptr);
+      CreateWheelItemInternal(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "shard:5", Color.White, ptr);
+      CreateWheelItemInternal(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "shard:6", Color.White, ptr);
+      CreateWheelItemInternal(9000, 10, "Reload", "Reloads the seed file", "shard:2", Color.White, ptr);
+      CreateWheelItemInternal(9000, 11, "Next", "Go to next page of actions", "shard:3", Color.White, ptr);
+      CreateWheelItemInternal(9001, 0, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1", Color.White, ptr);
+      CreateWheelItemInternal(9001, 1, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "shard:2", Color.White, ptr);
+      CreateWheelItemInternal(9001, 2, "Toggle dev", "Toggles the dev flag.", "shard:4", Color.White, ptr);
+      CreateWheelItemInternal(9001, 3, "Toggle debug", "Toggle debug controls", "shard:5", Color.White, ptr);
+      CreateWheelItemInternal(9001, 4, "Display coordinates", "Displays your current/ncoordinates as a message", "shard:6", Color.White, ptr);
+      CreateWheelItemInternal(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "shard:7", Color.White, ptr);
+      CreateWheelItemInternal(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "shard:8", Color.White, ptr);
+      CreateWheelItemInternal(9001, 7, "Toggle pickup names", "Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", "shard:9", Color.White, ptr);
+      CreateWheelItemInternal(9001, 8, "Reload credits", "Reloads the credits file", "shard:12", Color.White, ptr);
+      CreateWheelItemInternal(9001, 9, "Force Exit", "Forcibly exit the game.", "shard:10", Color.White, ptr);
+      CreateWheelItemInternal(9001, 10, "Clear messages", "Clears the message queue.", "shard:11", Color.White, ptr);
+      CreateWheelItemInternal(9001, 11, "Next", "Go to next page of actions", "shard:3", Color.White, ptr);
       OnDevChanged();
     }
 
@@ -125,6 +129,7 @@ namespace RandoMainDLL {
               Input.OnActionTriggered(Input.Action.TogglePickupNamesOnSpoiler);
               break;
             case 8:
+              Msg.Print("Reloading credits file");
               CreditsController.ReloadFile();
               break;
             case 9:

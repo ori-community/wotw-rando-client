@@ -1,9 +1,11 @@
 #include <csharp_bridge.h>
 #include <dll_main.h>
+#include <dev/object_visualizer.h>
 #include <features/messages.h>
 #include <utils/messaging.h>
 
 #include <Common/ext.h>
+#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -134,6 +136,7 @@ namespace
         app::Vector3 pos;
         std::wstring text;
         bool should_show_box = true;
+        bool should_play_sound = true;
         bool alive = true;
         float fadein = 0.5f;
         float fadeout = 0.5f;
@@ -254,6 +257,7 @@ namespace
     IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int index));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
+
     app::GameObject* create_permanent_box(PermanentRandoMessage& message)
     {
         auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
@@ -278,6 +282,8 @@ namespace
         message_box->fields.EndId = 0;
         message_box->fields.IsInteractive = false;
         message_box->fields.MessageIndex = 0;
+        if (!message.should_play_sound)
+            message_box->fields.m_messageDescriptors->vector[0].WWiseEvent = nullptr;
 
         auto empty = il2cpp::get_class<app::String__Class>("System", "String")->static_fields->Empty;
         message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(message.text));
@@ -288,6 +294,12 @@ namespace
         {
             auto background = il2cpp::unity::get_game_object(Transform::GetChild(transform, 2));
             GameObject::SetActive(background, false);
+        }
+
+        if (!message.should_play_sound)
+        {
+            auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(go, "", "SoundSource");
+            sound_source->fields.PlayAtStart = false;
         }
 
         Transform::set_position(transform, &message.pos);
@@ -416,20 +428,19 @@ INJECT_C_DLLEXPORT void update_map_hint(const wchar_t* info)
     messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
 }
 
-INJECT_C_DLLEXPORT bool text_box_create(int id, const wchar_t* text, float x, float y, float fadein, float fadeout, bool should_show_box)
+INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound)
 {
     if (permanent_messages.find(id) != permanent_messages.end())
         return false;
 
     PermanentRandoMessage message;
     message.id = id;
-    message.text = text;
     message.should_show_box = false;
-    message.pos = { x, y, 0.0f };
     message.alive = true;
     message.fadein = fadein;
     message.fadeout = fadeout;
     message.should_show_box = should_show_box;
+    message.should_play_sound = should_play_sound;
     message.handle = -1;
     permanent_messages.emplace(id, std::move(message));
 
@@ -461,6 +472,7 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y)
 
     message->second.pos.x = x;
     message->second.pos.y = y;
+    message->second.pos.z = 0.0f;
     return true;
 }
 

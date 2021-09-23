@@ -20,6 +20,7 @@ namespace {
     }
 
     float time = 0.0f;
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_MainMenuVisible, ());
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
     IL2CPP_BINDING(, CreditsController, bool, IsCreditsTimelinePlaying, (app::CreditsController* this_ptr));
     IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr)) {
@@ -27,8 +28,11 @@ namespace {
         auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")->static_fields->Instance;
         if (cred_cont != nullptr && CreditsController::IsCreditsTimelinePlaying(cred_cont))
         {
-            time += TimeUtility::get_fixedDeltaTime();
-            csharp_bridge::credits_progress(time);
+            if (!UI::get_MainMenuVisible())
+            {
+                time += TimeUtility::get_fixedDeltaTime();
+                csharp_bridge::credits_progress(time);
+            }
         }
         else if (time > 0.01f)
         {

@@ -14,7 +14,7 @@ namespace RandoMainDLL {
     public static class Messaging {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool text_box_create(int id, [MarshalAs(UnmanagedType.LPWStr)] string text, float x, float y, float fadein, float fadeout, bool should_show_box);
+      public extern static bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_text(int id, [MarshalAs(UnmanagedType.LPWStr)] string text);

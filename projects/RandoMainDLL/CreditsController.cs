@@ -6,7 +6,7 @@ namespace RandoMainDLL {
   static class CreditsController {
 
     public static readonly string CreditsFile = "credits";
-    public static readonly int CreditsBaseID = 0;
+    public static readonly int CreditsBaseID = 10000;
 
     // TODO: Load this from a file and provide wheel item to reload it in debug mode.
     private static List<Entry> creditsEntries = new List<Entry>();
@@ -39,7 +39,9 @@ namespace RandoMainDLL {
 
       if (Randomizer.Dev) {
         if (!startedDebug) {
-          InterOp.Messaging.text_box_create(CreditsBaseID, $"Credits progress: {time}", 0.0f, 3.5f, 0.5f, 0.5f, false);
+          InterOp.Messaging.text_box_create(CreditsBaseID, 0.5f, 0.5f, false, false);
+          InterOp.Messaging.text_box_text(CreditsBaseID, $"Credits progress: {time}");
+          InterOp.Messaging.text_box_position(CreditsBaseID, 0.0f, 3.5f);
           startedDebug = true;
         }
         else {
@@ -184,7 +186,9 @@ namespace RandoMainDLL {
       private bool started = false;
       public override bool Resolve(float time) {
         if (!started) {
-          InterOp.Messaging.text_box_create(id, text, x, y, fadeIn, fadeOut, false);
+          InterOp.Messaging.text_box_create(id, fadeIn, fadeOut, false, false);
+          InterOp.Messaging.text_box_text(id, text);
+          InterOp.Messaging.text_box_position(id, x, y);
           started = true;
         }
 
