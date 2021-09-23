@@ -154,6 +154,13 @@ namespace uber_states
                 dynamic_applier_redirects.emplace(id, value);
         }
     }
+
+    void initialize_default_intercepts() {
+        // Bubble spawner at entrance of pools.
+        uber_states::register_applier_redirect(631536139, 1230316956, false);
+    }
+
+    CALL_ON_INIT(initialize_default_intercepts);
 }
 
 INJECT_C_DLLEXPORT void register_state_redirect(const int state, const int value)
