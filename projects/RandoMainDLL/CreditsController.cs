@@ -195,20 +195,8 @@ namespace RandoMainDLL {
         this.text = text;
         this.fadeIn = fadeIn;
         this.fadeOut = fadeOut;
-      }
 
-      private readonly int id;
-      private readonly float x;
-      private readonly float y;
-      private readonly string text;
-      private readonly float fadeIn;
-      private readonly float fadeOut;
-
-      private bool started = false;
-      private int randomValue = 0;
-
-      public string ProcessText(string text) {
-        var replacements = new HashSet<int>();
+        replacements = new HashSet<int>();
         var i = 0;
         var start = 0;
         while (start != -1) {
@@ -221,13 +209,23 @@ namespace RandoMainDLL {
             }
           }
         }
+      }
 
-        foreach (var replacement in replacements) {
-          if (collections.ContainsKey(replacement)) {
-            var collection = collections[replacement];
-            text.Replace($"$({replacement})", getString(collection, randomValue));
-          }
-        }
+      private readonly int id;
+      private readonly float x;
+      private readonly float y;
+      private readonly string text;
+      private readonly float fadeIn;
+      private readonly float fadeOut;
+
+      private readonly HashSet<int> replacements;
+      private bool started = false;
+      private int randomValue = 0;
+
+      public string ProcessText(string text) {
+        foreach (var replacement in replacements)
+          if (collections.ContainsKey(replacement))
+            text = text.Replace($"$({replacement})", getString(collections[replacement], randomValue));
 
         return text;
       }
