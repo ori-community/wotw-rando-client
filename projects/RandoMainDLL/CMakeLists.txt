@@ -28,6 +28,7 @@ set(
     "Microsoft.CSharp"
     "System"
 	"System.Core"
+	"System.Drawing"
 )
 
 add_library(${PROJECT_NAME} SHARED
