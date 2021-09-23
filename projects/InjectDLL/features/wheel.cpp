@@ -498,7 +498,7 @@ INJECT_C_DLLEXPORT bool set_wheel_item_color(int wheel, int item, int r, int g, 
         return false;
     }
 
-    if (0 < r || r > 255 || 0 < g || g > 255 || 0 < b || b > 255 || 0 < a || a > 255)
+    if (r < 0 || 255 < r || g < 0 || 255 < g || b < 0 || 255 < b || a < 0 || 255 < a)
     {
         warn("wheel", format("invalid color passed to wheel [%d, %d]: (%d, %d, %d, %d)", wheel, item, r, g, b, a));
         r = std::max(std::min(r, 255), 0);

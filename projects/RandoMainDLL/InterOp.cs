@@ -12,6 +12,25 @@ namespace RandoMainDLL {
   public static class InterOp {
 
     public static class Messaging {
+      public enum Alignment : int {
+        Left = 0,
+        Center = 1,
+        Right = 2,
+        Justify = 3
+      }
+
+      public enum HorizontalAnchor : int {
+        Left = 0,
+        Center = 1,
+        Right = 2
+      }
+
+      public enum VerticalAnchor : int {
+        Top = 0,
+        Middle = 1,
+        Bottom = 2
+      }
+
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound);
@@ -21,6 +40,21 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_position(int id, float x, float y);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_color(int id, int r, int g, int b, int a);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_size(int id, float size);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_alignment(int id, Alignment alignment);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_anchor(int id, HorizontalAnchor horizontal, VerticalAnchor vertical);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_line_spacing(int id, float spacing);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_destroy(int id);

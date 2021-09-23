@@ -132,14 +132,20 @@ namespace
 
     struct PermanentRandoMessage
     {
-        int id;
-        app::Vector3 pos;
+        int id = 0;
+        app::Vector3 pos{ 0.0f, 0.0f, 0.0f};
         std::wstring text;
         bool should_show_box = true;
         bool should_play_sound = true;
         bool alive = true;
         float fadein = 0.5f;
         float fadeout = 0.5f;
+        app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
+        float size = 1.0f;
+        app::AlignmentMode__Enum alignment = app::AlignmentMode__Enum_Center;
+        app::HorizontalAnchorMode__Enum horizontal_anchor = app::HorizontalAnchorMode__Enum_Center;
+        app::VerticalAnchorMode__Enum vertical_anchor = app::VerticalAnchorMode__Enum_Middle;
+        float line_spacing = 1.0f;
         uint32_t handle = -1;
     };
 
@@ -252,11 +258,127 @@ namespace
     STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* this_ptr, void* obj));
     STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
-    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
+    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr));
+    //IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
     IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int index));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
+    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RefreshText, (app::TextBox* this_ptr));
+
+    bool eat(std::wstring const& text, int& i, std::wstring_view food)
+    {
+        if (i + food.size() >= text.size())
+            return false;
+
+        if (std::wstring_view(text.c_str() + i, food.size()) == food)
+        {
+            i += food.size();
+            return true;
+        }
+
+        return false;
+    }
+
+    std::wstring_view eat_until(std::wstring const& text, int& i, std::wstring_view until)
+    {
+        int j = i;
+        while (j < text.size())
+        {
+            if (eat(text, j, until))
+            {
+                std::wstring_view out(text.c_str() + i, j - i - until.size());
+                i = j;
+                return out;
+            }
+            else
+                ++j;
+        }
+
+        return L"";
+    }
+
+    std::unordered_set<std::string> created_styles;
+    app::TextStyle* create_style(std::string const& text)
+    {
+        if (text.size() != 8)
+        {
+            warn("messages", "malformed color style declaration");
+            return nullptr;
+        }
+
+        // We already added the style, style collection is global.
+        auto it = created_styles.find(text);
+        if (it != created_styles.end())
+            return nullptr;
+
+        auto style = il2cpp::create_object<app::TextStyle>("CatlikeCoding.TextBox", "TextStyle");
+        il2cpp::invoke(style, ".ctor");
+        style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new("hex_" + text));
+        style->fields.hasColor = true;
+
+        char* out = nullptr;
+        style->fields.color.rgba = std::strtoul(text.c_str(), &out, 16);
+
+        // Set everything to good values.
+        style->fields.rendererId = -1;
+        style->fields.font = nullptr;
+        style->fields.renderer = nullptr;
+        style->fields.absoluteFontScale = false;
+        style->fields.hasFontScale = false;
+        style->fields.hasLetterSpacing = false;
+        style->fields.hasLineScale = false;
+        style->fields.fontScale = 1.0f;
+        style->fields.letterSpacing = 1.0f;
+        style->fields.lineScale = 1.0f;
+
+        return style;
+    }
+
+    void create_color_styles(app::MessageBox* box, std::wstring const& text)
+    {
+        int i = 0;
+        std::vector<app::TextStyle*> new_styles;
+        while (i < text.size())
+        {
+            if (eat(text, i, L"<hex_"))
+            {
+                auto value = trim(convert_wstring_to_string(std::wstring(eat_until(text, i, L">"))));
+                if (!value.empty())
+                {
+                    auto style = create_style(value);
+                    if (style != nullptr)
+                    {
+                        created_styles.emplace(value);
+                        new_styles.push_back(style);
+                    }
+                }
+                else
+                    warn("messages", "missing > in color style definition");
+            }
+            else
+                ++i;
+        }
+
+        if (!new_styles.empty())
+        {
+            auto* styles = box->fields.TextBox->fields.styleCollection->fields.styles;
+            auto size = styles->max_length + new_styles.size();
+            auto arr = il2cpp::untyped::array_new(il2cpp::get_class("CatlikeCoding.TextBox", "TextStyle"), size);
+            for (int i = 0; i < styles->max_length; ++i)
+                arr->vector[i] = styles->vector[i];
+
+            for (int i = 0; i < new_styles.size(); ++i)
+                arr->vector[i + styles->max_length] = new_styles.at(i);
+
+            box->fields.TextBox->fields.styleCollection->fields.styles = reinterpret_cast<app::TextStyle__Array*>(arr);
+            for (auto i = 0; i < box->fields.TextBox->fields.styleCollection->fields.styles->max_length; ++i)
+            {
+                auto name = il2cpp::convert_csstring(box->fields.TextBox->fields.styleCollection->fields.styles->vector[i]->fields.name);
+                console::console_send("style: '" + name + "' - " + std::to_string(i));
+            }
+        }
+    }
 
     app::GameObject* create_permanent_box(PermanentRandoMessage& message)
     {
@@ -285,9 +407,19 @@ namespace
         if (!message.should_play_sound)
             message_box->fields.m_messageDescriptors->vector[0].WWiseEvent = nullptr;
 
-        auto empty = il2cpp::get_class<app::String__Class>("System", "String")->static_fields->Empty;
+        message_box->fields.WrapText = true;
+        message_box->fields.TextBox->fields.maxHeight = 500;
+
+        message_box->fields.TextBox->fields.color = message.color;
+        message_box->fields.TextBox->fields.alignment = message.alignment;
+        message_box->fields.TextBox->fields.verticalAnchor = message.vertical_anchor;
+        message_box->fields.TextBox->fields.horizontalAnchor = message.horizontal_anchor;
+        message_box->fields.TextBox->fields.LineSpacing = message.line_spacing;
+        message_box->fields.TextBox->fields.currentStyle.size = message.size;
+        
+        create_color_styles(message_box, message.text);
         message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(message.text));
-        MessageBox::RefreshText(message_box, empty, empty);
+        MessageBox::RefreshText(message_box);
 
         auto transform = il2cpp::unity::get_transform(go);
         if (!message.should_show_box)
@@ -348,9 +480,6 @@ namespace
                 dead_messages.emplace(message.second.id);
                 continue;
             }
-
-            auto transform = il2cpp::unity::get_transform(go);
-            Transform::set_position(transform, &message.second.pos);
         }
 
         for (auto id : dead_messages)
@@ -428,6 +557,15 @@ INJECT_C_DLLEXPORT void update_map_hint(const wchar_t* info)
     messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
 }
 
+app::MessageBox* get_message_box(PermanentRandoMessage& message)
+{
+    if (message.handle == -1)
+        return nullptr;
+
+    auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
+    return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
+}
+
 INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound)
 {
     if (permanent_messages.find(id) != permanent_messages.end())
@@ -447,6 +585,7 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
     return true;
 }
 
+STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (Il2CppString* message));
 INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
 {
     auto& message = permanent_messages.find(id);
@@ -454,13 +593,15 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
         return false;
 
     message->second.text = text;
-    if (message->second.handle != -1) {
-        auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message->second.handle));
-        auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
-        message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(text));
-        auto empty = il2cpp::get_class<app::String__Class>("System", "String")->static_fields->Empty;
-        MessageBox::RefreshText(message_box, empty, empty);
+    auto message_box = get_message_box(message->second);
+    if (message_box != nullptr) {
+        create_color_styles(message_box, text);
+        auto new_str = il2cpp::string_new(text);
+        auto test = il2cpp::convert_csstring(MessageParserUtility::ProcessString(new_str));
+        message_box->fields.MessageProvider = utils::create_message_provider(new_str);
+        MessageBox::RefreshText(message_box);
     }
+
     return true;
 }
 
@@ -473,6 +614,105 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y)
     message->second.pos.x = x;
     message->second.pos.y = y;
     message->second.pos.z = 0.0f;
+    if (message->second.handle != -1) {
+        auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message->second.handle));
+        auto transform = il2cpp::unity::get_transform(go);
+        Transform::set_position(transform, &message->second.pos);
+    }
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    if (r < 0 || 255 < r || g < 0 || 255 < g || b < 0 || 255 < b || a < 0 || 255 < a)
+    {
+        warn("wheel", format("invalid color passed to text box: (%d, %d, %d, %d)", r, g, b, a));
+        r = std::max(std::min(r, 255), 0);
+        g = std::max(std::min(g, 255), 0);
+        b = std::max(std::min(b, 255), 0);
+        a = std::max(std::min(a, 255), 0);
+    }
+
+    message->second.color = app::Color{ r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f };
+    auto message_box = get_message_box(message->second);
+    if (message_box != nullptr)
+        message_box->fields.TextBox->fields.color = message->second.color;
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_size(int id, float size)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.size = size;
+    auto message_box = get_message_box(message->second);
+    if (message_box != nullptr)
+    {
+        message_box->fields.TextBox->fields.size = size;
+        MessageBox::RefreshText(message_box);
+    }
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_alignment(int id, app::AlignmentMode__Enum alignment)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.alignment = alignment;
+    auto message_box = get_message_box(message->second);
+    if (message_box != nullptr)
+    {
+        message_box->fields.TextBox->fields.alignment = alignment;
+        MessageBox::RefreshText(message_box);
+    }
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_anchor(int id, app::HorizontalAnchorMode__Enum horizontal, app::VerticalAnchorMode__Enum vertical)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.horizontal_anchor = horizontal;
+    message->second.vertical_anchor = vertical;
+    auto message_box = get_message_box(message->second);
+    if (message_box != nullptr)
+    {
+        message_box->fields.TextBox->fields.horizontalAnchor = horizontal;
+        message_box->fields.TextBox->fields.verticalAnchor = vertical;
+        MessageBox::RefreshText(message_box);
+    }
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_line_spacing(int id, float spacing)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.line_spacing = spacing;
+    auto message_box = get_message_box(message->second);
+    if (message_box != nullptr)
+    {
+        message_box->fields.TextBox->fields.LineSpacing = spacing;
+        MessageBox::RefreshText(message_box);
+    }
+
     return true;
 }
 

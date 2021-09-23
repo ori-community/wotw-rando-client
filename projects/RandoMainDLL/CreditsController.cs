@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace RandoMainDLL {
   static class CreditsController {
@@ -11,14 +12,17 @@ namespace RandoMainDLL {
     // TODO: Load this from a file and provide wheel item to reload it in debug mode.
     private static List<Entry> creditsEntries = new List<Entry>();
     private static List<Entry> activeEntries = new List<Entry>();
+    private static Dictionary<int, List<string>> collections = new Dictionary<int, List<string>>();
     private static int currentIndex = 0;
 
     private static bool startedDebug = false;
+    private static Random rand;
 
     private static void Reset() {
       foreach (var entry in activeEntries)
         entry.Reset();
 
+      rand = new Random(0);
       activeEntries.Clear();
       currentIndex = 0;
       if (startedDebug)
@@ -40,13 +44,13 @@ namespace RandoMainDLL {
       if (Randomizer.Dev) {
         if (!startedDebug) {
           InterOp.Messaging.text_box_create(CreditsBaseID, 0.5f, 0.5f, false, false);
-          InterOp.Messaging.text_box_text(CreditsBaseID, $"Credits progress: {time}");
           InterOp.Messaging.text_box_position(CreditsBaseID, 0.0f, 3.5f);
+          InterOp.Messaging.text_box_alignment(CreditsBaseID, InterOp.Messaging.Alignment.Center);
+          InterOp.Messaging.text_box_anchor(CreditsBaseID, InterOp.Messaging.HorizontalAnchor.Center, InterOp.Messaging.VerticalAnchor.Top);
           startedDebug = true;
         }
-        else {
-          InterOp.Messaging.text_box_text(CreditsBaseID, $"Credits progress: {time}");
-        }
+
+        InterOp.Messaging.text_box_text(CreditsBaseID, $"Credits progress: {time}");
       }
     }
 
@@ -63,6 +67,8 @@ namespace RandoMainDLL {
         return;
       }
 
+      rand = new Random(0);
+      collections.Clear();
       creditsEntries.Clear();
       if (File.Exists(Randomizer.BasePath + CreditsFile)) {
         foreach (string line in File.ReadLines(Randomizer.BasePath + CreditsFile)) {
@@ -130,6 +136,16 @@ namespace RandoMainDLL {
                   );
                   break;
                 }
+              case 3: {
+                  if (parts.Length < 3) {
+                    Randomizer.Warn("CreditsController", $"malformed collection entry: {uncommented_line}");
+                    break;
+                  }
+
+                  var id = parts[1].ParseToInt("CreditsController.ID");
+                  collections[id] = parts.Skip(2).ToList();
+                  break;
+                }
               default:
                 Randomizer.Warn("CreditsController", "Ignoring invalid type");
                 break;
@@ -139,6 +155,11 @@ namespace RandoMainDLL {
       }
 
       creditsEntries.Sort((a, b) => (int)(a.Time - b.Time));
+    }
+
+    private static string getString(List<string> collection, int randomValue) {
+      // TODO: Do more complicated logic based on value in ini file.
+      return collection.ElementAt(randomValue % collection.Count);
     }
 
     private abstract class Entry {
@@ -184,10 +205,38 @@ namespace RandoMainDLL {
       private readonly float fadeOut;
 
       private bool started = false;
+      private int randomValue = 0;
+
+      public string ProcessText(string text) {
+        var replacements = new HashSet<int>();
+        var i = 0;
+        var start = 0;
+        while (start != -1) {
+          start = text.IndexOf("$(", i);
+          if (start >= 0) {
+            var end = text.IndexOf(")", start);
+            if (end != -1 && int.TryParse(text.Substring(start, end), out var result)) {
+              replacements.Add(result);
+              i = end;
+            }
+          }
+        }
+
+        foreach (var replacement in replacements) {
+          if (collections.ContainsKey(replacement)) {
+            var collection = collections[replacement];
+            text.Replace($"$({replacement})", getString(collection, randomValue));
+          }
+        }
+
+        return text;
+      }
+
       public override bool Resolve(float time) {
         if (!started) {
+          randomValue = rand.Next();
           InterOp.Messaging.text_box_create(id, fadeIn, fadeOut, false, false);
-          InterOp.Messaging.text_box_text(id, text);
+          InterOp.Messaging.text_box_text(id, ProcessText(text));
           InterOp.Messaging.text_box_position(id, x, y);
           started = true;
         }

@@ -1,5 +1,6 @@
 // Create text entry:	1|<start_time>|<length>|<id>|<x>|<y>|<text>
 // Lerp text entry:		2|<start_time>|<length>|<id?|<start_x>|<start_y>|<end_x>|<end_y>
+// Lerp text entry:		3|<id>|...|... access strings from a collection using the syntax $(<id>) in <text> entries.
 
 // 1|8.0|4.0|1|1.0|-2.0|from Mood Studios!
 // 2|8.0|4.0|1|1.0|-2.0|3.0|1.0
