@@ -134,6 +134,7 @@ namespace
         disable_next_update_map_target = false;
     }
 
+    IL2CPP_BINDING(AK.Wwise, State, void, SetValue, (app::State* state));
     STATIC_IL2CPP_BINDING(Game, UI, app::MenuScreenManager*, get_Menu, ());
     IL2CPP_BINDING(, MenuScreenManager, void, HideMenuScreen, (app::MenuScreenManager* this_ptr, bool immediate, bool fade));
     IL2CPP_INTERCEPT(Moon.Timeline, DiscoverAreasEntity, void, ChangeState, (app::DiscoverAreasEntity* this_ptr, app::DiscoverAreasEntity_State__Enum value)) {
@@ -146,6 +147,7 @@ namespace
             ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_WaitForInput);
             auto menu = UI::get_Menu();
             MenuScreenManager::HideMenuScreen(menu, true, false);
+            State::SetValue(menu->fields.Sounds->fields.NoUIDisplayedState);
         }
     }
 
