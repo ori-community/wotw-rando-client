@@ -298,43 +298,67 @@ namespace
         return L"";
     }
 
-    std::unordered_set<std::string> created_styles;
-    app::TextStyle* create_style(std::string const& text)
+    bool check_style(std::wstring const& text, int& i, std::wstring_view start, std::string& value)
     {
-        if (text.size() != 8)
+        if (eat(text, i, start))
         {
-            warn("messages", "malformed color style declaration");
-            return nullptr;
+            value = trim(convert_wstring_to_string(std::wstring(eat_until(text, i, L">"))));
+            if (!value.empty())
+                return true;
+            else
+                warn("messages", "missing > in style definition");
         }
 
-        // We already added the style, style collection is global.
-        auto it = created_styles.find(text);
-        if (it != created_styles.end())
-            return nullptr;
+        return false;
+    }
 
+    app::TextStyle* create_style(std::string_view name)
+    {
         auto style = il2cpp::create_object<app::TextStyle>("CatlikeCoding.TextBox", "TextStyle");
         il2cpp::invoke(style, ".ctor");
-        style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new("hex_" + text));
-        style->fields.hasColor = true;
+        style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new(name));
+        style->fields.rendererId = -1;
+        return style;
+    }
+
+    std::unordered_set<std::string> created_styles;
+    app::TextStyle* create_color_style(std::string const& text)
+    {
+        auto it = created_styles.find(text);
+        if (it != created_styles.end() || text.size() != 8)
+            return nullptr;
 
         char* out = nullptr;
         auto color_channels = std::strtoul(text.c_str(), &out, 16);
-        style->fields.color.rgba = ((color_channels >> 24) & 0xff) |
+        if (out != text.c_str() + text.size())
+            return nullptr;
+
+        auto style = create_style("hex_" + text);
+        style->fields.hasColor = true;
+        style->fields.color.rgba = 
+            ((color_channels >> 24) & 0xff) |
             ((color_channels << 8) & 0xff0000) |
             ((color_channels >> 8) & 0xff00) |
             ((color_channels << 24) & 0xff000000);
 
-        // Set everything to good values.
-        style->fields.rendererId = -1;
-        style->fields.font = nullptr;
-        style->fields.renderer = nullptr;
-        style->fields.absoluteFontScale = false;
-        style->fields.hasFontScale = false;
-        style->fields.hasLetterSpacing = false;
-        style->fields.hasLineScale = false;
-        style->fields.fontScale = 1.0f;
-        style->fields.letterSpacing = 1.0f;
-        style->fields.lineScale = 1.0f;
+        return style;
+    }
+
+    app::TextStyle* create_size_style(std::string const& text)
+    {
+        auto it = created_styles.find(text);
+        if (it != created_styles.end())
+            return nullptr;
+
+        char* out = nullptr;
+        auto font_scale = std::strtod(text.c_str(), &out);
+        if (out != text.c_str() + text.size())
+            return nullptr;
+
+        auto style = create_style("s_" + text);
+        style->fields.hasFontScale = true;
+        style->fields.fontScale = font_scale;
+        style->fields.absoluteFontScale = true;
 
         return style;
     }
@@ -343,22 +367,19 @@ namespace
     {
         int i = 0;
         std::vector<app::TextStyle*> new_styles;
+        std::string value;
         while (i < text.size())
         {
-            if (eat(text, i, L"<hex_"))
+            app::TextStyle* style = nullptr;
+            if (check_style(text, i, L"<hex_", value))
+                style = create_color_style(value);
+            else if (check_style(text, i, L"<s_", value))
+                style = create_size_style(value);
+
+            if (style != nullptr)
             {
-                auto value = trim(convert_wstring_to_string(std::wstring(eat_until(text, i, L">"))));
-                if (!value.empty())
-                {
-                    auto style = create_style(value);
-                    if (style != nullptr)
-                    {
-                        created_styles.emplace(value);
-                        new_styles.push_back(style);
-                    }
-                }
-                else
-                    warn("messages", "missing > in color style definition");
+                created_styles.emplace(value);
+                new_styles.push_back(style);
             }
             else
                 ++i;
