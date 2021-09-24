@@ -3,7 +3,7 @@
 #NoEnv                          ; don't populate environment variables automatically
 SetWorkingDir, %A_ScriptDir%    ; start where we at
 SetTitleMatchMode, 3            ; require a full match of window name
-FileEncoding, UTF-8
+FileEncoding, UTF-8-RAW
 #SingleInstance, force
 
 INSTALL_DIR := A_ScriptDir . "\"
@@ -36,8 +36,8 @@ Try {
     ReleaseNotes := StrReplace(ReleaseNotes, "\r\n", "`r`n")
     ReleaseNotes := StrReplace(ReleaseNotes, "\", "") ; Remove any escape characters (such as /") so they show up normally.
 
-    RegExMatch(whr.ResponseText, "O)""size"":([^"",]*).*""size"":([^"",]*)",DLsize) ; Please don't look at this. I needed the second match okay...
-    DLsize := DLsize.2
+    RegExMatch(whr.ResponseText, "O)""size"":([^"",]*)",DLsize) ; Please don't look at this. I needed the second match okay...
+    DLsize := DLsize.1
 
     SplashTextOn,,,Checking release %tag%
 
@@ -50,11 +50,10 @@ Try {
             OnMessage(message, "SetCounter")
             Download("https://github.com/ori-rando/build/releases/download/"  tag  "/WotwRandoSetup.exe", INSTALL_DIR "WotwRandoSetup.exe", DLsize, message, 50)
             Progress, Off
-            SplashTextOn,,,, Update Complete! Restarting...
-            Sleep, 2000
             SplashTextOff
+            msgbox The new installer has been downloaded! Press Ok to run it
             EnvGet, A_LocalAppData, LocalAppData
-            FileDelete, FilePattern  %A_LocalAppData%\wotwrpath.tmp
+            FileDelete, %A_LocalAppData%\wotwrpath.tmp
             FileAppend, %INSTALL_DIR%, %A_LocalAppData%\wotwrpath.tmp
             Run, %INSTALL_DIR%WotwRandoSetup.exe
         } 
