@@ -25,7 +25,7 @@ FileAppend, %INSTALL_DIR%, %A_LocalAppData%\wotwrpath.tmp
 SplashTextOn,,,Getting latest version...
 Try {
     whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-    whr.Open("GET", "https://api.github.com/repos/ori_rando/build/releases/latest", false)
+    whr.Open("GET", "https://api.github.com/repos/ori-rando/build/releases/latest", false)
     whr.Send() ; first
 
     RegExMatch(whr.ResponseText, "O)""tag_name"":""([^"",]*)""",tag)
@@ -48,7 +48,7 @@ Try {
             message = 0x1100
             Progress, M h80 w500, , .
             OnMessage(message, "SetCounter")
-            Download("https://github.com/ori_rando/build/releases/download/"  tag  "/WotwRandoSetup.exe", INSTALL_DIR "WotwRandoSetup.exe", DLsize, message, 50)
+            Download("https://github.com/ori-rando/build/releases/download/"  tag  "/WotwRandoSetup.exe", INSTALL_DIR "WotwRandoSetup.exe", DLsize, message, 50)
             Progress, Off
             SplashTextOn,,,, Update Complete! Restarting...
             Sleep, 2000
