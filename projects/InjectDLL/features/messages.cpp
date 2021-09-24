@@ -141,7 +141,6 @@ namespace
         float fadein = 0.5f;
         float fadeout = 0.5f;
         app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
-        float size = 1.0f;
         app::AlignmentMode__Enum alignment = app::AlignmentMode__Enum_Center;
         app::HorizontalAnchorMode__Enum horizontal_anchor = app::HorizontalAnchorMode__Enum_Center;
         app::VerticalAnchorMode__Enum vertical_anchor = app::VerticalAnchorMode__Enum_Middle;
@@ -432,7 +431,7 @@ namespace
         if (!message.should_play_sound)
             message_box->fields.m_messageDescriptors->vector[0].WWiseEvent = nullptr;
 
-        message_box->fields.WrapText = true;
+        message_box->fields.WrapText = false;
         message_box->fields.TextBox->fields.maxHeight = 500;
 
         message_box->fields.TextBox->fields.color = message.color;
@@ -440,8 +439,7 @@ namespace
         message_box->fields.TextBox->fields.verticalAnchor = message.vertical_anchor;
         message_box->fields.TextBox->fields.horizontalAnchor = message.horizontal_anchor;
         message_box->fields.TextBox->fields.LineSpacing = message.line_spacing;
-        message_box->fields.TextBox->fields.currentStyle.size = message.size;
-        
+
         create_color_styles(message_box, message.text);
         message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(message.text));
         MessageBox::RefreshText(message_box);
@@ -667,23 +665,6 @@ INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a)
     auto message_box = get_message_box(message->second);
     if (message_box != nullptr)
         message_box->fields.TextBox->fields.color = message->second.color;
-
-    return true;
-}
-
-INJECT_C_DLLEXPORT bool text_box_size(int id, float size)
-{
-    auto& message = permanent_messages.find(id);
-    if (message == permanent_messages.end())
-        return false;
-
-    message->second.size = size;
-    auto message_box = get_message_box(message->second);
-    if (message_box != nullptr)
-    {
-        message_box->fields.TextBox->fields.size = size;
-        MessageBox::RefreshText(message_box);
-    }
 
     return true;
 }

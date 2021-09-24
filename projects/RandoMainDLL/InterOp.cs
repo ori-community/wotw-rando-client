@@ -45,9 +45,6 @@ namespace RandoMainDLL {
       public extern static bool text_box_color(int id, int r, int g, int b, int a);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool text_box_size(int id, float size);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_alignment(int id, Alignment alignment);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]

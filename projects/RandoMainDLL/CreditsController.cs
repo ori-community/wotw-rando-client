@@ -89,12 +89,25 @@ namespace RandoMainDLL {
                   var id = parts[3].ParseToInt("CreditsController.ID");
                   var x = parts[4].ParseToFloat("CreditsController.X");
                   var y = parts[5].ParseToFloat("CreditsController.Y");
-                  var fadeIn = 0.5f;
+                  var alignment = InterOp.Messaging.Alignment.Center;
                   if (parts.Length > 7)
-                    fadeIn = parts[7].ParseToFloat("CreditsController.FadeIn");
-                  var fadeOut = 0.5f;
+                    alignment = (InterOp.Messaging.Alignment)parts[7].ParseToInt("CreditsController.Alignment");
+                  
+                  var horizontal = InterOp.Messaging.HorizontalAnchor.Center;
                   if (parts.Length > 8)
-                    fadeOut = parts[8].ParseToFloat("CreditsController.FadeOut");
+                    horizontal = (InterOp.Messaging.HorizontalAnchor)parts[8].ParseToInt("CreditsController.HorizontalAnchor");
+
+                  var vertical = InterOp.Messaging.VerticalAnchor.Middle;
+                  if (parts.Length > 9)
+                    vertical = (InterOp.Messaging.VerticalAnchor)parts[9].ParseToInt("CreditsController.VerticalAnchor");
+
+                  var fadeIn = 0.5f;
+                  if (parts.Length > 10)
+                    fadeIn = parts[10].ParseToFloat("CreditsController.FadeIn");
+
+                  var fadeOut = 0.5f;
+                  if (parts.Length > 11)
+                    fadeOut = parts[11].ParseToFloat("CreditsController.FadeOut");
 
                   creditsEntries.Add(
                     new TextEntry(
@@ -104,6 +117,9 @@ namespace RandoMainDLL {
                       x,
                       y,
                       parts[6],
+                      alignment,
+                      horizontal,
+                      vertical,
                       fadeIn,
                       fadeOut
                     )
@@ -186,13 +202,18 @@ namespace RandoMainDLL {
     }
 
     private class TextEntry : Entry {
-      public TextEntry(float time, float timeout, int id, float x, float y, string text, float fadeIn = 0.5f, float fadeOut = 0.5f)
+      public TextEntry(float time, float timeout, int id, float x, float y, string text,
+        InterOp.Messaging.Alignment alignment, InterOp.Messaging.HorizontalAnchor horizontal,
+        InterOp.Messaging.VerticalAnchor vertical, float fadeIn, float fadeOut)
         : base(time, timeout)
       {
         this.id = CreditsBaseID + id;
         this.x = x;
         this.y = y;
         this.text = text;
+        this.alignment = alignment;
+        this.horizontal = horizontal;
+        this.vertical = vertical;
         this.fadeIn = fadeIn;
         this.fadeOut = fadeOut;
 
@@ -215,8 +236,12 @@ namespace RandoMainDLL {
       private readonly float x;
       private readonly float y;
       private readonly string text;
+      private readonly InterOp.Messaging.Alignment alignment;
+      private readonly InterOp.Messaging.HorizontalAnchor horizontal;
+      private readonly InterOp.Messaging.VerticalAnchor vertical;
       private readonly float fadeIn;
       private readonly float fadeOut;
+      
 
       private readonly HashSet<int> replacements;
       private bool started = false;
@@ -236,6 +261,8 @@ namespace RandoMainDLL {
           InterOp.Messaging.text_box_create(id, fadeIn, fadeOut, false, false);
           InterOp.Messaging.text_box_text(id, ProcessText(text));
           InterOp.Messaging.text_box_position(id, x, y);
+          InterOp.Messaging.text_box_alignment(id, alignment);
+          InterOp.Messaging.text_box_anchor(id, horizontal, vertical);
           started = true;
         }
 
