@@ -165,6 +165,7 @@ namespace RandoMainDLL {
         case "dropSlugEntity":
           return EnemyType.BombSlime;
         case "mortarEntity":
+        case "iceMortarEntity":
           return EnemyType.MortarSlug;
         case "piranhaEntity":
           return EnemyType.Fish;
