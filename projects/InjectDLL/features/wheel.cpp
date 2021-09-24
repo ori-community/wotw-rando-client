@@ -118,9 +118,19 @@ namespace
         return MenuScreenManager::HideEquipmentWhell(this_ptr);
     }
 
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_MainMenuVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_WorldMapVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_ShardShopVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, IsInventoryVisible, ());
     void show_custom_wheel(input::Action action)
     {
         if (wheels.empty() || wheels[wheel_index].entries.empty())
+            return;
+
+        if (UI::get_MainMenuVisible() ||
+            UI::get_WorldMapVisible() ||
+            UI::get_ShardShopVisible() ||
+            UI::IsInventoryVisible())
             return;
 
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
