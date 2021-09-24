@@ -362,7 +362,7 @@ namespace
         return style;
     }
 
-    void create_color_styles(app::MessageBox* box, std::wstring const& text)
+    void create_styles(app::MessageBox* box, std::wstring const& text)
     {
         int i = 0;
         std::vector<app::TextStyle*> new_styles;
@@ -440,7 +440,7 @@ namespace
         message_box->fields.TextBox->fields.horizontalAnchor = message.horizontal_anchor;
         message_box->fields.TextBox->fields.LineSpacing = message.line_spacing;
 
-        create_color_styles(message_box, message.text);
+        create_styles(message_box, message.text);
         message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(message.text));
         MessageBox::RefreshText(message_box);
 
@@ -618,7 +618,7 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
     message->second.text = text;
     auto message_box = get_message_box(message->second);
     if (message_box != nullptr) {
-        create_color_styles(message_box, text);
+        create_styles(message_box, text);
         auto new_str = il2cpp::string_new(text);
         auto test = il2cpp::convert_csstring(MessageParserUtility::ProcessString(new_str));
         message_box->fields.MessageProvider = utils::create_message_provider(new_str);
