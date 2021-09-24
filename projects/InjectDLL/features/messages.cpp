@@ -374,14 +374,14 @@ namespace
                 style = create_color_style(value);
             else if (check_style(text, i, L"<s_", value))
                 style = create_size_style(value);
+            else
+                ++i;
 
             if (style != nullptr)
             {
                 created_styles.emplace(value);
                 new_styles.push_back(style);
             }
-            else
-                ++i;
         }
 
         if (!new_styles.empty())
@@ -396,6 +396,7 @@ namespace
                 arr->vector[i + styles->max_length] = new_styles.at(i);
 
             box->fields.TextBox->fields.styleCollection->fields.styles = reinterpret_cast<app::TextStyle__Array*>(arr);
+            console::console_send("\nstart style list:");
             for (auto i = 0; i < box->fields.TextBox->fields.styleCollection->fields.styles->max_length; ++i)
             {
                 auto name = il2cpp::convert_csstring(box->fields.TextBox->fields.styleCollection->fields.styles->vector[i]->fields.name);
