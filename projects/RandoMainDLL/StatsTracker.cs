@@ -1,4 +1,5 @@
-﻿using RandoMainDLL.Memory;
+﻿using System;
+using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public enum EnemyType {
@@ -35,6 +36,17 @@ namespace RandoMainDLL {
   }
 
   public static class StatsTracking {
+    public static ZoneType CurrentZone {
+      get {
+        try {
+          return InterOp.get_player_area().toZone();
+        }
+        catch (Exception e) {
+          Randomizer.Error("Hints.CurrentZone", e, false);
+          return ZoneType.Void;
+        }
+      }
+    }
     public static void OnKill(string name, DamageType dt) {
       name = name.Replace("(Clone)", "");
       var et = EnemyFromName(name);

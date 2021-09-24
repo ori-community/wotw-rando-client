@@ -88,7 +88,7 @@ namespace RandoMainDLL {
     public static void OnTeleporterActivated(String identifier) {
       try {
         if (identifier == "kwoloksCavernSaveRoomA")
-          GrantOnNextUpdate.Add(HintsController.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow);
+          GrantOnNextUpdate.Add(StatsTracking.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow);
         else
           GrantOnNextUpdate.Add(TpsByID[identifier]);
       }

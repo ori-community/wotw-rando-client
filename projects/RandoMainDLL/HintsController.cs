@@ -135,7 +135,7 @@ namespace RandoMainDLL {
     }
 
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
-      var zone = _zone == ZoneType.Void ? CurrentZone : _zone;
+      var zone = _zone == ZoneType.Void ? StatsTracking.CurrentZone : _zone;
       var pp = new UberId(13, (int)zone).toCond().Pickup();
       int duration = justUnlocked ? 300 : 240;
       if (pp.NonEmpty) {
@@ -177,18 +177,6 @@ namespace RandoMainDLL {
         return $"{zone}: {found.Count}/{items.Count} {hint.GetDescription()}{rmsg}";
     }
     public static ZoneType toZone(this AreaType t) => AreaToZone.GetOrElse(t, ZoneType.Void);
-    // the two below shouldn't be properties, but i wanted to make the one above a property too?
-    // so this was a compromise, if you think about it.
-    public static ZoneType CurrentZone  {
-      get {
-        try {
-           return InterOp.get_player_area().toZone();          
-        } catch (Exception e) { 
-          Randomizer.Error("Hints.CurrentZone", e, false);
-          return ZoneType.Void;
-        }
-      }
-    }
     public static HintType HintState(this ZoneType zone) {
       try {
         if (zone == ZoneType.Void)
