@@ -79,7 +79,7 @@ namespace RandoMainDLL {
             var type = parts[0].ParseToInt("CreditsController.Type");
             switch (type) {
               case 1: {
-                  if (parts.Length < 7 || parts.Length > 9) {
+                  if (parts.Length < 7 || parts.Length > 12) {
                     Randomizer.Warn("CreditsController", $"malformed text entry: {uncommented_line}");
                     break;
                   }
