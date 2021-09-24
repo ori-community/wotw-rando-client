@@ -89,7 +89,7 @@ namespace multiplayer
 
     void create_avatar(PlayerInfo& info)
     {
-        info.avatar_id = get_free_id();
+        info.avatar_id = reserve_id();
         text_box_create(info.avatar_id, 0.1f, 0.1f, false, false);
         text_box_text(info.avatar_id, info.name.c_str());
         //text_box_color(

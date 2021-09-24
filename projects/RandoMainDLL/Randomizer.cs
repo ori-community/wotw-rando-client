@@ -37,22 +37,23 @@ namespace RandoMainDLL {
         UberStateController.NeedsNewGameInit = true;
         UberStateController.UberStates.Clear();
         UberStateController.TimerUberStates.Clear();
-        Msg.OnNewGame();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
+        MessageController.ShowTimedMessage("*Good Luck! <3*", position: new Vector2(0f, -3f));
       }
       catch (Exception e) {
         Randomizer.Error("OnNewGame", e);
       }
     }
     public static Thread logThread;
+    public static bool ClearLog = false;
     public static bool Initialize() {
       try {
         if (logThread == null) {
           logThread = new Thread(() => {
             while (true) {
               try {
-                if (Msg.ClearLog) {
+                if (ClearLog) {
                   int maxLogLines = Dev ? 1000 : 500;
                   var logLines = File.ReadAllLines(LogFile);
                   if (logLines.Length > maxLogLines)
@@ -64,7 +65,8 @@ namespace RandoMainDLL {
                   txt += line;
                 File.AppendAllText(LogFile, txt);
               } catch (Exception e) {
-                if (Dev) Msg.Print($"error logging: {e}", toMessageLog: false);
+                if (Dev)
+                  MessageController.ShowSingleMessage($"error logging: {e}", log: false, list: ListType.Debug);
               }
             }
           });
@@ -90,7 +92,6 @@ namespace RandoMainDLL {
         }
 
         AHK.Init();
-        Msg.Init();
         CreditsController.ReloadFile();
         Debug("Init: Complete", false);
         return true;
@@ -103,6 +104,9 @@ namespace RandoMainDLL {
     public static void PostInitialize() {
       SeedController.ReadSeed(true);
     }
+
+    private delegate void queuedCommand();
+    private static BlockingCollection<queuedCommand> queuedCommands = new BlockingCollection<queuedCommand>();
 
     public static void Update(float delta) {
       try {
@@ -122,8 +126,11 @@ namespace RandoMainDLL {
           TrackFileController.Update();
         }
 
+        while (queuedCommands.TryTake(out var command))
+          command();
+
         AHK.Tick();
-        Msg.Tick();
+        MessageController.Tick();
         BonusItemController.Update();
         WebSocketClient.Update();
         Multiplayer.Update();
@@ -157,7 +164,7 @@ namespace RandoMainDLL {
         return;
       logQueue.Add($"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       if (Dev && printIfDev)
-        Msg.Print(message, 180, toMessageLog: false);
+        queuedCommands.Add(() => MessageController.ShowSingleMessage(text: message, list: ListType.Debug));
     }
 
     public delegate void Callback();

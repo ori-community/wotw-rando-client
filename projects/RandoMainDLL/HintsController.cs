@@ -64,28 +64,43 @@ namespace RandoMainDLL {
       {ZoneType.Glades, new UberState() { Name = "mapmakerShowMapIconEnergyUberState", ID = 19396, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
       {ZoneType.Woods, new UberState() { Name = "mapmakerShowMapIconHealthUberState", ID = 57987, GroupName = "npcsStateGroup", GroupID = 48248, Type = UberStateType.SerializedByteUberState } },
     };
-    
+
     public static void OnMapPan(AreaType type) {
       var pp = new UberId(13, 100 + (int)type.toZone()).toCond().Pickup();
       var msg = pp.DisplayName;
       if (msg.Count(c => c == '\n') == 2) // if there's exactly 3 lines, insert an extra linebreak at the top
         msg = "\n" + msg;                 // so the middle text isn't obscured by the filter button
 
-      InterOp.update_map_hint(msg);
+      MessageController.SetInfoText(msg);
     }
 
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
       var zone = _zone == ZoneType.Void ? StatsTracking.CurrentZone : _zone;
       var pp = new UberId(13, (int)zone).toCond().Pickup();
-      int duration = justUnlocked ? 300 : 240;
+      float duration = justUnlocked ? 5f : 4f;
       if (pp.NonEmpty) {
-        Msg.SendPlainText(new PlainText(pp.DisplayName, duration, pp.Pos, pp.Clear, pp.Immediate, pp.Quiet), justUnlocked);
-        return;
+        Vector2? pos = pp.Pos.HasValue ? new Vector2?(new Vector2() { X = 0.0f, Y = pp.Pos.Value }) : null;
+        MessageController.ShowTimedMessage(
+          text: pp.DisplayName,
+          time: duration,
+          position: pos,
+          screen: ScreenPosition.TopCenter,
+          list: ListType.None,
+          muted: pp.Quiet,
+          log: justUnlocked
+        );
       }
-      if (InterOp.Utils.get_game_state() != GameState.Game) {
-        if (!justUnlocked)
-          Msg.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
-        return;
+      else if (InterOp.Utils.get_game_state() != GameState.Game && !justUnlocked) {
+        Vector2? pos = pp.Pos.HasValue ? new Vector2?(new Vector2() { X = 0.0f, Y = pp.Pos.Value }) : null;
+        MessageController.ShowTimedMessage(
+          text: SeedController.Progress,
+          position: pos,
+          screen: ScreenPosition.TopCenter,
+          time: duration,
+          list: ListType.None,
+          muted: pp.Quiet,
+          log: justUnlocked
+        );
       }
     }
 

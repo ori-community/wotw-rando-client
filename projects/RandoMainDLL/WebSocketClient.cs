@@ -8,6 +8,7 @@ using WebSocketSharp;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class WebSocketClient {
@@ -207,7 +208,7 @@ namespace RandoMainDLL {
             break;
           case 6:
             var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-            Msg.Print(printMsg.Text, printMsg.Frames, printMsg.Ypos, true);
+            MessageController.ShowTimedMessage(text: printMsg.Text, time: printMsg.Frames / 60f, position: new Vector2(0f, printMsg.Ypos), log: true);
             break;
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);

@@ -180,7 +180,7 @@ namespace RandoMainDLL {
     }
     public virtual void Grant(bool skipBase = false) {
       if (!skipBase && Frames > 0 && DisplayName.Length > 0 && !Muted)
-        Msg.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
+        MessageController.ShowPickup(DisplayName, Frames / 60.0f);
     }
     public bool Collect(UberStateCondition foundAt) {
       if (NonEmpty) {
@@ -332,9 +332,10 @@ namespace RandoMainDLL {
     public bool Squelch = false;
     public override void Grant(bool skipBase = false) {
       if (Prepend)
-        Msg.PrependToNextText(DisplayName);
-      else if (!skipBase) // don't print during multis
-        Msg.Pickup(DisplayName, Frames, Pos, Clear, Immediate, Quiet);
+        MessageController.PrependText(DisplayName);
+      // don't print during multis
+      else if (!skipBase)
+        MessageController.ShowPickup(DisplayName, Frames / 60.0f);
 
       base.Grant(true);
     }
@@ -863,10 +864,10 @@ namespace RandoMainDLL {
           Randomizer.Log("SetStateCommand kwolok door is depracated, use Uberstate 7|6");
           break;
         case SysState.Rain:
-          Msg.Print("Deprecated: use Uberstate 7|2");
+          Randomizer.Log("Deprecated: use Uberstate 7|2");
           break;
         case SysState.HowlEscape:
-          Msg.Print("Deprecated: use Uberstate 7|3");
+          Randomizer.Log("Deprecated: use Uberstate 7|3");
           break;
       }
     }

@@ -63,7 +63,7 @@ namespace RandoMainDLL {
       try {
         if (slot != CurrentSlot) {
           if (Randomizer.InputUnlockCallback.Count != 0) {
-            Msg.Print("Warning: Callback overwritten on slot change!", 240);
+            MessageController.ShowSingleMessage("Warning: Callback overwritten on slot change!", time: 4f, list: ListType.Debug, log: true);
             Randomizer.InputUnlockCallback.Clear();
           }
           // slot swap
@@ -104,7 +104,7 @@ namespace RandoMainDLL {
         // this is a slot swap and not a save
         CurrentSlot = slot;
         if (Randomizer.InputUnlockCallback.Count != 0) {
-          Msg.Print("Warning: Callback overwritten on slot change!", 240);
+          MessageController.ShowSingleMessage($"Warning: Callback overwritten on slot change!", time: 4f, list: ListType.Debug, log: true);
           Randomizer.InputUnlockCallback.Clear();
         }
         return;

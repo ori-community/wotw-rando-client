@@ -89,7 +89,6 @@ namespace RandoMainDLL {
         case Action.Reload:
           if (AHK.CanReload()) {
             AHK.Reload();
-            Msg.Reload();
             ShopSlot.ResetSlotData();
             WebSocketClient.Connect();
             SeedController.ReadSeed();
@@ -100,7 +99,7 @@ namespace RandoMainDLL {
           }
           break;
         case Action.ShowLastPickup:
-          Msg.ShowLastPickup();
+          MessageController.ShowLastPickup();
           break;
         case Action.ShowProgressWithHints:
           HintsController.ProgressWithHints();
@@ -108,7 +107,7 @@ namespace RandoMainDLL {
         case Action.ShowDevFlag:
           Randomizer.Dev = !Randomizer.Dev;
           Randomizer.Log($"Dev: {Randomizer.Dev}", false);
-          Msg.Print($"Dev: {Randomizer.Dev}", toMessageLog: false);
+          MessageController.ShowSingleMessage($"Dev: {Randomizer.Dev}", list: ListType.Wheel);
           WheelManager.OnDevChanged();
           break;
         case Action.ForceExit:
@@ -116,13 +115,13 @@ namespace RandoMainDLL {
           break;
         case Action.ToggleDebug:
           InterOp.Utils.set_debug_controls(!InterOp.Utils.get_debug_controls());
-          Msg.Print($"Debug {(InterOp.Utils.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
+          MessageController.ShowSingleMessage($"Debug {(InterOp.Utils.get_debug_controls() ? "enabled" : "disabled")}", list: ListType.Wheel);
           break;
         case Action.ToggleCursorLock:
-          Msg.Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
+          MessageController.ShowSingleMessage($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", list: ListType.Wheel);
           break;
         case Action.ToggleAlwaysShowKeystones:
-          Msg.Print($"Always show keystones: {InterOp.toggle_always_show_keystones()}", toMessageLog: false);
+          MessageController.ShowSingleMessage($"Always show keystones: {InterOp.toggle_always_show_keystones()}", list: ListType.Wheel);
           break;
         case Action.ToggleAutoaim:
           UberSet.Bool(4, 37, !UberGet.Bool(4, 37));
@@ -148,29 +147,29 @@ namespace RandoMainDLL {
             return; // no cheat
           }
           UberSet.Bool(GameComplete, true);
-          Msg.Print("Spoiler unlocked", toMessageLog: false);
+          MessageController.ShowSingleMessage("spoiler unlocked", list: ListType.Wheel);
           break;
         case Action.TeleportCheat:
           if (SeedController.Settings.RaceMode) return; // no cheat
           tpCheatToggle = !tpCheatToggle;
-          Msg.Print($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", toMessageLog: false);
+          MessageController.ShowSingleMessage($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", list: ListType.Wheel);
           break;
         case Action.WarpCredits:
           if (UberGet.Bool(GameComplete))
             InterOp.start_credits();
           else
-            Msg.Print($"Credit warp not unlocked!", toMessageLog: false);
+            MessageController.ShowSingleMessage($"Credit warp not unlocked!", list: ListType.Wheel);
           break;
         case Action.PrintCoordinates:
           var pos = InterOp.get_position();
-          Msg.Print($"{pos.X}, {pos.Y}", toMessageLog: false);
+          MessageController.ShowSingleMessage($"{pos.X}, {pos.Y}", list: ListType.Wheel);
           break;
         case Action.TogglePickupNamesOnSpoiler:
           MapController.NameLabels = !MapController.NameLabels;
-          Msg.Print($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", toMessageLog: false);
+          MessageController.ShowSingleMessage($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", list: ListType.Wheel);
           break;
         case Action.ClearMessages:
-          Msg.Clear();
+          MessageController.Clear();
           break;
         default:
           Randomizer.Log("Unhandled action triggered.");

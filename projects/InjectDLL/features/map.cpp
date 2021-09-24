@@ -121,13 +121,14 @@ namespace
         AreaMapUI::Show(this_ptr, set_menu_audio_state);
         area_id = app::GameWorldAreaID__Enum_None;
         area_map_open = true;
+        csharp_bridge::on_map_state(true);
         refresh_icon_alphas(true);
     }
         
     IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
         AreaMapUI::Hide(this_ptr);
-        hide_below_hint();
         area_map_open = false;
+        csharp_bridge::on_map_state(false);
         refresh_icon_alphas(false);
     }
 

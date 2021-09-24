@@ -315,7 +315,7 @@ namespace ipc
         auto message_id = 0;
         if (!p.contains("message_id"))
         {
-            auto message_id = get_free_id();
+            auto message_id = reserve_id();
             float fadein = p.value("fadein", 0.5f);
             float fadeout = p.value("fadeout", 0.5f);
             bool should_show_box = p.value("should_show_box", false);

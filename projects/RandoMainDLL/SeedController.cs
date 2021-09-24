@@ -226,32 +226,32 @@ namespace RandoMainDLL {
             Total += CountByZone[z];
         }
         if (Settings.NetcodeEnabled) {
-          if (AHK.IniFlag("DisableNetcode")) {
-            Msg.Print("Warning: can't connect because netcode is disabled via settings");
-          }
+          if (AHK.IniFlag("DisableNetcode"))
+            MessageController.ShowSingleMessage("Warning: can't connect because netcode is disabled via settings", list: ListType.Debug, log: true);
+
           WebSocketClient.Connect();
-        } else WebSocketClient.Disconnect();
+        }
+        else
+          WebSocketClient.Disconnect();
+
         if (coordsRaw != "") {
           var coords = coordsRaw.Split(',').ToList();
           var x = coords[0].ParseToFloat("SpawnX");
           var y = coords[1].ParseToFloat("SpawnY");
           InterOp.set_start_position(x, y);
         }
-        else {
+        else
           InterOp.clear_start_position();
-        }
 
         InterOp.System.report_seed_reload();
         if (!init) {
-          var flagPart = Flags.Count > 0 ? $"\nFlags: {String.Join(", ", Flags)}" : "";
-          Msg.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
+          var flagPart = Flags.Count > 0 ? $"\nFlags: {string.Join(", ", Flags)}" : "";
+          MessageController.ShowPickup($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 5f, true, true);
           MapController.UpdateReachable();
         }
-
       }
-      else {
-        Msg.Print($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 360);
-      }
+      else
+        MessageController.ShowPickup($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 6f, true, true);
     }
 
     public static bool EnableLogicFilter { get => !Settings.DisableLogicFilter; }

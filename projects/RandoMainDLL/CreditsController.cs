@@ -7,16 +7,16 @@ namespace RandoMainDLL {
   static class CreditsController {
 
     public static readonly string CreditsFile = "credits";
-    public static readonly int CreditsBaseID = 10000;
     public static float ZValue = 20.0f;
 
-    // TODO: Load this from a file and provide wheel item to reload it in debug mode.
+    private static Dictionary<int, int> idTranslation = new Dictionary<int, int>();
     private static List<Entry> creditsEntries = new List<Entry>();
     private static List<Entry> activeEntries = new List<Entry>();
     private static Dictionary<int, List<string>> collections = new Dictionary<int, List<string>>();
     private static int currentIndex = 0;
 
-    private static bool startedDebug = false;
+    private static bool showProgress = false;
+    private static int debugID = 0;
     private static Random rand;
 
     private static void Reset() {
@@ -25,11 +25,12 @@ namespace RandoMainDLL {
 
       rand = new Random(0);
       activeEntries.Clear();
+      idTranslation.Clear();
       currentIndex = 0;
-      if (startedDebug)
-        InterOp.Messaging.text_box_destroy(CreditsBaseID);
+      if (debugID > 0)
+        InterOp.Messaging.text_box_destroy(debugID);
 
-      startedDebug = false;
+      debugID = 0;
     }
 
     private static void Update(float time) {
@@ -42,17 +43,17 @@ namespace RandoMainDLL {
         if (activeEntries[i].Resolve(time))
           activeEntries.RemoveAt(i--);
 
-/*      if (Randomizer.Dev) {
-        if (!startedDebug) {
-          InterOp.Messaging.text_box_create(CreditsBaseID, 0.5f, 0.5f, false, false);
-          InterOp.Messaging.text_box_position(CreditsBaseID, 0.0f, 3.5f, ZValue);
-          InterOp.Messaging.text_box_alignment(CreditsBaseID, InterOp.Messaging.Alignment.Center);
-          InterOp.Messaging.text_box_anchor(CreditsBaseID, InterOp.Messaging.HorizontalAnchor.Center, InterOp.Messaging.VerticalAnchor.Top);
-          startedDebug = true;
+      if (showProgress) {
+        if (debugID == 0) {
+          debugID = InterOp.Messaging.reserve_id();
+          InterOp.Messaging.text_box_create(debugID, 0.5f, 0.5f, false, false);
+          InterOp.Messaging.text_box_position(debugID, 0.0f, 3.5f, ZValue);
+          InterOp.Messaging.text_box_alignment(debugID, Alignment.Center);
+          InterOp.Messaging.text_box_anchor(debugID, HorizontalAnchor.Center, VerticalAnchor.Top);
         }
 
-        InterOp.Messaging.text_box_text(CreditsBaseID, $"Credits progress: {time}");
-      }*/
+        InterOp.Messaging.text_box_text(debugID, $"Credits progress: {time}");
+      }
     }
 
     public static void CreditsProgress(float time) {
@@ -90,17 +91,17 @@ namespace RandoMainDLL {
                   var id = parts[3].ParseToInt("CreditsController.ID");
                   var x = parts[4].ParseToFloat("CreditsController.X");
                   var y = parts[5].ParseToFloat("CreditsController.Y");
-                  var alignment = InterOp.Messaging.Alignment.Center;
+                  var alignment = Alignment.Center;
                   if (parts.Length > 7)
-                    alignment = (InterOp.Messaging.Alignment)parts[7].ParseToInt("CreditsController.Alignment");
-                  
-                  var horizontal = InterOp.Messaging.HorizontalAnchor.Center;
-                  if (parts.Length > 8)
-                    horizontal = (InterOp.Messaging.HorizontalAnchor)parts[8].ParseToInt("CreditsController.HorizontalAnchor");
+                    alignment = (Alignment)parts[7].ParseToInt("CreditsController.Alignment");
 
-                  var vertical = InterOp.Messaging.VerticalAnchor.Middle;
+                  var horizontal = HorizontalAnchor.Center;
+                  if (parts.Length > 8)
+                    horizontal = (HorizontalAnchor)parts[8].ParseToInt("CreditsController.HorizontalAnchor");
+
+                  var vertical = VerticalAnchor.Middle;
                   if (parts.Length > 9)
-                    vertical = (InterOp.Messaging.VerticalAnchor)parts[9].ParseToInt("CreditsController.VerticalAnchor");
+                    vertical = (VerticalAnchor)parts[9].ParseToInt("CreditsController.VerticalAnchor");
 
                   var fadeIn = 0.5f;
                   if (parts.Length > 10)
@@ -179,6 +180,13 @@ namespace RandoMainDLL {
       return collection.ElementAt(randomValue % collection.Count);
     }
 
+    private static int messageID(int id) {
+      if (!idTranslation.ContainsKey(id))
+        idTranslation[id] = InterOp.Messaging.reserve_id();
+
+      return idTranslation[id];
+    }
+
     private abstract class Entry {
       public readonly float Time;
       public readonly float Timeout;
@@ -211,11 +219,11 @@ namespace RandoMainDLL {
       };
 
       public TextEntry(float time, float timeout, int id, float x, float y, string text,
-        InterOp.Messaging.Alignment alignment, InterOp.Messaging.HorizontalAnchor horizontal,
-        InterOp.Messaging.VerticalAnchor vertical, float fadeIn, float fadeOut)
+        Alignment alignment, HorizontalAnchor horizontal,
+        VerticalAnchor vertical, float fadeIn, float fadeOut)
         : base(time, timeout)
       {
-        this.id = CreditsBaseID + id;
+        this.id = id;
         this.x = x;
         this.y = y;
         this.text = text;
@@ -248,9 +256,9 @@ namespace RandoMainDLL {
       private readonly float x;
       private readonly float y;
       private readonly string text;
-      private readonly InterOp.Messaging.Alignment alignment;
-      private readonly InterOp.Messaging.HorizontalAnchor horizontal;
-      private readonly InterOp.Messaging.VerticalAnchor vertical;
+      private readonly Alignment alignment;
+      private readonly HorizontalAnchor horizontal;
+      private readonly VerticalAnchor vertical;
       private readonly float fadeIn;
       private readonly float fadeOut;
 
@@ -273,11 +281,12 @@ namespace RandoMainDLL {
       public override bool Resolve(float time) {
         if (!started) {
           randomValue = rand.Next();
-          InterOp.Messaging.text_box_create(id, fadeIn, fadeOut, false, false);
-          InterOp.Messaging.text_box_text(id, ProcessText(text));
-          InterOp.Messaging.text_box_position(id, x, y, ZValue);
-          InterOp.Messaging.text_box_alignment(id, alignment);
-          InterOp.Messaging.text_box_anchor(id, horizontal, vertical);
+          var mID = messageID(id);
+          InterOp.Messaging.text_box_create(mID, fadeIn, fadeOut, false, false);
+          InterOp.Messaging.text_box_text(mID, ProcessText(text));
+          InterOp.Messaging.text_box_position(mID, x, y, ZValue);
+          InterOp.Messaging.text_box_alignment(mID, alignment);
+          InterOp.Messaging.text_box_anchor(mID, horizontal, vertical);
           started = true;
         }
 
@@ -285,14 +294,15 @@ namespace RandoMainDLL {
       }
 
       public override void Reset() {
-        InterOp.Messaging.text_box_destroy(id);
+        var mID = messageID(id);
+        InterOp.Messaging.text_box_destroy(mID);
         started = false;
       }
     }
 
     private class MoveEntry : Entry {
       public MoveEntry(float time, float timeout, int id, float x1, float y1, float x2, float y2) : base(time, timeout) {
-        this.id = CreditsBaseID + id;
+        this.id = id;
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -314,7 +324,8 @@ namespace RandoMainDLL {
         var weight = finished ? 1.0f : Math.Min((time - Time) / Timeout, 1.0f);
         var x = Lerp(x1, x2, weight);
         var y = Lerp(y1, y2, weight);
-        InterOp.Messaging.text_box_position(id, x, y, ZValue);
+        var mID = messageID(id);
+        InterOp.Messaging.text_box_position(mID, x, y, ZValue);
         return finished;
       }
 

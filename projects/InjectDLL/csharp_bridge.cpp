@@ -54,6 +54,7 @@ namespace csharp_bridge
     signatures::f_int_int_int_int filter_icon_type = nullptr;
     signatures::f_void_ptr_int_int_int_int_int filter_icon_text = nullptr;
     signatures::f_bool_int filter_enabled = nullptr;
+    signatures::f_void_bool on_map_state = nullptr;
 
     signatures::f_void_float credits_progress = nullptr;
     signatures::f_void shutdown = nullptr;
@@ -110,6 +111,8 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         csharp_bridge::does_howl_exist = reinterpret_cast<f_bool>(ptr);
     else if (name == "on_map_pan")
         csharp_bridge::on_map_pan = reinterpret_cast<f_void_gwa>(ptr);
+    else if (name == "on_map_state")
+        csharp_bridge::on_map_state = reinterpret_cast<f_void_bool>(ptr);
     else if (name == "is_tree_activated")
         csharp_bridge::is_tree_activated = reinterpret_cast<f_bool_at>(ptr);
     else if (name == "opher_buy_weapon")

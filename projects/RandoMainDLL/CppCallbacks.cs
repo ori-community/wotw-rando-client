@@ -36,7 +36,8 @@ namespace RandoMainDLL {
             CallbackName = "on_checkpoint"
           },
           new Method() {
-            Delegate = new f_void(() => Msg.SendPlainText(new PlainText(SeedController.GoalModeMessages(unmet: "@"), 300, -2f), false)),
+            Delegate = new f_void(() => MessageController.ShowTimedMessage(
+              text: SeedController.GoalModeMessages(unmet: "@"), time: 300, position: new Vector2(0f, -2f))),
             CallbackName = "on_goal_mode_fail"
           },
           new Method() {
@@ -100,6 +101,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_gwa(HintsController.OnMapPan),
             CallbackName = "on_map_pan"
+          },
+          new Method() {
+            Delegate = new f_void_bool(MessageController.SetInfoVisibility),
+            CallbackName = "on_map_state"
           },
           new Method() {
             Delegate = new f_void_at(ShopController.OnBuyOpherWeapon),
@@ -229,6 +234,7 @@ namespace RandoMainDLL {
     public delegate void f_void_a(Input.Action a);
     public delegate void f_void_at(AbilityType at);
     public delegate void f_void_at_bool(AbilityType at, bool b);
+    public delegate void f_void_bool(bool b);
     public delegate void f_void_int(int i);
     public delegate void f_void_int_int(int i, int j);
     public delegate void f_void_float(float i);

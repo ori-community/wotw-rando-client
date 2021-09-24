@@ -27,25 +27,8 @@ namespace RandoMainDLL {
     }
 
     public static class Messaging {
-      public enum Alignment : int {
-        Left = 0,
-        Center = 1,
-        Right = 2,
-        Justify = 3
-      }
-
-      public enum HorizontalAnchor : int {
-        Left = 0,
-        Center = 1,
-        Right = 2
-      }
-
-      public enum VerticalAnchor : int {
-        Top = 0,
-        Middle = 1,
-        Bottom = 2
-      }
-
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int reserve_id();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound);
@@ -55,6 +38,9 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_position(int id, float x, float y, float z);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_size(int id, float size);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_color(int id, int r, int g, int b, int a);
@@ -69,7 +55,20 @@ namespace RandoMainDLL {
       public extern static bool text_box_line_spacing(int id, float spacing);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_visibility(int id, bool value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_is_delayed(int id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_destroy(int id);
+
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void clear_quest_messages();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void update_map_hint([MarshalAs(UnmanagedType.LPWStr)] string info);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void get_screen_position(ScreenPosition position, ref Vector3 output);
     }
 
     public static class Multiplayer {
@@ -178,16 +177,6 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void play_sound(SoundEvent evt);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clear_quest_messages();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void display_hint([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration, float ypos, bool mute);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void display_below([MarshalAs(UnmanagedType.LPWStr)] string hint, float duration, bool mute);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void update_map_hint([MarshalAs(UnmanagedType.LPWStr)] string info);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clear_visible_hints();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void shake_spiritlight();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void shake_keystone();
@@ -195,17 +184,10 @@ namespace RandoMainDLL {
     public extern static void shake_ore();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void start_credits();
-
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_ability(AbilityType ability, bool value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_equipment(EquipmentType ability, bool value);
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr get_current_hint();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool hints_ready();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void discover_everything();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -324,6 +306,8 @@ namespace RandoMainDLL {
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void explode_grenades();
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static float get_fixed_delta_time();
 
     private static List<GCHandle> handles;
     public static void RegisterCSharpBindings() {

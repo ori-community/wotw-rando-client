@@ -9,6 +9,11 @@ namespace RandoMainDLL.Memory {
     [FieldOffset(4)]
     public float Y;
 
+    public Vector2(float x, float y) {
+      X = x;
+      Y = y;
+    }
+
     public static Vector2 operator -(Vector2 one, Vector2 two) => new Vector2() { X = one.X - two.X, Y = one.Y - two.Y };
     public static Vector2 operator +(Vector2 one, Vector2 two) => new Vector2() { X = one.X + two.X, Y = one.Y + two.Y };
     public static Vector2 operator *(Vector2 one, Vector2 two) => new Vector2() { X = one.X * two.X, Y = one.Y * two.Y };
