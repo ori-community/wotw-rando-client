@@ -329,12 +329,23 @@ namespace RandoMainDLL {
 
     public override PickupType Type => PickupType.Message;
 
-    private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)\)", RegexOptions.Compiled);
+    private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)[\|,;]?([a-z]*)?\)", RegexOptions.Compiled);
     private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)\|(.*?)\]", RegexOptions.Compiled);
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
     public override string DisplayName { get {
         var withUberNameRepl = uberNameFrag.Replace(MessageStr, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
-        var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State().FmtVal());
+        var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => {
+          var state = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State();
+          Func<double, String> secToStr = (double sec) => (sec < 3600) ? TimeSpan.FromSeconds(sec).ToString(@"mm\:ss\.f") : TimeSpan.FromSeconds(sec).ToString(@"hh\:mm\:ss\.f");
+          switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
+            case "tframes":
+              return secToStr(state.ValueAsDouble() / 60.0f);
+            case "tsec":
+              return secToStr(state.ValueAsDouble());
+            default:
+              return state.FmtVal();
+          }
+        });
         return nameFrag.Replace(withStateRepl, (Match m) => {
           var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
           var rest = m.Groups[2].Value.Split('|').ToList();
