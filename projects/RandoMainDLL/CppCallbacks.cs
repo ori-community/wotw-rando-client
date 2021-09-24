@@ -174,6 +174,10 @@ namespace RandoMainDLL {
             CallbackName = "on_enemy_death"
           },
           new Method() {
+            Delegate = new f_void_str_dt(StatsTracking.OnDeath),
+            CallbackName = "on_player_death"
+          },
+          new Method() {
             Delegate = new f_void(UberStateController.OnRaceStart),
             CallbackName = "on_race_start"
           },

@@ -22,6 +22,7 @@ namespace uber_states
         constexpr int APPLIERS_GROUP_ID = 11;
         constexpr int MULTI_VARS_GROUP_ID = 12;
         constexpr int PSEUDO_LOCS_GROUP_ID = 13;
+        constexpr int RANDO_STATS_GROUP_ID = 14;
 
         const std::string TREE_GROUP_NAME = "trees";
         const std::string OPHER_WEAPON_GROUP_NAME = "opher_weapons";
@@ -35,6 +36,7 @@ namespace uber_states
         const std::string BINGO_STATE_GROUP_NAME = "bingo_state";
         const std::string APPLIERS_GROUP_NAME = "appliers_serialization";
         const std::string MULTI_VARS_GROUP_NAME = "multi_vars";
+        const std::string RANDO_STATS_GROUP_NAME = "rando_stats";
     }
 
     // Mainly useful for reevaluating listeners when a state should have changed but it didn't.

@@ -116,6 +116,7 @@ namespace RandoMainDLL {
         BonusItemController.Update();
         WebSocketClient.Update();
         Multiplayer.Update();
+        StatsTracking.Update(gs);
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }

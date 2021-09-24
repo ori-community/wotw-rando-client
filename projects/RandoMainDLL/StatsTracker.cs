@@ -47,7 +47,20 @@ namespace RandoMainDLL {
         }
       }
     }
-    public static void OnKill(string name, DamageType dt) {
+
+    private static UberId timeState(this ZoneType zone) => new UberId(14, (int)zone);
+    private static UberId deathState(this ZoneType zone) => new UberId(14, 20 + (int)zone);
+    private static UberId pickupState(this ZoneType zone) => new UberId(14, 40 + (int)zone);
+    public static void Update(GameState gs) {
+      if(gs == GameState.Game) {
+        UberInc.Int(CurrentZone.timeState());
+      } 
+    }
+      public static void OnDeath(string perpetrator, DamageType dt) {
+        UberInc.Byte(CurrentZone.deathState());
+      }
+
+      public static void OnKill(string name, DamageType dt) {
       name = name.Replace("(Clone)", "");
       var et = EnemyFromName(name);
       if (et == EnemyType.Unknown && Randomizer.Dev)
