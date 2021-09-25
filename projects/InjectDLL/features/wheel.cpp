@@ -127,10 +127,11 @@ namespace
         if (wheels.empty() || wheels[wheel_index].entries.empty())
             return;
 
-        if (UI::get_MainMenuVisible() ||
+        if (!is_wheel_visible && 
+            (UI::get_MainMenuVisible() ||
             UI::get_WorldMapVisible() ||
             UI::get_ShardShopVisible() ||
-            UI::IsInventoryVisible())
+            UI::IsInventoryVisible()))
             return;
 
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
@@ -445,7 +446,45 @@ namespace
 
     CALL_ON_INIT(initialize_wheel);
 
+    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
     IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
+    IL2CPP_BINDING(, CleverMenuItemSelectionManager, app::Vector2, get_MenuItemAxis, (app::CleverMenuItemSelectionManager* this_ptr));
+    IL2CPP_BINDING(, CleverMenuItemSelectionManager, void, SetCurrentMenuItem, (app::CleverMenuItemSelectionManager* this_ptr, app::CleverMenuItem* item, bool run_actions));
+    IL2CPP_BINDING(, CleverMenuItemSelectionManager, void, set_IsHighlightVisible, (app::CleverMenuItemSelectionManager* this_ptr, bool value));
+    IL2CPP_BINDING(, CleverMenuItemSelectionManager, void, SetCurrentItem, (app::CleverMenuItemSelectionManager* this_ptr, int index, bool run_actions));
+    IL2CPP_BINDING(, CleverMenuItem, void, OnHighlight, (app::CleverMenuItem* this_ptr, bool run_actions));
+    IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
+    NESTED_STATIC_IL2CPP_BINDING(, MoonMath, Line, float, DistancePointToLine2D, (app::Vector3* p1, app::Vector3* p2, app::Vector3* p))
+
+    void select_closest(app::CleverMenuItemSelectionManager* manager, app::Vector2& axis)
+    {
+        auto magnitude = sqrtf(axis.x * axis.x + axis.y * axis.y);
+        if (magnitude < 0.2f)
+            return;
+
+        auto line_p1 = Transform::get_position(il2cpp::unity::get_transform(il2cpp::unity::get_game_object(manager)));
+        app::Vector3 line_p2{ line_p1.x + axis.x / magnitude, line_p1.y + axis.y / magnitude, 0.0f };
+        float distance = INFINITY;
+        auto closest = -1;
+        auto i = 0;
+
+        for (; i < manager->fields.m_menuItems->fields._size; ++i)
+        {
+            auto item = manager->fields.m_menuItems->fields._items->vector[i];
+            auto item_bounds = CleverMenuItem::get_Bounds(item);
+            app::Vector3 center_v3{ item_bounds.m_XMin + item_bounds.m_Width / 2.0f, item_bounds.m_YMin + item_bounds.m_Height / 2.0f, 0.0f };
+            auto i_distance = MoonMath::Line::DistancePointToLine2D(&line_p1, &line_p2, &center_v3);
+            if (i_distance < distance)
+            {
+                closest = i;
+                distance = i_distance;
+            }
+        }
+
+        CleverMenuItemSelectionManager::set_IsHighlightVisible(manager, closest != -1);
+        CleverMenuItemSelectionManager::SetCurrentItem(manager, closest, closest != -1);
+        il2cpp::invoke(manager->fields.OnRadialItemChanged, "Invoke");
+    }
 }
 
 INJECT_C_DLLEXPORT bool set_wheel_item_name(int wheel, int item, const wchar_t* name)
@@ -565,7 +604,28 @@ INJECT_C_DLLEXPORT void refresh_wheel()
     if (is_wheel_visible)
     {
         dont_fade = true;
+        auto* manager = wheel->fields.RadialSelection->fields.m_navigationManager;
+        auto last_axis = manager->fields.m_lastMenuAxis;
         EquipmentWheel::ShowImmediate_intercept(wheel);
+
+        // Trigger movement so wheel updates selection after refresh.
+        auto scheme = il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance->fields.m_currentControlSchemes;
+        switch (scheme)
+        {
+        case app::ControlScheme__Enum_Switch:
+        case app::ControlScheme__Enum_Controller:
+        case app::ControlScheme__Enum_Keyboard:
+            select_closest(manager, last_axis);
+            break;
+        case app::ControlScheme__Enum_KeyboardAndMouse:
+            auto item = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor_intercept(manager);
+            if (Object::op_Implicit(item))
+            {
+                CleverMenuItemSelectionManager::SetCurrentMenuItem(manager, item, true);
+                CleverMenuItem::OnHighlight(item, true);
+            }
+            break;
+        }
         dont_fade = false;
     }
 }
