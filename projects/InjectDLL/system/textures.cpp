@@ -158,7 +158,7 @@ namespace textures
 
                 return items->vector[actual_value]->fields.Icon;
             }
-            else if ("grom")
+            else if (type == "grom")
             {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
@@ -168,7 +168,7 @@ namespace textures
 
                 return items->vector[actual_value]->fields.Project->fields.Icon;
             }
-            else if ("tuley")
+            else if (type == "tuley")
             {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;

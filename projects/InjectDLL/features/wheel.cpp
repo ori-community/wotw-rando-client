@@ -348,12 +348,6 @@ namespace
         if (custom_wheel_on)
         {
             CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
-
-            dev::Visualizer v;
-            dev::visualize::visualize_object(v, this_ptr->fields.IconGO);
-            modloader::console::console_send("- map icon go");
-            modloader::console::console_send(dev::visualize::get_string(v));
-
             auto* spell_settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings");
             auto* icons = spell_settings->static_fields->Instance->fields.Icons;
             auto* default_texture = reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon);
