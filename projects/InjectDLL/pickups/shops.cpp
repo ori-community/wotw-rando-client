@@ -242,8 +242,8 @@ namespace
             if (!it->second.texture.empty())
             {
                 auto texture = textures::get_texture(it->second.texture);
-                if (texture)
-                    item->fields.Icon = texture;
+                if (texture.texture)
+                    item->fields.Icon = reinterpret_cast<app::Texture2D*>(texture.texture);
             }
         }
 
@@ -406,8 +406,8 @@ namespace
             if (it != opher_overrides.end() && !it->second.texture.empty())
             {
                 auto texture = textures::get_texture(it->second.texture);
-                if (texture != nullptr)
-                    return reinterpret_cast<app::Texture*>(texture);
+                if (texture.texture != nullptr)
+                    return texture.texture;
             }
 
             auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
@@ -557,7 +557,7 @@ namespace
     }
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
-    app::Texture2D* get_shard_icon(app::SpiritShardType__Enum shard)
+    textures::TextureData get_shard_icon(app::SpiritShardType__Enum shard)
     {
         const auto it = twillen_overrides.find(static_cast<uint8_t>(shard));
         if (it == twillen_overrides.end() || it->second.texture.empty())
@@ -566,7 +566,9 @@ namespace
                 ->static_fields->Instance->fields.Icons;
             auto icon = 0;
             auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
-            return icons->fields.InventoryIcon;
+            textures::TextureData data;
+            data.texture = reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon);
+            return data;
         }
 
         return textures::get_texture(it->second.texture);
@@ -605,9 +607,7 @@ namespace
             auto* const empty_str = reinterpret_cast<app::String*>(il2cpp::string_new(""));
             if (overwrite_shard_text)
             {
-                auto texture = get_shard_icon(type);
-                UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture,
-                    reinterpret_cast<app::Texture*>(texture));
+                textures::apply(renderer, get_shard_icon(type));
             }
             else
             {
@@ -706,14 +706,10 @@ namespace
                 this_ptr->fields.m_spiritShard->fields.m_type : app::SpiritShardType__Enum_None;
 
             auto texture = get_shard_icon(shard);
-            if (texture != nullptr)
-            {
-                UberShaderAPI::SetTexture(
-                    renderer,
-                    app::UberShaderProperty_Texture__Enum_MainTexture,
-                    reinterpret_cast<app::Texture*>(texture)
-                );
-            }
+            if (texture.texture != nullptr)
+                textures::apply(renderer, texture);
+            else
+                textures::apply_default(renderer);
         }
         else
             SpiritShardUIItem::UpdateShardIcon(this_ptr);

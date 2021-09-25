@@ -42,7 +42,7 @@ namespace RandoMainDLL {
       handles.Add(GCHandle.Alloc(callback));
       var ptr = Marshal.GetFunctionPointerForDelegate(callback);
 
-      CreateWheelItemInternal(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "map:37:active", Color.White, ptr);
+      CreateWheelItemInternal(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "shard:1", Color.White, ptr);
       CreateWheelItemInternal(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "shard:4", Color.White, ptr);
       CreateWheelItemInternal(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "shard:5", Color.White, ptr);
       CreateWheelItemInternal(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "shard:6", Color.White, ptr);

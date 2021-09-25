@@ -38,8 +38,7 @@ namespace
 
         std::wstring name = L"";
         std::wstring description = L"";
-        app::Texture* texture = nullptr;
-        app::Vector4 uvs;
+        textures::TextureData texture;
         app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
         binding_action action = nullptr;
         csharp_callback callback = nullptr;
@@ -352,13 +351,11 @@ namespace
             auto* icons = spell_settings->static_fields->Instance->fields.Icons;
             auto* default_texture = reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon);
 
-            auto texture = entry == nullptr || entry->texture == nullptr ? default_texture : entry->texture;
+            auto texture = entry == nullptr || entry->texture.texture == nullptr ? default_texture : entry->texture.texture;
             app::Color color = entry == nullptr ? app::Color{ 1.0f, 1.0f, 1.0f, 1.0f } : entry->color;
 
-            if (entry != nullptr && entry->texture != nullptr)
-                textures::set_uvs(renderer, entry->uvs);
-            else
-                textures::set_default_uvs(renderer);
+            if (entry != nullptr && entry->texture.texture != nullptr)
+                textures::apply(renderer, entry->texture);
 
             try
             {
@@ -369,9 +366,7 @@ namespace
         }
         else
         {
-            textures::set_default_uvs(renderer);
-            app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
-            UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            textures::apply_default(renderer);
             SpellUIItem::UpdateSpellIcon(this_ptr);
         }
     }
@@ -448,7 +443,7 @@ namespace
         entry.color.r = 1.0f;
         entry.color.g = 1.0f;
         entry.color.b = 1.0f;
-        entry.texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture));
+        entry.texture = textures::get_texture(texture);
         entry.callback = nullptr;
         entry.action = action;
     }
@@ -531,11 +526,11 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
     std::wstring texture_name(texture);
     auto& entry = wheels[wheel].entries[item];
     if (texture_name.empty())
-        entry.texture = nullptr;
+        entry.texture = {};
     else
     {
-        auto* actual_texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture, &entry.uvs));
-        if (actual_texture == nullptr)
+        auto actual_texture = textures::get_texture(texture);
+        if (actual_texture.texture == nullptr)
         {
             auto texture_str = convert_wstring_to_string(texture);
             warn("wheel", format("failed to find texture %s", texture_str.c_str()));

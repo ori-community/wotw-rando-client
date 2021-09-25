@@ -2,9 +2,15 @@
 
 namespace textures
 {
-    // All of the methods assume we are dealing with quads.
-    void set_uvs(app::Renderer* renderer, app::Vector4& uvs);
-    void set_default_uvs(app::Renderer* renderer);
+    struct TextureData
+    {
+        app::Texture* texture = nullptr;
+        app::Vector4 uvs = { 0 };
+        app::Vector4 scroll_rot = { 0 };
+        float alpha_color = 0.0f;
+    };
 
-    app::Texture2D* get_texture(std::wstring_view path, app::Vector4* uvs = nullptr);
+    void apply(app::Renderer* renderer, TextureData const& data);
+    void apply_default(app::Renderer* renderer);
+    TextureData get_texture(std::wstring_view path);
 }
