@@ -2,6 +2,7 @@
 #include <csharp_bridge.h>
 #include <dll_main.h>
 #include <uber_states/state_applier.h>
+#include <uber_states/uber_state_manager.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
@@ -125,6 +126,9 @@ namespace
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
         uber_states::register_applier_intercept({ 288338807, -1643391836 }, [](app::NewSetupStateController* this_ptr, int32_t state, auto) -> int32_t {
+            if (uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 4))
+                return state;
+
             auto& modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
             app::GameObject* day = nullptr;
             app::GameObject* night = nullptr;
