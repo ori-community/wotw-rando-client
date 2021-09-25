@@ -310,7 +310,6 @@ namespace
     // Generic --------------------------------
 
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
-    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
     IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_Upgradable, (app::PlayerUberStateShards_Shard* this_ptr));
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_UpgradeAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
@@ -394,8 +393,9 @@ namespace
         }
     }
 
-    app::Texture* get_icon(ShopTypeOverwrite overwrite, app::ShopkeeperItem* shop_item)
+    textures::TextureData get_icon(ShopTypeOverwrite overwrite, app::ShopkeeperItem* shop_item)
     {
+        textures::TextureData data;
         switch (overwrite)
         {
         case ShopTypeOverwrite::Opher:
@@ -405,25 +405,35 @@ namespace
             const auto it = opher_overrides.find(key);
             if (it != opher_overrides.end() && !it->second.texture.empty())
             {
-                auto texture = textures::get_texture(it->second.texture);
-                if (texture.texture != nullptr)
-                    return texture.texture;
+                data = textures::get_texture(it->second.texture);
+                if (data.texture != nullptr)
+                    return data;
             }
 
+            break;
+        }
+        default:
+            textures::TextureData data;
+            data.texture = il2cpp::invoke<app::Texture>(shop_item, "get_ItemIcon");
+            break;
+        }
+
+        if (data.texture == nullptr)
+        {
             auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
                 ->static_fields->Instance->fields.Icons;
             auto icon = 0;
             auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
-            return reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon);
+            data.texture = reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon);
         }
-        default:
-            return il2cpp::invoke<app::Texture>(shop_item, "get_ItemIcon");
-        }
+
+        return data;
     }
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, app::Texture*, get_ItemIcon, (app::WeaponmasterItem* this_ptr)) {
+        // Todo: Go where this is called and change it to use get_icon so we can set UVs and things.
         if (overwrite_shop_text == ShopTypeOverwrite::Opher)
-            return get_icon(overwrite_shop_text, reinterpret_cast<app::ShopkeeperItem*>(this_ptr));
+            return get_icon(overwrite_shop_text, reinterpret_cast<app::ShopkeeperItem*>(this_ptr)).texture;
         
         return WeaponmasterItem::get_ItemIcon(this_ptr);
     }
@@ -443,8 +453,8 @@ namespace
         auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
         auto* const renderer = renderer_components[0];
 
-        auto* texture = get_icon(overwrite_shop_text, this_ptr->fields.m_item);
-        UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
+        auto texture = get_icon(overwrite_shop_text, this_ptr->fields.m_item);
+        textures::apply(renderer, texture);
         if (overwrite_shop_text == ShopTypeOverwrite::Opher)
             GameObject::SetActive(this_ptr->fields.IconGO, true);
 
@@ -606,15 +616,14 @@ namespace
         {
             auto* const empty_str = reinterpret_cast<app::String*>(il2cpp::string_new(""));
             if (overwrite_shard_text)
-            {
                 textures::apply(renderer, get_shard_icon(type));
-            }
             else
             {
                 auto* const icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(
                     settings->fields.Icons, "GetValue", &type);
-                UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture,
-                    reinterpret_cast<app::Texture*>(icons->fields.HeaderIcon));
+                textures::TextureData data;
+                data.texture = reinterpret_cast<app::Texture*>(icons->fields.HeaderIcon);
+                textures::apply(renderer, data);
             }
 
             auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");

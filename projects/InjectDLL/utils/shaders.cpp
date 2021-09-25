@@ -19,11 +19,15 @@ namespace shaders
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture const* texture));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTextureAtlasUVs, (app::Renderer* this_ptr, app::UberShaderProperty_Texture__Enum p, app::Vector4 const* atlas_uvs));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTextureScrollRotData, (app::Renderer* this_ptr, app::UberShaderProperty_Texture__Enum p, app::Vector4 const* scroll_rot));
-    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetAlpha, (app::Renderer* this_ptr, app::UberShaderProperty_Color__Enum p, float color));
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetVector, (app::Renderer* this_ptr, app::UberShaderProperty_Vector__Enum p, app::Vector4 const* vec));
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetAlpha, (app::Renderer* this_ptr, app::Material* material, app::UberShaderProperty_Color__Enum p, float color));
 
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Material*, GetEditableMaterial, (app::Renderer* this_ptr));
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Material*, GetSharedMaterial, (app::Renderer* this_ptr));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Vector4, GetTextureAtlasUVs, (app::Renderer* this_ptr, app::UberShaderProperty_Texture__Enum p));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Vector4, GetTextureScrollRotData, (app::Renderer* this_ptr, app::UberShaderProperty_Texture__Enum p));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Texture*, GetTexture, (app::Renderer* this_ptr, app::UberShaderProperty_Texture__Enum p));
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Vector4, GetVector, (app::Renderer* this_ptr, app::UberShaderProperty_Vector__Enum p));
 
     ShaderInfo get_info(app::Renderer* renderer)
     {

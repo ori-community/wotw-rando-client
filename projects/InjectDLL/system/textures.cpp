@@ -35,21 +35,22 @@ namespace textures
 
     void apply(app::Renderer* renderer, TextureData const& data)
     {
+        auto material = shaders::UberShaderAPI::GetEditableMaterial(renderer);
         shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, data.texture);
         shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &data.uvs);
         shaders::UberShaderAPI::SetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &data.scroll_rot);
-        shaders::UberShaderAPI::SetAlpha(renderer, app::UberShaderProperty_Color__Enum_MainColor, data.alpha_color);
+        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &data.color);
+        shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_AlphaMask, &data.alpha_mask);
     }
 
     void apply_default(app::Renderer* renderer)
     {
-        app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
-        app::Vector4 uvs{ 0.0f, 0.0f, 1.0f, 1.0f };
-        app::Vector4 scroll_rot{ 0.0f, 0.0f, 0.0f, 0.0f };
-        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
-        shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &uvs);
-        shaders::UberShaderAPI::SetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &scroll_rot);
-        shaders::UberShaderAPI::SetAlpha(renderer, app::UberShaderProperty_Color__Enum_MainColor, 0.0f);
+        TextureData data;
+        auto material = shaders::UberShaderAPI::GetEditableMaterial(renderer);
+        shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &data.uvs);
+        shaders::UberShaderAPI::SetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &data.scroll_rot);
+        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &data.color);
+        shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_AlphaMask, &data.alpha_mask);
     }
 
     void set_uvs(app::Renderer* renderer, app::Vector4& uvs)
