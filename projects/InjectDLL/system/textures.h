@@ -1,5 +1,7 @@
 #include <string_view>
 
+#include <utils/shaders.h>
+
 namespace textures
 {
     struct TextureData
@@ -14,5 +16,5 @@ namespace textures
     void apply(app::Renderer* renderer, shaders::ShaderInfo const& info, TextureData const& data);
     void apply(app::Renderer* renderer, TextureData const& data);
     void apply_default(app::Renderer* renderer);
-    TextureData get_texture(std::wstring_view path);
+    TextureData get_texture(std::wstring_view path, shaders::ShaderInfo* info = nullptr);
 }

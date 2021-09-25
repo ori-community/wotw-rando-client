@@ -70,7 +70,7 @@ namespace textures
         shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &uvs);
     }
 
-    TextureData get_texture(std::wstring_view path)
+    TextureData get_texture(std::wstring_view path, shaders::ShaderInfo* info)
     {
         TextureData data;
         try
@@ -143,9 +143,9 @@ namespace textures
                     return data;
 
                 auto renderer = il2cpp::unity::get_components<app::Renderer>(go, "UnityEngine", "Renderer")[0];
-                shaders::get_info(renderer);
+                if (info != nullptr)
+                    *info = shaders::get_info(renderer);
 
-                auto test = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MaskDissolveColor);
                 data.uvs = shaders::UberShaderAPI::GetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
                 data.scroll_rot = shaders::UberShaderAPI::GetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
                 data.alpha_mask = shaders::UberShaderAPI::GetVector(renderer, app::UberShaderProperty_Vector__Enum_AlphaMask);
