@@ -138,6 +138,46 @@ namespace textures
 
                 return reinterpret_cast<app::Texture2D*>(shaders::UberShaderAPI::GetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture));
             }
+            else if (type == L"opher")
+            {
+                auto actual_value = std::stoi(value);
+                auto screen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
+                auto items = screen->fields.WeaponmasterItems;
+                if (actual_value < 0 && actual_value >= items->max_length)
+                    return nullptr;
+
+                return items->vector[actual_value]->fields.Upgrade->fields.Icon;
+            }
+            else if (type == L"lupo")
+            {
+                auto actual_value = std::stoi(value);
+                auto screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen")->static_fields->Instance;
+                auto items = screen->fields.Purchases;
+                if (actual_value < 0 && actual_value >= items->max_length)
+                    return nullptr;
+
+                return items->vector[actual_value]->fields.Icon;
+            }
+            else if ("grom")
+            {
+                auto actual_value = std::stoi(value);
+                auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
+                auto items = screen->fields.BuilderItems;
+                if (actual_value < 0 && actual_value >= items->max_length)
+                    return nullptr;
+
+                return items->vector[actual_value]->fields.Project->fields.Icon;
+            }
+            else if ("tuley")
+            {
+                auto actual_value = std::stoi(value);
+                auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;
+                auto items = screen->fields.GardenerItems;
+                if (actual_value < 0 && actual_value >= items->max_length)
+                    return nullptr;
+
+                return items->vector[actual_value]->fields.Project->fields.Icon;
+            }
             else if (type == L"file")
             {
                 auto it = files.find(value);
