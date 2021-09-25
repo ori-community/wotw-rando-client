@@ -33,6 +33,12 @@ namespace textures
         IL2CPP_BINDING(, AreaMapIconManager, app::GameObject*, GetIcon, (app::AreaMapIconManager* this_ptr, app::WorldMapIconType__Enum icon_type));
     }
 
+    void apply(app::Renderer* renderer, shaders::ShaderInfo const& info, TextureData const& data)
+    {
+        shaders::apply(renderer, info);
+        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &data.color);
+    }
+
     void apply(app::Renderer* renderer, TextureData const& data)
     {
         auto material = shaders::UberShaderAPI::GetEditableMaterial(renderer);
@@ -137,8 +143,12 @@ namespace textures
                     return data;
 
                 auto renderer = il2cpp::unity::get_components<app::Renderer>(go, "UnityEngine", "Renderer")[0];
+                shaders::get_info(renderer);
+
+                auto test = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MaskDissolveColor);
                 data.uvs = shaders::UberShaderAPI::GetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
                 data.scroll_rot = shaders::UberShaderAPI::GetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
+                data.alpha_mask = shaders::UberShaderAPI::GetVector(renderer, app::UberShaderProperty_Vector__Enum_AlphaMask);
                 data.texture = shaders::UberShaderAPI::GetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
             }
             else if (type == L"opher")
