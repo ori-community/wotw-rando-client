@@ -1,6 +1,8 @@
 #include <macros.h>
 #include <csharp_bridge.h>
+#include <dev/object_visualizer.h>
 #include <input/rando_bindings.h>
+#include <system/textures.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
 #include <utils/shaders.h>
@@ -13,7 +15,6 @@
 
 #include <unordered_map>
 #include <unordered_set>
-#include <system\textures.h>
 #include <dll_main.h>
 
 using namespace modloader;
@@ -38,6 +39,7 @@ namespace
         std::wstring name = L"";
         std::wstring description = L"";
         app::Texture* texture = nullptr;
+        app::Vector4 uvs;
         app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
         binding_action action = nullptr;
         csharp_callback callback = nullptr;
@@ -337,19 +339,32 @@ namespace
             EquipmentWheelUIDetails::UpdateContext(this_ptr, to_right);
     }
 
+    IL2CPP_BINDING(UnityEngine, MeshFilter, app::Mesh*, get_mesh, (app::MeshFilter* this_ptr));
+    IL2CPP_BINDING(UnityEngine, Mesh, app::Vector2__Array*, get_uv, (app::Mesh* this_ptr));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetColor, (app::Renderer* renderer, app::UberShaderProperty_Color__Enum prop, app::Color* color));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture* texture));
     IL2CPP_INTERCEPT(, SpellUIItem, void, UpdateSpellIcon, (app::SpellUIItem* this_ptr)) {
+        auto* renderer = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
         if (custom_wheel_on)
         {
             CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
-            auto* renderer = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
+
+            dev::Visualizer v;
+            dev::visualize::visualize_object(v, this_ptr->fields.IconGO);
+            modloader::console::console_send("- map icon go");
+            modloader::console::console_send(dev::visualize::get_string(v));
+
             auto* spell_settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings");
             auto* icons = spell_settings->static_fields->Instance->fields.Icons;
             auto* default_texture = reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon);
 
             auto texture = entry == nullptr || entry->texture == nullptr ? default_texture : entry->texture;
             app::Color color = entry == nullptr ? app::Color{ 1.0f, 1.0f, 1.0f, 1.0f } : entry->color;
+
+            if (entry != nullptr && entry->texture != nullptr)
+                textures::set_uvs(renderer, entry->uvs);
+            else
+                textures::set_default_uvs(renderer);
 
             try
             {
@@ -360,7 +375,7 @@ namespace
         }
         else
         {
-            auto* renderer = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
+            textures::set_default_uvs(renderer);
             app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
             UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
             SpellUIItem::UpdateSpellIcon(this_ptr);
@@ -525,7 +540,7 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
         entry.texture = nullptr;
     else
     {
-        auto* actual_texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture));
+        auto* actual_texture = reinterpret_cast<app::Texture*>(textures::get_texture(texture, &entry.uvs));
         if (actual_texture == nullptr)
         {
             auto texture_str = convert_wstring_to_string(texture);
