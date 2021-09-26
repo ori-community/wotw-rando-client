@@ -636,7 +636,7 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y)
+INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z)
 {
     auto& message = permanent_messages.find(id);
     if (message == permanent_messages.end())
@@ -644,7 +644,7 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y)
 
     message->second.pos.x = x;
     message->second.pos.y = y;
-    message->second.pos.z = 0.0f;
+    message->second.pos.z = z;
     if (message->second.handle != -1) {
         auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message->second.handle));
         auto transform = il2cpp::unity::get_transform(go);

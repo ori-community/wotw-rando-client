@@ -8,6 +8,7 @@ namespace RandoMainDLL {
 
     public static readonly string CreditsFile = "credits";
     public static readonly int CreditsBaseID = 10000;
+    public static float ZValue = 20.0f;
 
     // TODO: Load this from a file and provide wheel item to reload it in debug mode.
     private static List<Entry> creditsEntries = new List<Entry>();
@@ -44,7 +45,7 @@ namespace RandoMainDLL {
       if (Randomizer.Dev) {
         if (!startedDebug) {
           InterOp.Messaging.text_box_create(CreditsBaseID, 0.5f, 0.5f, false, false);
-          InterOp.Messaging.text_box_position(CreditsBaseID, 0.0f, 3.5f);
+          InterOp.Messaging.text_box_position(CreditsBaseID, 0.0f, 3.5f, ZValue);
           InterOp.Messaging.text_box_alignment(CreditsBaseID, InterOp.Messaging.Alignment.Center);
           InterOp.Messaging.text_box_anchor(CreditsBaseID, InterOp.Messaging.HorizontalAnchor.Center, InterOp.Messaging.VerticalAnchor.Top);
           startedDebug = true;
@@ -260,7 +261,7 @@ namespace RandoMainDLL {
           randomValue = rand.Next();
           InterOp.Messaging.text_box_create(id, fadeIn, fadeOut, false, false);
           InterOp.Messaging.text_box_text(id, ProcessText(text));
-          InterOp.Messaging.text_box_position(id, x, y);
+          InterOp.Messaging.text_box_position(id, x, y, ZValue);
           InterOp.Messaging.text_box_alignment(id, alignment);
           InterOp.Messaging.text_box_anchor(id, horizontal, vertical);
           started = true;
@@ -299,7 +300,7 @@ namespace RandoMainDLL {
         var weight = finished ? 1.0f : Math.Min((time - Time) / Timeout, 1.0f);
         var x = Lerp(x1, x2, weight);
         var y = Lerp(y1, y2, weight);
-        InterOp.Messaging.text_box_position(id, x, y);
+        InterOp.Messaging.text_box_position(id, x, y, ZValue);
         return finished;
       }
 

@@ -39,7 +39,7 @@ namespace RandoMainDLL {
       public extern static bool text_box_text(int id, [MarshalAs(UnmanagedType.LPWStr)] string text);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool text_box_position(int id, float x, float y);
+      public extern static bool text_box_position(int id, float x, float y, float z);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_color(int id, int r, int g, int b, int a);
