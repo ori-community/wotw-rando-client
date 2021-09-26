@@ -103,7 +103,7 @@ namespace
     // nullcheck helper
     bool is_visible(app::MessageBox* box)
     {
-        return box && box->fields.Visibility && MessageBoxVisibility::get_Visible(box->fields.Visibility);
+        return il2cpp::unity::is_valid(box) && il2cpp::unity::is_valid(box->fields.Visibility) && MessageBoxVisibility::get_Visible(box->fields.Visibility);
     }
 
     IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider* this_ptr));
@@ -224,7 +224,7 @@ namespace
         if (message.below)
         {
             // Kill the current box.
-            if (below_hint_box && is_visible(below_hint_box))
+            if (is_visible(below_hint_box))
             {
                 MessageBox::HideMessageScreenImmediately(below_hint_box, 0);
                 below_hint_box = 0;
