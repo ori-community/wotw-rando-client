@@ -131,6 +131,7 @@ namespace RandoMainDLL {
       var msg = pp.NonEmpty ? pp.DisplayName : (getZoneHintMessage(type.toZone(), isOnMap: true) + GetKeySkillHints());
       if (msg.Count(c => c == '\n') == 2) // if there's exactly 3 lines, insert an extra linebreak at the top
         msg = "\n" + msg;                 // so the middle text isn't obscured by the filter button
+
       InterOp.update_map_hint(msg);
     }
 

@@ -234,9 +234,11 @@ namespace
                     below_box_handle = 0;
                 }
             }
-
-            below_box_handle = set_box(message);
-            below_hint_box = reinterpret_cast<app::MessageBox*>(il2cpp::gchandle_target(last_handle));
+            if (!message.text.empty())
+            {
+                below_box_handle = set_box(message);
+                below_hint_box = reinterpret_cast<app::MessageBox*>(il2cpp::gchandle_target(last_handle));
+            }
         }
         else
         {
