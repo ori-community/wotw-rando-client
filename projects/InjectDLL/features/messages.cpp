@@ -103,6 +103,14 @@ namespace
     // nullcheck helper
     bool is_visible(app::MessageBox* box)
     {
+        auto ptr = reinterpret_cast<uintptr_t>(box);
+        trace(MessageType::Info, 4, "stupid", format("ptr: %d", ptr));
+        if (il2cpp::unity::is_valid(box))
+        {
+            auto ptr = reinterpret_cast<uintptr_t>(box->fields.Visibility);
+            trace(MessageType::Info, 4, "stupid", format("vis ptr: %d", ptr));
+        }
+
         return il2cpp::unity::is_valid(box) && il2cpp::unity::is_valid(box->fields.Visibility) && MessageBoxVisibility::get_Visible(box->fields.Visibility);
     }
 
@@ -237,7 +245,7 @@ namespace
             if (!message.text.empty())
             {
                 below_box_handle = set_box(message);
-                below_hint_box = reinterpret_cast<app::MessageBox*>(il2cpp::gchandle_target(last_handle));
+                below_hint_box = reinterpret_cast<app::MessageBox*>(il2cpp::gchandle_target(below_box_handle));
             }
         }
         else
