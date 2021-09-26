@@ -16,6 +16,7 @@
 
 bool dev_mode = false;
 
+bool nowait = false;
 bool shutting_down = false;
 std::ostream& logstream = std::cout;
 
@@ -139,8 +140,14 @@ void listen_for_ori()
         Sleep(500);
     }
 
-    logstream << "Ori stopped running. Exiting in 4s..." << std::endl;
-    Sleep(4000);
+    if (nowait)
+        logstream << "Ori stopped running. Exiting..." << std::endl;
+    else
+    {
+        logstream << "Ori stopped running. Exiting in 4s..." << std::endl;
+        Sleep(4000);
+    }
+
     exit(0);
 }
 
@@ -235,8 +242,13 @@ int actual_main()
     return 0;
 }
 
-int main(int, char** argc)
+int main(int param_count, char** argc)
 {
+    for (int i = 1; i < param_count; ++i) {
+        if (std::string_view(argc[i]) == "/nowait")
+            nowait = true;
+    }
+
     auto ret = actual_main();
     logstream << "main return was " << ret << std::endl;
     return ret;
