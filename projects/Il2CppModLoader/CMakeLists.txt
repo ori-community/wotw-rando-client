@@ -29,6 +29,20 @@ set(
 	"il2cpp_math.h"
 )
 
+if(${DEFINE_INTERNALS})
+    set(
+        INTERNAL_IL2CPP_HEADERS
+        "il2cpp_internals/il2cpp_internals_p1.h"
+        "il2cpp_internals/il2cpp_internals_p2.h"
+        "il2cpp_internals/il2cpp_internals_p3.h"
+        "il2cpp_internals/il2cpp_internals_p4.h"
+        "il2cpp_internals/il2cpp_internals_p5.h"
+        "il2cpp_internals/il2cpp_internals_p6.h"
+        "il2cpp_internals/il2cpp_internals_p7.h"
+        "il2cpp_internals/il2cpp_internals_p8.h"
+    )
+endif()
+
 set(
 	MISC_FILES
 	".editorconfig"
@@ -39,6 +53,7 @@ set(
 add_library(${PROJECT_NAME} SHARED
 	${SOURCE_FILES}
 	${PUBLIC_HEADER_FILES}
+	${INTERNAL_IL2CPP_HEADERS}
 	${MISC_FILES}
 )
 
@@ -82,7 +97,8 @@ target_precompile_headers(
 
 message(STATUS "Assigning source groups.")
 
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
+message(STATUS "test ${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};${INTERNAL_IL2CPP_HEADERS}")
+set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};${INTERNAL_IL2CPP_HEADERS}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
 message(STATUS "TESTING ${PROJECT_BINARY_DIR}")

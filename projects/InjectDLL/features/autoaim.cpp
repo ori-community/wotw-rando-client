@@ -34,14 +34,14 @@ namespace
     IL2CPP_INTERCEPT(Game, Targets, app::IEnumerable_1_IAttackable_*, get_Attackables, (app::Targets* this_ptr)) {
         if (overwrite_attackables)
         {
-            Il2CppArray* arr = nullptr;
+            Il2CppArraySize* arr = nullptr;
             if (handle == 0)
             {
                 arr = il2cpp::untyped::array_new(il2cpp::get_class("", "IAttackable"), 0);
                 il2cpp::gchandle_new(arr, false);
             }
             else
-                arr = reinterpret_cast<Il2CppArray*>(il2cpp::gchandle_target(handle));
+                arr = reinterpret_cast<Il2CppArraySize*>(il2cpp::gchandle_target(handle));
 
             return reinterpret_cast<app::IEnumerable_1_IAttackable_*>(arr);
         }

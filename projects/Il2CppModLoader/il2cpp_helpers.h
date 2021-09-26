@@ -115,9 +115,9 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_class(std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested);
 
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppArray* array_new(Il2CppClass* element, il2cpp_array_size_t length);
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppArray* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length);
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppArray* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new(Il2CppClass* element, il2cpp_array_size_t length);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
     }
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);

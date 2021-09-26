@@ -121,6 +121,7 @@ modloader::intercept::il2cpp_intercept binding_##name_override (ztatic, #namezpa
 } \
 return_type klass_name::name_override##_intercept params
 
+// TODO: Use a different structure for bindings, we want them to apply after all the intercepts.
 #define IL2CPP_BINDING_HELPER(ztatic, namezpace, klass_name, return_type, method_name, name_override, params, overload) \
 namespace klass_name { \
 return_type (*(name_override)) params = nullptr; \

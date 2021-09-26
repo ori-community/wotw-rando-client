@@ -79,9 +79,9 @@ namespace il2cpp
         INTERNAL_BINDING(0x263120, uint32_t, il2cpp_gchandle_new_weakref, (Il2CppObject* obj, bool track_resurrection));
         INTERNAL_BINDING(0x263160, void, il2cpp_gchandle_free, (uint32_t handle));
         INTERNAL_BINDING(0x263140, Il2CppObject*, il2cpp_gchandle_get_target, (uint32_t handle));
-        INTERNAL_BINDING(0x262470, Il2CppArray*, il2cpp_array_new, (Il2CppClass* element, il2cpp_array_size_t length));
-        INTERNAL_BINDING(0x2624A0, Il2CppArray*, il2cpp_array_new_specific, (Il2CppClass* array_klass , il2cpp_array_size_t length));
-        INTERNAL_BINDING(0x2624B0, Il2CppArray*, il2cpp_array_new_full, (Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds));
+        INTERNAL_BINDING(0x262470, Il2CppArraySize*, il2cpp_array_new, (Il2CppClass* element, il2cpp_array_size_t length));
+        INTERNAL_BINDING(0x2624A0, Il2CppArraySize*, il2cpp_array_new_specific, (Il2CppClass* array_klass , il2cpp_array_size_t length));
+        INTERNAL_BINDING(0x2624B0, Il2CppArraySize*, il2cpp_array_new_full, (Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds));
 
         thread_local std::string buffer;
         std::string const& get_full_name(std::string_view namezpace, std::string_view name, std::string_view nested = "")
@@ -432,17 +432,17 @@ namespace il2cpp
             return output;
         }
 
-        Il2CppArray* array_new(Il2CppClass* element, il2cpp_array_size_t length)
+        Il2CppArraySize* array_new(Il2CppClass* element, il2cpp_array_size_t length)
         {
             return il2cpp_array_new(element, length);
         }
 
-        Il2CppArray* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length)
+        Il2CppArraySize* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length)
         {
             return il2cpp_array_new_specific(array_klass, length);
         }
 
-        Il2CppArray* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds)
+        Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds)
         {
             return il2cpp_array_new_full(array_klass, lengths, lower_bounds);
         }

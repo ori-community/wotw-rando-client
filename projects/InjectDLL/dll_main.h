@@ -6,7 +6,6 @@
 
 void on_fixed_update(app::GameController* this_ptr);
 std::string pretty_time();
-bool is_in_shop_screen();
 void mute_for(int frames);
 
 app::GameController* get_game_controller();

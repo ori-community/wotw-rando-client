@@ -28,6 +28,9 @@
 
 namespace modloader
 {
+    // Have this here so it is included in the assembly and can be used to examine thrown exceptions.
+    Il2CppExceptionWrapper ex;
+
     std::string base_path = "C:\\moon\\";
     std::string mod_title = "Randomizer";
     std::string modloader_path = "modloader_config.json";

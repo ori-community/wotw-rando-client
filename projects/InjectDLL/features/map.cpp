@@ -60,35 +60,6 @@ namespace
         return true;
     }
 
-    extern "C" __declspec(dllexport)
-    bool discover_everything() {
-	    if (game_world_instance)
-	    {
-            // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
-		    for (int32_t i = 0; i <= 15; i++)
-		    {
-			    auto area = GameWorld::GetArea(game_world_instance, static_cast<app::GameWorldAreaID__Enum>(i));
-			    if (!area) {
-				    //Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
-				    continue;
-			    }
-
-			    auto runtimeArea = GameWorld::FindRuntimeArea(game_world_instance, area);
-			    if (!runtimeArea)
-				    continue;
-
-                RuntimeGameWorldArea::DiscoverAllAreas(runtimeArea);
-            }
-
-            trace(MessageType::Debug, 5, "game", "Map revealed");
-		    return true;
-	    }
-	    else {
-            trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
-		    return false;
-	    }
-    }
-
     app::GameWorldAreaID__Enum area_id = app::GameWorldAreaID__Enum_None;
 
     IL2CPP_BINDING(, GameMapUI, app::RuntimeGameWorldArea*, get_CurrentHighlightedArea, (app::GameMapUI* this_ptr));
@@ -166,6 +137,34 @@ namespace
         this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel = original_zoom / scaling_factor;
         this_ptr->fields._Navigation_k__BackingField->fields.WorldMapZoomLevel = original_zoom / scaling_factor;
         this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor = original_scale / scaling_factor;
+    }
+}
+
+INJECT_C_DLLEXPORT bool discover_everything() {
+    if (game_world_instance)
+    {
+        // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
+        for (int32_t i = 0; i <= 15; i++)
+        {
+            auto area = GameWorld::GetArea(game_world_instance, static_cast<app::GameWorldAreaID__Enum>(i));
+            if (!area) {
+                //Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
+                continue;
+            }
+
+            auto runtimeArea = GameWorld::FindRuntimeArea(game_world_instance, area);
+            if (!runtimeArea)
+                continue;
+
+            RuntimeGameWorldArea::DiscoverAllAreas(runtimeArea);
+        }
+
+        trace(MessageType::Debug, 5, "game", "Map revealed");
+        return true;
+    }
+    else {
+        trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
+        return false;
     }
 }
 
