@@ -19,6 +19,9 @@ namespace il2cpp
 
         STATIC_IL2CPP_BINDING(UnityEngine, ScriptableObject, app::ScriptableObject*, CreateInstance, (app::Type* type));
 
+        STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* o1, void* o2));
+        STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Inequality, (void* o1, void* o2));
+        STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
         STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (app::Object* this_ptr));
         IL2CPP_BINDING(UnityEngine, Object, app::String*, get_name, (app::Object* this_ptr));
 
@@ -187,7 +190,7 @@ namespace il2cpp
         {
             std::vector<app::GameObject*> children;
             auto transform = GameObject::get_transform(game_object);
-            auto str = reinterpret_cast<app::String*>(il2cpp::string_new(name));
+            auto str = il2cpp::string_new(name);
             transform = Transform::Find(transform, str);
             return transform != nullptr ? get_game_object(transform) : nullptr;
         }
@@ -205,10 +208,25 @@ namespace il2cpp
             return game_object;
         }
 
+        bool is_valid(void* obj)
+        {
+            return obj != nullptr && Object::op_Implicit(obj);
+        }
+
+        bool equals(void* o1, void* o2)
+        {
+            return Object::op_Equality(o1, o2);
+        }
+
+        bool not_equals(void* o1, void* o2)
+        {
+            return Object::op_Inequality(o1, o2);
+        }
+
         app::Type* get_type(std::string_view namezpace, std::string_view name)
         {
             auto qualified = get_qualified(namezpace, name);
-            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto type_str = il2cpp::string_new(qualified);
             return Type::GetType(type_str, false);
         }
 
@@ -216,7 +234,7 @@ namespace il2cpp
         {
             std::vector<app::Component*> components;
             auto qualified = get_qualified(namezpace, name);
-            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto type_str = il2cpp::string_new(qualified);
             auto runtime_type = Type::GetType(type_str, false);
             auto c_array = GameObject::GetComponents(game_object, runtime_type);
             for (auto i = 0; i < c_array->max_length; ++i)
@@ -228,7 +246,7 @@ namespace il2cpp
         app::Component* get_component_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
         {
             auto qualified = get_qualified(namezpace, name);
-            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto type_str = il2cpp::string_new(qualified);
             auto runtime_type = Type::GetType(type_str, false);
             return reinterpret_cast<app::Component*>(GameObject::GetComponentInChildren(game_object, runtime_type));
         }
@@ -236,7 +254,7 @@ namespace il2cpp
         app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name)
         {
             auto qualified = get_qualified(namezpace, name);
-            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto type_str = il2cpp::string_new(qualified);
             auto runtime_type = Type::GetType(type_str, false);
             return ScriptableObject::CreateInstance(runtime_type);
         }
@@ -254,7 +272,7 @@ namespace il2cpp
         app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
         {
             auto qualified = get_qualified(namezpace, name);
-            auto type_str = reinterpret_cast<app::String*>(il2cpp::string_new(qualified));
+            auto type_str = il2cpp::string_new(qualified);
             auto runtime_type = Type::GetType(type_str, false);
             return GameObject::AddComponent(game_object, runtime_type);
 
@@ -348,19 +366,6 @@ namespace il2cpp
         Il2CppObject* create_object(Il2CppClass* klass)
         {
             return il2cpp_object_new(klass);
-        }
-
-        bool is_assignable(Il2CppClass* klass, std::string_view namezpace, std::string_view name)
-        {
-            return is_assignable(klass, get_class(namezpace, name));
-        }
-
-        bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass)
-        {
-            if (klass == nullptr || iklass == nullptr)
-                return false;
-
-            return il2cpp_class_is_assignable_from(iklass, klass);
         }
 
         Il2CppObject* box_value(Il2CppClass* klass, void* value)
@@ -468,19 +473,19 @@ namespace il2cpp
         il2cpp_gchandle_free(handle);
     }
 
-    Il2CppString* string_new(std::string_view str)
+    app::String* string_new(std::string_view str)
     {
-        return il2cpp_string_new_wrapper(str.data());
+        return reinterpret_cast<app::String*>(il2cpp_string_new_wrapper(str.data()));
     }
 
-    Il2CppString* string_new(std::string_view str, uint32_t len)
+    app::String* string_new(std::string_view str, uint32_t len)
     {
-        return il2cpp_string_new_len(str.data(), len);
+        return reinterpret_cast<app::String*>(il2cpp_string_new_len(str.data(), len));
     }
 
-    Il2CppString* string_new(std::wstring_view str)
+    app::String* string_new(std::wstring_view str)
     {
-        return il2cpp_string_new_utf16(reinterpret_cast<const Il2CppChar*>(str.data()), str.length());
+        return reinterpret_cast<app::String*>(il2cpp_string_new_utf16(reinterpret_cast<const Il2CppChar*>(str.data()), str.length()));
     }
 
     void trace_overloads(Il2CppClass* klass)
@@ -552,7 +557,14 @@ namespace il2cpp
         });
 
         if (method_overload_info == methods.end())
+        {
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("Method '%s' with params count %d in klass '%s.%s' does not exist",
+                method.data(), param_count, klass->namespaze, klass->name));
+            for (auto const& method_info : methods)
+                trace(modloader::MessageType::Info, 3, "il2cpp", format("- %s(%d)", method_info.name.c_str(), method_info.param_count));
+
             return 0;
+        }
 
         return method_overload_info->methods.size();
     }
@@ -565,7 +577,7 @@ namespace il2cpp
 
         if (info->methods.size() <= overload)
         {
-            trace(modloader::MessageType::Error, 1, "il2cpp", format("OVerload '%d' for '%s:%d' in klass '%s' does not exist",
+            trace(modloader::MessageType::Error, 1, "il2cpp", format("Overload '%d' for '%s:%d' in klass '%s' does not exist",
                 overload, method.data(), param_count, klass->name));
         }
 
@@ -628,7 +640,7 @@ namespace il2cpp
                         auto value = reinterpret_cast<Il2CppObject*>(params.at(param.position));
                         auto klass_1 = il2cpp_class_from_type(param.parameter_type);
                         auto klass_2 = value->klass;
-                        if (!untyped::is_assignable(klass_2, klass_1))
+                        if (!is_assignable(klass_2, klass_1))
                             valid = false;
                         break;
                     }
@@ -800,9 +812,22 @@ namespace il2cpp
         return il2cpp_runtime_invoke(virtual_method_info, cast_obj, start, &exc);
     }
 
+    bool is_assignable(Il2CppClass* klass, std::string_view namezpace, std::string_view name)
+    {
+        return is_assignable(klass, get_class(namezpace, name));
+    }
+
+    bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass)
+    {
+        if (klass == nullptr || iklass == nullptr)
+            return false;
+
+        return il2cpp_class_is_assignable_from(iklass, klass);
+    }
+
     bool is_assignable(void* obj, std::string_view namezpace, std::string_view name)
     {
-        return untyped::is_assignable(reinterpret_cast<Il2CppObject*>(obj)->klass, namezpace, name);
+        return is_assignable(reinterpret_cast<Il2CppObject*>(obj)->klass, namezpace, name);
     }
 
     MethodInfo* resolve_generic_method(uint64_t address)

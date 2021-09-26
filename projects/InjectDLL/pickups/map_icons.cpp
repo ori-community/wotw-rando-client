@@ -667,8 +667,6 @@ namespace
     }
 
     STATIC_IL2CPP_BINDING(, AreaMapIconManager, bool, IsIconShownByFilter, (app::WorldMapIconType__Enum icon, app::AreaMapIconFilter__Enum filter));
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Inequality, (void* o1, void* o2));
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon* this_ptr)) {
         if (csharp_bridge::tp_to_any_pickup())
             return true;
@@ -777,9 +775,9 @@ namespace
                 RuntimeWorldMapIcon::Hide_intercept(icon);
             }
 
-            if (Object::op_Inequality(reinterpret_cast<app::Object*>(runtime_area->fields.Area), nullptr))
+            if (il2cpp::unity::is_valid(runtime_area->fields.Area))
             {
-                if (Object::op_Implicit(reinterpret_cast<app::Object*>(runtime_area->fields.Area->fields.VisitableCondition)) &&
+                if (il2cpp::unity::is_valid(runtime_area->fields.Area->fields.VisitableCondition) &&
                     !il2cpp::invoke<app::Boolean__Boxed>(runtime_area->fields.Area->fields.VisitableCondition, "Validate", nullptr)->fields)
                     continue;
 
@@ -801,7 +799,7 @@ namespace
     {
         app::AreaMapIconFilterFooterLabel label;
         label.Filter = static_cast<app::AreaMapIconFilter__Enum>(filter);
-        label.Footer = reinterpret_cast<app::MessageProvider*>(utils::create_message_provider(il2cpp::string_new("Filter: " + message)));
+        label.Footer = utils::create_message_provider(il2cpp::string_new("Filter: " + message));
         return label;
     }
 
@@ -991,7 +989,7 @@ namespace
                 auto icon = it->second.icon;
                 icon->fields.Position.x = player.position.x;
                 icon->fields.Position.y = player.position.y;
-                if (icon->fields.IconGameObject != nullptr && Object::op_Implicit(icon->fields.IconGameObject))
+                if (icon->fields.IconGameObject != nullptr && il2cpp::unity::is_valid(icon->fields.IconGameObject))
                 {
                     app::Vector3 position{ player.position.x, player.position.y, 0.0f };
                     AreaMapUI::AddIcon(area_map, icon->fields.IconGameObject, &position, false, false);

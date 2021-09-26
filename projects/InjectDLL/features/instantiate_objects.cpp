@@ -23,8 +23,6 @@ using namespace modloader;
 namespace
 {
     STATIC_IL2CPP_BINDING(UnityEngine, Resources, app::Object__Array*, FindObjectsOfTypeAll, (app::Type* system_type));
-    
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (app::Object* this_ptr));
     STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (app::Object* object), (UnityEngine:Object));
     
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
@@ -88,7 +86,7 @@ namespace
                 {
                     auto handle = entries[name];
                     auto go = reinterpret_cast<app::Object*>(il2cpp::gchandle_target(handle));
-                    if (!Object::op_Implicit(go))
+                    if (!il2cpp::unity::is_valid(go))
                         il2cpp::gchandle_free(handle);
                     else
                     {
@@ -137,7 +135,7 @@ namespace
 
     void load_scene(app::ScenesManager* manager, std::string const& name)
     {
-        auto cname = reinterpret_cast<app::String*>(il2cpp::string_new(name));
+        auto cname = il2cpp::string_new(name);
         auto meta = ScenesManager::GetSceneInformation(manager, cname);
         if (!ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid) && !ScenesManager::SceneIsLoading(manager, meta->fields.SceneMoonGuid))
             ScenesManager::PreloadScene(manager, meta);
@@ -162,7 +160,7 @@ namespace
         auto it = preload_areas_wait.begin();
         while (it != preload_areas_wait.end())
         {
-            auto cname = reinterpret_cast<app::String*>(il2cpp::string_new(*it));
+            auto cname = il2cpp::string_new(*it);
             auto meta = ScenesManager::GetSceneInformation(scenes->static_fields->Manager, cname);
             if (ScenesManager::SceneIsLoaded(scenes->static_fields->Manager, meta->fields.SceneMoonGuid))
             {
@@ -274,7 +272,7 @@ namespace
         dev::Visualizer visualizer;
         visualizer_setup(visualizer, params, 1, 1);
 
-        auto path = reinterpret_cast<app::String*>(il2cpp::string_new(""));
+        auto path = il2cpp::string_new("");
         auto type = il2cpp::unity::get_type("UnityEngine", "GameObject");
         console::console_send("find objects");
         auto object_array = Resources::FindObjectsOfTypeAll(type);

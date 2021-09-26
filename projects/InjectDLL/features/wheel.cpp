@@ -444,7 +444,6 @@ namespace
 
     CALL_ON_INIT(initialize_wheel);
 
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
     IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
     IL2CPP_BINDING(, CleverMenuItemSelectionManager, app::Vector2, get_MenuItemAxis, (app::CleverMenuItemSelectionManager* this_ptr));
     IL2CPP_BINDING(, CleverMenuItemSelectionManager, void, SetCurrentMenuItem, (app::CleverMenuItemSelectionManager* this_ptr, app::CleverMenuItem* item, bool run_actions));
@@ -618,7 +617,7 @@ INJECT_C_DLLEXPORT void refresh_wheel()
             break;
         case app::ControlScheme__Enum_KeyboardAndMouse:
             auto item = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor_intercept(manager);
-            if (Object::op_Implicit(item))
+            if (il2cpp::unity::is_valid(item))
             {
                 CleverMenuItemSelectionManager::SetCurrentMenuItem(manager, item, true);
                 CleverMenuItem::OnHighlight(item, true);

@@ -204,7 +204,7 @@ namespace
 
     uint32_t set_box(const RandoMessage& message)
     {
-        auto msg = reinterpret_cast<app::String*>(il2cpp::string_new(message.text));
+        auto msg = il2cpp::string_new(message.text);
         const auto message_controller = get_ui()->static_fields->MessageController;
         app::MessageBox* box = MessageControllerB::ShowHintSmallMessage(
             message_controller,
@@ -253,8 +253,6 @@ namespace
         clear_on_next_update = true;
     }
 
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* this_ptr, void* obj));
     STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
     IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr));
@@ -263,7 +261,6 @@ namespace
     IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int index));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
-    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RefreshText, (app::TextBox* this_ptr));
 
     bool eat(std::wstring const& text, int& i, std::wstring_view food)
     {
@@ -315,7 +312,7 @@ namespace
     {
         auto style = il2cpp::create_object<app::TextStyle>("CatlikeCoding.TextBox", "TextStyle");
         il2cpp::invoke(style, ".ctor");
-        style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new(name));
+        style->fields.name = il2cpp::string_new(name);
         style->fields.rendererId = -1;
         return style;
     }
@@ -486,7 +483,7 @@ namespace
                 create_permanent_box(message.second);
 
             auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.second.handle));
-            if (!Object::op_Implicit(go))
+            if (!il2cpp::unity::is_valid(go))
             {
                 // Something else killed this game object.
                 il2cpp::gchandle_free(message.second.handle);
@@ -513,7 +510,7 @@ namespace
     }
 
     INJECT_C_DLLEXPORT void message_item_callback(const wchar_t* str) {
-        cached = reinterpret_cast<app::String*>(il2cpp::string_new(str));
+        cached = il2cpp::string_new(str);
     }
 
     IL2CPP_INTERCEPT(, MessageBox, void, Update, (app::MessageBox* this_ptr)) {
@@ -609,7 +606,7 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
     return true;
 }
 
-STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (Il2CppString* message));
+STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (app::String* message));
 INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
 {
     auto& message = permanent_messages.find(id);

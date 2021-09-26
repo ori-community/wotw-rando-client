@@ -219,7 +219,7 @@ namespace
         uint32_t name = 0;
         uint32_t description = 0;
         uint32_t locked = 0;
-        std::wstring texture;
+        textures::TextureData texture;
         bool uses_energy = false;
     };
 
@@ -239,12 +239,8 @@ namespace
         {
             item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
             item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-            if (!it->second.texture.empty())
-            {
-                auto texture = textures::get_texture(it->second.texture);
-                if (texture.texture)
-                    item->fields.Icon = reinterpret_cast<app::Texture2D*>(texture.texture);
-            }
+            if (it->second.texture.texture != nullptr)
+                item->fields.Icon = reinterpret_cast<app::Texture2D*>(it->second.texture.texture);
         }
 
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
@@ -403,12 +399,8 @@ namespace
             auto* const item = reinterpret_cast<app::WeaponmasterItem*>(shop_item);
             const auto key = get_key(item);
             const auto it = opher_overrides.find(key);
-            if (it != opher_overrides.end() && !it->second.texture.empty())
-            {
-                data = textures::get_texture(it->second.texture);
-                if (data.texture != nullptr)
-                    return data;
-            }
+            if (it != opher_overrides.end() && it->second.texture.texture != nullptr)
+                return it->second.texture;
 
             break;
         }
@@ -430,12 +422,81 @@ namespace
         return data;
     }
 
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::Texture*, get_ItemIcon, (app::WeaponmasterItem* this_ptr)) {
-        // Todo: Go where this is called and change it to use get_icon so we can set UVs and things.
+    bool showing_shard_screen = false;
+    IL2CPP_INTERCEPT(, SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop* this_ptr, int actual, int total)) {
+        if (showing_shard_screen)
+            SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, 0, 0);
+        else
+            SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, actual, total);
+    }
+
+    IL2CPP_BINDING(UnityEngine, GameObject, bool, get_activeSelf, (app::GameObject* this_ptr));
+    IL2CPP_BINDING(, CleverMenuItem, void, set_IsDisabled, (app::CleverMenuItem* this_ptr, bool disabled));
+    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox* this_ptr));
+    IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox* this_ptr, app::String* text), (System:String));
+    IL2CPP_INTERCEPT(, ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem* this_ptr)) {
         if (overwrite_shop_text == ShopTypeOverwrite::Opher)
-            return get_icon(overwrite_shop_text, reinterpret_cast<app::ShopkeeperItem*>(this_ptr)).texture;
-        
-        return WeaponmasterItem::get_ItemIcon(this_ptr);
+        {
+            auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem");
+            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+            auto texture_data = get_icon(overwrite_shop_text, this_ptr->fields.m_item);
+            textures::apply(renderer, texture_data);
+            if (this_ptr->fields.m_item == nullptr)
+            {
+                CleverMenuItem::set_IsDisabled(menu_item, true);
+                return;
+            }
+
+            auto locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
+            if (il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsMaxLevel")->fields)
+            {
+                locked = true;
+                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
+                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
+
+                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
+                    GameObject::SetActive(this_ptr->fields.OreGO, false);
+            }
+
+            auto value = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemCurrentLevel")->fields;
+            auto total = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemMaxLevel")->fields;
+            if (total < value)
+                value = total;
+
+            if (il2cpp::unity::is_valid(this_ptr->fields.Backdrop))
+                SpiritShardUIShardBackdrop::SetUpgradeCount_intercept(this_ptr->fields.Backdrop, value, total);
+
+            auto cost = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "GetCostForLevel", &value)->fields;
+            if (cost == 0)
+            {
+                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
+                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
+
+                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
+                    GameObject::SetActive(this_ptr->fields.OreGO, false);
+            }
+            else
+            {
+                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
+                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, !this_ptr->fields.ShowOre);
+
+                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
+                    GameObject::SetActive(this_ptr->fields.OreGO, this_ptr->fields.ShowOre);
+            }
+
+            if (il2cpp::unity::is_valid(this_ptr->fields.CostGO) && GameObject::get_activeSelf(this_ptr->fields.CostGO))
+            {
+                auto text = il2cpp::string_new(std::to_string(cost));
+                auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
+                TextBox::SetText(text_box, text);
+                TextBox::RenderText(text_box);
+            }
+
+            auto disabled = locked || il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
+            CleverMenuItem::set_IsDisabled(menu_item, disabled);
+        }
+        else
+            ShopkeeperUISubItem::UpdateItem(this_ptr);
     }
 
     bool locked_shop_overwrite = false;
@@ -465,7 +526,7 @@ namespace
         auto* const description_box = message_box_components[0];
 
         const auto locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
-        auto* const empty_str = reinterpret_cast<app::String*>(il2cpp::string_new(""));
+        auto* const empty_str = il2cpp::string_new("");
 
         if (locked || locked_shop_overwrite)
         {
@@ -570,7 +631,7 @@ namespace
     textures::TextureData get_shard_icon(app::SpiritShardType__Enum shard)
     {
         const auto it = twillen_overrides.find(static_cast<uint8_t>(shard));
-        if (it == twillen_overrides.end() || it->second.texture.empty())
+        if (it == twillen_overrides.end() || it->second.texture.texture == nullptr)
         {
             auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
                 ->static_fields->Instance->fields.Icons;
@@ -581,7 +642,7 @@ namespace
             return data;
         }
 
-        return textures::get_texture(it->second.texture);
+        return it->second.texture;
     }
 
     bool locked_shard_overwrite = false;
@@ -614,7 +675,7 @@ namespace
 
         if (settings != nullptr)
         {
-            auto* const empty_str = reinterpret_cast<app::String*>(il2cpp::string_new(""));
+            auto* const empty_str = il2cpp::string_new("");
             if (overwrite_shard_text)
                 textures::apply(renderer, get_shard_icon(type));
             else
@@ -677,7 +738,6 @@ namespace
         ShowEmptyDetails(this_ptr);
     }
 
-    bool showing_shard_screen = false;
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen* this_ptr))
     {
         showing_shard_screen = true;
@@ -724,13 +784,6 @@ namespace
             SpiritShardUIItem::UpdateShardIcon(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop* this_ptr, int actual, int total)) {
-        if (showing_shard_screen)
-            SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, 0, 0);
-        else
-            SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, actual, total);
-    }
-
     void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy)
     {
         if (item.name != 0)
@@ -745,10 +798,11 @@ namespace
         provider = utils::create_message_provider(il2cpp::string_new(description));
         item.description = il2cpp::gchandle_new(provider, false);
         provider = utils::create_message_provider(il2cpp::string_new(locked));
-        item.texture = texture;
+        item.texture = textures::get_texture(texture);
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }
+
     IL2CPP_INTERCEPT(, SpellUIExperience, bool, Spend, (app::SpellUIExperience* this_ptr, int amount)) {
         bool worked = SpellUIExperience::Spend(this_ptr, amount);
         if (worked)

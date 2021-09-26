@@ -3,34 +3,34 @@
 
 namespace utils
 {
-    app::MessageProvider* create_message_provider(Il2CppString* message)
+    app::MessageProvider* create_message_provider(app::String* message)
     {
         auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
         il2cpp::invoke(provider, ".ctor");
         // TODO: Add input provider and message provider with different color.
 
         auto item = il2cpp::create_object<app::TranslatedMessageProvider_MessageItem>("", "TranslatedMessageProvider", "MessageItem");
-        item->fields.English = reinterpret_cast<app::String*>(message);
-        item->fields.French = reinterpret_cast<app::String*>(message);
-        item->fields.Italian = reinterpret_cast<app::String*>(message);
-        item->fields.German = reinterpret_cast<app::String*>(message);
-        item->fields.Spanish = reinterpret_cast<app::String*>(message);
-        item->fields.Japanese = reinterpret_cast<app::String*>(message);
-        item->fields.Portuguese = reinterpret_cast<app::String*>(message);
-        item->fields.Chinese = reinterpret_cast<app::String*>(message);
-        item->fields.Russian = reinterpret_cast<app::String*>(message);
-        item->fields.TraditionalChinese = reinterpret_cast<app::String*>(message);
-        item->fields.Czech = reinterpret_cast<app::String*>(message);
-        item->fields.Danish = reinterpret_cast<app::String*>(message);
-        item->fields.Dutch = reinterpret_cast<app::String*>(message);
-        item->fields.Finnish = reinterpret_cast<app::String*>(message);
-        item->fields.Hungarian = reinterpret_cast<app::String*>(message);
-        item->fields.Korean = reinterpret_cast<app::String*>(message);
-        item->fields.Norwegian = reinterpret_cast<app::String*>(message);
-        item->fields.Polish = reinterpret_cast<app::String*>(message);
-        item->fields.SpanishSpain = reinterpret_cast<app::String*>(message);
-        item->fields.Swedish = reinterpret_cast<app::String*>(message);
-        item->fields.Turkish = reinterpret_cast<app::String*>(message);
+        item->fields.English = message;
+        item->fields.French = message;
+        item->fields.Italian = message;
+        item->fields.German = message;
+        item->fields.Spanish = message;
+        item->fields.Japanese = message;
+        item->fields.Portuguese = message;
+        item->fields.Chinese = message;
+        item->fields.Russian = message;
+        item->fields.TraditionalChinese = message;
+        item->fields.Czech = message;
+        item->fields.Danish = message;
+        item->fields.Dutch = message;
+        item->fields.Finnish = message;
+        item->fields.Hungarian = message;
+        item->fields.Korean = message;
+        item->fields.Norwegian = message;
+        item->fields.Polish = message;
+        item->fields.SpanishSpain = message;
+        item->fields.Swedish = message;
+        item->fields.Turkish = message;
 
         item->fields.Sound = nullptr;
         item->fields.WWiseEvent = nullptr;

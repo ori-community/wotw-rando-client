@@ -2,5 +2,5 @@
 
 namespace utils
 {
-    app::MessageProvider* create_message_provider(Il2CppString* message);
+    app::MessageProvider* create_message_provider(app::String* message);
 }
