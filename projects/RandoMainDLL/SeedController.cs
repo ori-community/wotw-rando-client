@@ -123,7 +123,7 @@ namespace RandoMainDLL {
     public static List<TimerDefinition> TimerList = new List<TimerDefinition>();
     public static HashSet<Flag> Flags = new HashSet<Flag>();
     public static string SeedFile = "";
-    public static String SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
+    public static string SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
     public static void ReadSeed(bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {

@@ -288,10 +288,9 @@ namespace shops
         }
     }
 
-    textures::TextureData get_opher_icon(app::ShopkeeperItem* shop_item)
+    textures::TextureData get_opher_icon(app::WeaponmasterItem* shop_item)
     {
-        auto* const item = reinterpret_cast<app::WeaponmasterItem*>(shop_item);
-        const auto key = get_key(item);
+        const auto key = get_key(shop_item);
         const auto it = opher_overrides.find(key);
         if (it != opher_overrides.end() && it->second.texture.texture != nullptr)
             return it->second.texture;

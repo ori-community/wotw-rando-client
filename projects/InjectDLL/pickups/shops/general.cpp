@@ -50,7 +50,8 @@ namespace
     bool stop_shop_overwrite = false;
     bool should_shop_overwrite = false;
     IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Show, (app::ShopkeeperScreen* this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterScreen"))
+        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterScreen") ||
+            il2cpp::is_assignable(this_ptr, "", "ShardUpgradeScreen"))
         {
             stop_shop_overwrite = false;
             should_shop_overwrite = true;
@@ -223,18 +224,24 @@ namespace shops
         }
     }
 
-    textures::TextureData get_icon(ShopType type, app::ShopkeeperItem* shop_item)
+    textures::TextureData get_icon(ShopType type, void* shop_item)
     {
         textures::TextureData data;
         switch (type)
         {
         case ShopType::Opher:
         {
-            data = get_opher_icon(shop_item);
+            data = get_opher_icon(reinterpret_cast<app::WeaponmasterItem*>(shop_item));
+            break;
+        }
+        case ShopType::Twillen:
+        {
+            data = get_twillen_icon(reinterpret_cast<app::UpgradableShardItem*>(shop_item));
             break;
         }
         default:
             textures::TextureData data;
+            // TODO: Add some type checking here.
             data.texture = il2cpp::invoke<app::Texture>(shop_item, "get_ItemIcon");
             break;
         }

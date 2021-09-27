@@ -18,7 +18,7 @@ namespace RandoMainDLL {
     public static string VERSION => _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
     private static string _version;
 
-    private static BlockingCollection<String> logQueue = new BlockingCollection<string>();
+    private static BlockingCollection<string> logQueue = new BlockingCollection<string>();
 
     public static int Bootstrap(string dllPath) {
        if (!Initialize())
