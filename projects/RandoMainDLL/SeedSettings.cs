@@ -8,9 +8,11 @@ namespace RandoMainDLL {
     [JsonIgnore]
     private static Version rustGenVersion = new Version("0.13.0");
     [JsonProperty("spoilers")]
-    public Boolean Spoilers { get; set; }
+    public bool Spoilers { get; set; }
+    [JsonProperty("enableLogicFilter")]
+    public bool EnableLogicFilter { get; set; }
     [JsonIgnore]
-    public Boolean RaceMode { get => !Spoilers; }
+    public bool RaceMode { get => !Spoilers; }
     [JsonProperty("version")]
     private string version { get; set; } = "0.0.0";
     [JsonIgnore]
@@ -22,6 +24,6 @@ namespace RandoMainDLL {
     [JsonIgnore]
     public bool LegacySeedgen => 0 > Version.CompareTo(rustGenVersion);
     [JsonProperty("webConn")]
-    public Boolean NetcodeEnabled { get; set; }
+    public bool NetcodeEnabled { get; set; }
   }
 }

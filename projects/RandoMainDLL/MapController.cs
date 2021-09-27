@@ -204,7 +204,7 @@ namespace RandoMainDLL {
         case FilterType.Collectibles:
           return !AHK.IniFlag("HideCollectableFilter");
         case FilterType.InLogic:
-          return true;
+          return SeedController.EnableLogicFilter;
         case FilterType.Spoilers:
           return UberGet.value(34543, 11226).Bool;
         default:

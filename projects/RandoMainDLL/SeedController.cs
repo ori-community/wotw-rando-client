@@ -231,7 +231,7 @@ namespace RandoMainDLL {
       }
     }
 
-
+    public static bool EnableLogicFilter { get => Settings.EnableLogicFilter; }
     public static bool HasInternalSpoilers { get => Settings.Spoilers; }
     public static bool KSDoorsOpen { get => Flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {
