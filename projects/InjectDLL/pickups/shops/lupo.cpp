@@ -1,11 +1,13 @@
 #include <Common/ext.h>
 #include <csharp_bridge.h>
 #include <pickups/shops/general.h>
+#include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
+#include <utils/messaging.h>
+
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <utils\messaging.h>
 
 #include <unordered_map>
 
@@ -38,8 +40,61 @@ namespace
 
     std::unordered_map<uint64_t, shops::ShopItem> lupo_overrides;
 
-    IL2CPP_INTERCEPT(, MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem* this_ptr, app::MapmakerItem* item))
+    textures::TextureData get_lupo_icon(app::MapmakerUISubItem* shop_item)
     {
+        auto* item = shop_item->fields.m_upgradeItem;
+        const auto state_id = item->fields.UberState->fields._.m_id->fields.m_id;
+        const auto group_id = item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
+        const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
+        const auto it = lupo_overrides.find(key);
+        textures::TextureData texture_data;
+        if (it != lupo_overrides.end() && it->second.texture_data.texture != nullptr)
+            texture_data = it->second.texture_data;
+        else
+            texture_data.texture = reinterpret_cast<app::Texture*>(item->fields.Icon);
+
+        return texture_data;
+    }
+
+    IL2CPP_INTERCEPT(, MapmakerUISubItem, void, UpdateUpgradeIcon, (app::MapmakerUISubItem* this_ptr)) {
+        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        textures::apply(renderer, get_lupo_icon(this_ptr));
+    }
+
+    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
+    IL2CPP_BINDING(UnityEngine, GameObject, bool, get_activeSelf, (app::GameObject* this_ptr));
+    IL2CPP_BINDING(, CleverMenuItem, void, set_IsDisabled, (app::CleverMenuItem* this_ptr, bool disabled));
+    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox* this_ptr));
+    IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox* this_ptr, app::String* text), (System:String));
+    IL2CPP_INTERCEPT(, MapmakerUISubItem, void, UpdateItem, (app::MapmakerUISubItem* this_ptr)) {
+        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        textures::apply(renderer, get_lupo_icon(this_ptr));
+
+        auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
+        auto not_owned = this_ptr->fields.m_upgradeItem->fields.MaxLevel < state->fields.m_value;
+        auto cost = MapmakerItem::GetCost_intercept(this_ptr->fields.m_upgradeItem);
+        auto can_afford = get_experience() < cost;
+
+        GameObject::SetActive(this_ptr->fields.CostGO, cost != 0);
+        if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
+            GameObject::SetActive(this_ptr->fields.SpiritLightGO, cost != 0);
+
+        if (GameObject::get_activeSelf(this_ptr->fields.CostGO))
+        {
+            auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
+            if (can_afford | not_owned)
+                text_box->fields.color = this_ptr->fields.PurchasableColor;
+            else
+                text_box->fields.color = this_ptr->fields.UnpurchaseableColor;
+
+            TextBox::SetText(text_box, il2cpp::string_new(std::to_string(cost)));
+            TextBox::RenderText(text_box);
+        }
+
+        CleverMenuItem::set_IsDisabled(il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem"), !not_owned && can_afford);
+    }
+
+    IL2CPP_INTERCEPT(, MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem* this_ptr, app::MapmakerItem* item)) {
         const auto state_id = item->fields.UberState->fields._.m_id->fields.m_id;
         const auto group_id = item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
         const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
@@ -48,8 +103,6 @@ namespace
         {
             item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
             item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-            if (it->second.texture.texture != nullptr)
-                item->fields.Icon = reinterpret_cast<app::Texture2D*>(it->second.texture.texture);
         }
 
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);

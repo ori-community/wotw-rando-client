@@ -292,8 +292,8 @@ namespace shops
     {
         const auto key = get_key(shop_item);
         const auto it = opher_overrides.find(key);
-        if (it != opher_overrides.end() && it->second.texture.texture != nullptr)
-            return it->second.texture;
+        if (it != opher_overrides.end() && it->second.texture_data.texture != nullptr)
+            return it->second.texture_data;
 
         textures::TextureData data;
         return data;

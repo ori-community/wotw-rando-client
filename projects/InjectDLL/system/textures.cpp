@@ -73,6 +73,7 @@ namespace textures
     TextureData get_texture(std::wstring_view path, shaders::ShaderInfo* info)
     {
         TextureData data;
+        data.path = std::wstring(path);
         try
         {
             data.uvs = { 0.0f, 0.0f, 1.0f, 1.0f };

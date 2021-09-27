@@ -272,7 +272,7 @@ namespace shops
         provider = utils::create_message_provider(il2cpp::string_new(description));
         item.description = il2cpp::gchandle_new(provider, false);
         provider = utils::create_message_provider(il2cpp::string_new(locked));
-        item.texture = textures::get_texture(texture);
+        item.texture_data = textures::get_texture(texture);
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }

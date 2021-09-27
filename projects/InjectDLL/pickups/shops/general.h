@@ -20,7 +20,7 @@ namespace shops
         uint32_t name = 0;
         uint32_t description = 0;
         uint32_t locked = 0;
-        textures::TextureData texture;
+        textures::TextureData texture_data;
         bool uses_energy = false;
     };
 

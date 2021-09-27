@@ -8,6 +8,7 @@ namespace textures
 {
     struct TextureData
     {
+        std::wstring path;
         app::Texture* texture = nullptr;
         app::Vector4 uvs = { 0.0f, 0.0f, 1.0f, 1.0f };
         app::Vector4 scroll_rot = { 0.0f, 0.0f, 0.0f, 0.0f };

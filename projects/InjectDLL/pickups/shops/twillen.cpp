@@ -93,7 +93,7 @@ namespace
     textures::TextureData get_shard_icon(app::SpiritShardType__Enum shard)
     {
         const auto it = twillen_overrides.find(static_cast<uint8_t>(shard));
-        if (it == twillen_overrides.end() || it->second.texture.texture == nullptr)
+        if (it == twillen_overrides.end() || it->second.texture_data.texture == nullptr)
         {
             auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
                 ->static_fields->Instance->fields.Icons;
@@ -104,7 +104,7 @@ namespace
             return data;
         }
 
-        return it->second.texture;
+        return it->second.texture_data;
     }
 
     bool locked_shard_overwrite = false;
@@ -235,12 +235,12 @@ namespace
         auto cost_enabled = false;
         if (shard != nullptr)
         {
-            SpiritShardUIItem::UpdateShardIcon(this_ptr->fields.Shard);
+            SpiritShardUIItem::UpdateShardIcon_intercept(this_ptr->fields.Shard);
             owned = csharp_bridge::twillen_bought_shard(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
-            if (PlayerUberStateShards::Shard::get_VisibleInShop(shard))
+            if (PlayerUberStateShards::Shard::get_VisibleInShop_intercept(shard))
                 cost_enabled = !owned;
 
-            auto purchasable = PlayerUberStateShards::Shard::get_PurchasableInShop(shard);
+            auto purchasable = PlayerUberStateShards::Shard::get_PurchasableInShop_intercept(shard);
             auto affordable = PlayerUberStateShards::Shard::get_InitialPurchaseAffordable(shard);
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, "UnityEngine", "Renderer");
             auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, "UnityEngine", "Renderer");
