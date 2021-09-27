@@ -62,6 +62,7 @@ namespace RandoMainDLL {
       public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string name);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void clear_players();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
