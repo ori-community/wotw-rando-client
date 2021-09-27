@@ -3,15 +3,17 @@
 #include <csharp_bridge.h>
 #include <pickups/shops/general.h>
 #include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_helper.h>
+#include <system/textures.h>
+#include <utils/messaging.h>
+
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <utils\messaging.h>
 
 #include <functional>
 #include <set>
 #include <map>
-#include <system\textures.h>
 
 using namespace modloader;
 
@@ -29,6 +31,14 @@ namespace
     };
 
     std::unordered_map<uint8_t, shops::ShopItem> twillen_overrides;
+
+    IL2CPP_INTERCEPT(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* this_ptr, app::SpiritShardType__Enum shad_type))
+    {
+        if (shops::is_in_shop(shops::ShopType::Twillen) && TWILLEN_SHARDS.find(shad_type) != TWILLEN_SHARDS.end())
+            return csharp_bridge::twillen_bought_shard(static_cast<csharp_bridge::ShardType>(shad_type));
+
+        return PlayerSpiritShards::HasShard(this_ptr, shad_type);
+    }
 
     IL2CPP_INTERCEPT(, SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop* this_ptr, int actual, int total)) {
         if (shops::is_in_shop(shops::ShopType::Twillen))
@@ -240,8 +250,9 @@ namespace
             if (PlayerUberStateShards::Shard::get_VisibleInShop_intercept(shard))
                 cost_enabled = !owned;
 
+            auto cost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
             auto purchasable = PlayerUberStateShards::Shard::get_PurchasableInShop_intercept(shard);
-            auto affordable = PlayerUberStateShards::Shard::get_InitialPurchaseAffordable(shard);
+            auto affordable = get_experience() >= cost;
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, "UnityEngine", "Renderer");
             auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, "UnityEngine", "Renderer");
             if ((purchasable && !owned) && (affordable && !owned))
@@ -258,7 +269,6 @@ namespace
             auto descriptions = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance->fields.Descriptions;
             auto* shard_description = il2cpp::invoke<app::SpiritShardDescription>(descriptions, "GetValue", &shard->fields.m_type);
             //auto cost = SpiritShardDescription::get_BuyCost(shard_description);
-            auto cost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
             app::MessageDescriptor descriptor = {0};
             descriptor.Message = il2cpp::string_new(std::to_string(cost));
             auto empty = il2cpp::string_new("");
