@@ -48,6 +48,11 @@ INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name)
     }
 }
 
+INJECT_C_DLLEXPORT void clear_players()
+{
+    multiplayer::player_map.clear();
+}
+
 INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
 {
     auto it = multiplayer::player_map.find(id);

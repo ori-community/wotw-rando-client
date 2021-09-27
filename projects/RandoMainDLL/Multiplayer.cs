@@ -26,6 +26,11 @@ namespace RandoMainDLL {
         UpdateMultivere(lastMultiverseInfo);
     }
 
+    public static void ClearMultiverse() {
+      currentPlayers.Clear();
+      InterOp.Multiplayer.clear_players();
+    }
+
     public static void UpdateMultivere(MultiverseInfoMessage multiverse) {
       lastMultiverseInfo = multiverse;
       var universe = multiverse.Universes.First(u => u.Worlds.Any(w => w.Members.Any(m => m.Id == Id)));
@@ -54,7 +59,7 @@ namespace RandoMainDLL {
         InterOp.Multiplayer.update_player_position(id, x, y);
       }
       else {
-        Randomizer.Log($"Got player position from unknown player {id}: {x}, {y}");
+        Randomizer.Log($"Got player position from unknown player {id}: {x}, {y}", false);
       }
     }
 

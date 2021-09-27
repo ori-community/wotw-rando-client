@@ -42,6 +42,8 @@ namespace RandoMainDLL {
         FramesTillReconnectAttempt = 120;
         return;
       }
+
+      Multiplayer.ClearMultiverse();
       connectThread = new Thread(() => {
         if (socket != null)
           Disconnect();
