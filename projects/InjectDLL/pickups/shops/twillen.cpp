@@ -213,6 +213,19 @@ namespace
 
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen* this_ptr)) {
         csharp_bridge::update_shop_data();
+        auto sein = get_sein();
+        if (sein != nullptr && sein->fields.PlayerSpiritShards != nullptr)
+        {
+            auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
+            auto shards_to_buy = sein->fields.PlayerSpiritShards->fields.InventoryItemsAvailableToBuy;
+            for (int i = 0; i < shards_to_buy->fields._size; ++i)
+            {
+                auto shard = shards_to_buy->fields._items->vector[i];
+                auto desc = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &shard);
+                desc->fields.InitialBuyCost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard));
+            }
+        }
+
         SpiritShardsShopScreen::Show(this_ptr);
     }
 
