@@ -7,12 +7,10 @@ namespace RandoMainDLL {
   public class SeedGenSettings {
     [JsonIgnore]
     private static Version rustGenVersion = new Version("0.13.0");
-    [JsonProperty("spoilers")]
-    public bool Spoilers { get; set; }
-    [JsonProperty("enableLogicFilter")]
-    public bool EnableLogicFilter { get; set; }
-    [JsonIgnore]
-    public bool RaceMode { get => !Spoilers; }
+    [JsonProperty("race")]
+    public bool RaceMode { get; set; }
+    [JsonProperty("disableLogicFilter")]
+    public bool DisableLogicFilter { get; set; }
     [JsonProperty("version")]
     private string version { get; set; } = "0.0.0";
     [JsonIgnore]
