@@ -155,6 +155,10 @@ namespace RandoMainDLL {
 
 }
     public static void SendUpdate(Memory.UberId id, double value) {
+      // Because Moon is weird and sets it to 5 for a frame.
+      if (id.GroupID == 937 && id.ID == 34641 && value > 4)
+        return;
+
       try {
         Packet packet = new Packet {
           Id = 3,
