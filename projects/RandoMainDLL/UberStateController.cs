@@ -273,7 +273,7 @@ namespace RandoMainDLL {
 
     public static bool SharingExceptions(UberState state) {
       // Because Moon is weird and sets it to 5 for a frame.
-      return !(state.GroupID == 937 && state.ID == 34641 && state.ValueAsDouble() > 4);
+      return state.GroupID == 937 && state.ID == 34641 && state.ValueAsDouble() > 4;
     }
 
     public static void ResolveUberStateChange(UberState state, UberValue old) {
