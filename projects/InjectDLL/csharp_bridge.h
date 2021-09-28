@@ -93,4 +93,5 @@ namespace csharp_bridge
 
     extern signatures::f_void_float credits_progress;
     extern signatures::f_void shutdown;
+    extern signatures::f_void post_initialize;
 }
