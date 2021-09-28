@@ -252,7 +252,7 @@ namespace RandoMainDLL {
       if (!Randomizer.Dev || NeedsNewGameInit)
         return false;
 
-      // Don't log states that don't have a pickup or have a value already?
+      // Don't log states that have a pickup or have a value already?
       if (state.Value.Int != 0 && found)
         return false;
 
