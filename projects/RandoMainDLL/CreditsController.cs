@@ -203,6 +203,13 @@ namespace RandoMainDLL {
     }
 
     private class TextEntry : Entry {
+      readonly static HashSet<string> VALID_FORMATS = new HashSet<string> {
+        "time",
+        "int",
+        "float",
+        "bool"
+      };
+
       public TextEntry(float time, float timeout, int id, float x, float y, string text,
         InterOp.Messaging.Alignment alignment, InterOp.Messaging.HorizontalAnchor horizontal,
         InterOp.Messaging.VerticalAnchor vertical, float fadeIn, float fadeOut)
@@ -225,9 +232,39 @@ namespace RandoMainDLL {
           start = text.IndexOf("$(", i);
           if (start >= 0) {
             var end = text.IndexOf(")", start);
-            if (end != -1 && int.TryParse(text.Substring(start, end), out var result)) {
+            if (end == -1)
+              break;
+
+            if (int.TryParse(text.Substring(start, end), out var result)) {
               replacements.Add(result);
               i = end;
+            }
+          }
+        }
+
+        uberstates = new HashSet<(int group, int state, string format)>();
+        i = 0;
+        start = 0;
+        while (start != -1) {
+          start = text.IndexOf("#(", i);
+          if (start >= 0) {
+            var end = text.IndexOf(")", start);
+            i = end;
+            if (end == -1)
+              break;
+
+            var entries = text.Substring(start, end).Split(',');
+            if (entries.Length == 3) {
+              if (!int.TryParse(entries[0], out var group))
+                continue;
+
+              if (!int.TryParse(entries[1], out var state))
+                continue;
+
+              if (!VALID_FORMATS.Contains(entries[2]))
+                continue;
+
+              uberstates.Add((group, state, entries[2]));
             }
           }
         }
@@ -242,16 +279,41 @@ namespace RandoMainDLL {
       private readonly InterOp.Messaging.VerticalAnchor vertical;
       private readonly float fadeIn;
       private readonly float fadeOut;
-      
 
       private readonly HashSet<int> replacements;
+      private readonly HashSet<(int group, int state, string format)> uberstates;
       private bool started = false;
       private int randomValue = 0;
+
+      private string formatValue(string format, double value) {
+        switch (format) {
+          case "time":
+            var seconds = (int)(value) / 60;
+            var minutes = seconds / 60;
+            var hours = minutes / 60;
+            seconds %= 60;
+            minutes %= 60;
+            return new TimeSpan(hours, minutes, seconds).ToString("HH:mm::ss");
+          case "int":
+            return $"{(int)value}";
+          case "float":
+            return value.ToString("#.##");
+          case "bool":
+            return value > 0.5f ? "Yes" : "No";
+        }
+
+        return "";
+      }
 
       public string ProcessText(string text) {
         foreach (var replacement in replacements)
           if (collections.ContainsKey(replacement))
             text = text.Replace($"$({replacement})", getString(collections[replacement], randomValue));
+
+        foreach (var entry in uberstates) {
+          var value = formatValue(entry.format, InterOp.get_uber_state_value(entry.group, entry.state));
+          text = text.Replace($"#({entry.group}, {entry.state}, {entry.format})", value);
+        }
 
         return text;
       }

@@ -60,11 +60,11 @@ namespace RandoMainDLL {
         UberInc.Int(CurrentZone.timeState());
       } 
     }
-      public static void OnDeath(string perpetrator, DamageType dt) {
-        UberInc.Byte(CurrentZone.deathState());
-      }
+    public static void OnDeath(string perpetrator, DamageType dt) {
+      UberInc.Byte(CurrentZone.deathState());
+    }
 
-      public static void OnKill(string name, DamageType dt) {
+    public static void OnKill(string name, DamageType dt) {
       name = name.Replace("(Clone)", "");
       var et = EnemyFromName(name);
       if (et == EnemyType.Unknown && Randomizer.Dev)
