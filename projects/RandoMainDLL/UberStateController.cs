@@ -271,6 +271,11 @@ namespace RandoMainDLL {
       return true;
     }
 
+    public static bool SharingExceptions(UberState state) {
+      // Because Moon is weird and sets it to 5 for a frame.
+      return !(state.GroupID == 937 && state.ID == 34641 && state.ValueAsDouble() > 4);
+    }
+
     public static void ResolveUberStateChange(UberState state, UberValue old) {
       try {
         UberId key = state.GetUberId();
@@ -307,7 +312,7 @@ namespace RandoMainDLL {
           found = SeedController.OnUberState(state);
         }
 
-        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key))
+        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(state))
           WebSocketClient.SendUpdate(key, state.ValueAsDouble());
 
         BonusItemController.OnUberState(state);
