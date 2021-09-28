@@ -246,6 +246,31 @@ namespace RandoMainDLL {
         ResolveUberStateChange(state, value);
       }
     }
+
+    private static bool shouldLogStateChange(UberState state, bool found) {
+      // If we are not in dev mode or we are doing a new game initialization don't log.
+      if (!Randomizer.Dev || NeedsNewGameInit)
+        return false;
+
+      // Don't log states that don't have a pickup or have a value already?
+      if (state.Value.Int != 0 && found)
+        return false;
+
+      // Don't log ticking uberstates.
+      if (TickingUberStates.Contains(state.GetUberId()))
+        return false;
+
+      // Don't log vanilla stats and achievemnts.
+      if (state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10)
+        return false;
+
+      // Don't log our own StatTracking.
+      if (StatsTracking.ShouldLog(state.GetUberId()))
+        return false;
+
+      return true;
+    }
+
     public static void ResolveUberStateChange(UberState state, UberValue old) {
       try {
         UberId key = state.GetUberId();
@@ -289,11 +314,11 @@ namespace RandoMainDLL {
         var zone = ZoneType.Void;
         if (InterOp.get_game_state() == GameState.Game)
           zone = InterOp.get_player_area().toZone();
-        if (!NeedsNewGameInit && (value.Int == 0 || !found) && Randomizer.Dev && !TickingUberStates.Contains(id) && !(state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10)) {
+
+        if (shouldLogStateChange(state, found)) {
           var pos = InterOp.get_position();
           Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {oldValFmt}->{state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
         }
-        //Randomizer.Debug($"{state.GroupName}.{state.Name}, {state.GroupID}, {state.ID}, {state.Type}, {oldValFmt}, {state.FmtVal()}, {zone}, {Math.Round(pos.X)},{Math.Round(pos.Y)}");
       }
       catch (Exception e) {
         Randomizer.Error($"USC.Update {state}", e);

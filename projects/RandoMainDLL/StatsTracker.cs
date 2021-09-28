@@ -48,6 +48,10 @@ namespace RandoMainDLL {
       }
     }
 
+    public static bool ShouldLog(UberId id) {
+      return id.GroupID != 14;
+    }
+
     private static UberId timeState(this ZoneType zone) => new UberId(14, (int)zone);
     private static UberId deathState(this ZoneType zone) => new UberId(14, 20 + (int)zone);
     private static UberId pickupState(this ZoneType zone) => new UberId(14, 40 + (int)zone);
