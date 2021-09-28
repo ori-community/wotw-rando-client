@@ -85,6 +85,7 @@ namespace RandoMainDLL {
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
           UberStateController.QueueSyncedStateUpdate();
+          DidWeJustDie = false;
         } else {
           ShopSlot.ResetSlotData();
           WheelManager.ResetWheels();
