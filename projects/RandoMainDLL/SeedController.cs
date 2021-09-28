@@ -165,6 +165,7 @@ namespace RandoMainDLL {
             }
             else if (rawLine.StartsWith("timer: ")) {
               ProcessTimer(rawLine.Substring("timer: ".Length));
+              continue;
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
