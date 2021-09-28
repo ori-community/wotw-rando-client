@@ -121,6 +121,12 @@ namespace RandoMainDLL {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }
     }
+
+    public static void Shutdown() {
+      WebSocketClient.Disconnect();
+      UDPSocketClient.Stop();
+    }
+
     public static bool Dev = false;
     public static void Error(string caller, Exception e, bool printIfDev = true) {
       Log($"{caller}: {e.Message}\n{e.StackTrace}", printIfDev, "ERROR");

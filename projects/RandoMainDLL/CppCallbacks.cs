@@ -200,6 +200,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_float(CreditsController.CreditsProgress),
             CallbackName = "credits_progress"
+          },
+          new Method() {
+            Delegate = new f_void(Randomizer.Shutdown),
+            CallbackName = "shutdown"
           }
         };
       }

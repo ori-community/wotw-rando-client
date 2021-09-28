@@ -103,40 +103,50 @@ namespace RandoMainDLL {
     }
 
     private static bool stopping = false;
-    private static ManualResetEvent stopEvent = new ManualResetEvent(false);
+    private static CancellationTokenSource source = new CancellationTokenSource();
     private static void setupUpdateThread() {
       if (updateThread == null) {
         updateThread = new Thread(() => {
           while (true) {
-            if (CanSend)
-              try {
-                var packet = SendQueue.Take();
-                socket.Send(packet.ToByteArray());
-
-                if (stopping) {
-                  ExpectingDisconnect = true;
-                  socket.Close();
-                  socket = null;
-                  SendQueue.Clear();
-                  UberStateQueue.Clear();
-                  stopping = false;
-                  stopEvent.Set();
+            try {
+              while (true) {
+                if (CanSend) {
+                  var packet = SendQueue.Take(source.Token);
+                  socket.Send(packet.ToByteArray());
                 }
               }
-              catch (Exception e) {
-                Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
+            }
+            catch (OperationCanceledException e) { }
+            catch (Exception e) {
+              Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
+            }
+
+            try {
+              if (stopping) {
+                ExpectingDisconnect = true;
+                socket.Close();
+                socket = null;
+                SendQueue.Clear();
+                UberStateQueue.Clear();
+                source.Dispose();
+                source = new CancellationTokenSource();
+                stopping = false;
               }
+            }
+            catch (Exception e) {
+              Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
+            }
           }
         });
+
         updateThread.Start();
       }
     }
 
     public static void Disconnect() {
-      if (IsConnected) {
+      if (IsConnected && !stopping && !source.IsCancellationRequested) {
         stopping = true;
-        stopEvent.WaitOne();
-        stopEvent.Reset();
+        source.Cancel(true);
       }
     }
 
