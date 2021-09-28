@@ -1131,6 +1131,18 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
     }
 }
 
+void update_player_icons()
+{
+    for (auto& player : player_icon_map)
+    {
+        auto info = multiplayer::get_player(player.first);
+        if (info == nullptr || !info->online)
+            RuntimeWorldMapIcon::Hide_intercept(player.second.icon);
+        else
+            RuntimeWorldMapIcon::Show_intercept(player.second.icon);
+    }
+}
+
 INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
     refresh = true;
 }

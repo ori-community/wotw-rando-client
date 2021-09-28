@@ -8,6 +8,8 @@
 
 using namespace modloader;
 
+extern void update_player_icons();
+
 namespace multiplayer
 {
     std::vector<PlayerInfo> players;
@@ -51,6 +53,7 @@ INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name)
 INJECT_C_DLLEXPORT void clear_players()
 {
     multiplayer::player_map.clear();
+    update_player_icons();
 }
 
 INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
@@ -61,6 +64,8 @@ INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
         auto player_it = multiplayer::players.erase(multiplayer::players.begin() + it->second);
         for (; player_it != multiplayer::players.end(); ++player_it)
             --multiplayer::player_map[player_it->id];
+
+        update_player_icons();
     }
     else
         warn("multiplayer", "Failed to find player to remove.");
