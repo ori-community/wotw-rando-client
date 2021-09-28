@@ -6,6 +6,7 @@
 #include <pickups/ore.h>
 #include <features/invert_swim.h>
 #include <features/mouse_control.h>
+#include <csharp_bridge.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -213,6 +214,7 @@ void initialize_main()
 {
     set_mouse_controls();
     set_no_pause(true);
+    csharp_bridge::post_initialize();
 }
 
 CALL_ON_INIT(initialize_main);

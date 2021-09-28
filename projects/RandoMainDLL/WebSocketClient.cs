@@ -117,7 +117,7 @@ namespace RandoMainDLL {
                 }
               }
             }
-            catch (OperationCanceledException e) { }
+            catch (OperationCanceledException) { }
             catch (Exception e) {
               Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
             }

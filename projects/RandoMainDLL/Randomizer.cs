@@ -84,13 +84,16 @@ namespace RandoMainDLL {
         AHK.Init();
         Msg.Init();
         CreditsController.ReloadFile();
-        SeedController.ReadSeed(true);
         Debug("Init: Complete", false);
         return true;
       } catch (Exception e) {
         Log($"init error: {e.Message}\n{e.StackTrace}");
         return true;
       }
+    }
+
+    public static void PostInitialize() {
+      SeedController.ReadSeed(true);
     }
 
     public static void Update() {

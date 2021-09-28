@@ -204,6 +204,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void(Randomizer.Shutdown),
             CallbackName = "shutdown"
+          },
+          new Method() {
+            Delegate = new f_void(Randomizer.PostInitialize),
+            CallbackName = "post_initialize"
           }
         };
       }
