@@ -227,8 +227,12 @@ namespace input
             {
                 for (auto const& button : buttons)
                 {
+                    if (buttons_map.find(button) == buttons_map.end())
+                        continue;
+
                     auto input = il2cpp::gchandle_target(buttons_map[button]);
-                    il2cpp::invoke(input, "Refresh");
+                    if (input != nullptr)
+                        il2cpp::invoke(input, "Refresh");
                 }
             }
         }

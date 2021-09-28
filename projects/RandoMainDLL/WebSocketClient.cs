@@ -103,6 +103,7 @@ namespace RandoMainDLL {
     }
 
     private static bool stopping = false;
+    private static ManualResetEvent stopEvent = new ManualResetEvent(false);
     private static CancellationTokenSource source = new CancellationTokenSource();
     private static void setupUpdateThread() {
       if (updateThread == null) {
@@ -131,6 +132,7 @@ namespace RandoMainDLL {
                 source.Dispose();
                 source = new CancellationTokenSource();
                 stopping = false;
+                stopEvent.Set();
               }
             }
             catch (Exception e) {
@@ -147,6 +149,8 @@ namespace RandoMainDLL {
       if (IsConnected && !stopping && !source.IsCancellationRequested) {
         stopping = true;
         source.Cancel(true);
+        stopEvent.WaitOne();
+        stopEvent.Reset();
       }
     }
 
