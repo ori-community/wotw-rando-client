@@ -40,25 +40,13 @@ namespace
 
     std::unordered_map<uint64_t, shops::ShopItem> lupo_overrides;
 
-    textures::TextureData get_lupo_icon(app::MapmakerUISubItem* shop_item)
-    {
-        auto* item = shop_item->fields.m_upgradeItem;
-        const auto state_id = item->fields.UberState->fields._.m_id->fields.m_id;
-        const auto group_id = item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
-        const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
-        const auto it = lupo_overrides.find(key);
-        textures::TextureData texture_data;
-        if (it != lupo_overrides.end() && it->second.texture_data.texture != nullptr)
-            texture_data = it->second.texture_data;
-        else
-            texture_data.texture = reinterpret_cast<app::Texture*>(item->fields.Icon);
-
-        return texture_data;
-    }
-
     IL2CPP_INTERCEPT(, MapmakerUISubItem, void, UpdateUpgradeIcon, (app::MapmakerUISubItem* this_ptr)) {
         auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-        textures::apply(renderer, get_lupo_icon(this_ptr));
+        auto texture = shops::get_lupo_icon(this_ptr->fields.m_upgradeItem);
+        if (texture != nullptr)
+            texture->apply(renderer);
+        else
+            textures::apply_default(renderer);
     }
 
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
@@ -67,8 +55,7 @@ namespace
     IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox* this_ptr));
     IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox* this_ptr, app::String* text), (System:String));
     IL2CPP_INTERCEPT(, MapmakerUISubItem, void, UpdateItem, (app::MapmakerUISubItem* this_ptr)) {
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-        textures::apply(renderer, get_lupo_icon(this_ptr));
+        MapmakerUISubItem::UpdateUpgradeIcon_intercept(this_ptr);
 
         auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
         auto not_owned = this_ptr->fields.m_upgradeItem->fields.MaxLevel < state->fields.m_value;
@@ -106,6 +93,27 @@ namespace
         }
 
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
+    }
+
+    // Todo: Add this in so we see the correct icons in the mapmaker details.
+    //IL2CPP_INTERCEPT(, MapmakerUIDetails, void, UpdateDetails, (app::MapmakerUIDetails* this_ptr)) {
+    //    
+    //}
+}
+
+namespace shops
+{
+    std::shared_ptr<textures::TextureData> get_lupo_icon(app::MapmakerItem* shop_item)
+    {
+        const auto state_id = shop_item->fields.UberState->fields._.m_id->fields.m_id;
+        const auto group_id = shop_item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
+        const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
+        const auto it = lupo_overrides.find(key);
+        textures::TextureData texture_data;
+        if (it != lupo_overrides.end() && it->second.texture_data != nullptr)
+            return it->second.texture_data;
+
+        return nullptr;
     }
 }
 

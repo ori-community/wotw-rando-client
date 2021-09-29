@@ -122,7 +122,7 @@ namespace
         auto* const renderer = renderer_components[0];
 
         auto texture = shops::get_icon(open_shop, this_ptr->fields.m_item);
-        textures::apply(renderer, texture);
+        texture->apply(renderer);
         if (open_shop == shops::ShopType::Opher)
             GameObject::SetActive(this_ptr->fields.IconGO, true);
 
@@ -224,38 +224,39 @@ namespace shops
         }
     }
 
-    textures::TextureData get_icon(ShopType type, void* shop_item)
+    std::shared_ptr<textures::TextureData> default_texture;
+    std::shared_ptr<textures::TextureData> get_icon(ShopType type, void* shop_item)
     {
-        textures::TextureData data;
+        std::shared_ptr<textures::TextureData> output;
         switch (type)
         {
         case ShopType::Opher:
-        {
-            data = get_opher_icon(reinterpret_cast<app::WeaponmasterItem*>(shop_item));
+            output = get_opher_icon(reinterpret_cast<app::WeaponmasterItem*>(shop_item));
             break;
-        }
         case ShopType::Twillen:
-        {
-            data = get_twillen_icon(reinterpret_cast<app::UpgradableShardItem*>(shop_item));
+            output = get_twillen_icon(reinterpret_cast<app::UpgradableShardItem*>(shop_item));
             break;
-        }
+        case ShopType::Lupo:
+            output = get_lupo_icon(reinterpret_cast<app::MapmakerItem*>(shop_item));
+            break;
         default:
-            textures::TextureData data;
-            // TODO: Add some type checking here.
-            data.texture = il2cpp::invoke<app::Texture>(shop_item, "get_ItemIcon");
             break;
         }
 
-        if (data.texture == nullptr)
+        if (output != nullptr)
+            return output;
+
+        if (default_texture == nullptr)
         {
+            default_texture = textures::create_texture();
             auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
                 ->static_fields->Instance->fields.Icons;
             auto icon = 0;
             auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
-            data.texture = reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon);
+            default_texture->set_texture(reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon));
         }
 
-        return data;
+        return default_texture;
     }
 
     void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy)
@@ -272,7 +273,9 @@ namespace shops
         provider = utils::create_message_provider(il2cpp::string_new(description));
         item.description = il2cpp::gchandle_new(provider, false);
         provider = utils::create_message_provider(il2cpp::string_new(locked));
-        item.texture_data = textures::get_texture(texture);
+        if (item.texture_data == nullptr || item.texture_data->get_path() != texture)
+            item.texture_data = textures::get_texture(texture);
+
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
     }

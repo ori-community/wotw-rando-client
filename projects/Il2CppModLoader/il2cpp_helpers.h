@@ -147,6 +147,12 @@ namespace il2cpp
     IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(uint32_t handle);
     IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(uint32_t handle);
 
+    template<typename Return>
+    Return* gchandle_target(uint32_t handle)
+    {
+        return reinterpret_cast<Return*>(il2cpp::gchandle_target(handle));
+    }
+
     struct KlassDescriptor
     {
         std::string namezpace;

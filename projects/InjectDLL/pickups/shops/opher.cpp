@@ -177,7 +177,7 @@ namespace
             auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem");
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
             auto texture_data = shops::get_icon(shops::ShopType::Opher, this_ptr->fields.m_item);
-            textures::apply(renderer, texture_data);
+            texture_data->apply(renderer);
             if (this_ptr->fields.m_item == nullptr)
             {
                 CleverMenuItem::set_IsDisabled(menu_item, true);
@@ -288,15 +288,14 @@ namespace shops
         }
     }
 
-    textures::TextureData get_opher_icon(app::WeaponmasterItem* shop_item)
+    std::shared_ptr<textures::TextureData> get_opher_icon(app::WeaponmasterItem* shop_item)
     {
         const auto key = get_key(shop_item);
         const auto it = opher_overrides.find(key);
-        if (it != opher_overrides.end() && it->second.texture_data.texture != nullptr)
+        if (it != opher_overrides.end() && it->second.texture_data != nullptr)
             return it->second.texture_data;
 
-        textures::TextureData data;
-        return data;
+        return nullptr;
     }
 }
 

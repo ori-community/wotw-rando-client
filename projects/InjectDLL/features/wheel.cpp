@@ -38,7 +38,8 @@ namespace
 
         std::wstring name = L"";
         std::wstring description = L"";
-        textures::TextureData texture_data;
+        std::shared_ptr<textures::TextureData> texture_data = nullptr;
+        app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
         binding_action action = nullptr;
         csharp_callback callback = nullptr;
         bool enabled = true;
@@ -344,19 +345,22 @@ namespace
         if (custom_wheel_on)
         {
             CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
-            if (entry != nullptr && entry->texture_data.texture != nullptr)
-                textures::apply(renderer, entry->texture_data);
-            else
+            if (entry == nullptr)
             {
-                textures::TextureData data;
-                if (entry != nullptr)
-                    data.color = entry->texture_data.color;
+                textures::apply_default(renderer);
+                SpellUIItem::UpdateSpellIcon(this_ptr);
+                return;
+            }
 
+            if (entry->texture_data == nullptr)
+            {
+                entry->texture_data = textures::create_texture();
                 auto* spell_settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings");
                 auto* icons = spell_settings->static_fields->Instance->fields.Icons;
-                data.texture = reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon);
-                textures::apply(renderer, data);
+                entry->texture_data->set_texture(reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon));
             }
+
+            entry->texture_data->apply(renderer);
         }
         else
         {
@@ -434,10 +438,6 @@ namespace
         entry.description = description;
         entry.enabled = true;
         entry.texture_data = textures::get_texture(texture);
-        entry.texture_data.color.a = 1.0f;
-        entry.texture_data.color.r = 1.0f;
-        entry.texture_data.color.g = 1.0f;
-        entry.texture_data.color.b = 1.0f;
         entry.callback = nullptr;
         entry.action = action;
     }
@@ -518,22 +518,21 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
 
     std::wstring texture_name(texture);
     auto& entry = wheels[wheel].entries[item];
-    auto color = entry.texture_data.color;
     if (texture_name.empty())
-        entry.texture_data = {};
+        entry.texture_data = nullptr;
     else
     {
         entry.texture_data = textures::get_texture(texture);
-        if (entry.texture_data.texture == nullptr)
+        if (entry.texture_data == nullptr)
         {
             auto texture_str = convert_wstring_to_string(texture);
             warn("wheel", format("failed to find texture %s", texture_str.c_str()));
-            entry.texture_data.color = color;
             return false;
         }
+        else
+            entry.texture_data->set_color(entry.color);
     }
 
-    entry.texture_data.color = color;
     return true;
 }
 
@@ -554,7 +553,11 @@ INJECT_C_DLLEXPORT bool set_wheel_item_color(int wheel, int item, int r, int g, 
         a = std::max(std::min(a, 255), 0);
     }
 
-    wheels[wheel].entries[item].texture_data.color = app::Color{ r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f };
+    auto& entry = wheels[wheel].entries[item];
+    entry.color = app::Color{ r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f };
+    if (entry.texture_data != nullptr)
+        entry.texture_data->set_color(entry.color);
+
     return true;
 }
 

@@ -100,19 +100,11 @@ namespace
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
 
-    textures::TextureData get_shard_icon(app::SpiritShardType__Enum shard)
+    std::shared_ptr<textures::TextureData> get_shard_icon(app::SpiritShardType__Enum shard)
     {
         const auto it = twillen_overrides.find(static_cast<uint8_t>(shard));
-        if (it == twillen_overrides.end() || it->second.texture_data.texture == nullptr)
-        {
-            auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
-                ->static_fields->Instance->fields.Icons;
-            auto icon = 0;
-            auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
-            textures::TextureData data;
-            data.texture = reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon);
-            return data;
-        }
+        if (it == twillen_overrides.end() || it->second.texture_data == nullptr)
+            return nullptr;
 
         return it->second.texture_data;
     }
@@ -142,24 +134,14 @@ namespace
         auto* const settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
 
         auto* const description = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &type);
-        auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-        auto* const renderer = renderer_components[0];
         if (!(item->fields.m_gained || !this_ptr->fields.RequireOwned) || locked_shard_overwrite)
             type = app::SpiritShardType__Enum_None;
 
         if (settings != nullptr)
         {
-            auto* const empty_str = il2cpp::string_new("");
-            if (overwrite_shard_text)
-                textures::apply(renderer, get_shard_icon(type));
-            else
-            {
-                auto* const icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(
-                    settings->fields.Icons, "GetValue", &type);
-                textures::TextureData data;
-                data.texture = reinterpret_cast<app::Texture*>(icons->fields.HeaderIcon);
-                textures::apply(renderer, data);
-            }
+            auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+            auto texture = shops::get_icon(shops::ShopType::Twillen, item);
+            texture->apply(renderer);
 
             auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
             auto* const name_box = message_box_components[0];
@@ -180,6 +162,7 @@ namespace
                 description_box->fields.MessageProvider = description_provider == nullptr ? property_level->fields.Description : description_provider;
             }
 
+            auto* const empty_str = il2cpp::string_new("");
             MessageBox::RefreshText(name_box, empty_str, empty_str);
             MessageBox::RefreshText(description_box, empty_str, empty_str);
             UpdateUpgradeDetails(this_ptr);
@@ -240,13 +223,18 @@ namespace
                 this_ptr->fields.m_spiritShard->fields.m_type : app::SpiritShardType__Enum_None;
 
             auto texture = get_shard_icon(shard);
-            if (texture.texture != nullptr)
-                textures::apply(renderer, texture);
+            if (texture != nullptr)
+                texture->apply(renderer);
             else
-                textures::apply_default(renderer);
+                shops::get_icon(shops::ShopType::None, nullptr);
         }
         else
+        {
+            auto renderer = il2cpp::unity::get_components<app::Renderer>(
+                this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
+            textures::apply_default(renderer);
             SpiritShardUIItem::UpdateShardIcon(this_ptr);
+        }
     }
 
     IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider* this_ptr));
@@ -300,7 +288,7 @@ namespace
 
 namespace shops
 {
-    textures::TextureData get_twillen_icon(app::UpgradableShardItem* shop_item)
+    std::shared_ptr<textures::TextureData> get_twillen_icon(app::UpgradableShardItem* shop_item)
     {
         auto* const item = reinterpret_cast<app::UpgradableShardItem*>(shop_item);
         return get_shard_icon(item->fields.Shard);
