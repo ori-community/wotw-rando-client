@@ -73,6 +73,7 @@ namespace RandoMainDLL {
         UberInc.Int(CurrentZone.TimeState());
         UberInc.Int(Time);
         UberInc.Int(TimeSinceLastSave);
+        UberInc.Int(Drought);
       } 
     }
     public static HashSet<UberState> SavedUberStates = new HashSet<UberState>();
@@ -291,6 +292,10 @@ namespace RandoMainDLL {
         SaveThroughDeath.Add(z.TimeState());
         SaveThroughDeath.Add(z.DeathState());
       }
+      SaveThroughDeath.Add(Time);
+      SaveThroughDeath.Add(Deaths);
+      SaveThroughDeath.Add(Drought);
+
     }
   }
 }
