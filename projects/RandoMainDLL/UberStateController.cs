@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Threading;
 using RandoMainDLL.Memory;
-using RandoMainDLL.Wheel;
 
 namespace RandoMainDLL {
   public static class UberStateController {
@@ -76,6 +71,7 @@ namespace RandoMainDLL {
     }
 
     public static void OnTeleporting() {
+      UberInc.Int(StatsTracking.WarpsUsed);
       PsuedoLocs.ON_TELEPORT.OnCollect();
     }
 

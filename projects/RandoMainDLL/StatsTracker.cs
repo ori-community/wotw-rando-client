@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
@@ -52,16 +54,64 @@ namespace RandoMainDLL {
       return id.GroupID != 14;
     }
 
-    private static UberId timeState(this ZoneType zone) => new UberId(14, (int)zone);
-    private static UberId deathState(this ZoneType zone) => new UberId(14, 20 + (int)zone);
-    private static UberId pickupState(this ZoneType zone) => new UberId(14, 40 + (int)zone);
+    public static UberId TimeState(this ZoneType zone) => new UberId(14, (int)zone);
+    public static UberId DeathState(this ZoneType zone) => new UberId(14, 20 + (int)zone);
+    public static UberId PickupState(this ZoneType zone) => new UberId(14, 40 + (int)zone);
+
+    public static UberId Time = new UberId(14, 100);
+    public static UberId Deaths = new UberId(14, 101);
+    public static UberId Drought = new UberId(14, 102);
+    public static UberId MaxDrought = new UberId(14, 103);
+    public static UberId TimeSinceLastSave = new UberId(14, 104);
+    public static UberId TimeLostToDeaths = new UberId(14, 105);
+    public static UberId WarpsUsed = new UberId(14, 106);
+    public static UberId BestPPMTime = new UberId(14, 107);
+    public static UberId BestPPMCount = new UberId(14, 108);
+
     public static void Update(GameState gs) {
       if(gs == GameState.Game) {
-        UberInc.Int(CurrentZone.timeState());
+        UberInc.Int(CurrentZone.TimeState());
+        UberInc.Int(Time);
+        UberInc.Int(TimeSinceLastSave);
       } 
     }
+    public static HashSet<UberState> SavedUberStates = new HashSet<UberState>();
+    public static void OnLoad(bool deathLoad) {
+      if(deathLoad) {
+        foreach (var us in SavedUberStates) us.Write();
+      }
+      SavedUberStates.Clear();
+    }
+    public static void OnSave(bool deathSave) {
+      if(deathSave) {
+        UberInc.Int(TimeLostToDeaths, UberGet.Int(TimeSinceLastSave));
+        SavedUberStates = SaveThroughDeath.Select(u => u.State()).ToHashSet();
+      }
+      else {
+        SavedUberStates.Clear();
+      }
+      UberSet.Int(TimeSinceLastSave, 0);
+    }
+    public static void OnPickup(LocData loc) {
+      var fc = ++SaveController.FoundCount;
+      UberInc.Byte(loc.Zone.PickupState());
+      var thisDrought = UberGet.Int(Drought);
+      if (thisDrought > UberGet.Int(MaxDrought))
+        UberSet.Int(MaxDrought, thisDrought);
+      UberSet.Int(Drought, 0);
+
+      if(fc >= 10) { // only start updating peak PPM once the game has been going for a bit
+        var time = UberGet.Int(Time);
+        var currentPPM = fc / (double)time; // march, march!
+        if(currentPPM < UberGet.Int(BestPPMCount) / UberGet.AsDouble(BestPPMTime)) {
+          UberSet.Int(BestPPMCount, fc);
+          UberSet.Int(BestPPMTime, time);
+        }
+      }
+    }
     public static void OnDeath(string perpetrator, DamageType dt) {
-      UberInc.Byte(CurrentZone.deathState());
+      UberInc.Byte(CurrentZone.DeathState());
+      UberInc.Int(Deaths);
     }
 
     public static void OnKill(string name, DamageType dt) {
@@ -233,6 +283,13 @@ namespace RandoMainDLL {
           return EnemyType.Misc;
         default:
           return EnemyType.Unknown;
+      }
+    }
+    public static HashSet<UberId> SaveThroughDeath = new HashSet<UberId>();
+    static StatsTracking() {
+      foreach(ZoneType z in Enum.GetValues(typeof(ZoneType))) {
+        SaveThroughDeath.Add(z.TimeState());
+        SaveThroughDeath.Add(z.DeathState());
       }
     }
   }

@@ -41,8 +41,8 @@ namespace RandoMainDLL {
                      AbilityType.DamageUpgrade2,
     };
     public static int TreeCount { get => TreeAbilities.Count(at => at.HaveTree()); }
-    public static int KSBought { get => UberGet.value(6, 1).Int; set => UberSet.Int(6, 1, value); }
-    public static int FoundCount { get => UberGet.value(6, 2).Int; set => UberSet.Int(6, 2, value); }
+    public static int KSBought { get => UberGet.Int(6, 1); set => UberSet.Int(6, 1, value); }
+    public static int FoundCount { get => UberGet.Int(6, 2); set => UberSet.Int(6, 2, value); }
     public static bool HasAbility(AbilityType ability) => ability.Have();
     public static void SetAbility(AbilityType ability, bool setTo = true) {
       UberSet.Bool(ability.State(), setTo);      
@@ -80,6 +80,7 @@ namespace RandoMainDLL {
         UberStateController.SkipListeners = true;
         UberStateController.UberStates.Clear();
         UberStateController.TickingUberStates.Clear();
+        StatsTracking.OnLoad(DidWeJustDie);
         if (DidWeJustDie) {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
@@ -97,12 +98,11 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
     private static bool DidWeJustDie = false;
-
     public static void OnSave(int slot, int backupSlot = -1) {
-      if (InterOp.get_health() == 0) {
-        DidWeJustDie = true;
-        return; // the game saves right when you die, but we don't want to save progress when that happens.
-      }
+      DidWeJustDie = InterOp.get_health() == 0;
+      StatsTracking.OnSave(DidWeJustDie);
+      if (DidWeJustDie) return;
+
       if (slot == -1) {
         Randomizer.Log("Error: tried to save to empty slot");
         return;

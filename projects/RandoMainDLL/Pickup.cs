@@ -176,9 +176,10 @@ namespace RandoMainDLL {
         SeedController.GrantingGoalModeLoc = foundAt.IsGoal();
         Grant();
         SeedController.GrantingGoalModeLoc = false;
-        if (foundAt.Loc().Type != LocType.Unknown || foundAt.Id.GroupID == 12) {
-          if(foundAt.Loc().Type != LocType.Unknown)
-            SaveController.FoundCount++;
+        var loc = foundAt.Loc();
+        if (loc.Type != LocType.Unknown || foundAt.Id.GroupID == 12) {
+          if(loc.Type != LocType.Unknown) 
+            StatsTracking.OnPickup(loc);
           MapController.UpdateReachable();
         }
       }
@@ -342,6 +343,15 @@ namespace RandoMainDLL {
               return secToStr(state.ValueAsDouble() / 60.0f);
             case "tsec":
               return secToStr(state.ValueAsDouble());
+            // this is maybe insane
+            case "ppm": // the format here is $(14|<Zone Number>,ppm)) so state() is time
+              if (state.GroupID == 14) {
+                // yes yes this is obviously horrible
+                if (state.ID == 100) return Math.Round(UberGet.Int(6, 2) / (state.ValueAsDouble() / 3600f), 2).ToString();  // total PPM (6|2 is total pickup count)
+                if (state.ID == 107) return Math.Round(UberGet.Int(14, 108) / (state.ValueAsDouble() / 3600f), 2).ToString(); // peak PPM (14|108 is peak PPM count)
+                return Math.Round(((ZoneType)state.ID).PickupState().GetValue().Byte / (state.ValueAsDouble() / 3600f), 2).ToString();
+              }
+              return $"@Invalid PPM state {state.GroupID}|{state.ID}@";
             default:
               return state.FmtVal();
           }
