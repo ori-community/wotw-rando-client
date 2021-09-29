@@ -1,8 +1,10 @@
 #include <csharp_bridge.h>
 #include <dll_main.h>
+#include <dev/object_visualizer.h>
 #include <system/multiplayer.h>
-#include <utils/messaging.h>
 #include <uber_states/uber_state_manager.h>
+#include <utils/messaging.h>
+#include <utils/shaders.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/console.h>
@@ -219,6 +221,11 @@ namespace
             auto& name = info.name;
             AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon,
                 utils::create_message_provider(il2cpp::string_new(name.c_str())));
+
+            auto player_info = multiplayer::get_player(it->second);
+            auto renderers = il2cpp::unity::get_components<app::Renderer>(info.icon->fields.IconGameObject, "UnityEngine", "Renderer");
+            for (auto renderer : renderers)
+                shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &player_info->color);
 
             for (auto& dot : info.dots)
                 GameObject::SetActive(dot.dot, false);
@@ -902,7 +909,6 @@ namespace
     }
 
     IL2CPP_BINDING(, IconPlacementScaler, void, PlaceIcon, (app::IconPlacementScaler* this_ptr, app::GameObject* icon, app::Vector3* location, bool is_teleportable));
-    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetColor, (app::Renderer* renderer, app::UberShaderProperty_Color__Enum prop, app::Color* color));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
     STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (app::Object* object), (UnityEngine:Object));
     void initialize_dots(multiplayer::PlayerInfo const& player, PlayerMapInfo& info)
@@ -942,7 +948,7 @@ namespace
             {
                 color.a = static_cast<float>(i) / HALF_DOTS;
                 auto& dot = info.dots[(info.next_index + HALF_DOTS + i) % DOT_COUNT];
-                UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+                shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
             }
         }
 
@@ -1032,6 +1038,15 @@ namespace
 
 void refresh_icon_alphas(bool is_map_visible)
 {
+    auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+    if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField))
+    {
+        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(area_map->fields._PlayerPositionMarker_k__BackingField, "UnityEngine", "Renderer");
+        auto& color = multiplayer::get_local_player_color();
+        for (auto renderer : renderers)
+            shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+    }
+
     map_visible = is_map_visible;
     for (auto& p : player_icon_map)
     {
@@ -1046,14 +1061,14 @@ void refresh_icon_alphas(bool is_map_visible)
             {
                 color.a = static_cast<float>(i) / HALF_DOTS;
                 auto& dot = p.second.dots[(p.second.next_index + HALF_DOTS + i) % DOT_COUNT];
-                UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+                shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
             }
         }
         else
         {
             color.a = 0.0f;
             for (auto dot : p.second.dots)
-                UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+                shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
         }
     }
 }
@@ -1135,6 +1150,9 @@ void update_player_icons()
 {
     for (auto& player : player_icon_map)
     {
+        if (player.second.icon == nullptr)
+            continue;
+
         auto info = multiplayer::get_player(player.first);
         if (info == nullptr || !info->online)
             RuntimeWorldMapIcon::Hide_intercept(player.second.icon);

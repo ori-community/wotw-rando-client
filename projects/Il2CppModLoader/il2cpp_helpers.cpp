@@ -32,7 +32,8 @@ namespace il2cpp
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Component*, AddComponent, (app::GameObject* this_ptr, app::Type* type));
         IL2CPP_BINDING_OVERLOAD(UnityEngine, GameObject, app::IComponent__Array*, GetComponents, (app::GameObject* this_ptr, app::Type* type), (System:Type));
-        IL2CPP_BINDING_OVERLOAD(UnityEngine, GameObject, app::IComponent__Array*, GetComponentInChildren, (app::GameObject* this_ptr, app::Type* type), (System:Type));
+        IL2CPP_BINDING_OVERLOAD(UnityEngine, GameObject, app::Component*, GetComponentInChildren, (app::GameObject* this_ptr, app::Type* type), (System:Type));
+        IL2CPP_BINDING_OVERLOAD(UnityEngine, GameObject, app::IComponent__Array*, GetComponentsInChildren, (app::GameObject* this_ptr, app::Type* type), (System:Type));
 
         IL2CPP_BINDING(UnityEngine, Transform, int32_t, GetChildCount, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int32_t index));
@@ -237,6 +238,19 @@ namespace il2cpp
             auto type_str = il2cpp::string_new(qualified);
             auto runtime_type = Type::GetType(type_str, false);
             auto c_array = GameObject::GetComponents(game_object, runtime_type);
+            for (auto i = 0; i < c_array->max_length; ++i)
+                components.push_back(reinterpret_cast<app::Component*>(c_array->vector[i]));
+
+            return components;
+        }
+
+        std::vector<app::Component*> get_components_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
+        {
+            std::vector<app::Component*> components;
+            auto qualified = get_qualified(namezpace, name);
+            auto type_str = il2cpp::string_new(qualified);
+            auto runtime_type = Type::GetType(type_str, false);
+            auto c_array = GameObject::GetComponentsInChildren(game_object, runtime_type);
             for (auto i = 0; i < c_array->max_length; ++i)
                 components.push_back(reinterpret_cast<app::Component*>(c_array->vector[i]));
 

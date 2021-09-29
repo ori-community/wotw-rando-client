@@ -28,6 +28,8 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* get_game_object(void* component);
         IL2CPP_MODLOADER_DLLEXPORT app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT app::Component* get_component_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
+        IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component*> get_components_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
+        
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_children(app::GameObject* game_object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path);
@@ -95,6 +97,25 @@ namespace il2cpp
         Return* get_component_in_children(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
         {
             return reinterpret_cast<Return*>(get_component_in_children_untyped(game_object, namezpace, name));
+        }
+
+        template<typename Return = app::Component>
+        std::vector<Return*> get_components_in_children(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
+        {
+            Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
+            if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
+            {
+                auto components = get_components_in_children_untyped(reinterpret_cast<app::GameObject*>(obj), namezpace, name);
+                std::vector<Return*> output;
+                for (auto component : components)
+                    output.push_back(reinterpret_cast<Return*>(component));
+
+                return output;
+            }
+            else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
+                return get_components_in_children<Return>(get_game_object(obj), namezpace, name);
+            else
+                return {};
         }
 
         template<typename Return = app::ScriptableObject>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -29,16 +30,26 @@ namespace RandoMainDLL {
     public static void ClearMultiverse() {
       currentPlayers.Clear();
       InterOp.Multiplayer.clear_players();
+      InterOp.Multiplayer.refresh_players();
     }
 
     public static void UpdateMultivere(MultiverseInfoMessage multiverse) {
       lastMultiverseInfo = multiverse;
       var universe = multiverse.Universes.First(u => u.Worlds.Any(w => w.Members.Any(m => m.Id == Id)));
-      var players = new Dictionary<string, UserInfo>();
-      foreach (var world in universe.Worlds)
-        foreach (var member in world.Members)
+      var players = new Dictionary<string, (UserInfo info, float r, float g, float b, float a)>();
+      foreach (var world in universe.Worlds) {
+        // Cut away # and convert to number.
+        float r = (int.Parse(world.Color.Substring(1, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
+        float g = (int.Parse(world.Color.Substring(3, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
+        float b = (int.Parse(world.Color.Substring(5, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
+        float a = 1.0f;
+        foreach (var member in world.Members) {
           if (member.Id != Id)
-            players.Add(member.Id, member);
+            players.Add(member.Id, (member, r, g, b, a));
+          else
+            InterOp.Multiplayer.set_local_player_color(r, g, b, a);
+        }
+      }
 
       var toAdd = players.Keys.Except(currentPlayers);
       var toRemove = currentPlayers.Except(players.Keys);
@@ -47,11 +58,15 @@ namespace RandoMainDLL {
         InterOp.Multiplayer.remove_player(player);
 
       foreach (var player in toAdd)
-        InterOp.Multiplayer.add_player(player, players[player].Name);
+        InterOp.Multiplayer.add_player(player, players[player].info.Name);
 
       currentPlayers = players.Keys.ToHashSet();
-      foreach (var player in players)
-        InterOp.Multiplayer.set_player_online(player.Key, player.Value.HasConnectedMultiverseId);
+      foreach (var player in players) {
+        InterOp.Multiplayer.set_player_online(player.Key, player.Value.info.HasConnectedMultiverseId);
+        InterOp.Multiplayer.set_player_color(player.Key, player.Value.r, player.Value.g, player.Value.b, player.Value.a);
+      }
+
+      InterOp.Multiplayer.refresh_players();
     }
 
     public static void UpdatePlayerPosition(string id, float x, float y) {
