@@ -264,9 +264,7 @@ namespace RandoMainDLL {
             text = text.Replace($"#({replacement})", getString(collections[replacement], randomValue));
         }
         if (text.Contains("$(") || text.Contains("$[")) {
-          var msg = new Message(text).DisplayName;
-          Randomizer.Log($"{text} => {msg}", false);
-          return msg;
+          return new Message(text).DisplayName;
         }
         else
           return text;
