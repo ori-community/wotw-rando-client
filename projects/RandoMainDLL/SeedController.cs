@@ -210,7 +210,7 @@ namespace RandoMainDLL {
             Msg.Print("Warning: can't connect because netcode is disabled via settings");
           }
           WebSocketClient.Connect();
-        }
+        } else WebSocketClient.Disconnect();
         if (coordsRaw != "") {
           var coords = coordsRaw.Split(',').ToList();
           var x = coords[0].ParseToFloat("SpawnX");
