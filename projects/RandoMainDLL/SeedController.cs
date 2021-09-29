@@ -204,7 +204,12 @@ namespace RandoMainDLL {
             Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
           }
         }
-        Total = PickupMap.Count(p => p.Key.Loc() != LocData.Void);
+        Total = 0;
+        foreach (ZoneType z in Enum.GetValues(typeof(ZoneType))) {
+          CountByZone[z] = PickupMap.Count(p => p.Key.Loc().Zone == z);
+          if(z != ZoneType.Void)
+            Total += CountByZone[z];
+        }
         if (Settings.NetcodeEnabled) {
           if (AHK.IniFlag("DisableNetcode")) {
             Msg.Print("Warning: can't connect because netcode is disabled via settings");
@@ -810,6 +815,7 @@ namespace RandoMainDLL {
     public static bool IsHowlDead() => UberGet.Bool(7, 3) || (Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
     public static bool IsDayTime() => (!UberGet.Bool(7, 5) && AbilityType.SpiritEdge.HaveTree()) || UberGet.Bool(7, 2) || (Settings.LegacySeedgen && !Flags.Contains(Flag.RAIN));
     public static int Current { get => SaveController.FoundCount; }
+    public static Dictionary<ZoneType, int> CountByZone = new Dictionary<ZoneType, int>();
     public static int Total = 0;
 
     public static string PickupCount => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");

@@ -333,27 +333,32 @@ namespace RandoMainDLL {
     private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)[\|,;]?([a-z]*)?\)", RegexOptions.Compiled);
     private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)\|(.*?)\]", RegexOptions.Compiled);
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
+    private static readonly Func<double, String> secToStr = (double sec) => (sec < 3600) ? TimeSpan.FromSeconds(sec).ToString(@"mm\:ss\.f") : TimeSpan.FromSeconds(sec).ToString(@"hh\:mm\:ss\.f");
     public override string DisplayName { get {
         var withUberNameRepl = uberNameFrag.Replace(MessageStr, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
         var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => {
-          var state = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State();
-          Func<double, String> secToStr = (double sec) => (sec < 3600) ? TimeSpan.FromSeconds(sec).ToString(@"mm\:ss\.f") : TimeSpan.FromSeconds(sec).ToString(@"hh\:mm\:ss\.f");
-          switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
-            case "tframes":
-              return secToStr(state.ValueAsDouble() / 60.0f);
-            case "tsec":
-              return secToStr(state.ValueAsDouble());
-            // this is maybe insane
-            case "ppm": // the format here is $(14|<Zone Number>,ppm)) so state() is time
-              if (state.GroupID == 14) {
-                // yes yes this is obviously horrible
-                if (state.ID == 100) return Math.Round(UberGet.Int(6, 2) / (state.ValueAsDouble() / 3600f), 2).ToString();  // total PPM (6|2 is total pickup count)
-                if (state.ID == 107) return Math.Round(UberGet.Int(14, 108) / (state.ValueAsDouble() / 3600f), 2).ToString(); // peak PPM (14|108 is peak PPM count)
-                return Math.Round(((ZoneType)state.ID).PickupState().GetValue().Byte / (state.ValueAsDouble() / 3600f), 2).ToString();
-              }
-              return $"@Invalid PPM state {state.GroupID}|{state.ID}@";
-            default:
-              return state.FmtVal();
+        var state = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State();
+        switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
+          case "tframes":
+            return secToStr(state.ValueAsDouble() / 60.0f);
+          case "tsec":
+            return secToStr(state.ValueAsDouble());
+          // this is maybe insane
+          case "ppm": // the format here is $(14|<Zone Number>,ppm)) so state() is time
+            if (state.GroupID == 14) {
+              // yes yes this is obviously horrible
+              if (state.ID == 100) return Math.Round(UberGet.Int(6, 2) / (state.ValueAsDouble() / 3600f), 2).ToString();  // total PPM (6|2 is total pickup count)
+              if (state.ID == 107) return Math.Round(UberGet.Int(14, 108) / (state.ValueAsDouble() / 3600f), 2).ToString(); // peak PPM (14|108 is peak PPM count)
+              return Math.Round(((ZoneType)state.ID).PickupState().GetValue().Byte / (state.ValueAsDouble() / 3600f), 2).ToString();
+            }
+            return $"@Invalid PPM state {state.GroupID}|{state.ID}@";
+          case "pcnt":
+            if (state.GroupID == 6 && state.ID == 2) return $"{UberGet.Int(6, 2)}/{SeedController.Total}";
+            if (state.GroupID != 14 || state.ID > 12) return $"@Invalid pcnt state {state.GroupID}|{state.ID}";
+            var z = (ZoneType)state.ID;
+            return $"{UberGet.Byte(z.PickupState())}/{SeedController.CountByZone[z]}";
+          default:
+            return state.FmtVal();
           }
         });
         return nameFrag.Replace(withStateRepl, (Match m) => {
