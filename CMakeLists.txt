@@ -102,7 +102,6 @@ add_custom_target(
 	ALL
 	cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
 	DEPENDS Il2CppModLoader InjectDLL WinNetwork InjectLoader Injector RandoMainDLL TraceClientManaged SeedGenCli
-	COMMAND cmake -E copy ${CMAKE_ROOT_DIRECTORY}/credits ${WOTWR_INSTALL_DIR}
 )
 
 set_target_properties(

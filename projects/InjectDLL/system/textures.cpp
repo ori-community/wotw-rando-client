@@ -50,7 +50,7 @@ namespace textures
 
     TextureData::~TextureData()
     {
-        // TODO: Delete materials.
+        clear_overrides();
     }
 
     void TextureData::apply(app::Renderer* renderer)
