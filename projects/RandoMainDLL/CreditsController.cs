@@ -259,11 +259,15 @@ namespace RandoMainDLL {
       private int randomValue = 0;
 
       public string ProcessText(string text) {
-        foreach (var replacement in replacements)
+        foreach (var replacement in replacements) {
           if (collections.ContainsKey(replacement))
             text = text.Replace($"#({replacement})", getString(collections[replacement], randomValue));
-        if (text.Contains("$(") || text.Contains("$["))
-          return new Message(text).DisplayName;
+        }
+        if (text.Contains("$(") || text.Contains("$[")) {
+          var msg = new Message(text).DisplayName;
+          Randomizer.Log($"{text} => {msg}", false);
+          return msg;
+        }
         else
           return text;
       }
