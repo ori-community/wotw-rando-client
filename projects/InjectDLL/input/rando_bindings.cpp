@@ -4,7 +4,6 @@
 #include <macros.h>
 #include <input/controller_bindings.h>
 #include <input/helpers.h>
-
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
@@ -111,9 +110,9 @@ namespace input
                 auto shift = Input::GetKeyInt(app::KeyCode__Enum_LeftShift) || Input::GetKeyInt(app::KeyCode__Enum_RightShift);
                 auto ctrl = Input::GetKeyInt(app::KeyCode__Enum_LeftControl) || Input::GetKeyInt(app::KeyCode__Enum_RightControl);
                 auto alt = Input::GetKeyInt(app::KeyCode__Enum_LeftAlt) || Input::GetKeyInt(app::KeyCode__Enum_RightAlt);
-                auto altgr = Input::GetKeyInt(app::KeyCode__Enum_AltGr);
+                //auto altgr = Input::GetKeyInt(app::KeyCode__Enum_AltGr);
 
-                if (input.shift != shift || input.ctrl != ctrl || input.alt != alt || input.altgr != altgr)
+                if (input.shift != shift || input.ctrl != ctrl || input.alt != alt)
                     return false;
             }
 
