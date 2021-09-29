@@ -45,4 +45,5 @@ namespace textures
     std::shared_ptr<TextureData> create_texture();
     std::shared_ptr<TextureData> get_texture(std::wstring_view path);
     void apply_default(app::Renderer* renderer);
+    void refresh();
 }

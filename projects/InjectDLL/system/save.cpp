@@ -3,6 +3,7 @@
 #include <csharp_bridge.h>
 #include <features/instantiate_objects.h>
 #include <pickups/pickups.h>
+#include <system/textures.h>
 #include <uber_states/state_applier.h>
 
 #include <Il2CppModLoader/common.h>
@@ -24,6 +25,7 @@ namespace
     }
     
     IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (app::NewGameAction* this_ptr, app::IContext* context)) {
+        textures::refresh();
         csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
         NewGameAction::Perform(this_ptr, context);
         perform_preload();
@@ -43,6 +45,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* thisPtr)) {
+        textures::refresh();
         csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         SaveGameController::OnFinishedLoading(thisPtr);
         perform_preload();
