@@ -261,7 +261,7 @@ namespace RandoMainDLL {
         return false;
 
       // Don't log our own StatTracking.
-      if (StatsTracking.ShouldLog(state.GetUberId()))
+      if (!StatsTracking.ShouldLog(state.GetUberId()))
         return false;
 
       return true;
