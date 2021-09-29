@@ -57,18 +57,21 @@ message UserInfo {
   string name = 2;
   optional string avatarId = 3;
   optional int64 connectedMultiverseId = 4;
+  optional int64 currentMultiverseId = 5;
 }
 
 message WorldInfo {
   int64 id = 1;
   string name = 2;
-  repeated UserInfo members = 3;
+  string color = 3;
+  repeated UserInfo members = 4;
 }
 
 message UniverseInfo {
   int64 id = 1;
   string name = 2;
-  repeated WorldInfo worlds = 3;
+  string color = 3;
+  repeated WorldInfo worlds = 4;
 }
 
 message MultiverseInfoMessage {
