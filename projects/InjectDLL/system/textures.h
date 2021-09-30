@@ -40,10 +40,10 @@ namespace textures
 
         friend std::shared_ptr<TextureData> create_texture();
         friend std::shared_ptr<TextureData> get_texture(std::wstring_view path);
+        friend std::shared_ptr<TextureData> get_texture_internal(std::shared_ptr<TextureData> data);
     };
 
     std::shared_ptr<TextureData> create_texture();
     std::shared_ptr<TextureData> get_texture(std::wstring_view path);
     void apply_default(app::Renderer* renderer);
-    void refresh();
 }

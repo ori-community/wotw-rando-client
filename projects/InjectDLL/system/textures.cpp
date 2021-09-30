@@ -1,3 +1,4 @@
+#include <constants.h>
 #include <system/textures.h>
 
 #include <Common/ext.h>
@@ -13,8 +14,8 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 #include <unordered_map>
-#include <constants.h>
 
 using namespace modloader;
 
@@ -40,6 +41,7 @@ namespace textures
         NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor, (app::Material* this_ptr, app::Material* other), (UnityEngine:Material));
         IL2CPP_BINDING(UnityEngine, Material, void, CopyPropertiesFromMaterial, (app::Material* this_ptr, app::Material* other));
         IL2CPP_BINDING(UnityEngine, Material, app::Shader*, get_shader, (app::Material* this_ptr));
+        STATIC_IL2CPP_BINDING(UnityEngine, Object, void, DontDestroyOnLoad, (void* obj));
     }
 
     app::Material* copy_material(app::Material* source)
@@ -95,12 +97,15 @@ namespace textures
                 return;
             }
 
-            material = il2cpp::gchandle_new(copy_material(to_copy), false);
+            auto actual_material = copy_material(to_copy);
+            Object::DontDestroyOnLoad(actual_material);
+            material = il2cpp::gchandle_new(actual_material, false);
             materials[renderer] = material;
         }
 
         auto mat = il2cpp::gchandle_target<app::Material>(material);
         Renderer::SetMaterial(renderer, mat);
+        
         if (texture != nullptr)
             shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
 
@@ -162,24 +167,25 @@ namespace textures
     {
         auto data = std::make_shared<TextureData>();
         data->path = L"custom";
-        return std::make_shared<TextureData>();
+        return data;
     }
 
-    std::shared_ptr<TextureData> get_texture(std::wstring_view path)
+    std::shared_ptr<TextureData> get_texture_internal(std::shared_ptr<TextureData> data)
     {
-        auto data = std::make_shared<TextureData>();
-        data->path = std::wstring(path);
+        if (data->path == L"custom")
+            return data;
+
         try
         {
-            auto separator = path.find(':', 0);
+            auto separator = data->path.find(':', 0);
             if (separator == -1)
             {
                 // Trace error
                 return nullptr;
             }
 
-            auto type = std::wstring(path.substr(0, separator));
-            auto value = std::wstring(path.substr(separator + 1));
+            auto type = std::wstring(data->path.substr(0, separator));
+            auto value = std::wstring(data->path.substr(separator + 1));
             if (type == L"shard")
             {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
@@ -346,11 +352,11 @@ namespace textures
         return nullptr;
     }
 
-    void refresh()
+    std::shared_ptr<TextureData> get_texture(std::wstring_view path)
     {
-        for (auto material : base_materials)
-            il2cpp::gchandle_free(material.second);
-
-        base_materials.clear();
+        auto data = std::make_shared<TextureData>();
+        data->path = std::wstring(path);
+        data = get_texture_internal(data);
+        return data;
     }
 }

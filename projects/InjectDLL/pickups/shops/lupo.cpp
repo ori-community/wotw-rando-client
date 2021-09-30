@@ -113,7 +113,6 @@ namespace shops
         const auto group_id = shop_item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
         const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
         const auto it = lupo_overrides.find(key);
-        textures::TextureData texture_data;
         if (it != lupo_overrides.end() && it->second.texture_data != nullptr)
             return it->second.texture_data;
 

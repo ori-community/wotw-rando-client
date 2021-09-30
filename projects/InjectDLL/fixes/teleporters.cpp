@@ -1,7 +1,8 @@
+#include <csharp_bridge.h>
 #include <dll_main.h>
 #include <macros.h>
+#include <system/textures.h>
 #include <uber_states/uber_state_manager.h>
-#include <csharp_bridge.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
