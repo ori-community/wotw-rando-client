@@ -9,6 +9,14 @@
 
 namespace textures
 {
+    struct MaterialParams
+    {
+        app::Texture* texture = nullptr;
+        std::optional<app::Vector4> uvs;
+        std::optional<app::Vector4> scroll_rot;
+        std::optional<app::Color> color;
+    };
+
     class TextureData
     {
     public:
@@ -29,14 +37,7 @@ namespace textures
         std::wstring const& get_path() { return path; }
     private:
         std::wstring path;
-        uint32_t base_material = 0;
-        std::unordered_map<app::Renderer*, uint32_t> materials;
-
-        // overrides
-        app::Texture* texture = nullptr;
-        std::optional<app::Vector4> uvs;
-        std::optional<app::Vector4> scroll_rot;
-        std::optional<app::Color> color;
+        MaterialParams local;
 
         friend std::shared_ptr<TextureData> create_texture();
         friend std::shared_ptr<TextureData> get_texture(std::wstring_view path);
@@ -46,5 +47,4 @@ namespace textures
     std::shared_ptr<TextureData> create_texture();
     std::shared_ptr<TextureData> get_texture(std::wstring_view path);
     void apply_default(app::Renderer* renderer);
-    void refresh();
 }

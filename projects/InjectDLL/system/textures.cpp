@@ -23,9 +23,8 @@ namespace textures
 {
     namespace
     {
-        std::unordered_map<app::WorldMapIconType__Enum, uint32_t> base_materials;
-        std::unordered_map<app::Renderer*, uint32_t> default_materials;
         std::unordered_map<std::wstring, uint32_t> files;
+        std::unordered_map<app::Renderer*, MaterialParams> default_params;
 
         NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Texture2D, void, .ctor, ctor,
             (app::Texture2D* this_ptr, int width, int height, app::TextureFormat__Enum format, bool mip_chain, bool linear),
@@ -58,100 +57,71 @@ namespace textures
         clear_overrides();
     }
 
+    void add_default_param(app::Renderer* renderer)
+    {
+        MaterialParams& mparams = default_params[renderer];
+        mparams.texture = shaders::UberShaderAPI::GetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
+        mparams.uvs = shaders::UberShaderAPI::GetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
+        mparams.scroll_rot = shaders::UberShaderAPI::GetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
+        mparams.color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+    }
+
     void TextureData::apply(app::Renderer* renderer)
     {
-        auto default_material = default_materials.find(renderer);
-        if (default_material == default_materials.end())
-            default_materials[renderer] = il2cpp::gchandle_new(Renderer::GetSharedMaterial(renderer), false);
+        if (default_params.find(renderer) == default_params.end())
+            add_default_param(renderer);
 
-        app::Material* to_copy = nullptr;
-        if (base_material != 0)
-        {
-            to_copy = il2cpp::gchandle_target<app::Material>(base_material);
-            if (!il2cpp::unity::is_valid(to_copy))
-                to_copy = nullptr;
-        }
+        if (local.texture != nullptr)
+            shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, local.texture);
 
-        if (to_copy == nullptr)
-        {
-            to_copy = il2cpp::gchandle_target<app::Material>(default_materials[renderer]);
-            if (!il2cpp::unity::is_valid(to_copy))
-                to_copy = nullptr;
-        }
+        if (local.uvs.has_value())
+            shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &local.uvs.value());
 
-        if (to_copy == nullptr)
-        {
-            il2cpp::gchandle_free(default_materials[renderer]);
-            to_copy = Renderer::GetSharedMaterial(renderer);
-            default_materials[renderer] = il2cpp::gchandle_new(to_copy, false);
-            if (!il2cpp::unity::is_valid(to_copy))
-                to_copy = nullptr;
-        }
+        if (local.scroll_rot.has_value())
+            shaders::UberShaderAPI::SetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &local.scroll_rot.value());
 
-        if (to_copy == nullptr)
-        {
-            warn("textures", "failed to find a valid material to copy.");
-            return;
-        }
-
-        auto material = copy_material(to_copy);
-        Renderer::SetMaterial(renderer, material);
-        
-        if (texture != nullptr)
-            shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
-
-        if (uvs.has_value())
-            shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &uvs.value());
-
-        if (scroll_rot.has_value())
-            shaders::UberShaderAPI::SetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &scroll_rot.value());
-
-        if (color.has_value())
-            shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color.value());
+        if (local.color.has_value())
+            shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &local.color.value());
     }
 
     void apply_default(app::Renderer* renderer)
     {
-        auto default_material = default_materials.find(renderer);
-        if (default_material == default_materials.end())
-        {
-            default_materials[renderer] = il2cpp::gchandle_new(Renderer::GetMaterial(renderer), false);
-            default_material = default_materials.find(renderer);
-        }
-        
-        Renderer::SetMaterial(renderer, il2cpp::gchandle_target<app::Material>(default_material->second));
+        if (default_params.find(renderer) == default_params.end())
+            add_default_param(renderer);
+
+        auto& param = default_params[renderer];
+        shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, param.texture);
+        shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &param.uvs.value());
+        shaders::UberShaderAPI::SetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &param.scroll_rot.value());
+        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &param.color.value());
     }
 
     void TextureData::set_texture(app::Texture* texture)
     {
-        this->texture = texture;
+        local.texture = texture;
     }
 
     void TextureData::set_uvs(app::Vector4 uvs)
     {
-        this->uvs = uvs;
+        local.uvs = uvs;
     }
 
     void TextureData::set_scroll_rot(app::Vector4 scroll_rot)
     {
-        this->scroll_rot = scroll_rot;
+        local.scroll_rot = scroll_rot;
     }
 
     void TextureData::set_color(app::Color color)
     {
-        this->color = color;
+        local.color = color;
     }
 
     void TextureData::clear_overrides()
     {
-        texture = nullptr;
-        uvs.reset();
-        scroll_rot.reset();
-        color.reset();
-        for (auto material : materials)
-            il2cpp::gchandle_free(material.second);
-
-        materials.clear();
+        local.texture = nullptr;
+        local.uvs.reset();
+        local.scroll_rot.reset();
+        local.color.reset();
     }
 
     std::shared_ptr<TextureData> create_texture()
@@ -185,7 +155,7 @@ namespace textures
                 if (item == nullptr)
                     return nullptr;
 
-                data->texture = reinterpret_cast<app::Texture*>(item == nullptr ? nullptr : item->fields.InventoryIcon);
+                data->local.texture = reinterpret_cast<app::Texture*>(item == nullptr ? nullptr : item->fields.InventoryIcon);
                 return data;
             }
             else if (type == L"ability")
@@ -196,7 +166,7 @@ namespace textures
                 if (item == nullptr)
                     return nullptr;
 
-                data->texture = reinterpret_cast<app::Texture*>(item);
+                data->local.texture = reinterpret_cast<app::Texture*>(item);
                 return data;
             }
             else if (type == L"spell")
@@ -207,54 +177,7 @@ namespace textures
                 if (item == nullptr)
                     return nullptr;
 
-                data->texture = reinterpret_cast<app::Texture*>(item->fields.InventoryIcon);
-                return data;
-            }
-            else if (type == L"map")
-            {
-                warn("textures", "map texture designator is depracated and can have any number of sideffects.");
-                auto separator = value.find(':', 0);
-                if (separator == -1)
-                {
-                    type = value;
-                    value = L"active";
-                }
-                else
-                {
-                    type = value.substr(0, separator);
-                    value = std::wstring(value.substr(separator + 1));
-                }
-
-                auto actual_value = static_cast<app::WorldMapIconType__Enum>(std::stoi(type));
-                auto it = base_materials.find(actual_value);
-                if (it != base_materials.end())
-                {
-                    data->base_material = it->second;
-                    return data;
-                }
-
-                auto icon_manager = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance->fields._IconManager_k__BackingField;
-                auto go = AreaMapIconManager::GetIcon(icon_manager, actual_value);
-                if (go == nullptr)
-                    return nullptr;
-
-                auto icon = il2cpp::unity::get_components<app::AreaMapIcon>(go, "", "AreaMapIcon")[0];
-                if (value == L"active")
-                    go = icon->fields.MapIconActive;
-                else if (value == L"special")
-                    go = icon->fields.MapIconSpecial;
-                else if (value == L"inactive")
-                    go = icon->fields.MapIconInactive;
-                else
-                    go = nullptr;
-
-                if (go == nullptr)
-                    return nullptr;
-
-                auto renderer = il2cpp::unity::get_components<app::Renderer>(go, "UnityEngine", "Renderer")[0];
-                auto material = shaders::UberShaderAPI::GetEditableMaterial(renderer);
-                data->base_material = il2cpp::gchandle_new(material, false);
-                base_materials[actual_value] = data->base_material;
+                data->local.texture = reinterpret_cast<app::Texture*>(item->fields.InventoryIcon);
                 return data;
             }
             else if (type == L"opher")
@@ -264,7 +187,7 @@ namespace textures
                 auto items = screen->fields.WeaponmasterItems;
                 if (actual_value >= 0 && actual_value < items->max_length)
                 {
-                    data->texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Upgrade->fields.Icon);
+                    data->local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Upgrade->fields.Icon);
                     return data;
                 }
             }
@@ -275,7 +198,7 @@ namespace textures
                 auto items = screen->fields.Purchases;
                 if (actual_value >= 0 && actual_value < items->max_length)
                 {
-                    data->texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Icon);
+                    data->local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Icon);
                     return data;
                 }
             }
@@ -286,7 +209,7 @@ namespace textures
                 auto items = screen->fields.BuilderItems;
                 if (actual_value >= 0 && actual_value < items->max_length)
                 {
-                    data->texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Project->fields.Icon);
+                    data->local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Project->fields.Icon);
                     return data;
                 }
             }
@@ -297,18 +220,18 @@ namespace textures
                 auto items = screen->fields.GardenerItems;
                 if (actual_value >= 0 && actual_value < items->max_length)
                 {
-                    data->texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Project->fields.Icon);
+                    data->local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Project->fields.Icon);
                     return data;
                 }
             }
             else if (type == L"file")
             {
-                //auto it = files.find(value);
-                //if (it != files.end())
-                //{
-                //    data->texture = reinterpret_cast<app::Texture*>(il2cpp::gchandle_target(it->second));
-                //    return data;
-                //}
+                auto it = files.find(value);
+                if (it != files.end())
+                {
+                    data->local.texture = reinterpret_cast<app::Texture*>(il2cpp::gchandle_target(it->second));
+                    return data;
+                }
 
                 auto path = base_path + convert_wstring_to_string(value);
                 replace_all(path, "/", "\\");
@@ -329,9 +252,9 @@ namespace textures
                 Texture2D::LoadRawTextureData(texture, png_data, x * y * n);
                 Texture2D::Apply(texture, true, false);
                 stbi_image_free(png_data);
+                Object::DontDestroyOnLoad(texture);
                 files[value] = il2cpp::gchandle_new(texture, false);
-                data->texture = reinterpret_cast<app::Texture*>(texture);
-                Object::DontDestroyOnLoad(data->texture);
+                data->local.texture = reinterpret_cast<app::Texture*>(texture);
                 return data;
             }
             else
@@ -351,13 +274,5 @@ namespace textures
         data->path = std::wstring(path);
         data = get_texture_internal(data);
         return data;
-    }
-
-    void refresh()
-    {
-        for (auto material : base_materials)
-            il2cpp::gchandle_free(material.second);
-
-        base_materials.clear();
     }
 }
