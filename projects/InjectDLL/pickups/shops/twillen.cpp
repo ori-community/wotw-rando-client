@@ -226,7 +226,7 @@ namespace
             if (texture != nullptr)
                 texture->apply(renderer);
             else
-                shops::get_icon(shops::ShopType::None, nullptr);
+                shops::get_icon(shops::ShopType::None, nullptr)->apply(renderer);
         }
         else
         {
