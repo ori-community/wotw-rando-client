@@ -25,6 +25,7 @@ namespace
     }
     
     IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (app::NewGameAction* this_ptr, app::IContext* context)) {
+        textures::refresh();
         csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
         NewGameAction::Perform(this_ptr, context);
         perform_preload();
@@ -38,12 +39,14 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SaveSlotBackupsManager, void, PerformBackup, (app::SaveSlotBackupsManager* thisPtr, app::SaveSlotBackup* saveSlot, int32_t backupIndex, app::String* backupName)) {
+        textures::refresh();
         uber_states::save_dynamic_redirects();
         csharp_bridge::on_save(saveSlot->fields.Index, backupIndex);
         SaveSlotBackupsManager::PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* thisPtr)) {
+        textures::refresh();
         csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         SaveGameController::OnFinishedLoading(thisPtr);
         perform_preload();
@@ -51,6 +54,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
+        textures::refresh();
         csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         SaveGameController::RestoreCheckpoint(thisPtr);
         perform_preload();
@@ -58,6 +62,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinHealthController, void, OnRespawn, (app::SeinHealthController* thisPtr)) {
+        textures::refresh();
         csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         SeinHealthController::OnRespawn(thisPtr);
         uber_states::load_dynamic_redirects();

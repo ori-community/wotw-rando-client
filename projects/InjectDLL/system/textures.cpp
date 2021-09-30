@@ -359,4 +359,12 @@ namespace textures
         data = get_texture_internal(data);
         return data;
     }
+
+    void refresh()
+    {
+        for (auto material : base_materials)
+            il2cpp::gchandle_free(material.second);
+
+        base_materials.clear();
+    }
 }
