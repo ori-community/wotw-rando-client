@@ -124,10 +124,10 @@ namespace
         auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
         auto* const renderer = renderer_components[0];
 
-        auto texture = shops::get_icon(open_shop, this_ptr->fields.m_item);
-        texture->apply(renderer);
-        if (open_shop == shops::ShopType::Opher)
-            GameObject::SetActive(this_ptr->fields.IconGO, true);
+        //auto texture = shops::get_icon(open_shop, this_ptr->fields.m_item);
+        //texture->apply(renderer);
+        //if (open_shop == shops::ShopType::Opher)
+        //    GameObject::SetActive(this_ptr->fields.IconGO, true);
 
         auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
         auto* const name_box = message_box_components[0];
